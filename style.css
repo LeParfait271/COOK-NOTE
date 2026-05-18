@@ -1061,6 +1061,15 @@ a {
   font-weight: 850;
 }
 
+.selected-recipe-hint {
+  max-width: 620px;
+  margin: 10px 0 0;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
 .variant-factor-control {
   width: fit-content;
   margin-top: 20px;
@@ -1242,6 +1251,40 @@ a {
   padding: 0 9px 0 6px;
   font-size: 12px;
   font-weight: 950;
+}
+
+.quantity-select-control {
+  flex-wrap: nowrap;
+  width: fit-content;
+}
+
+.quantity-select {
+  min-height: 32px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 0 8px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.quantity-select:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.quantity-unit {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--text);
+  padding-right: 8px;
+  font-size: 12px;
+  font-weight: 950;
+  white-space: nowrap;
 }
 
 .factor-control button,
@@ -2009,6 +2052,10 @@ a {
   .factor-control {
     justify-self: start;
     width: 100%;
+  }
+
+  .quantity-select-control {
+    width: fit-content;
   }
 
   .before-start-card {

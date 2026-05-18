@@ -1296,18 +1296,19 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '' }) {
   const servingOptions = servingOptionsFor(recipe);
   if (servingInfo && servingOptions.length) {
     const currentTarget = getServingTarget(recipe, factor);
-    return h('div', {
-      className: ['factor-control serving-control', className].filter(Boolean).join(' '),
+    return h('label', {
+      className: ['factor-control serving-control quantity-select-control', className].filter(Boolean).join(' '),
       'aria-label': `Choisir le nombre de ${servingUnitLabel(servingInfo.unit, 2)}`
     },
-      h('span', { className: 'factor-label' }, servingInfo.unit === 'personne' ? 'Pour' : 'Quantités'),
-      servingOptions.map(value => h('button', {
-        key: value,
-        type: 'button',
-        className: currentTarget === value ? 'active' : '',
-        onClick: () => setFactor(value / servingInfo.base),
-        title: `${value} ${servingUnitLabel(servingInfo.unit, value)}`
-      }, String(value)))
+      h('span', { className: 'factor-label' }, 'Quantité'),
+      h('select', {
+        className: 'quantity-select',
+        value: String(currentTarget),
+        onChange: event => setFactor(Number(event.target.value) / servingInfo.base)
+      },
+        servingOptions.map(value => h('option', { key: value, value: String(value) }, String(value)))
+      ),
+      h('span', { className: 'quantity-unit' }, servingUnitLabel(servingInfo.unit, currentTarget))
     );
   }
 
@@ -1344,6 +1345,7 @@ function VariantPickerPanel({ parent, variantRefs, recipesById, selectedVariantI
             difficultyText(selectedRecipe),
             selectedRecipe.yield && h(React.Fragment, null, ' · ', getQuantityDisplay(selectedRecipe, factor))
           ),
+          selectedRecipe.variantGroups && h('p', { className: 'selected-recipe-hint' }, 'Choisis les blocs d’ingrédients à préparer ci-dessous.'),
           h(QuantityFactorControl, { recipe: selectedRecipe, factor, setFactor, className: 'variant-factor-control' })
         ),
         h(Button, { variant: 'subtle', onClick: () => onSelect('') }, 'Changer de recette')
@@ -1403,6 +1405,7 @@ function RecipeView({
   const [factor, setFactor] = useState(1);
   const variantRefs = useMemo(() => sortVariantRefs(getLeafVariantRefs(recipe, recipesById), recipesById), [recipe.id, recipesById]);
   const showVariants = variantRefs.length > 0;
+  const leafRecipeCount = showVariants ? countLeafRecipes(recipe, recipesById) : 0;
   const [selectedVariantId, setSelectedVariantId] = useState(() => initialSelectedVariantId || (showVariants ? '' : recipe.id));
   const selectedVariantRecipe = selectedVariantId ? recipesById[selectedVariantId] : null;
   const hasSelectedVariant = !showVariants || Boolean(selectedVariantRecipe);
@@ -1432,6 +1435,7 @@ function RecipeView({
   const stepTotal = displaySteps.length;
   const doneSteps = Object.keys(checked).filter(key => key.startsWith(`${detailKey}:step:`) && checked[key]).length;
   const progress = stepTotal ? Math.round((doneSteps / stepTotal) * 100) : 0;
+  const canAddToShopping = hasSelectedVariant && canShowSteps;
   const isInShopping = hasSelectedVariant && shoppingIds.includes(detailKey);
   const canFavorite = hasSelectedVariant && !isMasterRecipe(selectedRecipe);
   const remainingMs = timerEnd ? timerEnd - now : 0;
@@ -1520,8 +1524,11 @@ function RecipeView({
         h('p', { className: 'eyebrow' }, heroEyebrow),
         h('h1', null, recipe.title),
         h('div', { className: 'detail-meta' },
-          showVariants && !hasSelectedVariant
-            ? h('span', null, `${countLeafRecipes(recipe, recipesById)} recette${countLeafRecipes(recipe, recipesById) > 1 ? 's' : ''}`)
+          showVariants
+            ? [
+              h('span', { key: 'recipes' }, `${leafRecipeCount} recette${leafRecipeCount > 1 ? 's' : ''}`),
+              h('span', { key: 'choice' }, 'Choisir une recette')
+            ]
             : [
               h('span', { key: 'difficulty' }, difficultyText(selectedRecipe)),
               h('span', { key: 'nutri', className: `nutri-score nutri-${getNutriScore(selectedRecipe).toLowerCase()}` }, `Nutri ${getNutriScore(selectedRecipe)}`),
@@ -1531,7 +1538,7 @@ function RecipeView({
             ]
         ),
         h('div', { className: 'detail-actions' },
-          h(Button, { variant: isInShopping ? 'primary' : 'ghost', disabled: !hasSelectedVariant, onClick: () => hasSelectedVariant && toggleShopping(detailKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
+          h(Button, { variant: isInShopping ? 'primary' : 'ghost', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(detailKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
           h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, '\u2197'),
           selectedRecipe.video && h('a', { className: 'btn btn-ghost', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, 'Voir la vidéo'),
           h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, '\u2399'),
@@ -1608,8 +1615,8 @@ function RecipeView({
         ),
         !canShowSteps
           ? h('div', { className: 'choice-empty-state variant-step-empty' },
-            h('strong', null, 'Sélectionne une variante'),
-            h('p', null, 'Ouvre une variante dans la section Ingrédients pour afficher les étapes à suivre.')
+            h('strong', null, 'Choisis un groupe d’ingrédients'),
+            h('p', null, 'Ouvre un groupe d’ingrédients pour afficher les étapes correspondantes.')
           )
           : h('ol', { className: 'step-list' },
           displaySteps.map((step, index) => {

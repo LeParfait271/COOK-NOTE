@@ -351,6 +351,10 @@ window.RECIPES = {
     "masterType": "collection",
     "variants": [
       {
+        "id": "aioli_citronne_leger",
+        "label": "Aïoli citronné léger"
+      },
+      {
         "id": "balsamique_reduit",
         "label": "Balsamique réduit"
       },
@@ -619,6 +623,14 @@ window.RECIPES = {
       {
         "id": "pain_hot_dog",
         "label": "Pains hot-dog"
+      },
+      {
+        "id": "pate_legere_beignets_calamar_crevettes",
+        "label": "Pâte légère pour beignets de calamar ou crevettes"
+      },
+      {
+        "id": "tempura_beignets_calamar_crevettes",
+        "label": "Tempura pour beignets de calamar ou crevettes"
       },
       {
         "id": "tortillas_mexicaines",
@@ -5410,15 +5422,15 @@ window.RECIPES = {
     "steps": [
       "Rincer rapidement les calamars, les éponger, puis couper les tubes en anneaux réguliers de 1 à 1,5cm.",
       "Mélanger lait, citron, ail, sel, poivre et piment, puis mariner les calamars 30min à 2h au frais.",
-      "Préparer l’aïoli : fouetter jaune, moutarde, ail, citron, zeste et sel, puis monter avec huile neutre et huile d’olive en filet.",
-      "Mélanger farine, fécule, levure, sel et zeste.",
-      "Juste avant cuisson, ajouter blanc d’œuf, eau gazeuse très froide et vodka optionnelle, puis mélanger très peu.",
+      "Préparer l’<span data-goto=\"aioli_citronne_leger\">aïoli citronné léger</span>, puis le garder au frais.",
+      "Préparer au dernier moment la <span data-goto=\"pate_legere_beignets_calamar_crevettes\">pâte légère</span> ou la <span data-goto=\"tempura_beignets_calamar_crevettes\">tempura</span>, selon le croustillant voulu.",
       "Égoutter les calamars, les éponger très soigneusement, puis les passer légèrement dans farine ou fécule.",
       "Chauffer l’huile à 180°C.",
-      "Tremper les calamars dans la pâte et frire par petites quantités 1min 30 à 2min maximum.",
+      "Tremper les calamars dans la pâte choisie et frire par petites quantités 1min 30 à 2min maximum.",
       "Égoutter sur grille, saler légèrement et servir immédiatement avec citron et sauce."
     ],
     "notes": [
+      "Raccourcis : <span data-goto=\"pate_legere_beignets_calamar_crevettes\">Pâte légère pour beignets de calamar ou crevettes</span> / <span data-goto=\"aioli_citronne_leger\">Aïoli citronné léger</span> / <span data-goto=\"tempura_beignets_calamar_crevettes\">Tempura pour beignets de calamar ou crevettes</span>.",
       "La cuisson doit rester très courte : trop cuits, les calamars deviennent caoutchouteux.",
       "Ne surcharge pas le bain d’huile pour garder une friture nette et non grasse.",
       "La pâte doit rester froide, légère et légèrement irrégulière."
@@ -6741,6 +6753,199 @@ window.RECIPES = {
       {
         "label": "Cible",
         "value": "Buns ronds, dorés, souples, moelleux et assez solides pour tenir la garniture."
+      }
+    ]
+  },
+  "pate_legere_beignets_calamar_crevettes": {
+    "title": "Pâte légère pour beignets de calamar ou crevettes",
+    "master": "bases_salees_maitre",
+    "image": "/assets/recipe-images/bases_salees_maitre_spooky.png",
+    "categories": [
+      "Base",
+      "Apéro"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "aliases": [
+      "pâte légère beignets",
+      "pâte à beignets calamars",
+      "pâte à beignets crevettes",
+      "pâte friture légère"
+    ],
+    "tags": [
+      "pâte",
+      "beignet",
+      "calamar",
+      "crevette",
+      "friture"
+    ],
+    "ingredients": [
+      {
+        "group": "Pâte légère",
+        "items": [
+          "120g farine",
+          "40g fécule de maïs",
+          "5g levure chimique",
+          "3g sel fin",
+          "30g blanc d’œuf",
+          "180 à 220g eau gazeuse très froide",
+          "20g vodka très froide optionnelle",
+          "Zeste de citron"
+        ]
+      }
+    ],
+    "steps": [
+      "Mélanger farine, fécule, levure, sel et zeste.",
+      "Juste avant cuisson, ajouter blanc d’œuf, eau gazeuse très froide et vodka très froide optionnelle.",
+      "Mélanger très peu pour garder une pâte froide, légère et légèrement irrégulière.",
+      "Utiliser aussitôt pour enrober des calamars, des crevettes ou une autre garniture à frire."
+    ],
+    "notes": [
+      "La pâte doit rester très froide jusqu’au dernier moment.",
+      "La vodka est optionnelle, elle aide surtout à obtenir une friture plus sèche et légère.",
+      "Raccourci : <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
+    ],
+    "technical": [
+      {
+        "label": "Température",
+        "value": "Travailler avec eau gazeuse très froide et frire à 180°C."
+      },
+      {
+        "label": "Texture",
+        "value": "Mélanger court pour garder une pâte fine et non élastique."
+      },
+      {
+        "label": "Usage",
+        "value": "Préparer au dernier moment puis cuire par petites quantités."
+      }
+    ]
+  },
+  "aioli_citronne_leger": {
+    "title": "Aïoli citronné léger",
+    "master": "sauces_assaisonnements_maitre",
+    "image": "/assets/recipe-images/parent_sauces.png",
+    "categories": [
+      "Sauces",
+      "Apéro"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "aliases": [
+      "aïoli citronné",
+      "aioli citronné",
+      "aïoli léger",
+      "sauce citronnée pour beignets"
+    ],
+    "tags": [
+      "aïoli",
+      "citron",
+      "ail",
+      "sauce",
+      "friture"
+    ],
+    "ingredients": [
+      {
+        "group": "Aïoli citronné léger",
+        "items": [
+          "20g jaune d’œuf",
+          "10g moutarde",
+          "2g ail râpé",
+          "10g jus de citron",
+          "1g zeste de citron",
+          "90g huile neutre",
+          "45g huile d’olive douce",
+          "Sel fin",
+          "0,5g piment d’Espelette"
+        ]
+      }
+    ],
+    "steps": [
+      "Fouetter le jaune d’œuf avec la moutarde, l’ail râpé, le jus de citron, le zeste de citron et une pincée de sel.",
+      "Monter avec l’huile neutre puis l’huile d’olive douce versées en filet.",
+      "Corriger le sel et le piment d’Espelette, puis garder au frais jusqu’au service."
+    ],
+    "notes": [
+      "La texture doit rester nappante et légère, pas trop serrée.",
+      "Servir avec des beignets de calamar, des crevettes frites ou des légumes croustillants.",
+      "Raccourci : <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
+    ],
+    "technical": [
+      {
+        "label": "Émulsion",
+        "value": "Verser les huiles lentement au départ pour stabiliser la sauce."
+      },
+      {
+        "label": "Équilibre",
+        "value": "Le citron doit relever la friture sans rendre la sauce trop acide."
+      }
+    ]
+  },
+  "tempura_beignets_calamar_crevettes": {
+    "title": "Tempura pour beignets de calamar ou crevettes",
+    "master": "bases_salees_maitre",
+    "image": "/assets/recipe-images/parent_base.png",
+    "categories": [
+      "Base",
+      "Apéro"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "aliases": [
+      "tempura calamar",
+      "tempura crevettes",
+      "pâte tempura",
+      "beignets tempura"
+    ],
+    "tags": [
+      "tempura",
+      "beignet",
+      "calamar",
+      "crevette",
+      "friture"
+    ],
+    "ingredients": [
+      {
+        "group": "Tempura",
+        "items": [
+          "90g farine",
+          "50g fécule",
+          "20g jaune d’œuf",
+          "220g eau gazeuse glacée",
+          "3g sel fin"
+        ]
+      }
+    ],
+    "steps": [
+      "Mélanger farine, fécule et sel.",
+      "Ajouter le jaune d’œuf et l’eau gazeuse glacée au dernier moment.",
+      "Mélanger très peu pour garder une pâte froide et irrégulière.",
+      "Tremper calamars ou crevettes dans la tempura, puis frire immédiatement à 180°C par petites quantités."
+    ],
+    "notes": [
+      "La tempura doit rester imparfaite : quelques petits grumeaux donnent une friture plus légère.",
+      "Garder l’eau glacée et cuire sans attendre.",
+      "Raccourci : <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
+    ],
+    "technical": [
+      {
+        "label": "Froid",
+        "value": "Le choc entre pâte froide et huile chaude donne le croustillant."
+      },
+      {
+        "label": "Cuisson",
+        "value": "Frire court, sans surcharger le bain."
       }
     ]
   }
