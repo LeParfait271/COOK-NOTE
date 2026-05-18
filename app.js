@@ -2870,20 +2870,6 @@ function cleanVariantGroupLabel(label) {
   return String(label || 'Variante').replace(/^\d+\)\s*/, '').replace(/^variante\s*:?\s*/i, '').trim();
 }
 
-function InlineVariantSelector({ groups, selectedIndex, onSelect }) {
-  if (groups.length < 2) return null;
-  return h('label', { className: 'inline-variant-selector' },
-    h('span', null, 'Préparation'),
-    h('select', {
-      value: selectedIndex === null || selectedIndex === undefined ? '' : String(selectedIndex),
-      onChange: event => onSelect(event.target.value === '' ? null : Number(event.target.value))
-    },
-      h('option', { value: '' }, 'Choisir un bloc'),
-      groups.map(({ group, index }) => h('option', { key: index, value: String(index) }, cleanVariantGroupLabel(group.group)))
-    )
-  );
-}
-
 function RecipeView({
   recipe,
   isFavorite,
@@ -2936,7 +2922,6 @@ function RecipeView({
   const selectedInlineVariantGroup = needsInlineVariantSelection
     ? inlineVariantGroupIndexes.find(({ index }) => Boolean(openIngredientGroups[`${detailKey}:group:${index}`]))
     : null;
-  const selectedInlineVariantIndex = selectedInlineVariantGroup ? selectedInlineVariantGroup.index : null;
   const canShowSteps = hasSelectedVariant && (!needsInlineVariantSelection || Boolean(selectedInlineVariantGroup));
   const displaySteps = canShowSteps ? getRecipeSteps(selectedRecipe) : [];
   const stepTotal = displaySteps.length;
@@ -3011,17 +2996,6 @@ function RecipeView({
         delete next[`${detailKey}:group:${index}`];
       });
       next[groupKey] = true;
-      return next;
-    });
-  }
-
-  function selectIngredientGroup(groupIndex) {
-    setOpenIngredientGroups(prev => {
-      const next = { ...prev };
-      inlineVariantGroupIndexes.forEach(({ index }) => {
-        delete next[`${detailKey}:group:${index}`];
-      });
-      if (groupIndex !== null && groupIndex !== undefined) next[`${detailKey}:group:${groupIndex}`] = true;
       return next;
     });
   }
@@ -3117,11 +3091,6 @@ function RecipeView({
             ? `Tu suis actuellement le bloc "${selectedGroupLabel}". Ouvre un autre bloc si tu changes de préparation.`
             : 'Ouvre un bloc ci-dessous pour afficher les ingrédients détaillés et les étapes correspondantes.')
         ),
-        needsInlineVariantSelection && h(InlineVariantSelector, {
-          groups: inlineVariantGroupIndexes,
-          selectedIndex: selectedInlineVariantIndex,
-          onSelect: selectIngredientGroup
-        }),
         (selectedRecipe.ingredients || []).map((group, groupIndex) => {
           const groupKey = `${detailKey}:group:${groupIndex}`;
           const collapsible = isVariantIngredientGroup(group, selectedRecipe.ingredients || [], selectedRecipe);
