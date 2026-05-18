@@ -48,46 +48,6 @@ const SEASON_CATEGORY_FILTERS = [
   { value: 'Base', label: 'Bases' },
   { value: 'Petits-déjeuners', label: 'Petit-déj.' }
 ];
-const SMART_COLLECTIONS = [
-  {
-    id: 'rapide',
-    label: 'Rapide',
-    description: 'Peu d’étapes ou préparation courte',
-    keywords: ['rapide', '15min', '20min']
-  },
-  {
-    id: 'four',
-    label: 'Four',
-    description: 'Cuisson au four, gratins et plaques',
-    keywords: ['four', 'enfourner', 'gril', 'plaque', 'rôtir', 'rotir', 'gratin']
-  },
-  {
-    id: 'friture',
-    label: 'Friture',
-    description: 'Beignets, frites, tempura',
-    keywords: ['friture', 'frire', 'frites', 'beignet', 'beignets', 'tempura', 'huile à 180', 'huile a 180']
-  },
-  {
-    id: 'bases',
-    label: 'Bases',
-    description: 'Préparations à réutiliser',
-    categories: ['Base'],
-    keywords: []
-  },
-  {
-    id: 'sauces',
-    label: 'Sauces',
-    description: 'Sauces, coulis, pestos et dips',
-    categories: ['Sauces'],
-    keywords: []
-  },
-  {
-    id: 'avance',
-    label: 'À préparer',
-    description: 'Repos, stockage ou service différé',
-    keywords: ['repos', 'refroidir', 'congélation', 'congelation', 'la veille', '24h']
-  }
-];
 const SHOPPING_AISLES = [
   { label: 'Fruits et légumes', pattern: /\b(tomate|tomates|citron|citrons|pomme|pommes|poire|poires|oignon|oignons|ail|echalote|échalote|persil|basilic|menthe|ciboulette|pomme de terre|pommes de terre|patate douce|avocat|epinard|épinard|carotte|courgette|chou|chou-fleur|melon|fraise|framboise)\b/ },
   { label: 'Crèmerie et œufs', pattern: /\b(lait|creme|crème|beurre|fromage|parmesan|comte|comté|cheddar|mozzarella|mascarpone|ricotta|yaourt|oeuf|oeufs|œuf|œufs|jaune|jaunes|blanc|blancs)\b/ },
@@ -215,41 +175,6 @@ function recipeHasCategory(recipe, category) {
 function seasonGroupCategory(recipe) {
   const categories = recipe.categories || [];
   return SEASON_CATEGORY_FILTERS.find(item => categories.includes(item.value))?.value || categories[0] || 'Autres';
-}
-
-function collectionLabel(collectionId) {
-  return SMART_COLLECTIONS.find(item => item.id === collectionId)?.label || collectionId;
-}
-
-function getCollectionText(recipe) {
-  return normalizeText([
-    recipe?.title,
-    recipe?.yield,
-    recipe?.difficulty,
-    ...(recipe?.categories || []),
-    ...(recipe?.seasons || []),
-    ...(recipe?.tags || []),
-    ...(recipe?.aliases || []),
-    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || []), group.note, ...(group.notes || [])]),
-    ...(recipe?.steps || []),
-    ...(recipe?.notes || []),
-    ...(recipe?.technical || []).flatMap(item => [item.label, item.value, item.text])
-  ].join(' '));
-}
-
-function recipeMatchesCollection(recipe, collectionId) {
-  if (!collectionId) return true;
-  const collection = SMART_COLLECTIONS.find(item => item.id === collectionId);
-  if (!collection) return true;
-  const categories = recipe.categories || [];
-  if ((collection.categories || []).some(category => categories.includes(category))) return true;
-  const text = getCollectionText(recipe);
-  if ((collection.keywords || []).some(keyword => text.includes(normalizeText(keyword)))) return true;
-  if (collectionId === 'rapide') {
-    const steps = getRecipeSteps(recipe);
-    return steps.length > 0 && steps.length <= 4;
-  }
-  return false;
 }
 
 function getCategoryColor(recipe) {
@@ -1417,10 +1342,64 @@ function Button(props) {
   }, props.children);
 }
 
+const ICON_PATHS = {
+  home: [
+    'M3.5 11.2 12 4l8.5 7.2',
+    'M5.8 10.2V20h12.4v-9.8',
+    'M9.4 20v-5.6h5.2V20'
+  ],
+  search: [
+    'M10.8 18.2a7.4 7.4 0 1 1 0-14.8 7.4 7.4 0 0 1 0 14.8Z',
+    'M16.2 16.2 21 21'
+  ],
+  heart: [
+    'M20.3 5.9c-1.8-1.9-4.8-1.9-6.6 0L12 7.6l-1.7-1.7c-1.8-1.9-4.8-1.9-6.6 0-1.9 2-1.9 5.1 0 7.1L12 21l8.3-8c1.9-2 1.9-5.1 0-7.1Z'
+  ],
+  basket: [
+    'M6.5 9.2h11L16.7 20H7.3L6.5 9.2Z',
+    'M9 9.2 12 4l3 5.2',
+    'M8.4 13h7.2',
+    'M8.7 16.4h6.6'
+  ],
+  share: [
+    'M14 4h6v6',
+    'M20 4 11 13',
+    'M11 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5'
+  ],
+  print: [
+    'M7 8V4h10v4',
+    'M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2',
+    'M7 14h10v7H7z'
+  ],
+  close: [
+    'M6 6l12 12',
+    'M18 6 6 18'
+  ]
+};
+
+function Icon({ name, filled = false }) {
+  return h('svg', {
+    className: 'site-icon',
+    viewBox: '0 0 24 24',
+    'aria-hidden': 'true',
+    focusable: 'false'
+  },
+    (ICON_PATHS[name] || []).map(path => h('path', {
+      key: path,
+      d: path,
+      fill: filled ? 'currentColor' : 'none',
+      stroke: 'currentColor',
+      strokeWidth: '1.9',
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round'
+    }))
+  );
+}
+
 function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, query, openSearch }) {
   return h('header', { className: 'topbar' },
     h('div', { className: 'top-left' },
-      h(Button, { variant: 'subtle', className: 'icon-square', onClick: onHome, title: 'Accueil', ariaLabel: 'Accueil' }, '\u2302')
+      h(Button, { variant: 'subtle', className: 'icon-square', onClick: onHome, title: 'Accueil', ariaLabel: 'Accueil' }, h(Icon, { name: 'home' }))
     ),
     h('nav', { className: 'top-actions', 'aria-label': 'Actions rapides' },
       h('a', {
@@ -1428,7 +1407,7 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
         href: 'mailto:cooknote271@gmail.com?subject=Demande%20d%27ajout%20de%20recette%20Cook%20Note&body=Bonjour%2C%0A%0AJ%27aimerais%20demander%20l%27ajout%20de%20cette%20recette%20dans%20Cook%20Note%20%3A%0A%0ANom%20de%20la%20recette%20%3A%0AIngr%C3%A9dients%20%3A%0A%C3%89tapes%20%3A%0A%0AMerci.'
       }, 'Demander une recette'),
       h(Button, { variant: 'subtle', className: 'cart-icon-btn icon-square', onClick: openShoppingBasket, title: `${shoppingCount} course${shoppingCount > 1 ? 's' : ''}`, ariaLabel: 'Panier courses' }, [
-        '\u25a4',
+        h(Icon, { key: 'icon', name: 'basket' }),
         shoppingCount > 0 && h('span', { className: 'cart-count', key: 'count' }, shoppingCount)
       ])
     ),
@@ -1440,14 +1419,14 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
         title: 'Rechercher',
         ariaLabel: 'Rechercher',
         pressed: Boolean(query.trim())
-      }, '\u2315'),
+      }, h(Icon, { name: 'search' })),
       h(Button, {
         variant: 'ghost',
         className: 'top-fav-btn icon-square',
         onClick: showFavorites,
         title: 'Voir les favoris',
         ariaLabel: 'Voir les favoris'
-      }, '\u2665')
+      }, h(Icon, { name: 'heart' }))
     )
   );
 }
@@ -1470,30 +1449,6 @@ function ActiveChips({ chips }) {
   if (!chips.length) return null;
   return h('div', { className: 'active-chips', 'aria-label': 'Filtres actifs' },
     chips.map(chip => h('button', { key: chip.key, type: 'button', onClick: chip.clear }, `${chip.label} ×`))
-  );
-}
-
-function SmartCollections({ collections, activeCollection, setCollection }) {
-  if (!collections.length) return null;
-  return h('section', { className: 'smart-collections', 'aria-label': 'Collections rapides' },
-    h('div', { className: 'smart-collections-head' },
-      h('div', null,
-        h('p', { className: 'eyebrow' }, 'Collections'),
-        h('h2', null, 'Trouver plus vite')
-      )
-    ),
-    h('div', { className: 'smart-collection-grid' },
-      collections.map(item => h('button', {
-        key: item.id,
-        type: 'button',
-        className: activeCollection === item.id ? 'smart-collection-card active' : 'smart-collection-card',
-        onClick: () => setCollection(activeCollection === item.id ? '' : item.id)
-      },
-        h('span', { className: 'smart-collection-count' }, item.count),
-        h('strong', null, item.label),
-        h('small', null, item.description)
-      ))
-    )
   );
 }
 
@@ -1566,7 +1521,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
           toggleFavorite(recipe.id);
         },
         'aria-label': isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'
-      }, isFavorite ? '\u2665' : '\u2661')
+      }, h(Icon, { name: 'heart', filled: isFavorite }))
     ),
     h('div', { className: 'card-body' },
       !master && h('div', { className: 'tag-line' }, categories.slice(0, 1).map(cat => h('span', { key: cat }, cat))),
@@ -1676,11 +1631,6 @@ function HomeView(props) {
         openRecipe: props.openRecipe
       }),
       h(ActiveChips, { chips: props.activeChips }),
-      props.showSmartCollections && h(SmartCollections, {
-        collections: props.smartCollections,
-        activeCollection: props.filterProps.collection,
-        setCollection: props.filterProps.setCollection
-      }),
       h(SeasonSections, {
         sections: props.sections,
         recipesById: props.recipesById,
@@ -1732,7 +1682,7 @@ function SharePanel({ open, onClose, recipe }) {
     h('section', { className: 'modal-panel share-modal', role: 'dialog', 'aria-modal': 'true', onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
         h('div', null, h('p', { className: 'eyebrow' }, 'Partager'), h('h2', null, recipe.title)),
-        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, '\u00d7')
+        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'share-card' },
         h('div', { className: 'share-card-media', style: imageStyle },
@@ -1805,7 +1755,7 @@ function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resul
           h('p', { className: 'eyebrow' }, 'Recherche'),
           h('h2', null, 'Trouver une recette')
         ),
-        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, '×')
+        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'field search-modal-field' },
         h('label', { className: 'sr-only' }, 'Rechercher une recette'),
@@ -1901,7 +1851,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
           h('p', { className: 'eyebrow' }, 'Panier courses'),
           h('h2', null, recipes.length ? `${recipes.length} recette${recipes.length > 1 ? 's' : ''} cochée${recipes.length > 1 ? 's' : ''}` : 'Aucune recette')
         ),
-        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, '×')
+        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       recipes.length
         ? h('div', { className: 'shopping-picked' },
@@ -1940,8 +1890,8 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
       h('pre', { className: 'cart-output combined-cart' }, text),
       h('div', { className: 'modal-actions' },
         h(Button, { variant: 'primary', disabled: !recipes.length, onClick: () => copyText(text).then(() => setCopied(true)) }, copied ? 'Copié' : 'Copier la liste complète'),
-        h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: shareText, title: 'Partager la liste', ariaLabel: 'Partager la liste' }, '\u2197'),
-        h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: () => window.print(), title: 'Imprimer la liste', ariaLabel: 'Imprimer la liste' }, '\u2399'),
+        h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: shareText, title: 'Partager la liste', ariaLabel: 'Partager la liste' }, h(Icon, { name: 'share' })),
+        h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: () => window.print(), title: 'Imprimer la liste', ariaLabel: 'Imprimer la liste' }, h(Icon, { name: 'print' })),
         h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: clearShopping }, 'Vider le panier')
       )
     )
@@ -2311,10 +2261,10 @@ function RecipeView({
         ),
         h('div', { className: 'detail-actions' },
           h(Button, { variant: isInShopping ? 'primary' : 'ghost', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(detailKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
-          h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, '\u2197'),
+          h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' })),
           selectedRecipe.video && h('a', { className: 'btn btn-ghost', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, 'Voir la vidéo'),
-          h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, '\u2399'),
-          canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'icon-square favorite-action active' : 'icon-square favorite-action', onClick: () => toggleFavorite(detailKey), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, isFavorite ? '\u2665' : '\u2661')
+          h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, h(Icon, { name: 'print' })),
+          canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'icon-square favorite-action active' : 'icon-square favorite-action', onClick: () => toggleFavorite(detailKey), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }))
         )
       )
     ),
@@ -2488,7 +2438,6 @@ function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [season, setSeason] = useState('');
   const [seasonCategory, setSeasonCategory] = useState('');
-  const [collectionFilter, setCollectionFilter] = useState('');
   const [tagFilter, setTagFilter] = useState('');
   const [onlyFavorites, setOnlyFavorites] = useState(() => new URLSearchParams(window.location.search).get('view') === '__favs__');
   const [activeId, setActiveId] = useState(() => getInitialRecipe());
@@ -2514,13 +2463,9 @@ function App() {
   const activeVariantId = activeRecipe ? variantSelection[activeRecipe.id] : '';
   const activeSeoRecipe = activeVariantId && recipesById[activeVariantId] ? recipesById[activeVariantId] : activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => recipesById[id]).filter(Boolean), [shoppingIds, recipesById]);
-  const hasRecipeFilters = Boolean(query.trim() || season || seasonCategory || collectionFilter || tagFilter || onlyFavorites);
+  const hasRecipeFilters = Boolean(query.trim() || season || seasonCategory || tagFilter || onlyFavorites);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
-  const smartCollections = useMemo(() => SMART_COLLECTIONS.map(collection => ({
-    ...collection,
-    count: searchableRecipes.filter(recipe => recipeMatchesCollection(recipe, collection.id)).length
-  })).filter(collection => collection.count > 0), [searchableRecipes]);
   const recentRecipe = useMemo(() => recents.map(id => recipesById[id]).find(Boolean) || null, [recents, recipesById]);
 
   useEffect(() => {
@@ -2614,7 +2559,6 @@ function App() {
     let list = catalogRecipes.filter(recipe => {
       if (query.trim() && !searchMeta.has(recipe.id)) return false;
       if (season && !recipeHasSeason(recipe, season, recipesById)) return false;
-      if (collectionFilter && !recipeMatchesCollection(recipe, collectionFilter)) return false;
       if (tagFilter && !(recipe.tagsExtracted || []).includes(tagFilter)) return false;
       if (onlyFavorites && !favorites.includes(recipe.id)) return false;
       return true;
@@ -2630,7 +2574,7 @@ function App() {
       return a.title.localeCompare(b.title, 'fr');
     });
     return list;
-  }, [catalogRecipes, query, searchMeta, season, collectionFilter, tagFilter, onlyFavorites, favorites, recipesById]);
+  }, [catalogRecipes, query, searchMeta, season, tagFilter, onlyFavorites, favorites, recipesById]);
 
   const seasonCategoryOptions = useMemo(() => {
     if (!season) return [];
@@ -2693,16 +2637,12 @@ function App() {
           }))
       ];
     }
-    if (collectionFilter) {
-      return [{ key: `collection-${collectionFilter}`, kicker: 'Collection', title: collectionLabel(collectionFilter), recipes: filteredRecipes }];
-    }
     return [{ key: 'all-seasons', kicker: 'Toutes', title: 'Toutes les recettes', recipes: filteredRecipes }];
-  }, [currentSeason, filteredRecipes, onlyFavorites, season, seasonCategory, collectionFilter]);
+  }, [currentSeason, filteredRecipes, onlyFavorites, season, seasonCategory]);
   const activeChips = [
     query && { key: 'query', label: `Recherche: ${query}`, clear: () => setQuery('') },
     season && { key: 'season', label: season, clear: () => updateSeason('') },
     seasonCategory && { key: 'seasonCategory', label: categoryLabel(seasonCategory), clear: () => setSeasonCategory('') },
-    collectionFilter && { key: 'collection', label: collectionLabel(collectionFilter), clear: () => setCollectionFilter('') },
     tagFilter && { key: 'tag', label: `Tag: ${tagFilter}`, clear: () => setTagFilter('') },
     onlyFavorites && { key: 'favorites', label: 'Favoris', clear: () => setOnlyFavorites(false) }
   ].filter(Boolean);
@@ -2931,9 +2871,7 @@ function App() {
     setSeason: updateSeason,
     seasonCategory,
     setSeasonCategory,
-    seasonCategoryOptions,
-    collection: collectionFilter,
-    setCollection: setCollectionFilter
+    seasonCategoryOptions
   };
 
   return h('div', { className: 'mc-shell' },
@@ -2946,10 +2884,10 @@ function App() {
       openSearch
     }),
     h('nav', { className: 'mobile-bottom-nav', 'aria-label': 'Navigation mobile' },
-      h('button', { type: 'button', onClick: goHome, 'aria-label': 'Accueil' }, h('span', null, '\u2302'), h('span', { className: 'sr-only' }, 'Accueil')),
-      h('button', { type: 'button', onClick: openSearch, 'aria-label': 'Recherche' }, h('span', null, '\u2315'), 'Recherche'),
-      h('button', { type: 'button', onClick: showFavorites, 'aria-label': 'Favoris' }, h('span', null, '\u2665'), 'Favoris'),
-      h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses' }, h('span', null, '\u25a4'), 'Courses')
+      h('button', { type: 'button', onClick: goHome, 'aria-label': 'Accueil' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'home' })), h('span', { className: 'sr-only' }, 'Accueil')),
+      h('button', { type: 'button', onClick: openSearch, 'aria-label': 'Recherche' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'search' })), 'Recherche'),
+      h('button', { type: 'button', onClick: showFavorites, 'aria-label': 'Favoris' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'heart' })), 'Favoris'),
+      h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Courses')
     ),
     activeRecipe
       ? h(RecipeView, {
@@ -2979,14 +2917,12 @@ function App() {
           recipesById,
           onlyFavorites,
           activeChips,
-          showDashboard: !query.trim() && !season && !collectionFilter && !tagFilter && !onlyFavorites,
+          showDashboard: !query.trim() && !season && !tagFilter && !onlyFavorites,
           currentSeason,
           recentRecipe,
           shoppingCount: shoppingRecipes.length,
           showFavorites,
           openShoppingBasket: () => setShoppingOpen(true),
-          showSmartCollections: !query.trim() && !season && !tagFilter && !onlyFavorites,
-          smartCollections,
           filterProps,
           toggleFavorite,
           openRecipe,
