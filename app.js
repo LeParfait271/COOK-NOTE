@@ -733,6 +733,11 @@ function spoonLabel(kind) {
   return kind === 'tablespoon' ? 'c. à soupe' : 'c. à café';
 }
 
+function spoonPrecisionLabel(rule) {
+  const liquidLabels = new Set(['huile', 'eau / bouillon', 'lait / creme', 'vinaigre', 'jus de citron']);
+  return liquidLabels.has(normalizeText(rule?.label)) ? 'à niveau' : 'rase';
+}
+
 function getSpoonMeasureInfo(line) {
   const text = normalizeText(line);
   const match = text.match(/(\d+(?:[.,]\d+)?(?:\/\d+)?)(?:\s*(?:[\u2013\u2014-]|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?\s*c\.?\s*(?:a\s*)?(soupe|cafe)\b/);
@@ -751,9 +756,10 @@ function getSpoonMeasureInfo(line) {
   const unitWeight = rule[kind];
   const firstWeight = firstAmount * unitWeight;
   const secondWeight = Number.isFinite(secondAmount) ? secondAmount * unitWeight : null;
+  const precision = spoonPrecisionLabel(rule);
   const amountText = match[2]
-    ? `${formatNumber(firstAmount)} à ${formatNumber(secondAmount)} ${spoonLabel(kind)}`
-    : `${formatNumber(firstAmount)} ${spoonLabel(kind)}`;
+    ? `${formatNumber(firstAmount)} à ${formatNumber(secondAmount)} ${spoonLabel(kind)} ${precision}`
+    : `${formatNumber(firstAmount)} ${spoonLabel(kind)} ${precision}`;
 
   return {
     label: `${rule.label} (${amountText})`,
@@ -3171,6 +3177,7 @@ function RecipeView({
         ),
         averageWeights.length > 0 && h('div', { className: 'average-weight-card' },
           h('p', { className: 'eyebrow' }, 'Poids moyens'),
+          h('p', { className: 'average-weight-note' }, 'Repère indicatif : cuillères rases pour les poudres et pâtes, liquides remplis à niveau.'),
           h('dl', null, averageWeights.map(item =>
             h(React.Fragment, { key: `${detailKey}:average:${item.label}` },
               h('dt', null, item.label),

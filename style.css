@@ -2063,6 +2063,14 @@ a {
   margin: 0;
 }
 
+.average-weight-note {
+  margin: -2px 0 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
 .average-weight-card dt {
   color: var(--accent);
   font-size: 12px;
