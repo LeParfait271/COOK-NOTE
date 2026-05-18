@@ -917,7 +917,8 @@ window.RECIPES = {
     "master": "entrees_maitre",
     "image": "/assets/recipe-images/legumes_rotis_spooky.png",
     "categories": [
-      "Entrées"
+      "Entrées",
+      "Accompagnements"
     ],
     "seasons": [
       "Toutes saisons"
@@ -959,7 +960,10 @@ window.RECIPES = {
       "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation.",
       "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
-    "difficultyScore": 3
+    "difficultyScore": 3,
+    "additionalMasters": [
+      "accompagnements_maitre"
+    ]
   },
   "marinades_guide": {
     "title": "Marinades",
@@ -2310,6 +2314,73 @@ window.RECIPES = {
       "Fiche parent de navigation. Les recettes restent conservées dans leurs variantes."
     ]
   },
+  "accompagnements_maitre": {
+    "title": "Accompagnements",
+    "image": "/assets/recipe-images/legumes_rotis_spooky.png",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été",
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "masterType": "collection",
+    "variants": [
+      {
+        "id": "chou_fleur_croustillant",
+        "label": "Chou-fleur croustillant"
+      },
+      {
+        "id": "frites_belges",
+        "label": "Frites belges"
+      },
+      {
+        "id": "frites_patate_douce",
+        "label": "Frites de patate douce croustillantes"
+      },
+      {
+        "id": "frites_maison",
+        "label": "Frites maison"
+      },
+      {
+        "id": "gaufres_pommes_terre",
+        "label": "Gaufres de pommes de terre croustillantes"
+      },
+      {
+        "id": "gratin_chou_fleur",
+        "label": "Gratin de chou-fleur"
+      },
+      {
+        "id": "legumes_rotis",
+        "label": "Légumes rôtis au four"
+      },
+      {
+        "id": "oignons_rotis_thym_miel",
+        "label": "Oignons rôtis au thym et au miel"
+      },
+      {
+        "id": "toppings_frites",
+        "label": "Toppings frites"
+      }
+    ],
+    "ingredients": [
+      {
+        "group": "Variantes",
+        "items": [
+          "Choisir une variante pour afficher les recettes."
+        ]
+      }
+    ],
+    "steps": [
+      "Choisir une variante pour afficher les ingrédients et les étapes."
+    ],
+    "notes": [
+      "Fiche parent de navigation. Les recettes restent conservées dans leurs variantes."
+    ]
+  },
   "desserts_maitre": {
     "title": "Desserts",
     "image": "/assets/recipe-images/parent_desserts.png",
@@ -2794,7 +2865,8 @@ window.RECIPES = {
     "master": "entrees_maitre",
     "image": "/assets/recipe-images/oignons_rotis_thym_miel_spooky.png",
     "categories": [
-      "Entrées"
+      "Entrées",
+      "Accompagnements"
     ],
     "seasons": [
       "Automne",
@@ -2835,7 +2907,10 @@ window.RECIPES = {
       "miel",
       "accompagnement"
     ],
-    "difficultyScore": 2
+    "difficultyScore": 2,
+    "additionalMasters": [
+      "accompagnements_maitre"
+    ]
   },
   "cochon_confit_biere_erable": {
     "title": "Cochon confit à la bière et au sirop d’érable",
@@ -5116,7 +5191,8 @@ window.RECIPES = {
     "categories": [
       "Plats",
       "Apéro",
-      "Entrées"
+      "Entrées",
+      "Accompagnements"
     ],
     "seasons": [
       "Toutes saisons"
@@ -5188,7 +5264,8 @@ window.RECIPES = {
     ],
     "additionalMasters": [
       "apero_maitre",
-      "entrees_maitre"
+      "entrees_maitre",
+      "accompagnements_maitre"
     ]
   },
   "pain_hot_dog": {
@@ -5535,7 +5612,8 @@ window.RECIPES = {
     "master": "plats_maitre",
     "image": "/assets/recipe-images/gaufres_pommes_terre_spooky.png",
     "categories": [
-      "Plats"
+      "Plats",
+      "Accompagnements"
     ],
     "seasons": [
       "Automne",
@@ -5636,6 +5714,9 @@ window.RECIPES = {
         "label": "Service",
         "value": "Servir aussitôt pour garder le contraste croustillant/fondant."
       }
+    ],
+    "additionalMasters": [
+      "accompagnements_maitre"
     ]
   },
   "mojitos_variantes": {
@@ -5766,7 +5847,8 @@ window.RECIPES = {
     "image": "/assets/recipe-images/chou_fleur_croustillant_spooky.png",
     "categories": [
       "Apéro",
-      "Entrées"
+      "Entrées",
+      "Accompagnements"
     ],
     "seasons": [
       "Toutes saisons"
@@ -5831,7 +5913,8 @@ window.RECIPES = {
       }
     ],
     "additionalMasters": [
-      "entrees_maitre"
+      "entrees_maitre",
+      "accompagnements_maitre"
     ]
   },
   "gazpacho_tomate_menthe_basilic": {
@@ -6094,7 +6177,8 @@ window.RECIPES = {
     "categories": [
       "Plats",
       "Apéro",
-      "Entrées"
+      "Entrées",
+      "Accompagnements"
     ],
     "seasons": [
       "Toutes saisons"
@@ -6163,7 +6247,8 @@ window.RECIPES = {
     ],
     "additionalMasters": [
       "apero_maitre",
-      "entrees_maitre"
+      "entrees_maitre",
+      "accompagnements_maitre"
     ]
   },
   "toppings_frites": {
@@ -6173,7 +6258,8 @@ window.RECIPES = {
     "categories": [
       "Plats",
       "Apéro",
-      "Entrées"
+      "Entrées",
+      "Accompagnements"
     ],
     "seasons": [
       "Toutes saisons"
@@ -6318,7 +6404,8 @@ window.RECIPES = {
     ],
     "additionalMasters": [
       "apero_maitre",
-      "entrees_maitre"
+      "entrees_maitre",
+      "accompagnements_maitre"
     ]
   },
   "curry_lentilles_coco": {
@@ -6443,7 +6530,8 @@ window.RECIPES = {
     "categories": [
       "Plats",
       "Apéro",
-      "Entrées"
+      "Entrées",
+      "Accompagnements"
     ],
     "seasons": [
       "Automne",
@@ -6530,7 +6618,8 @@ window.RECIPES = {
     ],
     "additionalMasters": [
       "apero_maitre",
-      "entrees_maitre"
+      "entrees_maitre",
+      "accompagnements_maitre"
     ]
   },
   "sauce_yaourt_citronnee": {
@@ -6668,7 +6757,8 @@ window.RECIPES = {
     "master": "plats_maitre",
     "image": "/assets/recipe-images/gratin_chou_fleur_spooky.png",
     "categories": [
-      "Plats"
+      "Plats",
+      "Accompagnements"
     ],
     "seasons": [
       "Automne",
@@ -6749,6 +6839,9 @@ window.RECIPES = {
         "label": "Cible",
         "value": "Dessus doré et croustillant, intérieur crémeux mais non liquide."
       }
+    ],
+    "additionalMasters": [
+      "accompagnements_maitre"
     ]
   },
   "pains_burgers_brioche": {

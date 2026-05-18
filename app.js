@@ -12,6 +12,7 @@ const CATEGORY_ACCENTS = {
   'Apéro': '#b51f30',
   'Entrées': '#697c1f',
   'Plats': '#c46311',
+  'Accompagnements': '#8b7f1f',
   'Desserts': '#7d5565',
   'Petits-déjeuners': '#b07a16',
   'Sauces': '#b84a16',
@@ -24,7 +25,8 @@ const HOME_CARD_ORDER = {
   sauces_maitre: 4,
   elements_base_maitre: 5,
   plats_maitre: 6,
-  desserts_maitre: 7
+  accompagnements_maitre: 7,
+  desserts_maitre: 8
 };
 const STORAGE_KEYS = {
   favorites: 'cook_note_favorites',
@@ -367,24 +369,93 @@ function formatNumber(value) {
   return value.toLocaleString('fr-FR', { maximumFractionDigits: 1 });
 }
 
+function prettifyServingUnit(phrase) {
+  return String(phrase || '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\boeufs\b/g, 'œufs')
+    .replace(/\boeuf\b/g, 'œuf')
+    .replace(/\bpieces\b/g, 'pièces')
+    .replace(/\bpiece\b/g, 'pièce')
+    .replace(/\bdecor\b/g, 'décor')
+    .replace(/\bparis brests?\b/g, 'Paris-Brest')
+    .replace(/^demi\s+/, 'demi-');
+}
+
+function singularizeServingUnit(phrase) {
+  const words = String(phrase || '').replace(/-/g, ' ').split(/\s+/).filter(Boolean);
+  if (!words.length) return '';
+  const firstWordMap = {
+    petits: 'petit',
+    petites: 'petite',
+    grands: 'grand',
+    grandes: 'grande',
+    gros: 'gros',
+    grosses: 'grosse'
+  };
+  words[0] = firstWordMap[words[0]] || words[0];
+  const lastIndex = words.length - 1;
+  const lastWordMap = {
+    oeufs: 'oeuf',
+    œufs: 'œuf',
+    choux: 'chou'
+  };
+  words[lastIndex] = lastWordMap[words[lastIndex]] || words[lastIndex].replace(/s$/i, '');
+  return prettifyServingUnit(words.join(' '));
+}
+
+function pluralizeServingUnit(phrase) {
+  const words = String(phrase || '').replace(/-/g, ' ').split(/\s+/).filter(Boolean);
+  if (!words.length) return '';
+  const firstWordMap = {
+    petit: 'petits',
+    petite: 'petites',
+    grand: 'grands',
+    grande: 'grandes',
+    grosse: 'grosses'
+  };
+  words[0] = firstWordMap[words[0]] || words[0];
+  const lastIndex = words.length - 1;
+  if (!/[sx]$/i.test(words[lastIndex])) words[lastIndex] = `${words[lastIndex]}s`;
+  return prettifyServingUnit(words.join(' '));
+}
+
 function getServingInfo(recipe) {
   const yieldText = String(recipe?.yield || '');
   const normalized = normalizeText(yieldText);
   const match = normalized.match(/(\d+(?:[.,]\d+)?(?:\/\d+)?)(?:\s*(?:[\u2013\u2014-]|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?\s*(personnes?|portions?|parts?)\b/);
-  if (!match) return null;
-  const base = parseAmount(match[1]);
+  if (match) {
+    const base = parseAmount(match[1]);
+    if (!Number.isFinite(base) || base <= 0) return null;
+    const unit = match[3].startsWith('personne')
+      ? 'personne'
+      : match[3].startsWith('part')
+        ? 'part'
+        : 'portion';
+    return { base, unit };
+  }
+
+  const genericMatch = normalized.match(/(\d+(?:[.,]\d+)?(?:\/\d+)?)(?:\s*(?:[\u2013\u2014-]|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?\s+((?:(?:petits?|petites?|grands?|grandes?|gros|grosses)\s+)?[a-zœ]+(?:-[a-zœ]+)?)\b/);
+  if (!genericMatch) return null;
+  const base = parseAmount(genericMatch[1]);
   if (!Number.isFinite(base) || base <= 0) return null;
-  const unit = match[3].startsWith('personne')
-    ? 'personne'
-    : match[3].startsWith('part')
-      ? 'part'
-      : 'portion';
-  return { base, unit };
+  const unitPhrase = genericMatch[3].replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
+  const lastWord = unitPhrase.split(/\s+/).pop();
+  const blockedUnits = new Set(['g', 'kg', 'mg', 'ml', 'cl', 'l', 'litre', 'litres', 'cm', 'mm', 'degre', 'degres', 'minute', 'minutes', 'min', 'heure', 'heures']);
+  if (blockedUnits.has(unitPhrase) || blockedUnits.has(lastWord)) return null;
+  return {
+    base,
+    unit: 'custom',
+    singular: singularizeServingUnit(unitPhrase),
+    plural: pluralizeServingUnit(unitPhrase)
+  };
 }
 
-function servingUnitLabel(unit, count) {
-  if (unit === 'personne') return count > 1 ? 'personnes' : 'personne';
-  if (unit === 'part') return count > 1 ? 'parts' : 'part';
+function servingUnitLabel(infoOrUnit, count) {
+  const info = typeof infoOrUnit === 'string' ? { unit: infoOrUnit } : (infoOrUnit || {});
+  if (info.unit === 'personne') return count > 1 ? 'personnes' : 'personne';
+  if (info.unit === 'part') return count > 1 ? 'parts' : 'part';
+  if (info.singular && info.plural) return count > 1 ? info.plural : info.singular;
   return count > 1 ? 'portions' : 'portion';
 }
 
@@ -398,14 +469,14 @@ function getQuantityDisplay(recipe, factor = 1) {
   const info = getServingInfo(recipe);
   if (!info) return scaleYieldDisplay(recipe?.yield, factor);
   const target = getServingTarget(recipe, factor);
-  return `Pour ${formatNumber(target)} ${servingUnitLabel(info.unit, target)}`;
+  return `Pour ${formatNumber(target)} ${servingUnitLabel(info, target)}`;
 }
 
 function getQuantitySummary(recipe, factor = 1) {
   const info = getServingInfo(recipe);
   if (info) {
     const target = getServingTarget(recipe, factor);
-    return `pour ${formatNumber(target)} ${servingUnitLabel(info.unit, target)}`;
+    return `pour ${formatNumber(target)} ${servingUnitLabel(info, target)}`;
   }
   return factor === 1 ? '' : `${String(factor).replace('.', ',')}x`;
 }
@@ -414,8 +485,9 @@ function servingOptionsFor(recipe) {
   const info = getServingInfo(recipe);
   if (!info) return [];
   const base = Math.round(info.base);
+  const max = Math.max(24, base * 2);
   return uniq([1, 2, 3, 4, 5, 6, 8, 10, 12, base, base * 2]
-    .filter(value => Number.isFinite(value) && value >= 1 && value <= 24)
+    .filter(value => Number.isFinite(value) && value >= 1 && value <= max)
     .map(String))
     .map(Number)
     .sort((a, b) => a - b);
@@ -857,6 +929,26 @@ function getRecipePracticalSections(recipe) {
   ]);
 
   return sections;
+}
+
+function noteKey(value) {
+  return normalizeText(stripHtml(value)).replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+function getDisplayNotes(recipe, practicalSections = []) {
+  const practicalKeys = new Set(
+    practicalSections
+      .flatMap(section => section.items || [])
+      .map(noteKey)
+      .filter(Boolean)
+  );
+  const seen = new Set();
+  return (recipe?.notes || []).filter(note => {
+    const key = noteKey(note);
+    if (!key || practicalKeys.has(key) || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 function extractRecipeLinkIds(recipe) {
@@ -1505,7 +1597,7 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '' }) {
     const currentTarget = getServingTarget(recipe, factor);
     return h('label', {
       className: ['factor-control serving-control quantity-select-control', className].filter(Boolean).join(' '),
-      'aria-label': `Choisir le nombre de ${servingUnitLabel(servingInfo.unit, 2)}`
+      'aria-label': `Choisir le nombre de ${servingUnitLabel(servingInfo, 2)}`
     },
       h('span', { className: 'factor-label' }, 'Quantité'),
       h('select', {
@@ -1515,21 +1607,26 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '' }) {
       },
         servingOptions.map(value => h('option', { key: value, value: String(value) }, String(value)))
       ),
-      h('span', { className: 'quantity-unit' }, servingUnitLabel(servingInfo.unit, currentTarget))
+      h('span', { className: 'quantity-unit' }, servingUnitLabel(servingInfo, currentTarget))
     );
   }
 
-  return h('div', {
-    className: ['factor-control', className].filter(Boolean).join(' '),
+  return h('label', {
+    className: ['factor-control quantity-select-control multiplier-select-control', className].filter(Boolean).join(' '),
     'aria-label': 'Multiplier les quantités'
   },
-    h('span', { className: 'factor-label' }, 'Quantités'),
-    [0.25, 0.5, 1, 2, 4].map(value => h('button', {
-      key: value,
-      type: 'button',
-      className: factor === value ? 'active' : '',
-      onClick: () => setFactor(value)
-    }, `${String(value).replace('.', ',')}x`))
+    h('span', { className: 'factor-label' }, 'Quantité'),
+    h('select', {
+      className: 'quantity-select',
+      value: String(factor),
+      onChange: event => setFactor(Number(event.target.value))
+    },
+      [0.25, 0.5, 1, 2, 4].map(value => h('option', {
+        key: value,
+        value: String(value)
+      }, `${String(value).replace('.', ',')}x`))
+    ),
+    h('span', { className: 'quantity-unit' }, 'fois')
   );
 }
 
@@ -1576,6 +1673,7 @@ function VariantPickerPanel({ parent, variantRefs, recipesById, selectedVariantI
           key: variant.id,
           type: 'button',
           className: selectedVariantId === variant.id ? 'variant-card active' : 'variant-card',
+          style: { '--card-accent': getCategoryColor(item) },
           onClick: () => onSelect(variant.id)
         },
           image && h('span', { className: 'variant-card-bg', style: { backgroundImage: `url("${image}")` } }),
@@ -1600,14 +1698,21 @@ function RecipeBreadcrumb({ recipe, selectedRecipe, showVariants, goHome }) {
 }
 
 function LinkedRecipesBlock({ links, openRecipe }) {
+  const [expanded, setExpanded] = useState(false);
+  const linkKey = links.map(item => item.id).join('|');
+  useEffect(() => setExpanded(false), [linkKey]);
   if (!links.length) return null;
+  const hasExtra = links.length > 3;
+  const visibleLinks = hasExtra && !expanded ? links.slice(0, 3) : links;
+  const hiddenCount = Math.max(0, links.length - 3);
   return h('div', { className: 'linked-recipes-block' },
     h('p', { className: 'eyebrow' }, 'Recettes liées'),
     h('div', { className: 'linked-recipe-list' },
-      links.map(item => h('button', {
+      visibleLinks.map(item => h('button', {
         key: item.id,
         type: 'button',
         className: 'linked-recipe-item',
+        style: { '--card-accent': getCategoryColor(item.recipe) },
         onClick: () => openRecipe(item.id)
       },
         h('span', { className: 'linked-recipe-thumb', style: item.recipe.image ? { backgroundImage: `url("${item.recipe.image}")` } : {} }),
@@ -1616,7 +1721,13 @@ function LinkedRecipesBlock({ links, openRecipe }) {
           h('strong', null, item.recipe.title)
         )
       ))
-    )
+    ),
+    hasExtra && h('button', {
+      type: 'button',
+      className: expanded ? 'linked-recipe-toggle active' : 'linked-recipe-toggle',
+      onClick: () => setExpanded(value => !value),
+      'aria-expanded': expanded
+    }, expanded ? 'Masquer les recettes liées' : `Voir ${hiddenCount} autre${hiddenCount > 1 ? 's' : ''} recette${hiddenCount > 1 ? 's' : ''}`)
   );
 }
 
@@ -1694,7 +1805,8 @@ function RecipeView({
   const averageWeights = hasSelectedVariant ? getRecipeAverageWeights(selectedRecipe) : [];
   const linkedRecipes = hasSelectedVariant ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
   const practicalSections = hasSelectedVariant ? getRecipePracticalSections(selectedRecipe) : [];
-  const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + (selectedRecipe.notes || []).length;
+  const displayNotes = hasSelectedVariant ? getDisplayNotes(selectedRecipe, practicalSections) : [];
+  const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length;
   const selectedGroupLabel = selectedInlineVariantGroup?.group?.group || '';
 
   useEffect(() => {
@@ -1931,8 +2043,8 @@ function RecipeView({
         h(PracticalSectionsBlock, { sections: practicalSections }),
         h('p', { className: 'eyebrow' }, 'Notes'),
         h('h2', null, 'Astuces et liens'),
-        (selectedRecipe.notes || []).length
-          ? h('ul', null, selectedRecipe.notes.map((note, index) => h('li', { key: `${detailKey}:note:${index}` }, renderLinkedText(sanitizeNoteHtml(note), inlineTargets, openRecipe))))
+        displayNotes.length
+          ? h('ul', null, displayNotes.map((note, index) => h('li', { key: `${detailKey}:note:${index}` }, renderLinkedText(sanitizeNoteHtml(note), inlineTargets, openRecipe))))
           : h('p', null, 'Aucune note pour cette recette.'),
         (selectedRecipe.technical || recipe.technical || []).length > 0 && h('div', { className: 'technical-card' },
           h('p', { className: 'eyebrow' }, 'Fiche technique'),
@@ -1997,6 +2109,25 @@ function App() {
   useEffect(() => {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   }, []);
+
+  useEffect(() => {
+    if (!activeRecipe) return undefined;
+    const forceTop = () => {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    };
+    forceTop();
+    let secondFrame = 0;
+    const firstFrame = requestAnimationFrame(() => {
+      forceTop();
+      secondFrame = requestAnimationFrame(forceTop);
+    });
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
+    };
+  }, [activeRecipe?.id]);
 
   useEffect(() => {
     updateDocumentMeta(activeSeoRecipe, recipesById);

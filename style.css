@@ -1146,17 +1146,19 @@ a {
 }
 
 .variant-card.active {
-  border-color: color-mix(in srgb, var(--accent) 72%, white);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 48%, transparent);
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 72%, white);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--card-accent, var(--accent)) 48%, transparent),
+    0 0 28px color-mix(in srgb, var(--card-accent, var(--accent)) 20%, transparent);
 }
 
 .variant-card:hover,
 .variant-card:focus-visible {
   transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--accent) 66%, var(--line));
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 66%, var(--line));
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--accent) 34%, transparent),
-    0 0 30px color-mix(in srgb, var(--accent) 28%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--card-accent, var(--accent)) 34%, transparent),
+    0 0 30px color-mix(in srgb, var(--card-accent, var(--accent)) 28%, transparent),
     0 18px 54px rgba(0, 0, 0, .46);
 }
 
@@ -1727,11 +1729,16 @@ a {
   color: var(--text);
   padding: 7px;
   text-align: left;
+  transition: transform var(--speed), border-color var(--speed), box-shadow var(--speed);
 }
 
 .linked-recipe-item:hover,
 .linked-recipe-item:focus-visible {
-  border-color: color-mix(in srgb, var(--accent) 52%, var(--line));
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 58%, var(--line));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--card-accent, var(--accent)) 26%, transparent),
+    0 0 20px color-mix(in srgb, var(--card-accent, var(--accent)) 20%, transparent);
 }
 
 .linked-recipe-thumb {
@@ -1761,6 +1768,29 @@ a {
   line-height: 1.25;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.linked-recipe-toggle {
+  width: 100%;
+  min-height: 40px;
+  margin-top: 10px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
+  border-radius: 7px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 20%, transparent), rgba(255, 255, 255, .04)),
+    var(--surface-soft);
+  color: var(--text);
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 950;
+  text-align: center;
+}
+
+.linked-recipe-toggle:hover,
+.linked-recipe-toggle:focus-visible,
+.linked-recipe-toggle.active {
+  border-color: color-mix(in srgb, var(--accent) 68%, var(--line));
+  box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .practical-block h2 {
