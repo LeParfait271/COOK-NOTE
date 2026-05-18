@@ -2192,6 +2192,18 @@ window.RECIPES = {
         "label": "Crudités et salades fraîches"
       },
       {
+        "id": "frites_belges",
+        "label": "Frites belges"
+      },
+      {
+        "id": "frites_patate_douce",
+        "label": "Frites de patate douce croustillantes"
+      },
+      {
+        "id": "frites_maison",
+        "label": "Frites maison"
+      },
+      {
         "id": "legumes_rotis",
         "label": "Légumes rôtis au four"
       },
@@ -2202,6 +2214,10 @@ window.RECIPES = {
       {
         "id": "tomates_maitre",
         "label": "Tomates préparées"
+      },
+      {
+        "id": "toppings_frites",
+        "label": "Toppings frites"
       }
     ],
     "ingredients": [
@@ -2261,6 +2277,10 @@ window.RECIPES = {
       {
         "id": "frites_belges",
         "label": "Frites belges"
+      },
+      {
+        "id": "frites_patate_douce",
+        "label": "Frites de patate douce croustillantes"
       },
       {
         "id": "frites_maison",
@@ -3242,6 +3262,18 @@ window.RECIPES = {
         "label": "Cookies salés"
       },
       {
+        "id": "frites_belges",
+        "label": "Frites belges"
+      },
+      {
+        "id": "frites_patate_douce",
+        "label": "Frites de patate douce croustillantes"
+      },
+      {
+        "id": "frites_maison",
+        "label": "Frites maison"
+      },
+      {
         "id": "mojitos_variantes",
         "label": "Mojitos"
       },
@@ -3252,6 +3284,10 @@ window.RECIPES = {
       {
         "id": "tomates_variantes",
         "label": "Tomates confites et séchées"
+      },
+      {
+        "id": "toppings_frites",
+        "label": "Toppings frites"
       }
     ],
     "technical": [
@@ -5078,7 +5114,9 @@ window.RECIPES = {
     "master": "plats_maitre",
     "image": "/assets/recipe-images/frites_belges_spooky.png",
     "categories": [
-      "Plats"
+      "Plats",
+      "Apéro",
+      "Entrées"
     ],
     "seasons": [
       "Toutes saisons"
@@ -5147,6 +5185,10 @@ window.RECIPES = {
         "label": "Service",
         "value": "Servir immédiatement après salage."
       }
+    ],
+    "additionalMasters": [
+      "apero_maitre",
+      "entrees_maitre"
     ]
   },
   "pain_hot_dog": {
@@ -6050,7 +6092,9 @@ window.RECIPES = {
     "master": "plats_maitre",
     "image": "/assets/recipe-images/frites_maison_spooky.png",
     "categories": [
-      "Plats"
+      "Plats",
+      "Apéro",
+      "Entrées"
     ],
     "seasons": [
       "Toutes saisons"
@@ -6116,6 +6160,10 @@ window.RECIPES = {
         "label": "Cible",
         "value": "Dorées, croustillantes dehors, moelleuses dedans, non grasses."
       }
+    ],
+    "additionalMasters": [
+      "apero_maitre",
+      "entrees_maitre"
     ]
   },
   "toppings_frites": {
@@ -6123,7 +6171,9 @@ window.RECIPES = {
     "master": "plats_maitre",
     "image": "/assets/recipe-images/toppings_frites_spooky.png",
     "categories": [
-      "Plats"
+      "Plats",
+      "Apéro",
+      "Entrées"
     ],
     "seasons": [
       "Toutes saisons"
@@ -6265,6 +6315,10 @@ window.RECIPES = {
         "label": "Service",
         "value": "Servir très chaud, en gardant les sauces séparées si nécessaire."
       }
+    ],
+    "additionalMasters": [
+      "apero_maitre",
+      "entrees_maitre"
     ]
   },
   "curry_lentilles_coco": {
@@ -6387,7 +6441,9 @@ window.RECIPES = {
     "master": "plats_maitre",
     "image": "/assets/recipe-images/frites_patate_douce_spooky.png",
     "categories": [
-      "Plats"
+      "Plats",
+      "Apéro",
+      "Entrées"
     ],
     "seasons": [
       "Automne",
@@ -6471,6 +6527,10 @@ window.RECIPES = {
         "label": "Cible",
         "value": "Bords dorés et croustillants, centre fondant, assaisonnement fumé et sauce fraîche à part."
       }
+    ],
+    "additionalMasters": [
+      "apero_maitre",
+      "entrees_maitre"
     ]
   },
   "sauce_yaourt_citronnee": {
