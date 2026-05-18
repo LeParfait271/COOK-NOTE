@@ -1280,6 +1280,7 @@ a {
   display: inline-flex;
   align-items: center;
   min-height: 32px;
+  margin-left: 4px;
   color: var(--text);
   padding-right: 8px;
   font-size: 12px;
