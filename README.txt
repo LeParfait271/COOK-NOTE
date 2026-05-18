@@ -78,6 +78,9 @@ Pour la production, definir aussi :
    SITE_URL=https://ton-domaine.example
 
 Cette URL est utilisee pour robots.txt, sitemap.xml et les URLs canoniques.
+Pour generer les fichiers SEO statiques avant deploy :
+
+   npm run generate:sitemap
 
 Si Node n'est pas installe globalement sur Windows, le projet peut utiliser
 le Node local place dans :
