@@ -28,6 +28,16 @@ const HOME_CARD_ORDER = {
   accompagnements_maitre: 7,
   desserts_maitre: 8
 };
+const CATEGORY_PARENT_IDS = {
+  'Apéro': 'apero_maitre',
+  'Entrées': 'entrees_maitre',
+  'Plats': 'plats_maitre',
+  'Accompagnements': 'accompagnements_maitre',
+  'Desserts': 'desserts_maitre',
+  'Petits-déjeuners': 'petit_dejeuner_maitre',
+  'Sauces': 'sauces_maitre',
+  'Base': 'elements_base_maitre'
+};
 const STORAGE_KEYS = {
   favorites: 'cook_note_favorites',
   recents: 'cook_note_recents',
@@ -1747,19 +1757,26 @@ function VariantPickerPanel({ parent, variantRefs, recipesById, selectedVariantI
   );
 }
 
-function RecipeBreadcrumb({ recipe, selectedRecipe, showVariants, goHome }) {
+function RecipeBreadcrumb({ recipe, selectedRecipe, showVariants, goHome, openRecipe }) {
   const breadcrumbRecipe = showVariants ? recipe : (selectedRecipe || recipe);
   const category = primaryCategory(breadcrumbRecipe);
+  const categoryParentId = CATEGORY_PARENT_IDS[category];
   const isRootParent = showVariants && !breadcrumbRecipe.master;
   const repeatsTitle = normalizeText(category) === normalizeText(breadcrumbRecipe.title);
+  const openCategory = () => categoryParentId ? openRecipe(categoryParentId) : goHome();
+  const openCurrentParent = () => openRecipe(breadcrumbRecipe.id);
   return h('nav', { className: 'recipe-breadcrumb', 'aria-label': 'Fil d’Ariane' },
     h('button', { type: 'button', onClick: goHome }, 'Cook Note'),
     h('span', null, '/'),
     !isRootParent && !repeatsTitle && h(React.Fragment, null,
-      h('span', null, category),
+      categoryParentId
+        ? h('button', { type: 'button', onClick: openCategory }, category)
+        : h('span', null, category),
       h('span', null, '/')
     ),
-    h('strong', null, breadcrumbRecipe.title)
+    isRootParent
+      ? h('button', { type: 'button', onClick: openCurrentParent }, breadcrumbRecipe.title)
+      : h('strong', null, breadcrumbRecipe.title)
   );
 }
 
@@ -1960,7 +1977,7 @@ function RecipeView({
       h('div', { className: 'detail-hero-copy' },
         h('button', { type: 'button', className: 'back-link', onClick: goHome }, 'Retour aux recettes'),
         heroUsesHomeImage && h('img', { className: 'detail-hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note' }),
-        h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome }),
+        h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome, openRecipe }),
         h('p', { className: 'eyebrow' }, heroEyebrow),
         h('h1', null, recipe.title),
         h('div', { className: 'detail-meta' },
