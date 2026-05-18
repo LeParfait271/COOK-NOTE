@@ -126,14 +126,20 @@ function getInferredRecipeSeasons(recipe) {
   return Array.from(seasons);
 }
 
+function getAssignedRecipeSeasons(recipe) {
+  return (recipe?.seasons || []).filter(season => season && season !== 'Toutes saisons');
+}
+
 function getRecipeSeasonSet(recipe, recipesById = {}) {
-  const seasons = new Set([...(recipe?.seasons || []), ...getInferredRecipeSeasons(recipe)]);
+  const seasons = new Set(getAssignedRecipeSeasons(recipe));
   getLeafVariantRefs(recipe, recipesById).forEach(ref => {
     const child = recipesById[ref.id];
     if (!child || child.id === recipe?.id) return;
-    (child.seasons || []).forEach(season => seasons.add(season));
-    getInferredRecipeSeasons(child).forEach(season => seasons.add(season));
+    getAssignedRecipeSeasons(child).forEach(season => seasons.add(season));
   });
+  if (!seasons.size && !(recipe?.seasons || []).includes('Toutes saisons')) {
+    getInferredRecipeSeasons(recipe).forEach(season => seasons.add(season));
+  }
   return seasons;
 }
 
@@ -343,7 +349,7 @@ function getLeafVariantRefs(recipe, recipesById = {}, seen = new Set()) {
 function recipeHasSeason(recipe, season, recipesById = {}) {
   if (!season) return true;
   const seasons = getRecipeSeasonSet(recipe, recipesById);
-  return seasons.has(season) || seasons.has('Toutes saisons');
+  return seasons.has(season);
 }
 
 function countLeafRecipes(recipe, recipesById = {}) {
@@ -2192,8 +2198,9 @@ function App() {
   const activeVariantId = activeRecipe ? variantSelection[activeRecipe.id] : '';
   const activeSeoRecipe = activeVariantId && recipesById[activeVariantId] ? recipesById[activeVariantId] : activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => recipesById[id]).filter(Boolean), [shoppingIds, recipesById]);
-  const catalogRecipes = useMemo(() => query.trim() ? searchableRecipes : homeCatalogRecipes, [homeCatalogRecipes, query, searchableRecipes]);
-  const allSeasons = useMemo(() => uniq([...SEASONS, ...catalogRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [catalogRecipes]);
+  const hasRecipeFilters = Boolean(query.trim() || season || tagFilter || onlyFavorites);
+  const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
+  const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
 
   useEffect(() => {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -2302,7 +2309,7 @@ function App() {
       return [{ key: 'favorites', kicker: 'Favoris', title: 'Recettes sauvegardées', recipes: filteredRecipes }];
     }
     if (season) {
-      return [{ key: `season-${season}`, kicker: season === currentSeason ? 'Saison actuelle' : 'Saison', title: `${season} + toutes saisons`, recipes: filteredRecipes }];
+      return [{ key: `season-${season}`, kicker: season === currentSeason ? 'Saison actuelle' : 'Saison', title: `Recettes de saison : ${season}`, recipes: filteredRecipes }];
     }
     return [{ key: 'all-seasons', kicker: 'Toutes', title: 'Toutes les recettes', recipes: filteredRecipes }];
   }, [currentSeason, filteredRecipes, onlyFavorites, season]);

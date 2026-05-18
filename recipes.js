@@ -3118,8 +3118,7 @@ window.RECIPES = {
     ],
     "seasons": [
       "Printemps",
-      "Été",
-      "Toutes saisons"
+      "Été"
     ],
     "difficulty": "medium",
     "yield": "Environ 500g",
@@ -3168,8 +3167,7 @@ window.RECIPES = {
     ],
     "seasons": [
       "Printemps",
-      "Été",
-      "Toutes saisons"
+      "Été"
     ],
     "difficulty": "easy",
     "yield": "Fine couche pour 1 tarte",
@@ -3314,8 +3312,7 @@ window.RECIPES = {
     ],
     "seasons": [
       "Printemps",
-      "Été",
-      "Toutes saisons"
+      "Été"
     ],
     "difficulty": "easy",
     "yield": "2 personnes",
@@ -3516,8 +3513,7 @@ window.RECIPES = {
     ],
     "seasons": [
       "Printemps",
-      "Été",
-      "Toutes saisons"
+      "Été"
     ],
     "difficulty": "easy",
     "variants": [
@@ -3779,8 +3775,7 @@ window.RECIPES = {
     ],
     "seasons": [
       "Automne",
-      "Hiver",
-      "Toutes saisons"
+      "Hiver"
     ],
     "difficulty": "easy",
     "yield": "18 cookies",
@@ -5207,8 +5202,7 @@ window.RECIPES = {
     ],
     "seasons": [
       "Automne",
-      "Hiver",
-      "Toutes saisons"
+      "Hiver"
     ],
     "difficulty": "medium",
     "difficultyScore": 5,
@@ -6670,8 +6664,7 @@ window.RECIPES = {
     ],
     "seasons": [
       "Automne",
-      "Hiver",
-      "Toutes saisons"
+      "Hiver"
     ],
     "difficulty": "medium",
     "difficultyScore": 5,
