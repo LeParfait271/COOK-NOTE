@@ -1749,11 +1749,16 @@ function VariantPickerPanel({ parent, variantRefs, recipesById, selectedVariantI
 
 function RecipeBreadcrumb({ recipe, selectedRecipe, showVariants, goHome }) {
   const breadcrumbRecipe = showVariants ? recipe : (selectedRecipe || recipe);
+  const category = primaryCategory(breadcrumbRecipe);
+  const isRootParent = showVariants && !breadcrumbRecipe.master;
+  const repeatsTitle = normalizeText(category) === normalizeText(breadcrumbRecipe.title);
   return h('nav', { className: 'recipe-breadcrumb', 'aria-label': 'Fil d’Ariane' },
     h('button', { type: 'button', onClick: goHome }, 'Cook Note'),
     h('span', null, '/'),
-    h('span', null, primaryCategory(breadcrumbRecipe)),
-    h('span', null, '/'),
+    !isRootParent && !repeatsTitle && h(React.Fragment, null,
+      h('span', null, category),
+      h('span', null, '/')
+    ),
     h('strong', null, breadcrumbRecipe.title)
   );
 }
