@@ -1459,7 +1459,7 @@ function SharePanel({ open, onClose, recipe }) {
   const [copiedText, setCopiedText] = useState(false);
   const [qrReady, setQrReady] = useState(false);
   const canvasRef = useRef(null);
-  const url = `${window.location.origin}${window.location.pathname}#recipe=${encodeURIComponent(recipe.id)}`;
+  const url = `${window.location.origin}${getRecipeUrl(recipe.id)}`;
   const description = recipeDescription(recipe);
   const text = `${recipe.title} - Cook Note\n${description}\n${url}`;
   const imageStyle = recipe.image ? { backgroundImage: `url("${recipe.image}")` } : {};

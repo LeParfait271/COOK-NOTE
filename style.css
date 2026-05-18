@@ -1302,6 +1302,11 @@ a {
   background: var(--surface-soft);
 }
 
+.factor-control:focus-within {
+  border-color: color-mix(in srgb, var(--accent) 62%, var(--line));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
 .factor-label {
   display: inline-flex;
   align-items: center;
@@ -1324,7 +1329,7 @@ a {
   border-radius: 6px;
   background: var(--accent);
   color: var(--accent-ink);
-  padding: 0 8px;
+  padding: 0 26px 0 10px;
   font: inherit;
   font-size: 13px;
   font-weight: 950;
@@ -1340,7 +1345,7 @@ a {
   display: inline-flex;
   align-items: center;
   min-height: 32px;
-  margin-left: 4px;
+  margin-left: 8px;
   color: var(--text);
   padding-right: 8px;
   font-size: 12px;
@@ -1464,6 +1469,7 @@ a {
 .ingredient-group-toggle:hover,
 .ingredient-group-toggle:focus-visible {
   border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+  box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 14%, transparent);
 }
 
 .ingredient-toggle-icon {
@@ -1622,6 +1628,13 @@ a {
   border-radius: var(--radius);
   background: color-mix(in srgb, var(--surface-soft) 72%, transparent);
   padding: 12px;
+  transition: border-color var(--speed), box-shadow var(--speed), background var(--speed);
+}
+
+.step-list li:hover {
+  border-color: color-mix(in srgb, var(--accent) 36%, var(--line));
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface-soft));
+  box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .step-list li.done {

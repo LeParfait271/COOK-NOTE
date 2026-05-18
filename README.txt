@@ -98,4 +98,5 @@ Ou avec le Node local du projet :
    powershell -ExecutionPolicy Bypass -File .\check.ps1
 
 La verification controle la syntaxe JavaScript, les fiches parents, les variantes,
-les liens internes data-goto et la presence des images locales.
+les liens internes data-goto, les recipeId internes, la presence des images locales
+et les multiplicateurs de quantites.
