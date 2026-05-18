@@ -5368,6 +5368,20 @@ window.RECIPES = {
       "apero",
       "entree"
     ],
+    "linkedRecipes": [
+      {
+        "id": "pate_legere_beignets_calamar_crevettes",
+        "role": "Base"
+      },
+      {
+        "id": "aioli_citronne_leger",
+        "role": "Sauce"
+      },
+      {
+        "id": "tempura_beignets_calamar_crevettes",
+        "role": "Alternative"
+      }
+    ],
     "ingredients": [
       {
         "group": "Calamars",
@@ -5449,6 +5463,26 @@ window.RECIPES = {
         "value": "Croûte fine et croustillante, calamar tendre."
       }
     ],
+    "practical": {
+      "equipment": [
+        "Casserole ou sauteuse haute",
+        "Thermomètre de cuisson",
+        "Grille d’égouttage"
+      ],
+      "storage": [
+        "À servir immédiatement après cuisson pour garder le croustillant."
+      ],
+      "reheating": [
+        "Si besoin, réchauffer brièvement au four chaud sur grille, jamais au micro-ondes."
+      ],
+      "mistakes": [
+        "Ne surcharge pas le bain d’huile.",
+        "Ne prolonge pas la cuisson : le calamar devient vite caoutchouteux."
+      ],
+      "result": [
+        "Beignets dorés, croûte fine et croustillante, calamar encore tendre."
+      ]
+    },
     "additionalMasters": [
       "entrees_maitre",
       "plats_maitre"
@@ -6783,6 +6817,20 @@ window.RECIPES = {
       "crevette",
       "friture"
     ],
+    "linkedRecipes": [
+      {
+        "id": "beignets_calamar",
+        "role": "Utilisation"
+      },
+      {
+        "id": "aioli_citronne_leger",
+        "role": "Sauce"
+      },
+      {
+        "id": "tempura_beignets_calamar_crevettes",
+        "role": "Alternative"
+      }
+    ],
     "ingredients": [
       {
         "group": "Pâte légère",
@@ -6822,7 +6870,24 @@ window.RECIPES = {
         "label": "Usage",
         "value": "Préparer au dernier moment puis cuire par petites quantités."
       }
-    ]
+    ],
+    "practical": {
+      "equipment": [
+        "Cul-de-poule très froid",
+        "Fouet",
+        "Casserole ou sauteuse haute"
+      ],
+      "storage": [
+        "À utiliser aussitôt, la pâte perd sa légèreté en attente."
+      ],
+      "mistakes": [
+        "Ne mélange pas trop la pâte.",
+        "Ne prépare pas la pâte longtemps avant la cuisson."
+      ],
+      "result": [
+        "Pâte froide, fluide, légère et légèrement irrégulière."
+      ]
+    }
   },
   "aioli_citronne_leger": {
     "title": "Aïoli citronné léger",
@@ -6850,6 +6915,20 @@ window.RECIPES = {
       "ail",
       "sauce",
       "friture"
+    ],
+    "linkedRecipes": [
+      {
+        "id": "beignets_calamar",
+        "role": "Servir avec"
+      },
+      {
+        "id": "pate_legere_beignets_calamar_crevettes",
+        "role": "Base"
+      },
+      {
+        "id": "tempura_beignets_calamar_crevettes",
+        "role": "Alternative"
+      }
     ],
     "ingredients": [
       {
@@ -6886,7 +6965,22 @@ window.RECIPES = {
         "label": "Équilibre",
         "value": "Le citron doit relever la friture sans rendre la sauce trop acide."
       }
-    ]
+    ],
+    "practical": {
+      "equipment": [
+        "Bol stable",
+        "Fouet"
+      ],
+      "storage": [
+        "Garder au frais jusqu’au service."
+      ],
+      "mistakes": [
+        "Verse les huiles lentement au départ pour éviter de casser l’émulsion."
+      ],
+      "result": [
+        "Sauce nappante, citronnée, légère et stable."
+      ]
+    }
   },
   "tempura_beignets_calamar_crevettes": {
     "title": "Tempura pour beignets de calamar ou crevettes",
@@ -6914,6 +7008,20 @@ window.RECIPES = {
       "calamar",
       "crevette",
       "friture"
+    ],
+    "linkedRecipes": [
+      {
+        "id": "beignets_calamar",
+        "role": "Utilisation"
+      },
+      {
+        "id": "pate_legere_beignets_calamar_crevettes",
+        "role": "Alternative"
+      },
+      {
+        "id": "aioli_citronne_leger",
+        "role": "Sauce"
+      }
     ],
     "ingredients": [
       {
@@ -6947,6 +7055,23 @@ window.RECIPES = {
         "label": "Cuisson",
         "value": "Frire court, sans surcharger le bain."
       }
-    ]
+    ],
+    "practical": {
+      "equipment": [
+        "Cul-de-poule très froid",
+        "Baguettes ou fouet",
+        "Casserole ou sauteuse haute"
+      ],
+      "storage": [
+        "À préparer au dernier moment, sans repos."
+      ],
+      "mistakes": [
+        "Ne cherche pas une pâte lisse.",
+        "Ne laisse pas la tempura se réchauffer avant cuisson."
+      ],
+      "result": [
+        "Pâte froide, irrégulière, très légère et croustillante après friture."
+      ]
+    }
   }
 };

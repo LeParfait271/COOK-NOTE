@@ -595,6 +595,13 @@ function getRecipeSearchText(recipe, tags, recipesById = {}) {
   const ingredients = (recipe.ingredients || [])
     .flatMap(group => [group.group, ...(group.items || [])])
     .join(' ');
+  const practicalText = getRecipePracticalSections(recipe)
+    .flatMap(section => [section.title, ...section.items])
+    .join(' ');
+  const linkedText = getLinkedRecipeRefs(recipe, recipesById)
+    .flatMap(item => [item.role, item.recipe.title, ...(item.recipe.tags || [])])
+    .join(' ');
+  const facets = getRecipeSearchFacets(recipe).join(' ');
   const variantsText = (recipe.variants || [])
     .map(variant => recipesById[variant.id])
     .filter(Boolean)
@@ -610,6 +617,9 @@ function getRecipeSearchText(recipe, tags, recipesById = {}) {
     ...tags,
     ...(recipe.variants || []).flatMap(variant => [variant.id, variant.label]),
     ingredients,
+    facets,
+    practicalText,
+    linkedText,
     ...(recipe.steps || []),
     ...(recipe.notes || []),
     variantsText
@@ -625,7 +635,13 @@ const SEARCH_SYNONYMS = {
   oeuf: ['œuf', 'oeufs', 'œufs'],
   oeufs: ['œufs', 'oeuf', 'œuf'],
   citronne: ['citron'],
-  citronné: ['citron']
+  citronné: ['citron'],
+  facile: ['easy', 'simple', 'débutant'],
+  simple: ['easy', 'facile'],
+  moyen: ['medium', 'intermédiaire'],
+  difficile: ['hard', 'technique'],
+  ete: ['été'],
+  apero: ['apéro']
 };
 
 function expandSearchTokens(tokens) {
@@ -657,7 +673,7 @@ function isCloseSearchToken(token, text) {
   });
 }
 
-function scoreRecipeSearch(recipe, query) {
+function scoreRecipeSearch(recipe, query, recipesById = {}) {
   const needle = normalizeText(query).trim();
   if (!needle) return { score: 0, reasons: [] };
   const tokenGroups = expandSearchTokens(needle.split(/\s+/).filter(token => token.length > 1));
@@ -666,13 +682,19 @@ function scoreRecipeSearch(recipe, query) {
   const tags = normalizeText([...(recipe.tags || []), ...(recipe.tagsExtracted || [])].join(' '));
   const categories = normalizeText((recipe.categories || []).join(' '));
   const ingredients = normalizeText((recipe.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]).join(' '));
+  const practical = normalizeText(getRecipePracticalSections(recipe).flatMap(section => [section.title, ...section.items]).join(' '));
+  const facets = normalizeText(getRecipeSearchFacets(recipe).join(' '));
+  const linked = normalizeText(getLinkedRecipeRefs(recipe, recipesById).flatMap(item => [item.role, item.recipe.title]).join(' '));
   const notes = normalizeText([...(recipe.notes || []), ...(recipe.technical || []).flatMap(item => [item.label, item.value, item.text])].join(' '));
   const fields = [
     { name: 'titre', text: title, points: 120 },
     { name: 'alias', text: aliases, points: 90 },
     { name: 'tag', text: tags, points: 70 },
+    { name: 'usage', text: facets, points: 62 },
     { name: 'catégorie', text: categories, points: 55 },
     { name: 'ingrédient', text: ingredients, points: 45 },
+    { name: 'recette liée', text: linked, points: 34 },
+    { name: 'pratique', text: practical, points: 28 },
     { name: 'note', text: notes, points: 18 }
   ];
   let score = 0;
@@ -763,6 +785,155 @@ function renderLinkedText(text, targets, openRecipe) {
   );
 }
 
+function stripHtml(value) {
+  return String(value || '')
+    .replace(/<span\s+data-goto=(["'])([^"']+)\1[^>]*>(.*?)<\/span>/gi, '$3')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function asTextList(value) {
+  if (!value) return [];
+  if (Array.isArray(value)) return value.map(item => stripHtml(item)).filter(Boolean);
+  return [stripHtml(value)].filter(Boolean);
+}
+
+function inferEquipment(recipe) {
+  const text = normalizeText([
+    recipe?.title,
+    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
+    ...(recipe?.steps || []),
+    ...(recipe?.notes || [])
+  ].join(' '));
+  const items = [];
+  if (/\b(friture|frire|huile a 180|180c|180 c|bain d huile|tempura|beignet)\b/.test(text)) {
+    items.push('Casserole ou sauteuse haute', 'Thermomètre de cuisson', 'Grille d’égouttage');
+  }
+  if (/\b(four|enfourner|gril|plaque)\b/.test(text)) items.push('Four', 'Plaque ou plat de cuisson');
+  if (/\b(mixer|mixeur|blender)\b/.test(text)) items.push('Mixeur ou blender');
+  if (/\b(mortier|piler)\b/.test(text)) items.push('Mortier');
+  if (/\b(fouetter|fouet|emulsion|monter avec l huile)\b/.test(text)) items.push('Fouet');
+  if (/\b(poche|pocher|douille)\b/.test(text)) items.push('Poche à douille');
+  return uniq(items).slice(0, 4);
+}
+
+function getRecipePracticalSections(recipe) {
+  const practical = recipe?.practical || {};
+  const notes = (recipe?.notes || []).map(stripHtml);
+  const technical = recipe?.technical || [];
+  const sections = [];
+  const add = (key, title, items) => {
+    const cleanItems = uniq((items || []).map(stripHtml).filter(Boolean));
+    if (cleanItems.length) sections.push({ key, title, items: cleanItems.slice(0, 4) });
+  };
+
+  const storageNotes = notes.filter(note => /\b(conservation|stockage|p[eé]remption|cong[eé]lation|cong[eè]le|au froid|r[eé]frig[eé]rateur)\b/i.test(note));
+  const reheatingNotes = notes.filter(note => /\b(r[eé]chauff|remettre au four|four doux|vapeur)\b/i.test(note));
+  const mistakeNotes = notes.filter(note => /\b(ne\s|[ée]vite|attention|trop cuit|trop cuits|surcharge|surveille|sans trop)\b/i.test(note));
+  const resultTechnical = technical
+    .filter(item => /\b(texture|cible|r[eé]sultat|cuisson|service)\b/i.test(String(item.label || item.title || '')))
+    .map(item => item.value || item.text);
+
+  add('equipment', 'Matériel utile', [
+    ...asTextList(recipe?.equipment || practical.equipment),
+    ...inferEquipment(recipe)
+  ]);
+  add('storage', 'Conservation', [
+    ...asTextList(recipe?.storage || practical.storage),
+    ...storageNotes
+  ]);
+  add('reheating', 'Réchauffage', [
+    ...asTextList(recipe?.reheating || practical.reheating),
+    ...reheatingNotes
+  ]);
+  add('mistakes', 'Erreurs à éviter', [
+    ...asTextList(recipe?.mistakes || practical.mistakes),
+    ...mistakeNotes
+  ]);
+  add('result', 'Résultat attendu', [
+    ...asTextList(recipe?.result || practical.result),
+    ...resultTechnical
+  ]);
+
+  return sections;
+}
+
+function extractRecipeLinkIds(recipe) {
+  const text = [
+    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || []), group.note, ...(group.notes || [])]),
+    ...(recipe?.steps || []),
+    ...(recipe?.notes || []),
+    ...(recipe?.technical || []).flatMap(item => [item.label, item.value, item.text])
+  ].join('\n');
+  const ids = [];
+  for (const match of text.matchAll(/data-goto=\\?["']([^"']+)\\?["']/g)) ids.push(match[1]);
+  return ids;
+}
+
+function getLinkedRecipeRefs(recipe, recipesById = {}) {
+  const refs = [];
+  const explicit = Array.isArray(recipe?.linkedRecipes) ? recipe.linkedRecipes : [];
+  explicit.forEach(item => {
+    if (typeof item === 'string') refs.push({ id: item });
+    else if (item?.id) refs.push({ id: item.id, role: item.role || item.label || '' });
+  });
+  extractRecipeLinkIds(recipe).forEach(id => refs.push({ id }));
+
+  const seen = new Set();
+  return refs
+    .filter(ref => {
+      if (!ref.id || ref.id === recipe?.id || seen.has(ref.id) || !recipesById[ref.id]) return false;
+      seen.add(ref.id);
+      return true;
+    })
+    .map(ref => {
+      const linked = recipesById[ref.id];
+      const category = primaryCategory(linked);
+      return {
+        id: ref.id,
+        role: ref.role || (category === 'Base' ? 'Base' : category === 'Sauces' ? 'Sauce' : 'Recette liée'),
+        recipe: linked
+      };
+    });
+}
+
+function getRecipeSearchFacets(recipe) {
+  const difficulty = normalizeText(recipe?.difficulty || '');
+  const labels = [
+    ...(recipe?.categories || []),
+    ...(recipe?.seasons || []),
+    primaryCategory(recipe)
+  ];
+  if (difficulty === 'easy') labels.push('facile', 'simple', 'débutant');
+  if (difficulty === 'medium') labels.push('moyen', 'intermédiaire', 'technique');
+  if (difficulty === 'hard') labels.push('difficile', 'avancé', 'technique');
+  if (isMasterRecipe(recipe)) labels.push('collection', 'catégorie', 'choisir une recette');
+  if ((recipe?.tags || []).some(tag => /friture|beignet|tempura/i.test(tag))) labels.push('friture', 'croustillant');
+  return uniq(labels.map(stripHtml).filter(Boolean));
+}
+
+function truncateText(value, max = 156) {
+  const text = stripHtml(value);
+  if (text.length <= max) return text;
+  return `${text.slice(0, max - 1).trimEnd()}…`;
+}
+
+function recipeDescription(recipe, recipesById = {}) {
+  if (!recipe?.title) return 'Livre de cuisine Cook Note : recettes, ingrédients, étapes et astuces.';
+  const category = primaryCategory(recipe).toLowerCase();
+  const yieldText = recipe.yield ? ` pour ${recipe.yield}` : '';
+  const ingredientNames = (recipe.ingredients || [])
+    .flatMap(group => group.items || [])
+    .map(item => stripHtml(item).replace(/^\d+(?:[.,]\d+)?(?:\s*(?:g|kg|ml|cl|l))?\s*/i, '').trim())
+    .filter(Boolean)
+    .slice(0, 3);
+  const linked = getLinkedRecipeRefs(recipe, recipesById).slice(0, 2).map(item => item.recipe.title);
+  const tail = linked.length ? ` Liens utiles : ${linked.join(', ')}.` : '';
+  const ingredients = ingredientNames.length ? ` Avec ${ingredientNames.join(', ')}.` : '';
+  return truncateText(`${recipe.title} sur Cook Note : recette ${category}${yieldText}, avec ingrédients, étapes et notes pratiques.${ingredients}${tail}`);
+}
+
 function getPathRecipe() {
   const match = window.location.pathname.match(/^\/recette\/([^/?#]+)\/?$/);
   return match ? decodeURIComponent(match[1]) : null;
@@ -847,31 +1018,56 @@ function absoluteAssetUrl(url) {
   }
 }
 
-function recipeJsonLd(recipe) {
+function recipeJsonLd(recipe, recipesById = {}) {
   if (!recipe || isMasterRecipe(recipe)) return null;
-  return {
-    '@context': 'https://schema.org',
+  const url = `${window.location.origin}${getRecipeUrl(recipe.id)}`;
+  const linkedRecipes = getLinkedRecipeRefs(recipe, recipesById);
+  const recipeNode = {
     '@type': 'Recipe',
+    '@id': `${url}#recipe`,
     name: recipe.title,
-    image: absoluteAssetUrl(recipe.image),
+    description: recipeDescription(recipe, recipesById),
+    url,
+    mainEntityOfPage: url,
+    image: recipe.image ? [absoluteAssetUrl(recipe.image)] : undefined,
+    author: { '@type': 'Organization', name: 'Cook Note' },
     recipeYield: recipe.yield || undefined,
     recipeCategory: (recipe.categories || []).join(', ') || undefined,
     keywords: (recipe.tags || recipe.tagsExtracted || []).join(', ') || undefined,
-    recipeIngredient: (recipe.ingredients || []).flatMap(group => group.items || []),
-    recipeInstructions: (recipe.steps || []).map(step => ({ '@type': 'HowToStep', text: step }))
+    recipeIngredient: (recipe.ingredients || []).flatMap(group => group.items || []).map(stripHtml),
+    recipeInstructions: (recipe.steps || []).map(step => ({ '@type': 'HowToStep', text: stripHtml(step) })),
+    mentions: linkedRecipes.map(item => ({
+      '@type': 'Recipe',
+      name: item.recipe.title,
+      url: `${window.location.origin}${getRecipeUrl(item.id)}`
+    }))
+  };
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      recipeNode,
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${url}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Cook Note', item: getHomeUrl() },
+          { '@type': 'ListItem', position: 2, name: primaryCategory(recipe), item: getHomeUrl() },
+          { '@type': 'ListItem', position: 3, name: recipe.title, item: url }
+        ]
+      }
+    ]
   };
 }
 
-function updateDocumentMeta(recipe) {
+function updateDocumentMeta(recipe, recipesById = {}) {
   const title = recipe?.title ? `${recipe.title} - Cook Note` : 'Cook Note';
-  const description = recipe?.title
-    ? `${recipe.title} sur Cook Note : ingrédients, étapes, portions et astuces.`
-    : 'Livre de cuisine de MaruChiwa';
+  const description = recipe?.title ? recipeDescription(recipe, recipesById) : 'Livre de cuisine Cook Note : recettes, ingrédients, étapes et astuces.';
   const canonicalUrl = recipe?.id ? `${window.location.origin}${getRecipeUrl(recipe.id)}` : getHomeUrl();
   document.title = title;
   setMetaContent('meta[name="description"]', description);
   setMetaContent('meta[property="og:title"]', title);
   setMetaContent('meta[property="og:description"]', description);
+  setMetaContent('meta[property="og:type"]', recipe && !isMasterRecipe(recipe) ? 'article' : 'website');
   setMetaContent('meta[property="og:url"]', canonicalUrl);
   setMetaContent('meta[name="twitter:title"]', title);
   setMetaContent('meta[name="twitter:description"]', description);
@@ -889,7 +1085,7 @@ function updateDocumentMeta(recipe) {
     setMetaContent('meta[name="twitter:image"]', image);
   }
   document.getElementById('recipe-jsonld')?.remove();
-  const jsonLd = recipeJsonLd(recipe);
+  const jsonLd = recipeJsonLd(recipe, recipesById);
   if (jsonLd) {
     const script = document.createElement('script');
     script.id = 'recipe-jsonld';
@@ -1111,7 +1307,7 @@ function SharePanel({ open, onClose, recipe }) {
   const [qrReady, setQrReady] = useState(false);
   const canvasRef = useRef(null);
   const url = `${window.location.origin}${window.location.pathname}#recipe=${encodeURIComponent(recipe.id)}`;
-  const description = 'Une recette du livre de cuisine de MaruChiwa : ingredients, etapes et astuces.';
+  const description = recipeDescription(recipe);
   const text = `${recipe.title} - Cook Note\n${description}\n${url}`;
   const imageStyle = recipe.image ? { backgroundImage: `url("${recipe.image}")` } : {};
 
@@ -1174,6 +1370,17 @@ function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resul
   if (!open) return null;
   const hasQuery = Boolean(query.trim());
   const visibleResults = hasQuery ? results.slice(0, 12) : [];
+  const suggestions = [
+    { label: 'Citron', query: 'citron' },
+    { label: 'Avec œufs', query: 'oeuf' },
+    { label: 'Apéro', query: 'apéro' },
+    { label: 'Sauce', query: 'sauce' },
+    { label: 'Base', query: 'base' },
+    { label: 'Facile', query: 'facile' },
+    { label: 'Technique', query: 'technique' },
+    { label: 'Été', query: 'été' },
+    { label: 'Friture', query: 'friture' }
+  ];
   return h('div', { className: 'modal-backdrop search-backdrop', onMouseDown: onClose },
     h('section', {
       className: 'modal-panel search-modal',
@@ -1202,14 +1409,14 @@ function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resul
               onClose();
             }
           },
-          placeholder: 'Citron, mayonnaise, chocolat, sauce...'
+          placeholder: 'Ingrédient, usage, saison, difficulté...'
         })
       ),
       hasQuery
         ? h('div', { className: 'search-result-count' }, `${results.length} résultat${results.length > 1 ? 's' : ''} pour "${query}"`)
         : h('div', { className: 'search-suggestions' },
-          ['citron', 'chocolat', 'mayonnaise', 'pancakes', 'sauce', 'base'].map(item =>
-            h('button', { key: item, type: 'button', onClick: () => setQuery(item) }, item)
+          suggestions.map(item =>
+            h('button', { key: item.query, type: 'button', onClick: () => setQuery(item.query) }, item.label)
           )
         ),
       hasQuery && (visibleResults.length
@@ -1381,6 +1588,50 @@ function VariantPickerPanel({ parent, variantRefs, recipesById, selectedVariantI
   );
 }
 
+function RecipeBreadcrumb({ recipe, selectedRecipe, showVariants, goHome }) {
+  const title = showVariants && selectedRecipe?.id !== recipe.id ? selectedRecipe.title : recipe.title;
+  return h('nav', { className: 'recipe-breadcrumb', 'aria-label': 'Fil d’Ariane' },
+    h('button', { type: 'button', onClick: goHome }, 'Cook Note'),
+    h('span', null, '/'),
+    h('span', null, primaryCategory(selectedRecipe || recipe)),
+    h('span', null, '/'),
+    h('strong', null, title)
+  );
+}
+
+function LinkedRecipesBlock({ links, openRecipe }) {
+  if (!links.length) return null;
+  return h('div', { className: 'linked-recipes-block' },
+    h('p', { className: 'eyebrow' }, 'Recettes liées'),
+    h('div', { className: 'linked-recipe-list' },
+      links.map(item => h('button', {
+        key: item.id,
+        type: 'button',
+        className: 'linked-recipe-item',
+        onClick: () => openRecipe(item.id)
+      },
+        h('span', { className: 'linked-recipe-thumb', style: item.recipe.image ? { backgroundImage: `url("${item.recipe.image}")` } : {} }),
+        h('span', { className: 'linked-recipe-copy' },
+          h('small', null, item.role),
+          h('strong', null, item.recipe.title)
+        )
+      ))
+    )
+  );
+}
+
+function PracticalSectionsBlock({ sections }) {
+  if (!sections.length) return null;
+  return h('div', { className: 'practical-block' },
+    h('p', { className: 'eyebrow' }, 'Repères'),
+    h('h2', null, 'Infos pratiques'),
+    sections.map(section => h('section', { key: section.key, className: 'practical-section' },
+      h('h3', null, section.title),
+      h('ul', null, section.items.map(item => h('li', { key: item }, item)))
+    ))
+  );
+}
+
 function RecipeView({
   recipe,
   isFavorite,
@@ -1441,6 +1692,10 @@ function RecipeView({
   const remainingMs = timerEnd ? timerEnd - now : 0;
   const recipeAllergens = hasSelectedVariant ? getRecipeAllergens(selectedRecipe) : [];
   const averageWeights = hasSelectedVariant ? getRecipeAverageWeights(selectedRecipe) : [];
+  const linkedRecipes = hasSelectedVariant ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
+  const practicalSections = hasSelectedVariant ? getRecipePracticalSections(selectedRecipe) : [];
+  const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + (selectedRecipe.notes || []).length;
+  const selectedGroupLabel = selectedInlineVariantGroup?.group?.group || '';
 
   useEffect(() => {
     setFactor(1);
@@ -1521,6 +1776,7 @@ function RecipeView({
       h('div', { className: 'detail-hero-copy' },
         h('button', { type: 'button', className: 'back-link', onClick: goHome }, 'Retour aux recettes'),
         heroUsesHomeImage && h('img', { className: 'detail-hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note' }),
+        h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome }),
         h('p', { className: 'eyebrow' }, heroEyebrow),
         h('h1', null, recipe.title),
         h('div', { className: 'detail-meta' },
@@ -1557,20 +1813,32 @@ function RecipeView({
     }),
     hasSelectedVariant && h('div', { className: 'recipe-tabs', 'aria-label': 'Sections de la recette' },
       [
-        ['ingredients', 'Ingrédients'],
-        ['steps', 'Étapes'],
-        ['notes', 'Notes']
-      ].map(([key, label]) => h('button', {
-        key,
+        { key: 'ingredients', label: 'Ingrédients', count: countIngredients(selectedRecipe) },
+        { key: 'steps', label: 'Étapes', count: stepTotal || getRecipeSteps(selectedRecipe).length },
+        { key: 'notes', label: 'Avant', count: notesCount }
+      ].map(tab => h('button', {
+        key: tab.key,
         type: 'button',
-        className: mobileDetailTab === key ? 'active' : '',
-        onClick: () => setMobileDetailTab(key)
-      }, label))
+        className: mobileDetailTab === tab.key ? 'active' : '',
+        'aria-selected': mobileDetailTab === tab.key,
+        onClick: () => setMobileDetailTab(tab.key)
+      }, h('span', null, tab.label), h('small', null, tab.count)))
+    ),
+    hasSelectedVariant && needsInlineVariantSelection && h('div', { className: 'mobile-recipe-guidance' },
+      canShowSteps
+        ? `Bloc actif : ${selectedGroupLabel}. Les étapes affichées suivent ce choix.`
+        : 'Ouvre un bloc d’ingrédients pour afficher les étapes correspondantes.'
     ),
     hasSelectedVariant && h('div', { className: 'recipe-detail-grid' },
       h('section', { className: mobileDetailTab === 'ingredients' ? 'recipe-panel ingredients-panel active-tab-panel' : 'recipe-panel ingredients-panel' },
         h('div', { className: 'panel-heading' },
           h('div', null, h('p', { className: 'eyebrow' }, 'Mise en place'), h('h2', null, 'Ingrédients'))
+        ),
+        needsInlineVariantSelection && h('div', { className: 'inline-choice-card' },
+          h('strong', null, 'Choix de préparation'),
+          h('p', null, canShowSteps
+            ? `Tu suis actuellement le bloc "${selectedGroupLabel}". Ouvre un autre bloc si tu changes de préparation.`
+            : 'Ouvre un bloc ci-dessous pour afficher les ingrédients détaillés et les étapes correspondantes.')
         ),
         (selectedRecipe.ingredients || []).map((group, groupIndex) => {
           const groupKey = `${detailKey}:group:${groupIndex}`;
@@ -1604,6 +1872,7 @@ function RecipeView({
       hasSelectedVariant && h('section', { className: mobileDetailTab === 'steps' ? 'recipe-panel steps-panel active-tab-panel' : 'recipe-panel steps-panel' },
         h('div', { className: 'panel-heading' },
           h('div', null, h('p', { className: 'eyebrow' }, 'Exécution'), h('h2', null, 'Étapes')),
+          needsInlineVariantSelection && selectedGroupLabel && h('span', { className: 'progress-label' }, selectedGroupLabel)
         ),
         canShowSteps && h('div', { className: 'progress-track' }, h('span', { style: { width: `${progress}%` } })),
         canShowSteps && h('div', { className: 'before-start-card' },
@@ -1658,6 +1927,8 @@ function RecipeView({
             )
           ))
         ),
+        h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
+        h(PracticalSectionsBlock, { sections: practicalSections }),
         h('p', { className: 'eyebrow' }, 'Notes'),
         h('h2', null, 'Astuces et liens'),
         (selectedRecipe.notes || []).length
@@ -1728,8 +1999,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    updateDocumentMeta(activeSeoRecipe);
-  }, [activeSeoRecipe?.id]);
+    updateDocumentMeta(activeSeoRecipe, recipesById);
+  }, [activeSeoRecipe?.id, recipesById]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -1779,11 +2050,11 @@ function App() {
     const map = new Map();
     if (!needle) return map;
     searchableRecipes.forEach(recipe => {
-      const meta = scoreRecipeSearch(recipe, needle);
+      const meta = scoreRecipeSearch(recipe, needle, recipesById);
       if (meta.score > 0) map.set(recipe.id, meta);
     });
     return map;
-  }, [query, searchableRecipes]);
+  }, [query, searchableRecipes, recipesById]);
 
   const filteredRecipes = useMemo(() => {
     let list = catalogRecipes.filter(recipe => {
