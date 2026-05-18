@@ -410,6 +410,16 @@ const TECHNIQUE_GUIDES = [
     aliases: ['tamiser', 'tamisé', 'tamisée', 'passer au tamis']
   },
   {
+    id: 'macaroner',
+    title: 'Macaroner',
+    label: 'Pâtisserie',
+    description: 'Travailler l’appareil à macarons pour le détendre juste assez et obtenir un ruban souple.',
+    steps: ['Incorpore la meringue aux poudres.', 'Écrase légèrement la masse contre la paroi.', 'Ramène la pâte au centre.', 'Arrête dès que le ruban retombe souplement sans devenir liquide.'],
+    tip: 'Un appareil trop peu macaronné fait des coques épaisses ; trop macaronné, il s’étale et perd son volume.',
+    query: 'macaron meringue poudre amande',
+    aliases: ['macaroner', 'macaronner', 'macaronnage', 'macaronné', 'macaronnée']
+  },
+  {
     id: 'bain-marie',
     title: 'Cuire au bain-marie',
     label: 'Cuisson douce',
@@ -458,6 +468,16 @@ const TECHNIQUE_GUIDES = [
     tip: 'Un enrobage régulier donne une cuisson et un assaisonnement plus homogènes.',
     query: 'enrober huile tempura assaisonnement',
     aliases: ['enrober', 'enrobé', 'enrobée', 'pour les enrober']
+  },
+  {
+    id: 'lisser',
+    title: 'Lisser',
+    label: 'Finition',
+    description: 'Uniformiser une crème, une pâte, une sauce ou une surface pour obtenir une texture nette et régulière.',
+    steps: ['Travaille avec une spatule, un fouet ou une palette adaptée.', 'Écrase les petits amas si besoin.', 'Racle les bords du récipient.', 'Arrête dès que la surface ou la texture est régulière.'],
+    tip: 'Lisser ne veut pas dire trop mélanger : dès que c’est homogène, on s’arrête.',
+    query: 'lisser creme surface glacage',
+    aliases: ['lisser', 'lissé', 'lissée', 'lisser légèrement', 'lisser la surface']
   },
   {
     id: 'napper',
@@ -519,6 +539,13 @@ function readStoredList(key, legacyKeys) {
     if (Array.isArray(value)) return value;
   }
   return [];
+}
+
+function scrollElementToViewportCenter(element, behavior = 'smooth') {
+  if (!element) return;
+  const rect = element.getBoundingClientRect();
+  const top = Math.max(0, window.scrollY + rect.top + (rect.height / 2) - (window.innerHeight / 2));
+  window.scrollTo({ top, behavior });
 }
 
 function normalizeText(value) {
@@ -722,6 +749,8 @@ const SPOON_WEIGHT_RULES = [
   { label: 'Herbes séchées', tablespoon: 3, teaspoon: 1, pattern: /\b(thym|origan|herbes?|persil sec|basilic sec)\b/ }
 ];
 
+const SPOON_WEIGHT_NOTE = 'Repère indicatif : cuillères rases pour les poudres et pâtes, liquides remplis à niveau.';
+
 function formatGramRange(first, second = null) {
   if (second !== null && Number.isFinite(second) && Math.abs(second - first) > 0.01) {
     return `${formatNumber(first)} à ${formatNumber(second)}g`;
@@ -788,6 +817,12 @@ function getRecipeAverageWeights(recipe) {
     });
   });
   return Array.from(found, ([label, value]) => ({ label, value }));
+}
+
+function recipeHasSpoonMeasures(recipe) {
+  return (recipe?.ingredients || []).some(group =>
+    (group.items || []).some(item => Boolean(getSpoonMeasureInfo(item)))
+  );
 }
 
 function getRecipeSteps(recipe) {
@@ -1585,6 +1620,7 @@ function getRecipePracticalSections(recipe) {
     .map(item => item.value || item.text);
 
   add('equipment', 'Matériel nécessaire', getRecipeEquipment(recipe));
+  add('measures', 'Repère indicatif', recipeHasSpoonMeasures(recipe) ? [SPOON_WEIGHT_NOTE] : []);
   add('tips', 'À savoir', [
     ...asTextList(recipe?.tips || practical.tips),
     ...tipNotes
@@ -2285,7 +2321,6 @@ function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
   const [highlightedTechniqueId, setHighlightedTechniqueId] = useState('');
   useEffect(() => {
     let frameId = 0;
-    let clearTimer = 0;
 
     function hashId() {
       try {
@@ -2295,32 +2330,28 @@ function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
       }
     }
 
-    function scrollToTechnique(attempt = 0) {
-      const id = hashId();
+    function scrollToTechnique(attempt = 0, forcedId = '') {
+      const id = forcedId || hashId();
       if (!id) return;
       const target = document.getElementById(`technique-${id}`);
       if (!target) {
-        if (attempt < 20) frameId = requestAnimationFrame(() => scrollToTechnique(attempt + 1));
+        if (attempt < 20) frameId = requestAnimationFrame(() => scrollToTechnique(attempt + 1, forcedId));
         return;
       }
-      const stickyOffset = window.matchMedia('(max-width: 700px)').matches ? 118 : 82;
-      const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - stickyOffset);
-      window.scrollTo({ top, behavior: 'smooth' });
+      scrollElementToViewportCenter(target);
       target.focus({ preventScroll: true });
       setHighlightedTechniqueId(id);
-      window.clearTimeout(clearTimer);
-      clearTimer = window.setTimeout(() => {
-        setHighlightedTechniqueId(current => current === id ? '' : current);
-      }, 3000);
     }
 
     const handleHashChange = () => scrollToTechnique();
+    const handleTechniqueTarget = event => scrollToTechnique(0, event.detail?.id || '');
     scrollToTechnique();
     window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('cook-note:technique-target', handleTechniqueTarget);
     return () => {
       cancelAnimationFrame(frameId);
-      window.clearTimeout(clearTimer);
       window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('cook-note:technique-target', handleTechniqueTarget);
     };
   }, []);
   return h('main', { className: 'techniques-view' },
@@ -3177,7 +3208,6 @@ function RecipeView({
         ),
         averageWeights.length > 0 && h('div', { className: 'average-weight-card' },
           h('p', { className: 'eyebrow' }, 'Poids moyens'),
-          h('p', { className: 'average-weight-note' }, 'Repère indicatif : cuillères rases pour les poudres et pâtes, liquides remplis à niveau.'),
           h('dl', null, averageWeights.map(item =>
             h(React.Fragment, { key: `${detailKey}:average:${item.label}` },
               h('dt', null, item.label),
@@ -3569,7 +3599,7 @@ function App() {
     setOnlyFavorites(false);
     history.pushState('', document.title, `/techniques#${encodeURIComponent(id)}`);
     setTimeout(() => {
-      document.getElementById(`technique-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.dispatchEvent(new CustomEvent('cook-note:technique-target', { detail: { id } }));
     }, 0);
   }
 

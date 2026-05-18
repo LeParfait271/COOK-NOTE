@@ -17,14 +17,15 @@ function expect(label, condition) {
 expect('Recherche ingredients absente.', files.app.includes('ingredientQuery') && files.app.includes('scoreIngredientSearch'));
 expect('Filtres avances encore presents.', !files.app.includes('QUICK_FILTERS') && !files.app.includes('QuickFilterBar') && !files.style.includes('quick-filter-row'));
 expect('Page techniques absente.', files.app.includes('TECHNIQUE_GUIDES') && files.app.includes('TechniquesView'));
-expect('Techniques de cuisinier incompletes.', files.app.includes('Émincer') && files.app.includes('Monder des tomates') && files.app.includes('Abaisser une pâte') && files.app.includes('Foncer un moule') && files.app.includes('Étuver'));
+expect('Techniques de cuisinier incompletes.', files.app.includes('Émincer') && files.app.includes('Monder des tomates') && files.app.includes('Abaisser une pâte') && files.app.includes('Foncer un moule') && files.app.includes('Étuver') && files.app.includes('Macaroner') && files.app.includes('Lisser'));
 expect('Liens vers techniques absents.', files.app.includes('buildTechniqueTargets') && files.app.includes('openTechnique') && files.style.includes('inline-technique-link'));
 expect('Liens automatiques sans limite de mot.', files.app.includes('findLinkedTextMatch') && files.app.includes('isLinkedTextBoundary'));
-expect('Surbrillance technique absente.', files.app.includes('highlightedTechniqueId') && files.style.includes('techniquePulse'));
+expect('Surbrillance technique absente.', files.app.includes('highlightedTechniqueId') && files.style.includes('techniquePulse') && files.style.includes('techniquePulse 1s ease-in-out 5'));
+expect('Centrage des liens techniques absent.', files.app.includes('scrollElementToViewportCenter') && files.app.includes('cook-note:technique-target'));
 expect('Route /techniques absente du serveur.', files.server.includes("url.pathname === '/techniques'"));
 expect('Export recette propre absent.', files.app.includes('recipeExportText') && files.app.includes('Copier fiche'));
 expect('Resume recette premium absent.', files.app.includes('recipe-summary-panel') && files.style.includes('.recipe-summary-panel'));
-expect('Precision cuilleres poids moyens absente.', files.app.includes('spoonPrecisionLabel') && files.app.includes('cuillères rases') && files.style.includes('.average-weight-note'));
+expect('Precision cuilleres mal rangee.', files.app.includes('spoonPrecisionLabel') && files.app.includes('SPOON_WEIGHT_NOTE') && files.app.includes("add('measures', 'Repère indicatif'") && !files.style.includes('.average-weight-note'));
 expect('CSS mobile nav incoherent.', files.style.includes('grid-template-columns: repeat(5, 1fr)'));
 expect('CSS print propre absent.', files.style.includes('@media print') && files.style.includes('.recipe-summary-panel'));
 expect('Ancienne section dashboard encore presente.', !files.app.includes('function HomeDashboard') && !files.style.includes('.home-dashboard'));
