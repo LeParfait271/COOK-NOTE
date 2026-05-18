@@ -1442,6 +1442,24 @@ function buildTechniqueTargets() {
   return targets.sort((a, b) => b.normalized.length - a.normalized.length);
 }
 
+function isLinkedTextBoundary(char) {
+  return !char || !/[a-z0-9]/.test(char);
+}
+
+function findLinkedTextMatch(normalizedText, targets) {
+  for (const target of targets) {
+    let index = normalizedText.indexOf(target.normalized);
+    while (index !== -1) {
+      const end = index + target.normalized.length;
+      if (isLinkedTextBoundary(normalizedText[index - 1]) && isLinkedTextBoundary(normalizedText[end])) {
+        return { target, index };
+      }
+      index = normalizedText.indexOf(target.normalized, index + 1);
+    }
+  }
+  return null;
+}
+
 function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], openTechnique = null) {
   const value = String(text || '');
   const explicitLinkPattern = /<span\s+data-goto=(["'])([^"']+)\1[^>]*>(.*?)<\/span>/i;
@@ -1464,14 +1482,14 @@ function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], open
     );
   }
   const normalized = normalizeText(value);
-  const target = targets.find(item => normalized.includes(item.normalized));
-  const techniqueTarget = openTechnique ? techniqueTargets.find(item => normalized.includes(item.normalized)) : null;
-  if (!target && !techniqueTarget) return value;
-  const targetIndex = target ? normalized.indexOf(target.normalized) : Number.POSITIVE_INFINITY;
-  const techniqueIndex = techniqueTarget ? normalized.indexOf(techniqueTarget.normalized) : Number.POSITIVE_INFINITY;
-  const isTechnique = Boolean(techniqueTarget) && techniqueIndex < targetIndex;
-  const chosen = isTechnique ? techniqueTarget : target;
-  const index = isTechnique ? techniqueIndex : targetIndex;
+  const targetMatch = findLinkedTextMatch(normalized, targets);
+  const techniqueMatch = openTechnique ? findLinkedTextMatch(normalized, techniqueTargets) : null;
+  if (!targetMatch && !techniqueMatch) return value;
+  const targetIndex = targetMatch ? targetMatch.index : Number.POSITIVE_INFINITY;
+  const techniqueIndex = techniqueMatch ? techniqueMatch.index : Number.POSITIVE_INFINITY;
+  const isTechnique = Boolean(techniqueMatch) && techniqueIndex < targetIndex;
+  const chosen = isTechnique ? techniqueMatch.target : targetMatch.target;
+  const index = isTechnique ? techniqueMatch.index : targetIndex;
   const label = value.slice(index, index + chosen.term.length) || chosen.term;
   return h(React.Fragment, null,
     renderLinkedText(value.slice(0, index), targets, openRecipe, techniqueTargets, openTechnique),

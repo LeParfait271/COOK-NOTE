@@ -19,6 +19,7 @@ expect('Filtres avances encore presents.', !files.app.includes('QUICK_FILTERS') 
 expect('Page techniques absente.', files.app.includes('TECHNIQUE_GUIDES') && files.app.includes('TechniquesView'));
 expect('Techniques de cuisinier incompletes.', files.app.includes('Émincer') && files.app.includes('Monder des tomates') && files.app.includes('Abaisser une pâte') && files.app.includes('Foncer un moule') && files.app.includes('Étuver'));
 expect('Liens vers techniques absents.', files.app.includes('buildTechniqueTargets') && files.app.includes('openTechnique') && files.style.includes('inline-technique-link'));
+expect('Liens automatiques sans limite de mot.', files.app.includes('findLinkedTextMatch') && files.app.includes('isLinkedTextBoundary'));
 expect('Surbrillance technique absente.', files.app.includes('highlightedTechniqueId') && files.style.includes('techniquePulse'));
 expect('Route /techniques absente du serveur.', files.server.includes("url.pathname === '/techniques'"));
 expect('Export recette propre absent.', files.app.includes('recipeExportText') && files.app.includes('Copier fiche'));
