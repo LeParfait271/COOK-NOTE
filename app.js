@@ -2259,17 +2259,6 @@ function HomeView(props) {
 
 function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
   const [highlightedTechniqueId, setHighlightedTechniqueId] = useState('');
-  const guideCards = TECHNIQUE_GUIDES.map(guide => ({
-    ...guide,
-    examples: guide.query
-      ? recipes
-        .map(recipe => ({ recipe, meta: scoreRecipeSearch(recipe, guide.query, recipesById) }))
-        .filter(item => item.meta.score > 0)
-        .sort((a, b) => b.meta.score - a.meta.score)
-        .map(item => item.recipe)
-      .slice(0, 4)
-      : []
-  }));
   useEffect(() => {
     let frameId = 0;
     let clearTimer = 0;
@@ -2322,7 +2311,7 @@ function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
         h(Button, { variant: 'subtle', onClick: goHome }, 'Retour aux recettes')
       ),
       h('div', { className: 'technique-grid' },
-        guideCards.map(guide => h('article', {
+        TECHNIQUE_GUIDES.map(guide => h('article', {
           key: guide.id,
           id: `technique-${guide.id}`,
           tabIndex: -1,
@@ -2337,15 +2326,7 @@ function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
           h('ol', { className: 'technique-steps' },
             (guide.steps || []).map((step, index) => h('li', { key: `${guide.id}:step:${index}` }, step))
           ),
-          guide.tip && h('p', { className: 'technique-tip' }, guide.tip),
-          guide.examples.length > 0 && h('div', { className: 'technique-examples' },
-            h('span', null, 'À pratiquer avec'),
-            guide.examples.map(recipe => h('button', {
-              key: recipe.id,
-              type: 'button',
-              onClick: () => openRecipe(recipe.id)
-            }, recipe.title))
-          )
+          guide.tip && h('p', { className: 'technique-tip' }, guide.tip)
         ))
       )
     )

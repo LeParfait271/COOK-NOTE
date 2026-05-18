@@ -828,30 +828,6 @@ a {
   font-weight: 750;
 }
 
-.technique-examples {
-  display: grid;
-  gap: 7px;
-  margin-top: auto;
-}
-
-.technique-examples span {
-  color: var(--accent);
-  font-size: 12px;
-  font-weight: 950;
-  text-transform: uppercase;
-}
-
-.technique-examples button {
-  min-height: 30px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .07);
-  color: var(--text);
-  padding: 0 9px;
-  font-size: 12px;
-  font-weight: 850;
-}
-
 .season-block-head span {
   color: var(--muted);
   font-weight: 850;
