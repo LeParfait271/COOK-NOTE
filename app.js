@@ -2984,10 +2984,6 @@ function RecipeView({
     onVariantChange?.(recipe.id, variantId);
   }
 
-  function scrollToRecipePicker() {
-    document.getElementById('recipe-picker')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
   function toggleIngredientGroup(groupKey) {
     setOpenIngredientGroups(prev => {
       const isOpening = !prev[groupKey];
@@ -3038,10 +3034,7 @@ function RecipeView({
         h('h1', null, recipe.title),
         h('div', { className: 'detail-meta' },
           showVariants
-            ? [
-              h('span', { key: 'recipes' }, `${leafRecipeCount} recette${leafRecipeCount > 1 ? 's' : ''}`),
-              h('button', { key: 'choice', type: 'button', className: 'meta-action', onClick: scrollToRecipePicker }, 'Choisir une recette')
-            ]
+            ? h('span', { key: 'recipes' }, `${leafRecipeCount} recette${leafRecipeCount > 1 ? 's' : ''}`)
             : [
               h('span', { key: 'difficulty' }, difficultyText(selectedRecipe)),
               h('span', { key: 'nutri', className: `nutri-score nutri-${getNutriScore(selectedRecipe).toLowerCase()}` }, `Nutri ${getNutriScore(selectedRecipe)}`),
