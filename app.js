@@ -300,6 +300,16 @@ const TECHNIQUE_GUIDES = [
     aliases: ['faire suer', 'suer', 'fait suer']
   },
   {
+    id: 'etuver',
+    title: 'Étuver',
+    label: 'Cuisson douce',
+    description: 'Cuire doucement à couvert avec très peu de liquide ou de matière grasse, souvent pour des légumes.',
+    steps: ['Coupe les aliments assez régulièrement.', 'Ajoute peu de matière grasse ou un fond de liquide.', 'Couvre pour garder la vapeur.', 'Cuis doucement sans chercher de coloration.'],
+    tip: 'Étuver attendrit et concentre le goût, mais peut ramollir un aliment qu’on voulait croustillant.',
+    query: 'légumes vapeur couvert',
+    aliases: ['étuver', 'etuver', 'étuvé', 'étuvée', 'étuvés', 'étuvées', 'étuvage', 'à l’étouffée', 'a l etouffee']
+  },
+  {
     id: 'faire-revenir',
     title: 'Faire revenir',
     label: 'Cuisson',
