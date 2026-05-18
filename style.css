@@ -1431,6 +1431,44 @@ a {
   transition: width var(--speed);
 }
 
+.before-start-card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--line));
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--accent) 9%, var(--surface-soft));
+  padding: 12px;
+}
+
+.before-start-card strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.before-start-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.before-start-card button {
+  flex: 0 0 auto;
+  min-height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .step-list {
   display: grid;
   gap: 10px;
@@ -1971,6 +2009,14 @@ a {
   .factor-control {
     justify-self: start;
     width: 100%;
+  }
+
+  .before-start-card {
+    display: grid;
+  }
+
+  .before-start-card button {
+    justify-self: start;
   }
 }
 

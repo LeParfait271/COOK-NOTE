@@ -5,7 +5,6 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-principale-fond-site.jpg';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const READ_BEFORE_STEP = 'Bien lire la section "Avant toute chose" à droite de la recette.';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
@@ -308,12 +307,7 @@ function getRecipeAverageWeights(recipe) {
 }
 
 function getRecipeSteps(recipe) {
-  const normalizedReadBefore = normalizeText(READ_BEFORE_STEP);
-  const steps = recipe?.steps || [];
-  return [
-    READ_BEFORE_STEP,
-    ...steps.filter(step => normalizeText(step) !== normalizedReadBefore)
-  ];
+  return recipe?.steps || [];
 }
 
 function getVariantRefs(recipe) {
@@ -1605,6 +1599,13 @@ function RecipeView({
           h('div', null, h('p', { className: 'eyebrow' }, 'Exécution'), h('h2', null, 'Étapes')),
         ),
         canShowSteps && h('div', { className: 'progress-track' }, h('span', { style: { width: `${progress}%` } })),
+        canShowSteps && h('div', { className: 'before-start-card' },
+          h('div', null,
+            h('strong', null, 'Avant de commencer'),
+            h('p', null, 'Consulte les notes, allergènes et points techniques avant de lancer la recette.')
+          ),
+          h('button', { type: 'button', onClick: () => setMobileDetailTab('notes') }, 'Voir les notes')
+        ),
         !canShowSteps
           ? h('div', { className: 'choice-empty-state variant-step-empty' },
             h('strong', null, 'Sélectionne une variante'),
