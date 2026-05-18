@@ -2248,6 +2248,7 @@ function HomeView(props) {
 }
 
 function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
+  const [highlightedTechniqueId, setHighlightedTechniqueId] = useState('');
   const guideCards = TECHNIQUE_GUIDES.map(guide => ({
     ...guide,
     examples: guide.query
@@ -2260,11 +2261,44 @@ function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
       : []
   }));
   useEffect(() => {
-    const id = window.location.hash.replace(/^#/, '');
-    if (!id) return;
-    requestAnimationFrame(() => {
-      document.getElementById(`technique-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    let frameId = 0;
+    let clearTimer = 0;
+
+    function hashId() {
+      try {
+        return decodeURIComponent(window.location.hash.replace(/^#/, ''));
+      } catch {
+        return window.location.hash.replace(/^#/, '');
+      }
+    }
+
+    function scrollToTechnique(attempt = 0) {
+      const id = hashId();
+      if (!id) return;
+      const target = document.getElementById(`technique-${id}`);
+      if (!target) {
+        if (attempt < 20) frameId = requestAnimationFrame(() => scrollToTechnique(attempt + 1));
+        return;
+      }
+      const stickyOffset = window.matchMedia('(max-width: 700px)').matches ? 118 : 82;
+      const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - stickyOffset);
+      window.scrollTo({ top, behavior: 'smooth' });
+      target.focus({ preventScroll: true });
+      setHighlightedTechniqueId(id);
+      window.clearTimeout(clearTimer);
+      clearTimer = window.setTimeout(() => {
+        setHighlightedTechniqueId(current => current === id ? '' : current);
+      }, 3000);
+    }
+
+    const handleHashChange = () => scrollToTechnique();
+    scrollToTechnique();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.clearTimeout(clearTimer);
+      window.removeEventListener('hashchange', handleHashChange);
+    };
   }, []);
   return h('main', { className: 'techniques-view' },
     h(Hero),
@@ -2278,7 +2312,12 @@ function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
         h(Button, { variant: 'subtle', onClick: goHome }, 'Retour aux recettes')
       ),
       h('div', { className: 'technique-grid' },
-        guideCards.map(guide => h('article', { key: guide.id, id: `technique-${guide.id}`, className: 'technique-card' },
+        guideCards.map(guide => h('article', {
+          key: guide.id,
+          id: `technique-${guide.id}`,
+          tabIndex: -1,
+          className: highlightedTechniqueId === guide.id ? 'technique-card technique-card-highlight' : 'technique-card'
+        },
           h('div', { className: 'technique-card-head' },
             h('span', null, h(Icon, { name: 'spark' })),
             h('small', null, guide.label)
