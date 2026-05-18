@@ -20,6 +20,7 @@ expect('Page techniques absente.', files.app.includes('TECHNIQUE_GUIDES') && fil
 expect('Techniques de cuisinier incompletes.', files.app.includes('Émincer') && files.app.includes('Monder des tomates') && files.app.includes('Abaisser une pâte') && files.app.includes('Foncer un moule') && files.app.includes('Étuver') && files.app.includes('Macaroner') && files.app.includes('Lisser'));
 expect('Liens vers techniques absents.', files.app.includes('buildTechniqueTargets') && files.app.includes('openTechnique') && files.style.includes('inline-technique-link'));
 expect('Liens automatiques sans limite de mot.', files.app.includes('findLinkedTextMatch') && files.app.includes('isLinkedTextBoundary'));
+expect('Anti-gaspillage oeufs absent.', files.app.includes('getEggPartUsage') && files.app.includes('getEggWasteRecipeRefs') && files.app.includes('Anti-gaspillage blancs d’œufs') && files.app.includes('Anti-gaspillage jaunes d’œufs'));
 expect('Surbrillance technique absente.', files.app.includes('highlightedTechniqueId') && files.style.includes('techniquePulse') && files.style.includes('techniquePulse 1s ease-in-out 5'));
 expect('Centrage des liens techniques absent.', files.app.includes('scrollElementToViewportCenter') && files.app.includes('targetTechniqueId') && files.app.includes('visualViewport') && files.app.includes('settleTimer') && !files.app.includes('cook-note:technique-target'));
 expect('Route /techniques absente du serveur.', files.server.includes("url.pathname === '/techniques'"));

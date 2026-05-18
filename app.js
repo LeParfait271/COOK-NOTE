@@ -554,8 +554,8 @@ function normalizeText(value) {
   return String(value || '')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
-    .replace(/œ/g, 'oe')
-    .replace(/æ/g, 'ae')
+    .replace(/[œŒ]/g, 'oe')
+    .replace(/[æÆ]/g, 'ae')
     .toLowerCase();
 }
 
@@ -1671,6 +1671,54 @@ function getDisplayNotes(recipe, practicalSections = []) {
   });
 }
 
+function getRecipeIngredientText(recipe) {
+  return normalizeText((recipe?.ingredients || [])
+    .flatMap(group => [group.group, ...(group.items || [])])
+    .map(stripHtml)
+    .join(' '));
+}
+
+function getEggPartUsage(recipe) {
+  const text = getRecipeIngredientText(recipe)
+    .replace(/\bjaunes?\s+(?:d['’ ]?|de\s+)?oeufs?\s+cuits?\b/g, '')
+    .replace(/\bblancs?\s+(?:d['’ ]?|de\s+)?oeufs?\s+cuits?\b/g, '');
+  return {
+    yolks: /\bjaunes?\s+(?:d['’ ]?|de\s+)?oeufs?\b/.test(text),
+    whites: /\bblancs?\s+(?:d['’ ]?|de\s+)?oeufs?\b/.test(text)
+  };
+}
+
+function getEggWasteRecipeRefs(recipe, recipesById = {}) {
+  const usage = getEggPartUsage(recipe);
+  if (usage.yolks === usage.whites) return [];
+
+  const wantedPart = usage.yolks ? 'whites' : 'yolks';
+  const role = wantedPart === 'whites' ? 'Anti-gaspillage blancs d’œufs' : 'Anti-gaspillage jaunes d’œufs';
+  const categoryPriority = wantedPart === 'whites'
+    ? { Desserts: 0, Base: 1, Apéro: 2, Sauces: 3 }
+    : { Sauces: 0, Base: 1, Apéro: 2, Desserts: 3 };
+
+  return Object.values(recipesById)
+    .filter(candidate => {
+      if (!candidate?.id || candidate.id === recipe?.id || isMasterRecipe(candidate)) return false;
+      const candidateUsage = getEggPartUsage(candidate);
+      return wantedPart === 'whites'
+        ? candidateUsage.whites && !candidateUsage.yolks
+        : candidateUsage.yolks && !candidateUsage.whites;
+    })
+    .sort((left, right) => {
+      const leftPriority = categoryPriority[primaryCategory(left)] ?? 9;
+      const rightPriority = categoryPriority[primaryCategory(right)] ?? 9;
+      if (leftPriority !== rightPriority) return leftPriority - rightPriority;
+      const leftDifficulty = Number.isFinite(left.difficultyScore) ? left.difficultyScore : 99;
+      const rightDifficulty = Number.isFinite(right.difficultyScore) ? right.difficultyScore : 99;
+      if (leftDifficulty !== rightDifficulty) return leftDifficulty - rightDifficulty;
+      return left.title.localeCompare(right.title, 'fr', { sensitivity: 'base' });
+    })
+    .slice(0, 6)
+    .map(candidate => ({ id: candidate.id, role }));
+}
+
 function extractRecipeLinkIds(recipe) {
   const text = [
     ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || []), group.note, ...(group.notes || [])]),
@@ -1691,6 +1739,7 @@ function getLinkedRecipeRefs(recipe, recipesById = {}) {
     else if (item?.id) refs.push({ id: item.id, role: item.role || item.label || '' });
   });
   extractRecipeLinkIds(recipe).forEach(id => refs.push({ id }));
+  getEggWasteRecipeRefs(recipe, recipesById).forEach(ref => refs.push(ref));
 
   const seen = new Set();
   return refs
