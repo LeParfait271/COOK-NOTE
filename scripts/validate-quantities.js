@@ -57,10 +57,10 @@ const shoppingText = helpers.shoppingListText([{
   id: 'test_quantites',
   title: 'Test quantites',
   yield: 'environ 100g',
-  ingredients: [{ group: 'Base', items: ['2g sel fin, 1g poivre'] }]
+  ingredients: [{ group: 'Base', items: ['2g sel fin, 1g poivre du moulin'] }]
 }], { test_quantites: 4 });
-if (!shoppingText.includes('8 g sel fin') || !shoppingText.includes('4 g poivre')) {
-  errors.push('Panier courses: les lignes composees "2g sel, 1g poivre" ne sont pas regroupees correctement.');
+if (!shoppingText.includes('8 g sel fin') || !shoppingText.includes('4 g poivre du moulin')) {
+  errors.push('Panier courses: les lignes composees "2g sel, 1g poivre du moulin" ne sont pas regroupees correctement.');
 }
 
 for (const [id, recipe] of Object.entries(recipes)) {

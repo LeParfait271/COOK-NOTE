@@ -63,6 +63,16 @@ function normalizeComparable(value) {
     .trim();
 }
 
+function checkPepperWording(id, value) {
+  if (id === 'sauce_aux_poivres') return;
+  const normalized = normalizeComparable(value);
+  if (!/\bpoivre\b|\bpoivrer\b/.test(normalized)) return;
+  const allowed = /\bpoivre du moulin\b|\bpoivre timut\b|\bpoivre de sichuan\b|\bgrains? de poivre\b/.test(normalized);
+  if (/\bpoivrer\b/.test(normalized) || !allowed) {
+    errors.push(`${id}: utiliser "poivre du moulin" pour l'assaisonnement (${value}).`);
+  }
+}
+
 if (!recipes || typeof recipes !== 'object') {
   errors.push('window.RECIPES est introuvable.');
 } else {
@@ -161,6 +171,7 @@ if (!recipes || typeof recipes !== 'object') {
       if (NON_METRIC_UNIT_RE.test(value)) {
         errors.push(`${id}: unite non metrique interdite (${value}).`);
       }
+      checkPepperWording(id, value);
     });
 
     let resolvedImagePath = null;

@@ -635,14 +635,14 @@ window.RECIPES = {
         "items": [
           "30g moutarde de Dijon",
           "45g vinaigre de vin rouge ou Xérès",
-          "2g sel fin, 1g poivre",
+          "2g sel fin, 1g poivre du moulin",
           "150g huile (80g neutre + 70g olive)",
           "5g miel (option)"
         ]
       }
     ],
     "steps": [
-      "Fouetter moutarde + vinaigre + sel/poivre (et miel).",
+      "Fouetter moutarde + vinaigre + sel / poivre du moulin (et miel).",
       "Verser les huiles en filet pour émulsionner.",
       "Goûter et ajuster."
     ],
@@ -680,7 +680,7 @@ window.RECIPES = {
           "45g huile d'olive",
           "45g huile neutre",
           "10g jus de citron",
-          "Sel, poivre"
+          "Sel, poivre du moulin"
         ]
       },
       {
@@ -731,7 +731,7 @@ window.RECIPES = {
         "items": [
           "250g ricotta de qualité",
           "30g crème 35 %",
-          "Sel fin, poivre"
+          "Sel fin, poivre du moulin"
         ]
       }
     ],
@@ -946,7 +946,7 @@ window.RECIPES = {
           "2g zeste",
           "2g origan",
           "2g ail râpé",
-          "Sel/poivre"
+          "Sel / poivre du moulin"
         ]
       },
       {
@@ -1001,7 +1001,7 @@ window.RECIPES = {
           "20g jus de citron",
           "5g moutarde",
           "herbes fraîches",
-          "Sel/poivre"
+          "Sel / poivre du moulin"
         ]
       },
       {
@@ -1078,7 +1078,7 @@ window.RECIPES = {
           "75g beurre doux mou",
           "55g œuf (1 œuf moyen)",
           "2g levure chimique",
-          "Sel, poivre"
+          "Sel, poivre du moulin"
         ]
       },
       {
@@ -1694,7 +1694,7 @@ window.RECIPES = {
       "Éplucher le poireau, les carottes et l'oignon. Laver le céleri et les herbes.",
       "Couper le poireau en quatre dans la longueur et l'attacher avec les branches de céleri et le laurier pour former le bouquet garni.",
       "Couper les carottes en quatre dans la longueur. Piquer l'oignon avec le clou de girofle.",
-      "Dans une cocotte, placer le bouquet garni, les carottes, l'oignon, le vin blanc et 50cl d'eau. Saler et poivrer.",
+      "Dans une cocotte, placer le bouquet garni, les carottes, l'oignon, le vin blanc et 50cl d'eau. Saler et ajouter du poivre du moulin.",
       "Porter à ébullition puis laisser cuire 20min à frémissement.",
       "Laisser refroidir, puis placer au frais avant utilisation."
     ],
@@ -2874,7 +2874,7 @@ window.RECIPES = {
           "100g lait",
           "150g emmental râpé",
           "2g sel",
-          "1g poivre"
+          "1g poivre du moulin"
         ]
       }
     ],
@@ -2930,7 +2930,7 @@ window.RECIPES = {
           "40g huile d’olive",
           "2 branches de thym frais",
           "3g sel",
-          "1g poivre"
+          "1g poivre du moulin"
         ]
       }
     ],
@@ -2938,7 +2938,7 @@ window.RECIPES = {
       "Préchauffer le four à 180°C.",
       "Éplucher les oignons et les couper en deux dans la largeur.",
       "Disposer côté coupé vers le haut sur plaque.",
-      "Arroser d’huile d’olive, répartir le miel, saler, poivrer et parsemer de thym.",
+      "Arroser d’huile d’olive, répartir le miel, saler, ajouter du poivre du moulin et parsemer de thym.",
       "Rôtir environ 30min jusqu’à coloration et caramélisation.",
       "Arroser avec le jus de cuisson pendant la cuisson."
     ],
@@ -2986,14 +2986,14 @@ window.RECIPES = {
           "2 branches de thym frais",
           "1 feuille de laurier",
           "5g sel fin",
-          "2g poivre noir",
+          "2g poivre du moulin",
           "15g vinaigre de cidre optionnel",
           "40g sirop d’érable optionnel pour ajuster"
         ]
       }
     ],
     "steps": [
-      "Saler et poivrer le porc.",
+      "Saler le porc et ajouter du poivre du moulin.",
       "Chauffer l’huile en cocotte et dorer la viande sur toutes ses faces.",
       "Ajouter les oignons et l’ail, faire revenir.",
       "Déglacer avec la bière en grattant les sucs.",
@@ -3328,7 +3328,7 @@ window.RECIPES = {
           "14g huile d’olive",
           "15g jus de citron",
           "2g sel fin",
-          "1g poivre noir"
+          "1g poivre du moulin"
         ]
       },
       {
@@ -3344,7 +3344,7 @@ window.RECIPES = {
       "Cuire les œufs durs, refroidir, écaler et trancher.",
       "Couper l’avocat en dés.",
       "Mélanger pousses d’épinards, avocat et œufs.",
-      "Assaisonner avec huile d’olive, jus de citron, sel et poivre.",
+      "Assaisonner avec huile d’olive, jus de citron, sel et poivre du moulin.",
       "Ajouter les options au moment du service si souhaité."
     ],
     "notes": [
@@ -3626,14 +3626,14 @@ window.RECIPES = {
           "1 gousse d’ail hachée",
           "20g huile d’olive",
           "2g sel fin",
-          "1g poivre"
+          "1g poivre du moulin"
         ]
       }
     ],
     "steps": [
       "Préchauffer le four à 180°C.",
       "Couper les tomates en deux, les saler légèrement et les poser dans un plat huilé.",
-      "Mélanger chapelure, parmesan, ail, persil, poivre et un filet d’huile d’olive.",
+      "Mélanger chapelure, parmesan, ail, persil, poivre du moulin et un filet d’huile d’olive.",
       "Répartir la persillade sur les tomates.",
       "Cuire 25 à 35min, jusqu’à obtenir des tomates fondantes et un dessus doré."
     ],
@@ -4254,7 +4254,7 @@ window.RECIPES = {
         "group": "Base commune",
         "items": [
           "Mayonnaise selon la texture souhaitée",
-          "Sel, poivre"
+          "Sel, poivre du moulin"
         ]
       },
       {
@@ -4275,7 +4275,7 @@ window.RECIPES = {
           "2 c. à café piment de Cayenne",
           "1 c. à café ail en poudre",
           "1 c. à café oignon en poudre",
-          "1/2 c. à café poivre noir"
+          "1/2 c. à café poivre du moulin"
         ]
       },
       {
@@ -4284,7 +4284,7 @@ window.RECIPES = {
           "120g mayonnaise",
           "1 c. à soupe moutarde de Dijon",
           "1 c. à café ail en poudre",
-          "1/4 c. à café poivre noir",
+          "1/4 c. à café poivre du moulin",
           "1 c. à soupe vinaigre de cidre",
           "2 c. à soupe miel"
         ]
@@ -4315,7 +4315,7 @@ window.RECIPES = {
     ],
     "steps": [
       "Mélanger les ingrédients de la variante choisie dans un bol.",
-      "Ajuster sel, poivre, acidité et piquant selon le burger ou les frites.",
+      "Ajuster sel, poivre du moulin, acidité et piquant selon le burger ou les frites.",
       "Réserver au frais 20min pour arrondir le goût."
     ],
     "notes": [
@@ -4708,7 +4708,7 @@ window.RECIPES = {
           "2 branches de thym frais",
           "1 petite branche de romarin",
           "Fleur de sel",
-          "Poivre noir fraîchement moulu"
+          "Poivre du moulin"
         ],
         "note": "Sortir la viande 45 minutes avant cuisson et bien sécher la surface pour obtenir une vraie coloration."
       },
@@ -5145,7 +5145,7 @@ window.RECIPES = {
           "1 c. à soupe de vinaigre de vin blanc ou jus de citron",
           "200ml d’huile neutre",
           "Sel",
-          "Poivre blanc"
+          "Poivre du moulin"
         ],
         "note": "Tous les ingrédients doivent idéalement être à la même température pour faciliter l’émulsion."
       },
@@ -5177,7 +5177,7 @@ window.RECIPES = {
       "Mélanger le jaune d’œuf, la moutarde, le vinaigre ou le citron et une pincée de sel.",
       "Verser l’huile en filet très fin en fouettant constamment.",
       "Continuer jusqu’à obtenir une texture ferme, brillante et nappante.",
-      "Rectifier le sel, le poivre blanc et l’acidité avec citron ou vinaigre.",
+      "Rectifier le sel, le poivre du moulin et l’acidité avec citron ou vinaigre.",
       "Pour les variantes, incorporer les garnitures dans la mayonnaise déjà montée."
     ],
     "notes": [
@@ -5230,7 +5230,7 @@ window.RECIPES = {
           "Carapaces et têtes des crevettes, si disponibles",
           "1 filet d'huile d'olive",
           "Sel",
-          "Poivre blanc"
+          "Poivre du moulin"
         ]
       },
       {
@@ -5280,11 +5280,11 @@ window.RECIPES = {
       "Verser le cognac ou l'armagnac, flamber prudemment ou laisser réduire quelques instants.",
       "Ajouter le vin blanc, réduire de moitié, puis verser le fumet de poisson ou le bouillon de crustacés.",
       "Laisser frémir 20 minutes, filtrer en pressant bien les carapaces, puis remettre le jus filtré dans la casserole.",
-      "Ajouter la crème liquide et le piment d'Espelette, puis réduire doucement jusqu'à obtenir une sauce nappante. Rectifier en sel et poivre blanc.",
+      "Ajouter la crème liquide et le piment d'Espelette, puis réduire doucement jusqu'à obtenir une sauce nappante. Rectifier en sel et poivre du moulin.",
       "Porter une grande casserole d'eau salée à frémissement, sans gros bouillon.",
       "Cuire les plaques de ravioles 45 secondes à 1 minute maximum, une par une, puis les retirer délicatement avec une écumoire large.",
       "Déposer les ravioles sur une assiette légèrement beurrée ou huilée pour éviter qu'elles collent.",
-      "Saisir les crevettes dans une poêle bien chaude avec un filet d'huile d'olive, 45 secondes à 1 minute par face selon leur taille. Saler, poivrer et retirer aussitôt.",
+      "Saisir les crevettes dans une poêle bien chaude avec un filet d'huile d'olive, 45 secondes à 1 minute par face selon leur taille. Saler, ajouter du poivre du moulin et retirer aussitôt.",
       "Déposer une plaque de ravioles cuite dans chaque cassolette, ajouter les crevettes et napper de bisque crémée chaude sans noyer la garniture.",
       "Mélanger le parmesan râpé et la chapelure, parsemer les cassolettes, puis ajouter quelques dés de beurre froid.",
       "Passer sous le gril du four 2 à 3 minutes, juste pour dorer légèrement le dessus.",
@@ -5521,7 +5521,7 @@ window.RECIPES = {
           "25g sucre",
           "6g sel fin",
           "1 feuille de laurier",
-          "Poivre noir"
+          "Poivre du moulin"
         ]
       },
       {
@@ -5534,7 +5534,7 @@ window.RECIPES = {
           "5g vinaigre de cidre ou jus de citron",
           "0,5g paprika fumé ou piment d’Espelette",
           "Sel fin",
-          "Poivre blanc"
+          "Poivre du moulin"
         ]
       },
       {
@@ -5549,7 +5549,7 @@ window.RECIPES = {
           "0,5g piment d’Espelette",
           "180g crevettes décortiquées et nettoyées",
           "Sel fin",
-          "Poivre blanc"
+          "Poivre du moulin"
         ]
       },
       {
@@ -5565,11 +5565,11 @@ window.RECIPES = {
     "steps": [
       "Placer les œufs dans une casserole, couvrir d’eau froide avec 2 à 3cm au-dessus des œufs, puis cuire 12 à 13min depuis le départ à froid.",
       "Plonger immédiatement dans un bain glacé 10min, puis écaler délicatement.",
-      "Pour la variante betterave : chauffer betterave, eau, vinaigre, sucre, sel, poivre et laurier jusqu’à frémissement, couper le feu, infuser 10min, mixer légèrement et refroidir complètement.",
+      "Pour la variante betterave : chauffer betterave, eau, vinaigre, sucre, sel, poivre du moulin et laurier jusqu’à frémissement, couper le feu, infuser 10min, mixer légèrement et refroidir complètement.",
       "Immerger les œufs écalés entiers dans la marinade froide 6 à 12h pour une couleur nette.",
       "Égoutter, éponger, couper en deux et retirer les jaunes.",
-      "Pour la farce betterave : tamiser les jaunes, mélanger avec mayonnaise, moutarde, crème, vinaigre ou citron, paprika, sel et poivre.",
-      "Pour la variante avocat crevette : mixer jaunes, avocat, citron vert, mayonnaise, crème, moutarde, piment, sel et poivre jusqu’à texture lisse et pochable.",
+      "Pour la farce betterave : tamiser les jaunes, mélanger avec mayonnaise, moutarde, crème, vinaigre ou citron, paprika, sel et poivre du moulin.",
+      "Pour la variante avocat crevette : mixer jaunes, avocat, citron vert, mayonnaise, crème, moutarde, piment, sel et poivre du moulin jusqu’à texture lisse et pochable.",
       "Éponger les crevettes, les assaisonner très légèrement avec citron vert, sel et piment.",
       "Garnir les blancs à la poche, puis terminer avec herbes, zestes et crevettes selon la variante."
     ],
@@ -5643,7 +5643,7 @@ window.RECIPES = {
           "20g jus de citron",
           "4g ail écrasé",
           "6g sel fin",
-          "Poivre blanc",
+          "Poivre du moulin",
           "0,5g piment d’Espelette"
         ]
       },
@@ -5687,7 +5687,7 @@ window.RECIPES = {
     ],
     "steps": [
       "Rincer rapidement les calamars, les éponger, puis couper les tubes en anneaux réguliers de 1 à 1,5cm.",
-      "Mélanger lait, citron, ail, sel, poivre et piment, puis mariner les calamars 30min à 2h au frais.",
+      "Mélanger lait, citron, ail, sel, poivre du moulin et piment, puis mariner les calamars 30min à 2h au frais.",
       "Préparer l’<span data-goto=\"aioli_citronne_leger\">aïoli citronné léger</span>, puis le garder au frais.",
       "Préparer au dernier moment la <span data-goto=\"pate_legere_beignets_calamar_crevettes\">pâte légère</span> ou la <span data-goto=\"tempura_beignets_calamar_crevettes\">tempura</span>, selon le croustillant voulu.",
       "Égoutter les calamars, les éponger très soigneusement, puis les passer légèrement dans farine ou fécule.",
@@ -5783,7 +5783,7 @@ window.RECIPES = {
           "3g persil plat ciselé",
           "1 pincée noix de muscade",
           "7g sel fin",
-          "Poivre noir"
+          "Poivre du moulin"
         ]
       },
       {
@@ -5803,7 +5803,7 @@ window.RECIPES = {
           "3g ciboulette ciselée",
           "1g aneth ou estragon",
           "Sel fin",
-          "Poivre blanc"
+          "Poivre du moulin"
         ]
       },
       {
@@ -5821,8 +5821,8 @@ window.RECIPES = {
       "Éplucher les pommes de terre, les râper gros, puis les presser très fort dans un torchon pour retirer un maximum d’eau.",
       "Pré-cuire les pommes de terre râpées 1min 30 au micro-ondes ou 2min à la poêle sans coloration.",
       "Faire un beurre noisette clair avec 40g de beurre, filtrer si besoin et laisser tiédir.",
-      "Mélanger pommes de terre, œufs, fromages, fécule, farine, crème, beurre noisette, ail, échalote, herbes, muscade, sel et poivre.",
-      "Préparer la sauce en mélangeant crème, yaourt, citron, zeste, herbes, sel et poivre, puis réserver au frais.",
+      "Mélanger pommes de terre, œufs, fromages, fécule, farine, crème, beurre noisette, ail, échalote, herbes, muscade, sel et poivre du moulin.",
+      "Préparer la sauce en mélangeant crème, yaourt, citron, zeste, herbes, sel et poivre du moulin, puis réserver au frais.",
       "Préchauffer le gaufrier au maximum et graisser légèrement.",
       "Déposer une portion généreuse d’appareil, tasser légèrement, fermer et cuire 6 à 9min.",
       "Sortir quand la gaufre se détache seule, bien dorée et croustillante.",
@@ -6010,7 +6010,7 @@ window.RECIPES = {
           "2g ail en poudre",
           "2g oignon en poudre",
           "Sel fin",
-          "Poivre noir"
+          "Poivre du moulin"
         ]
       },
       {
@@ -6025,7 +6025,7 @@ window.RECIPES = {
     "steps": [
       "Préchauffer le four à 220°C et couvrir une plaque de papier cuisson.",
       "Mélanger les fleurettes avec l’huile d’olive pour les enrober.",
-      "Mélanger parmesan, paprika, ail, oignon, sel et poivre.",
+      "Mélanger parmesan, paprika, ail, oignon, sel et poivre du moulin.",
       "Saupoudrer sur le chou-fleur et mélanger pour bien répartir.",
       "Étaler en une seule couche sur la plaque.",
       "Cuire 25 à 30min en retournant à mi-cuisson, jusqu’à coloration dorée et bords croustillants.",
@@ -6089,7 +6089,7 @@ window.RECIPES = {
           "5g basilic frais",
           "1 à 1,5g menthe fraîche",
           "6 à 8g sel fin",
-          "Poivre blanc",
+          "Poivre du moulin",
           "Eau froide seulement si besoin"
         ]
       },
@@ -6108,7 +6108,7 @@ window.RECIPES = {
       "Couper les tomates en morceaux.",
       "Éplucher partiellement la courgette si sa peau est épaisse, puis la couper en petits morceaux.",
       "Émincer l’oignon doux et retirer le germe de l’ail.",
-      "Mixer longuement tomates, courgette, oignon, ail, jus de citron, sel et poivre blanc jusqu’à texture très lisse.",
+      "Mixer longuement tomates, courgette, oignon, ail, jus de citron, sel et poivre du moulin jusqu’à texture très lisse.",
       "Ajouter basilic et menthe, puis mixer brièvement pour ne pas chauffer les herbes.",
       "Verser l’huile d’olive en filet pendant que le blender tourne.",
       "Passer au chinois fin en pressant doucement avec une louche.",
@@ -6168,7 +6168,7 @@ window.RECIPES = {
           "8 à 15g jus de citron ou vinaigre de Xérès",
           "Quelques feuilles de basilic ou de menthe",
           "Sel fin",
-          "Poivre blanc",
+          "Poivre du moulin",
           "Piment d’Espelette",
           "Eau froide ou glaçons selon texture"
         ]
@@ -6184,7 +6184,7 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Mettre le melon dans un blender avec les tomates, la mie de pain, le jus de citron ou le vinaigre, le sel, le poivre blanc et le piment.",
+      "Mettre le melon dans un blender avec les tomates, la mie de pain, le jus de citron ou le vinaigre, le sel, le poivre du moulin et le piment.",
       "Ajouter quelques feuilles de basilic ou de menthe.",
       "Mixer longuement jusqu’à texture lisse.",
       "Verser l’huile d’olive en filet pendant que le blender tourne.",
@@ -6247,7 +6247,7 @@ window.RECIPES = {
           "Menthe fraîche",
           "30g pignons de pin ou pistaches",
           "Fleur de sel",
-          "Poivre noir"
+          "Poivre du moulin"
         ]
       },
       {
@@ -6260,7 +6260,7 @@ window.RECIPES = {
           "1g origan ou thym frais",
           "Piment d’Espelette",
           "Sel fin",
-          "Poivre"
+          "Poivre du moulin"
         ]
       },
       {
@@ -6271,7 +6271,7 @@ window.RECIPES = {
           "7g miel doux",
           "15 à 30g jus de melon récupéré",
           "Sel fin",
-          "Poivre"
+          "Poivre du moulin"
         ]
       }
     ],
@@ -6279,12 +6279,12 @@ window.RECIPES = {
       "Couper le melon en deux, retirer les graines, puis former des billes avec une cuillère parisienne.",
       "Réserver les billes au frais et garder les chutes pour un gaspacho de melon.",
       "Égoutter et éponger la mozzarella.",
-      "Mélanger huile d’olive, jus de citron, zeste, basilic, origan ou thym, piment, sel et poivre, puis mariner la mozzarella 20 à 30min au frais.",
+      "Mélanger huile d’olive, jus de citron, zeste, basilic, origan ou thym, piment, sel et poivre du moulin, puis mariner la mozzarella 20 à 30min au frais.",
       "Émincer l’oignon rouge très finement, le placer 10min dans eau froide avec quelques gouttes de citron, puis égoutter et éponger.",
       "Torréfier les pignons ou pistaches 2 à 3min à feu moyen dans une poêle sèche.",
-      "Mélanger jus de citron ou vinaigre, miel, jus de melon, sel et poivre, puis ajouter l’huile d’olive.",
+      "Mélanger jus de citron ou vinaigre, miel, jus de melon, sel et poivre du moulin, puis ajouter l’huile d’olive.",
       "Assaisonner légèrement la roquette avec un peu de vinaigrette.",
-      "Ajouter melon, mozzarella marinée, jambon cru en chiffonnade, oignon rouge, pignons ou pistaches, basilic, menthe, fleur de sel et poivre.",
+      "Ajouter melon, mozzarella marinée, jambon cru en chiffonnade, oignon rouge, pignons ou pistaches, basilic, menthe, fleur de sel et poivre du moulin.",
       "Ajouter la vinaigrette juste avant de servir."
     ],
     "notes": [
@@ -6343,7 +6343,7 @@ window.RECIPES = {
         "group": "Finition optionnelle",
         "items": [
           "Fleur de sel",
-          "Poivre noir fraîchement moulu",
+          "Poivre du moulin",
           "Sauce maison au choix"
         ]
       }
@@ -6422,10 +6422,10 @@ window.RECIPES = {
         "note": "Préparer des frites belges, des frites maison ou des frites au four, puis ajouter les toppings juste après cuisson."
       },
       {
-        "group": "Variante sel et poivre",
+        "group": "Variante sel et poivre du moulin",
         "items": [
           "Sel fin",
-          "Poivre noir fraîchement moulu",
+          "Poivre du moulin",
           "Fleur de sel optionnelle"
         ]
       },
@@ -6437,7 +6437,7 @@ window.RECIPES = {
           "6g persil plat haché",
           "15g huile d’olive ou 20g beurre fondu",
           "Sel fin",
-          "Poivre noir"
+          "Poivre du moulin"
         ]
       },
       {
@@ -6445,7 +6445,7 @@ window.RECIPES = {
         "items": [
           "120g cheddar râpé",
           "30g oignons verts émincés",
-          "Poivre noir",
+          "Poivre du moulin",
           "Sel fin si nécessaire"
         ]
       },
@@ -6464,7 +6464,7 @@ window.RECIPES = {
           "0,5g piment de Cayenne",
           "1,5g ail en poudre",
           "Sel fin",
-          "Poivre noir optionnel"
+          "Poivre du moulin optionnel"
         ]
       },
       {
@@ -6474,7 +6474,7 @@ window.RECIPES = {
           "80g bacon croustillant en morceaux",
           "30g oignons verts émincés",
           "60g crème aigre ou crème fraîche épaisse citronnée",
-          "Poivre noir"
+          "Poivre du moulin"
         ]
       },
       {
@@ -6483,7 +6483,7 @@ window.RECIPES = {
           "100g crème fraîche épaisse",
           "5g jus de citron",
           "1g sel",
-          "Poivre noir"
+          "Poivre du moulin"
         ]
       },
       {
@@ -6493,7 +6493,7 @@ window.RECIPES = {
           "3g paprika",
           "1,5g ail en poudre",
           "Sel fin",
-          "Poivre noir",
+          "Poivre du moulin",
           "0,5g piment de Cayenne optionnel"
         ]
       },
@@ -6504,7 +6504,7 @@ window.RECIPES = {
           "5g jus de citron",
           "7g miel",
           "Sel fin",
-          "Poivre noir",
+          "Poivre du moulin",
           "1g paprika"
         ]
       }
@@ -6516,7 +6516,7 @@ window.RECIPES = {
       "Pour les cheese fries, déposer cheddar sur les frites, passer 2 à 3min sous le gril ou à 200°C, puis ajouter les oignons verts.",
       "Pour la sauce cheddar, chauffer la crème doucement, ajouter cheddar et moutarde, puis mélanger jusqu’à fonte complète.",
       "Pour les frites épicées, mélanger paprika, cayenne, ail en poudre et sel, puis secouer avec les frites chaudes.",
-      "Pour les loaded fries, faire fondre le cheddar, puis ajouter bacon, oignons verts, crème aigre et poivre.",
+      "Pour les loaded fries, faire fondre le cheddar, puis ajouter bacon, oignons verts, crème aigre et poivre du moulin.",
       "Pour les frites de patate douce, mélanger l’assaisonnement à part puis enrober délicatement au dernier moment.",
       "Servir les sauces à part si tu veux garder un maximum de croustillant."
     ],
@@ -6582,7 +6582,7 @@ window.RECIPES = {
           "20g concentré de tomate",
           "30g huile de coco ou huile neutre",
           "Sel fin",
-          "Poivre noir"
+          "Poivre du moulin"
         ]
       },
       {
@@ -6635,7 +6635,7 @@ window.RECIPES = {
       "Ajouter les lentilles, mélanger pour les enrober, verser le bouillon chaud, porter à frémissement, couvrir à moitié et cuire 20min à feu doux.",
       "Ajouter les carottes et le lait de coco, puis cuire encore 15 à 20min à feu doux.",
       "Ajouter la courgette sur les 8 à 10 dernières minutes, puis les épinards à la toute fin.",
-      "Hors du feu, équilibrer avec quelques gouttes de citron vert, un peu de zeste et du poivre noir fraîchement moulu.",
+      "Hors du feu, équilibrer avec quelques gouttes de citron vert, un peu de zeste et du poivre du moulin.",
       "Pour le riz, rincer le riz basmati, cuire avec eau, sel et cardamome 10min à feu très doux, puis laisser reposer 10min couvert.",
       "Dresser avec riz, curry, herbes fraîches, noix de cajou torréfiées, citron vert, oignons frits ou échalotes croustillantes et un filet d’huile pimentée si souhaité."
     ],
@@ -6696,7 +6696,7 @@ window.RECIPES = {
           "1,5g ail en poudre",
           "1,5g oignon en poudre optionnel",
           "1 petite pincée piment d’Espelette",
-          "Poivre noir",
+          "Poivre du moulin",
           "Sel fin après cuisson",
           "Fleur de sel"
         ]
@@ -6722,7 +6722,7 @@ window.RECIPES = {
       "Rincer 1 à 2min dans un grand saladier d’eau froide, puis égoutter.",
       "Sécher très soigneusement dans un torchon et laisser sécher 10min à l’air libre.",
       "Enrober les frites avec un voile très fin de fécule, sans paquet blanc visible.",
-      "Ajouter l’huile, le paprika fumé, l’ail, l’oignon si utilisé, le piment et le poivre. Ne pas saler avant cuisson.",
+      "Ajouter l’huile, le paprika fumé, l’ail, l’oignon si utilisé, le piment et le poivre du moulin. Ne pas saler avant cuisson.",
       "Préchauffer le four à 220°C chaleur tournante avec la plaque dans le four.",
       "Disposer les frites espacées sur papier cuisson ou plaque légèrement huilée.",
       "Cuire 20 à 25min en retournant à mi-cuisson, puis prolonger 5min si nécessaire.",
@@ -6793,14 +6793,14 @@ window.RECIPES = {
           "1g paprika fumé",
           "1 petite pincée piment d’Espelette",
           "Sel fin",
-          "Poivre blanc"
+          "Poivre du moulin"
         ]
       }
     ],
     "steps": [
       "Mélanger le yaourt grec et la mayonnaise.",
       "Ajouter le jus de citron, le zeste, le miel, le paprika fumé et le piment.",
-      "Saler et poivrer.",
+      "Saler et ajouter du poivre du moulin.",
       "Réserver au frais au moins 15min avant service."
     ],
     "notes": [
@@ -6862,7 +6862,7 @@ window.RECIPES = {
           "5g moutarde de Dijon",
           "1 pincée muscade",
           "Sel",
-          "Poivre blanc"
+          "Poivre du moulin"
         ]
       }
     ],
@@ -6871,7 +6871,7 @@ window.RECIPES = {
       "Ajouter la farine et cuire le roux 2min sans coloration.",
       "Verser le lait froid progressivement en fouettant.",
       "Ajouter la crème et cuire 5 à 7min jusqu’à obtenir une sauce nappante.",
-      "Hors du feu, ajouter le comté, le parmesan, la moutarde, la muscade et le poivre.",
+      "Hors du feu, ajouter le comté, le parmesan, la moutarde, la muscade et le poivre du moulin.",
       "Goûter avant de saler.",
       "Ajouter le jaune d’œuf hors du feu en fouettant."
     ],
@@ -6928,7 +6928,7 @@ window.RECIPES = {
           "30g huile d’olive",
           "20g beurre fondu",
           "Sel fin",
-          "Poivre blanc",
+          "Poivre du moulin",
           "1 pincée muscade"
         ]
       },
@@ -6954,7 +6954,7 @@ window.RECIPES = {
       "Rincer rapidement puis égoutter très soigneusement.",
       "Cuire les sommités 5 à 6min à la vapeur, ou 6 à 8min dans une eau-lait salée, en gardant le chou-fleur ferme.",
       "Préchauffer le four à 220°C.",
-      "Mélanger le chou-fleur avec huile d’olive, beurre fondu, sel, poivre et muscade.",
+      "Mélanger le chou-fleur avec huile d’olive, beurre fondu, sel, poivre du moulin et muscade.",
       "Étaler sur plaque et rôtir 15 à 20min jusqu’à légère coloration.",
       "Préparer la <span data-goto=\"sauce_mornay\">sauce Mornay</span>.",
       "Mélanger chapelure, noisettes, parmesan, persil et beurre fondu jusqu’à texture sableuse.",
