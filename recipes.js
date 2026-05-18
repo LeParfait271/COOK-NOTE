@@ -2329,7 +2329,7 @@ window.RECIPES = {
   },
   "accompagnements_maitre": {
     "title": "Accompagnements",
-    "image": "/assets/recipe-images/legumes_rotis_spooky.png",
+    "image": "/assets/recipe-images/parent_accompagnements.png",
     "categories": [
       "Accompagnements"
     ],
