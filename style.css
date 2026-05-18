@@ -14,6 +14,17 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.ingredients-panel::-webkit-scrollbar,
+.modal-panel::-webkit-scrollbar,
+.cart-output::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 body {
@@ -24,6 +35,8 @@ body {
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 button,
@@ -1247,6 +1260,8 @@ a {
 .ingredients-panel {
   max-height: min(760px, calc(100vh - 150px));
   overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .inline-recipe-link {
@@ -1898,6 +1913,8 @@ a {
   max-height: min(860px, calc(100vh - 36px));
   overflow: auto;
   padding: 18px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .shopping-modal {
@@ -2063,6 +2080,8 @@ a {
   color: var(--text);
   padding: 14px;
   white-space: pre-wrap;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .muted {
