@@ -3,7 +3,9 @@ window.RECIPES = {
     "title": "Coulis",
     "image": "/assets/recipe-images/coulis_maitre_spooky.png",
     "categories": [
-      "Sauces"
+      "Sauces",
+      "Desserts",
+      "Base"
     ],
     "seasons": [
       "Toutes saisons"
@@ -133,7 +135,11 @@ window.RECIPES = {
     "master": "sauces_maitre",
     "yield": "10 portions de coulis de fruit",
     "difficultyScore": 4,
-    "variantGroups": true
+    "variantGroups": true,
+    "additionalMasters": [
+      "cremes_maitre",
+      "elements_base_maitre"
+    ]
   },
   "chantilly_maitre": {
     "title": "Chantilly",
@@ -214,6 +220,10 @@ window.RECIPES = {
       {
         "id": "creme_citron_lemon_curd",
         "label": "Crème citron"
+      },
+      {
+        "id": "creme_amande_citron",
+        "label": "Crème d’amande pour fond de tarte"
       },
       {
         "id": "creme_diplomate_vanille",
@@ -368,7 +378,7 @@ window.RECIPES = {
       },
       {
         "id": "mayonnaise_maison",
-        "label": "Mayonnaise maison"
+        "label": "Mayonnaise"
       },
       {
         "id": "pesto_variantes",
@@ -392,7 +402,7 @@ window.RECIPES = {
       },
       {
         "id": "vinaigrette",
-        "label": "Vinaigrette de chef"
+        "label": "Vinaigrette"
       }
     ],
     "ingredients": [
@@ -668,7 +678,7 @@ window.RECIPES = {
     "master": "elements_base_maitre"
   },
   "vinaigrette": {
-    "title": "Vinaigrette de chef",
+    "title": "Vinaigrette",
     "master": "sauces_assaisonnements_maitre",
     "image": "/assets/recipe-images/vinaigrette_spooky.png",
     "categories": [
@@ -827,7 +837,9 @@ window.RECIPES = {
     "master": "apero_maitre",
     "image": "/assets/recipe-images/tomates_variantes_spooky.png",
     "categories": [
-      "Apéro"
+      "Apéro",
+      "Entrées",
+      "Accompagnements"
     ],
     "seasons": [
       "Été",
@@ -875,7 +887,8 @@ window.RECIPES = {
     ],
     "variantGroups": true,
     "additionalMasters": [
-      "tomates_maitre"
+      "tomates_maitre",
+      "accompagnements_maitre"
     ]
   },
   "huile_pimentee_pizza": {
@@ -1539,7 +1552,10 @@ window.RECIPES = {
       "Conservation : 5 j au froid ; congélateur 2 mois.",
       "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
     ],
-    "difficultyScore": 2
+    "difficultyScore": 2,
+    "additionalMasters": [
+      "desserts_maitre"
+    ]
   },
   "coulis_framboise": {
     "title": "Coulis de framboise",
@@ -1569,7 +1585,10 @@ window.RECIPES = {
       "Conservation : 5 j au froid ; congélateur 2 mois.",
       "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
     ],
-    "difficultyScore": 2
+    "difficultyScore": 2,
+    "additionalMasters": [
+      "desserts_maitre"
+    ]
   },
   "coulis_abricot_vanille": {
     "title": "Coulis abricot-vanille",
@@ -1600,7 +1619,10 @@ window.RECIPES = {
       "Conservation : 5 j au froid ; congélateur 2 mois.",
       "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
     ],
-    "difficultyScore": 2
+    "difficultyScore": 2,
+    "additionalMasters": [
+      "desserts_maitre"
+    ]
   },
   "coulis_poire": {
     "title": "Coulis de poire",
@@ -1632,7 +1654,10 @@ window.RECIPES = {
       "Conservation : 5 j au froid ; congélateur 2 mois.",
       "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
     ],
-    "difficultyScore": 2
+    "difficultyScore": 2,
+    "additionalMasters": [
+      "desserts_maitre"
+    ]
   },
   "coulis_guide": {
     "title": "Guide des coulis",
@@ -1669,7 +1694,10 @@ window.RECIPES = {
       "Conservation : 5 j au froid ; congélateur 2 mois.",
       "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
     ],
-    "difficultyScore": 2
+    "difficultyScore": 2,
+    "additionalMasters": [
+      "desserts_maitre"
+    ]
   },
   "court_bouillon": {
     "title": "Court-bouillon",
@@ -2035,7 +2063,10 @@ window.RECIPES = {
       "Ajuster le praliné/pâte de noisette selon l’intensité souhaitée.",
       "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
     ],
-    "difficultyScore": 6
+    "difficultyScore": 6,
+    "additionalMasters": [
+      "elements_base_maitre"
+    ]
   },
   "creme_beurre_meringue_italienne": {
     "title": "Crème au beurre meringue italienne",
@@ -2079,7 +2110,10 @@ window.RECIPES = {
       "Stockage : boîte hermétique au sec, à température ambiante. Péremption : 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
       "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
-    "difficultyScore": 8
+    "difficultyScore": 8,
+    "additionalMasters": [
+      "elements_base_maitre"
+    ]
   },
   "creme_praline": {
     "title": "Crème praliné",
@@ -2111,7 +2145,10 @@ window.RECIPES = {
       "→ Utilisée dans : <span data-goto=\"paris_brest\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Paris-Brest</span>.",
       "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
     ],
-    "difficultyScore": 5
+    "difficultyScore": 5,
+    "additionalMasters": [
+      "elements_base_maitre"
+    ]
   },
   "petit_dejeuner_maitre": {
     "title": "Petit-déjeuner",
@@ -2188,6 +2225,10 @@ window.RECIPES = {
         "label": "Beignets de calamar"
       },
       {
+        "id": "cassolette_crevettes_ravioles_persil",
+        "label": "Cassolette de crevettes et ravioles au persil"
+      },
+      {
         "id": "chou_fleur_croustillant",
         "label": "Chou-fleur croustillant"
       },
@@ -2201,7 +2242,7 @@ window.RECIPES = {
       },
       {
         "id": "frites_patate_douce",
-        "label": "Frites de patate douce croustillantes"
+        "label": "Frites de patate douce"
       },
       {
         "id": "frites_maison",
@@ -2210,6 +2251,10 @@ window.RECIPES = {
       {
         "id": "legumes_rotis",
         "label": "Légumes rôtis au four"
+      },
+      {
+        "id": "oeufs_mimosa_variantes",
+        "label": "Œufs mimosa"
       },
       {
         "id": "oignons_rotis_thym_miel",
@@ -2284,7 +2329,7 @@ window.RECIPES = {
       },
       {
         "id": "frites_patate_douce",
-        "label": "Frites de patate douce croustillantes"
+        "label": "Frites de patate douce"
       },
       {
         "id": "frites_maison",
@@ -2293,6 +2338,14 @@ window.RECIPES = {
       {
         "id": "gaufres_pommes_terre",
         "label": "Gaufres de pommes de terre croustillantes"
+      },
+      {
+        "id": "gratin_chou_fleur",
+        "label": "Gratin de chou-fleur"
+      },
+      {
+        "id": "tomates_provencales",
+        "label": "Tomates provençales"
       },
       {
         "id": "toppings_frites",
@@ -2339,7 +2392,7 @@ window.RECIPES = {
       },
       {
         "id": "frites_patate_douce",
-        "label": "Frites de patate douce croustillantes"
+        "label": "Frites de patate douce"
       },
       {
         "id": "frites_maison",
@@ -2360,6 +2413,18 @@ window.RECIPES = {
       {
         "id": "oignons_rotis_thym_miel",
         "label": "Oignons rôtis au thym et au miel"
+      },
+      {
+        "id": "sauce_yaourt_citronnee",
+        "label": "Sauce yaourt citronnée"
+      },
+      {
+        "id": "tomates_variantes",
+        "label": "Tomates confites et séchées"
+      },
+      {
+        "id": "tomates_provencales",
+        "label": "Tomates provençales"
       },
       {
         "id": "toppings_frites",
@@ -2405,6 +2470,22 @@ window.RECIPES = {
         "label": "Choux au craquelin"
       },
       {
+        "id": "coulis_abricot_vanille",
+        "label": "Coulis abricot-vanille"
+      },
+      {
+        "id": "coulis_fraise",
+        "label": "Coulis de fraise"
+      },
+      {
+        "id": "coulis_framboise",
+        "label": "Coulis de framboise"
+      },
+      {
+        "id": "coulis_poire",
+        "label": "Coulis de poire"
+      },
+      {
         "id": "craquelin_cacao",
         "label": "Craquelin cacao"
       },
@@ -2415,6 +2496,10 @@ window.RECIPES = {
       {
         "id": "desserts_cuillere_maitre",
         "label": "Desserts à la cuillère"
+      },
+      {
+        "id": "coulis_guide",
+        "label": "Guide des coulis"
       },
       {
         "id": "paris_brest",
@@ -3058,6 +3143,9 @@ window.RECIPES = {
     "aliases": [
       "crème d’amande",
       "creme amande"
+    ],
+    "additionalMasters": [
+      "elements_base_maitre"
     ]
   },
   "creme_citron_lemon_curd": {
@@ -3105,7 +3193,10 @@ window.RECIPES = {
       "lemon-curd",
       "garniture"
     ],
-    "difficultyScore": 5
+    "difficultyScore": 5,
+    "additionalMasters": [
+      "elements_base_maitre"
+    ]
   },
   "compotee_citron": {
     "title": "Marmelade citron",
@@ -3152,6 +3243,9 @@ window.RECIPES = {
     "aliases": [
       "marmelade citron",
       "compotée citron"
+    ],
+    "additionalMasters": [
+      "elements_base_maitre"
     ]
   },
   "meringue_italienne": {
@@ -3246,7 +3340,10 @@ window.RECIPES = {
       "vanille",
       "base"
     ],
-    "difficultyScore": 5
+    "difficultyScore": 5,
+    "additionalMasters": [
+      "elements_base_maitre"
+    ]
   },
   "salade_avocat_oeuf_epinards": {
     "title": "Salade avocat, œuf et épinards",
@@ -3321,6 +3418,10 @@ window.RECIPES = {
     ],
     "variants": [
       {
+        "id": "aioli_citronne_leger",
+        "label": "Aïoli citronné léger"
+      },
+      {
         "id": "beignets_calamar",
         "label": "Beignets de calamar"
       },
@@ -3342,7 +3443,7 @@ window.RECIPES = {
       },
       {
         "id": "frites_patate_douce",
-        "label": "Frites de patate douce croustillantes"
+        "label": "Frites de patate douce"
       },
       {
         "id": "frites_maison",
@@ -3355,6 +3456,18 @@ window.RECIPES = {
       {
         "id": "oeufs_mimosa_variantes",
         "label": "Œufs mimosa"
+      },
+      {
+        "id": "pate_legere_beignets_calamar_crevettes",
+        "label": "Pâte légère pour beignets de calamar ou crevettes"
+      },
+      {
+        "id": "sauce_yaourt_citronnee",
+        "label": "Sauce yaourt citronnée"
+      },
+      {
+        "id": "tempura_beignets_calamar_crevettes",
+        "label": "Tempura pour beignets de calamar ou crevettes"
       },
       {
         "id": "tomates_variantes",
@@ -3488,7 +3601,8 @@ window.RECIPES = {
     "master": "petit_dejeuner_maitre",
     "image": "/assets/recipe-images/babeurre_maison_spooky.png",
     "categories": [
-      "Petits-déjeuners"
+      "Petits-déjeuners",
+      "Base"
     ],
     "seasons": [
       "Toutes saisons"
@@ -3523,14 +3637,19 @@ window.RECIPES = {
       "lait",
       "base"
     ],
-    "difficultyScore": 1
+    "difficultyScore": 1,
+    "additionalMasters": [
+      "elements_base_maitre"
+    ]
   },
   "tomates_provencales": {
     "title": "Tomates provençales",
     "master": "tomates_maitre",
     "image": "/assets/recipe-images/tomates_provencales_spooky.png",
     "categories": [
-      "Entrées"
+      "Entrées",
+      "Plats",
+      "Accompagnements"
     ],
     "seasons": [
       "Été"
@@ -3577,7 +3696,8 @@ window.RECIPES = {
     ],
     "difficultyScore": 2,
     "additionalMasters": [
-      "plats_maitre"
+      "plats_maitre",
+      "accompagnements_maitre"
     ]
   },
   "tortillas_mexicaines": {
@@ -3996,6 +4116,14 @@ window.RECIPES = {
         "label": "Coulis"
       },
       {
+        "id": "sauce_mornay",
+        "label": "Sauce Mornay"
+      },
+      {
+        "id": "sauce_yaourt_citronnee",
+        "label": "Sauce yaourt citronnée"
+      },
+      {
         "id": "sauces_burger_variantes",
         "label": "Sauces burger"
       },
@@ -4030,8 +4158,48 @@ window.RECIPES = {
     ],
     "variants": [
       {
+        "id": "babeurre_maison",
+        "label": "Babeurre maison"
+      },
+      {
         "id": "bases_salees_maitre",
         "label": "Bases salées"
+      },
+      {
+        "id": "chantilly_maitre",
+        "label": "Chantilly"
+      },
+      {
+        "id": "coulis_maitre",
+        "label": "Coulis"
+      },
+      {
+        "id": "creme_beurre_meringue_italienne",
+        "label": "Crème au beurre meringue italienne"
+      },
+      {
+        "id": "creme_citron_lemon_curd",
+        "label": "Crème citron"
+      },
+      {
+        "id": "creme_amande_citron",
+        "label": "Crème d’amande pour fond de tarte"
+      },
+      {
+        "id": "creme_patissiere_praline",
+        "label": "Crème pâtissière praliné"
+      },
+      {
+        "id": "creme_patissiere_vanille",
+        "label": "Crème pâtissière vanille"
+      },
+      {
+        "id": "creme_praline",
+        "label": "Crème praliné"
+      },
+      {
+        "id": "compotee_citron",
+        "label": "Marmelade citron"
       },
       {
         "id": "meringue_italienne",
@@ -4048,6 +4216,10 @@ window.RECIPES = {
       {
         "id": "pates_bases_maitre",
         "label": "Pâtes et bases pâtissières"
+      },
+      {
+        "id": "sauce_mornay",
+        "label": "Sauce Mornay"
       }
     ],
     "ingredients": [
@@ -4986,7 +5158,7 @@ window.RECIPES = {
     ]
   },
   "mayonnaise_maison": {
-    "title": "Mayonnaise maison",
+    "title": "Mayonnaise",
     "master": "sauces_assaisonnements_maitre",
     "image": "/assets/recipe-images/mayonnaise_maison_spooky.png",
     "categories": [
@@ -5025,7 +5197,7 @@ window.RECIPES = {
       {
         "group": "Variante tartare",
         "items": [
-          "Mayonnaise maison",
+          "Mayonnaise",
           "Câpres hachées",
           "Cornichons hachés",
           "Persil plat",
@@ -5037,7 +5209,7 @@ window.RECIPES = {
       {
         "group": "Variante andalouse",
         "items": [
-          "Mayonnaise maison",
+          "Mayonnaise",
           "Concentré de tomate légèrement travaillé",
           "Poivron rouge rôti mixé",
           "Paprika fumé",
@@ -5074,7 +5246,8 @@ window.RECIPES = {
     "master": "plats_maitre",
     "image": "/assets/recipe-images/cassolette_crevettes_ravioles_persil.png",
     "categories": [
-      "Plats"
+      "Plats",
+      "Entrées"
     ],
     "seasons": [
       "Automne",
@@ -5182,6 +5355,9 @@ window.RECIPES = {
         "label": "Gril",
         "value": "Le gratinage doit rester court : les ravioles et les crevettes sont déjà cuites."
       }
+    ],
+    "additionalMasters": [
+      "entrees_maitre"
     ]
   },
   "frites_belges": {
@@ -5225,7 +5401,7 @@ window.RECIPES = {
         "items": [
           "1 petite branche de thym",
           "1 gousse d’ail en chemise retirée avant cuisson",
-          "Mayonnaise maison, sauce tartare ou sauce andalouse maison"
+          "Mayonnaise, sauce tartare ou sauce andalouse maison"
         ],
         "recipeId": "mayonnaise_maison"
       }
@@ -5240,7 +5416,7 @@ window.RECIPES = {
       "Monter le bain à 175-180°C.",
       "Replonger les frites en petites quantités 2 à 4 minutes jusqu’à belle coloration dorée.",
       "Égoutter immédiatement, secouer légèrement et saler avec du sel fin.",
-      "Terminer avec une pincée de fleur de sel et servir aussitôt avec la <span data-goto=\"mayonnaise_maison\">mayonnaise maison</span>."
+      "Terminer avec une pincée de fleur de sel et servir aussitôt avec la <span data-goto=\"mayonnaise_maison\">mayonnaise</span>."
     ],
     "notes": [
       "Ne sale jamais avant cuisson : le sel attire l’eau et ramollit les frites.",
@@ -5398,7 +5574,7 @@ window.RECIPES = {
         "group": "Farce betterave",
         "items": [
           "100g jaunes d’œufs cuits",
-          "60g mayonnaise maison",
+          "60g mayonnaise",
           "8g moutarde douce",
           "15g crème fraîche épaisse ou yaourt grec",
           "5g vinaigre de cidre ou jus de citron",
@@ -5413,7 +5589,7 @@ window.RECIPES = {
           "180g chair d’avocat mûr",
           "100g jaunes d’œufs cuits",
           "15 à 30g jus de citron vert",
-          "15 à 30g mayonnaise maison",
+          "15 à 30g mayonnaise",
           "15g crème fraîche épaisse",
           "5g moutarde douce",
           "0,5g piment d’Espelette",
@@ -5457,6 +5633,9 @@ window.RECIPES = {
         "label": "Farce",
         "value": "La farce doit être lisse, ferme et pochable."
       }
+    ],
+    "additionalMasters": [
+      "entrees_maitre"
     ]
   },
   "beignets_calamar": {
@@ -6229,7 +6408,7 @@ window.RECIPES = {
     "notes": [
       "Bien sécher les pommes de terre avant friture : l’eau fait chuter la température de l’huile et ramollit les frites.",
       "Pour une finition plus nette, laisse refroidir 20 à 30min après le premier bain, puis fais le deuxième bain juste avant le service.",
-      "Accompagnements : burger maison, poulet rôti, fish and chips, steak, moules, mayonnaise maison, ketchup maison, sauce tartare ou sauce andalouse."
+      "Accompagnements : burger maison, poulet rôti, fish and chips, steak, moules, mayonnaise, ketchup maison, sauce tartare ou sauce andalouse."
     ],
     "technical": [
       {
@@ -6524,7 +6703,7 @@ window.RECIPES = {
     ]
   },
   "frites_patate_douce": {
-    "title": "Frites de patate douce croustillantes",
+    "title": "Frites de patate douce",
     "master": "plats_maitre",
     "image": "/assets/recipe-images/frites_patate_douce_spooky.png",
     "categories": [
@@ -6627,7 +6806,9 @@ window.RECIPES = {
     "master": "sauces_maitre",
     "image": "/assets/recipe-images/sauce_yaourt_citronnee_spooky.png",
     "categories": [
-      "Sauces"
+      "Sauces",
+      "Apéro",
+      "Accompagnements"
     ],
     "seasons": [
       "Toutes saisons"
@@ -6652,7 +6833,7 @@ window.RECIPES = {
         "group": "Base",
         "items": [
           "150g yaourt grec",
-          "15g mayonnaise maison ou bonne mayonnaise",
+          "15g mayonnaise",
           "5g jus de citron vert ou jaune",
           "Zeste de 1/2 citron vert",
           "7g miel",
@@ -6670,7 +6851,7 @@ window.RECIPES = {
       "Réserver au frais au moins 15min avant service."
     ],
     "notes": [
-      "Prévue pour accompagner les <span data-goto=\"frites_patate_douce\">frites de patate douce croustillantes</span>.",
+      "Prévue pour accompagner les <span data-goto=\"frites_patate_douce\">frites de patate douce</span>.",
       "La sauce doit rester fraîche, légèrement acidulée et légèrement fumée pour équilibrer le côté sucré de la patate douce."
     ],
     "technical": [
@@ -6682,6 +6863,10 @@ window.RECIPES = {
         "label": "Texture",
         "value": "Crémeuse, nappante, pas liquide."
       }
+    ],
+    "additionalMasters": [
+      "apero_maitre",
+      "accompagnements_maitre"
     ]
   },
   "sauce_mornay": {
@@ -6750,6 +6935,9 @@ window.RECIPES = {
         "label": "Cuisson",
         "value": "5 à 7min après ajout lait et crème."
       }
+    ],
+    "additionalMasters": [
+      "elements_base_maitre"
     ]
   },
   "gratin_chou_fleur": {
@@ -7040,7 +7228,10 @@ window.RECIPES = {
       "result": [
         "Pâte froide, fluide, légère et légèrement irrégulière."
       ]
-    }
+    },
+    "additionalMasters": [
+      "apero_maitre"
+    ]
   },
   "aioli_citronne_leger": {
     "title": "Aïoli citronné léger",
@@ -7133,7 +7324,10 @@ window.RECIPES = {
       "result": [
         "Sauce nappante, citronnée, légère et stable."
       ]
-    }
+    },
+    "additionalMasters": [
+      "apero_maitre"
+    ]
   },
   "tempura_beignets_calamar_crevettes": {
     "title": "Tempura pour beignets de calamar ou crevettes",
@@ -7225,6 +7419,9 @@ window.RECIPES = {
       "result": [
         "Pâte froide, irrégulière, très légère et croustillante après friture."
       ]
-    }
+    },
+    "additionalMasters": [
+      "apero_maitre"
+    ]
   }
 };

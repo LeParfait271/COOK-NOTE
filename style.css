@@ -758,7 +758,8 @@ a {
 .tag-line span,
 .season-line span,
 .card-meta span,
-.detail-meta span {
+.detail-meta span,
+.detail-meta button {
   display: inline-flex;
   align-items: center;
   min-height: 24px;
@@ -1016,6 +1017,17 @@ a {
   color: rgba(255, 255, 255, .72);
   font-size: 12px;
   font-weight: 850;
+}
+
+.detail-meta button {
+  cursor: pointer;
+}
+
+.detail-meta button:hover,
+.detail-meta button:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 58%, var(--line));
+  color: var(--text);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .recipe-breadcrumb button {

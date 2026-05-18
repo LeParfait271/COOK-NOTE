@@ -1640,7 +1640,7 @@ function VariantPickerPanel({ parent, variantRefs, recipesById, selectedVariantI
     const panelStyle = image
       ? { backgroundImage: `linear-gradient(90deg, rgba(4,4,5,.86), rgba(4,4,5,.58) 48%, rgba(4,4,5,.30)), url("${image}")` }
       : {};
-    return h('section', { className: 'recipe-panel variant-picker-panel variant-picker-panel-selected', style: panelStyle },
+    return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel variant-picker-panel-selected', style: panelStyle },
       h('div', { className: 'panel-heading' },
         h('div', null,
           h('p', { className: 'eyebrow' }, 'Recette sélectionnée'),
@@ -1656,7 +1656,7 @@ function VariantPickerPanel({ parent, variantRefs, recipesById, selectedVariantI
       )
     );
   }
-  return h('section', { className: 'recipe-panel variant-picker-panel' },
+  return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel' },
     h('div', { className: 'panel-heading' },
       h('div', null,
         h('p', { className: 'eyebrow' }, 'Recettes'),
@@ -1687,13 +1687,13 @@ function VariantPickerPanel({ parent, variantRefs, recipesById, selectedVariantI
 }
 
 function RecipeBreadcrumb({ recipe, selectedRecipe, showVariants, goHome }) {
-  const title = showVariants && selectedRecipe?.id !== recipe.id ? selectedRecipe.title : recipe.title;
+  const breadcrumbRecipe = showVariants ? recipe : (selectedRecipe || recipe);
   return h('nav', { className: 'recipe-breadcrumb', 'aria-label': 'Fil d’Ariane' },
     h('button', { type: 'button', onClick: goHome }, 'Cook Note'),
     h('span', null, '/'),
-    h('span', null, primaryCategory(selectedRecipe || recipe)),
+    h('span', null, primaryCategory(breadcrumbRecipe)),
     h('span', null, '/'),
-    h('strong', null, title)
+    h('strong', null, breadcrumbRecipe.title)
   );
 }
 
@@ -1856,6 +1856,10 @@ function RecipeView({
     onVariantChange?.(recipe.id, variantId);
   }
 
+  function scrollToRecipePicker() {
+    document.getElementById('recipe-picker')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   function toggleIngredientGroup(groupKey) {
     setOpenIngredientGroups(prev => {
       const isOpening = !prev[groupKey];
@@ -1895,7 +1899,7 @@ function RecipeView({
           showVariants
             ? [
               h('span', { key: 'recipes' }, `${leafRecipeCount} recette${leafRecipeCount > 1 ? 's' : ''}`),
-              h('span', { key: 'choice' }, 'Choisir une recette')
+              h('button', { key: 'choice', type: 'button', className: 'meta-action', onClick: scrollToRecipePicker }, 'Choisir une recette')
             ]
             : [
               h('span', { key: 'difficulty' }, difficultyText(selectedRecipe)),
