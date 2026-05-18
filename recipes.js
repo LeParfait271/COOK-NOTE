@@ -2553,6 +2553,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Le beurre doit être pommade, pas fondu, pour obtenir un crumble bien sableux.",
+      "Beurre légèrement le plat à gratin avant d’ajouter les fruits : le jus caramélisé accroche moins.",
       "Surveiller la coloration en fin de cuisson : le dessus doit être doré sans brûler.",
       "Chaque four réagit différemment : surveille la coloration et la texture en fin de cuisson, puis ajuste le temps si nécessaire.",
       "Très bon tiède, nature ou avec une crème anglaise."
@@ -2888,6 +2889,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Le cake est prêt quand la lame ressort sèche et que le dessus est bien doré.",
+      "Préparation du moule : beurre et farine le moule, puis retire l’excédent pour démouler proprement.",
       "Stockage : refroidir rapidement puis conserver au réfrigérateur en boîte hermétique. Péremption : 3–4 jours.",
       "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
@@ -3752,6 +3754,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Le temps de cuisson est le point clé : tester un moule avant une série.",
+      "Préparation des moules ou ramequins : beurre généreusement puis chemise au cacao ou à la farine, sinon les mi-cuits peuvent coller au démoulage.",
       "Stockage : appareil cru 24h au réfrigérateur, cuisson minute recommandée.",
       "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
@@ -3965,6 +3968,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Ne pas blanchir beurre et sucre : trop fouetter nuit à la texture recherchée.",
+      "Préparation du moule : si tu utilises un moule classique, beurre et farine-le légèrement avant de verser la pâte.",
       "Le moule ne doit pas être trop grand : la pâte doit arriver aux 3/4 de la hauteur pour une belle forme et une cuisson régulière.",
       "Respecter la quantité d’œufs indiquée : la précision aide à obtenir une mie qui se tient bien, même en tranches fines.",
       "Surveiller dès 30min : une surcuisson dessèche le cake et déséquilibre l’acidité du citron.",
@@ -6960,6 +6964,7 @@ window.RECIPES = {
     ],
     "notes": [
       "La <span data-goto=\"sauce_mornay\">sauce Mornay</span> doit rester nappante, pas trop épaisse, pour éviter un gratin pâteux.",
+      "Beurre légèrement le plat avant montage : la sauce accroche moins et le service est plus propre.",
       "Rôtir le chou-fleur concentre le goût et évite un gratin aqueux.",
       "Surveille la cuisson : chaque four gratine différemment, surtout sous le gril."
     ],
