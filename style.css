@@ -568,7 +568,14 @@ a {
   max-width: min(620px, 52vw);
 }
 
-.season-tabs button {
+.season-filter-stack {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+}
+
+.season-tabs button,
+.season-category-tabs button {
   min-height: 38px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -578,10 +585,38 @@ a {
   font-weight: 850;
 }
 
-.season-tabs button.active {
+.season-tabs button.active,
+.season-category-tabs button.active {
   border-color: color-mix(in srgb, var(--accent) 72%, transparent);
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: #111;
+}
+
+.season-category-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: 6px;
+  max-width: min(760px, 58vw);
+}
+
+.season-category-tabs button {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.season-category-tabs button small {
+  min-width: 18px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text) 12%, transparent);
+  color: inherit;
+  padding: 2px 5px;
+  font-size: 11px;
+  line-height: 1;
 }
 
 .season-block,
@@ -2286,6 +2321,15 @@ a {
   }
 
   .season-tabs {
+    justify-content: start;
+    max-width: 100%;
+  }
+
+  .season-filter-stack {
+    justify-items: start;
+  }
+
+  .season-category-tabs {
     justify-content: start;
     max-width: 100%;
   }
