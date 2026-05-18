@@ -32,6 +32,7 @@ function recipeUrl(id) {
 const recipes = loadRecipes();
 const urls = [
   `${SITE_URL}/`,
+  `${SITE_URL}/techniques`,
   ...Object.keys(recipes)
     .sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }))
     .map(recipeUrl)

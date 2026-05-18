@@ -512,7 +512,7 @@ function route(req, res) {
     return;
   }
 
-  if (url.pathname.startsWith('/recette/')) {
+  if (url.pathname === '/techniques' || url.pathname === '/techniques/' || url.pathname.startsWith('/recette/')) {
     serveFile(req, res, path.join(ROOT, 'index.html'), true);
     return;
   }

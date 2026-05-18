@@ -48,6 +48,60 @@ const SEASON_CATEGORY_FILTERS = [
   { value: 'Base', label: 'Bases' },
   { value: 'Petits-déjeuners', label: 'Petit-déj.' }
 ];
+const QUICK_FILTERS = [
+  { id: 'rapide', label: 'Rapide', description: 'Peu d’étapes ou préparation courte' },
+  { id: 'facile', label: 'Facile', description: 'Recettes simples à suivre' },
+  { id: 'four', label: 'Four', description: 'Cuisson au four ou à la plaque' },
+  { id: 'sans-four', label: 'Sans four', description: 'Préparations sans cuisson au four' },
+  { id: 'sans-friture', label: 'Sans friture', description: 'Sans bain d’huile' },
+  { id: 'vegetarien', label: 'Végétarien', description: 'Sans viande ni poisson détectés' },
+  { id: 'froid', label: 'Froid', description: 'Desserts, sauces ou préparations servies froides' },
+  { id: 'avance', label: 'À préparer', description: 'Repos, conservation ou service différé' }
+];
+const TECHNIQUE_GUIDES = [
+  {
+    id: 'four',
+    title: 'Cuisson au four',
+    label: 'Four',
+    description: 'Repérer les recettes qui demandent une plaque, un moule, des ramequins ou une cuisson régulière.',
+    filter: 'four'
+  },
+  {
+    id: 'friture',
+    title: 'Friture propre',
+    label: 'Friture',
+    description: 'Température d’huile, égouttage, pâte légère, tempura et beignets croustillants.',
+    query: 'friture'
+  },
+  {
+    id: 'emulsion',
+    title: 'Émulsions et sauces',
+    label: 'Sauces',
+    description: 'Mayonnaise, aïoli, vinaigrettes, rouille et sauces montées sans trancher.',
+    query: 'émulsion sauce mayonnaise'
+  },
+  {
+    id: 'cremes',
+    title: 'Crèmes et garnissages',
+    label: 'Pâtisserie',
+    description: 'Crèmes pâtissières, diplomates, chantilly, mascarpone et garnitures à pocher.',
+    query: 'crème garniture poche'
+  },
+  {
+    id: 'repos',
+    title: 'Repos et conservation',
+    label: 'Organisation',
+    description: 'Préparations à faire en avance, stockage, refroidissement et service différé.',
+    filter: 'avance'
+  },
+  {
+    id: 'quantites',
+    title: 'Quantités ajustables',
+    label: 'Portions',
+    description: 'Recettes avec portions, rendements et ingrédients faciles à recalculer.',
+    query: 'personnes portions'
+  }
+];
 const SHOPPING_AISLES = [
   { label: 'Fruits et légumes', pattern: /\b(tomate|tomates|citron|citrons|pomme|pommes|poire|poires|oignon|oignons|ail|echalote|échalote|persil|basilic|menthe|ciboulette|pomme de terre|pommes de terre|patate douce|avocat|epinard|épinard|carotte|courgette|chou|chou-fleur|melon|fraise|framboise)\b/ },
   { label: 'Crèmerie et œufs', pattern: /\b(lait|creme|crème|beurre|fromage|parmesan|comte|comté|cheddar|mozzarella|mascarpone|ricotta|yaourt|oeuf|oeufs|œuf|œufs|jaune|jaunes|blanc|blancs)\b/ },
@@ -765,6 +819,40 @@ function shoppingListText(recipes, factorById = {}) {
   ].filter((line, index, lines) => line || lines[index - 1]).join('\n\n');
 }
 
+function recipeExportText(recipe, factor = 1) {
+  const practicalSections = getRecipePracticalSections(recipe);
+  const notes = getDisplayNotes(recipe, practicalSections).map(stripHtml);
+  const equipment = getRecipeEquipment(recipe);
+  return [
+    `${recipe.title} - Cook Note`,
+    recipe.yield ? getQuantityDisplay(recipe, factor) : '',
+    difficultyText(recipe),
+    '',
+    equipment.length ? '## Matériel nécessaire' : '',
+    ...equipment.map(item => `- ${item}`),
+    equipment.length ? '' : '',
+    '## Ingrédients',
+    ...(recipe.ingredients || []).flatMap(group => [
+      group.group ? `### ${group.group}` : '',
+      ...(group.items || []).map(item => `- ${stripHtml(scaleIngredient(item, factor))}`),
+      group.note ? `Note: ${stripHtml(group.note)}` : '',
+      ...(group.notes || []).map(note => `Note: ${stripHtml(note)}`)
+    ]).filter(Boolean),
+    '',
+    '## Étapes',
+    ...getRecipeSteps(recipe).map((step, index) => `${index + 1}. ${stripHtml(step)}`),
+    '',
+    practicalSections.length ? '## Avant de commencer' : '',
+    ...practicalSections.flatMap(section => [
+      `### ${section.title}`,
+      ...(section.items || []).map(item => `- ${stripHtml(item)}`)
+    ]),
+    notes.length ? '' : '',
+    notes.length ? '## Notes' : '',
+    ...notes.map(note => `- ${note}`)
+  ].filter((line, index, lines) => line || lines[index - 1]).join('\n');
+}
+
 function getStepMinutes(step) {
   const text = normalizeText(step);
   const hourMatch = text.match(/(\d+(?:[.,]\d+)?)\s*h/);
@@ -1028,6 +1116,14 @@ function inferEquipment(recipe) {
   return uniq(items).slice(0, 4);
 }
 
+function getRecipeEquipment(recipe) {
+  const practical = recipe?.practical || {};
+  return uniq([
+    ...asTextList(recipe?.equipment || practical.equipment),
+    ...inferEquipment(recipe)
+  ]).slice(0, 8);
+}
+
 function getRecipePracticalSections(recipe) {
   const practical = recipe?.practical || {};
   const notes = (recipe?.notes || []).map(stripHtml);
@@ -1041,13 +1137,20 @@ function getRecipePracticalSections(recipe) {
   const storageNotes = notes.filter(note => /\b(conservation|stockage|p[eé]remption|cong[eé]lation|cong[eè]le|au froid|r[eé]frig[eé]rateur)\b/i.test(note));
   const reheatingNotes = notes.filter(note => /\b(r[eé]chauff|remettre au four|four doux|vapeur)\b/i.test(note));
   const mistakeNotes = notes.filter(note => /\b(ne\s|[ée]vite|attention|trop cuit|trop cuits|surcharge|surveille|sans trop)\b/i.test(note));
+  const substitutionNotes = notes.filter(note => /\b(remplace|remplacer|substitut|substitution|à défaut|a defaut|sinon|possible avec|variante)\b/i.test(note));
+  const tipNotes = notes.filter(note => !storageNotes.includes(note) && !reheatingNotes.includes(note) && !mistakeNotes.includes(note) && !substitutionNotes.includes(note));
   const resultTechnical = technical
     .filter(item => /\b(texture|cible|r[eé]sultat|cuisson|service)\b/i.test(String(item.label || item.title || '')))
     .map(item => item.value || item.text);
 
-  add('equipment', 'Matériel utile', [
-    ...asTextList(recipe?.equipment || practical.equipment),
-    ...inferEquipment(recipe)
+  add('equipment', 'Matériel nécessaire', getRecipeEquipment(recipe));
+  add('tips', 'À savoir', [
+    ...asTextList(recipe?.tips || practical.tips),
+    ...tipNotes
+  ]);
+  add('substitutions', 'Substitutions', [
+    ...asTextList(recipe?.substitutions || practical.substitutions),
+    ...substitutionNotes
   ]);
   add('storage', 'Conservation', [
     ...asTextList(recipe?.storage || practical.storage),
@@ -1128,6 +1231,108 @@ function getLinkedRecipeRefs(recipe, recipesById = {}) {
     });
 }
 
+function getRecipeWorkflowText(recipe, recipesById = {}) {
+  return normalizeText([
+    recipe?.title,
+    recipe?.yield,
+    recipe?.difficulty,
+    ...(recipe?.categories || []),
+    ...(recipe?.seasons || []),
+    ...(recipe?.tags || []),
+    ...(recipe?.aliases || []),
+    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || []), group.note, ...(group.notes || [])]),
+    ...(recipe?.steps || []),
+    ...(recipe?.notes || []),
+    ...(recipe?.technical || []).flatMap(item => [item.label, item.value, item.text]),
+    ...getLinkedRecipeRefs(recipe, recipesById).flatMap(item => [item.role, item.recipe.title])
+  ].join(' '));
+}
+
+function getRecipeWorkflowFlags(recipe, recipesById = {}) {
+  const text = getRecipeWorkflowText(recipe, recipesById);
+  const steps = getRecipeSteps(recipe);
+  const difficultyScore = Number.isFinite(recipe?.difficultyScore)
+    ? recipe.difficultyScore
+    : recipe?.difficulty === 'easy'
+      ? 3
+      : recipe?.difficulty === 'hard'
+        ? 8
+        : 5;
+  return {
+    rapid: steps.length > 0 && (steps.length <= 4 || /\b(rapide|15\s*min|20\s*min|express)\b/.test(text)),
+    easy: difficultyScore <= 3 || normalizeText(recipe?.difficulty) === 'easy',
+    oven: /\b(four|enfourner|gril|plaque|ramequin|ramequins|moule|moules|gratiner|gratin)\b/.test(text),
+    frying: /\b(friture|frire|frites?|beignets?|tempura|bain d huile|huile a 180)\b/.test(text),
+    vegetarian: !/\b(poulet|boeuf|bœuf|porc|lardon|lardons|bacon|jambon|poisson|saumon|thon|cabillaud|crevette|crevettes|calamar|calamars|moule|moules|viande)\b/.test(text),
+    cold: /\b(froid|froide|refroidir|refrigerateur|réfrigérateur|repos au frais|chantilly|salade|coulis|gaspacho|gazpacho)\b/.test(text),
+    makeAhead: /\b(repos|la veille|24h|refroidir|conservation|stockage|au frais|refrigerateur|réfrigérateur|congelation|congélation)\b/.test(text)
+  };
+}
+
+function recipeMatchesQuickFilter(recipe, filterId, recipesById = {}) {
+  if (!filterId) return true;
+  const flags = getRecipeWorkflowFlags(recipe, recipesById);
+  if (filterId === 'rapide') return flags.rapid;
+  if (filterId === 'facile') return flags.easy;
+  if (filterId === 'four') return flags.oven;
+  if (filterId === 'sans-four') return !flags.oven;
+  if (filterId === 'sans-friture') return !flags.frying;
+  if (filterId === 'vegetarien') return flags.vegetarian;
+  if (filterId === 'froid') return flags.cold;
+  if (filterId === 'avance') return flags.makeAhead;
+  return true;
+}
+
+function quickFilterLabel(filterId) {
+  return QUICK_FILTERS.find(item => item.id === filterId)?.label || filterId;
+}
+
+function recipeMatchesTechniqueGuide(recipe, guide, recipesById = {}) {
+  if (guide.filter) return recipeMatchesQuickFilter(recipe, guide.filter, recipesById);
+  if (guide.query) return scoreRecipeSearch(recipe, guide.query, recipesById).score > 0;
+  return false;
+}
+
+function ingredientSearchTokens(value) {
+  const normalized = normalizeText(value).replace(/\bet\b/g, ',');
+  const parts = normalized
+    .split(/[,;\n]+/)
+    .map(part => part.replace(/\b(de|du|des|la|le|les|l)\b/g, ' ').replace(/\s+/g, ' ').trim())
+    .filter(Boolean);
+  if (parts.length > 1) return uniq(parts);
+  return uniq(normalized
+    .split(/\s+/)
+    .map(part => part.trim())
+    .filter(part => part.length > 2 && !['avec', 'sans', 'pour'].includes(part)));
+}
+
+function getRecipeIngredientSearchText(recipe) {
+  return normalizeText([
+    recipe?.title,
+    ...(recipe?.tags || []),
+    ...(recipe?.aliases || []),
+    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])])
+  ].join(' '));
+}
+
+function scoreIngredientSearch(recipe, query) {
+  const tokens = ingredientSearchTokens(query);
+  if (!tokens.length) return { score: 0, matched: [], missing: [] };
+  const ingredientText = getRecipeIngredientSearchText(recipe);
+  const matched = [];
+  const missing = [];
+  tokens.forEach(token => {
+    if (ingredientText.includes(token) || isCloseSearchToken(token, ingredientText)) matched.push(token);
+    else missing.push(token);
+  });
+  if (!matched.length) return { score: 0, matched, missing };
+  return {
+    score: matched.length * 90 - missing.length * 28 + (missing.length ? 0 : 45),
+    matched,
+    missing
+  };
+}
+
 function getRecipeSearchFacets(recipe) {
   const difficulty = normalizeText(recipe?.difficulty || '');
   const labels = [
@@ -1169,6 +1374,10 @@ function getPathRecipe() {
   return match ? decodeURIComponent(match[1]) : null;
 }
 
+function getPathPage() {
+  return window.location.pathname === '/techniques' || window.location.pathname === '/techniques/' ? 'techniques' : 'home';
+}
+
 function getRecipeUrl(recipeId, variantId = '') {
   const path = `/recette/${encodeURIComponent(recipeId)}`;
   return variantId ? `${path}?variant=${encodeURIComponent(variantId)}` : path;
@@ -1176,6 +1385,10 @@ function getRecipeUrl(recipeId, variantId = '') {
 
 function getHomeUrl() {
   return `${window.location.origin}/`;
+}
+
+function getTechniquesUrl() {
+  return `${window.location.origin}/techniques`;
 }
 
 function getInitialRecipe() {
@@ -1289,10 +1502,34 @@ function recipeJsonLd(recipe, recipesById = {}) {
   };
 }
 
-function updateDocumentMeta(recipe, recipesById = {}) {
-  const title = recipe?.title ? `${recipe.title} - Cook Note` : 'Cook Note';
-  const description = recipe?.title ? recipeDescription(recipe, recipesById) : 'Cook Note : carnet de recettes avec ingrédients, quantités ajustables, étapes et notes pratiques.';
-  const canonicalUrl = recipe?.id ? `${window.location.origin}${getRecipeUrl(recipe.id)}` : getHomeUrl();
+function techniquesJsonLd() {
+  const url = getTechniquesUrl();
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Techniques Cook Note',
+    description: 'Repères Cook Note pour cuisson, friture, sauces, crèmes, conservation et quantités.',
+    url
+  };
+}
+
+function updateDocumentMeta(recipe, recipesById = {}, page = 'home') {
+  const isTechniques = page === 'techniques';
+  const title = isTechniques
+    ? 'Techniques - Cook Note'
+    : recipe?.title
+      ? `${recipe.title} - Cook Note`
+      : 'Cook Note';
+  const description = isTechniques
+    ? 'Techniques Cook Note : repères pratiques pour cuisson, friture, sauces, crèmes, conservation et quantités.'
+    : recipe?.title
+      ? recipeDescription(recipe, recipesById)
+      : 'Cook Note : carnet de recettes avec ingrédients, quantités ajustables, étapes et notes pratiques.';
+  const canonicalUrl = isTechniques
+    ? getTechniquesUrl()
+    : recipe?.id
+      ? `${window.location.origin}${getRecipeUrl(recipe.id)}`
+      : getHomeUrl();
   document.title = title;
   setMetaContent('meta[name="description"]', description);
   setMetaContent('meta[property="og:title"]', title);
@@ -1315,7 +1552,7 @@ function updateDocumentMeta(recipe, recipesById = {}) {
     setMetaContent('meta[name="twitter:image"]', image);
   }
   document.getElementById('recipe-jsonld')?.remove();
-  const jsonLd = recipeJsonLd(recipe, recipesById);
+  const jsonLd = isTechniques ? techniquesJsonLd() : recipeJsonLd(recipe, recipesById);
   if (jsonLd) {
     const script = document.createElement('script');
     script.id = 'recipe-jsonld';
@@ -1359,6 +1596,16 @@ const ICON_PATHS = {
     'M8.4 13h7.2',
     'M8.7 16.4h6.6'
   ],
+  book: [
+    'M5 4.8h7a3 3 0 0 1 3 3V20H8a3 3 0 0 0-3-3V4.8Z',
+    'M19 4.8h-4a3 3 0 0 0-3 3V20h4a3 3 0 0 1 3-3V4.8Z',
+    'M8 8h3',
+    'M8 11h3'
+  ],
+  spark: [
+    'M12 3l1.7 5.1L19 10l-5.3 1.9L12 17l-1.7-5.1L5 10l5.3-1.9L12 3Z',
+    'M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z'
+  ],
   share: [
     'M14 4h6v6',
     'M20 4 11 13',
@@ -1394,12 +1641,16 @@ function Icon({ name, filled = false }) {
   );
 }
 
-function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, query, openSearch }) {
+function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, openTechniques, query, openSearch }) {
   return h('header', { className: 'topbar' },
     h('div', { className: 'top-left' },
       h(Button, { variant: 'subtle', className: 'icon-square', onClick: onHome, title: 'Accueil', ariaLabel: 'Accueil' }, h(Icon, { name: 'home' }))
     ),
     h('nav', { className: 'top-actions', 'aria-label': 'Actions rapides' },
+      h(Button, { variant: 'subtle', className: 'top-techniques-btn', onClick: openTechniques }, [
+        h(Icon, { key: 'icon', name: 'book' }),
+        h('span', { key: 'label' }, 'Techniques')
+      ]),
       h('a', {
         className: 'btn btn-subtle',
         href: 'mailto:cooknote271@gmail.com?subject=Demande%20d%27ajout%20de%20recette%20Cook%20Note&body=Bonjour%2C%0A%0AJ%27aimerais%20demander%20l%27ajout%20de%20cette%20recette%20dans%20Cook%20Note%20%3A%0A%0ANom%20de%20la%20recette%20%3A%0AIngr%C3%A9dients%20%3A%0A%C3%89tapes%20%3A%0A%0AMerci.'
@@ -1542,7 +1793,23 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   );
 }
 
-function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions }) {
+function QuickFilterBar({ filters, activeFilter, setFilter }) {
+  if (!filters.length) return null;
+  return h('div', { className: 'quick-filter-row', 'aria-label': 'Filtres avancés' },
+    filters.map(filter => h('button', {
+      key: filter.id,
+      type: 'button',
+      className: activeFilter === filter.id ? 'active' : '',
+      title: filter.description,
+      onClick: () => setFilter(activeFilter === filter.id ? '' : filter.id)
+    },
+      h('span', null, filter.label),
+      h('small', null, filter.count)
+    ))
+  );
+}
+
+function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, quickFilters, quickFilter, setQuickFilter }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
   return h('section', { className: 'season-sections', id: 'recettes' },
@@ -1579,6 +1846,11 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
           )
         )
     ),
+    !onlyFavorites && h(QuickFilterBar, {
+      filters: quickFilters || [],
+      activeFilter: quickFilter,
+      setFilter: setQuickFilter
+    }),
     sections.map(section => h('section', { key: section.key, className: 'season-block' },
       h('div', { className: 'season-block-head' },
         h('div', null, h('p', { className: 'eyebrow' }, section.kicker), h('h3', null, section.title)),
@@ -1607,8 +1879,51 @@ function HomeView(props) {
         setSeason: props.filterProps.setSeason,
         categoryFilter: props.filterProps.seasonCategory,
         setCategoryFilter: props.filterProps.setSeasonCategory,
-        categoryOptions: props.filterProps.seasonCategoryOptions
+        categoryOptions: props.filterProps.seasonCategoryOptions,
+        quickFilters: props.filterProps.quickFilters,
+        quickFilter: props.filterProps.quickFilter,
+        setQuickFilter: props.filterProps.setQuickFilter
       })
+    )
+  );
+}
+
+function TechniquesView({ recipes, recipesById, openRecipe, goHome, openGuide }) {
+  const guideCards = TECHNIQUE_GUIDES.map(guide => ({
+    ...guide,
+    examples: recipes
+      .filter(recipe => recipeMatchesTechniqueGuide(recipe, guide, recipesById))
+      .slice(0, 4)
+  }));
+  return h('main', { className: 'techniques-view' },
+    h(Hero),
+    h('div', { className: 'content-wrap techniques-wrap' },
+      h('div', { className: 'section-title techniques-title' },
+        h('div', null,
+          h('p', { className: 'eyebrow' }, 'Méthodes'),
+          h('h2', null, 'Techniques Cook Note'),
+          h('p', null, 'Des repères courts pour retrouver les bonnes recettes selon la cuisson, la texture ou l’organisation.')
+        ),
+        h(Button, { variant: 'subtle', onClick: goHome }, 'Retour aux recettes')
+      ),
+      h('div', { className: 'technique-grid' },
+        guideCards.map(guide => h('article', { key: guide.id, className: 'technique-card' },
+          h('div', { className: 'technique-card-head' },
+            h('span', null, h(Icon, { name: 'spark' })),
+            h('small', null, guide.label)
+          ),
+          h('h3', null, guide.title),
+          h('p', null, guide.description),
+          guide.examples.length > 0 && h('div', { className: 'technique-examples' },
+            guide.examples.map(recipe => h('button', {
+              key: recipe.id,
+              type: 'button',
+              onClick: () => openRecipe(recipe.id)
+            }, recipe.title))
+          ),
+          h(Button, { variant: 'primary', onClick: () => openGuide(guide) }, 'Voir les recettes')
+        ))
+      )
     )
   );
 }
@@ -1678,11 +1993,19 @@ function SharePanel({ open, onClose, recipe }) {
   );
 }
 
-function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resultMeta, openRecipe }) {
+function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngredientQuery, searchRef, results, resultMeta, ingredientMeta, openRecipe }) {
   if (!open) return null;
   const hasQuery = Boolean(query.trim());
+  const hasIngredientQuery = Boolean(ingredientQuery.trim());
   const visibleResults = hasQuery ? results.slice(0, 18) : [];
+  const visibleIngredientResults = !hasQuery && hasIngredientQuery ? results.slice(0, 18) : [];
   const resultGroups = visibleResults.reduce((groups, recipe) => {
+    const category = primaryCategory(recipe);
+    if (!groups.has(category)) groups.set(category, []);
+    groups.get(category).push(recipe);
+    return groups;
+  }, new Map());
+  const ingredientResultGroups = visibleIngredientResults.reduce((groups, recipe) => {
     const category = primaryCategory(recipe);
     if (!groups.has(category)) groups.set(category, []);
     groups.get(category).push(recipe);
@@ -1736,8 +2059,27 @@ function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resul
           placeholder: 'Ingrédient, usage, saison, difficulté...'
         })
       ),
-      hasQuery
-        ? h('div', { className: 'search-result-count' }, `${results.length} résultat${results.length > 1 ? 's' : ''} pour "${query}"`)
+      h('div', { className: 'ingredient-search-box' },
+        h('div', null,
+          h('p', { className: 'eyebrow' }, 'Recherche par ingrédients'),
+          h('small', null, 'Sépare les ingrédients par virgule : œufs, farine, citron.')
+        ),
+        h('input', {
+          value: ingredientQuery,
+          onChange: event => setIngredientQuery(event.target.value),
+          onKeyDown: event => {
+            if (event.key === 'Escape') onClose();
+            if (event.key === 'Enter' && (visibleIngredientResults[0] || visibleResults[0])) {
+              openRecipe((visibleIngredientResults[0] || visibleResults[0]).id);
+              onClose();
+            }
+          },
+          placeholder: 'Ex : œufs, farine, citron'
+        }),
+        hasIngredientQuery && h('button', { type: 'button', onClick: () => setIngredientQuery('') }, 'Effacer')
+      ),
+      hasQuery || hasIngredientQuery
+        ? h('div', { className: 'search-result-count' }, `${results.length} résultat${results.length > 1 ? 's' : ''}${hasQuery ? ` pour "${query}"` : ''}${hasIngredientQuery ? `${hasQuery ? ' avec ' : ' avec '}${ingredientSearchTokens(ingredientQuery).join(', ')}` : ''}`)
         : h('div', { className: 'search-suggestion-groups' },
           suggestions.map(group => h('section', { key: group.title, className: 'search-suggestion-group' },
             h('strong', null, group.title),
@@ -1784,6 +2126,44 @@ function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resul
         : h('div', { className: 'empty-state search-empty' },
           h('h2', null, 'Aucun résultat'),
           h('p', null, 'Essaie un ingrédient, une catégorie ou un mot proche.')
+        )),
+      !hasQuery && hasIngredientQuery && (visibleIngredientResults.length
+        ? h('div', { className: 'search-result-groups' },
+          Array.from(ingredientResultGroups.entries()).map(([category, recipes]) => h('section', { key: category, className: 'search-result-group' },
+            h('div', { className: 'search-result-group-head' },
+              h('strong', null, category),
+              h('span', null, `${recipes.length} résultat${recipes.length > 1 ? 's' : ''}`)
+            ),
+            h('div', { className: 'search-results' },
+              recipes.map(recipe => {
+                const meta = ingredientMeta.get(recipe.id);
+                return h('button', {
+                  key: recipe.id,
+                  type: 'button',
+                  className: 'search-result',
+                  onClick: () => {
+                    openRecipe(recipe.id);
+                    onClose();
+                  }
+                },
+                  h('span', { className: 'search-result-image', style: recipe.image ? { backgroundImage: `url("${recipe.image}")` } : {} }),
+                  h('span', { className: 'search-result-copy' },
+                    h('strong', null, recipe.title),
+                    h('small', null, recipe.yield || difficultyText(recipe)),
+                    meta?.matched?.length && h('span', { className: 'search-reason-pills' },
+                      meta.matched.slice(0, 3).map(reason => h('em', { key: reason }, reason))
+                    ),
+                    meta?.missing?.length > 0 && h('small', { className: 'ingredient-missing' }, `Manque peut-être : ${meta.missing.slice(0, 2).join(', ')}`)
+                  ),
+                  h('span', { className: `nutri-score nutri-${getNutriScore(recipe).toLowerCase()}` }, `Nutri ${getNutriScore(recipe)}`)
+                );
+              })
+            )
+          ))
+        )
+        : h('div', { className: 'empty-state search-empty' },
+          h('h2', null, 'Aucune recette trouvée'),
+          h('p', null, 'Essaie moins d’ingrédients ou un nom plus simple.')
         ))
     )
   );
@@ -2023,34 +2403,61 @@ function LinkedRecipesBlock({ links, openRecipe }) {
   );
 }
 
-function PracticalSectionsBlock({ sections }) {
+function PracticalSectionsBlock({ sections, inlineTargets, openRecipe }) {
   if (!sections.length) return null;
   return h('div', { className: 'practical-block' },
     h('p', { className: 'eyebrow' }, 'Repères'),
     h('h2', null, 'Infos pratiques'),
     sections.map(section => h('section', { key: section.key, className: 'practical-section' },
       h('h3', null, section.title),
-      h('ul', null, section.items.map(item => h('li', { key: item }, item)))
+      h('ul', null, section.items.map(item => h('li', { key: item }, renderLinkedText(item, inlineTargets || [], openRecipe))))
     ))
   );
 }
 
 function RecipeQuickFacts({ recipe, factor, stepTotal }) {
   const seasons = (recipe.seasons || []).filter(item => item !== 'Toutes saisons');
-  const equipment = inferEquipment(recipe).slice(0, 2);
+  const equipment = getRecipeEquipment(recipe);
   const facts = [
     { label: 'Difficulté', value: difficultyText(recipe).replace('Difficulté ', '') },
     recipe.yield && { label: 'Quantité', value: getQuantityDisplay(recipe, factor) },
     { label: 'Ingrédients', value: `${countIngredients(recipe)} ingrédients` },
     { label: 'Étapes', value: `${stepTotal || getRecipeSteps(recipe).length} étapes` },
     seasons.length && { label: 'Saison', value: seasons.slice(0, 2).join(' / ') },
-    equipment.length && { label: 'Matériel', value: equipment.join(' · ') }
   ].filter(Boolean);
-  return h('section', { className: 'recipe-quick-facts', 'aria-label': 'Résumé de la recette' },
-    facts.map(item => h('div', { key: item.label, className: 'recipe-quick-fact' },
-      h('span', null, item.label),
-      h('strong', null, item.value)
-    ))
+  return h('section', { className: 'recipe-summary-panel', 'aria-label': 'Résumé de la recette' },
+    h('div', { className: 'recipe-summary-head' },
+      h('p', { className: 'eyebrow' }, 'Résumé'),
+      h('h2', null, 'Fiche rapide')
+    ),
+    h('div', { className: 'recipe-quick-facts' },
+      facts.map(item => h('div', { key: item.label, className: 'recipe-quick-fact' },
+        h('span', null, item.label),
+        h('strong', null, item.value)
+      ))
+    ),
+    equipment.length > 0 && h('div', { className: 'recipe-equipment-strip' },
+      h('strong', null, 'Matériel nécessaire'),
+      h('ul', null, equipment.map(item => h('li', { key: item }, item)))
+    )
+  );
+}
+
+function cleanVariantGroupLabel(label) {
+  return String(label || 'Variante').replace(/^\d+\)\s*/, '').replace(/^variante\s*:?\s*/i, '').trim();
+}
+
+function InlineVariantSelector({ groups, selectedIndex, onSelect }) {
+  if (groups.length < 2) return null;
+  return h('label', { className: 'inline-variant-selector' },
+    h('span', null, 'Préparation'),
+    h('select', {
+      value: selectedIndex === null || selectedIndex === undefined ? '' : String(selectedIndex),
+      onChange: event => onSelect(event.target.value === '' ? null : Number(event.target.value))
+    },
+      h('option', { value: '' }, 'Choisir un bloc'),
+      groups.map(({ group, index }) => h('option', { key: index, value: String(index) }, cleanVariantGroupLabel(group.group)))
+    )
   );
 }
 
@@ -2086,6 +2493,7 @@ function RecipeView({
   const inlineTargets = useMemo(() => buildInlineRecipeTargets(recipes), [recipes]);
   const detailKey = hasSelectedVariant ? selectedRecipe.id : recipe.id;
   const [shareOpen, setShareOpen] = useState(false);
+  const [exportCopied, setExportCopied] = useState(false);
   const [mobileDetailTab, setMobileDetailTab] = useState('ingredients');
   const [openIngredientGroups, setOpenIngredientGroups] = useState({});
   const [timerEnd, setTimerEnd] = useState(0);
@@ -2103,6 +2511,7 @@ function RecipeView({
   const selectedInlineVariantGroup = needsInlineVariantSelection
     ? inlineVariantGroupIndexes.find(({ index }) => Boolean(openIngredientGroups[`${detailKey}:group:${index}`]))
     : null;
+  const selectedInlineVariantIndex = selectedInlineVariantGroup ? selectedInlineVariantGroup.index : null;
   const canShowSteps = hasSelectedVariant && (!needsInlineVariantSelection || Boolean(selectedInlineVariantGroup));
   const displaySteps = canShowSteps ? getRecipeSteps(selectedRecipe) : [];
   const stepTotal = displaySteps.length;
@@ -2125,6 +2534,7 @@ function RecipeView({
     completedRef.current = '';
     setMobileDetailTab('ingredients');
     setOpenIngredientGroups({});
+    setExportCopied(false);
   }, [recipe.id, selectedVariantId]);
 
   useEffect(() => {
@@ -2184,6 +2594,17 @@ function RecipeView({
     });
   }
 
+  function selectIngredientGroup(groupIndex) {
+    setOpenIngredientGroups(prev => {
+      const next = { ...prev };
+      inlineVariantGroupIndexes.forEach(({ index }) => {
+        delete next[`${detailKey}:group:${index}`];
+      });
+      if (groupIndex !== null && groupIndex !== undefined) next[`${detailKey}:group:${groupIndex}`] = true;
+      return next;
+    });
+  }
+
   const heroUsesHomeImage = showVariants;
   const heroImage = heroUsesHomeImage ? HERO_IMAGE : (selectedRecipe.image || recipe.image);
   const heroEyebrow = isMasterRecipe(recipe) ? 'Catégorie' : primaryCategory(recipe);
@@ -2224,6 +2645,10 @@ function RecipeView({
         ),
         h('div', { className: 'detail-actions' },
           h(Button, { variant: isInShopping ? 'primary' : 'ghost', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(detailKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
+          hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(Button, {
+            variant: 'subtle',
+            onClick: () => copyText(recipeExportText(selectedRecipe, factor)).then(() => setExportCopied(true))
+          }, exportCopied ? 'Fiche copiée' : 'Copier fiche'),
           h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' })),
           selectedRecipe.video && h('a', { className: 'btn btn-ghost', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, 'Voir la vidéo'),
           h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, h(Icon, { name: 'print' })),
@@ -2274,6 +2699,11 @@ function RecipeView({
             ? `Tu suis actuellement le bloc "${selectedGroupLabel}". Ouvre un autre bloc si tu changes de préparation.`
             : 'Ouvre un bloc ci-dessous pour afficher les ingrédients détaillés et les étapes correspondantes.')
         ),
+        needsInlineVariantSelection && h(InlineVariantSelector, {
+          groups: inlineVariantGroupIndexes,
+          selectedIndex: selectedInlineVariantIndex,
+          onSelect: selectIngredientGroup
+        }),
         (selectedRecipe.ingredients || []).map((group, groupIndex) => {
           const groupKey = `${detailKey}:group:${groupIndex}`;
           const collapsible = isVariantIngredientGroup(group, selectedRecipe.ingredients || [], selectedRecipe);
@@ -2362,12 +2792,12 @@ function RecipeView({
           ))
         ),
         h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
-        h(PracticalSectionsBlock, { sections: practicalSections }),
-        h('p', { className: 'eyebrow' }, 'Notes'),
-        h('h2', null, 'Astuces et liens'),
-        displayNotes.length
-          ? h('ul', null, displayNotes.map((note, index) => h('li', { key: `${detailKey}:note:${index}` }, renderLinkedText(sanitizeNoteHtml(note), inlineTargets, openRecipe))))
-          : h('p', null, 'Aucune note pour cette recette.'),
+        h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe }),
+        displayNotes.length > 0 && h('div', { className: 'free-notes-block' },
+          h('p', { className: 'eyebrow' }, 'Notes'),
+          h('h2', null, 'Astuces et liens'),
+          h('ul', null, displayNotes.map((note, index) => h('li', { key: `${detailKey}:note:${index}` }, renderLinkedText(sanitizeNoteHtml(note), inlineTargets, openRecipe))))
+        ),
         (selectedRecipe.technical || recipe.technical || []).length > 0 && h('div', { className: 'technical-card' },
           h('p', { className: 'eyebrow' }, 'Fiche technique'),
           h('dl', null, (selectedRecipe.technical || recipe.technical || []).map((item, index) =>
@@ -2398,10 +2828,13 @@ function App() {
   const currentSeason = useMemo(() => getCurrentSeason(), []);
 
   const [query, setQuery] = useState('');
+  const [ingredientQuery, setIngredientQuery] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
   const [season, setSeason] = useState('');
   const [seasonCategory, setSeasonCategory] = useState('');
+  const [quickFilter, setQuickFilter] = useState('');
   const [tagFilter, setTagFilter] = useState('');
+  const [activePage, setActivePage] = useState(() => getPathPage());
   const [onlyFavorites, setOnlyFavorites] = useState(() => new URLSearchParams(window.location.search).get('view') === '__favs__');
   const [activeId, setActiveId] = useState(() => getInitialRecipe());
   const [variantSelection, setVariantSelection] = useState(() => {
@@ -2425,7 +2858,7 @@ function App() {
   const activeVariantId = activeRecipe ? variantSelection[activeRecipe.id] : '';
   const activeSeoRecipe = activeVariantId && recipesById[activeVariantId] ? recipesById[activeVariantId] : activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => recipesById[id]).filter(Boolean), [shoppingIds, recipesById]);
-  const hasRecipeFilters = Boolean(query.trim() || season || seasonCategory || tagFilter || onlyFavorites);
+  const hasRecipeFilters = Boolean(query.trim() || ingredientQuery.trim() || season || seasonCategory || quickFilter || tagFilter || onlyFavorites);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
 
@@ -2453,8 +2886,8 @@ function App() {
   }, [activeRecipe?.id, activeVariantId]);
 
   useEffect(() => {
-    updateDocumentMeta(activeSeoRecipe, recipesById);
-  }, [activeSeoRecipe?.id, recipesById]);
+    updateDocumentMeta(activeSeoRecipe, recipesById, activePage);
+  }, [activeSeoRecipe?.id, recipesById, activePage]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -2516,9 +2949,21 @@ function App() {
     return map;
   }, [query, searchableRecipes, recipesById]);
 
-  const baseFilteredRecipes = useMemo(() => {
+  const ingredientMeta = useMemo(() => {
+    const needle = ingredientQuery.trim();
+    const map = new Map();
+    if (!needle) return map;
+    searchableRecipes.forEach(recipe => {
+      const meta = scoreIngredientSearch(recipe, needle);
+      if (meta.score > 0) map.set(recipe.id, meta);
+    });
+    return map;
+  }, [ingredientQuery, searchableRecipes]);
+
+  const recipesBeforeQuickFilter = useMemo(() => {
     let list = catalogRecipes.filter(recipe => {
       if (query.trim() && !searchMeta.has(recipe.id)) return false;
+      if (ingredientQuery.trim() && !ingredientMeta.has(recipe.id)) return false;
       if (season && !recipeHasSeason(recipe, season, recipesById)) return false;
       if (tagFilter && !(recipe.tagsExtracted || []).includes(tagFilter)) return false;
       if (onlyFavorites && !favorites.includes(recipe.id)) return false;
@@ -2530,12 +2975,30 @@ function App() {
         const score = (searchMeta.get(b.id)?.score || 0) - (searchMeta.get(a.id)?.score || 0);
         if (score) return score;
       }
+      if (ingredientQuery.trim()) {
+        const ingredientScore = (ingredientMeta.get(b.id)?.score || 0) - (ingredientMeta.get(a.id)?.score || 0);
+        if (ingredientScore) return ingredientScore;
+      }
       const order = homeCardOrder(a) - homeCardOrder(b);
       if (order) return order;
       return a.title.localeCompare(b.title, 'fr');
     });
     return list;
-  }, [catalogRecipes, query, searchMeta, season, tagFilter, onlyFavorites, favorites, recipesById]);
+  }, [catalogRecipes, query, searchMeta, ingredientQuery, ingredientMeta, season, tagFilter, onlyFavorites, favorites, recipesById]);
+
+  const quickFilterCountRecipes = (!query.trim() && !ingredientQuery.trim() && !season && !tagFilter && !onlyFavorites)
+    ? searchableRecipes
+    : recipesBeforeQuickFilter;
+
+  const quickFilterOptions = useMemo(() => QUICK_FILTERS.map(filter => ({
+    ...filter,
+    count: quickFilterCountRecipes.filter(recipe => recipeMatchesQuickFilter(recipe, filter.id, recipesById)).length
+  })).filter(filter => filter.count > 0 || filter.id === quickFilter), [quickFilterCountRecipes, recipesById, quickFilter]);
+
+  const baseFilteredRecipes = useMemo(() => {
+    if (!quickFilter) return recipesBeforeQuickFilter;
+    return recipesBeforeQuickFilter.filter(recipe => recipeMatchesQuickFilter(recipe, quickFilter, recipesById));
+  }, [recipesBeforeQuickFilter, quickFilter, recipesById]);
 
   const seasonCategoryOptions = useMemo(() => {
     if (!season) return [];
@@ -2602,8 +3065,10 @@ function App() {
   }, [currentSeason, filteredRecipes, onlyFavorites, season, seasonCategory]);
   const activeChips = [
     query && { key: 'query', label: `Recherche: ${query}`, clear: () => setQuery('') },
+    ingredientQuery.trim() && { key: 'ingredients', label: `Ingrédients: ${ingredientSearchTokens(ingredientQuery).join(', ')}`, clear: () => setIngredientQuery('') },
     season && { key: 'season', label: season, clear: () => updateSeason('') },
     seasonCategory && { key: 'seasonCategory', label: categoryLabel(seasonCategory), clear: () => setSeasonCategory('') },
+    quickFilter && { key: 'quickFilter', label: quickFilterLabel(quickFilter), clear: () => setQuickFilter('') },
     tagFilter && { key: 'tag', label: `Tag: ${tagFilter}`, clear: () => setTagFilter('') },
     onlyFavorites && { key: 'favorites', label: 'Favoris', clear: () => setOnlyFavorites(false) }
   ].filter(Boolean);
@@ -2669,6 +3134,7 @@ function App() {
         return next;
       });
     }
+    setActivePage('home');
     setActiveId(parentId);
     setOnlyFavorites(false);
     const nextUrl = getRecipeUrl(parentId, target.master ? id : '');
@@ -2696,14 +3162,40 @@ function App() {
 
   function goHome() {
     restoreHomeScrollRef.current = Boolean(activeRecipe);
+    setActivePage('home');
+    setOnlyFavorites(false);
     setActiveId(null);
     history.pushState('', document.title, '/');
   }
 
   function showFavorites() {
+    setActivePage('home');
     setOnlyFavorites(true);
     setActiveId(null);
     history.pushState('', document.title, '/?view=__favs__');
+    setTimeout(() => document.getElementById('recettes')?.scrollIntoView({ behavior: 'smooth' }), 0);
+  }
+
+  function goTechniques() {
+    restoreHomeScrollRef.current = Boolean(activeRecipe);
+    setActivePage('techniques');
+    setActiveId(null);
+    setOnlyFavorites(false);
+    history.pushState('', document.title, '/techniques');
+  }
+
+  function openTechniqueGuide(guide) {
+    setActivePage('home');
+    setActiveId(null);
+    setOnlyFavorites(false);
+    if (guide.filter) {
+      setQuickFilter(guide.filter);
+      setQuery('');
+    } else if (guide.query) {
+      setQuery(guide.query);
+      setQuickFilter('');
+    }
+    history.pushState('', document.title, '/');
     setTimeout(() => document.getElementById('recettes')?.scrollIntoView({ behavior: 'smooth' }), 0);
   }
 
@@ -2720,13 +3212,15 @@ function App() {
     const handleLocation = () => {
       const recipe = getInitialRecipe();
       const variant = getInitialVariant();
+      const page = getPathPage();
       if (recipe && !activeId) {
         homeScrollRef.current = Math.max(window.scrollY || 0, homeScrollRef.current || 0);
         restoreHomeScrollRef.current = false;
       }
+      setActivePage(page);
       setOnlyFavorites(new URLSearchParams(window.location.search).get('view') === '__favs__');
       setActiveId(recipe);
-      if (!recipe) restoreHomeScrollRef.current = true;
+      if (!recipe && page === 'home') restoreHomeScrollRef.current = true;
       if (recipe && variant) {
         setVariantSelection(prev => ({ ...prev, [recipe]: variant }));
       } else if (recipe) {
@@ -2783,7 +3277,7 @@ function App() {
           setSearchOpen(false);
           return;
         }
-        if (activeRecipe && !isTypingTarget(event.target)) goHome();
+        if ((activeRecipe || activePage === 'techniques') && !isTypingTarget(event.target)) goHome();
         return;
       }
       if (isTypingTarget(event.target)) return;
@@ -2812,7 +3306,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [activeRecipe, catalogRecipes, canUndo, canRedo, searchOpen]);
+  }, [activeRecipe, activePage, catalogRecipes, canUndo, canRedo, searchOpen]);
 
   if (!recipes.length) {
     return h('div', { className: 'mc-shell' },
@@ -2829,7 +3323,10 @@ function App() {
     setSeason: updateSeason,
     seasonCategory,
     setSeasonCategory,
-    seasonCategoryOptions
+    seasonCategoryOptions,
+    quickFilters: quickFilterOptions,
+    quickFilter,
+    setQuickFilter
   };
 
   return h('div', { className: 'mc-shell' },
@@ -2838,12 +3335,14 @@ function App() {
       shoppingCount: shoppingRecipes.length,
       showFavorites,
       openShoppingBasket: () => setShoppingOpen(true),
+      openTechniques: goTechniques,
       query,
       openSearch
     }),
     h('nav', { className: 'mobile-bottom-nav', 'aria-label': 'Navigation mobile' },
       h('button', { type: 'button', onClick: goHome, 'aria-label': 'Accueil' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'home' })), h('span', { className: 'sr-only' }, 'Accueil')),
       h('button', { type: 'button', onClick: openSearch, 'aria-label': 'Recherche' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'search' })), 'Recherche'),
+      h('button', { type: 'button', onClick: goTechniques, 'aria-label': 'Techniques' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'book' })), 'Techniques'),
       h('button', { type: 'button', onClick: showFavorites, 'aria-label': 'Favoris' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'heart' })), 'Favoris'),
       h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Courses')
     ),
@@ -2869,6 +3368,14 @@ function App() {
           selectedVariantId: variantSelection[activeRecipe.id],
           onVariantChange: selectVariant
         })
+      : activePage === 'techniques'
+        ? h(TechniquesView, {
+            recipes: searchableRecipes,
+            recipesById,
+            openRecipe,
+            goHome,
+            openGuide: openTechniqueGuide
+          })
       : h(HomeView, {
           favorites,
           sections,
@@ -2894,9 +3401,12 @@ function App() {
       onClose: () => setSearchOpen(false),
       query,
       setQuery: updateSearchQuery,
+      ingredientQuery,
+      setIngredientQuery,
       searchRef,
       results: filteredRecipes,
       resultMeta: searchMeta,
+      ingredientMeta,
       openRecipe
     })
   );
