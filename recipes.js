@@ -688,6 +688,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "easy",
+    "yield": "environ 230g",
     "ingredients": [
       {
         "group": "Base",
@@ -727,6 +728,7 @@ window.RECIPES = {
       "Été"
     ],
     "difficulty": "easy",
+    "yield": "environ 180g par version",
     "ingredients": [
       {
         "group": "Version salade (citronnée)",
@@ -782,6 +784,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "easy",
+    "yield": "environ 280g",
     "ingredients": [
       {
         "group": "Base",
@@ -813,6 +816,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "easy",
+    "yield": "environ 120g",
     "ingredients": [
       {
         "group": "Base",
@@ -846,6 +850,7 @@ window.RECIPES = {
       "Automne"
     ],
     "difficulty": "easy",
+    "yield": "environ 1kg par version",
     "ingredients": [
       {
         "group": "Version séchées",
@@ -902,6 +907,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "easy",
+    "yield": "environ 250g",
     "ingredients": [
       {
         "group": "Base",
@@ -937,6 +943,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "easy",
+    "yield": "repères pour 4 personnes",
     "ingredients": [
       {
         "group": "Temps de cuisson — chaleur tournante 200°C",
@@ -989,6 +996,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "easy",
+    "yield": "10 marinades pour 4 personnes",
     "ingredients": [
       {
         "group": "1) Méditerranéenne",
@@ -1273,6 +1281,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "easy",
+    "yield": "environ 270g",
     "ingredients": [
       {
         "group": "Base",
@@ -1348,6 +1357,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "easy",
+    "yield": "environ 280g",
     "ingredients": [
       {
         "group": "Base",
@@ -1532,6 +1542,7 @@ window.RECIPES = {
       "Printemps"
     ],
     "difficulty": "easy",
+    "yield": "environ 450g",
     "ingredients": [
       {
         "group": "Base",
@@ -1568,6 +1579,7 @@ window.RECIPES = {
       "Été"
     ],
     "difficulty": "easy",
+    "yield": "environ 450g",
     "ingredients": [
       {
         "group": "Base",
@@ -1601,6 +1613,7 @@ window.RECIPES = {
       "Été"
     ],
     "difficulty": "easy",
+    "yield": "environ 490g",
     "ingredients": [
       {
         "group": "Base",
@@ -1636,6 +1649,7 @@ window.RECIPES = {
       "Hiver"
     ],
     "difficulty": "easy",
+    "yield": "environ 470g",
     "ingredients": [
       {
         "group": "Base",
@@ -1670,6 +1684,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "easy",
+    "yield": "environ 470g",
     "ingredients": [
       {
         "group": "Base",
@@ -1956,6 +1971,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "easy",
+    "yield": "décor pour 8 choux",
     "ingredients": [
       {
         "group": "Base",
@@ -1992,6 +2008,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "medium",
+    "yield": "8 choux",
     "ingredients": [
       {
         "group": "Base",
@@ -2034,6 +2051,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "medium",
+    "yield": "environ 390g",
     "ingredients": [
       {
         "group": "Base",
@@ -2080,6 +2098,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "hard",
+    "yield": "environ 300g",
     "ingredients": [
       {
         "group": "Crème anglaise au beurre",
@@ -2127,6 +2146,7 @@ window.RECIPES = {
       "Toutes saisons"
     ],
     "difficulty": "medium",
+    "yield": "environ 690g",
     "ingredients": [
       {
         "group": "Assemblage",

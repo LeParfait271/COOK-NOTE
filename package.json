@@ -7,7 +7,7 @@
     "dev": "node server.js",
     "start": "node server.js",
     "validate:recipes": "node scripts/validate-recipes.js",
-    "check": "node --check server.js && node --check app.js && node --check admin.js && node --check recipe.js && node --check service-worker.js && node --check scripts/validate-recipes.js && node scripts/validate-recipes.js"
+    "check": "node --check server.js && node --check app.js && node --check admin.js && node --check recipe.js && node --check service-worker.js && node --check scripts/validate-recipes.js && node --check scripts/validate-quantities.js && node scripts/validate-recipes.js && node scripts/validate-quantities.js"
   },
   "engines": {
     "node": ">=18"

@@ -426,18 +426,24 @@ function getServingInfo(recipe) {
   const match = normalized.match(/(\d+(?:[.,]\d+)?(?:\/\d+)?)(?:\s*(?:[\u2013\u2014-]|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?\s*(personnes?|portions?|parts?)\b/);
   if (match) {
     const base = parseAmount(match[1]);
+    const max = match[2] ? parseAmount(match[2]) : null;
     if (!Number.isFinite(base) || base <= 0) return null;
     const unit = match[3].startsWith('personne')
       ? 'personne'
       : match[3].startsWith('part')
         ? 'part'
         : 'portion';
-    return { base, unit };
+    return {
+      base,
+      max: Number.isFinite(max) && max > base ? max : null,
+      unit
+    };
   }
 
   const genericMatch = normalized.match(/(\d+(?:[.,]\d+)?(?:\/\d+)?)(?:\s*(?:[\u2013\u2014-]|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?\s+((?:(?:petits?|petites?|grands?|grandes?|gros|grosses)\s+)?[a-zœ]+(?:-[a-zœ]+)?)\b/);
   if (!genericMatch) return null;
   const base = parseAmount(genericMatch[1]);
+  const max = genericMatch[2] ? parseAmount(genericMatch[2]) : null;
   if (!Number.isFinite(base) || base <= 0) return null;
   const unitPhrase = genericMatch[3].replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
   const lastWord = unitPhrase.split(/\s+/).pop();
@@ -445,6 +451,7 @@ function getServingInfo(recipe) {
   if (blockedUnits.has(unitPhrase) || blockedUnits.has(lastWord)) return null;
   return {
     base,
+    max: Number.isFinite(max) && max > base ? max : null,
     unit: 'custom',
     singular: singularizeServingUnit(unitPhrase),
     plural: pluralizeServingUnit(unitPhrase)
@@ -465,20 +472,38 @@ function getServingTarget(recipe, factor = 1) {
   return Math.max(1, Math.round(info.base * factor));
 }
 
+function getServingTargetRange(recipe, factor = 1) {
+  const info = getServingInfo(recipe);
+  if (!info) return null;
+  const first = Math.max(1, Math.round(info.base * factor));
+  const second = info.max ? Math.max(first, Math.round(info.max * factor)) : null;
+  return { first, second, info };
+}
+
+function formatServingTarget(recipe, factor = 1) {
+  const range = getServingTargetRange(recipe, factor);
+  if (!range) return '';
+  const unitCount = range.second || range.first;
+  const label = servingUnitLabel(range.info, unitCount);
+  if (range.second && range.second !== range.first) {
+    return `${formatNumber(range.first)} à ${formatNumber(range.second)} ${label}`;
+  }
+  return `${formatNumber(range.first)} ${label}`;
+}
+
 function getQuantityDisplay(recipe, factor = 1) {
   const info = getServingInfo(recipe);
   if (!info) return scaleYieldDisplay(recipe?.yield, factor);
-  const target = getServingTarget(recipe, factor);
-  return `Pour ${formatNumber(target)} ${servingUnitLabel(info, target)}`;
+  return `Pour ${formatServingTarget(recipe, factor)}`;
 }
 
 function getQuantitySummary(recipe, factor = 1) {
   const info = getServingInfo(recipe);
   if (info) {
-    const target = getServingTarget(recipe, factor);
-    return `pour ${formatNumber(target)} ${servingUnitLabel(info, target)}`;
+    return `pour ${formatServingTarget(recipe, factor)}`;
   }
-  return factor === 1 ? '' : `${String(factor).replace('.', ',')}x`;
+  const scaledYield = scaleYieldDisplay(recipe?.yield, factor);
+  return factor === 1 || !scaledYield ? '' : `pour ${scaledYield}`;
 }
 
 function servingOptionsFor(recipe) {
@@ -513,6 +538,8 @@ function scaleParentheticalAmounts(text, factor) {
 
 function scaleIngredient(text, factor) {
   if (factor === 1) return text;
+  const parts = splitShoppingIngredientParts(text);
+  if (parts.length > 1) return parts.map(part => scaleIngredient(part, factor)).join(', ');
   const match = String(text).match(/^(\d+(?:[.,]\d+)?(?:\/\d+)?)(\s*(?:[\u2013\u2014-]|à|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?(.*)$/i);
   if (!match) return text;
   const first = parseAmount(match[1]);
@@ -578,6 +605,14 @@ function recipeShoppingLines(recipe, factor = 1) {
   ]);
 }
 
+function splitShoppingIngredientParts(line) {
+  const value = String(line || '').trim();
+  if (!/,(\s*\d+(?:[.,]\d+)?(?:\/\d+)?\s*(?:g|kg|ml|cl|l)\b)/i.test(value)) return [value];
+  return value.split(/,\s+(?=\d+(?:[.,]\d+)?(?:\/\d+)?\s*(?:g|kg|ml|cl|l)\b)/i)
+    .map(part => part.trim())
+    .filter(Boolean);
+}
+
 function normalizeShoppingName(value) {
   return normalizeText(value)
     .replace(/^(?:de |d'|du |des |la |le |les |l')/i, '')
@@ -619,20 +654,22 @@ function shoppingListText(recipes, factorById = {}) {
     (recipe.ingredients || []).forEach(group => {
       (group.items || []).forEach(item => {
         const scaled = scaleIngredient(item, factor);
-        const parsed = parseShoppingIngredient(scaled);
-        if (!parsed) return;
-        const existing = grouped.get(parsed.key);
-        if (existing) {
-          const existingFirst = existing.first;
-          const existingSecond = existing.second;
-          existing.first += parsed.first;
-          existing.second = existingSecond !== null || parsed.second !== null
-            ? (existingSecond || existingFirst) + (parsed.second || parsed.first)
-            : null;
-          existing.recipes.add(recipe.title);
-        } else {
-          grouped.set(parsed.key, { ...parsed, recipes: new Set([recipe.title]) });
-        }
+        splitShoppingIngredientParts(scaled).forEach(part => {
+          const parsed = parseShoppingIngredient(part);
+          if (!parsed) return;
+          const existing = grouped.get(parsed.key);
+          if (existing) {
+            const existingFirst = existing.first;
+            const existingSecond = existing.second;
+            existing.first += parsed.first;
+            existing.second = existingSecond !== null || parsed.second !== null
+              ? (existingSecond || existingFirst) + (parsed.second || parsed.first)
+              : null;
+            existing.recipes.add(recipe.title);
+          } else {
+            grouped.set(parsed.key, { ...parsed, recipes: new Set([recipe.title]) });
+          }
+        });
       });
     });
     return [`## ${recipe.title}${factorLabel}`, ...recipeShoppingLines(recipe, factor)].join('\n');
@@ -705,11 +742,21 @@ function getRecipeSearchText(recipe, tags, recipesById = {}) {
 const SEARCH_SYNONYMS = {
   mayo: ['mayonnaise'],
   mayonaise: ['mayonnaise'],
+  sauce: ['dip', 'assaisonnement', 'condiment'],
+  sauces: ['dip', 'assaisonnement', 'condiment'],
   gateau: ['cake', 'dessert'],
   gâteau: ['cake', 'dessert'],
   patate: ['pomme de terre', 'pommes de terre'],
+  fritte: ['frite', 'frites'],
+  frite: ['frites', 'pomme de terre'],
+  accompagnement: ['accompagnements', 'garniture'],
+  garniture: ['accompagnement', 'topping'],
+  crevette: ['crevettes', 'gambas'],
+  calamar: ['calamars', 'encornet'],
   oeuf: ['œuf', 'oeufs', 'œufs'],
   oeufs: ['œufs', 'oeuf', 'œuf'],
+  pate: ['pâte', 'base'],
+  base: ['bases', 'pâte'],
   citronne: ['citron'],
   citronné: ['citron'],
   facile: ['easy', 'simple', 'débutant'],
@@ -1887,8 +1934,10 @@ function RecipeView({
         : `linear-gradient(90deg, rgba(4,4,5,.92), rgba(4,4,5,.50)), url("${heroImage}")`
     }
     : {};
+  const detailAccent = getCategoryColor(selectedRecipe);
+  const detailStyle = { '--accent': detailAccent, '--accent-2': detailAccent };
 
-  return h('main', { className: 'recipe-view' },
+  return h('main', { className: 'recipe-view', style: detailStyle },
     h('section', {
       className: heroImage ? (heroUsesHomeImage ? 'recipe-detail-hero has-photo parent-hero' : 'recipe-detail-hero has-photo') : 'recipe-detail-hero',
       style: heroStyle
@@ -2135,7 +2184,7 @@ function App() {
       cancelAnimationFrame(firstFrame);
       cancelAnimationFrame(secondFrame);
     };
-  }, [activeRecipe?.id]);
+  }, [activeRecipe?.id, activeVariantId]);
 
   useEffect(() => {
     updateDocumentMeta(activeSeoRecipe, recipesById);
@@ -2467,9 +2516,9 @@ function App() {
     }),
     h('nav', { className: 'mobile-bottom-nav', 'aria-label': 'Navigation mobile' },
       h('button', { type: 'button', onClick: goHome, 'aria-label': 'Accueil' }, h('span', null, '\u2302'), h('span', { className: 'sr-only' }, 'Accueil')),
-      h('button', { type: 'button', onClick: openSearch }, h('span', null, '🔍'), 'Recherche'),
-      h('button', { type: 'button', onClick: showFavorites }, h('span', null, '♥'), 'Favoris'),
-      h('button', { type: 'button', onClick: () => setShoppingOpen(true) }, h('span', null, '🛒'), 'Courses')
+      h('button', { type: 'button', onClick: openSearch, 'aria-label': 'Recherche' }, h('span', null, '\u2315'), 'Recherche'),
+      h('button', { type: 'button', onClick: showFavorites, 'aria-label': 'Favoris' }, h('span', null, '\u2665'), 'Favoris'),
+      h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses' }, h('span', null, '\u25a4'), 'Courses')
     ),
     activeRecipe
       ? h(RecipeView, {

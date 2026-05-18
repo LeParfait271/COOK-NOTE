@@ -53,6 +53,16 @@ function collectStrings(value, out = []) {
   return out;
 }
 
+function normalizeComparable(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/<[^>]+>/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
 if (!recipes || typeof recipes !== 'object') {
   errors.push('window.RECIPES est introuvable.');
 } else {
@@ -70,12 +80,22 @@ if (!recipes || typeof recipes !== 'object') {
     if (!recipe.title) errors.push(`${id}: titre manquant.`);
     if (!isMaster && (!Array.isArray(recipe.ingredients) || !recipe.ingredients.length)) errors.push(`${id}: ingredients manquants.`);
     if (!isMaster && (!Array.isArray(recipe.steps) || !recipe.steps.length)) errors.push(`${id}: etapes manquantes.`);
+    if (!isMaster && (!recipe.yield || !/\d/.test(String(recipe.yield)))) errors.push(`${id}: rendement chiffre manquant.`);
 
     if (recipe.master && !ids.has(recipe.master)) errors.push(`${id}: fiche parent introuvable (${recipe.master}).`);
     if (!masterIds.has(id) && !recipe.master) errors.push(`${id}: recette sans fiche parent.`);
+    if (Array.isArray(recipe.additionalMasters)) {
+      recipe.additionalMasters.forEach(parentId => {
+        if (!ids.has(parentId)) errors.push(`${id}: fiche parent additionnelle introuvable (${parentId}).`);
+        else if (!masterIds.has(parentId)) errors.push(`${id}: fiche parent additionnelle non-maitre (${parentId}).`);
+      });
+    }
 
     if (Array.isArray(recipe.variants)) {
       const labels = recipe.variants.map(variant => variant?.label || '');
+      const variantIds = recipe.variants.map(variant => variant?.id).filter(Boolean);
+      const duplicateVariants = variantIds.filter((variantId, index) => variantIds.indexOf(variantId) !== index);
+      if (duplicateVariants.length) errors.push(`${id}: variantes dupliquees (${[...new Set(duplicateVariants)].join(', ')}).`);
       const sortedLabels = [...labels].sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
       if (labels.join('\n') !== sortedLabels.join('\n')) errors.push(`${id}: variantes non triees alphabetiquement.`);
       recipe.variants.forEach(variant => {
@@ -101,8 +121,12 @@ if (!recipes || typeof recipes !== 'object') {
     }
 
     if (Array.isArray(recipe.notes)) {
+      const seenNotes = new Set();
       recipe.notes.forEach(note => {
         if (/\bsource\b|https?:\/\/|href\s*=/i.test(String(note))) errors.push(`${id}: source externe presente dans les notes.`);
+        const key = normalizeComparable(note);
+        if (key && seenNotes.has(key)) errors.push(`${id}: note dupliquee (${note}).`);
+        seenNotes.add(key);
       });
     }
 
