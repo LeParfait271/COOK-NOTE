@@ -2102,7 +2102,7 @@ window.RECIPES = {
       "Mettre en poche cannelée pour le montage des Paris-Brest."
     ],
     "notes": [
-      "→ Utilisée dans : <span data-goto=\"paris_brest\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Paris-Brest</span>.",
+      "Utilisé par exemple dans : <span data-goto=\"paris_brest\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Paris-Brest</span>.",
       "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
     ],
     "difficultyScore": 5,
@@ -6876,7 +6876,7 @@ window.RECIPES = {
       "Ajouter le jaune d’œuf hors du feu en fouettant."
     ],
     "notes": [
-      "Utilisée dans le <span data-goto=\"gratin_chou_fleur\">gratin de chou-fleur</span>.",
+      "Utilisé par exemple dans le <span data-goto=\"gratin_chou_fleur\">gratin de chou-fleur</span>.",
       "La sauce doit être nappante mais pas trop épaisse : elle continue à gratiner au four."
     ],
     "technical": [
