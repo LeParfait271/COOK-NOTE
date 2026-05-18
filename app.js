@@ -544,7 +544,9 @@ function readStoredList(key, legacyKeys) {
 function scrollElementToViewportCenter(element, behavior = 'smooth') {
   if (!element) return;
   const rect = element.getBoundingClientRect();
-  const top = Math.max(0, window.scrollY + rect.top + (rect.height / 2) - (window.innerHeight / 2));
+  const viewportHeight = window.visualViewport?.height || window.innerHeight;
+  const viewportOffset = window.visualViewport?.offsetTop || 0;
+  const top = Math.max(0, window.scrollY + rect.top + (rect.height / 2) - (viewportHeight / 2) - viewportOffset);
   window.scrollTo({ top, behavior });
 }
 
@@ -1831,6 +1833,15 @@ function getPathPage() {
   return window.location.pathname === '/techniques' || window.location.pathname === '/techniques/' ? 'techniques' : 'home';
 }
 
+function getInitialTechnique() {
+  if (getPathPage() !== 'techniques') return '';
+  try {
+    return decodeURIComponent(window.location.hash.replace(/^#/, ''));
+  } catch {
+    return window.location.hash.replace(/^#/, '');
+  }
+}
+
 function getRecipeUrl(recipeId, variantId = '') {
   const path = `/recette/${encodeURIComponent(recipeId)}`;
   return variantId ? `${path}?variant=${encodeURIComponent(variantId)}` : path;
@@ -2317,10 +2328,11 @@ function HomeView(props) {
   );
 }
 
-function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
+function TechniquesView({ targetTechniqueId, goHome }) {
   const [highlightedTechniqueId, setHighlightedTechniqueId] = useState('');
   useEffect(() => {
     let frameId = 0;
+    let settleTimer = 0;
 
     function hashId() {
       try {
@@ -2330,30 +2342,35 @@ function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
       }
     }
 
-    function scrollToTechnique(attempt = 0, forcedId = '') {
-      const id = forcedId || hashId();
-      if (!id) return;
-      const target = document.getElementById(`technique-${id}`);
-      if (!target) {
-        if (attempt < 20) frameId = requestAnimationFrame(() => scrollToTechnique(attempt + 1, forcedId));
+    function scrollToTechnique(attempt = 0, forcedId = null) {
+      const id = forcedId !== null ? forcedId : (targetTechniqueId || hashId());
+      if (!id) {
+        setHighlightedTechniqueId('');
         return;
       }
-      scrollElementToViewportCenter(target);
+      const target = document.getElementById(`technique-${id}`);
+      if (!target) {
+        if (attempt < 30) frameId = requestAnimationFrame(() => scrollToTechnique(attempt + 1, forcedId));
+        return;
+      }
+      window.clearTimeout(settleTimer);
+      frameId = requestAnimationFrame(() => {
+        scrollElementToViewportCenter(target);
+        settleTimer = window.setTimeout(() => scrollElementToViewportCenter(target, 'auto'), 650);
+      });
       target.focus({ preventScroll: true });
       setHighlightedTechniqueId(id);
     }
 
-    const handleHashChange = () => scrollToTechnique();
-    const handleTechniqueTarget = event => scrollToTechnique(0, event.detail?.id || '');
+    const handleHashChange = () => scrollToTechnique(0, hashId());
     scrollToTechnique();
     window.addEventListener('hashchange', handleHashChange);
-    window.addEventListener('cook-note:technique-target', handleTechniqueTarget);
     return () => {
       cancelAnimationFrame(frameId);
+      window.clearTimeout(settleTimer);
       window.removeEventListener('hashchange', handleHashChange);
-      window.removeEventListener('cook-note:technique-target', handleTechniqueTarget);
     };
-  }, []);
+  }, [targetTechniqueId]);
   return h('main', { className: 'techniques-view' },
     h(Hero),
     h('div', { className: 'content-wrap techniques-wrap' },
@@ -3258,6 +3275,7 @@ function App() {
   const [seasonCategory, setSeasonCategory] = useState('');
   const [tagFilter, setTagFilter] = useState('');
   const [activePage, setActivePage] = useState(() => getPathPage());
+  const [targetTechniqueId, setTargetTechniqueId] = useState(() => getInitialTechnique());
   const [onlyFavorites, setOnlyFavorites] = useState(() => new URLSearchParams(window.location.search).get('view') === '__favs__');
   const [activeId, setActiveId] = useState(() => getInitialRecipe());
   const [variantSelection, setVariantSelection] = useState(() => {
@@ -3543,6 +3561,7 @@ function App() {
       });
     }
     setActivePage('home');
+    setTargetTechniqueId('');
     setActiveId(parentId);
     setOnlyFavorites(false);
     const nextUrl = getRecipeUrl(parentId, target.master ? id : '');
@@ -3571,6 +3590,7 @@ function App() {
   function goHome() {
     restoreHomeScrollRef.current = Boolean(activeRecipe);
     setActivePage('home');
+    setTargetTechniqueId('');
     setOnlyFavorites(false);
     setActiveId(null);
     history.pushState('', document.title, '/');
@@ -3578,6 +3598,7 @@ function App() {
 
   function showFavorites() {
     setActivePage('home');
+    setTargetTechniqueId('');
     setOnlyFavorites(true);
     setActiveId(null);
     history.pushState('', document.title, '/?view=__favs__');
@@ -3587,6 +3608,7 @@ function App() {
   function goTechniques() {
     restoreHomeScrollRef.current = Boolean(activeRecipe);
     setActivePage('techniques');
+    setTargetTechniqueId('');
     setActiveId(null);
     setOnlyFavorites(false);
     history.pushState('', document.title, '/techniques');
@@ -3595,12 +3617,10 @@ function App() {
   function openTechnique(id) {
     restoreHomeScrollRef.current = Boolean(activeRecipe);
     setActivePage('techniques');
+    setTargetTechniqueId(id);
     setActiveId(null);
     setOnlyFavorites(false);
     history.pushState('', document.title, `/techniques#${encodeURIComponent(id)}`);
-    setTimeout(() => {
-      window.dispatchEvent(new CustomEvent('cook-note:technique-target', { detail: { id } }));
-    }, 0);
   }
 
   function updateSearchQuery(value) {
@@ -3622,6 +3642,7 @@ function App() {
         restoreHomeScrollRef.current = false;
       }
       setActivePage(page);
+      setTargetTechniqueId(page === 'techniques' ? getInitialTechnique() : '');
       setOnlyFavorites(new URLSearchParams(window.location.search).get('view') === '__favs__');
       setActiveId(recipe);
       if (!recipe && page === 'home') restoreHomeScrollRef.current = true;
@@ -3772,9 +3793,7 @@ function App() {
         })
       : activePage === 'techniques'
         ? h(TechniquesView, {
-            recipes: searchableRecipes,
-            recipesById,
-            openRecipe,
+            targetTechniqueId,
             goHome
           })
       : h(HomeView, {
