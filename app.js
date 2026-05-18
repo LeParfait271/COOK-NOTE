@@ -48,23 +48,14 @@ const SEASON_CATEGORY_FILTERS = [
   { value: 'Base', label: 'Bases' },
   { value: 'Petits-déjeuners', label: 'Petit-déj.' }
 ];
-const QUICK_FILTERS = [
-  { id: 'rapide', label: 'Rapide', description: 'Peu d’étapes ou préparation courte' },
-  { id: 'facile', label: 'Facile', description: 'Recettes simples à suivre' },
-  { id: 'four', label: 'Four', description: 'Cuisson au four ou à la plaque' },
-  { id: 'sans-four', label: 'Sans four', description: 'Préparations sans cuisson au four' },
-  { id: 'sans-friture', label: 'Sans friture', description: 'Sans bain d’huile' },
-  { id: 'vegetarien', label: 'Végétarien', description: 'Sans viande ni poisson détectés' },
-  { id: 'froid', label: 'Froid', description: 'Desserts, sauces ou préparations servies froides' },
-  { id: 'avance', label: 'À préparer', description: 'Repos, conservation ou service différé' }
-];
 const TECHNIQUE_GUIDES = [
   {
     id: 'four',
     title: 'Cuisson au four',
     label: 'Four',
     description: 'Repérer les recettes qui demandent une plaque, un moule, des ramequins ou une cuisson régulière.',
-    filter: 'four'
+    matchFlag: 'oven',
+    query: 'four'
   },
   {
     id: 'friture',
@@ -92,7 +83,8 @@ const TECHNIQUE_GUIDES = [
     title: 'Repos et conservation',
     label: 'Organisation',
     description: 'Préparations à faire en avance, stockage, refroidissement et service différé.',
-    filter: 'avance'
+    matchFlag: 'makeAhead',
+    query: 'conservation'
   },
   {
     id: 'quantites',
@@ -1269,26 +1261,8 @@ function getRecipeWorkflowFlags(recipe, recipesById = {}) {
   };
 }
 
-function recipeMatchesQuickFilter(recipe, filterId, recipesById = {}) {
-  if (!filterId) return true;
-  const flags = getRecipeWorkflowFlags(recipe, recipesById);
-  if (filterId === 'rapide') return flags.rapid;
-  if (filterId === 'facile') return flags.easy;
-  if (filterId === 'four') return flags.oven;
-  if (filterId === 'sans-four') return !flags.oven;
-  if (filterId === 'sans-friture') return !flags.frying;
-  if (filterId === 'vegetarien') return flags.vegetarian;
-  if (filterId === 'froid') return flags.cold;
-  if (filterId === 'avance') return flags.makeAhead;
-  return true;
-}
-
-function quickFilterLabel(filterId) {
-  return QUICK_FILTERS.find(item => item.id === filterId)?.label || filterId;
-}
-
 function recipeMatchesTechniqueGuide(recipe, guide, recipesById = {}) {
-  if (guide.filter) return recipeMatchesQuickFilter(recipe, guide.filter, recipesById);
+  if (guide.matchFlag) return Boolean(getRecipeWorkflowFlags(recipe, recipesById)[guide.matchFlag]);
   if (guide.query) return scoreRecipeSearch(recipe, guide.query, recipesById).score > 0;
   return false;
 }
@@ -1793,23 +1767,7 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   );
 }
 
-function QuickFilterBar({ filters, activeFilter, setFilter }) {
-  if (!filters.length) return null;
-  return h('div', { className: 'quick-filter-row', 'aria-label': 'Filtres avancés' },
-    filters.map(filter => h('button', {
-      key: filter.id,
-      type: 'button',
-      className: activeFilter === filter.id ? 'active' : '',
-      title: filter.description,
-      onClick: () => setFilter(activeFilter === filter.id ? '' : filter.id)
-    },
-      h('span', null, filter.label),
-      h('small', null, filter.count)
-    ))
-  );
-}
-
-function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, quickFilters, quickFilter, setQuickFilter }) {
+function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
   return h('section', { className: 'season-sections', id: 'recettes' },
@@ -1846,11 +1804,6 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
           )
         )
     ),
-    !onlyFavorites && h(QuickFilterBar, {
-      filters: quickFilters || [],
-      activeFilter: quickFilter,
-      setFilter: setQuickFilter
-    }),
     sections.map(section => h('section', { key: section.key, className: 'season-block' },
       h('div', { className: 'season-block-head' },
         h('div', null, h('p', { className: 'eyebrow' }, section.kicker), h('h3', null, section.title)),
@@ -1879,10 +1832,7 @@ function HomeView(props) {
         setSeason: props.filterProps.setSeason,
         categoryFilter: props.filterProps.seasonCategory,
         setCategoryFilter: props.filterProps.setSeasonCategory,
-        categoryOptions: props.filterProps.seasonCategoryOptions,
-        quickFilters: props.filterProps.quickFilters,
-        quickFilter: props.filterProps.quickFilter,
-        setQuickFilter: props.filterProps.setQuickFilter
+        categoryOptions: props.filterProps.seasonCategoryOptions
       })
     )
   );
@@ -2832,7 +2782,6 @@ function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [season, setSeason] = useState('');
   const [seasonCategory, setSeasonCategory] = useState('');
-  const [quickFilter, setQuickFilter] = useState('');
   const [tagFilter, setTagFilter] = useState('');
   const [activePage, setActivePage] = useState(() => getPathPage());
   const [onlyFavorites, setOnlyFavorites] = useState(() => new URLSearchParams(window.location.search).get('view') === '__favs__');
@@ -2858,7 +2807,7 @@ function App() {
   const activeVariantId = activeRecipe ? variantSelection[activeRecipe.id] : '';
   const activeSeoRecipe = activeVariantId && recipesById[activeVariantId] ? recipesById[activeVariantId] : activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => recipesById[id]).filter(Boolean), [shoppingIds, recipesById]);
-  const hasRecipeFilters = Boolean(query.trim() || ingredientQuery.trim() || season || seasonCategory || quickFilter || tagFilter || onlyFavorites);
+  const hasRecipeFilters = Boolean(query.trim() || ingredientQuery.trim() || season || seasonCategory || tagFilter || onlyFavorites);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
 
@@ -2960,7 +2909,7 @@ function App() {
     return map;
   }, [ingredientQuery, searchableRecipes]);
 
-  const recipesBeforeQuickFilter = useMemo(() => {
+  const baseFilteredRecipes = useMemo(() => {
     let list = catalogRecipes.filter(recipe => {
       if (query.trim() && !searchMeta.has(recipe.id)) return false;
       if (ingredientQuery.trim() && !ingredientMeta.has(recipe.id)) return false;
@@ -2985,20 +2934,6 @@ function App() {
     });
     return list;
   }, [catalogRecipes, query, searchMeta, ingredientQuery, ingredientMeta, season, tagFilter, onlyFavorites, favorites, recipesById]);
-
-  const quickFilterCountRecipes = (!query.trim() && !ingredientQuery.trim() && !season && !tagFilter && !onlyFavorites)
-    ? searchableRecipes
-    : recipesBeforeQuickFilter;
-
-  const quickFilterOptions = useMemo(() => QUICK_FILTERS.map(filter => ({
-    ...filter,
-    count: quickFilterCountRecipes.filter(recipe => recipeMatchesQuickFilter(recipe, filter.id, recipesById)).length
-  })).filter(filter => filter.count > 0 || filter.id === quickFilter), [quickFilterCountRecipes, recipesById, quickFilter]);
-
-  const baseFilteredRecipes = useMemo(() => {
-    if (!quickFilter) return recipesBeforeQuickFilter;
-    return recipesBeforeQuickFilter.filter(recipe => recipeMatchesQuickFilter(recipe, quickFilter, recipesById));
-  }, [recipesBeforeQuickFilter, quickFilter, recipesById]);
 
   const seasonCategoryOptions = useMemo(() => {
     if (!season) return [];
@@ -3068,7 +3003,6 @@ function App() {
     ingredientQuery.trim() && { key: 'ingredients', label: `Ingrédients: ${ingredientSearchTokens(ingredientQuery).join(', ')}`, clear: () => setIngredientQuery('') },
     season && { key: 'season', label: season, clear: () => updateSeason('') },
     seasonCategory && { key: 'seasonCategory', label: categoryLabel(seasonCategory), clear: () => setSeasonCategory('') },
-    quickFilter && { key: 'quickFilter', label: quickFilterLabel(quickFilter), clear: () => setQuickFilter('') },
     tagFilter && { key: 'tag', label: `Tag: ${tagFilter}`, clear: () => setTagFilter('') },
     onlyFavorites && { key: 'favorites', label: 'Favoris', clear: () => setOnlyFavorites(false) }
   ].filter(Boolean);
@@ -3188,12 +3122,8 @@ function App() {
     setActivePage('home');
     setActiveId(null);
     setOnlyFavorites(false);
-    if (guide.filter) {
-      setQuickFilter(guide.filter);
-      setQuery('');
-    } else if (guide.query) {
+    if (guide.query) {
       setQuery(guide.query);
-      setQuickFilter('');
     }
     history.pushState('', document.title, '/');
     setTimeout(() => document.getElementById('recettes')?.scrollIntoView({ behavior: 'smooth' }), 0);
@@ -3323,10 +3253,7 @@ function App() {
     setSeason: updateSeason,
     seasonCategory,
     setSeasonCategory,
-    seasonCategoryOptions,
-    quickFilters: quickFilterOptions,
-    quickFilter,
-    setQuickFilter
+    seasonCategoryOptions
   };
 
   return h('div', { className: 'mc-shell' },
