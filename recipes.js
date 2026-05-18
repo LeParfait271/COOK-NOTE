@@ -6759,7 +6759,7 @@ window.RECIPES = {
   "pate_legere_beignets_calamar_crevettes": {
     "title": "Pâte légère pour beignets de calamar ou crevettes",
     "master": "bases_salees_maitre",
-    "image": "/assets/recipe-images/bases_salees_maitre_spooky.png",
+    "image": "/assets/recipe-images/pate_legere_beignets_calamar_crevettes_spooky.png",
     "categories": [
       "Base",
       "Apéro"
@@ -6827,7 +6827,7 @@ window.RECIPES = {
   "aioli_citronne_leger": {
     "title": "Aïoli citronné léger",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images/parent_sauces.png",
+    "image": "/assets/recipe-images/aioli_citronne_leger_spooky.png",
     "categories": [
       "Sauces",
       "Apéro"
@@ -6891,7 +6891,7 @@ window.RECIPES = {
   "tempura_beignets_calamar_crevettes": {
     "title": "Tempura pour beignets de calamar ou crevettes",
     "master": "bases_salees_maitre",
-    "image": "/assets/recipe-images/parent_base.png",
+    "image": "/assets/recipe-images/tempura_beignets_calamar_crevettes_spooky.png",
     "categories": [
       "Base",
       "Apéro"
