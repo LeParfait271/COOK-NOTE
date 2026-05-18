@@ -1642,7 +1642,7 @@ function RecipeView({
         )
       ),
       hasSelectedVariant && h('aside', { className: mobileDetailTab === 'notes' ? 'recipe-panel notes-panel active-tab-panel' : 'recipe-panel notes-panel' },
-        h('h2', { className: 'read-before-title' }, 'Avant toute chose'),
+        h('h2', { className: 'read-before-title' }, 'Avant de commencer'),
         h('div', { className: 'allergen-card' },
           h('p', { className: 'eyebrow' }, 'Allergènes'),
           recipeAllergens.length
