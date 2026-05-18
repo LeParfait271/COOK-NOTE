@@ -1481,7 +1481,7 @@ function techniquesJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'Techniques Cook Note',
+    name: 'Technique de cuisinier',
     description: 'Repères Cook Note pour cuisson, friture, sauces, crèmes, conservation et quantités.',
     url
   };
@@ -1490,12 +1490,12 @@ function techniquesJsonLd() {
 function updateDocumentMeta(recipe, recipesById = {}, page = 'home') {
   const isTechniques = page === 'techniques';
   const title = isTechniques
-    ? 'Techniques - Cook Note'
+    ? 'Technique de cuisinier - Cook Note'
     : recipe?.title
       ? `${recipe.title} - Cook Note`
       : 'Cook Note';
   const description = isTechniques
-    ? 'Techniques Cook Note : repères pratiques pour cuisson, friture, sauces, crèmes, conservation et quantités.'
+    ? 'Technique de cuisinier : repères pratiques pour cuisson, friture, sauces, crèmes, conservation et quantités.'
     : recipe?.title
       ? recipeDescription(recipe, recipesById)
       : 'Cook Note : carnet de recettes avec ingrédients, quantités ajustables, étapes et notes pratiques.';
@@ -1851,7 +1851,7 @@ function TechniquesView({ recipes, recipesById, openRecipe, goHome, openGuide })
       h('div', { className: 'section-title techniques-title' },
         h('div', null,
           h('p', { className: 'eyebrow' }, 'Méthodes'),
-          h('h2', null, 'Techniques Cook Note'),
+          h('h2', null, 'Technique de cuisinier'),
           h('p', null, 'Des repères courts pour retrouver les bonnes recettes selon la cuisson, la texture ou l’organisation.')
         ),
         h(Button, { variant: 'subtle', onClick: goHome }, 'Retour aux recettes')
