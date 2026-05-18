@@ -703,7 +703,8 @@ a {
 .technique-card {
   display: grid;
   gap: 12px;
-  min-height: 250px;
+  align-content: start;
+  min-height: 360px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background:
@@ -757,11 +758,56 @@ a {
   line-height: 1.45;
 }
 
+.technique-steps {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: technique-step;
+}
+
+.technique-steps li {
+  position: relative;
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--surface-soft) 72%, transparent);
+  color: var(--text);
+  padding: 8px 10px 8px 40px;
+  line-height: 1.35;
+  counter-increment: technique-step;
+}
+
+.technique-steps li::before {
+  content: counter(technique-step, decimal-leading-zero);
+  position: absolute;
+  left: 10px;
+  top: 9px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.technique-tip {
+  border-left: 2px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  padding: 9px 10px;
+  font-size: 13px;
+  font-weight: 750;
+}
+
 .technique-examples {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: 7px;
   margin-top: auto;
+}
+
+.technique-examples span {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
 }
 
 .technique-examples button {

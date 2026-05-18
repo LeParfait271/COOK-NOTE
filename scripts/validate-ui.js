@@ -17,6 +17,7 @@ function expect(label, condition) {
 expect('Recherche ingredients absente.', files.app.includes('ingredientQuery') && files.app.includes('scoreIngredientSearch'));
 expect('Filtres avances encore presents.', !files.app.includes('QUICK_FILTERS') && !files.app.includes('QuickFilterBar') && !files.style.includes('quick-filter-row'));
 expect('Page techniques absente.', files.app.includes('TECHNIQUE_GUIDES') && files.app.includes('TechniquesView'));
+expect('Techniques de cuisinier incompletes.', files.app.includes('Émincer') && files.app.includes('Monder des tomates') && files.app.includes('Abaisser une pâte') && files.app.includes('Foncer un moule'));
 expect('Route /techniques absente du serveur.', files.server.includes("url.pathname === '/techniques'"));
 expect('Export recette propre absent.', files.app.includes('recipeExportText') && files.app.includes('Copier fiche'));
 expect('Resume recette premium absent.', files.app.includes('recipe-summary-panel') && files.style.includes('.recipe-summary-panel'));

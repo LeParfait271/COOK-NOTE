@@ -50,48 +50,144 @@ const SEASON_CATEGORY_FILTERS = [
 ];
 const TECHNIQUE_GUIDES = [
   {
-    id: 'four',
-    title: 'Cuisson au four',
-    label: 'Four',
-    description: 'Repérer les recettes qui demandent une plaque, un moule, des ramequins ou une cuisson régulière.',
-    matchFlag: 'oven',
-    query: 'four'
+    id: 'emincer',
+    title: 'Émincer',
+    label: 'Couteau',
+    description: 'Couper un légume en tranches fines et régulières, souvent pour les oignons, échalotes ou champignons.',
+    steps: [
+      'Stabilise l’aliment avec une face plate contre la planche.',
+      'Place les doigts en griffe pour protéger les extrémités.',
+      'Fais glisser la lame avec un mouvement régulier, sans écraser.',
+      'Garde la même épaisseur pour une cuisson homogène.'
+    ],
+    tip: 'Plus la coupe est fine, plus l’aliment fond vite à la cuisson.',
+    query: 'oignon échalote champignon'
   },
   {
-    id: 'friture',
-    title: 'Friture propre',
-    label: 'Friture',
-    description: 'Température d’huile, égouttage, pâte légère, tempura et beignets croustillants.',
-    query: 'friture'
+    id: 'ciseler',
+    title: 'Ciseler',
+    label: 'Couteau',
+    description: 'Tailler très finement sans faire de purée, surtout pour les herbes, oignons et échalotes.',
+    steps: [
+      'Garde la pointe du couteau proche de la planche.',
+      'Avance petit à petit avec la main en griffe.',
+      'Repasse une fois seulement si nécessaire.',
+      'Arrête avant que l’aliment ne rende trop d’eau.'
+    ],
+    tip: 'Pour les herbes, un couteau bien affûté évite de noircir les feuilles.',
+    query: 'persil ciboulette échalote'
   },
   {
-    id: 'emulsion',
-    title: 'Émulsions et sauces',
-    label: 'Sauces',
-    description: 'Mayonnaise, aïoli, vinaigrettes, rouille et sauces montées sans trancher.',
-    query: 'émulsion sauce mayonnaise'
+    id: 'monder-tomates',
+    title: 'Monder des tomates',
+    label: 'Légumes',
+    description: 'Retirer facilement la peau des tomates pour une sauce, un coulis ou une préparation plus nette.',
+    steps: [
+      'Incise une petite croix sous chaque tomate.',
+      'Plonge-les 10 à 20 secondes dans l’eau bouillante.',
+      'Refroidis aussitôt dans de l’eau froide.',
+      'Tire la peau avec la pointe d’un couteau.'
+    ],
+    tip: 'Ne laisse pas trop longtemps dans l’eau chaude : le but est de décoller la peau, pas de cuire la chair.',
+    query: 'tomate coulis sauce'
   },
   {
-    id: 'cremes',
-    title: 'Crèmes et garnissages',
+    id: 'abaisser-pate',
+    title: 'Abaisser une pâte',
     label: 'Pâtisserie',
-    description: 'Crèmes pâtissières, diplomates, chantilly, mascarpone et garnitures à pocher.',
-    query: 'crème garniture poche'
+    description: 'Étaler une pâte au rouleau avec une épaisseur régulière, sans la réchauffer ni la déformer.',
+    steps: [
+      'Farine légèrement le plan de travail, sans excès.',
+      'Étale du centre vers l’extérieur en tournant la pâte régulièrement.',
+      'Garde une pression douce et constante.',
+      'Remets au frais si la pâte devient molle ou collante.'
+    ],
+    tip: 'Une pâte trop farinée devient sèche ; une pâte trop chaude se rétracte davantage.',
+    query: 'pâte tarte'
   },
   {
-    id: 'repos',
-    title: 'Repos et conservation',
-    label: 'Organisation',
-    description: 'Préparations à faire en avance, stockage, refroidissement et service différé.',
-    matchFlag: 'makeAhead',
-    query: 'conservation'
+    id: 'foncer-moule',
+    title: 'Foncer un moule',
+    label: 'Pâtisserie',
+    description: 'Installer une pâte dans un cercle ou un moule en gardant les angles propres.',
+    steps: [
+      'Dépose la pâte abaissée sans tirer dessus.',
+      'Pousse délicatement la pâte dans les angles avec le bout des doigts.',
+      'Coupe l’excédent au couteau ou au rouleau.',
+      'Pique et remets au froid avant cuisson si la recette le demande.'
+    ],
+    tip: 'Ne tire pas sur la pâte pour la faire rentrer : elle se rétracterait à la cuisson.',
+    query: 'fond de tarte pâte'
   },
   {
-    id: 'quantites',
-    title: 'Quantités ajustables',
-    label: 'Portions',
-    description: 'Recettes avec portions, rendements et ingrédients faciles à recalculer.',
-    query: 'personnes portions'
+    id: 'beurrer-fariner',
+    title: 'Beurrer et fariner',
+    label: 'Moule',
+    description: 'Préparer un moule ou des ramequins pour éviter que les gâteaux et mi-cuits accrochent.',
+    steps: [
+      'Passe une fine couche de beurre mou sur toute la surface.',
+      'Ajoute une petite cuillère de farine.',
+      'Tourne le moule pour couvrir les parois.',
+      'Tape pour retirer l’excédent avant de remplir.'
+    ],
+    tip: 'Pour le chocolat, le cacao peut remplacer la farine afin d’éviter les traces blanches.',
+    query: 'mi cuit chocolat cake'
+  },
+  {
+    id: 'monter-blancs',
+    title: 'Monter des blancs',
+    label: 'Œufs',
+    description: 'Incorporer de l’air dans les blancs d’œufs pour obtenir une mousse stable.',
+    steps: [
+      'Utilise un bol propre, sec et sans trace de gras.',
+      'Commence doucement pour casser les blancs.',
+      'Augmente la vitesse quand la mousse devient fine.',
+      'Arrête dès que les blancs forment un bec souple ou ferme selon la recette.'
+    ],
+    tip: 'Des blancs trop battus deviennent granuleux et s’incorporent moins bien.',
+    query: 'blancs œufs meringue'
+  },
+  {
+    id: 'monter-mayonnaise',
+    title: 'Monter une mayonnaise',
+    label: 'Sauce',
+    description: 'Créer une émulsion stable entre jaune d’œuf, moutarde, acidité et huile.',
+    steps: [
+      'Mélange jaune, moutarde, sel et acidité.',
+      'Verse l’huile d’abord goutte à goutte en fouettant.',
+      'Augmente le filet quand la sauce commence à prendre.',
+      'Détends avec un peu d’eau ou de citron si elle devient trop épaisse.'
+    ],
+    tip: 'Si elle tranche, repars dans un bol propre avec une cuillère d’eau puis incorpore la sauce ratée petit à petit.',
+    query: 'mayonnaise aïoli sauce'
+  },
+  {
+    id: 'zester',
+    title: 'Zester un agrume',
+    label: 'Agrumes',
+    description: 'Prélever seulement la partie parfumée de la peau, sans l’amertume du blanc.',
+    steps: [
+      'Lave et sèche l’agrume.',
+      'Utilise une râpe fine ou un zesteur.',
+      'Tourne l’agrume à chaque passage.',
+      'Arrête dès que la partie blanche apparaît.'
+    ],
+    tip: 'Le zeste parfume mieux ajouté hors du feu ou en fin de préparation.',
+    query: 'citron zeste'
+  },
+  {
+    id: 'deglacer',
+    title: 'Déglacer',
+    label: 'Cuisson',
+    description: 'Décoller les sucs au fond d’une poêle avec un liquide pour créer une base de sauce.',
+    steps: [
+      'Retire l’excès de gras si nécessaire.',
+      'Verse un liquide froid ou tempéré dans la poêle chaude.',
+      'Gratte le fond avec une spatule.',
+      'Laisse réduire jusqu’à obtenir une sauce plus concentrée.'
+    ],
+    tip: 'Un déglaçage fonctionne avec eau, bouillon, vin, vinaigre ou jus selon la recette.',
+    query: 'sauce cuisson'
   }
 ];
 const SHOPPING_AISLES = [
@@ -1261,12 +1357,6 @@ function getRecipeWorkflowFlags(recipe, recipesById = {}) {
   };
 }
 
-function recipeMatchesTechniqueGuide(recipe, guide, recipesById = {}) {
-  if (guide.matchFlag) return Boolean(getRecipeWorkflowFlags(recipe, recipesById)[guide.matchFlag]);
-  if (guide.query) return scoreRecipeSearch(recipe, guide.query, recipesById).score > 0;
-  return false;
-}
-
 function ingredientSearchTokens(value) {
   const normalized = normalizeText(value).replace(/\bet\b/g, ',');
   const parts = normalized
@@ -1482,7 +1572,7 @@ function techniquesJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'Technique de cuisinier',
-    description: 'Repères Cook Note pour cuisson, friture, sauces, crèmes, conservation et quantités.',
+    description: 'Gestes de cuisine Cook Note : émincer, ciseler, monder, abaisser une pâte, foncer un moule, monter une mayonnaise et réussir les bases.',
     url
   };
 }
@@ -1495,7 +1585,7 @@ function updateDocumentMeta(recipe, recipesById = {}, page = 'home') {
       ? `${recipe.title} - Cook Note`
       : 'Cook Note';
   const description = isTechniques
-    ? 'Technique de cuisinier : repères pratiques pour cuisson, friture, sauces, crèmes, conservation et quantités.'
+    ? 'Technique de cuisinier : gestes de base pour émincer, ciseler, monder, abaisser une pâte, foncer un moule et monter une sauce.'
     : recipe?.title
       ? recipeDescription(recipe, recipesById)
       : 'Cook Note : carnet de recettes avec ingrédients, quantités ajustables, étapes et notes pratiques.';
@@ -1838,21 +1928,26 @@ function HomeView(props) {
   );
 }
 
-function TechniquesView({ recipes, recipesById, openRecipe, goHome, openGuide }) {
+function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
   const guideCards = TECHNIQUE_GUIDES.map(guide => ({
     ...guide,
-    examples: recipes
-      .filter(recipe => recipeMatchesTechniqueGuide(recipe, guide, recipesById))
+    examples: guide.query
+      ? recipes
+        .map(recipe => ({ recipe, meta: scoreRecipeSearch(recipe, guide.query, recipesById) }))
+        .filter(item => item.meta.score > 0)
+        .sort((a, b) => b.meta.score - a.meta.score)
+        .map(item => item.recipe)
       .slice(0, 4)
+      : []
   }));
   return h('main', { className: 'techniques-view' },
     h(Hero),
     h('div', { className: 'content-wrap techniques-wrap' },
       h('div', { className: 'section-title techniques-title' },
         h('div', null,
-          h('p', { className: 'eyebrow' }, 'Méthodes'),
+          h('p', { className: 'eyebrow' }, 'Gestes de cuisine'),
           h('h2', null, 'Technique de cuisinier'),
-          h('p', null, 'Des repères courts pour retrouver les bonnes recettes selon la cuisson, la texture ou l’organisation.')
+          h('p', null, 'Les gestes de base pour cuisiner plus proprement : tailler, peler, abaisser, foncer, monter, lier et éviter les erreurs classiques.')
         ),
         h(Button, { variant: 'subtle', onClick: goHome }, 'Retour aux recettes')
       ),
@@ -1864,14 +1959,18 @@ function TechniquesView({ recipes, recipesById, openRecipe, goHome, openGuide })
           ),
           h('h3', null, guide.title),
           h('p', null, guide.description),
+          h('ol', { className: 'technique-steps' },
+            (guide.steps || []).map((step, index) => h('li', { key: `${guide.id}:step:${index}` }, step))
+          ),
+          guide.tip && h('p', { className: 'technique-tip' }, guide.tip),
           guide.examples.length > 0 && h('div', { className: 'technique-examples' },
+            h('span', null, 'À pratiquer avec'),
             guide.examples.map(recipe => h('button', {
               key: recipe.id,
               type: 'button',
               onClick: () => openRecipe(recipe.id)
             }, recipe.title))
-          ),
-          h(Button, { variant: 'primary', onClick: () => openGuide(guide) }, 'Voir les recettes')
+          )
         ))
       )
     )
@@ -3118,17 +3217,6 @@ function App() {
     history.pushState('', document.title, '/techniques');
   }
 
-  function openTechniqueGuide(guide) {
-    setActivePage('home');
-    setActiveId(null);
-    setOnlyFavorites(false);
-    if (guide.query) {
-      setQuery(guide.query);
-    }
-    history.pushState('', document.title, '/');
-    setTimeout(() => document.getElementById('recettes')?.scrollIntoView({ behavior: 'smooth' }), 0);
-  }
-
   function updateSearchQuery(value) {
     setQuery(value);
   }
@@ -3300,8 +3388,7 @@ function App() {
             recipes: searchableRecipes,
             recipesById,
             openRecipe,
-            goHome,
-            openGuide: openTechniqueGuide
+            goHome
           })
       : h(HomeView, {
           favorites,
