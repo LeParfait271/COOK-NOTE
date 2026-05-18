@@ -550,66 +550,6 @@ window.RECIPES = {
     ],
     "master": "desserts_maitre"
   },
-  "petits_dejeuners_maitre": {
-    "title": "Petits-déjeuners et boissons chaudes",
-    "image": "/assets/recipe-images/petits_dejeuners_maitre_spooky.png",
-    "categories": [
-      "Petits-déjeuners",
-      "Desserts"
-    ],
-    "seasons": [
-      "Toutes saisons"
-    ],
-    "difficulty": "easy",
-    "masterType": "collection",
-    "variants": [
-      {
-        "id": "donuts_cloud",
-        "label": "Beignets Cloud"
-      },
-      {
-        "id": "chocolat_ancien",
-        "label": "Chocolat chaud à l'ancienne"
-      },
-      {
-        "id": "gaufre_bruxelles",
-        "label": "Gaufres"
-      },
-      {
-        "id": "pancakes_variantes",
-        "label": "Pancakes"
-      }
-    ],
-    "ingredients": [
-      {
-        "group": "Choisir une variante",
-        "items": [
-          "Sélectionner la recette de petit-déjeuner voulue dans les boutons de la fiche."
-        ]
-      }
-    ],
-    "steps": [
-      "Choisir une variante pour afficher la recette complète."
-    ],
-    "notes": [
-      "Fiche maître : recettes du matin, goûter et boissons chaudes."
-    ],
-    "technical": [
-      {
-        "label": "Organisation",
-        "value": "Preparer les pesees seches a l'avance pour un service rapide."
-      },
-      {
-        "label": "Cuisson",
-        "value": "Travailler a chaleur moderee pour garder moelleux et coloration propre."
-      },
-      {
-        "label": "Service",
-        "value": "Servir aussitot pour conserver le contraste chaud, moelleux ou mousseux."
-      }
-    ],
-    "master": "petit_dejeuner_maitre"
-  },
   "bases_salees_maitre": {
     "title": "Bases salées",
     "image": "/assets/recipe-images/bases_salees_maitre_spooky.png",
@@ -3419,10 +3359,7 @@ window.RECIPES = {
       "epinards",
       "entree"
     ],
-    "difficultyScore": 2,
-    "additionalMasters": [
-      "apero_maitre"
-    ]
+    "difficultyScore": 2
   },
   "apero_maitre": {
     "title": "Apéro",
@@ -3768,7 +3705,6 @@ window.RECIPES = {
     ],
     "difficultyScore": 4,
     "additionalMasters": [
-      "plats_maitre",
       "elements_base_maitre"
     ]
   },

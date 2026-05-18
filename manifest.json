@@ -1,7 +1,7 @@
 {
   "name": "Cook Note",
   "short_name": "Cook Note",
-  "description": "Livre de cuisine de MaruChiwa",
+  "description": "Carnet de recettes avec ingrédients, quantités ajustables, étapes et notes pratiques.",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait-primary",

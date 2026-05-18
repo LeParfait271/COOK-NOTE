@@ -72,8 +72,27 @@ if (!recipes || typeof recipes !== 'object') {
   const masterIds = new Set(Object.entries(recipes)
     .filter(([, recipe]) => Array.isArray(recipe.variants) && recipe.variants.length)
     .map(([id]) => id));
+  const leafCache = new Map();
   const leafImages = new Map();
   const leafImageHashes = new Map();
+
+  function leafIdsFor(parentId, seen = new Set()) {
+    if (leafCache.has(parentId)) return leafCache.get(parentId);
+    if (seen.has(parentId)) return new Set();
+    seen.add(parentId);
+    const recipe = recipes[parentId];
+    const variants = Array.isArray(recipe?.variants) ? recipe.variants : [];
+    const leaves = new Set();
+    if (!variants.length) {
+      if (parentId) leaves.add(parentId);
+    } else {
+      variants.forEach(variant => {
+        leafIdsFor(variant?.id, new Set(seen)).forEach(leafId => leaves.add(leafId));
+      });
+    }
+    leafCache.set(parentId, leaves);
+    return leaves;
+  }
 
   for (const [id, recipe] of Object.entries(recipes)) {
     const isMaster = masterIds.has(id);
@@ -84,10 +103,14 @@ if (!recipes || typeof recipes !== 'object') {
 
     if (recipe.master && !ids.has(recipe.master)) errors.push(`${id}: fiche parent introuvable (${recipe.master}).`);
     if (!masterIds.has(id) && !recipe.master) errors.push(`${id}: recette sans fiche parent.`);
+    if (recipe.master && masterIds.has(recipe.master) && !leafIdsFor(recipe.master).has(id) && !(recipes[recipe.master].variants || []).some(variant => variant?.id === id)) {
+      errors.push(`${id}: absent des variantes de sa fiche parent (${recipe.master}).`);
+    }
     if (Array.isArray(recipe.additionalMasters)) {
       recipe.additionalMasters.forEach(parentId => {
         if (!ids.has(parentId)) errors.push(`${id}: fiche parent additionnelle introuvable (${parentId}).`);
         else if (!masterIds.has(parentId)) errors.push(`${id}: fiche parent additionnelle non-maitre (${parentId}).`);
+        else if (!leafIdsFor(parentId).has(id) && !(recipes[parentId].variants || []).some(variant => variant?.id === id)) errors.push(`${id}: absent des variantes de sa fiche parent additionnelle (${parentId}).`);
       });
     }
 
@@ -113,6 +136,10 @@ if (!recipes || typeof recipes !== 'object') {
     if (variantishGroups.length >= 2 && !recipe.variantGroups) {
       errors.push(`${id}: groupes de variantes sans variantGroups=true.`);
     }
+
+    (recipe.ingredients || []).forEach((group, groupIndex) => {
+      if (group.recipeId && !ids.has(group.recipeId)) errors.push(`${id}: recipeId introuvable dans ingredients[${groupIndex}] (${group.recipeId}).`);
+    });
 
     if (Array.isArray(recipe.tags)) {
       recipe.tags.forEach(tag => {

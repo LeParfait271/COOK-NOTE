@@ -922,6 +922,16 @@ function asTextList(value) {
   return [stripHtml(value)].filter(Boolean);
 }
 
+function compactPracticalItems(key, items) {
+  if (key !== 'storage') return items;
+  const hasSpecificStorage = items.some(item => /^(?:conservation|stockage optimal)\b/i.test(stripHtml(item)));
+  if (!hasSpecificStorage) return items;
+  return items.filter(item => {
+    const text = stripHtml(item);
+    return !(/^stockage\s*:/i.test(text) && /\bp[eé]remption\b/i.test(text));
+  });
+}
+
 function inferEquipment(recipe) {
   const text = normalizeText([
     recipe?.title,
@@ -947,7 +957,7 @@ function getRecipePracticalSections(recipe) {
   const technical = recipe?.technical || [];
   const sections = [];
   const add = (key, title, items) => {
-    const cleanItems = uniq((items || []).map(stripHtml).filter(Boolean));
+    const cleanItems = compactPracticalItems(key, uniq((items || []).map(stripHtml).filter(Boolean)));
     if (cleanItems.length) sections.push({ key, title, items: cleanItems.slice(0, 4) });
   };
 
@@ -1063,7 +1073,7 @@ function truncateText(value, max = 156) {
 }
 
 function recipeDescription(recipe, recipesById = {}) {
-  if (!recipe?.title) return 'Livre de cuisine Cook Note : recettes, ingrédients, étapes et astuces.';
+  if (!recipe?.title) return 'Cook Note : carnet de recettes avec ingrédients, quantités ajustables, étapes et notes pratiques.';
   const category = primaryCategory(recipe).toLowerCase();
   const yieldText = recipe.yield ? ` pour ${recipe.yield}` : '';
   const ingredientNames = (recipe.ingredients || [])
@@ -1204,7 +1214,7 @@ function recipeJsonLd(recipe, recipesById = {}) {
 
 function updateDocumentMeta(recipe, recipesById = {}) {
   const title = recipe?.title ? `${recipe.title} - Cook Note` : 'Cook Note';
-  const description = recipe?.title ? recipeDescription(recipe, recipesById) : 'Livre de cuisine Cook Note : recettes, ingrédients, étapes et astuces.';
+  const description = recipe?.title ? recipeDescription(recipe, recipesById) : 'Cook Note : carnet de recettes avec ingrédients, quantités ajustables, étapes et notes pratiques.';
   const canonicalUrl = recipe?.id ? `${window.location.origin}${getRecipeUrl(recipe.id)}` : getHomeUrl();
   document.title = title;
   setMetaContent('meta[name="description"]', description);
