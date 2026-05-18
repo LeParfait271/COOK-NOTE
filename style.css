@@ -543,56 +543,6 @@ a {
   margin-bottom: 30px;
 }
 
-.home-dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
-  gap: 10px;
-  margin-bottom: 22px;
-}
-
-.home-dashboard-tile {
-  display: grid;
-  gap: 7px;
-  min-height: 112px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .025)),
-    var(--surface);
-  color: var(--text);
-  padding: 14px;
-  text-align: left;
-  transition: transform var(--speed), border-color var(--speed), box-shadow var(--speed);
-}
-
-.home-dashboard-tile:hover,
-.home-dashboard-tile:focus-visible {
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--accent) 54%, var(--line));
-  box-shadow: 0 0 28px color-mix(in srgb, var(--accent) 16%, transparent);
-}
-
-.home-dashboard-tile span {
-  color: var(--accent);
-  font-size: 11px;
-  font-weight: 950;
-  text-transform: uppercase;
-}
-
-.home-dashboard-tile strong {
-  overflow: hidden;
-  color: var(--text);
-  font-size: 18px;
-  line-height: 1.15;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.home-dashboard-tile small {
-  color: var(--muted);
-  line-height: 1.3;
-}
-
 .section-title {
   display: grid;
   gap: 4px;

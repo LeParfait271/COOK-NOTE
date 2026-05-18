@@ -56,12 +56,10 @@ const SHOPPING_AISLES = [
 ];
 const STORAGE_KEYS = {
   favorites: 'cook_note_favorites',
-  recents: 'cook_note_recents',
   shopping: 'cook_note_shopping_basket',
   shoppingFactors: 'cook_note_shopping_factors',
   homeScroll: 'cook_note_home_scroll',
-  legacyFavorites: ['mc_food_favorites', 'cuisine_favs'],
-  legacyRecents: ['mc_food_recents', 'cuisine_recents']
+  legacyFavorites: ['mc_food_favorites', 'cuisine_favs']
 };
 
 function readJson(key, fallback) {
@@ -1452,31 +1450,6 @@ function ActiveChips({ chips }) {
   );
 }
 
-function HomeDashboard({ currentSeason, recentRecipe, favoritesCount, shoppingCount, setSeason, showFavorites, openShoppingBasket, openRecipe }) {
-  return h('section', { className: 'home-dashboard', 'aria-label': 'Accès rapides' },
-    h('button', { type: 'button', className: 'home-dashboard-tile', onClick: () => setSeason(currentSeason) },
-      h('span', null, 'Saison actuelle'),
-      h('strong', null, currentSeason),
-      h('small', null, 'Voir les recettes du moment')
-    ),
-    h('button', { type: 'button', className: 'home-dashboard-tile', onClick: showFavorites },
-      h('span', null, 'Favoris'),
-      h('strong', null, favoritesCount ? `${favoritesCount} recette${favoritesCount > 1 ? 's' : ''}` : 'Aucun favori'),
-      h('small', null, 'Retrouver les recettes gardées')
-    ),
-    h('button', { type: 'button', className: 'home-dashboard-tile', onClick: openShoppingBasket },
-      h('span', null, 'Courses'),
-      h('strong', null, shoppingCount ? `${shoppingCount} recette${shoppingCount > 1 ? 's' : ''}` : 'Panier vide'),
-      h('small', null, 'Ouvrir la liste groupée')
-    ),
-    recentRecipe && h('button', { type: 'button', className: 'home-dashboard-tile featured', onClick: () => openRecipe(recentRecipe.id) },
-      h('span', null, 'Reprendre'),
-      h('strong', null, recentRecipe.title),
-      h('small', null, primaryCategory(recentRecipe))
-    )
-  );
-}
-
 function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter }) {
   const master = isMasterRecipe(recipe);
   const color = getCategoryColor(recipe);
@@ -1620,16 +1593,6 @@ function HomeView(props) {
   return h('main', { className: 'home-view' },
     h(Hero),
     h('div', { className: 'content-wrap' },
-      props.showDashboard && h(HomeDashboard, {
-        currentSeason: props.currentSeason,
-        recentRecipe: props.recentRecipe,
-        favoritesCount: props.favorites.length,
-        shoppingCount: props.shoppingCount,
-        setSeason: props.filterProps.setSeason,
-        showFavorites: props.showFavorites,
-        openShoppingBasket: props.openShoppingBasket,
-        openRecipe: props.openRecipe
-      }),
       h(ActiveChips, { chips: props.activeChips }),
       h(SeasonSections, {
         sections: props.sections,
@@ -2447,7 +2410,6 @@ function App() {
     return recipe && variant ? { [recipe]: variant } : {};
   });
   const [favorites, setFavorites] = useState(() => readStoredList(STORAGE_KEYS.favorites, STORAGE_KEYS.legacyFavorites));
-  const [recents, setRecents] = useState(() => readStoredList(STORAGE_KEYS.recents, STORAGE_KEYS.legacyRecents));
   const [shoppingIds, setShoppingIds] = useState(() => readStoredList(STORAGE_KEYS.shopping, []));
   const [shoppingFactors, setShoppingFactors] = useState(() => readJson(STORAGE_KEYS.shoppingFactors, {}));
   const [checked, setChecked] = useState({});
@@ -2466,7 +2428,6 @@ function App() {
   const hasRecipeFilters = Boolean(query.trim() || season || seasonCategory || tagFilter || onlyFavorites);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
-  const recentRecipe = useMemo(() => recents.map(id => recipesById[id]).find(Boolean) || null, [recents, recipesById]);
 
   useEffect(() => {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -2710,9 +2671,6 @@ function App() {
     }
     setActiveId(parentId);
     setOnlyFavorites(false);
-    const nextRecents = [parentId, ...recents.filter(item => item !== parentId)].slice(0, 12);
-    setRecents(nextRecents);
-    writeJson(STORAGE_KEYS.recents, nextRecents);
     const nextUrl = getRecipeUrl(parentId, target.master ? id : '');
     if (window.location.pathname + window.location.search !== nextUrl) {
       history.pushState('', document.title, nextUrl);
@@ -2917,12 +2875,6 @@ function App() {
           recipesById,
           onlyFavorites,
           activeChips,
-          showDashboard: !query.trim() && !season && !tagFilter && !onlyFavorites,
-          currentSeason,
-          recentRecipe,
-          shoppingCount: shoppingRecipes.length,
-          showFavorites,
-          openShoppingBasket: () => setShoppingOpen(true),
           filterProps,
           toggleFavorite,
           openRecipe,
