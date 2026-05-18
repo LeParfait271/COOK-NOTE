@@ -53,141 +53,421 @@ const TECHNIQUE_GUIDES = [
     id: 'emincer',
     title: 'Émincer',
     label: 'Couteau',
-    description: 'Couper un légume en tranches fines et régulières, souvent pour les oignons, échalotes ou champignons.',
-    steps: [
-      'Stabilise l’aliment avec une face plate contre la planche.',
-      'Place les doigts en griffe pour protéger les extrémités.',
-      'Fais glisser la lame avec un mouvement régulier, sans écraser.',
-      'Garde la même épaisseur pour une cuisson homogène.'
-    ],
+    description: 'Couper en tranches fines et régulières, souvent pour les oignons, échalotes, poireaux ou champignons.',
+    steps: ['Stabilise l’aliment avec une face plate.', 'Place les doigts en griffe.', 'Fais glisser la lame sans écraser.', 'Garde une épaisseur régulière.'],
     tip: 'Plus la coupe est fine, plus l’aliment fond vite à la cuisson.',
-    query: 'oignon échalote champignon'
+    query: 'oignon échalote champignon',
+    aliases: ['émincer', 'émincé', 'émincée', 'émincés', 'émincées']
   },
   {
     id: 'ciseler',
     title: 'Ciseler',
     label: 'Couteau',
     description: 'Tailler très finement sans faire de purée, surtout pour les herbes, oignons et échalotes.',
-    steps: [
-      'Garde la pointe du couteau proche de la planche.',
-      'Avance petit à petit avec la main en griffe.',
-      'Repasse une fois seulement si nécessaire.',
-      'Arrête avant que l’aliment ne rende trop d’eau.'
-    ],
+    steps: ['Garde la pointe du couteau proche de la planche.', 'Avance petit à petit avec la main en griffe.', 'Repasse une fois seulement si nécessaire.', 'Arrête avant que l’aliment ne rende trop d’eau.'],
     tip: 'Pour les herbes, un couteau bien affûté évite de noircir les feuilles.',
-    query: 'persil ciboulette échalote'
+    query: 'persil ciboulette échalote',
+    aliases: ['ciseler', 'ciselé', 'ciselée', 'ciselés', 'ciselées']
+  },
+  {
+    id: 'hacher',
+    title: 'Hacher',
+    label: 'Couteau',
+    description: 'Couper très petit en gardant de la texture, pour l’ail, les herbes, les noix ou certains aromates.',
+    steps: ['Regroupe l’aliment en tas.', 'Utilise un mouvement de balancier.', 'Ramène régulièrement les morceaux au centre.', 'Arrête avant d’obtenir une pâte humide.'],
+    tip: 'Pour l’ail, retire le germe si tu veux un goût plus doux.',
+    query: 'ail herbes noix',
+    aliases: ['hacher', 'haché', 'hachée', 'hachés', 'hachées']
+  },
+  {
+    id: 'brunoise',
+    title: 'Tailler en brunoise',
+    label: 'Couteau',
+    description: 'Couper en très petits dés réguliers pour une cuisson rapide ou une garniture nette.',
+    steps: ['Taillez d’abord des tranches régulières.', 'Coupe-les en bâtonnets fins.', 'Rassemble les bâtonnets.', 'Détaille en petits dés réguliers.'],
+    tip: 'Une brunoise régulière cuit vite et donne une texture plus élégante.',
+    query: 'carotte courgette légumes',
+    aliases: ['brunoise', 'petite brunoise']
+  },
+  {
+    id: 'julienne',
+    title: 'Tailler en julienne',
+    label: 'Couteau',
+    description: 'Couper en fins bâtonnets pour une garniture, une salade ou une cuisson très courte.',
+    steps: ['Coupe l’aliment en tronçons réguliers.', 'Fais des tranches fines.', 'Superpose quelques tranches.', 'Détaille en bâtonnets fins.'],
+    tip: 'Ne superpose pas trop de tranches à la fois, sinon la coupe devient irrégulière.',
+    query: 'légumes carotte courgette',
+    aliases: ['julienne', 'en julienne']
   },
   {
     id: 'monder-tomates',
     title: 'Monder des tomates',
     label: 'Légumes',
     description: 'Retirer facilement la peau des tomates pour une sauce, un coulis ou une préparation plus nette.',
-    steps: [
-      'Incise une petite croix sous chaque tomate.',
-      'Plonge-les 10 à 20 secondes dans l’eau bouillante.',
-      'Refroidis aussitôt dans de l’eau froide.',
-      'Tire la peau avec la pointe d’un couteau.'
-    ],
-    tip: 'Ne laisse pas trop longtemps dans l’eau chaude : le but est de décoller la peau, pas de cuire la chair.',
-    query: 'tomate coulis sauce'
+    steps: ['Incise une petite croix sous chaque tomate.', 'Plonge 10 à 20 secondes dans l’eau bouillante.', 'Refroidis aussitôt dans de l’eau froide.', 'Tire la peau avec la pointe d’un couteau.'],
+    tip: 'Le but est de décoller la peau, pas de cuire la chair.',
+    query: 'tomate coulis sauce',
+    aliases: ['monder', 'monder des tomates', 'tomate mondée', 'tomates mondées', 'mondée', 'mondées']
   },
   {
-    id: 'abaisser-pate',
-    title: 'Abaisser une pâte',
-    label: 'Pâtisserie',
-    description: 'Étaler une pâte au rouleau avec une épaisseur régulière, sans la réchauffer ni la déformer.',
-    steps: [
-      'Farine légèrement le plan de travail, sans excès.',
-      'Étale du centre vers l’extérieur en tournant la pâte régulièrement.',
-      'Garde une pression douce et constante.',
-      'Remets au frais si la pâte devient molle ou collante.'
-    ],
-    tip: 'Une pâte trop farinée devient sèche ; une pâte trop chaude se rétracte davantage.',
-    query: 'pâte tarte'
+    id: 'concasser',
+    title: 'Concasser',
+    label: 'Préparation',
+    description: 'Couper grossièrement pour garder des morceaux irréguliers, souvent pour tomates, noix, chocolat ou poivre.',
+    steps: ['Place l’aliment sur une planche stable.', 'Coupe ou écrase grossièrement.', 'Garde des morceaux visibles.', 'Évite de réduire en poudre ou en purée.'],
+    tip: 'Concasser donne du relief : texture, éclats et mâche.',
+    query: 'tomates poivre noisettes chocolat',
+    aliases: ['concasser', 'concassé', 'concassée', 'concassés', 'concassées']
   },
   {
-    id: 'foncer-moule',
-    title: 'Foncer un moule',
-    label: 'Pâtisserie',
-    description: 'Installer une pâte dans un cercle ou un moule en gardant les angles propres.',
-    steps: [
-      'Dépose la pâte abaissée sans tirer dessus.',
-      'Pousse délicatement la pâte dans les angles avec le bout des doigts.',
-      'Coupe l’excédent au couteau ou au rouleau.',
-      'Pique et remets au froid avant cuisson si la recette le demande.'
-    ],
-    tip: 'Ne tire pas sur la pâte pour la faire rentrer : elle se rétracterait à la cuisson.',
-    query: 'fond de tarte pâte'
-  },
-  {
-    id: 'beurrer-fariner',
-    title: 'Beurrer et fariner',
-    label: 'Moule',
-    description: 'Préparer un moule ou des ramequins pour éviter que les gâteaux et mi-cuits accrochent.',
-    steps: [
-      'Passe une fine couche de beurre mou sur toute la surface.',
-      'Ajoute une petite cuillère de farine.',
-      'Tourne le moule pour couvrir les parois.',
-      'Tape pour retirer l’excédent avant de remplir.'
-    ],
-    tip: 'Pour le chocolat, le cacao peut remplacer la farine afin d’éviter les traces blanches.',
-    query: 'mi cuit chocolat cake'
-  },
-  {
-    id: 'monter-blancs',
-    title: 'Monter des blancs',
-    label: 'Œufs',
-    description: 'Incorporer de l’air dans les blancs d’œufs pour obtenir une mousse stable.',
-    steps: [
-      'Utilise un bol propre, sec et sans trace de gras.',
-      'Commence doucement pour casser les blancs.',
-      'Augmente la vitesse quand la mousse devient fine.',
-      'Arrête dès que les blancs forment un bec souple ou ferme selon la recette.'
-    ],
-    tip: 'Des blancs trop battus deviennent granuleux et s’incorporent moins bien.',
-    query: 'blancs œufs meringue'
-  },
-  {
-    id: 'monter-mayonnaise',
-    title: 'Monter une mayonnaise',
-    label: 'Sauce',
-    description: 'Créer une émulsion stable entre jaune d’œuf, moutarde, acidité et huile.',
-    steps: [
-      'Mélange jaune, moutarde, sel et acidité.',
-      'Verse l’huile d’abord goutte à goutte en fouettant.',
-      'Augmente le filet quand la sauce commence à prendre.',
-      'Détends avec un peu d’eau ou de citron si elle devient trop épaisse.'
-    ],
-    tip: 'Si elle tranche, repars dans un bol propre avec une cuillère d’eau puis incorpore la sauce ratée petit à petit.',
-    query: 'mayonnaise aïoli sauce'
+    id: 'peler-a-vif',
+    title: 'Peler à vif',
+    label: 'Agrumes',
+    description: 'Retirer peau et membrane blanche d’un agrume pour obtenir des segments nets et sans amertume.',
+    steps: ['Coupe les deux extrémités.', 'Suis la courbe avec un couteau bien aiguisé.', 'Retire toute la partie blanche.', 'Prélève les segments entre les membranes.'],
+    tip: 'Travaille au-dessus d’un bol pour récupérer le jus.',
+    query: 'orange citron agrume',
+    aliases: ['peler à vif', 'peler a vif', 'pelé à vif', 'pelée à vif']
   },
   {
     id: 'zester',
     title: 'Zester un agrume',
     label: 'Agrumes',
     description: 'Prélever seulement la partie parfumée de la peau, sans l’amertume du blanc.',
-    steps: [
-      'Lave et sèche l’agrume.',
-      'Utilise une râpe fine ou un zesteur.',
-      'Tourne l’agrume à chaque passage.',
-      'Arrête dès que la partie blanche apparaît.'
-    ],
+    steps: ['Lave et sèche l’agrume.', 'Utilise une râpe fine ou un zesteur.', 'Tourne l’agrume à chaque passage.', 'Arrête dès que la partie blanche apparaît.'],
     tip: 'Le zeste parfume mieux ajouté hors du feu ou en fin de préparation.',
-    query: 'citron zeste'
+    query: 'citron zeste',
+    aliases: ['zester', 'zeste', 'zestes', 'zesté']
+  },
+  {
+    id: 'abaisser-pate',
+    title: 'Abaisser une pâte',
+    label: 'Pâtisserie',
+    description: 'Étaler une pâte au rouleau avec une épaisseur régulière, sans la réchauffer ni la déformer.',
+    steps: ['Farine légèrement le plan de travail.', 'Étale du centre vers l’extérieur.', 'Tourne la pâte régulièrement.', 'Remets au frais si elle devient collante.'],
+    tip: 'Une pâte trop farinée devient sèche ; une pâte trop chaude se rétracte davantage.',
+    query: 'pâte tarte',
+    aliases: ['abaisser', 'abaisser une pâte', 'pâte abaissée', 'abaissée']
+  },
+  {
+    id: 'foncer-moule',
+    title: 'Foncer un moule',
+    label: 'Pâtisserie',
+    description: 'Installer une pâte dans un cercle ou un moule en gardant les angles propres.',
+    steps: ['Dépose la pâte abaissée sans tirer.', 'Pousse délicatement dans les angles.', 'Coupe l’excédent.', 'Pique et remets au froid si besoin.'],
+    tip: 'Ne tire pas sur la pâte : elle se rétracterait à la cuisson.',
+    query: 'fond de tarte pâte',
+    aliases: ['foncer', 'foncer le moule', 'foncer un moule']
+  },
+  {
+    id: 'cuire-a-blanc',
+    title: 'Cuire à blanc',
+    label: 'Pâtisserie',
+    description: 'Précuire une pâte seule avant d’ajouter une garniture humide ou fragile.',
+    steps: ['Fonce et pique la pâte.', 'Couvre de papier cuisson.', 'Ajoute des poids ou légumes secs.', 'Cuis jusqu’à légère coloration puis sèche sans poids si besoin.'],
+    tip: 'Le froid avant cuisson limite la rétractation.',
+    query: 'fond de tarte cuire blanc',
+    aliases: ['cuire à blanc', 'cuire a blanc', 'cuisson à blanc', 'cuisson a blanc']
+  },
+  {
+    id: 'sabler',
+    title: 'Sabler',
+    label: 'Pâtisserie',
+    description: 'Mélanger farine et beurre pour obtenir une texture sableuse avant d’hydrater ou lier une pâte.',
+    steps: ['Mets farine et beurre froid en morceaux.', 'Frotte entre les doigts ou au robot.', 'Arrête dès que la texture ressemble à du sable.', 'Ajoute le liquide ou l’œuf ensuite.'],
+    tip: 'Ne chauffe pas trop le beurre, sinon la pâte perd son côté friable.',
+    query: 'pâte sablée farine beurre',
+    aliases: ['sabler', 'sablage', 'sablé la pâte', 'texture sableuse']
+  },
+  {
+    id: 'fraiser',
+    title: 'Fraiser une pâte',
+    label: 'Pâtisserie',
+    description: 'Écraser la pâte avec la paume pour homogénéiser sans trop la travailler.',
+    steps: ['Rassemble la pâte en masse.', 'Pousse une portion avec la paume.', 'Rassemble à nouveau.', 'Arrête dès que la pâte est homogène.'],
+    tip: 'Trop fraiser développe le gluten et rend la pâte moins friable.',
+    query: 'pâte tarte sablée',
+    aliases: ['fraiser', 'fraser', 'fraisage', 'frasage']
+  },
+  {
+    id: 'chemiser',
+    title: 'Chemiser',
+    label: 'Moule',
+    description: 'Recouvrir l’intérieur d’un moule avec farine, cacao, sucre, papier ou beurre pour faciliter le démoulage.',
+    steps: ['Beurre ou humidifie légèrement le moule selon la recette.', 'Ajoute farine, cacao, sucre ou papier.', 'Couvre toute la surface.', 'Retire l’excédent avant de remplir.'],
+    tip: 'Pour un gâteau chocolat, le cacao évite les traces blanches de farine.',
+    query: 'moule cacao farine gâteau',
+    aliases: ['chemiser', 'chemisé', 'chemisée']
+  },
+  {
+    id: 'beurrer-fariner',
+    title: 'Beurrer et fariner',
+    label: 'Moule',
+    description: 'Préparer un moule ou des ramequins pour éviter que les gâteaux et mi-cuits accrochent.',
+    steps: ['Passe une fine couche de beurre mou.', 'Ajoute une petite cuillère de farine.', 'Tourne le moule pour couvrir les parois.', 'Tape pour retirer l’excédent.'],
+    tip: 'Cette étape est importante pour les préparations qui collent facilement.',
+    query: 'mi cuit chocolat cake',
+    aliases: ['beurrer et fariner', 'beurrer', 'fariner le moule', 'fariner les ramequins']
+  },
+  {
+    id: 'blanchir',
+    title: 'Blanchir',
+    label: 'Cuisson',
+    description: 'Cuire brièvement dans l’eau bouillante, ou fouetter œufs et sucre jusqu’à éclaircissement selon le contexte.',
+    steps: ['Pour les légumes, plonge dans l’eau bouillante salée.', 'Cuis très peu de temps.', 'Rafraîchis aussitôt si besoin.', 'Pour les œufs, fouette avec le sucre jusqu’à texture plus claire.'],
+    tip: 'Le contexte dit tout : légumes blanchis ou œufs blanchis ne veulent pas dire la même chose.',
+    query: 'blanchir œufs légumes',
+    aliases: ['blanchir', 'blanchi', 'blanchie', 'sans trop blanchir']
+  },
+  {
+    id: 'rafraichir',
+    title: 'Rafraîchir',
+    label: 'Cuisson',
+    description: 'Stopper une cuisson en plongeant l’aliment dans de l’eau froide ou glacée.',
+    steps: ['Prépare un bol d’eau froide avant la cuisson.', 'Égoutte l’aliment chaud.', 'Plonge immédiatement dans l’eau froide.', 'Égoutte à nouveau avant d’utiliser.'],
+    tip: 'Rafraîchir garde les couleurs nettes et évite la surcuisson.',
+    query: 'légumes eau froide',
+    aliases: ['rafraîchir', 'rafraichir', 'refroidir aussitôt']
+  },
+  {
+    id: 'monter-blancs',
+    title: 'Monter des blancs',
+    label: 'Œufs',
+    description: 'Incorporer de l’air dans les blancs d’œufs pour obtenir une mousse stable.',
+    steps: ['Utilise un bol propre et sec.', 'Commence doucement pour casser les blancs.', 'Augmente la vitesse quand la mousse devient fine.', 'Arrête au bec demandé par la recette.'],
+    tip: 'Des blancs trop battus deviennent granuleux et s’incorporent moins bien.',
+    query: 'blancs œufs meringue',
+    aliases: ['monter les blancs', 'monter des blancs', 'blancs en neige', 'bec d’oiseau', 'bec d oiseau']
+  },
+  {
+    id: 'incorporer-delicatement',
+    title: 'Incorporer délicatement',
+    label: 'Mélange',
+    description: 'Mélanger une préparation légère sans casser l’air incorporé.',
+    steps: ['Ajoute une première petite portion pour détendre.', 'Utilise une maryse.', 'Soulève la masse du bas vers le haut.', 'Arrête dès que le mélange est homogène.'],
+    tip: 'Trop mélanger fait retomber les blancs, chantilly ou mousses.',
+    query: 'incorporer délicatement blancs chantilly',
+    aliases: ['incorporer délicatement', 'incorporer la chantilly', 'incorporer les blancs', 'incorporer progressivement']
+  },
+  {
+    id: 'monter-mayonnaise',
+    title: 'Monter une mayonnaise',
+    label: 'Sauce',
+    description: 'Créer une émulsion stable entre jaune d’œuf, moutarde, acidité et huile.',
+    steps: ['Mélange jaune, moutarde, sel et acidité.', 'Verse l’huile goutte à goutte au début.', 'Augmente le filet quand la sauce prend.', 'Détends si elle devient trop épaisse.'],
+    tip: 'Si elle tranche, repars avec une cuillère d’eau puis incorpore la sauce ratée petit à petit.',
+    query: 'mayonnaise aïoli sauce',
+    aliases: ['monter une mayonnaise', 'mayonnaise montée', 'monter à l’huile']
+  },
+  {
+    id: 'pocher',
+    title: 'Pocher',
+    label: 'Cuisson',
+    description: 'Cuire doucement dans un liquide frémissant, ou dresser une préparation à la poche selon le contexte.',
+    steps: ['Pour une cuisson, garde le liquide sous l’ébullition.', 'Plonge l’aliment doucement.', 'Surveille la température.', 'Pour une poche, presse régulièrement sans à-coups.'],
+    tip: 'Pocher peut désigner une cuisson douce ou un dressage à la poche.',
+    query: 'pocher poche crème poisson',
+    aliases: ['pocher', 'poché', 'pochée', 'à la poche', 'a la poche']
+  },
+  {
+    id: 'frire',
+    title: 'Frire',
+    label: 'Cuisson',
+    description: 'Cuire dans un bain d’huile chaud pour obtenir une surface croustillante.',
+    steps: ['Chauffe l’huile à la température indiquée.', 'Travaille par petites quantités.', 'Égoutte sur grille ou papier.', 'Sale ou assaisonne juste après cuisson.'],
+    tip: 'Trop remplir la casserole fait chuter la température et graisse la friture.',
+    query: 'friture beignet tempura frites',
+    aliases: ['frire', 'friture', 'à frire', 'a frire']
+  },
+  {
+    id: 'paner',
+    title: 'Paner',
+    label: 'Cuisson',
+    description: 'Enrober un aliment pour créer une croûte régulière à la cuisson.',
+    steps: ['Sèche l’aliment.', 'Passe dans farine, œuf puis chapelure.', 'Appuie légèrement pour faire adhérer.', 'Laisse reposer si possible avant cuisson.'],
+    tip: 'Une panure adhère mieux sur un aliment sec.',
+    query: 'chapelure panure',
+    aliases: ['paner', 'pané', 'panée', 'panure']
+  },
+  {
+    id: 'suer',
+    title: 'Faire suer',
+    label: 'Cuisson',
+    description: 'Cuire doucement un aromate ou légume sans coloration pour faire sortir son eau et son parfum.',
+    steps: ['Chauffe doucement avec un peu de matière grasse.', 'Ajoute l’aliment taillé finement.', 'Sale légèrement si utile.', 'Cuis jusqu’à texture translucide sans brunir.'],
+    tip: 'Suer développe la douceur sans goût grillé.',
+    query: 'échalote oignon sauce',
+    aliases: ['faire suer', 'suer', 'fait suer']
+  },
+  {
+    id: 'faire-revenir',
+    title: 'Faire revenir',
+    label: 'Cuisson',
+    description: 'Colorer rapidement un aliment dans une matière grasse pour développer le goût.',
+    steps: ['Chauffe la poêle avant d’ajouter l’aliment.', 'Évite de surcharger.', 'Laisse colorer avant de remuer.', 'Baisse le feu si les sucs brûlent.'],
+    tip: 'Faire revenir cherche plus de goût qu’une cuisson douce.',
+    query: 'faire revenir oignon viande',
+    aliases: ['faire revenir']
   },
   {
     id: 'deglacer',
     title: 'Déglacer',
     label: 'Cuisson',
     description: 'Décoller les sucs au fond d’une poêle avec un liquide pour créer une base de sauce.',
-    steps: [
-      'Retire l’excès de gras si nécessaire.',
-      'Verse un liquide froid ou tempéré dans la poêle chaude.',
-      'Gratte le fond avec une spatule.',
-      'Laisse réduire jusqu’à obtenir une sauce plus concentrée.'
-    ],
-    tip: 'Un déglaçage fonctionne avec eau, bouillon, vin, vinaigre ou jus selon la recette.',
-    query: 'sauce cuisson'
+    steps: ['Retire l’excès de gras si nécessaire.', 'Verse un liquide dans la poêle chaude.', 'Gratte le fond avec une spatule.', 'Laisse réduire pour concentrer.'],
+    tip: 'Eau, bouillon, vin, vinaigre ou jus peuvent déglacer selon la recette.',
+    query: 'sauce cuisson',
+    aliases: ['déglacer', 'deglacer', 'déglacé', 'déglacée']
+  },
+  {
+    id: 'reduire',
+    title: 'Réduire',
+    label: 'Sauce',
+    description: 'Faire évaporer une partie du liquide pour concentrer le goût et épaissir.',
+    steps: ['Laisse frémir à découvert.', 'Remue de temps en temps.', 'Surveille les bords de casserole.', 'Arrête quand la texture nappe ou devient sirupeuse.'],
+    tip: 'Une réduction continue d’épaissir légèrement en refroidissant.',
+    query: 'sauce réduire',
+    aliases: ['réduire', 'reduire', 'réduit', 'réduire presque à sec', 'réduire de moitié']
+  },
+  {
+    id: 'lier-sauce',
+    title: 'Lier une sauce',
+    label: 'Sauce',
+    description: 'Donner de la tenue à une sauce avec beurre, crème, fécule, jaune ou réduction.',
+    steps: ['Choisis le liant adapté.', 'Ajoute-le hors feu ou à feu doux selon le cas.', 'Fouette pour homogénéiser.', 'Évite l’ébullition forte avec les jaunes ou le beurre.'],
+    tip: 'Une sauce liée doit napper sans devenir lourde.',
+    query: 'lier sauce beurre crème',
+    aliases: ['lier la sauce', 'lier une sauce', 'pour lier', 'sauce liée']
+  },
+  {
+    id: 'monter-au-beurre',
+    title: 'Monter au beurre',
+    label: 'Sauce',
+    description: 'Finir une sauce chaude avec du beurre froid pour lui donner brillance, rondeur et tenue.',
+    steps: ['Réduis la sauce avant d’ajouter le beurre.', 'Coupe le feu ou baisse très fort.', 'Ajoute le beurre froid en petits morceaux.', 'Fouette ou vanne la casserole sans refaire bouillir.'],
+    tip: 'Si la sauce bout trop fort après ajout du beurre, elle peut trancher.',
+    query: 'sauce beurre froid',
+    aliases: ['monter au beurre', 'ajouter le beurre froid']
+  },
+  {
+    id: 'torrefier',
+    title: 'Torréfier',
+    label: 'Cuisson',
+    description: 'Chauffer à sec ou au four pour renforcer le parfum des épices, graines ou fruits secs.',
+    steps: ['Étale en couche fine.', 'Chauffe à sec ou au four.', 'Remue ou surveille souvent.', 'Arrête dès que l’odeur devient intense.'],
+    tip: 'Les épices brûlent vite : quelques secondes peuvent suffire à la poêle.',
+    query: 'noisettes épices graines',
+    aliases: ['torréfier', 'torrefier', 'torréfié', 'torréfiée', 'torréfiées']
+  },
+  {
+    id: 'cremer',
+    title: 'Crémer',
+    label: 'Pâtisserie',
+    description: 'Travailler beurre pommade et sucre pour obtenir une base souple et homogène.',
+    steps: ['Utilise un beurre pommade, pas fondu.', 'Travaille avec le sucre jusqu’à texture crémeuse.', 'Racle les bords du bol.', 'Ajoute les œufs ensuite selon la recette.'],
+    tip: 'Trop crémer peut changer la texture finale de certains cakes ou cookies.',
+    query: 'beurre sucre cookie cake',
+    aliases: ['crémer', 'cremer', 'crémer le beurre']
+  },
+  {
+    id: 'infuser',
+    title: 'Infuser',
+    label: 'Parfum',
+    description: 'Extraire les parfums d’un ingrédient dans un liquide chaud ou froid.',
+    steps: ['Chauffe le liquide si la recette le demande.', 'Ajoute aromates, épices ou zestes.', 'Couvre pour garder les parfums.', 'Filtre ou retire l’aromate avant usage.'],
+    tip: 'Une infusion trop forte peut devenir amère, surtout avec agrumes, thé ou safran.',
+    query: 'infuser safran zeste épice',
+    aliases: ['infuser', 'infusé', 'infusée', 'laisser infuser']
+  },
+  {
+    id: 'filmer-contact',
+    title: 'Filmer au contact',
+    label: 'Crème',
+    description: 'Poser le film directement sur une crème pour éviter la peau en surface.',
+    steps: ['Verse la crème dans un récipient propre.', 'Pose le film directement contre la surface.', 'Chasse les bulles d’air.', 'Refroidis rapidement si la recette le demande.'],
+    tip: 'Le film doit toucher la crème, pas seulement couvrir le bol.',
+    query: 'crème pâtissière refroidir',
+    aliases: ['filmer au contact', 'film au contact', 'filmer immédiatement au contact']
+  },
+  {
+    id: 'tamiser',
+    title: 'Tamiser',
+    label: 'Pâtisserie',
+    description: 'Passer une poudre ou une préparation au tamis pour retirer les grains et alléger.',
+    steps: ['Place le tamis au-dessus d’un bol.', 'Verse la poudre ou la préparation.', 'Tapote ou racle doucement.', 'Jette les gros morceaux si la recette demande une texture fine.'],
+    tip: 'Tamiser évite les grumeaux dans les biscuits, macarons, crèmes et sauces.',
+    query: 'tamis poudre amande sucre glace',
+    aliases: ['tamiser', 'tamisé', 'tamisée', 'passer au tamis']
+  },
+  {
+    id: 'bain-marie',
+    title: 'Cuire au bain-marie',
+    label: 'Cuisson douce',
+    description: 'Chauffer doucement une préparation grâce à un récipient posé sur une eau frémissante.',
+    steps: ['Fais frémir un fond d’eau.', 'Pose un bol sans que le fond touche trop l’eau.', 'Remue régulièrement.', 'Garde une chaleur douce et stable.'],
+    tip: 'Le bain-marie évite de brûler chocolat, beurre, crèmes et sauces fragiles.',
+    query: 'bain-marie chocolat beurre',
+    aliases: ['bain-marie', 'bain marie', 'au bain-marie']
+  },
+  {
+    id: 'flamber',
+    title: 'Flamber',
+    label: 'Cuisson',
+    description: 'Enflammer brièvement un alcool pour concentrer le goût et retirer une partie de l’alcool.',
+    steps: ['Éloigne la poêle de la hotte.', 'Verse l’alcool hors flamme directe.', 'Allume prudemment avec une longue allumette.', 'Laisse la flamme s’éteindre seule.'],
+    tip: 'Ne flambe jamais sous une hotte allumée.',
+    query: 'cognac armagnac flamber',
+    aliases: ['flamber', 'flambé', 'flambée']
+  },
+  {
+    id: 'mariner',
+    title: 'Mariner',
+    label: 'Préparation',
+    description: 'Laisser un aliment au contact d’un assaisonnement pour parfumer, attendrir ou protéger.',
+    steps: ['Mélange la marinade avant d’ajouter l’aliment.', 'Enrobe toute la surface.', 'Couvre et place au frais.', 'Égoutte ou essuie si la cuisson doit saisir.'],
+    tip: 'Une marinade acide trop longue peut cuire ou durcir certains aliments.',
+    query: 'mariner mozzarella calamars',
+    aliases: ['mariner', 'marinade', 'mariné', 'marinée']
+  },
+  {
+    id: 'raper',
+    title: 'Râper',
+    label: 'Préparation',
+    description: 'Réduire un ingrédient en fins copeaux ou filaments pour mieux répartir son goût ou sa texture.',
+    steps: ['Choisis une râpe adaptée.', 'Garde les doigts loin de la surface.', 'Râpe au dernier moment si l’ingrédient oxyde.', 'Presse si la recette demande de retirer l’eau.'],
+    tip: 'Les pommes de terre râpées doivent souvent être pressées très fort pour croustiller.',
+    query: 'râper pomme de terre ail gingembre',
+    aliases: ['râper', 'raper', 'râpé', 'râpée', 'râper gros']
+  },
+  {
+    id: 'enrober',
+    title: 'Enrober',
+    label: 'Mélange',
+    description: 'Couvrir régulièrement un aliment avec une pâte, une huile, une sauce ou un assaisonnement.',
+    steps: ['Verse l’assaisonnement dans un grand bol.', 'Ajoute l’aliment en plusieurs fois si besoin.', 'Mélange par retournements doux.', 'Vérifie que toutes les faces sont couvertes.'],
+    tip: 'Un enrobage régulier donne une cuisson et un assaisonnement plus homogènes.',
+    query: 'enrober huile tempura assaisonnement',
+    aliases: ['enrober', 'enrobé', 'enrobée', 'pour les enrober']
+  },
+  {
+    id: 'napper',
+    title: 'Napper',
+    label: 'Sauce',
+    description: 'Couvrir une préparation avec une sauce assez liée pour tenir en fine couche.',
+    steps: ['Vérifie que la sauce est assez liée.', 'Verse ou cuillère depuis le centre.', 'Couvre sans noyer la garniture.', 'Sers rapidement si la sauce est chaude.'],
+    tip: 'Une sauce qui nappe le dos d’une cuillère laisse une trace nette au doigt.',
+    query: 'napper sauce',
+    aliases: ['napper', 'nappant', 'nappante', 'doit napper']
+  },
+  {
+    id: 'mijoter',
+    title: 'Mijoter / frémir',
+    label: 'Cuisson douce',
+    description: 'Cuire doucement avec de petites bulles pour développer le goût sans brutaliser la préparation.',
+    steps: ['Porte d’abord proche de l’ébullition si nécessaire.', 'Baisse jusqu’à petites bulles régulières.', 'Couvre partiellement selon la réduction voulue.', 'Remue de temps en temps.'],
+    tip: 'Un vrai frémissement est plus doux qu’une ébullition à gros bouillons.',
+    query: 'mijoter frémir sauce bouillon',
+    aliases: ['mijoter', 'frémir', 'fremir', 'frémissement', 'à frémissement']
   }
 ];
 const SHOPPING_AISLES = [
@@ -1136,7 +1416,23 @@ function buildInlineRecipeTargets(recipes) {
   return aliases.sort((a, b) => b.normalized.length - a.normalized.length);
 }
 
-function renderLinkedText(text, targets, openRecipe) {
+function buildTechniqueTargets() {
+  const targets = [];
+  const seen = new Set();
+  const add = (term, id, title) => {
+    const normalized = normalizeText(term).trim();
+    if (normalized.length < 5 || seen.has(normalized)) return;
+    seen.add(normalized);
+    targets.push({ term, normalized, id, title });
+  };
+  TECHNIQUE_GUIDES.forEach(technique => {
+    add(technique.title, technique.id, technique.title);
+    (technique.aliases || []).forEach(alias => add(alias, technique.id, technique.title));
+  });
+  return targets.sort((a, b) => b.normalized.length - a.normalized.length);
+}
+
+function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], openTechnique = null) {
   const value = String(text || '');
   const explicitLinkPattern = /<span\s+data-goto=(["'])([^"']+)\1[^>]*>(.*?)<\/span>/i;
   const explicitMatch = value.match(explicitLinkPattern);
@@ -1144,20 +1440,43 @@ function renderLinkedText(text, targets, openRecipe) {
     const [full, , id, label] = explicitMatch;
     const index = value.indexOf(full);
     return h(React.Fragment, null,
-      renderLinkedText(value.slice(0, index), targets, openRecipe),
-      h('button', { type: 'button', className: 'inline-recipe-link', onClick: () => openRecipe(id) }, label.replace(/<[^>]+>/g, '')),
-      renderLinkedText(value.slice(index + full.length), targets, openRecipe)
+      renderLinkedText(value.slice(0, index), targets, openRecipe, techniqueTargets, openTechnique),
+      h('button', {
+        type: 'button',
+        className: 'inline-recipe-link',
+        onClick: event => {
+          event.preventDefault();
+          event.stopPropagation();
+          openRecipe(id);
+        }
+      }, label.replace(/<[^>]+>/g, '')),
+      renderLinkedText(value.slice(index + full.length), targets, openRecipe, techniqueTargets, openTechnique)
     );
   }
   const normalized = normalizeText(value);
   const target = targets.find(item => normalized.includes(item.normalized));
-  if (!target) return value;
-  const index = normalized.indexOf(target.normalized);
-  const label = value.slice(index, index + target.term.length) || target.term;
+  const techniqueTarget = openTechnique ? techniqueTargets.find(item => normalized.includes(item.normalized)) : null;
+  if (!target && !techniqueTarget) return value;
+  const targetIndex = target ? normalized.indexOf(target.normalized) : Number.POSITIVE_INFINITY;
+  const techniqueIndex = techniqueTarget ? normalized.indexOf(techniqueTarget.normalized) : Number.POSITIVE_INFINITY;
+  const isTechnique = Boolean(techniqueTarget) && techniqueIndex < targetIndex;
+  const chosen = isTechnique ? techniqueTarget : target;
+  const index = isTechnique ? techniqueIndex : targetIndex;
+  const label = value.slice(index, index + chosen.term.length) || chosen.term;
   return h(React.Fragment, null,
-    value.slice(0, index),
-    h('button', { type: 'button', className: 'inline-recipe-link', onClick: () => openRecipe(target.id) }, label),
-    value.slice(index + label.length)
+    renderLinkedText(value.slice(0, index), targets, openRecipe, techniqueTargets, openTechnique),
+    h('button', {
+      type: 'button',
+      className: isTechnique ? 'inline-technique-link' : 'inline-recipe-link',
+      title: isTechnique ? `Voir la technique : ${chosen.title}` : undefined,
+      onClick: event => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (isTechnique) openTechnique(chosen.id);
+        else openRecipe(chosen.id);
+      }
+    }, label),
+    renderLinkedText(value.slice(index + label.length), targets, openRecipe, techniqueTargets, openTechnique)
   );
 }
 
@@ -1572,7 +1891,7 @@ function techniquesJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'Technique de cuisinier',
-    description: 'Gestes de cuisine Cook Note : émincer, ciseler, monder, abaisser une pâte, foncer un moule, monter une mayonnaise et réussir les bases.',
+    description: 'Gestes de cuisine Cook Note : coupes, cuissons, pâtisserie, sauces, moules, friture et bases de cuisinier.',
     url
   };
 }
@@ -1585,7 +1904,7 @@ function updateDocumentMeta(recipe, recipesById = {}, page = 'home') {
       ? `${recipe.title} - Cook Note`
       : 'Cook Note';
   const description = isTechniques
-    ? 'Technique de cuisinier : gestes de base pour émincer, ciseler, monder, abaisser une pâte, foncer un moule et monter une sauce.'
+    ? 'Technique de cuisinier : gestes de base pour tailler, cuire, abaisser une pâte, foncer un moule, monter une sauce et réussir les préparations.'
     : recipe?.title
       ? recipeDescription(recipe, recipesById)
       : 'Cook Note : carnet de recettes avec ingrédients, quantités ajustables, étapes et notes pratiques.';
@@ -1940,6 +2259,13 @@ function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
       .slice(0, 4)
       : []
   }));
+  useEffect(() => {
+    const id = window.location.hash.replace(/^#/, '');
+    if (!id) return;
+    requestAnimationFrame(() => {
+      document.getElementById(`technique-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, []);
   return h('main', { className: 'techniques-view' },
     h(Hero),
     h('div', { className: 'content-wrap techniques-wrap' },
@@ -1952,7 +2278,7 @@ function TechniquesView({ recipes, recipesById, openRecipe, goHome }) {
         h(Button, { variant: 'subtle', onClick: goHome }, 'Retour aux recettes')
       ),
       h('div', { className: 'technique-grid' },
-        guideCards.map(guide => h('article', { key: guide.id, className: 'technique-card' },
+        guideCards.map(guide => h('article', { key: guide.id, id: `technique-${guide.id}`, className: 'technique-card' },
           h('div', { className: 'technique-card-head' },
             h('span', null, h(Icon, { name: 'spark' })),
             h('small', null, guide.label)
@@ -2452,14 +2778,14 @@ function LinkedRecipesBlock({ links, openRecipe }) {
   );
 }
 
-function PracticalSectionsBlock({ sections, inlineTargets, openRecipe }) {
+function PracticalSectionsBlock({ sections, inlineTargets, openRecipe, techniqueTargets, openTechnique }) {
   if (!sections.length) return null;
   return h('div', { className: 'practical-block' },
     h('p', { className: 'eyebrow' }, 'Repères'),
     h('h2', null, 'Infos pratiques'),
     sections.map(section => h('section', { key: section.key, className: 'practical-section' },
       h('h3', null, section.title),
-      h('ul', null, section.items.map(item => h('li', { key: item }, renderLinkedText(item, inlineTargets || [], openRecipe))))
+      h('ul', null, section.items.map(item => h('li', { key: item }, renderLinkedText(item, inlineTargets || [], openRecipe, techniqueTargets || [], openTechnique))))
     ))
   );
 }
@@ -2528,6 +2854,7 @@ function RecipeView({
   undo,
   redo,
   setTagFilter,
+  openTechnique,
   selectedVariantId: initialSelectedVariantId,
   onVariantChange
 }) {
@@ -2540,6 +2867,7 @@ function RecipeView({
   const hasSelectedVariant = !showVariants || Boolean(selectedVariantRecipe);
   const selectedRecipe = showVariants ? (selectedVariantRecipe || recipe) : recipe;
   const inlineTargets = useMemo(() => buildInlineRecipeTargets(recipes), [recipes]);
+  const techniqueTargets = useMemo(() => buildTechniqueTargets(), []);
   const detailKey = hasSelectedVariant ? selectedRecipe.id : recipe.id;
   const [shareOpen, setShareOpen] = useState(false);
   const [exportCopied, setExportCopied] = useState(false);
@@ -2771,13 +3099,13 @@ function RecipeView({
               return h('li', { key },
                 h('label', null,
                   h('input', { type: 'checkbox', checked: Boolean(checked[key]), onChange: () => toggle(key) }),
-                  h('span', null, renderLinkedText(scaleIngredient(item, factor), inlineTargets, openRecipe))
+                  h('span', null, renderLinkedText(scaleIngredient(item, factor), inlineTargets, openRecipe, techniqueTargets, openTechnique))
                 )
               );
             })),
             isOpen && (group.note || (group.notes || []).length > 0) && h('div', { className: 'ingredient-group-note' },
-              group.note && h('p', null, renderLinkedText(group.note, inlineTargets, openRecipe)),
-              (group.notes || []).map((note, noteIndex) => h('p', { key: `${groupKey}:note:${noteIndex}` }, renderLinkedText(note, inlineTargets, openRecipe)))
+              group.note && h('p', null, renderLinkedText(group.note, inlineTargets, openRecipe, techniqueTargets, openTechnique)),
+              (group.notes || []).map((note, noteIndex) => h('p', { key: `${groupKey}:note:${noteIndex}` }, renderLinkedText(note, inlineTargets, openRecipe, techniqueTargets, openTechnique)))
             )
           );
         })
@@ -2808,7 +3136,7 @@ function RecipeView({
               h('label', null,
                 h('input', { type: 'checkbox', checked: Boolean(checked[key]), onChange: () => toggle(key) }),
                 h('span', { className: 'step-number' }, String(index + 1).padStart(2, '0')),
-                h('span', { className: 'step-text' }, renderLinkedText(step, inlineTargets, openRecipe))
+                h('span', { className: 'step-text' }, renderLinkedText(step, inlineTargets, openRecipe, techniqueTargets, openTechnique))
               ),
               minutes > 0 && h('button', {
                 type: 'button',
@@ -2841,11 +3169,11 @@ function RecipeView({
           ))
         ),
         h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
-        h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe }),
+        h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique }),
         displayNotes.length > 0 && h('div', { className: 'free-notes-block' },
           h('p', { className: 'eyebrow' }, 'Notes'),
           h('h2', null, 'Astuces et liens'),
-          h('ul', null, displayNotes.map((note, index) => h('li', { key: `${detailKey}:note:${index}` }, renderLinkedText(sanitizeNoteHtml(note), inlineTargets, openRecipe))))
+          h('ul', null, displayNotes.map((note, index) => h('li', { key: `${detailKey}:note:${index}` }, renderLinkedText(sanitizeNoteHtml(note), inlineTargets, openRecipe, techniqueTargets, openTechnique))))
         ),
         (selectedRecipe.technical || recipe.technical || []).length > 0 && h('div', { className: 'technical-card' },
           h('p', { className: 'eyebrow' }, 'Fiche technique'),
@@ -3217,6 +3545,17 @@ function App() {
     history.pushState('', document.title, '/techniques');
   }
 
+  function openTechnique(id) {
+    restoreHomeScrollRef.current = Boolean(activeRecipe);
+    setActivePage('techniques');
+    setActiveId(null);
+    setOnlyFavorites(false);
+    history.pushState('', document.title, `/techniques#${encodeURIComponent(id)}`);
+    setTimeout(() => {
+      document.getElementById(`technique-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 0);
+  }
+
   function updateSearchQuery(value) {
     setQuery(value);
   }
@@ -3380,6 +3719,7 @@ function App() {
           undo,
           redo,
           setTagFilter,
+          openTechnique,
           selectedVariantId: variantSelection[activeRecipe.id],
           onVariantChange: selectVariant
         })

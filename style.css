@@ -716,10 +716,15 @@ a {
 }
 
 .technique-card:hover,
-.technique-card:focus-within {
+.technique-card:focus-within,
+.technique-card:target {
   transform: translateY(-2px);
   border-color: color-mix(in srgb, var(--accent) 48%, var(--line));
   box-shadow: 0 20px 56px rgba(0, 0, 0, .36), 0 0 26px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.technique-card:target {
+  border-color: color-mix(in srgb, var(--accent) 76%, white);
 }
 
 .technique-card-head {
@@ -1583,7 +1588,8 @@ a {
   scrollbar-width: none;
 }
 
-.inline-recipe-link {
+.inline-recipe-link,
+.inline-technique-link {
   display: inline;
   border: 0;
   background: transparent;
@@ -1668,6 +1674,11 @@ a {
   font-size: 13px;
   font-weight: 950;
   cursor: pointer;
+}
+
+.inline-technique-link {
+  color: color-mix(in srgb, var(--accent) 78%, #fff);
+  text-decoration-style: dotted;
 }
 
 .quantity-select:focus-visible {
