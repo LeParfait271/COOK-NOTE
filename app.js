@@ -423,9 +423,9 @@ const TECHNIQUE_GUIDES = [
     id: 'flamber',
     title: 'Flamber',
     label: 'Cuisson',
-    description: 'Enflammer brièvement un alcool pour concentrer le goût et retirer une partie de l’alcool.',
-    steps: ['Éloigne la poêle de la hotte.', 'Verse l’alcool hors flamme directe.', 'Allume prudemment avec une longue allumette.', 'Laisse la flamme s’éteindre seule.'],
-    tip: 'Ne flambe jamais sous une hotte allumée.',
+    description: 'Enflammer brièvement un alcool assez chaud pour concentrer le goût et retirer une partie de l’alcool.',
+    steps: ['Éloigne la poêle de la hotte et coupe toute flamme trop proche.', 'Chauffe légèrement l’alcool à part ou verse-le dans une poêle déjà chaude.', 'Allume prudemment avec une longue allumette ou incline très légèrement la poêle si tu cuisines au gaz.', 'Laisse la flamme s’éteindre seule avant de continuer la sauce.'],
+    tip: 'Un alcool froid flambe mal. Ne verse jamais directement depuis la bouteille et ne flambe jamais sous une hotte allumée.',
     query: 'cognac armagnac flamber',
     aliases: ['flamber', 'flambé', 'flambée']
   },
