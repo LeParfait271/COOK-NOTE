@@ -2726,26 +2726,7 @@ a {
   }
 
   .topbar {
-    grid-template-columns: 44px 1fr auto;
-    grid-template-areas:
-      "home . fav"
-      "actions actions actions"
-      "search-btn search search";
-    gap: 8px;
-  }
-
-  .top-actions {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) 44px;
-    width: 100%;
-  }
-
-  .top-actions .btn {
-    width: 100%;
-  }
-
-  .top-left .btn {
-    min-width: 0;
+    display: none;
   }
 
   .hero {
