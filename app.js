@@ -1145,10 +1145,53 @@ function splitShoppingIngredientParts(line) {
 }
 
 function normalizeShoppingName(value) {
-  return normalizeText(value)
+  let text = normalizeText(value)
     .replace(/^(?:de |d'|du |des |la |le |les |l')/i, '')
     .replace(/\s+/g, ' ')
     .trim();
+  if (/^beurre\b/.test(text)) {
+    if (/\bdemi sel\b/.test(text)) return 'beurre demi sel';
+    if (/\bsale\b/.test(text) && !/\bnon sale\b/.test(text)) return 'beurre sale';
+    text = text.replace(/\b(doux|non|sale|pommade|ramolli|ramollie|fondu|fondue|froid|froide|mou|molle)\b/g, ' ');
+  }
+  if (/^farine\b/.test(text)) {
+    text = text.replace(/\b(de ble|blé|fluide|tamisee|tamise)\b/g, ' ');
+  }
+  if (/^huile\b/.test(text)) {
+    text = text
+      .replace(/\bd olive\b/g, 'olive')
+      .replace(/\bde tournesol\b/g, 'tournesol')
+      .replace(/\bd arachide\b/g, 'arachide')
+      .replace(/\bde pepins de raisin\b/g, 'pepins raisin')
+      .replace(/\bd avocat\b/g, 'avocat');
+  }
+  return text.replace(/\s+/g, ' ').trim();
+}
+
+function canonicalShoppingName(value) {
+  const text = normalizeText(value);
+  if (/^beurre\b/.test(text)) {
+    if (/\bdemi sel\b/.test(text)) return 'beurre demi-sel';
+    if (/\bsale\b/.test(text) && !/\bnon sale\b/.test(text)) return 'beurre salé';
+    return 'beurre';
+  }
+  if (/^farine\b/.test(text)) {
+    if (/\bt45\b/.test(text)) return 'farine T45';
+    if (/\bt55\b/.test(text)) return 'farine T55';
+    return 'farine';
+  }
+  if (/^huile\b/.test(text)) {
+    if (/\bolive\b/.test(text)) return "huile d'olive";
+    if (/\bavocat\b/.test(text)) return "huile d'avocat";
+    if (/\btournesol|arachide|pepins de raisin|pépins de raisin|neutre\b/.test(text)) return 'huile neutre';
+    return value.trim();
+  }
+  if (/\bcassonade\b|\bvergeoise\b/.test(text)) return 'cassonade ou vergeoise';
+  if (/^oeufs?\b|^œufs?\b/.test(text)) return 'œufs';
+  if (/^chocolat noir\b/.test(text)) return 'chocolat noir';
+  if (/^chocolat au lait\b/.test(text)) return 'chocolat au lait';
+  if (/^chocolat blanc\b/.test(text)) return 'chocolat blanc';
+  return value.trim();
 }
 
 function parseShoppingIngredient(line) {
@@ -1161,9 +1204,11 @@ function parseShoppingIngredient(line) {
   const unit = match[4].toLowerCase();
   const multiplier = unit === 'kg' || unit === 'l' ? 1000 : unit === 'cl' ? 10 : 1;
   const baseUnit = unit === 'kg' ? 'g' : unit === 'l' || unit === 'cl' ? 'ml' : unit;
-  const name = match[5].trim();
+  const rawName = match[5].trim();
+  const normalizedName = normalizeShoppingName(rawName);
+  const name = canonicalShoppingName(rawName);
   return {
-    key: `${baseUnit}:${normalizeShoppingName(name)}`,
+    key: `${baseUnit}:${normalizedName}`,
     name,
     unit: baseUnit,
     first: first * multiplier,
@@ -1313,6 +1358,7 @@ function getRecipeSearchText(recipe, tags, recipesById = {}) {
     .flatMap(item => [item.role, item.recipe.title, ...(item.recipe.tags || [])])
     .join(' ');
   const facets = getRecipeSearchFacets(recipe).join(' ');
+  const intents = getRecipeIntentLabels(recipe, recipesById).join(' ');
   const variantsText = (recipe.variants || [])
     .map(variant => recipesById[variant.id])
     .filter(Boolean)
@@ -1329,6 +1375,7 @@ function getRecipeSearchText(recipe, tags, recipesById = {}) {
     ...(recipe.variants || []).flatMap(variant => [variant.id, variant.label]),
     ingredients,
     facets,
+    intents,
     practicalText,
     linkedText,
     ...(recipe.steps || []),
@@ -1357,8 +1404,22 @@ const SEARCH_SYNONYMS = {
   base: ['bases', 'pâte'],
   citronne: ['citron'],
   citronné: ['citron'],
+  choco: ['chocolat'],
+  chocolat: ['choco', 'noir', 'lait'],
+  chilli: ['chili'],
+  chili: ['chilli', 'piment'],
+  crisp: ['croustillant', 'piment'],
   facile: ['easy', 'simple', 'débutant'],
   simple: ['easy', 'facile'],
+  rapide: ['express', 'vite'],
+  express: ['rapide', 'vite'],
+  avance: ['préparer à l avance', 'la veille', 'make ahead'],
+  preparer: ['préparer', 'préparation', 'avance'],
+  froid: ['réfrigérateur', 'sans cuisson'],
+  cuisson: ['four', 'poêle', 'friture'],
+  vegetariens: ['végétarien', 'vegetarien'],
+  vegetarien: ['végétarien', 'sans viande'],
+  congelable: ['congélation', 'congeler'],
   moyen: ['medium', 'intermédiaire'],
   difficile: ['hard', 'technique'],
   ete: ['été'],
@@ -1404,6 +1465,7 @@ function scoreRecipeSearch(recipe, query, recipesById = {}) {
   const categories = normalizeText((recipe.categories || []).join(' '));
   const ingredients = normalizeText((recipe.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]).join(' '));
   const practical = normalizeText(getRecipePracticalSections(recipe).flatMap(section => [section.title, ...section.items]).join(' '));
+  const intents = normalizeText(getRecipeIntentLabels(recipe, recipesById).join(' '));
   const facets = normalizeText(getRecipeSearchFacets(recipe).join(' '));
   const linked = normalizeText(getLinkedRecipeRefs(recipe, recipesById).flatMap(item => [item.role, item.recipe.title]).join(' '));
   const notes = normalizeText([...(recipe.notes || []), ...(recipe.technical || []).flatMap(item => [item.label, item.value, item.text])].join(' '));
@@ -1411,6 +1473,7 @@ function scoreRecipeSearch(recipe, query, recipesById = {}) {
     { name: 'titre', text: title, points: 120 },
     { name: 'alias', text: aliases, points: 90 },
     { name: 'tag', text: tags, points: 70 },
+    { name: 'intention', text: intents, points: 68 },
     { name: 'usage', text: facets, points: 62 },
     { name: 'catégorie', text: categories, points: 55 },
     { name: 'ingrédient', text: ingredients, points: 45 },
@@ -1937,6 +2000,27 @@ function getRecipeWorkflowFlags(recipe, recipesById = {}) {
   };
 }
 
+function getRecipeIntentLabels(recipe, recipesById = {}) {
+  const text = getRecipeWorkflowText(recipe, recipesById);
+  const flags = getRecipeWorkflowFlags(recipe, recipesById);
+  const labels = [];
+  const add = (...items) => items.forEach(item => labels.push(item));
+  const hasCookingVerb = /\b(cuire|cuisson|four|enfourner|poele|poêle|frire|friture|gril|griller|bouillir|porter a ebullition|porter à ébullition|mijoter|rotir|rôtir|gratiner)\b/.test(text);
+
+  if (flags.rapid) add('rapide', 'express', 'vite');
+  if (flags.easy) add('facile', 'simple', 'débutant');
+  if (flags.oven) add('cuisson au four', 'four', 'plat au four');
+  if (flags.frying) add('friture', 'croustillant', 'beignet');
+  if (flags.vegetarian) add('végétarien', 'sans viande');
+  if (flags.cold) add('froid', 'à servir froid');
+  if (flags.makeAhead) add('à préparer à l’avance', 'la veille', 'organisation');
+  if (!hasCookingVerb && !flags.oven && !flags.frying) add('sans cuisson');
+  if (/\b(congel|congelation|congélation|congeler|congelateur|congélateur)\b/.test(text)) add('congelable', 'à congeler');
+  if (/\b(oeuf|œuf|blancs d oeufs|jaunes d oeufs)\b/.test(text)) add('anti-gaspillage œufs', 'œufs');
+  if (/\b(panier|courses|liste de courses)\b/.test(text)) add('courses');
+  return uniq(labels);
+}
+
 function ingredientSearchTokens(value) {
   const normalized = normalizeText(value).replace(/\bet\b/g, ',');
   const parts = normalized
@@ -1979,10 +2063,12 @@ function scoreIngredientSearch(recipe, query) {
 
 function getRecipeSearchFacets(recipe) {
   const difficulty = normalizeText(recipe?.difficulty || '');
+  const intentLabels = getRecipeIntentLabels(recipe);
   const labels = [
     ...(recipe?.categories || []),
     ...(recipe?.seasons || []),
-    primaryCategory(recipe)
+    primaryCategory(recipe),
+    ...intentLabels
   ];
   if (difficulty === 'easy') labels.push('facile', 'simple', 'débutant');
   if (difficulty === 'medium') labels.push('moyen', 'intermédiaire', 'technique');
@@ -2740,12 +2826,19 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
     { title: 'Ingrédients', items: [
       { label: 'Citron', query: 'citron' },
       { label: 'Œufs', query: 'oeuf' },
-      { label: 'Chocolat', query: 'chocolat' }
+      { label: 'Chocolat', query: 'chocolat' },
+      { label: 'Beurre noisette', query: 'beurre noisette' }
     ] },
-    { title: 'Usages', items: [
-      { label: 'Four', query: 'four' },
+    { title: 'Intentions', items: [
+      { label: 'Rapide', query: 'rapide' },
+      { label: 'Sans cuisson', query: 'sans cuisson' },
+      { label: 'À préparer', query: 'à préparer à l’avance' },
+      { label: 'Congelable', query: 'congelable' }
+    ] },
+    { title: 'Méthodes', items: [
+      { label: 'Four', query: 'cuisson au four' },
       { label: 'Friture', query: 'friture' },
-      { label: 'À préparer', query: 'stockage' }
+      { label: 'Froid', query: 'froid' }
     ] },
     { title: 'Familles', items: [
       { label: 'Apéro', query: 'apéro' },
@@ -2778,8 +2871,10 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'field search-modal-field' },
-        h('label', { className: 'sr-only' }, 'Rechercher une recette'),
+        h('label', { className: 'sr-only', htmlFor: 'recipe-search-input' }, 'Rechercher une recette'),
         h('input', {
+          id: 'recipe-search-input',
+          type: 'search',
           ref: searchRef,
           value: query,
           onChange: event => setQuery(event.target.value),
@@ -2794,10 +2889,13 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
       ),
       h('div', { className: 'ingredient-search-box' },
         h('div', null,
-          h('p', { className: 'eyebrow' }, 'Recherche par ingrédients'),
-          h('small', null, 'Sépare les ingrédients par virgule : œufs, farine, citron.')
+          h('label', { htmlFor: 'ingredient-search-input', className: 'eyebrow' }, 'Recherche par ingrédients'),
+          h('small', { id: 'ingredient-search-help' }, 'Sépare les ingrédients par virgule : œufs, farine, citron.')
         ),
         h('input', {
+          id: 'ingredient-search-input',
+          type: 'search',
+          'aria-describedby': 'ingredient-search-help',
           value: ingredientQuery,
           onChange: event => setIngredientQuery(event.target.value),
           onKeyDown: event => {

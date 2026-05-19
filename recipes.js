@@ -736,14 +736,28 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Fouetter 2–3min ricotta + crème jusqu'à lisse et aérée ; assaisonner."
+      "Égoutter la ricotta si elle rend beaucoup d'eau, puis la mettre dans un bol froid.",
+      "Ajouter la crème et fouetter 2–3min jusqu'à texture lisse, brillante et aérée.",
+      "Assaisonner avec sel fin et poivre du moulin, puis goûter avant de corriger.",
+      "Réserver au froid jusqu'au dressage et ajouter l'huile, les herbes ou les garnitures au dernier moment."
     ],
     "notes": [
       "Zaatar + huile d'olive ; Citron confit + aneth ; Miel + piment d'Espelette ; Truffe : 1–2 % huile de truffe.",
       "Conservation : 2–3 j au froid.",
       "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
     ],
-    "difficultyScore": 2
+    "difficultyScore": 2,
+    "tags": [
+      "ricotta",
+      "dip",
+      "fromage",
+      "aperitif"
+    ],
+    "aliases": [
+      "dip ricotta",
+      "ricotta montee",
+      "ricotta fouettee"
+    ]
   },
   "balsamique_reduit": {
     "title": "Balsamique réduit",
@@ -767,14 +781,29 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Mijoter 12–20min à feu doux jusqu'à nappant (réduction 1/2–2/3)."
+      "Verser le vinaigre balsamique dans une petite casserole à fond épais.",
+      "Ajouter le sucre selon l'équilibre voulu, puis porter à léger frémissement.",
+      "Mijoter 12–20min à feu doux jusqu'à texture nappante, en surveillant car la réduction épaissit vite.",
+      "Couper le feu quand la réduction nappe la cuillère : elle continuera à épaissir en refroidissant.",
+      "Transvaser dans un pot propre et laisser refroidir avant de fermer."
     ],
     "notes": [
       "Variantes : zeste d'orange, vanille, cacao, espresso, figue (filtrer).",
       "Conservation : 2–3 mois au froid.",
       "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
     ],
-    "difficultyScore": 2
+    "difficultyScore": 2,
+    "tags": [
+      "balsamique",
+      "reduction",
+      "sauce",
+      "condiment"
+    ],
+    "aliases": [
+      "creme balsamique",
+      "reduction balsamique",
+      "balsamique reduit"
+    ]
   },
   "tomates_variantes": {
     "title": "Tomates confites et séchées",
@@ -912,7 +941,11 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Four 200°C chaleur tournante. Assaisonner, étaler, rôtir jusqu'à coloration et tendreté."
+      "Préchauffer le four à 200°C chaleur tournante avec la plaque si tu veux une coloration plus nette.",
+      "Tailler les légumes en morceaux réguliers pour que les temps du tableau restent cohérents.",
+      "Assaisonner avec huile, sel, poivre du moulin et aromates, puis étaler en une seule couche sans surcharger.",
+      "Rôtir selon le légume choisi, retourner à mi-cuisson et prolonger jusqu'à coloration et tendreté.",
+      "Servir aussitôt ou refroidir rapidement avant conservation."
     ],
     "notes": [
       "Plaque préchauffée = croûte plus nette.",
@@ -921,6 +954,17 @@ window.RECIPES = {
       "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 3,
+    "tags": [
+      "legumes",
+      "four",
+      "rôti",
+      "accompagnement"
+    ],
+    "aliases": [
+      "legumes au four",
+      "legumes rotis",
+      "accompagnement legumes"
+    ],
     "additionalMasters": [
       "accompagnements_maitre"
     ]
@@ -1048,7 +1092,11 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Mariner 30min (poisson/crevettes), 2–4h (volaille), 6–12h (porc/boeuf). Égoutter avant cuisson forte."
+      "Choisir la marinade selon l'aliment et mélanger tous les ingrédients dans un bol propre.",
+      "Enrober l'aliment, couvrir et placer au réfrigérateur pendant le temps adapté.",
+      "Compter 30min pour poisson ou crevettes, 2–4h pour volaille, 6–12h pour porc ou bœuf.",
+      "Égoutter avant cuisson forte pour éviter que l'excès de liquide brûle ou empêche la coloration.",
+      "Jeter la marinade qui a touché le cru, ou la porter franchement à ébullition si elle doit devenir une sauce."
     ],
     "notes": [
       "Ne pas réutiliser la marinade crue ; porter à ébullition si sauce.",
@@ -1056,7 +1104,18 @@ window.RECIPES = {
       "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
     ],
     "difficultyScore": 3,
-    "variantGroups": true
+    "variantGroups": true,
+    "tags": [
+      "marinade",
+      "viande",
+      "poisson",
+      "legumes"
+    ],
+    "aliases": [
+      "marinades rapides",
+      "marinade maison",
+      "guide marinades"
+    ]
   },
   "cookies_sales_variantes": {
     "title": "Cookies salés",
@@ -1201,14 +1260,29 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Chauffer lait+crème ; fondre chocolat ; mixer pour mousser."
+      "Chauffer le lait, la crème, le sucre et le sel dans une casserole sans faire bouillir fort.",
+      "Ajouter le chocolat noir haché hors du feu et laisser fondre 1min.",
+      "Fouetter puis remettre sur feu doux jusqu'à texture chaude et bien homogène.",
+      "Mixer quelques secondes pour émulsionner et obtenir une mousse fine.",
+      "Servir aussitôt dans des mugs chauds."
     ],
     "notes": [
       "Épaissir : 5–8g maïzena diluée.",
       "Conservation : 2 j au froid.",
       "Stockage : idéalement le jour même. Péremption : 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture."
     ],
-    "difficultyScore": 3
+    "difficultyScore": 3,
+    "tags": [
+      "chocolat",
+      "boisson",
+      "chaud",
+      "petit-déjeuner"
+    ],
+    "aliases": [
+      "chocolat chaud",
+      "chocolat chaud maison",
+      "boisson chocolat"
+    ]
   },
   "chantilly_classique": {
     "title": "Chantilly classique",
@@ -1232,7 +1306,11 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Bol + fouet au froid ; monter en bec d'oiseau ; sucrer en fin."
+      "Placer bol, fouet et crème au froid pour faciliter le montage.",
+      "Verser la crème très froide dans le bol et fouetter progressivement.",
+      "Quand la crème commence à épaissir, ajouter le sucre glace en pluie.",
+      "Arrêter au bec d'oiseau : la chantilly tient mais reste souple et lisse.",
+      "Utiliser rapidement ou garder au froid en poche ou bol filmé."
     ],
     "notes": [
       "Parfums : vanille, cacao, café, coco (1–2 %).",
@@ -1241,7 +1319,18 @@ window.RECIPES = {
       "Conservation : 24h au froid maximum.",
       "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
-    "difficultyScore": 3
+    "difficultyScore": 3,
+    "tags": [
+      "chantilly",
+      "creme",
+      "dessert",
+      "base"
+    ],
+    "aliases": [
+      "creme chantilly",
+      "chantilly maison",
+      "chantilly classique"
+    ]
   },
   "mascarpone": {
     "title": "Crème mascarpone vanille",
@@ -4576,14 +4665,22 @@ window.RECIPES = {
     ],
     "notes": [
       "Adapter la cuisson à la garniture : précuire pour une crème froide, cuire avec la garniture pour une tarte cuite.",
-      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil."
+      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
+      "Conservation : pâte crue filmée 24–48h au réfrigérateur ou 2 mois au congélateur ; fond cuit refroidi en boîte hermétique 2–3 jours au sec."
     ],
     "tags": [
       "pate",
       "tarte",
-      "base"
+      "base",
+      "fond de tarte"
     ],
     "difficultyScore": 4,
+    "aliases": [
+      "pate a tarte",
+      "fond de tarte",
+      "pate brisee",
+      "pate sucree"
+    ],
     "variantGroups": true
   },
   "caramel_cheesecake_cookies": {

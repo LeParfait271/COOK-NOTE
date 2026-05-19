@@ -1,10 +1,10 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v29
+//  Cook Note - Service Worker PWA v30
 //  Cache-first pour assets statiques
 //  Network-first pour les images externes (Unsplash, CDN)
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v29';
+const CACHE_NAME = 'cook-note-v30';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -12,8 +12,10 @@ const STATIC_ASSETS = [
   '/app.js',
   '/recipes.js',
   '/style.css',
+  '/recipe.js',
   '/manifest.json',
   '/assets/cook-note.png',
+  '/assets/cook-note-white.png',
   '/assets/base-principale-fond-site.jpg',
   '/assets/recipe-images/parent_accompagnements.png',
   '/assets/recipe-images/parent_apero.png',
@@ -32,7 +34,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
       .then(() => {
-        console.log('[SW v29] Assets statiques mis en cache.');
+        console.log('[SW v30] Assets statiques mis en cache.');
       })
   );
   self.skipWaiting();
@@ -46,7 +48,7 @@ self.addEventListener('activate', (event) => {
         keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
       )
     ).then(() => {
-        console.log('[SW v29] Anciens caches supprimés.');
+        console.log('[SW v30] Anciens caches supprimés.');
     })
   );
   self.clients.claim();
@@ -66,9 +68,25 @@ self.addEventListener('fetch', (event) => {
   // Ne jamais mettre en cache l'admin ni l'API.
   if (url.pathname.startsWith('/admin') || url.pathname.startsWith('/api/')) return;
 
+  // Les pages de l'app : reseau d'abord, index en secours hors-ligne.
+  if (event.request.mode === 'navigate' || event.request.destination === 'document') {
+    event.respondWith(
+      fetch(event.request, { cache: 'no-store' })
+        .then(response => {
+          if (response && response.status === 200 && response.type === 'basic') {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request).then(cached => cached || caches.match('/index.html')))
+    );
+    return;
+  }
+
   // Ces fichiers changent souvent pendant les mises à jour du carnet :
   // réseau d'abord, cache en secours si l'utilisateur est hors-ligne.
-  if (['/app.js', '/recipes.js', '/recipe.js', '/style.css'].includes(url.pathname)) {
+  if (['/app.js', '/recipes.js', '/recipe.js', '/style.css', '/manifest.json'].includes(url.pathname)) {
     event.respondWith(
       fetch(event.request, { cache: 'no-store' })
         .then(response => {

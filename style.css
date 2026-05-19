@@ -19,8 +19,11 @@ html {
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar,
+.recipe-panel::-webkit-scrollbar,
 .ingredients-panel::-webkit-scrollbar,
+.notes-panel::-webkit-scrollbar,
 .modal-panel::-webkit-scrollbar,
+.shopping-aisles::-webkit-scrollbar,
 .cart-output::-webkit-scrollbar {
   display: none;
   width: 0;

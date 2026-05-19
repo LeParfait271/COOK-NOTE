@@ -24,6 +24,12 @@ ARCHITECTURE
 - assets/recipe-images/ : images de recettes livrees avec le site.
 - assets/uploads/ : images importees depuis l'admin.
 - scripts/validate-recipes.js : validation du catalogue.
+- scripts/validate-quantities.js : validation des multiplicateurs et rendements.
+- scripts/validate-ui.js : validation des garde-fous d'interface.
+- scripts/validate-project-rules.js : verification que les regles Cook Note restent branchees.
+- scripts/validate-production.js : verification sitemap, robots, service worker et anciens ids.
+- scripts/audit-recipes.js : rapport de completude et de rangement.
+- COOK_NOTE_RULES.md : source de verite des conventions utilisateur.
 - backups/ : copies horodatees de recipes.js avant ecriture admin.
 
 FICHES PARENTS
@@ -41,7 +47,9 @@ Chaque variante garde son contenu complet et pointe vers son parent :
   master: 'coulis_maitre'
 
 Regle importante : une recette reelle ne doit pas etre supprimee pour ranger le
-catalogue. On ajoute une fiche parent, puis on rattache les recettes existantes.
+catalogue sans raison. On ajoute une fiche parent, puis on rattache les recettes
+existantes. Exception explicite actuelle : les anciens coulis individuels ont ete
+retires car ils existent deja comme variantes dans la fiche parent Coulis.
 
 PANIER COURSES
 --------------
@@ -88,6 +96,19 @@ Elle verifie :
 - absence de recette orpheline ;
 - liens internes data-goto ;
 - presence des images locales.
+- images uniques entre recettes feuilles ;
+- regles de donnees : arrondis, vanille, cassonade/vergeoise, poivre ;
+- service worker, sitemap et robots ;
+- presence des garde-fous Cook Note.
+
+Audit non bloquant :
+
+   npm run audit:recipes
+
+Rapports :
+
+   reports/recipe-audit.md
+   reports/recipe-audit.json
 
 DEPLOIEMENT
 -----------

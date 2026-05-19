@@ -12,6 +12,7 @@ Cook Note est un carnet culinaire web avec :
 - mode cuisine avec checklist, progression et minuteurs d'etapes ;
 - fiches techniques sur les familles importantes ;
 - images servies depuis le projet dans assets/recipe-images/ ou assets/uploads/.
+- regles projet centralisees dans COOK_NOTE_RULES.md.
 
 ADMIN
 -----
@@ -101,5 +102,32 @@ Ou avec le Node local du projet :
    powershell -ExecutionPolicy Bypass -File .\check.ps1
 
 La verification controle la syntaxe JavaScript, les fiches parents, les variantes,
-les liens internes data-goto, les recipeId internes, la presence des images locales
-et les multiplicateurs de quantites.
+les liens internes data-goto, les recipeId internes, la presence des images locales,
+les multiplicateurs de quantites, les regles Cook Note, le sitemap, le service worker
+et les protections anti-regression.
+
+AUDIT
+-----
+
+Pour un controle de fond sans bloquer le build :
+
+   npm run audit:recipes
+
+Le rapport est genere dans :
+
+   reports/recipe-audit.md
+   reports/recipe-audit.json
+
+Il signale les fiches faibles, les idees de rangement, les liens internes pauvres
+et les points a surveiller avant de gros ajouts.
+
+REGLES RECETTES
+---------------
+
+Avant de modifier les donnees ou l'interface, lire :
+
+   COOK_NOTE_RULES.md
+
+Les conventions importantes y sont notees : arrondis au-dessus de 50g, vanille sans
+dosage arbitraire, cassonade ou vergeoise, poivre du moulin, images validees,
+conservations, liens techniques et production.

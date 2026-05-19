@@ -15,6 +15,8 @@ function expect(label, condition) {
 }
 
 expect('Recherche ingredients absente.', files.app.includes('ingredientQuery') && files.app.includes('scoreIngredientSearch'));
+expect('Labels recherche incomplets.', files.app.includes('recipe-search-input') && files.app.includes('ingredient-search-input') && files.app.includes('ingredient-search-help'));
+expect('Recherche par intention absente.', files.app.includes('getRecipeIntentLabels') && files.app.includes('sans cuisson') && files.app.includes('à préparer à l’avance') && files.app.includes('congelable'));
 expect('Filtres avances encore presents.', !files.app.includes('QUICK_FILTERS') && !files.app.includes('QuickFilterBar') && !files.style.includes('quick-filter-row'));
 expect('Page techniques absente.', files.app.includes('TECHNIQUE_GUIDES') && files.app.includes('TechniquesView'));
 expect('Techniques de cuisinier incompletes.', files.app.includes('Émincer') && files.app.includes('Monder des tomates') && files.app.includes('Abaisser une pâte') && files.app.includes('Foncer un moule') && files.app.includes('Étuver') && files.app.includes('Macaroner') && files.app.includes('Lisser'));
@@ -33,6 +35,7 @@ expect('Precision cuilleres mal rangee.', files.app.includes('spoonPrecisionLabe
 expect('Materiel necessaire encore dans la colonne droite.', !files.app.includes("add('equipment', 'Matériel nécessaire'"));
 expect('Notes pratiques encore classees en double.', files.app.includes('noteAlreadyClassified') && files.app.includes('!noteAlreadyClassified(note)') && files.app.includes('storageNotes.includes(note)'));
 expect('CSS mobile nav incoherent.', files.style.includes('grid-template-columns: repeat(5, 1fr)'));
+expect('Scrollbars visibles dans panneaux longs.', files.style.includes('.recipe-panel::-webkit-scrollbar') && files.style.includes('.notes-panel::-webkit-scrollbar'));
 expect('CSS print propre absent.', files.style.includes('@media print') && files.style.includes('.recipe-summary-panel'));
 expect('Ancienne section dashboard encore presente.', !files.app.includes('function HomeDashboard') && !files.style.includes('.home-dashboard'));
 expect('Ancienne section collections encore presente.', !files.app.includes('SmartCollections') && !files.style.includes('smart-collection'));

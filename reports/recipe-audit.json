@@ -1,0 +1,191 @@
+{
+  "generatedAt": "2026-05-19T03:41:27.144Z",
+  "totals": {
+    "recipes": 107,
+    "leaves": 88,
+    "masters": 19,
+    "lowScore": 0,
+    "categoryIdeas": 5
+  },
+  "averageScore": 88,
+  "weakestRecipes": [],
+  "categoryIdeas": [
+    {
+      "id": "bouillabaisse_rouille",
+      "title": "Bouillabaisse",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
+      "id": "cotelettes_porc_miel_moutarde",
+      "title": "Côtelettes de porc miel moutarde",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
+      "id": "pancakes_variantes",
+      "title": "Pancakes",
+      "text": "Categorie possible : Base (semble etre une base reutilisable)."
+    },
+    {
+      "id": "oeuf_chili_crisp_toast",
+      "title": "Œuf sur le plat chili crisp sur toast",
+      "text": "Categorie possible : Apéro (semble utile a l apero)."
+    },
+    {
+      "id": "pates_tarte_variantes",
+      "title": "Pâtes à tarte",
+      "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
+    }
+  ],
+  "recipesWithFewLinks": [
+    {
+      "id": "babeurre_maison",
+      "title": "Babeurre maison",
+      "count": 0
+    },
+    {
+      "id": "balsamique_reduit",
+      "title": "Balsamique réduit",
+      "count": 0
+    },
+    {
+      "id": "cake_citron",
+      "title": "Cake au citron",
+      "count": 0
+    },
+    {
+      "id": "cake_sale_lardon",
+      "title": "Cake salé poitrine fumée",
+      "count": 0
+    },
+    {
+      "id": "cassolette_crevettes_ravioles_persil",
+      "title": "Cassolette de crevettes et ravioles au persil",
+      "count": 0
+    },
+    {
+      "id": "chantilly_gelatine",
+      "title": "Chantilly stabilisée",
+      "count": 0
+    },
+    {
+      "id": "chocolat_ancien",
+      "title": "Chocolat chaud à l'ancienne",
+      "count": 0
+    },
+    {
+      "id": "chou_fleur_croustillant",
+      "title": "Chou-fleur croustillant",
+      "count": 0
+    },
+    {
+      "id": "churros_maison",
+      "title": "Churros",
+      "count": 0
+    },
+    {
+      "id": "cochon_confit_biere_erable",
+      "title": "Cochon confit à la bière et au sirop d’érable",
+      "count": 0
+    },
+    {
+      "id": "cookies_beurre_noisette_chocolat_noir_lait",
+      "title": "Cookies au beurre noisette chocolat noir/lait",
+      "count": 0
+    },
+    {
+      "id": "cookies_chocolat_noir_lait",
+      "title": "Cookies au chocolat noir/lait",
+      "count": 0
+    },
+    {
+      "id": "cookies_chocolat_blanc_cranberry",
+      "title": "Cookies chocolat blanc cranberry",
+      "count": 0
+    },
+    {
+      "id": "cookies_chocolat_moelleux",
+      "title": "Cookies chocolat moelleux",
+      "count": 0
+    },
+    {
+      "id": "cookies_chocolat_noix",
+      "title": "Cookies moelleux aux pépites de chocolat et noix",
+      "count": 0
+    },
+    {
+      "id": "cookies_sales_variantes",
+      "title": "Cookies salés",
+      "count": 0
+    },
+    {
+      "id": "cotelettes_porc_miel_moutarde",
+      "title": "Côtelettes de porc miel moutarde",
+      "count": 0
+    },
+    {
+      "id": "coulis_maitre",
+      "title": "Coulis",
+      "count": 0
+    },
+    {
+      "id": "court_bouillon",
+      "title": "Court-bouillon",
+      "count": 0
+    },
+    {
+      "id": "creme_beurre_meringue_italienne",
+      "title": "Crème au beurre meringue italienne",
+      "count": 0
+    },
+    {
+      "id": "creme_citron_lemon_curd",
+      "title": "Crème citron",
+      "count": 0
+    },
+    {
+      "id": "creme_amande_citron",
+      "title": "Crème d’amande pour fond de tarte",
+      "count": 0
+    },
+    {
+      "id": "creme_diplomate_vanille",
+      "title": "Crème diplomate vanille",
+      "count": 0
+    },
+    {
+      "id": "mascarpone",
+      "title": "Crème mascarpone vanille",
+      "count": 0
+    },
+    {
+      "id": "creme_kinder_nutella",
+      "title": "Crème Nutella à garnir",
+      "count": 0
+    },
+    {
+      "id": "creme_patissiere_praline",
+      "title": "Crème pâtissière praliné",
+      "count": 0
+    },
+    {
+      "id": "creme_patissiere_vanille",
+      "title": "Crème pâtissière vanille",
+      "count": 0
+    },
+    {
+      "id": "creme_pistache",
+      "title": "Crème pistache à garnir",
+      "count": 0
+    },
+    {
+      "id": "crumble_pomme_poire",
+      "title": "Crumble pomme-poire",
+      "count": 0
+    },
+    {
+      "id": "curry_lentilles_coco",
+      "title": "Curry de lentilles vertes au lait de coco",
+      "count": 0
+    }
+  ]
+}

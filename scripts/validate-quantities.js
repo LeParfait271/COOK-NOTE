@@ -63,6 +63,26 @@ if (!shoppingText.includes('8 g sel fin') || !shoppingText.includes('4 g poivre 
   errors.push('Panier courses: les lignes composees "2g sel, 1g poivre du moulin" ne sont pas regroupees correctement.');
 }
 
+const shoppingCanonicalText = helpers.shoppingListText([{
+  id: 'test_panier_noms',
+  title: 'Test panier noms',
+  yield: '1 test',
+  ingredients: [{ group: 'Base', items: ['55g beurre doux non salé ramolli', '20g beurre fondu', '30g cassonade ou vergeoise'] }]
+}], { test_panier_noms: 1 });
+if (!shoppingCanonicalText.includes('75 g beurre') || !shoppingCanonicalText.includes('30 g cassonade ou vergeoise')) {
+  errors.push('Panier courses: les noms proches beurre/cassonade ne sont pas regroupes proprement.');
+}
+
+const shoppingDistinctText = helpers.shoppingListText([{
+  id: 'test_panier_distinct',
+  title: 'Test panier distinct',
+  yield: '1 test',
+  ingredients: [{ group: 'Base', items: ['55g huile d’olive', '20g huile neutre', '100g farine T45', '100g farine T55'] }]
+}], { test_panier_distinct: 1 });
+if (!shoppingDistinctText.includes("55 g huile d'olive") || !shoppingDistinctText.includes('20 g huile neutre') || !shoppingDistinctText.includes('100 g farine T45') || !shoppingDistinctText.includes('100 g farine T55')) {
+  errors.push('Panier courses: les huiles et farines techniques differentes ne doivent pas etre fusionnees.');
+}
+
 for (const [id, recipe] of Object.entries(recipes)) {
   const isMaster = Array.isArray(recipe.variants) && recipe.variants.length;
   if (isMaster || !recipe.yield || !/\d/.test(recipe.yield)) continue;
