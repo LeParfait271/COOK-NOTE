@@ -1078,6 +1078,11 @@ a {
   align-items: center;
 }
 
+.tag-line {
+  justify-content: center;
+  max-width: 94%;
+}
+
 .tag-line span,
 .season-line span,
 .card-meta span,
@@ -1095,9 +1100,14 @@ a {
   padding: 0 8px;
   font-size: 12px;
   font-weight: 850;
+  line-height: 1.2;
 }
 
 .tag-line span:first-child {
+  max-width: 100%;
+  justify-content: center;
+  text-align: center;
+  white-space: normal;
   border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 42%, var(--line));
   color: color-mix(in srgb, var(--card-accent, var(--accent)) 78%, var(--text));
   box-shadow: 0 0 18px color-mix(in srgb, var(--card-accent, var(--accent)) 14%, transparent);
@@ -1655,6 +1665,7 @@ a {
 }
 
 .variant-card-body small {
+  max-width: 94%;
   border: 1px solid color-mix(in srgb, var(--card-accent, var(--accent)) 34%, var(--line));
   border-radius: 999px;
   background: rgba(0, 0, 0, .36);
@@ -1663,6 +1674,7 @@ a {
   font-size: 11px;
   font-weight: 950;
   line-height: 1.35;
+  text-align: center;
   text-transform: uppercase;
 }
 

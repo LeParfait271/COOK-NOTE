@@ -634,6 +634,10 @@ function primaryCategory(recipe) {
   return (recipe.categories || [])[0] || 'Recette';
 }
 
+function categoryLine(recipe) {
+  return (recipe.categories || []).filter(Boolean).join(' / ') || 'Recette';
+}
+
 function categoryLabel(category) {
   return SEASON_CATEGORY_FILTERS.find(item => item.value === category)?.label || category || 'Autres';
 }
@@ -2493,7 +2497,6 @@ function ActiveChips({ chips }) {
 function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter }) {
   const master = isMasterRecipe(recipe);
   const color = getCategoryColor(recipe);
-  const categories = recipe.categories || [];
   const style = { '--card-accent': color };
   const className = ['recipe-card', recipe.image ? 'has-image' : '', master ? 'master-card' : '']
     .filter(Boolean)
@@ -2531,7 +2534,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       }, h(Icon, { name: 'heart', filled: isFavorite }))
     ),
     h('div', { className: 'card-body' },
-      !master && h('div', { className: 'tag-line' }, categories.slice(0, 1).map(cat => h('span', { key: cat }, cat))),
+      !master && h('div', { className: 'tag-line' }, h('span', null, categoryLine(recipe))),
       h('h3', null, recipe.title),
       !master && cardFacts.length > 0 && h('div', { className: 'card-facts' },
         cardFacts.map(fact => h('span', { key: fact }, fact))
@@ -3233,7 +3236,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
         },
           image && h('span', { className: 'variant-card-bg', style: { backgroundImage: `url("${image}")` } }),
           h('span', { className: 'variant-card-body' },
-            h('small', null, primaryCategory(item)),
+            h('small', null, categoryLine(item)),
             h('strong', null, variant.label || item.title),
             variantLabel && h('em', null, variantLabel)
           )

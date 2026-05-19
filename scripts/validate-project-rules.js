@@ -41,6 +41,7 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'ancien panneau de variante selectionnee',
   'Ne pas afficher toutes les recettes enfants en vrac',
   'Sous le nom d\'une carte recette',
+  'toutes les categories de la fiche',
   '`Toppings frites` = Accompagnements/Sauces'
 ].forEach(fragment => {
   expect(`Regle manquante dans COOK_NOTE_RULES.md (${fragment}).`, rules.includes(fragment));
