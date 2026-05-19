@@ -36,7 +36,8 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'reseau d abord avec cache de secours',
   'Le panier courses doit regrouper',
   'leur propre URL `/recette/id`',
-  'ancien panneau de variante selectionnee'
+  'ancien panneau de variante selectionnee',
+  'Ne pas afficher toutes les recettes enfants en vrac'
 ].forEach(fragment => {
   expect(`Regle manquante dans COOK_NOTE_RULES.md (${fragment}).`, rules.includes(fragment));
 });

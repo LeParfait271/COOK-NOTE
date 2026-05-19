@@ -3672,7 +3672,7 @@ function App() {
     }).sort((a, b) => a.title.localeCompare(b.title, 'fr'));
   }, []);
   const recipesById = useMemo(() => Object.fromEntries(recipes.map(recipe => [recipe.id, recipe])), [recipes]);
-  const homeCatalogRecipes = useMemo(() => recipes.filter(recipe => !recipe.master || !isMasterRecipe(recipe)), [recipes]);
+  const homeCatalogRecipes = useMemo(() => recipes.filter(recipe => !recipe.master), [recipes]);
   const searchableRecipes = useMemo(() => recipes.filter(recipe => !isMasterRecipe(recipe)), [recipes]);
   const currentSeason = useMemo(() => getCurrentSeason(), []);
 
