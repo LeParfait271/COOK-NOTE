@@ -55,13 +55,14 @@ const staticAssets = staticAssetsFromServiceWorker(serviceWorker);
 if (!staticAssets) {
   fail('service-worker.js: STATIC_ASSETS introuvable.');
 } else {
+  const normalizedStaticAssets = staticAssets.map(asset => asset.split('?')[0]);
   ['/', '/index.html', '/recipe.html', '/app.js', '/recipes.js', '/recipe.js', '/style.css', '/manifest.json', '/assets/cook-note-white.png'].forEach(required => {
-    if (!staticAssets.includes(required)) fail(`service-worker.js: asset critique absent du precache (${required}).`);
+    if (!normalizedStaticAssets.includes(required)) fail(`service-worker.js: asset critique absent du precache (${required}).`);
   });
   staticAssets
     .filter(asset => asset !== '/' && asset.startsWith('/'))
     .forEach(asset => {
-      const filePath = path.join(ROOT, asset.replace(/^\/+/, ''));
+      const filePath = path.join(ROOT, asset.split('?')[0].replace(/^\/+/, ''));
       if (!fs.existsSync(filePath)) fail(`service-worker.js: asset precache introuvable (${asset}).`);
     });
 }

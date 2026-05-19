@@ -49,7 +49,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=31" />
 
   <!-- React 18 production -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
@@ -132,16 +132,16 @@
   <div id="root"></div>
 
   <!-- recipes.js DOIT être chargé AVANT app.js -->
-  <script src="recipes.js"></script>
+  <script src="recipes.js?v=31"></script>
 
   <!-- App React sans transpilation côté navigateur -->
-  <script src="app.js"></script>
+  <script src="app.js?v=31"></script>
 
   <!-- Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js').catch(() => {});
+        navigator.serviceWorker.register('service-worker.js?v=31').catch(() => {});
       });
     }
     // Cacher l'écran de chargement dès que React est monté.

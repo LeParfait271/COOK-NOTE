@@ -2498,7 +2498,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   const imageStyle = recipe.image
     ? { backgroundImage: `url("${recipe.image}")` }
     : style;
-  const variantLabel = getRecipeVariantLabel(recipe, recipesById);
+  const variantLabel = master ? '' : getRecipeVariantLabel(recipe, recipesById);
   const cardFacts = !master && variantLabel ? [variantLabel] : [];
 
   return h('article', {
