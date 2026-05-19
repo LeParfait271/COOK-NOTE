@@ -2134,6 +2134,10 @@ window.RECIPES = {
         "label": "Gaufres"
       },
       {
+        "id": "oeuf_chili_crisp_toast",
+        "label": "Œuf sur le plat chili crisp sur toast"
+      },
+      {
         "id": "pancakes_variantes",
         "label": "Pancakes"
       },
@@ -2650,6 +2654,99 @@ window.RECIPES = {
       "stable"
     ],
     "difficultyScore": 3
+  },
+  "oeuf_chili_crisp_toast": {
+    "title": "Œuf sur le plat chili crisp sur toast",
+    "master": "petit_dejeuner_maitre",
+    "image": "/assets/recipe-images/petits_dejeuners_maitre_spooky.png",
+    "categories": [
+      "Petits-déjeuners"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été",
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "1 toast + huile chili crisp pour plusieurs portions",
+    "aliases": [
+      "toast œuf chili crisp",
+      "oeuf chili crisp toast",
+      "chili crisp egg toast",
+      "œuf sur toast"
+    ],
+    "tags": [
+      "oeuf",
+      "toast",
+      "chili crisp",
+      "avocat",
+      "petit-dejeuner"
+    ],
+    "ingredients": [
+      {
+        "group": "Huile chili crisp maison",
+        "items": [
+          "110g huile d’avocat ou huile neutre",
+          "5g flocons de piment concassés ou piment rouge séché finement concassé",
+          "7g poudre de piment finement moulue : piment du Sichuan, gochugaru, poudre de chili ou autre piment au choix",
+          "0,3g cinq-épices",
+          "4 à 5g ail très finement haché ou râpé",
+          "1,5g graines de sésame",
+          "1,5g sel"
+        ]
+      },
+      {
+        "group": "Toast à l’œuf",
+        "items": [
+          "9 à 14g huile chili crisp maison ou huile chili crisp du commerce",
+          "55g œuf (1 œuf moyen)",
+          "Sel",
+          "Poivre du moulin",
+          "1 tranche de pain grillée",
+          "Beurre, fromage frais ou cream cheese",
+          "1 petite poignée de jeunes pousses d’épinards",
+          "1/3 petit avocat tranché"
+        ]
+      },
+      {
+        "group": "Finition",
+        "items": [
+          "Un peu d’huile chili crisp",
+          "Basilic frais ciselé ou herbes fraîches au choix, facultatifs"
+        ]
+      }
+    ],
+    "steps": [
+      "Verser l’huile dans une petite casserole et chauffer à feu doux : elle doit être chaude sans fumer.",
+      "Mélanger flocons de piment, poudre de piment, cinq-épices, ail, graines de sésame et sel dans un bol résistant à la chaleur.",
+      "Verser l’huile chaude sur le mélange d’épices, laisser crépiter quelques secondes, mélanger puis laisser tiédir.",
+      "Faire chauffer une poêle à feu moyen.",
+      "Ajouter 9 à 14g d’huile chili crisp, puis casser l’œuf dans la poêle.",
+      "Saler, ajouter un peu de poivre du moulin et frire jusqu’à bords croustillants et jaune cuit selon ton goût.",
+      "Faire griller la tranche de pain.",
+      "Tartiner avec un peu de beurre, de fromage frais, de cream cheese ou d’alternative végétale.",
+      "Ajouter les jeunes pousses d’épinards et les tranches d’avocat.",
+      "Déposer l’œuf par-dessus, ajouter un filet d’huile chili crisp et terminer avec le basilic ou les herbes fraîches si souhaité."
+    ],
+    "notes": [
+      "L’huile chili crisp doit refroidir complètement avant d’être transférée dans un bocal propre, stérilisé et hermétique.",
+      "Conserve l’huile chili crisp au réfrigérateur, utilise toujours une cuillère propre et ne la garde pas à température ambiante avec de l’ail frais.",
+      "Jette l’huile en cas d’odeur anormale, de bulles, de moisissure ou de texture suspecte.",
+      "L’huile peut se conserver environ 2 à 6 mois au réfrigérateur si elle est correctement stockée.",
+      "Le toast se mange tout de suite pour garder le pain croustillant et l’œuf chaud."
+    ],
+    "technical": [
+      {
+        "label": "Huile chaude",
+        "value": "Elle doit réveiller les épices sans brûler l’ail ni faire fumer l’huile."
+      },
+      {
+        "label": "Œuf frit",
+        "value": "Une poêle bien chaude donne des bords croustillants tout en gardant un jaune fondant."
+      }
+    ]
   },
   "gaufre_bruxelles": {
     "title": "Gaufres",
@@ -4203,6 +4300,14 @@ window.RECIPES = {
     ],
     "variants": [
       {
+        "id": "cookies_beurre_noisette_chunks",
+        "label": "Cookies au beurre noisette et chunks de chocolat"
+      },
+      {
+        "id": "cookies_au_chocolat",
+        "label": "Cookies au chocolat"
+      },
+      {
         "id": "caramel_cheesecake_cookies",
         "label": "Cookies caramel cheesecake"
       },
@@ -4213,6 +4318,10 @@ window.RECIPES = {
       {
         "id": "cookies_chocolat_moelleux",
         "label": "Cookies chocolat moelleux"
+      },
+      {
+        "id": "cookies_chocolat_noix",
+        "label": "Cookies moelleux aux pépites de chocolat et noix"
       }
     ],
     "ingredients": [
@@ -4228,6 +4337,266 @@ window.RECIPES = {
     ],
     "notes": [
       "Fiche parent pour garder les cookies sucrés ensemble sans les mélanger aux cookies salés."
+    ]
+  },
+  "cookies_beurre_noisette_chunks": {
+    "title": "Cookies au beurre noisette et chunks de chocolat",
+    "master": "cookies_sucres_maitre",
+    "image": "/assets/recipe-images/creme_amande__spooky.png",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "8 gros cookies",
+    "aliases": [
+      "cookies beurre noisette",
+      "cookies chunks chocolat",
+      "cookies chocolat beurre noisette"
+    ],
+    "tags": [
+      "cookies",
+      "beurre noisette",
+      "chocolat",
+      "gouter"
+    ],
+    "ingredients": [
+      {
+        "group": "Beurres",
+        "items": [
+          "170g beurre doux non salé pour le beurre noisette",
+          "57g beurre doux non salé ramolli"
+        ]
+      },
+      {
+        "group": "Pâte",
+        "items": [
+          "100g sucre roux",
+          "75g sucre blanc",
+          "100g œufs (2 gros œufs)",
+          "2 c. à café extrait de vanille",
+          "350g farine",
+          "2g sel",
+          "6g levure chimique",
+          "6g maïzena",
+          "2g bicarbonate de soude"
+        ]
+      },
+      {
+        "group": "Chocolat",
+        "items": [
+          "200g chocolat noir concassé",
+          "200g chocolat au lait concassé",
+          "50g pépites de chocolat",
+          "Morceaux de chocolat supplémentaires optionnels pour la finition"
+        ]
+      }
+    ],
+    "steps": [
+      "Mettre les 170g de beurre dans une casserole et chauffer à feu moyen en remuant régulièrement.",
+      "Laisser le beurre fondre, mousser puis devenir ambré avec une odeur de noisette.",
+      "Retirer du feu dès que le beurre est bien doré, puis verser immédiatement dans un grand saladier pour stopper la cuisson.",
+      "Hacher grossièrement le chocolat noir et le chocolat au lait pendant que le beurre noisette tiédit.",
+      "Ajouter les 57g de beurre ramolli dans le beurre noisette encore tiède, puis mélanger jusqu’à texture lisse et crémeuse.",
+      "Ajouter le sucre roux et le sucre blanc, puis mélanger jusqu’à obtenir une base brillante et homogène.",
+      "Incorporer les œufs et l’extrait de vanille.",
+      "Ajouter farine, sel, levure chimique, maïzena et bicarbonate, puis mélanger jusqu’à obtenir une pâte épaisse.",
+      "Incorporer le chocolat noir, le chocolat au lait et les pépites sans trop travailler la pâte.",
+      "Couvrir et placer la pâte au réfrigérateur 1 à 2h.",
+      "Diviser en 8 portions, former des boules et travailler légèrement le dessus aux doigts pour un aspect irrégulier.",
+      "Placer les boules au congélateur 15 à 20min.",
+      "Préchauffer le four à 180°C, disposer 4 cookies par plaque et cuire 13min.",
+      "Passer environ 1min sous le gril pour une finition brillante et légèrement dorée, en surveillant très attentivement.",
+      "Dès la sortie du four, reformer les contours avec un cercle à pâtisserie, un emporte-pièce large ou une spatule.",
+      "Ajouter quelques morceaux de chocolat sur les cookies chauds si souhaité, puis laisser refroidir complètement sur grille."
+    ],
+    "notes": [
+      "Le mélange chocolat noir et chocolat au lait donne un équilibre gourmand sans être trop amer.",
+      "Le beurre noisette apporte une saveur profonde et légèrement caramélisée.",
+      "Ne prolonge pas trop la cuisson : les cookies continuent de cuire légèrement hors du four.",
+      "La pâte peut être congelée en boules bien emballées, puis cuite plus tard directement depuis le congélateur.",
+      "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
+    ],
+    "technical": [
+      {
+        "label": "Beurre noisette",
+        "value": "Arrêter la cuisson dès que les particules au fond deviennent ambrées, avant qu’elles ne noircissent."
+      },
+      {
+        "label": "Texture",
+        "value": "Le froid et le passage au congélateur aident les cookies à rester épais."
+      }
+    ],
+    "additionalMasters": [
+      "desserts_maitre"
+    ]
+  },
+  "cookies_au_chocolat": {
+    "title": "Cookies au chocolat",
+    "master": "cookies_sucres_maitre",
+    "image": "/assets/recipe-images/cookies_spooky.png",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "environ 20 cookies",
+    "aliases": [
+      "cookies chocolat classiques",
+      "cookies aux deux chocolats",
+      "cookies chocolat"
+    ],
+    "tags": [
+      "cookies",
+      "chocolat",
+      "gouter"
+    ],
+    "ingredients": [
+      {
+        "group": "Pâte",
+        "items": [
+          "120g cassonade",
+          "120g sucre",
+          "175g beurre pommade",
+          "55g œuf (1 œuf moyen)",
+          "300g farine",
+          "6g levure chimique",
+          "1 pincée de fleur de sel"
+        ]
+      },
+      {
+        "group": "Chocolat",
+        "items": [
+          "190g chocolat au lait",
+          "190g chocolat noir"
+        ]
+      }
+    ],
+    "steps": [
+      "Sortir le beurre à l’avance pour obtenir une texture pommade, bien molle mais non fondue.",
+      "Mélanger le beurre pommade avec la cassonade et le sucre dans la cuve d’un robot ou dans un grand saladier.",
+      "Fouetter jusqu’à obtenir un mélange homogène.",
+      "Ajouter l’œuf, puis mélanger de nouveau.",
+      "Ajouter farine, levure chimique et fleur de sel, puis mélanger brièvement sans trop travailler la pâte.",
+      "Couper le chocolat au lait et le chocolat noir en gros morceaux.",
+      "Incorporer les morceaux de chocolat juste assez pour bien les répartir et absorber toute la farine.",
+      "Méthode boules : placer la pâte au réfrigérateur au moins 1h, puis former des boules à l’aide d’une cuillère à glace.",
+      "Méthode boudins : déposer la pâte sur du film alimentaire, former un ou plusieurs boudins, réfrigérer au moins 1h, puis découper des tranches d’environ 1cm.",
+      "Préchauffer le four à 170°C.",
+      "Déposer les boules ou tranches de pâte sur une plaque recouverte de papier cuisson ou d’un tapis de cuisson, en les espaçant bien.",
+      "Cuire 10min : les cookies doivent encore être mous à la sortie du four.",
+      "Laisser reposer quelques minutes sur la plaque, puis transférer sur grille jusqu’à complet refroidissement."
+    ],
+    "notes": [
+      "Ne fais pas fondre le beurre : il doit rester pommade.",
+      "Ne travaille pas trop la pâte après l’ajout de la farine.",
+      "Le repos au froid aide les cookies à garder une belle épaisseur.",
+      "Pour des cookies moelleux, ne dépasse pas 10min de cuisson.",
+      "Les cookies cuits se conservent plusieurs jours dans une boîte hermétique.",
+      "La pâte crue peut être congelée en boudins ou en boules pour une cuisson ultérieure.",
+      "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
+    ],
+    "technical": [
+      {
+        "label": "Beurre pommade",
+        "value": "Il doit s’écraser facilement à la spatule, sans être liquide."
+      },
+      {
+        "label": "Repos",
+        "value": "Une nuit au réfrigérateur fonctionne aussi et donne une pâte plus ferme."
+      }
+    ],
+    "additionalMasters": [
+      "desserts_maitre"
+    ]
+  },
+  "cookies_chocolat_noix": {
+    "title": "Cookies moelleux aux pépites de chocolat et noix",
+    "master": "cookies_sucres_maitre",
+    "image": "/assets/recipe-images/pate_noisette_spooky.png",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 gros cookies",
+    "aliases": [
+      "cookies chocolat noix",
+      "cookies chocolat noisettes",
+      "cookies moelleux chocolat noix"
+    ],
+    "tags": [
+      "cookies",
+      "chocolat",
+      "noix",
+      "noisettes",
+      "gouter"
+    ],
+    "ingredients": [
+      {
+        "group": "Pâte",
+        "items": [
+          "100g beurre doux non salé ramolli",
+          "80g sucre",
+          "1g sel",
+          "55g œuf (1 œuf moyen)",
+          "vanille selon goût",
+          "160g farine",
+          "3g levure chimique"
+        ]
+      },
+      {
+        "group": "Garniture",
+        "items": [
+          "100g chocolat en morceaux ou pépites",
+          "20g chocolat supplémentaire pour la finition",
+          "50g noix ou noisettes concassées"
+        ]
+      }
+    ],
+    "steps": [
+      "Mélanger le beurre ramolli avec le sucre et le sel jusqu’à obtenir une texture homogène.",
+      "Battre l’œuf dans un petit bol, puis l’ajouter progressivement au mélange beurre-sucre.",
+      "Mélanger jusqu’à incorporation, puis ajouter la vanille.",
+      "Ajouter farine et levure chimique, puis mélanger juste assez pour obtenir une pâte homogène sans trop la travailler.",
+      "Ajouter les 100g de chocolat et les noix ou noisettes concassées.",
+      "Mélanger pour répartir les garnitures dans la pâte.",
+      "Couvrir et placer au réfrigérateur pendant 1h pour raffermir la pâte.",
+      "Préchauffer le four à 190°C.",
+      "Diviser la pâte en 4 portions d’environ 135g et former de grosses boules.",
+      "Déposer les boules sur une plaque recouverte de papier cuisson, en les espaçant bien.",
+      "Ajouter les 20g de chocolat restant sur le dessus.",
+      "Cuire 13 à 14min à 190°C, jusqu’à bords dorés et centre encore légèrement mou.",
+      "Laisser reposer quelques minutes sur la plaque, puis transférer sur grille pour finir le refroidissement."
+    ],
+    "notes": [
+      "Pour des cookies plus gourmands, utilise un mélange de chocolat noir et chocolat au lait.",
+      "Les noisettes se marient particulièrement bien avec le chocolat.",
+      "Ne prolonge pas trop la cuisson : le centre doit rester tendre.",
+      "La pâte peut être préparée à l’avance et conservée au frais jusqu’à 24h avant cuisson.",
+      "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
+    ],
+    "technical": [
+      {
+        "label": "Portions",
+        "value": "Des boules d’environ 135g donnent 4 gros cookies épais."
+      },
+      {
+        "label": "Moelleux",
+        "value": "Sortir du four quand le centre paraît encore tendre."
+      }
+    ],
+    "additionalMasters": [
+      "desserts_maitre"
     ]
   },
   "sauces_burger_variantes": {
