@@ -1459,55 +1459,6 @@ a {
   gap: 12px;
 }
 
-.variant-picker-panel-selected {
-  display: grid;
-  gap: 12px;
-  min-height: 160px;
-  overflow: hidden;
-  background-position: center;
-  background-size: cover;
-  box-shadow: none;
-}
-
-.variant-picker-panel-selected::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 12% 16%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 22rem),
-    linear-gradient(180deg, rgba(0, 0, 0, .12), rgba(0, 0, 0, .42));
-}
-
-.variant-picker-panel-selected > * {
-  position: relative;
-  z-index: 1;
-}
-
-.variant-picker-panel-selected .panel-heading {
-  align-items: start;
-}
-
-.selected-recipe-meta {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-weight: 850;
-}
-
-.selected-recipe-hint {
-  max-width: 620px;
-  margin: 10px 0 0;
-  color: var(--text);
-  font-size: 15px;
-  font-weight: 850;
-  line-height: 1.45;
-}
-
-.variant-factor-control {
-  width: fit-content;
-  margin-top: 20px;
-}
-
 .variant-card {
   position: relative;
   overflow: hidden;
@@ -1586,6 +1537,8 @@ a {
   z-index: 1;
   display: grid;
   place-items: center;
+  align-content: center;
+  gap: 7px;
   padding: 18px;
 }
 
@@ -1601,6 +1554,16 @@ a {
   color: var(--muted);
   font-weight: 850;
   line-height: 1.35;
+}
+
+.variant-card-body em {
+  max-width: 92%;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 850;
+  line-height: 1.25;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .72);
 }
 
 .variant-card-difficulty {

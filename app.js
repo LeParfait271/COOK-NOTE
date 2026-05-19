@@ -2118,8 +2118,7 @@ function getInitialTechnique() {
 }
 
 function getRecipeUrl(recipeId, variantId = '') {
-  const path = `/recette/${encodeURIComponent(recipeId)}`;
-  return variantId ? `${path}?variant=${encodeURIComponent(variantId)}` : path;
+  return `/recette/${encodeURIComponent(variantId || recipeId)}`;
 }
 
 function getHomeUrl() {
@@ -2131,7 +2130,9 @@ function getTechniquesUrl() {
 }
 
 function getInitialRecipe() {
+  const variantRecipe = getInitialVariant();
   const pathRecipe = getPathRecipe();
+  if (variantRecipe && window.RECIPES?.[variantRecipe]) return variantRecipe;
   if (pathRecipe) return pathRecipe;
   const params = new URLSearchParams(window.location.hash.replace(/^#/, ''));
   return params.get('recipe');
@@ -3194,37 +3195,14 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '' }) {
   );
 }
 
-function VariantPickerPanel({ parent, variantRefs, recipesById, selectedVariantId, onSelect, factor = 1, setFactor }) {
+function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) {
   const sortedVariantRefs = sortVariantRefs(variantRefs, recipesById);
   if (!sortedVariantRefs.length) return null;
-  const selectedVariant = selectedVariantId ? sortedVariantRefs.find(variant => variant.id === selectedVariantId) : null;
-  const selectedRecipe = selectedVariant ? recipesById[selectedVariant.id] : null;
-  if (selectedVariant && selectedRecipe) {
-    const image = selectedRecipe.image || parent.image;
-    const panelStyle = image
-      ? { backgroundImage: `linear-gradient(90deg, rgba(4,4,5,.86), rgba(4,4,5,.58) 48%, rgba(4,4,5,.30)), url("${image}")` }
-      : {};
-    return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel variant-picker-panel-selected', style: panelStyle },
-      h('div', { className: 'panel-heading' },
-        h('div', null,
-          h('p', { className: 'eyebrow' }, 'Recette sélectionnée'),
-          h('h2', null, selectedVariant.label || selectedRecipe.title),
-          h('p', { className: 'selected-recipe-meta' },
-            difficultyText(selectedRecipe),
-            selectedRecipe.yield && h(React.Fragment, null, ' · ', getQuantityDisplay(selectedRecipe, factor))
-          ),
-          selectedRecipe.variantGroups && h('p', { className: 'selected-recipe-hint' }, 'Choisis les blocs d’ingrédients à préparer ci-dessous.'),
-          h(QuantityFactorControl, { recipe: selectedRecipe, factor, setFactor, className: 'variant-factor-control' })
-        ),
-        h(Button, { variant: 'subtle', onClick: () => onSelect('') }, 'Changer de recette')
-      )
-    );
-  }
-  return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel' },
+  return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel collection-links-panel' },
     h('div', { className: 'panel-heading' },
       h('div', null,
-        h('p', { className: 'eyebrow' }, 'Recettes'),
-        h('h2', null, 'Choisir une recette')
+        h('p', { className: 'eyebrow' }, 'Collection'),
+        h('h2', null, parent.title)
       ),
       h('span', { className: 'progress-label' }, `${sortedVariantRefs.length} recette${sortedVariantRefs.length > 1 ? 's' : ''}`)
     ),
@@ -3236,13 +3214,15 @@ function VariantPickerPanel({ parent, variantRefs, recipesById, selectedVariantI
         return h('button', {
           key: variant.id,
           type: 'button',
-          className: selectedVariantId === variant.id ? 'variant-card active' : 'variant-card',
+          className: 'variant-card',
           style: { '--card-accent': getCategoryColor(item) },
-          onClick: () => onSelect(variant.id)
+          onClick: () => openRecipe(variant.id)
         },
           image && h('span', { className: 'variant-card-bg', style: { backgroundImage: `url("${image}")` } }),
           h('span', { className: 'variant-card-body' },
-            h('strong', null, variant.label || item.title)
+            h('small', null, primaryCategory(item)),
+            h('strong', null, variant.label || item.title),
+            h('em', null, item.yield || difficultyText(item))
           )
         );
       })
@@ -3379,18 +3359,18 @@ function RecipeView({
   redo,
   setTagFilter,
   openTechnique,
-  notify,
-  selectedVariantId: initialSelectedVariantId,
-  onVariantChange
+  notify
 }) {
   const [factor, setFactor] = useState(1);
-  const variantRefs = useMemo(() => sortVariantRefs(getLeafVariantRefs(recipe, recipesById), recipesById), [recipe.id, recipesById]);
+  const variantRefs = useMemo(() => (
+    getVariantRefs(recipe).length
+      ? sortVariantRefs(getLeafVariantRefs(recipe, recipesById), recipesById)
+      : []
+  ), [recipe.id, recipesById]);
   const showVariants = variantRefs.length > 0;
   const leafRecipeCount = showVariants ? countLeafRecipes(recipe, recipesById) : 0;
-  const [selectedVariantId, setSelectedVariantId] = useState(() => initialSelectedVariantId || (showVariants ? '' : recipe.id));
-  const selectedVariantRecipe = selectedVariantId ? recipesById[selectedVariantId] : null;
-  const hasSelectedVariant = !showVariants || Boolean(selectedVariantRecipe);
-  const selectedRecipe = showVariants ? (selectedVariantRecipe || recipe) : recipe;
+  const hasSelectedVariant = !showVariants;
+  const selectedRecipe = recipe;
   const inlineTargets = useMemo(() => buildInlineRecipeTargets(recipes), [recipes]);
   const techniqueTargets = useMemo(() => buildTechniqueTargets(), []);
   const detailKey = hasSelectedVariant ? selectedRecipe.id : recipe.id;
@@ -3436,7 +3416,7 @@ function RecipeView({
     setMobileDetailTab('ingredients');
     setOpenIngredientGroups({});
     setExportCopied(false);
-  }, [recipe.id, selectedVariantId]);
+  }, [recipe.id]);
 
   useEffect(() => {
     if (!timerEnd) return undefined;
@@ -3450,10 +3430,6 @@ function RecipeView({
       setTimerLabel('');
     }
   }, [timerEnd, now]);
-
-  useEffect(() => {
-    setSelectedVariantId(initialSelectedVariantId || (showVariants ? '' : recipe.id));
-  }, [initialSelectedVariantId, recipe.id]);
 
   useEffect(() => {
     setOpenIngredientGroups({});
@@ -3471,11 +3447,6 @@ function RecipeView({
 
   function toggle(key) {
     setCheckedWithHistory(prev => ({ ...prev, [key]: !prev[key] }));
-  }
-
-  function chooseVariant(variantId) {
-    setSelectedVariantId(variantId);
-    onVariantChange?.(recipe.id, variantId);
   }
 
   function toggleIngredientGroup(groupKey) {
@@ -3527,7 +3498,7 @@ function RecipeView({
             ]
         ),
         h('div', { className: 'detail-actions' },
-          h(Button, { variant: isInShopping ? 'primary' : 'ghost', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(detailKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
+          hasSelectedVariant && h(Button, { variant: isInShopping ? 'primary' : 'ghost', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(detailKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
           hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(Button, {
             variant: 'subtle',
             onClick: () => copyText(recipeExportText(selectedRecipe, factor)).then(() => {
@@ -3542,14 +3513,11 @@ function RecipeView({
         )
       )
     ),
-    showVariants && h(VariantPickerPanel, {
+    showVariants && h(CollectionLinksPanel, {
       parent: recipe,
       variantRefs,
       recipesById,
-      selectedVariantId,
-      onSelect: chooseVariant,
-      factor,
-      setFactor
+      openRecipe
     }),
     hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts, {
       recipe: selectedRecipe,
@@ -3704,7 +3672,7 @@ function App() {
     }).sort((a, b) => a.title.localeCompare(b.title, 'fr'));
   }, []);
   const recipesById = useMemo(() => Object.fromEntries(recipes.map(recipe => [recipe.id, recipe])), [recipes]);
-  const homeCatalogRecipes = useMemo(() => recipes.filter(recipe => !recipe.master), [recipes]);
+  const homeCatalogRecipes = useMemo(() => recipes.filter(recipe => !recipe.master || !isMasterRecipe(recipe)), [recipes]);
   const searchableRecipes = useMemo(() => recipes.filter(recipe => !isMasterRecipe(recipe)), [recipes]);
   const currentSeason = useMemo(() => getCurrentSeason(), []);
 
@@ -3718,11 +3686,6 @@ function App() {
   const [targetTechniqueId, setTargetTechniqueId] = useState(() => getInitialTechnique());
   const [onlyFavorites, setOnlyFavorites] = useState(() => new URLSearchParams(window.location.search).get('view') === '__favs__');
   const [activeId, setActiveId] = useState(() => getInitialRecipe());
-  const [variantSelection, setVariantSelection] = useState(() => {
-    const recipe = getInitialRecipe();
-    const variant = getInitialVariant();
-    return recipe && variant ? { [recipe]: variant } : {};
-  });
   const [favorites, setFavorites] = useState(() => readStoredList(STORAGE_KEYS.favorites, STORAGE_KEYS.legacyFavorites));
   const [shoppingIds, setShoppingIds] = useState(() => readStoredList(STORAGE_KEYS.shopping, []));
   const [shoppingFactors, setShoppingFactors] = useState(() => readJson(STORAGE_KEYS.shoppingFactors, {}));
@@ -3741,8 +3704,7 @@ function App() {
   const historyIndexRef = useRef(0);
 
   const activeRecipe = activeId ? recipesById[activeId] : null;
-  const activeVariantId = activeRecipe ? variantSelection[activeRecipe.id] : '';
-  const activeSeoRecipe = activeVariantId && recipesById[activeVariantId] ? recipesById[activeVariantId] : activeRecipe;
+  const activeSeoRecipe = activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => recipesById[id]).filter(Boolean), [shoppingIds, recipesById]);
   const recentRecipes = useMemo(() => recentRecipeIds.map(id => recipesById[id]).filter(recipe => recipe && !isMasterRecipe(recipe)), [recentRecipeIds, recipesById]);
   const hasRecipeFilters = Boolean(query.trim() || ingredientQuery.trim() || season || seasonCategory || tagFilter || onlyFavorites);
@@ -3752,6 +3714,13 @@ function App() {
   useEffect(() => {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   }, []);
+
+  useEffect(() => {
+    const legacyVariant = new URLSearchParams(window.location.search).get('variant');
+    if (legacyVariant && recipesById[legacyVariant]) {
+      history.replaceState('', document.title, getRecipeUrl(legacyVariant));
+    }
+  }, [recipesById]);
 
   useEffect(() => {
     if (!activeRecipe) return undefined;
@@ -3770,7 +3739,7 @@ function App() {
       cancelAnimationFrame(firstFrame);
       cancelAnimationFrame(secondFrame);
     };
-  }, [activeRecipe?.id, activeVariantId]);
+  }, [activeRecipe?.id]);
 
   useEffect(() => {
     updateDocumentMeta(activeSeoRecipe, recipesById, activePage);
@@ -3786,12 +3755,6 @@ function App() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [activeRecipe]);
-
-  useEffect(() => {
-    if (!activeRecipe?.master || isMasterRecipe(activeRecipe)) return;
-    setVariantSelection(prev => ({ ...prev, [activeRecipe.master]: activeRecipe.id }));
-    setActiveId(activeRecipe.master);
-  }, [activeRecipe?.id]);
 
   function setCheckedWithHistory(next) {
     setChecked(prev => {
@@ -4048,44 +4011,18 @@ function App() {
       sessionStorage.setItem(STORAGE_KEYS.homeScroll, String(homeScrollRef.current));
     }
     restoreHomeScrollRef.current = false;
-    const parentId = target.master && !isMasterRecipe(target) ? target.master : id;
-    if (target.master && !isMasterRecipe(target)) {
-      setVariantSelection(prev => ({ ...prev, [parentId]: id }));
+    if (!isMasterRecipe(target)) {
       rememberRecipeVisit(id);
-    } else {
-      setVariantSelection(prev => {
-        const next = { ...prev };
-        delete next[parentId];
-        return next;
-      });
-      rememberRecipeVisit(parentId);
     }
     setActivePage('home');
     setTargetTechniqueId('');
-    setActiveId(parentId);
+    setActiveId(id);
     setOnlyFavorites(false);
-    const nextUrl = getRecipeUrl(parentId, target.master ? id : '');
+    const nextUrl = getRecipeUrl(id);
     if (window.location.pathname + window.location.search !== nextUrl) {
       history.pushState('', document.title, nextUrl);
     }
     requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
-  }
-
-  function selectVariant(parentId, variantId) {
-    if (!variantId) {
-      setVariantSelection(prev => {
-        const next = { ...prev };
-        delete next[parentId];
-        return next;
-      });
-      const parentUrl = getRecipeUrl(parentId);
-      if (window.location.pathname + window.location.search !== parentUrl) history.pushState('', document.title, parentUrl);
-      return;
-    }
-    setVariantSelection(prev => ({ ...prev, [parentId]: variantId }));
-    rememberRecipeVisit(variantId);
-    const nextUrl = getRecipeUrl(parentId, variantId);
-    if (window.location.pathname + window.location.search !== nextUrl) history.pushState('', document.title, nextUrl);
   }
 
   function goHome() {
@@ -4136,7 +4073,6 @@ function App() {
   useEffect(() => {
     const handleLocation = () => {
       const recipe = getInitialRecipe();
-      const variant = getInitialVariant();
       const page = getPathPage();
       if (recipe && !activeId) {
         homeScrollRef.current = Math.max(window.scrollY || 0, homeScrollRef.current || 0);
@@ -4147,15 +4083,6 @@ function App() {
       setOnlyFavorites(new URLSearchParams(window.location.search).get('view') === '__favs__');
       setActiveId(recipe);
       if (!recipe && page === 'home') restoreHomeScrollRef.current = true;
-      if (recipe && variant) {
-        setVariantSelection(prev => ({ ...prev, [recipe]: variant }));
-      } else if (recipe) {
-        setVariantSelection(prev => {
-          const next = { ...prev };
-          delete next[recipe];
-          return next;
-        });
-      }
     };
     window.addEventListener('hashchange', handleLocation);
     window.addEventListener('popstate', handleLocation);
@@ -4289,7 +4216,7 @@ function App() {
       : activeRecipe
       ? h(RecipeView, {
           recipe: activeRecipe,
-          isFavorite: favorites.includes(variantSelection[activeRecipe.id] || activeRecipe.id),
+          isFavorite: favorites.includes(activeRecipe.id),
           toggleFavorite,
           shoppingIds,
           toggleShopping,
@@ -4306,9 +4233,7 @@ function App() {
           redo,
           setTagFilter,
           openTechnique,
-          notify,
-          selectedVariantId: variantSelection[activeRecipe.id],
-          onVariantChange: selectVariant
+          notify
         })
       : activePage === 'techniques'
         ? h(TechniquesView, {

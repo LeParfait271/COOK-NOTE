@@ -255,7 +255,6 @@ function validateLocal(id, recipe) {
   if (!recipe.seasons.length) errors.push('Choisir au moins une saison.');
   if (!recipe.ingredients.length) errors.push('Ajouter au moins un groupe ingrédients avec items.');
   if (!recipe.steps.length) errors.push('Ajouter au moins une étape.');
-  if (recipe.master && recipe.variants.length) errors.push('Une fiche ne peut pas etre parent et variante en meme temps.');
   recipe.variants.forEach(variant => {
     if (!recipes[variant.id]) errors.push(`Variante introuvable: ${variant.id}.`);
   });
