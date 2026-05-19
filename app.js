@@ -510,6 +510,9 @@ const STORAGE_KEYS = {
   favorites: 'cook_note_favorites',
   shopping: 'cook_note_shopping_basket',
   shoppingFactors: 'cook_note_shopping_factors',
+  preferences: 'cook_note_preferences',
+  recentRecipes: 'cook_note_recent_recipes',
+  recentSearches: 'cook_note_recent_searches',
   homeScroll: 'cook_note_home_scroll',
   legacyFavorites: ['mc_food_favorites', 'cuisine_favs']
 };
@@ -2015,6 +2018,23 @@ function recipeJsonLd(recipe, recipesById = {}) {
   };
 }
 
+function websiteJsonLd() {
+  const url = getHomeUrl();
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Cook Note',
+    description: 'Carnet de recettes avec ingrédients, quantités ajustables, étapes, techniques de cuisinier, favoris et liste de courses.',
+    url,
+    inLanguage: 'fr-FR',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${url}?q={search_term_string}`,
+      'query-input': 'required name=search_term_string'
+    }
+  };
+}
+
 function techniquesJsonLd() {
   const url = getTechniquesUrl();
   return {
@@ -2051,6 +2071,7 @@ function updateDocumentMeta(recipe, recipesById = {}, page = 'home') {
   setMetaContent('meta[property="og:url"]', canonicalUrl);
   setMetaContent('meta[name="twitter:title"]', title);
   setMetaContent('meta[name="twitter:description"]', description);
+  setMetaContent('meta[name="twitter:card"]', 'summary_large_image');
   let canonical = document.head.querySelector('link[rel="canonical"]');
   if (!canonical) {
     canonical = document.createElement('link');
@@ -2058,14 +2079,12 @@ function updateDocumentMeta(recipe, recipesById = {}, page = 'home') {
     document.head.appendChild(canonical);
   }
   canonical.setAttribute('href', canonicalUrl);
-  if (recipe?.image) {
-    const image = absoluteAssetUrl(recipe.image);
-    setMetaContent('meta[property="og:image"]', image);
-    setMetaContent('meta[property="og:image:secure_url"]', image);
-    setMetaContent('meta[name="twitter:image"]', image);
-  }
+  const image = absoluteAssetUrl(recipe?.image || HERO_IMAGE);
+  setMetaContent('meta[property="og:image"]', image);
+  setMetaContent('meta[property="og:image:secure_url"]', image);
+  setMetaContent('meta[name="twitter:image"]', image);
   document.getElementById('recipe-jsonld')?.remove();
-  const jsonLd = isTechniques ? techniquesJsonLd() : recipeJsonLd(recipe, recipesById);
+  const jsonLd = isTechniques ? techniquesJsonLd() : (recipeJsonLd(recipe, recipesById) || websiteJsonLd());
   if (jsonLd) {
     const script = document.createElement('script');
     script.id = 'recipe-jsonld';
@@ -2129,6 +2148,14 @@ const ICON_PATHS = {
     'M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2',
     'M7 14h10v7H7z'
   ],
+  settings: [
+    'M4 7h10',
+    'M18 7h2',
+    'M14 7a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z',
+    'M4 17h2',
+    'M10 17h10',
+    'M6 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z'
+  ],
   close: [
     'M6 6l12 12',
     'M18 6 6 18'
@@ -2154,7 +2181,7 @@ function Icon({ name, filled = false }) {
   );
 }
 
-function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, openTechniques, query, openSearch }) {
+function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, openTechniques, query, openSearch, openPreferences }) {
   return h('header', { className: 'topbar' },
     h('div', { className: 'top-left' },
       h(Button, { variant: 'subtle', className: 'icon-square', onClick: onHome, title: 'Accueil', ariaLabel: 'Accueil' }, h(Icon, { name: 'home' }))
@@ -2188,7 +2215,14 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
         onClick: showFavorites,
         title: 'Voir les favoris',
         ariaLabel: 'Voir les favoris'
-      }, h(Icon, { name: 'heart' }))
+      }, h(Icon, { name: 'heart' })),
+      h(Button, {
+        variant: 'ghost',
+        className: 'top-settings-btn icon-square',
+        onClick: openPreferences,
+        title: 'Préférences d’affichage',
+        ariaLabel: 'Préférences d’affichage'
+      }, h(Icon, { name: 'settings' }))
     )
   );
 }
@@ -2377,6 +2411,23 @@ function HomeView(props) {
   );
 }
 
+function NotFoundView({ goHome, openSearch }) {
+  return h('main', { className: 'not-found-view' },
+    h(Hero),
+    h('div', { className: 'content-wrap' },
+      h('section', { className: 'fatal-state not-found-panel' },
+        h('p', { className: 'eyebrow' }, 'Page introuvable'),
+        h('h1', null, 'Cette fiche n’existe pas encore'),
+        h('p', null, 'Le lien pointe vers une recette absente du carnet ou déplacée.'),
+        h('div', { className: 'not-found-actions' },
+          h(Button, { variant: 'primary', onClick: openSearch }, 'Rechercher une recette'),
+          h(Button, { variant: 'subtle', onClick: goHome }, 'Retour au carnet')
+        )
+      )
+    )
+  );
+}
+
 function TechniquesView({ targetTechniqueId, goHome }) {
   const [highlightedTechniqueId, setHighlightedTechniqueId] = useState('');
   useEffect(() => {
@@ -2454,7 +2505,7 @@ function TechniquesView({ targetTechniqueId, goHome }) {
   );
 }
 
-function SharePanel({ open, onClose, recipe }) {
+function SharePanel({ open, onClose, recipe, notify }) {
   const [copied, setCopied] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
   const [qrReady, setQrReady] = useState(false);
@@ -2465,8 +2516,13 @@ function SharePanel({ open, onClose, recipe }) {
   const imageStyle = recipe.image ? { backgroundImage: `url("${recipe.image}")` } : {};
 
   function nativeShare() {
-    if (!navigator.share) return copyText(text).then(() => setCopiedText(true));
-    return navigator.share({ title: `${recipe.title} - Cook Note`, text: description, url }).catch(() => {});
+    if (!navigator.share) return copyText(text).then(() => {
+      setCopiedText(true);
+      notify?.('Texte de partage copié');
+    });
+    return navigator.share({ title: `${recipe.title} - Cook Note`, text: description, url }).then(() => {
+      notify?.('Partage ouvert');
+    }).catch(() => {});
   }
 
   useEffect(() => {
@@ -2510,8 +2566,14 @@ function SharePanel({ open, onClose, recipe }) {
       h('div', { className: 'share-link-box' }, url),
       h('div', { className: 'share-actions' },
         navigator.share && h(Button, { variant: 'primary', onClick: nativeShare }, 'Partager'),
-        h(Button, { variant: navigator.share ? 'subtle' : 'primary', onClick: () => copyText(url).then(() => setCopied(true)) }, copied ? 'Lien copie' : 'Copier le lien'),
-        h(Button, { variant: 'subtle', onClick: () => copyText(text).then(() => setCopiedText(true)) }, copiedText ? 'Texte copie' : 'Copier le texte'),
+        h(Button, { variant: navigator.share ? 'subtle' : 'primary', onClick: () => copyText(url).then(() => {
+          setCopied(true);
+          notify?.('Lien de recette copié');
+        }) }, copied ? 'Lien copie' : 'Copier le lien'),
+        h(Button, { variant: 'subtle', onClick: () => copyText(text).then(() => {
+          setCopiedText(true);
+          notify?.('Texte de recette copié');
+        }) }, copiedText ? 'Texte copie' : 'Copier le texte'),
         h('a', { className: 'btn btn-subtle', href: `https://wa.me/?text=${encodeURIComponent(text)}`, target: '_blank', rel: 'noreferrer' }, 'WhatsApp'),
         h('a', { className: 'btn btn-subtle', href: `mailto:?subject=${encodeURIComponent(recipe.title)}&body=${encodeURIComponent(text)}` }, 'Email')
       )
@@ -2519,7 +2581,7 @@ function SharePanel({ open, onClose, recipe }) {
   );
 }
 
-function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngredientQuery, searchRef, results, resultMeta, ingredientMeta, openRecipe }) {
+function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngredientQuery, searchRef, results, resultMeta, ingredientMeta, openRecipe, recentRecipes = [], recentSearches = [], rememberSearch }) {
   if (!open) return null;
   const hasQuery = Boolean(query.trim());
   const hasIngredientQuery = Boolean(ingredientQuery.trim());
@@ -2554,6 +2616,15 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
       { label: 'Bases', query: 'base' }
     ] }
   ];
+  const rememberCurrentSearch = () => {
+    if (query.trim()) rememberSearch?.(query);
+    else if (ingredientQuery.trim()) rememberSearch?.(ingredientQuery);
+  };
+  const openSearchRecipe = recipe => {
+    rememberCurrentSearch();
+    openRecipe(recipe.id);
+    onClose();
+  };
   return h('div', { className: 'modal-backdrop search-backdrop', onMouseDown: onClose },
     h('section', {
       className: 'modal-panel search-modal',
@@ -2578,8 +2649,7 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
           onKeyDown: event => {
             if (event.key === 'Escape') onClose();
             if (event.key === 'Enter' && visibleResults[0]) {
-              openRecipe(visibleResults[0].id);
-              onClose();
+              openSearchRecipe(visibleResults[0]);
             }
           },
           placeholder: 'Ingrédient, usage, saison, difficulté...'
@@ -2596,8 +2666,7 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
           onKeyDown: event => {
             if (event.key === 'Escape') onClose();
             if (event.key === 'Enter' && (visibleIngredientResults[0] || visibleResults[0])) {
-              openRecipe((visibleIngredientResults[0] || visibleResults[0]).id);
-              onClose();
+              openSearchRecipe(visibleIngredientResults[0] || visibleResults[0]);
             }
           },
           placeholder: 'Ex : œufs, farine, citron'
@@ -2606,15 +2675,41 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
       ),
       hasQuery || hasIngredientQuery
         ? h('div', { className: 'search-result-count' }, `${results.length} résultat${results.length > 1 ? 's' : ''}${hasQuery ? ` pour "${query}"` : ''}${hasIngredientQuery ? `${hasQuery ? ' avec ' : ' avec '}${ingredientSearchTokens(ingredientQuery).join(', ')}` : ''}`)
-        : h('div', { className: 'search-suggestion-groups' },
+        : h('div', { className: 'search-discovery' },
+          (recentSearches.length > 0 || recentRecipes.length > 0) && h('div', { className: 'search-memory-grid' },
+            recentSearches.length > 0 && h('section', { className: 'search-memory-card' },
+              h('strong', null, 'Recherches récentes'),
+              h('div', { className: 'search-suggestions' },
+                recentSearches.slice(0, 6).map(item =>
+                  h('button', { key: item, type: 'button', onClick: () => setQuery(item) }, item)
+                )
+              )
+            ),
+            recentRecipes.length > 0 && h('section', { className: 'search-memory-card' },
+              h('strong', null, 'Dernières fiches'),
+              h('div', { className: 'recent-recipe-list' },
+                recentRecipes.slice(0, 4).map(recipe =>
+                  h('button', { key: recipe.id, type: 'button', onClick: () => openSearchRecipe(recipe) },
+                    h('span', { className: 'search-result-image', style: recipe.image ? { backgroundImage: `url("${recipe.image}")` } : {} }),
+                    h('span', null, recipe.title)
+                  )
+                )
+              )
+            )
+          ),
+          h('div', { className: 'search-suggestion-groups' },
           suggestions.map(group => h('section', { key: group.title, className: 'search-suggestion-group' },
             h('strong', null, group.title),
             h('div', { className: 'search-suggestions' },
               group.items.map(item =>
-                h('button', { key: item.query, type: 'button', onClick: () => setQuery(item.query) }, item.label)
+                h('button', { key: item.query, type: 'button', onClick: () => {
+                  setQuery(item.query);
+                  rememberSearch?.(item.query);
+                } }, item.label)
               )
             )
           ))
+          )
         ),
       hasQuery && (visibleResults.length
         ? h('div', { className: 'search-result-groups' },
@@ -2630,10 +2725,7 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
                   key: recipe.id,
                   type: 'button',
                   className: 'search-result',
-                  onClick: () => {
-                    openRecipe(recipe.id);
-                    onClose();
-                  }
+                  onClick: () => openSearchRecipe(recipe)
                 },
                   h('span', { className: 'search-result-image', style: recipe.image ? { backgroundImage: `url("${recipe.image}")` } : {} }),
                   h('span', { className: 'search-result-copy' },
@@ -2667,10 +2759,7 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
                   key: recipe.id,
                   type: 'button',
                   className: 'search-result',
-                  onClick: () => {
-                    openRecipe(recipe.id);
-                    onClose();
-                  }
+                  onClick: () => openSearchRecipe(recipe)
                 },
                   h('span', { className: 'search-result-image', style: recipe.image ? { backgroundImage: `url("${recipe.image}")` } : {} }),
                   h('span', { className: 'search-result-copy' },
@@ -2695,16 +2784,19 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
   );
 }
 
-function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe, clearShopping }) {
+function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe, clearShopping, notify }) {
   const [copied, setCopied] = useState(false);
   const [checkedItems, setCheckedItems] = useState({});
   const shoppingData = useMemo(() => buildShoppingListData(recipes, factorById), [recipes, factorById]);
   const text = recipes.length ? shoppingListText(recipes, factorById) : 'Liste de courses Cook Note\n\nAucune recette cochee.';
   const shareText = () => {
     if (navigator.share) {
-      navigator.share({ title: 'Liste de courses Cook Note', text }).catch(() => {});
+      navigator.share({ title: 'Liste de courses Cook Note', text }).then(() => notify?.('Partage de la liste ouvert')).catch(() => {});
     } else {
-      copyText(text).then(() => setCopied(true));
+      copyText(text).then(() => {
+        setCopied(true);
+        notify?.('Liste de courses copiée');
+      });
     }
   };
 
@@ -2758,12 +2850,72 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
       ),
       h('pre', { className: 'cart-output combined-cart' }, text),
       h('div', { className: 'modal-actions' },
-        h(Button, { variant: 'primary', disabled: !recipes.length, onClick: () => copyText(text).then(() => setCopied(true)) }, copied ? 'Copié' : 'Copier la liste complète'),
+        h(Button, { variant: 'primary', disabled: !recipes.length, onClick: () => copyText(text).then(() => {
+          setCopied(true);
+          notify?.('Liste de courses copiée');
+        }) }, copied ? 'Copié' : 'Copier la liste complète'),
         h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: shareText, title: 'Partager la liste', ariaLabel: 'Partager la liste' }, h(Icon, { name: 'share' })),
         h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: () => window.print(), title: 'Imprimer la liste', ariaLabel: 'Imprimer la liste' }, h(Icon, { name: 'print' })),
         h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: clearShopping }, 'Vider le panier')
       )
     )
+  );
+}
+
+function PreferencesPanel({ open, onClose, preferences, setPreferences }) {
+  if (!open) return null;
+  const update = patch => {
+    const next = { ...preferences, ...patch };
+    setPreferences(next);
+    writeJson(STORAGE_KEYS.preferences, next);
+  };
+  const density = preferences.density || 'comfort';
+  return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
+    h('section', { className: 'modal-panel preferences-modal', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Préférences d’affichage', onMouseDown: event => event.stopPropagation() },
+      h('div', { className: 'modal-head' },
+        h('div', null,
+          h('p', { className: 'eyebrow' }, 'Affichage'),
+          h('h2', null, 'Préférences')
+        ),
+        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
+      ),
+      h('div', { className: 'preference-group' },
+        h('strong', null, 'Densité des cartes'),
+        h('div', { className: 'segmented-control', role: 'group', 'aria-label': 'Densité des cartes' },
+          h('button', { type: 'button', className: density === 'compact' ? 'active' : '', onClick: () => update({ density: 'compact' }) }, 'Compact'),
+          h('button', { type: 'button', className: density === 'comfort' ? 'active' : '', onClick: () => update({ density: 'comfort' }) }, 'Confort')
+        )
+      ),
+      h('label', { className: 'preference-check' },
+        h('input', { type: 'checkbox', checked: Boolean(preferences.largeText), onChange: event => update({ largeText: event.target.checked }) }),
+        h('span', null,
+          h('strong', null, 'Texte plus lisible'),
+          h('small', null, 'Agrandit légèrement les fiches et les panneaux.')
+        )
+      ),
+      h('label', { className: 'preference-check' },
+        h('input', { type: 'checkbox', checked: Boolean(preferences.reduceMotion), onChange: event => update({ reduceMotion: event.target.checked }) }),
+        h('span', null,
+          h('strong', null, 'Animations calmes'),
+          h('small', null, 'Réduit les mouvements sans enlever les lumières du thème.')
+        )
+      )
+    )
+  );
+}
+
+function ToastStack({ toasts, dismissToast }) {
+  if (!toasts.length) return null;
+  return h('div', { className: 'toast-stack', role: 'status', 'aria-live': 'polite' },
+    toasts.map(toast => h('button', {
+      key: toast.id,
+      type: 'button',
+      className: `toast toast-${toast.tone || 'info'}`,
+      onClick: () => dismissToast(toast.id)
+    },
+      h('strong', null, toast.title || 'Cook Note'),
+      h('span', null, toast.message)
+    ))
   );
 }
 
@@ -2992,6 +3144,7 @@ function RecipeView({
   redo,
   setTagFilter,
   openTechnique,
+  notify,
   selectedVariantId: initialSelectedVariantId,
   onVariantChange
 }) {
@@ -3142,7 +3295,10 @@ function RecipeView({
           h(Button, { variant: isInShopping ? 'primary' : 'ghost', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(detailKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
           hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(Button, {
             variant: 'subtle',
-            onClick: () => copyText(recipeExportText(selectedRecipe, factor)).then(() => setExportCopied(true))
+            onClick: () => copyText(recipeExportText(selectedRecipe, factor)).then(() => {
+              setExportCopied(true);
+              notify?.('Fiche recette copiée');
+            })
           }, exportCopied ? 'Fiche copiée' : 'Copier fiche'),
           h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' })),
           selectedRecipe.video && h('a', { className: 'btn btn-ghost', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, 'Voir la vidéo'),
@@ -3299,7 +3455,7 @@ function RecipeView({
         )
       )
     ),
-    h(SharePanel, { open: shareOpen, onClose: () => setShareOpen(false), recipe: selectedRecipe })
+    h(SharePanel, { open: shareOpen, onClose: () => setShareOpen(false), recipe: selectedRecipe, notify })
   );
 }
 
@@ -3317,7 +3473,7 @@ function App() {
   const searchableRecipes = useMemo(() => recipes.filter(recipe => !isMasterRecipe(recipe)), [recipes]);
   const currentSeason = useMemo(() => getCurrentSeason(), []);
 
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(() => new URLSearchParams(window.location.search).get('q') || '');
   const [ingredientQuery, setIngredientQuery] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
   const [season, setSeason] = useState('');
@@ -3338,6 +3494,11 @@ function App() {
   const [checked, setChecked] = useState({});
   const [historyVersion, setHistoryVersion] = useState(0);
   const [shoppingOpen, setShoppingOpen] = useState(false);
+  const [preferencesOpen, setPreferencesOpen] = useState(false);
+  const [preferences, setPreferences] = useState(() => ({ density: 'comfort', largeText: false, reduceMotion: false, ...readJson(STORAGE_KEYS.preferences, {}) }));
+  const [recentRecipeIds, setRecentRecipeIds] = useState(() => readStoredList(STORAGE_KEYS.recentRecipes, []));
+  const [recentSearches, setRecentSearches] = useState(() => readStoredList(STORAGE_KEYS.recentSearches, []));
+  const [toasts, setToasts] = useState([]);
   const searchRef = useRef(null);
   const homeScrollRef = useRef(Number(sessionStorage.getItem(STORAGE_KEYS.homeScroll)) || 0);
   const restoreHomeScrollRef = useRef(false);
@@ -3348,6 +3509,7 @@ function App() {
   const activeVariantId = activeRecipe ? variantSelection[activeRecipe.id] : '';
   const activeSeoRecipe = activeVariantId && recipesById[activeVariantId] ? recipesById[activeVariantId] : activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => recipesById[id]).filter(Boolean), [shoppingIds, recipesById]);
+  const recentRecipes = useMemo(() => recentRecipeIds.map(id => recipesById[id]).filter(recipe => recipe && !isMasterRecipe(recipe)), [recentRecipeIds, recipesById]);
   const hasRecipeFilters = Boolean(query.trim() || ingredientQuery.trim() || season || seasonCategory || tagFilter || onlyFavorites);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
@@ -3506,7 +3668,21 @@ function App() {
 
   const sections = useMemo(() => {
     if (onlyFavorites) {
-      return [{ key: 'favorites', kicker: 'Favoris', title: 'Recettes sauvegardées', recipes: filteredRecipes }];
+      if (!filteredRecipes.length) {
+        return [{ key: 'favorites-empty', kicker: 'Favoris', title: 'Recettes sauvegardées', recipes: filteredRecipes }];
+      }
+      const grouped = new Map();
+      filteredRecipes.forEach(recipe => {
+        const category = seasonGroupCategory(recipe);
+        if (!grouped.has(category)) grouped.set(category, []);
+        grouped.get(category).push(recipe);
+      });
+      return Array.from(grouped.entries()).map(([category, recipes]) => ({
+        key: `favorites-${category}`,
+        kicker: 'Favoris',
+        title: categoryLabel(category),
+        recipes
+      }));
     }
     if (season) {
       if (seasonCategory) {
@@ -3548,13 +3724,45 @@ function App() {
     onlyFavorites && { key: 'favorites', label: 'Favoris', clear: () => setOnlyFavorites(false) }
   ].filter(Boolean);
 
+  function dismissToast(id) {
+    setToasts(prev => prev.filter(toast => toast.id !== id));
+  }
+
+  function notify(message, tone = 'info', title = 'Cook Note') {
+    const id = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    setToasts(prev => [{ id, title, message, tone }, ...prev].slice(0, 4));
+    window.setTimeout(() => dismissToast(id), 3400);
+  }
+
+  function persistRecentRecipes(next) {
+    setRecentRecipeIds(next);
+    writeJson(STORAGE_KEYS.recentRecipes, next);
+  }
+
+  function rememberRecipeVisit(id) {
+    const recipe = recipesById[id];
+    if (!recipe || isMasterRecipe(recipe)) return;
+    persistRecentRecipes([id, ...recentRecipeIds.filter(item => item !== id)].slice(0, 8));
+  }
+
+  function rememberSearch(value) {
+    const clean = stripHtml(value).trim();
+    if (clean.length < 2) return;
+    const next = [clean, ...recentSearches.filter(item => normalizeText(item) !== normalizeText(clean))].slice(0, 8);
+    setRecentSearches(next);
+    writeJson(STORAGE_KEYS.recentSearches, next);
+  }
+
   function persistFavorites(next) {
     setFavorites(next);
     writeJson(STORAGE_KEYS.favorites, next);
   }
 
   function toggleFavorite(id) {
-    persistFavorites(favorites.includes(id) ? favorites.filter(item => item !== id) : [id, ...favorites]);
+    const recipe = recipesById[id];
+    const removing = favorites.includes(id);
+    persistFavorites(removing ? favorites.filter(item => item !== id) : [id, ...favorites]);
+    notify(removing ? `${recipe?.title || 'Recette'} retirée des favoris` : `${recipe?.title || 'Recette'} ajoutée aux favoris`, removing ? 'info' : 'success');
   }
 
   function persistShopping(next) {
@@ -3568,27 +3776,33 @@ function App() {
   }
 
   function toggleShopping(id, factor = 1) {
+    const recipe = recipesById[id];
     if (shoppingIds.includes(id)) {
       persistShopping(shoppingIds.filter(item => item !== id));
       const nextFactors = { ...shoppingFactors };
       delete nextFactors[id];
       persistShoppingFactors(nextFactors);
+      notify(`${recipe?.title || 'Recette'} retirée des courses`, 'info');
       return;
     }
     persistShopping([id, ...shoppingIds]);
     persistShoppingFactors({ ...shoppingFactors, [id]: factor });
+    notify(`${recipe?.title || 'Recette'} ajoutée aux courses`, 'success');
   }
 
   function removeShopping(id) {
+    const recipe = recipesById[id];
     persistShopping(shoppingIds.filter(item => item !== id));
     const nextFactors = { ...shoppingFactors };
     delete nextFactors[id];
     persistShoppingFactors(nextFactors);
+    notify(`${recipe?.title || 'Recette'} retirée des courses`, 'info');
   }
 
   function clearShopping() {
     persistShopping([]);
     persistShoppingFactors({});
+    notify('Panier de courses vidé', 'info');
   }
 
   function openRecipe(id) {
@@ -3602,12 +3816,14 @@ function App() {
     const parentId = target.master && !isMasterRecipe(target) ? target.master : id;
     if (target.master && !isMasterRecipe(target)) {
       setVariantSelection(prev => ({ ...prev, [parentId]: id }));
+      rememberRecipeVisit(id);
     } else {
       setVariantSelection(prev => {
         const next = { ...prev };
         delete next[parentId];
         return next;
       });
+      rememberRecipeVisit(parentId);
     }
     setActivePage('home');
     setTargetTechniqueId('');
@@ -3632,6 +3848,7 @@ function App() {
       return;
     }
     setVariantSelection(prev => ({ ...prev, [parentId]: variantId }));
+    rememberRecipeVisit(variantId);
     const nextUrl = getRecipeUrl(parentId, variantId);
     if (window.location.pathname + window.location.search !== nextUrl) history.pushState('', document.title, nextUrl);
   }
@@ -3751,6 +3968,10 @@ function App() {
           setSearchOpen(false);
           return;
         }
+        if (preferencesOpen) {
+          setPreferencesOpen(false);
+          return;
+        }
         if ((activeRecipe || activePage === 'techniques') && !isTypingTarget(event.target)) goHome();
         return;
       }
@@ -3780,7 +4001,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [activeRecipe, activePage, catalogRecipes, canUndo, canRedo, searchOpen]);
+  }, [activeRecipe, activePage, catalogRecipes, canUndo, canRedo, searchOpen, preferencesOpen]);
 
   if (!recipes.length) {
     return h('div', { className: 'mc-shell' },
@@ -3799,8 +4020,15 @@ function App() {
     setSeasonCategory,
     seasonCategoryOptions
   };
+  const missingRecipeId = activeId && !activeRecipe ? activeId : '';
+  const shellClassName = [
+    'mc-shell',
+    preferences.density === 'compact' ? 'display-compact' : '',
+    preferences.largeText ? 'display-large-text' : '',
+    preferences.reduceMotion ? 'display-reduce-motion' : ''
+  ].filter(Boolean).join(' ');
 
-  return h('div', { className: 'mc-shell' },
+  return h('div', { className: shellClassName },
     h(TopBarFixed, {
       onHome: goHome,
       shoppingCount: shoppingRecipes.length,
@@ -3808,16 +4036,22 @@ function App() {
       openShoppingBasket: () => setShoppingOpen(true),
       openTechniques: goTechniques,
       query,
-      openSearch
+      openSearch,
+      openPreferences: () => setPreferencesOpen(true)
     }),
     h('nav', { className: 'mobile-bottom-nav', 'aria-label': 'Navigation mobile' },
-      h('button', { type: 'button', onClick: goHome, 'aria-label': 'Accueil' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'home' })), h('span', { className: 'sr-only' }, 'Accueil')),
-      h('button', { type: 'button', onClick: openSearch, 'aria-label': 'Recherche' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'search' })), 'Recherche'),
-      h('button', { type: 'button', onClick: goTechniques, 'aria-label': 'Techniques' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'book' })), 'Techniques'),
-      h('button', { type: 'button', onClick: showFavorites, 'aria-label': 'Favoris' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'heart' })), 'Favoris'),
-      h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses' }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Courses')
+      h('button', { type: 'button', onClick: goHome, 'aria-label': 'Accueil', 'aria-current': !activeRecipe && activePage === 'home' && !onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'home' })), h('span', { className: 'sr-only' }, 'Accueil')),
+      h('button', { type: 'button', onClick: openSearch, 'aria-label': 'Recherche', 'aria-current': searchOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'search' })), 'Recherche'),
+      h('button', { type: 'button', onClick: goTechniques, 'aria-label': 'Techniques', 'aria-current': activePage === 'techniques' ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'book' })), 'Techniques'),
+      h('button', { type: 'button', onClick: showFavorites, 'aria-label': 'Favoris', 'aria-current': onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'heart' })), 'Favoris'),
+      h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses', 'aria-current': shoppingOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Courses')
     ),
-    activeRecipe
+    missingRecipeId
+      ? h(NotFoundView, {
+          goHome,
+          openSearch
+        })
+      : activeRecipe
       ? h(RecipeView, {
           recipe: activeRecipe,
           isFavorite: favorites.includes(variantSelection[activeRecipe.id] || activeRecipe.id),
@@ -3837,6 +4071,7 @@ function App() {
           redo,
           setTagFilter,
           openTechnique,
+          notify,
           selectedVariantId: variantSelection[activeRecipe.id],
           onVariantChange: selectVariant
         })
@@ -3863,7 +4098,14 @@ function App() {
       recipes: shoppingRecipes,
       factorById: shoppingFactors,
       removeRecipe: removeShopping,
-      clearShopping
+      clearShopping,
+      notify
+    }),
+    h(PreferencesPanel, {
+      open: preferencesOpen,
+      onClose: () => setPreferencesOpen(false),
+      preferences,
+      setPreferences
     }),
     h(SearchPanel, {
       open: searchOpen,
@@ -3876,8 +4118,12 @@ function App() {
       results: filteredRecipes,
       resultMeta: searchMeta,
       ingredientMeta,
-      openRecipe
-    })
+      openRecipe,
+      recentRecipes,
+      recentSearches,
+      rememberSearch
+    }),
+    h(ToastStack, { toasts, dismissToast })
   );
 }
 

@@ -9,6 +9,7 @@
   <meta name="description" content="Cook Note : carnet de recettes avec ingrédients, quantités ajustables, étapes, notes pratiques et favoris." />
   <meta name="author" content="Cook Note" />
   <meta name="theme-color" content="#fbbf24" />
+  <meta name="color-scheme" content="dark" />
 
   <!-- Open Graph -->
   <meta property="og:title"       content="Cook Note" />
@@ -25,7 +26,7 @@
   <meta name="twitter:description" content="Carnet de recettes Cook Note avec ingrédients, quantités ajustables, étapes et notes pratiques." />
   <meta name="twitter:image"      content="https://1c1996d6.cook-note.pages.dev/assets/base-principale-fond-site.jpg?v=26" />
   <link rel="canonical" href="https://1c1996d6.cook-note.pages.dev/" />
-  <script type="application/ld+json">
+  <script id="recipe-jsonld" type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -39,6 +40,8 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="/assets/cook-note.png" type="image/png" />
   <link rel="apple-touch-icon" href="/assets/cook-note.png" />
+  <link rel="preload" as="image" href="/assets/cook-note.png" />
+  <link rel="preload" as="image" href="/assets/base-principale-fond-site.jpg" />
 
   <!-- Fonts — préchargées pour éviter le FOUT -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -58,21 +61,72 @@
 </head>
 <body>
   <!-- Écran de chargement — caché par React au montage (voir app.js) -->
-  <div id="loading-screen" aria-hidden="true" style="
-    position:fixed; inset:0; background:#000;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    font-family:'Inter',system-ui,sans-serif; color:#fbbf24; z-index:99999;
-  ">
-    <img src="/assets/cook-note.png" alt="Cook Note" style="width:min(420px,78vw); margin-bottom:22px;" />
-    <div style="width:180px; height:3px; background:rgba(255,255,255,.1); border-radius:2px; overflow:hidden;">
-      <div style="height:100%; background:linear-gradient(90deg,#fbbf24,#f59e0b);
-        animation:lsBar 1.8s ease-in-out forwards; border-radius:2px; width:0;"></div>
+  <div id="loading-screen" aria-hidden="true">
+    <div class="loading-scene">
+      <img src="/assets/cook-note.png" alt="Cook Note" />
+      <div class="loading-shell">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="loading-bar"><span></span></div>
     </div>
   </div>
 
   <style>
-    @keyframes lsBar    { from { width:0 } to { width:100% } }
-    @keyframes lsBounce { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-8px) } }
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(115deg, rgba(0,0,0,.92), rgba(0,0,0,.72)),
+        url("/assets/base-principale-fond-site.jpg") center / cover;
+      color: #fbbf24;
+      font-family: Inter, system-ui, sans-serif;
+    }
+    .loading-scene {
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+      width: min(460px, 82vw);
+    }
+    .loading-scene img {
+      width: min(420px, 78vw);
+      filter: drop-shadow(0 18px 34px rgba(0,0,0,.52));
+    }
+    .loading-shell {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      width: min(360px, 78vw);
+    }
+    .loading-shell span {
+      height: 44px;
+      border: 1px solid rgba(251,191,36,.22);
+      border-radius: 8px;
+      background: linear-gradient(90deg, rgba(255,255,255,.04), rgba(251,191,36,.13), rgba(255,255,255,.04));
+      background-size: 220% 100%;
+      animation: lsShimmer 1.5s ease-in-out infinite;
+    }
+    .loading-bar {
+      width: min(220px, 62vw);
+      height: 3px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+    }
+    .loading-bar span {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg,#fbbf24,#f97316);
+      animation: lsBar 1.7s ease-in-out forwards;
+    }
+    @keyframes lsBar { from { width:0 } to { width:100% } }
+    @keyframes lsShimmer { 0% { background-position: 120% 0 } 100% { background-position: -120% 0 } }
   </style>
 
   <div id="root"></div>

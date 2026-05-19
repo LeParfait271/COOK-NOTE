@@ -1,20 +1,23 @@
 {
   "name": "Cook Note",
   "short_name": "Cook Note",
-  "description": "Carnet de recettes avec ingrédients, quantités ajustables, étapes et notes pratiques.",
+  "description": "Carnet de recettes avec ingrédients, quantités ajustables, étapes, techniques, favoris et liste de courses.",
+  "id": "/",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
   "orientation": "portrait-primary",
   "background_color": "#000000",
   "theme_color": "#fbbf24",
   "lang": "fr",
-  "categories": ["food", "lifestyle"],
+  "categories": ["food", "lifestyle", "utilities"],
   "icons": [
     {
       "src": "assets/cook-note.png",
       "sizes": "128x128",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ],
   "shortcuts": [
@@ -23,6 +26,13 @@
       "short_name": "Favoris",
       "url": "/?view=__favs__",
       "description": "Voir mes recettes favorites",
+      "icons": [{ "src": "assets/cook-note.png", "sizes": "128x128", "type": "image/png" }]
+    },
+    {
+      "name": "Techniques de cuisinier",
+      "short_name": "Techniques",
+      "url": "/techniques",
+      "description": "Ouvrir les gestes de cuisine",
       "icons": [{ "src": "assets/cook-note.png", "sizes": "128x128", "type": "image/png" }]
     }
   ],

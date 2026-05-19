@@ -1711,9 +1711,9 @@ window.RECIPES = {
   },
   "donuts_cloud": {
     "title": "Beignets Cloud",
-    "master": "petit_dejeuner_maitre",
+    "master": "desserts_maitre",
     "categories": [
-      "Petits-déjeuners"
+      "Desserts"
     ],
     "seasons": [
       "Toutes saisons"
@@ -2126,14 +2126,6 @@ window.RECIPES = {
     "masterType": "collection",
     "variants": [
       {
-        "id": "babeurre_maison",
-        "label": "Babeurre maison"
-      },
-      {
-        "id": "donuts_cloud",
-        "label": "Beignets Cloud"
-      },
-      {
         "id": "chocolat_ancien",
         "label": "Chocolat chaud à l'ancienne"
       },
@@ -2421,6 +2413,10 @@ window.RECIPES = {
     "difficulty": "easy",
     "masterType": "collection",
     "variants": [
+      {
+        "id": "donuts_cloud",
+        "label": "Beignets Cloud"
+      },
       {
         "id": "biscuits_gouters_maitre",
         "label": "Biscuits, cookies et meringues"
@@ -3553,10 +3549,9 @@ window.RECIPES = {
   },
   "babeurre_maison": {
     "title": "Babeurre maison",
-    "master": "petit_dejeuner_maitre",
+    "master": "elements_base_maitre",
     "image": "/assets/recipe-images/babeurre_maison_spooky.png",
     "categories": [
-      "Petits-déjeuners",
       "Base"
     ],
     "seasons": [
@@ -3592,10 +3587,7 @@ window.RECIPES = {
       "lait",
       "base"
     ],
-    "difficultyScore": 1,
-    "additionalMasters": [
-      "elements_base_maitre"
-    ]
+    "difficultyScore": 1
   },
   "tomates_provencales": {
     "title": "Tomates provençales",

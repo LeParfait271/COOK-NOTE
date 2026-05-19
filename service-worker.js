@@ -1,17 +1,21 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v28
+//  Cook Note - Service Worker PWA v29
 //  Cache-first pour assets statiques
 //  Network-first pour les images externes (Unsplash, CDN)
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v28';
+const CACHE_NAME = 'cook-note-v29';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
+  '/app.js',
+  '/recipes.js',
+  '/style.css',
   '/manifest.json',
   '/assets/cook-note.png',
   '/assets/base-principale-fond-site.jpg',
+  '/assets/recipe-images/parent_accompagnements.png',
   '/assets/recipe-images/parent_apero.png',
   '/assets/recipe-images/parent_base.png',
   '/assets/recipe-images/parent_desserts.png',
@@ -28,7 +32,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
       .then(() => {
-        console.log('[SW v28] Assets statiques mis en cache.');
+        console.log('[SW v29] Assets statiques mis en cache.');
       })
   );
   self.skipWaiting();
@@ -42,7 +46,7 @@ self.addEventListener('activate', (event) => {
         keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
       )
     ).then(() => {
-        console.log('[SW v28] Anciens caches supprimés.');
+        console.log('[SW v29] Anciens caches supprimés.');
     })
   );
   self.clients.claim();
@@ -62,10 +66,20 @@ self.addEventListener('fetch', (event) => {
   // Ne jamais mettre en cache l'admin ni l'API.
   if (url.pathname.startsWith('/admin') || url.pathname.startsWith('/api/')) return;
 
-  // Ces fichiers changent souvent pendant les mises à jour du carnet.
-  // On les sert depuis le réseau pour éviter d'afficher d'anciennes recettes.
+  // Ces fichiers changent souvent pendant les mises à jour du carnet :
+  // réseau d'abord, cache en secours si l'utilisateur est hors-ligne.
   if (['/app.js', '/recipes.js', '/recipe.js', '/style.css'].includes(url.pathname)) {
-    event.respondWith(fetch(event.request, { cache: 'no-store' }));
+    event.respondWith(
+      fetch(event.request, { cache: 'no-store' })
+        .then(response => {
+          if (response && response.status === 200 && response.type === 'basic') {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
     return;
   }
 
