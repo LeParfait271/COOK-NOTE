@@ -1468,17 +1468,26 @@ function isVariantIngredientGroup(group, groups = [], recipe = null) {
 }
 
 function buildInlineRecipeTargets(recipes) {
-  const aliases = [];
-  const add = (term, id) => {
+  const aliasesByTerm = new Map();
+  const add = (term, recipe, type) => {
     const normalized = normalizeText(term).trim();
-    if (normalized.length >= 4 && id) aliases.push({ term, normalized, id });
+    if (normalized.length < 4 || !recipe?.id) return;
+    const titleNormalized = normalizeText(recipe.title || '');
+    const priority = type === 'title' ? 0 : titleNormalized.includes(normalized) ? 1 : 2;
+    const target = { term, normalized, id: recipe.id, priority };
+    const existing = aliasesByTerm.get(normalized);
+    if (!existing || priority < existing.priority) aliasesByTerm.set(normalized, target);
   };
   recipes.forEach(recipe => {
     if (isMasterRecipe(recipe)) return;
-    add(recipe.title, recipe.id);
-    (recipe.aliases || []).forEach(alias => add(alias, recipe.id));
+    add(recipe.title, recipe, 'title');
+    (recipe.aliases || []).forEach(alias => add(alias, recipe, 'alias'));
   });
-  return aliases.sort((a, b) => b.normalized.length - a.normalized.length);
+  return Array.from(aliasesByTerm.values()).sort((a, b) => {
+    const length = b.normalized.length - a.normalized.length;
+    if (length) return length;
+    return a.priority - b.priority;
+  });
 }
 
 function buildTechniqueTargets() {
@@ -1501,15 +1510,33 @@ function isLinkedTextBoundary(char) {
   return !char || !/[a-z0-9]/.test(char);
 }
 
-function findLinkedTextMatch(normalizedText, targets) {
+function buildNormalizedIndexMap(value) {
+  let normalized = '';
+  const indexMap = [];
+  for (let index = 0; index < value.length; index += 1) {
+    const normalizedChar = normalizeText(value[index]);
+    for (let charIndex = 0; charIndex < normalizedChar.length; charIndex += 1) {
+      normalized += normalizedChar[charIndex];
+      indexMap.push(index);
+    }
+  }
+  return { normalized, indexMap };
+}
+
+function findLinkedTextMatch(value, targets) {
+  const { normalized, indexMap } = buildNormalizedIndexMap(value);
   for (const target of targets) {
-    let index = normalizedText.indexOf(target.normalized);
+    let index = normalized.indexOf(target.normalized);
     while (index !== -1) {
       const end = index + target.normalized.length;
-      if (isLinkedTextBoundary(normalizedText[index - 1]) && isLinkedTextBoundary(normalizedText[end])) {
-        return { target, index };
+      if (isLinkedTextBoundary(normalized[index - 1]) && isLinkedTextBoundary(normalized[end])) {
+        return {
+          target,
+          index: indexMap[index] ?? 0,
+          end: end >= indexMap.length ? value.length : indexMap[end]
+        };
       }
-      index = normalizedText.indexOf(target.normalized, index + 1);
+      index = normalized.indexOf(target.normalized, index + 1);
     }
   }
   return null;
@@ -1536,16 +1563,16 @@ function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], open
       renderLinkedText(value.slice(index + full.length), targets, openRecipe, techniqueTargets, openTechnique)
     );
   }
-  const normalized = normalizeText(value);
-  const targetMatch = findLinkedTextMatch(normalized, targets);
-  const techniqueMatch = openTechnique ? findLinkedTextMatch(normalized, techniqueTargets) : null;
+  const targetMatch = findLinkedTextMatch(value, targets);
+  const techniqueMatch = openTechnique ? findLinkedTextMatch(value, techniqueTargets) : null;
   if (!targetMatch && !techniqueMatch) return value;
   const targetIndex = targetMatch ? targetMatch.index : Number.POSITIVE_INFINITY;
   const techniqueIndex = techniqueMatch ? techniqueMatch.index : Number.POSITIVE_INFINITY;
   const isTechnique = Boolean(techniqueMatch) && techniqueIndex < targetIndex;
   const chosen = isTechnique ? techniqueMatch.target : targetMatch.target;
   const index = isTechnique ? techniqueMatch.index : targetIndex;
-  const label = value.slice(index, index + chosen.term.length) || chosen.term;
+  const end = isTechnique ? techniqueMatch.end : targetMatch.end;
+  const label = value.slice(index, end) || chosen.term;
   return h(React.Fragment, null,
     renderLinkedText(value.slice(0, index), targets, openRecipe, techniqueTargets, openTechnique),
     h('button', {
@@ -1559,7 +1586,7 @@ function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], open
         else openRecipe(chosen.id);
       }
     }, label),
-    renderLinkedText(value.slice(index + label.length), targets, openRecipe, techniqueTargets, openTechnique)
+    renderLinkedText(value.slice(end), targets, openRecipe, techniqueTargets, openTechnique)
   );
 }
 
@@ -3472,7 +3499,7 @@ function RecipeView({
                 ])
               : group.recipeId && recipesById[group.recipeId]
                 ? h('button', { type: 'button', className: 'ingredient-group-link', onClick: () => openRecipe(group.recipeId) }, group.group || recipesById[group.recipeId].title)
-                : h('h3', null, group.group || 'Base'),
+                : h('h3', null, renderLinkedText(group.group || 'Base', inlineTargets, openRecipe, techniqueTargets, openTechnique)),
             isOpen && h('ul', null, (group.items || []).map((item, itemIndex) => {
               const key = `${detailKey}:ingredient:${groupIndex}:${itemIndex}`;
               return h('li', { key },
@@ -3558,8 +3585,8 @@ function RecipeView({
           h('p', { className: 'eyebrow' }, 'Fiche technique'),
           h('dl', null, (selectedRecipe.technical || recipe.technical || []).map((item, index) =>
             h(React.Fragment, { key: `${detailKey}:technical:${index}` },
-              h('dt', null, item.label || item.title || 'Point clé'),
-              h('dd', null, item.value || item.text || '')
+              h('dt', null, renderLinkedText(item.label || item.title || 'Point clé', inlineTargets, openRecipe, techniqueTargets, openTechnique)),
+              h('dd', null, renderLinkedText(item.value || item.text || '', inlineTargets, openRecipe, techniqueTargets, openTechnique))
             )
           ))
         )

@@ -151,6 +151,13 @@ if (!recipes || typeof recipes !== 'object') {
       if (group.recipeId && !ids.has(group.recipeId)) errors.push(`${id}: recipeId introuvable dans ingredients[${groupIndex}] (${group.recipeId}).`);
     });
 
+    if (Array.isArray(recipe.linkedRecipes)) {
+      recipe.linkedRecipes.forEach((link, linkIndex) => {
+        const linkedId = typeof link === 'string' ? link : link?.id;
+        if (!linkedId || !ids.has(linkedId)) errors.push(`${id}: linkedRecipes[${linkIndex}] introuvable (${linkedId || 'vide'}).`);
+      });
+    }
+
     if (Array.isArray(recipe.tags)) {
       recipe.tags.forEach(tag => {
         if (!tag || /\d/.test(tag)) errors.push(`${id}: tag suspect (${tag}).`);
