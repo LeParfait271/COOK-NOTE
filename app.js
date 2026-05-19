@@ -2433,7 +2433,10 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
       h('a', {
         className: 'btn btn-subtle',
         href: 'mailto:cooknote271@gmail.com?subject=Demande%20d%27ajout%20de%20recette%20Cook%20Note&body=Bonjour%2C%0A%0AJ%27aimerais%20demander%20l%27ajout%20de%20cette%20recette%20dans%20Cook%20Note%20%3A%0A%0ANom%20de%20la%20recette%20%3A%0AIngr%C3%A9dients%20%3A%0A%C3%89tapes%20%3A%0A%0AMerci.'
-      }, 'Demander une recette'),
+      }, [
+        h(Icon, { key: 'icon', name: 'spark' }),
+        h('span', { key: 'label' }, 'Demander une recette')
+      ]),
       h(Button, { variant: 'subtle', className: 'cart-icon-btn icon-square', onClick: openShoppingBasket, title: `${shoppingCount} course${shoppingCount > 1 ? 's' : ''}`, ariaLabel: 'Panier courses' }, [
         h(Icon, { key: 'icon', name: 'basket' }),
         shoppingCount > 0 && h('span', { className: 'cart-count', key: 'count' }, shoppingCount)

@@ -1,17 +1,17 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v32
+//  Cook Note - Service Worker PWA v33
 //  Cache-first pour assets statiques
 //  Network-first pour les images externes (Unsplash, CDN)
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v32';
+const CACHE_NAME = 'cook-note-v33';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=32',
-  '/recipes.js?v=32',
-  '/style.css?v=32',
+  '/app.js?v=33',
+  '/recipes.js?v=33',
+  '/style.css?v=33',
   '/recipe.js',
   '/manifest.json',
   '/assets/cook-note.png',
@@ -34,7 +34,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
       .then(() => {
-        console.log('[SW v32] Assets statiques mis en cache.');
+        console.log('[SW v33] Assets statiques mis en cache.');
       })
   );
   self.skipWaiting();
@@ -48,7 +48,7 @@ self.addEventListener('activate', (event) => {
         keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
       )
     ).then(() => {
-        console.log('[SW v32] Anciens caches supprimés.');
+        console.log('[SW v33] Anciens caches supprimés.');
     })
   );
   self.clients.claim();

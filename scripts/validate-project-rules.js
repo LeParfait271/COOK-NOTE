@@ -36,6 +36,7 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'reseau d abord avec cache de secours',
   'bump la version des assets',
   'Le panier courses doit regrouper',
+  'sans rajouter de sections gadget',
   'leur propre URL `/recette/id`',
   'ancien panneau de variante selectionnee',
   'Ne pas afficher toutes les recettes enfants en vrac',
