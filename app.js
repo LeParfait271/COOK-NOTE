@@ -883,6 +883,21 @@ function isMasterRecipe(recipe) {
   return getVariantRefs(recipe).length > 0;
 }
 
+function countInlineVariantGroups(recipe) {
+  if (!recipe?.variantGroups) return 0;
+  const groups = recipe.ingredients || [];
+  return groups.filter(group => isVariantIngredientGroup(group, groups, recipe)).length;
+}
+
+function getRecipeVariantLabel(recipe, recipesById = {}) {
+  const externalVariants = getVariantRefs(recipe);
+  const count = externalVariants.length
+    ? countLeafRecipes(recipe, recipesById)
+    : countInlineVariantGroups(recipe);
+  if (!count) return '';
+  return `${count} variante${count > 1 ? 's' : ''}`;
+}
+
 function parseAmount(raw) {
   const normalized = raw.replace(',', '.');
   if (normalized.includes('/')) {
@@ -2483,14 +2498,8 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   const imageStyle = recipe.image
     ? { backgroundImage: `url("${recipe.image}")` }
     : style;
-  const seasons = (recipe.seasons || []).filter(item => item !== 'Toutes saisons');
-  const cardFacts = master
-    ? []
-    : [
-      difficultyText(recipe).replace('Difficulté ', ''),
-      recipe.yield || '',
-      seasons[0] || ''
-    ].filter(Boolean).slice(0, 3);
+  const variantLabel = getRecipeVariantLabel(recipe, recipesById);
+  const cardFacts = !master && variantLabel ? [variantLabel] : [];
 
   return h('article', {
     className,
@@ -3211,6 +3220,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
         const item = recipesById[variant.id];
         if (!item) return null;
         const image = item.image || parent.image;
+        const variantLabel = getRecipeVariantLabel(item, recipesById);
         return h('button', {
           key: variant.id,
           type: 'button',
@@ -3222,7 +3232,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
           h('span', { className: 'variant-card-body' },
             h('small', null, primaryCategory(item)),
             h('strong', null, variant.label || item.title),
-            h('em', null, item.yield || difficultyText(item))
+            variantLabel && h('em', null, variantLabel)
           )
         );
       })
