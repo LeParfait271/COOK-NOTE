@@ -137,6 +137,60 @@ if (!recipes || typeof recipes !== 'object') {
     return leaves;
   }
 
+  function expectRecipePlacement(id, options) {
+    const recipe = recipes[id];
+    if (!recipe) {
+      errors.push(`${id}: recette attendue introuvable pour le rangement.`);
+      return;
+    }
+    if (options.master && recipe.master !== options.master) {
+      errors.push(`${id}: fiche parent incorrecte (${recipe.master || 'aucune'} au lieu de ${options.master}).`);
+    }
+    (options.categories || []).forEach(category => {
+      if (!(recipe.categories || []).includes(category)) errors.push(`${id}: categorie attendue absente (${category}).`);
+    });
+    (options.notCategories || []).forEach(category => {
+      if ((recipe.categories || []).includes(category)) errors.push(`${id}: categorie interdite presente (${category}).`);
+    });
+    (options.additionalMasters || []).forEach(parentId => {
+      if (!(recipe.additionalMasters || []).includes(parentId)) errors.push(`${id}: fiche parent additionnelle attendue absente (${parentId}).`);
+    });
+    if (options.variantGroups && !recipe.variantGroups) errors.push(`${id}: doit utiliser variantGroups=true.`);
+  }
+
+  function expectParentLink(parentId, childId, expected) {
+    const hasLink = (recipes[parentId]?.variants || []).some(variant => variant?.id === childId);
+    if (expected && !hasLink) errors.push(`${parentId}: doit contenir ${childId}.`);
+    if (!expected && hasLink) errors.push(`${parentId}: ne doit pas contenir ${childId}.`);
+  }
+
+  expectRecipePlacement('toppings_frites', {
+    master: 'accompagnements_maitre',
+    categories: ['Accompagnements', 'Sauces'],
+    notCategories: ['Plats', 'Apéro', 'Entrées'],
+    additionalMasters: ['sauces_maitre'],
+    variantGroups: true
+  });
+  expectParentLink('accompagnements_maitre', 'toppings_frites', true);
+  expectParentLink('sauces_maitre', 'toppings_frites', true);
+  expectParentLink('plats_maitre', 'toppings_frites', false);
+  expectParentLink('apero_maitre', 'toppings_frites', false);
+  expectParentLink('entrees_maitre', 'toppings_frites', false);
+
+  expectRecipePlacement('oeufs_mimosa_variantes', {
+    master: 'apero_maitre',
+    categories: ['Apéro', 'Entrées'],
+    additionalMasters: ['entrees_maitre'],
+    variantGroups: true
+  });
+
+  expectRecipePlacement('legumes_rotis', {
+    master: 'accompagnements_maitre',
+    categories: ['Accompagnements', 'Entrées'],
+    additionalMasters: ['entrees_maitre'],
+    variantGroups: true
+  });
+
   for (const [id, recipe] of Object.entries(recipes)) {
     const isMaster = masterIds.has(id);
     if (!recipe.title) errors.push(`${id}: titre manquant.`);

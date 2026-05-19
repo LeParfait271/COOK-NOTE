@@ -902,49 +902,107 @@ window.RECIPES = {
   },
   "legumes_rotis": {
     "title": "Légumes rôtis au four",
-    "master": "entrees_maitre",
+    "master": "accompagnements_maitre",
     "image": "/assets/recipe-images/legumes_rotis_spooky.png",
     "categories": [
-      "Entrées",
-      "Accompagnements"
+      "Accompagnements",
+      "Entrées"
     ],
     "seasons": [
       "Toutes saisons"
     ],
     "difficulty": "easy",
     "yield": "repères pour 4 personnes",
+    "variantGroups": true,
     "ingredients": [
       {
-        "group": "Temps de cuisson — chaleur tournante 200°C",
+        "group": "Base commune",
         "items": [
-          "Pomme de terre (dés 2–3cm) — 35–45min",
-          "Patate douce (dés 2–3cm) — 25–35min",
-          "Carotte (bâtonnets) — 22–30min",
-          "Panais (bâtonnets) — 25–35min",
-          "Betterave (dés 2–3cm) — 35–45min",
-          "Céleri-rave (dés 2–3cm) — 30–40min",
-          "Courge / butternut (dés 2–3cm) — 25–35min",
-          "Brocoli (fleurettes) — 15–20min",
-          "Chou-fleur (fleurettes) — 20–25min",
-          "Choux de Bruxelles (moitiés) — 20–25min",
-          "Poivron (lanières) — 20–25min",
-          "Courgette (quartiers) — 18–22min",
-          "Aubergine (dés 2–3cm) — 25–35min",
-          "Oignon (quartiers) — 25–30min",
-          "Fenouil (quartiers) — 25–35min",
-          "Poireau (tronçons 3–4cm) — 20–25min",
-          "Asperges (grosses, parées) — 10–14min",
-          "Champignons (gros quartiers) — 12–18min",
-          "Tomate (demies Roma) — 20–25min",
-          "Haricots verts (secs et parés) — 12–15min"
+          "600 à 800g légumes au choix",
+          "25 à 35g huile d’olive ou huile neutre",
+          "Sel fin",
+          "Poivre du moulin",
+          "Herbes, ail, paprika, curry ou thym selon le légume"
+        ],
+        "note": "Choisir un seul bloc de légumes ci-dessous pour afficher le repère de taille et de cuisson."
+      },
+      {
+        "group": "Variante pomme de terre",
+        "items": [
+          "800g pommes de terre en dés de 2 à 3cm",
+          "Cuisson : 35 à 45min à 200°C chaleur tournante"
+        ]
+      },
+      {
+        "group": "Variante patate douce",
+        "items": [
+          "700g patate douce en dés de 2 à 3cm",
+          "Cuisson : 25 à 35min à 200°C chaleur tournante"
+        ]
+      },
+      {
+        "group": "Variante carotte ou panais",
+        "items": [
+          "700g carottes ou panais en bâtonnets réguliers",
+          "Cuisson : 22 à 35min à 200°C chaleur tournante"
+        ]
+      },
+      {
+        "group": "Variante betterave ou céleri-rave",
+        "items": [
+          "700g betterave ou céleri-rave en dés de 2 à 3cm",
+          "Cuisson : 30 à 45min à 200°C chaleur tournante"
+        ]
+      },
+      {
+        "group": "Variante courge ou butternut",
+        "items": [
+          "700g courge ou butternut en dés de 2 à 3cm",
+          "Cuisson : 25 à 35min à 200°C chaleur tournante"
+        ]
+      },
+      {
+        "group": "Variante brocoli, chou-fleur ou choux de Bruxelles",
+        "items": [
+          "650g brocoli ou chou-fleur en fleurettes, ou choux de Bruxelles coupés en deux",
+          "Cuisson : 15 à 25min à 200°C chaleur tournante"
+        ]
+      },
+      {
+        "group": "Variante poivron, courgette ou aubergine",
+        "items": [
+          "700g poivron en lanières, courgette en quartiers ou aubergine en dés de 2 à 3cm",
+          "Cuisson : 18 à 35min à 200°C chaleur tournante"
+        ]
+      },
+      {
+        "group": "Variante oignon, fenouil ou poireau",
+        "items": [
+          "650g oignons ou fenouil en quartiers, ou poireaux en tronçons de 3 à 4cm",
+          "Cuisson : 20 à 35min à 200°C chaleur tournante"
+        ]
+      },
+      {
+        "group": "Variante asperges, haricots verts ou champignons",
+        "items": [
+          "600g asperges parées, haricots verts bien secs ou champignons en gros quartiers",
+          "Cuisson : 10 à 18min à 200°C chaleur tournante"
+        ]
+      },
+      {
+        "group": "Variante tomates rôties",
+        "items": [
+          "700g tomates Roma coupées en deux",
+          "Cuisson : 20 à 25min à 200°C chaleur tournante"
         ]
       }
     ],
     "steps": [
       "Préchauffer le four à 200°C chaleur tournante avec la plaque si tu veux une coloration plus nette.",
-      "Tailler les légumes en morceaux réguliers pour que les temps du tableau restent cohérents.",
-      "Assaisonner avec huile, sel, poivre du moulin et aromates, puis étaler en une seule couche sans surcharger.",
-      "Rôtir selon le légume choisi, retourner à mi-cuisson et prolonger jusqu'à coloration et tendreté.",
+      "Ouvrir le bloc du légume choisi, puis tailler les morceaux au format indiqué pour garder un temps de cuisson fiable.",
+      "Assaisonner avec huile, sel, poivre du moulin et aromates, puis bien enrober sans écraser les légumes.",
+      "Étaler en une seule couche sur la plaque chaude, sans surcharger.",
+      "Rôtir selon le temps indiqué dans le bloc choisi, retourner à mi-cuisson et prolonger jusqu’à coloration et tendreté.",
       "Servir aussitôt ou refroidir rapidement avant conservation."
     ],
     "notes": [
@@ -966,7 +1024,7 @@ window.RECIPES = {
       "accompagnement legumes"
     ],
     "additionalMasters": [
-      "accompagnements_maitre"
+      "entrees_maitre"
     ]
   },
   "marinades_guide": {
@@ -2125,10 +2183,6 @@ window.RECIPES = {
       {
         "id": "tomates_maitre",
         "label": "Tomates préparées"
-      },
-      {
-        "id": "toppings_frites",
-        "label": "Toppings frites"
       }
     ],
     "ingredients": [
@@ -2208,10 +2262,6 @@ window.RECIPES = {
       {
         "id": "tomates_provencales",
         "label": "Tomates provençales"
-      },
-      {
-        "id": "toppings_frites",
-        "label": "Toppings frites"
       }
     ],
     "ingredients": [
@@ -3407,10 +3457,6 @@ window.RECIPES = {
       {
         "id": "tomates_variantes",
         "label": "Tomates confites et séchées"
-      },
-      {
-        "id": "toppings_frites",
-        "label": "Toppings frites"
       }
     ],
     "technical": [
@@ -4060,6 +4106,10 @@ window.RECIPES = {
       {
         "id": "sauces_assaisonnements_maitre",
         "label": "Sauces, pestos et assaisonnements"
+      },
+      {
+        "id": "toppings_frites",
+        "label": "Toppings frites"
       }
     ],
     "ingredients": [
@@ -6647,13 +6697,11 @@ window.RECIPES = {
   },
   "toppings_frites": {
     "title": "Toppings frites",
-    "master": "plats_maitre",
+    "master": "accompagnements_maitre",
     "image": "/assets/recipe-images/toppings_frites_spooky.png",
     "categories": [
-      "Plats",
-      "Apéro",
-      "Entrées",
-      "Accompagnements"
+      "Accompagnements",
+      "Sauces"
     ],
     "seasons": [
       "Toutes saisons"
@@ -6670,6 +6718,7 @@ window.RECIPES = {
     "tags": [
       "frites",
       "toppings",
+      "sauce",
       "garniture",
       "accompagnement"
     ],
@@ -6797,9 +6846,7 @@ window.RECIPES = {
       }
     ],
     "additionalMasters": [
-      "apero_maitre",
-      "entrees_maitre",
-      "accompagnements_maitre"
+      "sauces_maitre"
     ]
   },
   "curry_lentilles_coco": {

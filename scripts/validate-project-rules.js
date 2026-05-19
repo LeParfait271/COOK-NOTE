@@ -34,11 +34,13 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'score de completude',
   'La recherche doit comprendre les intentions',
   'reseau d abord avec cache de secours',
+  'bump la version des assets',
   'Le panier courses doit regrouper',
   'leur propre URL `/recette/id`',
   'ancien panneau de variante selectionnee',
   'Ne pas afficher toutes les recettes enfants en vrac',
-  'Sous le nom d\'une carte recette'
+  'Sous le nom d\'une carte recette',
+  '`Toppings frites` = Accompagnements/Sauces'
 ].forEach(fragment => {
   expect(`Regle manquante dans COOK_NOTE_RULES.md (${fragment}).`, rules.includes(fragment));
 });

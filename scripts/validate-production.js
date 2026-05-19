@@ -49,6 +49,7 @@ const recipeIds = new Set(Object.keys(recipes));
 const sitemap = read('sitemap.xml');
 const robots = read('robots.txt');
 const serviceWorker = read('service-worker.js');
+const indexHtml = read('index.html');
 const packageJson = read('package.json');
 
 const staticAssets = staticAssetsFromServiceWorker(serviceWorker);
@@ -69,6 +70,14 @@ if (!staticAssets) {
 
 if (!/CACHE_NAME\s*=\s*['"]cook-note-v\d+['"]/.test(serviceWorker)) {
   fail('service-worker.js: CACHE_NAME doit etre versionne en cook-note-vN.');
+}
+
+const indexAssetVersions = [...indexHtml.matchAll(/\b(?:app|recipes|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
+const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|recipes|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
+const swCacheVersion = serviceWorker.match(/CACHE_NAME\s*=\s*['"]cook-note-v(\d+)['"]/)?.[1];
+const allAssetVersions = [...indexAssetVersions, ...swAssetVersions, swCacheVersion].filter(Boolean);
+if (!allAssetVersions.length || new Set(allAssetVersions).size !== 1) {
+  fail('index.html/service-worker.js: versions assets incoherentes.');
 }
 
 if (!robots.includes('Disallow: /admin') || !robots.includes('Disallow: /api/')) {
