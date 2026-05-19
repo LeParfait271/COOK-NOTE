@@ -8,6 +8,7 @@
     "start": "node server.js",
     "audit:recipes": "node scripts/audit-recipes.js",
     "generate:sitemap": "node scripts/generate-sitemap.js",
+    "optimize:images": "powershell.exe -ExecutionPolicy Bypass -File .\\scripts\\optimize-images.ps1",
     "validate:recipes": "node scripts/validate-recipes.js",
     "validate:rules": "node scripts/validate-project-rules.js",
     "validate:production": "node scripts/validate-production.js",

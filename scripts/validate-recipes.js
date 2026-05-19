@@ -304,10 +304,19 @@ if (!recipes || typeof recipes !== 'object') {
       errors.push(`${id}: image manquante.`);
     } else if (/\.svg(?:$|\?)/i.test(recipe.image)) {
       errors.push(`${id}: image SVG placeholder interdite (${recipe.image}).`);
+    } else if (/^\/assets\/recipe-images\/.*\.png(?:$|\?)/i.test(recipe.image)) {
+      errors.push(`${id}: image recette non optimisee (${recipe.image}). Utiliser assets/recipe-images-optimized/ et garder le PNG original.`);
     } else if (recipe.image.startsWith('/')) {
       const filePath = path.join(ROOT, recipe.image.replace(/^\/+/, ''));
       if (!fs.existsSync(filePath)) errors.push(`${id}: image locale introuvable (${recipe.image}).`);
       else resolvedImagePath = filePath;
+      if (/^\/assets\/recipe-images-optimized\/.*\.jpg(?:$|\?)/i.test(recipe.image)) {
+        const originalPath = path.join(ROOT, recipe.image
+          .replace(/^\/+/, '')
+          .replace(/^assets[\\/]recipe-images-optimized[\\/]/, 'assets/recipe-images/')
+          .replace(/\.jpg(?:$|\?)/i, '.png'));
+        if (!fs.existsSync(originalPath)) errors.push(`${id}: master PNG introuvable pour l'image optimisee (${recipe.image}).`);
+      }
     }
 
     if (!isMaster && recipe.image) {

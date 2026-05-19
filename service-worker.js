@@ -1,31 +1,31 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v35
+//  Cook Note - Service Worker PWA v36
 //  Cache-first pour assets statiques
 //  Network-first pour les images externes (Unsplash, CDN)
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v35';
+const CACHE_NAME = 'cook-note-v36';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=35',
-  '/recipes.js?v=35',
-  '/style.css?v=35',
+  '/app.js?v=36',
+  '/recipes.js?v=36',
+  '/style.css?v=36',
   '/recipe.js',
   '/manifest.json',
   '/assets/cook-note.png',
   '/assets/cook-note-white.png',
   '/assets/base-principale-fond-site.jpg',
-  '/assets/recipe-images/parent_accompagnements.png',
-  '/assets/recipe-images/parent_apero.png',
-  '/assets/recipe-images/parent_base.png',
-  '/assets/recipe-images/parent_desserts.png',
-  '/assets/recipe-images/parent_entrees.png',
-  '/assets/recipe-images/legumes_rotis_spooky.png',
-  '/assets/recipe-images/parent_petit_dejeuner.png',
-  '/assets/recipe-images/parent_plats.png',
-  '/assets/recipe-images/parent_sauces.png',
+  '/assets/recipe-images-optimized/parent_accompagnements.jpg',
+  '/assets/recipe-images-optimized/parent_apero.jpg',
+  '/assets/recipe-images-optimized/parent_base.jpg',
+  '/assets/recipe-images-optimized/parent_desserts.jpg',
+  '/assets/recipe-images-optimized/parent_entrees.jpg',
+  '/assets/recipe-images-optimized/legumes_rotis_spooky.jpg',
+  '/assets/recipe-images-optimized/parent_petit_dejeuner.jpg',
+  '/assets/recipe-images-optimized/parent_plats.jpg',
+  '/assets/recipe-images-optimized/parent_sauces.jpg',
 ];
 
 // Installation
@@ -34,7 +34,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
       .then(() => {
-        console.log('[SW v35] Assets statiques mis en cache.');
+        console.log('[SW v36] Assets statiques mis en cache.');
       })
   );
   self.skipWaiting();
@@ -48,7 +48,7 @@ self.addEventListener('activate', (event) => {
         keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
       )
     ).then(() => {
-        console.log('[SW v35] Anciens caches supprimés.');
+        console.log('[SW v36] Anciens caches supprimés.');
     })
   );
   self.clients.claim();

@@ -1,7 +1,7 @@
 window.RECIPES = {
   "coulis_maitre": {
     "title": "Coulis",
-    "image": "/assets/recipe-images/coulis_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/coulis_maitre_spooky.jpg",
     "categories": [
       "Sauces",
       "Desserts",
@@ -143,7 +143,7 @@ window.RECIPES = {
   },
   "chantilly_maitre": {
     "title": "Chantilly",
-    "image": "/assets/recipe-images/chantilly_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/chantilly_maitre_spooky.jpg",
     "categories": [
       "Desserts",
       "Base"
@@ -195,7 +195,7 @@ window.RECIPES = {
   },
   "cremes_maitre": {
     "title": "Toppings et garnitures",
-    "image": "/assets/recipe-images/cremes_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/cremes_maitre_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -299,7 +299,7 @@ window.RECIPES = {
   },
   "pates_bases_maitre": {
     "title": "Pâtes et bases pâtissières",
-    "image": "/assets/recipe-images/pates_bases_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg",
     "categories": [
       "Base"
     ],
@@ -350,7 +350,7 @@ window.RECIPES = {
   },
   "sauces_assaisonnements_maitre": {
     "title": "Sauces, pestos et assaisonnements",
-    "image": "/assets/recipe-images/sauces_assaisonnements_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/sauces_assaisonnements_maitre_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -437,7 +437,7 @@ window.RECIPES = {
   },
   "tomates_maitre": {
     "title": "Tomates préparées",
-    "image": "/assets/recipe-images/tomates_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/tomates_maitre_spooky.jpg",
     "categories": [
       "Entrées"
     ],
@@ -489,7 +489,7 @@ window.RECIPES = {
   },
   "biscuits_gouters_maitre": {
     "title": "Biscuits, cookies et meringues",
-    "image": "/assets/recipe-images/biscuits_gouters_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/biscuits_gouters_maitre_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -552,7 +552,7 @@ window.RECIPES = {
   },
   "bases_salees_maitre": {
     "title": "Bases salées",
-    "image": "/assets/recipe-images/bases_salees_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/bases_salees_maitre_spooky.jpg",
     "categories": [
       "Base"
     ],
@@ -620,7 +620,7 @@ window.RECIPES = {
   "vinaigrette": {
     "title": "Vinaigrette",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images/vinaigrette_spooky.png",
+    "image": "/assets/recipe-images-optimized/vinaigrette_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -659,7 +659,7 @@ window.RECIPES = {
   "pesto_variantes": {
     "title": "Pestos",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images/pesto_variantes_spooky.png",
+    "image": "/assets/recipe-images-optimized/pesto_variantes_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -716,7 +716,7 @@ window.RECIPES = {
   "ricotta_fouettee": {
     "title": "Ricotta fouettée",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images/ricotta_fouettee_spooky.png",
+    "image": "/assets/recipe-images-optimized/ricotta_fouettee_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -762,7 +762,7 @@ window.RECIPES = {
   "balsamique_reduit": {
     "title": "Balsamique réduit",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images/balsamique_reduit_spooky.png",
+    "image": "/assets/recipe-images-optimized/balsamique_reduit_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -808,7 +808,7 @@ window.RECIPES = {
   "tomates_variantes": {
     "title": "Tomates confites et séchées",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images/tomates_variantes_spooky.png",
+    "image": "/assets/recipe-images-optimized/tomates_variantes_spooky.jpg",
     "categories": [
       "Apéro",
       "Entrées",
@@ -880,7 +880,7 @@ window.RECIPES = {
   "huile_pimentee_pizza": {
     "title": "Huile pimentée pour pizza",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images/huile_pimentee_pizza_spooky.png",
+    "image": "/assets/recipe-images-optimized/huile_pimentee_pizza_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -915,7 +915,7 @@ window.RECIPES = {
   "legumes_rotis": {
     "title": "Légumes rôtis au four",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images/legumes_rotis_spooky.png",
+    "image": "/assets/recipe-images-optimized/legumes_rotis_spooky.jpg",
     "categories": [
       "Accompagnements",
       "Entrées"
@@ -1042,7 +1042,7 @@ window.RECIPES = {
   "marinades_guide": {
     "title": "Marinades",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images/marinades_guide_spooky.png",
+    "image": "/assets/recipe-images-optimized/marinades_guide_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -1190,7 +1190,7 @@ window.RECIPES = {
   "cookies_sales_variantes": {
     "title": "Cookies salés",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images/cookies_sales_variantes_spooky.png",
+    "image": "/assets/recipe-images-optimized/cookies_sales_variantes_spooky.jpg",
     "categories": [
       "Apéro"
     ],
@@ -1243,7 +1243,7 @@ window.RECIPES = {
   "pancakes_variantes": {
     "title": "Pancakes",
     "master": "petit_dejeuner_maitre",
-    "image": "/assets/recipe-images/pancakes_variantes_spooky.png",
+    "image": "/assets/recipe-images-optimized/pancakes_variantes_spooky.jpg",
     "categories": [
       "Petits-déjeuners"
     ],
@@ -1308,7 +1308,7 @@ window.RECIPES = {
   "chocolat_ancien": {
     "title": "Chocolat chaud à l'ancienne",
     "master": "petit_dejeuner_maitre",
-    "image": "/assets/recipe-images/chocolat_ancien_spooky.png",
+    "image": "/assets/recipe-images-optimized/chocolat_ancien_spooky.jpg",
     "categories": [
       "Petits-déjeuners"
     ],
@@ -1357,7 +1357,7 @@ window.RECIPES = {
   "chantilly_classique": {
     "title": "Chantilly classique",
     "master": "chantilly_maitre",
-    "image": "/assets/recipe-images/chantilly_classique_spooky.png",
+    "image": "/assets/recipe-images-optimized/chantilly_classique_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -1405,7 +1405,7 @@ window.RECIPES = {
   "mascarpone": {
     "title": "Crème mascarpone vanille",
     "master": "cremes_maitre",
-    "image": "/assets/recipe-images/mascarpone_spooky.png",
+    "image": "/assets/recipe-images-optimized/mascarpone_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -1448,7 +1448,7 @@ window.RECIPES = {
   "chantilly_gelatine": {
     "title": "Chantilly stabilisée",
     "master": "chantilly_maitre",
-    "image": "/assets/recipe-images/chantilly_gelatine_spooky.png",
+    "image": "/assets/recipe-images-optimized/chantilly_gelatine_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -1480,7 +1480,7 @@ window.RECIPES = {
   "creme_diplomate_vanille": {
     "title": "Crème diplomate vanille",
     "master": "cremes_maitre",
-    "image": "/assets/recipe-images/creme_diplomate_vanille_spooky.png",
+    "image": "/assets/recipe-images-optimized/creme_diplomate_vanille_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -1534,7 +1534,7 @@ window.RECIPES = {
   "choux_craquelin": {
     "title": "Choux au craquelin",
     "master": "desserts_maitre",
-    "image": "/assets/recipe-images/choux_craquelin_spooky.png",
+    "image": "/assets/recipe-images-optimized/choux_craquelin_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -1589,7 +1589,7 @@ window.RECIPES = {
   "meringues": {
     "title": "Meringues",
     "master": "biscuits_gouters_maitre",
-    "image": "/assets/recipe-images/meringues_spooky.png",
+    "image": "/assets/recipe-images-optimized/meringues_spooky.jpg",
     "categories": [
       "Desserts",
       "Base"
@@ -1641,7 +1641,7 @@ window.RECIPES = {
     ],
     "difficulty": "easy",
     "yield": "≈ 1 litre (pour pocher 4–6 portions)",
-    "image": "/assets/recipe-images/court_bouillon_spooky.png",
+    "image": "/assets/recipe-images-optimized/court_bouillon_spooky.jpg",
     "ingredients": [
       {
         "group": "Légumes & aromates",
@@ -1696,7 +1696,7 @@ window.RECIPES = {
     ],
     "difficulty": "medium",
     "yield": "12–14 beignets de 60–70g",
-    "image": "/assets/recipe-images/donuts_cloud_spooky.png",
+    "image": "/assets/recipe-images-optimized/donuts_cloud_spooky.jpg",
     "ingredients": [
       {
         "group": "Pâte",
@@ -1770,7 +1770,7 @@ window.RECIPES = {
     ],
     "difficulty": "medium",
     "yield": "Garniture pour 12–14 donuts ou 18–22 choux",
-    "image": "/assets/recipe-images/creme_diplomate_cloud_spooky.png",
+    "image": "/assets/recipe-images-optimized/creme_diplomate_cloud_spooky.jpg",
     "ingredients": [
       {
         "group": "Crème pâtissière",
@@ -1833,7 +1833,7 @@ window.RECIPES = {
   "paris_brest": {
     "title": "Paris-Brest",
     "master": "desserts_maitre",
-    "image": "/assets/recipe-images/paris_brest_spooky.png",
+    "image": "/assets/recipe-images-optimized/paris_brest_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -1879,7 +1879,7 @@ window.RECIPES = {
   "craquelin_cacao": {
     "title": "Craquelin cacao",
     "master": "desserts_maitre",
-    "image": "/assets/recipe-images/craquelin_cacao_spooky.png",
+    "image": "/assets/recipe-images-optimized/craquelin_cacao_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -1915,7 +1915,7 @@ window.RECIPES = {
   "pate_choux": {
     "title": "Pâte à choux",
     "master": "pates_bases_maitre",
-    "image": "/assets/recipe-images/pate_choux_spooky.png",
+    "image": "/assets/recipe-images-optimized/pate_choux_spooky.jpg",
     "categories": [
       "Base",
       "Desserts"
@@ -1958,7 +1958,7 @@ window.RECIPES = {
   "creme_patissiere_praline": {
     "title": "Crème pâtissière praliné",
     "master": "cremes_maitre",
-    "image": "/assets/recipe-images/creme_patissiere_praline_spooky.png",
+    "image": "/assets/recipe-images-optimized/creme_patissiere_praline_spooky.jpg",
     "categories": [
       "Desserts",
       "Base"
@@ -2005,7 +2005,7 @@ window.RECIPES = {
   "creme_beurre_meringue_italienne": {
     "title": "Crème au beurre meringue italienne",
     "master": "cremes_maitre",
-    "image": "/assets/recipe-images/creme_beurre_meringue_italienne_spooky.png",
+    "image": "/assets/recipe-images-optimized/creme_beurre_meringue_italienne_spooky.jpg",
     "categories": [
       "Desserts",
       "Base"
@@ -2053,7 +2053,7 @@ window.RECIPES = {
   "creme_praline": {
     "title": "Crème praliné",
     "master": "cremes_maitre",
-    "image": "/assets/recipe-images/creme_praline_spooky.png",
+    "image": "/assets/recipe-images-optimized/creme_praline_spooky.jpg",
     "categories": [
       "Desserts",
       "Base"
@@ -2088,7 +2088,7 @@ window.RECIPES = {
   },
   "petit_dejeuner_maitre": {
     "title": "Petit-déjeuner",
-    "image": "/assets/recipe-images/parent_petit_dejeuner.png",
+    "image": "/assets/recipe-images-optimized/parent_petit_dejeuner.jpg",
     "categories": [
       "Petits-déjeuners"
     ],
@@ -2139,7 +2139,7 @@ window.RECIPES = {
   },
   "entrees_maitre": {
     "title": "Entrées",
-    "image": "/assets/recipe-images/parent_entrees.png",
+    "image": "/assets/recipe-images-optimized/parent_entrees.jpg",
     "categories": [
       "Entrées"
     ],
@@ -2214,7 +2214,7 @@ window.RECIPES = {
   },
   "plats_maitre": {
     "title": "Plats",
-    "image": "/assets/recipe-images/parent_plats.png",
+    "image": "/assets/recipe-images-optimized/parent_plats.jpg",
     "categories": [
       "Plats"
     ],
@@ -2293,7 +2293,7 @@ window.RECIPES = {
   },
   "accompagnements_maitre": {
     "title": "Accompagnements",
-    "image": "/assets/recipe-images/parent_accompagnements.png",
+    "image": "/assets/recipe-images-optimized/parent_accompagnements.jpg",
     "categories": [
       "Accompagnements"
     ],
@@ -2372,7 +2372,7 @@ window.RECIPES = {
   },
   "desserts_maitre": {
     "title": "Desserts",
-    "image": "/assets/recipe-images/parent_desserts.png",
+    "image": "/assets/recipe-images-optimized/parent_desserts.jpg",
     "categories": [
       "Desserts"
     ],
@@ -2448,7 +2448,7 @@ window.RECIPES = {
   "crumble_pomme_poire": {
     "title": "Crumble pomme-poire",
     "master": "desserts_maitre",
-    "image": "/assets/recipe-images/crumble_pomme_poire.png",
+    "image": "/assets/recipe-images-optimized/crumble_pomme_poire.jpg",
     "categories": [
       "Desserts"
     ],
@@ -2520,7 +2520,7 @@ window.RECIPES = {
   "creme_kinder_nutella": {
     "title": "Crème Nutella à garnir",
     "master": "cremes_maitre",
-    "image": "/assets/recipe-images/creme_kinder_nutella_spooky.png",
+    "image": "/assets/recipe-images-optimized/creme_kinder_nutella_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -2566,7 +2566,7 @@ window.RECIPES = {
   "creme_pistache": {
     "title": "Crème pistache à garnir",
     "master": "cremes_maitre",
-    "image": "/assets/recipe-images/creme_pistache_spooky.png",
+    "image": "/assets/recipe-images-optimized/creme_pistache_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -2606,7 +2606,7 @@ window.RECIPES = {
   "oeuf_chili_crisp_toast": {
     "title": "Œuf sur le plat chili crisp sur toast",
     "master": "petit_dejeuner_maitre",
-    "image": "/assets/recipe-images/oeuf_chili_crisp_toast_spooky.png",
+    "image": "/assets/recipe-images-optimized/oeuf_chili_crisp_toast_spooky.jpg",
     "categories": [
       "Petits-déjeuners"
     ],
@@ -2699,7 +2699,7 @@ window.RECIPES = {
   "gaufre_bruxelles": {
     "title": "Gaufres",
     "master": "petit_dejeuner_maitre",
-    "image": "/assets/recipe-images/gaufre_bruxelles_spooky.png",
+    "image": "/assets/recipe-images-optimized/gaufre_bruxelles_spooky.jpg",
     "categories": [
       "Petits-déjeuners"
     ],
@@ -2746,7 +2746,7 @@ window.RECIPES = {
   "tarte_citron_meringuee": {
     "title": "Tarte citron meringuée",
     "master": "tartes_maitre",
-    "image": "/assets/recipe-images/tarte_citron_meringuee_spooky.png",
+    "image": "/assets/recipe-images-optimized/tarte_citron_meringuee_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -2837,7 +2837,7 @@ window.RECIPES = {
   "tiramisu_speculoos": {
     "title": "Tiramisu spéculoos",
     "master": "desserts_cuillere_maitre",
-    "image": "/assets/recipe-images/tiramisu_speculoos_spooky.png",
+    "image": "/assets/recipe-images-optimized/tiramisu_speculoos_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -2883,7 +2883,7 @@ window.RECIPES = {
   "cake_sale_lardon": {
     "title": "Cake salé poitrine fumée",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images/cake_sale_lardon_spooky.png",
+    "image": "/assets/recipe-images-optimized/cake_sale_lardon_spooky.jpg",
     "categories": [
       "Apéro"
     ],
@@ -2951,7 +2951,7 @@ window.RECIPES = {
   "oignons_rotis_thym_miel": {
     "title": "Oignons rôtis au thym et au miel",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images/oignons_rotis_thym_miel_spooky.png",
+    "image": "/assets/recipe-images-optimized/oignons_rotis_thym_miel_spooky.jpg",
     "categories": [
       "Entrées",
       "Accompagnements"
@@ -3003,7 +3003,7 @@ window.RECIPES = {
   "cochon_confit_biere_erable": {
     "title": "Cochon confit à la bière et au sirop d’érable",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images/cochon_confit_biere_erable_spooky.png",
+    "image": "/assets/recipe-images-optimized/cochon_confit_biere_erable_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -3059,7 +3059,7 @@ window.RECIPES = {
   "pate_sucree": {
     "title": "Pâte sucrée",
     "master": "pates_bases_maitre",
-    "image": "/assets/recipe-images/pate_sucree_spooky.png",
+    "image": "/assets/recipe-images-optimized/pate_sucree_spooky.jpg",
     "categories": [
       "Base"
     ],
@@ -3104,7 +3104,7 @@ window.RECIPES = {
   "creme_amande_citron": {
     "title": "Crème d’amande pour fond de tarte",
     "master": "cremes_maitre",
-    "image": "/assets/recipe-images/creme_amande_citron_spooky.png",
+    "image": "/assets/recipe-images-optimized/creme_amande_citron_spooky.jpg",
     "categories": [
       "Desserts",
       "Base"
@@ -3154,7 +3154,7 @@ window.RECIPES = {
   "creme_citron_lemon_curd": {
     "title": "Crème citron",
     "master": "cremes_maitre",
-    "image": "/assets/recipe-images/creme_citron_lemon_curd_spooky.png",
+    "image": "/assets/recipe-images-optimized/creme_citron_lemon_curd_spooky.jpg",
     "categories": [
       "Desserts",
       "Base"
@@ -3203,7 +3203,7 @@ window.RECIPES = {
   "compotee_citron": {
     "title": "Marmelade citron",
     "master": "cremes_maitre",
-    "image": "/assets/recipe-images/compotee_citron_spooky.png",
+    "image": "/assets/recipe-images-optimized/compotee_citron_spooky.jpg",
     "categories": [
       "Desserts",
       "Base"
@@ -3252,7 +3252,7 @@ window.RECIPES = {
   "meringue_italienne": {
     "title": "Meringue italienne",
     "master": "cremes_maitre",
-    "image": "/assets/recipe-images/meringue_italienne_spooky.png",
+    "image": "/assets/recipe-images-optimized/meringue_italienne_spooky.jpg",
     "categories": [
       "Desserts",
       "Base"
@@ -3300,7 +3300,7 @@ window.RECIPES = {
   "creme_patissiere_vanille": {
     "title": "Crème pâtissière vanille",
     "master": "cremes_maitre",
-    "image": "/assets/recipe-images/creme_patissiere_vanille_spooky.png",
+    "image": "/assets/recipe-images-optimized/creme_patissiere_vanille_spooky.jpg",
     "categories": [
       "Desserts",
       "Base"
@@ -3349,7 +3349,7 @@ window.RECIPES = {
   "salade_avocat_oeuf_epinards": {
     "title": "Salade avocat, œuf et épinards",
     "master": "crudites_maitre",
-    "image": "/assets/recipe-images/salade_avocat_oeuf_epinards_spooky.png",
+    "image": "/assets/recipe-images-optimized/salade_avocat_oeuf_epinards_spooky.jpg",
     "categories": [
       "Entrées"
     ],
@@ -3403,7 +3403,7 @@ window.RECIPES = {
   },
   "apero_maitre": {
     "title": "Apéro",
-    "image": "/assets/recipe-images/parent_apero.png",
+    "image": "/assets/recipe-images-optimized/parent_apero.jpg",
     "categories": [
       "Apéro"
     ],
@@ -3485,7 +3485,7 @@ window.RECIPES = {
   "desserts_cuillere_maitre": {
     "title": "Desserts à la cuillère",
     "master": "desserts_maitre",
-    "image": "/assets/recipe-images/desserts_cuillere_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/desserts_cuillere_maitre_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -3516,7 +3516,7 @@ window.RECIPES = {
   "tartes_maitre": {
     "title": "Tartes",
     "master": "desserts_maitre",
-    "image": "/assets/recipe-images/tartes_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/tartes_maitre_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -3546,7 +3546,7 @@ window.RECIPES = {
   "crudites_maitre": {
     "title": "Crudités et salades fraîches",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images/crudites_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/crudites_maitre_spooky.jpg",
     "categories": [
       "Entrées"
     ],
@@ -3591,7 +3591,7 @@ window.RECIPES = {
   "babeurre_maison": {
     "title": "Babeurre maison",
     "master": "elements_base_maitre",
-    "image": "/assets/recipe-images/babeurre_maison_spooky.png",
+    "image": "/assets/recipe-images-optimized/babeurre_maison_spooky.jpg",
     "categories": [
       "Base"
     ],
@@ -3633,7 +3633,7 @@ window.RECIPES = {
   "tomates_provencales": {
     "title": "Tomates provençales",
     "master": "tomates_maitre",
-    "image": "/assets/recipe-images/tomates_provencales_spooky.png",
+    "image": "/assets/recipe-images-optimized/tomates_provencales_spooky.jpg",
     "categories": [
       "Entrées",
       "Plats",
@@ -3691,7 +3691,7 @@ window.RECIPES = {
   "tortillas_mexicaines": {
     "title": "Tortillas",
     "master": "bases_salees_maitre",
-    "image": "/assets/recipe-images/tortillas_mexicaines_spooky.png",
+    "image": "/assets/recipe-images-optimized/tortillas_mexicaines_spooky.jpg",
     "categories": [
       "Base"
     ],
@@ -3742,7 +3742,7 @@ window.RECIPES = {
   "mi_cuits_chocolat": {
     "title": "Mi-cuits au chocolat",
     "master": "desserts_cuillere_maitre",
-    "image": "/assets/recipe-images/mi_cuits_chocolat_spooky.png",
+    "image": "/assets/recipe-images-optimized/mi_cuits_chocolat_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -3805,7 +3805,7 @@ window.RECIPES = {
   "cookies_chocolat_blanc_cranberry": {
     "title": "Cookies chocolat blanc cranberry",
     "master": "cookies_sucres_maitre",
-    "image": "/assets/recipe-images/cookies_chocolat_blanc_cranberry_spooky.png",
+    "image": "/assets/recipe-images-optimized/cookies_chocolat_blanc_cranberry_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -3870,7 +3870,7 @@ window.RECIPES = {
   "macaron_ourea_pierre_herme": {
     "title": "Macaron Ouréa",
     "master": "biscuits_gouters_maitre",
-    "image": "/assets/recipe-images/macaron_ourea_pierre_herme_spooky.png",
+    "image": "/assets/recipe-images-optimized/macaron_ourea_pierre_herme_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -3935,7 +3935,7 @@ window.RECIPES = {
   "cake_citron": {
     "title": "Cake au citron",
     "master": "biscuits_gouters_maitre",
-    "image": "/assets/recipe-images/cake_citron.png",
+    "image": "/assets/recipe-images-optimized/cake_citron.jpg",
     "categories": [
       "Desserts"
     ],
@@ -4029,7 +4029,7 @@ window.RECIPES = {
   "churros_maison": {
     "title": "Churros",
     "master": "biscuits_gouters_maitre",
-    "image": "/assets/recipe-images/churros_maison_spooky.png",
+    "image": "/assets/recipe-images-optimized/churros_maison_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -4091,7 +4091,7 @@ window.RECIPES = {
   },
   "sauces_maitre": {
     "title": "Sauces",
-    "image": "/assets/recipe-images/parent_sauces.png",
+    "image": "/assets/recipe-images-optimized/parent_sauces.jpg",
     "categories": [
       "Sauces"
     ],
@@ -4141,7 +4141,7 @@ window.RECIPES = {
   },
   "elements_base_maitre": {
     "title": "Bases",
-    "image": "/assets/recipe-images/parent_base.png",
+    "image": "/assets/recipe-images-optimized/parent_base.jpg",
     "categories": [
       "Base"
     ],
@@ -4239,7 +4239,7 @@ window.RECIPES = {
   "cookies_sucres_maitre": {
     "title": "Cookies sucrés",
     "master": "biscuits_gouters_maitre",
-    "image": "/assets/recipe-images/cookies_spooky.png",
+    "image": "/assets/recipe-images-optimized/cookies_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -4290,7 +4290,7 @@ window.RECIPES = {
   "cookies_beurre_noisette_chocolat_noir_lait": {
     "title": "Cookies au beurre noisette chocolat noir/lait",
     "master": "cookies_sucres_maitre",
-    "image": "/assets/recipe-images/cookies_beurre_noisette_chocolat_noir_lait_spooky.png",
+    "image": "/assets/recipe-images-optimized/cookies_beurre_noisette_chocolat_noir_lait_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -4388,7 +4388,7 @@ window.RECIPES = {
   "cookies_chocolat_noir_lait": {
     "title": "Cookies au chocolat noir/lait",
     "master": "cookies_sucres_maitre",
-    "image": "/assets/recipe-images/cookies_chocolat_noir_lait_spooky.png",
+    "image": "/assets/recipe-images-optimized/cookies_chocolat_noir_lait_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -4471,7 +4471,7 @@ window.RECIPES = {
   "cookies_chocolat_noix": {
     "title": "Cookies moelleux aux pépites de chocolat et noix",
     "master": "cookies_sucres_maitre",
-    "image": "/assets/recipe-images/cookies_chocolat_noix_spooky.png",
+    "image": "/assets/recipe-images-optimized/cookies_chocolat_noix_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -4556,7 +4556,7 @@ window.RECIPES = {
   "sauces_burger_variantes": {
     "title": "Sauces burger",
     "master": "sauces_maitre",
-    "image": "/assets/recipe-images/sauces_assaisonnements_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/sauces_assaisonnements_maitre_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -4648,7 +4648,7 @@ window.RECIPES = {
   "pates_tarte_variantes": {
     "title": "Pâtes à tarte",
     "master": "elements_base_maitre",
-    "image": "/assets/recipe-images/pates_bases_maitre_spooky.png",
+    "image": "/assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg",
     "categories": [
       "Base"
     ],
@@ -4748,7 +4748,7 @@ window.RECIPES = {
   "caramel_cheesecake_cookies": {
     "title": "Cookies caramel cheesecake",
     "master": "cookies_sucres_maitre",
-    "image": "/assets/recipe-images/cookies_caramel_cheesecake_spooky.png",
+    "image": "/assets/recipe-images-optimized/cookies_caramel_cheesecake_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -4815,7 +4815,7 @@ window.RECIPES = {
   "sauce_caramel": {
     "title": "Sauce caramel",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images/sauce_caramel_spooky.png",
+    "image": "/assets/recipe-images-optimized/sauce_caramel_spooky.jpg",
     "categories": [
       "Sauces",
       "Desserts"
@@ -4883,7 +4883,7 @@ window.RECIPES = {
   "sauce_aux_poivres": {
     "title": "Sauce aux poivres",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images/sauce_aux_poivres_spooky.png",
+    "image": "/assets/recipe-images-optimized/sauce_aux_poivres_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -4998,7 +4998,7 @@ window.RECIPES = {
   "cotelettes_porc_miel_moutarde": {
     "title": "Côtelettes de porc miel moutarde",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images/cotelettes_porc_miel_moutarde_spooky.png",
+    "image": "/assets/recipe-images-optimized/cotelettes_porc_miel_moutarde_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -5088,7 +5088,7 @@ window.RECIPES = {
   "rouille_haut_de_gamme": {
     "title": "Rouille",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images/rouille_haut_de_gamme_spooky.png",
+    "image": "/assets/recipe-images-optimized/rouille_haut_de_gamme_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -5184,7 +5184,7 @@ window.RECIPES = {
   "bouillabaisse_rouille": {
     "title": "Bouillabaisse",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images/bouillabaisse_spooky.png",
+    "image": "/assets/recipe-images-optimized/bouillabaisse_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -5304,7 +5304,7 @@ window.RECIPES = {
   "cookies_chocolat_moelleux": {
     "title": "Cookies chocolat moelleux",
     "master": "cookies_sucres_maitre",
-    "image": "/assets/recipe-images/cookies_chocolat_moelleux_spooky.png",
+    "image": "/assets/recipe-images-optimized/cookies_chocolat_moelleux_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -5370,7 +5370,7 @@ window.RECIPES = {
   "pancakes_fluffy": {
     "title": "Pancakes fluffy",
     "master": "petit_dejeuner_maitre",
-    "image": "/assets/recipe-images/pancakes_fluffy_spooky.png",
+    "image": "/assets/recipe-images-optimized/pancakes_fluffy_spooky.jpg",
     "categories": [
       "Petits-déjeuners"
     ],
@@ -5438,7 +5438,7 @@ window.RECIPES = {
   "mayonnaise_maison": {
     "title": "Mayonnaise",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images/mayonnaise_maison_spooky.png",
+    "image": "/assets/recipe-images-optimized/mayonnaise_maison_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -5522,7 +5522,7 @@ window.RECIPES = {
   "cassolette_crevettes_ravioles_persil": {
     "title": "Cassolette de crevettes et ravioles au persil",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images/cassolette_crevettes_ravioles_persil.png",
+    "image": "/assets/recipe-images-optimized/cassolette_crevettes_ravioles_persil.jpg",
     "categories": [
       "Plats",
       "Entrées"
@@ -5640,7 +5640,7 @@ window.RECIPES = {
   "frites_belges": {
     "title": "Frites belges",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images/frites_belges_spooky.png",
+    "image": "/assets/recipe-images-optimized/frites_belges_spooky.jpg",
     "categories": [
       "Plats",
       "Apéro",
@@ -5724,7 +5724,7 @@ window.RECIPES = {
   "pain_hot_dog": {
     "title": "Pains hot-dog",
     "master": "bases_salees_maitre",
-    "image": "/assets/recipe-images/pain_hot_dog_spooky.png",
+    "image": "/assets/recipe-images-optimized/pain_hot_dog_spooky.jpg",
     "categories": [
       "Base"
     ],
@@ -5802,7 +5802,7 @@ window.RECIPES = {
   "oeufs_mimosa_variantes": {
     "title": "Œufs mimosa",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images/oeufs_mimosa_spooky.png",
+    "image": "/assets/recipe-images-optimized/oeufs_mimosa_spooky.jpg",
     "categories": [
       "Apéro",
       "Entrées"
@@ -5918,7 +5918,7 @@ window.RECIPES = {
   "beignets_calamar": {
     "title": "Beignets de calamar",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images/beignets_calamar_spooky.png",
+    "image": "/assets/recipe-images-optimized/beignets_calamar_spooky.jpg",
     "categories": [
       "Apéro",
       "Entrées",
@@ -6066,7 +6066,7 @@ window.RECIPES = {
   "gaufres_pommes_terre": {
     "title": "Gaufres de pommes de terre croustillantes",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images/gaufres_pommes_terre_spooky.png",
+    "image": "/assets/recipe-images-optimized/gaufres_pommes_terre_spooky.jpg",
     "categories": [
       "Plats",
       "Accompagnements"
@@ -6178,7 +6178,7 @@ window.RECIPES = {
   "mojitos_variantes": {
     "title": "Mojitos",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images/mojitos_spooky.png",
+    "image": "/assets/recipe-images-optimized/mojitos_spooky.jpg",
     "categories": [
       "Apéro"
     ],
@@ -6300,7 +6300,7 @@ window.RECIPES = {
   "chou_fleur_croustillant": {
     "title": "Chou-fleur croustillant",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images/chou_fleur_croustillant_spooky.png",
+    "image": "/assets/recipe-images-optimized/chou_fleur_croustillant_spooky.jpg",
     "categories": [
       "Apéro",
       "Entrées",
@@ -6376,7 +6376,7 @@ window.RECIPES = {
   "gazpacho_tomate_menthe_basilic": {
     "title": "Gazpacho tomate, menthe et basilic",
     "master": "crudites_maitre",
-    "image": "/assets/recipe-images/gazpacho_tomate_menthe_basilic_spooky.png",
+    "image": "/assets/recipe-images-optimized/gazpacho_tomate_menthe_basilic_spooky.jpg",
     "categories": [
       "Entrées"
     ],
@@ -6457,7 +6457,7 @@ window.RECIPES = {
   "gaspacho_melon": {
     "title": "Gaspacho de melon",
     "master": "crudites_maitre",
-    "image": "/assets/recipe-images/gaspacho_melon_spooky.png",
+    "image": "/assets/recipe-images-optimized/gaspacho_melon_spooky.jpg",
     "categories": [
       "Entrées"
     ],
@@ -6534,7 +6534,7 @@ window.RECIPES = {
   "salade_melon_mozzarella_jambon_cru": {
     "title": "Salade melon, mozzarella et jambon cru",
     "master": "crudites_maitre",
-    "image": "/assets/recipe-images/salade_melon_mozzarella_jambon_cru_spooky.png",
+    "image": "/assets/recipe-images-optimized/salade_melon_mozzarella_jambon_cru_spooky.jpg",
     "categories": [
       "Entrées"
     ],
@@ -6629,7 +6629,7 @@ window.RECIPES = {
   "frites_maison": {
     "title": "Frites maison",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images/frites_maison_spooky.png",
+    "image": "/assets/recipe-images-optimized/frites_maison_spooky.jpg",
     "categories": [
       "Plats",
       "Apéro",
@@ -6710,7 +6710,7 @@ window.RECIPES = {
   "toppings_frites": {
     "title": "Toppings frites",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images/toppings_frites_spooky.png",
+    "image": "/assets/recipe-images-optimized/toppings_frites_spooky.jpg",
     "categories": [
       "Accompagnements",
       "Sauces"
@@ -6864,7 +6864,7 @@ window.RECIPES = {
   "curry_lentilles_coco": {
     "title": "Curry de lentilles vertes au lait de coco",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images/curry_lentilles_coco_spooky.png",
+    "image": "/assets/recipe-images-optimized/curry_lentilles_coco_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -6979,7 +6979,7 @@ window.RECIPES = {
   "frites_patate_douce": {
     "title": "Frites de patate douce",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images/frites_patate_douce_spooky.png",
+    "image": "/assets/recipe-images-optimized/frites_patate_douce_spooky.jpg",
     "categories": [
       "Plats",
       "Apéro",
@@ -7077,7 +7077,7 @@ window.RECIPES = {
   "sauce_yaourt_citronnee": {
     "title": "Sauce yaourt citronnée",
     "master": "sauces_maitre",
-    "image": "/assets/recipe-images/sauce_yaourt_citronnee_spooky.png",
+    "image": "/assets/recipe-images-optimized/sauce_yaourt_citronnee_spooky.jpg",
     "categories": [
       "Sauces",
       "Apéro",
@@ -7145,7 +7145,7 @@ window.RECIPES = {
   "sauce_mornay": {
     "title": "Sauce Mornay",
     "master": "sauces_maitre",
-    "image": "/assets/recipe-images/sauce_mornay_spooky.png",
+    "image": "/assets/recipe-images-optimized/sauce_mornay_spooky.jpg",
     "categories": [
       "Sauces",
       "Base"
@@ -7216,7 +7216,7 @@ window.RECIPES = {
   "gratin_chou_fleur": {
     "title": "Gratin de chou-fleur",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images/gratin_chou_fleur_spooky.png",
+    "image": "/assets/recipe-images-optimized/gratin_chou_fleur_spooky.jpg",
     "categories": [
       "Plats",
       "Accompagnements"
@@ -7309,7 +7309,7 @@ window.RECIPES = {
   "pains_burgers_brioche": {
     "title": "Pains burgers briochés",
     "master": "bases_salees_maitre",
-    "image": "/assets/recipe-images/pains_burgers_brioche_spooky.png",
+    "image": "/assets/recipe-images-optimized/pains_burgers_brioche_spooky.jpg",
     "categories": [
       "Base"
     ],
@@ -7408,7 +7408,7 @@ window.RECIPES = {
   "pate_legere_beignets_calamar_crevettes": {
     "title": "Pâte légère pour beignets de calamar ou crevettes",
     "master": "bases_salees_maitre",
-    "image": "/assets/recipe-images/pate_legere_beignets_calamar_crevettes_spooky.png",
+    "image": "/assets/recipe-images-optimized/pate_legere_beignets_calamar_crevettes_spooky.jpg",
     "categories": [
       "Base",
       "Apéro"
@@ -7510,7 +7510,7 @@ window.RECIPES = {
   "aioli_citronne_leger": {
     "title": "Aïoli citronné léger",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images/aioli_citronne_leger_spooky.png",
+    "image": "/assets/recipe-images-optimized/aioli_citronne_leger_spooky.jpg",
     "categories": [
       "Sauces",
       "Apéro"
@@ -7606,7 +7606,7 @@ window.RECIPES = {
   "tempura_beignets_calamar_crevettes": {
     "title": "Tempura pour beignets de calamar ou crevettes",
     "master": "bases_salees_maitre",
-    "image": "/assets/recipe-images/tempura_beignets_calamar_crevettes_spooky.png",
+    "image": "/assets/recipe-images-optimized/tempura_beignets_calamar_crevettes_spooky.jpg",
     "categories": [
       "Base",
       "Apéro"
