@@ -3530,6 +3530,9 @@ function RecipeView({
               h('span', { key: 'steps' }, stepMetaText)
             ]
         ),
+        hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h('div', { className: 'detail-quantity-row' },
+          h(QuantityFactorControl, { recipe: selectedRecipe, factor, setFactor, className: 'detail-quantity-control' })
+        ),
         h('div', { className: 'detail-actions' },
           hasSelectedVariant && h(Button, { variant: isInShopping ? 'primary' : 'ghost', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(detailKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
           hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(Button, {

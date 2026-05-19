@@ -1420,6 +1420,16 @@ a {
   text-shadow: 0 10px 34px rgba(0, 0, 0, .68);
 }
 
+.detail-quantity-row {
+  display: flex;
+  margin-top: 12px;
+}
+
+.detail-quantity-control {
+  background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
+  backdrop-filter: blur(12px);
+}
+
 .recipe-detail-grid {
   width: min(1180px, calc(100% - 32px));
   display: grid;
