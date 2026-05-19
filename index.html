@@ -6,58 +6,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- SEO -->
-  <meta name="description" content="Cook Note : carnet de recettes avec ingrédients, quantités ajustables, étapes, notes pratiques et favoris." />
+  <meta name="description" content="Livre de cuisine de MaruChiwa" />
   <meta name="author" content="Cook Note" />
   <meta name="theme-color" content="#fbbf24" />
   <meta name="color-scheme" content="dark" />
 
   <!-- Open Graph -->
   <meta property="og:title"       content="Cook Note" />
-  <meta property="og:description" content="Carnet de recettes Cook Note avec ingrédients, quantités ajustables, étapes et notes pratiques." />
+  <meta property="og:description" content="Livre de cuisine de MaruChiwa" />
   <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://1c1996d6.cook-note.pages.dev/" />
-  <meta property="og:image"       content="https://1c1996d6.cook-note.pages.dev/assets/base-principale-fond-site.jpg?v=26" />
-  <meta property="og:image:secure_url" content="https://1c1996d6.cook-note.pages.dev/assets/base-principale-fond-site.jpg?v=26" />
+  <meta property="og:url"         content="https://cook-note.pages.dev/" />
+  <meta property="og:image"       content="https://cook-note.pages.dev/assets/base-principale-fond-site.jpg?v=37" />
+  <meta property="og:image:secure_url" content="https://cook-note.pages.dev/assets/base-principale-fond-site.jpg?v=37" />
   <meta property="og:image:width" content="1536" />
   <meta property="og:image:height" content="1024" />
   <meta property="og:image:alt"   content="Cook Note" />
   <meta name="twitter:card"       content="summary_large_image" />
   <meta name="twitter:title"      content="Cook Note" />
-  <meta name="twitter:description" content="Carnet de recettes Cook Note avec ingrédients, quantités ajustables, étapes et notes pratiques." />
-  <meta name="twitter:image"      content="https://1c1996d6.cook-note.pages.dev/assets/base-principale-fond-site.jpg?v=26" />
-  <link rel="canonical" href="https://1c1996d6.cook-note.pages.dev/" />
+  <meta name="twitter:description" content="Livre de cuisine de MaruChiwa" />
+  <meta name="twitter:image"      content="https://cook-note.pages.dev/assets/base-principale-fond-site.jpg?v=37" />
+  <link rel="canonical" href="https://cook-note.pages.dev/" />
   <script id="recipe-jsonld" type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Cook Note",
-      "description": "Carnet de recettes avec ingrédients, quantités ajustables, étapes, notes pratiques et favoris.",
-      "url": "https://1c1996d6.cook-note.pages.dev/"
+      "description": "Livre de cuisine de MaruChiwa",
+      "url": "https://cook-note.pages.dev/"
     }
   </script>
 
   <!-- PWA -->
-  <link rel="manifest" href="manifest.json" />
+  <link rel="manifest" href="/manifest.json" />
   <link rel="icon" href="/assets/cook-note.png" type="image/png" />
   <link rel="apple-touch-icon" href="/assets/cook-note.png" />
   <link rel="preload" as="image" href="/assets/cook-note.png" />
   <link rel="preload" as="image" href="/assets/base-principale-fond-site.jpg" />
 
-  <!-- Fonts — préchargées pour éviter le FOUT -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
   <!-- Styles -->
-  <link rel="stylesheet" href="style.css?v=36" />
+  <link rel="stylesheet" href="/style.css?v=37" />
 
-  <!-- React 18 production -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <!-- Librairies locales pour garder le site autonome -->
+  <script src="/assets/vendor/react.production.min.js"></script>
+  <script src="/assets/vendor/react-dom.production.min.js"></script>
 
   <!-- Confetti + QR code -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script src="/assets/vendor/confetti.browser.min.js"></script>
+  <script src="/assets/vendor/qrcode.min.js"></script>
 </head>
 <body>
   <!-- Écran de chargement — caché par React au montage (voir app.js) -->
@@ -84,7 +79,7 @@
         linear-gradient(115deg, rgba(0,0,0,.92), rgba(0,0,0,.72)),
         url("/assets/base-principale-fond-site.jpg") center / cover;
       color: #fbbf24;
-      font-family: Inter, system-ui, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     .loading-scene {
       display: grid;
@@ -132,16 +127,16 @@
   <div id="root"></div>
 
   <!-- recipes.js DOIT être chargé AVANT app.js -->
-  <script src="recipes.js?v=36"></script>
+  <script src="/recipes.js?v=37"></script>
 
   <!-- App React sans transpilation côté navigateur -->
-  <script src="app.js?v=36"></script>
+  <script src="/app.js?v=37"></script>
 
   <!-- Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js?v=34').catch(() => {});
+        navigator.serviceWorker.register('/service-worker.js?v=37').catch(() => {});
       });
     }
     // Cacher l'écran de chargement dès que React est monté.
@@ -162,7 +157,7 @@
         ls.style.opacity = '0';
         setTimeout(() => {
           if (ls.parentNode) {
-            ls.innerHTML = '<div style="color:#ef4444;font-family:Inter,sans-serif;text-align:center;padding:20px"><p style="font-size:18px;font-weight:700">⚠️ Erreur de chargement</p><p style="font-size:13px;opacity:.7;margin-top:8px">Ouvrez la console (F12) pour voir le détail.</p><button onclick="location.reload()" style="margin-top:16px;padding:10px 20px;background:#fbbf24;border:none;border-radius:8px;cursor:pointer;font-weight:700">↺ Recharger</button></div>';
+            ls.innerHTML = '<div style="color:#ef4444;font-family:system-ui,-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,sans-serif;text-align:center;padding:20px"><p style="font-size:18px;font-weight:700">⚠️ Erreur de chargement</p><p style="font-size:13px;opacity:.7;margin-top:8px">Ouvrez la console (F12) pour voir le détail.</p><button onclick="location.reload()" style="margin-top:16px;padding:10px 20px;background:#fbbf24;border:none;border-radius:8px;cursor:pointer;font-weight:700">↺ Recharger</button></div>';
             ls.style.opacity = '1';
             ls.style.background = '#111';
           }

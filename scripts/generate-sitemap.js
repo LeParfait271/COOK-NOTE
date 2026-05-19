@@ -3,7 +3,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const ROOT = path.resolve(__dirname, '..');
-const DEFAULT_SITE_URL = 'https://1c1996d6.cook-note.pages.dev';
+const DEFAULT_SITE_URL = 'https://cook-note.pages.dev';
 const SITE_URL = String(process.env.SITE_URL || DEFAULT_SITE_URL).replace(/\/+$/, '');
 
 function escapeXml(value) {

@@ -57,7 +57,21 @@ if (!staticAssets) {
   fail('service-worker.js: STATIC_ASSETS introuvable.');
 } else {
   const normalizedStaticAssets = staticAssets.map(asset => asset.split('?')[0]);
-  ['/', '/index.html', '/recipe.html', '/app.js', '/recipes.js', '/recipe.js', '/style.css', '/manifest.json', '/assets/cook-note-white.png'].forEach(required => {
+  [
+    '/',
+    '/index.html',
+    '/recipe.html',
+    '/app.js',
+    '/recipes.js',
+    '/recipe.js',
+    '/style.css',
+    '/manifest.json',
+    '/assets/vendor/react.production.min.js',
+    '/assets/vendor/react-dom.production.min.js',
+    '/assets/vendor/confetti.browser.min.js',
+    '/assets/vendor/qrcode.min.js',
+    '/assets/cook-note-white.png'
+  ].forEach(required => {
     if (!normalizedStaticAssets.includes(required)) fail(`service-worker.js: asset critique absent du precache (${required}).`);
   });
   staticAssets
@@ -86,6 +100,31 @@ if (!robots.includes('Disallow: /admin') || !robots.includes('Disallow: /api/'))
 if (!/Sitemap:\s*https?:\/\/.+\/sitemap\.xml/.test(robots)) {
   fail('robots.txt: sitemap absolu manquant.');
 }
+
+if ([indexHtml, robots, sitemap].some(text => text.includes('1c1996d6.cook-note.pages.dev'))) {
+  fail('SEO: ancien domaine preview Cloudflare encore reference.');
+}
+if (!indexHtml.includes('https://cook-note.pages.dev/')) {
+  fail('index.html: domaine canonique public absent.');
+}
+['unpkg.com', 'cdn.jsdelivr.net', 'fonts.googleapis.com', 'fonts.gstatic.com'].forEach(domain => {
+  if (indexHtml.includes(domain)) fail(`index.html: dependance CDN restante (${domain}).`);
+});
+[
+  'href="/style.css?',
+  'src="/assets/vendor/react.production.min.js"',
+  'src="/assets/vendor/react-dom.production.min.js"',
+  'src="/assets/vendor/confetti.browser.min.js"',
+  'src="/assets/vendor/qrcode.min.js"',
+  'src="/recipes.js?',
+  'src="/app.js?',
+  "register('/service-worker.js?"
+].forEach(fragment => {
+  if (!indexHtml.includes(fragment)) fail(`index.html: chemin racine attendu absent (${fragment}).`);
+});
+['href="style.css', 'src="assets/vendor', 'src="recipes.js', 'src="app.js', "register('service-worker.js"].forEach(fragment => {
+  if (indexHtml.includes(fragment)) fail(`index.html: chemin relatif fragile detecte (${fragment}).`);
+});
 
 const sitemapRecipeIds = new Set();
 for (const match of sitemap.matchAll(/<loc>[^<]+\/recette\/([^<]+)<\/loc>/g)) {

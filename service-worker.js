@@ -1,19 +1,23 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v36
+//  Cook Note - Service Worker PWA v37
 //  Cache-first pour assets statiques
-//  Network-first pour les images externes (Unsplash, CDN)
+//  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v36';
+const CACHE_NAME = 'cook-note-v37';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=36',
-  '/recipes.js?v=36',
-  '/style.css?v=36',
+  '/app.js?v=37',
+  '/recipes.js?v=37',
+  '/style.css?v=37',
   '/recipe.js',
   '/manifest.json',
+  '/assets/vendor/react.production.min.js',
+  '/assets/vendor/react-dom.production.min.js',
+  '/assets/vendor/confetti.browser.min.js',
+  '/assets/vendor/qrcode.min.js',
   '/assets/cook-note.png',
   '/assets/cook-note-white.png',
   '/assets/base-principale-fond-site.jpg',
@@ -34,7 +38,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
       .then(() => {
-        console.log('[SW v36] Assets statiques mis en cache.');
+        console.log('[SW v37] Assets statiques mis en cache.');
       })
   );
   self.skipWaiting();
@@ -48,7 +52,7 @@ self.addEventListener('activate', (event) => {
         keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
       )
     ).then(() => {
-        console.log('[SW v36] Anciens caches supprimés.');
+        console.log('[SW v37] Anciens caches supprimés.');
     })
   );
   self.clients.claim();
@@ -61,7 +65,7 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(event.request.url);
 
-  // Ignorer les requêtes vers des domaines externes (CDN React, Unsplash, etc.)
+  // Ignorer les requêtes vers des domaines externes.
   // Elles ne doivent pas bloquer l'app hors-ligne
   if (url.origin !== self.location.origin) return;
 
