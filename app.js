@@ -1745,8 +1745,9 @@ function getRecipePracticalSections(recipe) {
 
   const storageNotes = notes.filter(note => /\b(conservation|stockage|p[eé]remption|cong[eé]lation|cong[eè]le|au froid|r[eé]frig[eé]rateur)\b/i.test(note));
   const reheatingNotes = notes.filter(note => /\b(r[eé]chauff|remettre au four|four doux|vapeur)\b/i.test(note));
-  const mistakeNotes = notes.filter(note => /\b(ne\s|[ée]vite|attention|trop cuit|trop cuits|surcharge|surveille|sans trop)\b/i.test(note));
   const substitutionNotes = notes.filter(note => /\b(remplace|remplacer|substitut|substitution|à défaut|a defaut|sinon|possible avec|variante)\b/i.test(note));
+  const noteAlreadyClassified = note => storageNotes.includes(note) || reheatingNotes.includes(note) || substitutionNotes.includes(note);
+  const mistakeNotes = notes.filter(note => !noteAlreadyClassified(note) && /\b(ne\s|[ée]vite|attention|trop cuit|trop cuits|surcharge|surveille|sans trop)\b/i.test(note));
   const tipNotes = notes.filter(note => !storageNotes.includes(note) && !reheatingNotes.includes(note) && !mistakeNotes.includes(note) && !substitutionNotes.includes(note));
   const resultTechnical = technical
     .filter(item => /\b(texture|cible|r[eé]sultat|cuisson|service)\b/i.test(String(item.label || item.title || '')))

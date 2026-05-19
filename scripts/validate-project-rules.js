@@ -40,6 +40,7 @@ expect('Validation poivre du moulin non branchee.', validators.recipes.includes(
 expect('Validation unites non metriques non branchee.', validators.recipes.includes('NON_METRIC_UNIT_RE'));
 expect('Validation images uniques non branchee.', validators.recipes.includes('leafImageHashes'));
 expect('Validation materiel necessaire colonne droite non branchee.', validators.ui.includes('Materiel necessaire encore dans la colonne droite'));
+expect('Validation anti-doublon notes pratiques non branchee.', validators.ui.includes('Notes pratiques encore classees en double'));
 expect('Validation regles non branchee au check.', validators.packageJson.includes('scripts/validate-project-rules.js'));
 
 if (errors.length) {
