@@ -1752,7 +1752,6 @@ function getRecipePracticalSections(recipe) {
     .filter(item => /\b(texture|cible|r[eé]sultat|cuisson|service)\b/i.test(String(item.label || item.title || '')))
     .map(item => item.value || item.text);
 
-  add('equipment', 'Matériel nécessaire', getRecipeEquipment(recipe));
   add('measures', 'Repère indicatif', recipeHasSpoonMeasures(recipe) ? [SPOON_WEIGHT_NOTE] : []);
   add('tips', 'À savoir', [
     ...asTextList(recipe?.tips || practical.tips),

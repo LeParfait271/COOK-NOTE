@@ -73,6 +73,39 @@ function checkPepperWording(id, value) {
   }
 }
 
+function parseFrenchNumber(value) {
+  return Number(String(value).replace(',', '.'));
+}
+
+function checkRoundedLargeGramAmounts(id, value) {
+  const text = String(value || '');
+  for (const match of text.matchAll(/(\d+(?:[.,]\d+)?)(?:\s*(?:[\u2013\u2014-]|à|a)\s*(\d+(?:[.,]\d+)?))?\s*g\b/gi)) {
+    [match[1], match[2]].filter(Boolean).forEach(rawAmount => {
+      const amount = parseFrenchNumber(rawAmount);
+      if (Number.isFinite(amount) && amount > 50 && Math.abs(amount / 5 - Math.round(amount / 5)) > 0.0001) {
+        errors.push(`${id}: arrondir les quantites au-dessus de 50g au multiple de 5g le plus proche (${value}).`);
+      }
+    });
+  }
+}
+
+function checkVanillaDosage(id, value) {
+  const text = String(value || '');
+  if (!/\bvanille\b/i.test(text)) return;
+  const quantifiedVanilla = /(?:^|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])\d+(?:[.,]\d+)?(?:\/\d+)?\s*(?:g|ml|cl|c\.?\s*à\s*(?:café|soupe)|gousses?)\s*(?:de\s+)?(?:extrait\s+de\s+|ar[oô]me\s+)?vanille\b/i;
+  if (quantifiedVanilla.test(text)) {
+    errors.push(`${id}: ne pas doser la vanille numeriquement; indiquer de suivre le dosage de la bouteille (${value}).`);
+  }
+}
+
+function checkBrownSugarWording(id, value) {
+  const text = String(value || '');
+  if (!/\b(cassonade|vergeoise|sucre roux|sucre cassonade)\b/i.test(text)) return;
+  if (!/\bcassonade\b/i.test(text) || !/\bvergeoise\b/i.test(text)) {
+    errors.push(`${id}: ecrire "cassonade ou vergeoise" pour les sucres roux (${value}).`);
+  }
+}
+
 if (!recipes || typeof recipes !== 'object') {
   errors.push('window.RECIPES est introuvable.');
 } else {
@@ -149,6 +182,11 @@ if (!recipes || typeof recipes !== 'object') {
 
     (recipe.ingredients || []).forEach((group, groupIndex) => {
       if (group.recipeId && !ids.has(group.recipeId)) errors.push(`${id}: recipeId introuvable dans ingredients[${groupIndex}] (${group.recipeId}).`);
+      (group.items || []).forEach(item => {
+        checkRoundedLargeGramAmounts(id, item);
+        checkVanillaDosage(id, item);
+        checkBrownSugarWording(id, item);
+      });
     });
 
     if (Array.isArray(recipe.linkedRecipes)) {

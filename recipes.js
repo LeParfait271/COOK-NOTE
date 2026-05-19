@@ -1262,7 +1262,7 @@ window.RECIPES = {
           "250g mascarpone",
           "200g crème entière froide",
           "60g sucre glace",
-          "5g vanille"
+          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille"
         ]
       }
     ],
@@ -1339,7 +1339,7 @@ window.RECIPES = {
           "60g sucre",
           "25g Maïzena",
           "25g beurre",
-          "5g vanille"
+          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille"
         ],
         "recipeId": "creme_patissiere_vanille"
       },
@@ -1389,7 +1389,7 @@ window.RECIPES = {
         "group": "Craquelin",
         "items": [
           "50g beurre",
-          "60g cassonade",
+          "60g cassonade ou vergeoise",
           "60g farine"
         ]
       },
@@ -1471,189 +1471,6 @@ window.RECIPES = {
       "elements_base_maitre"
     ]
   },
-  "coulis_fraise": {
-    "title": "Coulis de fraise",
-    "master": "coulis_maitre",
-    "image": "/assets/recipe-images/coulis_fraise_spooky.png",
-    "categories": [
-      "Desserts"
-    ],
-    "seasons": [
-      "Printemps"
-    ],
-    "difficulty": "easy",
-    "yield": "environ 450g",
-    "ingredients": [
-      {
-        "group": "Base",
-        "items": [
-          "400g fraises",
-          "80g sucre",
-          "10g jus de citron"
-        ]
-      }
-    ],
-    "steps": [
-      "Mixer ; chauffer à frémissement 1–2min ; refroidir."
-    ],
-    "notes": [
-      "Texture coulis (burette) ; passer fin.",
-      "→ Guide complet : <span data-goto=\"coulis_guide\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Coulis — guide & variantes</span>",
-      "Stockage optimal : flacon souple (burette) ou pot hermétique au réfrigérateur.",
-      "Conservation : 5 j au froid ; congélateur 2 mois.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
-    ],
-    "difficultyScore": 2,
-    "additionalMasters": [
-      "desserts_maitre"
-    ]
-  },
-  "coulis_framboise": {
-    "title": "Coulis de framboise",
-    "master": "coulis_maitre",
-    "image": "/assets/recipe-images/coulis_framboise_spooky.png",
-    "categories": [
-      "Desserts"
-    ],
-    "seasons": [
-      "Été"
-    ],
-    "difficulty": "easy",
-    "yield": "environ 450g",
-    "ingredients": [
-      {
-        "group": "Base",
-        "items": [
-          "400g framboises",
-          "90g sucre",
-          "10g jus de citron"
-        ]
-      }
-    ],
-    "steps": [
-      "Mixer ; chauffer ; passer fin pour enlever les pépins."
-    ],
-    "notes": [
-      "Conservation : 5 j au froid ; congélateur 2 mois.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
-    ],
-    "difficultyScore": 2,
-    "additionalMasters": [
-      "desserts_maitre"
-    ]
-  },
-  "coulis_abricot_vanille": {
-    "title": "Coulis abricot-vanille",
-    "master": "coulis_maitre",
-    "image": "/assets/recipe-images/coulis_abricot_vanille_spooky.png",
-    "categories": [
-      "Desserts"
-    ],
-    "seasons": [
-      "Été"
-    ],
-    "difficulty": "easy",
-    "yield": "environ 490g",
-    "ingredients": [
-      {
-        "group": "Base",
-        "items": [
-          "400g abricots dénoyautés",
-          "70g sucre",
-          "1/2 gousse de vanille",
-          "20g eau"
-        ]
-      }
-    ],
-    "steps": [
-      "Cuire 5–8min ; mixer lisse ; passer."
-    ],
-    "notes": [
-      "Conservation : 5 j au froid ; congélateur 2 mois.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
-    ],
-    "difficultyScore": 2,
-    "additionalMasters": [
-      "desserts_maitre"
-    ]
-  },
-  "coulis_poire": {
-    "title": "Coulis de poire",
-    "master": "coulis_maitre",
-    "image": "/assets/recipe-images/coulis_poire_spooky.png",
-    "categories": [
-      "Desserts"
-    ],
-    "seasons": [
-      "Automne",
-      "Hiver"
-    ],
-    "difficulty": "easy",
-    "yield": "environ 470g",
-    "ingredients": [
-      {
-        "group": "Base",
-        "items": [
-          "400g poires mûres",
-          "60–80g sucre (au goût)",
-          "10g jus de citron"
-        ]
-      }
-    ],
-    "steps": [
-      "Cuire 3–5min ; mixer lisse ; passer."
-    ],
-    "notes": [
-      "Assaisonnement possible : vanille, poivre Timut.",
-      "Conservation : 5 j au froid ; congélateur 2 mois.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
-    ],
-    "difficultyScore": 2,
-    "additionalMasters": [
-      "desserts_maitre"
-    ]
-  },
-  "coulis_guide": {
-    "title": "Guide des coulis",
-    "master": "coulis_maitre",
-    "image": "/assets/recipe-images/coulis_guide_spooky.png",
-    "categories": [
-      "Desserts"
-    ],
-    "seasons": [
-      "Toutes saisons"
-    ],
-    "difficulty": "easy",
-    "yield": "environ 470g",
-    "ingredients": [
-      {
-        "group": "Base",
-        "items": [
-          "400g fruit",
-          "60–100g sucre (au goût et selon l'acidité)",
-          "10g jus de citron"
-        ]
-      },
-      {
-        "group": "Fruits populaires",
-        "items": [
-          "Fraise, Framboise (passer), Mangue, Pêche, Poire, Cerise, Abricot-vanille"
-        ]
-      }
-    ],
-    "steps": [
-      "Mixer, chauffer 1–2min jusqu'à premier frémissement, passer si nécessaire, refroidir."
-    ],
-    "notes": [
-      "Texture \"burette\" pour dressage : ajuster eau si besoin.",
-      "Conservation : 5 j au froid ; congélateur 2 mois.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
-    ],
-    "difficultyScore": 2,
-    "additionalMasters": [
-      "desserts_maitre"
-    ]
-  },
   "court_bouillon": {
     "title": "Court-bouillon",
     "master": "bases_salees_maitre",
@@ -1732,7 +1549,7 @@ window.RECIPES = {
           "50g œuf",
           "140g lait",
           "25g beurre",
-          "5g vanille"
+          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille"
         ]
       },
       {
@@ -1804,7 +1621,7 @@ window.RECIPES = {
           "60g sucre",
           "25g maïzena",
           "25g beurre doux",
-          "5g vanille (ou 1 gousse)"
+          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille"
         ],
         "recipeId": "creme_patissiere_vanille"
       },
@@ -1918,7 +1735,7 @@ window.RECIPES = {
         "items": [
           "40g beurre pommade",
           "45g farine",
-          "50g cassonade",
+          "50g cassonade ou vergeoise",
           "6g cacao non sucré",
           "25g blancs d’œufs",
           "40g noisettes concassées"
@@ -1926,7 +1743,7 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Mélanger farine + cassonade + cacao, puis incorporer le beurre.",
+      "Mélanger farine + cassonade ou vergeoise + cacao, puis incorporer le beurre.",
       "Étaler à 2mm entre deux feuilles et congeler 30min.",
       "Découper des anneaux (Ø 8cm, trou Ø 2cm), badigeonner de blanc d’œuf, ajouter les noisettes puis recongeler jusqu’à usage."
     ],
@@ -2430,22 +2247,6 @@ window.RECIPES = {
         "label": "Choux au craquelin"
       },
       {
-        "id": "coulis_abricot_vanille",
-        "label": "Coulis abricot-vanille"
-      },
-      {
-        "id": "coulis_fraise",
-        "label": "Coulis de fraise"
-      },
-      {
-        "id": "coulis_framboise",
-        "label": "Coulis de framboise"
-      },
-      {
-        "id": "coulis_poire",
-        "label": "Coulis de poire"
-      },
-      {
         "id": "craquelin_cacao",
         "label": "Craquelin cacao"
       },
@@ -2456,10 +2257,6 @@ window.RECIPES = {
       {
         "id": "desserts_cuillere_maitre",
         "label": "Desserts à la cuillère"
-      },
-      {
-        "id": "coulis_guide",
-        "label": "Guide des coulis"
       },
       {
         "id": "paris_brest",
@@ -2658,7 +2455,7 @@ window.RECIPES = {
   "oeuf_chili_crisp_toast": {
     "title": "Œuf sur le plat chili crisp sur toast",
     "master": "petit_dejeuner_maitre",
-    "image": "/assets/recipe-images/petits_dejeuners_maitre_spooky.png",
+    "image": "/assets/recipe-images/oeuf_chili_crisp_toast_spooky.png",
     "categories": [
       "Petits-déjeuners"
     ],
@@ -2771,7 +2568,7 @@ window.RECIPES = {
           "100g beurre fondu",
           "10g sucre",
           "2g sel",
-          "5g vanille optionnelle"
+          "vanille optionnelle selon goût ou arôme vanille selon dosage indiqué sur la bouteille"
         ]
       }
     ],
@@ -3371,7 +3168,7 @@ window.RECIPES = {
           "60g sucre",
           "25g Maïzena",
           "25g beurre",
-          "5g vanille"
+          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille"
         ]
       }
     ],
@@ -3880,10 +3677,10 @@ window.RECIPES = {
         "group": "Pâte",
         "items": [
           "115g beurre mou",
-          "90g sucre cassonade",
+          "90g cassonade ou vergeoise",
           "60g sucre blanc",
           "55g œuf (1 œuf moyen)",
-          "1 gousse de vanille ou arôme vanille selon dosage du flacon",
+          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille",
           "180g farine",
           "3g bicarbonate",
           "2g sel fin"
@@ -4300,12 +4097,12 @@ window.RECIPES = {
     ],
     "variants": [
       {
-        "id": "cookies_beurre_noisette_chunks",
-        "label": "Cookies au beurre noisette et chunks de chocolat"
+        "id": "cookies_beurre_noisette_chocolat_noir_lait",
+        "label": "Cookies au beurre noisette chocolat noir/lait"
       },
       {
-        "id": "cookies_au_chocolat",
-        "label": "Cookies au chocolat"
+        "id": "cookies_chocolat_noir_lait",
+        "label": "Cookies au chocolat noir/lait"
       },
       {
         "id": "caramel_cheesecake_cookies",
@@ -4339,10 +4136,10 @@ window.RECIPES = {
       "Fiche parent pour garder les cookies sucrés ensemble sans les mélanger aux cookies salés."
     ]
   },
-  "cookies_beurre_noisette_chunks": {
-    "title": "Cookies au beurre noisette et chunks de chocolat",
+  "cookies_beurre_noisette_chocolat_noir_lait": {
+    "title": "Cookies au beurre noisette chocolat noir/lait",
     "master": "cookies_sucres_maitre",
-    "image": "/assets/recipe-images/creme_amande__spooky.png",
+    "image": "/assets/recipe-images/cookies_beurre_noisette_chocolat_noir_lait_spooky.png",
     "categories": [
       "Desserts"
     ],
@@ -4355,6 +4152,7 @@ window.RECIPES = {
     "aliases": [
       "cookies beurre noisette",
       "cookies chunks chocolat",
+      "cookies chocolat noir lait",
       "cookies chocolat beurre noisette"
     ],
     "tags": [
@@ -4368,16 +4166,16 @@ window.RECIPES = {
         "group": "Beurres",
         "items": [
           "170g beurre doux non salé pour le beurre noisette",
-          "57g beurre doux non salé ramolli"
+          "55g beurre doux non salé ramolli"
         ]
       },
       {
         "group": "Pâte",
         "items": [
-          "100g sucre roux",
+          "100g cassonade ou vergeoise",
           "75g sucre blanc",
           "100g œufs (2 gros œufs)",
-          "2 c. à café extrait de vanille",
+          "arôme vanille selon dosage indiqué sur la bouteille",
           "350g farine",
           "2g sel",
           "6g levure chimique",
@@ -4400,9 +4198,9 @@ window.RECIPES = {
       "Laisser le beurre fondre, mousser puis devenir ambré avec une odeur de noisette.",
       "Retirer du feu dès que le beurre est bien doré, puis verser immédiatement dans un grand saladier pour stopper la cuisson.",
       "Hacher grossièrement le chocolat noir et le chocolat au lait pendant que le beurre noisette tiédit.",
-      "Ajouter les 57g de beurre ramolli dans le beurre noisette encore tiède, puis mélanger jusqu’à texture lisse et crémeuse.",
-      "Ajouter le sucre roux et le sucre blanc, puis mélanger jusqu’à obtenir une base brillante et homogène.",
-      "Incorporer les œufs et l’extrait de vanille.",
+      "Ajouter les 55g de beurre ramolli dans le beurre noisette encore tiède, puis mélanger jusqu’à texture lisse et crémeuse.",
+      "Ajouter la cassonade ou vergeoise et le sucre blanc, puis mélanger jusqu’à obtenir une base brillante et homogène.",
+      "Incorporer les œufs et l’arôme vanille selon le dosage indiqué sur la bouteille.",
       "Ajouter farine, sel, levure chimique, maïzena et bicarbonate, puis mélanger jusqu’à obtenir une pâte épaisse.",
       "Incorporer le chocolat noir, le chocolat au lait et les pépites sans trop travailler la pâte.",
       "Couvrir et placer la pâte au réfrigérateur 1 à 2h.",
@@ -4416,6 +4214,8 @@ window.RECIPES = {
     "notes": [
       "Le mélange chocolat noir et chocolat au lait donne un équilibre gourmand sans être trop amer.",
       "Le beurre noisette apporte une saveur profonde et légèrement caramélisée.",
+      "Sors le beurre à ramollir environ 45 à 60min avant, selon la température de la pièce : il doit être souple mais pas fondu.",
+      "Pour l’arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
       "Ne prolonge pas trop la cuisson : les cookies continuent de cuire légèrement hors du four.",
       "La pâte peut être congelée en boules bien emballées, puis cuite plus tard directement depuis le congélateur.",
       "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
@@ -4434,10 +4234,10 @@ window.RECIPES = {
       "desserts_maitre"
     ]
   },
-  "cookies_au_chocolat": {
-    "title": "Cookies au chocolat",
+  "cookies_chocolat_noir_lait": {
+    "title": "Cookies au chocolat noir/lait",
     "master": "cookies_sucres_maitre",
-    "image": "/assets/recipe-images/cookies_spooky.png",
+    "image": "/assets/recipe-images/cookies_chocolat_noir_lait_spooky.png",
     "categories": [
       "Desserts"
     ],
@@ -4449,6 +4249,7 @@ window.RECIPES = {
     "yield": "environ 20 cookies",
     "aliases": [
       "cookies chocolat classiques",
+      "cookies chocolat noir lait",
       "cookies aux deux chocolats",
       "cookies chocolat"
     ],
@@ -4461,7 +4262,7 @@ window.RECIPES = {
       {
         "group": "Pâte",
         "items": [
-          "120g cassonade",
+          "120g cassonade ou vergeoise",
           "120g sucre",
           "175g beurre pommade",
           "55g œuf (1 œuf moyen)",
@@ -4479,8 +4280,8 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Sortir le beurre à l’avance pour obtenir une texture pommade, bien molle mais non fondue.",
-      "Mélanger le beurre pommade avec la cassonade et le sucre dans la cuve d’un robot ou dans un grand saladier.",
+      "Sortir le beurre environ 45 à 60min avant, selon la température de la pièce, pour obtenir une texture pommade bien molle mais non fondue.",
+      "Mélanger le beurre pommade avec la cassonade ou vergeoise et le sucre dans la cuve d’un robot ou dans un grand saladier.",
       "Fouetter jusqu’à obtenir un mélange homogène.",
       "Ajouter l’œuf, puis mélanger de nouveau.",
       "Ajouter farine, levure chimique et fleur de sel, puis mélanger brièvement sans trop travailler la pâte.",
@@ -4494,7 +4295,7 @@ window.RECIPES = {
       "Laisser reposer quelques minutes sur la plaque, puis transférer sur grille jusqu’à complet refroidissement."
     ],
     "notes": [
-      "Ne fais pas fondre le beurre : il doit rester pommade.",
+      "Ne fais pas fondre le beurre : il doit rester pommade, souple et crémeux.",
       "Ne travaille pas trop la pâte après l’ajout de la farine.",
       "Le repos au froid aide les cookies à garder une belle épaisseur.",
       "Pour des cookies moelleux, ne dépasse pas 10min de cuisson.",
@@ -4519,7 +4320,7 @@ window.RECIPES = {
   "cookies_chocolat_noix": {
     "title": "Cookies moelleux aux pépites de chocolat et noix",
     "master": "cookies_sucres_maitre",
-    "image": "/assets/recipe-images/pate_noisette_spooky.png",
+    "image": "/assets/recipe-images/cookies_chocolat_noix_spooky.png",
     "categories": [
       "Desserts"
     ],
@@ -4549,7 +4350,7 @@ window.RECIPES = {
           "80g sucre",
           "1g sel",
           "55g œuf (1 œuf moyen)",
-          "vanille selon goût",
+          "arôme vanille selon dosage indiqué sur la bouteille",
           "160g farine",
           "3g levure chimique"
         ]
@@ -4564,9 +4365,10 @@ window.RECIPES = {
       }
     ],
     "steps": [
+      "Sortir le beurre environ 45 à 60min avant pour qu’il soit souple mais pas fondu.",
       "Mélanger le beurre ramolli avec le sucre et le sel jusqu’à obtenir une texture homogène.",
       "Battre l’œuf dans un petit bol, puis l’ajouter progressivement au mélange beurre-sucre.",
-      "Mélanger jusqu’à incorporation, puis ajouter la vanille.",
+      "Mélanger jusqu’à incorporation, puis ajouter l’arôme vanille selon le dosage indiqué sur la bouteille.",
       "Ajouter farine et levure chimique, puis mélanger juste assez pour obtenir une pâte homogène sans trop la travailler.",
       "Ajouter les 100g de chocolat et les noix ou noisettes concassées.",
       "Mélanger pour répartir les garnitures dans la pâte.",
@@ -4581,6 +4383,7 @@ window.RECIPES = {
     "notes": [
       "Pour des cookies plus gourmands, utilise un mélange de chocolat noir et chocolat au lait.",
       "Les noisettes se marient particulièrement bien avec le chocolat.",
+      "Pour l’arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
       "Ne prolonge pas trop la cuisson : le centre doit rester tendre.",
       "La pâte peut être préparée à l’avance et conservée au frais jusqu’à 24h avant cuisson.",
       "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
@@ -4622,7 +4425,7 @@ window.RECIPES = {
         "group": "Variante pub sauce",
         "items": [
           "180g mayonnaise",
-          "12g cassonade",
+          "12g cassonade ou vergeoise",
           "30ml sauce Worcestershire",
           "1 c. à café oignon en poudre",
           "1 c. à café ail en poudre"
@@ -4743,7 +4546,7 @@ window.RECIPES = {
           "125g farine",
           "60g beurre",
           "30g sucre glace",
-          "vanille ou arôme vanille selon dosage du flacon"
+          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille"
         ]
       },
       {
@@ -4811,10 +4614,10 @@ window.RECIPES = {
         "group": "Pâte à cookies",
         "items": [
           "115g beurre doux mou",
-          "100g cassonade",
+          "100g cassonade ou vergeoise",
           "50g sucre",
           "55g œuf (1 œuf moyen)",
-          "1 gousse de vanille ou arôme vanille selon dosage du flacon",
+          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille",
           "220g farine",
           "1/2 c. à café bicarbonate",
           "1/4 c. à café sel"
@@ -4831,7 +4634,7 @@ window.RECIPES = {
     "steps": [
       "Fouetter le fromage frais type Philadelphia avec le sucre glace et le caramel, puis déposer 12 petites portions sur papier cuisson.",
       "Congeler les portions de fourrage 30min pour pouvoir les enfermer proprement.",
-      "Crémer le beurre avec la cassonade et le sucre, puis incorporer l’œuf et la vanille.",
+      "Crémer le beurre avec la cassonade ou vergeoise et le sucre, puis incorporer l’œuf et la vanille.",
       "Ajouter farine, bicarbonate et sel sans trop travailler la pâte.",
       "Aplatir une portion de pâte, placer un cœur cheesecake congelé au centre, refermer et bouler.",
       "Cuire à 175°C pendant 10 à 12min, jusqu’à bords légèrement dorés.",
@@ -4872,7 +4675,7 @@ window.RECIPES = {
       {
         "group": "Caramel",
         "items": [
-          "200g cassonade",
+          "200g cassonade ou vergeoise",
           "115g beurre doux",
           "1g sel fin"
         ]
@@ -4882,18 +4685,18 @@ window.RECIPES = {
         "items": [
           "120g crème liquide 35 %",
           "120g lait entier",
-          "1 gousse de vanille"
+          "vanille selon goût"
         ]
       },
       {
         "group": "Finition",
         "items": [
-          "arôme vanille optionnel selon dosage du flacon"
+          "arôme vanille optionnel selon dosage indiqué sur la bouteille"
         ]
       }
     ],
     "steps": [
-      "Mettre la cassonade, le beurre et le sel dans une casserole.",
+      "Mettre la cassonade ou vergeoise, le beurre et le sel dans une casserole.",
       "Chauffer doucement en mélangeant jusqu’à ce que le beurre soit fondu et que le sucre commence à se dissoudre.",
       "Ajouter la crème 35 % et le lait en remuant.",
       "Porter à frémissement doux et cuire 6 à 9min, en mélangeant régulièrement, jusqu’à texture nappante.",
@@ -5367,9 +5170,9 @@ window.RECIPES = {
         "group": "Pâte",
         "items": [
           "250g de sucre",
-          "250g de cassonade tassée",
+          "250g cassonade ou vergeoise tassée",
           "340g de beurre mou",
-          "1 gousse de vanille ou arôme vanille selon dosage du flacon",
+          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille",
           "165g œufs (3 œufs moyens)",
           "530g de farine",
           "2 c. à café de bicarbonate de soude",
@@ -5380,7 +5183,7 @@ window.RECIPES = {
     ],
     "steps": [
       "Préchauffer le four à 190°C.",
-      "Crémer le sucre, la cassonade et le beurre mou jusqu’à obtenir une texture légère.",
+      "Crémer le sucre, la cassonade ou vergeoise et le beurre mou jusqu’à obtenir une texture légère.",
       "Ajouter la vanille et les œufs, puis mélanger jusqu’à homogénéité.",
       "Incorporer farine, bicarbonate et sel sans trop travailler la pâte.",
       "Ajouter les pépites de chocolat.",
@@ -5438,7 +5241,7 @@ window.RECIPES = {
           "150g de farine",
           "1 sachet de levure chimique",
           "100ml de lait",
-          "1 gousse de vanille",
+          "vanille selon goût",
           "1 pincée de sel",
           "beurre fondu pour les cercles et la poêle"
         ]
