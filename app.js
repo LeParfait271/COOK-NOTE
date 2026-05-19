@@ -566,6 +566,15 @@ function uniq(values) {
   return Array.from(new Set(values.filter(Boolean))).sort((a, b) => a.localeCompare(b, 'fr'));
 }
 
+function uniqInOrder(values) {
+  const seen = new Set();
+  return values.filter(value => {
+    if (!value || seen.has(value)) return false;
+    seen.add(value);
+    return true;
+  });
+}
+
 function getCurrentSeason(date = new Date()) {
   const month = Number(new Intl.DateTimeFormat('fr-FR', {
     timeZone: 'Europe/Paris',
@@ -1570,7 +1579,7 @@ function asTextList(value) {
 
 function compactPracticalItems(key, items) {
   if (key !== 'storage') return items;
-  const hasSpecificStorage = items.some(item => /^(?:conservation|stockage optimal)\b/i.test(stripHtml(item)));
+  const hasSpecificStorage = items.some(item => /^(?:avant cuisson|avant service|avant préparation|après cuisson|après préparation|conservation|stockage optimal)\b/i.test(stripHtml(item)));
   if (!hasSpecificStorage) return items;
   return items.filter(item => {
     const text = stripHtml(item);
@@ -1605,14 +1614,106 @@ function getRecipeEquipment(recipe) {
   ]).slice(0, 8);
 }
 
+function getRecipeConservationText(recipe) {
+  return normalizeText([
+    recipe?.title,
+    ...(recipe?.categories || []),
+    ...(recipe?.tags || []),
+    ...(recipe?.aliases || []),
+    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
+    ...(recipe?.steps || [])
+  ].map(stripHtml).join(' '));
+}
+
+function inferRecipeConservation(recipe) {
+  const titleText = normalizeText([
+    recipe?.title,
+    ...(recipe?.categories || []),
+    ...(recipe?.tags || []),
+    ...(recipe?.aliases || [])
+  ].map(stripHtml).join(' '));
+  const ingredientText = normalizeText((recipe?.ingredients || [])
+    .flatMap(group => [group.group, ...(group.items || [])])
+    .map(stripHtml)
+    .join(' '));
+  const stepText = normalizeText((recipe?.steps || []).map(stripHtml).join(' '));
+  const text = getRecipeConservationText(recipe);
+  const categories = normalizeText((recipe?.categories || []).join(' '));
+  const cooked = /\b(cuire|cuisson|cuit|cuite|frire|friture|four|enfourner|poele|saisir|mijoter|fremir|bouillir|chauffer|rotir|griller|pocher|carameliser|bain marie)\b/.test(stepText);
+  const fried = /\b(friture|frire|frit|frites|tempura|beignet|bain d huile|huile de friture)\b/.test(text);
+  const seafood = /\b(calamar|calamars|crevette|crevettes|moule|moules|poisson|saumon|crustace|crustaces)\b/.test(ingredientText);
+  const meat = /\b(porc|poulet|boeuf|viande|cotelette|cotelettes|jambon|lardon|lardons|bacon)\b/.test(ingredientText);
+  const egg = /\b(oeuf|oeufs|jaune|jaunes|blanc|blancs)\b/.test(ingredientText);
+  const dairy = /\b(lait|creme|cremes|beurre|fromage|parmesan|cheddar|mozzarella|mascarpone|yaourt|chantilly)\b/.test(ingredientText);
+  const rawEggSauce = /\b(mayonnaise|aioli|aïoli|rouille)\b/.test(titleText);
+  const cream = /\b(creme|cremes|chantilly|patissiere|diplomate|mascarpone|mornay|ganache)\b/.test(titleText) || /\b(creme|cremes|chantilly|mascarpone|ganache)\b/.test(ingredientText);
+  const coldFresh = /\b(salade|crudite|crudites|gaspacho|gazpacho|mojito|tartare|soupe froide)\b/.test(titleText);
+  const coulisOrFruitSauce = /\b(coulis|marmelade|compote|fruit|fruits|fraise|framboise|abricot|poire|citron)\b/.test(text) && /\b(sucre|jus de citron|mixer|flacon|pot)\b/.test(text);
+  const dough = /\b(pate|pates|farine|levure|petrir|abaisser|foncer|pointage|pousse|repos)\b/.test(text);
+  const minuteBatter = /\b(tempura|pate legere|pate a beignet|pate beignet)\b/.test(text);
+  const bread = /\b(pain|pains|bun|buns|burger|hot dog|brioche)\b/.test(titleText);
+  const dryBaked = /\b(cookie|cookies|biscuit|biscuits|craquelin|meringue|meringues|macaron|cake|sable|sables)\b/.test(titleText);
+  const hotSauce = categories.includes('sauces') && cooked && !rawEggSauce;
+  const items = [];
+
+  if (seafood || meat) {
+    items.push(`Avant cuisson : garde ${seafood ? 'poisson, crustacés ou calamars' : 'viande'} au réfrigérateur à 0–4°C, couvert, et sors seulement la quantité nécessaire juste avant cuisson.`);
+    if (/\b(marinade|mariner|marin[ée]e?)\b/.test(text)) {
+      items.push('Avant cuisson : marinade toujours couverte au froid ; jette la marinade qui a touché le cru, ou fais-la bouillir si elle doit servir de sauce.');
+    }
+  } else if (minuteBatter) {
+    items.push('Avant cuisson : prépare la pâte au dernier moment et garde les liquides très froids ; une pâte tempura ou beignet se conserve mal une fois mélangée.');
+  } else if (dough && cooked) {
+    items.push('Avant cuisson : si la pâte doit attendre, couvre-la au contact ou filme-la et garde-la au réfrigérateur ; laisse-la revenir selon la recette avant cuisson.');
+  } else if (cream || rawEggSauce) {
+    items.push('Avant service : garde la préparation au réfrigérateur à 0–4°C et sors-la seulement pour le montage ou le dressage.');
+  } else if (coldFresh) {
+    items.push('Avant service : garde les éléments lavés, coupés ou mixés au froid, couverts ; ajoute herbes, assaisonnement et garnitures fragiles au dernier moment.');
+  }
+
+  if (rawEggSauce) {
+    items.push('Après préparation : pot propre fermé au réfrigérateur à 0–4°C, 24h maximum ; utilise une cuillère propre et jette si odeur, texture ou couleur change.');
+  } else if (seafood) {
+    items.push(fried
+      ? 'Après cuisson : meilleur immédiatement ; restes refroidis vite, boîte hermétique au réfrigérateur 24h, réchauffage au four ou air fryer pour limiter la perte de croustillant.'
+      : 'Après cuisson : refroidis en moins de 2h, conserve au réfrigérateur en boîte hermétique 24–48h, puis réchauffe à cœur ou consomme bien froid.');
+  } else if (meat) {
+    items.push('Après cuisson : refroidis en moins de 2h, conserve en boîte hermétique au réfrigérateur 2–3 jours, puis réchauffe à cœur.');
+  } else if (minuteBatter) {
+    items.push('Après utilisation : ne conserve pas une pâte qui a touché des aliments crus ; jette le reste et prépare une nouvelle pâte pour une autre cuisson.');
+  } else if (fried) {
+    items.push('Après cuisson : idéalement minute ; les restes se gardent 24h au réfrigérateur et se réchauffent au four chaud ou air fryer, jamais au micro-ondes si tu veux du croustillant.');
+  } else if (bread) {
+    items.push('Après cuisson : refroidis sur grille, puis garde 24–48h en sachet ou boîte fermée ; congèle bien emballé après refroidissement pour une conservation plus longue.');
+  } else if (dryBaked) {
+    items.push('Après cuisson : refroidis complètement, puis conserve en boîte hermétique au sec ; passe au réfrigérateur seulement si la garniture contient crème, œufs ou fruits frais.');
+  } else if (cream || (egg && dairy)) {
+    items.push('Après préparation : refroidis rapidement si la base est chaude, filme au contact ou ferme en boîte propre, puis conserve 24–48h au réfrigérateur.');
+  } else if (coldFresh) {
+    items.push('Après préparation : couvre et conserve au réfrigérateur 24h maximum ; avec jambon, mozzarella, œuf, poisson ou sauce fraîche, vise plutôt le jour même.');
+  } else if (coulisOrFruitSauce) {
+    items.push('Après préparation : pot ou flacon propre fermé au réfrigérateur 3–5 jours ; congélation possible en petites portions environ 2 mois.');
+  } else if (hotSauce) {
+    items.push('Après cuisson : refroidis vite, filme au contact ou ferme en boîte propre, conserve 24–48h au réfrigérateur et réchauffe doucement en fouettant.');
+  } else if (cooked) {
+    items.push('Après cuisson : refroidis rapidement, conserve en boîte hermétique au réfrigérateur 3–4 jours et réchauffe au four, à la poêle ou doucement selon la texture.');
+  } else if (dairy || egg) {
+    items.push('Après préparation : conserve au réfrigérateur à 0–4°C en contenant propre fermé et consomme sous 24–48h.');
+  } else {
+    items.push('Après préparation : conserve couvert dans un contenant propre ; mets au réfrigérateur dès qu’il y a humidité, fruit coupé, sauce ou garniture fraîche.');
+  }
+
+  return items;
+}
+
 function getRecipePracticalSections(recipe) {
   const practical = recipe?.practical || {};
   const notes = (recipe?.notes || []).map(stripHtml);
   const technical = recipe?.technical || [];
   const sections = [];
   const add = (key, title, items) => {
-    const cleanItems = compactPracticalItems(key, uniq((items || []).map(stripHtml).filter(Boolean)));
-    if (cleanItems.length) sections.push({ key, title, items: cleanItems.slice(0, 4) });
+    const cleanItems = compactPracticalItems(key, uniqInOrder((items || []).map(stripHtml).filter(Boolean)));
+    if (cleanItems.length) sections.push({ key, title, items: cleanItems.slice(0, key === 'storage' ? 6 : 4) });
   };
 
   const storageNotes = notes.filter(note => /\b(conservation|stockage|p[eé]remption|cong[eé]lation|cong[eè]le|au froid|r[eé]frig[eé]rateur)\b/i.test(note));
@@ -1635,6 +1736,7 @@ function getRecipePracticalSections(recipe) {
     ...substitutionNotes
   ]);
   add('storage', 'Conservation', [
+    ...inferRecipeConservation(recipe),
     ...asTextList(recipe?.storage || practical.storage),
     ...storageNotes
   ]);
@@ -1658,6 +1760,14 @@ function noteKey(value) {
   return normalizeText(stripHtml(value)).replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
+function noteCoveredByPracticalSection(note, practicalSections = []) {
+  const text = normalizeText(stripHtml(note));
+  const hasSection = key => practicalSections.some(section => section.key === key);
+  if (hasSection('storage') && /\b(conservation|stockage|peremption|congelation|congele|au froid|refrigerateur)\b/.test(text)) return true;
+  if (hasSection('reheating') && /\b(rechauff|remettre au four|four doux|vapeur)\b/.test(text)) return true;
+  return false;
+}
+
 function getDisplayNotes(recipe, practicalSections = []) {
   const practicalKeys = new Set(
     practicalSections
@@ -1668,7 +1778,7 @@ function getDisplayNotes(recipe, practicalSections = []) {
   const seen = new Set();
   return (recipe?.notes || []).filter(note => {
     const key = noteKey(note);
-    if (!key || practicalKeys.has(key) || seen.has(key)) return false;
+    if (!key || practicalKeys.has(key) || noteCoveredByPracticalSection(note, practicalSections) || seen.has(key)) return false;
     seen.add(key);
     return true;
   });
