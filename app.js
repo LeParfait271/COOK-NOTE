@@ -847,6 +847,17 @@ function getRecipeSteps(recipe) {
   return recipe?.steps || [];
 }
 
+function getIngredientGroupSteps(group) {
+  return Array.isArray(group?.steps)
+    ? group.steps.filter(step => typeof step === 'string' && step.trim())
+    : [];
+}
+
+function getSelectedInlineVariantSteps(recipe, selectedInlineVariantGroup) {
+  const groupSteps = getIngredientGroupSteps(selectedInlineVariantGroup?.group);
+  return groupSteps.length ? groupSteps : getRecipeSteps(recipe);
+}
+
 function getVariantRefs(recipe) {
   return Array.isArray(recipe.variants) ? recipe.variants.filter(variant => variant && variant.id) : [];
 }
@@ -3410,9 +3421,15 @@ function RecipeView({
     ? inlineVariantGroupIndexes.find(({ index }) => Boolean(openIngredientGroups[`${detailKey}:group:${index}`]))
     : null;
   const canShowSteps = hasSelectedVariant && (!needsInlineVariantSelection || Boolean(selectedInlineVariantGroup));
-  const displaySteps = canShowSteps ? getRecipeSteps(selectedRecipe) : [];
+  const displaySteps = canShowSteps ? getSelectedInlineVariantSteps(selectedRecipe, selectedInlineVariantGroup) : [];
+  const stepScopeKey = selectedInlineVariantGroup ? `${detailKey}:variant-group:${selectedInlineVariantGroup.index}` : detailKey;
   const stepTotal = displaySteps.length;
-  const doneSteps = Object.keys(checked).filter(key => key.startsWith(`${detailKey}:step:`) && checked[key]).length;
+  const fallbackStepTotal = getRecipeSteps(selectedRecipe).length;
+  const effectiveStepTotal = stepTotal || fallbackStepTotal;
+  const stepMetaText = needsInlineVariantSelection && !selectedInlineVariantGroup
+    ? `${inlineVariantGroupIndexes.length} version${inlineVariantGroupIndexes.length > 1 ? 's' : ''}`
+    : `${effectiveStepTotal} étape${effectiveStepTotal > 1 ? 's' : ''}`;
+  const doneSteps = Object.keys(checked).filter(key => key.startsWith(`${stepScopeKey}:step:`) && checked[key]).length;
   const progress = stepTotal ? Math.round((doneSteps / stepTotal) * 100) : 0;
   const canAddToShopping = hasSelectedVariant && canShowSteps;
   const isInShopping = hasSelectedVariant && shoppingIds.includes(detailKey);
@@ -3452,14 +3469,14 @@ function RecipeView({
   }, [detailKey]);
 
   useEffect(() => {
-    if (!stepTotal || doneSteps !== stepTotal || completedRef.current === detailKey) return;
-    completedRef.current = detailKey;
+    if (!stepTotal || doneSteps !== stepTotal || completedRef.current === stepScopeKey) return;
+    completedRef.current = stepScopeKey;
     if (window.confetti) {
       window.confetti({ particleCount: 110, spread: 70, origin: { y: .65 } });
       setTimeout(() => window.confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 } }), 220);
       setTimeout(() => window.confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 } }), 380);
     }
-  }, [detailKey, doneSteps, stepTotal]);
+  }, [stepScopeKey, doneSteps, stepTotal]);
 
   function toggle(key) {
     setCheckedWithHistory(prev => ({ ...prev, [key]: !prev[key] }));
@@ -3510,7 +3527,7 @@ function RecipeView({
               h('span', { key: 'nutri', className: `nutri-score nutri-${getNutriScore(selectedRecipe).toLowerCase()}` }, `Nutri ${getNutriScore(selectedRecipe)}`),
               selectedRecipe.yield && h('span', { key: 'yield' }, getQuantityDisplay(selectedRecipe, factor)),
               h('span', { key: 'ingredients' }, `${countIngredients(selectedRecipe)} ingrédients`),
-              h('span', { key: 'steps' }, `${stepTotal} étapes`)
+              h('span', { key: 'steps' }, stepMetaText)
             ]
         ),
         h('div', { className: 'detail-actions' },
@@ -3538,12 +3555,12 @@ function RecipeView({
     hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts, {
       recipe: selectedRecipe,
       factor,
-      stepTotal: getRecipeSteps(selectedRecipe).length
+      stepTotal: effectiveStepTotal
     }),
     hasSelectedVariant && h('div', { className: 'recipe-tabs', 'aria-label': 'Sections de la recette' },
       [
         { key: 'ingredients', label: 'Ingrédients', count: countIngredients(selectedRecipe) },
-        { key: 'steps', label: 'Étapes', count: stepTotal || getRecipeSteps(selectedRecipe).length },
+        { key: 'steps', label: 'Étapes', count: effectiveStepTotal },
         { key: 'notes', label: 'Avant', count: notesCount }
       ].map(tab => h('button', {
         key: tab.key,
@@ -3618,7 +3635,7 @@ function RecipeView({
           )
           : h('ol', { className: 'step-list' },
           displaySteps.map((step, index) => {
-            const key = `${detailKey}:step:${index}`;
+            const key = `${stepScopeKey}:step:${index}`;
             const minutes = getStepMinutes(step);
             return h('li', { key, className: checked[key] ? 'done' : '' },
               h('label', null,

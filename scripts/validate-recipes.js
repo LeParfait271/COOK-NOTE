@@ -164,6 +164,21 @@ if (!recipes || typeof recipes !== 'object') {
     if (!expected && hasLink) errors.push(`${parentId}: ne doit pas contenir ${childId}.`);
   }
 
+  function expectVariantGroupSteps(id, expectedGroups) {
+    const recipe = recipes[id];
+    if (!recipe) return;
+    expectedGroups.forEach(groupName => {
+      const group = (recipe.ingredients || []).find(candidate => candidate?.group === groupName);
+      if (!group) {
+        errors.push(`${id}: groupe de variante attendu introuvable (${groupName}).`);
+        return;
+      }
+      if (!Array.isArray(group.steps) || group.steps.length < 2) {
+        errors.push(`${id}: le groupe ${groupName} doit avoir ses propres etapes.`);
+      }
+    });
+  }
+
   expectRecipePlacement('toppings_frites', {
     master: 'accompagnements_maitre',
     categories: ['Accompagnements', 'Sauces'],
@@ -190,6 +205,8 @@ if (!recipes || typeof recipes !== 'object') {
     additionalMasters: ['entrees_maitre'],
     variantGroups: true
   });
+
+  expectVariantGroupSteps('tomates_variantes', ['Version séchées', 'Version confites']);
 
   for (const [id, recipe] of Object.entries(recipes)) {
     const isMaster = masterIds.has(id);
@@ -236,6 +253,15 @@ if (!recipes || typeof recipes !== 'object') {
 
     (recipe.ingredients || []).forEach((group, groupIndex) => {
       if (group.recipeId && !ids.has(group.recipeId)) errors.push(`${id}: recipeId introuvable dans ingredients[${groupIndex}] (${group.recipeId}).`);
+      if (group.steps !== undefined) {
+        if (!Array.isArray(group.steps) || !group.steps.length) {
+          errors.push(`${id}: ingredients[${groupIndex}].steps doit etre une liste non vide.`);
+        } else {
+          group.steps.forEach((step, stepIndex) => {
+            if (typeof step !== 'string' || !step.trim()) errors.push(`${id}: ingredients[${groupIndex}].steps[${stepIndex}] invalide.`);
+          });
+        }
+      }
       (group.items || []).forEach(item => {
         checkRoundedLargeGramAmounts(id, item);
         checkVanillaDosage(id, item);

@@ -828,6 +828,12 @@ window.RECIPES = {
           "Sel fin",
           "Thym",
           "Huile d'olive pour conservation"
+        ],
+        "steps": [
+          "Préchauffer le four à 90–100°C, idéalement en chaleur tournante.",
+          "Couper les tomates Roma en deux, saler légèrement côté chair, puis les poser face coupée vers le haut sur une plaque ou un plat de cuisson.",
+          "Ajouter le thym, puis cuire 2h30 à 3h jusqu’à obtenir des tomates souples, fripées et bien concentrées, sans les brûler.",
+          "Laisser refroidir, puis couvrir d’huile d’olive dans un bocal propre si elles sont préparées pour la conservation."
         ]
       },
       {
@@ -839,13 +845,19 @@ window.RECIPES = {
           "4 gousses d'ail",
           "Branches de thym",
           "Huile d'olive"
+        ],
+        "steps": [
+          "Préchauffer le four à 120°C.",
+          "Couper les tomates cerises en deux, les disposer dans un plat de cuisson, puis ajouter le sel, le sucre, l’ail, le thym et un filet d’huile d’olive.",
+          "Cuire 1h30 à 2h jusqu’à obtenir des tomates tendres et confites, encore juteuses, sans chercher à les sécher complètement.",
+          "Laisser refroidir, puis conserver sous huile au frais dans un bocal propre si elles ne sont pas utilisées tout de suite."
         ]
       }
     ],
     "steps": [
-      "Version séchées : four 90–100°C pendant 2h30–3h.",
-      "Version confites : four 120°C pendant 1h30–2h avec ail + thym et filet d’huile.",
-      "Refroidir puis conserver sous huile au frais."
+      "Ouvrir le bloc Version séchées ou Version confites pour afficher les étapes adaptées.",
+      "Surveiller la texture en fin de cuisson : les séchées doivent être concentrées et souples, les confites tendres et encore juteuses.",
+      "Refroidir puis conserver sous huile au frais si les tomates ne sont pas utilisées immédiatement."
     ],
     "notes": [
       "Séchées : parfaites pour antipasti et salades.",

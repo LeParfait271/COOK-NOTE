@@ -26,6 +26,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les techniques de cuisinier necessaires doivent etre presentes dans la page Techniques et liees automatiquement ou explicitement dans les recettes.
 - Les recettes parentes ne doivent pas afficher de faux comptes ingredients/etapes de variante. Elles doivent rester des fiches de navigation.
 - Les recettes listees dans une fiche parent doivent rester des fiches normales ouvrables avec leur propre URL `/recette/id`. La fiche parent sert de collection avec des liens, pas de selecteur de variante bloque dans le hero.
+- Quand une recette utilise des groupes de preparation internes avec des cuissons ou methodes differentes, les etapes propres a chaque groupe doivent etre rangees sur ce groupe et l'interface doit afficher uniquement les etapes du groupe ouvert.
 - La page d'accueil sans filtre doit rester un rangement propre par fiches parentes/collections. Ne pas afficher toutes les recettes enfants en vrac sur l'accueil par defaut.
 - Sous le nom d'une carte recette, ne pas afficher le poids, le rendement ou les portions. Afficher seulement le nombre de variantes quand la fiche contient des variantes, sinon ne rien afficher.
 - Le badge categorie des cartes recette doit afficher toutes les categories de la fiche, separees par ` / `, pas seulement la premiere categorie.
