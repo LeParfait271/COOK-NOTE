@@ -782,28 +782,42 @@ a {
   backdrop-filter: blur(18px) saturate(1.08);
 }
 
-.recently-added-block {
-  margin-bottom: 26px;
-  padding: 14px;
-  border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--line));
+.monthly-additions-block {
+  margin-bottom: 22px;
+  padding: 12px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--line));
   border-radius: var(--radius);
   background:
-    linear-gradient(135deg, rgba(251, 191, 36, .075), rgba(255, 255, 255, .018)),
-    color-mix(in srgb, var(--surface) 92%, transparent);
-  backdrop-filter: blur(18px) saturate(1.05);
+    linear-gradient(135deg, rgba(251, 191, 36, .045), rgba(255, 255, 255, .012)),
+    color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(14px) saturate(1.02);
 }
 
-.recently-added-block .recipe-grid {
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+.monthly-additions-block .recipe-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
-.recently-added-block .recipe-card {
-  min-height: 220px;
-  aspect-ratio: 4 / 3;
+.monthly-additions-block .recipe-card {
+  min-width: 0;
+  min-height: 166px;
+  aspect-ratio: 16 / 9;
 }
 
-.recently-added-head {
+.monthly-additions-block .recipe-card h3 {
+  max-width: 88%;
+  font-size: clamp(17px, 1.25vw, 21px);
+  line-height: 1.05;
+}
+
+.monthly-additions-block .tag-line,
+.monthly-additions-block .card-overlay-tags,
+.monthly-additions-block .recipe-card > .card-body > .nutri-score {
+  display: none;
+}
+
+.monthly-additions-head {
   margin-bottom: 12px;
 }
 
@@ -3568,12 +3582,12 @@ a {
     aspect-ratio: 16 / 10;
   }
 
-  .recently-added-block .recipe-grid {
+  .monthly-additions-block .recipe-grid {
     grid-template-columns: 1fr;
   }
 
-  .recently-added-block .recipe-card {
-    min-height: 210px;
+  .monthly-additions-block .recipe-card {
+    min-height: 178px;
   }
 
   .prep-timeline-block li {

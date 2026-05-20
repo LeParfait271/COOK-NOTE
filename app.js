@@ -28,13 +28,14 @@ const HOME_CARD_ORDER = {
   accompagnements_maitre: 7,
   desserts_maitre: 8
 };
-const FEATURED_RECENT_IDS = [
-  'tiramisu_citron',
-  'pesto_tomates_sechees_sans_cajou',
-  'mini_flans_sales_garnitures',
-  'pain_grille_beurre_ail_herbes',
-  'billes_mozzarella_marinees',
-  'cookies_cerise_chocolat_moka'
+const MONTHLY_ADDITION_DAYS = 31;
+const MONTHLY_ADDITIONS = [
+  { id: 'tiramisu_citron', addedAt: '2026-05-20' },
+  { id: 'pesto_tomates_sechees_sans_cajou', addedAt: '2026-05-20' },
+  { id: 'mini_flans_sales_garnitures', addedAt: '2026-05-20' },
+  { id: 'pain_grille_beurre_ail_herbes', addedAt: '2026-05-20' },
+  { id: 'billes_mozzarella_marinees', addedAt: '2026-05-20' },
+  { id: 'cookies_cerise_chocolat_moka', addedAt: '2026-05-20' }
 ];
 const CATEGORY_PARENT_IDS = {
   'Apéro': 'apero_maitre',
@@ -1911,6 +1912,13 @@ function getPrepTimeline(recipe) {
   return items.slice(0, 4);
 }
 
+function isMonthlyAdditionVisible(item, now = new Date()) {
+  const added = new Date(`${item.addedAt}T00:00:00`);
+  if (Number.isNaN(added.getTime())) return false;
+  const ageDays = (now.getTime() - added.getTime()) / 86400000;
+  return ageDays >= 0 && ageDays < MONTHLY_ADDITION_DAYS;
+}
+
 function noteKey(value) {
   return normalizeText(stripHtml(value)).replace(/[^a-z0-9]+/g, ' ').trim();
 }
@@ -2627,13 +2635,13 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   );
 }
 
-function RecentlyAddedSection({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter }) {
+function MonthlyAdditionsSection({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter }) {
   if (!recipes.length) return null;
-  return h('section', { className: 'recently-added-block', 'aria-label': 'Recettes récemment ajoutées' },
-    h('div', { className: 'season-block-head recently-added-head' },
+  return h('section', { className: 'monthly-additions-block', 'aria-label': 'Ajouts du mois' },
+    h('div', { className: 'season-block-head monthly-additions-head' },
       h('div', null,
         h('p', { className: 'eyebrow' }, 'Nouveautés'),
-        h('h3', null, 'Récemment ajoutées')
+        h('h3', null, 'Ajouts du mois')
       ),
       h('span', null, `${recipes.length} fiches`)
     ),
@@ -2701,8 +2709,8 @@ function HomeView(props) {
     h(Hero),
     h('div', { className: 'content-wrap' },
       h(ActiveChips, { chips: props.activeChips }),
-      showRecent && h(RecentlyAddedSection, {
-        recipes: props.recentlyAddedRecipes || [],
+      showRecent && h(MonthlyAdditionsSection, {
+        recipes: props.monthlyAdditionRecipes || [],
         recipesById: props.recipesById,
         favorites: props.favorites,
         toggleFavorite: props.toggleFavorite,
@@ -3895,7 +3903,10 @@ function App() {
   const activeSeoRecipe = activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => recipesById[id]).filter(Boolean), [shoppingIds, recipesById]);
   const recentRecipes = useMemo(() => recentRecipeIds.map(id => recipesById[id]).filter(recipe => recipe && !isMasterRecipe(recipe)), [recentRecipeIds, recipesById]);
-  const recentlyAddedRecipes = useMemo(() => FEATURED_RECENT_IDS.map(id => recipesById[id]).filter(Boolean), [recipesById]);
+  const monthlyAdditionRecipes = useMemo(() => MONTHLY_ADDITIONS
+    .filter(item => isMonthlyAdditionVisible(item))
+    .map(item => recipesById[item.id])
+    .filter(Boolean), [recipesById]);
   const hasRecipeFilters = Boolean(query.trim() || ingredientQuery.trim() || season || seasonCategory || tagFilter || onlyFavorites);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
@@ -4445,7 +4456,7 @@ function App() {
           recipesById,
           onlyFavorites,
           activeChips,
-          recentlyAddedRecipes,
+          monthlyAdditionRecipes,
           filterProps,
           toggleFavorite,
           openRecipe,
