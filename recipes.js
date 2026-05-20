@@ -381,6 +381,10 @@ window.RECIPES = {
         "label": "Mayonnaise"
       },
       {
+        "id": "pesto_tomates_sechees_sans_cajou",
+        "label": "Pesto tomates séchées sans cajou"
+      },
+      {
         "id": "pesto_variantes",
         "label": "Pestos"
       },
@@ -565,6 +569,10 @@ window.RECIPES = {
       {
         "id": "court_bouillon",
         "label": "Court-bouillon"
+      },
+      {
+        "id": "pain_grille_beurre_ail_herbes",
+        "label": "Pain grillé beurre ail et herbes"
       },
       {
         "id": "pains_burgers_brioche",
@@ -2185,6 +2193,10 @@ window.RECIPES = {
         "label": "Légumes rôtis au four"
       },
       {
+        "id": "mini_flans_sales_garnitures",
+        "label": "Mini-flans salés avec garnitures"
+      },
+      {
         "id": "oeufs_mimosa_variantes",
         "label": "Œufs mimosa"
       },
@@ -2337,6 +2349,10 @@ window.RECIPES = {
       {
         "id": "oignons_rotis_thym_miel",
         "label": "Oignons rôtis au thym et au miel"
+      },
+      {
+        "id": "pain_grille_beurre_ail_herbes",
+        "label": "Pain grillé beurre ail et herbes"
       },
       {
         "id": "sauce_yaourt_citronnee",
@@ -3423,6 +3439,10 @@ window.RECIPES = {
         "label": "Beignets de calamar"
       },
       {
+        "id": "billes_mozzarella_marinees",
+        "label": "Billes de mozzarella marinées"
+      },
+      {
         "id": "cake_sale_lardon",
         "label": "Cake salé poitrine fumée"
       },
@@ -3447,12 +3467,20 @@ window.RECIPES = {
         "label": "Frites maison"
       },
       {
+        "id": "mini_flans_sales_garnitures",
+        "label": "Mini-flans salés avec garnitures"
+      },
+      {
         "id": "mojitos_variantes",
         "label": "Mojitos"
       },
       {
         "id": "oeufs_mimosa_variantes",
         "label": "Œufs mimosa"
+      },
+      {
+        "id": "pain_grille_beurre_ail_herbes",
+        "label": "Pain grillé beurre ail et herbes"
       },
       {
         "id": "pate_legere_beignets_calamar_crevettes",
@@ -3496,6 +3524,10 @@ window.RECIPES = {
       {
         "id": "mi_cuits_chocolat",
         "label": "Mi-cuits au chocolat"
+      },
+      {
+        "id": "tiramisu_citron",
+        "label": "Tiramisu citron"
       },
       {
         "id": "tiramisu_speculoos",
@@ -3556,6 +3588,10 @@ window.RECIPES = {
     ],
     "difficulty": "easy",
     "variants": [
+      {
+        "id": "billes_mozzarella_marinees",
+        "label": "Billes de mozzarella marinées"
+      },
       {
         "id": "gaspacho_melon",
         "label": "Gaspacho de melon"
@@ -4210,6 +4246,10 @@ window.RECIPES = {
         "label": "Pâtes et bases pâtissières"
       },
       {
+        "id": "pesto_tomates_sechees_sans_cajou",
+        "label": "Pesto tomates séchées sans cajou"
+      },
+      {
         "id": "sauce_mornay",
         "label": "Sauce Mornay"
       }
@@ -4258,6 +4298,10 @@ window.RECIPES = {
       {
         "id": "caramel_cheesecake_cookies",
         "label": "Cookies caramel cheesecake"
+      },
+      {
+        "id": "cookies_cerise_chocolat_moka",
+        "label": "Cookies cerise chocolat moka"
       },
       {
         "id": "cookies_chocolat_blanc_cranberry",
@@ -7601,6 +7645,529 @@ window.RECIPES = {
     },
     "additionalMasters": [
       "apero_maitre"
+    ]
+  },
+  "tiramisu_citron": {
+    "title": "Tiramisu citron",
+    "master": "desserts_cuillere_maitre",
+    "image": "/assets/recipe-images-optimized/tiramisu_citron_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "6 personnes",
+    "aliases": [
+      "tiramisu au citron",
+      "tiramisu citron mascarpone",
+      "dessert citron sans cuisson"
+    ],
+    "tags": [
+      "tiramisu",
+      "citron",
+      "mascarpone",
+      "dessert froid"
+    ],
+    "ingredients": [
+      {
+        "group": "Crème citron",
+        "items": [
+          "250g mascarpone",
+          "3 œufs",
+          "90g sucre",
+          "2 citrons jaunes non traités",
+          "1 pincée de sel"
+        ]
+      },
+      {
+        "group": "Montage",
+        "items": [
+          "18 à 24 biscuits à la cuillère",
+          "120g eau",
+          "40g sucre",
+          "40g jus de citron",
+          "Zeste de citron pour finir"
+        ]
+      }
+    ],
+    "steps": [
+      "Préparer un sirop avec l’eau, le sucre et le jus de citron, puis laisser refroidir.",
+      "Séparer les œufs. Fouetter les jaunes avec le sucre jusqu’à blanchiment.",
+      "Ajouter le mascarpone, le zeste fin des citrons et un filet de jus de citron.",
+      "Monter les blancs avec une pincée de sel, puis les incorporer délicatement à la crème.",
+      "Tremper rapidement les biscuits dans le sirop citronné et les ranger dans un plat ou des verrines.",
+      "Alterner biscuits et crème, terminer par une couche de crème et réserver au frais au moins 4h.",
+      "Finir avec un peu de zeste de citron juste avant de servir."
+    ],
+    "notes": [
+      "Le sirop doit être froid pour ne pas détremper les biscuits.",
+      "Pour une version plus vive, ajouter un peu de lemon curd en fine couche.",
+      "Repos idéal : une nuit au réfrigérateur."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Incorporer les blancs sans casser la mousse pour garder une crème légère."
+      },
+      {
+        "label": "Trempage",
+        "value": "Tremper très vite : les biscuits continuent de s’humidifier pendant le repos."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Fouet",
+        "Saladiers",
+        "Plat ou verrines"
+      ],
+      "storage": [
+        "24 à 48h au réfrigérateur, bien filmé."
+      ],
+      "mistakes": [
+        "Ne surcharge pas en jus de citron dans la crème : elle peut se détendre.",
+        "Ne trempe pas trop les biscuits."
+      ],
+      "result": [
+        "Dessert frais, mousseux, citronné et sans cuisson."
+      ]
+    },
+    "additionalMasters": [
+      "desserts_maitre"
+    ]
+  },
+  "pesto_tomates_sechees_sans_cajou": {
+    "title": "Pesto tomates séchées sans cajou",
+    "master": "sauces_assaisonnements_maitre",
+    "image": "/assets/recipe-images-optimized/pesto_tomates_sechees_sans_cajou_spooky.jpg",
+    "categories": [
+      "Sauces",
+      "Base"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "1 pot",
+    "aliases": [
+      "pesto rosso sans noix de cajou",
+      "pesto tomates séchées",
+      "pesto rouge"
+    ],
+    "tags": [
+      "pesto",
+      "tomates séchées",
+      "sauce",
+      "sans noix de cajou"
+    ],
+    "ingredients": [
+      {
+        "group": "Pesto",
+        "items": [
+          "180g tomates séchées égouttées",
+          "40g parmesan râpé",
+          "25g pignons de pin ou graines de tournesol",
+          "1 petite gousse d’ail",
+          "10g basilic",
+          "70g huile d’olive",
+          "15g jus de citron",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Égoutter les tomates séchées en gardant un peu d’huile si elles sont conservées dans l’huile.",
+      "Mixer tomates, parmesan, pignons ou graines, ail, basilic, jus de citron et poivre du moulin.",
+      "Ajouter l’huile d’olive progressivement jusqu’à obtenir une texture tartinable.",
+      "Corriger l’assaisonnement et détendre avec un filet d’eau ou d’huile si nécessaire."
+    ],
+    "notes": [
+      "Cette version retire les noix de cajou et garde une texture riche avec pignons ou graines.",
+      "Parfait pour pâtes, tartines, focaccia, sandwichs ou base de sauce froide.",
+      "Si les tomates sont très salées, goûter avant d’ajouter du sel."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Mixer court pour garder un pesto dense plutôt qu’une purée lisse."
+      },
+      {
+        "label": "Équilibre",
+        "value": "Le citron réveille les tomates séchées et évite une sauce trop lourde."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Mixeur",
+        "Spatule",
+        "Pot hermétique"
+      ],
+      "storage": [
+        "4 à 5 jours au réfrigérateur, couvert d’un fin filet d’huile."
+      ],
+      "mistakes": [
+        "Ne sale pas avant d’avoir goûté les tomates et le parmesan."
+      ],
+      "result": [
+        "Pesto rouge dense, parfumé, sans noix de cajou."
+      ]
+    },
+    "additionalMasters": [
+      "elements_base_maitre"
+    ]
+  },
+  "mini_flans_sales_garnitures": {
+    "title": "Mini-flans salés avec garnitures",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/mini_flans_sales_garnitures_spooky.jpg",
+    "categories": [
+      "Apéro",
+      "Entrées"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été",
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "12 mini-flans",
+    "aliases": [
+      "mini flans salés",
+      "flans apéro",
+      "flans chèvre sauge"
+    ],
+    "tags": [
+      "flan",
+      "apéritif",
+      "œuf",
+      "chèvre"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "3 œufs",
+          "60g farine",
+          "45g beurre fondu",
+          "150g lait",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      },
+      {
+        "group": "Garniture chèvre sauge",
+        "items": [
+          "1 bûche de chèvre",
+          "Quelques feuilles de sauge"
+        ]
+      }
+    ],
+    "steps": [
+      "Préchauffer le four à 180°C et graisser des empreintes à mini-muffins.",
+      "Fouetter les œufs avec la farine, puis ajouter le beurre fondu et le lait.",
+      "Assaisonner, ajouter la garniture coupée en petits morceaux et mélanger sans trop travailler.",
+      "Répartir dans les empreintes en remplissant aux trois quarts.",
+      "Cuire environ 15min, jusqu’à ce que les flans soient pris et légèrement dorés.",
+      "Laisser tiédir quelques minutes avant de démouler."
+    ],
+    "notes": [
+      "La base accepte d’autres garnitures : jambon, tomates séchées, olives, herbes, fromage râpé.",
+      "À servir tiède pour garder le cœur moelleux.",
+      "Ne surcharge pas les moules : les mini-flans doivent rester légers."
+    ],
+    "technical": [
+      {
+        "label": "Appareil",
+        "value": "Une base lisse évite les paquets de farine dans les petits formats."
+      },
+      {
+        "label": "Cuisson",
+        "value": "Retirer dès que le centre est pris pour éviter une texture sèche."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Moule à mini-muffins",
+        "Fouet",
+        "Bol verseur"
+      ],
+      "storage": [
+        "2 jours au réfrigérateur, réchauffer doucement au four."
+      ],
+      "mistakes": [
+        "Évite les garnitures trop humides ou égoutte-les avant de les ajouter."
+      ],
+      "result": [
+        "Mini bouchées salées, moelleuses et faciles à décliner."
+      ]
+    },
+    "additionalMasters": [
+      "entrees_maitre"
+    ]
+  },
+  "pain_grille_beurre_ail_herbes": {
+    "title": "Pain grillé beurre ail et herbes",
+    "master": "bases_salees_maitre",
+    "image": "/assets/recipe-images-optimized/pain_grille_beurre_ail_herbes_spooky.jpg",
+    "categories": [
+      "Base",
+      "Apéro",
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 1,
+    "yield": "12 tranches",
+    "aliases": [
+      "pain à l’ail",
+      "pain grillé ail herbes",
+      "garlic bread"
+    ],
+    "tags": [
+      "pain",
+      "ail",
+      "beurre",
+      "herbes"
+    ],
+    "ingredients": [
+      {
+        "group": "Pain grillé",
+        "items": [
+          "12 tranches de baguette épaisses",
+          "55g beurre salé ramolli",
+          "1 gousse d’ail hachée",
+          "1 c. à soupe ciboulette ciselée",
+          "1 c. à soupe persil plat ciselé"
+        ]
+      }
+    ],
+    "steps": [
+      "Préchauffer le four en position gril.",
+      "Mélanger le beurre ramolli avec l’ail, la ciboulette et le persil.",
+      "Tartiner les tranches de baguette et les poser sur une plaque.",
+      "Griller 2 à 3min en surveillant, jusqu’à obtenir une belle coloration.",
+      "Servir chaud."
+    ],
+    "notes": [
+      "Idéal avec pâtes, soupe, salade, grillades ou plateau apéro.",
+      "Le gril colore très vite : rester devant le four.",
+      "Pour un goût plus doux, frotter le pain avec l’ail au lieu de l’incorporer au beurre."
+    ],
+    "technical": [
+      {
+        "label": "Beurre",
+        "value": "Il doit être pommade pour s’étaler sans déchirer le pain."
+      },
+      {
+        "label": "Gril",
+        "value": "Cuisson courte et intense : surveiller en continu."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Plaque de cuisson",
+        "Bol",
+        "Spatule"
+      ],
+      "storage": [
+        "Meilleur minute. Le beurre parfumé peut être préparé 3 jours à l’avance."
+      ],
+      "mistakes": [
+        "Ne place pas la plaque trop près du gril si ton four chauffe fort."
+      ],
+      "result": [
+        "Pain croustillant, doré, beurré et bien parfumé."
+      ]
+    },
+    "additionalMasters": [
+      "apero_maitre",
+      "accompagnements_maitre"
+    ]
+  },
+  "billes_mozzarella_marinees": {
+    "title": "Billes de mozzarella marinées",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/billes_mozzarella_marinees_spooky.jpg",
+    "categories": [
+      "Apéro",
+      "Entrées"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 1,
+    "yield": "4 personnes",
+    "aliases": [
+      "billes mozzarella marinées",
+      "mozzarella apéro",
+      "mozzarella marinée"
+    ],
+    "tags": [
+      "mozzarella",
+      "marinade",
+      "apéritif",
+      "huile d’olive"
+    ],
+    "ingredients": [
+      {
+        "group": "Marinade",
+        "items": [
+          "250g billes de mozzarella",
+          "60g huile d’olive",
+          "1 petite gousse d’ail râpée",
+          "1 c. à café thym ou origan",
+          "1 pincée piment d’Espelette",
+          "Zeste fin de citron",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Égoutter les billes de mozzarella et les éponger.",
+      "Mélanger l’huile d’olive, l’ail, les herbes, le piment, le zeste, le sel et le poivre du moulin.",
+      "Ajouter la mozzarella, mélanger délicatement et couvrir.",
+      "Laisser mariner au frais au moins 30min, idéalement 2h.",
+      "Remettre à température ambiante 10min avant de servir."
+    ],
+    "notes": [
+      "À servir avec tomates cerises, pain grillé, olives ou charcuterie.",
+      "Ne jette pas l’huile parfumée : elle assaisonne une salade ou des pâtes.",
+      "Éponger la mozzarella aide la marinade à mieux accrocher."
+    ],
+    "technical": [
+      {
+        "label": "Marinade",
+        "value": "La mozzarella est humide : bien l’égoutter pour éviter une marinade diluée."
+      },
+      {
+        "label": "Service",
+        "value": "Le froid fige l’huile d’olive, donc sortir un peu avant dégustation."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Bol",
+        "Râpe fine",
+        "Boîte hermétique"
+      ],
+      "storage": [
+        "24h au réfrigérateur dans la marinade."
+      ],
+      "mistakes": [
+        "Ne surdose pas l’ail cru : il devient vite dominant."
+      ],
+      "result": [
+        "Billes fraîches, parfumées, prêtes pour l’apéro."
+      ]
+    },
+    "additionalMasters": [
+      "entrees_maitre",
+      "crudites_maitre"
+    ]
+  },
+  "cookies_cerise_chocolat_moka": {
+    "title": "Cookies cerise chocolat moka",
+    "master": "cookies_sucres_maitre",
+    "image": "/assets/recipe-images-optimized/cookies_cerise_chocolat_moka_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "16 cookies",
+    "aliases": [
+      "cherry chocolate chip cookies",
+      "cookies cerise chocolat café",
+      "cookies moka"
+    ],
+    "tags": [
+      "cookies",
+      "cerise",
+      "chocolat",
+      "café"
+    ],
+    "ingredients": [
+      {
+        "group": "Pâte",
+        "items": [
+          "115g beurre doux ramolli",
+          "100g cassonade ou vergeoise",
+          "50g sucre",
+          "1 œuf",
+          "Extrait de vanille selon dosage indiqué sur la bouteille",
+          "180g farine",
+          "15g cacao non sucré",
+          "4g café soluble ou espresso en poudre",
+          "3g levure chimique",
+          "2g sel fin"
+        ]
+      },
+      {
+        "group": "Garniture",
+        "items": [
+          "120g pépites de chocolat",
+          "80g cerises séchées hachées",
+          "60g pépites moka ou chocolat au café"
+        ]
+      }
+    ],
+    "steps": [
+      "Crémer le beurre avec la cassonade ou vergeoise et le sucre.",
+      "Ajouter l’œuf et la vanille, puis mélanger jusqu’à obtenir une base homogène.",
+      "Ajouter farine, cacao, café soluble, levure et sel.",
+      "Incorporer les pépites de chocolat, les cerises séchées et les pépites moka.",
+      "Former 16 boules et placer 30min au frais.",
+      "Cuire 10 à 12min à 180°C, puis laisser reposer sur la plaque avant de déplacer."
+    ],
+    "notes": [
+      "Les cerises séchées apportent l’acidité qui équilibre le chocolat et le café.",
+      "Pour un goût moka plus marqué, augmenter légèrement le café soluble.",
+      "Sortir les cookies quand le centre paraît encore tendre."
+    ],
+    "technical": [
+      {
+        "label": "Repos",
+        "value": "Le froid limite l’étalement et donne des cookies plus épais."
+      },
+      {
+        "label": "Cuisson",
+        "value": "Le centre se raffermit hors du four : ne pas prolonger inutilement."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Robot ou saladier",
+        "Plaque de cuisson",
+        "Papier cuisson"
+      ],
+      "storage": [
+        "4 jours en boîte hermétique.",
+        "Pâte congelable en boules."
+      ],
+      "mistakes": [
+        "Ne cuis pas trop : le cacao fait paraître les cookies moins dorés."
+      ],
+      "result": [
+        "Cookies moelleux, chocolatés, avec une note café et cerise."
+      ]
+    },
+    "additionalMasters": [
+      "desserts_maitre",
+      "biscuits_gouters_maitre"
     ]
   },
   "tempura_beignets_calamar_crevettes": {
