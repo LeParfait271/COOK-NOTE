@@ -8508,9 +8508,8 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Couper le brie en deux horizontalement pour obtenir deux disques.",
       "Mélanger noix, fruits secs, miel et herbes.",
-      "Étaler la garniture sur la moitié inférieure du brie.",
+      "Ouvrir le brie déjà préparé en deux disques et étaler la garniture sur la moitié inférieure.",
       "Refermer avec la moitié supérieure et presser très légèrement.",
       "Réfrigérer 30min pour raffermir l’ensemble.",
       "Sortir 10 à 15min avant service, puis couper en quartiers."
@@ -8521,10 +8520,6 @@ window.RECIPES = {
       "Hacher les noix assez finement pour obtenir une coupe nette."
     ],
     "technical": [
-      {
-        "label": "Coupe",
-        "value": "Un couteau long et légèrement tiède aide à ouvrir le brie proprement."
-      },
       {
         "label": "Repos",
         "value": "Le froid stabilise la garniture et facilite le service."
