@@ -7699,8 +7699,8 @@ window.RECIPES = {
       {
         "group": "Finition optionnelle",
         "items": [
-          "Fine couche de lemon curd",
-          "Meringue italienne"
+          "Fine couche de <span data-goto=\"creme_citron_lemon_curd\">lemon curd</span>",
+          "<span data-goto=\"meringue_italienne\">Meringue italienne</span>"
         ],
         "recipeId": "creme_citron_lemon_curd"
       }
