@@ -43,7 +43,10 @@ const MONTHLY_ADDITIONS = [
   { id: 'brie_farci_fruits_secs_noix', addedAt: '2026-05-20' },
   { id: 'carres_cremeux_citron_vert', addedAt: '2026-05-20' },
   { id: 'beurre_ail', addedAt: '2026-05-20' },
-  { id: 'cake_tomate_chorizo_feta', addedAt: '2026-05-20' }
+  { id: 'cake_tomate_chorizo_feta', addedAt: '2026-05-20' },
+  { id: 'rillettes_porc', addedAt: '2026-05-20' },
+  { id: 'rillettes_poulet', addedAt: '2026-05-20' },
+  { id: 'terrine_porc_pistaches', addedAt: '2026-05-20' }
 ];
 const CATEGORY_PARENT_IDS = {
   'Apéro': 'apero_maitre',
@@ -445,6 +448,16 @@ const TECHNIQUE_GUIDES = [
     tip: 'Le bain-marie évite de brûler chocolat, beurre, crèmes et sauces fragiles.',
     query: 'bain-marie chocolat beurre',
     aliases: ['bain-marie', 'bain marie', 'au bain-marie']
+  },
+  {
+    id: 'steriliser-sans-sterilisateur',
+    title: 'Stériliser sans stérilisateur',
+    label: 'Conserve',
+    description: 'Utiliser un grand faitout pour traiter des bocaux quand on n’a pas de stérilisateur dédié.',
+    steps: ['Choisis des bocaux propres, joints neufs et couvercles en bon état.', 'Pose un torchon au fond du faitout et cale les bocaux debout pour éviter les chocs.', 'Couvre d’eau avec 3 à 5cm au-dessus des couvercles.', 'Porte à ébullition, puis compte le temps seulement quand l’eau bout régulièrement.', 'Laisse refroidir dans l’eau, sèche, puis vérifie le vide ou la fermeture avant stockage.'],
+    tip: 'Pour viande, pâtés et bocaux peu acides, respecte strictement le temps de la recette et écarte tout bocal mal fermé, bombé, fuyant ou suspect.',
+    query: 'steriliser bocal conserve terrine pate lapin faitout',
+    aliases: ['stériliser sans stérilisateur', 'steriliser sans sterilisateur', 'stériliser', 'steriliser', 'stérilisation', 'sterilisation', 'bocaux à conserve']
   },
   {
     id: 'flamber',

@@ -3636,6 +3636,14 @@ window.RECIPES = {
         "label": "Pâte légère pour beignets de calamar ou crevettes"
       },
       {
+        "id": "rillettes_porc",
+        "label": "Rillettes de porc"
+      },
+      {
+        "id": "rillettes_poulet",
+        "label": "Rillettes de poulet"
+      },
+      {
         "id": "sauce_yaourt_citronnee",
         "label": "Sauce yaourt citronnée"
       },
@@ -3646,6 +3654,10 @@ window.RECIPES = {
       {
         "id": "terrine_campagne",
         "label": "Terrine de campagne"
+      },
+      {
+        "id": "terrine_porc_pistaches",
+        "label": "Terrine de porc aux pistaches"
       },
       {
         "id": "tomates_variantes",
@@ -8526,7 +8538,7 @@ window.RECIPES = {
       "Travailler rapidement jusqu’à obtenir une farce homogène, sans la chauffer.",
       "Remplir des bocaux propres en tassant légèrement et en laissant 2cm de marge.",
       "Fermer les bocaux selon le système utilisé.",
-      "Stériliser 2h30 à 100°C, puis laisser refroidir dans l’eau.",
+      "Stériliser 2h30 à 100°C, au stérilisateur ou en suivant la méthode stériliser sans stérilisateur au grand faitout, puis laisser refroidir dans l’eau.",
       "Vérifier les fermetures avant stockage et laisser maturer au moins 48h avant dégustation."
     ],
     "notes": [
@@ -8547,8 +8559,8 @@ window.RECIPES = {
     "practical": {
       "equipment": [
         "Hachoir",
-        "Bocaux à conserve",
-        "Stérilisateur",
+      "Bocaux à conserve",
+        "Stérilisateur ou grand faitout haut",
         "Grand saladier"
       ],
       "storage": [
@@ -8643,7 +8655,8 @@ window.RECIPES = {
         "Sonde"
       ],
       "storage": [
-        "4 jours au réfrigérateur, bien filmée.",
+        "4 à 5 jours au réfrigérateur à 0–4°C, bien filmée.",
+        "Pour une garde plus longue au frais, couvrir la surface d’une fine couche de saindoux fondu et propre.",
         "Trancher au dernier moment pour éviter le dessèchement."
       ],
       "mistakes": [
@@ -8651,6 +8664,282 @@ window.RECIPES = {
       ],
       "result": [
         "Terrine charcutière rustique, parfumée et bien tranchable."
+      ]
+    }
+  },
+  "rillettes_porc": {
+    "title": "Rillettes de porc",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/rillettes_porc_spooky.jpg",
+    "categories": [
+      "Apéro"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "6 pots",
+    "aliases": [
+      "rillettes de porc",
+      "rillettes porc",
+      "rillettes maison"
+    ],
+    "tags": [
+      "rillettes",
+      "porc",
+      "charcuterie",
+      "apero"
+    ],
+    "ingredients": [
+      {
+        "group": "Viande et graisse",
+        "items": [
+          "1000g épaule ou échine de porc",
+          "500g poitrine de porc fraîche",
+          "350g saindoux ou graisse de canard",
+          "200g vin blanc sec ou eau"
+        ]
+      },
+      {
+        "group": "Assaisonnement",
+        "items": [
+          "22g sel fin",
+          "3g poivre du moulin",
+          "2 feuilles de laurier",
+          "3 branches de thym",
+          "2g quatre-épices, optionnel"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper les viandes en gros cubes réguliers.",
+      "Mettre viande, graisse, vin blanc ou eau, sel fin, poivre du moulin, thym et laurier dans une cocotte.",
+      "Porter doucement à frémissement, couvrir partiellement et cuire 4 à 5h à feu très doux.",
+      "Remuer de temps en temps : la viande doit se détacher en filaments sans sécher.",
+      "Retirer laurier et thym, égoutter la viande en gardant la graisse de cuisson.",
+      "Effilocher la viande à la fourchette, puis incorporer assez de graisse chaude pour obtenir une texture moelleuse.",
+      "Mettre en pots propres, tasser légèrement et couvrir d’une fine couche de graisse.",
+      "Refroidir rapidement, puis laisser reposer 24h au réfrigérateur avant dégustation."
+    ],
+    "notes": [
+      "Les rillettes reposent sur une cuisson lente dans la graisse : c’est ce qui donne les filaments et le goût profond.",
+      "Servir à l’apéro, en entrée ou dans un sandwich avec cornichons et pain grillé.",
+      "La couche de graisse protège la surface, mais ne remplace pas une hygiène stricte ni une conservation au froid."
+    ],
+    "technical": [
+      {
+        "label": "Cuisson",
+        "value": "Le liquide doit frémir à peine : une ébullition forte dessèche la viande et brouille la texture."
+      },
+      {
+        "label": "Texture",
+        "value": "Effilocher à chaud, puis ajuster avec la graisse de cuisson jusqu’à une texture souple."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Cocotte épaisse",
+        "Fourchettes",
+        "Pots propres",
+        "Passoire"
+      ],
+      "storage": [
+        "4 à 5 jours au réfrigérateur à 0–4°C après refroidissement complet.",
+        "Après ouverture : consommer sous 48h.",
+        "Congélation possible en petits pots bien fermés."
+      ],
+      "mistakes": [
+        "Ne garde pas les rillettes tièdes longtemps : refroidis vite les pots avant stockage."
+      ],
+      "result": [
+        "Rillettes fondantes, filandreuses et bien confites."
+      ]
+    }
+  },
+  "rillettes_poulet": {
+    "title": "Rillettes de poulet",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/rillettes_poulet_spooky.jpg",
+    "categories": [
+      "Apéro"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 3,
+    "yield": "4 pots",
+    "aliases": [
+      "rillettes de poulet",
+      "rillettes poulet",
+      "rillettes volaille"
+    ],
+    "tags": [
+      "rillettes",
+      "poulet",
+      "charcuterie",
+      "apero"
+    ],
+    "ingredients": [
+      {
+        "group": "Poulet confit",
+        "items": [
+          "1200g cuisses de poulet",
+          "250g graisse de canard ou saindoux",
+          "150g vin blanc sec ou bouillon de volaille",
+          "80g oignon émincé",
+          "10g ail écrasé"
+        ]
+      },
+      {
+        "group": "Assaisonnement",
+        "items": [
+          "14g sel fin",
+          "2g poivre du moulin",
+          "2 feuilles de laurier",
+          "3 branches de thym",
+          "20g persil ciselé, optionnel"
+        ]
+      }
+    ],
+    "steps": [
+      "Mettre les cuisses de poulet, graisse, vin blanc ou bouillon, oignon, ail, thym, laurier, sel fin et poivre du moulin dans une cocotte.",
+      "Cuire à frémissement très doux 2h30 à 3h, jusqu’à ce que la viande se détache facilement des os.",
+      "Égoutter en conservant la graisse de cuisson, puis retirer peau, os, thym et laurier.",
+      "Effilocher finement la chair chaude.",
+      "Incorporer progressivement la graisse de cuisson pour obtenir une texture souple et tartinable.",
+      "Ajouter le persil si souhaité, goûter et ajuster l’assaisonnement.",
+      "Mettre en pots propres, tasser, couvrir d’une fine couche de graisse et refroidir rapidement.",
+      "Laisser reposer 12 à 24h au réfrigérateur avant de servir."
+    ],
+    "notes": [
+      "La cuisson lente dans la graisse donne une texture plus moelleuse qu’un simple poulet mixé.",
+      "Servir sur pain grillé avec pickles, cornichons ou moutarde douce.",
+      "Pour une texture rustique, effilocher à la fourchette plutôt qu’au robot."
+    ],
+    "technical": [
+      {
+        "label": "Graisse",
+        "value": "Ajouter la graisse en plusieurs fois permet d’arrêter dès que la texture devient tartinable."
+      },
+      {
+        "label": "Sécurité",
+        "value": "Refroidir rapidement et conserver au froid, surtout avec une volaille cuite effilochée."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Cocotte",
+        "Fourchettes",
+        "Pots propres",
+        "Passoire"
+      ],
+      "storage": [
+        "3 à 4 jours au réfrigérateur à 0–4°C.",
+        "Après ouverture : consommer sous 48h.",
+        "Congélation possible en petits pots."
+      ],
+      "mistakes": [
+        "Ne mixe pas trop fort : la rillette deviendrait pâteuse."
+      ],
+      "result": [
+        "Rillettes de volaille moelleuses, confites et faciles à tartiner."
+      ]
+    }
+  },
+  "terrine_porc_pistaches": {
+    "title": "Terrine de porc aux pistaches",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/terrine_porc_pistaches_spooky.jpg",
+    "categories": [
+      "Apéro"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "1 terrine",
+    "aliases": [
+      "terrine de porc aux pistaches",
+      "terrine porc pistaches",
+      "pâté porc pistache"
+    ],
+    "tags": [
+      "terrine",
+      "porc",
+      "pistache",
+      "charcuterie"
+    ],
+    "ingredients": [
+      {
+        "group": "Farce",
+        "items": [
+          "650g échine de porc",
+          "350g gorge de porc",
+          "200g foie de volaille",
+          "100g pistaches décortiquées",
+          "80g échalote ciselée",
+          "10g ail haché",
+          "120g œufs entiers",
+          "60ml cognac ou armagnac",
+          "17g sel fin",
+          "3g poivre du moulin",
+          "2g quatre-épices"
+        ]
+      },
+      {
+        "group": "Terrine",
+        "items": [
+          "150g crépine ou bardes de lard",
+          "2 feuilles de laurier",
+          "2 branches de thym"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper les viandes bien froides en morceaux et les faire mariner 2h avec alcool, échalote, ail, sel fin, poivre du moulin et quatre-épices.",
+      "Hacher les viandes avec une grille moyenne.",
+      "Ajouter les œufs et les pistaches, puis mélanger jusqu’à obtenir une farce liée sans la chauffer.",
+      "Chemiser la terrine avec crépine ou bardes, remplir avec la farce et lisser.",
+      "Ajouter laurier et thym, couvrir, puis poser la terrine dans un bain-marie chaud.",
+      "Cuire à 160–170°C pendant 1h30 environ, jusqu’à atteindre une cuisson à cœur.",
+      "Laisser tiédir, poser un léger poids dessus, puis réserver 24 à 48h au réfrigérateur avant de trancher."
+    ],
+    "notes": [
+      "Le repos au froid raffermit la terrine et arrondit les saveurs.",
+      "Les pistaches doivent rester visibles : ne les mixe pas avec la farce.",
+      "Servir avec cornichons, pain de campagne et moutarde."
+    ],
+    "technical": [
+      {
+        "label": "Farce",
+        "value": "Garder les viandes froides évite une farce grasse et collante."
+      },
+      {
+        "label": "Bain-marie",
+        "value": "La cuisson douce limite le dessèchement et donne une tranche plus nette."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Terrine",
+        "Hachoir",
+        "Plat à bain-marie",
+        "Sonde"
+      ],
+      "storage": [
+        "4 à 5 jours au réfrigérateur à 0–4°C, bien filmée.",
+        "Couvrir la surface de saindoux fondu peut prolonger la protection au froid.",
+        "Trancher au dernier moment."
+      ],
+      "mistakes": [
+        "Ne hache pas trop fin : la terrine doit garder une texture charcutière."
+      ],
+      "result": [
+        "Terrine rustique, parfumée, avec pistaches bien visibles à la tranche."
       ]
     }
   },
