@@ -41,7 +41,9 @@ const MONTHLY_ADDITIONS = [
   { id: 'pate_lapin_piment_espelette', addedAt: '2026-05-20' },
   { id: 'terrine_campagne', addedAt: '2026-05-20' },
   { id: 'brie_farci_fruits_secs_noix', addedAt: '2026-05-20' },
-  { id: 'carres_cremeux_citron_vert', addedAt: '2026-05-20' }
+  { id: 'carres_cremeux_citron_vert', addedAt: '2026-05-20' },
+  { id: 'beurre_ail', addedAt: '2026-05-20' },
+  { id: 'cake_tomate_chorizo_feta', addedAt: '2026-05-20' }
 ];
 const CATEGORY_PARENT_IDS = {
   'Apéro': 'apero_maitre',

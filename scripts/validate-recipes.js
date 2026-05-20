@@ -179,6 +179,30 @@ if (!recipes || typeof recipes !== 'object') {
     });
   }
 
+  function expectInternalRecipeLink(consumerId, targetId, labels) {
+    const consumer = recipes[consumerId];
+    const target = recipes[targetId];
+    if (!consumer) {
+      errors.push(`${consumerId}: recette consommatrice introuvable pour le lien interne vers ${targetId}.`);
+      return;
+    }
+    if (!target) {
+      errors.push(`${consumerId}: cible de lien interne introuvable (${targetId}).`);
+      return;
+    }
+    const allText = collectStrings(consumer).join('\n');
+    const normalized = normalizeComparable(allText);
+    const mentionsTarget = labels.some(label => normalized.includes(normalizeComparable(label)));
+    const hasDataGoto = allText.includes(`data-goto="${targetId}"`);
+    const hasLinkedRecipe = (consumer.linkedRecipes || []).some(link => link?.id === targetId);
+    if (mentionsTarget && !hasDataGoto) {
+      errors.push(`${consumerId}: mentionne ${target.title} sans lien data-goto="${targetId}".`);
+    }
+    if (mentionsTarget && !hasLinkedRecipe) {
+      errors.push(`${consumerId}: mentionne ${target.title} sans entree linkedRecipes vers ${targetId}.`);
+    }
+  }
+
   expectRecipePlacement('toppings_frites', {
     master: 'accompagnements_maitre',
     categories: ['Accompagnements', 'Sauces'],
@@ -207,6 +231,8 @@ if (!recipes || typeof recipes !== 'object') {
   });
 
   expectVariantGroupSteps('tomates_variantes', ['Version séchées', 'Version confites']);
+
+  expectInternalRecipeLink('pain_grille_beurre_ail_herbes', 'beurre_ail', ['beurre à l’ail', 'beurre ail']);
 
   for (const [id, recipe] of Object.entries(recipes)) {
     const isMaster = masterIds.has(id);

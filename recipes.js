@@ -567,6 +567,10 @@ window.RECIPES = {
     "masterType": "collection",
     "variants": [
       {
+        "id": "beurre_ail",
+        "label": "Beurre à l’ail"
+      },
+      {
         "id": "court_bouillon",
         "label": "Court-bouillon"
       },
@@ -624,6 +628,90 @@ window.RECIPES = {
       }
     ],
     "master": "elements_base_maitre"
+  },
+  "beurre_ail": {
+    "title": "Beurre à l’ail",
+    "master": "bases_salees_maitre",
+    "image": "/assets/recipe-images-optimized/beurre_ail_spooky.jpg",
+    "categories": [
+      "Base"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 1,
+    "yield": "environ 200g",
+    "aliases": [
+      "beurre ail",
+      "beurre à l’ail",
+      "beurre ail persil",
+      "beurre compose ail"
+    ],
+    "tags": [
+      "beurre",
+      "ail",
+      "persil",
+      "base"
+    ],
+    "linkedRecipes": [
+      {
+        "id": "pain_grille_beurre_ail_herbes",
+        "role": "Utilisation"
+      }
+    ],
+    "ingredients": [
+      {
+        "group": "Beurre parfumé",
+        "items": [
+          "200g beurre doux ramolli",
+          "20g ail haché très finement",
+          "12g persil plat ciselé",
+          "6g jus de citron",
+          "3g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Sortir le beurre environ 45 à 60min avant pour obtenir une texture pommade, souple mais non fondue.",
+      "Hacher l’ail très finement, puis ciseler le persil.",
+      "Mélanger le beurre avec l’ail, le persil, le jus de citron, le sel fin et le poivre du moulin.",
+      "Goûter et ajuster l’assaisonnement, puis transférer en petit pot ou rouler en boudin dans du papier cuisson.",
+      "Réfrigérer au moins 30min pour raffermir avant de trancher ou tartiner."
+    ],
+    "notes": [
+      "Parfait sur pain grillé, légumes rôtis, viande grillée, poisson, pommes de terre ou pâtes.",
+      "Pour une version plus douce, blanchir l’ail 30 secondes dans l’eau frémissante puis bien l’égoutter avant de le hacher."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Le beurre doit être pommade : assez souple pour incorporer les aromates, jamais fondu."
+      },
+      {
+        "label": "Ail",
+        "value": "Hacher très finement évite les morceaux crus agressifs à la dégustation."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Bol",
+        "Spatule",
+        "Couteau",
+        "Petit pot ou papier cuisson"
+      ],
+      "storage": [
+        "5 jours au réfrigérateur en pot hermétique.",
+        "Congélation possible en portions pendant 2 mois."
+      ],
+      "mistakes": [
+        "Ne pas faire fondre le beurre : il perdrait son émulsion et figerait moins joliment."
+      ],
+      "result": [
+        "Beurre parfumé, tartinable, bien ailé et frais grâce au persil."
+      ]
+    }
   },
   "vinaigrette": {
     "title": "Vinaigrette",
@@ -2936,6 +3024,99 @@ window.RECIPES = {
       "cake poitrine fumée"
     ]
   },
+  "cake_tomate_chorizo_feta": {
+    "title": "Cake tomate chorizo feta",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/cake_tomate_chorizo_feta_spooky.jpg",
+    "categories": [
+      "Apéro"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été",
+      "Automne"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "10 parts",
+    "aliases": [
+      "cake tomate chorizo feta",
+      "cake chorizo feta",
+      "cake salé tomate chorizo"
+    ],
+    "tags": [
+      "cake",
+      "tomate",
+      "chorizo",
+      "feta",
+      "apero"
+    ],
+    "ingredients": [
+      {
+        "group": "Appareil",
+        "items": [
+          "150g farine",
+          "11g levure chimique",
+          "300g œufs entiers",
+          "130g lait",
+          "70g huile d’olive",
+          "2g sel fin",
+          "Poivre du moulin"
+        ]
+      },
+      {
+        "group": "Garniture",
+        "items": [
+          "100g chorizo coupé en dés",
+          "100g feta émiettée",
+          "90g tomates séchées égouttées et hachées",
+          "50g échalote ciselée",
+          "10g basilic ou persil ciselé"
+        ]
+      }
+    ],
+    "steps": [
+      "Préchauffer le four à 180°C et chemiser un moule à cake.",
+      "Mélanger farine, levure chimique, sel fin et poivre du moulin.",
+      "Fouetter les œufs avec le lait et l’huile d’olive, puis incorporer les poudres sans trop travailler.",
+      "Ajouter le chorizo, la feta, les tomates séchées, l’échalote et les herbes.",
+      "Verser dans le moule, lisser et cuire 35 à 45min, jusqu’à ce qu’une lame ressorte sèche.",
+      "Laisser tiédir 10min dans le moule, puis démouler et refroidir sur grille avant de trancher."
+    ],
+    "notes": [
+      "Couper le chorizo et les tomates en petits morceaux pour une répartition régulière.",
+      "Égoutter les tomates séchées pour éviter un cake trop gras.",
+      "Servir tiède ou froid, en tranches fines pour l’apéro."
+    ],
+    "technical": [
+      {
+        "label": "Mélange",
+        "value": "Arrêter dès que la farine disparaît pour garder une mie tendre."
+      },
+      {
+        "label": "Cuisson",
+        "value": "Si le dessus colore trop vite, couvrir légèrement avec une feuille de papier cuisson."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Moule à cake",
+        "Fouet",
+        "Saladier",
+        "Grille"
+      ],
+      "storage": [
+        "3 jours au réfrigérateur en boîte hermétique.",
+        "Réchauffer quelques minutes au four doux ou servir froid."
+      ],
+      "mistakes": [
+        "Ne pas surmélanger l’appareil après ajout de la farine."
+      ],
+      "result": [
+        "Cake salé moelleux, parfumé, avec garniture bien répartie."
+      ]
+    }
+  },
   "oignons_rotis_thym_miel": {
     "title": "Oignons rôtis au thym et au miel",
     "master": "entrees_maitre",
@@ -3421,6 +3602,10 @@ window.RECIPES = {
       {
         "id": "cake_sale_lardon",
         "label": "Cake salé poitrine fumée"
+      },
+      {
+        "id": "cake_tomate_chorizo_feta",
+        "label": "Cake tomate chorizo feta"
       },
       {
         "id": "chou_fleur_croustillant",
@@ -7888,21 +8073,25 @@ window.RECIPES = {
       "beurre",
       "herbes"
     ],
+    "linkedRecipes": [
+      {
+        "id": "beurre_ail",
+        "role": "Base"
+      }
+    ],
     "ingredients": [
       {
         "group": "Pain grillé",
         "items": [
           "12 tranches de baguette épaisses",
-          "55g beurre salé ramolli",
-          "1 gousse d’ail hachée",
-          "1 c. à soupe ciboulette ciselée",
-          "1 c. à soupe persil plat ciselé"
+          "90g <span data-goto=\"beurre_ail\">beurre à l’ail</span>",
+          "5g ciboulette ciselée, optionnel"
         ]
       }
     ],
     "steps": [
       "Préchauffer le four en position gril.",
-      "Mélanger le beurre ramolli avec l’ail, la ciboulette et le persil.",
+      "Préparer ou assouplir le <span data-goto=\"beurre_ail\">beurre à l’ail</span>, puis ajouter la ciboulette si souhaité.",
       "Tartiner les tranches de baguette et les poser sur une plaque.",
       "Griller 2 à 3min en surveillant, jusqu’à obtenir une belle coloration.",
       "Servir chaud."
@@ -7910,7 +8099,7 @@ window.RECIPES = {
     "notes": [
       "Idéal avec pâtes, soupe, salade, grillades ou plateau apéro.",
       "Le gril colore très vite : rester devant le four.",
-      "Pour un goût plus doux, frotter le pain avec l’ail au lieu de l’incorporer au beurre."
+      "Pour un goût plus doux, prépare le beurre avec de l’ail blanchi ou une quantité d’ail réduite."
     ],
     "technical": [
       {

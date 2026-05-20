@@ -32,6 +32,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Le badge categorie des cartes recette doit afficher toutes les categories de la fiche, separees par ` / `, pas seulement la premiere categorie.
 - Le rangement des fiches doit suivre l'usage reel : `Toppings frites` = Accompagnements/Sauces, pas Plats ; `Oeufs mimosa` = Apero/Entrees ; `Legumes rotis au four` = Accompagnements/Entrees avec variantes ouvrables.
 - Les recettes type coulis restent dans la fiche parent `Coulis` sous forme de variantes. Ne pas remettre les anciennes fiches individuelles `coulis_fraise`, `coulis_framboise`, `coulis_abricot_vanille`, `coulis_poire` ou `coulis_guide`.
+- Quand une nouvelle recette sert de base ou de composant a une fiche deja presente, verifier les recettes consommatrices et ajouter un lien interne `<span data-goto="id_recette">nom</span>` plus `linkedRecipes`. Pour les dependances durables, ajouter un garde-fou dans `scripts/validate-recipes.js`.
 - Garder un score de completude interne pour surveiller les fiches faibles : structure, securite, conservation, liens, tags, images et rangement.
 
 ## Interface
