@@ -8538,7 +8538,7 @@ window.RECIPES = {
       "Travailler rapidement jusqu’à obtenir une farce homogène, sans la chauffer.",
       "Remplir des bocaux propres en tassant légèrement et en laissant 2cm de marge.",
       "Fermer les bocaux selon le système utilisé.",
-      "Stériliser 2h30 à 100°C, au stérilisateur ou en suivant la méthode stériliser sans stérilisateur au grand faitout, puis laisser refroidir dans l’eau.",
+      "Stériliser 2h30 à 100°C, au stérilisateur ou dans un grand faitout, puis laisser refroidir dans l’eau.",
       "Vérifier les fermetures avant stockage et laisser maturer au moins 48h avant dégustation."
     ],
     "notes": [

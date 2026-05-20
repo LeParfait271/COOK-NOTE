@@ -451,11 +451,11 @@ const TECHNIQUE_GUIDES = [
   },
   {
     id: 'steriliser-sans-sterilisateur',
-    title: 'Stériliser sans stérilisateur',
+    title: 'Stériliser',
     label: 'Conserve',
-    description: 'Utiliser un grand faitout pour traiter des bocaux quand on n’a pas de stérilisateur dédié.',
-    steps: ['Choisis des bocaux propres, joints neufs et couvercles en bon état.', 'Pose un torchon au fond du faitout et cale les bocaux debout pour éviter les chocs.', 'Couvre d’eau avec 3 à 5cm au-dessus des couvercles.', 'Porte à ébullition, puis compte le temps seulement quand l’eau bout régulièrement.', 'Laisse refroidir dans l’eau, sèche, puis vérifie le vide ou la fermeture avant stockage.'],
-    tip: 'Pour viande, pâtés et bocaux peu acides, respecte strictement le temps de la recette et écarte tout bocal mal fermé, bombé, fuyant ou suspect.',
+    description: 'Traiter des bocaux fermés à l’eau bouillante, au stérilisateur ou dans un grand faitout.',
+    steps: ['Utilise des bocaux propres, des joints neufs et des couvercles en bon état.', 'Installe un torchon au fond du faitout ou du stérilisateur, puis cale les bocaux debout pour qu’ils ne s’entrechoquent pas.', 'Couvre largement d’eau : prévois 3 à 5cm au-dessus des couvercles pendant toute la cuisson.', 'Porte à ébullition franche, puis démarre le minuteur seulement quand l’eau bout régulièrement.', 'Garde les bocaux immergés jusqu’au refroidissement, sèche-les, puis vérifie que chaque fermeture tient avant stockage.'],
+    tip: 'Pour viande, pâtés et bocaux peu acides, suis strictement le temps de la recette. Écarte tout bocal mal fermé, fuyant, bombé, trouble ou suspect.',
     query: 'steriliser bocal conserve terrine pate lapin faitout',
     aliases: ['stériliser sans stérilisateur', 'steriliser sans sterilisateur', 'stériliser', 'steriliser', 'stérilisation', 'sterilisation', 'bocaux à conserve']
   },
