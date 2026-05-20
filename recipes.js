@@ -2193,10 +2193,6 @@ window.RECIPES = {
         "label": "Légumes rôtis au four"
       },
       {
-        "id": "mini_flans_sales_garnitures",
-        "label": "Mini-flans salés avec garnitures"
-      },
-      {
         "id": "oeufs_mimosa_variantes",
         "label": "Œufs mimosa"
       },
@@ -3471,10 +3467,6 @@ window.RECIPES = {
         "label": "Frites maison"
       },
       {
-        "id": "mini_flans_sales_garnitures",
-        "label": "Mini-flans salés avec garnitures"
-      },
-      {
         "id": "mojitos_variantes",
         "label": "Mojitos"
       },
@@ -4192,6 +4184,10 @@ window.RECIPES = {
       {
         "id": "babeurre_maison",
         "label": "Babeurre maison"
+      },
+      {
+        "id": "base_pour_flan_sale",
+        "label": "Base pour flan salé"
       },
       {
         "id": "bases_salees_maitre",
@@ -7844,13 +7840,12 @@ window.RECIPES = {
       "elements_base_maitre"
     ]
   },
-  "mini_flans_sales_garnitures": {
-    "title": "Mini-flans salés avec garnitures",
-    "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/mini_flans_sales_garnitures_spooky.jpg",
+  "base_pour_flan_sale": {
+    "title": "Base pour flan salé",
+    "master": "elements_base_maitre",
+    "image": "/assets/recipe-images-optimized/base_pour_flan_sale_spooky.jpg",
     "categories": [
-      "Apéro",
-      "Entrées"
+      "Base"
     ],
     "seasons": [
       "Printemps",
@@ -7862,15 +7857,15 @@ window.RECIPES = {
     "difficultyScore": 2,
     "yield": "12 mini-flans",
     "aliases": [
+      "base flan salé",
       "mini flans salés",
-      "flans apéro",
-      "flans chèvre sauge"
+      "appareil à flan salé"
     ],
     "tags": [
+      "base",
       "flan",
-      "apéritif",
-      "œuf",
-      "chèvre"
+      "salé",
+      "œuf"
     ],
     "ingredients": [
       {
@@ -7883,26 +7878,19 @@ window.RECIPES = {
           "Sel fin",
           "Poivre du moulin"
         ]
-      },
-      {
-        "group": "Garniture chèvre sauge",
-        "items": [
-          "1 bûche de chèvre",
-          "Quelques feuilles de sauge"
-        ]
       }
     ],
     "steps": [
       "Préchauffer le four à 180°C et graisser des empreintes à mini-muffins.",
       "Fouetter les œufs avec la farine, puis ajouter le beurre fondu et le lait.",
-      "Assaisonner, ajouter la garniture coupée en petits morceaux et mélanger sans trop travailler.",
+      "Assaisonner et mélanger sans trop travailler.",
       "Répartir dans les empreintes en remplissant aux trois quarts.",
       "Cuire environ 15min, jusqu’à ce que les flans soient pris et légèrement dorés.",
       "Laisser tiédir quelques minutes avant de démouler."
     ],
     "notes": [
       "La base accepte d’autres garnitures : jambon, tomates séchées, olives, herbes, fromage râpé.",
-      "À servir tiède pour garder le cœur moelleux.",
+      "Garder une garniture bien égouttée pour préserver une texture nette.",
       "Ne surcharge pas les moules : les mini-flans doivent rester légers."
     ],
     "technical": [
@@ -7930,10 +7918,7 @@ window.RECIPES = {
       "result": [
         "Mini bouchées salées, moelleuses et faciles à décliner."
       ]
-    },
-    "additionalMasters": [
-      "entrees_maitre"
-    ]
+    }
   },
   "pain_grille_beurre_ail_herbes": {
     "title": "Pain grillé beurre ail et herbes",

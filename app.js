@@ -32,7 +32,7 @@ const MONTHLY_ADDITION_DAYS = 31;
 const MONTHLY_ADDITIONS = [
   { id: 'tiramisu_citron', addedAt: '2026-05-20' },
   { id: 'pesto_tomates_sechees_sans_cajou', addedAt: '2026-05-20' },
-  { id: 'mini_flans_sales_garnitures', addedAt: '2026-05-20' },
+  { id: 'base_pour_flan_sale', addedAt: '2026-05-20' },
   { id: 'pain_grille_beurre_ail_herbes', addedAt: '2026-05-20' },
   { id: 'billes_mozzarella_marinees', addedAt: '2026-05-20' },
   { id: 'cookies_cerise_chocolat', addedAt: '2026-05-20' },
@@ -3651,7 +3651,6 @@ function RecipeView({
       style: heroStyle
     },
       h('div', { className: 'detail-hero-copy' },
-        h('button', { type: 'button', className: 'back-link', onClick: goHome }, 'Retour aux recettes'),
         heroUsesHomeImage && h('img', { className: 'detail-hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note' }),
         h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome, openRecipe }),
         h('p', { className: 'eyebrow' }, heroEyebrow),
