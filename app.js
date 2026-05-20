@@ -3683,9 +3683,9 @@ function RecipeView({
             variant: focusMode ? 'primary' : 'ghost',
             className: focusMode ? 'focus-action active' : 'focus-action',
             onClick: () => setFocusMode(value => !value),
-            title: focusMode ? 'Quitter le focus cuisson' : 'Activer le focus cuisson',
-            ariaLabel: focusMode ? 'Quitter le focus cuisson' : 'Activer le focus cuisson'
-          }, h(Icon, { name: 'focus' }), h('span', null, focusMode ? 'Quitter focus' : 'Focus cuisson')),
+            title: focusMode ? 'Quitter le mode cuisine' : 'Activer le mode cuisine',
+            ariaLabel: focusMode ? 'Quitter le mode cuisine' : 'Activer le mode cuisine'
+          }, h(Icon, { name: 'focus' }), h('span', null, focusMode ? 'Quitter mode' : 'Mode cuisine')),
           h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, h(Icon, { name: 'print' })),
           canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'icon-square favorite-action active' : 'icon-square favorite-action', onClick: () => toggleFavorite(detailKey), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }))
         )
@@ -3770,7 +3770,7 @@ function RecipeView({
               className: focusMode ? 'focus-toggle active' : 'focus-toggle',
               onClick: () => setFocusMode(value => !value),
               'aria-pressed': focusMode
-            }, h(Icon, { name: 'focus' }), h('span', null, focusMode ? 'Vue complète' : 'Focus'))
+            }, h(Icon, { name: 'focus' }), h('span', null, focusMode ? 'Vue complète' : 'Mode cuisine'))
           )
         ),
         canShowSteps && h('div', { className: 'progress-track' }, h('span', { style: { width: `${progress}%` } })),
