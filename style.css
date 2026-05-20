@@ -644,6 +644,81 @@ a {
   margin-bottom: 30px;
 }
 
+.fridge-assistant {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(320px, 1.1fr);
+  gap: 18px;
+  align-items: center;
+  margin: 0 0 30px;
+  border: 1px solid color-mix(in srgb, var(--mako) 26%, var(--line));
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(0, 245, 212, .12), transparent 28rem),
+    linear-gradient(135deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .018)),
+    color-mix(in srgb, var(--surface-soft) 92%, transparent);
+  padding: 16px;
+  box-shadow: var(--shadow-soft);
+}
+
+.fridge-assistant h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.05;
+}
+
+.fridge-assistant p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.fridge-assistant-copy {
+  display: grid;
+  gap: 6px;
+}
+
+.fridge-assistant-controls {
+  display: grid;
+  gap: 10px;
+}
+
+.fridge-field input {
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, .32);
+  color: var(--text);
+  padding: 0 12px;
+  font-weight: 800;
+}
+
+.fridge-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.fridge-chips button {
+  min-height: 30px;
+  border: 1px solid color-mix(in srgb, var(--mako) 28%, var(--line));
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .22);
+  color: var(--text);
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 900;
+  transition: transform var(--speed), background var(--speed), border-color var(--speed);
+}
+
+.fridge-chips button:hover,
+.fridge-chips button:focus-visible,
+.fridge-chips button.active {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--mako) 64%, var(--line));
+  background: color-mix(in srgb, var(--mako) 16%, rgba(0, 0, 0, .28));
+}
+
 .section-title {
   display: grid;
   gap: 4px;
@@ -1168,6 +1243,33 @@ a {
   color: #fff;
 }
 
+.card-risk {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  left: 10px;
+  min-height: 28px;
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .54);
+  color: #fff;
+  padding: 5px 9px;
+  font-size: 11px;
+  font-weight: 950;
+  line-height: 1;
+  backdrop-filter: blur(10px);
+}
+
+.card-risk-high {
+  border-color: color-mix(in srgb, #ef4444 62%, rgba(255, 255, 255, .22));
+  color: #ffd8d8;
+}
+
+.card-risk-medium {
+  border-color: color-mix(in srgb, #f59e0b 56%, rgba(255, 255, 255, .22));
+  color: #ffe3ad;
+}
+
 .fav-btn .site-icon {
   width: 17px;
   height: 17px;
@@ -1351,6 +1453,42 @@ a {
   right: 10px;
   bottom: 10px;
   margin: 0;
+}
+
+.card-quicklook {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 44px;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity var(--speed), transform var(--speed);
+}
+
+.recipe-card:hover .card-quicklook,
+.recipe-card:focus-visible .card-quicklook {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-quicklook span {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--card-accent, var(--accent)) 30%, rgba(255, 255, 255, .18));
+  border-radius: 6px;
+  background: rgba(0, 0, 0, .58);
+  color: rgba(255, 255, 255, .92);
+  padding: 5px 7px;
+  font-size: 10.5px;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
 }
 
 .recipe-card.master-card .card-meta span {
@@ -2509,6 +2647,48 @@ a {
   line-height: 1.45;
 }
 
+.risk-card {
+  margin-bottom: 14px;
+  border: 1px solid color-mix(in srgb, #f59e0b 34%, var(--line));
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(245, 158, 11, .12), rgba(255, 255, 255, .025)),
+    rgba(0, 0, 0, .12);
+  padding: 12px;
+}
+
+.risk-list {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 8px !important;
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.risk-list li {
+  min-height: 28px;
+  border: 1px solid color-mix(in srgb, #f59e0b 48%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, #f59e0b 13%, rgba(0, 0, 0, .22));
+  color: var(--text);
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.risk-list .risk-high {
+  border-color: color-mix(in srgb, #ef4444 55%, var(--line));
+  background: color-mix(in srgb, #ef4444 14%, rgba(0, 0, 0, .22));
+}
+
+.risk-card small {
+  display: block;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .average-weight-card {
   margin-bottom: 14px;
   border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 24%, var(--line));
@@ -3596,9 +3776,17 @@ a {
     gap: 14px;
   }
 
+  .fridge-assistant {
+    grid-template-columns: 1fr;
+  }
+
   .recipe-card {
     min-height: 238px;
     aspect-ratio: 16 / 10;
+  }
+
+  .card-quicklook {
+    display: none;
   }
 
   .monthly-additions-block .recipe-grid {

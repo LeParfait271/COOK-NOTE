@@ -104,6 +104,51 @@ function categorySuggestions(recipe, recipes) {
   return suggestions;
 }
 
+function ingredientCore(value) {
+  return normalize(value)
+    .trim();
+}
+
+function qualityIssuesFor(id, recipe) {
+  const issues = [];
+  const ingredientGroups = recipe.ingredients || [];
+  ingredientGroups.forEach(group => {
+    const groupName = String(group.group || '');
+    if (/\b(conversion|equivalence|repere|poids moyens?|memo|avant de commencer)\b/i.test(normalize(groupName))) {
+      issues.push(`Groupe non ingredient dans les ingredients : ${groupName}.`);
+    }
+    (group.items || []).forEach(item => {
+      if (/\b(equivaut|equivalent|conversion|repere indicatif)\b/i.test(normalize(item))) {
+        issues.push(`Ligne non ingredient dans les ingredients : ${stripHtml(item)}.`);
+      }
+      if (/\sstyle\s*=/.test(String(item))) {
+        issues.push('Style HTML inline dans un ingredient.');
+      }
+    });
+  });
+
+  if (!recipe.variantGroups) {
+    const seen = new Map();
+    ingredientGroups.forEach(group => (group.items || []).forEach(item => {
+      const key = ingredientCore(item);
+      if (!key) return;
+      seen.set(key, [...(seen.get(key) || []), stripHtml(item)]);
+    }));
+    seen.forEach(values => {
+      if (values.length > 1) issues.push(`Ingredient probablement duplique : ${values.join(' / ')}.`);
+    });
+  }
+
+  const noteKeys = new Set();
+  (recipe.notes || []).forEach(note => {
+    if (/\sstyle\s*=/.test(String(note))) issues.push('Style HTML inline dans une note.');
+    const key = normalize(note);
+    if (key && noteKeys.has(key)) issues.push(`Note dupliquee : ${stripHtml(note)}.`);
+    noteKeys.add(key);
+  });
+  return issues;
+}
+
 function scoreLeaf(id, recipe, recipes) {
   const issues = [];
   const suggestions = [];
@@ -127,8 +172,9 @@ function scoreLeaf(id, recipe, recipes) {
   if ((recipe.notes || []).length > 8) suggestions.push('Notes nombreuses : verifier que tout est bien range dans les sections pratiques.');
   if (!hasStorage(recipe)) suggestions.push('Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.');
   categorySuggestions(recipe, recipes).forEach(item => suggestions.push(`Categorie possible : ${item.category} (${item.reason}).`));
+  const qualityIssues = qualityIssuesFor(id, recipe);
 
-  return { id, title: recipe.title, score, issues, suggestions };
+  return { id, title: recipe.title, score, issues, qualityIssues, suggestions };
 }
 
 function linkedIds(recipe) {
@@ -147,6 +193,18 @@ const leafReports = leaves.map(id => scoreLeaf(id, recipes[id], recipes)).sort((
 const lowScore = leafReports.filter(item => item.score < 78);
 const categoryIdeas = leafReports.flatMap(item => item.suggestions.filter(text => text.startsWith('Categorie possible')).map(text => ({ id: item.id, title: item.title, text })));
 const linkCounts = leaves.map(id => ({ id, title: recipes[id].title, count: linkedIds(recipes[id]).length })).sort((a, b) => a.count - b.count || a.title.localeCompare(b.title, 'fr'));
+const reviewedRecipes = leafReports
+  .slice()
+  .sort((a, b) => a.title.localeCompare(b.title, 'fr'))
+  .map(item => ({
+    id: item.id,
+    title: item.title,
+    score: item.score,
+    issues: item.issues,
+    qualityIssues: item.qualityIssues,
+    suggestions: item.suggestions
+  }));
+const recipesWithQualityIssues = reviewedRecipes.filter(item => item.qualityIssues.length > 0);
 
 const summary = {
   generatedAt: new Date().toISOString(),
@@ -155,12 +213,14 @@ const summary = {
     leaves: leaves.length,
     masters: masters.length,
     lowScore: lowScore.length,
-    categoryIdeas: categoryIdeas.length
+    categoryIdeas: categoryIdeas.length,
+    qualityIssues: recipesWithQualityIssues.length
   },
   averageScore: Math.round(leafReports.reduce((sum, item) => sum + item.score, 0) / Math.max(1, leafReports.length)),
   weakestRecipes: lowScore.slice(0, 20),
   categoryIdeas: categoryIdeas.slice(0, 40),
-  recipesWithFewLinks: linkCounts.filter(item => item.count === 0).slice(0, 30)
+  recipesWithFewLinks: linkCounts.filter(item => item.count === 0).slice(0, 30),
+  reviewedRecipes
 };
 
 const markdown = [
@@ -173,6 +233,7 @@ const markdown = [
   `- Fiches parentes : ${summary.totals.masters}`,
   `- Score moyen : ${summary.averageScore}/100`,
   `- Fiches sous 78 : ${summary.totals.lowScore}`,
+  `- Fiches avec defauts a verifier : ${summary.totals.qualityIssues}`,
   '',
   '## Fiches a surveiller',
   '',
@@ -181,6 +242,14 @@ const markdown = [
     ...item.issues.map(issue => `  - ${issue}`),
     ...item.suggestions.slice(0, 3).map(suggestion => `  - ${suggestion}`)
   ]) : ['Aucune fiche faible detectee.']),
+  '',
+  '## Audit integral',
+  '',
+  ...summary.reviewedRecipes.flatMap(item => [
+    `- ${item.title} (${item.id}) : ${item.score}/100${item.qualityIssues.length ? '' : ' - OK'}`,
+    ...item.qualityIssues.map(issue => `  - ${issue}`),
+    ...(!item.qualityIssues.length && item.issues.length ? item.issues.slice(0, 2).map(issue => `  - A surveiller : ${issue}`) : [])
+  ]),
   '',
   '## Idees de rangement prudentes',
   '',

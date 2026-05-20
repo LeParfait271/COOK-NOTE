@@ -68,6 +68,7 @@ const SEASON_CATEGORY_FILTERS = [
   { value: 'Base', label: 'Bases' },
   { value: 'Petits-déjeuners', label: 'Petit-déj.' }
 ];
+const FRIDGE_INGREDIENT_CHIPS = ['œufs', 'beurre', 'lait', 'crème', 'citron', 'tomates', 'pommes de terre', 'chorizo', 'feta', 'poulet', 'porc', 'chocolat'];
 const TECHNIQUE_GUIDES = [
   {
     id: 'emincer',
@@ -752,6 +753,79 @@ function getRecipeAllergens(recipe) {
   addIf('Lupin', /\b(lupin|farine de lupin)\b/);
 
   return uniq(Array.from(allergens));
+}
+
+function getRecipeRiskSignals(recipe) {
+  const text = normalizeText([
+    recipe?.title,
+    recipe?.yield,
+    ...(recipe?.categories || []),
+    ...(recipe?.tags || []),
+    ...(recipe?.aliases || []),
+    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
+    ...(recipe?.steps || []),
+    ...(recipe?.notes || [])
+  ].map(stripHtml).join(' '));
+  const signals = [];
+  const add = (label, level, pattern) => {
+    if (pattern.test(text) && !signals.some(item => item.label === label)) signals.push({ label, level });
+  };
+  add('Conserve', 'high', /\b(sterilis|bocal|bocaux|conserve|pate de lapin|pate lapin|pate de campagne|terrine|rillettes|saindoux)\b/);
+  add('Froid', 'medium', /\b(creme|chantilly|mascarpone|diplomate|patissiere|fromage frais|mozzarella|brie|tiramisu|salade|gaspacho|gazpacho)\b/);
+  add('Œufs crus', 'medium', /\b(mayonnaise|aioli|aïoli|rouille|oeuf cru|jaune cru)\b/);
+  add('Friture', 'medium', /\b(friture|frire|beignet|tempura|huile a 160|huile a 180|huile a 190)\b/);
+  add('Mer', 'medium', /\b(poisson|crevette|crevettes|calamar|calamars|moule|moules|crustace|crustaces)\b/);
+  add('Viande', 'medium', /\b(porc|poulet|boeuf|bœuf|lapin|viande|gorge|foie|jambon|lardon|bacon)\b/);
+  return signals;
+}
+
+function getRecipeRiskBadge(recipe) {
+  const signals = getRecipeRiskSignals(recipe);
+  if (!signals.length) return null;
+  const high = signals.find(item => item.level === 'high');
+  const first = high || signals[0];
+  return {
+    label: first.level === 'high' ? 'Risque haut' : `Risque ${first.label.toLowerCase()}`,
+    shortLabel: first.label,
+    level: first.level
+  };
+}
+
+function getRecipeServiceItems(recipe) {
+  const practicalService = asTextList(recipe?.service || recipe?.practical?.service);
+  const text = normalizeText([
+    recipe?.title,
+    recipe?.yield,
+    ...(recipe?.categories || []),
+    ...(recipe?.tags || []),
+    ...(recipe?.aliases || []),
+    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
+    ...(recipe?.steps || []),
+    ...(recipe?.notes || [])
+  ].map(stripHtml).join(' '));
+  const items = [...practicalService];
+  const add = item => {
+    if (item && !items.includes(item)) items.push(item);
+  };
+  if (/\b(friture|frire|frites|beignet|tempura|gril|griller|gratiner|four|chaud)\b/.test(text)) {
+    add('Servir chaud, idéalement dès la fin de cuisson.');
+  } else if (/\b(terrine|rillettes|brie|salade|gaspacho|gazpacho|tiramisu|mojito|froid)\b/.test(text)) {
+    add('Servir froid ou frais selon la recette.');
+  } else if (/\b(cake|pain|brioche|cookies|beurre a l ail|beurre à l ail)\b/.test(text)) {
+    add('Servir tiède ou à température ambiante selon la texture recherchée.');
+  }
+  if (/\b(terrine|rillettes|brie|fromage)\b/.test(text)) add('Sortir 10 à 20min avant service pour détendre la texture.');
+  if (/\b(friture|frire|frites|beignet|tempura)\b/.test(text)) add('Saler ou finir juste avant d’envoyer pour garder le croustillant.');
+  if (/\b(chalumeau|meringue|zeste|herbes|fleur de sel|sucre glace)\b/.test(text)) add('Faire les finitions au dernier moment.');
+  return items.slice(0, 4);
+}
+
+function getRecipeServiceSummary(recipe) {
+  const first = getRecipeServiceItems(recipe)[0] || '';
+  if (/chaud/i.test(first)) return 'Service chaud';
+  if (/froid|frais/i.test(first)) return 'Service frais';
+  if (/ti[eè]de|temp[eé]rature/i.test(first)) return 'Service souple';
+  return first ? 'Service noté' : '';
 }
 
 const AVERAGE_WEIGHT_RULES = [
@@ -1890,6 +1964,7 @@ function getRecipePracticalSections(recipe) {
     ...asTextList(recipe?.substitutions || practical.substitutions),
     ...substitutionNotes
   ]);
+  add('service', 'Service', getRecipeServiceItems(recipe));
   add('storage', 'Conservation', [
     ...inferRecipeConservation(recipe),
     ...asTextList(recipe?.storage || practical.storage),
@@ -2585,6 +2660,14 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     : style;
   const variantLabel = master ? '' : getRecipeVariantLabel(recipe, recipesById);
   const cardFacts = !master && variantLabel ? [variantLabel] : [];
+  const riskBadge = !master ? getRecipeRiskBadge(recipe) : null;
+  const serviceSummary = !master ? getRecipeServiceSummary(recipe) : '';
+  const quickFacts = !master ? [
+    difficultyText(recipe),
+    recipe.yield,
+    serviceSummary,
+    riskBadge?.shortLabel && `Risque ${riskBadge.shortLabel.toLowerCase()}`
+  ].filter(Boolean).slice(0, 4) : [];
 
   return h('article', {
     className,
@@ -2602,6 +2685,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     h('div', { className: 'card-media', style: imageStyle },
       !recipe.image && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1)),
       recipe.video && h('span', { className: 'video-badge' }, 'Vidéo'),
+      riskBadge && h('span', { className: `card-risk card-risk-${riskBadge.level}` }, riskBadge.label),
       !master && h('button', {
         type: 'button',
         className: isFavorite ? 'fav-btn active' : 'fav-btn',
@@ -2624,6 +2708,9 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
           : h('span', null, `${countIngredients(recipe)} ingrédients`)
       ),
       !master && h('span', { className: `nutri-score nutri-${getNutriScore(recipe).toLowerCase()}` }, `Nutri ${getNutriScore(recipe)}`),
+      !master && quickFacts.length > 0 && h('div', { className: 'card-quicklook', 'aria-label': 'Repères rapides' },
+        quickFacts.map(fact => h('span', { key: fact }, fact))
+      ),
       !master && h('div', { className: 'mini-tags card-overlay-tags' },
         (recipe.tagsExtracted || []).slice(0, 2).map(tag => h('button', {
           key: tag,
@@ -2655,6 +2742,45 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
       openRecipe,
       setTagFilter
     }))
+  );
+}
+
+function FridgeAssistant({ ingredientQuery, setIngredientQuery }) {
+  const tokens = ingredientSearchTokens(ingredientQuery);
+  const setTokens = nextTokens => setIngredientQuery(uniqInOrder(nextTokens).join(', '));
+  const toggleToken = token => {
+    const normalizedToken = normalizeText(token).trim();
+    const exists = tokens.some(item => normalizeText(item).trim() === normalizedToken);
+    setTokens(exists ? tokens.filter(item => normalizeText(item).trim() !== normalizedToken) : [...tokens, token]);
+  };
+  return h('section', { className: 'fridge-assistant', 'aria-label': 'J’ai dans mon frigo' },
+    h('div', { className: 'fridge-assistant-copy' },
+      h('p', { className: 'eyebrow' }, 'Frigo'),
+      h('h3', null, 'J’ai quoi sous la main ?'),
+      h('p', null, 'Ajoute tes ingrédients et le carnet remonte les fiches qui peuvent coller.')
+    ),
+    h('div', { className: 'fridge-assistant-controls' },
+      h('label', { className: 'field fridge-field' },
+        h('span', null, 'Ingrédients disponibles'),
+        h('input', {
+          type: 'search',
+          value: ingredientQuery,
+          onChange: event => setIngredientQuery(event.target.value),
+          placeholder: 'Ex : œufs, citron, chorizo'
+        })
+      ),
+      h('div', { className: 'fridge-chips' },
+        FRIDGE_INGREDIENT_CHIPS.map(item => {
+          const active = tokens.some(token => normalizeText(token).trim() === normalizeText(item).trim());
+          return h('button', {
+            key: item,
+            type: 'button',
+            className: active ? 'active' : '',
+            onClick: () => toggleToken(item)
+          }, item);
+        })
+      )
+    )
   );
 }
 
@@ -2744,6 +2870,10 @@ function HomeView(props) {
     h(Hero),
     h('div', { className: 'content-wrap' },
       h(ActiveChips, { chips: props.activeChips }),
+      !props.onlyFavorites && h(FridgeAssistant, {
+        ingredientQuery: props.ingredientQuery,
+        setIngredientQuery: props.setIngredientQuery
+      }),
       showRecent && h(MonthlyAdditionsSection, {
         recipes: props.monthlyAdditionRecipes || [],
         recipesById: props.recipesById,
@@ -3605,11 +3735,12 @@ function RecipeView({
   const canFavorite = hasSelectedVariant && !isMasterRecipe(selectedRecipe);
   const remainingMs = timerEnd ? timerEnd - now : 0;
   const recipeAllergens = hasSelectedVariant ? getRecipeAllergens(selectedRecipe) : [];
+  const riskSignals = hasSelectedVariant ? getRecipeRiskSignals(selectedRecipe) : [];
   const averageWeights = hasSelectedVariant ? getRecipeAverageWeights(selectedRecipe) : [];
   const linkedRecipes = hasSelectedVariant ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
   const practicalSections = hasSelectedVariant ? getRecipePracticalSections(selectedRecipe) : [];
   const displayNotes = hasSelectedVariant ? getDisplayNotes(selectedRecipe, practicalSections) : [];
-  const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length;
+  const notesCount = recipeAllergens.length + riskSignals.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length;
   const selectedGroupLabel = selectedInlineVariantGroup?.group?.group || '';
 
   useEffect(() => {
@@ -3853,6 +3984,13 @@ function RecipeView({
           recipeAllergens.length
             ? h('ul', { className: 'allergen-list' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
             : h('p', { className: 'allergen-empty' }, 'Aucun allergène majeur détecté dans les ingrédients.')
+        ),
+        riskSignals.length > 0 && h('div', { className: 'risk-card' },
+          h('p', { className: 'eyebrow' }, 'Indice de risque'),
+          h('ul', { className: 'risk-list' }, riskSignals.slice(0, 4).map(signal =>
+            h('li', { key: `${detailKey}:risk:${signal.label}`, className: `risk-${signal.level}` }, signal.label)
+          )),
+          h('small', null, 'Contrôle hygiène, froid, cuisson ou conservation à respecter.')
         ),
         averageWeights.length > 0 && h('div', { className: 'average-weight-card' },
           h('p', { className: 'eyebrow' }, 'Poids moyens'),
@@ -4491,6 +4629,8 @@ function App() {
           onlyFavorites,
           activeChips,
           monthlyAdditionRecipes,
+          ingredientQuery,
+          setIngredientQuery,
           filterProps,
           toggleFavorite,
           openRecipe,

@@ -745,7 +745,7 @@ window.RECIPES = {
     "notes": [
       "Ratio huile:acide 3:1 à 4:1 selon la salade.",
       "Variantes : citron, herbes, miso blanc, yaourt grec.",
-      "→ Voir aussi : <span data-goto=\"pesto_variantes\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Pestos</span>",
+      "→ Voir aussi : <span data-goto=\"pesto_variantes\">Pestos</span>",
       "Stockage optimal : flacon avec couvercle au réfrigérateur ; secouer avant usage.",
       "Conservation : 5–7 j au froid.",
       "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
@@ -1480,7 +1480,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Parfums : vanille, cacao, café, coco (1–2 %).",
-      "→ Version plus stable : <span data-goto=\"mascarpone\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Chantilly mascarpone</span> ou <span data-goto=\"chantilly_gelatine\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Chantilly gélatine</span>",
+      "→ Version plus stable : <span data-goto=\"mascarpone\">Chantilly mascarpone</span> ou <span data-goto=\"chantilly_gelatine\">Chantilly gélatine</span>",
       "Stockage optimal : dans un bol filmé ou en poche à douille au réfrigérateur.",
       "Conservation : 24h au froid maximum.",
       "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
@@ -1674,11 +1674,11 @@ window.RECIPES = {
     ],
     "notes": [
       "Conservation : coques 3 j à température ambiante dans boîte hermétique ; garnis 24h au froid.",
-      "→ Recette de garnissage : <span data-goto=\"creme_diplomate_vanille\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème diplomate vanille</span>",
-      "→ Version allégée : <span data-goto=\"chantilly_gelatine\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Chantilly stabilisée</span>",
+      "→ Recette de garnissage : <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span>",
+      "→ Version allégée : <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>",
       "Stockage : boîte hermétique au sec, à température ambiante. Péremption : 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
       "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire.",
-      "Crèmes à garnir : <span data-goto=\"creme_diplomate_vanille\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème diplomate vanille</span> · <span data-goto=\"creme_diplomate_cloud\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème diplomate vanille à garnir</span> · <span data-goto=\"creme_patissiere_vanille\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème pâtissière vanille</span> · <span data-goto=\"creme_patissiere_praline\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème pâtissière praliné</span> · <span data-goto=\"creme_kinder_nutella\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème Nutella à garnir</span> · <span data-goto=\"creme_pistache\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème pistache à garnir</span> · <span data-goto=\"creme_praline\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème praliné</span> · <span data-goto=\"mascarpone\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème mascarpone vanille</span> · <span data-goto=\"chantilly_gelatine\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Chantilly stabilisée</span>."
+      "Crèmes à garnir : <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span> · <span data-goto=\"creme_diplomate_cloud\">Crème diplomate vanille à garnir</span> · <span data-goto=\"creme_patissiere_vanille\">Crème pâtissière vanille</span> · <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span> · <span data-goto=\"creme_kinder_nutella\">Crème Nutella à garnir</span> · <span data-goto=\"creme_pistache\">Crème pistache à garnir</span> · <span data-goto=\"creme_praline\">Crème praliné</span> · <span data-goto=\"mascarpone\">Crème mascarpone vanille</span> · <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>."
     ],
     "difficultyScore": 7
   },
@@ -1819,13 +1819,6 @@ window.RECIPES = {
           "120g sucre semoule ou sucre glace",
           "30–40g crème par pièce si fourré"
         ]
-      },
-      {
-        "group": "Conversion levure",
-        "items": [
-          "1g levure sèche équivaut à environ 3g levure fraîche",
-          "8–10g levure sèche équivalent à 24–30g levure fraîche"
-        ]
       }
     ],
     "steps": [
@@ -1851,7 +1844,13 @@ window.RECIPES = {
       "Résultat attendu : mie aérée et filante, extérieur finement doré, cuisson à cœur sans sécheresse.",
       "Stockage : idéalement le jour même. Péremption : 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture.",
       "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire.",
-      "Crèmes à garnir : <span data-goto=\"creme_diplomate_vanille\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème diplomate vanille</span> · <span data-goto=\"creme_diplomate_cloud\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème diplomate vanille à garnir</span> · <span data-goto=\"creme_patissiere_vanille\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème pâtissière vanille</span> · <span data-goto=\"creme_patissiere_praline\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème pâtissière praliné</span> · <span data-goto=\"creme_kinder_nutella\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème Nutella à garnir</span> · <span data-goto=\"creme_pistache\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème pistache à garnir</span> · <span data-goto=\"creme_praline\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème praliné</span> · <span data-goto=\"mascarpone\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème mascarpone vanille</span> · <span data-goto=\"chantilly_gelatine\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Chantilly stabilisée</span>."
+      "Crèmes à garnir : <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span> · <span data-goto=\"creme_diplomate_cloud\">Crème diplomate vanille à garnir</span> · <span data-goto=\"creme_patissiere_vanille\">Crème pâtissière vanille</span> · <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span> · <span data-goto=\"creme_kinder_nutella\">Crème Nutella à garnir</span> · <span data-goto=\"creme_pistache\">Crème pistache à garnir</span> · <span data-goto=\"creme_praline\">Crème praliné</span> · <span data-goto=\"mascarpone\">Crème mascarpone vanille</span> · <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>."
+    ],
+    "technical": [
+      {
+        "label": "Conversion levure",
+        "value": "1g de levure sèche équivaut à environ 3g de levure fraîche. Pour cette recette, 10–12g de levure fraîche correspondent à environ 3–4g de levure sèche."
+      }
     ],
     "difficultyScore": 7
   },
@@ -1916,9 +1915,9 @@ window.RECIPES = {
     ],
     "notes": [
       "Ne jamais fourrer des donuts chauds : la crème fond et coule.",
-      "→ Recette des donuts : <span data-goto='donuts_cloud' style='color:#fbbf24;text-decoration:underline;cursor:pointer'>Donuts Cloud-like (pousse lente)</span>",
-      "→ Recette des choux : <span data-goto='choux_craquelin' style='color:#fbbf24;text-decoration:underline;cursor:pointer'>Choux au craquelin</span>",
-      "→ Version pâtissière seule : <span data-goto='creme_diplomate_vanille' style='color:#fbbf24;text-decoration:underline;cursor:pointer'>Crème diplomate vanille (recette de base)</span>",
+      "→ Recette des donuts : <span data-goto='donuts_cloud'>Donuts Cloud-like (pousse lente)</span>",
+      "→ Recette des choux : <span data-goto='choux_craquelin'>Choux au craquelin</span>",
+      "→ Version pâtissière seule : <span data-goto='creme_diplomate_vanille'>Crème diplomate vanille (recette de base)</span>",
       "Stockage optimal pâtissière : filmée au contact dans boîte hermétique au réfrigérateur.",
       "Conservation pâtissière seule : 48h au froid. Diplomate assemblée : 24h au froid. Mascarpone : 36–48h au froid.",
       "Congélation : possible pour la pâtissière seule (avant incorporation chantilly) — 1 mois. Fouetter à nouveau après décongélation.",
@@ -1951,11 +1950,11 @@ window.RECIPES = {
       {
         "group": "Composants liés",
         "items": [
-          "→ Voir : <span data-goto=\"craquelin_cacao\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Craquelin cacao</span>",
-          "→ Voir : <span data-goto=\"pate_choux\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Pâte à choux</span>",
-          "→ Voir : <span data-goto=\"creme_patissiere_praline\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème pâtissière praliné</span>",
-          "→ Voir : <span data-goto=\"creme_beurre_meringue_italienne\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème au beurre meringue italienne</span>",
-          "→ Voir : <span data-goto=\"creme_praline\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Crème praliné</span>"
+          "→ Voir : <span data-goto=\"craquelin_cacao\">Craquelin cacao</span>",
+          "→ Voir : <span data-goto=\"pate_choux\">Pâte à choux</span>",
+          "→ Voir : <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span>",
+          "→ Voir : <span data-goto=\"creme_beurre_meringue_italienne\">Crème au beurre meringue italienne</span>",
+          "→ Voir : <span data-goto=\"creme_praline\">Crème praliné</span>"
         ]
       }
     ],
@@ -2003,7 +2002,7 @@ window.RECIPES = {
       "Découper des anneaux (Ø 8cm, trou Ø 2cm), badigeonner de blanc d’œuf, ajouter les noisettes puis recongeler jusqu’à usage."
     ],
     "notes": [
-      "Composant pour : <span data-goto=\"paris_brest\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Paris-Brest</span>.",
+      "Composant pour : <span data-goto=\"paris_brest\">Paris-Brest</span>.",
       "Stockage : boîte hermétique au sec, à température ambiante. Péremption : 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile."
     ],
     "difficultyScore": 2
@@ -2174,7 +2173,7 @@ window.RECIPES = {
       "Mettre en poche cannelée pour le montage des Paris-Brest."
     ],
     "notes": [
-      "Utilisé par exemple dans : <span data-goto=\"paris_brest\" style=\"color:#fbbf24;text-decoration:underline;cursor:pointer\">Paris-Brest</span>.",
+      "Utilisé par exemple dans : <span data-goto=\"paris_brest\">Paris-Brest</span>.",
       "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
     ],
     "difficultyScore": 5,
@@ -2850,7 +2849,7 @@ window.RECIPES = {
           "75g sucre",
           "50g œuf",
           "75g poudre d’amande",
-          "10g fécule",
+          "10g fécule pour crème d’amande",
           "2g zeste de citron"
         ],
         "recipeId": "creme_amande_citron"
@@ -2861,7 +2860,7 @@ window.RECIPES = {
           "80g jus de citron",
           "180g jaunes d’œufs",
           "130g sucre",
-          "10g fécule",
+          "10g fécule pour crème citron",
           "100g beurre"
         ],
         "recipeId": "creme_citron_lemon_curd"
@@ -5465,7 +5464,7 @@ window.RECIPES = {
           "Rouille maison",
           "Piment d’Espelette",
           "Basilic nain",
-          "Huile d’olive"
+          "Huile d’olive pour service"
         ],
         "recipeId": "rouille_haut_de_gamme"
       },
@@ -5475,7 +5474,7 @@ window.RECIPES = {
           "Jus de citron",
           "Sel",
           "Curry en poudre",
-          "Huile d’olive"
+          "Huile d’olive pour les fenouils"
         ]
       }
     ],
@@ -6328,10 +6327,10 @@ window.RECIPES = {
           "80g yaourt grec",
           "5g jus de citron",
           "Zeste de 1/2 citron",
-          "3g ciboulette ciselée",
+          "3g ciboulette ciselée pour la sauce",
           "1g aneth ou estragon",
           "Sel fin",
-          "Poivre du moulin"
+          "Poivre du moulin pour la sauce"
         ]
       },
       {
@@ -6539,7 +6538,7 @@ window.RECIPES = {
         ]
       },
       {
-        "group": "Service",
+        "group": "Finition",
         "items": [
           "Sauce yaourt grec ou sauce ranch",
           "5g persil haché optionnel",
@@ -6703,7 +6702,7 @@ window.RECIPES = {
         "items": [
           "Filet d’huile d’olive",
           "Basilic ou menthe ciselée",
-          "Piment d’Espelette",
+          "Piment d’Espelette pour finition",
           "Mini-billes de melon"
         ]
       }
@@ -6772,7 +6771,7 @@ window.RECIPES = {
           "Menthe fraîche",
           "30g pignons de pin ou pistaches",
           "Fleur de sel",
-          "Poivre du moulin"
+          "Poivre du moulin pour finition"
         ]
       },
       {
@@ -6784,8 +6783,8 @@ window.RECIPES = {
           "3g basilic ciselé",
           "1g origan ou thym frais",
           "Piment d’Espelette",
-          "Sel fin",
-          "Poivre du moulin"
+          "Sel fin pour marinade",
+          "Poivre du moulin pour marinade"
         ]
       },
       {
@@ -6795,8 +6794,8 @@ window.RECIPES = {
           "15g jus de citron ou vinaigre de Xérès",
           "7g miel doux",
           "15 à 30g jus de melon récupéré",
-          "Sel fin",
-          "Poivre du moulin"
+          "Sel fin pour vinaigrette",
+          "Poivre du moulin pour vinaigrette"
         ]
       }
     ],
@@ -7219,12 +7218,6 @@ window.RECIPES = {
           "Zeste de citron vert",
           "Paprika fumé léger"
         ]
-      },
-      {
-        "group": "Service",
-        "items": [
-          "<span data-goto=\"sauce_yaourt_citronnee\">Sauce yaourt citronnée</span>"
-        ]
       }
     ],
     "steps": [
@@ -7257,6 +7250,12 @@ window.RECIPES = {
       {
         "label": "Cible",
         "value": "Bords dorés et croustillants, centre fondant, assaisonnement fumé et sauce fraîche à part."
+      }
+    ],
+    "linkedRecipes": [
+      {
+        "id": "sauce_yaourt_citronnee",
+        "role": "Sauce"
       }
     ],
     "additionalMasters": []

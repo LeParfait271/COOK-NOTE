@@ -22,6 +22,9 @@ const errors = [];
 const ENCODING_SUSPECT_RE = new RegExp('(?:\\uFFFD|\\u00C3|\\u00C2[\\u00A0-\\u00BF]|\\u00E2\\u20AC|\\u00C5[\\u2018\\u2019\\u201C\\u201D])');
 const NON_METRIC_UNIT_RE = /(^|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])(?:cups?|oz|ounces?|tasses?)(?=$|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])/i;
 
+const NON_INGREDIENT_GROUP_RE = /\b(conversion|equivalence|repere|poids moyens?|memo|avant de commencer)\b/i;
+const NON_INGREDIENT_ITEM_RE = /\b(equivaut|equivalent|conversion|repere indicatif)\b/i;
+
 function checkTextEncoding(value, location) {
   if (typeof value === 'string') {
     if (ENCODING_SUSPECT_RE.test(value) || value.includes('?')) {
@@ -278,6 +281,9 @@ if (!recipes || typeof recipes !== 'object') {
     }
 
     (recipe.ingredients || []).forEach((group, groupIndex) => {
+      if (NON_INGREDIENT_GROUP_RE.test(normalizeComparable(group.group || ''))) {
+        errors.push(`${id}: groupe non-ingredient dans les ingredients (${group.group}). Le ranger dans technical, notes ou practical.`);
+      }
       if (group.recipeId && !ids.has(group.recipeId)) errors.push(`${id}: recipeId introuvable dans ingredients[${groupIndex}] (${group.recipeId}).`);
       if (group.steps !== undefined) {
         if (!Array.isArray(group.steps) || !group.steps.length) {
@@ -289,6 +295,9 @@ if (!recipes || typeof recipes !== 'object') {
         }
       }
       (group.items || []).forEach(item => {
+        if (NON_INGREDIENT_ITEM_RE.test(normalizeComparable(item))) {
+          errors.push(`${id}: ligne non-ingredient dans les ingredients (${item}).`);
+        }
         checkRoundedLargeGramAmounts(id, item);
         checkVanillaDosage(id, item);
         checkBrownSugarWording(id, item);
@@ -319,6 +328,9 @@ if (!recipes || typeof recipes !== 'object') {
     }
 
     collectStrings(recipe).forEach(value => {
+      if (/\sstyle\s*=/.test(String(value))) {
+        errors.push(`${id}: style HTML inline interdit dans les textes recette (${value}).`);
+      }
       if (NON_METRIC_UNIT_RE.test(value)) {
         errors.push(`${id}: unite non metrique interdite (${value}).`);
       }

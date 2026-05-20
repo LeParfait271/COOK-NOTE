@@ -1,16 +1,195 @@
 # Audit Cook Note
 
-Genere le 2026-05-19T20:02:03.257Z.
+Genere le 2026-05-20T22:47:45.899Z.
 
-- Recettes totales : 107
-- Recettes feuilles : 88
+- Recettes totales : 124
+- Recettes feuilles : 105
 - Fiches parentes : 19
-- Score moyen : 88/100
+- Score moyen : 89/100
 - Fiches sous 78 : 0
+- Fiches avec defauts a verifier : 0
 
 ## Fiches a surveiller
 
 Aucune fiche faible detectee.
+
+## Audit integral
+
+- Aïoli citronné léger (aioli_citronne_leger) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Babeurre maison (babeurre_maison) : 100/100 - OK
+- Balsamique réduit (balsamique_reduit) : 100/100 - OK
+- Base pour flan salé (base_pour_flan_sale) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Beignets Cloud (donuts_cloud) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Beignets de calamar (beignets_calamar) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Beurre à l’ail (beurre_ail) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Billes de mozzarella marinées (billes_mozzarella_marinees) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Bouillabaisse (bouillabaisse_rouille) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Brie farci aux fruits secs et noix (brie_farci_fruits_secs_noix) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Cake au citron (cake_citron) : 100/100 - OK
+- Cake salé poitrine fumée (cake_sale_lardon) : 100/100 - OK
+- Cake tomate chorizo feta (cake_tomate_chorizo_feta) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Carrés crémeux citron vert (carres_cremeux_citron_vert) : 100/100 - OK
+- Cassolette de crevettes et ravioles au persil (cassolette_crevettes_ravioles_persil) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Cerises séchées (cerises_sechees_maison) : 100/100 - OK
+- Chantilly classique (chantilly_classique) : 100/100 - OK
+- Chantilly stabilisée (chantilly_gelatine) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Chocolat chaud à l'ancienne (chocolat_ancien) : 100/100 - OK
+- Chou-fleur croustillant (chou_fleur_croustillant) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Choux au craquelin (choux_craquelin) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Churros (churros_maison) : 100/100 - OK
+- Clafoutis aux cerises (clafoutis_cerises_bocuse) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Cochon confit à la bière et au sirop d’érable (cochon_confit_biere_erable) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Cookies au beurre noisette chocolat noir/lait (cookies_beurre_noisette_chocolat_noir_lait) : 100/100 - OK
+- Cookies au chocolat noir/lait (cookies_chocolat_noir_lait) : 100/100 - OK
+- Cookies caramel cheesecake (caramel_cheesecake_cookies) : 100/100 - OK
+- Cookies cerise chocolat (cookies_cerise_chocolat) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Cookies chocolat blanc cranberry (cookies_chocolat_blanc_cranberry) : 100/100 - OK
+- Cookies chocolat moelleux (cookies_chocolat_moelleux) : 100/100 - OK
+- Cookies moelleux aux pépites de chocolat et noix (cookies_chocolat_noix) : 100/100 - OK
+- Cookies salés (cookies_sales_variantes) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Côtelettes de porc miel moutarde (cotelettes_porc_miel_moutarde) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Coulis (coulis_maitre) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Court-bouillon (court_bouillon) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Craquelin cacao (craquelin_cacao) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Crème au beurre meringue italienne (creme_beurre_meringue_italienne) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Crème citron (creme_citron_lemon_curd) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Crème d’amande pour fond de tarte (creme_amande_citron) : 100/100 - OK
+- Crème diplomate vanille (creme_diplomate_vanille) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Crème diplomate vanille à garnir (creme_diplomate_cloud) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Crème mascarpone vanille (mascarpone) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Crème Nutella à garnir (creme_kinder_nutella) : 100/100 - OK
+- Crème pâtissière praliné (creme_patissiere_praline) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Crème pâtissière vanille (creme_patissiere_vanille) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Crème pistache à garnir (creme_pistache) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Crème praliné (creme_praline) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Crumble pomme-poire (crumble_pomme_poire) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Curry de lentilles vertes au lait de coco (curry_lentilles_coco) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Frites belges (frites_belges) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Frites de patate douce (frites_patate_douce) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Frites maison (frites_maison) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Gaspacho de melon (gaspacho_melon) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Gaufres (gaufre_bruxelles) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Gaufres de pommes de terre croustillantes (gaufres_pommes_terre) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Gazpacho tomate, menthe et basilic (gazpacho_tomate_menthe_basilic) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Gratin de chou-fleur (gratin_chou_fleur) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Huile pimentée pour pizza (huile_pimentee_pizza) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Légumes rôtis au four (legumes_rotis) : 100/100 - OK
+- Macaron Ouréa (macaron_ourea_pierre_herme) : 100/100 - OK
+- Marinades (marinades_guide) : 100/100 - OK
+- Marmelade citron (compotee_citron) : 100/100 - OK
+- Mayonnaise (mayonnaise_maison) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Meringue italienne (meringue_italienne) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Meringues (meringues) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Mi-cuits au chocolat (mi_cuits_chocolat) : 100/100 - OK
+- Mojitos (mojitos_variantes) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Œuf sur le plat chili crisp sur toast (oeuf_chili_crisp_toast) : 100/100 - OK
+- Œufs mimosa (oeufs_mimosa_variantes) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Oignons rôtis au thym et au miel (oignons_rotis_thym_miel) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Pain grillé beurre ail et herbes (pain_grille_beurre_ail_herbes) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Pains burgers briochés (pains_burgers_brioche) : 100/100 - OK
+- Pains hot-dog (pain_hot_dog) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Pancakes (pancakes_variantes) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Pancakes fluffy (pancakes_fluffy) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Paris-Brest (paris_brest) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Pâte à choux (pate_choux) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Pâté de lapin au piment d’Espelette (pate_lapin_piment_espelette) : 100/100 - OK
+- Pâte légère pour beignets de calamar ou crevettes (pate_legere_beignets_calamar_crevettes) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Pâte sucrée (pate_sucree) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Pâtes à tarte (pates_tarte_variantes) : 100/100 - OK
+- Pesto tomates séchées (pesto_tomates_sechees_sans_cajou) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Pestos (pesto_variantes) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Ricotta fouettée (ricotta_fouettee) : 100/100 - OK
+- Rillettes de porc (rillettes_porc) : 100/100 - OK
+- Rillettes de poulet (rillettes_poulet) : 100/100 - OK
+- Rouille (rouille_haut_de_gamme) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Salade avocat, œuf et épinards (salade_avocat_oeuf_epinards) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Salade melon, mozzarella et jambon cru (salade_melon_mozzarella_jambon_cru) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Sauce aux poivres (sauce_aux_poivres) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Sauce caramel (sauce_caramel) : 100/100 - OK
+- Sauce Mornay (sauce_mornay) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Sauce yaourt citronnée (sauce_yaourt_citronnee) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Sauces burger (sauces_burger_variantes) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Tarte citron meringuée (tarte_citron_meringuee) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Tempura pour beignets de calamar ou crevettes (tempura_beignets_calamar_crevettes) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Terrine de campagne (terrine_campagne) : 100/100 - OK
+- Terrine de porc aux pistaches (terrine_porc_pistaches) : 100/100 - OK
+- Tiramisu citron meringué (tiramisu_citron) : 100/100 - OK
+- Tiramisu spéculoos (tiramisu_speculoos) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Tomates confites et séchées (tomates_variantes) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Tomates provençales (tomates_provencales) : 100/100 - OK
+- Toppings frites (toppings_frites) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Tortillas (tortillas_mexicaines) : 100/100 - OK
+- Vinaigrette (vinaigrette) : 84/100 - OK
+  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 
 ## Idees de rangement prudentes
 
@@ -24,16 +203,24 @@ Aucune fiche faible detectee.
 
 - Babeurre maison (babeurre_maison)
 - Balsamique réduit (balsamique_reduit)
+- Base pour flan salé (base_pour_flan_sale)
+- Billes de mozzarella marinées (billes_mozzarella_marinees)
+- Brie farci aux fruits secs et noix (brie_farci_fruits_secs_noix)
 - Cake au citron (cake_citron)
 - Cake salé poitrine fumée (cake_sale_lardon)
+- Cake tomate chorizo feta (cake_tomate_chorizo_feta)
+- Carrés crémeux citron vert (carres_cremeux_citron_vert)
 - Cassolette de crevettes et ravioles au persil (cassolette_crevettes_ravioles_persil)
+- Cerises séchées (cerises_sechees_maison)
 - Chantilly stabilisée (chantilly_gelatine)
 - Chocolat chaud à l'ancienne (chocolat_ancien)
 - Chou-fleur croustillant (chou_fleur_croustillant)
 - Churros (churros_maison)
+- Clafoutis aux cerises (clafoutis_cerises_bocuse)
 - Cochon confit à la bière et au sirop d’érable (cochon_confit_biere_erable)
 - Cookies au beurre noisette chocolat noir/lait (cookies_beurre_noisette_chocolat_noir_lait)
 - Cookies au chocolat noir/lait (cookies_chocolat_noir_lait)
+- Cookies cerise chocolat (cookies_cerise_chocolat)
 - Cookies chocolat blanc cranberry (cookies_chocolat_blanc_cranberry)
 - Cookies chocolat moelleux (cookies_chocolat_moelleux)
 - Cookies moelleux aux pépites de chocolat et noix (cookies_chocolat_noix)
@@ -44,11 +231,3 @@ Aucune fiche faible detectee.
 - Crème au beurre meringue italienne (creme_beurre_meringue_italienne)
 - Crème citron (creme_citron_lemon_curd)
 - Crème d’amande pour fond de tarte (creme_amande_citron)
-- Crème diplomate vanille (creme_diplomate_vanille)
-- Crème mascarpone vanille (mascarpone)
-- Crème Nutella à garnir (creme_kinder_nutella)
-- Crème pâtissière praliné (creme_patissiere_praline)
-- Crème pâtissière vanille (creme_patissiere_vanille)
-- Crème pistache à garnir (creme_pistache)
-- Crumble pomme-poire (crumble_pomme_poire)
-- Curry de lentilles vertes au lait de coco (curry_lentilles_coco)
