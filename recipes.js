@@ -2414,6 +2414,10 @@ window.RECIPES = {
         "label": "Choux au craquelin"
       },
       {
+        "id": "clafoutis_cerises_bocuse",
+        "label": "Clafoutis aux cerises"
+      },
+      {
         "id": "craquelin_cacao",
         "label": "Craquelin cacao"
       },
@@ -4192,6 +4196,10 @@ window.RECIPES = {
       {
         "id": "bases_salees_maitre",
         "label": "Bases salées"
+      },
+      {
+        "id": "cerises_sechees_maison",
+        "label": "Cerises séchées maison"
       },
       {
         "id": "chantilly_maitre",
@@ -8182,6 +8190,172 @@ window.RECIPES = {
       "desserts_maitre",
       "biscuits_gouters_maitre"
     ]
+  },
+  "clafoutis_cerises_bocuse": {
+    "title": "Clafoutis aux cerises",
+    "master": "desserts_maitre",
+    "image": "/assets/recipe-images-optimized/clafoutis_cerises_bocuse_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Été"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "6 personnes",
+    "aliases": [
+      "clafoutis cerises paul bocuse",
+      "clafoutis aux cerises",
+      "clafoutis bocuse"
+    ],
+    "tags": [
+      "clafoutis",
+      "cerise",
+      "dessert"
+    ],
+    "ingredients": [
+      {
+        "group": "Appareil",
+        "items": [
+          "125g farine",
+          "100g sucre",
+          "3 œufs",
+          "300g lait entier",
+          "1 pincée sel fin",
+          "Vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille"
+        ]
+      },
+      {
+        "group": "Fruits et moule",
+        "items": [
+          "500g cerises",
+          "15g beurre doux pour le moule",
+          "15g sucre pour le moule"
+        ]
+      }
+    ],
+    "steps": [
+      "Préchauffer le four à 180°C et beurrer le moule.",
+      "Saupoudrer le moule avec un peu de sucre, puis répartir les cerises en une couche régulière.",
+      "Mélanger farine, sucre et sel dans un saladier.",
+      "Ajouter les œufs un à un, puis délayer progressivement avec le lait pour obtenir une pâte lisse.",
+      "Parfumer avec la vanille, puis verser l’appareil sur les cerises.",
+      "Cuire 35 à 40min, jusqu’à obtenir un clafoutis pris au centre et légèrement doré.",
+      "Laisser tiédir avant de servir."
+    ],
+    "notes": [
+      "Les cerises peuvent rester entières pour un jus plus contenu, ou être dénoyautées pour une dégustation plus confortable.",
+      "Servir tiède ou à température ambiante.",
+      "Une fine pluie de sucre juste avant service donne un fini plus pâtissier."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "L’appareil doit être lisse et fluide, sans excès de fouet pour garder un résultat tendre."
+      },
+      {
+        "label": "Cuisson",
+        "value": "Le centre doit être pris mais encore souple : il finit de se stabiliser en tiédissant."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Moule à gratin",
+        "Saladier",
+        "Fouet"
+      ],
+      "storage": [
+        "2 jours au réfrigérateur, couvert.",
+        "Revenir à température ambiante ou réchauffer doucement."
+      ],
+      "mistakes": [
+        "Ne verse pas tout le lait d’un coup : l’ajout progressif évite les grumeaux."
+      ],
+      "result": [
+        "Clafoutis moelleux, fruité, avec une pâte fine autour des cerises."
+      ]
+    }
+  },
+  "cerises_sechees_maison": {
+    "title": "Cerises séchées maison",
+    "master": "elements_base_maitre",
+    "image": "/assets/recipe-images-optimized/cerises_sechees_maison_spooky.jpg",
+    "categories": [
+      "Base"
+    ],
+    "seasons": [
+      "Été"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "1 bocal",
+    "aliases": [
+      "cerises sechées maison",
+      "cerises séchées",
+      "faire sécher des cerises"
+    ],
+    "tags": [
+      "cerise",
+      "séchage",
+      "conservation"
+    ],
+    "ingredients": [
+      {
+        "group": "Fruit",
+        "items": [
+          "1kg cerises mûres"
+        ]
+      },
+      {
+        "group": "Optionnel",
+        "items": [
+          "10g jus de citron"
+        ]
+      }
+    ],
+    "steps": [
+      "Laver les cerises, retirer les queues et bien les sécher.",
+      "Dénoyauter les cerises, puis les couper en deux si elles sont grosses.",
+      "Mélanger avec le jus de citron si souhaité pour limiter l’oxydation.",
+      "Répartir les cerises côté coupé vers le haut sur des grilles, sans les superposer.",
+      "Sécher au déshydrateur à 55-60°C pendant 10 à 14h, ou au four ventilé très doux avec la porte entrouverte.",
+      "Retourner à mi-séchage et prolonger jusqu’à obtenir une texture souple, ridée et non collante.",
+      "Laisser refroidir complètement, puis stocker en bocal hermétique."
+    ],
+    "notes": [
+      "Le temps dépend de la taille des cerises, de leur teneur en jus et du matériel utilisé.",
+      "Pour une conservation plus sûre, les fruits doivent être souples mais ne plus relâcher de jus quand on les presse.",
+      "Utilise ces cerises dans les cookies, granolas, cakes ou salades composées."
+    ],
+    "technical": [
+      {
+        "label": "Séchage",
+        "value": "Mieux vaut une température douce et longue qu’une chaleur forte qui cuit le fruit."
+      },
+      {
+        "label": "Contrôle",
+        "value": "Si de la condensation apparaît dans le bocal après repos, remets les cerises à sécher."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Dénoyauteur",
+        "Déshydrateur ou four ventilé",
+        "Grilles",
+        "Bocal hermétique"
+      ],
+      "storage": [
+        "1 mois dans un bocal hermétique au frais.",
+        "Plus longtemps au congélateur en sachet bien fermé."
+      ],
+      "mistakes": [
+        "Garde les cerises espacées pendant le séchage : l’air doit circuler autour de chaque morceau."
+      ],
+      "result": [
+        "Cerises concentrées, acidulées et moelleuses, prêtes à remplacer des raisins secs."
+      ]
+    }
   },
   "tempura_beignets_calamar_crevettes": {
     "title": "Tempura pour beignets de calamar ou crevettes",
