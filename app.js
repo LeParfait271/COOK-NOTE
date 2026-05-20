@@ -28,6 +28,14 @@ const HOME_CARD_ORDER = {
   accompagnements_maitre: 7,
   desserts_maitre: 8
 };
+const FEATURED_RECENT_IDS = [
+  'tiramisu_citron',
+  'pesto_tomates_sechees_sans_cajou',
+  'mini_flans_sales_garnitures',
+  'pain_grille_beurre_ail_herbes',
+  'billes_mozzarella_marinees',
+  'cookies_cerise_chocolat_moka'
+];
 const CATEGORY_PARENT_IDS = {
   'Apéro': 'apero_maitre',
   'Entrées': 'entrees_maitre',
@@ -513,6 +521,7 @@ const STORAGE_KEYS = {
   preferences: 'cook_note_preferences',
   recentRecipes: 'cook_note_recent_recipes',
   recentSearches: 'cook_note_recent_searches',
+  personalNotes: 'cook_note_personal_recipe_notes',
   homeScroll: 'cook_note_home_scroll',
   legacyFavorites: ['mc_food_favorites', 'cuisine_favs']
 };
@@ -1878,6 +1887,30 @@ function getRecipePracticalSections(recipe) {
   return sections;
 }
 
+function getPrepTimeline(recipe) {
+  const steps = getRecipeSteps(recipe).map(stripHtml);
+  const notes = (recipe?.notes || []).map(stripHtml);
+  const text = normalizeText([...steps, ...notes].join(' '));
+  const items = [];
+  const add = (label, value) => {
+    if (!items.some(item => item.label === label)) items.push({ label, value });
+  };
+  if (/\b(veille|nuit|12h|18h|24h|repos|reposer|refrigerateur|froid)\b/.test(text)) {
+    add('Anticiper', 'Prévoir le temps de repos ou de froid avant le service.');
+  }
+  add('Mise en place', `${countIngredients(recipe)} ingrédients à sortir, peser et cocher avant de lancer.`);
+  if (/\b(four|prechauffer|gril|cuire|cuisson|frire|poele)\b/.test(text)) {
+    add('Cuisson', 'Préparer le matériel chaud et surveiller la coloration en fin de cuisson.');
+  }
+  if (/\b(monter|fouetter|emulsion|incorporer|pocher|dresser)\b/.test(text)) {
+    add('Geste clé', 'Garder les textures sous contrôle : mélanger juste assez, puis passer à l’étape suivante.');
+  }
+  if (/\b(servir|finir|zeste|chalumeau|chaud|tiede|froid)\b/.test(text)) {
+    add('Service', 'Faire la finition au dernier moment pour garder le contraste de texture.');
+  }
+  return items.slice(0, 4);
+}
+
 function noteKey(value) {
   return normalizeText(stripHtml(value)).replace(/[^a-z0-9]+/g, ' ').trim();
 }
@@ -2594,6 +2627,20 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   );
 }
 
+function RecentlyAddedSection({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter }) {
+  if (!recipes.length) return null;
+  return h('section', { className: 'recently-added-block', 'aria-label': 'Recettes récemment ajoutées' },
+    h('div', { className: 'season-block-head recently-added-head' },
+      h('div', null,
+        h('p', { className: 'eyebrow' }, 'Nouveautés'),
+        h('h3', null, 'Récemment ajoutées')
+      ),
+      h('span', null, `${recipes.length} fiches`)
+    ),
+    h(RecipeGrid, { recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter })
+  );
+}
+
 function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
@@ -2649,10 +2696,19 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
 }
 
 function HomeView(props) {
+  const showRecent = !props.onlyFavorites && !props.activeChips.length && !props.filterProps.season && !props.filterProps.seasonCategory;
   return h('main', { className: 'home-view' },
     h(Hero),
     h('div', { className: 'content-wrap' },
       h(ActiveChips, { chips: props.activeChips }),
+      showRecent && h(RecentlyAddedSection, {
+        recipes: props.recentlyAddedRecipes || [],
+        recipesById: props.recipesById,
+        favorites: props.favorites,
+        toggleFavorite: props.toggleFavorite,
+        openRecipe: props.openRecipe,
+        setTagFilter: props.setTagFilter
+      }),
       h(SeasonSections, {
         sections: props.sections,
         recipesById: props.recipesById,
@@ -3346,6 +3402,62 @@ function PracticalSectionsBlock({ sections, inlineTargets, openRecipe, technique
   );
 }
 
+function PrepTimelineBlock({ recipe }) {
+  const items = getPrepTimeline(recipe);
+  if (!items.length) return null;
+  return h('div', { className: 'prep-timeline-block' },
+    h('p', { className: 'eyebrow' }, 'Organisation'),
+    h('h2', null, 'Plan discret'),
+    h('ol', null, items.map(item => h('li', { key: item.label },
+      h('strong', null, item.label),
+      h('span', null, item.value)
+    )))
+  );
+}
+
+function PersonalRecipeNotes({ recipeId, value, updatePersonalRecipeNote }) {
+  const note = value || {};
+  const status = note.status || '';
+  const text = note.text || '';
+  const update = patch => updatePersonalRecipeNote?.(recipeId, { ...note, ...patch, updatedAt: Date.now() });
+  return h('div', { className: 'personal-notes-card' },
+    h('div', { className: 'personal-notes-head' },
+      h('div', null,
+        h('p', { className: 'eyebrow' }, 'Carnet perso'),
+        h('h2', null, 'Note privée')
+      ),
+      status && h('span', null, status)
+    ),
+    h('label', { className: 'field' },
+      h('span', null, 'Statut'),
+      h('select', {
+        value: status,
+        onChange: event => update({ status: event.target.value })
+      },
+        h('option', { value: '' }, 'Non classée'),
+        h('option', { value: 'À tester' }, 'À tester'),
+        h('option', { value: 'Validée' }, 'Validée'),
+        h('option', { value: 'À ajuster' }, 'À ajuster')
+      )
+    ),
+    h('label', { className: 'field personal-note-field' },
+      h('span', null, 'Mémo'),
+      h('textarea', {
+        value: text,
+        rows: 4,
+        maxLength: 600,
+        placeholder: 'Ex : moins de sucre, cuisson +3 min, validée pour 8 personnes...',
+        onChange: event => update({ text: event.target.value })
+      })
+    ),
+    (status || text) && h('button', {
+      type: 'button',
+      className: 'personal-note-clear',
+      onClick: () => updatePersonalRecipeNote?.(recipeId, null)
+    }, 'Effacer la note')
+  );
+}
+
 function RecipeQuickFacts({ recipe, factor, stepTotal }) {
   const seasons = (recipe.seasons || []).filter(item => item !== 'Toutes saisons');
   const equipment = getRecipeEquipment(recipe);
@@ -3397,7 +3509,9 @@ function RecipeView({
   redo,
   setTagFilter,
   openTechnique,
-  notify
+  notify,
+  personalRecipeNote,
+  updatePersonalRecipeNote
 }) {
   const [factor, setFactor] = useState(1);
   const variantRefs = useMemo(() => (
@@ -3707,6 +3821,12 @@ function RecipeView({
             )
           ))
         ),
+        h(PersonalRecipeNotes, {
+          recipeId: detailKey,
+          value: personalRecipeNote,
+          updatePersonalRecipeNote
+        }),
+        h(PrepTimelineBlock, { recipe: selectedRecipe }),
         h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
         h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique }),
         displayNotes.length > 0 && h('div', { className: 'free-notes-block' },
@@ -3763,6 +3883,7 @@ function App() {
   const [preferences, setPreferences] = useState(() => ({ density: 'comfort', largeText: false, reduceMotion: false, ...readJson(STORAGE_KEYS.preferences, {}) }));
   const [recentRecipeIds, setRecentRecipeIds] = useState(() => readStoredList(STORAGE_KEYS.recentRecipes, []));
   const [recentSearches, setRecentSearches] = useState(() => readStoredList(STORAGE_KEYS.recentSearches, []));
+  const [personalNotes, setPersonalNotes] = useState(() => readJson(STORAGE_KEYS.personalNotes, {}));
   const [toasts, setToasts] = useState([]);
   const searchRef = useRef(null);
   const homeScrollRef = useRef(Number(sessionStorage.getItem(STORAGE_KEYS.homeScroll)) || 0);
@@ -3774,6 +3895,7 @@ function App() {
   const activeSeoRecipe = activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => recipesById[id]).filter(Boolean), [shoppingIds, recipesById]);
   const recentRecipes = useMemo(() => recentRecipeIds.map(id => recipesById[id]).filter(recipe => recipe && !isMasterRecipe(recipe)), [recentRecipeIds, recipesById]);
+  const recentlyAddedRecipes = useMemo(() => FEATURED_RECENT_IDS.map(id => recipesById[id]).filter(Boolean), [recipesById]);
   const hasRecipeFilters = Boolean(query.trim() || ingredientQuery.trim() || season || seasonCategory || tagFilter || onlyFavorites);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
@@ -4021,6 +4143,14 @@ function App() {
   function persistFavorites(next) {
     setFavorites(next);
     writeJson(STORAGE_KEYS.favorites, next);
+  }
+
+  function updatePersonalRecipeNote(id, note) {
+    const next = { ...personalNotes };
+    if (!note || (!note.status && !String(note.text || '').trim())) delete next[id];
+    else next[id] = { status: note.status || '', text: String(note.text || '').slice(0, 600), updatedAt: note.updatedAt || Date.now() };
+    setPersonalNotes(next);
+    writeJson(STORAGE_KEYS.personalNotes, next);
   }
 
   function toggleFavorite(id) {
@@ -4300,7 +4430,9 @@ function App() {
           redo,
           setTagFilter,
           openTechnique,
-          notify
+          notify,
+          personalRecipeNote: personalNotes[activeRecipe.id],
+          updatePersonalRecipeNote
         })
       : activePage === 'techniques'
         ? h(TechniquesView, {
@@ -4313,6 +4445,7 @@ function App() {
           recipesById,
           onlyFavorites,
           activeChips,
+          recentlyAddedRecipes,
           filterProps,
           toggleFavorite,
           openRecipe,

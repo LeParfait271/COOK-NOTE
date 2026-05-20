@@ -782,6 +782,31 @@ a {
   backdrop-filter: blur(18px) saturate(1.08);
 }
 
+.recently-added-block {
+  margin-bottom: 26px;
+  padding: 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--line));
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(251, 191, 36, .075), rgba(255, 255, 255, .018)),
+    color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(18px) saturate(1.05);
+}
+
+.recently-added-block .recipe-grid {
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.recently-added-block .recipe-card {
+  min-height: 220px;
+  aspect-ratio: 4 / 3;
+}
+
+.recently-added-head {
+  margin-bottom: 12px;
+}
+
 .season-dashboard {
   align-items: center;
   border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
@@ -2488,6 +2513,110 @@ a {
   margin-bottom: 14px;
 }
 
+.personal-notes-card,
+.prep-timeline-block {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 14px;
+  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 18%, var(--line));
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .012)),
+    rgba(0, 0, 0, .12);
+  padding: 12px;
+}
+
+.personal-notes-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: start;
+}
+
+.personal-notes-head h2,
+.prep-timeline-block h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.personal-notes-head > span {
+  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 36%, var(--line));
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--panel-accent, var(--accent)) 72%, var(--text));
+  padding: 3px 8px;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.personal-notes-card .field > span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.personal-notes-card textarea {
+  width: 100%;
+  min-height: 92px;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface-strong) 72%, transparent);
+  color: var(--text);
+  padding: 10px 12px;
+  line-height: 1.4;
+}
+
+.personal-note-clear {
+  justify-self: start;
+  min-height: 32px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.personal-note-clear:hover {
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+  color: var(--text);
+}
+
+.prep-timeline-block ol {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prep-timeline-block li {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  border-top: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 12%, var(--line));
+  padding-top: 8px;
+}
+
+.prep-timeline-block li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.prep-timeline-block strong {
+  color: color-mix(in srgb, var(--panel-accent, var(--accent)) 76%, var(--text));
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.prep-timeline-block span {
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
 .linked-recipe-list {
   display: grid;
   gap: 8px;
@@ -3437,6 +3566,19 @@ a {
   .recipe-card {
     min-height: 238px;
     aspect-ratio: 16 / 10;
+  }
+
+  .recently-added-block .recipe-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recently-added-block .recipe-card {
+    min-height: 210px;
+  }
+
+  .prep-timeline-block li {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 
   .recipe-card:not(.master-card) {
