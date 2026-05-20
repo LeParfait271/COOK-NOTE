@@ -1567,6 +1567,11 @@ a {
   text-shadow: 0 10px 34px rgba(0, 0, 0, .68);
 }
 
+.recipe-detail-hero .eyebrow {
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .72);
+}
+
 .detail-quantity-row {
   display: flex;
   margin-top: 12px;
