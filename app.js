@@ -3,7 +3,7 @@
 const { useEffect, useMemo, useRef, useState } = React;
 const h = React.createElement;
 
-const HERO_IMAGE = '/assets/base-principale-fond-site.jpg';
+const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -2494,12 +2494,7 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
 }
 
 function Hero() {
-  return h('section', {
-    className: 'hero',
-    style: {
-      backgroundImage: `linear-gradient(110deg, rgba(4,4,5,.92), rgba(4,4,5,.54) 48%, rgba(4,4,5,.84)), url("${HERO_IMAGE}")`
-    }
-  },
+  return h('section', { className: 'hero' },
     h('div', { className: 'hero-inner' },
       h('h1', { className: 'sr-only' }, 'Cook Note'),
       h('img', { className: 'hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note' })

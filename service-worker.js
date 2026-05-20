@@ -1,17 +1,17 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v38
+//  Cook Note - Service Worker PWA v39
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v38';
+const CACHE_NAME = 'cook-note-v39';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=38',
-  '/recipes.js?v=38',
-  '/style.css?v=38',
+  '/app.js?v=39',
+  '/recipes.js?v=39',
+  '/style.css?v=39',
   '/recipe.js',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
@@ -20,7 +20,7 @@ const STATIC_ASSETS = [
   '/assets/vendor/qrcode.min.js',
   '/assets/cook-note.png',
   '/assets/cook-note-white.png',
-  '/assets/base-principale-fond-site.jpg',
+  '/assets/base-du-site.png',
   '/assets/recipe-images-optimized/parent_accompagnements.jpg',
   '/assets/recipe-images-optimized/parent_apero.jpg',
   '/assets/recipe-images-optimized/parent_base.jpg',
@@ -38,7 +38,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
       .then(() => {
-        console.log('[SW v38] Assets statiques mis en cache.');
+        console.log('[SW v39] Assets statiques mis en cache.');
       })
   );
   self.skipWaiting();
@@ -52,7 +52,7 @@ self.addEventListener('activate', (event) => {
         keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
       )
     ).then(() => {
-        console.log('[SW v38] Anciens caches supprimés.');
+        console.log('[SW v39] Anciens caches supprimés.');
     })
   );
   self.clients.claim();
