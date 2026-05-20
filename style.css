@@ -783,8 +783,8 @@ a {
 }
 
 .monthly-additions-block {
-  margin-bottom: 22px;
-  padding: 12px;
+  margin-bottom: 18px;
+  padding: 10px;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--line));
   border-radius: var(--radius);
@@ -796,12 +796,12 @@ a {
 
 .monthly-additions-block .recipe-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 10px;
 }
 
 .monthly-additions-block .recipe-card {
   min-width: 0;
-  min-height: 166px;
+  min-height: 142px;
   aspect-ratio: 16 / 9;
 }
 
@@ -818,7 +818,27 @@ a {
 }
 
 .monthly-additions-head {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+}
+
+.monthly-additions-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: end;
+  gap: 8px;
+}
+
+.monthly-additions-more {
+  min-height: 32px;
+  padding-inline: 10px;
+  font-size: 12px;
+}
+
+.monthly-additions-hint {
+  margin: 9px 2px 0;
+  color: color-mix(in srgb, var(--text) 58%, var(--muted));
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .season-dashboard {

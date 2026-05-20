@@ -2643,16 +2643,28 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
 }
 
 function MonthlyAdditionsSection({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter }) {
+  const [expanded, setExpanded] = useState(false);
   if (!recipes.length) return null;
+  const orderedRecipes = [...recipes].reverse();
+  const visibleRecipes = expanded ? orderedRecipes : orderedRecipes.slice(0, 3);
+  const hasMore = orderedRecipes.length > visibleRecipes.length;
   return h('section', { className: 'monthly-additions-block', 'aria-label': 'Ajouts du mois' },
     h('div', { className: 'season-block-head monthly-additions-head' },
       h('div', null,
         h('p', { className: 'eyebrow' }, 'Nouveautés'),
         h('h3', null, 'Ajouts du mois')
       ),
-      h('span', null, `${recipes.length} fiches`)
+      h('div', { className: 'monthly-additions-actions' },
+        h('span', null, `${recipes.length} fiches`),
+        recipes.length > 3 && h(Button, {
+          variant: 'subtle',
+          className: 'monthly-additions-more',
+          onClick: () => setExpanded(value => !value)
+        }, expanded ? 'Réduire' : `Voir les ${recipes.length}`)
+      )
     ),
-    h(RecipeGrid, { recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter })
+    h(RecipeGrid, { recipes: visibleRecipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter }),
+    hasMore && h('p', { className: 'monthly-additions-hint' }, `${orderedRecipes.length - visibleRecipes.length} autre${orderedRecipes.length - visibleRecipes.length > 1 ? 's' : ''} ajout${orderedRecipes.length - visibleRecipes.length > 1 ? 's' : ''} du mois`)
   );
 }
 
