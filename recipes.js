@@ -7690,9 +7690,8 @@ window.RECIPES = {
         "items": [
           "18 à 24 biscuits à la cuillère",
           "120g eau",
-          "40g sucre",
+          "40g sucre + 2 c. à soupe de Grand Marnier optionnelles",
           "40g jus de citron",
-          "20g Grand Marnier optionnel",
           "Zeste de citron pour finir"
         ]
       },
@@ -7706,7 +7705,7 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Préparer un sirop avec l’eau, le sucre et le jus de citron, puis laisser refroidir. Ajouter le Grand Marnier si utilisé.",
+      "Préparer un sirop avec l’eau, le sucre et les 2 c. à soupe de Grand Marnier optionnelles, puis ajouter le jus de citron et laisser refroidir.",
       "Séparer les œufs. Fouetter les jaunes avec le sucre jusqu’à blanchiment.",
       "Ajouter le mascarpone, le zeste fin des citrons et un filet de jus de citron.",
       "Monter les blancs avec une pincée de sel, puis les incorporer délicatement à la crème.",
