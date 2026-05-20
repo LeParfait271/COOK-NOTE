@@ -3527,7 +3527,7 @@ window.RECIPES = {
       },
       {
         "id": "tiramisu_citron",
-        "label": "Tiramisu citron"
+        "label": "Tiramisu citron meringué"
       },
       {
         "id": "tiramisu_speculoos",
@@ -7648,7 +7648,7 @@ window.RECIPES = {
     ]
   },
   "tiramisu_citron": {
-    "title": "Tiramisu citron",
+    "title": "Tiramisu citron meringué",
     "master": "desserts_cuillere_maitre",
     "image": "/assets/recipe-images-optimized/tiramisu_citron_spooky.jpg",
     "categories": [
@@ -7663,12 +7663,14 @@ window.RECIPES = {
     "yield": "6 personnes",
     "aliases": [
       "tiramisu au citron",
+      "tiramisu citron meringué",
       "tiramisu citron mascarpone",
       "dessert citron sans cuisson"
     ],
     "tags": [
       "tiramisu",
       "citron",
+      "meringue italienne",
       "mascarpone",
       "dessert froid"
     ],
@@ -7690,22 +7692,34 @@ window.RECIPES = {
           "120g eau",
           "40g sucre",
           "40g jus de citron",
+          "20g Grand Marnier optionnel",
           "Zeste de citron pour finir"
         ]
+      },
+      {
+        "group": "Finition optionnelle",
+        "items": [
+          "Fine couche de lemon curd",
+          "Meringue italienne"
+        ],
+        "recipeId": "creme_citron_lemon_curd"
       }
     ],
     "steps": [
-      "Préparer un sirop avec l’eau, le sucre et le jus de citron, puis laisser refroidir.",
+      "Préparer un sirop avec l’eau, le sucre et le jus de citron, puis laisser refroidir. Ajouter le Grand Marnier si utilisé.",
       "Séparer les œufs. Fouetter les jaunes avec le sucre jusqu’à blanchiment.",
       "Ajouter le mascarpone, le zeste fin des citrons et un filet de jus de citron.",
       "Monter les blancs avec une pincée de sel, puis les incorporer délicatement à la crème.",
       "Tremper rapidement les biscuits dans le sirop citronné et les ranger dans un plat ou des verrines.",
       "Alterner biscuits et crème, terminer par une couche de crème et réserver au frais au moins 4h.",
+      "Option : ajouter une fine couche de <span data-goto=\"creme_citron_lemon_curd\">crème citron</span> sur le dessus.",
+      "Option : pocher une couche de <span data-goto=\"meringue_italienne\">meringue italienne</span>, puis la brûler légèrement au chalumeau.",
       "Finir avec un peu de zeste de citron juste avant de servir."
     ],
     "notes": [
       "Le sirop doit être froid pour ne pas détremper les biscuits.",
-      "Pour une version plus vive, ajouter un peu de lemon curd en fine couche.",
+      "Pour une version plus vive, ajouter une fine couche de <span data-goto=\"creme_citron_lemon_curd\">crème citron</span>.",
+      "La <span data-goto=\"meringue_italienne\">meringue italienne</span> doit être brûlée rapidement au chalumeau pour colorer sans réchauffer tout le tiramisu.",
       "Repos idéal : une nuit au réfrigérateur."
     ],
     "technical": [
@@ -7722,7 +7736,9 @@ window.RECIPES = {
       "equipment": [
         "Fouet",
         "Saladiers",
-        "Plat ou verrines"
+        "Plat ou verrines",
+        "Poche à douille optionnelle",
+        "Chalumeau optionnel"
       ],
       "storage": [
         "24 à 48h au réfrigérateur, bien filmé."
