@@ -2177,18 +2177,6 @@ window.RECIPES = {
         "label": "Crudités et salades fraîches"
       },
       {
-        "id": "frites_belges",
-        "label": "Frites belges"
-      },
-      {
-        "id": "frites_patate_douce",
-        "label": "Frites de patate douce"
-      },
-      {
-        "id": "frites_maison",
-        "label": "Frites maison"
-      },
-      {
         "id": "legumes_rotis",
         "label": "Légumes rôtis au four"
       },
@@ -2260,28 +2248,8 @@ window.RECIPES = {
         "label": "Curry de lentilles vertes au lait de coco"
       },
       {
-        "id": "frites_belges",
-        "label": "Frites belges"
-      },
-      {
-        "id": "frites_patate_douce",
-        "label": "Frites de patate douce"
-      },
-      {
-        "id": "frites_maison",
-        "label": "Frites maison"
-      },
-      {
-        "id": "gaufres_pommes_terre",
-        "label": "Gaufres de pommes de terre croustillantes"
-      },
-      {
         "id": "gratin_chou_fleur",
         "label": "Gratin de chou-fleur"
-      },
-      {
-        "id": "tomates_provencales",
-        "label": "Tomates provençales"
       }
     ],
     "ingredients": [
@@ -3463,18 +3431,6 @@ window.RECIPES = {
         "label": "Cookies salés"
       },
       {
-        "id": "frites_belges",
-        "label": "Frites belges"
-      },
-      {
-        "id": "frites_patate_douce",
-        "label": "Frites de patate douce"
-      },
-      {
-        "id": "frites_maison",
-        "label": "Frites maison"
-      },
-      {
         "id": "mojitos_variantes",
         "label": "Mojitos"
       },
@@ -3683,8 +3639,6 @@ window.RECIPES = {
     "master": "tomates_maitre",
     "image": "/assets/recipe-images-optimized/tomates_provencales_spooky.jpg",
     "categories": [
-      "Entrées",
-      "Plats",
       "Accompagnements"
     ],
     "seasons": [
@@ -3732,7 +3686,6 @@ window.RECIPES = {
     ],
     "difficultyScore": 2,
     "additionalMasters": [
-      "plats_maitre",
       "accompagnements_maitre"
     ]
   },
@@ -5703,12 +5656,9 @@ window.RECIPES = {
   },
   "frites_belges": {
     "title": "Frites belges",
-    "master": "plats_maitre",
+    "master": "accompagnements_maitre",
     "image": "/assets/recipe-images-optimized/frites_belges_spooky.jpg",
     "categories": [
-      "Plats",
-      "Apéro",
-      "Entrées",
       "Accompagnements"
     ],
     "seasons": [
@@ -5779,11 +5729,7 @@ window.RECIPES = {
         "value": "Servir immédiatement après salage."
       }
     ],
-    "additionalMasters": [
-      "apero_maitre",
-      "entrees_maitre",
-      "accompagnements_maitre"
-    ]
+    "additionalMasters": []
   },
   "pain_hot_dog": {
     "title": "Pains hot-dog",
@@ -6129,10 +6075,9 @@ window.RECIPES = {
   },
   "gaufres_pommes_terre": {
     "title": "Gaufres de pommes de terre croustillantes",
-    "master": "plats_maitre",
+    "master": "accompagnements_maitre",
     "image": "/assets/recipe-images-optimized/gaufres_pommes_terre_spooky.jpg",
     "categories": [
-      "Plats",
       "Accompagnements"
     ],
     "seasons": [
@@ -6149,7 +6094,6 @@ window.RECIPES = {
     "tags": [
       "pomme de terre",
       "gaufre",
-      "plat",
       "fromage"
     ],
     "ingredients": [
@@ -6234,9 +6178,6 @@ window.RECIPES = {
         "label": "Service",
         "value": "Servir aussitôt pour garder le contraste croustillant/fondant."
       }
-    ],
-    "additionalMasters": [
-      "accompagnements_maitre"
     ]
   },
   "mojitos_variantes": {
@@ -6692,12 +6633,9 @@ window.RECIPES = {
   },
   "frites_maison": {
     "title": "Frites maison",
-    "master": "plats_maitre",
+    "master": "accompagnements_maitre",
     "image": "/assets/recipe-images-optimized/frites_maison_spooky.jpg",
     "categories": [
-      "Plats",
-      "Apéro",
-      "Entrées",
       "Accompagnements"
     ],
     "seasons": [
@@ -6714,7 +6652,6 @@ window.RECIPES = {
     "tags": [
       "frites",
       "pomme de terre",
-      "plat",
       "accompagnement"
     ],
     "ingredients": [
@@ -6765,11 +6702,7 @@ window.RECIPES = {
         "value": "Dorées, croustillantes dehors, moelleuses dedans, non grasses."
       }
     ],
-    "additionalMasters": [
-      "apero_maitre",
-      "entrees_maitre",
-      "accompagnements_maitre"
-    ]
+    "additionalMasters": []
   },
   "toppings_frites": {
     "title": "Toppings frites",
@@ -7042,12 +6975,9 @@ window.RECIPES = {
   },
   "frites_patate_douce": {
     "title": "Frites de patate douce",
-    "master": "plats_maitre",
+    "master": "accompagnements_maitre",
     "image": "/assets/recipe-images-optimized/frites_patate_douce_spooky.jpg",
     "categories": [
-      "Plats",
-      "Apéro",
-      "Entrées",
       "Accompagnements"
     ],
     "seasons": [
@@ -7132,11 +7062,7 @@ window.RECIPES = {
         "value": "Bords dorés et croustillants, centre fondant, assaisonnement fumé et sauce fraîche à part."
       }
     ],
-    "additionalMasters": [
-      "apero_maitre",
-      "entrees_maitre",
-      "accompagnements_maitre"
-    ]
+    "additionalMasters": []
   },
   "sauce_yaourt_citronnee": {
     "title": "Sauce yaourt citronnée",
