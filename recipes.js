@@ -382,7 +382,7 @@ window.RECIPES = {
       },
       {
         "id": "pesto_tomates_sechees_sans_cajou",
-        "label": "Pesto tomates séchées sans cajou"
+        "label": "Pesto tomates séchées"
       },
       {
         "id": "pesto_variantes",
@@ -4255,7 +4255,7 @@ window.RECIPES = {
       },
       {
         "id": "pesto_tomates_sechees_sans_cajou",
-        "label": "Pesto tomates séchées sans cajou"
+        "label": "Pesto tomates séchées"
       },
       {
         "id": "sauce_mornay",
@@ -7764,7 +7764,7 @@ window.RECIPES = {
     ]
   },
   "pesto_tomates_sechees_sans_cajou": {
-    "title": "Pesto tomates séchées sans cajou",
+    "title": "Pesto tomates séchées",
     "master": "sauces_assaisonnements_maitre",
     "image": "/assets/recipe-images-optimized/pesto_tomates_sechees_sans_cajou_spooky.jpg",
     "categories": [
