@@ -4300,8 +4300,8 @@ window.RECIPES = {
         "label": "Cookies caramel cheesecake"
       },
       {
-        "id": "cookies_cerise_chocolat_moka",
-        "label": "Cookies cerise chocolat moka"
+        "id": "cookies_cerise_chocolat",
+        "label": "Cookies cerise chocolat"
       },
       {
         "id": "cookies_chocolat_blanc_cranberry",
@@ -8092,10 +8092,10 @@ window.RECIPES = {
       "crudites_maitre"
     ]
   },
-  "cookies_cerise_chocolat_moka": {
-    "title": "Cookies cerise chocolat moka",
+  "cookies_cerise_chocolat": {
+    "title": "Cookies cerise chocolat",
     "master": "cookies_sucres_maitre",
-    "image": "/assets/recipe-images-optimized/cookies_cerise_chocolat_moka_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/cookies_cerise_chocolat_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -8107,14 +8107,13 @@ window.RECIPES = {
     "yield": "16 cookies",
     "aliases": [
       "cherry chocolate chip cookies",
-      "cookies cerise chocolat café",
-      "cookies moka"
+      "cookies cerise chocolat",
+      "cookies chocolat cerise"
     ],
     "tags": [
       "cookies",
       "cerise",
-      "chocolat",
-      "café"
+      "chocolat"
     ],
     "ingredients": [
       {
@@ -8127,7 +8126,6 @@ window.RECIPES = {
           "Extrait de vanille selon dosage indiqué sur la bouteille",
           "180g farine",
           "15g cacao non sucré",
-          "4g café soluble ou espresso en poudre",
           "3g levure chimique",
           "2g sel fin"
         ]
@@ -8136,22 +8134,21 @@ window.RECIPES = {
         "group": "Garniture",
         "items": [
           "120g pépites de chocolat",
-          "80g cerises séchées hachées",
-          "60g pépites moka ou chocolat au café"
+          "100g cerises séchées hachées"
         ]
       }
     ],
     "steps": [
       "Crémer le beurre avec la cassonade ou vergeoise et le sucre.",
       "Ajouter l’œuf et la vanille, puis mélanger jusqu’à obtenir une base homogène.",
-      "Ajouter farine, cacao, café soluble, levure et sel.",
-      "Incorporer les pépites de chocolat, les cerises séchées et les pépites moka.",
+      "Ajouter farine, cacao, levure et sel.",
+      "Incorporer les pépites de chocolat et les cerises séchées.",
       "Former 16 boules et placer 30min au frais.",
       "Cuire 10 à 12min à 180°C, puis laisser reposer sur la plaque avant de déplacer."
     ],
     "notes": [
-      "Les cerises séchées apportent l’acidité qui équilibre le chocolat et le café.",
-      "Pour un goût moka plus marqué, augmenter légèrement le café soluble.",
+      "Les cerises séchées apportent l’acidité qui équilibre le chocolat.",
+      "Pour une version plus gourmande, ajoute quelques morceaux de chocolat noir sur les cookies encore chauds.",
       "Sortir les cookies quand le centre paraît encore tendre."
     ],
     "technical": [
@@ -8178,7 +8175,7 @@ window.RECIPES = {
         "Ne cuis pas trop : le cacao fait paraître les cookies moins dorés."
       ],
       "result": [
-        "Cookies moelleux, chocolatés, avec une note café et cerise."
+        "Cookies moelleux, chocolatés, avec une note acidulée de cerise."
       ]
     },
     "additionalMasters": [
