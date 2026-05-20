@@ -20,6 +20,7 @@ const STATIC_ASSETS = [
   '/assets/vendor/qrcode.min.js',
   '/assets/cook-note.png',
   '/assets/cook-note-white.png',
+  '/assets/hero-tribal-cook-note.png',
   '/assets/base-du-site.png',
   '/assets/recipe-images-optimized/parent_accompagnements.jpg',
   '/assets/recipe-images-optimized/parent_apero.jpg',

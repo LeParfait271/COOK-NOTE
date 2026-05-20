@@ -426,7 +426,9 @@ a {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .07), transparent 28rem),
+    linear-gradient(90deg, rgba(0, 0, 0, .90), rgba(0, 0, 0, .48) 50%, rgba(0, 0, 0, .90)),
+    linear-gradient(180deg, rgba(0, 0, 0, .34), rgba(0, 0, 0, .68)),
+    url("/assets/hero-tribal-cook-note.png") center / cover no-repeat,
     linear-gradient(180deg, #070707, #020202);
   border-bottom: 1px solid color-mix(in srgb, var(--accent) 12%, var(--line));
   box-shadow:
