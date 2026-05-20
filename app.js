@@ -2455,7 +2455,7 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
         h('span', { key: 'label' }, 'Techniques')
       ]),
       h('a', {
-        className: 'btn btn-subtle',
+        className: 'btn btn-subtle top-request-btn',
         href: 'mailto:cooknote271@gmail.com?subject=Demande%20d%27ajout%20de%20recette%20Cook%20Note&body=Bonjour%2C%0A%0AJ%27aimerais%20demander%20l%27ajout%20de%20cette%20recette%20dans%20Cook%20Note%20%3A%0A%0ANom%20de%20la%20recette%20%3A%0AIngr%C3%A9dients%20%3A%0A%C3%89tapes%20%3A%0A%0AMerci.'
       }, [
         h(Icon, { key: 'icon', name: 'spark' }),
@@ -2602,11 +2602,18 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
 function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
+  const visibleIds = new Set(sections.flatMap(section => (section.recipes || []).map(recipe => recipe.id)));
+  const dashboardLabel = onlyFavorites ? 'Favoris' : (selectedSeason || 'Toutes saisons');
   return h('section', { className: 'season-sections', id: 'recettes' },
-    h('div', { className: 'section-title list-title' },
-      h('div', null,
+    h('div', { className: 'section-title list-title season-dashboard' },
+      h('div', { className: 'season-dashboard-copy' },
         h('p', { className: 'eyebrow' }, onlyFavorites ? 'Favoris' : 'Rangement saisonnier'),
-        h('h2', null, onlyFavorites ? 'Mes recettes favorites' : 'Recettes par saison')
+        h('h2', null, onlyFavorites ? 'Mes recettes favorites' : 'Recettes par saison'),
+        h('div', { className: 'season-dashboard-meta', 'aria-label': 'Résumé de la sélection' },
+          h('span', null, dashboardLabel),
+          h('span', null, `${visibleIds.size} fiche${visibleIds.size > 1 ? 's' : ''}`),
+          sections.length > 1 && h('span', null, `${sections.length} groupes`)
+        )
       ),
       onlyFavorites
         ? h('button', { type: 'button', onClick: clearFavoriteView }, 'Quitter les favoris')
