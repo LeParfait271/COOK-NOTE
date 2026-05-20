@@ -454,8 +454,8 @@ const TECHNIQUE_GUIDES = [
     title: 'Stériliser',
     label: 'Conserve',
     description: 'Traiter des bocaux fermés à l’eau bouillante, au stérilisateur ou dans un grand faitout.',
-    steps: ['Utilise des bocaux propres, des joints neufs et des couvercles en bon état.', 'Installe un torchon au fond du faitout ou du stérilisateur, puis cale les bocaux debout pour qu’ils ne s’entrechoquent pas.', 'Couvre largement d’eau : prévois 3 à 5cm au-dessus des couvercles pendant toute la cuisson.', 'Porte à ébullition franche, puis démarre le minuteur seulement quand l’eau bout régulièrement.', 'Garde les bocaux immergés jusqu’au refroidissement, sèche-les, puis vérifie que chaque fermeture tient avant stockage.'],
-    tip: 'Pour viande, pâtés et bocaux peu acides, suis strictement le temps de la recette. Écarte tout bocal mal fermé, fuyant, bombé, trouble ou suspect.',
+    steps: ['Utilise des bocaux propres, des joints neufs et des couvercles en bon état.', 'Installe un torchon au fond du faitout ou du stérilisateur, puis cale les bocaux debout pour qu’ils ne s’entrechoquent pas.', 'Couvre largement d’eau : prévois 3 à 5cm au-dessus des couvercles pendant toute la cuisson.', 'Pour stériliser des bocaux vides, fais bouillir 10min à gros bouillons, puis laisse égoutter sans toucher l’intérieur.', 'Pour des bocaux remplis, fais bouillir pendant la durée de la recette : par exemple 2h30 pour un pâté de viande en conserve.', 'Garde les bocaux immergés jusqu’au refroidissement, sèche-les, puis vérifie que chaque fermeture tient avant stockage.'],
+    tip: 'Pour viande, pâtés et bocaux peu acides, ne raccourcis jamais la durée indiquée. Écarte tout bocal mal fermé, fuyant, bombé, trouble ou suspect.',
     query: 'steriliser bocal conserve terrine pate lapin faitout',
     aliases: ['stériliser sans stérilisateur', 'steriliser sans sterilisateur', 'stériliser', 'steriliser', 'stérilisation', 'sterilisation', 'bocaux à conserve']
   },
@@ -530,6 +530,7 @@ const TECHNIQUE_GUIDES = [
     aliases: ['mijoter', 'frémir', 'fremir', 'frémissement', 'à frémissement']
   }
 ];
+const SORTED_TECHNIQUE_GUIDES = [...TECHNIQUE_GUIDES].sort((a, b) => a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
 const SHOPPING_AISLES = [
   { label: 'Fruits et légumes', pattern: /\b(tomate|tomates|citron|citrons|pomme|pommes|poire|poires|oignon|oignons|ail|echalote|échalote|persil|basilic|menthe|ciboulette|pomme de terre|pommes de terre|patate douce|avocat|epinard|épinard|carotte|courgette|chou|chou-fleur|melon|fraise|framboise)\b/ },
   { label: 'Crèmerie et œufs', pattern: /\b(lait|creme|crème|beurre|fromage|parmesan|comte|comté|cheddar|mozzarella|mascarpone|ricotta|yaourt|oeuf|oeufs|œuf|œufs|jaune|jaunes|blanc|blancs)\b/ },
@@ -1632,7 +1633,7 @@ function buildTechniqueTargets() {
     seen.add(normalized);
     targets.push({ term, normalized, id, title });
   };
-  TECHNIQUE_GUIDES.forEach(technique => {
+  SORTED_TECHNIQUE_GUIDES.forEach(technique => {
     add(technique.title, technique.id, technique.title);
     (technique.aliases || []).forEach(alias => add(alias, technique.id, technique.title));
   });
@@ -2842,7 +2843,7 @@ function TechniquesView({ targetTechniqueId, goHome }) {
         h(Button, { variant: 'subtle', onClick: goHome }, 'Retour aux recettes')
       ),
       h('div', { className: 'technique-grid' },
-        TECHNIQUE_GUIDES.map(guide => h('article', {
+        SORTED_TECHNIQUE_GUIDES.map(guide => h('article', {
           key: guide.id,
           id: `technique-${guide.id}`,
           tabIndex: -1,
