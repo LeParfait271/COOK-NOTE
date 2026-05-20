@@ -2406,6 +2406,10 @@ window.RECIPES = {
         "label": "Biscuits, cookies et meringues"
       },
       {
+        "id": "carres_cremeux_citron_vert",
+        "label": "Carrés crémeux citron vert"
+      },
+      {
         "id": "choux_craquelin",
         "label": "Choux au craquelin"
       },
@@ -3443,6 +3447,10 @@ window.RECIPES = {
         "label": "Billes de mozzarella marinées"
       },
       {
+        "id": "brie_farci_fruits_secs_noix",
+        "label": "Brie farci aux fruits secs et noix"
+      },
+      {
         "id": "cake_sale_lardon",
         "label": "Cake salé poitrine fumée"
       },
@@ -3479,6 +3487,10 @@ window.RECIPES = {
         "label": "Pain grillé beurre ail et herbes"
       },
       {
+        "id": "pate_lapin_piment_espelette",
+        "label": "Pâté de lapin au piment d’Espelette"
+      },
+      {
         "id": "pate_legere_beignets_calamar_crevettes",
         "label": "Pâte légère pour beignets de calamar ou crevettes"
       },
@@ -3489,6 +3501,10 @@ window.RECIPES = {
       {
         "id": "tempura_beignets_calamar_crevettes",
         "label": "Tempura pour beignets de calamar ou crevettes"
+      },
+      {
+        "id": "terrine_campagne",
+        "label": "Terrine de campagne"
       },
       {
         "id": "tomates_variantes",
@@ -8339,6 +8355,357 @@ window.RECIPES = {
       ],
       "result": [
         "Cerises concentrées, acidulées et moelleuses, prêtes à remplacer des raisins secs."
+      ]
+    }
+  },
+  "pate_lapin_piment_espelette": {
+    "title": "Pâté de lapin au piment d’Espelette",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/pate_lapin_piment_espelette_spooky.jpg",
+    "categories": [
+      "Apéro"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "6 bocaux",
+    "aliases": [
+      "pâté de lapin",
+      "pate lapin espelette",
+      "conserve de lapin"
+    ],
+    "tags": [
+      "pâté",
+      "lapin",
+      "conserve",
+      "piment"
+    ],
+    "ingredients": [
+      {
+        "group": "Viande",
+        "items": [
+          "900g chair de lapin désossée",
+          "350g gorge de porc",
+          "200g foie de volaille",
+          "120g lard gras"
+        ]
+      },
+      {
+        "group": "Assaisonnement",
+        "items": [
+          "80g échalote",
+          "12g ail",
+          "60ml armagnac ou cognac",
+          "12g sel fin",
+          "2g poivre du moulin",
+          "3g piment d’Espelette",
+          "2g thym"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper les viandes bien froides en morceaux et les passer au hachoir grosse grille.",
+      "Mélanger avec échalote, ail, alcool, sel, poivre du moulin, piment d’Espelette et thym.",
+      "Travailler rapidement jusqu’à obtenir une farce homogène, sans la chauffer.",
+      "Remplir des bocaux propres en tassant légèrement et en laissant 2cm de marge.",
+      "Fermer les bocaux selon le système utilisé.",
+      "Stériliser 2h30 à 100°C, puis laisser refroidir dans l’eau.",
+      "Vérifier les fermetures avant stockage et laisser maturer au moins 48h avant dégustation."
+    ],
+    "notes": [
+      "La conserve demande des bocaux parfaitement propres et des joints en bon état.",
+      "Le piment d’Espelette doit parfumer sans masquer le lapin.",
+      "Servir frais avec pain grillé, cornichons et moutarde."
+    ],
+    "technical": [
+      {
+        "label": "Hygiène",
+        "value": "Garder viande et farce bien froides, puis lancer la stérilisation sans attente."
+      },
+      {
+        "label": "Conservation",
+        "value": "Tout bocal mal fermé, bombé ou suspect doit être écarté."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Hachoir",
+        "Bocaux à conserve",
+        "Stérilisateur",
+        "Grand saladier"
+      ],
+      "storage": [
+        "Plusieurs mois dans un endroit frais, sec et sombre si la stérilisation est réussie.",
+        "Après ouverture : 48h au réfrigérateur."
+      ],
+      "mistakes": [
+        "Ne remplis pas les bocaux jusqu’en haut : la marge limite les débordements à la stérilisation."
+      ],
+      "result": [
+        "Pâté rustique, parfumé, avec une chaleur douce de piment d’Espelette."
+      ]
+    }
+  },
+  "terrine_campagne": {
+    "title": "Terrine de campagne",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/terrine_campagne_spooky.jpg",
+    "categories": [
+      "Apéro"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "1 terrine",
+    "aliases": [
+      "terrine de campagne",
+      "pâté de campagne",
+      "terrine porc"
+    ],
+    "tags": [
+      "terrine",
+      "porc",
+      "charcuterie"
+    ],
+    "ingredients": [
+      {
+        "group": "Farce",
+        "items": [
+          "600g échine de porc",
+          "300g gorge de porc",
+          "200g foie de porc ou volaille",
+          "80g échalote",
+          "10g ail",
+          "50ml cognac",
+          "14g sel fin",
+          "3g poivre du moulin",
+          "2 œufs",
+          "30g persil haché"
+        ]
+      },
+      {
+        "group": "Terrine",
+        "items": [
+          "150g crépine ou bardes de lard",
+          "2 feuilles de laurier",
+          "2 branches de thym"
+        ]
+      }
+    ],
+    "steps": [
+      "Faire mariner les viandes coupées avec cognac, échalote, ail, sel, poivre du moulin et thym pendant 2h au frais.",
+      "Hacher les viandes avec une grille moyenne.",
+      "Ajouter les œufs et le persil, puis mélanger jusqu’à obtenir une farce liée.",
+      "Chemiser la terrine avec crépine ou bardes, remplir avec la farce et lisser.",
+      "Ajouter laurier et thym sur le dessus, puis couvrir.",
+      "Cuire au bain-marie à 170°C pendant 1h30 environ.",
+      "Laisser refroidir sous un léger poids, puis réserver 24h au réfrigérateur avant de trancher."
+    ],
+    "notes": [
+      "Le repos d’une nuit améliore nettement la tenue et le goût.",
+      "Servir avec cornichons, pain de campagne et moutarde.",
+      "La terrine doit être cuite à cœur mais rester moelleuse."
+    ],
+    "technical": [
+      {
+        "label": "Farce",
+        "value": "Une farce froide et bien mélangée tranche plus proprement après repos."
+      },
+      {
+        "label": "Bain-marie",
+        "value": "L’eau chaude autour de la terrine adoucit la cuisson et limite le dessèchement."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Terrine",
+        "Hachoir",
+        "Plat à bain-marie",
+        "Sonde"
+      ],
+      "storage": [
+        "4 jours au réfrigérateur, bien filmée.",
+        "Trancher au dernier moment pour éviter le dessèchement."
+      ],
+      "mistakes": [
+        "Évite une farce trop fine : la terrine de campagne doit garder une mâche rustique."
+      ],
+      "result": [
+        "Terrine charcutière rustique, parfumée et bien tranchable."
+      ]
+    }
+  },
+  "brie_farci_fruits_secs_noix": {
+    "title": "Brie farci aux fruits secs et noix",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/brie_farci_fruits_secs_noix_spooky.jpg",
+    "categories": [
+      "Apéro"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 1,
+    "yield": "6 personnes",
+    "aliases": [
+      "brie farci",
+      "brie fruits secs",
+      "fromage farci noix"
+    ],
+    "tags": [
+      "brie",
+      "fromage",
+      "noix",
+      "fruits secs"
+    ],
+    "ingredients": [
+      {
+        "group": "Fromage",
+        "items": [
+          "1 brie entier moyen"
+        ]
+      },
+      {
+        "group": "Garniture",
+        "items": [
+          "50g noix variées hachées",
+          "30g fruits secs en petits morceaux",
+          "20g miel",
+          "5g basilic ou persil ciselé"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper le brie en deux horizontalement pour obtenir deux disques.",
+      "Mélanger noix, fruits secs, miel et herbes.",
+      "Étaler la garniture sur la moitié inférieure du brie.",
+      "Refermer avec la moitié supérieure et presser très légèrement.",
+      "Réfrigérer 30min pour raffermir l’ensemble.",
+      "Sortir 10 à 15min avant service, puis couper en quartiers."
+    ],
+    "notes": [
+      "Servir avec pain, crackers ou baguette grillée.",
+      "Le miel est optionnel si les fruits secs sont déjà très sucrés.",
+      "Hacher les noix assez finement pour obtenir une coupe nette."
+    ],
+    "technical": [
+      {
+        "label": "Coupe",
+        "value": "Un couteau long et légèrement tiède aide à ouvrir le brie proprement."
+      },
+      {
+        "label": "Repos",
+        "value": "Le froid stabilise la garniture et facilite le service."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Couteau long",
+        "Bol",
+        "Planche"
+      ],
+      "storage": [
+        "24h au réfrigérateur, bien filmé.",
+        "Sortir quelques minutes avant service pour retrouver le crémeux."
+      ],
+      "mistakes": [
+        "Ne surcharge pas le centre : le brie doit pouvoir se refermer sans déborder."
+      ],
+      "result": [
+        "Brie crémeux, sucré-salé, croquant et prêt à partager."
+      ]
+    }
+  },
+  "carres_cremeux_citron_vert": {
+    "title": "Carrés crémeux citron vert",
+    "master": "desserts_maitre",
+    "image": "/assets/recipe-images-optimized/carres_cremeux_citron_vert_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "12 carrés",
+    "aliases": [
+      "creamy lime bars",
+      "barres citron vert",
+      "carrés citron vert"
+    ],
+    "tags": [
+      "citron vert",
+      "barres",
+      "dessert"
+    ],
+    "ingredients": [
+      {
+        "group": "Base biscuitée",
+        "items": [
+          "180g biscuits digestifs ou sablés",
+          "75g beurre fondu",
+          "25g sucre"
+        ]
+      },
+      {
+        "group": "Crème citron vert",
+        "items": [
+          "400g lait concentré sucré",
+          "120g jus de citron vert",
+          "Zeste de 2 citrons verts",
+          "4 jaunes d’œufs",
+          "1 pincée sel fin"
+        ]
+      }
+    ],
+    "steps": [
+      "Préchauffer le four à 170°C et chemiser un moule carré.",
+      "Mixer les biscuits avec le sucre, puis mélanger avec le beurre fondu.",
+      "Tasser dans le moule et précuire 10min.",
+      "Fouetter lait concentré, jaunes d’œufs, jus, zeste de citron vert et sel.",
+      "Verser sur la base précuite.",
+      "Cuire 15 à 18min, jusqu’à ce que le centre soit juste pris.",
+      "Refroidir, puis placer au réfrigérateur au moins 3h avant de découper."
+    ],
+    "notes": [
+      "Utilise du vrai jus de citron vert pour garder une acidité nette.",
+      "La découpe est plus propre avec un couteau chaud essuyé entre chaque coupe.",
+      "Servir bien frais."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Le centre doit trembler légèrement à la sortie du four : il se raffermit au froid."
+      },
+      {
+        "label": "Base",
+        "value": "Tasser fermement la base évite qu’elle s’effrite à la découpe."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Moule carré",
+        "Papier cuisson",
+        "Fouet",
+        "Mixeur"
+      ],
+      "storage": [
+        "3 jours au réfrigérateur, en boîte hermétique.",
+        "Servir froid pour garder la crème nette."
+      ],
+      "mistakes": [
+        "Ne prolonge pas trop la cuisson : une crème trop cuite devient granuleuse."
+      ],
+      "result": [
+        "Carrés frais, acidulés et très crémeux sur base biscuitée."
       ]
     }
   },

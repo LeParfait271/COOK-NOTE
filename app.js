@@ -37,7 +37,11 @@ const MONTHLY_ADDITIONS = [
   { id: 'billes_mozzarella_marinees', addedAt: '2026-05-20' },
   { id: 'cookies_cerise_chocolat', addedAt: '2026-05-20' },
   { id: 'clafoutis_cerises_bocuse', addedAt: '2026-05-20' },
-  { id: 'cerises_sechees_maison', addedAt: '2026-05-20' }
+  { id: 'cerises_sechees_maison', addedAt: '2026-05-20' },
+  { id: 'pate_lapin_piment_espelette', addedAt: '2026-05-20' },
+  { id: 'terrine_campagne', addedAt: '2026-05-20' },
+  { id: 'brie_farci_fruits_secs_noix', addedAt: '2026-05-20' },
+  { id: 'carres_cremeux_citron_vert', addedAt: '2026-05-20' }
 ];
 const CATEGORY_PARENT_IDS = {
   'Apéro': 'apero_maitre',
@@ -1091,6 +1095,14 @@ function servingOptionsFor(recipe) {
     .sort((a, b) => a - b);
 }
 
+function stripHtml(value) {
+  return String(value || '')
+    .replace(/<span\b[^>]*data-goto=(["'])([^"']+)\1[^>]*>(.*?)<\/span>/gi, '$3')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function scaleParentheticalAmounts(text, factor) {
   return String(text || '').replace(/\(([^)]*)\)/g, (full, content) => {
     const hasScalableHint = /(?:≈|env\.?|environ|oeufs?|œufs?|jaunes?|blancs?|pi[eè]ces?|portions?|cl|ml|g|kg)/i.test(content);
@@ -1110,14 +1122,15 @@ function scaleParentheticalAmounts(text, factor) {
 }
 
 function scaleIngredient(text, factor) {
-  if (factor === 1) return text;
-  const parts = splitShoppingIngredientParts(text);
+  const cleanText = stripHtml(text);
+  if (factor === 1) return cleanText;
+  const parts = splitShoppingIngredientParts(cleanText);
   if (parts.length > 1) return parts.map(part => scaleIngredient(part, factor)).join(', ');
-  const match = String(text).match(/^(\d+(?:[.,]\d+)?(?:\/\d+)?)(\s*(?:[\u2013\u2014-]|à|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?(.*)$/i);
-  if (!match) return text;
+  const match = String(cleanText).match(/^(\d+(?:[.,]\d+)?(?:\/\d+)?)(\s*(?:[\u2013\u2014-]|à|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?(.*)$/i);
+  if (!match) return cleanText;
   const first = parseAmount(match[1]);
   const second = match[3] ? parseAmount(match[3]) : null;
-  if (!Number.isFinite(first)) return text;
+  if (!Number.isFinite(first)) return cleanText;
   const rest = scaleParentheticalAmounts(match[4], factor);
   if (second !== null && Number.isFinite(second)) {
     const separator = match[2].slice(0, match[2].length - match[3].length);
@@ -1174,7 +1187,7 @@ function scaleYieldDisplay(text, factor) {
 function recipeShoppingLines(recipe, factor = 1) {
   return (recipe.ingredients || []).flatMap(group => [
     group.group ? `# ${group.group}` : '# Base',
-    ...(group.items || []).map(item => `- ${scaleIngredient(item, factor)}`)
+    ...(group.items || []).map(item => `- ${stripHtml(scaleIngredient(item, factor))}`)
   ]);
 }
 
@@ -1237,7 +1250,7 @@ function canonicalShoppingName(value) {
 }
 
 function parseShoppingIngredient(line) {
-  const cleaned = String(line || '').replace(/^[-•]\s*/, '').trim();
+  const cleaned = stripHtml(line).replace(/^[-•]\s*/, '').trim();
   const match = cleaned.match(/^(\d+(?:[.,]\d+)?(?:\/\d+)?)(\s*(?:[\u2013\u2014-]|à|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?\s*(g|kg|ml|cl|l)\s+(.*)$/i);
   if (!match) return null;
   const first = parseAmount(match[1]);
@@ -1246,7 +1259,7 @@ function parseShoppingIngredient(line) {
   const unit = match[4].toLowerCase();
   const multiplier = unit === 'kg' || unit === 'l' ? 1000 : unit === 'cl' ? 10 : 1;
   const baseUnit = unit === 'kg' ? 'g' : unit === 'l' || unit === 'cl' ? 'ml' : unit;
-  const rawName = match[5].trim();
+  const rawName = stripHtml(match[5]).trim();
   const normalizedName = normalizeShoppingName(rawName);
   const name = canonicalShoppingName(rawName);
   return {
@@ -1693,14 +1706,6 @@ function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], open
     }, label),
     renderLinkedText(value.slice(end), targets, openRecipe, techniqueTargets, openTechnique)
   );
-}
-
-function stripHtml(value) {
-  return String(value || '')
-    .replace(/<span\s+data-goto=(["'])([^"']+)\1[^>]*>(.*?)<\/span>/gi, '$3')
-    .replace(/<[^>]+>/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
 }
 
 function asTextList(value) {

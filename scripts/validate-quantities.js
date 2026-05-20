@@ -83,6 +83,16 @@ if (!shoppingDistinctText.includes("55 g huile d'olive") || !shoppingDistinctTex
   errors.push('Panier courses: les huiles et farines techniques differentes ne doivent pas etre fusionnees.');
 }
 
+const shoppingLinkedText = helpers.shoppingListText([{
+  id: 'test_panier_liens',
+  title: 'Test panier liens',
+  yield: '1 test',
+  ingredients: [{ group: 'Base', items: ['1 recette de <span data-goto="sauce_mornay">sauce Mornay</span>', '30g <span class="inline-recipe-link" data-goto="sauce_caramel">sauce caramel</span>'] }]
+}], { test_panier_liens: 1 });
+if (/<[^>]+>|data-goto|class=/.test(shoppingLinkedText) || !shoppingLinkedText.includes('1 recette de sauce Mornay') || !shoppingLinkedText.includes('30 g sauce caramel')) {
+  errors.push('Panier courses: les liens internes ne doivent pas ressortir en HTML dans le texte partage.');
+}
+
 for (const [id, recipe] of Object.entries(recipes)) {
   const isMaster = Array.isArray(recipe.variants) && recipe.variants.length;
   if (isMaster || !recipe.yield || !/\d/.test(recipe.yield)) continue;
