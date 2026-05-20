@@ -1836,8 +1836,10 @@ function getRecipePracticalSections(recipe) {
     if (cleanItems.length) sections.push({ key, title, items: cleanItems.slice(0, key === 'storage' ? 6 : 4) });
   };
 
-  const storageNotes = notes.filter(note => /\b(conservation|stockage|p[eé]remption|cong[eé]lation|cong[eè]le|au froid|r[eé]frig[eé]rateur)\b/i.test(note));
-  const reheatingNotes = notes.filter(note => /\b(r[eé]chauff|remettre au four|four doux|vapeur)\b/i.test(note));
+  const isStorageNote = note => /\b(conservation|stockage|p[eé]remption|cong[eé]lation|cong[eè]le|au froid|r[eé]frig[eé]rateur)\b/i.test(note);
+  const isReheatingNote = note => /\b(r[eé]chauff|remettre au four|four doux)\b/i.test(note);
+  const storageNotes = notes.filter(isStorageNote);
+  const reheatingNotes = notes.filter(note => isReheatingNote(note) && !storageNotes.includes(note));
   const substitutionNotes = notes.filter(note => /\b(remplace|remplacer|substitut|substitution|à défaut|a defaut|sinon|possible avec|variante)\b/i.test(note));
   const noteAlreadyClassified = note => storageNotes.includes(note) || reheatingNotes.includes(note) || substitutionNotes.includes(note);
   const mistakeNotes = notes.filter(note => !noteAlreadyClassified(note) && /\b(ne\s|[ée]vite|attention|trop cuit|trop cuits|surcharge|surveille|sans trop)\b/i.test(note));
@@ -2401,6 +2403,13 @@ const ICON_PATHS = {
     'M7 8V4h10v4',
     'M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2',
     'M7 14h10v7H7z'
+  ],
+  focus: [
+    'M9 4H5a1 1 0 0 0-1 1v4',
+    'M15 4h4a1 1 0 0 1 1 1v4',
+    'M20 15v4a1 1 0 0 1-1 1h-4',
+    'M9 20H5a1 1 0 0 1-1-1v-4',
+    'M9 12h6'
   ],
   settings: [
     'M4 7h10',
@@ -3408,6 +3417,7 @@ function RecipeView({
   const [timerEnd, setTimerEnd] = useState(0);
   const [timerLabel, setTimerLabel] = useState('');
   const [now, setNow] = useState(Date.now());
+  const [focusMode, setFocusMode] = useState(false);
   const completedRef = useRef('');
   const inlineVariantGroupIndexes = useMemo(() => (
     selectedRecipe?.variantGroups
@@ -3449,6 +3459,7 @@ function RecipeView({
     setMobileDetailTab('ingredients');
     setOpenIngredientGroups({});
     setExportCopied(false);
+    setFocusMode(false);
   }, [recipe.id]);
 
   useEffect(() => {
@@ -3508,7 +3519,7 @@ function RecipeView({
   const detailAccent = getCategoryColor(selectedRecipe);
   const detailStyle = { '--accent': detailAccent, '--accent-2': detailAccent };
 
-  return h('main', { className: 'recipe-view', style: detailStyle },
+  return h('main', { className: focusMode ? 'recipe-view recipe-focus-mode' : 'recipe-view', style: detailStyle },
     h('section', {
       className: heroImage ? (heroUsesHomeImage ? 'recipe-detail-hero has-photo parent-hero' : 'recipe-detail-hero has-photo') : 'recipe-detail-hero',
       style: heroStyle
@@ -3544,6 +3555,13 @@ function RecipeView({
           }, exportCopied ? 'Fiche copiée' : 'Copier fiche'),
           h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' })),
           selectedRecipe.video && h('a', { className: 'btn btn-ghost', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, 'Voir la vidéo'),
+          hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(Button, {
+            variant: focusMode ? 'primary' : 'ghost',
+            className: focusMode ? 'focus-action active' : 'focus-action',
+            onClick: () => setFocusMode(value => !value),
+            title: focusMode ? 'Quitter le focus cuisson' : 'Activer le focus cuisson',
+            ariaLabel: focusMode ? 'Quitter le focus cuisson' : 'Activer le focus cuisson'
+          }, h(Icon, { name: 'focus' }), h('span', null, focusMode ? 'Quitter focus' : 'Focus cuisson')),
           h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, h(Icon, { name: 'print' })),
           canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'icon-square favorite-action active' : 'icon-square favorite-action', onClick: () => toggleFavorite(detailKey), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }))
         )
@@ -3621,7 +3639,15 @@ function RecipeView({
       hasSelectedVariant && h('section', { className: mobileDetailTab === 'steps' ? 'recipe-panel steps-panel active-tab-panel' : 'recipe-panel steps-panel' },
         h('div', { className: 'panel-heading' },
           h('div', null, h('p', { className: 'eyebrow' }, 'Exécution'), h('h2', null, 'Étapes')),
-          needsInlineVariantSelection && selectedGroupLabel && h('span', { className: 'progress-label' }, selectedGroupLabel)
+          h('div', { className: 'steps-panel-tools' },
+            needsInlineVariantSelection && selectedGroupLabel && h('span', { className: 'progress-label' }, selectedGroupLabel),
+            h('button', {
+              type: 'button',
+              className: focusMode ? 'focus-toggle active' : 'focus-toggle',
+              onClick: () => setFocusMode(value => !value),
+              'aria-pressed': focusMode
+            }, h(Icon, { name: 'focus' }), h('span', null, focusMode ? 'Vue complète' : 'Focus'))
+          )
         ),
         canShowSteps && h('div', { className: 'progress-track' }, h('span', { style: { width: `${progress}%` } })),
         canShowSteps && h('div', { className: 'before-start-card' },
@@ -3660,7 +3686,10 @@ function RecipeView({
         )
       ),
       hasSelectedVariant && h('aside', { className: mobileDetailTab === 'notes' ? 'recipe-panel notes-panel active-tab-panel' : 'recipe-panel notes-panel' },
-        h('h2', { className: 'read-before-title' }, 'Avant de commencer'),
+        h('div', { className: 'notes-panel-head' },
+          h('p', { className: 'eyebrow' }, 'Mémo'),
+          h('h2', { className: 'read-before-title' }, 'Avant de commencer')
+        ),
         h('div', { className: 'allergen-card' },
           h('p', { className: 'eyebrow' }, 'Allergènes'),
           recipeAllergens.length
