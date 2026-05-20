@@ -4164,7 +4164,7 @@ window.RECIPES = {
       },
       {
         "id": "cerises_sechees_maison",
-        "label": "Cerises séchées maison"
+        "label": "Cerises séchées"
       },
       {
         "id": "chantilly_maitre",
@@ -8205,7 +8205,7 @@ window.RECIPES = {
     }
   },
   "cerises_sechees_maison": {
-    "title": "Cerises séchées maison",
+    "title": "Cerises séchées",
     "master": "elements_base_maitre",
     "image": "/assets/recipe-images-optimized/cerises_sechees_maison_spooky.jpg",
     "categories": [
@@ -8218,7 +8218,7 @@ window.RECIPES = {
     "difficultyScore": 2,
     "yield": "1 bocal",
     "aliases": [
-      "cerises sechées maison",
+      "cerises sechées",
       "cerises séchées",
       "faire sécher des cerises"
     ],
