@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-20T22:47:45.899Z",
+  "generatedAt": "2026-05-21T20:50:08.491Z",
   "totals": {
     "recipes": 124,
     "leaves": 105,
     "masters": 19,
     "lowScore": 0,
-    "categoryIdeas": 5,
+    "categoryIdeas": 6,
     "qualityIssues": 0
   },
   "averageScore": 89,
@@ -19,6 +19,11 @@
     {
       "id": "cotelettes_porc_miel_moutarde",
       "title": "Côtelettes de porc miel moutarde",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
+      "id": "pesto_tomates_sechees_sans_cajou",
+      "title": "Pesto tomates séchées",
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
@@ -184,8 +189,8 @@
       "count": 0
     },
     {
-      "id": "creme_amande_citron",
-      "title": "Crème d’amande pour fond de tarte",
+      "id": "creme_diplomate_vanille",
+      "title": "Crème diplomate vanille",
       "count": 0
     }
   ],
@@ -581,14 +586,6 @@
       "suggestions": []
     },
     {
-      "id": "creme_amande_citron",
-      "title": "Crème d’amande pour fond de tarte",
-      "score": 100,
-      "issues": [],
-      "qualityIssues": [],
-      "suggestions": []
-    },
-    {
       "id": "creme_diplomate_vanille",
       "title": "Crème diplomate vanille",
       "score": 84,
@@ -691,6 +688,14 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
+    },
+    {
+      "id": "creme_amande_citron",
+      "title": "Fond de tarte amande",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "frites_belges",
@@ -925,18 +930,8 @@
       ]
     },
     {
-      "id": "pains_burgers_brioche",
-      "title": "Pains burgers briochés",
-      "score": 100,
-      "issues": [],
-      "qualityIssues": [],
-      "suggestions": [
-        "Recette longue : verifier que les etapes restent faciles a suivre sur mobile."
-      ]
-    },
-    {
       "id": "pain_hot_dog",
-      "title": "Pains hot-dog",
+      "title": "Pain hot dog brioché",
       "score": 82,
       "issues": [
         "Conservation ou securite alimentaire a verifier."
@@ -944,6 +939,16 @@
       "qualityIssues": [],
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
+      "id": "pains_burgers_brioche",
+      "title": "Pains burgers briochés",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": [
+        "Recette longue : verifier que les etapes restent faciles a suivre sur mobile."
       ]
     },
     {
@@ -1000,7 +1005,7 @@
     },
     {
       "id": "pate_legere_beignets_calamar_crevettes",
-      "title": "Pâte légère pour beignets de calamar ou crevettes",
+      "title": "Pâte légère à frire",
       "score": 82,
       "issues": [
         "Conservation ou securite alimentaire a verifier."
@@ -1039,7 +1044,8 @@
       ],
       "qualityIssues": [],
       "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
     },
     {
@@ -1176,7 +1182,7 @@
     },
     {
       "id": "tempura_beignets_calamar_crevettes",
-      "title": "Tempura pour beignets de calamar ou crevettes",
+      "title": "Tempura",
       "score": 82,
       "issues": [
         "Conservation ou securite alimentaire a verifier."

@@ -222,10 +222,6 @@ window.RECIPES = {
         "label": "Crème citron"
       },
       {
-        "id": "creme_amande_citron",
-        "label": "Crème d’amande pour fond de tarte"
-      },
-      {
         "id": "creme_diplomate_vanille",
         "label": "Crème diplomate vanille"
       },
@@ -256,6 +252,10 @@ window.RECIPES = {
       {
         "id": "creme_praline",
         "label": "Crème praliné"
+      },
+      {
+        "id": "creme_amande_citron",
+        "label": "Fond de tarte amande"
       },
       {
         "id": "compotee_citron",
@@ -379,10 +379,6 @@ window.RECIPES = {
       {
         "id": "mayonnaise_maison",
         "label": "Mayonnaise"
-      },
-      {
-        "id": "pesto_tomates_sechees_sans_cajou",
-        "label": "Pesto tomates séchées"
       },
       {
         "id": "pesto_variantes",
@@ -579,20 +575,20 @@ window.RECIPES = {
         "label": "Pain grillé beurre ail et herbes"
       },
       {
+        "id": "pain_hot_dog",
+        "label": "Pain hot dog brioché"
+      },
+      {
         "id": "pains_burgers_brioche",
         "label": "Pains burgers briochés"
       },
       {
-        "id": "pain_hot_dog",
-        "label": "Pains hot-dog"
-      },
-      {
         "id": "pate_legere_beignets_calamar_crevettes",
-        "label": "Pâte légère pour beignets de calamar ou crevettes"
+        "label": "Pâte légère à frire"
       },
       {
         "id": "tempura_beignets_calamar_crevettes",
-        "label": "Tempura pour beignets de calamar ou crevettes"
+        "label": "Tempura"
       },
       {
         "id": "tortillas_mexicaines",
@@ -634,7 +630,8 @@ window.RECIPES = {
     "master": "bases_salees_maitre",
     "image": "/assets/recipe-images-optimized/beurre_ail_spooky.jpg",
     "categories": [
-      "Base"
+      "Base",
+      "Apéro"
     ],
     "seasons": [
       "Toutes saisons"
@@ -652,7 +649,8 @@ window.RECIPES = {
       "beurre",
       "ail",
       "persil",
-      "base"
+      "base",
+      "apero"
     ],
     "linkedRecipes": [
       {
@@ -711,7 +709,10 @@ window.RECIPES = {
       "result": [
         "Beurre parfumé, tartinable, bien ailé et frais grâce au persil."
       ]
-    }
+    },
+    "additionalMasters": [
+      "apero_maitre"
+    ]
   },
   "vinaigrette": {
     "title": "Vinaigrette",
@@ -2406,6 +2407,10 @@ window.RECIPES = {
         "label": "Pain grillé beurre ail et herbes"
       },
       {
+        "id": "pesto_tomates_sechees_sans_cajou",
+        "label": "Pesto tomates séchées"
+      },
+      {
         "id": "sauce_yaourt_citronnee",
         "label": "Sauce yaourt citronnée"
       },
@@ -3270,7 +3275,7 @@ window.RECIPES = {
     ]
   },
   "creme_amande_citron": {
-    "title": "Crème d’amande pour fond de tarte",
+    "title": "Fond de tarte amande",
     "master": "cremes_maitre",
     "image": "/assets/recipe-images-optimized/creme_amande_citron_spooky.jpg",
     "categories": [
@@ -3591,6 +3596,10 @@ window.RECIPES = {
         "label": "Beignets de calamar"
       },
       {
+        "id": "beurre_ail",
+        "label": "Beurre à l’ail"
+      },
+      {
         "id": "billes_mozzarella_marinees",
         "label": "Billes de mozzarella marinées"
       },
@@ -3632,7 +3641,11 @@ window.RECIPES = {
       },
       {
         "id": "pate_legere_beignets_calamar_crevettes",
-        "label": "Pâte légère pour beignets de calamar ou crevettes"
+        "label": "Pâte légère à frire"
+      },
+      {
+        "id": "pesto_tomates_sechees_sans_cajou",
+        "label": "Pesto tomates séchées"
       },
       {
         "id": "rillettes_porc",
@@ -3648,7 +3661,7 @@ window.RECIPES = {
       },
       {
         "id": "tempura_beignets_calamar_crevettes",
-        "label": "Tempura pour beignets de calamar ou crevettes"
+        "label": "Tempura"
       },
       {
         "id": "terrine_campagne",
@@ -4379,10 +4392,6 @@ window.RECIPES = {
         "label": "Crème citron"
       },
       {
-        "id": "creme_amande_citron",
-        "label": "Crème d’amande pour fond de tarte"
-      },
-      {
         "id": "creme_patissiere_praline",
         "label": "Crème pâtissière praliné"
       },
@@ -4393,6 +4402,10 @@ window.RECIPES = {
       {
         "id": "creme_praline",
         "label": "Crème praliné"
+      },
+      {
+        "id": "creme_amande_citron",
+        "label": "Fond de tarte amande"
       },
       {
         "id": "compotee_citron",
@@ -4413,14 +4426,6 @@ window.RECIPES = {
       {
         "id": "pates_bases_maitre",
         "label": "Pâtes et bases pâtissières"
-      },
-      {
-        "id": "pesto_tomates_sechees_sans_cajou",
-        "label": "Pesto tomates séchées"
-      },
-      {
-        "id": "sauce_mornay",
-        "label": "Sauce Mornay"
       }
     ],
     "ingredients": [
@@ -5928,7 +5933,7 @@ window.RECIPES = {
     "additionalMasters": []
   },
   "pain_hot_dog": {
-    "title": "Pains hot-dog",
+    "title": "Pain hot dog brioché",
     "master": "bases_salees_maitre",
     "image": "/assets/recipe-images-optimized/pain_hot_dog_spooky.jpg",
     "categories": [
@@ -6225,7 +6230,7 @@ window.RECIPES = {
       "Égoutter sur grille, saler légèrement et servir immédiatement avec citron et sauce."
     ],
     "notes": [
-      "Raccourcis : <span data-goto=\"pate_legere_beignets_calamar_crevettes\">Pâte légère pour beignets de calamar ou crevettes</span> / <span data-goto=\"aioli_citronne_leger\">Aïoli citronné léger</span> / <span data-goto=\"tempura_beignets_calamar_crevettes\">Tempura pour beignets de calamar ou crevettes</span>.",
+      "Raccourcis : <span data-goto=\"pate_legere_beignets_calamar_crevettes\">Pâte légère à frire</span> / <span data-goto=\"aioli_citronne_leger\">Aïoli citronné léger</span> / <span data-goto=\"tempura_beignets_calamar_crevettes\">Tempura</span>.",
       "La cuisson doit rester très courte : trop cuits, les calamars deviennent caoutchouteux.",
       "Ne surcharge pas le bain d’huile pour garder une friture nette et non grasse.",
       "La pâte doit rester froide, légère et légèrement irrégulière."
@@ -7333,8 +7338,7 @@ window.RECIPES = {
     "master": "sauces_maitre",
     "image": "/assets/recipe-images-optimized/sauce_mornay_spooky.jpg",
     "categories": [
-      "Sauces",
-      "Base"
+      "Sauces"
     ],
     "seasons": [
       "Toutes saisons"
@@ -7351,8 +7355,7 @@ window.RECIPES = {
     "tags": [
       "sauce",
       "fromage",
-      "gratin",
-      "base"
+      "gratin"
     ],
     "ingredients": [
       {
@@ -7394,9 +7397,6 @@ window.RECIPES = {
         "label": "Cuisson",
         "value": "5 à 7min après ajout lait et crème."
       }
-    ],
-    "additionalMasters": [
-      "elements_base_maitre"
     ]
   },
   "gratin_chou_fleur": {
@@ -7592,7 +7592,7 @@ window.RECIPES = {
     ]
   },
   "pate_legere_beignets_calamar_crevettes": {
-    "title": "Pâte légère pour beignets de calamar ou crevettes",
+    "title": "Pâte légère à frire",
     "master": "bases_salees_maitre",
     "image": "/assets/recipe-images-optimized/pate_legere_beignets_calamar_crevettes_spooky.jpg",
     "categories": [
@@ -7899,11 +7899,11 @@ window.RECIPES = {
   },
   "pesto_tomates_sechees_sans_cajou": {
     "title": "Pesto tomates séchées",
-    "master": "sauces_assaisonnements_maitre",
+    "master": "apero_maitre",
     "image": "/assets/recipe-images-optimized/pesto_tomates_sechees_sans_cajou_spooky.jpg",
     "categories": [
-      "Sauces",
-      "Base"
+      "Apéro",
+      "Accompagnements"
     ],
     "seasons": [
       "Toutes saisons"
@@ -7912,15 +7912,15 @@ window.RECIPES = {
     "difficultyScore": 2,
     "yield": "1 pot",
     "aliases": [
-      "pesto rosso sans noix de cajou",
+      "pesto rosso",
       "pesto tomates séchées",
       "pesto rouge"
     ],
     "tags": [
       "pesto",
       "tomates séchées",
-      "sauce",
-      "sans noix de cajou"
+      "apero",
+      "accompagnement"
     ],
     "ingredients": [
       {
@@ -7944,7 +7944,7 @@ window.RECIPES = {
       "Corriger l’assaisonnement et détendre avec un filet d’eau ou d’huile si nécessaire."
     ],
     "notes": [
-      "Cette version retire les noix de cajou et garde une texture riche avec pignons ou graines.",
+      "Cette version garde une texture riche avec pignons ou graines.",
       "Parfait pour pâtes, tartines, focaccia, sandwichs ou base de sauce froide.",
       "Si les tomates sont très salées, goûter avant d’ajouter du sel."
     ],
@@ -7971,11 +7971,11 @@ window.RECIPES = {
         "Ne sale pas avant d’avoir goûté les tomates et le parmesan."
       ],
       "result": [
-        "Pesto rouge dense, parfumé, sans noix de cajou."
+        "Pesto rouge dense et parfumé."
       ]
     },
     "additionalMasters": [
-      "elements_base_maitre"
+      "accompagnements_maitre"
     ]
   },
   "base_pour_flan_sale": {
@@ -9108,7 +9108,7 @@ window.RECIPES = {
     }
   },
   "tempura_beignets_calamar_crevettes": {
-    "title": "Tempura pour beignets de calamar ou crevettes",
+    "title": "Tempura",
     "master": "bases_salees_maitre",
     "image": "/assets/recipe-images-optimized/tempura_beignets_calamar_crevettes_spooky.jpg",
     "categories": [

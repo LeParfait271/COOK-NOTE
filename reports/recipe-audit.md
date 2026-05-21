@@ -1,6 +1,6 @@
 # Audit Cook Note
 
-Genere le 2026-05-20T22:47:45.899Z.
+Genere le 2026-05-21T20:50:08.491Z.
 
 - Recettes totales : 124
 - Recettes feuilles : 105
@@ -76,7 +76,6 @@ Aucune fiche faible detectee.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Crème citron (creme_citron_lemon_curd) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Crème d’amande pour fond de tarte (creme_amande_citron) : 100/100 - OK
 - Crème diplomate vanille (creme_diplomate_vanille) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Crème diplomate vanille à garnir (creme_diplomate_cloud) : 84/100 - OK
@@ -96,6 +95,7 @@ Aucune fiche faible detectee.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Curry de lentilles vertes au lait de coco (curry_lentilles_coco) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Fond de tarte amande (creme_amande_citron) : 100/100 - OK
 - Frites belges (frites_belges) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Frites de patate douce (frites_patate_douce) : 82/100 - OK
@@ -134,9 +134,9 @@ Aucune fiche faible detectee.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Pain grillé beurre ail et herbes (pain_grille_beurre_ail_herbes) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
-- Pains burgers briochés (pains_burgers_brioche) : 100/100 - OK
-- Pains hot-dog (pain_hot_dog) : 82/100 - OK
+- Pain hot dog brioché (pain_hot_dog) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Pains burgers briochés (pains_burgers_brioche) : 100/100 - OK
 - Pancakes (pancakes_variantes) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Pancakes fluffy (pancakes_fluffy) : 82/100 - OK
@@ -146,7 +146,7 @@ Aucune fiche faible detectee.
 - Pâte à choux (pate_choux) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Pâté de lapin au piment d’Espelette (pate_lapin_piment_espelette) : 100/100 - OK
-- Pâte légère pour beignets de calamar ou crevettes (pate_legere_beignets_calamar_crevettes) : 82/100 - OK
+- Pâte légère à frire (pate_legere_beignets_calamar_crevettes) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pâte sucrée (pate_sucree) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
@@ -175,7 +175,7 @@ Aucune fiche faible detectee.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Tarte citron meringuée (tarte_citron_meringuee) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Tempura pour beignets de calamar ou crevettes (tempura_beignets_calamar_crevettes) : 82/100 - OK
+- Tempura (tempura_beignets_calamar_crevettes) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Terrine de campagne (terrine_campagne) : 100/100 - OK
 - Terrine de porc aux pistaches (terrine_porc_pistaches) : 100/100 - OK
@@ -195,6 +195,7 @@ Aucune fiche faible detectee.
 
 - Bouillabaisse (bouillabaisse_rouille) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Côtelettes de porc miel moutarde (cotelettes_porc_miel_moutarde) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
+- Pesto tomates séchées (pesto_tomates_sechees_sans_cajou) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Pancakes (pancakes_variantes) : Categorie possible : Base (semble etre une base reutilisable).
 - Œuf sur le plat chili crisp sur toast (oeuf_chili_crisp_toast) : Categorie possible : Apéro (semble utile a l apero).
 - Pâtes à tarte (pates_tarte_variantes) : Categorie possible : Desserts (semble etre sucré ou patissier).
@@ -230,4 +231,4 @@ Aucune fiche faible detectee.
 - Court-bouillon (court_bouillon)
 - Crème au beurre meringue italienne (creme_beurre_meringue_italienne)
 - Crème citron (creme_citron_lemon_curd)
-- Crème d’amande pour fond de tarte (creme_amande_citron)
+- Crème diplomate vanille (creme_diplomate_vanille)

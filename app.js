@@ -547,6 +547,7 @@ const STORAGE_KEYS = {
   recentSearches: 'cook_note_recent_searches',
   personalNotes: 'cook_note_personal_recipe_notes',
   homeScroll: 'cook_note_home_scroll',
+  scrollPositions: 'cook_note_session_scroll_positions',
   legacyFavorites: ['mc_food_favorites', 'cuisine_favs']
 };
 
@@ -575,6 +576,34 @@ function readStoredList(key, legacyKeys) {
     if (Array.isArray(value)) return value;
   }
   return [];
+}
+
+function currentScrollRouteKey() {
+  return `${window.location.pathname}${window.location.search}${window.location.hash || ''}`;
+}
+
+function readSessionScrollPositions() {
+  try {
+    const raw = sessionStorage.getItem(STORAGE_KEYS.scrollPositions);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveCurrentScrollPosition(routeKey = currentScrollRouteKey()) {
+  try {
+    const positions = readSessionScrollPositions();
+    positions[routeKey] = Math.max(0, Math.round(window.scrollY || document.documentElement.scrollTop || 0));
+    sessionStorage.setItem(STORAGE_KEYS.scrollPositions, JSON.stringify(positions));
+  } catch {
+    /* ignore session storage restrictions */
+  }
+}
+
+function readScrollPositionForCurrentRoute() {
+  const value = Number(readSessionScrollPositions()[currentScrollRouteKey()]);
+  return Number.isFinite(value) ? Math.max(0, value) : 0;
 }
 
 function scrollElementToViewportCenter(element, behavior = 'smooth') {
@@ -779,18 +808,6 @@ function getRecipeRiskSignals(recipe) {
   return signals;
 }
 
-function getRecipeRiskBadge(recipe) {
-  const signals = getRecipeRiskSignals(recipe);
-  if (!signals.length) return null;
-  const high = signals.find(item => item.level === 'high');
-  const first = high || signals[0];
-  return {
-    label: first.level === 'high' ? 'Risque haut' : `Risque ${first.label.toLowerCase()}`,
-    shortLabel: first.label,
-    level: first.level
-  };
-}
-
 function getRecipeServiceItems(recipe) {
   const practicalService = asTextList(recipe?.service || recipe?.practical?.service);
   const text = normalizeText([
@@ -822,10 +839,10 @@ function getRecipeServiceItems(recipe) {
 
 function getRecipeServiceSummary(recipe) {
   const first = getRecipeServiceItems(recipe)[0] || '';
-  if (/chaud/i.test(first)) return 'Service chaud';
-  if (/froid|frais/i.test(first)) return 'Service frais';
-  if (/ti[eè]de|temp[eé]rature/i.test(first)) return 'Service souple';
-  return first ? 'Service noté' : '';
+  if (/chaud/i.test(first)) return 'Chaud';
+  if (/froid|frais/i.test(first)) return 'Froid';
+  if (/ti[eè]de|temp[eé]rature/i.test(first)) return 'Tiède';
+  return first ? 'Service' : '';
 }
 
 const AVERAGE_WEIGHT_RULES = [
@@ -2648,7 +2665,7 @@ function ActiveChips({ chips }) {
   );
 }
 
-function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter }) {
+function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false }) {
   const master = isMasterRecipe(recipe);
   const color = getCategoryColor(recipe);
   const style = { '--card-accent': color };
@@ -2660,14 +2677,11 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     : style;
   const variantLabel = master ? '' : getRecipeVariantLabel(recipe, recipesById);
   const cardFacts = !master && variantLabel ? [variantLabel] : [];
-  const riskBadge = !master ? getRecipeRiskBadge(recipe) : null;
   const serviceSummary = !master ? getRecipeServiceSummary(recipe) : '';
   const quickFacts = !master ? [
     difficultyText(recipe),
-    recipe.yield,
-    serviceSummary,
-    riskBadge?.shortLabel && `Risque ${riskBadge.shortLabel.toLowerCase()}`
-  ].filter(Boolean).slice(0, 4) : [];
+    serviceSummary
+  ].filter(Boolean).slice(0, 2) : [];
 
   return h('article', {
     className,
@@ -2685,8 +2699,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     h('div', { className: 'card-media', style: imageStyle },
       !recipe.image && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1)),
       recipe.video && h('span', { className: 'video-badge' }, 'Vidéo'),
-      riskBadge && h('span', { className: `card-risk card-risk-${riskBadge.level}` }, riskBadge.label),
-      !master && h('button', {
+      !master && !hideFavorite && h('button', {
         type: 'button',
         className: isFavorite ? 'fav-btn active' : 'fav-btn',
         onClick: event => {
@@ -2725,7 +2738,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   );
 }
 
-function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter }) {
+function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false }) {
   if (!recipes.length) {
     return h('div', { className: 'empty-state' },
       h('h2', null, 'Aucune recette ne matche'),
@@ -2740,7 +2753,8 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
       isFavorite: favorites.includes(recipe.id),
       toggleFavorite,
       openRecipe,
-      setTagFilter
+      setTagFilter,
+      hideFavorite
     }))
   );
 }
@@ -2805,7 +2819,7 @@ function MonthlyAdditionsSection({ recipes, recipesById, favorites, toggleFavori
         }, expanded ? 'Réduire' : `Voir les ${recipes.length}`)
       )
     ),
-    h(RecipeGrid, { recipes: visibleRecipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter }),
+    h(RecipeGrid, { recipes: visibleRecipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite: true }),
     hasMore && h('p', { className: 'monthly-additions-hint' }, `${orderedRecipes.length - visibleRecipes.length} autre${orderedRecipes.length - visibleRecipes.length > 1 ? 's' : ''} ajout${orderedRecipes.length - visibleRecipes.length > 1 ? 's' : ''} du mois`)
   );
 }
@@ -3478,6 +3492,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
         if (!item) return null;
         const image = item.image || parent.image;
         const variantLabel = getRecipeVariantLabel(item, recipesById);
+        const quickFacts = [difficultyText(item), getRecipeServiceSummary(item)].filter(Boolean);
         return h('button', {
           key: variant.id,
           type: 'button',
@@ -3490,6 +3505,9 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
             h('small', null, categoryLine(item)),
             h('strong', null, variant.label || item.title),
             variantLabel && h('em', null, variantLabel)
+          ),
+          quickFacts.length > 0 && h('span', { className: 'variant-card-quicklook', 'aria-label': 'Repères rapides' },
+            quickFacts.map(fact => h('span', { key: fact }, fact))
           )
         );
       })
@@ -3735,12 +3753,11 @@ function RecipeView({
   const canFavorite = hasSelectedVariant && !isMasterRecipe(selectedRecipe);
   const remainingMs = timerEnd ? timerEnd - now : 0;
   const recipeAllergens = hasSelectedVariant ? getRecipeAllergens(selectedRecipe) : [];
-  const riskSignals = hasSelectedVariant ? getRecipeRiskSignals(selectedRecipe) : [];
   const averageWeights = hasSelectedVariant ? getRecipeAverageWeights(selectedRecipe) : [];
   const linkedRecipes = hasSelectedVariant ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
   const practicalSections = hasSelectedVariant ? getRecipePracticalSections(selectedRecipe) : [];
   const displayNotes = hasSelectedVariant ? getDisplayNotes(selectedRecipe, practicalSections) : [];
-  const notesCount = recipeAllergens.length + riskSignals.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length;
+  const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length;
   const selectedGroupLabel = selectedInlineVariantGroup?.group?.group || '';
 
   useEffect(() => {
@@ -3985,13 +4002,6 @@ function RecipeView({
             ? h('ul', { className: 'allergen-list' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
             : h('p', { className: 'allergen-empty' }, 'Aucun allergène majeur détecté dans les ingrédients.')
         ),
-        riskSignals.length > 0 && h('div', { className: 'risk-card' },
-          h('p', { className: 'eyebrow' }, 'Indice de risque'),
-          h('ul', { className: 'risk-list' }, riskSignals.slice(0, 4).map(signal =>
-            h('li', { key: `${detailKey}:risk:${signal.label}`, className: `risk-${signal.level}` }, signal.label)
-          )),
-          h('small', null, 'Contrôle hygiène, froid, cuisson ou conservation à respecter.')
-        ),
         averageWeights.length > 0 && h('div', { className: 'average-weight-card' },
           h('p', { className: 'eyebrow' }, 'Poids moyens'),
           h('dl', null, averageWeights.map(item =>
@@ -4068,6 +4078,8 @@ function App() {
   const searchRef = useRef(null);
   const homeScrollRef = useRef(Number(sessionStorage.getItem(STORAGE_KEYS.homeScroll)) || 0);
   const restoreHomeScrollRef = useRef(false);
+  const pendingScrollModeRef = useRef('top');
+  const lastRouteKeyRef = useRef(currentScrollRouteKey());
   const historyRef = useRef([{}]);
   const historyIndexRef = useRef(0);
 
@@ -4095,23 +4107,22 @@ function App() {
   }, [recipesById]);
 
   useEffect(() => {
-    if (!activeRecipe) return undefined;
-    const forceTop = () => {
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-    };
-    forceTop();
+    const mode = pendingScrollModeRef.current;
+    if (mode === 'none') return undefined;
+    const top = mode === 'restore' ? readScrollPositionForCurrentRoute() : 0;
+    pendingScrollModeRef.current = 'top';
+    const applyScroll = () => window.scrollTo({ top, left: 0, behavior: 'auto' });
+    applyScroll();
     let secondFrame = 0;
     const firstFrame = requestAnimationFrame(() => {
-      forceTop();
-      secondFrame = requestAnimationFrame(forceTop);
+      applyScroll();
+      secondFrame = requestAnimationFrame(applyScroll);
     });
     return () => {
       cancelAnimationFrame(firstFrame);
       cancelAnimationFrame(secondFrame);
     };
-  }, [activeRecipe?.id]);
+  }, [activeRecipe?.id, activePage, targetTechniqueId]);
 
   useEffect(() => {
     updateDocumentMeta(activeSeoRecipe, recipesById, activePage);
@@ -4119,10 +4130,12 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (activeRecipe) return;
       const top = window.scrollY || 0;
-      homeScrollRef.current = top;
-      sessionStorage.setItem(STORAGE_KEYS.homeScroll, String(top));
+      if (!activeRecipe) {
+        homeScrollRef.current = top;
+        sessionStorage.setItem(STORAGE_KEYS.homeScroll, String(top));
+      }
+      saveCurrentScrollPosition();
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -4386,6 +4399,8 @@ function App() {
   function openRecipe(id) {
     const target = recipesById[id];
     if (!target) return;
+    saveCurrentScrollPosition(lastRouteKeyRef.current);
+    pendingScrollModeRef.current = 'top';
     if (!activeRecipe) {
       homeScrollRef.current = window.scrollY || 0;
       sessionStorage.setItem(STORAGE_KEYS.homeScroll, String(homeScrollRef.current));
@@ -4402,43 +4417,56 @@ function App() {
     if (window.location.pathname + window.location.search !== nextUrl) {
       history.pushState('', document.title, nextUrl);
     }
+    lastRouteKeyRef.current = currentScrollRouteKey();
     requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
   }
 
   function goHome() {
-    restoreHomeScrollRef.current = Boolean(activeRecipe);
+    saveCurrentScrollPosition(lastRouteKeyRef.current);
+    pendingScrollModeRef.current = 'top';
+    restoreHomeScrollRef.current = false;
     setActivePage('home');
     setTargetTechniqueId('');
     setOnlyFavorites(false);
     setActiveId(null);
     history.pushState('', document.title, '/');
+    lastRouteKeyRef.current = currentScrollRouteKey();
   }
 
   function showFavorites() {
+    saveCurrentScrollPosition(lastRouteKeyRef.current);
+    pendingScrollModeRef.current = 'top';
     setActivePage('home');
     setTargetTechniqueId('');
     setOnlyFavorites(true);
     setActiveId(null);
     history.pushState('', document.title, '/?view=__favs__');
+    lastRouteKeyRef.current = currentScrollRouteKey();
     setTimeout(() => document.getElementById('recettes')?.scrollIntoView({ behavior: 'smooth' }), 0);
   }
 
   function goTechniques() {
-    restoreHomeScrollRef.current = Boolean(activeRecipe);
+    saveCurrentScrollPosition(lastRouteKeyRef.current);
+    pendingScrollModeRef.current = 'top';
+    restoreHomeScrollRef.current = false;
     setActivePage('techniques');
     setTargetTechniqueId('');
     setActiveId(null);
     setOnlyFavorites(false);
     history.pushState('', document.title, '/techniques');
+    lastRouteKeyRef.current = currentScrollRouteKey();
   }
 
   function openTechnique(id) {
-    restoreHomeScrollRef.current = Boolean(activeRecipe);
+    saveCurrentScrollPosition(lastRouteKeyRef.current);
+    pendingScrollModeRef.current = 'none';
+    restoreHomeScrollRef.current = false;
     setActivePage('techniques');
     setTargetTechniqueId(id);
     setActiveId(null);
     setOnlyFavorites(false);
     history.pushState('', document.title, `/techniques#${encodeURIComponent(id)}`);
+    lastRouteKeyRef.current = currentScrollRouteKey();
   }
 
   function updateSearchQuery(value) {
@@ -4452,17 +4480,21 @@ function App() {
 
   useEffect(() => {
     const handleLocation = () => {
+      saveCurrentScrollPosition(lastRouteKeyRef.current);
       const recipe = getInitialRecipe();
       const page = getPathPage();
+      const technique = page === 'techniques' ? getInitialTechnique() : '';
+      pendingScrollModeRef.current = page === 'techniques' && technique ? 'none' : 'restore';
+      lastRouteKeyRef.current = currentScrollRouteKey();
       if (recipe && !activeId) {
         homeScrollRef.current = Math.max(window.scrollY || 0, homeScrollRef.current || 0);
         restoreHomeScrollRef.current = false;
       }
       setActivePage(page);
-      setTargetTechniqueId(page === 'techniques' ? getInitialTechnique() : '');
+      setTargetTechniqueId(technique);
       setOnlyFavorites(new URLSearchParams(window.location.search).get('view') === '__favs__');
       setActiveId(recipe);
-      if (!recipe && page === 'home') restoreHomeScrollRef.current = true;
+      if (!recipe && page === 'home') restoreHomeScrollRef.current = false;
     };
     window.addEventListener('hashchange', handleLocation);
     window.addEventListener('popstate', handleLocation);

@@ -872,6 +872,7 @@ a {
   min-width: 0;
   min-height: 142px;
   aspect-ratio: 16 / 9;
+  --title-hover-lift: -28px;
 }
 
 .monthly-additions-block .recipe-card h3 {
@@ -1134,6 +1135,7 @@ a {
   overflow: hidden;
   min-height: 292px;
   aspect-ratio: 4 / 5;
+  --title-hover-lift: -42px;
   transition: transform var(--speed), border-color var(--speed), box-shadow var(--speed), filter var(--speed);
   isolation: isolate;
   background:
@@ -1241,33 +1243,6 @@ a {
   border-color: rgba(255, 255, 255, .62);
   background: rgba(0, 0, 0, .58);
   color: #fff;
-}
-
-.card-risk {
-  position: absolute;
-  z-index: 2;
-  top: 10px;
-  left: 10px;
-  min-height: 28px;
-  border: 1px solid rgba(255, 255, 255, .22);
-  border-radius: 999px;
-  background: rgba(0, 0, 0, .54);
-  color: #fff;
-  padding: 5px 9px;
-  font-size: 11px;
-  font-weight: 950;
-  line-height: 1;
-  backdrop-filter: blur(10px);
-}
-
-.card-risk-high {
-  border-color: color-mix(in srgb, #ef4444 62%, rgba(255, 255, 255, .22));
-  color: #ffd8d8;
-}
-
-.card-risk-medium {
-  border-color: color-mix(in srgb, #f59e0b 56%, rgba(255, 255, 255, .22));
-  color: #ffe3ad;
 }
 
 .fav-btn .site-icon {
@@ -1402,16 +1377,36 @@ a {
 .nutri-score.nutri-e { background: #e63e11; color: #fff; }
 
 .recipe-card h3 {
+  position: relative;
+  z-index: 4;
   min-height: 0;
   margin: 0;
   max-width: 92%;
+  width: fit-content;
   color: #fff;
   font-size: clamp(19px, 1.48vw, 23px);
   line-height: 1.1;
   text-wrap: balance;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 0 2px;
   text-shadow:
     0 2px 12px rgba(0, 0, 0, .82),
     0 0 26px rgba(0, 0, 0, .76);
+  transition: transform var(--speed), background var(--speed), border-color var(--speed), padding var(--speed), box-shadow var(--speed);
+}
+
+.recipe-card:not(.master-card):hover h3,
+.recipe-card:not(.master-card):focus-visible h3 {
+  max-width: calc(100% - 20px);
+  transform: translateY(var(--title-hover-lift));
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 38%, rgba(255, 255, 255, .20));
+  background: rgba(0, 0, 0, .66);
+  padding: 7px 10px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, .28),
+    0 12px 28px rgba(0, 0, 0, .34);
+  backdrop-filter: blur(10px);
 }
 
 .recipe-card.master-card h3 {
@@ -1459,7 +1454,7 @@ a {
   position: absolute;
   left: 10px;
   right: 10px;
-  bottom: 44px;
+  bottom: 46px;
   z-index: 3;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2028,11 +2023,29 @@ a {
 }
 
 .variant-card-body strong {
+  position: relative;
+  z-index: 4;
   max-width: 92%;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 0 2px;
   font-size: 18px;
   line-height: 1.14;
   text-wrap: balance;
   text-shadow: 0 2px 12px rgba(0, 0, 0, .72);
+  transition: transform var(--speed), border-color var(--speed), background var(--speed), padding var(--speed), box-shadow var(--speed);
+}
+
+.variant-card:hover .variant-card-body strong,
+.variant-card:focus-visible .variant-card-body strong {
+  transform: translateY(-30px);
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 38%, rgba(255, 255, 255, .20));
+  background: rgba(0, 0, 0, .66);
+  padding: 7px 10px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, .28),
+    0 12px 28px rgba(0, 0, 0, .34);
+  backdrop-filter: blur(10px);
 }
 
 .variant-card-body small {
@@ -2057,6 +2070,45 @@ a {
   font-weight: 850;
   line-height: 1.25;
   text-shadow: 0 1px 8px rgba(0, 0, 0, .72);
+}
+
+.variant-card-quicklook {
+  position: absolute;
+  z-index: 4;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity var(--speed), transform var(--speed);
+}
+
+.variant-card:hover .variant-card-quicklook,
+.variant-card:focus-visible .variant-card-quicklook {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.variant-card-quicklook span {
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--card-accent, var(--accent)) 48%, rgba(255, 255, 255, .18));
+  border-radius: 7px;
+  background: rgba(0, 0, 0, .62);
+  color: #fff;
+  padding: 5px 7px;
+  overflow: hidden;
+  font-size: 11px;
+  font-weight: 950;
+  line-height: 1.05;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .26);
+  backdrop-filter: blur(10px);
 }
 
 .variant-card-difficulty {
@@ -2645,48 +2697,6 @@ a {
   margin: 0;
   color: var(--muted);
   line-height: 1.45;
-}
-
-.risk-card {
-  margin-bottom: 14px;
-  border: 1px solid color-mix(in srgb, #f59e0b 34%, var(--line));
-  border-radius: var(--radius);
-  background:
-    linear-gradient(135deg, rgba(245, 158, 11, .12), rgba(255, 255, 255, .025)),
-    rgba(0, 0, 0, .12);
-  padding: 12px;
-}
-
-.risk-list {
-  display: flex !important;
-  flex-wrap: wrap;
-  gap: 8px !important;
-  margin: 0 0 8px;
-  padding: 0;
-  list-style: none;
-}
-
-.risk-list li {
-  min-height: 28px;
-  border: 1px solid color-mix(in srgb, #f59e0b 48%, var(--line));
-  border-radius: 999px;
-  background: color-mix(in srgb, #f59e0b 13%, rgba(0, 0, 0, .22));
-  color: var(--text);
-  padding: 5px 10px;
-  font-size: 12px;
-  font-weight: 950;
-  line-height: 1.2;
-}
-
-.risk-list .risk-high {
-  border-color: color-mix(in srgb, #ef4444 55%, var(--line));
-  background: color-mix(in srgb, #ef4444 14%, rgba(0, 0, 0, .22));
-}
-
-.risk-card small {
-  display: block;
-  color: var(--muted);
-  line-height: 1.4;
 }
 
 .average-weight-card {
@@ -3785,7 +3795,8 @@ a {
     aspect-ratio: 16 / 10;
   }
 
-  .card-quicklook {
+  .card-quicklook,
+  .variant-card-quicklook {
     display: none;
   }
 
