@@ -645,19 +645,17 @@ a {
 }
 
 .fridge-assistant {
-  display: none !important;
+  display: grid;
   grid-template-columns: minmax(0, .9fr) minmax(320px, 1.1fr);
-  gap: 18px;
+  gap: 14px;
   align-items: center;
-  margin: 0 0 30px;
+  margin: 0 0 22px;
   border: 1px solid color-mix(in srgb, var(--mako) 26%, var(--line));
   border-radius: var(--radius);
-  background:
-    radial-gradient(circle at 12% 0%, rgba(0, 245, 212, .12), transparent 28rem),
-    linear-gradient(135deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .018)),
-    color-mix(in srgb, var(--surface-soft) 92%, transparent);
+  background: color-mix(in srgb, var(--surface-soft) 94%, transparent);
   padding: 16px;
-  box-shadow: var(--shadow-soft);
+  box-shadow: none;
+  contain: layout paint;
 }
 
 .fridge-assistant h3 {
@@ -683,14 +681,24 @@ a {
   gap: 10px;
 }
 
-.fridge-field input {
+.fridge-open-btn {
   min-height: 42px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(0, 0, 0, .32);
+  background: color-mix(in srgb, var(--mako) 18%, rgba(0, 0, 0, .34));
   color: var(--text);
-  padding: 0 12px;
-  font-weight: 800;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.fridge-open-btn .site-icon {
+  width: 18px;
+  height: 18px;
 }
 
 .fridge-chips {
@@ -708,13 +716,12 @@ a {
   padding: 0 10px;
   font-size: 12px;
   font-weight: 900;
-  transition: transform var(--speed), background var(--speed), border-color var(--speed);
+  transition: background var(--speed), border-color var(--speed);
 }
 
 .fridge-chips button:hover,
 .fridge-chips button:focus-visible,
 .fridge-chips button.active {
-  transform: translateY(-1px);
   border-color: color-mix(in srgb, var(--mako) 64%, var(--line));
   background: color-mix(in srgb, var(--mako) 16%, rgba(0, 0, 0, .28));
 }
@@ -3811,7 +3818,36 @@ a {
   }
 
   .fridge-assistant {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding: 12px;
+    background: rgba(17, 24, 25, .78);
+    border-color: rgba(255, 255, 255, .10);
+    box-shadow: none;
+  }
+
+  .fridge-assistant h3 {
+    font-size: 22px;
+  }
+
+  .fridge-assistant p {
+    font-size: 13px;
+  }
+
+  .fridge-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+
+  .fridge-chips::-webkit-scrollbar {
     display: none;
+  }
+
+  .fridge-chips button {
+    flex: 0 0 auto;
   }
 
   .recipe-card {

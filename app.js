@@ -2782,38 +2782,40 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   );
 }
 
-function FridgeAssistant({ ingredientQuery, setIngredientQuery }) {
+function FridgeAssistant({ ingredientQuery, setIngredientQuery, openIngredientSearch }) {
   const tokens = ingredientSearchTokens(ingredientQuery);
   const setTokens = nextTokens => setIngredientQuery(uniqInOrder(nextTokens).join(', '));
-  const toggleToken = token => {
+  const toggleToken = (token, shouldOpen = false) => {
     const normalizedToken = normalizeText(token).trim();
     const exists = tokens.some(item => normalizeText(item).trim() === normalizedToken);
     setTokens(exists ? tokens.filter(item => normalizeText(item).trim() !== normalizedToken) : [...tokens, token]);
+    if (shouldOpen) setTimeout(openIngredientSearch, 0);
   };
-  return h('section', { className: 'fridge-assistant', 'aria-label': 'J’ai dans mon frigo' },
+  const quickChips = FRIDGE_INGREDIENT_CHIPS.slice(0, 8);
+  return h('section', { className: 'fridge-assistant', 'aria-label': 'J’ai quoi sous la main' },
     h('div', { className: 'fridge-assistant-copy' },
-      h('p', { className: 'eyebrow' }, 'Frigo'),
       h('h3', null, 'J’ai quoi sous la main ?'),
-      h('p', null, 'Ajoute tes ingrédients et le carnet remonte les fiches qui peuvent coller.')
+      h('p', null, tokens.length
+        ? `En cours : ${tokens.join(', ')}`
+        : 'Ajoute tes ingrédients dans la recherche, sans alourdir le scroll de l’accueil.')
     ),
     h('div', { className: 'fridge-assistant-controls' },
-      h('label', { className: 'field fridge-field' },
-        h('span', null, 'Ingrédients disponibles'),
-        h('input', {
-          type: 'search',
-          value: ingredientQuery,
-          onChange: event => setIngredientQuery(event.target.value),
-          placeholder: 'Ex : œufs, citron, chorizo'
-        })
+      h('button', {
+        type: 'button',
+        className: 'fridge-open-btn',
+        onClick: openIngredientSearch
+      },
+        h(Icon, { name: 'search' }),
+        h('span', null, tokens.length ? 'Modifier mes ingrédients' : 'Chercher avec mes ingrédients')
       ),
       h('div', { className: 'fridge-chips' },
-        FRIDGE_INGREDIENT_CHIPS.map(item => {
+        quickChips.map(item => {
           const active = tokens.some(token => normalizeText(token).trim() === normalizeText(item).trim());
           return h('button', {
             key: item,
             type: 'button',
             className: active ? 'active' : '',
-            onClick: () => toggleToken(item)
+            onClick: () => toggleToken(item, true)
           }, item);
         })
       )
@@ -2907,6 +2909,11 @@ function HomeView(props) {
     h(Hero),
     h('div', { className: 'content-wrap' },
       h(ActiveChips, { chips: props.activeChips }),
+      !props.onlyFavorites && h(FridgeAssistant, {
+        ingredientQuery: props.ingredientQuery,
+        setIngredientQuery: props.setIngredientQuery,
+        openIngredientSearch: props.openIngredientSearch
+      }),
       showRecent && h(MonthlyAdditionsSection, {
         recipes: props.monthlyAdditionRecipes || [],
         recipesById: props.recipesById,
@@ -3104,7 +3111,7 @@ function SharePanel({ open, onClose, recipe, notify }) {
   );
 }
 
-function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngredientQuery, searchRef, results, resultMeta, ingredientMeta, openRecipe, recentRecipes = [], recentSearches = [], rememberSearch }) {
+function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngredientQuery, searchRef, ingredientSearchRef, results, resultMeta, ingredientMeta, openRecipe, recentRecipes = [], recentSearches = [], rememberSearch }) {
   if (!open) return null;
   const hasQuery = Boolean(query.trim());
   const hasIngredientQuery = Boolean(ingredientQuery.trim());
@@ -3195,6 +3202,7 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
         h('input', {
           id: 'ingredient-search-input',
           type: 'search',
+          ref: ingredientSearchRef,
           'aria-describedby': 'ingredient-search-help',
           value: ingredientQuery,
           onChange: event => setIngredientQuery(event.target.value),
@@ -4097,6 +4105,7 @@ function App() {
   const [personalNotes, setPersonalNotes] = useState(() => readJson(STORAGE_KEYS.personalNotes, {}));
   const [toasts, setToasts] = useState([]);
   const searchRef = useRef(null);
+  const ingredientSearchRef = useRef(null);
   const homeScrollRef = useRef(Number(sessionStorage.getItem(STORAGE_KEYS.homeScroll)) || 0);
   const restoreHomeScrollRef = useRef(false);
   const pendingScrollModeRef = useRef('top');
@@ -4533,6 +4542,12 @@ function App() {
     setTimeout(() => searchRef.current?.focus(), 0);
   }
 
+  function openIngredientSearch() {
+    setQuery('');
+    setSearchOpen(true);
+    setTimeout(() => ingredientSearchRef.current?.focus(), 0);
+  }
+
   useEffect(() => {
     const handleLocation = () => {
       saveCurrentScrollPosition(lastRouteKeyRef.current);
@@ -4718,6 +4733,7 @@ function App() {
           monthlyAdditionRecipes,
           ingredientQuery,
           setIngredientQuery,
+          openIngredientSearch,
           filterProps,
           toggleFavorite,
           openRecipe,
@@ -4747,6 +4763,7 @@ function App() {
       ingredientQuery,
       setIngredientQuery,
       searchRef,
+      ingredientSearchRef,
       results: filteredRecipes,
       resultMeta: searchMeta,
       ingredientMeta,
