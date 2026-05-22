@@ -4,7 +4,7 @@ const { useEffect, useMemo, useRef, useState } = React;
 const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
-const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
+const COOK_NOTE_LOGO = '/assets/cook-note-logo.svg';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
@@ -2600,6 +2600,17 @@ function Icon({ name, filled = false }) {
   );
 }
 
+function useDebouncedValue(value, delay = 180) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setDebouncedValue(value), delay);
+    return () => window.clearTimeout(timer);
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
 function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, openTechniques, query, openSearch, openPreferences }) {
   return h('header', { className: 'topbar' },
     h('div', { className: 'top-left' },
@@ -2665,6 +2676,13 @@ function ActiveChips({ chips }) {
   );
 }
 
+function recipeCardImageUrl(image) {
+  if (!image || !image.startsWith('/assets/recipe-images-optimized/')) return image;
+  return image
+    .replace('/assets/recipe-images-optimized/', '/assets/recipe-card-images/')
+    .replace(/\.(?:png|jpe?g|webp)(\?.*)?$/i, '.jpg$1');
+}
+
 function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false }) {
   const master = isMasterRecipe(recipe);
   const color = getCategoryColor(recipe);
@@ -2672,9 +2690,6 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   const className = ['recipe-card', recipe.image ? 'has-image' : '', master ? 'master-card' : '']
     .filter(Boolean)
     .join(' ');
-  const imageStyle = recipe.image
-    ? { backgroundImage: `url("${recipe.image}")` }
-    : style;
   const variantLabel = master ? '' : getRecipeVariantLabel(recipe, recipesById);
   const cardFacts = !master && variantLabel ? [variantLabel] : [];
   const serviceSummary = !master ? getRecipeServiceSummary(recipe) : '';
@@ -2696,7 +2711,15 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       }
     }
   },
-    h('div', { className: 'card-media', style: imageStyle },
+    h('div', { className: 'card-media' },
+      recipe.image && h('img', {
+        className: 'card-image',
+        src: recipeCardImageUrl(recipe.image),
+        alt: '',
+        loading: 'lazy',
+        decoding: 'async',
+        draggable: false
+      }),
       !recipe.image && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1)),
       recipe.video && h('span', { className: 'video-badge' }, 'Vidéo'),
       !master && !hideFavorite && h('button', {
@@ -2884,10 +2907,6 @@ function HomeView(props) {
     h(Hero),
     h('div', { className: 'content-wrap' },
       h(ActiveChips, { chips: props.activeChips }),
-      !props.onlyFavorites && h(FridgeAssistant, {
-        ingredientQuery: props.ingredientQuery,
-        setIngredientQuery: props.setIngredientQuery
-      }),
       showRecent && h(MonthlyAdditionsSection, {
         recipes: props.monthlyAdditionRecipes || [],
         recipesById: props.recipesById,
@@ -4055,6 +4074,8 @@ function App() {
 
   const [query, setQuery] = useState(() => new URLSearchParams(window.location.search).get('q') || '');
   const [ingredientQuery, setIngredientQuery] = useState('');
+  const searchFilterQuery = useDebouncedValue(query, 120);
+  const ingredientFilterQuery = useDebouncedValue(ingredientQuery, 220);
   const [searchOpen, setSearchOpen] = useState(false);
   const [season, setSeason] = useState('');
   const [seasonCategory, setSeasonCategory] = useState('');
@@ -4129,16 +4150,48 @@ function App() {
   }, [activeSeoRecipe?.id, recipesById, activePage]);
 
   useEffect(() => {
+    let persistTimer = 0;
+    const persistScrollPosition = () => {
+      persistTimer = 0;
+      if (!activeRecipe) {
+        try {
+          sessionStorage.setItem(STORAGE_KEYS.homeScroll, String(homeScrollRef.current || 0));
+        } catch {
+          /* ignore session storage restrictions */
+        }
+      }
+      saveCurrentScrollPosition();
+    };
+    const schedulePersist = () => {
+      if (persistTimer) return;
+      persistTimer = window.setTimeout(persistScrollPosition, 280);
+    };
     const handleScroll = () => {
       const top = window.scrollY || 0;
       if (!activeRecipe) {
         homeScrollRef.current = top;
-        sessionStorage.setItem(STORAGE_KEYS.homeScroll, String(top));
       }
-      saveCurrentScrollPosition();
+      schedulePersist();
+    };
+    const flushScrollPosition = () => {
+      if (persistTimer) {
+        window.clearTimeout(persistTimer);
+        persistTimer = 0;
+      }
+      persistScrollPosition();
+    };
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') flushScrollPosition();
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('pagehide', flushScrollPosition);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('pagehide', flushScrollPosition);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      flushScrollPosition();
+    };
   }, [activeRecipe]);
 
   function setCheckedWithHistory(next) {
@@ -4174,7 +4227,7 @@ function App() {
   }
 
   const searchMeta = useMemo(() => {
-    const needle = query.trim();
+    const needle = searchFilterQuery.trim();
     const map = new Map();
     if (!needle) return map;
     searchableRecipes.forEach(recipe => {
@@ -4182,10 +4235,10 @@ function App() {
       if (meta.score > 0) map.set(recipe.id, meta);
     });
     return map;
-  }, [query, searchableRecipes, recipesById]);
+  }, [searchFilterQuery, searchableRecipes, recipesById]);
 
   const ingredientMeta = useMemo(() => {
-    const needle = ingredientQuery.trim();
+    const needle = ingredientFilterQuery.trim();
     const map = new Map();
     if (!needle) return map;
     searchableRecipes.forEach(recipe => {
@@ -4193,12 +4246,14 @@ function App() {
       if (meta.score > 0) map.set(recipe.id, meta);
     });
     return map;
-  }, [ingredientQuery, searchableRecipes]);
+  }, [ingredientFilterQuery, searchableRecipes]);
 
   const baseFilteredRecipes = useMemo(() => {
+    const activeSearchQuery = searchFilterQuery.trim();
+    const activeIngredientQuery = ingredientFilterQuery.trim();
     let list = catalogRecipes.filter(recipe => {
-      if (query.trim() && !searchMeta.has(recipe.id)) return false;
-      if (ingredientQuery.trim() && !ingredientMeta.has(recipe.id)) return false;
+      if (activeSearchQuery && !searchMeta.has(recipe.id)) return false;
+      if (activeIngredientQuery && !ingredientMeta.has(recipe.id)) return false;
       if (season && !recipeHasSeason(recipe, season, recipesById)) return false;
       if (tagFilter && !(recipe.tagsExtracted || []).includes(tagFilter)) return false;
       if (onlyFavorites && !favorites.includes(recipe.id)) return false;
@@ -4206,11 +4261,11 @@ function App() {
     });
 
     list = [...list].sort((a, b) => {
-      if (query.trim()) {
+      if (activeSearchQuery) {
         const score = (searchMeta.get(b.id)?.score || 0) - (searchMeta.get(a.id)?.score || 0);
         if (score) return score;
       }
-      if (ingredientQuery.trim()) {
+      if (activeIngredientQuery) {
         const ingredientScore = (ingredientMeta.get(b.id)?.score || 0) - (ingredientMeta.get(a.id)?.score || 0);
         if (ingredientScore) return ingredientScore;
       }
@@ -4219,7 +4274,7 @@ function App() {
       return a.title.localeCompare(b.title, 'fr');
     });
     return list;
-  }, [catalogRecipes, query, searchMeta, ingredientQuery, ingredientMeta, season, tagFilter, onlyFavorites, favorites, recipesById]);
+  }, [catalogRecipes, searchFilterQuery, searchMeta, ingredientFilterQuery, ingredientMeta, season, tagFilter, onlyFavorites, favorites, recipesById]);
 
   const seasonCategoryOptions = useMemo(() => {
     if (!season) return [];

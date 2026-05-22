@@ -1,36 +1,26 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v45
+//  Cook Note - Service Worker PWA v61
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v45';
+const CACHE_NAME = 'cook-note-v61';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=45',
-  '/recipes.js?v=45',
-  '/style.css?v=45',
+  '/app.js?v=61',
+  '/recipes.js?v=61',
+  '/style.css?v=61',
   '/recipe.js',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
   '/assets/vendor/confetti.browser.min.js',
   '/assets/vendor/qrcode.min.js',
-  '/assets/cook-note.png',
-  '/assets/cook-note-white.png',
-  '/assets/hero-tribal-cook-note.png',
-  '/assets/base-du-site.png',
-  '/assets/recipe-images-optimized/parent_accompagnements.jpg',
-  '/assets/recipe-images-optimized/parent_apero.jpg',
-  '/assets/recipe-images-optimized/parent_base.jpg',
-  '/assets/recipe-images-optimized/parent_desserts.jpg',
-  '/assets/recipe-images-optimized/parent_entrees.jpg',
-  '/assets/recipe-images-optimized/legumes_rotis_spooky.jpg',
-  '/assets/recipe-images-optimized/parent_petit_dejeuner.jpg',
-  '/assets/recipe-images-optimized/parent_plats.jpg',
-  '/assets/recipe-images-optimized/parent_sauces.jpg',
+  '/assets/cook-note-mark.svg',
+  '/assets/cook-note-logo.svg',
+  '/assets/base-principale-fond-site.jpg',
 ];
 
 // Installation
@@ -39,7 +29,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
       .then(() => {
-        console.log('[SW v39] Assets statiques mis en cache.');
+        console.log('[SW v61] Assets statiques mis en cache.');
       })
   );
   self.skipWaiting();
@@ -53,7 +43,7 @@ self.addEventListener('activate', (event) => {
         keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
       )
     ).then(() => {
-        console.log('[SW v39] Anciens caches supprimés.');
+        console.log('[SW v61] Anciens caches supprimés.');
     })
   );
   self.clients.claim();

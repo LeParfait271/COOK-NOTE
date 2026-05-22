@@ -70,7 +70,7 @@ if (!staticAssets) {
     '/assets/vendor/react-dom.production.min.js',
     '/assets/vendor/confetti.browser.min.js',
     '/assets/vendor/qrcode.min.js',
-    '/assets/cook-note-white.png'
+    '/assets/cook-note-logo.svg'
   ].forEach(required => {
     if (!normalizedStaticAssets.includes(required)) fail(`service-worker.js: asset critique absent du precache (${required}).`);
   });
@@ -87,9 +87,10 @@ if (!/CACHE_NAME\s*=\s*['"]cook-note-v\d+['"]/.test(serviceWorker)) {
 }
 
 const indexAssetVersions = [...indexHtml.matchAll(/\b(?:app|recipes|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
+const swRegistrationVersion = indexHtml.match(/service-worker\.js\?v=(\d+)/)?.[1];
 const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|recipes|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
 const swCacheVersion = serviceWorker.match(/CACHE_NAME\s*=\s*['"]cook-note-v(\d+)['"]/)?.[1];
-const allAssetVersions = [...indexAssetVersions, ...swAssetVersions, swCacheVersion].filter(Boolean);
+const allAssetVersions = [...indexAssetVersions, swRegistrationVersion, ...swAssetVersions, swCacheVersion].filter(Boolean);
 if (!allAssetVersions.length || new Set(allAssetVersions).size !== 1) {
   fail('index.html/service-worker.js: versions assets incoherentes.');
 }
