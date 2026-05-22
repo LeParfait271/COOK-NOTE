@@ -542,6 +542,7 @@ const STORAGE_KEYS = {
   favorites: 'cook_note_favorites',
   shopping: 'cook_note_shopping_basket',
   shoppingFactors: 'cook_note_shopping_factors',
+  shoppingChecked: 'cook_note_shopping_checked',
   preferences: 'cook_note_preferences',
   recentRecipes: 'cook_note_recent_recipes',
   recentSearches: 'cook_note_recent_searches',
@@ -2600,6 +2601,14 @@ function Icon({ name, filled = false }) {
   );
 }
 
+function ingredientAvailabilityGroup(meta) {
+  const missingCount = meta?.missing?.length || 0;
+  if (missingCount === 0) return { key: 'all', label: 'Tu as tout', order: 0 };
+  if (missingCount === 1) return { key: 'missing-1', label: 'Il manque 1 ingrédient', order: 1 };
+  if (missingCount === 2) return { key: 'missing-2', label: 'Il manque 2 ingrédients', order: 2 };
+  return { key: 'missing-3', label: `Il manque ${missingCount} ingrédients`, order: 3 + missingCount };
+}
+
 function useDebouncedValue(value, delay = 180) {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -2683,7 +2692,7 @@ function recipeCardImageUrl(image) {
     .replace(/\.(?:png|jpe?g|webp)(\?.*)?$/i, '.jpg$1');
 }
 
-function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false }) {
+function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNote }) {
   const master = isMasterRecipe(recipe);
   const color = getCategoryColor(recipe);
   const style = { '--card-accent': color };
@@ -2697,6 +2706,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     difficultyText(recipe),
     serviceSummary
   ].filter(Boolean).slice(0, 2) : [];
+  const favoriteStatus = isFavorite ? personalNote?.status : '';
 
   return h('article', {
     className,
@@ -2735,6 +2745,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     h('div', { className: 'card-body' },
       !master && h('div', { className: 'tag-line' }, h('span', null, categoryLine(recipe))),
       h('h3', null, recipe.title),
+      favoriteStatus && h('span', { className: 'favorite-status-badge' }, favoriteStatus),
       !master && cardFacts.length > 0 && h('div', { className: 'card-facts' },
         cardFacts.map(fact => h('span', { key: fact }, fact))
       ),
@@ -2761,7 +2772,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   );
 }
 
-function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false }) {
+function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNotes = {} }) {
   if (!recipes.length) {
     return h('div', { className: 'empty-state' },
       h('h2', null, 'Aucune recette ne matche'),
@@ -2777,7 +2788,8 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
       toggleFavorite,
       openRecipe,
       setTagFilter,
-      hideFavorite
+      hideFavorite,
+      personalNote: personalNotes[recipe.id]
     }))
   );
 }
@@ -2849,11 +2861,16 @@ function MonthlyAdditionsSection({ recipes, recipesById, favorites, toggleFavori
   );
 }
 
-function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions }) {
+function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, personalNotes = {} }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
   const visibleIds = new Set(sections.flatMap(section => (section.recipes || []).map(recipe => recipe.id)));
   const dashboardLabel = onlyFavorites ? 'Favoris' : (selectedSeason || 'Toutes saisons');
+  const favoriteStatusCounts = onlyFavorites ? favorites.reduce((counts, id) => {
+    const status = personalNotes[id]?.status || 'Sans statut';
+    counts[status] = (counts[status] || 0) + 1;
+    return counts;
+  }, {}) : {};
   return h('section', { className: 'season-sections', id: 'recettes' },
     h('div', { className: 'section-title list-title season-dashboard' },
       h('div', { className: 'season-dashboard-copy' },
@@ -2863,6 +2880,9 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
           h('span', null, dashboardLabel),
           h('span', null, `${visibleIds.size} fiche${visibleIds.size > 1 ? 's' : ''}`),
           sections.length > 1 && h('span', null, `${sections.length} groupes`)
+        ),
+        onlyFavorites && Object.keys(favoriteStatusCounts).length > 0 && h('div', { className: 'favorite-status-summary' },
+          Object.entries(favoriteStatusCounts).map(([status, count]) => h('span', { key: status }, `${status}: ${count}`))
         )
       ),
       onlyFavorites
@@ -2898,7 +2918,7 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
         h('div', null, h('p', { className: 'eyebrow' }, section.kicker), h('h3', null, section.title)),
         h('span', null, `${section.recipes.length} fiche${section.recipes.length > 1 ? 's' : ''}`)
       ),
-      h(RecipeGrid, { recipes: section.recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter })
+      h(RecipeGrid, { recipes: section.recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, personalNotes })
     ))
   );
 }
@@ -2919,6 +2939,7 @@ function HomeView(props) {
         recipesById: props.recipesById,
         favorites: props.favorites,
         toggleFavorite: props.toggleFavorite,
+        personalNotes: props.personalNotes,
         openRecipe: props.openRecipe,
         setTagFilter: props.setTagFilter
       }),
@@ -2935,7 +2956,8 @@ function HomeView(props) {
         setSeason: props.filterProps.setSeason,
         categoryFilter: props.filterProps.seasonCategory,
         setCategoryFilter: props.filterProps.setSeasonCategory,
-        categoryOptions: props.filterProps.seasonCategoryOptions
+        categoryOptions: props.filterProps.seasonCategoryOptions,
+        personalNotes: props.personalNotes
       })
     )
   );
@@ -3116,7 +3138,17 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
   const hasQuery = Boolean(query.trim());
   const hasIngredientQuery = Boolean(ingredientQuery.trim());
   const visibleResults = hasQuery ? results.slice(0, 18) : [];
-  const visibleIngredientResults = !hasQuery && hasIngredientQuery ? results.slice(0, 18) : [];
+  const visibleIngredientResults = !hasQuery && hasIngredientQuery
+    ? results
+      .slice(0, 24)
+      .sort((a, b) => {
+        const aGroup = ingredientAvailabilityGroup(ingredientMeta.get(a.id));
+        const bGroup = ingredientAvailabilityGroup(ingredientMeta.get(b.id));
+        if (aGroup.order !== bGroup.order) return aGroup.order - bGroup.order;
+        return a.title.localeCompare(b.title, 'fr');
+      })
+      .slice(0, 18)
+    : [];
   const resultGroups = visibleResults.reduce((groups, recipe) => {
     const category = primaryCategory(recipe);
     if (!groups.has(category)) groups.set(category, []);
@@ -3124,9 +3156,9 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
     return groups;
   }, new Map());
   const ingredientResultGroups = visibleIngredientResults.reduce((groups, recipe) => {
-    const category = primaryCategory(recipe);
-    if (!groups.has(category)) groups.set(category, []);
-    groups.get(category).push(recipe);
+    const group = ingredientAvailabilityGroup(ingredientMeta.get(recipe.id));
+    if (!groups.has(group.key)) groups.set(group.key, { ...group, recipes: [] });
+    groups.get(group.key).recipes.push(recipe);
     return groups;
   }, new Map());
   const suggestions = [
@@ -3290,14 +3322,15 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
         )),
       !hasQuery && hasIngredientQuery && (visibleIngredientResults.length
         ? h('div', { className: 'search-result-groups' },
-          Array.from(ingredientResultGroups.entries()).map(([category, recipes]) => h('section', { key: category, className: 'search-result-group' },
+          Array.from(ingredientResultGroups.values()).map(group => h('section', { key: group.key, className: 'search-result-group ingredient-match-group' },
             h('div', { className: 'search-result-group-head' },
-              h('strong', null, category),
-              h('span', null, `${recipes.length} résultat${recipes.length > 1 ? 's' : ''}`)
+              h('strong', null, group.label),
+              h('span', null, `${group.recipes.length} résultat${group.recipes.length > 1 ? 's' : ''}`)
             ),
             h('div', { className: 'search-results' },
-              recipes.map(recipe => {
+              group.recipes.map(recipe => {
                 const meta = ingredientMeta.get(recipe.id);
+                const availability = ingredientAvailabilityGroup(meta);
                 return h('button', {
                   key: recipe.id,
                   type: 'button',
@@ -3308,6 +3341,7 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
                   h('span', { className: 'search-result-copy' },
                     h('strong', null, recipe.title),
                     h('small', null, recipe.yield || difficultyText(recipe)),
+                    h('span', { className: `ingredient-match-badge ${availability.key}` }, availability.label),
                     meta?.matched?.length && h('span', { className: 'search-reason-pills' },
                       meta.matched.slice(0, 3).map(reason => h('em', { key: reason }, reason))
                     ),
@@ -3329,9 +3363,18 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
 
 function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe, clearShopping, notify }) {
   const [copied, setCopied] = useState(false);
-  const [checkedItems, setCheckedItems] = useState({});
+  const [checkedItems, setCheckedItems] = useState(() => readJson(STORAGE_KEYS.shoppingChecked, {}));
   const shoppingData = useMemo(() => buildShoppingListData(recipes, factorById), [recipes, factorById]);
   const text = recipes.length ? shoppingListText(recipes, factorById) : 'Liste de courses Cook Note\n\nAucune recette cochee.';
+  const visibleShoppingKeys = useMemo(() => new Set(shoppingData.groupedItems.map(item => item.key)), [shoppingData]);
+  const checkedCount = shoppingData.groupedItems.filter(item => checkedItems[item.key]).length;
+  const setShoppingChecked = updater => {
+    setCheckedItems(prev => {
+      const next = typeof updater === 'function' ? updater(prev) : updater;
+      writeJson(STORAGE_KEYS.shoppingChecked, next);
+      return next;
+    });
+  };
   const shareText = () => {
     if (navigator.share) {
       navigator.share({ title: 'Liste de courses Cook Note', text }).then(() => notify?.('Partage de la liste ouvert')).catch(() => {});
@@ -3346,6 +3389,16 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
   useEffect(() => {
     if (open) setCopied(false);
   }, [open, recipes.length]);
+
+  useEffect(() => {
+    setShoppingChecked(prev => {
+      const next = {};
+      Object.entries(prev || {}).forEach(([key, value]) => {
+        if (visibleShoppingKeys.has(key) && value) next[key] = true;
+      });
+      return next;
+    });
+  }, [visibleShoppingKeys]);
 
   if (!open) return null;
   return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
@@ -3367,6 +3420,11 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
             }, recipe.title, h('span', null, '×')))
           )
         : h('p', { className: 'muted' }, 'Ajoute une recette depuis sa fiche pour construire une liste groupée.'),
+      recipes.length > 0 && h('div', { className: 'shopping-summary' },
+        h('span', null, `${shoppingData.groupedItems.length} article${shoppingData.groupedItems.length > 1 ? 's' : ''} regroupé${shoppingData.groupedItems.length > 1 ? 's' : ''}`),
+        h('span', null, `${checkedCount} coché${checkedCount > 1 ? 's' : ''}`),
+        checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}) }, 'Tout décocher')
+      ),
       recipes.length > 0 && h('div', { className: 'shopping-aisles' },
         shoppingData.aisleGroups.map(group => h('section', { key: group.label, className: 'shopping-aisle' },
           h('div', { className: 'shopping-aisle-head' },
@@ -3380,7 +3438,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
               h('input', {
                 type: 'checkbox',
                 checked,
-                onChange: () => setCheckedItems(prev => ({ ...prev, [item.key]: !prev[item.key] }))
+                onChange: () => setShoppingChecked(prev => ({ ...prev, [item.key]: !prev[item.key] }))
               }),
               h('span', { className: 'shopping-line-main' },
                 amount && h('strong', null, amount),
@@ -3653,8 +3711,8 @@ function PersonalRecipeNotes({ recipeId, value, updatePersonalRecipeNote }) {
         onChange: event => update({ status: event.target.value })
       },
         h('option', { value: '' }, 'Non classée'),
-        h('option', { value: 'À tester' }, 'À tester'),
-        h('option', { value: 'Validée' }, 'Validée'),
+        h('option', { value: 'À refaire' }, 'À refaire'),
+        h('option', { value: 'Testée / validée' }, 'Testée / validée'),
         h('option', { value: 'À ajuster' }, 'À ajuster')
       )
     ),
@@ -3752,6 +3810,7 @@ function RecipeView({
   const [timerLabel, setTimerLabel] = useState('');
   const [now, setNow] = useState(Date.now());
   const [focusMode, setFocusMode] = useState(false);
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
   const completedRef = useRef('');
   const inlineVariantGroupIndexes = useMemo(() => (
     selectedRecipe?.variantGroups
@@ -3794,6 +3853,7 @@ function RecipeView({
     setOpenIngredientGroups({});
     setExportCopied(false);
     setFocusMode(false);
+    setActiveStepIndex(0);
   }, [recipe.id]);
 
   useEffect(() => {
@@ -3812,6 +3872,14 @@ function RecipeView({
   useEffect(() => {
     setOpenIngredientGroups({});
   }, [detailKey]);
+
+  useEffect(() => {
+    if (!displaySteps.length) {
+      setActiveStepIndex(0);
+      return;
+    }
+    setActiveStepIndex(index => Math.min(index, displaySteps.length - 1));
+  }, [displaySteps.length, stepScopeKey]);
 
   useEffect(() => {
     if (!stepTotal || doneSteps !== stepTotal || completedRef.current === stepScopeKey) return;
@@ -3852,6 +3920,8 @@ function RecipeView({
     : {};
   const detailAccent = getCategoryColor(selectedRecipe);
   const detailStyle = { '--accent': detailAccent, '--accent-2': detailAccent };
+  const activeStep = displaySteps[activeStepIndex] || '';
+  const activeStepKey = `${stepScopeKey}:step:${activeStepIndex}`;
 
   return h('main', { className: focusMode ? 'recipe-view recipe-focus-mode' : 'recipe-view', style: detailStyle },
     h('section', {
@@ -3990,6 +4060,20 @@ function RecipeView({
           ),
           h('button', { type: 'button', onClick: () => setMobileDetailTab('notes') }, 'Voir les notes')
         ),
+        canShowSteps && focusMode && activeStep && h('div', { className: 'cooking-step-card' },
+          h('div', { className: 'cooking-step-head' },
+            h('span', null, `Étape ${activeStepIndex + 1} / ${displaySteps.length}`),
+            h('label', null,
+              h('input', { type: 'checkbox', checked: Boolean(checked[activeStepKey]), onChange: () => toggle(activeStepKey) }),
+              h('span', null, checked[activeStepKey] ? 'faite' : 'à faire')
+            )
+          ),
+          h('p', null, renderLinkedText(activeStep, inlineTargets, openRecipe, techniqueTargets, openTechnique)),
+          h('div', { className: 'cooking-step-actions' },
+            h('button', { type: 'button', disabled: activeStepIndex <= 0, onClick: () => setActiveStepIndex(index => Math.max(0, index - 1)) }, 'Précédente'),
+            h('button', { type: 'button', disabled: activeStepIndex >= displaySteps.length - 1, onClick: () => setActiveStepIndex(index => Math.min(displaySteps.length - 1, index + 1)) }, 'Suivante')
+          )
+        ),
         !canShowSteps
           ? h('div', { className: 'choice-empty-state variant-step-empty' },
             h('strong', null, 'Choisis un groupe d’ingrédients'),
@@ -3999,7 +4083,7 @@ function RecipeView({
           displaySteps.map((step, index) => {
             const key = `${stepScopeKey}:step:${index}`;
             const minutes = getStepMinutes(step);
-            return h('li', { key, className: checked[key] ? 'done' : '' },
+            return h('li', { key, className: [checked[key] ? 'done' : '', focusMode && index === activeStepIndex ? 'active-step' : ''].filter(Boolean).join(' ') },
               h('label', null,
                 h('input', { type: 'checkbox', checked: Boolean(checked[key]), onChange: () => toggle(key) }),
                 h('span', { className: 'step-number' }, String(index + 1).padStart(2, '0')),
@@ -4734,6 +4818,7 @@ function App() {
           ingredientQuery,
           setIngredientQuery,
           openIngredientSearch,
+          personalNotes,
           filterProps,
           toggleFavorite,
           openRecipe,
