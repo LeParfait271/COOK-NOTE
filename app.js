@@ -68,7 +68,6 @@ const SEASON_CATEGORY_FILTERS = [
   { value: 'Base', label: 'Bases' },
   { value: 'Petits-déjeuners', label: 'Petit-déj.' }
 ];
-const FRIDGE_INGREDIENT_CHIPS = ['œufs', 'beurre', 'lait', 'crème', 'citron', 'tomates', 'pommes de terre', 'chorizo', 'feta', 'poulet', 'porc', 'chocolat'];
 const TECHNIQUE_GUIDES = [
   {
     id: 'emincer',
@@ -2794,47 +2793,6 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   );
 }
 
-function FridgeAssistant({ ingredientQuery, setIngredientQuery, openIngredientSearch }) {
-  const tokens = ingredientSearchTokens(ingredientQuery);
-  const setTokens = nextTokens => setIngredientQuery(uniqInOrder(nextTokens).join(', '));
-  const toggleToken = (token, shouldOpen = false) => {
-    const normalizedToken = normalizeText(token).trim();
-    const exists = tokens.some(item => normalizeText(item).trim() === normalizedToken);
-    setTokens(exists ? tokens.filter(item => normalizeText(item).trim() !== normalizedToken) : [...tokens, token]);
-    if (shouldOpen) setTimeout(openIngredientSearch, 0);
-  };
-  const quickChips = FRIDGE_INGREDIENT_CHIPS.slice(0, 8);
-  return h('section', { className: 'fridge-assistant', 'aria-label': 'J’ai quoi sous la main' },
-    h('div', { className: 'fridge-assistant-copy' },
-      h('h3', null, 'J’ai quoi sous la main ?'),
-      h('p', null, tokens.length
-        ? `En cours : ${tokens.join(', ')}`
-        : 'Ajoute tes ingrédients dans la recherche, sans alourdir le scroll de l’accueil.')
-    ),
-    h('div', { className: 'fridge-assistant-controls' },
-      h('button', {
-        type: 'button',
-        className: 'fridge-open-btn',
-        onClick: openIngredientSearch
-      },
-        h(Icon, { name: 'search' }),
-        h('span', null, tokens.length ? 'Modifier mes ingrédients' : 'Chercher avec mes ingrédients')
-      ),
-      h('div', { className: 'fridge-chips' },
-        quickChips.map(item => {
-          const active = tokens.some(token => normalizeText(token).trim() === normalizeText(item).trim());
-          return h('button', {
-            key: item,
-            type: 'button',
-            className: active ? 'active' : '',
-            onClick: () => toggleToken(item, true)
-          }, item);
-        })
-      )
-    )
-  );
-}
-
 function MonthlyAdditionsSection({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter }) {
   const [expanded, setExpanded] = useState(false);
   if (!recipes.length) return null;
@@ -2929,11 +2887,6 @@ function HomeView(props) {
     h(Hero),
     h('div', { className: 'content-wrap' },
       h(ActiveChips, { chips: props.activeChips }),
-      !props.onlyFavorites && h(FridgeAssistant, {
-        ingredientQuery: props.ingredientQuery,
-        setIngredientQuery: props.setIngredientQuery,
-        openIngredientSearch: props.openIngredientSearch
-      }),
       showRecent && h(MonthlyAdditionsSection, {
         recipes: props.monthlyAdditionRecipes || [],
         recipesById: props.recipesById,
@@ -3133,32 +3086,19 @@ function SharePanel({ open, onClose, recipe, notify }) {
   );
 }
 
-function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngredientQuery, searchRef, ingredientSearchRef, results, resultMeta, ingredientMeta, openRecipe, recentRecipes = [], recentSearches = [], rememberSearch }) {
+function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resultMeta, ingredientMeta, openRecipe, recentRecipes = [], recentSearches = [], rememberSearch }) {
   if (!open) return null;
   const hasQuery = Boolean(query.trim());
-  const hasIngredientQuery = Boolean(ingredientQuery.trim());
+  const ingredientTokens = ingredientSearchTokens(query);
+  const hasIngredientMatches = hasQuery && results.some(recipe => ingredientMeta.has(recipe.id));
+  const groupByIngredientAvailability = hasIngredientMatches && (query.includes(',') || ingredientTokens.length > 1);
   const visibleResults = hasQuery ? results.slice(0, 18) : [];
-  const visibleIngredientResults = !hasQuery && hasIngredientQuery
-    ? results
-      .slice(0, 24)
-      .sort((a, b) => {
-        const aGroup = ingredientAvailabilityGroup(ingredientMeta.get(a.id));
-        const bGroup = ingredientAvailabilityGroup(ingredientMeta.get(b.id));
-        if (aGroup.order !== bGroup.order) return aGroup.order - bGroup.order;
-        return a.title.localeCompare(b.title, 'fr');
-      })
-      .slice(0, 18)
-    : [];
   const resultGroups = visibleResults.reduce((groups, recipe) => {
-    const category = primaryCategory(recipe);
-    if (!groups.has(category)) groups.set(category, []);
-    groups.get(category).push(recipe);
-    return groups;
-  }, new Map());
-  const ingredientResultGroups = visibleIngredientResults.reduce((groups, recipe) => {
-    const group = ingredientAvailabilityGroup(ingredientMeta.get(recipe.id));
-    if (!groups.has(group.key)) groups.set(group.key, { ...group, recipes: [] });
-    groups.get(group.key).recipes.push(recipe);
+    const availability = ingredientMeta.has(recipe.id) ? ingredientAvailabilityGroup(ingredientMeta.get(recipe.id)) : null;
+    const key = groupByIngredientAvailability && availability ? availability.key : primaryCategory(recipe);
+    const label = groupByIngredientAvailability && availability ? availability.label : key;
+    if (!groups.has(key)) groups.set(key, { key, label, recipes: [], ingredientGroup: Boolean(groupByIngredientAvailability && availability) });
+    groups.get(key).recipes.push(recipe);
     return groups;
   }, new Map());
   const suggestions = [
@@ -3187,7 +3127,6 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
   ];
   const rememberCurrentSearch = () => {
     if (query.trim()) rememberSearch?.(query);
-    else if (ingredientQuery.trim()) rememberSearch?.(ingredientQuery);
   };
   const openSearchRecipe = recipe => {
     rememberCurrentSearch();
@@ -3223,33 +3162,11 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
               openSearchRecipe(visibleResults[0]);
             }
           },
-          placeholder: 'Ingrédient, usage, saison, difficulté...'
+          placeholder: 'Recette, ingrédients, usage, saison...'
         })
       ),
-      h('div', { className: 'ingredient-search-box' },
-        h('div', null,
-          h('label', { htmlFor: 'ingredient-search-input', className: 'eyebrow' }, 'Recherche par ingrédients'),
-          h('small', { id: 'ingredient-search-help' }, 'Sépare les ingrédients par virgule : œufs, farine, citron.')
-        ),
-        h('input', {
-          id: 'ingredient-search-input',
-          type: 'search',
-          ref: ingredientSearchRef,
-          'aria-describedby': 'ingredient-search-help',
-          value: ingredientQuery,
-          onChange: event => setIngredientQuery(event.target.value),
-          onKeyDown: event => {
-            if (event.key === 'Escape') onClose();
-            if (event.key === 'Enter' && (visibleIngredientResults[0] || visibleResults[0])) {
-              openSearchRecipe(visibleIngredientResults[0] || visibleResults[0]);
-            }
-          },
-          placeholder: 'Ex : œufs, farine, citron'
-        }),
-        hasIngredientQuery && h('button', { type: 'button', onClick: () => setIngredientQuery('') }, 'Effacer')
-      ),
-      hasQuery || hasIngredientQuery
-        ? h('div', { className: 'search-result-count' }, `${results.length} résultat${results.length > 1 ? 's' : ''}${hasQuery ? ` pour "${query}"` : ''}${hasIngredientQuery ? `${hasQuery ? ' avec ' : ' avec '}${ingredientSearchTokens(ingredientQuery).join(', ')}` : ''}`)
+      hasQuery
+        ? h('div', { className: 'search-result-count' }, `${results.length} résultat${results.length > 1 ? 's' : ''} pour "${query}"`)
         : h('div', { className: 'search-discovery' },
           (recentSearches.length > 0 || recentRecipes.length > 0) && h('div', { className: 'search-memory-grid' },
             recentSearches.length > 0 && h('section', { className: 'search-memory-card' },
@@ -3288,14 +3205,16 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
         ),
       hasQuery && (visibleResults.length
         ? h('div', { className: 'search-result-groups' },
-          Array.from(resultGroups.entries()).map(([category, recipes]) => h('section', { key: category, className: 'search-result-group' },
+          Array.from(resultGroups.values()).map(group => h('section', { key: group.key, className: group.ingredientGroup ? 'search-result-group ingredient-match-group' : 'search-result-group' },
             h('div', { className: 'search-result-group-head' },
-              h('strong', null, category),
-              h('span', null, `${recipes.length} résultat${recipes.length > 1 ? 's' : ''}`)
+              h('strong', null, group.label),
+              h('span', null, `${group.recipes.length} résultat${group.recipes.length > 1 ? 's' : ''}`)
             ),
             h('div', { className: 'search-results' },
-              recipes.map(recipe => {
+              group.recipes.map(recipe => {
                 const meta = resultMeta.get(recipe.id);
+                const ingredient = ingredientMeta.get(recipe.id);
+                const availability = ingredient ? ingredientAvailabilityGroup(ingredient) : null;
                 return h('button', {
                   key: recipe.id,
                   type: 'button',
@@ -3306,9 +3225,14 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
                   h('span', { className: 'search-result-copy' },
                     h('strong', null, recipe.title),
                     h('small', null, recipe.yield || difficultyText(recipe)),
+                    availability && h('span', { className: `ingredient-match-badge ${availability.key}` }, availability.label),
                     meta?.reasons?.length && h('span', { className: 'search-reason-pills' },
                       meta.reasons.slice(0, 3).map(reason => h('em', { key: reason }, reason))
-                    )
+                    ),
+                    ingredient?.matched?.length && h('span', { className: 'search-reason-pills' },
+                      ingredient.matched.slice(0, 3).map(reason => h('em', { key: reason }, reason))
+                    ),
+                    ingredient?.missing?.length > 0 && h('small', { className: 'ingredient-missing' }, `Manque peut-être : ${ingredient.missing.slice(0, 2).join(', ')}`)
                   ),
                   h('span', { className: `nutri-score nutri-${getNutriScore(recipe).toLowerCase()}` }, `Nutri ${getNutriScore(recipe)}`)
                 );
@@ -3319,48 +3243,11 @@ function SearchPanel({ open, onClose, query, setQuery, ingredientQuery, setIngre
         : h('div', { className: 'empty-state search-empty' },
           h('h2', null, 'Aucun résultat'),
           h('p', null, 'Essaie un ingrédient, une catégorie ou un mot proche.')
-        )),
-      !hasQuery && hasIngredientQuery && (visibleIngredientResults.length
-        ? h('div', { className: 'search-result-groups' },
-          Array.from(ingredientResultGroups.values()).map(group => h('section', { key: group.key, className: 'search-result-group ingredient-match-group' },
-            h('div', { className: 'search-result-group-head' },
-              h('strong', null, group.label),
-              h('span', null, `${group.recipes.length} résultat${group.recipes.length > 1 ? 's' : ''}`)
-            ),
-            h('div', { className: 'search-results' },
-              group.recipes.map(recipe => {
-                const meta = ingredientMeta.get(recipe.id);
-                const availability = ingredientAvailabilityGroup(meta);
-                return h('button', {
-                  key: recipe.id,
-                  type: 'button',
-                  className: 'search-result',
-                  onClick: () => openSearchRecipe(recipe)
-                },
-                  h('span', { className: 'search-result-image', style: recipe.image ? { backgroundImage: `url("${recipe.image}")` } : {} }),
-                  h('span', { className: 'search-result-copy' },
-                    h('strong', null, recipe.title),
-                    h('small', null, recipe.yield || difficultyText(recipe)),
-                    h('span', { className: `ingredient-match-badge ${availability.key}` }, availability.label),
-                    meta?.matched?.length && h('span', { className: 'search-reason-pills' },
-                      meta.matched.slice(0, 3).map(reason => h('em', { key: reason }, reason))
-                    ),
-                    meta?.missing?.length > 0 && h('small', { className: 'ingredient-missing' }, `Manque peut-être : ${meta.missing.slice(0, 2).join(', ')}`)
-                  ),
-                  h('span', { className: `nutri-score nutri-${getNutriScore(recipe).toLowerCase()}` }, `Nutri ${getNutriScore(recipe)}`)
-                );
-              })
-            )
-          ))
-        )
-        : h('div', { className: 'empty-state search-empty' },
-          h('h2', null, 'Aucune recette trouvée'),
-          h('p', null, 'Essaie moins d’ingrédients ou un nom plus simple.')
         ))
+
     )
   );
 }
-
 function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe, clearShopping, notify }) {
   const [copied, setCopied] = useState(false);
   const [checkedItems, setCheckedItems] = useState(() => readJson(STORAGE_KEYS.shoppingChecked, {}));
@@ -4165,9 +4052,7 @@ function App() {
   const currentSeason = useMemo(() => getCurrentSeason(), []);
 
   const [query, setQuery] = useState(() => new URLSearchParams(window.location.search).get('q') || '');
-  const [ingredientQuery, setIngredientQuery] = useState('');
   const searchFilterQuery = useDebouncedValue(query, 120);
-  const ingredientFilterQuery = useDebouncedValue(ingredientQuery, 220);
   const [searchOpen, setSearchOpen] = useState(false);
   const [season, setSeason] = useState('');
   const [seasonCategory, setSeasonCategory] = useState('');
@@ -4189,7 +4074,6 @@ function App() {
   const [personalNotes, setPersonalNotes] = useState(() => readJson(STORAGE_KEYS.personalNotes, {}));
   const [toasts, setToasts] = useState([]);
   const searchRef = useRef(null);
-  const ingredientSearchRef = useRef(null);
   const homeScrollRef = useRef(Number(sessionStorage.getItem(STORAGE_KEYS.homeScroll)) || 0);
   const restoreHomeScrollRef = useRef(false);
   const pendingScrollModeRef = useRef('top');
@@ -4205,7 +4089,7 @@ function App() {
     .filter(item => isMonthlyAdditionVisible(item))
     .map(item => recipesById[item.id])
     .filter(Boolean), [recipesById]);
-  const hasRecipeFilters = Boolean(query.trim() || ingredientQuery.trim() || season || seasonCategory || tagFilter || onlyFavorites);
+  const hasRecipeFilters = Boolean(query.trim() || season || seasonCategory || tagFilter || onlyFavorites);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
 
@@ -4331,7 +4215,7 @@ function App() {
   }, [searchFilterQuery, searchableRecipes, recipesById]);
 
   const ingredientMeta = useMemo(() => {
-    const needle = ingredientFilterQuery.trim();
+    const needle = searchFilterQuery.trim();
     const map = new Map();
     if (!needle) return map;
     searchableRecipes.forEach(recipe => {
@@ -4339,14 +4223,12 @@ function App() {
       if (meta.score > 0) map.set(recipe.id, meta);
     });
     return map;
-  }, [ingredientFilterQuery, searchableRecipes]);
+  }, [searchFilterQuery, searchableRecipes]);
 
   const baseFilteredRecipes = useMemo(() => {
     const activeSearchQuery = searchFilterQuery.trim();
-    const activeIngredientQuery = ingredientFilterQuery.trim();
     let list = catalogRecipes.filter(recipe => {
-      if (activeSearchQuery && !searchMeta.has(recipe.id)) return false;
-      if (activeIngredientQuery && !ingredientMeta.has(recipe.id)) return false;
+      if (activeSearchQuery && !searchMeta.has(recipe.id) && !ingredientMeta.has(recipe.id)) return false;
       if (season && !recipeHasSeason(recipe, season, recipesById)) return false;
       if (tagFilter && !(recipe.tagsExtracted || []).includes(tagFilter)) return false;
       if (onlyFavorites && !favorites.includes(recipe.id)) return false;
@@ -4355,19 +4237,16 @@ function App() {
 
     list = [...list].sort((a, b) => {
       if (activeSearchQuery) {
-        const score = (searchMeta.get(b.id)?.score || 0) - (searchMeta.get(a.id)?.score || 0);
+        const score = ((searchMeta.get(b.id)?.score || 0) + (ingredientMeta.get(b.id)?.score || 0))
+          - ((searchMeta.get(a.id)?.score || 0) + (ingredientMeta.get(a.id)?.score || 0));
         if (score) return score;
-      }
-      if (activeIngredientQuery) {
-        const ingredientScore = (ingredientMeta.get(b.id)?.score || 0) - (ingredientMeta.get(a.id)?.score || 0);
-        if (ingredientScore) return ingredientScore;
       }
       const order = homeCardOrder(a) - homeCardOrder(b);
       if (order) return order;
       return a.title.localeCompare(b.title, 'fr');
     });
     return list;
-  }, [catalogRecipes, searchFilterQuery, searchMeta, ingredientFilterQuery, ingredientMeta, season, tagFilter, onlyFavorites, favorites, recipesById]);
+  }, [catalogRecipes, searchFilterQuery, searchMeta, ingredientMeta, season, tagFilter, onlyFavorites, favorites, recipesById]);
 
   const seasonCategoryOptions = useMemo(() => {
     if (!season) return [];
@@ -4448,7 +4327,6 @@ function App() {
   }, [currentSeason, filteredRecipes, onlyFavorites, season, seasonCategory]);
   const activeChips = [
     query && { key: 'query', label: `Recherche: ${query}`, clear: () => setQuery('') },
-    ingredientQuery.trim() && { key: 'ingredients', label: `Ingrédients: ${ingredientSearchTokens(ingredientQuery).join(', ')}`, clear: () => setIngredientQuery('') },
     season && { key: 'season', label: season, clear: () => updateSeason('') },
     seasonCategory && { key: 'seasonCategory', label: categoryLabel(seasonCategory), clear: () => setSeasonCategory('') },
     tagFilter && { key: 'tag', label: `Tag: ${tagFilter}`, clear: () => setTagFilter('') },
@@ -4624,12 +4502,6 @@ function App() {
   function openSearch() {
     setSearchOpen(true);
     setTimeout(() => searchRef.current?.focus(), 0);
-  }
-
-  function openIngredientSearch() {
-    setQuery('');
-    setSearchOpen(true);
-    setTimeout(() => ingredientSearchRef.current?.focus(), 0);
   }
 
   useEffect(() => {
@@ -4815,9 +4687,6 @@ function App() {
           onlyFavorites,
           activeChips,
           monthlyAdditionRecipes,
-          ingredientQuery,
-          setIngredientQuery,
-          openIngredientSearch,
           personalNotes,
           filterProps,
           toggleFavorite,
@@ -4845,10 +4714,7 @@ function App() {
       onClose: () => setSearchOpen(false),
       query,
       setQuery: updateSearchQuery,
-      ingredientQuery,
-      setIngredientQuery,
       searchRef,
-      ingredientSearchRef,
       results: filteredRecipes,
       resultMeta: searchMeta,
       ingredientMeta,

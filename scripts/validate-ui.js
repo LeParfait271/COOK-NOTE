@@ -14,8 +14,8 @@ function expect(label, condition) {
   if (!condition) errors.push(label);
 }
 
-expect('Recherche ingredients absente.', files.app.includes('ingredientQuery') && files.app.includes('scoreIngredientSearch'));
-expect('Labels recherche incomplets.', files.app.includes('recipe-search-input') && files.app.includes('ingredient-search-input') && files.app.includes('ingredient-search-help'));
+expect('Recherche ingredients integree absente.', files.app.includes('scoreIngredientSearch') && files.app.includes('ingredientMeta') && files.app.includes('ingredient-match-badge'));
+expect('Recherche separee ingredients encore presente.', !files.app.includes('ingredient-search-input') && !files.app.includes('ingredient-search-help') && !files.app.includes('FridgeAssistant'));
 expect('Recherche par intention absente.', files.app.includes('getRecipeIntentLabels') && files.app.includes('sans cuisson') && files.app.includes('à préparer à l’avance') && files.app.includes('congelable'));
 expect('Filtres avances encore presents.', !files.app.includes('QUICK_FILTERS') && !files.app.includes('QuickFilterBar') && !files.style.includes('quick-filter-row'));
 expect('Page techniques absente.', files.app.includes('TECHNIQUE_GUIDES') && files.app.includes('TechniquesView'));
