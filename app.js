@@ -4,7 +4,7 @@ const { useEffect, useMemo, useRef, useState } = React;
 const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
-const COOK_NOTE_LOGO = '/assets/cook-note-logo.svg';
+const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };

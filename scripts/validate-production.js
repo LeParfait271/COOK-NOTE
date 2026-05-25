@@ -70,7 +70,8 @@ if (!staticAssets) {
     '/assets/vendor/react-dom.production.min.js',
     '/assets/vendor/confetti.browser.min.js',
     '/assets/vendor/qrcode.min.js',
-    '/assets/cook-note-logo.svg'
+    '/assets/cook-note.png',
+    '/assets/cook-note-white.png'
   ].forEach(required => {
     if (!normalizedStaticAssets.includes(required)) fail(`service-worker.js: asset critique absent du precache (${required}).`);
   });
