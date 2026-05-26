@@ -120,6 +120,16 @@ const TECHNIQUE_GUIDES = [
     aliases: ['julienne', 'en julienne']
   },
   {
+    id: 'sommites',
+    title: 'Détailler en sommités',
+    label: 'Légumes',
+    description: 'Séparer chou-fleur ou brocoli en petits bouquets réguliers pour une cuisson homogène et une présentation nette.',
+    steps: ['Retire les feuilles et raccourcis la base du trognon.', 'Détache les gros bouquets à la main ou avec la pointe du couteau.', 'Recoupe par la tige pour garder des sommités régulières sans émietter les têtes.', 'Garde les parures et le cœur épluché pour une soupe, une purée ou une garniture.'],
+    tip: 'Des sommités de taille proche cuisent au même rythme : plus petites pour rôtir vite, plus grosses pour garder du croquant.',
+    query: 'chou-fleur brocoli fleurettes bouquets',
+    aliases: ['sommités', 'sommites', 'somités', 'somites', 'détailler en sommités', 'detailler en sommites', 'fleurettes', 'en fleurettes', 'petits bouquets']
+  },
+  {
     id: 'monder-tomates',
     title: 'Monder des tomates',
     label: 'Légumes',

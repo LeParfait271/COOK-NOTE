@@ -43,7 +43,7 @@
   <link rel="preload" as="image" href="/assets/base-principale-fond-site.jpg" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/style.css?v=66" />
+  <link rel="stylesheet" href="/style.css?v=67" />
 
   <!-- Librairies locales pour garder le site autonome -->
   <script src="/assets/vendor/react.production.min.js"></script>
@@ -126,16 +126,16 @@
   <div id="root"></div>
 
   <!-- recipes.js DOIT être chargé AVANT app.js -->
-  <script src="/recipes.js?v=66"></script>
+  <script src="/recipes.js?v=67"></script>
 
   <!-- App React sans transpilation côté navigateur -->
-  <script src="/app.js?v=66"></script>
+  <script src="/app.js?v=67"></script>
 
   <!-- Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js?v=66').then(registration => {
+        navigator.serviceWorker.register('/service-worker.js?v=67').then(registration => {
           registration.update().catch(() => {});
         }).catch(() => {});
       });

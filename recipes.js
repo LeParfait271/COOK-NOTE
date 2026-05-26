@@ -1108,12 +1108,12 @@ window.RECIPES = {
       {
         "group": "Variante brocoli, chou-fleur ou choux de Bruxelles",
         "items": [
-          "650g brocoli ou chou-fleur en fleurettes, ou choux de Bruxelles coupés en deux",
+          "650g brocoli ou chou-fleur en sommités, ou choux de Bruxelles coupés en deux",
           "Cuisson : 15 à 25min à 200°C chaleur tournante"
         ],
         "steps": [
                   "Prechauffer le four a 200C chaleur tournante.",
-                  "Detailler brocoli ou chou-fleur en fleurettes, ou couper les choux de Bruxelles en deux, puis assaisonner.",
+                  "Détailler brocoli ou chou-fleur en sommités, ou couper les choux de Bruxelles en deux, puis assaisonner.",
                   "Rotir 15 a 25min, face coupee contre la plaque pour les choux, jusqu aux pointes grillees et au coeur juste tendre."
         ]
       },
@@ -6767,7 +6767,7 @@ window.RECIPES = {
       {
         "group": "Base",
         "items": [
-          "600g fleurettes de chou-fleur",
+          "600g sommités de chou-fleur",
           "30g huile d’olive",
           "50g parmesan râpé",
           "2g paprika",
@@ -6788,7 +6788,7 @@ window.RECIPES = {
     ],
     "steps": [
       "Préchauffer le four à 220°C et couvrir une plaque de papier cuisson.",
-      "Mélanger les fleurettes avec l’huile d’olive pour les enrober.",
+      "Mélanger les sommités avec l’huile d’olive pour les enrober.",
       "Mélanger parmesan, paprika, ail, oignon, sel et poivre du moulin.",
       "Saupoudrer sur le chou-fleur et mélanger pour bien répartir.",
       "Étaler en une seule couche sur la plaque.",
