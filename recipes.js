@@ -2970,10 +2970,12 @@ window.RECIPES = {
       {
         "group": "Pâte sucrée",
         "items": [
-          "200g farine",
-          "100g beurre mou",
-          "80g sucre",
-          "50g œuf"
+          "250g farine T55",
+          "150g beurre souple",
+          "95g sucre glace",
+          "30g poudre d’amandes ou de noisettes",
+          "60g œuf",
+          "2 pincées sel fin"
         ],
         "recipeId": "pate_sucree"
       },
@@ -3021,8 +3023,8 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Pâte sucrée : mélanger beurre et sucre, ajouter œuf puis farine. Former une boule et refroidir 30min.",
-      "Étaler à 3–4mm, foncer, piquer et cuire 10min à 180°C.",
+      "Pâte sucrée : assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler.",
+      "Étaler à 2–3mm entre deux feuilles, refroidir au moins 1h, foncer, reposer au froid puis cuire 10 à 15min à 170°C chaleur tournante.",
       "Crème d’amande : mélanger beurre et sucre, ajouter œuf, poudre d’amande, fécule et zeste. Étaler 5mm dans la tarte et cuire 20–25min à 180°C.",
       "Crème citron : chauffer le jus, fouetter jaunes et sucre, ajouter fécule, verser le jus chaud, cuire jusqu’à épaississement, ajouter beurre, filmer au contact et refroidir.",
       "Compotée optionnelle : cuire citron et sucre, mixer, puis Étaler une fine couche sur le fond.",
@@ -3412,7 +3414,7 @@ window.RECIPES = {
       "Un tapis de cuisson perforé posé sur grille permet une cuisson plus régulière et évite souvent de piquer le fond.",
       "Si la pâte casse au fonçage, colmate avec un morceau de pâte de même épaisseur : elle se ressoude à la cuisson.",
       "Si les bords collent au cercle, décolle-les à chaud avec une petite lame sans retirer le cercle.",
-      "Pour une surface plus lisse, poncer très légèrement le fond cuit sur un tamis ou une passoire.",
+      "Pour une surface plus lisse, poncer très légèrement le fond cuit avec un zesteur fin.",
       "Les chutes crues peuvent être filmées et congelées pour une autre tarte.",
       "Stockage : pâte crue 2–3 jours au réfrigérateur ou congélation possible. Fond cuit à garder au sec en boîte hermétique."
     ],
