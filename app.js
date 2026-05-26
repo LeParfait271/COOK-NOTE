@@ -390,6 +390,16 @@ const TECHNIQUE_GUIDES = [
     aliases: ['monter au beurre', 'ajouter le beurre froid']
   },
   {
+    id: 'clarifier',
+    title: 'Clarifier',
+    label: 'Préparation',
+    description: 'Séparer une préparation de ses éléments troubles ou indésirables : beurre clarifié, bouillon limpide ou œuf séparé selon le contexte.',
+    steps: ['Identifie ce qui doit être séparé : petit-lait, écume, dépôt ou blanc/jaune.', 'Travaille doucement pour éviter de remélanger les éléments.', 'Retire l’écume ou verse en laissant le dépôt au fond.', 'Filtre si la recette demande une texture parfaitement nette.'],
+    tip: 'Clarifier demande de la douceur : si tu remues trop fort, les éléments séparés se remettent en suspension.',
+    query: 'beurre bouillon œuf filtrer',
+    aliases: ['clarifier', 'clarifié', 'clarifiée', 'beurre clarifié', 'bouillon clarifié']
+  },
+  {
     id: 'torrefier',
     title: 'Torréfier',
     label: 'Cuisson',
@@ -398,6 +408,56 @@ const TECHNIQUE_GUIDES = [
     tip: 'Les épices brûlent vite : quelques secondes peuvent suffire à la poêle.',
     query: 'noisettes épices graines',
     aliases: ['torréfier', 'torrefier', 'torréfié', 'torréfiée', 'torréfiées']
+  },
+  {
+    id: 'detendre',
+    title: 'Détendre une préparation',
+    label: 'Texture',
+    description: 'Assouplir une crème, une sauce ou une pâte trop ferme avec un peu de liquide ou une petite portion de préparation souple.',
+    steps: ['Travaille d’abord la préparation au fouet ou à la spatule.', 'Ajoute le liquide ou la base souple en petite quantité.', 'Mélange jusqu’à retrouver une texture lisse.', 'Arrête dès que la texture est utilisable, sans la rendre liquide.'],
+    tip: 'Détendre sert à faciliter l’incorporation : une crème trop ferme casse plus facilement une mousse ou une chantilly.',
+    query: 'crème sauce pâte texture',
+    aliases: ['détendre', 'detendre', 'détendu', 'détendue', 'détendre avec']
+  },
+  {
+    id: 'serrer-blancs',
+    title: 'Serrer des blancs',
+    label: 'Œufs',
+    description: 'Ajouter le sucre progressivement dans des blancs montés pour obtenir une meringue plus stable, brillante et régulière.',
+    steps: ['Monte les blancs jusqu’à une mousse fine.', 'Ajoute le sucre petit à petit, pas d’un seul coup.', 'Continue de fouetter jusqu’à texture brillante.', 'Arrête au bec demandé par la recette.'],
+    tip: 'Serrer trop tôt ralentit la montée ; serrer trop tard stabilise moins bien la mousse.',
+    query: 'meringue blancs sucre',
+    aliases: ['serrer', 'serrer au sucre', 'serrer les blancs', 'blancs serrés', 'meringue serrée']
+  },
+  {
+    id: 'texture-ruban',
+    title: 'Obtenir le ruban',
+    label: 'Pâtisserie',
+    description: 'Atteindre une texture souple qui retombe en ruban continu, utile pour les appareils fouettés, macarons et certaines pâtes.',
+    steps: ['Soulève la préparation avec la maryse ou le fouet.', 'Observe si elle retombe en bande continue.', 'Mélange encore par petits gestes si elle casse trop vite.', 'Arrête dès que le ruban se fond lentement dans la masse.'],
+    tip: 'Un ruban trop liquide annonce souvent un mélange trop travaillé.',
+    query: 'macaron pâte appareil ruban',
+    aliases: ['ruban', 'texture ruban', 'obtenir un ruban', 'ruban souple', 'faire le ruban']
+  },
+  {
+    id: 'parer',
+    title: 'Parer',
+    label: 'Préparation',
+    description: 'Retirer les parties inutiles, dures ou irrégulières d’un aliment pour obtenir une pièce nette avant cuisson ou dressage.',
+    steps: ['Identifie les parties sèches, dures, grasses ou abîmées.', 'Retire-les avec un couteau bien aiguisé.', 'Garde les parures propres pour un bouillon ou une sauce si utile.', 'Évite de trop enlever : on cherche une pièce nette, pas une perte excessive.'],
+    tip: 'Parer améliore la cuisson et la présentation, surtout sur viandes, poissons, légumes et agrumes.',
+    query: 'préparer viande poisson légumes parures',
+    aliases: ['parer', 'parures', 'paré', 'parée']
+  },
+  {
+    id: 'singer',
+    title: 'Singer',
+    label: 'Sauce',
+    description: 'Saupoudrer une préparation de farine puis cuire brièvement pour lier une sauce ou un ragoût sans goût de farine crue.',
+    steps: ['Ajoute la farine en pluie sur la garniture chaude.', 'Mélange pour enrober régulièrement.', 'Cuis 1 à 2 minutes pour retirer le goût cru.', 'Mouille progressivement avec le liquide de cuisson.'],
+    tip: 'Singer demande une cuisson courte de la farine avant d’ajouter le liquide, sinon la sauce peut rester pâteuse.',
+    query: 'farine sauce ragoût liaison',
+    aliases: ['singer', 'singer la garniture', 'fariner la garniture']
   },
   {
     id: 'cremer',
@@ -1561,21 +1621,37 @@ const SEARCH_SYNONYMS = {
   mayonaise: ['mayonnaise'],
   sauce: ['dip', 'assaisonnement', 'condiment'],
   sauces: ['dip', 'assaisonnement', 'condiment'],
-  gateau: ['cake', 'dessert'],
-  gâteau: ['cake', 'dessert'],
-  patate: ['pomme de terre', 'pommes de terre'],
+  dessert: ['sucré', 'sucre', 'gâteau', 'cake', 'biscuit'],
+  gateau: ['gâteau', 'cake', 'dessert'],
+  gâteau: ['gateau', 'cake', 'dessert'],
+  biscuit: ['cookies', 'sablé', 'goûter'],
+  biscuits: ['cookies', 'sablés', 'goûter'],
+  cookie: ['cookies', 'biscuit'],
+  cookies: ['cookie', 'biscuit'],
+  patate: ['pomme de terre', 'pommes de terre', 'pdt'],
+  patates: ['pomme de terre', 'pommes de terre', 'pdt'],
+  pdt: ['pomme de terre', 'pommes de terre', 'patate'],
+  pomme: ['pommes', 'pomme de terre'],
+  terre: ['pomme de terre', 'pommes de terre'],
   fritte: ['frite', 'frites'],
   frite: ['frites', 'pomme de terre'],
+  frites: ['frite', 'pomme de terre'],
   accompagnement: ['accompagnements', 'garniture'],
   garniture: ['accompagnement', 'topping'],
+  topping: ['garniture', 'sauce'],
+  toppings: ['garniture', 'sauces'],
   crevette: ['crevettes', 'gambas'],
+  crevettes: ['crevette', 'gambas'],
   calamar: ['calamars', 'encornet'],
+  calamars: ['calamar', 'encornets'],
   oeuf: ['œuf', 'oeufs', 'œufs'],
   oeufs: ['œufs', 'oeuf', 'œuf'],
-  pate: ['pâte', 'base'],
-  base: ['bases', 'pâte'],
+  pate: ['pâte', 'pâtes', 'base'],
+  pates: ['pâtes', 'pâte', 'farine'],
+  base: ['bases', 'pâte', 'fond'],
   citronne: ['citron'],
   citronné: ['citron'],
+  citronnee: ['citron'],
   choco: ['chocolat'],
   chocolat: ['choco', 'noir', 'lait'],
   chilli: ['chili'],
@@ -1588,15 +1664,53 @@ const SEARCH_SYNONYMS = {
   avance: ['préparer à l avance', 'la veille', 'make ahead'],
   preparer: ['préparer', 'préparation', 'avance'],
   froid: ['réfrigérateur', 'sans cuisson'],
+  chaud: ['cuisson', 'four', 'poêle'],
   cuisson: ['four', 'poêle', 'friture'],
+  four: ['enfourner', 'rôtir', 'gratin'],
+  poele: ['poêle', 'saisir', 'faire revenir'],
+  poêle: ['poele', 'saisir', 'faire revenir'],
+  friture: ['frire', 'beignet', 'tempura', 'frites'],
+  legumes: ['légumes', 'vegetal', 'végétal'],
+  legume: ['légume', 'légumes'],
+  chou: ['chou-fleur', 'chou fleur', 'brocoli'],
+  fleur: ['chou-fleur', 'chou fleur'],
+  choufleur: ['chou-fleur', 'chou fleur'],
+  brocoli: ['brocolis', 'sommités', 'fleurettes'],
+  sommites: ['sommités', 'fleurettes', 'petits bouquets'],
+  fleurettes: ['sommités', 'petits bouquets'],
   vegetariens: ['végétarien', 'vegetarien'],
   vegetarien: ['végétarien', 'sans viande'],
+  viande: ['boeuf', 'porc', 'poulet'],
+  boeuf: ['bœuf', 'viande'],
+  poulet: ['volaille', 'viande'],
   congelable: ['congélation', 'congeler'],
   moyen: ['medium', 'intermédiaire'],
   difficile: ['hard', 'technique'],
+  technique: ['geste', 'tour de main'],
+  blanchir: ['blanchi', 'blanchiment'],
+  chemiser: ['moule', 'papier cuisson'],
+  torrefier: ['torréfier', 'torréfié'],
+  deglacer: ['déglacer', 'sucs', 'sauce'],
+  ruban: ['macaronner', 'texture ruban'],
   ete: ['été'],
-  apero: ['apéro']
+  hiver: ['automne', 'réconfort'],
+  apero: ['apéro'],
+  entree: ['entrée', 'entrées'],
+  entrees: ['entrées', 'entrée'],
+  petitdej: ['petit-déjeuner', 'petits-déjeuners'],
+  brunch: ['petit-déjeuner', 'petits-déjeuners']
 };
+
+const SEARCH_STOPWORDS = new Set(['a', 'au', 'aux', 'avec', 'd', 'de', 'des', 'du', 'en', 'et', 'la', 'le', 'les', 'l', 'pour', 'un', 'une']);
+
+function searchTokens(value) {
+  return normalizeText(value)
+    .replace(/\bchou\s+fleur\b/g, 'choufleur')
+    .replace(/\bpomme\s+de\s+terre\b/g, 'pdt')
+    .split(/\s+/)
+    .map(token => token.replace(/[^a-z0-9-]/g, '').trim())
+    .filter(token => token.length > 1 && !SEARCH_STOPWORDS.has(token));
+}
 
 function expandSearchTokens(tokens) {
   return tokens.map(token => [token, ...(SEARCH_SYNONYMS[token] || []).map(normalizeText)]);
@@ -1630,7 +1744,8 @@ function isCloseSearchToken(token, text) {
 function scoreRecipeSearch(recipe, query, recipesById = {}) {
   const needle = normalizeText(query).trim();
   if (!needle) return { score: 0, reasons: [] };
-  const tokenGroups = expandSearchTokens(needle.split(/\s+/).filter(token => token.length > 1));
+  const tokenGroups = expandSearchTokens(searchTokens(needle));
+  if (!tokenGroups.length) return { score: 0, reasons: [] };
   const title = normalizeText(recipe.title);
   const aliases = normalizeText((recipe.aliases || []).join(' '));
   const tags = normalizeText([...(recipe.tags || []), ...(recipe.tagsExtracted || [])].join(' '));
@@ -1640,6 +1755,7 @@ function scoreRecipeSearch(recipe, query, recipesById = {}) {
   const intents = normalizeText(getRecipeIntentLabels(recipe, recipesById).join(' '));
   const facets = normalizeText(getRecipeSearchFacets(recipe).join(' '));
   const linked = normalizeText(getLinkedRecipeRefs(recipe, recipesById).flatMap(item => [item.role, item.recipe.title]).join(' '));
+  const steps = normalizeText((recipe.steps || []).join(' '));
   const notes = normalizeText([...(recipe.notes || []), ...(recipe.technical || []).flatMap(item => [item.label, item.value, item.text])].join(' '));
   const fields = [
     { name: 'titre', text: title, points: 120 },
@@ -1651,6 +1767,7 @@ function scoreRecipeSearch(recipe, query, recipesById = {}) {
     { name: 'ingrédient', text: ingredients, points: 45 },
     { name: 'recette liée', text: linked, points: 34 },
     { name: 'pratique', text: practical, points: 28 },
+    { name: 'étape', text: steps, points: 24 },
     { name: 'note', text: notes, points: 18 }
   ];
   let score = 0;
@@ -2220,16 +2337,19 @@ function getRecipeIntentLabels(recipe, recipesById = {}) {
 }
 
 function ingredientSearchTokens(value) {
-  const normalized = normalizeText(value).replace(/\bet\b/g, ',');
+  const normalized = normalizeText(value)
+    .replace(/\bchou\s+fleur\b/g, 'choufleur')
+    .replace(/\bpomme\s+de\s+terre\b/g, 'pdt')
+    .replace(/\bet\b/g, ',');
   const parts = normalized
     .split(/[,;\n]+/)
     .map(part => part.replace(/\b(de|du|des|la|le|les|l)\b/g, ' ').replace(/\s+/g, ' ').trim())
     .filter(Boolean);
-  if (parts.length > 1) return uniq(parts);
-  return uniq(normalized
+  const tokens = parts.length > 1 ? parts : normalized
     .split(/\s+/)
     .map(part => part.trim())
-    .filter(part => part.length > 2 && !['avec', 'sans', 'pour'].includes(part)));
+    .filter(part => part.length > 2 && !['avec', 'sans', 'pour'].includes(part));
+  return uniq(tokens.flatMap(token => [token, ...(SEARCH_SYNONYMS[token] || []).map(normalizeText)]));
 }
 
 function getRecipeIngredientSearchText(recipe) {

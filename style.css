@@ -367,6 +367,8 @@ a {
   align-items: center;
   justify-content: center;
   gap: 8px;
+  max-width: 100%;
+  min-width: 0;
   min-height: 38px;
   border: 1px solid color-mix(in srgb, var(--line-strong) 78%, transparent);
   border-radius: var(--radius);
@@ -376,6 +378,7 @@ a {
   color: var(--text);
   padding: 0 16px;
   font-weight: 850;
+  line-height: 1.15;
   text-decoration: none;
   transition: transform var(--speed), border-color var(--speed), background var(--speed), box-shadow var(--speed);
 }
@@ -778,6 +781,8 @@ a {
 
 .season-tabs button,
 .season-category-tabs button {
+  max-width: 100%;
+  min-width: 0;
   min-height: 34px;
   border: 1px solid transparent;
   border-radius: 6px;
@@ -785,6 +790,7 @@ a {
   color: var(--text);
   padding: 0 11px;
   font-weight: 900;
+  overflow-wrap: anywhere;
   transition: background var(--speed), border-color var(--speed), color var(--speed), transform var(--speed);
 }
 
@@ -1602,13 +1608,17 @@ a {
 }
 
 .mobile-bottom-nav button {
+  min-width: 0;
   min-height: 46px;
+  overflow: hidden;
   border: 0;
   border-radius: 7px;
   background: transparent;
   color: var(--muted);
   font-size: 11px;
   font-weight: 850;
+  line-height: 1.1;
+  text-overflow: ellipsis;
   transition: background var(--speed), color var(--speed), transform var(--speed);
 }
 
@@ -3403,6 +3413,8 @@ a {
 }
 
 .search-suggestions button {
+  max-width: 100%;
+  min-width: 0;
   min-height: 34px;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -3410,6 +3422,8 @@ a {
   color: var(--text);
   padding: 0 12px;
   font-weight: 850;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .search-results {
@@ -3448,6 +3462,7 @@ a {
   gap: 12px;
   align-items: center;
   width: 100%;
+  min-width: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background:
@@ -3488,6 +3503,7 @@ a {
 .search-result-copy small {
   color: var(--muted);
   font-weight: 800;
+  overflow-wrap: anywhere;
 }
 
 .search-reason-pills {
@@ -4041,6 +4057,7 @@ a {
 
   .search-result {
     grid-template-columns: 54px minmax(0, 1fr);
+    gap: 9px;
   }
 
   .search-memory-grid {
@@ -4050,6 +4067,24 @@ a {
   .search-result > .nutri-score {
     justify-self: start;
     grid-column: 2;
+  }
+
+  .search-result-copy strong {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .season-tabs,
+  .season-category-tabs {
+    max-width: 100%;
+    justify-content: start;
+  }
+
+  .season-tabs button,
+  .season-category-tabs button {
+    flex: 1 1 auto;
+    padding-inline: 9px;
+    line-height: 1.08;
   }
 
   .search-result-image {
