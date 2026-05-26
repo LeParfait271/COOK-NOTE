@@ -2209,6 +2209,84 @@ function getPrepTimeline(recipe) {
   return items.slice(0, 4);
 }
 
+function getFirstHeatStepIndex(steps) {
+  return steps.findIndex(step => /\b(four|pr[eé]chauff|enfourner|cuire|cuisson|gril|griller|po[eê]le|frire|friture|r[oô]tir|rotir|mijoter|[eé]bullition)\b/i.test(stripHtml(step)));
+}
+
+function estimateMinutesBeforeHeat(steps, heatIndex) {
+  if (heatIndex <= 0) return 0;
+  const beforeHeat = steps.slice(0, heatIndex);
+  const explicitMinutes = beforeHeat.reduce((total, step) => total + getStepMinutes(step), 0);
+  return explicitMinutes || beforeHeat.length * 5;
+}
+
+function shouldDelayOvenPreheat(recipe) {
+  const steps = getRecipeSteps(recipe);
+  const heatIndex = getFirstHeatStepIndex(steps);
+  if (heatIndex <= 0) return false;
+  const minutesBeforeHeat = estimateMinutesBeforeHeat(steps, heatIndex);
+  const beforeHeatText = normalizeText(steps.slice(0, heatIndex).join(' '));
+  return heatIndex >= 3 || minutesBeforeHeat >= 20 || /\b(repos|refroidir|refrigerateur|froid|mariner|30\s*min|45\s*min|1h|2h|24h)\b/.test(beforeHeatText);
+}
+
+function getPrepChecklist(recipe) {
+  const steps = getRecipeSteps(recipe);
+  const text = normalizeText([
+    recipe?.title,
+    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
+    ...steps,
+    ...(recipe?.notes || []),
+    ...(recipe?.technical || []).flatMap(item => [item.label, item.value, item.text])
+  ].join(' '));
+  const items = [];
+  const add = item => {
+    if (item && !items.includes(item)) items.push(item);
+  };
+  add(`Sortir, peser et cocher les ${countIngredients(recipe)} ingrédients.`);
+  if (/\b(beurre pommade|beurre souple|temp[eé]rature ambiante|ramollir|sortir le beurre)\b/.test(text)) {
+    add('Sortir le beurre à l’avance pour qu’il soit souple, pas fondu.');
+  }
+  if (/\b(repos|refroidir|refrigerateur|froid|congelateur|cong[eé]lateur|mariner|la veille|24h)\b/.test(text)) {
+    add('Prévoir le temps de repos ou de froid avant de lancer le service.');
+  }
+  if (/\b(four|enfourner|pr[eé]chauff|plaque|moule|ramequin|gratiner|r[oô]tir|rotir)\b/.test(text)) {
+    add(shouldDelayOvenPreheat(recipe)
+      ? 'Lancer le préchauffage du four environ 10min avant l’étape de cuisson.'
+      : 'Préchauffer le four dès le début de l’exécution.');
+  }
+  if (/\b(robot|feuille|petrin|p[eé]trir|batteur|fouet|mixeur|blender|maryse|thermom[eè]tre|poche|douille|cercle|moule)\b/.test(text)) {
+    add('Préparer le matériel utile avant d’avoir les mains prises.');
+  }
+  if (/\b(friture|frire|beignets?|tempura|huile chaude|bain d huile)\b/.test(text)) {
+    add('Préparer une zone d’égouttage et garder le sel à portée de main.');
+  }
+  return items.slice(0, 5);
+}
+
+function getRecipeTechniqueBadges(recipe) {
+  const text = normalizeText([
+    recipe?.title,
+    recipe?.difficulty,
+    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
+    ...getRecipeSteps(recipe),
+    ...(recipe?.notes || []),
+    ...(recipe?.technical || []).flatMap(item => [item.label, item.value, item.text])
+  ].join(' '));
+  const badges = [];
+  const add = (label, type = 'neutral') => {
+    if (!badges.some(item => item.label === label)) badges.push({ label, type });
+  };
+  if (/\b(repos|la veille|24h|12h|nuit|mariner|refrigerateur|congelateur|froid)\b/.test(text)) add('Repos long', 'time');
+  if (/\b(four|enfourner|r[oô]tir|rotir|gratiner|plaque|moule)\b/.test(text)) add(shouldDelayOvenPreheat(recipe) ? 'Four à anticiper' : 'Four', 'heat');
+  if (/\b(thermom[eè]tre|118|120|160|165|170|180|sirop|temp[eé]rature)\b/.test(text)) add('Température précise', 'precision');
+  if (/\b(robot|feuille|petrin|p[eé]trir|batteur|blender|mixeur)\b/.test(text)) add('Robot utile', 'tool');
+  if (/\b(poche|douille|pocher|dresser|cercle|foncer|abaisser)\b/.test(text)) add('Geste pâtissier', 'tool');
+  if (/\b(friture|frire|beignets?|tempura|bain d huile)\b/.test(text)) add('Friture', 'heat');
+  if (/\b(surveiller|coloration|nappe|texture|juste pris|ne .* trop|sans trop)\b/.test(text)) add('Cuisson à surveiller', 'precision');
+  if (/\b(la veille|24h|conservation|se conserve|refroidir|reposer)\b/.test(text)) add('Préparable veille', 'time');
+  return badges.slice(0, 6);
+}
+
 function isMonthlyAdditionVisible(item, now = new Date()) {
   const added = new Date(`${item.addedAt}T00:00:00`);
   if (Number.isNaN(added.getTime())) return false;
@@ -3816,6 +3894,29 @@ function PrepTimelineBlock({ recipe }) {
   );
 }
 
+function PrepChecklistBlock({ recipe }) {
+  const items = getPrepChecklist(recipe);
+  if (!items.length) return null;
+  return h('div', { className: 'prep-checklist-block' },
+    h('div', null,
+      h('p', { className: 'eyebrow' }, 'Mise en place'),
+      h('h2', null, 'Avant de lancer')
+    ),
+    h('ul', null, items.map(item => h('li', { key: item },
+      h('span', null),
+      h('p', null, item)
+    )))
+  );
+}
+
+function RecipeTechniqueBadges({ recipe }) {
+  const badges = getRecipeTechniqueBadges(recipe);
+  if (!badges.length) return null;
+  return h('div', { className: 'recipe-tech-badges', 'aria-label': 'Repères techniques' },
+    badges.map(item => h('span', { key: item.label, className: `recipe-tech-badge badge-${item.type}` }, item.label))
+  );
+}
+
 function PersonalRecipeNotes({ recipeId, value, updatePersonalRecipeNote }) {
   const note = value || {};
   const status = note.status || '';
@@ -3883,7 +3984,8 @@ function RecipeQuickFacts({ recipe, factor, stepTotal }) {
     equipment.length > 0 && h('div', { className: 'recipe-equipment-strip' },
       h('strong', null, 'Matériel nécessaire'),
       h('ul', null, equipment.map(item => h('li', { key: item }, item)))
-    )
+    ),
+    h(RecipeTechniqueBadges, { recipe })
   );
 }
 
@@ -4178,13 +4280,7 @@ function RecipeView({
           )
         ),
         canShowSteps && h('div', { className: 'progress-track' }, h('span', { style: { width: `${progress}%` } })),
-        canShowSteps && h('div', { className: 'before-start-card' },
-          h('div', null,
-            h('strong', null, 'Avant de commencer'),
-            h('p', null, 'Consulte les notes, allergènes et points techniques avant de lancer la recette.')
-          ),
-          h('button', { type: 'button', onClick: () => setMobileDetailTab('notes') }, 'Voir les notes')
-        ),
+        canShowSteps && h(PrepChecklistBlock, { recipe: selectedRecipe }),
         canShowSteps && focusMode && activeStep && h('div', { className: 'cooking-step-card' },
           h('div', { className: 'cooking-step-head' },
             h('span', null, `Étape ${activeStepIndex + 1} / ${displaySteps.length}`),
