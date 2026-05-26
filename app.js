@@ -4974,23 +4974,8 @@ function App() {
   );
 }
 
-function ensureRecipesLoaded() {
-  if (window.RECIPES && typeof window.RECIPES === 'object' && Object.keys(window.RECIPES).length) {
-    return Promise.resolve();
-  }
-  return new Promise(resolve => {
-    const script = document.createElement('script');
-    script.src = `/recipes.js?v=${Date.now()}`;
-    script.onload = () => resolve();
-    script.onerror = () => resolve();
-    document.head.appendChild(script);
-  });
-}
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
-ensureRecipesLoaded().then(() => {
-  root.render(h(App));
-});
+root.render(h(App));
 
 requestAnimationFrame(() => {
   if (window.__cookNoteReady) {
