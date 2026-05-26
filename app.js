@@ -4978,16 +4978,6 @@ function ensureRecipesLoaded() {
   if (window.RECIPES && typeof window.RECIPES === 'object' && Object.keys(window.RECIPES).length) {
     return Promise.resolve();
   }
-  if (window.__cookNoteRecipesReady) {
-    return window.__cookNoteRecipesReady.then(() => {
-      if (window.RECIPES && typeof window.RECIPES === 'object' && Object.keys(window.RECIPES).length) return;
-      return loadRecipesWithCacheBuster();
-    });
-  }
-  return loadRecipesWithCacheBuster();
-}
-
-function loadRecipesWithCacheBuster() {
   return new Promise(resolve => {
     const script = document.createElement('script');
     script.src = `/recipes.js?v=${Date.now()}`;
