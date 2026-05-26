@@ -2970,12 +2970,12 @@ window.RECIPES = {
       {
         "group": "Pâte sucrée",
         "items": [
-          "250g farine T55",
-          "150g beurre souple",
-          "95g sucre glace",
-          "30g poudre d’amandes ou de noisettes",
-          "60g œuf",
-          "2 pincées sel fin"
+          "125g farine T55",
+          "75g beurre souple",
+          "48g sucre glace",
+          "15g poudre d’amandes ou de noisettes",
+          "30g œuf",
+          "1 pincée sel fin"
         ],
         "recipeId": "pate_sucree"
       },
@@ -2994,11 +2994,11 @@ window.RECIPES = {
       {
         "group": "Crème citron",
         "items": [
-          "80g jus de citron",
-          "180g jaunes d’œufs",
-          "130g sucre",
-          "10g fécule pour crème citron",
-          "100g beurre"
+          "40g jus de citron",
+          "90g jaunes d’œufs",
+          "65g sucre",
+          "5g fécule pour crème citron",
+          "50g beurre"
         ],
         "recipeId": "creme_citron_lemon_curd"
       },
