@@ -2970,10 +2970,12 @@ window.RECIPES = {
       {
         "group": "Pâte sucrée",
         "items": [
-          "200g farine",
-          "100g beurre mou",
-          "80g sucre",
-          "50g œuf"
+          "125g farine T55",
+          "75g beurre souple",
+          "48g sucre glace",
+          "15g poudre d’amandes ou de noisettes",
+          "30g œuf",
+          "1 pincée sel fin"
         ],
         "recipeId": "pate_sucree"
       },
@@ -2992,11 +2994,11 @@ window.RECIPES = {
       {
         "group": "Crème citron",
         "items": [
-          "80g jus de citron",
-          "180g jaunes d’œufs",
-          "130g sucre",
-          "10g fécule pour crème citron",
-          "100g beurre"
+          "40g jus de citron",
+          "90g jaunes d’œufs",
+          "65g sucre",
+          "5g fécule pour crème citron",
+          "50g beurre"
         ],
         "recipeId": "creme_citron_lemon_curd"
       },
@@ -3021,8 +3023,8 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Pâte sucrée : mélanger beurre et sucre, ajouter œuf puis farine. Former une boule et refroidir 30min.",
-      "Étaler à 3–4mm, foncer, piquer et cuire 10min à 180°C.",
+      "Pâte sucrée : assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler.",
+      "Étaler à 2–3mm entre deux feuilles, refroidir au moins 1h, foncer, reposer au froid puis cuire 10 à 15min à 170°C chaleur tournante.",
       "Crème d’amande : mélanger beurre et sucre, ajouter œuf, poudre d’amande, fécule et zeste. Étaler 5mm dans la tarte et cuire 20–25min à 180°C.",
       "Crème citron : chauffer le jus, fouetter jaunes et sucre, ajouter fécule, verser le jus chaud, cuire jusqu’à épaississement, ajouter beurre, filmer au contact et refroidir.",
       "Compotée optionnelle : cuire citron et sucre, mixer, puis Étaler une fine couche sur le fond.",
@@ -3369,37 +3371,80 @@ window.RECIPES = {
     "seasons": [
       "Toutes saisons"
     ],
-    "difficulty": "easy",
-    "yield": "1 fond de tarte",
+    "difficulty": "medium",
+    "yield": "2 fonds de tarte de 26cm ou 12 tartelettes",
     "ingredients": [
       {
         "group": "Base",
         "items": [
-          "100g farine",
-          "50g beurre mou",
-          "40g sucre",
-          "25g œuf"
+          "250g farine T55",
+          "150g beurre souple",
+          "95g sucre glace",
+          "30g poudre d’amandes ou de noisettes",
+          "60g œuf",
+          "2 pincées sel fin"
+        ]
+      },
+      {
+        "group": "Dorure / isolation optionnelle",
+        "items": [
+          "1 jaune d’œuf",
+          "1 petite cuillère crème ou eau",
+          "Option : chocolat fondu blanc ou noir pour isoler le fond"
         ]
       }
     ],
     "steps": [
-      "Mélanger beurre et sucre sans faire fondre le beurre.",
-      "Ajouter l’œuf puis la farine.",
-      "Former une boule, filmer et refroidir 30min.",
-      "Étaler à 3–4mm, foncer le moule, piquer puis cuire selon la recette finale."
+      "Assouplir le beurre au robot avec la feuille, ou utiliser un beurre déjà souple à température ambiante.",
+      "Ajouter sucre glace, poudre d’amandes, œuf et sel, puis mélanger jusqu’à texture homogène.",
+      "Ajouter la farine et mélanger lentement juste le temps de l’incorporer, sans chercher une pâte parfaitement boule.",
+      "Étaler la pâte entre deux feuilles de papier cuisson sur 2 à 3mm d’épaisseur, sans ajouter de farine.",
+      "Réserver au réfrigérateur au moins 1h après étalage, ou filmer la pâte et la laisser reposer au moins 2h avant de l’abaisser.",
+      "Foncer le cercle : soit avec une grande abaisse, soit avec des bandes pour les bords et un disque pour le fond.",
+      "Laisser reposer le fond foncé au réfrigérateur avant cuisson, idéalement 24h pour limiter la rétractation.",
+      "Cuire à 170°C chaleur tournante : 10 à 15min si le fond doit recuire avec une crème d’amandes, ou 15 à 20min pour un fond cuit à blanc.",
+      "Pour une finition dorée et isolée, badigeonner très finement jaune d’œuf + crème ou eau, puis remettre 5min à 170°C.",
+      "Laisser refroidir avant de garnir, puis isoler au chocolat fondu si la garniture est très humide."
     ],
     "notes": [
       "Base utilisée dans la tarte citron meringuée.",
-      "Beurre pommade, jamais liquide.",
-      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
+      "Ne travaille presque plus la pâte après ajout de la farine : trop mélanger la rend friable, fragile et plus difficile à manipuler.",
+      "La farine T55 limite mieux la rétractation à la cuisson qu’une farine trop riche en gluten.",
+      "Étaler entre deux feuilles évite d’ajouter de la farine et garde une texture plus nette.",
+      "Un tapis de cuisson perforé posé sur grille permet une cuisson plus régulière et évite souvent de piquer le fond.",
+      "Si la pâte casse au fonçage, colmate avec un morceau de pâte de même épaisseur : elle se ressoude à la cuisson.",
+      "Si les bords collent au cercle, décolle-les à chaud avec une petite lame sans retirer le cercle.",
+      "Pour une surface plus lisse, poncer très légèrement le fond cuit avec un zesteur fin.",
+      "Les chutes crues peuvent être filmées et congelées pour une autre tarte.",
+      "Stockage : pâte crue 2–3 jours au réfrigérateur ou congélation possible. Fond cuit à garder au sec en boîte hermétique."
+    ],
+    "technical": [
+      {
+        "label": "Épaisseur",
+        "value": "2 à 3mm pour un fond fin, croustillant et régulier."
+      },
+      {
+        "label": "Repos anti-rétractation",
+        "value": "1h minimum après étalage, idéalement 24h une fois le fond foncé."
+      },
+      {
+        "label": "Cuisson",
+        "value": "170°C chaleur tournante, 10 à 15min avant recuisson ou 15 à 20min pour cuisson complète."
+      },
+      {
+        "label": "Isolation",
+        "value": "Dorure jaune + crème/eau ou fine couche de chocolat fondu pour protéger le croustillant des garnitures humides."
+      }
     ],
     "tags": [
       "pate",
       "tarte",
       "base",
-      "patisserie"
+      "patisserie",
+      "pierre herme",
+      "fond de tarte"
     ],
-    "difficultyScore": 5,
+    "difficultyScore": 6,
     "additionalMasters": [
       "elements_base_maitre"
     ]
@@ -5116,15 +5161,17 @@ window.RECIPES = {
       {
         "group": "Variante pâte sucrée",
         "items": [
-          "100g farine",
-          "50g beurre mou",
-          "40g sucre",
-          "25g œuf"
+          "250g farine T55",
+          "150g beurre souple",
+          "95g sucre glace",
+          "30g poudre d’amandes ou de noisettes",
+          "60g œuf",
+          "2 pincées sel fin"
         ],
         "steps": [
-                  "Cremer beurre mou et sucre, puis incorporer l oeuf.",
-                  "Ajouter la farine et melanger juste assez pour former une pate homogene.",
-                  "Former un disque, refroidir 30min, etaler a 3-4mm puis cuire a blanc selon la tarte."
+                  "Assouplir le beurre, puis mélanger avec sucre glace, poudre d’amandes, œuf et sel.",
+                  "Ajouter la farine et mélanger lentement juste assez pour l’incorporer.",
+                  "Étaler entre deux feuilles sur 2 à 3mm, refroidir au moins 1h, foncer puis cuire à 170°C selon la tarte."
         ]
       }
     ],
