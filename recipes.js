@@ -778,6 +778,11 @@ window.RECIPES = {
           "45g huile neutre",
           "10g jus de citron",
           "Sel, poivre du moulin"
+        ],
+        "steps": [
+                  "Mixer basilic, parmesan, pignons grilles, ail, jus de citron et les deux huiles par impulsions courtes.",
+                  "Assaisonner avec sel et poivre du moulin, puis ajuster citron ou huile selon la texture.",
+                  "Utiliser aussitot en salade ou reserver sous une fine couche d huile."
         ]
       },
       {
@@ -790,6 +795,11 @@ window.RECIPES = {
           "1 petite gousse d'ail",
           "100–120g huile d'olive EV",
           "2–3g sel"
+        ],
+        "steps": [
+                  "Piler ou mixer basilic Genovese, ail, pignons et sel sans chauffer la preparation.",
+                  "Ajouter Parmigiano, Pecorino et huile d olive progressivement jusqu a texture souple.",
+                  "Gouter, ajuster le sel, puis utiliser rapidement ou couvrir d huile au frais."
         ]
       }
     ],
@@ -1040,6 +1050,11 @@ window.RECIPES = {
         "items": [
           "800g pommes de terre en dés de 2 à 3cm",
           "Cuisson : 35 à 45min à 200°C chaleur tournante"
+        ],
+        "steps": [
+                  "Prechauffer le four a 200C chaleur tournante avec la plaque.",
+                  "Tailler les pommes de terre en des de 2 a 3cm, puis les enrober avec huile, sel, poivre du moulin et aromates.",
+                  "Etaler en une seule couche et rotir 35 a 45min, en retournant a mi-cuisson, jusqu au coeur tendre et aux bords dores."
         ]
       },
       {
@@ -1047,6 +1062,11 @@ window.RECIPES = {
         "items": [
           "700g patate douce en dés de 2 à 3cm",
           "Cuisson : 25 à 35min à 200°C chaleur tournante"
+        ],
+        "steps": [
+                  "Prechauffer le four a 200C chaleur tournante.",
+                  "Tailler la patate douce en des de 2 a 3cm et l enrober d huile, sel, poivre du moulin et paprika ou thym.",
+                  "Rotir 25 a 35min en retournant delicatement a mi-cuisson, jusqu a coloration sans ecraser les morceaux."
         ]
       },
       {
@@ -1054,6 +1074,11 @@ window.RECIPES = {
         "items": [
           "700g carottes ou panais en bâtonnets réguliers",
           "Cuisson : 22 à 35min à 200°C chaleur tournante"
+        ],
+        "steps": [
+                  "Prechauffer le four a 200C chaleur tournante.",
+                  "Couper carottes ou panais en batonnets reguliers et bien les enrober d huile, sel, poivre du moulin et herbes.",
+                  "Rotir 22 a 35min, retourner a mi-cuisson et arreter quand les pointes sont caramelisees et le centre tendre."
         ]
       },
       {
@@ -1061,6 +1086,11 @@ window.RECIPES = {
         "items": [
           "700g betterave ou céleri-rave en dés de 2 à 3cm",
           "Cuisson : 30 à 45min à 200°C chaleur tournante"
+        ],
+        "steps": [
+                  "Prechauffer le four a 200C chaleur tournante.",
+                  "Tailler betterave ou celeri-rave en des de 2 a 3cm, puis assaisonner genereusement.",
+                  "Rotir 30 a 45min en retournant a mi-cuisson; prolonger si la pointe d un couteau resiste encore."
         ]
       },
       {
@@ -1068,6 +1098,11 @@ window.RECIPES = {
         "items": [
           "700g courge ou butternut en dés de 2 à 3cm",
           "Cuisson : 25 à 35min à 200°C chaleur tournante"
+        ],
+        "steps": [
+                  "Prechauffer le four a 200C chaleur tournante.",
+                  "Couper courge ou butternut en des de 2 a 3cm, enrober d huile, sel, poivre du moulin et epices douces.",
+                  "Rotir 25 a 35min, retourner a mi-cuisson et servir quand les aretes sont dorees et la chair fondante."
         ]
       },
       {
@@ -1075,6 +1110,11 @@ window.RECIPES = {
         "items": [
           "650g brocoli ou chou-fleur en fleurettes, ou choux de Bruxelles coupés en deux",
           "Cuisson : 15 à 25min à 200°C chaleur tournante"
+        ],
+        "steps": [
+                  "Prechauffer le four a 200C chaleur tournante.",
+                  "Detailler brocoli ou chou-fleur en fleurettes, ou couper les choux de Bruxelles en deux, puis assaisonner.",
+                  "Rotir 15 a 25min, face coupee contre la plaque pour les choux, jusqu aux pointes grillees et au coeur juste tendre."
         ]
       },
       {
@@ -1082,6 +1122,11 @@ window.RECIPES = {
         "items": [
           "700g poivron en lanières, courgette en quartiers ou aubergine en dés de 2 à 3cm",
           "Cuisson : 18 à 35min à 200°C chaleur tournante"
+        ],
+        "steps": [
+                  "Prechauffer le four a 200C chaleur tournante.",
+                  "Tailler poivron en lanieres, courgette en quartiers ou aubergine en des de 2 a 3cm, puis enrober sans trop saler.",
+                  "Rotir 18 a 35min selon le legume, retourner une fois et sortir quand l eau de vegetation s est concentree."
         ]
       },
       {
@@ -1089,6 +1134,11 @@ window.RECIPES = {
         "items": [
           "650g oignons ou fenouil en quartiers, ou poireaux en tronçons de 3 à 4cm",
           "Cuisson : 20 à 35min à 200°C chaleur tournante"
+        ],
+        "steps": [
+                  "Prechauffer le four a 200C chaleur tournante.",
+                  "Couper oignons ou fenouil en quartiers, ou poireaux en troncons de 3 a 4cm, puis huiler legerement.",
+                  "Rotir 20 a 35min, retourner avec precaution et arreter quand les bords sont bien caramelises."
         ]
       },
       {
@@ -1096,6 +1146,11 @@ window.RECIPES = {
         "items": [
           "600g asperges parées, haricots verts bien secs ou champignons en gros quartiers",
           "Cuisson : 10 à 18min à 200°C chaleur tournante"
+        ],
+        "steps": [
+                  "Prechauffer le four a 200C chaleur tournante.",
+                  "Parer les asperges, secher les haricots verts ou couper les champignons en gros quartiers, puis assaisonner.",
+                  "Rotir 10 a 18min seulement, en surveillant des 10min pour garder du relief et eviter le dessechement."
         ]
       },
       {
@@ -1103,6 +1158,11 @@ window.RECIPES = {
         "items": [
           "700g tomates Roma coupées en deux",
           "Cuisson : 20 à 25min à 200°C chaleur tournante"
+        ],
+        "steps": [
+                  "Prechauffer le four a 200C chaleur tournante.",
+                  "Couper les tomates Roma en deux, assaisonner la face coupee avec huile, sel, poivre du moulin et thym.",
+                  "Rotir 20 a 25min face coupee vers le haut, jusqu au jus concentre et aux bords legerement fripes."
         ]
       }
     ],
@@ -1158,6 +1218,11 @@ window.RECIPES = {
           "2g origan",
           "2g ail râpé",
           "Sel / poivre du moulin"
+        ],
+        "steps": [
+                  "Melanger huile d olive, jus et zeste de citron, origan, ail, sel et poivre du moulin.",
+                  "Enrober viande, poisson ou legumes puis laisser mariner 20min a 2h selon le produit.",
+                  "Egoutter legerement avant cuisson pour eviter que l ail brule."
         ]
       },
       {
@@ -1169,6 +1234,11 @@ window.RECIPES = {
           "10g vinaigre de riz",
           "2g gingembre",
           "1g ail"
+        ],
+        "steps": [
+                  "Melanger sauce soja, mirin, sucre, vinaigre de riz, gingembre et ail.",
+                  "Laisser dissoudre le sucre, puis enrober la piece a mariner 20min a 1h.",
+                  "Cuire en surveillant la coloration car le sucre caramelise vite."
         ]
       },
       {
@@ -1180,6 +1250,11 @@ window.RECIPES = {
           "2g ail",
           "2g gingembre",
           "Sel"
+        ],
+        "steps": [
+                  "Melanger yaourt grec, epices tandoori, citron, ail, gingembre et sel.",
+                  "Enrober la volaille ou les legumes et laisser mariner au frais 1 a 6h.",
+                  "Retirer l exces de marinade avant cuisson forte pour obtenir une belle coloration."
         ]
       },
       {
@@ -1191,6 +1266,11 @@ window.RECIPES = {
           "10g vinaigre de cidre",
           "2g paprika fumé",
           "1g ail"
+        ],
+        "steps": [
+                  "Melanger ketchup, sauce soja, miel, vinaigre, paprika fume et ail.",
+                  "Badigeonner la piece et laisser mariner 30min a 2h.",
+                  "Cuire a chaleur moderee puis laquer en fin de cuisson pour eviter de bruler le miel."
         ]
       },
       {
@@ -1203,6 +1283,11 @@ window.RECIPES = {
           "2g cumin",
           "1g paprika",
           "1g ail"
+        ],
+        "steps": [
+                  "Melanger huile d olive, citron, coriandre, persil, cumin, paprika et ail.",
+                  "Enrober poisson, legumes ou volaille et laisser mariner 20min a 1h.",
+                  "Cuire sans trop egoutter pour garder le parfum des herbes."
         ]
       },
       {
@@ -1213,6 +1298,11 @@ window.RECIPES = {
           "5g moutarde",
           "herbes fraîches",
           "Sel / poivre du moulin"
+        ],
+        "steps": [
+                  "Melanger huile neutre, jus de citron, moutarde, herbes fraiches, sel et poivre du moulin.",
+                  "Enrober la volaille et laisser mariner 30min a 4h au frais.",
+                  "Egoutter legerement puis cuire jusqu a coeur juteux et surface doree."
         ]
       },
       {
@@ -1223,6 +1313,11 @@ window.RECIPES = {
           "10g sauce soja",
           "10g vinaigre",
           "1g ail"
+        ],
+        "steps": [
+                  "Melanger miel, moutarde, sauce soja, vinaigre et ail.",
+                  "Enrober le porc et laisser mariner 1 a 6h au frais.",
+                  "Cuire a feu modere en retournant souvent pour ne pas bruler le miel."
         ]
       },
       {
@@ -1234,6 +1329,11 @@ window.RECIPES = {
           "2g paprika",
           "1g piment",
           "1g ail"
+        ],
+        "steps": [
+                  "Melanger huile, citron vert, cumin, paprika, piment et ail.",
+                  "Enrober viande, crevettes ou legumes et laisser mariner 20min a 2h.",
+                  "Cuire a feu vif pour marquer, puis finir plus doucement si les morceaux sont epais."
         ]
       },
       {
@@ -1245,6 +1345,11 @@ window.RECIPES = {
           "2g citronnelle hachée",
           "1g sucre",
           "piment"
+        ],
+        "steps": [
+                  "Melanger huile, nuoc-mam, citron vert, citronnelle, sucre et piment.",
+                  "Enrober poisson, poulet ou legumes et laisser mariner 20min a 1h.",
+                  "Cuire rapidement et finir avec un trait de citron vert si besoin."
         ]
       },
       {
@@ -1255,6 +1360,11 @@ window.RECIPES = {
           "2g miel",
           "1g ail",
           "Thym"
+        ],
+        "steps": [
+                  "Melanger huile d olive, balsamique, miel, ail et thym.",
+                  "Enrober les legumes avant cuisson en gardant une couche fine.",
+                  "Rotir ou griller; remuer a mi-cuisson et surveiller la caramelisation du balsamique."
         ]
       }
     ],
@@ -1314,12 +1424,22 @@ window.RECIPES = {
           "100g fromage râpé",
           "15g moutarde à l’ancienne (option)"
         ],
+        "steps": [
+                  "Preparer la pate a cookies sales de base, puis incorporer les des de jambon, le fromage rape et la moutarde si utilisee.",
+                  "Former des boules regulieres et refroidir 20 a 30min pour limiter l etalement.",
+                  "Cuire jusqu aux bords dores et au centre encore tendre, puis laisser tiedir sur plaque avant de deplacer."
+        ],
         "note": "Astuce : garde les dés de jambon assez petits pour que les cookies se tiennent bien."
       },
       {
         "group": "Variante comté",
         "items": [
           "120g comté râpé"
+        ],
+        "steps": [
+                  "Preparer la pate a cookies sales de base, puis incorporer le comte rape sans trop travailler.",
+                  "Former les cookies et refroidir 20 a 30min pour garder une forme epaisse.",
+                  "Cuire jusqu a legere coloration et laisser reposer 5min sur plaque pour que le fromage se stabilise."
         ],
         "note": "Astuce : utilise un comté bien râpé pour une répartition régulière dans la pâte."
       }
@@ -1365,6 +1485,11 @@ window.RECIPES = {
           "110g œufs (2 œufs moyens)",
           "300g lait",
           "40g beurre fondu"
+        ],
+        "steps": [
+                  "Fouetter les oeufs avec le lait, puis ajouter le beurre fondu tiede.",
+                  "Verser sur les ingredients secs et melanger juste assez pour garder une pate epaisse.",
+                  "Cuire les pancakes sur poele chaude graissee, retourner quand les bulles percent la surface."
         ]
       },
       {
@@ -1373,6 +1498,11 @@ window.RECIPES = {
           "110g œufs (2 œufs moyens)",
           "300g babeurre",
           "40g beurre fondu"
+        ],
+        "steps": [
+                  "Fouetter les oeufs avec le babeurre, puis ajouter le beurre fondu tiede.",
+                  "Verser sur les ingredients secs et melanger peu pour garder le moelleux du babeurre.",
+                  "Cuire a feu moyen; retourner quand les bords se tiennent et que le dessus bulle."
         ]
       },
       {
@@ -2840,10 +2970,10 @@ window.RECIPES = {
       {
         "group": "Pâte sucrée",
         "items": [
-          "100g farine",
-          "50g beurre mou",
-          "40g sucre",
-          "25g œuf"
+          "200g farine",
+          "100g beurre mou",
+          "80g sucre",
+          "50g œuf"
         ],
         "recipeId": "pate_sucree"
       },
@@ -4798,6 +4928,11 @@ window.RECIPES = {
           "30ml sauce Worcestershire",
           "1 c. à café oignon en poudre",
           "1 c. à café ail en poudre"
+        ],
+        "steps": [
+                  "Melanger mayonnaise, cassonade, Worcestershire, oignon et ail en poudre.",
+                  "Fouetter 30s pour dissoudre le sucre, puis rectifier sel et poivre du moulin.",
+                  "Reserver 20min au frais avant service pour arrondir le gout."
         ]
       },
       {
@@ -4809,6 +4944,11 @@ window.RECIPES = {
           "1 c. à café ail en poudre",
           "1 c. à café oignon en poudre",
           "1/2 c. à café poivre du moulin"
+        ],
+        "steps": [
+                  "Melanger mayonnaise, paprika, Cayenne, ail, oignon et poivre du moulin.",
+                  "Gouter puis ajuster le piment par petites touches.",
+                  "Reserver 20min au frais; servir avec burger croustillant ou frites chaudes."
         ]
       },
       {
@@ -4820,6 +4960,11 @@ window.RECIPES = {
           "1/4 c. à café poivre du moulin",
           "1 c. à soupe vinaigre de cidre",
           "2 c. à soupe miel"
+        ],
+        "steps": [
+                  "Melanger mayonnaise, moutarde, ail en poudre, poivre du moulin, vinaigre de cidre et miel.",
+                  "Fouetter jusqu a sauce lisse et brillante.",
+                  "Reserver 20min au frais, puis ajuster miel ou vinaigre selon l equilibre voulu."
         ]
       },
       {
@@ -4833,6 +4978,11 @@ window.RECIPES = {
           "1/2 c. à café ail en poudre",
           "1/2 c. à café oignon en poudre",
           "1/2 c. à café paprika"
+        ],
+        "steps": [
+                  "Melanger mayonnaise, relish, moutarde jaune, vinaigre, sucre, ail, oignon et paprika.",
+                  "Laisser le sucre se dissoudre puis gouter l acidite.",
+                  "Reserver 20min au frais pour que le relish parfume toute la sauce."
         ]
       },
       {
@@ -4843,6 +4993,11 @@ window.RECIPES = {
           "1 c. à soupe moutarde jaune",
           "1 c. à café sauce barbecue",
           "1 c. à café jus de citron"
+        ],
+        "steps": [
+                  "Melanger mayonnaise, ketchup, moutarde jaune, sauce barbecue et jus de citron.",
+                  "Fouetter jusqu a couleur homogene.",
+                  "Reserver 10 a 20min au frais et servir en dip pour frites ou nuggets."
         ]
       }
     ],
@@ -4883,6 +5038,11 @@ window.RECIPES = {
           "60ml eau glacée",
           "12g sucre",
           "1/4 c. à café sel"
+        ],
+        "steps": [
+                  "Sabler farine, sucre, sel et beurre froid du bout des doigts.",
+                  "Ajouter l eau glacee juste assez pour rassembler la pate sans la petrir.",
+                  "Former un disque, refroidir 30min, foncer puis cuire a blanc selon la garniture."
         ]
       },
       {
@@ -4891,6 +5051,11 @@ window.RECIPES = {
           "125g biscuits graham émiettés",
           "60g beurre fondu",
           "50g sucre"
+        ],
+        "steps": [
+                  "Melanger biscuits graham emiettes, sucre et beurre fondu.",
+                  "Tasser fermement dans le moule en remontant sur les bords.",
+                  "Refroidir 20min ou precuire 8 a 10min a 170C pour une base plus solide."
         ]
       },
       {
@@ -4898,6 +5063,11 @@ window.RECIPES = {
         "items": [
           "200g biscuits Oreo écrasés",
           "75g beurre fondu"
+        ],
+        "steps": [
+                  "Melanger les Oreo ecrases avec le beurre fondu.",
+                  "Tasser en couche reguliere dans le moule ou le cercle.",
+                  "Refroidir 20min ou precuire 8min a 170C si la garniture est humide."
         ]
       },
       {
@@ -4907,6 +5077,11 @@ window.RECIPES = {
           "60g beurre fondu",
           "12g sucre",
           "1/4 c. à café sel"
+        ],
+        "steps": [
+                  "Melanger poudre d amande, sucre, sel et beurre fondu.",
+                  "Tasser la pate dans le moule en epaisseur reguliere.",
+                  "Refroidir 20min puis precuire 8 a 12min a 170C jusqu a legere coloration."
         ]
       },
       {
@@ -4916,6 +5091,11 @@ window.RECIPES = {
           "60g beurre",
           "30g sucre glace",
           "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille"
+        ],
+        "steps": [
+                  "Cremer beurre, sucre glace et vanille, puis incorporer la farine sans trop travailler.",
+                  "Tasser ou etaler dans le moule, puis refroidir 30min.",
+                  "Cuire a blanc a 170C jusqu a blond dore avant de garnir."
         ]
       },
       {
@@ -4926,6 +5106,11 @@ window.RECIPES = {
           "60g beurre",
           "1/4 c. à café sel",
           "45ml eau glacée"
+        ],
+        "steps": [
+                  "Sabler farine, sel, beurre et cheddar rape.",
+                  "Ajouter l eau glacee progressivement pour former une pate souple.",
+                  "Refroidir 30min, foncer puis precuire jusqu a legere coloration avant garniture salee."
         ]
       },
       {
@@ -4935,6 +5120,11 @@ window.RECIPES = {
           "50g beurre mou",
           "40g sucre",
           "25g œuf"
+        ],
+        "steps": [
+                  "Cremer beurre mou et sucre, puis incorporer l oeuf.",
+                  "Ajouter la farine et melanger juste assez pour former une pate homogene.",
+                  "Former un disque, refroidir 30min, etaler a 3-4mm puis cuire a blanc selon la tarte."
         ]
       }
     ],
@@ -5142,6 +5332,11 @@ window.RECIPES = {
           "Sel fin",
           "Option : 1 à 2 c. à soupe de jus de viande"
         ],
+        "steps": [
+                  "Concasser les poivres, ciseler l echalote et faire suer dans huile ou graisse de cuisson.",
+                  "Flamber au cognac, reduire avec vin blanc ou Madere, puis ajouter le fond de veau reduit.",
+                  "Cremer, reduire a texture nappante, monter au beurre froid et finir avec poivre vert et jus de viande si disponible."
+        ],
         "note": "Cuisson : torréfier les poivres 30 à 45 secondes, réduire le fond 8 à 12 minutes, puis réduire avec la crème 4 à 6 minutes."
       },
       {
@@ -5153,6 +5348,11 @@ window.RECIPES = {
           "1 c. à soupe de poivre vert",
           "Poivre noir concassé",
           "20g de beurre froid"
+        ],
+        "steps": [
+                  "Reduire le cognac dans la poele ou une petite casserole.",
+                  "Ajouter fond de veau, creme, poivre vert et poivre concasse, puis mijoter jusqu a texture nappante.",
+                  "Hors du feu, monter au beurre froid et servir aussitot."
         ],
         "note": "Cuisson : déglacer la poêle, ajouter fond, crème et poivres, réduire 5 minutes puis monter au beurre froid."
       },
@@ -5168,6 +5368,11 @@ window.RECIPES = {
           "100ml de bouillon de bœuf ou volaille",
           "Sel"
         ],
+        "steps": [
+                  "Faire suer l echalote au beurre, ajouter le poivre concasse puis deglacer au cognac, whisky ou vin blanc.",
+                  "Ajouter bouillon, creme et moutarde, puis reduire doucement.",
+                  "Saler en fin de cuisson et servir quand la sauce nappe la cuillere."
+        ],
         "note": "Cuisson : réduire le bouillon 3 à 5 minutes, puis mijoter avec crème et moutarde 5 à 8 minutes."
       },
       {
@@ -5177,6 +5382,11 @@ window.RECIPES = {
           "1 c. à café de moutarde",
           "1 à 2 c. à café de poivre concassé",
           "1/2 cube de bouillon émietté"
+        ],
+        "steps": [
+                  "Chauffer la creme avec la moutarde, le poivre concasse et le demi-cube emiette.",
+                  "Mijoter 3 a 5min en remuant pour dissoudre et epaissir legerement.",
+                  "Gouter avant de saler, puis servir chaud."
         ],
         "note": "Cuisson : chauffer doucement et laisser réduire environ 5 minutes."
       }
@@ -5700,6 +5910,11 @@ window.RECIPES = {
           "Estragon",
           "Échalote très finement ciselée",
           "Un peu de jus de citron"
+        ],
+        "steps": [
+                  "Preparer une mayonnaise ferme.",
+                  "Ajouter capres, cornichons, persil, estragon, echalote et un peu de jus de citron.",
+                  "Melanger, gouter l acidite, puis reserver 15min au frais."
         ]
       },
       {
@@ -5711,6 +5926,11 @@ window.RECIPES = {
           "Paprika fumé",
           "Une pointe de piment",
           "Quelques gouttes de vinaigre"
+        ],
+        "steps": [
+                  "Preparer une mayonnaise ferme.",
+                  "Incorporer concentre de tomate, poivron rouge roti mixe, paprika fume, piment et vinaigre.",
+                  "Mixer ou fouetter jusqu a sauce homogene, puis reserver au frais."
         ]
       }
     ],
@@ -6056,6 +6276,11 @@ window.RECIPES = {
           "6g sel fin",
           "1 feuille de laurier",
           "Poivre du moulin"
+        ],
+        "steps": [
+                  "Porter eau, vinaigre, sucre, sel, laurier et poivre du moulin a fremissement, puis refroidir la marinade.",
+                  "Ajouter la betterave cuite et les blancs d oeufs cuits, puis laisser colorer au frais.",
+                  "Garnir les demi-oeufs avec la farce mimosa juste avant service."
         ]
       },
       {
@@ -6084,6 +6309,11 @@ window.RECIPES = {
           "180g crevettes décortiquées et nettoyées",
           "Sel fin",
           "Poivre du moulin"
+        ],
+        "steps": [
+                  "Mixer chair d avocat, jaunes cuits, citron vert, mayonnaise, creme, moutarde et piment d Espelette.",
+                  "Assaisonner, puis garnir les blancs d oeufs avec cette creme.",
+                  "Ajouter les crevettes decortiquees et servir bien frais."
         ]
       },
       {
@@ -6216,6 +6446,11 @@ window.RECIPES = {
           "20g jaune d’œuf",
           "220g eau gazeuse glacée",
           "3g sel fin"
+        ],
+        "steps": [
+                  "Melanger farine, fecule et sel, puis ajouter jaune d oeuf et eau gazeuse glacee au dernier moment.",
+                  "Garder une pate irreguliere et tres froide, puis tremper les calamars bien secs.",
+                  "Frire immediatement en petites fournees dans une huile chaude jusqu a beignets pales, legers et croustillants."
         ]
       }
     ],
@@ -6947,6 +7182,11 @@ window.RECIPES = {
           "Sel fin",
           "Poivre du moulin",
           "Fleur de sel optionnelle"
+        ],
+        "steps": [
+                  "Egoutter les frites tres chaudes et les deposer dans un grand saladier.",
+                  "Assaisonner aussitot avec sel fin, poivre du moulin et fleur de sel si utilisee.",
+                  "Secouer 10s pour repartir sans casser, puis servir immediatement."
         ]
       },
       {
@@ -6958,6 +7198,11 @@ window.RECIPES = {
           "15g huile d’olive ou 20g beurre fondu",
           "Sel fin",
           "Poivre du moulin"
+        ],
+        "steps": [
+                  "Melanger ail rape avec huile d olive ou beurre fondu.",
+                  "Verser sur les frites tres chaudes, secouer, puis ajouter parmesan et persil.",
+                  "Servir tout de suite pour garder le parmesan fondant et les frites croustillantes."
         ]
       },
       {
@@ -6967,6 +7212,11 @@ window.RECIPES = {
           "30g oignons verts émincés",
           "Poivre du moulin",
           "Sel fin si nécessaire"
+        ],
+        "steps": [
+                  "Deposer les frites chaudes dans un plat compatible four.",
+                  "Ajouter le cheddar rape et passer 2 a 3min sous le gril ou a 200C pour fondre.",
+                  "Finir avec oignons verts, poivre du moulin et sel si necessaire, puis servir aussitot."
         ]
       },
       {
@@ -6985,6 +7235,11 @@ window.RECIPES = {
           "1,5g ail en poudre",
           "Sel fin",
           "Poivre du moulin optionnel"
+        ],
+        "steps": [
+                  "Melanger paprika, Cayenne, ail en poudre, sel et poivre du moulin dans un bol.",
+                  "Ajouter ce melange aux frites des la sortie de cuisson.",
+                  "Secouer rapidement pour enrober uniformement et servir immediatement."
         ]
       },
       {
@@ -6995,6 +7250,11 @@ window.RECIPES = {
           "30g oignons verts émincés",
           "60g crème aigre ou crème fraîche épaisse citronnée",
           "Poivre du moulin"
+        ],
+        "steps": [
+                  "Deposer les frites chaudes dans un plat, couvrir de cheddar et faire fondre 2 a 3min sous le gril ou a 200C.",
+                  "Ajouter bacon croustillant et oignons verts.",
+                  "Terminer avec creme aigre, poivre du moulin et servir sans attendre."
         ]
       },
       {
@@ -7015,6 +7275,11 @@ window.RECIPES = {
           "Sel fin",
           "Poivre du moulin",
           "0,5g piment de Cayenne optionnel"
+        ],
+        "steps": [
+                  "Preparer des frites de patate douce bien chaudes.",
+                  "Melanger paprika, ail en poudre, sel, poivre du moulin et Cayenne optionnel.",
+                  "Enrober delicatement les frites au dernier moment et servir avec la sauce fraiche conseillee."
         ]
       },
       {

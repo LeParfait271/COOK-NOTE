@@ -1641,7 +1641,7 @@ a {
 .recipe-tabs {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto 12px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
 }
 
@@ -1650,6 +1650,7 @@ a {
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 6px;
   align-items: center;
+  min-width: 0;
   min-height: 40px;
   border: 1px solid var(--line);
   border-radius: 7px;
@@ -1657,6 +1658,14 @@ a {
   color: var(--muted);
   font-weight: 900;
   padding: 0 10px;
+}
+
+.recipe-tabs button span {
+  min-width: 0;
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .recipe-tabs small {
@@ -2402,6 +2411,12 @@ a {
   font-weight: 950;
   text-align: left;
   cursor: pointer;
+}
+
+.ingredient-group-toggle span:first-child,
+.ingredient-group-link {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .ingredient-group-toggle:hover,
@@ -4064,8 +4079,29 @@ a {
     position: sticky;
     top: 96px;
     z-index: 19;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
+  }
+
+  .recipe-tabs button {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 2px;
+    min-width: 0;
+    padding: 5px 4px;
+    line-height: 1.05;
+  }
+
+  .recipe-tabs button span {
+    font-size: 11px;
+  }
+
+  .recipe-tabs small {
+    min-width: 18px;
+    padding: 1px 5px;
+    font-size: 10px;
   }
 
   .toast-stack {

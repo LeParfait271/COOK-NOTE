@@ -279,6 +279,13 @@ if (!recipes || typeof recipes !== 'object') {
     if (variantishGroups.length >= 2 && !recipe.variantGroups) {
       errors.push(`${id}: groupes de variantes sans variantGroups=true.`);
     }
+    if (recipe.variantGroups) {
+      variantishGroups.forEach(group => {
+        if (!Array.isArray(group.steps) || group.steps.length < 2) {
+          errors.push(`${id}: groupe de variante sans etapes personnalisees (${group.group}).`);
+        }
+      });
+    }
 
     (recipe.ingredients || []).forEach((group, groupIndex) => {
       if (NON_INGREDIENT_GROUP_RE.test(normalizeComparable(group.group || ''))) {
