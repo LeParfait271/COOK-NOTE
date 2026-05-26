@@ -4925,7 +4925,7 @@ function App() {
             targetTechniqueId,
             goHome
           })
-      : h(HomeView, {
+        : h(HomeView, {
           favorites,
           sections,
           recipesById,
@@ -4941,6 +4941,11 @@ function App() {
           clearFavoriteView: () => { setOnlyFavorites(false); setFavoriteCollection(''); },
           setTagFilter
         }),
+    h('footer', { className: 'site-footer' },
+      h('p', { className: 'site-footer-brand' }, 'Cook Note © 2026.'),
+      h('p', null, 'Carnet personnel de recettes et techniques culinaires.'),
+      h('p', null, 'Développé par MaruChiwa.')
+    ),
     h(ShoppingBasketPanel, {
       open: shoppingOpen,
       onClose: () => setShoppingOpen(false),

@@ -129,6 +129,27 @@ a {
   transition-duration: .01ms !important;
 }
 
+.site-footer {
+  max-width: 1120px;
+  margin: 56px auto 0;
+  padding: 28px clamp(18px, 4vw, 32px) calc(32px + env(safe-area-inset-bottom));
+  border-top: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+  color: color-mix(in srgb, var(--muted) 88%, var(--text));
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+  font-size: .88rem;
+  line-height: 1.7;
+}
+
+.site-footer-brand {
+  color: var(--text);
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
 .topbar {
   position: sticky;
   top: 0;
