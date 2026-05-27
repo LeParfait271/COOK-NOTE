@@ -1,17 +1,17 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v73
+//  Cook Note - Service Worker PWA v74
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v73';
+const CACHE_NAME = 'cook-note-v74';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=73',
-  '/recipes.js?v=73',
-  '/style.css?v=73',
+  '/app.js?v=74',
+  '/cook-recipes.js?v=74',
+  '/style.css?v=74',
   '/recipe.js',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
@@ -30,7 +30,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
       .then(() => {
-        console.log('[SW v73] Assets statiques mis en cache.');
+        console.log('[SW v74] Assets statiques mis en cache.');
       })
   );
   self.skipWaiting();
@@ -44,7 +44,7 @@ self.addEventListener('activate', (event) => {
         keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
       )
     ).then(() => {
-        console.log('[SW v73] Anciens caches supprimés.');
+        console.log('[SW v74] Anciens caches supprimés.');
     })
   );
   self.clients.claim();
@@ -82,7 +82,7 @@ self.addEventListener('fetch', (event) => {
 
   // Ces fichiers changent souvent pendant les mises à jour du carnet :
   // réseau d'abord, cache en secours si l'utilisateur est hors-ligne.
-  if (['/app.js', '/recipes.js', '/recipe.js', '/style.css', '/manifest.json'].includes(url.pathname)) {
+  if (['/app.js', '/cook-recipes.js', '/recipes.js', '/recipe.js', '/style.css', '/manifest.json'].includes(url.pathname)) {
     event.respondWith(
       fetch(event.request, { cache: 'no-store' })
         .then(response => {

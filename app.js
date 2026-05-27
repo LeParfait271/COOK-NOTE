@@ -4852,7 +4852,7 @@ function App() {
     return h('div', { className: 'mc-shell' },
       h('main', { className: 'fatal-state' },
         h('h1', null, 'Recettes introuvables'),
-        h('p', null, 'Le fichier recipes.js doit définir window.RECIPES avant app.js.')
+        h('p', null, 'Le fichier de recettes doit définir window.RECIPES avant app.js.')
       )
     );
   }

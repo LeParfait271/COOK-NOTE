@@ -20,6 +20,7 @@ const PUBLIC_ROOT_FILES = new Set([
   'manifest.json',
   'style.css',
   'app.js',
+  'cook-recipes.js',
   'recipes.js',
   'recipe.js',
   'script.js',
