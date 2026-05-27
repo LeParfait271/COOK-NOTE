@@ -78,6 +78,13 @@ TEXT_FILES_TO_SCAN.forEach(file => {
   });
 });
 
+['assets/catalog-1.js', 'assets/catalog-2.js', 'assets/catalog-3.js', 'assets/catalog-4.js'].forEach(file => {
+  const text = read(file);
+  if (/[^\x00-\x7f]/.test(text)) {
+    fail(`${file}: le catalogue frontend doit rester ASCII avec echappements unicode.`);
+  }
+});
+
 const staticAssets = staticAssetsFromServiceWorker(serviceWorker);
 if (!staticAssets) {
   fail('service-worker.js: STATIC_ASSETS introuvable.');

@@ -17,113 +17,113 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Coulis de fraise",
         "items": [
           "500g fraises",
-          "50 à 70g sucre",
+          "50 \u00e0 70g sucre",
           "15g jus de citron"
         ],
-        "note": "Astuce cuisson : 5 à 7min. Cuis peu et ajoute le citron en fin de cuisson pour garder une couleur bien rouge."
+        "note": "Astuce cuisson : 5 \u00e0 7min. Cuis peu et ajoute le citron en fin de cuisson pour garder une couleur bien rouge."
       },
       {
         "group": "Coulis de framboise",
         "items": [
           "500g framboises",
-          "80 à 100g sucre",
+          "80 \u00e0 100g sucre",
           "15g jus de citron",
           "20g eau si besoin"
         ],
-        "note": "Astuce cuisson : 5min. Ne presse pas trop fort les pépins dans la passoire, sinon le coulis peut devenir amer."
+        "note": "Astuce cuisson : 5min. Ne presse pas trop fort les p\u00e9pins dans la passoire, sinon le coulis peut devenir amer."
       },
       {
         "group": "Coulis de mangue",
         "items": [
-          "500g mangue mûre",
-          "40 à 60g sucre",
+          "500g mangue m\u00fbre",
+          "40 \u00e0 60g sucre",
           "15g jus de citron vert",
-          "30 à 60g eau ou jus d’orange"
+          "30 \u00e0 60g eau ou jus d\u2019orange"
         ],
-        "note": "Astuce cuisson : 3 à 5min. La mangue épaissit beaucoup, ajuste toujours la texture après mixage."
+        "note": "Astuce cuisson : 3 \u00e0 5min. La mangue \u00e9paissit beaucoup, ajuste toujours la texture apr\u00e8s mixage."
       },
       {
-        "group": "Coulis de pêche",
+        "group": "Coulis de p\u00eache",
         "items": [
-          "500g pêches mûres",
-          "50 à 70g sucre",
+          "500g p\u00eaches m\u00fbres",
+          "50 \u00e0 70g sucre",
           "15g jus de citron",
-          "20 à 40g eau si besoin"
+          "20 \u00e0 40g eau si besoin"
         ],
-        "note": "Astuce cuisson : 6 à 8min. Ajoute quelques gouttes de citron rapidement après découpe pour éviter l’oxydation."
+        "note": "Astuce cuisson : 6 \u00e0 8min. Ajoute quelques gouttes de citron rapidement apr\u00e8s d\u00e9coupe pour \u00e9viter l\u2019oxydation."
       },
       {
-        "group": "Coulis d’abricot",
+        "group": "Coulis d\u2019abricot",
         "items": [
-          "500g abricots mûrs",
-          "70 à 100g sucre",
+          "500g abricots m\u00fbrs",
+          "70 \u00e0 100g sucre",
           "15g jus de citron",
-          "30 à 50g eau"
+          "30 \u00e0 50g eau"
         ],
-        "note": "Astuce cuisson : 8 à 10min. L’abricot devient vite acide après cuisson, goûte toujours avant d’ajouter tout le citron."
+        "note": "Astuce cuisson : 8 \u00e0 10min. L\u2019abricot devient vite acide apr\u00e8s cuisson, go\u00fbte toujours avant d\u2019ajouter tout le citron."
       },
       {
         "group": "Coulis de myrtille",
         "items": [
           "500g myrtilles",
-          "70 à 90g sucre",
-          "10 à 15g jus de citron",
+          "70 \u00e0 90g sucre",
+          "10 \u00e0 15g jus de citron",
           "20g eau"
         ],
-        "note": "Astuce cuisson : 6 à 8min. La myrtille épaissit naturellement grâce à sa pectine, ne réduis pas trop."
+        "note": "Astuce cuisson : 6 \u00e0 8min. La myrtille \u00e9paissit naturellement gr\u00e2ce \u00e0 sa pectine, ne r\u00e9duis pas trop."
       },
       {
-        "group": "Coulis de mûre",
+        "group": "Coulis de m\u00fbre",
         "items": [
-          "500g mûres",
-          "90 à 110g sucre",
+          "500g m\u00fbres",
+          "90 \u00e0 110g sucre",
           "15g jus de citron",
-          "20 à 30g eau"
+          "20 \u00e0 30g eau"
         ],
-        "note": "Astuce cuisson : 6 à 8min. Filtre soigneusement, les pépins de mûre sont plus gênants que ceux de framboise."
+        "note": "Astuce cuisson : 6 \u00e0 8min. Filtre soigneusement, les p\u00e9pins de m\u00fbre sont plus g\u00eanants que ceux de framboise."
       },
       {
-        "group": "Coulis d’ananas",
+        "group": "Coulis d\u2019ananas",
         "items": [
           "500g ananas frais",
-          "50 à 80g sucre",
+          "50 \u00e0 80g sucre",
           "10g jus de citron vert",
-          "30 à 60g eau ou jus d’ananas"
+          "30 \u00e0 60g eau ou jus d\u2019ananas"
         ],
-        "note": "Astuce cuisson : 8 à 10min. L’ananas est fibreux, un blender puissant donne un meilleur résultat qu’un mixeur plongeant."
+        "note": "Astuce cuisson : 8 \u00e0 10min. L\u2019ananas est fibreux, un blender puissant donne un meilleur r\u00e9sultat qu\u2019un mixeur plongeant."
       },
       {
         "group": "Coulis de kiwi",
         "items": [
-          "500g kiwis mûrs",
-          "60 à 90g sucre",
+          "500g kiwis m\u00fbrs",
+          "60 \u00e0 90g sucre",
           "10g jus de citron vert"
         ],
-        "note": "Astuce cuisson : cru. Évite de cuire le kiwi longtemps, il perd sa couleur verte et peut devenir amer."
+        "note": "Astuce cuisson : cru. \u00c9vite de cuire le kiwi longtemps, il perd sa couleur verte et peut devenir amer."
       },
       {
         "group": "Coulis de pomme",
         "items": [
           "500g pommes",
-          "50 à 80g sucre",
+          "50 \u00e0 80g sucre",
           "15g jus de citron",
-          "80 à 120g eau ou jus de pomme"
+          "80 \u00e0 120g eau ou jus de pomme"
         ],
-        "note": "Astuce cuisson : 12 à 15min. La pomme donne plutôt une texture de compote fluide, détends bien après mixage pour obtenir un vrai coulis."
+        "note": "Astuce cuisson : 12 \u00e0 15min. La pomme donne plut\u00f4t une texture de compote fluide, d\u00e9tends bien apr\u00e8s mixage pour obtenir un vrai coulis."
       }
     ],
     "steps": [
-      "Règle générale : préparer les fruits.",
-      "Mettre les fruits en casserole avec le sucre et, selon le fruit, un peu d’eau ou de jus.",
-      "Cuire doucement 5 à 10min, ou suivre le temps indiqué pour le fruit choisi.",
-      "Ajouter le citron plutôt en fin de cuisson pour garder un goût frais.",
+      "R\u00e8gle g\u00e9n\u00e9rale : pr\u00e9parer les fruits.",
+      "Mettre les fruits en casserole avec le sucre et, selon le fruit, un peu d\u2019eau ou de jus.",
+      "Cuire doucement 5 \u00e0 10min, ou suivre le temps indiqu\u00e9 pour le fruit choisi.",
+      "Ajouter le citron plut\u00f4t en fin de cuisson pour garder un go\u00fbt frais.",
       "Mixer finement.",
-      "Filtrer si besoin selon les pépins, fibres ou peaux.",
-      "Ajuster la texture avec un peu d’eau ou de jus, puis corriger sucre et acidité.",
+      "Filtrer si besoin selon les p\u00e9pins, fibres ou peaux.",
+      "Ajuster la texture avec un peu d\u2019eau ou de jus, puis corriger sucre et acidit\u00e9.",
       "Refroidir rapidement et conserver au frais."
     ],
     "notes": [
-      "Finition commune : après refroidissement, vérifie toujours une texture nappante, un sucre présent mais pas dominant, une acidité assez vive pour réveiller le fruit, une bonne brillance et une conservation de 3 à 5 jours au frais ou en congélation par petites portions."
+      "Finition commune : apr\u00e8s refroidissement, v\u00e9rifie toujours une texture nappante, un sucre pr\u00e9sent mais pas dominant, une acidit\u00e9 assez vive pour r\u00e9veiller le fruit, une bonne brillance et une conservation de 3 \u00e0 5 jours au frais ou en cong\u00e9lation par petites portions."
     ],
     "tags": [
       "coulis",
@@ -143,7 +143,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ]
   },
   "ricotta_fouettee": {
-    "title": "Ricotta fouettée",
+    "title": "Ricotta fouett\u00e9e",
     "master": "sauces_assaisonnements_maitre",
     "image": "/assets/recipe-images-optimized/ricotta_fouettee_spooky.jpg",
     "categories": [
@@ -158,22 +158,22 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Base",
         "items": [
-          "250g ricotta de qualité",
-          "30g crème 35 %",
+          "250g ricotta de qualit\u00e9",
+          "30g cr\u00e8me 35 %",
           "Sel fin, poivre du moulin"
         ]
       }
     ],
     "steps": [
-      "Égoutter la ricotta si elle rend beaucoup d'eau, puis la mettre dans un bol froid.",
-      "Ajouter la crème et fouetter 2–3min jusqu'à texture lisse, brillante et aérée.",
-      "Assaisonner avec sel fin et poivre du moulin, puis goûter avant de corriger.",
-      "Réserver au froid jusqu'au dressage et ajouter l'huile, les herbes ou les garnitures au dernier moment."
+      "\u00c9goutter la ricotta si elle rend beaucoup d'eau, puis la mettre dans un bol froid.",
+      "Ajouter la cr\u00e8me et fouetter 2\u20133min jusqu'\u00e0 texture lisse, brillante et a\u00e9r\u00e9e.",
+      "Assaisonner avec sel fin et poivre du moulin, puis go\u00fbter avant de corriger.",
+      "R\u00e9server au froid jusqu'au dressage et ajouter l'huile, les herbes ou les garnitures au dernier moment."
     ],
     "notes": [
-      "Zaatar + huile d'olive ; Citron confit + aneth ; Miel + piment d'Espelette ; Truffe : 1–2 % huile de truffe.",
-      "Conservation : 2–3 j au froid.",
-      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
+      "Zaatar + huile d'olive ; Citron confit + aneth ; Miel + piment d'Espelette ; Truffe : 1\u20132 % huile de truffe.",
+      "Conservation : 2\u20133 j au froid.",
+      "Stockage : bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption : 2\u20133 jours."
     ],
     "difficultyScore": 2,
     "tags": [
@@ -189,7 +189,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ]
   },
   "huile_pimentee_pizza": {
-    "title": "Huile pimentée pour pizza",
+    "title": "Huile piment\u00e9e pour pizza",
     "master": "sauces_assaisonnements_maitre",
     "image": "/assets/recipe-images-optimized/huile_pimentee_pizza_spooky.jpg",
     "categories": [
@@ -206,42 +206,42 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "items": [
           "250g huile d'olive",
           "4 piments secs",
-          "1 gousse d'ail écrasée",
+          "1 gousse d'ail \u00e9cras\u00e9e",
           "Zeste de 1/2 citron (option)"
         ]
       }
     ],
     "steps": [
-      "Chauffer 60–70°C 10min avec piments + ail + zeste, couvrir et infuser 24h.",
+      "Chauffer 60\u201370\u00b0C 10min avec piments + ail + zeste, couvrir et infuser 24h.",
       "Filtrer."
     ],
     "notes": [
-      "Variantes : poivre de Sichuan, origan, paprika fumé.",
+      "Variantes : poivre de Sichuan, origan, paprika fum\u00e9.",
       "Conservation : 1 mois au froid.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Stockage : bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption : 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation.",
+      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "difficultyScore": 2
   },
   "cookies_sales_variantes": {
-    "title": "Cookies salés",
+    "title": "Cookies sal\u00e9s",
     "master": "apero_maitre",
     "image": "/assets/recipe-images-optimized/cookies_sales_variantes_spooky.jpg",
     "categories": [
-      "Apéro"
+      "Ap\u00e9ro"
     ],
     "seasons": [
       "Toutes saisons"
     ],
     "difficulty": "easy",
-    "yield": "18–20 pièces",
+    "yield": "18\u201320 pi\u00e8ces",
     "ingredients": [
       {
         "group": "Base commune",
         "items": [
           "150g farine",
           "75g beurre doux mou",
-          "55g œuf (1 œuf moyen)",
+          "55g \u0153uf (1 \u0153uf moyen)",
           "2g levure chimique",
           "Sel, poivre du moulin"
         ]
@@ -249,49 +249,49 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Variante jambon-fromage",
         "items": [
-          "100g jambon en dés",
-          "100g fromage râpé",
-          "15g moutarde à l’ancienne (option)"
+          "100g jambon en d\u00e9s",
+          "100g fromage r\u00e2p\u00e9",
+          "15g moutarde \u00e0 l\u2019ancienne (option)"
         ],
         "steps": [
           "Preparer la pate a cookies sales de base, puis incorporer les des de jambon, le fromage rape et la moutarde si utilisee.",
           "Former des boules regulieres et refroidir 20 a 30min pour limiter l etalement.",
           "Cuire jusqu aux bords dores et au centre encore tendre, puis laisser tiedir sur plaque avant de deplacer."
         ],
-        "note": "Astuce : garde les dés de jambon assez petits pour que les cookies se tiennent bien."
+        "note": "Astuce : garde les d\u00e9s de jambon assez petits pour que les cookies se tiennent bien."
       },
       {
-        "group": "Variante comté",
+        "group": "Variante comt\u00e9",
         "items": [
-          "120g comté râpé"
+          "120g comt\u00e9 r\u00e2p\u00e9"
         ],
         "steps": [
           "Preparer la pate a cookies sales de base, puis incorporer le comte rape sans trop travailler.",
           "Former les cookies et refroidir 20 a 30min pour garder une forme epaisse.",
           "Cuire jusqu a legere coloration et laisser reposer 5min sur plaque pour que le fromage se stabilise."
         ],
-        "note": "Astuce : utilise un comté bien râpé pour une répartition régulière dans la pâte."
+        "note": "Astuce : utilise un comt\u00e9 bien r\u00e2p\u00e9 pour une r\u00e9partition r\u00e9guli\u00e8re dans la p\u00e2te."
       }
     ],
     "steps": [
-      "Crémer beurre puis incorporer l’œuf.",
-      "Ajouter farine + levure + assaisonnement, puis les ingrédients de la variante choisie.",
-      "Former des boules, aplatir à 1cm et cuire 12–15min à 180°C."
+      "Cr\u00e9mer beurre puis incorporer l\u2019\u0153uf.",
+      "Ajouter farine + levure + assaisonnement, puis les ingr\u00e9dients de la variante choisie.",
+      "Former des boules, aplatir \u00e0 1cm et cuire 12\u201315min \u00e0 180\u00b0C."
     ],
     "notes": [
-      "Conservation : 3 j boîte hermétique.",
-      "Stockage : boîte hermétique au sec, à température ambiante. Péremption : 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Conservation : 3 j bo\u00eete herm\u00e9tique.",
+      "Stockage : bo\u00eete herm\u00e9tique au sec, \u00e0 temp\u00e9rature ambiante. P\u00e9remption : 5\u201314 jours selon humidit\u00e9; garder loin du r\u00e9frig\u00e9rateur sauf garniture fragile.",
+      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "difficultyScore": 4,
     "variantGroups": true
   },
   "chocolat_ancien": {
-    "title": "Chocolat chaud à l'ancienne",
+    "title": "Chocolat chaud \u00e0 l'ancienne",
     "master": "petit_dejeuner_maitre",
     "image": "/assets/recipe-images-optimized/chocolat_ancien_spooky.jpg",
     "categories": [
-      "Petits-déjeuners"
+      "Petits-d\u00e9jeuners"
     ],
     "seasons": [
       "Toutes saisons"
@@ -303,31 +303,31 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Base",
         "items": [
           "500g lait entier",
-          "100g crème",
-          "120g chocolat noir 66–70 %",
+          "100g cr\u00e8me",
+          "120g chocolat noir 66\u201370 %",
           "20g sucre",
-          "1 pincée sel"
+          "1 pinc\u00e9e sel"
         ]
       }
     ],
     "steps": [
-      "Chauffer le lait, la crème, le sucre et le sel dans une casserole sans faire bouillir fort.",
-      "Ajouter le chocolat noir haché hors du feu et laisser fondre 1min.",
-      "Fouetter puis remettre sur feu doux jusqu'à texture chaude et bien homogène.",
-      "Mixer quelques secondes pour émulsionner et obtenir une mousse fine.",
-      "Servir aussitôt dans des mugs chauds."
+      "Chauffer le lait, la cr\u00e8me, le sucre et le sel dans une casserole sans faire bouillir fort.",
+      "Ajouter le chocolat noir hach\u00e9 hors du feu et laisser fondre 1min.",
+      "Fouetter puis remettre sur feu doux jusqu'\u00e0 texture chaude et bien homog\u00e8ne.",
+      "Mixer quelques secondes pour \u00e9mulsionner et obtenir une mousse fine.",
+      "Servir aussit\u00f4t dans des mugs chauds."
     ],
     "notes": [
-      "Épaissir : 5–8g maïzena diluée.",
+      "\u00c9paissir : 5\u20138g ma\u00efzena dilu\u00e9e.",
       "Conservation : 2 j au froid.",
-      "Stockage : idéalement le jour même. Péremption : 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture."
+      "Stockage : id\u00e9alement le jour m\u00eame. P\u00e9remption : 24\u201348h en bo\u00eete herm\u00e9tique; r\u00e9chauffer doucement pour retrouver la texture."
     ],
     "difficultyScore": 3,
     "tags": [
       "chocolat",
       "boisson",
       "chaud",
-      "petit-déjeuner"
+      "petit-d\u00e9jeuner"
     ],
     "aliases": [
       "chocolat chaud",
@@ -336,7 +336,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ]
   },
   "mascarpone": {
-    "title": "Crème mascarpone vanille",
+    "title": "Cr\u00e8me mascarpone vanille",
     "master": "cremes_maitre",
     "image": "/assets/recipe-images-optimized/mascarpone_spooky.jpg",
     "categories": [
@@ -352,22 +352,22 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Base",
         "items": [
           "250g mascarpone",
-          "200g crème entière froide",
+          "200g cr\u00e8me enti\u00e8re froide",
           "60g sucre glace",
-          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille"
+          "vanille selon go\u00fbt ou ar\u00f4me vanille selon dosage indiqu\u00e9 sur la bouteille"
         ]
       }
     ],
     "steps": [
       "Lisser mascarpone, sucre glace et vanille.",
-      "Ajouter la crème froide.",
-      "Fouetter jusqu’à pics fermes."
+      "Ajouter la cr\u00e8me froide.",
+      "Fouetter jusqu\u2019\u00e0 pics fermes."
     ],
     "notes": [
-      "Texture plus dense, très stable.",
-      "Idéal pour un fourrage rapide.",
-      "Dosage fourrage : 30–40g par donut.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Texture plus dense, tr\u00e8s stable.",
+      "Id\u00e9al pour un fourrage rapide.",
+      "Dosage fourrage : 30\u201340g par donut.",
+      "Stockage : au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption : 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
     ],
     "tags": [
       "creme",
@@ -379,7 +379,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "difficultyScore": 3
   },
   "chantilly_gelatine": {
-    "title": "Chantilly stabilisée",
+    "title": "Chantilly stabilis\u00e9e",
     "master": "chantilly_maitre",
     "image": "/assets/recipe-images-optimized/chantilly_gelatine_spooky.jpg",
     "categories": [
@@ -394,19 +394,19 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Base",
         "items": [
-          "250g crème 35 % très froide",
+          "250g cr\u00e8me 35 % tr\u00e8s froide",
           "25g sucre glace",
-          "3g gélatine"
+          "3g g\u00e9latine"
         ]
       }
     ],
     "steps": [
-      "Hydrater gélatine 10min ; fondre dans 30g de crème chaude ; mélanger au reste froid ; refroidir 20–30min.",
+      "Hydrater g\u00e9latine 10min ; fondre dans 30g de cr\u00e8me chaude ; m\u00e9langer au reste froid ; refroidir 20\u201330min.",
       "Monter au fouet ; serrer au sucre en fin."
     ],
     "notes": [
-      "Tenue 24–36h en poche.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Tenue 24\u201336h en poche.",
+      "Stockage : au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption : 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
     ],
     "difficultyScore": 4
   },
@@ -422,32 +422,32 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Toutes saisons"
     ],
     "difficulty": "easy",
-    "yield": "20–30 petites meringues",
+    "yield": "20\u201330 petites meringues",
     "ingredients": [
       {
         "group": "Appareil",
         "items": [
-          "200g blancs d'œufs (à température ambiante)",
+          "200g blancs d'\u0153ufs (\u00e0 temp\u00e9rature ambiante)",
           "200g sucre semoule",
-          "200g sucre glace tamisé"
+          "200g sucre glace tamis\u00e9"
         ]
       }
     ],
     "steps": [
-      "Monter les blancs à vitesse moyenne jusqu'à texture mousseuse.",
-      "Ajouter progressivement le sucre semoule en fouettant jusqu'à obtenir une meringue brillante et ferme.",
-      "Incorporer délicatement le sucre glace tamisé à la maryse.",
+      "Monter les blancs \u00e0 vitesse moyenne jusqu'\u00e0 texture mousseuse.",
+      "Ajouter progressivement le sucre semoule en fouettant jusqu'\u00e0 obtenir une meringue brillante et ferme.",
+      "Incorporer d\u00e9licatement le sucre glace tamis\u00e9 \u00e0 la maryse.",
       "Pocher les meringues sur une plaque recouverte de papier cuisson.",
-      "Cuire 2 à 3h à 90–100°C jusqu'à ce qu'elles soient sèches et se décollent facilement.",
-      "Laisser refroidir dans le four éteint, porte entrouverte."
+      "Cuire 2 \u00e0 3h \u00e0 90\u2013100\u00b0C jusqu'\u00e0 ce qu'elles soient s\u00e8ches et se d\u00e9collent facilement.",
+      "Laisser refroidir dans le four \u00e9teint, porte entrouverte."
     ],
     "notes": [
       "Des blancs \"vieillis\" montent mieux.",
-      "Cuisson longue = meringues bien sèches et stables.",
-      "Stockage optimal : boîte hermétique, endroit sec, jamais au réfrigérateur.",
+      "Cuisson longue = meringues bien s\u00e8ches et stables.",
+      "Stockage optimal : bo\u00eete herm\u00e9tique, endroit sec, jamais au r\u00e9frig\u00e9rateur.",
       "Conservation : 2 semaines sans perte de texture.",
-      "Stockage : boîte hermétique au sec, à température ambiante. Péremption : 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Stockage : bo\u00eete herm\u00e9tique au sec, \u00e0 temp\u00e9rature ambiante. P\u00e9remption : 5\u201314 jours selon humidit\u00e9; garder loin du r\u00e9frig\u00e9rateur sauf garniture fragile.",
+      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "difficultyScore": 4,
     "additionalMasters": [
@@ -455,7 +455,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ]
   },
   "creme_diplomate_cloud": {
-    "title": "Crème diplomate vanille à garnir",
+    "title": "Cr\u00e8me diplomate vanille \u00e0 garnir",
     "master": "cremes_maitre",
     "categories": [
       "Desserts"
@@ -464,25 +464,25 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Toutes saisons"
     ],
     "difficulty": "medium",
-    "yield": "Garniture pour 12–14 donuts ou 18–22 choux",
+    "yield": "Garniture pour 12\u201314 donuts ou 18\u201322 choux",
     "image": "/assets/recipe-images-optimized/creme_diplomate_cloud_spooky.jpg",
     "ingredients": [
       {
-        "group": "Crème pâtissière",
+        "group": "Cr\u00e8me p\u00e2tissi\u00e8re",
         "items": [
           "250g lait entier",
-          "50g jaunes d'œufs (≈ 3 jaunes)",
+          "50g jaunes d'\u0153ufs (\u2248 3 jaunes)",
           "60g sucre",
-          "25g maïzena",
+          "25g ma\u00efzena",
           "25g beurre doux",
-          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille"
+          "vanille selon go\u00fbt ou ar\u00f4me vanille selon dosage indiqu\u00e9 sur la bouteille"
         ],
         "recipeId": "creme_patissiere_vanille"
       },
       {
         "group": "Chantilly",
         "items": [
-          "200g crème liquide entière (30–35 %) très froide",
+          "200g cr\u00e8me liquide enti\u00e8re (30\u201335 %) tr\u00e8s froide",
           "20g sucre glace"
         ],
         "recipeId": "chantilly_classique"
@@ -491,49 +491,49 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Variante mascarpone (rapide)",
         "items": [
           "250g mascarpone",
-          "200g crème liquide entière",
+          "200g cr\u00e8me liquide enti\u00e8re",
           "60g sucre glace",
           "Vanille"
         ]
       }
     ],
     "steps": [
-      "— CRÈME PÂTISSIÈRE —",
-      "Chauffer le lait avec la vanille (gratter la gousse si entière) jusqu'à frémissement.",
-      "Dans un bol, fouetter les jaunes + sucre jusqu'à blanchiment. Ajouter la maïzena, bien mélanger.",
-      "Verser le lait chaud en filet sur le mélange en fouettant constamment pour éviter la coagulation.",
-      "Remettre dans la casserole, cuire à feu moyen en remuant sans arrêt jusqu'à épaississement net (environ 1–2min après reprise de l'ébullition).",
-      "Hors du feu, incorporer le beurre en morceaux. Filmer immédiatement au contact (le film touche la crème) et refroidir complètement au réfrigérateur (minimum 2h).",
-      "— CHANTILLY —",
-      "Fouetter la crème bien froide avec le sucre glace jusqu'à texture souple mais qui tient (bec d'oiseau ferme).",
-      "— ASSEMBLAGE (crème diplomate) —",
-      "Fouetter la pâtissière froide pour la détendre et la lisser. Incorporer la chantilly délicatement à la spatule en 2–3 fois (ne pas écraser les bulles d'air).",
-      "— FOURRAGE DONUTS —",
-      "Faire un petit trou sur le côté de chaque donut tiède ou froid. Mettre la crème en poche avec une douille longue. Pocher 30–40g de crème par donut — arrêter dès qu'il devient légèrement plus lourd.",
-      "— VARIANTE MASCARPONE (si pressé) —",
-      "Fouetter mascarpone + crème + sucre glace + vanille jusqu'à texture ferme. Prêt en 3 minutes, très stable, excellente tenue."
+      "\u2014 CR\u00c8ME P\u00c2TISSI\u00c8RE \u2014",
+      "Chauffer le lait avec la vanille (gratter la gousse si enti\u00e8re) jusqu'\u00e0 fr\u00e9missement.",
+      "Dans un bol, fouetter les jaunes + sucre jusqu'\u00e0 blanchiment. Ajouter la ma\u00efzena, bien m\u00e9langer.",
+      "Verser le lait chaud en filet sur le m\u00e9lange en fouettant constamment pour \u00e9viter la coagulation.",
+      "Remettre dans la casserole, cuire \u00e0 feu moyen en remuant sans arr\u00eat jusqu'\u00e0 \u00e9paississement net (environ 1\u20132min apr\u00e8s reprise de l'\u00e9bullition).",
+      "Hors du feu, incorporer le beurre en morceaux. Filmer imm\u00e9diatement au contact (le film touche la cr\u00e8me) et refroidir compl\u00e8tement au r\u00e9frig\u00e9rateur (minimum 2h).",
+      "\u2014 CHANTILLY \u2014",
+      "Fouetter la cr\u00e8me bien froide avec le sucre glace jusqu'\u00e0 texture souple mais qui tient (bec d'oiseau ferme).",
+      "\u2014 ASSEMBLAGE (cr\u00e8me diplomate) \u2014",
+      "Fouetter la p\u00e2tissi\u00e8re froide pour la d\u00e9tendre et la lisser. Incorporer la chantilly d\u00e9licatement \u00e0 la spatule en 2\u20133 fois (ne pas \u00e9craser les bulles d'air).",
+      "\u2014 FOURRAGE DONUTS \u2014",
+      "Faire un petit trou sur le c\u00f4t\u00e9 de chaque donut ti\u00e8de ou froid. Mettre la cr\u00e8me en poche avec une douille longue. Pocher 30\u201340g de cr\u00e8me par donut \u2014 arr\u00eater d\u00e8s qu'il devient l\u00e9g\u00e8rement plus lourd.",
+      "\u2014 VARIANTE MASCARPONE (si press\u00e9) \u2014",
+      "Fouetter mascarpone + cr\u00e8me + sucre glace + vanille jusqu'\u00e0 texture ferme. Pr\u00eat en 3 minutes, tr\u00e8s stable, excellente tenue."
     ],
     "notes": [
-      "Ne jamais fourrer des donuts chauds : la crème fond et coule.",
-      "→ Recette des donuts : <span data-goto='donuts_cloud'>Donuts Cloud-like (pousse lente)</span>",
-      "→ Recette des choux : <span data-goto='choux_craquelin'>Choux au craquelin</span>",
-      "→ Version pâtissière seule : <span data-goto='creme_diplomate_vanille'>Crème diplomate vanille (recette de base)</span>",
-      "Stockage optimal pâtissière : filmée au contact dans boîte hermétique au réfrigérateur.",
-      "Conservation pâtissière seule : 48h au froid. Diplomate assemblée : 24h au froid. Mascarpone : 36–48h au froid.",
-      "Congélation : possible pour la pâtissière seule (avant incorporation chantilly) — 1 mois. Fouetter à nouveau après décongélation.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Ne jamais fourrer des donuts chauds : la cr\u00e8me fond et coule.",
+      "\u2192 Recette des donuts : <span data-goto='donuts_cloud'>Donuts Cloud-like (pousse lente)</span>",
+      "\u2192 Recette des choux : <span data-goto='choux_craquelin'>Choux au craquelin</span>",
+      "\u2192 Version p\u00e2tissi\u00e8re seule : <span data-goto='creme_diplomate_vanille'>Cr\u00e8me diplomate vanille (recette de base)</span>",
+      "Stockage optimal p\u00e2tissi\u00e8re : film\u00e9e au contact dans bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur.",
+      "Conservation p\u00e2tissi\u00e8re seule : 48h au froid. Diplomate assembl\u00e9e : 24h au froid. Mascarpone : 36\u201348h au froid.",
+      "Cong\u00e9lation : possible pour la p\u00e2tissi\u00e8re seule (avant incorporation chantilly) \u2014 1 mois. Fouetter \u00e0 nouveau apr\u00e8s d\u00e9cong\u00e9lation.",
+      "Stockage : au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption : 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
     ],
     "difficultyScore": 6
   },
   "petit_dejeuner_maitre": {
-    "title": "Petit-déjeuner",
+    "title": "Petit-d\u00e9jeuner",
     "image": "/assets/recipe-images-optimized/parent_petit_dejeuner.jpg",
     "categories": [
-      "Petits-déjeuners"
+      "Petits-d\u00e9jeuners"
     ],
     "seasons": [
       "Printemps",
-      "Été",
+      "\u00c9t\u00e9",
       "Automne",
       "Hiver"
     ],
@@ -542,7 +542,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "variants": [
       {
         "id": "chocolat_ancien",
-        "label": "Chocolat chaud à l'ancienne"
+        "label": "Chocolat chaud \u00e0 l'ancienne"
       },
       {
         "id": "gaufre_bruxelles",
@@ -550,7 +550,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "id": "oeuf_chili_crisp_toast",
-        "label": "Œuf sur le plat chili crisp sur toast"
+        "label": "\u0152uf sur le plat chili crisp sur toast"
       },
       {
         "id": "pancakes_variantes",
@@ -570,10 +570,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       }
     ],
     "steps": [
-      "Choisir une variante pour afficher les ingrédients et les étapes."
+      "Choisir une variante pour afficher les ingr\u00e9dients et les \u00e9tapes."
     ],
     "notes": [
-      "Fiche parent de navigation. Les recettes restent conservées dans leurs variantes."
+      "Fiche parent de navigation. Les recettes restent conserv\u00e9es dans leurs variantes."
     ]
   },
   "desserts_maitre": {
@@ -584,7 +584,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "seasons": [
       "Printemps",
-      "Été",
+      "\u00c9t\u00e9",
       "Automne",
       "Hiver"
     ],
@@ -601,7 +601,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "id": "carres_cremeux_citron_vert",
-        "label": "Carrés crémeux citron vert"
+        "label": "Carr\u00e9s cr\u00e9meux citron vert"
       },
       {
         "id": "choux_craquelin",
@@ -621,7 +621,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "id": "desserts_cuillere_maitre",
-        "label": "Desserts à la cuillère"
+        "label": "Desserts \u00e0 la cuill\u00e8re"
       },
       {
         "id": "paris_brest",
@@ -629,7 +629,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "id": "pate_choux",
-        "label": "Pâte à choux"
+        "label": "P\u00e2te \u00e0 choux"
       },
       {
         "id": "sauce_caramel",
@@ -653,14 +653,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       }
     ],
     "steps": [
-      "Choisir une variante pour afficher les ingrédients et les étapes."
+      "Choisir une variante pour afficher les ingr\u00e9dients et les \u00e9tapes."
     ],
     "notes": [
-      "Fiche parent de navigation. Les recettes restent conservées dans leurs variantes."
+      "Fiche parent de navigation. Les recettes restent conserv\u00e9es dans leurs variantes."
     ]
   },
   "creme_pistache": {
-    "title": "Crème pistache à garnir",
+    "title": "Cr\u00e8me pistache \u00e0 garnir",
     "master": "cremes_maitre",
     "image": "/assets/recipe-images-optimized/creme_pistache_spooky.jpg",
     "categories": [
@@ -676,20 +676,20 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Base",
         "items": [
           "250g mascarpone",
-          "180g crème entière froide",
-          "80g pâte de pistache",
+          "180g cr\u00e8me enti\u00e8re froide",
+          "80g p\u00e2te de pistache",
           "30g sucre glace"
         ]
       }
     ],
     "steps": [
-      "Lisser mascarpone, pâte de pistache et sucre glace.",
-      "Ajouter la crème froide.",
-      "Monter au fouet jusqu’à texture ferme."
+      "Lisser mascarpone, p\u00e2te de pistache et sucre glace.",
+      "Ajouter la cr\u00e8me froide.",
+      "Monter au fouet jusqu\u2019\u00e0 texture ferme."
     ],
     "notes": [
-      "Résultat attendu : crèmeux, parfumé et stable.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "R\u00e9sultat attendu : cr\u00e8meux, parfum\u00e9 et stable.",
+      "Stockage : au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption : 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
     ],
     "tags": [
       "creme",
@@ -700,7 +700,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "difficultyScore": 3
   },
   "tarte_citron_meringuee": {
-    "title": "Tarte citron meringuée",
+    "title": "Tarte citron meringu\u00e9e",
     "master": "tartes_maitre",
     "image": "/assets/recipe-images-optimized/tarte_citron_meringuee_spooky.jpg",
     "categories": [
@@ -708,42 +708,42 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "seasons": [
       "Printemps",
-      "Été"
+      "\u00c9t\u00e9"
     ],
     "difficulty": "hard",
     "yield": "1 tarte",
     "ingredients": [
       {
-        "group": "Pâte sucrée",
+        "group": "P\u00e2te sucr\u00e9e",
         "items": [
           "125g farine T55",
           "75g beurre souple",
           "48g sucre glace",
-          "15g poudre d’amandes ou de noisettes",
-          "30g œuf",
-          "1 pincée sel fin"
+          "15g poudre d\u2019amandes ou de noisettes",
+          "30g \u0153uf",
+          "1 pinc\u00e9e sel fin"
         ],
         "recipeId": "pate_sucree"
       },
       {
-        "group": "Crème d’amande",
+        "group": "Cr\u00e8me d\u2019amande",
         "items": [
           "75g beurre mou",
           "75g sucre",
-          "50g œuf",
-          "75g poudre d’amande",
-          "10g fécule pour crème d’amande",
+          "50g \u0153uf",
+          "75g poudre d\u2019amande",
+          "10g f\u00e9cule pour cr\u00e8me d\u2019amande",
           "2g zeste de citron"
         ],
         "recipeId": "creme_amande_citron"
       },
       {
-        "group": "Crème citron",
+        "group": "Cr\u00e8me citron",
         "items": [
           "40g jus de citron",
-          "90g jaunes d’œufs",
+          "90g jaunes d\u2019\u0153ufs",
           "65g sucre",
-          "5g fécule pour crème citron",
+          "5g f\u00e9cule pour cr\u00e8me citron",
           "50g beurre"
         ],
         "recipeId": "creme_citron_lemon_curd"
@@ -759,7 +759,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Meringue italienne",
         "items": [
-          "60g blancs d’œufs",
+          "60g blancs d\u2019\u0153ufs",
           "100g sucre",
           "30g eau",
           "2g sel",
@@ -769,20 +769,20 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       }
     ],
     "steps": [
-      "Pâte sucrée : assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler.",
-      "Étaler à 2–3mm entre deux feuilles, refroidir au moins 1h, foncer, reposer au froid puis cuire 10 à 15min à 170°C chaleur tournante.",
-      "Crème d’amande : mélanger beurre et sucre, ajouter œuf, poudre d’amande, fécule et zeste. Étaler 5mm dans la tarte et cuire 20–25min à 180°C.",
-      "Crème citron : chauffer le jus, fouetter jaunes et sucre, ajouter fécule, verser le jus chaud, cuire jusqu’à épaississement, ajouter beurre, filmer au contact et refroidir.",
-      "Compotée optionnelle : cuire citron et sucre, mixer, puis Étaler une fine couche sur le fond.",
-      "Montage : fond cuit, compotée optionnelle, crème citron sur 1–2cm, lisser.",
-      "Meringue italienne : cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement.",
+      "P\u00e2te sucr\u00e9e : assouplir le beurre, ajouter sucre glace, poudre d\u2019amandes, \u0153uf et sel, puis incorporer la farine lentement sans trop travailler.",
+      "\u00c9taler \u00e0 2\u20133mm entre deux feuilles, refroidir au moins 1h, foncer, reposer au froid puis cuire 10 \u00e0 15min \u00e0 170\u00b0C chaleur tournante.",
+      "Cr\u00e8me d\u2019amande : m\u00e9langer beurre et sucre, ajouter \u0153uf, poudre d\u2019amande, f\u00e9cule et zeste. \u00c9taler 5mm dans la tarte et cuire 20\u201325min \u00e0 180\u00b0C.",
+      "Cr\u00e8me citron : chauffer le jus, fouetter jaunes et sucre, ajouter f\u00e9cule, verser le jus chaud, cuire jusqu\u2019\u00e0 \u00e9paississement, ajouter beurre, filmer au contact et refroidir.",
+      "Compot\u00e9e optionnelle : cuire citron et sucre, mixer, puis \u00c9taler une fine couche sur le fond.",
+      "Montage : fond cuit, compot\u00e9e optionnelle, cr\u00e8me citron sur 1\u20132cm, lisser.",
+      "Meringue italienne : cuire sucre, eau et citron \u00e0 118\u2013120\u00b0C, verser en filet sur blancs mousseux, fouetter 5\u201310min jusqu\u2019\u00e0 refroidissement.",
       "Pocher la meringue, finir au chalumeau ou sous grill, puis reposer 1h minimum au froid."
     ],
     "notes": [
-      "Points critiques : beurre pommade non liquide, sirop à 118–120°C, verser lentement, fouetter jusqu’à refroidissement complet.",
-      "Résultat attendu : pâte croustillante, crème d’amande moelleuse, crème citron fondante, meringue légère et stable.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Points critiques : beurre pommade non liquide, sirop \u00e0 118\u2013120\u00b0C, verser lentement, fouetter jusqu\u2019\u00e0 refroidissement complet.",
+      "R\u00e9sultat attendu : p\u00e2te croustillante, cr\u00e8me d\u2019amande moelleuse, cr\u00e8me citron fondante, meringue l\u00e9g\u00e8re et stable.",
+      "Stockage : au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption : 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs.",
+      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "tags": [
       "tarte",
@@ -793,7 +793,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "difficultyScore": 8
   },
   "pate_sucree": {
-    "title": "Pâte sucrée",
+    "title": "P\u00e2te sucr\u00e9e",
     "master": "pates_bases_maitre",
     "image": "/assets/recipe-images-optimized/pate_sucree_spooky.jpg",
     "categories": [
@@ -811,60 +811,60 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
           "250g farine T55",
           "150g beurre souple",
           "95g sucre glace",
-          "30g poudre d’amandes ou de noisettes",
-          "60g œuf",
-          "2 pincées sel fin"
+          "30g poudre d\u2019amandes ou de noisettes",
+          "60g \u0153uf",
+          "2 pinc\u00e9es sel fin"
         ]
       },
       {
         "group": "Dorure / isolation optionnelle",
         "items": [
-          "1 jaune d’œuf",
-          "1 petite cuillère crème ou eau",
+          "1 jaune d\u2019\u0153uf",
+          "1 petite cuill\u00e8re cr\u00e8me ou eau",
           "Option : chocolat fondu blanc ou noir pour isoler le fond"
         ]
       }
     ],
     "steps": [
-      "Assouplir le beurre au robot avec la feuille, ou utiliser un beurre déjà souple à température ambiante.",
-      "Ajouter sucre glace, poudre d’amandes, œuf et sel, puis mélanger jusqu’à texture homogène.",
-      "Ajouter la farine et mélanger lentement juste le temps de l’incorporer, sans chercher une pâte parfaitement boule.",
-      "Étaler la pâte entre deux feuilles de papier cuisson sur 2 à 3mm d’épaisseur, sans ajouter de farine.",
-      "Réserver au réfrigérateur au moins 1h après étalage, ou filmer la pâte et la laisser reposer au moins 2h avant de l’abaisser.",
+      "Assouplir le beurre au robot avec la feuille, ou utiliser un beurre d\u00e9j\u00e0 souple \u00e0 temp\u00e9rature ambiante.",
+      "Ajouter sucre glace, poudre d\u2019amandes, \u0153uf et sel, puis m\u00e9langer jusqu\u2019\u00e0 texture homog\u00e8ne.",
+      "Ajouter la farine et m\u00e9langer lentement juste le temps de l\u2019incorporer, sans chercher une p\u00e2te parfaitement boule.",
+      "\u00c9taler la p\u00e2te entre deux feuilles de papier cuisson sur 2 \u00e0 3mm d\u2019\u00e9paisseur, sans ajouter de farine.",
+      "R\u00e9server au r\u00e9frig\u00e9rateur au moins 1h apr\u00e8s \u00e9talage, ou filmer la p\u00e2te et la laisser reposer au moins 2h avant de l\u2019abaisser.",
       "Foncer le cercle : soit avec une grande abaisse, soit avec des bandes pour les bords et un disque pour le fond.",
-      "Laisser reposer le fond foncé au réfrigérateur avant cuisson, idéalement 24h pour limiter la rétractation.",
-      "Cuire à 170°C chaleur tournante : 10 à 15min si le fond doit recuire avec une crème d’amandes, ou 15 à 20min pour un fond cuit à blanc.",
-      "Pour une finition dorée et isolée, badigeonner très finement jaune d’œuf + crème ou eau, puis remettre 5min à 170°C.",
-      "Laisser refroidir avant de garnir, puis isoler au chocolat fondu si la garniture est très humide."
+      "Laisser reposer le fond fonc\u00e9 au r\u00e9frig\u00e9rateur avant cuisson, id\u00e9alement 24h pour limiter la r\u00e9tractation.",
+      "Cuire \u00e0 170\u00b0C chaleur tournante : 10 \u00e0 15min si le fond doit recuire avec une cr\u00e8me d\u2019amandes, ou 15 \u00e0 20min pour un fond cuit \u00e0 blanc.",
+      "Pour une finition dor\u00e9e et isol\u00e9e, badigeonner tr\u00e8s finement jaune d\u2019\u0153uf + cr\u00e8me ou eau, puis remettre 5min \u00e0 170\u00b0C.",
+      "Laisser refroidir avant de garnir, puis isoler au chocolat fondu si la garniture est tr\u00e8s humide."
     ],
     "notes": [
-      "Base utilisée dans la tarte citron meringuée.",
-      "Ne travaille presque plus la pâte après ajout de la farine : trop mélanger la rend friable, fragile et plus difficile à manipuler.",
-      "La farine T55 limite mieux la rétractation à la cuisson qu’une farine trop riche en gluten.",
-      "Étaler entre deux feuilles évite d’ajouter de la farine et garde une texture plus nette.",
-      "Un tapis de cuisson perforé posé sur grille permet une cuisson plus régulière et évite souvent de piquer le fond.",
-      "Si la pâte casse au fonçage, colmate avec un morceau de pâte de même épaisseur : elle se ressoude à la cuisson.",
-      "Si les bords collent au cercle, décolle-les à chaud avec une petite lame sans retirer le cercle.",
-      "Pour une surface plus lisse, poncer très légèrement le fond cuit avec un zesteur fin.",
-      "Les chutes crues peuvent être filmées et congelées pour une autre tarte.",
-      "Stockage : pâte crue 2–3 jours au réfrigérateur ou congélation possible. Fond cuit à garder au sec en boîte hermétique."
+      "Base utilis\u00e9e dans la tarte citron meringu\u00e9e.",
+      "Ne travaille presque plus la p\u00e2te apr\u00e8s ajout de la farine : trop m\u00e9langer la rend friable, fragile et plus difficile \u00e0 manipuler.",
+      "La farine T55 limite mieux la r\u00e9tractation \u00e0 la cuisson qu\u2019une farine trop riche en gluten.",
+      "\u00c9taler entre deux feuilles \u00e9vite d\u2019ajouter de la farine et garde une texture plus nette.",
+      "Un tapis de cuisson perfor\u00e9 pos\u00e9 sur grille permet une cuisson plus r\u00e9guli\u00e8re et \u00e9vite souvent de piquer le fond.",
+      "Si la p\u00e2te casse au fon\u00e7age, colmate avec un morceau de p\u00e2te de m\u00eame \u00e9paisseur : elle se ressoude \u00e0 la cuisson.",
+      "Si les bords collent au cercle, d\u00e9colle-les \u00e0 chaud avec une petite lame sans retirer le cercle.",
+      "Pour une surface plus lisse, poncer tr\u00e8s l\u00e9g\u00e8rement le fond cuit avec un zesteur fin.",
+      "Les chutes crues peuvent \u00eatre film\u00e9es et congel\u00e9es pour une autre tarte.",
+      "Stockage : p\u00e2te crue 2\u20133 jours au r\u00e9frig\u00e9rateur ou cong\u00e9lation possible. Fond cuit \u00e0 garder au sec en bo\u00eete herm\u00e9tique."
     ],
     "technical": [
       {
-        "label": "Épaisseur",
-        "value": "2 à 3mm pour un fond fin, croustillant et régulier."
+        "label": "\u00c9paisseur",
+        "value": "2 \u00e0 3mm pour un fond fin, croustillant et r\u00e9gulier."
       },
       {
-        "label": "Repos anti-rétractation",
-        "value": "1h minimum après étalage, idéalement 24h une fois le fond foncé."
+        "label": "Repos anti-r\u00e9tractation",
+        "value": "1h minimum apr\u00e8s \u00e9talage, id\u00e9alement 24h une fois le fond fonc\u00e9."
       },
       {
         "label": "Cuisson",
-        "value": "170°C chaleur tournante, 10 à 15min avant recuisson ou 15 à 20min pour cuisson complète."
+        "value": "170\u00b0C chaleur tournante, 10 \u00e0 15min avant recuisson ou 15 \u00e0 20min pour cuisson compl\u00e8te."
       },
       {
         "label": "Isolation",
-        "value": "Dorure jaune + crème/eau ou fine couche de chocolat fondu pour protéger le croustillant des garnitures humides."
+        "value": "Dorure jaune + cr\u00e8me/eau ou fine couche de chocolat fondu pour prot\u00e9ger le croustillant des garnitures humides."
       }
     ],
     "tags": [
@@ -889,14 +889,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "seasons": [
       "Printemps",
-      "Été",
+      "\u00c9t\u00e9",
       "Automne",
       "Hiver"
     ],
     "variants": [
       {
         "id": "tarte_citron_meringuee",
-        "label": "Tarte citron meringuée"
+        "label": "Tarte citron meringu\u00e9e"
       }
     ],
     "technical": [
@@ -911,47 +911,47 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": []
   },
   "tomates_provencales": {
-    "title": "Tomates provençales",
+    "title": "Tomates proven\u00e7ales",
     "master": "tomates_maitre",
     "image": "/assets/recipe-images-optimized/tomates_provencales_spooky.jpg",
     "categories": [
       "Accompagnements"
     ],
     "seasons": [
-      "Été"
+      "\u00c9t\u00e9"
     ],
     "difficulty": "easy",
     "yield": "4 personnes",
     "aliases": [
-      "tomates provençales",
-      "tomates à la provençale"
+      "tomates proven\u00e7ales",
+      "tomates \u00e0 la proven\u00e7ale"
     ],
     "ingredients": [
       {
         "group": "Tomates",
         "items": [
-          "4 tomates mûres",
+          "4 tomates m\u00fbres",
           "25g chapelure",
-          "15g parmesan râpé",
-          "10g persil haché",
-          "1 gousse d’ail hachée",
-          "20g huile d’olive",
+          "15g parmesan r\u00e2p\u00e9",
+          "10g persil hach\u00e9",
+          "1 gousse d\u2019ail hach\u00e9e",
+          "20g huile d\u2019olive",
           "2g sel fin",
           "1g poivre du moulin"
         ]
       }
     ],
     "steps": [
-      "Préchauffer le four à 180°C.",
-      "Couper les tomates en deux, les saler légèrement et les poser dans un plat huilé.",
-      "Mélanger chapelure, parmesan, ail, persil, poivre du moulin et un filet d’huile d’olive.",
-      "Répartir la persillade sur les tomates.",
-      "Cuire 25 à 35min, jusqu’à obtenir des tomates fondantes et un dessus doré."
+      "Pr\u00e9chauffer le four \u00e0 180\u00b0C.",
+      "Couper les tomates en deux, les saler l\u00e9g\u00e8rement et les poser dans un plat huil\u00e9.",
+      "M\u00e9langer chapelure, parmesan, ail, persil, poivre du moulin et un filet d\u2019huile d\u2019olive.",
+      "R\u00e9partir la persillade sur les tomates.",
+      "Cuire 25 \u00e0 35min, jusqu\u2019\u00e0 obtenir des tomates fondantes et un dessus dor\u00e9."
     ],
     "notes": [
-      "Servir chaud, tiède ou en accompagnement d’une viande grillée.",
-      "Stockage : 2 jours au réfrigérateur, réchauffer au four doux.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Servir chaud, ti\u00e8de ou en accompagnement d\u2019une viande grill\u00e9e.",
+      "Stockage : 2 jours au r\u00e9frig\u00e9rateur, r\u00e9chauffer au four doux.",
+      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "tags": [
       "tomate",
@@ -966,7 +966,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ]
   },
   "macaron_ourea_pierre_herme": {
-    "title": "Macaron Ouréa",
+    "title": "Macaron Our\u00e9a",
     "master": "biscuits_gouters_maitre",
     "image": "/assets/recipe-images-optimized/macaron_ourea_pierre_herme_spooky.jpg",
     "categories": [
@@ -978,46 +978,46 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "difficulty": "hard",
     "yield": "20 macarons",
     "aliases": [
-      "macaron ouréa",
-      "macaron pierre hermé",
+      "macaron our\u00e9a",
+      "macaron pierre herm\u00e9",
       "macarons noisette yuzu"
     ],
     "ingredients": [
       {
         "group": "Coques",
         "items": [
-          "150g poudre d’amande",
+          "150g poudre d\u2019amande",
           "150g sucre glace",
-          "55g blancs d’œufs",
+          "55g blancs d\u2019\u0153ufs",
           "150g sucre semoule",
           "38g eau",
-          "55g blancs d’œufs pour meringue"
+          "55g blancs d\u2019\u0153ufs pour meringue"
         ]
       },
       {
         "group": "Garniture",
         "items": [
           "180g chocolat blanc",
-          "90g crème liquide",
-          "35g praliné noisette",
+          "90g cr\u00e8me liquide",
+          "35g pralin\u00e9 noisette",
           "20g jus de yuzu ou citron",
-          "25g noisettes torréfiées concassées"
+          "25g noisettes torr\u00e9fi\u00e9es concass\u00e9es"
         ]
       }
     ],
     "steps": [
-      "Mixer puis tamiser poudre d’amande et sucre glace.",
-      "Mélanger une première pesée de blancs d’œufs avec les poudres pour former une pâte d’amande.",
-      "Cuire eau et sucre à 118°C, verser sur les blancs montés et fouetter en meringue italienne tiède.",
-      "Macaronner la meringue dans la pâte d’amande jusqu’à obtenir un ruban souple.",
-      "Pocher les coques, laisser croûter si nécessaire, puis cuire à 150°C environ 12 à 14min.",
-      "Verser la crème chaude sur le chocolat blanc, lisser, puis ajouter praliné et yuzu.",
+      "Mixer puis tamiser poudre d\u2019amande et sucre glace.",
+      "M\u00e9langer une premi\u00e8re pes\u00e9e de blancs d\u2019\u0153ufs avec les poudres pour former une p\u00e2te d\u2019amande.",
+      "Cuire eau et sucre \u00e0 118\u00b0C, verser sur les blancs mont\u00e9s et fouetter en meringue italienne ti\u00e8de.",
+      "Macaronner la meringue dans la p\u00e2te d\u2019amande jusqu\u2019\u00e0 obtenir un ruban souple.",
+      "Pocher les coques, laisser cro\u00fbter si n\u00e9cessaire, puis cuire \u00e0 150\u00b0C environ 12 \u00e0 14min.",
+      "Verser la cr\u00e8me chaude sur le chocolat blanc, lisser, puis ajouter pralin\u00e9 et yuzu.",
       "Garnir les coques refroidies, ajouter quelques noisettes, assembler et maturer 24h au frais."
     ],
     "notes": [
-      "Recette technique : pesées précises, blancs à température ambiante et cuisson régulière.",
-      "Stockage : 3 jours au réfrigérateur, sortir 15min avant dégustation.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Recette technique : pes\u00e9es pr\u00e9cises, blancs \u00e0 temp\u00e9rature ambiante et cuisson r\u00e9guli\u00e8re.",
+      "Stockage : 3 jours au r\u00e9frig\u00e9rateur, sortir 15min avant d\u00e9gustation.",
+      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "tags": [
       "macaron",
@@ -1046,15 +1046,15 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "id": "base_pour_flan_sale",
-        "label": "Base pour flan salé"
+        "label": "Base pour flan sal\u00e9"
       },
       {
         "id": "bases_salees_maitre",
-        "label": "Bases salées"
+        "label": "Bases sal\u00e9es"
       },
       {
         "id": "cerises_sechees_maison",
-        "label": "Cerises séchées"
+        "label": "Cerises s\u00e9ch\u00e9es"
       },
       {
         "id": "chantilly_maitre",
@@ -1066,23 +1066,23 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "id": "creme_beurre_meringue_italienne",
-        "label": "Crème au beurre meringue italienne"
+        "label": "Cr\u00e8me au beurre meringue italienne"
       },
       {
         "id": "creme_citron_lemon_curd",
-        "label": "Crème citron"
+        "label": "Cr\u00e8me citron"
       },
       {
         "id": "creme_patissiere_praline",
-        "label": "Crème pâtissière praliné"
+        "label": "Cr\u00e8me p\u00e2tissi\u00e8re pralin\u00e9"
       },
       {
         "id": "creme_patissiere_vanille",
-        "label": "Crème pâtissière vanille"
+        "label": "Cr\u00e8me p\u00e2tissi\u00e8re vanille"
       },
       {
         "id": "creme_praline",
-        "label": "Crème praliné"
+        "label": "Cr\u00e8me pralin\u00e9"
       },
       {
         "id": "creme_amande_citron",
@@ -1102,11 +1102,11 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "id": "pates_tarte_variantes",
-        "label": "Pâtes à tarte"
+        "label": "P\u00e2tes \u00e0 tarte"
       },
       {
         "id": "pates_bases_maitre",
-        "label": "Pâtes et bases pâtissières"
+        "label": "P\u00e2tes et bases p\u00e2tissi\u00e8res"
       }
     ],
     "ingredients": [
@@ -1118,21 +1118,21 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       }
     ],
     "steps": [
-      "Sélectionner la base voulue dans les cartes de recettes."
+      "S\u00e9lectionner la base voulue dans les cartes de recettes."
     ],
     "notes": [
-      "Fiche parent pour les préparations de base : pains, tortillas, pâtes, fonds et supports de recettes."
+      "Fiche parent pour les pr\u00e9parations de base : pains, tortillas, p\u00e2tes, fonds et supports de recettes."
     ],
     "tags": [
       "base",
-      "pâte",
+      "p\u00e2te",
       "pain",
       "tortilla",
       "fond de tarte"
     ]
   },
   "cookies_chocolat_noix": {
-    "title": "Cookies moelleux aux pépites de chocolat et noix",
+    "title": "Cookies moelleux aux p\u00e9pites de chocolat et noix",
     "master": "cookies_sucres_maitre",
     "image": "/assets/recipe-images-optimized/cookies_chocolat_noix_spooky.jpg",
     "categories": [
@@ -1158,13 +1158,13 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "ingredients": [
       {
-        "group": "Pâte",
+        "group": "P\u00e2te",
         "items": [
-          "100g beurre doux non salé ramolli",
+          "100g beurre doux non sal\u00e9 ramolli",
           "80g sucre",
           "1g sel",
-          "55g œuf (1 œuf moyen)",
-          "arôme vanille selon dosage indiqué sur la bouteille",
+          "55g \u0153uf (1 \u0153uf moyen)",
+          "ar\u00f4me vanille selon dosage indiqu\u00e9 sur la bouteille",
           "160g farine",
           "3g levure chimique"
         ]
@@ -1172,44 +1172,44 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Garniture",
         "items": [
-          "100g chocolat en morceaux ou pépites",
-          "20g chocolat supplémentaire pour la finition",
-          "50g noix ou noisettes concassées"
+          "100g chocolat en morceaux ou p\u00e9pites",
+          "20g chocolat suppl\u00e9mentaire pour la finition",
+          "50g noix ou noisettes concass\u00e9es"
         ]
       }
     ],
     "steps": [
-      "Sortir le beurre environ 45 à 60min avant pour qu’il soit souple mais pas fondu.",
-      "Mélanger le beurre ramolli avec le sucre et le sel jusqu’à obtenir une texture homogène.",
-      "Battre l’œuf dans un petit bol, puis l’ajouter progressivement au mélange beurre-sucre.",
-      "Mélanger jusqu’à incorporation, puis ajouter l’arôme vanille selon le dosage indiqué sur la bouteille.",
-      "Ajouter farine et levure chimique, puis mélanger juste assez pour obtenir une pâte homogène sans trop la travailler.",
-      "Ajouter les 100g de chocolat et les noix ou noisettes concassées.",
-      "Mélanger pour répartir les garnitures dans la pâte.",
-      "Couvrir et placer au réfrigérateur pendant 1h pour raffermir la pâte.",
-      "Préchauffer le four à 190°C.",
-      "Diviser la pâte en 4 portions d’environ 135g et former de grosses boules.",
-      "Déposer les boules sur une plaque recouverte de papier cuisson, en les espaçant bien.",
+      "Sortir le beurre environ 45 \u00e0 60min avant pour qu\u2019il soit souple mais pas fondu.",
+      "M\u00e9langer le beurre ramolli avec le sucre et le sel jusqu\u2019\u00e0 obtenir une texture homog\u00e8ne.",
+      "Battre l\u2019\u0153uf dans un petit bol, puis l\u2019ajouter progressivement au m\u00e9lange beurre-sucre.",
+      "M\u00e9langer jusqu\u2019\u00e0 incorporation, puis ajouter l\u2019ar\u00f4me vanille selon le dosage indiqu\u00e9 sur la bouteille.",
+      "Ajouter farine et levure chimique, puis m\u00e9langer juste assez pour obtenir une p\u00e2te homog\u00e8ne sans trop la travailler.",
+      "Ajouter les 100g de chocolat et les noix ou noisettes concass\u00e9es.",
+      "M\u00e9langer pour r\u00e9partir les garnitures dans la p\u00e2te.",
+      "Couvrir et placer au r\u00e9frig\u00e9rateur pendant 1h pour raffermir la p\u00e2te.",
+      "Pr\u00e9chauffer le four \u00e0 190\u00b0C.",
+      "Diviser la p\u00e2te en 4 portions d\u2019environ 135g et former de grosses boules.",
+      "D\u00e9poser les boules sur une plaque recouverte de papier cuisson, en les espa\u00e7ant bien.",
       "Ajouter les 20g de chocolat restant sur le dessus.",
-      "Cuire 13 à 14min à 190°C, jusqu’à bords dorés et centre encore légèrement mou.",
-      "Laisser reposer quelques minutes sur la plaque, puis transférer sur grille pour finir le refroidissement."
+      "Cuire 13 \u00e0 14min \u00e0 190\u00b0C, jusqu\u2019\u00e0 bords dor\u00e9s et centre encore l\u00e9g\u00e8rement mou.",
+      "Laisser reposer quelques minutes sur la plaque, puis transf\u00e9rer sur grille pour finir le refroidissement."
     ],
     "notes": [
-      "Pour des cookies plus gourmands, utilise un mélange de chocolat noir et chocolat au lait.",
-      "Les noisettes se marient particulièrement bien avec le chocolat.",
-      "Pour l’arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
+      "Pour des cookies plus gourmands, utilise un m\u00e9lange de chocolat noir et chocolat au lait.",
+      "Les noisettes se marient particuli\u00e8rement bien avec le chocolat.",
+      "Pour l\u2019ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille : les ar\u00f4mes ne se dosent pas tous pareil.",
       "Ne prolonge pas trop la cuisson : le centre doit rester tendre.",
-      "La pâte peut être préparée à l’avance et conservée au frais jusqu’à 24h avant cuisson.",
-      "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
+      "La p\u00e2te peut \u00eatre pr\u00e9par\u00e9e \u00e0 l\u2019avance et conserv\u00e9e au frais jusqu\u2019\u00e0 24h avant cuisson.",
+      "Chaque four r\u00e9agit diff\u00e9remment : surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
     ],
     "technical": [
       {
         "label": "Portions",
-        "value": "Des boules d’environ 135g donnent 4 gros cookies épais."
+        "value": "Des boules d\u2019environ 135g donnent 4 gros cookies \u00e9pais."
       },
       {
         "label": "Moelleux",
-        "value": "Sortir du four quand le centre paraît encore tendre."
+        "value": "Sortir du four quand le centre para\u00eet encore tendre."
       }
     ],
     "additionalMasters": [
@@ -1241,16 +1241,16 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         ]
       },
       {
-        "group": "Pâte à cookies",
+        "group": "P\u00e2te \u00e0 cookies",
         "items": [
           "115g beurre doux mou",
           "100g cassonade ou vergeoise",
           "50g sucre",
-          "55g œuf (1 œuf moyen)",
-          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille",
+          "55g \u0153uf (1 \u0153uf moyen)",
+          "vanille selon go\u00fbt ou ar\u00f4me vanille selon dosage indiqu\u00e9 sur la bouteille",
           "220g farine",
-          "1/2 c. à café bicarbonate",
-          "1/4 c. à café sel"
+          "1/2 c. \u00e0 caf\u00e9 bicarbonate",
+          "1/4 c. \u00e0 caf\u00e9 sel"
         ]
       },
       {
@@ -1262,19 +1262,19 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       }
     ],
     "steps": [
-      "Fouetter le fromage frais type Philadelphia avec le sucre glace et le caramel, puis déposer 12 petites portions sur papier cuisson.",
+      "Fouetter le fromage frais type Philadelphia avec le sucre glace et le caramel, puis d\u00e9poser 12 petites portions sur papier cuisson.",
       "Congeler les portions de fourrage 30min pour pouvoir les enfermer proprement.",
-      "Crémer le beurre avec la cassonade ou vergeoise et le sucre, puis incorporer l’œuf et la vanille.",
-      "Ajouter farine, bicarbonate et sel sans trop travailler la pâte.",
-      "Aplatir une portion de pâte, placer un cœur cheesecake congelé au centre, refermer et bouler.",
-      "Cuire à 175°C pendant 10 à 12min, jusqu’à bords légèrement dorés.",
-      "Laisser tiédir, ajouter un filet de caramel et une pointe de fleur de sel."
+      "Cr\u00e9mer le beurre avec la cassonade ou vergeoise et le sucre, puis incorporer l\u2019\u0153uf et la vanille.",
+      "Ajouter farine, bicarbonate et sel sans trop travailler la p\u00e2te.",
+      "Aplatir une portion de p\u00e2te, placer un c\u0153ur cheesecake congel\u00e9 au centre, refermer et bouler.",
+      "Cuire \u00e0 175\u00b0C pendant 10 \u00e0 12min, jusqu\u2019\u00e0 bords l\u00e9g\u00e8rement dor\u00e9s.",
+      "Laisser ti\u00e9dir, ajouter un filet de caramel et une pointe de fleur de sel."
     ],
     "notes": [
-      "Le cream cheese correspond à un fromage frais dense et légèrement acidulé, type Philadelphia. Évite le fromage blanc ou le Saint Môret trop souple si tu veux un cœur net.",
-      "Bien refermer la pâte autour du fourrage pour éviter les fuites. Conservation : 3 jours au réfrigérateur.",
-      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Le cream cheese correspond \u00e0 un fromage frais dense et l\u00e9g\u00e8rement acidul\u00e9, type Philadelphia. \u00c9vite le fromage blanc ou le Saint M\u00f4ret trop souple si tu veux un c\u0153ur net.",
+      "Bien refermer la p\u00e2te autour du fourrage pour \u00e9viter les fuites. Conservation : 3 jours au r\u00e9frig\u00e9rateur.",
+      "Si tu utilises un ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille : les ar\u00f4mes ne se dosent pas tous pareil.",
+      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "tags": [
       "cookies",
@@ -1295,7 +1295,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "difficulty": "medium",
     "difficultyScore": 5,
-    "yield": "6 à 8 personnes",
+    "yield": "6 \u00e0 8 personnes",
     "aliases": [
       "rouille maison",
       "rouille bouillabaisse",
@@ -1312,62 +1312,62 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Base",
         "items": [
-          "36g jaunes d’œufs (2 jaunes)",
-          "2 petites gousses d’ail dégermées",
+          "36g jaunes d\u2019\u0153ufs (2 jaunes)",
+          "2 petites gousses d\u2019ail d\u00e9germ\u00e9es",
           "80g de pomme de terre cuite dans le bouillon",
-          "1 c. à café de moutarde de Dijon douce",
-          "1 belle pincée de safran",
-          "1 c. à soupe de bouillon chaud pour infuser le safran",
-          "1 c. à café de jus de citron",
-          "1 c. à café de vinaigre de Xérès ou vinaigre de vin vieux",
-          "1/2 c. à café de piment d’Espelette",
+          "1 c. \u00e0 caf\u00e9 de moutarde de Dijon douce",
+          "1 belle pinc\u00e9e de safran",
+          "1 c. \u00e0 soupe de bouillon chaud pour infuser le safran",
+          "1 c. \u00e0 caf\u00e9 de jus de citron",
+          "1 c. \u00e0 caf\u00e9 de vinaigre de X\u00e9r\u00e8s ou vinaigre de vin vieux",
+          "1/2 c. \u00e0 caf\u00e9 de piment d\u2019Espelette",
           "Sel fin"
         ]
       },
       {
         "group": "Huiles",
         "items": [
-          "180ml d’huile d’olive douce",
-          "80ml d’huile neutre"
+          "180ml d\u2019huile d\u2019olive douce",
+          "80ml d\u2019huile neutre"
         ]
       },
       {
         "group": "Option gastronomique",
         "items": [
-          "1 c. à soupe de foie de poisson cuit passé au tamis",
-          "ou 1 c. à café de bisque très réduite",
-          "ou 1 petite pointe de concentré de tomate torréfié"
+          "1 c. \u00e0 soupe de foie de poisson cuit pass\u00e9 au tamis",
+          "ou 1 c. \u00e0 caf\u00e9 de bisque tr\u00e8s r\u00e9duite",
+          "ou 1 petite pointe de concentr\u00e9 de tomate torr\u00e9fi\u00e9"
         ]
       },
       {
         "group": "Finition",
         "items": [
           "Quelques gouttes de jus de citron",
-          "Une micro-pincée de piment d’Espelette",
-          "Un filet d’huile d’olive fruitée"
+          "Une micro-pinc\u00e9e de piment d\u2019Espelette",
+          "Un filet d\u2019huile d\u2019olive fruit\u00e9e"
         ]
       }
     ],
     "steps": [
-      "Infuser le safran 10 à 15 minutes dans une cuillère de bouillon chaud.",
-      "Dégermer l’ail, puis l’écraser au mortier avec une petite pincée de sel jusqu’à obtenir une pâte fine.",
-      "Mélanger la pâte d’ail, les jaunes, la moutarde, la pomme de terre écrasée, l’infusion de safran, le citron, le vinaigre et le piment.",
-      "Verser l’huile neutre très progressivement en fouettant comme une mayonnaise.",
-      "Ajouter ensuite l’huile d’olive douce en filet, toujours en fouettant, jusqu’à obtenir une texture dense et brillante.",
-      "Ajuster la texture avec quelques gouttes de bouillon tiède si elle est trop épaisse, ou un peu de pomme de terre écrasée si elle est trop liquide.",
-      "Incorporer l’option gastronomique si souhaité, en petite quantité pour ne pas masquer le bouillon.",
-      "Rectifier le sel, le citron et le piment, puis réserver au frais filmé au contact."
+      "Infuser le safran 10 \u00e0 15 minutes dans une cuill\u00e8re de bouillon chaud.",
+      "D\u00e9germer l\u2019ail, puis l\u2019\u00e9craser au mortier avec une petite pinc\u00e9e de sel jusqu\u2019\u00e0 obtenir une p\u00e2te fine.",
+      "M\u00e9langer la p\u00e2te d\u2019ail, les jaunes, la moutarde, la pomme de terre \u00e9cras\u00e9e, l\u2019infusion de safran, le citron, le vinaigre et le piment.",
+      "Verser l\u2019huile neutre tr\u00e8s progressivement en fouettant comme une mayonnaise.",
+      "Ajouter ensuite l\u2019huile d\u2019olive douce en filet, toujours en fouettant, jusqu\u2019\u00e0 obtenir une texture dense et brillante.",
+      "Ajuster la texture avec quelques gouttes de bouillon ti\u00e8de si elle est trop \u00e9paisse, ou un peu de pomme de terre \u00e9cras\u00e9e si elle est trop liquide.",
+      "Incorporer l\u2019option gastronomique si souhait\u00e9, en petite quantit\u00e9 pour ne pas masquer le bouillon.",
+      "Rectifier le sel, le citron et le piment, puis r\u00e9server au frais film\u00e9 au contact."
     ],
     "notes": [
-      "Texture cible : ferme, brillante, nappante, assez dense pour tenir sur un croûton et assez souple pour fondre dans le bouillon.",
-      "Évite l’huile d’olive trop forte : elle peut apporter de l’amertume.",
-      "Le safran infusé donne une couleur plus régulière et un parfum plus propre que le safran ajouté à sec.",
-      "Pour un rendu plus net, passer la rouille au tamis fin après montage et la dresser en petite quenelle."
+      "Texture cible : ferme, brillante, nappante, assez dense pour tenir sur un cro\u00fbton et assez souple pour fondre dans le bouillon.",
+      "\u00c9vite l\u2019huile d\u2019olive trop forte : elle peut apporter de l\u2019amertume.",
+      "Le safran infus\u00e9 donne une couleur plus r\u00e9guli\u00e8re et un parfum plus propre que le safran ajout\u00e9 \u00e0 sec.",
+      "Pour un rendu plus net, passer la rouille au tamis fin apr\u00e8s montage et la dresser en petite quenelle."
     ],
     "technical": [
       {
-        "label": "Émulsion",
-        "value": "Ajouter l’huile très lentement au départ pour stabiliser la rouille."
+        "label": "\u00c9mulsion",
+        "value": "Ajouter l\u2019huile tr\u00e8s lentement au d\u00e9part pour stabiliser la rouille."
       },
       {
         "label": "Relief",
@@ -1375,7 +1375,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "label": "Service",
-        "value": "Servir sur croûtons frottés à l’ail ou avec une soupe de poisson très chaude."
+        "value": "Servir sur cro\u00fbtons frott\u00e9s \u00e0 l\u2019ail ou avec une soupe de poisson tr\u00e8s chaude."
       }
     ]
   },
@@ -1394,45 +1394,45 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "yield": "environ 72 cookies",
     "aliases": [
       "cookies chocolat",
-      "cookies pépites chocolat",
+      "cookies p\u00e9pites chocolat",
       "cookies moelleux"
     ],
     "tags": [
       "cookies",
       "chocolat",
-      "goûter"
+      "go\u00fbter"
     ],
     "ingredients": [
       {
-        "group": "Pâte",
+        "group": "P\u00e2te",
         "items": [
           "250g de sucre",
-          "250g cassonade ou vergeoise tassée",
+          "250g cassonade ou vergeoise tass\u00e9e",
           "340g de beurre mou",
-          "vanille selon goût ou arôme vanille selon dosage indiqué sur la bouteille",
-          "165g œufs (3 œufs moyens)",
+          "vanille selon go\u00fbt ou ar\u00f4me vanille selon dosage indiqu\u00e9 sur la bouteille",
+          "165g \u0153ufs (3 \u0153ufs moyens)",
           "530g de farine",
-          "2 c. à café de bicarbonate de soude",
-          "1/2 c. à café de sel",
-          "340 à 680g de pépites de chocolat mi-sucré"
+          "2 c. \u00e0 caf\u00e9 de bicarbonate de soude",
+          "1/2 c. \u00e0 caf\u00e9 de sel",
+          "340 \u00e0 680g de p\u00e9pites de chocolat mi-sucr\u00e9"
         ]
       }
     ],
     "steps": [
-      "Préchauffer le four à 190°C.",
-      "Crémer le sucre, la cassonade ou vergeoise et le beurre mou jusqu’à obtenir une texture légère.",
-      "Ajouter la vanille et les œufs, puis mélanger jusqu’à homogénéité.",
-      "Incorporer farine, bicarbonate et sel sans trop travailler la pâte.",
-      "Ajouter les pépites de chocolat.",
-      "Déposer des boules de pâte espacées sur une plaque non graissée.",
-      "Cuire 8 à 10 minutes, jusqu’à légère coloration dorée.",
-      "Laisser reposer quelques minutes sur plaque puis transférer sur grille."
+      "Pr\u00e9chauffer le four \u00e0 190\u00b0C.",
+      "Cr\u00e9mer le sucre, la cassonade ou vergeoise et le beurre mou jusqu\u2019\u00e0 obtenir une texture l\u00e9g\u00e8re.",
+      "Ajouter la vanille et les \u0153ufs, puis m\u00e9langer jusqu\u2019\u00e0 homog\u00e9n\u00e9it\u00e9.",
+      "Incorporer farine, bicarbonate et sel sans trop travailler la p\u00e2te.",
+      "Ajouter les p\u00e9pites de chocolat.",
+      "D\u00e9poser des boules de p\u00e2te espac\u00e9es sur une plaque non graiss\u00e9e.",
+      "Cuire 8 \u00e0 10 minutes, jusqu\u2019\u00e0 l\u00e9g\u00e8re coloration dor\u00e9e.",
+      "Laisser reposer quelques minutes sur plaque puis transf\u00e9rer sur grille."
     ],
     "notes": [
-      "Pour des cookies plus chocolatés, utiliser la quantité haute de pépites.",
-      "La pâte peut être congelée en boules et cuite après décongélation.",
-      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
-      "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
+      "Pour des cookies plus chocolat\u00e9s, utiliser la quantit\u00e9 haute de p\u00e9pites.",
+      "La p\u00e2te peut \u00eatre congel\u00e9e en boules et cuite apr\u00e8s d\u00e9cong\u00e9lation.",
+      "Si tu utilises un ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille : les ar\u00f4mes ne se dosent pas tous pareil.",
+      "Chaque four r\u00e9agit diff\u00e9remment : surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
     ],
     "technical": [
       {
@@ -1440,8 +1440,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "value": "Ne pas trop cuire : les cookies finissent de se raffermir hors du four."
       },
       {
-        "label": "Congélation",
-        "value": "Congeler les boules de pâte bien emballées pour une cuisson minute."
+        "label": "Cong\u00e9lation",
+        "value": "Congeler les boules de p\u00e2te bien emball\u00e9es pour une cuisson minute."
       }
     ]
   },
@@ -1472,8 +1472,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Base",
         "items": [
-          "1,2 à 1,5kg de pommes de terre Bintje, Agria ou Manon",
-          "2 à 3kg de blanc de bœuf selon la friteuse",
+          "1,2 \u00e0 1,5kg de pommes de terre Bintje, Agria ou Manon",
+          "2 \u00e0 3kg de blanc de b\u0153uf selon la friteuse",
           "Sel fin",
           "Fleur de sel pour la finition"
         ]
@@ -1482,29 +1482,29 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Option haut de gamme",
         "items": [
           "1 petite branche de thym",
-          "1 gousse d’ail en chemise retirée avant cuisson",
+          "1 gousse d\u2019ail en chemise retir\u00e9e avant cuisson",
           "Mayonnaise, sauce tartare ou sauce andalouse maison"
         ],
         "recipeId": "mayonnaise_maison"
       }
     ],
     "steps": [
-      "Éplucher les pommes de terre et les tailler en bâtonnets réguliers de 10 à 12mm.",
-      "Rincer les frites dans un grand saladier d’eau froide jusqu’à ce que l’eau soit moins trouble.",
-      "Égoutter, étaler sur un torchon propre, éponger soigneusement puis laisser sécher 10 à 15 minutes.",
-      "Chauffer le blanc de bœuf à 140-150°C.",
-      "Plonger les frites par petites quantités et cuire 5 à 7 minutes : elles doivent être cuites à cœur mais encore pâles.",
-      "Égoutter sur grille et laisser reposer 20 à 30 minutes minimum.",
-      "Monter le bain à 175-180°C.",
-      "Replonger les frites en petites quantités 2 à 4 minutes jusqu’à belle coloration dorée.",
-      "Égoutter immédiatement, secouer légèrement et saler avec du sel fin.",
-      "Terminer avec une pincée de fleur de sel et servir aussitôt avec la <span data-goto=\"mayonnaise_maison\">mayonnaise</span>."
+      "\u00c9plucher les pommes de terre et les tailler en b\u00e2tonnets r\u00e9guliers de 10 \u00e0 12mm.",
+      "Rincer les frites dans un grand saladier d\u2019eau froide jusqu\u2019\u00e0 ce que l\u2019eau soit moins trouble.",
+      "\u00c9goutter, \u00e9taler sur un torchon propre, \u00e9ponger soigneusement puis laisser s\u00e9cher 10 \u00e0 15 minutes.",
+      "Chauffer le blanc de b\u0153uf \u00e0 140-150\u00b0C.",
+      "Plonger les frites par petites quantit\u00e9s et cuire 5 \u00e0 7 minutes : elles doivent \u00eatre cuites \u00e0 c\u0153ur mais encore p\u00e2les.",
+      "\u00c9goutter sur grille et laisser reposer 20 \u00e0 30 minutes minimum.",
+      "Monter le bain \u00e0 175-180\u00b0C.",
+      "Replonger les frites en petites quantit\u00e9s 2 \u00e0 4 minutes jusqu\u2019\u00e0 belle coloration dor\u00e9e.",
+      "\u00c9goutter imm\u00e9diatement, secouer l\u00e9g\u00e8rement et saler avec du sel fin.",
+      "Terminer avec une pinc\u00e9e de fleur de sel et servir aussit\u00f4t avec la <span data-goto=\"mayonnaise_maison\">mayonnaise</span>."
     ],
     "notes": [
-      "Ne sale jamais avant cuisson : le sel attire l’eau et ramollit les frites.",
-      "Utilise une grille plutôt que du papier absorbant trop longtemps, car la vapeur piégée peut ramollir les frites.",
-      "Le bain ne doit pas être trop chargé : une chute de température rend les frites grasses.",
-      "Résultat cible : extérieur très croustillant, intérieur fondant, belle couleur dorée et aucune sensation grasse."
+      "Ne sale jamais avant cuisson : le sel attire l\u2019eau et ramollit les frites.",
+      "Utilise une grille plut\u00f4t que du papier absorbant trop longtemps, car la vapeur pi\u00e9g\u00e9e peut ramollir les frites.",
+      "Le bain ne doit pas \u00eatre trop charg\u00e9 : une chute de temp\u00e9rature rend les frites grasses.",
+      "R\u00e9sultat cible : ext\u00e9rieur tr\u00e8s croustillant, int\u00e9rieur fondant, belle couleur dor\u00e9e et aucune sensation grasse."
     ],
     "technical": [
       {
@@ -1513,11 +1513,11 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "label": "Cuisson",
-        "value": "Première cuisson fondante, repos, puis seconde cuisson croustillante."
+        "value": "Premi\u00e8re cuisson fondante, repos, puis seconde cuisson croustillante."
       },
       {
         "label": "Service",
-        "value": "Servir immédiatement après salage."
+        "value": "Servir imm\u00e9diatement apr\u00e8s salage."
       }
     ],
     "additionalMasters": []
@@ -1527,13 +1527,13 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "master": "apero_maitre",
     "image": "/assets/recipe-images-optimized/beignets_calamar_spooky.jpg",
     "categories": [
-      "Apéro",
-      "Entrées",
+      "Ap\u00e9ro",
+      "Entr\u00e9es",
       "Plats"
     ],
     "seasons": [
       "Printemps",
-      "Été"
+      "\u00c9t\u00e9"
     ],
     "difficulty": "medium",
     "difficultyScore": 5,
@@ -1571,46 +1571,46 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
           "600g anneaux de calamar",
           "500g lait entier",
           "20g jus de citron",
-          "4g ail écrasé",
+          "4g ail \u00e9cras\u00e9",
           "6g sel fin",
           "Poivre du moulin",
-          "0,5g piment d’Espelette"
+          "0,5g piment d\u2019Espelette"
         ]
       },
       {
-        "group": "Pâte légère",
+        "group": "P\u00e2te l\u00e9g\u00e8re",
         "items": [
           "120g farine",
-          "40g fécule de maïs",
+          "40g f\u00e9cule de ma\u00efs",
           "5g levure chimique",
           "3g sel fin",
-          "30g blanc d’œuf",
-          "180 à 220g eau gazeuse très froide",
-          "20g vodka très froide optionnelle",
+          "30g blanc d\u2019\u0153uf",
+          "180 \u00e0 220g eau gazeuse tr\u00e8s froide",
+          "20g vodka tr\u00e8s froide optionnelle",
           "Zeste de citron"
         ]
       },
       {
-        "group": "Aïoli citronné léger",
+        "group": "A\u00efoli citronn\u00e9 l\u00e9ger",
         "items": [
-          "20g jaune d’œuf",
+          "20g jaune d\u2019\u0153uf",
           "10g moutarde",
-          "2g ail râpé",
+          "2g ail r\u00e2p\u00e9",
           "10g jus de citron",
           "1g zeste de citron",
           "90g huile neutre",
-          "45g huile d’olive douce",
+          "45g huile d\u2019olive douce",
           "Sel fin",
-          "0,5g piment d’Espelette"
+          "0,5g piment d\u2019Espelette"
         ]
       },
       {
         "group": "Variante tempura",
         "items": [
           "90g farine",
-          "50g fécule",
-          "20g jaune d’œuf",
-          "220g eau gazeuse glacée",
+          "50g f\u00e9cule",
+          "20g jaune d\u2019\u0153uf",
+          "220g eau gazeuse glac\u00e9e",
           "3g sel fin"
         ],
         "steps": [
@@ -1621,53 +1621,53 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       }
     ],
     "steps": [
-      "Rincer rapidement les calamars, les éponger, puis couper les tubes en anneaux réguliers de 1 à 1,5cm.",
-      "Mélanger lait, citron, ail, sel, poivre du moulin et piment, puis mariner les calamars 30min à 2h au frais.",
-      "Préparer l’<span data-goto=\"aioli_citronne_leger\">aïoli citronné léger</span>, puis le garder au frais.",
-      "Préparer au dernier moment la <span data-goto=\"pate_legere_beignets_calamar_crevettes\">pâte légère</span> ou la <span data-goto=\"tempura_beignets_calamar_crevettes\">tempura</span>, selon le croustillant voulu.",
-      "Égoutter les calamars, les éponger très soigneusement, puis les passer légèrement dans farine ou fécule.",
-      "Chauffer l’huile à 180°C.",
-      "Tremper les calamars dans la pâte choisie et frire par petites quantités 1min 30 à 2min maximum.",
-      "Égoutter sur grille, saler légèrement et servir immédiatement avec citron et sauce."
+      "Rincer rapidement les calamars, les \u00e9ponger, puis couper les tubes en anneaux r\u00e9guliers de 1 \u00e0 1,5cm.",
+      "M\u00e9langer lait, citron, ail, sel, poivre du moulin et piment, puis mariner les calamars 30min \u00e0 2h au frais.",
+      "Pr\u00e9parer l\u2019<span data-goto=\"aioli_citronne_leger\">a\u00efoli citronn\u00e9 l\u00e9ger</span>, puis le garder au frais.",
+      "Pr\u00e9parer au dernier moment la <span data-goto=\"pate_legere_beignets_calamar_crevettes\">p\u00e2te l\u00e9g\u00e8re</span> ou la <span data-goto=\"tempura_beignets_calamar_crevettes\">tempura</span>, selon le croustillant voulu.",
+      "\u00c9goutter les calamars, les \u00e9ponger tr\u00e8s soigneusement, puis les passer l\u00e9g\u00e8rement dans farine ou f\u00e9cule.",
+      "Chauffer l\u2019huile \u00e0 180\u00b0C.",
+      "Tremper les calamars dans la p\u00e2te choisie et frire par petites quantit\u00e9s 1min 30 \u00e0 2min maximum.",
+      "\u00c9goutter sur grille, saler l\u00e9g\u00e8rement et servir imm\u00e9diatement avec citron et sauce."
     ],
     "notes": [
-      "Raccourcis : <span data-goto=\"pate_legere_beignets_calamar_crevettes\">Pâte légère à frire</span> / <span data-goto=\"aioli_citronne_leger\">Aïoli citronné léger</span> / <span data-goto=\"tempura_beignets_calamar_crevettes\">Tempura</span>.",
-      "La cuisson doit rester très courte : trop cuits, les calamars deviennent caoutchouteux.",
-      "Ne surcharge pas le bain d’huile pour garder une friture nette et non grasse.",
-      "La pâte doit rester froide, légère et légèrement irrégulière."
+      "Raccourcis : <span data-goto=\"pate_legere_beignets_calamar_crevettes\">P\u00e2te l\u00e9g\u00e8re \u00e0 frire</span> / <span data-goto=\"aioli_citronne_leger\">A\u00efoli citronn\u00e9 l\u00e9ger</span> / <span data-goto=\"tempura_beignets_calamar_crevettes\">Tempura</span>.",
+      "La cuisson doit rester tr\u00e8s courte : trop cuits, les calamars deviennent caoutchouteux.",
+      "Ne surcharge pas le bain d\u2019huile pour garder une friture nette et non grasse.",
+      "La p\u00e2te doit rester froide, l\u00e9g\u00e8re et l\u00e9g\u00e8rement irr\u00e9guli\u00e8re."
     ],
     "technical": [
       {
-        "label": "Température",
-        "value": "180°C pour saisir vite sans graisser."
+        "label": "Temp\u00e9rature",
+        "value": "180\u00b0C pour saisir vite sans graisser."
       },
       {
-        "label": "Égouttage",
-        "value": "Préférer une grille au papier pour éviter la vapeur."
+        "label": "\u00c9gouttage",
+        "value": "Pr\u00e9f\u00e9rer une grille au papier pour \u00e9viter la vapeur."
       },
       {
         "label": "Texture",
-        "value": "Croûte fine et croustillante, calamar tendre."
+        "value": "Cro\u00fbte fine et croustillante, calamar tendre."
       }
     ],
     "practical": {
       "equipment": [
         "Casserole ou sauteuse haute",
-        "Thermomètre de cuisson",
-        "Grille d’égouttage"
+        "Thermom\u00e8tre de cuisson",
+        "Grille d\u2019\u00e9gouttage"
       ],
       "storage": [
-        "À servir immédiatement après cuisson pour garder le croustillant."
+        "\u00c0 servir imm\u00e9diatement apr\u00e8s cuisson pour garder le croustillant."
       ],
       "reheating": [
-        "Si besoin, réchauffer brièvement au four chaud sur grille, jamais au micro-ondes."
+        "Si besoin, r\u00e9chauffer bri\u00e8vement au four chaud sur grille, jamais au micro-ondes."
       ],
       "mistakes": [
-        "Ne surcharge pas le bain d’huile.",
+        "Ne surcharge pas le bain d\u2019huile.",
         "Ne prolonge pas la cuisson : le calamar devient vite caoutchouteux."
       ],
       "result": [
-        "Beignets dorés, croûte fine et croustillante, calamar encore tendre."
+        "Beignets dor\u00e9s, cro\u00fbte fine et croustillante, calamar encore tendre."
       ]
     },
     "additionalMasters": [
@@ -1680,10 +1680,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "master": "crudites_maitre",
     "image": "/assets/recipe-images-optimized/salade_melon_mozzarella_jambon_cru_spooky.jpg",
     "categories": [
-      "Entrées"
+      "Entr\u00e9es"
     ],
     "seasons": [
-      "Été"
+      "\u00c9t\u00e9"
     ],
     "difficulty": "easy",
     "difficultyScore": 3,
@@ -1705,13 +1705,13 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Salade",
         "items": [
-          "600 à 800g melon charentais mûr",
+          "600 \u00e0 800g melon charentais m\u00fbr",
           "250g billes de mozzarella ou mozzarella di bufala",
-          "120 à 150g jambon cru italien, Serrano, Parme ou San Daniele",
+          "120 \u00e0 150g jambon cru italien, Serrano, Parme ou San Daniele",
           "80g roquette",
           "40g oignon rouge",
           "Basilic frais",
-          "Menthe fraîche",
+          "Menthe fra\u00eeche",
           "30g pignons de pin ou pistaches",
           "Fleur de sel",
           "Poivre du moulin pour finition"
@@ -1720,12 +1720,12 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Marinade mozzarella",
         "items": [
-          "55g huile d’olive fruitée",
+          "55g huile d\u2019olive fruit\u00e9e",
           "Zeste de 1/2 citron",
           "15g jus de citron",
-          "3g basilic ciselé",
+          "3g basilic cisel\u00e9",
           "1g origan ou thym frais",
-          "Piment d’Espelette",
+          "Piment d\u2019Espelette",
           "Sel fin pour marinade",
           "Poivre du moulin pour marinade"
         ]
@@ -1733,50 +1733,50 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Vinaigrette melon-citron",
         "items": [
-          "40g huile d’olive",
-          "15g jus de citron ou vinaigre de Xérès",
+          "40g huile d\u2019olive",
+          "15g jus de citron ou vinaigre de X\u00e9r\u00e8s",
           "7g miel doux",
-          "15 à 30g jus de melon récupéré",
+          "15 \u00e0 30g jus de melon r\u00e9cup\u00e9r\u00e9",
           "Sel fin pour vinaigrette",
           "Poivre du moulin pour vinaigrette"
         ]
       }
     ],
     "steps": [
-      "Couper le melon en deux, retirer les graines, puis former des billes avec une cuillère parisienne.",
-      "Réserver les billes au frais et garder les chutes pour un gaspacho de melon.",
-      "Égoutter et éponger la mozzarella.",
-      "Mélanger huile d’olive, jus de citron, zeste, basilic, origan ou thym, piment, sel et poivre du moulin, puis mariner la mozzarella 20 à 30min au frais.",
-      "Émincer l’oignon rouge très finement, le placer 10min dans eau froide avec quelques gouttes de citron, puis égoutter et éponger.",
-      "Torréfier les pignons ou pistaches 2 à 3min à feu moyen dans une poêle sèche.",
-      "Mélanger jus de citron ou vinaigre, miel, jus de melon, sel et poivre du moulin, puis ajouter l’huile d’olive.",
-      "Assaisonner légèrement la roquette avec un peu de vinaigrette.",
-      "Ajouter melon, mozzarella marinée, jambon cru en chiffonnade, oignon rouge, pignons ou pistaches, basilic, menthe, fleur de sel et poivre du moulin.",
+      "Couper le melon en deux, retirer les graines, puis former des billes avec une cuill\u00e8re parisienne.",
+      "R\u00e9server les billes au frais et garder les chutes pour un gaspacho de melon.",
+      "\u00c9goutter et \u00e9ponger la mozzarella.",
+      "M\u00e9langer huile d\u2019olive, jus de citron, zeste, basilic, origan ou thym, piment, sel et poivre du moulin, puis mariner la mozzarella 20 \u00e0 30min au frais.",
+      "\u00c9mincer l\u2019oignon rouge tr\u00e8s finement, le placer 10min dans eau froide avec quelques gouttes de citron, puis \u00e9goutter et \u00e9ponger.",
+      "Torr\u00e9fier les pignons ou pistaches 2 \u00e0 3min \u00e0 feu moyen dans une po\u00eale s\u00e8che.",
+      "M\u00e9langer jus de citron ou vinaigre, miel, jus de melon, sel et poivre du moulin, puis ajouter l\u2019huile d\u2019olive.",
+      "Assaisonner l\u00e9g\u00e8rement la roquette avec un peu de vinaigrette.",
+      "Ajouter melon, mozzarella marin\u00e9e, jambon cru en chiffonnade, oignon rouge, pignons ou pistaches, basilic, menthe, fleur de sel et poivre du moulin.",
       "Ajouter la vinaigrette juste avant de servir."
     ],
     "notes": [
-      "Dresser sans trop mélanger pour garder une salade nette et non détrempée.",
-      "La salade doit être fraîche, équilibrée entre sucré, salé et acidité, et parfumée par les herbes.",
-      "Options : balsamique blanc, copeaux de parmesan, citron caviar, éclats de pistaches ou huile d’olive au basilic."
+      "Dresser sans trop m\u00e9langer pour garder une salade nette et non d\u00e9tremp\u00e9e.",
+      "La salade doit \u00eatre fra\u00eeche, \u00e9quilibr\u00e9e entre sucr\u00e9, sal\u00e9 et acidit\u00e9, et parfum\u00e9e par les herbes.",
+      "Options : balsamique blanc, copeaux de parmesan, citron caviar, \u00e9clats de pistaches ou huile d\u2019olive au basilic."
     ],
     "technical": [
       {
         "label": "Service",
-        "value": "Assaisonner au dernier moment pour préserver la roquette et le melon."
+        "value": "Assaisonner au dernier moment pour pr\u00e9server la roquette et le melon."
       },
       {
         "label": "Anti-gaspillage",
-        "value": "Les chutes de melon vont très bien dans le gaspacho de melon."
+        "value": "Les chutes de melon vont tr\u00e8s bien dans le gaspacho de melon."
       }
     ]
   },
   "sauce_yaourt_citronnee": {
-    "title": "Sauce yaourt citronnée",
+    "title": "Sauce yaourt citronn\u00e9e",
     "master": "sauces_maitre",
     "image": "/assets/recipe-images-optimized/sauce_yaourt_citronnee_spooky.jpg",
     "categories": [
       "Sauces",
-      "Apéro",
+      "Ap\u00e9ro",
       "Accompagnements"
     ],
     "seasons": [
@@ -1788,7 +1788,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "nutriScore": "B",
     "aliases": [
       "sauce yaourt citron",
-      "sauce fraîche citronnée",
+      "sauce fra\u00eeche citronn\u00e9e",
       "dip yaourt"
     ],
     "tags": [
@@ -1806,31 +1806,31 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
           "5g jus de citron vert ou jaune",
           "Zeste de 1/2 citron vert",
           "7g miel",
-          "1g paprika fumé",
-          "1 petite pincée piment d’Espelette",
+          "1g paprika fum\u00e9",
+          "1 petite pinc\u00e9e piment d\u2019Espelette",
           "Sel fin",
           "Poivre du moulin"
         ]
       }
     ],
     "steps": [
-      "Mélanger le yaourt grec et la mayonnaise.",
-      "Ajouter le jus de citron, le zeste, le miel, le paprika fumé et le piment.",
+      "M\u00e9langer le yaourt grec et la mayonnaise.",
+      "Ajouter le jus de citron, le zeste, le miel, le paprika fum\u00e9 et le piment.",
       "Saler et ajouter du poivre du moulin.",
-      "Réserver au frais au moins 15min avant service."
+      "R\u00e9server au frais au moins 15min avant service."
     ],
     "notes": [
-      "Prévue pour accompagner les <span data-goto=\"frites_patate_douce\">frites de patate douce</span>.",
-      "La sauce doit rester fraîche, légèrement acidulée et légèrement fumée pour équilibrer le côté sucré de la patate douce."
+      "Pr\u00e9vue pour accompagner les <span data-goto=\"frites_patate_douce\">frites de patate douce</span>.",
+      "La sauce doit rester fra\u00eeche, l\u00e9g\u00e8rement acidul\u00e9e et l\u00e9g\u00e8rement fum\u00e9e pour \u00e9quilibrer le c\u00f4t\u00e9 sucr\u00e9 de la patate douce."
     ],
     "technical": [
       {
         "label": "Repos",
-        "value": "15min au frais pour arrondir l’assaisonnement."
+        "value": "15min au frais pour arrondir l\u2019assaisonnement."
       },
       {
         "label": "Texture",
-        "value": "Crémeuse, nappante, pas liquide."
+        "value": "Cr\u00e9meuse, nappante, pas liquide."
       }
     ],
     "additionalMasters": [
@@ -1869,12 +1869,12 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
           "35g beurre",
           "35g farine",
           "450g lait entier",
-          "100g crème liquide entière",
-          "90g comté 18 mois râpé",
-          "35g parmesan râpé",
-          "18g jaune d’œuf (1 jaune)",
+          "100g cr\u00e8me liquide enti\u00e8re",
+          "90g comt\u00e9 18 mois r\u00e2p\u00e9",
+          "35g parmesan r\u00e2p\u00e9",
+          "18g jaune d\u2019\u0153uf (1 jaune)",
           "5g moutarde de Dijon",
-          "1 pincée muscade",
+          "1 pinc\u00e9e muscade",
           "Sel",
           "Poivre du moulin"
         ]
@@ -1884,33 +1884,33 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Faire fondre le beurre dans une casserole.",
       "Ajouter la farine et cuire le roux 2min sans coloration.",
       "Verser le lait froid progressivement en fouettant.",
-      "Ajouter la crème et cuire 5 à 7min jusqu’à obtenir une sauce nappante.",
-      "Hors du feu, ajouter le comté, le parmesan, la moutarde, la muscade et le poivre du moulin.",
-      "Goûter avant de saler.",
-      "Ajouter le jaune d’œuf hors du feu en fouettant."
+      "Ajouter la cr\u00e8me et cuire 5 \u00e0 7min jusqu\u2019\u00e0 obtenir une sauce nappante.",
+      "Hors du feu, ajouter le comt\u00e9, le parmesan, la moutarde, la muscade et le poivre du moulin.",
+      "Go\u00fbter avant de saler.",
+      "Ajouter le jaune d\u2019\u0153uf hors du feu en fouettant."
     ],
     "notes": [
-      "Utilisé par exemple dans le <span data-goto=\"gratin_chou_fleur\">gratin de chou-fleur</span>.",
-      "La sauce doit être nappante mais pas trop épaisse : elle continue à gratiner au four."
+      "Utilis\u00e9 par exemple dans le <span data-goto=\"gratin_chou_fleur\">gratin de chou-fleur</span>.",
+      "La sauce doit \u00eatre nappante mais pas trop \u00e9paisse : elle continue \u00e0 gratiner au four."
     ],
     "technical": [
       {
         "label": "Roux",
-        "value": "2min sans coloration pour éviter le goût de farine."
+        "value": "2min sans coloration pour \u00e9viter le go\u00fbt de farine."
       },
       {
         "label": "Cuisson",
-        "value": "5 à 7min après ajout lait et crème."
+        "value": "5 \u00e0 7min apr\u00e8s ajout lait et cr\u00e8me."
       }
     ]
   },
   "pate_legere_beignets_calamar_crevettes": {
-    "title": "Pâte légère à frire",
+    "title": "P\u00e2te l\u00e9g\u00e8re \u00e0 frire",
     "master": "bases_salees_maitre",
     "image": "/assets/recipe-images-optimized/pate_legere_beignets_calamar_crevettes_spooky.jpg",
     "categories": [
       "Base",
-      "Apéro"
+      "Ap\u00e9ro"
     ],
     "seasons": [
       "Toutes saisons"
@@ -1919,13 +1919,13 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "difficultyScore": 4,
     "yield": "4 personnes",
     "aliases": [
-      "pâte légère beignets",
-      "pâte à beignets calamars",
-      "pâte à beignets crevettes",
-      "pâte friture légère"
+      "p\u00e2te l\u00e9g\u00e8re beignets",
+      "p\u00e2te \u00e0 beignets calamars",
+      "p\u00e2te \u00e0 beignets crevettes",
+      "p\u00e2te friture l\u00e9g\u00e8re"
     ],
     "tags": [
-      "pâte",
+      "p\u00e2te",
       "beignet",
       "calamar",
       "crevette",
@@ -1947,59 +1947,59 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "ingredients": [
       {
-        "group": "Pâte légère",
+        "group": "P\u00e2te l\u00e9g\u00e8re",
         "items": [
           "120g farine",
-          "40g fécule de maïs",
+          "40g f\u00e9cule de ma\u00efs",
           "5g levure chimique",
           "3g sel fin",
-          "30g blanc d’œuf",
-          "180 à 220g eau gazeuse très froide",
-          "20g vodka très froide optionnelle",
+          "30g blanc d\u2019\u0153uf",
+          "180 \u00e0 220g eau gazeuse tr\u00e8s froide",
+          "20g vodka tr\u00e8s froide optionnelle",
           "Zeste de citron"
         ]
       }
     ],
     "steps": [
-      "Mélanger farine, fécule, levure, sel et zeste.",
-      "Juste avant cuisson, ajouter blanc d’œuf, eau gazeuse très froide et vodka très froide optionnelle.",
-      "Mélanger très peu pour garder une pâte froide, légère et légèrement irrégulière.",
-      "Utiliser aussitôt pour enrober des calamars, des crevettes ou une autre garniture à frire."
+      "M\u00e9langer farine, f\u00e9cule, levure, sel et zeste.",
+      "Juste avant cuisson, ajouter blanc d\u2019\u0153uf, eau gazeuse tr\u00e8s froide et vodka tr\u00e8s froide optionnelle.",
+      "M\u00e9langer tr\u00e8s peu pour garder une p\u00e2te froide, l\u00e9g\u00e8re et l\u00e9g\u00e8rement irr\u00e9guli\u00e8re.",
+      "Utiliser aussit\u00f4t pour enrober des calamars, des crevettes ou une autre garniture \u00e0 frire."
     ],
     "notes": [
-      "La pâte doit rester très froide jusqu’au dernier moment.",
-      "La vodka est optionnelle, elle aide surtout à obtenir une friture plus sèche et légère.",
+      "La p\u00e2te doit rester tr\u00e8s froide jusqu\u2019au dernier moment.",
+      "La vodka est optionnelle, elle aide surtout \u00e0 obtenir une friture plus s\u00e8che et l\u00e9g\u00e8re.",
       "Raccourci : <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
     ],
     "technical": [
       {
-        "label": "Température",
-        "value": "Travailler avec eau gazeuse très froide et frire à 180°C."
+        "label": "Temp\u00e9rature",
+        "value": "Travailler avec eau gazeuse tr\u00e8s froide et frire \u00e0 180\u00b0C."
       },
       {
         "label": "Texture",
-        "value": "Mélanger court pour garder une pâte fine et non élastique."
+        "value": "M\u00e9langer court pour garder une p\u00e2te fine et non \u00e9lastique."
       },
       {
         "label": "Usage",
-        "value": "Préparer au dernier moment puis cuire par petites quantités."
+        "value": "Pr\u00e9parer au dernier moment puis cuire par petites quantit\u00e9s."
       }
     ],
     "practical": {
       "equipment": [
-        "Cul-de-poule très froid",
+        "Cul-de-poule tr\u00e8s froid",
         "Fouet",
         "Casserole ou sauteuse haute"
       ],
       "storage": [
-        "À utiliser aussitôt, la pâte perd sa légèreté en attente."
+        "\u00c0 utiliser aussit\u00f4t, la p\u00e2te perd sa l\u00e9g\u00e8ret\u00e9 en attente."
       ],
       "mistakes": [
-        "Ne mélange pas trop la pâte.",
-        "Ne prépare pas la pâte longtemps avant la cuisson."
+        "Ne m\u00e9lange pas trop la p\u00e2te.",
+        "Ne pr\u00e9pare pas la p\u00e2te longtemps avant la cuisson."
       ],
       "result": [
-        "Pâte froide, fluide, légère et légèrement irrégulière."
+        "P\u00e2te froide, fluide, l\u00e9g\u00e8re et l\u00e9g\u00e8rement irr\u00e9guli\u00e8re."
       ]
     },
     "additionalMasters": [
@@ -2007,11 +2007,11 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ]
   },
   "pesto_tomates_sechees_sans_cajou": {
-    "title": "Pesto tomates séchées",
+    "title": "Pesto tomates s\u00e9ch\u00e9es",
     "master": "apero_maitre",
     "image": "/assets/recipe-images-optimized/pesto_tomates_sechees_sans_cajou_spooky.jpg",
     "categories": [
-      "Apéro",
+      "Ap\u00e9ro",
       "Accompagnements"
     ],
     "seasons": [
@@ -2022,12 +2022,12 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "yield": "1 pot",
     "aliases": [
       "pesto rosso",
-      "pesto tomates séchées",
+      "pesto tomates s\u00e9ch\u00e9es",
       "pesto rouge"
     ],
     "tags": [
       "pesto",
-      "tomates séchées",
+      "tomates s\u00e9ch\u00e9es",
       "apero",
       "accompagnement"
     ],
@@ -2035,52 +2035,52 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Pesto",
         "items": [
-          "180g tomates séchées égouttées",
-          "40g parmesan râpé",
+          "180g tomates s\u00e9ch\u00e9es \u00e9goutt\u00e9es",
+          "40g parmesan r\u00e2p\u00e9",
           "25g pignons de pin ou graines de tournesol",
-          "1 petite gousse d’ail",
+          "1 petite gousse d\u2019ail",
           "10g basilic",
-          "70g huile d’olive",
+          "70g huile d\u2019olive",
           "15g jus de citron",
           "Poivre du moulin"
         ]
       }
     ],
     "steps": [
-      "Égoutter les tomates séchées en gardant un peu d’huile si elles sont conservées dans l’huile.",
+      "\u00c9goutter les tomates s\u00e9ch\u00e9es en gardant un peu d\u2019huile si elles sont conserv\u00e9es dans l\u2019huile.",
       "Mixer tomates, parmesan, pignons ou graines, ail, basilic, jus de citron et poivre du moulin.",
-      "Ajouter l’huile d’olive progressivement jusqu’à obtenir une texture tartinable.",
-      "Corriger l’assaisonnement et détendre avec un filet d’eau ou d’huile si nécessaire."
+      "Ajouter l\u2019huile d\u2019olive progressivement jusqu\u2019\u00e0 obtenir une texture tartinable.",
+      "Corriger l\u2019assaisonnement et d\u00e9tendre avec un filet d\u2019eau ou d\u2019huile si n\u00e9cessaire."
     ],
     "notes": [
       "Cette version garde une texture riche avec pignons ou graines.",
-      "Parfait pour pâtes, tartines, focaccia, sandwichs ou base de sauce froide.",
-      "Si les tomates sont très salées, goûter avant d’ajouter du sel."
+      "Parfait pour p\u00e2tes, tartines, focaccia, sandwichs ou base de sauce froide.",
+      "Si les tomates sont tr\u00e8s sal\u00e9es, go\u00fbter avant d\u2019ajouter du sel."
     ],
     "technical": [
       {
         "label": "Texture",
-        "value": "Mixer court pour garder un pesto dense plutôt qu’une purée lisse."
+        "value": "Mixer court pour garder un pesto dense plut\u00f4t qu\u2019une pur\u00e9e lisse."
       },
       {
-        "label": "Équilibre",
-        "value": "Le citron réveille les tomates séchées et évite une sauce trop lourde."
+        "label": "\u00c9quilibre",
+        "value": "Le citron r\u00e9veille les tomates s\u00e9ch\u00e9es et \u00e9vite une sauce trop lourde."
       }
     ],
     "practical": {
       "equipment": [
         "Mixeur",
         "Spatule",
-        "Pot hermétique"
+        "Pot herm\u00e9tique"
       ],
       "storage": [
-        "4 à 5 jours au réfrigérateur, couvert d’un fin filet d’huile."
+        "4 \u00e0 5 jours au r\u00e9frig\u00e9rateur, couvert d\u2019un fin filet d\u2019huile."
       ],
       "mistakes": [
-        "Ne sale pas avant d’avoir goûté les tomates et le parmesan."
+        "Ne sale pas avant d\u2019avoir go\u00fbt\u00e9 les tomates et le parmesan."
       ],
       "result": [
-        "Pesto rouge dense et parfumé."
+        "Pesto rouge dense et parfum\u00e9."
       ]
     },
     "additionalMasters": [
@@ -2088,40 +2088,40 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ]
   },
   "billes_mozzarella_marinees": {
-    "title": "Billes de mozzarella marinées",
+    "title": "Billes de mozzarella marin\u00e9es",
     "master": "apero_maitre",
     "image": "/assets/recipe-images-optimized/billes_mozzarella_marinees_spooky.jpg",
     "categories": [
-      "Apéro",
-      "Entrées"
+      "Ap\u00e9ro",
+      "Entr\u00e9es"
     ],
     "seasons": [
       "Printemps",
-      "Été"
+      "\u00c9t\u00e9"
     ],
     "difficulty": "easy",
     "difficultyScore": 1,
     "yield": "4 personnes",
     "aliases": [
-      "billes mozzarella marinées",
-      "mozzarella apéro",
-      "mozzarella marinée"
+      "billes mozzarella marin\u00e9es",
+      "mozzarella ap\u00e9ro",
+      "mozzarella marin\u00e9e"
     ],
     "tags": [
       "mozzarella",
       "marinade",
-      "apéritif",
-      "huile d’olive"
+      "ap\u00e9ritif",
+      "huile d\u2019olive"
     ],
     "ingredients": [
       {
         "group": "Marinade",
         "items": [
           "250g billes de mozzarella",
-          "60g huile d’olive",
-          "1 petite gousse d’ail râpée",
-          "1 c. à café thym ou origan",
-          "1 pincée piment d’Espelette",
+          "60g huile d\u2019olive",
+          "1 petite gousse d\u2019ail r\u00e2p\u00e9e",
+          "1 c. \u00e0 caf\u00e9 thym ou origan",
+          "1 pinc\u00e9e piment d\u2019Espelette",
           "Zeste fin de citron",
           "Sel fin",
           "Poivre du moulin"
@@ -2129,41 +2129,41 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       }
     ],
     "steps": [
-      "Égoutter les billes de mozzarella et les éponger.",
-      "Mélanger l’huile d’olive, l’ail, les herbes, le piment, le zeste, le sel et le poivre du moulin.",
-      "Ajouter la mozzarella, mélanger délicatement et couvrir.",
-      "Laisser mariner au frais au moins 30min, idéalement 2h.",
-      "Remettre à température ambiante 10min avant de servir."
+      "\u00c9goutter les billes de mozzarella et les \u00e9ponger.",
+      "M\u00e9langer l\u2019huile d\u2019olive, l\u2019ail, les herbes, le piment, le zeste, le sel et le poivre du moulin.",
+      "Ajouter la mozzarella, m\u00e9langer d\u00e9licatement et couvrir.",
+      "Laisser mariner au frais au moins 30min, id\u00e9alement 2h.",
+      "Remettre \u00e0 temp\u00e9rature ambiante 10min avant de servir."
     ],
     "notes": [
-      "À servir avec tomates cerises, pain grillé, olives ou charcuterie.",
-      "Ne jette pas l’huile parfumée : elle assaisonne une salade ou des pâtes.",
-      "Éponger la mozzarella aide la marinade à mieux accrocher."
+      "\u00c0 servir avec tomates cerises, pain grill\u00e9, olives ou charcuterie.",
+      "Ne jette pas l\u2019huile parfum\u00e9e : elle assaisonne une salade ou des p\u00e2tes.",
+      "\u00c9ponger la mozzarella aide la marinade \u00e0 mieux accrocher."
     ],
     "technical": [
       {
         "label": "Marinade",
-        "value": "La mozzarella est humide : bien l’égoutter pour éviter une marinade diluée."
+        "value": "La mozzarella est humide : bien l\u2019\u00e9goutter pour \u00e9viter une marinade dilu\u00e9e."
       },
       {
         "label": "Service",
-        "value": "Le froid fige l’huile d’olive, donc sortir un peu avant dégustation."
+        "value": "Le froid fige l\u2019huile d\u2019olive, donc sortir un peu avant d\u00e9gustation."
       }
     ],
     "practical": {
       "equipment": [
         "Bol",
-        "Râpe fine",
-        "Boîte hermétique"
+        "R\u00e2pe fine",
+        "Bo\u00eete herm\u00e9tique"
       ],
       "storage": [
-        "24h au réfrigérateur dans la marinade."
+        "24h au r\u00e9frig\u00e9rateur dans la marinade."
       ],
       "mistakes": [
-        "Ne surdose pas l’ail cru : il devient vite dominant."
+        "Ne surdose pas l\u2019ail cru : il devient vite dominant."
       ],
       "result": [
-        "Billes fraîches, parfumées, prêtes pour l’apéro."
+        "Billes fra\u00eeches, parfum\u00e9es, pr\u00eates pour l\u2019ap\u00e9ro."
       ]
     },
     "additionalMasters": [
@@ -2172,11 +2172,11 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ]
   },
   "pate_lapin_piment_espelette": {
-    "title": "Pâté de lapin au piment d’Espelette",
+    "title": "P\u00e2t\u00e9 de lapin au piment d\u2019Espelette",
     "master": "apero_maitre",
     "image": "/assets/recipe-images-optimized/pate_lapin_piment_espelette_spooky.jpg",
     "categories": [
-      "Apéro"
+      "Ap\u00e9ro"
     ],
     "seasons": [
       "Toutes saisons"
@@ -2185,12 +2185,12 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "difficultyScore": 5,
     "yield": "6 bocaux",
     "aliases": [
-      "pâté de lapin",
+      "p\u00e2t\u00e9 de lapin",
       "pate lapin espelette",
       "conserve de lapin"
     ],
     "tags": [
-      "pâté",
+      "p\u00e2t\u00e9",
       "lapin",
       "conserve",
       "piment"
@@ -2199,7 +2199,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Viande",
         "items": [
-          "900g chair de lapin désossée",
+          "900g chair de lapin d\u00e9soss\u00e9e",
           "350g gorge de porc",
           "200g foie de volaille",
           "120g lard gras"
@@ -2208,56 +2208,56 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Assaisonnement",
         "items": [
-          "80g échalote",
+          "80g \u00e9chalote",
           "12g ail",
           "60ml armagnac ou cognac",
           "12g sel fin",
           "2g poivre du moulin",
-          "3g piment d’Espelette",
+          "3g piment d\u2019Espelette",
           "2g thym"
         ]
       }
     ],
     "steps": [
       "Couper les viandes bien froides en morceaux et les passer au hachoir grosse grille.",
-      "Mélanger avec échalote, ail, alcool, sel, poivre du moulin, piment d’Espelette et thym.",
-      "Travailler rapidement jusqu’à obtenir une farce homogène, sans la chauffer.",
-      "Remplir des bocaux propres en tassant légèrement et en laissant 2cm de marge.",
-      "Fermer les bocaux selon le système utilisé.",
-      "Stériliser 2h30 à 100°C, au stérilisateur ou dans un grand faitout, puis laisser refroidir dans l’eau.",
-      "Vérifier les fermetures avant stockage et laisser maturer au moins 48h avant dégustation."
+      "M\u00e9langer avec \u00e9chalote, ail, alcool, sel, poivre du moulin, piment d\u2019Espelette et thym.",
+      "Travailler rapidement jusqu\u2019\u00e0 obtenir une farce homog\u00e8ne, sans la chauffer.",
+      "Remplir des bocaux propres en tassant l\u00e9g\u00e8rement et en laissant 2cm de marge.",
+      "Fermer les bocaux selon le syst\u00e8me utilis\u00e9.",
+      "St\u00e9riliser 2h30 \u00e0 100\u00b0C, au st\u00e9rilisateur ou dans un grand faitout, puis laisser refroidir dans l\u2019eau.",
+      "V\u00e9rifier les fermetures avant stockage et laisser maturer au moins 48h avant d\u00e9gustation."
     ],
     "notes": [
-      "La conserve demande des bocaux parfaitement propres et des joints en bon état.",
-      "Le piment d’Espelette doit parfumer sans masquer le lapin.",
-      "Servir frais avec pain grillé, cornichons et moutarde."
+      "La conserve demande des bocaux parfaitement propres et des joints en bon \u00e9tat.",
+      "Le piment d\u2019Espelette doit parfumer sans masquer le lapin.",
+      "Servir frais avec pain grill\u00e9, cornichons et moutarde."
     ],
     "technical": [
       {
-        "label": "Hygiène",
-        "value": "Garder viande et farce bien froides, puis lancer la stérilisation sans attente."
+        "label": "Hygi\u00e8ne",
+        "value": "Garder viande et farce bien froides, puis lancer la st\u00e9rilisation sans attente."
       },
       {
         "label": "Conservation",
-        "value": "Tout bocal mal fermé, bombé ou suspect doit être écarté."
+        "value": "Tout bocal mal ferm\u00e9, bomb\u00e9 ou suspect doit \u00eatre \u00e9cart\u00e9."
       }
     ],
     "practical": {
       "equipment": [
         "Hachoir",
-        "Bocaux à conserve",
-        "Stérilisateur ou grand faitout haut",
+        "Bocaux \u00e0 conserve",
+        "St\u00e9rilisateur ou grand faitout haut",
         "Grand saladier"
       ],
       "storage": [
-        "Plusieurs mois dans un endroit frais, sec et sombre si la stérilisation est réussie.",
-        "Après ouverture : 48h au réfrigérateur."
+        "Plusieurs mois dans un endroit frais, sec et sombre si la st\u00e9rilisation est r\u00e9ussie.",
+        "Apr\u00e8s ouverture : 48h au r\u00e9frig\u00e9rateur."
       ],
       "mistakes": [
-        "Ne remplis pas les bocaux jusqu’en haut : la marge limite les débordements à la stérilisation."
+        "Ne remplis pas les bocaux jusqu\u2019en haut : la marge limite les d\u00e9bordements \u00e0 la st\u00e9rilisation."
       ],
       "result": [
-        "Pâté rustique, parfumé, avec une chaleur douce de piment d’Espelette."
+        "P\u00e2t\u00e9 rustique, parfum\u00e9, avec une chaleur douce de piment d\u2019Espelette."
       ]
     }
   },
@@ -2266,7 +2266,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "master": "apero_maitre",
     "image": "/assets/recipe-images-optimized/terrine_porc_pistaches_spooky.jpg",
     "categories": [
-      "Apéro"
+      "Ap\u00e9ro"
     ],
     "seasons": [
       "Toutes saisons"
@@ -2277,7 +2277,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "aliases": [
       "terrine de porc aux pistaches",
       "terrine porc pistaches",
-      "pâté porc pistache"
+      "p\u00e2t\u00e9 porc pistache"
     ],
     "tags": [
       "terrine",
@@ -2289,36 +2289,36 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Farce",
         "items": [
-          "650g échine de porc",
+          "650g \u00e9chine de porc",
           "350g gorge de porc",
           "200g foie de volaille",
-          "100g pistaches décortiquées",
-          "80g échalote ciselée",
-          "10g ail haché",
-          "120g œufs entiers",
+          "100g pistaches d\u00e9cortiqu\u00e9es",
+          "80g \u00e9chalote cisel\u00e9e",
+          "10g ail hach\u00e9",
+          "120g \u0153ufs entiers",
           "60ml cognac ou armagnac",
           "17g sel fin",
           "3g poivre du moulin",
-          "2g quatre-épices"
+          "2g quatre-\u00e9pices"
         ]
       },
       {
         "group": "Terrine",
         "items": [
-          "150g crépine ou bardes de lard",
+          "150g cr\u00e9pine ou bardes de lard",
           "2 feuilles de laurier",
           "2 branches de thym"
         ]
       }
     ],
     "steps": [
-      "Couper les viandes bien froides en morceaux et les faire mariner 2h avec alcool, échalote, ail, sel fin, poivre du moulin et quatre-épices.",
+      "Couper les viandes bien froides en morceaux et les faire mariner 2h avec alcool, \u00e9chalote, ail, sel fin, poivre du moulin et quatre-\u00e9pices.",
       "Hacher les viandes avec une grille moyenne.",
-      "Ajouter les œufs et les pistaches, puis mélanger jusqu’à obtenir une farce liée sans la chauffer.",
-      "Chemiser la terrine avec crépine ou bardes, remplir avec la farce et lisser.",
+      "Ajouter les \u0153ufs et les pistaches, puis m\u00e9langer jusqu\u2019\u00e0 obtenir une farce li\u00e9e sans la chauffer.",
+      "Chemiser la terrine avec cr\u00e9pine ou bardes, remplir avec la farce et lisser.",
       "Ajouter laurier et thym, couvrir, puis poser la terrine dans un bain-marie chaud.",
-      "Cuire à 160–170°C pendant 1h30 environ, jusqu’à atteindre une cuisson à cœur.",
-      "Laisser tiédir, poser un léger poids dessus, puis réserver 24 à 48h au réfrigérateur avant de trancher."
+      "Cuire \u00e0 160\u2013170\u00b0C pendant 1h30 environ, jusqu\u2019\u00e0 atteindre une cuisson \u00e0 c\u0153ur.",
+      "Laisser ti\u00e9dir, poser un l\u00e9ger poids dessus, puis r\u00e9server 24 \u00e0 48h au r\u00e9frig\u00e9rateur avant de trancher."
     ],
     "notes": [
       "Le repos au froid raffermit la terrine et arrondit les saveurs.",
@@ -2328,30 +2328,30 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "technical": [
       {
         "label": "Farce",
-        "value": "Garder les viandes froides évite une farce grasse et collante."
+        "value": "Garder les viandes froides \u00e9vite une farce grasse et collante."
       },
       {
         "label": "Bain-marie",
-        "value": "La cuisson douce limite le dessèchement et donne une tranche plus nette."
+        "value": "La cuisson douce limite le dess\u00e8chement et donne une tranche plus nette."
       }
     ],
     "practical": {
       "equipment": [
         "Terrine",
         "Hachoir",
-        "Plat à bain-marie",
+        "Plat \u00e0 bain-marie",
         "Sonde"
       ],
       "storage": [
-        "4 à 5 jours au réfrigérateur à 0–4°C, bien filmée.",
+        "4 \u00e0 5 jours au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, bien film\u00e9e.",
         "Couvrir la surface de saindoux fondu peut prolonger la protection au froid.",
         "Trancher au dernier moment."
       ],
       "mistakes": [
-        "Ne hache pas trop fin : la terrine doit garder une texture charcutière."
+        "Ne hache pas trop fin : la terrine doit garder une texture charcuti\u00e8re."
       ],
       "result": [
-        "Terrine rustique, parfumée, avec pistaches bien visibles à la tranche."
+        "Terrine rustique, parfum\u00e9e, avec pistaches bien visibles \u00e0 la tranche."
       ]
     }
   }
