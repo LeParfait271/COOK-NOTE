@@ -62,7 +62,10 @@ if (!staticAssets) {
     '/index.html',
     '/recipe.html',
     '/app.js',
-    '/assets/catalog.js',
+    '/assets/catalog-1.js',
+    '/assets/catalog-2.js',
+    '/assets/catalog-3.js',
+    '/assets/catalog-4.js',
     '/recipe.js',
     '/style.css',
     '/manifest.json',
@@ -87,9 +90,9 @@ if (!/CACHE_NAME\s*=\s*['"]cook-note-v\d+['"]/.test(serviceWorker)) {
   fail('service-worker.js: CACHE_NAME doit etre versionne en cook-note-vN.');
 }
 
-const indexAssetVersions = [...indexHtml.matchAll(/\b(?:app|catalog|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
+const indexAssetVersions = [...indexHtml.matchAll(/\b(?:app|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
 const swRegistrationVersion = indexHtml.match(/service-worker\.js\?v=(\d+)/)?.[1];
-const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|catalog|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
+const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
 const swCacheVersion = serviceWorker.match(/CACHE_NAME\s*=\s*['"]cook-note-v(\d+)['"]/)?.[1];
 const allAssetVersions = [...indexAssetVersions, swRegistrationVersion, ...swAssetVersions, swCacheVersion].filter(Boolean);
 if (!allAssetVersions.length || new Set(allAssetVersions).size !== 1) {
@@ -118,13 +121,16 @@ if (!indexHtml.includes('https://cook-note.pages.dev/')) {
   'src="/assets/vendor/react-dom.production.min.js"',
   'src="/assets/vendor/confetti.browser.min.js"',
   'src="/assets/vendor/qrcode.min.js"',
-  'src="/assets/catalog.js?',
+  'src="/assets/catalog-1.js?',
+  'src="/assets/catalog-2.js?',
+  'src="/assets/catalog-3.js?',
+  'src="/assets/catalog-4.js?',
   'src="/app.js?',
   "register('/service-worker.js?"
 ].forEach(fragment => {
   if (!indexHtml.includes(fragment)) fail(`index.html: chemin racine attendu absent (${fragment}).`);
 });
-['href="style.css', 'src="assets/vendor', 'src="recipes.js', 'src="assets/catalog.js', 'src="app.js', "register('service-worker.js"].forEach(fragment => {
+['href="style.css', 'src="assets/vendor', 'src="recipes.js', 'src="assets/catalog-', 'src="app.js', "register('service-worker.js"].forEach(fragment => {
   if (indexHtml.includes(fragment)) fail(`index.html: chemin relatif fragile detecte (${fragment}).`);
 });
 
