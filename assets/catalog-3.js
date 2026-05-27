@@ -1,3 +1,2378 @@
-﻿// Cook Note - catalogue recettes chunk 3/4
-window.RECIPES = Object.assign(window.RECIPES || {}, {"cremes_maitre":{"title":"Toppings et garnitures","image":"/assets/recipe-images-optimized/cremes_maitre_spooky.jpg","categories":["Desserts"],"seasons":["Toutes saisons"],"difficulty":"medium","masterType":"collection","variants":[{"id":"chantilly_maitre","label":"Chantilly"},{"id":"coulis_maitre","label":"Coulis"},{"id":"creme_beurre_meringue_italienne","label":"CrÃ¨me au beurre meringue italienne"},{"id":"creme_citron_lemon_curd","label":"CrÃ¨me citron"},{"id":"creme_diplomate_vanille","label":"CrÃ¨me diplomate vanille"},{"id":"creme_diplomate_cloud","label":"CrÃ¨me diplomate vanille Ã  garnir"},{"id":"mascarpone","label":"CrÃ¨me mascarpone vanille"},{"id":"creme_kinder_nutella","label":"CrÃ¨me Nutella Ã  garnir"},{"id":"creme_patissiere_praline","label":"CrÃ¨me pÃ¢tissiÃ¨re pralinÃ©"},{"id":"creme_patissiere_vanille","label":"CrÃ¨me pÃ¢tissiÃ¨re vanille"},{"id":"creme_pistache","label":"CrÃ¨me pistache Ã  garnir"},{"id":"creme_praline","label":"CrÃ¨me pralinÃ©"},{"id":"creme_amande_citron","label":"Fond de tarte amande"},{"id":"compotee_citron","label":"Marmelade citron"},{"id":"meringue_italienne","label":"Meringue italienne"}],"ingredients":[{"group":"Variantes","items":["Choisir une variante pour afficher la recette."]}],"steps":["Choisir une variante pour afficher les Ã©tapes."],"notes":["Cette fiche regroupe les toppings, garnitures, chantillys, coulis et crÃ¨mes du carnet.","Cliquer une variante pour afficher sa recette."],"technical":[{"label":"Cuisson","value":"Remuer constamment et stopper des que la creme epaissit franchement."},{"label":"Refroidissement","value":"Filmer au contact pour eviter la peau et garder une texture lisse."},{"label":"Usage","value":"Detendre au fouet avant pochage ou montage."}],"master":"desserts_maitre"},"biscuits_gouters_maitre":{"title":"Biscuits, cookies et meringues","image":"/assets/recipe-images-optimized/biscuits_gouters_maitre_spooky.jpg","categories":["Desserts"],"seasons":["Toutes saisons"],"difficulty":"easy","masterType":"collection","variants":[{"id":"cake_citron","label":"Cake au citron"},{"id":"churros_maison","label":"Churros"},{"id":"cookies_sucres_maitre","label":"Cookies sucrÃ©s"},{"id":"macaron_ourea_pierre_herme","label":"Macaron OurÃ©a"},{"id":"meringues","label":"Meringues"}],"ingredients":[{"group":"Choisir une variante","items":["SÃ©lectionner le biscuit ou goÃ»ter voulu dans les boutons de la fiche."]}],"steps":["Choisir une variante pour afficher la recette complÃ¨te."],"notes":["Fiche maÃ®tre : biscuits, cookies et petites prÃ©parations sucrÃ©es ou salÃ©es."],"technical":[{"label":"Repos","value":"Reposer la pate quand c\u0027est indique pour une cuisson plus reguliere."},{"label":"Cuisson","value":"Sortir legerement avant la texture finale, la chaleur residuelle termine le biscuit."},{"label":"Conservation","value":"Stocker au sec apres refroidissement complet."}],"master":"desserts_maitre"},"vinaigrette":{"title":"Vinaigrette","master":"sauces_assaisonnements_maitre","image":"/assets/recipe-images-optimized/vinaigrette_spooky.jpg","categories":["Sauces"],"seasons":["Toutes saisons"],"difficulty":"easy","yield":"environ 230g","ingredients":[{"group":"Base","items":["30g moutarde de Dijon","45g vinaigre de vin rouge ou XÃ©rÃ¨s","2g sel fin, 1g poivre du moulin","150g huile (80g neutre + 70g olive)","5g miel (option)"]}],"steps":["Fouetter moutarde + vinaigre + sel / poivre du moulin (et miel).","Verser les huiles en filet pour Ã©mulsionner.","GoÃ»ter et ajuster."],"notes":["Ratio huile:acide 3:1 Ã  4:1 selon la salade.","Variantes : citron, herbes, miso blanc, yaourt grec.","â†’ Voir aussi : \u003cspan data-goto=\"pesto_variantes\"\u003ePestos\u003c/span\u003e","Stockage optimal : flacon avec couvercle au rÃ©frigÃ©rateur ; secouer avant usage.","Conservation : 5â€“7 j au froid.","Stockage : bocal ou boÃ®te hermÃ©tique au rÃ©frigÃ©rateur. PÃ©remption : 3â€“5 jours; vÃ©rifier odeur, texture et absence de fermentation."],"difficultyScore":2},"balsamique_reduit":{"title":"Balsamique rÃ©duit","master":"sauces_assaisonnements_maitre","image":"/assets/recipe-images-optimized/balsamique_reduit_spooky.jpg","categories":["Sauces"],"seasons":["Toutes saisons"],"difficulty":"easy","yield":"environ 120g","ingredients":[{"group":"Base","items":["250g vinaigre balsamique IGP","25â€“50g sucre (au goÃ»t)"]}],"steps":["Verser le vinaigre balsamique dans une petite casserole Ã  fond Ã©pais.","Ajouter le sucre selon l\u0027Ã©quilibre voulu, puis porter Ã  lÃ©ger frÃ©missement.","Mijoter 12â€“20min Ã  feu doux jusqu\u0027Ã  texture nappante, en surveillant car la rÃ©duction Ã©paissit vite.","Couper le feu quand la rÃ©duction nappe la cuillÃ¨re : elle continuera Ã  Ã©paissir en refroidissant.","Transvaser dans un pot propre et laisser refroidir avant de fermer."],"notes":["Variantes : zeste d\u0027orange, vanille, cacao, espresso, figue (filtrer).","Conservation : 2â€“3 mois au froid.","Stockage : boÃ®te hermÃ©tique adaptÃ©e, au rÃ©frigÃ©rateur si la recette contient Å“ufs, crÃ¨me, viande ou garniture humide. PÃ©remption : 2â€“3 jours."],"difficultyScore":2,"tags":["balsamique","reduction","sauce","condiment"],"aliases":["creme balsamique","reduction balsamique","balsamique reduit"]},"marinades_guide":{"title":"Marinades","master":"sauces_assaisonnements_maitre","image":"/assets/recipe-images-optimized/marinades_guide_spooky.jpg","categories":["Sauces"],"seasons":["Toutes saisons"],"difficulty":"easy","yield":"10 marinades pour 4 personnes","ingredients":[{"group":"1) MÃ©diterranÃ©enne","items":["40g huile d\u0027olive","20g jus de citron","2g zeste","2g origan","2g ail rÃ¢pÃ©","Sel / poivre du moulin"],"steps":["Melanger huile d olive, jus et zeste de citron, origan, ail, sel et poivre du moulin.","Enrober viande, poisson ou legumes puis laisser mariner 20min a 2h selon le produit.","Egoutter legerement avant cuisson pour eviter que l ail brule."]},{"group":"2) Teriyaki rapide","items":["40g sauce soja","20g mirin","10g sucre","10g vinaigre de riz","2g gingembre","1g ail"],"steps":["Melanger sauce soja, mirin, sucre, vinaigre de riz, gingembre et ail.","Laisser dissoudre le sucre, puis enrober la piece a mariner 20min a 1h.","Cuire en surveillant la coloration car le sucre caramelise vite."]},{"group":"3) Tandoori yaourt","items":["100g yaourt grec","6g pÃ¢te tandoori ou 4g garam masala","5g jus de citron","2g ail","2g gingembre","Sel"],"steps":["Melanger yaourt grec, epices tandoori, citron, ail, gingembre et sel.","Enrober la volaille ou les legumes et laisser mariner au frais 1 a 6h.","Retirer l exces de marinade avant cuisson forte pour obtenir une belle coloration."]},{"group":"4) BBQ fumÃ©","items":["40g ketchup","20g sauce soja","10g miel","10g vinaigre de cidre","2g paprika fumÃ©","1g ail"],"steps":["Melanger ketchup, sauce soja, miel, vinaigre, paprika fume et ail.","Badigeonner la piece et laisser mariner 30min a 2h.","Cuire a chaleur moderee puis laquer en fin de cuisson pour eviter de bruler le miel."]},{"group":"5) Chermoula","items":["40g huile d\u0027olive","20g jus de citron","10g coriandre hachÃ©e","10g persil","2g cumin","1g paprika","1g ail"],"steps":["Melanger huile d olive, citron, coriandre, persil, cumin, paprika et ail.","Enrober poisson, legumes ou volaille et laisser mariner 20min a 1h.","Cuire sans trop egoutter pour garder le parfum des herbes."]},{"group":"6) Citron-herbes volaille","items":["40g huile neutre","20g jus de citron","5g moutarde","herbes fraÃ®ches","Sel / poivre du moulin"],"steps":["Melanger huile neutre, jus de citron, moutarde, herbes fraiches, sel et poivre du moulin.","Enrober la volaille et laisser mariner 30min a 4h au frais.","Egoutter legerement puis cuire jusqu a coeur juteux et surface doree."]},{"group":"7) Porc miel-moutarde","items":["40g miel","20g moutarde","10g sauce soja","10g vinaigre","1g ail"],"steps":["Melanger miel, moutarde, sauce soja, vinaigre et ail.","Enrober le porc et laisser mariner 1 a 6h au frais.","Cuire a feu modere en retournant souvent pour ne pas bruler le miel."]},{"group":"8) Mexicaine","items":["40g huile","20g jus de citron vert","2g cumin","2g paprika","1g piment","1g ail"],"steps":["Melanger huile, citron vert, cumin, paprika, piment et ail.","Enrober viande, crevettes ou legumes et laisser mariner 20min a 2h.","Cuire a feu vif pour marquer, puis finir plus doucement si les morceaux sont epais."]},{"group":"9) ThaÃ¯ citronnelle","items":["40g huile","10g nuoc-mÃ¢m","10g jus de citron vert","2g citronnelle hachÃ©e","1g sucre","piment"],"steps":["Melanger huile, nuoc-mam, citron vert, citronnelle, sucre et piment.","Enrober poisson, poulet ou legumes et laisser mariner 20min a 1h.","Cuire rapidement et finir avec un trait de citron vert si besoin."]},{"group":"10) LÃ©gumes balsamique","items":["40g huile d\u0027olive","20g balsamique","2g miel","1g ail","Thym"],"steps":["Melanger huile d olive, balsamique, miel, ail et thym.","Enrober les legumes avant cuisson en gardant une couche fine.","Rotir ou griller; remuer a mi-cuisson et surveiller la caramelisation du balsamique."]}],"steps":["Choisir la marinade selon l\u0027aliment et mÃ©langer tous les ingrÃ©dients dans un bol propre.","Enrober l\u0027aliment, couvrir et placer au rÃ©frigÃ©rateur pendant le temps adaptÃ©.","Compter 30min pour poisson ou crevettes, 2â€“4h pour volaille, 6â€“12h pour porc ou bÅ“uf.","Ã‰goutter avant cuisson forte pour Ã©viter que l\u0027excÃ¨s de liquide brÃ»le ou empÃªche la coloration.","Jeter la marinade qui a touchÃ© le cru, ou la porter franchement Ã  Ã©bullition si elle doit devenir une sauce."],"notes":["Ne pas rÃ©utiliser la marinade crue ; porter Ã  Ã©bullition si sauce.","Conservation : marinades prÃªtes 7 j au froid.","Stockage : bocal ou boÃ®te hermÃ©tique au rÃ©frigÃ©rateur. PÃ©remption : 3â€“5 jours; vÃ©rifier odeur, texture et absence de fermentation."],"difficultyScore":3,"variantGroups":true,"tags":["marinade","viande","poisson","legumes"],"aliases":["marinades rapides","marinade maison","guide marinades"]},"choux_craquelin":{"title":"Choux au craquelin","master":"desserts_maitre","image":"/assets/recipe-images-optimized/choux_craquelin_spooky.jpg","categories":["Desserts"],"seasons":["Toutes saisons"],"difficulty":"medium","yield":"18â€“22 choux","ingredients":[{"group":"Craquelin","items":["50g beurre","60g cassonade ou vergeoise","60g farine"]},{"group":"PÃ¢te Ã  choux","items":["125g lait","125g eau","100g beurre","5g sel","150g farine T55","250g Å“ufs (env. 5)"]},{"group":"Garnissage","items":["CrÃ¨me diplomate vanille ou chantilly"]}],"steps":["Abaisser craquelin 2mm, dÃ©tailler disques.","RÃ©aliser pÃ¢te Ã  choux ; pocher Ã˜ 3â€“4cm ; couvrir d\u0027un disque de craquelin.","Cuire 170â€“175Â°C 35â€“40min ventilÃ© sec.","Refroidir, garnir."],"notes":["Conservation : coques 3 j Ã  tempÃ©rature ambiante dans boÃ®te hermÃ©tique ; garnis 24h au froid.","â†’ Recette de garnissage : \u003cspan data-goto=\"creme_diplomate_vanille\"\u003eCrÃ¨me diplomate vanille\u003c/span\u003e","â†’ Version allÃ©gÃ©e : \u003cspan data-goto=\"chantilly_gelatine\"\u003eChantilly stabilisÃ©e\u003c/span\u003e","Stockage : boÃ®te hermÃ©tique au sec, Ã  tempÃ©rature ambiante. PÃ©remption : 5â€“14 jours selon humiditÃ©; garder loin du rÃ©frigÃ©rateur sauf garniture fragile.","Chaque four rÃ©agit diffÃ©remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nÃ©cessaire.","CrÃ¨mes Ã  garnir : \u003cspan data-goto=\"creme_diplomate_vanille\"\u003eCrÃ¨me diplomate vanille\u003c/span\u003e Â· \u003cspan data-goto=\"creme_diplomate_cloud\"\u003eCrÃ¨me diplomate vanille Ã  garnir\u003c/span\u003e Â· \u003cspan data-goto=\"creme_patissiere_vanille\"\u003eCrÃ¨me pÃ¢tissiÃ¨re vanille\u003c/span\u003e Â· \u003cspan data-goto=\"creme_patissiere_praline\"\u003eCrÃ¨me pÃ¢tissiÃ¨re pralinÃ©\u003c/span\u003e Â· \u003cspan data-goto=\"creme_kinder_nutella\"\u003eCrÃ¨me Nutella Ã  garnir\u003c/span\u003e Â· \u003cspan data-goto=\"creme_pistache\"\u003eCrÃ¨me pistache Ã  garnir\u003c/span\u003e Â· \u003cspan data-goto=\"creme_praline\"\u003eCrÃ¨me pralinÃ©\u003c/span\u003e Â· \u003cspan data-goto=\"mascarpone\"\u003eCrÃ¨me mascarpone vanille\u003c/span\u003e Â· \u003cspan data-goto=\"chantilly_gelatine\"\u003eChantilly stabilisÃ©e\u003c/span\u003e."],"difficultyScore":7},"paris_brest":{"title":"Paris-Brest","master":"desserts_maitre","image":"/assets/recipe-images-optimized/paris_brest_spooky.jpg","categories":["Desserts"],"seasons":["Toutes saisons"],"difficulty":"hard","yield":"5 Ã  6 Paris-Brest individuels","ingredients":[{"group":"Assemblage final","items":["5â€“6 couronnes de pÃ¢te Ã  choux cuites avec craquelin","CrÃ¨me au pralinÃ©","50g noisettes torrÃ©fiÃ©es concassÃ©es","QS pralinÃ© noisette pur"]},{"group":"Composants liÃ©s","items":["â†’ Voir : \u003cspan data-goto=\"craquelin_cacao\"\u003eCraquelin cacao\u003c/span\u003e","â†’ Voir : \u003cspan data-goto=\"pate_choux\"\u003ePÃ¢te Ã  choux\u003c/span\u003e","â†’ Voir : \u003cspan data-goto=\"creme_patissiere_praline\"\u003eCrÃ¨me pÃ¢tissiÃ¨re pralinÃ©\u003c/span\u003e","â†’ Voir : \u003cspan data-goto=\"creme_beurre_meringue_italienne\"\u003eCrÃ¨me au beurre meringue italienne\u003c/span\u003e","â†’ Voir : \u003cspan data-goto=\"creme_praline\"\u003eCrÃ¨me pralinÃ©\u003c/span\u003e"]}],"steps":["Cuire les couronnes de pÃ¢te Ã  choux avec le craquelin.","Couper chaque couronne dans la hauteur.","Pocher un peu de pralinÃ© pur au fond (optionnel), puis pocher la crÃ¨me au pralinÃ©.","Ajouter quelques points de pralinÃ© pur, refermer avec le chapeau, puis dÃ©corer avec les noisettes concassÃ©es."],"notes":["Montage en couronnes de pÃ¢te Ã  choux, crÃ¨me pralinÃ© et noisettes.","Sortir du rÃ©frigÃ©rateur 30 Ã  40min avant dÃ©gustation.","Stockage : boÃ®te hermÃ©tique adaptÃ©e, au rÃ©frigÃ©rateur si la recette contient Å“ufs, crÃ¨me, viande ou garniture humide. PÃ©remption : 2â€“3 jours."],"difficultyScore":8},"pate_choux":{"title":"PÃ¢te Ã  choux","master":"pates_bases_maitre","image":"/assets/recipe-images-optimized/pate_choux_spooky.jpg","categories":["Base","Desserts"],"seasons":["Toutes saisons"],"difficulty":"medium","yield":"8 choux","ingredients":[{"group":"Base","items":["60g lait","60g eau","2g sel","55g beurre","75g farine","100g Å“ufs (â‰ˆ2)"]}],"steps":["Porter Ã  Ã©bullition eau + lait + sel + beurre.","Hors du feu, ajouter la farine en une fois puis dessÃ©cher sur feu doux.","Refroidir lÃ©gÃ¨rement au robot (feuille), puis incorporer les Å“ufs progressivement jusquâ€™Ã  texture lisse.","Pocher des couronnes de 7cm, poser le craquelin puis cuire Ã  170Â°C pendant 40 Ã  45min."],"notes":["Le test du sillon : il doit se refermer doucement quand la texture est correcte.","Stockage : boÃ®te hermÃ©tique adaptÃ©e, au rÃ©frigÃ©rateur si la recette contient Å“ufs, crÃ¨me, viande ou garniture humide. PÃ©remption : 2â€“3 jours.","Chaque four rÃ©agit diffÃ©remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nÃ©cessaire."],"difficultyScore":7,"additionalMasters":["elements_base_maitre","desserts_maitre"]},"creme_praline":{"title":"CrÃ¨me pralinÃ©","master":"cremes_maitre","image":"/assets/recipe-images-optimized/creme_praline_spooky.jpg","categories":["Desserts","Base"],"seasons":["Toutes saisons"],"difficulty":"medium","yield":"environ 690g","ingredients":[{"group":"Assemblage","items":["390g crÃ¨me pÃ¢tissiÃ¨re pralinÃ© (ou totalitÃ© prÃ©parÃ©e)","300g crÃ¨me au beurre (environ)"]}],"steps":["DÃ©tendre la crÃ¨me pÃ¢tissiÃ¨re refroidie au fouet.","Incorporer dÃ©licatement la crÃ¨me au beurre Ã  la maryse.","Mettre en poche cannelÃ©e pour le montage des Paris-Brest."],"notes":["UtilisÃ© par exemple dans : \u003cspan data-goto=\"paris_brest\"\u003eParis-Brest\u003c/span\u003e.","Stockage : boÃ®te hermÃ©tique adaptÃ©e, au rÃ©frigÃ©rateur si la recette contient Å“ufs, crÃ¨me, viande ou garniture humide. PÃ©remption : 2â€“3 jours."],"difficultyScore":5,"additionalMasters":["elements_base_maitre"]},"accompagnements_maitre":{"title":"Accompagnements","image":"/assets/recipe-images-optimized/parent_accompagnements.jpg","categories":["Accompagnements"],"seasons":["Printemps","Ã‰tÃ©","Automne","Hiver"],"difficulty":"easy","masterType":"collection","variants":[{"id":"chou_fleur_croustillant","label":"Chou-fleur croustillant"},{"id":"frites_belges","label":"Frites belges"},{"id":"frites_patate_douce","label":"Frites de patate douce"},{"id":"frites_maison","label":"Frites maison"},{"id":"gaufres_pommes_terre","label":"Gaufres de pommes de terre croustillantes"},{"id":"gratin_chou_fleur","label":"Gratin de chou-fleur"},{"id":"legumes_rotis","label":"LÃ©gumes rÃ´tis au four"},{"id":"oignons_rotis_thym_miel","label":"Oignons rÃ´tis au thym et au miel"},{"id":"pain_grille_beurre_ail_herbes","label":"Pain grillÃ© beurre ail et herbes"},{"id":"pesto_tomates_sechees_sans_cajou","label":"Pesto tomates sÃ©chÃ©es"},{"id":"sauce_yaourt_citronnee","label":"Sauce yaourt citronnÃ©e"},{"id":"tomates_variantes","label":"Tomates confites et sÃ©chÃ©es"},{"id":"tomates_provencales","label":"Tomates provenÃ§ales"},{"id":"toppings_frites","label":"Toppings frites"}],"ingredients":[{"group":"Variantes","items":["Choisir une variante pour afficher les recettes."]}],"steps":["Choisir une variante pour afficher les ingrÃ©dients et les Ã©tapes."],"notes":["Fiche parent de navigation. Les recettes restent conservÃ©es dans leurs variantes."]},"oeuf_chili_crisp_toast":{"title":"Å’uf sur le plat chili crisp sur toast","master":"petit_dejeuner_maitre","image":"/assets/recipe-images-optimized/oeuf_chili_crisp_toast_spooky.jpg","categories":["Petits-dÃ©jeuners"],"seasons":["Printemps","Ã‰tÃ©","Automne","Hiver"],"difficulty":"easy","difficultyScore":2,"yield":"1 toast + huile chili crisp pour plusieurs portions","aliases":["toast Å“uf chili crisp","oeuf chili crisp toast","chili crisp egg toast","Å“uf sur toast"],"tags":["oeuf","toast","chili crisp","avocat","petit-dejeuner"],"ingredients":[{"group":"Huile chili crisp maison","items":["110g huile dâ€™avocat ou huile neutre","5g flocons de piment concassÃ©s ou piment rouge sÃ©chÃ© finement concassÃ©","7g poudre de piment finement moulue : piment du Sichuan, gochugaru, poudre de chili ou autre piment au choix","0,3g cinq-Ã©pices","4 Ã  5g ail trÃ¨s finement hachÃ© ou rÃ¢pÃ©","1,5g graines de sÃ©same","1,5g sel"]},{"group":"Toast Ã  lâ€™Å“uf","items":["9 Ã  14g huile chili crisp maison ou huile chili crisp du commerce","55g Å“uf (1 Å“uf moyen)","Sel","Poivre du moulin","1 tranche de pain grillÃ©e","Beurre, fromage frais ou cream cheese","1 petite poignÃ©e de jeunes pousses dâ€™Ã©pinards","1/3 petit avocat tranchÃ©"]},{"group":"Finition","items":["Un peu dâ€™huile chili crisp","Basilic frais ciselÃ© ou herbes fraÃ®ches au choix, facultatifs"]}],"steps":["Verser lâ€™huile dans une petite casserole et chauffer Ã  feu doux : elle doit Ãªtre chaude sans fumer.","MÃ©langer flocons de piment, poudre de piment, cinq-Ã©pices, ail, graines de sÃ©same et sel dans un bol rÃ©sistant Ã  la chaleur.","Verser lâ€™huile chaude sur le mÃ©lange dâ€™Ã©pices, laisser crÃ©piter quelques secondes, mÃ©langer puis laisser tiÃ©dir.","Faire chauffer une poÃªle Ã  feu moyen.","Ajouter 9 Ã  14g dâ€™huile chili crisp, puis casser lâ€™Å“uf dans la poÃªle.","Saler, ajouter un peu de poivre du moulin et frire jusquâ€™Ã  bords croustillants et jaune cuit selon ton goÃ»t.","Faire griller la tranche de pain.","Tartiner avec un peu de beurre, de fromage frais, de cream cheese ou dâ€™alternative vÃ©gÃ©tale.","Ajouter les jeunes pousses dâ€™Ã©pinards et les tranches dâ€™avocat.","DÃ©poser lâ€™Å“uf par-dessus, ajouter un filet dâ€™huile chili crisp et terminer avec le basilic ou les herbes fraÃ®ches si souhaitÃ©."],"notes":["Lâ€™huile chili crisp doit refroidir complÃ¨tement avant dâ€™Ãªtre transfÃ©rÃ©e dans un bocal propre, stÃ©rilisÃ© et hermÃ©tique.","Conserve lâ€™huile chili crisp au rÃ©frigÃ©rateur, utilise toujours une cuillÃ¨re propre et ne la garde pas Ã  tempÃ©rature ambiante avec de lâ€™ail frais.","Jette lâ€™huile en cas dâ€™odeur anormale, de bulles, de moisissure ou de texture suspecte.","Lâ€™huile peut se conserver environ 2 Ã  6 mois au rÃ©frigÃ©rateur si elle est correctement stockÃ©e.","Le toast se mange tout de suite pour garder le pain croustillant et lâ€™Å“uf chaud."],"technical":[{"label":"Huile chaude","value":"Elle doit rÃ©veiller les Ã©pices sans brÃ»ler lâ€™ail ni faire fumer lâ€™huile."},{"label":"Å’uf frit","value":"Une poÃªle bien chaude donne des bords croustillants tout en gardant un jaune fondant."}]},"oignons_rotis_thym_miel":{"title":"Oignons rÃ´tis au thym et au miel","master":"entrees_maitre","image":"/assets/recipe-images-optimized/oignons_rotis_thym_miel_spooky.jpg","categories":["EntrÃ©es","Accompagnements"],"seasons":["Automne","Hiver"],"difficulty":"easy","yield":"4 personnes","ingredients":[{"group":"Base","items":["6 oignons jaunes","40g miel","40g huile dâ€™olive","2 branches de thym frais","3g sel","1g poivre du moulin"]}],"steps":["PrÃ©chauffer le four Ã  180Â°C.","Ã‰plucher les oignons et les couper en deux dans la largeur.","Disposer cÃ´tÃ© coupÃ© vers le haut sur plaque.","Arroser dâ€™huile dâ€™olive, rÃ©partir le miel, saler, ajouter du poivre du moulin et parsemer de thym.","RÃ´tir environ 30min jusquâ€™Ã  coloration et caramÃ©lisation.","Arroser avec le jus de cuisson pendant la cuisson."],"notes":["Accompagnement pour viande grillÃ©e, poisson, purÃ©e ou gratin de lÃ©gumes.","Conservation : 3â€“4 jours au froid en boÃ®te hermÃ©tique.","Stockage : bocal ou boÃ®te hermÃ©tique au rÃ©frigÃ©rateur. PÃ©remption : 3â€“5 jours; vÃ©rifier odeur, texture et absence de fermentation.","Chaque four rÃ©agit diffÃ©remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nÃ©cessaire."],"tags":["oignon","thym","miel","accompagnement"],"difficultyScore":2,"additionalMasters":["accompagnements_maitre"]},"creme_citron_lemon_curd":{"title":"CrÃ¨me citron","master":"cremes_maitre","image":"/assets/recipe-images-optimized/creme_citron_lemon_curd_spooky.jpg","categories":["Desserts","Base"],"seasons":["Printemps","Ã‰tÃ©"],"difficulty":"medium","yield":"Environ 500g","ingredients":[{"group":"Base","items":["80g jus de citron","180g jaunes dâ€™Å“ufs","130g sucre","10g fÃ©cule","100g beurre"]}],"steps":["Chauffer le jus de citron.","Fouetter jaunes et sucre, puis ajouter la fÃ©cule.","Verser le jus chaud sur le mÃ©lange.","Cuire jusquâ€™Ã  Ã©paississement.","Ajouter le beurre, mixer si besoin, filmer au contact et refroidir."],"notes":["Texture fondante pour tarte citron, verrines ou fourrage.","Refroidir avant montage pour une tenue nette.","Stockage : au rÃ©frigÃ©rateur Ã  0â€“4Â°C, filmÃ© ou en boÃ®te hermÃ©tique. PÃ©remption : 24â€“48h selon fraÃ®cheur des produits laitiers et des Å“ufs."],"tags":["creme","citron","lemon-curd","garniture"],"difficultyScore":5,"additionalMasters":["elements_base_maitre"]},"creme_patissiere_vanille":{"title":"CrÃ¨me pÃ¢tissiÃ¨re vanille","master":"cremes_maitre","image":"/assets/recipe-images-optimized/creme_patissiere_vanille_spooky.jpg","categories":["Desserts","Base"],"seasons":["Toutes saisons"],"difficulty":"medium","yield":"Environ 400g","ingredients":[{"group":"Base","items":["250g lait","50g jaunes dâ€™Å“ufs","60g sucre","25g MaÃ¯zena","25g beurre","vanille selon goÃ»t ou arÃ´me vanille selon dosage indiquÃ© sur la bouteille"]}],"steps":["Chauffer le lait avec la vanille.","Fouetter jaunes, sucre et MaÃ¯zena.","Verser le lait chaud sur le mÃ©lange.","Cuire jusquâ€™Ã  Ã©paississement.","Ajouter le beurre, filmer au contact et refroidir."],"notes":["Base de la crÃ¨me diplomate vanille.","Lisser au fouet aprÃ¨s refroidissement avant incorporation.","Stockage : au rÃ©frigÃ©rateur Ã  0â€“4Â°C, filmÃ© ou en boÃ®te hermÃ©tique. PÃ©remption : 24â€“48h selon fraÃ®cheur des produits laitiers et des Å“ufs."],"tags":["creme","patissiere","vanille","base"],"difficultyScore":5,"additionalMasters":["elements_base_maitre"]},"desserts_cuillere_maitre":{"title":"Desserts Ã  la cuillÃ¨re","master":"desserts_maitre","image":"/assets/recipe-images-optimized/desserts_cuillere_maitre_spooky.jpg","categories":["Desserts"],"seasons":["Toutes saisons"],"variants":[{"id":"mi_cuits_chocolat","label":"Mi-cuits au chocolat"},{"id":"tiramisu_citron","label":"Tiramisu citron meringuÃ©"},{"id":"tiramisu_speculoos","label":"Tiramisu spÃ©culoos"}],"technical":[{"label":"Service","value":"Desserts servis froids ou crÃ¨meux, dressÃ©s en verrine, plat ou coupe."}],"difficulty":"easy","ingredients":[],"steps":[],"notes":[]},"babeurre_maison":{"title":"Babeurre maison","master":"elements_base_maitre","image":"/assets/recipe-images-optimized/babeurre_maison_spooky.jpg","categories":["Base"],"seasons":["Toutes saisons"],"difficulty":"easy","yield":"260g environ","aliases":["babeurre","babeurre maison","buttermilk"],"ingredients":[{"group":"Base","items":["250g lait entier","10g jus de citron ou vinaigre"]}],"steps":["MÃ©langer le lait et le jus de citron ou le vinaigre.","Laisser reposer 10min  Ã  tempÃ©rature ambiante.","Utiliser dÃ¨s que le lait a lÃ©gÃ¨rement Ã©paissi."],"notes":["Ã€ utiliser dans les pancakes, gaufres ou pÃ¢tes levÃ©es moelleuses.","Stockage : au rÃ©frigÃ©rateur en contenant propre. PÃ©remption : 24h."],"tags":["babeurre","lait","base"],"difficultyScore":1},"cookies_chocolat_blanc_cranberry":{"title":"Cookies chocolat blanc cranberry","master":"cookies_sucres_maitre","image":"/assets/recipe-images-optimized/cookies_chocolat_blanc_cranberry_spooky.jpg","categories":["Desserts"],"seasons":["Automne","Hiver"],"difficulty":"easy","yield":"18 cookies","aliases":["white chocolate cranberry cookies","cookies cranberry chocolat blanc"],"ingredients":[{"group":"PÃ¢te","items":["115g beurre mou","90g cassonade ou vergeoise","60g sucre blanc","55g Å“uf (1 Å“uf moyen)","vanille selon goÃ»t ou arÃ´me vanille selon dosage indiquÃ© sur la bouteille","180g farine","3g bicarbonate","2g sel fin"]},{"group":"Garniture","items":["120g chocolat blanc concassÃ©","90g cranberries sÃ©chÃ©es"]}],"steps":["CrÃ©mer le beurre mou avec les sucres.","Ajouter lâ€™Å“uf et la vanille, puis mÃ©langer jusquâ€™Ã  homogÃ©nÃ©itÃ©.","Incorporer farine, bicarbonate et sel sans trop travailler.","Ajouter chocolat blanc et cranberries.","Former des boules et laisser reposer au froid au moins 30min.","Cuire 10 Ã  12min Ã  175Â°C, jusquâ€™Ã  bords pris et centre encore moelleux.","Laisser figer quelques minutes sur plaque avant de dÃ©placer."],"notes":["Pour des cookies Ã©pais, cuire la pÃ¢te bien froide.","Stockage : 4 jours en boÃ®te hermÃ©tique.","Si tu utilises un arÃ´me vanille, suis le dosage indiquÃ© sur la bouteille : les arÃ´mes ne se dosent pas tous pareil.","Chaque four rÃ©agit diffÃ©remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nÃ©cessaire."],"tags":["cookies","chocolat blanc","cranberry","gouter"],"difficultyScore":3,"additionalMasters":["desserts_maitre"]},"sauces_maitre":{"title":"Sauces","image":"/assets/recipe-images-optimized/parent_sauces.jpg","categories":["Sauces"],"seasons":["Toutes saisons"],"variants":[{"id":"coulis_maitre","label":"Coulis"},{"id":"sauce_mornay","label":"Sauce Mornay"},{"id":"sauce_yaourt_citronnee","label":"Sauce yaourt citronnÃ©e"},{"id":"sauces_burger_variantes","label":"Sauces burger"},{"id":"sauces_assaisonnements_maitre","label":"Sauces, pestos et assaisonnements"},{"id":"toppings_frites","label":"Toppings frites"}],"ingredients":[{"group":"Variantes","items":["Choisir une sauce dans la fiche."]}],"steps":["SÃ©lectionner la sauce voulue dans les cartes de recettes."],"notes":["Fiche parent pour les sauces, pestos, marinades et assaisonnements."]},"elements_base_maitre":{"title":"Bases","image":"/assets/recipe-images-optimized/parent_base.jpg","categories":["Base"],"seasons":["Toutes saisons"],"variants":[{"id":"babeurre_maison","label":"Babeurre maison"},{"id":"base_pour_flan_sale","label":"Base pour flan salÃ©"},{"id":"bases_salees_maitre","label":"Bases salÃ©es"},{"id":"cerises_sechees_maison","label":"Cerises sÃ©chÃ©es"},{"id":"chantilly_maitre","label":"Chantilly"},{"id":"coulis_maitre","label":"Coulis"},{"id":"creme_beurre_meringue_italienne","label":"CrÃ¨me au beurre meringue italienne"},{"id":"creme_citron_lemon_curd","label":"CrÃ¨me citron"},{"id":"creme_patissiere_praline","label":"CrÃ¨me pÃ¢tissiÃ¨re pralinÃ©"},{"id":"creme_patissiere_vanille","label":"CrÃ¨me pÃ¢tissiÃ¨re vanille"},{"id":"creme_praline","label":"CrÃ¨me pralinÃ©"},{"id":"creme_amande_citron","label":"Fond de tarte amande"},{"id":"compotee_citron","label":"Marmelade citron"},{"id":"meringue_italienne","label":"Meringue italienne"},{"id":"meringues","label":"Meringues"},{"id":"pates_tarte_variantes","label":"PÃ¢tes Ã  tarte"},{"id":"pates_bases_maitre","label":"PÃ¢tes et bases pÃ¢tissiÃ¨res"}],"ingredients":[{"group":"Variantes","items":["Choisir une base dans la fiche."]}],"steps":["SÃ©lectionner la base voulue dans les cartes de recettes."],"notes":["Fiche parent pour les prÃ©parations de base : pains, tortillas, pÃ¢tes, fonds et supports de recettes."],"tags":["base","pÃ¢te","pain","tortilla","fond de tarte"]},"cookies_chocolat_noix":{"title":"Cookies moelleux aux pÃ©pites de chocolat et noix","master":"cookies_sucres_maitre","image":"/assets/recipe-images-optimized/cookies_chocolat_noix_spooky.jpg","categories":["Desserts"],"seasons":["Toutes saisons"],"difficulty":"easy","difficultyScore":3,"yield":"4 gros cookies","aliases":["cookies chocolat noix","cookies chocolat noisettes","cookies moelleux chocolat noix"],"tags":["cookies","chocolat","noix","noisettes","gouter"],"ingredients":[{"group":"PÃ¢te","items":["100g beurre doux non salÃ© ramolli","80g sucre","1g sel","55g Å“uf (1 Å“uf moyen)","arÃ´me vanille selon dosage indiquÃ© sur la bouteille","160g farine","3g levure chimique"]},{"group":"Garniture","items":["100g chocolat en morceaux ou pÃ©pites","20g chocolat supplÃ©mentaire pour la finition","50g noix ou noisettes concassÃ©es"]}],"steps":["Sortir le beurre environ 45 Ã  60min avant pour quâ€™il soit souple mais pas fondu.","MÃ©langer le beurre ramolli avec le sucre et le sel jusquâ€™Ã  obtenir une texture homogÃ¨ne.","Battre lâ€™Å“uf dans un petit bol, puis lâ€™ajouter progressivement au mÃ©lange beurre-sucre.","MÃ©langer jusquâ€™Ã  incorporation, puis ajouter lâ€™arÃ´me vanille selon le dosage indiquÃ© sur la bouteille.","Ajouter farine et levure chimique, puis mÃ©langer juste assez pour obtenir une pÃ¢te homogÃ¨ne sans trop la travailler.","Ajouter les 100g de chocolat et les noix ou noisettes concassÃ©es.","MÃ©langer pour rÃ©partir les garnitures dans la pÃ¢te.","Couvrir et placer au rÃ©frigÃ©rateur pendant 1h pour raffermir la pÃ¢te.","PrÃ©chauffer le four Ã  190Â°C.","Diviser la pÃ¢te en 4 portions dâ€™environ 135g et former de grosses boules.","DÃ©poser les boules sur une plaque recouverte de papier cuisson, en les espaÃ§ant bien.","Ajouter les 20g de chocolat restant sur le dessus.","Cuire 13 Ã  14min Ã  190Â°C, jusquâ€™Ã  bords dorÃ©s et centre encore lÃ©gÃ¨rement mou.","Laisser reposer quelques minutes sur la plaque, puis transfÃ©rer sur grille pour finir le refroidissement."],"notes":["Pour des cookies plus gourmands, utilise un mÃ©lange de chocolat noir et chocolat au lait.","Les noisettes se marient particuliÃ¨rement bien avec le chocolat.","Pour lâ€™arÃ´me vanille, suis le dosage indiquÃ© sur la bouteille : les arÃ´mes ne se dosent pas tous pareil.","Ne prolonge pas trop la cuisson : le centre doit rester tendre.","La pÃ¢te peut Ãªtre prÃ©parÃ©e Ã  lâ€™avance et conservÃ©e au frais jusquâ€™Ã  24h avant cuisson.","Chaque four rÃ©agit diffÃ©remment : surveille la coloration et ajuste le temps de cuisson si nÃ©cessaire."],"technical":[{"label":"Portions","value":"Des boules dâ€™environ 135g donnent 4 gros cookies Ã©pais."},{"label":"Moelleux","value":"Sortir du four quand le centre paraÃ®t encore tendre."}],"additionalMasters":["desserts_maitre"]},"caramel_cheesecake_cookies":{"title":"Cookies caramel cheesecake","master":"cookies_sucres_maitre","image":"/assets/recipe-images-optimized/cookies_caramel_cheesecake_spooky.jpg","categories":["Desserts"],"seasons":["Toutes saisons"],"yield":"12 cookies","aliases":["cookies cheesecake caramel","caramel cheesecake cookies"],"ingredients":[{"group":"Fourrage cheesecake","items":["115g fromage frais type Philadelphia (cream cheese)","25g sucre glace","30g \u003cspan data-goto=\"sauce_caramel\"\u003esauce caramel\u003c/span\u003e"]},{"group":"PÃ¢te Ã  cookies","items":["115g beurre doux mou","100g cassonade ou vergeoise","50g sucre","55g Å“uf (1 Å“uf moyen)","vanille selon goÃ»t ou arÃ´me vanille selon dosage indiquÃ© sur la bouteille","220g farine","1/2 c. Ã  cafÃ© bicarbonate","1/4 c. Ã  cafÃ© sel"]},{"group":"Finition","items":["\u003cspan data-goto=\"sauce_caramel\"\u003eSauce caramel\u003c/span\u003e","Fleur de sel"]}],"steps":["Fouetter le fromage frais type Philadelphia avec le sucre glace et le caramel, puis dÃ©poser 12 petites portions sur papier cuisson.","Congeler les portions de fourrage 30min pour pouvoir les enfermer proprement.","CrÃ©mer le beurre avec la cassonade ou vergeoise et le sucre, puis incorporer lâ€™Å“uf et la vanille.","Ajouter farine, bicarbonate et sel sans trop travailler la pÃ¢te.","Aplatir une portion de pÃ¢te, placer un cÅ“ur cheesecake congelÃ© au centre, refermer et bouler.","Cuire Ã  175Â°C pendant 10 Ã  12min, jusquâ€™Ã  bords lÃ©gÃ¨rement dorÃ©s.","Laisser tiÃ©dir, ajouter un filet de caramel et une pointe de fleur de sel."],"notes":["Le cream cheese correspond Ã  un fromage frais dense et lÃ©gÃ¨rement acidulÃ©, type Philadelphia. Ã‰vite le fromage blanc ou le Saint MÃ´ret trop souple si tu veux un cÅ“ur net.","Bien refermer la pÃ¢te autour du fourrage pour Ã©viter les fuites. Conservation : 3 jours au rÃ©frigÃ©rateur.","Si tu utilises un arÃ´me vanille, suis le dosage indiquÃ© sur la bouteille : les arÃ´mes ne se dosent pas tous pareil.","Chaque four rÃ©agit diffÃ©remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nÃ©cessaire."],"tags":["cookies","caramel","cheesecake"],"difficultyScore":5},"rouille_haut_de_gamme":{"title":"Rouille","master":"sauces_assaisonnements_maitre","image":"/assets/recipe-images-optimized/rouille_haut_de_gamme_spooky.jpg","categories":["Sauces"],"seasons":["Toutes saisons"],"difficulty":"medium","difficultyScore":5,"yield":"6 Ã  8 personnes","aliases":["rouille maison","rouille bouillabaisse","sauce rouille"],"tags":["rouille","sauce","safran","ail","bouillabaisse"],"ingredients":[{"group":"Base","items":["36g jaunes dâ€™Å“ufs (2 jaunes)","2 petites gousses dâ€™ail dÃ©germÃ©es","80g de pomme de terre cuite dans le bouillon","1 c. Ã  cafÃ© de moutarde de Dijon douce","1 belle pincÃ©e de safran","1 c. Ã  soupe de bouillon chaud pour infuser le safran","1 c. Ã  cafÃ© de jus de citron","1 c. Ã  cafÃ© de vinaigre de XÃ©rÃ¨s ou vinaigre de vin vieux","1/2 c. Ã  cafÃ© de piment dâ€™Espelette","Sel fin"]},{"group":"Huiles","items":["180ml dâ€™huile dâ€™olive douce","80ml dâ€™huile neutre"]},{"group":"Option gastronomique","items":["1 c. Ã  soupe de foie de poisson cuit passÃ© au tamis","ou 1 c. Ã  cafÃ© de bisque trÃ¨s rÃ©duite","ou 1 petite pointe de concentrÃ© de tomate torrÃ©fiÃ©"]},{"group":"Finition","items":["Quelques gouttes de jus de citron","Une micro-pincÃ©e de piment dâ€™Espelette","Un filet dâ€™huile dâ€™olive fruitÃ©e"]}],"steps":["Infuser le safran 10 Ã  15 minutes dans une cuillÃ¨re de bouillon chaud.","DÃ©germer lâ€™ail, puis lâ€™Ã©craser au mortier avec une petite pincÃ©e de sel jusquâ€™Ã  obtenir une pÃ¢te fine.","MÃ©langer la pÃ¢te dâ€™ail, les jaunes, la moutarde, la pomme de terre Ã©crasÃ©e, lâ€™infusion de safran, le citron, le vinaigre et le piment.","Verser lâ€™huile neutre trÃ¨s progressivement en fouettant comme une mayonnaise.","Ajouter ensuite lâ€™huile dâ€™olive douce en filet, toujours en fouettant, jusquâ€™Ã  obtenir une texture dense et brillante.","Ajuster la texture avec quelques gouttes de bouillon tiÃ¨de si elle est trop Ã©paisse, ou un peu de pomme de terre Ã©crasÃ©e si elle est trop liquide.","Incorporer lâ€™option gastronomique si souhaitÃ©, en petite quantitÃ© pour ne pas masquer le bouillon.","Rectifier le sel, le citron et le piment, puis rÃ©server au frais filmÃ© au contact."],"notes":["Texture cible : ferme, brillante, nappante, assez dense pour tenir sur un croÃ»ton et assez souple pour fondre dans le bouillon.","Ã‰vite lâ€™huile dâ€™olive trop forte : elle peut apporter de lâ€™amertume.","Le safran infusÃ© donne une couleur plus rÃ©guliÃ¨re et un parfum plus propre que le safran ajoutÃ© Ã  sec.","Pour un rendu plus net, passer la rouille au tamis fin aprÃ¨s montage et la dresser en petite quenelle."],"technical":[{"label":"Ã‰mulsion","value":"Ajouter lâ€™huile trÃ¨s lentement au dÃ©part pour stabiliser la rouille."},{"label":"Relief","value":"Ajuster citron, vinaigre et piment par petites touches."},{"label":"Service","value":"Servir sur croÃ»tons frottÃ©s Ã  lâ€™ail ou avec une soupe de poisson trÃ¨s chaude."}]},"cookies_chocolat_moelleux":{"title":"Cookies chocolat moelleux","master":"cookies_sucres_maitre","image":"/assets/recipe-images-optimized/cookies_chocolat_moelleux_spooky.jpg","categories":["Desserts"],"seasons":["Toutes saisons"],"difficulty":"easy","difficultyScore":4,"yield":"environ 72 cookies","aliases":["cookies chocolat","cookies pÃ©pites chocolat","cookies moelleux"],"tags":["cookies","chocolat","goÃ»ter"],"ingredients":[{"group":"PÃ¢te","items":["250g de sucre","250g cassonade ou vergeoise tassÃ©e","340g de beurre mou","vanille selon goÃ»t ou arÃ´me vanille selon dosage indiquÃ© sur la bouteille","165g Å“ufs (3 Å“ufs moyens)","530g de farine","2 c. Ã  cafÃ© de bicarbonate de soude","1/2 c. Ã  cafÃ© de sel","340 Ã  680g de pÃ©pites de chocolat mi-sucrÃ©"]}],"steps":["PrÃ©chauffer le four Ã  190Â°C.","CrÃ©mer le sucre, la cassonade ou vergeoise et le beurre mou jusquâ€™Ã  obtenir une texture lÃ©gÃ¨re.","Ajouter la vanille et les Å“ufs, puis mÃ©langer jusquâ€™Ã  homogÃ©nÃ©itÃ©.","Incorporer farine, bicarbonate et sel sans trop travailler la pÃ¢te.","Ajouter les pÃ©pites de chocolat.","DÃ©poser des boules de pÃ¢te espacÃ©es sur une plaque non graissÃ©e.","Cuire 8 Ã  10 minutes, jusquâ€™Ã  lÃ©gÃ¨re coloration dorÃ©e.","Laisser reposer quelques minutes sur plaque puis transfÃ©rer sur grille."],"notes":["Pour des cookies plus chocolatÃ©s, utiliser la quantitÃ© haute de pÃ©pites.","La pÃ¢te peut Ãªtre congelÃ©e en boules et cuite aprÃ¨s dÃ©congÃ©lation.","Si tu utilises un arÃ´me vanille, suis le dosage indiquÃ© sur la bouteille : les arÃ´mes ne se dosent pas tous pareil.","Chaque four rÃ©agit diffÃ©remment : surveille la coloration et ajuste le temps de cuisson si nÃ©cessaire."],"technical":[{"label":"Texture","value":"Ne pas trop cuire : les cookies finissent de se raffermir hors du four."},{"label":"CongÃ©lation","value":"Congeler les boules de pÃ¢te bien emballÃ©es pour une cuisson minute."}]},"frites_belges":{"title":"Frites belges","master":"accompagnements_maitre","image":"/assets/recipe-images-optimized/frites_belges_spooky.jpg","categories":["Accompagnements"],"seasons":["Toutes saisons"],"difficulty":"medium","difficultyScore":5,"yield":"4 personnes","aliases":["frites maison","frites double cuisson","frites belges haut de gamme"],"tags":["frites","pomme de terre","double cuisson"],"ingredients":[{"group":"Base","items":["1,2 Ã  1,5kg de pommes de terre Bintje, Agria ou Manon","2 Ã  3kg de blanc de bÅ“uf selon la friteuse","Sel fin","Fleur de sel pour la finition"]},{"group":"Option haut de gamme","items":["1 petite branche de thym","1 gousse dâ€™ail en chemise retirÃ©e avant cuisson","Mayonnaise, sauce tartare ou sauce andalouse maison"],"recipeId":"mayonnaise_maison"}],"steps":["Ã‰plucher les pommes de terre et les tailler en bÃ¢tonnets rÃ©guliers de 10 Ã  12mm.","Rincer les frites dans un grand saladier dâ€™eau froide jusquâ€™Ã  ce que lâ€™eau soit moins trouble.","Ã‰goutter, Ã©taler sur un torchon propre, Ã©ponger soigneusement puis laisser sÃ©cher 10 Ã  15 minutes.","Chauffer le blanc de bÅ“uf Ã  140-150Â°C.","Plonger les frites par petites quantitÃ©s et cuire 5 Ã  7 minutes : elles doivent Ãªtre cuites Ã  cÅ“ur mais encore pÃ¢les.","Ã‰goutter sur grille et laisser reposer 20 Ã  30 minutes minimum.","Monter le bain Ã  175-180Â°C.","Replonger les frites en petites quantitÃ©s 2 Ã  4 minutes jusquâ€™Ã  belle coloration dorÃ©e.","Ã‰goutter immÃ©diatement, secouer lÃ©gÃ¨rement et saler avec du sel fin.","Terminer avec une pincÃ©e de fleur de sel et servir aussitÃ´t avec la \u003cspan data-goto=\"mayonnaise_maison\"\u003emayonnaise\u003c/span\u003e."],"notes":["Ne sale jamais avant cuisson : le sel attire lâ€™eau et ramollit les frites.","Utilise une grille plutÃ´t que du papier absorbant trop longtemps, car la vapeur piÃ©gÃ©e peut ramollir les frites.","Le bain ne doit pas Ãªtre trop chargÃ© : une chute de tempÃ©rature rend les frites grasses.","RÃ©sultat cible : extÃ©rieur trÃ¨s croustillant, intÃ©rieur fondant, belle couleur dorÃ©e et aucune sensation grasse."],"technical":[{"label":"Pomme de terre","value":"Bintje, Agria ou Manon donnent une bonne texture pour la double cuisson."},{"label":"Cuisson","value":"PremiÃ¨re cuisson fondante, repos, puis seconde cuisson croustillante."},{"label":"Service","value":"Servir immÃ©diatement aprÃ¨s salage."}],"additionalMasters":[]},"beignets_calamar":{"title":"Beignets de calamar","master":"apero_maitre","image":"/assets/recipe-images-optimized/beignets_calamar_spooky.jpg","categories":["ApÃ©ro","EntrÃ©es","Plats"],"seasons":["Printemps","Ã‰tÃ©"],"difficulty":"medium","difficultyScore":5,"yield":"4 personnes","variantGroups":true,"aliases":["beignets de calamars","calamars frits","beignets calamar"],"tags":["calamar","friture","apero","entree"],"linkedRecipes":[{"id":"pate_legere_beignets_calamar_crevettes","role":"Base"},{"id":"aioli_citronne_leger","role":"Sauce"},{"id":"tempura_beignets_calamar_crevettes","role":"Alternative"}],"ingredients":[{"group":"Calamars","items":["600g anneaux de calamar","500g lait entier","20g jus de citron","4g ail Ã©crasÃ©","6g sel fin","Poivre du moulin","0,5g piment dâ€™Espelette"]},{"group":"PÃ¢te lÃ©gÃ¨re","items":["120g farine","40g fÃ©cule de maÃ¯s","5g levure chimique","3g sel fin","30g blanc dâ€™Å“uf","180 Ã  220g eau gazeuse trÃ¨s froide","20g vodka trÃ¨s froide optionnelle","Zeste de citron"]},{"group":"AÃ¯oli citronnÃ© lÃ©ger","items":["20g jaune dâ€™Å“uf","10g moutarde","2g ail rÃ¢pÃ©","10g jus de citron","1g zeste de citron","90g huile neutre","45g huile dâ€™olive douce","Sel fin","0,5g piment dâ€™Espelette"]},{"group":"Variante tempura","items":["90g farine","50g fÃ©cule","20g jaune dâ€™Å“uf","220g eau gazeuse glacÃ©e","3g sel fin"],"steps":["Melanger farine, fecule et sel, puis ajouter jaune d oeuf et eau gazeuse glacee au dernier moment.","Garder une pate irreguliere et tres froide, puis tremper les calamars bien secs.","Frire immediatement en petites fournees dans une huile chaude jusqu a beignets pales, legers et croustillants."]}],"steps":["Rincer rapidement les calamars, les Ã©ponger, puis couper les tubes en anneaux rÃ©guliers de 1 Ã  1,5cm.","MÃ©langer lait, citron, ail, sel, poivre du moulin et piment, puis mariner les calamars 30min Ã  2h au frais.","PrÃ©parer lâ€™\u003cspan data-goto=\"aioli_citronne_leger\"\u003eaÃ¯oli citronnÃ© lÃ©ger\u003c/span\u003e, puis le garder au frais.","PrÃ©parer au dernier moment la \u003cspan data-goto=\"pate_legere_beignets_calamar_crevettes\"\u003epÃ¢te lÃ©gÃ¨re\u003c/span\u003e ou la \u003cspan data-goto=\"tempura_beignets_calamar_crevettes\"\u003etempura\u003c/span\u003e, selon le croustillant voulu.","Ã‰goutter les calamars, les Ã©ponger trÃ¨s soigneusement, puis les passer lÃ©gÃ¨rement dans farine ou fÃ©cule.","Chauffer lâ€™huile Ã  180Â°C.","Tremper les calamars dans la pÃ¢te choisie et frire par petites quantitÃ©s 1min 30 Ã  2min maximum.","Ã‰goutter sur grille, saler lÃ©gÃ¨rement et servir immÃ©diatement avec citron et sauce."],"notes":["Raccourcis : \u003cspan data-goto=\"pate_legere_beignets_calamar_crevettes\"\u003ePÃ¢te lÃ©gÃ¨re Ã  frire\u003c/span\u003e / \u003cspan data-goto=\"aioli_citronne_leger\"\u003eAÃ¯oli citronnÃ© lÃ©ger\u003c/span\u003e / \u003cspan data-goto=\"tempura_beignets_calamar_crevettes\"\u003eTempura\u003c/span\u003e.","La cuisson doit rester trÃ¨s courte : trop cuits, les calamars deviennent caoutchouteux.","Ne surcharge pas le bain dâ€™huile pour garder une friture nette et non grasse.","La pÃ¢te doit rester froide, lÃ©gÃ¨re et lÃ©gÃ¨rement irrÃ©guliÃ¨re."],"technical":[{"label":"TempÃ©rature","value":"180Â°C pour saisir vite sans graisser."},{"label":"Ã‰gouttage","value":"PrÃ©fÃ©rer une grille au papier pour Ã©viter la vapeur."},{"label":"Texture","value":"CroÃ»te fine et croustillante, calamar tendre."}],"practical":{"equipment":["Casserole ou sauteuse haute","ThermomÃ¨tre de cuisson","Grille dâ€™Ã©gouttage"],"storage":["Ã€ servir immÃ©diatement aprÃ¨s cuisson pour garder le croustillant."],"reheating":["Si besoin, rÃ©chauffer briÃ¨vement au four chaud sur grille, jamais au micro-ondes."],"mistakes":["Ne surcharge pas le bain dâ€™huile.","Ne prolonge pas la cuisson : le calamar devient vite caoutchouteux."],"result":["Beignets dorÃ©s, croÃ»te fine et croustillante, calamar encore tendre."]},"additionalMasters":["entrees_maitre","plats_maitre"]},"salade_melon_mozzarella_jambon_cru":{"title":"Salade melon, mozzarella et jambon cru","master":"crudites_maitre","image":"/assets/recipe-images-optimized/salade_melon_mozzarella_jambon_cru_spooky.jpg","categories":["EntrÃ©es"],"seasons":["Ã‰tÃ©"],"difficulty":"easy","difficultyScore":3,"yield":"4 personnes","nutriScore":"B","aliases":["salade melon mozzarella","salade melon jambon cru","melon mozzarella jambon"],"tags":["salade","melon","mozzarella","jambon cru","entree"],"ingredients":[{"group":"Salade","items":["600 Ã  800g melon charentais mÃ»r","250g billes de mozzarella ou mozzarella di bufala","120 Ã  150g jambon cru italien, Serrano, Parme ou San Daniele","80g roquette","40g oignon rouge","Basilic frais","Menthe fraÃ®che","30g pignons de pin ou pistaches","Fleur de sel","Poivre du moulin pour finition"]},{"group":"Marinade mozzarella","items":["55g huile dâ€™olive fruitÃ©e","Zeste de 1/2 citron","15g jus de citron","3g basilic ciselÃ©","1g origan ou thym frais","Piment dâ€™Espelette","Sel fin pour marinade","Poivre du moulin pour marinade"]},{"group":"Vinaigrette melon-citron","items":["40g huile dâ€™olive","15g jus de citron ou vinaigre de XÃ©rÃ¨s","7g miel doux","15 Ã  30g jus de melon rÃ©cupÃ©rÃ©","Sel fin pour vinaigrette","Poivre du moulin pour vinaigrette"]}],"steps":["Couper le melon en deux, retirer les graines, puis former des billes avec une cuillÃ¨re parisienne.","RÃ©server les billes au frais et garder les chutes pour un gaspacho de melon.","Ã‰goutter et Ã©ponger la mozzarella.","MÃ©langer huile dâ€™olive, jus de citron, zeste, basilic, origan ou thym, piment, sel et poivre du moulin, puis mariner la mozzarella 20 Ã  30min au frais.","Ã‰mincer lâ€™oignon rouge trÃ¨s finement, le placer 10min dans eau froide avec quelques gouttes de citron, puis Ã©goutter et Ã©ponger.","TorrÃ©fier les pignons ou pistaches 2 Ã  3min Ã  feu moyen dans une poÃªle sÃ¨che.","MÃ©langer jus de citron ou vinaigre, miel, jus de melon, sel et poivre du moulin, puis ajouter lâ€™huile dâ€™olive.","Assaisonner lÃ©gÃ¨rement la roquette avec un peu de vinaigrette.","Ajouter melon, mozzarella marinÃ©e, jambon cru en chiffonnade, oignon rouge, pignons ou pistaches, basilic, menthe, fleur de sel et poivre du moulin.","Ajouter la vinaigrette juste avant de servir."],"notes":["Dresser sans trop mÃ©langer pour garder une salade nette et non dÃ©trempÃ©e.","La salade doit Ãªtre fraÃ®che, Ã©quilibrÃ©e entre sucrÃ©, salÃ© et aciditÃ©, et parfumÃ©e par les herbes.","Options : balsamique blanc, copeaux de parmesan, citron caviar, Ã©clats de pistaches ou huile dâ€™olive au basilic."],"technical":[{"label":"Service","value":"Assaisonner au dernier moment pour prÃ©server la roquette et le melon."},{"label":"Anti-gaspillage","value":"Les chutes de melon vont trÃ¨s bien dans le gaspacho de melon."}]},"sauce_yaourt_citronnee":{"title":"Sauce yaourt citronnÃ©e","master":"sauces_maitre","image":"/assets/recipe-images-optimized/sauce_yaourt_citronnee_spooky.jpg","categories":["Sauces","ApÃ©ro","Accompagnements"],"seasons":["Toutes saisons"],"difficulty":"easy","difficultyScore":2,"yield":"1 bol","nutriScore":"B","aliases":["sauce yaourt citron","sauce fraÃ®che citronnÃ©e","dip yaourt"],"tags":["sauce","yaourt","citron","dip"],"ingredients":[{"group":"Base","items":["150g yaourt grec","15g mayonnaise","5g jus de citron vert ou jaune","Zeste de 1/2 citron vert","7g miel","1g paprika fumÃ©","1 petite pincÃ©e piment dâ€™Espelette","Sel fin","Poivre du moulin"]}],"steps":["MÃ©langer le yaourt grec et la mayonnaise.","Ajouter le jus de citron, le zeste, le miel, le paprika fumÃ© et le piment.","Saler et ajouter du poivre du moulin.","RÃ©server au frais au moins 15min avant service."],"notes":["PrÃ©vue pour accompagner les \u003cspan data-goto=\"frites_patate_douce\"\u003efrites de patate douce\u003c/span\u003e.","La sauce doit rester fraÃ®che, lÃ©gÃ¨rement acidulÃ©e et lÃ©gÃ¨rement fumÃ©e pour Ã©quilibrer le cÃ´tÃ© sucrÃ© de la patate douce."],"technical":[{"label":"Repos","value":"15min au frais pour arrondir lâ€™assaisonnement."},{"label":"Texture","value":"CrÃ©meuse, nappante, pas liquide."}],"additionalMasters":["apero_maitre","accompagnements_maitre"]},"sauce_mornay":{"title":"Sauce Mornay","master":"sauces_maitre","image":"/assets/recipe-images-optimized/sauce_mornay_spooky.jpg","categories":["Sauces"],"seasons":["Toutes saisons"],"difficulty":"medium","difficultyScore":4,"yield":"1 sauce pour 1 gratin","nutriScore":"D","aliases":["mornay","sauce fromage","sauce gratin"],"tags":["sauce","fromage","gratin"],"ingredients":[{"group":"Base","items":["35g beurre","35g farine","450g lait entier","100g crÃ¨me liquide entiÃ¨re","90g comtÃ© 18 mois rÃ¢pÃ©","35g parmesan rÃ¢pÃ©","18g jaune dâ€™Å“uf (1 jaune)","5g moutarde de Dijon","1 pincÃ©e muscade","Sel","Poivre du moulin"]}],"steps":["Faire fondre le beurre dans une casserole.","Ajouter la farine et cuire le roux 2min sans coloration.","Verser le lait froid progressivement en fouettant.","Ajouter la crÃ¨me et cuire 5 Ã  7min jusquâ€™Ã  obtenir une sauce nappante.","Hors du feu, ajouter le comtÃ©, le parmesan, la moutarde, la muscade et le poivre du moulin.","GoÃ»ter avant de saler.","Ajouter le jaune dâ€™Å“uf hors du feu en fouettant."],"notes":["UtilisÃ© par exemple dans le \u003cspan data-goto=\"gratin_chou_fleur\"\u003egratin de chou-fleur\u003c/span\u003e.","La sauce doit Ãªtre nappante mais pas trop Ã©paisse : elle continue Ã  gratiner au four."],"technical":[{"label":"Roux","value":"2min sans coloration pour Ã©viter le goÃ»t de farine."},{"label":"Cuisson","value":"5 Ã  7min aprÃ¨s ajout lait et crÃ¨me."}]},"pate_legere_beignets_calamar_crevettes":{"title":"PÃ¢te lÃ©gÃ¨re Ã  frire","master":"bases_salees_maitre","image":"/assets/recipe-images-optimized/pate_legere_beignets_calamar_crevettes_spooky.jpg","categories":["Base","ApÃ©ro"],"seasons":["Toutes saisons"],"difficulty":"medium","difficultyScore":4,"yield":"4 personnes","aliases":["pÃ¢te lÃ©gÃ¨re beignets","pÃ¢te Ã  beignets calamars","pÃ¢te Ã  beignets crevettes","pÃ¢te friture lÃ©gÃ¨re"],"tags":["pÃ¢te","beignet","calamar","crevette","friture"],"linkedRecipes":[{"id":"beignets_calamar","role":"Utilisation"},{"id":"aioli_citronne_leger","role":"Sauce"},{"id":"tempura_beignets_calamar_crevettes","role":"Alternative"}],"ingredients":[{"group":"PÃ¢te lÃ©gÃ¨re","items":["120g farine","40g fÃ©cule de maÃ¯s","5g levure chimique","3g sel fin","30g blanc dâ€™Å“uf","180 Ã  220g eau gazeuse trÃ¨s froide","20g vodka trÃ¨s froide optionnelle","Zeste de citron"]}],"steps":["MÃ©langer farine, fÃ©cule, levure, sel et zeste.","Juste avant cuisson, ajouter blanc dâ€™Å“uf, eau gazeuse trÃ¨s froide et vodka trÃ¨s froide optionnelle.","MÃ©langer trÃ¨s peu pour garder une pÃ¢te froide, lÃ©gÃ¨re et lÃ©gÃ¨rement irrÃ©guliÃ¨re.","Utiliser aussitÃ´t pour enrober des calamars, des crevettes ou une autre garniture Ã  frire."],"notes":["La pÃ¢te doit rester trÃ¨s froide jusquâ€™au dernier moment.","La vodka est optionnelle, elle aide surtout Ã  obtenir une friture plus sÃ¨che et lÃ©gÃ¨re.","Raccourci : \u003cspan data-goto=\"beignets_calamar\"\u003eBeignets de calamar\u003c/span\u003e."],"technical":[{"label":"TempÃ©rature","value":"Travailler avec eau gazeuse trÃ¨s froide et frire Ã  180Â°C."},{"label":"Texture","value":"MÃ©langer court pour garder une pÃ¢te fine et non Ã©lastique."},{"label":"Usage","value":"PrÃ©parer au dernier moment puis cuire par petites quantitÃ©s."}],"practical":{"equipment":["Cul-de-poule trÃ¨s froid","Fouet","Casserole ou sauteuse haute"],"storage":["Ã€ utiliser aussitÃ´t, la pÃ¢te perd sa lÃ©gÃ¨retÃ© en attente."],"mistakes":["Ne mÃ©lange pas trop la pÃ¢te.","Ne prÃ©pare pas la pÃ¢te longtemps avant la cuisson."],"result":["PÃ¢te froide, fluide, lÃ©gÃ¨re et lÃ©gÃ¨rement irrÃ©guliÃ¨re."]},"additionalMasters":["apero_maitre"]},"pesto_tomates_sechees_sans_cajou":{"title":"Pesto tomates sÃ©chÃ©es","master":"apero_maitre","image":"/assets/recipe-images-optimized/pesto_tomates_sechees_sans_cajou_spooky.jpg","categories":["ApÃ©ro","Accompagnements"],"seasons":["Toutes saisons"],"difficulty":"easy","difficultyScore":2,"yield":"1 pot","aliases":["pesto rosso","pesto tomates sÃ©chÃ©es","pesto rouge"],"tags":["pesto","tomates sÃ©chÃ©es","apero","accompagnement"],"ingredients":[{"group":"Pesto","items":["180g tomates sÃ©chÃ©es Ã©gouttÃ©es","40g parmesan rÃ¢pÃ©","25g pignons de pin ou graines de tournesol","1 petite gousse dâ€™ail","10g basilic","70g huile dâ€™olive","15g jus de citron","Poivre du moulin"]}],"steps":["Ã‰goutter les tomates sÃ©chÃ©es en gardant un peu dâ€™huile si elles sont conservÃ©es dans lâ€™huile.","Mixer tomates, parmesan, pignons ou graines, ail, basilic, jus de citron et poivre du moulin.","Ajouter lâ€™huile dâ€™olive progressivement jusquâ€™Ã  obtenir une texture tartinable.","Corriger lâ€™assaisonnement et dÃ©tendre avec un filet dâ€™eau ou dâ€™huile si nÃ©cessaire."],"notes":["Cette version garde une texture riche avec pignons ou graines.","Parfait pour pÃ¢tes, tartines, focaccia, sandwichs ou base de sauce froide.","Si les tomates sont trÃ¨s salÃ©es, goÃ»ter avant dâ€™ajouter du sel."],"technical":[{"label":"Texture","value":"Mixer court pour garder un pesto dense plutÃ´t quâ€™une purÃ©e lisse."},{"label":"Ã‰quilibre","value":"Le citron rÃ©veille les tomates sÃ©chÃ©es et Ã©vite une sauce trop lourde."}],"practical":{"equipment":["Mixeur","Spatule","Pot hermÃ©tique"],"storage":["4 Ã  5 jours au rÃ©frigÃ©rateur, couvert dâ€™un fin filet dâ€™huile."],"mistakes":["Ne sale pas avant dâ€™avoir goÃ»tÃ© les tomates et le parmesan."],"result":["Pesto rouge dense et parfumÃ©."]},"additionalMasters":["accompagnements_maitre"]},"billes_mozzarella_marinees":{"title":"Billes de mozzarella marinÃ©es","master":"apero_maitre","image":"/assets/recipe-images-optimized/billes_mozzarella_marinees_spooky.jpg","categories":["ApÃ©ro","EntrÃ©es"],"seasons":["Printemps","Ã‰tÃ©"],"difficulty":"easy","difficultyScore":1,"yield":"4 personnes","aliases":["billes mozzarella marinÃ©es","mozzarella apÃ©ro","mozzarella marinÃ©e"],"tags":["mozzarella","marinade","apÃ©ritif","huile dâ€™olive"],"ingredients":[{"group":"Marinade","items":["250g billes de mozzarella","60g huile dâ€™olive","1 petite gousse dâ€™ail rÃ¢pÃ©e","1 c. Ã  cafÃ© thym ou origan","1 pincÃ©e piment dâ€™Espelette","Zeste fin de citron","Sel fin","Poivre du moulin"]}],"steps":["Ã‰goutter les billes de mozzarella et les Ã©ponger.","MÃ©langer lâ€™huile dâ€™olive, lâ€™ail, les herbes, le piment, le zeste, le sel et le poivre du moulin.","Ajouter la mozzarella, mÃ©langer dÃ©licatement et couvrir.","Laisser mariner au frais au moins 30min, idÃ©alement 2h.","Remettre Ã  tempÃ©rature ambiante 10min avant de servir."],"notes":["Ã€ servir avec tomates cerises, pain grillÃ©, olives ou charcuterie.","Ne jette pas lâ€™huile parfumÃ©e : elle assaisonne une salade ou des pÃ¢tes.","Ã‰ponger la mozzarella aide la marinade Ã  mieux accrocher."],"technical":[{"label":"Marinade","value":"La mozzarella est humide : bien lâ€™Ã©goutter pour Ã©viter une marinade diluÃ©e."},{"label":"Service","value":"Le froid fige lâ€™huile dâ€™olive, donc sortir un peu avant dÃ©gustation."}],"practical":{"equipment":["Bol","RÃ¢pe fine","BoÃ®te hermÃ©tique"],"storage":["24h au rÃ©frigÃ©rateur dans la marinade."],"mistakes":["Ne surdose pas lâ€™ail cru : il devient vite dominant."],"result":["Billes fraÃ®ches, parfumÃ©es, prÃªtes pour lâ€™apÃ©ro."]},"additionalMasters":["entrees_maitre","crudites_maitre"]},"pate_lapin_piment_espelette":{"title":"PÃ¢tÃ© de lapin au piment dâ€™Espelette","master":"apero_maitre","image":"/assets/recipe-images-optimized/pate_lapin_piment_espelette_spooky.jpg","categories":["ApÃ©ro"],"seasons":["Toutes saisons"],"difficulty":"medium","difficultyScore":5,"yield":"6 bocaux","aliases":["pÃ¢tÃ© de lapin","pate lapin espelette","conserve de lapin"],"tags":["pÃ¢tÃ©","lapin","conserve","piment"],"ingredients":[{"group":"Viande","items":["900g chair de lapin dÃ©sossÃ©e","350g gorge de porc","200g foie de volaille","120g lard gras"]},{"group":"Assaisonnement","items":["80g Ã©chalote","12g ail","60ml armagnac ou cognac","12g sel fin","2g poivre du moulin","3g piment dâ€™Espelette","2g thym"]}],"steps":["Couper les viandes bien froides en morceaux et les passer au hachoir grosse grille.","MÃ©langer avec Ã©chalote, ail, alcool, sel, poivre du moulin, piment dâ€™Espelette et thym.","Travailler rapidement jusquâ€™Ã  obtenir une farce homogÃ¨ne, sans la chauffer.","Remplir des bocaux propres en tassant lÃ©gÃ¨rement et en laissant 2cm de marge.","Fermer les bocaux selon le systÃ¨me utilisÃ©.","StÃ©riliser 2h30 Ã  100Â°C, au stÃ©rilisateur ou dans un grand faitout, puis laisser refroidir dans lâ€™eau.","VÃ©rifier les fermetures avant stockage et laisser maturer au moins 48h avant dÃ©gustation."],"notes":["La conserve demande des bocaux parfaitement propres et des joints en bon Ã©tat.","Le piment dâ€™Espelette doit parfumer sans masquer le lapin.","Servir frais avec pain grillÃ©, cornichons et moutarde."],"technical":[{"label":"HygiÃ¨ne","value":"Garder viande et farce bien froides, puis lancer la stÃ©rilisation sans attente."},{"label":"Conservation","value":"Tout bocal mal fermÃ©, bombÃ© ou suspect doit Ãªtre Ã©cartÃ©."}],"practical":{"equipment":["Hachoir","Bocaux Ã  conserve","StÃ©rilisateur ou grand faitout haut","Grand saladier"],"storage":["Plusieurs mois dans un endroit frais, sec et sombre si la stÃ©rilisation est rÃ©ussie.","AprÃ¨s ouverture : 48h au rÃ©frigÃ©rateur."],"mistakes":["Ne remplis pas les bocaux jusquâ€™en haut : la marge limite les dÃ©bordements Ã  la stÃ©rilisation."],"result":["PÃ¢tÃ© rustique, parfumÃ©, avec une chaleur douce de piment dâ€™Espelette."]}},"terrine_porc_pistaches":{"title":"Terrine de porc aux pistaches","master":"apero_maitre","image":"/assets/recipe-images-optimized/terrine_porc_pistaches_spooky.jpg","categories":["ApÃ©ro"],"seasons":["Toutes saisons"],"difficulty":"medium","difficultyScore":4,"yield":"1 terrine","aliases":["terrine de porc aux pistaches","terrine porc pistaches","pÃ¢tÃ© porc pistache"],"tags":["terrine","porc","pistache","charcuterie"],"ingredients":[{"group":"Farce","items":["650g Ã©chine de porc","350g gorge de porc","200g foie de volaille","100g pistaches dÃ©cortiquÃ©es","80g Ã©chalote ciselÃ©e","10g ail hachÃ©","120g Å“ufs entiers","60ml cognac ou armagnac","17g sel fin","3g poivre du moulin","2g quatre-Ã©pices"]},{"group":"Terrine","items":["150g crÃ©pine ou bardes de lard","2 feuilles de laurier","2 branches de thym"]}],"steps":["Couper les viandes bien froides en morceaux et les faire mariner 2h avec alcool, Ã©chalote, ail, sel fin, poivre du moulin et quatre-Ã©pices.","Hacher les viandes avec une grille moyenne.","Ajouter les Å“ufs et les pistaches, puis mÃ©langer jusquâ€™Ã  obtenir une farce liÃ©e sans la chauffer.","Chemiser la terrine avec crÃ©pine ou bardes, remplir avec la farce et lisser.","Ajouter laurier et thym, couvrir, puis poser la terrine dans un bain-marie chaud.","Cuire Ã  160â€“170Â°C pendant 1h30 environ, jusquâ€™Ã  atteindre une cuisson Ã  cÅ“ur.","Laisser tiÃ©dir, poser un lÃ©ger poids dessus, puis rÃ©server 24 Ã  48h au rÃ©frigÃ©rateur avant de trancher."],"notes":["Le repos au froid raffermit la terrine et arrondit les saveurs.","Les pistaches doivent rester visibles : ne les mixe pas avec la farce.","Servir avec cornichons, pain de campagne et moutarde."],"technical":[{"label":"Farce","value":"Garder les viandes froides Ã©vite une farce grasse et collante."},{"label":"Bain-marie","value":"La cuisson douce limite le dessÃ¨chement et donne une tranche plus nette."}],"practical":{"equipment":["Terrine","Hachoir","Plat Ã  bain-marie","Sonde"],"storage":["4 Ã  5 jours au rÃ©frigÃ©rateur Ã  0â€“4Â°C, bien filmÃ©e.","Couvrir la surface de saindoux fondu peut prolonger la protection au froid.","Trancher au dernier moment."],"mistakes":["Ne hache pas trop fin : la terrine doit garder une texture charcutiÃ¨re."],"result":["Terrine rustique, parfumÃ©e, avec pistaches bien visibles Ã  la tranche."]}}});
-
+// Cook Note - catalogue recettes chunk 3/4
+window.RECIPES = Object.assign(window.RECIPES || {}, {
+  "cremes_maitre": {
+    "title": "Toppings et garnitures",
+    "image": "/assets/recipe-images-optimized/cremes_maitre_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "masterType": "collection",
+    "variants": [
+      {
+        "id": "chantilly_maitre",
+        "label": "Chantilly"
+      },
+      {
+        "id": "coulis_maitre",
+        "label": "Coulis"
+      },
+      {
+        "id": "creme_beurre_meringue_italienne",
+        "label": "Crème au beurre meringue italienne"
+      },
+      {
+        "id": "creme_citron_lemon_curd",
+        "label": "Crème citron"
+      },
+      {
+        "id": "creme_diplomate_vanille",
+        "label": "Crème diplomate vanille"
+      },
+      {
+        "id": "creme_diplomate_cloud",
+        "label": "Crème diplomate vanille à garnir"
+      },
+      {
+        "id": "mascarpone",
+        "label": "Crème mascarpone vanille"
+      },
+      {
+        "id": "creme_kinder_nutella",
+        "label": "Crème Nutella à garnir"
+      },
+      {
+        "id": "creme_patissiere_praline",
+        "label": "Crème pâtissière praliné"
+      },
+      {
+        "id": "creme_patissiere_vanille",
+        "label": "Crème pâtissière vanille"
+      },
+      {
+        "id": "creme_pistache",
+        "label": "Crème pistache à garnir"
+      },
+      {
+        "id": "creme_praline",
+        "label": "Crème praliné"
+      },
+      {
+        "id": "creme_amande_citron",
+        "label": "Fond de tarte amande"
+      },
+      {
+        "id": "compotee_citron",
+        "label": "Marmelade citron"
+      },
+      {
+        "id": "meringue_italienne",
+        "label": "Meringue italienne"
+      }
+    ],
+    "ingredients": [
+      {
+        "group": "Variantes",
+        "items": [
+          "Choisir une variante pour afficher la recette."
+        ]
+      }
+    ],
+    "steps": [
+      "Choisir une variante pour afficher les étapes."
+    ],
+    "notes": [
+      "Cette fiche regroupe les toppings, garnitures, chantillys, coulis et crèmes du carnet.",
+      "Cliquer une variante pour afficher sa recette."
+    ],
+    "technical": [
+      {
+        "label": "Cuisson",
+        "value": "Remuer constamment et stopper des que la creme epaissit franchement."
+      },
+      {
+        "label": "Refroidissement",
+        "value": "Filmer au contact pour eviter la peau et garder une texture lisse."
+      },
+      {
+        "label": "Usage",
+        "value": "Detendre au fouet avant pochage ou montage."
+      }
+    ],
+    "master": "desserts_maitre"
+  },
+  "biscuits_gouters_maitre": {
+    "title": "Biscuits, cookies et meringues",
+    "image": "/assets/recipe-images-optimized/biscuits_gouters_maitre_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "masterType": "collection",
+    "variants": [
+      {
+        "id": "cake_citron",
+        "label": "Cake au citron"
+      },
+      {
+        "id": "churros_maison",
+        "label": "Churros"
+      },
+      {
+        "id": "cookies_sucres_maitre",
+        "label": "Cookies sucrés"
+      },
+      {
+        "id": "macaron_ourea_pierre_herme",
+        "label": "Macaron Ouréa"
+      },
+      {
+        "id": "meringues",
+        "label": "Meringues"
+      }
+    ],
+    "ingredients": [
+      {
+        "group": "Choisir une variante",
+        "items": [
+          "Sélectionner le biscuit ou goûter voulu dans les boutons de la fiche."
+        ]
+      }
+    ],
+    "steps": [
+      "Choisir une variante pour afficher la recette complète."
+    ],
+    "notes": [
+      "Fiche maître : biscuits, cookies et petites préparations sucrées ou salées."
+    ],
+    "technical": [
+      {
+        "label": "Repos",
+        "value": "Reposer la pate quand c'est indique pour une cuisson plus reguliere."
+      },
+      {
+        "label": "Cuisson",
+        "value": "Sortir legerement avant la texture finale, la chaleur residuelle termine le biscuit."
+      },
+      {
+        "label": "Conservation",
+        "value": "Stocker au sec apres refroidissement complet."
+      }
+    ],
+    "master": "desserts_maitre"
+  },
+  "vinaigrette": {
+    "title": "Vinaigrette",
+    "master": "sauces_assaisonnements_maitre",
+    "image": "/assets/recipe-images-optimized/vinaigrette_spooky.jpg",
+    "categories": [
+      "Sauces"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "yield": "environ 230g",
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "30g moutarde de Dijon",
+          "45g vinaigre de vin rouge ou Xérès",
+          "2g sel fin, 1g poivre du moulin",
+          "150g huile (80g neutre + 70g olive)",
+          "5g miel (option)"
+        ]
+      }
+    ],
+    "steps": [
+      "Fouetter moutarde + vinaigre + sel / poivre du moulin (et miel).",
+      "Verser les huiles en filet pour émulsionner.",
+      "Goûter et ajuster."
+    ],
+    "notes": [
+      "Ratio huile:acide 3:1 à 4:1 selon la salade.",
+      "Variantes : citron, herbes, miso blanc, yaourt grec.",
+      "→ Voir aussi : <span data-goto=\"pesto_variantes\">Pestos</span>",
+      "Stockage optimal : flacon avec couvercle au réfrigérateur ; secouer avant usage.",
+      "Conservation : 5–7 j au froid.",
+      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
+    ],
+    "difficultyScore": 2
+  },
+  "balsamique_reduit": {
+    "title": "Balsamique réduit",
+    "master": "sauces_assaisonnements_maitre",
+    "image": "/assets/recipe-images-optimized/balsamique_reduit_spooky.jpg",
+    "categories": [
+      "Sauces"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "yield": "environ 120g",
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "250g vinaigre balsamique IGP",
+          "25–50g sucre (au goût)"
+        ]
+      }
+    ],
+    "steps": [
+      "Verser le vinaigre balsamique dans une petite casserole à fond épais.",
+      "Ajouter le sucre selon l'équilibre voulu, puis porter à léger frémissement.",
+      "Mijoter 12–20min à feu doux jusqu'à texture nappante, en surveillant car la réduction épaissit vite.",
+      "Couper le feu quand la réduction nappe la cuillère : elle continuera à épaissir en refroidissant.",
+      "Transvaser dans un pot propre et laisser refroidir avant de fermer."
+    ],
+    "notes": [
+      "Variantes : zeste d'orange, vanille, cacao, espresso, figue (filtrer).",
+      "Conservation : 2–3 mois au froid.",
+      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
+    ],
+    "difficultyScore": 2,
+    "tags": [
+      "balsamique",
+      "reduction",
+      "sauce",
+      "condiment"
+    ],
+    "aliases": [
+      "creme balsamique",
+      "reduction balsamique",
+      "balsamique reduit"
+    ]
+  },
+  "marinades_guide": {
+    "title": "Marinades",
+    "master": "sauces_assaisonnements_maitre",
+    "image": "/assets/recipe-images-optimized/marinades_guide_spooky.jpg",
+    "categories": [
+      "Sauces"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "yield": "10 marinades pour 4 personnes",
+    "ingredients": [
+      {
+        "group": "1) Méditerranéenne",
+        "items": [
+          "40g huile d'olive",
+          "20g jus de citron",
+          "2g zeste",
+          "2g origan",
+          "2g ail râpé",
+          "Sel / poivre du moulin"
+        ],
+        "steps": [
+          "Melanger huile d olive, jus et zeste de citron, origan, ail, sel et poivre du moulin.",
+          "Enrober viande, poisson ou legumes puis laisser mariner 20min a 2h selon le produit.",
+          "Egoutter legerement avant cuisson pour eviter que l ail brule."
+        ]
+      },
+      {
+        "group": "2) Teriyaki rapide",
+        "items": [
+          "40g sauce soja",
+          "20g mirin",
+          "10g sucre",
+          "10g vinaigre de riz",
+          "2g gingembre",
+          "1g ail"
+        ],
+        "steps": [
+          "Melanger sauce soja, mirin, sucre, vinaigre de riz, gingembre et ail.",
+          "Laisser dissoudre le sucre, puis enrober la piece a mariner 20min a 1h.",
+          "Cuire en surveillant la coloration car le sucre caramelise vite."
+        ]
+      },
+      {
+        "group": "3) Tandoori yaourt",
+        "items": [
+          "100g yaourt grec",
+          "6g pâte tandoori ou 4g garam masala",
+          "5g jus de citron",
+          "2g ail",
+          "2g gingembre",
+          "Sel"
+        ],
+        "steps": [
+          "Melanger yaourt grec, epices tandoori, citron, ail, gingembre et sel.",
+          "Enrober la volaille ou les legumes et laisser mariner au frais 1 a 6h.",
+          "Retirer l exces de marinade avant cuisson forte pour obtenir une belle coloration."
+        ]
+      },
+      {
+        "group": "4) BBQ fumé",
+        "items": [
+          "40g ketchup",
+          "20g sauce soja",
+          "10g miel",
+          "10g vinaigre de cidre",
+          "2g paprika fumé",
+          "1g ail"
+        ],
+        "steps": [
+          "Melanger ketchup, sauce soja, miel, vinaigre, paprika fume et ail.",
+          "Badigeonner la piece et laisser mariner 30min a 2h.",
+          "Cuire a chaleur moderee puis laquer en fin de cuisson pour eviter de bruler le miel."
+        ]
+      },
+      {
+        "group": "5) Chermoula",
+        "items": [
+          "40g huile d'olive",
+          "20g jus de citron",
+          "10g coriandre hachée",
+          "10g persil",
+          "2g cumin",
+          "1g paprika",
+          "1g ail"
+        ],
+        "steps": [
+          "Melanger huile d olive, citron, coriandre, persil, cumin, paprika et ail.",
+          "Enrober poisson, legumes ou volaille et laisser mariner 20min a 1h.",
+          "Cuire sans trop egoutter pour garder le parfum des herbes."
+        ]
+      },
+      {
+        "group": "6) Citron-herbes volaille",
+        "items": [
+          "40g huile neutre",
+          "20g jus de citron",
+          "5g moutarde",
+          "herbes fraîches",
+          "Sel / poivre du moulin"
+        ],
+        "steps": [
+          "Melanger huile neutre, jus de citron, moutarde, herbes fraiches, sel et poivre du moulin.",
+          "Enrober la volaille et laisser mariner 30min a 4h au frais.",
+          "Egoutter legerement puis cuire jusqu a coeur juteux et surface doree."
+        ]
+      },
+      {
+        "group": "7) Porc miel-moutarde",
+        "items": [
+          "40g miel",
+          "20g moutarde",
+          "10g sauce soja",
+          "10g vinaigre",
+          "1g ail"
+        ],
+        "steps": [
+          "Melanger miel, moutarde, sauce soja, vinaigre et ail.",
+          "Enrober le porc et laisser mariner 1 a 6h au frais.",
+          "Cuire a feu modere en retournant souvent pour ne pas bruler le miel."
+        ]
+      },
+      {
+        "group": "8) Mexicaine",
+        "items": [
+          "40g huile",
+          "20g jus de citron vert",
+          "2g cumin",
+          "2g paprika",
+          "1g piment",
+          "1g ail"
+        ],
+        "steps": [
+          "Melanger huile, citron vert, cumin, paprika, piment et ail.",
+          "Enrober viande, crevettes ou legumes et laisser mariner 20min a 2h.",
+          "Cuire a feu vif pour marquer, puis finir plus doucement si les morceaux sont epais."
+        ]
+      },
+      {
+        "group": "9) Thaï citronnelle",
+        "items": [
+          "40g huile",
+          "10g nuoc-mâm",
+          "10g jus de citron vert",
+          "2g citronnelle hachée",
+          "1g sucre",
+          "piment"
+        ],
+        "steps": [
+          "Melanger huile, nuoc-mam, citron vert, citronnelle, sucre et piment.",
+          "Enrober poisson, poulet ou legumes et laisser mariner 20min a 1h.",
+          "Cuire rapidement et finir avec un trait de citron vert si besoin."
+        ]
+      },
+      {
+        "group": "10) Légumes balsamique",
+        "items": [
+          "40g huile d'olive",
+          "20g balsamique",
+          "2g miel",
+          "1g ail",
+          "Thym"
+        ],
+        "steps": [
+          "Melanger huile d olive, balsamique, miel, ail et thym.",
+          "Enrober les legumes avant cuisson en gardant une couche fine.",
+          "Rotir ou griller; remuer a mi-cuisson et surveiller la caramelisation du balsamique."
+        ]
+      }
+    ],
+    "steps": [
+      "Choisir la marinade selon l'aliment et mélanger tous les ingrédients dans un bol propre.",
+      "Enrober l'aliment, couvrir et placer au réfrigérateur pendant le temps adapté.",
+      "Compter 30min pour poisson ou crevettes, 2–4h pour volaille, 6–12h pour porc ou bœuf.",
+      "Égoutter avant cuisson forte pour éviter que l'excès de liquide brûle ou empêche la coloration.",
+      "Jeter la marinade qui a touché le cru, ou la porter franchement à ébullition si elle doit devenir une sauce."
+    ],
+    "notes": [
+      "Ne pas réutiliser la marinade crue ; porter à ébullition si sauce.",
+      "Conservation : marinades prêtes 7 j au froid.",
+      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
+    ],
+    "difficultyScore": 3,
+    "variantGroups": true,
+    "tags": [
+      "marinade",
+      "viande",
+      "poisson",
+      "legumes"
+    ],
+    "aliases": [
+      "marinades rapides",
+      "marinade maison",
+      "guide marinades"
+    ]
+  },
+  "choux_craquelin": {
+    "title": "Choux au craquelin",
+    "master": "desserts_maitre",
+    "image": "/assets/recipe-images-optimized/choux_craquelin_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "yield": "18–22 choux",
+    "ingredients": [
+      {
+        "group": "Craquelin",
+        "items": [
+          "50g beurre",
+          "60g cassonade ou vergeoise",
+          "60g farine"
+        ]
+      },
+      {
+        "group": "Pâte à choux",
+        "items": [
+          "125g lait",
+          "125g eau",
+          "100g beurre",
+          "5g sel",
+          "150g farine T55",
+          "250g œufs (env. 5)"
+        ]
+      },
+      {
+        "group": "Garnissage",
+        "items": [
+          "Crème diplomate vanille ou chantilly"
+        ]
+      }
+    ],
+    "steps": [
+      "Abaisser craquelin 2mm, détailler disques.",
+      "Réaliser pâte à choux ; pocher Ø 3–4cm ; couvrir d'un disque de craquelin.",
+      "Cuire 170–175°C 35–40min ventilé sec.",
+      "Refroidir, garnir."
+    ],
+    "notes": [
+      "Conservation : coques 3 j à température ambiante dans boîte hermétique ; garnis 24h au froid.",
+      "→ Recette de garnissage : <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span>",
+      "→ Version allégée : <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>",
+      "Stockage : boîte hermétique au sec, à température ambiante. Péremption : 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
+      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire.",
+      "Crèmes à garnir : <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span> · <span data-goto=\"creme_diplomate_cloud\">Crème diplomate vanille à garnir</span> · <span data-goto=\"creme_patissiere_vanille\">Crème pâtissière vanille</span> · <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span> · <span data-goto=\"creme_kinder_nutella\">Crème Nutella à garnir</span> · <span data-goto=\"creme_pistache\">Crème pistache à garnir</span> · <span data-goto=\"creme_praline\">Crème praliné</span> · <span data-goto=\"mascarpone\">Crème mascarpone vanille</span> · <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>."
+    ],
+    "difficultyScore": 7
+  },
+  "paris_brest": {
+    "title": "Paris-Brest",
+    "master": "desserts_maitre",
+    "image": "/assets/recipe-images-optimized/paris_brest_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "hard",
+    "yield": "5 à 6 Paris-Brest individuels",
+    "ingredients": [
+      {
+        "group": "Assemblage final",
+        "items": [
+          "5–6 couronnes de pâte à choux cuites avec craquelin",
+          "Crème au praliné",
+          "50g noisettes torréfiées concassées",
+          "QS praliné noisette pur"
+        ]
+      },
+      {
+        "group": "Composants liés",
+        "items": [
+          "→ Voir : <span data-goto=\"craquelin_cacao\">Craquelin cacao</span>",
+          "→ Voir : <span data-goto=\"pate_choux\">Pâte à choux</span>",
+          "→ Voir : <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span>",
+          "→ Voir : <span data-goto=\"creme_beurre_meringue_italienne\">Crème au beurre meringue italienne</span>",
+          "→ Voir : <span data-goto=\"creme_praline\">Crème praliné</span>"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les couronnes de pâte à choux avec le craquelin.",
+      "Couper chaque couronne dans la hauteur.",
+      "Pocher un peu de praliné pur au fond (optionnel), puis pocher la crème au praliné.",
+      "Ajouter quelques points de praliné pur, refermer avec le chapeau, puis décorer avec les noisettes concassées."
+    ],
+    "notes": [
+      "Montage en couronnes de pâte à choux, crème praliné et noisettes.",
+      "Sortir du réfrigérateur 30 à 40min avant dégustation.",
+      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
+    ],
+    "difficultyScore": 8
+  },
+  "pate_choux": {
+    "title": "Pâte à choux",
+    "master": "pates_bases_maitre",
+    "image": "/assets/recipe-images-optimized/pate_choux_spooky.jpg",
+    "categories": [
+      "Base",
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "yield": "8 choux",
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "60g lait",
+          "60g eau",
+          "2g sel",
+          "55g beurre",
+          "75g farine",
+          "100g œufs (≈2)"
+        ]
+      }
+    ],
+    "steps": [
+      "Porter à ébullition eau + lait + sel + beurre.",
+      "Hors du feu, ajouter la farine en une fois puis dessécher sur feu doux.",
+      "Refroidir légèrement au robot (feuille), puis incorporer les œufs progressivement jusqu’à texture lisse.",
+      "Pocher des couronnes de 7cm, poser le craquelin puis cuire à 170°C pendant 40 à 45min."
+    ],
+    "notes": [
+      "Le test du sillon : il doit se refermer doucement quand la texture est correcte.",
+      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours.",
+      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+    ],
+    "difficultyScore": 7,
+    "additionalMasters": [
+      "elements_base_maitre",
+      "desserts_maitre"
+    ]
+  },
+  "creme_praline": {
+    "title": "Crème praliné",
+    "master": "cremes_maitre",
+    "image": "/assets/recipe-images-optimized/creme_praline_spooky.jpg",
+    "categories": [
+      "Desserts",
+      "Base"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "yield": "environ 690g",
+    "ingredients": [
+      {
+        "group": "Assemblage",
+        "items": [
+          "390g crème pâtissière praliné (ou totalité préparée)",
+          "300g crème au beurre (environ)"
+        ]
+      }
+    ],
+    "steps": [
+      "Détendre la crème pâtissière refroidie au fouet.",
+      "Incorporer délicatement la crème au beurre à la maryse.",
+      "Mettre en poche cannelée pour le montage des Paris-Brest."
+    ],
+    "notes": [
+      "Utilisé par exemple dans : <span data-goto=\"paris_brest\">Paris-Brest</span>.",
+      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
+    ],
+    "difficultyScore": 5,
+    "additionalMasters": [
+      "elements_base_maitre"
+    ]
+  },
+  "plats_maitre": {
+    "title": "Plats",
+    "image": "/assets/recipe-images-optimized/parent_plats.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été",
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "masterType": "collection",
+    "variants": [
+      {
+        "id": "beignets_calamar",
+        "label": "Beignets de calamar"
+      },
+      {
+        "id": "bouillabaisse_rouille",
+        "label": "Bouillabaisse"
+      },
+      {
+        "id": "cassolette_crevettes_ravioles_persil",
+        "label": "Cassolette de crevettes et ravioles au persil"
+      },
+      {
+        "id": "cochon_confit_biere_erable",
+        "label": "Cochon confit à la bière et au sirop d’érable"
+      },
+      {
+        "id": "cotelettes_porc_miel_moutarde",
+        "label": "Côtelettes de porc miel moutarde"
+      },
+      {
+        "id": "curry_lentilles_coco",
+        "label": "Curry de lentilles vertes au lait de coco"
+      },
+      {
+        "id": "gratin_chou_fleur",
+        "label": "Gratin de chou-fleur"
+      }
+    ],
+    "ingredients": [
+      {
+        "group": "Variantes",
+        "items": [
+          "Choisir une variante pour afficher les recettes."
+        ]
+      }
+    ],
+    "steps": [
+      "Choisir une variante pour afficher les ingrédients et les étapes."
+    ],
+    "notes": [
+      "Fiche parent de navigation. Les recettes restent conservées dans leurs variantes."
+    ]
+  },
+  "creme_kinder_nutella": {
+    "title": "Crème Nutella à garnir",
+    "master": "cremes_maitre",
+    "image": "/assets/recipe-images-optimized/creme_kinder_nutella_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "yield": "~500g",
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "250g mascarpone",
+          "150g crème entière froide",
+          "120g pâte à tartiner chocolat-noisette",
+          "20g sucre glace"
+        ]
+      }
+    ],
+    "steps": [
+      "Mélanger mascarpone et pâte à tartiner.",
+      "Ajouter crème froide et sucre glace.",
+      "Fouetter jusqu’à texture épaisse et stable."
+    ],
+    "notes": [
+      "Texture crèmeuse mais stable en fourrage.",
+      "Goût intense, ne détrempe pas le donut.",
+      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+    ],
+    "tags": [
+      "creme",
+      "nutella",
+      "kinder",
+      "fourrage",
+      "stable"
+    ],
+    "difficultyScore": 3,
+    "aliases": [
+      "creme nutella",
+      "crème nutella"
+    ]
+  },
+  "gaufre_bruxelles": {
+    "title": "Gaufres",
+    "master": "petit_dejeuner_maitre",
+    "image": "/assets/recipe-images-optimized/gaufre_bruxelles_spooky.jpg",
+    "categories": [
+      "Petits-déjeuners"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "yield": "8–10 gaufres",
+    "ingredients": [
+      {
+        "group": "Pâte levée",
+        "items": [
+          "250g farine",
+          "370g lait tiède",
+          "15g levure fraîche",
+          "150g œufs entiers (3 œufs)",
+          "100g beurre fondu",
+          "10g sucre",
+          "2g sel",
+          "vanille optionnelle selon goût ou arôme vanille selon dosage indiqué sur la bouteille"
+        ]
+      }
+    ],
+    "steps": [
+      "Mélanger levure et lait tiède, attendre 10min.",
+      "Mélanger farine, sucre, sel, jaunes d’œufs, lait et levure jusqu’à pâte lisse.",
+      "Ajouter le beurre fondu.",
+      "Laisser lever 1h.",
+      "Monter les blancs en neige et incorporer délicatement.",
+      "Cuire dans un gaufrier très chaud 3–4min."
+    ],
+    "notes": [
+      "Vraie gaufre de Bruxelles : pâte levée, blancs montés, gros trous, texture légère et croustillante.",
+      "Pour plus de croustillant, remplacer 50g de lait par 50g de bière.",
+      "Stockage : idéalement le jour même. Péremption : 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture."
+    ],
+    "tags": [
+      "gaufre",
+      "bruxelles",
+      "petit-dejeuner"
+    ],
+    "difficultyScore": 3
+  },
+  "cake_sale_lardon": {
+    "title": "Cake salé poitrine fumée",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/cake_sale_lardon_spooky.jpg",
+    "categories": [
+      "Apéro"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "yield": "6 personnes",
+    "ingredients": [
+      {
+        "group": "Garniture",
+        "items": [
+          "200g de poitrine fumée en dés",
+          "80g oignon",
+          "4g ail",
+          "10g huile d’olive",
+          "50g vin blanc pour déglacer",
+          "1 à 2 tomates coupées en tranches très fines",
+          "Thym ou origan pour les tomates"
+        ]
+      },
+      {
+        "group": "Appareil à cake",
+        "items": [
+          "75g beurre",
+          "200g farine",
+          "11g levure chimique",
+          "200g œufs (4 œufs)",
+          "100g lait",
+          "150g emmental râpé",
+          "2g sel",
+          "1g poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Faire griller la poitrine fumée en dés.",
+      "Ajouter oignon et ail coupés très petit.",
+      "Déglacer au vin blanc et laisser évaporer l’alcool.",
+      "Mélanger tous les ingrédients de l’appareil avec la garniture.",
+      "Beurrer et fariner le moule.",
+      "Déposer les tranches fines de tomates sur le dessus du cake juste avant d’enfourner, puis parsemer de thym ou d’origan.",
+      "Enfourner à 180°C pendant 35 à 50min selon le moule et l’épaisseur du cake."
+    ],
+    "notes": [
+      "Le cake est prêt quand la lame ressort sèche et que le dessus est bien doré.",
+      "Préparation du moule : beurre et farine le moule, puis retire l’excédent pour démouler proprement.",
+      "Stockage : refroidir rapidement puis conserver au réfrigérateur en boîte hermétique. Péremption : 3–4 jours.",
+      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+    ],
+    "tags": [
+      "cake",
+      "sale",
+      "apero",
+      "poitrine",
+      "tomate"
+    ],
+    "difficultyScore": 3,
+    "aliases": [
+      "cake salé lardon",
+      "cake jambon fromage",
+      "cake poitrine fumée"
+    ]
+  },
+  "cochon_confit_biere_erable": {
+    "title": "Cochon confit à la bière et au sirop d’érable",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/cochon_confit_biere_erable_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "medium",
+    "yield": "6–8 personnes",
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "1,5kg porc (épaule ou poitrine désossée)",
+          "30g huile végétale neutre",
+          "2 oignons jaunes émincés",
+          "3 gousses d’ail hachées",
+          "330g bière blonde ou ambrée",
+          "130g sirop d’érable pur",
+          "15g moutarde de Dijon",
+          "2 branches de thym frais",
+          "1 feuille de laurier",
+          "5g sel fin",
+          "2g poivre du moulin",
+          "15g vinaigre de cidre optionnel",
+          "40g sirop d’érable optionnel pour ajuster"
+        ]
+      }
+    ],
+    "steps": [
+      "Saler le porc et ajouter du poivre du moulin.",
+      "Chauffer l’huile en cocotte et dorer la viande sur toutes ses faces.",
+      "Ajouter les oignons et l’ail, faire revenir.",
+      "Déglacer avec la bière en grattant les sucs.",
+      "Ajouter sirop d’érable, moutarde, thym, laurier et vinaigre si utilisé.",
+      "Couvrir et cuire lentement au four ou à feu doux jusqu’à viande très fondante.",
+      "Réduire la sauce si besoin et napper la viande."
+    ],
+    "notes": [
+      "Cuisson lente indispensable pour une texture fondante.",
+      "Conservation : 3–4 jours au froid, réchauffage doux avec un peu de sauce.",
+      "Stockage : refroidir rapidement puis conserver au réfrigérateur en boîte hermétique. Péremption : 3–4 jours.",
+      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+    ],
+    "tags": [
+      "porc",
+      "biere",
+      "erable",
+      "mijote"
+    ],
+    "difficultyScore": 5
+  },
+  "compotee_citron": {
+    "title": "Marmelade citron",
+    "master": "cremes_maitre",
+    "image": "/assets/recipe-images-optimized/compotee_citron_spooky.jpg",
+    "categories": [
+      "Desserts",
+      "Base"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été"
+    ],
+    "difficulty": "easy",
+    "yield": "Fine couche pour 1 tarte",
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "3 citrons",
+          "50g sucre"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper les citrons finement en retirant les pépins.",
+      "Cuire doucement avec le sucre.",
+      "Mixer finement.",
+      "Étaler en couche fine sur un fond de tarte cuit."
+    ],
+    "notes": [
+      "Optionnelle dans la tarte citron meringuée.",
+      "À utiliser en petite quantité pour éviter l’amertume.",
+      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+    ],
+    "tags": [
+      "citron",
+      "marmelade",
+      "tarte",
+      "garniture"
+    ],
+    "difficultyScore": 5,
+    "aliases": [
+      "marmelade citron",
+      "compotée citron"
+    ],
+    "additionalMasters": [
+      "elements_base_maitre"
+    ]
+  },
+  "salade_avocat_oeuf_epinards": {
+    "title": "Salade avocat, œuf et épinards",
+    "master": "crudites_maitre",
+    "image": "/assets/recipe-images-optimized/salade_avocat_oeuf_epinards_spooky.jpg",
+    "categories": [
+      "Entrées"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été"
+    ],
+    "difficulty": "easy",
+    "yield": "2 personnes",
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "200g avocat mûr en dés",
+          "100g œufs durs écalés et tranchés",
+          "60g pousses d’épinards lavées et séchées",
+          "14g huile d’olive",
+          "15g jus de citron",
+          "2g sel fin",
+          "1g poivre du moulin"
+        ]
+      },
+      {
+        "group": "Option",
+        "items": [
+          "120g tomates cerises",
+          "30g noix",
+          "40g fromage en dés"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les œufs durs, refroidir, écaler et trancher.",
+      "Couper l’avocat en dés.",
+      "Mélanger pousses d’épinards, avocat et œufs.",
+      "Assaisonner avec huile d’olive, jus de citron, sel et poivre du moulin.",
+      "Ajouter les options au moment du service si souhaité."
+    ],
+    "notes": [
+      "Servir rapidement après découpe de l’avocat.",
+      "Stockage : boîte hermétique au réfrigérateur. Péremption : 24h, à assaisonner au dernier moment."
+    ],
+    "tags": [
+      "salade",
+      "avocat",
+      "oeuf",
+      "epinards",
+      "entree"
+    ],
+    "difficultyScore": 2
+  },
+  "crudites_maitre": {
+    "title": "Crudités et salades fraîches",
+    "master": "entrees_maitre",
+    "image": "/assets/recipe-images-optimized/crudites_maitre_spooky.jpg",
+    "categories": [
+      "Entrées"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été"
+    ],
+    "difficulty": "easy",
+    "variants": [
+      {
+        "id": "billes_mozzarella_marinees",
+        "label": "Billes de mozzarella marinées"
+      },
+      {
+        "id": "gaspacho_melon",
+        "label": "Gaspacho de melon"
+      },
+      {
+        "id": "gazpacho_tomate_menthe_basilic",
+        "label": "Gazpacho tomate, menthe et basilic"
+      },
+      {
+        "id": "salade_avocat_oeuf_epinards",
+        "label": "Salade avocat, œuf et épinards"
+      },
+      {
+        "id": "salade_melon_mozzarella_jambon_cru",
+        "label": "Salade melon, mozzarella et jambon cru"
+      }
+    ],
+    "ingredients": [
+      {
+        "group": "Variantes",
+        "items": [
+          "Choisir une recette dans cette fiche."
+        ]
+      }
+    ],
+    "steps": [
+      "Choisir une recette pour afficher le détail."
+    ],
+    "notes": [
+      "Fiche parent de rangement."
+    ]
+  },
+  "tortillas_mexicaines": {
+    "title": "Tortillas",
+    "master": "bases_salees_maitre",
+    "image": "/assets/recipe-images-optimized/tortillas_mexicaines_spooky.jpg",
+    "categories": [
+      "Base"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "yield": "8 tortillas",
+    "aliases": [
+      "tortillas de blé",
+      "wraps maison"
+    ],
+    "ingredients": [
+      {
+        "group": "Pâte",
+        "items": [
+          "300g farine de blé",
+          "5g sel fin",
+          "6g levure chimique",
+          "45g huile neutre ou huile d’olive",
+          "160g eau tiède"
+        ]
+      }
+    ],
+    "steps": [
+      "Mélanger farine, sel et levure chimique.",
+      "Ajouter l’huile puis l’eau tiède progressivement et pétrir jusqu’à obtenir une pâte souple.",
+      "Diviser en 8 pâtons, bouler et laisser reposer 20 à 30min sous un linge.",
+      "Étaler chaque pâton très finement sur un plan légèrement fariné.",
+      "Cuire à la poêle chaude 45 à 60 s par face, sans trop colorer.",
+      "Empiler dans un torchon propre pour garder les tortillas souples."
+    ],
+    "notes": [
+      "Si elles sèchent, les réchauffer quelques secondes sous cloche ou dans un torchon humide.",
+      "Stockage : 2 jours bien emballées, ou congélation séparées par papier cuisson."
+    ],
+    "tags": [
+      "tortilla",
+      "wrap",
+      "base",
+      "farine"
+    ],
+    "difficultyScore": 4,
+    "additionalMasters": [
+      "elements_base_maitre"
+    ]
+  },
+  "cake_citron": {
+    "title": "Cake au citron",
+    "master": "biscuits_gouters_maitre",
+    "image": "/assets/recipe-images-optimized/cake_citron.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "1 cake, environ 8 à 10 tranches",
+    "aliases": [
+      "cake citron",
+      "cake ultime au citron",
+      "gâteau au citron",
+      "goûter citron"
+    ],
+    "tags": [
+      "cake",
+      "citron",
+      "dessert",
+      "goûter",
+      "glaçage"
+    ],
+    "allergens": [
+      "Gluten",
+      "Lait",
+      "Œufs"
+    ],
+    "nutriScore": "D",
+    "ingredients": [
+      {
+        "group": "Cake",
+        "items": [
+          "200g sucre",
+          "120g beurre fondu",
+          "Zeste fin d’un citron jaune non traité",
+          "165g œufs (environ 3 œufs moyens)",
+          "150g farine",
+          "1/2 c. à café levure chimique",
+          "80g jus de citron"
+        ]
+      },
+      {
+        "group": "Glaçage",
+        "items": [
+          "25g jus de citron",
+          "130g sucre glace"
+        ]
+      }
+    ],
+    "steps": [
+      "Préchauffer le four à 170°C. Beurrer légèrement le moule ou utiliser un spray de démoulage, puis retirer l’excédent de gras avec un papier absorbant si besoin.",
+      "Faire fondre le beurre au bain-marie, le laisser tiédir légèrement, puis le verser dans un bol avec le sucre et le zeste de citron. Mélanger simplement, sans blanchir.",
+      "Ajouter les 165g d’œufs, puis mélanger juste assez pour homogénéiser.",
+      "Ajouter la farine et la levure chimique. Mélanger sans insister, seulement jusqu’à obtenir une pâte homogène.",
+      "Verser les 80g de jus de citron et mélanger jusqu’à obtention d’une pâte lisse. La pâte est fluide, c’est normal.",
+      "Verser la pâte dans le moule préparé et lisser légèrement la surface. La pâte doit remplir environ les 3/4 du moule.",
+      "Cuire à 170°C pendant 30 à 40min. Le cake doit être légèrement doré et une lame doit ressortir sèche.",
+      "Démouler le cake à l’envers sur une grille, l’emballer immédiatement dans du film étirable et le laisser refroidir totalement dans cet emballage.",
+      "Mélanger le sucre glace avec les 25g de jus de citron jusqu’à obtenir un glaçage lisse, fluide mais couvrant. Ajuster avec quelques gouttes de citron ou un peu de sucre glace si besoin.",
+      "Déballer le cake totalement refroidi, poser une assiette sous la grille, verser le glaçage et lisser en couche fine régulière.",
+      "Remettre le cake sur sa grille et sécher le glaçage au four à 100°C pendant 8min. Le glaçage doit être sec et doux au toucher.",
+      "Laisser revenir à température ambiante, puis couper en tranches fines ou moyennes."
+    ],
+    "notes": [
+      "Ne pas blanchir beurre et sucre : trop fouetter nuit à la texture recherchée.",
+      "Préparation du moule : si tu utilises un moule classique, beurre et farine-le légèrement avant de verser la pâte.",
+      "Le moule ne doit pas être trop grand : la pâte doit arriver aux 3/4 de la hauteur pour une belle forme et une cuisson régulière.",
+      "Respecter la quantité d’œufs indiquée : la précision aide à obtenir une mie qui se tient bien, même en tranches fines.",
+      "Surveiller dès 30min : une surcuisson dessèche le cake et déséquilibre l’acidité du citron.",
+      "Filmer le cake dès la sortie du four retient l’humidité et donne une texture moelleuse, dense et fondante.",
+      "Laisser vraiment refroidir le cake avant glaçage, sinon le nappage fond et reste collant.",
+      "Le cake est souvent meilleur le lendemain : les arômes se stabilisent et la texture se tient encore mieux.",
+      "Conservation : 3 à 4 jours à température ambiante dans une boîte hermétique ou bien filmé ; 5 à 6 jours au réfrigérateur, avec une texture un peu plus ferme.",
+      "Congélation possible, idéalement sans glaçage ou en tranches bien emballées, jusqu’à 1 à 2 mois."
+    ],
+    "technical": [
+      {
+        "label": "Cuisson",
+        "value": "30 à 40min à 170°C, puis 8min à 100°C pour sécher le glaçage."
+      },
+      {
+        "label": "Texture cible",
+        "value": "Moelleux, légèrement dense, intensément citronné et assez stable pour être tranché finement."
+      },
+      {
+        "label": "Stockage optimal",
+        "value": "Conserver entier plutôt qu’en tranches, en boîte hermétique, à température ambiante dans un endroit frais et sec."
+      }
+    ]
+  },
+  "sauces_burger_variantes": {
+    "title": "Sauces burger",
+    "master": "sauces_maitre",
+    "image": "/assets/recipe-images-optimized/sauces_assaisonnements_maitre_spooky.jpg",
+    "categories": [
+      "Sauces"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "yield": "6 sauces en petites portions",
+    "ingredients": [
+      {
+        "group": "Base commune",
+        "items": [
+          "Mayonnaise selon la texture souhaitée",
+          "Sel, poivre du moulin"
+        ]
+      },
+      {
+        "group": "Variante pub sauce",
+        "items": [
+          "180g mayonnaise",
+          "12g cassonade ou vergeoise",
+          "30ml sauce Worcestershire",
+          "1 c. à café oignon en poudre",
+          "1 c. à café ail en poudre"
+        ],
+        "steps": [
+          "Melanger mayonnaise, cassonade, Worcestershire, oignon et ail en poudre.",
+          "Fouetter 30s pour dissoudre le sucre, puis rectifier sel et poivre du moulin.",
+          "Reserver 20min au frais avant service pour arrondir le gout."
+        ]
+      },
+      {
+        "group": "Variante zinger épicée",
+        "items": [
+          "120g mayonnaise",
+          "1 c. à soupe paprika",
+          "2 c. à café piment de Cayenne",
+          "1 c. à café ail en poudre",
+          "1 c. à café oignon en poudre",
+          "1/2 c. à café poivre du moulin"
+        ],
+        "steps": [
+          "Melanger mayonnaise, paprika, Cayenne, ail, oignon et poivre du moulin.",
+          "Gouter puis ajuster le piment par petites touches.",
+          "Reserver 20min au frais; servir avec burger croustillant ou frites chaudes."
+        ]
+      },
+      {
+        "group": "Variante miel moutarde",
+        "items": [
+          "120g mayonnaise",
+          "1 c. à soupe moutarde de Dijon",
+          "1 c. à café ail en poudre",
+          "1/4 c. à café poivre du moulin",
+          "1 c. à soupe vinaigre de cidre",
+          "2 c. à soupe miel"
+        ],
+        "steps": [
+          "Melanger mayonnaise, moutarde, ail en poudre, poivre du moulin, vinaigre de cidre et miel.",
+          "Fouetter jusqu a sauce lisse et brillante.",
+          "Reserver 20min au frais, puis ajuster miel ou vinaigre selon l equilibre voulu."
+        ]
+      },
+      {
+        "group": "Variante big mac",
+        "items": [
+          "120g mayonnaise",
+          "2 c. à soupe relish de cornichons",
+          "1 c. à soupe moutarde jaune",
+          "1 c. à café vinaigre blanc",
+          "1 c. à café sucre",
+          "1/2 c. à café ail en poudre",
+          "1/2 c. à café oignon en poudre",
+          "1/2 c. à café paprika"
+        ],
+        "steps": [
+          "Melanger mayonnaise, relish, moutarde jaune, vinaigre, sucre, ail, oignon et paprika.",
+          "Laisser le sucre se dissoudre puis gouter l acidite.",
+          "Reserver 20min au frais pour que le relish parfume toute la sauce."
+        ]
+      },
+      {
+        "group": "Variante dipping sauce",
+        "items": [
+          "120g mayonnaise",
+          "1 c. à soupe ketchup",
+          "1 c. à soupe moutarde jaune",
+          "1 c. à café sauce barbecue",
+          "1 c. à café jus de citron"
+        ],
+        "steps": [
+          "Melanger mayonnaise, ketchup, moutarde jaune, sauce barbecue et jus de citron.",
+          "Fouetter jusqu a couleur homogene.",
+          "Reserver 10 a 20min au frais et servir en dip pour frites ou nuggets."
+        ]
+      }
+    ],
+    "steps": [
+      "Mélanger les ingrédients de la variante choisie dans un bol.",
+      "Ajuster sel, poivre du moulin, acidité et piquant selon le burger ou les frites.",
+      "Réserver au frais 20min pour arrondir le goût."
+    ],
+    "notes": [
+      "Conservation : 2 à 3 jours au réfrigérateur dans une boîte fermée."
+    ],
+    "tags": [
+      "sauce",
+      "burger",
+      "dip",
+      "frites"
+    ],
+    "difficultyScore": 2,
+    "variantGroups": true
+  },
+  "sauce_aux_poivres": {
+    "title": "Sauce aux poivres",
+    "master": "sauces_assaisonnements_maitre",
+    "image": "/assets/recipe-images-optimized/sauce_aux_poivres_spooky.jpg",
+    "categories": [
+      "Sauces"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "variantGroups": true,
+    "aliases": [
+      "sauce au poivre",
+      "sauce poivre",
+      "sauce steak",
+      "sauce aux poivres basique"
+    ],
+    "tags": [
+      "sauce",
+      "poivre",
+      "fond de veau",
+      "crème",
+      "viande"
+    ],
+    "ingredients": [
+      {
+        "group": "Variante haut de gamme",
+        "items": [
+          "1 c. à café de poivre noir en grains",
+          "1 c. à soupe de poivre vert en saumure",
+          "1/2 c. à café de poivre blanc ou poivre de Kampot",
+          "1 petite échalote",
+          "40ml de cognac ou Armagnac",
+          "50ml de vin blanc sec ou Madère",
+          "250ml de fond de veau brun réduit",
+          "120ml de crème liquide entière 30-35 %",
+          "30g de beurre froid",
+          "1 c. à café d’huile neutre ou graisse de cuisson",
+          "Sel fin",
+          "Option : 1 à 2 c. à soupe de jus de viande"
+        ],
+        "steps": [
+          "Concasser les poivres, ciseler l echalote et faire suer dans huile ou graisse de cuisson.",
+          "Flamber au cognac, reduire avec vin blanc ou Madere, puis ajouter le fond de veau reduit.",
+          "Cremer, reduire a texture nappante, monter au beurre froid et finir avec poivre vert et jus de viande si disponible."
+        ],
+        "note": "Cuisson : torréfier les poivres 30 à 45 secondes, réduire le fond 8 à 12 minutes, puis réduire avec la crème 4 à 6 minutes."
+      },
+      {
+        "group": "Variante express premium",
+        "items": [
+          "30ml de cognac",
+          "150ml de fond de veau",
+          "80ml de crème liquide entière",
+          "1 c. à soupe de poivre vert",
+          "Poivre noir concassé",
+          "20g de beurre froid"
+        ],
+        "steps": [
+          "Reduire le cognac dans la poele ou une petite casserole.",
+          "Ajouter fond de veau, creme, poivre vert et poivre concasse, puis mijoter jusqu a texture nappante.",
+          "Hors du feu, monter au beurre froid et servir aussitot."
+        ],
+        "note": "Cuisson : déglacer la poêle, ajouter fond, crème et poivres, réduire 5 minutes puis monter au beurre froid."
+      },
+      {
+        "group": "Variante basique",
+        "items": [
+          "200ml de crème liquide entière",
+          "1 à 2 c. à café de poivre noir concassé",
+          "1 petite échalote",
+          "20g de beurre",
+          "30ml de cognac, whisky ou vin blanc",
+          "1 c. à café de moutarde",
+          "100ml de bouillon de bœuf ou volaille",
+          "Sel"
+        ],
+        "steps": [
+          "Faire suer l echalote au beurre, ajouter le poivre concasse puis deglacer au cognac, whisky ou vin blanc.",
+          "Ajouter bouillon, creme et moutarde, puis reduire doucement.",
+          "Saler en fin de cuisson et servir quand la sauce nappe la cuillere."
+        ],
+        "note": "Cuisson : réduire le bouillon 3 à 5 minutes, puis mijoter avec crème et moutarde 5 à 8 minutes."
+      },
+      {
+        "group": "Variante ultra simple",
+        "items": [
+          "200ml de crème liquide entière",
+          "1 c. à café de moutarde",
+          "1 à 2 c. à café de poivre concassé",
+          "1/2 cube de bouillon émietté"
+        ],
+        "steps": [
+          "Chauffer la creme avec la moutarde, le poivre concasse et le demi-cube emiette.",
+          "Mijoter 3 a 5min en remuant pour dissoudre et epaissir legerement.",
+          "Gouter avant de saler, puis servir chaud."
+        ],
+        "note": "Cuisson : chauffer doucement et laisser réduire environ 5 minutes."
+      }
+    ],
+    "steps": [
+      "Concasser les poivres au mortier ou avec le fond d’une casserole.",
+      "Pour la version haut de gamme, torréfier les poivres à sec 30 à 45 secondes sans les brûler.",
+      "Faire suer l’échalote ciselée avec un peu de matière grasse jusqu’à ce qu’elle devienne translucide.",
+      "Déglacer avec l’alcool choisi, puis laisser réduire presque à sec.",
+      "Ajouter le vin blanc, le Madère ou le bouillon selon la variante, puis réduire pour concentrer le goût.",
+      "Ajouter le fond de veau ou le bouillon, puis laisser réduire jusqu’à ce que la sauce commence à napper.",
+      "Ajouter la crème et mijoter doucement jusqu’à obtenir une texture onctueuse.",
+      "Couper le feu, ajouter le beurre froid en morceaux et fouetter sans refaire bouillir.",
+      "Goûter, rectifier le sel et ajuster l’intensité du poivre."
+    ],
+    "notes": [
+      "Texture cible : la sauce doit napper le dos d’une cuillère et laisser une trace nette quelques secondes.",
+      "Pour une finition plus fine, passer au chinois puis remettre quelques grains de poivre vert dans la sauce filtrée.",
+      "Si la sauce est trop épaisse, détends-la avec un peu de fond ou d’eau chaude. Si elle est trop liquide, réduis-la avant d’ajouter le beurre.",
+      "Accords : filet de bœuf, entrecôte, côte de bœuf, magret de canard, tournedos, pommes dauphines, gratin dauphinois ou frites maison."
+    ],
+    "technical": [
+      {
+        "label": "Poivre",
+        "value": "Concasser grossièrement et chauffer brièvement pour réveiller les arômes sans amertume."
+      },
+      {
+        "label": "Réduction",
+        "value": "Réduire par étapes pour concentrer sans épaissir lourdement."
+      },
+      {
+        "label": "Finition",
+        "value": "Monter au beurre hors du feu pour garder une sauce brillante."
+      }
+    ]
+  },
+  "mayonnaise_maison": {
+    "title": "Mayonnaise",
+    "master": "sauces_assaisonnements_maitre",
+    "image": "/assets/recipe-images-optimized/mayonnaise_maison_spooky.jpg",
+    "categories": [
+      "Sauces"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "environ 250g",
+    "variantGroups": true,
+    "aliases": [
+      "mayonnaise belge",
+      "mayo maison",
+      "sauce mayonnaise"
+    ],
+    "tags": [
+      "mayonnaise",
+      "sauce",
+      "frites"
+    ],
+    "ingredients": [
+      {
+        "group": "Base mayonnaise",
+        "items": [
+          "18g jaune d’œuf (1 jaune)",
+          "1 c. à café de moutarde",
+          "1 c. à soupe de vinaigre de vin blanc ou jus de citron",
+          "200ml d’huile neutre",
+          "Sel",
+          "Poivre du moulin"
+        ],
+        "note": "Tous les ingrédients doivent idéalement être à la même température pour faciliter l’émulsion."
+      },
+      {
+        "group": "Variante tartare",
+        "items": [
+          "Mayonnaise",
+          "Câpres hachées",
+          "Cornichons hachés",
+          "Persil plat",
+          "Estragon",
+          "Échalote très finement ciselée",
+          "Un peu de jus de citron"
+        ],
+        "steps": [
+          "Preparer une mayonnaise ferme.",
+          "Ajouter capres, cornichons, persil, estragon, echalote et un peu de jus de citron.",
+          "Melanger, gouter l acidite, puis reserver 15min au frais."
+        ]
+      },
+      {
+        "group": "Variante andalouse",
+        "items": [
+          "Mayonnaise",
+          "Concentré de tomate légèrement travaillé",
+          "Poivron rouge rôti mixé",
+          "Paprika fumé",
+          "Une pointe de piment",
+          "Quelques gouttes de vinaigre"
+        ],
+        "steps": [
+          "Preparer une mayonnaise ferme.",
+          "Incorporer concentre de tomate, poivron rouge roti mixe, paprika fume, piment et vinaigre.",
+          "Mixer ou fouetter jusqu a sauce homogene, puis reserver au frais."
+        ]
+      }
+    ],
+    "steps": [
+      "Mélanger le jaune d’œuf, la moutarde, le vinaigre ou le citron et une pincée de sel.",
+      "Verser l’huile en filet très fin en fouettant constamment.",
+      "Continuer jusqu’à obtenir une texture ferme, brillante et nappante.",
+      "Rectifier le sel, le poivre du moulin et l’acidité avec citron ou vinaigre.",
+      "Pour les variantes, incorporer les garnitures dans la mayonnaise déjà montée."
+    ],
+    "notes": [
+      "Si la mayonnaise tranche, repartir avec un nouveau jaune et incorporer l’ancienne préparation petit à petit.",
+      "Pour des frites, garde une texture assez ferme afin que la sauce tienne bien.",
+      "À conserver au frais et à consommer rapidement."
+    ],
+    "technical": [
+      {
+        "label": "Émulsion",
+        "value": "Commencer avec un filet d’huile très fin pour stabiliser la base."
+      },
+      {
+        "label": "Acidité",
+        "value": "Ajuster en fin de montage pour équilibrer le gras."
+      }
+    ]
+  },
+  "oeufs_mimosa_variantes": {
+    "title": "Œufs mimosa",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/oeufs_mimosa_spooky.jpg",
+    "categories": [
+      "Apéro",
+      "Entrées"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "12 demi-œufs",
+    "variantGroups": true,
+    "aliases": [
+      "oeufs mimosa",
+      "œufs mimosa betterave",
+      "œufs mimosa avocat crevette"
+    ],
+    "tags": [
+      "oeufs",
+      "apero",
+      "entree",
+      "froid"
+    ],
+    "ingredients": [
+      {
+        "group": "Base œufs",
+        "items": [
+          "300g œufs entiers",
+          "Eau froide",
+          "Glaçons pour refroidissement"
+        ]
+      },
+      {
+        "group": "Variante betterave",
+        "items": [
+          "250g betterave cuite",
+          "500g eau",
+          "120g vinaigre de cidre",
+          "25g sucre",
+          "6g sel fin",
+          "1 feuille de laurier",
+          "Poivre du moulin"
+        ],
+        "steps": [
+          "Porter eau, vinaigre, sucre, sel, laurier et poivre du moulin a fremissement, puis refroidir la marinade.",
+          "Ajouter la betterave cuite et les blancs d oeufs cuits, puis laisser colorer au frais.",
+          "Garnir les demi-oeufs avec la farce mimosa juste avant service."
+        ]
+      },
+      {
+        "group": "Farce betterave",
+        "items": [
+          "100g jaunes d’œufs cuits",
+          "60g mayonnaise",
+          "8g moutarde douce",
+          "15g crème fraîche épaisse ou yaourt grec",
+          "5g vinaigre de cidre ou jus de citron",
+          "0,5g paprika fumé ou piment d’Espelette",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      },
+      {
+        "group": "Variante avocat crevette",
+        "items": [
+          "180g chair d’avocat mûr",
+          "100g jaunes d’œufs cuits",
+          "15 à 30g jus de citron vert",
+          "15 à 30g mayonnaise",
+          "15g crème fraîche épaisse",
+          "5g moutarde douce",
+          "0,5g piment d’Espelette",
+          "180g crevettes décortiquées et nettoyées",
+          "Sel fin",
+          "Poivre du moulin"
+        ],
+        "steps": [
+          "Mixer chair d avocat, jaunes cuits, citron vert, mayonnaise, creme, moutarde et piment d Espelette.",
+          "Assaisonner, puis garnir les blancs d oeufs avec cette creme.",
+          "Ajouter les crevettes decortiquees et servir bien frais."
+        ]
+      },
+      {
+        "group": "Finition",
+        "items": [
+          "Ciboulette ciselée",
+          "Aneth ou coriandre",
+          "Zeste de citron vert",
+          "Graines de sésame noir ou pavot"
+        ]
+      }
+    ],
+    "steps": [
+      "Placer les œufs dans une casserole, couvrir d’eau froide avec 2 à 3cm au-dessus des œufs, puis cuire 12 à 13min depuis le départ à froid.",
+      "Plonger immédiatement dans un bain glacé 10min, puis écaler délicatement.",
+      "Pour la variante betterave : chauffer betterave, eau, vinaigre, sucre, sel, poivre du moulin et laurier jusqu’à frémissement, couper le feu, infuser 10min, mixer légèrement et refroidir complètement.",
+      "Immerger les œufs écalés entiers dans la marinade froide 6 à 12h pour une couleur nette.",
+      "Égoutter, éponger, couper en deux et retirer les jaunes.",
+      "Pour la farce betterave : tamiser les jaunes, mélanger avec mayonnaise, moutarde, crème, vinaigre ou citron, paprika, sel et poivre du moulin.",
+      "Pour la variante avocat crevette : mixer jaunes, avocat, citron vert, mayonnaise, crème, moutarde, piment, sel et poivre du moulin jusqu’à texture lisse et pochable.",
+      "Éponger les crevettes, les assaisonner très légèrement avec citron vert, sel et piment.",
+      "Garnir les blancs à la poche, puis terminer avec herbes, zestes et crevettes selon la variante."
+    ],
+    "notes": [
+      "La marinade betterave doit être froide avant contact avec les œufs pour garder une texture propre.",
+      "L’avocat oxyde vite : préparer la crème au dernier moment ou filmer au contact avec quelques gouttes de citron vert.",
+      "Pour un dressage net, éponger les blancs et les crevettes avant de garnir."
+    ],
+    "technical": [
+      {
+        "label": "Cuisson œufs",
+        "value": "Départ à froid et bain glacé donnent des jaunes fermes et faciles à travailler."
+      },
+      {
+        "label": "Farce",
+        "value": "La farce doit être lisse, ferme et pochable."
+      }
+    ],
+    "additionalMasters": [
+      "entrees_maitre"
+    ]
+  },
+  "chou_fleur_croustillant": {
+    "title": "Chou-fleur croustillant",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/chou_fleur_croustillant_spooky.jpg",
+    "categories": [
+      "Apéro",
+      "Entrées",
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "aliases": [
+      "bouchées de chou-fleur croustillant",
+      "cauliflower bites"
+    ],
+    "tags": [
+      "chou fleur",
+      "legume",
+      "apero",
+      "four"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "600g sommités de chou-fleur",
+          "30g huile d’olive",
+          "50g parmesan râpé",
+          "2g paprika",
+          "2g ail en poudre",
+          "2g oignon en poudre",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      },
+      {
+        "group": "Finition",
+        "items": [
+          "Sauce yaourt grec ou sauce ranch",
+          "5g persil haché optionnel",
+          "Quartiers de citron"
+        ]
+      }
+    ],
+    "steps": [
+      "Préchauffer le four à 220°C et couvrir une plaque de papier cuisson.",
+      "Mélanger les sommités avec l’huile d’olive pour les enrober.",
+      "Mélanger parmesan, paprika, ail, oignon, sel et poivre du moulin.",
+      "Saupoudrer sur le chou-fleur et mélanger pour bien répartir.",
+      "Étaler en une seule couche sur la plaque.",
+      "Cuire 25 à 30min en retournant à mi-cuisson, jusqu’à coloration dorée et bords croustillants.",
+      "Servir chaud avec sauce et citron."
+    ],
+    "notes": [
+      "Ne surcharge pas la plaque : l’humidité empêcherait le croustillant.",
+      "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
+    ],
+    "technical": [
+      {
+        "label": "Plaque",
+        "value": "Une seule couche pour rôtir au lieu d’étuver."
+      },
+      {
+        "label": "Texture",
+        "value": "Bords dorés, cœur tendre, surface légèrement croustillante."
+      }
+    ],
+    "additionalMasters": [
+      "entrees_maitre",
+      "accompagnements_maitre"
+    ]
+  },
+  "frites_maison": {
+    "title": "Frites maison",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/frites_maison_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "nutriScore": "D",
+    "aliases": [
+      "frites classiques",
+      "recette frites maison"
+    ],
+    "tags": [
+      "frites",
+      "pomme de terre",
+      "accompagnement"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "600g pommes de terre type Bintje",
+          "Huile de friture",
+          "Sel fin"
+        ]
+      },
+      {
+        "group": "Finition optionnelle",
+        "items": [
+          "Fleur de sel",
+          "Poivre du moulin",
+          "Sauce maison au choix"
+        ]
+      }
+    ],
+    "steps": [
+      "Éplucher les pommes de terre.",
+      "Couper les pommes de terre en frites régulières, idéalement avec un coupe-frites.",
+      "Rincer les frites à l’eau claire pour retirer l’excès d’amidon.",
+      "Égoutter puis sécher très soigneusement dans un torchon propre.",
+      "Chauffer l’huile à 160°C et cuire les frites 7 à 8min pour cuire l’intérieur sans forte coloration.",
+      "Égoutter sur grille et laisser refroidir.",
+      "Monter l’huile à 190°C et cuire 3 à 4min, jusqu’à ce que les frites soient dorées et croustillantes.",
+      "Égoutter sur papier absorbant ou, mieux, sur grille.",
+      "Saler immédiatement et servir sans attendre."
+    ],
+    "notes": [
+      "Bien sécher les pommes de terre avant friture : l’eau fait chuter la température de l’huile et ramollit les frites.",
+      "Pour une finition plus nette, laisse refroidir 20 à 30min après le premier bain, puis fais le deuxième bain juste avant le service.",
+      "Accompagnements : burger maison, poulet rôti, fish and chips, steak, moules, mayonnaise, ketchup maison, sauce tartare ou sauce andalouse."
+    ],
+    "technical": [
+      {
+        "label": "Pommes de terre",
+        "value": "Choisir une variété farineuse comme la Bintje."
+      },
+      {
+        "label": "Cuisson",
+        "value": "Premier bain à 160°C, second bain à 190°C."
+      },
+      {
+        "label": "Cible",
+        "value": "Dorées, croustillantes dehors, moelleuses dedans, non grasses."
+      }
+    ],
+    "additionalMasters": []
+  },
+  "frites_patate_douce": {
+    "title": "Frites de patate douce",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/frites_patate_douce_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "nutriScore": "C",
+    "aliases": [
+      "frites patate douce",
+      "patate douce croustillante",
+      "sweet potato fries"
+    ],
+    "tags": [
+      "frites",
+      "patate douce",
+      "four",
+      "accompagnement"
+    ],
+    "ingredients": [
+      {
+        "group": "Frites",
+        "items": [
+          "800g patates douces",
+          "30g huile neutre ou huile d’olive douce",
+          "12g fécule de maïs ou fécule de pomme de terre",
+          "2g paprika fumé",
+          "1,5g ail en poudre",
+          "1,5g oignon en poudre optionnel",
+          "1 petite pincée piment d’Espelette",
+          "Poivre du moulin",
+          "Sel fin après cuisson",
+          "Fleur de sel"
+        ]
+      },
+      {
+        "group": "Finition",
+        "items": [
+          "Coriandre, persil plat ou ciboulette ciselée",
+          "Zeste de citron vert",
+          "Paprika fumé léger"
+        ]
+      }
+    ],
+    "steps": [
+      "Éplucher les patates douces si la peau est épaisse.",
+      "Couper en bâtonnets réguliers de 8 à 10mm d’épaisseur.",
+      "Rincer 1 à 2min dans un grand saladier d’eau froide, puis égoutter.",
+      "Sécher très soigneusement dans un torchon et laisser sécher 10min à l’air libre.",
+      "Enrober les frites avec un voile très fin de fécule, sans paquet blanc visible.",
+      "Ajouter l’huile, le paprika fumé, l’ail, l’oignon si utilisé, le piment et le poivre du moulin. Ne pas saler avant cuisson.",
+      "Préchauffer le four à 220°C chaleur tournante avec la plaque dans le four.",
+      "Disposer les frites espacées sur papier cuisson ou plaque légèrement huilée.",
+      "Cuire 20 à 25min en retournant à mi-cuisson, puis prolonger 5min si nécessaire.",
+      "Finir 2 à 3min sous le gril pour plus de croustillant en surveillant attentivement.",
+      "Laisser reposer 2min sur la plaque, transférer sur grille si possible, puis saler et finir avec herbes, zeste et fleur de sel."
+    ],
+    "notes": [
+      "Servir avec la <span data-goto=\"sauce_yaourt_citronnee\">sauce yaourt citronnée</span> dans un bol à part pour garder le croustillant.",
+      "La patate douce contient plus d’eau et de sucre qu’une pomme de terre classique : taille régulière, séchage soigné et plaque bien chaude sont essentiels.",
+      "Surveille la cuisson : tous les fours ne colorent pas de la même façon, surtout en fin de cuisson ou sous le gril."
+    ],
+    "technical": [
+      {
+        "label": "Cuisson four",
+        "value": "220°C chaleur tournante, 20 à 25min, puis 2 à 3min sous le gril si besoin."
+      },
+      {
+        "label": "Air fryer",
+        "value": "200°C, 15 à 20min, panier secoué toutes les 5min."
+      },
+      {
+        "label": "Cible",
+        "value": "Bords dorés et croustillants, centre fondant, assaisonnement fumé et sauce fraîche à part."
+      }
+    ],
+    "linkedRecipes": [
+      {
+        "id": "sauce_yaourt_citronnee",
+        "role": "Sauce"
+      }
+    ],
+    "additionalMasters": []
+  },
+  "gratin_chou_fleur": {
+    "title": "Gratin de chou-fleur",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/gratin_chou_fleur_spooky.jpg",
+    "categories": [
+      "Plats",
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "nutriScore": "C",
+    "aliases": [
+      "gratin choux fleur",
+      "gratin de chou fleur",
+      "chou-fleur mornay"
+    ],
+    "tags": [
+      "chou-fleur",
+      "gratin",
+      "fromage",
+      "four"
+    ],
+    "ingredients": [
+      {
+        "group": "Chou-fleur",
+        "items": [
+          "900g à 1kg chou-fleur",
+          "30g huile d’olive",
+          "20g beurre fondu",
+          "Sel fin",
+          "Poivre du moulin",
+          "1 pincée muscade"
+        ]
+      },
+      {
+        "group": "Sauce",
+        "items": [
+          "1 recette de <span data-goto=\"sauce_mornay\">sauce Mornay</span>"
+        ]
+      },
+      {
+        "group": "Chapelure noisette",
+        "items": [
+          "45g chapelure panko ou chapelure maison",
+          "25g noisettes torréfiées concassées",
+          "20g parmesan râpé",
+          "25g beurre fondu",
+          "8g persil plat haché"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper le chou-fleur en sommités régulières et garder le cœur épluché en petits morceaux.",
+      "Rincer rapidement puis égoutter très soigneusement.",
+      "Cuire les sommités 5 à 6min à la vapeur, ou 6 à 8min dans une eau-lait salée, en gardant le chou-fleur ferme.",
+      "Préchauffer le four à 220°C.",
+      "Mélanger le chou-fleur avec huile d’olive, beurre fondu, sel, poivre du moulin et muscade.",
+      "Étaler sur plaque et rôtir 15 à 20min jusqu’à légère coloration.",
+      "Préparer la <span data-goto=\"sauce_mornay\">sauce Mornay</span>.",
+      "Mélanger chapelure, noisettes, parmesan, persil et beurre fondu jusqu’à texture sableuse.",
+      "Beurrer légèrement un plat, disposer le chou-fleur rôti, napper de sauce Mornay et couvrir de chapelure noisette.",
+      "Enfourner à 190°C pendant 18 à 22min.",
+      "Terminer sous le gril 2 à 3min si besoin, puis laisser reposer 5min avant service."
+    ],
+    "notes": [
+      "La <span data-goto=\"sauce_mornay\">sauce Mornay</span> doit rester nappante, pas trop épaisse, pour éviter un gratin pâteux.",
+      "Beurre légèrement le plat avant montage : la sauce accroche moins et le service est plus propre.",
+      "Rôtir le chou-fleur concentre le goût et évite un gratin aqueux.",
+      "Surveille la cuisson : chaque four gratine différemment, surtout sous le gril."
+    ],
+    "technical": [
+      {
+        "label": "Pré-cuisson",
+        "value": "5 à 6min vapeur ou 6 à 8min eau-lait, chou-fleur encore ferme."
+      },
+      {
+        "label": "Gratin",
+        "value": "190°C, 18 à 22min, puis gril 2 à 3min si besoin."
+      },
+      {
+        "label": "Cible",
+        "value": "Dessus doré et croustillant, intérieur crémeux mais non liquide."
+      }
+    ],
+    "additionalMasters": [
+      "accompagnements_maitre"
+    ]
+  },
+  "tiramisu_citron": {
+    "title": "Tiramisu citron meringué",
+    "master": "desserts_cuillere_maitre",
+    "image": "/assets/recipe-images-optimized/tiramisu_citron_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "6 personnes",
+    "aliases": [
+      "tiramisu au citron",
+      "tiramisu citron meringué",
+      "tiramisu citron mascarpone",
+      "dessert citron sans cuisson"
+    ],
+    "tags": [
+      "tiramisu",
+      "citron",
+      "meringue italienne",
+      "mascarpone",
+      "dessert froid"
+    ],
+    "ingredients": [
+      {
+        "group": "Crème citron",
+        "items": [
+          "250g mascarpone",
+          "3 œufs",
+          "90g sucre",
+          "2 c. à soupe de Grand Marnier optionnelles",
+          "2 citrons jaunes non traités",
+          "1 pincée de sel"
+        ]
+      },
+      {
+        "group": "Montage",
+        "items": [
+          "18 à 24 biscuits à la cuillère",
+          "120g eau",
+          "40g sucre",
+          "40g jus de citron",
+          "20g Grand Marnier optionnel",
+          "Zeste de citron pour finir"
+        ]
+      },
+      {
+        "group": "Finition optionnelle",
+        "items": [
+          "Fine couche de lemon curd",
+          "<span data-goto=\"meringue_italienne\">Meringue italienne</span>"
+        ]
+      }
+    ],
+    "steps": [
+      "Préparer un sirop avec l’eau, le sucre et le jus de citron, puis laisser refroidir. Ajouter le Grand Marnier du sirop si utilisé.",
+      "Séparer les œufs. Fouetter les jaunes avec le sucre et les 2 c. à soupe de Grand Marnier optionnelles jusqu’à blanchiment.",
+      "Ajouter le mascarpone, le zeste fin des citrons et un filet de jus de citron.",
+      "Monter les blancs avec une pincée de sel, puis les incorporer délicatement à la crème.",
+      "Tremper rapidement les biscuits dans le sirop citronné et les ranger dans un plat ou des verrines.",
+      "Alterner biscuits et crème, terminer par une couche de crème et réserver au frais au moins 4h.",
+      "Option : ajouter une fine couche de lemon curd sur le dessus.",
+      "Option : pocher une couche de <span data-goto=\"meringue_italienne\">meringue italienne</span>, puis la brûler légèrement au chalumeau.",
+      "Finir avec un peu de zeste de citron juste avant de servir."
+    ],
+    "notes": [
+      "Le sirop doit être froid pour ne pas détremper les biscuits.",
+      "Pour une version plus vive, ajouter une fine couche de lemon curd.",
+      "La <span data-goto=\"meringue_italienne\">meringue italienne</span> doit être brûlée rapidement au chalumeau pour colorer sans réchauffer tout le tiramisu.",
+      "Repos idéal : une nuit au réfrigérateur."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Incorporer les blancs sans casser la mousse pour garder une crème légère."
+      },
+      {
+        "label": "Trempage",
+        "value": "Tremper très vite : les biscuits continuent de s’humidifier pendant le repos."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Fouet",
+        "Saladiers",
+        "Plat ou verrines",
+        "Poche à douille optionnelle",
+        "Chalumeau optionnel"
+      ],
+      "storage": [
+        "24 à 48h au réfrigérateur, bien filmé."
+      ],
+      "mistakes": [
+        "Ne surcharge pas en jus de citron dans la crème : elle peut se détendre.",
+        "Ne trempe pas trop les biscuits."
+      ],
+      "result": [
+        "Dessert frais, mousseux, citronné et sans cuisson."
+      ]
+    },
+    "additionalMasters": [
+      "desserts_maitre"
+    ]
+  },
+  "cerises_sechees_maison": {
+    "title": "Cerises séchées",
+    "master": "elements_base_maitre",
+    "image": "/assets/recipe-images-optimized/cerises_sechees_maison_spooky.jpg",
+    "categories": [
+      "Base"
+    ],
+    "seasons": [
+      "Été"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "1 bocal",
+    "aliases": [
+      "cerises sechées",
+      "cerises séchées",
+      "faire sécher des cerises"
+    ],
+    "tags": [
+      "cerise",
+      "séchage",
+      "conservation"
+    ],
+    "ingredients": [
+      {
+        "group": "Fruit",
+        "items": [
+          "1kg cerises mûres"
+        ]
+      },
+      {
+        "group": "Optionnel",
+        "items": [
+          "10g jus de citron"
+        ]
+      }
+    ],
+    "steps": [
+      "Laver les cerises, retirer les queues et bien les sécher.",
+      "Dénoyauter les cerises, puis les couper en deux si elles sont grosses.",
+      "Mélanger avec le jus de citron si souhaité pour limiter l’oxydation.",
+      "Répartir les cerises côté coupé vers le haut sur des grilles, sans les superposer.",
+      "Sécher au déshydrateur à 55-60°C pendant 10 à 14h, ou au four ventilé très doux avec la porte entrouverte.",
+      "Retourner à mi-séchage et prolonger jusqu’à obtenir une texture souple, ridée et non collante.",
+      "Laisser refroidir complètement, puis stocker en bocal hermétique."
+    ],
+    "notes": [
+      "Le temps dépend de la taille des cerises, de leur teneur en jus et du matériel utilisé.",
+      "Pour une conservation plus sûre, les fruits doivent être souples mais ne plus relâcher de jus quand on les presse.",
+      "Utilise ces cerises dans les cookies, granolas, cakes ou salades composées."
+    ],
+    "technical": [
+      {
+        "label": "Séchage",
+        "value": "Mieux vaut une température douce et longue qu’une chaleur forte qui cuit le fruit."
+      },
+      {
+        "label": "Contrôle",
+        "value": "Si de la condensation apparaît dans le bocal après repos, remets les cerises à sécher."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Dénoyauteur",
+        "Déshydrateur ou four ventilé",
+        "Grilles",
+        "Bocal hermétique"
+      ],
+      "storage": [
+        "1 mois dans un bocal hermétique au frais.",
+        "Plus longtemps au congélateur en sachet bien fermé."
+      ],
+      "mistakes": [
+        "Garde les cerises espacées pendant le séchage : l’air doit circuler autour de chaque morceau."
+      ],
+      "result": [
+        "Cerises concentrées, acidulées et moelleuses, prêtes à remplacer des raisins secs."
+      ]
+    }
+  },
+  "rillettes_poulet": {
+    "title": "Rillettes de poulet",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/rillettes_poulet_spooky.jpg",
+    "categories": [
+      "Apéro"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 3,
+    "yield": "4 pots",
+    "aliases": [
+      "rillettes de poulet",
+      "rillettes poulet",
+      "rillettes volaille"
+    ],
+    "tags": [
+      "rillettes",
+      "poulet",
+      "charcuterie",
+      "apero"
+    ],
+    "ingredients": [
+      {
+        "group": "Poulet confit",
+        "items": [
+          "1200g cuisses de poulet",
+          "250g graisse de canard ou saindoux",
+          "150g vin blanc sec ou bouillon de volaille",
+          "80g oignon émincé",
+          "10g ail écrasé"
+        ]
+      },
+      {
+        "group": "Assaisonnement",
+        "items": [
+          "14g sel fin",
+          "2g poivre du moulin",
+          "2 feuilles de laurier",
+          "3 branches de thym",
+          "20g persil ciselé, optionnel"
+        ]
+      }
+    ],
+    "steps": [
+      "Mettre les cuisses de poulet, graisse, vin blanc ou bouillon, oignon, ail, thym, laurier, sel fin et poivre du moulin dans une cocotte.",
+      "Cuire à frémissement très doux 2h30 à 3h, jusqu’à ce que la viande se détache facilement des os.",
+      "Égoutter en conservant la graisse de cuisson, puis retirer peau, os, thym et laurier.",
+      "Effilocher finement la chair chaude.",
+      "Incorporer progressivement la graisse de cuisson pour obtenir une texture souple et tartinable.",
+      "Ajouter le persil si souhaité, goûter et ajuster l’assaisonnement.",
+      "Mettre en pots propres, tasser, couvrir d’une fine couche de graisse et refroidir rapidement.",
+      "Laisser reposer 12 à 24h au réfrigérateur avant de servir."
+    ],
+    "notes": [
+      "La cuisson lente dans la graisse donne une texture plus moelleuse qu’un simple poulet mixé.",
+      "Servir sur pain grillé avec pickles, cornichons ou moutarde douce.",
+      "Pour une texture rustique, effilocher à la fourchette plutôt qu’au robot."
+    ],
+    "technical": [
+      {
+        "label": "Graisse",
+        "value": "Ajouter la graisse en plusieurs fois permet d’arrêter dès que la texture devient tartinable."
+      },
+      {
+        "label": "Sécurité",
+        "value": "Refroidir rapidement et conserver au froid, surtout avec une volaille cuite effilochée."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Cocotte",
+        "Fourchettes",
+        "Pots propres",
+        "Passoire"
+      ],
+      "storage": [
+        "3 à 4 jours au réfrigérateur à 0–4°C.",
+        "Après ouverture : consommer sous 48h.",
+        "Congélation possible en petits pots."
+      ],
+      "mistakes": [
+        "Ne mixe pas trop fort : la rillette deviendrait pâteuse."
+      ],
+      "result": [
+        "Rillettes de volaille moelleuses, confites et faciles à tartiner."
+      ]
+    }
+  },
+  "carres_cremeux_citron_vert": {
+    "title": "Carrés crémeux citron vert",
+    "master": "desserts_maitre",
+    "image": "/assets/recipe-images-optimized/carres_cremeux_citron_vert_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "12 carrés",
+    "aliases": [
+      "creamy lime bars",
+      "barres citron vert",
+      "carrés citron vert"
+    ],
+    "tags": [
+      "citron vert",
+      "barres",
+      "dessert"
+    ],
+    "ingredients": [
+      {
+        "group": "Base biscuitée",
+        "items": [
+          "180g biscuits digestifs ou sablés",
+          "75g beurre fondu",
+          "25g sucre"
+        ]
+      },
+      {
+        "group": "Crème citron vert",
+        "items": [
+          "400g lait concentré sucré",
+          "120g jus de citron vert",
+          "Zeste de 2 citrons verts",
+          "4 jaunes d’œufs",
+          "1 pincée sel fin"
+        ]
+      }
+    ],
+    "steps": [
+      "Préchauffer le four à 170°C et chemiser un moule carré.",
+      "Mixer les biscuits avec le sucre, puis mélanger avec le beurre fondu.",
+      "Tasser dans le moule et précuire 10min.",
+      "Fouetter lait concentré, jaunes d’œufs, jus, zeste de citron vert et sel.",
+      "Verser sur la base précuite.",
+      "Cuire 15 à 18min, jusqu’à ce que le centre soit juste pris.",
+      "Refroidir, puis placer au réfrigérateur au moins 3h avant de découper."
+    ],
+    "notes": [
+      "Utilise du vrai jus de citron vert pour garder une acidité nette.",
+      "La découpe est plus propre avec un couteau chaud essuyé entre chaque coupe.",
+      "Servir bien frais."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Le centre doit trembler légèrement à la sortie du four : il se raffermit au froid."
+      },
+      {
+        "label": "Base",
+        "value": "Tasser fermement la base évite qu’elle s’effrite à la découpe."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Moule carré",
+        "Papier cuisson",
+        "Fouet",
+        "Mixeur"
+      ],
+      "storage": [
+        "3 jours au réfrigérateur, en boîte hermétique.",
+        "Servir froid pour garder la crème nette."
+      ],
+      "mistakes": [
+        "Ne prolonge pas trop la cuisson : une crème trop cuite devient granuleuse."
+      ],
+      "result": [
+        "Carrés frais, acidulés et très crémeux sur base biscuitée."
+      ]
+    }
+  }
+});

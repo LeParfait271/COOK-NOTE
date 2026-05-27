@@ -18,6 +18,22 @@ const STALE_IMAGE_PATHS = [
   'assets/recipe-images/coulis_poire_spooky.png',
   'assets/recipe-images/coulis_guide_spooky.png'
 ];
+const MOJIBAKE_PATTERN = /\u00c3[\u0080-\u00bf]|\u00c2[\u0080-\u00bf]|\u00e2[\u0080-\u00bf\u20ac\u201a-\u201e\u2020-\u2021\u2026\u2030\u2039\u2122]|\ufffd/;
+const TEXT_FILES_TO_SCAN = [
+  'index.html',
+  'app.js',
+  'recipe.js',
+  'service-worker.js',
+  'style.css',
+  'recipes.js',
+  'assets/catalog-1.js',
+  'assets/catalog-2.js',
+  'assets/catalog-3.js',
+  'assets/catalog-4.js',
+  'manifest.json',
+  'sitemap.xml',
+  'robots.txt'
+];
 
 function fail(message) {
   errors.push(message);
@@ -51,6 +67,16 @@ const robots = read('robots.txt');
 const serviceWorker = read('service-worker.js');
 const indexHtml = read('index.html');
 const packageJson = read('package.json');
+
+TEXT_FILES_TO_SCAN.forEach(file => {
+  const text = read(file);
+  const lines = text.split(/\r?\n/);
+  lines.forEach((line, index) => {
+    if (MOJIBAKE_PATTERN.test(line)) {
+      fail(`${file}:${index + 1}: caracteres encodes incorrectement detectes.`);
+    }
+  });
+});
 
 const staticAssets = staticAssetsFromServiceWorker(serviceWorker);
 if (!staticAssets) {
