@@ -2191,8 +2191,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "La base accepte d\u2019autres garnitures : jambon, tomates s\u00e9ch\u00e9es, olives, herbes, fromage r\u00e2p\u00e9.",
-      "Garder une garniture bien \u00e9goutt\u00e9e pour pr\u00e9server une texture nette.",
-      "Ne surcharge pas les moules : les mini-flans doivent rester l\u00e9gers."
+      "Garder une garniture bien \u00e9goutt\u00e9e pour pr\u00e9server une texture nette."
     ],
     "technical": [
       {
@@ -2214,7 +2213,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "2 jours au r\u00e9frig\u00e9rateur, r\u00e9chauffer doucement au four."
       ],
       "mistakes": [
-        "\u00c9vite les garnitures trop humides ou \u00e9goutte-les avant de les ajouter."
+        "\u00c9vite les garnitures trop humides ou \u00e9goutte-les avant de les ajouter.",
+        "Ne surcharge pas les moules : les mini-flans doivent rester l\u00e9gers."
       ],
       "result": [
         "Mini bouch\u00e9es sal\u00e9es, moelleuses et faciles \u00e0 d\u00e9cliner."

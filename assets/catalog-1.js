@@ -1632,8 +1632,6 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Raccourcis : <span data-goto=\"pate_legere_beignets_calamar_crevettes\">P\u00e2te l\u00e9g\u00e8re \u00e0 frire</span> / <span data-goto=\"aioli_citronne_leger\">A\u00efoli citronn\u00e9 l\u00e9ger</span> / <span data-goto=\"tempura_beignets_calamar_crevettes\">Tempura</span>.",
-      "La cuisson doit rester tr\u00e8s courte : trop cuits, les calamars deviennent caoutchouteux.",
-      "Ne surcharge pas le bain d\u2019huile pour garder une friture nette et non grasse.",
       "La p\u00e2te doit rester froide, l\u00e9g\u00e8re et l\u00e9g\u00e8rement irr\u00e9guli\u00e8re."
     ],
     "technical": [
@@ -1663,7 +1661,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "Si besoin, r\u00e9chauffer bri\u00e8vement au four chaud sur grille, jamais au micro-ondes."
       ],
       "mistakes": [
-        "Ne surcharge pas le bain d\u2019huile.",
+        "Ne surcharge pas le bain d\u2019huile pour garder une friture nette et non grasse.",
         "Ne prolonge pas la cuisson : le calamar devient vite caoutchouteux."
       ],
       "result": [
@@ -2137,7 +2135,6 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "\u00c0 servir avec tomates cerises, pain grill\u00e9, olives ou charcuterie.",
-      "Ne jette pas l\u2019huile parfum\u00e9e : elle assaisonne une salade ou des p\u00e2tes.",
       "\u00c9ponger la mozzarella aide la marinade \u00e0 mieux accrocher."
     ],
     "technical": [
@@ -2160,7 +2157,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "24h au r\u00e9frig\u00e9rateur dans la marinade."
       ],
       "mistakes": [
-        "Ne surdose pas l\u2019ail cru : il devient vite dominant."
+        "Ne surdose pas l\u2019ail cru : il devient vite dominant.",
+        "Ne jette pas l\u2019huile parfum\u00e9e : elle assaisonne une salade ou des p\u00e2tes."
       ],
       "result": [
         "Billes fra\u00eeches, parfum\u00e9es, pr\u00eates pour l\u2019ap\u00e9ro."
@@ -2322,7 +2320,6 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Le repos au froid raffermit la terrine et arrondit les saveurs.",
-      "Les pistaches doivent rester visibles : ne les mixe pas avec la farce.",
       "Servir avec cornichons, pain de campagne et moutarde."
     ],
     "technical": [
@@ -2348,7 +2345,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "Trancher au dernier moment."
       ],
       "mistakes": [
-        "Ne hache pas trop fin : la terrine doit garder une texture charcuti\u00e8re."
+        "Ne hache pas trop fin : la terrine doit garder une texture charcuti\u00e8re.",
+        "Les pistaches doivent rester visibles : ne les mixe pas avec la farce."
       ],
       "result": [
         "Terrine rustique, parfum\u00e9e, avec pistaches bien visibles \u00e0 la tranche."

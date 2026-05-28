@@ -2079,7 +2079,6 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Finir avec un peu de zeste de citron juste avant de servir."
     ],
     "notes": [
-      "Le sirop doit \u00eatre froid pour ne pas d\u00e9tremper les biscuits.",
       "Pour une version plus vive, ajouter une fine couche de lemon curd.",
       "La <span data-goto=\"meringue_italienne\">meringue italienne</span> doit \u00eatre br\u00fbl\u00e9e rapidement au chalumeau pour colorer sans r\u00e9chauffer tout le tiramisu.",
       "Repos id\u00e9al : une nuit au r\u00e9frig\u00e9rateur."
@@ -2107,7 +2106,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       ],
       "mistakes": [
         "Ne surcharge pas en jus de citron dans la cr\u00e8me : elle peut se d\u00e9tendre.",
-        "Ne trempe pas trop les biscuits."
+        "Ne trempe pas trop les biscuits.",
+        "Le sirop doit \u00eatre froid pour ne pas d\u00e9tremper les biscuits."
       ],
       "result": [
         "Dessert frais, mousseux, citronn\u00e9 et sans cuisson."

@@ -105,7 +105,7 @@ recipeIds.forEach(id => {
     return;
   }
   if (JSON.stringify(catalogRecipes[id]) !== JSON.stringify(recipes[id])) {
-    fail(`catalogue frontend: recette non synchronisee (${id}).`);
+    fail(`catalogue frontend: recette non synchronisee (${id}). Lancer node scripts/sync-catalog.js.`);
   }
 });
 

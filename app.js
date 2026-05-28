@@ -1823,7 +1823,12 @@ const SEARCH_SYNONYMS = {
   moelleux: ['fondant', 'tendre', 'texture'],
   fondant: ['moelleux', 'cremeux', 'texture'],
   cremeux: ['creme', 'fondant', 'texture'],
-  leger: ['aerien', 'frais'],
+  leger: ['aerien', 'frais', 'light', 'sain'],
+  frais: ['leger', 'froid', 'citron', 'acidule'],
+  sain: ['leger', 'vegetarien'],
+  acidule: ['citron', 'vinaigre', 'frais'],
+  epice: ['piment', 'chili', 'releve'],
+  releve: ['epice', 'piment'],
   aerien: ['leger', 'mousseux'],
   fourre: ['garni', 'coeur', 'insert'],
   garni: ['fourre', 'garniture'],
@@ -1832,8 +1837,11 @@ const SEARCH_SYNONYMS = {
   simple: ['easy', 'facile'],
   rapide: ['express', 'vite'],
   express: ['rapide', 'vite'],
+  veille: ['avance', 'repos', 'make ahead'],
+  lendemain: ['veille', 'avance', 'repos'],
   avance: ['préparer à l avance', 'la veille', 'make ahead'],
   preparer: ['préparer', 'préparation', 'avance'],
+  sanscuisson: ['sans cuisson', 'froid'],
   froid: ['réfrigérateur', 'sans cuisson'],
   chaud: ['cuisson', 'four', 'poêle'],
   cuisson: ['four', 'poêle', 'friture'],
@@ -1865,7 +1873,9 @@ const SEARCH_SYNONYMS = {
   ruban: ['macaronner', 'texture ruban'],
   ete: ['été'],
   hiver: ['automne', 'réconfort'],
-  apero: ['apéro'],
+  familial: ['plat', 'four', 'gratin'],
+  aperitif: ['apero', 'apéro'],
+  apero: ['apéro', 'aperitif'],
   entree: ['entrée', 'entrées'],
   entrees: ['entrées', 'entrée'],
   petitdej: ['petit-déjeuner', 'petits-déjeuners'],
@@ -1876,6 +1886,8 @@ const SEARCH_STOPWORDS = new Set(['a', 'au', 'aux', 'avec', 'd', 'de', 'des', 'd
 
 function searchTokens(value) {
   return normalizeText(value)
+    .replace(/\bsans\s+cuisson\b/g, 'sanscuisson')
+    .replace(/\bla\s+veille\b/g, 'veille')
     .replace(/\bchou\s+fleur\b/g, 'choufleur')
     .replace(/\bpomme\s+de\s+terre\b/g, 'pdt')
     .split(/\s+/)
@@ -3321,6 +3333,15 @@ function TechniquesView({ targetTechniqueId, goHome }) {
   const visibleTechniques = useMemo(() => techniqueFilter
     ? SORTED_TECHNIQUE_GUIDES.filter(guide => guide.label === techniqueFilter)
     : SORTED_TECHNIQUE_GUIDES, [techniqueFilter]);
+  const techniqueGroups = useMemo(() => {
+    const groups = new Map();
+    visibleTechniques.forEach(guide => {
+      const label = guide.label || 'Technique';
+      if (!groups.has(label)) groups.set(label, []);
+      groups.get(label).push(guide);
+    });
+    return Array.from(groups, ([label, guides]) => ({ label, guides }));
+  }, [visibleTechniques]);
   useEffect(() => {
     let frameId = 0;
     let settleTimer = 0;
@@ -3385,23 +3406,31 @@ function TechniquesView({ targetTechniqueId, goHome }) {
           }, h('span', null, label), h('small', null, count));
         })
       ),
-      h('div', { className: 'technique-grid' },
-        visibleTechniques.map(guide => h('article', {
-          key: guide.id,
-          id: `technique-${guide.id}`,
-          tabIndex: -1,
-          className: highlightedTechniqueId === guide.id ? 'technique-card technique-card-highlight' : 'technique-card'
-        },
-          h('div', { className: 'technique-card-head' },
-            h('span', null, h(Icon, { name: 'spark' })),
-            h('small', null, guide.label)
+      h('div', { className: 'technique-family-list' },
+        techniqueGroups.map(group => h('section', { key: group.label, className: 'technique-family' },
+          h('div', { className: 'technique-family-head' },
+            h('h3', null, group.label),
+            h('span', null, `${group.guides.length} geste${group.guides.length > 1 ? 's' : ''}`)
           ),
-          h('h3', null, guide.title),
-          h('p', null, guide.description),
-          h('ol', { className: 'technique-steps' },
-            (guide.steps || []).map((step, index) => h('li', { key: `${guide.id}:step:${index}` }, step))
-          ),
-          guide.tip && h('p', { className: 'technique-tip' }, guide.tip)
+          h('div', { className: 'technique-grid' },
+            group.guides.map(guide => h('article', {
+              key: guide.id,
+              id: `technique-${guide.id}`,
+              tabIndex: -1,
+              className: highlightedTechniqueId === guide.id ? 'technique-card technique-card-highlight' : 'technique-card'
+            },
+              h('div', { className: 'technique-card-head' },
+                h('span', null, h(Icon, { name: 'spark' })),
+                h('small', null, guide.label)
+              ),
+              h('h3', null, guide.title),
+              h('p', null, guide.description),
+              h('ol', { className: 'technique-steps' },
+                (guide.steps || []).map((step, index) => h('li', { key: `${guide.id}:step:${index}` }, step))
+              ),
+              guide.tip && h('p', { className: 'technique-tip' }, guide.tip)
+            ))
+          )
         ))
       )
     )
@@ -3509,6 +3538,7 @@ function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resul
     { title: 'Intentions', items: [
       { label: 'Rapide', query: 'rapide' },
       { label: 'Sans cuisson', query: 'sans cuisson' },
+      { label: 'La veille', query: 'la veille' },
       { label: 'À préparer', query: 'à préparer à l’avance' },
       { label: 'Congelable', query: 'congelable' }
     ] },
@@ -3516,17 +3546,20 @@ function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resul
       { label: 'Croustillant', query: 'croustillant' },
       { label: 'Moelleux', query: 'moelleux' },
       { label: 'Cr\u00e9meux', query: 'cremeux' },
-      { label: 'Fourr\u00e9', query: 'fourre' }
+      { label: 'Fourr\u00e9', query: 'fourre' },
+      { label: 'Léger', query: 'leger' }
     ] },
     { title: 'Méthodes', items: [
       { label: 'Four', query: 'cuisson au four' },
       { label: 'Friture', query: 'friture' },
-      { label: 'Froid', query: 'froid' }
+      { label: 'Froid', query: 'froid' },
+      { label: 'Acidulé', query: 'acidule' }
     ] },
     { title: 'Familles', items: [
       { label: 'Apéro', query: 'apéro' },
       { label: 'Sauces', query: 'sauce' },
-      { label: 'Bases', query: 'base' }
+      { label: 'Bases', query: 'base' },
+      { label: 'Familial', query: 'familial' }
     ] }
   ];
   const rememberCurrentSearch = () => {
@@ -4289,6 +4322,14 @@ function RecipeView({
   const detailStyle = { '--accent': detailAccent, '--accent-2': detailAccent };
   const activeStep = displaySteps[activeStepIndex] || '';
   const activeStepKey = `${stepScopeKey}:step:${activeStepIndex}`;
+  const activeStepMinutes = getStepMinutes(activeStep);
+  const startStepTimer = (minutes, label) => {
+    if (!minutes) return;
+    const startedAt = Date.now();
+    setNow(startedAt);
+    setTimerEnd(startedAt + minutes * 60000);
+    setTimerLabel(label);
+  };
 
   return h('main', { className: focusMode ? 'recipe-view recipe-focus-mode' : 'recipe-view', style: detailStyle },
     h('section', {
@@ -4445,6 +4486,7 @@ function RecipeView({
           h('p', null, renderLinkedText(activeStep, inlineTargets, openRecipe, techniqueTargets, openTechnique)),
           h('div', { className: 'cooking-step-actions' },
             h('button', { type: 'button', disabled: activeStepIndex <= 0, onClick: () => setActiveStepIndex(index => Math.max(0, index - 1)) }, 'Précédente'),
+            activeStepMinutes > 0 && h('button', { type: 'button', onClick: () => startStepTimer(activeStepMinutes, `Étape ${activeStepIndex + 1}`) }, `${activeStepMinutes} min`),
             h('button', { type: 'button', disabled: activeStepIndex >= displaySteps.length - 1, onClick: () => setActiveStepIndex(index => Math.min(displaySteps.length - 1, index + 1)) }, 'Suivante')
           )
         ),
@@ -4466,11 +4508,7 @@ function RecipeView({
               minutes > 0 && h('button', {
                 type: 'button',
                 className: 'step-timer',
-                onClick: () => {
-                  setNow(Date.now());
-                  setTimerEnd(Date.now() + minutes * 60000);
-                  setTimerLabel(`Étape ${index + 1}`);
-                }
+                onClick: () => startStepTimer(minutes, `Étape ${index + 1}`)
               }, `${minutes} min`)
             );
           })

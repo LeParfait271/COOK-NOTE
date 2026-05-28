@@ -1131,6 +1131,44 @@ a {
   margin-top: 12px;
 }
 
+.technique-family-list {
+  display: grid;
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.technique-family {
+  min-width: 0;
+}
+
+.technique-family-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
+  padding-bottom: 8px;
+}
+
+.technique-family-head h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.15;
+}
+
+.technique-family-head span {
+  flex: 0 0 auto;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .16);
+  color: var(--accent);
+  padding: 5px 9px;
+  font-size: 11px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
 .technique-card {
   display: grid;
   gap: 12px;
@@ -1143,6 +1181,7 @@ a {
     var(--surface);
   padding: 16px;
   box-shadow: var(--shadow-soft);
+  min-width: 0;
   transition: transform var(--speed), border-color var(--speed), box-shadow var(--speed);
 }
 
@@ -1212,6 +1251,7 @@ a {
   margin: 0;
   font-size: 22px;
   line-height: 1.1;
+  overflow-wrap: anywhere;
 }
 
 .technique-card p {
@@ -1825,6 +1865,7 @@ a {
 
 .recipe-tabs button.active {
   border-color: transparent;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 28%, transparent);
   background: var(--accent);
   color: var(--accent-ink);
 }
@@ -2906,6 +2947,7 @@ a {
 .cooking-step-actions {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 10px;
   align-items: center;
 }
@@ -2934,6 +2976,7 @@ a {
 }
 
 .cooking-step-actions button {
+  min-width: 0;
   min-height: 36px;
   border: 1px solid var(--line);
   border-radius: 7px;
@@ -2941,6 +2984,7 @@ a {
   color: var(--text);
   padding: 0 12px;
   font-weight: 900;
+  overflow-wrap: anywhere;
 }
 
 .cooking-step-actions button:disabled {
@@ -3232,6 +3276,7 @@ a {
   gap: 10px;
   align-items: center;
   width: 100%;
+  min-width: 0;
   min-height: 58px;
   border: 1px solid var(--line);
   border-radius: 7px;
@@ -3278,6 +3323,16 @@ a {
   line-height: 1.25;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: 0;
+}
+
+.recipe-panel,
+.recipe-summary-panel,
+.variant-choice-panel,
+.notes-panel,
+.ingredients-panel,
+.steps-panel {
+  min-width: 0;
 }
 
 .linked-recipe-toggle {
@@ -4437,6 +4492,9 @@ a {
     gap: 4px;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
+    background: color-mix(in srgb, var(--surface-strong) 92%, transparent);
+    border-radius: 8px;
+    padding: 4px;
   }
 
   .recipe-tabs button {
@@ -4450,6 +4508,8 @@ a {
 
   .recipe-tabs button span {
     font-size: 11px;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .recipe-tabs small {
@@ -4622,6 +4682,21 @@ a {
   .search-result > .nutri-score {
     grid-column: 2;
     justify-self: start;
+  }
+
+  .search-result-copy strong {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .technique-family-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .technique-family-head span {
+    max-width: 100%;
+    overflow-wrap: anywhere;
   }
 
   .panel-heading,

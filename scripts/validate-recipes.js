@@ -77,6 +77,15 @@ function isStorageNote(value) {
     || (/\br[eé]frig[eé]rateur\b/i.test(text) && /\b(conserve|garde|consomme|stocke|ferm[eé])\b/i.test(text));
 }
 
+function practicalNoteBucket(value) {
+  const text = String(value || '');
+  if (isStorageNote(text)) return 'storage';
+  if (/\b(r[eé]chauff|remettre au four|four doux|micro-ondes)\b/i.test(text)) return 'reheating';
+  if (/\b(remplace|remplacer|substitut|substitution|à défaut|a defaut|sinon|possible avec|variante)\b/i.test(text)) return 'substitutions';
+  if (/\b(ne\s|[ée]vite|attention|trop cuit|trop cuits|surcharge|surveille|sans trop|ne jette pas|ne les mixe pas)\b/i.test(text)) return 'mistakes';
+  return '';
+}
+
 function checkPepperWording(id, value) {
   if (id === 'sauce_aux_poivres') return;
   const normalized = normalizeComparable(value);
@@ -337,14 +346,11 @@ if (!recipes || typeof recipes !== 'object') {
 
     if (Array.isArray(recipe.notes)) {
       const seenNotes = new Set();
-      const explicitStorageItems = [
-        ...asList(recipe.storage),
-        ...asList(recipe.practical?.storage)
-      ];
       recipe.notes.forEach(note => {
         if (/\bsource\b|https?:\/\/|href\s*=/i.test(String(note))) errors.push(`${id}: source externe presente dans les notes.`);
-        if (explicitStorageItems.length && isStorageNote(note)) {
-          errors.push(`${id}: note de conservation en double avec practical.storage (${note}).`);
+        const practicalBucket = practicalNoteBucket(note);
+        if (practicalBucket && asList(recipe[practicalBucket] || recipe.practical?.[practicalBucket]).length) {
+          errors.push(`${id}: note pratique en double avec practical.${practicalBucket} (${note}).`);
         }
         const key = normalizeComparable(note);
         if (key && seenNotes.has(key)) errors.push(`${id}: note dupliquee (${note}).`);

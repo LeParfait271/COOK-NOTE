@@ -6518,8 +6518,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Raccourcis : <span data-goto=\"pate_legere_beignets_calamar_crevettes\">Pâte légère à frire</span> / <span data-goto=\"aioli_citronne_leger\">Aïoli citronné léger</span> / <span data-goto=\"tempura_beignets_calamar_crevettes\">Tempura</span>.",
-      "La cuisson doit rester très courte : trop cuits, les calamars deviennent caoutchouteux.",
-      "Ne surcharge pas le bain d’huile pour garder une friture nette et non grasse.",
       "La pâte doit rester froide, légère et légèrement irrégulière."
     ],
     "technical": [
@@ -6549,7 +6547,7 @@ window.RECIPES = {
         "Si besoin, réchauffer brièvement au four chaud sur grille, jamais au micro-ondes."
       ],
       "mistakes": [
-        "Ne surcharge pas le bain d’huile.",
+        "Ne surcharge pas le bain d’huile pour garder une friture nette et non grasse.",
         "Ne prolonge pas la cuisson : le calamar devient vite caoutchouteux."
       ],
       "result": [
@@ -8176,7 +8174,6 @@ window.RECIPES = {
       "Finir avec un peu de zeste de citron juste avant de servir."
     ],
     "notes": [
-      "Le sirop doit être froid pour ne pas détremper les biscuits.",
       "Pour une version plus vive, ajouter une fine couche de lemon curd.",
       "La <span data-goto=\"meringue_italienne\">meringue italienne</span> doit être brûlée rapidement au chalumeau pour colorer sans réchauffer tout le tiramisu.",
       "Repos idéal : une nuit au réfrigérateur."
@@ -8204,7 +8201,8 @@ window.RECIPES = {
       ],
       "mistakes": [
         "Ne surcharge pas en jus de citron dans la crème : elle peut se détendre.",
-        "Ne trempe pas trop les biscuits."
+        "Ne trempe pas trop les biscuits.",
+        "Le sirop doit être froid pour ne pas détremper les biscuits."
       ],
       "result": [
         "Dessert frais, mousseux, citronné et sans cuisson."
@@ -8345,8 +8343,7 @@ window.RECIPES = {
     ],
     "notes": [
       "La base accepte d’autres garnitures : jambon, tomates séchées, olives, herbes, fromage râpé.",
-      "Garder une garniture bien égouttée pour préserver une texture nette.",
-      "Ne surcharge pas les moules : les mini-flans doivent rester légers."
+      "Garder une garniture bien égouttée pour préserver une texture nette."
     ],
     "technical": [
       {
@@ -8368,7 +8365,8 @@ window.RECIPES = {
         "2 jours au réfrigérateur, réchauffer doucement au four."
       ],
       "mistakes": [
-        "Évite les garnitures trop humides ou égoutte-les avant de les ajouter."
+        "Évite les garnitures trop humides ou égoutte-les avant de les ajouter.",
+        "Ne surcharge pas les moules : les mini-flans doivent rester légers."
       ],
       "result": [
         "Mini bouchées salées, moelleuses et faciles à décliner."
@@ -8510,7 +8508,6 @@ window.RECIPES = {
     ],
     "notes": [
       "À servir avec tomates cerises, pain grillé, olives ou charcuterie.",
-      "Ne jette pas l’huile parfumée : elle assaisonne une salade ou des pâtes.",
       "Éponger la mozzarella aide la marinade à mieux accrocher."
     ],
     "technical": [
@@ -8533,7 +8530,8 @@ window.RECIPES = {
         "24h au réfrigérateur dans la marinade."
       ],
       "mistakes": [
-        "Ne surdose pas l’ail cru : il devient vite dominant."
+        "Ne surdose pas l’ail cru : il devient vite dominant.",
+        "Ne jette pas l’huile parfumée : elle assaisonne une salade ou des pâtes."
       ],
       "result": [
         "Billes fraîches, parfumées, prêtes pour l’apéro."
@@ -9226,7 +9224,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Le repos au froid raffermit la terrine et arrondit les saveurs.",
-      "Les pistaches doivent rester visibles : ne les mixe pas avec la farce.",
       "Servir avec cornichons, pain de campagne et moutarde."
     ],
     "technical": [
@@ -9252,7 +9249,8 @@ window.RECIPES = {
         "Trancher au dernier moment."
       ],
       "mistakes": [
-        "Ne hache pas trop fin : la terrine doit garder une texture charcutière."
+        "Ne hache pas trop fin : la terrine doit garder une texture charcutière.",
+        "Les pistaches doivent rester visibles : ne les mixe pas avec la farce."
       ],
       "result": [
         "Terrine rustique, parfumée, avec pistaches bien visibles à la tranche."
