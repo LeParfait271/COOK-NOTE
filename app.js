@@ -1604,6 +1604,100 @@ function getStepMinutes(step) {
   return 0;
 }
 
+function getRecipeTiming(recipe) {
+  const steps = getRecipeSteps(recipe);
+  const stepText = normalizeText(steps.join(' '));
+  const timedSteps = steps.map(getStepMinutes).filter(minutes => minutes > 0);
+  const totalTimed = timedSteps.reduce((sum, minutes) => sum + minutes, 0);
+  const restMinutes = steps
+    .filter(step => /\b(repos|reposer|refroidir|refrigerateur|froid|pousse|lever|mariner)\b/.test(normalizeText(step)))
+    .map(getStepMinutes)
+    .reduce((sum, minutes) => sum + minutes, 0);
+  const cookMinutes = steps
+    .filter(step => /\b(cuire|cuisson|four|enfourner|frire|friture|poele|mijoter|fremir|griller|rotir|saisir)\b/.test(normalizeText(step)))
+    .map(getStepMinutes)
+    .reduce((sum, minutes) => sum + minutes, 0);
+  const activeEstimate = Math.max(5, Math.min(90, Math.round((countIngredients(recipe) * 2.2) + (steps.length * 2.5))));
+  return {
+    active: activeEstimate,
+    cook: cookMinutes || (totalTimed && !restMinutes ? totalTimed : 0),
+    rest: restMinutes,
+    total: activeEstimate + totalTimed,
+    hasOven: /\b(four|enfourner|rotir|gratin|plaque)\b/.test(stepText),
+    hasFry: /\b(friture|frire|bain d huile|tempura|beignet)\b/.test(stepText),
+    hasCold: /\b(refrigerateur|froid|refroidir|repos)\b/.test(stepText)
+  };
+}
+
+function formatMinutesShort(minutes) {
+  if (!minutes) return '';
+  if (minutes >= 60) {
+    const hours = Math.floor(minutes / 60);
+    const rest = minutes % 60;
+    return rest ? `${hours}h${String(rest).padStart(2, '0')}` : `${hours}h`;
+  }
+  return `${minutes} min`;
+}
+
+function getRecipeCardBadges(recipe, recipesById = {}) {
+  if (isMasterRecipe(recipe)) return [];
+  const timing = getRecipeTiming(recipe);
+  const text = normalizeText([
+    recipe.title,
+    ...(recipe.categories || []),
+    ...(recipe.tags || []),
+    ...(recipe.steps || []),
+    ...(recipe.notes || []),
+    getRecipePracticalSections(recipe).flatMap(section => section.items).join(' ')
+  ].join(' '));
+  const badges = [];
+  if (timing.hasOven) badges.push('Four');
+  if (timing.hasFry) badges.push('Friture');
+  if (timing.rest || timing.hasCold) badges.push('Repos');
+  if (/\b(veille|avance|conserver|congel|refrigerateur)\b/.test(text)) badges.push('\u00c0 l\u2019avance');
+  if (/\b(base|technique|pate|creme|sauce|fond)\b/.test(text) || (recipe.categories || []).some(category => normalizeText(category).includes('base'))) badges.push('Base');
+  if ((recipe.variants || []).length || getRecipeVariantLabel(recipe, recipesById)) badges.push('Variante');
+  return uniq(badges).slice(0, 3);
+}
+
+function getBatchPlanData(recipes) {
+  const allSteps = recipes.flatMap(recipe => getRecipeSteps(recipe).map(step => ({ recipe, step, text: normalizeText(step) })));
+  return [
+    {
+      key: 'prep',
+      label: 'Mise en place',
+      items: [
+        `${recipes.length} fiche${recipes.length > 1 ? 's' : ''} \u00e0 pr\u00e9parer`,
+        `${recipes.reduce((sum, recipe) => sum + countIngredients(recipe), 0)} lignes d'ingr\u00e9dients \u00e0 v\u00e9rifier`
+      ]
+    },
+    {
+      key: 'cold',
+      label: 'Froid / repos',
+      items: allSteps
+        .filter(item => /\b(repos|reposer|froid|refrigerateur|refroidir|mariner|pousse|lever)\b/.test(item.text))
+        .slice(0, 4)
+        .map(item => `${item.recipe.title} : ${stripHtml(item.step)}`)
+    },
+    {
+      key: 'cook',
+      label: 'Cuissons',
+      items: allSteps
+        .filter(item => /\b(cuire|cuisson|four|enfourner|frire|poele|mijoter|griller|rotir|saisir)\b/.test(item.text))
+        .slice(0, 5)
+        .map(item => `${item.recipe.title} : ${stripHtml(item.step)}`)
+    },
+    {
+      key: 'finish',
+      label: 'Finitions',
+      items: allSteps
+        .filter(item => /\b(servir|dresser|finir|zeste|saupoudrer|napper|decore|garnir)\b/.test(item.text))
+        .slice(0, 4)
+        .map(item => `${item.recipe.title} : ${stripHtml(item.step)}`)
+    }
+  ].filter(group => group.items.length);
+}
+
 function formatRemaining(ms) {
   const seconds = Math.max(0, Math.ceil(ms / 1000));
   const minutes = Math.floor(seconds / 60);
@@ -1623,6 +1717,13 @@ function getRecipeSearchText(recipe, tags, recipesById = {}) {
     .join(' ');
   const facets = getRecipeSearchFacets(recipe).join(' ');
   const intents = getRecipeIntentLabels(recipe, recipesById).join(' ');
+  const timing = getRecipeTiming(recipe);
+  const timingText = [
+    timing.active && `actif ${formatMinutesShort(timing.active)}`,
+    timing.cook && `cuisson ${formatMinutesShort(timing.cook)}`,
+    timing.rest && `repos ${formatMinutesShort(timing.rest)}`,
+    ...getRecipeCardBadges(recipe, recipesById)
+  ].filter(Boolean).join(' ');
   const variantsText = (recipe.variants || [])
     .map(variant => recipesById[variant.id])
     .filter(Boolean)
@@ -1640,6 +1741,7 @@ function getRecipeSearchText(recipe, tags, recipesById = {}) {
     ingredients,
     facets,
     intents,
+    timingText,
     practicalText,
     linkedText,
     ...(recipe.steps || []),
@@ -1689,6 +1791,16 @@ const SEARCH_SYNONYMS = {
   chilli: ['chili'],
   chili: ['chilli', 'piment'],
   crisp: ['croustillant', 'piment'],
+  croquant: ['croustillant', 'texture'],
+  croustillant: ['croquant', 'crisp', 'friture'],
+  moelleux: ['fondant', 'tendre', 'texture'],
+  fondant: ['moelleux', 'cremeux', 'texture'],
+  cremeux: ['creme', 'fondant', 'texture'],
+  leger: ['aerien', 'frais'],
+  aerien: ['leger', 'mousseux'],
+  fourre: ['garni', 'coeur', 'insert'],
+  garni: ['fourre', 'garniture'],
+  garnie: ['fourre', 'garniture'],
   facile: ['easy', 'simple', 'débutant'],
   simple: ['easy', 'facile'],
   rapide: ['express', 'vite'],
@@ -1786,6 +1898,13 @@ function scoreRecipeSearch(recipe, query, recipesById = {}) {
   const practical = normalizeText(getRecipePracticalSections(recipe).flatMap(section => [section.title, ...section.items]).join(' '));
   const intents = normalizeText(getRecipeIntentLabels(recipe, recipesById).join(' '));
   const facets = normalizeText(getRecipeSearchFacets(recipe).join(' '));
+  const badges = normalizeText(getRecipeCardBadges(recipe, recipesById).join(' '));
+  const timing = getRecipeTiming(recipe);
+  const timingText = normalizeText([
+    timing.active && `temps actif ${formatMinutesShort(timing.active)}`,
+    timing.cook && `cuisson ${formatMinutesShort(timing.cook)}`,
+    timing.rest && `repos ${formatMinutesShort(timing.rest)}`
+  ].filter(Boolean).join(' '));
   const linked = normalizeText(getLinkedRecipeRefs(recipe, recipesById).flatMap(item => [item.role, item.recipe.title]).join(' '));
   const steps = normalizeText((recipe.steps || []).join(' '));
   const notes = normalizeText([...(recipe.notes || []), ...(recipe.technical || []).flatMap(item => [item.label, item.value, item.text])].join(' '));
@@ -1795,6 +1914,7 @@ function scoreRecipeSearch(recipe, query, recipesById = {}) {
     { name: 'tag', text: tags, points: 70 },
     { name: 'intention', text: intents, points: 68 },
     { name: 'usage', text: facets, points: 62 },
+    { name: 'repere', text: `${badges} ${timingText}`, points: 58 },
     { name: 'catégorie', text: categories, points: 55 },
     { name: 'ingrédient', text: ingredients, points: 45 },
     { name: 'recette liée', text: linked, points: 34 },
@@ -2899,10 +3019,14 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   const variantLabel = master ? '' : getRecipeVariantLabel(recipe, recipesById);
   const cardFacts = !master && variantLabel ? [variantLabel] : [];
   const serviceSummary = !master ? getRecipeServiceSummary(recipe) : '';
+  const timing = !master ? getRecipeTiming(recipe) : null;
+  const cardBadges = !master ? getRecipeCardBadges(recipe, recipesById) : [];
   const quickFacts = !master ? [
+    timing?.active ? `Actif ${formatMinutesShort(timing.active)}` : '',
+    timing?.cook ? `Cuisson ${formatMinutesShort(timing.cook)}` : '',
     difficultyText(recipe),
     serviceSummary
-  ].filter(Boolean).slice(0, 2) : [];
+  ].filter(Boolean).slice(0, 3) : [];
   const favoriteStatus = isFavorite ? personalNote?.status : '';
 
   return h('article', {
@@ -2946,6 +3070,9 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       favoriteStatus && h('span', { className: 'favorite-status-badge' }, favoriteStatus),
       !master && cardFacts.length > 0 && h('div', { className: 'card-facts' },
         cardFacts.map(fact => h('span', { key: fact }, fact))
+      ),
+      !master && cardBadges.length > 0 && h('div', { className: 'card-badges' },
+        cardBadges.map(badge => h('span', { key: badge }, badge))
       ),
       h('p', { className: 'card-meta' },
         master
@@ -3352,6 +3479,12 @@ function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resul
       { label: 'À préparer', query: 'à préparer à l’avance' },
       { label: 'Congelable', query: 'congelable' }
     ] },
+    { title: 'Textures', items: [
+      { label: 'Croustillant', query: 'croustillant' },
+      { label: 'Moelleux', query: 'moelleux' },
+      { label: 'Cr\u00e9meux', query: 'cremeux' },
+      { label: 'Fourr\u00e9', query: 'fourre' }
+    ] },
     { title: 'Méthodes', items: [
       { label: 'Four', query: 'cuisson au four' },
       { label: 'Friture', query: 'friture' },
@@ -3490,6 +3623,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
   const [copied, setCopied] = useState(false);
   const [checkedItems, setCheckedItems] = useState(() => readJson(STORAGE_KEYS.shoppingChecked, {}));
   const shoppingData = useMemo(() => buildShoppingListData(recipes, factorById), [recipes, factorById]);
+  const batchPlan = useMemo(() => getBatchPlanData(recipes), [recipes]);
   const text = recipes.length ? shoppingListText(recipes, factorById) : 'Liste de courses Cook Note\n\nAucune recette cochee.';
   const visibleShoppingKeys = useMemo(() => new Set(shoppingData.groupedItems.map(item => item.key)), [shoppingData]);
   const checkedCount = shoppingData.groupedItems.filter(item => checkedItems[item.key]).length;
@@ -3549,6 +3683,16 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
         h('span', null, `${shoppingData.groupedItems.length} article${shoppingData.groupedItems.length > 1 ? 's' : ''} regroupé${shoppingData.groupedItems.length > 1 ? 's' : ''}`),
         h('span', null, `${checkedCount} coché${checkedCount > 1 ? 's' : ''}`),
         checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}) }, 'Tout décocher')
+      ),
+      recipes.length > 1 && batchPlan.length > 0 && h('div', { className: 'batch-plan' },
+        h('div', { className: 'batch-plan-head' },
+          h('p', { className: 'eyebrow' }, 'Batch'),
+          h('h3', null, 'Ordre de pr\u00e9paration')
+        ),
+        batchPlan.map(group => h('section', { key: group.key },
+          h('strong', null, group.label),
+          h('ul', null, group.items.map(item => h('li', { key: item }, item)))
+        ))
       ),
       recipes.length > 0 && h('div', { className: 'shopping-aisles' },
         shoppingData.aisleGroups.map(group => h('section', { key: group.label, className: 'shopping-aisle' },
@@ -3862,7 +4006,12 @@ function PersonalRecipeNotes({ recipeId, value, updatePersonalRecipeNote }) {
 function RecipeQuickFacts({ recipe, factor, stepTotal }) {
   const seasons = (recipe.seasons || []).filter(item => item !== 'Toutes saisons');
   const equipment = getRecipeEquipment(recipe);
+  const timing = getRecipeTiming(recipe);
+  const storage = getRecipePracticalSections(recipe).find(section => section.key === 'storage')?.items?.[0] || '';
   const facts = [
+    { label: 'Temps actif', value: formatMinutesShort(timing.active) || 'A estimer' },
+    timing.cook && { label: 'Cuisson', value: formatMinutesShort(timing.cook) },
+    timing.rest && { label: 'Repos / froid', value: formatMinutesShort(timing.rest) },
     { label: 'Difficulté', value: difficultyText(recipe).replace('Difficulté ', '') },
     recipe.yield && { label: 'Quantité', value: getQuantityDisplay(recipe, factor) },
     { label: 'Ingrédients', value: `${countIngredients(recipe)} ingrédients` },
@@ -3883,6 +4032,10 @@ function RecipeQuickFacts({ recipe, factor, stepTotal }) {
     equipment.length > 0 && h('div', { className: 'recipe-equipment-strip' },
       h('strong', null, 'Matériel nécessaire'),
       h('ul', null, equipment.map(item => h('li', { key: item }, item)))
+    ),
+    storage && h('div', { className: 'recipe-conservation-strip' },
+      h('strong', null, 'Conservation'),
+      h('p', null, storage)
     )
   );
 }
@@ -4942,9 +5095,21 @@ function App() {
           setTagFilter
         }),
     h('footer', { className: 'site-footer' },
-      h('p', { className: 'site-footer-brand' }, 'Cook Note © 2026.'),
-      h('p', null, 'Carnet personnel de recettes et techniques culinaires.'),
-      h('p', null, 'Développé par MaruChiwa.')
+      h('div', { className: 'site-footer-inner' },
+        h('div', { className: 'site-footer-mark' },
+          h('img', { src: '/assets/cook-note-mark.svg', alt: '', loading: 'lazy' })
+        ),
+        h('div', { className: 'site-footer-copy' },
+          h('p', { className: 'site-footer-brand' }, 'Cook Note © 2026.'),
+          h('p', null, 'Carnet personnel de recettes et techniques culinaires.'),
+          h('p', null, 'Développé par MaruChiwa.')
+        ),
+        h('button', {
+          type: 'button',
+          className: 'site-footer-top',
+          onClick: () => window.scrollTo({ top: 0, behavior: preferences.reduceMotion ? 'auto' : 'smooth' })
+        }, 'Retour haut')
+      )
     ),
     h(ShoppingBasketPanel, {
       open: shoppingOpen,
