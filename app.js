@@ -5,6 +5,8 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
+const SITE_VERSION = 'v0.88';
+const SITE_UPDATED_AT = '28/05/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
@@ -237,7 +239,17 @@ const TECHNIQUE_GUIDES = [
     steps: ['Passe une fine couche de beurre mou.', 'Ajoute une petite cuillère de farine.', 'Tourne le moule pour couvrir les parois.', 'Tape pour retirer l’excédent.'],
     tip: 'Cette étape est importante pour les préparations qui collent facilement.',
     query: 'mi cuit chocolat cake',
-    aliases: ['beurrer et fariner', 'beurrer', 'fariner le moule', 'fariner les ramequins']
+    aliases: ['beurrer et fariner', 'beurrer le moule', 'beurrer un moule', 'beurrer les moules', 'beurrer les cercles', 'beurrer les ramequins', 'fariner le moule', 'fariner les ramequins']
+  },
+  {
+    id: 'badigeonner',
+    title: 'Badigeonner',
+    label: 'Geste',
+    description: 'Appliquer une fine couche de dorure, marinade, beurre, huile, miel ou moutarde sur une surface avec un pinceau.',
+    steps: ['Prépare le mélange dans un petit bol.', 'Utilise un pinceau de cuisine propre.', 'Étale en couche fine et régulière.', 'Évite les flaques qui brûlent ou détrempent.', 'Renouvelle en cours de cuisson seulement si la recette le demande.'],
+    tip: 'Badigeonner sert à parfumer, faire briller ou aider une surface à colorer sans l’imbiber.',
+    query: 'pinceau dorure marinade moutarde miel',
+    aliases: ['badigeonner', 'badigeoner', 'badigeonne', 'badigeonné', 'badigeonnée', 'badigeonner de moutarde', 'badigeonner les cuisses', 'badigeonner au pinceau', 'au pinceau', 'pinceau de cuisine']
   },
   {
     id: 'blanchir',
@@ -538,6 +550,16 @@ const TECHNIQUE_GUIDES = [
     tip: 'Un alcool froid flambe mal. Ne verse jamais directement depuis la bouteille et ne flambe jamais sous une hotte allumée.',
     query: 'cognac armagnac flamber',
     aliases: ['flamber', 'flambé', 'flambée']
+  },
+  {
+    id: 'saisir',
+    title: 'Saisir',
+    label: 'Cuisson',
+    description: 'Colorer rapidement un aliment au contact d’une poêle, casserole ou plancha bien chaude pour créer une croûte avant de poursuivre la cuisson.',
+    steps: ['Éponge l’aliment pour retirer l’humidité de surface.', 'Chauffe la poêle avec un peu de matière grasse.', 'Dépose les morceaux sans les serrer.', 'Laisse colorer avant de retourner.', 'Baisse le feu ou continue selon la recette.'],
+    tip: 'Si l’aliment rend beaucoup d’eau ou ne colore pas, la poêle est trop froide ou trop remplie.',
+    query: 'poêle viande poulet légumes plancha',
+    aliases: ['saisir', 'saisi', 'saisie', 'saisir la viande', 'saisir le poulet', 'saisir les légumes', 'faire dorer', 'dorer les morceaux']
   },
   {
     id: 'mariner',
@@ -4069,7 +4091,16 @@ function PersonalRecipeNotes({ recipeId, value, updatePersonalRecipeNote }) {
   );
 }
 
-function RecipeQuickFacts({ recipe, factor, stepTotal }) {
+function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = false, hasVariantSelection = true }) {
+  if (needsVariantSelection && !hasVariantSelection) {
+    return h('section', { className: 'recipe-summary-panel recipe-summary-empty', 'aria-label': 'Résumé de la recette' },
+      h('div', { className: 'recipe-summary-head' },
+        h('p', { className: 'eyebrow' }, 'Résumé'),
+        h('h2', null, 'Fiche rapide')
+      ),
+      h('p', { className: 'recipe-summary-message' }, 'Sélectionne une variante pour afficher les informations de la fiche rapide.')
+    );
+  }
   const seasons = (recipe.seasons || []).filter(item => item !== 'Toutes saisons');
   const equipment = getRecipeEquipment(recipe);
   const timing = getRecipeTiming(recipe);
@@ -4107,19 +4138,19 @@ function cleanVariantGroupLabel(label) {
 
 function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
   if (!options.length) return null;
-  const selectedOption = options.find(option => option.index === selectedIndex) || options[0];
-  const selectedRecipe = buildInlineVariantRecipe(recipe, selectedOption);
-  const timing = getRecipeTiming(selectedRecipe);
+  const selectedOption = options.find(option => option.index === selectedIndex) || null;
+  const selectedRecipe = selectedOption ? buildInlineVariantRecipe(recipe, selectedOption) : null;
+  const timing = selectedRecipe ? getRecipeTiming(selectedRecipe) : {};
   const baseCount = getInlineBaseIngredientGroups(recipe)
     .reduce((sum, group) => sum + (group.items || []).length, 0);
-  const selectedIngredientCount = baseCount + (selectedOption.group?.items || []).length;
-  const summary = [
+  const selectedIngredientCount = selectedOption ? baseCount + (selectedOption.group?.items || []).length : 0;
+  const summary = selectedOption ? [
     `${selectedIngredientCount} ingr\u00e9dients`,
     `${selectedOption.steps.length || getRecipeSteps(recipe).length} \u00e9tapes`,
     timing.active && `Actif ${formatMinutesShort(timing.active)}`,
     timing.cook && `Cuisson ${formatMinutesShort(timing.cook)}`,
     timing.rest && `Repos ${formatMinutesShort(timing.rest)}`
-  ].filter(Boolean);
+  ].filter(Boolean) : [];
 
   return h('section', { className: 'recipe-panel variant-choice-panel', 'aria-label': 'Choix de variante' },
     h('div', { className: 'panel-heading' },
@@ -4131,7 +4162,7 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
     ),
     h('div', { className: 'variant-choice-tabs' },
       options.map(option => {
-        const active = option.index === selectedOption.index;
+        const active = Boolean(selectedOption) && option.index === selectedOption.index;
         return h('button', {
           key: `${recipe.id}:variant:${option.index}`,
           type: 'button',
@@ -4146,8 +4177,15 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
       })
     ),
     h('div', { className: 'variant-choice-summary' },
-      h('strong', null, selectedOption.label || 'Variante active'),
-      summary.map(item => h('span', { key: item }, item))
+      selectedOption
+        ? [
+          h('strong', { key: 'label' }, selectedOption.label || 'Variante active'),
+          ...summary.map(item => h('span', { key: item }, item))
+        ]
+        : [
+          h('strong', { key: 'label' }, 'Aucune variante sélectionnée'),
+          h('span', { key: 'hint' }, 'Sélectionne une variante pour afficher les détails.')
+        ]
     )
   );
 }
@@ -4192,16 +4230,11 @@ function RecipeView({
   const [exportCopied, setExportCopied] = useState(false);
   const [mobileDetailTab, setMobileDetailTab] = useState('ingredients');
   const [openIngredientGroups, setOpenIngredientGroups] = useState({});
-  const [timerEnd, setTimerEnd] = useState(0);
-  const [timerLabel, setTimerLabel] = useState('');
-  const [now, setNow] = useState(Date.now());
-  const [focusMode, setFocusMode] = useState(false);
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
   const completedRef = useRef('');
   const inlineVariantOptions = useMemo(() => getInlineVariantOptions(selectedRecipe), [selectedRecipe]);
   const needsInlineVariantSelection = inlineVariantOptions.length > 0;
   const selectedInlineVariantGroup = needsInlineVariantSelection
-    ? inlineVariantOptions.find(({ index }) => Boolean(openIngredientGroups[`${detailKey}:group:${index}`])) || inlineVariantOptions[0]
+    ? inlineVariantOptions.find(({ index }) => Boolean(openIngredientGroups[`${detailKey}:group:${index}`])) || null
     : null;
   const canShowSteps = hasSelectedVariant && (!needsInlineVariantSelection || Boolean(selectedInlineVariantGroup));
   const displaySteps = canShowSteps ? getSelectedInlineVariantSteps(selectedRecipe, selectedInlineVariantGroup) : [];
@@ -4217,7 +4250,6 @@ function RecipeView({
   const canAddToShopping = hasSelectedVariant && canShowSteps;
   const isInShopping = hasSelectedVariant && shoppingIds.includes(detailKey);
   const canFavorite = hasSelectedVariant && !isMasterRecipe(selectedRecipe);
-  const remainingMs = timerEnd ? timerEnd - now : 0;
   const recipeAllergens = hasSelectedVariant ? getRecipeAllergens(selectedRecipe) : [];
   const averageWeights = hasSelectedVariant ? getRecipeAverageWeights(selectedRecipe) : [];
   const linkedRecipes = hasSelectedVariant ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
@@ -4232,43 +4264,11 @@ function RecipeView({
     setMobileDetailTab('ingredients');
     setOpenIngredientGroups({});
     setExportCopied(false);
-    setFocusMode(false);
-    setActiveStepIndex(0);
   }, [recipe.id]);
-
-  useEffect(() => {
-    if (!needsInlineVariantSelection || !inlineVariantOptions.length) return;
-    setOpenIngredientGroups(prev => {
-      const hasOpenVariant = inlineVariantOptions.some(({ index }) => Boolean(prev[`${detailKey}:group:${index}`]));
-      if (hasOpenVariant) return prev;
-      return { ...prev, [`${detailKey}:group:${inlineVariantOptions[0].index}`]: true };
-    });
-  }, [detailKey, needsInlineVariantSelection, inlineVariantOptions]);
-
-  useEffect(() => {
-    if (!timerEnd) return undefined;
-    const interval = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(interval);
-  }, [timerEnd]);
-
-  useEffect(() => {
-    if (timerEnd && timerEnd <= now) {
-      setTimerEnd(0);
-      setTimerLabel('');
-    }
-  }, [timerEnd, now]);
 
   useEffect(() => {
     setOpenIngredientGroups({});
   }, [detailKey]);
-
-  useEffect(() => {
-    if (!displaySteps.length) {
-      setActiveStepIndex(0);
-      return;
-    }
-    setActiveStepIndex(index => Math.min(index, displaySteps.length - 1));
-  }, [displaySteps.length, stepScopeKey]);
 
   useEffect(() => {
     if (!stepTotal || doneSteps !== stepTotal || completedRef.current === stepScopeKey) return;
@@ -4320,18 +4320,8 @@ function RecipeView({
     : {};
   const detailAccent = getCategoryColor(selectedRecipe);
   const detailStyle = { '--accent': detailAccent, '--accent-2': detailAccent };
-  const activeStep = displaySteps[activeStepIndex] || '';
-  const activeStepKey = `${stepScopeKey}:step:${activeStepIndex}`;
-  const activeStepMinutes = getStepMinutes(activeStep);
-  const startStepTimer = (minutes, label) => {
-    if (!minutes) return;
-    const startedAt = Date.now();
-    setNow(startedAt);
-    setTimerEnd(startedAt + minutes * 60000);
-    setTimerLabel(label);
-  };
 
-  return h('main', { className: focusMode ? 'recipe-view recipe-focus-mode' : 'recipe-view', style: detailStyle },
+  return h('main', { className: 'recipe-view', style: detailStyle },
     h('section', {
       className: heroImage ? (heroUsesHomeImage ? 'recipe-detail-hero has-photo parent-hero' : 'recipe-detail-hero has-photo') : 'recipe-detail-hero',
       style: heroStyle
@@ -4366,13 +4356,6 @@ function RecipeView({
           }, exportCopied ? 'Fiche copiée' : 'Copier fiche'),
           h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' })),
           selectedRecipe.video && h('a', { className: 'btn btn-ghost', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, 'Voir la vidéo'),
-          hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(Button, {
-            variant: focusMode ? 'primary' : 'ghost',
-            className: focusMode ? 'focus-action active' : 'focus-action',
-            onClick: () => setFocusMode(value => !value),
-            title: focusMode ? 'Quitter le mode cuisine' : 'Activer le mode cuisine',
-            ariaLabel: focusMode ? 'Quitter le mode cuisine' : 'Activer le mode cuisine'
-          }, h(Icon, { name: 'focus' }), h('span', null, focusMode ? 'Quitter mode' : 'Mode cuisine')),
           h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, h(Icon, { name: 'print' })),
           canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'icon-square favorite-action active' : 'icon-square favorite-action', onClick: () => toggleFavorite(detailKey), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }))
         )
@@ -4387,7 +4370,9 @@ function RecipeView({
     hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts, {
       recipe: selectedRecipe,
       factor,
-      stepTotal: effectiveStepTotal
+      stepTotal: effectiveStepTotal,
+      needsVariantSelection: needsInlineVariantSelection,
+      hasVariantSelection: !needsInlineVariantSelection || Boolean(selectedInlineVariantGroup)
     }),
     hasSelectedVariant && needsInlineVariantSelection && h(InlineVariantPicker, {
       recipe: selectedRecipe,
@@ -4458,13 +4443,7 @@ function RecipeView({
         h('div', { className: 'panel-heading' },
           h('div', null, h('p', { className: 'eyebrow' }, 'Exécution'), h('h2', null, 'Étapes')),
           h('div', { className: 'steps-panel-tools' },
-            needsInlineVariantSelection && selectedGroupLabel && h('span', { className: 'progress-label' }, selectedGroupLabel),
-            h('button', {
-              type: 'button',
-              className: focusMode ? 'focus-toggle active' : 'focus-toggle',
-              onClick: () => setFocusMode(value => !value),
-              'aria-pressed': focusMode
-            }, h(Icon, { name: 'focus' }), h('span', null, focusMode ? 'Vue complète' : 'Mode cuisine'))
+            needsInlineVariantSelection && selectedGroupLabel && h('span', { className: 'progress-label' }, selectedGroupLabel)
           )
         ),
         canShowSteps && h('div', { className: 'progress-track' }, h('span', { style: { width: `${progress}%` } })),
@@ -4475,21 +4454,6 @@ function RecipeView({
           ),
           h('button', { type: 'button', onClick: () => setMobileDetailTab('notes') }, 'Voir les notes')
         ),
-        canShowSteps && focusMode && activeStep && h('div', { className: 'cooking-step-card' },
-          h('div', { className: 'cooking-step-head' },
-            h('span', null, `Étape ${activeStepIndex + 1} / ${displaySteps.length}`),
-            h('label', null,
-              h('input', { type: 'checkbox', checked: Boolean(checked[activeStepKey]), onChange: () => toggle(activeStepKey) }),
-              h('span', null, checked[activeStepKey] ? 'faite' : 'à faire')
-            )
-          ),
-          h('p', null, renderLinkedText(activeStep, inlineTargets, openRecipe, techniqueTargets, openTechnique)),
-          h('div', { className: 'cooking-step-actions' },
-            h('button', { type: 'button', disabled: activeStepIndex <= 0, onClick: () => setActiveStepIndex(index => Math.max(0, index - 1)) }, 'Précédente'),
-            activeStepMinutes > 0 && h('button', { type: 'button', onClick: () => startStepTimer(activeStepMinutes, `Étape ${activeStepIndex + 1}`) }, `${activeStepMinutes} min`),
-            h('button', { type: 'button', disabled: activeStepIndex >= displaySteps.length - 1, onClick: () => setActiveStepIndex(index => Math.min(displaySteps.length - 1, index + 1)) }, 'Suivante')
-          )
-        ),
         !canShowSteps
           ? h('div', { className: 'choice-empty-state variant-step-empty' },
             h('strong', null, 'Choisis un groupe d’ingrédients'),
@@ -4498,18 +4462,12 @@ function RecipeView({
           : h('ol', { className: 'step-list' },
           displaySteps.map((step, index) => {
             const key = `${stepScopeKey}:step:${index}`;
-            const minutes = getStepMinutes(step);
-            return h('li', { key, className: [checked[key] ? 'done' : '', focusMode && index === activeStepIndex ? 'active-step' : ''].filter(Boolean).join(' ') },
+            return h('li', { key, className: checked[key] ? 'done' : '' },
               h('label', null,
                 h('input', { type: 'checkbox', checked: Boolean(checked[key]), onChange: () => toggle(key) }),
                 h('span', { className: 'step-number' }, String(index + 1).padStart(2, '0')),
                 h('span', { className: 'step-text' }, renderLinkedText(step, inlineTargets, openRecipe, techniqueTargets, openTechnique))
-              ),
-              minutes > 0 && h('button', {
-                type: 'button',
-                className: 'step-timer',
-                onClick: () => startStepTimer(minutes, `Étape ${index + 1}`)
-              }, `${minutes} min`)
+              )
             );
           })
         )
@@ -5236,7 +5194,8 @@ function App() {
         h('div', { className: 'site-footer-copy' },
           h('p', { className: 'site-footer-brand' }, 'Cook Note © 2026.'),
           h('p', null, 'Carnet personnel de recettes et techniques culinaires.'),
-          h('p', null, 'Développé par MaruChiwa.')
+          h('p', null, 'Développé par MaruChiwa.'),
+          h('p', { className: 'site-footer-version' }, `${SITE_VERSION} / ${SITE_UPDATED_AT}`)
         ),
         h('button', {
           type: 'button',
