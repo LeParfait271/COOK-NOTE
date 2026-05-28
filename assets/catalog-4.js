@@ -185,7 +185,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "pesto_variantes": {
     "title": "Pestos",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images-optimized/pesto_variantes_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/pesto_variantes_v2_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -252,7 +252,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "legumes_rotis": {
     "title": "L\u00e9gumes r\u00f4tis au four",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images-optimized/legumes_rotis_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/legumes_rotis_v2_spooky.jpg",
     "categories": [
       "Accompagnements",
       "Entr\u00e9es"
@@ -653,7 +653,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "oeuf_chili_crisp_toast": {
     "title": "\u0152uf sur le plat chili crisp sur toast",
     "master": "petit_dejeuner_maitre",
-    "image": "/assets/recipe-images-optimized/oeuf_chili_crisp_toast_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/oeuf_chili_crisp_toast_v2_spooky.jpg",
     "categories": [
       "Petits-d\u00e9jeuners"
     ],
@@ -746,7 +746,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "oignons_rotis_thym_miel": {
     "title": "Oignons r\u00f4tis au thym et au miel",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images-optimized/oignons_rotis_thym_miel_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/oignons_rotis_thym_miel_v2_spooky.jpg",
     "categories": [
       "Entr\u00e9es",
       "Accompagnements"
@@ -1197,7 +1197,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "sauce_caramel": {
     "title": "Sauce caramel",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images-optimized/sauce_caramel_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/sauce_caramel_v2_spooky.jpg",
     "categories": [
       "Sauces",
       "Desserts"
@@ -1265,7 +1265,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "cotelettes_porc_miel_moutarde": {
     "title": "C\u00f4telettes de porc miel moutarde",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/cotelettes_porc_miel_moutarde_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/cotelettes_porc_miel_moutarde_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -1355,7 +1355,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "pancakes_fluffy": {
     "title": "Pancakes fluffy",
     "master": "petit_dejeuner_maitre",
-    "image": "/assets/recipe-images-optimized/pancakes_fluffy_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/pancakes_fluffy_v2_spooky.jpg",
     "categories": [
       "Petits-d\u00e9jeuners"
     ],

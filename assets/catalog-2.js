@@ -231,7 +231,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "tomates_variantes": {
     "title": "Tomates confites et s\u00e9ch\u00e9es",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/tomates_variantes_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/tomates_variantes_v2_spooky.jpg",
     "categories": [
       "Ap\u00e9ro",
       "Entr\u00e9es",
@@ -303,7 +303,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "pancakes_variantes": {
     "title": "Pancakes",
     "master": "petit_dejeuner_maitre",
-    "image": "/assets/recipe-images-optimized/pancakes_variantes_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/pancakes_variantes_v2_spooky.jpg",
     "categories": [
       "Petits-d\u00e9jeuners"
     ],
@@ -1517,7 +1517,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "bouillabaisse_rouille": {
     "title": "Bouillabaisse",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/bouillabaisse_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/bouillabaisse_rouille_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -1755,7 +1755,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "mojitos_variantes": {
     "title": "Mojitos",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/mojitos_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/mojitos_variantes_v2_spooky.jpg",
     "categories": [
       "Ap\u00e9ro"
     ],

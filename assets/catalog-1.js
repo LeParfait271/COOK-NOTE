@@ -2,7 +2,7 @@
 window.RECIPES = Object.assign(window.RECIPES || {}, {
   "coulis_maitre": {
     "title": "Coulis",
-    "image": "/assets/recipe-images-optimized/coulis_maitre_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/coulis_maitre_v2_spooky.jpg",
     "categories": [
       "Sauces",
       "Desserts",
@@ -145,7 +145,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "ricotta_fouettee": {
     "title": "Ricotta fouett\u00e9e",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images-optimized/ricotta_fouettee_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/ricotta_fouettee_v2_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -191,7 +191,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "huile_pimentee_pizza": {
     "title": "Huile piment\u00e9e pour pizza",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images-optimized/huile_pimentee_pizza_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/huile_pimentee_pizza_v2_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -226,7 +226,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "cookies_sales_variantes": {
     "title": "Cookies sal\u00e9s",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/cookies_sales_variantes_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/cookies_sales_variantes_v2_spooky.jpg",
     "categories": [
       "Ap\u00e9ro"
     ],
@@ -289,7 +289,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "chocolat_ancien": {
     "title": "Chocolat chaud \u00e0 l'ancienne",
     "master": "petit_dejeuner_maitre",
-    "image": "/assets/recipe-images-optimized/chocolat_ancien_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/chocolat_ancien_v2_spooky.jpg",
     "categories": [
       "Petits-d\u00e9jeuners"
     ],
@@ -917,7 +917,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "tomates_provencales": {
     "title": "Tomates proven\u00e7ales",
     "master": "tomates_maitre",
-    "image": "/assets/recipe-images-optimized/tomates_provencales_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/tomates_provencales_v2_spooky.jpg",
     "categories": [
       "Accompagnements"
     ],
@@ -1298,7 +1298,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "rouille_haut_de_gamme": {
     "title": "Rouille",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images-optimized/rouille_haut_de_gamme_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/rouille_haut_de_gamme_v2_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -1537,7 +1537,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "beignets_calamar": {
     "title": "Beignets de calamar",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/beignets_calamar_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/beignets_calamar_v2_spooky.jpg",
     "categories": [
       "Ap\u00e9ro",
       "Entr\u00e9es",
@@ -1783,7 +1783,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "sauce_yaourt_citronnee": {
     "title": "Sauce yaourt citronn\u00e9e",
     "master": "sauces_maitre",
-    "image": "/assets/recipe-images-optimized/sauce_yaourt_citronnee_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/sauce_yaourt_citronnee_v2_spooky.jpg",
     "categories": [
       "Sauces",
       "Ap\u00e9ro",
