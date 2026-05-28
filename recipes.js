@@ -8769,7 +8769,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Le temps dépend de la taille des cerises, de leur teneur en jus et du matériel utilisé.",
-      "Pour une conservation plus sûre, les fruits doivent être souples mais ne plus relâcher de jus quand on les presse.",
       "Utilise ces cerises dans les cookies, granolas, cakes ou salades composées."
     ],
     "technical": [
@@ -8794,7 +8793,8 @@ window.RECIPES = {
         "Plus longtemps au congélateur en sachet bien fermé."
       ],
       "mistakes": [
-        "Garde les cerises espacées pendant le séchage : l’air doit circuler autour de chaque morceau."
+        "Garde les cerises espacées pendant le séchage : l’air doit circuler autour de chaque morceau.",
+        "Pour une conservation plus sûre, les fruits doivent être souples mais ne plus relâcher de jus quand on les presse."
       ],
       "result": [
         "Cerises concentrées, acidulées et moelleuses, prêtes à remplacer des raisins secs."
@@ -9041,8 +9041,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Les rillettes reposent sur une cuisson lente dans la graisse : c’est ce qui donne les filaments et le goût profond.",
-      "Servir à l’apéro, en entrée ou dans un sandwich avec cornichons et pain grillé.",
-      "La couche de graisse protège la surface, mais ne remplace pas une hygiène stricte ni une conservation au froid."
+      "Servir à l’apéro, en entrée ou dans un sandwich avec cornichons et pain grillé."
     ],
     "technical": [
       {
@@ -9067,7 +9066,8 @@ window.RECIPES = {
         "Congélation possible en petits pots bien fermés."
       ],
       "mistakes": [
-        "Ne garde pas les rillettes tièdes longtemps : refroidis vite les pots avant stockage."
+        "Ne garde pas les rillettes tièdes longtemps : refroidis vite les pots avant stockage.",
+        "La couche de graisse protège la surface, mais ne remplace pas une hygiène stricte ni une conservation au froid."
       ],
       "result": [
         "Rillettes fondantes, filandreuses et bien confites."

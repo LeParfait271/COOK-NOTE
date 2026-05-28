@@ -2179,8 +2179,7 @@ a {
   line-height: 1.25;
 }
 
-.recipe-equipment-strip,
-.recipe-conservation-strip {
+.recipe-equipment-strip {
   display: grid;
   gap: 10px;
   border-top: 1px solid var(--line);
@@ -2196,21 +2195,11 @@ a {
   overflow-wrap: anywhere;
 }
 
-.recipe-equipment-strip strong,
-.recipe-conservation-strip strong {
+.recipe-equipment-strip strong {
   color: var(--accent);
   font-size: 12px;
   font-weight: 950;
   text-transform: uppercase;
-}
-
-.recipe-conservation-strip p {
-  max-width: 100%;
-  margin: 0;
-  color: var(--text);
-  font-size: 13px;
-  line-height: 1.45;
-  overflow-wrap: anywhere;
 }
 
 .recipe-equipment-strip ul {

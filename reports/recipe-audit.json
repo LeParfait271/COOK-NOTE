@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-21T20:50:08.491Z",
+  "generatedAt": "2026-05-28T03:13:27.218Z",
   "totals": {
     "recipes": 124,
     "leaves": 105,
@@ -1023,7 +1023,9 @@
         "Decouverte faible : tags, alias ou liens internes pauvres."
       ],
       "qualityIssues": [],
-      "suggestions": []
+      "suggestions": [
+        "Notes nombreuses : verifier que tout est bien range dans les sections pratiques."
+      ]
     },
     {
       "id": "pates_tarte_variantes",

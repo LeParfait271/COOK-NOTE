@@ -2289,7 +2289,10 @@ function getRecipePracticalSections(recipe) {
     if (cleanItems.length) sections.push({ key, title, items: cleanItems.slice(0, key === 'storage' ? 6 : 4) });
   };
 
-  const isStorageNote = note => /\b(conservation|stockage|p[eé]remption|cong[eé]lation|cong[eè]le|au froid|r[eé]frig[eé]rateur)\b/i.test(note);
+  const isStorageNote = note => (
+    /\b(conservation|stockage|p[eé]remption|cong[eé]lation|cong[eè]le)\b/i.test(note)
+    || (/\br[eé]frig[eé]rateur\b/i.test(note) && /\b(conserve|garde|consomme|stocke|ferm[eé])\b/i.test(note))
+  );
   const isReheatingNote = note => /\b(r[eé]chauff|remettre au four|four doux)\b/i.test(note);
   const storageNotes = notes.filter(isStorageNote);
   const reheatingNotes = notes.filter(note => isReheatingNote(note) && !storageNotes.includes(note));
@@ -2311,10 +2314,13 @@ function getRecipePracticalSections(recipe) {
     ...substitutionNotes
   ]);
   add('service', 'Service', getRecipeServiceItems(recipe));
-  add('storage', 'Conservation', [
-    ...inferRecipeConservation(recipe),
+  const explicitStorage = [
     ...asTextList(recipe?.storage || practical.storage),
     ...storageNotes
+  ];
+  add('storage', 'Conservation', [
+    ...(explicitStorage.length ? [] : inferRecipeConservation(recipe)),
+    ...explicitStorage
   ]);
   add('reheating', 'Réchauffage', [
     ...asTextList(recipe?.reheating || practical.reheating),
@@ -2370,7 +2376,7 @@ function noteKey(value) {
 function noteCoveredByPracticalSection(note, practicalSections = []) {
   const text = normalizeText(stripHtml(note));
   const hasSection = key => practicalSections.some(section => section.key === key);
-  if (hasSection('storage') && /\b(conservation|stockage|peremption|congelation|congele|au froid|refrigerateur)\b/.test(text)) return true;
+  if (hasSection('storage') && /\b(conservation|stockage|peremption|congelation|congele|refrigerateur)\b/.test(text)) return true;
   if (hasSection('reheating') && /\b(rechauff|remettre au four|four doux|vapeur)\b/.test(text)) return true;
   return false;
 }
@@ -4034,7 +4040,6 @@ function RecipeQuickFacts({ recipe, factor, stepTotal }) {
   const seasons = (recipe.seasons || []).filter(item => item !== 'Toutes saisons');
   const equipment = getRecipeEquipment(recipe);
   const timing = getRecipeTiming(recipe);
-  const storage = getRecipePracticalSections(recipe).find(section => section.key === 'storage')?.items?.[0] || '';
   const facts = [
     { label: 'Temps actif', value: formatMinutesShort(timing.active) || 'A estimer' },
     timing.cook && { label: 'Cuisson', value: formatMinutesShort(timing.cook) },
@@ -4059,10 +4064,6 @@ function RecipeQuickFacts({ recipe, factor, stepTotal }) {
     equipment.length > 0 && h('div', { className: 'recipe-equipment-strip' },
       h('strong', null, 'Matériel nécessaire'),
       h('ul', null, equipment.map(item => h('li', { key: item }, item)))
-    ),
-    storage && h('div', { className: 'recipe-conservation-strip' },
-      h('strong', null, 'Conservation'),
-      h('p', null, storage)
     )
   );
 }

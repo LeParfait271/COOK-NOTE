@@ -2175,8 +2175,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Les rillettes reposent sur une cuisson lente dans la graisse : c\u2019est ce qui donne les filaments et le go\u00fbt profond.",
-      "Servir \u00e0 l\u2019ap\u00e9ro, en entr\u00e9e ou dans un sandwich avec cornichons et pain grill\u00e9.",
-      "La couche de graisse prot\u00e8ge la surface, mais ne remplace pas une hygi\u00e8ne stricte ni une conservation au froid."
+      "Servir \u00e0 l\u2019ap\u00e9ro, en entr\u00e9e ou dans un sandwich avec cornichons et pain grill\u00e9."
     ],
     "technical": [
       {
@@ -2201,7 +2200,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "Cong\u00e9lation possible en petits pots bien ferm\u00e9s."
       ],
       "mistakes": [
-        "Ne garde pas les rillettes ti\u00e8des longtemps : refroidis vite les pots avant stockage."
+        "Ne garde pas les rillettes ti\u00e8des longtemps : refroidis vite les pots avant stockage.",
+        "La couche de graisse prot\u00e8ge la surface, mais ne remplace pas une hygi\u00e8ne stricte ni une conservation au froid."
       ],
       "result": [
         "Rillettes fondantes, filandreuses et bien confites."

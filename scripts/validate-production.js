@@ -50,6 +50,15 @@ function loadRecipes() {
   return context.window.RECIPES || {};
 }
 
+function loadCatalogRecipes() {
+  const context = { window: {} };
+  vm.createContext(context);
+  ['assets/catalog-1.js', 'assets/catalog-2.js', 'assets/catalog-3.js', 'assets/catalog-4.js'].forEach(file => {
+    vm.runInContext(read(file), context, { filename: path.join(ROOT, file) });
+  });
+  return context.window.RECIPES || {};
+}
+
 function staticAssetsFromServiceWorker(text) {
   const match = text.match(/const\s+STATIC_ASSETS\s*=\s*\[([\s\S]*?)\];/);
   if (!match) return null;
@@ -61,6 +70,7 @@ function staticAssetsFromServiceWorker(text) {
 }
 
 const recipes = loadRecipes();
+const catalogRecipes = loadCatalogRecipes();
 const recipeIds = new Set(Object.keys(recipes));
 const sitemap = read('sitemap.xml');
 const robots = read('robots.txt');
@@ -82,6 +92,20 @@ TEXT_FILES_TO_SCAN.forEach(file => {
   const text = read(file);
   if (/[^\x00-\x7f]/.test(text)) {
     fail(`${file}: le catalogue frontend doit rester ASCII avec echappements unicode.`);
+  }
+});
+
+const catalogIds = new Set(Object.keys(catalogRecipes));
+if (catalogIds.size !== recipeIds.size) {
+  fail(`catalogue frontend: nombre de recettes incoherent (${catalogIds.size} au lieu de ${recipeIds.size}).`);
+}
+recipeIds.forEach(id => {
+  if (!catalogIds.has(id)) {
+    fail(`catalogue frontend: recette absente (${id}).`);
+    return;
+  }
+  if (JSON.stringify(catalogRecipes[id]) !== JSON.stringify(recipes[id])) {
+    fail(`catalogue frontend: recette non synchronisee (${id}).`);
   }
 });
 

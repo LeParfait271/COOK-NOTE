@@ -2165,7 +2165,6 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Le temps d\u00e9pend de la taille des cerises, de leur teneur en jus et du mat\u00e9riel utilis\u00e9.",
-      "Pour une conservation plus s\u00fbre, les fruits doivent \u00eatre souples mais ne plus rel\u00e2cher de jus quand on les presse.",
       "Utilise ces cerises dans les cookies, granolas, cakes ou salades compos\u00e9es."
     ],
     "technical": [
@@ -2190,7 +2189,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "Plus longtemps au cong\u00e9lateur en sachet bien ferm\u00e9."
       ],
       "mistakes": [
-        "Garde les cerises espac\u00e9es pendant le s\u00e9chage : l\u2019air doit circuler autour de chaque morceau."
+        "Garde les cerises espac\u00e9es pendant le s\u00e9chage : l\u2019air doit circuler autour de chaque morceau.",
+        "Pour une conservation plus s\u00fbre, les fruits doivent \u00eatre souples mais ne plus rel\u00e2cher de jus quand on les presse."
       ],
       "result": [
         "Cerises concentr\u00e9es, acidul\u00e9es et moelleuses, pr\u00eates \u00e0 remplacer des raisins secs."

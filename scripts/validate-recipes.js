@@ -66,6 +66,17 @@ function normalizeComparable(value) {
     .trim();
 }
 
+function asList(value) {
+  if (!value) return [];
+  return Array.isArray(value) ? value.filter(Boolean) : [value];
+}
+
+function isStorageNote(value) {
+  const text = String(value || '');
+  return /\b(conservation|stockage|p[eé]remption|cong[eé]lation|cong[eè]le)\b/i.test(text)
+    || (/\br[eé]frig[eé]rateur\b/i.test(text) && /\b(conserve|garde|consomme|stocke|ferm[eé])\b/i.test(text));
+}
+
 function checkPepperWording(id, value) {
   if (id === 'sauce_aux_poivres') return;
   const normalized = normalizeComparable(value);
@@ -326,8 +337,15 @@ if (!recipes || typeof recipes !== 'object') {
 
     if (Array.isArray(recipe.notes)) {
       const seenNotes = new Set();
+      const explicitStorageItems = [
+        ...asList(recipe.storage),
+        ...asList(recipe.practical?.storage)
+      ];
       recipe.notes.forEach(note => {
         if (/\bsource\b|https?:\/\/|href\s*=/i.test(String(note))) errors.push(`${id}: source externe presente dans les notes.`);
+        if (explicitStorageItems.length && isStorageNote(note)) {
+          errors.push(`${id}: note de conservation en double avec practical.storage (${note}).`);
+        }
         const key = normalizeComparable(note);
         if (key && seenNotes.has(key)) errors.push(`${id}: note dupliquee (${note}).`);
         seenNotes.add(key);
