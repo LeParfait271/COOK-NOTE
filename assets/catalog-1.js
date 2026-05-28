@@ -624,6 +624,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Desserts \u00e0 la cuill\u00e8re"
       },
       {
+        "id": "flan_patissier_epais_vanille",
+        "label": "Flan p\u00e2tissier \u00e9pais vanille"
+      },
+      {
         "id": "paris_brest",
         "label": "Paris-Brest"
       },
@@ -1051,6 +1055,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "bases_salees_maitre",
         "label": "Bases sal\u00e9es"
+      },
+      {
+        "id": "beurre_clarifie",
+        "label": "Beurre clarifi\u00e9"
+      },
+      {
+        "id": "beurre_d_escargot_persille",
+        "label": "Beurre d escargot persill\u00e9"
       },
       {
         "id": "cerises_sechees_maison",

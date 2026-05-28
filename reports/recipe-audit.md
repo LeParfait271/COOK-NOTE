@@ -1,11 +1,11 @@
 # Audit Cook Note
 
-Genere le 2026-05-28T03:13:27.218Z.
+Genere le 2026-05-28T13:46:37.037Z.
 
-- Recettes totales : 124
-- Recettes feuilles : 105
+- Recettes totales : 149
+- Recettes feuilles : 130
 - Fiches parentes : 19
-- Score moyen : 89/100
+- Score moyen : 87/100
 - Fiches sous 78 : 0
 - Fiches avec defauts a verifier : 0
 
@@ -17,6 +17,8 @@ Aucune fiche faible detectee.
 
 - Aïoli citronné léger (aioli_citronne_leger) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Ajitsuke tamago oeufs marinés ramen (ajitsuke_tamago_oeufs_marines_ramen) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Babeurre maison (babeurre_maison) : 100/100 - OK
 - Balsamique réduit (balsamique_reduit) : 100/100 - OK
 - Base pour flan salé (base_pour_flan_sale) : 82/100 - OK
@@ -26,6 +28,10 @@ Aucune fiche faible detectee.
 - Beignets de calamar (beignets_calamar) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Beurre à l’ail (beurre_ail) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Beurre clarifié (beurre_clarifie) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Beurre d escargot persillé (beurre_d_escargot_persille) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Billes de mozzarella marinées (billes_mozzarella_marinees) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -37,6 +43,10 @@ Aucune fiche faible detectee.
 - Cake salé poitrine fumée (cake_sale_lardon) : 100/100 - OK
 - Cake tomate chorizo feta (cake_tomate_chorizo_feta) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Carpaccio betterave mozzarella yuzu (carpaccio_betterave_mozzarella_yuzu) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Carré d agneau croûte d herbes (carre_d_agneau_croute_d_herbes) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Carrés crémeux citron vert (carres_cremeux_citron_vert) : 100/100 - OK
 - Cassolette de crevettes et ravioles au persil (cassolette_crevettes_ravioles_persil) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -44,7 +54,11 @@ Aucune fiche faible detectee.
 - Chantilly classique (chantilly_classique) : 100/100 - OK
 - Chantilly stabilisée (chantilly_gelatine) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Chipirons à la plancha (chipirons_a_la_plancha) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Chocolat chaud à l'ancienne (chocolat_ancien) : 100/100 - OK
+- Chorizo au cidre (chorizo_au_cidre) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Chou-fleur croustillant (chou_fleur_croustillant) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Choux au craquelin (choux_craquelin) : 84/100 - OK
@@ -91,10 +105,17 @@ Aucune fiche faible detectee.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Crème praliné (creme_praline) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Croque-madame (croque_madame) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Crumble pomme-poire (crumble_pomme_poire) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Cuisses de poulet miel moutarde (cuisses_de_poulet_miel_moutarde) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Cuisses de poulet rhum miel piment (cuisses_de_poulet_rhum_miel_piment) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Curry de lentilles vertes au lait de coco (curry_lentilles_coco) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Flan pâtissier épais vanille (flan_patissier_epais_vanille) : 100/100 - OK
 - Fond de tarte amande (creme_amande_citron) : 100/100 - OK
 - Frites belges (frites_belges) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -110,11 +131,23 @@ Aucune fiche faible detectee.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gazpacho tomate, menthe et basilic (gazpacho_tomate_menthe_basilic) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Gratin dauphinois (gratin_dauphinois) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gratin de chou-fleur (gratin_chou_fleur) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Hauts de cuisses poulet orange oignon (hauts_de_cuisses_poulet_orange_oignon) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Huile pimentée pour pizza (huile_pimentee_pizza) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Joues de boeuf carottes orange vin rouge (joues_de_boeuf_carottes_orange_vin_rouge) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Joues de porc chorizo piment (joues_de_porc_chorizo_piment) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Légumes rôtis au four (legumes_rotis) : 100/100 - OK
+- Lentilles à la bourguignonne (lentilles_a_la_bourguignonne) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Lentilles tomate pommes de terre sautées (lentilles_tomate_pommes_de_terre_sautees) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Macaron Ouréa (macaron_ourea_pierre_herme) : 100/100 - OK
 - Marinades (marinades_guide) : 100/100 - OK
 - Marmelade citron (compotee_citron) : 100/100 - OK
@@ -155,14 +188,26 @@ Aucune fiche faible detectee.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pestos (pesto_variantes) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Poulet basquaise (poulet_basquaise) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Poulet frit air fryer (poulet_frit_air_fryer) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Poulet Gaston Gérard (poulet_gaston_gerard) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Purée pommes de terre citron (puree_pommes_de_terre_citron) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Ricotta fouettée (ricotta_fouettee) : 100/100 - OK
 - Rillettes de porc (rillettes_porc) : 100/100 - OK
 - Rillettes de poulet (rillettes_poulet) : 100/100 - OK
+- Riz au citron (riz_au_citron) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Rouille (rouille_haut_de_gamme) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Salade avocat, œuf et épinards (salade_avocat_oeuf_epinards) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Salade melon, mozzarella et jambon cru (salade_melon_mozzarella_jambon_cru) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Salade oeufs durs mayonnaise bistrot (salade_oeufs_durs_mayonnaise_bistrot) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Sauce aux poivres (sauce_aux_poivres) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -173,6 +218,10 @@ Aucune fiche faible detectee.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Sauces burger (sauces_burger_variantes) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Saucisse purée maison (saucisse_puree_maison) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Saumon au four tomates olives basilic (saumon_au_four_tomates_olives_basilic) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Tarte citron meringuée (tarte_citron_meringuee) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Tempura (tempura_beignets_calamar_crevettes) : 82/100 - OK
@@ -195,26 +244,35 @@ Aucune fiche faible detectee.
 
 - Bouillabaisse (bouillabaisse_rouille) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Côtelettes de porc miel moutarde (cotelettes_porc_miel_moutarde) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
+- Lentilles tomate pommes de terre sautées (lentilles_tomate_pommes_de_terre_sautees) : Categorie possible : Accompagnements (semble etre un accompagnement).
 - Pesto tomates séchées (pesto_tomates_sechees_sans_cajou) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
+- Salade oeufs durs mayonnaise bistrot (salade_oeufs_durs_mayonnaise_bistrot) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Pancakes (pancakes_variantes) : Categorie possible : Base (semble etre une base reutilisable).
 - Œuf sur le plat chili crisp sur toast (oeuf_chili_crisp_toast) : Categorie possible : Apéro (semble utile a l apero).
 - Pâtes à tarte (pates_tarte_variantes) : Categorie possible : Desserts (semble etre sucré ou patissier).
 
 ## Fiches a relier progressivement
 
+- Ajitsuke tamago oeufs marinés ramen (ajitsuke_tamago_oeufs_marines_ramen)
 - Babeurre maison (babeurre_maison)
 - Balsamique réduit (balsamique_reduit)
 - Base pour flan salé (base_pour_flan_sale)
+- Beurre clarifié (beurre_clarifie)
+- Beurre d escargot persillé (beurre_d_escargot_persille)
 - Billes de mozzarella marinées (billes_mozzarella_marinees)
 - Brie farci aux fruits secs et noix (brie_farci_fruits_secs_noix)
 - Cake au citron (cake_citron)
 - Cake salé poitrine fumée (cake_sale_lardon)
 - Cake tomate chorizo feta (cake_tomate_chorizo_feta)
+- Carpaccio betterave mozzarella yuzu (carpaccio_betterave_mozzarella_yuzu)
+- Carré d agneau croûte d herbes (carre_d_agneau_croute_d_herbes)
 - Carrés crémeux citron vert (carres_cremeux_citron_vert)
 - Cassolette de crevettes et ravioles au persil (cassolette_crevettes_ravioles_persil)
 - Cerises séchées (cerises_sechees_maison)
 - Chantilly stabilisée (chantilly_gelatine)
+- Chipirons à la plancha (chipirons_a_la_plancha)
 - Chocolat chaud à l'ancienne (chocolat_ancien)
+- Chorizo au cidre (chorizo_au_cidre)
 - Chou-fleur croustillant (chou_fleur_croustillant)
 - Churros (churros_maison)
 - Clafoutis aux cerises (clafoutis_cerises_bocuse)
@@ -225,10 +283,3 @@ Aucune fiche faible detectee.
 - Cookies chocolat blanc cranberry (cookies_chocolat_blanc_cranberry)
 - Cookies chocolat moelleux (cookies_chocolat_moelleux)
 - Cookies moelleux aux pépites de chocolat et noix (cookies_chocolat_noix)
-- Cookies salés (cookies_sales_variantes)
-- Côtelettes de porc miel moutarde (cotelettes_porc_miel_moutarde)
-- Coulis (coulis_maitre)
-- Court-bouillon (court_bouillon)
-- Crème au beurre meringue italienne (creme_beurre_meringue_italienne)
-- Crème citron (creme_citron_lemon_curd)
-- Crème diplomate vanille (creme_diplomate_vanille)

@@ -654,8 +654,16 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Bouillabaisse"
       },
       {
+        "id": "carre_d_agneau_croute_d_herbes",
+        "label": "Carr\u00e9 d agneau cro\u00fbte d herbes"
+      },
+      {
         "id": "cassolette_crevettes_ravioles_persil",
         "label": "Cassolette de crevettes et ravioles au persil"
+      },
+      {
+        "id": "chipirons_a_la_plancha",
+        "label": "Chipirons \u00e0 la plancha"
       },
       {
         "id": "cochon_confit_biere_erable",
@@ -666,12 +674,64 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "C\u00f4telettes de porc miel moutarde"
       },
       {
+        "id": "croque_madame",
+        "label": "Croque-madame"
+      },
+      {
+        "id": "cuisses_de_poulet_miel_moutarde",
+        "label": "Cuisses de poulet miel moutarde"
+      },
+      {
+        "id": "cuisses_de_poulet_rhum_miel_piment",
+        "label": "Cuisses de poulet rhum miel piment"
+      },
+      {
         "id": "curry_lentilles_coco",
         "label": "Curry de lentilles vertes au lait de coco"
       },
       {
         "id": "gratin_chou_fleur",
         "label": "Gratin de chou-fleur"
+      },
+      {
+        "id": "hauts_de_cuisses_poulet_orange_oignon",
+        "label": "Hauts de cuisses poulet orange oignon"
+      },
+      {
+        "id": "joues_de_boeuf_carottes_orange_vin_rouge",
+        "label": "Joues de boeuf carottes orange vin rouge"
+      },
+      {
+        "id": "joues_de_porc_chorizo_piment",
+        "label": "Joues de porc chorizo piment"
+      },
+      {
+        "id": "lentilles_a_la_bourguignonne",
+        "label": "Lentilles \u00e0 la bourguignonne"
+      },
+      {
+        "id": "lentilles_tomate_pommes_de_terre_sautees",
+        "label": "Lentilles tomate pommes de terre saut\u00e9es"
+      },
+      {
+        "id": "poulet_basquaise",
+        "label": "Poulet basquaise"
+      },
+      {
+        "id": "poulet_frit_air_fryer",
+        "label": "Poulet frit air fryer"
+      },
+      {
+        "id": "poulet_gaston_gerard",
+        "label": "Poulet Gaston G\u00e9rard"
+      },
+      {
+        "id": "saucisse_puree_maison",
+        "label": "Saucisse pur\u00e9e maison"
+      },
+      {
+        "id": "saumon_au_four_tomates_olives_basilic",
+        "label": "Saumon au four tomates olives basilic"
       }
     ],
     "ingredients": [
@@ -1473,12 +1533,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "aliases": [
       "mayonnaise belge",
       "mayo maison",
-      "sauce mayonnaise"
+      "sauce mayonnaise",
+      "mayonnaise sans oeuf"
     ],
     "tags": [
       "mayonnaise",
       "sauce",
-      "frites"
+      "frites",
+      "sans oeuf"
     ],
     "ingredients": [
       {
@@ -1525,6 +1587,24 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
           "Incorporer concentre de tomate, poivron rouge roti mixe, paprika fume, piment et vinaigre.",
           "Mixer ou fouetter jusqu a sauce homogene, puis reserver au frais."
         ]
+      },
+      {
+        "group": "Variante sans oeuf au lait",
+        "items": [
+          "60g lait entier froid",
+          "120g huile neutre",
+          "1 c. \u00e0 caf\u00e9 moutarde",
+          "10g jus de citron ou vinaigre",
+          "Sel fin",
+          "Poivre du moulin"
+        ],
+        "steps": [
+          "Mettre lait froid, moutarde, citron ou vinaigre, sel et poivre du moulin dans un r\u00e9cipient \u00e9troit.",
+          "Mixer au mixeur plongeant en ajoutant l huile en filet.",
+          "Remonter doucement le mixeur quand la sauce \u00e9paissit.",
+          "Go\u00fbter, ajuster acidit\u00e9 et sel, puis r\u00e9server au frais 20min."
+        ],
+        "note": "Texture proche d une mayonnaise l\u00e9g\u00e8re, pratique quand tu veux une sauce sans oeuf cru."
       }
     ],
     "steps": [

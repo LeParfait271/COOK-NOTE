@@ -568,6 +568,10 @@ window.RECIPES = {
     "masterType": "collection",
     "variants": [
       {
+        "id": "ajitsuke_tamago_oeufs_marines_ramen",
+        "label": "Ajitsuke tamago oeufs marinés ramen"
+      },
+      {
         "id": "beurre_ail",
         "label": "Beurre à l’ail"
       },
@@ -2384,12 +2388,24 @@ window.RECIPES = {
     "masterType": "collection",
     "variants": [
       {
+        "id": "ajitsuke_tamago_oeufs_marines_ramen",
+        "label": "Ajitsuke tamago oeufs marinés ramen"
+      },
+      {
         "id": "beignets_calamar",
         "label": "Beignets de calamar"
       },
       {
+        "id": "carpaccio_betterave_mozzarella_yuzu",
+        "label": "Carpaccio betterave mozzarella yuzu"
+      },
+      {
         "id": "cassolette_crevettes_ravioles_persil",
         "label": "Cassolette de crevettes et ravioles au persil"
+      },
+      {
+        "id": "chipirons_a_la_plancha",
+        "label": "Chipirons à la plancha"
       },
       {
         "id": "chou_fleur_croustillant",
@@ -2410,6 +2426,10 @@ window.RECIPES = {
       {
         "id": "oignons_rotis_thym_miel",
         "label": "Oignons rôtis au thym et au miel"
+      },
+      {
+        "id": "salade_oeufs_durs_mayonnaise_bistrot",
+        "label": "Salade oeufs durs mayonnaise bistrot"
       },
       {
         "id": "tomates_maitre",
@@ -2455,8 +2475,16 @@ window.RECIPES = {
         "label": "Bouillabaisse"
       },
       {
+        "id": "carre_d_agneau_croute_d_herbes",
+        "label": "Carré d agneau croûte d herbes"
+      },
+      {
         "id": "cassolette_crevettes_ravioles_persil",
         "label": "Cassolette de crevettes et ravioles au persil"
+      },
+      {
+        "id": "chipirons_a_la_plancha",
+        "label": "Chipirons à la plancha"
       },
       {
         "id": "cochon_confit_biere_erable",
@@ -2467,12 +2495,64 @@ window.RECIPES = {
         "label": "Côtelettes de porc miel moutarde"
       },
       {
+        "id": "croque_madame",
+        "label": "Croque-madame"
+      },
+      {
+        "id": "cuisses_de_poulet_miel_moutarde",
+        "label": "Cuisses de poulet miel moutarde"
+      },
+      {
+        "id": "cuisses_de_poulet_rhum_miel_piment",
+        "label": "Cuisses de poulet rhum miel piment"
+      },
+      {
         "id": "curry_lentilles_coco",
         "label": "Curry de lentilles vertes au lait de coco"
       },
       {
         "id": "gratin_chou_fleur",
         "label": "Gratin de chou-fleur"
+      },
+      {
+        "id": "hauts_de_cuisses_poulet_orange_oignon",
+        "label": "Hauts de cuisses poulet orange oignon"
+      },
+      {
+        "id": "joues_de_boeuf_carottes_orange_vin_rouge",
+        "label": "Joues de boeuf carottes orange vin rouge"
+      },
+      {
+        "id": "joues_de_porc_chorizo_piment",
+        "label": "Joues de porc chorizo piment"
+      },
+      {
+        "id": "lentilles_a_la_bourguignonne",
+        "label": "Lentilles à la bourguignonne"
+      },
+      {
+        "id": "lentilles_tomate_pommes_de_terre_sautees",
+        "label": "Lentilles tomate pommes de terre sautées"
+      },
+      {
+        "id": "poulet_basquaise",
+        "label": "Poulet basquaise"
+      },
+      {
+        "id": "poulet_frit_air_fryer",
+        "label": "Poulet frit air fryer"
+      },
+      {
+        "id": "poulet_gaston_gerard",
+        "label": "Poulet Gaston Gérard"
+      },
+      {
+        "id": "saucisse_puree_maison",
+        "label": "Saucisse purée maison"
+      },
+      {
+        "id": "saumon_au_four_tomates_olives_basilic",
+        "label": "Saumon au four tomates olives basilic"
       }
     ],
     "ingredients": [
@@ -2526,12 +2606,20 @@ window.RECIPES = {
         "label": "Gaufres de pommes de terre croustillantes"
       },
       {
+        "id": "gratin_dauphinois",
+        "label": "Gratin dauphinois"
+      },
+      {
         "id": "gratin_chou_fleur",
         "label": "Gratin de chou-fleur"
       },
       {
         "id": "legumes_rotis",
         "label": "Légumes rôtis au four"
+      },
+      {
+        "id": "lentilles_a_la_bourguignonne",
+        "label": "Lentilles à la bourguignonne"
       },
       {
         "id": "oignons_rotis_thym_miel",
@@ -2544,6 +2632,14 @@ window.RECIPES = {
       {
         "id": "pesto_tomates_sechees_sans_cajou",
         "label": "Pesto tomates séchées"
+      },
+      {
+        "id": "puree_pommes_de_terre_citron",
+        "label": "Purée pommes de terre citron"
+      },
+      {
+        "id": "riz_au_citron",
+        "label": "Riz au citron"
       },
       {
         "id": "sauce_yaourt_citronnee",
@@ -2623,6 +2719,10 @@ window.RECIPES = {
       {
         "id": "desserts_cuillere_maitre",
         "label": "Desserts à la cuillère"
+      },
+      {
+        "id": "flan_patissier_epais_vanille",
+        "label": "Flan pâtissier épais vanille"
       },
       {
         "id": "paris_brest",
@@ -3796,6 +3896,10 @@ window.RECIPES = {
         "label": "Cake tomate chorizo feta"
       },
       {
+        "id": "chorizo_au_cidre",
+        "label": "Chorizo au cidre"
+      },
+      {
         "id": "chou_fleur_croustillant",
         "label": "Chou-fleur croustillant"
       },
@@ -4490,6 +4594,10 @@ window.RECIPES = {
     ],
     "variants": [
       {
+        "id": "beurre_d_escargot_persille",
+        "label": "Beurre d escargot persillé"
+      },
+      {
         "id": "coulis_maitre",
         "label": "Coulis"
       },
@@ -4550,6 +4658,14 @@ window.RECIPES = {
       {
         "id": "bases_salees_maitre",
         "label": "Bases salées"
+      },
+      {
+        "id": "beurre_clarifie",
+        "label": "Beurre clarifié"
+      },
+      {
+        "id": "beurre_d_escargot_persille",
+        "label": "Beurre d escargot persillé"
       },
       {
         "id": "cerises_sechees_maison",
@@ -5932,12 +6048,14 @@ window.RECIPES = {
     "aliases": [
       "mayonnaise belge",
       "mayo maison",
-      "sauce mayonnaise"
+      "sauce mayonnaise",
+      "mayonnaise sans oeuf"
     ],
     "tags": [
       "mayonnaise",
       "sauce",
-      "frites"
+      "frites",
+      "sans oeuf"
     ],
     "ingredients": [
       {
@@ -5984,6 +6102,24 @@ window.RECIPES = {
           "Incorporer concentre de tomate, poivron rouge roti mixe, paprika fume, piment et vinaigre.",
           "Mixer ou fouetter jusqu a sauce homogene, puis reserver au frais."
         ]
+      },
+      {
+        "group": "Variante sans oeuf au lait",
+        "items": [
+          "60g lait entier froid",
+          "120g huile neutre",
+          "1 c. à café moutarde",
+          "10g jus de citron ou vinaigre",
+          "Sel fin",
+          "Poivre du moulin"
+        ],
+        "steps": [
+          "Mettre lait froid, moutarde, citron ou vinaigre, sel et poivre du moulin dans un récipient étroit.",
+          "Mixer au mixeur plongeant en ajoutant l huile en filet.",
+          "Remonter doucement le mixeur quand la sauce épaissit.",
+          "Goûter, ajuster acidité et sel, puis réserver au frais 20min."
+        ],
+        "note": "Texture proche d une mayonnaise légère, pratique quand tu veux une sauce sans oeuf cru."
       }
     ],
     "steps": [
@@ -9515,6 +9651,1453 @@ window.RECIPES = {
     },
     "additionalMasters": [
       "apero_maitre"
+    ]
+  },
+  "flan_patissier_epais_vanille": {
+    "title": "Flan pâtissier épais vanille",
+    "master": "desserts_maitre",
+    "image": "/assets/recipe-images-optimized/flan_patissier_epais_vanille_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "hard",
+    "difficultyScore": 7,
+    "yield": "8 à 10 parts",
+    "aliases": [
+      "flan patissier",
+      "flan felder",
+      "flan boulanger"
+    ],
+    "tags": [
+      "flan",
+      "vanille",
+      "patisserie"
+    ],
+    "ingredients": [
+      {
+        "group": "Pâte sablée",
+        "items": [
+          "215g farine T45",
+          "100g cassonade ou vergeoise",
+          "100g beurre doux froid",
+          "1 oeuf",
+          "1 pincée levure chimique",
+          "1 pincée sel fin"
+        ]
+      },
+      {
+        "group": "Appareil vanille",
+        "items": [
+          "1000g lait entier",
+          "250g crème liquide entière",
+          "5 oeufs",
+          "220g sucre",
+          "100g maïzena",
+          "vanille selon goût"
+        ]
+      }
+    ],
+    "steps": [
+      "Sabler farine, cassonade ou vergeoise, beurre froid, levure et sel, puis ajouter l oeuf pour former une pâte.",
+      "Aplatir la pâte, filmer et laisser reposer 30min au réfrigérateur.",
+      "Foncer un cercle haut de 23 à 24cm, bien marquer les angles et remettre au froid.",
+      "Chauffer le lait avec une partie du sucre et la vanille.",
+      "Fouetter les oeufs, le reste du sucre et la maïzena, puis ajouter la crème.",
+      "Verser le lait chaud progressivement sur le mélange aux oeufs en fouettant.",
+      "Remettre en casserole et cuire jusqu à crème épaisse, lisse et nappante.",
+      "Verser dans le fond de pâte, lisser et cuire 50min à 180°C en chaleur statique.",
+      "Refroidir 2h à température ambiante, puis réserver 3h au réfrigérateur avant découpe."
+    ],
+    "notes": [
+      "Un cercle haut donne une vraie épaisseur de flan.",
+      "La découpe est plus nette après un long refroidissement."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "La crème doit épaissir avant cuisson au four pour garder une tranche nette."
+      },
+      {
+        "label": "Repos",
+        "value": "Le froid termine la tenue : ne coupe pas le flan encore tiède."
+      }
+    ],
+    "practical": {
+      "storage": [
+        "2 à 3 jours au réfrigérateur, non couvert au début puis protégé après refroidissement complet."
+      ],
+      "mistakes": [
+        "Ne diminue pas trop le sucre : il participe aussi à la texture du flan."
+      ]
+    }
+  },
+  "gratin_dauphinois": {
+    "title": "Gratin dauphinois",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/gratin_dauphinois_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "6 personnes",
+    "aliases": [
+      "gratin dauphinois le meilleur",
+      "pommes de terre gratin"
+    ],
+    "tags": [
+      "pomme de terre",
+      "gratin",
+      "creme"
+    ],
+    "ingredients": [
+      {
+        "group": "Gratin",
+        "items": [
+          "1200g pommes de terre à chair ferme",
+          "500g crème liquide entière",
+          "300g lait entier",
+          "1 gousse ail",
+          "30g beurre doux",
+          "Muscade",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Éplucher les pommes de terre et les trancher finement sans les rincer.",
+      "Frotter le plat avec l ail, puis le beurrer.",
+      "Chauffer lait, crème, sel, muscade et poivre du moulin.",
+      "Ajouter les pommes de terre et cuire 10min à frémissement doux pour les enrober.",
+      "Verser dans le plat, égaliser et enfourner 55 à 65min à 165°C.",
+      "Laisser reposer 10min avant service pour que la crème se pose."
+    ],
+    "notes": [
+      "Garde l amidon des pommes de terre : il aide à lier la crème pendant la cuisson."
+    ],
+    "technical": [
+      {
+        "label": "Tranche",
+        "value": "Une coupe fine et régulière donne une cuisson homogène."
+      },
+      {
+        "label": "Cuisson",
+        "value": "Le gratin doit bouillonner doucement, jamais sécher brutalement."
+      }
+    ],
+    "practical": {
+      "reheating": [
+        "Réchauffer 15min à 150°C, couvert au début puis découvert."
+      ],
+      "mistakes": [
+        "Ne mets pas de fromage si tu veux rester sur un dauphinois classique."
+      ]
+    }
+  },
+  "poulet_basquaise": {
+    "title": "Poulet basquaise",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/poulet_basquaise_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Été",
+      "Automne"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "aliases": [
+      "poulet aux poivrons",
+      "basquaise"
+    ],
+    "tags": [
+      "poulet",
+      "poivron",
+      "tomate"
+    ],
+    "ingredients": [
+      {
+        "group": "Poulet",
+        "items": [
+          "4 cuisses de poulet",
+          "2 oignons",
+          "2 gousses ail",
+          "3 poivrons rouges et verts",
+          "600g tomates concassées",
+          "120g jambon de Bayonne optionnel",
+          "150ml vin blanc sec",
+          "Piment d Espelette",
+          "Huile olive",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Dorer les morceaux de poulet dans une cocotte avec un filet d huile olive.",
+      "Retirer le poulet, faire revenir oignons, ail et poivrons émincés 10min.",
+      "Ajouter jambon si utilisé, tomates, vin blanc, sel, poivre du moulin et piment d Espelette.",
+      "Remettre le poulet, couvrir à demi et mijoter 40 à 45min.",
+      "Découvrir en fin de cuisson pour concentrer la sauce si elle est trop fluide.",
+      "Servir avec riz, pommes vapeur ou pain grillé."
+    ],
+    "notes": [
+      "Le piment d Espelette parfume plus qu il ne doit brûler."
+    ],
+    "technical": [
+      {
+        "label": "Sauce",
+        "value": "La piperade doit compoter avant de finir avec le poulet."
+      }
+    ],
+    "practical": {
+      "storage": [
+        "2 jours au réfrigérateur."
+      ],
+      "reheating": [
+        "Réchauffer doucement en cocotte avec un trait d eau si la sauce a épaissi."
+      ]
+    }
+  },
+  "croque_madame": {
+    "title": "Croque-madame",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/croque_madame_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "2 croques",
+    "aliases": [
+      "croque monsieur oeuf",
+      "croque madame"
+    ],
+    "tags": [
+      "croque",
+      "oeuf",
+      "jambon"
+    ],
+    "ingredients": [
+      {
+        "group": "Croques",
+        "items": [
+          "4 tranches pain de mie",
+          "2 tranches jambon",
+          "80g fromage râpé",
+          "35g beurre mou",
+          "2 oeufs",
+          "Moutarde douce optionnelle",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Beurrer légèrement l extérieur des tranches de pain.",
+      "Garnir avec jambon, fromage râpé et une fine touche de moutarde si souhaité.",
+      "Refermer et cuire à la poêle ou au four jusqu à pain doré et fromage fondu.",
+      "Cuire les oeufs au plat séparément.",
+      "Poser un oeuf sur chaque croque, saler et ajouter du poivre du moulin."
+    ],
+    "notes": [
+      "Le jaune doit rester coulant pour napper le croque."
+    ],
+    "technical": [
+      {
+        "label": "Dorure",
+        "value": "Cuire à feu moyen pour fondre le fromage sans brûler le pain."
+      }
+    ]
+  },
+  "cuisses_de_poulet_rhum_miel_piment": {
+    "title": "Cuisses de poulet rhum miel piment",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/cuisses_de_poulet_rhum_miel_piment_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "aliases": [
+      "poulet rhum miel",
+      "cuisses de poulet oignons rhum"
+    ],
+    "tags": [
+      "poulet",
+      "miel",
+      "four"
+    ],
+    "ingredients": [
+      {
+        "group": "Poulet rôti",
+        "items": [
+          "4 cuisses de poulet",
+          "3 oignons",
+          "45g miel",
+          "40ml rhum ambré",
+          "25g sauce soja",
+          "1 citron vert",
+          "Piment selon goût",
+          "Huile neutre",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Mélanger miel, rhum, sauce soja, citron vert, piment et un filet d huile.",
+      "Enrober les cuisses de poulet et laisser mariner 30min si possible.",
+      "Mettre les oignons émincés dans le plat, poser le poulet dessus et verser la marinade.",
+      "Cuire 45 à 50min à 190°C en arrosant deux fois.",
+      "Faire réduire le jus quelques minutes si besoin avant de servir."
+    ],
+    "notes": [
+      "Le miel colore vite : baisse légèrement le four si la peau fonce trop tôt."
+    ],
+    "technical": [
+      {
+        "label": "Laquage",
+        "value": "Arroser en cours de cuisson pour garder une peau brillante et parfumée."
+      }
+    ]
+  },
+  "chipirons_a_la_plancha": {
+    "title": "Chipirons à la plancha",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/chipirons_a_la_plancha_spooky.jpg",
+    "categories": [
+      "Plats",
+      "Entrées"
+    ],
+    "seasons": [
+      "Été"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "aliases": [
+      "chipirons plancha",
+      "petits calmars plancha"
+    ],
+    "tags": [
+      "calamar",
+      "plancha",
+      "ail"
+    ],
+    "ingredients": [
+      {
+        "group": "Chipirons",
+        "items": [
+          "800g chipirons nettoyés",
+          "2 gousses ail",
+          "Persil plat",
+          "1 citron",
+          "Huile olive",
+          "Piment d Espelette",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Bien sécher les chipirons avec du papier absorbant.",
+      "Mélanger huile olive, ail haché, persil, piment d Espelette et zeste de citron.",
+      "Chauffer la plancha très fort.",
+      "Saisir les chipirons 2 à 3min en remuant rapidement.",
+      "Ajouter la persillade hors du feu, saler, ajouter du poivre du moulin et servir aussitôt."
+    ],
+    "notes": [
+      "La cuisson doit être très courte pour éviter une texture caoutchouteuse."
+    ],
+    "technical": [
+      {
+        "label": "Saisie",
+        "value": "Plancha très chaude et aliment bien sec : c est la clé."
+      }
+    ],
+    "additionalMasters": [
+      "entrees_maitre"
+    ]
+  },
+  "joues_de_boeuf_carottes_orange_vin_rouge": {
+    "title": "Joues de boeuf carottes orange vin rouge",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/joues_de_boeuf_carottes_orange_vin_rouge_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 6,
+    "yield": "6 personnes",
+    "aliases": [
+      "joues de boeuf mijotées",
+      "boeuf orange vin rouge"
+    ],
+    "tags": [
+      "boeuf",
+      "mijote",
+      "carotte"
+    ],
+    "ingredients": [
+      {
+        "group": "Mijoté",
+        "items": [
+          "1200g joues de boeuf",
+          "600g carottes",
+          "2 oignons",
+          "2 gousses ail",
+          "750ml vin rouge",
+          "1 orange non traitée",
+          "400ml fond de veau",
+          "Thym",
+          "Laurier",
+          "Huile neutre",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Dorer les joues de boeuf sur toutes les faces dans une cocotte.",
+      "Ajouter oignons, ail et carottes en tronçons, puis faire suer 5min.",
+      "Déglacer au vin rouge et réduire 5min.",
+      "Ajouter fond de veau, thym, laurier, zeste d orange et un peu de jus.",
+      "Couvrir et mijoter 3h à feu doux, jusqu à viande fondante.",
+      "Retirer la viande, réduire la sauce si besoin, puis remettre les joues pour les glacer."
+    ],
+    "notes": [
+      "Les parfums se posent encore mieux après une nuit au frais."
+    ],
+    "technical": [
+      {
+        "label": "Collagène",
+        "value": "La joue demande une cuisson longue et douce pour devenir fondante."
+      }
+    ],
+    "practical": {
+      "storage": [
+        "3 jours au réfrigérateur."
+      ],
+      "reheating": [
+        "Réchauffer doucement en cocotte, sans forte ébullition."
+      ]
+    }
+  },
+  "carre_d_agneau_croute_d_herbes": {
+    "title": "Carré d agneau croûte d herbes",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/carre_d_agneau_croute_d_herbes_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Printemps"
+    ],
+    "difficulty": "hard",
+    "difficultyScore": 7,
+    "yield": "4 personnes",
+    "aliases": [
+      "carré agneau rôti",
+      "agneau croute herbes"
+    ],
+    "tags": [
+      "agneau",
+      "herbes",
+      "four"
+    ],
+    "ingredients": [
+      {
+        "group": "Agneau",
+        "items": [
+          "1 carré agneau de 8 côtes",
+          "40g chapelure",
+          "25g moutarde",
+          "25g beurre mou",
+          "Persil plat",
+          "Thym",
+          "Romarin",
+          "1 gousse ail",
+          "Huile olive",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Saler le carré et le saisir rapidement sur les faces grasses.",
+      "Mélanger chapelure, herbes hachées, ail, beurre mou et poivre du moulin.",
+      "Badigeonner l agneau de moutarde puis presser la croûte d herbes dessus.",
+      "Rôtir 18 à 22min à 200°C selon l épaisseur.",
+      "Laisser reposer 10min avant de trancher entre les côtes."
+    ],
+    "notes": [
+      "Le repos est indispensable pour garder une viande juteuse."
+    ],
+    "technical": [
+      {
+        "label": "Croûte",
+        "value": "La moutarde sert de colle et apporte une acidité discrète."
+      }
+    ]
+  },
+  "carpaccio_betterave_mozzarella_yuzu": {
+    "title": "Carpaccio betterave mozzarella yuzu",
+    "master": "entrees_maitre",
+    "image": "/assets/recipe-images-optimized/carpaccio_betterave_mozzarella_yuzu_spooky.jpg",
+    "categories": [
+      "Entrées"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "aliases": [
+      "carpaccio de betterave",
+      "betterave mozzarella"
+    ],
+    "tags": [
+      "betterave",
+      "mozzarella",
+      "yuzu"
+    ],
+    "ingredients": [
+      {
+        "group": "Carpaccio",
+        "items": [
+          "500g betteraves cuites",
+          "250g mozzarella",
+          "25g jus de yuzu",
+          "45g huile olive",
+          "15g miel",
+          "Herbes fraîches",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Trancher les betteraves très finement.",
+      "Égoutter la mozzarella et la déchirer en morceaux.",
+      "Fouetter jus de yuzu, huile olive, miel, sel et poivre du moulin.",
+      "Dresser betterave et mozzarella en assiette froide.",
+      "Napper de vinaigrette et finir avec les herbes."
+    ],
+    "notes": [
+      "Le yuzu peut être remplacé par citron vert et une pointe de mandarine."
+    ],
+    "technical": [
+      {
+        "label": "Coupe",
+        "value": "Des tranches fines donnent une sensation plus fraîche et moins terreuse."
+      }
+    ]
+  },
+  "ajitsuke_tamago_oeufs_marines_ramen": {
+    "title": "Ajitsuke tamago oeufs marinés ramen",
+    "master": "bases_salees_maitre",
+    "image": "/assets/recipe-images-optimized/ajitsuke_tamago_oeufs_marines_ramen_spooky.jpg",
+    "categories": [
+      "Base",
+      "Entrées"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "6 oeufs",
+    "aliases": [
+      "ajitama",
+      "oeufs marinés ramen",
+      "oeufs soja"
+    ],
+    "tags": [
+      "oeuf",
+      "ramen",
+      "marinade"
+    ],
+    "ingredients": [
+      {
+        "group": "Oeufs marinés",
+        "items": [
+          "6 oeufs",
+          "120g sauce soja",
+          "120g mirin",
+          "120g eau",
+          "20g sucre",
+          "1 morceau gingembre optionnel"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les oeufs 6min 30 dans l eau frémissante.",
+      "Refroidir immédiatement dans l eau glacée puis écaler délicatement.",
+      "Chauffer eau, sauce soja, mirin, sucre et gingembre, puis refroidir complètement.",
+      "Immerger les oeufs dans la marinade froide 6 à 12h.",
+      "Égoutter et couper au dernier moment."
+    ],
+    "notes": [
+      "Une marinade froide évite de continuer la cuisson du jaune."
+    ],
+    "technical": [
+      {
+        "label": "Jaune",
+        "value": "6min 30 donne un centre coulant à mollet selon la taille des oeufs."
+      }
+    ],
+    "practical": {
+      "storage": [
+        "2 jours au réfrigérateur dans la marinade."
+      ]
+    },
+    "additionalMasters": [
+      "entrees_maitre"
+    ]
+  },
+  "chorizo_au_cidre": {
+    "title": "Chorizo au cidre",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/chorizo_au_cidre_spooky.jpg",
+    "categories": [
+      "Apéro"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "aliases": [
+      "tapas chorizo cidre"
+    ],
+    "tags": [
+      "chorizo",
+      "cidre",
+      "tapas"
+    ],
+    "ingredients": [
+      {
+        "group": "Tapas",
+        "items": [
+          "300g chorizo à cuire",
+          "250ml cidre brut",
+          "1 feuille laurier",
+          "Pain grillé"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper le chorizo en rondelles épaisses.",
+      "Mettre chorizo, cidre et laurier dans une petite casserole.",
+      "Mijoter 15 à 20min, jusqu à sauce réduite et brillante.",
+      "Servir chaud avec pain grillé."
+    ],
+    "notes": [
+      "Le cidre doit réduire mais garder un peu de jus pour saucer."
+    ],
+    "technical": [
+      {
+        "label": "Réduction",
+        "value": "Une cuisson douce évite que le gras du chorizo se sépare brutalement."
+      }
+    ]
+  },
+  "saumon_au_four_tomates_olives_basilic": {
+    "title": "Saumon au four tomates olives basilic",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/saumon_au_four_tomates_olives_basilic_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Été"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "aliases": [
+      "saumon tomates cerises",
+      "saumon olives basilic"
+    ],
+    "tags": [
+      "saumon",
+      "tomate",
+      "four"
+    ],
+    "ingredients": [
+      {
+        "group": "Saumon",
+        "items": [
+          "4 pavés saumon",
+          "400g tomates cerises",
+          "80g olives",
+          "30g pignons",
+          "Basilic frais",
+          "1 citron",
+          "Huile olive",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Mettre tomates cerises, olives, pignons, huile olive, sel et poivre du moulin dans un plat.",
+      "Cuire 12min à 190°C pour commencer à confire les tomates.",
+      "Ajouter le saumon, arroser d huile et de citron.",
+      "Cuire encore 10 à 12min selon l épaisseur.",
+      "Finir avec basilic frais juste avant de servir."
+    ],
+    "notes": [
+      "Ajouter le basilic après cuisson pour garder son parfum."
+    ],
+    "technical": [
+      {
+        "label": "Poisson",
+        "value": "Le saumon reste plus moelleux si les tomates commencent seules au four."
+      }
+    ]
+  },
+  "poulet_frit_air_fryer": {
+    "title": "Poulet frit air fryer",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/poulet_frit_air_fryer_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "aliases": [
+      "poulet croustillant air fryer",
+      "poulet frit sans bain"
+    ],
+    "tags": [
+      "poulet",
+      "air fryer",
+      "croustillant"
+    ],
+    "ingredients": [
+      {
+        "group": "Poulet",
+        "items": [
+          "800g hauts de cuisses de poulet désossés",
+          "250g lait fermenté",
+          "160g farine",
+          "40g fécule de maïs",
+          "Paprika",
+          "Ail en poudre",
+          "Piment doux",
+          "Sel fin",
+          "Poivre du moulin",
+          "Huile en spray"
+        ]
+      }
+    ],
+    "steps": [
+      "Mariner le poulet 1h dans le lait fermenté assaisonné.",
+      "Mélanger farine, fécule, paprika, ail, piment, sel et poivre du moulin.",
+      "Égoutter le poulet, l enrober fortement de panure et laisser reposer 10min.",
+      "Pulvériser un peu d huile et cuire 18 à 22min à 190°C en retournant à mi-cuisson.",
+      "Servir quand la panure est sèche, dorée et croustillante."
+    ],
+    "notes": [
+      "L huile en spray aide la panure à dorer sans bain de friture."
+    ],
+    "technical": [
+      {
+        "label": "Panure",
+        "value": "Le repos après enrobage hydrate la farine et limite les zones poudreuses."
+      }
+    ]
+  },
+  "poulet_gaston_gerard": {
+    "title": "Poulet Gaston Gérard",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/poulet_gaston_gerard_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 6,
+    "yield": "4 personnes",
+    "aliases": [
+      "poulet moutarde comté",
+      "gaston gerard"
+    ],
+    "tags": [
+      "poulet",
+      "moutarde",
+      "comte"
+    ],
+    "ingredients": [
+      {
+        "group": "Poulet",
+        "items": [
+          "4 cuisses de poulet",
+          "200ml vin blanc sec",
+          "250g crème épaisse",
+          "40g moutarde de Dijon",
+          "120g comté râpé",
+          "1 oignon",
+          "30g beurre",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Dorer le poulet au beurre dans une cocotte.",
+      "Ajouter l oignon émincé, faire suer puis déglacer au vin blanc.",
+      "Couvrir et cuire 35 à 40min à feu doux.",
+      "Mélanger crème, moutarde et une partie du comté.",
+      "Napper le poulet, ajouter le reste de comté et gratiner 8 à 10min au four chaud."
+    ],
+    "notes": [
+      "La moutarde doit parfumer la sauce sans masquer le comté."
+    ],
+    "technical": [
+      {
+        "label": "Gratin",
+        "value": "Gratiner court pour dorer le fromage sans faire trancher la crème."
+      }
+    ]
+  },
+  "beurre_clarifie": {
+    "title": "Beurre clarifié",
+    "master": "elements_base_maitre",
+    "image": "/assets/recipe-images-optimized/beurre_clarifie_spooky.jpg",
+    "categories": [
+      "Base"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "environ 160g",
+    "aliases": [
+      "ghee",
+      "beurre clarifie"
+    ],
+    "tags": [
+      "beurre",
+      "base",
+      "cuisson"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "200g beurre doux"
+        ]
+      }
+    ],
+    "steps": [
+      "Faire fondre le beurre très doucement sans remuer.",
+      "Laisser l eau s évaporer et l écume remonter en surface.",
+      "Retirer l écume avec une cuillère.",
+      "Verser lentement le gras jaune clair dans un pot en laissant le dépôt blanc au fond.",
+      "Refroidir puis fermer."
+    ],
+    "notes": [
+      "Le beurre clarifié supporte mieux les cuissons qu un beurre entier."
+    ],
+    "technical": [
+      {
+        "label": "Séparation",
+        "value": "On garde le gras pur et on retire eau, mousse et caséine."
+      }
+    ],
+    "practical": {
+      "storage": [
+        "Plusieurs semaines au réfrigérateur dans un pot propre."
+      ]
+    }
+  },
+  "hauts_de_cuisses_poulet_orange_oignon": {
+    "title": "Hauts de cuisses poulet orange oignon",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/hauts_de_cuisses_poulet_orange_oignon_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "aliases": [
+      "poulet orange oignon"
+    ],
+    "tags": [
+      "poulet",
+      "orange",
+      "four"
+    ],
+    "ingredients": [
+      {
+        "group": "Poulet",
+        "items": [
+          "800g hauts de cuisses de poulet",
+          "2 oranges",
+          "3 oignons",
+          "30g miel",
+          "25g sauce soja",
+          "Huile olive",
+          "Thym",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Émincer les oignons et les déposer dans un plat.",
+      "Mélanger jus et zeste d orange, miel, sauce soja, huile olive, thym et poivre du moulin.",
+      "Enrober le poulet et le poser sur les oignons.",
+      "Cuire 40 à 45min à 190°C en arrosant régulièrement.",
+      "Servir avec le jus réduit et les oignons fondants."
+    ],
+    "notes": [
+      "L orange doit apporter du peps, pas transformer le plat en dessert."
+    ],
+    "technical": [
+      {
+        "label": "Jus",
+        "value": "Arroser en cours de cuisson pour garder la peau brillante."
+      }
+    ]
+  },
+  "puree_pommes_de_terre_citron": {
+    "title": "Purée pommes de terre citron",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/puree_pommes_de_terre_citron_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "aliases": [
+      "purée citron",
+      "puree jamie oliver"
+    ],
+    "tags": [
+      "pomme de terre",
+      "citron",
+      "puree"
+    ],
+    "ingredients": [
+      {
+        "group": "Purée",
+        "items": [
+          "1000g pommes de terre farineuses",
+          "80g beurre doux",
+          "120g lait chaud",
+          "1 citron",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les pommes de terre pelées dans l eau salée jusqu à tendreté.",
+      "Égoutter et sécher 2min dans la casserole chaude.",
+      "Écraser avec le beurre, puis détendre avec le lait chaud.",
+      "Ajouter zeste de citron et quelques gouttes de jus.",
+      "Rectifier sel et poivre du moulin."
+    ],
+    "notes": [
+      "Ajoute le jus de citron progressivement pour ne pas dominer la pomme de terre."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Écraser, ne pas mixer, pour éviter une purée collante."
+      }
+    ]
+  },
+  "salade_oeufs_durs_mayonnaise_bistrot": {
+    "title": "Salade oeufs durs mayonnaise bistrot",
+    "master": "entrees_maitre",
+    "image": "/assets/recipe-images-optimized/salade_oeufs_durs_mayonnaise_bistrot_spooky.jpg",
+    "categories": [
+      "Entrées"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "aliases": [
+      "salade oeufs mayonnaise",
+      "oeufs durs mayo"
+    ],
+    "tags": [
+      "oeuf",
+      "mayonnaise",
+      "salade"
+    ],
+    "ingredients": [
+      {
+        "group": "Salade",
+        "items": [
+          "8 oeufs",
+          "120g <span data-goto=\"mayonnaise_maison\">mayonnaise</span>",
+          "20g moutarde douce",
+          "Ciboulette",
+          "Cornichons optionnels",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les oeufs 9 à 10min, refroidir puis écaler.",
+      "Couper les oeufs en gros morceaux.",
+      "Mélanger mayonnaise, moutarde, ciboulette, sel et poivre du moulin.",
+      "Enrober les oeufs délicatement.",
+      "Ajouter cornichons hachés si souhaité et servir frais."
+    ],
+    "notes": [
+      "Une mayonnaise assez ferme donne une salade plus nette."
+    ],
+    "technical": [
+      {
+        "label": "Oeufs",
+        "value": "Refroidir vite pour stopper la cuisson et faciliter l écalage."
+      }
+    ]
+  },
+  "cuisses_de_poulet_miel_moutarde": {
+    "title": "Cuisses de poulet miel moutarde",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/cuisses_de_poulet_miel_moutarde_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "aliases": [
+      "poulet miel moutarde four"
+    ],
+    "tags": [
+      "poulet",
+      "moutarde",
+      "miel"
+    ],
+    "ingredients": [
+      {
+        "group": "Poulet",
+        "items": [
+          "4 cuisses de poulet",
+          "45g miel",
+          "40g moutarde de Dijon",
+          "25g huile olive",
+          "1 gousse ail",
+          "Thym",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Mélanger miel, moutarde, huile olive, ail, thym, sel et poivre du moulin.",
+      "Badigeonner les cuisses de poulet.",
+      "Cuire 45 à 50min à 190°C en arrosant à mi-cuisson.",
+      "Laisser reposer 5min avant service."
+    ],
+    "notes": [
+      "La moutarde équilibre le miel et évite une sauce trop sucrée."
+    ],
+    "technical": [
+      {
+        "label": "Coloration",
+        "value": "Surveiller la peau en fin de cuisson car le miel caramélise vite."
+      }
+    ]
+  },
+  "riz_au_citron": {
+    "title": "Riz au citron",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/riz_au_citron_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "aliases": [
+      "riz citronné",
+      "riz parfumé citron"
+    ],
+    "tags": [
+      "riz",
+      "citron",
+      "accompagnement"
+    ],
+    "ingredients": [
+      {
+        "group": "Riz",
+        "items": [
+          "300g riz basmati",
+          "1 citron",
+          "30g beurre doux",
+          "600g bouillon de volaille ou légumes",
+          "Persil plat",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Rincer le riz jusqu à eau presque claire.",
+      "Nacrer le riz 1min avec le beurre.",
+      "Ajouter bouillon chaud, zeste de citron, sel et poivre du moulin.",
+      "Couvrir et cuire 12min à feu doux.",
+      "Laisser reposer 5min hors du feu, puis ajouter un peu de jus de citron et persil."
+    ],
+    "notes": [
+      "Le jus de citron se dose à la fin pour garder un parfum frais."
+    ],
+    "technical": [
+      {
+        "label": "Repos",
+        "value": "Le riz finit d absorber la vapeur hors du feu."
+      }
+    ]
+  },
+  "saucisse_puree_maison": {
+    "title": "Saucisse purée maison",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/saucisse_puree_maison_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "aliases": [
+      "saucisse purée",
+      "plat bistrot"
+    ],
+    "tags": [
+      "saucisse",
+      "puree",
+      "confort"
+    ],
+    "ingredients": [
+      {
+        "group": "Plat",
+        "items": [
+          "4 saucisses de Toulouse",
+          "1000g pommes de terre farineuses",
+          "120g lait chaud",
+          "80g beurre doux",
+          "2 oignons",
+          "150ml bouillon",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les pommes de terre à l eau salée jusqu à tendreté.",
+      "Cuire les saucisses doucement à la poêle pour les dorer sans éclater.",
+      "Faire fondre les oignons émincés dans le gras de cuisson.",
+      "Déglacer avec le bouillon et réduire en jus court.",
+      "Écraser les pommes de terre avec beurre et lait chaud.",
+      "Servir saucisses, purée et jus aux oignons."
+    ],
+    "notes": [
+      "Une cuisson douce garde les saucisses juteuses."
+    ],
+    "technical": [
+      {
+        "label": "Purée",
+        "value": "Le lait doit être chaud pour ne pas figer le beurre."
+      }
+    ]
+  },
+  "joues_de_porc_chorizo_piment": {
+    "title": "Joues de porc chorizo piment",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/joues_de_porc_chorizo_piment_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "aliases": [
+      "joues de porc chorizo",
+      "porc piment espelette"
+    ],
+    "tags": [
+      "porc",
+      "chorizo",
+      "mijote"
+    ],
+    "ingredients": [
+      {
+        "group": "Mijoté",
+        "items": [
+          "800g joues de porc",
+          "150g chorizo",
+          "2 oignons",
+          "2 gousses ail",
+          "400g tomates concassées",
+          "250ml vin blanc sec",
+          "Piment d Espelette",
+          "Huile olive",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Dorer les joues de porc dans une cocotte.",
+      "Ajouter oignons, ail et chorizo en rondelles, puis faire revenir 5min.",
+      "Déglacer au vin blanc et réduire légèrement.",
+      "Ajouter tomates, piment d Espelette, sel et poivre du moulin.",
+      "Couvrir et mijoter 1h45 à 2h, jusqu à viande fondante.",
+      "Réduire la sauce à découvert si besoin."
+    ],
+    "notes": [
+      "Le chorizo sale déjà la sauce : assaisonne prudemment."
+    ],
+    "technical": [
+      {
+        "label": "Mijotage",
+        "value": "La joue de porc doit cuire doucement pour garder son moelleux."
+      }
+    ]
+  },
+  "lentilles_a_la_bourguignonne": {
+    "title": "Lentilles à la bourguignonne",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/lentilles_a_la_bourguignonne_spooky.jpg",
+    "categories": [
+      "Plats",
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "aliases": [
+      "lentilles bourguignonne"
+    ],
+    "tags": [
+      "lentilles",
+      "vin rouge",
+      "mijote"
+    ],
+    "ingredients": [
+      {
+        "group": "Lentilles",
+        "items": [
+          "300g lentilles vertes",
+          "150g champignons",
+          "150g carottes",
+          "100g lardons optionnels",
+          "1 oignon",
+          "300ml vin rouge",
+          "500ml bouillon",
+          "Thym",
+          "Laurier",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Faire revenir oignon, carottes, champignons et lardons si utilisés.",
+      "Ajouter les lentilles, thym, laurier et vin rouge.",
+      "Réduire 3min puis ajouter le bouillon.",
+      "Mijoter 30 à 35min, jusqu à lentilles tendres.",
+      "Saler en fin de cuisson et ajuster au poivre du moulin."
+    ],
+    "notes": [
+      "Saler trop tôt peut durcir légèrement les lentilles."
+    ],
+    "technical": [
+      {
+        "label": "Cuisson",
+        "value": "Garder un frémissement doux pour ne pas éclater les lentilles."
+      }
+    ],
+    "additionalMasters": [
+      "accompagnements_maitre"
+    ]
+  },
+  "beurre_d_escargot_persille": {
+    "title": "Beurre d escargot persillé",
+    "master": "sauces_maitre",
+    "image": "/assets/recipe-images-optimized/beurre_d_escargot_persille_spooky.jpg",
+    "categories": [
+      "Sauces",
+      "Base"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "environ 250g",
+    "aliases": [
+      "beurre persillé",
+      "beurre escargot"
+    ],
+    "tags": [
+      "beurre",
+      "persil",
+      "ail"
+    ],
+    "ingredients": [
+      {
+        "group": "Beurre composé",
+        "items": [
+          "250g beurre doux mou",
+          "25g persil plat",
+          "3 gousses ail",
+          "20g échalote",
+          "15g jus de citron",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Hacher très finement persil, ail et échalote.",
+      "Travailler le beurre mou avec les aromates, citron, sel et poivre du moulin.",
+      "Former un boudin dans du papier cuisson ou garnir directement.",
+      "Réfrigérer 1h avant utilisation."
+    ],
+    "notes": [
+      "Fonctionne avec escargots, champignons, pommes de terre ou pain grillé."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Le beurre doit être pommade, pas fondu, pour garder une émulsion nette."
+      }
+    ],
+    "practical": {
+      "storage": [
+        "5 jours au réfrigérateur ou 2 mois au congélateur."
+      ]
+    },
+    "additionalMasters": [
+      "elements_base_maitre"
+    ]
+  },
+  "lentilles_tomate_pommes_de_terre_sautees": {
+    "title": "Lentilles tomate pommes de terre sautées",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/lentilles_tomate_pommes_de_terre_sautees_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Printemps",
+      "Automne"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "aliases": [
+      "lentilles tomate",
+      "lentilles pommes de terre sautees"
+    ],
+    "tags": [
+      "lentilles",
+      "tomate",
+      "pomme de terre"
+    ],
+    "ingredients": [
+      {
+        "group": "Lentilles",
+        "items": [
+          "280g lentilles vertes",
+          "500g pommes de terre",
+          "400g tomates concassées",
+          "1 oignon",
+          "1 gousse ail",
+          "500ml bouillon",
+          "Thym",
+          "Huile olive",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les lentilles avec bouillon, oignon, ail, thym et tomates 25 à 30min.",
+      "Couper les pommes de terre en dés et les sauter à l huile olive 20min jusqu à dorure.",
+      "Saler les lentilles en fin de cuisson.",
+      "Servir les lentilles tomatées avec les pommes de terre croustillantes par-dessus."
+    ],
+    "notes": [
+      "Le contraste lentilles fondantes et pommes de terre sautées fait tout le plat."
+    ],
+    "technical": [
+      {
+        "label": "Pommes de terre",
+        "value": "Les sécher avant cuisson améliore la coloration."
+      }
     ]
   }
 };

@@ -631,12 +631,24 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "masterType": "collection",
     "variants": [
       {
+        "id": "ajitsuke_tamago_oeufs_marines_ramen",
+        "label": "Ajitsuke tamago oeufs marin\u00e9s ramen"
+      },
+      {
         "id": "beignets_calamar",
         "label": "Beignets de calamar"
       },
       {
+        "id": "carpaccio_betterave_mozzarella_yuzu",
+        "label": "Carpaccio betterave mozzarella yuzu"
+      },
+      {
         "id": "cassolette_crevettes_ravioles_persil",
         "label": "Cassolette de crevettes et ravioles au persil"
+      },
+      {
+        "id": "chipirons_a_la_plancha",
+        "label": "Chipirons \u00e0 la plancha"
       },
       {
         "id": "chou_fleur_croustillant",
@@ -657,6 +669,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "oignons_rotis_thym_miel",
         "label": "Oignons r\u00f4tis au thym et au miel"
+      },
+      {
+        "id": "salade_oeufs_durs_mayonnaise_bistrot",
+        "label": "Salade oeufs durs mayonnaise bistrot"
       },
       {
         "id": "tomates_maitre",
@@ -1029,6 +1045,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Cake tomate chorizo feta"
       },
       {
+        "id": "chorizo_au_cidre",
+        "label": "Chorizo au cidre"
+      },
+      {
         "id": "chou_fleur_croustillant",
         "label": "Chou-fleur croustillant"
       },
@@ -1175,6 +1195,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Toutes saisons"
     ],
     "variants": [
+      {
+        "id": "beurre_d_escargot_persille",
+        "label": "Beurre d escargot persill\u00e9"
+      },
       {
         "id": "coulis_maitre",
         "label": "Coulis"
