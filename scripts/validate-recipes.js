@@ -56,6 +56,23 @@ function collectStrings(value, out = []) {
   return out;
 }
 
+function checkForbiddenDisplayTerms(value, location, key = '') {
+  if (key === 'id' || key === 'recipeId' || key === 'image' || key === 'video') return;
+  if (typeof value === 'string') {
+    if (/\b(maison|bistrot)\b/i.test(value)) {
+      errors.push(`${location}: terme maison/bistrot interdit (${value}).`);
+    }
+    return;
+  }
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => checkForbiddenDisplayTerms(item, `${location}[${index}]`, key));
+    return;
+  }
+  if (value && typeof value === 'object') {
+    Object.entries(value).forEach(([childKey, item]) => checkForbiddenDisplayTerms(item, `${location}.${childKey}`, childKey));
+  }
+}
+
 function normalizeComparable(value) {
   return String(value || '')
     .normalize('NFD')
@@ -367,6 +384,7 @@ if (!recipes || typeof recipes !== 'object') {
       }
       checkPepperWording(id, value);
     });
+    checkForbiddenDisplayTerms(recipe, id);
 
     let resolvedImagePath = null;
     if (!recipe.image) {
@@ -378,7 +396,12 @@ if (!recipes || typeof recipes !== 'object') {
     } else if (recipe.image.startsWith('/')) {
       const filePath = path.join(ROOT, recipe.image.replace(/^\/+/, ''));
       if (!fs.existsSync(filePath)) errors.push(`${id}: image locale introuvable (${recipe.image}).`);
-      else resolvedImagePath = filePath;
+      else {
+        resolvedImagePath = filePath;
+        if (!isMaster && /^\/assets\/recipe-images-optimized\/.*\.jpg(?:$|\?)/i.test(recipe.image) && fs.statSync(filePath).size < 100000) {
+          errors.push(`${id}: image recette trop legere, probablement placeholder (${recipe.image}).`);
+        }
+      }
       if (/^\/assets\/recipe-images-optimized\/.*\.jpg(?:$|\?)/i.test(recipe.image)) {
         const originalPath = path.join(ROOT, recipe.image
           .replace(/^\/+/, '')

@@ -33,7 +33,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Choisir une variante pour afficher la recette compl\u00e8te."
     ],
     "notes": [
-      "Fiche ma\u00eetre : bases techniques et montages li\u00e9s."
+      "Fiche ma\u00eetre bases techniques et montages li\u00e9s."
     ],
     "technical": [
       {
@@ -85,7 +85,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Choisir une variante pour afficher la recette compl\u00e8te."
     ],
     "notes": [
-      "Fiche ma\u00eetre : pr\u00e9parations de tomates confites, s\u00e9ch\u00e9es ou r\u00f4ties."
+      "Fiche ma\u00eetre pr\u00e9parations de tomates confites, s\u00e9ch\u00e9es ou r\u00f4ties."
     ],
     "technical": [
       {
@@ -233,13 +233,13 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       }
     ],
     "steps": [
-      "Version salade : mixer basilic + pignons + ail + parmesan puis monter \u00e0 l\u2019huile et citron.",
-      "Version Genovese : piler ail + sel + pignons, ajouter le basilic puis les fromages et l\u2019huile."
+      "Version salade mixer basilic + pignons + ail + parmesan puis monter \u00e0 l\u2019huile et citron.",
+      "Version Genovese piler ail + sel + pignons, ajouter le basilic puis les fromages et l\u2019huile."
     ],
     "notes": [
-      "M\u00eame fiche, 2 styles : citronn\u00e9 (salades) ou traditionnel (p\u00e2tes/gnocchi).",
-      "Conservation : 2\u20134 j au froid, film au contact + fine couche d\u2019huile.",
-      "Stockage : bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption : 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation."
+      "M\u00eame fiche, 2 styles citronn\u00e9 (salades) ou traditionnel (p\u00e2tes/gnocchi).",
+      "Conservation 2\u20134 j au froid, film au contact + fine couche d\u2019huile.",
+      "Stockage bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation."
     ],
     "difficultyScore": 3,
     "variantGroups": true,
@@ -279,7 +279,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Variante pomme de terre",
         "items": [
           "800g pommes de terre en d\u00e9s de 2 \u00e0 3cm",
-          "Cuisson : 35 \u00e0 45min \u00e0 200\u00b0C chaleur tournante"
+          "Cuisson 35 \u00e0 45min \u00e0 200\u00b0C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante avec la plaque.",
@@ -291,7 +291,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Variante patate douce",
         "items": [
           "700g patate douce en d\u00e9s de 2 \u00e0 3cm",
-          "Cuisson : 25 \u00e0 35min \u00e0 200\u00b0C chaleur tournante"
+          "Cuisson 25 \u00e0 35min \u00e0 200\u00b0C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -303,7 +303,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Variante carotte ou panais",
         "items": [
           "700g carottes ou panais en b\u00e2tonnets r\u00e9guliers",
-          "Cuisson : 22 \u00e0 35min \u00e0 200\u00b0C chaleur tournante"
+          "Cuisson 22 \u00e0 35min \u00e0 200\u00b0C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -315,7 +315,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Variante betterave ou c\u00e9leri-rave",
         "items": [
           "700g betterave ou c\u00e9leri-rave en d\u00e9s de 2 \u00e0 3cm",
-          "Cuisson : 30 \u00e0 45min \u00e0 200\u00b0C chaleur tournante"
+          "Cuisson 30 \u00e0 45min \u00e0 200\u00b0C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -327,7 +327,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Variante courge ou butternut",
         "items": [
           "700g courge ou butternut en d\u00e9s de 2 \u00e0 3cm",
-          "Cuisson : 25 \u00e0 35min \u00e0 200\u00b0C chaleur tournante"
+          "Cuisson 25 \u00e0 35min \u00e0 200\u00b0C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -339,7 +339,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Variante brocoli, chou-fleur ou choux de Bruxelles",
         "items": [
           "650g brocoli ou chou-fleur en sommit\u00e9s, ou choux de Bruxelles coup\u00e9s en deux",
-          "Cuisson : 15 \u00e0 25min \u00e0 200\u00b0C chaleur tournante"
+          "Cuisson 15 \u00e0 25min \u00e0 200\u00b0C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -351,7 +351,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Variante poivron, courgette ou aubergine",
         "items": [
           "700g poivron en lani\u00e8res, courgette en quartiers ou aubergine en d\u00e9s de 2 \u00e0 3cm",
-          "Cuisson : 18 \u00e0 35min \u00e0 200\u00b0C chaleur tournante"
+          "Cuisson 18 \u00e0 35min \u00e0 200\u00b0C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -363,7 +363,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Variante oignon, fenouil ou poireau",
         "items": [
           "650g oignons ou fenouil en quartiers, ou poireaux en tron\u00e7ons de 3 \u00e0 4cm",
-          "Cuisson : 20 \u00e0 35min \u00e0 200\u00b0C chaleur tournante"
+          "Cuisson 20 \u00e0 35min \u00e0 200\u00b0C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -375,7 +375,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Variante asperges, haricots verts ou champignons",
         "items": [
           "600g asperges par\u00e9es, haricots verts bien secs ou champignons en gros quartiers",
-          "Cuisson : 10 \u00e0 18min \u00e0 200\u00b0C chaleur tournante"
+          "Cuisson 10 \u00e0 18min \u00e0 200\u00b0C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -387,7 +387,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "group": "Variante tomates r\u00f4ties",
         "items": [
           "700g tomates Roma coup\u00e9es en deux",
-          "Cuisson : 20 \u00e0 25min \u00e0 200\u00b0C chaleur tournante"
+          "Cuisson 20 \u00e0 25min \u00e0 200\u00b0C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -406,9 +406,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Plaque pr\u00e9chauff\u00e9e = cro\u00fbte plus nette.",
-      "Conservation : 4 j au r\u00e9frig\u00e9rateur.",
-      "Stockage : bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption : 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Conservation 4 j au r\u00e9frig\u00e9rateur.",
+      "Stockage bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation.",
+      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "difficultyScore": 3,
     "tags": [
@@ -467,12 +467,12 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       }
     ],
     "steps": [
-      "La veille : pr\u00e9lever 40g de lait, ti\u00e9dir \u00e0 25\u201330\u00b0C, dissoudre la levure fra\u00eeche.",
+      "La veille pr\u00e9lever 40g de lait, ti\u00e9dir \u00e0 25\u201330\u00b0C, dissoudre la levure fra\u00eeche.",
       "M\u00e9langer farine, sucre, sel et vanille. Ajouter \u0153uf, reste du lait, m\u00e9lange levure et beurre fondu ti\u00e8de ou mou.",
       "P\u00e9trir 8\u201310min jusqu\u2019\u00e0 p\u00e2te lisse, souple et l\u00e9g\u00e8rement collante. Couvrir 15min.",
       "Bouler, placer en bol l\u00e9g\u00e8rement huil\u00e9, laisser 30\u201345min \u00e0 temp\u00e9rature ambiante.",
       "Couvrir et mettre au froid 12\u201318h.",
-      "Le lendemain : sortir 1h avant.",
+      "Le lendemain sortir 1h avant.",
       "D\u00e9gazer l\u00e9g\u00e8rement, bouler \u00e0 60\u201370g avec une surface bien tendue.",
       "Appr\u00eat 1h \u00e0 1h 30. L\u2019empreinte du doigt doit remonter lentement.",
       "Frire \u00e0 160\u2013165\u00b0C, 2min 30 \u00e0 3min par face, 2\u20133 pi\u00e8ces maximum \u00e0 la fois.",
@@ -482,14 +482,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Ne jamais fourrer chaud.",
       "Trou sur le c\u00f4t\u00e9, douille longue, 30\u201340g de cr\u00e8me.",
       "Stopper quand le beignet devient l\u00e9g\u00e8rement gonfl\u00e9 et lourd.",
-      "Huile trop chaude : ext\u00e9rieur fonc\u00e9 et c\u0153ur insuffisamment cuit.",
-      "Huile trop froide : beignets gras.",
-      "Appr\u00eat insuffisant : mie dense.",
-      "Sur-appr\u00eat : beignets qui retombent.",
-      "R\u00e9sultat attendu : mie a\u00e9r\u00e9e et filante, ext\u00e9rieur finement dor\u00e9, cuisson \u00e0 c\u0153ur sans s\u00e9cheresse.",
-      "Stockage : id\u00e9alement le jour m\u00eame. P\u00e9remption : 24\u201348h en bo\u00eete herm\u00e9tique; r\u00e9chauffer doucement pour retrouver la texture.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire.",
-      "Cr\u00e8mes \u00e0 garnir : <span data-goto=\"creme_diplomate_vanille\">Cr\u00e8me diplomate vanille</span> \u00b7 <span data-goto=\"creme_diplomate_cloud\">Cr\u00e8me diplomate vanille \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_patissiere_vanille\">Cr\u00e8me p\u00e2tissi\u00e8re vanille</span> \u00b7 <span data-goto=\"creme_patissiere_praline\">Cr\u00e8me p\u00e2tissi\u00e8re pralin\u00e9</span> \u00b7 <span data-goto=\"creme_kinder_nutella\">Cr\u00e8me Nutella \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_pistache\">Cr\u00e8me pistache \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_praline\">Cr\u00e8me pralin\u00e9</span> \u00b7 <span data-goto=\"mascarpone\">Cr\u00e8me mascarpone vanille</span> \u00b7 <span data-goto=\"chantilly_gelatine\">Chantilly stabilis\u00e9e</span>."
+      "Huile trop chaude ext\u00e9rieur fonc\u00e9 et c\u0153ur insuffisamment cuit.",
+      "Huile trop froide beignets gras.",
+      "Appr\u00eat insuffisant mie dense.",
+      "Sur-appr\u00eat beignets qui retombent.",
+      "R\u00e9sultat attendu mie a\u00e9r\u00e9e et filante, ext\u00e9rieur finement dor\u00e9, cuisson \u00e0 c\u0153ur sans s\u00e9cheresse.",
+      "Stockage id\u00e9alement le jour m\u00eame. P\u00e9remption 24\u201348h en bo\u00eete herm\u00e9tique; r\u00e9chauffer doucement pour retrouver la texture.",
+      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire.",
+      "Cr\u00e8mes \u00e0 garnir <span data-goto=\"creme_diplomate_vanille\">Cr\u00e8me diplomate vanille</span> \u00b7 <span data-goto=\"creme_diplomate_cloud\">Cr\u00e8me diplomate vanille \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_patissiere_vanille\">Cr\u00e8me p\u00e2tissi\u00e8re vanille</span> \u00b7 <span data-goto=\"creme_patissiere_praline\">Cr\u00e8me p\u00e2tissi\u00e8re pralin\u00e9</span> \u00b7 <span data-goto=\"creme_kinder_nutella\">Cr\u00e8me Nutella \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_pistache\">Cr\u00e8me pistache \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_praline\">Cr\u00e8me pralin\u00e9</span> \u00b7 <span data-goto=\"mascarpone\">Cr\u00e8me mascarpone vanille</span> \u00b7 <span data-goto=\"chantilly_gelatine\">Chantilly stabilis\u00e9e</span>."
     ],
     "technical": [
       {
@@ -539,8 +539,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Base technique pour plusieurs entremets/p\u00e2tisseries classiques.",
-      "Stockage : bo\u00eete herm\u00e9tique au sec, \u00e0 temp\u00e9rature ambiante. P\u00e9remption : 5\u201314 jours selon humidit\u00e9; garder loin du r\u00e9frig\u00e9rateur sauf garniture fragile.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Stockage bo\u00eete herm\u00e9tique au sec, \u00e0 temp\u00e9rature ambiante. P\u00e9remption 5\u201314 jours selon humidit\u00e9; garder loin du r\u00e9frig\u00e9rateur sauf garniture fragile.",
+      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "difficultyScore": 8,
     "additionalMasters": [
@@ -567,16 +567,16 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Chou-fleur croustillant"
       },
       {
+        "id": "frites_maison",
+        "label": "Frites"
+      },
+      {
         "id": "frites_belges",
         "label": "Frites belges"
       },
       {
         "id": "frites_patate_douce",
         "label": "Frites de patate douce"
-      },
-      {
-        "id": "frites_maison",
-        "label": "Frites maison"
       },
       {
         "id": "gaufres_pommes_terre",
@@ -681,11 +681,11 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "ingredients": [
       {
-        "group": "Huile chili crisp maison",
+        "group": "Huile chili crisp",
         "items": [
           "110g huile d\u2019avocat ou huile neutre",
           "5g flocons de piment concass\u00e9s ou piment rouge s\u00e9ch\u00e9 finement concass\u00e9",
-          "7g poudre de piment finement moulue : piment du Sichuan, gochugaru, poudre de chili ou autre piment au choix",
+          "7g poudre de piment finement moulue piment du Sichuan, gochugaru, poudre de chili ou autre piment au choix",
           "0,3g cinq-\u00e9pices",
           "4 \u00e0 5g ail tr\u00e8s finement hach\u00e9 ou r\u00e2p\u00e9",
           "1,5g graines de s\u00e9same",
@@ -695,7 +695,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Toast \u00e0 l\u2019\u0153uf",
         "items": [
-          "9 \u00e0 14g huile chili crisp maison ou huile chili crisp du commerce",
+          "9 \u00e0 14g huile chili crisp ou huile chili crisp du commerce",
           "55g \u0153uf (1 \u0153uf moyen)",
           "Sel",
           "Poivre du moulin",
@@ -714,7 +714,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       }
     ],
     "steps": [
-      "Verser l\u2019huile dans une petite casserole et chauffer \u00e0 feu doux : elle doit \u00eatre chaude sans fumer.",
+      "Verser l\u2019huile dans une petite casserole et chauffer \u00e0 feu doux elle doit \u00eatre chaude sans fumer.",
       "M\u00e9langer flocons de piment, poudre de piment, cinq-\u00e9pices, ail, graines de s\u00e9same et sel dans un bol r\u00e9sistant \u00e0 la chaleur.",
       "Verser l\u2019huile chaude sur le m\u00e9lange d\u2019\u00e9pices, laisser cr\u00e9piter quelques secondes, m\u00e9langer puis laisser ti\u00e9dir.",
       "Faire chauffer une po\u00eale \u00e0 feu moyen.",
@@ -780,9 +780,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Accompagnement pour viande grill\u00e9e, poisson, pur\u00e9e ou gratin de l\u00e9gumes.",
-      "Conservation : 3\u20134 jours au froid en bo\u00eete herm\u00e9tique.",
-      "Stockage : bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption : 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Conservation 3\u20134 jours au froid en bo\u00eete herm\u00e9tique.",
+      "Stockage bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation.",
+      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "tags": [
       "oignon",
@@ -831,7 +831,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "Texture fondante pour tarte citron, verrines ou fourrage.",
       "Refroidir avant montage pour une tenue nette.",
-      "Stockage : au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption : 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
+      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
     ],
     "tags": [
       "creme",
@@ -880,7 +880,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "Base de la cr\u00e8me diplomate vanille.",
       "Lisser au fouet apr\u00e8s refroidissement avant incorporation.",
-      "Stockage : au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption : 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
+      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
     ],
     "tags": [
       "creme",
@@ -929,7 +929,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": []
   },
   "babeurre_maison": {
-    "title": "Babeurre maison",
+    "title": "Babeurre",
     "master": "elements_base_maitre",
     "image": "/assets/recipe-images-optimized/babeurre_maison_spooky.jpg",
     "categories": [
@@ -942,7 +942,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "yield": "260g environ",
     "aliases": [
       "babeurre",
-      "babeurre maison",
+      "babeurre",
       "buttermilk"
     ],
     "ingredients": [
@@ -956,12 +956,12 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "steps": [
       "M\u00e9langer le lait et le jus de citron ou le vinaigre.",
-      "Laisser reposer 10min  \u00e0 temp\u00e9rature ambiante.",
+      "Laisser reposer 10min \u00e0 temp\u00e9rature ambiante.",
       "Utiliser d\u00e8s que le lait a l\u00e9g\u00e8rement \u00e9paissi."
     ],
     "notes": [
       "\u00c0 utiliser dans les pancakes, gaufres ou p\u00e2tes lev\u00e9es moelleuses.",
-      "Stockage : au r\u00e9frig\u00e9rateur en contenant propre. P\u00e9remption : 24h."
+      "Stockage au r\u00e9frig\u00e9rateur en contenant propre. P\u00e9remption 24h."
     ],
     "tags": [
       "babeurre",
@@ -1013,14 +1013,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Fouetter les \u0153ufs avec le sucre sans trop blanchir.",
       "Incorporer le m\u00e9lange chocolat-beurre, puis la farine et la fleur de sel.",
       "Remplir les moules aux trois quarts et r\u00e9server au froid au moins 1h.",
-      "Cuire \u00e0 four chaud 7 \u00e0 10min selon la taille des moules : les bords doivent \u00eatre pris et le centre tremblotant.",
+      "Cuire \u00e0 four chaud 7 \u00e0 10min selon la taille des moules les bords doivent \u00eatre pris et le centre tremblotant.",
       "Attendre 1min, d\u00e9mouler d\u00e9licatement et servir aussit\u00f4t."
     ],
     "notes": [
-      "Le temps de cuisson est le point cl\u00e9 : tester un moule avant une s\u00e9rie.",
-      "Pr\u00e9paration des moules ou ramequins : beurre g\u00e9n\u00e9reusement puis chemise au cacao ou \u00e0 la farine, sinon les mi-cuits peuvent coller au d\u00e9moulage.",
-      "Stockage : appareil cru 24h au r\u00e9frig\u00e9rateur, cuisson minute recommand\u00e9e.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Le temps de cuisson est le point cl\u00e9 tester un moule avant une s\u00e9rie.",
+      "Pr\u00e9paration des moules ou ramequins beurre g\u00e9n\u00e9reusement puis chemise au cacao ou \u00e0 la farine, sinon les mi-cuits peuvent coller au d\u00e9moulage.",
+      "Stockage appareil cru 24h au r\u00e9frig\u00e9rateur, cuisson minute recommand\u00e9e.",
+      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "tags": [
       "chocolat",
@@ -1047,7 +1047,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "yield": "25 churros",
     "aliases": [
       "churros",
-      "churros maison"
+      "churros"
     ],
     "ingredients": [
       {
@@ -1082,8 +1082,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "La p\u00e2te doit \u00eatre assez souple pour \u00eatre poch\u00e9e mais garder les stries de la douille.",
-      "Stockage : meilleur minute, possible 24h mais perd du croustillant.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Stockage meilleur minute, possible 24h mais perd du croustillant.",
+      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "tags": [
       "churros",
@@ -1174,11 +1174,11 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "Le m\u00e9lange chocolat noir et chocolat au lait donne un \u00e9quilibre gourmand sans \u00eatre trop amer.",
       "Le beurre noisette apporte une saveur profonde et l\u00e9g\u00e8rement caram\u00e9lis\u00e9e.",
-      "Sors le beurre \u00e0 ramollir environ 45 \u00e0 60min avant, selon la temp\u00e9rature de la pi\u00e8ce : il doit \u00eatre souple mais pas fondu.",
-      "Pour l\u2019ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille : les ar\u00f4mes ne se dosent pas tous pareil.",
-      "Ne prolonge pas trop la cuisson : les cookies continuent de cuire l\u00e9g\u00e8rement hors du four.",
+      "Sors le beurre \u00e0 ramollir environ 45 \u00e0 60min avant, selon la temp\u00e9rature de la pi\u00e8ce il doit \u00eatre souple mais pas fondu.",
+      "Pour l\u2019ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille les ar\u00f4mes ne se dosent pas tous pareil.",
+      "Ne prolonge pas trop la cuisson les cookies continuent de cuire l\u00e9g\u00e8rement hors du four.",
       "La p\u00e2te peut \u00eatre congel\u00e9e en boules bien emball\u00e9es, puis cuite plus tard directement depuis le cong\u00e9lateur.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
+      "Chaque four r\u00e9agit diff\u00e9remment surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
     ],
     "technical": [
       {
@@ -1242,14 +1242,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Ajouter la cr\u00e8me 35 % et le lait en remuant.",
       "Porter \u00e0 fr\u00e9missement doux et cuire 6 \u00e0 9min, en m\u00e9langeant r\u00e9guli\u00e8rement, jusqu\u2019\u00e0 texture nappante.",
       "Retirer du feu, ajouter la vanille et m\u00e9langer.",
-      "Laisser ti\u00e9dir : la sauce \u00e9paissit en refroidissant.",
+      "Laisser ti\u00e9dir la sauce \u00e9paissit en refroidissant.",
       "Mettre en pot propre et conserver au r\u00e9frig\u00e9rateur."
     ],
     "notes": [
       "Pour une sauce plus fluide, ajoute une petite touche de lait chaud apr\u00e8s cuisson.",
       "Pour une sauce plus \u00e9paisse, prolonge tr\u00e8s l\u00e9g\u00e8rement la cuisson en surveillant la couleur et la texture.",
-      "Si tu utilises un ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille : les ar\u00f4mes ne se dosent pas tous pareil.",
-      "Conservation : environ 1 semaine au r\u00e9frig\u00e9rateur dans un pot propre ferm\u00e9."
+      "Si tu utilises un ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille les ar\u00f4mes ne se dosent pas tous pareil.",
+      "Conservation environ 1 semaine au r\u00e9frig\u00e9rateur dans un pot propre ferm\u00e9."
     ],
     "tags": [
       "sauce",
@@ -1335,7 +1335,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "La sauce doit napper le dos d\u2019une cuill\u00e8re sans devenir lourde.",
       "Si la sauce para\u00eet trop ronde, ajoute une micro-touche de vinaigre de cidre ou de jus de citron juste avant le beurre.",
       "Pour des c\u00f4telettes tr\u00e8s \u00e9paisses, tu peux finir au four \u00e0 150\u00b0C apr\u00e8s la saisie, puis servir avec la sauce \u00e0 part. Surveille la cuisson, car chaque four chauffe diff\u00e9remment.",
-      "Garnitures adapt\u00e9es : pur\u00e9e de c\u00e9leri-rave, pommes Anna, carottes glac\u00e9es, chou pointu r\u00f4ti ou \u00e9cras\u00e9 de pommes de terre au beurre noisette."
+      "Garnitures adapt\u00e9es pur\u00e9e de c\u00e9leri-rave, pommes Anna, carottes glac\u00e9es, chou pointu r\u00f4ti ou \u00e9cras\u00e9 de pommes de terre au beurre noisette."
     ],
     "technical": [
       {
@@ -1406,8 +1406,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "Un cercle \u00e0 p\u00e2tisserie aide les pancakes \u00e0 rester hauts et r\u00e9guliers.",
       "Sans cercle, la recette fonctionne aussi comme des pancakes classiques, mais ils seront moins hauts.",
-      "Tu peux remplacer la gousse par de l'ar\u00f4me vanille, mais suis le dosage indiqu\u00e9 sur la bouteille : les ar\u00f4mes ne se dosent pas tous pareil.",
-      "Garnitures possibles : chocolat fondu, sirop d'\u00e9rable, caramel ou fruits frais."
+      "Tu peux remplacer la gousse par de l'ar\u00f4me vanille, mais suis le dosage indiqu\u00e9 sur la bouteille les ar\u00f4mes ne se dosent pas tous pareil.",
+      "Garnitures possibles chocolat fondu, sirop d'\u00e9rable, caramel ou fruits frais."
     ],
     "technical": [
       {
@@ -1416,7 +1416,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "label": "Cuisson",
-        "value": "Feu doux \u00e0 moyen : les pancakes doivent cuire \u00e0 c\u0153ur sans colorer trop vite."
+        "value": "Feu doux \u00e0 moyen les pancakes doivent cuire \u00e0 c\u0153ur sans colorer trop vite."
       }
     ]
   },
@@ -1481,7 +1481,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "Pour plus de moelleux, laisser pousser la p\u00e2te 1h apr\u00e8s p\u00e9trissage, d\u00e9gazer, puis fa\u00e7onner.",
       "Ces pains se cong\u00e8lent tr\u00e8s bien une fois refroidis.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
+      "Chaque four r\u00e9agit diff\u00e9remment surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
     ],
     "technical": [
       {
@@ -1582,13 +1582,13 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Pr\u00e9chauffer le gaufrier au maximum et graisser l\u00e9g\u00e8rement.",
       "D\u00e9poser une portion g\u00e9n\u00e9reuse d\u2019appareil, tasser l\u00e9g\u00e8rement, fermer et cuire 6 \u00e0 9min.",
       "Sortir quand la gaufre se d\u00e9tache seule, bien dor\u00e9e et croustillante.",
-      "Option restaurant : passer 3 \u00e0 5min sur grille au four \u00e0 190\u00b0C, puis saler l\u00e9g\u00e8rement \u00e0 la fleur de sel.",
+      "Option restaurant passer 3 \u00e0 5min sur grille au four \u00e0 190\u00b0C, puis saler l\u00e9g\u00e8rement \u00e0 la fleur de sel.",
       "Servir imm\u00e9diatement avec sauce cr\u00e8me citronn\u00e9e et herbes fra\u00eeches."
     ],
     "notes": [
       "Moins il reste d\u2019eau dans les pommes de terre, plus les gaufres seront croustillantes.",
-      "N\u2019ouvre pas le gaufrier trop t\u00f4t : la gaufre doit se d\u00e9tacher seule.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveille la coloration si tu fais la finition au four."
+      "N\u2019ouvre pas le gaufrier trop t\u00f4t la gaufre doit se d\u00e9tacher seule.",
+      "Chaque four r\u00e9agit diff\u00e9remment surveille la coloration si tu fais la finition au four."
     ],
     "technical": [
       {
@@ -1673,7 +1673,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Monder les tomates donne une texture plus fine et plus nette.",
       "Si le gazpacho est trop acide, ajoute un peu de tomate bien m\u00fbre ou une pinc\u00e9e de sucre.",
       "Si la texture est trop \u00e9paisse, d\u00e9tends avec un peu d\u2019eau froide.",
-      "R\u00e9sultat cible : tr\u00e8s frais, lisse, domin\u00e9 par la tomate, l\u00e9g\u00e8rement acidul\u00e9 et parfum\u00e9 par les herbes."
+      "R\u00e9sultat cible tr\u00e8s frais, lisse, domin\u00e9 par la tomate, l\u00e9g\u00e8rement acidul\u00e9 et parfum\u00e9 par les herbes."
     ],
     "technical": [
       {
@@ -1720,7 +1720,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "items": [
           "Frites chaudes"
         ],
-        "note": "Pr\u00e9parer des frites belges, des frites maison ou des frites au four, puis ajouter les toppings juste apr\u00e8s cuisson."
+        "note": "Pr\u00e9parer des frites belges, des frites ou des frites au four, puis ajouter les toppings juste apr\u00e8s cuisson."
       },
       {
         "group": "Variante sel et poivre du moulin",
@@ -1841,7 +1841,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       }
     ],
     "steps": [
-      "Pr\u00e9parer une base de frites : frites belges ou frites maison.",
+      "Pr\u00e9parer une base de frites frites belges ou frites.",
       "\u00c9goutter les frites et ajouter les toppings secs imm\u00e9diatement tant qu\u2019elles sont tr\u00e8s chaudes.",
       "Pour la version ail-parmesan, m\u00e9langer ail et huile ou beurre fondu, verser sur les frites, puis ajouter parmesan et persil.",
       "Pour les cheese fries, d\u00e9poser cheddar sur les frites, passer 2 \u00e0 3min sous le gril ou \u00e0 200\u00b0C, puis ajouter les oignons verts.",
@@ -1852,8 +1852,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Servir les sauces \u00e0 part si tu veux garder un maximum de croustillant."
     ],
     "notes": [
-      "Liens utiles : <span data-goto=\"frites_belges\">Frites belges</span> \u00b7 <span data-goto=\"frites_maison\">Frites maison</span> \u00b7 <span data-goto=\"frites_patate_douce\">Frites de patate douce</span>.",
-      "Ajouter les sauces au dernier moment et \u00e9viter de couvrir les frites apr\u00e8s topping : la vapeur les ramollit.",
+      "Liens utiles <span data-goto=\"frites_belges\">Frites belges</span> \u00b7 <span data-goto=\"frites_maison\">Frites</span> \u00b7 <span data-goto=\"frites_patate_douce\">Frites de patate douce</span>.",
+      "Ajouter les sauces au dernier moment et \u00e9viter de couvrir les frites apr\u00e8s topping la vapeur les ramollit.",
       "Le parmesan doit fondre sur les frites chaudes, jamais br\u00fbler avant cuisson."
     ],
     "technical": [
@@ -1935,7 +1935,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "La texture doit rester nappante et l\u00e9g\u00e8re, pas trop serr\u00e9e.",
       "Servir avec des beignets de calamar, des crevettes frites ou des l\u00e9gumes croustillants.",
-      "Raccourci : <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
+      "Raccourci <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
     ],
     "technical": [
       {
@@ -2017,7 +2017,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Id\u00e9al avec p\u00e2tes, soupe, salade, grillades ou plateau ap\u00e9ro.",
-      "Le gril colore tr\u00e8s vite : rester devant le four.",
+      "Le gril colore tr\u00e8s vite rester devant le four.",
       "Pour un go\u00fbt plus doux, pr\u00e9pare le beurre avec de l\u2019ail blanchi ou une quantit\u00e9 d\u2019ail r\u00e9duite."
     ],
     "technical": [
@@ -2027,7 +2027,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "label": "Gril",
-        "value": "Cuisson courte et intense : surveiller en continu."
+        "value": "Cuisson courte et intense surveiller en continu."
       }
     ],
     "practical": {
@@ -2116,7 +2116,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "label": "Cuisson",
-        "value": "Le centre doit \u00eatre pris mais encore souple : il finit de se stabiliser en ti\u00e9dissant."
+        "value": "Le centre doit \u00eatre pris mais encore souple il finit de se stabiliser en ti\u00e9dissant."
       }
     ],
     "practical": {
@@ -2130,7 +2130,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "Revenir \u00e0 temp\u00e9rature ambiante ou r\u00e9chauffer doucement."
       ],
       "mistakes": [
-        "Ne verse pas tout le lait d\u2019un coup : l\u2019ajout progressif \u00e9vite les grumeaux."
+        "Ne verse pas tout le lait d\u2019un coup l\u2019ajout progressif \u00e9vite les grumeaux."
       ],
       "result": [
         "Clafoutis moelleux, fruit\u00e9, avec une p\u00e2te fine autour des cerises."
@@ -2154,7 +2154,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "aliases": [
       "rillettes de porc",
       "rillettes porc",
-      "rillettes maison"
+      "rillettes"
     ],
     "tags": [
       "rillettes",
@@ -2187,20 +2187,20 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Couper les viandes en gros cubes r\u00e9guliers.",
       "Mettre viande, graisse, vin blanc ou eau, sel fin, poivre du moulin, thym et laurier dans une cocotte.",
       "Porter doucement \u00e0 fr\u00e9missement, couvrir partiellement et cuire 4 \u00e0 5h \u00e0 feu tr\u00e8s doux.",
-      "Remuer de temps en temps : la viande doit se d\u00e9tacher en filaments sans s\u00e9cher.",
+      "Remuer de temps en temps la viande doit se d\u00e9tacher en filaments sans s\u00e9cher.",
       "Retirer laurier et thym, \u00e9goutter la viande en gardant la graisse de cuisson.",
       "Effilocher la viande \u00e0 la fourchette, puis incorporer assez de graisse chaude pour obtenir une texture moelleuse.",
       "Mettre en pots propres, tasser l\u00e9g\u00e8rement et couvrir d\u2019une fine couche de graisse.",
       "Refroidir rapidement, puis laisser reposer 24h au r\u00e9frig\u00e9rateur avant d\u00e9gustation."
     ],
     "notes": [
-      "Les rillettes reposent sur une cuisson lente dans la graisse : c\u2019est ce qui donne les filaments et le go\u00fbt profond.",
+      "Les rillettes reposent sur une cuisson lente dans la graisse c\u2019est ce qui donne les filaments et le go\u00fbt profond.",
       "Servir \u00e0 l\u2019ap\u00e9ro, en entr\u00e9e ou dans un sandwich avec cornichons et pain grill\u00e9."
     ],
     "technical": [
       {
         "label": "Cuisson",
-        "value": "Le liquide doit fr\u00e9mir \u00e0 peine : une \u00e9bullition forte dess\u00e8che la viande et brouille la texture."
+        "value": "Le liquide doit fr\u00e9mir \u00e0 peine une \u00e9bullition forte dess\u00e8che la viande et brouille la texture."
       },
       {
         "label": "Texture",
@@ -2216,11 +2216,11 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       ],
       "storage": [
         "4 \u00e0 5 jours au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C apr\u00e8s refroidissement complet.",
-        "Apr\u00e8s ouverture : consommer sous 48h.",
+        "Apr\u00e8s ouverture consommer sous 48h.",
         "Cong\u00e9lation possible en petits pots bien ferm\u00e9s."
       ],
       "mistakes": [
-        "Ne garde pas les rillettes ti\u00e8des longtemps : refroidis vite les pots avant stockage.",
+        "Ne garde pas les rillettes ti\u00e8des longtemps refroidis vite les pots avant stockage.",
         "La couche de graisse prot\u00e8ge la surface, mais ne remplace pas une hygi\u00e8ne stricte ni une conservation au froid."
       ],
       "result": [
@@ -2288,9 +2288,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Tremper calamars ou crevettes dans la tempura, puis frire imm\u00e9diatement \u00e0 180\u00b0C par petites quantit\u00e9s."
     ],
     "notes": [
-      "La tempura doit rester imparfaite : quelques petits grumeaux donnent une friture plus l\u00e9g\u00e8re.",
+      "La tempura doit rester imparfaite quelques petits grumeaux donnent une friture plus l\u00e9g\u00e8re.",
       "Garder l\u2019eau glac\u00e9e et cuire sans attendre.",
-      "Raccourci : <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
+      "Raccourci <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
     ],
     "technical": [
       {
@@ -2326,7 +2326,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "flan_patissier_epais_vanille": {
     "title": "Flan p\u00e2tissier \u00e9pais vanille",
     "master": "desserts_maitre",
-    "image": "/assets/recipe-images-optimized/flan_patissier_epais_vanille_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/flan_patissier_epais_vanille_v2_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -2392,7 +2392,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "label": "Repos",
-        "value": "Le froid termine la tenue : ne coupe pas le flan encore ti\u00e8de."
+        "value": "Le froid termine la tenue ne coupe pas le flan encore ti\u00e8de."
       }
     ],
     "practical": {
@@ -2400,14 +2400,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "2 \u00e0 3 jours au r\u00e9frig\u00e9rateur, non couvert au d\u00e9but puis prot\u00e9g\u00e9 apr\u00e8s refroidissement complet."
       ],
       "mistakes": [
-        "Ne diminue pas trop le sucre : il participe aussi \u00e0 la texture du flan."
+        "Ne diminue pas trop le sucre il participe aussi \u00e0 la texture du flan."
       ]
     }
   },
   "gratin_dauphinois": {
     "title": "Gratin dauphinois",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images-optimized/gratin_dauphinois_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/gratin_dauphinois_v2_spooky.jpg",
     "categories": [
       "Accompagnements"
     ],
@@ -2450,7 +2450,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Laisser reposer 10min avant service pour que la cr\u00e8me se pose."
     ],
     "notes": [
-      "Garde l amidon des pommes de terre : il aide \u00e0 lier la cr\u00e8me pendant la cuisson."
+      "Garde l amidon des pommes de terre il aide \u00e0 lier la cr\u00e8me pendant la cuisson."
     ],
     "technical": [
       {
@@ -2474,7 +2474,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "poulet_basquaise": {
     "title": "Poulet basquaise",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/poulet_basquaise_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/poulet_basquaise_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -2541,7 +2541,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "croque_madame": {
     "title": "Croque-madame",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/croque_madame_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/croque_madame_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -2595,7 +2595,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "cuisses_de_poulet_rhum_miel_piment": {
     "title": "Cuisses de poulet rhum miel piment",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/cuisses_de_poulet_rhum_miel_piment_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/cuisses_de_poulet_rhum_miel_piment_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -2638,7 +2638,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Faire r\u00e9duire le jus quelques minutes si besoin avant de servir."
     ],
     "notes": [
-      "Le miel colore vite : baisse l\u00e9g\u00e8rement le four si la peau fonce trop t\u00f4t."
+      "Le miel colore vite baisse l\u00e9g\u00e8rement le four si la peau fonce trop t\u00f4t."
     ],
     "technical": [
       {
@@ -2650,7 +2650,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "chipirons_a_la_plancha": {
     "title": "Chipirons \u00e0 la plancha",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/chipirons_a_la_plancha_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/chipirons_a_la_plancha_v2_spooky.jpg",
     "categories": [
       "Plats",
       "Entr\u00e9es"
@@ -2698,7 +2698,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "technical": [
       {
         "label": "Saisie",
-        "value": "Plancha tr\u00e8s chaude et aliment bien sec : c est la cl\u00e9."
+        "value": "Plancha tr\u00e8s chaude et aliment bien sec c est la cl\u00e9."
       }
     ],
     "additionalMasters": [
@@ -2708,7 +2708,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "joues_de_boeuf_carottes_orange_vin_rouge": {
     "title": "Joues de boeuf carottes orange vin rouge",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/joues_de_boeuf_carottes_orange_vin_rouge_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/joues_de_boeuf_carottes_orange_vin_rouge_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -2776,7 +2776,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "carre_d_agneau_croute_d_herbes": {
     "title": "Carr\u00e9 d agneau cro\u00fbte d herbes",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/carre_d_agneau_croute_d_herbes_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/carre_d_agneau_croute_d_herbes_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -2833,7 +2833,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "carpaccio_betterave_mozzarella_yuzu": {
     "title": "Carpaccio betterave mozzarella yuzu",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images-optimized/carpaccio_betterave_mozzarella_yuzu_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/carpaccio_betterave_mozzarella_yuzu_v2_spooky.jpg",
     "categories": [
       "Entr\u00e9es"
     ],
@@ -2888,7 +2888,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "ajitsuke_tamago_oeufs_marines_ramen": {
     "title": "Ajitsuke tamago oeufs marin\u00e9s ramen",
     "master": "bases_salees_maitre",
-    "image": "/assets/recipe-images-optimized/ajitsuke_tamago_oeufs_marines_ramen_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/ajitsuke_tamago_oeufs_marines_ramen_v2_spooky.jpg",
     "categories": [
       "Base",
       "Entr\u00e9es"
@@ -2950,7 +2950,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "chorizo_au_cidre": {
     "title": "Chorizo au cidre",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/chorizo_au_cidre_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/chorizo_au_cidre_v2_spooky.jpg",
     "categories": [
       "Ap\u00e9ro"
     ],
@@ -2998,7 +2998,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "saumon_au_four_tomates_olives_basilic": {
     "title": "Saumon au four tomates olives basilic",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/saumon_au_four_tomates_olives_basilic_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/saumon_au_four_tomates_olives_basilic_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -3053,7 +3053,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "poulet_frit_air_fryer": {
     "title": "Poulet frit air fryer",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/poulet_frit_air_fryer_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/poulet_frit_air_fryer_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -3109,7 +3109,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "poulet_gaston_gerard": {
     "title": "Poulet Gaston G\u00e9rard",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/poulet_gaston_gerard_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/poulet_gaston_gerard_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -3165,7 +3165,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "beurre_clarifie": {
     "title": "Beurre clarifi\u00e9",
     "master": "elements_base_maitre",
-    "image": "/assets/recipe-images-optimized/beurre_clarifie_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/beurre_clarifie_v2_spooky.jpg",
     "categories": [
       "Base"
     ],
@@ -3217,7 +3217,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "hauts_de_cuisses_poulet_orange_oignon": {
     "title": "Hauts de cuisses poulet orange oignon",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/hauts_de_cuisses_poulet_orange_oignon_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/hauts_de_cuisses_poulet_orange_oignon_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -3271,7 +3271,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "puree_pommes_de_terre_citron": {
     "title": "Pur\u00e9e pommes de terre citron",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images-optimized/puree_pommes_de_terre_citron_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/puree_pommes_de_terre_citron_v2_spooky.jpg",
     "categories": [
       "Accompagnements"
     ],
@@ -3321,9 +3321,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ]
   },
   "salade_oeufs_durs_mayonnaise_bistrot": {
-    "title": "Salade oeufs durs mayonnaise bistrot",
+    "title": "Salade oeufs durs mayonnaise",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images-optimized/salade_oeufs_durs_mayonnaise_bistrot_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/salade_oeufs_durs_mayonnaise_bistrot_v2_spooky.jpg",
     "categories": [
       "Entr\u00e9es"
     ],
@@ -3376,7 +3376,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "cuisses_de_poulet_miel_moutarde": {
     "title": "Cuisses de poulet miel moutarde",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/cuisses_de_poulet_miel_moutarde_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/cuisses_de_poulet_miel_moutarde_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -3428,7 +3428,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "riz_au_citron": {
     "title": "Riz au citron",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images-optimized/riz_au_citron_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/riz_au_citron_v2_spooky.jpg",
     "categories": [
       "Accompagnements"
     ],
@@ -3479,9 +3479,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ]
   },
   "saucisse_puree_maison": {
-    "title": "Saucisse pur\u00e9e maison",
+    "title": "Saucisse pur\u00e9e",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/saucisse_puree_maison_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/saucisse_puree_maison_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -3494,7 +3494,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "yield": "4 personnes",
     "aliases": [
       "saucisse pur\u00e9e",
-      "plat bistrot"
+      "plat"
     ],
     "tags": [
       "saucisse",
@@ -3537,7 +3537,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "joues_de_porc_chorizo_piment": {
     "title": "Joues de porc chorizo piment",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/joues_de_porc_chorizo_piment_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/joues_de_porc_chorizo_piment_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -3583,7 +3583,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "R\u00e9duire la sauce \u00e0 d\u00e9couvert si besoin."
     ],
     "notes": [
-      "Le chorizo sale d\u00e9j\u00e0 la sauce : assaisonne prudemment."
+      "Le chorizo sale d\u00e9j\u00e0 la sauce assaisonne prudemment."
     ],
     "technical": [
       {
@@ -3595,7 +3595,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "lentilles_a_la_bourguignonne": {
     "title": "Lentilles \u00e0 la bourguignonne",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/lentilles_a_la_bourguignonne_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/lentilles_a_la_bourguignonne_v2_spooky.jpg",
     "categories": [
       "Plats",
       "Accompagnements"
@@ -3656,7 +3656,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "beurre_d_escargot_persille": {
     "title": "Beurre d escargot persill\u00e9",
     "master": "sauces_maitre",
-    "image": "/assets/recipe-images-optimized/beurre_d_escargot_persille_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/beurre_d_escargot_persille_v2_spooky.jpg",
     "categories": [
       "Sauces",
       "Base"
@@ -3717,7 +3717,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "lentilles_tomate_pommes_de_terre_sautees": {
     "title": "Lentilles tomate pommes de terre saut\u00e9es",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/lentilles_tomate_pommes_de_terre_sautees_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/lentilles_tomate_pommes_de_terre_sautees_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],

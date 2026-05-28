@@ -149,7 +149,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Choisir une variante pour afficher la recette compl\u00e8te."
     ],
     "notes": [
-      "Fiche ma\u00eetre : biscuits, cookies et petites pr\u00e9parations sucr\u00e9es ou sal\u00e9es."
+      "Fiche ma\u00eetre biscuits, cookies et petites pr\u00e9parations sucr\u00e9es ou sal\u00e9es."
     ],
     "technical": [
       {
@@ -198,11 +198,11 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Ratio huile:acide 3:1 \u00e0 4:1 selon la salade.",
-      "Variantes : citron, herbes, miso blanc, yaourt grec.",
-      "\u2192 Voir aussi : <span data-goto=\"pesto_variantes\">Pestos</span>",
-      "Stockage optimal : flacon avec couvercle au r\u00e9frig\u00e9rateur ; secouer avant usage.",
-      "Conservation : 5\u20137 j au froid.",
-      "Stockage : bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption : 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation."
+      "Variantes citron, herbes, miso blanc, yaourt grec.",
+      "\u2192 Voir aussi <span data-goto=\"pesto_variantes\">Pestos</span>",
+      "Stockage optimal flacon avec couvercle au r\u00e9frig\u00e9rateur secouer avant usage.",
+      "Conservation 5\u20137 j au froid.",
+      "Stockage bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation."
     ],
     "difficultyScore": 2
   },
@@ -231,13 +231,13 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Verser le vinaigre balsamique dans une petite casserole \u00e0 fond \u00e9pais.",
       "Ajouter le sucre selon l'\u00e9quilibre voulu, puis porter \u00e0 l\u00e9ger fr\u00e9missement.",
       "Mijoter 12\u201320min \u00e0 feu doux jusqu'\u00e0 texture nappante, en surveillant car la r\u00e9duction \u00e9paissit vite.",
-      "Couper le feu quand la r\u00e9duction nappe la cuill\u00e8re : elle continuera \u00e0 \u00e9paissir en refroidissant.",
+      "Couper le feu quand la r\u00e9duction nappe la cuill\u00e8re elle continuera \u00e0 \u00e9paissir en refroidissant.",
       "Transvaser dans un pot propre et laisser refroidir avant de fermer."
     ],
     "notes": [
-      "Variantes : zeste d'orange, vanille, cacao, espresso, figue (filtrer).",
-      "Conservation : 2\u20133 mois au froid.",
-      "Stockage : bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption : 2\u20133 jours."
+      "Variantes zeste d'orange, vanille, cacao, espresso, figue (filtrer).",
+      "Conservation 2\u20133 mois au froid.",
+      "Stockage bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption 2\u20133 jours."
     ],
     "difficultyScore": 2,
     "tags": [
@@ -432,9 +432,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Jeter la marinade qui a touch\u00e9 le cru, ou la porter franchement \u00e0 \u00e9bullition si elle doit devenir une sauce."
     ],
     "notes": [
-      "Ne pas r\u00e9utiliser la marinade crue ; porter \u00e0 \u00e9bullition si sauce.",
-      "Conservation : marinades pr\u00eates 7 j au froid.",
-      "Stockage : bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption : 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation."
+      "Ne pas r\u00e9utiliser la marinade crue porter \u00e0 \u00e9bullition si sauce.",
+      "Conservation marinades pr\u00eates 7 j au froid.",
+      "Stockage bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation."
     ],
     "difficultyScore": 3,
     "variantGroups": true,
@@ -446,7 +446,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "aliases": [
       "marinades rapides",
-      "marinade maison",
+      "marinade",
       "guide marinades"
     ]
   },
@@ -491,17 +491,17 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "steps": [
       "Abaisser craquelin 2mm, d\u00e9tailler disques.",
-      "R\u00e9aliser p\u00e2te \u00e0 choux ; pocher \u00d8 3\u20134cm ; couvrir d'un disque de craquelin.",
+      "R\u00e9aliser p\u00e2te \u00e0 choux pocher \u00d8 3\u20134cm couvrir d'un disque de craquelin.",
       "Cuire 170\u2013175\u00b0C 35\u201340min ventil\u00e9 sec.",
       "Refroidir, garnir."
     ],
     "notes": [
-      "Conservation : coques 3 j \u00e0 temp\u00e9rature ambiante dans bo\u00eete herm\u00e9tique ; garnis 24h au froid.",
-      "\u2192 Recette de garnissage : <span data-goto=\"creme_diplomate_vanille\">Cr\u00e8me diplomate vanille</span>",
-      "\u2192 Version all\u00e9g\u00e9e : <span data-goto=\"chantilly_gelatine\">Chantilly stabilis\u00e9e</span>",
-      "Stockage : bo\u00eete herm\u00e9tique au sec, \u00e0 temp\u00e9rature ambiante. P\u00e9remption : 5\u201314 jours selon humidit\u00e9; garder loin du r\u00e9frig\u00e9rateur sauf garniture fragile.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire.",
-      "Cr\u00e8mes \u00e0 garnir : <span data-goto=\"creme_diplomate_vanille\">Cr\u00e8me diplomate vanille</span> \u00b7 <span data-goto=\"creme_diplomate_cloud\">Cr\u00e8me diplomate vanille \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_patissiere_vanille\">Cr\u00e8me p\u00e2tissi\u00e8re vanille</span> \u00b7 <span data-goto=\"creme_patissiere_praline\">Cr\u00e8me p\u00e2tissi\u00e8re pralin\u00e9</span> \u00b7 <span data-goto=\"creme_kinder_nutella\">Cr\u00e8me Nutella \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_pistache\">Cr\u00e8me pistache \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_praline\">Cr\u00e8me pralin\u00e9</span> \u00b7 <span data-goto=\"mascarpone\">Cr\u00e8me mascarpone vanille</span> \u00b7 <span data-goto=\"chantilly_gelatine\">Chantilly stabilis\u00e9e</span>."
+      "Conservation coques 3 j \u00e0 temp\u00e9rature ambiante dans bo\u00eete herm\u00e9tique garnis 24h au froid.",
+      "\u2192 Recette de garnissage <span data-goto=\"creme_diplomate_vanille\">Cr\u00e8me diplomate vanille</span>",
+      "\u2192 Version all\u00e9g\u00e9e <span data-goto=\"chantilly_gelatine\">Chantilly stabilis\u00e9e</span>",
+      "Stockage bo\u00eete herm\u00e9tique au sec, \u00e0 temp\u00e9rature ambiante. P\u00e9remption 5\u201314 jours selon humidit\u00e9; garder loin du r\u00e9frig\u00e9rateur sauf garniture fragile.",
+      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire.",
+      "Cr\u00e8mes \u00e0 garnir <span data-goto=\"creme_diplomate_vanille\">Cr\u00e8me diplomate vanille</span> \u00b7 <span data-goto=\"creme_diplomate_cloud\">Cr\u00e8me diplomate vanille \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_patissiere_vanille\">Cr\u00e8me p\u00e2tissi\u00e8re vanille</span> \u00b7 <span data-goto=\"creme_patissiere_praline\">Cr\u00e8me p\u00e2tissi\u00e8re pralin\u00e9</span> \u00b7 <span data-goto=\"creme_kinder_nutella\">Cr\u00e8me Nutella \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_pistache\">Cr\u00e8me pistache \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_praline\">Cr\u00e8me pralin\u00e9</span> \u00b7 <span data-goto=\"mascarpone\">Cr\u00e8me mascarpone vanille</span> \u00b7 <span data-goto=\"chantilly_gelatine\">Chantilly stabilis\u00e9e</span>."
     ],
     "difficultyScore": 7
   },
@@ -530,11 +530,11 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Composants li\u00e9s",
         "items": [
-          "\u2192 Voir : <span data-goto=\"craquelin_cacao\">Craquelin cacao</span>",
-          "\u2192 Voir : <span data-goto=\"pate_choux\">P\u00e2te \u00e0 choux</span>",
-          "\u2192 Voir : <span data-goto=\"creme_patissiere_praline\">Cr\u00e8me p\u00e2tissi\u00e8re pralin\u00e9</span>",
-          "\u2192 Voir : <span data-goto=\"creme_beurre_meringue_italienne\">Cr\u00e8me au beurre meringue italienne</span>",
-          "\u2192 Voir : <span data-goto=\"creme_praline\">Cr\u00e8me pralin\u00e9</span>"
+          "\u2192 Voir <span data-goto=\"craquelin_cacao\">Craquelin cacao</span>",
+          "\u2192 Voir <span data-goto=\"pate_choux\">P\u00e2te \u00e0 choux</span>",
+          "\u2192 Voir <span data-goto=\"creme_patissiere_praline\">Cr\u00e8me p\u00e2tissi\u00e8re pralin\u00e9</span>",
+          "\u2192 Voir <span data-goto=\"creme_beurre_meringue_italienne\">Cr\u00e8me au beurre meringue italienne</span>",
+          "\u2192 Voir <span data-goto=\"creme_praline\">Cr\u00e8me pralin\u00e9</span>"
         ]
       }
     ],
@@ -547,7 +547,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "Montage en couronnes de p\u00e2te \u00e0 choux, cr\u00e8me pralin\u00e9 et noisettes.",
       "Sortir du r\u00e9frig\u00e9rateur 30 \u00e0 40min avant d\u00e9gustation.",
-      "Stockage : bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption : 2\u20133 jours."
+      "Stockage bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption 2\u20133 jours."
     ],
     "difficultyScore": 8
   },
@@ -584,9 +584,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Pocher des couronnes de 7cm, poser le craquelin puis cuire \u00e0 170\u00b0C pendant 40 \u00e0 45min."
     ],
     "notes": [
-      "Le test du sillon : il doit se refermer doucement quand la texture est correcte.",
-      "Stockage : bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption : 2\u20133 jours.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Le test du sillon il doit se refermer doucement quand la texture est correcte.",
+      "Stockage bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption 2\u20133 jours.",
+      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "difficultyScore": 7,
     "additionalMasters": [
@@ -622,8 +622,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Mettre en poche cannel\u00e9e pour le montage des Paris-Brest."
     ],
     "notes": [
-      "Utilis\u00e9 par exemple dans : <span data-goto=\"paris_brest\">Paris-Brest</span>.",
-      "Stockage : bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption : 2\u20133 jours."
+      "Utilis\u00e9 par exemple dans <span data-goto=\"paris_brest\">Paris-Brest</span>.",
+      "Stockage bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption 2\u20133 jours."
     ],
     "difficultyScore": 5,
     "additionalMasters": [
@@ -727,7 +727,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "id": "saucisse_puree_maison",
-        "label": "Saucisse pur\u00e9e maison"
+        "label": "Saucisse pur\u00e9e"
       },
       {
         "id": "saumon_au_four_tomates_olives_basilic",
@@ -780,7 +780,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "Texture cr\u00e8meuse mais stable en fourrage.",
       "Go\u00fbt intense, ne d\u00e9trempe pas le donut.",
-      "Stockage : au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption : 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
+      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
     ],
     "tags": [
       "creme",
@@ -831,9 +831,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Cuire dans un gaufrier tr\u00e8s chaud 3\u20134min."
     ],
     "notes": [
-      "Vraie gaufre de Bruxelles : p\u00e2te lev\u00e9e, blancs mont\u00e9s, gros trous, texture l\u00e9g\u00e8re et croustillante.",
+      "Vraie gaufre de Bruxelles p\u00e2te lev\u00e9e, blancs mont\u00e9s, gros trous, texture l\u00e9g\u00e8re et croustillante.",
       "Pour plus de croustillant, remplacer 50g de lait par 50g de bi\u00e8re.",
-      "Stockage : id\u00e9alement le jour m\u00eame. P\u00e9remption : 24\u201348h en bo\u00eete herm\u00e9tique; r\u00e9chauffer doucement pour retrouver la texture."
+      "Stockage id\u00e9alement le jour m\u00eame. P\u00e9remption 24\u201348h en bo\u00eete herm\u00e9tique; r\u00e9chauffer doucement pour retrouver la texture."
     ],
     "tags": [
       "gaufre",
@@ -892,9 +892,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Le cake est pr\u00eat quand la lame ressort s\u00e8che et que le dessus est bien dor\u00e9.",
-      "Pr\u00e9paration du moule : beurre et farine le moule, puis retire l\u2019exc\u00e9dent pour d\u00e9mouler proprement.",
-      "Stockage : refroidir rapidement puis conserver au r\u00e9frig\u00e9rateur en bo\u00eete herm\u00e9tique. P\u00e9remption : 3\u20134 jours.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Pr\u00e9paration du moule beurre et farine le moule, puis retire l\u2019exc\u00e9dent pour d\u00e9mouler proprement.",
+      "Stockage refroidir rapidement puis conserver au r\u00e9frig\u00e9rateur en bo\u00eete herm\u00e9tique. P\u00e9remption 3\u20134 jours.",
+      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "tags": [
       "cake",
@@ -954,9 +954,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Cuisson lente indispensable pour une texture fondante.",
-      "Conservation : 3\u20134 jours au froid, r\u00e9chauffage doux avec un peu de sauce.",
-      "Stockage : refroidir rapidement puis conserver au r\u00e9frig\u00e9rateur en bo\u00eete herm\u00e9tique. P\u00e9remption : 3\u20134 jours.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Conservation 3\u20134 jours au froid, r\u00e9chauffage doux avec un peu de sauce.",
+      "Stockage refroidir rapidement puis conserver au r\u00e9frig\u00e9rateur en bo\u00eete herm\u00e9tique. P\u00e9remption 3\u20134 jours.",
+      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
     ],
     "tags": [
       "porc",
@@ -998,7 +998,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "Optionnelle dans la tarte citron meringu\u00e9e.",
       "\u00c0 utiliser en petite quantit\u00e9 pour \u00e9viter l\u2019amertume.",
-      "Stockage : au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption : 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
+      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
     ],
     "tags": [
       "citron",
@@ -1059,7 +1059,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Servir rapidement apr\u00e8s d\u00e9coupe de l\u2019avocat.",
-      "Stockage : bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption : 24h, \u00e0 assaisonner au dernier moment."
+      "Stockage bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 24h, \u00e0 assaisonner au dernier moment."
     ],
     "tags": [
       "salade",
@@ -1133,7 +1133,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "yield": "8 tortillas",
     "aliases": [
       "tortillas de bl\u00e9",
-      "wraps maison"
+      "wraps"
     ],
     "ingredients": [
       {
@@ -1157,7 +1157,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Si elles s\u00e8chent, les r\u00e9chauffer quelques secondes sous cloche ou dans un torchon humide.",
-      "Stockage : 2 jours bien emball\u00e9es, ou cong\u00e9lation s\u00e9par\u00e9es par papier cuisson."
+      "Stockage 2 jours bien emball\u00e9es, ou cong\u00e9lation s\u00e9par\u00e9es par papier cuisson."
     ],
     "tags": [
       "tortilla",
@@ -1238,15 +1238,15 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Laisser revenir \u00e0 temp\u00e9rature ambiante, puis couper en tranches fines ou moyennes."
     ],
     "notes": [
-      "Ne pas blanchir beurre et sucre : trop fouetter nuit \u00e0 la texture recherch\u00e9e.",
-      "Pr\u00e9paration du moule : si tu utilises un moule classique, beurre et farine-le l\u00e9g\u00e8rement avant de verser la p\u00e2te.",
-      "Le moule ne doit pas \u00eatre trop grand : la p\u00e2te doit arriver aux 3/4 de la hauteur pour une belle forme et une cuisson r\u00e9guli\u00e8re.",
-      "Respecter la quantit\u00e9 d\u2019\u0153ufs indiqu\u00e9e : la pr\u00e9cision aide \u00e0 obtenir une mie qui se tient bien, m\u00eame en tranches fines.",
-      "Surveiller d\u00e8s 30min : une surcuisson dess\u00e8che le cake et d\u00e9s\u00e9quilibre l\u2019acidit\u00e9 du citron.",
+      "Ne pas blanchir beurre et sucre trop fouetter nuit \u00e0 la texture recherch\u00e9e.",
+      "Pr\u00e9paration du moule si tu utilises un moule classique, beurre et farine-le l\u00e9g\u00e8rement avant de verser la p\u00e2te.",
+      "Le moule ne doit pas \u00eatre trop grand la p\u00e2te doit arriver aux 3/4 de la hauteur pour une belle forme et une cuisson r\u00e9guli\u00e8re.",
+      "Respecter la quantit\u00e9 d\u2019\u0153ufs indiqu\u00e9e la pr\u00e9cision aide \u00e0 obtenir une mie qui se tient bien, m\u00eame en tranches fines.",
+      "Surveiller d\u00e8s 30min une surcuisson dess\u00e8che le cake et d\u00e9s\u00e9quilibre l\u2019acidit\u00e9 du citron.",
       "Filmer le cake d\u00e8s la sortie du four retient l\u2019humidit\u00e9 et donne une texture moelleuse, dense et fondante.",
       "Laisser vraiment refroidir le cake avant gla\u00e7age, sinon le nappage fond et reste collant.",
-      "Le cake est souvent meilleur le lendemain : les ar\u00f4mes se stabilisent et la texture se tient encore mieux.",
-      "Conservation : 3 \u00e0 4 jours \u00e0 temp\u00e9rature ambiante dans une bo\u00eete herm\u00e9tique ou bien film\u00e9 ; 5 \u00e0 6 jours au r\u00e9frig\u00e9rateur, avec une texture un peu plus ferme.",
+      "Le cake est souvent meilleur le lendemain les ar\u00f4mes se stabilisent et la texture se tient encore mieux.",
+      "Conservation 3 \u00e0 4 jours \u00e0 temp\u00e9rature ambiante dans une bo\u00eete herm\u00e9tique ou bien film\u00e9 5 \u00e0 6 jours au r\u00e9frig\u00e9rateur, avec une texture un peu plus ferme.",
       "Cong\u00e9lation possible, id\u00e9alement sans gla\u00e7age ou en tranches bien emball\u00e9es, jusqu\u2019\u00e0 1 \u00e0 2 mois."
     ],
     "technical": [
@@ -1370,7 +1370,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "R\u00e9server au frais 20min pour arrondir le go\u00fbt."
     ],
     "notes": [
-      "Conservation : 2 \u00e0 3 jours au r\u00e9frig\u00e9rateur dans une bo\u00eete ferm\u00e9e."
+      "Conservation 2 \u00e0 3 jours au r\u00e9frig\u00e9rateur dans une bo\u00eete ferm\u00e9e."
     ],
     "tags": [
       "sauce",
@@ -1423,14 +1423,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
           "30g de beurre froid",
           "1 c. \u00e0 caf\u00e9 d\u2019huile neutre ou graisse de cuisson",
           "Sel fin",
-          "Option : 1 \u00e0 2 c. \u00e0 soupe de jus de viande"
+          "Option 1 \u00e0 2 c. \u00e0 soupe de jus de viande"
         ],
         "steps": [
           "Concasser les poivres, ciseler l echalote et faire suer dans huile ou graisse de cuisson.",
           "Flamber au cognac, reduire avec vin blanc ou Madere, puis ajouter le fond de veau reduit.",
           "Cremer, reduire a texture nappante, monter au beurre froid et finir avec poivre vert et jus de viande si disponible."
         ],
-        "note": "Cuisson : torr\u00e9fier les poivres 30 \u00e0 45 secondes, r\u00e9duire le fond 8 \u00e0 12 minutes, puis r\u00e9duire avec la cr\u00e8me 4 \u00e0 6 minutes."
+        "note": "Cuisson torr\u00e9fier les poivres 30 \u00e0 45 secondes, r\u00e9duire le fond 8 \u00e0 12 minutes, puis r\u00e9duire avec la cr\u00e8me 4 \u00e0 6 minutes."
       },
       {
         "group": "Variante express premium",
@@ -1447,7 +1447,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
           "Ajouter fond de veau, creme, poivre vert et poivre concasse, puis mijoter jusqu a texture nappante.",
           "Hors du feu, monter au beurre froid et servir aussitot."
         ],
-        "note": "Cuisson : d\u00e9glacer la po\u00eale, ajouter fond, cr\u00e8me et poivres, r\u00e9duire 5 minutes puis monter au beurre froid."
+        "note": "Cuisson d\u00e9glacer la po\u00eale, ajouter fond, cr\u00e8me et poivres, r\u00e9duire 5 minutes puis monter au beurre froid."
       },
       {
         "group": "Variante basique",
@@ -1466,7 +1466,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
           "Ajouter bouillon, creme et moutarde, puis reduire doucement.",
           "Saler en fin de cuisson et servir quand la sauce nappe la cuillere."
         ],
-        "note": "Cuisson : r\u00e9duire le bouillon 3 \u00e0 5 minutes, puis mijoter avec cr\u00e8me et moutarde 5 \u00e0 8 minutes."
+        "note": "Cuisson r\u00e9duire le bouillon 3 \u00e0 5 minutes, puis mijoter avec cr\u00e8me et moutarde 5 \u00e0 8 minutes."
       },
       {
         "group": "Variante ultra simple",
@@ -1481,7 +1481,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
           "Mijoter 3 a 5min en remuant pour dissoudre et epaissir legerement.",
           "Gouter avant de saler, puis servir chaud."
         ],
-        "note": "Cuisson : chauffer doucement et laisser r\u00e9duire environ 5 minutes."
+        "note": "Cuisson chauffer doucement et laisser r\u00e9duire environ 5 minutes."
       }
     ],
     "steps": [
@@ -1496,10 +1496,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Go\u00fbter, rectifier le sel et ajuster l\u2019intensit\u00e9 du poivre."
     ],
     "notes": [
-      "Texture cible : la sauce doit napper le dos d\u2019une cuill\u00e8re et laisser une trace nette quelques secondes.",
+      "Texture cible la sauce doit napper le dos d\u2019une cuill\u00e8re et laisser une trace nette quelques secondes.",
       "Pour une finition plus fine, passer au chinois puis remettre quelques grains de poivre vert dans la sauce filtr\u00e9e.",
       "Si la sauce est trop \u00e9paisse, d\u00e9tends-la avec un peu de fond ou d\u2019eau chaude. Si elle est trop liquide, r\u00e9duis-la avant d\u2019ajouter le beurre.",
-      "Accords : filet de b\u0153uf, entrec\u00f4te, c\u00f4te de b\u0153uf, magret de canard, tournedos, pommes dauphines, gratin dauphinois ou frites maison."
+      "Accords filet de b\u0153uf, entrec\u00f4te, c\u00f4te de b\u0153uf, magret de canard, tournedos, pommes dauphines, gratin dauphinois ou frites."
     ],
     "technical": [
       {
@@ -1532,7 +1532,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "variantGroups": true,
     "aliases": [
       "mayonnaise belge",
-      "mayo maison",
+      "mayo",
       "sauce mayonnaise",
       "mayonnaise sans oeuf"
     ],
@@ -1729,17 +1729,17 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "steps": [
       "Placer les \u0153ufs dans une casserole, couvrir d\u2019eau froide avec 2 \u00e0 3cm au-dessus des \u0153ufs, puis cuire 12 \u00e0 13min depuis le d\u00e9part \u00e0 froid.",
       "Plonger imm\u00e9diatement dans un bain glac\u00e9 10min, puis \u00e9caler d\u00e9licatement.",
-      "Pour la variante betterave : chauffer betterave, eau, vinaigre, sucre, sel, poivre du moulin et laurier jusqu\u2019\u00e0 fr\u00e9missement, couper le feu, infuser 10min, mixer l\u00e9g\u00e8rement et refroidir compl\u00e8tement.",
+      "Pour la variante betterave chauffer betterave, eau, vinaigre, sucre, sel, poivre du moulin et laurier jusqu\u2019\u00e0 fr\u00e9missement, couper le feu, infuser 10min, mixer l\u00e9g\u00e8rement et refroidir compl\u00e8tement.",
       "Immerger les \u0153ufs \u00e9cal\u00e9s entiers dans la marinade froide 6 \u00e0 12h pour une couleur nette.",
       "\u00c9goutter, \u00e9ponger, couper en deux et retirer les jaunes.",
-      "Pour la farce betterave : tamiser les jaunes, m\u00e9langer avec mayonnaise, moutarde, cr\u00e8me, vinaigre ou citron, paprika, sel et poivre du moulin.",
-      "Pour la variante avocat crevette : mixer jaunes, avocat, citron vert, mayonnaise, cr\u00e8me, moutarde, piment, sel et poivre du moulin jusqu\u2019\u00e0 texture lisse et pochable.",
+      "Pour la farce betterave tamiser les jaunes, m\u00e9langer avec mayonnaise, moutarde, cr\u00e8me, vinaigre ou citron, paprika, sel et poivre du moulin.",
+      "Pour la variante avocat crevette mixer jaunes, avocat, citron vert, mayonnaise, cr\u00e8me, moutarde, piment, sel et poivre du moulin jusqu\u2019\u00e0 texture lisse et pochable.",
       "\u00c9ponger les crevettes, les assaisonner tr\u00e8s l\u00e9g\u00e8rement avec citron vert, sel et piment.",
       "Garnir les blancs \u00e0 la poche, puis terminer avec herbes, zestes et crevettes selon la variante."
     ],
     "notes": [
       "La marinade betterave doit \u00eatre froide avant contact avec les \u0153ufs pour garder une texture propre.",
-      "L\u2019avocat oxyde vite : pr\u00e9parer la cr\u00e8me au dernier moment ou filmer au contact avec quelques gouttes de citron vert.",
+      "L\u2019avocat oxyde vite pr\u00e9parer la cr\u00e8me au dernier moment ou filmer au contact avec quelques gouttes de citron vert.",
       "Pour un dressage net, \u00e9ponger les blancs et les crevettes avant de garnir."
     ],
     "technical": [
@@ -1814,8 +1814,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Servir chaud avec sauce et citron."
     ],
     "notes": [
-      "Ne surcharge pas la plaque : l\u2019humidit\u00e9 emp\u00eacherait le croustillant.",
-      "Chaque four r\u00e9agit diff\u00e9remment : surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
+      "Ne surcharge pas la plaque l\u2019humidit\u00e9 emp\u00eacherait le croustillant.",
+      "Chaque four r\u00e9agit diff\u00e9remment surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
     ],
     "technical": [
       {
@@ -1833,7 +1833,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ]
   },
   "frites_maison": {
-    "title": "Frites maison",
+    "title": "Frites",
     "master": "accompagnements_maitre",
     "image": "/assets/recipe-images-optimized/frites_maison_spooky.jpg",
     "categories": [
@@ -1848,7 +1848,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "nutriScore": "D",
     "aliases": [
       "frites classiques",
-      "recette frites maison"
+      "recette frites"
     ],
     "tags": [
       "frites",
@@ -1869,7 +1869,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "items": [
           "Fleur de sel",
           "Poivre du moulin",
-          "Sauce maison au choix"
+          "Sauce au choix"
         ]
       }
     ],
@@ -1885,9 +1885,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Saler imm\u00e9diatement et servir sans attendre."
     ],
     "notes": [
-      "Bien s\u00e9cher les pommes de terre avant friture : l\u2019eau fait chuter la temp\u00e9rature de l\u2019huile et ramollit les frites.",
+      "Bien s\u00e9cher les pommes de terre avant friture l\u2019eau fait chuter la temp\u00e9rature de l\u2019huile et ramollit les frites.",
       "Pour une finition plus nette, laisse refroidir 20 \u00e0 30min apr\u00e8s le premier bain, puis fais le deuxi\u00e8me bain juste avant le service.",
-      "Accompagnements : burger maison, poulet r\u00f4ti, fish and chips, steak, moules, mayonnaise, ketchup maison, sauce tartare ou sauce andalouse."
+      "Accompagnements burger, poulet r\u00f4ti, fish and chips, steak, moules, mayonnaise, ketchup, sauce tartare ou sauce andalouse."
     ],
     "technical": [
       {
@@ -1971,8 +1971,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Servir avec la <span data-goto=\"sauce_yaourt_citronnee\">sauce yaourt citronn\u00e9e</span> dans un bol \u00e0 part pour garder le croustillant.",
-      "La patate douce contient plus d\u2019eau et de sucre qu\u2019une pomme de terre classique : taille r\u00e9guli\u00e8re, s\u00e9chage soign\u00e9 et plaque bien chaude sont essentiels.",
-      "Surveille la cuisson : tous les fours ne colorent pas de la m\u00eame fa\u00e7on, surtout en fin de cuisson ou sous le gril."
+      "La patate douce contient plus d\u2019eau et de sucre qu\u2019une pomme de terre classique taille r\u00e9guli\u00e8re, s\u00e9chage soign\u00e9 et plaque bien chaude sont essentiels.",
+      "Surveille la cuisson tous les fours ne colorent pas de la m\u00eame fa\u00e7on, surtout en fin de cuisson ou sous le gril."
     ],
     "technical": [
       {
@@ -2044,7 +2044,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "group": "Chapelure noisette",
         "items": [
-          "45g chapelure panko ou chapelure maison",
+          "45g chapelure panko ou chapelure",
           "25g noisettes torr\u00e9fi\u00e9es concass\u00e9es",
           "20g parmesan r\u00e2p\u00e9",
           "25g beurre fondu",
@@ -2067,9 +2067,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "La <span data-goto=\"sauce_mornay\">sauce Mornay</span> doit rester nappante, pas trop \u00e9paisse, pour \u00e9viter un gratin p\u00e2teux.",
-      "Beurre l\u00e9g\u00e8rement le plat avant montage : la sauce accroche moins et le service est plus propre.",
+      "Beurre l\u00e9g\u00e8rement le plat avant montage la sauce accroche moins et le service est plus propre.",
       "R\u00f4tir le chou-fleur concentre le go\u00fbt et \u00e9vite un gratin aqueux.",
-      "Surveille la cuisson : chaque four gratine diff\u00e9remment, surtout sous le gril."
+      "Surveille la cuisson chaque four gratine diff\u00e9remment, surtout sous le gril."
     ],
     "technical": [
       {
@@ -2154,14 +2154,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Monter les blancs avec une pinc\u00e9e de sel, puis les incorporer d\u00e9licatement \u00e0 la cr\u00e8me.",
       "Tremper rapidement les biscuits dans le sirop citronn\u00e9 et les ranger dans un plat ou des verrines.",
       "Alterner biscuits et cr\u00e8me, terminer par une couche de cr\u00e8me et r\u00e9server au frais au moins 4h.",
-      "Option : ajouter une fine couche de lemon curd sur le dessus.",
-      "Option : pocher une couche de <span data-goto=\"meringue_italienne\">meringue italienne</span>, puis la br\u00fbler l\u00e9g\u00e8rement au chalumeau.",
+      "Option ajouter une fine couche de lemon curd sur le dessus.",
+      "Option pocher une couche de <span data-goto=\"meringue_italienne\">meringue italienne</span>, puis la br\u00fbler l\u00e9g\u00e8rement au chalumeau.",
       "Finir avec un peu de zeste de citron juste avant de servir."
     ],
     "notes": [
       "Pour une version plus vive, ajouter une fine couche de lemon curd.",
       "La <span data-goto=\"meringue_italienne\">meringue italienne</span> doit \u00eatre br\u00fbl\u00e9e rapidement au chalumeau pour colorer sans r\u00e9chauffer tout le tiramisu.",
-      "Repos id\u00e9al : une nuit au r\u00e9frig\u00e9rateur."
+      "Repos id\u00e9al une nuit au r\u00e9frig\u00e9rateur."
     ],
     "technical": [
       {
@@ -2170,7 +2170,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "label": "Trempage",
-        "value": "Tremper tr\u00e8s vite : les biscuits continuent de s\u2019humidifier pendant le repos."
+        "value": "Tremper tr\u00e8s vite les biscuits continuent de s\u2019humidifier pendant le repos."
       }
     ],
     "practical": {
@@ -2185,7 +2185,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "24 \u00e0 48h au r\u00e9frig\u00e9rateur, bien film\u00e9."
       ],
       "mistakes": [
-        "Ne surcharge pas en jus de citron dans la cr\u00e8me : elle peut se d\u00e9tendre.",
+        "Ne surcharge pas en jus de citron dans la cr\u00e8me elle peut se d\u00e9tendre.",
         "Ne trempe pas trop les biscuits.",
         "Le sirop doit \u00eatre froid pour ne pas d\u00e9tremper les biscuits."
       ],
@@ -2269,7 +2269,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "Plus longtemps au cong\u00e9lateur en sachet bien ferm\u00e9."
       ],
       "mistakes": [
-        "Garde les cerises espac\u00e9es pendant le s\u00e9chage : l\u2019air doit circuler autour de chaque morceau.",
+        "Garde les cerises espac\u00e9es pendant le s\u00e9chage l\u2019air doit circuler autour de chaque morceau.",
         "Pour une conservation plus s\u00fbre, les fruits doivent \u00eatre souples mais ne plus rel\u00e2cher de jus quand on les presse."
       ],
       "result": [
@@ -2357,11 +2357,11 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       ],
       "storage": [
         "3 \u00e0 4 jours au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C.",
-        "Apr\u00e8s ouverture : consommer sous 48h.",
+        "Apr\u00e8s ouverture consommer sous 48h.",
         "Cong\u00e9lation possible en petits pots."
       ],
       "mistakes": [
-        "Ne mixe pas trop fort : la rillette deviendrait p\u00e2teuse."
+        "Ne mixe pas trop fort la rillette deviendrait p\u00e2teuse."
       ],
       "result": [
         "Rillettes de volaille moelleuses, confites et faciles \u00e0 tartiner."
@@ -2429,7 +2429,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "technical": [
       {
         "label": "Texture",
-        "value": "Le centre doit trembler l\u00e9g\u00e8rement \u00e0 la sortie du four : il se raffermit au froid."
+        "value": "Le centre doit trembler l\u00e9g\u00e8rement \u00e0 la sortie du four il se raffermit au froid."
       },
       {
         "label": "Base",
@@ -2448,7 +2448,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "Servir froid pour garder la cr\u00e8me nette."
       ],
       "mistakes": [
-        "Ne prolonge pas trop la cuisson : une cr\u00e8me trop cuite devient granuleuse."
+        "Ne prolonge pas trop la cuisson une cr\u00e8me trop cuite devient granuleuse."
       ],
       "result": [
         "Carr\u00e9s frais, acidul\u00e9s et tr\u00e8s cr\u00e9meux sur base biscuit\u00e9e."

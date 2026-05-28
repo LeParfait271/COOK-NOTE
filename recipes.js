@@ -24,7 +24,7 @@ window.RECIPES = {
           "50 à 70g sucre",
           "15g jus de citron"
         ],
-        "note": "Astuce cuisson : 5 à 7min. Cuis peu et ajoute le citron en fin de cuisson pour garder une couleur bien rouge."
+        "note": "Astuce cuisson 5 à 7min. Cuis peu et ajoute le citron en fin de cuisson pour garder une couleur bien rouge."
       },
       {
         "group": "Coulis de framboise",
@@ -34,7 +34,7 @@ window.RECIPES = {
           "15g jus de citron",
           "20g eau si besoin"
         ],
-        "note": "Astuce cuisson : 5min. Ne presse pas trop fort les pépins dans la passoire, sinon le coulis peut devenir amer."
+        "note": "Astuce cuisson 5min. Ne presse pas trop fort les pépins dans la passoire, sinon le coulis peut devenir amer."
       },
       {
         "group": "Coulis de mangue",
@@ -44,7 +44,7 @@ window.RECIPES = {
           "15g jus de citron vert",
           "30 à 60g eau ou jus d’orange"
         ],
-        "note": "Astuce cuisson : 3 à 5min. La mangue épaissit beaucoup, ajuste toujours la texture après mixage."
+        "note": "Astuce cuisson 3 à 5min. La mangue épaissit beaucoup, ajuste toujours la texture après mixage."
       },
       {
         "group": "Coulis de pêche",
@@ -54,7 +54,7 @@ window.RECIPES = {
           "15g jus de citron",
           "20 à 40g eau si besoin"
         ],
-        "note": "Astuce cuisson : 6 à 8min. Ajoute quelques gouttes de citron rapidement après découpe pour éviter l’oxydation."
+        "note": "Astuce cuisson 6 à 8min. Ajoute quelques gouttes de citron rapidement après découpe pour éviter l’oxydation."
       },
       {
         "group": "Coulis d’abricot",
@@ -64,7 +64,7 @@ window.RECIPES = {
           "15g jus de citron",
           "30 à 50g eau"
         ],
-        "note": "Astuce cuisson : 8 à 10min. L’abricot devient vite acide après cuisson, goûte toujours avant d’ajouter tout le citron."
+        "note": "Astuce cuisson 8 à 10min. L’abricot devient vite acide après cuisson, goûte toujours avant d’ajouter tout le citron."
       },
       {
         "group": "Coulis de myrtille",
@@ -74,7 +74,7 @@ window.RECIPES = {
           "10 à 15g jus de citron",
           "20g eau"
         ],
-        "note": "Astuce cuisson : 6 à 8min. La myrtille épaissit naturellement grâce à sa pectine, ne réduis pas trop."
+        "note": "Astuce cuisson 6 à 8min. La myrtille épaissit naturellement grâce à sa pectine, ne réduis pas trop."
       },
       {
         "group": "Coulis de mûre",
@@ -84,7 +84,7 @@ window.RECIPES = {
           "15g jus de citron",
           "20 à 30g eau"
         ],
-        "note": "Astuce cuisson : 6 à 8min. Filtre soigneusement, les pépins de mûre sont plus gênants que ceux de framboise."
+        "note": "Astuce cuisson 6 à 8min. Filtre soigneusement, les pépins de mûre sont plus gênants que ceux de framboise."
       },
       {
         "group": "Coulis d’ananas",
@@ -94,7 +94,7 @@ window.RECIPES = {
           "10g jus de citron vert",
           "30 à 60g eau ou jus d’ananas"
         ],
-        "note": "Astuce cuisson : 8 à 10min. L’ananas est fibreux, un blender puissant donne un meilleur résultat qu’un mixeur plongeant."
+        "note": "Astuce cuisson 8 à 10min. L’ananas est fibreux, un blender puissant donne un meilleur résultat qu’un mixeur plongeant."
       },
       {
         "group": "Coulis de kiwi",
@@ -103,7 +103,7 @@ window.RECIPES = {
           "60 à 90g sucre",
           "10g jus de citron vert"
         ],
-        "note": "Astuce cuisson : cru. Évite de cuire le kiwi longtemps, il perd sa couleur verte et peut devenir amer."
+        "note": "Astuce cuisson cru. Évite de cuire le kiwi longtemps, il perd sa couleur verte et peut devenir amer."
       },
       {
         "group": "Coulis de pomme",
@@ -113,11 +113,11 @@ window.RECIPES = {
           "15g jus de citron",
           "80 à 120g eau ou jus de pomme"
         ],
-        "note": "Astuce cuisson : 12 à 15min. La pomme donne plutôt une texture de compote fluide, détends bien après mixage pour obtenir un vrai coulis."
+        "note": "Astuce cuisson 12 à 15min. La pomme donne plutôt une texture de compote fluide, détends bien après mixage pour obtenir un vrai coulis."
       }
     ],
     "steps": [
-      "Règle générale : préparer les fruits.",
+      "Règle générale préparer les fruits.",
       "Mettre les fruits en casserole avec le sucre et, selon le fruit, un peu d’eau ou de jus.",
       "Cuire doucement 5 à 10min, ou suivre le temps indiqué pour le fruit choisi.",
       "Ajouter le citron plutôt en fin de cuisson pour garder un goût frais.",
@@ -127,7 +127,7 @@ window.RECIPES = {
       "Refroidir rapidement et conserver au frais."
     ],
     "notes": [
-      "Finition commune : après refroidissement, vérifie toujours une texture nappante, un sucre présent mais pas dominant, une acidité assez vive pour réveiller le fruit, une bonne brillance et une conservation de 3 à 5 jours au frais ou en congélation par petites portions."
+      "Finition commune après refroidissement, vérifie toujours une texture nappante, un sucre présent mais pas dominant, une acidité assez vive pour réveiller le fruit, une bonne brillance et une conservation de 3 à 5 jours au frais ou en congélation par petites portions."
     ],
     "tags": [
       "coulis",
@@ -180,7 +180,7 @@ window.RECIPES = {
       "Choisir une variante pour afficher la méthode adaptée."
     ],
     "notes": [
-      "Fiche maître : chantilly simple, riche ou stabilisée."
+      "Fiche maître chantilly simple, riche ou stabilisée."
     ],
     "technical": [
       {
@@ -335,7 +335,7 @@ window.RECIPES = {
       "Choisir une variante pour afficher la recette complète."
     ],
     "notes": [
-      "Fiche maître : bases techniques et montages liés."
+      "Fiche maître bases techniques et montages liés."
     ],
     "technical": [
       {
@@ -422,7 +422,7 @@ window.RECIPES = {
       "Choisir une variante pour afficher la recette complète."
     ],
     "notes": [
-      "Fiche maître : sauces froides, condiments, huiles et marinades."
+      "Fiche maître sauces froides, condiments, huiles et marinades."
     ],
     "technical": [
       {
@@ -474,7 +474,7 @@ window.RECIPES = {
       "Choisir une variante pour afficher la recette complète."
     ],
     "notes": [
-      "Fiche maître : préparations de tomates confites, séchées ou rôties."
+      "Fiche maître préparations de tomates confites, séchées ou rôties."
     ],
     "technical": [
       {
@@ -537,7 +537,7 @@ window.RECIPES = {
       "Choisir une variante pour afficher la recette complète."
     ],
     "notes": [
-      "Fiche maître : biscuits, cookies et petites préparations sucrées ou salées."
+      "Fiche maître biscuits, cookies et petites préparations sucrées ou salées."
     ],
     "technical": [
       {
@@ -694,7 +694,7 @@ window.RECIPES = {
     "technical": [
       {
         "label": "Texture",
-        "value": "Le beurre doit être pommade : assez souple pour incorporer les aromates, jamais fondu."
+        "value": "Le beurre doit être pommade assez souple pour incorporer les aromates, jamais fondu."
       },
       {
         "label": "Ail",
@@ -713,7 +713,7 @@ window.RECIPES = {
         "Congélation possible en portions pendant 2 mois."
       ],
       "mistakes": [
-        "Ne pas faire fondre le beurre : il perdrait son émulsion et figerait moins joliment."
+        "Ne pas faire fondre le beurre il perdrait son émulsion et figerait moins joliment."
       ],
       "result": [
         "Beurre parfumé, tartinable, bien ailé et frais grâce au persil."
@@ -754,11 +754,11 @@ window.RECIPES = {
     ],
     "notes": [
       "Ratio huile:acide 3:1 à 4:1 selon la salade.",
-      "Variantes : citron, herbes, miso blanc, yaourt grec.",
-      "→ Voir aussi : <span data-goto=\"pesto_variantes\">Pestos</span>",
-      "Stockage optimal : flacon avec couvercle au réfrigérateur ; secouer avant usage.",
-      "Conservation : 5–7 j au froid.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
+      "Variantes citron, herbes, miso blanc, yaourt grec.",
+      "→ Voir aussi <span data-goto=\"pesto_variantes\">Pestos</span>",
+      "Stockage optimal flacon avec couvercle au réfrigérateur secouer avant usage.",
+      "Conservation 5–7 j au froid.",
+      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation."
     ],
     "difficultyScore": 2
   },
@@ -813,13 +813,13 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Version salade : mixer basilic + pignons + ail + parmesan puis monter à l’huile et citron.",
-      "Version Genovese : piler ail + sel + pignons, ajouter le basilic puis les fromages et l’huile."
+      "Version salade mixer basilic + pignons + ail + parmesan puis monter à l’huile et citron.",
+      "Version Genovese piler ail + sel + pignons, ajouter le basilic puis les fromages et l’huile."
     ],
     "notes": [
-      "Même fiche, 2 styles : citronné (salades) ou traditionnel (pâtes/gnocchi).",
-      "Conservation : 2–4 j au froid, film au contact + fine couche d’huile.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
+      "Même fiche, 2 styles citronné (salades) ou traditionnel (pâtes/gnocchi).",
+      "Conservation 2–4 j au froid, film au contact + fine couche d’huile.",
+      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation."
     ],
     "difficultyScore": 3,
     "variantGroups": true,
@@ -858,9 +858,9 @@ window.RECIPES = {
       "Réserver au froid jusqu'au dressage et ajouter l'huile, les herbes ou les garnitures au dernier moment."
     ],
     "notes": [
-      "Zaatar + huile d'olive ; Citron confit + aneth ; Miel + piment d'Espelette ; Truffe : 1–2 % huile de truffe.",
-      "Conservation : 2–3 j au froid.",
-      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
+      "Zaatar + huile d'olive Citron confit + aneth Miel + piment d'Espelette Truffe 1–2 % huile de truffe.",
+      "Conservation 2–3 j au froid.",
+      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours."
     ],
     "difficultyScore": 2,
     "tags": [
@@ -900,13 +900,13 @@ window.RECIPES = {
       "Verser le vinaigre balsamique dans une petite casserole à fond épais.",
       "Ajouter le sucre selon l'équilibre voulu, puis porter à léger frémissement.",
       "Mijoter 12–20min à feu doux jusqu'à texture nappante, en surveillant car la réduction épaissit vite.",
-      "Couper le feu quand la réduction nappe la cuillère : elle continuera à épaissir en refroidissant.",
+      "Couper le feu quand la réduction nappe la cuillère elle continuera à épaissir en refroidissant.",
       "Transvaser dans un pot propre et laisser refroidir avant de fermer."
     ],
     "notes": [
-      "Variantes : zeste d'orange, vanille, cacao, espresso, figue (filtrer).",
-      "Conservation : 2–3 mois au froid.",
-      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
+      "Variantes zeste d'orange, vanille, cacao, espresso, figue (filtrer).",
+      "Conservation 2–3 mois au froid.",
+      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours."
     ],
     "difficultyScore": 2,
     "tags": [
@@ -972,14 +972,14 @@ window.RECIPES = {
     ],
     "steps": [
       "Ouvrir le bloc Version séchées ou Version confites pour afficher les étapes adaptées.",
-      "Surveiller la texture en fin de cuisson : les séchées doivent être concentrées et souples, les confites tendres et encore juteuses.",
+      "Surveiller la texture en fin de cuisson les séchées doivent être concentrées et souples, les confites tendres et encore juteuses.",
       "Refroidir puis conserver sous huile au frais si les tomates ne sont pas utilisées immédiatement."
     ],
     "notes": [
-      "Séchées : parfaites pour antipasti et salades.",
-      "Confites : idéales en bruschetta / pâtes.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Séchées parfaites pour antipasti et salades.",
+      "Confites idéales en bruschetta / pâtes.",
+      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 4,
     "aliases": [
@@ -1021,10 +1021,10 @@ window.RECIPES = {
       "Filtrer."
     ],
     "notes": [
-      "Variantes : poivre de Sichuan, origan, paprika fumé.",
-      "Conservation : 1 mois au froid.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Variantes poivre de Sichuan, origan, paprika fumé.",
+      "Conservation 1 mois au froid.",
+      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 2
   },
@@ -1058,7 +1058,7 @@ window.RECIPES = {
         "group": "Variante pomme de terre",
         "items": [
           "800g pommes de terre en dés de 2 à 3cm",
-          "Cuisson : 35 à 45min à 200°C chaleur tournante"
+          "Cuisson 35 à 45min à 200°C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante avec la plaque.",
@@ -1070,7 +1070,7 @@ window.RECIPES = {
         "group": "Variante patate douce",
         "items": [
           "700g patate douce en dés de 2 à 3cm",
-          "Cuisson : 25 à 35min à 200°C chaleur tournante"
+          "Cuisson 25 à 35min à 200°C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -1082,7 +1082,7 @@ window.RECIPES = {
         "group": "Variante carotte ou panais",
         "items": [
           "700g carottes ou panais en bâtonnets réguliers",
-          "Cuisson : 22 à 35min à 200°C chaleur tournante"
+          "Cuisson 22 à 35min à 200°C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -1094,7 +1094,7 @@ window.RECIPES = {
         "group": "Variante betterave ou céleri-rave",
         "items": [
           "700g betterave ou céleri-rave en dés de 2 à 3cm",
-          "Cuisson : 30 à 45min à 200°C chaleur tournante"
+          "Cuisson 30 à 45min à 200°C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -1106,7 +1106,7 @@ window.RECIPES = {
         "group": "Variante courge ou butternut",
         "items": [
           "700g courge ou butternut en dés de 2 à 3cm",
-          "Cuisson : 25 à 35min à 200°C chaleur tournante"
+          "Cuisson 25 à 35min à 200°C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -1118,7 +1118,7 @@ window.RECIPES = {
         "group": "Variante brocoli, chou-fleur ou choux de Bruxelles",
         "items": [
           "650g brocoli ou chou-fleur en sommités, ou choux de Bruxelles coupés en deux",
-          "Cuisson : 15 à 25min à 200°C chaleur tournante"
+          "Cuisson 15 à 25min à 200°C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -1130,7 +1130,7 @@ window.RECIPES = {
         "group": "Variante poivron, courgette ou aubergine",
         "items": [
           "700g poivron en lanières, courgette en quartiers ou aubergine en dés de 2 à 3cm",
-          "Cuisson : 18 à 35min à 200°C chaleur tournante"
+          "Cuisson 18 à 35min à 200°C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -1142,7 +1142,7 @@ window.RECIPES = {
         "group": "Variante oignon, fenouil ou poireau",
         "items": [
           "650g oignons ou fenouil en quartiers, ou poireaux en tronçons de 3 à 4cm",
-          "Cuisson : 20 à 35min à 200°C chaleur tournante"
+          "Cuisson 20 à 35min à 200°C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -1154,7 +1154,7 @@ window.RECIPES = {
         "group": "Variante asperges, haricots verts ou champignons",
         "items": [
           "600g asperges parées, haricots verts bien secs ou champignons en gros quartiers",
-          "Cuisson : 10 à 18min à 200°C chaleur tournante"
+          "Cuisson 10 à 18min à 200°C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -1166,7 +1166,7 @@ window.RECIPES = {
         "group": "Variante tomates rôties",
         "items": [
           "700g tomates Roma coupées en deux",
-          "Cuisson : 20 à 25min à 200°C chaleur tournante"
+          "Cuisson 20 à 25min à 200°C chaleur tournante"
         ],
         "steps": [
           "Prechauffer le four a 200C chaleur tournante.",
@@ -1185,9 +1185,9 @@ window.RECIPES = {
     ],
     "notes": [
       "Plaque préchauffée = croûte plus nette.",
-      "Conservation : 4 j au réfrigérateur.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Conservation 4 j au réfrigérateur.",
+      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 3,
     "tags": [
@@ -1385,9 +1385,9 @@ window.RECIPES = {
       "Jeter la marinade qui a touché le cru, ou la porter franchement à ébullition si elle doit devenir une sauce."
     ],
     "notes": [
-      "Ne pas réutiliser la marinade crue ; porter à ébullition si sauce.",
-      "Conservation : marinades prêtes 7 j au froid.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation."
+      "Ne pas réutiliser la marinade crue porter à ébullition si sauce.",
+      "Conservation marinades prêtes 7 j au froid.",
+      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation."
     ],
     "difficultyScore": 3,
     "variantGroups": true,
@@ -1399,7 +1399,7 @@ window.RECIPES = {
     ],
     "aliases": [
       "marinades rapides",
-      "marinade maison",
+      "marinade",
       "guide marinades"
     ]
   },
@@ -1438,7 +1438,7 @@ window.RECIPES = {
           "Former des boules regulieres et refroidir 20 a 30min pour limiter l etalement.",
           "Cuire jusqu aux bords dores et au centre encore tendre, puis laisser tiedir sur plaque avant de deplacer."
         ],
-        "note": "Astuce : garde les dés de jambon assez petits pour que les cookies se tiennent bien."
+        "note": "Astuce garde les dés de jambon assez petits pour que les cookies se tiennent bien."
       },
       {
         "group": "Variante comté",
@@ -1450,7 +1450,7 @@ window.RECIPES = {
           "Former les cookies et refroidir 20 a 30min pour garder une forme epaisse.",
           "Cuire jusqu a legere coloration et laisser reposer 5min sur plaque pour que le fromage se stabilise."
         ],
-        "note": "Astuce : utilise un comté bien râpé pour une répartition régulière dans la pâte."
+        "note": "Astuce utilise un comté bien râpé pour une répartition régulière dans la pâte."
       }
     ],
     "steps": [
@@ -1459,9 +1459,9 @@ window.RECIPES = {
       "Former des boules, aplatir à 1cm et cuire 12–15min à 180°C."
     ],
     "notes": [
-      "Conservation : 3 j boîte hermétique.",
-      "Stockage : boîte hermétique au sec, à température ambiante. Péremption : 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Conservation 3 j boîte hermétique.",
+      "Stockage boîte hermétique au sec, à température ambiante. Péremption 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 4,
     "variantGroups": true
@@ -1515,7 +1515,7 @@ window.RECIPES = {
         ]
       },
       {
-        "group": "Babeurre maison (si besoin)",
+        "group": "Babeurre (si besoin)",
         "items": [
           "250g lait entier",
           "10g jus de citron ou vinaigre",
@@ -1530,9 +1530,9 @@ window.RECIPES = {
       "Repos 10min puis cuisson en petites louches sur poêle beurrée."
     ],
     "notes": [
-      "Pour la version babeurre maison : préparer le <span data-goto=\"babeurre_maison\">babeurre maison</span> 10min avant.",
-      "Conservation : pâte 4h au froid ; pancakes cuits 2 j filmés.",
-      "Stockage : idéalement le jour même. Péremption : 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture."
+      "Pour la version babeurre préparer le <span data-goto=\"babeurre_maison\">babeurre</span> 10min avant.",
+      "Conservation pâte 4h au froid pancakes cuits 2 j filmés.",
+      "Stockage idéalement le jour même. Péremption 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture."
     ],
     "difficultyScore": 3,
     "aliases": [
@@ -1573,9 +1573,9 @@ window.RECIPES = {
       "Servir aussitôt dans des mugs chauds."
     ],
     "notes": [
-      "Épaissir : 5–8g maïzena diluée.",
-      "Conservation : 2 j au froid.",
-      "Stockage : idéalement le jour même. Péremption : 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture."
+      "Épaissir 5–8g maïzena diluée.",
+      "Conservation 2 j au froid.",
+      "Stockage idéalement le jour même. Péremption 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture."
     ],
     "difficultyScore": 3,
     "tags": [
@@ -1586,7 +1586,7 @@ window.RECIPES = {
     ],
     "aliases": [
       "chocolat chaud",
-      "chocolat chaud maison",
+      "chocolat chaud",
       "boisson chocolat"
     ]
   },
@@ -1615,15 +1615,15 @@ window.RECIPES = {
       "Placer bol, fouet et crème au froid pour faciliter le montage.",
       "Verser la crème très froide dans le bol et fouetter progressivement.",
       "Quand la crème commence à épaissir, ajouter le sucre glace en pluie.",
-      "Arrêter au bec d'oiseau : la chantilly tient mais reste souple et lisse.",
+      "Arrêter au bec d'oiseau la chantilly tient mais reste souple et lisse.",
       "Utiliser rapidement ou garder au froid en poche ou bol filmé."
     ],
     "notes": [
-      "Parfums : vanille, cacao, café, coco (1–2 %).",
-      "→ Version plus stable : <span data-goto=\"mascarpone\">Chantilly mascarpone</span> ou <span data-goto=\"chantilly_gelatine\">Chantilly gélatine</span>",
-      "Stockage optimal : dans un bol filmé ou en poche à douille au réfrigérateur.",
-      "Conservation : 24h au froid maximum.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Parfums vanille, cacao, café, coco (1–2 %).",
+      "→ Version plus stable <span data-goto=\"mascarpone\">Chantilly mascarpone</span> ou <span data-goto=\"chantilly_gelatine\">Chantilly gélatine</span>",
+      "Stockage optimal dans un bol filmé ou en poche à douille au réfrigérateur.",
+      "Conservation 24h au froid maximum.",
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "difficultyScore": 3,
     "tags": [
@@ -1634,7 +1634,7 @@ window.RECIPES = {
     ],
     "aliases": [
       "creme chantilly",
-      "chantilly maison",
+      "chantilly",
       "chantilly classique"
     ]
   },
@@ -1669,8 +1669,8 @@ window.RECIPES = {
     "notes": [
       "Texture plus dense, très stable.",
       "Idéal pour un fourrage rapide.",
-      "Dosage fourrage : 30–40g par donut.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Dosage fourrage 30–40g par donut.",
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -1704,12 +1704,12 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Hydrater gélatine 10min ; fondre dans 30g de crème chaude ; mélanger au reste froid ; refroidir 20–30min.",
-      "Monter au fouet ; serrer au sucre en fin."
+      "Hydrater gélatine 10min fondre dans 30g de crème chaude mélanger au reste froid refroidir 20–30min.",
+      "Monter au fouet serrer au sucre en fin."
     ],
     "notes": [
       "Tenue 24–36h en poche.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "difficultyScore": 4
   },
@@ -1753,10 +1753,10 @@ window.RECIPES = {
       "Lisser la pâtissière froide, puis incorporer la chantilly délicatement."
     ],
     "notes": [
-      "Dosage fourrage : 30–40g par donut.",
-      "Texture attendue : légère, stable et propre.",
+      "Dosage fourrage 30–40g par donut.",
+      "Texture attendue légère, stable et propre.",
       "Met à jour la recette existante de crème diplomate vanille.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -1808,17 +1808,17 @@ window.RECIPES = {
     ],
     "steps": [
       "Abaisser craquelin 2mm, détailler disques.",
-      "Réaliser pâte à choux ; pocher Ø 3–4cm ; couvrir d'un disque de craquelin.",
+      "Réaliser pâte à choux pocher Ø 3–4cm couvrir d'un disque de craquelin.",
       "Cuire 170–175°C 35–40min ventilé sec.",
       "Refroidir, garnir."
     ],
     "notes": [
-      "Conservation : coques 3 j à température ambiante dans boîte hermétique ; garnis 24h au froid.",
-      "→ Recette de garnissage : <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span>",
-      "→ Version allégée : <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>",
-      "Stockage : boîte hermétique au sec, à température ambiante. Péremption : 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire.",
-      "Crèmes à garnir : <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span> · <span data-goto=\"creme_diplomate_cloud\">Crème diplomate vanille à garnir</span> · <span data-goto=\"creme_patissiere_vanille\">Crème pâtissière vanille</span> · <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span> · <span data-goto=\"creme_kinder_nutella\">Crème Nutella à garnir</span> · <span data-goto=\"creme_pistache\">Crème pistache à garnir</span> · <span data-goto=\"creme_praline\">Crème praliné</span> · <span data-goto=\"mascarpone\">Crème mascarpone vanille</span> · <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>."
+      "Conservation coques 3 j à température ambiante dans boîte hermétique garnis 24h au froid.",
+      "→ Recette de garnissage <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span>",
+      "→ Version allégée <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>",
+      "Stockage boîte hermétique au sec, à température ambiante. Péremption 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire.",
+      "Crèmes à garnir <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span> · <span data-goto=\"creme_diplomate_cloud\">Crème diplomate vanille à garnir</span> · <span data-goto=\"creme_patissiere_vanille\">Crème pâtissière vanille</span> · <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span> · <span data-goto=\"creme_kinder_nutella\">Crème Nutella à garnir</span> · <span data-goto=\"creme_pistache\">Crème pistache à garnir</span> · <span data-goto=\"creme_praline\">Crème praliné</span> · <span data-goto=\"mascarpone\">Crème mascarpone vanille</span> · <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>."
     ],
     "difficultyScore": 7
   },
@@ -1856,10 +1856,10 @@ window.RECIPES = {
     "notes": [
       "Des blancs \"vieillis\" montent mieux.",
       "Cuisson longue = meringues bien sèches et stables.",
-      "Stockage optimal : boîte hermétique, endroit sec, jamais au réfrigérateur.",
-      "Conservation : 2 semaines sans perte de texture.",
-      "Stockage : boîte hermétique au sec, à température ambiante. Péremption : 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Stockage optimal boîte hermétique, endroit sec, jamais au réfrigérateur.",
+      "Conservation 2 semaines sans perte de texture.",
+      "Stockage boîte hermétique au sec, à température ambiante. Péremption 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 4,
     "additionalMasters": [
@@ -1913,11 +1913,11 @@ window.RECIPES = {
     "notes": [
       "Base aromatique pour pocher poissons, crustacés, légumes ou volailles.",
       "Idéal pour pocher poissons (cabillaud, saumon, sole), crustacés, légumes ou volailles.",
-      "Astuce : ajouter un trait de vinaigre blanc ou de jus de citron pour les crustacés.",
+      "Astuce ajouter un trait de vinaigre blanc ou de jus de citron pour les crustacés.",
       "Base possible pour des plats mijotés, sauces et pochages aromatiques.",
-      "Stockage optimal : boîte hermétique ou pot en verre au réfrigérateur.",
-      "Conservation : 3–4 j au froid ; se congèle très bien 2–3 mois (en portions de 250ml).",
-      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
+      "Stockage optimal boîte hermétique ou pot en verre au réfrigérateur.",
+      "Conservation 3–4 j au froid se congèle très bien 2–3 mois (en portions de 250ml).",
+      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours."
     ],
     "difficultyScore": 2
   },
@@ -1962,12 +1962,12 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "La veille : prélever 40g de lait, tiédir à 25–30°C, dissoudre la levure fraîche.",
+      "La veille prélever 40g de lait, tiédir à 25–30°C, dissoudre la levure fraîche.",
       "Mélanger farine, sucre, sel et vanille. Ajouter œuf, reste du lait, mélange levure et beurre fondu tiède ou mou.",
       "Pétrir 8–10min jusqu’à pâte lisse, souple et légèrement collante. Couvrir 15min.",
       "Bouler, placer en bol légèrement huilé, laisser 30–45min à température ambiante.",
       "Couvrir et mettre au froid 12–18h.",
-      "Le lendemain : sortir 1h avant.",
+      "Le lendemain sortir 1h avant.",
       "Dégazer légèrement, bouler à 60–70g avec une surface bien tendue.",
       "Apprêt 1h à 1h 30. L’empreinte du doigt doit remonter lentement.",
       "Frire à 160–165°C, 2min 30 à 3min par face, 2–3 pièces maximum à la fois.",
@@ -1977,14 +1977,14 @@ window.RECIPES = {
       "Ne jamais fourrer chaud.",
       "Trou sur le côté, douille longue, 30–40g de crème.",
       "Stopper quand le beignet devient légèrement gonflé et lourd.",
-      "Huile trop chaude : extérieur foncé et cœur insuffisamment cuit.",
-      "Huile trop froide : beignets gras.",
-      "Apprêt insuffisant : mie dense.",
-      "Sur-apprêt : beignets qui retombent.",
-      "Résultat attendu : mie aérée et filante, extérieur finement doré, cuisson à cœur sans sécheresse.",
-      "Stockage : idéalement le jour même. Péremption : 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire.",
-      "Crèmes à garnir : <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span> · <span data-goto=\"creme_diplomate_cloud\">Crème diplomate vanille à garnir</span> · <span data-goto=\"creme_patissiere_vanille\">Crème pâtissière vanille</span> · <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span> · <span data-goto=\"creme_kinder_nutella\">Crème Nutella à garnir</span> · <span data-goto=\"creme_pistache\">Crème pistache à garnir</span> · <span data-goto=\"creme_praline\">Crème praliné</span> · <span data-goto=\"mascarpone\">Crème mascarpone vanille</span> · <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>."
+      "Huile trop chaude extérieur foncé et cœur insuffisamment cuit.",
+      "Huile trop froide beignets gras.",
+      "Apprêt insuffisant mie dense.",
+      "Sur-apprêt beignets qui retombent.",
+      "Résultat attendu mie aérée et filante, extérieur finement doré, cuisson à cœur sans sécheresse.",
+      "Stockage idéalement le jour même. Péremption 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire.",
+      "Crèmes à garnir <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span> · <span data-goto=\"creme_diplomate_cloud\">Crème diplomate vanille à garnir</span> · <span data-goto=\"creme_patissiere_vanille\">Crème pâtissière vanille</span> · <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span> · <span data-goto=\"creme_kinder_nutella\">Crème Nutella à garnir</span> · <span data-goto=\"creme_pistache\">Crème pistache à garnir</span> · <span data-goto=\"creme_praline\">Crème praliné</span> · <span data-goto=\"mascarpone\">Crème mascarpone vanille</span> · <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>."
     ],
     "technical": [
       {
@@ -2054,14 +2054,14 @@ window.RECIPES = {
       "Fouetter mascarpone + crème + sucre glace + vanille jusqu'à texture ferme. Prêt en 3 minutes, très stable, excellente tenue."
     ],
     "notes": [
-      "Ne jamais fourrer des donuts chauds : la crème fond et coule.",
-      "→ Recette des donuts : <span data-goto='donuts_cloud'>Donuts Cloud-like (pousse lente)</span>",
-      "→ Recette des choux : <span data-goto='choux_craquelin'>Choux au craquelin</span>",
-      "→ Version pâtissière seule : <span data-goto='creme_diplomate_vanille'>Crème diplomate vanille (recette de base)</span>",
-      "Stockage optimal pâtissière : filmée au contact dans boîte hermétique au réfrigérateur.",
-      "Conservation pâtissière seule : 48h au froid. Diplomate assemblée : 24h au froid. Mascarpone : 36–48h au froid.",
-      "Congélation : possible pour la pâtissière seule (avant incorporation chantilly) — 1 mois. Fouetter à nouveau après décongélation.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Ne jamais fourrer des donuts chauds la crème fond et coule.",
+      "→ Recette des donuts <span data-goto='donuts_cloud'>Donuts Cloud-like (pousse lente)</span>",
+      "→ Recette des choux <span data-goto='choux_craquelin'>Choux au craquelin</span>",
+      "→ Version pâtissière seule <span data-goto='creme_diplomate_vanille'>Crème diplomate vanille (recette de base)</span>",
+      "Stockage optimal pâtissière filmée au contact dans boîte hermétique au réfrigérateur.",
+      "Conservation pâtissière seule 48h au froid. Diplomate assemblée 24h au froid. Mascarpone 36–48h au froid.",
+      "Congélation possible pour la pâtissière seule (avant incorporation chantilly) — 1 mois. Fouetter à nouveau après décongélation.",
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "difficultyScore": 6
   },
@@ -2090,11 +2090,11 @@ window.RECIPES = {
       {
         "group": "Composants liés",
         "items": [
-          "→ Voir : <span data-goto=\"craquelin_cacao\">Craquelin cacao</span>",
-          "→ Voir : <span data-goto=\"pate_choux\">Pâte à choux</span>",
-          "→ Voir : <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span>",
-          "→ Voir : <span data-goto=\"creme_beurre_meringue_italienne\">Crème au beurre meringue italienne</span>",
-          "→ Voir : <span data-goto=\"creme_praline\">Crème praliné</span>"
+          "→ Voir <span data-goto=\"craquelin_cacao\">Craquelin cacao</span>",
+          "→ Voir <span data-goto=\"pate_choux\">Pâte à choux</span>",
+          "→ Voir <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span>",
+          "→ Voir <span data-goto=\"creme_beurre_meringue_italienne\">Crème au beurre meringue italienne</span>",
+          "→ Voir <span data-goto=\"creme_praline\">Crème praliné</span>"
         ]
       }
     ],
@@ -2107,7 +2107,7 @@ window.RECIPES = {
     "notes": [
       "Montage en couronnes de pâte à choux, crème praliné et noisettes.",
       "Sortir du réfrigérateur 30 à 40min avant dégustation.",
-      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
+      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours."
     ],
     "difficultyScore": 8
   },
@@ -2142,8 +2142,8 @@ window.RECIPES = {
       "Découper des anneaux (Ø 8cm, trou Ø 2cm), badigeonner de blanc d’œuf, ajouter les noisettes puis recongeler jusqu’à usage."
     ],
     "notes": [
-      "Composant pour : <span data-goto=\"paris_brest\">Paris-Brest</span>.",
-      "Stockage : boîte hermétique au sec, à température ambiante. Péremption : 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile."
+      "Composant pour <span data-goto=\"paris_brest\">Paris-Brest</span>.",
+      "Stockage boîte hermétique au sec, à température ambiante. Péremption 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile."
     ],
     "difficultyScore": 2
   },
@@ -2180,9 +2180,9 @@ window.RECIPES = {
       "Pocher des couronnes de 7cm, poser le craquelin puis cuire à 170°C pendant 40 à 45min."
     ],
     "notes": [
-      "Le test du sillon : il doit se refermer doucement quand la texture est correcte.",
-      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Le test du sillon il doit se refermer doucement quand la texture est correcte.",
+      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 7,
     "additionalMasters": [
@@ -2230,7 +2230,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Ajuster le praliné/pâte de noisette selon l’intensité souhaitée.",
-      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
+      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours."
     ],
     "difficultyScore": 6,
     "additionalMasters": [
@@ -2277,8 +2277,8 @@ window.RECIPES = {
     ],
     "notes": [
       "Base technique pour plusieurs entremets/pâtisseries classiques.",
-      "Stockage : boîte hermétique au sec, à température ambiante. Péremption : 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Stockage boîte hermétique au sec, à température ambiante. Péremption 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 8,
     "additionalMasters": [
@@ -2313,8 +2313,8 @@ window.RECIPES = {
       "Mettre en poche cannelée pour le montage des Paris-Brest."
     ],
     "notes": [
-      "Utilisé par exemple dans : <span data-goto=\"paris_brest\">Paris-Brest</span>.",
-      "Stockage : boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption : 2–3 jours."
+      "Utilisé par exemple dans <span data-goto=\"paris_brest\">Paris-Brest</span>.",
+      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours."
     ],
     "difficultyScore": 5,
     "additionalMasters": [
@@ -2429,7 +2429,7 @@ window.RECIPES = {
       },
       {
         "id": "salade_oeufs_durs_mayonnaise_bistrot",
-        "label": "Salade oeufs durs mayonnaise bistrot"
+        "label": "Salade oeufs durs mayonnaise"
       },
       {
         "id": "tomates_maitre",
@@ -2548,7 +2548,7 @@ window.RECIPES = {
       },
       {
         "id": "saucisse_puree_maison",
-        "label": "Saucisse purée maison"
+        "label": "Saucisse purée"
       },
       {
         "id": "saumon_au_four_tomates_olives_basilic",
@@ -2590,16 +2590,16 @@ window.RECIPES = {
         "label": "Chou-fleur croustillant"
       },
       {
+        "id": "frites_maison",
+        "label": "Frites"
+      },
+      {
         "id": "frites_belges",
         "label": "Frites belges"
       },
       {
         "id": "frites_patate_douce",
         "label": "Frites de patate douce"
-      },
-      {
-        "id": "frites_maison",
-        "label": "Frites maison"
       },
       {
         "id": "gaufres_pommes_terre",
@@ -2816,9 +2816,9 @@ window.RECIPES = {
     ],
     "notes": [
       "Le beurre doit être pommade, pas fondu, pour obtenir un crumble bien sableux.",
-      "Beurre légèrement le plat à gratin avant d’ajouter les fruits : le jus caramélisé accroche moins.",
-      "Surveiller la coloration en fin de cuisson : le dessus doit être doré sans brûler.",
-      "Chaque four réagit différemment : surveille la coloration et la texture en fin de cuisson, puis ajuste le temps si nécessaire.",
+      "Beurre légèrement le plat à gratin avant d’ajouter les fruits le jus caramélisé accroche moins.",
+      "Surveiller la coloration en fin de cuisson le dessus doit être doré sans brûler.",
+      "Chaque four réagit différemment surveille la coloration et la texture en fin de cuisson, puis ajuste le temps si nécessaire.",
       "Très bon tiède, nature ou avec une crème anglaise."
     ],
     "technical": [
@@ -2863,7 +2863,7 @@ window.RECIPES = {
     "notes": [
       "Texture crèmeuse mais stable en fourrage.",
       "Goût intense, ne détrempe pas le donut.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -2907,8 +2907,8 @@ window.RECIPES = {
       "Monter au fouet jusqu’à texture ferme."
     ],
     "notes": [
-      "Résultat attendu : crèmeux, parfumé et stable.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Résultat attendu crèmeux, parfumé et stable.",
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -2949,11 +2949,11 @@ window.RECIPES = {
     ],
     "ingredients": [
       {
-        "group": "Huile chili crisp maison",
+        "group": "Huile chili crisp",
         "items": [
           "110g huile d’avocat ou huile neutre",
           "5g flocons de piment concassés ou piment rouge séché finement concassé",
-          "7g poudre de piment finement moulue : piment du Sichuan, gochugaru, poudre de chili ou autre piment au choix",
+          "7g poudre de piment finement moulue piment du Sichuan, gochugaru, poudre de chili ou autre piment au choix",
           "0,3g cinq-épices",
           "4 à 5g ail très finement haché ou râpé",
           "1,5g graines de sésame",
@@ -2963,7 +2963,7 @@ window.RECIPES = {
       {
         "group": "Toast à l’œuf",
         "items": [
-          "9 à 14g huile chili crisp maison ou huile chili crisp du commerce",
+          "9 à 14g huile chili crisp ou huile chili crisp du commerce",
           "55g œuf (1 œuf moyen)",
           "Sel",
           "Poivre du moulin",
@@ -2982,7 +2982,7 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Verser l’huile dans une petite casserole et chauffer à feu doux : elle doit être chaude sans fumer.",
+      "Verser l’huile dans une petite casserole et chauffer à feu doux elle doit être chaude sans fumer.",
       "Mélanger flocons de piment, poudre de piment, cinq-épices, ail, graines de sésame et sel dans un bol résistant à la chaleur.",
       "Verser l’huile chaude sur le mélange d’épices, laisser crépiter quelques secondes, mélanger puis laisser tiédir.",
       "Faire chauffer une poêle à feu moyen.",
@@ -3047,9 +3047,9 @@ window.RECIPES = {
       "Cuire dans un gaufrier très chaud 3–4min."
     ],
     "notes": [
-      "Vraie gaufre de Bruxelles : pâte levée, blancs montés, gros trous, texture légère et croustillante.",
+      "Vraie gaufre de Bruxelles pâte levée, blancs montés, gros trous, texture légère et croustillante.",
       "Pour plus de croustillant, remplacer 50g de lait par 50g de bière.",
-      "Stockage : idéalement le jour même. Péremption : 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture."
+      "Stockage idéalement le jour même. Péremption 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture."
     ],
     "tags": [
       "gaufre",
@@ -3128,20 +3128,20 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Pâte sucrée : assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler.",
+      "Pâte sucrée assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler.",
       "Étaler à 2–3mm entre deux feuilles, refroidir au moins 1h, foncer, reposer au froid puis cuire 10 à 15min à 170°C chaleur tournante.",
-      "Crème d’amande : mélanger beurre et sucre, ajouter œuf, poudre d’amande, fécule et zeste. Étaler 5mm dans la tarte et cuire 20–25min à 180°C.",
-      "Crème citron : chauffer le jus, fouetter jaunes et sucre, ajouter fécule, verser le jus chaud, cuire jusqu’à épaississement, ajouter beurre, filmer au contact et refroidir.",
-      "Compotée optionnelle : cuire citron et sucre, mixer, puis Étaler une fine couche sur le fond.",
-      "Montage : fond cuit, compotée optionnelle, crème citron sur 1–2cm, lisser.",
-      "Meringue italienne : cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement.",
+      "Crème d’amande mélanger beurre et sucre, ajouter œuf, poudre d’amande, fécule et zeste. Étaler 5mm dans la tarte et cuire 20–25min à 180°C.",
+      "Crème citron chauffer le jus, fouetter jaunes et sucre, ajouter fécule, verser le jus chaud, cuire jusqu’à épaississement, ajouter beurre, filmer au contact et refroidir.",
+      "Compotée optionnelle cuire citron et sucre, mixer, puis Étaler une fine couche sur le fond.",
+      "Montage fond cuit, compotée optionnelle, crème citron sur 1–2cm, lisser.",
+      "Meringue italienne cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement.",
       "Pocher la meringue, finir au chalumeau ou sous grill, puis reposer 1h minimum au froid."
     ],
     "notes": [
-      "Points critiques : beurre pommade non liquide, sirop à 118–120°C, verser lentement, fouetter jusqu’à refroidissement complet.",
-      "Résultat attendu : pâte croustillante, crème d’amande moelleuse, crème citron fondante, meringue légère et stable.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Points critiques beurre pommade non liquide, sirop à 118–120°C, verser lentement, fouetter jusqu’à refroidissement complet.",
+      "Résultat attendu pâte croustillante, crème d’amande moelleuse, crème citron fondante, meringue légère et stable.",
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "tarte",
@@ -3186,9 +3186,9 @@ window.RECIPES = {
     ],
     "notes": [
       "Toujours tout peser avant.",
-      "Respecter les textures : pommade, mousse, bec d’oiseau.",
+      "Respecter les textures pommade, mousse, bec d’oiseau.",
       "Ne jamais précipiter la meringue ou les mélanges mousseux.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "tiramisu",
@@ -3247,9 +3247,9 @@ window.RECIPES = {
     ],
     "notes": [
       "Le cake est prêt quand la lame ressort sèche et que le dessus est bien doré.",
-      "Préparation du moule : beurre et farine le moule, puis retire l’excédent pour démouler proprement.",
-      "Stockage : refroidir rapidement puis conserver au réfrigérateur en boîte hermétique. Péremption : 3–4 jours.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Préparation du moule beurre et farine le moule, puis retire l’excédent pour démouler proprement.",
+      "Stockage refroidir rapidement puis conserver au réfrigérateur en boîte hermétique. Péremption 3–4 jours.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "cake",
@@ -3395,9 +3395,9 @@ window.RECIPES = {
     ],
     "notes": [
       "Accompagnement pour viande grillée, poisson, purée ou gratin de légumes.",
-      "Conservation : 3–4 jours au froid en boîte hermétique.",
-      "Stockage : bocal ou boîte hermétique au réfrigérateur. Péremption : 3–5 jours; vérifier odeur, texture et absence de fermentation.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Conservation 3–4 jours au froid en boîte hermétique.",
+      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "oignon",
@@ -3454,9 +3454,9 @@ window.RECIPES = {
     ],
     "notes": [
       "Cuisson lente indispensable pour une texture fondante.",
-      "Conservation : 3–4 jours au froid, réchauffage doux avec un peu de sauce.",
-      "Stockage : refroidir rapidement puis conserver au réfrigérateur en boîte hermétique. Péremption : 3–4 jours.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Conservation 3–4 jours au froid, réchauffage doux avec un peu de sauce.",
+      "Stockage refroidir rapidement puis conserver au réfrigérateur en boîte hermétique. Péremption 3–4 jours.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "porc",
@@ -3495,7 +3495,7 @@ window.RECIPES = {
         "items": [
           "1 jaune d’œuf",
           "1 petite cuillère crème ou eau",
-          "Option : chocolat fondu blanc ou noir pour isoler le fond"
+          "Option chocolat fondu blanc ou noir pour isoler le fond"
         ]
       }
     ],
@@ -3505,23 +3505,23 @@ window.RECIPES = {
       "Ajouter la farine et mélanger lentement juste le temps de l’incorporer, sans chercher une pâte parfaitement boule.",
       "Étaler la pâte entre deux feuilles de papier cuisson sur 2 à 3mm d’épaisseur, sans ajouter de farine.",
       "Réserver au réfrigérateur au moins 1h après étalage, ou filmer la pâte et la laisser reposer au moins 2h avant de l’abaisser.",
-      "Foncer le cercle : soit avec une grande abaisse, soit avec des bandes pour les bords et un disque pour le fond.",
+      "Foncer le cercle soit avec une grande abaisse, soit avec des bandes pour les bords et un disque pour le fond.",
       "Laisser reposer le fond foncé au réfrigérateur avant cuisson, idéalement 24h pour limiter la rétractation.",
-      "Cuire à 170°C chaleur tournante : 10 à 15min si le fond doit recuire avec une crème d’amandes, ou 15 à 20min pour un fond cuit à blanc.",
+      "Cuire à 170°C chaleur tournante 10 à 15min si le fond doit recuire avec une crème d’amandes, ou 15 à 20min pour un fond cuit à blanc.",
       "Pour une finition dorée et isolée, badigeonner très finement jaune d’œuf + crème ou eau, puis remettre 5min à 170°C.",
       "Laisser refroidir avant de garnir, puis isoler au chocolat fondu si la garniture est très humide."
     ],
     "notes": [
       "Base utilisée dans la tarte citron meringuée.",
-      "Ne travaille presque plus la pâte après ajout de la farine : trop mélanger la rend friable, fragile et plus difficile à manipuler.",
+      "Ne travaille presque plus la pâte après ajout de la farine trop mélanger la rend friable, fragile et plus difficile à manipuler.",
       "La farine T55 limite mieux la rétractation à la cuisson qu’une farine trop riche en gluten.",
       "Étaler entre deux feuilles évite d’ajouter de la farine et garde une texture plus nette.",
       "Un tapis de cuisson perforé posé sur grille permet une cuisson plus régulière et évite souvent de piquer le fond.",
-      "Si la pâte casse au fonçage, colmate avec un morceau de pâte de même épaisseur : elle se ressoude à la cuisson.",
+      "Si la pâte casse au fonçage, colmate avec un morceau de pâte de même épaisseur elle se ressoude à la cuisson.",
       "Si les bords collent au cercle, décolle-les à chaud avec une petite lame sans retirer le cercle.",
       "Pour une surface plus lisse, poncer très légèrement le fond cuit avec un zesteur fin.",
       "Les chutes crues peuvent être filmées et congelées pour une autre tarte.",
-      "Stockage : pâte crue 2–3 jours au réfrigérateur ou congélation possible. Fond cuit à garder au sec en boîte hermétique."
+      "Stockage pâte crue 2–3 jours au réfrigérateur ou congélation possible. Fond cuit à garder au sec en boîte hermétique."
     ],
     "technical": [
       {
@@ -3588,7 +3588,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Base moelleuse pour tartes aux fruits ou citron.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -3640,7 +3640,7 @@ window.RECIPES = {
     "notes": [
       "Texture fondante pour tarte citron, verrines ou fourrage.",
       "Refroidir avant montage pour une tenue nette.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -3685,7 +3685,7 @@ window.RECIPES = {
     "notes": [
       "Optionnelle dans la tarte citron meringuée.",
       "À utiliser en petite quantité pour éviter l’amertume.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "citron",
@@ -3736,8 +3736,8 @@ window.RECIPES = {
     "notes": [
       "Verser le sirop lentement.",
       "Fouetter jusqu’à refroidissement complet pour une bonne stabilité.",
-      "Stockage : boîte hermétique au sec, à température ambiante. Péremption : 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Stockage boîte hermétique au sec, à température ambiante. Péremption 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "meringue",
@@ -3786,7 +3786,7 @@ window.RECIPES = {
     "notes": [
       "Base de la crème diplomate vanille.",
       "Lisser au fouet après refroidissement avant incorporation.",
-      "Stockage : au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption : 24–48h selon fraîcheur des produits laitiers et des œufs."
+      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -3843,7 +3843,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Servir rapidement après découpe de l’avocat.",
-      "Stockage : boîte hermétique au réfrigérateur. Péremption : 24h, à assaisonner au dernier moment."
+      "Stockage boîte hermétique au réfrigérateur. Péremption 24h, à assaisonner au dernier moment."
     ],
     "tags": [
       "salade",
@@ -4086,7 +4086,7 @@ window.RECIPES = {
     ]
   },
   "babeurre_maison": {
-    "title": "Babeurre maison",
+    "title": "Babeurre",
     "master": "elements_base_maitre",
     "image": "/assets/recipe-images-optimized/babeurre_maison_spooky.jpg",
     "categories": [
@@ -4099,7 +4099,7 @@ window.RECIPES = {
     "yield": "260g environ",
     "aliases": [
       "babeurre",
-      "babeurre maison",
+      "babeurre",
       "buttermilk"
     ],
     "ingredients": [
@@ -4113,12 +4113,12 @@ window.RECIPES = {
     ],
     "steps": [
       "Mélanger le lait et le jus de citron ou le vinaigre.",
-      "Laisser reposer 10min  à température ambiante.",
+      "Laisser reposer 10min à température ambiante.",
       "Utiliser dès que le lait a légèrement épaissi."
     ],
     "notes": [
       "À utiliser dans les pancakes, gaufres ou pâtes levées moelleuses.",
-      "Stockage : au réfrigérateur en contenant propre. Péremption : 24h."
+      "Stockage au réfrigérateur en contenant propre. Péremption 24h."
     ],
     "tags": [
       "babeurre",
@@ -4167,8 +4167,8 @@ window.RECIPES = {
     ],
     "notes": [
       "Servir chaud, tiède ou en accompagnement d’une viande grillée.",
-      "Stockage : 2 jours au réfrigérateur, réchauffer au four doux.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Stockage 2 jours au réfrigérateur, réchauffer au four doux.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "tomate",
@@ -4196,7 +4196,7 @@ window.RECIPES = {
     "yield": "8 tortillas",
     "aliases": [
       "tortillas de blé",
-      "wraps maison"
+      "wraps"
     ],
     "ingredients": [
       {
@@ -4220,7 +4220,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Si elles sèchent, les réchauffer quelques secondes sous cloche ou dans un torchon humide.",
-      "Stockage : 2 jours bien emballées, ou congélation séparées par papier cuisson."
+      "Stockage 2 jours bien emballées, ou congélation séparées par papier cuisson."
     ],
     "tags": [
       "tortilla",
@@ -4276,14 +4276,14 @@ window.RECIPES = {
       "Fouetter les œufs avec le sucre sans trop blanchir.",
       "Incorporer le mélange chocolat-beurre, puis la farine et la fleur de sel.",
       "Remplir les moules aux trois quarts et réserver au froid au moins 1h.",
-      "Cuire à four chaud 7 à 10min selon la taille des moules : les bords doivent être pris et le centre tremblotant.",
+      "Cuire à four chaud 7 à 10min selon la taille des moules les bords doivent être pris et le centre tremblotant.",
       "Attendre 1min, démouler délicatement et servir aussitôt."
     ],
     "notes": [
-      "Le temps de cuisson est le point clé : tester un moule avant une série.",
-      "Préparation des moules ou ramequins : beurre généreusement puis chemise au cacao ou à la farine, sinon les mi-cuits peuvent coller au démoulage.",
-      "Stockage : appareil cru 24h au réfrigérateur, cuisson minute recommandée.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Le temps de cuisson est le point clé tester un moule avant une série.",
+      "Préparation des moules ou ramequins beurre généreusement puis chemise au cacao ou à la farine, sinon les mi-cuits peuvent coller au démoulage.",
+      "Stockage appareil cru 24h au réfrigérateur, cuisson minute recommandée.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "chocolat",
@@ -4346,9 +4346,9 @@ window.RECIPES = {
     ],
     "notes": [
       "Pour des cookies épais, cuire la pâte bien froide.",
-      "Stockage : 4 jours en boîte hermétique.",
-      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Stockage 4 jours en boîte hermétique.",
+      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "cookies",
@@ -4411,9 +4411,9 @@ window.RECIPES = {
       "Garnir les coques refroidies, ajouter quelques noisettes, assembler et maturer 24h au frais."
     ],
     "notes": [
-      "Recette technique : pesées précises, blancs à température ambiante et cuisson régulière.",
-      "Stockage : 3 jours au réfrigérateur, sortir 15min avant dégustation.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Recette technique pesées précises, blancs à température ambiante et cuisson régulière.",
+      "Stockage 3 jours au réfrigérateur, sortir 15min avant dégustation.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "macaron",
@@ -4494,15 +4494,15 @@ window.RECIPES = {
       "Laisser revenir à température ambiante, puis couper en tranches fines ou moyennes."
     ],
     "notes": [
-      "Ne pas blanchir beurre et sucre : trop fouetter nuit à la texture recherchée.",
-      "Préparation du moule : si tu utilises un moule classique, beurre et farine-le légèrement avant de verser la pâte.",
-      "Le moule ne doit pas être trop grand : la pâte doit arriver aux 3/4 de la hauteur pour une belle forme et une cuisson régulière.",
-      "Respecter la quantité d’œufs indiquée : la précision aide à obtenir une mie qui se tient bien, même en tranches fines.",
-      "Surveiller dès 30min : une surcuisson dessèche le cake et déséquilibre l’acidité du citron.",
+      "Ne pas blanchir beurre et sucre trop fouetter nuit à la texture recherchée.",
+      "Préparation du moule si tu utilises un moule classique, beurre et farine-le légèrement avant de verser la pâte.",
+      "Le moule ne doit pas être trop grand la pâte doit arriver aux 3/4 de la hauteur pour une belle forme et une cuisson régulière.",
+      "Respecter la quantité d’œufs indiquée la précision aide à obtenir une mie qui se tient bien, même en tranches fines.",
+      "Surveiller dès 30min une surcuisson dessèche le cake et déséquilibre l’acidité du citron.",
       "Filmer le cake dès la sortie du four retient l’humidité et donne une texture moelleuse, dense et fondante.",
       "Laisser vraiment refroidir le cake avant glaçage, sinon le nappage fond et reste collant.",
-      "Le cake est souvent meilleur le lendemain : les arômes se stabilisent et la texture se tient encore mieux.",
-      "Conservation : 3 à 4 jours à température ambiante dans une boîte hermétique ou bien filmé ; 5 à 6 jours au réfrigérateur, avec une texture un peu plus ferme.",
+      "Le cake est souvent meilleur le lendemain les arômes se stabilisent et la texture se tient encore mieux.",
+      "Conservation 3 à 4 jours à température ambiante dans une boîte hermétique ou bien filmé 5 à 6 jours au réfrigérateur, avec une texture un peu plus ferme.",
       "Congélation possible, idéalement sans glaçage ou en tranches bien emballées, jusqu’à 1 à 2 mois."
     ],
     "technical": [
@@ -4534,7 +4534,7 @@ window.RECIPES = {
     "yield": "25 churros",
     "aliases": [
       "churros",
-      "churros maison"
+      "churros"
     ],
     "ingredients": [
       {
@@ -4569,8 +4569,8 @@ window.RECIPES = {
     ],
     "notes": [
       "La pâte doit être assez souple pour être pochée mais garder les stries de la douille.",
-      "Stockage : meilleur minute, possible 24h mais perd du croustillant.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Stockage meilleur minute, possible 24h mais perd du croustillant.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "churros",
@@ -4649,7 +4649,7 @@ window.RECIPES = {
     "variants": [
       {
         "id": "babeurre_maison",
-        "label": "Babeurre maison"
+        "label": "Babeurre"
       },
       {
         "id": "base_pour_flan_sale",
@@ -4736,7 +4736,7 @@ window.RECIPES = {
       "Sélectionner la base voulue dans les cartes de recettes."
     ],
     "notes": [
-      "Fiche parent pour les préparations de base : pains, tortillas, pâtes, fonds et supports de recettes."
+      "Fiche parent pour les préparations de base pains, tortillas, pâtes, fonds et supports de recettes."
     ],
     "tags": [
       "base",
@@ -4879,11 +4879,11 @@ window.RECIPES = {
     "notes": [
       "Le mélange chocolat noir et chocolat au lait donne un équilibre gourmand sans être trop amer.",
       "Le beurre noisette apporte une saveur profonde et légèrement caramélisée.",
-      "Sors le beurre à ramollir environ 45 à 60min avant, selon la température de la pièce : il doit être souple mais pas fondu.",
-      "Pour l’arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
-      "Ne prolonge pas trop la cuisson : les cookies continuent de cuire légèrement hors du four.",
+      "Sors le beurre à ramollir environ 45 à 60min avant, selon la température de la pièce il doit être souple mais pas fondu.",
+      "Pour l’arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
+      "Ne prolonge pas trop la cuisson les cookies continuent de cuire légèrement hors du four.",
       "La pâte peut être congelée en boules bien emballées, puis cuite plus tard directement depuis le congélateur.",
-      "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
+      "Chaque four réagit différemment surveille la coloration et ajuste le temps de cuisson si nécessaire."
     ],
     "technical": [
       {
@@ -4952,21 +4952,21 @@ window.RECIPES = {
       "Ajouter farine, levure chimique et fleur de sel, puis mélanger brièvement sans trop travailler la pâte.",
       "Couper le chocolat au lait et le chocolat noir en gros morceaux.",
       "Incorporer les morceaux de chocolat juste assez pour bien les répartir et absorber toute la farine.",
-      "Méthode boules : placer la pâte au réfrigérateur au moins 1h, puis former des boules à l’aide d’une cuillère à glace.",
-      "Méthode boudins : déposer la pâte sur du film alimentaire, former un ou plusieurs boudins, réfrigérer au moins 1h, puis découper des tranches d’environ 1cm.",
+      "Méthode boules placer la pâte au réfrigérateur au moins 1h, puis former des boules à l’aide d’une cuillère à glace.",
+      "Méthode boudins déposer la pâte sur du film alimentaire, former un ou plusieurs boudins, réfrigérer au moins 1h, puis découper des tranches d’environ 1cm.",
       "Préchauffer le four à 170°C.",
       "Déposer les boules ou tranches de pâte sur une plaque recouverte de papier cuisson ou d’un tapis de cuisson, en les espaçant bien.",
-      "Cuire 10min : les cookies doivent encore être mous à la sortie du four.",
+      "Cuire 10min les cookies doivent encore être mous à la sortie du four.",
       "Laisser reposer quelques minutes sur la plaque, puis transférer sur grille jusqu’à complet refroidissement."
     ],
     "notes": [
-      "Ne fais pas fondre le beurre : il doit rester pommade, souple et crémeux.",
+      "Ne fais pas fondre le beurre il doit rester pommade, souple et crémeux.",
       "Ne travaille pas trop la pâte après l’ajout de la farine.",
       "Le repos au froid aide les cookies à garder une belle épaisseur.",
       "Pour des cookies moelleux, ne dépasse pas 10min de cuisson.",
       "Les cookies cuits se conservent plusieurs jours dans une boîte hermétique.",
       "La pâte crue peut être congelée en boudins ou en boules pour une cuisson ultérieure.",
-      "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
+      "Chaque four réagit différemment surveille la coloration et ajuste le temps de cuisson si nécessaire."
     ],
     "technical": [
       {
@@ -5048,10 +5048,10 @@ window.RECIPES = {
     "notes": [
       "Pour des cookies plus gourmands, utilise un mélange de chocolat noir et chocolat au lait.",
       "Les noisettes se marient particulièrement bien avec le chocolat.",
-      "Pour l’arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
-      "Ne prolonge pas trop la cuisson : le centre doit rester tendre.",
+      "Pour l’arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
+      "Ne prolonge pas trop la cuisson le centre doit rester tendre.",
       "La pâte peut être préparée à l’avance et conservée au frais jusqu’à 24h avant cuisson.",
-      "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
+      "Chaque four réagit différemment surveille la coloration et ajuste le temps de cuisson si nécessaire."
     ],
     "technical": [
       {
@@ -5173,7 +5173,7 @@ window.RECIPES = {
       "Réserver au frais 20min pour arrondir le goût."
     ],
     "notes": [
-      "Conservation : 2 à 3 jours au réfrigérateur dans une boîte fermée."
+      "Conservation 2 à 3 jours au réfrigérateur dans une boîte fermée."
     ],
     "tags": [
       "sauce",
@@ -5302,9 +5302,9 @@ window.RECIPES = {
       "Foncer le moule, réfrigérer 30min, puis cuire à blanc selon la garniture prévue."
     ],
     "notes": [
-      "Adapter la cuisson à la garniture : précuire pour une crème froide, cuire avec la garniture pour une tarte cuite.",
-      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
-      "Conservation : pâte crue filmée 24–48h au réfrigérateur ou 2 mois au congélateur ; fond cuit refroidi en boîte hermétique 2–3 jours au sec."
+      "Adapter la cuisson à la garniture précuire pour une crème froide, cuire avec la garniture pour une tarte cuite.",
+      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
+      "Conservation pâte crue filmée 24–48h au réfrigérateur ou 2 mois au congélateur fond cuit refroidi en boîte hermétique 2–3 jours au sec."
     ],
     "tags": [
       "pate",
@@ -5377,9 +5377,9 @@ window.RECIPES = {
     ],
     "notes": [
       "Le cream cheese correspond à un fromage frais dense et légèrement acidulé, type Philadelphia. Évite le fromage blanc ou le Saint Môret trop souple si tu veux un cœur net.",
-      "Bien refermer la pâte autour du fourrage pour éviter les fuites. Conservation : 3 jours au réfrigérateur.",
-      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
-      "Chaque four réagit différemment : surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
+      "Bien refermer la pâte autour du fourrage pour éviter les fuites. Conservation 3 jours au réfrigérateur.",
+      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
+      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "cookies",
@@ -5436,14 +5436,14 @@ window.RECIPES = {
       "Ajouter la crème 35 % et le lait en remuant.",
       "Porter à frémissement doux et cuire 6 à 9min, en mélangeant régulièrement, jusqu’à texture nappante.",
       "Retirer du feu, ajouter la vanille et mélanger.",
-      "Laisser tiédir : la sauce épaissit en refroidissant.",
+      "Laisser tiédir la sauce épaissit en refroidissant.",
       "Mettre en pot propre et conserver au réfrigérateur."
     ],
     "notes": [
       "Pour une sauce plus fluide, ajoute une petite touche de lait chaud après cuisson.",
       "Pour une sauce plus épaisse, prolonge très légèrement la cuisson en surveillant la couleur et la texture.",
-      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
-      "Conservation : environ 1 semaine au réfrigérateur dans un pot propre fermé."
+      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
+      "Conservation environ 1 semaine au réfrigérateur dans un pot propre fermé."
     ],
     "tags": [
       "sauce",
@@ -5498,14 +5498,14 @@ window.RECIPES = {
           "30g de beurre froid",
           "1 c. à café d’huile neutre ou graisse de cuisson",
           "Sel fin",
-          "Option : 1 à 2 c. à soupe de jus de viande"
+          "Option 1 à 2 c. à soupe de jus de viande"
         ],
         "steps": [
           "Concasser les poivres, ciseler l echalote et faire suer dans huile ou graisse de cuisson.",
           "Flamber au cognac, reduire avec vin blanc ou Madere, puis ajouter le fond de veau reduit.",
           "Cremer, reduire a texture nappante, monter au beurre froid et finir avec poivre vert et jus de viande si disponible."
         ],
-        "note": "Cuisson : torréfier les poivres 30 à 45 secondes, réduire le fond 8 à 12 minutes, puis réduire avec la crème 4 à 6 minutes."
+        "note": "Cuisson torréfier les poivres 30 à 45 secondes, réduire le fond 8 à 12 minutes, puis réduire avec la crème 4 à 6 minutes."
       },
       {
         "group": "Variante express premium",
@@ -5522,7 +5522,7 @@ window.RECIPES = {
           "Ajouter fond de veau, creme, poivre vert et poivre concasse, puis mijoter jusqu a texture nappante.",
           "Hors du feu, monter au beurre froid et servir aussitot."
         ],
-        "note": "Cuisson : déglacer la poêle, ajouter fond, crème et poivres, réduire 5 minutes puis monter au beurre froid."
+        "note": "Cuisson déglacer la poêle, ajouter fond, crème et poivres, réduire 5 minutes puis monter au beurre froid."
       },
       {
         "group": "Variante basique",
@@ -5541,7 +5541,7 @@ window.RECIPES = {
           "Ajouter bouillon, creme et moutarde, puis reduire doucement.",
           "Saler en fin de cuisson et servir quand la sauce nappe la cuillere."
         ],
-        "note": "Cuisson : réduire le bouillon 3 à 5 minutes, puis mijoter avec crème et moutarde 5 à 8 minutes."
+        "note": "Cuisson réduire le bouillon 3 à 5 minutes, puis mijoter avec crème et moutarde 5 à 8 minutes."
       },
       {
         "group": "Variante ultra simple",
@@ -5556,7 +5556,7 @@ window.RECIPES = {
           "Mijoter 3 a 5min en remuant pour dissoudre et epaissir legerement.",
           "Gouter avant de saler, puis servir chaud."
         ],
-        "note": "Cuisson : chauffer doucement et laisser réduire environ 5 minutes."
+        "note": "Cuisson chauffer doucement et laisser réduire environ 5 minutes."
       }
     ],
     "steps": [
@@ -5571,10 +5571,10 @@ window.RECIPES = {
       "Goûter, rectifier le sel et ajuster l’intensité du poivre."
     ],
     "notes": [
-      "Texture cible : la sauce doit napper le dos d’une cuillère et laisser une trace nette quelques secondes.",
+      "Texture cible la sauce doit napper le dos d’une cuillère et laisser une trace nette quelques secondes.",
       "Pour une finition plus fine, passer au chinois puis remettre quelques grains de poivre vert dans la sauce filtrée.",
       "Si la sauce est trop épaisse, détends-la avec un peu de fond ou d’eau chaude. Si elle est trop liquide, réduis-la avant d’ajouter le beurre.",
-      "Accords : filet de bœuf, entrecôte, côte de bœuf, magret de canard, tournedos, pommes dauphines, gratin dauphinois ou frites maison."
+      "Accords filet de bœuf, entrecôte, côte de bœuf, magret de canard, tournedos, pommes dauphines, gratin dauphinois ou frites."
     ],
     "technical": [
       {
@@ -5664,7 +5664,7 @@ window.RECIPES = {
       "La sauce doit napper le dos d’une cuillère sans devenir lourde.",
       "Si la sauce paraît trop ronde, ajoute une micro-touche de vinaigre de cidre ou de jus de citron juste avant le beurre.",
       "Pour des côtelettes très épaisses, tu peux finir au four à 150°C après la saisie, puis servir avec la sauce à part. Surveille la cuisson, car chaque four chauffe différemment.",
-      "Garnitures adaptées : purée de céleri-rave, pommes Anna, carottes glacées, chou pointu rôti ou écrasé de pommes de terre au beurre noisette."
+      "Garnitures adaptées purée de céleri-rave, pommes Anna, carottes glacées, chou pointu rôti ou écrasé de pommes de terre au beurre noisette."
     ],
     "technical": [
       {
@@ -5695,7 +5695,7 @@ window.RECIPES = {
     "difficultyScore": 5,
     "yield": "6 à 8 personnes",
     "aliases": [
-      "rouille maison",
+      "rouille",
       "rouille bouillabaisse",
       "sauce rouille"
     ],
@@ -5757,8 +5757,8 @@ window.RECIPES = {
       "Rectifier le sel, le citron et le piment, puis réserver au frais filmé au contact."
     ],
     "notes": [
-      "Texture cible : ferme, brillante, nappante, assez dense pour tenir sur un croûton et assez souple pour fondre dans le bouillon.",
-      "Évite l’huile d’olive trop forte : elle peut apporter de l’amertume.",
+      "Texture cible ferme, brillante, nappante, assez dense pour tenir sur un croûton et assez souple pour fondre dans le bouillon.",
+      "Évite l’huile d’olive trop forte elle peut apporter de l’amertume.",
       "Le safran infusé donne une couleur plus régulière et un parfum plus propre que le safran ajouté à sec.",
       "Pour un rendu plus net, passer la rouille au tamis fin après montage et la dresser en petite quenelle."
     ],
@@ -5844,7 +5844,7 @@ window.RECIPES = {
         "items": [
           "Pommes de terre",
           "Fenouils",
-          "Rouille maison",
+          "Rouille",
           "Piment d’Espelette",
           "Basilic nain",
           "Huile d’olive pour service"
@@ -5949,13 +5949,13 @@ window.RECIPES = {
     "notes": [
       "Pour des cookies plus chocolatés, utiliser la quantité haute de pépites.",
       "La pâte peut être congelée en boules et cuite après décongélation.",
-      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
-      "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
+      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
+      "Chaque four réagit différemment surveille la coloration et ajuste le temps de cuisson si nécessaire."
     ],
     "technical": [
       {
         "label": "Texture",
-        "value": "Ne pas trop cuire : les cookies finissent de se raffermir hors du four."
+        "value": "Ne pas trop cuire les cookies finissent de se raffermir hors du four."
       },
       {
         "label": "Congélation",
@@ -6017,8 +6017,8 @@ window.RECIPES = {
     "notes": [
       "Un cercle à pâtisserie aide les pancakes à rester hauts et réguliers.",
       "Sans cercle, la recette fonctionne aussi comme des pancakes classiques, mais ils seront moins hauts.",
-      "Tu peux remplacer la gousse par de l'arôme vanille, mais suis le dosage indiqué sur la bouteille : les arômes ne se dosent pas tous pareil.",
-      "Garnitures possibles : chocolat fondu, sirop d'érable, caramel ou fruits frais."
+      "Tu peux remplacer la gousse par de l'arôme vanille, mais suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
+      "Garnitures possibles chocolat fondu, sirop d'érable, caramel ou fruits frais."
     ],
     "technical": [
       {
@@ -6027,7 +6027,7 @@ window.RECIPES = {
       },
       {
         "label": "Cuisson",
-        "value": "Feu doux à moyen : les pancakes doivent cuire à cœur sans colorer trop vite."
+        "value": "Feu doux à moyen les pancakes doivent cuire à cœur sans colorer trop vite."
       }
     ]
   },
@@ -6047,7 +6047,7 @@ window.RECIPES = {
     "variantGroups": true,
     "aliases": [
       "mayonnaise belge",
-      "mayo maison",
+      "mayo",
       "sauce mayonnaise",
       "mayonnaise sans oeuf"
     ],
@@ -6240,7 +6240,7 @@ window.RECIPES = {
       "À la sortie du four, ajouter un zeste très fin de citron jaune ou vert et éventuellement une pointe de piment d'Espelette. Servir immédiatement."
     ],
     "notes": [
-      "Les ravioles ne doivent pas cuire dans la sauce : elles sont cuites séparément, puis simplement montées dans la cassolette.",
+      "Les ravioles ne doivent pas cuire dans la sauce elles sont cuites séparément, puis simplement montées dans la cassolette.",
       "Les crevettes doivent rester légèrement nacrées avant le passage sous le gril, sinon elles deviennent fermes.",
       "La sauce doit enrober les ravioles et les crevettes, pas les noyer.",
       "Sans carapaces ni têtes, utilise directement un bon fumet de poisson ou un bouillon de crustacés."
@@ -6256,7 +6256,7 @@ window.RECIPES = {
       },
       {
         "label": "Gril",
-        "value": "Le gratinage doit rester court : les ravioles et les crevettes sont déjà cuites."
+        "value": "Le gratinage doit rester court les ravioles et les crevettes sont déjà cuites."
       }
     ],
     "additionalMasters": [
@@ -6277,7 +6277,7 @@ window.RECIPES = {
     "difficultyScore": 5,
     "yield": "4 personnes",
     "aliases": [
-      "frites maison",
+      "frites",
       "frites double cuisson",
       "frites belges haut de gamme"
     ],
@@ -6301,7 +6301,7 @@ window.RECIPES = {
         "items": [
           "1 petite branche de thym",
           "1 gousse d’ail en chemise retirée avant cuisson",
-          "Mayonnaise, sauce tartare ou sauce andalouse maison"
+          "Mayonnaise, sauce tartare ou sauce andalouse"
         ],
         "recipeId": "mayonnaise_maison"
       }
@@ -6311,7 +6311,7 @@ window.RECIPES = {
       "Rincer les frites dans un grand saladier d’eau froide jusqu’à ce que l’eau soit moins trouble.",
       "Égoutter, étaler sur un torchon propre, éponger soigneusement puis laisser sécher 10 à 15 minutes.",
       "Chauffer le blanc de bœuf à 140-150°C.",
-      "Plonger les frites par petites quantités et cuire 5 à 7 minutes : elles doivent être cuites à cœur mais encore pâles.",
+      "Plonger les frites par petites quantités et cuire 5 à 7 minutes elles doivent être cuites à cœur mais encore pâles.",
       "Égoutter sur grille et laisser reposer 20 à 30 minutes minimum.",
       "Monter le bain à 175-180°C.",
       "Replonger les frites en petites quantités 2 à 4 minutes jusqu’à belle coloration dorée.",
@@ -6319,10 +6319,10 @@ window.RECIPES = {
       "Terminer avec une pincée de fleur de sel et servir aussitôt avec la <span data-goto=\"mayonnaise_maison\">mayonnaise</span>."
     ],
     "notes": [
-      "Ne sale jamais avant cuisson : le sel attire l’eau et ramollit les frites.",
+      "Ne sale jamais avant cuisson le sel attire l’eau et ramollit les frites.",
       "Utilise une grille plutôt que du papier absorbant trop longtemps, car la vapeur piégée peut ramollir les frites.",
-      "Le bain ne doit pas être trop chargé : une chute de température rend les frites grasses.",
-      "Résultat cible : extérieur très croustillant, intérieur fondant, belle couleur dorée et aucune sensation grasse."
+      "Le bain ne doit pas être trop chargé une chute de température rend les frites grasses.",
+      "Résultat cible extérieur très croustillant, intérieur fondant, belle couleur dorée et aucune sensation grasse."
     ],
     "technical": [
       {
@@ -6401,7 +6401,7 @@ window.RECIPES = {
     "notes": [
       "Pour plus de moelleux, laisser pousser la pâte 1h après pétrissage, dégazer, puis façonner.",
       "Ces pains se congèlent très bien une fois refroidis.",
-      "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
+      "Chaque four réagit différemment surveille la coloration et ajuste le temps de cuisson si nécessaire."
     ],
     "technical": [
       {
@@ -6517,17 +6517,17 @@ window.RECIPES = {
     "steps": [
       "Placer les œufs dans une casserole, couvrir d’eau froide avec 2 à 3cm au-dessus des œufs, puis cuire 12 à 13min depuis le départ à froid.",
       "Plonger immédiatement dans un bain glacé 10min, puis écaler délicatement.",
-      "Pour la variante betterave : chauffer betterave, eau, vinaigre, sucre, sel, poivre du moulin et laurier jusqu’à frémissement, couper le feu, infuser 10min, mixer légèrement et refroidir complètement.",
+      "Pour la variante betterave chauffer betterave, eau, vinaigre, sucre, sel, poivre du moulin et laurier jusqu’à frémissement, couper le feu, infuser 10min, mixer légèrement et refroidir complètement.",
       "Immerger les œufs écalés entiers dans la marinade froide 6 à 12h pour une couleur nette.",
       "Égoutter, éponger, couper en deux et retirer les jaunes.",
-      "Pour la farce betterave : tamiser les jaunes, mélanger avec mayonnaise, moutarde, crème, vinaigre ou citron, paprika, sel et poivre du moulin.",
-      "Pour la variante avocat crevette : mixer jaunes, avocat, citron vert, mayonnaise, crème, moutarde, piment, sel et poivre du moulin jusqu’à texture lisse et pochable.",
+      "Pour la farce betterave tamiser les jaunes, mélanger avec mayonnaise, moutarde, crème, vinaigre ou citron, paprika, sel et poivre du moulin.",
+      "Pour la variante avocat crevette mixer jaunes, avocat, citron vert, mayonnaise, crème, moutarde, piment, sel et poivre du moulin jusqu’à texture lisse et pochable.",
       "Éponger les crevettes, les assaisonner très légèrement avec citron vert, sel et piment.",
       "Garnir les blancs à la poche, puis terminer avec herbes, zestes et crevettes selon la variante."
     ],
     "notes": [
       "La marinade betterave doit être froide avant contact avec les œufs pour garder une texture propre.",
-      "L’avocat oxyde vite : préparer la crème au dernier moment ou filmer au contact avec quelques gouttes de citron vert.",
+      "L’avocat oxyde vite préparer la crème au dernier moment ou filmer au contact avec quelques gouttes de citron vert.",
       "Pour un dressage net, éponger les blancs et les crevettes avant de garnir."
     ],
     "technical": [
@@ -6653,7 +6653,7 @@ window.RECIPES = {
       "Égoutter sur grille, saler légèrement et servir immédiatement avec citron et sauce."
     ],
     "notes": [
-      "Raccourcis : <span data-goto=\"pate_legere_beignets_calamar_crevettes\">Pâte légère à frire</span> / <span data-goto=\"aioli_citronne_leger\">Aïoli citronné léger</span> / <span data-goto=\"tempura_beignets_calamar_crevettes\">Tempura</span>.",
+      "Raccourcis <span data-goto=\"pate_legere_beignets_calamar_crevettes\">Pâte légère à frire</span> / <span data-goto=\"aioli_citronne_leger\">Aïoli citronné léger</span> / <span data-goto=\"tempura_beignets_calamar_crevettes\">Tempura</span>.",
       "La pâte doit rester froide, légère et légèrement irrégulière."
     ],
     "technical": [
@@ -6684,7 +6684,7 @@ window.RECIPES = {
       ],
       "mistakes": [
         "Ne surcharge pas le bain d’huile pour garder une friture nette et non grasse.",
-        "Ne prolonge pas la cuisson : le calamar devient vite caoutchouteux."
+        "Ne prolonge pas la cuisson le calamar devient vite caoutchouteux."
       ],
       "result": [
         "Beignets dorés, croûte fine et croustillante, calamar encore tendre."
@@ -6779,13 +6779,13 @@ window.RECIPES = {
       "Préchauffer le gaufrier au maximum et graisser légèrement.",
       "Déposer une portion généreuse d’appareil, tasser légèrement, fermer et cuire 6 à 9min.",
       "Sortir quand la gaufre se détache seule, bien dorée et croustillante.",
-      "Option restaurant : passer 3 à 5min sur grille au four à 190°C, puis saler légèrement à la fleur de sel.",
+      "Option restaurant passer 3 à 5min sur grille au four à 190°C, puis saler légèrement à la fleur de sel.",
       "Servir immédiatement avec sauce crème citronnée et herbes fraîches."
     ],
     "notes": [
       "Moins il reste d’eau dans les pommes de terre, plus les gaufres seront croustillantes.",
-      "N’ouvre pas le gaufrier trop tôt : la gaufre doit se détacher seule.",
-      "Chaque four réagit différemment : surveille la coloration si tu fais la finition au four."
+      "N’ouvre pas le gaufrier trop tôt la gaufre doit se détacher seule.",
+      "Chaque four réagit différemment surveille la coloration si tu fais la finition au four."
     ],
     "technical": [
       {
@@ -6909,7 +6909,7 @@ window.RECIPES = {
       "Mélanger délicatement de bas en haut et servir immédiatement."
     ],
     "notes": [
-      "Écrase doucement : la menthe doit parfumer sans devenir amère.",
+      "Écrase doucement la menthe doit parfumer sans devenir amère.",
       "Utilise une eau gazeuse très froide pour garder un cocktail vif.",
       "Pour une version sans alcool, remplace le rhum par la même quantité d’eau gazeuse ou de ginger beer."
     ],
@@ -6982,8 +6982,8 @@ window.RECIPES = {
       "Servir chaud avec sauce et citron."
     ],
     "notes": [
-      "Ne surcharge pas la plaque : l’humidité empêcherait le croustillant.",
-      "Chaque four réagit différemment : surveille la coloration et ajuste le temps de cuisson si nécessaire."
+      "Ne surcharge pas la plaque l’humidité empêcherait le croustillant.",
+      "Chaque four réagit différemment surveille la coloration et ajuste le temps de cuisson si nécessaire."
     ],
     "technical": [
       {
@@ -7068,7 +7068,7 @@ window.RECIPES = {
       "Monder les tomates donne une texture plus fine et plus nette.",
       "Si le gazpacho est trop acide, ajoute un peu de tomate bien mûre ou une pincée de sucre.",
       "Si la texture est trop épaisse, détends avec un peu d’eau froide.",
-      "Résultat cible : très frais, lisse, dominé par la tomate, légèrement acidulé et parfumé par les herbes."
+      "Résultat cible très frais, lisse, dominé par la tomate, légèrement acidulé et parfumé par les herbes."
     ],
     "technical": [
       {
@@ -7240,7 +7240,7 @@ window.RECIPES = {
     "notes": [
       "Dresser sans trop mélanger pour garder une salade nette et non détrempée.",
       "La salade doit être fraîche, équilibrée entre sucré, salé et acidité, et parfumée par les herbes.",
-      "Options : balsamique blanc, copeaux de parmesan, citron caviar, éclats de pistaches ou huile d’olive au basilic."
+      "Options balsamique blanc, copeaux de parmesan, citron caviar, éclats de pistaches ou huile d’olive au basilic."
     ],
     "technical": [
       {
@@ -7254,7 +7254,7 @@ window.RECIPES = {
     ]
   },
   "frites_maison": {
-    "title": "Frites maison",
+    "title": "Frites",
     "master": "accompagnements_maitre",
     "image": "/assets/recipe-images-optimized/frites_maison_spooky.jpg",
     "categories": [
@@ -7269,7 +7269,7 @@ window.RECIPES = {
     "nutriScore": "D",
     "aliases": [
       "frites classiques",
-      "recette frites maison"
+      "recette frites"
     ],
     "tags": [
       "frites",
@@ -7290,7 +7290,7 @@ window.RECIPES = {
         "items": [
           "Fleur de sel",
           "Poivre du moulin",
-          "Sauce maison au choix"
+          "Sauce au choix"
         ]
       }
     ],
@@ -7306,9 +7306,9 @@ window.RECIPES = {
       "Saler immédiatement et servir sans attendre."
     ],
     "notes": [
-      "Bien sécher les pommes de terre avant friture : l’eau fait chuter la température de l’huile et ramollit les frites.",
+      "Bien sécher les pommes de terre avant friture l’eau fait chuter la température de l’huile et ramollit les frites.",
       "Pour une finition plus nette, laisse refroidir 20 à 30min après le premier bain, puis fais le deuxième bain juste avant le service.",
-      "Accompagnements : burger maison, poulet rôti, fish and chips, steak, moules, mayonnaise, ketchup maison, sauce tartare ou sauce andalouse."
+      "Accompagnements burger, poulet rôti, fish and chips, steak, moules, mayonnaise, ketchup, sauce tartare ou sauce andalouse."
     ],
     "technical": [
       {
@@ -7360,7 +7360,7 @@ window.RECIPES = {
         "items": [
           "Frites chaudes"
         ],
-        "note": "Préparer des frites belges, des frites maison ou des frites au four, puis ajouter les toppings juste après cuisson."
+        "note": "Préparer des frites belges, des frites ou des frites au four, puis ajouter les toppings juste après cuisson."
       },
       {
         "group": "Variante sel et poivre du moulin",
@@ -7481,7 +7481,7 @@ window.RECIPES = {
       }
     ],
     "steps": [
-      "Préparer une base de frites : frites belges ou frites maison.",
+      "Préparer une base de frites frites belges ou frites.",
       "Égoutter les frites et ajouter les toppings secs immédiatement tant qu’elles sont très chaudes.",
       "Pour la version ail-parmesan, mélanger ail et huile ou beurre fondu, verser sur les frites, puis ajouter parmesan et persil.",
       "Pour les cheese fries, déposer cheddar sur les frites, passer 2 à 3min sous le gril ou à 200°C, puis ajouter les oignons verts.",
@@ -7492,8 +7492,8 @@ window.RECIPES = {
       "Servir les sauces à part si tu veux garder un maximum de croustillant."
     ],
     "notes": [
-      "Liens utiles : <span data-goto=\"frites_belges\">Frites belges</span> · <span data-goto=\"frites_maison\">Frites maison</span> · <span data-goto=\"frites_patate_douce\">Frites de patate douce</span>.",
-      "Ajouter les sauces au dernier moment et éviter de couvrir les frites après topping : la vapeur les ramollit.",
+      "Liens utiles <span data-goto=\"frites_belges\">Frites belges</span> · <span data-goto=\"frites_maison\">Frites</span> · <span data-goto=\"frites_patate_douce\">Frites de patate douce</span>.",
+      "Ajouter les sauces au dernier moment et éviter de couvrir les frites après topping la vapeur les ramollit.",
       "Le parmesan doit fondre sur les frites chaudes, jamais brûler avant cuisson."
     ],
     "technical": [
@@ -7612,7 +7612,7 @@ window.RECIPES = {
       "Garde la courgette à part jusqu’à la fin pour qu’elle reste lisible et ne disparaisse pas dans la sauce.",
       "Les épices doivent sentir bon mais ne doivent pas brûler.",
       "Le citron vert réveille le lait de coco et évite un résultat trop rond.",
-      "Résultat cible : crémeux mais pas lourd, épicé sans agressivité, lentilles entières, légumes lisibles et finition fraîche."
+      "Résultat cible crémeux mais pas lourd, épicé sans agressivité, lentilles entières, légumes lisibles et finition fraîche."
     ],
     "technical": [
       {
@@ -7691,8 +7691,8 @@ window.RECIPES = {
     ],
     "notes": [
       "Servir avec la <span data-goto=\"sauce_yaourt_citronnee\">sauce yaourt citronnée</span> dans un bol à part pour garder le croustillant.",
-      "La patate douce contient plus d’eau et de sucre qu’une pomme de terre classique : taille régulière, séchage soigné et plaque bien chaude sont essentiels.",
-      "Surveille la cuisson : tous les fours ne colorent pas de la même façon, surtout en fin de cuisson ou sous le gril."
+      "La patate douce contient plus d’eau et de sucre qu’une pomme de terre classique taille régulière, séchage soigné et plaque bien chaude sont essentiels.",
+      "Surveille la cuisson tous les fours ne colorent pas de la même façon, surtout en fin de cuisson ou sous le gril."
     ],
     "technical": [
       {
@@ -7837,7 +7837,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Utilisé par exemple dans le <span data-goto=\"gratin_chou_fleur\">gratin de chou-fleur</span>.",
-      "La sauce doit être nappante mais pas trop épaisse : elle continue à gratiner au four."
+      "La sauce doit être nappante mais pas trop épaisse elle continue à gratiner au four."
     ],
     "technical": [
       {
@@ -7898,7 +7898,7 @@ window.RECIPES = {
       {
         "group": "Chapelure noisette",
         "items": [
-          "45g chapelure panko ou chapelure maison",
+          "45g chapelure panko ou chapelure",
           "25g noisettes torréfiées concassées",
           "20g parmesan râpé",
           "25g beurre fondu",
@@ -7921,9 +7921,9 @@ window.RECIPES = {
     ],
     "notes": [
       "La <span data-goto=\"sauce_mornay\">sauce Mornay</span> doit rester nappante, pas trop épaisse, pour éviter un gratin pâteux.",
-      "Beurre légèrement le plat avant montage : la sauce accroche moins et le service est plus propre.",
+      "Beurre légèrement le plat avant montage la sauce accroche moins et le service est plus propre.",
       "Rôtir le chou-fleur concentre le goût et évite un gratin aqueux.",
-      "Surveille la cuisson : chaque four gratine différemment, surtout sous le gril."
+      "Surveille la cuisson chaque four gratine différemment, surtout sous le gril."
     ],
     "technical": [
       {
@@ -8017,11 +8017,11 @@ window.RECIPES = {
       "Laisser refroidir sur grille avant de couper ou congeler."
     ],
     "notes": [
-      "Le beurre doit être souple, pas fondu : un beurre fondu rend la pâte moins régulière.",
+      "Le beurre doit être souple, pas fondu un beurre fondu rend la pâte moins régulière.",
       "Évite le contact direct concentré entre sel et levure, qui peut ralentir la pousse.",
-      "Ne rajoute pas trop de farine si la pâte colle un peu : une pâte trop farinée donne des buns secs et denses.",
+      "Ne rajoute pas trop de farine si la pâte colle un peu une pâte trop farinée donne des buns secs et denses.",
       "Pour un rendu restaurant, toaster les faces coupées à la poêle avec un peu de beurre juste avant montage.",
-      "Surveille la cuisson : tous les fours colorent différemment, et les buns doivent rester moelleux."
+      "Surveille la cuisson tous les fours colorent différemment, et les buns doivent rester moelleux."
     ],
     "technical": [
       {
@@ -8107,7 +8107,7 @@ window.RECIPES = {
     "notes": [
       "La pâte doit rester très froide jusqu’au dernier moment.",
       "La vodka est optionnelle, elle aide surtout à obtenir une friture plus sèche et légère.",
-      "Raccourci : <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
+      "Raccourci <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
     ],
     "technical": [
       {
@@ -8209,7 +8209,7 @@ window.RECIPES = {
     "notes": [
       "La texture doit rester nappante et légère, pas trop serrée.",
       "Servir avec des beignets de calamar, des crevettes frites ou des légumes croustillants.",
-      "Raccourci : <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
+      "Raccourci <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
     ],
     "technical": [
       {
@@ -8305,14 +8305,14 @@ window.RECIPES = {
       "Monter les blancs avec une pincée de sel, puis les incorporer délicatement à la crème.",
       "Tremper rapidement les biscuits dans le sirop citronné et les ranger dans un plat ou des verrines.",
       "Alterner biscuits et crème, terminer par une couche de crème et réserver au frais au moins 4h.",
-      "Option : ajouter une fine couche de lemon curd sur le dessus.",
-      "Option : pocher une couche de <span data-goto=\"meringue_italienne\">meringue italienne</span>, puis la brûler légèrement au chalumeau.",
+      "Option ajouter une fine couche de lemon curd sur le dessus.",
+      "Option pocher une couche de <span data-goto=\"meringue_italienne\">meringue italienne</span>, puis la brûler légèrement au chalumeau.",
       "Finir avec un peu de zeste de citron juste avant de servir."
     ],
     "notes": [
       "Pour une version plus vive, ajouter une fine couche de lemon curd.",
       "La <span data-goto=\"meringue_italienne\">meringue italienne</span> doit être brûlée rapidement au chalumeau pour colorer sans réchauffer tout le tiramisu.",
-      "Repos idéal : une nuit au réfrigérateur."
+      "Repos idéal une nuit au réfrigérateur."
     ],
     "technical": [
       {
@@ -8321,7 +8321,7 @@ window.RECIPES = {
       },
       {
         "label": "Trempage",
-        "value": "Tremper très vite : les biscuits continuent de s’humidifier pendant le repos."
+        "value": "Tremper très vite les biscuits continuent de s’humidifier pendant le repos."
       }
     ],
     "practical": {
@@ -8336,7 +8336,7 @@ window.RECIPES = {
         "24 à 48h au réfrigérateur, bien filmé."
       ],
       "mistakes": [
-        "Ne surcharge pas en jus de citron dans la crème : elle peut se détendre.",
+        "Ne surcharge pas en jus de citron dans la crème elle peut se détendre.",
         "Ne trempe pas trop les biscuits.",
         "Le sirop doit être froid pour ne pas détremper les biscuits."
       ],
@@ -8478,7 +8478,7 @@ window.RECIPES = {
       "Laisser tiédir quelques minutes avant de démouler."
     ],
     "notes": [
-      "La base accepte d’autres garnitures : jambon, tomates séchées, olives, herbes, fromage râpé.",
+      "La base accepte d’autres garnitures jambon, tomates séchées, olives, herbes, fromage râpé.",
       "Garder une garniture bien égouttée pour préserver une texture nette."
     ],
     "technical": [
@@ -8502,7 +8502,7 @@ window.RECIPES = {
       ],
       "mistakes": [
         "Évite les garnitures trop humides ou égoutte-les avant de les ajouter.",
-        "Ne surcharge pas les moules : les mini-flans doivent rester légers."
+        "Ne surcharge pas les moules les mini-flans doivent rester légers."
       ],
       "result": [
         "Mini bouchées salées, moelleuses et faciles à décliner."
@@ -8560,7 +8560,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Idéal avec pâtes, soupe, salade, grillades ou plateau apéro.",
-      "Le gril colore très vite : rester devant le four.",
+      "Le gril colore très vite rester devant le four.",
       "Pour un goût plus doux, prépare le beurre avec de l’ail blanchi ou une quantité d’ail réduite."
     ],
     "technical": [
@@ -8570,7 +8570,7 @@ window.RECIPES = {
       },
       {
         "label": "Gril",
-        "value": "Cuisson courte et intense : surveiller en continu."
+        "value": "Cuisson courte et intense surveiller en continu."
       }
     ],
     "practical": {
@@ -8649,7 +8649,7 @@ window.RECIPES = {
     "technical": [
       {
         "label": "Marinade",
-        "value": "La mozzarella est humide : bien l’égoutter pour éviter une marinade diluée."
+        "value": "La mozzarella est humide bien l’égoutter pour éviter une marinade diluée."
       },
       {
         "label": "Service",
@@ -8666,8 +8666,8 @@ window.RECIPES = {
         "24h au réfrigérateur dans la marinade."
       ],
       "mistakes": [
-        "Ne surdose pas l’ail cru : il devient vite dominant.",
-        "Ne jette pas l’huile parfumée : elle assaisonne une salade ou des pâtes."
+        "Ne surdose pas l’ail cru il devient vite dominant.",
+        "Ne jette pas l’huile parfumée elle assaisonne une salade ou des pâtes."
       ],
       "result": [
         "Billes fraîches, parfumées, prêtes pour l’apéro."
@@ -8744,7 +8744,7 @@ window.RECIPES = {
       },
       {
         "label": "Cuisson",
-        "value": "Le centre se raffermit hors du four : ne pas prolonger inutilement."
+        "value": "Le centre se raffermit hors du four ne pas prolonger inutilement."
       }
     ],
     "practical": {
@@ -8758,7 +8758,7 @@ window.RECIPES = {
         "Pâte congelable en boules."
       ],
       "mistakes": [
-        "Ne cuis pas trop : le cacao fait paraître les cookies moins dorés."
+        "Ne cuis pas trop le cacao fait paraître les cookies moins dorés."
       ],
       "result": [
         "Cookies moelleux, chocolatés, avec une note acidulée de cerise."
@@ -8834,7 +8834,7 @@ window.RECIPES = {
       },
       {
         "label": "Cuisson",
-        "value": "Le centre doit être pris mais encore souple : il finit de se stabiliser en tiédissant."
+        "value": "Le centre doit être pris mais encore souple il finit de se stabiliser en tiédissant."
       }
     ],
     "practical": {
@@ -8848,7 +8848,7 @@ window.RECIPES = {
         "Revenir à température ambiante ou réchauffer doucement."
       ],
       "mistakes": [
-        "Ne verse pas tout le lait d’un coup : l’ajout progressif évite les grumeaux."
+        "Ne verse pas tout le lait d’un coup l’ajout progressif évite les grumeaux."
       ],
       "result": [
         "Clafoutis moelleux, fruité, avec une pâte fine autour des cerises."
@@ -8927,7 +8927,7 @@ window.RECIPES = {
         "Plus longtemps au congélateur en sachet bien fermé."
       ],
       "mistakes": [
-        "Garde les cerises espacées pendant le séchage : l’air doit circuler autour de chaque morceau.",
+        "Garde les cerises espacées pendant le séchage l’air doit circuler autour de chaque morceau.",
         "Pour une conservation plus sûre, les fruits doivent être souples mais ne plus relâcher de jus quand on les presse."
       ],
       "result": [
@@ -9015,10 +9015,10 @@ window.RECIPES = {
       ],
       "storage": [
         "Plusieurs mois dans un endroit frais, sec et sombre si la stérilisation est réussie.",
-        "Après ouverture : 48h au réfrigérateur."
+        "Après ouverture 48h au réfrigérateur."
       ],
       "mistakes": [
-        "Ne remplis pas les bocaux jusqu’en haut : la marge limite les débordements à la stérilisation."
+        "Ne remplis pas les bocaux jusqu’en haut la marge limite les débordements à la stérilisation."
       ],
       "result": [
         "Pâté rustique, parfumé, avec une chaleur douce de piment d’Espelette."
@@ -9110,7 +9110,7 @@ window.RECIPES = {
         "Trancher au dernier moment pour éviter le dessèchement."
       ],
       "mistakes": [
-        "Évite une farce trop fine : la terrine de campagne doit garder une mâche rustique."
+        "Évite une farce trop fine la terrine de campagne doit garder une mâche rustique."
       ],
       "result": [
         "Terrine charcutière rustique, parfumée et bien tranchable."
@@ -9134,7 +9134,7 @@ window.RECIPES = {
     "aliases": [
       "rillettes de porc",
       "rillettes porc",
-      "rillettes maison"
+      "rillettes"
     ],
     "tags": [
       "rillettes",
@@ -9167,20 +9167,20 @@ window.RECIPES = {
       "Couper les viandes en gros cubes réguliers.",
       "Mettre viande, graisse, vin blanc ou eau, sel fin, poivre du moulin, thym et laurier dans une cocotte.",
       "Porter doucement à frémissement, couvrir partiellement et cuire 4 à 5h à feu très doux.",
-      "Remuer de temps en temps : la viande doit se détacher en filaments sans sécher.",
+      "Remuer de temps en temps la viande doit se détacher en filaments sans sécher.",
       "Retirer laurier et thym, égoutter la viande en gardant la graisse de cuisson.",
       "Effilocher la viande à la fourchette, puis incorporer assez de graisse chaude pour obtenir une texture moelleuse.",
       "Mettre en pots propres, tasser légèrement et couvrir d’une fine couche de graisse.",
       "Refroidir rapidement, puis laisser reposer 24h au réfrigérateur avant dégustation."
     ],
     "notes": [
-      "Les rillettes reposent sur une cuisson lente dans la graisse : c’est ce qui donne les filaments et le goût profond.",
+      "Les rillettes reposent sur une cuisson lente dans la graisse c’est ce qui donne les filaments et le goût profond.",
       "Servir à l’apéro, en entrée ou dans un sandwich avec cornichons et pain grillé."
     ],
     "technical": [
       {
         "label": "Cuisson",
-        "value": "Le liquide doit frémir à peine : une ébullition forte dessèche la viande et brouille la texture."
+        "value": "Le liquide doit frémir à peine une ébullition forte dessèche la viande et brouille la texture."
       },
       {
         "label": "Texture",
@@ -9196,11 +9196,11 @@ window.RECIPES = {
       ],
       "storage": [
         "4 à 5 jours au réfrigérateur à 0–4°C après refroidissement complet.",
-        "Après ouverture : consommer sous 48h.",
+        "Après ouverture consommer sous 48h.",
         "Congélation possible en petits pots bien fermés."
       ],
       "mistakes": [
-        "Ne garde pas les rillettes tièdes longtemps : refroidis vite les pots avant stockage.",
+        "Ne garde pas les rillettes tièdes longtemps refroidis vite les pots avant stockage.",
         "La couche de graisse protège la surface, mais ne remplace pas une hygiène stricte ni une conservation au froid."
       ],
       "result": [
@@ -9288,11 +9288,11 @@ window.RECIPES = {
       ],
       "storage": [
         "3 à 4 jours au réfrigérateur à 0–4°C.",
-        "Après ouverture : consommer sous 48h.",
+        "Après ouverture consommer sous 48h.",
         "Congélation possible en petits pots."
       ],
       "mistakes": [
-        "Ne mixe pas trop fort : la rillette deviendrait pâteuse."
+        "Ne mixe pas trop fort la rillette deviendrait pâteuse."
       ],
       "result": [
         "Rillettes de volaille moelleuses, confites et faciles à tartiner."
@@ -9385,8 +9385,8 @@ window.RECIPES = {
         "Trancher au dernier moment."
       ],
       "mistakes": [
-        "Ne hache pas trop fin : la terrine doit garder une texture charcutière.",
-        "Les pistaches doivent rester visibles : ne les mixe pas avec la farce."
+        "Ne hache pas trop fin la terrine doit garder une texture charcutière.",
+        "Les pistaches doivent rester visibles ne les mixe pas avec la farce."
       ],
       "result": [
         "Terrine rustique, parfumée, avec pistaches bien visibles à la tranche."
@@ -9464,7 +9464,7 @@ window.RECIPES = {
         "Sortir quelques minutes avant service pour retrouver le crémeux."
       ],
       "mistakes": [
-        "Ne surcharge pas le centre : le brie doit pouvoir se refermer sans déborder."
+        "Ne surcharge pas le centre le brie doit pouvoir se refermer sans déborder."
       ],
       "result": [
         "Brie crémeux, sucré-salé, croquant et prêt à partager."
@@ -9532,7 +9532,7 @@ window.RECIPES = {
     "technical": [
       {
         "label": "Texture",
-        "value": "Le centre doit trembler légèrement à la sortie du four : il se raffermit au froid."
+        "value": "Le centre doit trembler légèrement à la sortie du four il se raffermit au froid."
       },
       {
         "label": "Base",
@@ -9551,7 +9551,7 @@ window.RECIPES = {
         "Servir froid pour garder la crème nette."
       ],
       "mistakes": [
-        "Ne prolonge pas trop la cuisson : une crème trop cuite devient granuleuse."
+        "Ne prolonge pas trop la cuisson une crème trop cuite devient granuleuse."
       ],
       "result": [
         "Carrés frais, acidulés et très crémeux sur base biscuitée."
@@ -9618,9 +9618,9 @@ window.RECIPES = {
       "Tremper calamars ou crevettes dans la tempura, puis frire immédiatement à 180°C par petites quantités."
     ],
     "notes": [
-      "La tempura doit rester imparfaite : quelques petits grumeaux donnent une friture plus légère.",
+      "La tempura doit rester imparfaite quelques petits grumeaux donnent une friture plus légère.",
       "Garder l’eau glacée et cuire sans attendre.",
-      "Raccourci : <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
+      "Raccourci <span data-goto=\"beignets_calamar\">Beignets de calamar</span>."
     ],
     "technical": [
       {
@@ -9656,7 +9656,7 @@ window.RECIPES = {
   "flan_patissier_epais_vanille": {
     "title": "Flan pâtissier épais vanille",
     "master": "desserts_maitre",
-    "image": "/assets/recipe-images-optimized/flan_patissier_epais_vanille_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/flan_patissier_epais_vanille_v2_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -9722,7 +9722,7 @@ window.RECIPES = {
       },
       {
         "label": "Repos",
-        "value": "Le froid termine la tenue : ne coupe pas le flan encore tiède."
+        "value": "Le froid termine la tenue ne coupe pas le flan encore tiède."
       }
     ],
     "practical": {
@@ -9730,14 +9730,14 @@ window.RECIPES = {
         "2 à 3 jours au réfrigérateur, non couvert au début puis protégé après refroidissement complet."
       ],
       "mistakes": [
-        "Ne diminue pas trop le sucre : il participe aussi à la texture du flan."
+        "Ne diminue pas trop le sucre il participe aussi à la texture du flan."
       ]
     }
   },
   "gratin_dauphinois": {
     "title": "Gratin dauphinois",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images-optimized/gratin_dauphinois_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/gratin_dauphinois_v2_spooky.jpg",
     "categories": [
       "Accompagnements"
     ],
@@ -9780,7 +9780,7 @@ window.RECIPES = {
       "Laisser reposer 10min avant service pour que la crème se pose."
     ],
     "notes": [
-      "Garde l amidon des pommes de terre : il aide à lier la crème pendant la cuisson."
+      "Garde l amidon des pommes de terre il aide à lier la crème pendant la cuisson."
     ],
     "technical": [
       {
@@ -9804,7 +9804,7 @@ window.RECIPES = {
   "poulet_basquaise": {
     "title": "Poulet basquaise",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/poulet_basquaise_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/poulet_basquaise_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -9871,7 +9871,7 @@ window.RECIPES = {
   "croque_madame": {
     "title": "Croque-madame",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/croque_madame_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/croque_madame_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -9925,7 +9925,7 @@ window.RECIPES = {
   "cuisses_de_poulet_rhum_miel_piment": {
     "title": "Cuisses de poulet rhum miel piment",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/cuisses_de_poulet_rhum_miel_piment_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/cuisses_de_poulet_rhum_miel_piment_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -9968,7 +9968,7 @@ window.RECIPES = {
       "Faire réduire le jus quelques minutes si besoin avant de servir."
     ],
     "notes": [
-      "Le miel colore vite : baisse légèrement le four si la peau fonce trop tôt."
+      "Le miel colore vite baisse légèrement le four si la peau fonce trop tôt."
     ],
     "technical": [
       {
@@ -9980,7 +9980,7 @@ window.RECIPES = {
   "chipirons_a_la_plancha": {
     "title": "Chipirons à la plancha",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/chipirons_a_la_plancha_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/chipirons_a_la_plancha_v2_spooky.jpg",
     "categories": [
       "Plats",
       "Entrées"
@@ -10028,7 +10028,7 @@ window.RECIPES = {
     "technical": [
       {
         "label": "Saisie",
-        "value": "Plancha très chaude et aliment bien sec : c est la clé."
+        "value": "Plancha très chaude et aliment bien sec c est la clé."
       }
     ],
     "additionalMasters": [
@@ -10038,7 +10038,7 @@ window.RECIPES = {
   "joues_de_boeuf_carottes_orange_vin_rouge": {
     "title": "Joues de boeuf carottes orange vin rouge",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/joues_de_boeuf_carottes_orange_vin_rouge_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/joues_de_boeuf_carottes_orange_vin_rouge_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -10106,7 +10106,7 @@ window.RECIPES = {
   "carre_d_agneau_croute_d_herbes": {
     "title": "Carré d agneau croûte d herbes",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/carre_d_agneau_croute_d_herbes_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/carre_d_agneau_croute_d_herbes_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -10163,7 +10163,7 @@ window.RECIPES = {
   "carpaccio_betterave_mozzarella_yuzu": {
     "title": "Carpaccio betterave mozzarella yuzu",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images-optimized/carpaccio_betterave_mozzarella_yuzu_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/carpaccio_betterave_mozzarella_yuzu_v2_spooky.jpg",
     "categories": [
       "Entrées"
     ],
@@ -10218,7 +10218,7 @@ window.RECIPES = {
   "ajitsuke_tamago_oeufs_marines_ramen": {
     "title": "Ajitsuke tamago oeufs marinés ramen",
     "master": "bases_salees_maitre",
-    "image": "/assets/recipe-images-optimized/ajitsuke_tamago_oeufs_marines_ramen_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/ajitsuke_tamago_oeufs_marines_ramen_v2_spooky.jpg",
     "categories": [
       "Base",
       "Entrées"
@@ -10280,7 +10280,7 @@ window.RECIPES = {
   "chorizo_au_cidre": {
     "title": "Chorizo au cidre",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/chorizo_au_cidre_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/chorizo_au_cidre_v2_spooky.jpg",
     "categories": [
       "Apéro"
     ],
@@ -10328,7 +10328,7 @@ window.RECIPES = {
   "saumon_au_four_tomates_olives_basilic": {
     "title": "Saumon au four tomates olives basilic",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/saumon_au_four_tomates_olives_basilic_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/saumon_au_four_tomates_olives_basilic_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -10383,7 +10383,7 @@ window.RECIPES = {
   "poulet_frit_air_fryer": {
     "title": "Poulet frit air fryer",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/poulet_frit_air_fryer_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/poulet_frit_air_fryer_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -10439,7 +10439,7 @@ window.RECIPES = {
   "poulet_gaston_gerard": {
     "title": "Poulet Gaston Gérard",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/poulet_gaston_gerard_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/poulet_gaston_gerard_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -10495,7 +10495,7 @@ window.RECIPES = {
   "beurre_clarifie": {
     "title": "Beurre clarifié",
     "master": "elements_base_maitre",
-    "image": "/assets/recipe-images-optimized/beurre_clarifie_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/beurre_clarifie_v2_spooky.jpg",
     "categories": [
       "Base"
     ],
@@ -10547,7 +10547,7 @@ window.RECIPES = {
   "hauts_de_cuisses_poulet_orange_oignon": {
     "title": "Hauts de cuisses poulet orange oignon",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/hauts_de_cuisses_poulet_orange_oignon_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/hauts_de_cuisses_poulet_orange_oignon_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -10601,7 +10601,7 @@ window.RECIPES = {
   "puree_pommes_de_terre_citron": {
     "title": "Purée pommes de terre citron",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images-optimized/puree_pommes_de_terre_citron_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/puree_pommes_de_terre_citron_v2_spooky.jpg",
     "categories": [
       "Accompagnements"
     ],
@@ -10651,9 +10651,9 @@ window.RECIPES = {
     ]
   },
   "salade_oeufs_durs_mayonnaise_bistrot": {
-    "title": "Salade oeufs durs mayonnaise bistrot",
+    "title": "Salade oeufs durs mayonnaise",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images-optimized/salade_oeufs_durs_mayonnaise_bistrot_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/salade_oeufs_durs_mayonnaise_bistrot_v2_spooky.jpg",
     "categories": [
       "Entrées"
     ],
@@ -10706,7 +10706,7 @@ window.RECIPES = {
   "cuisses_de_poulet_miel_moutarde": {
     "title": "Cuisses de poulet miel moutarde",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/cuisses_de_poulet_miel_moutarde_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/cuisses_de_poulet_miel_moutarde_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -10758,7 +10758,7 @@ window.RECIPES = {
   "riz_au_citron": {
     "title": "Riz au citron",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images-optimized/riz_au_citron_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/riz_au_citron_v2_spooky.jpg",
     "categories": [
       "Accompagnements"
     ],
@@ -10809,9 +10809,9 @@ window.RECIPES = {
     ]
   },
   "saucisse_puree_maison": {
-    "title": "Saucisse purée maison",
+    "title": "Saucisse purée",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/saucisse_puree_maison_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/saucisse_puree_maison_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -10824,7 +10824,7 @@ window.RECIPES = {
     "yield": "4 personnes",
     "aliases": [
       "saucisse purée",
-      "plat bistrot"
+      "plat"
     ],
     "tags": [
       "saucisse",
@@ -10867,7 +10867,7 @@ window.RECIPES = {
   "joues_de_porc_chorizo_piment": {
     "title": "Joues de porc chorizo piment",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/joues_de_porc_chorizo_piment_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/joues_de_porc_chorizo_piment_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -10913,7 +10913,7 @@ window.RECIPES = {
       "Réduire la sauce à découvert si besoin."
     ],
     "notes": [
-      "Le chorizo sale déjà la sauce : assaisonne prudemment."
+      "Le chorizo sale déjà la sauce assaisonne prudemment."
     ],
     "technical": [
       {
@@ -10925,7 +10925,7 @@ window.RECIPES = {
   "lentilles_a_la_bourguignonne": {
     "title": "Lentilles à la bourguignonne",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/lentilles_a_la_bourguignonne_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/lentilles_a_la_bourguignonne_v2_spooky.jpg",
     "categories": [
       "Plats",
       "Accompagnements"
@@ -10986,7 +10986,7 @@ window.RECIPES = {
   "beurre_d_escargot_persille": {
     "title": "Beurre d escargot persillé",
     "master": "sauces_maitre",
-    "image": "/assets/recipe-images-optimized/beurre_d_escargot_persille_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/beurre_d_escargot_persille_v2_spooky.jpg",
     "categories": [
       "Sauces",
       "Base"
@@ -11047,7 +11047,7 @@ window.RECIPES = {
   "lentilles_tomate_pommes_de_terre_sautees": {
     "title": "Lentilles tomate pommes de terre sautées",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/lentilles_tomate_pommes_de_terre_sautees_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/lentilles_tomate_pommes_de_terre_sautees_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
