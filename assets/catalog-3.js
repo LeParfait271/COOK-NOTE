@@ -170,7 +170,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "vinaigrette": {
     "title": "Vinaigrette",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images-optimized/vinaigrette_v3_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/vinaigrette_v4_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -209,7 +209,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "balsamique_reduit": {
     "title": "Balsamique r\u00e9duit",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images-optimized/balsamique_reduit_v3_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/balsamique_reduit_v4_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -255,7 +255,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "marinades_guide": {
     "title": "Marinades",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images-optimized/marinades_guide_v3_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/marinades_guide_v4_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -798,7 +798,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "gaufre_bruxelles": {
     "title": "Gaufres",
     "master": "petit_dejeuner_maitre",
-    "image": "/assets/recipe-images-optimized/gaufre_bruxelles_v3_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/gaufre_bruxelles_v4_spooky.jpg",
     "categories": [
       "Petits-d\u00e9jeuners"
     ],
@@ -845,7 +845,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "cake_sale_lardon": {
     "title": "Cake sal\u00e9 poitrine fum\u00e9e",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/cake_sale_lardon_v3_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/cake_sale_lardon_v4_spooky.jpg",
     "categories": [
       "Ap\u00e9ro"
     ],
@@ -913,7 +913,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "cochon_confit_biere_erable": {
     "title": "Cochon confit \u00e0 la bi\u00e8re et au sirop d\u2019\u00e9rable",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/cochon_confit_biere_erable_v3_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/cochon_confit_biere_erable_v4_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -1018,7 +1018,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "salade_avocat_oeuf_epinards": {
     "title": "Salade avocat, \u0153uf et \u00e9pinards",
     "master": "crudites_maitre",
-    "image": "/assets/recipe-images-optimized/salade_avocat_oeuf_epinards_v3_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/salade_avocat_oeuf_epinards_v4_spooky.jpg",
     "categories": [
       "Entr\u00e9es"
     ],
@@ -1267,7 +1267,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "sauces_burger_variantes": {
     "title": "Sauces burger",
     "master": "sauces_maitre",
-    "image": "/assets/recipe-images-optimized/sauces_burger_variantes_v3_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/sauces_burger_variantes_v4_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -1384,7 +1384,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "sauce_aux_poivres": {
     "title": "Sauce aux poivres",
     "master": "sauces_assaisonnements_maitre",
-    "image": "/assets/recipe-images-optimized/sauce_aux_poivres_v3_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/sauce_aux_poivres_v4_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -1633,7 +1633,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "oeufs_mimosa_variantes": {
     "title": "\u0152ufs mimosa",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/oeufs_mimosa_variantes_v3_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/oeufs_mimosa_variantes_v4_spooky.jpg",
     "categories": [
       "Ap\u00e9ro",
       "Entr\u00e9es"
@@ -1759,7 +1759,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "chou_fleur_croustillant": {
     "title": "Chou-fleur croustillant",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/chou_fleur_croustillant_v3_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/chou_fleur_croustillant_v4_spooky.jpg",
     "categories": [
       "Ap\u00e9ro",
       "Entr\u00e9es",
@@ -1999,7 +1999,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "gratin_chou_fleur": {
     "title": "Gratin de chou-fleur",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/gratin_chou_fleur_v3_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/gratin_chou_fleur_v4_spooky.jpg",
     "categories": [
       "Plats",
       "Accompagnements"

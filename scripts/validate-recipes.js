@@ -389,6 +389,8 @@ if (!recipes || typeof recipes !== 'object') {
     let resolvedImagePath = null;
     if (!recipe.image) {
       errors.push(`${id}: image manquante.`);
+    } else if (/_v3_spooky\.jpg(?:$|\?)/i.test(recipe.image)) {
+      errors.push(`${id}: image _v3_spooky interdite, generation avec bandes verticales (${recipe.image}).`);
     } else if (/\.svg(?:$|\?)/i.test(recipe.image)) {
       errors.push(`${id}: image SVG placeholder interdite (${recipe.image}).`);
     } else if (/^\/assets\/recipe-images\/.*\.png(?:$|\?)/i.test(recipe.image)) {
