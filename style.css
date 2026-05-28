@@ -2855,7 +2855,7 @@ a {
 }
 
 .before-start-card {
-  display: flex;
+  display: none;
   gap: 12px;
   align-items: center;
   justify-content: space-between;
