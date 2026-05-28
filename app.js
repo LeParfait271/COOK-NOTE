@@ -1060,6 +1060,33 @@ function getSelectedInlineVariantSteps(recipe, selectedInlineVariantGroup) {
   return groupSteps.length ? groupSteps : getRecipeSteps(recipe);
 }
 
+function getInlineVariantOptions(recipe) {
+  if (!recipe?.variantGroups) return [];
+  const groups = recipe.ingredients || [];
+  return groups
+    .map((group, index) => ({ group, index }))
+    .filter(({ group }) => isVariantIngredientGroup(group, groups, recipe))
+    .map(option => ({
+      ...option,
+      label: cleanVariantGroupLabel(option.group?.group),
+      steps: getSelectedInlineVariantSteps(recipe, option)
+    }));
+}
+
+function getInlineBaseIngredientGroups(recipe) {
+  const groups = recipe?.ingredients || [];
+  return groups.filter(group => !isVariantIngredientGroup(group, groups, recipe));
+}
+
+function buildInlineVariantRecipe(recipe, option) {
+  if (!recipe || !option) return recipe;
+  return {
+    ...recipe,
+    ingredients: [...getInlineBaseIngredientGroups(recipe), option.group],
+    steps: option.steps?.length ? option.steps : getSelectedInlineVariantSteps(recipe, option)
+  };
+}
+
 function getVariantRefs(recipe) {
   return Array.isArray(recipe.variants) ? recipe.variants.filter(variant => variant && variant.id) : [];
 }
@@ -4044,6 +4071,53 @@ function cleanVariantGroupLabel(label) {
   return String(label || 'Variante').replace(/^\d+\)\s*/, '').replace(/^variante\s*:?\s*/i, '').trim();
 }
 
+function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
+  if (!options.length) return null;
+  const selectedOption = options.find(option => option.index === selectedIndex) || options[0];
+  const selectedRecipe = buildInlineVariantRecipe(recipe, selectedOption);
+  const timing = getRecipeTiming(selectedRecipe);
+  const baseCount = getInlineBaseIngredientGroups(recipe)
+    .reduce((sum, group) => sum + (group.items || []).length, 0);
+  const selectedIngredientCount = baseCount + (selectedOption.group?.items || []).length;
+  const summary = [
+    `${selectedIngredientCount} ingr\u00e9dients`,
+    `${selectedOption.steps.length || getRecipeSteps(recipe).length} \u00e9tapes`,
+    timing.active && `Actif ${formatMinutesShort(timing.active)}`,
+    timing.cook && `Cuisson ${formatMinutesShort(timing.cook)}`,
+    timing.rest && `Repos ${formatMinutesShort(timing.rest)}`
+  ].filter(Boolean);
+
+  return h('section', { className: 'recipe-panel variant-choice-panel', 'aria-label': 'Choix de variante' },
+    h('div', { className: 'panel-heading' },
+      h('div', null,
+        h('p', { className: 'eyebrow' }, 'Variante'),
+        h('h2', null, 'Choisir la pr\u00e9paration')
+      ),
+      h('span', { className: 'progress-label' }, `${options.length} option${options.length > 1 ? 's' : ''}`)
+    ),
+    h('div', { className: 'variant-choice-tabs' },
+      options.map(option => {
+        const active = option.index === selectedOption.index;
+        return h('button', {
+          key: `${recipe.id}:variant:${option.index}`,
+          type: 'button',
+          className: active ? 'variant-choice-button active' : 'variant-choice-button',
+          onClick: () => onSelect(option.index),
+          'aria-pressed': active
+        },
+          h('strong', null, option.label || 'Variante'),
+          h('span', null, `${(option.group?.items || []).length} ingr\u00e9dients`),
+          h('small', null, `${option.steps.length || getRecipeSteps(recipe).length} \u00e9tapes`)
+        );
+      })
+    ),
+    h('div', { className: 'variant-choice-summary' },
+      h('strong', null, selectedOption.label || 'Variante active'),
+      summary.map(item => h('span', { key: item }, item))
+    )
+  );
+}
+
 function RecipeView({
   recipe,
   isFavorite,
@@ -4090,16 +4164,10 @@ function RecipeView({
   const [focusMode, setFocusMode] = useState(false);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const completedRef = useRef('');
-  const inlineVariantGroupIndexes = useMemo(() => (
-    selectedRecipe?.variantGroups
-      ? (selectedRecipe.ingredients || [])
-        .map((group, index) => ({ group, index }))
-        .filter(({ group }) => isVariantIngredientGroup(group, selectedRecipe.ingredients || [], selectedRecipe))
-      : []
-  ), [selectedRecipe]);
-  const needsInlineVariantSelection = inlineVariantGroupIndexes.length > 0;
+  const inlineVariantOptions = useMemo(() => getInlineVariantOptions(selectedRecipe), [selectedRecipe]);
+  const needsInlineVariantSelection = inlineVariantOptions.length > 0;
   const selectedInlineVariantGroup = needsInlineVariantSelection
-    ? inlineVariantGroupIndexes.find(({ index }) => Boolean(openIngredientGroups[`${detailKey}:group:${index}`]))
+    ? inlineVariantOptions.find(({ index }) => Boolean(openIngredientGroups[`${detailKey}:group:${index}`])) || inlineVariantOptions[0]
     : null;
   const canShowSteps = hasSelectedVariant && (!needsInlineVariantSelection || Boolean(selectedInlineVariantGroup));
   const displaySteps = canShowSteps ? getSelectedInlineVariantSteps(selectedRecipe, selectedInlineVariantGroup) : [];
@@ -4108,7 +4176,7 @@ function RecipeView({
   const fallbackStepTotal = getRecipeSteps(selectedRecipe).length;
   const effectiveStepTotal = stepTotal || fallbackStepTotal;
   const stepMetaText = needsInlineVariantSelection && !selectedInlineVariantGroup
-    ? `${inlineVariantGroupIndexes.length} version${inlineVariantGroupIndexes.length > 1 ? 's' : ''}`
+    ? `${inlineVariantOptions.length} version${inlineVariantOptions.length > 1 ? 's' : ''}`
     : `${effectiveStepTotal} étape${effectiveStepTotal > 1 ? 's' : ''}`;
   const doneSteps = Object.keys(checked).filter(key => key.startsWith(`${stepScopeKey}:step:`) && checked[key]).length;
   const progress = stepTotal ? Math.round((doneSteps / stepTotal) * 100) : 0;
@@ -4133,6 +4201,15 @@ function RecipeView({
     setFocusMode(false);
     setActiveStepIndex(0);
   }, [recipe.id]);
+
+  useEffect(() => {
+    if (!needsInlineVariantSelection || !inlineVariantOptions.length) return;
+    setOpenIngredientGroups(prev => {
+      const hasOpenVariant = inlineVariantOptions.some(({ index }) => Boolean(prev[`${detailKey}:group:${index}`]));
+      if (hasOpenVariant) return prev;
+      return { ...prev, [`${detailKey}:group:${inlineVariantOptions[0].index}`]: true };
+    });
+  }, [detailKey, needsInlineVariantSelection, inlineVariantOptions]);
 
   useEffect(() => {
     if (!timerEnd) return undefined;
@@ -4178,10 +4255,21 @@ function RecipeView({
       const isOpening = !prev[groupKey];
       if (!needsInlineVariantSelection || !isOpening) return { ...prev, [groupKey]: !prev[groupKey] };
       const next = { ...prev };
-      inlineVariantGroupIndexes.forEach(({ index }) => {
+      inlineVariantOptions.forEach(({ index }) => {
         delete next[`${detailKey}:group:${index}`];
       });
       next[groupKey] = true;
+      return next;
+    });
+  }
+
+  function selectInlineVariant(index) {
+    setOpenIngredientGroups(prev => {
+      const next = { ...prev };
+      inlineVariantOptions.forEach(option => {
+        delete next[`${detailKey}:group:${option.index}`];
+      });
+      next[`${detailKey}:group:${index}`] = true;
       return next;
     });
   }
@@ -4259,6 +4347,12 @@ function RecipeView({
       factor,
       stepTotal: effectiveStepTotal
     }),
+    hasSelectedVariant && needsInlineVariantSelection && h(InlineVariantPicker, {
+      recipe: selectedRecipe,
+      options: inlineVariantOptions,
+      selectedIndex: selectedInlineVariantGroup?.index,
+      onSelect: selectInlineVariant
+    }),
     hasSelectedVariant && h('div', { className: 'recipe-tabs', 'aria-label': 'Sections de la recette' },
       [
         { key: 'ingredients', label: 'Ingrédients', count: countIngredients(selectedRecipe) },
@@ -4274,8 +4368,8 @@ function RecipeView({
     ),
     hasSelectedVariant && needsInlineVariantSelection && h('div', { className: 'mobile-recipe-guidance' },
       canShowSteps
-        ? `Bloc actif : ${selectedGroupLabel}. Les étapes affichées suivent ce choix.`
-        : 'Ouvre un bloc d’ingrédients pour afficher les étapes correspondantes.'
+        ? `Variante active : ${selectedGroupLabel}. Ingr\u00e9dients et \u00e9tapes suivent ce choix.`
+        : 'Choisis une variante pour afficher les ingr\u00e9dients et les \u00e9tapes correspondantes.'
     ),
     hasSelectedVariant && h('div', { className: 'recipe-detail-grid' },
       h('section', { className: mobileDetailTab === 'ingredients' ? 'recipe-panel ingredients-panel active-tab-panel' : 'recipe-panel ingredients-panel' },
@@ -4283,15 +4377,16 @@ function RecipeView({
           h('div', null, h('p', { className: 'eyebrow' }, 'Mise en place'), h('h2', null, 'Ingrédients'))
         ),
         needsInlineVariantSelection && h('div', { className: 'inline-choice-card' },
-          h('strong', null, 'Choix de préparation'),
+          h('strong', null, 'Variante active'),
           h('p', null, canShowSteps
-            ? `Tu suis actuellement le bloc "${selectedGroupLabel}". Ouvre un autre bloc si tu changes de préparation.`
-            : 'Ouvre un bloc ci-dessous pour afficher les ingrédients détaillés et les étapes correspondantes.')
+            ? `Tu suis actuellement "${selectedGroupLabel}". Le s\u00e9lecteur au-dessus change aussi les ingr\u00e9dients et les \u00e9tapes.`
+            : 'Choisis une variante au-dessus pour afficher les ingr\u00e9dients d\u00e9taill\u00e9s et les \u00e9tapes correspondantes.')
         ),
         (selectedRecipe.ingredients || []).map((group, groupIndex) => {
           const groupKey = `${detailKey}:group:${groupIndex}`;
           const collapsible = isVariantIngredientGroup(group, selectedRecipe.ingredients || [], selectedRecipe);
-          const isOpen = !collapsible || Boolean(openIngredientGroups[groupKey]);
+          const isSelectedInlineVariant = collapsible && selectedInlineVariantGroup?.index === groupIndex;
+          const isOpen = !collapsible || Boolean(openIngredientGroups[groupKey]) || isSelectedInlineVariant;
           return h('div', { className: collapsible ? 'ingredient-group collapsible-ingredient-group' : 'ingredient-group', key: groupKey },
             collapsible
               ? h('button', { type: 'button', className: 'ingredient-group-toggle', onClick: () => toggleIngredientGroup(groupKey), 'aria-expanded': isOpen }, [

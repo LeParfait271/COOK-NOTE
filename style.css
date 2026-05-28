@@ -2009,6 +2009,95 @@ a {
   margin: 18px auto;
 }
 
+.variant-choice-panel {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, calc(100% - 32px));
+  margin: 16px auto 0;
+  --panel-accent: var(--accent);
+}
+
+.variant-choice-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.variant-choice-button {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  min-height: 86px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 9%, transparent), rgba(255, 255, 255, .02)),
+    var(--surface-soft);
+  color: var(--text);
+  padding: 12px;
+  text-align: left;
+  transition: border-color var(--speed), transform var(--speed), background var(--speed);
+}
+
+.variant-choice-button:hover,
+.variant-choice-button:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 58%, var(--line));
+  transform: translateY(-1px);
+}
+
+.variant-choice-button.active {
+  border-color: var(--accent);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, transparent), rgba(255, 255, 255, .04)),
+    var(--surface-strong);
+}
+
+.variant-choice-button strong,
+.variant-choice-button span,
+.variant-choice-button small {
+  min-width: 0;
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.variant-choice-button strong {
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.variant-choice-button span,
+.variant-choice-button small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.variant-choice-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.variant-choice-summary strong,
+.variant-choice-summary span {
+  max-width: 100%;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--line));
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .045);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.variant-choice-summary strong {
+  color: var(--accent);
+}
+
 .ingredients-panel {
   --panel-accent: #d7a943;
 }
@@ -4481,6 +4570,35 @@ a {
 
   .variant-card {
     min-height: 156px;
+  }
+
+  .variant-choice-panel {
+    width: min(1180px, calc(100% - 20px));
+    margin-top: 10px;
+  }
+
+  .variant-choice-tabs {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .variant-choice-button {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    min-height: 58px;
+    padding: 10px;
+  }
+
+  .variant-choice-button strong {
+    grid-column: 1 / -1;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .variant-choice-button span,
+  .variant-choice-button small {
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .ingredient-search-box {
