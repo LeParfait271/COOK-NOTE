@@ -202,7 +202,7 @@ a {
   top: 0;
   z-index: 20;
   display: grid;
-  grid-template-columns: minmax(96px, 1fr) auto minmax(300px, 1fr);
+  grid-template-columns: minmax(58px, 1fr) auto minmax(132px, 1fr);
   gap: 12px;
   align-items: center;
   min-height: 56px;
@@ -306,7 +306,7 @@ a {
 
 .top-actions {
   display: inline-flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 7px;
   align-items: center;
   justify-content: center;
@@ -318,6 +318,7 @@ a {
   min-height: 38px;
   border-color: rgba(255, 255, 255, .20);
   font-weight: 930;
+  white-space: nowrap;
 }
 
 .topbar .icon-square {
@@ -4194,11 +4195,9 @@ a {
 
 @media (max-width: 1040px) {
   .topbar {
-    grid-template-columns: auto 44px 1fr auto auto;
-    grid-template-areas:
-      "home actions actions actions actions"
-      "search-btn search search fav settings";
-    align-items: stretch;
+    grid-template-columns: minmax(48px, 1fr) auto minmax(132px, 1fr);
+    gap: 8px;
+    padding-inline: 12px;
   }
 
   .topbar-status {
@@ -4209,42 +4208,8 @@ a {
     width: 100%;
   }
 
-  .top-left {
-    grid-area: home;
-    justify-self: start;
-  }
-
-  .top-actions {
-    grid-area: actions;
-    justify-self: end;
-    justify-content: end;
-  }
-
   .top-request-btn {
-    max-width: 220px;
-  }
-
-  .top-right {
-    display: contents;
-  }
-
-  .top-fav-btn {
-    grid-area: fav;
-    justify-self: end;
-  }
-
-  .top-settings-btn {
-    grid-area: settings;
-    justify-self: end;
-  }
-
-  .top-search-button {
-    grid-area: search-btn;
-    justify-self: start;
-  }
-
-  .top-right .top-search {
-    grid-area: search;
+    max-width: 180px;
   }
 
   .recipe-detail-grid {
