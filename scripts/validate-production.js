@@ -88,6 +88,25 @@ TEXT_FILES_TO_SCAN.forEach(file => {
   });
 });
 
+[
+  'Prévoir le temps de repos ou de froid avant le service.',
+  'Préparer le matériel chaud et surveiller la coloration en fin de cuisson.',
+  'Sortir 10 à 20min avant service pour détendre la texture.',
+  'Plan discret',
+  'Chaque four réagit différemment',
+  'Stockage bocal ou boîte hermétique',
+  'Stockage boîte hermétique adaptée',
+  'Stockage idéalement le jour même',
+  'Stockage au réfrigérateur à 0–4°C',
+  'Stockage boîte hermétique au sec'
+].forEach(fragment => {
+  TEXT_FILES_TO_SCAN.forEach(file => {
+    if (read(file).includes(fragment)) {
+      fail(`${file}: texte generique ou doublon interdit (${fragment}).`);
+    }
+  });
+});
+
 ['assets/catalog-1.js', 'assets/catalog-2.js', 'assets/catalog-3.js', 'assets/catalog-4.js'].forEach(file => {
   const text = read(file);
   if (/[^\x00-\x7f]/.test(text)) {

@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v0.92';
+const SITE_VERSION = 'v0.93';
 const SITE_UPDATED_AT = '29/05/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -911,28 +911,34 @@ function getRecipeRiskSignals(recipe) {
 
 function getRecipeServiceItems(recipe) {
   const practicalService = asTextList(recipe?.service || recipe?.practical?.service);
+  if (practicalService.length) return practicalService.slice(0, 4);
   const text = normalizeText([
     recipe?.title,
     recipe?.yield,
     ...(recipe?.categories || []),
     ...(recipe?.tags || []),
     ...(recipe?.aliases || []),
-    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
     ...(recipe?.steps || []),
     ...(recipe?.notes || [])
+  ].map(stripHtml).join(' '));
+  const identityText = normalizeText([
+    recipe?.title,
+    ...(recipe?.categories || []),
+    ...(recipe?.tags || []),
+    ...(recipe?.aliases || [])
   ].map(stripHtml).join(' '));
   const items = [...practicalService];
   const add = item => {
     if (item && !items.includes(item)) items.push(item);
   };
+  const hasRestBeforeService = /\blaisser reposer\b.*\bavant (de )?serv(ir|ice)|\breposer \d+\s*(min|minutes)\b.*\bavant (de )?serv(ir|ice)/.test(text);
   if (/\b(friture|frire|frites|beignet|tempura|gril|griller|gratiner|four|chaud)\b/.test(text)) {
-    add('Servir chaud, idéalement dès la fin de cuisson.');
+    add(hasRestBeforeService ? 'Laisser reposer le temps indiqué, puis servir chaud.' : 'Servir chaud, juste après cuisson.');
   } else if (/\b(terrine|rillettes|brie|salade|gaspacho|gazpacho|tiramisu|mojito|froid)\b/.test(text)) {
     add('Servir froid ou frais selon la recette.');
   } else if (/\b(cake|pain|brioche|cookies|beurre a l ail|beurre à l ail)\b/.test(text)) {
     add('Servir tiède ou à température ambiante selon la texture recherchée.');
   }
-  if (/\b(terrine|rillettes|brie|fromage)\b/.test(text)) add('Sortir 10 à 20min avant service pour détendre la texture.');
   if (/\b(friture|frire|frites|beignet|tempura)\b/.test(text)) add('Saler ou finir juste avant d’envoyer pour garder le croustillant.');
   if (/\b(chalumeau|meringue|zeste|herbes|fleur de sel|sucre glace)\b/.test(text)) add('Faire les finitions au dernier moment.');
   return items.slice(0, 4);
@@ -2335,7 +2341,7 @@ function getRecipePracticalSections(recipe) {
   const mistakeNotes = notes.filter(note => !noteAlreadyClassified(note) && /\b(ne\s|[ée]vite|attention|trop cuit|trop cuits|surcharge|surveille|sans trop)\b/i.test(note));
   const tipNotes = notes.filter(note => !storageNotes.includes(note) && !reheatingNotes.includes(note) && !mistakeNotes.includes(note) && !substitutionNotes.includes(note));
   const resultTechnical = technical
-    .filter(item => /\b(texture|cible|r[eé]sultat|cuisson|service)\b/i.test(String(item.label || item.title || '')))
+    .filter(item => /\b(texture|cible|r[eé]sultat)\b/i.test(String(item.label || item.title || '')))
     .map(item => item.value || item.text);
 
   add('measures', 'Repère indicatif', recipeHasSpoonMeasures(recipe) ? [SPOON_WEIGHT_NOTE] : []);
@@ -2373,27 +2379,15 @@ function getRecipePracticalSections(recipe) {
 }
 
 function getPrepTimeline(recipe) {
-  const steps = getRecipeSteps(recipe).map(stripHtml);
-  const notes = (recipe?.notes || []).map(stripHtml);
-  const text = normalizeText([...steps, ...notes].join(' '));
-  const items = [];
-  const add = (label, value) => {
-    if (!items.some(item => item.label === label)) items.push({ label, value });
-  };
-  if (/\b(veille|nuit|12h|18h|24h|repos|reposer|refrigerateur|froid)\b/.test(text)) {
-    add('Anticiper', 'Prévoir le temps de repos ou de froid avant le service.');
+  const explicitTimeline = asTextList(recipe?.timeline || recipe?.practical?.timeline);
+  if (explicitTimeline.length) {
+    return explicitTimeline.slice(0, 4).map((item, index) => {
+      const parts = String(item).split(/\s*:\s*/);
+      if (parts.length > 1) return { label: parts.shift(), value: parts.join(': ') };
+      return { label: `Repère ${index + 1}`, value: item };
+    });
   }
-  add('Mise en place', `${countIngredients(recipe)} ingrédients à sortir, peser et cocher avant de lancer.`);
-  if (/\b(four|prechauffer|gril|cuire|cuisson|frire|poele)\b/.test(text)) {
-    add('Cuisson', 'Préparer le matériel chaud et surveiller la coloration en fin de cuisson.');
-  }
-  if (/\b(monter|fouetter|emulsion|incorporer|pocher|dresser)\b/.test(text)) {
-    add('Geste clé', 'Garder les textures sous contrôle : mélanger juste assez, puis passer à l’étape suivante.');
-  }
-  if (/\b(servir|finir|zeste|chalumeau|chaud|tiede|froid)\b/.test(text)) {
-    add('Service', 'Faire la finition au dernier moment pour garder le contraste de texture.');
-  }
-  return items.slice(0, 4);
+  return [];
 }
 
 function isMonthlyAdditionVisible(item, now = new Date()) {
@@ -4040,7 +4034,7 @@ function PrepTimelineBlock({ recipe }) {
   if (!items.length) return null;
   return h('div', { className: 'prep-timeline-block' },
     h('p', { className: 'eyebrow' }, 'Organisation'),
-    h('h2', null, 'Plan discret'),
+    h('h2', null, 'Repères de préparation'),
     h('ol', null, items.map(item => h('li', { key: item.label },
       h('strong', null, item.label),
       h('span', null, item.value)

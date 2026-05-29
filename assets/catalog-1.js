@@ -172,8 +172,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Zaatar + huile d'olive Citron confit + aneth Miel + piment d'Espelette Truffe 1\u20132 % huile de truffe.",
-      "Conservation 2\u20133 j au froid.",
-      "Stockage bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption 2\u20133 jours."
+      "Conservation 2\u20133 j au froid."
     ],
     "difficultyScore": 2,
     "tags": [
@@ -217,9 +216,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Variantes poivre de Sichuan, origan, paprika fum\u00e9.",
-      "Conservation 1 mois au froid.",
-      "Stockage bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Conservation 1 mois au froid."
     ],
     "difficultyScore": 2
   },
@@ -279,9 +276,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Former des boules, aplatir \u00e0 1cm et cuire 12\u201315min \u00e0 180\u00b0C."
     ],
     "notes": [
-      "Conservation 3 j bo\u00eete herm\u00e9tique.",
-      "Stockage bo\u00eete herm\u00e9tique au sec, \u00e0 temp\u00e9rature ambiante. P\u00e9remption 5\u201314 jours selon humidit\u00e9; garder loin du r\u00e9frig\u00e9rateur sauf garniture fragile.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Conservation 3 j bo\u00eete herm\u00e9tique."
     ],
     "difficultyScore": 4,
     "variantGroups": true
@@ -319,8 +314,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "\u00c9paissir 5\u20138g ma\u00efzena dilu\u00e9e.",
-      "Conservation 2 j au froid.",
-      "Stockage id\u00e9alement le jour m\u00eame. P\u00e9remption 24\u201348h en bo\u00eete herm\u00e9tique; r\u00e9chauffer doucement pour retrouver la texture."
+      "Conservation 2 j au froid."
     ],
     "difficultyScore": 3,
     "tags": [
@@ -366,8 +360,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "Texture plus dense, tr\u00e8s stable.",
       "Id\u00e9al pour un fourrage rapide.",
-      "Dosage fourrage 30\u201340g par donut.",
-      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
+      "Dosage fourrage 30\u201340g par donut."
     ],
     "tags": [
       "creme",
@@ -405,8 +398,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Monter au fouet serrer au sucre en fin."
     ],
     "notes": [
-      "Tenue 24\u201336h en poche.",
-      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
+      "Tenue 24\u201336h en poche."
     ],
     "difficultyScore": 4
   },
@@ -444,10 +436,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "Des blancs \"vieillis\" montent mieux.",
       "Cuisson longue = meringues bien s\u00e8ches et stables.",
-      "Stockage optimal bo\u00eete herm\u00e9tique, endroit sec, jamais au r\u00e9frig\u00e9rateur.",
-      "Conservation 2 semaines sans perte de texture.",
-      "Stockage bo\u00eete herm\u00e9tique au sec, \u00e0 temp\u00e9rature ambiante. P\u00e9remption 5\u201314 jours selon humidit\u00e9; garder loin du r\u00e9frig\u00e9rateur sauf garniture fragile.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Conservation 2 semaines sans perte de texture."
     ],
     "difficultyScore": 4,
     "additionalMasters": [
@@ -518,10 +507,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "\u2192 Recette des donuts <span data-goto='donuts_cloud'>Donuts Cloud-like (pousse lente)</span>",
       "\u2192 Recette des choux <span data-goto='choux_craquelin'>Choux au craquelin</span>",
       "\u2192 Version p\u00e2tissi\u00e8re seule <span data-goto='creme_diplomate_vanille'>Cr\u00e8me diplomate vanille (recette de base)</span>",
-      "Stockage optimal p\u00e2tissi\u00e8re film\u00e9e au contact dans bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur.",
       "Conservation p\u00e2tissi\u00e8re seule 48h au froid. Diplomate assembl\u00e9e 24h au froid. Mascarpone 36\u201348h au froid.",
-      "Cong\u00e9lation possible pour la p\u00e2tissi\u00e8re seule (avant incorporation chantilly) \u2014 1 mois. Fouetter \u00e0 nouveau apr\u00e8s d\u00e9cong\u00e9lation.",
-      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
+      "Cong\u00e9lation possible pour la p\u00e2tissi\u00e8re seule (avant incorporation chantilly) \u2014 1 mois. Fouetter \u00e0 nouveau apr\u00e8s d\u00e9cong\u00e9lation."
     ],
     "difficultyScore": 6
   },
@@ -692,8 +679,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Monter au fouet jusqu\u2019\u00e0 texture ferme."
     ],
     "notes": [
-      "R\u00e9sultat attendu cr\u00e8meux, parfum\u00e9 et stable.",
-      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
+      "R\u00e9sultat attendu cr\u00e8meux, parfum\u00e9 et stable."
     ],
     "tags": [
       "creme",
@@ -784,9 +770,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Points critiques beurre pommade non liquide, sirop \u00e0 118\u2013120\u00b0C, verser lentement, fouetter jusqu\u2019\u00e0 refroidissement complet.",
-      "R\u00e9sultat attendu p\u00e2te croustillante, cr\u00e8me d\u2019amande moelleuse, cr\u00e8me citron fondante, meringue l\u00e9g\u00e8re et stable.",
-      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "R\u00e9sultat attendu p\u00e2te croustillante, cr\u00e8me d\u2019amande moelleuse, cr\u00e8me citron fondante, meringue l\u00e9g\u00e8re et stable."
     ],
     "tags": [
       "tarte",
@@ -850,8 +834,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Si la p\u00e2te casse au fon\u00e7age, colmate avec un morceau de p\u00e2te de m\u00eame \u00e9paisseur elle se ressoude \u00e0 la cuisson.",
       "Si les bords collent au cercle, d\u00e9colle-les \u00e0 chaud avec une petite lame sans retirer le cercle.",
       "Pour une surface plus lisse, poncer tr\u00e8s l\u00e9g\u00e8rement le fond cuit avec un zesteur fin.",
-      "Les chutes crues peuvent \u00eatre film\u00e9es et congel\u00e9es pour une autre tarte.",
-      "Stockage p\u00e2te crue 2\u20133 jours au r\u00e9frig\u00e9rateur ou cong\u00e9lation possible. Fond cuit \u00e0 garder au sec en bo\u00eete herm\u00e9tique."
+      "Les chutes crues peuvent \u00eatre film\u00e9es et congel\u00e9es pour une autre tarte."
     ],
     "technical": [
       {
@@ -953,9 +936,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Cuire 25 \u00e0 35min, jusqu\u2019\u00e0 obtenir des tomates fondantes et un dessus dor\u00e9."
     ],
     "notes": [
-      "Servir chaud, ti\u00e8de ou en accompagnement d\u2019une viande grill\u00e9e.",
-      "Stockage 2 jours au r\u00e9frig\u00e9rateur, r\u00e9chauffer au four doux.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Servir chaud, ti\u00e8de ou en accompagnement d\u2019une viande grill\u00e9e."
     ],
     "tags": [
       "tomate",
@@ -1019,9 +1000,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Garnir les coques refroidies, ajouter quelques noisettes, assembler et maturer 24h au frais."
     ],
     "notes": [
-      "Recette technique pes\u00e9es pr\u00e9cises, blancs \u00e0 temp\u00e9rature ambiante et cuisson r\u00e9guli\u00e8re.",
-      "Stockage 3 jours au r\u00e9frig\u00e9rateur, sortir 15min avant d\u00e9gustation.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Recette technique pes\u00e9es pr\u00e9cises, blancs \u00e0 temp\u00e9rature ambiante et cuisson r\u00e9guli\u00e8re."
     ],
     "tags": [
       "macaron",
@@ -1211,8 +1190,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Les noisettes se marient particuli\u00e8rement bien avec le chocolat.",
       "Pour l\u2019ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille les ar\u00f4mes ne se dosent pas tous pareil.",
       "Ne prolonge pas trop la cuisson le centre doit rester tendre.",
-      "La p\u00e2te peut \u00eatre pr\u00e9par\u00e9e \u00e0 l\u2019avance et conserv\u00e9e au frais jusqu\u2019\u00e0 24h avant cuisson.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
+      "La p\u00e2te peut \u00eatre pr\u00e9par\u00e9e \u00e0 l\u2019avance et conserv\u00e9e au frais jusqu\u2019\u00e0 24h avant cuisson."
     ],
     "technical": [
       {
@@ -1285,8 +1263,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "Le cream cheese correspond \u00e0 un fromage frais dense et l\u00e9g\u00e8rement acidul\u00e9, type Philadelphia. \u00c9vite le fromage blanc ou le Saint M\u00f4ret trop souple si tu veux un c\u0153ur net.",
       "Bien refermer la p\u00e2te autour du fourrage pour \u00e9viter les fuites. Conservation 3 jours au r\u00e9frig\u00e9rateur.",
-      "Si tu utilises un ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille les ar\u00f4mes ne se dosent pas tous pareil.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Si tu utilises un ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille les ar\u00f4mes ne se dosent pas tous pareil."
     ],
     "tags": [
       "cookies",
@@ -1443,8 +1420,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "notes": [
       "Pour des cookies plus chocolat\u00e9s, utiliser la quantit\u00e9 haute de p\u00e9pites.",
       "La p\u00e2te peut \u00eatre congel\u00e9e en boules et cuite apr\u00e8s d\u00e9cong\u00e9lation.",
-      "Si tu utilises un ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille les ar\u00f4mes ne se dosent pas tous pareil.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
+      "Si tu utilises un ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille les ar\u00f4mes ne se dosent pas tous pareil."
     ],
     "technical": [
       {

@@ -238,8 +238,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "M\u00eame fiche, 2 styles citronn\u00e9 (salades) ou traditionnel (p\u00e2tes/gnocchi).",
-      "Conservation 2\u20134 j au froid, film au contact + fine couche d\u2019huile.",
-      "Stockage bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation."
+      "Conservation 2\u20134 j au froid, film au contact + fine couche d\u2019huile."
     ],
     "difficultyScore": 3,
     "variantGroups": true,
@@ -406,9 +405,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Plaque pr\u00e9chauff\u00e9e = cro\u00fbte plus nette.",
-      "Conservation 4 j au r\u00e9frig\u00e9rateur.",
-      "Stockage bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Conservation 4 j au r\u00e9frig\u00e9rateur."
     ],
     "difficultyScore": 3,
     "tags": [
@@ -487,8 +484,6 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Appr\u00eat insuffisant mie dense.",
       "Sur-appr\u00eat beignets qui retombent.",
       "R\u00e9sultat attendu mie a\u00e9r\u00e9e et filante, ext\u00e9rieur finement dor\u00e9, cuisson \u00e0 c\u0153ur sans s\u00e9cheresse.",
-      "Stockage id\u00e9alement le jour m\u00eame. P\u00e9remption 24\u201348h en bo\u00eete herm\u00e9tique; r\u00e9chauffer doucement pour retrouver la texture.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire.",
       "Cr\u00e8mes \u00e0 garnir <span data-goto=\"creme_diplomate_vanille\">Cr\u00e8me diplomate vanille</span> \u00b7 <span data-goto=\"creme_diplomate_cloud\">Cr\u00e8me diplomate vanille \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_patissiere_vanille\">Cr\u00e8me p\u00e2tissi\u00e8re vanille</span> \u00b7 <span data-goto=\"creme_patissiere_praline\">Cr\u00e8me p\u00e2tissi\u00e8re pralin\u00e9</span> \u00b7 <span data-goto=\"creme_kinder_nutella\">Cr\u00e8me Nutella \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_pistache\">Cr\u00e8me pistache \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_praline\">Cr\u00e8me pralin\u00e9</span> \u00b7 <span data-goto=\"mascarpone\">Cr\u00e8me mascarpone vanille</span> \u00b7 <span data-goto=\"chantilly_gelatine\">Chantilly stabilis\u00e9e</span>."
     ],
     "technical": [
@@ -538,9 +533,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "R\u00e9aliser une meringue italienne (sirop 121\u00b0C vers\u00e9 sur blancs mousseux) puis incorporer d\u00e9licatement \u00e0 la cr\u00e8me au beurre."
     ],
     "notes": [
-      "Base technique pour plusieurs entremets/p\u00e2tisseries classiques.",
-      "Stockage bo\u00eete herm\u00e9tique au sec, \u00e0 temp\u00e9rature ambiante. P\u00e9remption 5\u201314 jours selon humidit\u00e9; garder loin du r\u00e9frig\u00e9rateur sauf garniture fragile.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Base technique pour plusieurs entremets/p\u00e2tisseries classiques."
     ],
     "difficultyScore": 8,
     "additionalMasters": [
@@ -776,9 +769,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Accompagnement pour viande grill\u00e9e, poisson, pur\u00e9e ou gratin de l\u00e9gumes.",
-      "Conservation 3\u20134 jours au froid en bo\u00eete herm\u00e9tique.",
-      "Stockage bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Conservation 3\u20134 jours au froid en bo\u00eete herm\u00e9tique."
     ],
     "tags": [
       "oignon",
@@ -826,8 +817,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Texture fondante pour tarte citron, verrines ou fourrage.",
-      "Refroidir avant montage pour une tenue nette.",
-      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
+      "Refroidir avant montage pour une tenue nette."
     ],
     "tags": [
       "creme",
@@ -875,8 +865,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Base de la cr\u00e8me diplomate vanille.",
-      "Lisser au fouet apr\u00e8s refroidissement avant incorporation.",
-      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
+      "Lisser au fouet apr\u00e8s refroidissement avant incorporation."
     ],
     "tags": [
       "creme",
@@ -956,8 +945,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Utiliser d\u00e8s que le lait a l\u00e9g\u00e8rement \u00e9paissi."
     ],
     "notes": [
-      "\u00c0 utiliser dans les pancakes, gaufres ou p\u00e2tes lev\u00e9es moelleuses.",
-      "Stockage au r\u00e9frig\u00e9rateur en contenant propre. P\u00e9remption 24h."
+      "\u00c0 utiliser dans les pancakes, gaufres ou p\u00e2tes lev\u00e9es moelleuses."
     ],
     "tags": [
       "babeurre",
@@ -1014,9 +1002,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Le temps de cuisson est le point cl\u00e9 tester un moule avant une s\u00e9rie.",
-      "Pr\u00e9paration des moules ou ramequins beurre g\u00e9n\u00e9reusement puis chemise au cacao ou \u00e0 la farine, sinon les mi-cuits peuvent coller au d\u00e9moulage.",
-      "Stockage appareil cru 24h au r\u00e9frig\u00e9rateur, cuisson minute recommand\u00e9e.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Pr\u00e9paration des moules ou ramequins beurre g\u00e9n\u00e9reusement puis chemise au cacao ou \u00e0 la farine, sinon les mi-cuits peuvent coller au d\u00e9moulage."
     ],
     "tags": [
       "chocolat",
@@ -1077,9 +1063,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Cuire environ 2min de chaque c\u00f4t\u00e9, \u00e9goutter sur papier absorbant, puis rouler dans le sucre."
     ],
     "notes": [
-      "La p\u00e2te doit \u00eatre assez souple pour \u00eatre poch\u00e9e mais garder les stries de la douille.",
-      "Stockage meilleur minute, possible 24h mais perd du croustillant.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "La p\u00e2te doit \u00eatre assez souple pour \u00eatre poch\u00e9e mais garder les stries de la douille."
     ],
     "tags": [
       "churros",
@@ -1173,8 +1157,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Sors le beurre \u00e0 ramollir environ 45 \u00e0 60min avant, selon la temp\u00e9rature de la pi\u00e8ce il doit \u00eatre souple mais pas fondu.",
       "Pour l\u2019ar\u00f4me vanille, suis le dosage indiqu\u00e9 sur la bouteille les ar\u00f4mes ne se dosent pas tous pareil.",
       "Ne prolonge pas trop la cuisson les cookies continuent de cuire l\u00e9g\u00e8rement hors du four.",
-      "La p\u00e2te peut \u00eatre congel\u00e9e en boules bien emball\u00e9es, puis cuite plus tard directement depuis le cong\u00e9lateur.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
+      "La p\u00e2te peut \u00eatre congel\u00e9e en boules bien emball\u00e9es, puis cuite plus tard directement depuis le cong\u00e9lateur."
     ],
     "technical": [
       {
@@ -1476,8 +1459,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Pour plus de moelleux, laisser pousser la p\u00e2te 1h apr\u00e8s p\u00e9trissage, d\u00e9gazer, puis fa\u00e7onner.",
-      "Ces pains se cong\u00e8lent tr\u00e8s bien une fois refroidis.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
+      "Ces pains se cong\u00e8lent tr\u00e8s bien une fois refroidis."
     ],
     "technical": [
       {
@@ -1583,8 +1565,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Moins il reste d\u2019eau dans les pommes de terre, plus les gaufres seront croustillantes.",
-      "N\u2019ouvre pas le gaufrier trop t\u00f4t la gaufre doit se d\u00e9tacher seule.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveille la coloration si tu fais la finition au four."
+      "N\u2019ouvre pas le gaufrier trop t\u00f4t la gaufre doit se d\u00e9tacher seule."
     ],
     "technical": [
       {

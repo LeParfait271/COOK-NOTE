@@ -756,9 +756,7 @@ window.RECIPES = {
       "Ratio huile:acide 3:1 à 4:1 selon la salade.",
       "Variantes citron, herbes, miso blanc, yaourt grec.",
       "→ Voir aussi <span data-goto=\"pesto_variantes\">Pestos</span>",
-      "Stockage optimal flacon avec couvercle au réfrigérateur secouer avant usage.",
       "Conservation 5–7 j au froid.",
-      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation."
     ],
     "difficultyScore": 2
   },
@@ -819,7 +817,6 @@ window.RECIPES = {
     "notes": [
       "Même fiche, 2 styles citronné (salades) ou traditionnel (pâtes/gnocchi).",
       "Conservation 2–4 j au froid, film au contact + fine couche d’huile.",
-      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation."
     ],
     "difficultyScore": 3,
     "variantGroups": true,
@@ -860,7 +857,6 @@ window.RECIPES = {
     "notes": [
       "Zaatar + huile d'olive Citron confit + aneth Miel + piment d'Espelette Truffe 1–2 % huile de truffe.",
       "Conservation 2–3 j au froid.",
-      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours."
     ],
     "difficultyScore": 2,
     "tags": [
@@ -906,7 +902,6 @@ window.RECIPES = {
     "notes": [
       "Variantes zeste d'orange, vanille, cacao, espresso, figue (filtrer).",
       "Conservation 2–3 mois au froid.",
-      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours."
     ],
     "difficultyScore": 2,
     "tags": [
@@ -978,8 +973,6 @@ window.RECIPES = {
     "notes": [
       "Séchées parfaites pour antipasti et salades.",
       "Confites idéales en bruschetta / pâtes.",
-      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 4,
     "aliases": [
@@ -1023,8 +1016,6 @@ window.RECIPES = {
     "notes": [
       "Variantes poivre de Sichuan, origan, paprika fumé.",
       "Conservation 1 mois au froid.",
-      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 2
   },
@@ -1186,8 +1177,6 @@ window.RECIPES = {
     "notes": [
       "Plaque préchauffée = croûte plus nette.",
       "Conservation 4 j au réfrigérateur.",
-      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 3,
     "tags": [
@@ -1387,7 +1376,6 @@ window.RECIPES = {
     "notes": [
       "Ne pas réutiliser la marinade crue porter à ébullition si sauce.",
       "Conservation marinades prêtes 7 j au froid.",
-      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation."
     ],
     "difficultyScore": 3,
     "variantGroups": true,
@@ -1460,8 +1448,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Conservation 3 j boîte hermétique.",
-      "Stockage boîte hermétique au sec, à température ambiante. Péremption 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 4,
     "variantGroups": true
@@ -1532,7 +1518,6 @@ window.RECIPES = {
     "notes": [
       "Pour la version babeurre préparer le <span data-goto=\"babeurre_maison\">babeurre</span> 10min avant.",
       "Conservation pâte 4h au froid pancakes cuits 2 j filmés.",
-      "Stockage idéalement le jour même. Péremption 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture."
     ],
     "difficultyScore": 3,
     "aliases": [
@@ -1575,7 +1560,6 @@ window.RECIPES = {
     "notes": [
       "Épaissir 5–8g maïzena diluée.",
       "Conservation 2 j au froid.",
-      "Stockage idéalement le jour même. Péremption 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture."
     ],
     "difficultyScore": 3,
     "tags": [
@@ -1621,9 +1605,7 @@ window.RECIPES = {
     "notes": [
       "Parfums vanille, cacao, café, coco (1–2 %).",
       "→ Version plus stable <span data-goto=\"mascarpone\">Chantilly mascarpone</span> ou <span data-goto=\"chantilly_gelatine\">Chantilly gélatine</span>",
-      "Stockage optimal dans un bol filmé ou en poche à douille au réfrigérateur.",
       "Conservation 24h au froid maximum.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "difficultyScore": 3,
     "tags": [
@@ -1670,7 +1652,6 @@ window.RECIPES = {
       "Texture plus dense, très stable.",
       "Idéal pour un fourrage rapide.",
       "Dosage fourrage 30–40g par donut.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -1709,7 +1690,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Tenue 24–36h en poche.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "difficultyScore": 4
   },
@@ -1756,7 +1736,6 @@ window.RECIPES = {
       "Dosage fourrage 30–40g par donut.",
       "Texture attendue légère, stable et propre.",
       "Met à jour la recette existante de crème diplomate vanille.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -1816,8 +1795,6 @@ window.RECIPES = {
       "Conservation coques 3 j à température ambiante dans boîte hermétique garnis 24h au froid.",
       "→ Recette de garnissage <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span>",
       "→ Version allégée <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>",
-      "Stockage boîte hermétique au sec, à température ambiante. Péremption 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire.",
       "Crèmes à garnir <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span> · <span data-goto=\"creme_diplomate_cloud\">Crème diplomate vanille à garnir</span> · <span data-goto=\"creme_patissiere_vanille\">Crème pâtissière vanille</span> · <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span> · <span data-goto=\"creme_kinder_nutella\">Crème Nutella à garnir</span> · <span data-goto=\"creme_pistache\">Crème pistache à garnir</span> · <span data-goto=\"creme_praline\">Crème praliné</span> · <span data-goto=\"mascarpone\">Crème mascarpone vanille</span> · <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>."
     ],
     "difficultyScore": 7
@@ -1856,10 +1833,7 @@ window.RECIPES = {
     "notes": [
       "Des blancs \"vieillis\" montent mieux.",
       "Cuisson longue = meringues bien sèches et stables.",
-      "Stockage optimal boîte hermétique, endroit sec, jamais au réfrigérateur.",
       "Conservation 2 semaines sans perte de texture.",
-      "Stockage boîte hermétique au sec, à température ambiante. Péremption 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 4,
     "additionalMasters": [
@@ -1915,9 +1889,7 @@ window.RECIPES = {
       "Idéal pour pocher poissons (cabillaud, saumon, sole), crustacés, légumes ou volailles.",
       "Astuce ajouter un trait de vinaigre blanc ou de jus de citron pour les crustacés.",
       "Base possible pour des plats mijotés, sauces et pochages aromatiques.",
-      "Stockage optimal boîte hermétique ou pot en verre au réfrigérateur.",
       "Conservation 3–4 j au froid se congèle très bien 2–3 mois (en portions de 250ml).",
-      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours."
     ],
     "difficultyScore": 2
   },
@@ -1982,8 +1954,6 @@ window.RECIPES = {
       "Apprêt insuffisant mie dense.",
       "Sur-apprêt beignets qui retombent.",
       "Résultat attendu mie aérée et filante, extérieur finement doré, cuisson à cœur sans sécheresse.",
-      "Stockage idéalement le jour même. Péremption 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire.",
       "Crèmes à garnir <span data-goto=\"creme_diplomate_vanille\">Crème diplomate vanille</span> · <span data-goto=\"creme_diplomate_cloud\">Crème diplomate vanille à garnir</span> · <span data-goto=\"creme_patissiere_vanille\">Crème pâtissière vanille</span> · <span data-goto=\"creme_patissiere_praline\">Crème pâtissière praliné</span> · <span data-goto=\"creme_kinder_nutella\">Crème Nutella à garnir</span> · <span data-goto=\"creme_pistache\">Crème pistache à garnir</span> · <span data-goto=\"creme_praline\">Crème praliné</span> · <span data-goto=\"mascarpone\">Crème mascarpone vanille</span> · <span data-goto=\"chantilly_gelatine\">Chantilly stabilisée</span>."
     ],
     "technical": [
@@ -2058,10 +2028,8 @@ window.RECIPES = {
       "→ Recette des donuts <span data-goto='donuts_cloud'>Donuts Cloud-like (pousse lente)</span>",
       "→ Recette des choux <span data-goto='choux_craquelin'>Choux au craquelin</span>",
       "→ Version pâtissière seule <span data-goto='creme_diplomate_vanille'>Crème diplomate vanille (recette de base)</span>",
-      "Stockage optimal pâtissière filmée au contact dans boîte hermétique au réfrigérateur.",
       "Conservation pâtissière seule 48h au froid. Diplomate assemblée 24h au froid. Mascarpone 36–48h au froid.",
       "Congélation possible pour la pâtissière seule (avant incorporation chantilly) — 1 mois. Fouetter à nouveau après décongélation.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "difficultyScore": 6
   },
@@ -2107,7 +2075,6 @@ window.RECIPES = {
     "notes": [
       "Montage en couronnes de pâte à choux, crème praliné et noisettes.",
       "Sortir du réfrigérateur 30 à 40min avant dégustation.",
-      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours."
     ],
     "difficultyScore": 8
   },
@@ -2143,7 +2110,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Composant pour <span data-goto=\"paris_brest\">Paris-Brest</span>.",
-      "Stockage boîte hermétique au sec, à température ambiante. Péremption 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile."
     ],
     "difficultyScore": 2
   },
@@ -2181,8 +2147,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Le test du sillon il doit se refermer doucement quand la texture est correcte.",
-      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 7,
     "additionalMasters": [
@@ -2230,7 +2194,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Ajuster le praliné/pâte de noisette selon l’intensité souhaitée.",
-      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours."
     ],
     "difficultyScore": 6,
     "additionalMasters": [
@@ -2277,8 +2240,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Base technique pour plusieurs entremets/pâtisseries classiques.",
-      "Stockage boîte hermétique au sec, à température ambiante. Péremption 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "difficultyScore": 8,
     "additionalMasters": [
@@ -2314,7 +2275,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Utilisé par exemple dans <span data-goto=\"paris_brest\">Paris-Brest</span>.",
-      "Stockage boîte hermétique adaptée, au réfrigérateur si la recette contient œufs, crème, viande ou garniture humide. Péremption 2–3 jours."
     ],
     "difficultyScore": 5,
     "additionalMasters": [
@@ -2818,7 +2778,6 @@ window.RECIPES = {
       "Le beurre doit être pommade, pas fondu, pour obtenir un crumble bien sableux.",
       "Beurre légèrement le plat à gratin avant d’ajouter les fruits le jus caramélisé accroche moins.",
       "Surveiller la coloration en fin de cuisson le dessus doit être doré sans brûler.",
-      "Chaque four réagit différemment surveille la coloration et la texture en fin de cuisson, puis ajuste le temps si nécessaire.",
       "Très bon tiède, nature ou avec une crème anglaise."
     ],
     "technical": [
@@ -2863,7 +2822,6 @@ window.RECIPES = {
     "notes": [
       "Texture crèmeuse mais stable en fourrage.",
       "Goût intense, ne détrempe pas le donut.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -2908,7 +2866,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Résultat attendu crèmeux, parfumé et stable.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -3049,7 +3006,6 @@ window.RECIPES = {
     "notes": [
       "Vraie gaufre de Bruxelles pâte levée, blancs montés, gros trous, texture légère et croustillante.",
       "Pour plus de croustillant, remplacer 50g de lait par 50g de bière.",
-      "Stockage idéalement le jour même. Péremption 24–48h en boîte hermétique; réchauffer doucement pour retrouver la texture."
     ],
     "tags": [
       "gaufre",
@@ -3140,8 +3096,6 @@ window.RECIPES = {
     "notes": [
       "Points critiques beurre pommade non liquide, sirop à 118–120°C, verser lentement, fouetter jusqu’à refroidissement complet.",
       "Résultat attendu pâte croustillante, crème d’amande moelleuse, crème citron fondante, meringue légère et stable.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "tarte",
@@ -3188,7 +3142,6 @@ window.RECIPES = {
       "Toujours tout peser avant.",
       "Respecter les textures pommade, mousse, bec d’oiseau.",
       "Ne jamais précipiter la meringue ou les mélanges mousseux.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "tiramisu",
@@ -3248,8 +3201,6 @@ window.RECIPES = {
     "notes": [
       "Le cake est prêt quand la lame ressort sèche et que le dessus est bien doré.",
       "Préparation du moule beurre et farine le moule, puis retire l’excédent pour démouler proprement.",
-      "Stockage refroidir rapidement puis conserver au réfrigérateur en boîte hermétique. Péremption 3–4 jours.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "cake",
@@ -3396,8 +3347,6 @@ window.RECIPES = {
     "notes": [
       "Accompagnement pour viande grillée, poisson, purée ou gratin de légumes.",
       "Conservation 3–4 jours au froid en boîte hermétique.",
-      "Stockage bocal ou boîte hermétique au réfrigérateur. Péremption 3–5 jours; vérifier odeur, texture et absence de fermentation.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "oignon",
@@ -3455,8 +3404,6 @@ window.RECIPES = {
     "notes": [
       "Cuisson lente indispensable pour une texture fondante.",
       "Conservation 3–4 jours au froid, réchauffage doux avec un peu de sauce.",
-      "Stockage refroidir rapidement puis conserver au réfrigérateur en boîte hermétique. Péremption 3–4 jours.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "porc",
@@ -3521,7 +3468,6 @@ window.RECIPES = {
       "Si les bords collent au cercle, décolle-les à chaud avec une petite lame sans retirer le cercle.",
       "Pour une surface plus lisse, poncer très légèrement le fond cuit avec un zesteur fin.",
       "Les chutes crues peuvent être filmées et congelées pour une autre tarte.",
-      "Stockage pâte crue 2–3 jours au réfrigérateur ou congélation possible. Fond cuit à garder au sec en boîte hermétique."
     ],
     "technical": [
       {
@@ -3588,7 +3534,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Base moelleuse pour tartes aux fruits ou citron.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -3640,7 +3585,6 @@ window.RECIPES = {
     "notes": [
       "Texture fondante pour tarte citron, verrines ou fourrage.",
       "Refroidir avant montage pour une tenue nette.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -3685,7 +3629,6 @@ window.RECIPES = {
     "notes": [
       "Optionnelle dans la tarte citron meringuée.",
       "À utiliser en petite quantité pour éviter l’amertume.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "citron",
@@ -3736,8 +3679,6 @@ window.RECIPES = {
     "notes": [
       "Verser le sirop lentement.",
       "Fouetter jusqu’à refroidissement complet pour une bonne stabilité.",
-      "Stockage boîte hermétique au sec, à température ambiante. Péremption 5–14 jours selon humidité; garder loin du réfrigérateur sauf garniture fragile.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "meringue",
@@ -3786,7 +3727,6 @@ window.RECIPES = {
     "notes": [
       "Base de la crème diplomate vanille.",
       "Lisser au fouet après refroidissement avant incorporation.",
-      "Stockage au réfrigérateur à 0–4°C, filmé ou en boîte hermétique. Péremption 24–48h selon fraîcheur des produits laitiers et des œufs."
     ],
     "tags": [
       "creme",
@@ -3843,7 +3783,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Servir rapidement après découpe de l’avocat.",
-      "Stockage boîte hermétique au réfrigérateur. Péremption 24h, à assaisonner au dernier moment."
     ],
     "tags": [
       "salade",
@@ -4118,7 +4057,6 @@ window.RECIPES = {
     ],
     "notes": [
       "À utiliser dans les pancakes, gaufres ou pâtes levées moelleuses.",
-      "Stockage au réfrigérateur en contenant propre. Péremption 24h."
     ],
     "tags": [
       "babeurre",
@@ -4167,8 +4105,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Servir chaud, tiède ou en accompagnement d’une viande grillée.",
-      "Stockage 2 jours au réfrigérateur, réchauffer au four doux.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "tomate",
@@ -4220,7 +4156,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Si elles sèchent, les réchauffer quelques secondes sous cloche ou dans un torchon humide.",
-      "Stockage 2 jours bien emballées, ou congélation séparées par papier cuisson."
     ],
     "tags": [
       "tortilla",
@@ -4282,8 +4217,6 @@ window.RECIPES = {
     "notes": [
       "Le temps de cuisson est le point clé tester un moule avant une série.",
       "Préparation des moules ou ramequins beurre généreusement puis chemise au cacao ou à la farine, sinon les mi-cuits peuvent coller au démoulage.",
-      "Stockage appareil cru 24h au réfrigérateur, cuisson minute recommandée.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "chocolat",
@@ -4346,9 +4279,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Pour des cookies épais, cuire la pâte bien froide.",
-      "Stockage 4 jours en boîte hermétique.",
       "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "cookies",
@@ -4412,8 +4343,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Recette technique pesées précises, blancs à température ambiante et cuisson régulière.",
-      "Stockage 3 jours au réfrigérateur, sortir 15min avant dégustation.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "macaron",
@@ -4569,8 +4498,6 @@ window.RECIPES = {
     ],
     "notes": [
       "La pâte doit être assez souple pour être pochée mais garder les stries de la douille.",
-      "Stockage meilleur minute, possible 24h mais perd du croustillant.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "churros",
@@ -4883,7 +4810,6 @@ window.RECIPES = {
       "Pour l’arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
       "Ne prolonge pas trop la cuisson les cookies continuent de cuire légèrement hors du four.",
       "La pâte peut être congelée en boules bien emballées, puis cuite plus tard directement depuis le congélateur.",
-      "Chaque four réagit différemment surveille la coloration et ajuste le temps de cuisson si nécessaire."
     ],
     "technical": [
       {
@@ -4966,7 +4892,6 @@ window.RECIPES = {
       "Pour des cookies moelleux, ne dépasse pas 10min de cuisson.",
       "Les cookies cuits se conservent plusieurs jours dans une boîte hermétique.",
       "La pâte crue peut être congelée en boudins ou en boules pour une cuisson ultérieure.",
-      "Chaque four réagit différemment surveille la coloration et ajuste le temps de cuisson si nécessaire."
     ],
     "technical": [
       {
@@ -5051,7 +4976,6 @@ window.RECIPES = {
       "Pour l’arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
       "Ne prolonge pas trop la cuisson le centre doit rester tendre.",
       "La pâte peut être préparée à l’avance et conservée au frais jusqu’à 24h avant cuisson.",
-      "Chaque four réagit différemment surveille la coloration et ajuste le temps de cuisson si nécessaire."
     ],
     "technical": [
       {
@@ -5379,7 +5303,6 @@ window.RECIPES = {
       "Le cream cheese correspond à un fromage frais dense et légèrement acidulé, type Philadelphia. Évite le fromage blanc ou le Saint Môret trop souple si tu veux un cœur net.",
       "Bien refermer la pâte autour du fourrage pour éviter les fuites. Conservation 3 jours au réfrigérateur.",
       "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
-      "Chaque four réagit différemment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si nécessaire."
     ],
     "tags": [
       "cookies",
@@ -5950,7 +5873,6 @@ window.RECIPES = {
       "Pour des cookies plus chocolatés, utiliser la quantité haute de pépites.",
       "La pâte peut être congelée en boules et cuite après décongélation.",
       "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
-      "Chaque four réagit différemment surveille la coloration et ajuste le temps de cuisson si nécessaire."
     ],
     "technical": [
       {
@@ -6401,7 +6323,6 @@ window.RECIPES = {
     "notes": [
       "Pour plus de moelleux, laisser pousser la pâte 1h après pétrissage, dégazer, puis façonner.",
       "Ces pains se congèlent très bien une fois refroidis.",
-      "Chaque four réagit différemment surveille la coloration et ajuste le temps de cuisson si nécessaire."
     ],
     "technical": [
       {
@@ -6785,7 +6706,6 @@ window.RECIPES = {
     "notes": [
       "Moins il reste d’eau dans les pommes de terre, plus les gaufres seront croustillantes.",
       "N’ouvre pas le gaufrier trop tôt la gaufre doit se détacher seule.",
-      "Chaque four réagit différemment surveille la coloration si tu fais la finition au four."
     ],
     "technical": [
       {
@@ -6983,7 +6903,6 @@ window.RECIPES = {
     ],
     "notes": [
       "Ne surcharge pas la plaque l’humidité empêcherait le croustillant.",
-      "Chaque four réagit différemment surveille la coloration et ajuste le temps de cuisson si nécessaire."
     ],
     "technical": [
       {

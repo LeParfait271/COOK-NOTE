@@ -200,9 +200,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Ratio huile:acide 3:1 \u00e0 4:1 selon la salade.",
       "Variantes citron, herbes, miso blanc, yaourt grec.",
       "\u2192 Voir aussi <span data-goto=\"pesto_variantes\">Pestos</span>",
-      "Stockage optimal flacon avec couvercle au r\u00e9frig\u00e9rateur secouer avant usage.",
-      "Conservation 5\u20137 j au froid.",
-      "Stockage bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation."
+      "Conservation 5\u20137 j au froid."
     ],
     "difficultyScore": 2
   },
@@ -236,8 +234,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Variantes zeste d'orange, vanille, cacao, espresso, figue (filtrer).",
-      "Conservation 2\u20133 mois au froid.",
-      "Stockage bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption 2\u20133 jours."
+      "Conservation 2\u20133 mois au froid."
     ],
     "difficultyScore": 2,
     "tags": [
@@ -433,8 +430,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Ne pas r\u00e9utiliser la marinade crue porter \u00e0 \u00e9bullition si sauce.",
-      "Conservation marinades pr\u00eates 7 j au froid.",
-      "Stockage bocal ou bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 3\u20135 jours; v\u00e9rifier odeur, texture et absence de fermentation."
+      "Conservation marinades pr\u00eates 7 j au froid."
     ],
     "difficultyScore": 3,
     "variantGroups": true,
@@ -499,8 +495,6 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Conservation coques 3 j \u00e0 temp\u00e9rature ambiante dans bo\u00eete herm\u00e9tique garnis 24h au froid.",
       "\u2192 Recette de garnissage <span data-goto=\"creme_diplomate_vanille\">Cr\u00e8me diplomate vanille</span>",
       "\u2192 Version all\u00e9g\u00e9e <span data-goto=\"chantilly_gelatine\">Chantilly stabilis\u00e9e</span>",
-      "Stockage bo\u00eete herm\u00e9tique au sec, \u00e0 temp\u00e9rature ambiante. P\u00e9remption 5\u201314 jours selon humidit\u00e9; garder loin du r\u00e9frig\u00e9rateur sauf garniture fragile.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire.",
       "Cr\u00e8mes \u00e0 garnir <span data-goto=\"creme_diplomate_vanille\">Cr\u00e8me diplomate vanille</span> \u00b7 <span data-goto=\"creme_diplomate_cloud\">Cr\u00e8me diplomate vanille \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_patissiere_vanille\">Cr\u00e8me p\u00e2tissi\u00e8re vanille</span> \u00b7 <span data-goto=\"creme_patissiere_praline\">Cr\u00e8me p\u00e2tissi\u00e8re pralin\u00e9</span> \u00b7 <span data-goto=\"creme_kinder_nutella\">Cr\u00e8me Nutella \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_pistache\">Cr\u00e8me pistache \u00e0 garnir</span> \u00b7 <span data-goto=\"creme_praline\">Cr\u00e8me pralin\u00e9</span> \u00b7 <span data-goto=\"mascarpone\">Cr\u00e8me mascarpone vanille</span> \u00b7 <span data-goto=\"chantilly_gelatine\">Chantilly stabilis\u00e9e</span>."
     ],
     "difficultyScore": 7
@@ -546,8 +540,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Montage en couronnes de p\u00e2te \u00e0 choux, cr\u00e8me pralin\u00e9 et noisettes.",
-      "Sortir du r\u00e9frig\u00e9rateur 30 \u00e0 40min avant d\u00e9gustation.",
-      "Stockage bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption 2\u20133 jours."
+      "Sortir du r\u00e9frig\u00e9rateur 30 \u00e0 40min avant d\u00e9gustation."
     ],
     "difficultyScore": 8
   },
@@ -584,9 +577,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Pocher des couronnes de 7cm, poser le craquelin puis cuire \u00e0 170\u00b0C pendant 40 \u00e0 45min."
     ],
     "notes": [
-      "Le test du sillon il doit se refermer doucement quand la texture est correcte.",
-      "Stockage bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption 2\u20133 jours.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Le test du sillon il doit se refermer doucement quand la texture est correcte."
     ],
     "difficultyScore": 7,
     "additionalMasters": [
@@ -622,8 +613,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Mettre en poche cannel\u00e9e pour le montage des Paris-Brest."
     ],
     "notes": [
-      "Utilis\u00e9 par exemple dans <span data-goto=\"paris_brest\">Paris-Brest</span>.",
-      "Stockage bo\u00eete herm\u00e9tique adapt\u00e9e, au r\u00e9frig\u00e9rateur si la recette contient \u0153ufs, cr\u00e8me, viande ou garniture humide. P\u00e9remption 2\u20133 jours."
+      "Utilis\u00e9 par exemple dans <span data-goto=\"paris_brest\">Paris-Brest</span>."
     ],
     "difficultyScore": 5,
     "additionalMasters": [
@@ -783,8 +773,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Texture cr\u00e8meuse mais stable en fourrage.",
-      "Go\u00fbt intense, ne d\u00e9trempe pas le donut.",
-      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
+      "Go\u00fbt intense, ne d\u00e9trempe pas le donut."
     ],
     "tags": [
       "creme",
@@ -836,8 +825,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Vraie gaufre de Bruxelles p\u00e2te lev\u00e9e, blancs mont\u00e9s, gros trous, texture l\u00e9g\u00e8re et croustillante.",
-      "Pour plus de croustillant, remplacer 50g de lait par 50g de bi\u00e8re.",
-      "Stockage id\u00e9alement le jour m\u00eame. P\u00e9remption 24\u201348h en bo\u00eete herm\u00e9tique; r\u00e9chauffer doucement pour retrouver la texture."
+      "Pour plus de croustillant, remplacer 50g de lait par 50g de bi\u00e8re."
     ],
     "tags": [
       "gaufre",
@@ -896,9 +884,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Le cake est pr\u00eat quand la lame ressort s\u00e8che et que le dessus est bien dor\u00e9.",
-      "Pr\u00e9paration du moule beurre et farine le moule, puis retire l\u2019exc\u00e9dent pour d\u00e9mouler proprement.",
-      "Stockage refroidir rapidement puis conserver au r\u00e9frig\u00e9rateur en bo\u00eete herm\u00e9tique. P\u00e9remption 3\u20134 jours.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Pr\u00e9paration du moule beurre et farine le moule, puis retire l\u2019exc\u00e9dent pour d\u00e9mouler proprement."
     ],
     "tags": [
       "cake",
@@ -958,9 +944,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Cuisson lente indispensable pour une texture fondante.",
-      "Conservation 3\u20134 jours au froid, r\u00e9chauffage doux avec un peu de sauce.",
-      "Stockage refroidir rapidement puis conserver au r\u00e9frig\u00e9rateur en bo\u00eete herm\u00e9tique. P\u00e9remption 3\u20134 jours.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveillez la coloration et la texture en fin de cuisson, puis ajustez le temps si n\u00e9cessaire."
+      "Conservation 3\u20134 jours au froid, r\u00e9chauffage doux avec un peu de sauce."
     ],
     "tags": [
       "porc",
@@ -1001,8 +985,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Optionnelle dans la tarte citron meringu\u00e9e.",
-      "\u00c0 utiliser en petite quantit\u00e9 pour \u00e9viter l\u2019amertume.",
-      "Stockage au r\u00e9frig\u00e9rateur \u00e0 0\u20134\u00b0C, film\u00e9 ou en bo\u00eete herm\u00e9tique. P\u00e9remption 24\u201348h selon fra\u00eecheur des produits laitiers et des \u0153ufs."
+      "\u00c0 utiliser en petite quantit\u00e9 pour \u00e9viter l\u2019amertume."
     ],
     "tags": [
       "citron",
@@ -1062,8 +1045,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Ajouter les options au moment du service si souhait\u00e9."
     ],
     "notes": [
-      "Servir rapidement apr\u00e8s d\u00e9coupe de l\u2019avocat.",
-      "Stockage bo\u00eete herm\u00e9tique au r\u00e9frig\u00e9rateur. P\u00e9remption 24h, \u00e0 assaisonner au dernier moment."
+      "Servir rapidement apr\u00e8s d\u00e9coupe de l\u2019avocat."
     ],
     "tags": [
       "salade",
@@ -1160,8 +1142,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Empiler dans un torchon propre pour garder les tortillas souples."
     ],
     "notes": [
-      "Si elles s\u00e8chent, les r\u00e9chauffer quelques secondes sous cloche ou dans un torchon humide.",
-      "Stockage 2 jours bien emball\u00e9es, ou cong\u00e9lation s\u00e9par\u00e9es par papier cuisson."
+      "Si elles s\u00e8chent, les r\u00e9chauffer quelques secondes sous cloche ou dans un torchon humide."
     ],
     "tags": [
       "tortilla",
@@ -1818,8 +1799,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Servir chaud avec sauce et citron."
     ],
     "notes": [
-      "Ne surcharge pas la plaque l\u2019humidit\u00e9 emp\u00eacherait le croustillant.",
-      "Chaque four r\u00e9agit diff\u00e9remment surveille la coloration et ajuste le temps de cuisson si n\u00e9cessaire."
+      "Ne surcharge pas la plaque l\u2019humidit\u00e9 emp\u00eacherait le croustillant."
     ],
     "technical": [
       {
