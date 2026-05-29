@@ -583,10 +583,6 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Gaufres de pommes de terre croustillantes"
       },
       {
-        "id": "gratin_dauphinois",
-        "label": "Gratin dauphinois"
-      },
-      {
         "id": "gratin_chou_fleur",
         "label": "Gratin de chou-fleur"
       },
@@ -2405,11 +2401,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     }
   },
   "gratin_dauphinois": {
-    "title": "Gratin dauphinois",
-    "master": "accompagnements_maitre",
+    "title": "Gratin de pommes de terre",
+    "master": "plats_maitre",
     "image": "/assets/recipe-images-optimized/gratin_dauphinois_v2_spooky.jpg",
     "categories": [
-      "Accompagnements",
       "Plats"
     ],
     "seasons": [
@@ -2419,31 +2414,35 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "difficultyScore": 5,
     "yield": "6 personnes",
     "aliases": [
+      "gratin dauphinois",
       "gratin dauphinois le meilleur",
-      "pommes de terre gratin"
+      "pommes de terre gratin",
+      "gratin de pommes de terre"
     ],
     "tags": [
       "pomme de terre",
       "gratin",
       "creme",
       "poitrine fumee",
-      "fromage"
+      "fromage",
+      "moutarde ancienne"
     ],
     "ingredients": [
       {
         "group": "Gratin",
         "items": [
           "1200g pommes de terre \u00e0 chair ferme",
+          "1 c. \u00e0 soupe de graisse de canard (optionnel)",
           "200g poitrine fum\u00e9e en allumettes",
           "1 oignon coup\u00e9 en brunoise",
           "1 grosse gousse d\u2019ail pass\u00e9e au presse-ail",
           "10cl vin blanc sec",
           "25cl lait entier",
           "50cl cr\u00e8me liquide enti\u00e8re",
+          "2 c. \u00e0 caf\u00e9 de moutarde \u00e0 l\u2019ancienne",
           "30g beurre doux pour le plat",
           "100g emmental r\u00e2p\u00e9",
           "30g parmesan r\u00e2p\u00e9",
-          "4g sel fin",
           "8 tours de poivre du moulin",
           "1/4 noix de muscade fra\u00eechement r\u00e2p\u00e9e au zesteur"
         ]
@@ -2452,9 +2451,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "steps": [
       "\u00c9plucher les pommes de terre et les trancher finement sans les rincer pour garder l\u2019amidon.",
       "Beurrer le plat \u00e0 gratin avec le beurre doux.",
-      "Faire colorer les allumettes de poitrine fum\u00e9e dans une cocotte \u00e0 feu moyen, puis ajouter l\u2019oignon en brunoise et cuire jusqu\u2019\u00e0 ce qu\u2019il devienne fondant.",
+      "Faire colorer les allumettes de poitrine fum\u00e9e dans la cocotte avec la graisse de canard, si utilis\u00e9e.",
+      "Ajouter l\u2019oignon en brunoise et le faire suer \u00e0 feu moyen-doux 1 \u00e0 2min, sans coloration.",
       "Ajouter l\u2019ail press\u00e9, m\u00e9langer 30 secondes sans le br\u00fbler, puis d\u00e9glacer avec le vin blanc et r\u00e9duire presque \u00e0 sec.",
-      "Verser le lait et la cr\u00e8me dans la cocotte, ajouter le sel, le poivre du moulin et la muscade fra\u00eechement r\u00e2p\u00e9e au zesteur. Porter \u00e0 fr\u00e9missement doux.",
+      "Verser le lait et la cr\u00e8me dans la cocotte, ajouter la moutarde \u00e0 l\u2019ancienne, le poivre du moulin et la muscade fra\u00eechement r\u00e2p\u00e9e au zesteur. Porter \u00e0 fr\u00e9missement doux.",
       "Ajouter les pommes de terre et cuire 10min \u00e0 fr\u00e9missement doux en m\u00e9langeant d\u00e9licatement pour les enrober.",
       "Verser dans le plat, \u00e9galiser, parsemer d\u2019emmental r\u00e2p\u00e9 et de parmesan r\u00e2p\u00e9.",
       "Enfourner 25 \u00e0 30min en bas du four \u00e0 165\u00b0C chaleur tournante, jusqu\u2019\u00e0 ce que le dessus soit gratin\u00e9 et que les pommes de terre soient fondantes.",
@@ -2462,12 +2462,16 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "notes": [
       "Garde l\u2019amidon des pommes de terre : il aide \u00e0 lier la cr\u00e8me pendant la cuisson.",
-      "Assaisonnement volontairement mod\u00e9r\u00e9 : la poitrine fum\u00e9e, l\u2019emmental et le parmesan apportent d\u00e9j\u00e0 du sel."
+      "Pas de sel ajout\u00e9 : la poitrine fum\u00e9e, l\u2019emmental, le parmesan et la moutarde \u00e0 l\u2019ancienne salent d\u00e9j\u00e0 la pr\u00e9paration."
     ],
     "technical": [
       {
         "label": "Poitrine fum\u00e9e",
         "value": "La colorer avant le liquide concentre le go\u00fbt et \u00e9vite une texture bouillie."
+      },
+      {
+        "label": "Oignon",
+        "value": "Le faire suer \u00e0 feu moyen-doux sans coloration garde une base douce et \u00e9vite l\u2019amertume."
       },
       {
         "label": "D\u00e9gla\u00e7age",
@@ -2487,7 +2491,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "R\u00e9chauffer 15 \u00e0 20min \u00e0 150\u00b0C, couvert au d\u00e9but puis d\u00e9couvert."
       ],
       "mistakes": [
-        "Ne sale pas comme un gratin classique : poitrine fum\u00e9e, emmental et parmesan salent d\u00e9j\u00e0 la pr\u00e9paration."
+        "N\u2019ajoute pas de sel avant d\u00e9gustation : poitrine fum\u00e9e, fromages et moutarde \u00e0 l\u2019ancienne salent d\u00e9j\u00e0 la pr\u00e9paration."
       ]
     }
   },

@@ -2515,6 +2515,10 @@ window.RECIPES = {
         "label": "Gratin de chou-fleur"
       },
       {
+        "id": "gratin_dauphinois",
+        "label": "Gratin de pommes de terre"
+      },
+      {
         "id": "hauts_de_cuisses_poulet_orange_oignon",
         "label": "Hauts de cuisses poulet orange oignon"
       },
@@ -2604,10 +2608,6 @@ window.RECIPES = {
       {
         "id": "gaufres_pommes_terre",
         "label": "Gaufres de pommes de terre croustillantes"
-      },
-      {
-        "id": "gratin_dauphinois",
-        "label": "Gratin dauphinois"
       },
       {
         "id": "gratin_chou_fleur",
@@ -9735,11 +9735,10 @@ window.RECIPES = {
     }
   },
   "gratin_dauphinois": {
-    "title": "Gratin dauphinois",
-    "master": "accompagnements_maitre",
+    "title": "Gratin de pommes de terre",
+    "master": "plats_maitre",
     "image": "/assets/recipe-images-optimized/gratin_dauphinois_v2_spooky.jpg",
     "categories": [
-      "Accompagnements",
       "Plats"
     ],
     "seasons": [
@@ -9749,31 +9748,35 @@ window.RECIPES = {
     "difficultyScore": 5,
     "yield": "6 personnes",
     "aliases": [
+      "gratin dauphinois",
       "gratin dauphinois le meilleur",
-      "pommes de terre gratin"
+      "pommes de terre gratin",
+      "gratin de pommes de terre"
     ],
     "tags": [
       "pomme de terre",
       "gratin",
       "creme",
       "poitrine fumee",
-      "fromage"
+      "fromage",
+      "moutarde ancienne"
     ],
     "ingredients": [
       {
         "group": "Gratin",
         "items": [
           "1200g pommes de terre à chair ferme",
+          "1 c. à soupe de graisse de canard (optionnel)",
           "200g poitrine fumée en allumettes",
           "1 oignon coupé en brunoise",
           "1 grosse gousse d’ail passée au presse-ail",
           "10cl vin blanc sec",
           "25cl lait entier",
           "50cl crème liquide entière",
+          "2 c. à café de moutarde à l’ancienne",
           "30g beurre doux pour le plat",
           "100g emmental râpé",
           "30g parmesan râpé",
-          "4g sel fin",
           "8 tours de poivre du moulin",
           "1/4 noix de muscade fraîchement râpée au zesteur"
         ]
@@ -9782,9 +9785,10 @@ window.RECIPES = {
     "steps": [
       "Éplucher les pommes de terre et les trancher finement sans les rincer pour garder l’amidon.",
       "Beurrer le plat à gratin avec le beurre doux.",
-      "Faire colorer les allumettes de poitrine fumée dans une cocotte à feu moyen, puis ajouter l’oignon en brunoise et cuire jusqu’à ce qu’il devienne fondant.",
+      "Faire colorer les allumettes de poitrine fumée dans la cocotte avec la graisse de canard, si utilisée.",
+      "Ajouter l’oignon en brunoise et le faire suer à feu moyen-doux 1 à 2min, sans coloration.",
       "Ajouter l’ail pressé, mélanger 30 secondes sans le brûler, puis déglacer avec le vin blanc et réduire presque à sec.",
-      "Verser le lait et la crème dans la cocotte, ajouter le sel, le poivre du moulin et la muscade fraîchement râpée au zesteur. Porter à frémissement doux.",
+      "Verser le lait et la crème dans la cocotte, ajouter la moutarde à l’ancienne, le poivre du moulin et la muscade fraîchement râpée au zesteur. Porter à frémissement doux.",
       "Ajouter les pommes de terre et cuire 10min à frémissement doux en mélangeant délicatement pour les enrober.",
       "Verser dans le plat, égaliser, parsemer d’emmental râpé et de parmesan râpé.",
       "Enfourner 25 à 30min en bas du four à 165°C chaleur tournante, jusqu’à ce que le dessus soit gratiné et que les pommes de terre soient fondantes.",
@@ -9792,12 +9796,16 @@ window.RECIPES = {
     ],
     "notes": [
       "Garde l’amidon des pommes de terre : il aide à lier la crème pendant la cuisson.",
-      "Assaisonnement volontairement modéré : la poitrine fumée, l’emmental et le parmesan apportent déjà du sel."
+      "Pas de sel ajouté : la poitrine fumée, l’emmental, le parmesan et la moutarde à l’ancienne salent déjà la préparation."
     ],
     "technical": [
       {
         "label": "Poitrine fumée",
         "value": "La colorer avant le liquide concentre le goût et évite une texture bouillie."
+      },
+      {
+        "label": "Oignon",
+        "value": "Le faire suer à feu moyen-doux sans coloration garde une base douce et évite l’amertume."
       },
       {
         "label": "Déglaçage",
@@ -9817,7 +9825,7 @@ window.RECIPES = {
         "Réchauffer 15 à 20min à 150°C, couvert au début puis découvert."
       ],
       "mistakes": [
-        "Ne sale pas comme un gratin classique : poitrine fumée, emmental et parmesan salent déjà la préparation."
+        "N’ajoute pas de sel avant dégustation : poitrine fumée, fromages et moutarde à l’ancienne salent déjà la préparation."
       ]
     }
   },

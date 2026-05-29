@@ -694,6 +694,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Gratin de chou-fleur"
       },
       {
+        "id": "gratin_dauphinois",
+        "label": "Gratin de pommes de terre"
+      },
+      {
         "id": "hauts_de_cuisses_poulet_orange_oignon",
         "label": "Hauts de cuisses poulet orange oignon"
       },

@@ -1,20 +1,20 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v91
+//  Cook Note - Service Worker PWA v92
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v91';
+const CACHE_NAME = 'cook-note-v92';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=91',
-  '/assets/catalog-1.js?v=91',
-  '/assets/catalog-2.js?v=91',
-  '/assets/catalog-3.js?v=91',
-  '/assets/catalog-4.js?v=91',
-  '/style.css?v=91',
+  '/app.js?v=92',
+  '/assets/catalog-1.js?v=92',
+  '/assets/catalog-2.js?v=92',
+  '/assets/catalog-3.js?v=92',
+  '/assets/catalog-4.js?v=92',
+  '/style.css?v=92',
   '/recipe.js',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
