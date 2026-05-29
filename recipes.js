@@ -9739,7 +9739,8 @@ window.RECIPES = {
     "master": "accompagnements_maitre",
     "image": "/assets/recipe-images-optimized/gratin_dauphinois_v2_spooky.jpg",
     "categories": [
-      "Accompagnements"
+      "Accompagnements",
+      "Plats"
     ],
     "seasons": [
       "Toutes saisons"
@@ -9754,50 +9755,69 @@ window.RECIPES = {
     "tags": [
       "pomme de terre",
       "gratin",
-      "creme"
+      "creme",
+      "poitrine fumee",
+      "fromage"
     ],
     "ingredients": [
       {
         "group": "Gratin",
         "items": [
           "1200g pommes de terre à chair ferme",
-          "500g crème liquide entière",
-          "300g lait entier",
-          "1 gousse ail",
-          "30g beurre doux",
-          "Muscade",
-          "Sel fin",
-          "Poivre du moulin"
+          "200g poitrine fumée en allumettes",
+          "1 oignon coupé en brunoise",
+          "1 grosse gousse d’ail passée au presse-ail",
+          "10cl vin blanc sec",
+          "25cl lait entier",
+          "50cl crème liquide entière",
+          "30g beurre doux pour le plat",
+          "100g emmental râpé",
+          "30g parmesan râpé",
+          "4g sel fin",
+          "8 tours de poivre du moulin",
+          "1/4 noix de muscade fraîchement râpée au zesteur"
         ]
       }
     ],
     "steps": [
-      "Éplucher les pommes de terre et les trancher finement sans les rincer.",
-      "Frotter le plat avec l ail, puis le beurrer.",
-      "Chauffer lait, crème, sel, muscade et poivre du moulin.",
-      "Ajouter les pommes de terre et cuire 10min à frémissement doux pour les enrober.",
-      "Verser dans le plat, égaliser et enfourner 55 à 65min à 165°C.",
+      "Éplucher les pommes de terre et les trancher finement sans les rincer pour garder l’amidon.",
+      "Beurrer le plat à gratin avec le beurre doux.",
+      "Faire colorer les allumettes de poitrine fumée dans une cocotte à feu moyen, puis ajouter l’oignon en brunoise et cuire jusqu’à ce qu’il devienne fondant.",
+      "Ajouter l’ail pressé, mélanger 30 secondes sans le brûler, puis déglacer avec le vin blanc et réduire presque à sec.",
+      "Verser le lait et la crème dans la cocotte, ajouter le sel, le poivre du moulin et la muscade fraîchement râpée au zesteur. Porter à frémissement doux.",
+      "Ajouter les pommes de terre et cuire 10min à frémissement doux en mélangeant délicatement pour les enrober.",
+      "Verser dans le plat, égaliser, parsemer d’emmental râpé et de parmesan râpé.",
+      "Enfourner 25 à 30min en bas du four à 165°C chaleur tournante, jusqu’à ce que le dessus soit gratiné et que les pommes de terre soient fondantes.",
       "Laisser reposer 10min avant service pour que la crème se pose."
     ],
     "notes": [
-      "Garde l amidon des pommes de terre il aide à lier la crème pendant la cuisson."
+      "Garde l’amidon des pommes de terre : il aide à lier la crème pendant la cuisson.",
+      "Assaisonnement volontairement modéré : la poitrine fumée, l’emmental et le parmesan apportent déjà du sel."
     ],
     "technical": [
       {
-        "label": "Tranche",
-        "value": "Une coupe fine et régulière donne une cuisson homogène."
+        "label": "Poitrine fumée",
+        "value": "La colorer avant le liquide concentre le goût et évite une texture bouillie."
+      },
+      {
+        "label": "Déglaçage",
+        "value": "Réduis presque à sec avant d’ajouter lait et crème pour garder le parfum du vin blanc sans détendre la sauce."
+      },
+      {
+        "label": "Muscade",
+        "value": "Râpe-la fraîchement au zesteur au dernier moment : le parfum est plus net et plus puissant."
       },
       {
         "label": "Cuisson",
-        "value": "Le gratin doit bouillonner doucement, jamais sécher brutalement."
+        "value": "Place le plat en bas du four pour gratiner le dessus sans dessécher trop vite la crème."
       }
     ],
     "practical": {
       "reheating": [
-        "Réchauffer 15min à 150°C, couvert au début puis découvert."
+        "Réchauffer 15 à 20min à 150°C, couvert au début puis découvert."
       ],
       "mistakes": [
-        "Ne mets pas de fromage si tu veux rester sur un dauphinois classique."
+        "Ne sale pas comme un gratin classique : poitrine fumée, emmental et parmesan salent déjà la préparation."
       ]
     }
   },

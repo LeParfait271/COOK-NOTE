@@ -2409,7 +2409,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "master": "accompagnements_maitre",
     "image": "/assets/recipe-images-optimized/gratin_dauphinois_v2_spooky.jpg",
     "categories": [
-      "Accompagnements"
+      "Accompagnements",
+      "Plats"
     ],
     "seasons": [
       "Toutes saisons"
@@ -2424,50 +2425,69 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "tags": [
       "pomme de terre",
       "gratin",
-      "creme"
+      "creme",
+      "poitrine fumee",
+      "fromage"
     ],
     "ingredients": [
       {
         "group": "Gratin",
         "items": [
           "1200g pommes de terre \u00e0 chair ferme",
-          "500g cr\u00e8me liquide enti\u00e8re",
-          "300g lait entier",
-          "1 gousse ail",
-          "30g beurre doux",
-          "Muscade",
-          "Sel fin",
-          "Poivre du moulin"
+          "200g poitrine fum\u00e9e en allumettes",
+          "1 oignon coup\u00e9 en brunoise",
+          "1 grosse gousse d\u2019ail pass\u00e9e au presse-ail",
+          "10cl vin blanc sec",
+          "25cl lait entier",
+          "50cl cr\u00e8me liquide enti\u00e8re",
+          "30g beurre doux pour le plat",
+          "100g emmental r\u00e2p\u00e9",
+          "30g parmesan r\u00e2p\u00e9",
+          "4g sel fin",
+          "8 tours de poivre du moulin",
+          "1/4 noix de muscade fra\u00eechement r\u00e2p\u00e9e au zesteur"
         ]
       }
     ],
     "steps": [
-      "\u00c9plucher les pommes de terre et les trancher finement sans les rincer.",
-      "Frotter le plat avec l ail, puis le beurrer.",
-      "Chauffer lait, cr\u00e8me, sel, muscade et poivre du moulin.",
-      "Ajouter les pommes de terre et cuire 10min \u00e0 fr\u00e9missement doux pour les enrober.",
-      "Verser dans le plat, \u00e9galiser et enfourner 55 \u00e0 65min \u00e0 165\u00b0C.",
+      "\u00c9plucher les pommes de terre et les trancher finement sans les rincer pour garder l\u2019amidon.",
+      "Beurrer le plat \u00e0 gratin avec le beurre doux.",
+      "Faire colorer les allumettes de poitrine fum\u00e9e dans une cocotte \u00e0 feu moyen, puis ajouter l\u2019oignon en brunoise et cuire jusqu\u2019\u00e0 ce qu\u2019il devienne fondant.",
+      "Ajouter l\u2019ail press\u00e9, m\u00e9langer 30 secondes sans le br\u00fbler, puis d\u00e9glacer avec le vin blanc et r\u00e9duire presque \u00e0 sec.",
+      "Verser le lait et la cr\u00e8me dans la cocotte, ajouter le sel, le poivre du moulin et la muscade fra\u00eechement r\u00e2p\u00e9e au zesteur. Porter \u00e0 fr\u00e9missement doux.",
+      "Ajouter les pommes de terre et cuire 10min \u00e0 fr\u00e9missement doux en m\u00e9langeant d\u00e9licatement pour les enrober.",
+      "Verser dans le plat, \u00e9galiser, parsemer d\u2019emmental r\u00e2p\u00e9 et de parmesan r\u00e2p\u00e9.",
+      "Enfourner 25 \u00e0 30min en bas du four \u00e0 165\u00b0C chaleur tournante, jusqu\u2019\u00e0 ce que le dessus soit gratin\u00e9 et que les pommes de terre soient fondantes.",
       "Laisser reposer 10min avant service pour que la cr\u00e8me se pose."
     ],
     "notes": [
-      "Garde l amidon des pommes de terre il aide \u00e0 lier la cr\u00e8me pendant la cuisson."
+      "Garde l\u2019amidon des pommes de terre : il aide \u00e0 lier la cr\u00e8me pendant la cuisson.",
+      "Assaisonnement volontairement mod\u00e9r\u00e9 : la poitrine fum\u00e9e, l\u2019emmental et le parmesan apportent d\u00e9j\u00e0 du sel."
     ],
     "technical": [
       {
-        "label": "Tranche",
-        "value": "Une coupe fine et r\u00e9guli\u00e8re donne une cuisson homog\u00e8ne."
+        "label": "Poitrine fum\u00e9e",
+        "value": "La colorer avant le liquide concentre le go\u00fbt et \u00e9vite une texture bouillie."
+      },
+      {
+        "label": "D\u00e9gla\u00e7age",
+        "value": "R\u00e9duis presque \u00e0 sec avant d\u2019ajouter lait et cr\u00e8me pour garder le parfum du vin blanc sans d\u00e9tendre la sauce."
+      },
+      {
+        "label": "Muscade",
+        "value": "R\u00e2pe-la fra\u00eechement au zesteur au dernier moment : le parfum est plus net et plus puissant."
       },
       {
         "label": "Cuisson",
-        "value": "Le gratin doit bouillonner doucement, jamais s\u00e9cher brutalement."
+        "value": "Place le plat en bas du four pour gratiner le dessus sans dess\u00e9cher trop vite la cr\u00e8me."
       }
     ],
     "practical": {
       "reheating": [
-        "R\u00e9chauffer 15min \u00e0 150\u00b0C, couvert au d\u00e9but puis d\u00e9couvert."
+        "R\u00e9chauffer 15 \u00e0 20min \u00e0 150\u00b0C, couvert au d\u00e9but puis d\u00e9couvert."
       ],
       "mistakes": [
-        "Ne mets pas de fromage si tu veux rester sur un dauphinois classique."
+        "Ne sale pas comme un gratin classique : poitrine fum\u00e9e, emmental et parmesan salent d\u00e9j\u00e0 la pr\u00e9paration."
       ]
     }
   },
