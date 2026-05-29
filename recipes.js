@@ -10770,8 +10770,7 @@ window.RECIPES = {
     "difficultyScore": 4,
     "yield": "4 personnes",
     "aliases": [
-      "saucisse purée",
-      "plat"
+      "saucisse purée"
     ],
     "tags": [
       "saucisse",

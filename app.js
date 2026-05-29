@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v0.93';
+const SITE_VERSION = 'v0.94';
 const SITE_UPDATED_AT = '29/05/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -2040,9 +2040,22 @@ function isVariantIngredientGroup(group, groups = [], recipe = null) {
 
 function buildInlineRecipeTargets(recipes) {
   const aliasesByTerm = new Map();
+  const forbiddenInlineTerms = new Set([
+    'base',
+    'plat',
+    'plats',
+    'sauce',
+    'sauces',
+    'recette',
+    'recettes',
+    'cuisson',
+    'service',
+    'conservation'
+  ]);
   const add = (term, recipe, type) => {
     const normalized = normalizeText(term).trim();
     if (normalized.length < 4 || !recipe?.id) return;
+    if (forbiddenInlineTerms.has(normalized)) return;
     const titleNormalized = normalizeText(recipe.title || '');
     const priority = type === 'title' ? 0 : titleNormalized.includes(normalized) ? 1 : 2;
     const target = { term, normalized, id: recipe.id, priority };

@@ -78,6 +78,19 @@ const serviceWorker = read('service-worker.js');
 const indexHtml = read('index.html');
 const packageJson = read('package.json');
 
+const FORBIDDEN_INLINE_ALIASES = new Set([
+  'base',
+  'plat',
+  'plats',
+  'sauce',
+  'sauces',
+  'recette',
+  'recettes',
+  'cuisson',
+  'service',
+  'conservation'
+]);
+
 TEXT_FILES_TO_SCAN.forEach(file => {
   const text = read(file);
   const lines = text.split(/\r?\n/);
@@ -126,6 +139,20 @@ recipeIds.forEach(id => {
   if (JSON.stringify(catalogRecipes[id]) !== JSON.stringify(recipes[id])) {
     fail(`catalogue frontend: recette non synchronisee (${id}). Lancer node scripts/sync-catalog.js.`);
   }
+});
+
+Object.entries(recipes).forEach(([id, recipe]) => {
+  (recipe.aliases || []).forEach(alias => {
+    const normalized = String(alias)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+    if (FORBIDDEN_INLINE_ALIASES.has(normalized)) {
+      fail(`${id}: alias trop generique interdit (${alias}).`);
+    }
+  });
 });
 
 const staticAssets = staticAssetsFromServiceWorker(serviceWorker);

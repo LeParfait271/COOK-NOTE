@@ -3498,8 +3498,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "difficultyScore": 4,
     "yield": "4 personnes",
     "aliases": [
-      "saucisse pur\u00e9e",
-      "plat"
+      "saucisse pur\u00e9e"
     ],
     "tags": [
       "saucisse",
