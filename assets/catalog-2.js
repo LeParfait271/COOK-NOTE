@@ -1180,7 +1180,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "variants": [
       {
         "id": "beurre_d_escargot_persille",
-        "label": "Beurre d escargot persill\u00e9"
+        "label": "Beurre d\u2019escargot persill\u00e9"
       },
       {
         "id": "coulis_maitre",

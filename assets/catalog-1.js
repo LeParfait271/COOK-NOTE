@@ -1041,7 +1041,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "id": "beurre_d_escargot_persille",
-        "label": "Beurre d escargot persill\u00e9"
+        "label": "Beurre d\u2019escargot persill\u00e9"
       },
       {
         "id": "cerises_sechees_maison",

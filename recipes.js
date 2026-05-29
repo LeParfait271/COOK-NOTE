@@ -2435,8 +2435,12 @@ window.RECIPES = {
         "label": "Bouillabaisse"
       },
       {
+        "id": "cabillaud_crumble_chorizo",
+        "label": "Cabillaud au four, crumble de chorizo"
+      },
+      {
         "id": "carre_d_agneau_croute_d_herbes",
-        "label": "Carré d agneau croûte d herbes"
+        "label": "Carré d’agneau croûte d’herbes"
       },
       {
         "id": "cassolette_crevettes_ravioles_persil",
@@ -2499,6 +2503,10 @@ window.RECIPES = {
         "label": "Lentilles tomate pommes de terre sautées"
       },
       {
+        "id": "pates_pesto_tomates_mozzarella",
+        "label": "Pâtes au pesto, tomates cerises et mozzarella"
+      },
+      {
         "id": "poulet_basquaise",
         "label": "Poulet basquaise"
       },
@@ -2509,6 +2517,10 @@ window.RECIPES = {
       {
         "id": "poulet_gaston_gerard",
         "label": "Poulet Gaston Gérard"
+      },
+      {
+        "id": "riz_cantonnais",
+        "label": "Riz cantonnais"
       },
       {
         "id": "saucisse_puree_maison",
@@ -2594,12 +2606,20 @@ window.RECIPES = {
         "label": "Pesto tomates séchées"
       },
       {
+        "id": "puree_courge_butternut",
+        "label": "Purée de courge butternut"
+      },
+      {
         "id": "puree_pommes_de_terre_citron",
         "label": "Purée pommes de terre citron"
       },
       {
         "id": "riz_au_citron",
         "label": "Riz au citron"
+      },
+      {
+        "id": "riz_cantonnais",
+        "label": "Riz cantonnais"
       },
       {
         "id": "sauce_yaourt_citronnee",
@@ -4522,7 +4542,7 @@ window.RECIPES = {
     "variants": [
       {
         "id": "beurre_d_escargot_persille",
-        "label": "Beurre d escargot persillé"
+        "label": "Beurre d’escargot persillé"
       },
       {
         "id": "coulis_maitre",
@@ -4592,7 +4612,7 @@ window.RECIPES = {
       },
       {
         "id": "beurre_d_escargot_persille",
-        "label": "Beurre d escargot persillé"
+        "label": "Beurre d’escargot persillé"
       },
       {
         "id": "cerises_sechees_maison",
@@ -10051,7 +10071,7 @@ window.RECIPES = {
     }
   },
   "carre_d_agneau_croute_d_herbes": {
-    "title": "Carré d agneau croûte d herbes",
+    "title": "Carré d’agneau croûte d’herbes",
     "master": "plats_maitre",
     "image": "/assets/recipe-images-optimized/carre_d_agneau_croute_d_herbes_v2_spooky.jpg",
     "categories": [
@@ -10930,7 +10950,7 @@ window.RECIPES = {
     ]
   },
   "beurre_d_escargot_persille": {
-    "title": "Beurre d escargot persillé",
+    "title": "Beurre d’escargot persillé",
     "master": "sauces_maitre",
     "image": "/assets/recipe-images-optimized/beurre_d_escargot_persille_v2_spooky.jpg",
     "categories": [
@@ -10988,6 +11008,243 @@ window.RECIPES = {
     },
     "additionalMasters": [
       "elements_base_maitre"
+    ]
+  },
+  "puree_courge_butternut": {
+    "title": "Purée de courge butternut",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/puree_courge_butternut_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "aliases": [
+      "purée butternut",
+      "purée de courge",
+      "butternut"
+    ],
+    "tags": [
+      "courge",
+      "butternut",
+      "puree"
+    ],
+    "ingredients": [
+      {
+        "group": "Purée",
+        "items": [
+          "1 courge butternut d’environ 1kg",
+          "40g beurre doux",
+          "80g crème fraîche épaisse",
+          "1 pincée muscade fraîchement râpée au zesteur",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Éplucher la courge, retirer les graines puis couper la chair en cubes réguliers.",
+      "Cuire dans l’eau bouillante salée 18 à 25min, jusqu’à ce que la courge s’écrase facilement.",
+      "Égoutter soigneusement puis remettre 2min dans la casserole chaude pour sécher la chair.",
+      "Écraser avec le beurre, la crème, la muscade râpée au zesteur et le poivre du moulin.",
+      "Rectifier l’assaisonnement et servir chaud."
+    ],
+    "notes": [
+      "Bien sécher la courge après cuisson évite une purée trop liquide.",
+      "La muscade se râpe au dernier moment pour garder un parfum net."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Écraser ou mixer très court selon la finesse voulue, sans détendre inutilement."
+      }
+    ],
+    "practical": {
+      "storage": [
+        "2 à 3 jours au réfrigérateur en boîte hermétique."
+      ]
+    }
+  },
+  "riz_cantonnais": {
+    "title": "Riz cantonnais",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/riz_cantonnais_spooky.jpg",
+    "categories": [
+      "Plats",
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "aliases": [
+      "riz sauté",
+      "riz aux petits pois",
+      "riz cantonais"
+    ],
+    "tags": [
+      "riz",
+      "oeuf",
+      "petits pois",
+      "jambon"
+    ],
+    "ingredients": [
+      {
+        "group": "Riz sauté",
+        "items": [
+          "300g riz long cuit et refroidi",
+          "150g petits pois cuits",
+          "120g jambon blanc en dés",
+          "2 oeufs",
+          "2 oignons nouveaux",
+          "25g huile neutre",
+          "20g sauce soja",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les oeufs en omelette fine, puis les détailler en lanières.",
+      "Saisir les oignons nouveaux 1min dans l’huile chaude.",
+      "Ajouter le riz froid et le faire sauter 3 à 4min pour bien détacher les grains.",
+      "Ajouter petits pois, jambon, sauce soja et poivre du moulin.",
+      "Incorporer les lanières d’omelette, mélanger rapidement et servir chaud."
+    ],
+    "notes": [
+      "Le riz froid de la veille se détache mieux et donne une texture plus nette.",
+      "Dose le sel avec prudence car la sauce soja et le jambon assaisonnent déjà."
+    ],
+    "technical": [
+      {
+        "label": "Saisie",
+        "value": "La poêle doit être chaude pour sauter le riz sans le transformer en purée."
+      }
+    ],
+    "additionalMasters": [
+      "accompagnements_maitre"
+    ]
+  },
+  "pates_pesto_tomates_mozzarella": {
+    "title": "Pâtes au pesto, tomates cerises et mozzarella",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/pates_pesto_tomates_mozzarella_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Printemps",
+      "Été"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "aliases": [
+      "pâtes pesto tomates mozzarella",
+      "pates pesto",
+      "pâtes tomates cerises mozzarella"
+    ],
+    "tags": [
+      "pates",
+      "pesto",
+      "tomates",
+      "mozzarella"
+    ],
+    "ingredients": [
+      {
+        "group": "Pâtes",
+        "items": [
+          "400g pâtes courtes",
+          "180g pesto",
+          "250g tomates cerises",
+          "200g billes de mozzarella",
+          "30g parmesan râpé",
+          "Basilic frais",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les pâtes al dente dans une grande casserole d’eau salée.",
+      "Couper les tomates cerises en deux et égoutter les billes de mozzarella.",
+      "Prélever une petite louche d’eau de cuisson puis égoutter les pâtes.",
+      "Mélanger les pâtes chaudes avec le pesto et un peu d’eau de cuisson pour enrober sans assécher.",
+      "Ajouter tomates, mozzarella, parmesan, basilic et poivre du moulin juste avant de servir."
+    ],
+    "notes": [
+      "Ajoute la mozzarella hors du feu pour qu’elle reste moelleuse sans rendre trop d’eau.",
+      "L’eau de cuisson lie le pesto aux pâtes et évite un résultat sec."
+    ],
+    "technical": [
+      {
+        "label": "Liaison",
+        "value": "Un peu d’eau amidonnée rend le pesto plus souple et brillant."
+      }
+    ]
+  },
+  "cabillaud_crumble_chorizo": {
+    "title": "Cabillaud au four, crumble de chorizo",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/cabillaud_crumble_chorizo_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "aliases": [
+      "cabillaud chorizo",
+      "poisson crumble chorizo",
+      "dos de cabillaud au chorizo"
+    ],
+    "tags": [
+      "cabillaud",
+      "poisson",
+      "chorizo",
+      "four"
+    ],
+    "ingredients": [
+      {
+        "group": "Poisson",
+        "items": [
+          "4 dos de cabillaud",
+          "80g chorizo",
+          "40g chapelure",
+          "30g parmesan râpé",
+          "35g beurre doux froid",
+          "1 citron",
+          "Persil plat",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Préchauffer le four à 180°C chaleur tournante 10min avant cuisson.",
+      "Mixer grossièrement chorizo, chapelure, parmesan et beurre froid pour obtenir un crumble.",
+      "Déposer les dos de cabillaud dans un plat légèrement huilé et assaisonner au poivre du moulin.",
+      "Répartir le crumble sur le poisson sans trop tasser.",
+      "Cuire 12 à 15min selon l’épaisseur, jusqu’à poisson nacré et crumble doré.",
+      "Finir avec persil et quelques gouttes de citron."
+    ],
+    "notes": [
+      "Le chorizo et le parmesan salent déjà le plat : goûte avant d’ajouter du sel.",
+      "Le cabillaud doit rester nacré au centre pour ne pas sécher."
+    ],
+    "technical": [
+      {
+        "label": "Crumble",
+        "value": "Garder des morceaux irréguliers donne une meilleure texture qu’une poudre trop fine."
+      }
     ]
   },
   "lentilles_tomate_pommes_de_terre_sautees": {

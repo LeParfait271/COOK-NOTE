@@ -600,12 +600,20 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Pesto tomates s\u00e9ch\u00e9es"
       },
       {
+        "id": "puree_courge_butternut",
+        "label": "Pur\u00e9e de courge butternut"
+      },
+      {
         "id": "puree_pommes_de_terre_citron",
         "label": "Pur\u00e9e pommes de terre citron"
       },
       {
         "id": "riz_au_citron",
         "label": "Riz au citron"
+      },
+      {
+        "id": "riz_cantonnais",
+        "label": "Riz cantonnais"
       },
       {
         "id": "sauce_yaourt_citronnee",
@@ -2779,7 +2787,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     }
   },
   "carre_d_agneau_croute_d_herbes": {
-    "title": "Carr\u00e9 d agneau cro\u00fbte d herbes",
+    "title": "Carr\u00e9 d\u2019agneau cro\u00fbte d\u2019herbes",
     "master": "plats_maitre",
     "image": "/assets/recipe-images-optimized/carre_d_agneau_croute_d_herbes_v2_spooky.jpg",
     "categories": [
@@ -3658,7 +3666,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ]
   },
   "beurre_d_escargot_persille": {
-    "title": "Beurre d escargot persill\u00e9",
+    "title": "Beurre d\u2019escargot persill\u00e9",
     "master": "sauces_maitre",
     "image": "/assets/recipe-images-optimized/beurre_d_escargot_persille_v2_spooky.jpg",
     "categories": [
@@ -3771,6 +3779,243 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "label": "Pommes de terre",
         "value": "Les s\u00e9cher avant cuisson am\u00e9liore la coloration."
+      }
+    ]
+  },
+  "puree_courge_butternut": {
+    "title": "Pur\u00e9e de courge butternut",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/puree_courge_butternut_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "aliases": [
+      "pur\u00e9e butternut",
+      "pur\u00e9e de courge",
+      "butternut"
+    ],
+    "tags": [
+      "courge",
+      "butternut",
+      "puree"
+    ],
+    "ingredients": [
+      {
+        "group": "Pur\u00e9e",
+        "items": [
+          "1 courge butternut d\u2019environ 1kg",
+          "40g beurre doux",
+          "80g cr\u00e8me fra\u00eeche \u00e9paisse",
+          "1 pinc\u00e9e muscade fra\u00eechement r\u00e2p\u00e9e au zesteur",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "\u00c9plucher la courge, retirer les graines puis couper la chair en cubes r\u00e9guliers.",
+      "Cuire dans l\u2019eau bouillante sal\u00e9e 18 \u00e0 25min, jusqu\u2019\u00e0 ce que la courge s\u2019\u00e9crase facilement.",
+      "\u00c9goutter soigneusement puis remettre 2min dans la casserole chaude pour s\u00e9cher la chair.",
+      "\u00c9craser avec le beurre, la cr\u00e8me, la muscade r\u00e2p\u00e9e au zesteur et le poivre du moulin.",
+      "Rectifier l\u2019assaisonnement et servir chaud."
+    ],
+    "notes": [
+      "Bien s\u00e9cher la courge apr\u00e8s cuisson \u00e9vite une pur\u00e9e trop liquide.",
+      "La muscade se r\u00e2pe au dernier moment pour garder un parfum net."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "\u00c9craser ou mixer tr\u00e8s court selon la finesse voulue, sans d\u00e9tendre inutilement."
+      }
+    ],
+    "practical": {
+      "storage": [
+        "2 \u00e0 3 jours au r\u00e9frig\u00e9rateur en bo\u00eete herm\u00e9tique."
+      ]
+    }
+  },
+  "riz_cantonnais": {
+    "title": "Riz cantonnais",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/riz_cantonnais_spooky.jpg",
+    "categories": [
+      "Plats",
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "aliases": [
+      "riz saut\u00e9",
+      "riz aux petits pois",
+      "riz cantonais"
+    ],
+    "tags": [
+      "riz",
+      "oeuf",
+      "petits pois",
+      "jambon"
+    ],
+    "ingredients": [
+      {
+        "group": "Riz saut\u00e9",
+        "items": [
+          "300g riz long cuit et refroidi",
+          "150g petits pois cuits",
+          "120g jambon blanc en d\u00e9s",
+          "2 oeufs",
+          "2 oignons nouveaux",
+          "25g huile neutre",
+          "20g sauce soja",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les oeufs en omelette fine, puis les d\u00e9tailler en lani\u00e8res.",
+      "Saisir les oignons nouveaux 1min dans l\u2019huile chaude.",
+      "Ajouter le riz froid et le faire sauter 3 \u00e0 4min pour bien d\u00e9tacher les grains.",
+      "Ajouter petits pois, jambon, sauce soja et poivre du moulin.",
+      "Incorporer les lani\u00e8res d\u2019omelette, m\u00e9langer rapidement et servir chaud."
+    ],
+    "notes": [
+      "Le riz froid de la veille se d\u00e9tache mieux et donne une texture plus nette.",
+      "Dose le sel avec prudence car la sauce soja et le jambon assaisonnent d\u00e9j\u00e0."
+    ],
+    "technical": [
+      {
+        "label": "Saisie",
+        "value": "La po\u00eale doit \u00eatre chaude pour sauter le riz sans le transformer en pur\u00e9e."
+      }
+    ],
+    "additionalMasters": [
+      "accompagnements_maitre"
+    ]
+  },
+  "pates_pesto_tomates_mozzarella": {
+    "title": "P\u00e2tes au pesto, tomates cerises et mozzarella",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/pates_pesto_tomates_mozzarella_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Printemps",
+      "\u00c9t\u00e9"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "aliases": [
+      "p\u00e2tes pesto tomates mozzarella",
+      "pates pesto",
+      "p\u00e2tes tomates cerises mozzarella"
+    ],
+    "tags": [
+      "pates",
+      "pesto",
+      "tomates",
+      "mozzarella"
+    ],
+    "ingredients": [
+      {
+        "group": "P\u00e2tes",
+        "items": [
+          "400g p\u00e2tes courtes",
+          "180g pesto",
+          "250g tomates cerises",
+          "200g billes de mozzarella",
+          "30g parmesan r\u00e2p\u00e9",
+          "Basilic frais",
+          "Sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les p\u00e2tes al dente dans une grande casserole d\u2019eau sal\u00e9e.",
+      "Couper les tomates cerises en deux et \u00e9goutter les billes de mozzarella.",
+      "Pr\u00e9lever une petite louche d\u2019eau de cuisson puis \u00e9goutter les p\u00e2tes.",
+      "M\u00e9langer les p\u00e2tes chaudes avec le pesto et un peu d\u2019eau de cuisson pour enrober sans ass\u00e9cher.",
+      "Ajouter tomates, mozzarella, parmesan, basilic et poivre du moulin juste avant de servir."
+    ],
+    "notes": [
+      "Ajoute la mozzarella hors du feu pour qu\u2019elle reste moelleuse sans rendre trop d\u2019eau.",
+      "L\u2019eau de cuisson lie le pesto aux p\u00e2tes et \u00e9vite un r\u00e9sultat sec."
+    ],
+    "technical": [
+      {
+        "label": "Liaison",
+        "value": "Un peu d\u2019eau amidonn\u00e9e rend le pesto plus souple et brillant."
+      }
+    ]
+  },
+  "cabillaud_crumble_chorizo": {
+    "title": "Cabillaud au four, crumble de chorizo",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/cabillaud_crumble_chorizo_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "aliases": [
+      "cabillaud chorizo",
+      "poisson crumble chorizo",
+      "dos de cabillaud au chorizo"
+    ],
+    "tags": [
+      "cabillaud",
+      "poisson",
+      "chorizo",
+      "four"
+    ],
+    "ingredients": [
+      {
+        "group": "Poisson",
+        "items": [
+          "4 dos de cabillaud",
+          "80g chorizo",
+          "40g chapelure",
+          "30g parmesan r\u00e2p\u00e9",
+          "35g beurre doux froid",
+          "1 citron",
+          "Persil plat",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Pr\u00e9chauffer le four \u00e0 180\u00b0C chaleur tournante 10min avant cuisson.",
+      "Mixer grossi\u00e8rement chorizo, chapelure, parmesan et beurre froid pour obtenir un crumble.",
+      "D\u00e9poser les dos de cabillaud dans un plat l\u00e9g\u00e8rement huil\u00e9 et assaisonner au poivre du moulin.",
+      "R\u00e9partir le crumble sur le poisson sans trop tasser.",
+      "Cuire 12 \u00e0 15min selon l\u2019\u00e9paisseur, jusqu\u2019\u00e0 poisson nacr\u00e9 et crumble dor\u00e9.",
+      "Finir avec persil et quelques gouttes de citron."
+    ],
+    "notes": [
+      "Le chorizo et le parmesan salent d\u00e9j\u00e0 le plat : go\u00fbte avant d\u2019ajouter du sel.",
+      "Le cabillaud doit rester nacr\u00e9 au centre pour ne pas s\u00e9cher."
+    ],
+    "technical": [
+      {
+        "label": "Crumble",
+        "value": "Garder des morceaux irr\u00e9guliers donne une meilleure texture qu\u2019une poudre trop fine."
       }
     ]
   }

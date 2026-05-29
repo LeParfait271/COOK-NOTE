@@ -644,8 +644,12 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Bouillabaisse"
       },
       {
+        "id": "cabillaud_crumble_chorizo",
+        "label": "Cabillaud au four, crumble de chorizo"
+      },
+      {
         "id": "carre_d_agneau_croute_d_herbes",
-        "label": "Carr\u00e9 d agneau cro\u00fbte d herbes"
+        "label": "Carr\u00e9 d\u2019agneau cro\u00fbte d\u2019herbes"
       },
       {
         "id": "cassolette_crevettes_ravioles_persil",
@@ -708,6 +712,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Lentilles tomate pommes de terre saut\u00e9es"
       },
       {
+        "id": "pates_pesto_tomates_mozzarella",
+        "label": "P\u00e2tes au pesto, tomates cerises et mozzarella"
+      },
+      {
         "id": "poulet_basquaise",
         "label": "Poulet basquaise"
       },
@@ -718,6 +726,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "poulet_gaston_gerard",
         "label": "Poulet Gaston G\u00e9rard"
+      },
+      {
+        "id": "riz_cantonnais",
+        "label": "Riz cantonnais"
       },
       {
         "id": "saucisse_puree_maison",

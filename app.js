@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v0.94';
+const SITE_VERSION = 'v0.95';
 const SITE_UPDATED_AT = '29/05/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -30,8 +30,11 @@ const HOME_CARD_ORDER = {
   accompagnements_maitre: 7,
   desserts_maitre: 8
 };
-const MONTHLY_ADDITION_DAYS = 31;
 const MONTHLY_ADDITIONS = [
+  { id: 'puree_courge_butternut', addedAt: '2026-05-29' },
+  { id: 'riz_cantonnais', addedAt: '2026-05-29' },
+  { id: 'pates_pesto_tomates_mozzarella', addedAt: '2026-05-29' },
+  { id: 'cabillaud_crumble_chorizo', addedAt: '2026-05-29' },
   { id: 'tiramisu_citron', addedAt: '2026-05-20' },
   { id: 'pesto_tomates_sechees_sans_cajou', addedAt: '2026-05-20' },
   { id: 'base_pour_flan_sale', addedAt: '2026-05-20' },
@@ -2142,6 +2145,14 @@ function polishDisplayText(value) {
     .replace(/\blegume\b/g, 'légume')
     .replace(/\bepices\b/g, 'épices')
     .replace(/\bjusqu a\b/g, 'jusqu’à')
+    .replace(/\b([DdLlMmNnSsTt]) (?=[aeiouhàâäéèêëîïôöùûüAEIOUHÀÂÄÉÈÊËÎÏÔÖÙÛÜ])/g, '$1’')
+    .replace(/\b([Cc]) (?=est\b|était\b|etaient\b|étaient\b|étais\b|etait\b)/g, '$1’')
+    .replace(/\b([Qq]u) (?=[aeiouhàâäéèêëîïôöùûüAEIOUHÀÂÄÉÈÊËÎÏÔÖÙÛÜ])/g, '$1’')
+    .replace(/\b(jusqu|lorsqu|puisqu) (?=[aeiouhàâäéèêëîïôöùûüAEIOUHÀÂÄÉÈÊËÎÏÔÖÙÛÜ])/gi, '$1’')
+    .replace(/\ba l’/g, 'à l’')
+    .replace(/\bA l’/g, 'À l’')
+    .replace(/\bd Espelette\b/g, 'd’Espelette')
+    .replace(/\baujourd hui\b/g, 'aujourd’hui')
     .replace(/\ba mi-cuisson\b/g, 'à mi-cuisson')
     .replace(/\ba coeur\b/g, 'à cœur')
     .replace(/\bau coeur\b/g, 'au cœur')
@@ -2406,8 +2417,9 @@ function getPrepTimeline(recipe) {
 function isMonthlyAdditionVisible(item, now = new Date()) {
   const added = new Date(`${item.addedAt}T00:00:00`);
   if (Number.isNaN(added.getTime())) return false;
-  const ageDays = (now.getTime() - added.getTime()) / 86400000;
-  return ageDays >= 0 && ageDays < MONTHLY_ADDITION_DAYS;
+  const currentMonth = now.toLocaleDateString('fr-CA', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit' });
+  const addedMonth = added.toLocaleDateString('fr-CA', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit' });
+  return added.getTime() <= now.getTime() && addedMonth === currentMonth;
 }
 
 function noteKey(value) {
@@ -4237,6 +4249,7 @@ function RecipeView({
   const [exportCopied, setExportCopied] = useState(false);
   const [mobileDetailTab, setMobileDetailTab] = useState('ingredients');
   const [openIngredientGroups, setOpenIngredientGroups] = useState({});
+  const mobileSwipeStartRef = useRef(null);
   const completedRef = useRef('');
   const inlineVariantOptions = useMemo(() => getInlineVariantOptions(selectedRecipe), [selectedRecipe]);
   const needsInlineVariantSelection = inlineVariantOptions.length > 0;
@@ -4264,6 +4277,31 @@ function RecipeView({
   const displayNotes = hasSelectedVariant ? getDisplayNotes(selectedRecipe, practicalSections) : [];
   const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length;
   const selectedGroupLabel = selectedInlineVariantGroup?.group?.group || '';
+  const mobileTabOrder = ['ingredients', 'steps', 'notes'];
+
+  function handleMobileTabSwipeStart(event) {
+    if (!event.touches || event.touches.length !== 1) return;
+    mobileSwipeStartRef.current = {
+      x: event.touches[0].clientX,
+      y: event.touches[0].clientY
+    };
+  }
+
+  function handleMobileTabSwipeEnd(event) {
+    if (!mobileSwipeStartRef.current || !event.changedTouches || event.changedTouches.length !== 1) return;
+    const start = mobileSwipeStartRef.current;
+    mobileSwipeStartRef.current = null;
+    const deltaX = event.changedTouches[0].clientX - start.x;
+    const deltaY = event.changedTouches[0].clientY - start.y;
+    if (Math.abs(deltaX) < 55 || Math.abs(deltaX) < Math.abs(deltaY) * 1.35) return;
+    setMobileDetailTab(current => {
+      const currentIndex = mobileTabOrder.indexOf(current);
+      if (currentIndex === -1) return 'ingredients';
+      const direction = deltaX < 0 ? 1 : -1;
+      const nextIndex = Math.max(0, Math.min(mobileTabOrder.length - 1, currentIndex + direction));
+      return mobileTabOrder[nextIndex];
+    });
+  }
 
   useEffect(() => {
     setFactor(1);
@@ -4405,7 +4443,11 @@ function RecipeView({
         ? `Variante active : ${selectedGroupLabel}. Ingr\u00e9dients et \u00e9tapes suivent ce choix.`
         : 'Choisis une variante pour afficher les ingr\u00e9dients et les \u00e9tapes correspondantes.'
     ),
-    hasSelectedVariant && h('div', { className: 'recipe-detail-grid' },
+    hasSelectedVariant && h('div', {
+      className: 'recipe-detail-grid',
+      onTouchStart: handleMobileTabSwipeStart,
+      onTouchEnd: handleMobileTabSwipeEnd
+    },
       h('section', { className: mobileDetailTab === 'ingredients' ? 'recipe-panel ingredients-panel active-tab-panel' : 'recipe-panel ingredients-panel' },
         h('div', { className: 'panel-heading' },
           h('div', null, h('p', { className: 'eyebrow' }, 'Mise en place'), h('h2', null, 'Ingrédients'))

@@ -21,6 +21,7 @@ const recipes = context.window.RECIPES;
 const errors = [];
 const ENCODING_SUSPECT_RE = new RegExp('(?:\\uFFFD|\\u00C3|\\u00C2[\\u00A0-\\u00BF]|\\u00E2\\u20AC|\\u00C5[\\u2018\\u2019\\u201C\\u201D])');
 const NON_METRIC_UNIT_RE = /(^|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])(?:cups?|oz|ounces?|tasses?)(?=$|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])/i;
+const MISSING_APOSTROPHE_RE = /(?:^|[^A-Za-zÀ-ÖØ-öø-ÿ])(?:[dljmnst]|qu|jusqu|lorsqu|puisqu) (?=[aeiouhàâäéèêëîïôöùûü])/i;
 
 const NON_INGREDIENT_GROUP_RE = /\b(conversion|equivalence|repere|poids moyens?|memo|avant de commencer)\b/i;
 const NON_INGREDIENT_ITEM_RE = /\b(equivaut|equivalent|conversion|repere indicatif)\b/i;
@@ -70,6 +71,12 @@ function checkForbiddenDisplayTerms(value, location, key = '') {
   }
   if (value && typeof value === 'object') {
     Object.entries(value).forEach(([childKey, item]) => checkForbiddenDisplayTerms(item, `${location}.${childKey}`, childKey));
+  }
+}
+
+function checkMissingApostrophe(value, location) {
+  if (typeof value === 'string' && MISSING_APOSTROPHE_RE.test(value)) {
+    errors.push(`${location}: apostrophe probablement manquante (${value}).`);
   }
 }
 
@@ -277,6 +284,7 @@ if (!recipes || typeof recipes !== 'object') {
   for (const [id, recipe] of Object.entries(recipes)) {
     const isMaster = masterIds.has(id);
     if (!recipe.title) errors.push(`${id}: titre manquant.`);
+    checkMissingApostrophe(recipe.title, `${id}.title`);
     if (!isMaster && (!Array.isArray(recipe.ingredients) || !recipe.ingredients.length)) errors.push(`${id}: ingredients manquants.`);
     if (!isMaster && (!Array.isArray(recipe.steps) || !recipe.steps.length)) errors.push(`${id}: etapes manquantes.`);
     if (!isMaster && (!recipe.yield || !/\d/.test(String(recipe.yield)))) errors.push(`${id}: rendement chiffre manquant.`);
@@ -302,6 +310,7 @@ if (!recipes || typeof recipes !== 'object') {
       const sortedLabels = [...labels].sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
       if (labels.join('\n') !== sortedLabels.join('\n')) errors.push(`${id}: variantes non triees alphabetiquement.`);
       recipe.variants.forEach(variant => {
+        checkMissingApostrophe(variant?.label || '', `${id}.variants.${variant?.id || 'vide'}`);
         if (!variant?.id || !ids.has(variant.id)) errors.push(`${id}: variante introuvable (${variant?.id || 'vide'}).`);
         const variantRecipe = recipes[variant?.id];
         if (variantRecipe && variant.label !== variantRecipe.title) errors.push(`${id}: label de variante incoherent (${variant.id}).`);
