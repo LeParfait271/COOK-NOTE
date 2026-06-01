@@ -49,6 +49,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - La recherche doit comprendre les intentions utilisateur courantes : rapide, sans cuisson, cuisson au four, friture, a preparer a l'avance, congelable, vegetarien, froid et ingredients proches.
 - Le mode menu doit rester un outil de decision direct : composer entree/plat/accompagnement ou sauce/dessert, ouvrir chaque fiche et ajouter le menu entier aux courses fusionnees.
 - Mode menu : accords dessert obligatoires. Apres un plat lourd, cremeux, frit ou tres fromage, favoriser un dessert frais/citron/fruit. Apres un plat leger, un dessert plus gourmand peut etre propose.
+- Mode menu soir de semaine : ne pas forcer de dessert. Si un dessert est propose, il doit etre ultra rapide, avec moins de 10 minutes d'actif.
 - Historique des menus : ne pas reproposer exactement la meme combinaison de recettes quand l'utilisateur demande un autre menu ou ajoute un menu aux courses.
 - Le panier courses doit regrouper les noms proches sans perdre le sens : beurre doux/ramolli/fondu vers beurre, cassonade/vergeoise ensemble, huiles neutres ensemble, chocolat noir/lait/blanc separes.
 - Liste de courses : mode `J’ai déjà` obligatoire pour retirer un ingredient de la liste a acheter sans supprimer la recette.

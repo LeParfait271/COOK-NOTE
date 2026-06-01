@@ -57,7 +57,7 @@ const FEATURE_COVERAGE = [
   { name: 'Recherche', checks: ['scoreRecipeSearch', 'scoreIngredientSearch', 'getRecipeIntentLabels', 'ingredient-match-badge'] },
   { name: 'Fiche recette', checks: ['RecipeView', 'getRecipeAllergens', 'getRecipeAverageWeights', 'renderLinkedText'] },
   { name: 'Images', checks: ['recipeCardImageUrl', 'onError: event =>', 'recipe-images-optimized', 'recipe-card-images'] },
-  { name: 'Mode menu', checks: ['buildMenuSuggestion', 'menuDessertAffinity', 'menuSignature', 'buildMenuServicePlan'] },
+  { name: 'Mode menu', checks: ['buildMenuSuggestion', 'menuDessertAffinity', 'menuSignature', 'buildMenuServicePlan', 'isWeeknightDessert'] },
   { name: 'Liste de courses', checks: ['buildShoppingListData', 'filterShoppingListData', 'shoppingPurchaseHint', 'shoppingSmartGroupKey'] },
   { name: 'Techniques', checks: ['TECHNIQUE_GUIDES', 'buildTechniqueTargets', 'openTechnique', 'inline-technique-link'] },
   { name: 'Anti-gaspillage', checks: ['getEggWasteRecipeRefs', 'Anti-gaspillage blancs', 'Anti-gaspillage jaunes'] },
@@ -115,6 +115,7 @@ themes.forEach(themeId => {
     expect(`Mode menu ${themeId}: composant servi (${item.recipe?.id}).`, profile.servable && profile.role !== 'component');
     if (item.key === 'main') expect(`Mode menu ${themeId}: plat mal role (${item.recipe?.id}).`, profile.role === 'main');
     if (item.key === 'dessert') expect(`Mode menu ${themeId}: dessert mal role (${item.recipe?.id}).`, profile.role === 'dessert');
+    if (themeId === 'semaine' && item.key === 'dessert') expect(`Mode menu semaine: dessert trop long (${item.recipe?.id}).`, ctx.getRecipeTiming(item.recipe).active <= 10);
   });
   const shopping = ctx.buildShoppingListData((menu.items || []).map(item => item.recipe));
   const servicePlan = ctx.buildMenuServicePlan((menu.items || []).map(item => item.recipe), shopping);

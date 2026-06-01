@@ -39,6 +39,7 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'La recherche doit comprendre les intentions',
   'Le mode menu doit rester un outil de decision direct',
   'Mode menu : accords dessert',
+  'Mode menu soir de semaine',
   'Historique des menus',
   'reseau d abord avec cache de secours',
   'bump la version des assets',

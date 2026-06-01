@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.07';
+const SITE_VERSION = 'v1.08';
 const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -1982,6 +1982,11 @@ function menuThemeById(id) {
   return MENU_THEMES.find(theme => theme.id === id) || MENU_THEMES[0];
 }
 
+function isWeeknightDessert(recipe) {
+  const timing = getRecipeTiming(recipe);
+  return Boolean(timing.active && timing.active <= 10);
+}
+
 function menuThemeScore(recipe, profile, theme) {
   let score = 0;
   if (theme.prefer.test(profile.text)) score += 34;
@@ -2058,6 +2063,7 @@ function menuDessertAffinity(items, profiles, theme = MENU_THEMES[0]) {
   if (theme.id === 'ete' && freshDessert) score += 20;
   if (theme.id === 'invites' && /\b(tarte|tiramisu|macaron|clafoutis)\b/.test(dessertText)) score += 16;
   if (theme.id === 'apero' && /\b(cookies|macaron|carres|carrés|mini)\b/.test(dessertText)) score += 14;
+  if (theme.id === 'semaine' && isWeeknightDessert(dessert)) score += 26;
   return score;
 }
 
@@ -2081,7 +2087,7 @@ function menuBalanceScore(items, profiles, theme) {
   const totalActive = recipes.reduce((sum, recipe) => sum + (getRecipeTiming(recipe).active || 0), 0);
   if (totalActive && totalActive <= 90) score += 14;
   if (totalActive > 150) score -= 18;
-  if (theme.id !== 'apero' && roles.includes('main') && roles.includes('dessert')) score += 28;
+  if (theme.id !== 'apero' && roles.includes('main') && roles.includes('dessert')) score += theme.id === 'semaine' ? 8 : 28;
   if (theme.id !== 'apero' && !roles.includes('main')) score -= 80;
   if (theme.id === 'apero') {
     score += roles.filter(role => role === 'starter').length * 18;
@@ -2112,6 +2118,7 @@ function menuItemReason(item, items, profiles, theme) {
     return 'Complète le plat sans conflit fort.';
   }
   if (item.key === 'dessert') {
+    if (theme.id === 'semaine') return 'Dessert express uniquement, sinon on garde le repas court.';
     if (/\b(citron|fruit|cerise|clafoutis)\b/.test(profile.text)) return 'Fin plus fraîche après le salé.';
     if (/\b(chocolat|caramel|cookies|tiramisu)\b/.test(profile.text)) return 'Fin gourmande assumée.';
     return 'Dessert servi, pas une base technique.';
@@ -2193,7 +2200,8 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot', recentMen
     });
     const mainOptions = themedMains.length ? themedMains : mains;
     const sides = rolePool('side', 18);
-    const desserts = rolePool('dessert', 16);
+    const desserts = rolePool('dessert', 16)
+      .filter(recipe => theme.id !== 'semaine' || isWeeknightDessert(recipe));
     const sauces = rolePool('sauce', 8);
     mainOptions.forEach((main, mainIndex) => {
       const mainProfile = profiles.get(main.id);
@@ -2258,7 +2266,7 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot', recentMen
     if (mainProfile.families.includes('meat')) return /\b(poivre|moutarde|mornay|beurre|rouille|burger)\b/.test(profile.text);
     return true;
   });
-  const dessert = pick(['dessert'], 4, (recipe, profile) => profile.servable);
+  const dessert = pick(['dessert'], 4, (recipe, profile) => profile.servable && (theme.id !== 'semaine' || isWeeknightDessert(recipe)));
   const items = [
     { key: 'starter', label: 'Entrée / apéro', recipe: starter },
     { key: 'main', label: 'Plat', recipe: main },
