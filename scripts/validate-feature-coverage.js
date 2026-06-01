@@ -103,7 +103,7 @@ leaves.forEach(recipe => {
 });
 
 const byId = Object.fromEntries(leaves.map(recipe => [recipe.id, recipe]));
-expect('Mode menu: registre accords trop court.', Array.isArray(ctx.window.MENU_PAIRING_RULES) && ctx.window.MENU_PAIRING_RULES.length >= 50);
+expect('Mode menu: registre accords trop court.', Array.isArray(ctx.window.MENU_PAIRING_RULES) && ctx.window.MENU_PAIRING_RULES.length >= 100);
 const themes = ['bistrot', 'mediterraneen', 'semaine', 'invites', 'apero', 'confort', 'ete'];
 themes.forEach(themeId => {
   const menu = ctx.buildMenuSuggestion(leaves, 0, themeId, []);
