@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.02';
+const SITE_VERSION = 'v1.03';
 const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -1742,11 +1742,13 @@ const MENU_COMPONENT_IDS = new Set([
   'creme_pistache',
   'huile_pimentee_pizza',
   'marinades',
+  'mascarpone',
   'meringue_italienne',
   'meringues',
   'pain_hot_dog',
   'pains_burgers_brioche',
   'pate_choux',
+  'pate_legere_beignets_calamar_crevettes',
   'pate_sucree',
   'pates_tarte_variantes',
   'pesto_tomates_sechees_sans_cajou',
@@ -1756,6 +1758,7 @@ const MENU_COMPONENT_IDS = new Set([
   'sauce_caramel',
   'sauce_mornay',
   'sauce_yaourt_citronnee',
+  'tempura_beignets_calamar_crevettes',
   'toppings_frites',
   'vinaigrette'
 ]);
@@ -1916,6 +1919,68 @@ function menuRecipeScore(recipe, profile = getMenuRecipeProfile(recipe), theme =
   return score + menuThemeScore(recipe, profile, theme);
 }
 
+function menuPairPenalty(firstProfile, secondProfile) {
+  if (!firstProfile || !secondProfile) return 0;
+  let penalty = 0;
+  if (firstProfile.heavy && secondProfile.heavy) penalty += 44;
+  if (firstProfile.families.includes('starch') && secondProfile.families.includes('starch')) penalty += 32;
+  if (firstProfile.families.includes('vegetable') && secondProfile.families.includes('vegetable') && !firstProfile.heavy && !secondProfile.heavy) penalty += 10;
+  if (/\b(frites|friture|air fryer)\b/.test(firstProfile.text) && /\b(frites|friture|air fryer)\b/.test(secondProfile.text)) penalty += 42;
+  if (/\b(creme|fromage|mornay|gratin)\b/.test(firstProfile.text) && /\b(creme|fromage|mornay|gratin)\b/.test(secondProfile.text)) penalty += 18;
+  if (/\b(tomate|tomates)\b/.test(firstProfile.text) && /\b(tomate|tomates)\b/.test(secondProfile.text)) penalty += 22;
+  if (firstProfile.families.includes('fish') && /\b(poivre|moutarde|bacon|chorizo)\b/.test(secondProfile.text)) penalty += 16;
+  if ((firstProfile.protein && secondProfile.protein) && (firstProfile.role === 'side' || secondProfile.role === 'side')) penalty += 28;
+  return penalty;
+}
+
+function menuBalanceScore(items, profiles, theme) {
+  const recipes = items.map(item => item.recipe).filter(Boolean);
+  const itemProfiles = recipes.map(recipe => profiles.get(recipe.id));
+  const roles = items.map(item => item.key);
+  let score = recipes.reduce((total, recipe) => total + menuRecipeScore(recipe, profiles.get(recipe.id), theme), 0);
+  for (let i = 0; i < itemProfiles.length; i += 1) {
+    for (let j = i + 1; j < itemProfiles.length; j += 1) {
+      score -= menuPairPenalty(itemProfiles[i], itemProfiles[j]);
+    }
+  }
+  const familyCount = new Set(itemProfiles.flatMap(profile => profile?.families || [])).size;
+  score += familyCount * 5;
+  const totalActive = recipes.reduce((sum, recipe) => sum + (getRecipeTiming(recipe).active || 0), 0);
+  if (totalActive && totalActive <= 90) score += 14;
+  if (totalActive > 150) score -= 18;
+  if (theme.id !== 'apero' && roles.includes('main') && roles.includes('dessert')) score += 28;
+  if (theme.id !== 'apero' && !roles.includes('main')) score -= 80;
+  if (theme.id === 'apero') {
+    score += roles.filter(role => role === 'starter').length * 18;
+    if (roles.includes('main')) score -= 90;
+  }
+  if (theme.id === 'ete' && itemProfiles.filter(profile => profile?.heavy).length > 1) score -= 30;
+  if (theme.id === 'confort' && itemProfiles.filter(profile => profile?.heavy).length === 0) score -= 14;
+  return score;
+}
+
+function menuLeadReason(items, profiles, theme) {
+  const main = items.find(item => item.key === 'main')?.recipe;
+  const first = main || items.find(item => item.recipe)?.recipe;
+  const profile = first ? profiles.get(first.id) : null;
+  const cues = [];
+  if (profile?.families.includes('fish')) cues.push('poisson');
+  if (profile?.families.includes('meat')) cues.push('viande');
+  if (profile?.families.includes('vegetable')) cues.push('légumes');
+  if (profile?.families.includes('starch')) cues.push('féculent');
+  if (profile?.families.includes('dessert')) cues.push('douceur');
+  const lead = first ? `Fil conducteur : ${first.title}${cues.length ? `, ${cues.slice(0, 2).join(' et ')}` : ''}.` : 'Fil conducteur : menu cohérent.';
+  return `${theme.label} : ${theme.pitch} ${lead}`;
+}
+
+function buildMenuCandidate(items, profiles, theme) {
+  const cleanItems = items.filter(item => item.recipe);
+  return {
+    items: cleanItems,
+    score: menuBalanceScore(cleanItems, profiles, theme)
+  };
+}
+
 function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
   const theme = menuThemeById(themeId);
   const leaves = recipes.filter(recipe => recipe && !isMasterRecipe(recipe));
@@ -1929,6 +1994,68 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
   Object.keys(byRole).forEach(role => {
     byRole[role].sort((a, b) => menuRecipeScore(b, profiles.get(b.id), theme) - menuRecipeScore(a, profiles.get(a.id), theme) || a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
   });
+  const rolePool = (role, limit = 16) => (byRole[role] || [])
+    .filter(recipe => profiles.get(recipe.id).servable)
+    .slice(0, limit);
+  const candidates = [];
+  if (theme.id === 'apero') {
+    const starters = rolePool('starter', 28);
+    const desserts = rolePool('dessert', 10);
+    for (let i = 0; i < starters.length; i += 1) {
+      const chosen = [starters[i], starters[(i + 3) % starters.length], starters[(i + 7) % starters.length]]
+        .filter((recipe, index, list) => recipe && list.findIndex(item => item?.id === recipe.id) === index);
+      const dessert = desserts[(i + offset) % Math.max(desserts.length, 1)];
+      candidates.push(buildMenuCandidate([
+        { key: 'starter', label: 'Bouchée salée', recipe: chosen[0] },
+        { key: 'starter', label: 'À partager', recipe: chosen[1] },
+        { key: 'starter', label: 'À picorer', recipe: chosen[2] },
+        { key: 'dessert', label: 'Douceur', recipe: dessert }
+      ], profiles, theme));
+    }
+  } else {
+    const starters = rolePool('starter', 14)
+      .filter(recipe => !/\b(cookies|cake|chorizo au cidre)\b/.test(profiles.get(recipe.id).text));
+    const mains = rolePool('main', 18);
+    const themedMains = mains.filter(recipe => {
+      const text = profiles.get(recipe.id).text;
+      if (theme.id === 'mediterraneen') return /\b(tomate|olive|basilic|poisson|saumon|cabillaud|bouillabaisse|calamar|crevettes|chipirons)\b/.test(text) && !/\b(miel|moutarde|rhum)\b/.test(text);
+      if (theme.id === 'ete') return /\b(froid|salade|melon|tomate|gazpacho|gaspacho|citron|yaourt|poisson|saumon|cabillaud|oeuf|œuf)\b/.test(text);
+      return true;
+    });
+    const mainOptions = themedMains.length ? themedMains : mains;
+    const sides = rolePool('side', 18);
+    const desserts = rolePool('dessert', 16);
+    const sauces = rolePool('sauce', 8);
+    mainOptions.forEach((main, mainIndex) => {
+      const mainProfile = profiles.get(main.id);
+      const compatibleSides = sides.filter(side => menuPairPenalty(mainProfile, profiles.get(side.id)) < 35);
+      const sideOptions = compatibleSides.length ? compatibleSides : [null];
+      const starterOptions = starters.length ? starters : [null];
+      const dessertOptions = desserts.length ? desserts : [null];
+      for (let step = 0; step < Math.min(10, Math.max(sideOptions.length, dessertOptions.length, starterOptions.length)); step += 1) {
+        const side = sideOptions[(mainIndex + step + offset) % sideOptions.length];
+        const starter = starterOptions[(mainIndex + step * 2 + offset) % starterOptions.length];
+        const dessert = dessertOptions[(mainIndex + step * 3 + offset) % dessertOptions.length];
+        const sauce = !side && sauces.length ? sauces[(mainIndex + step + offset) % sauces.length] : null;
+        candidates.push(buildMenuCandidate([
+          { key: 'starter', label: 'Entrée / apéro', recipe: starter },
+          { key: 'main', label: 'Plat', recipe: main },
+          { key: side ? 'side' : 'sauce', label: side ? 'Accompagnement' : 'Sauce', recipe: side || sauce },
+          { key: 'dessert', label: 'Dessert', recipe: dessert }
+        ], profiles, theme));
+      }
+    });
+  }
+  if (candidates.length) {
+    candidates.sort((a, b) => b.score - a.score);
+    const selected = candidates[offset % Math.min(candidates.length, 24)] || candidates[0];
+    return {
+      theme,
+      reason: menuLeadReason(selected.items, profiles, theme),
+      quality: Math.max(0, Math.min(100, Math.round(62 + selected.score / 18))),
+      items: selected.items
+    };
+  }
   const used = new Set();
   const pick = (roles, bump = 0, allowed = () => true) => {
     const pool = roles
@@ -1966,7 +2093,8 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
   ].filter(item => item.recipe);
   return {
     theme,
-    reason: `${theme.label} : ${theme.pitch}`,
+    reason: menuLeadReason(items, profiles, theme),
+    quality: Math.max(0, Math.min(100, Math.round(menuBalanceScore(items, profiles, theme) / 18))),
     items
   };
 }
@@ -4210,6 +4338,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
         ))
       ),
       h('div', { className: 'menu-planner-summary' },
+        Number.isFinite(menu.quality) && h('span', null, `Cohérence ${menu.quality}/100`),
         h('span', null, `${menuRecipes.length} fiches`),
         h('span', null, `${shoppingData.groupedItems.length} articles groupés`),
         h('span', null, `${shoppingData.aisleGroups.length} rayons`)
