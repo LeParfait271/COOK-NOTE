@@ -142,6 +142,14 @@ recipeIds.forEach(id => {
 });
 
 Object.entries(recipes).forEach(([id, recipe]) => {
+  if (recipe.image && /^\/assets\/recipe-images-optimized\/.*\.jpg(?:$|\?)/i.test(recipe.image)) {
+    const cardImagePath = recipe.image
+      .replace(/^\/assets\/recipe-images-optimized\//, 'assets/recipe-card-images/')
+      .replace(/\?.*$/, '');
+    if (!fs.existsSync(path.join(ROOT, cardImagePath))) {
+      fail(`${id}: miniature carte introuvable (${cardImagePath}).`);
+    }
+  }
   (recipe.aliases || []).forEach(alias => {
     const normalized = String(alias)
       .normalize('NFD')

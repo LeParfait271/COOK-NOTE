@@ -30,6 +30,7 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'coulis_fraise',
   'Chaque recette feuille doit avoir une image locale unique',
   'assets/recipe-images-optimized/',
+  'assets/recipe-card-images/',
   'npm run optimize:images',
   'montrer le visuel et attendre validation utilisateur',
   'Regenerer le sitemap',
@@ -56,6 +57,7 @@ expect('Validation poivre du moulin non branchee.', validators.recipes.includes(
 expect('Validation unites non metriques non branchee.', validators.recipes.includes('NON_METRIC_UNIT_RE'));
 expect('Validation images uniques non branchee.', validators.recipes.includes('leafImageHashes'));
 expect('Validation images optimisees non branchee.', validators.recipes.includes('recipe-images-optimized') && validators.recipes.includes('master PNG introuvable'));
+expect('Validation miniatures cartes non branchee.', validators.production.includes('recipe-card-images') && validators.production.includes('miniature carte introuvable'));
 expect('Validation materiel necessaire colonne droite non branchee.', validators.ui.includes('Materiel necessaire encore dans la colonne droite'));
 expect('Validation anti-doublon notes pratiques non branchee.', validators.ui.includes('Notes pratiques encore classees en double'));
 expect('Validation recherche intention non branchee.', validators.ui.includes('Recherche par intention absente'));

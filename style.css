@@ -976,12 +976,14 @@ a {
 
 .monthly-additions-head {
   margin-bottom: 10px;
+  gap: 10px;
 }
 
 .monthly-additions-actions {
   display: inline-flex;
   align-items: center;
   justify-content: end;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -3428,6 +3430,7 @@ a {
 
 .search-modal {
   width: min(780px, 100%);
+  overscroll-behavior: contain;
 }
 
 .search-modal-field input {
@@ -4213,10 +4216,20 @@ a {
 
   .monthly-additions-block .recipe-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .monthly-additions-block .recipe-card {
-    min-height: 178px;
+    min-height: clamp(176px, 48vw, 236px);
+  }
+
+  .monthly-additions-head {
+    align-items: start;
+    gap: 8px;
+  }
+
+  .monthly-additions-actions {
+    justify-content: start;
   }
 
   .prep-timeline-block li {
@@ -4235,6 +4248,17 @@ a {
   .search-result {
     grid-template-columns: 54px minmax(0, 1fr);
     gap: 9px;
+  }
+
+  .search-modal {
+    width: 100%;
+    max-height: calc(100dvh - 28px);
+    padding: 14px;
+  }
+
+  .search-modal-field input {
+    min-height: 48px;
+    font-size: 16px;
   }
 
   .search-memory-grid {

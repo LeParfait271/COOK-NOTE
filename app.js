@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v0.96';
+const SITE_VERSION = 'v0.97';
 const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -1830,6 +1830,18 @@ const SEARCH_SYNONYMS = {
   fritte: ['frite', 'frites'],
   frite: ['frites', 'pomme de terre'],
   frites: ['frite', 'pomme de terre'],
+  reste: ['restes', 'anti gaspillage', 'fond de frigo'],
+  restes: ['reste', 'anti gaspillage', 'fond de frigo'],
+  frigo: ['refrigerateur', 'froid', 'reste'],
+  placard: ['simple', 'rapide', 'base'],
+  soir: ['diner', 'rapide', 'familial'],
+  diner: ['soir', 'plat', 'familial'],
+  semaine: ['rapide', 'organisation', 'familial'],
+  batch: ['organisation', 'la veille', 'a preparer a l avance'],
+  airfryer: ['air fryer', 'four', 'croustillant'],
+  plancha: ['poele', 'saisir', 'griller'],
+  barbecue: ['griller', 'gril', 'ete'],
+  bbq: ['barbecue', 'griller'],
   accompagnement: ['accompagnements', 'garniture'],
   garniture: ['accompagnement', 'topping'],
   topping: ['garniture', 'sauce'],
@@ -1921,6 +1933,9 @@ function searchTokens(value) {
   return normalizeText(value)
     .replace(/\bsans\s+cuisson\b/g, 'sanscuisson')
     .replace(/\bla\s+veille\b/g, 'veille')
+    .replace(/\bair\s+fryer\b/g, 'airfryer')
+    .replace(/\bfond\s+de\s+frigo\b/g, 'frigo')
+    .replace(/\bsoir\s+de\s+semaine\b/g, 'semaine')
     .replace(/\bchou\s+fleur\b/g, 'choufleur')
     .replace(/\bpomme\s+de\s+terre\b/g, 'pdt')
     .split(/\s+/)
@@ -2606,7 +2621,10 @@ function getRecipeWorkflowFlags(recipe, recipesById = {}) {
     frying: /\b(friture|frire|frites?|beignets?|tempura|bain d huile|huile a 180)\b/.test(text),
     vegetarian: !/\b(poulet|boeuf|bœuf|porc|lardon|lardons|bacon|jambon|poisson|saumon|thon|cabillaud|crevette|crevettes|calamar|calamars|moule|moules|viande)\b/.test(text),
     cold: /\b(froid|froide|refroidir|refrigerateur|réfrigérateur|repos au frais|chantilly|salade|coulis|gaspacho|gazpacho)\b/.test(text),
-    makeAhead: /\b(repos|la veille|24h|refroidir|conservation|stockage|au frais|refrigerateur|réfrigérateur|congelation|congélation)\b/.test(text)
+    makeAhead: /\b(repos|la veille|24h|refroidir|conservation|stockage|au frais|refrigerateur|réfrigérateur|congelation|congélation)\b/.test(text),
+    weeknight: /\b(rapide|facile|simple|15\s*min|20\s*min|30\s*min|poele|poêle|four|plat)\b/.test(text) && !/\b(24h|la veille|repos une nuit|maturation)\b/.test(text),
+    airFryer: /\b(air fryer|airfryer)\b/.test(text),
+    plancha: /\b(plancha|saisir|griller|gril)\b/.test(text)
   };
 }
 
@@ -2624,6 +2642,9 @@ function getRecipeIntentLabels(recipe, recipesById = {}) {
   if (flags.vegetarian) add('végétarien', 'sans viande');
   if (flags.cold) add('froid', 'à servir froid');
   if (flags.makeAhead) add('à préparer à l’avance', 'la veille', 'organisation');
+  if (flags.weeknight) add('soir de semaine', 'dîner rapide', 'repas simple');
+  if (flags.airFryer) add('air fryer', 'croustillant sans friture');
+  if (flags.plancha) add('plancha', 'grillé', 'saisi');
   if (!hasCookingVerb && !flags.oven && !flags.frying) add('sans cuisson');
   if (/\b(congel|congelation|congélation|congeler|congelateur|congélateur)\b/.test(text)) add('congelable', 'à congeler');
   if (/\b(oeuf|œuf|blancs d oeufs|jaunes d oeufs)\b/.test(text)) add('anti-gaspillage œufs', 'œufs');
@@ -3617,14 +3638,16 @@ function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resul
       { label: 'Citron', query: 'citron' },
       { label: 'Œufs', query: 'oeuf' },
       { label: 'Chocolat', query: 'chocolat' },
-      { label: 'Beurre noisette', query: 'beurre noisette' }
+      { label: 'Beurre noisette', query: 'beurre noisette' },
+      { label: 'Reste de pommes de terre', query: 'reste pomme de terre' }
     ] },
     { title: 'Intentions', items: [
       { label: 'Rapide', query: 'rapide' },
       { label: 'Sans cuisson', query: 'sans cuisson' },
       { label: 'La veille', query: 'la veille' },
       { label: 'À préparer', query: 'à préparer à l’avance' },
-      { label: 'Congelable', query: 'congelable' }
+      { label: 'Congelable', query: 'congelable' },
+      { label: 'Soir de semaine', query: 'soir de semaine' }
     ] },
     { title: 'Textures', items: [
       { label: 'Croustillant', query: 'croustillant' },
@@ -3637,6 +3660,8 @@ function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resul
       { label: 'Four', query: 'cuisson au four' },
       { label: 'Friture', query: 'friture' },
       { label: 'Froid', query: 'froid' },
+      { label: 'Air fryer', query: 'air fryer' },
+      { label: 'Plancha', query: 'plancha' },
       { label: 'Acidulé', query: 'acidule' }
     ] },
     { title: 'Familles', items: [
