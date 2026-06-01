@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-06-01T11:24:10.578Z",
+  "generatedAt": "2026-06-01T21:34:07.361Z",
   "total": 153,
   "weakCount": 9,
+  "issueBuckets": {
+    "missingCard": 0,
+    "smallOptimized": 8,
+    "smallCard": 38,
+    "framing": 0,
+    "duplicates": 2
+  },
   "rows": [
     {
       "id": "cookies_chocolat_moelleux",

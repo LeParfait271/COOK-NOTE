@@ -1,6 +1,6 @@
 # Audit Cook Note
 
-Genere le 2026-06-01T02:13:47.494Z.
+Genere le 2026-06-01T21:34:07.228Z.
 
 - Recettes totales : 153
 - Recettes feuilles : 134
@@ -8,6 +8,16 @@ Genere le 2026-06-01T02:13:47.494Z.
 - Score moyen : 84/100
 - Fiches sous 78 : 15
 - Fiches avec defauts a verifier : 0
+
+## Dashboard sante
+
+- Pretes : 27
+- A ameliorer : 92
+- Faibles : 15
+- Decouverte faible : 33
+- Conservation/securite a verifier : 89
+- Risque image/production : 0
+- Sans liens internes explicites : 108
 
 ## Fiches a surveiller
 

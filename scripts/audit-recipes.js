@@ -205,6 +205,15 @@ const reviewedRecipes = leafReports
     suggestions: item.suggestions
   }));
 const recipesWithQualityIssues = reviewedRecipes.filter(item => item.qualityIssues.length > 0);
+const healthDashboard = {
+  ready: reviewedRecipes.filter(item => item.score >= 90).length,
+  improve: reviewedRecipes.filter(item => item.score >= 78 && item.score < 90).length,
+  weak: reviewedRecipes.filter(item => item.score < 78).length,
+  missingDiscovery: reviewedRecipes.filter(item => item.issues.some(issue => /Decouverte faible/.test(issue))).length,
+  missingSafety: reviewedRecipes.filter(item => item.issues.some(issue => /Conservation|securite/.test(issue))).length,
+  productionRisk: reviewedRecipes.filter(item => item.issues.some(issue => /Image/.test(issue))).length,
+  fewLinks: linkCounts.filter(item => item.count === 0).length
+};
 
 const summary = {
   generatedAt: new Date().toISOString(),
@@ -217,6 +226,7 @@ const summary = {
     qualityIssues: recipesWithQualityIssues.length
   },
   averageScore: Math.round(leafReports.reduce((sum, item) => sum + item.score, 0) / Math.max(1, leafReports.length)),
+  healthDashboard,
   weakestRecipes: lowScore.slice(0, 20),
   categoryIdeas: categoryIdeas.slice(0, 40),
   recipesWithFewLinks: linkCounts.filter(item => item.count === 0).slice(0, 30),
@@ -234,6 +244,16 @@ const markdown = [
   `- Score moyen : ${summary.averageScore}/100`,
   `- Fiches sous 78 : ${summary.totals.lowScore}`,
   `- Fiches avec defauts a verifier : ${summary.totals.qualityIssues}`,
+  '',
+  '## Dashboard sante',
+  '',
+  `- Pretes : ${summary.healthDashboard.ready}`,
+  `- A ameliorer : ${summary.healthDashboard.improve}`,
+  `- Faibles : ${summary.healthDashboard.weak}`,
+  `- Decouverte faible : ${summary.healthDashboard.missingDiscovery}`,
+  `- Conservation/securite a verifier : ${summary.healthDashboard.missingSafety}`,
+  `- Risque image/production : ${summary.healthDashboard.productionRisk}`,
+  `- Sans liens internes explicites : ${summary.healthDashboard.fewLinks}`,
   '',
   '## Fiches a surveiller',
   '',

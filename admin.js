@@ -1,6 +1,20 @@
 const CATEGORIES = ['Apéro', 'Entrées', 'Plats', 'Desserts', 'Petit-déjeuner', 'Sauces', 'Base'];
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver', 'Toutes saisons'];
 const DIFFICULTY = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
+const DIAGNOSTIC_COMPONENT_PATTERNS = [
+  /\b(base|fond|fonds|appareil|insert|garniture|fourrage)\b/,
+  /\b(pate|pates|pâte|pâtes|creme|crème|ganache|chantilly|meringue|curd)\b/,
+  /\b(sauce|coulis|pesto|vinaigrette|marinade|sirop|caramel|topping|condiment)\b/,
+  /\b(bun|buns|pain burger|pain hot dog|babeurre|levain|poolish)\b/
+];
+const DIAGNOSTIC_AISLES = [
+  { label: 'Primeur', pattern: /\b(tomate|citron|pomme|poire|oignon|ail|echalote|persil|basilic|menthe|pomme de terre|avocat|carotte|courgette|chou|melon|fraise|cerise)\b/ },
+  { label: 'Crèmerie et œufs', pattern: /\b(lait|creme|crème|beurre|fromage|mozzarella|mascarpone|ricotta|yaourt|oeuf|œuf|jaune|blanc)\b/ },
+  { label: 'Boucherie', pattern: /\b(porc|poulet|volaille|boeuf|bœuf|agneau|canard|lardon|bacon|jambon|saucisse)\b/ },
+  { label: 'Poissonnerie', pattern: /\b(crevette|calamar|poisson|moule|saumon|cabillaud|thon)\b/ },
+  { label: 'Boulangerie', pattern: /\b(pain|bun|brioche|tortilla)\b/ },
+  { label: 'Épicerie', pattern: /\b(farine|sucre|sel|poivre|huile|vinaigre|moutarde|chocolat|riz|pates|pâtes|epice|épice|miel|vanille|noix|amande|pistache)\b/ }
+];
 
 let recipes = {};
 let activeId = null;
@@ -42,6 +56,82 @@ function slugify(value) {
     .replace(/[^a-z0-9_-]+/g, '_')
     .replace(/^_+|_+$/g, '')
     .slice(0, 80);
+}
+
+function recipeDiagnosticText(recipe) {
+  return normalizeText([
+    recipe.title,
+    ...(recipe.categories || []),
+    ...(recipe.tags || []),
+    ...(recipe.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
+    ...(recipe.steps || []),
+    ...(recipe.notes || [])
+  ].join(' '));
+}
+
+function inferDiagnosticRole(recipe) {
+  const text = recipeDiagnosticText(recipe);
+  const categories = new Set(recipe.categories || []);
+  const isComponent = categories.has('Base') || categories.has('Sauces') || DIAGNOSTIC_COMPONENT_PATTERNS.some(pattern => pattern.test(text));
+  if (isComponent && !categories.has('Plats') && !categories.has('Desserts') && !categories.has('Apéro') && !categories.has('Entrées')) return 'Composant/base';
+  if (categories.has('Desserts')) return 'Dessert servi';
+  if (categories.has('Plats')) return 'Plat';
+  if (categories.has('Accompagnements')) return 'Accompagnement';
+  if (categories.has('Apéro') || categories.has('Entrées')) return 'Entrée/apéro';
+  return 'À classer';
+}
+
+function inferDiagnosticAisles(recipe) {
+  const text = recipeDiagnosticText(recipe);
+  return DIAGNOSTIC_AISLES.filter(aisle => aisle.pattern.test(text)).map(aisle => aisle.label);
+}
+
+function inferDiagnosticAllergens(recipe) {
+  const text = recipeDiagnosticText(recipe);
+  const items = [];
+  if (/\b(lait|creme|crème|beurre|fromage|mascarpone|yaourt)\b/.test(text)) items.push('Lait');
+  if (/\b(oeuf|œuf|jaune|blanc)\b/.test(text)) items.push('Œufs');
+  if (/\b(farine|pates|pâtes|pain|brioche)\b/.test(text)) items.push('Gluten');
+  if (/\b(noix|amande|noisette|pistache)\b/.test(text)) items.push('Fruits à coque');
+  if (/\b(crevette|calamar|moule|poisson|saumon|cabillaud|thon)\b/.test(text)) items.push('Poisson/fruits de mer');
+  return items;
+}
+
+function adminQualityChecks(id, recipe) {
+  const checks = [];
+  const add = (label, ok, detail) => checks.push({ label, ok, detail });
+  add('Identité', Boolean(id && recipe.title && recipe.yield), 'slug, titre, rendement');
+  add('Rangement', recipe.categories.length > 0 && recipe.seasons.length > 0 && Boolean(recipe.master || recipe.variants.length), 'catégorie, saison, parent');
+  add('Recherche', recipe.tags.length >= 2, 'au moins 2 tags utiles');
+  add('Structure', recipe.ingredients.length > 0 && recipe.steps.length > 0, 'ingrédients et étapes');
+  add('Image', recipe.image.startsWith('/assets/recipe-images-optimized/'), 'image locale optimisée');
+  add('SEO', recipe.title.length >= 4 && recipe.steps.join(' ').length >= 80, 'titre + contenu descriptif');
+  return checks;
+}
+
+function renderDiagnostics(id, recipe) {
+  const target = $('#recipe-diagnostics');
+  if (!target) return;
+  const role = inferDiagnosticRole(recipe);
+  const aisles = inferDiagnosticAisles(recipe);
+  const allergens = inferDiagnosticAllergens(recipe);
+  const checks = adminQualityChecks(id, recipe);
+  target.innerHTML = [
+    { label: 'Rôle menu', value: role },
+    { label: 'Rayons', value: aisles.length ? aisles.join(', ') : 'À déduire' },
+    { label: 'Allergènes', value: allergens.length ? allergens.join(', ') : 'Aucun majeur détecté' },
+    { label: 'Image', value: recipe.image ? (recipe.image.startsWith('/assets/recipe-images-optimized/') ? 'Optimisée' : 'À optimiser') : 'Manquante' },
+    { label: 'Checks', value: `${checks.filter(item => item.ok).length}/${checks.length} OK` }
+  ].map(item => `
+    <article>
+      <span>${escapeHtml(item.label)}</span>
+      <strong>${escapeHtml(item.value)}</strong>
+    </article>
+  `).join('') + `
+    <ul>
+      ${checks.map(item => `<li class="${item.ok ? 'ok' : 'warn'}">${escapeHtml(item.label)} : ${escapeHtml(item.ok ? 'OK' : item.detail)}</li>`).join('')}
+    </ul>
+  `;
 }
 
 function renderOptions() {
@@ -322,6 +412,8 @@ function updatePreview() {
   const url = fields.image.value.trim();
   preview.style.backgroundImage = url ? `url("${url}")` : '';
   preview.textContent = url ? '' : 'Aperçu';
+  const id = mode === 'edit' ? activeId : slugify(fields.id.value || fields.title.value);
+  renderDiagnostics(id, collectRecipe());
 }
 
 async function uploadImage(file) {
@@ -355,7 +447,10 @@ function bind() {
   });
   fields.title.addEventListener('input', () => {
     if (mode === 'create' && !fields.id.value) fields.id.value = slugify(fields.title.value);
+    updatePreview();
   });
+  $('#recipe-form').addEventListener('input', updatePreview);
+  $('#recipe-form').addEventListener('change', updatePreview);
   fields.image.addEventListener('input', updatePreview);
   $('#image-upload').addEventListener('change', event => {
     uploadImage(event.target.files[0]).catch(error => message(error.message, true));

@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.06';
+const SITE_VERSION = 'v1.07';
 const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -1872,6 +1872,15 @@ const MENU_STARTER_IDS = new Set([
   'tomates_variantes'
 ]);
 
+const MENU_COMPONENT_PATTERNS = [
+  /\b(base|fond|fonds|appareil|insert|garniture|fourrage)\b/,
+  /\b(pate|pates|pâte|pâtes|pate a tarte|pâte à tarte|pate sucree|pâte sucrée|pate a choux|pâte à choux)\b/,
+  /\b(creme|crème|ganache|chantilly|mascarpone|diplomate|patissiere|pâtissière|curd|meringue)\b/,
+  /\b(sauce|coulis|pesto|vinaigrette|aioli|aïoli|rouille|marinade|sirop|caramel|topping|condiment)\b/,
+  /\b(beurre aromatise|beurre aromatisé|beurre clarifie|beurre clarifié|babeurre|levain|poolish)\b/,
+  /\b(pain burger|pain hot dog|bun|buns|tortilla|chapelure|croûtons|croutons)\b/
+];
+
 function getMenuRecipeProfile(recipe) {
   const text = normalizeText([
     recipe?.title,
@@ -1897,7 +1906,7 @@ function getMenuRecipeProfile(recipe) {
   const explicitSide = MENU_SIDE_IDS.has(recipe?.id);
   const explicitStarter = MENU_STARTER_IDS.has(recipe?.id);
   const hasProtein = families.includes('meat') || families.includes('fish');
-  const baseComponent = hasCategory('Base') || hasCategory('Sauces') || /\b(base|pate|pates|creme patissiere|creme au beurre|creme mascarpone|creme diplomate|creme citron|lemon curd|chantilly|meringue|beurre a l ail|beurre clarifie|sauce|pesto|vinaigrette|toppings|marinade|babeurre|craquelin)\b/.test(text);
+  const baseComponent = hasCategory('Base') || hasCategory('Sauces') || MENU_COMPONENT_PATTERNS.some(pattern => pattern.test(text));
   const servedStarter = explicitStarter || hasCategory('Apero') || hasCategory('Apéro') || hasCategory('Entrees') || hasCategory('Entrées');
   const servedSide = explicitSide || (hasCategory('Accompagnements') && !hasCategory('Plats'));
   const servedDessert = hasCategory('Desserts') && !hasCategory('Base') && !hasCategory('Sauces');
@@ -2403,6 +2412,19 @@ function buildMenuServicePlan(recipes, shoppingData) {
 
 function getBatchPlanData(recipes) {
   const allSteps = recipes.flatMap(recipe => getRecipeSteps(recipe).map(step => ({ recipe, step, text: normalizeText(step) })));
+  const combinedText = normalizeText(recipes.map(recipe => [
+    recipe.title,
+    ...(recipe.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
+    ...(recipe.steps || [])
+  ].join(' ')).join(' '));
+  const sharedPrep = [
+    /\b(citron|zeste|jus de citron|lime)\b/.test(combinedText) && 'Zester/presser tous les citrons en une fois, puis garder zestes et jus séparés.',
+    /\b(oeuf|œuf|oeufs|œufs|jaune|blanc)\b/.test(combinedText) && 'Casser ou cuire les œufs groupés, en séparant jaunes/blancs si besoin.',
+    /\b(persil|basilic|menthe|ciboulette|herbes)\b/.test(combinedText) && 'Laver, sécher et hacher toutes les herbes au même moment.',
+    /\b(oignon|echalote|échalote|ail)\b/.test(combinedText) && 'Éplucher et tailler ail/oignons/échalotes avant de lancer les cuissons.',
+    /\bbeurre\b/.test(combinedText) && 'Sortir le beurre nécessaire au début si une texture pommade ou souple est utile.',
+    /\bfour|enfourner|prechauffer|préchauffer\b/.test(combinedText) && 'Préchauffer le four avant la mise en place chaude.'
+  ].filter(Boolean);
   return [
     {
       key: 'prep',
@@ -2411,6 +2433,11 @@ function getBatchPlanData(recipes) {
         `${recipes.length} fiche${recipes.length > 1 ? 's' : ''} \u00e0 pr\u00e9parer`,
         `${recipes.reduce((sum, recipe) => sum + countIngredients(recipe), 0)} lignes d'ingr\u00e9dients \u00e0 v\u00e9rifier`
       ]
+    },
+    {
+      key: 'shared',
+      label: 'Gestes groupés',
+      items: sharedPrep
     },
     {
       key: 'cold',

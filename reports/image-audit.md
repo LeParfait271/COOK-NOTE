@@ -1,9 +1,14 @@
 # Audit images Cook Note
 
-Genere le 2026-06-01T11:24:10.578Z.
+Genere le 2026-06-01T21:34:07.361Z.
 
 - Images recette auditees : 153
 - Images a revoir : 9
+- Miniatures manquantes : 0
+- Images optimisees faibles : 8
+- Miniatures faibles : 38
+- Cadrages atypiques : 0
+- Doublons visuels : 2
 
 ## Priorite
 
@@ -45,3 +50,15 @@ Genere le 2026-06-01T11:24:10.578Z.
 - Pâtes à tarte (pates_tarte_variantes) : 80/100 - assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg
 - Pâtes et bases pâtissières (pates_bases_maitre) : 80/100 - assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg
 - Accompagnements (accompagnements_maitre) : 88/100 - assets/recipe-images-optimized/parent_accompagnements.jpg
+
+## Fichiers a ouvrir
+
+- Cookies chocolat moelleux (cookies_chocolat_moelleux) : assets/recipe-images-optimized/cookies_chocolat_moelleux_spooky.jpg / assets/recipe-card-images/cookies_chocolat_moelleux_spooky.jpg
+- Mayonnaise (mayonnaise_maison) : assets/recipe-images-optimized/mayonnaise_maison_spooky.jpg / assets/recipe-card-images/mayonnaise_maison_spooky.jpg
+- Beurre à l’ail (beurre_ail) : assets/recipe-images-optimized/beurre_ail_spooky.jpg / assets/recipe-card-images/beurre_ail_spooky.jpg
+- Cassolette de crevettes et ravioles au persil (cassolette_crevettes_ravioles_persil) : assets/recipe-images-optimized/cassolette_crevettes_ravioles_persil.jpg / assets/recipe-card-images/cassolette_crevettes_ravioles_persil.jpg
+- Frites belges (frites_belges) : assets/recipe-images-optimized/frites_belges_spooky.jpg / assets/recipe-card-images/frites_belges_spooky.jpg
+- Gazpacho tomate, menthe et basilic (gazpacho_tomate_menthe_basilic) : assets/recipe-images-optimized/gazpacho_tomate_menthe_basilic_spooky.jpg / assets/recipe-card-images/gazpacho_tomate_menthe_basilic_spooky.jpg
+- Pain hot dog brioché (pain_hot_dog) : assets/recipe-images-optimized/pain_hot_dog_spooky.jpg / assets/recipe-card-images/pain_hot_dog_spooky.jpg
+- Pâtes à tarte (pates_tarte_variantes) : assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg / assets/recipe-card-images/pates_bases_maitre_spooky.jpg
+- Pâtes et bases pâtissières (pates_bases_maitre) : assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg / assets/recipe-card-images/pates_bases_maitre_spooky.jpg

@@ -267,6 +267,72 @@ textarea {
   font-weight: 800;
 }
 
+.admin-diagnostic-panel {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .045);
+  padding: 12px;
+}
+
+.admin-diagnostic-panel h3 {
+  margin: 3px 0 0;
+}
+
+.admin-diagnostic-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.admin-diagnostic-grid article {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, .2);
+  padding: 9px;
+}
+
+.admin-diagnostic-grid span,
+.admin-diagnostic-grid li {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.admin-diagnostic-grid strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.admin-diagnostic-grid ul {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-diagnostic-grid li {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 9px;
+}
+
+.admin-diagnostic-grid li.ok {
+  color: #bbf7d0;
+}
+
+.admin-diagnostic-grid li.warn {
+  color: #fed7aa;
+}
+
 .recipe-form {
   display: grid;
   gap: 16px;
@@ -339,7 +405,8 @@ fieldset {
 @media (max-width: 960px) {
   .admin-layout,
   .form-grid,
-  .media-box {
+  .media-box,
+  .admin-diagnostic-grid {
     grid-template-columns: 1fr;
   }
 

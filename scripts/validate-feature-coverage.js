@@ -45,7 +45,12 @@ const files = {
   rules: read('COOK_NOTE_RULES.md'),
   production: read('scripts/validate-production.js'),
   recipes: read('scripts/validate-recipes.js'),
-  ui: read('scripts/validate-ui.js')
+  ui: read('scripts/validate-ui.js'),
+  admin: read('admin.js'),
+  adminHtml: read('admin.html'),
+  adminCss: read('admin.css'),
+  auditRecipes: read('scripts/audit-recipes.js'),
+  auditImages: read('scripts/audit-images.js')
 };
 
 const FEATURE_COVERAGE = [
@@ -61,9 +66,23 @@ const FEATURE_COVERAGE = [
 
 FEATURE_COVERAGE.forEach(feature => {
   feature.checks.forEach(fragment => {
-    const haystack = `${files.app}\n${files.style}\n${files.packageJson}\n${files.production}\n${files.recipes}\n${files.ui}`;
+    const haystack = `${files.app}\n${files.style}\n${files.packageJson}\n${files.production}\n${files.recipes}\n${files.ui}\n${files.admin}\n${files.adminHtml}\n${files.adminCss}\n${files.auditRecipes}\n${files.auditImages}`;
     expect(`Couverture feature ${feature.name} incomplete (${fragment}).`, haystack.includes(fragment));
   });
+});
+
+[
+  'renderDiagnostics',
+  'inferDiagnosticRole',
+  'admin-diagnostic-panel',
+  'MENU_COMPONENT_PATTERNS',
+  'Gestes groupés',
+  'healthDashboard',
+  'issueBuckets',
+  'Fichiers a ouvrir'
+].forEach(fragment => {
+  const haystack = `${files.app}\n${files.style}\n${files.admin}\n${files.adminHtml}\n${files.adminCss}\n${files.auditRecipes}\n${files.auditImages}`;
+  expect(`Couverture nouvelle amelioration incomplete (${fragment}).`, haystack.includes(fragment));
 });
 
 const ctx = loadAppContext();

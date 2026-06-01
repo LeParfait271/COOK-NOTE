@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-01T02:13:47.494Z",
+  "generatedAt": "2026-06-01T21:34:07.228Z",
   "totals": {
     "recipes": 153,
     "leaves": 134,
@@ -9,6 +9,15 @@
     "qualityIssues": 0
   },
   "averageScore": 84,
+  "healthDashboard": {
+    "ready": 27,
+    "improve": 92,
+    "weak": 15,
+    "missingDiscovery": 33,
+    "missingSafety": 89,
+    "productionRisk": 0,
+    "fewLinks": 108
+  },
   "weakestRecipes": [
     {
       "id": "chantilly_gelatine",

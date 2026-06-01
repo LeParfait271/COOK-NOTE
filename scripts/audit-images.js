@@ -143,10 +143,18 @@ function run() {
 
   rows.sort((a, b) => a.score - b.score || a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
   const weak = rows.filter(row => row.score < 82);
+  const issueBuckets = {
+    missingCard: rows.filter(row => row.issues.some(issue => /Miniature carte introuvable/.test(issue))).length,
+    smallOptimized: rows.filter(row => row.issues.some(issue => /Image optimisee petite|tres legere/.test(issue))).length,
+    smallCard: rows.filter(row => row.issues.some(issue => /Miniature petite|Miniature tres legere/.test(issue))).length,
+    framing: rows.filter(row => row.issues.some(issue => /Cadrage atypique/.test(issue))).length,
+    duplicates: rows.filter(row => row.issues.some(issue => /Image identique/.test(issue))).length
+  };
   const report = {
     generatedAt: new Date().toISOString(),
     total: rows.length,
     weakCount: weak.length,
+    issueBuckets,
     rows
   };
   fs.mkdirSync(REPORT_DIR, { recursive: true });
@@ -158,6 +166,11 @@ function run() {
     '',
     `- Images recette auditees : ${report.total}`,
     `- Images a revoir : ${report.weakCount}`,
+    `- Miniatures manquantes : ${report.issueBuckets.missingCard}`,
+    `- Images optimisees faibles : ${report.issueBuckets.smallOptimized}`,
+    `- Miniatures faibles : ${report.issueBuckets.smallCard}`,
+    `- Cadrages atypiques : ${report.issueBuckets.framing}`,
+    `- Doublons visuels : ${report.issueBuckets.duplicates}`,
     '',
     '## Priorite',
     '',
@@ -171,6 +184,11 @@ function run() {
     '## Top 10 a inspecter visuellement',
     '',
     ...rows.slice(0, 10).map(row => `- ${row.title} (${row.id}) : ${row.score}/100 - ${row.optimized}`)
+    ,
+    '',
+    '## Fichiers a ouvrir',
+    '',
+    ...weak.slice(0, 30).map(row => `- ${row.title} (${row.id}) : ${row.optimized} / ${row.card}`)
   ].join('\n'));
   console.log(`Audit images OK: ${rows.length} images, ${weak.length} a revoir.`);
 }
