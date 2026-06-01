@@ -5,8 +5,8 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.08';
-const SITE_UPDATED_AT = '01/06/26';
+const SITE_VERSION = 'v1.09';
+const SITE_UPDATED_AT = '02/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
@@ -1987,6 +1987,119 @@ function isWeeknightDessert(recipe) {
   return Boolean(timing.active && timing.active <= 10);
 }
 
+const MENU_PAIRING_PATTERNS = {
+  creamySauce: /\b(creme|cremeux|fromage|mornay|gaston gerard|moutarde|bechamel|mascarpone|sauce blanche|sauce fromage)\b/,
+  sauceMarked: /\b(sauce|jus reduit|coulis|pesto|vinaigrette|aioli|rouille|mornay|caramel|marinade|condiment)\b/,
+  expressiveTomato: /\b(tomate|tomates|provencal|provencale|confites?|sechees?|ail|huile d olive|basilic|origan)\b/,
+  neutralSide: /\b(riz nature|riz pilaf|pommes vapeur|pomme vapeur|haricots verts|salade verte|legumes vapeur|semoule nature|pates nature)\b/,
+  greenFresh: /\b(salade|crudites|crudites|concombre|haricots verts|citron|vinaigrette|pickles|herbes|yaourt|fenouil)\b/,
+  fried: /\b(friture|frire|frites|tempura|beignet|air fryer|croustillant)\b/,
+  starch: /\b(riz|pates|pate|pommes de terre|pomme de terre|puree|gratin|frites|pain|bun|semoule|polenta)\b/,
+  cheese: /\b(fromage|comte|comte|cheddar|parmesan|mozzarella|brie|raclette|mornay)\b/,
+  delicateFish: /\b(cabillaud|sole|lieu|merlu|poisson blanc|poisson delicat)\b/,
+  strongMeat: /\b(boeuf|boeuf|agneau|canard|joues|porc|saucisse)\b/,
+  spicy: /\b(piment|espelette|harissa|cajun|curry|paprika fort|chili|sriracha)\b/,
+  sweetSavory: /\b(miel|sucre sale|sucre-sale|caramel|rhum|sirop|fruit sec|fruits secs)\b/,
+  richDessert: /\b(chocolat|caramel|cookies|brownie|tiramisu|macaron|creme|cremeux|ganache|mascarpone)\b/,
+  freshDessert: /\b(citron|fruit|fruits|sorbet|yaourt|compote|fraise|framboise|cerise|clafoutis|tarte citron)\b/,
+  technicalDessert: /\b(macaron|entremets|pate a choux|pate feuilletee|opera|ouréa|ourea)\b/,
+  coldFresh: /\b(froid|froide|salade|gazpacho|gaspacho|melon|crudites|crudites)\b/,
+  makeAhead: /\b(la veille|repos|24h|refroidir|conservation|preparer a l avance|preparable)\b/,
+  strongFlavor: /\b(chorizo|bacon|lardons|poivre|moutarde forte|fromage fort|ail|anchois|fumee|fume)\b/
+};
+
+function menuHas(profile, patternName) {
+  return MENU_PAIRING_PATTERNS[patternName]?.test(profile?.text || '');
+}
+
+function menuEither(firstProfile, secondProfile, patternName) {
+  return menuHas(firstProfile, patternName) || menuHas(secondProfile, patternName);
+}
+
+function menuBoth(firstProfile, secondProfile, patternName) {
+  return menuHas(firstProfile, patternName) && menuHas(secondProfile, patternName);
+}
+
+function menuPairHas(firstProfile, secondProfile, firstPattern, secondPattern) {
+  return (menuHas(firstProfile, firstPattern) && menuHas(secondProfile, secondPattern))
+    || (menuHas(firstProfile, secondPattern) && menuHas(secondProfile, firstPattern));
+}
+
+function menuRecipeDifficultyScore(recipe) {
+  if (Number.isFinite(recipe?.difficultyScore)) return recipe.difficultyScore;
+  if (normalizeText(recipe?.difficulty) === 'easy') return 3;
+  if (normalizeText(recipe?.difficulty) === 'hard') return 8;
+  return 5;
+}
+
+const MENU_PAIRING_RULES = [
+  { id: 'creamy-sauce-needs-neutral-side', kind: 'pairPenalty', weight: 72, match: (a, b) => menuPairHas(a, b, 'creamySauce', 'expressiveTomato') },
+  { id: 'dominant-sauce-with-second-sauce', kind: 'pairPenalty', weight: 46, match: (a, b) => menuBoth(a, b, 'sauceMarked') },
+  { id: 'double-starch', kind: 'pairPenalty', weight: 44, match: (a, b) => menuBoth(a, b, 'starch') },
+  { id: 'double-creamy', kind: 'pairPenalty', weight: 38, match: (a, b) => menuBoth(a, b, 'creamySauce') },
+  { id: 'double-cheese', kind: 'pairPenalty', weight: 34, match: (a, b) => menuBoth(a, b, 'cheese') },
+  { id: 'double-tomato', kind: 'pairPenalty', weight: 30, match: (a, b) => menuBoth(a, b, 'expressiveTomato') },
+  { id: 'fried-with-fried', kind: 'pairPenalty', weight: 48, match: (a, b) => menuBoth(a, b, 'fried') },
+  { id: 'fried-with-starch-heavy', kind: 'pairPenalty', weight: 34, match: (a, b) => menuPairHas(a, b, 'fried', 'starch') },
+  { id: 'delicate-fish-strong-flavor', kind: 'pairPenalty', weight: 34, match: (a, b) => menuPairHas(a, b, 'delicateFish', 'strongFlavor') },
+  { id: 'spicy-with-strong-heat', kind: 'pairPenalty', weight: 24, match: (a, b) => menuBoth(a, b, 'spicy') },
+  { id: 'sweet-savory-with-rich-dessert', kind: 'pairPenalty', weight: 28, match: (a, b) => menuPairHas(a, b, 'sweetSavory', 'richDessert') },
+  { id: 'cheese-with-rich-dessert', kind: 'pairPenalty', weight: 18, match: (a, b) => menuPairHas(a, b, 'cheese', 'richDessert') },
+  { id: 'rich-meat-with-creamy-side', kind: 'pairPenalty', weight: 22, match: (a, b) => menuPairHas(a, b, 'strongMeat', 'creamySauce') },
+  { id: 'cold-fresh-with-cold-fresh-repeat', kind: 'pairPenalty', weight: 12, match: (a, b) => menuBoth(a, b, 'coldFresh') },
+  { id: 'sauce-and-condiment-overload', kind: 'pairPenalty', weight: 26, match: (a, b) => menuBoth(a, b, 'sauceMarked') && menuEither(a, b, 'strongFlavor') },
+  { id: 'creamy-sauce-with-neutral-side', kind: 'pairAffinity', weight: 40, match: (a, b) => menuPairHas(a, b, 'creamySauce', 'neutralSide') },
+  { id: 'rich-with-green-fresh', kind: 'pairAffinity', weight: 30, match: (a, b) => (menuEither(a, b, 'creamySauce') || menuEither(a, b, 'fried') || menuEither(a, b, 'cheese')) && menuEither(a, b, 'greenFresh') },
+  { id: 'fried-with-acid-fresh', kind: 'pairAffinity', weight: 30, match: (a, b) => menuPairHas(a, b, 'fried', 'greenFresh') },
+  { id: 'spicy-with-cooling-side', kind: 'pairAffinity', weight: 24, match: (a, b) => menuPairHas(a, b, 'spicy', 'greenFresh') },
+  { id: 'fish-with-citrus-herbs', kind: 'pairAffinity', weight: 28, match: (a, b) => menuPairHas(a, b, 'delicateFish', 'greenFresh') },
+  { id: 'meat-with-simple-starch', kind: 'pairAffinity', weight: 16, match: (a, b) => menuPairHas(a, b, 'strongMeat', 'neutralSide') },
+  { id: 'tomato-with-mediterranean-context', kind: 'pairAffinity', weight: 12, match: (a, b) => menuBoth(a, b, 'expressiveTomato') && !menuEither(a, b, 'creamySauce') },
+  { id: 'make-ahead-supports-invites', kind: 'recipeBonus', weight: 14, match: ({ recipe, theme }) => theme.id === 'invites' && menuHas(getMenuRecipeProfile(recipe), 'makeAhead') },
+  { id: 'weeknight-active-under-30', kind: 'recipeBonus', weight: 14, match: ({ recipe, theme }) => theme.id === 'semaine' && (getRecipeTiming(recipe).active || 0) <= 30 },
+  { id: 'weeknight-active-over-35', kind: 'recipePenalty', weight: 24, match: ({ recipe, theme }) => theme.id === 'semaine' && (getRecipeTiming(recipe).active || 0) > 35 },
+  { id: 'weeknight-dessert-under-10', kind: 'recipeBonus', weight: 18, match: ({ recipe, profile, theme }) => theme.id === 'semaine' && profile.role === 'dessert' && isWeeknightDessert(recipe) },
+  { id: 'weeknight-dessert-over-10', kind: 'recipePenalty', weight: 80, match: ({ recipe, profile, theme }) => theme.id === 'semaine' && profile.role === 'dessert' && !isWeeknightDessert(recipe) },
+  { id: 'bistrot-dessert-simple', kind: 'recipeBonus', weight: 16, match: ({ recipe, profile, theme }) => theme.id === 'bistrot' && profile.role === 'dessert' && menuRecipeDifficultyScore(recipe) <= 6 && !menuHas(profile, 'technicalDessert') },
+  { id: 'bistrot-dessert-too-technical', kind: 'recipePenalty', weight: 34, match: ({ recipe, profile, theme }) => theme.id === 'bistrot' && profile.role === 'dessert' && (menuRecipeDifficultyScore(recipe) >= 8 || menuHas(profile, 'technicalDessert')) },
+  { id: 'ete-avoid-hot-heavy', kind: 'recipePenalty', weight: 26, match: ({ profile, theme }) => theme.id === 'ete' && (profile.heavy || menuHas(profile, 'creamySauce') || menuHas(profile, 'fried')) },
+  { id: 'ete-fresh-cold', kind: 'recipeBonus', weight: 18, match: ({ profile, theme }) => theme.id === 'ete' && menuHas(profile, 'coldFresh') },
+  { id: 'confort-accept-richness', kind: 'recipeBonus', weight: 12, match: ({ profile, theme }) => theme.id === 'confort' && (profile.heavy || menuHas(profile, 'creamySauce') || menuHas(profile, 'cheese')) },
+  { id: 'mediterranean-avoid-cream', kind: 'recipePenalty', weight: 20, match: ({ profile, theme }) => theme.id === 'mediterraneen' && menuHas(profile, 'creamySauce') },
+  { id: 'mediterranean-tomato-citrus-herbs', kind: 'recipeBonus', weight: 16, match: ({ profile, theme }) => theme.id === 'mediterraneen' && (menuHas(profile, 'expressiveTomato') || menuHas(profile, 'greenFresh')) },
+  { id: 'apero-small-pieces', kind: 'recipeBonus', weight: 16, match: ({ profile, theme }) => theme.id === 'apero' && profile.role === 'starter' },
+  { id: 'apero-avoid-real-main', kind: 'recipePenalty', weight: 50, match: ({ profile, theme }) => theme.id === 'apero' && profile.role === 'main' },
+  { id: 'menu-total-under-90', kind: 'menuBonus', weight: 16, match: ({ totalActive }) => totalActive > 0 && totalActive <= 90 },
+  { id: 'menu-total-over-120', kind: 'menuPenalty', weight: 28, match: ({ totalActive }) => totalActive > 120 },
+  { id: 'menu-total-over-150', kind: 'menuPenalty', weight: 42, match: ({ totalActive }) => totalActive > 150 },
+  { id: 'too-many-long-recipes', kind: 'menuPenalty', weight: 36, match: ({ recipes }) => recipes.filter(recipe => (getRecipeTiming(recipe).active || 0) > 30).length >= 3 },
+  { id: 'weeknight-max-three-cards', kind: 'menuPenalty', weight: 34, match: ({ roles, theme }) => theme.id === 'semaine' && roles.length > 3 },
+  { id: 'weeknight-total-over-75', kind: 'menuPenalty', weight: 48, match: ({ totalActive, theme }) => theme.id === 'semaine' && totalActive > 75 },
+  { id: 'invites-can-hold-complexity', kind: 'menuBonus', weight: 18, match: ({ theme, recipes }) => theme.id === 'invites' && recipes.some(recipe => (getRecipeTiming(recipe).active || 0) > 30) },
+  { id: 'bistrot-too-many-hard-cards', kind: 'menuPenalty', weight: 32, match: ({ theme, recipes }) => theme.id === 'bistrot' && recipes.filter(recipe => menuRecipeDifficultyScore(recipe) >= 8).length > 1 },
+  { id: 'starter-rich-main-rich', kind: 'menuPenalty', weight: 28, match: ({ itemProfiles }) => itemProfiles.filter(profile => menuHas(profile, 'creamySauce') || menuHas(profile, 'fried') || menuHas(profile, 'cheese')).length >= 3 },
+  { id: 'need-one-fresh-contrast', kind: 'menuPenalty', weight: 18, match: ({ itemProfiles }) => itemProfiles.some(profile => menuHas(profile, 'creamySauce') || menuHas(profile, 'fried') || menuHas(profile, 'cheese')) && !itemProfiles.some(profile => menuHas(profile, 'greenFresh') || menuHas(profile, 'freshDessert')) },
+  { id: 'fresh-dessert-after-rich-main', kind: 'menuBonus', weight: 24, match: ({ itemProfiles, roles }) => roles.includes('dessert') && itemProfiles.some(profile => menuHas(profile, 'creamySauce') || menuHas(profile, 'fried') || menuHas(profile, 'cheese')) && itemProfiles.some(profile => menuHas(profile, 'freshDessert')) },
+  { id: 'rich-dessert-after-rich-main', kind: 'menuPenalty', weight: 30, match: ({ itemProfiles, roles }) => roles.includes('dessert') && itemProfiles.some(profile => menuHas(profile, 'creamySauce') || menuHas(profile, 'fried') || menuHas(profile, 'cheese')) && itemProfiles.some(profile => menuHas(profile, 'richDessert')) },
+  { id: 'one-clear-main-required', kind: 'menuPenalty', weight: 80, match: ({ roles, theme }) => theme.id !== 'apero' && !roles.includes('main') },
+  { id: 'dessert-not-mandatory-weeknight', kind: 'menuBonus', weight: 10, match: ({ roles, theme }) => theme.id === 'semaine' && !roles.includes('dessert') },
+  { id: 'component-never-served', kind: 'recipePenalty', weight: 90, match: ({ profile }) => profile.role === 'component' },
+  { id: 'sauce-cannot-replace-side-alone', kind: 'menuPenalty', weight: 20, match: ({ roles, theme }) => theme.id !== 'apero' && roles.includes('sauce') && !roles.includes('side') },
+  { id: 'fil-conducteur-readable', kind: 'menuBonus', weight: 8, match: ({ itemProfiles }) => new Set(itemProfiles.flatMap(profile => profile.families || [])).size >= 2 }
+];
+
+window.MENU_PAIRING_RULES = MENU_PAIRING_RULES;
+
+function menuRuleScore(kind, payload) {
+  return MENU_PAIRING_RULES
+    .filter(rule => {
+      if (rule.kind !== kind) return false;
+      if (kind === 'pairPenalty' || kind === 'pairAffinity') return rule.match(payload.firstProfile, payload.secondProfile, payload);
+      return rule.match(payload);
+    })
+    .reduce((score, rule) => score + rule.weight, 0);
+}
+
 function menuThemeScore(recipe, profile, theme) {
   let score = 0;
   if (theme.prefer.test(profile.text)) score += 34;
@@ -2008,10 +2121,12 @@ function menuRecipeScore(recipe, profile = getMenuRecipeProfile(recipe), theme =
   if (timing.active && timing.active <= 30) score += 8;
   if (labels.includes('soir de semaine') || labels.includes('à préparer')) score += 6;
   if ((recipe.tags || []).length >= 3) score += 4;
+  score += menuRuleScore('recipeBonus', { recipe, profile, theme });
+  score -= menuRuleScore('recipePenalty', { recipe, profile, theme });
   return score + menuThemeScore(recipe, profile, theme);
 }
 
-function menuPairPenalty(firstProfile, secondProfile) {
+function menuPairPenalty(firstProfile, secondProfile, theme = MENU_THEMES[0]) {
   if (!firstProfile || !secondProfile) return 0;
   let penalty = 0;
   if (firstProfile.heavy && secondProfile.heavy) penalty += 44;
@@ -2022,6 +2137,7 @@ function menuPairPenalty(firstProfile, secondProfile) {
   if (/\b(tomate|tomates)\b/.test(firstProfile.text) && /\b(tomate|tomates)\b/.test(secondProfile.text)) penalty += 22;
   if (firstProfile.families.includes('fish') && /\b(poivre|moutarde|bacon|chorizo)\b/.test(secondProfile.text)) penalty += 16;
   if ((firstProfile.protein && secondProfile.protein) && (firstProfile.role === 'side' || secondProfile.role === 'side')) penalty += 28;
+  penalty += menuRuleScore('pairPenalty', { firstProfile, secondProfile, theme });
   return penalty;
 }
 
@@ -2038,6 +2154,7 @@ function menuPairAffinity(firstProfile, secondProfile, theme = MENU_THEMES[0]) {
   if (theme.id === 'mediterraneen' && /\b(tomate|olive|basilic|citron|poisson|saumon|cabillaud)\b/.test(joined)) score += 18;
   if (theme.id === 'ete' && /\b(froid|salade|melon|tomate|citron|yaourt|fruit)\b/.test(joined)) score += 16;
   if (theme.id === 'confort' && /\b(poulet|porc|boeuf|bœuf|gratin|puree|purée|chocolat|caramel)\b/.test(joined)) score += 12;
+  score += menuRuleScore('pairAffinity', { firstProfile, secondProfile, theme });
   return score;
 }
 
@@ -2078,7 +2195,7 @@ function menuBalanceScore(items, profiles, theme) {
   let score = recipes.reduce((total, recipe) => total + menuRecipeScore(recipe, profiles.get(recipe.id), theme), 0);
   for (let i = 0; i < itemProfiles.length; i += 1) {
     for (let j = i + 1; j < itemProfiles.length; j += 1) {
-      score -= menuPairPenalty(itemProfiles[i], itemProfiles[j]);
+      score -= menuPairPenalty(itemProfiles[i], itemProfiles[j], theme);
       score += menuPairAffinity(itemProfiles[i], itemProfiles[j], theme);
     }
   }
@@ -2095,6 +2212,9 @@ function menuBalanceScore(items, profiles, theme) {
   }
   if (theme.id === 'ete' && itemProfiles.filter(profile => profile?.heavy).length > 1) score -= 30;
   if (theme.id === 'confort' && itemProfiles.filter(profile => profile?.heavy).length === 0) score -= 14;
+  const menuPayload = { recipes, itemProfiles, roles, totalActive, theme };
+  score += menuRuleScore('menuBonus', menuPayload);
+  score -= menuRuleScore('menuPenalty', menuPayload);
   score += menuDessertAffinity(items, profiles, theme);
   return score;
 }
@@ -2206,7 +2326,7 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot', recentMen
     mainOptions.forEach((main, mainIndex) => {
       const mainProfile = profiles.get(main.id);
       const compatibleSides = sides
-        .filter(side => menuPairPenalty(mainProfile, profiles.get(side.id)) < 35)
+        .filter(side => menuPairPenalty(mainProfile, profiles.get(side.id), theme) < 35)
         .filter(side => theme.id !== 'mediterraneen' || !/\b(gratin|creme|crème|mornay)\b/.test(profiles.get(side.id).text))
         .filter(side => theme.id !== 'ete' || !/\b(gratin|creme|crème|frites|friture|puree|purée)\b/.test(profiles.get(side.id).text))
         .sort((a, b) => menuPairAffinity(mainProfile, profiles.get(b.id), theme) - menuPairAffinity(mainProfile, profiles.get(a.id), theme));

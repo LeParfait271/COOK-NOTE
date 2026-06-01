@@ -40,6 +40,7 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'Le mode menu doit rester un outil de decision direct',
   'Mode menu : accords dessert',
   'Mode menu soir de semaine',
+  'MENU_PAIRING_RULES',
   'Historique des menus',
   'reseau d abord avec cache de secours',
   'bump la version des assets',

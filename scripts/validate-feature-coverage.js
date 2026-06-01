@@ -57,7 +57,7 @@ const FEATURE_COVERAGE = [
   { name: 'Recherche', checks: ['scoreRecipeSearch', 'scoreIngredientSearch', 'getRecipeIntentLabels', 'ingredient-match-badge'] },
   { name: 'Fiche recette', checks: ['RecipeView', 'getRecipeAllergens', 'getRecipeAverageWeights', 'renderLinkedText'] },
   { name: 'Images', checks: ['recipeCardImageUrl', 'onError: event =>', 'recipe-images-optimized', 'recipe-card-images'] },
-  { name: 'Mode menu', checks: ['buildMenuSuggestion', 'menuDessertAffinity', 'menuSignature', 'buildMenuServicePlan', 'isWeeknightDessert'] },
+  { name: 'Mode menu', checks: ['buildMenuSuggestion', 'menuDessertAffinity', 'menuSignature', 'buildMenuServicePlan', 'isWeeknightDessert', 'MENU_PAIRING_RULES'] },
   { name: 'Liste de courses', checks: ['buildShoppingListData', 'filterShoppingListData', 'shoppingPurchaseHint', 'shoppingSmartGroupKey'] },
   { name: 'Techniques', checks: ['TECHNIQUE_GUIDES', 'buildTechniqueTargets', 'openTechnique', 'inline-technique-link'] },
   { name: 'Anti-gaspillage', checks: ['getEggWasteRecipeRefs', 'Anti-gaspillage blancs', 'Anti-gaspillage jaunes'] },
@@ -103,6 +103,7 @@ leaves.forEach(recipe => {
 });
 
 const byId = Object.fromEntries(leaves.map(recipe => [recipe.id, recipe]));
+expect('Mode menu: registre accords trop court.', Array.isArray(ctx.window.MENU_PAIRING_RULES) && ctx.window.MENU_PAIRING_RULES.length >= 50);
 const themes = ['bistrot', 'mediterraneen', 'semaine', 'invites', 'apero', 'confort', 'ete'];
 themes.forEach(themeId => {
   const menu = ctx.buildMenuSuggestion(leaves, 0, themeId, []);
@@ -130,6 +131,14 @@ const firstBistrot = ctx.buildMenuSuggestion(leaves, 0, 'bistrot', []);
 const secondBistrot = ctx.buildMenuSuggestion(leaves, 0, 'bistrot', [firstBistrot.signature]);
 expect('Historique menu inefficace: meme signature reproposee.', firstBistrot.signature !== secondBistrot.signature);
 
+const gaston = leaves.find(recipe => recipe.id === 'poulet_gaston_gerard');
+const tomatesProvencales = leaves.find(recipe => recipe.id === 'tomates_provencales');
+if (gaston && tomatesProvencales) {
+  const gastonProfile = ctx.getMenuRecipeProfile(gaston);
+  const tomatoProfile = ctx.getMenuRecipeProfile(tomatesProvencales);
+  expect('Mode menu: poulet cremeux + tomates provencales pas assez penalise.', ctx.menuPairPenalty(gastonProfile, tomatoProfile, ctx.menuThemeById('bistrot')) >= 70);
+}
+
 const menuRecipes = (firstBistrot.items || []).map(item => item.recipe);
 const shoppingData = ctx.buildShoppingListData(menuRecipes);
 expect('Liste courses: rayons magasin absents.', Array.isArray(shoppingData.aisleGroups) && shoppingData.aisleGroups.length > 0);
@@ -152,6 +161,7 @@ if (allergenRecipe) expect('Allergenes: detection inactive.', ctx.getRecipeAller
 [
   'registre de couverture des features',
   'Mode menu : accords dessert',
+  'MENU_PAIRING_RULES',
   'Historique des menus',
   'Liste de courses : mode `J’ai déjà`',
   'Export compact'
