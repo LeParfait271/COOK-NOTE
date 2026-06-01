@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.00';
+const SITE_VERSION = 'v1.01';
 const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -1739,16 +1739,21 @@ function getMenuRecipeProfile(recipe) {
   if (/\b(sauce|pesto|aioli|aïoli|mornay|rouille|vinaigrette|beurre|caramel|toppings)\b/.test(text)) addFamily('sauce');
   if (/\b(dessert|gateau|gâteau|gouter|goûter|cookies|tiramisu|creme|crème|tarte|flan|clafoutis|cerise|chocolat)\b/.test(text)) addFamily('dessert');
   if (/\b(apero|apéro|entree|entrée|brie|billes|oeufs|œufs|terrine|rillettes|cake sale|cake salé)\b/.test(text)) addFamily('starter');
+  const baseComponent = /\b(base|pate|pâte|creme patissiere|crème pâtissière|creme au beurre|crème au beurre|creme mascarpone|crème mascarpone|creme diplomate|crème diplomate|creme citron|crème citron|lemon curd|chantilly|meringue|beurre a l ail|beurre à l ail|beurre clarifie|beurre clarifié|sauce|pesto|vinaigrette|toppings|marinade|babeurre|craquelin)\b/.test(text);
+  const finishedDessert = /\b(tiramisu|tarte|flan|clafoutis|cookies|cake|carres|carrés|gaufres|beignets)\b/.test(text);
+  const finishedStarter = /\b(terrine|rillettes|brie farci|billes de mozzarella|cake sale|cake salé|chorizo au cidre|salade)\b/.test(text);
   const hasProtein = families.includes('meat') || families.includes('fish');
-  const isDessert = families.includes('dessert') && !hasProtein && !families.includes('vegetable');
+  const isComponent = baseComponent && !finishedDessert && !finishedStarter && !hasProtein && !/\b(croque|gratin|frites|burger|salade)\b/.test(text);
+  const isDessert = families.includes('dessert') && !isComponent && !hasProtein && !families.includes('vegetable');
   const isSauce = families.includes('sauce') && !hasProtein && !families.includes('dessert') && !/\b(plat|gratin|frites|burger)\b/.test(text);
-  const isStarter = families.includes('starter') && !hasProtein && !families.includes('starch');
+  const isStarter = families.includes('starter') && !isComponent && !hasProtein && !families.includes('starch');
   const isCompleteMain = hasProtein || (families.includes('starch') && families.includes('vegetable')) || /\b(curry|plat|croque|riz cantonnais|lentilles tomate)\b/.test(text);
   return {
     families,
-    role: isDessert ? 'dessert' : isSauce ? 'sauce' : isStarter ? 'starter' : isCompleteMain ? 'main' : families.includes('vegetable') || families.includes('starch') ? 'side' : 'other',
+    role: isComponent ? 'component' : isDessert ? 'dessert' : isSauce ? 'sauce' : isStarter ? 'starter' : isCompleteMain ? 'main' : families.includes('vegetable') || families.includes('starch') ? 'side' : 'other',
     heavy: families.includes('starch'),
     protein: hasProtein,
+    servable: !isComponent,
     text
   };
 }
@@ -1856,10 +1861,11 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
     used.add(recipe.id);
     return recipe;
   };
-  const starter = pick(['starter'], 0);
+  const starter = pick(['starter'], 0, (recipe, profile) => profile.servable);
   const main = pick(['main'], 1);
   const mainProfile = main ? profiles.get(main.id) : null;
   const side = pick(['side'], 2, (recipe, profile) => {
+    if (!profile.servable) return false;
     if (!mainProfile) return true;
     if (mainProfile.heavy && profile.heavy) return false;
     if (mainProfile.families.includes('starch') && profile.families.includes('starch')) return false;
@@ -1867,16 +1873,17 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
     return true;
   });
   const sauce = pick(['sauce'], 3, (recipe, profile) => {
+    if (theme.id !== 'apero' && theme.id !== 'bistrot' && theme.id !== 'mediterraneen') return false;
     if (!mainProfile) return true;
     if (mainProfile.families.includes('fish')) return /\b(citron|yaourt|aioli|aïoli|rouille|beurre)\b/.test(profile.text);
     if (mainProfile.families.includes('meat')) return /\b(poivre|moutarde|mornay|beurre|rouille|burger)\b/.test(profile.text);
     return true;
   });
-  const dessert = pick(['dessert'], 4);
+  const dessert = pick(['dessert'], 4, (recipe, profile) => profile.servable);
   const items = [
     { key: 'starter', label: 'Entrée / apéro', recipe: starter },
     { key: 'main', label: 'Plat', recipe: main },
-    { key: 'side', label: side ? 'Accompagnement' : 'Sauce', recipe: side || sauce },
+    { key: 'side', label: side ? 'Accompagnement' : 'Complément', recipe: side || sauce },
     { key: 'dessert', label: 'Dessert', recipe: dessert }
   ].filter(item => item.recipe);
   return {
