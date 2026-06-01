@@ -38,9 +38,14 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'score de completude',
   'La recherche doit comprendre les intentions',
   'Le mode menu doit rester un outil de decision direct',
+  'Mode menu : accords dessert',
+  'Historique des menus',
   'reseau d abord avec cache de secours',
   'bump la version des assets',
   'Le panier courses doit regrouper',
+  'Liste de courses : mode `J’ai déjà`',
+  'Export compact',
+  'registre de couverture des features',
   'sans rajouter de sections gadget',
   'leur propre URL `/recette/id`',
   'ancien panneau de variante selectionnee',
@@ -65,6 +70,7 @@ expect('Validation anti-doublon notes pratiques non branchee.', validators.ui.in
 expect('Validation recherche intention non branchee.', validators.ui.includes('Recherche par intention absente'));
 expect('Validation panier courses noms proches non branchee.', fs.readFileSync(path.join(ROOT, 'scripts', 'validate-quantities.js'), 'utf8').includes('test_panier_noms'));
 expect('Validation production non branchee.', validators.production.includes('Validation production OK.') && validators.packageJson.includes('scripts/validate-production.js'));
+expect('Validation couverture features non branchee.', validators.packageJson.includes('scripts/validate-feature-coverage.js'));
 expect('Audit recettes non branche.', validators.audit.includes('Audit recettes OK') && validators.packageJson.includes('scripts/audit-recipes.js'));
 expect('Audit images non branche.', validators.packageJson.includes('scripts/audit-images.js'));
 expect('Validation regles non branchee au check.', validators.packageJson.includes('scripts/validate-project-rules.js'));

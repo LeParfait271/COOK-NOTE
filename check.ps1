@@ -17,6 +17,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\validate-ui.js',
     'scripts\validate-project-rules.js',
     'scripts\validate-production.js',
+    'scripts\validate-feature-coverage.js',
     'scripts\audit-recipes.js',
     'scripts\audit-images.js',
     'scripts\generate-sitemap.js'
@@ -32,7 +33,8 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\validate-quantities.js',
     'scripts\validate-ui.js',
     'scripts\validate-project-rules.js',
-    'scripts\validate-production.js'
+    'scripts\validate-production.js',
+    'scripts\validate-feature-coverage.js'
   )
 
   foreach ($file in $validators) {

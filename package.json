@@ -13,7 +13,7 @@
     "validate:recipes": "node scripts/validate-recipes.js",
     "validate:rules": "node scripts/validate-project-rules.js",
     "validate:production": "node scripts/validate-production.js",
-    "check": "node --check server.js && node --check app.js && node --check admin.js && node --check recipe.js && node --check service-worker.js && node --check scripts/validate-recipes.js && node --check scripts/validate-quantities.js && node --check scripts/validate-ui.js && node --check scripts/validate-project-rules.js && node --check scripts/validate-production.js && node --check scripts/audit-recipes.js && node --check scripts/audit-images.js && node --check scripts/generate-sitemap.js && node scripts/validate-recipes.js && node scripts/validate-quantities.js && node scripts/validate-ui.js && node scripts/validate-project-rules.js && node scripts/validate-production.js"
+    "check": "node --check server.js && node --check app.js && node --check admin.js && node --check recipe.js && node --check service-worker.js && node --check scripts/validate-recipes.js && node --check scripts/validate-quantities.js && node --check scripts/validate-ui.js && node --check scripts/validate-project-rules.js && node --check scripts/validate-production.js && node --check scripts/validate-feature-coverage.js && node --check scripts/audit-recipes.js && node --check scripts/audit-images.js && node --check scripts/generate-sitemap.js && node scripts/validate-recipes.js && node scripts/validate-quantities.js && node scripts/validate-ui.js && node scripts/validate-project-rules.js && node scripts/validate-production.js && node scripts/validate-feature-coverage.js"
   },
   "engines": {
     "node": ">=18"

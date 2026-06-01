@@ -48,7 +48,15 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les liens Techniques doivent centrer la carte visee, la faire clignoter assez longtemps, et garder le halo actif tant qu'on est sur la page.
 - La recherche doit comprendre les intentions utilisateur courantes : rapide, sans cuisson, cuisson au four, friture, a preparer a l'avance, congelable, vegetarien, froid et ingredients proches.
 - Le mode menu doit rester un outil de decision direct : composer entree/plat/accompagnement ou sauce/dessert, ouvrir chaque fiche et ajouter le menu entier aux courses fusionnees.
+- Mode menu : accords dessert obligatoires. Apres un plat lourd, cremeux, frit ou tres fromage, favoriser un dessert frais/citron/fruit. Apres un plat leger, un dessert plus gourmand peut etre propose.
+- Historique des menus : ne pas reproposer exactement la meme combinaison de recettes quand l'utilisateur demande un autre menu ou ajoute un menu aux courses.
 - Le panier courses doit regrouper les noms proches sans perdre le sens : beurre doux/ramolli/fondu vers beurre, cassonade/vergeoise ensemble, huiles neutres ensemble, chocolat noir/lait/blanc separes.
+- Liste de courses : mode `J’ai déjà` obligatoire pour retirer un ingredient de la liste a acheter sans supprimer la recette.
+- Liste de courses : les rayons doivent rester proches d'un magasin reel : primeur, cremerie et oeufs, boucherie, poissonnerie, boulangerie, epicerie salee et epicerie sucree.
+- Liste de courses : regrouper les familles proches quand c'est utile, par exemple citron/jus/zeste, oeufs/jaunes/blancs, ail, tomates, cremes et laitages.
+- Liste de courses : afficher des quantites d'achat indicatives quand une conversion stable existe, par exemple briquette, plaquette, tablette, boite d'oeufs ou vrac.
+- Export compact : le panier courses doit proposer une version courte copiable, organisee par rayons, pour SMS ou messagerie.
+- Garder un registre de couverture des features : recherche, fiche recette, images, mode menu, liste de courses, techniques, anti-gaspillage et production doivent rester verifies automatiquement quand de nouvelles recettes arrivent.
 
 ## Images
 
