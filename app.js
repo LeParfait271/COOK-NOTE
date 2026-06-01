@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.04';
+const SITE_VERSION = 'v1.05';
 const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -2150,6 +2150,142 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
     reason: menuLeadReason(items, profiles, theme),
     quality: Math.max(0, Math.min(100, Math.round(menuBalanceScore(items, profiles, theme) / 18))),
     items: annotateMenuItems(items, profiles, theme)
+  };
+}
+
+function menuRecipeStepText(recipe) {
+  return normalizeText([
+    recipe?.title,
+    ...(recipe?.steps || []),
+    ...(recipe?.notes || []),
+    ...(recipe?.tags || [])
+  ].join(' '));
+}
+
+function buildMenuTimeline(recipes) {
+  const groups = [
+    { key: 'advance', label: 'À faire en avance', items: [] },
+    { key: 'start', label: 'Démarrer le repas', items: [] },
+    { key: 'parallel', label: 'Pendant les cuissons', items: [] },
+    { key: 'finish', label: 'Dernière minute', items: [] }
+  ];
+  recipes.forEach(recipe => {
+    const text = menuRecipeStepText(recipe);
+    const timing = getRecipeTiming(recipe);
+    if (/\b(veille|repos|reposer|refroidir|refrigerateur|réfrigérateur|mariner|conserver|24h)\b/.test(text) || timing.rest >= 60) {
+      groups[0].items.push(`${recipe.title} : préparer/refroidir avant le service.`);
+    }
+    if (/\b(four|prechauffer|préchauffer|mijoter|cuire|frire|poele|poêle)\b/.test(text)) {
+      groups[1].items.push(`${recipe.title} : lancer la cuisson principale.`);
+    } else {
+      groups[1].items.push(`${recipe.title} : préparer les bases et pesées.`);
+    }
+    if (timing.cook || /\b(four|mijoter|repos|refroidir)\b/.test(text)) {
+      groups[2].items.push(`${recipe.title} : profiter du temps mort pour préparer garniture, sauce ou dressage.`);
+    }
+    if (/\b(servir|dresser|minute|chaud|saler|poivrer|parsemer|zeste|citron|grille|grillé|croustillant)\b/.test(text)) {
+      groups[3].items.push(`${recipe.title} : finir et dresser juste avant d’envoyer.`);
+    }
+  });
+  return groups
+    .map(group => ({ ...group, items: uniq(group.items).slice(0, 4) }))
+    .filter(group => group.items.length);
+}
+
+function buildMenuStress(recipes) {
+  const timings = recipes.map(getRecipeTiming);
+  const totalActive = timings.reduce((sum, timing) => sum + (timing.active || 0), 0);
+  const text = normalizeText(recipes.map(menuRecipeStepText).join(' '));
+  const equipment = uniq(recipes.flatMap(getRecipeEquipment));
+  let points = 0;
+  if (totalActive > 120) points += 2;
+  else if (totalActive > 80) points += 1;
+  if (/\b(frire|friture|tempura|beignet)\b/.test(text)) points += 2;
+  if (/\b(four)\b/.test(text) && /\b(poele|poêle|casserole|mijoter)\b/.test(text)) points += 1;
+  if (/\b(minute|immediatement|immédiatement|croustillant)\b/.test(text)) points += 1;
+  if (equipment.length >= 5) points += 1;
+  const level = points >= 5 ? 'Intense' : points >= 3 ? 'Moyen' : 'Tranquille';
+  const reasons = [
+    totalActive ? `${formatMinutesShort(totalActive)} actif cumulé` : '',
+    /\b(frire|friture|tempura|beignet)\b/.test(text) ? 'friture ou croustillant minute' : '',
+    equipment.length >= 5 ? `${equipment.length} matériels à sortir` : '',
+    /\b(four)\b/.test(text) && /\b(poele|poêle|casserole|mijoter)\b/.test(text) ? 'cuissons à coordonner' : ''
+  ].filter(Boolean);
+  return { level, reasons };
+}
+
+function buildMenuShoppingHints(shoppingData) {
+  const freshPattern = /\b(citron|salade|tomate|herbe|basilic|persil|menthe|poisson|saumon|cabillaud|crevette|mozzarella|creme|crème|oeuf|œuf|viande|poulet|porc|boeuf|bœuf)\b/;
+  const pantryPattern = /\b(sel|poivre|huile|farine|sucre|riz|pates|pâtes|moutarde|vinaigre|epice|épice|miel|chocolat|levure)\b/;
+  const critical = shoppingData.groupedItems
+    .filter(item => freshPattern.test(normalizeText(item.name)))
+    .slice(0, 5)
+    .map(item => item.name);
+  const pantry = shoppingData.groupedItems
+    .filter(item => pantryPattern.test(normalizeText(item.name)))
+    .slice(0, 5)
+    .map(item => item.name);
+  return [
+    critical.length && { label: 'À acheter frais', items: critical },
+    pantry.length && { label: 'Placard à vérifier', items: pantry },
+    shoppingData.aisleGroups.length && { label: 'Rayons principaux', items: shoppingData.aisleGroups.slice(0, 4).map(group => group.label) }
+  ].filter(Boolean);
+}
+
+function buildMenuLeftovers(recipes, shoppingData) {
+  const ingredientNames = shoppingData.groupedItems.map(item => normalizeText(item.name)).join(' ');
+  const ideas = [];
+  if (/\b(citron|lime)\b/.test(ingredientNames)) ideas.push('Citron restant : vinaigrette, marinade express ou zestes sur un dessert.');
+  if (/\b(creme|crème|mascarpone|fromage)\b/.test(ingredientNames)) ideas.push('Crème/fromage restant : sauce minute, gratin ou tartine chaude.');
+  if (/\b(tomate|salade|herbe|basilic|persil|menthe)\b/.test(ingredientNames)) ideas.push('Herbes/légumes frais : salade du lendemain ou garniture de sandwich.');
+  if (/\b(riz|pomme de terre|pates|pâtes|pain)\b/.test(ingredientNames)) ideas.push('Féculent restant : poêlée rapide, croquettes ou bol repas.');
+  if (recipes.some(recipe => getRecipeTiming(recipe).active > 30)) ideas.push('Prévoir une portion en plus du plat principal pour un repas simple le lendemain.');
+  return uniq(ideas).slice(0, 4);
+}
+
+function buildMenuServiceTips(recipes) {
+  return recipes.map(recipe => {
+    const text = menuRecipeStepText(recipe);
+    let tip = 'Servir en portion nette, avec l’élément chaud envoyé en dernier.';
+    if (/\b(sauce|jus|creme|crème|yaourt)\b/.test(text)) tip = 'Servir la sauce à part ou napper au dernier moment.';
+    if (/\b(salade|froid|melon|gazpacho|gaspacho)\b/.test(text)) tip = 'Servir bien frais, assiette froide si possible.';
+    if (/\b(frite|croustillant|tempura|beignet|frire)\b/.test(text)) tip = 'Envoyer aussitôt pour garder le croustillant.';
+    if (/\b(tarte|cake|cookies|tiramisu|macaron|dessert)\b/.test(text)) tip = 'Sortir avant service si besoin pour retrouver la bonne texture.';
+    return { title: recipe.title, tip };
+  }).slice(0, 5);
+}
+
+function buildMenuEquipmentConflicts(recipes) {
+  const rows = recipes.map(recipe => ({
+    recipe,
+    text: menuRecipeStepText(recipe),
+    equipment: getRecipeEquipment(recipe)
+  }));
+  const conflicts = [];
+  const ovenRecipes = rows.filter(row => /\b(four|prechauffer|préchauffer)\b/.test(row.text));
+  const fryRecipes = rows.filter(row => /\b(frire|friture|tempura|beignet)\b/.test(row.text));
+  const panRecipes = rows.filter(row => /\b(poele|poêle|saisir|mijoter|casserole)\b/.test(row.text));
+  if (ovenRecipes.length > 1) conflicts.push(`Four partagé : ${ovenRecipes.map(row => row.recipe.title).join(', ')}.`);
+  if (fryRecipes.length) conflicts.push(`Friture minute à isoler : ${fryRecipes.map(row => row.recipe.title).join(', ')}.`);
+  if (panRecipes.length >= 2) conflicts.push(`Feux/poêles à coordonner : ${panRecipes.map(row => row.recipe.title).join(', ')}.`);
+  const equipmentCounts = new Map();
+  rows.flatMap(row => row.equipment).forEach(item => {
+    equipmentCounts.set(item, (equipmentCounts.get(item) || 0) + 1);
+  });
+  [...equipmentCounts.entries()].filter(([, count]) => count > 1).slice(0, 2).forEach(([item, count]) => {
+    conflicts.push(`${item} utilisé sur ${count} recettes.`);
+  });
+  return conflicts.length ? conflicts.slice(0, 5) : ['Aucun conflit matériel évident.'];
+}
+
+function buildMenuServicePlan(recipes, shoppingData) {
+  return {
+    timeline: buildMenuTimeline(recipes),
+    stress: buildMenuStress(recipes),
+    shoppingHints: buildMenuShoppingHints(shoppingData),
+    leftovers: buildMenuLeftovers(recipes, shoppingData),
+    serviceTips: buildMenuServiceTips(recipes),
+    conflicts: buildMenuEquipmentConflicts(recipes)
   };
 }
 
@@ -4351,6 +4487,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
   const menuItems = menu.items || [];
   const menuRecipes = menuItems.map(item => item.recipe);
   const shoppingData = useMemo(() => buildShoppingListData(menuRecipes), [menuRecipes]);
+  const servicePlan = useMemo(() => buildMenuServicePlan(menuRecipes, shoppingData), [menuRecipes, shoppingData]);
   if (!open) return null;
   const addToShopping = () => {
     addMenuToShopping(menuRecipes);
@@ -4394,9 +4531,43 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
       ),
       h('div', { className: 'menu-planner-summary' },
         Number.isFinite(menu.quality) && h('span', null, `Cohérence ${menu.quality}/100`),
+        h('span', null, `Charge ${servicePlan.stress.level}`),
         h('span', null, `${menuRecipes.length} fiches`),
         h('span', null, `${shoppingData.groupedItems.length} articles groupés`),
         h('span', null, `${shoppingData.aisleGroups.length} rayons`)
+      ),
+      h('div', { className: 'menu-service-grid' },
+        servicePlan.timeline.length > 0 && h('section', { className: 'menu-service-panel menu-service-panel-wide' },
+          h('p', { className: 'eyebrow' }, 'Timeline'),
+          servicePlan.timeline.map(group => h('div', { key: group.key, className: 'menu-service-block' },
+            h('strong', null, group.label),
+            h('ul', null, group.items.map(item => h('li', { key: item }, item)))
+          ))
+        ),
+        h('section', { className: 'menu-service-panel' },
+          h('p', { className: 'eyebrow' }, 'Charge mentale'),
+          h('strong', null, servicePlan.stress.level),
+          h('ul', null, (servicePlan.stress.reasons.length ? servicePlan.stress.reasons : ['Menu simple à coordonner.']).map(item => h('li', { key: item }, item)))
+        ),
+        h('section', { className: 'menu-service-panel' },
+          h('p', { className: 'eyebrow' }, 'Courses'),
+          servicePlan.shoppingHints.map(group => h('div', { key: group.label, className: 'menu-service-block' },
+            h('strong', null, group.label),
+            h('ul', null, group.items.map(item => h('li', { key: item }, item)))
+          ))
+        ),
+        servicePlan.leftovers.length > 0 && h('section', { className: 'menu-service-panel' },
+          h('p', { className: 'eyebrow' }, 'Restes'),
+          h('ul', null, servicePlan.leftovers.map(item => h('li', { key: item }, item)))
+        ),
+        h('section', { className: 'menu-service-panel' },
+          h('p', { className: 'eyebrow' }, 'Service'),
+          h('ul', null, servicePlan.serviceTips.map(item => h('li', { key: item.title }, `${item.title} : ${item.tip}`)))
+        ),
+        h('section', { className: 'menu-service-panel' },
+          h('p', { className: 'eyebrow' }, 'Matériel'),
+          h('ul', null, servicePlan.conflicts.map(item => h('li', { key: item }, item)))
+        )
       ),
       h('div', { className: 'modal-actions' },
         h(Button, { variant: 'primary', disabled: !menuRecipes.length, onClick: addToShopping }, 'Ajouter le menu aux courses'),
