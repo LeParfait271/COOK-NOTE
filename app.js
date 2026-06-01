@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.01';
+const SITE_VERSION = 'v1.02';
 const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -1720,6 +1720,77 @@ function getRecipeCardBadges(recipe, recipesById = {}) {
   return uniq(badges).slice(0, 3);
 }
 
+const MENU_COMPONENT_IDS = new Set([
+  'aioli_citronne_leger',
+  'babeurre_maison',
+  'balsamique_reduit',
+  'base_pour_flan_sale',
+  'beurre_ail',
+  'beurre_clarifie',
+  'beurre_d_escargot_persille',
+  'chantilly_classique',
+  'chantilly_gelatine',
+  'court_bouillon',
+  'craquelin_cacao',
+  'creme_beurre_meringue_italienne',
+  'creme_citron_lemon_curd',
+  'creme_diplomate_cloud',
+  'creme_diplomate_vanille',
+  'creme_mascarpone_vanille',
+  'creme_patissiere_praline',
+  'creme_patissiere_vanille',
+  'creme_pistache',
+  'huile_pimentee_pizza',
+  'marinades',
+  'meringue_italienne',
+  'meringues',
+  'pain_hot_dog',
+  'pains_burgers_brioche',
+  'pate_choux',
+  'pate_sucree',
+  'pates_tarte_variantes',
+  'pesto_tomates_sechees_sans_cajou',
+  'ricotta_fouettee',
+  'rouille',
+  'sauce_aux_poivres',
+  'sauce_caramel',
+  'sauce_mornay',
+  'sauce_yaourt_citronnee',
+  'toppings_frites',
+  'vinaigrette'
+]);
+
+const MENU_SIDE_IDS = new Set([
+  'frites',
+  'frites_belges',
+  'frites_maison',
+  'frites_patate_douce',
+  'gratin_chou_fleur',
+  'gratin_dauphinois',
+  'lentilles_a_la_bourguignonne',
+  'puree_courge_butternut',
+  'puree_pommes_de_terre_citron',
+  'riz_au_citron',
+  'riz_cantonnais',
+  'tomates_provencales'
+]);
+
+const MENU_STARTER_IDS = new Set([
+  'billes_mozzarella_marinees',
+  'brie_farci_fruits_secs_noix',
+  'cake_tomate_chorizo_feta',
+  'chorizo_au_cidre',
+  'cookies_sales_variantes',
+  'rillettes_porc',
+  'rillettes_poulet',
+  'salade_avocat_oeuf_epinards',
+  'salade_melon_mozzarella_jambon_cru',
+  'salade_oeufs_durs_mayonnaise_bistrot',
+  'terrine_campagne',
+  'terrine_porc_pistaches',
+  'tomates_variantes'
+]);
+
 function getMenuRecipeProfile(recipe) {
   const text = normalizeText([
     recipe?.title,
@@ -1728,6 +1799,8 @@ function getMenuRecipeProfile(recipe) {
     ...(recipe?.aliases || []),
     ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])])
   ].join(' '));
+  const categories = (recipe?.categories || []).map(normalizeText);
+  const hasCategory = value => categories.includes(normalizeText(value));
   const families = [];
   const addFamily = family => {
     if (!families.includes(family)) families.push(family);
@@ -1739,18 +1812,23 @@ function getMenuRecipeProfile(recipe) {
   if (/\b(sauce|pesto|aioli|aïoli|mornay|rouille|vinaigrette|beurre|caramel|toppings)\b/.test(text)) addFamily('sauce');
   if (/\b(dessert|gateau|gâteau|gouter|goûter|cookies|tiramisu|creme|crème|tarte|flan|clafoutis|cerise|chocolat)\b/.test(text)) addFamily('dessert');
   if (/\b(apero|apéro|entree|entrée|brie|billes|oeufs|œufs|terrine|rillettes|cake sale|cake salé)\b/.test(text)) addFamily('starter');
-  const baseComponent = /\b(base|pate|pâte|creme patissiere|crème pâtissière|creme au beurre|crème au beurre|creme mascarpone|crème mascarpone|creme diplomate|crème diplomate|creme citron|crème citron|lemon curd|chantilly|meringue|beurre a l ail|beurre à l ail|beurre clarifie|beurre clarifié|sauce|pesto|vinaigrette|toppings|marinade|babeurre|craquelin)\b/.test(text);
-  const finishedDessert = /\b(tiramisu|tarte|flan|clafoutis|cookies|cake|carres|carrés|gaufres|beignets)\b/.test(text);
-  const finishedStarter = /\b(terrine|rillettes|brie farci|billes de mozzarella|cake sale|cake salé|chorizo au cidre|salade)\b/.test(text);
+  const explicitComponent = MENU_COMPONENT_IDS.has(recipe?.id);
+  const explicitSide = MENU_SIDE_IDS.has(recipe?.id);
+  const explicitStarter = MENU_STARTER_IDS.has(recipe?.id);
   const hasProtein = families.includes('meat') || families.includes('fish');
-  const isComponent = baseComponent && !finishedDessert && !finishedStarter && !hasProtein && !/\b(croque|gratin|frites|burger|salade)\b/.test(text);
-  const isDessert = families.includes('dessert') && !isComponent && !hasProtein && !families.includes('vegetable');
-  const isSauce = families.includes('sauce') && !hasProtein && !families.includes('dessert') && !/\b(plat|gratin|frites|burger)\b/.test(text);
-  const isStarter = families.includes('starter') && !isComponent && !hasProtein && !families.includes('starch');
-  const isCompleteMain = hasProtein || (families.includes('starch') && families.includes('vegetable')) || /\b(curry|plat|croque|riz cantonnais|lentilles tomate)\b/.test(text);
+  const baseComponent = hasCategory('Base') || hasCategory('Sauces') || /\b(base|pate|pates|creme patissiere|creme au beurre|creme mascarpone|creme diplomate|creme citron|lemon curd|chantilly|meringue|beurre a l ail|beurre clarifie|sauce|pesto|vinaigrette|toppings|marinade|babeurre|craquelin)\b/.test(text);
+  const servedStarter = explicitStarter || hasCategory('Apero') || hasCategory('Apéro') || hasCategory('Entrees') || hasCategory('Entrées');
+  const servedSide = explicitSide || (hasCategory('Accompagnements') && !hasCategory('Plats'));
+  const servedDessert = hasCategory('Desserts') && !hasCategory('Base') && !hasCategory('Sauces');
+  const isComponent = explicitComponent || (baseComponent && !servedStarter && !servedSide && !servedDessert && !hasCategory('Plats'));
+  const isDessert = !isComponent && servedDessert && !hasProtein;
+  const isSauce = !isComponent && hasCategory('Sauces') && !hasProtein && !hasCategory('Desserts');
+  const isStarter = !isComponent && servedStarter;
+  const isSide = !isComponent && servedSide;
+  const isCompleteMain = !isComponent && !isSide && !isStarter && (hasCategory('Plats') || hasProtein || /\b(curry|plat|croque|lentilles tomate)\b/.test(text));
   return {
     families,
-    role: isComponent ? 'component' : isDessert ? 'dessert' : isSauce ? 'sauce' : isStarter ? 'starter' : isCompleteMain ? 'main' : families.includes('vegetable') || families.includes('starch') ? 'side' : 'other',
+    role: isComponent ? 'component' : isDessert ? 'dessert' : isSauce ? 'sauce' : isStarter ? 'starter' : isSide ? 'side' : isCompleteMain ? 'main' : families.includes('vegetable') || families.includes('starch') ? 'side' : 'other',
     heavy: families.includes('starch'),
     protein: hasProtein,
     servable: !isComponent,
@@ -1862,7 +1940,7 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
     return recipe;
   };
   const starter = pick(['starter'], 0, (recipe, profile) => profile.servable);
-  const main = pick(['main'], 1);
+  const main = pick(['main'], 1, (recipe, profile) => profile.servable);
   const mainProfile = main ? profiles.get(main.id) : null;
   const side = pick(['side'], 2, (recipe, profile) => {
     if (!profile.servable) return false;
