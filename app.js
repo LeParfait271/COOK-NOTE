@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v0.99';
+const SITE_VERSION = 'v1.00';
 const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -1753,7 +1753,75 @@ function getMenuRecipeProfile(recipe) {
   };
 }
 
-function menuRecipeScore(recipe) {
+const MENU_THEMES = [
+  {
+    id: 'bistrot',
+    label: 'Bistrot',
+    pitch: 'Classique chaud, sauce lisible, dessert de pâtisserie.',
+    prefer: /\b(poulet|boeuf|bœuf|porc|gratin|mornay|poivre|moutarde|terrine|rillettes|tarte|flan|creme|crème)\b/,
+    avoid: /\b(gazpacho|melon|air fryer|tempura|pesto)\b/
+  },
+  {
+    id: 'mediterraneen',
+    label: 'Méditerranéen',
+    pitch: 'Tomate, citron, huile d’olive, herbes et fraîcheur.',
+    prefer: /\b(tomate|citron|basilic|olive|pesto|poisson|saumon|cabillaud|melon|mozzarella|yaourt)\b/,
+    avoid: /\b(mornay|poivre|gratin dauphinois|rhum|caramel)\b/
+  },
+  {
+    id: 'semaine',
+    label: 'Soir de semaine',
+    pitch: 'Simple, rapide, peu de gestes et courses raisonnables.',
+    prefer: /\b(rapide|facile|simple|poele|poêle|four|riz|pates|pâtes|poulet|salade)\b/,
+    avoid: /\b(24h|la veille|maturation|terrine|macaron|pate a choux|pâte à choux)\b/
+  },
+  {
+    id: 'invites',
+    label: 'Invités',
+    pitch: 'Préparable, équilibré, avec un dessert qui tient bien.',
+    prefer: /\b(la veille|repos|conservation|terrine|brie|carre|carré|tiramisu|tarte|flan|clafoutis)\b/,
+    avoid: /\b(frites|air fryer|croque|riz cantonnais)\b/
+  },
+  {
+    id: 'apero',
+    label: 'Apéro dînatoire',
+    pitch: 'Petites pièces, dips, fromages et choses à picorer.',
+    prefer: /\b(apero|apéro|brie|billes|rillettes|terrine|cake sale|cake salé|chorizo|dip|sauce|toppings)\b/,
+    avoid: /\b(gratin|pates|pâtes|riz cantonnais|saucisse puree|joues)\b/
+  },
+  {
+    id: 'confort',
+    label: 'Confort',
+    pitch: 'Gourmand, chaud, généreux, sans empiler deux féculents.',
+    prefer: /\b(gratin|puree|purée|mornay|poulet|saucisse|lentilles|fromage|chocolat|caramel)\b/,
+    avoid: /\b(gazpacho|salade melon|crudites|crudités)\b/
+  },
+  {
+    id: 'ete',
+    label: 'Été frais',
+    pitch: 'Froid, acidulé, végétal, avec une fin légère.',
+    prefer: /\b(froid|salade|melon|tomate|gazpacho|gaspacho|citron|yaourt|basilic|cerise|clafoutis)\b/,
+    avoid: /\b(gratin|mornay|rhum|friture|beurre d escargot)\b/
+  }
+];
+
+function menuThemeById(id) {
+  return MENU_THEMES.find(theme => theme.id === id) || MENU_THEMES[0];
+}
+
+function menuThemeScore(recipe, profile, theme) {
+  let score = 0;
+  if (theme.prefer.test(profile.text)) score += 34;
+  if (theme.avoid.test(profile.text)) score -= 38;
+  if (theme.id === 'apero' && profile.role === 'starter') score += 22;
+  if (theme.id === 'ete' && profile.families.includes('vegetable')) score += 12;
+  if (theme.id === 'confort' && profile.heavy) score += 10;
+  if (theme.id === 'semaine' && getRecipeTiming(recipe).active && getRecipeTiming(recipe).active <= 30) score += 12;
+  if (theme.id === 'invites' && getRecipeIntentLabels(recipe).join(' ').includes('à préparer')) score += 14;
+  return score;
+}
+
+function menuRecipeScore(recipe, profile = getMenuRecipeProfile(recipe), theme = MENU_THEMES[0]) {
   const timing = getRecipeTiming(recipe);
   const labels = getRecipeIntentLabels(recipe).join(' ');
   let score = 0;
@@ -1762,10 +1830,11 @@ function menuRecipeScore(recipe) {
   if (timing.active && timing.active <= 30) score += 8;
   if (labels.includes('soir de semaine') || labels.includes('à préparer')) score += 6;
   if ((recipe.tags || []).length >= 3) score += 4;
-  return score;
+  return score + menuThemeScore(recipe, profile, theme);
 }
 
-function buildMenuSuggestion(recipes, offset = 0) {
+function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
+  const theme = menuThemeById(themeId);
   const leaves = recipes.filter(recipe => recipe && !isMasterRecipe(recipe));
   const profiles = new Map(leaves.map(recipe => [recipe.id, getMenuRecipeProfile(recipe)]));
   const byRole = leaves.reduce((groups, recipe) => {
@@ -1775,7 +1844,7 @@ function buildMenuSuggestion(recipes, offset = 0) {
     return groups;
   }, {});
   Object.keys(byRole).forEach(role => {
-    byRole[role].sort((a, b) => menuRecipeScore(b) - menuRecipeScore(a) || a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
+    byRole[role].sort((a, b) => menuRecipeScore(b, profiles.get(b.id), theme) - menuRecipeScore(a, profiles.get(a.id), theme) || a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
   });
   const used = new Set();
   const pick = (roles, bump = 0, allowed = () => true) => {
@@ -1804,12 +1873,17 @@ function buildMenuSuggestion(recipes, offset = 0) {
     return true;
   });
   const dessert = pick(['dessert'], 4);
-  return [
+  const items = [
     { key: 'starter', label: 'Entrée / apéro', recipe: starter },
     { key: 'main', label: 'Plat', recipe: main },
     { key: 'side', label: side ? 'Accompagnement' : 'Sauce', recipe: side || sauce },
     { key: 'dessert', label: 'Dessert', recipe: dessert }
   ].filter(item => item.recipe);
+  return {
+    theme,
+    reason: `${theme.label} : ${theme.pitch}`,
+    items
+  };
 }
 
 function getBatchPlanData(recipes) {
@@ -4005,8 +4079,10 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
 
 function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShopping, notify }) {
   const [offset, setOffset] = useState(0);
-  const menu = useMemo(() => buildMenuSuggestion(recipes, offset), [recipes, offset]);
-  const menuRecipes = menu.map(item => item.recipe);
+  const [themeId, setThemeId] = useState(MENU_THEMES[0].id);
+  const menu = useMemo(() => buildMenuSuggestion(recipes, offset, themeId), [recipes, offset, themeId]);
+  const menuItems = menu.items || [];
+  const menuRecipes = menuItems.map(item => item.recipe);
   const shoppingData = useMemo(() => buildShoppingListData(menuRecipes), [menuRecipes]);
   if (!open) return null;
   const addToShopping = () => {
@@ -4022,8 +4098,20 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
         ),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
+      h('div', { className: 'menu-theme-tabs', 'aria-label': 'Style de menu' },
+        MENU_THEMES.map(theme => h('button', {
+          key: theme.id,
+          type: 'button',
+          className: theme.id === themeId ? 'active' : '',
+          onClick: () => {
+            setThemeId(theme.id);
+            setOffset(0);
+          }
+        }, theme.label))
+      ),
+      h('p', { className: 'menu-planner-reason' }, menu.reason),
       h('div', { className: 'menu-planner-grid' },
-        menu.map(item => h('article', { key: item.key, className: 'menu-planner-card' },
+        menuItems.map(item => h('article', { key: item.key, className: 'menu-planner-card' },
           h('span', { className: 'menu-planner-image', style: item.recipe.image ? { backgroundImage: `url("${recipeCardImageUrl(item.recipe.image)}")` } : {} }),
           h('div', null,
             h('p', { className: 'eyebrow' }, item.label),
