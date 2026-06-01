@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.03';
+const SITE_VERSION = 'v1.04';
 const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -1933,6 +1933,22 @@ function menuPairPenalty(firstProfile, secondProfile) {
   return penalty;
 }
 
+function menuPairAffinity(firstProfile, secondProfile, theme = MENU_THEMES[0]) {
+  if (!firstProfile || !secondProfile) return 0;
+  let score = 0;
+  const joined = `${firstProfile.text} ${secondProfile.text}`;
+  if (firstProfile.families.includes('fish') && /\b(citron|tomate|olive|basilic|yaourt|salade|legume|légume)\b/.test(secondProfile.text)) score += 30;
+  if (firstProfile.families.includes('meat') && /\b(tomate|salade|citron|moutarde|puree|purée|riz|gratin)\b/.test(secondProfile.text)) score += 18;
+  if (/\b(frites|friture|air fryer)\b/.test(firstProfile.text) && /\b(salade|tomate|citron|yaourt|legume|légume)\b/.test(secondProfile.text)) score += 26;
+  if (firstProfile.heavy && secondProfile.families.includes('vegetable') && !secondProfile.heavy) score += 24;
+  if (firstProfile.families.includes('vegetable') && secondProfile.families.includes('starch') && !firstProfile.heavy) score += 12;
+  if (/\b(miel|moutarde|rhum|piment)\b/.test(firstProfile.text) && /\b(citron|tomate|salade|yaourt)\b/.test(secondProfile.text)) score += 14;
+  if (theme.id === 'mediterraneen' && /\b(tomate|olive|basilic|citron|poisson|saumon|cabillaud)\b/.test(joined)) score += 18;
+  if (theme.id === 'ete' && /\b(froid|salade|melon|tomate|citron|yaourt|fruit)\b/.test(joined)) score += 16;
+  if (theme.id === 'confort' && /\b(poulet|porc|boeuf|bœuf|gratin|puree|purée|chocolat|caramel)\b/.test(joined)) score += 12;
+  return score;
+}
+
 function menuBalanceScore(items, profiles, theme) {
   const recipes = items.map(item => item.recipe).filter(Boolean);
   const itemProfiles = recipes.map(recipe => profiles.get(recipe.id));
@@ -1941,6 +1957,7 @@ function menuBalanceScore(items, profiles, theme) {
   for (let i = 0; i < itemProfiles.length; i += 1) {
     for (let j = i + 1; j < itemProfiles.length; j += 1) {
       score -= menuPairPenalty(itemProfiles[i], itemProfiles[j]);
+      score += menuPairAffinity(itemProfiles[i], itemProfiles[j], theme);
     }
   }
   const familyCount = new Set(itemProfiles.flatMap(profile => profile?.families || [])).size;
@@ -1959,13 +1976,39 @@ function menuBalanceScore(items, profiles, theme) {
   return score;
 }
 
+function menuItemReason(item, items, profiles, theme) {
+  const profile = item.recipe ? profiles.get(item.recipe.id) : null;
+  const main = items.find(candidate => candidate.key === 'main')?.recipe;
+  const mainProfile = main ? profiles.get(main.id) : null;
+  if (!profile) return '';
+  if (theme.id === 'apero' && item.key === 'starter') return 'Format à partager, cohérent avec l’apéro.';
+  if (item.key === 'main') {
+    if (profile.families.includes('fish')) return 'Base poisson, facile à accorder avec frais et citron.';
+    if (profile.families.includes('meat')) return 'Base principale solide pour construire le repas.';
+    if (profile.heavy) return 'Plat structurant, donc le reste reste plus léger.';
+    return 'Recette centrale du menu.';
+  }
+  if ((item.key === 'side' || item.key === 'sauce') && mainProfile) {
+    if (mainProfile.heavy && profile.families.includes('vegetable') && !profile.heavy) return 'Allège le plat sans rajouter un second féculent.';
+    if (mainProfile.families.includes('fish') && /\b(citron|tomate|olive|basilic|yaourt)\b/.test(profile.text)) return 'Accord frais avec le poisson.';
+    if (mainProfile.families.includes('meat') && /\b(tomate|salade|citron|moutarde|puree|purée|riz)\b/.test(profile.text)) return 'Accompagnement logique avec la viande.';
+    return 'Complète le plat sans conflit fort.';
+  }
+  if (item.key === 'dessert') {
+    if (/\b(citron|fruit|cerise|clafoutis)\b/.test(profile.text)) return 'Fin plus fraîche après le salé.';
+    if (/\b(chocolat|caramel|cookies|tiramisu)\b/.test(profile.text)) return 'Fin gourmande assumée.';
+    return 'Dessert servi, pas une base technique.';
+  }
+  return 'Ouvre le menu sans alourdir le plat.';
+}
+
 function menuLeadReason(items, profiles, theme) {
   const main = items.find(item => item.key === 'main')?.recipe;
   const first = main || items.find(item => item.recipe)?.recipe;
   const profile = first ? profiles.get(first.id) : null;
   const cues = [];
   if (profile?.families.includes('fish')) cues.push('poisson');
-  if (profile?.families.includes('meat')) cues.push('viande');
+  if (profile?.families.includes('meat') && !profile?.families.includes('fish')) cues.push('viande');
   if (profile?.families.includes('vegetable')) cues.push('légumes');
   if (profile?.families.includes('starch')) cues.push('féculent');
   if (profile?.families.includes('dessert')) cues.push('douceur');
@@ -1979,6 +2022,13 @@ function buildMenuCandidate(items, profiles, theme) {
     items: cleanItems,
     score: menuBalanceScore(cleanItems, profiles, theme)
   };
+}
+
+function annotateMenuItems(items, profiles, theme) {
+  return items.map(item => ({
+    ...item,
+    note: menuItemReason(item, items, profiles, theme)
+  }));
 }
 
 function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
@@ -2018,8 +2068,8 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
     const mains = rolePool('main', 18);
     const themedMains = mains.filter(recipe => {
       const text = profiles.get(recipe.id).text;
-      if (theme.id === 'mediterraneen') return /\b(tomate|olive|basilic|poisson|saumon|cabillaud|bouillabaisse|calamar|crevettes|chipirons)\b/.test(text) && !/\b(miel|moutarde|rhum)\b/.test(text);
-      if (theme.id === 'ete') return /\b(froid|salade|melon|tomate|gazpacho|gaspacho|citron|yaourt|poisson|saumon|cabillaud|oeuf|œuf)\b/.test(text);
+      if (theme.id === 'mediterraneen') return /\b(tomate|olive|basilic|poisson|saumon|cabillaud|bouillabaisse|calamar|crevettes|chipirons)\b/.test(text) && !/\b(chorizo|miel|moutarde|rhum)\b/.test(text);
+      if (theme.id === 'ete') return /\b(froid|salade|melon|gazpacho|gaspacho|poisson|saumon|cabillaud|oeuf|œuf)\b/.test(text) && !/\b(chorizo|porc|boeuf|bœuf|agneau|miel|moutarde|rhum|gratin|friture)\b/.test(text);
       return true;
     });
     const mainOptions = themedMains.length ? themedMains : mains;
@@ -2028,7 +2078,11 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
     const sauces = rolePool('sauce', 8);
     mainOptions.forEach((main, mainIndex) => {
       const mainProfile = profiles.get(main.id);
-      const compatibleSides = sides.filter(side => menuPairPenalty(mainProfile, profiles.get(side.id)) < 35);
+      const compatibleSides = sides
+        .filter(side => menuPairPenalty(mainProfile, profiles.get(side.id)) < 35)
+        .filter(side => theme.id !== 'mediterraneen' || !/\b(gratin|creme|crème|mornay)\b/.test(profiles.get(side.id).text))
+        .filter(side => theme.id !== 'ete' || !/\b(gratin|creme|crème|frites|friture|puree|purée)\b/.test(profiles.get(side.id).text))
+        .sort((a, b) => menuPairAffinity(mainProfile, profiles.get(b.id), theme) - menuPairAffinity(mainProfile, profiles.get(a.id), theme));
       const sideOptions = compatibleSides.length ? compatibleSides : [null];
       const starterOptions = starters.length ? starters : [null];
       const dessertOptions = desserts.length ? desserts : [null];
@@ -2053,7 +2107,7 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
       theme,
       reason: menuLeadReason(selected.items, profiles, theme),
       quality: Math.max(0, Math.min(100, Math.round(62 + selected.score / 18))),
-      items: selected.items
+      items: annotateMenuItems(selected.items, profiles, theme)
     };
   }
   const used = new Set();
@@ -2095,7 +2149,7 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
     theme,
     reason: menuLeadReason(items, profiles, theme),
     quality: Math.max(0, Math.min(100, Math.round(menuBalanceScore(items, profiles, theme) / 18))),
-    items
+    items: annotateMenuItems(items, profiles, theme)
   };
 }
 
@@ -4330,6 +4384,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
             h('p', { className: 'eyebrow' }, item.label),
             h('h3', null, item.recipe.title),
             h('small', null, [primaryCategory(item.recipe), difficultyText(item.recipe), getRecipeTiming(item.recipe).active ? `Actif ${formatMinutesShort(getRecipeTiming(item.recipe).active)}` : ''].filter(Boolean).join(' · ')),
+            item.note && h('p', { className: 'menu-planner-note' }, item.note),
             h('div', { className: 'menu-planner-card-actions' },
               h(Button, { variant: 'subtle', onClick: () => openRecipe(item.recipe.id) }, 'Ouvrir'),
               h(Button, { variant: 'ghost', onClick: () => setOffset(value => value + 1) }, 'Changer')

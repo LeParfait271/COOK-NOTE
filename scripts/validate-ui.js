@@ -47,6 +47,7 @@ expect('Mode menu sans themes.', files.app.includes('MENU_THEMES') && files.app.
 expect('Mode menu propose encore des composants seuls.', files.app.includes('servable: !isComponent') && files.app.includes("role: isComponent ? 'component'") && files.app.includes('profile.servable'));
 expect('Mode menu sans arbitrage explicite des roles.', files.app.includes('MENU_COMPONENT_IDS') && files.app.includes('MENU_SIDE_IDS') && files.app.includes('MENU_STARTER_IDS') && files.app.includes("'riz_cantonnais'") && files.app.includes("'cookies_sales_variantes'") && files.app.includes("'cake_tomate_chorizo_feta'") && files.app.includes("'pate_sucree'") && files.app.includes("'pates_tarte_variantes'") && files.app.includes("'pains_burgers_brioche'") && files.app.includes("'sauce_caramel'"));
 expect('Mode menu sans score de coherence.', files.app.includes('menuBalanceScore') && files.app.includes('menuPairPenalty') && files.app.includes('menuLeadReason') && files.app.includes('Cohérence'));
+expect('Mode menu sans accords expliques.', files.app.includes('menuPairAffinity') && files.app.includes('menuItemReason') && files.app.includes('annotateMenuItems') && files.style.includes('.menu-planner-note'));
 expect('Precision cuilleres mal rangee.', files.app.includes('spoonPrecisionLabel') && files.app.includes('SPOON_WEIGHT_NOTE') && files.app.includes("add('measures', 'Repère indicatif'") && !files.style.includes('.average-weight-note'));
 expect('Materiel necessaire encore dans la colonne droite.', !files.app.includes("add('equipment', 'Matériel nécessaire'"));
 expect('Notes pratiques encore classees en double.', files.app.includes('noteAlreadyClassified') && files.app.includes('!noteAlreadyClassified(note)') && files.app.includes('storageNotes.includes(note)'));
@@ -62,7 +63,7 @@ expect('Fallback image carte absent.', files.app.includes('onError: event =>') &
 expect('Mode cuisine revenu.', !files.app.includes('Mode cuisine') && !files.app.includes('focusMode') && !files.style.includes('recipe-focus-mode') && !files.style.includes('focus-toggle') && !files.style.includes('focus-action'));
 expect('Boutons minuteurs revenus.', !files.app.includes('step-timer') && !files.style.includes('step-timer') && !files.app.includes('timerEnd') && !files.app.includes('timerLabel') && !files.app.includes('cooking-step-card') && !files.style.includes('cooking-step-actions'));
 expect('Fiche rapide variantes sans etat vide.', files.app.includes('recipe-summary-empty') && files.app.includes('Sélectionne une variante pour afficher les informations de la fiche rapide.'));
-expect('Version footer absente.', files.app.includes("const SITE_VERSION = 'v1.03'") && files.app.includes("const SITE_UPDATED_AT = '01/06/26'") && files.app.includes('site-footer-version'));
+expect('Version footer absente.', files.app.includes("const SITE_VERSION = 'v1.04'") && files.app.includes("const SITE_UPDATED_AT = '01/06/26'") && files.app.includes('site-footer-version'));
 expect('Script validate-ui non branche au check.', files.packageJson.includes('scripts/validate-ui.js'));
 
 if (errors.length) {

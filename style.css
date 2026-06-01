@@ -3855,6 +3855,14 @@ a {
   font-weight: 800;
 }
 
+.menu-planner-note {
+  margin: 7px 0 0;
+  color: color-mix(in srgb, var(--text) 76%, var(--muted));
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
 .menu-planner-card-actions,
 .menu-planner-summary {
   display: flex;
