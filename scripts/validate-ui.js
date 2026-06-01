@@ -41,6 +41,7 @@ expect('Sous-titre de carte recette encore base sur portions/rendement.', files.
 expect('Etapes de variantes inline non separees.', files.app.includes('getSelectedInlineVariantSteps') && files.app.includes('selectedInlineVariantGroup?.group') && files.app.includes('variant-group:${selectedInlineVariantGroup.index}'));
 expect('Onglets recette mobile non bornes.', files.style.includes('.recipe-tabs button span') && files.style.includes('text-overflow: ellipsis') && files.style.includes('grid-template-columns: repeat(3, minmax(0, 1fr))'));
 expect('Recherche mobile non bornee.', files.style.includes('max-height: calc(100dvh - 28px)') && files.style.includes('.search-modal-field input'));
+expect('Mode menu absent.', files.app.includes('MenuPlannerPanel') && files.app.includes('buildMenuSuggestion') && files.app.includes('addMenuToShopping') && files.style.includes('.menu-planner-grid'));
 expect('Precision cuilleres mal rangee.', files.app.includes('spoonPrecisionLabel') && files.app.includes('SPOON_WEIGHT_NOTE') && files.app.includes("add('measures', 'Repère indicatif'") && !files.style.includes('.average-weight-note'));
 expect('Materiel necessaire encore dans la colonne droite.', !files.app.includes("add('equipment', 'Matériel nécessaire'"));
 expect('Notes pratiques encore classees en double.', files.app.includes('noteAlreadyClassified') && files.app.includes('!noteAlreadyClassified(note)') && files.app.includes('storageNotes.includes(note)'));
@@ -56,7 +57,7 @@ expect('Fallback image carte absent.', files.app.includes('onError: event =>') &
 expect('Mode cuisine revenu.', !files.app.includes('Mode cuisine') && !files.app.includes('focusMode') && !files.style.includes('recipe-focus-mode') && !files.style.includes('focus-toggle') && !files.style.includes('focus-action'));
 expect('Boutons minuteurs revenus.', !files.app.includes('step-timer') && !files.style.includes('step-timer') && !files.app.includes('timerEnd') && !files.app.includes('timerLabel') && !files.app.includes('cooking-step-card') && !files.style.includes('cooking-step-actions'));
 expect('Fiche rapide variantes sans etat vide.', files.app.includes('recipe-summary-empty') && files.app.includes('Sélectionne une variante pour afficher les informations de la fiche rapide.'));
-expect('Version footer absente.', files.app.includes("const SITE_VERSION = 'v0.97'") && files.app.includes("const SITE_UPDATED_AT = '01/06/26'") && files.app.includes('site-footer-version'));
+expect('Version footer absente.', files.app.includes("const SITE_VERSION = 'v0.98'") && files.app.includes("const SITE_UPDATED_AT = '01/06/26'") && files.app.includes('site-footer-version'));
 expect('Script validate-ui non branche au check.', files.packageJson.includes('scripts/validate-ui.js'));
 
 if (errors.length) {

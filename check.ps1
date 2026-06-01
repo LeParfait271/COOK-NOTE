@@ -18,6 +18,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\validate-project-rules.js',
     'scripts\validate-production.js',
     'scripts\audit-recipes.js',
+    'scripts\audit-images.js',
     'scripts\generate-sitemap.js'
   )
 

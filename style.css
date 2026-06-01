@@ -3781,6 +3781,66 @@ a {
   overflow-wrap: anywhere;
 }
 
+.menu-planner-modal {
+  width: min(900px, 100%);
+}
+
+.menu-planner-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.menu-planner-card {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 12px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .012)),
+    var(--surface-soft);
+  padding: 10px;
+}
+
+.menu-planner-image {
+  min-height: 112px;
+  border-radius: 7px;
+  background: var(--surface-strong) center / cover no-repeat;
+}
+
+.menu-planner-card h3 {
+  margin: 2px 0 6px;
+  font-size: 19px;
+  line-height: 1.08;
+}
+
+.menu-planner-card small {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.menu-planner-card-actions,
+.menu-planner-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.menu-planner-summary span {
+  min-height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface-soft));
+  color: var(--text);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .shopping-aisles {
   display: grid;
   gap: 12px;
@@ -4248,6 +4308,22 @@ a {
   .search-result {
     grid-template-columns: 54px minmax(0, 1fr);
     gap: 9px;
+  }
+
+  .menu-planner-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-planner-card {
+    grid-template-columns: 86px minmax(0, 1fr);
+  }
+
+  .menu-planner-image {
+    min-height: 86px;
+  }
+
+  .menu-planner-card h3 {
+    font-size: 17px;
   }
 
   .search-modal {

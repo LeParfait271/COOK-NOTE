@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v0.97';
+const SITE_VERSION = 'v0.98';
 const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -1720,6 +1720,60 @@ function getRecipeCardBadges(recipe, recipesById = {}) {
   return uniq(badges).slice(0, 3);
 }
 
+function recipeMenuRole(recipe) {
+  const text = normalizeText([
+    recipe?.title,
+    ...(recipe?.categories || []),
+    ...(recipe?.tags || []),
+    ...(recipe?.aliases || [])
+  ].join(' '));
+  if (/\b(dessert|gateau|gouter|cookies|tiramisu|creme|tarte|flan|clafoutis)\b/.test(text)) return 'dessert';
+  if (/\b(plat|poulet|boeuf|porc|poisson|cabillaud|saumon|riz|pates|lentilles|gratin|curry)\b/.test(text)) return 'main';
+  if (/\b(accompagnement|frites|puree|riz|legume|salade)\b/.test(text)) return 'side';
+  if (/\b(sauce|pesto|aioli|mornay|rouille|vinaigrette|beurre)\b/.test(text)) return 'sauce';
+  if (/\b(apero|entree|brie|billes|oeufs|terrine|rillettes|salade)\b/.test(text)) return 'starter';
+  return 'other';
+}
+
+function menuRecipeScore(recipe) {
+  const timing = getRecipeTiming(recipe);
+  const labels = getRecipeIntentLabels(recipe).join(' ');
+  let score = 0;
+  if ((recipe.seasons || []).includes(getCurrentSeason()) || (recipe.seasons || []).includes('Toutes saisons')) score += 18;
+  if (normalizeText(recipe.difficulty) === 'easy') score += 8;
+  if (timing.active && timing.active <= 30) score += 8;
+  if (labels.includes('soir de semaine') || labels.includes('à préparer')) score += 6;
+  if ((recipe.tags || []).length >= 3) score += 4;
+  return score;
+}
+
+function buildMenuSuggestion(recipes, offset = 0) {
+  const leaves = recipes.filter(recipe => recipe && !isMasterRecipe(recipe));
+  const byRole = leaves.reduce((groups, recipe) => {
+    const role = recipeMenuRole(recipe);
+    if (!groups[role]) groups[role] = [];
+    groups[role].push(recipe);
+    return groups;
+  }, {});
+  Object.keys(byRole).forEach(role => {
+    byRole[role].sort((a, b) => menuRecipeScore(b) - menuRecipeScore(a) || a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
+  });
+  const used = new Set();
+  const pick = (roles, bump = 0) => {
+    const pool = roles.flatMap(role => byRole[role] || []).filter(recipe => !used.has(recipe.id));
+    if (!pool.length) return null;
+    const recipe = pool[(offset + bump) % pool.length];
+    used.add(recipe.id);
+    return recipe;
+  };
+  return [
+    { key: 'starter', label: 'Entrée / apéro', recipe: pick(['starter', 'side', 'sauce'], 0) },
+    { key: 'main', label: 'Plat', recipe: pick(['main'], 1) },
+    { key: 'side', label: 'Accompagnement / sauce', recipe: pick(['side', 'sauce'], 2) },
+    { key: 'dessert', label: 'Dessert', recipe: pick(['dessert'], 3) }
+  ].filter(item => item.recipe);
+}
+
 function getBatchPlanData(recipes) {
   const allSteps = recipes.flatMap(recipe => getRecipeSteps(recipe).map(step => ({ recipe, step, text: normalizeText(step) })));
   return [
@@ -3078,7 +3132,7 @@ function useDebouncedValue(value, delay = 180) {
   return debouncedValue;
 }
 
-function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, openTechniques, query, openSearch, openPreferences }) {
+function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, openMenuPlanner, openTechniques, query, openSearch, openPreferences }) {
   return h('header', { className: 'topbar' },
     h('div', { className: 'top-left' },
       h(Button, { variant: 'subtle', className: 'icon-square', onClick: onHome, title: 'Accueil', ariaLabel: 'Accueil' }, h(Icon, { name: 'home' }))
@@ -3087,6 +3141,10 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
       h(Button, { variant: 'subtle', className: 'top-techniques-btn', onClick: openTechniques }, [
         h(Icon, { key: 'icon', name: 'book' }),
         h('span', { key: 'label' }, 'Techniques')
+      ]),
+      h(Button, { variant: 'subtle', className: 'top-menu-btn', onClick: openMenuPlanner }, [
+        h(Icon, { key: 'icon', name: 'spark' }),
+        h('span', { key: 'label' }, 'Menu')
       ]),
       h('a', {
         className: 'btn btn-subtle top-request-btn',
@@ -3907,6 +3965,52 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
   );
 }
 
+function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShopping, notify }) {
+  const [offset, setOffset] = useState(0);
+  const menu = useMemo(() => buildMenuSuggestion(recipes, offset), [recipes, offset]);
+  const menuRecipes = menu.map(item => item.recipe);
+  const shoppingData = useMemo(() => buildShoppingListData(menuRecipes), [menuRecipes]);
+  if (!open) return null;
+  const addToShopping = () => {
+    addMenuToShopping(menuRecipes);
+    notify?.('Menu ajouté aux courses');
+  };
+  return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
+    h('section', { className: 'modal-panel menu-planner-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'menu-planner-title', onMouseDown: event => event.stopPropagation() },
+      h('div', { className: 'modal-head' },
+        h('div', null,
+          h('p', { className: 'eyebrow' }, 'Mode menu'),
+          h('h2', { id: 'menu-planner-title' }, 'Composer un repas')
+        ),
+        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
+      ),
+      h('div', { className: 'menu-planner-grid' },
+        menu.map(item => h('article', { key: item.key, className: 'menu-planner-card' },
+          h('span', { className: 'menu-planner-image', style: item.recipe.image ? { backgroundImage: `url("${recipeCardImageUrl(item.recipe.image)}")` } : {} }),
+          h('div', null,
+            h('p', { className: 'eyebrow' }, item.label),
+            h('h3', null, item.recipe.title),
+            h('small', null, [primaryCategory(item.recipe), difficultyText(item.recipe), getRecipeTiming(item.recipe).active ? `Actif ${formatMinutesShort(getRecipeTiming(item.recipe).active)}` : ''].filter(Boolean).join(' · ')),
+            h('div', { className: 'menu-planner-card-actions' },
+              h(Button, { variant: 'subtle', onClick: () => openRecipe(item.recipe.id) }, 'Ouvrir'),
+              h(Button, { variant: 'ghost', onClick: () => setOffset(value => value + 1) }, 'Changer')
+            )
+          )
+        ))
+      ),
+      h('div', { className: 'menu-planner-summary' },
+        h('span', null, `${menuRecipes.length} fiches`),
+        h('span', null, `${shoppingData.groupedItems.length} articles groupés`),
+        h('span', null, `${shoppingData.aisleGroups.length} rayons`)
+      ),
+      h('div', { className: 'modal-actions' },
+        h(Button, { variant: 'primary', disabled: !menuRecipes.length, onClick: addToShopping }, 'Ajouter le menu aux courses'),
+        h(Button, { variant: 'subtle', onClick: () => setOffset(value => value + 1) }, 'Autre menu')
+      )
+    )
+  );
+}
+
 function PreferencesPanel({ open, onClose, preferences, setPreferences }) {
   if (!open) return null;
   const update = patch => {
@@ -4668,6 +4772,7 @@ function App() {
   const [checked, setChecked] = useState({});
   const [historyVersion, setHistoryVersion] = useState(0);
   const [shoppingOpen, setShoppingOpen] = useState(false);
+  const [menuPlannerOpen, setMenuPlannerOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [preferences, setPreferences] = useState(() => ({ density: 'comfort', largeText: false, reduceMotion: false, ...readJson(STORAGE_KEYS.preferences, {}) }));
   const [recentRecipeIds, setRecentRecipeIds] = useState(() => readStoredList(STORAGE_KEYS.recentRecipes, []));
@@ -5025,6 +5130,14 @@ function App() {
     notify('Panier de courses vidé', 'info');
   }
 
+  function addMenuToShopping(menuRecipes) {
+    const ids = menuRecipes.map(recipe => recipe.id).filter(Boolean);
+    const merged = [...ids, ...shoppingIds.filter(id => !ids.includes(id))];
+    persistShopping(merged);
+    persistShoppingFactors(ids.reduce((next, id) => ({ ...next, [id]: shoppingFactors[id] || 1 }), { ...shoppingFactors }));
+    setShoppingOpen(true);
+  }
+
   function openRecipe(id) {
     const target = recipesById[id];
     if (!target) return;
@@ -5178,6 +5291,10 @@ function App() {
           setPreferencesOpen(false);
           return;
         }
+        if (menuPlannerOpen) {
+          setMenuPlannerOpen(false);
+          return;
+        }
         if ((activeRecipe || activePage === 'techniques') && !isTypingTarget(event.target)) goHome();
         return;
       }
@@ -5207,7 +5324,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [activeRecipe, activePage, catalogRecipes, canUndo, canRedo, searchOpen, preferencesOpen]);
+  }, [activeRecipe, activePage, catalogRecipes, canUndo, canRedo, searchOpen, preferencesOpen, menuPlannerOpen]);
 
   if (!recipes.length) {
     return h('div', { className: 'mc-shell' },
@@ -5240,6 +5357,7 @@ function App() {
       shoppingCount: shoppingRecipes.length,
       showFavorites,
       openShoppingBasket: () => setShoppingOpen(true),
+      openMenuPlanner: () => setMenuPlannerOpen(true),
       openTechniques: goTechniques,
       query,
       openSearch,
@@ -5248,7 +5366,7 @@ function App() {
     h('nav', { className: 'mobile-bottom-nav', 'aria-label': 'Navigation mobile' },
       h('button', { type: 'button', onClick: goHome, 'aria-label': 'Accueil', 'aria-current': !activeRecipe && activePage === 'home' && !onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'home' })), h('span', { className: 'sr-only' }, 'Accueil')),
       h('button', { type: 'button', onClick: openSearch, 'aria-label': 'Recherche', 'aria-current': searchOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'search' })), 'Recherche'),
-      h('button', { type: 'button', onClick: goTechniques, 'aria-label': 'Techniques', 'aria-current': activePage === 'techniques' ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'book' })), 'Techniques'),
+      h('button', { type: 'button', onClick: () => setMenuPlannerOpen(true), 'aria-label': 'Mode menu', 'aria-current': menuPlannerOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'spark' })), 'Menu'),
       h('button', { type: 'button', onClick: showFavorites, 'aria-label': 'Favoris', 'aria-current': onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'heart' })), 'Favoris'),
       h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses', 'aria-current': shoppingOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Courses')
     ),
@@ -5327,6 +5445,17 @@ function App() {
       factorById: shoppingFactors,
       removeRecipe: removeShopping,
       clearShopping,
+      notify
+    }),
+    h(MenuPlannerPanel, {
+      open: menuPlannerOpen,
+      onClose: () => setMenuPlannerOpen(false),
+      recipes: searchableRecipes,
+      openRecipe: id => {
+        setMenuPlannerOpen(false);
+        openRecipe(id);
+      },
+      addMenuToShopping,
       notify
     }),
     h(PreferencesPanel, {

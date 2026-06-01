@@ -47,6 +47,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les passes design premium doivent ameliorer les composants existants sans rajouter de sections gadget sur l'accueil. Travailler surtout cartes, panneaux, boutons, etats hover/focus, responsive et performance.
 - Les liens Techniques doivent centrer la carte visee, la faire clignoter assez longtemps, et garder le halo actif tant qu'on est sur la page.
 - La recherche doit comprendre les intentions utilisateur courantes : rapide, sans cuisson, cuisson au four, friture, a preparer a l'avance, congelable, vegetarien, froid et ingredients proches.
+- Le mode menu doit rester un outil de decision direct : composer entree/plat/accompagnement ou sauce/dessert, ouvrir chaque fiche et ajouter le menu entier aux courses fusionnees.
 - Le panier courses doit regrouper les noms proches sans perdre le sens : beurre doux/ramolli/fondu vers beurre, cassonade/vergeoise ensemble, huiles neutres ensemble, chocolat noir/lait/blanc separes.
 
 ## Images
@@ -56,6 +57,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Chaque image optimisee referencee par une recette doit avoir une miniature homonyme dans `assets/recipe-card-images/`, sinon les cartes de l'accueil risquent d'afficher une image manquante.
 - Quand une image recette est ajoutee ou modifiee, regenerer les copies optimisees avec `npm run optimize:images` avant de push.
 - Les images doivent rester raccord au style Cook Note : sombre, gothique, nourriture lisible, ambiance cuisine/patisserie etrange, pas de texte dans l'image, pas de watermark.
+- L'audit image `npm run audit:images` doit rester disponible pour reperer images trop petites, miniatures faibles, cadrages atypiques et doublons visuels avant une passe photo.
 - Avant d'integrer une image generee, montrer le visuel et attendre validation utilisateur, sauf validation deja donnee explicitement.
 - Quand une image est validee, la copier dans `assets/recipe-images/` avec un nom stable lie a l'id recette.
 

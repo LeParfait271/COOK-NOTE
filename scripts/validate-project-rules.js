@@ -32,10 +32,12 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'assets/recipe-images-optimized/',
   'assets/recipe-card-images/',
   'npm run optimize:images',
+  'npm run audit:images',
   'montrer le visuel et attendre validation utilisateur',
   'Regenerer le sitemap',
   'score de completude',
   'La recherche doit comprendre les intentions',
+  'Le mode menu doit rester un outil de decision direct',
   'reseau d abord avec cache de secours',
   'bump la version des assets',
   'Le panier courses doit regrouper',
@@ -64,6 +66,7 @@ expect('Validation recherche intention non branchee.', validators.ui.includes('R
 expect('Validation panier courses noms proches non branchee.', fs.readFileSync(path.join(ROOT, 'scripts', 'validate-quantities.js'), 'utf8').includes('test_panier_noms'));
 expect('Validation production non branchee.', validators.production.includes('Validation production OK.') && validators.packageJson.includes('scripts/validate-production.js'));
 expect('Audit recettes non branche.', validators.audit.includes('Audit recettes OK') && validators.packageJson.includes('scripts/audit-recipes.js'));
+expect('Audit images non branche.', validators.packageJson.includes('scripts/audit-images.js'));
 expect('Validation regles non branchee au check.', validators.packageJson.includes('scripts/validate-project-rules.js'));
 
 if (errors.length) {

@@ -43,7 +43,7 @@
   <link rel="preload" as="image" href="/assets/base-principale-fond-site.jpg" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/style.css?v=97" />
+  <link rel="stylesheet" href="/style.css?v=98" />
 
   <!-- Librairies locales pour garder le site autonome -->
   <script src="/assets/vendor/react.production.min.js"></script>
@@ -126,19 +126,19 @@
   <div id="root"></div>
 
   <!-- Le catalogue de recettes doit être chargé AVANT app.js -->
-  <script src="/assets/catalog-1.js?v=97"></script>
-  <script src="/assets/catalog-2.js?v=97"></script>
-  <script src="/assets/catalog-3.js?v=97"></script>
-  <script src="/assets/catalog-4.js?v=97"></script>
+  <script src="/assets/catalog-1.js?v=98"></script>
+  <script src="/assets/catalog-2.js?v=98"></script>
+  <script src="/assets/catalog-3.js?v=98"></script>
+  <script src="/assets/catalog-4.js?v=98"></script>
 
   <!-- App React sans transpilation côté navigateur -->
-  <script src="/app.js?v=97"></script>
+  <script src="/app.js?v=98"></script>
 
   <!-- Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js?v=97').then(registration => {
+        navigator.serviceWorker.register('/service-worker.js?v=98').then(registration => {
           registration.update().catch(() => {});
         }).catch(() => {});
       });
