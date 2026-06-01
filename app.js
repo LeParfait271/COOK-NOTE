@@ -5,8 +5,8 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v0.95';
-const SITE_UPDATED_AT = '29/05/26';
+const SITE_VERSION = 'v0.96';
+const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
@@ -35,6 +35,7 @@ const MONTHLY_ADDITIONS = [
   { id: 'riz_cantonnais', addedAt: '2026-05-29' },
   { id: 'pates_pesto_tomates_mozzarella', addedAt: '2026-05-29' },
   { id: 'cabillaud_crumble_chorizo', addedAt: '2026-05-29' },
+  { id: 'lentilles_tomate_pommes_de_terre_sautees', addedAt: '2026-05-29' },
   { id: 'tiramisu_citron', addedAt: '2026-05-20' },
   { id: 'pesto_tomates_sechees_sans_cajou', addedAt: '2026-05-20' },
   { id: 'base_pour_flan_sale', addedAt: '2026-05-20' },
@@ -53,6 +54,7 @@ const MONTHLY_ADDITIONS = [
   { id: 'rillettes_poulet', addedAt: '2026-05-20' },
   { id: 'terrine_porc_pistaches', addedAt: '2026-05-20' }
 ];
+const MONTHLY_ADDITION_BY_ID = new Map(MONTHLY_ADDITIONS.map((item, index) => [item.id, { ...item, index }]));
 const CATEGORY_PARENT_IDS = {
   'Apéro': 'apero_maitre',
   'Entrées': 'entrees_maitre',
@@ -2414,12 +2416,44 @@ function getPrepTimeline(recipe) {
   return [];
 }
 
-function isMonthlyAdditionVisible(item, now = new Date()) {
+function monthlyAdditionDate(item) {
   const added = new Date(`${item.addedAt}T00:00:00`);
-  if (Number.isNaN(added.getTime())) return false;
+  return Number.isNaN(added.getTime()) ? null : added;
+}
+
+function monthlyAdditionMonthKey(item) {
+  const added = monthlyAdditionDate(item);
+  if (!added) return '';
+  return added.toLocaleDateString('fr-CA', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit' });
+}
+
+function isMonthlyAdditionVisible(item, now = new Date()) {
+  const added = monthlyAdditionDate(item);
+  if (!added) return false;
   const currentMonth = now.toLocaleDateString('fr-CA', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit' });
-  const addedMonth = added.toLocaleDateString('fr-CA', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit' });
-  return added.getTime() <= now.getTime() && addedMonth === currentMonth;
+  return added.getTime() <= now.getTime() && monthlyAdditionMonthKey(item) === currentMonth;
+}
+
+function getVisibleMonthlyAdditions(items, now = new Date()) {
+  const pastItems = items.filter(item => {
+    const added = monthlyAdditionDate(item);
+    return added && added.getTime() <= now.getTime();
+  });
+  const currentMonthItems = pastItems.filter(item => isMonthlyAdditionVisible(item, now));
+  if (currentMonthItems.length) return currentMonthItems;
+  const latestMonth = pastItems
+    .map(monthlyAdditionMonthKey)
+    .filter(Boolean)
+    .sort()
+    .pop();
+  return latestMonth ? pastItems.filter(item => monthlyAdditionMonthKey(item) === latestMonth) : [];
+}
+
+function monthlyAdditionRank(recipe) {
+  const item = MONTHLY_ADDITION_BY_ID.get(recipe?.id);
+  if (!item) return { time: 0, index: 0 };
+  const added = monthlyAdditionDate(item);
+  return { time: added ? added.getTime() : 0, index: item.index };
 }
 
 function noteKey(value) {
@@ -3136,7 +3170,12 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
         alt: recipe.title,
         loading: 'lazy',
         decoding: 'async',
-        draggable: false
+        draggable: false,
+        onError: event => {
+          if (recipe.image && event.currentTarget.getAttribute('src') !== recipe.image) {
+            event.currentTarget.src = recipe.image;
+          }
+        }
       }),
       !recipe.image && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1)),
       recipe.video && h('span', { className: 'video-badge' }, 'Vidéo'),
@@ -3208,7 +3247,11 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
 function MonthlyAdditionsSection({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter }) {
   const [expanded, setExpanded] = useState(false);
   if (!recipes.length) return null;
-  const orderedRecipes = [...recipes].reverse();
+  const orderedRecipes = [...recipes].sort((a, b) => {
+    const rankA = monthlyAdditionRank(a);
+    const rankB = monthlyAdditionRank(b);
+    return rankB.time - rankA.time || rankB.index - rankA.index;
+  });
   const visibleRecipes = expanded ? orderedRecipes : orderedRecipes.slice(0, 3);
   const hasMore = orderedRecipes.length > visibleRecipes.length;
   return h('section', { className: 'monthly-additions-block', 'aria-label': 'Ajouts du mois' },
@@ -4618,8 +4661,7 @@ function App() {
   const activeSeoRecipe = activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => recipesById[id]).filter(Boolean), [shoppingIds, recipesById]);
   const recentRecipes = useMemo(() => recentRecipeIds.map(id => recipesById[id]).filter(recipe => recipe && !isMasterRecipe(recipe)), [recentRecipeIds, recipesById]);
-  const monthlyAdditionRecipes = useMemo(() => MONTHLY_ADDITIONS
-    .filter(item => isMonthlyAdditionVisible(item))
+  const monthlyAdditionRecipes = useMemo(() => getVisibleMonthlyAdditions(MONTHLY_ADDITIONS)
     .map(item => recipesById[item.id])
     .filter(Boolean), [recipesById]);
   const hasRecipeFilters = Boolean(query.trim() || season || seasonCategory || tagFilter || onlyFavorites);
