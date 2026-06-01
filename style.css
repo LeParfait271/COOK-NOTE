@@ -3927,6 +3927,30 @@ a {
   margin: 14px 0;
 }
 
+.shopping-smart-groups,
+.shopping-owned-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.shopping-smart-groups span,
+.shopping-owned-list button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 9%, var(--surface-soft));
+  color: var(--text);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.shopping-owned-list strong {
+  width: 100%;
+  font-size: 13px;
+}
+
 .shopping-aisle {
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -3985,6 +4009,25 @@ a {
 
 .shopping-line-main strong {
   color: var(--accent);
+}
+
+.shopping-line-main em {
+  color: var(--accent);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.shopping-owned-btn {
+  grid-column: 2;
+  justify-self: start;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--text);
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 900;
 }
 
 .shopping-line small {

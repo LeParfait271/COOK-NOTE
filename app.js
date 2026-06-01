@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.05';
+const SITE_VERSION = 'v1.06';
 const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -637,17 +637,21 @@ const FAVORITE_COLLECTIONS = [
   { id: 'sauces', label: 'Sauces', match: recipe => recipeHasCategory(recipe, 'Sauces') }
 ];
 const SHOPPING_AISLES = [
-  { label: 'Fruits et légumes', pattern: /\b(tomate|tomates|citron|citrons|zeste|jus de citron|pomme|pommes|poire|poires|oignon|oignons|ail|echalote|échalote|persil|basilic|menthe|ciboulette|pomme de terre|pommes de terre|patate douce|avocat|epinard|épinard|carotte|courgette|chou|chou-fleur|brocoli|butternut|courge|fenouil|poireau|melon|fraise|framboise|abricot|cerise|cranberry|canneberge)\b/ },
+  { label: 'Primeur', pattern: /\b(tomate|tomates|citron|citrons|zeste|jus de citron|pomme|pommes|poire|poires|oignon|oignons|ail|echalote|échalote|persil|basilic|menthe|ciboulette|pomme de terre|pommes de terre|patate douce|avocat|epinard|épinard|carotte|courgette|chou|chou-fleur|brocoli|butternut|courge|fenouil|poireau|melon|fraise|framboise|abricot|cerise|cranberry|canneberge)\b/ },
   { label: 'Crèmerie et œufs', pattern: /\b(lait|creme|crème|beurre|fromage|parmesan|comte|comté|cheddar|mozzarella|mascarpone|ricotta|yaourt|babeurre|oeuf|oeufs|œuf|œufs|jaune|jaunes|blanc|blancs)\b/ },
-  { label: 'Viandes et poissons', pattern: /\b(porc|poulet|volaille|boeuf|bœuf|magret|canard|lardon|lardons|poitrine|bacon|jambon|crevette|crevettes|calamar|calamars|poisson|moule|moules|saumon)\b/ },
+  { label: 'Boucherie', pattern: /\b(porc|poulet|volaille|boeuf|bœuf|agneau|magret|canard|lardon|lardons|poitrine|bacon|jambon|saucisse)\b/ },
+  { label: 'Poissonnerie', pattern: /\b(crevette|crevettes|calamar|calamars|poisson|moule|moules|saumon|cabillaud|thon|chipiron|chipirons)\b/ },
   { label: 'Boulangerie', pattern: /\b(pain|pains|bun|buns|brioche|brioches|tortilla|tortillas)\b/ },
-  { label: 'Épicerie', pattern: /\b(farine|sucre|cassonade|vergeoise|sel|poivre|huile|vinaigre|moutarde|chocolat|cacao|fécule|fecule|maizena|maïzena|levure|chapelure|panko|riz|pâtes|pates|épice|epice|paprika|curry|miel|sirop|vanille|praliné|noisette|noisettes|noix|amande|amandes|pistache|pistaches)\b/ }
+  { label: 'Épicerie salée', pattern: /\b(sel|poivre|huile|vinaigre|moutarde|chapelure|panko|riz|pâtes|pates|épice|epice|paprika|curry|miel|conserve|pois|lentille|lentilles)\b/ },
+  { label: 'Épicerie sucrée', pattern: /\b(farine|sucre|cassonade|vergeoise|chocolat|cacao|fécule|fecule|maizena|maïzena|levure|sirop|vanille|praliné|noisette|noisettes|noix|amande|amandes|pistache|pistaches)\b/ }
 ];
 const STORAGE_KEYS = {
   favorites: 'cook_note_favorites',
   shopping: 'cook_note_shopping_basket',
   shoppingFactors: 'cook_note_shopping_factors',
   shoppingChecked: 'cook_note_shopping_checked',
+  shoppingOwned: 'cook_note_shopping_owned',
+  menuHistory: 'cook_note_menu_history',
   preferences: 'cook_note_preferences',
   recentRecipes: 'cook_note_recent_recipes',
   recentSearches: 'cook_note_recent_searches',
@@ -1466,6 +1470,9 @@ function normalizeShoppingName(value) {
       .replace(/\bde pepins de raisin\b/g, 'pepins raisin')
       .replace(/\bd avocat\b/g, 'avocat');
   }
+  if (/^citrons?\b/.test(text)) return 'citron';
+  if (/^tomates?\b/.test(text)) return 'tomate';
+  if (/^oeufs?\b|^œufs?\b/.test(text)) return 'oeufs';
   return text.replace(/\s+/g, ' ').trim();
 }
 
@@ -1546,6 +1553,47 @@ function formatShoppingAmount(item) {
   return `${formatNumber(item.first)} ${item.unit}`;
 }
 
+function shoppingPurchaseHint(item) {
+  const text = normalizeText(item?.name);
+  if (item.unit === 'ml') {
+    if (/\b(creme|crème|lait|babeurre)\b/.test(text)) return `${Math.max(1, Math.ceil(item.first / 200))} briquette${item.first > 200 ? 's' : ''} 20cl`;
+    if (/\bhuile|vinaigre|sirop\b/.test(text)) return 'bouteille à vérifier';
+  }
+  if (item.unit === 'g') {
+    if (/\bbeurre\b/.test(text)) return `${Math.max(1, Math.ceil(item.first / 250))} plaquette${item.first > 250 ? 's' : ''}`;
+    if (/\bfarine|sucre\b/.test(text)) return `${Math.max(1, Math.ceil(item.first / 1000))} paquet${item.first > 1000 ? 's' : ''}`;
+    if (/\bchocolat\b/.test(text)) return `${Math.max(1, Math.ceil(item.first / 200))} tablette${item.first > 200 ? 's' : ''}`;
+  }
+  if (item.unit === 'piece') {
+    if (/\boeufs|œufs\b/.test(text)) return `${Math.max(1, Math.ceil(item.first / 6))} boîte${item.first > 6 ? 's' : ''} de 6`;
+    if (/\bcitron\b/.test(text)) return item.first >= 4 ? '1 filet ou vrac' : 'vrac';
+  }
+  return '';
+}
+
+function shoppingSmartGroupKey(item) {
+  const text = normalizeText(item?.name);
+  if (/\bcitron|jus de citron|zeste de citron|lime\b/.test(text)) return 'Citron, jus et zestes';
+  if (/\boeuf|oeufs|œuf|œufs|jaune|blanc\b/.test(text)) return 'Œufs, jaunes et blancs';
+  if (/\bail|gousse\b/.test(text)) return 'Ail';
+  if (/\btomate|tomates\b/.test(text)) return 'Tomates';
+  if (/\bcreme|crème|mascarpone|yaourt\b/.test(text)) return 'Crèmes et laitages';
+  return '';
+}
+
+function buildShoppingSmartGroups(groupedItems) {
+  const map = new Map();
+  groupedItems.forEach(item => {
+    const key = shoppingSmartGroupKey(item);
+    if (!key) return;
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(item);
+  });
+  return [...map.entries()]
+    .filter(([, items]) => items.length > 1)
+    .map(([label, items]) => ({ label, items }));
+}
+
 function shoppingAisle(name) {
   const text = normalizeText(name);
   const aisle = SHOPPING_AISLES.find(item => item.pattern.test(text));
@@ -1592,7 +1640,7 @@ function buildShoppingListData(recipes, factorById = {}) {
 
   const groupedItems = [...grouped.values()]
     .sort((a, b) => a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' }))
-    .map(item => ({ ...item, recipeNames: [...item.recipes].sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })) }));
+    .map(item => ({ ...item, purchaseHint: shoppingPurchaseHint(item), recipeNames: [...item.recipes].sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })) }));
 
   const aisleGroups = SHOPPING_AISLES.map(aisle => ({
     label: aisle.label,
@@ -1600,21 +1648,51 @@ function buildShoppingListData(recipes, factorById = {}) {
   })).filter(group => group.items.length);
   const otherItems = groupedItems.filter(item => !SHOPPING_AISLES.some(aisle => aisle.label === item.aisle));
   if (otherItems.length) aisleGroups.push({ label: 'Autres', items: otherItems });
-  return { blocks, groupedItems, aisleGroups };
+  return { blocks, groupedItems, aisleGroups, smartGroups: buildShoppingSmartGroups(groupedItems) };
 }
 
-function shoppingListText(recipes, factorById = {}) {
+function filterShoppingListData(data, ownedItems = {}) {
+  const isOwned = item => Boolean(ownedItems[item.key]);
+  const groupedItems = data.groupedItems.filter(item => !isOwned(item));
+  const ownedGroupedItems = data.groupedItems.filter(isOwned);
+  const aisleGroups = SHOPPING_AISLES.map(aisle => ({
+    label: aisle.label,
+    items: groupedItems.filter(item => item.aisle === aisle.label)
+  })).filter(group => group.items.length);
+  const otherItems = groupedItems.filter(item => !SHOPPING_AISLES.some(aisle => aisle.label === item.aisle));
+  if (otherItems.length) aisleGroups.push({ label: 'Autres', items: otherItems });
+  return { ...data, groupedItems, ownedGroupedItems, aisleGroups, smartGroups: buildShoppingSmartGroups(groupedItems) };
+}
+
+function shoppingListText(recipes, factorById = {}, ownedItems = {}, mode = 'detailed') {
   const data = buildShoppingListData(recipes, factorById);
-  const groupedLines = data.groupedItems
+  const filtered = filterShoppingListData(data, ownedItems);
+  if (mode === 'compact') {
+    return [
+      'Courses Cook Note',
+      ...filtered.aisleGroups.flatMap(group => [
+        `${group.label}:`,
+        ...group.items.map(item => `- ${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')}`)
+      ])
+    ].join('\n');
+  }
+  const groupedLines = filtered.groupedItems
     .map(item => {
       const amount = formatShoppingAmount(item);
-      return `- ${[amount, item.name].filter(Boolean).join(' ')} (${item.recipeNames.join(', ')})`;
+      const hint = item.purchaseHint ? ` - achat: ${item.purchaseHint}` : '';
+      return `- ${[amount, item.name].filter(Boolean).join(' ')}${hint} (${item.recipeNames.join(', ')})`;
     });
   return [
     'Liste de courses Cook Note',
     '',
     groupedLines.length ? '## Ingrédients regroupés' : '',
     ...groupedLines,
+    filtered.smartGroups.length ? '' : '',
+    filtered.smartGroups.length ? '## Regroupements utiles' : '',
+    ...filtered.smartGroups.map(group => `- ${group.label}: ${group.items.map(item => item.name).join(', ')}`),
+    filtered.ownedGroupedItems.length ? '' : '',
+    filtered.ownedGroupedItems.length ? '## Déjà à la maison' : '',
+    ...filtered.ownedGroupedItems.map(item => `- ${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')}`),
     '',
     '## Détail par recette',
     ...data.blocks
@@ -1949,6 +2027,35 @@ function menuPairAffinity(firstProfile, secondProfile, theme = MENU_THEMES[0]) {
   return score;
 }
 
+function menuDessertAffinity(items, profiles, theme = MENU_THEMES[0]) {
+  const main = items.find(item => item.key === 'main')?.recipe;
+  const dessert = items.find(item => item.key === 'dessert')?.recipe;
+  if (!dessert) return 0;
+  const mainProfile = main ? profiles.get(main.id) : null;
+  const dessertProfile = profiles.get(dessert.id);
+  let score = 0;
+  const dessertText = dessertProfile?.text || '';
+  const mainText = mainProfile?.text || '';
+  const freshDessert = /\b(citron|lime|fruit|fruits|cerise|clafoutis|tarte citron|sorbet|fraise|framboise)\b/.test(dessertText);
+  const richDessert = /\b(chocolat|caramel|cookies|brownie|tiramisu|macaron|creme|crème)\b/.test(dessertText);
+  if (!mainProfile) return freshDessert ? 10 : 0;
+  if (mainProfile.heavy || /\b(frites|gratin|creme|crème|fromage|mornay|porc|boeuf|bœuf|agneau)\b/.test(mainText)) {
+    if (freshDessert) score += 34;
+    if (richDessert) score -= 24;
+  } else {
+    if (richDessert) score += 16;
+    if (freshDessert) score += 10;
+  }
+  if (theme.id === 'ete' && freshDessert) score += 20;
+  if (theme.id === 'invites' && /\b(tarte|tiramisu|macaron|clafoutis)\b/.test(dessertText)) score += 16;
+  if (theme.id === 'apero' && /\b(cookies|macaron|carres|carrés|mini)\b/.test(dessertText)) score += 14;
+  return score;
+}
+
+function menuSignature(items) {
+  return items.map(item => item.recipe?.id).filter(Boolean).sort().join('|');
+}
+
 function menuBalanceScore(items, profiles, theme) {
   const recipes = items.map(item => item.recipe).filter(Boolean);
   const itemProfiles = recipes.map(recipe => profiles.get(recipe.id));
@@ -1973,6 +2080,7 @@ function menuBalanceScore(items, profiles, theme) {
   }
   if (theme.id === 'ete' && itemProfiles.filter(profile => profile?.heavy).length > 1) score -= 30;
   if (theme.id === 'confort' && itemProfiles.filter(profile => profile?.heavy).length === 0) score -= 14;
+  score += menuDessertAffinity(items, profiles, theme);
   return score;
 }
 
@@ -2016,11 +2124,13 @@ function menuLeadReason(items, profiles, theme) {
   return `${theme.label} : ${theme.pitch} ${lead}`;
 }
 
-function buildMenuCandidate(items, profiles, theme) {
+function buildMenuCandidate(items, profiles, theme, recentMenuSignatures = []) {
   const cleanItems = items.filter(item => item.recipe);
+  const signature = menuSignature(cleanItems);
   return {
     items: cleanItems,
-    score: menuBalanceScore(cleanItems, profiles, theme)
+    signature,
+    score: menuBalanceScore(cleanItems, profiles, theme) - (recentMenuSignatures.includes(signature) ? 120 : 0)
   };
 }
 
@@ -2031,7 +2141,7 @@ function annotateMenuItems(items, profiles, theme) {
   }));
 }
 
-function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
+function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot', recentMenuSignatures = []) {
   const theme = menuThemeById(themeId);
   const leaves = recipes.filter(recipe => recipe && !isMasterRecipe(recipe));
   const profiles = new Map(leaves.map(recipe => [recipe.id, getMenuRecipeProfile(recipe)]));
@@ -2060,7 +2170,7 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
         { key: 'starter', label: 'À partager', recipe: chosen[1] },
         { key: 'starter', label: 'À picorer', recipe: chosen[2] },
         { key: 'dessert', label: 'Douceur', recipe: dessert }
-      ], profiles, theme));
+      ], profiles, theme, recentMenuSignatures));
     }
   } else {
     const starters = rolePool('starter', 14)
@@ -2096,7 +2206,7 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
           { key: 'main', label: 'Plat', recipe: main },
           { key: side ? 'side' : 'sauce', label: side ? 'Accompagnement' : 'Sauce', recipe: side || sauce },
           { key: 'dessert', label: 'Dessert', recipe: dessert }
-        ], profiles, theme));
+        ], profiles, theme, recentMenuSignatures));
       }
     });
   }
@@ -2107,6 +2217,7 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
       theme,
       reason: menuLeadReason(selected.items, profiles, theme),
       quality: Math.max(0, Math.min(100, Math.round(62 + selected.score / 18))),
+      signature: selected.signature,
       items: annotateMenuItems(selected.items, profiles, theme)
     };
   }
@@ -2149,6 +2260,7 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot') {
     theme,
     reason: menuLeadReason(items, profiles, theme),
     quality: Math.max(0, Math.min(100, Math.round(menuBalanceScore(items, profiles, theme) / 18))),
+    signature: menuSignature(items),
     items: annotateMenuItems(items, profiles, theme)
   };
 }
@@ -4370,11 +4482,14 @@ function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resul
 function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe, clearShopping, notify }) {
   const [copied, setCopied] = useState(false);
   const [checkedItems, setCheckedItems] = useState(() => readJson(STORAGE_KEYS.shoppingChecked, {}));
+  const [ownedItems, setOwnedItems] = useState(() => readJson(STORAGE_KEYS.shoppingOwned, {}));
   const shoppingData = useMemo(() => buildShoppingListData(recipes, factorById), [recipes, factorById]);
+  const activeShoppingData = useMemo(() => filterShoppingListData(shoppingData, ownedItems), [shoppingData, ownedItems]);
   const batchPlan = useMemo(() => getBatchPlanData(recipes), [recipes]);
-  const text = recipes.length ? shoppingListText(recipes, factorById) : 'Liste de courses Cook Note\n\nAucune recette cochee.';
+  const text = recipes.length ? shoppingListText(recipes, factorById, ownedItems) : 'Liste de courses Cook Note\n\nAucune recette cochee.';
+  const compactText = recipes.length ? shoppingListText(recipes, factorById, ownedItems, 'compact') : 'Courses Cook Note\nAucune recette.';
   const visibleShoppingKeys = useMemo(() => new Set(shoppingData.groupedItems.map(item => item.key)), [shoppingData]);
-  const checkedCount = shoppingData.groupedItems.filter(item => checkedItems[item.key]).length;
+  const checkedCount = activeShoppingData.groupedItems.filter(item => checkedItems[item.key]).length;
   const setShoppingChecked = updater => {
     setCheckedItems(prev => {
       const next = typeof updater === 'function' ? updater(prev) : updater;
@@ -4391,6 +4506,21 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
         notify?.('Liste de courses copiée');
       });
     }
+  };
+  const setOwnedShoppingItems = updater => {
+    setOwnedItems(prev => {
+      const next = typeof updater === 'function' ? updater(prev) : updater;
+      writeJson(STORAGE_KEYS.shoppingOwned, next);
+      return next;
+    });
+  };
+  const toggleOwnedItem = key => {
+    setOwnedShoppingItems(prev => {
+      const next = { ...(prev || {}) };
+      if (next[key]) delete next[key];
+      else next[key] = true;
+      return next;
+    });
   };
 
   useEffect(() => {
@@ -4428,9 +4558,13 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
           )
         : h('p', { className: 'muted' }, 'Ajoute une recette depuis sa fiche pour construire une liste groupée.'),
       recipes.length > 0 && h('div', { className: 'shopping-summary' },
-        h('span', null, `${shoppingData.groupedItems.length} article${shoppingData.groupedItems.length > 1 ? 's' : ''} regroupé${shoppingData.groupedItems.length > 1 ? 's' : ''}`),
+        h('span', null, `${activeShoppingData.groupedItems.length} à acheter`),
+        activeShoppingData.ownedGroupedItems.length > 0 && h('span', null, `${activeShoppingData.ownedGroupedItems.length} déjà maison`),
         h('span', null, `${checkedCount} coché${checkedCount > 1 ? 's' : ''}`),
         checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}) }, 'Tout décocher')
+      ),
+      recipes.length > 0 && activeShoppingData.smartGroups.length > 0 && h('div', { className: 'shopping-smart-groups' },
+        activeShoppingData.smartGroups.map(group => h('span', { key: group.label }, `${group.label}: ${group.items.map(item => item.name).join(', ')}`))
       ),
       recipes.length > 1 && batchPlan.length > 0 && h('div', { className: 'batch-plan' },
         h('div', { className: 'batch-plan-head' },
@@ -4443,7 +4577,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
         ))
       ),
       recipes.length > 0 && h('div', { className: 'shopping-aisles' },
-        shoppingData.aisleGroups.map(group => h('section', { key: group.label, className: 'shopping-aisle' },
+        activeShoppingData.aisleGroups.map(group => h('section', { key: group.label, className: 'shopping-aisle' },
           h('div', { className: 'shopping-aisle-head' },
             h('strong', null, group.label),
             h('span', null, `${group.items.length} article${group.items.length > 1 ? 's' : ''}`)
@@ -4459,12 +4593,21 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
               }),
               h('span', { className: 'shopping-line-main' },
                 amount && h('strong', null, amount),
-                h('span', null, item.name)
+                h('span', null, item.name),
+                item.purchaseHint && h('em', null, item.purchaseHint)
               ),
-              h('small', null, item.recipeNames.join(', '))
+              h('small', null, item.recipeNames.join(', ')),
+              h('button', { type: 'button', className: 'shopping-owned-btn', onClick: event => {
+                event.preventDefault();
+                toggleOwnedItem(item.key);
+              } }, 'J’ai déjà')
             );
           })
         ))
+      ),
+      activeShoppingData.ownedGroupedItems.length > 0 && h('div', { className: 'shopping-owned-list' },
+        h('strong', null, 'Déjà à la maison'),
+        activeShoppingData.ownedGroupedItems.map(item => h('button', { key: item.key, type: 'button', onClick: () => toggleOwnedItem(item.key) }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')}`))
       ),
       h('pre', { className: 'cart-output combined-cart' }, text),
       h('div', { className: 'modal-actions' },
@@ -4472,6 +4615,10 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
           setCopied(true);
           notify?.('Liste de courses copiée');
         }) }, copied ? 'Copié' : 'Copier la liste complète'),
+        h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: () => copyText(compactText).then(() => {
+          setCopied(true);
+          notify?.('Liste compacte copiée');
+        }) }, 'Copier compact'),
         h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: shareText, title: 'Partager la liste', ariaLabel: 'Partager la liste' }, h(Icon, { name: 'share' })),
         h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: () => window.print(), title: 'Imprimer la liste', ariaLabel: 'Imprimer la liste' }, h(Icon, { name: 'print' })),
         h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: clearShopping }, 'Vider le panier')
@@ -4483,13 +4630,21 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
 function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShopping, notify }) {
   const [offset, setOffset] = useState(0);
   const [themeId, setThemeId] = useState(MENU_THEMES[0].id);
-  const menu = useMemo(() => buildMenuSuggestion(recipes, offset, themeId), [recipes, offset, themeId]);
+  const [menuHistory, setMenuHistory] = useState(() => readStoredList(STORAGE_KEYS.menuHistory, []));
+  const menu = useMemo(() => buildMenuSuggestion(recipes, offset, themeId, menuHistory), [recipes, offset, themeId, menuHistory]);
   const menuItems = menu.items || [];
   const menuRecipes = menuItems.map(item => item.recipe);
   const shoppingData = useMemo(() => buildShoppingListData(menuRecipes), [menuRecipes]);
   const servicePlan = useMemo(() => buildMenuServicePlan(menuRecipes, shoppingData), [menuRecipes, shoppingData]);
   if (!open) return null;
+  const rememberMenu = currentMenu => {
+    if (!currentMenu?.signature) return;
+    const next = [currentMenu.signature, ...menuHistory.filter(item => item !== currentMenu.signature)].slice(0, 12);
+    setMenuHistory(next);
+    writeJson(STORAGE_KEYS.menuHistory, next);
+  };
   const addToShopping = () => {
+    rememberMenu(menu);
     addMenuToShopping(menuRecipes);
     notify?.('Menu ajouté aux courses');
   };
@@ -4571,7 +4726,10 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
       ),
       h('div', { className: 'modal-actions' },
         h(Button, { variant: 'primary', disabled: !menuRecipes.length, onClick: addToShopping }, 'Ajouter le menu aux courses'),
-        h(Button, { variant: 'subtle', onClick: () => setOffset(value => value + 1) }, 'Autre menu')
+        h(Button, { variant: 'subtle', onClick: () => {
+          rememberMenu(menu);
+          setOffset(value => value + 1);
+        } }, 'Autre menu')
       )
     )
   );
