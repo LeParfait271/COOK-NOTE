@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v0.98';
+const SITE_VERSION = 'v0.99';
 const SITE_UPDATED_AT = '01/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -1720,19 +1720,37 @@ function getRecipeCardBadges(recipe, recipesById = {}) {
   return uniq(badges).slice(0, 3);
 }
 
-function recipeMenuRole(recipe) {
+function getMenuRecipeProfile(recipe) {
   const text = normalizeText([
     recipe?.title,
     ...(recipe?.categories || []),
     ...(recipe?.tags || []),
-    ...(recipe?.aliases || [])
+    ...(recipe?.aliases || []),
+    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])])
   ].join(' '));
-  if (/\b(dessert|gateau|gouter|cookies|tiramisu|creme|tarte|flan|clafoutis)\b/.test(text)) return 'dessert';
-  if (/\b(plat|poulet|boeuf|porc|poisson|cabillaud|saumon|riz|pates|lentilles|gratin|curry)\b/.test(text)) return 'main';
-  if (/\b(accompagnement|frites|puree|riz|legume|salade)\b/.test(text)) return 'side';
-  if (/\b(sauce|pesto|aioli|mornay|rouille|vinaigrette|beurre)\b/.test(text)) return 'sauce';
-  if (/\b(apero|entree|brie|billes|oeufs|terrine|rillettes|salade)\b/.test(text)) return 'starter';
-  return 'other';
+  const families = [];
+  const addFamily = family => {
+    if (!families.includes(family)) families.push(family);
+  };
+  if (/\b(riz|pates|pate|pommes? de terre|pdt|frites|puree|gratin dauphinois|pain|bun|lentilles)\b/.test(text)) addFamily('starch');
+  if (/\b(poulet|volaille|boeuf|bœuf|porc|agneau|saucisse|chorizo|jambon|bacon|lapin)\b/.test(text)) addFamily('meat');
+  if (/\b(poisson|cabillaud|saumon|thon|calamar|crevettes?|chipirons?)\b/.test(text)) addFamily('fish');
+  if (/\b(legume|légume|courge|butternut|chou|tomate|salade|melon|betterave|carotte|avocat|epinards|épinards)\b/.test(text)) addFamily('vegetable');
+  if (/\b(sauce|pesto|aioli|aïoli|mornay|rouille|vinaigrette|beurre|caramel|toppings)\b/.test(text)) addFamily('sauce');
+  if (/\b(dessert|gateau|gâteau|gouter|goûter|cookies|tiramisu|creme|crème|tarte|flan|clafoutis|cerise|chocolat)\b/.test(text)) addFamily('dessert');
+  if (/\b(apero|apéro|entree|entrée|brie|billes|oeufs|œufs|terrine|rillettes|cake sale|cake salé)\b/.test(text)) addFamily('starter');
+  const hasProtein = families.includes('meat') || families.includes('fish');
+  const isDessert = families.includes('dessert') && !hasProtein && !families.includes('vegetable');
+  const isSauce = families.includes('sauce') && !hasProtein && !families.includes('dessert') && !/\b(plat|gratin|frites|burger)\b/.test(text);
+  const isStarter = families.includes('starter') && !hasProtein && !families.includes('starch');
+  const isCompleteMain = hasProtein || (families.includes('starch') && families.includes('vegetable')) || /\b(curry|plat|croque|riz cantonnais|lentilles tomate)\b/.test(text);
+  return {
+    families,
+    role: isDessert ? 'dessert' : isSauce ? 'sauce' : isStarter ? 'starter' : isCompleteMain ? 'main' : families.includes('vegetable') || families.includes('starch') ? 'side' : 'other',
+    heavy: families.includes('starch'),
+    protein: hasProtein,
+    text
+  };
 }
 
 function menuRecipeScore(recipe) {
@@ -1749,8 +1767,9 @@ function menuRecipeScore(recipe) {
 
 function buildMenuSuggestion(recipes, offset = 0) {
   const leaves = recipes.filter(recipe => recipe && !isMasterRecipe(recipe));
+  const profiles = new Map(leaves.map(recipe => [recipe.id, getMenuRecipeProfile(recipe)]));
   const byRole = leaves.reduce((groups, recipe) => {
-    const role = recipeMenuRole(recipe);
+    const role = profiles.get(recipe.id).role;
     if (!groups[role]) groups[role] = [];
     groups[role].push(recipe);
     return groups;
@@ -1759,18 +1778,37 @@ function buildMenuSuggestion(recipes, offset = 0) {
     byRole[role].sort((a, b) => menuRecipeScore(b) - menuRecipeScore(a) || a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
   });
   const used = new Set();
-  const pick = (roles, bump = 0) => {
-    const pool = roles.flatMap(role => byRole[role] || []).filter(recipe => !used.has(recipe.id));
+  const pick = (roles, bump = 0, allowed = () => true) => {
+    const pool = roles
+      .flatMap(role => byRole[role] || [])
+      .filter(recipe => !used.has(recipe.id) && allowed(recipe, profiles.get(recipe.id)));
     if (!pool.length) return null;
     const recipe = pool[(offset + bump) % pool.length];
     used.add(recipe.id);
     return recipe;
   };
+  const starter = pick(['starter'], 0);
+  const main = pick(['main'], 1);
+  const mainProfile = main ? profiles.get(main.id) : null;
+  const side = pick(['side'], 2, (recipe, profile) => {
+    if (!mainProfile) return true;
+    if (mainProfile.heavy && profile.heavy) return false;
+    if (mainProfile.families.includes('starch') && profile.families.includes('starch')) return false;
+    if (mainProfile.families.includes('vegetable') && profile.families.includes('vegetable') && !profile.families.includes('starch')) return offset % 2 === 0;
+    return true;
+  });
+  const sauce = pick(['sauce'], 3, (recipe, profile) => {
+    if (!mainProfile) return true;
+    if (mainProfile.families.includes('fish')) return /\b(citron|yaourt|aioli|aïoli|rouille|beurre)\b/.test(profile.text);
+    if (mainProfile.families.includes('meat')) return /\b(poivre|moutarde|mornay|beurre|rouille|burger)\b/.test(profile.text);
+    return true;
+  });
+  const dessert = pick(['dessert'], 4);
   return [
-    { key: 'starter', label: 'Entrée / apéro', recipe: pick(['starter', 'side', 'sauce'], 0) },
-    { key: 'main', label: 'Plat', recipe: pick(['main'], 1) },
-    { key: 'side', label: 'Accompagnement / sauce', recipe: pick(['side', 'sauce'], 2) },
-    { key: 'dessert', label: 'Dessert', recipe: pick(['dessert'], 3) }
+    { key: 'starter', label: 'Entrée / apéro', recipe: starter },
+    { key: 'main', label: 'Plat', recipe: main },
+    { key: 'side', label: side ? 'Accompagnement' : 'Sauce', recipe: side || sauce },
+    { key: 'dessert', label: 'Dessert', recipe: dessert }
   ].filter(item => item.recipe);
 }
 
