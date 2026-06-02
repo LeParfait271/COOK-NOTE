@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.25';
+const SITE_VERSION = 'v1.26';
 const SITE_UPDATED_AT = '02/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -2581,8 +2581,11 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot', recentMen
   };
 }
 
-function buildMenuItemReplacement(menu, recipes, themeId, targetIndex = 0, bump = 1) {
+function buildMenuItemReplacement(menu, recipes, themeId, targetSlot = 0, bump = 1) {
   const currentItems = menu?.items || [];
+  const targetIndex = typeof targetSlot === 'string'
+    ? currentItems.findIndex((item, index) => menuItemSlotKey(item, index) === targetSlot)
+    : Number(targetSlot);
   const target = currentItems[targetIndex];
   if (!target?.recipe) return menu;
   const theme = menuThemeById(themeId);
@@ -2590,19 +2593,26 @@ function buildMenuItemReplacement(menu, recipes, themeId, targetIndex = 0, bump 
   const profiles = new Map(leaves.map(recipe => [recipe.id, getMenuRecipeProfile(recipe)]));
   const usedIds = new Set(currentItems.map(item => item.recipe?.id).filter(Boolean));
   const wantedRole = target.key === 'sauce' ? 'sauce' : target.key === 'side' ? 'side' : target.key;
-  const allowed = recipe => {
+  const roleMatches = (recipe, profile) => {
+    if (profile.role === wantedRole) return true;
+    if (wantedRole === 'main') return (recipe.categories || []).some(category => normalizeText(category) === 'plats');
+    if (wantedRole === 'side') return profile.role === 'sauce' || (recipe.categories || []).some(category => normalizeText(category) === 'accompagnements');
+    return false;
+  };
+  const allowed = (recipe, strict = true) => {
     const profile = profiles.get(recipe.id);
-    if (!profile?.servable || profile.role !== wantedRole || usedIds.has(recipe.id)) return false;
+    if (!profile?.servable || !roleMatches(recipe, profile) || usedIds.has(recipe.id)) return false;
     if (theme.id === 'semaine' && wantedRole === 'dessert' && !isWeeknightDessert(recipe)) return false;
     if (wantedRole === 'side') {
       const main = currentItems.find(item => item.key === 'main')?.recipe;
       const mainProfile = main ? profiles.get(main.id) : null;
-      if (mainProfile && menuPairPenalty(mainProfile, profile, theme) >= 35) return false;
+      if (strict && mainProfile && menuPairPenalty(mainProfile, profile, theme) >= 35) return false;
     }
     return true;
   };
-  const candidates = leaves
-    .filter(allowed)
+  const strictCandidates = leaves.filter(recipe => allowed(recipe, true));
+  const relaxedCandidates = strictCandidates.length ? strictCandidates : leaves.filter(recipe => allowed(recipe, false));
+  const candidates = relaxedCandidates
     .map(recipe => {
       const items = currentItems.map((item, index) => index === targetIndex ? { ...item, recipe } : item);
       return {
@@ -2627,11 +2637,15 @@ function buildMenuItemReplacement(menu, recipes, themeId, targetIndex = 0, bump 
 function buildMenuSuggestionWithOverrides(recipes, offset = 0, themeId = 'bistrot', recentMenuSignatures = [], itemOffsets = {}) {
   return Object.entries(itemOffsets)
     .filter(([, bump]) => Number(bump) > 0)
-    .sort(([left], [right]) => Number(left) - Number(right))
+    .sort(([left], [right]) => String(left).localeCompare(String(right), 'fr', { numeric: true }))
     .reduce(
-      (currentMenu, [index, bump]) => buildMenuItemReplacement(currentMenu, recipes, themeId, Number(index), Number(bump)),
+      (currentMenu, [slot, bump]) => buildMenuItemReplacement(currentMenu, recipes, themeId, slot, Number(bump)),
       buildMenuSuggestion(recipes, offset, themeId, recentMenuSignatures)
     );
+}
+
+function menuItemSlotKey(item, index) {
+  return `${item?.key || 'slot'}:${index}`;
 }
 
 function menuRecipeStepText(recipe) {
@@ -5066,7 +5080,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
           h('h2', { id: 'menu-planner-title' }, 'Composer un repas')
         ),
         h('div', { className: 'menu-planner-head-actions' },
-          h(Button, { variant: 'subtle', onClick: changeWholeMenu }, 'Changer tout'),
+          h(Button, { variant: 'subtle', onClick: changeWholeMenu }, 'Autre menu'),
           h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
         )
       ),
@@ -5107,7 +5121,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
             item.note && h('p', { className: 'menu-planner-note' }, item.note),
             h('div', { className: 'menu-planner-card-actions' },
               h(Button, { variant: 'subtle', onClick: () => openRecipe(item.recipe.id) }, 'Ouvrir'),
-              h(Button, { variant: 'ghost', onClick: () => changeOneItem(index) }, 'Changer')
+              h(Button, { variant: 'ghost', onClick: () => changeOneItem(menuItemSlotKey(item, index)) }, 'Changer')
             )
           )
         ))
@@ -5153,8 +5167,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
         )
       ),
       h('div', { className: 'modal-actions' },
-        h(Button, { variant: 'primary', disabled: !menuRecipes.length, onClick: addToShopping }, 'Ajouter le menu aux courses'),
-        h(Button, { variant: 'subtle', onClick: changeWholeMenu }, 'Autre menu')
+        h(Button, { variant: 'primary', disabled: !menuRecipes.length, onClick: addToShopping }, 'Ajouter le menu aux courses')
       )
     )
   );
