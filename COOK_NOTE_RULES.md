@@ -59,6 +59,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Mode menu : le registre `MENU_PAIRING_RULES` doit contenir au moins 100 regles actives et couvrir aussi oeuf/mayo, ail/oignon cru, fume, fruits/noix, amertume, herbes, temperature chaud/froid, equipements repetes, pomme de terre/riz/pates/pain, legumes secs, champignons, crustaces, alcool, textures croquantes ou molles, viandes par familles et bases de dessert.
 - Historique des menus : ne pas reproposer exactement la meme combinaison de recettes quand l'utilisateur demande un autre menu ou ajoute un menu aux courses.
 - Mode menu : proposer un choix du nombre de personnes et appliquer ce facteur aux rendements affiches, au resume des courses et aux quantites envoyees dans la liste de courses.
+- Mode menu : quand une fiche est ouverte depuis le menu, le bouton retour du navigateur doit rouvrir le meme mode menu avec son contexte, pas renvoyer l'utilisateur sur une page sans le menu.
 - Le panier courses doit regrouper les noms proches sans perdre le sens : beurre doux/ramolli/fondu vers beurre, cassonade/vergeoise ensemble, huiles neutres ensemble, chocolat noir/lait/blanc separes.
 - Liste de courses : mode `J’ai déjà` obligatoire pour retirer un ingredient de la liste a acheter sans supprimer la recette.
 - Liste de courses : les rayons doivent rester proches d'un magasin reel : primeur, cremerie et oeufs, boucherie, poissonnerie, boulangerie, epicerie salee et epicerie sucree.

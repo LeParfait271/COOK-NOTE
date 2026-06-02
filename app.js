@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.26';
+const SITE_VERSION = 'v1.27';
 const SITE_UPDATED_AT = '02/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -6387,8 +6387,29 @@ function App() {
     setTimeout(() => searchRef.current?.focus(), 0);
   }
 
+  function markMenuPlannerReturnState(enabled) {
+    const currentState = (history.state && typeof history.state === 'object') ? history.state : {};
+    history.replaceState({ ...currentState, menuPlannerOpen: Boolean(enabled) }, document.title, window.location.href);
+  }
+
+  function openMenuPlanner() {
+    markMenuPlannerReturnState(false);
+    setMenuPlannerOpen(true);
+  }
+
+  function closeMenuPlanner() {
+    markMenuPlannerReturnState(false);
+    setMenuPlannerOpen(false);
+  }
+
+  function openMenuRecipe(id) {
+    markMenuPlannerReturnState(true);
+    setMenuPlannerOpen(false);
+    openRecipe(id);
+  }
+
   useEffect(() => {
-    const handleLocation = () => {
+    const handleLocation = event => {
       saveCurrentScrollPosition(lastRouteKeyRef.current);
       const recipe = getInitialRecipe();
       const page = getPathPage();
@@ -6403,6 +6424,7 @@ function App() {
       setTargetTechniqueId(technique);
       setOnlyFavorites(new URLSearchParams(window.location.search).get('view') === '__favs__');
       setActiveId(recipe);
+      setMenuPlannerOpen(Boolean(event?.state?.menuPlannerOpen));
       if (!recipe && page === 'home') restoreHomeScrollRef.current = false;
     };
     window.addEventListener('hashchange', handleLocation);
@@ -6456,7 +6478,7 @@ function App() {
           return;
         }
         if (menuPlannerOpen) {
-          setMenuPlannerOpen(false);
+          closeMenuPlanner();
           return;
         }
         if ((activeRecipe || activePage === 'techniques') && !isTypingTarget(event.target)) goHome();
@@ -6521,7 +6543,7 @@ function App() {
       shoppingCount: shoppingRecipes.length,
       showFavorites,
       openShoppingBasket: () => setShoppingOpen(true),
-      openMenuPlanner: () => setMenuPlannerOpen(true),
+      openMenuPlanner,
       openTechniques: goTechniques,
       query,
       openSearch,
@@ -6530,7 +6552,7 @@ function App() {
     h('nav', { className: 'mobile-bottom-nav', 'aria-label': 'Navigation mobile' },
       h('button', { type: 'button', onClick: goHome, 'aria-label': 'Accueil', 'aria-current': !activeRecipe && activePage === 'home' && !onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'home' })), h('span', { className: 'sr-only' }, 'Accueil')),
       h('button', { type: 'button', onClick: openSearch, 'aria-label': 'Recherche', 'aria-current': searchOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'search' })), 'Recherche'),
-      h('button', { type: 'button', onClick: () => setMenuPlannerOpen(true), 'aria-label': 'Mode menu', 'aria-current': menuPlannerOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'spark' })), 'Menu'),
+      h('button', { type: 'button', onClick: openMenuPlanner, 'aria-label': 'Mode menu', 'aria-current': menuPlannerOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'spark' })), 'Menu'),
       h('button', { type: 'button', onClick: showFavorites, 'aria-label': 'Favoris', 'aria-current': onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'heart' })), 'Favoris'),
       h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses', 'aria-current': shoppingOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Courses')
     ),
@@ -6619,12 +6641,9 @@ function App() {
     }),
     h(MenuPlannerPanel, {
       open: menuPlannerOpen,
-      onClose: () => setMenuPlannerOpen(false),
+      onClose: closeMenuPlanner,
       recipes: searchableRecipes,
-      openRecipe: id => {
-        setMenuPlannerOpen(false);
-        openRecipe(id);
-      },
+      openRecipe: openMenuRecipe,
       addMenuToShopping,
       notify
     }),
