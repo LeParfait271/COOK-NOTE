@@ -5,8 +5,8 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.27';
-const SITE_UPDATED_AT = '02/06/26';
+const SITE_VERSION = 'v1.28';
+const SITE_UPDATED_AT = '03/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
@@ -5772,6 +5772,11 @@ function RecipeView({
         'aria-selected': mobileDetailTab === tab.key,
         onClick: () => setMobileDetailTab(tab.key)
       }, h('span', null, tab.label), h('small', null, tab.count)))
+    ),
+    hasSelectedVariant && h('p', { className: 'mobile-swipe-hint' },
+      h('span', { 'aria-hidden': true }, '\u2039'),
+      ' Glisse pour passer d\u2019un panneau \u00e0 l\u2019autre ',
+      h('span', { 'aria-hidden': true }, '\u203a')
     ),
     hasSelectedVariant && needsInlineVariantSelection && h('div', { className: 'mobile-recipe-guidance' },
       canShowSteps

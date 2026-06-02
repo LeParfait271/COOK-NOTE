@@ -49,6 +49,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les passes design premium doivent ameliorer les composants existants sans rajouter de sections gadget sur l'accueil. Travailler surtout cartes, panneaux, boutons, etats hover/focus, responsive et performance.
 - Le footer doit afficher le compteur catalogue automatique : fiches recettes servies + variantes inline. Ce compteur doit venir de `window.RECIPES`, jamais d'un nombre ecrit en dur.
 - Les boutons partager et imprimer du hero ne doivent apparaitre que sur les vraies fiches recettes servies, jamais sur les categories, collections ou fiches parentes.
+- Sur mobile, les onglets de fiche `Ingredients / Etapes / Avant` ne doivent pas etre sticky pendant le scroll. Si un swipe change de panneau, afficher un indice discret visible sur mobile.
 - `Ajouts du mois` doit rester range automatiquement : date recente, puis categorie metier, puis titre. Chaque entree de `MONTHLY_ADDITIONS` doit pointer vers une fiche recette existante non parente, sans doublon, avec une date ISO et au moins une categorie.
 - Les liens Techniques doivent centrer la carte visee, la faire clignoter assez longtemps, et garder le halo actif tant qu'on est sur la page.
 - La recherche doit comprendre les intentions utilisateur courantes : rapide, sans cuisson, cuisson au four, friture, a preparer a l'avance, congelable, vegetarien, froid et ingredients proches.
