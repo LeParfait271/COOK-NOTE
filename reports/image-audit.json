@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-06-02T10:07:05.559Z",
+  "generatedAt": "2026-06-02T10:52:23.548Z",
   "total": 201,
-  "weakCount": 9,
+  "weakCount": 7,
   "issueBuckets": {
     "missingCard": 0,
     "smallOptimized": 8,
     "smallCard": 38,
     "framing": 0,
-    "duplicates": 2
+    "duplicates": 0
   },
   "rows": [
     {
@@ -156,46 +156,6 @@
         "height": 293
       },
       "cardBytes": 17006
-    },
-    {
-      "id": "pates_tarte_variantes",
-      "title": "Pâtes à tarte",
-      "score": 80,
-      "issues": [
-        "Image identique partagee avec pates_bases_maitre"
-      ],
-      "optimized": "assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg",
-      "card": "assets/recipe-card-images/pates_bases_maitre_spooky.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 262656,
-      "cardSize": {
-        "width": 520,
-        "height": 520
-      },
-      "cardBytes": 39975
-    },
-    {
-      "id": "pates_bases_maitre",
-      "title": "Pâtes et bases pâtissières",
-      "score": 80,
-      "issues": [
-        "Image identique partagee avec pates_tarte_variantes"
-      ],
-      "optimized": "assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg",
-      "card": "assets/recipe-card-images/pates_bases_maitre_spooky.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 262656,
-      "cardSize": {
-        "width": 520,
-        "height": 520
-      },
-      "cardBytes": 39975
     },
     {
       "id": "accompagnements_maitre",
@@ -1062,12 +1022,12 @@
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 240870,
+      "optimizedBytes": 137179,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 81298
+      "cardBytes": 47195
     },
     {
       "id": "cabillaud_crumble_chorizo",
@@ -1458,12 +1418,12 @@
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 172700,
+      "optimizedBytes": 223110,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 67694
+      "cardBytes": 84693
     },
     {
       "id": "caramel_cheesecake_cookies",
@@ -1800,12 +1760,12 @@
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 199759,
+      "optimizedBytes": 230554,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 66727
+      "cardBytes": 78500
     },
     {
       "id": "crevettes_ail_persil",
@@ -1818,12 +1778,12 @@
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 210391,
+      "optimizedBytes": 152081,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 70475
+      "cardBytes": 51911
     },
     {
       "id": "croque_madame",
@@ -2762,6 +2722,24 @@
       "cardBytes": 43854
     },
     {
+      "id": "pates_tarte_variantes",
+      "title": "Pâtes à tarte",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg",
+      "card": "assets/recipe-card-images/pates_bases_maitre_spooky.jpg",
+      "optimizedSize": {
+        "width": 1024,
+        "height": 1024
+      },
+      "optimizedBytes": 262656,
+      "cardSize": {
+        "width": 520,
+        "height": 520
+      },
+      "cardBytes": 39975
+    },
+    {
       "id": "pates_crumble_chorizo",
       "title": "Pates au crumble de chorizo",
       "score": 100,
@@ -2796,6 +2774,24 @@
         "height": 360
       },
       "cardBytes": 51820
+    },
+    {
+      "id": "pates_bases_maitre",
+      "title": "Pâtes et bases pâtissières",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg",
+      "card": "assets/recipe-card-images/pates_tarte_variantes_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 109804,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 38337
     },
     {
       "id": "pesto_variantes",

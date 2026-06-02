@@ -50,13 +50,14 @@ const files = {
   adminHtml: read('admin.html'),
   adminCss: read('admin.css'),
   auditRecipes: read('scripts/audit-recipes.js'),
-  auditImages: read('scripts/audit-images.js')
+  auditImages: read('scripts/audit-images.js'),
+  visualImages: read('scripts/validate-visual-image-duplicates.js')
 };
 
 const FEATURE_COVERAGE = [
   { name: 'Recherche', checks: ['scoreRecipeSearch', 'scoreIngredientSearch', 'getRecipeIntentLabels', 'ingredient-match-badge'] },
   { name: 'Fiche recette', checks: ['RecipeView', 'getRecipeAllergens', 'getRecipeAverageWeights', 'renderLinkedText'] },
-  { name: 'Images', checks: ['recipeCardImageUrl', 'onError: event =>', 'recipe-images-optimized', 'recipe-card-images'] },
+  { name: 'Images', checks: ['recipeCardImageUrl', 'onError: event =>', 'recipe-images-optimized', 'recipe-card-images', 'validate-visual-image-duplicates.js', 'PERCEPTUAL_CORRELATION_LIMIT'] },
   { name: 'Mode menu', checks: ['buildMenuSuggestion', 'menuDessertAffinity', 'menuSignature', 'buildMenuServicePlan', 'isWeeknightDessert', 'MENU_PAIRING_RULES'] },
   { name: 'Liste de courses', checks: ['buildShoppingListData', 'filterShoppingListData', 'shoppingPurchaseHint', 'shoppingSmartGroupKey'] },
   { name: 'Techniques', checks: ['TECHNIQUE_GUIDES', 'buildTechniqueTargets', 'openTechnique', 'inline-technique-link'] },
@@ -66,7 +67,7 @@ const FEATURE_COVERAGE = [
 
 FEATURE_COVERAGE.forEach(feature => {
   feature.checks.forEach(fragment => {
-    const haystack = `${files.app}\n${files.style}\n${files.packageJson}\n${files.production}\n${files.recipes}\n${files.ui}\n${files.admin}\n${files.adminHtml}\n${files.adminCss}\n${files.auditRecipes}\n${files.auditImages}`;
+    const haystack = `${files.app}\n${files.style}\n${files.packageJson}\n${files.production}\n${files.recipes}\n${files.ui}\n${files.admin}\n${files.adminHtml}\n${files.adminCss}\n${files.auditRecipes}\n${files.auditImages}\n${files.visualImages}`;
     expect(`Couverture feature ${feature.name} incomplete (${fragment}).`, haystack.includes(fragment));
   });
 });

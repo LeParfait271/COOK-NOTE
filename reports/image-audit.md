@@ -1,14 +1,14 @@
 # Audit images Cook Note
 
-Genere le 2026-06-02T10:07:05.559Z.
+Genere le 2026-06-02T10:52:23.548Z.
 
 - Images recette auditees : 201
-- Images a revoir : 9
+- Images a revoir : 7
 - Miniatures manquantes : 0
 - Images optimisees faibles : 8
 - Miniatures faibles : 38
 - Cadrages atypiques : 0
-- Doublons visuels : 2
+- Doublons visuels : 0
 
 ## Priorite
 
@@ -33,10 +33,6 @@ Genere le 2026-06-02T10:07:05.559Z.
 - Pain hot dog brioché (pain_hot_dog) : 80/100
   - Miniature petite (520x293)
   - Miniature tres legere (17 Ko)
-- Pâtes à tarte (pates_tarte_variantes) : 80/100
-  - Image identique partagee avec pates_bases_maitre
-- Pâtes et bases pâtissières (pates_bases_maitre) : 80/100
-  - Image identique partagee avec pates_tarte_variantes
 
 ## Top 10 a inspecter visuellement
 
@@ -47,9 +43,9 @@ Genere le 2026-06-02T10:07:05.559Z.
 - Frites belges (frites_belges) : 80/100 - assets/recipe-images-optimized/frites_belges_spooky.jpg
 - Gazpacho tomate, menthe et basilic (gazpacho_tomate_menthe_basilic) : 80/100 - assets/recipe-images-optimized/gazpacho_tomate_menthe_basilic_spooky.jpg
 - Pain hot dog brioché (pain_hot_dog) : 80/100 - assets/recipe-images-optimized/pain_hot_dog_spooky.jpg
-- Pâtes à tarte (pates_tarte_variantes) : 80/100 - assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg
-- Pâtes et bases pâtissières (pates_bases_maitre) : 80/100 - assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg
 - Accompagnements (accompagnements_maitre) : 88/100 - assets/recipe-images-optimized/parent_accompagnements.jpg
+- Aïoli citronné léger (aioli_citronne_leger) : 88/100 - assets/recipe-images-optimized/aioli_citronne_leger_spooky.jpg
+- Apéro (apero_maitre) : 88/100 - assets/recipe-images-optimized/parent_apero.jpg
 
 ## Fichiers a ouvrir
 
@@ -60,5 +56,3 @@ Genere le 2026-06-02T10:07:05.559Z.
 - Frites belges (frites_belges) : assets/recipe-images-optimized/frites_belges_spooky.jpg / assets/recipe-card-images/frites_belges_spooky.jpg
 - Gazpacho tomate, menthe et basilic (gazpacho_tomate_menthe_basilic) : assets/recipe-images-optimized/gazpacho_tomate_menthe_basilic_spooky.jpg / assets/recipe-card-images/gazpacho_tomate_menthe_basilic_spooky.jpg
 - Pain hot dog brioché (pain_hot_dog) : assets/recipe-images-optimized/pain_hot_dog_spooky.jpg / assets/recipe-card-images/pain_hot_dog_spooky.jpg
-- Pâtes à tarte (pates_tarte_variantes) : assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg / assets/recipe-card-images/pates_bases_maitre_spooky.jpg
-- Pâtes et bases pâtissières (pates_bases_maitre) : assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg / assets/recipe-card-images/pates_bases_maitre_spooky.jpg

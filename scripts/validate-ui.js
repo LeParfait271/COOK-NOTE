@@ -79,7 +79,7 @@ expect('Mode cuisine revenu.', !files.app.includes('Mode cuisine') && !files.app
 expect('Boutons minuteurs revenus.', !files.app.includes('step-timer') && !files.style.includes('step-timer') && !files.app.includes('timerEnd') && !files.app.includes('timerLabel') && !files.app.includes('cooking-step-card') && !files.style.includes('cooking-step-actions'));
 expect('Fiche rapide variantes sans etat vide.', files.app.includes('recipe-summary-empty') && files.app.includes('Sélectionne une variante pour afficher les informations de la fiche rapide.'));
 expect('Compteur catalogue footer absent ou statique.', files.app.includes('getCatalogRecipeStats') && files.app.includes('site-footer-count') && files.app.includes('countInlineVariantGroups(recipe)') && files.rules.includes('compteur catalogue automatique') && files.style.includes('.site-footer-count'));
-expect('Version footer absente.', files.app.includes("const SITE_VERSION = 'v1.18'") && files.app.includes("const SITE_UPDATED_AT = '02/06/26'") && files.app.includes('site-footer-version'));
+expect('Version footer absente.', files.app.includes("const SITE_VERSION = 'v1.19'") && files.app.includes("const SITE_UPDATED_AT = '02/06/26'") && files.app.includes('site-footer-version'));
 expect('Script validate-ui non branche au check.', files.packageJson.includes('scripts/validate-ui.js'));
 
 if (errors.length) {

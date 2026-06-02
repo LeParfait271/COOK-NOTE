@@ -5395,7 +5395,7 @@ window.RECIPES = {
   "pates_tarte_variantes": {
     "title": "Pâtes à tarte",
     "master": "elements_base_maitre",
-    "image": "/assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg",
     "categories": [
       "Base"
     ],

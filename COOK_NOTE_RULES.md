@@ -74,6 +74,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 ## Images
 
 - Chaque recette feuille doit avoir une image locale unique. Pas de doublon d'image entre recettes feuilles.
+- Les images recette ne doivent pas etre reutilisees visuellement : pas de meme fichier, pas de meme composition recadree/reteinte, pas de presque-doublon. `npm run validate:visual-images` doit bloquer les doublons exacts et les images trop similaires avant push.
 - Les recettes doivent pointer vers les copies legeres dans `assets/recipe-images-optimized/`. Les PNG originaux dans `assets/recipe-images/` restent les masters et ne doivent pas etre supprimes.
 - Chaque image optimisee referencee par une recette doit avoir une miniature homonyme dans `assets/recipe-card-images/`, sinon les cartes de l'accueil risquent d'afficher une image manquante.
 - Quand une image recette est ajoutee ou modifiee, regenerer les copies optimisees avec `npm run optimize:images` avant de push.

@@ -137,6 +137,7 @@ function validateDiffScope() {
       throw new Error(`Diff image trop large: ${imageFiles.length} fichiers image modifies.`);
     }
     run(node, ['scripts/audit-images.js']);
+    run(node, ['scripts/validate-visual-image-duplicates.js']);
     console.log(`Diff image large accepte: lot equilibre ${counts[0]} masters/optimisees/miniatures audite.`);
     return;
   }
@@ -152,6 +153,7 @@ async function main() {
   run(node, ['scripts/sync-catalog.js']);
   run(node, ['--check', 'scripts/bump-version.js']);
   run(node, ['--check', 'scripts/validate-cache-version.js']);
+  run(node, ['--check', 'scripts/validate-visual-image-duplicates.js']);
   run(node, ['--check', 'scripts/preflight.js']);
   run(node, ['scripts/validate-cache-version.js']);
   run('powershell.exe', ['-ExecutionPolicy', 'Bypass', '-File', '.\\check.ps1']);

@@ -1442,7 +1442,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "pates_tarte_variantes": {
     "title": "P\u00e2tes \u00e0 tarte",
     "master": "elements_base_maitre",
-    "image": "/assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg",
     "categories": [
       "Base"
     ],

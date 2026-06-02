@@ -9,6 +9,7 @@ const validators = {
   ui: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-ui.js'), 'utf8'),
   production: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-production.js'), 'utf8'),
   cache: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-cache-version.js'), 'utf8'),
+  visualImages: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-visual-image-duplicates.js'), 'utf8'),
   preflight: fs.readFileSync(path.join(ROOT, 'scripts', 'preflight.js'), 'utf8'),
   bumpVersion: fs.readFileSync(path.join(ROOT, 'scripts', 'bump-version.js'), 'utf8'),
   audit: fs.readFileSync(path.join(ROOT, 'scripts', 'audit-recipes.js'), 'utf8'),
@@ -32,6 +33,8 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'Materiel necessaire',
   'coulis_fraise',
   'Chaque recette feuille doit avoir une image locale unique',
+  'pas de presque-doublon',
+  'npm run validate:visual-images',
   'assets/recipe-images-optimized/',
   'assets/recipe-card-images/',
   'npm run optimize:images',
@@ -78,6 +81,7 @@ expect('Validation cassonade/vergeoise non branchee.', validators.recipes.includ
 expect('Validation poivre du moulin non branchee.', validators.recipes.includes('checkPepperWording'));
 expect('Validation unites non metriques non branchee.', validators.recipes.includes('NON_METRIC_UNIT_RE'));
 expect('Validation images uniques non branchee.', validators.recipes.includes('leafImageHashes'));
+expect('Validation doublons visuels non branchee.', validators.visualImages.includes('PERCEPTUAL_CORRELATION_LIMIT') && validators.packageJson.includes('scripts/validate-visual-image-duplicates.js'));
 expect('Validation images optimisees non branchee.', validators.recipes.includes('recipe-images-optimized') && validators.recipes.includes('master PNG introuvable'));
 expect('Validation miniatures cartes non branchee.', validators.production.includes('recipe-card-images') && validators.production.includes('miniature carte introuvable'));
 expect('Validation materiel necessaire colonne droite non branchee.', validators.ui.includes('Materiel necessaire encore dans la colonne droite'));
