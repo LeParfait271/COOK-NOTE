@@ -4932,7 +4932,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "oeufs_cocotte_chorizo": {
     "title": "Oeufs cocotte chorizo",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images-optimized/oeufs_cocotte_chorizo_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/oeufs_cocotte_chorizo_photo_v2_spooky.jpg",
     "categories": [
       "Entrees"
     ],
@@ -5180,7 +5180,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "asperges_mimosa": {
     "title": "Asperges mimosa",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images-optimized/asperges_mimosa_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/asperges_mimosa_photo_v2_spooky.jpg",
     "categories": [
       "Entrees"
     ],
@@ -5244,7 +5244,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "salade_pois_chiche_feta_olives": {
     "title": "Salade pois chiches feta olives",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images-optimized/salade_pois_chiche_feta_olives_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/salade_pois_chiche_feta_olives_photo_v2_spooky.jpg",
     "categories": [
       "Entrees"
     ],
@@ -5665,7 +5665,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "carottes_persillade_creme": {
     "title": "Carottes persillade creme",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images-optimized/carottes_persillade_creme_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/carottes_persillade_creme_photo_v2_spooky.jpg",
     "categories": [
       "Accompagnements"
     ],
@@ -6079,7 +6079,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "tagliatelles_agrumes": {
     "title": "Tagliatelles aux agrumes",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/tagliatelles_agrumes_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/tagliatelles_agrumes_photo_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -6139,7 +6139,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "bricks_fromage_miel_poires_pecan": {
     "title": "Bricks fromage miel poires pecan",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images-optimized/bricks_fromage_miel_poires_pecan_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/bricks_fromage_miel_poires_pecan_photo_v2_spooky.jpg",
     "categories": [
       "Entrees"
     ],
@@ -6198,7 +6198,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "oeufs_meurette_faciles": {
     "title": "Oeufs en meurette faciles",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images-optimized/oeufs_meurette_faciles_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/oeufs_meurette_faciles_photo_v2_spooky.jpg",
     "categories": [
       "Entrees"
     ],
@@ -6258,7 +6258,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "poires_roties_orange_miel": {
     "title": "Poires roties orange miel",
     "master": "desserts_maitre",
-    "image": "/assets/recipe-images-optimized/poires_roties_orange_miel_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/poires_roties_orange_miel_photo_v2_spooky.jpg",
     "categories": [
       "Desserts"
     ],
@@ -6497,7 +6497,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "crevettes_ail_persil": {
     "title": "Crevettes ail persil",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/crevettes_ail_persil_photo_v2_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/crevettes_ail_persil_photo_v4_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -6556,7 +6556,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "chapelure_parfumee": {
     "title": "Chapelure parfumee",
     "master": "bases_salees_maitre",
-    "image": "/assets/recipe-images-optimized/chapelure_parfumee_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/chapelure_parfumee_photo_v2_spooky.jpg",
     "categories": [
       "Base"
     ],
@@ -6733,7 +6733,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "carottes_roties_miel_epices": {
     "title": "Carottes roties miel epices",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images-optimized/carottes_roties_miel_epices_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/carottes_roties_miel_epices_photo_v2_spooky.jpg",
     "categories": [
       "Accompagnements"
     ],
@@ -6847,7 +6847,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "samoussas_boeuf_epinards_petits_pois": {
     "title": "Samoussas boeuf epinards petits pois",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/samoussas_boeuf_epinards_petits_pois_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/samoussas_boeuf_epinards_petits_pois_photo_v2_spooky.jpg",
     "categories": [
       "Apero",
       "Entrees"
@@ -6967,7 +6967,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "gressins_fromage_olives": {
     "title": "Gressins fromage olives",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/gressins_fromage_olives_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/gressins_fromage_olives_photo_v2_spooky.jpg",
     "categories": [
       "Apero"
     ],

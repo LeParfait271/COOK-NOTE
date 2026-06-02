@@ -26,10 +26,25 @@ const MISSING_APOSTROPHE_RE = /(?:^|[^A-Za-zÀ-ÖØ-öø-ÿ])(?:[dljmnst]|qu|jus
 const NON_INGREDIENT_GROUP_RE = /\b(conversion|equivalence|repere|poids moyens?|memo|avant de commencer)\b/i;
 const NON_INGREDIENT_ITEM_RE = /\b(equivaut|equivalent|conversion|repere indicatif)\b/i;
 const FORBIDDEN_RECIPE_IMAGE_BY_ID = new Map([
-  ['crevettes_ail_persil', '/assets/recipe-images-optimized/crevettes_ail_persil_spooky.jpg'],
-  ['bruschetta_roquefort_noix', '/assets/recipe-images-optimized/bruschetta_roquefort_noix_spooky.jpg'],
-  ['pates_tarte_variantes', '/assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg'],
-  ['nems_vietnam', '/assets/recipe-images-optimized/nems_vietnam_spooky.jpg']
+  ['crevettes_ail_persil', [
+    '/assets/recipe-images-optimized/crevettes_ail_persil_spooky.jpg',
+    '/assets/recipe-images-optimized/crevettes_ail_persil_photo_v2_spooky.jpg'
+  ]],
+  ['bruschetta_roquefort_noix', ['/assets/recipe-images-optimized/bruschetta_roquefort_noix_spooky.jpg']],
+  ['pates_tarte_variantes', ['/assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg']],
+  ['nems_vietnam', ['/assets/recipe-images-optimized/nems_vietnam_spooky.jpg']],
+  ['oeufs_cocotte_chorizo', ['/assets/recipe-images-optimized/oeufs_cocotte_chorizo_spooky.jpg']],
+  ['asperges_mimosa', ['/assets/recipe-images-optimized/asperges_mimosa_spooky.jpg']],
+  ['salade_pois_chiche_feta_olives', ['/assets/recipe-images-optimized/salade_pois_chiche_feta_olives_spooky.jpg']],
+  ['carottes_persillade_creme', ['/assets/recipe-images-optimized/carottes_persillade_creme_spooky.jpg']],
+  ['tagliatelles_agrumes', ['/assets/recipe-images-optimized/tagliatelles_agrumes_spooky.jpg']],
+  ['bricks_fromage_miel_poires_pecan', ['/assets/recipe-images-optimized/bricks_fromage_miel_poires_pecan_spooky.jpg']],
+  ['oeufs_meurette_faciles', ['/assets/recipe-images-optimized/oeufs_meurette_faciles_spooky.jpg']],
+  ['poires_roties_orange_miel', ['/assets/recipe-images-optimized/poires_roties_orange_miel_spooky.jpg']],
+  ['chapelure_parfumee', ['/assets/recipe-images-optimized/chapelure_parfumee_spooky.jpg']],
+  ['carottes_roties_miel_epices', ['/assets/recipe-images-optimized/carottes_roties_miel_epices_spooky.jpg']],
+  ['samoussas_boeuf_epinards_petits_pois', ['/assets/recipe-images-optimized/samoussas_boeuf_epinards_petits_pois_spooky.jpg']],
+  ['gressins_fromage_olives', ['/assets/recipe-images-optimized/gressins_fromage_olives_spooky.jpg']]
 ]);
 
 function checkTextEncoding(value, location) {
@@ -404,7 +419,7 @@ if (!recipes || typeof recipes !== 'object') {
     let resolvedImagePath = null;
     if (!recipe.image) {
       errors.push(`${id}: image manquante.`);
-    } else if (FORBIDDEN_RECIPE_IMAGE_BY_ID.get(id) === recipe.image) {
+    } else if ((FORBIDDEN_RECIPE_IMAGE_BY_ID.get(id) || []).includes(recipe.image)) {
       errors.push(`${id}: ancienne URL image interdite apres remplacement visuel (${recipe.image}). Utiliser un nouveau nom stable pour eviter le cache.`);
     } else if (/_v3_spooky\.jpg(?:$|\?)/i.test(recipe.image)) {
       errors.push(`${id}: image _v3_spooky interdite, generation avec bandes verticales (${recipe.image}).`);

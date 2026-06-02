@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-02T15:49:17.625Z",
+  "generatedAt": "2026-06-02T16:29:51.198Z",
   "total": 201,
   "weakCount": 7,
   "issueBuckets": {
@@ -800,18 +800,18 @@
       "title": "Asperges mimosa",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/asperges_mimosa_spooky.jpg",
-      "card": "assets/recipe-card-images/asperges_mimosa_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/asperges_mimosa_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/asperges_mimosa_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 197213,
+      "optimizedBytes": 265417,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 68204
+      "cardBytes": 86494
     },
     {
       "id": "babeurre_maison",
@@ -980,18 +980,18 @@
       "title": "Bricks fromage miel poires pecan",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/bricks_fromage_miel_poires_pecan_spooky.jpg",
-      "card": "assets/recipe-card-images/bricks_fromage_miel_poires_pecan_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/bricks_fromage_miel_poires_pecan_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/bricks_fromage_miel_poires_pecan_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 177256,
+      "optimizedBytes": 259099,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 68867
+      "cardBytes": 82866
     },
     {
       "id": "brie_farci_fruits_secs_noix",
@@ -1088,36 +1088,36 @@
       "title": "Carottes persillade creme",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/carottes_persillade_creme_spooky.jpg",
-      "card": "assets/recipe-card-images/carottes_persillade_creme_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/carottes_persillade_creme_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/carottes_persillade_creme_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 113560,
+      "optimizedBytes": 245797,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 36527
+      "cardBytes": 80288
     },
     {
       "id": "carottes_roties_miel_epices",
       "title": "Carottes roties miel epices",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/carottes_roties_miel_epices_spooky.jpg",
-      "card": "assets/recipe-card-images/carottes_roties_miel_epices_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/carottes_roties_miel_epices_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/carottes_roties_miel_epices_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 185160,
+      "optimizedBytes": 301334,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 72133
+      "cardBytes": 95619
     },
     {
       "id": "carpaccio_betterave_mozzarella_yuzu",
@@ -1232,18 +1232,18 @@
       "title": "Chapelure parfumee",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/chapelure_parfumee_spooky.jpg",
-      "card": "assets/recipe-card-images/chapelure_parfumee_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/chapelure_parfumee_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/chapelure_parfumee_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 233043,
+      "optimizedBytes": 302167,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 73209
+      "cardBytes": 96855
     },
     {
       "id": "chipirons_a_la_plancha",
@@ -1772,18 +1772,18 @@
       "title": "Crevettes ail persil",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/crevettes_ail_persil_photo_v2_spooky.jpg",
-      "card": "assets/recipe-card-images/crevettes_ail_persil_photo_v2_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/crevettes_ail_persil_photo_v4_spooky.jpg",
+      "card": "assets/recipe-card-images/crevettes_ail_persil_photo_v4_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 336124,
+      "optimizedBytes": 288067,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 118487
+      "cardBytes": 92787
     },
     {
       "id": "croque_madame",
@@ -2132,18 +2132,18 @@
       "title": "Gressins fromage olives",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/gressins_fromage_olives_spooky.jpg",
-      "card": "assets/recipe-card-images/gressins_fromage_olives_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/gressins_fromage_olives_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/gressins_fromage_olives_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 235614,
+      "optimizedBytes": 241681,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 75003
+      "cardBytes": 78045
     },
     {
       "id": "grillades_porc_miel_orange_piment",
@@ -2528,36 +2528,36 @@
       "title": "Oeufs cocotte chorizo",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/oeufs_cocotte_chorizo_spooky.jpg",
-      "card": "assets/recipe-card-images/oeufs_cocotte_chorizo_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/oeufs_cocotte_chorizo_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/oeufs_cocotte_chorizo_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
-        "height": 933
+        "height": 934
       },
-      "optimizedBytes": 171694,
+      "optimizedBytes": 255342,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 67408
+      "cardBytes": 79072
     },
     {
       "id": "oeufs_meurette_faciles",
       "title": "Oeufs en meurette faciles",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/oeufs_meurette_faciles_spooky.jpg",
-      "card": "assets/recipe-card-images/oeufs_meurette_faciles_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/oeufs_meurette_faciles_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/oeufs_meurette_faciles_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 169505,
+      "optimizedBytes": 270633,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 65554
+      "cardBytes": 84890
     },
     {
       "id": "oeufs_mimosa_variantes",
@@ -2816,18 +2816,18 @@
       "title": "Poires roties orange miel",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/poires_roties_orange_miel_spooky.jpg",
-      "card": "assets/recipe-card-images/poires_roties_orange_miel_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/poires_roties_orange_miel_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/poires_roties_orange_miel_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 231991,
+      "optimizedBytes": 287742,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 80014
+      "cardBytes": 90244
     },
     {
       "id": "pommes_grenaille_herbes",
@@ -3194,36 +3194,36 @@
       "title": "Salade pois chiches feta olives",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/salade_pois_chiche_feta_olives_spooky.jpg",
-      "card": "assets/recipe-card-images/salade_pois_chiche_feta_olives_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/salade_pois_chiche_feta_olives_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/salade_pois_chiche_feta_olives_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 187631,
+      "optimizedBytes": 277994,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 73745
+      "cardBytes": 91333
     },
     {
       "id": "samoussas_boeuf_epinards_petits_pois",
       "title": "Samoussas boeuf epinards petits pois",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/samoussas_boeuf_epinards_petits_pois_spooky.jpg",
-      "card": "assets/recipe-card-images/samoussas_boeuf_epinards_petits_pois_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/samoussas_boeuf_epinards_petits_pois_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/samoussas_boeuf_epinards_petits_pois_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 111201,
+      "optimizedBytes": 273053,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 35393
+      "cardBytes": 83577
     },
     {
       "id": "sauce_aigre_douce_vietnam",
@@ -3482,18 +3482,18 @@
       "title": "Tagliatelles aux agrumes",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/tagliatelles_agrumes_spooky.jpg",
-      "card": "assets/recipe-card-images/tagliatelles_agrumes_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/tagliatelles_agrumes_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/tagliatelles_agrumes_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 222722,
+      "optimizedBytes": 260877,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 73208
+      "cardBytes": 83207
     },
     {
       "id": "tarte_citron_meringuee",
