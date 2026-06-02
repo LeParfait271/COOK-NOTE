@@ -8469,6 +8469,7 @@ window.RECIPES = {
           "60g farine",
           "45g beurre fondu",
           "150g lait",
+          "2 cuillères à café de moutarde à l'ancienne",
           "Sel fin",
           "Poivre du moulin"
         ]
@@ -8476,7 +8477,7 @@ window.RECIPES = {
     ],
     "steps": [
       "Préchauffer le four à 180°C et graisser des empreintes à mini-muffins.",
-      "Fouetter les œufs avec la farine, puis ajouter le beurre fondu et le lait.",
+      "Fouetter les œufs avec la farine, puis ajouter le beurre fondu, le lait et la moutarde à l'ancienne.",
       "Assaisonner et mélanger sans trop travailler.",
       "Répartir dans les empreintes en remplissant aux trois quarts.",
       "Cuire environ 15min, jusqu’à ce que les flans soient pris et légèrement dorés.",

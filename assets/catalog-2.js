@@ -2206,6 +2206,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
           "60g farine",
           "45g beurre fondu",
           "150g lait",
+          "2 cuill\u00e8res \u00e0 caf\u00e9 de moutarde \u00e0 l'ancienne",
           "Sel fin",
           "Poivre du moulin"
         ]
@@ -2213,7 +2214,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     ],
     "steps": [
       "Pr\u00e9chauffer le four \u00e0 180\u00b0C et graisser des empreintes \u00e0 mini-muffins.",
-      "Fouetter les \u0153ufs avec la farine, puis ajouter le beurre fondu et le lait.",
+      "Fouetter les \u0153ufs avec la farine, puis ajouter le beurre fondu, le lait et la moutarde \u00e0 l'ancienne.",
       "Assaisonner et m\u00e9langer sans trop travailler.",
       "R\u00e9partir dans les empreintes en remplissant aux trois quarts.",
       "Cuire environ 15min, jusqu\u2019\u00e0 ce que les flans soient pris et l\u00e9g\u00e8rement dor\u00e9s.",
