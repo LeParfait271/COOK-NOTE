@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.16';
+const SITE_VERSION = 'v1.17';
 const SITE_UPDATED_AT = '02/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -1230,6 +1230,19 @@ function getRecipeVariantLabel(recipe, recipesById = {}) {
     : countInlineVariantGroups(recipe);
   if (!count) return '';
   return `${count} variante${count > 1 ? 's' : ''}`;
+}
+
+function getCatalogRecipeStats(recipes) {
+  const ficheCount = recipes.filter(recipe => !isMasterRecipe(recipe)).length;
+  const variantCount = recipes.reduce((sum, recipe) => {
+    if (isMasterRecipe(recipe)) return sum;
+    return sum + countInlineVariantGroups(recipe);
+  }, 0);
+  return {
+    ficheCount,
+    variantCount,
+    label: `${ficheCount} fiche${ficheCount > 1 ? 's' : ''} + ${variantCount} variante${variantCount > 1 ? 's' : ''}`
+  };
 }
 
 function parseAmount(raw) {
@@ -5859,6 +5872,7 @@ function App() {
     }).sort((a, b) => a.title.localeCompare(b.title, 'fr'));
   }, []);
   const recipesById = useMemo(() => Object.fromEntries(recipes.map(recipe => [recipe.id, recipe])), [recipes]);
+  const catalogStats = useMemo(() => getCatalogRecipeStats(recipes), [recipes]);
   const homeCatalogRecipes = useMemo(() => recipes.filter(recipe => !recipe.master), [recipes]);
   const searchableRecipes = useMemo(() => recipes.filter(recipe => !isMasterRecipe(recipe)), [recipes]);
   const currentSeason = useMemo(() => getCurrentSeason(), []);
@@ -6537,6 +6551,7 @@ function App() {
           h('p', { className: 'site-footer-brand' }, 'Cook Note © 2026.'),
           h('p', null, 'Carnet personnel de recettes et techniques culinaires.'),
           h('p', null, 'Développé par MaruChiwa.'),
+          h('p', { className: 'site-footer-count' }, catalogStats.label),
           h('p', { className: 'site-footer-version' }, `${SITE_VERSION} / ${SITE_UPDATED_AT}`)
         ),
         h('button', {

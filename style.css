@@ -186,6 +186,11 @@ a {
   letter-spacing: .04em;
 }
 
+.site-footer-count {
+  color: color-mix(in srgb, var(--text) 92%, var(--accent));
+  font-weight: 800;
+}
+
 .site-footer-version {
   color: var(--accent);
   font-weight: 900;
