@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.19';
+const SITE_VERSION = 'v1.20';
 const SITE_UPDATED_AT = '02/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -4091,6 +4091,10 @@ const ICON_PATHS = {
     'M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2',
     'M7 14h10v7H7z'
   ],
+  arrowUp: [
+    'M12 20V5',
+    'M6 11l6-6 6 6'
+  ],
   focus: [
     'M9 4H5a1 1 0 0 0-1 1v4',
     'M15 4h4a1 1 0 0 1 1 1v4',
@@ -5582,6 +5586,7 @@ function RecipeView({
   const canAddToShopping = hasSelectedVariant && canShowSteps;
   const isInShopping = hasSelectedVariant && shoppingIds.includes(detailKey);
   const canFavorite = hasSelectedVariant && !isMasterRecipe(selectedRecipe);
+  const showRecipeUtilities = hasSelectedVariant && !isMasterRecipe(selectedRecipe);
   const recipeAllergens = hasSelectedVariant ? getRecipeAllergens(selectedRecipe) : [];
   const averageWeights = hasSelectedVariant ? getRecipeAverageWeights(selectedRecipe) : [];
   const linkedRecipes = hasSelectedVariant ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
@@ -5711,9 +5716,9 @@ function RecipeView({
               notify?.('Fiche recette copiée');
             })
           }, exportCopied ? 'Fiche copiée' : 'Copier fiche'),
-          h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' })),
+          showRecipeUtilities && h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' })),
           selectedRecipe.video && h('a', { className: 'btn btn-ghost', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, 'Voir la vidéo'),
-          h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, h(Icon, { name: 'print' })),
+          showRecipeUtilities && h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, h(Icon, { name: 'print' })),
           canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'icon-square favorite-action active' : 'icon-square favorite-action', onClick: () => toggleFavorite(detailKey), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }))
         )
       )
@@ -6563,21 +6568,26 @@ function App() {
         }),
     h('footer', { className: 'site-footer' },
       h('div', { className: 'site-footer-inner' },
-        h('div', { className: 'site-footer-mark' },
+        h('div', { className: 'site-footer-identity' },
+          h('div', { className: 'site-footer-mark' },
           h('img', { src: '/assets/cook-note-mark.svg', alt: '', loading: 'lazy' })
-        ),
-        h('div', { className: 'site-footer-copy' },
-          h('p', { className: 'site-footer-brand' }, 'Cook Note © 2026.'),
+          ),
+          h('div', { className: 'site-footer-copy' },
+          h('p', { className: 'site-footer-brand' }, 'Cook Note'),
           h('p', null, 'Carnet personnel de recettes et techniques culinaires.'),
           h('p', null, 'Développé par MaruChiwa.'),
-          h('p', { className: 'site-footer-count' }, catalogStats.label),
-          h('p', { className: 'site-footer-version' }, `${SITE_VERSION} / ${SITE_UPDATED_AT}`)
+          )
+        ),
+        h('div', { className: 'site-footer-stats', 'aria-label': 'Informations catalogue' },
+          h('span', { className: 'site-footer-count' }, catalogStats.label),
+          h('span', { className: 'site-footer-version' }, `${SITE_VERSION} / ${SITE_UPDATED_AT}`),
+          h('span', { className: 'site-footer-year' }, '© 2026')
         ),
         h('button', {
           type: 'button',
           className: 'site-footer-top',
           onClick: () => window.scrollTo({ top: 0, behavior: preferences.reduceMotion ? 'auto' : 'smooth' })
-        }, 'Retour haut')
+        }, h(Icon, { name: 'arrowUp' }), h('span', null, 'Retour haut'))
       )
     ),
     h(ShoppingBasketPanel, {
