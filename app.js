@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.28';
+const SITE_VERSION = 'v1.29';
 const SITE_UPDATED_AT = '03/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -4371,8 +4371,7 @@ function MonthlyAdditionsSection({ recipes, recipesById, favorites, toggleFavori
       || rankA.title.localeCompare(rankB.title, 'fr', { sensitivity: 'base' })
       || rankB.index - rankA.index;
   });
-  const visibleRecipes = expanded ? orderedRecipes : orderedRecipes.slice(0, 3);
-  const hasMore = orderedRecipes.length > visibleRecipes.length;
+  const visibleRecipes = expanded ? orderedRecipes : [];
   return h('section', { className: 'monthly-additions-block', 'aria-label': 'Ajouts du mois' },
     h('div', { className: 'season-block-head monthly-additions-head' },
       h('div', null,
@@ -4380,16 +4379,15 @@ function MonthlyAdditionsSection({ recipes, recipesById, favorites, toggleFavori
         h('h3', null, 'Ajouts du mois')
       ),
       h('div', { className: 'monthly-additions-actions' },
-        h('span', null, `${recipes.length} fiches`),
-        recipes.length > 3 && h(Button, {
+        h('span', null, `${recipes.length} ajout${recipes.length > 1 ? 's' : ''}`),
+        h(Button, {
           variant: 'subtle',
           className: 'monthly-additions-more',
           onClick: () => setExpanded(value => !value)
-        }, expanded ? 'Réduire' : `Voir les ${recipes.length}`)
+        }, expanded ? 'Réduire' : `Voir les ${recipes.length} ajout${recipes.length > 1 ? 's' : ''}`)
       )
     ),
-    h(RecipeGrid, { recipes: visibleRecipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite: true }),
-    hasMore && h('p', { className: 'monthly-additions-hint' }, `${orderedRecipes.length - visibleRecipes.length} autre${orderedRecipes.length - visibleRecipes.length > 1 ? 's' : ''} ajout${orderedRecipes.length - visibleRecipes.length > 1 ? 's' : ''} du mois`)
+    expanded && h(RecipeGrid, { recipes: visibleRecipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite: true })
   );
 }
 
