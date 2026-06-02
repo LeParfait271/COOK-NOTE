@@ -623,6 +623,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "P\u00e2te \u00e0 choux"
       },
       {
+        "id": "poires_roties_orange_miel",
+        "label": "Poires roties orange miel"
+      },
+      {
         "id": "sauce_caramel",
         "label": "Sauce caramel"
       },

@@ -30,10 +30,12 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - La page d'accueil sans filtre doit rester un rangement propre par fiches parentes/collections. Ne pas afficher toutes les recettes enfants en vrac sur l'accueil par defaut.
 - Sous le nom d'une carte recette, ne pas afficher le poids, le rendement ou les portions. Afficher seulement le nombre de variantes quand la fiche contient des variantes, sinon ne rien afficher.
 - Le badge categorie des cartes recette doit afficher toutes les categories de la fiche, separees par ` / `, pas seulement la premiere categorie.
+- Les cartes recette ne doivent pas afficher de badges ou tags automatiques au-dessus de l'image (`A l'avance`, `Base`, `Four`, etc.). Ces signaux restent internes pour la recherche et les menus, pas visuels sur les cartes.
 - Le rangement des fiches doit suivre l'usage reel : `Toppings frites` = Accompagnements/Sauces, pas Plats ; `Oeufs mimosa` = Apero/Entrees ; `Legumes rotis au four` = Accompagnements/Entrees avec variantes ouvrables.
 - Les recettes type coulis restent dans la fiche parent `Coulis` sous forme de variantes. Ne pas remettre les anciennes fiches individuelles `coulis_fraise`, `coulis_framboise`, `coulis_abricot_vanille`, `coulis_poire` ou `coulis_guide`.
 - Quand une nouvelle recette sert de base ou de composant a une fiche deja presente, verifier les recettes consommatrices et ajouter un lien interne `<span data-goto="id_recette">nom</span>` plus `linkedRecipes`. Pour les dependances durables, ajouter un garde-fou dans `scripts/validate-recipes.js`.
 - Garder un score de completude interne pour surveiller les fiches faibles : structure, securite, conservation, liens, tags, images et rangement.
+- Allergenes : ne jamais confondre un moule de cuisson avec une moule coquillage. Les mots de materiel comme `beurrer le moule`, `moule a cake` ou `moule a tarte` ne doivent pas declencher `Mollusques`.
 
 ## Interface
 
@@ -84,7 +86,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Avant un push visible, lancer le preflight quand la modification touche l'UI, les recettes, le cache, le service worker ou les images : `node scripts/preflight.js`.
 - Les versions cache/site doivent etre synchronisees par `node scripts/bump-version.js --next` ou validees par `node scripts/validate-cache-version.js`.
 - Pour quelques images seulement, utiliser `scripts/optimize-selected-images.ps1` avec des noms explicites, pas l'optimisation globale forcee qui peut modifier tout le catalogue de miniatures.
-- Le preflight doit refuser les diffs image anormalement larges, resynchroniser les catalogues, lancer les validations, demarrer un serveur local sur port libre et tester les assets critiques.
+- Le preflight doit refuser les diffs image anormalement larges, sauf lot complet et equilibre master/optimisee/miniature qui passe `scripts/audit-images.js`. Il doit resynchroniser les catalogues, lancer les validations, demarrer un serveur local sur port libre et tester les assets critiques.
 - Les scripts de validation doivent rester branches dans `npm run check`.
 - Le domaine canonique public du site est `https://cook-note.pages.dev`. Ne pas remettre d'URL preview Cloudflare dans `index.html`, `robots.txt` ou `sitemap.xml`.
 - Les librairies front critiques doivent rester locales dans `assets/vendor/`. Ne pas remettre React, ReactDOM, QRCode ou confetti via CDN dans `index.html`.

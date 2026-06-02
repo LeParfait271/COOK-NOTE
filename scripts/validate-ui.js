@@ -40,6 +40,8 @@ expect('Export recette propre absent.', files.app.includes('recipeExportText') &
 expect('Resume recette premium absent.', files.app.includes('recipe-summary-panel') && files.style.includes('.recipe-summary-panel'));
 expect('Passe premium composants absente.', files.style.includes('content-visibility: auto') && files.style.includes('.recipe-card::before') && files.style.includes('.variant-card::before') && files.app.includes("name: 'spark'"));
 expect('Badges categories incomplets sur les cartes.', files.app.includes('function categoryLine') && files.app.includes("join(' / ')") && files.app.includes('categoryLine(recipe)') && files.app.includes('categoryLine(item)') && !files.app.includes('categories.slice(0, 1)') && files.style.includes('.tag-line'));
+expect('Badges automatiques encore affiches en haut des cartes.', !files.app.includes("className: 'card-badges'") && files.rules.includes('ne doivent pas afficher de badges ou tags automatiques'));
+expect('Allergenes mollusques confondent moule cuisson et coquillage.', files.app.includes('mouleToolPattern') && files.app.includes('molluskAllergenText') && files.rules.includes('moule de cuisson'));
 expect('Collections encore traitees comme variantes bloquees.', files.app.includes('CollectionLinksPanel') && files.app.includes('recipes.filter(recipe => !recipe.master)') && !files.app.includes('variantSelection') && !files.app.includes('setActiveId(activeRecipe.master)') && !files.style.includes('variant-picker-panel-selected'));
 expect('Sous-titre de carte recette encore base sur portions/rendement.', files.app.includes('getRecipeVariantLabel') && files.app.includes('countInlineVariantGroups') && !files.app.includes('item.yield || difficultyText(item)') && !files.app.includes("recipe.yield || ''"));
 expect('Etapes de variantes inline non separees.', files.app.includes('getSelectedInlineVariantSteps') && files.app.includes('selectedInlineVariantGroup?.group') && files.app.includes('variant-group:${selectedInlineVariantGroup.index}'));
@@ -76,7 +78,7 @@ expect('Fallback image carte absent.', files.app.includes('onError: event =>') &
 expect('Mode cuisine revenu.', !files.app.includes('Mode cuisine') && !files.app.includes('focusMode') && !files.style.includes('recipe-focus-mode') && !files.style.includes('focus-toggle') && !files.style.includes('focus-action'));
 expect('Boutons minuteurs revenus.', !files.app.includes('step-timer') && !files.style.includes('step-timer') && !files.app.includes('timerEnd') && !files.app.includes('timerLabel') && !files.app.includes('cooking-step-card') && !files.style.includes('cooking-step-actions'));
 expect('Fiche rapide variantes sans etat vide.', files.app.includes('recipe-summary-empty') && files.app.includes('Sélectionne une variante pour afficher les informations de la fiche rapide.'));
-expect('Version footer absente.', files.app.includes("const SITE_VERSION = 'v1.15'") && files.app.includes("const SITE_UPDATED_AT = '02/06/26'") && files.app.includes('site-footer-version'));
+expect('Version footer absente.', files.app.includes("const SITE_VERSION = 'v1.16'") && files.app.includes("const SITE_UPDATED_AT = '02/06/26'") && files.app.includes('site-footer-version'));
 expect('Script validate-ui non branche au check.', files.packageJson.includes('scripts/validate-ui.js'));
 
 if (errors.length) {

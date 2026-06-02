@@ -73,6 +73,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Balsamique r\u00e9duit"
       },
       {
+        "id": "harissa_maison",
+        "label": "Harissa rouge"
+      },
+      {
         "id": "huile_pimentee_pizza",
         "label": "Huile piment\u00e9e pour pizza"
       },
@@ -95,6 +99,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "rouille_haut_de_gamme",
         "label": "Rouille"
+      },
+      {
+        "id": "sauce_aigre_douce_vietnam",
+        "label": "Sauce aigre-douce vietnamienne"
       },
       {
         "id": "sauce_aux_poivres",
@@ -625,8 +633,16 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Ajitsuke tamago oeufs marin\u00e9s ramen"
       },
       {
+        "id": "asperges_mimosa",
+        "label": "Asperges mimosa"
+      },
+      {
         "id": "beignets_calamar",
         "label": "Beignets de calamar"
+      },
+      {
+        "id": "bricks_fromage_miel_poires_pecan",
+        "label": "Bricks fromage miel poires pecan"
       },
       {
         "id": "carpaccio_betterave_mozzarella_yuzu",
@@ -661,6 +677,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "L\u00e9gumes r\u00f4tis au four"
       },
       {
+        "id": "oeufs_cocotte_chorizo",
+        "label": "Oeufs cocotte chorizo"
+      },
+      {
+        "id": "oeufs_meurette_faciles",
+        "label": "Oeufs en meurette faciles"
+      },
+      {
         "id": "oeufs_mimosa_variantes",
         "label": "\u0152ufs mimosa"
       },
@@ -669,12 +693,28 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Oignons r\u00f4tis au thym et au miel"
       },
       {
+        "id": "salade_caprese",
+        "label": "Salade caprese"
+      },
+      {
+        "id": "salade_epinards_clementines_amande_feta",
+        "label": "Salade epinards clementines amande feta"
+      },
+      {
         "id": "salade_oeufs_durs_mayonnaise_bistrot",
         "label": "Salade oeufs durs mayonnaise"
       },
       {
+        "id": "salade_pois_chiche_feta_olives",
+        "label": "Salade pois chiches feta olives"
+      },
+      {
         "id": "tomates_maitre",
         "label": "Tomates pr\u00e9par\u00e9es"
+      },
+      {
+        "id": "veloute_hiver_noix_cajou",
+        "label": "Veloute d'hiver noix de cajou"
       }
     ],
     "ingredients": [
@@ -1030,6 +1070,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Brie farci aux fruits secs et noix"
       },
       {
+        "id": "bruschetta_roquefort_noix",
+        "label": "Bruschetta roquefort noix"
+      },
+      {
         "id": "cake_sale_lardon",
         "label": "Cake sal\u00e9 poitrine fum\u00e9e"
       },
@@ -1054,12 +1098,20 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Falafels au four"
       },
       {
+        "id": "gressins_fromage_olives",
+        "label": "Gressins fromage olives"
+      },
+      {
         "id": "houmous_hakocem",
         "label": "Houmous tahine tres cremeux"
       },
       {
         "id": "mojitos_variantes",
         "label": "Mojitos"
+      },
+      {
+        "id": "oeufs_cocotte_chorizo",
+        "label": "Oeufs cocotte chorizo"
       },
       {
         "id": "oeufs_mimosa_variantes",
@@ -1088,6 +1140,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "rillettes_poulet",
         "label": "Rillettes de poulet"
+      },
+      {
+        "id": "samoussas_boeuf_epinards_petits_pois",
+        "label": "Samoussas boeuf epinards petits pois"
       },
       {
         "id": "sauce_yaourt_citronnee",

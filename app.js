@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.15';
+const SITE_VERSION = 'v1.16';
 const SITE_UPDATED_AT = '02/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -31,6 +31,45 @@ const HOME_CARD_ORDER = {
   desserts_maitre: 8
 };
 const MONTHLY_ADDITIONS = [
+  { id: 'puree_patates_douces', addedAt: '2026-06-02' },
+  { id: 'chou_fleur_coco_curry', addedAt: '2026-06-02' },
+  { id: 'oeufs_cocotte_chorizo', addedAt: '2026-06-02' },
+  { id: 'puree_chou_fleur', addedAt: '2026-06-02' },
+  { id: 'sauce_aigre_douce_vietnam', addedAt: '2026-06-02' },
+  { id: 'nems_vietnam', addedAt: '2026-06-02' },
+  { id: 'asperges_mimosa', addedAt: '2026-06-02' },
+  { id: 'salade_pois_chiche_feta_olives', addedAt: '2026-06-02' },
+  { id: 'cuisses_poulet_four_tomates_thym', addedAt: '2026-06-02' },
+  { id: 'chou_vert_sauce_tomate', addedAt: '2026-06-02' },
+  { id: 'potee_chou', addedAt: '2026-06-02' },
+  { id: 'veloute_hiver_noix_cajou', addedAt: '2026-06-02' },
+  { id: 'patates_douces_four', addedAt: '2026-06-02' },
+  { id: 'harissa_maison', addedAt: '2026-06-02' },
+  { id: 'carottes_persillade_creme', addedAt: '2026-06-02' },
+  { id: 'pommes_grenaille_herbes', addedAt: '2026-06-02' },
+  { id: 'salade_caprese', addedAt: '2026-06-02' },
+  { id: 'porc_chorizo_haricots_tarbais', addedAt: '2026-06-02' },
+  { id: 'saumon_au_four_simple', addedAt: '2026-06-02' },
+  { id: 'souffle_fromage_facile', addedAt: '2026-06-02' },
+  { id: 'bruschetta_roquefort_noix', addedAt: '2026-06-02' },
+  { id: 'tagliatelles_agrumes', addedAt: '2026-06-02' },
+  { id: 'bricks_fromage_miel_poires_pecan', addedAt: '2026-06-02' },
+  { id: 'oeufs_meurette_faciles', addedAt: '2026-06-02' },
+  { id: 'poires_roties_orange_miel', addedAt: '2026-06-02' },
+  { id: 'grillades_porc_miel_orange_piment', addedAt: '2026-06-02' },
+  { id: 'southern_biscuits', addedAt: '2026-06-02' },
+  { id: 'pates_crumble_chorizo', addedAt: '2026-06-02' },
+  { id: 'crevettes_ail_persil', addedAt: '2026-06-02' },
+  { id: 'chapelure_parfumee', addedAt: '2026-06-02' },
+  { id: 'encornets_chorizo', addedAt: '2026-06-02' },
+  { id: 'crevettes_provencale', addedAt: '2026-06-02' },
+  { id: 'carottes_roties_miel_epices', addedAt: '2026-06-02' },
+  { id: 'pommes_paille', addedAt: '2026-06-02' },
+  { id: 'samoussas_boeuf_epinards_petits_pois', addedAt: '2026-06-02' },
+  { id: 'gratin_pates_chorizo', addedAt: '2026-06-02' },
+  { id: 'gressins_fromage_olives', addedAt: '2026-06-02' },
+  { id: 'salade_epinards_clementines_amande_feta', addedAt: '2026-06-02' },
+  { id: 'joues_porc_cidre_miel', addedAt: '2026-06-02' },
   { id: 'puree_butternut_pommes_terre_curry', addedAt: '2026-06-02' },
   { id: 'joues_boeuf_whiskey_orange', addedAt: '2026-06-02' },
   { id: 'sauce_roquefort', addedAt: '2026-06-02' },
@@ -879,6 +918,8 @@ function getRecipeAllergens(recipe) {
     ...(recipe?.aliases || []),
     ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])])
   ].join(' '));
+  const mouleToolPattern = /\b(?:beurrer|fariner|graisser|chemiser|huiler|foncer|remplir|garnir|preparer|utiliser|verser|poser|dans|sur)\s+(?:un|une|des|le|la|les)?\s*moules?\b|\bmoules?\s+a\s+(?:cake|tarte|manque|muffins?|charniere|savarin|gateau|gratin|ramequins?)\b/g;
+  const molluskAllergenText = text.replace(mouleToolPattern, ' ');
   const allergens = new Set(explicit);
   const addIf = (label, pattern) => {
     if (pattern.test(text)) allergens.add(label);
@@ -894,7 +935,10 @@ function getRecipeAllergens(recipe) {
   addIf('Miel', /\b(miel)\b/);
   addIf('Poisson', /\b(poisson|saumon|thon|cabillaud|anchois|sardine|dorade|bar|bouillabaisse)\b/);
   addIf('Crustacés', /\b(crevette|crevettes|crabe|homard|langoustine|gambas)\b/);
-  addIf('Mollusques', /\b(calamar|calamars|moule|moules|palourde|palourdes|poulpe|encornet|encornets)\b/);
+  if (/\b(calamar|calamars|chipiron|chipirons|palourde|palourdes|poulpe|encornet|encornets)\b/.test(molluskAllergenText)
+    || /\bmoules?\s+(?:de bouchot|marinieres?|cuites?|crues?|nettoyees?|entieres?|decortiquees?)\b|\bchair de moules?\b/.test(molluskAllergenText)) {
+    allergens.add('Mollusques');
+  }
   addIf('Sésame', /\b(sesame|tahini|tahin)\b/);
   addIf('Sulfites', /\b(sulfite|sulfites|vin blanc|vin rouge|vinaigre de vin)\b/);
   addIf('Céleri', /\b(celeri|celeri rave|celeri-rave)\b/);
@@ -4164,7 +4208,6 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   const cardFacts = !master && variantLabel ? [variantLabel] : [];
   const serviceSummary = !master ? getRecipeServiceSummary(recipe) : '';
   const timing = !master ? getRecipeTiming(recipe) : null;
-  const cardBadges = !master ? getRecipeCardBadges(recipe, recipesById) : [];
   const quickFacts = !master ? [
     timing?.active ? `Actif ${formatMinutesShort(timing.active)}` : '',
     timing?.cook ? `Cuisson ${formatMinutesShort(timing.cook)}` : '',
@@ -4219,9 +4262,6 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       favoriteStatus && h('span', { className: 'favorite-status-badge' }, favoriteStatus),
       !master && cardFacts.length > 0 && h('div', { className: 'card-facts' },
         cardFacts.map(fact => h('span', { key: fact }, fact))
-      ),
-      !master && cardBadges.length > 0 && h('div', { className: 'card-badges' },
-        cardBadges.map(badge => h('span', { key: badge }, badge))
       ),
       h('p', { className: 'card-meta' },
         master

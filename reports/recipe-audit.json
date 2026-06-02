@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-06-02T00:12:53.399Z",
+  "generatedAt": "2026-06-02T10:04:34.919Z",
   "totals": {
-    "recipes": 162,
-    "leaves": 143,
+    "recipes": 201,
+    "leaves": 182,
     "masters": 19,
     "lowScore": 15,
-    "categoryIdeas": 11,
+    "categoryIdeas": 14,
     "qualityIssues": 0
   },
-  "averageScore": 84,
+  "averageScore": 87,
   "healthDashboard": {
-    "ready": 27,
+    "ready": 66,
     "improve": 101,
     "weak": 15,
     "missingDiscovery": 33,
     "missingSafety": 98,
     "productionRisk": 0,
-    "fewLinks": 117
+    "fewLinks": 153
   },
   "weakestRecipes": [
     {
@@ -262,6 +262,16 @@
       "text": "Categorie possible : Base (semble etre une base reutilisable)."
     },
     {
+      "id": "asperges_mimosa",
+      "title": "Asperges mimosa",
+      "text": "Categorie possible : Apéro (semble utile a l apero)."
+    },
+    {
+      "id": "chou_vert_sauce_tomate",
+      "title": "Chou vert en sauce tomate",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
       "id": "oeuf_chili_crisp_toast",
       "title": "Œuf sur le plat chili crisp sur toast",
       "text": "Categorie possible : Apéro (semble utile a l apero)."
@@ -269,6 +279,11 @@
     {
       "id": "pates_tarte_variantes",
       "title": "Pâtes à tarte",
+      "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
+    },
+    {
+      "id": "pates_crumble_chorizo",
+      "title": "Pates au crumble de chorizo",
       "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
     }
   ],
@@ -309,8 +324,18 @@
       "count": 0
     },
     {
+      "id": "bricks_fromage_miel_poires_pecan",
+      "title": "Bricks fromage miel poires pecan",
+      "count": 0
+    },
+    {
       "id": "brie_farci_fruits_secs_noix",
       "title": "Brie farci aux fruits secs et noix",
+      "count": 0
+    },
+    {
+      "id": "bruschetta_roquefort_noix",
+      "title": "Bruschetta roquefort noix",
       "count": 0
     },
     {
@@ -331,6 +356,16 @@
     {
       "id": "cake_tomate_chorizo_feta",
       "title": "Cake tomate chorizo feta",
+      "count": 0
+    },
+    {
+      "id": "carottes_persillade_creme",
+      "title": "Carottes persillade creme",
+      "count": 0
+    },
+    {
+      "id": "carottes_roties_miel_epices",
+      "title": "Carottes roties miel epices",
       "count": 0
     },
     {
@@ -364,6 +399,11 @@
       "count": 0
     },
     {
+      "id": "chapelure_parfumee",
+      "title": "Chapelure parfumee",
+      "count": 0
+    },
+    {
       "id": "chipirons_a_la_plancha",
       "title": "Chipirons à la plancha",
       "count": 0
@@ -379,48 +419,23 @@
       "count": 0
     },
     {
+      "id": "chou_vert_sauce_tomate",
+      "title": "Chou vert en sauce tomate",
+      "count": 0
+    },
+    {
       "id": "chou_fleur_croustillant",
       "title": "Chou-fleur croustillant",
       "count": 0
     },
     {
+      "id": "chou_fleur_coco_curry",
+      "title": "Chou-fleur lait de coco curry",
+      "count": 0
+    },
+    {
       "id": "churros_maison",
       "title": "Churros",
-      "count": 0
-    },
-    {
-      "id": "clafoutis_cerises_bocuse",
-      "title": "Clafoutis aux cerises",
-      "count": 0
-    },
-    {
-      "id": "cochon_confit_biere_erable",
-      "title": "Cochon confit à la bière et au sirop d’érable",
-      "count": 0
-    },
-    {
-      "id": "cookies_beurre_noisette_chocolat_noir_lait",
-      "title": "Cookies au beurre noisette chocolat noir/lait",
-      "count": 0
-    },
-    {
-      "id": "cookies_chocolat_noir_lait",
-      "title": "Cookies au chocolat noir/lait",
-      "count": 0
-    },
-    {
-      "id": "cookies_cerise_chocolat",
-      "title": "Cookies cerise chocolat",
-      "count": 0
-    },
-    {
-      "id": "cookies_chocolat_blanc_cranberry",
-      "title": "Cookies chocolat blanc cranberry",
-      "count": 0
-    },
-    {
-      "id": "cookies_chocolat_moelleux",
-      "title": "Cookies chocolat moelleux",
       "count": 0
     }
   ],
@@ -447,6 +462,16 @@
       "qualityIssues": [],
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
+      "id": "asperges_mimosa",
+      "title": "Asperges mimosa",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": [
+        "Categorie possible : Apéro (semble utile a l apero)."
       ]
     },
     {
@@ -568,6 +593,14 @@
       ]
     },
     {
+      "id": "bricks_fromage_miel_poires_pecan",
+      "title": "Bricks fromage miel poires pecan",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "brie_farci_fruits_secs_noix",
       "title": "Brie farci aux fruits secs et noix",
       "score": 82,
@@ -578,6 +611,14 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
+    },
+    {
+      "id": "bruschetta_roquefort_noix",
+      "title": "Bruschetta roquefort noix",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "cabillaud_crumble_chorizo",
@@ -625,6 +666,22 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
+    },
+    {
+      "id": "carottes_persillade_creme",
+      "title": "Carottes persillade creme",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "carottes_roties_miel_epices",
+      "title": "Carottes roties miel epices",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "carpaccio_betterave_mozzarella_yuzu",
@@ -701,6 +758,14 @@
       ]
     },
     {
+      "id": "chapelure_parfumee",
+      "title": "Chapelure parfumee",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "chipirons_a_la_plancha",
       "title": "Chipirons à la plancha",
       "score": 82,
@@ -733,6 +798,16 @@
       ]
     },
     {
+      "id": "chou_vert_sauce_tomate",
+      "title": "Chou vert en sauce tomate",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": [
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
+    },
+    {
       "id": "chou_fleur_croustillant",
       "title": "Chou-fleur croustillant",
       "score": 82,
@@ -743,6 +818,14 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
+    },
+    {
+      "id": "chou_fleur_coco_curry",
+      "title": "Chou-fleur lait de coco curry",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "choux_craquelin",
@@ -785,6 +868,14 @@
       "issues": [
         "Decouverte faible : tags, alias ou liens internes pauvres."
       ],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "porc_chorizo_haricots_tarbais",
+      "title": "Cocotte porc chorizo haricots tarbais",
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1039,6 +1130,22 @@
       ]
     },
     {
+      "id": "crevettes_provencale",
+      "title": "Crevettes a la provencale",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "crevettes_ail_persil",
+      "title": "Crevettes ail persil",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "croque_madame",
       "title": "Croque-madame",
       "score": 82,
@@ -1099,6 +1206,14 @@
       ]
     },
     {
+      "id": "cuisses_poulet_four_tomates_thym",
+      "title": "Cuisses de poulet tomates thym",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "curry_carottes_lait_coco",
       "title": "Curry de carottes lait de coco",
       "score": 82,
@@ -1121,6 +1236,14 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
+    },
+    {
+      "id": "encornets_chorizo",
+      "title": "Encornets sautes au chorizo",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "falafels_four",
@@ -1252,6 +1375,14 @@
       ]
     },
     {
+      "id": "gratin_pates_chorizo",
+      "title": "Gratin de pates au chorizo",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "gratin_dauphinois",
       "title": "Gratin de pommes de terre",
       "score": 82,
@@ -1263,6 +1394,30 @@
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Accompagnements (semble etre un accompagnement)."
       ]
+    },
+    {
+      "id": "gressins_fromage_olives",
+      "title": "Gressins fromage olives",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "grillades_porc_miel_orange_piment",
+      "title": "Grillades porc miel orange piment",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "harissa_maison",
+      "title": "Harissa rouge",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "hauts_de_cuisses_poulet_orange_oignon",
@@ -1333,6 +1488,14 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
+    },
+    {
+      "id": "joues_porc_cidre_miel",
+      "title": "Joues de porc cidre miel",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "legumes_rotis",
@@ -1455,6 +1618,14 @@
       ]
     },
     {
+      "id": "nems_vietnam",
+      "title": "Nems vietnamiens",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "oeuf_chili_crisp_toast",
       "title": "Œuf sur le plat chili crisp sur toast",
       "score": 100,
@@ -1463,6 +1634,22 @@
       "suggestions": [
         "Categorie possible : Apéro (semble utile a l apero)."
       ]
+    },
+    {
+      "id": "oeufs_cocotte_chorizo",
+      "title": "Oeufs cocotte chorizo",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "oeufs_meurette_faciles",
+      "title": "Oeufs en meurette faciles",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "oeufs_mimosa_variantes",
@@ -1555,6 +1742,14 @@
       "suggestions": []
     },
     {
+      "id": "patates_douces_four",
+      "title": "Patates douces au four",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "pate_choux",
       "title": "Pâte à choux",
       "score": 66,
@@ -1610,6 +1805,16 @@
       ]
     },
     {
+      "id": "pates_crumble_chorizo",
+      "title": "Pates au crumble de chorizo",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": [
+        "Categorie possible : Desserts (semble etre sucré ou patissier)."
+      ]
+    },
+    {
       "id": "pates_pesto_tomates_mozzarella",
       "title": "Pâtes au pesto, tomates cerises et mozzarella",
       "score": 82,
@@ -1646,6 +1851,30 @@
       "suggestions": []
     },
     {
+      "id": "poires_roties_orange_miel",
+      "title": "Poires roties orange miel",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "pommes_grenaille_herbes",
+      "title": "Pommes de terre grenaille aux herbes",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "pommes_paille",
+      "title": "Pommes paille",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "potato_wedges_citron_herbes",
       "title": "Potato wedges citron herbes",
       "score": 82,
@@ -1656,6 +1885,14 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
+    },
+    {
+      "id": "potee_chou",
+      "title": "Potee au chou",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "poulet_basquaise",
@@ -1706,6 +1943,14 @@
       ]
     },
     {
+      "id": "puree_chou_fleur",
+      "title": "Puree de chou-fleur",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "puree_courge_butternut",
       "title": "Purée de courge butternut",
       "score": 82,
@@ -1716,6 +1961,14 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
+    },
+    {
+      "id": "puree_patates_douces",
+      "title": "Puree de patates douces",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "puree_pommes_de_terre_citron",
@@ -1803,6 +2056,22 @@
       ]
     },
     {
+      "id": "salade_caprese",
+      "title": "Salade caprese",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "salade_epinards_clementines_amande_feta",
+      "title": "Salade epinards clementines amande feta",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "salade_melon_mozzarella_jambon_cru",
       "title": "Salade melon, mozzarella et jambon cru",
       "score": 82,
@@ -1826,6 +2095,30 @@
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
+    },
+    {
+      "id": "salade_pois_chiche_feta_olives",
+      "title": "Salade pois chiches feta olives",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "samoussas_boeuf_epinards_petits_pois",
+      "title": "Samoussas boeuf epinards petits pois",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "sauce_aigre_douce_vietnam",
+      "title": "Sauce aigre-douce vietnamienne",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "sauce_aux_poivres",
@@ -1918,6 +2211,14 @@
       ]
     },
     {
+      "id": "saumon_au_four_simple",
+      "title": "Saumon au four",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "saumon_au_four_tomates_olives_basilic",
       "title": "Saumon au four tomates olives basilic",
       "score": 82,
@@ -1928,6 +2229,30 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
+    },
+    {
+      "id": "souffle_fromage_facile",
+      "title": "Souffle au fromage facile",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "southern_biscuits",
+      "title": "Southern biscuits",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "tagliatelles_agrumes",
+      "title": "Tagliatelles aux agrumes",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "tarte_citron_meringuee",
@@ -2033,6 +2358,14 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
+    },
+    {
+      "id": "veloute_hiver_noix_cajou",
+      "title": "Veloute d'hiver noix de cajou",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "vinaigrette",

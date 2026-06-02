@@ -374,6 +374,10 @@ window.RECIPES = {
         "label": "Balsamique réduit"
       },
       {
+        "id": "harissa_maison",
+        "label": "Harissa rouge"
+      },
+      {
         "id": "huile_pimentee_pizza",
         "label": "Huile pimentée pour pizza"
       },
@@ -396,6 +400,10 @@ window.RECIPES = {
       {
         "id": "rouille_haut_de_gamme",
         "label": "Rouille"
+      },
+      {
+        "id": "sauce_aigre_douce_vietnam",
+        "label": "Sauce aigre-douce vietnamienne"
       },
       {
         "id": "sauce_aux_poivres",
@@ -576,6 +584,10 @@ window.RECIPES = {
         "label": "Beurre à l’ail"
       },
       {
+        "id": "chapelure_parfumee",
+        "label": "Chapelure parfumee"
+      },
+      {
         "id": "court_bouillon",
         "label": "Court-bouillon"
       },
@@ -594,6 +606,10 @@ window.RECIPES = {
       {
         "id": "pate_legere_beignets_calamar_crevettes",
         "label": "Pâte légère à frire"
+      },
+      {
+        "id": "southern_biscuits",
+        "label": "Southern biscuits"
       },
       {
         "id": "tempura_beignets_calamar_crevettes",
@@ -737,13 +753,51 @@ window.RECIPES = {
     "yield": "environ 230g",
     "ingredients": [
       {
-        "group": "Base",
+        "group": "Classique moutarde",
         "items": [
           "30g moutarde de Dijon",
-          "45g vinaigre de vin rouge ou Xérès",
+          "45g vinaigre de vin rouge ou Xeres",
           "2g sel fin, 1g poivre du moulin",
           "150g huile (80g neutre + 70g olive)",
           "5g miel (option)"
+        ],
+        "steps": [
+          "Fouetter moutarde, vinaigre, sel et poivre du moulin.",
+          "Verser les huiles en filet pour emulsifier.",
+          "Ajuster acidite et sel."
+        ]
+      },
+      {
+        "group": "Citron herbes",
+        "items": [
+          "45g jus de citron",
+          "140g huile d olive douce",
+          "10g moutarde de Dijon",
+          "12g echalote ciselee",
+          "10g herbes fraiches",
+          "3g sel fin",
+          "Poivre du moulin"
+        ],
+        "steps": [
+          "Dissoudre sel dans citron et moutarde.",
+          "Ajouter echalote et herbes.",
+          "Monter avec huile en filet."
+        ]
+      },
+      {
+        "group": "Douce au cidre",
+        "items": [
+          "50g vinaigre de cidre",
+          "145g huile neutre",
+          "12g moutarde a l ancienne",
+          "8g miel",
+          "3g sel fin",
+          "Poivre du moulin"
+        ],
+        "steps": [
+          "Fouetter vinaigre, moutarde, miel, sel et poivre du moulin.",
+          "Ajouter huile progressivement.",
+          "Secouer avant service."
         ]
       }
     ],
@@ -753,12 +807,12 @@ window.RECIPES = {
       "Goûter et ajuster."
     ],
     "notes": [
-      "Ratio huile:acide 3:1 à 4:1 selon la salade.",
-      "Variantes citron, herbes, miso blanc, yaourt grec.",
-      "→ Voir aussi <span data-goto=\"pesto_variantes\">Pestos</span>",
-      "Conservation 5–7 j au froid."
+      "Ratio huile:acide 3:1 a 4:1 selon la salade.",
+      "Les variantes sont rangees dans la fiche pour rester disponibles dans les prochaines salades.",
+      "Conservation 5 a 7 jours au froid."
     ],
-    "difficultyScore": 2
+    "difficultyScore": 2,
+    "variantGroups": true
   },
   "pesto_variantes": {
     "title": "Pestos",
@@ -2370,8 +2424,16 @@ window.RECIPES = {
         "label": "Ajitsuke tamago oeufs marinés ramen"
       },
       {
+        "id": "asperges_mimosa",
+        "label": "Asperges mimosa"
+      },
+      {
         "id": "beignets_calamar",
         "label": "Beignets de calamar"
+      },
+      {
+        "id": "bricks_fromage_miel_poires_pecan",
+        "label": "Bricks fromage miel poires pecan"
       },
       {
         "id": "carpaccio_betterave_mozzarella_yuzu",
@@ -2406,6 +2468,14 @@ window.RECIPES = {
         "label": "Légumes rôtis au four"
       },
       {
+        "id": "oeufs_cocotte_chorizo",
+        "label": "Oeufs cocotte chorizo"
+      },
+      {
+        "id": "oeufs_meurette_faciles",
+        "label": "Oeufs en meurette faciles"
+      },
+      {
         "id": "oeufs_mimosa_variantes",
         "label": "Œufs mimosa"
       },
@@ -2414,12 +2484,28 @@ window.RECIPES = {
         "label": "Oignons rôtis au thym et au miel"
       },
       {
+        "id": "salade_caprese",
+        "label": "Salade caprese"
+      },
+      {
+        "id": "salade_epinards_clementines_amande_feta",
+        "label": "Salade epinards clementines amande feta"
+      },
+      {
         "id": "salade_oeufs_durs_mayonnaise_bistrot",
         "label": "Salade oeufs durs mayonnaise"
       },
       {
+        "id": "salade_pois_chiche_feta_olives",
+        "label": "Salade pois chiches feta olives"
+      },
+      {
         "id": "tomates_maitre",
         "label": "Tomates préparées"
+      },
+      {
+        "id": "veloute_hiver_noix_cajou",
+        "label": "Veloute d'hiver noix de cajou"
       }
     ],
     "ingredients": [
@@ -2481,8 +2567,20 @@ window.RECIPES = {
         "label": "Cochon confit à la bière et au sirop d’érable"
       },
       {
+        "id": "porc_chorizo_haricots_tarbais",
+        "label": "Cocotte porc chorizo haricots tarbais"
+      },
+      {
         "id": "cotelettes_porc_miel_moutarde",
         "label": "Côtelettes de porc miel moutarde"
+      },
+      {
+        "id": "crevettes_provencale",
+        "label": "Crevettes a la provencale"
+      },
+      {
+        "id": "crevettes_ail_persil",
+        "label": "Crevettes ail persil"
       },
       {
         "id": "croque_madame",
@@ -2501,6 +2599,10 @@ window.RECIPES = {
         "label": "Cuisses de poulet rhum miel piment"
       },
       {
+        "id": "cuisses_poulet_four_tomates_thym",
+        "label": "Cuisses de poulet tomates thym"
+      },
+      {
         "id": "curry_carottes_lait_coco",
         "label": "Curry de carottes lait de coco"
       },
@@ -2509,12 +2611,24 @@ window.RECIPES = {
         "label": "Curry de lentilles vertes au lait de coco"
       },
       {
+        "id": "encornets_chorizo",
+        "label": "Encornets sautes au chorizo"
+      },
+      {
         "id": "gratin_chou_fleur",
         "label": "Gratin de chou-fleur"
       },
       {
+        "id": "gratin_pates_chorizo",
+        "label": "Gratin de pates au chorizo"
+      },
+      {
         "id": "gratin_dauphinois",
         "label": "Gratin de pommes de terre"
+      },
+      {
+        "id": "grillades_porc_miel_orange_piment",
+        "label": "Grillades porc miel orange piment"
       },
       {
         "id": "hauts_de_cuisses_poulet_orange_oignon",
@@ -2533,6 +2647,10 @@ window.RECIPES = {
         "label": "Joues de porc chorizo piment"
       },
       {
+        "id": "joues_porc_cidre_miel",
+        "label": "Joues de porc cidre miel"
+      },
+      {
         "id": "lentilles_a_la_bourguignonne",
         "label": "Lentilles à la bourguignonne"
       },
@@ -2541,8 +2659,20 @@ window.RECIPES = {
         "label": "Lentilles tomate pommes de terre sautées"
       },
       {
+        "id": "nems_vietnam",
+        "label": "Nems vietnamiens"
+      },
+      {
+        "id": "pates_crumble_chorizo",
+        "label": "Pates au crumble de chorizo"
+      },
+      {
         "id": "pates_pesto_tomates_mozzarella",
         "label": "Pâtes au pesto, tomates cerises et mozzarella"
+      },
+      {
+        "id": "potee_chou",
+        "label": "Potee au chou"
       },
       {
         "id": "poulet_basquaise",
@@ -2565,8 +2695,20 @@ window.RECIPES = {
         "label": "Saucisse purée"
       },
       {
+        "id": "saumon_au_four_simple",
+        "label": "Saumon au four"
+      },
+      {
         "id": "saumon_au_four_tomates_olives_basilic",
         "label": "Saumon au four tomates olives basilic"
+      },
+      {
+        "id": "souffle_fromage_facile",
+        "label": "Souffle au fromage facile"
+      },
+      {
+        "id": "tagliatelles_agrumes",
+        "label": "Tagliatelles aux agrumes"
       }
     ],
     "ingredients": [
@@ -2600,8 +2742,24 @@ window.RECIPES = {
     "masterType": "collection",
     "variants": [
       {
+        "id": "carottes_persillade_creme",
+        "label": "Carottes persillade creme"
+      },
+      {
+        "id": "carottes_roties_miel_epices",
+        "label": "Carottes roties miel epices"
+      },
+      {
+        "id": "chou_vert_sauce_tomate",
+        "label": "Chou vert en sauce tomate"
+      },
+      {
         "id": "chou_fleur_croustillant",
         "label": "Chou-fleur croustillant"
+      },
+      {
+        "id": "chou_fleur_coco_curry",
+        "label": "Chou-fleur lait de coco curry"
       },
       {
         "id": "curry_carottes_lait_coco",
@@ -2644,8 +2802,20 @@ window.RECIPES = {
         "label": "Pain grillé beurre ail et herbes"
       },
       {
+        "id": "patates_douces_four",
+        "label": "Patates douces au four"
+      },
+      {
         "id": "pesto_tomates_sechees_sans_cajou",
         "label": "Pesto tomates séchées"
+      },
+      {
+        "id": "pommes_grenaille_herbes",
+        "label": "Pommes de terre grenaille aux herbes"
+      },
+      {
+        "id": "pommes_paille",
+        "label": "Pommes paille"
       },
       {
         "id": "potato_wedges_citron_herbes",
@@ -2656,8 +2826,16 @@ window.RECIPES = {
         "label": "Puree butternut pommes de terre curry"
       },
       {
+        "id": "puree_chou_fleur",
+        "label": "Puree de chou-fleur"
+      },
+      {
         "id": "puree_courge_butternut",
         "label": "Purée de courge butternut"
+      },
+      {
+        "id": "puree_patates_douces",
+        "label": "Puree de patates douces"
       },
       {
         "id": "puree_pommes_de_terre_citron",
@@ -2761,6 +2939,10 @@ window.RECIPES = {
       {
         "id": "pate_choux",
         "label": "Pâte à choux"
+      },
+      {
+        "id": "poires_roties_orange_miel",
+        "label": "Poires roties orange miel"
       },
       {
         "id": "sauce_caramel",
@@ -3897,6 +4079,10 @@ window.RECIPES = {
         "label": "Brie farci aux fruits secs et noix"
       },
       {
+        "id": "bruschetta_roquefort_noix",
+        "label": "Bruschetta roquefort noix"
+      },
+      {
         "id": "cake_sale_lardon",
         "label": "Cake salé poitrine fumée"
       },
@@ -3921,12 +4107,20 @@ window.RECIPES = {
         "label": "Falafels au four"
       },
       {
+        "id": "gressins_fromage_olives",
+        "label": "Gressins fromage olives"
+      },
+      {
         "id": "houmous_hakocem",
         "label": "Houmous tahine tres cremeux"
       },
       {
         "id": "mojitos_variantes",
         "label": "Mojitos"
+      },
+      {
+        "id": "oeufs_cocotte_chorizo",
+        "label": "Oeufs cocotte chorizo"
       },
       {
         "id": "oeufs_mimosa_variantes",
@@ -3955,6 +4149,10 @@ window.RECIPES = {
       {
         "id": "rillettes_poulet",
         "label": "Rillettes de poulet"
+      },
+      {
+        "id": "samoussas_boeuf_epinards_petits_pois",
+        "label": "Samoussas boeuf epinards petits pois"
       },
       {
         "id": "sauce_yaourt_citronnee",
@@ -11779,14 +11977,37 @@ window.RECIPES = {
     ],
     "ingredients": [
       {
-        "group": "Houmous",
+        "group": "Tahine tres cremeux",
         "items": [
           "260g pois chiches cuits",
-          "120ml eau de cuisson des pois chiches",
-          "100g jus de citron frais ou acidite selon goet",
+          "120g eau de cuisson des pois chiches",
+          "100g jus de citron frais ou acidite selon gout",
           "5g sel fin",
           "480g tahine",
-          "240ml eau froide"
+          "240g eau froide"
+        ],
+        "steps": [
+          "Mixer pois chiches, eau de cuisson, citron et sel jusqu a base tres lisse.",
+          "Ajouter tahine et eau froide progressivement.",
+          "Mixer longuement jusqu a texture souple."
+        ]
+      },
+      {
+        "group": "Houmous epice",
+        "items": [
+          "260g pois chiches cuits",
+          "90g tahine",
+          "45g jus de citron",
+          "30g huile d olive",
+          "10g harissa rouge ou piment doux",
+          "6g cumin",
+          "5g sel fin",
+          "Eau froide pour detendre"
+        ],
+        "steps": [
+          "Mixer pois chiches, tahine, citron, huile, harissa, cumin et sel.",
+          "Detendre avec eau froide jusqu a texture cremeuse.",
+          "Finir huile d olive et paprika au service."
         ]
       }
     ],
@@ -11798,8 +12019,8 @@ window.RECIPES = {
       "Goeter, corriger sel et citron, puis servir avec huile deolive et pain plat."
     ],
     "notes": [
-      "Le tahine fait la texture : choisir une puree de sesame fluide et pas amere.",
-      "Sans ail, le houmous reste plus rond et accompagne mieux des garnitures puissantes."
+      "La version epicee est une variante interne du houmous deja present.",
+      "Servir avec pain plat, gressins ou legumes crus."
     ],
     "technical": [
       {
@@ -11821,6 +12042,13 @@ window.RECIPES = {
     },
     "additionalMasters": [
       "entrees_maitre"
+    ],
+    "variantGroups": true,
+    "linkedRecipes": [
+      {
+        "id": "harissa_maison",
+        "role": "Option epicee"
+      }
     ]
   },
   "falafels_four": {
@@ -12053,6 +12281,2342 @@ window.RECIPES = {
       ],
       "result": [
         "Sauce blanche, nappante, douce et fromagere."
+      ]
+    }
+  },
+  "puree_patates_douces": {
+    "title": "Puree de patates douces",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/puree_patates_douces_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 25,
+    "cookTime": 25,
+    "tags": [
+      "patate douce",
+      "puree",
+      "doux"
+    ],
+    "aliases": [
+      "puree de patates douces"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "850g patates douces",
+          "120g pommes de terre farineuses",
+          "80g lait entier",
+          "35g beurre",
+          "4g sel fin",
+          "Poivre du moulin",
+          "1 pincee noix de muscade"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire patates douces et pommes de terre en morceaux dans une eau salee jusqu a tendrete.",
+      "Egoutter longuement, remettre 1min dans la casserole chaude pour secher.",
+      "Ecraser avec beurre et lait chaud, puis assaisonner.",
+      "Servir souple, sans chercher une texture collante."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Puree douce, orange, ronde, utile avec porc, volaille ou poisson grille."
+      ]
+    }
+  },
+  "chou_fleur_coco_curry": {
+    "title": "Chou-fleur lait de coco curry",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/chou_fleur_coco_curry_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 18,
+    "cookTime": 22,
+    "tags": [
+      "chou fleur",
+      "coco",
+      "curry"
+    ],
+    "aliases": [
+      "chou-fleur lait de coco curry"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "700g chou-fleur en fleurettes",
+          "220g lait de coco",
+          "120g oignon emince",
+          "12g curry doux",
+          "15g huile neutre",
+          "8g jus de citron vert",
+          "5g sel fin",
+          "Coriandre fraiche"
+        ]
+      }
+    ],
+    "steps": [
+      "Faire suer oignon avec huile et curry.",
+      "Ajouter chou-fleur, lait de coco, sel et un petit fond d eau.",
+      "Couvrir et cuire jusqu a chou-fleur tendre mais encore lisible.",
+      "Finir citron vert et coriandre hors du feu."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Legume doux et epice, bien cale pour poisson, riz ou volaille simple."
+      ]
+    }
+  },
+  "oeufs_cocotte_chorizo": {
+    "title": "Oeufs cocotte chorizo",
+    "master": "entrees_maitre",
+    "image": "/assets/recipe-images-optimized/oeufs_cocotte_chorizo_spooky.jpg",
+    "categories": [
+      "Entrees"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 12,
+    "cookTime": 12,
+    "tags": [
+      "oeufs",
+      "chorizo",
+      "cocotte"
+    ],
+    "aliases": [
+      "oeufs cocotte chorizo"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "4 oeufs",
+          "80g chorizo doux en des",
+          "160g creme liquide",
+          "60g poivron rouge en petits des",
+          "20g parmesan rape",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Repartir chorizo, poivron et creme dans 4 ramequins.",
+      "Casser un oeuf dans chaque ramequin, ajouter du poivre du moulin.",
+      "Cuire au bain-marie au four a 180C jusqu a blanc pris et jaune coulant.",
+      "Finir parmesan et servir aussitot."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Entree chaude courte, salee, avec jaune coulant."
+      ]
+    },
+    "additionalMasters": [
+      "apero_maitre"
+    ]
+  },
+  "puree_chou_fleur": {
+    "title": "Puree de chou-fleur",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/puree_chou_fleur_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 15,
+    "cookTime": 22,
+    "tags": [
+      "chou fleur",
+      "puree",
+      "leger"
+    ],
+    "aliases": [
+      "puree de chou-fleur"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "800g chou-fleur",
+          "120g pomme de terre",
+          "80g lait entier",
+          "30g beurre",
+          "4g sel fin",
+          "Poivre du moulin",
+          "1 pincee muscade"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire chou-fleur et pomme de terre dans une eau salee.",
+      "Egoutter tres soigneusement pour eviter une puree aqueuse.",
+      "Mixer avec lait chaud et beurre.",
+      "Rectifier sel, poivre du moulin et muscade."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Puree blanche, fine, plus legere qu une puree de pommes de terre."
+      ]
+    }
+  },
+  "sauce_aigre_douce_vietnam": {
+    "title": "Sauce aigre-douce vietnamienne",
+    "master": "sauces_assaisonnements_maitre",
+    "image": "/assets/recipe-images-optimized/sauce_aigre_douce_vietnam_spooky.jpg",
+    "categories": [
+      "Sauces"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "environ 200g",
+    "activeTime": 8,
+    "cookTime": 25,
+    "tags": [
+      "sauce",
+      "vietnam",
+      "aigre doux"
+    ],
+    "aliases": [
+      "sauce aigre-douce vietnamienne"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "80g eau",
+          "45g sucre",
+          "45g vinaigre de riz",
+          "35g nuoc-mam",
+          "20g jus de citron vert",
+          "8g ail finement rape",
+          "8g piment rouge finement hache"
+        ]
+      }
+    ],
+    "steps": [
+      "Dissoudre sucre dans eau chaude.",
+      "Ajouter vinaigre, nuoc-mam, citron vert, ail et piment.",
+      "Laisser 15min pour fondre les parfums.",
+      "Ajuster avec eau ou citron selon la puissance voulue."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Sauce fluide, sucree, salee et acide pour nems, rouleaux ou crudites."
+      ]
+    }
+  },
+  "nems_vietnam": {
+    "title": "Nems vietnamiens",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/nems_vietnam_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 45,
+    "cookTime": 18,
+    "tags": [
+      "vietnam",
+      "friture",
+      "porc",
+      "crevettes"
+    ],
+    "aliases": [
+      "nems vietnamiens"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "16 galettes de riz",
+          "280g porc hache",
+          "120g crevettes hachees",
+          "80g vermicelles de riz trempes",
+          "80g carotte rapee",
+          "40g champignons noirs rehydrates",
+          "1 oeuf",
+          "20g nuoc-mam",
+          "Huile de friture"
+        ]
+      }
+    ],
+    "steps": [
+      "Melanger farce porc, crevettes, vermicelles, carotte, champignons, oeuf et nuoc-mam.",
+      "Humidifier les galettes, garnir et rouler serre.",
+      "Frire a 170C jusqu a coloration reguliere.",
+      "Servir avec <span data-goto=\"sauce_aigre_douce_vietnam\">sauce aigre-douce vietnamienne</span> et feuilles de salade."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "linkedRecipes": [
+      {
+        "id": "sauce_aigre_douce_vietnam",
+        "role": "Sauce"
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Nems croustillants, avec sauce liee directement dans la fiche."
+      ]
+    }
+  },
+  "asperges_mimosa": {
+    "title": "Asperges mimosa",
+    "master": "entrees_maitre",
+    "image": "/assets/recipe-images-optimized/asperges_mimosa_spooky.jpg",
+    "categories": [
+      "Entrees"
+    ],
+    "seasons": [
+      "Printemps"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 18,
+    "cookTime": 12,
+    "tags": [
+      "asperges",
+      "oeufs",
+      "mimosa"
+    ],
+    "aliases": [
+      "asperges mimosa"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "600g asperges vertes",
+          "3 oeufs",
+          "40g vinaigrette",
+          "15g ciboulette ciselee",
+          "Fleur de sel",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les oeufs durs, refroidir, puis hacher finement.",
+      "Cuire les asperges jusqu a tendrete, puis refroidir rapidement.",
+      "Assaisonner les asperges avec vinaigrette.",
+      "Parsemer oeuf mimosa, ciboulette, sel et poivre du moulin."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "linkedRecipes": [
+      {
+        "id": "vinaigrette",
+        "role": "Assaisonnement"
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Entree de saison, nette et fraiche."
+      ]
+    }
+  },
+  "salade_pois_chiche_feta_olives": {
+    "title": "Salade pois chiches feta olives",
+    "master": "entrees_maitre",
+    "image": "/assets/recipe-images-optimized/salade_pois_chiche_feta_olives_spooky.jpg",
+    "categories": [
+      "Entrees"
+    ],
+    "seasons": [
+      "Ete"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 18,
+    "cookTime": 25,
+    "tags": [
+      "salade",
+      "pois chiches",
+      "feta"
+    ],
+    "aliases": [
+      "salade pois chiches feta olives"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "500g pois chiches cuits",
+          "160g feta",
+          "120g olives noires",
+          "180g concombre",
+          "120g tomates cerises",
+          "45g huile d olive",
+          "20g jus de citron",
+          "Menthe et persil"
+        ]
+      }
+    ],
+    "steps": [
+      "Rincer pois chiches et couper concombre et tomates.",
+      "Melanger huile, citron, herbes, sel et poivre du moulin.",
+      "Ajouter feta emiettee et olives.",
+      "Laisser 10min au frais avant de servir."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Salade complete, fraiche, utile en entree ou repas leger."
+      ]
+    }
+  },
+  "cuisses_poulet_four_tomates_thym": {
+    "title": "Cuisses de poulet tomates thym",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/cuisses_poulet_four_tomates_thym_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 15,
+    "cookTime": 45,
+    "tags": [
+      "poulet",
+      "tomate",
+      "four"
+    ],
+    "aliases": [
+      "cuisses de poulet tomates thym"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "4 cuisses de poulet",
+          "500g tomates concassees",
+          "180g oignons eminces",
+          "20g huile d olive",
+          "2 gousses d ail",
+          "6g thym",
+          "5g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Assaisonner le poulet, le poser sur oignons, ail et tomates.",
+      "Ajouter huile, thym, sel et poivre du moulin.",
+      "Cuire au four a 190C jusqu a peau doree et jus reduit.",
+      "Reposer 8min avant service."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Plat familial sauce tomate-thym, a servir avec riz, pommes vapeur ou legumes verts."
+      ]
+    }
+  },
+  "chou_vert_sauce_tomate": {
+    "title": "Chou vert en sauce tomate",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/chou_vert_sauce_tomate_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 20,
+    "cookTime": 35,
+    "tags": [
+      "chou",
+      "tomate",
+      "mijote"
+    ],
+    "aliases": [
+      "chou vert en sauce tomate"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "700g chou vert emince",
+          "350g coulis de tomate",
+          "120g oignon",
+          "80g carotte",
+          "15g huile d olive",
+          "1 gousse d ail",
+          "5g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Blanchir le chou 5min puis egoutter.",
+      "Faire suer oignon, carotte et ail dans huile.",
+      "Ajouter tomate et chou, couvrir partiellement.",
+      "Mijoter jusqu a chou tendre et sauce reduite."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Accompagnement rustique, mieux avec porc, saucisse ou oeufs."
+      ]
+    }
+  },
+  "potee_chou": {
+    "title": "Potee au chou",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/potee_chou_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "activeTime": 35,
+    "cookTime": 110,
+    "tags": [
+      "chou",
+      "porc",
+      "hiver"
+    ],
+    "aliases": [
+      "potee au chou"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "600g chou vert",
+          "500g palette demi-sel dessalee",
+          "300g saucisse fumee",
+          "450g pommes de terre",
+          "250g carottes",
+          "160g poireau",
+          "1 oignon pique de girofle",
+          "Bouquet garni"
+        ]
+      }
+    ],
+    "steps": [
+      "Demarrer la viande dans une grande marmite d eau froide.",
+      "Ajouter bouquet garni et cuire doucement.",
+      "Ajouter legumes selon leur temps de cuisson.",
+      "Servir viande, legumes et bouillon chaud."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Grand plat rustique, coherent pour un menu hiver sans entree lourde."
+      ]
+    }
+  },
+  "veloute_hiver_noix_cajou": {
+    "title": "Veloute d'hiver noix de cajou",
+    "master": "entrees_maitre",
+    "image": "/assets/recipe-images-optimized/veloute_hiver_noix_cajou_spooky.jpg",
+    "categories": [
+      "Entrees"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 18,
+    "cookTime": 30,
+    "tags": [
+      "veloute",
+      "cajou",
+      "hiver"
+    ],
+    "aliases": [
+      "veloute d'hiver noix de cajou"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "500g courge",
+          "250g carottes",
+          "120g oignon",
+          "70g noix de cajou",
+          "600g bouillon de legumes",
+          "20g huile d olive",
+          "5g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Faire suer oignon dans huile.",
+      "Ajouter courge, carottes, cajou et bouillon.",
+      "Cuire jusqu a legumes tres tendres.",
+      "Mixer longuement, ajuster sel et poivre du moulin."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Veloute tres cremeux sans creme, avec rondeur de cajou."
+      ]
+    }
+  },
+  "patates_douces_four": {
+    "title": "Patates douces au four",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/patates_douces_four_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 12,
+    "cookTime": 35,
+    "tags": [
+      "patate douce",
+      "four",
+      "roti"
+    ],
+    "aliases": [
+      "patates douces au four"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "850g patates douces",
+          "25g huile d olive",
+          "8g miel",
+          "6g paprika fume",
+          "5g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper les patates douces en quartiers reguliers.",
+      "Enrober huile, miel, paprika, sel et poivre du moulin.",
+      "Rôtir a 200C en retournant a mi-cuisson.",
+      "Servir quand les bords sont caramelises."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Quartiers fondants et dores, mieux avec une viande grillee ou une sauce fraiche."
+      ]
+    }
+  },
+  "harissa_maison": {
+    "title": "Harissa rouge",
+    "master": "sauces_assaisonnements_maitre",
+    "image": "/assets/recipe-images-optimized/harissa_maison_spooky.jpg",
+    "categories": [
+      "Sauces"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "environ 200g",
+    "activeTime": 15,
+    "cookTime": 25,
+    "tags": [
+      "condiment",
+      "piment",
+      "epice"
+    ],
+    "aliases": [
+      "harissa rouge"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "120g piments rouges doux ou forts",
+          "30g concentré de tomate",
+          "20g huile d olive",
+          "12g ail",
+          "8g cumin",
+          "8g coriandre moulue",
+          "5g sel fin",
+          "10g jus de citron"
+        ]
+      }
+    ],
+    "steps": [
+      "Mixer piments, ail, epices, sel et citron.",
+      "Ajouter concentre de tomate et huile.",
+      "Rectifier chaleur et acidite.",
+      "Conserver couvert d un filet d huile."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Condiment rouge, franc, a doser comme composant et non comme plat."
+      ]
+    }
+  },
+  "carottes_persillade_creme": {
+    "title": "Carottes persillade creme",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/carottes_persillade_creme_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 18,
+    "cookTime": 25,
+    "tags": [
+      "carottes",
+      "creme",
+      "persillade"
+    ],
+    "aliases": [
+      "carottes persillade creme"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "700g carottes en rondelles",
+          "120g creme liquide",
+          "20g beurre",
+          "12g ail",
+          "20g persil hache",
+          "5g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les carottes a l etuve avec beurre et un fond d eau.",
+      "Ajouter ail en fin de cuisson pour ne pas le bruler.",
+      "Lier avec creme et laisser reduire legerement.",
+      "Finir persil et poivre du moulin."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Legume doux-cremeux, a eviter avec un plat deja tres cremeux."
+      ]
+    }
+  },
+  "pommes_grenaille_herbes": {
+    "title": "Pommes de terre grenaille aux herbes",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/pommes_grenaille_herbes_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 12,
+    "cookTime": 38,
+    "tags": [
+      "pommes de terre",
+      "four",
+      "herbes"
+    ],
+    "aliases": [
+      "pommes de terre grenaille aux herbes"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "850g pommes de terre grenaille",
+          "30g huile d olive",
+          "12g ail en chemise",
+          "8g thym",
+          "8g romarin",
+          "5g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper les plus grosses grenailles en deux.",
+      "Enrober huile, ail, herbes, sel et poivre du moulin.",
+      "Rôtir a 200C jusqu a peau ridee et coeur tendre.",
+      "Servir sans ajouter de sauce lourde."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Accompagnement simple, solide, avec notes herbees."
+      ]
+    }
+  },
+  "salade_caprese": {
+    "title": "Salade caprese",
+    "master": "entrees_maitre",
+    "image": "/assets/recipe-images-optimized/salade_caprese_spooky.jpg",
+    "categories": [
+      "Entrees"
+    ],
+    "seasons": [
+      "Ete"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 10,
+    "cookTime": 25,
+    "tags": [
+      "salade",
+      "tomate",
+      "mozzarella"
+    ],
+    "aliases": [
+      "salade caprese"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "500g tomates mures",
+          "250g mozzarella",
+          "25g huile d olive",
+          "10g basilic",
+          "Fleur de sel",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Trancher tomates et mozzarella.",
+      "Disposer en alternant avec basilic.",
+      "Assaisonner huile, fleur de sel et poivre du moulin.",
+      "Servir frais mais pas glace."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Entree ultra simple qui exige de bons produits."
+      ]
+    }
+  },
+  "porc_chorizo_haricots_tarbais": {
+    "title": "Cocotte porc chorizo haricots tarbais",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/porc_chorizo_haricots_tarbais_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "activeTime": 30,
+    "cookTime": 80,
+    "tags": [
+      "porc",
+      "chorizo",
+      "haricots"
+    ],
+    "aliases": [
+      "cocotte porc chorizo haricots tarbais"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "650g epaule de porc en cubes",
+          "160g chorizo",
+          "450g haricots tarbais cuits",
+          "300g tomates concassees",
+          "160g oignon",
+          "2 gousses d ail",
+          "250g bouillon",
+          "5g sel fin"
+        ]
+      }
+    ],
+    "steps": [
+      "Colorer porc et chorizo dans une cocotte.",
+      "Ajouter oignon, ail, tomates et bouillon.",
+      "Mijoter doucement jusqu a porc tendre.",
+      "Ajouter haricots cuits en fin de cuisson pour les garder entiers."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Plat mijote riche et complet, sans accompagnement feculent supplementaire."
+      ]
+    }
+  },
+  "saumon_au_four_simple": {
+    "title": "Saumon au four",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/saumon_au_four_simple_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 8,
+    "cookTime": 14,
+    "tags": [
+      "saumon",
+      "four",
+      "rapide"
+    ],
+    "aliases": [
+      "saumon au four"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "4 paves de saumon",
+          "20g huile d olive",
+          "15g jus de citron",
+          "8g aneth",
+          "5g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Assaisonner le saumon avec huile, citron, aneth, sel et poivre du moulin.",
+      "Cuire au four a 180C jusqu a chair juste nacree.",
+      "Laisser reposer 3min.",
+      "Servir avec riz citronne, asperges ou salade."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Plat rapide et net, a ne pas charger avec une sauce forte."
+      ]
+    }
+  },
+  "souffle_fromage_facile": {
+    "title": "Souffle au fromage facile",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/souffle_fromage_facile_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "activeTime": 25,
+    "cookTime": 25,
+    "tags": [
+      "fromage",
+      "oeufs",
+      "souffle"
+    ],
+    "aliases": [
+      "souffle au fromage facile"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "4 oeufs",
+          "250g lait entier",
+          "35g beurre",
+          "35g farine",
+          "120g comte rape",
+          "4g sel fin",
+          "Poivre du moulin",
+          "1 pincee muscade"
+        ]
+      }
+    ],
+    "steps": [
+      "Preparer une bechamel epaisse avec beurre, farine et lait.",
+      "Hors du feu, ajouter fromage, jaunes d oeufs, sel et muscade.",
+      "Incorporer les blancs montes souplement.",
+      "Cuire dans un moule beurre jusqu a gonflement et coloration."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Plat souffle fromage, a servir tout de suite avec salade verte."
+      ]
+    }
+  },
+  "bruschetta_roquefort_noix": {
+    "title": "Bruschetta roquefort noix",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/bruschetta_roquefort_noix_spooky.jpg",
+    "categories": [
+      "Apero",
+      "Entrees"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 12,
+    "cookTime": 5,
+    "tags": [
+      "roquefort",
+      "noix",
+      "toast"
+    ],
+    "aliases": [
+      "bruschetta roquefort noix"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "4 tranches pain de campagne",
+          "120g roquefort",
+          "70g noix",
+          "40g creme epaisse",
+          "15g miel",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Griller legerement le pain.",
+      "Melanger roquefort et creme, puis tartiner.",
+      "Ajouter noix et miel.",
+      "Repasser 3min sous grill pour tiédir."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Apero puissant, a limiter avec un plat deja fromage."
+      ]
+    }
+  },
+  "tagliatelles_agrumes": {
+    "title": "Tagliatelles aux agrumes",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/tagliatelles_agrumes_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 18,
+    "cookTime": 12,
+    "tags": [
+      "pates",
+      "agrumes",
+      "creme"
+    ],
+    "aliases": [
+      "tagliatelles aux agrumes"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "360g tagliatelles",
+          "80g creme liquide",
+          "30g beurre",
+          "1 orange non traitee",
+          "1 citron non traite",
+          "40g parmesan",
+          "5g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les tagliatelles al dente.",
+      "Chauffer beurre, creme, zestes fins et un peu de jus.",
+      "Lier les pates avec eau de cuisson et parmesan.",
+      "Finir poivre du moulin et zestes frais."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Pates cremeuses mais fraiches, utiles avec entree legere."
+      ]
+    }
+  },
+  "bricks_fromage_miel_poires_pecan": {
+    "title": "Bricks fromage miel poires pecan",
+    "master": "entrees_maitre",
+    "image": "/assets/recipe-images-optimized/bricks_fromage_miel_poires_pecan_spooky.jpg",
+    "categories": [
+      "Entrees"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 24,
+    "cookTime": 14,
+    "tags": [
+      "brick",
+      "fromage",
+      "miel"
+    ],
+    "aliases": [
+      "bricks fromage miel poires pecan"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "8 feuilles de brick",
+          "180g fromage de chevre",
+          "180g poires en lamelles",
+          "50g noix de pecan",
+          "25g miel",
+          "25g beurre fondu",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Garnir les feuilles de brick avec fromage, poire, pecan et miel.",
+      "Plier en triangles ou rouleaux.",
+      "Badigeonner beurre fondu.",
+      "Cuire au four a 190C jusqu a croustillant."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Entree sucre-sale croustillante, a suivre d un plat simple."
+      ]
+    }
+  },
+  "oeufs_meurette_faciles": {
+    "title": "Oeufs en meurette faciles",
+    "master": "entrees_maitre",
+    "image": "/assets/recipe-images-optimized/oeufs_meurette_faciles_spooky.jpg",
+    "categories": [
+      "Entrees"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "activeTime": 30,
+    "cookTime": 25,
+    "tags": [
+      "oeufs",
+      "vin rouge",
+      "sauce vin rouge"
+    ],
+    "aliases": [
+      "oeufs en meurette faciles"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "4 oeufs",
+          "350g vin rouge",
+          "120g lardons",
+          "120g champignons",
+          "80g oignon",
+          "20g beurre",
+          "15g farine",
+          "Thym et laurier"
+        ]
+      }
+    ],
+    "steps": [
+      "Colorer lardons, oignon et champignons.",
+      "Singer avec farine, mouiller au vin rouge et reduire en sauce nappante.",
+      "Pocher les oeufs separement.",
+      "Servir oeufs sur sauce chaude avec pain grille."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Entree riche au vin rouge, a associer avec plat plus sobre."
+      ]
+    }
+  },
+  "poires_roties_orange_miel": {
+    "title": "Poires roties orange miel",
+    "master": "desserts_maitre",
+    "image": "/assets/recipe-images-optimized/poires_roties_orange_miel_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 12,
+    "cookTime": 28,
+    "tags": [
+      "poire",
+      "orange",
+      "miel"
+    ],
+    "aliases": [
+      "poires roties orange miel"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "4 poires",
+          "35g miel",
+          "80g jus d orange",
+          "20g beurre",
+          "1 orange non traitee",
+          "1 pincee cannelle"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper les poires en deux et retirer le coeur.",
+      "Arroser miel, jus d orange, zestes et beurre.",
+      "Rôtir a 180C en arrosant deux fois.",
+      "Servir tiede avec le jus reduit."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Dessert fruit, leger et coherent apres plat riche."
+      ]
+    }
+  },
+  "grillades_porc_miel_orange_piment": {
+    "title": "Grillades porc miel orange piment",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/grillades_porc_miel_orange_piment_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 18,
+    "cookTime": 16,
+    "tags": [
+      "porc",
+      "miel",
+      "orange"
+    ],
+    "aliases": [
+      "grillades porc miel orange piment"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "650g echine de porc en tranches",
+          "70g jus d orange",
+          "30g miel",
+          "20g sauce soja",
+          "12g ail",
+          "8g piment doux",
+          "15g huile neutre"
+        ]
+      }
+    ],
+    "steps": [
+      "Melanger marinade orange, miel, soja, ail, piment et huile.",
+      "Mariner le porc au moins 1h.",
+      "Griller vivement puis terminer a chaleur moderee.",
+      "Reposer 5min avant de trancher."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Porc grille sucre-sale, a servir avec legumes verts ou salade acide."
+      ]
+    }
+  },
+  "southern_biscuits": {
+    "title": "Southern biscuits",
+    "master": "bases_salees_maitre",
+    "image": "/assets/recipe-images-optimized/southern_biscuits_spooky.jpg",
+    "categories": [
+      "Base"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "8 biscuits",
+    "activeTime": 18,
+    "cookTime": 16,
+    "tags": [
+      "base",
+      "pain",
+      "biscuit sale"
+    ],
+    "aliases": [
+      "southern biscuits"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "300g farine",
+          "12g levure chimique",
+          "5g sel fin",
+          "85g beurre froid",
+          "180g lait ribot"
+        ]
+      }
+    ],
+    "steps": [
+      "Sabler farine, levure, sel et beurre froid.",
+      "Ajouter lait ribot sans trop travailler.",
+      "Etaler, plier une fois puis detailler.",
+      "Cuire a 210C jusqu a biscuits gonfles et dores."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Petits pains rapides, feuilletes, pour brunch ou sauce."
+      ]
+    }
+  },
+  "pates_crumble_chorizo": {
+    "title": "Pates au crumble de chorizo",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/pates_crumble_chorizo_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 20,
+    "cookTime": 12,
+    "tags": [
+      "pates",
+      "chorizo",
+      "crumble"
+    ],
+    "aliases": [
+      "pates au crumble de chorizo"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "360g pates courtes",
+          "140g chorizo",
+          "60g chapelure",
+          "35g parmesan",
+          "1 gousse d ail",
+          "20g huile d olive",
+          "Persil"
+        ]
+      }
+    ],
+    "steps": [
+      "Mixer grossierement chorizo, chapelure, parmesan et ail.",
+      "Dorer ce crumble a la poele avec huile.",
+      "Cuire les pates al dente.",
+      "Melanger pates, un peu d eau de cuisson et crumble croustillant."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "linkedRecipes": [
+      {
+        "id": "chapelure_parfumee",
+        "role": "Base possible"
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Pates puissantes et croustillantes, sans accompagnement feculent."
+      ]
+    }
+  },
+  "crevettes_ail_persil": {
+    "title": "Crevettes ail persil",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/crevettes_ail_persil_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 12,
+    "cookTime": 6,
+    "tags": [
+      "crevettes",
+      "ail",
+      "persil"
+    ],
+    "aliases": [
+      "crevettes ail persil"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "500g crevettes decortiquees",
+          "25g huile d olive",
+          "15g ail hache",
+          "20g persil",
+          "12g jus de citron",
+          "4g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Secher les crevettes pour bien les saisir.",
+      "Sauter rapidement a feu vif avec huile.",
+      "Ajouter ail en fin de cuisson, puis persil et citron.",
+      "Servir aussitot."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Plat tres rapide, frais, a accompagner de riz ou salade."
+      ]
+    }
+  },
+  "chapelure_parfumee": {
+    "title": "Chapelure parfumee",
+    "master": "bases_salees_maitre",
+    "image": "/assets/recipe-images-optimized/chapelure_parfumee_spooky.jpg",
+    "categories": [
+      "Base"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "environ 200g",
+    "activeTime": 8,
+    "cookTime": 25,
+    "tags": [
+      "base",
+      "chapelure",
+      "croustillant"
+    ],
+    "aliases": [
+      "chapelure parfumee"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "160g pain sec",
+          "20g parmesan",
+          "8g ail semoule",
+          "8g herbes seches",
+          "4g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Mixer le pain sec par impulsions.",
+      "Ajouter parmesan, ail, herbes, sel et poivre du moulin.",
+      "Etaler 5min a l air libre si la chapelure est humide.",
+      "Conserver en bocal sec."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Base croustillante pour gratins, pates et panures."
+      ]
+    }
+  },
+  "encornets_chorizo": {
+    "title": "Encornets sautes au chorizo",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/encornets_chorizo_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 20,
+    "cookTime": 10,
+    "tags": [
+      "encornets",
+      "chorizo",
+      "mer"
+    ],
+    "aliases": [
+      "encornets sautes au chorizo"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "550g encornets nettoyes",
+          "120g chorizo",
+          "160g poivron rouge",
+          "80g oignon",
+          "15g huile d olive",
+          "10g persil",
+          "10g jus de citron"
+        ]
+      }
+    ],
+    "steps": [
+      "Saisir chorizo, poivron et oignon.",
+      "Ajouter encornets bien secs a feu vif.",
+      "Cuire court pour garder une texture tendre.",
+      "Finir persil et citron."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Plat mer-terre puissant, a servir avec salade ou riz simple."
+      ]
+    }
+  },
+  "crevettes_provencale": {
+    "title": "Crevettes a la provencale",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/crevettes_provencale_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 18,
+    "cookTime": 16,
+    "tags": [
+      "crevettes",
+      "tomate",
+      "provencal"
+    ],
+    "aliases": [
+      "crevettes a la provencale"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "500g crevettes",
+          "300g tomates concassees",
+          "120g oignon",
+          "12g ail",
+          "20g huile d olive",
+          "8g herbes de Provence",
+          "10g persil",
+          "5g sel fin"
+        ]
+      }
+    ],
+    "steps": [
+      "Faire suer oignon et ail dans huile.",
+      "Ajouter tomates et herbes, reduire 10min.",
+      "Ajouter crevettes et cuire juste le temps de les rechauffer.",
+      "Finir persil et servir."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Crevettes sauce tomate herbee, avec riz ou pain grille."
+      ]
+    }
+  },
+  "carottes_roties_miel_epices": {
+    "title": "Carottes roties miel epices",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/carottes_roties_miel_epices_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 12,
+    "cookTime": 32,
+    "tags": [
+      "carottes",
+      "miel",
+      "four"
+    ],
+    "aliases": [
+      "carottes roties miel epices"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "750g carottes",
+          "25g huile d olive",
+          "20g miel",
+          "8g cumin",
+          "6g paprika",
+          "5g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper les carottes en batonnets reguliers.",
+      "Enrober huile, miel, epices, sel et poivre du moulin.",
+      "Rôtir a 200C jusqu a bords caramelises.",
+      "Servir chaud ou tiede."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Legume sucre-epice, bon avec agneau, porc ou pois chiches."
+      ]
+    }
+  },
+  "pommes_paille": {
+    "title": "Pommes paille",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/pommes_paille_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 28,
+    "cookTime": 12,
+    "tags": [
+      "pommes de terre",
+      "friture",
+      "croustillant"
+    ],
+    "aliases": [
+      "pommes paille"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "700g pommes de terre",
+          "Huile de friture",
+          "5g sel fin"
+        ]
+      }
+    ],
+    "steps": [
+      "Tailler les pommes de terre en julienne tres fine.",
+      "Rincer puis secher parfaitement.",
+      "Frire par petites poignees a 170C.",
+      "Saler immediatement et servir croustillant."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Accompagnement croustillant, a associer avec plat en sauce simple."
+      ]
+    }
+  },
+  "samoussas_boeuf_epinards_petits_pois": {
+    "title": "Samoussas boeuf epinards petits pois",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/samoussas_boeuf_epinards_petits_pois_spooky.jpg",
+    "categories": [
+      "Apero",
+      "Entrees"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 35,
+    "cookTime": 18,
+    "tags": [
+      "samoussa",
+      "boeuf",
+      "epinards"
+    ],
+    "aliases": [
+      "samoussas boeuf epinards petits pois"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "8 feuilles de brick",
+          "280g boeuf hache",
+          "120g epinards",
+          "90g petits pois",
+          "80g oignon",
+          "10g curry doux",
+          "20g huile neutre",
+          "5g sel fin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire boeuf, oignon, curry, epinards et petits pois.",
+      "Refroidir la farce pour ne pas detremper les feuilles.",
+      "Plier en triangles serres.",
+      "Cuire au four ou frire selon le croustillant voulu."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Apero sale consistant, a ne pas mettre avant un plat trop lourd."
+      ]
+    }
+  },
+  "gratin_pates_chorizo": {
+    "title": "Gratin de pates au chorizo",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/gratin_pates_chorizo_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 22,
+    "cookTime": 25,
+    "tags": [
+      "pates",
+      "gratin",
+      "chorizo"
+    ],
+    "aliases": [
+      "gratin de pates au chorizo"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "360g pates courtes",
+          "160g chorizo",
+          "350g sauce tomate",
+          "120g mozzarella",
+          "60g parmesan",
+          "80g oignon",
+          "10g huile d olive"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les pates tres al dente.",
+      "Faire revenir oignon et chorizo, ajouter sauce tomate.",
+      "Melanger pates et sauce, verser en plat.",
+      "Couvrir fromages et gratiner."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Plat complet riche, sans accompagnement feculent."
+      ]
+    }
+  },
+  "gressins_fromage_olives": {
+    "title": "Gressins fromage olives",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/gressins_fromage_olives_spooky.jpg",
+    "categories": [
+      "Apero"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "20 gressins",
+    "activeTime": 28,
+    "cookTime": 18,
+    "tags": [
+      "apero",
+      "fromage",
+      "olives"
+    ],
+    "aliases": [
+      "gressins fromage olives"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "250g farine",
+          "80g olives hachees",
+          "70g parmesan rape",
+          "120g eau tiede",
+          "20g huile d olive",
+          "5g levure boulangere",
+          "4g sel fin"
+        ]
+      }
+    ],
+    "steps": [
+      "Petrir tous les elements sauf olives, puis incorporer olives.",
+      "Laisser pousser jusqu a leger gonflement.",
+      "Tailler en batonnets et torsader.",
+      "Cuire a 190C jusqu a gressins secs et dores."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Apero sec et sale, bien avec sauces ou tartinades."
+      ]
+    }
+  },
+  "salade_epinards_clementines_amande_feta": {
+    "title": "Salade epinards clementines amande feta",
+    "master": "entrees_maitre",
+    "image": "/assets/recipe-images-optimized/salade_epinards_clementines_amande_feta_spooky.jpg",
+    "categories": [
+      "Entrees"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 14,
+    "cookTime": 3,
+    "tags": [
+      "salade",
+      "epinards",
+      "clementine"
+    ],
+    "aliases": [
+      "salade epinards clementines amande feta"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "180g jeunes epinards",
+          "3 clementines",
+          "120g feta",
+          "55g amandes",
+          "30g huile d olive",
+          "15g vinaigre de cidre",
+          "8g miel",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Griller legerement les amandes.",
+      "Preparer vinaigrette huile, vinaigre, miel et poivre du moulin.",
+      "Melanger epinards, quartiers de clementine et feta.",
+      "Ajouter amandes juste avant service."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Entree fraiche, acidulee et croquante."
+      ]
+    }
+  },
+  "joues_porc_cidre_miel": {
+    "title": "Joues de porc cidre miel",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/joues_porc_cidre_miel_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "activeTime": 28,
+    "cookTime": 100,
+    "tags": [
+      "porc",
+      "cidre",
+      "miel"
+    ],
+    "aliases": [
+      "joues de porc cidre miel"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "750g joues de porc",
+          "400g cidre brut",
+          "120g oignon",
+          "120g carottes",
+          "25g miel",
+          "20g beurre",
+          "10g moutarde a l ancienne",
+          "Bouquet garni"
+        ]
+      }
+    ],
+    "steps": [
+      "Colorer les joues de porc au beurre.",
+      "Ajouter oignon, carottes, cidre, miel, moutarde et bouquet garni.",
+      "Mijoter doucement jusqu a viande fondante.",
+      "Reduire la sauce si besoin avant service."
+    ],
+    "notes": [
+      "Repere menu : choisir un accompagnement qui ne repete pas la meme sauce dominante.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique, ou 24 a 48h pour oeufs, poisson, crustaces, mollusques, creme ou viande deja cuite.",
+      "Securite : refroidir rapidement les restes, garder au froid et consommer avec une cuillere propre."
+    ],
+    "practical": {
+      "equipment": [
+        "Plan de travail",
+        "Couteau",
+        "Casserole ou plat adapte"
+      ],
+      "result": [
+        "Plat mijote doux-acide, logique avec puree simple ou legumes verts."
       ]
     }
   }

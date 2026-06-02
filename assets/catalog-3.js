@@ -181,13 +181,51 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "yield": "environ 230g",
     "ingredients": [
       {
-        "group": "Base",
+        "group": "Classique moutarde",
         "items": [
           "30g moutarde de Dijon",
-          "45g vinaigre de vin rouge ou X\u00e9r\u00e8s",
+          "45g vinaigre de vin rouge ou Xeres",
           "2g sel fin, 1g poivre du moulin",
           "150g huile (80g neutre + 70g olive)",
           "5g miel (option)"
+        ],
+        "steps": [
+          "Fouetter moutarde, vinaigre, sel et poivre du moulin.",
+          "Verser les huiles en filet pour emulsifier.",
+          "Ajuster acidite et sel."
+        ]
+      },
+      {
+        "group": "Citron herbes",
+        "items": [
+          "45g jus de citron",
+          "140g huile d olive douce",
+          "10g moutarde de Dijon",
+          "12g echalote ciselee",
+          "10g herbes fraiches",
+          "3g sel fin",
+          "Poivre du moulin"
+        ],
+        "steps": [
+          "Dissoudre sel dans citron et moutarde.",
+          "Ajouter echalote et herbes.",
+          "Monter avec huile en filet."
+        ]
+      },
+      {
+        "group": "Douce au cidre",
+        "items": [
+          "50g vinaigre de cidre",
+          "145g huile neutre",
+          "12g moutarde a l ancienne",
+          "8g miel",
+          "3g sel fin",
+          "Poivre du moulin"
+        ],
+        "steps": [
+          "Fouetter vinaigre, moutarde, miel, sel et poivre du moulin.",
+          "Ajouter huile progressivement.",
+          "Secouer avant service."
         ]
       }
     ],
@@ -197,12 +235,12 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "Go\u00fbter et ajuster."
     ],
     "notes": [
-      "Ratio huile:acide 3:1 \u00e0 4:1 selon la salade.",
-      "Variantes citron, herbes, miso blanc, yaourt grec.",
-      "\u2192 Voir aussi <span data-goto=\"pesto_variantes\">Pestos</span>",
-      "Conservation 5\u20137 j au froid."
+      "Ratio huile:acide 3:1 a 4:1 selon la salade.",
+      "Les variantes sont rangees dans la fiche pour rester disponibles dans les prochaines salades.",
+      "Conservation 5 a 7 jours au froid."
     ],
-    "difficultyScore": 2
+    "difficultyScore": 2,
+    "variantGroups": true
   },
   "balsamique_reduit": {
     "title": "Balsamique r\u00e9duit",
@@ -664,8 +702,20 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Cochon confit \u00e0 la bi\u00e8re et au sirop d\u2019\u00e9rable"
       },
       {
+        "id": "porc_chorizo_haricots_tarbais",
+        "label": "Cocotte porc chorizo haricots tarbais"
+      },
+      {
         "id": "cotelettes_porc_miel_moutarde",
         "label": "C\u00f4telettes de porc miel moutarde"
+      },
+      {
+        "id": "crevettes_provencale",
+        "label": "Crevettes a la provencale"
+      },
+      {
+        "id": "crevettes_ail_persil",
+        "label": "Crevettes ail persil"
       },
       {
         "id": "croque_madame",
@@ -684,6 +734,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Cuisses de poulet rhum miel piment"
       },
       {
+        "id": "cuisses_poulet_four_tomates_thym",
+        "label": "Cuisses de poulet tomates thym"
+      },
+      {
         "id": "curry_carottes_lait_coco",
         "label": "Curry de carottes lait de coco"
       },
@@ -692,12 +746,24 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Curry de lentilles vertes au lait de coco"
       },
       {
+        "id": "encornets_chorizo",
+        "label": "Encornets sautes au chorizo"
+      },
+      {
         "id": "gratin_chou_fleur",
         "label": "Gratin de chou-fleur"
       },
       {
+        "id": "gratin_pates_chorizo",
+        "label": "Gratin de pates au chorizo"
+      },
+      {
         "id": "gratin_dauphinois",
         "label": "Gratin de pommes de terre"
+      },
+      {
+        "id": "grillades_porc_miel_orange_piment",
+        "label": "Grillades porc miel orange piment"
       },
       {
         "id": "hauts_de_cuisses_poulet_orange_oignon",
@@ -716,6 +782,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Joues de porc chorizo piment"
       },
       {
+        "id": "joues_porc_cidre_miel",
+        "label": "Joues de porc cidre miel"
+      },
+      {
         "id": "lentilles_a_la_bourguignonne",
         "label": "Lentilles \u00e0 la bourguignonne"
       },
@@ -724,8 +794,20 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Lentilles tomate pommes de terre saut\u00e9es"
       },
       {
+        "id": "nems_vietnam",
+        "label": "Nems vietnamiens"
+      },
+      {
+        "id": "pates_crumble_chorizo",
+        "label": "Pates au crumble de chorizo"
+      },
+      {
         "id": "pates_pesto_tomates_mozzarella",
         "label": "P\u00e2tes au pesto, tomates cerises et mozzarella"
+      },
+      {
+        "id": "potee_chou",
+        "label": "Potee au chou"
       },
       {
         "id": "poulet_basquaise",
@@ -748,8 +830,20 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Saucisse pur\u00e9e"
       },
       {
+        "id": "saumon_au_four_simple",
+        "label": "Saumon au four"
+      },
+      {
         "id": "saumon_au_four_tomates_olives_basilic",
         "label": "Saumon au four tomates olives basilic"
+      },
+      {
+        "id": "souffle_fromage_facile",
+        "label": "Souffle au fromage facile"
+      },
+      {
+        "id": "tagliatelles_agrumes",
+        "label": "Tagliatelles aux agrumes"
       }
     ],
     "ingredients": [

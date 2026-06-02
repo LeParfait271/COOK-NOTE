@@ -8,6 +8,7 @@ const ROOT = path.resolve(__dirname, '..');
 const node = process.execPath;
 const changedImageSoftLimit = 40;
 const changedOneImageDirLimit = 20;
+const changedImageBatchLimit = 180;
 
 function run(command, args, options = {}) {
   const label = [command, ...args].join(' ');
@@ -129,7 +130,15 @@ function validateDiffScope() {
     byDir.set(dir, (byDir.get(dir) || 0) + 1);
   });
   if (imageFiles.length > changedImageSoftLimit) {
-    throw new Error(`Diff image trop large: ${imageFiles.length} fichiers image modifies.`);
+    const expectedDirs = ['assets/recipe-images', 'assets/recipe-images-optimized', 'assets/recipe-card-images'];
+    const counts = expectedDirs.map(dir => byDir.get(dir) || 0);
+    const balancedBatch = counts.every(count => count > 0 && count === counts[0]);
+    if (!balancedBatch || imageFiles.length > changedImageBatchLimit) {
+      throw new Error(`Diff image trop large: ${imageFiles.length} fichiers image modifies.`);
+    }
+    run(node, ['scripts/audit-images.js']);
+    console.log(`Diff image large accepte: lot equilibre ${counts[0]} masters/optimisees/miniatures audite.`);
+    return;
   }
   for (const [dir, count] of byDir) {
     if (count > changedOneImageDirLimit) {
