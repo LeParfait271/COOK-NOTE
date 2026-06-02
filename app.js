@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.11';
+const SITE_VERSION = 'v1.12';
 const SITE_UPDATED_AT = '02/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -2498,6 +2498,59 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot', recentMen
   };
 }
 
+function buildMenuItemReplacement(menu, recipes, themeId, targetIndex = 0, bump = 1) {
+  const currentItems = menu?.items || [];
+  const target = currentItems[targetIndex];
+  if (!target?.recipe) return menu;
+  const theme = menuThemeById(themeId);
+  const leaves = recipes.filter(recipe => recipe && !isMasterRecipe(recipe));
+  const profiles = new Map(leaves.map(recipe => [recipe.id, getMenuRecipeProfile(recipe)]));
+  const usedIds = new Set(currentItems.map(item => item.recipe?.id).filter(Boolean));
+  const wantedRole = target.key === 'sauce' ? 'sauce' : target.key === 'side' ? 'side' : target.key;
+  const allowed = recipe => {
+    const profile = profiles.get(recipe.id);
+    if (!profile?.servable || profile.role !== wantedRole || usedIds.has(recipe.id)) return false;
+    if (theme.id === 'semaine' && wantedRole === 'dessert' && !isWeeknightDessert(recipe)) return false;
+    if (wantedRole === 'side') {
+      const main = currentItems.find(item => item.key === 'main')?.recipe;
+      const mainProfile = main ? profiles.get(main.id) : null;
+      if (mainProfile && menuPairPenalty(mainProfile, profile, theme) >= 35) return false;
+    }
+    return true;
+  };
+  const candidates = leaves
+    .filter(allowed)
+    .map(recipe => {
+      const items = currentItems.map((item, index) => index === targetIndex ? { ...item, recipe } : item);
+      return {
+        recipe,
+        items,
+        score: menuBalanceScore(items, profiles, theme)
+      };
+    })
+    .sort((a, b) => b.score - a.score || a.recipe.title.localeCompare(b.recipe.title, 'fr', { sensitivity: 'base' }));
+  if (!candidates.length) return menu;
+  const selected = candidates[(Math.max(1, bump) - 1) % Math.min(candidates.length, 24)];
+  const signature = menuSignature(selected.items);
+  return {
+    theme,
+    reason: menuLeadReason(selected.items, profiles, theme),
+    quality: Math.max(0, Math.min(100, Math.round(62 + selected.score / 18))),
+    signature,
+    items: annotateMenuItems(selected.items, profiles, theme)
+  };
+}
+
+function buildMenuSuggestionWithOverrides(recipes, offset = 0, themeId = 'bistrot', recentMenuSignatures = [], itemOffsets = {}) {
+  return Object.entries(itemOffsets)
+    .filter(([, bump]) => Number(bump) > 0)
+    .sort(([left], [right]) => Number(left) - Number(right))
+    .reduce(
+      (currentMenu, [index, bump]) => buildMenuItemReplacement(currentMenu, recipes, themeId, Number(index), Number(bump)),
+      buildMenuSuggestion(recipes, offset, themeId, recentMenuSignatures)
+    );
+}
+
 function menuRecipeStepText(recipe) {
   return normalizeText([
     recipe?.title,
@@ -4880,9 +4933,10 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
 
 function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShopping, notify }) {
   const [offset, setOffset] = useState(0);
+  const [itemOffsets, setItemOffsets] = useState({});
   const [themeId, setThemeId] = useState(MENU_THEMES[0].id);
   const [menuHistory, setMenuHistory] = useState(() => readStoredList(STORAGE_KEYS.menuHistory, []));
-  const menu = useMemo(() => buildMenuSuggestion(recipes, offset, themeId, menuHistory), [recipes, offset, themeId, menuHistory]);
+  const menu = useMemo(() => buildMenuSuggestionWithOverrides(recipes, offset, themeId, menuHistory, itemOffsets), [recipes, offset, themeId, menuHistory, itemOffsets]);
   const menuItems = menu.items || [];
   const menuRecipes = menuItems.map(item => item.recipe);
   const shoppingData = useMemo(() => buildShoppingListData(menuRecipes), [menuRecipes]);
@@ -4899,6 +4953,14 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
     addMenuToShopping(menuRecipes);
     notify?.('Menu ajouté aux courses');
   };
+  const changeWholeMenu = () => {
+    rememberMenu(menu);
+    setItemOffsets({});
+    setOffset(value => value + 1);
+  };
+  const changeOneItem = index => {
+    setItemOffsets(current => ({ ...current, [index]: (current[index] || 0) + 1 }));
+  };
   return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
     h('section', { className: 'modal-panel menu-planner-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'menu-planner-title', onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
@@ -4906,7 +4968,10 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
           h('p', { className: 'eyebrow' }, 'Mode menu'),
           h('h2', { id: 'menu-planner-title' }, 'Composer un repas')
         ),
-        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
+        h('div', { className: 'menu-planner-head-actions' },
+          h(Button, { variant: 'subtle', onClick: changeWholeMenu }, 'Changer tout'),
+          h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
+        )
       ),
       h('div', { className: 'menu-theme-tabs', 'aria-label': 'Style de menu' },
         MENU_THEMES.map(theme => h('button', {
@@ -4916,12 +4981,13 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
           onClick: () => {
             setThemeId(theme.id);
             setOffset(0);
+            setItemOffsets({});
           }
         }, theme.label))
       ),
       h('p', { className: 'menu-planner-reason' }, menu.reason),
       h('div', { className: 'menu-planner-grid' },
-        menuItems.map(item => h('article', { key: item.key, className: 'menu-planner-card' },
+        menuItems.map((item, index) => h('article', { key: `${item.key}-${item.recipe.id}-${index}`, className: 'menu-planner-card' },
           h('span', { className: 'menu-planner-image', style: item.recipe.image ? { backgroundImage: `url("${recipeCardImageUrl(item.recipe.image)}")` } : {} }),
           h('div', null,
             h('p', { className: 'eyebrow' }, item.label),
@@ -4930,7 +4996,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
             item.note && h('p', { className: 'menu-planner-note' }, item.note),
             h('div', { className: 'menu-planner-card-actions' },
               h(Button, { variant: 'subtle', onClick: () => openRecipe(item.recipe.id) }, 'Ouvrir'),
-              h(Button, { variant: 'ghost', onClick: () => setOffset(value => value + 1) }, 'Changer')
+              h(Button, { variant: 'ghost', onClick: () => changeOneItem(index) }, 'Changer')
             )
           )
         ))
@@ -4977,10 +5043,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
       ),
       h('div', { className: 'modal-actions' },
         h(Button, { variant: 'primary', disabled: !menuRecipes.length, onClick: addToShopping }, 'Ajouter le menu aux courses'),
-        h(Button, { variant: 'subtle', onClick: () => {
-          rememberMenu(menu);
-          setOffset(value => value + 1);
-        } }, 'Autre menu')
+        h(Button, { variant: 'subtle', onClick: changeWholeMenu }, 'Autre menu')
       )
     )
   );
