@@ -4052,7 +4052,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "puree_butternut_pommes_terre_curry": {
     "title": "Puree butternut pommes de terre curry",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images-optimized/puree_butternut_pommes_terre_curry_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/puree_butternut_pommes_terre_curry_v2_spooky.jpg",
     "categories": [
       "Accompagnements"
     ],
@@ -4126,7 +4126,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "joues_boeuf_whiskey_orange": {
     "title": "Joues de boeuf whiskey orange",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/joues_boeuf_whiskey_orange_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/joues_boeuf_whiskey_orange_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -4214,7 +4214,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "sauce_roquefort": {
     "title": "Sauce roquefort",
     "master": "sauces_maitre",
-    "image": "/assets/recipe-images-optimized/sauce_roquefort_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/sauce_roquefort_v2_spooky.jpg",
     "categories": [
       "Sauces"
     ],
@@ -4277,7 +4277,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "curry_carottes_lait_coco": {
     "title": "Curry de carottes lait de coco",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images-optimized/curry_carottes_lait_coco_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/curry_carottes_lait_coco_v2_spooky.jpg",
     "categories": [
       "Accompagnements",
       "Plats"
@@ -4361,7 +4361,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "potato_wedges_citron_herbes": {
     "title": "Potato wedges citron herbes",
     "master": "accompagnements_maitre",
-    "image": "/assets/recipe-images-optimized/potato_wedges_citron_herbes_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/potato_wedges_citron_herbes_v2_spooky.jpg",
     "categories": [
       "Accompagnements"
     ],
@@ -4432,7 +4432,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "houmous_hakocem": {
     "title": "Houmous tahine tres cremeux",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/houmous_hakocem_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/houmous_hakocem_v2_spooky.jpg",
     "categories": [
       "Apero",
       "Entrees"
@@ -4505,7 +4505,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "falafels_four": {
     "title": "Falafels au four",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/falafels_four_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/falafels_four_v2_spooky.jpg",
     "categories": [
       "Apero",
       "Entrees"
@@ -4598,7 +4598,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "cuisses_poulet_asiatique": {
     "title": "Cuisses de poulet asiatique",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/cuisses_poulet_asiatique_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/cuisses_poulet_asiatique_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -4674,7 +4674,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "sauce_chevre_creme": {
     "title": "Sauce chevre creme",
     "master": "sauces_maitre",
-    "image": "/assets/recipe-images-optimized/sauce_chevre_creme_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/sauce_chevre_creme_v2_spooky.jpg",
     "categories": [
       "Sauces"
     ],

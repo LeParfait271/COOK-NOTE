@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.14';
+const SITE_VERSION = 'v1.15';
 const SITE_UPDATED_AT = '02/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
