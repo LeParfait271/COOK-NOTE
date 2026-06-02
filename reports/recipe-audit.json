@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-06-01T21:34:07.228Z",
+  "generatedAt": "2026-06-02T00:12:53.399Z",
   "totals": {
-    "recipes": 153,
-    "leaves": 134,
+    "recipes": 162,
+    "leaves": 143,
     "masters": 19,
     "lowScore": 15,
     "categoryIdeas": 11,
@@ -11,12 +11,12 @@
   "averageScore": 84,
   "healthDashboard": {
     "ready": 27,
-    "improve": 92,
+    "improve": 101,
     "weak": 15,
     "missingDiscovery": 33,
-    "missingSafety": 89,
+    "missingSafety": 98,
     "productionRisk": 0,
-    "fewLinks": 108
+    "fewLinks": 117
   },
   "weakestRecipes": [
     {
@@ -1063,6 +1063,18 @@
       ]
     },
     {
+      "id": "cuisses_poulet_asiatique",
+      "title": "Cuisses de poulet asiatique",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "cuisses_de_poulet_miel_moutarde",
       "title": "Cuisses de poulet miel moutarde",
       "score": 82,
@@ -1087,8 +1099,32 @@
       ]
     },
     {
+      "id": "curry_carottes_lait_coco",
+      "title": "Curry de carottes lait de coco",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "curry_lentilles_coco",
       "title": "Curry de lentilles vertes au lait de coco",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
+      "id": "falafels_four",
+      "title": "Falafels au four",
       "score": 82,
       "issues": [
         "Conservation ou securite alimentaire a verifier."
@@ -1241,6 +1277,18 @@
       ]
     },
     {
+      "id": "houmous_hakocem",
+      "title": "Houmous tahine tres cremeux",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "huile_pimentee_pizza",
       "title": "Huile pimentée pour pizza",
       "score": 84,
@@ -1253,6 +1301,18 @@
     {
       "id": "joues_de_boeuf_carottes_orange_vin_rouge",
       "title": "Joues de boeuf carottes orange vin rouge",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
+      "id": "joues_boeuf_whiskey_orange",
+      "title": "Joues de boeuf whiskey orange",
       "score": 82,
       "issues": [
         "Conservation ou securite alimentaire a verifier."
@@ -1586,6 +1646,18 @@
       "suggestions": []
     },
     {
+      "id": "potato_wedges_citron_herbes",
+      "title": "Potato wedges citron herbes",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "poulet_basquaise",
       "title": "Poulet basquaise",
       "score": 82,
@@ -1612,6 +1684,18 @@
     {
       "id": "poulet_gaston_gerard",
       "title": "Poulet Gaston Gérard",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
+      "id": "puree_butternut_pommes_terre_curry",
+      "title": "Puree butternut pommes de terre curry",
       "score": 82,
       "issues": [
         "Conservation ou securite alimentaire a verifier."
@@ -1764,8 +1848,32 @@
       "suggestions": []
     },
     {
+      "id": "sauce_chevre_creme",
+      "title": "Sauce chevre creme",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "sauce_mornay",
       "title": "Sauce Mornay",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
+      "id": "sauce_roquefort",
+      "title": "Sauce roquefort",
       "score": 82,
       "issues": [
         "Conservation ou securite alimentaire a verifier."

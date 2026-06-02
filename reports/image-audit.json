@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-01T21:34:07.361Z",
-  "total": 153,
+  "generatedAt": "2026-06-02T00:12:38.539Z",
+  "total": 162,
   "weakCount": 9,
   "issueBuckets": {
     "missingCard": 0,
@@ -1682,6 +1682,24 @@
       "cardBytes": 26186
     },
     {
+      "id": "cuisses_poulet_asiatique",
+      "title": "Cuisses de poulet asiatique",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/cuisses_poulet_asiatique_spooky.jpg",
+      "card": "assets/recipe-card-images/cuisses_poulet_asiatique_spooky.jpg",
+      "optimizedSize": {
+        "width": 1600,
+        "height": 1100
+      },
+      "optimizedBytes": 237196,
+      "cardSize": {
+        "width": 640,
+        "height": 434
+      },
+      "cardBytes": 47629
+    },
+    {
       "id": "cuisses_de_poulet_miel_moutarde",
       "title": "Cuisses de poulet miel moutarde",
       "score": 100,
@@ -1718,6 +1736,24 @@
       "cardBytes": 124437
     },
     {
+      "id": "curry_carottes_lait_coco",
+      "title": "Curry de carottes lait de coco",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/curry_carottes_lait_coco_spooky.jpg",
+      "card": "assets/recipe-card-images/curry_carottes_lait_coco_spooky.jpg",
+      "optimizedSize": {
+        "width": 1600,
+        "height": 1100
+      },
+      "optimizedBytes": 255568,
+      "cardSize": {
+        "width": 640,
+        "height": 434
+      },
+      "cardBytes": 52356
+    },
+    {
       "id": "curry_lentilles_coco",
       "title": "Curry de lentilles vertes au lait de coco",
       "score": 100,
@@ -1752,6 +1788,24 @@
         "height": 520
       },
       "cardBytes": 45642
+    },
+    {
+      "id": "falafels_four",
+      "title": "Falafels au four",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/falafels_four_spooky.jpg",
+      "card": "assets/recipe-card-images/falafels_four_spooky.jpg",
+      "optimizedSize": {
+        "width": 1600,
+        "height": 1100
+      },
+      "optimizedBytes": 235751,
+      "cardSize": {
+        "width": 640,
+        "height": 434
+      },
+      "cardBytes": 47695
     },
     {
       "id": "flan_patissier_epais_vanille",
@@ -1880,6 +1934,24 @@
       "cardBytes": 139463
     },
     {
+      "id": "houmous_hakocem",
+      "title": "Houmous tahine tres cremeux",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/houmous_hakocem_spooky.jpg",
+      "card": "assets/recipe-card-images/houmous_hakocem_spooky.jpg",
+      "optimizedSize": {
+        "width": 1600,
+        "height": 1100
+      },
+      "optimizedBytes": 263366,
+      "cardSize": {
+        "width": 640,
+        "height": 434
+      },
+      "cardBytes": 53194
+    },
+    {
       "id": "huile_pimentee_pizza",
       "title": "Huile pimentée pour pizza",
       "score": 100,
@@ -1914,6 +1986,24 @@
         "height": 520
       },
       "cardBytes": 128850
+    },
+    {
+      "id": "joues_boeuf_whiskey_orange",
+      "title": "Joues de boeuf whiskey orange",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/joues_boeuf_whiskey_orange_spooky.jpg",
+      "card": "assets/recipe-card-images/joues_boeuf_whiskey_orange_spooky.jpg",
+      "optimizedSize": {
+        "width": 1600,
+        "height": 1100
+      },
+      "optimizedBytes": 218457,
+      "cardSize": {
+        "width": 640,
+        "height": 434
+      },
+      "cardBytes": 41989
     },
     {
       "id": "joues_de_porc_chorizo_piment",
@@ -2312,6 +2402,24 @@
       "cardBytes": 68325
     },
     {
+      "id": "potato_wedges_citron_herbes",
+      "title": "Potato wedges citron herbes",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/potato_wedges_citron_herbes_spooky.jpg",
+      "card": "assets/recipe-card-images/potato_wedges_citron_herbes_spooky.jpg",
+      "optimizedSize": {
+        "width": 1600,
+        "height": 1100
+      },
+      "optimizedBytes": 242959,
+      "cardSize": {
+        "width": 640,
+        "height": 434
+      },
+      "cardBytes": 48652
+    },
+    {
       "id": "poulet_basquaise",
       "title": "Poulet basquaise",
       "score": 100,
@@ -2364,6 +2472,24 @@
         "height": 520
       },
       "cardBytes": 123497
+    },
+    {
+      "id": "puree_butternut_pommes_terre_curry",
+      "title": "Puree butternut pommes de terre curry",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/puree_butternut_pommes_terre_curry_spooky.jpg",
+      "card": "assets/recipe-card-images/puree_butternut_pommes_terre_curry_spooky.jpg",
+      "optimizedSize": {
+        "width": 1600,
+        "height": 1100
+      },
+      "optimizedBytes": 256760,
+      "cardSize": {
+        "width": 640,
+        "height": 434
+      },
+      "cardBytes": 52594
     },
     {
       "id": "puree_courge_butternut",
@@ -2546,6 +2672,24 @@
       "cardBytes": 70281
     },
     {
+      "id": "sauce_chevre_creme",
+      "title": "Sauce chevre creme",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/sauce_chevre_creme_spooky.jpg",
+      "card": "assets/recipe-card-images/sauce_chevre_creme_spooky.jpg",
+      "optimizedSize": {
+        "width": 1600,
+        "height": 1100
+      },
+      "optimizedBytes": 248498,
+      "cardSize": {
+        "width": 640,
+        "height": 434
+      },
+      "cardBytes": 50607
+    },
+    {
       "id": "sauce_mornay",
       "title": "Sauce Mornay",
       "score": 100,
@@ -2562,6 +2706,24 @@
         "height": 390
       },
       "cardBytes": 19839
+    },
+    {
+      "id": "sauce_roquefort",
+      "title": "Sauce roquefort",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/sauce_roquefort_spooky.jpg",
+      "card": "assets/recipe-card-images/sauce_roquefort_spooky.jpg",
+      "optimizedSize": {
+        "width": 1600,
+        "height": 1100
+      },
+      "optimizedBytes": 246542,
+      "cardSize": {
+        "width": 640,
+        "height": 434
+      },
+      "cardBytes": 49714
     },
     {
       "id": "sauce_yaourt_citronnee",

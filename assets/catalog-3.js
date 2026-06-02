@@ -672,12 +672,20 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Croque-madame"
       },
       {
+        "id": "cuisses_poulet_asiatique",
+        "label": "Cuisses de poulet asiatique"
+      },
+      {
         "id": "cuisses_de_poulet_miel_moutarde",
         "label": "Cuisses de poulet miel moutarde"
       },
       {
         "id": "cuisses_de_poulet_rhum_miel_piment",
         "label": "Cuisses de poulet rhum miel piment"
+      },
+      {
+        "id": "curry_carottes_lait_coco",
+        "label": "Curry de carottes lait de coco"
       },
       {
         "id": "curry_lentilles_coco",
@@ -698,6 +706,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "joues_de_boeuf_carottes_orange_vin_rouge",
         "label": "Joues de boeuf carottes orange vin rouge"
+      },
+      {
+        "id": "joues_boeuf_whiskey_orange",
+        "label": "Joues de boeuf whiskey orange"
       },
       {
         "id": "joues_de_porc_chorizo_piment",

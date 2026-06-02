@@ -359,6 +359,22 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         ]
       },
       {
+        "group": "Variante potimarron",
+        "items": [
+          "700g potimarron brosse, graines retirees, peau conservee",
+          "25g huile deolive",
+          "2g quatre-epices, cumin ou paprika doux",
+          "1 pincee piment deEspelette optionnel",
+          "Cuisson 30 e 40min e 180eC chaleur tournante"
+        ],
+        "steps": [
+          "Prechauffer le four e 180eC chaleur tournante.",
+          "Brosser le potimarron, leouvrir, retirer graines et filaments puis tailler en tranches, cubes ou grosses frites.",
+          "Enrober avec huile, sel, poivre du moulin et epices choisies.",
+          "etaler en une couche sur plaque et retir 30 e 40min selon la taille, jusquee chair tendre et bords dores."
+        ]
+      },
+      {
         "group": "Variante oignon, fenouil ou poireau",
         "items": [
           "650g oignons ou fenouil en quartiers, ou poireaux en tron\u00e7ons de 3 \u00e0 4cm",
@@ -412,12 +428,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "legumes",
       "four",
       "r\u00f4ti",
-      "accompagnement"
+      "accompagnement",
+      "potimarron"
     ],
     "aliases": [
       "legumes au four",
       "legumes rotis",
-      "accompagnement legumes"
+      "accompagnement legumes",
+      "potimarron au four"
     ],
     "additionalMasters": [
       "entrees_maitre"
@@ -560,6 +578,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Chou-fleur croustillant"
       },
       {
+        "id": "curry_carottes_lait_coco",
+        "label": "Curry de carottes lait de coco"
+      },
+      {
         "id": "frites_maison",
         "label": "Frites"
       },
@@ -598,6 +620,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "pesto_tomates_sechees_sans_cajou",
         "label": "Pesto tomates s\u00e9ch\u00e9es"
+      },
+      {
+        "id": "potato_wedges_citron_herbes",
+        "label": "Potato wedges citron herbes"
+      },
+      {
+        "id": "puree_butternut_pommes_terre_curry",
+        "label": "Puree butternut pommes de terre curry"
       },
       {
         "id": "puree_courge_butternut",
@@ -4018,5 +4048,691 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "value": "Garder des morceaux irr\u00e9guliers donne une meilleure texture qu\u2019une poudre trop fine."
       }
     ]
+  },
+  "puree_butternut_pommes_terre_curry": {
+    "title": "Puree butternut pommes de terre curry",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/puree_butternut_pommes_terre_curry_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 e 6 personnes",
+    "nutriScore": "B",
+    "aliases": [
+      "puree butternut curry",
+      "puree courge pommes de terre",
+      "butternut pommes de terre"
+    ],
+    "tags": [
+      "butternut",
+      "pomme de terre",
+      "curry",
+      "puree",
+      "accompagnement"
+    ],
+    "ingredients": [
+      {
+        "group": "Puree",
+        "items": [
+          "750g pommes de terre",
+          "350g chair de butternut",
+          "150ml lait",
+          "3g curry doux",
+          "1 pincee piment deEspelette",
+          "Sel fin",
+          "poivre du moulin",
+          "Persil plat cisele"
+        ]
+      }
+    ],
+    "steps": [
+      "eplucher les pommes de terre et retirer graines et peau de la butternut.",
+      "Couper les legumes en morceaux reguliers pour queils cuisent au meme rythme.",
+      "Cuire e la vapeur 13 e 18min, ou e leeau salee jusquee tendrete nette.",
+      "Chauffer le lait avec curry, sel, piment deEspelette et poivre du moulin.",
+      "ecraser les legumes au presse-puree, puis incorporer le lait epice peu e peu.",
+      "Rectifier la texture et finir avec persil plat cisele."
+    ],
+    "notes": [
+      "Ajouter le lait progressivement permet de garder une puree tenue, pas liquide.",
+      "Tres bon avec volaille retie, poisson blanc ou legumes verts."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "ecraser plutet que mixer longtemps pour eviter une texture collante."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Cuit-vapeur ou casserole",
+        "Presse-puree",
+        "Petite casserole"
+      ],
+      "storage": [
+        "2 e 3 jours au refrigerateur en boete hermetique."
+      ],
+      "result": [
+        "Puree douce, legerement epicee, assez neutre pour accompagner un plat principal."
+      ]
+    }
+  },
+  "joues_boeuf_whiskey_orange": {
+    "title": "Joues de boeuf whiskey orange",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/joues_boeuf_whiskey_orange_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "8 personnes",
+    "nutriScore": "C",
+    "aliases": [
+      "joues de boeuf whiskey",
+      "boeuf orange whiskey",
+      "plat mijote orange"
+    ],
+    "tags": [
+      "boeuf",
+      "joues",
+      "orange",
+      "whiskey",
+      "mijote"
+    ],
+    "ingredients": [
+      {
+        "group": "Mijote",
+        "items": [
+          "1,8kg joues de beuf",
+          "25g beurre doux",
+          "25g huile neutre",
+          "2 oignons",
+          "1 gousse ail",
+          "1 branche celeri",
+          "25g farine",
+          "150ml jus deorange frais",
+          "100ml whiskey",
+          "40g marmelade orange",
+          "1kg carottes",
+          "100ml eau",
+          "2 feuilles laurier",
+          "3 brins thym",
+          "Sel fin",
+          "poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper les joues en gros morceaux et preparer oignons, ail, celeri et carottes.",
+      "Colorer la viande dans beurre et huile, en plusieurs fois si la cocotte est petite.",
+      "Ajouter oignons, ail et celeri, puis laisser suer quelques minutes.",
+      "Singer avec la farine, melanger et mouiller avec jus deorange, whiskey, eau et marmelade.",
+      "Ajouter carottes, laurier, thym, sel et poivre du moulin.",
+      "Couvrir et mijoter doucement 1h10 e 1h30, jusquee viande fondante et sauce nappante.",
+      "Laisser reposer 10min hors du feu, retirer laurier et thym puis servir."
+    ],
+    "notes": [
+      "Encore meilleur rechauffe doucement le lendemain.",
+      "Servir avec puree simple, pommes vapeur ou legumes verts plutet queun second accompagnement sucre."
+    ],
+    "technical": [
+      {
+        "label": "Mijotage",
+        "value": "Le liquide doit fremir doucement, jamais bouillir fort."
+      },
+      {
+        "label": "Sauce",
+        "value": "La marmelade apporte rondeur et brillance, mais la sauce doit rester salee et courte."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Grande cocotte",
+        "Presse-agrumes",
+        "Couteau"
+      ],
+      "storage": [
+        "3 jours au refrigerateur.",
+        "Congelation possible 2 mois avec la sauce."
+      ],
+      "result": [
+        "Viande fondante, sauce brune parfumee e leorange, finale chaleureuse."
+      ]
+    }
+  },
+  "sauce_roquefort": {
+    "title": "Sauce roquefort",
+    "master": "sauces_maitre",
+    "image": "/assets/recipe-images-optimized/sauce_roquefort_spooky.jpg",
+    "categories": [
+      "Sauces"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "2 e 4 personnes",
+    "nutriScore": "D",
+    "aliases": [
+      "sauce au roquefort",
+      "sauce fromage bleu"
+    ],
+    "tags": [
+      "roquefort",
+      "creme",
+      "fromage",
+      "sauce chaude"
+    ],
+    "ingredients": [
+      {
+        "group": "Sauce",
+        "items": [
+          "30g roquefort",
+          "75ml creme fraeche entiere",
+          "poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Emietter le roquefort dans une petite casserole.",
+      "Ajouter la creme et chauffer a feu doux en remuant regulierement.",
+      "Laisser fondre 7 a 8min, jusqu a sauce homogene ou legerement texturee selon gout.",
+      "Ajouter poivre du moulin, gouter et servir chaud sans ajouter de sel."
+    ],
+    "notes": [
+      "Tres salee naturellement : goeter avant toute correction.",
+      "Pour epaissir, ajouter une pointe de fecule diluee dans un peu de creme froide."
+    ],
+    "technical": [
+      {
+        "label": "Feu doux",
+        "value": "Un feu trop fort peut trancher la creme et durcir le fromage."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Petite casserole",
+        "Fouet souple"
+      ],
+      "storage": [
+        "2 jours au refrigerateur, rechauffer doucement."
+      ],
+      "result": [
+        "Sauce courte, cremeuse, puissante mais arrondie."
+      ]
+    }
+  },
+  "curry_carottes_lait_coco": {
+    "title": "Curry de carottes lait de coco",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/curry_carottes_lait_coco_spooky.jpg",
+    "categories": [
+      "Accompagnements",
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver",
+      "Printemps"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 e 6 personnes",
+    "nutriScore": "B",
+    "aliases": [
+      "carottes curry coco",
+      "carottes lait de coco",
+      "curry vegetarien carottes"
+    ],
+    "tags": [
+      "carotte",
+      "curry",
+      "lait de coco",
+      "citron vert",
+      "vegetarien"
+    ],
+    "ingredients": [
+      {
+        "group": "Curry",
+        "items": [
+          "1kg carottes",
+          "25g huile deolive",
+          "1 oignon",
+          "1 gousse ail",
+          "200ml lait de coco",
+          "300ml bouillon de legumes ou volaille",
+          "3g curry",
+          "1g gingembre moulu",
+          "1 pincee curcuma",
+          "1 citron vert",
+          "Sauce sriracha selon goet",
+          "Persil ou coriandre ciselee",
+          "Sel fin",
+          "poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Tailler les carottes en fines rondelles et ciseler oignon et ail.",
+      "Faire suer leoignon dans lehuile, ajouter leail puis les epices.",
+      "Ajouter carottes, lait de coco et bouillon e hauteur.",
+      "Cuire 20min e couvert, puis 20min e decouvert pour concentrer la sauce.",
+      "Finir avec jus de citron vert, herbes et une touche de sriracha si souhaite."
+    ],
+    "notes": [
+      "En plat vegetarien, servir avec semoule ou pois chiches.",
+      "En accompagnement, tres bon avec poulet reti ou poisson blanc."
+    ],
+    "technical": [
+      {
+        "label": "epices",
+        "value": "Les chauffer brievement dans lehuile reveille le parfum sans les breler."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Cocotte",
+        "Couteau",
+        "Zesteur ou presse-agrumes"
+      ],
+      "storage": [
+        "3 jours au refrigerateur."
+      ],
+      "result": [
+        "Carottes fondantes, sauce coco-curry courte et finale citronnee."
+      ]
+    },
+    "additionalMasters": [
+      "plats_maitre"
+    ]
+  },
+  "potato_wedges_citron_herbes": {
+    "title": "Potato wedges citron herbes",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/potato_wedges_citron_herbes_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "nutriScore": "C",
+    "aliases": [
+      "potato wedges",
+      "quartiers de pommes de terre au four",
+      "wedges citron"
+    ],
+    "tags": [
+      "pomme de terre",
+      "four",
+      "citron",
+      "herbes",
+      "croustillant"
+    ],
+    "ingredients": [
+      {
+        "group": "Wedges",
+        "items": [
+          "800g pommes de terre",
+          "35g huile deolive",
+          "2g sel fin",
+          "6g herbes de Provence",
+          "1 citron bio",
+          "poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Prechauffer le four e 190eC chaleur tournante.",
+      "Couper les pommes de terre en gros quartiers reguliers.",
+      "Enrober avec huile, sel, poivre du moulin et herbes.",
+      "Ajouter quelques rondelles de citron dans le plat ou sur la plaque.",
+      "Cuire 40min environ, en retournant e mi-cuisson, jusquee bords dores et ceur tendre.",
+      "Servir chaud avec une sauce fraeche ou une viande grillee."
+    ],
+    "notes": [
+      "Bien espacer les quartiers ameliore la coloration.",
+      "Le citron parfume le plat : ne pas en mettre trop si la sauce du menu est deje acide."
+    ],
+    "technical": [
+      {
+        "label": "Decoupe",
+        "value": "Des quartiers de taille reguliere evitent les morceaux breles et les centres crus."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Plaque ou plat e four",
+        "Papier cuisson"
+      ],
+      "storage": [
+        "Meilleur juste cuit.",
+        "Rechauffer au four plutet queau micro-ondes."
+      ],
+      "result": [
+        "Quartiers dores, parfumes aux herbes, avec une note citronnee."
+      ]
+    }
+  },
+  "houmous_hakocem": {
+    "title": "Houmous tahine tres cremeux",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/houmous_hakocem_spooky.jpg",
+    "categories": [
+      "Apero",
+      "Entrees"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "1 grand bol",
+    "nutriScore": "B",
+    "aliases": [
+      "houmous hakocem",
+      "houmous tahini",
+      "houmous sans ail"
+    ],
+    "tags": [
+      "pois chiches",
+      "tahine",
+      "citron",
+      "apero",
+      "vegetarien"
+    ],
+    "ingredients": [
+      {
+        "group": "Houmous",
+        "items": [
+          "260g pois chiches cuits",
+          "120ml eau de cuisson des pois chiches",
+          "100g jus de citron frais ou acidite selon goet",
+          "5g sel fin",
+          "480g tahine",
+          "240ml eau froide"
+        ]
+      }
+    ],
+    "steps": [
+      "Mixer pois chiches, eau de cuisson, citron et sel jusquee base tres lisse.",
+      "Ajouter la moitie du tahine et la moitie de leeau froide, puis mixer longuement.",
+      "Ajouter le reste de tahine et deeau froide en ajustant la texture.",
+      "Mixer jusquee houmous souple, clair et presque mousseux.",
+      "Goeter, corriger sel et citron, puis servir avec huile deolive et pain plat."
+    ],
+    "notes": [
+      "Le tahine fait la texture : choisir une puree de sesame fluide et pas amere.",
+      "Sans ail, le houmous reste plus rond et accompagne mieux des garnitures puissantes."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Leeau froide detend le tahine et donne une texture plus legere."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Robot coupe ou blender puissant",
+        "Spatule"
+      ],
+      "storage": [
+        "3 jours au refrigerateur, couvert au contact."
+      ],
+      "result": [
+        "Houmous tres cremeux, riche en sesame, acidite nette mais douce."
+      ]
+    },
+    "additionalMasters": [
+      "entrees_maitre"
+    ]
+  },
+  "falafels_four": {
+    "title": "Falafels au four",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/falafels_four_spooky.jpg",
+    "categories": [
+      "Apero",
+      "Entrees"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "16 falafels",
+    "nutriScore": "B",
+    "aliases": [
+      "falafels cuits au four",
+      "falafels pois chiches",
+      "falafel four"
+    ],
+    "tags": [
+      "pois chiches",
+      "cumin",
+      "coriandre",
+      "four",
+      "vegetarien"
+    ],
+    "ingredients": [
+      {
+        "group": "Pete",
+        "items": [
+          "350g pois chiches secs trempes 12h",
+          "1 oignon jaune",
+          "1 petite botte persil",
+          "5 brins menthe ou ciboulette",
+          "1 petite botte coriandre",
+          "2 gousses ail",
+          "3g cumin moulu",
+          "1 pincee cardamome",
+          "5g sel fin",
+          "poivre du moulin",
+          "11g levure chimique",
+          "15g farine de ble"
+        ]
+      },
+      {
+        "group": "Cuisson",
+        "items": [
+          "15g graines de sesame",
+          "25g huile deolive"
+        ]
+      }
+    ],
+    "steps": [
+      "Faire tremper les pois chiches secs au moins 12h, puis bien les egoutter et les secher.",
+      "Mixer pois chiches, oignon, herbes, ail, epices, sel et poivre du moulin en texture granuleuse.",
+      "Incorporer levure et farine, puis laisser reposer 1h au frais.",
+      "Former 16 boulettes tassees sans les compacter excessivement.",
+      "Deposer sur plaque, parsemer de sesame et arroser deun filet dehuile.",
+      "Cuire 18 e 22min e 190eC chaleur tournante, jusquee dore et ceur encore moelleux."
+    ],
+    "notes": [
+      "Ne pas utiliser pois chiches en boete pour cette version : la pete serait trop humide.",
+      "La pete crue faeonnee peut se congeler avant cuisson."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Chercher une semoule humide, pas une puree lisse."
+      },
+      {
+        "label": "Cuisson",
+        "value": "Sortir des que la surface dore pour garder le centre moelleux."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Robot coupe",
+        "Plaque",
+        "Papier cuisson"
+      ],
+      "storage": [
+        "2 jours au refrigerateur apres cuisson.",
+        "Congelation possible avant cuisson."
+      ],
+      "result": [
+        "Falafels dores, herbaces, plus legers queune friture."
+      ]
+    },
+    "additionalMasters": [
+      "entrees_maitre"
+    ]
+  },
+  "cuisses_poulet_asiatique": {
+    "title": "Cuisses de poulet asiatique",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/cuisses_poulet_asiatique_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "nutriScore": "C",
+    "aliases": [
+      "poulet asiatique au four",
+      "cuisses poulet citron vert miel",
+      "poulet gingembre nuoc mam"
+    ],
+    "tags": [
+      "poulet",
+      "citron vert",
+      "gingembre",
+      "miel",
+      "sriracha"
+    ],
+    "ingredients": [
+      {
+        "group": "Poulet",
+        "items": [
+          "3 cuisses de poulet coupees en deux",
+          "30g jus de citron vert",
+          "20g miel",
+          "20g gingembre frais repe",
+          "2 gousses ail repees",
+          "15g nuoc-mem ou sel fin",
+          "8g sauce sriracha ou piment doux selon goet",
+          "15g huile neutre",
+          "Persil ou coriandre ciselee",
+          "poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Prechauffer le four e 200eC.",
+      "Melanger citron vert, miel, gingembre, ail, nuoc-mem, sriracha et huile.",
+      "eponger le poulet puis leenrober soigneusement de marinade.",
+      "Disposer en plat sans superposer les morceaux.",
+      "Cuire 40min environ, en arrosant une fois avec le jus du plat.",
+      "Finir avec persil ou coriandre et servir avec riz simple ou legumes verts."
+    ],
+    "notes": [
+      "Si le nuoc-mem est remplace par du sel, ajouter par petites pincees et goeter la marinade.",
+      "Le miel colore vite : surveiller la fin de cuisson."
+    ],
+    "technical": [
+      {
+        "label": "equilibre",
+        "value": "Citron, miel et nuoc-mem doivent former une marinade salee-acidulee, pas sucree."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Plat e four",
+        "Repe fine",
+        "Pinceau ou cuillere"
+      ],
+      "storage": [
+        "2 jours au refrigerateur.",
+        "Rechauffer doucement avec un peu de jus."
+      ],
+      "result": [
+        "Poulet dore, jus court, parfum citron vert-gingembre."
+      ]
+    }
+  },
+  "sauce_chevre_creme": {
+    "title": "Sauce chevre creme",
+    "master": "sauces_maitre",
+    "image": "/assets/recipe-images-optimized/sauce_chevre_creme_spooky.jpg",
+    "categories": [
+      "Sauces"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "4 personnes",
+    "nutriScore": "D",
+    "aliases": [
+      "sauce fromage de chevre",
+      "sauce chevre",
+      "sauce cremeuse chevre"
+    ],
+    "tags": [
+      "chevre",
+      "creme",
+      "fromage",
+      "sauce chaude"
+    ],
+    "ingredients": [
+      {
+        "group": "Sauce",
+        "items": [
+          "180g fromage de chevre doux",
+          "500ml creme fraeche",
+          "poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper le fromage de chevre en petits morceaux.",
+      "Chauffer la creme a feu doux.",
+      "Ajouter le fromage et melanger jusqu a fonte complete.",
+      "Ajouter poivre du moulin, gouter et servir chaud sur viande grillee, pates ou legumes."
+    ],
+    "notes": [
+      "Choisir un chevre plutet doux pour une sauce ronde.",
+      "Ne pas faire bouillir fort : la sauce peut devenir granuleuse."
+    ],
+    "technical": [
+      {
+        "label": "Fromage",
+        "value": "Plus le chevre est affine, plus la sauce sera marquee et salee."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Petite casserole",
+        "Fouet"
+      ],
+      "storage": [
+        "2 jours au refrigerateur, rechauffer e feu tres doux."
+      ],
+      "result": [
+        "Sauce blanche, nappante, douce et fromagere."
+      ]
+    }
   }
 });

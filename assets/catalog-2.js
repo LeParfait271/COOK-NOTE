@@ -649,6 +649,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Crudit\u00e9s et salades fra\u00eeches"
       },
       {
+        "id": "falafels_four",
+        "label": "Falafels au four"
+      },
+      {
+        "id": "houmous_hakocem",
+        "label": "Houmous tahine tres cremeux"
+      },
+      {
         "id": "legumes_rotis",
         "label": "L\u00e9gumes r\u00f4tis au four"
       },
@@ -1042,6 +1050,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Cookies sal\u00e9s"
       },
       {
+        "id": "falafels_four",
+        "label": "Falafels au four"
+      },
+      {
+        "id": "houmous_hakocem",
+        "label": "Houmous tahine tres cremeux"
+      },
+      {
         "id": "mojitos_variantes",
         "label": "Mojitos"
       },
@@ -1187,8 +1203,16 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Coulis"
       },
       {
+        "id": "sauce_chevre_creme",
+        "label": "Sauce chevre creme"
+      },
+      {
         "id": "sauce_mornay",
         "label": "Sauce Mornay"
+      },
+      {
+        "id": "sauce_roquefort",
+        "label": "Sauce roquefort"
       },
       {
         "id": "sauce_yaourt_citronnee",

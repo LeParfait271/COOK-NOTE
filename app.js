@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.10';
+const SITE_VERSION = 'v1.11';
 const SITE_UPDATED_AT = '02/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -31,6 +31,15 @@ const HOME_CARD_ORDER = {
   desserts_maitre: 8
 };
 const MONTHLY_ADDITIONS = [
+  { id: 'puree_butternut_pommes_terre_curry', addedAt: '2026-06-02' },
+  { id: 'joues_boeuf_whiskey_orange', addedAt: '2026-06-02' },
+  { id: 'sauce_roquefort', addedAt: '2026-06-02' },
+  { id: 'curry_carottes_lait_coco', addedAt: '2026-06-02' },
+  { id: 'potato_wedges_citron_herbes', addedAt: '2026-06-02' },
+  { id: 'houmous_hakocem', addedAt: '2026-06-02' },
+  { id: 'falafels_four', addedAt: '2026-06-02' },
+  { id: 'cuisses_poulet_asiatique', addedAt: '2026-06-02' },
+  { id: 'sauce_chevre_creme', addedAt: '2026-06-02' },
   { id: 'puree_courge_butternut', addedAt: '2026-05-29' },
   { id: 'riz_cantonnais', addedAt: '2026-05-29' },
   { id: 'pates_pesto_tomates_mozzarella', addedAt: '2026-05-29' },

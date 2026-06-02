@@ -756,7 +756,7 @@ window.RECIPES = {
       "Ratio huile:acide 3:1 à 4:1 selon la salade.",
       "Variantes citron, herbes, miso blanc, yaourt grec.",
       "→ Voir aussi <span data-goto=\"pesto_variantes\">Pestos</span>",
-      "Conservation 5–7 j au froid.",
+      "Conservation 5–7 j au froid."
     ],
     "difficultyScore": 2
   },
@@ -816,7 +816,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Même fiche, 2 styles citronné (salades) ou traditionnel (pâtes/gnocchi).",
-      "Conservation 2–4 j au froid, film au contact + fine couche d’huile.",
+      "Conservation 2–4 j au froid, film au contact + fine couche d’huile."
     ],
     "difficultyScore": 3,
     "variantGroups": true,
@@ -856,7 +856,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Zaatar + huile d'olive Citron confit + aneth Miel + piment d'Espelette Truffe 1–2 % huile de truffe.",
-      "Conservation 2–3 j au froid.",
+      "Conservation 2–3 j au froid."
     ],
     "difficultyScore": 2,
     "tags": [
@@ -901,7 +901,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Variantes zeste d'orange, vanille, cacao, espresso, figue (filtrer).",
-      "Conservation 2–3 mois au froid.",
+      "Conservation 2–3 mois au froid."
     ],
     "difficultyScore": 2,
     "tags": [
@@ -972,7 +972,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Séchées parfaites pour antipasti et salades.",
-      "Confites idéales en bruschetta / pâtes.",
+      "Confites idéales en bruschetta / pâtes."
     ],
     "difficultyScore": 4,
     "aliases": [
@@ -1015,7 +1015,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Variantes poivre de Sichuan, origan, paprika fumé.",
-      "Conservation 1 mois au froid.",
+      "Conservation 1 mois au froid."
     ],
     "difficultyScore": 2
   },
@@ -1130,6 +1130,22 @@ window.RECIPES = {
         ]
       },
       {
+        "group": "Variante potimarron",
+        "items": [
+          "700g potimarron brosse, graines retirees, peau conservee",
+          "25g huile deolive",
+          "2g quatre-epices, cumin ou paprika doux",
+          "1 pincee piment deEspelette optionnel",
+          "Cuisson 30 e 40min e 180eC chaleur tournante"
+        ],
+        "steps": [
+          "Prechauffer le four e 180eC chaleur tournante.",
+          "Brosser le potimarron, leouvrir, retirer graines et filaments puis tailler en tranches, cubes ou grosses frites.",
+          "Enrober avec huile, sel, poivre du moulin et epices choisies.",
+          "etaler en une couche sur plaque et retir 30 e 40min selon la taille, jusquee chair tendre et bords dores."
+        ]
+      },
+      {
         "group": "Variante oignon, fenouil ou poireau",
         "items": [
           "650g oignons ou fenouil en quartiers, ou poireaux en tronçons de 3 à 4cm",
@@ -1176,19 +1192,21 @@ window.RECIPES = {
     ],
     "notes": [
       "Plaque préchauffée = croûte plus nette.",
-      "Conservation 4 j au réfrigérateur.",
+      "Conservation 4 j au réfrigérateur."
     ],
     "difficultyScore": 3,
     "tags": [
       "legumes",
       "four",
       "rôti",
-      "accompagnement"
+      "accompagnement",
+      "potimarron"
     ],
     "aliases": [
       "legumes au four",
       "legumes rotis",
-      "accompagnement legumes"
+      "accompagnement legumes",
+      "potimarron au four"
     ],
     "additionalMasters": [
       "entrees_maitre"
@@ -1375,7 +1393,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Ne pas réutiliser la marinade crue porter à ébullition si sauce.",
-      "Conservation marinades prêtes 7 j au froid.",
+      "Conservation marinades prêtes 7 j au froid."
     ],
     "difficultyScore": 3,
     "variantGroups": true,
@@ -1447,7 +1465,7 @@ window.RECIPES = {
       "Former des boules, aplatir à 1cm et cuire 12–15min à 180°C."
     ],
     "notes": [
-      "Conservation 3 j boîte hermétique.",
+      "Conservation 3 j boîte hermétique."
     ],
     "difficultyScore": 4,
     "variantGroups": true
@@ -1517,7 +1535,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Pour la version babeurre préparer le <span data-goto=\"babeurre_maison\">babeurre</span> 10min avant.",
-      "Conservation pâte 4h au froid pancakes cuits 2 j filmés.",
+      "Conservation pâte 4h au froid pancakes cuits 2 j filmés."
     ],
     "difficultyScore": 3,
     "aliases": [
@@ -1559,7 +1577,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Épaissir 5–8g maïzena diluée.",
-      "Conservation 2 j au froid.",
+      "Conservation 2 j au froid."
     ],
     "difficultyScore": 3,
     "tags": [
@@ -1605,7 +1623,7 @@ window.RECIPES = {
     "notes": [
       "Parfums vanille, cacao, café, coco (1–2 %).",
       "→ Version plus stable <span data-goto=\"mascarpone\">Chantilly mascarpone</span> ou <span data-goto=\"chantilly_gelatine\">Chantilly gélatine</span>",
-      "Conservation 24h au froid maximum.",
+      "Conservation 24h au froid maximum."
     ],
     "difficultyScore": 3,
     "tags": [
@@ -1651,7 +1669,7 @@ window.RECIPES = {
     "notes": [
       "Texture plus dense, très stable.",
       "Idéal pour un fourrage rapide.",
-      "Dosage fourrage 30–40g par donut.",
+      "Dosage fourrage 30–40g par donut."
     ],
     "tags": [
       "creme",
@@ -1689,7 +1707,7 @@ window.RECIPES = {
       "Monter au fouet serrer au sucre en fin."
     ],
     "notes": [
-      "Tenue 24–36h en poche.",
+      "Tenue 24–36h en poche."
     ],
     "difficultyScore": 4
   },
@@ -1735,7 +1753,7 @@ window.RECIPES = {
     "notes": [
       "Dosage fourrage 30–40g par donut.",
       "Texture attendue légère, stable et propre.",
-      "Met à jour la recette existante de crème diplomate vanille.",
+      "Met à jour la recette existante de crème diplomate vanille."
     ],
     "tags": [
       "creme",
@@ -1833,7 +1851,7 @@ window.RECIPES = {
     "notes": [
       "Des blancs \"vieillis\" montent mieux.",
       "Cuisson longue = meringues bien sèches et stables.",
-      "Conservation 2 semaines sans perte de texture.",
+      "Conservation 2 semaines sans perte de texture."
     ],
     "difficultyScore": 4,
     "additionalMasters": [
@@ -1889,7 +1907,7 @@ window.RECIPES = {
       "Idéal pour pocher poissons (cabillaud, saumon, sole), crustacés, légumes ou volailles.",
       "Astuce ajouter un trait de vinaigre blanc ou de jus de citron pour les crustacés.",
       "Base possible pour des plats mijotés, sauces et pochages aromatiques.",
-      "Conservation 3–4 j au froid se congèle très bien 2–3 mois (en portions de 250ml).",
+      "Conservation 3–4 j au froid se congèle très bien 2–3 mois (en portions de 250ml)."
     ],
     "difficultyScore": 2
   },
@@ -2029,7 +2047,7 @@ window.RECIPES = {
       "→ Recette des choux <span data-goto='choux_craquelin'>Choux au craquelin</span>",
       "→ Version pâtissière seule <span data-goto='creme_diplomate_vanille'>Crème diplomate vanille (recette de base)</span>",
       "Conservation pâtissière seule 48h au froid. Diplomate assemblée 24h au froid. Mascarpone 36–48h au froid.",
-      "Congélation possible pour la pâtissière seule (avant incorporation chantilly) — 1 mois. Fouetter à nouveau après décongélation.",
+      "Congélation possible pour la pâtissière seule (avant incorporation chantilly) — 1 mois. Fouetter à nouveau après décongélation."
     ],
     "difficultyScore": 6
   },
@@ -2074,7 +2092,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Montage en couronnes de pâte à choux, crème praliné et noisettes.",
-      "Sortir du réfrigérateur 30 à 40min avant dégustation.",
+      "Sortir du réfrigérateur 30 à 40min avant dégustation."
     ],
     "difficultyScore": 8
   },
@@ -2109,7 +2127,7 @@ window.RECIPES = {
       "Découper des anneaux (Ø 8cm, trou Ø 2cm), badigeonner de blanc d’œuf, ajouter les noisettes puis recongeler jusqu’à usage."
     ],
     "notes": [
-      "Composant pour <span data-goto=\"paris_brest\">Paris-Brest</span>.",
+      "Composant pour <span data-goto=\"paris_brest\">Paris-Brest</span>."
     ],
     "difficultyScore": 2
   },
@@ -2146,7 +2164,7 @@ window.RECIPES = {
       "Pocher des couronnes de 7cm, poser le craquelin puis cuire à 170°C pendant 40 à 45min."
     ],
     "notes": [
-      "Le test du sillon il doit se refermer doucement quand la texture est correcte.",
+      "Le test du sillon il doit se refermer doucement quand la texture est correcte."
     ],
     "difficultyScore": 7,
     "additionalMasters": [
@@ -2193,7 +2211,7 @@ window.RECIPES = {
       "Hors du feu, ajouter gélatine, beurre de cacao, beurre, mascarpone, pâte de noisette et praliné. Mixer, filmer au contact, refroidir."
     ],
     "notes": [
-      "Ajuster le praliné/pâte de noisette selon l’intensité souhaitée.",
+      "Ajuster le praliné/pâte de noisette selon l’intensité souhaitée."
     ],
     "difficultyScore": 6,
     "additionalMasters": [
@@ -2239,7 +2257,7 @@ window.RECIPES = {
       "Réaliser une meringue italienne (sirop 121°C versé sur blancs mousseux) puis incorporer délicatement à la crème au beurre."
     ],
     "notes": [
-      "Base technique pour plusieurs entremets/pâtisseries classiques.",
+      "Base technique pour plusieurs entremets/pâtisseries classiques."
     ],
     "difficultyScore": 8,
     "additionalMasters": [
@@ -2274,7 +2292,7 @@ window.RECIPES = {
       "Mettre en poche cannelée pour le montage des Paris-Brest."
     ],
     "notes": [
-      "Utilisé par exemple dans <span data-goto=\"paris_brest\">Paris-Brest</span>.",
+      "Utilisé par exemple dans <span data-goto=\"paris_brest\">Paris-Brest</span>."
     ],
     "difficultyScore": 5,
     "additionalMasters": [
@@ -2376,6 +2394,14 @@ window.RECIPES = {
         "label": "Crudités et salades fraîches"
       },
       {
+        "id": "falafels_four",
+        "label": "Falafels au four"
+      },
+      {
+        "id": "houmous_hakocem",
+        "label": "Houmous tahine tres cremeux"
+      },
+      {
         "id": "legumes_rotis",
         "label": "Légumes rôtis au four"
       },
@@ -2463,12 +2489,20 @@ window.RECIPES = {
         "label": "Croque-madame"
       },
       {
+        "id": "cuisses_poulet_asiatique",
+        "label": "Cuisses de poulet asiatique"
+      },
+      {
         "id": "cuisses_de_poulet_miel_moutarde",
         "label": "Cuisses de poulet miel moutarde"
       },
       {
         "id": "cuisses_de_poulet_rhum_miel_piment",
         "label": "Cuisses de poulet rhum miel piment"
+      },
+      {
+        "id": "curry_carottes_lait_coco",
+        "label": "Curry de carottes lait de coco"
       },
       {
         "id": "curry_lentilles_coco",
@@ -2489,6 +2523,10 @@ window.RECIPES = {
       {
         "id": "joues_de_boeuf_carottes_orange_vin_rouge",
         "label": "Joues de boeuf carottes orange vin rouge"
+      },
+      {
+        "id": "joues_boeuf_whiskey_orange",
+        "label": "Joues de boeuf whiskey orange"
       },
       {
         "id": "joues_de_porc_chorizo_piment",
@@ -2566,6 +2604,10 @@ window.RECIPES = {
         "label": "Chou-fleur croustillant"
       },
       {
+        "id": "curry_carottes_lait_coco",
+        "label": "Curry de carottes lait de coco"
+      },
+      {
         "id": "frites_maison",
         "label": "Frites"
       },
@@ -2604,6 +2646,14 @@ window.RECIPES = {
       {
         "id": "pesto_tomates_sechees_sans_cajou",
         "label": "Pesto tomates séchées"
+      },
+      {
+        "id": "potato_wedges_citron_herbes",
+        "label": "Potato wedges citron herbes"
+      },
+      {
+        "id": "puree_butternut_pommes_terre_curry",
+        "label": "Puree butternut pommes de terre curry"
       },
       {
         "id": "puree_courge_butternut",
@@ -2841,7 +2891,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Texture crèmeuse mais stable en fourrage.",
-      "Goût intense, ne détrempe pas le donut.",
+      "Goût intense, ne détrempe pas le donut."
     ],
     "tags": [
       "creme",
@@ -2885,7 +2935,7 @@ window.RECIPES = {
       "Monter au fouet jusqu’à texture ferme."
     ],
     "notes": [
-      "Résultat attendu crèmeux, parfumé et stable.",
+      "Résultat attendu crèmeux, parfumé et stable."
     ],
     "tags": [
       "creme",
@@ -3025,7 +3075,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Vraie gaufre de Bruxelles pâte levée, blancs montés, gros trous, texture légère et croustillante.",
-      "Pour plus de croustillant, remplacer 50g de lait par 50g de bière.",
+      "Pour plus de croustillant, remplacer 50g de lait par 50g de bière."
     ],
     "tags": [
       "gaufre",
@@ -3115,7 +3165,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Points critiques beurre pommade non liquide, sirop à 118–120°C, verser lentement, fouetter jusqu’à refroidissement complet.",
-      "Résultat attendu pâte croustillante, crème d’amande moelleuse, crème citron fondante, meringue légère et stable.",
+      "Résultat attendu pâte croustillante, crème d’amande moelleuse, crème citron fondante, meringue légère et stable."
     ],
     "tags": [
       "tarte",
@@ -3161,7 +3211,7 @@ window.RECIPES = {
     "notes": [
       "Toujours tout peser avant.",
       "Respecter les textures pommade, mousse, bec d’oiseau.",
-      "Ne jamais précipiter la meringue ou les mélanges mousseux.",
+      "Ne jamais précipiter la meringue ou les mélanges mousseux."
     ],
     "tags": [
       "tiramisu",
@@ -3220,7 +3270,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Le cake est prêt quand la lame ressort sèche et que le dessus est bien doré.",
-      "Préparation du moule beurre et farine le moule, puis retire l’excédent pour démouler proprement.",
+      "Préparation du moule beurre et farine le moule, puis retire l’excédent pour démouler proprement."
     ],
     "tags": [
       "cake",
@@ -3366,7 +3416,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Accompagnement pour viande grillée, poisson, purée ou gratin de légumes.",
-      "Conservation 3–4 jours au froid en boîte hermétique.",
+      "Conservation 3–4 jours au froid en boîte hermétique."
     ],
     "tags": [
       "oignon",
@@ -3423,7 +3473,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Cuisson lente indispensable pour une texture fondante.",
-      "Conservation 3–4 jours au froid, réchauffage doux avec un peu de sauce.",
+      "Conservation 3–4 jours au froid, réchauffage doux avec un peu de sauce."
     ],
     "tags": [
       "porc",
@@ -3487,7 +3537,7 @@ window.RECIPES = {
       "Si la pâte casse au fonçage, colmate avec un morceau de pâte de même épaisseur elle se ressoude à la cuisson.",
       "Si les bords collent au cercle, décolle-les à chaud avec une petite lame sans retirer le cercle.",
       "Pour une surface plus lisse, poncer très légèrement le fond cuit avec un zesteur fin.",
-      "Les chutes crues peuvent être filmées et congelées pour une autre tarte.",
+      "Les chutes crues peuvent être filmées et congelées pour une autre tarte."
     ],
     "technical": [
       {
@@ -3553,7 +3603,7 @@ window.RECIPES = {
       "Étaler environ 5mm dans le fond de tarte et cuire jusqu’à coloration moelleuse."
     ],
     "notes": [
-      "Base moelleuse pour tartes aux fruits ou citron.",
+      "Base moelleuse pour tartes aux fruits ou citron."
     ],
     "tags": [
       "creme",
@@ -3604,7 +3654,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Texture fondante pour tarte citron, verrines ou fourrage.",
-      "Refroidir avant montage pour une tenue nette.",
+      "Refroidir avant montage pour une tenue nette."
     ],
     "tags": [
       "creme",
@@ -3648,7 +3698,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Optionnelle dans la tarte citron meringuée.",
-      "À utiliser en petite quantité pour éviter l’amertume.",
+      "À utiliser en petite quantité pour éviter l’amertume."
     ],
     "tags": [
       "citron",
@@ -3698,7 +3748,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Verser le sirop lentement.",
-      "Fouetter jusqu’à refroidissement complet pour une bonne stabilité.",
+      "Fouetter jusqu’à refroidissement complet pour une bonne stabilité."
     ],
     "tags": [
       "meringue",
@@ -3746,7 +3796,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Base de la crème diplomate vanille.",
-      "Lisser au fouet après refroidissement avant incorporation.",
+      "Lisser au fouet après refroidissement avant incorporation."
     ],
     "tags": [
       "creme",
@@ -3802,7 +3852,7 @@ window.RECIPES = {
       "Ajouter les options au moment du service si souhaité."
     ],
     "notes": [
-      "Servir rapidement après découpe de l’avocat.",
+      "Servir rapidement après découpe de l’avocat."
     ],
     "tags": [
       "salade",
@@ -3865,6 +3915,14 @@ window.RECIPES = {
       {
         "id": "cookies_sales_variantes",
         "label": "Cookies salés"
+      },
+      {
+        "id": "falafels_four",
+        "label": "Falafels au four"
+      },
+      {
+        "id": "houmous_hakocem",
+        "label": "Houmous tahine tres cremeux"
       },
       {
         "id": "mojitos_variantes",
@@ -4076,7 +4134,7 @@ window.RECIPES = {
       "Utiliser dès que le lait a légèrement épaissi."
     ],
     "notes": [
-      "À utiliser dans les pancakes, gaufres ou pâtes levées moelleuses.",
+      "À utiliser dans les pancakes, gaufres ou pâtes levées moelleuses."
     ],
     "tags": [
       "babeurre",
@@ -4124,7 +4182,7 @@ window.RECIPES = {
       "Cuire 25 à 35min, jusqu’à obtenir des tomates fondantes et un dessus doré."
     ],
     "notes": [
-      "Servir chaud, tiède ou en accompagnement d’une viande grillée.",
+      "Servir chaud, tiède ou en accompagnement d’une viande grillée."
     ],
     "tags": [
       "tomate",
@@ -4175,7 +4233,7 @@ window.RECIPES = {
       "Empiler dans un torchon propre pour garder les tortillas souples."
     ],
     "notes": [
-      "Si elles sèchent, les réchauffer quelques secondes sous cloche ou dans un torchon humide.",
+      "Si elles sèchent, les réchauffer quelques secondes sous cloche ou dans un torchon humide."
     ],
     "tags": [
       "tortilla",
@@ -4236,7 +4294,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Le temps de cuisson est le point clé tester un moule avant une série.",
-      "Préparation des moules ou ramequins beurre généreusement puis chemise au cacao ou à la farine, sinon les mi-cuits peuvent coller au démoulage.",
+      "Préparation des moules ou ramequins beurre généreusement puis chemise au cacao ou à la farine, sinon les mi-cuits peuvent coller au démoulage."
     ],
     "tags": [
       "chocolat",
@@ -4299,7 +4357,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Pour des cookies épais, cuire la pâte bien froide.",
-      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
+      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil."
     ],
     "tags": [
       "cookies",
@@ -4362,7 +4420,7 @@ window.RECIPES = {
       "Garnir les coques refroidies, ajouter quelques noisettes, assembler et maturer 24h au frais."
     ],
     "notes": [
-      "Recette technique pesées précises, blancs à température ambiante et cuisson régulière.",
+      "Recette technique pesées précises, blancs à température ambiante et cuisson régulière."
     ],
     "tags": [
       "macaron",
@@ -4517,7 +4575,7 @@ window.RECIPES = {
       "Cuire environ 2min de chaque côté, égoutter sur papier absorbant, puis rouler dans le sucre."
     ],
     "notes": [
-      "La pâte doit être assez souple pour être pochée mais garder les stries de la douille.",
+      "La pâte doit être assez souple pour être pochée mais garder les stries de la douille."
     ],
     "tags": [
       "churros",
@@ -4549,8 +4607,16 @@ window.RECIPES = {
         "label": "Coulis"
       },
       {
+        "id": "sauce_chevre_creme",
+        "label": "Sauce chevre creme"
+      },
+      {
         "id": "sauce_mornay",
         "label": "Sauce Mornay"
+      },
+      {
+        "id": "sauce_roquefort",
+        "label": "Sauce roquefort"
       },
       {
         "id": "sauce_yaourt_citronnee",
@@ -4829,7 +4895,7 @@ window.RECIPES = {
       "Sors le beurre à ramollir environ 45 à 60min avant, selon la température de la pièce il doit être souple mais pas fondu.",
       "Pour l’arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
       "Ne prolonge pas trop la cuisson les cookies continuent de cuire légèrement hors du four.",
-      "La pâte peut être congelée en boules bien emballées, puis cuite plus tard directement depuis le congélateur.",
+      "La pâte peut être congelée en boules bien emballées, puis cuite plus tard directement depuis le congélateur."
     ],
     "technical": [
       {
@@ -4911,7 +4977,7 @@ window.RECIPES = {
       "Le repos au froid aide les cookies à garder une belle épaisseur.",
       "Pour des cookies moelleux, ne dépasse pas 10min de cuisson.",
       "Les cookies cuits se conservent plusieurs jours dans une boîte hermétique.",
-      "La pâte crue peut être congelée en boudins ou en boules pour une cuisson ultérieure.",
+      "La pâte crue peut être congelée en boudins ou en boules pour une cuisson ultérieure."
     ],
     "technical": [
       {
@@ -4995,7 +5061,7 @@ window.RECIPES = {
       "Les noisettes se marient particulièrement bien avec le chocolat.",
       "Pour l’arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
       "Ne prolonge pas trop la cuisson le centre doit rester tendre.",
-      "La pâte peut être préparée à l’avance et conservée au frais jusqu’à 24h avant cuisson.",
+      "La pâte peut être préparée à l’avance et conservée au frais jusqu’à 24h avant cuisson."
     ],
     "technical": [
       {
@@ -5322,7 +5388,7 @@ window.RECIPES = {
     "notes": [
       "Le cream cheese correspond à un fromage frais dense et légèrement acidulé, type Philadelphia. Évite le fromage blanc ou le Saint Môret trop souple si tu veux un cœur net.",
       "Bien refermer la pâte autour du fourrage pour éviter les fuites. Conservation 3 jours au réfrigérateur.",
-      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
+      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil."
     ],
     "tags": [
       "cookies",
@@ -5892,7 +5958,7 @@ window.RECIPES = {
     "notes": [
       "Pour des cookies plus chocolatés, utiliser la quantité haute de pépites.",
       "La pâte peut être congelée en boules et cuite après décongélation.",
-      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil.",
+      "Si tu utilises un arôme vanille, suis le dosage indiqué sur la bouteille les arômes ne se dosent pas tous pareil."
     ],
     "technical": [
       {
@@ -6342,7 +6408,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Pour plus de moelleux, laisser pousser la pâte 1h après pétrissage, dégazer, puis façonner.",
-      "Ces pains se congèlent très bien une fois refroidis.",
+      "Ces pains se congèlent très bien une fois refroidis."
     ],
     "technical": [
       {
@@ -6725,7 +6791,7 @@ window.RECIPES = {
     ],
     "notes": [
       "Moins il reste d’eau dans les pommes de terre, plus les gaufres seront croustillantes.",
-      "N’ouvre pas le gaufrier trop tôt la gaufre doit se détacher seule.",
+      "N’ouvre pas le gaufrier trop tôt la gaufre doit se détacher seule."
     ],
     "technical": [
       {
@@ -6922,7 +6988,7 @@ window.RECIPES = {
       "Servir chaud avec sauce et citron."
     ],
     "notes": [
-      "Ne surcharge pas la plaque l’humidité empêcherait le croustillant.",
+      "Ne surcharge pas la plaque l’humidité empêcherait le croustillant."
     ],
     "technical": [
       {
@@ -11302,5 +11368,691 @@ window.RECIPES = {
         "value": "Les sécher avant cuisson améliore la coloration."
       }
     ]
+  },
+  "puree_butternut_pommes_terre_curry": {
+    "title": "Puree butternut pommes de terre curry",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/puree_butternut_pommes_terre_curry_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 e 6 personnes",
+    "nutriScore": "B",
+    "aliases": [
+      "puree butternut curry",
+      "puree courge pommes de terre",
+      "butternut pommes de terre"
+    ],
+    "tags": [
+      "butternut",
+      "pomme de terre",
+      "curry",
+      "puree",
+      "accompagnement"
+    ],
+    "ingredients": [
+      {
+        "group": "Puree",
+        "items": [
+          "750g pommes de terre",
+          "350g chair de butternut",
+          "150ml lait",
+          "3g curry doux",
+          "1 pincee piment deEspelette",
+          "Sel fin",
+          "poivre du moulin",
+          "Persil plat cisele"
+        ]
+      }
+    ],
+    "steps": [
+      "eplucher les pommes de terre et retirer graines et peau de la butternut.",
+      "Couper les legumes en morceaux reguliers pour queils cuisent au meme rythme.",
+      "Cuire e la vapeur 13 e 18min, ou e leeau salee jusquee tendrete nette.",
+      "Chauffer le lait avec curry, sel, piment deEspelette et poivre du moulin.",
+      "ecraser les legumes au presse-puree, puis incorporer le lait epice peu e peu.",
+      "Rectifier la texture et finir avec persil plat cisele."
+    ],
+    "notes": [
+      "Ajouter le lait progressivement permet de garder une puree tenue, pas liquide.",
+      "Tres bon avec volaille retie, poisson blanc ou legumes verts."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "ecraser plutet que mixer longtemps pour eviter une texture collante."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Cuit-vapeur ou casserole",
+        "Presse-puree",
+        "Petite casserole"
+      ],
+      "storage": [
+        "2 e 3 jours au refrigerateur en boete hermetique."
+      ],
+      "result": [
+        "Puree douce, legerement epicee, assez neutre pour accompagner un plat principal."
+      ]
+    }
+  },
+  "joues_boeuf_whiskey_orange": {
+    "title": "Joues de boeuf whiskey orange",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/joues_boeuf_whiskey_orange_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "8 personnes",
+    "nutriScore": "C",
+    "aliases": [
+      "joues de boeuf whiskey",
+      "boeuf orange whiskey",
+      "plat mijote orange"
+    ],
+    "tags": [
+      "boeuf",
+      "joues",
+      "orange",
+      "whiskey",
+      "mijote"
+    ],
+    "ingredients": [
+      {
+        "group": "Mijote",
+        "items": [
+          "1,8kg joues de beuf",
+          "25g beurre doux",
+          "25g huile neutre",
+          "2 oignons",
+          "1 gousse ail",
+          "1 branche celeri",
+          "25g farine",
+          "150ml jus deorange frais",
+          "100ml whiskey",
+          "40g marmelade orange",
+          "1kg carottes",
+          "100ml eau",
+          "2 feuilles laurier",
+          "3 brins thym",
+          "Sel fin",
+          "poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper les joues en gros morceaux et preparer oignons, ail, celeri et carottes.",
+      "Colorer la viande dans beurre et huile, en plusieurs fois si la cocotte est petite.",
+      "Ajouter oignons, ail et celeri, puis laisser suer quelques minutes.",
+      "Singer avec la farine, melanger et mouiller avec jus deorange, whiskey, eau et marmelade.",
+      "Ajouter carottes, laurier, thym, sel et poivre du moulin.",
+      "Couvrir et mijoter doucement 1h10 e 1h30, jusquee viande fondante et sauce nappante.",
+      "Laisser reposer 10min hors du feu, retirer laurier et thym puis servir."
+    ],
+    "notes": [
+      "Encore meilleur rechauffe doucement le lendemain.",
+      "Servir avec puree simple, pommes vapeur ou legumes verts plutet queun second accompagnement sucre."
+    ],
+    "technical": [
+      {
+        "label": "Mijotage",
+        "value": "Le liquide doit fremir doucement, jamais bouillir fort."
+      },
+      {
+        "label": "Sauce",
+        "value": "La marmelade apporte rondeur et brillance, mais la sauce doit rester salee et courte."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Grande cocotte",
+        "Presse-agrumes",
+        "Couteau"
+      ],
+      "storage": [
+        "3 jours au refrigerateur.",
+        "Congelation possible 2 mois avec la sauce."
+      ],
+      "result": [
+        "Viande fondante, sauce brune parfumee e leorange, finale chaleureuse."
+      ]
+    }
+  },
+  "sauce_roquefort": {
+    "title": "Sauce roquefort",
+    "master": "sauces_maitre",
+    "image": "/assets/recipe-images-optimized/sauce_roquefort_spooky.jpg",
+    "categories": [
+      "Sauces"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "2 e 4 personnes",
+    "nutriScore": "D",
+    "aliases": [
+      "sauce au roquefort",
+      "sauce fromage bleu"
+    ],
+    "tags": [
+      "roquefort",
+      "creme",
+      "fromage",
+      "sauce chaude"
+    ],
+    "ingredients": [
+      {
+        "group": "Sauce",
+        "items": [
+          "30g roquefort",
+          "75ml creme fraeche entiere",
+          "poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Emietter le roquefort dans une petite casserole.",
+      "Ajouter la creme et chauffer a feu doux en remuant regulierement.",
+      "Laisser fondre 7 a 8min, jusqu a sauce homogene ou legerement texturee selon gout.",
+      "Ajouter poivre du moulin, gouter et servir chaud sans ajouter de sel."
+    ],
+    "notes": [
+      "Tres salee naturellement : goeter avant toute correction.",
+      "Pour epaissir, ajouter une pointe de fecule diluee dans un peu de creme froide."
+    ],
+    "technical": [
+      {
+        "label": "Feu doux",
+        "value": "Un feu trop fort peut trancher la creme et durcir le fromage."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Petite casserole",
+        "Fouet souple"
+      ],
+      "storage": [
+        "2 jours au refrigerateur, rechauffer doucement."
+      ],
+      "result": [
+        "Sauce courte, cremeuse, puissante mais arrondie."
+      ]
+    }
+  },
+  "curry_carottes_lait_coco": {
+    "title": "Curry de carottes lait de coco",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/curry_carottes_lait_coco_spooky.jpg",
+    "categories": [
+      "Accompagnements",
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver",
+      "Printemps"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 e 6 personnes",
+    "nutriScore": "B",
+    "aliases": [
+      "carottes curry coco",
+      "carottes lait de coco",
+      "curry vegetarien carottes"
+    ],
+    "tags": [
+      "carotte",
+      "curry",
+      "lait de coco",
+      "citron vert",
+      "vegetarien"
+    ],
+    "ingredients": [
+      {
+        "group": "Curry",
+        "items": [
+          "1kg carottes",
+          "25g huile deolive",
+          "1 oignon",
+          "1 gousse ail",
+          "200ml lait de coco",
+          "300ml bouillon de legumes ou volaille",
+          "3g curry",
+          "1g gingembre moulu",
+          "1 pincee curcuma",
+          "1 citron vert",
+          "Sauce sriracha selon goet",
+          "Persil ou coriandre ciselee",
+          "Sel fin",
+          "poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Tailler les carottes en fines rondelles et ciseler oignon et ail.",
+      "Faire suer leoignon dans lehuile, ajouter leail puis les epices.",
+      "Ajouter carottes, lait de coco et bouillon e hauteur.",
+      "Cuire 20min e couvert, puis 20min e decouvert pour concentrer la sauce.",
+      "Finir avec jus de citron vert, herbes et une touche de sriracha si souhaite."
+    ],
+    "notes": [
+      "En plat vegetarien, servir avec semoule ou pois chiches.",
+      "En accompagnement, tres bon avec poulet reti ou poisson blanc."
+    ],
+    "technical": [
+      {
+        "label": "epices",
+        "value": "Les chauffer brievement dans lehuile reveille le parfum sans les breler."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Cocotte",
+        "Couteau",
+        "Zesteur ou presse-agrumes"
+      ],
+      "storage": [
+        "3 jours au refrigerateur."
+      ],
+      "result": [
+        "Carottes fondantes, sauce coco-curry courte et finale citronnee."
+      ]
+    },
+    "additionalMasters": [
+      "plats_maitre"
+    ]
+  },
+  "potato_wedges_citron_herbes": {
+    "title": "Potato wedges citron herbes",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/potato_wedges_citron_herbes_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "nutriScore": "C",
+    "aliases": [
+      "potato wedges",
+      "quartiers de pommes de terre au four",
+      "wedges citron"
+    ],
+    "tags": [
+      "pomme de terre",
+      "four",
+      "citron",
+      "herbes",
+      "croustillant"
+    ],
+    "ingredients": [
+      {
+        "group": "Wedges",
+        "items": [
+          "800g pommes de terre",
+          "35g huile deolive",
+          "2g sel fin",
+          "6g herbes de Provence",
+          "1 citron bio",
+          "poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Prechauffer le four e 190eC chaleur tournante.",
+      "Couper les pommes de terre en gros quartiers reguliers.",
+      "Enrober avec huile, sel, poivre du moulin et herbes.",
+      "Ajouter quelques rondelles de citron dans le plat ou sur la plaque.",
+      "Cuire 40min environ, en retournant e mi-cuisson, jusquee bords dores et ceur tendre.",
+      "Servir chaud avec une sauce fraeche ou une viande grillee."
+    ],
+    "notes": [
+      "Bien espacer les quartiers ameliore la coloration.",
+      "Le citron parfume le plat : ne pas en mettre trop si la sauce du menu est deje acide."
+    ],
+    "technical": [
+      {
+        "label": "Decoupe",
+        "value": "Des quartiers de taille reguliere evitent les morceaux breles et les centres crus."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Plaque ou plat e four",
+        "Papier cuisson"
+      ],
+      "storage": [
+        "Meilleur juste cuit.",
+        "Rechauffer au four plutet queau micro-ondes."
+      ],
+      "result": [
+        "Quartiers dores, parfumes aux herbes, avec une note citronnee."
+      ]
+    }
+  },
+  "houmous_hakocem": {
+    "title": "Houmous tahine tres cremeux",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/houmous_hakocem_spooky.jpg",
+    "categories": [
+      "Apero",
+      "Entrees"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "1 grand bol",
+    "nutriScore": "B",
+    "aliases": [
+      "houmous hakocem",
+      "houmous tahini",
+      "houmous sans ail"
+    ],
+    "tags": [
+      "pois chiches",
+      "tahine",
+      "citron",
+      "apero",
+      "vegetarien"
+    ],
+    "ingredients": [
+      {
+        "group": "Houmous",
+        "items": [
+          "260g pois chiches cuits",
+          "120ml eau de cuisson des pois chiches",
+          "100g jus de citron frais ou acidite selon goet",
+          "5g sel fin",
+          "480g tahine",
+          "240ml eau froide"
+        ]
+      }
+    ],
+    "steps": [
+      "Mixer pois chiches, eau de cuisson, citron et sel jusquee base tres lisse.",
+      "Ajouter la moitie du tahine et la moitie de leeau froide, puis mixer longuement.",
+      "Ajouter le reste de tahine et deeau froide en ajustant la texture.",
+      "Mixer jusquee houmous souple, clair et presque mousseux.",
+      "Goeter, corriger sel et citron, puis servir avec huile deolive et pain plat."
+    ],
+    "notes": [
+      "Le tahine fait la texture : choisir une puree de sesame fluide et pas amere.",
+      "Sans ail, le houmous reste plus rond et accompagne mieux des garnitures puissantes."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Leeau froide detend le tahine et donne une texture plus legere."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Robot coupe ou blender puissant",
+        "Spatule"
+      ],
+      "storage": [
+        "3 jours au refrigerateur, couvert au contact."
+      ],
+      "result": [
+        "Houmous tres cremeux, riche en sesame, acidite nette mais douce."
+      ]
+    },
+    "additionalMasters": [
+      "entrees_maitre"
+    ]
+  },
+  "falafels_four": {
+    "title": "Falafels au four",
+    "master": "apero_maitre",
+    "image": "/assets/recipe-images-optimized/falafels_four_spooky.jpg",
+    "categories": [
+      "Apero",
+      "Entrees"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "16 falafels",
+    "nutriScore": "B",
+    "aliases": [
+      "falafels cuits au four",
+      "falafels pois chiches",
+      "falafel four"
+    ],
+    "tags": [
+      "pois chiches",
+      "cumin",
+      "coriandre",
+      "four",
+      "vegetarien"
+    ],
+    "ingredients": [
+      {
+        "group": "Pete",
+        "items": [
+          "350g pois chiches secs trempes 12h",
+          "1 oignon jaune",
+          "1 petite botte persil",
+          "5 brins menthe ou ciboulette",
+          "1 petite botte coriandre",
+          "2 gousses ail",
+          "3g cumin moulu",
+          "1 pincee cardamome",
+          "5g sel fin",
+          "poivre du moulin",
+          "11g levure chimique",
+          "15g farine de ble"
+        ]
+      },
+      {
+        "group": "Cuisson",
+        "items": [
+          "15g graines de sesame",
+          "25g huile deolive"
+        ]
+      }
+    ],
+    "steps": [
+      "Faire tremper les pois chiches secs au moins 12h, puis bien les egoutter et les secher.",
+      "Mixer pois chiches, oignon, herbes, ail, epices, sel et poivre du moulin en texture granuleuse.",
+      "Incorporer levure et farine, puis laisser reposer 1h au frais.",
+      "Former 16 boulettes tassees sans les compacter excessivement.",
+      "Deposer sur plaque, parsemer de sesame et arroser deun filet dehuile.",
+      "Cuire 18 e 22min e 190eC chaleur tournante, jusquee dore et ceur encore moelleux."
+    ],
+    "notes": [
+      "Ne pas utiliser pois chiches en boete pour cette version : la pete serait trop humide.",
+      "La pete crue faeonnee peut se congeler avant cuisson."
+    ],
+    "technical": [
+      {
+        "label": "Texture",
+        "value": "Chercher une semoule humide, pas une puree lisse."
+      },
+      {
+        "label": "Cuisson",
+        "value": "Sortir des que la surface dore pour garder le centre moelleux."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Robot coupe",
+        "Plaque",
+        "Papier cuisson"
+      ],
+      "storage": [
+        "2 jours au refrigerateur apres cuisson.",
+        "Congelation possible avant cuisson."
+      ],
+      "result": [
+        "Falafels dores, herbaces, plus legers queune friture."
+      ]
+    },
+    "additionalMasters": [
+      "entrees_maitre"
+    ]
+  },
+  "cuisses_poulet_asiatique": {
+    "title": "Cuisses de poulet asiatique",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/cuisses_poulet_asiatique_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "nutriScore": "C",
+    "aliases": [
+      "poulet asiatique au four",
+      "cuisses poulet citron vert miel",
+      "poulet gingembre nuoc mam"
+    ],
+    "tags": [
+      "poulet",
+      "citron vert",
+      "gingembre",
+      "miel",
+      "sriracha"
+    ],
+    "ingredients": [
+      {
+        "group": "Poulet",
+        "items": [
+          "3 cuisses de poulet coupees en deux",
+          "30g jus de citron vert",
+          "20g miel",
+          "20g gingembre frais repe",
+          "2 gousses ail repees",
+          "15g nuoc-mem ou sel fin",
+          "8g sauce sriracha ou piment doux selon goet",
+          "15g huile neutre",
+          "Persil ou coriandre ciselee",
+          "poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Prechauffer le four e 200eC.",
+      "Melanger citron vert, miel, gingembre, ail, nuoc-mem, sriracha et huile.",
+      "eponger le poulet puis leenrober soigneusement de marinade.",
+      "Disposer en plat sans superposer les morceaux.",
+      "Cuire 40min environ, en arrosant une fois avec le jus du plat.",
+      "Finir avec persil ou coriandre et servir avec riz simple ou legumes verts."
+    ],
+    "notes": [
+      "Si le nuoc-mem est remplace par du sel, ajouter par petites pincees et goeter la marinade.",
+      "Le miel colore vite : surveiller la fin de cuisson."
+    ],
+    "technical": [
+      {
+        "label": "equilibre",
+        "value": "Citron, miel et nuoc-mem doivent former une marinade salee-acidulee, pas sucree."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Plat e four",
+        "Repe fine",
+        "Pinceau ou cuillere"
+      ],
+      "storage": [
+        "2 jours au refrigerateur.",
+        "Rechauffer doucement avec un peu de jus."
+      ],
+      "result": [
+        "Poulet dore, jus court, parfum citron vert-gingembre."
+      ]
+    }
+  },
+  "sauce_chevre_creme": {
+    "title": "Sauce chevre creme",
+    "master": "sauces_maitre",
+    "image": "/assets/recipe-images-optimized/sauce_chevre_creme_spooky.jpg",
+    "categories": [
+      "Sauces"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "4 personnes",
+    "nutriScore": "D",
+    "aliases": [
+      "sauce fromage de chevre",
+      "sauce chevre",
+      "sauce cremeuse chevre"
+    ],
+    "tags": [
+      "chevre",
+      "creme",
+      "fromage",
+      "sauce chaude"
+    ],
+    "ingredients": [
+      {
+        "group": "Sauce",
+        "items": [
+          "180g fromage de chevre doux",
+          "500ml creme fraeche",
+          "poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper le fromage de chevre en petits morceaux.",
+      "Chauffer la creme a feu doux.",
+      "Ajouter le fromage et melanger jusqu a fonte complete.",
+      "Ajouter poivre du moulin, gouter et servir chaud sur viande grillee, pates ou legumes."
+    ],
+    "notes": [
+      "Choisir un chevre plutet doux pour une sauce ronde.",
+      "Ne pas faire bouillir fort : la sauce peut devenir granuleuse."
+    ],
+    "technical": [
+      {
+        "label": "Fromage",
+        "value": "Plus le chevre est affine, plus la sauce sera marquee et salee."
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Petite casserole",
+        "Fouet"
+      ],
+      "storage": [
+        "2 jours au refrigerateur, rechauffer e feu tres doux."
+      ],
+      "result": [
+        "Sauce blanche, nappante, douce et fromagere."
+      ]
+    }
   }
 };

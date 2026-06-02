@@ -1,9 +1,9 @@
 # Audit Cook Note
 
-Genere le 2026-06-01T21:34:07.228Z.
+Genere le 2026-06-02T00:12:53.399Z.
 
-- Recettes totales : 153
-- Recettes feuilles : 134
+- Recettes totales : 162
+- Recettes feuilles : 143
 - Fiches parentes : 19
 - Score moyen : 84/100
 - Fiches sous 78 : 15
@@ -12,12 +12,12 @@ Genere le 2026-06-01T21:34:07.228Z.
 ## Dashboard sante
 
 - Pretes : 27
-- A ameliorer : 92
+- A ameliorer : 101
 - Faibles : 15
 - Decouverte faible : 33
-- Conservation/securite a verifier : 89
+- Conservation/securite a verifier : 98
 - Risque image/production : 0
-- Sans liens internes explicites : 108
+- Sans liens internes explicites : 117
 
 ## Fiches a surveiller
 
@@ -194,11 +194,17 @@ Genere le 2026-06-01T21:34:07.228Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Crumble pomme-poire (crumble_pomme_poire) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Cuisses de poulet asiatique (cuisses_poulet_asiatique) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cuisses de poulet miel moutarde (cuisses_de_poulet_miel_moutarde) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cuisses de poulet rhum miel piment (cuisses_de_poulet_rhum_miel_piment) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Curry de carottes lait de coco (curry_carottes_lait_coco) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Curry de lentilles vertes au lait de coco (curry_lentilles_coco) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Falafels au four (falafels_four) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Flan pâtissier épais vanille (flan_patissier_epais_vanille) : 100/100 - OK
 - Fond de tarte amande (creme_amande_citron) : 82/100 - OK
@@ -224,9 +230,13 @@ Genere le 2026-06-01T21:34:07.228Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Hauts de cuisses poulet orange oignon (hauts_de_cuisses_poulet_orange_oignon) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Houmous tahine tres cremeux (houmous_hakocem) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Huile pimentée pour pizza (huile_pimentee_pizza) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Joues de boeuf carottes orange vin rouge (joues_de_boeuf_carottes_orange_vin_rouge) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Joues de boeuf whiskey orange (joues_boeuf_whiskey_orange) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Joues de porc chorizo piment (joues_de_porc_chorizo_piment) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -281,11 +291,15 @@ Genere le 2026-06-01T21:34:07.228Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pestos (pesto_variantes) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Potato wedges citron herbes (potato_wedges_citron_herbes) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poulet basquaise (poulet_basquaise) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poulet frit air fryer (poulet_frit_air_fryer) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poulet Gaston Gérard (poulet_gaston_gerard) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Puree butternut pommes de terre curry (puree_butternut_pommes_terre_curry) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Purée de courge butternut (puree_courge_butternut) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -310,7 +324,11 @@ Genere le 2026-06-01T21:34:07.228Z.
 - Sauce aux poivres (sauce_aux_poivres) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Sauce caramel (sauce_caramel) : 100/100 - OK
+- Sauce chevre creme (sauce_chevre_creme) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Sauce Mornay (sauce_mornay) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Sauce roquefort (sauce_roquefort) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Sauce yaourt citronnée (sauce_yaourt_citronnee) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
