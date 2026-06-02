@@ -80,6 +80,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Chaque image optimisee referencee par une recette doit avoir une miniature homonyme dans `assets/recipe-card-images/`, sinon les cartes de l'accueil risquent d'afficher une image manquante.
 - Quand une image recette est ajoutee ou modifiee, regenerer les copies optimisees avec `npm run optimize:images` avant de push.
 - Les images doivent rester raccord au style Cook Note : sombre, gothique, nourriture lisible, ambiance cuisine/patisserie etrange, pas de texte dans l'image, pas de watermark.
+- Une image recette doit representer le plat exact ou une variante visuelle evidente du plat. Une image jolie mais semantiquement fausse (falafels pour nems, boulettes pour rouleaux, dessert pour base, etc.) est une erreur bloquante.
 - Les images recette ne doivent pas avoir un rendu vectoriel plat, cartoon ou a grands aplats : meme quand elles sont generees ou recadrees, elles doivent rester appetissantes, texturees et plausibles comme visuel culinaire.
 - Quand une image visible est remplacee parce qu'elle etait fausse, moche, dessinee, dupliquee ou mal cadree, utiliser un nouveau nom de fichier stable pour contourner le cache image. Ne pas repointer la recette vers l'ancienne URL corrigee en place.
 - L'audit image `npm run audit:images` doit rester disponible pour reperer images trop petites, miniatures faibles, cadrages atypiques et doublons visuels avant une passe photo.

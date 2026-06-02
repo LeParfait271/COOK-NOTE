@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-02T15:19:43.867Z",
+  "generatedAt": "2026-06-02T15:49:17.625Z",
   "total": 201,
   "weakCount": 7,
   "issueBuckets": {
@@ -2492,18 +2492,18 @@
       "title": "Nems vietnamiens",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/nems_vietnam_spooky.jpg",
-      "card": "assets/recipe-card-images/nems_vietnam_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/nems_vietnam_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/nems_vietnam_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 230373,
+      "optimizedBytes": 259850,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 78882
+      "cardBytes": 83101
     },
     {
       "id": "oeuf_chili_crisp_toast",

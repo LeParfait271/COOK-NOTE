@@ -39,6 +39,7 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'assets/recipe-card-images/',
   'npm run optimize:images',
   'npm run audit:images',
+  'representer le plat exact',
   'rendu vectoriel plat',
   'nouveau nom de fichier stable',
   'montrer le visuel et attendre validation utilisateur',

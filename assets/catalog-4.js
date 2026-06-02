@@ -5112,7 +5112,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "nems_vietnam": {
     "title": "Nems vietnamiens",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/nems_vietnam_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/nems_vietnam_photo_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],

@@ -28,7 +28,8 @@ const NON_INGREDIENT_ITEM_RE = /\b(equivaut|equivalent|conversion|repere indicat
 const FORBIDDEN_RECIPE_IMAGE_BY_ID = new Map([
   ['crevettes_ail_persil', '/assets/recipe-images-optimized/crevettes_ail_persil_spooky.jpg'],
   ['bruschetta_roquefort_noix', '/assets/recipe-images-optimized/bruschetta_roquefort_noix_spooky.jpg'],
-  ['pates_tarte_variantes', '/assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg']
+  ['pates_tarte_variantes', '/assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg'],
+  ['nems_vietnam', '/assets/recipe-images-optimized/nems_vietnam_spooky.jpg']
 ]);
 
 function checkTextEncoding(value, location) {
