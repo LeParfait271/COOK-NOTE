@@ -4,17 +4,17 @@
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v112';
+const CACHE_NAME = 'cook-note-v113';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=112',
-  '/assets/catalog-1.js?v=112',
-  '/assets/catalog-2.js?v=112',
-  '/assets/catalog-3.js?v=112',
-  '/assets/catalog-4.js?v=112',
-  '/style.css?v=112',
+  '/app.js?v=113',
+  '/assets/catalog-1.js?v=113',
+  '/assets/catalog-2.js?v=113',
+  '/assets/catalog-3.js?v=113',
+  '/assets/catalog-4.js?v=113',
+  '/style.css?v=113',
   '/recipe.js',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',

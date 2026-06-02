@@ -3792,6 +3792,24 @@ a {
   flex-shrink: 0;
 }
 
+.menu-planner-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.menu-serving-control {
+  background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
+}
+
+.menu-serving-hint {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+}
+
 .menu-theme-tabs {
   display: flex;
   flex-wrap: wrap;

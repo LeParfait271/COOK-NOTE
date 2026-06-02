@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.12';
+const SITE_VERSION = 'v1.13';
 const SITE_UPDATED_AT = '02/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -1352,6 +1352,20 @@ function servingOptionsFor(recipe) {
     .map(String))
     .map(Number)
     .sort((a, b) => a - b);
+}
+
+function menuServingFactorFor(recipe, peopleCount = 4) {
+  const count = Math.max(1, Number(peopleCount) || 4);
+  const info = getServingInfo(recipe);
+  if (info && ['personne', 'portion', 'part'].includes(info.unit)) return count / info.base;
+  return count / 4;
+}
+
+function menuFactorMapFor(recipes, peopleCount = 4) {
+  return (recipes || []).reduce((map, recipe) => {
+    if (recipe?.id) map[recipe.id] = menuServingFactorFor(recipe, peopleCount);
+    return map;
+  }, {});
 }
 
 function stripHtml(value) {
@@ -4934,12 +4948,14 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
 function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShopping, notify }) {
   const [offset, setOffset] = useState(0);
   const [itemOffsets, setItemOffsets] = useState({});
+  const [peopleCount, setPeopleCount] = useState(4);
   const [themeId, setThemeId] = useState(MENU_THEMES[0].id);
   const [menuHistory, setMenuHistory] = useState(() => readStoredList(STORAGE_KEYS.menuHistory, []));
   const menu = useMemo(() => buildMenuSuggestionWithOverrides(recipes, offset, themeId, menuHistory, itemOffsets), [recipes, offset, themeId, menuHistory, itemOffsets]);
   const menuItems = menu.items || [];
   const menuRecipes = menuItems.map(item => item.recipe);
-  const shoppingData = useMemo(() => buildShoppingListData(menuRecipes), [menuRecipes]);
+  const menuFactorById = useMemo(() => menuFactorMapFor(menuRecipes, peopleCount), [menuRecipes, peopleCount]);
+  const shoppingData = useMemo(() => buildShoppingListData(menuRecipes, menuFactorById), [menuRecipes, menuFactorById]);
   const servicePlan = useMemo(() => buildMenuServicePlan(menuRecipes, shoppingData), [menuRecipes, shoppingData]);
   if (!open) return null;
   const rememberMenu = currentMenu => {
@@ -4950,8 +4966,8 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
   };
   const addToShopping = () => {
     rememberMenu(menu);
-    addMenuToShopping(menuRecipes);
-    notify?.('Menu ajouté aux courses');
+    addMenuToShopping(menuRecipes, menuFactorById);
+    notify?.(`Menu ajouté aux courses pour ${peopleCount} personnes`);
   };
   const changeWholeMenu = () => {
     rememberMenu(menu);
@@ -4985,6 +5001,20 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
           }
         }, theme.label))
       ),
+      h('div', { className: 'menu-planner-controls' },
+        h('label', { className: 'factor-control serving-control quantity-select-control menu-serving-control', 'aria-label': 'Choisir le nombre de personnes du menu' },
+          h('span', { className: 'factor-label' }, 'Personnes'),
+          h('select', {
+            className: 'quantity-select',
+            value: String(peopleCount),
+            onChange: event => setPeopleCount(Number(event.target.value))
+          },
+            [1, 2, 3, 4, 5, 6, 8, 10, 12].map(value => h('option', { key: value, value: String(value) }, String(value)))
+          ),
+          h('span', { className: 'quantity-unit' }, peopleCount > 1 ? 'personnes' : 'personne')
+        ),
+        h('span', { className: 'menu-serving-hint' }, 'Les quantités du menu et des courses suivent ce nombre.')
+      ),
       h('p', { className: 'menu-planner-reason' }, menu.reason),
       h('div', { className: 'menu-planner-grid' },
         menuItems.map((item, index) => h('article', { key: `${item.key}-${item.recipe.id}-${index}`, className: 'menu-planner-card' },
@@ -4992,7 +5022,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
           h('div', null,
             h('p', { className: 'eyebrow' }, item.label),
             h('h3', null, item.recipe.title),
-            h('small', null, [primaryCategory(item.recipe), difficultyText(item.recipe), getRecipeTiming(item.recipe).active ? `Actif ${formatMinutesShort(getRecipeTiming(item.recipe).active)}` : ''].filter(Boolean).join(' · ')),
+            h('small', null, [primaryCategory(item.recipe), difficultyText(item.recipe), getRecipeTiming(item.recipe).active ? `Actif ${formatMinutesShort(getRecipeTiming(item.recipe).active)}` : '', getQuantityDisplay(item.recipe, menuFactorById[item.recipe.id] || 1)].filter(Boolean).join(' · ')),
             item.note && h('p', { className: 'menu-planner-note' }, item.note),
             h('div', { className: 'menu-planner-card-actions' },
               h(Button, { variant: 'subtle', onClick: () => openRecipe(item.recipe.id) }, 'Ouvrir'),
@@ -6168,11 +6198,11 @@ function App() {
     notify('Panier de courses vidé', 'info');
   }
 
-  function addMenuToShopping(menuRecipes) {
+  function addMenuToShopping(menuRecipes, factorById = {}) {
     const ids = menuRecipes.map(recipe => recipe.id).filter(Boolean);
     const merged = [...ids, ...shoppingIds.filter(id => !ids.includes(id))];
     persistShopping(merged);
-    persistShoppingFactors(ids.reduce((next, id) => ({ ...next, [id]: shoppingFactors[id] || 1 }), { ...shoppingFactors }));
+    persistShoppingFactors(ids.reduce((next, id) => ({ ...next, [id]: factorById[id] || shoppingFactors[id] || 1 }), { ...shoppingFactors }));
     setShoppingOpen(true);
   }
 
