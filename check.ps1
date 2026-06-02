@@ -18,6 +18,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\validate-project-rules.js',
     'scripts\validate-production.js',
     'scripts\validate-feature-coverage.js',
+    'scripts\validate-monthly-additions.js',
     'scripts\validate-cache-version.js',
     'scripts\bump-version.js',
     'scripts\preflight.js',
@@ -38,6 +39,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\validate-project-rules.js',
     'scripts\validate-production.js',
     'scripts\validate-feature-coverage.js',
+    'scripts\validate-monthly-additions.js',
     'scripts\validate-cache-version.js'
   )
 

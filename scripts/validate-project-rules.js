@@ -61,6 +61,7 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'dashboard de sante du catalogue',
   'audit visuel',
   'sans rajouter de sections gadget',
+  '`Ajouts du mois` doit rester range automatiquement',
   'leur propre URL `/recette/id`',
   'ancien panneau de variante selectionnee',
   'Ne pas afficher toutes les recettes enfants en vrac',

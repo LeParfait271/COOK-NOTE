@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.17';
+const SITE_VERSION = 'v1.18';
 const SITE_UPDATED_AT = '02/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -123,6 +123,13 @@ const SEASON_CATEGORY_FILTERS = [
   { value: 'Base', label: 'Bases' },
   { value: 'Petits-déjeuners', label: 'Petit-déj.' }
 ];
+const MONTHLY_ADDITION_CATEGORY_ORDER = ['apero', 'entrees', 'plats', 'accompagnements', 'desserts', 'sauces', 'base', 'petits dejeuners'];
+const MONTHLY_ADDITION_CATEGORY_RANK = new Map(MONTHLY_ADDITION_CATEGORY_ORDER.map((category, index) => [category, index]));
+MONTHLY_ADDITION_CATEGORY_RANK.set('apero', 0);
+MONTHLY_ADDITION_CATEGORY_RANK.set('entrees', 1);
+MONTHLY_ADDITION_CATEGORY_RANK.set('bases', 6);
+MONTHLY_ADDITION_CATEGORY_RANK.set('petit dejeuner', 7);
+MONTHLY_ADDITION_CATEGORY_RANK.set('petits dejeuners', 7);
 const TECHNIQUE_GUIDES = [
   {
     id: 'emincer',
@@ -3522,9 +3529,18 @@ function getVisibleMonthlyAdditions(items, now = new Date()) {
 
 function monthlyAdditionRank(recipe) {
   const item = MONTHLY_ADDITION_BY_ID.get(recipe?.id);
-  if (!item) return { time: 0, index: 0 };
+  if (!item) return { time: 0, category: 99, title: '', index: 0 };
   const added = monthlyAdditionDate(item);
-  return { time: added ? added.getTime() : 0, index: item.index };
+  const categories = recipe?.categories || [];
+  const categoryRanks = categories
+    .map(category => MONTHLY_ADDITION_CATEGORY_RANK.get(normalizeText(category)))
+    .filter(index => Number.isInteger(index));
+  return {
+    time: added ? added.getTime() : 0,
+    category: categoryRanks.length ? Math.min(...categoryRanks) : 99,
+    title: normalizeText(recipe?.title || recipe?.id || ''),
+    index: item.index
+  };
 }
 
 function noteKey(value) {
@@ -4327,7 +4343,10 @@ function MonthlyAdditionsSection({ recipes, recipesById, favorites, toggleFavori
   const orderedRecipes = [...recipes].sort((a, b) => {
     const rankA = monthlyAdditionRank(a);
     const rankB = monthlyAdditionRank(b);
-    return rankB.time - rankA.time || rankB.index - rankA.index;
+    return rankB.time - rankA.time
+      || rankA.category - rankB.category
+      || rankA.title.localeCompare(rankB.title, 'fr', { sensitivity: 'base' })
+      || rankB.index - rankA.index;
   });
   const visibleRecipes = expanded ? orderedRecipes : orderedRecipes.slice(0, 3);
   const hasMore = orderedRecipes.length > visibleRecipes.length;

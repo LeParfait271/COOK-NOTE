@@ -72,14 +72,14 @@ expect('CSS print propre absent.', files.style.includes('@media print') && files
 expect('Ancienne section dashboard encore presente.', !files.app.includes('function HomeDashboard') && !files.style.includes('.home-dashboard'));
 expect('Ancienne section collections encore presente.', !files.app.includes('SmartCollections') && !files.style.includes('smart-collection'));
 expect('Ajouts du mois sans repli dernier mois rempli.', files.app.includes('getVisibleMonthlyAdditions') && files.app.includes('latestMonth') && files.app.includes('monthlyAdditionMonthKey'));
-expect('Ajouts du mois non tries par date.', files.app.includes('monthlyAdditionRank') && files.app.includes('rankB.time - rankA.time || rankB.index - rankA.index'));
+expect('Ajouts du mois non ranges par date/categorie/titre.', files.app.includes('monthlyAdditionRank') && files.app.includes('MONTHLY_ADDITION_CATEGORY_ORDER') && files.app.includes('MONTHLY_ADDITION_CATEGORY_RANK') && files.app.includes('normalizeText(category)') && files.app.includes('rankB.time - rankA.time') && files.app.includes('rankA.category - rankB.category') && files.app.includes("rankA.title.localeCompare(rankB.title, 'fr'"));
 expect('Derniere recette absente des ajouts du mois.', files.app.includes("id: 'lentilles_tomate_pommes_de_terre_sautees', addedAt: '2026-05-29'"));
 expect('Fallback image carte absent.', files.app.includes('onError: event =>') && files.app.includes('event.currentTarget.src = recipe.image'));
 expect('Mode cuisine revenu.', !files.app.includes('Mode cuisine') && !files.app.includes('focusMode') && !files.style.includes('recipe-focus-mode') && !files.style.includes('focus-toggle') && !files.style.includes('focus-action'));
 expect('Boutons minuteurs revenus.', !files.app.includes('step-timer') && !files.style.includes('step-timer') && !files.app.includes('timerEnd') && !files.app.includes('timerLabel') && !files.app.includes('cooking-step-card') && !files.style.includes('cooking-step-actions'));
 expect('Fiche rapide variantes sans etat vide.', files.app.includes('recipe-summary-empty') && files.app.includes('Sélectionne une variante pour afficher les informations de la fiche rapide.'));
 expect('Compteur catalogue footer absent ou statique.', files.app.includes('getCatalogRecipeStats') && files.app.includes('site-footer-count') && files.app.includes('countInlineVariantGroups(recipe)') && files.rules.includes('compteur catalogue automatique') && files.style.includes('.site-footer-count'));
-expect('Version footer absente.', files.app.includes("const SITE_VERSION = 'v1.17'") && files.app.includes("const SITE_UPDATED_AT = '02/06/26'") && files.app.includes('site-footer-version'));
+expect('Version footer absente.', files.app.includes("const SITE_VERSION = 'v1.18'") && files.app.includes("const SITE_UPDATED_AT = '02/06/26'") && files.app.includes('site-footer-version'));
 expect('Script validate-ui non branche au check.', files.packageJson.includes('scripts/validate-ui.js'));
 
 if (errors.length) {
