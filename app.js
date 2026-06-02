@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.20';
+const SITE_VERSION = 'v1.21';
 const SITE_UPDATED_AT = '02/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -872,6 +872,11 @@ function categoryLabel(category) {
 function recipeHasCategory(recipe, category) {
   if (!category) return true;
   return (recipe.categories || []).includes(category);
+}
+
+function isCategoryCollectionRecipe(recipe) {
+  if (!recipe) return false;
+  return Object.values(CATEGORY_PARENT_IDS).includes(recipe.id) || recipe.masterType === 'collection';
 }
 
 function seasonGroupCategory(recipe) {
@@ -5586,7 +5591,7 @@ function RecipeView({
   const canAddToShopping = hasSelectedVariant && canShowSteps;
   const isInShopping = hasSelectedVariant && shoppingIds.includes(detailKey);
   const canFavorite = hasSelectedVariant && !isMasterRecipe(selectedRecipe);
-  const showRecipeUtilities = hasSelectedVariant && !isMasterRecipe(selectedRecipe);
+  const showRecipeUtilities = hasSelectedVariant && !isMasterRecipe(selectedRecipe) && !isCategoryCollectionRecipe(selectedRecipe);
   const recipeAllergens = hasSelectedVariant ? getRecipeAllergens(selectedRecipe) : [];
   const averageWeights = hasSelectedVariant ? getRecipeAverageWeights(selectedRecipe) : [];
   const linkedRecipes = hasSelectedVariant ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
@@ -5882,7 +5887,7 @@ function RecipeView({
         )
       )
     ),
-    h(SharePanel, { open: shareOpen, onClose: () => setShareOpen(false), recipe: selectedRecipe, notify })
+    showRecipeUtilities && h(SharePanel, { open: shareOpen, onClose: () => setShareOpen(false), recipe: selectedRecipe, notify })
   );
 }
 
