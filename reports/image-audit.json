@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-02T10:52:23.548Z",
+  "generatedAt": "2026-06-02T15:04:40.972Z",
   "total": 201,
   "weakCount": 7,
   "issueBuckets": {
@@ -1022,12 +1022,12 @@
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 137179,
+      "optimizedBytes": 384990,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 47195
+      "cardBytes": 131042
     },
     {
       "id": "cabillaud_crumble_chorizo",
@@ -1778,12 +1778,12 @@
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 152081,
+      "optimizedBytes": 336124,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 51911
+      "cardBytes": 118487
     },
     {
       "id": "croque_madame",
@@ -2726,18 +2726,18 @@
       "title": "Pâtes à tarte",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg",
-      "card": "assets/recipe-card-images/pates_bases_maitre_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg",
+      "card": "assets/recipe-card-images/pates_tarte_variantes_spooky.jpg",
       "optimizedSize": {
-        "width": 1024,
-        "height": 1024
+        "width": 1400,
+        "height": 933
       },
-      "optimizedBytes": 262656,
+      "optimizedBytes": 289254,
       "cardSize": {
-        "width": 520,
-        "height": 520
+        "width": 760,
+        "height": 507
       },
-      "cardBytes": 39975
+      "cardBytes": 108858
     },
     {
       "id": "pates_crumble_chorizo",
@@ -2780,18 +2780,18 @@
       "title": "Pâtes et bases pâtissières",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg",
-      "card": "assets/recipe-card-images/pates_tarte_variantes_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/pates_bases_maitre_spooky.jpg",
+      "card": "assets/recipe-card-images/pates_bases_maitre_spooky.jpg",
       "optimizedSize": {
-        "width": 1400,
-        "height": 933
+        "width": 1024,
+        "height": 1024
       },
-      "optimizedBytes": 109804,
+      "optimizedBytes": 262656,
       "cardSize": {
-        "width": 760,
-        "height": 507
+        "width": 520,
+        "height": 520
       },
-      "cardBytes": 38337
+      "cardBytes": 39975
     },
     {
       "id": "pesto_variantes",
