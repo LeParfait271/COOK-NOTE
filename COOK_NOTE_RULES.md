@@ -50,6 +50,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Le footer doit afficher le compteur catalogue automatique : fiches recettes servies + variantes inline. Ce compteur doit venir de `window.RECIPES`, jamais d'un nombre ecrit en dur.
 - Les boutons partager et imprimer du hero ne doivent apparaitre que sur les vraies fiches recettes servies, jamais sur les categories, collections ou fiches parentes.
 - Sur mobile, les onglets de fiche `Ingredients / Etapes / Avant` ne doivent pas etre sticky pendant le scroll. Si un swipe change de panneau, afficher un indice discret visible sur mobile.
+- Sur mobile, le swipe entre panneaux de fiche doit etre accroche a toute la vue recette, pas seulement a la grille centrale, pour fonctionner meme si le geste commence hors de la case.
 - `Ajouts du mois` doit rester range automatiquement : date recente, puis categorie metier, puis titre. Chaque entree de `MONTHLY_ADDITIONS` doit pointer vers une fiche recette existante non parente, sans doublon, avec une date ISO et au moins une categorie.
 - `Ajouts du mois` ne doit pas afficher de preview par defaut : les cartes restent masquees tant que l'utilisateur n'appuie pas sur le bouton `Voir les X ajouts`.
 - Les liens Techniques doivent centrer la carte visee, la faire clignoter assez longtemps, et garder le halo actif tant qu'on est sur la page.

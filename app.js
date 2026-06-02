@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.29';
+const SITE_VERSION = 'v1.30';
 const SITE_UPDATED_AT = '03/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -5699,7 +5699,12 @@ function RecipeView({
   const detailAccent = getCategoryColor(selectedRecipe);
   const detailStyle = { '--accent': detailAccent, '--accent-2': detailAccent };
 
-  return h('main', { className: 'recipe-view', style: detailStyle },
+  return h('main', {
+    className: 'recipe-view',
+    style: detailStyle,
+    onTouchStart: hasSelectedVariant ? handleMobileTabSwipeStart : undefined,
+    onTouchEnd: hasSelectedVariant ? handleMobileTabSwipeEnd : undefined
+  },
     h('section', {
       className: heroImage ? (heroUsesHomeImage ? 'recipe-detail-hero has-photo parent-hero' : 'recipe-detail-hero has-photo') : 'recipe-detail-hero',
       style: heroStyle
@@ -5781,11 +5786,7 @@ function RecipeView({
         ? `Variante active : ${selectedGroupLabel}. Ingr\u00e9dients et \u00e9tapes suivent ce choix.`
         : 'Choisis une variante pour afficher les ingr\u00e9dients et les \u00e9tapes correspondantes.'
     ),
-    hasSelectedVariant && h('div', {
-      className: 'recipe-detail-grid',
-      onTouchStart: handleMobileTabSwipeStart,
-      onTouchEnd: handleMobileTabSwipeEnd
-    },
+    hasSelectedVariant && h('div', { className: 'recipe-detail-grid' },
       h('section', { className: mobileDetailTab === 'ingredients' ? 'recipe-panel ingredients-panel active-tab-panel' : 'recipe-panel ingredients-panel' },
         h('div', { className: 'panel-heading' },
           h('div', null, h('p', { className: 'eyebrow' }, 'Mise en place'), h('h2', null, 'Ingrédients'))
