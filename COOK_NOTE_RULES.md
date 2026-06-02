@@ -81,6 +81,10 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 ## Production
 
 - Toujours lancer le check complet avant commit : `powershell.exe -ExecutionPolicy Bypass -File .\check.ps1`.
+- Avant un push visible, lancer le preflight quand la modification touche l'UI, les recettes, le cache, le service worker ou les images : `node scripts/preflight.js`.
+- Les versions cache/site doivent etre synchronisees par `node scripts/bump-version.js --next` ou validees par `node scripts/validate-cache-version.js`.
+- Pour quelques images seulement, utiliser `scripts/optimize-selected-images.ps1` avec des noms explicites, pas l'optimisation globale forcee qui peut modifier tout le catalogue de miniatures.
+- Le preflight doit refuser les diffs image anormalement larges, resynchroniser les catalogues, lancer les validations, demarrer un serveur local sur port libre et tester les assets critiques.
 - Les scripts de validation doivent rester branches dans `npm run check`.
 - Le domaine canonique public du site est `https://cook-note.pages.dev`. Ne pas remettre d'URL preview Cloudflare dans `index.html`, `robots.txt` ou `sitemap.xml`.
 - Les librairies front critiques doivent rester locales dans `assets/vendor/`. Ne pas remettre React, ReactDOM, QRCode ou confetti via CDN dans `index.html`.

@@ -8,6 +8,9 @@ const validators = {
   recipes: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-recipes.js'), 'utf8'),
   ui: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-ui.js'), 'utf8'),
   production: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-production.js'), 'utf8'),
+  cache: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-cache-version.js'), 'utf8'),
+  preflight: fs.readFileSync(path.join(ROOT, 'scripts', 'preflight.js'), 'utf8'),
+  bumpVersion: fs.readFileSync(path.join(ROOT, 'scripts', 'bump-version.js'), 'utf8'),
   audit: fs.readFileSync(path.join(ROOT, 'scripts', 'audit-recipes.js'), 'utf8'),
   packageJson: fs.readFileSync(packagePath, 'utf8')
 };
@@ -44,6 +47,10 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'Historique des menus',
   'reseau d abord avec cache de secours',
   'bump la version des assets',
+  'node scripts/preflight.js',
+  'node scripts/bump-version.js --next',
+  'scripts/optimize-selected-images.ps1',
+  'diffs image anormalement larges',
   'Le panier courses doit regrouper',
   'Liste de courses : mode `J’ai déjà`',
   'Export compact',
@@ -78,6 +85,10 @@ expect('Validation recherche intention non branchee.', validators.ui.includes('R
 expect('Validation panier courses noms proches non branchee.', fs.readFileSync(path.join(ROOT, 'scripts', 'validate-quantities.js'), 'utf8').includes('test_panier_noms'));
 expect('Validation production non branchee.', validators.production.includes('Validation production OK.') && validators.packageJson.includes('scripts/validate-production.js'));
 expect('Validation couverture features non branchee.', validators.packageJson.includes('scripts/validate-feature-coverage.js'));
+expect('Validation cache/version non branchee.', validators.cache.includes('Validation cache/version OK.') && validators.packageJson.includes('scripts/validate-cache-version.js'));
+expect('Script bump-version non branche.', validators.bumpVersion.includes('Version Cook Note') && validators.packageJson.includes('scripts/bump-version.js'));
+expect('Preflight non branche.', validators.preflight.includes('Preflight Cook Note OK.') && validators.preflight.includes('findFreePort') && validators.preflight.includes('validateDiffScope') && validators.packageJson.includes('scripts/preflight.js'));
+expect('Optimisation ciblee images non branchee.', fs.existsSync(path.join(ROOT, 'scripts', 'optimize-selected-images.ps1')) && validators.packageJson.includes('optimize-selected-images.ps1'));
 expect('Audit recettes non branche.', validators.audit.includes('Audit recettes OK') && validators.packageJson.includes('scripts/audit-recipes.js'));
 expect('Audit images non branche.', validators.packageJson.includes('scripts/audit-images.js'));
 expect('Validation regles non branchee au check.', validators.packageJson.includes('scripts/validate-project-rules.js'));
