@@ -40,6 +40,7 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'npm run optimize:images',
   'npm run audit:images',
   'rendu vectoriel plat',
+  'nouveau nom de fichier stable',
   'montrer le visuel et attendre validation utilisateur',
   'Regenerer le sitemap',
   'score de completude',
@@ -85,6 +86,7 @@ expect('Validation unites non metriques non branchee.', validators.recipes.inclu
 expect('Validation images uniques non branchee.', validators.recipes.includes('leafImageHashes'));
 expect('Validation doublons visuels non branchee.', validators.visualImages.includes('PERCEPTUAL_CORRELATION_LIMIT') && validators.packageJson.includes('scripts/validate-visual-image-duplicates.js'));
 expect('Validation images optimisees non branchee.', validators.recipes.includes('recipe-images-optimized') && validators.recipes.includes('master PNG introuvable'));
+expect('Validation anciennes URLs images remplacees non branchee.', validators.recipes.includes('FORBIDDEN_RECIPE_IMAGE_BY_ID') && validators.recipes.includes('ancienne URL image interdite'));
 expect('Validation miniatures cartes non branchee.', validators.production.includes('recipe-card-images') && validators.production.includes('miniature carte introuvable'));
 expect('Validation materiel necessaire colonne droite non branchee.', validators.ui.includes('Materiel necessaire encore dans la colonne droite'));
 expect('Validation anti-doublon notes pratiques non branchee.', validators.ui.includes('Notes pratiques encore classees en double'));

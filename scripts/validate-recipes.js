@@ -25,6 +25,11 @@ const MISSING_APOSTROPHE_RE = /(?:^|[^A-Za-zÀ-ÖØ-öø-ÿ])(?:[dljmnst]|qu|jus
 
 const NON_INGREDIENT_GROUP_RE = /\b(conversion|equivalence|repere|poids moyens?|memo|avant de commencer)\b/i;
 const NON_INGREDIENT_ITEM_RE = /\b(equivaut|equivalent|conversion|repere indicatif)\b/i;
+const FORBIDDEN_RECIPE_IMAGE_BY_ID = new Map([
+  ['crevettes_ail_persil', '/assets/recipe-images-optimized/crevettes_ail_persil_spooky.jpg'],
+  ['bruschetta_roquefort_noix', '/assets/recipe-images-optimized/bruschetta_roquefort_noix_spooky.jpg'],
+  ['pates_tarte_variantes', '/assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg']
+]);
 
 function checkTextEncoding(value, location) {
   if (typeof value === 'string') {
@@ -398,6 +403,8 @@ if (!recipes || typeof recipes !== 'object') {
     let resolvedImagePath = null;
     if (!recipe.image) {
       errors.push(`${id}: image manquante.`);
+    } else if (FORBIDDEN_RECIPE_IMAGE_BY_ID.get(id) === recipe.image) {
+      errors.push(`${id}: ancienne URL image interdite apres remplacement visuel (${recipe.image}). Utiliser un nouveau nom stable pour eviter le cache.`);
     } else if (/_v3_spooky\.jpg(?:$|\?)/i.test(recipe.image)) {
       errors.push(`${id}: image _v3_spooky interdite, generation avec bandes verticales (${recipe.image}).`);
     } else if (/\.svg(?:$|\?)/i.test(recipe.image)) {

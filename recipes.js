@@ -5395,7 +5395,7 @@ window.RECIPES = {
   "pates_tarte_variantes": {
     "title": "Pâtes à tarte",
     "master": "elements_base_maitre",
-    "image": "/assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/pates_tarte_variantes_photo_v2_spooky.jpg",
     "categories": [
       "Base"
     ],
@@ -13495,7 +13495,7 @@ window.RECIPES = {
   "bruschetta_roquefort_noix": {
     "title": "Bruschetta roquefort noix",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/bruschetta_roquefort_noix_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/bruschetta_roquefort_noix_photo_v2_spooky.jpg",
     "categories": [
       "Apero",
       "Entrees"
@@ -13972,7 +13972,7 @@ window.RECIPES = {
   "crevettes_ail_persil": {
     "title": "Crevettes ail persil",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/crevettes_ail_persil_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/crevettes_ail_persil_photo_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],

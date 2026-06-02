@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-02T15:04:40.972Z",
+  "generatedAt": "2026-06-02T15:19:43.867Z",
   "total": 201,
   "weakCount": 7,
   "issueBuckets": {
@@ -1016,8 +1016,8 @@
       "title": "Bruschetta roquefort noix",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/bruschetta_roquefort_noix_spooky.jpg",
-      "card": "assets/recipe-card-images/bruschetta_roquefort_noix_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/bruschetta_roquefort_noix_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/bruschetta_roquefort_noix_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
@@ -1772,8 +1772,8 @@
       "title": "Crevettes ail persil",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/crevettes_ail_persil_spooky.jpg",
-      "card": "assets/recipe-card-images/crevettes_ail_persil_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/crevettes_ail_persil_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/crevettes_ail_persil_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933
@@ -2726,8 +2726,8 @@
       "title": "Pâtes à tarte",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg",
-      "card": "assets/recipe-card-images/pates_tarte_variantes_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/pates_tarte_variantes_photo_v2_spooky.jpg",
+      "card": "assets/recipe-card-images/pates_tarte_variantes_photo_v2_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 933

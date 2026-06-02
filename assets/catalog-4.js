@@ -6020,7 +6020,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "bruschetta_roquefort_noix": {
     "title": "Bruschetta roquefort noix",
     "master": "apero_maitre",
-    "image": "/assets/recipe-images-optimized/bruschetta_roquefort_noix_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/bruschetta_roquefort_noix_photo_v2_spooky.jpg",
     "categories": [
       "Apero",
       "Entrees"
@@ -6497,7 +6497,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   "crevettes_ail_persil": {
     "title": "Crevettes ail persil",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/crevettes_ail_persil_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/crevettes_ail_persil_photo_v2_spooky.jpg",
     "categories": [
       "Plats"
     ],
