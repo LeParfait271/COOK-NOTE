@@ -390,6 +390,10 @@ window.RECIPES = {
         "label": "Mayonnaise"
       },
       {
+        "id": "pesto_tomates_sechees_sans_cajou",
+        "label": "Pesto tomates séchées"
+      },
+      {
         "id": "pesto_variantes",
         "label": "Pestos"
       },
@@ -2452,6 +2456,10 @@ window.RECIPES = {
                 "label": "Bricks fromage miel poires pecan"
           },
           {
+                "id": "bruschetta_roquefort_noix",
+                "label": "Bruschetta roquefort noix"
+          },
+          {
                 "id": "carpaccio_betterave_mozzarella_yuzu",
                 "label": "Carpaccio betterave mozzarella yuzu"
           },
@@ -2514,6 +2522,10 @@ window.RECIPES = {
           {
                 "id": "salade_pois_chiches_thon_poivrons",
                 "label": "Salade pois chiches thon poivrons"
+          },
+          {
+                "id": "samoussas_boeuf_epinards_petits_pois",
+                "label": "Samoussas boeuf epinards petits pois"
           },
           {
                 "id": "salade_caprese",
@@ -2864,6 +2876,10 @@ window.RECIPES = {
           {
                 "id": "gratin_chou_fleur",
                 "label": "Gratin de chou-fleur"
+          },
+          {
+                "id": "gratin_dauphinois",
+                "label": "Gratin de pommes de terre"
           },
           {
                 "id": "legumes_rotis",
@@ -8641,9 +8657,10 @@ window.RECIPES = {
   },
   "pesto_tomates_sechees_sans_cajou": {
     "title": "Pesto tomates séchées",
-    "master": "apero_maitre",
+    "master": "sauces_assaisonnements_maitre",
     "image": "/assets/recipe-images-optimized/pesto_tomates_sechees_sans_cajou_spooky.jpg",
     "categories": [
+      "Sauces",
       "Apéro",
       "Accompagnements"
     ],
@@ -8661,6 +8678,7 @@ window.RECIPES = {
     "tags": [
       "pesto",
       "tomates séchées",
+      "sauce",
       "apero",
       "accompagnement"
     ],
@@ -8717,6 +8735,7 @@ window.RECIPES = {
       ]
     },
     "additionalMasters": [
+      "apero_maitre",
       "accompagnements_maitre"
     ]
   },
@@ -10031,7 +10050,8 @@ window.RECIPES = {
     "master": "plats_maitre",
     "image": "/assets/recipe-images-optimized/gratin_dauphinois_v2_spooky.jpg",
     "categories": [
-      "Plats"
+      "Plats",
+      "Accompagnements"
     ],
     "seasons": [
       "Toutes saisons"
@@ -10119,7 +10139,10 @@ window.RECIPES = {
       "mistakes": [
         "N’ajoute pas de sel avant dégustation : poitrine fumée, fromages et moutarde à l’ancienne salent déjà la préparation."
       ]
-    }
+    },
+    "additionalMasters": [
+      "accompagnements_maitre"
+    ]
   },
   "poulet_basquaise": {
     "title": "Poulet basquaise",
@@ -13640,7 +13663,10 @@ window.RECIPES = {
       "result": [
         "Apero puissant, a limiter avec un plat deja fromage."
       ]
-    }
+    },
+    "additionalMasters": [
+      "entrees_maitre"
+    ]
   },
   "tagliatelles_agrumes": {
     "title": "Tagliatelles aux agrumes",
@@ -14470,7 +14496,10 @@ window.RECIPES = {
       "result": [
         "Apero sale consistant, a ne pas mettre avant un plat trop lourd."
       ]
-    }
+    },
+    "additionalMasters": [
+      "entrees_maitre"
+    ]
   },
   "gratin_pates_chorizo": {
     "title": "Gratin de pates au chorizo",

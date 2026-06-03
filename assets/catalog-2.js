@@ -89,6 +89,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Mayonnaise"
       },
       {
+        "id": "pesto_tomates_sechees_sans_cajou",
+        "label": "Pesto tomates s\u00e9ch\u00e9es"
+      },
+      {
         "id": "pesto_variantes",
         "label": "Pestos"
       },
@@ -645,6 +649,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Bricks fromage miel poires pecan"
       },
       {
+        "id": "bruschetta_roquefort_noix",
+        "label": "Bruschetta roquefort noix"
+      },
+      {
         "id": "carpaccio_betterave_mozzarella_yuzu",
         "label": "Carpaccio betterave mozzarella yuzu"
       },
@@ -707,6 +715,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "salade_pois_chiches_thon_poivrons",
         "label": "Salade pois chiches thon poivrons"
+      },
+      {
+        "id": "samoussas_boeuf_epinards_petits_pois",
+        "label": "Samoussas boeuf epinards petits pois"
       },
       {
         "id": "salade_caprese",

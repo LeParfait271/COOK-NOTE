@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-03T01:56:01.500Z",
+  "generatedAt": "2026-06-03T02:13:51.509Z",
   "totals": {
     "recipes": 217,
     "leaves": 198,
     "masters": 19,
     "lowScore": 15,
-    "categoryIdeas": 17,
+    "categoryIdeas": 15,
     "qualityIssues": 1
   },
   "averageScore": 88,
@@ -232,11 +232,6 @@
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
-      "id": "gratin_dauphinois",
-      "title": "Gratin de pommes de terre",
-      "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
-    },
-    {
       "id": "lentilles_tomate_pommes_de_terre_sautees",
       "title": "Lentilles tomate pommes de terre sautées",
       "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
@@ -244,11 +239,6 @@
     {
       "id": "pates_pesto_tomates_mozzarella",
       "title": "Pâtes au pesto, tomates cerises et mozzarella",
-      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
-    },
-    {
-      "id": "pesto_tomates_sechees_sans_cajou",
-      "title": "Pesto tomates séchées",
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
@@ -1458,8 +1448,7 @@
       ],
       "qualityIssues": [],
       "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
-        "Categorie possible : Accompagnements (semble etre un accompagnement)."
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
     },
     {
@@ -1927,8 +1916,7 @@
       ],
       "qualityIssues": [],
       "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
-        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
     },
     {

@@ -1,6 +1,6 @@
 # Audit Cook Note
 
-Genere le 2026-06-03T01:56:01.500Z.
+Genere le 2026-06-03T02:13:51.509Z.
 
 - Recettes totales : 217
 - Recettes feuilles : 198
@@ -422,10 +422,8 @@ Genere le 2026-06-03T01:56:01.500Z.
 - Bouillabaisse (bouillabaisse_rouille) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Côtelettes de porc miel moutarde (cotelettes_porc_miel_moutarde) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
-- Gratin de pommes de terre (gratin_dauphinois) : Categorie possible : Accompagnements (semble etre un accompagnement).
 - Lentilles tomate pommes de terre sautées (lentilles_tomate_pommes_de_terre_sautees) : Categorie possible : Accompagnements (semble etre un accompagnement).
 - Pâtes au pesto, tomates cerises et mozzarella (pates_pesto_tomates_mozzarella) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
-- Pesto tomates séchées (pesto_tomates_sechees_sans_cajou) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Salade oeufs durs mayonnaise (salade_oeufs_durs_mayonnaise_bistrot) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Pancakes (pancakes_variantes) : Categorie possible : Base (semble etre une base reutilisable).
 - Asperges mimosa (asperges_mimosa) : Categorie possible : Apéro (semble utile a l apero).

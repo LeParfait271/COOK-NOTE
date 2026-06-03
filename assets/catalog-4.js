@@ -634,6 +634,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Gratin de chou-fleur"
       },
       {
+        "id": "gratin_dauphinois",
+        "label": "Gratin de pommes de terre"
+      },
+      {
         "id": "legumes_rotis",
         "label": "L\u00e9gumes r\u00f4tis au four"
       },
@@ -2480,7 +2484,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "master": "plats_maitre",
     "image": "/assets/recipe-images-optimized/gratin_dauphinois_v2_spooky.jpg",
     "categories": [
-      "Plats"
+      "Plats",
+      "Accompagnements"
     ],
     "seasons": [
       "Toutes saisons"
@@ -2568,7 +2573,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "mistakes": [
         "N\u2019ajoute pas de sel avant d\u00e9gustation : poitrine fum\u00e9e, fromages et moutarde \u00e0 l\u2019ancienne salent d\u00e9j\u00e0 la pr\u00e9paration."
       ]
-    }
+    },
+    "additionalMasters": [
+      "accompagnements_maitre"
+    ]
   },
   "poulet_basquaise": {
     "title": "Poulet basquaise",
@@ -6089,7 +6097,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "result": [
         "Apero puissant, a limiter avec un plat deja fromage."
       ]
-    }
+    },
+    "additionalMasters": [
+      "entrees_maitre"
+    ]
   },
   "tagliatelles_agrumes": {
     "title": "Tagliatelles aux agrumes",
@@ -6919,7 +6930,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "result": [
         "Apero sale consistant, a ne pas mettre avant un plat trop lourd."
       ]
-    }
+    },
+    "additionalMasters": [
+      "entrees_maitre"
+    ]
   },
   "gratin_pates_chorizo": {
     "title": "Gratin de pates au chorizo",

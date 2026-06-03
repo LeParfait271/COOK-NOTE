@@ -1998,9 +1998,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
   },
   "pesto_tomates_sechees_sans_cajou": {
     "title": "Pesto tomates s\u00e9ch\u00e9es",
-    "master": "apero_maitre",
+    "master": "sauces_assaisonnements_maitre",
     "image": "/assets/recipe-images-optimized/pesto_tomates_sechees_sans_cajou_spooky.jpg",
     "categories": [
+      "Sauces",
       "Ap\u00e9ro",
       "Accompagnements"
     ],
@@ -2018,6 +2019,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "tags": [
       "pesto",
       "tomates s\u00e9ch\u00e9es",
+      "sauce",
       "apero",
       "accompagnement"
     ],
@@ -2074,6 +2076,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       ]
     },
     "additionalMasters": [
+      "apero_maitre",
       "accompagnements_maitre"
     ]
   },

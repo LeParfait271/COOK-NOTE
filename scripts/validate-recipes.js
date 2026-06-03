@@ -332,6 +332,39 @@ if (!recipes || typeof recipes !== 'object') {
     variantGroups: true
   });
 
+  expectRecipePlacement('bruschetta_roquefort_noix', {
+    master: 'apero_maitre',
+    categories: ['Apero', 'Entrees'],
+    additionalMasters: ['entrees_maitre']
+  });
+  expectParentLink('apero_maitre', 'bruschetta_roquefort_noix', true);
+  expectParentLink('entrees_maitre', 'bruschetta_roquefort_noix', true);
+
+  expectRecipePlacement('samoussas_boeuf_epinards_petits_pois', {
+    master: 'apero_maitre',
+    categories: ['Apero', 'Entrees'],
+    additionalMasters: ['entrees_maitre']
+  });
+  expectParentLink('apero_maitre', 'samoussas_boeuf_epinards_petits_pois', true);
+  expectParentLink('entrees_maitre', 'samoussas_boeuf_epinards_petits_pois', true);
+
+  expectRecipePlacement('pesto_tomates_sechees_sans_cajou', {
+    master: 'sauces_assaisonnements_maitre',
+    categories: ['Sauces', 'Apéro', 'Accompagnements'],
+    additionalMasters: ['apero_maitre', 'accompagnements_maitre']
+  });
+  expectParentLink('sauces_assaisonnements_maitre', 'pesto_tomates_sechees_sans_cajou', true);
+  expectParentLink('apero_maitre', 'pesto_tomates_sechees_sans_cajou', true);
+  expectParentLink('accompagnements_maitre', 'pesto_tomates_sechees_sans_cajou', true);
+
+  expectRecipePlacement('gratin_dauphinois', {
+    master: 'plats_maitre',
+    categories: ['Plats', 'Accompagnements'],
+    additionalMasters: ['accompagnements_maitre']
+  });
+  expectParentLink('plats_maitre', 'gratin_dauphinois', true);
+  expectParentLink('accompagnements_maitre', 'gratin_dauphinois', true);
+
   expectVariantGroupSteps('tomates_variantes', ['Version séchées', 'Version confites']);
 
   expectInternalRecipeLink('pain_grille_beurre_ail_herbes', 'beurre_ail', ['beurre à l’ail', 'beurre ail']);
