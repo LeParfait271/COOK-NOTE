@@ -5,11 +5,17 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.30';
+const SITE_VERSION = 'v1.31';
 const SITE_UPDATED_AT = '03/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
+const SEARCH_DIFFICULTY_OPTIONS = [
+  { value: '', label: 'Toutes difficultes' },
+  { value: 'easy', label: 'Facile', min: 1, max: 3 },
+  { value: 'medium', label: 'Moyen', min: 4, max: 6 },
+  { value: 'hard', label: 'Technique', min: 7, max: 10 }
+];
 const CATEGORY_ACCENTS = {
   'Apéro': '#b51f30',
   'Entrées': '#697c1f',
@@ -31,6 +37,16 @@ const HOME_CARD_ORDER = {
   desserts_maitre: 8
 };
 const MONTHLY_ADDITIONS = [
+  { id: 'carottes_braisees_orange_citron_confit', addedAt: '2026-06-03' },
+  { id: 'salade_pois_chiches_thon_poivrons', addedAt: '2026-06-03' },
+  { id: 'pates_tomates_confites_parmesan', addedAt: '2026-06-03' },
+  { id: 'poulet_tikka_masala', addedAt: '2026-06-03' },
+  { id: 'poulet_pommes_de_terre_asperges', addedAt: '2026-06-03' },
+  { id: 'gratin_chou_fleur_mascarpone_moutarde', addedAt: '2026-06-03' },
+  { id: 'pates_brocolis_amandes', addedAt: '2026-06-03' },
+  { id: 'rougail_saucisse', addedAt: '2026-06-03' },
+  { id: 'brochettes_crevettes_chorizo', addedAt: '2026-06-03' },
+  { id: 'dhal_lentilles_epices', addedAt: '2026-06-03' },
   { id: 'puree_patates_douces', addedAt: '2026-06-02' },
   { id: 'chou_fleur_coco_curry', addedAt: '2026-06-02' },
   { id: 'oeufs_cocotte_chorizo', addedAt: '2026-06-02' },
@@ -47,7 +63,7 @@ const MONTHLY_ADDITIONS = [
   { id: 'harissa_maison', addedAt: '2026-06-02' },
   { id: 'carottes_persillade_creme', addedAt: '2026-06-02' },
   { id: 'pommes_grenaille_herbes', addedAt: '2026-06-02' },
-  { id: 'salade_caprese', addedAt: '2026-06-02' },
+  { id: 'salade_caprese', addedAt: '2026-06-03' },
   { id: 'porc_chorizo_haricots_tarbais', addedAt: '2026-06-02' },
   { id: 'saumon_au_four_simple', addedAt: '2026-06-02' },
   { id: 'souffle_fromage_facile', addedAt: '2026-06-02' },
@@ -900,6 +916,20 @@ function difficultyText(recipe) {
   return Number.isFinite(recipe?.difficultyScore)
     ? `Difficulté ${recipe.difficultyScore}/10`
     : (DIFFICULTY_LABELS[recipe?.difficulty] || 'Recette');
+}
+
+function recipeDifficultyScore(recipe) {
+  if (Number.isFinite(recipe?.difficultyScore)) return recipe.difficultyScore;
+  if (normalizeText(recipe?.difficulty) === 'easy') return 3;
+  if (normalizeText(recipe?.difficulty) === 'hard') return 8;
+  return 5;
+}
+
+function matchesDifficultyFilter(recipe, filter) {
+  const option = SEARCH_DIFFICULTY_OPTIONS.find(item => item.value === filter);
+  if (!option || !option.value) return true;
+  const score = recipeDifficultyScore(recipe);
+  return score >= option.min && score <= option.max;
 }
 
 function getNutriScore(recipe) {
@@ -2528,7 +2558,9 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot', recentMen
   }
   if (candidates.length) {
     candidates.sort((a, b) => b.score - a.score);
-    const selected = candidates[offset % Math.min(candidates.length, 24)] || candidates[0];
+    const freshCandidates = candidates.filter(candidate => !recentMenuSignatures.includes(candidate.signature));
+    const selectionPool = freshCandidates.length ? freshCandidates : candidates;
+    const selected = selectionPool[offset % Math.min(selectionPool.length, 24)] || selectionPool[0];
     return {
       theme,
       reason: menuLeadReason(selected.items, profiles, theme),
@@ -4714,7 +4746,7 @@ function SharePanel({ open, onClose, recipe, notify }) {
   );
 }
 
-function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resultMeta, ingredientMeta, openRecipe, recentRecipes = [], recentSearches = [], rememberSearch }) {
+function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDifficultyFilter, searchRef, results, resultMeta, ingredientMeta, openRecipe, recentRecipes = [], recentSearches = [], rememberSearch }) {
   if (!open) return null;
   const hasQuery = Boolean(query.trim());
   const ingredientTokens = ingredientSearchTokens(query);
@@ -4806,6 +4838,16 @@ function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resul
           },
           placeholder: 'Recette, ingrédients, usage, saison...'
         })
+      ),
+      h('div', { className: 'search-filter-row' },
+        h('label', { htmlFor: 'recipe-difficulty-filter' }, 'Difficult\u00e9'),
+        h('select', {
+          id: 'recipe-difficulty-filter',
+          value: difficultyFilter,
+          onChange: event => setDifficultyFilter(event.target.value)
+        },
+          SEARCH_DIFFICULTY_OPTIONS.map(option => h('option', { key: option.value, value: option.value }, option.label))
+        )
       ),
       hasQuery
         ? h('div', { className: 'search-result-count' }, `${results.length} résultat${results.length > 1 ? 's' : ''} pour "${query}"`)
@@ -5925,6 +5967,7 @@ function App() {
 
   const [query, setQuery] = useState(() => new URLSearchParams(window.location.search).get('q') || '');
   const searchFilterQuery = useDebouncedValue(query, 120);
+  const [difficultyFilter, setDifficultyFilter] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
   const [season, setSeason] = useState('');
   const [seasonCategory, setSeasonCategory] = useState('');
@@ -6103,6 +6146,7 @@ function App() {
     const activeFavoriteCollection = FAVORITE_COLLECTIONS.find(collection => collection.id === favoriteCollection);
     let list = catalogRecipes.filter(recipe => {
       if (activeSearchQuery && !searchMeta.has(recipe.id) && !ingredientMeta.has(recipe.id)) return false;
+      if (activeSearchQuery && !matchesDifficultyFilter(recipe, difficultyFilter)) return false;
       if (season && !recipeHasSeason(recipe, season, recipesById)) return false;
       if (tagFilter && !(recipe.tagsExtracted || []).includes(tagFilter)) return false;
       if (onlyFavorites && !favorites.includes(recipe.id)) return false;
@@ -6121,7 +6165,7 @@ function App() {
       return a.title.localeCompare(b.title, 'fr');
     });
     return list;
-  }, [catalogRecipes, searchFilterQuery, searchMeta, ingredientMeta, season, tagFilter, onlyFavorites, favorites, recipesById, favoriteCollection, personalNotes]);
+  }, [catalogRecipes, searchFilterQuery, searchMeta, ingredientMeta, difficultyFilter, season, tagFilter, onlyFavorites, favorites, recipesById, favoriteCollection, personalNotes]);
 
   const seasonCategoryOptions = useMemo(() => {
     if (!season) return [];
@@ -6202,6 +6246,7 @@ function App() {
   }, [currentSeason, filteredRecipes, onlyFavorites, season, seasonCategory]);
   const activeChips = [
     query && { key: 'query', label: `Recherche: ${query}`, clear: () => setQuery('') },
+    query && difficultyFilter && { key: 'difficulty', label: SEARCH_DIFFICULTY_OPTIONS.find(item => item.value === difficultyFilter)?.label || 'Difficulte', clear: () => setDifficultyFilter('') },
     season && { key: 'season', label: season, clear: () => updateSeason('') },
     seasonCategory && { key: 'seasonCategory', label: categoryLabel(seasonCategory), clear: () => setSeasonCategory('') },
     tagFilter && { key: 'tag', label: `Tag: ${tagFilter}`, clear: () => setTagFilter('') },
@@ -6617,15 +6662,14 @@ function App() {
           h('img', { src: '/assets/cook-note-mark.svg', alt: '', loading: 'lazy' })
           ),
           h('div', { className: 'site-footer-copy' },
-          h('p', { className: 'site-footer-brand' }, 'Cook Note'),
+          h('p', { className: 'site-footer-brand' }, 'Cook Note \u00a9 2026.'),
           h('p', null, 'Carnet personnel de recettes et techniques culinaires.'),
           h('p', null, 'Développé par MaruChiwa.'),
           )
         ),
         h('div', { className: 'site-footer-stats', 'aria-label': 'Informations catalogue' },
           h('span', { className: 'site-footer-count' }, catalogStats.label),
-          h('span', { className: 'site-footer-version' }, `${SITE_VERSION} / ${SITE_UPDATED_AT}`),
-          h('span', { className: 'site-footer-year' }, '© 2026')
+          h('span', { className: 'site-footer-version' }, `${SITE_VERSION} / ${SITE_UPDATED_AT}`)
         ),
         h('button', {
           type: 'button',
@@ -6662,6 +6706,8 @@ function App() {
       onClose: () => setSearchOpen(false),
       query,
       setQuery: updateSearchQuery,
+      difficultyFilter,
+      setDifficultyFilter,
       searchRef,
       results: filteredRecipes,
       resultMeta: searchMeta,

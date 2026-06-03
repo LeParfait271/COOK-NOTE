@@ -582,6 +582,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "masterType": "collection",
     "variants": [
       {
+        "id": "carottes_braisees_orange_citron_confit",
+        "label": "Carottes braisees orange citron confit"
+      },
+      {
         "id": "carottes_persillade_creme",
         "label": "Carottes persillade creme"
       },
@@ -620,6 +624,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "gaufres_pommes_terre",
         "label": "Gaufres de pommes de terre croustillantes"
+      },
+      {
+        "id": "gratin_chou_fleur_mascarpone_moutarde",
+        "label": "Gratin chou-fleur mascarpone moutarde"
       },
       {
         "id": "gratin_chou_fleur",
@@ -5782,9 +5790,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     }
   },
   "salade_caprese": {
-    "title": "Salade caprese",
+    "title": "Tomate mozzarella basilic",
     "master": "entrees_maitre",
-    "image": "/assets/recipe-images-optimized/salade_caprese_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/tomate_mozzarella_basilic_spooky.jpg",
     "categories": [
       "Entrees"
     ],
@@ -5795,14 +5803,17 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     "difficultyScore": 3,
     "yield": "4 personnes",
     "activeTime": 10,
-    "cookTime": 25,
+    "cookTime": 0,
     "tags": [
       "salade",
       "tomate",
       "mozzarella"
     ],
     "aliases": [
-      "salade caprese"
+      "salade caprese",
+      "caprese",
+      "tomate mozzarella",
+      "tomates mozzarella basilic"
     ],
     "ingredients": [
       {
@@ -7142,6 +7153,676 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       ],
       "result": [
         "Plat mijote doux-acide, logique avec puree simple ou legumes verts."
+      ]
+    }
+  },
+  "carottes_braisees_orange_citron_confit": {
+    "title": "Carottes braisees orange citron confit",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/carottes_braisees_orange_citron_confit_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Hiver",
+      "Printemps"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 15,
+    "cookTime": 35,
+    "tags": [
+      "carottes",
+      "orange",
+      "citron confit",
+      "legumes"
+    ],
+    "aliases": [
+      "carottes orange citron confit",
+      "carottes braisees agrumes"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "800g carottes",
+          "120g jus d orange",
+          "30g citron confit en petits des",
+          "25g beurre",
+          "15g huile d olive",
+          "10g miel",
+          "2g sel fin",
+          "Poivre du moulin",
+          "Thym frais"
+        ]
+      }
+    ],
+    "steps": [
+      "Eplucher les carottes et les couper en deux si elles sont grosses.",
+      "Faire fondre beurre et huile dans une sauteuse, puis rouler les carottes dedans 3min.",
+      "Ajouter jus d orange, miel, citron confit, sel, poivre du moulin et thym.",
+      "Couvrir et braiser a feu doux 25 a 30min, en retournant les carottes a mi-cuisson.",
+      "Retirer le couvercle et reduire le jus jusqu a obtenir un nappage brillant."
+    ],
+    "notes": [
+      "Repere menu : bon accompagnement avec volaille, porc ou poisson roti, sans ajouter une deuxieme sauce lourde.",
+      "Conservation : 2 a 3 jours au refrigerateur en boite hermetique.",
+      "Securite : refroidir rapidement les restes et rechauffer doucement avec un trait d eau."
+    ],
+    "practical": {
+      "equipment": [
+        "Sauteuse avec couvercle",
+        "Couteau",
+        "Planche"
+      ],
+      "result": [
+        "Carottes fondantes, brillantes, douces et acidulees."
+      ]
+    }
+  },
+  "salade_pois_chiches_thon_poivrons": {
+    "title": "Salade pois chiches thon poivrons",
+    "master": "entrees_maitre",
+    "image": "/assets/recipe-images-optimized/salade_pois_chiches_thon_poivrons_spooky.jpg",
+    "categories": [
+      "Entrees"
+    ],
+    "seasons": [
+      "Ete",
+      "Printemps"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "4 personnes",
+    "activeTime": 12,
+    "cookTime": 0,
+    "tags": [
+      "salade",
+      "pois chiches",
+      "thon",
+      "poivrons",
+      "froid"
+    ],
+    "aliases": [
+      "salade pois chiches thon",
+      "pois chiches thon poivrons"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "500g pois chiches cuits egouttes",
+          "200g thon egoutte",
+          "150g poivrons rouges et jaunes",
+          "80g oignon rouge",
+          "30g huile d olive",
+          "20g jus de citron",
+          "10g persil",
+          "3g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Rincer et egoutter les pois chiches.",
+      "Emincer finement poivrons et oignon rouge.",
+      "Emietter le thon en morceaux visibles, sans le reduire en pate.",
+      "Melanger huile, citron, sel, poivre du moulin et persil.",
+      "Assembler, laisser reposer 15min au froid si possible, puis rectifier l assaisonnement."
+    ],
+    "notes": [
+      "Repere menu : entree complete, a servir avant un plat leger ou sans autre feculent dominant.",
+      "Conservation : 24 a 48h au refrigerateur a cause du thon.",
+      "Securite : garder au froid et ne pas laisser trainer a temperature ambiante."
+    ],
+    "practical": {
+      "equipment": [
+        "Saladier",
+        "Couteau",
+        "Passoire"
+      ],
+      "result": [
+        "Salade froide nette, nourrissante et acidulee."
+      ]
+    }
+  },
+  "pates_tomates_confites_parmesan": {
+    "title": "Pates tomates confites parmesan",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/pates_tomates_confites_parmesan_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Ete",
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 15,
+    "cookTime": 12,
+    "tags": [
+      "pates",
+      "tomates confites",
+      "parmesan",
+      "rapide"
+    ],
+    "aliases": [
+      "pates aux tomates confites",
+      "pates parmesan tomates sechees"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "350g pates courtes",
+          "160g tomates confites",
+          "70g parmesan",
+          "40g huile des tomates ou huile d olive",
+          "20g pignons ou amandes grillees",
+          "10g basilic",
+          "1 gousse d ail",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les pates dans une grande casserole d eau salee.",
+      "Pendant la cuisson, hacher grossierement tomates confites, ail et basilic.",
+      "Egoutter les pates en gardant un peu d eau de cuisson.",
+      "Melanger pates, tomates, huile et un trait d eau de cuisson pour lier.",
+      "Finir avec parmesan, pignons et poivre du moulin."
+    ],
+    "notes": [
+      "Repere menu : plat de pates deja riche en fromage, eviter un accompagnement feculent ou tres cremeux.",
+      "Conservation : 2 jours au refrigerateur, a rechauffer avec un trait d eau.",
+      "Securite : refroidir rapidement les restes."
+    ],
+    "practical": {
+      "equipment": [
+        "Grande casserole",
+        "Passoire",
+        "Poele ou sauteuse"
+      ],
+      "result": [
+        "Pates brillantes, salees, parfumees et sans sauce lourde."
+      ]
+    }
+  },
+  "poulet_tikka_masala": {
+    "title": "Poulet tikka masala",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/poulet_tikka_masala_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "activeTime": 30,
+    "cookTime": 35,
+    "tags": [
+      "poulet",
+      "epices",
+      "sauce",
+      "indien"
+    ],
+    "aliases": [
+      "chicken tikka masala",
+      "poulet sauce epicee"
+    ],
+    "ingredients": [
+      {
+        "group": "Poulet",
+        "items": [
+          "650g hauts de cuisses de poulet desosses",
+          "120g yaourt nature",
+          "15g jus de citron",
+          "12g gingembre rape",
+          "2 gousses d ail",
+          "8g garam masala",
+          "4g paprika",
+          "3g sel fin"
+        ]
+      },
+      {
+        "group": "Sauce",
+        "items": [
+          "300g coulis de tomate",
+          "180g creme liquide",
+          "120g oignon",
+          "25g beurre",
+          "15g huile neutre",
+          "8g garam masala",
+          "4g cumin",
+          "4g paprika",
+          "Coriandre fraiche"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper le poulet en gros morceaux et le melanger avec yaourt, citron, ail, gingembre, epices et sel.",
+      "Laisser mariner 30min minimum, puis saisir les morceaux a feu vif pour les colorer.",
+      "Faire revenir oignon dans beurre et huile, ajouter epices puis coulis de tomate.",
+      "Mijoter 10min, ajouter creme et poulet colore.",
+      "Cuire encore 12 a 15min jusqu a sauce epaisse et poulet cuit, puis finir avec coriandre."
+    ],
+    "notes": [
+      "Repere menu : plat sauce epicee, logique avec riz nature ou legumes verts, pas avec puree ou gratin cremeux.",
+      "Conservation : 2 jours au refrigerateur.",
+      "Securite : cuire le poulet a coeur et ne pas reutiliser la marinade crue sans cuisson."
+    ],
+    "practical": {
+      "equipment": [
+        "Poele",
+        "Casserole",
+        "Bol"
+      ],
+      "result": [
+        "Poulet tendre, sauce epicee cremeuse et lisible."
+      ]
+    }
+  },
+  "poulet_pommes_de_terre_asperges": {
+    "title": "Poulet pommes de terre asperges",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/poulet_pommes_de_terre_asperges_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Printemps"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "activeTime": 18,
+    "cookTime": 45,
+    "tags": [
+      "poulet",
+      "pommes de terre",
+      "asperges",
+      "four"
+    ],
+    "aliases": [
+      "poulet asperges pommes de terre",
+      "poulet au four asperges"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "700g morceaux de poulet",
+          "700g pommes de terre grenaille",
+          "300g asperges vertes",
+          "60g oignon",
+          "35g huile d olive",
+          "15g moutarde a l ancienne",
+          "10g jus de citron",
+          "2 gousses d ail",
+          "3g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Prechauffer le four a 190\u00b0C.",
+      "Couper les pommes de terre en deux et les melanger avec huile, ail, moutarde, sel et poivre du moulin.",
+      "Ajouter le poulet et l oignon dans un plat, puis enfourner 30min.",
+      "Ajouter les asperges et le jus de citron, puis poursuivre 12 a 15min.",
+      "Verifier la cuisson du poulet et arroser avec le jus du plat."
+    ],
+    "notes": [
+      "Repere menu : plat complet avec feculent et legume, ne pas ajouter riz ou puree.",
+      "Conservation : 2 jours au refrigerateur.",
+      "Securite : cuire le poulet a coeur et refroidir rapidement les restes."
+    ],
+    "practical": {
+      "equipment": [
+        "Plat a four",
+        "Couteau",
+        "Planche"
+      ],
+      "result": [
+        "Plat de four complet, simple, printanier et coherent."
+      ]
+    }
+  },
+  "gratin_chou_fleur_mascarpone_moutarde": {
+    "title": "Gratin chou-fleur mascarpone moutarde",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/gratin_chou_fleur_mascarpone_moutarde_spooky.jpg",
+    "categories": [
+      "Plats",
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Hiver",
+      "Automne"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "activeTime": 18,
+    "cookTime": 35,
+    "tags": [
+      "chou-fleur",
+      "gratin",
+      "mascarpone",
+      "moutarde"
+    ],
+    "aliases": [
+      "gratin de chou fleur mascarpone",
+      "chou fleur moutarde"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "800g chou-fleur en fleurettes",
+          "180g mascarpone",
+          "120g creme liquide",
+          "50g parmesan",
+          "25g moutarde a l ancienne",
+          "20g chapelure",
+          "2g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Precuire le chou-fleur 8 a 10min a l eau salee ou vapeur, il doit rester ferme.",
+      "Melanger mascarpone, creme, moutarde, sel et poivre du moulin.",
+      "Napper le chou-fleur dans un plat, ajouter parmesan et chapelure.",
+      "Cuire 25min a 190\u00b0C jusqu a gratin dore.",
+      "Laisser reposer 5min avant service pour que la creme se tienne."
+    ],
+    "notes": [
+      "Repere menu : gratin cremeux, a servir avec viande rotie simple ou salade vive, pas avec un autre plat en sauce.",
+      "Conservation : 2 jours au refrigerateur.",
+      "Securite : refroidir rapidement et rechauffer jusqu a coeur chaud."
+    ],
+    "practical": {
+      "equipment": [
+        "Plat a gratin",
+        "Casserole ou vapeur",
+        "Bol"
+      ],
+      "result": [
+        "Chou-fleur fondant, sauce moutardee et dessus dore."
+      ]
+    },
+    "additionalMasters": [
+      "accompagnements_maitre"
+    ]
+  },
+  "pates_brocolis_amandes": {
+    "title": "Pates brocolis amandes",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/pates_brocolis_amandes_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Printemps",
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 15,
+    "cookTime": 12,
+    "tags": [
+      "pates",
+      "brocolis",
+      "amandes",
+      "vegetarien"
+    ],
+    "aliases": [
+      "pates aux brocolis",
+      "pates brocoli amandes"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "350g pates",
+          "450g brocolis",
+          "60g amandes effilees",
+          "45g huile d olive",
+          "50g parmesan",
+          "1 gousse d ail",
+          "10g jus de citron",
+          "2g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les pates dans une grande casserole d eau salee.",
+      "Ajouter les brocolis en petites fleurettes dans les 4 dernieres minutes.",
+      "Faire dorer les amandes a sec et reserver.",
+      "Egoutter pates et brocolis en gardant un peu d eau de cuisson.",
+      "Lier avec huile d olive, ail, citron, parmesan, poivre du moulin et un trait d eau de cuisson.",
+      "Ajouter les amandes au dernier moment."
+    ],
+    "notes": [
+      "Repere menu : plat de pates vegetal, inutile d ajouter un autre feculent.",
+      "Conservation : 2 jours au refrigerateur, amandes a remettre au service si possible.",
+      "Securite : refroidir rapidement les restes."
+    ],
+    "practical": {
+      "equipment": [
+        "Grande casserole",
+        "Poele",
+        "Passoire"
+      ],
+      "result": [
+        "Pates vertes, simples, avec croquant net des amandes."
+      ]
+    }
+  },
+  "rougail_saucisse": {
+    "title": "Rougail saucisse",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/rougail_saucisse_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "activeTime": 20,
+    "cookTime": 35,
+    "tags": [
+      "saucisse",
+      "tomate",
+      "epice",
+      "mijote"
+    ],
+    "aliases": [
+      "rougail saucisses",
+      "saucisses tomate epices"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "600g saucisses fumees ou de Toulouse",
+          "500g tomates concassees",
+          "180g oignons",
+          "2 gousses d ail",
+          "15g gingembre",
+          "20g huile neutre",
+          "4g curcuma",
+          "Piment selon gout",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Piquer les saucisses, les blanchir 8min si elles sont tres grasses, puis les couper en rondelles.",
+      "Faire revenir oignons, ail et gingembre dans l huile.",
+      "Ajouter saucisses et colorer 5min.",
+      "Ajouter tomates, curcuma, piment et poivre du moulin.",
+      "Mijoter 25 a 30min jusqu a sauce reduite et saucisses bien enrobees."
+    ],
+    "notes": [
+      "Repere menu : plat tomate-epice, a servir avec riz nature et un element frais, pas avec gratin ou puree.",
+      "Conservation : 2 jours au refrigerateur.",
+      "Securite : rechauffer jusqu a sauce bien chaude."
+    ],
+    "practical": {
+      "equipment": [
+        "Cocotte",
+        "Couteau",
+        "Casserole"
+      ],
+      "result": [
+        "Sauce tomate courte, saucisses tranchees et parfum epice."
+      ]
+    }
+  },
+  "brochettes_crevettes_chorizo": {
+    "title": "Brochettes crevettes chorizo",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/brochettes_crevettes_chorizo_spooky.jpg",
+    "categories": [
+      "Plats",
+      "Ap\u00e9ro"
+    ],
+    "seasons": [
+      "Ete",
+      "Printemps"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 18,
+    "cookTime": 8,
+    "tags": [
+      "crevettes",
+      "chorizo",
+      "brochettes",
+      "plancha"
+    ],
+    "aliases": [
+      "brochettes de crevettes au chorizo",
+      "crevettes chorizo"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "500g grosses crevettes decortiquees",
+          "150g chorizo en rondelles",
+          "25g huile d olive",
+          "10g jus de citron",
+          "1 gousse d ail",
+          "10g persil",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Melanger huile, citron, ail, persil et poivre du moulin.",
+      "Enrober les crevettes 10min, pas plus longtemps.",
+      "Monter les brochettes en alternant crevettes et chorizo.",
+      "Cuire a la plancha ou a la poele chaude 2 a 3min par face.",
+      "Servir aussitot avec un trait de citron."
+    ],
+    "notes": [
+      "Repere menu : iod\u00e9, gras et epice, a equilibrer avec salade ou legumes verts, pas avec sauce fromage.",
+      "Conservation : a consommer le jour meme de preference.",
+      "Securite : ne pas prolonger la marinade des crevettes et cuire juste a coeur."
+    ],
+    "practical": {
+      "equipment": [
+        "Pics a brochettes",
+        "Plancha ou poele",
+        "Bol"
+      ],
+      "result": [
+        "Brochettes rapides, crevettes juteuses et chorizo grille."
+      ]
+    },
+    "additionalMasters": [
+      "apero_maitre"
+    ]
+  },
+  "dhal_lentilles_epices": {
+    "title": "Dhal lentilles epices",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/dhal_lentilles_epices_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver",
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 15,
+    "cookTime": 30,
+    "tags": [
+      "lentilles",
+      "epices",
+      "vegetarien",
+      "coco"
+    ],
+    "aliases": [
+      "dhal de lentilles",
+      "dal lentilles epices"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "250g lentilles corail",
+          "400g lait de coco",
+          "300g tomates concassees",
+          "140g oignon",
+          "2 gousses d ail",
+          "15g gingembre",
+          "20g huile neutre",
+          "6g curry",
+          "4g cumin",
+          "3g sel fin",
+          "Coriandre fraiche"
+        ]
+      }
+    ],
+    "steps": [
+      "Rincer les lentilles corail.",
+      "Faire revenir oignon, ail et gingembre dans l huile.",
+      "Ajouter curry et cumin, puis tomates, lentilles et lait de coco.",
+      "Mijoter 25 a 30min en remuant souvent, jusqu a texture cremeuse.",
+      "Ajuster sel et detendre avec un peu d eau si besoin, puis finir avec coriandre."
+    ],
+    "notes": [
+      "Repere menu : plat vegetal cremeux, a equilibrer avec riz nature ou salade acide, pas avec autre sauce riche.",
+      "Conservation : 2 a 3 jours au refrigerateur.",
+      "Securite : refroidir rapidement, le dhal epaissit au froid."
+    ],
+    "practical": {
+      "equipment": [
+        "Casserole",
+        "Passoire",
+        "Cuillere"
+      ],
+      "result": [
+        "Dhal cremeux, epice, lisible comme plat complet."
       ]
     }
   }

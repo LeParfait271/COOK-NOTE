@@ -48,6 +48,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les icones des boutons doivent rester coherentes, premium, et blanches quand elles sont sur des boutons sombres.
 - Les passes design premium doivent ameliorer les composants existants sans rajouter de sections gadget sur l'accueil. Travailler surtout cartes, panneaux, boutons, etats hover/focus, responsive et performance.
 - Le footer doit afficher le compteur catalogue automatique : fiches recettes servies + variantes inline. Ce compteur doit venir de `window.RECIPES`, jamais d'un nombre ecrit en dur.
+- Le footer ne doit pas afficher l'annee dans une pilule separee : garder `Cook Note © 2026.` dans le texte d'identite, puis compteur et version uniquement dans les badges.
 - Les boutons partager et imprimer du hero ne doivent apparaitre que sur les vraies fiches recettes servies, jamais sur les categories, collections ou fiches parentes.
 - Sur mobile, les onglets de fiche `Ingredients / Etapes / Avant` ne doivent pas etre sticky pendant le scroll. Si un swipe change de panneau, afficher un indice discret visible sur mobile.
 - Sur mobile, le swipe entre panneaux de fiche doit etre accroche a toute la vue recette, pas seulement a la grille centrale, pour fonctionner meme si le geste commence hors de la case.
@@ -55,6 +56,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - `Ajouts du mois` ne doit pas afficher de preview par defaut : les cartes restent masquees tant que l'utilisateur n'appuie pas sur le bouton `Voir les X ajouts`.
 - Les liens Techniques doivent centrer la carte visee, la faire clignoter assez longtemps, et garder le halo actif tant qu'on est sur la page.
 - La recherche doit comprendre les intentions utilisateur courantes : rapide, sans cuisson, cuisson au four, friture, a preparer a l'avance, congelable, vegetarien, froid et ingredients proches.
+- La recherche doit proposer un selecteur de difficulte qui filtre vraiment les resultats par score : facile 1-3, moyen 4-6, technique 7-10.
 - Le mode menu doit rester un outil de decision direct : composer entree/plat/accompagnement ou sauce/dessert, ouvrir chaque fiche et ajouter le menu entier aux courses fusionnees.
 - Mode menu : accords dessert obligatoires. Apres un plat lourd, cremeux, frit ou tres fromage, favoriser un dessert frais/citron/fruit. Apres un plat leger, un dessert plus gourmand peut etre propose.
 - Mode menu soir de semaine : ne pas forcer de dessert. Si un dessert est propose, il doit etre ultra rapide, avec moins de 10 minutes d'actif.

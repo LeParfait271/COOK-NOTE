@@ -227,6 +227,22 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
           "Ajouter huile progressivement.",
           "Secouer avant service."
         ]
+      },
+      {
+        "group": "Miel citron",
+        "items": [
+          "45g jus de citron",
+          "120g huile d olive douce",
+          "25g miel liquide",
+          "10g moutarde de Dijon",
+          "3g sel fin",
+          "Poivre du moulin"
+        ],
+        "steps": [
+          "Fouetter jus de citron, miel, moutarde, sel et poivre du moulin.",
+          "Monter avec huile d olive en filet.",
+          "Gouter : ajouter quelques gouttes de citron si la salade est riche."
+        ]
       }
     ],
     "steps": [
@@ -682,6 +698,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Bouillabaisse"
       },
       {
+        "id": "brochettes_crevettes_chorizo",
+        "label": "Brochettes crevettes chorizo"
+      },
+      {
         "id": "cabillaud_crumble_chorizo",
         "label": "Cabillaud au four, crumble de chorizo"
       },
@@ -746,8 +766,16 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Curry de lentilles vertes au lait de coco"
       },
       {
+        "id": "dhal_lentilles_epices",
+        "label": "Dhal lentilles epices"
+      },
+      {
         "id": "encornets_chorizo",
         "label": "Encornets sautes au chorizo"
+      },
+      {
+        "id": "gratin_chou_fleur_mascarpone_moutarde",
+        "label": "Gratin chou-fleur mascarpone moutarde"
       },
       {
         "id": "gratin_chou_fleur",
@@ -806,6 +834,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "P\u00e2tes au pesto, tomates cerises et mozzarella"
       },
       {
+        "id": "pates_brocolis_amandes",
+        "label": "Pates brocolis amandes"
+      },
+      {
+        "id": "pates_tomates_confites_parmesan",
+        "label": "Pates tomates confites parmesan"
+      },
+      {
         "id": "potee_chou",
         "label": "Potee au chou"
       },
@@ -822,8 +858,20 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Poulet Gaston G\u00e9rard"
       },
       {
+        "id": "poulet_pommes_de_terre_asperges",
+        "label": "Poulet pommes de terre asperges"
+      },
+      {
+        "id": "poulet_tikka_masala",
+        "label": "Poulet tikka masala"
+      },
+      {
         "id": "riz_cantonnais",
         "label": "Riz cantonnais"
+      },
+      {
+        "id": "rougail_saucisse",
+        "label": "Rougail saucisse"
       },
       {
         "id": "saucisse_puree_maison",

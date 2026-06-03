@@ -693,10 +693,6 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Oignons r\u00f4tis au thym et au miel"
       },
       {
-        "id": "salade_caprese",
-        "label": "Salade caprese"
-      },
-      {
         "id": "salade_epinards_clementines_amande_feta",
         "label": "Salade epinards clementines amande feta"
       },
@@ -707,6 +703,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "salade_pois_chiche_feta_olives",
         "label": "Salade pois chiches feta olives"
+      },
+      {
+        "id": "salade_pois_chiches_thon_poivrons",
+        "label": "Salade pois chiches thon poivrons"
+      },
+      {
+        "id": "salade_caprese",
+        "label": "Tomate mozzarella basilic"
       },
       {
         "id": "tomates_maitre",
@@ -1068,6 +1072,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "brie_farci_fruits_secs_noix",
         "label": "Brie farci aux fruits secs et noix"
+      },
+      {
+        "id": "brochettes_crevettes_chorizo",
+        "label": "Brochettes crevettes chorizo"
       },
       {
         "id": "bruschetta_roquefort_noix",

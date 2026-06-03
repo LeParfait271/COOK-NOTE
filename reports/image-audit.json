@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-02T16:29:51.198Z",
-  "total": 201,
+  "generatedAt": "2026-06-03T01:08:19.387Z",
+  "total": 211,
   "weakCount": 7,
   "issueBuckets": {
     "missingCard": 0,
@@ -1012,6 +1012,24 @@
       "cardBytes": 25521
     },
     {
+      "id": "brochettes_crevettes_chorizo",
+      "title": "Brochettes crevettes chorizo",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/brochettes_crevettes_chorizo_spooky.jpg",
+      "card": "assets/recipe-card-images/brochettes_crevettes_chorizo_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 279540,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 89142
+    },
+    {
       "id": "bruschetta_roquefort_noix",
       "title": "Bruschetta roquefort noix",
       "score": 100,
@@ -1082,6 +1100,24 @@
         "height": 520
       },
       "cardBytes": 83658
+    },
+    {
+      "id": "carottes_braisees_orange_citron_confit",
+      "title": "Carottes braisees orange citron confit",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/carottes_braisees_orange_citron_confit_spooky.jpg",
+      "card": "assets/recipe-card-images/carottes_braisees_orange_citron_confit_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 252505,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 75809
     },
     {
       "id": "carottes_persillade_creme",
@@ -1966,6 +2002,24 @@
       "cardBytes": 45642
     },
     {
+      "id": "dhal_lentilles_epices",
+      "title": "Dhal lentilles epices",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/dhal_lentilles_epices_spooky.jpg",
+      "card": "assets/recipe-card-images/dhal_lentilles_epices_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 232147,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 73234
+    },
+    {
       "id": "encornets_chorizo",
       "title": "Encornets sautes au chorizo",
       "score": 100,
@@ -2072,6 +2126,24 @@
         "height": 520
       },
       "cardBytes": 82068
+    },
+    {
+      "id": "gratin_chou_fleur_mascarpone_moutarde",
+      "title": "Gratin chou-fleur mascarpone moutarde",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/gratin_chou_fleur_mascarpone_moutarde_spooky.jpg",
+      "card": "assets/recipe-card-images/gratin_chou_fleur_mascarpone_moutarde_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 281391,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 86325
     },
     {
       "id": "gratin_chou_fleur",
@@ -2776,6 +2848,24 @@
       "cardBytes": 51820
     },
     {
+      "id": "pates_brocolis_amandes",
+      "title": "Pates brocolis amandes",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/pates_brocolis_amandes_spooky.jpg",
+      "card": "assets/recipe-card-images/pates_brocolis_amandes_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 263360,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 85659
+    },
+    {
       "id": "pates_bases_maitre",
       "title": "Pâtes et bases pâtissières",
       "score": 100,
@@ -2792,6 +2882,24 @@
         "height": 520
       },
       "cardBytes": 39975
+    },
+    {
+      "id": "pates_tomates_confites_parmesan",
+      "title": "Pates tomates confites parmesan",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/pates_tomates_confites_parmesan_spooky.jpg",
+      "card": "assets/recipe-card-images/pates_tomates_confites_parmesan_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 246285,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 77900
     },
     {
       "id": "pesto_variantes",
@@ -2956,6 +3064,42 @@
       "cardBytes": 123497
     },
     {
+      "id": "poulet_pommes_de_terre_asperges",
+      "title": "Poulet pommes de terre asperges",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/poulet_pommes_de_terre_asperges_spooky.jpg",
+      "card": "assets/recipe-card-images/poulet_pommes_de_terre_asperges_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 308569,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 92632
+    },
+    {
+      "id": "poulet_tikka_masala",
+      "title": "Poulet tikka masala",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/poulet_tikka_masala_spooky.jpg",
+      "card": "assets/recipe-card-images/poulet_tikka_masala_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 251411,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 80300
+    },
+    {
       "id": "puree_butternut_pommes_terre_curry",
       "title": "Puree butternut pommes de terre curry",
       "score": 100,
@@ -3100,6 +3244,24 @@
       "cardBytes": 49863
     },
     {
+      "id": "rougail_saucisse",
+      "title": "Rougail saucisse",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/rougail_saucisse_spooky.jpg",
+      "card": "assets/recipe-card-images/rougail_saucisse_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 265887,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 84838
+    },
+    {
       "id": "rouille_haut_de_gamme",
       "title": "Rouille",
       "score": 100,
@@ -3134,24 +3296,6 @@
         "height": 520
       },
       "cardBytes": 88357
-    },
-    {
-      "id": "salade_caprese",
-      "title": "Salade caprese",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipe-images-optimized/salade_caprese_spooky.jpg",
-      "card": "assets/recipe-card-images/salade_caprese_spooky.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 933
-      },
-      "optimizedBytes": 245742,
-      "cardSize": {
-        "width": 760,
-        "height": 507
-      },
-      "cardBytes": 82799
     },
     {
       "id": "salade_epinards_clementines_amande_feta",
@@ -3206,6 +3350,24 @@
         "height": 507
       },
       "cardBytes": 91333
+    },
+    {
+      "id": "salade_pois_chiches_thon_poivrons",
+      "title": "Salade pois chiches thon poivrons",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/salade_pois_chiches_thon_poivrons_spooky.jpg",
+      "card": "assets/recipe-card-images/salade_pois_chiches_thon_poivrons_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 280067,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 85782
     },
     {
       "id": "samoussas_boeuf_epinards_petits_pois",
@@ -3566,6 +3728,24 @@
         "height": 520
       },
       "cardBytes": 44530
+    },
+    {
+      "id": "salade_caprese",
+      "title": "Tomate mozzarella basilic",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/tomate_mozzarella_basilic_spooky.jpg",
+      "card": "assets/recipe-card-images/tomate_mozzarella_basilic_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 264974,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 82665
     },
     {
       "id": "tomates_variantes",
