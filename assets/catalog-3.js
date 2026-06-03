@@ -735,7 +735,7 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       },
       {
         "id": "crevettes_ail_persil",
-        "label": "Crevettes ail persil"
+        "label": "Crevettes en persillade"
       },
       {
         "id": "croque_madame",
@@ -774,6 +774,14 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Encornets sautes au chorizo"
       },
       {
+        "id": "fish_and_chips",
+        "label": "Fish and chips"
+      },
+      {
+        "id": "gratin_chou_fleur_comte_lardons",
+        "label": "Gratin chou-fleur comte lardons"
+      },
+      {
         "id": "gratin_chou_fleur_mascarpone_moutarde",
         "label": "Gratin chou-fleur mascarpone moutarde"
       },
@@ -792,6 +800,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "grillades_porc_miel_orange_piment",
         "label": "Grillades porc miel orange piment"
+      },
+      {
+        "id": "hachis_parmentier",
+        "label": "Hachis parmentier"
       },
       {
         "id": "hauts_de_cuisses_poulet_orange_oignon",
@@ -840,6 +852,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "pates_tomates_confites_parmesan",
         "label": "Pates tomates confites parmesan"
+      },
+      {
+        "id": "piperade_oeuf_plat",
+        "label": "Piperade oeuf au plat"
       },
       {
         "id": "potee_chou",
@@ -892,6 +908,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "tagliatelles_agrumes",
         "label": "Tagliatelles aux agrumes"
+      },
+      {
+        "id": "tomates_farcies",
+        "label": "Tomates farcies"
       }
     ],
     "ingredients": [

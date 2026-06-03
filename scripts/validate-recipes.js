@@ -25,10 +25,24 @@ const MISSING_APOSTROPHE_RE = /(?:^|[^A-Za-zÀ-ÖØ-öø-ÿ])(?:[dljmnst]|qu|jus
 
 const NON_INGREDIENT_GROUP_RE = /\b(conversion|equivalence|repere|poids moyens?|memo|avant de commencer)\b/i;
 const NON_INGREDIENT_ITEM_RE = /\b(equivaut|equivalent|conversion|repere indicatif)\b/i;
+const FORBIDDEN_RECIPE_SOURCE_KEYS = new Set([
+  'source',
+  'sourceurl',
+  'sourceurlraw',
+  'originalurl',
+  'canonicalsource',
+  'importedfrom',
+  'imagesource',
+  'imagecredit',
+  'credit',
+  'credits',
+  'attribution'
+]);
 const FORBIDDEN_RECIPE_IMAGE_BY_ID = new Map([
   ['crevettes_ail_persil', [
     '/assets/recipe-images-optimized/crevettes_ail_persil_spooky.jpg',
-    '/assets/recipe-images-optimized/crevettes_ail_persil_photo_v2_spooky.jpg'
+    '/assets/recipe-images-optimized/crevettes_ail_persil_photo_v2_spooky.jpg',
+    '/assets/recipe-images-optimized/crevettes_ail_persil_photo_v4_spooky.jpg'
   ]],
   ['bruschetta_roquefort_noix', ['/assets/recipe-images-optimized/bruschetta_roquefort_noix_spooky.jpg']],
   ['pates_tarte_variantes', ['/assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg']],
@@ -92,6 +106,26 @@ function checkForbiddenDisplayTerms(value, location, key = '') {
   }
   if (value && typeof value === 'object') {
     Object.entries(value).forEach(([childKey, item]) => checkForbiddenDisplayTerms(item, `${location}.${childKey}`, childKey));
+  }
+}
+
+function checkForbiddenSourceMetadata(value, location, key = '') {
+  const normalizedKey = normalizeComparable(key);
+  if (FORBIDDEN_RECIPE_SOURCE_KEYS.has(normalizedKey)) {
+    errors.push(`${location}: metadonnee de source interdite (${key}). Garder les sources hors du catalogue public.`);
+  }
+  if (typeof value === 'string') {
+    if (/https?:\/\//i.test(value) && key !== 'video') {
+      errors.push(`${location}: URL externe interdite dans les donnees recette (${value}).`);
+    }
+    return;
+  }
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => checkForbiddenSourceMetadata(item, `${location}[${index}]`, key));
+    return;
+  }
+  if (value && typeof value === 'object') {
+    Object.entries(value).forEach(([childKey, item]) => checkForbiddenSourceMetadata(item, `${location}.${childKey}`, childKey));
   }
 }
 
@@ -415,10 +449,13 @@ if (!recipes || typeof recipes !== 'object') {
       checkPepperWording(id, value);
     });
     checkForbiddenDisplayTerms(recipe, id);
+    checkForbiddenSourceMetadata(recipe, id);
 
     let resolvedImagePath = null;
     if (!recipe.image) {
       errors.push(`${id}: image manquante.`);
+    } else if (/^(?:https?:)?\/\//i.test(recipe.image)) {
+      errors.push(`${id}: image externe interdite (${recipe.image}). Utiliser une image locale generee, optimisee et auditee.`);
     } else if ((FORBIDDEN_RECIPE_IMAGE_BY_ID.get(id) || []).includes(recipe.image)) {
       errors.push(`${id}: ancienne URL image interdite apres remplacement visuel (${recipe.image}). Utiliser un nouveau nom stable pour eviter le cache.`);
     } else if (/_v3_spooky\.jpg(?:$|\?)/i.test(recipe.image)) {

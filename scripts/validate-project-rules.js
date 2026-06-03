@@ -33,6 +33,8 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'Materiel necessaire',
   'coulis_fraise',
   'Chaque recette feuille doit avoir une image locale unique',
+  'Aucune image recette ne doit venir du web',
+  'Les donnees recette ne doivent jamais contenir de champs publics de source',
   'pas de presque-doublon',
   'npm run validate:visual-images',
   'assets/recipe-images-optimized/',
@@ -85,6 +87,7 @@ expect('Validation cassonade/vergeoise non branchee.', validators.recipes.includ
 expect('Validation poivre du moulin non branchee.', validators.recipes.includes('checkPepperWording'));
 expect('Validation unites non metriques non branchee.', validators.recipes.includes('NON_METRIC_UNIT_RE'));
 expect('Validation images uniques non branchee.', validators.recipes.includes('leafImageHashes'));
+expect('Validation sources recette interdites non branchee.', validators.recipes.includes('FORBIDDEN_RECIPE_SOURCE_KEYS') && validators.recipes.includes('image externe interdite'));
 expect('Validation doublons visuels non branchee.', validators.visualImages.includes('PERCEPTUAL_CORRELATION_LIMIT') && validators.packageJson.includes('scripts/validate-visual-image-duplicates.js'));
 expect('Validation images optimisees non branchee.', validators.recipes.includes('recipe-images-optimized') && validators.recipes.includes('master PNG introuvable'));
 expect('Validation anciennes URLs images remplacees non branchee.', validators.recipes.includes('FORBIDDEN_RECIPE_IMAGE_BY_ID') && validators.recipes.includes('ancienne URL image interdite'));

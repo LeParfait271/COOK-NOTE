@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.31';
+const SITE_VERSION = 'v1.32';
 const SITE_UPDATED_AT = '03/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -37,6 +37,13 @@ const HOME_CARD_ORDER = {
   desserts_maitre: 8
 };
 const MONTHLY_ADDITIONS = [
+  { id: 'crevettes_ail_persil', addedAt: '2026-06-03' },
+  { id: 'fish_and_chips', addedAt: '2026-06-03' },
+  { id: 'rattes_four', addedAt: '2026-06-03' },
+  { id: 'gratin_chou_fleur_comte_lardons', addedAt: '2026-06-03' },
+  { id: 'hachis_parmentier', addedAt: '2026-06-03' },
+  { id: 'tomates_farcies', addedAt: '2026-06-03' },
+  { id: 'piperade_oeuf_plat', addedAt: '2026-06-03' },
   { id: 'carottes_braisees_orange_citron_confit', addedAt: '2026-06-03' },
   { id: 'salade_pois_chiches_thon_poivrons', addedAt: '2026-06-03' },
   { id: 'pates_tomates_confites_parmesan', addedAt: '2026-06-03' },
@@ -75,7 +82,6 @@ const MONTHLY_ADDITIONS = [
   { id: 'grillades_porc_miel_orange_piment', addedAt: '2026-06-02' },
   { id: 'southern_biscuits', addedAt: '2026-06-02' },
   { id: 'pates_crumble_chorizo', addedAt: '2026-06-02' },
-  { id: 'crevettes_ail_persil', addedAt: '2026-06-02' },
   { id: 'chapelure_parfumee', addedAt: '2026-06-02' },
   { id: 'encornets_chorizo', addedAt: '2026-06-02' },
   { id: 'crevettes_provencale', addedAt: '2026-06-02' },

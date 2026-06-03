@@ -1,23 +1,23 @@
 # Audit Cook Note
 
-Genere le 2026-06-02T10:04:34.919Z.
+Genere le 2026-06-03T01:56:01.500Z.
 
-- Recettes totales : 201
-- Recettes feuilles : 182
+- Recettes totales : 217
+- Recettes feuilles : 198
 - Fiches parentes : 19
-- Score moyen : 87/100
+- Score moyen : 88/100
 - Fiches sous 78 : 15
-- Fiches avec defauts a verifier : 0
+- Fiches avec defauts a verifier : 1
 
 ## Dashboard sante
 
-- Pretes : 66
-- A ameliorer : 101
+- Pretes : 81
+- A ameliorer : 102
 - Faibles : 15
 - Decouverte faible : 33
-- Conservation/securite a verifier : 98
+- Conservation/securite a verifier : 99
 - Risque image/production : 0
-- Sans liens internes explicites : 153
+- Sans liens internes explicites : 168
 
 ## Fiches a surveiller
 
@@ -111,6 +111,8 @@ Genere le 2026-06-02T10:04:34.919Z.
 - Bricks fromage miel poires pecan (bricks_fromage_miel_poires_pecan) : 100/100 - OK
 - Brie farci aux fruits secs et noix (brie_farci_fruits_secs_noix) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Brochettes crevettes chorizo (brochettes_crevettes_chorizo) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Bruschetta roquefort noix (bruschetta_roquefort_noix) : 100/100 - OK
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -119,6 +121,7 @@ Genere le 2026-06-02T10:04:34.919Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cake tomate chorizo feta (cake_tomate_chorizo_feta) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Carottes braisees orange citron confit (carottes_braisees_orange_citron_confit) : 100/100 - OK
 - Carottes persillade creme (carottes_persillade_creme) : 100/100 - OK
 - Carottes roties miel epices (carottes_roties_miel_epices) : 100/100 - OK
 - Carpaccio betterave mozzarella yuzu (carpaccio_betterave_mozzarella_yuzu) : 82/100 - OK
@@ -200,7 +203,7 @@ Genere le 2026-06-02T10:04:34.919Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Crevettes a la provencale (crevettes_provencale) : 100/100 - OK
-- Crevettes ail persil (crevettes_ail_persil) : 100/100 - OK
+- Crevettes en persillade (crevettes_ail_persil) : 100/100 - OK
 - Croque-madame (croque_madame) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Crumble pomme-poire (crumble_pomme_poire) : 82/100 - OK
@@ -216,9 +219,11 @@ Genere le 2026-06-02T10:04:34.919Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Curry de lentilles vertes au lait de coco (curry_lentilles_coco) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Dhal lentilles epices (dhal_lentilles_epices) : 100/100 - OK
 - Encornets sautes au chorizo (encornets_chorizo) : 100/100 - OK
 - Falafels au four (falafels_four) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Fish and chips (fish_and_chips) : 100/100 - OK
 - Flan pâtissier épais vanille (flan_patissier_epais_vanille) : 100/100 - OK
 - Fond de tarte amande (creme_amande_citron) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -237,6 +242,8 @@ Genere le 2026-06-02T10:04:34.919Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gazpacho tomate, menthe et basilic (gazpacho_tomate_menthe_basilic) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Gratin chou-fleur comte lardons (gratin_chou_fleur_comte_lardons) : 100/100 - OK
+- Gratin chou-fleur mascarpone moutarde (gratin_chou_fleur_mascarpone_moutarde) : 100/100 - OK
 - Gratin de chou-fleur (gratin_chou_fleur) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gratin de pates au chorizo (gratin_pates_chorizo) : 100/100 - OK
@@ -244,6 +251,7 @@ Genere le 2026-06-02T10:04:34.919Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gressins fromage olives (gressins_fromage_olives) : 100/100 - OK
 - Grillades porc miel orange piment (grillades_porc_miel_orange_piment) : 100/100 - OK
+- Hachis parmentier (hachis_parmentier) : 100/100 - OK
 - Harissa rouge (harissa_maison) : 100/100 - OK
 - Hauts de cuisses poulet orange oignon (hauts_de_cuisses_poulet_orange_oignon) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -310,10 +318,13 @@ Genere le 2026-06-02T10:04:34.919Z.
 - Pates au crumble de chorizo (pates_crumble_chorizo) : 100/100 - OK
 - Pâtes au pesto, tomates cerises et mozzarella (pates_pesto_tomates_mozzarella) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Pates brocolis amandes (pates_brocolis_amandes) : 100/100 - OK
+- Pates tomates confites parmesan (pates_tomates_confites_parmesan) : 100/100 - OK
 - Pesto tomates séchées (pesto_tomates_sechees_sans_cajou) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pestos (pesto_variantes) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Piperade oeuf au plat (piperade_oeuf_plat) : 100/100 - OK
 - Poires roties orange miel (poires_roties_orange_miel) : 100/100 - OK
 - Pommes de terre grenaille aux herbes (pommes_grenaille_herbes) : 100/100 - OK
 - Pommes paille (pommes_paille) : 100/100 - OK
@@ -326,6 +337,10 @@ Genere le 2026-06-02T10:04:34.919Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poulet Gaston Gérard (poulet_gaston_gerard) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Poulet pommes de terre asperges (poulet_pommes_de_terre_asperges) : 100/100 - OK
+- Poulet tikka masala (poulet_tikka_masala) : 100/100
+  - Ingredient probablement duplique : 8g garam masala / 8g garam masala.
+  - Ingredient probablement duplique : 4g paprika / 4g paprika.
 - Puree butternut pommes de terre curry (puree_butternut_pommes_terre_curry) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Puree de chou-fleur (puree_chou_fleur) : 100/100 - OK
@@ -334,6 +349,7 @@ Genere le 2026-06-02T10:04:34.919Z.
 - Puree de patates douces (puree_patates_douces) : 100/100 - OK
 - Purée pommes de terre citron (puree_pommes_de_terre_citron) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Rattes au four (rattes_four) : 100/100 - OK
 - Ricotta fouettée (ricotta_fouettee) : 100/100 - OK
 - Rillettes de porc (rillettes_porc) : 100/100 - OK
 - Rillettes de poulet (rillettes_poulet) : 100/100 - OK
@@ -341,18 +357,19 @@ Genere le 2026-06-02T10:04:34.919Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Riz cantonnais (riz_cantonnais) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Rougail saucisse (rougail_saucisse) : 100/100 - OK
 - Rouille (rouille_haut_de_gamme) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Salade avocat, œuf et épinards (salade_avocat_oeuf_epinards) : 66/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Salade caprese (salade_caprese) : 100/100 - OK
 - Salade epinards clementines amande feta (salade_epinards_clementines_amande_feta) : 100/100 - OK
 - Salade melon, mozzarella et jambon cru (salade_melon_mozzarella_jambon_cru) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Salade oeufs durs mayonnaise (salade_oeufs_durs_mayonnaise_bistrot) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Salade pois chiches feta olives (salade_pois_chiche_feta_olives) : 100/100 - OK
+- Salade pois chiches thon poivrons (salade_pois_chiches_thon_poivrons) : 100/100 - OK
 - Samoussas boeuf epinards petits pois (samoussas_boeuf_epinards_petits_pois) : 100/100 - OK
 - Sauce aigre-douce vietnamienne (sauce_aigre_douce_vietnam) : 100/100 - OK
 - Sauce aux poivres (sauce_aux_poivres) : 82/100 - OK
@@ -386,8 +403,10 @@ Genere le 2026-06-02T10:04:34.919Z.
 - Tiramisu spéculoos (tiramisu_speculoos) : 66/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Tomate mozzarella basilic (salade_caprese) : 100/100 - OK
 - Tomates confites et séchées (tomates_variantes) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Tomates farcies (tomates_farcies) : 100/100 - OK
 - Tomates provençales (tomates_provencales) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Toppings frites (toppings_frites) : 82/100 - OK
@@ -411,9 +430,12 @@ Genere le 2026-06-02T10:04:34.919Z.
 - Pancakes (pancakes_variantes) : Categorie possible : Base (semble etre une base reutilisable).
 - Asperges mimosa (asperges_mimosa) : Categorie possible : Apéro (semble utile a l apero).
 - Chou vert en sauce tomate (chou_vert_sauce_tomate) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
+- Fish and chips (fish_and_chips) : Categorie possible : Accompagnements (semble etre un accompagnement).
 - Œuf sur le plat chili crisp sur toast (oeuf_chili_crisp_toast) : Categorie possible : Apéro (semble utile a l apero).
 - Pâtes à tarte (pates_tarte_variantes) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Pates au crumble de chorizo (pates_crumble_chorizo) : Categorie possible : Desserts (semble etre sucré ou patissier).
+- Poulet pommes de terre asperges (poulet_pommes_de_terre_asperges) : Categorie possible : Accompagnements (semble etre un accompagnement).
+- Poulet tikka masala (poulet_tikka_masala) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 
 ## Fiches a relier progressivement
 
@@ -426,11 +448,13 @@ Genere le 2026-06-02T10:04:34.919Z.
 - Billes de mozzarella marinées (billes_mozzarella_marinees)
 - Bricks fromage miel poires pecan (bricks_fromage_miel_poires_pecan)
 - Brie farci aux fruits secs et noix (brie_farci_fruits_secs_noix)
+- Brochettes crevettes chorizo (brochettes_crevettes_chorizo)
 - Bruschetta roquefort noix (bruschetta_roquefort_noix)
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo)
 - Cake au citron (cake_citron)
 - Cake salé poitrine fumée (cake_sale_lardon)
 - Cake tomate chorizo feta (cake_tomate_chorizo_feta)
+- Carottes braisees orange citron confit (carottes_braisees_orange_citron_confit)
 - Carottes persillade creme (carottes_persillade_creme)
 - Carottes roties miel epices (carottes_roties_miel_epices)
 - Carpaccio betterave mozzarella yuzu (carpaccio_betterave_mozzarella_yuzu)
@@ -445,5 +469,3 @@ Genere le 2026-06-02T10:04:34.919Z.
 - Chorizo au cidre (chorizo_au_cidre)
 - Chou vert en sauce tomate (chou_vert_sauce_tomate)
 - Chou-fleur croustillant (chou_fleur_croustillant)
-- Chou-fleur lait de coco curry (chou_fleur_coco_curry)
-- Churros (churros_maison)

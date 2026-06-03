@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-06-02T10:04:34.919Z",
+  "generatedAt": "2026-06-03T01:56:01.500Z",
   "totals": {
-    "recipes": 201,
-    "leaves": 182,
+    "recipes": 217,
+    "leaves": 198,
     "masters": 19,
     "lowScore": 15,
-    "categoryIdeas": 14,
-    "qualityIssues": 0
+    "categoryIdeas": 17,
+    "qualityIssues": 1
   },
-  "averageScore": 87,
+  "averageScore": 88,
   "healthDashboard": {
-    "ready": 66,
-    "improve": 101,
+    "ready": 81,
+    "improve": 102,
     "weak": 15,
     "missingDiscovery": 33,
-    "missingSafety": 98,
+    "missingSafety": 99,
     "productionRisk": 0,
-    "fewLinks": 153
+    "fewLinks": 168
   },
   "weakestRecipes": [
     {
@@ -272,6 +272,11 @@
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
+      "id": "fish_and_chips",
+      "title": "Fish and chips",
+      "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
+    },
+    {
       "id": "oeuf_chili_crisp_toast",
       "title": "Œuf sur le plat chili crisp sur toast",
       "text": "Categorie possible : Apéro (semble utile a l apero)."
@@ -285,6 +290,16 @@
       "id": "pates_crumble_chorizo",
       "title": "Pates au crumble de chorizo",
       "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
+    },
+    {
+      "id": "poulet_pommes_de_terre_asperges",
+      "title": "Poulet pommes de terre asperges",
+      "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
+    },
+    {
+      "id": "poulet_tikka_masala",
+      "title": "Poulet tikka masala",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     }
   ],
   "recipesWithFewLinks": [
@@ -334,6 +349,11 @@
       "count": 0
     },
     {
+      "id": "brochettes_crevettes_chorizo",
+      "title": "Brochettes crevettes chorizo",
+      "count": 0
+    },
+    {
       "id": "bruschetta_roquefort_noix",
       "title": "Bruschetta roquefort noix",
       "count": 0
@@ -356,6 +376,11 @@
     {
       "id": "cake_tomate_chorizo_feta",
       "title": "Cake tomate chorizo feta",
+      "count": 0
+    },
+    {
+      "id": "carottes_braisees_orange_citron_confit",
+      "title": "Carottes braisees orange citron confit",
       "count": 0
     },
     {
@@ -426,16 +451,6 @@
     {
       "id": "chou_fleur_croustillant",
       "title": "Chou-fleur croustillant",
-      "count": 0
-    },
-    {
-      "id": "chou_fleur_coco_curry",
-      "title": "Chou-fleur lait de coco curry",
-      "count": 0
-    },
-    {
-      "id": "churros_maison",
-      "title": "Churros",
       "count": 0
     }
   ],
@@ -613,6 +628,16 @@
       ]
     },
     {
+      "id": "brochettes_crevettes_chorizo",
+      "title": "Brochettes crevettes chorizo",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "bruschetta_roquefort_noix",
       "title": "Bruschetta roquefort noix",
       "score": 100,
@@ -666,6 +691,14 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
+    },
+    {
+      "id": "carottes_braisees_orange_citron_confit",
+      "title": "Carottes braisees orange citron confit",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "carottes_persillade_creme",
@@ -1139,7 +1172,7 @@
     },
     {
       "id": "crevettes_ail_persil",
-      "title": "Crevettes ail persil",
+      "title": "Crevettes en persillade",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -1238,6 +1271,14 @@
       ]
     },
     {
+      "id": "dhal_lentilles_epices",
+      "title": "Dhal lentilles epices",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "encornets_chorizo",
       "title": "Encornets sautes au chorizo",
       "score": 100,
@@ -1255,6 +1296,16 @@
       "qualityIssues": [],
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
+      "id": "fish_and_chips",
+      "title": "Fish and chips",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": [
+        "Categorie possible : Accompagnements (semble etre un accompagnement)."
       ]
     },
     {
@@ -1363,6 +1414,22 @@
       ]
     },
     {
+      "id": "gratin_chou_fleur_comte_lardons",
+      "title": "Gratin chou-fleur comte lardons",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "gratin_chou_fleur_mascarpone_moutarde",
+      "title": "Gratin chou-fleur mascarpone moutarde",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "gratin_chou_fleur",
       "title": "Gratin de chou-fleur",
       "score": 82,
@@ -1406,6 +1473,14 @@
     {
       "id": "grillades_porc_miel_orange_piment",
       "title": "Grillades porc miel orange piment",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "hachis_parmentier",
+      "title": "Hachis parmentier",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -1828,6 +1903,22 @@
       ]
     },
     {
+      "id": "pates_brocolis_amandes",
+      "title": "Pates brocolis amandes",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "pates_tomates_confites_parmesan",
+      "title": "Pates tomates confites parmesan",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "pesto_tomates_sechees_sans_cajou",
       "title": "Pesto tomates séchées",
       "score": 82,
@@ -1847,6 +1938,14 @@
       "issues": [
         "Decouverte faible : tags, alias ou liens internes pauvres."
       ],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "piperade_oeuf_plat",
+      "title": "Piperade oeuf au plat",
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1931,6 +2030,29 @@
       ]
     },
     {
+      "id": "poulet_pommes_de_terre_asperges",
+      "title": "Poulet pommes de terre asperges",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": [
+        "Categorie possible : Accompagnements (semble etre un accompagnement)."
+      ]
+    },
+    {
+      "id": "poulet_tikka_masala",
+      "title": "Poulet tikka masala",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [
+        "Ingredient probablement duplique : 8g garam masala / 8g garam masala.",
+        "Ingredient probablement duplique : 4g paprika / 4g paprika."
+      ],
+      "suggestions": [
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
+    },
+    {
       "id": "puree_butternut_pommes_terre_curry",
       "title": "Puree butternut pommes de terre curry",
       "score": 82,
@@ -1983,6 +2105,14 @@
       ]
     },
     {
+      "id": "rattes_four",
+      "title": "Rattes au four",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "ricotta_fouettee",
       "title": "Ricotta fouettée",
       "score": 100,
@@ -2031,6 +2161,14 @@
       ]
     },
     {
+      "id": "rougail_saucisse",
+      "title": "Rougail saucisse",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "rouille_haut_de_gamme",
       "title": "Rouille",
       "score": 82,
@@ -2054,14 +2192,6 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
-    },
-    {
-      "id": "salade_caprese",
-      "title": "Salade caprese",
-      "score": 100,
-      "issues": [],
-      "qualityIssues": [],
-      "suggestions": []
     },
     {
       "id": "salade_epinards_clementines_amande_feta",
@@ -2099,6 +2229,14 @@
     {
       "id": "salade_pois_chiche_feta_olives",
       "title": "Salade pois chiches feta olives",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "salade_pois_chiches_thon_poivrons",
+      "title": "Salade pois chiches thon poivrons",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -2314,12 +2452,28 @@
       ]
     },
     {
+      "id": "salade_caprese",
+      "title": "Tomate mozzarella basilic",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "tomates_variantes",
       "title": "Tomates confites et séchées",
       "score": 84,
       "issues": [
         "Decouverte faible : tags, alias ou liens internes pauvres."
       ],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "tomates_farcies",
+      "title": "Tomates farcies",
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": []
     },

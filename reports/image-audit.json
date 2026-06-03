@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-03T01:08:19.387Z",
-  "total": 211,
+  "generatedAt": "2026-06-03T01:56:01.678Z",
+  "total": 217,
   "weakCount": 7,
   "issueBuckets": {
     "missingCard": 0,
@@ -1805,21 +1805,21 @@
     },
     {
       "id": "crevettes_ail_persil",
-      "title": "Crevettes ail persil",
+      "title": "Crevettes en persillade",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipe-images-optimized/crevettes_ail_persil_photo_v4_spooky.jpg",
-      "card": "assets/recipe-card-images/crevettes_ail_persil_photo_v4_spooky.jpg",
+      "optimized": "assets/recipe-images-optimized/crevettes_persillade_spooky.jpg",
+      "card": "assets/recipe-card-images/crevettes_persillade_spooky.jpg",
       "optimizedSize": {
         "width": 1400,
-        "height": 933
+        "height": 788
       },
-      "optimizedBytes": 288067,
+      "optimizedBytes": 249955,
       "cardSize": {
         "width": 760,
-        "height": 507
+        "height": 428
       },
-      "cardBytes": 92787
+      "cardBytes": 81299
     },
     {
       "id": "croque_madame",
@@ -2056,6 +2056,24 @@
       "cardBytes": 99615
     },
     {
+      "id": "fish_and_chips",
+      "title": "Fish and chips",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/fish_and_chips_spooky.jpg",
+      "card": "assets/recipe-card-images/fish_and_chips_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 215553,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 69243
+    },
+    {
       "id": "flan_patissier_epais_vanille",
       "title": "Flan pâtissier épais vanille",
       "score": 100,
@@ -2126,6 +2144,24 @@
         "height": 520
       },
       "cardBytes": 82068
+    },
+    {
+      "id": "gratin_chou_fleur_comte_lardons",
+      "title": "Gratin chou-fleur comte lardons",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/gratin_chou_fleur_comte_lardons_spooky.jpg",
+      "card": "assets/recipe-card-images/gratin_chou_fleur_comte_lardons_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 253577,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 83429
     },
     {
       "id": "gratin_chou_fleur_mascarpone_moutarde",
@@ -2234,6 +2270,24 @@
         "height": 507
       },
       "cardBytes": 77089
+    },
+    {
+      "id": "hachis_parmentier",
+      "title": "Hachis parmentier",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/hachis_parmentier_spooky.jpg",
+      "card": "assets/recipe-card-images/hachis_parmentier_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 178743,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 59426
     },
     {
       "id": "harissa_maison",
@@ -2920,6 +2974,24 @@
       "cardBytes": 68325
     },
     {
+      "id": "piperade_oeuf_plat",
+      "title": "Piperade oeuf au plat",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/piperade_oeuf_plat_spooky.jpg",
+      "card": "assets/recipe-card-images/piperade_oeuf_plat_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 249373,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 79954
+    },
+    {
       "id": "poires_roties_orange_miel",
       "title": "Poires roties orange miel",
       "score": 100,
@@ -3188,6 +3260,24 @@
         "height": 520
       },
       "cardBytes": 112200
+    },
+    {
+      "id": "rattes_four",
+      "title": "Rattes au four",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/rattes_four_spooky.jpg",
+      "card": "assets/recipe-card-images/rattes_four_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 270085,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 81882
     },
     {
       "id": "ricotta_fouettee",
@@ -3764,6 +3854,24 @@
         "height": 520
       },
       "cardBytes": 87856
+    },
+    {
+      "id": "tomates_farcies",
+      "title": "Tomates farcies",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/tomates_farcies_spooky.jpg",
+      "card": "assets/recipe-card-images/tomates_farcies_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 225232,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 72746
     },
     {
       "id": "tomates_maitre",

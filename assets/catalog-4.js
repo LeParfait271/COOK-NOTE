@@ -690,6 +690,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "label": "Pur\u00e9e pommes de terre citron"
       },
       {
+        "id": "rattes_four",
+        "label": "Rattes au four"
+      },
+      {
         "id": "riz_au_citron",
         "label": "Riz au citron"
       },
@@ -6506,9 +6510,9 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
     }
   },
   "crevettes_ail_persil": {
-    "title": "Crevettes ail persil",
+    "title": "Crevettes en persillade",
     "master": "plats_maitre",
-    "image": "/assets/recipe-images-optimized/crevettes_ail_persil_photo_v4_spooky.jpg",
+    "image": "/assets/recipe-images-optimized/crevettes_persillade_spooky.jpg",
     "categories": [
       "Plats"
     ],
@@ -6526,7 +6530,8 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       "persil"
     ],
     "aliases": [
-      "crevettes ail persil"
+      "crevettes ail persil",
+      "crevettes en persillade"
     ],
     "ingredients": [
       {
@@ -7823,6 +7828,401 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       ],
       "result": [
         "Dhal cremeux, epice, lisible comme plat complet."
+      ]
+    }
+  },
+  "fish_and_chips": {
+    "title": "Fish and chips",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/fish_and_chips_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 5,
+    "yield": "4 personnes",
+    "activeTime": 32,
+    "cookTime": 18,
+    "tags": [
+      "poisson",
+      "friture",
+      "pommes de terre"
+    ],
+    "aliases": [
+      "poisson frit frites",
+      "fish chips"
+    ],
+    "ingredients": [
+      {
+        "group": "Poisson",
+        "items": [
+          "600g dos de cabillaud ou lieu",
+          "120g farine",
+          "160g biere blonde tres froide ou eau petillante",
+          "1 oeuf",
+          "6g levure chimique",
+          "4g sel fin",
+          "Poivre du moulin"
+        ]
+      },
+      {
+        "group": "Frites et service",
+        "items": [
+          "800g pommes de terre",
+          "1000g huile neutre de friture",
+          "1 citron",
+          "120g sauce yaourt citronnee"
+        ]
+      }
+    ],
+    "steps": [
+      "Tailler les pommes de terre en grosses frites, les rincer puis les secher soigneusement.",
+      "Cuire les frites dans l huile chaude jusqu a ce qu elles soient tendres, egoutter puis reserver.",
+      "Melanger farine, levure, sel, poivre du moulin, oeuf et biere froide pour obtenir une pate epaisse.",
+      "Secher le poisson, l enrober de pate puis frire jusqu a ce que la croute soit doree et croustillante.",
+      "Replonger les frites quelques minutes pour les dorer, saler puis servir avec citron et sauce."
+    ],
+    "notes": [
+      "Repere menu : plat frit et riche, a equilibrer avec salade acide ou dessert frais.",
+      "Conservation : meilleur minute; restes 24h au refrigerateur, rechauffage au four doux pour garder du croustillant.",
+      "Securite : surveiller l huile chaude, ne jamais remplir la casserole au-dela de la moitie."
+    ],
+    "linkedRecipes": [
+      {
+        "id": "sauce_yaourt_citronnee",
+        "role": "Sauce rapide"
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Casserole haute",
+        "Ecumoire",
+        "Papier absorbant"
+      ],
+      "result": [
+        "Poisson croustillant, chair blanche lisible, frites epaisses."
+      ]
+    }
+  },
+  "rattes_four": {
+    "title": "Rattes au four",
+    "master": "accompagnements_maitre",
+    "image": "/assets/recipe-images-optimized/rattes_four_spooky.jpg",
+    "categories": [
+      "Accompagnements"
+    ],
+    "seasons": [
+      "Toutes saisons"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 2,
+    "yield": "4 personnes",
+    "activeTime": 10,
+    "cookTime": 35,
+    "tags": [
+      "pommes de terre",
+      "four",
+      "herbes"
+    ],
+    "aliases": [
+      "rattes cuites au four",
+      "pommes de terre rattes au four"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "800g pommes de terre rattes",
+          "30g huile d olive",
+          "2 gousses d ail",
+          "3g thym",
+          "3g romarin",
+          "5g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Prechauffer le four a 200C.",
+      "Laver et secher les rattes sans les eplucher.",
+      "Melanger avec huile, ail ecrase, thym, romarin, sel et poivre du moulin.",
+      "Etaler en une couche dans un plat chaud.",
+      "Rotir 30 a 35min en retournant une fois, jusqu a peau ridee et coeur fondant."
+    ],
+    "notes": [
+      "Repere menu : accompagnement neutre, bon avec poisson, poulet ou plat en sauce sans autre feculent.",
+      "Conservation : 2 a 3 jours au refrigerateur; rechauffer au four pour retrouver la peau ferme.",
+      "Securite : secher les pommes de terre pour eviter les projections d huile."
+    ],
+    "practical": {
+      "equipment": [
+        "Plat a four",
+        "Couteau",
+        "Spatule"
+      ],
+      "result": [
+        "Petites pommes de terre entieres, peau doree et coeur fondant."
+      ]
+    }
+  },
+  "gratin_chou_fleur_comte_lardons": {
+    "title": "Gratin chou-fleur comte lardons",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/gratin_chou_fleur_comte_lardons_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver",
+      "Printemps"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "activeTime": 25,
+    "cookTime": 35,
+    "tags": [
+      "chou-fleur",
+      "fromage",
+      "lardons"
+    ],
+    "aliases": [
+      "gratin de chou-fleur au comte et aux lardons"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "850g chou-fleur",
+          "160g lardons fumes",
+          "180g comte rape",
+          "300g lait",
+          "150g creme liquide",
+          "25g beurre",
+          "25g farine",
+          "2g noix de muscade",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire le chou-fleur en bouquets 8 a 10min, il doit rester un peu ferme.",
+      "Dorer les lardons a la poele puis les egoutter.",
+      "Fondre le beurre, ajouter farine, puis verser lait et creme en fouettant pour obtenir une sauce nappante.",
+      "Ajouter muscade, poivre du moulin, la moitie du comte et les lardons.",
+      "Mettre le chou-fleur dans un plat, napper de sauce, couvrir du reste de comte.",
+      "Gratiner 25 a 30min a 190C jusqu a surface doree."
+    ],
+    "notes": [
+      "Repere menu : plat cremeux et fromage, ne pas ajouter une sauce riche ni un second gratin.",
+      "Conservation : 2 a 3 jours au refrigerateur; rechauffer couvert puis finir decouvert.",
+      "Securite : egoutter le chou-fleur pour eviter un gratin aqueux."
+    ],
+    "practical": {
+      "equipment": [
+        "Plat a gratin",
+        "Casserole",
+        "Fouet"
+      ],
+      "result": [
+        "Gratin riche, chou-fleur visible, fromage dore et lardons croustillants."
+      ]
+    }
+  },
+  "hachis_parmentier": {
+    "title": "Hachis parmentier",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/hachis_parmentier_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Automne",
+      "Hiver"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "activeTime": 35,
+    "cookTime": 35,
+    "tags": [
+      "boeuf",
+      "pommes de terre",
+      "gratin"
+    ],
+    "aliases": [
+      "parmentier de boeuf"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "700g boeuf hache ou reste de boeuf cuit",
+          "950g pommes de terre",
+          "180g lait",
+          "60g beurre",
+          "140g oignon",
+          "100g carotte",
+          "2 gousses d ail",
+          "120g comte rape",
+          "20g huile d olive",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Cuire les pommes de terre dans l eau salee puis les ecraser avec lait chaud et beurre.",
+      "Faire revenir oignon, carotte et ail haches dans l huile.",
+      "Ajouter le boeuf et cuire jusqu a ce que la garniture soit bien sechee.",
+      "Etaler la viande dans un plat, couvrir de puree puis parsemer de comte.",
+      "Cuire 25 a 30min a 190C, jusqu a dessus dore."
+    ],
+    "notes": [
+      "Repere menu : plat complet avec feculent et viande, servir avec salade verte ou legumes acides.",
+      "Conservation : 2 a 3 jours au refrigerateur; rechauffage au four couvert.",
+      "Securite : refroidir rapidement le plat si prepare en avance."
+    ],
+    "practical": {
+      "equipment": [
+        "Casserole",
+        "Poele",
+        "Plat a gratin"
+      ],
+      "result": [
+        "Couche de viande juteuse, puree doree, plat familial complet."
+      ]
+    }
+  },
+  "tomates_farcies": {
+    "title": "Tomates farcies",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/tomates_farcies_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Ete",
+      "Automne"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "4 personnes",
+    "activeTime": 30,
+    "cookTime": 45,
+    "tags": [
+      "tomates",
+      "farce",
+      "four"
+    ],
+    "aliases": [
+      "tomates farcies au four"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "900g grosses tomates",
+          "500g chair a saucisse",
+          "120g oignon",
+          "60g mie de pain",
+          "80g lait",
+          "1 oeuf",
+          "2 gousses d ail",
+          "20g persil",
+          "120g riz",
+          "20g huile d olive",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Couper un chapeau aux tomates, les vider puis saler legerement l interieur.",
+      "Tremper la mie de pain dans le lait, puis melanger avec chair a saucisse, oeuf, oignon, ail et persil.",
+      "Garnir les tomates sans trop tasser et replacer les chapeaux.",
+      "Mettre le riz au fond du plat avec un peu de chair de tomate et huile.",
+      "Cuire 40 a 45min a 180C, jusqu a farce cuite et tomates confites."
+    ],
+    "notes": [
+      "Repere menu : plat complet tomate + viande + riz, eviter un accompagnement tomate ou un second feculent.",
+      "Conservation : 2 jours au refrigerateur; rechauffage doux au four.",
+      "Securite : la farce doit etre cuite a coeur, surtout si les tomates sont tres grosses."
+    ],
+    "practical": {
+      "equipment": [
+        "Plat a four",
+        "Couteau",
+        "Saladier"
+      ],
+      "result": [
+        "Tomates bien farcies, jus parfume et riz de cuisson au fond du plat."
+      ]
+    }
+  },
+  "piperade_oeuf_plat": {
+    "title": "Piperade oeuf au plat",
+    "master": "plats_maitre",
+    "image": "/assets/recipe-images-optimized/piperade_oeuf_plat_spooky.jpg",
+    "categories": [
+      "Plats"
+    ],
+    "seasons": [
+      "Ete",
+      "Automne"
+    ],
+    "difficulty": "easy",
+    "difficultyScore": 3,
+    "yield": "4 personnes",
+    "activeTime": 25,
+    "cookTime": 35,
+    "tags": [
+      "poivrons",
+      "tomates",
+      "oeufs"
+    ],
+    "aliases": [
+      "piperade et oeuf au plat",
+      "piperade aux oeufs"
+    ],
+    "ingredients": [
+      {
+        "group": "Base",
+        "items": [
+          "650g poivrons rouges et verts",
+          "500g tomates",
+          "180g oignon",
+          "2 gousses d ail",
+          "35g huile d olive",
+          "4 oeufs",
+          "2g piment d Espelette",
+          "4g sel fin",
+          "Poivre du moulin"
+        ]
+      }
+    ],
+    "steps": [
+      "Emincer poivrons et oignons, hacher l ail.",
+      "Faire revenir oignons et poivrons dans l huile jusqu a ce qu ils commencent a fondre.",
+      "Ajouter ail, tomates concassees, sel, poivre du moulin et piment.",
+      "Mijoter 25 a 30min pour concentrer la piperade.",
+      "Creuser quatre nids, casser les oeufs et cuire a couvert jusqu a blancs pris et jaunes encore souples."
+    ],
+    "notes": [
+      "Repere menu : plat legumes + oeufs, bon avec pain grille ou pommes de terre simples, pas avec autre sauce tomate.",
+      "Conservation : piperade seule 2 a 3 jours au refrigerateur; ajouter les oeufs au dernier moment.",
+      "Securite : cuire les oeufs juste avant service si le plat est prepare en avance."
+    ],
+    "practical": {
+      "equipment": [
+        "Grande poele",
+        "Couteau",
+        "Couvercle"
+      ],
+      "result": [
+        "Poivrons fondants, tomate concentree, oeufs au plat poses dessus."
       ]
     }
   }
