@@ -3457,6 +3457,91 @@ window.RECIPES = {
     ],
     "difficultyScore": 8
   },
+  "tarte_aux_myrtilles": {
+    "title": "Tarte aux myrtilles",
+    "master": "tartes_maitre",
+    "image": "/assets/recipe-images-optimized/tarte_aux_myrtilles_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "Été"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "6 personnes",
+    "activeTime": 30,
+    "cookTime": 52,
+    "tags": [
+      "tarte",
+      "myrtilles",
+      "pâte sablée",
+      "dessert fruit"
+    ],
+    "aliases": [
+      "tarte myrtilles",
+      "tarte aux bleuets"
+    ],
+    "ingredients": [
+      {
+        "group": "Pâte sablée",
+        "items": [
+          "225g farine",
+          "110g beurre doux pommade",
+          "45g sucre glace",
+          "20g jaune d'œuf",
+          "35g eau très froide",
+          "1 pincée de sel fin"
+        ]
+      },
+      {
+        "group": "Garniture",
+        "items": [
+          "60g poudre d'amandes",
+          "100g œufs",
+          "100g crème liquide entière",
+          "45g cassonade ou vergeoise",
+          "Extrait naturel de vanille selon dosage de la bouteille",
+          "480g myrtilles fraîches"
+        ]
+      }
+    ],
+    "steps": [
+      "Sabler farine, beurre pommade et sel, puis ajouter le sucre glace.",
+      "Incorporer le jaune d'œuf et l'eau très froide jusqu'à obtenir une pâte homogène, sans trop travailler.",
+      "Aplatir la pâte, filmer et reposer 30min au réfrigérateur.",
+      "Étaler la pâte, foncer un moule ou un cercle de 24cm, puis couper l'excédent.",
+      "Cuire le fond à blanc 12min à 180°C avec papier cuisson et poids.",
+      "Retirer les poids, répartir la poudre d'amandes sur le fond précuit, puis ajouter les myrtilles.",
+      "Remettre au four 15min pour commencer à cuire les fruits.",
+      "Fouetter œufs, cassonade ou vergeoise, crème et vanille.",
+      "Verser l'appareil sur les myrtilles, puis poursuivre la cuisson 25min environ, jusqu'à garniture prise.",
+      "Laisser tiédir, puis refroidir au réfrigérateur avant de couper."
+    ],
+    "notes": [
+      "Repère menu : dessert fruité et crémeux, bon après un plat grillé ou une assiette simple.",
+      "La poudre d'amandes protège le fond et absorbe une partie du jus des myrtilles.",
+      "Conservation : 3 à 4 jours au réfrigérateur, sous cloche ou en boîte hermétique.",
+      "Sécurité : refroidir rapidement avant stockage et garder au froid à cause de l'appareil aux œufs."
+    ],
+    "linkedRecipes": [
+      {
+        "id": "pate_sucree",
+        "role": "Base proche"
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Moule ou cercle de 24cm",
+        "Rouleau",
+        "Papier cuisson",
+        "Poids de cuisson"
+      ],
+      "result": [
+        "Pâte sablée dorée, crème prise et myrtilles fondantes bien visibles."
+      ]
+    }
+  },
   "tiramisu_speculoos": {
     "title": "Tiramisu spéculoos",
     "master": "desserts_cuillere_maitre",
@@ -4342,6 +4427,10 @@ window.RECIPES = {
       {
         "id": "tarte_citron_meringuee",
         "label": "Tarte citron meringuée"
+      },
+      {
+        "id": "tarte_aux_myrtilles",
+        "label": "Tarte aux myrtilles"
       }
     ],
     "technical": [

@@ -8239,5 +8239,90 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
         "Poivrons fondants, tomate concentree, oeufs au plat poses dessus."
       ]
     }
+  },
+  "tarte_aux_myrtilles": {
+    "title": "Tarte aux myrtilles",
+    "master": "tartes_maitre",
+    "image": "/assets/recipe-images-optimized/tarte_aux_myrtilles_spooky.jpg",
+    "categories": [
+      "Desserts"
+    ],
+    "seasons": [
+      "\u00c9t\u00e9"
+    ],
+    "difficulty": "medium",
+    "difficultyScore": 4,
+    "yield": "6 personnes",
+    "activeTime": 30,
+    "cookTime": 52,
+    "tags": [
+      "tarte",
+      "myrtilles",
+      "p\u00e2te sabl\u00e9e",
+      "dessert fruit"
+    ],
+    "aliases": [
+      "tarte myrtilles",
+      "tarte aux bleuets"
+    ],
+    "ingredients": [
+      {
+        "group": "P\u00e2te sabl\u00e9e",
+        "items": [
+          "225g farine",
+          "110g beurre doux pommade",
+          "45g sucre glace",
+          "20g jaune d'\u0153uf",
+          "35g eau tr\u00e8s froide",
+          "1 pinc\u00e9e de sel fin"
+        ]
+      },
+      {
+        "group": "Garniture",
+        "items": [
+          "60g poudre d'amandes",
+          "100g \u0153ufs",
+          "100g cr\u00e8me liquide enti\u00e8re",
+          "45g cassonade ou vergeoise",
+          "Extrait naturel de vanille selon dosage de la bouteille",
+          "480g myrtilles fra\u00eeches"
+        ]
+      }
+    ],
+    "steps": [
+      "Sabler farine, beurre pommade et sel, puis ajouter le sucre glace.",
+      "Incorporer le jaune d'\u0153uf et l'eau tr\u00e8s froide jusqu'\u00e0 obtenir une p\u00e2te homog\u00e8ne, sans trop travailler.",
+      "Aplatir la p\u00e2te, filmer et reposer 30min au r\u00e9frig\u00e9rateur.",
+      "\u00c9taler la p\u00e2te, foncer un moule ou un cercle de 24cm, puis couper l'exc\u00e9dent.",
+      "Cuire le fond \u00e0 blanc 12min \u00e0 180\u00b0C avec papier cuisson et poids.",
+      "Retirer les poids, r\u00e9partir la poudre d'amandes sur le fond pr\u00e9cuit, puis ajouter les myrtilles.",
+      "Remettre au four 15min pour commencer \u00e0 cuire les fruits.",
+      "Fouetter \u0153ufs, cassonade ou vergeoise, cr\u00e8me et vanille.",
+      "Verser l'appareil sur les myrtilles, puis poursuivre la cuisson 25min environ, jusqu'\u00e0 garniture prise.",
+      "Laisser ti\u00e9dir, puis refroidir au r\u00e9frig\u00e9rateur avant de couper."
+    ],
+    "notes": [
+      "Rep\u00e8re menu : dessert fruit\u00e9 et cr\u00e9meux, bon apr\u00e8s un plat grill\u00e9 ou une assiette simple.",
+      "La poudre d'amandes prot\u00e8ge le fond et absorbe une partie du jus des myrtilles.",
+      "Conservation : 3 \u00e0 4 jours au r\u00e9frig\u00e9rateur, sous cloche ou en bo\u00eete herm\u00e9tique.",
+      "S\u00e9curit\u00e9 : refroidir rapidement avant stockage et garder au froid \u00e0 cause de l'appareil aux \u0153ufs."
+    ],
+    "linkedRecipes": [
+      {
+        "id": "pate_sucree",
+        "role": "Base proche"
+      }
+    ],
+    "practical": {
+      "equipment": [
+        "Moule ou cercle de 24cm",
+        "Rouleau",
+        "Papier cuisson",
+        "Poids de cuisson"
+      ],
+      "result": [
+        "P\u00e2te sabl\u00e9e dor\u00e9e, cr\u00e8me prise et myrtilles fondantes bien visibles."
+      ]
+    }
   }
 });

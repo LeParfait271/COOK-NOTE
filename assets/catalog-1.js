@@ -888,6 +888,10 @@ window.RECIPES = Object.assign(window.RECIPES || {}, {
       {
         "id": "tarte_citron_meringuee",
         "label": "Tarte citron meringu\u00e9e"
+      },
+      {
+        "id": "tarte_aux_myrtilles",
+        "label": "Tarte aux myrtilles"
       }
     ],
     "technical": [
