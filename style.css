@@ -1010,68 +1010,6 @@ a {
   backdrop-filter: blur(18px) saturate(1.08);
 }
 
-.monthly-additions-block {
-  margin-bottom: 18px;
-  padding: 10px;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--line));
-  border-radius: var(--radius);
-  background:
-    linear-gradient(135deg, rgba(251, 191, 36, .045), rgba(255, 255, 255, .012)),
-    color-mix(in srgb, var(--surface) 88%, transparent);
-  backdrop-filter: blur(14px) saturate(1.02);
-}
-
-.monthly-additions-block .recipe-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.monthly-additions-block .recipe-card {
-  min-width: 0;
-  min-height: 142px;
-  aspect-ratio: 16 / 9;
-  --title-hover-lift: -28px;
-}
-
-.monthly-additions-block .recipe-card h3 {
-  max-width: 88%;
-  font-size: clamp(17px, 1.25vw, 21px);
-  line-height: 1.05;
-}
-
-.monthly-additions-block .tag-line,
-.monthly-additions-block .card-overlay-tags,
-.monthly-additions-block .recipe-card > .card-body > .nutri-score {
-  display: none;
-}
-
-.monthly-additions-head {
-  margin-bottom: 10px;
-  gap: 10px;
-}
-
-.monthly-additions-actions {
-  display: inline-flex;
-  align-items: center;
-  justify-content: end;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.monthly-additions-more {
-  min-height: 32px;
-  padding-inline: 10px;
-  font-size: 12px;
-}
-
-.monthly-additions-hint {
-  margin: 9px 2px 0;
-  color: color-mix(in srgb, var(--text) 58%, var(--muted));
-  font-size: 12px;
-  font-weight: 800;
-}
-
 .season-dashboard {
   align-items: center;
   border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
@@ -4506,7 +4444,6 @@ a {
   }
 
   .home-view .season-block,
-  .home-view .monthly-additions-block,
   .home-view .fav-btn,
   .home-view .video-badge,
   .home-view .recipe-card h3,
@@ -4526,24 +4463,6 @@ a {
   .card-quicklook,
   .variant-card-quicklook {
     display: none;
-  }
-
-  .monthly-additions-block .recipe-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .monthly-additions-block .recipe-card {
-    min-height: clamp(176px, 48vw, 236px);
-  }
-
-  .monthly-additions-head {
-    align-items: start;
-    gap: 8px;
-  }
-
-  .monthly-additions-actions {
-    justify-content: start;
   }
 
   .prep-timeline-block li {

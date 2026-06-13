@@ -52,8 +52,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les boutons partager et imprimer du hero ne doivent apparaitre que sur les vraies fiches recettes servies, jamais sur les categories, collections ou fiches parentes.
 - Sur mobile, les onglets de fiche `Ingredients / Etapes / Avant` ne doivent pas etre sticky pendant le scroll. Si un swipe change de panneau, afficher un indice discret visible sur mobile.
 - Sur mobile, le swipe entre panneaux de fiche doit etre accroche a toute la vue recette, pas seulement a la grille centrale, pour fonctionner meme si le geste commence hors de la case.
-- `Ajouts du mois` doit rester range automatiquement : date recente, puis categorie metier, puis titre. Chaque entree de `MONTHLY_ADDITIONS` doit pointer vers une fiche recette existante non parente, sans doublon, avec une date ISO et au moins une categorie.
-- `Ajouts du mois` ne doit pas afficher de preview par defaut : les cartes restent masquees tant que l'utilisateur n'appuie pas sur le bouton `Voir les X ajouts`.
+- La section visible `Ajouts du mois` est supprimee de l'accueil. Ne pas recreer le bloc, son bouton `Voir les X ajouts`, ni ses styles `monthly-additions`.
 - Les liens Techniques doivent centrer la carte visee, la faire clignoter assez longtemps, et garder le halo actif tant qu'on est sur la page.
 - La recherche doit comprendre les intentions utilisateur courantes : rapide, sans cuisson, cuisson au four, friture, a preparer a l'avance, congelable, vegetarien, froid et ingredients proches.
 - La recherche doit proposer un selecteur de difficulte qui filtre vraiment les resultats par score : facile 1-3, moyen 4-6, technique 7-10.
@@ -91,6 +90,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Une image recette doit representer le plat exact ou une variante visuelle evidente du plat. Une image jolie mais semantiquement fausse (falafels pour nems, boulettes pour rouleaux, dessert pour base, etc.) est une erreur bloquante.
 - Les images recette ne doivent pas avoir un rendu vectoriel plat, cartoon ou a grands aplats : meme quand elles sont generees ou recadrees, elles doivent rester appetissantes, texturees et plausibles comme visuel culinaire.
 - Quand une image visible est remplacee parce qu'elle etait fausse, moche, dessinee, dupliquee ou mal cadree, utiliser un nouveau nom de fichier stable pour contourner le cache image. Ne pas repointer la recette vers l'ancienne URL corrigee en place.
+- Les ids, URLs et noms de fichiers de recettes ne doivent pas garder de trace de source externe, d'auteur, de blog ou de personne citee dans la source de travail. Utiliser un nom culinaire neutre et stable.
 - L'audit image `npm run audit:images` doit rester disponible pour reperer images trop petites, miniatures faibles, cadrages atypiques et doublons visuels avant une passe photo.
 - Avant d'integrer une image generee, montrer le visuel et attendre validation utilisateur, sauf validation deja donnee explicitement.
 - Quand une image est validee, la copier dans `assets/recipe-images/` avec un nom stable lie a l'id recette.

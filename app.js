@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.35';
+const SITE_VERSION = 'v1.36';
 const SITE_UPDATED_AT = '13/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -36,113 +36,7 @@ const HOME_CARD_ORDER = {
   accompagnements_maitre: 7,
   desserts_maitre: 8
 };
-const MONTHLY_ADDITIONS = [
-  { id: 'sauce_nem', addedAt: '2026-06-13' },
-  { id: 'brochettes_melon_epice', addedAt: '2026-06-13' },
-  { id: 'gratin_chou_fleur_chorizo_cocottes', addedAt: '2026-06-13' },
-  { id: 'croquettes_pommes_de_terre', addedAt: '2026-06-13' },
-  { id: 'curry_poulet_crevettes', addedAt: '2026-06-13' },
-  { id: 'saucisse_lentilles', addedAt: '2026-06-13' },
-  { id: 'ecrasee_pommes_de_terre_truffe_saint_jacques', addedAt: '2026-06-13' },
-  { id: 'pommes_de_terre_suedoises', addedAt: '2026-06-13' },
-  { id: 'cassoulet_pierre_perret', addedAt: '2026-06-13' },
-  { id: 'saucisses_aux_lentilles', addedAt: '2026-06-13' },
-  { id: 'haricots_tarbais_chorizo_tomate', addedAt: '2026-06-13' },
-  { id: 'tomates_cocktail_thon_mascarpone', addedAt: '2026-06-13' },
-  { id: 'poulet_tomates_poivron_vin_blanc_thym', addedAt: '2026-06-13' },
-  { id: 'poulet_chorizo_vin_blanc_citron', addedAt: '2026-06-13' },
-  { id: 'ragout_boeuf_biere', addedAt: '2026-06-13' },
-  { id: 'irish_stew_guinness', addedAt: '2026-06-13' },
-  { id: 'petits_pois_francaise', addedAt: '2026-06-13' },
-  { id: 'soupe_paysanne_morteau', addedAt: '2026-06-13' },
-  { id: 'queue_boeuf_carottes_vin_rouge', addedAt: '2026-06-13' },
-  { id: 'crevettes_ail_persil', addedAt: '2026-06-03' },
-  { id: 'fish_and_chips', addedAt: '2026-06-03' },
-  { id: 'rattes_four', addedAt: '2026-06-03' },
-  { id: 'gratin_chou_fleur_comte_lardons', addedAt: '2026-06-03' },
-  { id: 'hachis_parmentier', addedAt: '2026-06-03' },
-  { id: 'tomates_farcies', addedAt: '2026-06-03' },
-  { id: 'piperade_oeuf_plat', addedAt: '2026-06-03' },
-  { id: 'carottes_braisees_orange_citron_confit', addedAt: '2026-06-03' },
-  { id: 'salade_pois_chiches_thon_poivrons', addedAt: '2026-06-03' },
-  { id: 'pates_tomates_confites_parmesan', addedAt: '2026-06-03' },
-  { id: 'poulet_tikka_masala', addedAt: '2026-06-03' },
-  { id: 'poulet_pommes_de_terre_asperges', addedAt: '2026-06-03' },
-  { id: 'gratin_chou_fleur_mascarpone_moutarde', addedAt: '2026-06-03' },
-  { id: 'pates_brocolis_amandes', addedAt: '2026-06-03' },
-  { id: 'rougail_saucisse', addedAt: '2026-06-03' },
-  { id: 'brochettes_crevettes_chorizo', addedAt: '2026-06-03' },
-  { id: 'dhal_lentilles_epices', addedAt: '2026-06-03' },
-  { id: 'puree_patates_douces', addedAt: '2026-06-02' },
-  { id: 'chou_fleur_coco_curry', addedAt: '2026-06-02' },
-  { id: 'oeufs_cocotte_chorizo', addedAt: '2026-06-02' },
-  { id: 'puree_chou_fleur', addedAt: '2026-06-02' },
-  { id: 'sauce_aigre_douce_vietnam', addedAt: '2026-06-02' },
-  { id: 'nems_vietnam', addedAt: '2026-06-02' },
-  { id: 'asperges_mimosa', addedAt: '2026-06-02' },
-  { id: 'salade_pois_chiche_feta_olives', addedAt: '2026-06-02' },
-  { id: 'cuisses_poulet_four_tomates_thym', addedAt: '2026-06-02' },
-  { id: 'chou_vert_sauce_tomate', addedAt: '2026-06-02' },
-  { id: 'potee_chou', addedAt: '2026-06-02' },
-  { id: 'veloute_hiver_noix_cajou', addedAt: '2026-06-02' },
-  { id: 'patates_douces_four', addedAt: '2026-06-02' },
-  { id: 'harissa_maison', addedAt: '2026-06-02' },
-  { id: 'carottes_persillade_creme', addedAt: '2026-06-02' },
-  { id: 'pommes_grenaille_herbes', addedAt: '2026-06-02' },
-  { id: 'salade_caprese', addedAt: '2026-06-03' },
-  { id: 'porc_chorizo_haricots_tarbais', addedAt: '2026-06-02' },
-  { id: 'saumon_au_four_simple', addedAt: '2026-06-02' },
-  { id: 'souffle_fromage_facile', addedAt: '2026-06-02' },
-  { id: 'bruschetta_roquefort_noix', addedAt: '2026-06-02' },
-  { id: 'tagliatelles_agrumes', addedAt: '2026-06-02' },
-  { id: 'bricks_fromage_miel_poires_pecan', addedAt: '2026-06-02' },
-  { id: 'oeufs_meurette_faciles', addedAt: '2026-06-02' },
-  { id: 'poires_roties_orange_miel', addedAt: '2026-06-02' },
-  { id: 'grillades_porc_miel_orange_piment', addedAt: '2026-06-02' },
-  { id: 'southern_biscuits', addedAt: '2026-06-02' },
-  { id: 'pates_crumble_chorizo', addedAt: '2026-06-02' },
-  { id: 'chapelure_parfumee', addedAt: '2026-06-02' },
-  { id: 'encornets_chorizo', addedAt: '2026-06-02' },
-  { id: 'crevettes_provencale', addedAt: '2026-06-02' },
-  { id: 'carottes_roties_miel_epices', addedAt: '2026-06-02' },
-  { id: 'pommes_paille', addedAt: '2026-06-02' },
-  { id: 'samoussas_boeuf_epinards_petits_pois', addedAt: '2026-06-02' },
-  { id: 'gratin_pates_chorizo', addedAt: '2026-06-02' },
-  { id: 'gressins_fromage_olives', addedAt: '2026-06-02' },
-  { id: 'salade_epinards_clementines_amande_feta', addedAt: '2026-06-02' },
-  { id: 'joues_porc_cidre_miel', addedAt: '2026-06-02' },
-  { id: 'puree_butternut_pommes_terre_curry', addedAt: '2026-06-02' },
-  { id: 'joues_boeuf_whiskey_orange', addedAt: '2026-06-02' },
-  { id: 'sauce_roquefort', addedAt: '2026-06-02' },
-  { id: 'curry_carottes_lait_coco', addedAt: '2026-06-02' },
-  { id: 'potato_wedges_citron_herbes', addedAt: '2026-06-02' },
-  { id: 'houmous_hakocem', addedAt: '2026-06-02' },
-  { id: 'falafels_four', addedAt: '2026-06-02' },
-  { id: 'cuisses_poulet_asiatique', addedAt: '2026-06-02' },
-  { id: 'sauce_chevre_creme', addedAt: '2026-06-02' },
-  { id: 'puree_courge_butternut', addedAt: '2026-05-29' },
-  { id: 'riz_cantonnais', addedAt: '2026-05-29' },
-  { id: 'pates_pesto_tomates_mozzarella', addedAt: '2026-05-29' },
-  { id: 'cabillaud_crumble_chorizo', addedAt: '2026-05-29' },
-  { id: 'lentilles_tomate_pommes_de_terre_sautees', addedAt: '2026-05-29' },
-  { id: 'tiramisu_citron', addedAt: '2026-05-20' },
-  { id: 'pesto_tomates_sechees_sans_cajou', addedAt: '2026-05-20' },
-  { id: 'base_pour_flan_sale', addedAt: '2026-05-20' },
-  { id: 'pain_grille_beurre_ail_herbes', addedAt: '2026-05-20' },
-  { id: 'billes_mozzarella_marinees', addedAt: '2026-05-20' },
-  { id: 'cookies_cerise_chocolat', addedAt: '2026-05-20' },
-  { id: 'clafoutis_cerises_bocuse', addedAt: '2026-05-20' },
-  { id: 'cerises_sechees_maison', addedAt: '2026-05-20' },
-  { id: 'pate_lapin_piment_espelette', addedAt: '2026-05-20' },
-  { id: 'terrine_campagne', addedAt: '2026-05-20' },
-  { id: 'brie_farci_fruits_secs_noix', addedAt: '2026-05-20' },
-  { id: 'carres_cremeux_citron_vert', addedAt: '2026-05-20' },
-  { id: 'beurre_ail', addedAt: '2026-05-20' },
-  { id: 'cake_tomate_chorizo_feta', addedAt: '2026-05-20' },
-  { id: 'rillettes_porc', addedAt: '2026-05-20' },
-  { id: 'rillettes_poulet', addedAt: '2026-05-20' },
-  { id: 'terrine_porc_pistaches', addedAt: '2026-05-20' }
-];
+const MONTHLY_ADDITIONS = [];
 const MONTHLY_ADDITION_BY_ID = new Map(MONTHLY_ADDITIONS.map((item, index) => [item.id, { ...item, index }]));
 const CATEGORY_PARENT_IDS = {
   'Apéro': 'apero_maitre',
@@ -4417,37 +4311,6 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   );
 }
 
-function MonthlyAdditionsSection({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter }) {
-  const [expanded, setExpanded] = useState(false);
-  if (!recipes.length) return null;
-  const orderedRecipes = [...recipes].sort((a, b) => {
-    const rankA = monthlyAdditionRank(a);
-    const rankB = monthlyAdditionRank(b);
-    return rankB.time - rankA.time
-      || rankA.category - rankB.category
-      || rankA.title.localeCompare(rankB.title, 'fr', { sensitivity: 'base' })
-      || rankB.index - rankA.index;
-  });
-  const visibleRecipes = expanded ? orderedRecipes : [];
-  return h('section', { className: 'monthly-additions-block', 'aria-label': 'Ajouts du mois' },
-    h('div', { className: 'season-block-head monthly-additions-head' },
-      h('div', null,
-        h('p', { className: 'eyebrow' }, 'Nouveautés'),
-        h('h3', null, 'Ajouts du mois')
-      ),
-      h('div', { className: 'monthly-additions-actions' },
-        h('span', null, `${recipes.length} ajout${recipes.length > 1 ? 's' : ''}`),
-        h(Button, {
-          variant: 'subtle',
-          className: 'monthly-additions-more',
-          onClick: () => setExpanded(value => !value)
-        }, expanded ? 'Réduire' : `Voir les ${recipes.length} ajout${recipes.length > 1 ? 's' : ''}`)
-      )
-    ),
-    expanded && h(RecipeGrid, { recipes: visibleRecipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite: true })
-  );
-}
-
 function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, personalNotes = {}, favoriteCollection, setFavoriteCollection }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
@@ -4531,20 +4394,10 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
 }
 
 function HomeView(props) {
-  const showRecent = !props.onlyFavorites && !props.activeChips.length && !props.filterProps.season && !props.filterProps.seasonCategory;
   return h('main', { className: 'home-view' },
     h(Hero),
     h('div', { className: 'content-wrap' },
       h(ActiveChips, { chips: props.activeChips }),
-      showRecent && h(MonthlyAdditionsSection, {
-        recipes: props.monthlyAdditionRecipes || [],
-        recipesById: props.recipesById,
-        favorites: props.favorites,
-        toggleFavorite: props.toggleFavorite,
-        personalNotes: props.personalNotes,
-        openRecipe: props.openRecipe,
-        setTagFilter: props.setTagFilter
-      }),
       h(SeasonSections, {
         sections: props.sections,
         recipesById: props.recipesById,
@@ -6027,9 +5880,6 @@ function App() {
   const activeSeoRecipe = activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => recipesById[id]).filter(Boolean), [shoppingIds, recipesById]);
   const recentRecipes = useMemo(() => recentRecipeIds.map(id => recipesById[id]).filter(recipe => recipe && !isMasterRecipe(recipe)), [recentRecipeIds, recipesById]);
-  const monthlyAdditionRecipes = useMemo(() => getVisibleMonthlyAdditions(MONTHLY_ADDITIONS)
-    .map(item => recipesById[item.id])
-    .filter(Boolean), [recipesById]);
   const hasRecipeFilters = Boolean(query.trim() || season || seasonCategory || tagFilter || onlyFavorites);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
@@ -6670,7 +6520,6 @@ function App() {
           recipesById,
           onlyFavorites,
           activeChips,
-          monthlyAdditionRecipes,
           personalNotes,
           favoriteCollection,
           setFavoriteCollection,
