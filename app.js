@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.34';
+const SITE_VERSION = 'v1.35';
 const SITE_UPDATED_AT = '13/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -37,6 +37,25 @@ const HOME_CARD_ORDER = {
   desserts_maitre: 8
 };
 const MONTHLY_ADDITIONS = [
+  { id: 'sauce_nem', addedAt: '2026-06-13' },
+  { id: 'brochettes_melon_epice', addedAt: '2026-06-13' },
+  { id: 'gratin_chou_fleur_chorizo_cocottes', addedAt: '2026-06-13' },
+  { id: 'croquettes_pommes_de_terre', addedAt: '2026-06-13' },
+  { id: 'curry_poulet_crevettes', addedAt: '2026-06-13' },
+  { id: 'saucisse_lentilles', addedAt: '2026-06-13' },
+  { id: 'ecrasee_pommes_de_terre_truffe_saint_jacques', addedAt: '2026-06-13' },
+  { id: 'pommes_de_terre_suedoises', addedAt: '2026-06-13' },
+  { id: 'cassoulet_pierre_perret', addedAt: '2026-06-13' },
+  { id: 'saucisses_aux_lentilles', addedAt: '2026-06-13' },
+  { id: 'haricots_tarbais_chorizo_tomate', addedAt: '2026-06-13' },
+  { id: 'tomates_cocktail_thon_mascarpone', addedAt: '2026-06-13' },
+  { id: 'poulet_tomates_poivron_vin_blanc_thym', addedAt: '2026-06-13' },
+  { id: 'poulet_chorizo_vin_blanc_citron', addedAt: '2026-06-13' },
+  { id: 'ragout_boeuf_biere', addedAt: '2026-06-13' },
+  { id: 'irish_stew_guinness', addedAt: '2026-06-13' },
+  { id: 'petits_pois_francaise', addedAt: '2026-06-13' },
+  { id: 'soupe_paysanne_morteau', addedAt: '2026-06-13' },
+  { id: 'queue_boeuf_carottes_vin_rouge', addedAt: '2026-06-13' },
   { id: 'crevettes_ail_persil', addedAt: '2026-06-03' },
   { id: 'fish_and_chips', addedAt: '2026-06-03' },
   { id: 'rattes_four', addedAt: '2026-06-03' },
