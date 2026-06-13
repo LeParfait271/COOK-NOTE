@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { execFileSync } = require('node:child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const errors = [];
@@ -10,6 +11,28 @@ function read(file) {
 
 function fail(message) {
   errors.push(message);
+}
+
+function changedFilesAgainstHead() {
+  try {
+    return execFileSync('git', ['diff', '--name-only', 'HEAD'], {
+      cwd: ROOT,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore']
+    })
+      .split(/\r?\n/)
+      .map(file => file.trim().replace(/\\/g, '/'))
+      .filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+function isCatalogOrVisualChange(file) {
+  return file === 'recipes.js'
+    || /^assets\/catalog-\d+\.js$/.test(file)
+    || /^assets\/recipe-(?:images|images-optimized|card-images)\//.test(file)
+    || file === 'sitemap.xml';
 }
 
 const app = read('app.js');
@@ -47,6 +70,21 @@ if (siteVersion) {
   if (siteDate && !validateUi.includes(`const SITE_UPDATED_AT = '${siteDate}'`)) {
     fail('scripts/validate-ui.js: garde-fou SITE_UPDATED_AT non aligne.');
   }
+}
+
+const changedFiles = changedFilesAgainstHead();
+const changedSet = new Set(changedFiles);
+if (changedFiles.some(isCatalogOrVisualChange)) {
+  [
+    'app.js',
+    'index.html',
+    'service-worker.js',
+    'scripts/validate-ui.js'
+  ].forEach(file => {
+    if (!changedSet.has(file)) {
+      fail(`${file}: bump version/cache obligatoire quand recettes, catalogues, images ou sitemap changent.`);
+    }
+  });
 }
 
 if (errors.length) {
