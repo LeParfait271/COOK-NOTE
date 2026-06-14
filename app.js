@@ -1,12 +1,12 @@
-/* global React, ReactDOM, QRCode */
+﻿/* global React, ReactDOM, QRCode */
 
 const { useEffect, useMemo, useRef, useState } = React;
 const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.39';
-const SITE_UPDATED_AT = '13/06/26';
+const SITE_VERSION = 'v1.40';
+const SITE_UPDATED_AT = '14/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };

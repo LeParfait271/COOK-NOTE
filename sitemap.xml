@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://cook-note.pages.dev/</loc>
@@ -388,6 +388,9 @@
     <loc>https://cook-note.pages.dev/recette/macaron_ourea_pierre_herme</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/madeleines_comte_epices_douces</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/marinades_guide</loc>
   </url>
   <url>
@@ -718,3 +721,4 @@
     <loc>https://cook-note.pages.dev/recette/vinaigrette</loc>
   </url>
 </urlset>
+
