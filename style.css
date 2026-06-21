@@ -4267,6 +4267,311 @@ a {
   contain-intrinsic-size: 300px 380px;
 }
 
+.home-command-bar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  margin: 0 0 18px;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--line));
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .012)),
+    color-mix(in srgb, var(--surface) 88%, transparent);
+  padding: 14px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, .18);
+}
+
+.home-command-copy {
+  min-width: 0;
+}
+
+.home-command-copy h2 {
+  margin: 0;
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1;
+}
+
+.home-command-stats,
+.home-command-actions,
+.home-command-recents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.home-command-stats {
+  margin-top: 10px;
+}
+
+.home-command-stats span,
+.home-command-recents strong {
+  min-height: 28px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-soft) 80%, transparent);
+  color: var(--muted);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.home-command-actions {
+  justify-content: end;
+}
+
+.home-command-action {
+  gap: 8px;
+  min-height: 42px;
+}
+
+.home-command-action .site-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.home-command-recents {
+  grid-column: 1 / -1;
+  padding-top: 2px;
+}
+
+.home-command-recents button {
+  display: grid;
+  gap: 2px;
+  min-width: 150px;
+  max-width: 240px;
+  min-height: 42px;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--line));
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--surface-soft) 80%, transparent);
+  color: var(--text);
+  padding: 7px 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.home-command-recents button:hover,
+.home-command-recents button:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 58%, var(--line));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.home-command-recents span,
+.home-command-recents small {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-command-recents span {
+  font-weight: 900;
+}
+
+.home-command-recents small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.recipe-grid {
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.recipe-card:not(.master-card) {
+  min-height: 348px;
+  aspect-ratio: auto;
+  display: grid;
+  grid-template-rows: minmax(160px, 57%) minmax(132px, 43%);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .014)),
+    color-mix(in srgb, var(--surface) 92%, transparent);
+}
+
+.recipe-card:not(.master-card) .card-media {
+  position: relative;
+  inset: auto;
+  min-height: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--card-accent, var(--accent)) 18%, var(--line));
+  transform: none;
+}
+
+.recipe-card:not(.master-card) .card-media::after {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, .06), rgba(0, 0, 0, .18)),
+    radial-gradient(circle at 50% 100%, rgba(0, 0, 0, .20), transparent 58%);
+  opacity: 1;
+}
+
+.recipe-card:not(.master-card) .card-image {
+  filter: brightness(.9) saturate(.98) contrast(1.04);
+}
+
+.recipe-card:not(.master-card):hover .card-media,
+.recipe-card:not(.master-card):focus-visible .card-media {
+  transform: none;
+}
+
+.recipe-card:not(.master-card) .card-body {
+  position: relative;
+  inset: auto;
+  align-content: start;
+  justify-items: start;
+  gap: 8px;
+  min-height: 0;
+  padding: 13px 13px 12px;
+  text-align: left;
+}
+
+.recipe-card:not(.master-card) .tag-line {
+  justify-content: start;
+  max-width: 100%;
+}
+
+.recipe-card:not(.master-card) .tag-line span:first-child {
+  justify-content: start;
+  box-shadow: none;
+}
+
+.recipe-card:not(.master-card) h3 {
+  width: 100%;
+  max-width: 100%;
+  color: var(--text);
+  font-size: 19px;
+  line-height: 1.08;
+  text-align: left;
+  text-shadow: none;
+}
+
+.recipe-card:not(.master-card):hover h3,
+.recipe-card:not(.master-card):focus-visible h3 {
+  max-width: 100%;
+  transform: none;
+  border-color: transparent;
+  background: transparent;
+  padding: 0 2px;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.recipe-card:not(.master-card) .card-facts {
+  justify-content: start;
+  max-width: 100%;
+}
+
+.recipe-card:not(.master-card) .card-facts span {
+  max-width: 100%;
+  background: color-mix(in srgb, var(--surface-soft) 84%, transparent);
+  color: color-mix(in srgb, var(--text) 78%, var(--muted));
+  backdrop-filter: none;
+}
+
+.recipe-card:not(.master-card) .card-meta {
+  position: static;
+  margin-top: auto;
+}
+
+.recipe-card:not(.master-card) .nutri-score {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 4;
+}
+
+.recipe-card:not(.master-card) .card-quicklook {
+  position: static;
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.recipe-card:not(.master-card) .card-quicklook span {
+  background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+  color: color-mix(in srgb, var(--text) 76%, var(--muted));
+  backdrop-filter: none;
+}
+
+.recipe-card:not(.master-card) .card-overlay-tags {
+  display: none;
+}
+
+.recipe-card.master-card:hover .card-media,
+.recipe-card.master-card:focus-visible .card-media {
+  transform: scale(1.02);
+}
+
+.search-modal {
+  width: min(920px, 100%);
+  max-height: min(86dvh, 820px);
+  overflow: auto;
+}
+
+.search-result {
+  grid-template-columns: 78px minmax(0, 1fr) auto;
+  border-radius: 8px;
+}
+
+.search-result-image {
+  width: 78px;
+  border-radius: 6px;
+}
+
+.search-result-copy strong {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.search-result-copy small {
+  line-height: 1.25;
+}
+
+.search-suggestion-groups {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.recipe-detail-hero {
+  min-height: 310px;
+  background-position: center;
+  box-shadow:
+    inset 0 -120px 120px rgba(0, 0, 0, .64),
+    inset 0 0 0 1px rgba(255, 255, 255, .03);
+}
+
+.detail-hero-copy {
+  padding: 42px 0 28px;
+}
+
+.recipe-detail-grid {
+  grid-template-columns: minmax(270px, .84fr) minmax(430px, 1.2fr) minmax(280px, .8fr);
+  gap: 16px;
+}
+
+.recipe-panel {
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--panel-accent, var(--accent)) 5%, transparent), transparent 150px),
+    color-mix(in srgb, var(--surface) 94%, transparent);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, .20);
+}
+
+.recipe-panel:hover {
+  transform: none;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, .24);
+}
+
+.detail-actions {
+  gap: 8px;
+}
+
+.detail-actions .btn {
+  min-height: 40px;
+}
+
 @keyframes toastIn {
   from {
     opacity: 0;
@@ -4808,6 +5113,78 @@ a {
 
   .before-start-card button {
     justify-self: start;
+  }
+
+  .home-command-bar {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 12px;
+  }
+
+  .home-command-actions {
+    justify-content: start;
+  }
+
+  .home-command-action {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    padding-inline: 8px;
+  }
+
+  .home-command-recents {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+
+  .home-command-recents::-webkit-scrollbar {
+    display: none;
+  }
+
+  .home-command-recents button {
+    flex: 0 0 178px;
+  }
+
+  .recipe-card:not(.master-card) {
+    min-height: 318px;
+    aspect-ratio: auto;
+    grid-template-rows: minmax(148px, 53%) minmax(144px, 47%);
+  }
+
+  .recipe-card:not(.master-card) h3 {
+    max-width: 100%;
+    font-size: 18px;
+  }
+
+  .recipe-card:not(.master-card) .card-quicklook {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .recipe-card:not(.master-card) .card-quicklook span {
+    min-height: 28px;
+    padding: 5px 6px;
+  }
+
+  .recipe-card:not(.master-card) .card-meta span {
+    min-height: 26px;
+    font-size: 11px;
+  }
+
+  .search-suggestion-groups {
+    grid-template-columns: 1fr;
+  }
+
+  .search-result {
+    grid-template-columns: 62px minmax(0, 1fr);
+  }
+
+  .search-result-image {
+    width: 62px;
   }
 }
 
