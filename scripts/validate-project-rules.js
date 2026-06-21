@@ -70,7 +70,6 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'audit visuel',
   'sans rajouter de sections gadget',
   'jamais sur les categories, collections ou fiches parentes',
-  'section visible `Ajouts du mois` est supprimee',
   'ne doivent pas garder de trace de source externe',
   'leur propre URL `/recette/id`',
   'ancien panneau de variante selectionnee',

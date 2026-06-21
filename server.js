@@ -22,7 +22,6 @@ const PUBLIC_ROOT_FILES = new Set([
   'app.js',
   'recipes.js',
   'recipe.js',
-  'script.js',
   'service-worker.js'
 ]);
 const ADMIN_PUBLIC_FILES = new Set(['admin-login.html', 'admin.css']);

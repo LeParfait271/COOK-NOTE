@@ -22,9 +22,65 @@ document.addEventListener('DOMContentLoaded', () => {
     return template.innerHTML;
   }
 
+  const cp1252Bytes = {
+    0x20AC: 0x80,
+    0x201A: 0x82,
+    0x0192: 0x83,
+    0x201E: 0x84,
+    0x2026: 0x85,
+    0x2020: 0x86,
+    0x2021: 0x87,
+    0x02C6: 0x88,
+    0x2030: 0x89,
+    0x0160: 0x8A,
+    0x2039: 0x8B,
+    0x0152: 0x8C,
+    0x017D: 0x8E,
+    0x2018: 0x91,
+    0x2019: 0x92,
+    0x201C: 0x93,
+    0x201D: 0x94,
+    0x2022: 0x95,
+    0x2013: 0x96,
+    0x2014: 0x97,
+    0x02DC: 0x98,
+    0x2122: 0x99,
+    0x0161: 0x9A,
+    0x203A: 0x9B,
+    0x0153: 0x9C,
+    0x017E: 0x9E,
+    0x0178: 0x9F
+  };
+
+  function mojibakeScore(value) {
+    return (String(value || '').match(/[ÃÂâÅ�]/g) || []).length;
+  }
+
+  function repairText(value) {
+    const text = String(value || '');
+    if (!/[ÃÂâÅ]/.test(text) || typeof TextDecoder === 'undefined') return text;
+    try {
+      const bytes = Uint8Array.from(Array.from(text, char => {
+        const code = char.codePointAt(0);
+        return cp1252Bytes[code] ?? (code <= 255 ? code : 63);
+      }));
+      const decoded = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+      return mojibakeScore(decoded) < mojibakeScore(text) ? decoded : text;
+    } catch {
+      return text;
+    }
+  }
+
+  function normalizeValue(value) {
+    if (typeof value === 'string') return repairText(value);
+    if (Array.isArray(value)) return value.map(normalizeValue);
+    if (!value || typeof value !== 'object') return value;
+    return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, normalizeValue(item)]));
+  }
+
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
-  const recipe = id && window.RECIPES ? window.RECIPES[id] : null;
+  const recipe = id && window.RECIPES ? normalizeValue(window.RECIPES[id]) : null;
 
   const title = document.getElementById('title');
   const ingredients = document.getElementById('ingredients');

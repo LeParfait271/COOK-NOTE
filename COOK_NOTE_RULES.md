@@ -52,7 +52,6 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les boutons partager et imprimer du hero ne doivent apparaitre que sur les vraies fiches recettes servies, jamais sur les categories, collections ou fiches parentes.
 - Sur mobile, les onglets de fiche `Ingredients / Etapes / Avant` ne doivent pas etre sticky pendant le scroll. Si un swipe change de panneau, afficher un indice discret visible sur mobile.
 - Sur mobile, le swipe entre panneaux de fiche doit etre accroche a toute la vue recette, pas seulement a la grille centrale, pour fonctionner meme si le geste commence hors de la case.
-- La section visible `Ajouts du mois` est supprimee de l'accueil. Ne pas recreer le bloc, son bouton `Voir les X ajouts`, ni ses styles `monthly-additions`.
 - Les liens Techniques doivent centrer la carte visee, la faire clignoter assez longtemps, et garder le halo actif tant qu'on est sur la page.
 - La recherche doit comprendre les intentions utilisateur courantes : rapide, sans cuisson, cuisson au four, friture, a preparer a l'avance, congelable, vegetarien, froid et ingredients proches.
 - La recherche doit proposer un selecteur de difficulte qui filtre vraiment les resultats par score : facile 1-3, moyen 4-6, technique 7-10.

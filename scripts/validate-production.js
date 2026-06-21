@@ -21,6 +21,7 @@ const STALE_IMAGE_PATHS = [
 const MOJIBAKE_PATTERN = /\u00c3[\u0080-\u00bf]|\u00c2[\u0080-\u00bf]|\u00e2[\u0080-\u00bf\u20ac\u201a-\u201e\u2020-\u2021\u2026\u2030\u2039\u2122]|\ufffd/;
 const TEXT_FILES_TO_SCAN = [
   'index.html',
+  'recipe.html',
   'app.js',
   'recipe.js',
   'service-worker.js',

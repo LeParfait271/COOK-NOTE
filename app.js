@@ -5,7 +5,7 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.42';
+const SITE_VERSION = 'v1.43';
 const SITE_UPDATED_AT = '22/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -36,8 +36,6 @@ const HOME_CARD_ORDER = {
   accompagnements_maitre: 7,
   desserts_maitre: 8
 };
-const MONTHLY_ADDITIONS = [];
-const MONTHLY_ADDITION_BY_ID = new Map(MONTHLY_ADDITIONS.map((item, index) => [item.id, { ...item, index }]));
 const CATEGORY_PARENT_IDS = {
   'Apéro': 'apero_maitre',
   'Entrées': 'entrees_maitre',
@@ -58,13 +56,6 @@ const SEASON_CATEGORY_FILTERS = [
   { value: 'Base', label: 'Bases' },
   { value: 'Petits-déjeuners', label: 'Petit-déj.' }
 ];
-const MONTHLY_ADDITION_CATEGORY_ORDER = ['apero', 'entrees', 'plats', 'accompagnements', 'desserts', 'sauces', 'base', 'petits dejeuners'];
-const MONTHLY_ADDITION_CATEGORY_RANK = new Map(MONTHLY_ADDITION_CATEGORY_ORDER.map((category, index) => [category, index]));
-MONTHLY_ADDITION_CATEGORY_RANK.set('apero', 0);
-MONTHLY_ADDITION_CATEGORY_RANK.set('entrees', 1);
-MONTHLY_ADDITION_CATEGORY_RANK.set('bases', 6);
-MONTHLY_ADDITION_CATEGORY_RANK.set('petit dejeuner', 7);
-MONTHLY_ADDITION_CATEGORY_RANK.set('petits dejeuners', 7);
 const TECHNIQUE_GUIDES = [
   {
     id: 'emincer',
@@ -713,6 +704,62 @@ function scrollElementToViewportCenter(element, behavior = 'smooth') {
   const viewportOffset = window.visualViewport?.offsetTop || 0;
   const top = Math.max(0, window.scrollY + rect.top + (rect.height / 2) - (viewportHeight / 2) - viewportOffset);
   window.scrollTo({ top, behavior });
+}
+
+const WINDOWS_1252_BYTE_BY_CODEPOINT = {
+  0x20AC: 0x80,
+  0x201A: 0x82,
+  0x0192: 0x83,
+  0x201E: 0x84,
+  0x2026: 0x85,
+  0x2020: 0x86,
+  0x2021: 0x87,
+  0x02C6: 0x88,
+  0x2030: 0x89,
+  0x0160: 0x8A,
+  0x2039: 0x8B,
+  0x0152: 0x8C,
+  0x017D: 0x8E,
+  0x2018: 0x91,
+  0x2019: 0x92,
+  0x201C: 0x93,
+  0x201D: 0x94,
+  0x2022: 0x95,
+  0x2013: 0x96,
+  0x2014: 0x97,
+  0x02DC: 0x98,
+  0x2122: 0x99,
+  0x0161: 0x9A,
+  0x203A: 0x9B,
+  0x0153: 0x9C,
+  0x017E: 0x9E,
+  0x0178: 0x9F
+};
+
+function mojibakeScore(value) {
+  return (String(value || '').match(/[ÃÂâÅ�]/g) || []).length;
+}
+
+function repairMojibakeText(value) {
+  const text = String(value || '');
+  if (!/[ÃÂâÅ]/.test(text) || typeof TextDecoder === 'undefined') return text;
+  try {
+    const bytes = Uint8Array.from(Array.from(text, char => {
+      const code = char.codePointAt(0);
+      return WINDOWS_1252_BYTE_BY_CODEPOINT[code] ?? (code <= 255 ? code : 63);
+    }));
+    const decoded = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+    return mojibakeScore(decoded) < mojibakeScore(text) ? decoded : text;
+  } catch {
+    return text;
+  }
+}
+
+function normalizeLoadedRecipeValue(value) {
+  if (typeof value === 'string') return repairMojibakeText(value);
+  if (Array.isArray(value)) return value.map(normalizeLoadedRecipeValue);
+  if (!value || typeof value !== 'object') return value;
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, normalizeLoadedRecipeValue(item)]));
 }
 
 function normalizeText(value) {
@@ -3464,55 +3511,6 @@ function getPrepTimeline(recipe) {
   return [];
 }
 
-function monthlyAdditionDate(item) {
-  const added = new Date(`${item.addedAt}T00:00:00`);
-  return Number.isNaN(added.getTime()) ? null : added;
-}
-
-function monthlyAdditionMonthKey(item) {
-  const added = monthlyAdditionDate(item);
-  if (!added) return '';
-  return added.toLocaleDateString('fr-CA', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit' });
-}
-
-function isMonthlyAdditionVisible(item, now = new Date()) {
-  const added = monthlyAdditionDate(item);
-  if (!added) return false;
-  const currentMonth = now.toLocaleDateString('fr-CA', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit' });
-  return added.getTime() <= now.getTime() && monthlyAdditionMonthKey(item) === currentMonth;
-}
-
-function getVisibleMonthlyAdditions(items, now = new Date()) {
-  const pastItems = items.filter(item => {
-    const added = monthlyAdditionDate(item);
-    return added && added.getTime() <= now.getTime();
-  });
-  const currentMonthItems = pastItems.filter(item => isMonthlyAdditionVisible(item, now));
-  if (currentMonthItems.length) return currentMonthItems;
-  const latestMonth = pastItems
-    .map(monthlyAdditionMonthKey)
-    .filter(Boolean)
-    .sort()
-    .pop();
-  return latestMonth ? pastItems.filter(item => monthlyAdditionMonthKey(item) === latestMonth) : [];
-}
-
-function monthlyAdditionRank(recipe) {
-  const item = MONTHLY_ADDITION_BY_ID.get(recipe?.id);
-  if (!item) return { time: 0, category: 99, title: '', index: 0 };
-  const added = monthlyAdditionDate(item);
-  const categories = recipe?.categories || [];
-  const categoryRanks = categories
-    .map(category => MONTHLY_ADDITION_CATEGORY_RANK.get(normalizeText(category)))
-    .filter(index => Number.isInteger(index));
-  return {
-    time: added ? added.getTime() : 0,
-    category: categoryRanks.length ? Math.min(...categoryRanks) : 99,
-    title: normalizeText(recipe?.title || recipe?.id || ''),
-    index: item.index
-  };
-}
-
 function noteKey(value) {
   return normalizeText(stripHtml(value)).replace(/[^a-z0-9]+/g, ' ').trim();
 }
@@ -5884,8 +5882,9 @@ function RecipeView({
 function App() {
   const rawRecipes = window.RECIPES && typeof window.RECIPES === 'object' ? window.RECIPES : {};
   const recipes = useMemo(() => {
-    const baseRecipesById = Object.fromEntries(Object.entries(rawRecipes).map(([id, recipe]) => [id, { id, ...recipe }]));
-    return Object.entries(rawRecipes).map(([id, recipe]) => {
+    const normalizedRecipes = normalizeLoadedRecipeValue(rawRecipes);
+    const baseRecipesById = Object.fromEntries(Object.entries(normalizedRecipes).map(([id, recipe]) => [id, { id, ...recipe }]));
+    return Object.entries(normalizedRecipes).map(([id, recipe]) => {
       const tagsExtracted = extractTags(recipe);
       return { id, tagsExtracted, searchText: getRecipeSearchText(recipe, tagsExtracted, baseRecipesById), ...recipe };
     }).sort((a, b) => a.title.localeCompare(b.title, 'fr'));

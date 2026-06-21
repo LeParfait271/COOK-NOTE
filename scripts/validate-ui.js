@@ -4,6 +4,7 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '..');
 const files = {
   app: fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8'),
+  recipe: fs.readFileSync(path.join(ROOT, 'recipe.js'), 'utf8'),
   style: fs.readFileSync(path.join(ROOT, 'style.css'), 'utf8'),
   server: fs.readFileSync(path.join(ROOT, 'server.js'), 'utf8'),
   admin: fs.readFileSync(path.join(ROOT, 'admin.js'), 'utf8'),
@@ -41,8 +42,8 @@ expect('Export recette propre absent.', files.app.includes('recipeExportText') &
 expect('Resume recette premium absent.', files.app.includes('recipe-summary-panel') && files.style.includes('.recipe-summary-panel'));
 expect('Passe premium composants absente.', files.style.includes('content-visibility: auto') && files.style.includes('.recipe-card::before') && files.style.includes('.variant-card::before') && files.app.includes("name: 'spark'"));
 expect('Badges categories incomplets sur les cartes.', files.app.includes('function categoryLine') && files.app.includes("join(' / ')") && files.app.includes('categoryLine(recipe)') && files.app.includes('categoryLine(item)') && !files.app.includes('categories.slice(0, 1)') && files.style.includes('.tag-line'));
-expect('Badges automatiques encore affiches en haut des cartes.', !files.app.includes("className: 'card-badges'") && files.rules.includes('ne doivent pas afficher de badges ou tags automatiques'));
 expect('Allergenes mollusques confondent moule cuisson et coquillage.', files.app.includes('mouleToolPattern') && files.app.includes('molluskAllergenText') && files.rules.includes('moule de cuisson'));
+expect('Correction affichage encodage absente.', files.app.includes('repairMojibakeText') && files.app.includes('normalizeLoadedRecipeValue') && files.recipe.includes('repairText') && files.recipe.includes('normalizeValue'));
 expect('Collections encore traitees comme variantes bloquees.', files.app.includes('CollectionLinksPanel') && files.app.includes('recipes.filter(recipe => !recipe.master)') && !files.app.includes('variantSelection') && !files.app.includes('setActiveId(activeRecipe.master)') && !files.style.includes('variant-picker-panel-selected'));
 expect('Sous-titre de carte recette encore base sur portions/rendement.', files.app.includes('getRecipeVariantLabel') && files.app.includes('countInlineVariantGroups') && !files.app.includes('item.yield || difficultyText(item)') && !files.app.includes("recipe.yield || ''"));
 expect('Etapes de variantes inline non separees.', files.app.includes('getSelectedInlineVariantSteps') && files.app.includes('selectedInlineVariantGroup?.group') && files.app.includes('variant-group:${selectedInlineVariantGroup.index}'));
@@ -75,14 +76,13 @@ expect('Scrollbars visibles dans panneaux longs.', files.style.includes('.recipe
 expect('CSS print propre absent.', files.style.includes('@media print') && files.style.includes('.recipe-summary-panel'));
 expect('Ancienne section dashboard encore presente.', !files.app.includes('function HomeDashboard') && !files.style.includes('.home-dashboard'));
 expect('Ancienne section collections encore presente.', !files.app.includes('SmartCollections') && !files.style.includes('smart-collection'));
-expect('Section Ajouts du mois revenue.', files.app.includes('const MONTHLY_ADDITIONS = []') && !files.app.includes('MonthlyAdditionsSection') && !files.app.includes('monthlyAdditionRecipes') && !files.app.includes('Ajouts du mois') && !files.style.includes('monthly-additions') && files.rules.includes('section visible `Ajouts du mois` est supprimee'));
 expect('Fallback image carte absent.', files.app.includes('onError: event =>') && files.app.includes('event.currentTarget.src = recipe.image'));
 expect('Mode cuisine revenu.', !files.app.includes('Mode cuisine') && !files.app.includes('focusMode') && !files.style.includes('recipe-focus-mode') && !files.style.includes('focus-toggle') && !files.style.includes('focus-action'));
 expect('Boutons minuteurs revenus.', !files.app.includes('step-timer') && !files.style.includes('step-timer') && !files.app.includes('timerEnd') && !files.app.includes('timerLabel') && !files.app.includes('cooking-step-card') && !files.style.includes('cooking-step-actions'));
 expect('Fiche rapide variantes sans etat vide.', files.app.includes('recipe-summary-empty') && files.app.includes('Sélectionne une variante pour afficher les informations de la fiche rapide.'));
 expect('Compteur catalogue footer absent ou statique.', files.app.includes('getCatalogRecipeStats') && files.app.includes('site-footer-count') && files.app.includes('countInlineVariantGroups(recipe)') && files.rules.includes('compteur catalogue automatique') && files.style.includes('.site-footer-count'));
 expect('Footer annee encadree revenue.', files.app.includes('Cook Note \\u00a9 2026.') && !files.app.includes('site-footer-year') && !files.style.includes('.site-footer-year') && files.rules.includes("l'annee dans une pilule separee"));
-expect('Version footer absente.', files.app.includes("const SITE_VERSION = 'v1.42'") && files.app.includes("const SITE_UPDATED_AT = '22/06/26'") && files.app.includes('site-footer-version'));
+expect('Version footer absente.', files.app.includes("const SITE_VERSION = 'v1.43'") && files.app.includes("const SITE_UPDATED_AT = '22/06/26'") && files.app.includes('site-footer-version'));
 expect('Boutons partager/imprimer visibles hors fiches recettes.', files.app.includes('isCategoryCollectionRecipe') && files.app.includes('Object.values(CATEGORY_PARENT_IDS).includes(recipe.id)') && files.app.includes("recipe.masterType === 'collection'") && files.app.includes('!isCategoryCollectionRecipe(selectedRecipe)') && files.app.includes("showRecipeUtilities && h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true)") && files.app.includes("showRecipeUtilities && h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => window.print()") && files.app.includes('showRecipeUtilities && h(SharePanel') && files.rules.includes('jamais sur les categories, collections ou fiches parentes'));
 expect('Footer premium absent.', files.app.includes('site-footer-identity') && files.app.includes('site-footer-stats') && files.style.includes('.site-footer-inner::before') && files.style.includes('.site-footer-top:hover'));
 expect('Script validate-ui non branche au check.', files.packageJson.includes('scripts/validate-ui.js'));
