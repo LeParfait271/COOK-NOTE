@@ -55,7 +55,7 @@ const rules = read('COOK_NOTE_RULES.md');
   'staticCacheControl',
   "'x-content-type-options': 'nosniff'",
   "'referrer-policy': 'strict-origin-when-cross-origin'",
-  "'cache-control': staticCacheControl(filePath, noStore)"
+  "headers['cache-control'] = staticCacheControl(filePath, noStore)"
 ].forEach(fragment => {
   if (!server.includes(fragment)) fail(`server.js: garde-fou headers absent (${fragment}).`);
 });
