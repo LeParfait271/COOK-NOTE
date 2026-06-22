@@ -6,7 +6,7 @@ const h = React.createElement;
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
 const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
-const SITE_VERSION = 'v1.55';
+const SITE_VERSION = 'v1.56';
 const SITE_UPDATED_AT = '22/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -4333,48 +4333,6 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   );
 }
 
-function HomeCommandBar({ catalogStats, sections = [], currentSeason = '', onlyFavorites = false, openSearch, openMenuPlanner, openTechniques, recentRecipes = [], openRecipe }) {
-  const visibleCount = sections.reduce((total, section) => total + (section.recipes?.length || 0), 0);
-  const recent = recentRecipes.filter(Boolean).slice(0, 3);
-  const seasonLabel = onlyFavorites ? 'Favoris' : (currentSeason || 'Toutes saisons');
-  return h('section', { className: 'home-command-bar', 'aria-label': 'Commandes du carnet' },
-    h('div', { className: 'home-command-copy' },
-      h('p', { className: 'eyebrow' }, 'Carnet'),
-      h('h2', null, 'Choisir vite'),
-      h('div', { className: 'home-command-stats', 'aria-label': 'Résumé du catalogue' },
-        catalogStats?.label && h('span', null, catalogStats.label),
-        h('span', null, `${visibleCount} visible${visibleCount > 1 ? 's' : ''}`),
-        h('span', null, seasonLabel)
-      )
-    ),
-    h('div', { className: 'home-command-actions' },
-      h(Button, { variant: 'primary', className: 'home-command-action', onClick: openSearch }, [
-        h(Icon, { name: 'search' }),
-        h('span', null, 'Rechercher')
-      ]),
-      h(Button, { variant: 'subtle', className: 'home-command-action', onClick: openMenuPlanner }, [
-        h(Icon, { name: 'spark' }),
-        h('span', null, 'Menu')
-      ]),
-      h(Button, { variant: 'subtle', className: 'home-command-action', onClick: openTechniques }, [
-        h(Icon, { name: 'book' }),
-        h('span', null, 'Techniques')
-      ])
-    ),
-    recent.length > 0 && h('div', { className: 'home-command-recents', 'aria-label': 'Dernières recettes ouvertes' },
-      h('strong', null, 'Derniers ouverts'),
-      recent.map(recipe => h('button', {
-        key: recipe.id,
-        type: 'button',
-        onClick: () => openRecipe(recipe.id)
-      },
-        h('span', null, recipe.title),
-        h('small', null, primaryCategory(recipe))
-      ))
-    )
-  );
-}
-
 function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, personalNotes = {}, favoriteCollection, setFavoriteCollection }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
@@ -4462,17 +4420,6 @@ function HomeView(props) {
     h(Hero),
     h('div', { className: 'content-wrap' },
       h(ActiveChips, { chips: props.activeChips }),
-      h(HomeCommandBar, {
-        catalogStats: props.catalogStats,
-        sections: props.sections,
-        currentSeason: props.filterProps.season,
-        onlyFavorites: props.onlyFavorites,
-        openSearch: props.openSearch,
-        openMenuPlanner: props.openMenuPlanner,
-        openTechniques: props.openTechniques,
-        recentRecipes: props.recentRecipes,
-        openRecipe: props.openRecipe
-      }),
       h(SeasonSections, {
         sections: props.sections,
         recipesById: props.recipesById,
@@ -6602,11 +6549,6 @@ function App() {
           filterProps,
           toggleFavorite,
           openRecipe,
-          openSearch,
-          openMenuPlanner,
-          openTechniques: goTechniques,
-          recentRecipes,
-          catalogStats,
           clearFavoriteView: () => { setOnlyFavorites(false); setFavoriteCollection(''); },
           setTagFilter
         }),
