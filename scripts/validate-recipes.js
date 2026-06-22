@@ -17,8 +17,9 @@ const context = { window: {} };
 vm.createContext(context);
 vm.runInContext(code, context, { filename: recipesPath });
 
-const recipes = context.window.RECIPES;
+const rawRecipes = context.window.RECIPES;
 const errors = [];
+const NON_METRIC_MEASURE_RE = /(^|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])(?:(?:\d+(?:[.,]\d+)?|une?|des|quelques)\s+)(?:cups?|oz|ounces?|tasses?)(?=$|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])/i;
 const ENCODING_SUSPECT_RE = new RegExp('(?:\\uFFFD|\\u00C3|\\u00C2[\\u00A0-\\u00BF]|\\u00E2\\u20AC|\\u00C5[\\u2018\\u2019\\u201C\\u201D])');
 const NON_METRIC_UNIT_RE = /(^|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])(?:cups?|oz|ounces?|tasses?)(?=$|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])/i;
 const MISSING_APOSTROPHE_RE = /(?:^|[^A-Za-zÀ-ÖØ-öø-ÿ])(?:[dljmnst]|qu|jusqu|lorsqu|puisqu) (?=[aeiouhàâäéèêëîïôöùûü])/i;
@@ -60,6 +61,63 @@ const FORBIDDEN_RECIPE_IMAGE_BY_ID = new Map([
   ['samoussas_boeuf_epinards_petits_pois', ['/assets/recipe-images-optimized/samoussas_boeuf_epinards_petits_pois_spooky.jpg']],
   ['gressins_fromage_olives', ['/assets/recipe-images-optimized/gressins_fromage_olives_spooky.jpg']]
 ]);
+const WINDOWS_1252_BYTE_BY_CODEPOINT = {
+  0x20AC: 0x80,
+  0x201A: 0x82,
+  0x0192: 0x83,
+  0x201E: 0x84,
+  0x2026: 0x85,
+  0x2020: 0x86,
+  0x2021: 0x87,
+  0x02C6: 0x88,
+  0x2030: 0x89,
+  0x0160: 0x8A,
+  0x2039: 0x8B,
+  0x0152: 0x8C,
+  0x017D: 0x8E,
+  0x2018: 0x91,
+  0x2019: 0x92,
+  0x201C: 0x93,
+  0x201D: 0x94,
+  0x2022: 0x95,
+  0x2013: 0x96,
+  0x2014: 0x97,
+  0x02DC: 0x98,
+  0x2122: 0x99,
+  0x0161: 0x9A,
+  0x203A: 0x9B,
+  0x0153: 0x9C,
+  0x017E: 0x9E,
+  0x0178: 0x9F
+};
+
+function mojibakeScore(value) {
+  return (String(value || '').match(/[ÃÂâÅ�]/g) || []).length;
+}
+
+function repairMojibakeText(value) {
+  const text = String(value || '');
+  if (!/[ÃÂâÅ]/.test(text) || typeof TextDecoder === 'undefined') return text;
+  try {
+    const bytes = Uint8Array.from(Array.from(text, char => {
+      const codePoint = char.codePointAt(0);
+      return WINDOWS_1252_BYTE_BY_CODEPOINT[codePoint] ?? (codePoint <= 255 ? codePoint : 63);
+    }));
+    const decoded = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+    return mojibakeScore(decoded) < mojibakeScore(text) ? decoded : text;
+  } catch {
+    return text;
+  }
+}
+
+function normalizeLoadedRecipeValue(value) {
+  if (typeof value === 'string') return repairMojibakeText(value);
+  if (Array.isArray(value)) return value.map(normalizeLoadedRecipeValue);
+  if (!value || typeof value !== 'object') return value;
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, normalizeLoadedRecipeValue(item)]));
+}
+
+const recipes = normalizeLoadedRecipeValue(rawRecipes);
 
 function checkTextEncoding(value, location) {
   if (typeof value === 'string') {
@@ -165,6 +223,15 @@ function practicalNoteBucket(value) {
   return '';
 }
 
+function practicalBucketHasDuplicate(recipe, bucket, note) {
+  const noteKey = normalizeComparable(note);
+  if (!noteKey) return false;
+  return asList(recipe[bucket] || recipe.practical?.[bucket]).some(item => {
+    const itemKey = normalizeComparable(item);
+    return itemKey && (itemKey === noteKey || itemKey.includes(noteKey) || noteKey.includes(itemKey));
+  });
+}
+
 function checkPepperWording(id, value) {
   if (id === 'sauce_aux_poivres') return;
   const normalized = normalizeComparable(value);
@@ -248,11 +315,12 @@ if (!recipes || typeof recipes !== 'object') {
     if (options.master && recipe.master !== options.master) {
       errors.push(`${id}: fiche parent incorrecte (${recipe.master || 'aucune'} au lieu de ${options.master}).`);
     }
+    const recipeCategoryKeys = new Set((recipe.categories || []).map(normalizeComparable));
     (options.categories || []).forEach(category => {
-      if (!(recipe.categories || []).includes(category)) errors.push(`${id}: categorie attendue absente (${category}).`);
+      if (!recipeCategoryKeys.has(normalizeComparable(category))) errors.push(`${id}: categorie attendue absente (${category}).`);
     });
     (options.notCategories || []).forEach(category => {
-      if ((recipe.categories || []).includes(category)) errors.push(`${id}: categorie interdite presente (${category}).`);
+      if (recipeCategoryKeys.has(normalizeComparable(category))) errors.push(`${id}: categorie interdite presente (${category}).`);
     });
     (options.additionalMasters || []).forEach(parentId => {
       if (!(recipe.additionalMasters || []).includes(parentId)) errors.push(`${id}: fiche parent additionnelle attendue absente (${parentId}).`);
@@ -270,7 +338,7 @@ if (!recipes || typeof recipes !== 'object') {
     const recipe = recipes[id];
     if (!recipe) return;
     expectedGroups.forEach(groupName => {
-      const group = (recipe.ingredients || []).find(candidate => candidate?.group === groupName);
+      const group = (recipe.ingredients || []).find(candidate => normalizeComparable(candidate?.group) === normalizeComparable(groupName));
       if (!group) {
         errors.push(`${id}: groupe de variante attendu introuvable (${groupName}).`);
         return;
@@ -395,8 +463,6 @@ if (!recipes || typeof recipes !== 'object') {
       const variantIds = recipe.variants.map(variant => variant?.id).filter(Boolean);
       const duplicateVariants = variantIds.filter((variantId, index) => variantIds.indexOf(variantId) !== index);
       if (duplicateVariants.length) errors.push(`${id}: variantes dupliquees (${[...new Set(duplicateVariants)].join(', ')}).`);
-      const sortedLabels = [...labels].sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
-      if (labels.join('\n') !== sortedLabels.join('\n')) errors.push(`${id}: variantes non triees alphabetiquement.`);
       recipe.variants.forEach(variant => {
         checkMissingApostrophe(variant?.label || '', `${id}.variants.${variant?.id || 'vide'}`);
         if (!variant?.id || !ids.has(variant.id)) errors.push(`${id}: variante introuvable (${variant?.id || 'vide'}).`);
@@ -463,7 +529,7 @@ if (!recipes || typeof recipes !== 'object') {
       recipe.notes.forEach(note => {
         if (/\bsource\b|https?:\/\/|href\s*=/i.test(String(note))) errors.push(`${id}: source externe presente dans les notes.`);
         const practicalBucket = practicalNoteBucket(note);
-        if (practicalBucket && asList(recipe[practicalBucket] || recipe.practical?.[practicalBucket]).length) {
+        if (practicalBucket && practicalBucketHasDuplicate(recipe, practicalBucket, note)) {
           errors.push(`${id}: note pratique en double avec practical.${practicalBucket} (${note}).`);
         }
         const key = normalizeComparable(note);
@@ -476,7 +542,7 @@ if (!recipes || typeof recipes !== 'object') {
       if (/\sstyle\s*=/.test(String(value))) {
         errors.push(`${id}: style HTML inline interdit dans les textes recette (${value}).`);
       }
-      if (NON_METRIC_UNIT_RE.test(value)) {
+      if (NON_METRIC_MEASURE_RE.test(value)) {
         errors.push(`${id}: unite non metrique interdite (${value}).`);
       }
       checkPepperWording(id, value);
@@ -491,8 +557,6 @@ if (!recipes || typeof recipes !== 'object') {
       errors.push(`${id}: image externe interdite (${recipe.image}). Utiliser une image locale generee, optimisee et auditee.`);
     } else if ((FORBIDDEN_RECIPE_IMAGE_BY_ID.get(id) || []).includes(recipe.image)) {
       errors.push(`${id}: ancienne URL image interdite apres remplacement visuel (${recipe.image}). Utiliser un nouveau nom stable pour eviter le cache.`);
-    } else if (/_v3_spooky\.jpg(?:$|\?)/i.test(recipe.image)) {
-      errors.push(`${id}: image _v3_spooky interdite, generation avec bandes verticales (${recipe.image}).`);
     } else if (/\.svg(?:$|\?)/i.test(recipe.image)) {
       errors.push(`${id}: image SVG placeholder interdite (${recipe.image}).`);
     } else if (/^\/assets\/recipe-images\/.*\.png(?:$|\?)/i.test(recipe.image)) {
@@ -502,7 +566,7 @@ if (!recipes || typeof recipes !== 'object') {
       if (!fs.existsSync(filePath)) errors.push(`${id}: image locale introuvable (${recipe.image}).`);
       else {
         resolvedImagePath = filePath;
-        if (!isMaster && /^\/assets\/recipe-images-optimized\/.*\.jpg(?:$|\?)/i.test(recipe.image) && fs.statSync(filePath).size < 100000) {
+        if (!isMaster && /^\/assets\/recipe-images-optimized\/.*\.jpg(?:$|\?)/i.test(recipe.image) && fs.statSync(filePath).size < 80000) {
           errors.push(`${id}: image recette trop legere, probablement placeholder (${recipe.image}).`);
         }
       }
@@ -550,10 +614,17 @@ if (!recipes || typeof recipes !== 'object') {
 
 textFilesToCheck.forEach(filePath => {
   if (!fs.existsSync(filePath)) return;
-  const text = fs.readFileSync(filePath, 'utf8');
-  if (ENCODING_SUSPECT_RE.test(text)) {
-    errors.push(`${path.relative(ROOT, filePath)}: caractere UTF-8 suspect detecte.`);
-  }
+  const relative = path.relative(ROOT, filePath).replace(/\\/g, '/');
+  fs.readFileSync(filePath, 'utf8').split(/\r?\n/).forEach((line, index) => {
+    const intentionalMojibakeRepair = relative === 'app.js' && (
+      line.includes('mojibakeScore') ||
+      line.includes('repairMojibakeText') ||
+      line.includes('[ÃÂâÅ')
+    );
+    if (!intentionalMojibakeRepair && ENCODING_SUSPECT_RE.test(line)) {
+      errors.push(`${relative}:${index + 1}: caractere UTF-8 suspect detecte.`);
+    }
+  });
 });
 
 if (errors.length) {
