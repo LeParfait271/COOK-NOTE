@@ -20,6 +20,7 @@ module.exports = defineConfig({
     baseURL: BASE_URL,
     actionTimeout: 10000,
     navigationTimeout: 20000,
+    serviceWorkers: 'block',
     screenshot: 'only-on-failure',
     trace: 'on-first-retry'
   },

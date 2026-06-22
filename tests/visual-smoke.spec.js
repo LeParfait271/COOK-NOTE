@@ -1,11 +1,10 @@
 const { test, expect } = require('@playwright/test');
 
-const MOJIBAKE_PATTERN = /(?:Ã.|Â.|â€|â€™|Å“|�)/;
+const MOJIBAKE_PATTERN = /(?:\u00c3.|\u00c2.|\u00e2\u20ac|\u00e2\u20ac\u2122|\u00c5\u201c|\ufffd)/;
 
 async function waitForCookNote(page) {
-  await page.waitForSelector('#loading-screen', { state: 'detached', timeout: 14000 }).catch(async () => {
-    await expect(page.locator('#loading-screen')).toBeHidden();
-  });
+  await page.waitForFunction(() => Boolean(document.querySelector('#root')?.children.length), null, { timeout: 14000 });
+  await page.waitForFunction(() => !document.querySelector('#loading-screen'), null, { timeout: 14000 });
 }
 
 async function expectNoMojibake(page) {
@@ -39,9 +38,9 @@ test.describe('Cook Note visual smoke', () => {
       const count = await page.locator('.recipe-card').count();
       expect(count).toBeGreaterThanOrEqual(8);
     }).toPass();
-    await page.locator('.recipe-card').nth(7).scrollIntoViewIfNeeded();
+    await page.evaluate(() => document.querySelectorAll('.recipe-card')[7]?.scrollIntoView({ block: 'center' }));
     await page.waitForTimeout(250);
-    await page.locator('.recipe-card').first().scrollIntoViewIfNeeded();
+    await page.evaluate(() => document.querySelector('.recipe-card')?.scrollIntoView({ block: 'center' }));
     await expectImagesReady(page, '.recipe-card img', 6);
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
@@ -57,7 +56,7 @@ test.describe('Cook Note visual smoke', () => {
     await waitForCookNote(page);
 
     await expect(page.locator('.recipe-view')).toBeVisible();
-    await expect(page.getByRole('heading', { name: /Poulet sauce pimentée/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: new RegExp('Poulet sauce piment\\u00e9e', 'i') })).toBeVisible();
     await expect(page.locator('.recipe-detail-hero.has-photo')).toBeVisible();
     await expect(page.getByText(/Ajouter aux courses/i)).toBeVisible();
     await expectNoMojibake(page);

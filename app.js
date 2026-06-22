@@ -1,12 +1,16 @@
 /* global React, ReactDOM, QRCode */
 
 const { useEffect, useMemo, useRef, useState } = React;
-const h = React.createElement;
+const h = (type, props, ...children) => React.createElement(
+  type,
+  repairReactProps(props),
+  ...children.map(repairReactChildText)
+);
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
 const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
-const SITE_VERSION = 'v1.56';
+const SITE_VERSION = 'v1.60';
 const SITE_UPDATED_AT = '22/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -762,6 +766,27 @@ function normalizeLoadedRecipeValue(value) {
   if (Array.isArray(value)) return value.map(normalizeLoadedRecipeValue);
   if (!value || typeof value !== 'object') return value;
   return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, normalizeLoadedRecipeValue(item)]));
+}
+
+const REPAIRABLE_REACT_PROPS = new Set(['aria-label', 'title', 'placeholder', 'alt']);
+
+function repairReactProps(props) {
+  if (!props || typeof props !== 'object') return props;
+  let repaired = props;
+  REPAIRABLE_REACT_PROPS.forEach(name => {
+    if (typeof props[name] !== 'string') return;
+    const text = repairMojibakeText(props[name]);
+    if (text === props[name]) return;
+    if (repaired === props) repaired = { ...props };
+    repaired[name] = text;
+  });
+  return repaired;
+}
+
+function repairReactChildText(child) {
+  if (typeof child === 'string') return repairMojibakeText(child);
+  if (Array.isArray(child)) return child.map(repairReactChildText);
+  return child;
 }
 
 function normalizeText(value) {
@@ -4353,8 +4378,8 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
   return h('section', { className: 'season-sections', id: 'recettes' },
     h('div', { className: 'section-title list-title season-dashboard' },
       h('div', { className: 'season-dashboard-copy' },
-        h('p', { className: 'eyebrow' }, onlyFavorites ? 'Favoris' : 'Rangement saisonnier'),
-        h('h2', null, onlyFavorites ? 'Mes recettes favorites' : 'Recettes par saison'),
+        h('p', { className: 'eyebrow' }, onlyFavorites ? 'Favoris' : 'Catalogue'),
+        h('h2', null, onlyFavorites ? 'Mes recettes favorites' : 'Recettes'),
         h('div', { className: 'season-dashboard-meta', 'aria-label': 'Résumé de la sélection' },
           h('span', null, dashboardLabel),
           h('span', null, `${visibleIds.size} fiche${visibleIds.size > 1 ? 's' : ''}`),
@@ -4699,6 +4724,14 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
       { label: 'Familial', query: 'familial' }
     ] }
   ];
+  const quickSearches = [
+    { label: 'Plat rapide', query: 'rapide plat' },
+    { label: 'Ap\u00e9ro', query: 'apero' },
+    { label: 'Au four', query: 'cuisson au four' },
+    { label: 'Pommes de terre', query: 'pommes de terre' },
+    { label: 'La veille', query: 'la veille' },
+    { label: 'Sauce', query: 'sauce' }
+  ];
   const rememberCurrentSearch = () => {
     if (query.trim()) rememberSearch?.(query);
   };
@@ -4748,6 +4781,16 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
         },
           SEARCH_DIFFICULTY_OPTIONS.map(option => h('option', { key: option.value, value: option.value }, option.label))
         )
+      ),
+      !hasQuery && h('div', { className: 'search-quick-rail', 'aria-label': 'Recherches rapides' },
+        quickSearches.map(item => h('button', {
+          key: item.query,
+          type: 'button',
+          onClick: () => {
+            setQuery(item.query);
+            rememberSearch?.(item.query);
+          }
+        }, item.label))
       ),
       hasQuery
         ? h('div', { className: 'search-result-count' }, `${results.length} résultat${results.length > 1 ? 's' : ''} pour "${query}"`)
@@ -6621,10 +6664,19 @@ function App() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(h(App));
 
-requestAnimationFrame(() => {
-  if (window.__cookNoteReady) {
+const scheduleLoadingTimeout = typeof window.setTimeout === 'function'
+  ? window.setTimeout.bind(window)
+  : (typeof globalThis.setTimeout === 'function' ? globalThis.setTimeout.bind(globalThis) : callback => callback());
+
+function removeLoadingScreen() {
+  const loader = document.getElementById('loading-screen');
+  if (!loader) return;
+  if (window.__cookNoteReady && loader.dataset.readyCalled !== 'true') {
+    loader.dataset.readyCalled = 'true';
     window.__cookNoteReady();
-    return;
   }
-  document.getElementById('loading-screen')?.remove();
-});
+  scheduleLoadingTimeout(() => document.getElementById('loading-screen')?.remove(), 520);
+}
+
+requestAnimationFrame(removeLoadingScreen);
+scheduleLoadingTimeout(removeLoadingScreen, 0);
