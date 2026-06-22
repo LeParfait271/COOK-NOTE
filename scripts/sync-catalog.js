@@ -36,7 +36,7 @@ if (missingIds.length) currentChunks[currentChunks.length - 1].push(...missingId
 CATALOG_FILES.forEach((file, index) => {
   const ids = currentChunks[index].filter(id => recipes[id]);
   const chunk = Object.fromEntries(ids.map(id => [id, recipes[id]]));
-  const json = JSON.stringify(chunk, null, 2);
+  const json = JSON.stringify(chunk);
   const text = [
     `// Cook Note - catalogue recettes chunk ${index + 1}/${CATALOG_FILES.length}`,
     `window.RECIPES = Object.assign(window.RECIPES || {}, ${json});`,

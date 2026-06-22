@@ -1,10 +1,10 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v160
+//  Cook Note - Service Worker PWA v161
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v160';
+const CACHE_NAME = 'cook-note-v161';
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
   '/recipes.js',
@@ -17,14 +17,14 @@ const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=160',
-  '/assets/catalog-1.js?v=160',
-  '/assets/catalog-2.js?v=160',
-  '/assets/catalog-3.js?v=160',
-  '/assets/catalog-4.js?v=160',
-  '/assets/image-manifest.js?v=160',
-  '/style.css?v=160',
-  '/recipe.js?v=160',
+  '/app.js?v=161',
+  '/assets/catalog-1.js?v=161',
+  '/assets/catalog-2.js?v=161',
+  '/assets/catalog-3.js?v=161',
+  '/assets/catalog-4.js?v=161',
+  '/assets/image-manifest.js?v=161',
+  '/style.css?v=161',
+  '/recipe.js?v=161',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
@@ -42,7 +42,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
       .then(() => {
-        console.log('[SW v160] Assets statiques mis en cache.');
+        console.log('[SW v161] Assets statiques mis en cache.');
       })
   );
 });
@@ -55,7 +55,7 @@ self.addEventListener('activate', (event) => {
         keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
       )
     ).then(() => {
-        console.log('[SW v160] Anciens caches supprimés.');
+        console.log('[SW v161] Anciens caches supprimés.');
     })
   );
   self.clients.claim();

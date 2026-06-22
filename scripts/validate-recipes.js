@@ -434,6 +434,47 @@ if (!recipes || typeof recipes !== 'object') {
   expectParentLink('plats_maitre', 'gratin_dauphinois', true);
   expectParentLink('accompagnements_maitre', 'gratin_dauphinois', true);
 
+  expectRecipePlacement('chantilly_maitre', {
+    master: 'cremes_maitre',
+    categories: ['Desserts', 'Base'],
+    additionalMasters: ['elements_base_maitre']
+  });
+  expectParentLink('cremes_maitre', 'chantilly_maitre', true);
+  expectParentLink('elements_base_maitre', 'chantilly_maitre', true);
+
+  expectRecipePlacement('verrines_chataignes_foie_gras', {
+    master: 'apero_maitre',
+    categories: ['Apéro', 'Entrées'],
+    additionalMasters: ['entrees_maitre']
+  });
+  expectParentLink('apero_maitre', 'verrines_chataignes_foie_gras', true);
+  expectParentLink('entrees_maitre', 'verrines_chataignes_foie_gras', true);
+
+  expectRecipePlacement('temps_cuisson_legumes_autocuiseur', {
+    master: 'accompagnements_maitre',
+    categories: ['Accompagnements', 'Base'],
+    additionalMasters: ['elements_base_maitre'],
+    variantGroups: true
+  });
+  expectParentLink('accompagnements_maitre', 'temps_cuisson_legumes_autocuiseur', true);
+  expectParentLink('elements_base_maitre', 'temps_cuisson_legumes_autocuiseur', true);
+
+  expectRecipePlacement('tomates_provencales', {
+    master: 'tomates_maitre',
+    categories: ['Accompagnements', 'Entrées'],
+    additionalMasters: ['accompagnements_maitre']
+  });
+  expectParentLink('tomates_maitre', 'tomates_provencales', true);
+  expectParentLink('accompagnements_maitre', 'tomates_provencales', true);
+
+  expectRecipePlacement('oeufs_cocotte_chorizo', {
+    master: 'entrees_maitre',
+    categories: ['Entrées', 'Apéro'],
+    additionalMasters: ['apero_maitre']
+  });
+  expectParentLink('entrees_maitre', 'oeufs_cocotte_chorizo', true);
+  expectParentLink('apero_maitre', 'oeufs_cocotte_chorizo', true);
+
   expectVariantGroupSteps('tomates_variantes', ['Version séchées', 'Version confites']);
 
   expectInternalRecipeLink('pain_grille_beurre_ail_herbes', 'beurre_ail', ['beurre à l’ail', 'beurre ail']);
