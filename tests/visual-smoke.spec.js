@@ -1,6 +1,16 @@
 const { test, expect } = require('@playwright/test');
 
 const MOJIBAKE_PATTERN = /(?:\u00c3.|\u00c2.|\u00e2\u20ac|\u00e2\u20ac\u2122|\u00c5\u201c|\ufffd)/;
+const CATEGORY_PARENT_ROUTES = [
+  ['apero_maitre', 'Ap\u00e9ro'],
+  ['entrees_maitre', 'Entr\u00e9es'],
+  ['plats_maitre', 'Plats'],
+  ['accompagnements_maitre', 'Accompagnements'],
+  ['desserts_maitre', 'Desserts'],
+  ['petit_dejeuner_maitre', 'Petit-d\u00e9jeuner'],
+  ['sauces_maitre', 'Sauces'],
+  ['elements_base_maitre', 'Bases']
+];
 
 async function waitForCookNote(page) {
   await page.waitForFunction(() => Boolean(document.querySelector('#root')?.children.length), null, { timeout: 14000 });
@@ -24,6 +34,24 @@ async function expectImagesReady(page, selector, minCount) {
     const count = await page.locator(selector).evaluateAll(images =>
       images.filter(image => image.complete && image.naturalWidth >= 80 && image.naturalHeight >= 60).length
     );
+    expect(count).toBeGreaterThanOrEqual(minCount);
+  }).toPass({ timeout: 12000 });
+}
+
+async function expectBackgroundImagesReady(page, selector, minCount) {
+  await expect(async () => {
+    const count = await page.locator(selector).evaluateAll(async elements => {
+      const urls = elements
+        .map(element => getComputedStyle(element).backgroundImage.match(/url\(["']?(.+?)["']?\)/)?.[1])
+        .filter(Boolean);
+      const results = await Promise.all(urls.map(url => new Promise(resolve => {
+        const image = new Image();
+        image.onload = () => resolve(image.naturalWidth >= 80 && image.naturalHeight >= 60);
+        image.onerror = () => resolve(false);
+        image.src = url;
+      })));
+      return results.filter(Boolean).length;
+    });
     expect(count).toBeGreaterThanOrEqual(minCount);
   }).toPass({ timeout: 12000 });
 }
@@ -66,5 +94,28 @@ test.describe('Cook Note visual smoke', () => {
       path: testInfo.outputPath(`recipe-${testInfo.project.name}.png`),
       fullPage: false
     });
+  });
+
+  test('category parent pages render variants cleanly', async ({ page }, testInfo) => {
+    for (const [recipeId, expectedTitle] of CATEGORY_PARENT_ROUTES) {
+      await page.goto(`/recette/${recipeId}`);
+      await waitForCookNote(page);
+
+      await expect(page.locator('.recipe-view')).toBeVisible();
+      await expect(page.getByRole('heading', { level: 1, name: new RegExp(expectedTitle, 'i') })).toBeVisible();
+      await expect(page.locator('.parent-hero.has-photo')).toBeVisible();
+      await expect(async () => {
+        const count = await page.locator('.variant-card').count();
+        expect(count).toBeGreaterThanOrEqual(4);
+      }).toPass();
+      await expectBackgroundImagesReady(page, '.variant-card-bg', 4);
+      await expectNoMojibake(page);
+      await expectNoHorizontalOverflow(page);
+
+      await page.screenshot({
+        path: testInfo.outputPath(`category-${recipeId}-${testInfo.project.name}.png`),
+        fullPage: false
+      });
+    }
   });
 });
