@@ -1,12 +1,12 @@
 # Audit images Cook Note
 
-Genere le 2026-06-03T01:56:01.678Z.
+Genere le 2026-06-22T23:14:56.969Z.
 
-- Images recette auditees : 217
+- Images recette auditees : 252
 - Images a revoir : 7
 - Miniatures manquantes : 0
-- Images optimisees faibles : 8
-- Miniatures faibles : 38
+- Images optimisees faibles : 9
+- Miniatures faibles : 36
 - Cadrages atypiques : 0
 - Doublons visuels : 0
 
@@ -43,9 +43,9 @@ Genere le 2026-06-03T01:56:01.678Z.
 - Frites belges (frites_belges) : 80/100 - assets/recipe-images-optimized/frites_belges_spooky.jpg
 - Gazpacho tomate, menthe et basilic (gazpacho_tomate_menthe_basilic) : 80/100 - assets/recipe-images-optimized/gazpacho_tomate_menthe_basilic_spooky.jpg
 - Pain hot dog brioché (pain_hot_dog) : 80/100 - assets/recipe-images-optimized/pain_hot_dog_spooky.jpg
+- Verrines châtaignes et foie gras (verrines_chataignes_foie_gras) : 84/100 - assets/recipe-images-optimized/verrines_chataignes_foie_gras_cooknote_v2_spooky.jpg
 - Accompagnements (accompagnements_maitre) : 88/100 - assets/recipe-images-optimized/parent_accompagnements.jpg
 - Aïoli citronné léger (aioli_citronne_leger) : 88/100 - assets/recipe-images-optimized/aioli_citronne_leger_spooky.jpg
-- Apéro (apero_maitre) : 88/100 - assets/recipe-images-optimized/parent_apero.jpg
 
 ## Fichiers a ouvrir
 
