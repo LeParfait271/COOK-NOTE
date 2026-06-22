@@ -65,6 +65,7 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'Liste de courses : mode `J’ai déjà`',
   'Export compact',
   'registre de couverture des features',
+  'npm run validate:performance',
   'admin d\'ajout recette',
   'detection des bases et composants',
   'batch multi-recettes',
@@ -102,6 +103,7 @@ expect('Validation panier courses noms proches non branchee.', fs.readFileSync(p
 expect('Validation production non branchee.', validators.production.includes('Validation production OK.') && validators.packageJson.includes('scripts/validate-production.js'));
 expect('Validation couverture features non branchee.', validators.packageJson.includes('scripts/validate-feature-coverage.js'));
 expect('Validation cache/version non branchee.', validators.cache.includes('Validation cache/version OK.') && validators.packageJson.includes('scripts/validate-cache-version.js'));
+expect('Validation budget performance non branchee.', validators.packageJson.includes('scripts/validate-performance-budget.js'));
 expect('Script bump-version non branche.', validators.bumpVersion.includes('Version Cook Note') && validators.packageJson.includes('scripts/bump-version.js'));
 expect('Preflight non branche.', validators.preflight.includes('Preflight Cook Note OK.') && validators.preflight.includes('findFreePort') && validators.preflight.includes('validateDiffScope') && validators.packageJson.includes('scripts/preflight.js'));
 expect('Optimisation ciblee images non branchee.', fs.existsSync(path.join(ROOT, 'scripts', 'optimize-selected-images.ps1')) && validators.packageJson.includes('optimize-selected-images.ps1'));

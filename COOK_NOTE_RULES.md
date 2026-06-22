@@ -70,6 +70,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Liste de courses : afficher des quantites d'achat indicatives quand une conversion stable existe, par exemple briquette, plaquette, tablette, boite d'oeufs ou vrac.
 - Export compact : le panier courses doit proposer une version courte copiable, organisee par rayons, pour SMS ou messagerie.
 - Garder un registre de couverture des features : recherche, fiche recette, images, mode menu, liste de courses, techniques, anti-gaspillage et production doivent rester verifies automatiquement quand de nouvelles recettes arrivent.
+- Les budgets performance doivent rester bloques par `npm run validate:performance` : poids shell, catalogues, manifest, miniatures cartes, images optimisees et masters non servis.
 - L'admin d'ajout recette doit previsualiser l'impact d'une fiche avant sauvegarde : role menu, rayons de courses, allergenes probables, statut image, SEO et checks qualite.
 - La detection des bases et composants doit rester generique et future-proof : bases, fonds, appareils, inserts, pates, cremes, sauces, marinades, sirops, toppings, condiments, pains et buns ne doivent pas etre proposes comme recettes servies seules.
 - Le batch multi-recettes doit regrouper les gestes repetitifs quand ils sont detectables : zestes/jus, oeufs, herbes, ail/oignons/echalotes, beurre a sortir et prechauffage du four.

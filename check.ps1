@@ -21,6 +21,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\validate-cache-version.js',
     'scripts\validate-visual-image-duplicates.js',
     'scripts\generate-image-manifest.js',
+    'scripts\validate-performance-budget.js',
     'scripts\bump-version.js',
     'scripts\preflight.js',
     'scripts\audit-recipes.js',
@@ -42,6 +43,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\validate-feature-coverage.js',
     'scripts\validate-cache-version.js',
     'scripts\generate-image-manifest.js',
+    'scripts\validate-performance-budget.js',
     'scripts\validate-visual-image-duplicates.js'
   )
 
