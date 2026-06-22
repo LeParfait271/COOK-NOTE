@@ -5,7 +5,8 @@ const h = React.createElement;
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.43';
+const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
+const SITE_VERSION = 'v1.44';
 const SITE_UPDATED_AT = '22/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -4179,7 +4180,7 @@ function Hero() {
   return h('section', { className: 'hero' },
     h('div', { className: 'hero-inner' },
       h('h1', { className: 'sr-only' }, 'Cook Note'),
-      h('img', { className: 'hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note' })
+      h('img', { className: 'hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(COOK_NOTE_LOGO) })
     )
   );
 }
@@ -4198,10 +4199,29 @@ function recipeCardImageUrl(image) {
     .replace(/\.(?:png|jpe?g|webp)(\?.*)?$/i, '.jpg$1');
 }
 
+function imageManifestKey(image) {
+  return String(image || '').replace(/^\/+/, '').replace(/\?.*$/, '');
+}
+
+function imageAssetMeta(image) {
+  return IMAGE_MANIFEST[imageManifestKey(image)] || null;
+}
+
+function imageSizeAttrs(image) {
+  const meta = imageAssetMeta(image);
+  return meta?.width && meta?.height ? { width: meta.width, height: meta.height } : {};
+}
+
+function imageBackgroundStyle(image, card = true) {
+  const url = card ? recipeCardImageUrl(image) : image;
+  return url ? { backgroundImage: `url("${url}")` } : {};
+}
+
 function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNote }) {
   const master = isMasterRecipe(recipe);
   const color = getCategoryColor(recipe);
   const style = { '--card-accent': color };
+  const cardImage = recipeCardImageUrl(recipe.image);
   const className = ['recipe-card', recipe.image ? 'has-image' : '', master ? 'master-card' : '']
     .filter(Boolean)
     .join(' ');
@@ -4234,11 +4254,14 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     h('div', { className: 'card-media' },
       recipe.image && h('img', {
         className: 'card-image',
-        src: recipeCardImageUrl(recipe.image),
+        src: cardImage,
         alt: recipe.title,
         loading: 'lazy',
         decoding: 'async',
+        fetchPriority: master ? 'high' : 'low',
+        sizes: '(max-width: 760px) calc(100vw - 32px), 380px',
         draggable: false,
+        ...imageSizeAttrs(cardImage),
         onError: event => {
           if (recipe.image && event.currentTarget.getAttribute('src') !== recipe.image) {
             event.currentTarget.src = recipe.image;
@@ -4795,7 +4818,7 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
               h('div', { className: 'recent-recipe-list' },
                 recentRecipes.slice(0, 4).map(recipe =>
                   h('button', { key: recipe.id, type: 'button', onClick: () => openSearchRecipe(recipe) },
-                    h('span', { className: 'search-result-image', style: recipe.image ? { backgroundImage: `url("${recipe.image}")` } : {} }),
+                    h('span', { className: 'search-result-image', style: imageBackgroundStyle(recipe.image) }),
                     h('span', null, recipe.title)
                   )
                 )
@@ -4834,7 +4857,7 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
                   className: 'search-result',
                   onClick: () => openSearchRecipe(recipe)
                 },
-                  h('span', { className: 'search-result-image', style: recipe.image ? { backgroundImage: `url("${recipe.image}")` } : {} }),
+                  h('span', { className: 'search-result-image', style: imageBackgroundStyle(recipe.image) }),
                   h('span', { className: 'search-result-copy' },
                     h('strong', null, recipe.title),
                     h('small', null, recipe.yield || difficultyText(recipe)),
@@ -5082,7 +5105,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
       h('p', { className: 'menu-planner-reason' }, menu.reason),
       h('div', { className: 'menu-planner-grid' },
         menuItems.map((item, index) => h('article', { key: `${item.key}-${item.recipe.id}-${index}`, className: 'menu-planner-card' },
-          h('span', { className: 'menu-planner-image', style: item.recipe.image ? { backgroundImage: `url("${recipeCardImageUrl(item.recipe.image)}")` } : {} }),
+          h('span', { className: 'menu-planner-image', style: imageBackgroundStyle(item.recipe.image) }),
           h('div', null,
             h('p', { className: 'eyebrow' }, item.label),
             h('h3', null, item.recipe.title),
@@ -5264,7 +5287,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
           style: { '--card-accent': getCategoryColor(item) },
           onClick: () => openRecipe(variant.id)
         },
-          image && h('span', { className: 'variant-card-bg', style: { backgroundImage: `url("${image}")` } }),
+          image && h('span', { className: 'variant-card-bg', style: imageBackgroundStyle(image) }),
           h('span', { className: 'variant-card-body' },
             h('small', null, categoryLine(item)),
             h('strong', null, variant.label || item.title),
@@ -5328,7 +5351,7 @@ function LinkedRecipesBlock({ links, openRecipe }) {
           style: { '--card-accent': getCategoryColor(item.recipe) },
           onClick: () => openRecipe(item.id)
         },
-          h('span', { className: 'linked-recipe-thumb', style: item.recipe.image ? { backgroundImage: `url("${item.recipe.image}")` } : {} }),
+          h('span', { className: 'linked-recipe-thumb', style: imageBackgroundStyle(item.recipe.image) }),
           h('span', { className: 'linked-recipe-copy' },
             h('small', null, primaryCategory(item.recipe)),
             h('strong', null, item.recipe.title)
@@ -5681,7 +5704,7 @@ function RecipeView({
       style: heroStyle
     },
       h('div', { className: 'detail-hero-copy' },
-        heroUsesHomeImage && h('img', { className: 'detail-hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note' }),
+        heroUsesHomeImage && h('img', { className: 'detail-hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(COOK_NOTE_LOGO) }),
         h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome, openRecipe }),
         h('p', { className: 'eyebrow' }, heroEyebrow),
         h('h1', null, recipe.title),
@@ -6590,7 +6613,7 @@ function App() {
       h('div', { className: 'site-footer-inner' },
         h('div', { className: 'site-footer-identity' },
           h('div', { className: 'site-footer-mark' },
-          h('img', { src: '/assets/cook-note-mark.svg', alt: '', loading: 'lazy' })
+          h('img', { src: '/assets/cook-note-mark.svg', alt: '', width: 128, height: 128, loading: 'lazy', decoding: 'async' })
           ),
           h('div', { className: 'site-footer-copy' },
           h('p', { className: 'site-footer-brand' }, 'Cook Note \u00a9 2026.'),

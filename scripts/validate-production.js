@@ -26,11 +26,7 @@ const TEXT_FILES_TO_SCAN = [
   'recipe.js',
   'service-worker.js',
   'style.css',
-  'recipes.js',
-  'assets/catalog-1.js',
-  'assets/catalog-2.js',
-  'assets/catalog-3.js',
-  'assets/catalog-4.js',
+  'assets/image-manifest.js',
   'manifest.json',
   'sitemap.xml',
   'robots.txt'
@@ -77,6 +73,7 @@ const sitemap = read('sitemap.xml');
 const robots = read('robots.txt');
 const serviceWorker = read('service-worker.js');
 const indexHtml = read('index.html');
+const recipeHtml = read('recipe.html');
 const packageJson = read('package.json');
 
 const FORBIDDEN_INLINE_ALIASES = new Set([
@@ -178,6 +175,7 @@ if (!staticAssets) {
     '/assets/catalog-2.js',
     '/assets/catalog-3.js',
     '/assets/catalog-4.js',
+    '/assets/image-manifest.js',
     '/recipe.js',
     '/style.css',
     '/manifest.json',
@@ -202,9 +200,13 @@ if (!/CACHE_NAME\s*=\s*['"]cook-note-v\d+['"]/.test(serviceWorker)) {
   fail('service-worker.js: CACHE_NAME doit etre versionne en cook-note-vN.');
 }
 
-const indexAssetVersions = [...indexHtml.matchAll(/\b(?:app|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
+const indexAssetVersions = [
+  ...indexHtml.matchAll(/\b(?:app|catalog-\d+|image-manifest|style)\.(?:js|css)\?v=(\d+)/g),
+  ...indexHtml.matchAll(/\bbase-du-site\.png\?v=(\d+)/g),
+  ...recipeHtml.matchAll(/\b(?:recipe|recipes|style)\.(?:js|css)\?v=(\d+)/g)
+].map(match => match[1]);
 const swRegistrationVersion = indexHtml.match(/service-worker\.js\?v=(\d+)/)?.[1];
-const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
+const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
 const swCacheVersion = serviceWorker.match(/CACHE_NAME\s*=\s*['"]cook-note-v(\d+)['"]/)?.[1];
 const allAssetVersions = [...indexAssetVersions, swRegistrationVersion, ...swAssetVersions, swCacheVersion].filter(Boolean);
 if (!allAssetVersions.length || new Set(allAssetVersions).size !== 1) {

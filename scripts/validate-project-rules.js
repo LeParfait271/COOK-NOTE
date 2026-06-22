@@ -39,6 +39,8 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'npm run validate:visual-images',
   'assets/recipe-images-optimized/',
   'assets/recipe-card-images/',
+  'assets/image-manifest.js',
+  'npm run generate:image-manifest',
   'npm run optimize:images',
   'npm run audit:images',
   'representer le plat exact',
@@ -92,6 +94,7 @@ expect('Validation doublons visuels non branchee.', validators.visualImages.incl
 expect('Validation images optimisees non branchee.', validators.recipes.includes('recipe-images-optimized') && validators.recipes.includes('master PNG introuvable'));
 expect('Validation anciennes URLs images remplacees non branchee.', validators.recipes.includes('FORBIDDEN_RECIPE_IMAGE_BY_ID') && validators.recipes.includes('ancienne URL image interdite'));
 expect('Validation miniatures cartes non branchee.', validators.production.includes('recipe-card-images') && validators.production.includes('miniature carte introuvable'));
+expect('Validation manifest images non branchee.', validators.packageJson.includes('scripts/generate-image-manifest.js') && validators.production.includes('assets/image-manifest.js') && validators.cache.includes('assets/image-manifest.js'));
 expect('Validation materiel necessaire colonne droite non branchee.', validators.ui.includes('Materiel necessaire encore dans la colonne droite'));
 expect('Validation anti-doublon notes pratiques non branchee.', validators.ui.includes('Notes pratiques encore classees en double'));
 expect('Validation recherche intention non branchee.', validators.ui.includes('Recherche par intention absente'));

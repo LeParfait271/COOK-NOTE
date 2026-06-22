@@ -1,21 +1,30 @@
 ﻿// ============================================================
-//  Cook Note - Service Worker PWA v143
+//  Cook Note - Service Worker PWA v144
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v143';
+const CACHE_NAME = 'cook-note-v144';
+const FAST_CHANGING_PATHS = new Set([
+  '/app.js',
+  '/recipes.js',
+  '/recipe.js',
+  '/style.css',
+  '/manifest.json',
+  '/assets/image-manifest.js'
+]);
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=143',
-  '/assets/catalog-1.js?v=143',
-  '/assets/catalog-2.js?v=143',
-  '/assets/catalog-3.js?v=143',
-  '/assets/catalog-4.js?v=143',
-  '/style.css?v=143',
-  '/recipe.js?v=143',
+  '/app.js?v=144',
+  '/assets/catalog-1.js?v=144',
+  '/assets/catalog-2.js?v=144',
+  '/assets/catalog-3.js?v=144',
+  '/assets/catalog-4.js?v=144',
+  '/assets/image-manifest.js?v=144',
+  '/style.css?v=144',
+  '/recipe.js?v=144',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
@@ -33,7 +42,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
       .then(() => {
-        console.log('[SW v143] Assets statiques mis en cache.');
+        console.log('[SW v144] Assets statiques mis en cache.');
       })
   );
   self.skipWaiting();
@@ -47,7 +56,7 @@ self.addEventListener('activate', (event) => {
         keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
       )
     ).then(() => {
-        console.log('[SW v143] Anciens caches supprimés.');
+        console.log('[SW v144] Anciens caches supprimés.');
     })
   );
   self.clients.claim();
@@ -85,7 +94,7 @@ self.addEventListener('fetch', (event) => {
 
   // Ces fichiers changent souvent pendant les mises à jour du carnet :
   // réseau d'abord, cache en secours si l'utilisateur est hors-ligne.
-  if (/^\/assets\/catalog-\d+\.js$/.test(url.pathname) || ['/app.js', '/recipes.js', '/recipe.js', '/style.css', '/manifest.json'].includes(url.pathname)) {
+  if (/^\/assets\/catalog-\d+\.js$/.test(url.pathname) || FAST_CHANGING_PATHS.has(url.pathname)) {
     event.respondWith(
       fetch(event.request, { cache: 'no-store' })
         .then(response => {

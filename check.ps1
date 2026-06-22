@@ -20,6 +20,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\validate-feature-coverage.js',
     'scripts\validate-cache-version.js',
     'scripts\validate-visual-image-duplicates.js',
+    'scripts\generate-image-manifest.js',
     'scripts\bump-version.js',
     'scripts\preflight.js',
     'scripts\audit-recipes.js',
@@ -40,11 +41,16 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\validate-production.js',
     'scripts\validate-feature-coverage.js',
     'scripts\validate-cache-version.js',
+    'scripts\generate-image-manifest.js',
     'scripts\validate-visual-image-duplicates.js'
   )
 
   foreach ($file in $validators) {
-    & $nodeExe $file
+    if ($file -eq 'scripts\generate-image-manifest.js') {
+      & $nodeExe $file --check
+    } else {
+      & $nodeExe $file
+    }
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
   }
 }

@@ -9,6 +9,7 @@
     "audit:recipes": "node scripts/audit-recipes.js",
     "audit:images": "node scripts/audit-images.js",
     "bump:version": "node scripts/bump-version.js --next",
+    "generate:image-manifest": "node scripts/generate-image-manifest.js",
     "generate:sitemap": "node scripts/generate-sitemap.js",
     "optimize:images": "powershell.exe -ExecutionPolicy Bypass -File .\\scripts\\optimize-images.ps1",
     "optimize:selected": "powershell.exe -ExecutionPolicy Bypass -File .\\scripts\\optimize-selected-images.ps1",
@@ -17,10 +18,14 @@
     "validate:recipes": "node scripts/validate-recipes.js",
     "validate:rules": "node scripts/validate-project-rules.js",
     "validate:production": "node scripts/validate-production.js",
+    "validate:image-manifest": "node scripts/generate-image-manifest.js --check",
     "validate:visual-images": "node scripts/validate-visual-image-duplicates.js",
-    "check": "node --check server.js && node --check app.js && node --check admin.js && node --check recipe.js && node --check service-worker.js && node --check scripts/validate-recipes.js && node --check scripts/validate-quantities.js && node --check scripts/validate-ui.js && node --check scripts/validate-project-rules.js && node --check scripts/validate-production.js && node --check scripts/validate-feature-coverage.js && node --check scripts/validate-cache-version.js && node --check scripts/validate-visual-image-duplicates.js && node --check scripts/bump-version.js && node --check scripts/preflight.js && node --check scripts/audit-recipes.js && node --check scripts/audit-images.js && node --check scripts/generate-sitemap.js && node scripts/validate-recipes.js && node scripts/validate-quantities.js && node scripts/validate-ui.js && node scripts/validate-project-rules.js && node scripts/validate-production.js && node scripts/validate-feature-coverage.js && node scripts/validate-cache-version.js && node scripts/validate-visual-image-duplicates.js"
+    "check": "node --check server.js && node --check app.js && node --check admin.js && node --check recipe.js && node --check service-worker.js && node --check scripts/validate-recipes.js && node --check scripts/validate-quantities.js && node --check scripts/validate-ui.js && node --check scripts/validate-project-rules.js && node --check scripts/validate-production.js && node --check scripts/validate-feature-coverage.js && node --check scripts/validate-cache-version.js && node --check scripts/validate-visual-image-duplicates.js && node --check scripts/generate-image-manifest.js && node --check scripts/bump-version.js && node --check scripts/preflight.js && node --check scripts/audit-recipes.js && node --check scripts/audit-images.js && node --check scripts/generate-sitemap.js && node scripts/validate-recipes.js && node scripts/validate-quantities.js && node scripts/validate-ui.js && node scripts/validate-project-rules.js && node scripts/validate-production.js && node scripts/validate-feature-coverage.js && node scripts/validate-cache-version.js && node scripts/generate-image-manifest.js --check && node scripts/validate-visual-image-duplicates.js"
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "jpeg-js": "^0.4.4"
   }
 }
