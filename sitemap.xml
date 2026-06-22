@@ -157,6 +157,9 @@
     <loc>https://cook-note.pages.dev/recette/cochon_confit_biere_erable</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/cocotte_pois_chiches_tomates_montbeliard</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/compotee_citron</loc>
   </url>
   <url>
@@ -352,6 +355,9 @@
     <loc>https://cook-note.pages.dev/recette/hachis_parmentier</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/haricots_blancs_tomates_montbeliard</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/haricots_tarbais_chorizo_tomate</loc>
   </url>
   <url>
@@ -457,6 +463,9 @@
     <loc>https://cook-note.pages.dev/recette/paris_brest</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/parmentier_confit_canard_patates_douces</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/patates_douces_four</loc>
   </url>
   <url>
@@ -512,6 +521,15 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/poires_roties_orange_miel</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/pommes_de_terre_air_fryer</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/pommes_de_terre_fondantes_moutarde</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/pommes_de_terre_grecques_citron_origan</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pommes_de_terre_suedoises</loc>
@@ -593,6 +611,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/riz_cantonnais</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/riz_saute_poulet</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/rougail_saucisse</loc>
@@ -694,6 +715,9 @@
     <loc>https://cook-note.pages.dev/recette/tartes_maitre</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/temps_cuisson_legumes_autocuiseur</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/tempura_beignets_calamar_crevettes</loc>
   </url>
   <url>
@@ -739,4 +763,3 @@
     <loc>https://cook-note.pages.dev/recette/vinaigrette</loc>
   </url>
 </urlset>
-

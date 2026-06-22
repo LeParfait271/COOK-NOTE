@@ -255,6 +255,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 520,
     "bytes": 84129
   },
+  "assets/recipe-card-images/cocotte_pois_chiches_tomates_montbeliard_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 91362
+  },
   "assets/recipe-card-images/compotee_citron_spooky.jpg": {
     "width": 520,
     "height": 520,
@@ -570,6 +575,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 59426
   },
+  "assets/recipe-card-images/haricots_blancs_tomates_montbeliard_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 83836
+  },
   "assets/recipe-card-images/haricots_tarbais_chorizo_tomate_cooknote_v2_spooky.jpg": {
     "width": 480,
     "height": 360,
@@ -785,6 +795,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 520,
     "bytes": 47857
   },
+  "assets/recipe-card-images/parmentier_confit_canard_patates_douces_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 571,
+    "bytes": 107589
+  },
   "assets/recipe-card-images/patates_douces_four_cooknote_v3_spooky.jpg": {
     "width": 760,
     "height": 428,
@@ -869,6 +884,21 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 507,
     "bytes": 90244
+  },
+  "assets/recipe-card-images/pommes_de_terre_air_fryer_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 83795
+  },
+  "assets/recipe-card-images/pommes_de_terre_fondantes_moutarde_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 100198
+  },
+  "assets/recipe-card-images/pommes_de_terre_grecques_citron_origan_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 571,
+    "bytes": 106709
   },
   "assets/recipe-card-images/pommes_de_terre_suedoises_cooknote_v2_spooky.jpg": {
     "width": 480,
@@ -1004,6 +1034,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 640,
     "height": 360,
     "bytes": 49863
+  },
+  "assets/recipe-card-images/riz_saute_poulet_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 92294
   },
   "assets/recipe-card-images/rougail_saucisse_spooky.jpg": {
     "width": 760,
@@ -1160,6 +1195,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 520,
     "bytes": 44246
   },
+  "assets/recipe-card-images/temps_cuisson_legumes_autocuiseur_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 79599
+  },
   "assets/recipe-card-images/tempura_beignets_calamar_crevettes_spooky.jpg": {
     "width": 520,
     "height": 293,
@@ -1239,6 +1279,46 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 520,
     "height": 520,
     "bytes": 78648
+  },
+  "assets/recipe-images-optimized/cocotte_pois_chiches_tomates_montbeliard_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 298850
+  },
+  "assets/recipe-images-optimized/haricots_blancs_tomates_montbeliard_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 277635
+  },
+  "assets/recipe-images-optimized/parmentier_confit_canard_patates_douces_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1052,
+    "bytes": 334697
+  },
+  "assets/recipe-images-optimized/pommes_de_terre_air_fryer_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 270401
+  },
+  "assets/recipe-images-optimized/pommes_de_terre_fondantes_moutarde_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 316704
+  },
+  "assets/recipe-images-optimized/pommes_de_terre_grecques_citron_origan_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1052,
+    "bytes": 329772
+  },
+  "assets/recipe-images-optimized/riz_saute_poulet_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 291836
+  },
+  "assets/recipe-images-optimized/temps_cuisson_legumes_autocuiseur_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 261531
   },
   "assets/recipe-images/aioli_citronne_leger_spooky.png": {
     "width": 1672,
@@ -1474,6 +1554,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 2144582
+  },
+  "assets/recipe-images/cocotte_pois_chiches_tomates_montbeliard_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2512002
   },
   "assets/recipe-images/compotee_citron_spooky.png": {
     "width": 1024,
@@ -1790,6 +1875,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 941,
     "bytes": 2065484
   },
+  "assets/recipe-images/haricots_blancs_tomates_montbeliard_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2428227
+  },
   "assets/recipe-images/haricots_tarbais_chorizo_tomate_cooknote_v2_spooky.png": {
     "width": 1448,
     "height": 1086,
@@ -2005,6 +2095,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 1899505
   },
+  "assets/recipe-images/parmentier_confit_canard_patates_douces_cooknote_v1_spooky.png": {
+    "width": 1447,
+    "height": 1087,
+    "bytes": 2561611
+  },
   "assets/recipe-images/patates_douces_four_cooknote_v3_spooky.png": {
     "width": 1672,
     "height": 941,
@@ -2089,6 +2184,21 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1536,
     "height": 1024,
     "bytes": 2600065
+  },
+  "assets/recipe-images/pommes_de_terre_air_fryer_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2318845
+  },
+  "assets/recipe-images/pommes_de_terre_fondantes_moutarde_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2462225
+  },
+  "assets/recipe-images/pommes_de_terre_grecques_citron_origan_cooknote_v1_spooky.png": {
+    "width": 1447,
+    "height": 1087,
+    "bytes": 2520279
   },
   "assets/recipe-images/pommes_de_terre_suedoises_cooknote_v2_spooky.png": {
     "width": 1448,
@@ -2224,6 +2334,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1672,
     "height": 941,
     "bytes": 2318605
+  },
+  "assets/recipe-images/riz_saute_poulet_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2391559
   },
   "assets/recipe-images/rougail_saucisse_spooky.png": {
     "width": 1672,
@@ -2379,6 +2494,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 1837807
+  },
+  "assets/recipe-images/temps_cuisson_legumes_autocuiseur_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2341251
   },
   "assets/recipe-images/tempura_beignets_calamar_crevettes_spooky.png": {
     "width": 1672,
