@@ -6,7 +6,7 @@ const h = React.createElement;
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
 const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
-const SITE_VERSION = 'v1.48';
+const SITE_VERSION = 'v1.49';
 const SITE_UPDATED_AT = '22/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
@@ -738,7 +738,8 @@ const WINDOWS_1252_BYTE_BY_CODEPOINT = {
 };
 
 function mojibakeScore(value) {
-  return (String(value || '').match(/[ÃÂâÅ�]/g) || []).length;
+  const text = String(value || '');
+  return (text.match(/[ÃÂÅ�]/g) || []).length + (text.match(/â[\u20ac\u2122\u0153\u20ac\u201c\u201d\u00a0-\u00bf]/g) || []).length;
 }
 
 function repairMojibakeText(value) {
