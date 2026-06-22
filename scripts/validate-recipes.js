@@ -620,7 +620,9 @@ textFilesToCheck.forEach(filePath => {
     const intentionalMojibakeRepair = relative === 'app.js' && (
       line.includes('mojibakeScore') ||
       line.includes('repairMojibakeText') ||
-      line.includes('[ÃÂâÅ')
+      line.includes('[ÃÂâÅ') ||
+      line.includes('[ÃÂÅ') ||
+      line.includes('â[')
     );
     if (!intentionalMojibakeRepair && ENCODING_SUSPECT_RE.test(line)) {
       errors.push(`${relative}:${index + 1}: caractere UTF-8 suspect detecte.`);
