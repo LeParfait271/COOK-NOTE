@@ -1,4 +1,4 @@
-﻿/* global React, ReactDOM, QRCode */
+/* global React, ReactDOM, QRCode */
 
 const { useEffect, useMemo, useRef, useState } = React;
 const h = React.createElement;
@@ -6,7 +6,7 @@ const h = React.createElement;
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
 const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
-const SITE_VERSION = 'v1.53';
+const SITE_VERSION = 'v1.54';
 const SITE_UPDATED_AT = '22/06/26';
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];

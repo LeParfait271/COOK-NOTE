@@ -595,6 +595,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 520,
     "bytes": 84470
   },
+  "assets/recipe-card-images/ile_flottante_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 567,
+    "bytes": 76248
+  },
   "assets/recipe-card-images/irish_stew_guinness_cooknote_v2_spooky.jpg": {
     "width": 480,
     "height": 360,
@@ -1810,6 +1815,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 2332847
   },
+  "assets/recipe-images/ile_flottante_cooknote_v1_spooky.png": {
+    "width": 1452,
+    "height": 1083,
+    "bytes": 2185883
+  },
   "assets/recipe-images/irish_stew_guinness_cooknote_v2_spooky.png": {
     "width": 1448,
     "height": 1086,
@@ -3024,6 +3034,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 213738
+  },
+  "assets/recipe-images-optimized/ile_flottante_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1044,
+    "bytes": 234811
   },
   "assets/recipe-images-optimized/irish_stew_guinness_cooknote_v2_spooky.jpg": {
     "width": 960,
