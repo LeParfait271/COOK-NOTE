@@ -104,6 +104,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Pour quelques images seulement, utiliser `scripts/optimize-selected-images.ps1` avec des noms explicites, pas l'optimisation globale forcee qui peut modifier tout le catalogue de miniatures.
 - Le preflight doit refuser les diffs image anormalement larges, sauf lot complet et equilibre master/optimisee/miniature qui passe `scripts/audit-images.js`. Il doit resynchroniser les catalogues, lancer les validations, demarrer un serveur local sur port libre et tester les assets critiques.
 - Les scripts de validation doivent rester branches dans `npm run check`.
+- Les tests visuels Playwright doivent rester branches dans GitHub Actions via `npm run test:visual`, avec captures desktop/mobile en artefacts pour verifier l'accueil, une fiche directe, les images chargees, le texte decode et l'absence de debordement horizontal.
 - Le domaine canonique public du site est `https://cook-note.pages.dev`. Ne pas remettre d'URL preview Cloudflare dans `index.html`, `robots.txt` ou `sitemap.xml`.
 - Les librairies front critiques doivent rester locales dans `assets/vendor/`. Ne pas remettre React, ReactDOM, QRCode ou confetti via CDN dans `index.html`.
 - Lancer `npm run audit:recipes` quand un gros lot de recettes ou de rangements change, puis lire `reports/recipe-audit.md`.

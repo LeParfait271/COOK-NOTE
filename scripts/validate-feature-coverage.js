@@ -53,7 +53,9 @@ const files = {
   auditImages: read('scripts/audit-images.js'),
   visualImages: read('scripts/validate-visual-image-duplicates.js'),
   performance: read('scripts/validate-performance-budget.js'),
-  headers: read('scripts/validate-headers.js')
+  headers: read('scripts/validate-headers.js'),
+  workflow: read('.github/workflows/cook-note.yml'),
+  visualSmoke: read('tests/visual-smoke.spec.js')
 };
 
 const FEATURE_COVERAGE = [
@@ -64,12 +66,12 @@ const FEATURE_COVERAGE = [
   { name: 'Liste de courses', checks: ['buildShoppingListData', 'filterShoppingListData', 'shoppingPurchaseHint', 'shoppingSmartGroupKey'] },
   { name: 'Techniques', checks: ['TECHNIQUE_GUIDES', 'buildTechniqueTargets', 'openTechnique', 'inline-technique-link'] },
   { name: 'Anti-gaspillage', checks: ['getEggWasteRecipeRefs', 'Anti-gaspillage blancs', 'Anti-gaspillage jaunes'] },
-  { name: 'Production', checks: ['service-worker.js', 'sitemap.xml', 'validate-production.js', 'generate-sitemap.js', 'validate-performance-budget.js', 'validate-headers.js', 'Cloudflare Pages'] }
+  { name: 'Production', checks: ['service-worker.js', 'sitemap.xml', 'validate-production.js', 'generate-sitemap.js', 'validate-performance-budget.js', 'validate-headers.js', 'Cloudflare Pages', 'test:visual', 'visual smoke'] }
 ];
 
 FEATURE_COVERAGE.forEach(feature => {
   feature.checks.forEach(fragment => {
-    const haystack = `${files.app}\n${files.style}\n${files.packageJson}\n${files.production}\n${files.recipes}\n${files.ui}\n${files.admin}\n${files.adminHtml}\n${files.adminCss}\n${files.auditRecipes}\n${files.auditImages}\n${files.visualImages}\n${files.performance}\n${files.headers}\n${files.rules}`;
+    const haystack = `${files.app}\n${files.style}\n${files.packageJson}\n${files.production}\n${files.recipes}\n${files.ui}\n${files.admin}\n${files.adminHtml}\n${files.adminCss}\n${files.auditRecipes}\n${files.auditImages}\n${files.visualImages}\n${files.performance}\n${files.headers}\n${files.workflow}\n${files.visualSmoke}\n${files.rules}`;
     expect(`Couverture feature ${feature.name} incomplete (${fragment}).`, haystack.includes(fragment));
   });
 });

@@ -79,6 +79,7 @@ const recipeHtml = read('recipe.html');
 const packageJson = read('package.json');
 const headers = read('_headers');
 const redirects = read('_redirects');
+const workflow = read('.github/workflows/cook-note.yml');
 
 const FORBIDDEN_INLINE_ALIASES = new Set([
   'base',
@@ -278,6 +279,12 @@ if (!packageJson.includes('scripts/validate-production.js')) {
 if (!packageJson.includes('scripts/validate-headers.js')) {
   fail('package.json: validate-headers.js doit rester branche au check.');
 }
+if (!packageJson.includes('"test:visual": "playwright test"')) {
+  fail('package.json: script test:visual absent.');
+}
+if (!packageJson.includes('@playwright/test')) {
+  fail('package.json: dependance Playwright absente.');
+}
 if (!headers.includes("Content-Security-Policy: default-src 'self'")) {
   fail('_headers: Content-Security-Policy absent.');
 }
@@ -286,6 +293,9 @@ if (!headers.includes('/service-worker.js') || !headers.includes('Cache-Control:
 }
 if (!redirects.includes('/recette/* /index.html 200')) {
   fail('_redirects: fallback SPA recettes absent.');
+}
+if (!workflow.includes('npm run test:visual') || !workflow.includes('Upload visual smoke artifacts')) {
+  fail('GitHub Actions: tests visuels Playwright absents.');
 }
 
 if (errors.length) {

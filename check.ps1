@@ -12,6 +12,8 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'admin.js',
     'recipe.js',
     'service-worker.js',
+    'playwright.config.js',
+    'tests\visual-smoke.spec.js',
     'scripts\validate-recipes.js',
     'scripts\validate-quantities.js',
     'scripts\validate-ui.js',
