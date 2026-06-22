@@ -109,6 +109,8 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Lancer `npm run audit:recipes` quand un gros lot de recettes ou de rangements change, puis lire `reports/recipe-audit.md`.
 - Le service worker ne doit precacher que des assets existants. Les anciennes URLs ou images supprimees ne doivent jamais rester dans le sitemap ou le cache.
 - Les pages HTML et les fichiers qui changent souvent doivent rester en reseau d abord avec cache de secours ; les images locales peuvent rester en cache-first.
+- Les headers de production Cloudflare Pages doivent rester versionnes dans `_headers` : CSP stricte adaptee au site autonome, service worker et HTML en `no-cache`, JS/CSS/catalogues/manifest en cache court, images et vendors en immutable.
+- Les routes statiques Cloudflare Pages doivent rester versionnees dans `_redirects` pour que `/recette/*` et `/techniques` rechargent directement l'app sans 404.
 - Quand `app.js`, `recipes.js` ou `style.css` change, bump la version des assets dans `index.html` et `service-worker.js` pour eviter un melange de cache ancien/nouveau.
 - A chaque push visible du site, augmenter la version affichee dans `SITE_VERSION` de `0.01`, mettre `SITE_UPDATED_AT` a la date du jour au format `JJ/MM/AA`, puis garder le footer au format `vX.XX / JJ/MM/AA`.
 - Le mode cuisine et les boutons minuteurs ont ete supprimes. Ne pas recreer `focusMode`, `recipe-focus-mode`, `Mode cuisine`, `step-timer`, `timerEnd`, `timerLabel`, `cooking-step-card` ou `cooking-step-actions`.

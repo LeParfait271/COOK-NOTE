@@ -25,6 +25,8 @@ const TEXT_FILES_TO_SCAN = [
   'app.js',
   'recipe.js',
   'service-worker.js',
+  '_headers',
+  '_redirects',
   'style.css',
   'assets/image-manifest.js',
   'manifest.json',
@@ -75,6 +77,8 @@ const serviceWorker = read('service-worker.js');
 const indexHtml = read('index.html');
 const recipeHtml = read('recipe.html');
 const packageJson = read('package.json');
+const headers = read('_headers');
+const redirects = read('_redirects');
 
 const FORBIDDEN_INLINE_ALIASES = new Set([
   'base',
@@ -270,6 +274,18 @@ STALE_IMAGE_PATHS.forEach(asset => {
 
 if (!packageJson.includes('scripts/validate-production.js')) {
   fail('package.json: validate-production.js doit rester branche au check.');
+}
+if (!packageJson.includes('scripts/validate-headers.js')) {
+  fail('package.json: validate-headers.js doit rester branche au check.');
+}
+if (!headers.includes("Content-Security-Policy: default-src 'self'")) {
+  fail('_headers: Content-Security-Policy absent.');
+}
+if (!headers.includes('/service-worker.js') || !headers.includes('Cache-Control: no-cache')) {
+  fail('_headers: service worker doit rester en no-cache.');
+}
+if (!redirects.includes('/recette/* /index.html 200')) {
+  fail('_redirects: fallback SPA recettes absent.');
 }
 
 if (errors.length) {

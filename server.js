@@ -56,6 +56,26 @@ const MIME = {
   '.ico': 'image/x-icon',
   '.txt': 'text/plain; charset=utf-8'
 };
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "frame-ancestors 'none'",
+  "img-src 'self' data: blob:",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "connect-src 'self'",
+  "worker-src 'self'",
+  "manifest-src 'self'",
+  "font-src 'self' data:"
+].join('; ');
+const SECURITY_HEADERS = {
+  'content-security-policy': CONTENT_SECURITY_POLICY,
+  'x-content-type-options': 'nosniff',
+  'referrer-policy': 'strict-origin-when-cross-origin',
+  'permissions-policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=()',
+  'cross-origin-opener-policy': 'same-origin'
+};
 
 const ADMIN_PASSWORD = loadAdminPassword();
 
@@ -76,7 +96,7 @@ function loadAdminPassword() {
 }
 
 function send(res, status, body, headers = {}) {
-  res.writeHead(status, headers);
+  res.writeHead(status, { ...SECURITY_HEADERS, ...headers });
   res.end(body);
 }
 
@@ -178,10 +198,30 @@ function serveFile(req, res, filePath, noStore = false) {
     const headers = {
       'content-type': MIME[path.extname(filePath).toLowerCase()] || 'application/octet-stream'
     };
-    if (noStore) headers['cache-control'] = 'no-store';
-    else if (filePath.includes(`${path.sep}assets${path.sep}`)) headers['cache-control'] = 'public, max-age=31536000, immutable';
+    headers['cache-control'] = staticCacheControl(filePath, noStore);
     send(res, 200, data, headers);
   });
+}
+
+function staticCacheControl(filePath, noStore = false) {
+  if (noStore) return 'no-store';
+  const relative = path.relative(ROOT, filePath).replace(/\\/g, '/');
+
+  if (relative === 'service-worker.js') return 'no-cache';
+  if (relative === 'index.html' || relative === 'recipe.html') return 'no-cache';
+  if (
+    relative === 'app.js' ||
+    relative === 'style.css' ||
+    relative === 'recipe.js' ||
+    relative === 'recipes.js' ||
+    relative === 'manifest.json' ||
+    /^assets\/catalog-\d+\.js$/.test(relative) ||
+    relative === 'assets/image-manifest.js'
+  ) {
+    return 'public, max-age=300, must-revalidate';
+  }
+  if (relative.startsWith('assets/')) return 'public, max-age=31536000, immutable';
+  return 'no-cache';
 }
 
 function readRecipes() {
