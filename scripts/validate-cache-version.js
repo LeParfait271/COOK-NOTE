@@ -36,6 +36,11 @@ function isCatalogOrVisualChange(file) {
     || file === 'sitemap.xml';
 }
 
+function isImageManifestChange(file) {
+  return file === 'assets/image-manifest.js'
+    || /^assets\/recipe-(?:images|images-optimized|card-images)\//.test(file);
+}
+
 const app = read('app.js');
 const index = read('index.html');
 const recipeHtml = read('recipe.html');
@@ -84,13 +89,16 @@ if (changedFiles.some(isCatalogOrVisualChange)) {
     'app.js',
     'index.html',
     'service-worker.js',
-    'assets/image-manifest.js',
     'scripts/validate-ui.js'
   ].forEach(file => {
     if (!changedSet.has(file)) {
       fail(`${file}: bump version/cache obligatoire quand recettes, catalogues, images ou sitemap changent.`);
     }
   });
+}
+
+if (changedFiles.some(isImageManifestChange) && !changedSet.has('assets/image-manifest.js')) {
+  fail('assets/image-manifest.js: regeneration obligatoire quand les images changent.');
 }
 
 if (errors.length) {
