@@ -1,0 +1,40 @@
+{
+  "name": "Cook Note",
+  "short_name": "Cook Note",
+  "description": "Livre de cuisine de MaruChiwa",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
+  "orientation": "portrait-primary",
+  "background_color": "#000000",
+  "theme_color": "#fbbf24",
+  "lang": "fr",
+  "categories": ["food", "lifestyle", "utilities"],
+  "icons": [
+    {
+      "src": "assets/cook-note.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mes Favoris",
+      "short_name": "Favoris",
+      "url": "/?view=__favs__",
+      "description": "Voir mes recettes favorites",
+      "icons": [{ "src": "assets/cook-note.png", "sizes": "128x128", "type": "image/png" }]
+    },
+    {
+      "name": "Techniques de cuisinier",
+      "short_name": "Techniques",
+      "url": "/techniques",
+      "description": "Ouvrir les gestes de cuisine",
+      "icons": [{ "src": "assets/cook-note.png", "sizes": "128x128", "type": "image/png" }]
+    }
+  ],
+  "screenshots": []
+}

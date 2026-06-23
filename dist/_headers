@@ -1,0 +1,78 @@
+/*
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; font-src 'self' data:
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=()
+  Cross-Origin-Opener-Policy: same-origin
+
+/
+  Cache-Control: no-cache
+
+/index.html
+  Cache-Control: no-cache
+
+/recipe.html
+  Cache-Control: no-cache
+
+/service-worker.js
+  Cache-Control: no-cache
+
+/app.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/app-images.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/style.css
+  Cache-Control: public, max-age=300, must-revalidate
+
+/recipe.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/recipes.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/manifest.json
+  Cache-Control: public, max-age=300, must-revalidate
+
+/assets/catalog-1.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/assets/catalog-2.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/assets/catalog-3.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/assets/catalog-4.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/assets/image-manifest.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/assets/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/recipe-card-images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/recipe-images-optimized/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/recipe-images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/base-du-site.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/base-principale-fond-site.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/cook-note.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/cook-note-white.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/cook-note-mark.svg
+  Cache-Control: public, max-age=31536000, immutable

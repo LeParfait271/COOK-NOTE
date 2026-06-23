@@ -19,7 +19,7 @@ Cook Note reste une web app statique autonome : le navigateur charge HTML, CSS, 
 
 Le build copie uniquement le site public, les modules runtime extraits, les vendors locaux, les catalogues, `recipes.js`, les JPG optimises et les miniatures. Il regenere aussi un `assets/image-manifest.js` de production sans les masters PNG.
 
-`dist/` est ignore par Git : il se regenere toujours depuis les sources versionnees.
+`dist/` est versionne comme artefact public Cloudflare Pages. Il se regenere toujours depuis les sources versionnees avec `npm run build`, puis `scripts/validate-dist.js` verifie qu'il ne contient que le site public.
 
 ## Deploiement
 
@@ -34,9 +34,9 @@ Cloudflare Pages doit avoir cette configuration de build Git :
 pages_build_output_dir = "dist"
 ```
 
-Cloudflare Pages doit donc generer puis publier `dist/`, pas la racine du depot.
+Cloudflare Pages doit donc publier `dist/`, pas la racine du depot.
 
-Si le log Cloudflare affiche `No build command specified. Skipping build step.`, le build echouera avec `Output directory "dist" not found` parce que `dist/` est volontairement ignore par Git.
+Si le log Cloudflare affiche `No build command specified. Skipping build step.`, le deploiement reste valide parce que `dist/` est versionne. Il faut seulement s'assurer que `npm run build` a ete relance avant le push.
 
 ## Validations
 

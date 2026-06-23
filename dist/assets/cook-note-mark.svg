@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Cook Note">
+  <defs>
+    <linearGradient id="gold" x1="24" y1="18" x2="106" y2="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffe38a"/>
+      <stop offset=".48" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#b97810"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="34" y1="50" x2="94" y2="102" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff4cf"/>
+      <stop offset="1" stop-color="#d8a84c"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="145%">
+      <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000" flood-opacity=".55"/>
+    </filter>
+  </defs>
+  <rect x="7" y="7" width="114" height="114" rx="25" fill="#080706" stroke="url(#gold)" stroke-width="3"/>
+  <g filter="url(#shadow)">
+    <path d="M33 58c10-8 22-8 31 0 9-8 21-8 31 0v45c-10-7-22-7-31 1-9-8-21-8-31-1V58Z" fill="url(#paper)" stroke="#f8d06c" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M64 58v46" fill="none" stroke="#8a5a13" stroke-width="2" stroke-linecap="round" opacity=".75"/>
+    <path d="M42 72h13M42 84h12M73 72h14M73 84h12" fill="none" stroke="#5f3d0d" stroke-width="3" stroke-linecap="round" opacity=".72"/>
+    <path d="M48 48c.5-9 8-15 16-15 6 0 11 3 14 8 7-1 13 4 13 11 0 8-7 12-15 12H49c-7 0-12-3-12-9 0-5 5-9 11-7Z" fill="#fff9e8" stroke="#fbbf24" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M64 34c-5 6-5 14 0 21M78 42c-5 4-7 8-6 13" fill="none" stroke="#c58a1d" stroke-width="3" stroke-linecap="round" opacity=".78"/>
+    <path d="M98 33l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z" fill="#fbbf24"/>
+  </g>
+</svg>
