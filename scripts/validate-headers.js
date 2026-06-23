@@ -33,6 +33,7 @@ const rules = read('COOK_NOTE_RULES.md');
   'Cross-Origin-Opener-Policy: same-origin',
   '/service-worker.js',
   'Cache-Control: no-cache',
+  '/app-images.js',
   '/assets/recipe-card-images/*',
   'Cache-Control: public, max-age=31536000, immutable',
   '/assets/image-manifest.js',
@@ -53,6 +54,7 @@ const rules = read('COOK_NOTE_RULES.md');
   'SECURITY_HEADERS',
   'CONTENT_SECURITY_POLICY',
   'staticCacheControl',
+  "relative === 'app-images.js'",
   "'x-content-type-options': 'nosniff'",
   "'referrer-policy': 'strict-origin-when-cross-origin'",
   "headers['cache-control'] = staticCacheControl(filePath, noStore)"

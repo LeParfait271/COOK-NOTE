@@ -64,13 +64,15 @@ write('app.js', app
 write('scripts/validate-ui.js', read('scripts/validate-ui.js')
   .replace(/const SITE_VERSION = 'v\d+\.\d+'/g, `const SITE_VERSION = '${version}'`)
   .replace(/const SITE_UPDATED_AT = '\d{2}\/\d{2}\/\d{2}'/g, `const SITE_UPDATED_AT = '${date}'`)
-  .replace(/(image-manifest\.js\?v=)\d+/g, `$1${numeric}`));
+  .replace(/(image-manifest\.js\?v=)\d+/g, `$1${numeric}`)
+  .replace(/(app-images\.js\?v=)\d+/g, `$1${numeric}`));
 
 write('index.html', read('index.html')
   .replace(/(base-du-site\.png\?v=)\d+/g, `$1${numeric}`)
   .replace(/(style\.css\?v=)\d+/g, `$1${numeric}`)
   .replace(/(catalog-\d+\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(image-manifest\.js\?v=)\d+/g, `$1${numeric}`)
+  .replace(/(app-images\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(service-worker\.js\?v=)\d+/g, `$1${numeric}`));
 
@@ -83,6 +85,7 @@ write('service-worker.js', read('service-worker.js')
   .replace(/Service Worker PWA v\d+/g, `Service Worker PWA v${numeric}`)
   .replace(/CACHE_NAME = 'cook-note-v\d+'/g, `CACHE_NAME = 'cook-note-v${numeric}'`)
   .replace(/(app\.js\?v=)\d+/g, `$1${numeric}`)
+  .replace(/(app-images\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(catalog-\d+\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(image-manifest\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(style\.css\?v=)\d+/g, `$1${numeric}`)

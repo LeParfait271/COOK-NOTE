@@ -3,6 +3,7 @@ const { defineConfig, devices } = require('@playwright/test');
 const PORT = Number(process.env.PORT || 8080);
 const HOST = process.env.HOST || '127.0.0.1';
 const BASE_URL = process.env.COOK_NOTE_BASE_URL || `http://${HOST}:${PORT}`;
+const SKIP_WEBSERVER = process.env.COOK_NOTE_SKIP_WEBSERVER === '1';
 
 module.exports = defineConfig({
   testDir: './tests',
@@ -24,7 +25,7 @@ module.exports = defineConfig({
     screenshot: 'only-on-failure',
     trace: 'on-first-retry'
   },
-  webServer: {
+  webServer: SKIP_WEBSERVER ? undefined : {
     command: `node server.js`,
     url: BASE_URL,
     timeout: 30000,

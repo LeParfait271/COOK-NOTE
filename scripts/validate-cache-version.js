@@ -30,6 +30,7 @@ function changedFilesAgainstHead() {
 
 function isCatalogOrVisualChange(file) {
   return file === 'recipes.js'
+    || file === 'app-images.js'
     || /^assets\/catalog-\d+\.js$/.test(file)
     || file === 'assets/image-manifest.js'
     || /^assets\/recipe-(?:images|images-optimized|card-images)\//.test(file)
@@ -54,12 +55,12 @@ if (!siteDate) fail('app.js: SITE_UPDATED_AT introuvable ou invalide.');
 
 const expectedAssetVersion = siteVersion ? `${Number(siteVersion[0])}${siteVersion[1].padStart(2, '0')}` : '';
 const assetVersions = [
-  ...index.matchAll(/\b(?:app|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g),
+  ...index.matchAll(/\b(?:app|app-images|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g),
   ...index.matchAll(/\bimage-manifest\.js\?v=(\d+)/g),
   ...index.matchAll(/service-worker\.js\?v=(\d+)/g),
   ...index.matchAll(/\bbase-du-site\.png\?v=(\d+)/g),
   ...recipeHtml.matchAll(/\b(?:recipe|recipes|style)\.(?:js|css)\?v=(\d+)/g),
-  ...serviceWorker.matchAll(/\b(?:app|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g),
+  ...serviceWorker.matchAll(/\b(?:app|app-images|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g),
   ...serviceWorker.matchAll(/CACHE_NAME\s*=\s*'cook-note-v(\d+)'/g)
 ].map(match => match[1]);
 
@@ -87,6 +88,7 @@ const changedSet = new Set(changedFiles);
 if (changedFiles.some(isCatalogOrVisualChange)) {
   [
     'app.js',
+    'app-images.js',
     'index.html',
     'service-worker.js',
     'scripts/validate-ui.js'

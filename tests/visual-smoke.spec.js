@@ -96,8 +96,8 @@ test.describe('Cook Note visual smoke', () => {
     });
   });
 
-  test('category parent pages render variants cleanly', async ({ page }, testInfo) => {
-    for (const [recipeId, expectedTitle] of CATEGORY_PARENT_ROUTES) {
+  for (const [recipeId, expectedTitle] of CATEGORY_PARENT_ROUTES) {
+    test(`category parent ${recipeId} renders variants cleanly`, async ({ page }, testInfo) => {
       await page.goto(`/recette/${recipeId}`);
       await waitForCookNote(page);
 
@@ -116,6 +116,6 @@ test.describe('Cook Note visual smoke', () => {
         path: testInfo.outputPath(`category-${recipeId}-${testInfo.project.name}.png`),
         fullPage: false
       });
-    }
-  });
+    });
+  }
 });

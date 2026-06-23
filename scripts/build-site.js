@@ -9,6 +9,7 @@ const ROOT_FILES = [
   '_headers',
   '_redirects',
   'app.js',
+  'app-images.js',
   'index.html',
   'manifest.json',
   'recipe.html',

@@ -1,6 +1,16 @@
 /* global React, ReactDOM, QRCode */
 
 const { useEffect, useMemo, useRef, useState } = React;
+const {
+  recipeCardImageUrl,
+  imageSizeAttrs,
+  imageBackgroundStyle
+} = window.CookNoteImages || {};
+
+if (!recipeCardImageUrl || !imageSizeAttrs || !imageBackgroundStyle) {
+  throw new Error('CookNoteImages doit etre charge avant app.js.');
+}
+
 const h = (type, props, ...children) => React.createElement(
   type,
   repairReactProps(props),
@@ -9,8 +19,7 @@ const h = (type, props, ...children) => React.createElement(
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
-const SITE_VERSION = 'v1.65';
+const SITE_VERSION = 'v1.66';
 const SITE_UPDATED_AT = '23/06/26';
 const SITE_CACHE_VERSION = SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`);
 const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
@@ -4218,31 +4227,6 @@ function ActiveChips({ chips }) {
   return h('div', { className: 'active-chips', 'aria-label': 'Filtres actifs' },
     chips.map(chip => h('button', { key: chip.key, type: 'button', onClick: chip.clear }, `${chip.label} ×`))
   );
-}
-
-function recipeCardImageUrl(image) {
-  if (!image || !image.startsWith('/assets/recipe-images-optimized/')) return image;
-  return image
-    .replace('/assets/recipe-images-optimized/', '/assets/recipe-card-images/')
-    .replace(/\.(?:png|jpe?g|webp)(\?.*)?$/i, '.jpg$1');
-}
-
-function imageManifestKey(image) {
-  return String(image || '').replace(/^\/+/, '').replace(/\?.*$/, '');
-}
-
-function imageAssetMeta(image) {
-  return IMAGE_MANIFEST[imageManifestKey(image)] || null;
-}
-
-function imageSizeAttrs(image) {
-  const meta = imageAssetMeta(image);
-  return meta?.width && meta?.height ? { width: meta.width, height: meta.height } : {};
-}
-
-function imageBackgroundStyle(image, card = true) {
-  const url = card ? recipeCardImageUrl(image) : image;
-  return url ? { backgroundImage: `url("${url}")` } : {};
 }
 
 function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNote }) {

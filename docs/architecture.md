@@ -4,7 +4,7 @@ Cook Note reste une web app statique autonome : le navigateur charge HTML, CSS, 
 
 ## Sources versionnees
 
-- `index.html`, `recipe.html`, `app.js`, `recipe.js`, `style.css` : shell public du site.
+- `index.html`, `recipe.html`, `app.js`, `app-images.js`, `recipe.js`, `style.css` : shell public du site.
 - `recipes.js` : catalogue complet, source GitHub des fiches recette.
 - `assets/catalog-*.js` : catalogues compacts de l'accueil, generes depuis `recipes.js`.
 - `assets/recipe-images/` : masters PNG des images recette, gardes dans GitHub.
@@ -17,7 +17,7 @@ Cook Note reste une web app statique autonome : le navigateur charge HTML, CSS, 
 
 `npm run build` cree `dist/`.
 
-Le build copie uniquement le site public, les vendors locaux, les catalogues, `recipes.js`, les JPG optimises et les miniatures. Il regenere aussi un `assets/image-manifest.js` de production sans les masters PNG.
+Le build copie uniquement le site public, les modules runtime extraits, les vendors locaux, les catalogues, `recipes.js`, les JPG optimises et les miniatures. Il regenere aussi un `assets/image-manifest.js` de production sans les masters PNG.
 
 `dist/` est ignore par Git : il se regenere toujours depuis les sources versionnees.
 

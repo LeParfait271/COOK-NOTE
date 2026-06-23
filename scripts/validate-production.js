@@ -22,6 +22,7 @@ const MOJIBAKE_PATTERN = /\u00c3[\u0080-\u00bf]|\u00c2[\u0080-\u00bf]|\u00c5[\u0
 const TEXT_FILES_TO_SCAN = [
   'index.html',
   'recipe.html',
+  'app-images.js',
   'app.js',
   'recipe.js',
   'recipes.js',
@@ -194,6 +195,7 @@ if (!staticAssets) {
     '/index.html',
     '/recipe.html',
     '/app.js',
+    '/app-images.js',
     '/assets/catalog-1.js',
     '/assets/catalog-2.js',
     '/assets/catalog-3.js',
@@ -224,12 +226,12 @@ if (!/CACHE_NAME\s*=\s*['"]cook-note-v\d+['"]/.test(serviceWorker)) {
 }
 
 const indexAssetVersions = [
-  ...indexHtml.matchAll(/\b(?:app|catalog-\d+|image-manifest|style)\.(?:js|css)\?v=(\d+)/g),
+  ...indexHtml.matchAll(/\b(?:app|app-images|catalog-\d+|image-manifest|style)\.(?:js|css)\?v=(\d+)/g),
   ...indexHtml.matchAll(/\bbase-du-site\.png\?v=(\d+)/g),
   ...recipeHtml.matchAll(/\b(?:recipe|recipes|style)\.(?:js|css)\?v=(\d+)/g)
 ].map(match => match[1]);
 const swRegistrationVersion = indexHtml.match(/service-worker\.js\?v=(\d+)/)?.[1];
-const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
+const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|app-images|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
 const swCacheVersion = serviceWorker.match(/CACHE_NAME\s*=\s*['"]cook-note-v(\d+)['"]/)?.[1];
 const allAssetVersions = [...indexAssetVersions, swRegistrationVersion, ...swAssetVersions, swCacheVersion].filter(Boolean);
 if (!allAssetVersions.length || new Set(allAssetVersions).size !== 1) {
@@ -262,12 +264,13 @@ if (!indexHtml.includes('https://cook-note.pages.dev/')) {
   'src="/assets/catalog-2.js?',
   'src="/assets/catalog-3.js?',
   'src="/assets/catalog-4.js?',
+  'src="/app-images.js?',
   'src="/app.js?',
   "register('/service-worker.js?"
 ].forEach(fragment => {
   if (!indexHtml.includes(fragment)) fail(`index.html: chemin racine attendu absent (${fragment}).`);
 });
-['href="style.css', 'src="assets/vendor', 'src="recipes.js', 'src="assets/catalog-', 'src="app.js', "register('service-worker.js"].forEach(fragment => {
+['href="style.css', 'src="assets/vendor', 'src="recipes.js', 'src="assets/catalog-', 'src="app-images.js', 'src="app.js', "register('service-worker.js"].forEach(fragment => {
   if (indexHtml.includes(fragment)) fail(`index.html: chemin relatif fragile detecte (${fragment}).`);
 });
 
@@ -297,7 +300,7 @@ if (!packageJson.includes('scripts/validate-production.js')) {
 if (!packageJson.includes('scripts/validate-headers.js')) {
   fail('package.json: validate-headers.js doit rester branche au check.');
 }
-if (!packageJson.includes('"test:visual": "playwright test"')) {
+if (!packageJson.includes('"test:visual": "node scripts/run-visual-tests.js"')) {
   fail('package.json: script test:visual absent.');
 }
 if (!packageJson.includes('@playwright/test')) {

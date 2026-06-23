@@ -10,6 +10,7 @@ const REQUIRED_FILES = [
   '_headers',
   '_redirects',
   'app.js',
+  'app-images.js',
   'assets/base-du-site.png',
   'assets/base-principale-fond-site.jpg',
   'assets/catalog-1.js',

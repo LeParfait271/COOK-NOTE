@@ -4,6 +4,7 @@ const vm = require('node:vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const recipesPath = path.join(ROOT, 'recipes.js');
+const appImagesPath = path.join(ROOT, 'app-images.js');
 const appPath = path.join(ROOT, 'app.js');
 const errors = [];
 
@@ -29,6 +30,7 @@ function loadQuantityHelpers() {
     }
   };
   vm.createContext(context);
+  vm.runInContext(fs.readFileSync(appImagesPath, 'utf8'), context, { filename: appImagesPath });
   vm.runInContext(appCode.slice(0, end), context, { filename: appPath });
   return context;
 }

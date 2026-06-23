@@ -64,6 +64,8 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'npm run build',
   'scripts/validate-dist.js',
   '`dist/`',
+  'modules runtime extraits de `app.js`',
+  'app-images.js',
   'node scripts/bump-version.js --next',
   'scripts/optimize-selected-images.ps1',
   'diffs image anormalement larges',
@@ -109,6 +111,7 @@ expect('Validation panier courses noms proches non branchee.', fs.readFileSync(p
 expect('Validation production non branchee.', validators.production.includes('Validation production OK.') && validators.packageJson.includes('scripts/validate-production.js'));
 expect('Build production dist non branche.', validators.packageJson.includes('"build": "node scripts/build-site.js"') && validators.packageJson.includes('scripts/validate-dist.js') && validators.dist.includes('Validation dist OK.'));
 expect('Sortie Cloudflare Pages dist non declaree.', validators.wrangler.includes('pages_build_output_dir = "dist"') && validators.workflow.includes('npm run build') && validators.workflow.includes('cook-note-dist'));
+expect('Module runtime images non protege.', validators.packageJson.includes('node --check app-images.js') && validators.production.includes('/app-images.js') && validators.cache.includes('app-images.js') && validators.dist.includes("'app-images.js'") && validators.preflight.includes('/app-images.js'));
 expect('Validation couverture features non branchee.', validators.packageJson.includes('scripts/validate-feature-coverage.js'));
 expect('Validation cache/version non branchee.', validators.cache.includes('Validation cache/version OK.') && validators.packageJson.includes('scripts/validate-cache-version.js'));
 expect('Validation budget performance non branchee.', validators.packageJson.includes('scripts/validate-performance-budget.js'));

@@ -8,6 +8,7 @@ $npm = Join-Path $nodeDir 'npm.cmd'
 function Invoke-CookNoteNodeCheck($nodeExe) {
   $files = @(
     'server.js',
+    'app-images.js',
     'app.js',
     'admin.js',
     'recipe.js',
@@ -29,6 +30,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\validate-dist.js',
     'scripts\bump-version.js',
     'scripts\preflight.js',
+    'scripts\run-visual-tests.js',
     'scripts\audit-recipes.js',
     'scripts\audit-images.js',
     'scripts\generate-sitemap.js'

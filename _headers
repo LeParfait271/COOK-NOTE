@@ -20,6 +20,9 @@
 /app.js
   Cache-Control: public, max-age=300, must-revalidate
 
+/app-images.js
+  Cache-Control: public, max-age=300, must-revalidate
+
 /style.css
   Cache-Control: public, max-age=300, must-revalidate
 

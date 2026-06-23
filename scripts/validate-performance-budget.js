@@ -8,6 +8,7 @@ const errors = [];
 
 const FILE_BUDGETS = [
   ['index.html', 14 * KB],
+  ['app-images.js', 8 * KB],
   ['app.js', 380 * KB],
   ['style.css', 145 * KB],
   ['recipes.js', 470 * KB],
