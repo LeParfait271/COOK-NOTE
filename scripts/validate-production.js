@@ -76,6 +76,7 @@ function staticAssetsFromServiceWorker(text) {
 
 const recipes = loadRecipes();
 const catalogRecipes = loadCatalogRecipes();
+const recipesById = Object.fromEntries(Object.entries(recipes).map(([id, recipe]) => [id, { id, ...recipe }]));
 const recipeIds = new Set(Object.keys(recipes));
 const sitemap = read('sitemap.xml');
 const robots = read('robots.txt');
@@ -148,9 +149,26 @@ const catalogIds = new Set(Object.keys(catalogRecipes));
 if (catalogIds.size !== recipeIds.size) {
   fail(`catalogue frontend: nombre de recettes incoherent (${catalogIds.size} au lieu de ${recipeIds.size}).`);
 }
-function compactRecipeForCatalog(recipe) {
-  const compact = JSON.parse(JSON.stringify(recipe));
+function variantRefs(recipe) {
+  return Array.isArray(recipe?.variants) ? recipe.variants.filter(variant => variant && variant.id) : [];
+}
+
+function leafVariantCount(recipe, seen = new Set()) {
+  if (!recipe || seen.has(recipe.id)) return 0;
+  seen.add(recipe.id);
+  const refs = variantRefs(recipe);
+  if (!refs.length) return recipe.id ? 1 : 0;
+  return refs.reduce((sum, variant) => {
+    const child = recipesById[variant.id];
+    return sum + (variantRefs(child).length ? leafVariantCount(child, seen) : (child ? 1 : 0));
+  }, 0);
+}
+
+function compactRecipeForCatalog(id, recipe) {
+  const compact = JSON.parse(JSON.stringify({ id, ...recipe }));
   delete compact.practical;
+  const leafCount = leafVariantCount({ id, ...compact });
+  if (leafCount > 1) compact.leafCount = leafCount;
   return compact;
 }
 recipeIds.forEach(id => {
@@ -158,7 +176,7 @@ recipeIds.forEach(id => {
     fail(`catalogue frontend: recette absente (${id}).`);
     return;
   }
-  if (JSON.stringify(catalogRecipes[id]) !== JSON.stringify(compactRecipeForCatalog(recipes[id]))) {
+  if (JSON.stringify(catalogRecipes[id]) !== JSON.stringify(compactRecipeForCatalog(id, recipes[id]))) {
     fail(`catalogue frontend: recette non synchronisee (${id}). Lancer node scripts/sync-catalog.js.`);
   }
 });
@@ -197,17 +215,12 @@ if (!staticAssets) {
     '/app.js',
     '/app-images.js',
     '/assets/catalog-1.js',
-    '/assets/catalog-2.js',
-    '/assets/catalog-3.js',
-    '/assets/catalog-4.js',
     '/assets/image-manifest.js',
     '/recipe.js',
     '/style.css',
     '/manifest.json',
     '/assets/vendor/react.production.min.js',
     '/assets/vendor/react-dom.production.min.js',
-    '/assets/vendor/confetti.browser.min.js',
-    '/assets/vendor/qrcode.min.js',
     '/assets/cook-note.png',
     '/assets/cook-note-white.png'
   ].forEach(required => {
@@ -223,6 +236,9 @@ if (!staticAssets) {
 
 if (!/CACHE_NAME\s*=\s*['"]cook-note-v\d+['"]/.test(serviceWorker)) {
   fail('service-worker.js: CACHE_NAME doit etre versionne en cook-note-vN.');
+}
+if (!/IMAGE_CACHE_NAME\s*=\s*['"]cook-note-images-v\d+['"]/.test(serviceWorker)) {
+  fail('service-worker.js: IMAGE_CACHE_NAME doit etre versionne en cook-note-images-vN.');
 }
 
 const indexAssetVersions = [
@@ -258,12 +274,7 @@ if (!indexHtml.includes('https://cook-note.pages.dev/')) {
   'href="/style.css?',
   'src="/assets/vendor/react.production.min.js"',
   'src="/assets/vendor/react-dom.production.min.js"',
-  'src="/assets/vendor/confetti.browser.min.js"',
-  'src="/assets/vendor/qrcode.min.js"',
   'src="/assets/catalog-1.js?',
-  'src="/assets/catalog-2.js?',
-  'src="/assets/catalog-3.js?',
-  'src="/assets/catalog-4.js?',
   'src="/app-images.js?',
   'src="/app.js?',
   "register('/service-worker.js?"

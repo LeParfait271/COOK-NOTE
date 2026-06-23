@@ -133,14 +133,31 @@ IMAGE_BUDGETS.forEach(([prefix, maxBytes]) => {
 });
 
 const app = read('app.js');
+const index = read('index.html');
+const serviceWorker = read('service-worker.js');
 [
   'imageSizeAttrs(cardImage)',
   'fetchPriority',
   'imageBackgroundStyle(recipe.image)',
-  'imageBackgroundStyle(item.recipe.image)'
+  'imageBackgroundStyle(item.recipe.image)',
+  'DEFERRED_CATALOG_CHUNK_SRCS',
+  'loadDeferredCatalogChunks',
+  'GRID_INITIAL_RENDER_COUNT',
+  'loadDeferredScript(QR_CODE_SCRIPT_SRC',
+  'runConfettiBurst'
 ].forEach(fragment => {
   if (!app.includes(fragment)) fail(`Optimisation runtime absente (${fragment}).`);
 });
+
+if (index.includes('/assets/catalog-2.js') || index.includes('/assets/catalog-3.js') || index.includes('/assets/catalog-4.js')) {
+  fail('index.html: chunks catalogue differes encore charges en synchrone.');
+}
+if (index.includes('/assets/vendor/confetti.browser.min.js') || index.includes('/assets/vendor/qrcode.min.js')) {
+  fail('index.html: librairies partage/celebration encore bloquees au demarrage.');
+}
+if (!serviceWorker.includes('IMAGE_CACHE_NAME') || serviceWorker.includes("'/assets/catalog-2.js?v=")) {
+  fail('service-worker.js: cache runtime images ou precache catalogue differe incorrect.');
+}
 
 if (errors.length) {
   console.error(errors.join('\n'));

@@ -1,10 +1,12 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v171
+//  Cook Note - Service Worker PWA v172
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v171';
+const CACHE_NAME = 'cook-note-v172';
+const IMAGE_CACHE_NAME = 'cook-note-images-v172';
+const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
   '/app-images.js',
@@ -18,25 +20,27 @@ const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=171',
-  '/app-images.js?v=171',
-  '/assets/catalog-1.js?v=171',
-  '/assets/catalog-2.js?v=171',
-  '/assets/catalog-3.js?v=171',
-  '/assets/catalog-4.js?v=171',
-  '/assets/image-manifest.js?v=171',
-  '/style.css?v=171',
-  '/recipe.js?v=171',
+  '/app.js?v=172',
+  '/app-images.js?v=172',
+  '/assets/catalog-1.js?v=172',
+  '/assets/image-manifest.js?v=172',
+  '/style.css?v=172',
+  '/recipe.js?v=172',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
-  '/assets/vendor/confetti.browser.min.js',
-  '/assets/vendor/qrcode.min.js',
   '/assets/cook-note-mark.svg',
   '/assets/cook-note.png',
   '/assets/cook-note-white.png',
   '/assets/base-principale-fond-site.jpg',
 ];
+
+async function trimCache(cacheName, maxEntries) {
+  const cache = await caches.open(cacheName);
+  const keys = await cache.keys();
+  if (keys.length <= maxEntries) return;
+  await Promise.all(keys.slice(0, keys.length - maxEntries).map(request => cache.delete(request)));
+}
 
 // Installation
 self.addEventListener('install', (event) => {
@@ -44,7 +48,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
       .then(() => {
-        console.log('[SW v171] Assets statiques mis en cache.');
+        console.log('[SW v172] Assets statiques mis en cache.');
       })
   );
 });
@@ -54,10 +58,10 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+        keys.filter(k => ![CACHE_NAME, IMAGE_CACHE_NAME].includes(k)).map(k => caches.delete(k))
       )
     ).then(() => {
-        console.log('[SW v171] Anciens caches supprimés.');
+        console.log('[SW v172] Anciens caches supprimés.');
     })
   );
   self.clients.claim();
@@ -82,6 +86,22 @@ self.addEventListener('fetch', (event) => {
 
   // Ne jamais mettre en cache l'admin ni l'API.
   if (url.pathname.startsWith('/admin') || url.pathname.startsWith('/api/')) return;
+
+  if (event.request.destination === 'image') {
+    event.respondWith(
+      caches.open(IMAGE_CACHE_NAME).then(async cache => {
+        const cached = await cache.match(event.request);
+        const refresh = fetch(event.request).then(response => {
+          if (response && response.status === 200 && response.type === 'basic') {
+            cache.put(event.request, response.clone()).then(() => trimCache(IMAGE_CACHE_NAME, IMAGE_CACHE_LIMIT));
+          }
+          return response;
+        }).catch(() => cached);
+        return cached || refresh;
+      })
+    );
+    return;
+  }
 
   // Les pages de l'app : reseau d'abord, index en secours hors-ligne.
   if (event.request.mode === 'navigate' || event.request.destination === 'document') {

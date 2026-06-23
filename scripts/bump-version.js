@@ -61,6 +61,9 @@ write('app.js', app
   .replace(/const SITE_VERSION = '[^']+';/, `const SITE_VERSION = '${version}';`)
   .replace(/const SITE_UPDATED_AT = '[^']+';/, `const SITE_UPDATED_AT = '${date}';`));
 
+write('app-images.js', read('app-images.js')
+  .replace(/const IMAGE_HELPER_VERSION = 'v\d+\.\d+';/g, `const IMAGE_HELPER_VERSION = '${version}';`));
+
 write('scripts/validate-ui.js', read('scripts/validate-ui.js')
   .replace(/const SITE_VERSION = 'v\d+\.\d+'/g, `const SITE_VERSION = '${version}'`)
   .replace(/const SITE_UPDATED_AT = '\d{2}\/\d{2}\/\d{2}'/g, `const SITE_UPDATED_AT = '${date}'`)
@@ -84,6 +87,7 @@ write('recipe.html', read('recipe.html')
 write('service-worker.js', read('service-worker.js')
   .replace(/Service Worker PWA v\d+/g, `Service Worker PWA v${numeric}`)
   .replace(/CACHE_NAME = 'cook-note-v\d+'/g, `CACHE_NAME = 'cook-note-v${numeric}'`)
+  .replace(/IMAGE_CACHE_NAME = 'cook-note-images-v\d+'/g, `IMAGE_CACHE_NAME = 'cook-note-images-v${numeric}'`)
   .replace(/(app\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app-images\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(catalog-\d+\.js\?v=)\d+/g, `$1${numeric}`)

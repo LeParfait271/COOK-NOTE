@@ -5321,6 +5321,23 @@ a {
   position: static;
 }
 
+.recipe-grid-load-more {
+  display: grid;
+  place-items: center;
+  padding: 8px 0 4px;
+}
+
+.recipe-grid-load-more button {
+  min-height: 36px;
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--line));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, transparent), transparent),
+    rgba(0, 0, 0, .30);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .master-recipe-grid {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 276px), 1fr));
   gap: clamp(20px, 2.1vw, 28px);

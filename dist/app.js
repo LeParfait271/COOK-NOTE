@@ -1,4 +1,4 @@
-/* global React, ReactDOM, QRCode */
+/* global React, ReactDOM */
 
 const { useEffect, useMemo, useRef, useState } = React;
 const {
@@ -17,12 +17,72 @@ const h = (type, props, ...children) => React.createElement(
   ...children.map(repairReactChildText)
 );
 
+const deferredScriptLoads = new Map();
+
+function loadDeferredScript(src, globalName = '') {
+  if (globalName && window[globalName]) return Promise.resolve(window[globalName]);
+  if (deferredScriptLoads.has(src)) return deferredScriptLoads.get(src);
+
+  const promise = new Promise((resolve, reject) => {
+    const absoluteSrc = new URL(src, window.location.href).href;
+    const existing = Array.from(document.scripts).find(script => script.src === absoluteSrc);
+    const complete = () => resolve(globalName ? window[globalName] : true);
+
+    if (existing) {
+      if (existing.dataset.cookNoteLoaded === 'true' || (globalName && window[globalName])) {
+        complete();
+        return;
+      }
+      existing.addEventListener('load', complete, { once: true });
+      existing.addEventListener('error', reject, { once: true });
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = true;
+    script.dataset.cookNoteDeferred = globalName || src;
+    script.onload = () => {
+      script.dataset.cookNoteLoaded = 'true';
+      complete();
+    };
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+
+  deferredScriptLoads.set(src, promise);
+  return promise;
+}
+
+function scheduleIdleTask(callback, timeout = 1200) {
+  if (typeof window.requestIdleCallback === 'function') {
+    const id = window.requestIdleCallback(callback, { timeout });
+    return () => window.cancelIdleCallback?.(id);
+  }
+  const id = window.setTimeout(callback, Math.min(timeout, 900));
+  return () => window.clearTimeout(id);
+}
+
+function runConfettiBurst() {
+  loadDeferredScript(CONFETTI_SCRIPT_SRC, 'confetti').then(confetti => {
+    if (typeof confetti !== 'function') return;
+    confetti({ particleCount: 110, spread: 70, origin: { y: .65 } });
+    setTimeout(() => confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 } }), 220);
+    setTimeout(() => confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 } }), 380);
+  }).catch(() => {});
+}
+
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.71';
+const SITE_VERSION = 'v1.72';
 const SITE_UPDATED_AT = '23/06/26';
 const SITE_CACHE_VERSION = SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`);
 const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
+const DEFERRED_CATALOG_CHUNK_SRCS = [2, 3, 4].map(index => `/assets/catalog-${index}.js?v=${SITE_CACHE_VERSION}`);
+const QR_CODE_SCRIPT_SRC = '/assets/vendor/qrcode.min.js';
+const CONFETTI_SCRIPT_SRC = '/assets/vendor/confetti.browser.min.js';
+const GRID_INITIAL_RENDER_COUNT = 36;
+const GRID_RENDER_BATCH_SIZE = 24;
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
@@ -1262,7 +1322,8 @@ function recipeHasSeason(recipe, season, recipesById = {}) {
 }
 
 function countLeafRecipes(recipe, recipesById = {}) {
-  return getLeafVariantRefs(recipe, recipesById).length;
+  const count = getLeafVariantRefs(recipe, recipesById).length;
+  return count || recipe?.leafCount || 0;
 }
 
 function sortVariantRefs(variantRefs, recipesById = {}) {
@@ -4343,17 +4404,42 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
 }
 
 function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNotes = {} }) {
+  const masterGrid = recipes.length > 0 && recipes.every(isMasterRecipe);
+  const recipeKey = recipes.map(recipe => recipe.id).join('|');
+  const chunkedGrid = !masterGrid && recipes.length > GRID_INITIAL_RENDER_COUNT;
+  const initialVisibleCount = chunkedGrid ? GRID_INITIAL_RENDER_COUNT : recipes.length;
+  const [visibleCount, setVisibleCount] = useState(initialVisibleCount);
+  const loadMoreRef = useRef(null);
+  const hasMore = visibleCount < recipes.length;
+
+  useEffect(() => {
+    setVisibleCount(initialVisibleCount);
+  }, [recipeKey, initialVisibleCount]);
+
+  useEffect(() => {
+    if (!hasMore || !loadMoreRef.current || typeof IntersectionObserver === 'undefined') return undefined;
+    const observer = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      setVisibleCount(count => Math.min(recipes.length, count + GRID_RENDER_BATCH_SIZE));
+    }, { rootMargin: '640px 0px' });
+    observer.observe(loadMoreRef.current);
+    return () => observer.disconnect();
+  }, [hasMore, recipes.length, recipeKey]);
+
   if (!recipes.length) {
     return h('div', { className: 'empty-state' },
       h('h2', null, 'Aucune recette ne matche'),
       h('p', null, 'Les filtres sont trop serrés pour le contenu actuel.')
     );
   }
-  const gridClassName = ['recipe-grid', recipes.every(isMasterRecipe) ? 'master-recipe-grid' : '']
+  const gridClassName = ['recipe-grid', masterGrid ? 'master-recipe-grid' : '']
     .filter(Boolean)
     .join(' ');
-  return h('div', { className: gridClassName },
-    recipes.map(recipe => h(RecipeCard, {
+  const visibleRecipes = hasMore ? recipes.slice(0, visibleCount) : recipes;
+
+  return h(React.Fragment, null,
+    h('div', { className: gridClassName },
+    visibleRecipes.map(recipe => h(RecipeCard, {
       key: recipe.id,
       recipe,
       recipesById,
@@ -4364,6 +4450,13 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
       hideFavorite,
       personalNote: personalNotes[recipe.id]
     }))
+    ),
+    hasMore && h('div', { className: 'recipe-grid-load-more', ref: loadMoreRef },
+      h('button', {
+        type: 'button',
+        onClick: () => setVisibleCount(count => Math.min(recipes.length, count + GRID_RENDER_BATCH_SIZE))
+      }, 'Afficher plus')
+    )
   );
 }
 
@@ -4488,6 +4581,19 @@ function NotFoundView({ goHome, openSearch }) {
           h(Button, { variant: 'primary', onClick: openSearch }, 'Rechercher une recette'),
           h(Button, { variant: 'subtle', onClick: goHome }, 'Retour au carnet')
         )
+      )
+    )
+  );
+}
+
+function CatalogLoadingView() {
+  return h('main', { className: 'not-found-view catalog-loading-view' },
+    h(Hero),
+    h('div', { className: 'content-wrap' },
+      h('section', { className: 'fatal-state not-found-panel' },
+        h('p', { className: 'eyebrow' }, 'Catalogue'),
+        h('h1', null, 'Chargement de la fiche'),
+        h('p', null, 'Le carnet termine de charger les recettes.')
       )
     )
   );
@@ -4625,15 +4731,28 @@ function SharePanel({ open, onClose, recipe, notify }) {
   }
 
   useEffect(() => {
+    let cancelled = false;
     setCopied(false);
     setCopiedText(false);
     setQrReady(false);
-    if (!open || !canvasRef.current || !window.QRCode) return;
-    window.QRCode.toCanvas(canvasRef.current, url, {
-      width: 132,
-      margin: 1,
-      color: { dark: '#111111', light: '#ffffff' }
-    }).then(() => setQrReady(true)).catch(() => setQrReady(false));
+    if (!open || !canvasRef.current) return () => {
+      cancelled = true;
+    };
+    loadDeferredScript(QR_CODE_SCRIPT_SRC, 'QRCode').then(QRCode => {
+      if (cancelled || !canvasRef.current || !QRCode?.toCanvas) return null;
+      return QRCode.toCanvas(canvasRef.current, url, {
+        width: 132,
+        margin: 1,
+        color: { dark: '#111111', light: '#ffffff' }
+      });
+    }).then(result => {
+      if (!cancelled && result !== null) setQrReady(true);
+    }).catch(() => {
+      if (!cancelled) setQrReady(false);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [open, url]);
 
   if (!open) return null;
@@ -5933,11 +6052,7 @@ function RecipeView({
   useEffect(() => {
     if (!stepTotal || doneSteps !== stepTotal || completedRef.current === stepScopeKey) return;
     completedRef.current = stepScopeKey;
-    if (window.confetti) {
-      window.confetti({ particleCount: 110, spread: 70, origin: { y: .65 } });
-      setTimeout(() => window.confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 } }), 220);
-      setTimeout(() => window.confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 } }), 380);
-    }
+    runConfettiBurst();
   }, [stepScopeKey, doneSteps, stepTotal]);
 
   function toggle(key) {
@@ -6216,6 +6331,7 @@ function RecipeView({
 function App() {
   const [recipeSource, setRecipeSource] = useState(() => (window.RECIPES && typeof window.RECIPES === 'object' ? window.RECIPES : {}));
   const [fullRecipeCatalogLoaded, setFullRecipeCatalogLoaded] = useState(false);
+  const [catalogChunksLoaded, setCatalogChunksLoaded] = useState(() => Boolean(window.COOK_NOTE_CATALOG_COMPLETE));
   const recipes = useMemo(() => {
     const normalizedRecipes = normalizeLoadedRecipeValue(recipeSource);
     const baseRecipesById = Object.fromEntries(Object.entries(normalizedRecipes).map(([id, recipe]) => [id, { id, ...recipe }]));
@@ -6264,6 +6380,7 @@ function App() {
   const lastRouteKeyRef = useRef(currentScrollRouteKey());
   const historyRef = useRef([{}]);
   const historyIndexRef = useRef(0);
+  const catalogChunkLoadRef = useRef(null);
   const fullRecipeLoadRef = useRef(null);
 
   const activeRecipe = activeId ? recipesById[activeId] : null;
@@ -6277,6 +6394,27 @@ function App() {
   useEffect(() => {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   }, []);
+
+  useEffect(() => {
+    if (catalogChunksLoaded) return undefined;
+    let cancelIdle = null;
+    const warmupTimer = window.setTimeout(() => {
+      cancelIdle = scheduleIdleTask(() => {
+        loadDeferredCatalogChunks().catch(() => {});
+      }, 1400);
+    }, 900);
+    return () => {
+      window.clearTimeout(warmupTimer);
+      cancelIdle?.();
+    };
+  }, [catalogChunksLoaded]);
+
+  useEffect(() => {
+    if (!activeId || activeRecipe || catalogChunksLoaded) return;
+    loadDeferredCatalogChunks().catch(() => {
+      loadFullRecipeCatalog().catch(() => {});
+    });
+  }, [activeId, activeRecipe?.id, catalogChunksLoaded]);
 
   useEffect(() => {
     const legacyVariant = new URLSearchParams(window.location.search).get('variant');
@@ -6385,8 +6523,14 @@ function App() {
   const canRedo = historyVersion >= 0 && historyIndexRef.current < historyRef.current.length - 1;
 
   function updateSeason(value) {
+    if (value) loadDeferredCatalogChunks().catch(() => {});
     setSeason(value);
     if (!value) setSeasonCategory('');
+  }
+
+  function updateTagFilter(value) {
+    if (value) loadDeferredCatalogChunks().catch(() => {});
+    setTagFilter(value);
   }
 
   const searchMeta = useMemo(() => {
@@ -6519,7 +6663,7 @@ function App() {
     query && difficultyFilter && { key: 'difficulty', label: SEARCH_DIFFICULTY_OPTIONS.find(item => item.value === difficultyFilter)?.label || 'Difficulte', clear: () => setDifficultyFilter('') },
     season && { key: 'season', label: season, clear: () => updateSeason('') },
     seasonCategory && { key: 'seasonCategory', label: categoryLabel(seasonCategory), clear: () => setSeasonCategory('') },
-    tagFilter && { key: 'tag', label: `Tag: ${tagFilter}`, clear: () => setTagFilter('') },
+    tagFilter && { key: 'tag', label: `Tag: ${tagFilter}`, clear: () => updateTagFilter('') },
     onlyFavorites && { key: 'favorites', label: 'Favoris', clear: () => { setOnlyFavorites(false); setFavoriteCollection(''); } },
     onlyFavorites && favoriteCollection && { key: 'favoriteCollection', label: FAVORITE_COLLECTIONS.find(item => item.id === favoriteCollection)?.label || 'Collection', clear: () => setFavoriteCollection('') }
   ].filter(Boolean);
@@ -6621,6 +6765,26 @@ function App() {
     setShoppingOpen(true);
   }
 
+  function loadDeferredCatalogChunks() {
+    if (catalogChunksLoaded) return Promise.resolve(recipeSource);
+    if (catalogChunkLoadRef.current) return catalogChunkLoadRef.current;
+
+    catalogChunkLoadRef.current = Promise.all(DEFERRED_CATALOG_CHUNK_SRCS.map(src => loadDeferredScript(src)))
+      .then(() => {
+        const nextRecipes = window.RECIPES && typeof window.RECIPES === 'object' ? { ...window.RECIPES } : { ...recipeSource };
+        window.COOK_NOTE_CATALOG_COMPLETE = true;
+        setRecipeSource(nextRecipes);
+        setCatalogChunksLoaded(true);
+        return nextRecipes;
+      })
+      .catch(error => {
+        catalogChunkLoadRef.current = null;
+        throw error;
+      });
+
+    return catalogChunkLoadRef.current;
+  }
+
   function loadFullRecipeCatalog() {
     if (fullRecipeCatalogLoaded) return Promise.resolve(recipeSource);
     if (fullRecipeLoadRef.current) return fullRecipeLoadRef.current;
@@ -6638,8 +6802,10 @@ function App() {
       script.async = true;
       script.dataset.cookNoteFullRecipes = 'true';
       script.onload = () => {
-        const nextRecipes = window.RECIPES && typeof window.RECIPES === 'object' ? window.RECIPES : recipeSource;
+        const nextRecipes = window.RECIPES && typeof window.RECIPES === 'object' ? { ...window.RECIPES } : { ...recipeSource };
+        window.COOK_NOTE_CATALOG_COMPLETE = true;
         setRecipeSource(nextRecipes);
+        setCatalogChunksLoaded(true);
         setFullRecipeCatalogLoaded(true);
         resolve(nextRecipes);
       };
@@ -6698,6 +6864,7 @@ function App() {
   }
 
   function showFavorites() {
+    loadDeferredCatalogChunks().catch(() => {});
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'top';
     runViewTransition(() => {
@@ -6741,16 +6908,19 @@ function App() {
   }
 
   function updateSearchQuery(value) {
+    if (String(value || '').trim()) loadDeferredCatalogChunks().catch(() => {});
     setQuery(value);
   }
 
   function openSearch() {
+    loadDeferredCatalogChunks().catch(() => {});
     setCommandOpen(false);
     setSearchOpen(true);
     setTimeout(() => searchRef.current?.focus(), 0);
   }
 
   function openCommandPalette() {
+    loadDeferredCatalogChunks().catch(() => {});
     setSearchOpen(false);
     setCommandOpen(true);
     setTimeout(() => commandRef.current?.focus(), 0);
@@ -6762,6 +6932,7 @@ function App() {
   }
 
   function openMenuPlanner() {
+    loadDeferredCatalogChunks().catch(() => {});
     markMenuPlannerReturnState(false);
     setMenuPlannerOpen(true);
   }
@@ -6905,6 +7076,7 @@ function App() {
     seasonCategoryOptions
   };
   const missingRecipeId = activeId && !activeRecipe ? activeId : '';
+  const catalogResolvingRecipe = Boolean(missingRecipeId && !catalogChunksLoaded);
   const shellClassName = [
     'mc-shell',
     preferences.density === 'compact' ? 'display-compact' : '',
@@ -6934,10 +7106,12 @@ function App() {
       h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses', 'aria-current': shoppingOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Courses')
     ),
     missingRecipeId
-      ? h(NotFoundView, {
+      ? (catalogResolvingRecipe
+        ? h(CatalogLoadingView)
+        : h(NotFoundView, {
           goHome,
           openSearch
-        })
+        }))
       : activeRecipe
       ? h(RecipeView, {
           recipe: activeRecipe,
@@ -6956,7 +7130,7 @@ function App() {
           canRedo,
           undo,
           redo,
-          setTagFilter,
+          setTagFilter: updateTagFilter,
           openTechnique,
           notify,
           personalRecipeNote: personalNotes[activeRecipe.id],
@@ -6980,7 +7154,7 @@ function App() {
           toggleFavorite,
           openRecipe,
           clearFavoriteView: () => { setOnlyFavorites(false); setFavoriteCollection(''); },
-          setTagFilter
+          setTagFilter: updateTagFilter
         }),
     h('footer', { className: 'site-footer' },
       h('div', { className: 'site-footer-inner' },

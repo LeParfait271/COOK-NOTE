@@ -61,7 +61,8 @@ const assetVersions = [
   ...index.matchAll(/\bbase-du-site\.png\?v=(\d+)/g),
   ...recipeHtml.matchAll(/\b(?:recipe|recipes|style)\.(?:js|css)\?v=(\d+)/g),
   ...serviceWorker.matchAll(/\b(?:app|app-images|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g),
-  ...serviceWorker.matchAll(/CACHE_NAME\s*=\s*'cook-note-v(\d+)'/g)
+  ...serviceWorker.matchAll(/CACHE_NAME\s*=\s*'cook-note-v(\d+)'/g),
+  ...serviceWorker.matchAll(/IMAGE_CACHE_NAME\s*=\s*'cook-note-images-v(\d+)'/g)
 ].map(match => match[1]);
 
 if (!assetVersions.length) {

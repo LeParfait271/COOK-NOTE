@@ -9,6 +9,16 @@ const CATALOG_FILES = [
   'assets/catalog-3.js',
   'assets/catalog-4.js'
 ];
+const CRITICAL_CATALOG_IDS = [
+  'petit_dejeuner_maitre',
+  'apero_maitre',
+  'entrees_maitre',
+  'sauces_maitre',
+  'elements_base_maitre',
+  'plats_maitre',
+  'accompagnements_maitre',
+  'desserts_maitre'
+];
 
 function read(file) {
   return fs.readFileSync(path.join(ROOT, file), 'utf8');
@@ -27,21 +37,44 @@ function escapeAscii(value) {
   );
 }
 
-function compactRecipeForCatalog(recipe) {
+function variantRefs(recipe) {
+  return Array.isArray(recipe?.variants) ? recipe.variants.filter(variant => variant && variant.id) : [];
+}
+
+function leafVariantCount(recipe, recipesById, seen = new Set()) {
+  if (!recipe || seen.has(recipe.id)) return 0;
+  seen.add(recipe.id);
+  const refs = variantRefs(recipe);
+  if (!refs.length) return recipe.id ? 1 : 0;
+  return refs.reduce((sum, variant) => {
+    const child = recipesById[variant.id];
+    return sum + (variantRefs(child).length ? leafVariantCount(child, recipesById, seen) : (child ? 1 : 0));
+  }, 0);
+}
+
+function compactRecipeForCatalog(recipe, recipesById) {
   const compact = JSON.parse(JSON.stringify(recipe));
   delete compact.practical;
+  const leafCount = leafVariantCount(compact, recipesById);
+  if (leafCount > 1) compact.leafCount = leafCount;
   return compact;
 }
 
 const recipes = loadRecipesFrom('recipes.js');
-const currentChunks = CATALOG_FILES.map(file => Object.keys(loadRecipesFrom(file)));
-const knownIds = new Set(currentChunks.flat());
-const missingIds = Object.keys(recipes).filter(id => !knownIds.has(id));
-if (missingIds.length) currentChunks[currentChunks.length - 1].push(...missingIds);
+const allIds = Object.keys(recipes);
+const recipesById = Object.fromEntries(allIds.map(id => [id, { id, ...recipes[id] }]));
+const criticalIds = CRITICAL_CATALOG_IDS.filter(id => recipes[id]);
+const deferredIds = allIds.filter(id => !criticalIds.includes(id));
+const currentChunks = [
+  criticalIds,
+  ...CATALOG_FILES.slice(1).map((_, index) =>
+    deferredIds.filter((id, idIndex) => idIndex % (CATALOG_FILES.length - 1) === index)
+  )
+];
 
 CATALOG_FILES.forEach((file, index) => {
   const ids = currentChunks[index].filter(id => recipes[id]);
-  const chunk = Object.fromEntries(ids.map(id => [id, compactRecipeForCatalog(recipes[id])]));
+  const chunk = Object.fromEntries(ids.map(id => [id, compactRecipeForCatalog(recipesById[id], recipesById)]));
   const json = JSON.stringify(chunk);
   const text = [
     `// Cook Note - catalogue recettes chunk ${index + 1}/${CATALOG_FILES.length}`,
