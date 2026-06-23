@@ -23,13 +23,20 @@ Le build copie uniquement le site public, les modules runtime extraits, les vend
 
 ## Deploiement
 
+Cloudflare Pages doit avoir cette configuration de build Git :
+
+- Build command : `npm run build`
+- Build output directory : `dist`
+
 `wrangler.toml` declare :
 
 ```toml
 pages_build_output_dir = "dist"
 ```
 
-Cloudflare Pages doit donc publier `dist/`, pas la racine du depot.
+Cloudflare Pages doit donc generer puis publier `dist/`, pas la racine du depot.
+
+Si le log Cloudflare affiche `No build command specified. Skipping build step.`, le build echouera avec `Output directory "dist" not found` parce que `dist/` est volontairement ignore par Git.
 
 ## Validations
 

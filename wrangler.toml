@@ -1,2 +1,6 @@
 name = "cook-note"
+# Cloudflare Pages Git build settings must be:
+# Build command: npm run build
+# Build output directory: dist
+# Do not commit dist/; Cloudflare must generate it from the build command.
 pages_build_output_dir = "dist"
