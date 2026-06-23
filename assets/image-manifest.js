@@ -100,6 +100,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 347,
     "bytes": 25521
   },
+  "assets/recipe-card-images/brioche_perdue_caramel_beurre_sale_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 568,
+    "bytes": 99806
+  },
   "assets/recipe-card-images/brochettes_crevettes_chorizo_spooky.jpg": {
     "width": 760,
     "height": 428,
@@ -200,6 +205,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 520,
     "bytes": 41612
   },
+  "assets/recipe-card-images/chapelure_maison_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 95269
+  },
   "assets/recipe-card-images/chapelure_parfumee_photo_v2_spooky.jpg": {
     "width": 760,
     "height": 507,
@@ -245,10 +255,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 520,
     "bytes": 43113
   },
+  "assets/recipe-card-images/clafoutis_abricots_rhum_vanille_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 113283
+  },
   "assets/recipe-card-images/clafoutis_cerises_bocuse_spooky.jpg": {
     "width": 520,
     "height": 292,
     "bytes": 20403
+  },
+  "assets/recipe-card-images/clafoutis_myrtilles_nectarines_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 107265
   },
   "assets/recipe-card-images/cochon_confit_biere_erable_v4_spooky.jpg": {
     "width": 520,
@@ -264,6 +284,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 520,
     "height": 520,
     "bytes": 38968
+  },
+  "assets/recipe-card-images/cookies_avoine_noix_fruits_secs_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 566,
+    "bytes": 127189
   },
   "assets/recipe-card-images/cookies_beurre_noisette_chocolat_noir_lait_spooky.jpg": {
     "width": 520,
@@ -385,6 +410,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 520,
     "bytes": 41527
   },
+  "assets/recipe-card-images/crepes_lait_amandes_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 92622
+  },
   "assets/recipe-card-images/crevettes_persillade_spooky.jpg": {
     "width": 760,
     "height": 428,
@@ -495,10 +525,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 520,
     "bytes": 113310
   },
+  "assets/recipe-card-images/flan_vanille_cremeux_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 91271
+  },
   "assets/recipe-card-images/frites_belges_spooky.jpg": {
     "width": 520,
     "height": 293,
     "bytes": 17722
+  },
+  "assets/recipe-card-images/frites_four_maison_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 102395
   },
   "assets/recipe-card-images/frites_maison_v2_spooky.jpg": {
     "width": 480,
@@ -514,6 +554,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 520,
     "height": 293,
     "bytes": 18075
+  },
+  "assets/recipe-card-images/gateau_roule_framboise_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 568,
+    "bytes": 110158
   },
   "assets/recipe-card-images/gaufre_bruxelles_v4_spooky.jpg": {
     "width": 520,
@@ -694,6 +739,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 520,
     "height": 520,
     "bytes": 85476
+  },
+  "assets/recipe-card-images/mousse_chocolat_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 94344
+  },
+  "assets/recipe-card-images/muffins_framboises_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 100298
   },
   "assets/recipe-card-images/nems_vietnam_photo_v2_spooky.jpg": {
     "width": 760,
@@ -890,6 +945,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 570,
     "bytes": 83795
   },
+  "assets/recipe-card-images/pommes_de_terre_confites_ail_romarin_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 108472
+  },
   "assets/recipe-card-images/pommes_de_terre_fondantes_moutarde_cooknote_v1_spooky.jpg": {
     "width": 760,
     "height": 570,
@@ -989,6 +1049,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 480,
     "height": 360,
     "bytes": 31873
+  },
+  "assets/recipe-card-images/puree_pommes_de_terre_ail_rose_huile_olive_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 86662
+  },
+  "assets/recipe-card-images/puree_pommes_de_terre_carottes_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 86471
   },
   "assets/recipe-card-images/puree_pommes_de_terre_citron_v2_spooky.jpg": {
     "width": 1040,
@@ -1175,10 +1245,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 507,
     "bytes": 74071
   },
+  "assets/recipe-card-images/spritz_vanille_chocolat_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 87700
+  },
   "assets/recipe-card-images/tagliatelles_agrumes_photo_v2_spooky.jpg": {
     "width": 760,
     "height": 507,
     "bytes": 83207
+  },
+  "assets/recipe-card-images/tarte_abricots_amandes_romarin_cooknote_v1_spooky.jpg": {
+    "width": 760,
+    "height": 570,
+    "bytes": 100808
   },
   "assets/recipe-card-images/tarte_aux_myrtilles_spooky.jpg": {
     "width": 520,
@@ -1360,6 +1440,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 367238
   },
+  "assets/recipe-images-optimized/brioche_perdue_caramel_beurre_sale_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1046,
+    "bytes": 313289
+  },
   "assets/recipe-images-optimized/brochettes_crevettes_chorizo_spooky.jpg": {
     "width": 1400,
     "height": 788,
@@ -1460,6 +1545,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 267468
   },
+  "assets/recipe-images-optimized/chapelure_maison_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 280146
+  },
   "assets/recipe-images-optimized/chapelure_parfumee_photo_v2_spooky.jpg": {
     "width": 1400,
     "height": 933,
@@ -1505,10 +1595,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 263612
   },
+  "assets/recipe-images-optimized/clafoutis_abricots_rhum_vanille_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 355612
+  },
   "assets/recipe-images-optimized/clafoutis_cerises_bocuse_spooky.jpg": {
     "width": 1672,
     "height": 941,
     "bytes": 451887
+  },
+  "assets/recipe-images-optimized/clafoutis_myrtilles_nectarines_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 334922
   },
   "assets/recipe-images-optimized/cochon_confit_biere_erable_v4_spooky.jpg": {
     "width": 1024,
@@ -1524,6 +1624,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 262705
+  },
+  "assets/recipe-images-optimized/cookies_avoine_noix_fruits_secs_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1043,
+    "bytes": 386915
   },
   "assets/recipe-images-optimized/cookies_beurre_noisette_chocolat_noir_lait_spooky.jpg": {
     "width": 1400,
@@ -1645,6 +1750,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 265886
   },
+  "assets/recipe-images-optimized/crepes_lait_amandes_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 283897
+  },
   "assets/recipe-images-optimized/crevettes_persillade_spooky.jpg": {
     "width": 1400,
     "height": 788,
@@ -1755,10 +1865,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 864,
     "bytes": 247716
   },
+  "assets/recipe-images-optimized/flan_vanille_cremeux_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 289461
+  },
   "assets/recipe-images-optimized/frites_belges_spooky.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 223087
+  },
+  "assets/recipe-images-optimized/frites_four_maison_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 325208
   },
   "assets/recipe-images-optimized/frites_maison_v2_spooky.jpg": {
     "width": 960,
@@ -1774,6 +1894,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 220140
+  },
+  "assets/recipe-images-optimized/gateau_roule_framboise_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1046,
+    "bytes": 334358
   },
   "assets/recipe-images-optimized/gaufre_bruxelles_v4_spooky.jpg": {
     "width": 1024,
@@ -1954,6 +2079,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 216453
+  },
+  "assets/recipe-images-optimized/mousse_chocolat_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 298536
+  },
+  "assets/recipe-images-optimized/muffins_framboises_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 317983
   },
   "assets/recipe-images-optimized/nems_vietnam_photo_v2_spooky.jpg": {
     "width": 1400,
@@ -2150,6 +2285,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1050,
     "bytes": 270401
   },
+  "assets/recipe-images-optimized/pommes_de_terre_confites_ail_romarin_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 344777
+  },
   "assets/recipe-images-optimized/pommes_de_terre_fondantes_moutarde_cooknote_v1_spooky.jpg": {
     "width": 1400,
     "height": 1050,
@@ -2249,6 +2389,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 960,
     "height": 720,
     "bytes": 113918
+  },
+  "assets/recipe-images-optimized/puree_pommes_de_terre_ail_rose_huile_olive_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 258105
+  },
+  "assets/recipe-images-optimized/puree_pommes_de_terre_carottes_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 267661
   },
   "assets/recipe-images-optimized/puree_pommes_de_terre_citron_v2_spooky.jpg": {
     "width": 1536,
@@ -2435,10 +2585,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 230325
   },
+  "assets/recipe-images-optimized/spritz_vanille_chocolat_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 264516
+  },
   "assets/recipe-images-optimized/tagliatelles_agrumes_photo_v2_spooky.jpg": {
     "width": 1400,
     "height": 933,
     "bytes": 260877
+  },
+  "assets/recipe-images-optimized/tarte_abricots_amandes_romarin_cooknote_v1_spooky.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 314011
   },
   "assets/recipe-images-optimized/tarte_aux_myrtilles_spooky.jpg": {
     "width": 1400,
@@ -2620,6 +2780,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 2452899
   },
+  "assets/recipe-images/brioche_perdue_caramel_beurre_sale_cooknote_v1_spooky.png": {
+    "width": 1451,
+    "height": 1084,
+    "bytes": 2518333
+  },
   "assets/recipe-images/brochettes_crevettes_chorizo_spooky.png": {
     "width": 1672,
     "height": 941,
@@ -2720,6 +2885,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 1772007
   },
+  "assets/recipe-images/chapelure_maison_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2263218
+  },
   "assets/recipe-images/chapelure_parfumee_photo_v2_spooky.png": {
     "width": 1536,
     "height": 1024,
@@ -2765,10 +2935,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 1720249
   },
+  "assets/recipe-images/clafoutis_abricots_rhum_vanille_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2692783
+  },
   "assets/recipe-images/clafoutis_cerises_bocuse_spooky.png": {
     "width": 1672,
     "height": 941,
     "bytes": 2885614
+  },
+  "assets/recipe-images/clafoutis_myrtilles_nectarines_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2594416
   },
   "assets/recipe-images/cochon_confit_biere_erable_v4_spooky.png": {
     "width": 1024,
@@ -2784,6 +2964,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 1765140
+  },
+  "assets/recipe-images/cookies_avoine_noix_fruits_secs_cooknote_v1_spooky.png": {
+    "width": 1453,
+    "height": 1082,
+    "bytes": 2746279
   },
   "assets/recipe-images/cookies_beurre_noisette_chocolat_noir_lait_spooky.png": {
     "width": 1672,
@@ -2905,6 +3090,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 1767380
   },
+  "assets/recipe-images/crepes_lait_amandes_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2396289
+  },
   "assets/recipe-images/crevettes_persillade_spooky.png": {
     "width": 1672,
     "height": 941,
@@ -3015,10 +3205,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 941,
     "bytes": 2206418
   },
+  "assets/recipe-images/flan_vanille_cremeux_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2454505
+  },
   "assets/recipe-images/frites_belges_spooky.png": {
     "width": 1672,
     "height": 941,
     "bytes": 2318966
+  },
+  "assets/recipe-images/frites_four_maison_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2527305
   },
   "assets/recipe-images/frites_maison_v2_spooky.png": {
     "width": 1448,
@@ -3034,6 +3234,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1672,
     "height": 941,
     "bytes": 2329534
+  },
+  "assets/recipe-images/gateau_roule_framboise_cooknote_v1_spooky.png": {
+    "width": 1451,
+    "height": 1084,
+    "bytes": 2622352
   },
   "assets/recipe-images/gaufre_bruxelles_v4_spooky.png": {
     "width": 1024,
@@ -3214,6 +3419,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 2348527
+  },
+  "assets/recipe-images/mousse_chocolat_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2418686
+  },
+  "assets/recipe-images/muffins_framboises_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2511801
   },
   "assets/recipe-images/nems_vietnam_photo_v2_spooky.png": {
     "width": 1536,
@@ -3410,6 +3625,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1086,
     "bytes": 2318845
   },
+  "assets/recipe-images/pommes_de_terre_confites_ail_romarin_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2634329
+  },
   "assets/recipe-images/pommes_de_terre_fondantes_moutarde_cooknote_v1_spooky.png": {
     "width": 1448,
     "height": 1086,
@@ -3509,6 +3729,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1448,
     "height": 1086,
     "bytes": 2523714
+  },
+  "assets/recipe-images/puree_pommes_de_terre_ail_rose_huile_olive_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2191888
+  },
+  "assets/recipe-images/puree_pommes_de_terre_carottes_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2291924
   },
   "assets/recipe-images/puree_pommes_de_terre_citron_v2_spooky.png": {
     "width": 1672,
@@ -3695,10 +3925,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 1816606
   },
+  "assets/recipe-images/spritz_vanille_chocolat_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2291474
+  },
   "assets/recipe-images/tagliatelles_agrumes_photo_v2_spooky.png": {
     "width": 1536,
     "height": 1024,
     "bytes": 2491903
+  },
+  "assets/recipe-images/tarte_abricots_amandes_romarin_cooknote_v1_spooky.png": {
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2529202
   },
   "assets/recipe-images/tarte_aux_myrtilles_spooky.png": {
     "width": 1400,

@@ -147,12 +147,17 @@ const catalogIds = new Set(Object.keys(catalogRecipes));
 if (catalogIds.size !== recipeIds.size) {
   fail(`catalogue frontend: nombre de recettes incoherent (${catalogIds.size} au lieu de ${recipeIds.size}).`);
 }
+function compactRecipeForCatalog(recipe) {
+  const compact = JSON.parse(JSON.stringify(recipe));
+  delete compact.practical;
+  return compact;
+}
 recipeIds.forEach(id => {
   if (!catalogIds.has(id)) {
     fail(`catalogue frontend: recette absente (${id}).`);
     return;
   }
-  if (JSON.stringify(catalogRecipes[id]) !== JSON.stringify(recipes[id])) {
+  if (JSON.stringify(catalogRecipes[id]) !== JSON.stringify(compactRecipeForCatalog(recipes[id]))) {
     fail(`catalogue frontend: recette non synchronisee (${id}). Lancer node scripts/sync-catalog.js.`);
   }
 });

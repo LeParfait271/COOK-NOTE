@@ -10,8 +10,10 @@ const h = (type, props, ...children) => React.createElement(
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
 const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
-const SITE_VERSION = 'v1.63';
+const SITE_VERSION = 'v1.64';
 const SITE_UPDATED_AT = '23/06/26';
+const SITE_CACHE_VERSION = SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`);
+const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
@@ -5894,15 +5896,16 @@ function RecipeView({
 }
 
 function App() {
-  const rawRecipes = window.RECIPES && typeof window.RECIPES === 'object' ? window.RECIPES : {};
+  const [recipeSource, setRecipeSource] = useState(() => (window.RECIPES && typeof window.RECIPES === 'object' ? window.RECIPES : {}));
+  const [fullRecipeCatalogLoaded, setFullRecipeCatalogLoaded] = useState(false);
   const recipes = useMemo(() => {
-    const normalizedRecipes = normalizeLoadedRecipeValue(rawRecipes);
+    const normalizedRecipes = normalizeLoadedRecipeValue(recipeSource);
     const baseRecipesById = Object.fromEntries(Object.entries(normalizedRecipes).map(([id, recipe]) => [id, { id, ...recipe }]));
     return Object.entries(normalizedRecipes).map(([id, recipe]) => {
       const tagsExtracted = extractTags(recipe);
       return { id, tagsExtracted, searchText: getRecipeSearchText(recipe, tagsExtracted, baseRecipesById), ...recipe };
     }).sort((a, b) => a.title.localeCompare(b.title, 'fr'));
-  }, []);
+  }, [recipeSource]);
   const recipesById = useMemo(() => Object.fromEntries(recipes.map(recipe => [recipe.id, recipe])), [recipes]);
   const catalogStats = useMemo(() => getCatalogRecipeStats(recipes), [recipes]);
   const homeCatalogRecipes = useMemo(() => recipes.filter(recipe => !recipe.master), [recipes]);
@@ -5941,6 +5944,7 @@ function App() {
   const lastRouteKeyRef = useRef(currentScrollRouteKey());
   const historyRef = useRef([{}]);
   const historyIndexRef = useRef(0);
+  const fullRecipeLoadRef = useRef(null);
 
   const activeRecipe = activeId ? recipesById[activeId] : null;
   const activeSeoRecipe = activeRecipe;
@@ -5982,6 +5986,11 @@ function App() {
   useEffect(() => {
     updateDocumentMeta(activeSeoRecipe, recipesById, activePage);
   }, [activeSeoRecipe?.id, recipesById, activePage]);
+
+  useEffect(() => {
+    if (!activeId || fullRecipeCatalogLoaded) return;
+    loadFullRecipeCatalog().catch(() => {});
+  }, [activeId, fullRecipeCatalogLoaded]);
 
   useEffect(() => {
     let persistTimer = 0;
@@ -6292,9 +6301,42 @@ function App() {
     setShoppingOpen(true);
   }
 
+  function loadFullRecipeCatalog() {
+    if (fullRecipeCatalogLoaded) return Promise.resolve(recipeSource);
+    if (fullRecipeLoadRef.current) return fullRecipeLoadRef.current;
+
+    fullRecipeLoadRef.current = new Promise((resolve, reject) => {
+      const existing = document.querySelector('script[data-cook-note-full-recipes="true"]');
+      if (existing) {
+        existing.addEventListener('load', () => resolve(window.RECIPES || {}), { once: true });
+        existing.addEventListener('error', reject, { once: true });
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = FULL_RECIPE_CATALOG_SRC;
+      script.async = true;
+      script.dataset.cookNoteFullRecipes = 'true';
+      script.onload = () => {
+        const nextRecipes = window.RECIPES && typeof window.RECIPES === 'object' ? window.RECIPES : recipeSource;
+        setRecipeSource(nextRecipes);
+        setFullRecipeCatalogLoaded(true);
+        resolve(nextRecipes);
+      };
+      script.onerror = () => {
+        fullRecipeLoadRef.current = null;
+        reject(new Error('Chargement du catalogue complet impossible.'));
+      };
+      document.head.appendChild(script);
+    });
+
+    return fullRecipeLoadRef.current;
+  }
+
   function openRecipe(id) {
     const target = recipesById[id];
     if (!target) return;
+    loadFullRecipeCatalog().catch(() => {});
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'top';
     if (!activeRecipe) {

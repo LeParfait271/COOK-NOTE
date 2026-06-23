@@ -27,6 +27,12 @@ function escapeAscii(value) {
   );
 }
 
+function compactRecipeForCatalog(recipe) {
+  const compact = JSON.parse(JSON.stringify(recipe));
+  delete compact.practical;
+  return compact;
+}
+
 const recipes = loadRecipesFrom('recipes.js');
 const currentChunks = CATALOG_FILES.map(file => Object.keys(loadRecipesFrom(file)));
 const knownIds = new Set(currentChunks.flat());
@@ -35,7 +41,7 @@ if (missingIds.length) currentChunks[currentChunks.length - 1].push(...missingId
 
 CATALOG_FILES.forEach((file, index) => {
   const ids = currentChunks[index].filter(id => recipes[id]);
-  const chunk = Object.fromEntries(ids.map(id => [id, recipes[id]]));
+  const chunk = Object.fromEntries(ids.map(id => [id, compactRecipeForCatalog(recipes[id])]));
   const json = JSON.stringify(chunk);
   const text = [
     `// Cook Note - catalogue recettes chunk ${index + 1}/${CATALOG_FILES.length}`,
