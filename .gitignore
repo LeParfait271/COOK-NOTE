@@ -2,6 +2,7 @@ node_modules/
 .tools/
 admin.local.json
 backups/
+dist/
 test-results/
 playwright-report/
 .DS_Store

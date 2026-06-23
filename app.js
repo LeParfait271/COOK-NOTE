@@ -10,7 +10,7 @@ const h = (type, props, ...children) => React.createElement(
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
 const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
-const SITE_VERSION = 'v1.64';
+const SITE_VERSION = 'v1.65';
 const SITE_UPDATED_AT = '23/06/26';
 const SITE_CACHE_VERSION = SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`);
 const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;

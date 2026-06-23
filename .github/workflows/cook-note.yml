@@ -27,6 +27,12 @@ jobs:
       - name: Run Cook Note checks
         run: npm run check
 
+      - name: Build production artifact
+        run: npm run build
+
+      - name: Validate production artifact
+        run: npm run validate:dist
+
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 
@@ -42,3 +48,11 @@ jobs:
             test-results
             playwright-report
           if-no-files-found: ignore
+
+      - name: Upload production artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cook-note-dist
+          path: dist
+          if-no-files-found: error

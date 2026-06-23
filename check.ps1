@@ -25,6 +25,8 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\generate-image-manifest.js',
     'scripts\validate-performance-budget.js',
     'scripts\validate-headers.js',
+    'scripts\build-site.js',
+    'scripts\validate-dist.js',
     'scripts\bump-version.js',
     'scripts\preflight.js',
     'scripts\audit-recipes.js',
@@ -48,7 +50,9 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\generate-image-manifest.js',
     'scripts\validate-performance-budget.js',
     'scripts\validate-headers.js',
-    'scripts\validate-visual-image-duplicates.js'
+    'scripts\validate-visual-image-duplicates.js',
+    'scripts\build-site.js',
+    'scripts\validate-dist.js'
   )
 
   foreach ($file in $validators) {

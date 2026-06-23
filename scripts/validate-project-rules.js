@@ -10,9 +10,12 @@ const validators = {
   production: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-production.js'), 'utf8'),
   cache: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-cache-version.js'), 'utf8'),
   visualImages: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-visual-image-duplicates.js'), 'utf8'),
+  dist: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-dist.js'), 'utf8'),
   preflight: fs.readFileSync(path.join(ROOT, 'scripts', 'preflight.js'), 'utf8'),
   bumpVersion: fs.readFileSync(path.join(ROOT, 'scripts', 'bump-version.js'), 'utf8'),
   audit: fs.readFileSync(path.join(ROOT, 'scripts', 'audit-recipes.js'), 'utf8'),
+  workflow: fs.readFileSync(path.join(ROOT, '.github', 'workflows', 'cook-note.yml'), 'utf8'),
+  wrangler: fs.existsSync(path.join(ROOT, 'wrangler.toml')) ? fs.readFileSync(path.join(ROOT, 'wrangler.toml'), 'utf8') : '',
   packageJson: fs.readFileSync(packagePath, 'utf8')
 };
 const errors = [];
@@ -58,6 +61,9 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'reseau d abord avec cache de secours',
   'bump la version des assets',
   'node scripts/preflight.js',
+  'npm run build',
+  'scripts/validate-dist.js',
+  '`dist/`',
   'node scripts/bump-version.js --next',
   'scripts/optimize-selected-images.ps1',
   'diffs image anormalement larges',
@@ -101,6 +107,8 @@ expect('Validation anti-doublon notes pratiques non branchee.', validators.ui.in
 expect('Validation recherche intention non branchee.', validators.ui.includes('Recherche par intention absente'));
 expect('Validation panier courses noms proches non branchee.', fs.readFileSync(path.join(ROOT, 'scripts', 'validate-quantities.js'), 'utf8').includes('test_panier_noms'));
 expect('Validation production non branchee.', validators.production.includes('Validation production OK.') && validators.packageJson.includes('scripts/validate-production.js'));
+expect('Build production dist non branche.', validators.packageJson.includes('"build": "node scripts/build-site.js"') && validators.packageJson.includes('scripts/validate-dist.js') && validators.dist.includes('Validation dist OK.'));
+expect('Sortie Cloudflare Pages dist non declaree.', validators.wrangler.includes('pages_build_output_dir = "dist"') && validators.workflow.includes('npm run build') && validators.workflow.includes('cook-note-dist'));
 expect('Validation couverture features non branchee.', validators.packageJson.includes('scripts/validate-feature-coverage.js'));
 expect('Validation cache/version non branchee.', validators.cache.includes('Validation cache/version OK.') && validators.packageJson.includes('scripts/validate-cache-version.js'));
 expect('Validation budget performance non branchee.', validators.packageJson.includes('scripts/validate-performance-budget.js'));
