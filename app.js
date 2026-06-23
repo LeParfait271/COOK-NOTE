@@ -19,7 +19,7 @@ const h = (type, props, ...children) => React.createElement(
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.67';
+const SITE_VERSION = 'v1.68';
 const SITE_UPDATED_AT = '23/06/26';
 const SITE_CACHE_VERSION = SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`);
 const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
@@ -720,6 +720,20 @@ function scrollElementToViewportCenter(element, behavior = 'smooth') {
   const viewportOffset = window.visualViewport?.offsetTop || 0;
   const top = Math.max(0, window.scrollY + rect.top + (rect.height / 2) - (viewportHeight / 2) - viewportOffset);
   window.scrollTo({ top, behavior });
+}
+
+function runViewTransition(update) {
+  if (typeof update !== 'function') return;
+  const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || document.querySelector('.display-reduce-motion');
+  if (typeof document.startViewTransition !== 'function' || reduceMotion) {
+    update();
+    return;
+  }
+  try {
+    document.startViewTransition(() => update());
+  } catch {
+    update();
+  }
 }
 
 const WINDOWS_1252_BYTE_BY_CODEPOINT = {
@@ -4097,6 +4111,12 @@ const ICON_PATHS = {
     'M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2',
     'M7 14h10v7H7z'
   ],
+  copy: [
+    'M8 8h10v12H8z',
+    'M6 16H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2',
+    'M11 12h4',
+    'M11 16h3'
+  ],
   arrowUp: [
     'M12 20V5',
     'M6 11l6-6 6 6'
@@ -4861,6 +4881,220 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
     )
   );
 }
+
+function CommandPalette({
+  open,
+  onClose,
+  commandRef,
+  recipes,
+  recipesById,
+  recentRecipes = [],
+  query,
+  setQuery,
+  openFullSearch,
+  openRecipe,
+  goHome,
+  showFavorites,
+  openMenuPlanner,
+  openTechniques,
+  openShoppingBasket,
+  setSeasonFilter,
+  allSeasons = [],
+  shoppingCount = 0
+}) {
+  const [term, setTerm] = useState('');
+
+  useEffect(() => {
+    if (!open) return;
+    setTerm(query || '');
+    window.setTimeout(() => commandRef.current?.focus(), 0);
+  }, [open]);
+
+  if (!open) return null;
+
+  const cleanTerm = term.trim();
+  const normalizedTerm = normalizeText(cleanTerm);
+  const openSearchWithTerm = () => {
+    if (cleanTerm) setQuery(cleanTerm);
+    onClose();
+    openFullSearch();
+  };
+  const runAction = action => {
+    onClose();
+    action.run();
+  };
+  const baseActions = [
+    {
+      id: 'search',
+      icon: 'search',
+      label: 'Recherche avanc\u00e9e',
+      detail: 'Filtres, ingr\u00e9dients, difficult\u00e9',
+      run: () => openFullSearch()
+    },
+    {
+      id: 'menu',
+      icon: 'spark',
+      label: 'Composer un menu',
+      detail: 'Accords, service, liste de courses',
+      run: openMenuPlanner
+    },
+    {
+      id: 'techniques',
+      icon: 'book',
+      label: 'Techniques',
+      detail: 'Gestes, rep\u00e8res et bases',
+      run: openTechniques
+    },
+    {
+      id: 'favorites',
+      icon: 'heart',
+      label: 'Favoris',
+      detail: 'Fiches sauvegard\u00e9es',
+      run: showFavorites
+    },
+    {
+      id: 'shopping',
+      icon: 'basket',
+      label: 'Courses',
+      detail: `${shoppingCount} fiche${shoppingCount > 1 ? 's' : ''}`,
+      run: openShoppingBasket
+    },
+    {
+      id: 'home',
+      icon: 'home',
+      label: 'Accueil',
+      detail: 'Catalogue',
+      run: goHome
+    },
+    ...allSeasons.slice(0, 4).map(seasonName => ({
+      id: `season-${seasonName}`,
+      icon: 'spark',
+      label: seasonName,
+      detail: 'Filtre saison',
+      run: () => {
+        goHome();
+        setSeasonFilter(seasonName);
+      }
+    }))
+  ];
+  const matchedActions = baseActions.filter(action => {
+    if (!normalizedTerm) return true;
+    return normalizeText(`${action.label} ${action.detail}`).includes(normalizedTerm);
+  }).slice(0, normalizedTerm ? 6 : 8);
+  const commandRecipes = normalizedTerm
+    ? recipes
+      .map(recipe => {
+        const titleScore = normalizeText(recipe.title).includes(normalizedTerm) ? 24 : 0;
+        const categoryScore = normalizeText(categoryLine(recipe)).includes(normalizedTerm) ? 8 : 0;
+        const textMeta = scoreRecipeSearch(recipe, cleanTerm, recipesById);
+        const ingredient = scoreIngredientSearch(recipe, cleanTerm);
+        return {
+          recipe,
+          score: titleScore + categoryScore + textMeta.score + ingredient.score,
+          reason: ingredient.matched?.[0] || textMeta.reasons?.[0] || categoryLine(recipe)
+        };
+      })
+      .filter(item => item.score > 0)
+      .sort((a, b) => b.score - a.score || a.recipe.title.localeCompare(b.recipe.title, 'fr'))
+      .slice(0, 7)
+    : recentRecipes.slice(0, 5).map(recipe => ({ recipe, score: 0, reason: 'Derni\u00e8re fiche' }));
+  const firstCommand = matchedActions[0] || commandRecipes[0];
+  const runRecipe = recipe => {
+    onClose();
+    openRecipe(recipe.id);
+  };
+  const runFirstCommand = () => {
+    if (!firstCommand) return;
+    if (firstCommand.recipe) runRecipe(firstCommand.recipe);
+    else runAction(firstCommand);
+  };
+
+  return h('div', { className: 'modal-backdrop command-backdrop', onMouseDown: onClose },
+    h('section', {
+      className: 'modal-panel command-palette',
+      role: 'dialog',
+      'aria-modal': 'true',
+      'aria-label': 'Commandes Cook Note',
+      onMouseDown: event => event.stopPropagation()
+    },
+      h('div', { className: 'command-input-shell' },
+        h(Icon, { name: 'search' }),
+        h('label', { className: 'sr-only', htmlFor: 'cook-note-command-input' }, 'Commande ou recette'),
+        h('input', {
+          id: 'cook-note-command-input',
+          ref: commandRef,
+          type: 'search',
+          value: term,
+          onChange: event => setTerm(event.target.value),
+          onKeyDown: event => {
+            if (event.key === 'Escape') onClose();
+            if (event.key === 'Enter') {
+              event.preventDefault();
+              if (cleanTerm && !matchedActions.length && !commandRecipes.length) openSearchWithTerm();
+              else runFirstCommand();
+            }
+          },
+          placeholder: 'Commande, recette, ingr\u00e9dient...'
+        }),
+        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
+      ),
+      h('div', { className: 'command-sections' },
+        h('section', { className: 'command-section' },
+          h('div', { className: 'command-section-head' },
+            h('strong', null, 'Actions'),
+            cleanTerm && h('button', { type: 'button', onClick: openSearchWithTerm }, 'Recherche compl\u00e8te')
+          ),
+          h('div', { className: 'command-action-grid' },
+            matchedActions.map(action => h('button', {
+              key: action.id,
+              type: 'button',
+              className: 'command-row',
+              onClick: () => runAction(action)
+            },
+              h('span', { className: 'command-row-icon' }, h(Icon, { name: action.icon })),
+              h('span', { className: 'command-row-copy' },
+                h('strong', null, action.label),
+                h('small', null, action.detail)
+              )
+            )),
+            !matchedActions.length && h('button', { type: 'button', className: 'command-row command-search-fallback', onClick: openSearchWithTerm },
+              h('span', { className: 'command-row-icon' }, h(Icon, { name: 'search' })),
+              h('span', { className: 'command-row-copy' },
+                h('strong', null, 'Recherche compl\u00e8te'),
+                h('small', null, cleanTerm || 'Catalogue')
+              )
+            )
+          )
+        ),
+        h('section', { className: 'command-section' },
+          h('div', { className: 'command-section-head' },
+            h('strong', null, cleanTerm ? 'Recettes' : 'Derni\u00e8res fiches')
+          ),
+          commandRecipes.length
+            ? h('div', { className: 'command-recipe-list' },
+              commandRecipes.map(({ recipe, reason }) => h('button', {
+                key: recipe.id,
+                type: 'button',
+                className: 'command-recipe-row',
+                onClick: () => runRecipe(recipe)
+              },
+                h('span', { className: 'command-recipe-image', style: imageBackgroundStyle(recipe.image) }),
+                h('span', { className: 'command-row-copy' },
+                  h('strong', null, recipe.title),
+                  h('small', null, reason || difficultyText(recipe))
+                ),
+                h('span', { className: `nutri-score nutri-${getNutriScore(recipe).toLowerCase()}` }, `Nutri ${getNutriScore(recipe)}`)
+              ))
+            )
+            : h('div', { className: 'command-empty' },
+              h('strong', null, 'Aucune fiche directe'),
+              h('p', null, 'La recherche compl\u00e8te prendra le relais.')
+            )
+        )
+      )
+    )
+  );
+}
 function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe, clearShopping, notify }) {
   const [copied, setCopied] = useState(false);
   const [checkedItems, setCheckedItems] = useState(() => readJson(STORAGE_KEYS.shoppingChecked, {}));
@@ -5512,6 +5746,80 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
   );
 }
 
+function RecipeCommandDock({
+  title,
+  progress,
+  canShowSteps,
+  mobileDetailTab,
+  setMobileDetailTab,
+  ingredientCount,
+  stepCount,
+  notesCount,
+  canAddToShopping,
+  isInShopping,
+  onToggleShopping,
+  showRecipeUtilities,
+  onCopy,
+  exportCopied,
+  canFavorite,
+  isFavorite,
+  onToggleFavorite
+}) {
+  const safeProgress = Math.max(0, Math.min(100, Number(progress) || 0));
+  const tabs = [
+    { key: 'ingredients', label: 'Ingr\u00e9dients', count: ingredientCount },
+    { key: 'steps', label: '\u00c9tapes', count: stepCount },
+    { key: 'notes', label: 'Avant', count: notesCount }
+  ];
+  return h('aside', {
+    className: 'recipe-command-dock',
+    style: { '--dock-progress': `${safeProgress}%` },
+    'aria-label': 'Tableau de bord recette'
+  },
+    h('span', { className: 'recipe-dock-progress', 'aria-hidden': true }, h('span', null)),
+    h('div', { className: 'recipe-dock-main' },
+      h('div', { className: 'recipe-dock-copy' },
+        h('span', { className: 'eyebrow' }, 'Fiche active'),
+        h('strong', null, title),
+        h('small', null, canShowSteps ? `${safeProgress}% pr\u00eat` : 'Choix requis')
+      ),
+      h('div', { className: 'recipe-dock-tabs', 'aria-label': 'Sections de la fiche' },
+        tabs.map(tab => h('button', {
+          key: tab.key,
+          type: 'button',
+          className: mobileDetailTab === tab.key ? 'active' : '',
+          onClick: () => setMobileDetailTab(tab.key),
+          'aria-pressed': mobileDetailTab === tab.key
+        },
+          h('span', null, tab.label),
+          h('small', null, tab.count)
+        ))
+      ),
+      h('div', { className: 'recipe-dock-actions' },
+        h('button', {
+          type: 'button',
+          className: isInShopping ? 'dock-action active' : 'dock-action',
+          disabled: !canAddToShopping,
+          onClick: onToggleShopping,
+          'aria-label': isInShopping ? 'Retirer des courses' : 'Ajouter aux courses'
+        }, h(Icon, { name: 'basket' }), h('span', null, isInShopping ? 'Courses' : '+ Courses')),
+        showRecipeUtilities && h('button', {
+          type: 'button',
+          className: exportCopied ? 'dock-action active' : 'dock-action',
+          onClick: onCopy,
+          'aria-label': 'Copier la fiche'
+        }, h(Icon, { name: 'copy' }), h('span', null, exportCopied ? 'Copi\u00e9e' : 'Copier')),
+        canFavorite && h('button', {
+          type: 'button',
+          className: isFavorite ? 'dock-action active' : 'dock-action',
+          onClick: onToggleFavorite,
+          'aria-label': isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'
+        }, h(Icon, { name: 'heart', filled: isFavorite }), h('span', null, 'Favori'))
+      )
+    )
+  );
+}
+
 function RecipeView({
   recipe,
   isFavorite,
@@ -5657,6 +5965,13 @@ function RecipeView({
     });
   }
 
+  function copyCurrentRecipe() {
+    return copyText(recipeExportText(selectedRecipe, factor)).then(() => {
+      setExportCopied(true);
+      notify?.('Fiche recette copi\u00e9e');
+    });
+  }
+
   const heroUsesHomeImage = showVariants;
   const heroImage = heroUsesHomeImage ? HERO_IMAGE : (selectedRecipe.image || recipe.image);
   const heroEyebrow = isMasterRecipe(recipe) ? 'Catégorie' : primaryCategory(recipe);
@@ -5703,10 +6018,7 @@ function RecipeView({
           hasSelectedVariant && h(Button, { variant: isInShopping ? 'primary' : 'ghost', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(detailKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
           hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(Button, {
             variant: 'subtle',
-            onClick: () => copyText(recipeExportText(selectedRecipe, factor)).then(() => {
-              setExportCopied(true);
-              notify?.('Fiche recette copiée');
-            })
+            onClick: copyCurrentRecipe
           }, exportCopied ? 'Fiche copiée' : 'Copier fiche'),
           showRecipeUtilities && h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' })),
           selectedRecipe.video && h('a', { className: 'btn btn-ghost', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, 'Voir la vidéo'),
@@ -5733,6 +6045,25 @@ function RecipeView({
       options: inlineVariantOptions,
       selectedIndex: selectedInlineVariantGroup?.index,
       onSelect: selectInlineVariant
+    }),
+    hasSelectedVariant && h(RecipeCommandDock, {
+      title: selectedRecipe.title,
+      progress,
+      canShowSteps,
+      mobileDetailTab,
+      setMobileDetailTab,
+      ingredientCount: countIngredients(selectedRecipe),
+      stepCount: effectiveStepTotal,
+      notesCount,
+      canAddToShopping,
+      isInShopping,
+      onToggleShopping: () => canAddToShopping && toggleShopping(detailKey, factor),
+      showRecipeUtilities,
+      onCopy: copyCurrentRecipe,
+      exportCopied,
+      canFavorite,
+      isFavorite,
+      onToggleFavorite: () => toggleFavorite(detailKey)
     }),
     hasSelectedVariant && h('div', { className: 'recipe-tabs', 'aria-label': 'Sections de la recette' },
       [
@@ -5900,6 +6231,7 @@ function App() {
   const searchFilterQuery = useDebouncedValue(query, 120);
   const [difficultyFilter, setDifficultyFilter] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
+  const [commandOpen, setCommandOpen] = useState(false);
   const [season, setSeason] = useState('');
   const [seasonCategory, setSeasonCategory] = useState('');
   const [tagFilter, setTagFilter] = useState('');
@@ -5922,6 +6254,7 @@ function App() {
   const [personalNotes, setPersonalNotes] = useState(() => readJson(STORAGE_KEYS.personalNotes, {}));
   const [toasts, setToasts] = useState([]);
   const searchRef = useRef(null);
+  const commandRef = useRef(null);
   const homeScrollRef = useRef(Number(sessionStorage.getItem(STORAGE_KEYS.homeScroll)) || 0);
   const restoreHomeScrollRef = useRef(false);
   const pendingScrollModeRef = useRef('top');
@@ -6331,11 +6664,13 @@ function App() {
     if (!isMasterRecipe(target)) {
       rememberRecipeVisit(id);
     }
-    setActivePage('home');
-    setTargetTechniqueId('');
-    setActiveId(id);
-    setOnlyFavorites(false);
-    setFavoriteCollection('');
+    runViewTransition(() => {
+      setActivePage('home');
+      setTargetTechniqueId('');
+      setActiveId(id);
+      setOnlyFavorites(false);
+      setFavoriteCollection('');
+    });
     const nextUrl = getRecipeUrl(id);
     if (window.location.pathname + window.location.search !== nextUrl) {
       history.pushState('', document.title, nextUrl);
@@ -6348,11 +6683,13 @@ function App() {
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'top';
     restoreHomeScrollRef.current = false;
-    setActivePage('home');
-    setTargetTechniqueId('');
-    setOnlyFavorites(false);
-    setFavoriteCollection('');
-    setActiveId(null);
+    runViewTransition(() => {
+      setActivePage('home');
+      setTargetTechniqueId('');
+      setOnlyFavorites(false);
+      setFavoriteCollection('');
+      setActiveId(null);
+    });
     history.pushState('', document.title, '/');
     lastRouteKeyRef.current = currentScrollRouteKey();
   }
@@ -6360,11 +6697,13 @@ function App() {
   function showFavorites() {
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'top';
-    setActivePage('home');
-    setTargetTechniqueId('');
-    setOnlyFavorites(true);
-    setFavoriteCollection('');
-    setActiveId(null);
+    runViewTransition(() => {
+      setActivePage('home');
+      setTargetTechniqueId('');
+      setOnlyFavorites(true);
+      setFavoriteCollection('');
+      setActiveId(null);
+    });
     history.pushState('', document.title, '/?view=__favs__');
     lastRouteKeyRef.current = currentScrollRouteKey();
     setTimeout(() => document.getElementById('recettes')?.scrollIntoView({ behavior: 'smooth' }), 0);
@@ -6374,10 +6713,12 @@ function App() {
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'top';
     restoreHomeScrollRef.current = false;
-    setActivePage('techniques');
-    setTargetTechniqueId('');
-    setActiveId(null);
-    setOnlyFavorites(false);
+    runViewTransition(() => {
+      setActivePage('techniques');
+      setTargetTechniqueId('');
+      setActiveId(null);
+      setOnlyFavorites(false);
+    });
     history.pushState('', document.title, '/techniques');
     lastRouteKeyRef.current = currentScrollRouteKey();
   }
@@ -6386,10 +6727,12 @@ function App() {
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'none';
     restoreHomeScrollRef.current = false;
-    setActivePage('techniques');
-    setTargetTechniqueId(id);
-    setActiveId(null);
-    setOnlyFavorites(false);
+    runViewTransition(() => {
+      setActivePage('techniques');
+      setTargetTechniqueId(id);
+      setActiveId(null);
+      setOnlyFavorites(false);
+    });
     history.pushState('', document.title, `/techniques#${encodeURIComponent(id)}`);
     lastRouteKeyRef.current = currentScrollRouteKey();
   }
@@ -6399,8 +6742,15 @@ function App() {
   }
 
   function openSearch() {
+    setCommandOpen(false);
     setSearchOpen(true);
     setTimeout(() => searchRef.current?.focus(), 0);
+  }
+
+  function openCommandPalette() {
+    setSearchOpen(false);
+    setCommandOpen(true);
+    setTimeout(() => commandRef.current?.focus(), 0);
   }
 
   function markMenuPlannerReturnState(enabled) {
@@ -6436,11 +6786,13 @@ function App() {
         homeScrollRef.current = Math.max(window.scrollY || 0, homeScrollRef.current || 0);
         restoreHomeScrollRef.current = false;
       }
-      setActivePage(page);
-      setTargetTechniqueId(technique);
-      setOnlyFavorites(new URLSearchParams(window.location.search).get('view') === '__favs__');
-      setActiveId(recipe);
-      setMenuPlannerOpen(Boolean(event?.state?.menuPlannerOpen));
+      runViewTransition(() => {
+        setActivePage(page);
+        setTargetTechniqueId(technique);
+        setOnlyFavorites(new URLSearchParams(window.location.search).get('view') === '__favs__');
+        setActiveId(recipe);
+        setMenuPlannerOpen(Boolean(event?.state?.menuPlannerOpen));
+      });
       if (!recipe && page === 'home') restoreHomeScrollRef.current = false;
     };
     window.addEventListener('hashchange', handleLocation);
@@ -6481,10 +6833,14 @@ function App() {
     const handleKey = event => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
-        openSearch();
+        openCommandPalette();
         return;
       }
       if (event.key === 'Escape') {
+        if (commandOpen) {
+          setCommandOpen(false);
+          return;
+        }
         if (searchOpen) {
           setSearchOpen(false);
           return;
@@ -6526,7 +6882,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [activeRecipe, activePage, catalogRecipes, canUndo, canRedo, searchOpen, preferencesOpen, menuPlannerOpen]);
+  }, [activeRecipe, activePage, catalogRecipes, canUndo, canRedo, commandOpen, searchOpen, preferencesOpen, menuPlannerOpen]);
 
   if (!recipes.length) {
     return h('div', { className: 'mc-shell' },
@@ -6552,8 +6908,10 @@ function App() {
     preferences.largeText ? 'display-large-text' : '',
     preferences.reduceMotion ? 'display-reduce-motion' : ''
   ].filter(Boolean).join(' ');
+  const ambientRecipe = activeRecipe || filteredRecipes[0] || homeCatalogRecipes[0] || recipes[0];
+  const shellStyle = { '--ambient-accent': getCategoryColor(ambientRecipe) };
 
-  return h('div', { className: shellClassName },
+  return h('div', { className: shellClassName, style: shellStyle },
     h(TopBarFixed, {
       onHome: goHome,
       shoppingCount: shoppingRecipes.length,
@@ -6562,12 +6920,12 @@ function App() {
       openMenuPlanner,
       openTechniques: goTechniques,
       query,
-      openSearch,
+      openSearch: openCommandPalette,
       openPreferences: () => setPreferencesOpen(true)
     }),
     h('nav', { className: 'mobile-bottom-nav', 'aria-label': 'Navigation mobile' },
       h('button', { type: 'button', onClick: goHome, 'aria-label': 'Accueil', 'aria-current': !activeRecipe && activePage === 'home' && !onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'home' })), h('span', { className: 'sr-only' }, 'Accueil')),
-      h('button', { type: 'button', onClick: openSearch, 'aria-label': 'Recherche', 'aria-current': searchOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'search' })), 'Recherche'),
+      h('button', { type: 'button', onClick: openCommandPalette, 'aria-label': 'Recherche', 'aria-current': commandOpen || searchOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'search' })), 'Recherche'),
       h('button', { type: 'button', onClick: openMenuPlanner, 'aria-label': 'Mode menu', 'aria-current': menuPlannerOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'spark' })), 'Menu'),
       h('button', { type: 'button', onClick: showFavorites, 'aria-label': 'Favoris', 'aria-current': onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'heart' })), 'Favoris'),
       h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses', 'aria-current': shoppingOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Courses')
@@ -6666,6 +7024,26 @@ function App() {
       onClose: () => setPreferencesOpen(false),
       preferences,
       setPreferences
+    }),
+    h(CommandPalette, {
+      open: commandOpen,
+      onClose: () => setCommandOpen(false),
+      commandRef,
+      recipes: searchableRecipes,
+      recipesById,
+      recentRecipes,
+      query,
+      setQuery: updateSearchQuery,
+      openFullSearch: openSearch,
+      openRecipe,
+      goHome,
+      showFavorites,
+      openMenuPlanner,
+      openTechniques: goTechniques,
+      openShoppingBasket: () => setShoppingOpen(true),
+      setSeasonFilter: updateSeason,
+      allSeasons,
+      shoppingCount: shoppingRecipes.length
     }),
     h(SearchPanel, {
       open: searchOpen,

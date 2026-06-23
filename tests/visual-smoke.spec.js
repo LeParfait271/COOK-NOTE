@@ -81,6 +81,11 @@ test.describe('Cook Note visual smoke', () => {
       const count = await page.locator('.recipe-card').count();
       expect(count).toBeGreaterThanOrEqual(8);
     }).toPass();
+    await page.keyboard.press('Control+K');
+    await expect(page.locator('.command-palette')).toBeVisible();
+    await expectNoMojibake(page);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('.command-palette')).toBeHidden();
     await page.evaluate(() => document.querySelectorAll('.recipe-card')[7]?.scrollIntoView({ block: 'center' }));
     await page.waitForTimeout(250);
     await page.evaluate(() => document.querySelector('.recipe-card')?.scrollIntoView({ block: 'center' }));
@@ -103,6 +108,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.recipe-view')).toBeVisible();
     await expect(page.getByRole('heading', { name: new RegExp('Poulet sauce piment\\u00e9e', 'i') })).toBeVisible();
     await expect(page.locator('.recipe-detail-hero.has-photo')).toBeVisible();
+    await expect(page.locator('.recipe-command-dock')).toBeVisible();
     await expect(page.getByText(/Ajouter aux courses/i)).toBeVisible();
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
