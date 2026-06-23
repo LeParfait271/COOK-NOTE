@@ -17,6 +17,21 @@ async function waitForCookNote(page) {
   await page.waitForFunction(() => !document.querySelector('#loading-screen'), null, { timeout: 14000 });
 }
 
+async function settleVisualFrame(page) {
+  await page.evaluate(() => {
+    const root = document.documentElement;
+    const previous = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+    root.style.scrollBehavior = previous;
+  });
+  await page.waitForFunction(() => window.scrollY === 0);
+  await page.evaluate(() => new Promise(resolve => {
+    requestAnimationFrame(() => requestAnimationFrame(resolve));
+  }));
+  await page.waitForTimeout(350);
+}
+
 async function expectNoMojibake(page) {
   const visibleText = await page.locator('body').innerText();
   expect(visibleText).not.toMatch(MOJIBAKE_PATTERN);
@@ -69,9 +84,11 @@ test.describe('Cook Note visual smoke', () => {
     await page.evaluate(() => document.querySelectorAll('.recipe-card')[7]?.scrollIntoView({ block: 'center' }));
     await page.waitForTimeout(250);
     await page.evaluate(() => document.querySelector('.recipe-card')?.scrollIntoView({ block: 'center' }));
+    await expectImagesReady(page, '.hero-logo', 1);
     await expectImagesReady(page, '.recipe-card img', 6);
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
+    await settleVisualFrame(page);
 
     await page.screenshot({
       path: testInfo.outputPath(`home-${testInfo.project.name}.png`),
@@ -89,6 +106,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.getByText(/Ajouter aux courses/i)).toBeVisible();
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
+    await settleVisualFrame(page);
 
     await page.screenshot({
       path: testInfo.outputPath(`recipe-${testInfo.project.name}.png`),
@@ -111,6 +129,7 @@ test.describe('Cook Note visual smoke', () => {
       await expectBackgroundImagesReady(page, '.variant-card-bg', 4);
       await expectNoMojibake(page);
       await expectNoHorizontalOverflow(page);
+      await settleVisualFrame(page);
 
       await page.screenshot({
         path: testInfo.outputPath(`category-${recipeId}-${testInfo.project.name}.png`),
