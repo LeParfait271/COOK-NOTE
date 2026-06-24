@@ -228,6 +228,61 @@ a {
   display: none !important;
 }
 
+.mc-shell.display-low-power .hero {
+  min-height: 52px;
+}
+
+.mc-shell.display-low-power .hero-inner {
+  padding: 10px 0 2px;
+}
+
+.mc-shell.display-low-power .hero-wordmark {
+  color: #fff7ed;
+  font-size: clamp(26px, 6vw, 44px);
+  font-weight: 950;
+  line-height: 1;
+}
+
+.mc-shell.display-low-power .recipe-detail-hero::before,
+.mc-shell.display-low-power .recipe-detail-hero::after {
+  display: none !important;
+}
+
+.mc-shell.display-low-power .detail-meta span,
+.mc-shell.display-low-power .detail-meta button,
+.mc-shell.display-low-power .detail-quantity-control {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+.mc-shell.display-low-power .recipe-card.master-card.text-only-card {
+  min-height: 128px !important;
+  aspect-ratio: auto !important;
+}
+
+.mc-shell.display-low-power .recipe-card.master-card.text-only-card .card-body {
+  align-content: center;
+}
+
+.mc-shell.display-low-power .variant-card.text-only-variant-card {
+  min-height: 132px;
+}
+
+.mc-shell.display-low-power .variant-card.text-only-variant-card .variant-card-body {
+  position: relative;
+  inset: auto;
+  min-height: 132px;
+}
+
+.mc-shell.display-low-power .season-block,
+.mc-shell.display-low-power .recipe-card,
+.mc-shell.display-low-power .variant-card,
+.mc-shell.display-low-power .recipe-panel,
+.mc-shell.display-low-power .recipe-summary-panel {
+  contain: layout paint style;
+}
+
 .site-footer {
   max-width: 1120px;
   margin: 64px auto 0;
