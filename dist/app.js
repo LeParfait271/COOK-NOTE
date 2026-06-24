@@ -4,10 +4,10 @@ const { useEffect, useMemo, useRef, useState } = React;
 const {
   recipeCardImageUrl,
   imageSizeAttrs,
-  imageBackgroundStyle: baseImageBackgroundStyle
+  imageBackgroundStyle
 } = window.CookNoteImages || {};
 
-if (!recipeCardImageUrl || !imageSizeAttrs || !baseImageBackgroundStyle) {
+if (!recipeCardImageUrl || !imageSizeAttrs || !imageBackgroundStyle) {
   throw new Error('CookNoteImages doit etre charge avant app.js.');
 }
 
@@ -64,7 +64,6 @@ function scheduleIdleTask(callback, timeout = 1200) {
 }
 
 function runConfettiBurst() {
-  if (document.querySelector('.display-low-power')) return;
   loadDeferredScript(CONFETTI_SCRIPT_SRC, 'confetti').then(confetti => {
     if (typeof confetti !== 'function') return;
     confetti({ particleCount: 110, spread: 70, origin: { y: .65 } });
@@ -75,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.75';
+const SITE_VERSION = 'v1.76';
 const SITE_UPDATED_AT = '24/06/26';
 const SITE_CACHE_VERSION = SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`);
 const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
@@ -736,15 +735,6 @@ function writeJson(key, value) {
   }
 }
 
-function isLowPowerPreferenceEnabled() {
-  return Boolean(readJson(STORAGE_KEYS.preferences, {}).lowPowerMode);
-}
-
-function imageBackgroundStyle(image, options = {}) {
-  if (options.lowPower || isLowPowerPreferenceEnabled()) return {};
-  return baseImageBackgroundStyle(image);
-}
-
 function readStoredList(key, legacyKeys) {
   const current = readJson(key, null);
   if (Array.isArray(current)) return current;
@@ -794,7 +784,7 @@ function scrollElementToViewportCenter(element, behavior = 'smooth') {
 
 function runViewTransition(update) {
   if (typeof update !== 'function') return;
-  const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || document.querySelector('.display-reduce-motion, .display-low-power');
+  const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || document.querySelector('.display-reduce-motion');
   if (typeof document.startViewTransition !== 'function' || reduceMotion) {
     update();
     return;
@@ -4322,13 +4312,11 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
   );
 }
 
-function Hero({ lowPowerMode = isLowPowerPreferenceEnabled() }) {
+function Hero() {
   return h('section', { className: 'hero' },
     h('div', { className: 'hero-inner' },
       h('h1', { className: 'sr-only' }, 'Cook Note'),
-      lowPowerMode
-        ? h('span', { className: 'hero-wordmark', 'aria-hidden': 'true' }, 'Cook Note')
-        : h('img', { className: 'hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(COOK_NOTE_LOGO) })
+      h('img', { className: 'hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(COOK_NOTE_LOGO) })
     )
   );
 }
@@ -4340,13 +4328,13 @@ function ActiveChips({ chips }) {
   );
 }
 
-function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNote, lowPowerMode = false }) {
+function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNote }) {
   const master = isMasterRecipe(recipe);
   const color = getCategoryColor(recipe);
   const style = { '--card-accent': color };
-  const renderCardImage = Boolean(recipe.image && !lowPowerMode);
+  const renderCardImage = Boolean(recipe.image);
   const cardImage = renderCardImage ? recipeCardImageUrl(recipe.image) : '';
-  const className = ['recipe-card', renderCardImage ? 'has-image' : '', master ? 'master-card' : '', lowPowerMode ? 'text-only-card' : '']
+  const className = ['recipe-card', renderCardImage ? 'has-image' : '', master ? 'master-card' : '']
     .filter(Boolean)
     .join(' ');
   const variantLabel = master ? '' : getRecipeVariantLabel(recipe, recipesById);
@@ -4382,7 +4370,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
         alt: recipe.title,
         loading: 'lazy',
         decoding: 'async',
-        fetchPriority: lowPowerMode ? 'low' : (master ? 'high' : 'low'),
+        fetchPriority: master ? 'high' : 'low',
         sizes: '(max-width: 760px) calc(100vw - 32px), 380px',
         draggable: false,
         ...imageSizeAttrs(cardImage),
@@ -4434,13 +4422,11 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   );
 }
 
-function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNotes = {}, lowPowerMode = false }) {
+function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNotes = {} }) {
   const masterGrid = recipes.length > 0 && recipes.every(isMasterRecipe);
   const recipeKey = recipes.map(recipe => recipe.id).join('|');
-  const initialLimit = lowPowerMode ? 10 : GRID_INITIAL_RENDER_COUNT;
-  const renderBatchSize = lowPowerMode ? 8 : GRID_RENDER_BATCH_SIZE;
-  const chunkedGrid = !masterGrid && recipes.length > initialLimit;
-  const initialVisibleCount = chunkedGrid ? initialLimit : recipes.length;
+  const chunkedGrid = !masterGrid && recipes.length > GRID_INITIAL_RENDER_COUNT;
+  const initialVisibleCount = chunkedGrid ? GRID_INITIAL_RENDER_COUNT : recipes.length;
   const [visibleCount, setVisibleCount] = useState(initialVisibleCount);
   const loadMoreRef = useRef(null);
   const hasMore = visibleCount < recipes.length;
@@ -4453,11 +4439,11 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
     if (!hasMore || !loadMoreRef.current || typeof IntersectionObserver === 'undefined') return undefined;
     const observer = new IntersectionObserver(entries => {
       if (!entries.some(entry => entry.isIntersecting)) return;
-      setVisibleCount(count => Math.min(recipes.length, count + renderBatchSize));
-    }, { rootMargin: lowPowerMode ? '180px 0px' : '640px 0px' });
+      setVisibleCount(count => Math.min(recipes.length, count + GRID_RENDER_BATCH_SIZE));
+    }, { rootMargin: '640px 0px' });
     observer.observe(loadMoreRef.current);
     return () => observer.disconnect();
-  }, [hasMore, recipes.length, recipeKey, renderBatchSize, lowPowerMode]);
+  }, [hasMore, recipes.length, recipeKey]);
 
   if (!recipes.length) {
     return h('div', { className: 'empty-state' },
@@ -4481,20 +4467,19 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
         openRecipe,
         setTagFilter,
         hideFavorite,
-        personalNote: personalNotes[recipe.id],
-        lowPowerMode
+        personalNote: personalNotes[recipe.id]
       }))
     ),
     hasMore && h('div', { className: 'recipe-grid-load-more', ref: loadMoreRef },
       h('button', {
         type: 'button',
-        onClick: () => setVisibleCount(count => Math.min(recipes.length, count + renderBatchSize))
+        onClick: () => setVisibleCount(count => Math.min(recipes.length, count + GRID_RENDER_BATCH_SIZE))
       }, 'Afficher plus')
     )
   );
 }
 
-function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, personalNotes = {}, favoriteCollection, setFavoriteCollection, lowPowerMode = false }) {
+function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, personalNotes = {}, favoriteCollection, setFavoriteCollection }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
   const visibleIds = new Set(sections.flatMap(section => (section.recipes || []).map(recipe => recipe.id)));
@@ -4571,14 +4556,14 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
         h('div', null, h('p', { className: 'eyebrow' }, section.kicker), h('h3', null, section.title)),
         h('span', null, `${section.recipes.length} fiche${section.recipes.length > 1 ? 's' : ''}`)
       ),
-      h(RecipeGrid, { recipes: section.recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, personalNotes, lowPowerMode })
+      h(RecipeGrid, { recipes: section.recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, personalNotes })
     ))
   );
 }
 
 function HomeView(props) {
   return h('main', { className: 'home-view' },
-    h(Hero, { lowPowerMode: props.lowPowerMode }),
+    h(Hero),
     h('div', { className: 'content-wrap' },
       h(ActiveChips, { chips: props.activeChips }),
       h(SeasonSections, {
@@ -4597,8 +4582,7 @@ function HomeView(props) {
         categoryOptions: props.filterProps.seasonCategoryOptions,
         personalNotes: props.personalNotes,
         favoriteCollection: props.favoriteCollection,
-        setFavoriteCollection: props.setFavoriteCollection,
-        lowPowerMode: props.lowPowerMode
+        setFavoriteCollection: props.setFavoriteCollection
       })
     )
   );
@@ -4750,10 +4734,18 @@ function SharePanel({ open, onClose, recipe, notify }) {
   const [copiedText, setCopiedText] = useState(false);
   const [qrReady, setQrReady] = useState(false);
   const canvasRef = useRef(null);
-  const url = `${window.location.origin}${getRecipeUrl(recipe.id)}`;
-  const description = recipeDescription(recipe);
-  const text = `${recipe.title} - Cook Note\n${description}\n${url}`;
-  const imageStyle = recipe.image ? { backgroundImage: `url("${recipe.image}")` } : {};
+  const shareData = useMemo(() => {
+    if (!open) return { url: '', description: '', text: '', imageStyle: {} };
+    const url = `${window.location.origin}${getRecipeUrl(recipe.id)}`;
+    const description = recipeDescription(recipe);
+    return {
+      url,
+      description,
+      text: `${recipe.title} - Cook Note\n${description}\n${url}`,
+      imageStyle: recipe.image ? { backgroundImage: `url("${recipe.image}")` } : {}
+    };
+  }, [open, recipe]);
+  const { url, description, text, imageStyle } = shareData;
 
   function nativeShare() {
     if (!navigator.share) return copyText(text).then(() => {
@@ -4834,13 +4826,13 @@ function SharePanel({ open, onClose, recipe, notify }) {
   );
 }
 
-function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDifficultyFilter, searchRef, results, resultMeta, ingredientMeta, openRecipe, recentRecipes = [], recentSearches = [], rememberSearch, lowPowerMode = false }) {
+function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDifficultyFilter, searchRef, results, resultMeta, ingredientMeta, openRecipe, recentRecipes = [], recentSearches = [], rememberSearch }) {
   if (!open) return null;
   const hasQuery = Boolean(query.trim());
   const ingredientTokens = ingredientSearchTokens(query);
   const hasIngredientMatches = hasQuery && results.some(recipe => ingredientMeta.has(recipe.id));
   const groupByIngredientAvailability = hasIngredientMatches && (query.includes(',') || ingredientTokens.length > 1);
-  const visibleResults = hasQuery ? results.slice(0, lowPowerMode ? 9 : 18) : [];
+  const visibleResults = hasQuery ? results.slice(0, 18) : [];
   const resultGroups = visibleResults.reduce((groups, recipe) => {
     const availability = ingredientMeta.has(recipe.id) ? ingredientAvailabilityGroup(ingredientMeta.get(recipe.id)) : null;
     const key = groupByIngredientAvailability && availability ? availability.key : primaryCategory(recipe);
@@ -4887,7 +4879,6 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
       { label: 'Familial', query: 'familial' }
     ] }
   ];
-  const visibleSuggestionGroups = lowPowerMode ? suggestions.slice(0, 3) : suggestions;
   const quickSearches = [
     { label: 'Plat rapide', query: 'rapide plat' },
     { label: 'Ap\u00e9ro', query: 'apero' },
@@ -4971,9 +4962,9 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
             recentRecipes.length > 0 && h('section', { className: 'search-memory-card' },
               h('strong', null, 'Dernières fiches'),
               h('div', { className: 'recent-recipe-list' },
-                recentRecipes.slice(0, lowPowerMode ? 2 : 4).map(recipe =>
+                recentRecipes.slice(0, 4).map(recipe =>
                   h('button', { key: recipe.id, type: 'button', onClick: () => openSearchRecipe(recipe) },
-                    !lowPowerMode && h('span', { className: 'search-result-image', style: imageBackgroundStyle(recipe.image, { lowPower: lowPowerMode }) }),
+                    h('span', { className: 'search-result-image', style: imageBackgroundStyle(recipe.image) }),
                     h('span', null, recipe.title)
                   )
                 )
@@ -4981,7 +4972,7 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
             )
           ),
           h('div', { className: 'search-suggestion-groups' },
-          visibleSuggestionGroups.map(group => h('section', { key: group.title, className: 'search-suggestion-group' },
+          suggestions.map(group => h('section', { key: group.title, className: 'search-suggestion-group' },
             h('strong', null, group.title),
             h('div', { className: 'search-suggestions' },
               group.items.map(item =>
@@ -5012,7 +5003,7 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
                   className: 'search-result',
                   onClick: () => openSearchRecipe(recipe)
                 },
-                  !lowPowerMode && h('span', { className: 'search-result-image', style: imageBackgroundStyle(recipe.image, { lowPower: lowPowerMode }) }),
+                  h('span', { className: 'search-result-image', style: imageBackgroundStyle(recipe.image) }),
                   h('span', { className: 'search-result-copy' },
                     h('strong', null, recipe.title),
                     h('small', null, recipe.yield || difficultyText(recipe)),
@@ -5058,12 +5049,9 @@ function CommandPalette({
   openShoppingBasket,
   setSeasonFilter,
   allSeasons = [],
-  shoppingCount = 0,
-  lowPowerMode = false,
-  onDemandCatalogLoad
+  shoppingCount = 0
 }) {
   const [term, setTerm] = useState('');
-  const debouncedTerm = useDebouncedValue(term, lowPowerMode ? 280 : 80);
 
   useEffect(() => {
     if (!open) return;
@@ -5071,15 +5059,9 @@ function CommandPalette({
     window.setTimeout(() => commandRef.current?.focus(), 0);
   }, [open]);
 
-  useEffect(() => {
-    const clean = debouncedTerm.trim();
-    if (!open || !lowPowerMode || clean.length < 2) return;
-    onDemandCatalogLoad?.();
-  }, [open, lowPowerMode, debouncedTerm, onDemandCatalogLoad]);
-
   if (!open) return null;
 
-  const cleanTerm = (lowPowerMode ? debouncedTerm : term).trim();
+  const cleanTerm = term.trim();
   const normalizedTerm = normalizeText(cleanTerm);
   const openSearchWithTerm = () => {
     if (cleanTerm) setQuery(cleanTerm);
@@ -5147,7 +5129,7 @@ function CommandPalette({
   const matchedActions = baseActions.filter(action => {
     if (!normalizedTerm) return true;
     return normalizeText(`${action.label} ${action.detail}`).includes(normalizedTerm);
-  }).slice(0, normalizedTerm ? (lowPowerMode ? 4 : 6) : (lowPowerMode ? 6 : 8));
+  }).slice(0, normalizedTerm ? 6 : 8);
   const commandRecipes = normalizedTerm
     ? recipes
       .map(recipe => {
@@ -5163,8 +5145,8 @@ function CommandPalette({
       })
       .filter(item => item.score > 0)
       .sort((a, b) => b.score - a.score || a.recipe.title.localeCompare(b.recipe.title, 'fr'))
-      .slice(0, lowPowerMode ? 4 : 7)
-    : recentRecipes.slice(0, lowPowerMode ? 3 : 5).map(recipe => ({ recipe, score: 0, reason: 'Derni\u00e8re fiche' }));
+      .slice(0, 7)
+    : recentRecipes.slice(0, 5).map(recipe => ({ recipe, score: 0, reason: 'Derni\u00e8re fiche' }));
   const firstCommand = matchedActions[0] || commandRecipes[0];
   const runRecipe = recipe => {
     onClose();
@@ -5245,7 +5227,7 @@ function CommandPalette({
                 className: 'command-recipe-row',
                 onClick: () => runRecipe(recipe)
               },
-                !lowPowerMode && h('span', { className: 'command-recipe-image', style: imageBackgroundStyle(recipe.image, { lowPower: lowPowerMode }) }),
+                h('span', { className: 'command-recipe-image', style: imageBackgroundStyle(recipe.image) }),
                 h('span', { className: 'command-row-copy' },
                   h('strong', null, recipe.title),
                   h('small', null, reason || difficultyText(recipe))
@@ -5411,7 +5393,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
   );
 }
 
-function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShopping, notify, lowPowerMode = false }) {
+function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShopping, notify }) {
   const [offset, setOffset] = useState(0);
   const [itemOffsets, setItemOffsets] = useState({});
   const [peopleCount, setPeopleCount] = useState(4);
@@ -5484,7 +5466,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
       h('p', { className: 'menu-planner-reason' }, menu.reason),
       h('div', { className: 'menu-planner-grid' },
         menuItems.map((item, index) => h('article', { key: `${item.key}-${item.recipe.id}-${index}`, className: 'menu-planner-card' },
-          !lowPowerMode && h('span', { className: 'menu-planner-image', style: imageBackgroundStyle(item.recipe.image, { lowPower: lowPowerMode }) }),
+          h('span', { className: 'menu-planner-image', style: imageBackgroundStyle(item.recipe.image) }),
           h('div', null,
             h('p', { className: 'eyebrow' }, item.label),
             h('h3', null, item.recipe.title),
@@ -5582,21 +5564,6 @@ function PreferencesPanel({ open, onClose, preferences, setPreferences }) {
           h('small', null, 'Réduit les mouvements sans enlever les lumières du thème.')
         )
       ),
-      h('label', { className: 'preference-check low-power-preference' },
-        h('input', {
-          type: 'checkbox',
-          checked: Boolean(preferences.lowPowerMode),
-          onChange: event => update({
-            lowPowerMode: event.target.checked,
-            reduceMotion: event.target.checked ? true : preferences.reduceMotion,
-            density: event.target.checked ? 'compact' : preferences.density
-          })
-        }),
-        h('span', null,
-          h('strong', null, 'Mode tablette ancienne'),
-          h('small', null, 'Coupe les effets lourds, les images secondaires et le chargement automatique complet.')
-        )
-      )
     )
   );
 }
@@ -5656,7 +5623,7 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '' }) {
   );
 }
 
-function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, lowPowerMode = false }) {
+function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) {
   const sortedVariantRefs = sortVariantRefs(variantRefs, recipesById);
   if (!sortedVariantRefs.length) return null;
   return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel collection-links-panel' },
@@ -5677,11 +5644,11 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, lo
         return h('button', {
           key: variant.id,
           type: 'button',
-          className: lowPowerMode ? 'variant-card text-only-variant-card' : 'variant-card',
+          className: 'variant-card',
           style: { '--card-accent': getCategoryColor(item) },
           onClick: () => openRecipe(variant.id)
         },
-          image && !lowPowerMode && h('span', { className: 'variant-card-bg', style: imageBackgroundStyle(image, { lowPower: lowPowerMode }) }),
+          image && h('span', { className: 'variant-card-bg', style: imageBackgroundStyle(image) }),
           h('span', { className: 'variant-card-body' },
             h('small', null, categoryLine(item)),
             h('strong', null, variant.label || item.title),
@@ -5745,7 +5712,7 @@ function LinkedRecipesBlock({ links, openRecipe }) {
           style: { '--card-accent': getCategoryColor(item.recipe) },
           onClick: () => openRecipe(item.id)
         },
-          !lowPowerMode && h('span', { className: 'linked-recipe-thumb', style: imageBackgroundStyle(item.recipe.image, { lowPower: lowPowerMode }) }),
+          h('span', { className: 'linked-recipe-thumb', style: imageBackgroundStyle(item.recipe.image) }),
           h('span', { className: 'linked-recipe-copy' },
             h('small', null, primaryCategory(item.recipe)),
             h('strong', null, item.recipe.title)
@@ -6024,8 +5991,7 @@ function RecipeView({
   openTechnique,
   notify,
   personalRecipeNote,
-  updatePersonalRecipeNote,
-  lowPowerMode = false
+  updatePersonalRecipeNote
 }) {
   const [factor, setFactor] = useState(1);
   const variantRefs = useMemo(() => (
@@ -6152,8 +6118,8 @@ function RecipeView({
     });
   }
 
-  const heroUsesHomeImage = showVariants && !lowPowerMode;
-  const heroImage = lowPowerMode ? '' : (heroUsesHomeImage ? HERO_IMAGE : (selectedRecipe.image || recipe.image));
+  const heroUsesHomeImage = showVariants;
+  const heroImage = heroUsesHomeImage ? HERO_IMAGE : (selectedRecipe.image || recipe.image);
   const heroEyebrow = isMasterRecipe(recipe) ? 'Catégorie' : primaryCategory(recipe);
   const heroStyle = heroImage
     ? {
@@ -6211,8 +6177,7 @@ function RecipeView({
       parent: recipe,
       variantRefs,
       recipesById,
-      openRecipe,
-      lowPowerMode
+      openRecipe
     }),
     hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts, {
       recipe: selectedRecipe,
@@ -6409,10 +6374,9 @@ function App() {
   const searchableRecipes = useMemo(() => recipes.filter(recipe => !isMasterRecipe(recipe)), [recipes]);
   const currentSeason = useMemo(() => getCurrentSeason(), []);
 
-  const [preferences, setPreferences] = useState(() => ({ density: 'comfort', largeText: false, reduceMotion: false, lowPowerMode: false, ...readJson(STORAGE_KEYS.preferences, {}) }));
-  const lowPowerMode = Boolean(preferences.lowPowerMode);
+  const [preferences, setPreferences] = useState(() => ({ density: 'comfort', largeText: false, reduceMotion: false, ...readJson(STORAGE_KEYS.preferences, {}) }));
   const [query, setQuery] = useState(() => new URLSearchParams(window.location.search).get('q') || '');
-  const searchFilterQuery = useDebouncedValue(query, lowPowerMode ? 320 : 120);
+  const searchFilterQuery = useDebouncedValue(query, 120);
   const [difficultyFilter, setDifficultyFilter] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
@@ -6460,7 +6424,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (catalogChunksLoaded || lowPowerMode) return undefined;
+    if (catalogChunksLoaded) return undefined;
     let cancelIdle = null;
     const warmupTimer = window.setTimeout(() => {
       cancelIdle = scheduleIdleTask(() => {
@@ -6471,7 +6435,7 @@ function App() {
       window.clearTimeout(warmupTimer);
       cancelIdle?.();
     };
-  }, [catalogChunksLoaded, lowPowerMode]);
+  }, [catalogChunksLoaded]);
 
   useEffect(() => {
     if (!activeId || activeRecipe || catalogChunksLoaded) return;
@@ -6479,15 +6443,6 @@ function App() {
       loadFullRecipeCatalog().catch(() => {});
     });
   }, [activeId, activeRecipe?.id, catalogChunksLoaded]);
-
-  useEffect(() => {
-    const clean = searchFilterQuery.trim();
-    if (!lowPowerMode || catalogChunksLoaded || !searchOpen || clean.length < 2) return undefined;
-    const timer = window.setTimeout(() => {
-      loadDeferredCatalogChunks().catch(() => {});
-    }, 360);
-    return () => window.clearTimeout(timer);
-  }, [lowPowerMode, catalogChunksLoaded, searchOpen, searchFilterQuery]);
 
   useEffect(() => {
     const legacyVariant = new URLSearchParams(window.location.search).get('variant');
@@ -6609,24 +6564,24 @@ function App() {
   const searchMeta = useMemo(() => {
     const needle = searchFilterQuery.trim();
     const map = new Map();
-    if (!needle || (lowPowerMode && needle.length < 2)) return map;
+    if (!needle) return map;
     searchableRecipes.forEach(recipe => {
       const meta = scoreRecipeSearch(recipe, needle, recipesById);
       if (meta.score > 0) map.set(recipe.id, meta);
     });
     return map;
-  }, [searchFilterQuery, searchableRecipes, recipesById, lowPowerMode]);
+  }, [searchFilterQuery, searchableRecipes, recipesById]);
 
   const ingredientMeta = useMemo(() => {
     const needle = searchFilterQuery.trim();
     const map = new Map();
-    if (!needle || (lowPowerMode && needle.length < 2)) return map;
+    if (!needle) return map;
     searchableRecipes.forEach(recipe => {
       const meta = scoreIngredientSearch(recipe, needle);
       if (meta.score > 0) map.set(recipe.id, meta);
     });
     return map;
-  }, [searchFilterQuery, searchableRecipes, lowPowerMode]);
+  }, [searchFilterQuery, searchableRecipes]);
 
   const baseFilteredRecipes = useMemo(() => {
     const activeSearchQuery = searchFilterQuery.trim();
@@ -6986,14 +6941,14 @@ function App() {
   }
 
   function openSearch() {
-    if (!lowPowerMode) loadDeferredCatalogChunks().catch(() => {});
+    loadDeferredCatalogChunks().catch(() => {});
     setCommandOpen(false);
     setSearchOpen(true);
     setTimeout(() => searchRef.current?.focus(), 0);
   }
 
   function openCommandPalette() {
-    if (!lowPowerMode) loadDeferredCatalogChunks().catch(() => {});
+    loadDeferredCatalogChunks().catch(() => {});
     setSearchOpen(false);
     setCommandOpen(true);
     setTimeout(() => commandRef.current?.focus(), 0);
@@ -7154,8 +7109,7 @@ function App() {
     'mc-shell',
     preferences.density === 'compact' ? 'display-compact' : '',
     preferences.largeText ? 'display-large-text' : '',
-    preferences.reduceMotion ? 'display-reduce-motion' : '',
-    lowPowerMode ? 'display-low-power' : ''
+    preferences.reduceMotion ? 'display-reduce-motion' : ''
   ].filter(Boolean).join(' ');
   const ambientRecipe = activeRecipe || filteredRecipes[0] || homeCatalogRecipes[0] || recipes[0];
   const shellStyle = { '--ambient-accent': getCategoryColor(ambientRecipe) };
@@ -7208,8 +7162,7 @@ function App() {
           openTechnique,
           notify,
           personalRecipeNote: personalNotes[activeRecipe.id],
-          updatePersonalRecipeNote,
-          lowPowerMode
+          updatePersonalRecipeNote
         })
       : activePage === 'techniques'
         ? h(TechniquesView, {
@@ -7229,8 +7182,7 @@ function App() {
           toggleFavorite,
           openRecipe,
           clearFavoriteView: () => { setOnlyFavorites(false); setFavoriteCollection(''); },
-          setTagFilter: updateTagFilter,
-          lowPowerMode
+          setTagFilter: updateTagFilter
         }),
     h('footer', { className: 'site-footer' },
       h('div', { className: 'site-footer-inner' },
@@ -7270,8 +7222,7 @@ function App() {
       recipes: searchableRecipes,
       openRecipe: openMenuRecipe,
       addMenuToShopping,
-      notify,
-      lowPowerMode
+      notify
     }),
     h(PreferencesPanel, {
       open: preferencesOpen,
@@ -7297,9 +7248,7 @@ function App() {
       openShoppingBasket: () => setShoppingOpen(true),
       setSeasonFilter: updateSeason,
       allSeasons,
-      shoppingCount: shoppingRecipes.length,
-      lowPowerMode,
-      onDemandCatalogLoad: loadDeferredCatalogChunks
+      shoppingCount: shoppingRecipes.length
     }),
     h(SearchPanel, {
       open: searchOpen,
@@ -7315,8 +7264,7 @@ function App() {
       openRecipe,
       recentRecipes,
       recentSearches,
-      rememberSearch,
-      lowPowerMode
+      rememberSearch
     }),
     h(ToastStack, { toasts, dismissToast })
   );

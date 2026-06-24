@@ -138,8 +138,8 @@ const serviceWorker = read('service-worker.js');
 [
   'imageSizeAttrs(cardImage)',
   'fetchPriority',
-  'imageBackgroundStyle(recipe.image',
-  'imageBackgroundStyle(item.recipe.image',
+  'imageBackgroundStyle(recipe.image)',
+  'imageBackgroundStyle(item.recipe.image)',
   'DEFERRED_CATALOG_CHUNK_SRCS',
   'loadDeferredCatalogChunks',
   'GRID_INITIAL_RENDER_COUNT',
