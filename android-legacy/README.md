@@ -1,29 +1,50 @@
 # Cook Note Android Legacy
 
-Android 5.0 compatible wrapper for Cook Note.
+Wrapper Android 5.0 compatible pour Cook Note.
 
-This project builds a small native Android APK with a fullscreen WebView.
-The WebView serves the generated `dist/` folder from local APK assets through
-`https://cook-note.local/`, so Cook Note can use absolute URLs and work offline.
+Important: cette application est un projet secondaire. Elle ne se met pas a jour
+automatiquement quand le site change, et elle ne doit pas etre branchee sur
+`npm run build`, `npm run check` ou `npm run preflight`.
 
-Targets:
+Le mode d'emploi complet est dans
+[`docs/android-legacy-workflow.md`](../docs/android-legacy-workflow.md).
 
-- `minSdkVersion 21` for Android 5.0
-- local bundled `dist/`
-- no remote CDN
-- no recipe source edits
+## Principe
 
-Build from the repository root:
+- Android minimum: `minSdkVersion 21`, donc Android 5.0
+- WebView natif Java fullscreen
+- Site servi depuis les assets APK via `https://cook-note.local/`
+- `dist/` est copie dans l APK uniquement quand le build Android est lance
+- aucun changement de recette requis pour l app
+
+## Mise a jour explicite
+
+Ne construire une nouvelle APK que si l'utilisateur le demande explicitement.
+
+Depuis la racine du depot :
 
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File .\scripts\build-android-legacy.ps1
+npm run android:legacy:update-apk
 ```
 
-Output APK:
+Sortie APK :
 
 ```text
 android-legacy/app/build/outputs/apk/debug/app-debug.apk
 ```
 
-If Java, Gradle, or Android SDK are missing, the build script stops with a clear
-message and leaves the Android project ready to build once those tools exist.
+Si Java, Gradle ou Android SDK sont absents :
+
+```powershell
+npm run android:legacy:setup
+```
+
+## Garde-fou
+
+```powershell
+npm run validate:android
+```
+
+Ce check verifie que le workflow Android reste manuel, que les assets APK
+generes ne sont pas versionnes, et que le projet ne s accroche pas au build
+normal du site.

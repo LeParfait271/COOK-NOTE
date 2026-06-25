@@ -26,6 +26,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\generate-image-manifest.js',
     'scripts\validate-performance-budget.js',
     'scripts\validate-headers.js',
+    'scripts\validate-android-manual.js',
     'scripts\build-site.js',
     'scripts\validate-dist.js',
     'scripts\bump-version.js',
@@ -52,6 +53,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\generate-image-manifest.js',
     'scripts\validate-performance-budget.js',
     'scripts\validate-headers.js',
+    'scripts\validate-android-manual.js',
     'scripts\validate-visual-image-duplicates.js',
     'scripts\build-site.js',
     'scripts\validate-dist.js'

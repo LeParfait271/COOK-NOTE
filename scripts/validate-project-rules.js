@@ -14,6 +14,8 @@ const validators = {
   preflight: fs.readFileSync(path.join(ROOT, 'scripts', 'preflight.js'), 'utf8'),
   bumpVersion: fs.readFileSync(path.join(ROOT, 'scripts', 'bump-version.js'), 'utf8'),
   audit: fs.readFileSync(path.join(ROOT, 'scripts', 'audit-recipes.js'), 'utf8'),
+  androidManual: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-android-manual.js'), 'utf8'),
+  androidWorkflow: fs.readFileSync(path.join(ROOT, 'docs', 'android-legacy-workflow.md'), 'utf8'),
   workflow: fs.readFileSync(path.join(ROOT, '.github', 'workflows', 'cook-note.yml'), 'utf8'),
   wrangler: fs.existsSync(path.join(ROOT, 'wrangler.toml')) ? fs.readFileSync(path.join(ROOT, 'wrangler.toml'), 'utf8') : '',
   architecture: fs.readFileSync(path.join(ROOT, 'docs', 'architecture.md'), 'utf8'),
@@ -70,6 +72,10 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'app-images.js',
   'node scripts/bump-version.js --next',
   'scripts/optimize-selected-images.ps1',
+  'app Android Legacy est un projet secondaire manuel',
+  'npm run android:legacy:update-apk',
+  'docs/android-legacy-workflow.md',
+  'npm run validate:android',
   'diffs image anormalement larges',
   'Le panier courses doit regrouper',
   'Liste de courses : mode `J’ai déjà`',
@@ -124,6 +130,8 @@ expect('Preflight non branche.', validators.preflight.includes('Preflight Cook N
 expect('Optimisation ciblee images non branchee.', fs.existsSync(path.join(ROOT, 'scripts', 'optimize-selected-images.ps1')) && validators.packageJson.includes('optimize-selected-images.ps1'));
 expect('Audit recettes non branche.', validators.audit.includes('Audit recettes OK') && validators.packageJson.includes('scripts/audit-recipes.js'));
 expect('Audit images non branche.', validators.packageJson.includes('scripts/audit-images.js'));
+expect('Workflow Android manuel non documente.', validators.androidWorkflow.includes('projet secondaire') && validators.androidWorkflow.includes('ne se met pas a jour automatiquement') && validators.androidWorkflow.includes('npm run android:legacy:update-apk'));
+expect('Validation Android manuel non branchee.', validators.androidManual.includes('Validation Android manuel OK.') && validators.packageJson.includes('scripts/validate-android-manual.js') && validators.packageJson.includes('android:legacy:update-apk'));
 expect('Validation regles non branchee au check.', validators.packageJson.includes('scripts/validate-project-rules.js'));
 
 if (errors.length) {
