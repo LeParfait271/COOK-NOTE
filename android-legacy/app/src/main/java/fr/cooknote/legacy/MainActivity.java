@@ -1,9 +1,11 @@
 package fr.cooknote.legacy;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -15,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -34,6 +37,7 @@ import java.util.Set;
 import java.util.Stack;
 
 public class MainActivity extends Activity {
+    private static final String UPDATE_APK_URL = "https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk";
     private static final String PREFS_NAME = "cook_note_legacy";
     private static final String PREF_FAVORITES = "favorites";
     private static final String PREF_RECENT = "recent";
@@ -102,8 +106,17 @@ public class MainActivity extends Activity {
         header.addView(title);
 
         TextView subtitle = text("Livre local - Android 5 Lite - v" + repository.version, 12, COLOR_MUTED, false);
-        subtitle.setPadding(0, dp(2), 0, dp(12));
+        subtitle.setPadding(0, dp(2), 0, dp(2));
         header.addView(subtitle);
+
+        Button update = sectionButton("Mettre a jour l'app");
+        header.addView(update);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openUpdateDownload();
+            }
+        });
 
         searchBox = new EditText(this);
         searchBox.setSingleLine(true);
@@ -734,6 +747,21 @@ public class MainActivity extends Activity {
         if (clipboard == null) return;
         clipboard.setPrimaryClip(ClipData.newPlainText(recipe.title + " - ingredients", buildIngredientsText(recipe)));
         Toast.makeText(this, "Ingredients copies", Toast.LENGTH_SHORT).show();
+    }
+
+    private void openUpdateDownload() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(UPDATE_APK_URL));
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        try {
+            startActivity(intent);
+            Toast.makeText(this, "Telechargement de la mise a jour", Toast.LENGTH_SHORT).show();
+        } catch (ActivityNotFoundException exception) {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard != null) {
+                clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note APK Android 5.0+", UPDATE_APK_URL));
+            }
+            Toast.makeText(this, "Lien copie dans le presse-papiers", Toast.LENGTH_LONG).show();
+        }
     }
 
     private static String buildIngredientsText(Recipe recipe) {

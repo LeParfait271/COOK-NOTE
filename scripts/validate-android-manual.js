@@ -140,6 +140,10 @@ expect(
     && androidLegacyMainActivity.includes('selectedDifficulty')
     && androidLegacyMainActivity.includes('copyIngredients')
     && androidLegacyMainActivity.includes('ClipboardManager')
+    && androidLegacyMainActivity.includes('UPDATE_APK_URL')
+    && androidLegacyMainActivity.includes("Mettre a jour l'app")
+    && androidLegacyMainActivity.includes('Intent.ACTION_VIEW')
+    && androidLegacyMainActivity.includes('cook-note-android-legacy.apk')
     && androidLegacyMainActivity.includes('GradientDrawable')
     && androidLegacyRepository.includes('recipes-lite.json')
     && androidLegacyRepository.includes('detailImage')
@@ -257,6 +261,7 @@ expect(
   'derniers ouverts',
   'filtres saison/difficulte',
   'copie ingredients',
+  'bouton natif de mise a jour',
   'etapes numerotees',
   'sans WebView systeme et sans GeckoView',
   'assets/www'
@@ -272,6 +277,7 @@ expect(
     && androidReadme.includes('derniers ouverts')
     && androidReadme.includes('filtres')
     && androidReadme.includes('copie ingredients')
+    && androidReadme.includes('bouton natif de mise a jour')
     && androidReadme.includes('update-all')
     && androidReadme.includes('publish-all')
     && androidReadme.includes('cook-note-android-legacy.apk')
@@ -315,6 +321,7 @@ expect(
   'derniers ouverts',
   'filtres saison/difficulte',
   'copie ingredients',
+  'bouton natif de mise a jour',
   'etapes numerotees',
   'sans GeckoView'
 ].forEach(fragment => {

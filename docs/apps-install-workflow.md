@@ -120,13 +120,19 @@ prerendues par `scripts/build-site.js`.
 - Interface : `ListView` recyclee, recherche locale, filtres categories,
   filtres saison/difficulte, favoris locaux, derniers ouverts, fiches natives
   en sections lisibles, infos rapides en pastilles, ingredients en lignes,
-  copie ingredients, etapes numerotees et variantes cliquables
+  copie ingredients, bouton natif de mise a jour, etapes numerotees et variantes
+  cliquables
 
 Les assets Legacy sont generes par `scripts/build-android-legacy-assets.js`.
 Android Legacy ne doit pas embarquer `assets/www`, React, service worker,
 GeckoView, WebView systeme ou serveur HTTP local. Elle reste sans GeckoView.
 Le site HD et Android Modern restent separes : l APK Android 5 est un lecteur local optimisee pour la
 fluidite, pas une copie du site.
+
+Le bouton natif `Mettre a jour l'app` de l APK Android 5.0+ doit ouvrir l URL
+GitHub stable `downloads/cook-note-android-legacy.apk`, afin que la tablette
+puisse installer la nouvelle APK par-dessus l ancienne sans passer par la
+navigation du site.
 
 Build explicite :
 

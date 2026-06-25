@@ -43,8 +43,10 @@ liste, fiches decoupees en sections natives, infos rapides en pastilles,
 ingredients en lignes lisibles, etapes numerotees et variantes cliquables. Les
 fonctions reintegrees doivent rester natives et peu couteuses : favoris locaux
 `SharedPreferences`, derniers ouverts, filtres saison/difficulte et copie des
-ingredients vers le presse-papiers. Ces elements restent des vues Android
-simples, pas un rendu web.
+ingredients vers le presse-papiers. L accueil doit aussi garder un bouton natif
+de mise a jour qui ouvre l URL GitHub stable de l APK
+`cook-note-android-legacy.apk`. Ces elements restent des vues Android simples,
+pas un rendu web.
 
 Le workflow officiel passe par `scripts/build-android-legacy-assets.js`, qui
 genere une sortie dediee dans :
@@ -150,6 +152,12 @@ GitHub :
 https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk
 ```
 
+Dans l APK installe, le bouton natif `Mettre a jour l'app` doit ouvrir la meme
+URL. Sur la tablette, l utilisateur telecharge alors la nouvelle APK puis
+choisit `Installer une mise a jour`. Ne pas changer le package
+`fr.cooknote.legacy`, sinon Android ne pourra plus remplacer l ancienne app et
+les favoris locaux seraient perdus.
+
 Cette URL reste la meme d une version Android a l autre. Le fichier source
 autorise est `downloads/cook-note-android-legacy.apk`. Il ne doit pas etre copie
 dans `dist/`, car Cloudflare Pages limite chaque fichier public a 25 MiB. Le
@@ -197,7 +205,8 @@ C est voulu.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java`
   contient l interface native Android 5 Lite, les sections de fiche, les
   pastilles d infos, les favoris, les derniers ouverts, les filtres
-  saison/difficulte, la copie ingredients et les etapes numerotees.
+  saison/difficulte, la copie ingredients, le bouton natif de mise a jour et les
+  etapes numerotees.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java`
   lit `recipes-lite.json`.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java`

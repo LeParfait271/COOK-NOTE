@@ -19,7 +19,7 @@ Le mode d'emploi complet est dans
 - Images locales reduites a `480px` max pour l APK Android 5 uniquement
 - Liste recyclee, fiches natives, cache image limite
 - Fonctions natives legeres : favoris locaux, derniers ouverts, filtres
-  saison/difficulte et copie ingredients
+  saison/difficulte, copie ingredients et bouton natif de mise a jour
 - aucun changement de recette requis pour l app
 
 ## Mise a jour explicite
@@ -52,6 +52,10 @@ vers la copie APK stable du depot GitHub :
 ```text
 https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk
 ```
+
+L app Android 5.0+ affiche aussi `Mettre a jour l'app` dans son accueil. Ce
+bouton ouvre la meme URL stable pour telecharger la nouvelle APK et l installer
+par-dessus l ancienne sans perdre les donnees locales.
 
 Ne publier cette APK que sur demande explicite :
 
