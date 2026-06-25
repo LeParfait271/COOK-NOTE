@@ -117,9 +117,10 @@ prerendues par `scripts/build-site.js`.
 - Images Legacy : miniatures de liste `480px` maximum, images de fiche
   `960px` maximum, JPEG recompresses via `jpeg-js`, decodees en `RGB_565`
   avec petit cache memoire
-- Interface : `ListView` recyclee, recherche locale, filtres categories, fiches
-  natives en sections lisibles, infos rapides en pastilles, ingredients en
-  lignes, etapes numerotees et variantes cliquables
+- Interface : `ListView` recyclee, recherche locale, filtres categories,
+  filtres saison/difficulte, favoris locaux, derniers ouverts, fiches natives
+  en sections lisibles, infos rapides en pastilles, ingredients en lignes,
+  copie ingredients, etapes numerotees et variantes cliquables
 
 Les assets Legacy sont generes par `scripts/build-android-legacy-assets.js`.
 Android Legacy ne doit pas embarquer `assets/www`, React, service worker,

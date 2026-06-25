@@ -15,12 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 final class RecipeAdapter extends BaseAdapter {
     private final Context context;
     private final ImageLoader imageLoader;
     private final List<Recipe> items = new ArrayList<Recipe>();
+    private final Set<String> favoriteIds = new HashSet<String>();
 
     RecipeAdapter(Context context, ImageLoader imageLoader) {
         this.context = context;
@@ -30,6 +33,12 @@ final class RecipeAdapter extends BaseAdapter {
     void setItems(List<Recipe> recipes) {
         items.clear();
         items.addAll(recipes);
+        notifyDataSetChanged();
+    }
+
+    void setFavoriteIds(Set<String> ids) {
+        favoriteIds.clear();
+        if (ids != null) favoriteIds.addAll(ids);
         notifyDataSetChanged();
     }
 
@@ -62,7 +71,8 @@ final class RecipeAdapter extends BaseAdapter {
         Recipe recipe = getItem(position);
         holder.title.setText(recipe.title);
         holder.meta.setText(recipe.metaLine());
-        holder.badge.setText(recipe.isCollection() ? "Collection" : recipe.primaryCategory());
+        String badge = recipe.isCollection() ? "Collection" : recipe.primaryCategory();
+        holder.badge.setText(favoriteIds.contains(recipe.id) ? "Favori - " + badge : badge);
         imageLoader.load(recipe.image, holder.image, dp(122), dp(78));
         return convertView;
     }

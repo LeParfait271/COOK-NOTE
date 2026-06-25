@@ -18,6 +18,8 @@ Le mode d'emploi complet est dans
 - Catalogue local `recipes-lite.json`
 - Images locales reduites a `480px` max pour l APK Android 5 uniquement
 - Liste recyclee, fiches natives, cache image limite
+- Fonctions natives legeres : favoris locaux, derniers ouverts, filtres
+  saison/difficulte et copie ingredients
 - aucun changement de recette requis pour l app
 
 ## Mise a jour explicite

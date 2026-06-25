@@ -40,8 +40,11 @@ vues Android natives, et charge les images avec un cache memoire limite.
 
 La lecture doit rester confortable malgre le mode Lite : titres ellipses dans la
 liste, fiches decoupees en sections natives, infos rapides en pastilles,
-ingredients en lignes lisibles, etapes numerotees et variantes cliquables. Ces
-elements restent des vues Android simples, pas un rendu web.
+ingredients en lignes lisibles, etapes numerotees et variantes cliquables. Les
+fonctions reintegrees doivent rester natives et peu couteuses : favoris locaux
+`SharedPreferences`, derniers ouverts, filtres saison/difficulte et copie des
+ingredients vers le presse-papiers. Ces elements restent des vues Android
+simples, pas un rendu web.
 
 Le workflow officiel passe par `scripts/build-android-legacy-assets.js`, qui
 genere une sortie dediee dans :
@@ -139,7 +142,7 @@ npm run validate:android
 
 ## Installation depuis le site
 
-Le footer du site contient un bouton `Android 5`. Il ouvre un panneau
+Le footer du site contient un bouton `Android 5.0+`. Il ouvre un panneau
 d'installation dont le bouton primaire pointe vers la copie APK servie par
 GitHub :
 
@@ -193,7 +196,8 @@ C est voulu.
 
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java`
   contient l interface native Android 5 Lite, les sections de fiche, les
-  pastilles d infos et les etapes numerotees.
+  pastilles d infos, les favoris, les derniers ouverts, les filtres
+  saison/difficulte, la copie ingredients et les etapes numerotees.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java`
   lit `recipes-lite.json`.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java`
@@ -219,6 +223,8 @@ C est voulu.
 - Ne pas versionner les APK ou AAB generes dans les dossiers Android.
 - Ne pas remettre GeckoView, WebView, React, service worker, serveur HTTP local
   ou `assets/www` dans Android Legacy.
+- Ne pas supprimer les fonctions natives legeres reintegrees : favoris locaux,
+  derniers ouverts, filtres saison/difficulte et copie ingredients.
 - Ne pas publier une nouvelle release APK sans demande explicite.
 - Ne jamais publier un seul APK : toute mise a jour app doit passer par
   `npm run apps:update-all`.

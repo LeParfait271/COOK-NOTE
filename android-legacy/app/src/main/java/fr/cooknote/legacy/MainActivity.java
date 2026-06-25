@@ -12,7 +12,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,12 +25,19 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 public class MainActivity extends Activity {
+    private static final String PREFS_NAME = "cook_note_legacy";
+    private static final String PREF_FAVORITES = "favorites";
+    private static final String PREF_RECENT = "recent";
+    private static final int MAX_RECENT = 18;
     private static final int COLOR_BG = Color.rgb(5, 5, 5);
     private static final int COLOR_PANEL = Color.rgb(18, 16, 12);
     private static final int COLOR_CARD = Color.rgb(24, 22, 18);
@@ -42,13 +52,22 @@ public class MainActivity extends Activity {
     private CookNoteRepository repository;
     private ImageLoader imageLoader;
     private RecipeAdapter adapter;
+    private LinearLayout quickStrip;
     private LinearLayout categoryStrip;
+    private LinearLayout seasonStrip;
+    private LinearLayout difficultyStrip;
     private TextView counterView;
     private EditText searchBox;
     private String selectedCategory = "Toutes";
+    private String selectedSeason = "Toutes";
+    private String selectedDifficulty = "Toutes";
     private String currentQuery = "";
+    private boolean favoritesOnly;
+    private boolean recentOnly;
     private boolean showingDetail;
     private final Stack<String> detailBackStack = new Stack<String>();
+    private final Set<String> favoriteIds = new HashSet<String>();
+    private final ArrayList<String> recentIds = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +75,7 @@ public class MainActivity extends Activity {
         imageLoader = new ImageLoader(this);
         try {
             repository = CookNoteRepository.load(this);
+            loadUserState();
             showList();
         } catch (Exception exception) {
             showNativeError("Cook Note Android 5 Lite", "Catalogue impossible a lire.\n\n" + exception.getMessage());
@@ -99,6 +119,9 @@ public class MainActivity extends Activity {
                 dp(46)
         ));
 
+        quickStrip = addChipScroller(header, dp(10));
+        rebuildQuickChips();
+
         HorizontalScrollView scroller = new HorizontalScrollView(this);
         scroller.setHorizontalScrollBarEnabled(false);
         categoryStrip = new LinearLayout(this);
@@ -111,6 +134,12 @@ public class MainActivity extends Activity {
         scrollerParams.topMargin = dp(10);
         header.addView(scroller, scrollerParams);
         rebuildCategoryChips();
+
+        seasonStrip = addChipScroller(header, dp(8));
+        rebuildSeasonChips();
+
+        difficultyStrip = addChipScroller(header, dp(8));
+        rebuildDifficultyChips();
 
         counterView = text("", 12, COLOR_MUTED, true);
         counterView.setPadding(0, dp(8), 0, 0);
@@ -159,6 +188,47 @@ public class MainActivity extends Activity {
         applyFilters();
     }
 
+    private LinearLayout addChipScroller(LinearLayout header, int topMargin) {
+        HorizontalScrollView scroller = new HorizontalScrollView(this);
+        scroller.setHorizontalScrollBarEnabled(false);
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        scroller.addView(row);
+        LinearLayout.LayoutParams scrollerParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        scrollerParams.topMargin = topMargin;
+        header.addView(scroller, scrollerParams);
+        return row;
+    }
+
+    private void rebuildQuickChips() {
+        quickStrip.removeAllViews();
+        addFilterChip(quickStrip, "Favoris (" + favoriteIds.size() + ")", favoritesOnly, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                favoritesOnly = !favoritesOnly;
+                rebuildQuickChips();
+                applyFilters();
+            }
+        });
+        addFilterChip(quickStrip, "Derniers (" + recentIds.size() + ")", recentOnly, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recentOnly = !recentOnly;
+                rebuildQuickChips();
+                applyFilters();
+            }
+        });
+        addFilterChip(quickStrip, "Reset", false, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearFilters();
+            }
+        });
+    }
+
     private void rebuildCategoryChips() {
         categoryStrip.removeAllViews();
         addCategoryChip("Toutes");
@@ -167,19 +237,25 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void rebuildSeasonChips() {
+        seasonStrip.removeAllViews();
+        addSeasonChip("Toutes");
+        addSeasonChip("Printemps");
+        addSeasonChip("Ete");
+        addSeasonChip("Automne");
+        addSeasonChip("Hiver");
+    }
+
+    private void rebuildDifficultyChips() {
+        difficultyStrip.removeAllViews();
+        addDifficultyChip("Toutes");
+        addDifficultyChip("Facile");
+        addDifficultyChip("Moyen");
+        addDifficultyChip("Technique");
+    }
+
     private void addCategoryChip(final String category) {
-        boolean selected = category.equals(selectedCategory);
-        TextView chip = text(category, 14, selected ? Color.rgb(21, 17, 8) : COLOR_TEXT, true);
-        chip.setGravity(Gravity.CENTER);
-        chip.setPadding(dp(13), dp(8), dp(13), dp(8));
-        chip.setBackground(panel(selected ? COLOR_ORANGE : COLOR_CARD_SOFT, selected ? COLOR_ORANGE : COLOR_BORDER, 1, 18));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        params.rightMargin = dp(8);
-        categoryStrip.addView(chip, params);
-        chip.setOnClickListener(new View.OnClickListener() {
+        addFilterChip(categoryStrip, category, category.equals(selectedCategory), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectedCategory = category;
@@ -189,17 +265,83 @@ public class MainActivity extends Activity {
         });
     }
 
+    private void addSeasonChip(final String season) {
+        addFilterChip(seasonStrip, season, season.equals(selectedSeason), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedSeason = season;
+                rebuildSeasonChips();
+                applyFilters();
+            }
+        });
+    }
+
+    private void addDifficultyChip(final String difficulty) {
+        addFilterChip(difficultyStrip, difficulty, difficulty.equals(selectedDifficulty), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedDifficulty = difficulty;
+                rebuildDifficultyChips();
+                applyFilters();
+            }
+        });
+    }
+
+    private void addFilterChip(LinearLayout strip, String label, boolean selected, View.OnClickListener listener) {
+        TextView chip = text(label, 14, selected ? Color.rgb(21, 17, 8) : COLOR_TEXT, true);
+        chip.setGravity(Gravity.CENTER);
+        chip.setPadding(dp(13), dp(8), dp(13), dp(8));
+        chip.setBackground(panel(selected ? COLOR_ORANGE : COLOR_CARD_SOFT, selected ? COLOR_ORANGE : COLOR_BORDER, 1, 18));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.rightMargin = dp(8);
+        strip.addView(chip, params);
+        chip.setOnClickListener(listener);
+    }
+
+    private void clearFilters() {
+        selectedCategory = "Toutes";
+        selectedSeason = "Toutes";
+        selectedDifficulty = "Toutes";
+        favoritesOnly = false;
+        recentOnly = false;
+        currentQuery = "";
+        if (searchBox != null) searchBox.setText("");
+        rebuildQuickChips();
+        rebuildCategoryChips();
+        rebuildSeasonChips();
+        rebuildDifficultyChips();
+        applyFilters();
+    }
+
     private void applyFilters() {
         if (adapter == null) return;
-        List<Recipe> filtered = repository.filter(currentQuery, selectedCategory);
+        List<Recipe> filtered = repository.filter(
+                currentQuery,
+                selectedCategory,
+                selectedSeason,
+                selectedDifficulty,
+                favoritesOnly ? favoriteIds : null,
+                recentOnly ? recentIds : null
+        );
+        adapter.setFavoriteIds(favoriteIds);
         adapter.setItems(filtered);
-        counterView.setText(filtered.size() + " fiches visibles");
+        StringBuilder label = new StringBuilder();
+        label.append(filtered.size()).append(" fiches visibles");
+        if (favoritesOnly) label.append(" - favoris");
+        if (recentOnly) label.append(" - derniers ouverts");
+        if (!"Toutes".equals(selectedSeason)) label.append(" - ").append(selectedSeason);
+        if (!"Toutes".equals(selectedDifficulty)) label.append(" - ").append(selectedDifficulty);
+        counterView.setText(label.toString());
     }
 
     private void openRecipe(Recipe recipe, boolean pushCurrent) {
         if (pushCurrent && showingDetail && !detailBackStack.contains(recipe.id)) {
             detailBackStack.push(recipe.id);
         }
+        rememberRecent(recipe.id);
         showingDetail = true;
 
         LinearLayout root = new LinearLayout(this);
@@ -236,6 +378,21 @@ public class MainActivity extends Activity {
         topTitle.setSingleLine(true);
         topTitle.setEllipsize(TextUtils.TruncateAt.END);
         top.addView(topTitle, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
+        Button favorite = new Button(this);
+        favorite.setText(isFavorite(recipe.id) ? "Favori" : "+ Favori");
+        favorite.setTextColor(isFavorite(recipe.id) ? Color.rgb(21, 17, 8) : COLOR_TEXT);
+        favorite.setTextSize(12);
+        favorite.setTypeface(Typeface.DEFAULT_BOLD);
+        favorite.setBackground(panel(isFavorite(recipe.id) ? COLOR_GOLD : COLOR_CARD_SOFT, isFavorite(recipe.id) ? COLOR_GOLD : COLOR_BORDER, 1, 8));
+        top.addView(favorite, new LinearLayout.LayoutParams(dp(96), dp(42)));
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleFavorite(recipe.id);
+                openRecipe(recipe, false);
+            }
+        });
 
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(false);
@@ -328,6 +485,14 @@ public class MainActivity extends Activity {
             body(section, "Aucun ingredient detaille pour cette fiche.");
             return;
         }
+        Button copy = sectionButton("Copier ingredients");
+        section.addView(copy);
+        copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyIngredients(recipe);
+            }
+        });
         for (Recipe.Group group : recipe.ingredients) {
             subTitle(section, group.title);
             for (String item : group.items) {
@@ -386,6 +551,7 @@ public class MainActivity extends Activity {
         scroller.addView(row);
 
         addInfoChip(row, "Categorie", recipe.primaryCategory());
+        if (!recipe.seasons.isEmpty()) addInfoChip(row, "Saison", shortList(recipe.seasons, 2));
         if (recipe.isCollection()) {
             addInfoChip(row, "Variantes", String.valueOf(recipe.variants.size()));
         } else {
@@ -536,6 +702,23 @@ public class MainActivity extends Activity {
         content.addView(text);
     }
 
+    private Button sectionButton(String value) {
+        Button button = new Button(this);
+        button.setText(value);
+        button.setTextColor(Color.rgb(21, 17, 8));
+        button.setTextSize(13);
+        button.setTypeface(Typeface.DEFAULT_BOLD);
+        button.setBackground(panel(COLOR_ORANGE, COLOR_ORANGE, 1, 8));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                dp(42)
+        );
+        params.topMargin = dp(10);
+        params.bottomMargin = dp(2);
+        button.setLayoutParams(params);
+        return button;
+    }
+
     private TextView text(String value, int sp, int color, boolean bold) {
         TextView text = new TextView(this);
         text.setText(value);
@@ -546,12 +729,45 @@ public class MainActivity extends Activity {
         return text;
     }
 
+    private void copyIngredients(Recipe recipe) {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboard == null) return;
+        clipboard.setPrimaryClip(ClipData.newPlainText(recipe.title + " - ingredients", buildIngredientsText(recipe)));
+        Toast.makeText(this, "Ingredients copies", Toast.LENGTH_SHORT).show();
+    }
+
+    private static String buildIngredientsText(Recipe recipe) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(recipe.title).append('\n');
+        builder.append("Ingredients").append('\n');
+        for (Recipe.Group group : recipe.ingredients) {
+            builder.append('\n').append(group.title).append('\n');
+            for (String item : group.items) {
+                builder.append("- ").append(item).append('\n');
+            }
+            if (group.note.length() > 0) builder.append("Note: ").append(group.note).append('\n');
+        }
+        return builder.toString().trim();
+    }
+
     private GradientDrawable panel(int color, int strokeColor, int strokeWidth, int radiusDp) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setColor(color);
         drawable.setCornerRadius(dp(radiusDp));
         if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
         return drawable;
+    }
+
+    private static String shortList(List<String> values, int maxItems) {
+        if (values == null || values.isEmpty()) return "";
+        StringBuilder builder = new StringBuilder();
+        int count = Math.min(values.size(), maxItems);
+        for (int index = 0; index < count; index += 1) {
+            if (index > 0) builder.append(", ");
+            builder.append(values.get(index));
+        }
+        if (values.size() > count) builder.append(" +").append(values.size() - count);
+        return builder.toString();
     }
 
     private static String formatMinutes(int minutes) {
@@ -561,6 +777,75 @@ public class MainActivity extends Activity {
             return rest == 0 ? hours + "h" : hours + "h" + (rest < 10 ? "0" : "") + rest;
         }
         return minutes + "min";
+    }
+
+    private void loadUserState() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        favoriteIds.clear();
+        recentIds.clear();
+        parseIds(prefs.getString(PREF_FAVORITES, ""), favoriteIds, 0);
+        parseIds(prefs.getString(PREF_RECENT, ""), recentIds, MAX_RECENT);
+    }
+
+    private void saveUserState() {
+        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putString(PREF_FAVORITES, joinIds(new ArrayList<String>(favoriteIds)));
+        editor.putString(PREF_RECENT, joinIds(recentIds));
+        editor.apply();
+    }
+
+    private void parseIds(String raw, Set<String> output, int limit) {
+        if (raw == null || raw.length() == 0) return;
+        String[] ids = raw.split("\\n");
+        for (String id : ids) {
+            if (id.length() == 0 || repository.find(id) == null) continue;
+            output.add(id);
+            if (limit > 0 && output.size() >= limit) return;
+        }
+    }
+
+    private void parseIds(String raw, List<String> output, int limit) {
+        if (raw == null || raw.length() == 0) return;
+        String[] ids = raw.split("\\n");
+        for (String id : ids) {
+            if (id.length() == 0 || repository.find(id) == null || output.contains(id)) continue;
+            output.add(id);
+            if (limit > 0 && output.size() >= limit) return;
+        }
+    }
+
+    private static String joinIds(List<String> ids) {
+        StringBuilder builder = new StringBuilder();
+        for (String id : ids) {
+            if (id == null || id.length() == 0) continue;
+            if (builder.length() > 0) builder.append('\n');
+            builder.append(id);
+        }
+        return builder.toString();
+    }
+
+    private boolean isFavorite(String id) {
+        return favoriteIds.contains(id);
+    }
+
+    private void toggleFavorite(String id) {
+        if (favoriteIds.contains(id)) {
+            favoriteIds.remove(id);
+        } else {
+            favoriteIds.add(id);
+        }
+        saveUserState();
+        if (adapter != null) adapter.setFavoriteIds(favoriteIds);
+    }
+
+    private void rememberRecent(String id) {
+        if (id == null || id.length() == 0) return;
+        recentIds.remove(id);
+        recentIds.add(0, id);
+        while (recentIds.size() > MAX_RECENT) {
+            recentIds.remove(recentIds.size() - 1);
+        }
+        saveUserState();
     }
 
     private void goBack() {

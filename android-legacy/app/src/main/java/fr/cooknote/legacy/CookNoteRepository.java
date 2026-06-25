@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 final class CookNoteRepository {
     private static final String RECIPES_ASSET = "recipes-lite.json";
@@ -77,15 +78,70 @@ final class CookNoteRepository {
     }
 
     List<Recipe> filter(String rawQuery, String category) {
+        return filter(rawQuery, category, "Toutes", "Toutes", null, null);
+    }
+
+    List<Recipe> filter(
+            String rawQuery,
+            String category,
+            String season,
+            String difficulty,
+            Set<String> favoriteIds,
+            List<String> recentIds
+    ) {
         String query = normalize(rawQuery);
         boolean allCategories = category == null || category.length() == 0 || "Toutes".equals(category);
+        boolean favoritesOnly = favoriteIds != null;
+        boolean recentOnly = recentIds != null;
+        String[] queryTokens = query.length() == 0 ? new String[0] : query.split(" ");
+        List<Recipe> source = new ArrayList<Recipe>();
+        if (recentOnly) {
+            for (String id : recentIds) {
+                Recipe recipe = byId.get(id);
+                if (recipe != null) source.add(recipe);
+            }
+        } else {
+            source.addAll(recipes);
+        }
+
         List<Recipe> output = new ArrayList<Recipe>();
-        for (Recipe recipe : recipes) {
+        for (Recipe recipe : source) {
             if (!allCategories && !recipe.categories.contains(category)) continue;
-            if (query.length() > 0 && !recipe.searchText.contains(query)) continue;
+            if (favoritesOnly && !favoriteIds.contains(recipe.id)) continue;
+            if (!matchesSeason(recipe, season)) continue;
+            if (!matchesDifficulty(recipe, difficulty)) continue;
+            if (queryTokens.length > 0 && !matchesQuery(recipe.searchText, queryTokens)) continue;
             output.add(recipe);
         }
         return output;
+    }
+
+    private static boolean matchesQuery(String searchText, String[] queryTokens) {
+        if (queryTokens == null || queryTokens.length == 0) return true;
+        String safeText = searchText == null ? "" : searchText;
+        for (String token : queryTokens) {
+            if (token.length() > 0 && !safeText.contains(token)) return false;
+        }
+        return true;
+    }
+
+    private static boolean matchesSeason(Recipe recipe, String season) {
+        String seasonKey = normalize(season);
+        if (seasonKey.length() == 0 || "toutes".equals(seasonKey)) return true;
+        for (String recipeSeason : recipe.seasons) {
+            String recipeSeasonKey = normalize(recipeSeason);
+            if ("toutes saisons".equals(recipeSeasonKey) || seasonKey.equals(recipeSeasonKey)) return true;
+        }
+        return false;
+    }
+
+    private static boolean matchesDifficulty(Recipe recipe, String difficulty) {
+        String difficultyKey = normalize(difficulty);
+        if (difficultyKey.length() == 0 || "toutes".equals(difficultyKey)) return true;
+        if ("facile".equals(difficultyKey)) return "easy".equals(recipe.difficulty);
+        if ("moyen".equals(difficultyKey) || "intermediaire".equals(difficultyKey)) return "medium".equals(recipe.difficulty);
+        if ("technique".equals(difficultyKey)) return "hard".equals(recipe.difficulty);
+        return true;
     }
 
     static String normalize(String value) {

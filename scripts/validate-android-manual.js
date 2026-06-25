@@ -133,14 +133,24 @@ expect(
     && androidLegacyMainActivity.includes('addInfoChips')
     && androidLegacyMainActivity.includes('stepRow')
     && androidLegacyMainActivity.includes('bulletRow')
+    && androidLegacyMainActivity.includes('SharedPreferences')
+    && androidLegacyMainActivity.includes('favoriteIds')
+    && androidLegacyMainActivity.includes('recentIds')
+    && androidLegacyMainActivity.includes('selectedSeason')
+    && androidLegacyMainActivity.includes('selectedDifficulty')
+    && androidLegacyMainActivity.includes('copyIngredients')
+    && androidLegacyMainActivity.includes('ClipboardManager')
     && androidLegacyMainActivity.includes('GradientDrawable')
     && androidLegacyRepository.includes('recipes-lite.json')
     && androidLegacyRepository.includes('detailImage')
+    && androidLegacyRepository.includes('matchesSeason')
+    && androidLegacyRepository.includes('matchesDifficulty')
     && androidLegacyImageLoader.includes('RGB_565')
     && androidLegacyImageLoader.includes('LruCache')
     && androidLegacyImageLoader.includes('detail-images/')
     && androidLegacyAdapter.includes('BaseAdapter')
     && androidLegacyAdapter.includes('setEllipsize')
+    && androidLegacyAdapter.includes('favoriteIds')
     && !/Gecko|WebView|ServerSocket|127\.0\.0\.1|LocalAssetServer/.test(androidLegacyMainActivity + androidLegacyRepository + androidLegacyImageLoader)
 );
 expect(
@@ -243,6 +253,10 @@ expect(
   'ListView',
   'RGB_565',
   'pastilles',
+  'favoris locaux',
+  'derniers ouverts',
+  'filtres saison/difficulte',
+  'copie ingredients',
   'etapes numerotees',
   'sans WebView systeme et sans GeckoView',
   'assets/www'
@@ -254,6 +268,10 @@ expect(
   'android-legacy/README.md doit pointer vers la documentation complete.',
   androidReadme.includes('docs/android-legacy-workflow.md')
     && androidReadme.includes('Native Lite')
+    && androidReadme.includes('favoris locaux')
+    && androidReadme.includes('derniers ouverts')
+    && androidReadme.includes('filtres')
+    && androidReadme.includes('copie ingredients')
     && androidReadme.includes('update-all')
     && androidReadme.includes('publish-all')
     && androidReadme.includes('cook-note-android-legacy.apk')
@@ -293,6 +311,10 @@ expect(
   'ListView',
   'RGB_565',
   'pastilles',
+  'favoris locaux',
+  'derniers ouverts',
+  'filtres saison/difficulte',
+  'copie ingredients',
   'etapes numerotees',
   'sans GeckoView'
 ].forEach(fragment => {
