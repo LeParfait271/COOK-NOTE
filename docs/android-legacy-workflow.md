@@ -2,18 +2,17 @@
 
 Ce document est la reference pour l'application Android Legacy Cook Note.
 Elle est un projet secondaire en parallele du site, pas la source de verite.
-GitHub et le site web restent prioritaires.
-La reference globale des quatre installations est dans
-`docs/apps-install-workflow.md`.
+GitHub et le site web restent prioritaires. La reference globale des quatre
+installations est dans `docs/apps-install-workflow.md`.
 
 ## Regle principale
 
 L'application Android Legacy ne se met pas a jour automatiquement quand le site
 change.
 
-Un commit/push du site ne change pas l APK installe sur la tablette. Le site peut
-continuer a evoluer, a bumper son cache, a modifier `dist/` ou a recevoir des
-recettes sans regenerer ni publier un nouvel APK Android.
+Un commit/push du site ne change pas l APK installe sur la tablette. Le site
+peut continuer a evoluer, a bumper son cache, a modifier `dist/` ou a recevoir
+des recettes sans regenerer ni publier un nouvel APK Android.
 
 On met a jour l APK seulement quand l'utilisateur le demande explicitement, par
 exemple avec une phrase du type :
@@ -23,46 +22,38 @@ exemple avec une phrase du type :
 - "prepare une nouvelle version tablette"
 
 Sans demande explicite, ne pas lancer le build Android, ne pas remplacer l APK
-sur la tablette et ne pas traiter l Android comme une etape obligatoire du site.
+sur la tablette et ne pas traiter Android comme une etape obligatoire du site.
 
 ## Role de l app
 
 - Projet : `android-legacy/`
 - Plateforme cible : Android 5.0 minimum, donc `minSdk 21`
-- Type : wrapper natif Java + GeckoView fullscreen, avec moteur embarque
-- Source affichee : copie locale de `dist/` dans les assets APK
-- Origin locale interne : serveur HTTP loopback `http://127.0.0.1:<port>/`
+- Type : app native Java Native Lite, sans WebView systeme et sans GeckoView
+- Source affichee : catalogue local `recipes-lite.json` + images locales
 - Package Android : `fr.cooknote.legacy`
 
-Android Legacy ne depend plus du WebView systeme de la tablette. `MainActivity`
-embarque GeckoView ARMv7, demarre un petit serveur HTTP local sur
-`127.0.0.1`, sert les fichiers de `app/src/main/assets/www/` depuis l APK et
-charge Cook Note dans GeckoView. Les liens externes sont ouverts par Android.
-Garder la permission `INTERNET`, `usesCleartextTraffic`, `extractNativeLibs`,
-`largeHeap`, le panneau de chargement natif, le panneau d erreur visible et la page d erreur native visible
-pour eviter un ecran noir silencieux si le moteur ou la tablette plante.
+Android Legacy est faite pour les tablettes anciennes avec peu de RAM et un CPU
+modeste. Elle ne charge pas le site React, ne demarre pas de serveur HTTP local,
+ne depend pas du WebView systeme et n embarque plus GeckoView ARMv7. `MainActivity`
+lit un JSON local, affiche une `ListView` recyclee, ouvre les fiches dans des
+vues Android natives, et charge les images avec un cache memoire limite.
 
-Android 5 peut etre tres limite. L APK Legacy ne doit donc pas embarquer
-directement les assets web modernes bruts. Le workflow officiel passe
-par `scripts/build-android-legacy-assets.js`, qui genere une copie dediee dans :
+Le workflow officiel passe par `scripts/build-android-legacy-assets.js`, qui
+genere une sortie dediee dans :
 
 ```text
-android-legacy/build/generated/cook-note-www
+android-legacy/build/generated/cook-note-lite
 ```
 
-Cette copie ajoute `core-js-bundle.min.js`, produit du JS ES5 avec Babel,
-garde le service worker desactive dans l APK local et garde un loader compatible
-ancien WebView, sans CSS moderne comme `grid`, `inset` ou `min()`. Elle genere
-aussi un CSS Legacy sans `var()`, `color-mix()`, `clamp()` ni CSS Grid, car le
-moteur ancien peut monter React puis afficher un ecran noir si les styles
-modernes sont ignores. Le runtime Legacy injecte des polyfills ES5 et un panneau
-d erreur visible si le JavaScript plante.
+Cette sortie contient :
 
-Pour que l APK Android 5 reste publiable dans `downloads/` sans depasser la
-limite GitHub de 100 MiB par fichier, la sortie Legacy remplace les grandes
-images `assets/recipe-images-optimized/` par les miniatures homonymes de
-`assets/recipe-card-images/`. Cette reduction ne concerne que l APK Legacy :
-le site web, Android Modern et les recettes gardent les visuels HD habituels.
+- `recipes-lite.json`, un catalogue compact sans source externe ;
+- `images/`, les images recette locales reduites a `480px` maximum ;
+- des JPEG recompresses avec `jpeg-js` pour limiter le decode RAM/CPU ;
+- aucun fichier `assets/www`, aucun React, aucun service worker et aucun CSS du site.
+
+Le site HD, Android Modern et les recettes gardent les visuels habituels. La
+reduction d image ne concerne que l APK Android 5.
 
 ## Pourquoi l app ne suit pas automatiquement le site
 
@@ -73,20 +64,20 @@ Le build normal du site doit rester rapide et propre :
 - `npm run preflight` valide le deploiement site
 - aucun de ces scripts ne doit lancer Gradle ni produire d APK
 
-Le dossier Android copie `dist/` uniquement pendant un build Android demande :
+Le dossier Android lit les assets Lite uniquement pendant un build Android
+demande :
 
 ```powershell
 npm run apps:update-all
 ```
 
 Cette commande lance `scripts/build-android-legacy.ps1`. Le script genere
-d'abord les assets compatibles WebView ancien avec
-`scripts/build-android-legacy-assets.js`. Gradle execute ensuite la tache
-`syncCookNoteDist`, qui copie cette sortie dediee dans
-`android-legacy/app/src/main/assets/www/` avant de fabriquer l APK.
+d'abord les assets Native Lite avec `scripts/build-android-legacy-assets.js`,
+nettoie l ancien APK de sortie pour eviter les ZIP incrementaux gonfles, puis
+Gradle fabrique l APK.
 
-Le dossier `android-legacy/app/src/main/assets/www/` est ignore par Git. Il est
-genere localement et ne doit pas etre versionne.
+Le dossier `android-legacy/build/generated/cook-note-lite/` est genere
+localement et ne doit pas etre versionne.
 
 ## Commandes utiles
 
@@ -105,9 +96,8 @@ npm run apps:update-all
 La commande `npm run android:legacy:update-apk` existe encore comme
 sous-commande de diagnostic, mais elle ne doit pas etre le workflow final :
 quand Android Legacy change, Android Modern et les deux entrees iOS PWA doivent
-etre revus dans le meme lot.
-Cette mise a jour groupee est obligatoire pour eviter une app en avance sur les
-autres.
+etre revus dans le meme lot. Cette mise a jour groupee est obligatoire pour
+eviter une app en avance sur les autres.
 
 Publier l APK courant sur GitHub Releases, seulement sur demande explicite :
 
@@ -153,10 +143,9 @@ https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-l
 
 Cette URL reste la meme d une version Android a l autre. Le fichier source
 autorise est `downloads/cook-note-android-legacy.apk`. Il ne doit pas etre copie
-dans `dist/`, car Cloudflare Pages limite chaque fichier public a 25 MiB.
-Le panneau garde aussi un lien brut `raw.githubusercontent.com` et une page
-GitHub du fichier pour les navigateurs anciens qui gerent mal le telechargement
-direct.
+dans `dist/`, car Cloudflare Pages limite chaque fichier public a 25 MiB. Le
+panneau garde aussi un lien brut `raw.githubusercontent.com` et une page GitHub
+du fichier pour les navigateurs anciens qui gerent mal le telechargement direct.
 
 Les APK generes dans `android-legacy/` ne doivent pas etre ajoutes au depot Git.
 Seule la copie telechargeable `downloads/cook-note-android-legacy.apk` est
@@ -197,23 +186,32 @@ C est voulu.
 ## Fichiers importants
 
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java`
-  contient GeckoView, le serveur HTTP loopback et le mapping des routes locales.
+  contient l interface native Android 5 Lite.
+- `android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java`
+  lit `recipes-lite.json`.
+- `android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java`
+  decode les images locales en `RGB_565` avec un petit cache memoire.
 - `android-legacy/app/build.gradle` lit `SITE_VERSION` dans `app.js` pour
-  produire `versionName` et `versionCode`.
-- `scripts/build-android-legacy.ps1` construit l APK.
+  produire `versionName` et `versionCode`, puis monte
+  `android-legacy/build/generated/cook-note-lite` comme assets APK.
+- `scripts/build-android-legacy-assets.js` genere le catalogue Native Lite.
+- `scripts/build-android-legacy.ps1` construit l APK et nettoie la sortie APK
+  avant packaging.
 - `scripts/publish-android-release.ps1` publie l APK local sur GitHub Releases
   avec l asset stable `cook-note-android-legacy.apk`.
 - `scripts/setup-android-legacy-tools.ps1` installe JDK, Gradle et Android SDK
   dans `%LOCALAPPDATA%\CookNoteAndroidTools`.
 - `scripts/validate-android-manual.js` bloque les regressions qui brancheraient
-  Android sur le workflow normal du site.
+  Android sur le workflow normal du site ou qui remettraient un moteur web lourd.
 
 ## A ne pas faire
 
 - Ne pas ajouter le build APK dans `npm run build`, `npm run check`,
   `npm run preflight`, `start` ou `dev`.
-- Ne pas versionner `android-legacy/app/src/main/assets/www/`.
+- Ne pas versionner `android-legacy/build/generated/cook-note-lite/`.
 - Ne pas versionner les APK ou AAB generes dans les dossiers Android.
+- Ne pas remettre GeckoView, WebView, React, service worker, serveur HTTP local
+  ou `assets/www` dans Android Legacy.
 - Ne pas publier une nouvelle release APK sans demande explicite.
 - Ne jamais publier un seul APK : toute mise a jour app doit passer par
   `npm run apps:update-all`.

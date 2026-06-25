@@ -100,24 +100,22 @@ prerendues par `scripts/build-site.js`.
 - Dossier : `android-legacy/`
 - Package : `fr.cooknote.legacy`
 - Android minimum : `minSdk 21`
-- Objectif : Android 5.0 et tablettes anciennes
-- Moteur : GeckoView ARMv7 embarque, sans dependance au WebView systeme.
-- Assets embarques : copie moteur ancien generee par
-  `scripts/build-android-legacy-assets.js`, avec JS ES5, polyfills
-  `core-js-bundle.min.js`, service worker desactive et loader compatible
-  ancien WebView. La sortie Legacy remplace aussi le CSS moderne par un CSS sans
-  `var()`, `color-mix()`, `clamp()` ni CSS Grid, et injecte un runtime ES5 qui
-  affiche une erreur visible au lieu d un ecran noir.
-- Images Legacy : pour rester sous la limite GitHub de 100 MiB par APK dans
-  `downloads/`, les grandes images embarquees sont remplacees par les miniatures
-  homonymes dans la sortie Android 5 seulement. Le site HD et Android Modern ne
-  sont pas reduits.
-- Demarrage : `MainActivity` demarre un serveur HTTP local `127.0.0.1`, sert
-  les assets locaux depuis l APK, puis charge Cook Note avec GeckoView. Garder
-  `INTERNET`, `usesCleartextTraffic`, `extractNativeLibs`, `largeHeap`, le
-  panneau de chargement natif et la page d erreur native pour eviter les ecrans
-  noirs sur Android 5.
-- Build explicite :
+- Objectif : Android 5.0, MediaPad T10 et tablettes anciennes avec 2 Go de RAM
+- Moteur : aucun moteur web lourd, app native Java Native Lite
+- Donnees embarquees : `recipes-lite.json` et images locales dans
+  `android-legacy/build/generated/cook-note-lite`
+- Images Legacy : `480px` maximum, JPEG recompresses via `jpeg-js`, decodees en
+  `RGB_565` avec petit cache memoire
+- Interface : `ListView` recyclee, recherche locale, filtres categories, fiches
+  natives et variantes cliquables
+
+Les assets Legacy sont generes par `scripts/build-android-legacy-assets.js`.
+Android Legacy ne doit pas embarquer `assets/www`, React, service worker,
+GeckoView, WebView systeme ou serveur HTTP local. Elle reste sans GeckoView.
+Le site HD et Android Modern restent separes : l APK Android 5 est un lecteur local optimisee pour la
+fluidite, pas une copie du site.
+
+Build explicite :
 
 ```powershell
 npm run apps:update-all
@@ -189,7 +187,7 @@ tant que les copies `downloads/*.apk` sont presentes dans le depot GitHub.
   publication app.
 - Ne jamais copier les APK dans `dist/` : Cloudflare Pages refuse les assets de
   plus de 25 MiB.
-- Ne jamais versionner `android-legacy/app/src/main/assets/www/`.
+- Ne jamais versionner `android-legacy/build/generated/cook-note-lite/`.
 - Ne jamais versionner `android-modern/app/src/main/assets/www/`.
 - Ne jamais brancher Android ou iOS a `npm run build`, `npm run check`,
   `npm run preflight`, `start` ou `dev`.

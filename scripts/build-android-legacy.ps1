@@ -62,6 +62,11 @@ if (-not (Test-Path $SdkRoot)) {
   throw "Android SDK introuvable. Installe Android SDK avec platform 35 et build-tools, puis configure ANDROID_HOME."
 }
 
+$LegacyApkOutput = Join-Path $AndroidDir "app\build\outputs\apk"
+if (Test-Path $LegacyApkOutput) {
+  Remove-Item -LiteralPath $LegacyApkOutput -Recurse -Force
+}
+
 $LocalProperties = Join-Path $AndroidDir "local.properties"
 $EscapedSdk = $SdkRoot.Replace("\", "\\")
 "sdk.dir=$EscapedSdk" | Set-Content -Path $LocalProperties -Encoding ASCII

@@ -1,169 +1,413 @@
 package fr.cooknote.legacy;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
-import org.mozilla.geckoview.GeckoResult;
-import org.mozilla.geckoview.GeckoRuntime;
-import org.mozilla.geckoview.GeckoSession;
-import org.mozilla.geckoview.GeckoView;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.URLDecoder;
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class MainActivity extends Activity {
-    private static final String LOOPBACK_HOST = "127.0.0.1";
+    private static final int COLOR_BG = Color.rgb(5, 5, 5);
+    private static final int COLOR_PANEL = Color.rgb(18, 16, 12);
+    private static final int COLOR_TEXT = Color.rgb(255, 247, 237);
+    private static final int COLOR_MUTED = Color.rgb(207, 198, 184);
+    private static final int COLOR_GOLD = Color.rgb(251, 191, 36);
+    private static final int COLOR_ORANGE = Color.rgb(245, 158, 11);
 
-    private GeckoRuntime runtime;
-    private GeckoSession session;
-    private GeckoView geckoView;
-    private LocalAssetServer localServer;
-    private TextView statusView;
-    private boolean canGoBack;
+    private CookNoteRepository repository;
+    private ImageLoader imageLoader;
+    private RecipeAdapter adapter;
+    private LinearLayout categoryStrip;
+    private TextView counterView;
+    private EditText searchBox;
+    private String selectedCategory = "Toutes";
+    private String currentQuery = "";
+    private boolean showingDetail;
+    private final Stack<String> detailBackStack = new Stack<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        installNativeShell();
-
+        imageLoader = new ImageLoader(this);
         try {
-            localServer = new LocalAssetServer();
-            localServer.start();
-
-            runtime = GeckoRuntime.create(this);
-            session = new GeckoSession();
-            configureSession(session);
-            session.open(runtime);
-            geckoView.setSession(session);
-            session.loadUri(localServer.baseUrl() + "/");
+            repository = CookNoteRepository.load(this);
+            showList();
         } catch (Exception exception) {
-            showNativeError("Impossible de lancer Cook Note Android 5.", exception.getMessage());
+            showNativeError("Cook Note Android 5 Lite", "Catalogue impossible a lire.\n\n" + exception.getMessage());
         }
     }
 
-    private void installNativeShell() {
-        FrameLayout root = new FrameLayout(this);
-        root.setBackgroundColor(Color.rgb(5, 5, 5));
+    private void showList() {
+        showingDetail = false;
+        LinearLayout root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(COLOR_BG);
 
-        geckoView = new GeckoView(this);
-        geckoView.setBackgroundColor(Color.rgb(5, 5, 5));
-        root.addView(geckoView, new FrameLayout.LayoutParams(
+        LinearLayout header = new LinearLayout(this);
+        header.setOrientation(LinearLayout.VERTICAL);
+        header.setPadding(dp(14), dp(12), dp(14), dp(8));
+        header.setBackgroundColor(COLOR_PANEL);
+        root.addView(header, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+                ViewGroup.LayoutParams.WRAP_CONTENT
         ));
 
-        statusView = new TextView(this);
-        statusView.setText("Cook Note\nChargement Android 5...");
-        statusView.setTextColor(Color.rgb(251, 191, 36));
-        statusView.setTextSize(18);
-        statusView.setGravity(Gravity.CENTER);
-        statusView.setBackgroundColor(Color.rgb(5, 5, 5));
-        root.addView(statusView, new FrameLayout.LayoutParams(
+        TextView title = text("Cook Note", 28, COLOR_TEXT, true);
+        title.setGravity(Gravity.CENTER_VERTICAL);
+        header.addView(title);
+
+        TextView subtitle = text("Android 5 Lite - livre local v" + repository.version, 12, COLOR_MUTED, false);
+        subtitle.setPadding(0, dp(2), 0, dp(10));
+        header.addView(subtitle);
+
+        searchBox = new EditText(this);
+        searchBox.setSingleLine(true);
+        searchBox.setTextColor(COLOR_TEXT);
+        searchBox.setHintTextColor(COLOR_MUTED);
+        searchBox.setTextSize(16);
+        searchBox.setHint("Rechercher une recette, un ingredient...");
+        searchBox.setPadding(dp(12), 0, dp(12), 0);
+        searchBox.setBackgroundColor(Color.rgb(31, 29, 24));
+        searchBox.setText(currentQuery);
+        header.addView(searchBox, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+                dp(46)
         ));
+
+        HorizontalScrollView scroller = new HorizontalScrollView(this);
+        scroller.setHorizontalScrollBarEnabled(false);
+        categoryStrip = new LinearLayout(this);
+        categoryStrip.setOrientation(LinearLayout.HORIZONTAL);
+        scroller.addView(categoryStrip);
+        LinearLayout.LayoutParams scrollerParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        scrollerParams.topMargin = dp(10);
+        header.addView(scroller, scrollerParams);
+        rebuildCategoryChips();
+
+        counterView = text("", 12, COLOR_MUTED, false);
+        counterView.setPadding(0, dp(8), 0, 0);
+        header.addView(counterView);
+
+        ListView listView = new ListView(this);
+        listView.setBackgroundColor(COLOR_BG);
+        listView.setCacheColorHint(COLOR_BG);
+        listView.setDividerHeight(1);
+        listView.setFastScrollEnabled(true);
+        listView.setScrollingCacheEnabled(false);
+        listView.setAnimationCacheEnabled(false);
+        adapter = new RecipeAdapter(this, imageLoader);
+        listView.setAdapter(adapter);
+        root.addView(listView, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                0,
+                1
+        ));
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                hideKeyboard();
+                openRecipe(adapter.getItem(position), false);
+            }
+        });
+
+        searchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                currentQuery = String.valueOf(s);
+                applyFilters();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        setContentView(root);
+        applyFilters();
+    }
+
+    private void rebuildCategoryChips() {
+        categoryStrip.removeAllViews();
+        addCategoryChip("Toutes");
+        for (String category : repository.categories) {
+            addCategoryChip(category);
+        }
+    }
+
+    private void addCategoryChip(final String category) {
+        TextView chip = text(category, 14, category.equals(selectedCategory) ? Color.rgb(21, 17, 8) : COLOR_TEXT, true);
+        chip.setGravity(Gravity.CENTER);
+        chip.setPadding(dp(13), dp(8), dp(13), dp(8));
+        chip.setBackgroundColor(category.equals(selectedCategory) ? COLOR_ORANGE : Color.rgb(35, 32, 27));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.rightMargin = dp(8);
+        categoryStrip.addView(chip, params);
+        chip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedCategory = category;
+                rebuildCategoryChips();
+                applyFilters();
+            }
+        });
+    }
+
+    private void applyFilters() {
+        if (adapter == null) return;
+        List<Recipe> filtered = repository.filter(currentQuery, selectedCategory);
+        adapter.setItems(filtered);
+        counterView.setText(filtered.size() + " fiches");
+    }
+
+    private void openRecipe(Recipe recipe, boolean pushCurrent) {
+        if (pushCurrent && showingDetail && !detailBackStack.contains(recipe.id)) {
+            detailBackStack.push(recipe.id);
+        }
+        showingDetail = true;
+
+        LinearLayout root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(COLOR_BG);
+
+        LinearLayout top = new LinearLayout(this);
+        top.setOrientation(LinearLayout.HORIZONTAL);
+        top.setGravity(Gravity.CENTER_VERTICAL);
+        top.setPadding(dp(10), dp(8), dp(10), dp(8));
+        top.setBackgroundColor(COLOR_PANEL);
+        root.addView(top, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+
+        Button back = new Button(this);
+        back.setText("Retour");
+        back.setTextColor(Color.rgb(21, 17, 8));
+        back.setTextSize(13);
+        back.setTypeface(Typeface.DEFAULT_BOLD);
+        back.setBackgroundColor(COLOR_ORANGE);
+        top.addView(back, new LinearLayout.LayoutParams(dp(104), dp(42)));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goBack();
+            }
+        });
+
+        TextView topTitle = text(recipe.primaryCategory(), 14, COLOR_MUTED, true);
+        topTitle.setGravity(Gravity.CENTER_VERTICAL);
+        topTitle.setPadding(dp(12), 0, 0, 0);
+        top.addView(topTitle, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
+        ScrollView scroll = new ScrollView(this);
+        scroll.setFillViewport(false);
+        LinearLayout content = new LinearLayout(this);
+        content.setOrientation(LinearLayout.VERTICAL);
+        content.setPadding(dp(14), dp(14), dp(14), dp(26));
+        scroll.addView(content);
+        root.addView(scroll, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                0,
+                1
+        ));
+
+        ImageView hero = new ImageView(this);
+        hero.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        content.addView(hero, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                dp(190)
+        ));
+        imageLoader.load(recipe.image, hero, dp(480), dp(240));
+
+        TextView category = text(recipe.primaryCategory(), 12, COLOR_GOLD, true);
+        category.setPadding(0, dp(14), 0, dp(6));
+        content.addView(category);
+
+        TextView title = text(recipe.title, 28, COLOR_TEXT, true);
+        title.setLineSpacing(0, 1.05f);
+        content.addView(title);
+
+        TextView meta = text(recipe.metaLine(), 14, COLOR_MUTED, false);
+        meta.setPadding(0, dp(8), 0, dp(10));
+        content.addView(meta);
+
+        if (recipe.isCollection()) {
+            addVariants(content, recipe);
+        } else {
+            addIngredients(content, recipe);
+            addSteps(content, recipe);
+            addNotes(content, recipe);
+            addTechnical(content, recipe);
+            addPractical(content, recipe);
+        }
 
         setContentView(root);
     }
 
-    private void configureSession(GeckoSession targetSession) {
-        targetSession.setProgressDelegate(new GeckoSession.ProgressDelegate() {
-            @Override
-            public void onPageStop(GeckoSession session, boolean success) {
-                if (statusView != null) statusView.setVisibility(TextView.GONE);
-                if (!success) {
-                    showNativeError("Erreur de chargement Cook Note Android 5.", "Le moteur embarque n a pas termine le chargement.");
-                }
+    private void addVariants(LinearLayout content, Recipe recipe) {
+        sectionTitle(content, "Variantes");
+        if (recipe.variants.isEmpty()) {
+            body(content, "Cette collection ne contient pas de variantes directes.");
+            return;
+        }
+        for (final Recipe.Variant variant : recipe.variants) {
+            final Recipe target = repository.find(variant.id);
+            String label = variant.label.length() > 0 ? variant.label : variant.id;
+            TextView row = text(label, 17, target == null ? COLOR_MUTED : COLOR_TEXT, true);
+            row.setPadding(dp(12), dp(12), dp(12), dp(12));
+            row.setBackgroundColor(Color.rgb(24, 22, 18));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            params.topMargin = dp(8);
+            content.addView(row, params);
+            if (target != null) {
+                row.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        detailBackStack.push(recipe.id);
+                        openRecipe(target, false);
+                    }
+                });
             }
-        });
-
-        targetSession.setContentDelegate(new GeckoSession.ContentDelegate() {
-            @Override
-            public void onCrash(GeckoSession session) {
-                showNativeError("Le moteur Cook Note Android 5 a plante.", "Redemarre l application. Si cela revient, il faudra lire le log ADB de la tablette.");
-            }
-
-            @Override
-            public void onKill(GeckoSession session) {
-                showNativeError("Android a coupe le moteur Cook Note.", "La tablette manque probablement de memoire. Ferme les autres applications puis relance Cook Note.");
-            }
-        });
-
-        targetSession.setNavigationDelegate(new GeckoSession.NavigationDelegate() {
-            @Override
-            public void onCanGoBack(GeckoSession session, boolean value) {
-                canGoBack = value;
-            }
-
-            @Override
-            public GeckoResult<org.mozilla.geckoview.AllowOrDeny> onLoadRequest(
-                    GeckoSession session,
-                    GeckoSession.NavigationDelegate.LoadRequest request
-            ) {
-                Uri uri = Uri.parse(request.uri);
-                if (isLocalCookNoteUri(uri) || "about".equals(uri.getScheme())) {
-                    return GeckoResult.allow();
-                }
-                openExternal(uri);
-                return GeckoResult.deny();
-            }
-
-            @Override
-            public GeckoResult<GeckoSession> onNewSession(GeckoSession session, String uri) {
-                openExternal(Uri.parse(uri));
-                return GeckoResult.fromValue(null);
-            }
-        });
-    }
-
-    private boolean isLocalCookNoteUri(Uri uri) {
-        return "http".equals(uri.getScheme()) && LOOPBACK_HOST.equals(uri.getHost());
-    }
-
-    private void openExternal(Uri uri) {
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, uri));
-        } catch (Exception ignored) {
-            // Keep Cook Note open when Android cannot resolve an external URL.
         }
     }
 
-    private void showNativeError(final String title, final String detail) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TextView errorView = new TextView(MainActivity.this);
-                errorView.setTextColor(Color.rgb(251, 191, 36));
-                errorView.setBackgroundColor(Color.rgb(5, 5, 5));
-                errorView.setTextSize(18);
-                errorView.setPadding(32, 48, 32, 32);
-                errorView.setText(title + "\n\n" + (detail == null ? "" : detail));
-                setContentView(errorView, new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                ));
+    private void addIngredients(LinearLayout content, Recipe recipe) {
+        sectionTitle(content, "Ingredients");
+        if (recipe.ingredients.isEmpty()) {
+            body(content, "Aucun ingredient detaille pour cette fiche.");
+            return;
+        }
+        for (Recipe.Group group : recipe.ingredients) {
+            subTitle(content, group.title);
+            for (String item : group.items) {
+                bullet(content, item);
             }
-        });
+            if (group.note.length() > 0) body(content, group.note);
+            for (String step : group.steps) {
+                bullet(content, step);
+            }
+        }
+    }
+
+    private void addSteps(LinearLayout content, Recipe recipe) {
+        sectionTitle(content, "Etapes");
+        if (recipe.steps.isEmpty()) {
+            body(content, "Aucune etape detaillee pour cette fiche.");
+            return;
+        }
+        for (int index = 0; index < recipe.steps.size(); index += 1) {
+            body(content, (index + 1) + ". " + recipe.steps.get(index));
+        }
+    }
+
+    private void addNotes(LinearLayout content, Recipe recipe) {
+        if (recipe.notes.isEmpty()) return;
+        sectionTitle(content, "Notes");
+        for (String note : recipe.notes) {
+            bullet(content, note);
+        }
+    }
+
+    private void addTechnical(LinearLayout content, Recipe recipe) {
+        if (recipe.technical.isEmpty()) return;
+        sectionTitle(content, "Technique");
+        for (Recipe.Technical item : recipe.technical) {
+            String label = item.label.length() > 0 ? item.label + " : " : "";
+            body(content, label + item.value);
+        }
+    }
+
+    private void addPractical(LinearLayout content, Recipe recipe) {
+        if (recipe.practical.isEmpty()) return;
+        sectionTitle(content, "Pratique");
+        for (Recipe.PracticalSection section : recipe.practical) {
+            subTitle(content, section.title);
+            for (String item : section.items) {
+                bullet(content, item);
+            }
+        }
+    }
+
+    private void sectionTitle(LinearLayout content, String value) {
+        TextView text = text(value, 20, COLOR_GOLD, true);
+        text.setPadding(0, dp(20), 0, dp(8));
+        content.addView(text);
+    }
+
+    private void subTitle(LinearLayout content, String value) {
+        TextView text = text(value, 16, COLOR_TEXT, true);
+        text.setPadding(0, dp(12), 0, dp(4));
+        content.addView(text);
+    }
+
+    private void bullet(LinearLayout content, String value) {
+        body(content, "- " + value);
+    }
+
+    private void body(LinearLayout content, String value) {
+        TextView text = text(value, 15, COLOR_TEXT, false);
+        text.setLineSpacing(dp(2), 1.05f);
+        text.setPadding(0, dp(4), 0, dp(4));
+        content.addView(text);
+    }
+
+    private TextView text(String value, int sp, int color, boolean bold) {
+        TextView text = new TextView(this);
+        text.setText(value);
+        text.setTextSize(sp);
+        text.setTextColor(color);
+        text.setIncludeFontPadding(true);
+        if (bold) text.setTypeface(Typeface.DEFAULT_BOLD);
+        return text;
+    }
+
+    private void goBack() {
+        if (!detailBackStack.empty()) {
+            Recipe previous = repository.find(detailBackStack.pop());
+            if (previous != null) {
+                openRecipe(previous, false);
+                return;
+            }
+        }
+        showList();
     }
 
     @Override
     public void onBackPressed() {
-        if (session != null && canGoBack) {
-            session.goBack();
+        if (showingDetail) {
+            goBack();
             return;
         }
         super.onBackPressed();
@@ -171,189 +415,31 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        if (session != null) {
-            session.close();
-            session = null;
-        }
-        if (localServer != null) {
-            localServer.stop();
-            localServer = null;
-        }
+        if (imageLoader != null) imageLoader.shutdown();
         super.onDestroy();
     }
 
-    private class LocalAssetServer implements Runnable {
-        private ServerSocket serverSocket;
-        private Thread thread;
-        private volatile boolean running;
-
-        void start() throws IOException {
-            serverSocket = new ServerSocket(0, 50, InetAddress.getByName(LOOPBACK_HOST));
-            running = true;
-            thread = new Thread(this, "CookNoteAssetServer");
-            thread.setDaemon(true);
-            thread.start();
+    private void hideKeyboard() {
+        try {
+            InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            View focus = getCurrentFocus();
+            if (manager != null && focus != null) manager.hideSoftInputFromWindow(focus.getWindowToken(), 0);
+        } catch (Exception ignored) {
+            // Keep navigation responsive even if the keyboard service is unavailable.
         }
+    }
 
-        String baseUrl() {
-            return "http://" + LOOPBACK_HOST + ":" + serverSocket.getLocalPort();
-        }
+    private void showNativeError(String title, String detail) {
+        TextView errorView = text(title + "\n\n" + detail, 18, COLOR_GOLD, true);
+        errorView.setBackgroundColor(COLOR_BG);
+        errorView.setPadding(dp(24), dp(36), dp(24), dp(24));
+        setContentView(errorView, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+    }
 
-        void stop() {
-            running = false;
-            try {
-                if (serverSocket != null) serverSocket.close();
-            } catch (IOException ignored) {
-                // Server is already closed.
-            }
-        }
-
-        @Override
-        public void run() {
-            while (running) {
-                try {
-                    Socket socket = serverSocket.accept();
-                    handle(socket);
-                } catch (IOException ignored) {
-                    if (running) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                showNativeError("Serveur local Cook Note indisponible.", "Impossible de lire les assets embarques.");
-                            }
-                        });
-                    }
-                }
-            }
-        }
-
-        private void handle(Socket socket) {
-            try {
-                socket.setSoTimeout(5000);
-                InputStream input = socket.getInputStream();
-                OutputStream output = socket.getOutputStream();
-                String requestLine = readRequestLine(input);
-                drainHeaders(input);
-
-                if (requestLine == null || requestLine.length() == 0) {
-                    writeResponse(output, 400, "Bad Request", "text/plain", "Requete invalide".getBytes("UTF-8"));
-                    return;
-                }
-
-                String[] parts = requestLine.split(" ");
-                if (parts.length < 2 || (!"GET".equals(parts[0]) && !"HEAD".equals(parts[0]))) {
-                    writeResponse(output, 405, "Method Not Allowed", "text/plain", new byte[0]);
-                    return;
-                }
-
-                String assetPath = assetPathFor(parts[1]);
-                byte[] body = readAssetBytes("www/" + assetPath);
-                writeResponse(output, 200, "OK", mimeType(assetPath), "HEAD".equals(parts[0]) ? new byte[0] : body);
-            } catch (Exception exception) {
-                try {
-                    writeResponse(socket.getOutputStream(), 404, "Not Found", "text/plain", "Asset introuvable".getBytes("UTF-8"));
-                } catch (Exception ignored) {
-                    // Socket may already be closed.
-                }
-            } finally {
-                try {
-                    socket.close();
-                } catch (IOException ignored) {
-                    // Nothing left to close.
-                }
-            }
-        }
-
-        private String readRequestLine(InputStream input) throws IOException {
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            int previous = -1;
-            int current;
-            while ((current = input.read()) != -1) {
-                if (previous == '\r' && current == '\n') break;
-                if (current != '\r') output.write(current);
-                previous = current;
-                if (output.size() > 8192) break;
-            }
-            return output.toString("UTF-8").trim();
-        }
-
-        private void drainHeaders(InputStream input) throws IOException {
-            int matched = 0;
-            int current;
-            while ((current = input.read()) != -1) {
-                if ((matched == 0 || matched == 2) && current == '\r') {
-                    matched += 1;
-                } else if ((matched == 1 || matched == 3) && current == '\n') {
-                    matched += 1;
-                } else {
-                    matched = 0;
-                }
-                if (matched == 4) return;
-            }
-        }
-
-        private byte[] readAssetBytes(String assetPath) throws IOException {
-            InputStream stream = getAssets().open(assetPath);
-            try {
-                ByteArrayOutputStream output = new ByteArrayOutputStream();
-                byte[] buffer = new byte[16384];
-                int count;
-                while ((count = stream.read(buffer)) != -1) {
-                    output.write(buffer, 0, count);
-                }
-                return output.toByteArray();
-            } finally {
-                stream.close();
-            }
-        }
-
-        private void writeResponse(OutputStream output, int status, String reason, String contentType, byte[] body) throws IOException {
-            String headers = "HTTP/1.1 " + status + " " + reason + "\r\n"
-                    + "Content-Type: " + contentType + "\r\n"
-                    + "Content-Length: " + body.length + "\r\n"
-                    + "Cache-Control: public, max-age=31536000\r\n"
-                    + "Connection: close\r\n"
-                    + "\r\n";
-            output.write(headers.getBytes("UTF-8"));
-            output.write(body);
-            output.flush();
-        }
-
-        private String assetPathFor(String rawTarget) throws IOException {
-            String target = rawTarget == null ? "/" : rawTarget;
-            int queryIndex = target.indexOf('?');
-            if (queryIndex >= 0) target = target.substring(0, queryIndex);
-            target = URLDecoder.decode(target, "UTF-8");
-            if (target.contains("..")) return "index.html";
-
-            if ("/".equals(target) || "/techniques".equals(target) || "/techniques/".equals(target)) {
-                return "index.html";
-            }
-
-            if (target.startsWith("/recette/")) {
-                String slug = target.substring("/recette/".length());
-                if (slug.endsWith("/")) slug = slug.substring(0, slug.length() - 1);
-                if (slug.length() > 0 && slug.indexOf('/') < 0) {
-                    return "recette/" + slug + "/index.html";
-                }
-            }
-
-            String clean = target.startsWith("/") ? target.substring(1) : target;
-            return clean.length() == 0 ? "index.html" : clean;
-        }
-
-        private String mimeType(String assetPath) {
-            String lower = assetPath.toLowerCase(Locale.US);
-            if (lower.endsWith(".html")) return "text/html; charset=utf-8";
-            if (lower.endsWith(".js")) return "text/javascript; charset=utf-8";
-            if (lower.endsWith(".css")) return "text/css; charset=utf-8";
-            if (lower.endsWith(".json")) return "application/json; charset=utf-8";
-            if (lower.endsWith(".svg")) return "image/svg+xml";
-            if (lower.endsWith(".png")) return "image/png";
-            if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) return "image/jpeg";
-            if (lower.endsWith(".webp")) return "image/webp";
-            if (lower.endsWith(".xml")) return "application/xml";
-            return "application/octet-stream";
-        }
+    private int dp(int value) {
+        return (int) (value * getResources().getDisplayMetrics().density + 0.5f);
     }
 }

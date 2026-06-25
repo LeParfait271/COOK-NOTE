@@ -1,520 +1,293 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const babel = require('@babel/core');
+const vm = require('node:vm');
+const jpeg = require('jpeg-js');
 
 const ROOT = path.resolve(__dirname, '..');
-const DIST = path.join(ROOT, 'dist');
-const LEGACY_DIST = path.join(ROOT, 'android-legacy', 'build', 'generated', 'cook-note-www');
-const CORE_JS_SOURCE = path.join(ROOT, 'node_modules', 'core-js-bundle', 'minified.js');
-const CORE_JS_TARGET = path.join(LEGACY_DIST, 'assets', 'vendor', 'core-js-bundle.min.js');
-const LEGACY_CARD_IMAGES = path.join(LEGACY_DIST, 'assets', 'recipe-card-images');
-const LEGACY_OPTIMIZED_IMAGES = path.join(LEGACY_DIST, 'assets', 'recipe-images-optimized');
+const OUT_DIR = path.join(ROOT, 'android-legacy', 'build', 'generated', 'cook-note-lite');
+const OUT_IMAGE_DIR = path.join(OUT_DIR, 'images');
+const RECIPES_FILE = path.join(ROOT, 'recipes.js');
+const APP_FILE = path.join(ROOT, 'app.js');
+const MAX_IMAGE_WIDTH = 480;
+const JPEG_QUALITY = 54;
 
-const JS_FILES = [
-  'app.js',
-  'app-images.js',
-  'recipe.js',
-  'recipes.js',
-  'assets/catalog-1.js',
-  'assets/catalog-2.js',
-  'assets/catalog-3.js',
-  'assets/catalog-4.js',
-  'assets/image-manifest.js'
+const CATEGORY_ORDER = [
+  'Petit-dejeuner',
+  'Apero',
+  'Entrees',
+  'Sauces',
+  'Base',
+  'Plats',
+  'Accompagnements',
+  'Desserts'
 ];
 
-const LEGACY_LOADER_SCRIPT = `  <script>
-    (function () {
-      window.__cookNoteReady = function () {
-        var ls = document.getElementById('loading-screen');
-        if (!ls) return;
-        ls.style.pointerEvents = 'none';
-        ls.style.opacity = '0';
-        ls.style.display = 'none';
-        if (ls.parentNode) ls.parentNode.removeChild(ls);
-      };
-
-      function hideLoaderWhenRootReady() {
-        var root = document.getElementById('root');
-        if (root && root.children && root.children.length > 0) {
-          window.__cookNoteReady();
-          return true;
-        }
-        return false;
-      }
-
-      setTimeout(function () {
-        if (!hideLoaderWhenRootReady()) setTimeout(hideLoaderWhenRootReady, 120);
-      }, 0);
-
-      setTimeout(function () {
-        var ls = document.getElementById('loading-screen');
-        if (!ls) return;
-        ls.style.transition = 'opacity 0.4s ease';
-        ls.style.opacity = '0';
-        setTimeout(function () {
-          if (!ls.parentNode) return;
-          ls.innerHTML = '<div style="color:#ef4444;font-family:Arial,sans-serif;text-align:center;padding:20px"><p style="font-size:18px;font-weight:700">Erreur de chargement</p><p style="font-size:13px;opacity:.75;margin-top:8px">Relance Cook Note. Si le blocage revient, installe la derniere APK Android 5.</p><button onclick="location.reload()" style="margin-top:16px;padding:10px 20px;background:#fbbf24;border:0;border-radius:8px;cursor:pointer;font-weight:700">Recharger</button></div>';
-          ls.style.opacity = '1';
-          ls.style.background = '#111';
-        }, 450);
-      }, 8000);
-    }());
-  </script>`;
-
-const LEGACY_NO_SW_SCRIPT = '  <script>/* Service worker disabled in Android Legacy local assets. */</script>';
-const LEGACY_RUNTIME_SCRIPT = `  <script>
-    (function () {
-      function showLegacyError(message) {
-        var root = document.getElementById('root') || document.body;
-        if (!root || document.getElementById('cook-note-legacy-error')) return;
-        var panel = document.createElement('div');
-        panel.id = 'cook-note-legacy-error';
-        panel.style.cssText = [
-          'position:fixed',
-          'left:12px',
-          'right:12px',
-          'top:12px',
-          'z-index:100001',
-          'padding:14px',
-          'border:1px solid #fbbf24',
-          'border-radius:8px',
-          'background:#120f0a',
-          'color:#fff7ed',
-          'font:14px/1.45 Arial,sans-serif',
-          'box-shadow:0 12px 34px rgba(0,0,0,.52)'
-        ].join(';');
-        panel.innerHTML = '<strong style="color:#fbbf24">Cook Note Android 5</strong><br>' + String(message || 'Erreur inconnue');
-        root.appendChild(panel);
-      }
-
-      window.onerror = function (message, source, line, column) {
-        showLegacyError(String(message || 'Erreur JavaScript') + ' ligne ' + (line || '?'));
-        return false;
-      };
-
-      if (!window.requestAnimationFrame) {
-        window.requestAnimationFrame = function (callback) {
-          return setTimeout(function () { callback(Date.now()); }, 16);
-        };
-      }
-      if (!window.cancelAnimationFrame) {
-        window.cancelAnimationFrame = function (id) { clearTimeout(id); };
-      }
-
-      if (!window.URLSearchParams) {
-        window.URLSearchParams = function (query) {
-          this._items = {};
-          query = String(query || '').replace(/^\\?/, '');
-          if (!query) return;
-          var parts = query.split('&');
-          for (var i = 0; i < parts.length; i += 1) {
-            if (!parts[i]) continue;
-            var pair = parts[i].split('=');
-            var key = decodeURIComponent((pair[0] || '').replace(/\\+/g, ' '));
-            var value = decodeURIComponent((pair.slice(1).join('=') || '').replace(/\\+/g, ' '));
-            if (key) this._items[key] = value;
-          }
-        };
-        window.URLSearchParams.prototype.get = function (key) {
-          return Object.prototype.hasOwnProperty.call(this._items, key) ? this._items[key] : null;
-        };
-        window.URLSearchParams.prototype.set = function (key, value) {
-          this._items[key] = String(value);
-        };
-        window.URLSearchParams.prototype.toString = function () {
-          var output = [];
-          for (var key in this._items) {
-            if (Object.prototype.hasOwnProperty.call(this._items, key)) {
-              output.push(encodeURIComponent(key) + '=' + encodeURIComponent(this._items[key]));
-            }
-          }
-          return output.join('&');
-        };
-      }
-
-      if (!window.URL) {
-        window.URL = function (url, base) {
-          var value = String(url || '');
-          var baseText = String(base || window.location.href || '');
-          var originMatch = baseText.match(/^[a-z][a-z0-9+.-]*:\\/\\/[^\\/?#]+/i);
-          if (value.charAt(0) === '/' && originMatch) {
-            value = originMatch[0] + value;
-          } else if (!/^[a-z][a-z0-9+.-]*:/i.test(value) && baseText) {
-            value = baseText.replace(/[?#].*$/, '').replace(/\\/[^\\/]*$/, '/') + value;
-          }
-          var link = document.createElement('a');
-          link.href = value;
-          this.href = link.href;
-          this.protocol = link.protocol;
-          this.host = link.host;
-          this.hostname = link.hostname;
-          this.port = link.port;
-          this.pathname = link.pathname.charAt(0) === '/' ? link.pathname : '/' + link.pathname;
-          this.search = link.search;
-          this.hash = link.hash;
-          this.origin = this.protocol + '//' + this.host;
-        };
-      }
-
-      var nativeScrollTo = window.scrollTo;
-      window.scrollTo = function (x, y) {
-        if (x && typeof x === 'object') {
-          return nativeScrollTo.call(window, Number(x.left || 0), Number(x.top || 0));
-        }
-        return nativeScrollTo.call(window, x || 0, y || 0);
-      };
-    }());
-  </script>`;
-
-const LEGACY_CSS_OVERRIDES = `
-
-/* Android Legacy WebView fallback: Chrome 37 has no CSS variables/color-mix/grid. */
-html,
-body,
-#root,
-.mc-shell {
-  min-height: 100vh !important;
-  background-color: #050505 !important;
-  color: #fff7ed !important;
-}
-
-.mc-shell {
-  background: #050505 url("/assets/base-principale-fond-site.jpg") center top / cover no-repeat !important;
-}
-
-.mc-shell,
-.mc-shell * {
-  text-shadow: none;
-}
-
-.app-header,
-.hero-panel,
-.content-card,
-.recipe-card,
-.category-card,
-.modal-panel,
-.search-panel,
-.recipe-panel,
-.ingredients-panel,
-.notes-panel,
-.install-panel,
-.footer-install-card {
-  background-color: rgba(18, 18, 16, .96) !important;
-  border-color: rgba(251, 191, 36, .28) !important;
-  color: #fff7ed !important;
-}
-
-.recipe-grid > *,
-.mc-quick-picks > *,
-.category-grid > *,
-.cards-grid > *,
-.filters-grid > *,
-.recipe-layout > *,
-.techniques-layout > *,
-.content-grid > * {
-  margin-bottom: 14px !important;
-}
-
-.recipe-card-title,
-.category-card-title,
-.section-title,
-.hero-title,
-.recipe-title,
-h1,
-h2,
-h3 {
-  color: #fff7ed !important;
-}
-
-.muted,
-.recipe-meta,
-.category-meta,
-.eyebrow,
-.section-kicker {
-  color: #cfc6b8 !important;
-}
-
-.button-primary,
-.pill-active,
-.tab-active,
-button[aria-current="true"] {
-  background: #f59e0b !important;
-  border-color: #fbbf24 !important;
-  color: #151108 !important;
-}
-
-img {
-  opacity: 1 !important;
-}
-`;
-
-function ensureParent(file) {
-  fs.mkdirSync(path.dirname(file), { recursive: true });
-}
+const CATEGORY_ALIASES = new Map([
+  ['Petits-déjeuners', 'Petit-dejeuner'],
+  ['Petits-dejeuners', 'Petit-dejeuner'],
+  ['Petit-dejeuner', 'Petit-dejeuner'],
+  ['Apéro', 'Apero'],
+  ['Apero', 'Apero'],
+  ['Entrées', 'Entrees'],
+  ['Entrees', 'Entrees'],
+  ['Sauces', 'Sauces'],
+  ['Base', 'Base'],
+  ['Plats', 'Plats'],
+  ['Accompagnements', 'Accompagnements'],
+  ['Desserts', 'Desserts']
+]);
 
 function read(file) {
   return fs.readFileSync(file, 'utf8');
 }
 
-function write(file, content) {
-  ensureParent(file);
-  fs.writeFileSync(file, content, 'utf8');
+function ensureDir(dir) {
+  fs.mkdirSync(dir, { recursive: true });
 }
 
-function splitTopLevel(input, separator) {
-  const output = [];
-  let depth = 0;
-  let start = 0;
-  for (let index = 0; index < input.length; index += 1) {
-    const char = input[index];
-    if (char === '(') depth += 1;
-    if (char === ')') depth -= 1;
-    if (char === separator && depth === 0) {
-      output.push(input.slice(start, index).trim());
-      start = index + 1;
+function stripHtml(value) {
+  return String(value || '')
+    .replace(/<span\b[^>]*data-goto=(["'])([^"']+)\1[^>]*>(.*?)<\/span>/gi, '$3')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function normalizeText(value) {
+  return stripHtml(value)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function cleanArray(value) {
+  return Array.isArray(value) ? value.map(item => stripHtml(item)).filter(Boolean) : [];
+}
+
+function cleanCategory(category) {
+  const cleaned = stripHtml(category);
+  return CATEGORY_ALIASES.get(cleaned) || cleaned || 'Recette';
+}
+
+function loadRecipes() {
+  const context = { window: {} };
+  vm.createContext(context);
+  vm.runInContext(read(RECIPES_FILE), context, { filename: RECIPES_FILE });
+  return context.window.RECIPES || {};
+}
+
+function loadVersion() {
+  const match = read(APP_FILE).match(/const SITE_VERSION = 'v(\d+\.\d+)'/);
+  return match ? match[1] : '0.0';
+}
+
+function safeBasename(imagePath) {
+  if (!imagePath) return '';
+  const clean = String(imagePath).replace(/^\/+/, '').replace(/\\/g, '/');
+  return path.basename(clean);
+}
+
+function imageSourceFor(imagePath) {
+  const clean = String(imagePath || '').replace(/^\/+/, '').replace(/\\/g, '/');
+  const basename = path.basename(clean);
+  if (!basename) return null;
+
+  const cardCandidate = path.join(ROOT, 'assets', 'recipe-card-images', basename);
+  if (fs.existsSync(cardCandidate)) return cardCandidate;
+
+  const directCandidate = path.join(ROOT, clean);
+  if (fs.existsSync(directCandidate)) return directCandidate;
+
+  const optimizedCandidate = path.join(ROOT, 'assets', 'recipe-images-optimized', basename);
+  if (fs.existsSync(optimizedCandidate)) return optimizedCandidate;
+
+  return null;
+}
+
+function resizeNearest(decoded, targetWidth, targetHeight) {
+  const source = decoded.data;
+  const output = Buffer.alloc(targetWidth * targetHeight * 4);
+  for (let y = 0; y < targetHeight; y += 1) {
+    const sourceY = Math.min(decoded.height - 1, Math.floor((y * decoded.height) / targetHeight));
+    for (let x = 0; x < targetWidth; x += 1) {
+      const sourceX = Math.min(decoded.width - 1, Math.floor((x * decoded.width) / targetWidth));
+      const sourceIndex = (sourceY * decoded.width + sourceX) * 4;
+      const targetIndex = (y * targetWidth + x) * 4;
+      output[targetIndex] = source[sourceIndex];
+      output[targetIndex + 1] = source[sourceIndex + 1];
+      output[targetIndex + 2] = source[sourceIndex + 2];
+      output[targetIndex + 3] = 255;
     }
   }
-  output.push(input.slice(start).trim());
-  return output;
+  return { data: output, width: targetWidth, height: targetHeight };
 }
 
-function replaceFunctionCalls(input, functionName, replacer) {
-  const needle = `${functionName}(`;
-  let output = '';
-  let cursor = 0;
-  while (cursor < input.length) {
-    const start = input.indexOf(needle, cursor);
-    if (start === -1) {
-      output += input.slice(cursor);
-      break;
-    }
+function writeLiteJpeg(source, destination) {
+  const input = fs.readFileSync(source);
+  const decoded = jpeg.decode(input, { useTArray: true, maxMemoryUsageInMB: 512 });
+  const targetWidth = Math.min(MAX_IMAGE_WIDTH, decoded.width);
+  const targetHeight = Math.max(1, Math.round((decoded.height * targetWidth) / decoded.width));
+  const resized = targetWidth === decoded.width
+    ? { data: Buffer.from(decoded.data), width: decoded.width, height: decoded.height }
+    : resizeNearest(decoded, targetWidth, targetHeight);
+  const encoded = jpeg.encode(resized, JPEG_QUALITY).data;
+  fs.writeFileSync(destination, encoded);
+}
 
-    output += input.slice(cursor, start);
-    let depth = 0;
-    let end = -1;
-    for (let index = start + functionName.length; index < input.length; index += 1) {
-      const char = input[index];
-      if (char === '(') depth += 1;
-      if (char === ')') {
-        depth -= 1;
-        if (depth === 0) {
-          end = index;
-          break;
-        }
-      }
-    }
+function copyLiteImage(imagePath, copiedImages) {
+  const basename = safeBasename(imagePath);
+  if (!basename || copiedImages.has(basename)) return basename;
 
-    if (end === -1) {
-      output += input.slice(start);
-      break;
-    }
+  const source = imageSourceFor(imagePath);
+  if (!source) return '';
 
-    output += replacer(input.slice(start + functionName.length + 1, end));
-    cursor = end + 1;
+  const destination = path.join(OUT_IMAGE_DIR, basename);
+  ensureDir(path.dirname(destination));
+
+  if (/\.jpe?g$/i.test(source)) {
+    writeLiteJpeg(source, destination);
+  } else {
+    fs.copyFileSync(source, destination);
   }
-  return output;
+
+  copiedImages.add(basename);
+  return basename;
 }
 
-function extractColor(part) {
-  const trimmed = part.trim();
-  if (/transparent/i.test(trimmed)) return 'transparent';
-  const rgbaMatch = trimmed.match(/rgba?\([^)]+\)/i);
-  if (rgbaMatch) return rgbaMatch[0];
-  const hexMatch = trimmed.match(/#[0-9a-f]{3,8}/i);
-  if (hexMatch) return hexMatch[0];
-  const wordMatch = trimmed.match(/\b(white|black|red|orange|yellow|green|blue|purple)\b/i);
-  return wordMatch ? wordMatch[0] : trimmed.replace(/\s+\d+%.*$/, '');
+function cleanGroups(groups) {
+  if (!Array.isArray(groups)) return [];
+  return groups.map(group => ({
+    group: stripHtml(group.group || 'Base'),
+    items: cleanArray(group.items),
+    note: stripHtml(group.note || ''),
+    steps: cleanArray(group.steps)
+  })).filter(group => group.group || group.items.length || group.note || group.steps.length);
 }
 
-function alphaColor(color, alpha) {
-  const hex = color.match(/^#([0-9a-f]{6})$/i);
-  if (hex) {
-    const value = hex[1];
-    const r = parseInt(value.slice(0, 2), 16);
-    const g = parseInt(value.slice(2, 4), 16);
-    const b = parseInt(value.slice(4, 6), 16);
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-  }
-  const rgba = color.match(/^rgba?\(([^)]+)\)$/i);
-  if (rgba) {
-    const parts = rgba[1].split(',').map(part => part.trim());
-    return `rgba(${parts[0]}, ${parts[1]}, ${parts[2]}, ${alpha})`;
-  }
-  return color;
+function cleanTechnical(items) {
+  if (!Array.isArray(items)) return [];
+  return items.map(item => ({
+    label: stripHtml(item.label || ''),
+    value: stripHtml(item.value || '')
+  })).filter(item => item.label || item.value);
 }
 
-function colorMixFallback(inner) {
-  const parts = splitTopLevel(inner, ',');
-  const firstColorPart = parts[1] || parts[0] || '#fff7ed';
-  const secondColorPart = parts[2] || '';
-  const firstColor = extractColor(firstColorPart);
-  const secondColor = extractColor(secondColorPart);
-  const percent = firstColorPart.match(/(\d+(?:\.\d+)?)%/);
-  if (secondColor === 'transparent' && percent) {
-    return alphaColor(firstColor, Math.max(0, Math.min(1, Number(percent[1]) / 100)));
-  }
-  if (firstColor === 'transparent') return secondColor === 'transparent' ? 'transparent' : secondColor;
-  return firstColor === 'transparent' ? '#fff7ed' : firstColor;
+function cleanPractical(practical) {
+  if (!practical || typeof practical !== 'object') return [];
+  const labels = {
+    equipment: 'Materiel',
+    storage: 'Conservation',
+    mistakes: 'A eviter',
+    result: 'Resultat'
+  };
+  return Object.entries(labels)
+    .map(([key, title]) => ({
+      title,
+      items: cleanArray(practical[key])
+    }))
+    .filter(section => section.items.length);
 }
 
-function collectCssVariables(css) {
-  const variables = {};
-  css.replace(/--([a-z0-9-]+)\s*:\s*([^;]+);/gi, (match, name, value) => {
-    variables[`--${name}`] = value.trim();
-    return match;
+function compactRecipe(id, recipe, imageName) {
+  const categories = cleanArray(recipe.categories).map(cleanCategory);
+  const variants = Array.isArray(recipe.variants)
+    ? recipe.variants.map(variant => ({
+      id: stripHtml(variant.id || ''),
+      label: stripHtml(variant.label || '')
+    })).filter(variant => variant.id)
+    : [];
+  const ingredients = cleanGroups(recipe.ingredients);
+  const steps = cleanArray(recipe.steps);
+  const notes = cleanArray(recipe.notes);
+  const technical = cleanTechnical(recipe.technical);
+  const practical = cleanPractical(recipe.practical);
+  const aliases = cleanArray(recipe.aliases);
+  const tags = cleanArray(recipe.tags);
+  const searchText = normalizeText([
+    id,
+    recipe.title,
+    ...categories,
+    ...aliases,
+    ...tags,
+    ...ingredients.flatMap(group => [group.group, ...group.items]),
+    ...steps,
+    ...notes
+  ].join(' '));
+
+  return {
+    id,
+    title: stripHtml(recipe.title || id),
+    image: imageName,
+    categories,
+    seasons: cleanArray(recipe.seasons),
+    difficulty: stripHtml(recipe.difficulty || ''),
+    difficultyScore: Number.isFinite(recipe.difficultyScore) ? recipe.difficultyScore : 0,
+    yield: stripHtml(recipe.yield || ''),
+    activeTime: Number.isFinite(recipe.activeTime) ? recipe.activeTime : 0,
+    cookTime: Number.isFinite(recipe.cookTime) ? recipe.cookTime : 0,
+    master: stripHtml(recipe.master || ''),
+    masterType: stripHtml(recipe.masterType || ''),
+    variants,
+    ingredients,
+    steps,
+    notes,
+    technical,
+    practical,
+    tags,
+    aliases,
+    searchText
+  };
+}
+
+function categorySummary(recipes) {
+  const counts = new Map();
+  recipes.forEach(recipe => {
+    const category = recipe.categories[0] || 'Recette';
+    counts.set(category, (counts.get(category) || 0) + 1);
   });
-  return variables;
-}
-
-function resolveCssValue(value, variables, seen = new Set()) {
-  let resolved = value;
-  for (let pass = 0; pass < 8; pass += 1) {
-    let changed = false;
-    resolved = resolved.replace(/var\(\s*(--[a-z0-9-]+)(?:\s*,\s*([^)]+))?\s*\)/gi, (match, name, fallback = '') => {
-      if (seen.has(name)) return fallback || '#fff7ed';
-      const variableValue = variables[name];
-      if (!variableValue) return fallback || '#fff7ed';
-      changed = true;
-      const nextSeen = new Set(seen);
-      nextSeen.add(name);
-      return resolveCssValue(variableValue, variables, nextSeen);
+  return [...counts.entries()]
+    .map(([name, count]) => ({ name, count }))
+    .sort((left, right) => {
+      const leftIndex = CATEGORY_ORDER.indexOf(left.name);
+      const rightIndex = CATEGORY_ORDER.indexOf(right.name);
+      const safeLeft = leftIndex === -1 ? 99 : leftIndex;
+      const safeRight = rightIndex === -1 ? 99 : rightIndex;
+      return safeLeft - safeRight || left.name.localeCompare(right.name, 'fr', { sensitivity: 'base' });
     });
-    if (!changed) break;
-  }
-  return resolved;
 }
 
-function legacyCss(css) {
-  const variables = collectCssVariables(css);
-  let output = resolveCssValue(css, variables);
-  output = replaceFunctionCalls(output, 'color-mix', colorMixFallback);
-  output = replaceFunctionCalls(output, 'clamp', inner => splitTopLevel(inner, ',')[1] || splitTopLevel(inner, ',')[0] || '16px');
-  output = replaceFunctionCalls(output, 'min', inner => splitTopLevel(inner, ',').slice(-1)[0] || '100%');
-  output = replaceFunctionCalls(output, 'max', inner => splitTopLevel(inner, ',').slice(-1)[0] || '100%');
-  output = output
-    .replace(/display\s*:\s*grid\s*;/gi, 'display: block;')
-    .replace(/^\s*grid-[a-z-]+\s*:[^;]+;\s*$/gmi, '')
-    .replace(/^\s*(?:-webkit-)?backdrop-filter\s*:[^;]+;\s*$/gmi, '')
-    .replace(/^\s*content-visibility\s*:[^;]+;\s*$/gmi, '')
-    .replace(/^\s*contain\s*:[^;]+;\s*$/gmi, '')
-    .replace(/^\s*scrollbar-width\s*:[^;]+;\s*$/gmi, '');
-  return `${output}\n${LEGACY_CSS_OVERRIDES}`;
+function buildLiteAssets() {
+  const recipes = loadRecipes();
+  const copiedImages = new Set();
+
+  fs.rmSync(OUT_DIR, { recursive: true, force: true });
+  ensureDir(OUT_IMAGE_DIR);
+
+  const outputRecipes = Object.entries(recipes)
+    .map(([id, recipe]) => {
+      const imageName = copyLiteImage(recipe.image, copiedImages);
+      return compactRecipe(id, recipe, imageName);
+    })
+    .sort((left, right) => left.title.localeCompare(right.title, 'fr', { sensitivity: 'base' }));
+
+  const payload = {
+    schema: 2,
+    mode: 'android-legacy-native-lite',
+    version: loadVersion(),
+    imageMaxWidth: MAX_IMAGE_WIDTH,
+    jpegQuality: JPEG_QUALITY,
+    categories: categorySummary(outputRecipes),
+    recipes: outputRecipes
+  };
+
+  fs.writeFileSync(path.join(OUT_DIR, 'recipes-lite.json'), JSON.stringify(payload), 'utf8');
+
+  console.log(`Assets Android Legacy Native Lite OK: ${OUT_DIR}`);
+  console.log(`Recettes natives: ${outputRecipes.length}`);
+  console.log(`Images natives ${MAX_IMAGE_WIDTH}px max: ${copiedImages.size}`);
 }
 
-function copyDist() {
-  if (!fs.existsSync(path.join(DIST, 'index.html'))) {
-    throw new Error('dist/index.html introuvable. Lance npm run build avant les assets Android Legacy.');
-  }
-  fs.rmSync(LEGACY_DIST, { recursive: true, force: true });
-  fs.cpSync(DIST, LEGACY_DIST, { recursive: true });
-}
-
-function replaceHeroImagesWithCardImages() {
-  if (!fs.existsSync(LEGACY_CARD_IMAGES)) {
-    throw new Error('assets/recipe-card-images introuvable dans la sortie Android Legacy.');
-  }
-
-  fs.rmSync(LEGACY_OPTIMIZED_IMAGES, { recursive: true, force: true });
-  fs.mkdirSync(LEGACY_OPTIMIZED_IMAGES, { recursive: true });
-
-  let copied = 0;
-  fs.readdirSync(LEGACY_CARD_IMAGES, { withFileTypes: true }).forEach(entry => {
-    if (!entry.isFile()) return;
-    const lower = entry.name.toLowerCase();
-    if (!/\.(jpg|jpeg|png|webp)$/.test(lower)) return;
-    fs.copyFileSync(
-      path.join(LEGACY_CARD_IMAGES, entry.name),
-      path.join(LEGACY_OPTIMIZED_IMAGES, entry.name)
-    );
-    copied += 1;
-  });
-
-  if (copied === 0) {
-    throw new Error('Aucune miniature recette trouvee pour alleger Android Legacy.');
-  }
-
-  return copied;
-}
-
-function transformJs(relativePath) {
-  const target = path.join(LEGACY_DIST, relativePath);
-  if (!fs.existsSync(target)) throw new Error(`${relativePath}: fichier JS introuvable dans les assets Legacy.`);
-  const result = babel.transformSync(read(target), {
-    filename: relativePath,
-    babelrc: false,
-    configFile: false,
-    sourceType: 'script',
-    comments: false,
-    compact: false,
-    presets: [[require.resolve('@babel/preset-env'), {
-      targets: { chrome: '37', android: '5' },
-      modules: false,
-      useBuiltIns: false
-    }]]
-  });
-  write(target, result.code.endsWith('\n') ? result.code : `${result.code}\n`);
-}
-
-function injectCoreJs(html) {
-  const runtimeTag = LEGACY_RUNTIME_SCRIPT + '\n';
-  if (html.includes('cook-note-legacy-error')) return html;
-  const tag = `  <script src="/assets/vendor/core-js-bundle.min.js"></script>\n${runtimeTag}`;
-  if (html.includes('/assets/vendor/core-js-bundle.min.js')) {
-    return html.replace('  <script src="/assets/vendor/core-js-bundle.min.js"></script>', `  <script src="/assets/vendor/core-js-bundle.min.js"></script>\n${runtimeTag}`);
-  }
-  if (html.includes('<script src="/assets/vendor/react.production.min.js"></script>')) {
-    return html.replace('  <script src="/assets/vendor/react.production.min.js"></script>', `${tag}  <script src="/assets/vendor/react.production.min.js"></script>`);
-  }
-  if (html.includes('<script src="/recipes.js')) {
-    return html.replace(/  <script src="\/recipes\.js\?v=\d+"><\/script>/, match => `${tag}${match}`);
-  }
-  return html;
-}
-
-function disableServiceWorker(html) {
-  return html.replace(/  <script>\s*if \('serviceWorker' in navigator\)[\s\S]*?<\/script>/g, html.includes('id="loading-screen"') ? LEGACY_LOADER_SCRIPT : LEGACY_NO_SW_SCRIPT);
-}
-
-function patchHtml(file) {
-  let html = read(file);
-  html = injectCoreJs(html);
-  html = disableServiceWorker(html);
-  write(file, html);
-}
-
-function patchHtmlFiles() {
-  const stack = [LEGACY_DIST];
-  while (stack.length) {
-    const current = stack.pop();
-    fs.readdirSync(current, { withFileTypes: true }).forEach(entry => {
-      const fullPath = path.join(current, entry.name);
-      if (entry.isDirectory()) {
-        stack.push(fullPath);
-      } else if (entry.isFile() && entry.name.endsWith('.html')) {
-        patchHtml(fullPath);
-      }
-    });
-  }
-}
-
-function copyPolyfill() {
-  if (!fs.existsSync(CORE_JS_SOURCE)) {
-    throw new Error('core-js-bundle introuvable. Lance npm install avant de builder Android Legacy.');
-  }
-  fs.copyFileSync(CORE_JS_SOURCE, CORE_JS_TARGET);
-}
-
-function patchCss() {
-  const cssPath = path.join(LEGACY_DIST, 'style.css');
-  write(cssPath, legacyCss(read(cssPath)));
-}
-
-copyDist();
-const lightweightImageCount = replaceHeroImagesWithCardImages();
-copyPolyfill();
-JS_FILES.forEach(transformJs);
-patchCss();
-patchHtmlFiles();
-
-console.log(`Assets Android Legacy compatibles moteur embarque OK: ${LEGACY_DIST}`);
-console.log(`Images HD remplacees par miniatures dans l APK Legacy: ${lightweightImageCount}`);
+buildLiteAssets();

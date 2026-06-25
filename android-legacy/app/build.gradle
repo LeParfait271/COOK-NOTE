@@ -3,7 +3,7 @@ plugins {
 }
 
 def repoRoot = rootProject.projectDir.parentFile
-def legacyAssetRoot = new File(repoRoot, 'android-legacy/build/generated/cook-note-www')
+def legacyAssetRoot = new File(repoRoot, 'android-legacy/build/generated/cook-note-lite')
 def appJs = new File(repoRoot, 'app.js').text
 def versionMatch = appJs =~ /const SITE_VERSION = 'v(\d+)\.(\d+)'/
 if (!versionMatch.find()) {
@@ -27,30 +27,30 @@ android {
     }
 
     androidResources {
-        noCompress += ['html', 'js', 'css', 'json']
-    }
-
-    packaging {
-        jniLibs {
-            useLegacyPackaging = true
-        }
+        noCompress += ['json']
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-}
 
-dependencies {
-    implementation 'org.mozilla.geckoview:geckoview-armeabi-v7a:91.0.20210830133508'
+    sourceSets {
+        main {
+            assets.srcDirs = [legacyAssetRoot]
+        }
+    }
 }
 
 tasks.register('syncCookNoteDist', Sync) {
-    from(legacyAssetRoot.exists() ? legacyAssetRoot : new File(repoRoot, 'dist'))
-    into(layout.projectDirectory.dir('src/main/assets/www'))
-    exclude('assets/recipe-images/**')
-    exclude('downloads/**')
+    from(legacyAssetRoot)
+    into(layout.projectDirectory.dir('build/generated/empty-sync-marker'))
+    include('recipes-lite.json')
+    doFirst {
+        if (!legacyAssetRoot.exists()) {
+            throw new GradleException('Assets Android Legacy Native Lite introuvables. Lance scripts/build-android-legacy-assets.js avant Gradle.')
+        }
+    }
 }
 
 preBuild.dependsOn('syncCookNoteDist')

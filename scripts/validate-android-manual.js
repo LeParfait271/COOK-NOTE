@@ -9,6 +9,10 @@ function read(relativePath) {
   return fs.readFileSync(path.join(ROOT, relativePath), 'utf8');
 }
 
+function exists(relativePath) {
+  return fs.existsSync(path.join(ROOT, relativePath));
+}
+
 function expect(label, condition) {
   if (!condition) errors.push(label);
 }
@@ -33,10 +37,12 @@ const androidModernBuildGradle = read('android-modern/app/build.gradle');
 const androidLegacySettingsGradle = read('android-legacy/settings.gradle');
 const androidLegacyManifest = read('android-legacy/app/src/main/AndroidManifest.xml');
 const androidLegacyMainActivity = read('android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java');
+const androidLegacyRepository = read('android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java');
+const androidLegacyImageLoader = read('android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java');
+const androidLegacyAdapter = read('android-legacy/app/src/main/java/fr/cooknote/legacy/RecipeAdapter.java');
 const androidModernMainActivity = read('android-modern/app/src/main/java/fr/cooknote/modern/MainActivity.java');
 
-const normalSiteScripts = ['build', 'check', 'preflight', 'dev', 'start'];
-normalSiteScripts.forEach(scriptName => {
+['build', 'check', 'preflight', 'dev', 'start'].forEach(scriptName => {
   const command = packageJson.scripts?.[scriptName] || '';
   expect(
     `Le script npm ${scriptName} ne doit jamais builder l'APK Android.`,
@@ -89,57 +95,52 @@ expect(
   '.gradle/',
   'build/',
   'local.properties',
-  'app/build/',
-  'app/src/main/assets/www/'
+  'app/build/'
 ].forEach(fragment => {
   expect(`android-legacy/.gitignore doit ignorer ${fragment}`, androidGitignore.includes(fragment));
   expect(`android-modern/.gitignore doit ignorer ${fragment}`, androidModernGitignore.includes(fragment));
 });
+expect(
+  'android-modern/.gitignore doit ignorer les assets web generes.',
+  androidModernGitignore.includes('app/src/main/assets/www/')
+);
 
 expect(
-  'Le script APK doit synchroniser dist seulement quand on le lance explicitement.',
+  'Le script APK doit synchroniser les assets seulement quand on le lance explicitement.',
   androidBuildGradle.includes('syncCookNoteDist') && buildScript.includes('APK Cook Note Android Legacy OK')
     && androidModernBuildGradle.includes('syncCookNoteDist') && buildModernScript.includes('APK Cook Note Android Modern OK')
 );
 expect(
-  'Android Legacy doit passer par des assets compatibles moteur ancien.',
+  'Android Legacy doit etre une app native Lite, pas un wrapper web lourd.',
   buildScript.includes('node scripts/build-android-legacy-assets.js')
-    && androidBuildGradle.includes('legacyAssetRoot')
-    && androidBuildGradle.includes('android-legacy/build/generated/cook-note-www')
-    && androidBuildGradle.includes('org.mozilla.geckoview:geckoview-armeabi-v7a')
-    && androidLegacySettingsGradle.includes('maven.mozilla.org/maven2')
-    && legacyAssetsScript.includes('@babel/core')
-    && legacyAssetsScript.includes('@babel/preset-env')
-    && legacyAssetsScript.includes("targets: { chrome: '37', android: '5' }")
-    && legacyAssetsScript.includes('core-js-bundle.min.js')
-    && legacyAssetsScript.includes('Service worker disabled in Android Legacy')
-    && legacyAssetsScript.includes('id="loading-screen"')
-    && legacyAssetsScript.includes('legacyCss')
-    && legacyAssetsScript.includes('color-mix')
-    && legacyAssetsScript.includes('display\\s*:\\s*grid')
-    && legacyAssetsScript.includes('cook-note-legacy-error')
-    && legacyAssetsScript.includes('URLSearchParams')
-    && legacyAssetsScript.includes('replaceHeroImagesWithCardImages')
-    && legacyAssetsScript.includes('recipe-images-optimized')
-    && legacyAssetsScript.includes('recipe-card-images')
-    && packageJson.devDependencies?.['@babel/core']
-    && packageJson.devDependencies?.['@babel/preset-env']
-    && packageJson.devDependencies?.['core-js-bundle']
+    && buildScript.includes('$LegacyApkOutput')
+    && androidBuildGradle.includes('cook-note-lite')
+    && androidBuildGradle.includes('assets.srcDirs = [legacyAssetRoot]')
+    && androidBuildGradle.includes("noCompress += ['json']")
+    && !androidBuildGradle.includes('org.mozilla.geckoview')
+    && !androidLegacySettingsGradle.includes('maven.mozilla.org/maven2')
+    && !androidLegacyManifest.includes('android.permission.INTERNET')
+    && !androidLegacyManifest.includes('usesCleartextTraffic')
+    && !androidLegacyManifest.includes('largeHeap')
+    && androidLegacyMainActivity.includes('ListView')
+    && androidLegacyMainActivity.includes('RecipeAdapter')
+    && androidLegacyRepository.includes('recipes-lite.json')
+    && androidLegacyImageLoader.includes('RGB_565')
+    && androidLegacyImageLoader.includes('LruCache')
+    && androidLegacyAdapter.includes('BaseAdapter')
+    && !/Gecko|WebView|ServerSocket|127\.0\.0\.1|LocalAssetServer/.test(androidLegacyMainActivity + androidLegacyRepository + androidLegacyImageLoader)
 );
 expect(
-  'Android Legacy doit utiliser GeckoView embarque et un serveur local pour eviter la dependance au WebView systeme.',
-  androidLegacyManifest.includes('android.permission.INTERNET')
-    && androidLegacyManifest.includes('android:usesCleartextTraffic="true"')
-    && androidLegacyManifest.includes('android:largeHeap="true"')
-    && androidBuildGradle.includes('useLegacyPackaging = true')
-    && androidLegacyMainActivity.includes('GeckoView')
-    && androidLegacyMainActivity.includes('GeckoRuntime.create')
-    && androidLegacyMainActivity.includes('LocalAssetServer')
-    && androidLegacyMainActivity.includes('ServerSocket')
-    && androidLegacyMainActivity.includes('127.0.0.1')
-    && androidLegacyMainActivity.includes('www/" + assetPath')
-    && androidLegacyMainActivity.includes('GeckoSession.NavigationDelegate')
-    && androidLegacyMainActivity.includes('showNativeError')
+  'Les assets Android Legacy doivent etre generes en catalogue natif allege.',
+  legacyAssetsScript.includes("require('jpeg-js')")
+    && legacyAssetsScript.includes('MAX_IMAGE_WIDTH = 480')
+    && legacyAssetsScript.includes('JPEG_QUALITY')
+    && legacyAssetsScript.includes('recipes-lite.json')
+    && legacyAssetsScript.includes('android-legacy-native-lite')
+    && legacyAssetsScript.includes('copyLiteImage')
+    && legacyAssetsScript.includes('recipe-card-images')
+    && legacyAssetsScript.includes('recipe-images-optimized')
+    && packageJson.devDependencies?.['jpeg-js']
 );
 expect(
   'Le script de mise a jour groupee doit fabriquer et copier les deux APK Android ensemble.',
@@ -166,24 +167,20 @@ expect(
 expect(
   'Les APK telechargeables doivent rester hors dist Cloudflare Pages.',
   !buildSiteScript.includes("'downloads'")
-    && fs.existsSync(path.join(ROOT, 'downloads', 'cook-note-android-legacy.apk'))
-    && fs.existsSync(path.join(ROOT, 'downloads', 'cook-note-android-modern.apk'))
-    && !fs.existsSync(path.join(ROOT, 'dist', 'downloads'))
+    && exists('downloads/cook-note-android-legacy.apk')
+    && exists('downloads/cook-note-android-modern.apk')
+    && !exists('dist/downloads')
 );
 expect(
   'Les APK servis depuis GitHub Raw ne doivent pas remplir le cache PWA local.',
   serviceWorker.includes("url.pathname.startsWith('/downloads/')")
 );
 expect(
-  'Android Modern doit etre optimise pour lecture locale fluide.',
-    androidModernBuildGradle.includes("tasks.register('syncCookNoteDist', Sync)")
-    && androidBuildGradle.includes("tasks.register('syncCookNoteDist', Sync)")
+  'Android Modern doit rester optimise pour lecture locale fluide.',
+  androidModernBuildGradle.includes("tasks.register('syncCookNoteDist', Sync)")
     && androidModernBuildGradle.includes("noCompress += ['html', 'js', 'css', 'json']")
-    && androidBuildGradle.includes("noCompress += ['html', 'js', 'css', 'json']")
     && !androidModernBuildGradle.includes("'jpg'")
-    && !androidBuildGradle.includes("'jpg'")
     && androidModernBuildGradle.includes("exclude('downloads/**')")
-    && androidBuildGradle.includes("exclude('downloads/**')")
     && androidModernMainActivity.includes('setOffscreenPreRaster(true)')
     && androidModernMainActivity.includes('responseHeaders')
 );
@@ -197,32 +194,31 @@ expect(
   'cook-note-android-legacy.apk',
   'apps-vX.YY',
   '/downloads/',
-  'app/src/main/assets/www/',
   'commit/push du site ne change pas l APK installe',
   'Android 5.0',
   'npm run apps:update-all',
   'mise a jour groupee',
   'Ne jamais publier un seul APK',
   'scripts/build-android-legacy-assets.js',
-  'core-js-bundle.min.js',
-  'JS ES5',
-  'service worker desactive',
-  'CSS Legacy sans `var()`',
-  'color-mix()',
-  'CSS Grid',
-  'panneau d erreur visible',
-  'GeckoView',
-  'WebView systeme',
-  'serveur HTTP local',
-  '100 MiB',
-  'recipe-images-optimized'
+  'Native Lite',
+  'recipes-lite.json',
+  '480px',
+  'jpeg-js',
+  'ListView',
+  'RGB_565',
+  'sans WebView systeme et sans GeckoView',
+  'assets/www'
 ].forEach(fragment => {
   expect(`Documentation Android manuelle incomplete (${fragment}).`, workflowDoc.includes(fragment));
 });
 
 expect(
   'android-legacy/README.md doit pointer vers la documentation complete.',
-  androidReadme.includes('docs/android-legacy-workflow.md') && androidReadme.includes('update-apk') && androidReadme.includes('publish-release') && androidReadme.includes('cook-note-android-legacy.apk')
+  androidReadme.includes('docs/android-legacy-workflow.md')
+    && androidReadme.includes('Native Lite')
+    && androidReadme.includes('update-all')
+    && androidReadme.includes('publish-all')
+    && androidReadme.includes('cook-note-android-legacy.apk')
 );
 expect(
   'android-modern/README.md doit documenter le workflow moderne.',
@@ -247,12 +243,13 @@ expect(
   'Mise a jour groupee obligatoire',
   'Ne jamais publier un seul APK',
   'scripts/build-android-legacy-assets.js',
-  'core-js-bundle.min.js',
-  'CSS Grid',
-  'ecran noir',
-  'GeckoView',
-  'WebView systeme',
-  '100 MiB'
+  'Native Lite',
+  'recipes-lite.json',
+  '480px',
+  'jpeg-js',
+  'ListView',
+  'RGB_565',
+  'sans GeckoView'
 ].forEach(fragment => {
   expect(`Documentation globale apps incomplete (${fragment}).`, appsWorkflowDoc.includes(fragment));
 });
@@ -273,7 +270,7 @@ if (gitTracked.status === 0) {
   const trackedForbidden = gitTracked.stdout
     .split(/\r?\n/)
     .filter(Boolean)
-    .filter(file => /\.(apk|aab)$/.test(file) || file.includes('/src/main/assets/www/'));
+    .filter(file => /\.(apk|aab)$/.test(file) || file.includes('/src/main/assets/www/') || file.includes('/build/generated/cook-note-lite/'));
   expect(
     `Artefacts Android generes suivis par Git: ${trackedForbidden.join(', ')}`,
     trackedForbidden.length === 0

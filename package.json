@@ -43,10 +43,7 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "@babel/core": "^8.0.1",
-    "@babel/preset-env": "^8.0.2",
     "@playwright/test": "^1.53.1",
-    "core-js-bundle": "^3.49.0",
     "jpeg-js": "^0.4.4"
   }
 }

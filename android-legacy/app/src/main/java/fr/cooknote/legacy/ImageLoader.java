@@ -1,0 +1,123 @@
+package fr.cooknote.legacy;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.LruCache;
+import android.widget.ImageView;
+
+import java.io.InputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+final class ImageLoader {
+    private final Context context;
+    private final LruCache<String, Bitmap> cache;
+    private final ExecutorService executor;
+    private final Handler mainHandler;
+    private final ColorDrawable placeholder;
+
+    ImageLoader(Context context) {
+        this.context = context.getApplicationContext();
+        int maxMemoryKb = (int) (Runtime.getRuntime().maxMemory() / 1024);
+        int cacheKb = Math.min(6 * 1024, Math.max(2 * 1024, maxMemoryKb / 10));
+        this.cache = new LruCache<String, Bitmap>(cacheKb) {
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap) {
+                return bitmap.getByteCount() / 1024;
+            }
+        };
+        this.executor = Executors.newSingleThreadExecutor();
+        this.mainHandler = new Handler(Looper.getMainLooper());
+        this.placeholder = new ColorDrawable(Color.rgb(18, 16, 12));
+    }
+
+    void load(final String imageName, final ImageView imageView, final int requestedWidth, final int requestedHeight) {
+        if (imageName == null || imageName.length() == 0) {
+            imageView.setImageDrawable(placeholder);
+            return;
+        }
+        imageView.setTag(imageName);
+        Bitmap cached = cache.get(imageName);
+        if (cached != null) {
+            imageView.setImageBitmap(cached);
+            return;
+        }
+        imageView.setImageDrawable(placeholder);
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                final Bitmap bitmap = decode(imageName, requestedWidth, requestedHeight);
+                if (bitmap != null) cache.put(imageName, bitmap);
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Object tag = imageView.getTag();
+                        if (imageName.equals(tag) && bitmap != null) {
+                            imageView.setImageBitmap(bitmap);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    void shutdown() {
+        executor.shutdownNow();
+        cache.evictAll();
+    }
+
+    private Bitmap decode(String imageName, int requestedWidth, int requestedHeight) {
+        String assetPath = "images/" + imageName;
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        InputStream stream = null;
+        try {
+            stream = context.getAssets().open(assetPath);
+            BitmapFactory.decodeStream(stream, null, bounds);
+        } catch (Exception ignored) {
+            return null;
+        } finally {
+            close(stream);
+        }
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        options.inDither = true;
+        options.inSampleSize = sampleSize(bounds.outWidth, bounds.outHeight, requestedWidth, requestedHeight);
+
+        try {
+            stream = context.getAssets().open(assetPath);
+            return BitmapFactory.decodeStream(stream, null, options);
+        } catch (Exception ignored) {
+            return null;
+        } finally {
+            close(stream);
+        }
+    }
+
+    private static int sampleSize(int width, int height, int requestedWidth, int requestedHeight) {
+        int sample = 1;
+        if (height > requestedHeight || width > requestedWidth) {
+            int halfHeight = height / 2;
+            int halfWidth = width / 2;
+            while ((halfHeight / sample) >= requestedHeight && (halfWidth / sample) >= requestedWidth) {
+                sample *= 2;
+            }
+        }
+        return Math.max(1, sample);
+    }
+
+    private static void close(InputStream stream) {
+        if (stream == null) return;
+        try {
+            stream.close();
+        } catch (Exception ignored) {
+            // Nothing to close.
+        }
+    }
+}
