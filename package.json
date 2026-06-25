@@ -11,6 +11,7 @@
     "android:legacy:apk": "powershell.exe -ExecutionPolicy Bypass -File .\\scripts\\build-android-legacy.ps1",
     "android:legacy:update-apk": "powershell.exe -ExecutionPolicy Bypass -File .\\scripts\\build-android-legacy.ps1",
     "android:legacy:setup": "powershell.exe -ExecutionPolicy Bypass -File .\\scripts\\setup-android-legacy-tools.ps1",
+    "android:legacy:publish-release": "powershell.exe -ExecutionPolicy Bypass -File .\\scripts\\publish-android-release.ps1",
     "build": "node scripts/build-site.js",
     "bump:version": "node scripts/bump-version.js --next",
     "generate:image-manifest": "node scripts/generate-image-manifest.js",

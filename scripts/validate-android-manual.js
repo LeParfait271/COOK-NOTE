@@ -19,6 +19,7 @@ const androidGitignore = read('android-legacy/.gitignore');
 const androidReadme = read('android-legacy/README.md');
 const workflowDoc = read('docs/android-legacy-workflow.md');
 const buildScript = read('scripts/build-android-legacy.ps1');
+const publishScript = read('scripts/publish-android-release.ps1');
 const androidBuildGradle = read('android-legacy/app/build.gradle');
 
 const normalSiteScripts = ['build', 'check', 'preflight', 'dev', 'start'];
@@ -26,7 +27,7 @@ normalSiteScripts.forEach(scriptName => {
   const command = packageJson.scripts?.[scriptName] || '';
   expect(
     `Le script npm ${scriptName} ne doit jamais builder l'APK Android.`,
-    !/build-android-legacy|android:legacy:(?:apk|update|setup)/.test(command)
+    !/build-android-legacy|publish-android-release|android:legacy:(?:apk|update|setup|publish)/.test(command)
   );
 });
 
@@ -37,6 +38,10 @@ expect(
 expect(
   'Le setup Android doit rester une commande explicite.',
   packageJson.scripts?.['android:legacy:setup']?.includes('setup-android-legacy-tools.ps1')
+);
+expect(
+  'La publication GitHub de l APK doit rester une commande explicite.',
+  packageJson.scripts?.['android:legacy:publish-release']?.includes('publish-android-release.ps1')
 );
 expect(
   'Le validateur Android manuel doit etre branche au check.',
@@ -61,12 +66,19 @@ expect(
   'Le script APK doit echouer si Gradle echoue.',
   buildScript.includes('$LASTEXITCODE') && buildScript.includes('Gradle a echoue')
 );
+expect(
+  'Le script de publication Android doit pousser un asset GitHub stable.',
+  publishScript.includes('gh release') && publishScript.includes('cook-note-android.apk') && publishScript.includes('releases/latest/download')
+);
 
 [
   'Android Legacy',
   'projet secondaire',
   'ne se met pas a jour automatiquement',
   'npm run android:legacy:update-apk',
+  'npm run android:legacy:publish-release',
+  'cook-note-android.apk',
+  'releases/latest/download',
   'app/src/main/assets/www/',
   'commit/push du site ne change pas l APK installe',
   'Android 5.0'
@@ -76,7 +88,7 @@ expect(
 
 expect(
   'android-legacy/README.md doit pointer vers la documentation complete.',
-  androidReadme.includes('docs/android-legacy-workflow.md') && androidReadme.includes('update-apk')
+  androidReadme.includes('docs/android-legacy-workflow.md') && androidReadme.includes('update-apk') && androidReadme.includes('publish-release')
 );
 
 const gitTracked = spawnSync('git', ['ls-files', 'android-legacy'], {

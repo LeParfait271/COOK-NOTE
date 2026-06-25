@@ -72,6 +72,16 @@ Construire une nouvelle APK quand l'utilisateur le demande explicitement :
 npm run android:legacy:update-apk
 ```
 
+Publier l APK courant sur GitHub Releases, seulement sur demande explicite :
+
+```powershell
+npm run android:legacy:publish-release
+```
+
+Cette commande demande GitHub CLI (`gh`) authentifie. Elle cree ou met a jour
+une release `android-vX.YY` et publie l APK sous le nom stable
+`cook-note-android.apk`.
+
 Construire sans relancer le build web, si `dist/` est deja a jour :
 
 ```powershell
@@ -89,6 +99,23 @@ Verifier le comportement manuel Android :
 ```powershell
 npm run validate:android
 ```
+
+## Installation depuis le site
+
+Le footer du site contient un bouton `Installer Android`. Il pointe vers l asset
+GitHub Release stable :
+
+```text
+https://github.com/LeParfait271/COOK-NOTE/releases/latest/download/cook-note-android.apk
+```
+
+Cette URL reste la meme d une version Android a l autre. Le site peut donc etre
+publie sans reconstruire l APK. Tant qu une nouvelle release Android n est pas
+publiee explicitement, le bouton continue de telecharger le dernier APK Android
+valide.
+
+Le fichier APK ne doit pas etre ajoute au depot Git. Il doit rester un artefact
+de GitHub Release.
 
 ## Workflow quand on travaille seulement sur le site
 
@@ -110,8 +137,10 @@ C est voulu.
    - `aapt dump badging android-legacy/app/build/outputs/apk/debug/app-debug.apk`
    - `apksigner verify --verbose android-legacy/app/build/outputs/apk/debug/app-debug.apk`
 5. Ne pas committer l APK : c est un artefact local ignore.
-6. Commit/push seulement les changements de code ou de documentation necessaires.
-7. Donner le chemin local de l APK a l utilisateur.
+6. Si l utilisateur demande une installation depuis le site, lancer
+   `npm run android:legacy:publish-release` apres authentification GitHub CLI.
+7. Commit/push seulement les changements de code ou de documentation necessaires.
+8. Donner le chemin local de l APK et/ou l URL GitHub Release a l utilisateur.
 
 ## Fichiers importants
 
@@ -120,6 +149,8 @@ C est voulu.
 - `android-legacy/app/build.gradle` lit `SITE_VERSION` dans `app.js` pour
   produire `versionName` et `versionCode`.
 - `scripts/build-android-legacy.ps1` construit l APK.
+- `scripts/publish-android-release.ps1` publie l APK local sur GitHub Releases
+  avec l asset stable `cook-note-android.apk`.
 - `scripts/setup-android-legacy-tools.ps1` installe JDK, Gradle et Android SDK
   dans `%LOCALAPPDATA%\CookNoteAndroidTools`.
 - `scripts/validate-android-manual.js` bloque les regressions qui brancheraient
@@ -131,7 +162,7 @@ C est voulu.
   `npm run preflight`, `start` ou `dev`.
 - Ne pas versionner `android-legacy/app/src/main/assets/www/`.
 - Ne pas versionner les APK ou AAB.
+- Ne pas publier une nouvelle release APK sans demande explicite.
 - Ne pas traiter l APK comme la source de verite des recettes.
 - Ne pas modifier les recettes pour l app Android sans demande separee.
 - Ne pas supposer qu un push du site doit mettre a jour la tablette.
-

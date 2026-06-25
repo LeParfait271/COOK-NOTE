@@ -74,8 +74,9 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.79';
+const SITE_VERSION = 'v1.80';
 const SITE_UPDATED_AT = '25/06/26';
+const ANDROID_APK_DOWNLOAD_URL = 'https://github.com/LeParfait271/COOK-NOTE/releases/latest/download/cook-note-android.apk';
 const SITE_CACHE_VERSION = SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`);
 const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
 const DEFERRED_CATALOG_CHUNK_SRCS = [2, 3, 4].map(index => `/assets/catalog-${index}.js?v=${SITE_CACHE_VERSION}`);
@@ -4196,6 +4197,11 @@ const ICON_PATHS = {
     'M11 12h4',
     'M11 16h3'
   ],
+  download: [
+    'M12 4v10',
+    'M7 10l5 5 5-5',
+    'M5 19h14'
+  ],
   arrowUp: [
     'M12 20V5',
     'M6 11l6-6 6 6'
@@ -7200,11 +7206,19 @@ function App() {
           h('span', { className: 'site-footer-count' }, catalogStats.label),
           h('span', { className: 'site-footer-version' }, `${SITE_VERSION} / ${SITE_UPDATED_AT}`)
         ),
-        h('button', {
-          type: 'button',
-          className: 'site-footer-top',
-          onClick: () => window.scrollTo({ top: 0, behavior: preferences.reduceMotion ? 'auto' : 'smooth' })
-        }, h(Icon, { name: 'arrowUp' }), h('span', null, 'Retour haut'))
+        h('div', { className: 'site-footer-actions' },
+          h('a', {
+            className: 'site-footer-action site-footer-install',
+            href: ANDROID_APK_DOWNLOAD_URL,
+            rel: 'noopener noreferrer',
+            title: 'Telecharger l APK Android depuis GitHub'
+          }, h(Icon, { name: 'download' }), h('span', null, 'Installer Android')),
+          h('button', {
+            type: 'button',
+            className: 'site-footer-action site-footer-top',
+            onClick: () => window.scrollTo({ top: 0, behavior: preferences.reduceMotion ? 'auto' : 'smooth' })
+          }, h(Icon, { name: 'arrowUp' }), h('span', null, 'Retour haut'))
+        )
       )
     ),
     h(ShoppingBasketPanel, {

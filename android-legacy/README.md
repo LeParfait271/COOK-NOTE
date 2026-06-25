@@ -39,6 +39,24 @@ Si Java, Gradle ou Android SDK sont absents :
 npm run android:legacy:setup
 ```
 
+## Publication GitHub
+
+Le site peut proposer le bouton `Installer Android` en bas de page. Ce bouton
+pointe vers l asset stable GitHub Releases :
+
+```text
+https://github.com/LeParfait271/COOK-NOTE/releases/latest/download/cook-note-android.apk
+```
+
+Ne publier cette APK que sur demande explicite :
+
+```powershell
+npm run android:legacy:publish-release
+```
+
+Cette commande demande `gh` authentifie et ne doit pas etre branchee au build
+normal du site.
+
 ## Garde-fou
 
 ```powershell

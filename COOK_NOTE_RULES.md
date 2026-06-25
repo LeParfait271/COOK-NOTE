@@ -101,6 +101,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Toujours lancer le check complet avant commit : `powershell.exe -ExecutionPolicy Bypass -File .\check.ps1`.
 - L'app Android Legacy est un projet secondaire manuel : elle ne doit jamais se mettre a jour automatiquement quand le site change, ni etre branchee a `npm run build`, `npm run check`, `npm run preflight`, `start` ou `dev`.
 - Construire l'APK Android uniquement sur demande explicite utilisateur avec `npm run android:legacy:update-apk`. Le fonctionnement complet doit rester documente dans `docs/android-legacy-workflow.md`.
+- Publier l'APK Android sur GitHub Releases uniquement sur demande explicite utilisateur avec `npm run android:legacy:publish-release`. Le bouton site `Installer Android` doit pointer vers l'asset stable `https://github.com/LeParfait271/COOK-NOTE/releases/latest/download/cook-note-android.apk`, sans ajouter l'APK dans `dist/` ni dans Git.
 - Les assets APK generes dans `android-legacy/app/src/main/assets/www/`, les dossiers Gradle/build et les fichiers `.apk`/`.aab` ne doivent pas etre versionnes. Le validateur `npm run validate:android` doit rester branche au check.
 - Avant un push visible, lancer le preflight quand la modification touche l'UI, les recettes, le cache, le service worker ou les images : `node scripts/preflight.js`.
 - Les versions cache/site doivent etre synchronisees par `node scripts/bump-version.js --next` ou validees par `node scripts/validate-cache-version.js`.
