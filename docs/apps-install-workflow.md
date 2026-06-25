@@ -15,12 +15,16 @@ Le footer du site doit proposer quatre installations distinctes :
 - `iOS ancien` : installation PWA Safari guidee
 - `iOS recent` : installation PWA Safari guidee
 
-Les deux liens Android pointent vers GitHub Releases :
+Les deux liens Android pointent vers les fichiers servis par le site :
 
 ```text
-https://github.com/LeParfait271/COOK-NOTE/releases/latest/download/cook-note-android-legacy.apk
-https://github.com/LeParfait271/COOK-NOTE/releases/latest/download/cook-note-android-modern.apk
+/downloads/cook-note-android-legacy.apk
+/downloads/cook-note-android-modern.apk
 ```
+
+Les copies telechargeables sont versionnees dans `downloads/` et copiees dans
+`dist/downloads/` par `npm run build`. Les APK generes dans les dossiers Android
+restent des artefacts locaux ignores.
 
 Les deux boutons iOS ouvrent un panneau d'aide dans le site. Ils ne doivent pas pretendre telecharger un `.ipa` directement.
 
@@ -107,9 +111,16 @@ cook-note-android-modern.apk
 `gh` doit etre installe et authentifie avec `gh auth login`. Si `gh` est absent,
 le script doit echouer proprement sans modifier Git ni l APK.
 
+La Release GitHub est optionnelle. Les boutons du site ne dependent pas de `gh`
+tant que les copies `downloads/*.apk` sont presentes dans le depot et dans
+`dist/`.
+
 ## Regles de travail
 
-- Ne jamais ajouter les APK ou AAB au depot Git.
+- Ne jamais versionner les APK generes dans `android-legacy/` ou `android-modern/`.
+- Les seules copies APK autorisees dans Git sont `downloads/cook-note-android-legacy.apk`,
+  `downloads/cook-note-android-modern.apk` et leurs copies publiques dans
+  `dist/downloads/`, apres demande explicite de publication app.
 - Ne jamais versionner `android-legacy/app/src/main/assets/www/`.
 - Ne jamais versionner `android-modern/app/src/main/assets/www/`.
 - Ne jamais brancher Android ou iOS a `npm run build`, `npm run check`,

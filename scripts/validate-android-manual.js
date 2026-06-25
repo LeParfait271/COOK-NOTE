@@ -21,6 +21,9 @@ const androidReadme = read('android-legacy/README.md');
 const androidModernReadme = read('android-modern/README.md');
 const workflowDoc = read('docs/android-legacy-workflow.md');
 const appsWorkflowDoc = read('docs/apps-install-workflow.md');
+const buildSiteScript = read('scripts/build-site.js');
+const serviceWorker = read('service-worker.js');
+const headers = read('_headers');
 const buildScript = read('scripts/build-android-legacy.ps1');
 const buildModernScript = read('scripts/build-android-modern.ps1');
 const publishScript = read('scripts/publish-android-release.ps1');
@@ -95,12 +98,29 @@ expect(
     && publishScript.includes('apps-v$VersionName')
     && publishScript.includes('cook-note-android-legacy.apk')
     && publishScript.includes('cook-note-android-modern.apk')
-    && publishScript.includes('releases/latest/download')
+);
+expect(
+  'Les APK telechargeables doivent etre copies dans dist par le build site.',
+  buildSiteScript.includes("'downloads'")
+    && fs.existsSync(path.join(ROOT, 'downloads', 'cook-note-android-legacy.apk'))
+    && fs.existsSync(path.join(ROOT, 'downloads', 'cook-note-android-modern.apk'))
+);
+expect(
+  'Les APK servis par le site ne doivent pas remplir le cache PWA.',
+  serviceWorker.includes("url.pathname.startsWith('/downloads/')")
+    && headers.includes('/downloads/*.apk')
+    && headers.includes('application/vnd.android.package-archive')
 );
 expect(
   'Android Modern doit etre optimise pour lecture locale fluide.',
-  androidModernBuildGradle.includes('noCompress')
-    && androidBuildGradle.includes('noCompress')
+    androidModernBuildGradle.includes("tasks.register('syncCookNoteDist', Sync)")
+    && androidBuildGradle.includes("tasks.register('syncCookNoteDist', Sync)")
+    && androidModernBuildGradle.includes("noCompress += ['html', 'js', 'css', 'json']")
+    && androidBuildGradle.includes("noCompress += ['html', 'js', 'css', 'json']")
+    && !androidModernBuildGradle.includes("'jpg'")
+    && !androidBuildGradle.includes("'jpg'")
+    && androidModernBuildGradle.includes("exclude('downloads/**')")
+    && androidBuildGradle.includes("exclude('downloads/**')")
     && androidModernMainActivity.includes('setOffscreenPreRaster(true)')
     && androidModernMainActivity.includes('responseHeaders')
 );
@@ -113,7 +133,7 @@ expect(
   'npm run android:legacy:publish-release',
   'cook-note-android-legacy.apk',
   'apps-vX.YY',
-  'releases/latest/download',
+  '/downloads/',
   'app/src/main/assets/www/',
   'commit/push du site ne change pas l APK installe',
   'Android 5.0'
@@ -139,6 +159,7 @@ expect(
   'iOS recent',
   'cook-note-android-legacy.apk',
   'cook-note-android-modern.apk',
+  '/downloads/',
   'Ajouter a l ecran d accueil',
   'ne doivent pas pretendre telecharger un `.ipa`'
 ].forEach(fragment => {
@@ -165,6 +186,28 @@ if (gitTracked.status === 0) {
   expect(
     `Artefacts Android generes suivis par Git: ${trackedForbidden.join(', ')}`,
     trackedForbidden.length === 0
+  );
+}
+
+const globalTracked = spawnSync('git', ['ls-files'], {
+  cwd: ROOT,
+  encoding: 'utf8',
+  shell: false
+});
+if (globalTracked.status === 0) {
+  const allowedApks = new Set([
+    'downloads/cook-note-android-legacy.apk',
+    'downloads/cook-note-android-modern.apk',
+    'dist/downloads/cook-note-android-legacy.apk',
+    'dist/downloads/cook-note-android-modern.apk'
+  ]);
+  const forbiddenApks = globalTracked.stdout
+    .split(/\r?\n/)
+    .filter(Boolean)
+    .filter(file => /\.(apk|aab)$/.test(file) && !allowedApks.has(file.replace(/\\/g, '/')));
+  expect(
+    `APK/AAB suivis hors emplacements autorises: ${forbiddenApks.join(', ')}`,
+    forbiddenApks.length === 0
   );
 }
 

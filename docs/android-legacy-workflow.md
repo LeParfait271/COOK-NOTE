@@ -104,20 +104,21 @@ npm run validate:android
 
 ## Installation depuis le site
 
-Le footer du site contient un bouton `Android 5`. Il pointe vers l asset
-GitHub Release stable :
+Le footer du site contient un bouton `Android 5`. Il pointe vers la copie APK
+servie par Cloudflare Pages :
 
 ```text
-https://github.com/LeParfait271/COOK-NOTE/releases/latest/download/cook-note-android-legacy.apk
+/downloads/cook-note-android-legacy.apk
 ```
 
-Cette URL reste la meme d une version Android a l autre. Le site peut donc etre
-publie sans reconstruire l APK. Tant qu une nouvelle release Android n est pas
-publiee explicitement, le bouton continue de telecharger le dernier APK Android
-valide.
+Cette URL reste la meme d une version Android a l autre. Le fichier source
+autorise est `downloads/cook-note-android-legacy.apk`, copie automatiquement en
+`dist/downloads/cook-note-android-legacy.apk` par `npm run build`.
 
-Le fichier APK ne doit pas etre ajoute au depot Git. Il doit rester un artefact
-de GitHub Release.
+Les APK generes dans `android-legacy/` ne doivent pas etre ajoutes au depot Git.
+Seule la copie telechargeable `downloads/cook-note-android-legacy.apk` est
+versionnee quand l utilisateur demande explicitement une publication app depuis
+le site.
 
 ## Workflow quand on travaille seulement sur le site
 
@@ -138,11 +139,14 @@ C est voulu.
 4. Verifier l APK :
    - `aapt dump badging android-legacy/app/build/outputs/apk/debug/app-debug.apk`
    - `apksigner verify --verbose android-legacy/app/build/outputs/apk/debug/app-debug.apk`
-5. Ne pas committer l APK : c est un artefact local ignore.
-6. Si l utilisateur demande une installation depuis le site, lancer
+5. Ne pas committer l APK depuis le dossier Android : c est un artefact local ignore.
+6. Si l utilisateur demande une installation depuis le site, copier l APK valide
+   vers `downloads/cook-note-android-legacy.apk`, relancer `npm run build`, puis
+   committer aussi `dist/downloads/cook-note-android-legacy.apk`.
+7. Si l utilisateur demande aussi une Release GitHub, lancer
    `npm run android:legacy:publish-release` apres authentification GitHub CLI.
-7. Commit/push seulement les changements de code ou de documentation necessaires.
-8. Donner le chemin local de l APK et/ou l URL GitHub Release a l utilisateur.
+8. Commit/push seulement les changements de code, documentation et copies APK demandees.
+9. Donner le chemin local de l APK et/ou l URL de telechargement du site a l utilisateur.
 
 ## Fichiers importants
 
@@ -163,7 +167,7 @@ C est voulu.
 - Ne pas ajouter le build APK dans `npm run build`, `npm run check`,
   `npm run preflight`, `start` ou `dev`.
 - Ne pas versionner `android-legacy/app/src/main/assets/www/`.
-- Ne pas versionner les APK ou AAB.
+- Ne pas versionner les APK ou AAB generes dans les dossiers Android.
 - Ne pas publier une nouvelle release APK sans demande explicite.
 - Ne pas traiter l APK comme la source de verite des recettes.
 - Ne pas modifier les recettes pour l app Android sans demande separee.

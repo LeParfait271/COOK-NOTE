@@ -26,14 +26,15 @@ android {
     }
 
     androidResources {
-        noCompress += ['html', 'js', 'css', 'json', 'jpg', 'jpeg', 'png', 'svg', 'webp']
+        noCompress += ['html', 'js', 'css', 'json']
     }
 }
 
-tasks.register('syncCookNoteDist', Copy) {
+tasks.register('syncCookNoteDist', Sync) {
     from(new File(repoRoot, 'dist'))
     into(layout.projectDirectory.dir('src/main/assets/www'))
     exclude('assets/recipe-images/**')
+    exclude('downloads/**')
 }
 
 preBuild.dependsOn('syncCookNoteDist')

@@ -74,23 +74,23 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.81';
+const SITE_VERSION = 'v1.82';
 const SITE_UPDATED_AT = '25/06/26';
-const APP_RELEASE_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/releases/latest/download';
+const APP_DOWNLOAD_BASE = '/downloads';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
     id: 'android-legacy',
     kind: 'download',
     label: 'Android 5',
     detail: 'APK tablette ancienne',
-    href: `${APP_RELEASE_DOWNLOAD_BASE}/cook-note-android-legacy.apk`
+    href: `${APP_DOWNLOAD_BASE}/cook-note-android-legacy.apk`
   },
   {
     id: 'android-modern',
     kind: 'download',
     label: 'Android recent',
     detail: 'APK fluide',
-    href: `${APP_RELEASE_DOWNLOAD_BASE}/cook-note-android-modern.apk`
+    href: `${APP_DOWNLOAD_BASE}/cook-note-android-modern.apk`
   },
   {
     id: 'ios-legacy',
