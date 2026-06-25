@@ -60,6 +60,8 @@ public class MainActivity extends Activity {
     private LinearLayout categoryStrip;
     private LinearLayout seasonStrip;
     private LinearLayout difficultyStrip;
+    private LinearLayout searchPanel;
+    private Button searchToggle;
     private TextView counterView;
     private EditText searchBox;
     private String selectedCategory = "Toutes";
@@ -68,6 +70,7 @@ public class MainActivity extends Activity {
     private String currentQuery = "";
     private boolean favoritesOnly;
     private boolean recentOnly;
+    private boolean searchPanelOpen;
     private boolean showingDetail;
     private final Stack<String> detailBackStack = new Stack<String>();
     private final Set<String> favoriteIds = new HashSet<String>();
@@ -109,14 +112,45 @@ public class MainActivity extends Activity {
         subtitle.setPadding(0, dp(2), 0, dp(2));
         header.addView(subtitle);
 
-        Button update = sectionButton("Mettre a jour l'app");
-        header.addView(update);
+        LinearLayout actionRow = new LinearLayout(this);
+        actionRow.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams actionParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        actionParams.topMargin = dp(8);
+        header.addView(actionRow, actionParams);
+
+        searchToggle = actionButton("Rechercher / filtrer", true);
+        LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(0, dp(42), 1);
+        searchParams.rightMargin = dp(8);
+        actionRow.addView(searchToggle, searchParams);
+        searchToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setSearchPanelOpen(!searchPanelOpen);
+            }
+        });
+
+        Button update = actionButton("Mise a jour", false);
+        actionRow.addView(update, new LinearLayout.LayoutParams(0, dp(42), 1));
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openUpdateDownload();
             }
         });
+
+        searchPanel = new LinearLayout(this);
+        searchPanel.setOrientation(LinearLayout.VERTICAL);
+        searchPanel.setPadding(dp(10), dp(10), dp(10), dp(10));
+        searchPanel.setBackground(panel(COLOR_CARD, COLOR_BORDER, 1, 8));
+        LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        panelParams.topMargin = dp(10);
+        header.addView(searchPanel, panelParams);
 
         searchBox = new EditText(this);
         searchBox.setSingleLine(true);
@@ -127,12 +161,12 @@ public class MainActivity extends Activity {
         searchBox.setPadding(dp(12), 0, dp(12), 0);
         searchBox.setBackground(panel(COLOR_CARD_SOFT, COLOR_BORDER, 1, 8));
         searchBox.setText(currentQuery);
-        header.addView(searchBox, new LinearLayout.LayoutParams(
+        searchPanel.addView(searchBox, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 dp(46)
         ));
 
-        quickStrip = addChipScroller(header, dp(10));
+        quickStrip = addChipScroller(searchPanel, dp(10));
         rebuildQuickChips();
 
         HorizontalScrollView scroller = new HorizontalScrollView(this);
@@ -145,14 +179,16 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
         scrollerParams.topMargin = dp(10);
-        header.addView(scroller, scrollerParams);
+        searchPanel.addView(scroller, scrollerParams);
         rebuildCategoryChips();
 
-        seasonStrip = addChipScroller(header, dp(8));
+        seasonStrip = addChipScroller(searchPanel, dp(8));
         rebuildSeasonChips();
 
-        difficultyStrip = addChipScroller(header, dp(8));
+        difficultyStrip = addChipScroller(searchPanel, dp(8));
         rebuildDifficultyChips();
+
+        setSearchPanelOpen(searchPanelOpen);
 
         counterView = text("", 12, COLOR_MUTED, true);
         counterView.setPadding(0, dp(8), 0, 0);
@@ -177,6 +213,7 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 hideKeyboard();
+                setSearchPanelOpen(false);
                 openRecipe(adapter.getItem(position), false);
             }
         });
@@ -201,7 +238,7 @@ public class MainActivity extends Activity {
         applyFilters();
     }
 
-    private LinearLayout addChipScroller(LinearLayout header, int topMargin) {
+    private LinearLayout addChipScroller(LinearLayout parent, int topMargin) {
         HorizontalScrollView scroller = new HorizontalScrollView(this);
         scroller.setHorizontalScrollBarEnabled(false);
         LinearLayout row = new LinearLayout(this);
@@ -212,11 +249,12 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
         scrollerParams.topMargin = topMargin;
-        header.addView(scroller, scrollerParams);
+        parent.addView(scroller, scrollerParams);
         return row;
     }
 
     private void rebuildQuickChips() {
+        if (quickStrip == null) return;
         quickStrip.removeAllViews();
         addFilterChip(quickStrip, "Favoris (" + favoriteIds.size() + ")", favoritesOnly, new View.OnClickListener() {
             @Override
@@ -243,6 +281,7 @@ public class MainActivity extends Activity {
     }
 
     private void rebuildCategoryChips() {
+        if (categoryStrip == null) return;
         categoryStrip.removeAllViews();
         addCategoryChip("Toutes");
         for (String category : repository.categories) {
@@ -251,6 +290,7 @@ public class MainActivity extends Activity {
     }
 
     private void rebuildSeasonChips() {
+        if (seasonStrip == null) return;
         seasonStrip.removeAllViews();
         addSeasonChip("Toutes");
         addSeasonChip("Printemps");
@@ -260,6 +300,7 @@ public class MainActivity extends Activity {
     }
 
     private void rebuildDifficultyChips() {
+        if (difficultyStrip == null) return;
         difficultyStrip.removeAllViews();
         addDifficultyChip("Toutes");
         addDifficultyChip("Facile");
@@ -329,6 +370,38 @@ public class MainActivity extends Activity {
         applyFilters();
     }
 
+    private void setSearchPanelOpen(boolean open) {
+        searchPanelOpen = open;
+        if (searchPanel != null) {
+            searchPanel.setVisibility(open ? View.VISIBLE : View.GONE);
+        }
+        if (searchToggle != null) {
+            searchToggle.setText(buildSearchToggleLabel());
+        }
+        if (open) {
+            showKeyboard();
+        } else {
+            hideKeyboard();
+        }
+    }
+
+    private String buildSearchToggleLabel() {
+        if (searchPanelOpen) return "Fermer recherche";
+        int activeFilters = countActiveFilters();
+        return activeFilters == 0 ? "Rechercher / filtrer" : "Filtres actifs (" + activeFilters + ")";
+    }
+
+    private int countActiveFilters() {
+        int count = 0;
+        if (currentQuery.trim().length() > 0) count += 1;
+        if (!"Toutes".equals(selectedCategory)) count += 1;
+        if (!"Toutes".equals(selectedSeason)) count += 1;
+        if (!"Toutes".equals(selectedDifficulty)) count += 1;
+        if (favoritesOnly) count += 1;
+        if (recentOnly) count += 1;
+        return count;
+    }
+
     private void applyFilters() {
         if (adapter == null) return;
         List<Recipe> filtered = repository.filter(
@@ -343,11 +416,13 @@ public class MainActivity extends Activity {
         adapter.setItems(filtered);
         StringBuilder label = new StringBuilder();
         label.append(filtered.size()).append(" fiches visibles");
+        if (!"Toutes".equals(selectedCategory)) label.append(" - ").append(selectedCategory);
         if (favoritesOnly) label.append(" - favoris");
         if (recentOnly) label.append(" - derniers ouverts");
         if (!"Toutes".equals(selectedSeason)) label.append(" - ").append(selectedSeason);
         if (!"Toutes".equals(selectedDifficulty)) label.append(" - ").append(selectedDifficulty);
         counterView.setText(label.toString());
+        if (searchToggle != null) searchToggle.setText(buildSearchToggleLabel());
     }
 
     private void openRecipe(Recipe recipe, boolean pushCurrent) {
@@ -732,6 +807,18 @@ public class MainActivity extends Activity {
         return button;
     }
 
+    private Button actionButton(String value, boolean primary) {
+        Button button = new Button(this);
+        button.setText(value);
+        button.setTextColor(primary ? Color.rgb(21, 17, 8) : COLOR_TEXT);
+        button.setTextSize(13);
+        button.setSingleLine(true);
+        button.setEllipsize(TextUtils.TruncateAt.END);
+        button.setTypeface(Typeface.DEFAULT_BOLD);
+        button.setBackground(panel(primary ? COLOR_ORANGE : COLOR_CARD_SOFT, primary ? COLOR_ORANGE : COLOR_BORDER, 1, 8));
+        return button;
+    }
+
     private TextView text(String value, int sp, int color, boolean bold) {
         TextView text = new TextView(this);
         text.setText(value);
@@ -910,6 +997,22 @@ public class MainActivity extends Activity {
         } catch (Exception ignored) {
             // Keep navigation responsive even if the keyboard service is unavailable.
         }
+    }
+
+    private void showKeyboard() {
+        if (searchBox == null) return;
+        searchBox.requestFocus();
+        searchBox.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (manager != null) manager.showSoftInput(searchBox, InputMethodManager.SHOW_IMPLICIT);
+                } catch (Exception ignored) {
+                    // The search panel stays usable even without a software keyboard.
+                }
+            }
+        });
     }
 
     private void showNativeError(String title, String detail) {

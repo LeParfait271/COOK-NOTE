@@ -17,7 +17,8 @@ Le mode d'emploi complet est dans
 - App native Java Native Lite, sans WebView systeme et sans GeckoView
 - Catalogue local `recipes-lite.json`
 - Images locales reduites a `480px` max pour l APK Android 5 uniquement
-- Liste recyclee, fiches natives, cache image limite
+- Accueil compact avec liste recyclee, panneau recherche/filtres replie et cache
+  image limite
 - Fonctions natives legeres : favoris locaux, derniers ouverts, filtres
   saison/difficulte, copie ingredients et bouton natif de mise a jour
 - aucun changement de recette requis pour l app
@@ -53,8 +54,8 @@ vers la copie APK stable du depot GitHub :
 https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk
 ```
 
-L app Android 5.0+ affiche aussi `Mettre a jour l'app` dans son accueil. Ce
-bouton ouvre la meme URL stable pour telecharger la nouvelle APK et l installer
+L app Android 5.0+ affiche aussi `Mise a jour` dans son accueil. Ce bouton
+ouvre la meme URL stable pour telecharger la nouvelle APK et l installer
 par-dessus l ancienne sans perdre les donnees locales.
 
 Ne publier cette APK que sur demande explicite :

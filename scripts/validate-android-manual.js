@@ -136,12 +136,16 @@ expect(
     && androidLegacyMainActivity.includes('SharedPreferences')
     && androidLegacyMainActivity.includes('favoriteIds')
     && androidLegacyMainActivity.includes('recentIds')
+    && androidLegacyMainActivity.includes('searchPanelOpen')
+    && androidLegacyMainActivity.includes('setSearchPanelOpen')
+    && androidLegacyMainActivity.includes('Rechercher / filtrer')
+    && androidLegacyMainActivity.includes('Filtres actifs')
     && androidLegacyMainActivity.includes('selectedSeason')
     && androidLegacyMainActivity.includes('selectedDifficulty')
     && androidLegacyMainActivity.includes('copyIngredients')
     && androidLegacyMainActivity.includes('ClipboardManager')
     && androidLegacyMainActivity.includes('UPDATE_APK_URL')
-    && androidLegacyMainActivity.includes("Mettre a jour l'app")
+    && androidLegacyMainActivity.includes('Mise a jour')
     && androidLegacyMainActivity.includes('Intent.ACTION_VIEW')
     && androidLegacyMainActivity.includes('cook-note-android-legacy.apk')
     && androidLegacyMainActivity.includes('GradientDrawable')
@@ -260,6 +264,7 @@ expect(
   'favoris locaux',
   'derniers ouverts',
   'filtres saison/difficulte',
+  'panneau recherche/filtres replie',
   'copie ingredients',
   'bouton natif de mise a jour',
   'etapes numerotees',
@@ -275,6 +280,7 @@ expect(
     && androidReadme.includes('Native Lite')
     && androidReadme.includes('favoris locaux')
     && androidReadme.includes('derniers ouverts')
+    && androidReadme.includes('panneau recherche/filtres replie')
     && androidReadme.includes('filtres')
     && androidReadme.includes('copie ingredients')
     && androidReadme.includes('bouton natif de mise a jour')
@@ -320,6 +326,7 @@ expect(
   'favoris locaux',
   'derniers ouverts',
   'filtres saison/difficulte',
+  'panneau recherche/filtres replie',
   'copie ingredients',
   'bouton natif de mise a jour',
   'etapes numerotees',

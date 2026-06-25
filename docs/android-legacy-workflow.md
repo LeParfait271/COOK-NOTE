@@ -43,8 +43,10 @@ liste, fiches decoupees en sections natives, infos rapides en pastilles,
 ingredients en lignes lisibles, etapes numerotees et variantes cliquables. Les
 fonctions reintegrees doivent rester natives et peu couteuses : favoris locaux
 `SharedPreferences`, derniers ouverts, filtres saison/difficulte et copie des
-ingredients vers le presse-papiers. L accueil doit aussi garder un bouton natif
-de mise a jour qui ouvre l URL GitHub stable de l APK
+ingredients vers le presse-papiers. L accueil doit rester compact : la recherche
+et tous les filtres doivent etre caches dans un panneau recherche/filtres replie
+qui s ouvre seulement via `Rechercher / filtrer`. L accueil doit aussi garder un
+bouton natif de mise a jour qui ouvre l URL GitHub stable de l APK
 `cook-note-android-legacy.apk`. Ces elements restent des vues Android simples,
 pas un rendu web.
 
@@ -152,7 +154,7 @@ GitHub :
 https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk
 ```
 
-Dans l APK installe, le bouton natif `Mettre a jour l'app` doit ouvrir la meme
+Dans l APK installe, le bouton natif `Mise a jour` doit ouvrir la meme
 URL. Sur la tablette, l utilisateur telecharge alors la nouvelle APK puis
 choisit `Installer une mise a jour`. Ne pas changer le package
 `fr.cooknote.legacy`, sinon Android ne pourra plus remplacer l ancienne app et
@@ -205,8 +207,8 @@ C est voulu.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java`
   contient l interface native Android 5 Lite, les sections de fiche, les
   pastilles d infos, les favoris, les derniers ouverts, les filtres
-  saison/difficulte, la copie ingredients, le bouton natif de mise a jour et les
-  etapes numerotees.
+  saison/difficulte dans un panneau recherche/filtres replie, la copie
+  ingredients, le bouton natif de mise a jour et les etapes numerotees.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java`
   lit `recipes-lite.json`.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java`
@@ -233,7 +235,8 @@ C est voulu.
 - Ne pas remettre GeckoView, WebView, React, service worker, serveur HTTP local
   ou `assets/www` dans Android Legacy.
 - Ne pas supprimer les fonctions natives legeres reintegrees : favoris locaux,
-  derniers ouverts, filtres saison/difficulte et copie ingredients.
+  derniers ouverts, filtres saison/difficulte, panneau recherche/filtres replie
+  et copie ingredients.
 - Ne pas publier une nouvelle release APK sans demande explicite.
 - Ne jamais publier un seul APK : toute mise a jour app doit passer par
   `npm run apps:update-all`.
