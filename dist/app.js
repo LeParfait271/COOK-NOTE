@@ -74,9 +74,9 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.82';
+const SITE_VERSION = 'v1.83';
 const SITE_UPDATED_AT = '25/06/26';
-const APP_DOWNLOAD_BASE = '/downloads';
+const APP_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
     id: 'android-legacy',

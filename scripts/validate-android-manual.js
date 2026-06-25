@@ -23,7 +23,6 @@ const workflowDoc = read('docs/android-legacy-workflow.md');
 const appsWorkflowDoc = read('docs/apps-install-workflow.md');
 const buildSiteScript = read('scripts/build-site.js');
 const serviceWorker = read('service-worker.js');
-const headers = read('_headers');
 const buildScript = read('scripts/build-android-legacy.ps1');
 const buildModernScript = read('scripts/build-android-modern.ps1');
 const publishScript = read('scripts/publish-android-release.ps1');
@@ -100,16 +99,15 @@ expect(
     && publishScript.includes('cook-note-android-modern.apk')
 );
 expect(
-  'Les APK telechargeables doivent etre copies dans dist par le build site.',
-  buildSiteScript.includes("'downloads'")
+  'Les APK telechargeables doivent rester hors dist Cloudflare Pages.',
+  !buildSiteScript.includes("'downloads'")
     && fs.existsSync(path.join(ROOT, 'downloads', 'cook-note-android-legacy.apk'))
     && fs.existsSync(path.join(ROOT, 'downloads', 'cook-note-android-modern.apk'))
+    && !fs.existsSync(path.join(ROOT, 'dist', 'downloads'))
 );
 expect(
-  'Les APK servis par le site ne doivent pas remplir le cache PWA.',
+  'Les APK servis depuis GitHub Raw ne doivent pas remplir le cache PWA local.',
   serviceWorker.includes("url.pathname.startsWith('/downloads/')")
-    && headers.includes('/downloads/*.apk')
-    && headers.includes('application/vnd.android.package-archive')
 );
 expect(
   'Android Modern doit etre optimise pour lecture locale fluide.',
@@ -159,6 +157,7 @@ expect(
   'iOS recent',
   'cook-note-android-legacy.apk',
   'cook-note-android-modern.apk',
+  'raw.githubusercontent.com',
   '/downloads/',
   'Ajouter a l ecran d accueil',
   'ne doivent pas pretendre telecharger un `.ipa`'
@@ -197,9 +196,7 @@ const globalTracked = spawnSync('git', ['ls-files'], {
 if (globalTracked.status === 0) {
   const allowedApks = new Set([
     'downloads/cook-note-android-legacy.apk',
-    'downloads/cook-note-android-modern.apk',
-    'dist/downloads/cook-note-android-legacy.apk',
-    'dist/downloads/cook-note-android-modern.apk'
+    'downloads/cook-note-android-modern.apk'
   ]);
   const forbiddenApks = globalTracked.stdout
     .split(/\r?\n/)

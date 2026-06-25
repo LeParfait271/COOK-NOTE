@@ -15,16 +15,18 @@ Le footer du site doit proposer quatre installations distinctes :
 - `iOS ancien` : installation PWA Safari guidee
 - `iOS recent` : installation PWA Safari guidee
 
-Les deux liens Android pointent vers les fichiers servis par le site :
+Les deux liens Android pointent vers les fichiers GitHub Raw, pas vers
+Cloudflare Pages, car Pages limite chaque asset public a 25 MiB :
 
 ```text
-/downloads/cook-note-android-legacy.apk
-/downloads/cook-note-android-modern.apk
+https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk
+https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-modern.apk
 ```
 
-Les copies telechargeables sont versionnees dans `downloads/` et copiees dans
-`dist/downloads/` par `npm run build`. Les APK generes dans les dossiers Android
-restent des artefacts locaux ignores.
+Les copies telechargeables sont versionnees uniquement dans `downloads/`. Elles
+ne doivent pas etre copiees dans `dist/`, sinon le deploy Cloudflare Pages peut
+echouer. Les APK generes dans les dossiers Android restent des artefacts locaux
+ignores.
 
 Les deux boutons iOS ouvrent un panneau d'aide dans le site. Ils ne doivent pas pretendre telecharger un `.ipa` directement.
 
@@ -112,15 +114,16 @@ cook-note-android-modern.apk
 le script doit echouer proprement sans modifier Git ni l APK.
 
 La Release GitHub est optionnelle. Les boutons du site ne dependent pas de `gh`
-tant que les copies `downloads/*.apk` sont presentes dans le depot et dans
-`dist/`.
+tant que les copies `downloads/*.apk` sont presentes dans le depot GitHub.
 
 ## Regles de travail
 
 - Ne jamais versionner les APK generes dans `android-legacy/` ou `android-modern/`.
-- Les seules copies APK autorisees dans Git sont `downloads/cook-note-android-legacy.apk`,
-  `downloads/cook-note-android-modern.apk` et leurs copies publiques dans
-  `dist/downloads/`, apres demande explicite de publication app.
+- Les seules copies APK autorisees dans Git sont `downloads/cook-note-android-legacy.apk`
+  et `downloads/cook-note-android-modern.apk`, apres demande explicite de
+  publication app.
+- Ne jamais copier les APK dans `dist/` : Cloudflare Pages refuse les assets de
+  plus de 25 MiB.
 - Ne jamais versionner `android-legacy/app/src/main/assets/www/`.
 - Ne jamais versionner `android-modern/app/src/main/assets/www/`.
 - Ne jamais brancher Android ou iOS a `npm run build`, `npm run check`,

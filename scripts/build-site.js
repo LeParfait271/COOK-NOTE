@@ -39,10 +39,6 @@ const ASSET_DIRS = [
   'vendor'
 ];
 
-const PUBLIC_DIRS = [
-  'downloads'
-];
-
 const SITE_URL = 'https://cook-note.pages.dev';
 const CATEGORY_ACCENTS = {
   'Apéro': '#b51f30',
@@ -448,7 +444,6 @@ const recipes = loadRecipes();
 ROOT_FILES.forEach(copyFile);
 ASSET_FILES.forEach(file => copyFile(path.join('assets', file)));
 ASSET_DIRS.forEach(dir => copyDirectory(path.join('assets', dir)));
-PUBLIC_DIRS.forEach(copyDirectory);
 writeDistImageManifest();
 writeStaticRecipePages(recipes);
 writeDistRedirects(recipes);
