@@ -8,6 +8,8 @@
     "start": "node server.js",
     "audit:recipes": "node scripts/audit-recipes.js",
     "audit:images": "node scripts/audit-images.js",
+    "android:legacy:apk": "powershell.exe -ExecutionPolicy Bypass -File .\\scripts\\build-android-legacy.ps1",
+    "android:legacy:setup": "powershell.exe -ExecutionPolicy Bypass -File .\\scripts\\setup-android-legacy-tools.ps1",
     "build": "node scripts/build-site.js",
     "bump:version": "node scripts/bump-version.js --next",
     "generate:image-manifest": "node scripts/generate-image-manifest.js",
