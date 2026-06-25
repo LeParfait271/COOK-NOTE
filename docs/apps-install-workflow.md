@@ -11,9 +11,10 @@ Le footer du site doit proposer quatre installations distinctes :
 - `Android 5` : APK Android Legacy pour tablette ancienne, asset
   `cook-note-android-legacy.apk`
 - `Android recent` : APK Android Modern, asset
-  `cook-note-android-modern.apk`
+  `cook-note-android-modern.apk`, rendu HD premium via `modern-app-hd`
 - `iOS ancien` : installation PWA Safari guidee
-- `iOS recent` : installation PWA Safari guidee
+- `iOS recent` : installation PWA Safari guidee, rendu HD premium via
+  `modern-app-hd` quand elle est lancee en plein ecran
 
 Les deux boutons Android ouvrent un panneau d'installation. Le bouton primaire
 utilise l'URL GitHub standard, pas Cloudflare Pages, car Pages limite chaque
@@ -65,6 +66,13 @@ Les deux entrees iOS restent des installations PWA Safari, donc elles ne
 produisent pas d APK ou d IPA. Elles doivent quand meme etre verifiees dans le
 meme lot : libelles du footer, panneau d aide, manifest PWA, balises Apple et
 absence de promesse de telechargement `.ipa`.
+
+Les apps anciennes restent volontairement legeres : Android 5 garde Native Lite
+avec images reduites, et iOS ancien garde la PWA simple Safari. Les apps
+recentes peuvent au contraire utiliser le rendu premium `modern-app-hd`.
+Android Modern s'identifie avec le user-agent `CookNoteModernApp/HD`, puis le
+site applique le skin HD. iOS recent applique le meme skin seulement en PWA plein
+ecran sur appareil Apple moderne.
 
 Publication Release GitHub, seulement sur demande explicite :
 
@@ -142,6 +150,9 @@ npm run apps:publish-all
 - Android minimum : `minSdk 26`
 - Objectif : appareils Android recents, WebView plus agressive, assets non
   compresses pour accelerer les lectures locales
+- Experience : WebView locale avec user-agent `CookNoteModernApp/HD`, priorite
+  renderer elevee et skin web `modern-app-hd` pour images, panneaux, dock et
+  navigation plus premium
 - Build explicite :
 
 ```powershell
@@ -199,5 +210,7 @@ tant que les copies `downloads/*.apk` sont presentes dans le depot GitHub.
 - Ne jamais publier un seul APK : Android Legacy et Android Modern doivent
   avancer ensemble, avec verification des deux entrees iOS PWA.
 - Un push du site ne met pas a jour les apps deja installees.
+- Les vieilles apps peuvent sacrifier la qualite visuelle pour la fluidite ; les
+  apps recentes doivent garder le meilleur rendu possible.
 - Les recettes ne doivent pas etre modifiees pour une app mobile sans demande
   separee.

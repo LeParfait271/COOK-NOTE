@@ -15,6 +15,7 @@ Le mode d'emploi complet est dans
 - Package Android: `fr.cooknote.modern`
 - WebView natif Java fullscreen
 - Site servi depuis les assets APK via `https://cook-note.local/`
+- User-agent `CookNoteModernApp/HD` pour activer le skin web `modern-app-hd`
 - Assets web non compresses dans l APK pour accelerer les lectures locales
 - aucun changement de recette requis pour l app
 
@@ -37,7 +38,7 @@ android-modern/app/build/outputs/apk/debug/app-debug.apk
 Le bouton `Android recent` du footer pointe vers :
 
 ```text
-https://github.com/LeParfait271/COOK-NOTE/releases/latest/download/cook-note-android-modern.apk
+https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-modern.apk
 ```
 
 Ne publier cette APK que sur demande explicite :

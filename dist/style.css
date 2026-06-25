@@ -5987,6 +5987,275 @@ a {
   height: 17px;
 }
 
+.mc-shell.modern-app-hd {
+  --surface: rgba(13, 12, 10, .80);
+  --surface-strong: rgba(17, 15, 12, .94);
+  --surface-soft: rgba(255, 255, 255, .075);
+  --line: rgba(255, 255, 255, .16);
+  --line-strong: rgba(255, 255, 255, .28);
+  --shadow: 0 32px 110px rgba(0, 0, 0, .52);
+  --shadow-soft: 0 22px 72px rgba(0, 0, 0, .38);
+  position: relative;
+  overflow-x: clip;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, .18), rgba(0, 0, 0, .76)),
+    linear-gradient(135deg, rgba(251, 191, 36, .10), transparent 32%, rgba(0, 245, 212, .06) 72%, transparent),
+    url("/assets/base-principale-fond-site.jpg") center top / cover no-repeat,
+    #050505;
+}
+
+.mc-shell.modern-app-hd::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, .026) 1px, transparent 1px),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, .018) 0, rgba(255, 255, 255, .018) 1px, transparent 1px, transparent 7px),
+    linear-gradient(180deg, rgba(0, 0, 0, .10), rgba(0, 0, 0, .38));
+  background-size: 72px 72px, 72px 72px, 100% 7px, 100% 100%;
+  opacity: .42;
+}
+
+.modern-app-hd > main,
+.modern-app-hd .hero,
+.modern-app-hd .site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.modern-app-hd .topbar {
+  min-height: 66px;
+  border-bottom-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 34%, rgba(255, 255, 255, .16));
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, .78), rgba(22, 18, 13, .86) 52%, rgba(0, 0, 0, .80)),
+    linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02));
+  box-shadow:
+    inset 0 -1px 0 rgba(255, 255, 255, .06),
+    0 20px 70px rgba(0, 0, 0, .52);
+  backdrop-filter: blur(26px) saturate(1.22) contrast(1.04);
+  -webkit-backdrop-filter: blur(26px) saturate(1.22) contrast(1.04);
+}
+
+.modern-app-hd .hero {
+  min-height: 156px;
+}
+
+.modern-app-hd .hero-logo,
+.modern-app-hd .detail-hero-logo {
+  width: min(680px, 78vw);
+  max-height: 152px;
+  filter:
+    drop-shadow(0 22px 34px rgba(0, 0, 0, .58))
+    drop-shadow(0 0 18px rgba(255, 255, 255, .12));
+}
+
+.modern-app-hd .content-wrap,
+.modern-app-hd .recipe-detail-grid,
+.modern-app-hd .recipe-summary-panel,
+.modern-app-hd .variant-picker-panel,
+.modern-app-hd .variant-choice-panel,
+.modern-app-hd .mobile-recipe-guidance {
+  width: min(1320px, calc(100% - clamp(32px, 6vw, 104px)));
+}
+
+.modern-app-hd .recipe-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 292px), 1fr));
+  gap: 22px;
+}
+
+.modern-app-hd .home-view .recipe-card:not(.master-card) {
+  min-height: 392px;
+  grid-template-rows: 224px minmax(156px, auto);
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 32%, rgba(255, 255, 255, .16));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .014)),
+    color-mix(in srgb, var(--surface-strong) 90%, #050505);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .08),
+    0 24px 76px rgba(0, 0, 0, .42);
+}
+
+.modern-app-hd .home-view .recipe-card:not(.master-card):hover,
+.modern-app-hd .home-view .recipe-card:not(.master-card):focus-visible {
+  transform: translateY(-6px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .10),
+    0 0 0 1px color-mix(in srgb, var(--card-accent, var(--accent)) 44%, transparent),
+    0 30px 90px rgba(0, 0, 0, .54);
+}
+
+.modern-app-hd .home-view .recipe-card:not(.master-card) .card-media {
+  border-bottom-color: color-mix(in srgb, var(--card-accent, var(--accent)) 28%, rgba(255, 255, 255, .12));
+}
+
+.modern-app-hd .home-view .recipe-card:not(.master-card) .card-media::after {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, .02), rgba(0, 0, 0, .10) 52%, rgba(0, 0, 0, .22)),
+    linear-gradient(90deg, rgba(0, 0, 0, .18), transparent 36%, rgba(0, 0, 0, .14));
+}
+
+.modern-app-hd .home-view .recipe-card:not(.master-card) .card-image,
+.modern-app-hd .variant-card-bg,
+.modern-app-hd .search-result-image,
+.modern-app-hd .command-recipe-image,
+.modern-app-hd .linked-recipe-thumb,
+.modern-app-hd .menu-planner-image {
+  filter: brightness(.98) saturate(1.08) contrast(1.05);
+  transform: scale(1.006);
+}
+
+.modern-app-hd .home-view .recipe-card:not(.master-card):hover .card-image,
+.modern-app-hd .home-view .recipe-card:not(.master-card):focus-visible .card-image {
+  filter: brightness(1.04) saturate(1.15) contrast(1.06);
+  transform: scale(1.036);
+}
+
+.modern-app-hd .home-view .recipe-card:not(.master-card) .card-body {
+  padding: 15px 16px 16px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--card-accent, var(--accent)) 8%, transparent), transparent 74px),
+    color-mix(in srgb, var(--surface-strong) 94%, #060504);
+}
+
+.modern-app-hd .home-view .recipe-card:not(.master-card) h3 {
+  min-height: 44px;
+  color: #fffaf0;
+  font-size: 19px;
+}
+
+.modern-app-hd .home-view .recipe-card:not(.master-card) .tag-line span:first-child,
+.modern-app-hd .home-view .recipe-card:not(.master-card) .card-facts span,
+.modern-app-hd .home-view .recipe-card:not(.master-card) .card-quicklook span,
+.modern-app-hd .home-view .recipe-card:not(.master-card) .card-meta span,
+.modern-app-hd .variant-card-quicklook span {
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 26%, rgba(255, 255, 255, .14));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .022)),
+    rgba(0, 0, 0, .30);
+}
+
+.modern-app-hd .recipe-card.master-card,
+.modern-app-hd .variant-card {
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 32%, rgba(255, 255, 255, .16));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .08),
+    0 24px 76px rgba(0, 0, 0, .42);
+}
+
+.modern-app-hd .recipe-detail-hero {
+  min-height: 520px;
+  background-position: center;
+  background-size: cover;
+  box-shadow:
+    inset 0 -190px 150px rgba(0, 0, 0, .78),
+    inset 0 0 0 1px rgba(255, 255, 255, .06),
+    0 26px 80px rgba(0, 0, 0, .42);
+}
+
+.modern-app-hd .recipe-detail-hero::before {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, .72), rgba(0, 0, 0, .12) 54%, rgba(0, 0, 0, .58)),
+    linear-gradient(180deg, rgba(0, 0, 0, .08), rgba(0, 0, 0, .76));
+}
+
+.modern-app-hd .recipe-detail-hero::after {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ambient-accent, var(--accent)) 42%, rgba(255, 255, 255, .10)) 50%, transparent);
+  opacity: .78;
+}
+
+.modern-app-hd .detail-hero-copy {
+  padding: 78px 0 48px;
+}
+
+.modern-app-hd .recipe-detail-hero h1 {
+  max-width: 1080px;
+  font-size: 58px;
+  line-height: .98;
+  text-shadow:
+    0 14px 42px rgba(0, 0, 0, .78),
+    0 0 26px rgba(255, 255, 255, .11);
+}
+
+.modern-app-hd .recipe-detail-grid {
+  grid-template-columns: minmax(260px, .72fr) minmax(470px, 1.30fr) minmax(285px, .74fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.modern-app-hd .recipe-summary-panel,
+.modern-app-hd .recipe-panel,
+.modern-app-hd .variant-picker-panel,
+.modern-app-hd .variant-choice-panel,
+.modern-app-hd .mobile-recipe-guidance {
+  border-color: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 28%, rgba(255, 255, 255, .16));
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .085), rgba(255, 255, 255, .015) 42%),
+    linear-gradient(180deg, color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 7%, transparent), transparent 210px),
+    rgba(10, 9, 8, .72);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .085),
+    0 24px 80px rgba(0, 0, 0, .38);
+  backdrop-filter: blur(24px) saturate(1.20);
+  -webkit-backdrop-filter: blur(24px) saturate(1.20);
+}
+
+.modern-app-hd .recipe-panel {
+  padding: 22px;
+}
+
+.modern-app-hd .command-backdrop {
+  background: rgba(0, 0, 0, .82);
+  backdrop-filter: blur(22px) saturate(1.18);
+  -webkit-backdrop-filter: blur(22px) saturate(1.18);
+}
+
+.modern-app-hd .modal-panel,
+.modern-app-hd .search-modal,
+.modern-app-hd .command-palette,
+.modern-app-hd .recipe-command-dock {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 34%, rgba(255, 255, 255, .16));
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .018) 44%),
+    rgba(10, 9, 8, .88);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .09),
+    0 34px 110px rgba(0, 0, 0, .58);
+  backdrop-filter: blur(28px) saturate(1.20);
+  -webkit-backdrop-filter: blur(28px) saturate(1.20);
+}
+
+.modern-app-hd .mobile-bottom-nav {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 34%, rgba(255, 255, 255, .18));
+  background:
+    linear-gradient(180deg, rgba(28, 24, 18, .94), rgba(9, 8, 7, .96)),
+    rgba(0, 0, 0, .82);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .09),
+    0 20px 68px rgba(0, 0, 0, .58);
+  backdrop-filter: blur(24px) saturate(1.18);
+  -webkit-backdrop-filter: blur(24px) saturate(1.18);
+}
+
+.modern-app-hd .mobile-bottom-nav button[aria-current="page"] {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 92%, #fff), var(--accent-2));
+  color: var(--accent-ink);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--ambient-accent, var(--accent)) 26%, transparent);
+}
+
+.modern-app-hd.display-reduce-motion .home-view .recipe-card:not(.master-card):hover,
+.modern-app-hd.display-reduce-motion .home-view .recipe-card:not(.master-card):focus-visible,
+.modern-app-hd.display-reduce-motion .home-view .recipe-card:not(.master-card):hover .card-image,
+.modern-app-hd.display-reduce-motion .home-view .recipe-card:not(.master-card):focus-visible .card-image,
+.modern-app-hd.display-reduce-motion .variant-card:hover .variant-card-bg,
+.modern-app-hd.display-reduce-motion .variant-card:focus-visible .variant-card-bg {
+  transform: none;
+}
+
 @supports (view-transition-name: root) {
   ::view-transition-old(root),
   ::view-transition-new(root) {
@@ -6133,6 +6402,86 @@ a {
   .dock-action span {
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 900px) {
+  .modern-app-hd .content-wrap,
+  .modern-app-hd .recipe-detail-grid,
+  .modern-app-hd .recipe-summary-panel,
+  .modern-app-hd .variant-picker-panel,
+  .modern-app-hd .variant-choice-panel,
+  .modern-app-hd .mobile-recipe-guidance {
+    width: min(100% - 28px, 900px);
+  }
+
+  .modern-app-hd .recipe-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .modern-app-hd .recipe-detail-hero h1 {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 700px) {
+  .modern-app-hd::before {
+    opacity: .28;
+    background-size: 54px 54px, 54px 54px, 100% 8px, 100% 100%;
+  }
+
+  .modern-app-hd .hero {
+    min-height: 128px;
+  }
+
+  .modern-app-hd .hero-logo,
+  .modern-app-hd .detail-hero-logo {
+    width: min(520px, 84vw);
+    max-height: 118px;
+  }
+
+  .modern-app-hd .recipe-grid {
+    gap: 18px;
+  }
+
+  .modern-app-hd .home-view .recipe-card:not(.master-card) {
+    min-height: 354px;
+    grid-template-rows: 190px minmax(154px, auto);
+  }
+
+  .modern-app-hd .home-view .recipe-card:not(.master-card) h3 {
+    min-height: 40px;
+    font-size: 18px;
+  }
+
+  .modern-app-hd .recipe-detail-hero {
+    min-height: 338px;
+  }
+
+  .modern-app-hd .detail-hero-copy {
+    padding: 38px 0 30px;
+  }
+
+  .modern-app-hd .recipe-detail-hero h1 {
+    font-size: 35px;
+    line-height: 1.02;
+  }
+
+  .modern-app-hd .recipe-panel {
+    padding: 16px;
+  }
+
+  .modern-app-hd .recipe-command-dock {
+    top: 58px;
+    width: min(100% - 20px, 700px);
+  }
+
+  .modern-app-hd .mobile-bottom-nav {
+    left: 8px;
+    right: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    padding: 5px;
   }
 }
 

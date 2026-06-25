@@ -26,6 +26,7 @@ import java.util.Map;
 public class MainActivity extends Activity {
     private static final String LOCAL_ORIGIN = "https://cook-note.local";
     private static final String LOCAL_HOST = "cook-note.local";
+    private static final String APP_USER_AGENT_SUFFIX = " CookNoteModernApp/HD";
     private WebView webView;
 
     @Override
@@ -72,9 +73,14 @@ public class MainActivity extends Activity {
         settings.setTextZoom(100);
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
+        settings.setUserAgentString(settings.getUserAgentString() + APP_USER_AGENT_SUFFIX);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             settings.setOffscreenPreRaster(true);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            view.setRendererPriorityPolicy(WebView.RENDERER_PRIORITY_IMPORTANT, true);
         }
 
         view.setWebChromeClient(new WebChromeClient());

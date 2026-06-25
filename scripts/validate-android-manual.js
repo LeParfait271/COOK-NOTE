@@ -25,6 +25,8 @@ const androidReadme = read('android-legacy/README.md');
 const androidModernReadme = read('android-modern/README.md');
 const workflowDoc = read('docs/android-legacy-workflow.md');
 const appsWorkflowDoc = read('docs/apps-install-workflow.md');
+const appScript = read('app.js');
+const styleSheet = read('style.css');
 const buildSiteScript = read('scripts/build-site.js');
 const serviceWorker = read('service-worker.js');
 const buildScript = read('scripts/build-android-legacy.ps1');
@@ -195,7 +197,19 @@ expect(
     && !androidModernBuildGradle.includes("'jpg'")
     && androidModernBuildGradle.includes("exclude('downloads/**')")
     && androidModernMainActivity.includes('setOffscreenPreRaster(true)')
+    && androidModernMainActivity.includes('CookNoteModernApp/HD')
+    && androidModernMainActivity.includes('setRendererPriorityPolicy')
     && androidModernMainActivity.includes('responseHeaders')
+);
+expect(
+  'Le rendu HD des apps recentes doit rester isole du mode Legacy.',
+  appScript.includes('detectAppEnvironment')
+    && appScript.includes('modern-app-hd')
+    && appScript.includes('android-modern-app')
+    && appScript.includes('ios-modern-pwa')
+    && styleSheet.includes('.mc-shell.modern-app-hd')
+    && styleSheet.includes('.modern-app-hd .recipe-detail-hero')
+    && !androidLegacyMainActivity.includes('modern-app-hd')
 );
 
 [
@@ -251,6 +265,8 @@ expect(
   'iOS recent',
   'cook-note-android-legacy.apk',
   'cook-note-android-modern.apk',
+  'modern-app-hd',
+  'CookNoteModernApp/HD',
   'raw.githubusercontent.com',
   '/downloads/',
   'Ajouter a l ecran d accueil',

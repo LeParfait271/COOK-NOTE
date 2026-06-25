@@ -72,10 +72,40 @@ function runConfettiBurst() {
   }).catch(() => {});
 }
 
+function detectAppEnvironment() {
+  const runtimeWindow = typeof window === 'undefined' ? {} : window;
+  const runtimeNavigator = typeof navigator === 'undefined' ? (runtimeWindow.navigator || {}) : navigator;
+  const paramsCtor = runtimeWindow.URLSearchParams || (typeof URLSearchParams === 'undefined' ? null : URLSearchParams);
+  const searchText = runtimeWindow.location?.search || '';
+  const forcedAppMode = paramsCtor
+    ? (new paramsCtor(searchText).get('app') || '')
+    : (searchText.match(/[?&]app=([^&]+)/)?.[1] || '');
+  const forcedModern = ['modern', 'hd', 'modern-hd'].includes(decodeURIComponent(forcedAppMode).toLowerCase());
+  const ua = runtimeNavigator.userAgent || '';
+  const hostName = runtimeWindow.location?.hostname || '';
+  const isAndroidModernShell = hostName === 'cook-note.local' || /CookNoteModernApp\/HD/i.test(ua);
+  const standalone = Boolean(runtimeNavigator.standalone)
+    || Boolean(runtimeWindow.matchMedia?.('(display-mode: standalone)').matches);
+  const touchMac = runtimeNavigator.platform === 'MacIntel' && runtimeNavigator.maxTouchPoints > 1;
+  const isAppleTouch = /iPad|iPhone|iPod/i.test(ua) || touchMac;
+  const iosVersionMatch = ua.match(/(?:CPU(?: iPhone)? OS|iPhone OS|CPU OS|OS) (\d+)[_\d]* like Mac OS X/i);
+  const iosMajor = iosVersionMatch ? Number(iosVersionMatch[1]) : (touchMac ? 16 : 0);
+  const supportsPremiumGlass = Boolean(runtimeWindow.CSS?.supports?.('backdrop-filter', 'blur(14px)')
+    || runtimeWindow.CSS?.supports?.('-webkit-backdrop-filter', 'blur(14px)'));
+  const isModernIosPwa = isAppleTouch && standalone && supportsPremiumGlass && iosMajor >= 15;
+
+  return Object.freeze({
+    modernHd: forcedModern || isAndroidModernShell || isModernIosPwa,
+    androidModern: isAndroidModernShell,
+    iosModern: isModernIosPwa
+  });
+}
+
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.93';
+const SITE_VERSION = 'v1.94';
 const SITE_UPDATED_AT = '25/06/26';
+const APP_ENVIRONMENT = detectAppEnvironment();
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
@@ -103,9 +133,9 @@ const APP_INSTALL_OPTIONS = Object.freeze([
     id: 'android-modern',
     kind: 'apk',
     label: 'Android recent',
-    detail: 'APK fluide',
+    detail: 'APK HD premium',
     title: 'Installer Cook Note HD sur Android recent',
-    body: 'APK Modern pour Android recent, avec WebView plus rapide et cache local du livre de cuisine.',
+    body: 'APK Modern pour Android recent, avec rendu HD premium, WebView plus rapide et cache local du livre de cuisine.',
     steps: [
       'Touche Telecharger l APK.',
       'Accepte le telechargement si Android affiche un avertissement.',
@@ -137,9 +167,9 @@ const APP_INSTALL_OPTIONS = Object.freeze([
     id: 'ios-modern',
     kind: 'guide',
     label: 'iOS recent',
-    detail: 'PWA plein ecran',
+    detail: 'PWA HD plein ecran',
     title: 'Installer sur iPhone ou iPad recent',
-    body: 'Installation PWA recommandee sur iOS/iPadOS recent : icone dediee, plein ecran et cache local du site.',
+    body: 'Installation PWA recommandee sur iOS/iPadOS recent : rendu HD premium, icone dediee, plein ecran et cache local du site.',
     steps: [
       'Ouvre Cook Note dans Safari.',
       'Touche Partager, puis Ajouter a l ecran d accueil.',
@@ -7250,6 +7280,9 @@ function App() {
   const catalogResolvingRecipe = Boolean(missingRecipeId && !catalogChunksLoaded);
   const shellClassName = [
     'mc-shell',
+    APP_ENVIRONMENT.modernHd ? 'modern-app-hd' : '',
+    APP_ENVIRONMENT.androidModern ? 'android-modern-app' : '',
+    APP_ENVIRONMENT.iosModern ? 'ios-modern-pwa' : '',
     preferences.density === 'compact' ? 'display-compact' : '',
     preferences.largeText ? 'display-large-text' : '',
     preferences.reduceMotion ? 'display-reduce-motion' : ''
@@ -7257,7 +7290,11 @@ function App() {
   const ambientRecipe = activeRecipe || filteredRecipes[0] || homeCatalogRecipes[0] || recipes[0];
   const shellStyle = { '--ambient-accent': getCategoryColor(ambientRecipe) };
 
-  return h('div', { className: shellClassName, style: shellStyle },
+  return h('div', {
+    className: shellClassName,
+    style: shellStyle,
+    'data-app-mode': APP_ENVIRONMENT.modernHd ? 'modern-hd' : 'standard'
+  },
     h(TopBarFixed, {
       onHome: goHome,
       shoppingCount: shoppingRecipes.length,
