@@ -3417,6 +3417,12 @@ a {
   padding-left: 22px;
 }
 
+.app-install-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .app-install-card li {
   line-height: 1.45;
 }

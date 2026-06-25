@@ -104,16 +104,20 @@ npm run validate:android
 
 ## Installation depuis le site
 
-Le footer du site contient un bouton `Android 5`. Il pointe vers la copie APK
-servie par GitHub Raw :
+Le footer du site contient un bouton `Android 5`. Il ouvre un panneau
+d'installation dont le bouton primaire pointe vers la copie APK servie par
+GitHub :
 
 ```text
-https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk
+https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk
 ```
 
 Cette URL reste la meme d une version Android a l autre. Le fichier source
 autorise est `downloads/cook-note-android-legacy.apk`. Il ne doit pas etre copie
 dans `dist/`, car Cloudflare Pages limite chaque fichier public a 25 MiB.
+Le panneau garde aussi un lien brut `raw.githubusercontent.com` et une page
+GitHub du fichier pour les navigateurs anciens qui gerent mal le telechargement
+direct.
 
 Les APK generes dans `android-legacy/` ne doivent pas etre ajoutes au depot Git.
 Seule la copie telechargeable `downloads/cook-note-android-legacy.apk` est

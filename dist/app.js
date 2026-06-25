@@ -74,23 +74,49 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.83';
+const SITE_VERSION = 'v1.84';
 const SITE_UPDATED_AT = '25/06/26';
-const APP_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
+const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
+const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
+const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
     id: 'android-legacy',
-    kind: 'download',
+    kind: 'apk',
     label: 'Android 5',
     detail: 'APK tablette ancienne',
-    href: `${APP_DOWNLOAD_BASE}/cook-note-android-legacy.apk`
+    title: 'Installer Cook Note sur Android 5',
+    body: 'APK Legacy pour les tablettes anciennes. Le fichier est heberge sur GitHub pour eviter les limites de taille Cloudflare Pages.',
+    steps: [
+      'Touche Telecharger l APK.',
+      'Si Android affiche une alerte, autorise le telechargement.',
+      'Ouvre le fichier telecharge, puis autorise l installation depuis le navigateur si Android le demande.',
+      'Si le lien direct affiche une erreur, utilise le lien brut ou la page GitHub.'
+    ],
+    fileName: 'cook-note-android-legacy.apk',
+    href: `${APP_REPO_DOWNLOAD_BASE}/cook-note-android-legacy.apk`,
+    rawHref: `${APP_RAW_DOWNLOAD_BASE}/cook-note-android-legacy.apk`,
+    pageHref: `${APP_REPO_FILE_BASE}/cook-note-android-legacy.apk`,
+    note: 'Version APK 1.83, Android 5.0 minimum.'
   },
   {
     id: 'android-modern',
-    kind: 'download',
+    kind: 'apk',
     label: 'Android recent',
     detail: 'APK fluide',
-    href: `${APP_DOWNLOAD_BASE}/cook-note-android-modern.apk`
+    title: 'Installer Cook Note HD sur Android recent',
+    body: 'APK Modern pour Android recent, avec WebView plus rapide et cache local du livre de cuisine.',
+    steps: [
+      'Touche Telecharger l APK.',
+      'Accepte le telechargement si Android affiche un avertissement.',
+      'Ouvre le fichier telecharge, puis confirme l installation.',
+      'Si le lien direct affiche une erreur, utilise le lien brut ou la page GitHub.'
+    ],
+    fileName: 'cook-note-android-modern.apk',
+    href: `${APP_REPO_DOWNLOAD_BASE}/cook-note-android-modern.apk`,
+    rawHref: `${APP_RAW_DOWNLOAD_BASE}/cook-note-android-modern.apk`,
+    pageHref: `${APP_REPO_FILE_BASE}/cook-note-android-modern.apk`,
+    note: 'Version APK 1.83, Android 8.0 minimum.'
   },
   {
     id: 'ios-legacy',
@@ -4806,10 +4832,28 @@ function AppInstallPanel({ option, onClose }) {
       h('div', { className: 'app-install-card' },
         h('p', null, option.body),
         h('ol', null, option.steps.map(step => h('li', { key: step }, step))),
+        option.kind === 'apk' && h('div', { className: 'app-install-links' },
+          h('a', {
+            className: 'btn btn-primary',
+            href: option.href,
+            rel: 'noopener noreferrer',
+            download: option.fileName
+          }, 'Telecharger l APK'),
+          h('a', {
+            className: 'btn btn-ghost',
+            href: option.rawHref,
+            rel: 'noopener noreferrer'
+          }, 'Lien brut'),
+          h('a', {
+            className: 'btn btn-ghost',
+            href: option.pageHref,
+            rel: 'noopener noreferrer'
+          }, 'Page GitHub')
+        ),
         h('p', { className: 'app-install-note' }, option.note)
       ),
       h('div', { className: 'modal-actions' },
-        h('a', { className: 'btn btn-primary', href: '/', onClick: onClose }, 'Ouvrir Cook Note'),
+        option.kind !== 'apk' && h('a', { className: 'btn btn-primary', href: '/', onClick: onClose }, 'Ouvrir Cook Note'),
         h('button', { type: 'button', className: 'btn btn-ghost', onClick: onClose }, 'Fermer')
       )
     )
@@ -7293,21 +7337,14 @@ function App() {
           h('span', { className: 'site-footer-version' }, `${SITE_VERSION} / ${SITE_UPDATED_AT}`)
         ),
         h('div', { className: 'site-footer-actions', 'aria-label': 'Installer Cook Note' },
-          APP_INSTALL_OPTIONS.map(option => option.kind === 'download'
-            ? h('a', {
-              key: option.id,
-              className: `site-footer-action site-footer-install site-footer-install-${option.id}`,
-              href: option.href,
-              rel: 'noopener noreferrer',
-              title: `${option.label} - ${option.detail}`
-            }, h(Icon, { name: 'download' }), h('span', null, option.label), h('small', null, option.detail))
-            : h('button', {
+          APP_INSTALL_OPTIONS.map(option =>
+            h('button', {
               key: option.id,
               type: 'button',
               className: `site-footer-action site-footer-install site-footer-install-${option.id}`,
               onClick: () => setInstallGuide(option),
               title: `${option.label} - ${option.detail}`
-            }, h(Icon, { name: 'device' }), h('span', null, option.label), h('small', null, option.detail))
+            }, h(Icon, { name: option.kind === 'apk' ? 'download' : 'device' }), h('span', null, option.label), h('small', null, option.detail))
           ),
           h('button', {
             type: 'button',

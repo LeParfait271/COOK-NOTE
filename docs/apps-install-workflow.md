@@ -15,13 +15,24 @@ Le footer du site doit proposer quatre installations distinctes :
 - `iOS ancien` : installation PWA Safari guidee
 - `iOS recent` : installation PWA Safari guidee
 
-Les deux liens Android pointent vers les fichiers GitHub Raw, pas vers
-Cloudflare Pages, car Pages limite chaque asset public a 25 MiB :
+Les deux boutons Android ouvrent un panneau d'installation. Le bouton primaire
+utilise l'URL GitHub standard, pas Cloudflare Pages, car Pages limite chaque
+asset public a 25 MiB :
+
+```text
+https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk
+https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-modern.apk
+```
+
+Le panneau doit aussi garder un lien brut de secours :
 
 ```text
 https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk
 https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-modern.apk
 ```
+
+Et une page GitHub de secours si le navigateur de la tablette refuse le
+telechargement direct.
 
 Les copies telechargeables sont versionnees uniquement dans `downloads/`. Elles
 ne doivent pas etre copiees dans `dist/`, sinon le deploy Cloudflare Pages peut

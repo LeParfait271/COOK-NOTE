@@ -84,6 +84,7 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'iOS ancien',
   'iOS recent',
   'apps-vX.YY',
+  'github.com/LeParfait271/COOK-NOTE/raw/main/downloads',
   'raw.githubusercontent.com',
   '/downloads/',
   'docs/android-legacy-workflow.md',
@@ -143,7 +144,7 @@ expect('Optimisation ciblee images non branchee.', fs.existsSync(path.join(ROOT,
 expect('Audit recettes non branche.', validators.audit.includes('Audit recettes OK') && validators.packageJson.includes('scripts/audit-recipes.js'));
 expect('Audit images non branche.', validators.packageJson.includes('scripts/audit-images.js'));
 expect('Workflow Android manuel non documente.', validators.androidWorkflow.includes('projet secondaire') && validators.androidWorkflow.includes('ne se met pas a jour automatiquement') && validators.androidWorkflow.includes('npm run android:legacy:update-apk') && validators.androidWorkflow.includes('npm run android:legacy:publish-release') && validators.androidWorkflow.includes('cook-note-android-legacy.apk'));
-expect('Workflow apps global non documente.', validators.appsWorkflow.includes('Android 5') && validators.appsWorkflow.includes('Android recent') && validators.appsWorkflow.includes('iOS ancien') && validators.appsWorkflow.includes('iOS recent') && validators.appsWorkflow.includes('cook-note-android-modern.apk') && validators.appsWorkflow.includes('apps-vX.YY') && validators.appsWorkflow.includes('raw.githubusercontent.com') && validators.appsWorkflow.includes('/downloads/'));
+expect('Workflow apps global non documente.', validators.appsWorkflow.includes('Android 5') && validators.appsWorkflow.includes('Android recent') && validators.appsWorkflow.includes('iOS ancien') && validators.appsWorkflow.includes('iOS recent') && validators.appsWorkflow.includes('cook-note-android-modern.apk') && validators.appsWorkflow.includes('apps-vX.YY') && validators.appsWorkflow.includes('github.com/LeParfait271/COOK-NOTE/raw/main/downloads') && validators.appsWorkflow.includes('raw.githubusercontent.com') && validators.appsWorkflow.includes('/downloads/'));
 expect('Validation Android manuel non branchee.', validators.androidManual.includes('Validation Android manuel OK.') && validators.packageJson.includes('scripts/validate-android-manual.js') && validators.packageJson.includes('android:legacy:update-apk') && validators.packageJson.includes('android:legacy:publish-release') && validators.packageJson.includes('android:modern:update-apk') && validators.packageJson.includes('android:modern:publish-release'));
 expect('Validation regles non branchee au check.', validators.packageJson.includes('scripts/validate-project-rules.js'));
 
