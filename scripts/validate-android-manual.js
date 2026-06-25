@@ -30,6 +30,8 @@ const updateAllAppsScript = read('scripts/update-all-apps.ps1');
 const publishScript = read('scripts/publish-android-release.ps1');
 const androidBuildGradle = read('android-legacy/app/build.gradle');
 const androidModernBuildGradle = read('android-modern/app/build.gradle');
+const androidLegacyManifest = read('android-legacy/app/src/main/AndroidManifest.xml');
+const androidLegacyMainActivity = read('android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java');
 const androidModernMainActivity = read('android-modern/app/src/main/java/fr/cooknote/modern/MainActivity.java');
 
 const normalSiteScripts = ['build', 'check', 'preflight', 'dev', 'start'];
@@ -114,6 +116,14 @@ expect(
     && packageJson.devDependencies?.['core-js-bundle']
 );
 expect(
+  'Android Legacy doit charger le HTML initial depuis les assets natifs pour eviter l ecran noir WebView Android 5.',
+  androidLegacyManifest.includes('android.permission.INTERNET')
+    && androidLegacyMainActivity.includes('loadDataWithBaseURL')
+    && androidLegacyMainActivity.includes('readAssetText("www/index.html")')
+    && androidLegacyMainActivity.includes('setLayerType(View.LAYER_TYPE_SOFTWARE')
+    && androidLegacyMainActivity.includes('showNativeError')
+);
+expect(
   'Le script de mise a jour groupee doit fabriquer et copier les deux APK Android ensemble.',
   updateAllAppsScript.includes('build-android-legacy.ps1')
     && updateAllAppsScript.includes('build-android-modern.ps1')
@@ -178,7 +188,9 @@ expect(
   'scripts/build-android-legacy-assets.js',
   'core-js-bundle.min.js',
   'JS ES5',
-  'service worker desactive'
+  'service worker desactive',
+  'loadDataWithBaseURL',
+  'rendu logiciel'
 ].forEach(fragment => {
   expect(`Documentation Android manuelle incomplete (${fragment}).`, workflowDoc.includes(fragment));
 });
@@ -210,7 +222,8 @@ expect(
   'Mise a jour groupee obligatoire',
   'Ne jamais publier un seul APK',
   'scripts/build-android-legacy-assets.js',
-  'core-js-bundle.min.js'
+  'core-js-bundle.min.js',
+  'loadDataWithBaseURL'
 ].forEach(fragment => {
   expect(`Documentation globale apps incomplete (${fragment}).`, appsWorkflowDoc.includes(fragment));
 });

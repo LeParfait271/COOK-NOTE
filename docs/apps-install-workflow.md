@@ -105,6 +105,10 @@ prerendues par `scripts/build-site.js`.
   `scripts/build-android-legacy-assets.js`, avec JS ES5, polyfills
   `core-js-bundle.min.js`, service worker desactive et loader compatible
   ancien WebView
+- Demarrage : `MainActivity` injecte `www/index.html` avec
+  `loadDataWithBaseURL`, puis sert les autres URLs depuis les assets locaux.
+  Garder ce demarrage natif, la permission `INTERNET`, le rendu logiciel et la
+  page d erreur native pour eviter les ecrans noirs sur Android 5.
 - Build explicite :
 
 ```powershell

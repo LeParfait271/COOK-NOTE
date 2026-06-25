@@ -36,7 +36,12 @@ sur la tablette et ne pas traiter l Android comme une etape obligatoire du site.
 
 Le WebView intercepte les URLs Cook Note et sert les fichiers depuis
 `app/src/main/assets/www/` dans l APK. Les liens externes sont ouverts par le
-navigateur Android.
+navigateur Android. Sur Android 5, le HTML initial ne doit pas etre charge par
+un simple `loadUrl` vers l origine locale : certains vieux WebView restent noirs
+avant l interception. `MainActivity` lit donc `www/index.html` depuis les assets
+natifs et l injecte avec `loadDataWithBaseURL`. Le WebView Legacy garde aussi la
+permission `INTERNET`, un rendu logiciel et une page d erreur native visible pour
+eviter un ecran noir silencieux.
 
 Android 5 peut utiliser un WebView tres ancien. L APK Legacy ne doit donc pas
 embarquer directement les assets web modernes bruts. Le workflow officiel passe
@@ -48,7 +53,9 @@ android-legacy/build/generated/cook-note-www
 
 Cette copie ajoute `core-js-bundle.min.js`, produit du JS ES5 avec Babel,
 garde le service worker desactive dans l APK local et garde un loader compatible
-ancien WebView, sans CSS moderne comme `grid`, `inset` ou `min()`.
+ancien WebView, sans CSS moderne comme `grid`, `inset` ou `min()`. Le chargement
+initial reste natif via `loadDataWithBaseURL`; ne pas revenir a un demarrage
+Legacy uniquement base sur `loadUrl`.
 
 ## Pourquoi l app ne suit pas automatiquement le site
 

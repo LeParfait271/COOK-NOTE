@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -14,7 +15,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
@@ -30,6 +33,9 @@ public class MainActivity extends Activity {
 
         webView = new WebView(this);
         webView.setBackgroundColor(Color.rgb(5, 5, 5));
+        webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        webView.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
+        webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.setLayoutParams(new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -39,7 +45,7 @@ public class MainActivity extends Activity {
         setContentView(webView);
 
         if (savedInstanceState == null) {
-            webView.loadUrl(LOCAL_ORIGIN + "/");
+            loadInitialPage();
         } else {
             webView.restoreState(savedInstanceState);
         }
@@ -58,6 +64,8 @@ public class MainActivity extends Activity {
         settings.setDisplayZoomControls(false);
         settings.setAllowFileAccess(false);
         settings.setAllowContentAccess(false);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        settings.setTextZoom(100);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
@@ -65,6 +73,43 @@ public class MainActivity extends Activity {
 
         view.setWebChromeClient(new WebChromeClient());
         view.setWebViewClient(new CookNoteClient());
+    }
+
+    private void loadInitialPage() {
+        try {
+            String html = readAssetText("www/index.html");
+            webView.loadDataWithBaseURL(LOCAL_ORIGIN + "/", html, "text/html", "UTF-8", LOCAL_ORIGIN + "/");
+        } catch (IOException exception) {
+            showNativeError("Impossible de charger Cook Note depuis l APK.", exception.getMessage());
+        }
+    }
+
+    private String readAssetText(String assetPath) throws IOException {
+        InputStream stream = getAssets().open(assetPath);
+        try {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            byte[] buffer = new byte[8192];
+            int count;
+            while ((count = stream.read(buffer)) != -1) {
+                output.write(buffer, 0, count);
+            }
+            return output.toString("UTF-8");
+        } finally {
+            stream.close();
+        }
+    }
+
+    private void showNativeError(String title, String detail) {
+        TextView errorView = new TextView(this);
+        errorView.setTextColor(Color.rgb(251, 191, 36));
+        errorView.setBackgroundColor(Color.rgb(5, 5, 5));
+        errorView.setTextSize(18);
+        errorView.setPadding(32, 48, 32, 32);
+        errorView.setText(title + "\n\n" + (detail == null ? "" : detail));
+        setContentView(errorView, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
     }
 
     @Override
@@ -101,6 +146,13 @@ public class MainActivity extends Activity {
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
             return localResponse(request.getUrl());
+        }
+
+        @Override
+        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            if (failingUrl != null && failingUrl.startsWith(LOCAL_ORIGIN)) {
+                showNativeError("Erreur de chargement Cook Note.", description);
+            }
         }
     }
 
