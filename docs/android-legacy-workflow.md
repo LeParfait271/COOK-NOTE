@@ -50,7 +50,7 @@ Le build normal du site doit rester rapide et propre :
 Le dossier Android copie `dist/` uniquement pendant un build Android demande :
 
 ```powershell
-npm run android:legacy:update-apk
+npm run apps:update-all
 ```
 
 Cette commande lance `scripts/build-android-legacy.ps1`. Gradle execute alors la
@@ -71,18 +71,29 @@ npm run android:legacy:setup
 Construire une nouvelle APK quand l'utilisateur le demande explicitement :
 
 ```powershell
-npm run android:legacy:update-apk
+npm run apps:update-all
 ```
+
+La commande `npm run android:legacy:update-apk` existe encore comme
+sous-commande de diagnostic, mais elle ne doit pas etre le workflow final :
+quand Android Legacy change, Android Modern et les deux entrees iOS PWA doivent
+etre revus dans le meme lot.
+Cette mise a jour groupee est obligatoire pour eviter une app en avance sur les
+autres.
 
 Publier l APK courant sur GitHub Releases, seulement sur demande explicite :
 
 ```powershell
-npm run android:legacy:publish-release
+npm run apps:publish-all
 ```
 
 Cette commande demande GitHub CLI (`gh`) authentifie. Elle cree ou met a jour
 une release commune `apps-vX.YY` et publie l APK sous le nom stable
 `cook-note-android-legacy.apk`.
+
+La commande `npm run android:legacy:publish-release` existe encore comme
+sous-commande interne de diagnostic, mais elle ne doit pas etre le workflow
+final de publication.
 
 Construire sans relancer le build web, si `dist/` est deja a jour :
 
@@ -139,16 +150,19 @@ C est voulu.
 
 1. Synchroniser GitHub avec `git pull --ff-only`.
 2. S assurer que le site est propre et que `dist/` est a jour.
-3. Lancer `npm run android:legacy:update-apk`.
+3. Lancer `npm run apps:update-all`.
 4. Verifier l APK :
    - `aapt dump badging android-legacy/app/build/outputs/apk/debug/app-debug.apk`
+   - `aapt dump badging android-modern/app/build/outputs/apk/debug/app-debug.apk`
    - `apksigner verify --verbose android-legacy/app/build/outputs/apk/debug/app-debug.apk`
-5. Ne pas committer l APK depuis le dossier Android : c est un artefact local ignore.
-6. Si l utilisateur demande une installation depuis le site, copier l APK valide
-   vers `downloads/cook-note-android-legacy.apk`, relancer `npm run build`, puis
-   verifier que `dist/downloads/` n existe pas.
+   - `apksigner verify --verbose android-modern/app/build/outputs/apk/debug/app-debug.apk`
+5. Ne pas committer les APK depuis les dossiers Android : ce sont des artefacts locaux ignores.
+6. `npm run apps:update-all` copie ensemble les APK valides vers
+   `downloads/cook-note-android-legacy.apk` et
+   `downloads/cook-note-android-modern.apk`. Verifier que `dist/downloads/`
+   n existe pas.
 7. Si l utilisateur demande aussi une Release GitHub, lancer
-   `npm run android:legacy:publish-release` apres authentification GitHub CLI.
+   `npm run apps:publish-all` apres authentification GitHub CLI.
 8. Commit/push seulement les changements de code, documentation et copies APK demandees.
 9. Donner le chemin local de l APK et/ou l URL de telechargement du site a l utilisateur.
 
@@ -173,6 +187,8 @@ C est voulu.
 - Ne pas versionner `android-legacy/app/src/main/assets/www/`.
 - Ne pas versionner les APK ou AAB generes dans les dossiers Android.
 - Ne pas publier une nouvelle release APK sans demande explicite.
+- Ne jamais publier un seul APK : toute mise a jour app doit passer par
+  `npm run apps:update-all`.
 - Ne pas traiter l APK comme la source de verite des recettes.
 - Ne pas modifier les recettes pour l app Android sans demande separee.
 - Ne pas supposer qu un push du site doit mettre a jour la tablette.

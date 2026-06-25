@@ -25,6 +25,7 @@ const buildSiteScript = read('scripts/build-site.js');
 const serviceWorker = read('service-worker.js');
 const buildScript = read('scripts/build-android-legacy.ps1');
 const buildModernScript = read('scripts/build-android-modern.ps1');
+const updateAllAppsScript = read('scripts/update-all-apps.ps1');
 const publishScript = read('scripts/publish-android-release.ps1');
 const androidBuildGradle = read('android-legacy/app/build.gradle');
 const androidModernBuildGradle = read('android-modern/app/build.gradle');
@@ -35,7 +36,7 @@ normalSiteScripts.forEach(scriptName => {
   const command = packageJson.scripts?.[scriptName] || '';
   expect(
     `Le script npm ${scriptName} ne doit jamais builder l'APK Android.`,
-    !/build-android-(?:legacy|modern)|publish-android-release|android:(?:legacy|modern):(?:apk|update|setup|publish)/.test(command)
+    !/build-android-(?:legacy|modern)|update-all-apps|publish-android-release|apps:(?:update|publish)-all|android:(?:legacy|modern):(?:apk|update|setup|publish)/.test(command)
   );
 });
 
@@ -66,6 +67,15 @@ expect(
     && packageJson.scripts?.['android:modern:publish-release']?.includes('-Channel modern')
 );
 expect(
+  'La mise a jour app doit rester groupee via apps:update-all.',
+  packageJson.scripts?.['apps:update-all']?.includes('update-all-apps.ps1')
+);
+expect(
+  'La publication app doit rester groupee via apps:publish-all.',
+  packageJson.scripts?.['apps:publish-all']?.includes('update-all-apps.ps1')
+    && packageJson.scripts?.['apps:publish-all']?.includes('-PublishRelease')
+);
+expect(
   'Le validateur Android manuel doit etre branche au check.',
   packageText.includes('scripts/validate-android-manual.js')
 );
@@ -85,6 +95,16 @@ expect(
   'Le script APK doit synchroniser dist seulement quand on le lance explicitement.',
   androidBuildGradle.includes('syncCookNoteDist') && buildScript.includes('APK Cook Note Android Legacy OK')
     && androidModernBuildGradle.includes('syncCookNoteDist') && buildModernScript.includes('APK Cook Note Android Modern OK')
+);
+expect(
+  'Le script de mise a jour groupee doit fabriquer et copier les deux APK Android ensemble.',
+  updateAllAppsScript.includes('build-android-legacy.ps1')
+    && updateAllAppsScript.includes('build-android-modern.ps1')
+    && updateAllAppsScript.includes('cook-note-android-legacy.apk')
+    && updateAllAppsScript.includes('cook-note-android-modern.apk')
+    && updateAllAppsScript.includes('dist\\downloads')
+    && updateAllAppsScript.includes('PublishRelease')
+    && updateAllAppsScript.includes('publish-android-release.ps1')
 );
 expect(
   'Le script APK doit echouer si Gradle echoue.',
@@ -134,7 +154,10 @@ expect(
   '/downloads/',
   'app/src/main/assets/www/',
   'commit/push du site ne change pas l APK installe',
-  'Android 5.0'
+  'Android 5.0',
+  'npm run apps:update-all',
+  'mise a jour groupee',
+  'Ne jamais publier un seul APK'
 ].forEach(fragment => {
   expect(`Documentation Android manuelle incomplete (${fragment}).`, workflowDoc.includes(fragment));
 });
@@ -160,7 +183,11 @@ expect(
   'raw.githubusercontent.com',
   '/downloads/',
   'Ajouter a l ecran d accueil',
-  'ne doivent pas pretendre telecharger un `.ipa`'
+  'ne doivent pas pretendre telecharger un `.ipa`',
+  'npm run apps:update-all',
+  'npm run apps:publish-all',
+  'Mise a jour groupee obligatoire',
+  'Ne jamais publier un seul APK'
 ].forEach(fragment => {
   expect(`Documentation globale apps incomplete (${fragment}).`, appsWorkflowDoc.includes(fragment));
 });

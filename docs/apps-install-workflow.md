@@ -41,6 +41,44 @@ ignores.
 
 Les deux boutons iOS ouvrent un panneau d'aide dans le site. Ils ne doivent pas pretendre telecharger un `.ipa` directement.
 
+## Mise a jour groupee obligatoire
+
+Quand une application Cook Note est mise a jour, toutes les applications doivent
+etre traitees dans le meme lot. Ne jamais publier un seul APK ou une seule
+entree app en decalage.
+
+Workflow normal :
+
+```powershell
+npm run apps:update-all
+```
+
+Cette commande reconstruit le site courant, fabrique Android Legacy et Android
+Modern, puis remplace ensemble les deux copies telechargeables :
+
+```text
+downloads/cook-note-android-legacy.apk
+downloads/cook-note-android-modern.apk
+```
+
+Les deux entrees iOS restent des installations PWA Safari, donc elles ne
+produisent pas d APK ou d IPA. Elles doivent quand meme etre verifiees dans le
+meme lot : libelles du footer, panneau d aide, manifest PWA, balises Apple et
+absence de promesse de telechargement `.ipa`.
+
+Publication Release GitHub, seulement sur demande explicite :
+
+```powershell
+npm run apps:publish-all
+```
+
+Les commandes `npm run android:legacy:update-apk`,
+`npm run android:modern:update-apk`, `npm run android:legacy:publish-release`
+et `npm run android:modern:publish-release` sont des sous-commandes de
+diagnostic. Elles ne doivent pas etre utilisees comme workflow final de
+publication, parce qu elles peuvent laisser une seule app en avance sur les
+autres.
+
 ## Limite Apple
 
 Un vrai `.ipa` iPhone/iPad ne s'installe pas librement depuis un simple bouton
@@ -66,7 +104,7 @@ prerendues par `scripts/build-site.js`.
 - Build explicite :
 
 ```powershell
-npm run android:legacy:update-apk
+npm run apps:update-all
 ```
 
 Sortie locale :
@@ -78,7 +116,7 @@ android-legacy/app/build/outputs/apk/debug/app-debug.apk
 Publication explicite :
 
 ```powershell
-npm run android:legacy:publish-release
+npm run apps:publish-all
 ```
 
 ## Android Modern
@@ -91,7 +129,7 @@ npm run android:legacy:publish-release
 - Build explicite :
 
 ```powershell
-npm run android:modern:update-apk
+npm run apps:update-all
 ```
 
 Sortie locale :
@@ -103,7 +141,7 @@ android-modern/app/build/outputs/apk/debug/app-debug.apk
 Publication explicite :
 
 ```powershell
-npm run android:modern:publish-release
+npm run apps:publish-all
 ```
 
 ## Release GitHub
@@ -140,6 +178,10 @@ tant que les copies `downloads/*.apk` sont presentes dans le depot GitHub.
 - Ne jamais brancher Android ou iOS a `npm run build`, `npm run check`,
   `npm run preflight`, `start` ou `dev`.
 - Ne publier une nouvelle app que sur demande explicite utilisateur.
+- Toute mise a jour app doit passer par `npm run apps:update-all`.
+- Toute publication Release app doit passer par `npm run apps:publish-all`.
+- Ne jamais publier un seul APK : Android Legacy et Android Modern doivent
+  avancer ensemble, avec verification des deux entrees iOS PWA.
 - Un push du site ne met pas a jour les apps deja installees.
 - Les recettes ne doivent pas etre modifiees pour une app mobile sans demande
   separee.

@@ -15,6 +15,7 @@ const validators = {
   bumpVersion: fs.readFileSync(path.join(ROOT, 'scripts', 'bump-version.js'), 'utf8'),
   audit: fs.readFileSync(path.join(ROOT, 'scripts', 'audit-recipes.js'), 'utf8'),
   androidManual: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-android-manual.js'), 'utf8'),
+  updateAllApps: fs.readFileSync(path.join(ROOT, 'scripts', 'update-all-apps.ps1'), 'utf8'),
   androidWorkflow: fs.readFileSync(path.join(ROOT, 'docs', 'android-legacy-workflow.md'), 'utf8'),
   appsWorkflow: fs.readFileSync(path.join(ROOT, 'docs', 'apps-install-workflow.md'), 'utf8'),
   workflow: fs.readFileSync(path.join(ROOT, '.github', 'workflows', 'cook-note.yml'), 'utf8'),
@@ -74,6 +75,10 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'node scripts/bump-version.js --next',
   'scripts/optimize-selected-images.ps1',
   'app Android Legacy est un projet secondaire manuel',
+  'Mise a jour groupee obligatoire des applications',
+  'npm run apps:update-all',
+  'npm run apps:publish-all',
+  'Ne jamais publier un seul APK',
   'npm run android:legacy:update-apk',
   'npm run android:modern:update-apk',
   'npm run android:legacy:publish-release',
@@ -143,9 +148,10 @@ expect('Preflight non branche.', validators.preflight.includes('Preflight Cook N
 expect('Optimisation ciblee images non branchee.', fs.existsSync(path.join(ROOT, 'scripts', 'optimize-selected-images.ps1')) && validators.packageJson.includes('optimize-selected-images.ps1'));
 expect('Audit recettes non branche.', validators.audit.includes('Audit recettes OK') && validators.packageJson.includes('scripts/audit-recipes.js'));
 expect('Audit images non branche.', validators.packageJson.includes('scripts/audit-images.js'));
-expect('Workflow Android manuel non documente.', validators.androidWorkflow.includes('projet secondaire') && validators.androidWorkflow.includes('ne se met pas a jour automatiquement') && validators.androidWorkflow.includes('npm run android:legacy:update-apk') && validators.androidWorkflow.includes('npm run android:legacy:publish-release') && validators.androidWorkflow.includes('cook-note-android-legacy.apk'));
-expect('Workflow apps global non documente.', validators.appsWorkflow.includes('Android 5') && validators.appsWorkflow.includes('Android recent') && validators.appsWorkflow.includes('iOS ancien') && validators.appsWorkflow.includes('iOS recent') && validators.appsWorkflow.includes('cook-note-android-modern.apk') && validators.appsWorkflow.includes('apps-vX.YY') && validators.appsWorkflow.includes('github.com/LeParfait271/COOK-NOTE/raw/main/downloads') && validators.appsWorkflow.includes('raw.githubusercontent.com') && validators.appsWorkflow.includes('/downloads/'));
-expect('Validation Android manuel non branchee.', validators.androidManual.includes('Validation Android manuel OK.') && validators.packageJson.includes('scripts/validate-android-manual.js') && validators.packageJson.includes('android:legacy:update-apk') && validators.packageJson.includes('android:legacy:publish-release') && validators.packageJson.includes('android:modern:update-apk') && validators.packageJson.includes('android:modern:publish-release'));
+expect('Workflow Android manuel non documente.', validators.androidWorkflow.includes('projet secondaire') && validators.androidWorkflow.includes('ne se met pas a jour automatiquement') && validators.androidWorkflow.includes('npm run apps:update-all') && validators.androidWorkflow.includes('npm run apps:publish-all') && validators.androidWorkflow.includes('npm run android:legacy:update-apk') && validators.androidWorkflow.includes('npm run android:legacy:publish-release') && validators.androidWorkflow.includes('cook-note-android-legacy.apk') && validators.androidWorkflow.includes('Ne jamais publier un seul APK'));
+expect('Workflow apps global non documente.', validators.appsWorkflow.includes('Android 5') && validators.appsWorkflow.includes('Android recent') && validators.appsWorkflow.includes('iOS ancien') && validators.appsWorkflow.includes('iOS recent') && validators.appsWorkflow.includes('cook-note-android-modern.apk') && validators.appsWorkflow.includes('apps-vX.YY') && validators.appsWorkflow.includes('github.com/LeParfait271/COOK-NOTE/raw/main/downloads') && validators.appsWorkflow.includes('raw.githubusercontent.com') && validators.appsWorkflow.includes('/downloads/') && validators.appsWorkflow.includes('npm run apps:update-all') && validators.appsWorkflow.includes('npm run apps:publish-all') && validators.appsWorkflow.includes('Mise a jour groupee obligatoire') && validators.appsWorkflow.includes('Ne jamais publier un seul APK'));
+expect('Script apps groupe non branche.', validators.packageJson.includes('"apps:update-all"') && validators.packageJson.includes('"apps:publish-all"') && validators.updateAllApps.includes('build-android-legacy.ps1') && validators.updateAllApps.includes('build-android-modern.ps1') && validators.updateAllApps.includes('cook-note-android-legacy.apk') && validators.updateAllApps.includes('cook-note-android-modern.apk') && validators.updateAllApps.includes('dist\\downloads'));
+expect('Validation Android manuel non branchee.', validators.androidManual.includes('Validation Android manuel OK.') && validators.packageJson.includes('scripts/validate-android-manual.js') && validators.packageJson.includes('apps:update-all') && validators.packageJson.includes('apps:publish-all') && validators.packageJson.includes('android:legacy:update-apk') && validators.packageJson.includes('android:legacy:publish-release') && validators.packageJson.includes('android:modern:update-apk') && validators.packageJson.includes('android:modern:publish-release'));
 expect('Validation regles non branchee au check.', validators.packageJson.includes('scripts/validate-project-rules.js'));
 
 if (errors.length) {
