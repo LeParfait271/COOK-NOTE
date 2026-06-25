@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
@@ -27,12 +28,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -72,12 +78,15 @@ public class MainActivity extends Activity {
     private String currentQuery = "";
     private boolean favoritesOnly;
     private boolean recentOnly;
+    private boolean browseAllRecipes;
     private boolean searchPanelOpen;
     private boolean showingDetail;
     private final Stack<String> detailBackStack = new Stack<String>();
     private final Set<String> favoriteIds = new HashSet<String>();
     private final ArrayList<String> recentIds = new ArrayList<String>();
     private final ArrayList<String> shoppingRecipeIds = new ArrayList<String>();
+    private final Map<String, Integer> collectionVariantSelections = new HashMap<String, Integer>();
+    private final Map<String, Integer> inlineVariantSelections = new HashMap<String, Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -288,6 +297,14 @@ public class MainActivity extends Activity {
                 applyFilters();
             }
         });
+        addFilterChip(quickStrip, "Toutes fiches", browseAllRecipes, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                browseAllRecipes = !browseAllRecipes;
+                rebuildQuickChips();
+                applyFilters();
+            }
+        });
         addFilterChip(quickStrip, "Reset", false, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -377,6 +394,7 @@ public class MainActivity extends Activity {
         selectedDifficulty = "Toutes";
         favoritesOnly = false;
         recentOnly = false;
+        browseAllRecipes = false;
         currentQuery = "";
         if (searchBox != null) searchBox.setText("");
         rebuildQuickChips();
@@ -415,23 +433,39 @@ public class MainActivity extends Activity {
         if (!"Toutes".equals(selectedDifficulty)) count += 1;
         if (favoritesOnly) count += 1;
         if (recentOnly) count += 1;
+        if (browseAllRecipes) count += 1;
         return count;
+    }
+
+    private boolean isHomeMode() {
+        return !browseAllRecipes
+                && currentQuery.trim().length() == 0
+                && "Toutes".equals(selectedCategory)
+                && "Toutes".equals(selectedSeason)
+                && "Toutes".equals(selectedDifficulty)
+                && !favoritesOnly
+                && !recentOnly;
     }
 
     private void applyFilters() {
         if (adapter == null) return;
-        List<Recipe> filtered = repository.filter(
-                currentQuery,
-                selectedCategory,
-                selectedSeason,
-                selectedDifficulty,
-                favoritesOnly ? favoriteIds : null,
-                recentOnly ? recentIds : null
-        );
+        boolean homeMode = isHomeMode();
+        List<Recipe> filtered = homeMode
+                ? repository.homeRecipes()
+                : repository.filterSearchable(
+                        currentQuery,
+                        selectedCategory,
+                        selectedSeason,
+                        selectedDifficulty,
+                        favoritesOnly ? favoriteIds : null,
+                        recentOnly ? recentIds : null
+                );
         adapter.setFavoriteIds(favoriteIds);
         adapter.setItems(filtered);
         StringBuilder label = new StringBuilder();
-        label.append(filtered.size()).append(" fiches visibles");
+        label.append(filtered.size()).append(homeMode ? " fiches parents" : " fiches visibles");
+        if (homeMode) label.append(" - accueil");
+        if (browseAllRecipes) label.append(" - toutes fiches");
         if (!"Toutes".equals(selectedCategory)) label.append(" - ").append(selectedCategory);
         if (favoritesOnly) label.append(" - favoris");
         if (recentOnly) label.append(" - derniers ouverts");
@@ -483,20 +517,22 @@ public class MainActivity extends Activity {
         topTitle.setEllipsize(TextUtils.TruncateAt.END);
         top.addView(topTitle, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
-        Button favorite = new Button(this);
-        favorite.setText(isFavorite(recipe.id) ? "Favori" : "+ Favori");
-        favorite.setTextColor(isFavorite(recipe.id) ? Color.rgb(21, 17, 8) : COLOR_TEXT);
-        favorite.setTextSize(12);
-        favorite.setTypeface(Typeface.DEFAULT_BOLD);
-        favorite.setBackground(panel(isFavorite(recipe.id) ? COLOR_GOLD : COLOR_CARD_SOFT, isFavorite(recipe.id) ? COLOR_GOLD : COLOR_BORDER, 1, 8));
-        top.addView(favorite, new LinearLayout.LayoutParams(dp(96), dp(42)));
-        favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleFavorite(recipe.id);
-                openRecipe(recipe, false);
-            }
-        });
+        if (!recipe.isCollection()) {
+            Button favorite = new Button(this);
+            favorite.setText(isFavorite(recipe.id) ? "Favori" : "+ Favori");
+            favorite.setTextColor(isFavorite(recipe.id) ? Color.rgb(21, 17, 8) : COLOR_TEXT);
+            favorite.setTextSize(12);
+            favorite.setTypeface(Typeface.DEFAULT_BOLD);
+            favorite.setBackground(panel(isFavorite(recipe.id) ? COLOR_GOLD : COLOR_CARD_SOFT, isFavorite(recipe.id) ? COLOR_GOLD : COLOR_BORDER, 1, 8));
+            top.addView(favorite, new LinearLayout.LayoutParams(dp(96), dp(42)));
+            favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    toggleFavorite(recipe.id);
+                    openRecipe(recipe, false);
+                }
+            });
+        }
 
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(false);
@@ -532,6 +568,7 @@ public class MainActivity extends Activity {
         if (recipe.isCollection()) {
             addVariants(content, recipe);
         } else {
+            if (recipe.variantGroups) addInlineVariantPicker(content, recipe);
             addRecipeTools(content, recipe);
             addIngredients(content, recipe);
             addSteps(content, recipe);
@@ -543,45 +580,194 @@ public class MainActivity extends Activity {
         setContentView(root);
     }
 
-    private void addVariants(LinearLayout content, Recipe recipe) {
+    private void addVariants(LinearLayout content, final Recipe recipe) {
         LinearLayout section = addSection(content, "Variantes");
-        if (recipe.variants.isEmpty()) {
-            body(section, "Cette collection ne contient pas de variantes directes.");
+        final List<VariantChoice> choices = collectionVariantChoices(recipe);
+        if (choices.isEmpty()) {
+            body(section, "Aucune variante disponible.");
             return;
         }
-        for (final Recipe.Variant variant : recipe.variants) {
-            final Recipe target = repository.find(variant.id);
-            String label = variant.label.length() > 0 ? variant.label : variant.id;
-            LinearLayout row = new LinearLayout(this);
-            row.setOrientation(LinearLayout.VERTICAL);
-            row.setPadding(dp(12), dp(10), dp(12), dp(10));
-            row.setBackground(panel(COLOR_CARD_SOFT, COLOR_BORDER, 1, 8));
 
-            TextView title = text(label, 17, target == null ? COLOR_MUTED : COLOR_TEXT, true);
-            title.setLineSpacing(dp(1), 1.06f);
-            row.addView(title);
-            if (target != null) {
-                TextView meta = text(target.metaLine(), 12, COLOR_DIM, false);
-                meta.setPadding(0, dp(4), 0, 0);
-                row.addView(meta);
+        final int selectedIndex = selectedCollectionVariantIndex(recipe, choices);
+        final int[] currentIndex = new int[]{selectedIndex};
+        Spinner spinner = createSpinner(labelsForChoices(choices));
+        spinner.setSelection(selectedIndex);
+        section.addView(spinner, fullWidthParams(dp(10), dp(46)));
+
+        final TextView meta = text("", 13, COLOR_MUTED, false);
+        meta.setPadding(0, dp(8), 0, 0);
+        section.addView(meta);
+        updateVariantMeta(meta, choices.get(selectedIndex).recipe);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == currentIndex[0]) return;
+                currentIndex[0] = position;
+                collectionVariantSelections.put(recipe.id, position);
+                updateVariantMeta(meta, choices.get(position).recipe);
             }
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            );
-            params.topMargin = dp(9);
-            section.addView(row, params);
-            if (target != null) {
-                row.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        detailBackStack.push(recipe.id);
-                        openRecipe(target, false);
-                    }
-                });
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        Button open = sectionButton("Ouvrir la fiche");
+        section.addView(open);
+        open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                detailBackStack.push(recipe.id);
+                openRecipe(choices.get(currentIndex[0]).recipe, false);
+            }
+        });
+    }
+
+    private void addInlineVariantPicker(LinearLayout content, final Recipe recipe) {
+        final List<InlineVariantChoice> choices = inlineVariantChoices(recipe);
+        if (choices.size() <= 1) return;
+
+        LinearLayout section = addSection(content, "Preparation");
+        final int selectedIndex = selectedInlineVariantIndex(recipe, choices);
+        final int[] currentIndex = new int[]{selectedIndex};
+        Spinner spinner = createSpinner(labelsForInlineChoices(choices));
+        spinner.setSelection(selectedIndex);
+        section.addView(spinner, fullWidthParams(dp(10), dp(46)));
+
+        final TextView meta = text("", 13, COLOR_MUTED, false);
+        meta.setPadding(0, dp(8), 0, 0);
+        section.addView(meta);
+        updateInlineVariantMeta(meta, recipe, choices.get(selectedIndex));
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == currentIndex[0]) return;
+                currentIndex[0] = position;
+                inlineVariantSelections.put(recipe.id, position);
+                openRecipe(recipe, false);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    private List<VariantChoice> collectionVariantChoices(Recipe recipe) {
+        List<VariantChoice> choices = new ArrayList<VariantChoice>();
+        for (Recipe.Variant variant : recipe.variants) {
+            Recipe target = repository.find(variant.id);
+            if (target == null) continue;
+            String label = variant.label.length() > 0 ? variant.label : target.title;
+            choices.add(new VariantChoice(label, target));
+        }
+        Collections.sort(choices, new Comparator<VariantChoice>() {
+            @Override
+            public int compare(VariantChoice left, VariantChoice right) {
+                return left.label.compareToIgnoreCase(right.label);
+            }
+        });
+        return choices;
+    }
+
+    private int selectedCollectionVariantIndex(Recipe recipe, List<VariantChoice> choices) {
+        Integer saved = collectionVariantSelections.get(recipe.id);
+        int index = saved == null ? 0 : saved.intValue();
+        if (index < 0 || index >= choices.size()) return 0;
+        return index;
+    }
+
+    private void updateVariantMeta(TextView meta, Recipe recipe) {
+        meta.setText(recipe.metaLine());
+    }
+
+    private List<InlineVariantChoice> inlineVariantChoices(Recipe recipe) {
+        List<InlineVariantChoice> choices = new ArrayList<InlineVariantChoice>();
+        for (int index = 0; index < recipe.ingredients.size(); index += 1) {
+            Recipe.Group group = recipe.ingredients.get(index);
+            if (!isVariantIngredientGroup(group, recipe)) continue;
+            choices.add(new InlineVariantChoice(cleanVariantGroupLabel(group.title), group));
+        }
+        if (choices.isEmpty() && recipe.variantGroups) {
+            for (Recipe.Group group : recipe.ingredients) {
+                choices.add(new InlineVariantChoice(cleanVariantGroupLabel(group.title), group));
             }
         }
+        return choices;
+    }
+
+    private int selectedInlineVariantIndex(Recipe recipe, List<InlineVariantChoice> choices) {
+        Integer saved = inlineVariantSelections.get(recipe.id);
+        int index = saved == null ? 0 : saved.intValue();
+        if (index < 0 || index >= choices.size()) return 0;
+        return index;
+    }
+
+    private InlineVariantChoice selectedInlineVariantChoice(Recipe recipe) {
+        List<InlineVariantChoice> choices = inlineVariantChoices(recipe);
+        if (choices.isEmpty()) return null;
+        return choices.get(selectedInlineVariantIndex(recipe, choices));
+    }
+
+    private List<Recipe.Group> selectedIngredientGroups(Recipe recipe) {
+        if (!recipe.variantGroups) return recipe.ingredients;
+
+        List<Recipe.Group> groups = new ArrayList<Recipe.Group>();
+        for (Recipe.Group group : recipe.ingredients) {
+            if (!isVariantIngredientGroup(group, recipe)) groups.add(group);
+        }
+
+        InlineVariantChoice selected = selectedInlineVariantChoice(recipe);
+        if (selected != null && !groups.contains(selected.group)) groups.add(selected.group);
+        return groups;
+    }
+
+    private List<String> selectedRecipeSteps(Recipe recipe) {
+        if (!recipe.variantGroups) return recipe.steps;
+        InlineVariantChoice selected = selectedInlineVariantChoice(recipe);
+        if (selected != null && !selected.group.steps.isEmpty()) return selected.group.steps;
+        return recipe.steps;
+    }
+
+    private boolean isVariantIngredientGroup(Recipe.Group group, Recipe recipe) {
+        String label = CookNoteRepository.normalize(group.title);
+        if (label.indexOf("base commune") >= 0 || "base".equals(label) || label.indexOf("commun") >= 0) return false;
+        if (label.matches("^\\d+.*")) return true;
+        if (label.startsWith("variante") || label.startsWith("version") || label.startsWith("option")) return true;
+        return recipe.variantGroups;
+    }
+
+    private String cleanVariantGroupLabel(String value) {
+        String label = value == null ? "" : value.trim();
+        label = label.replaceFirst("(?i)^\\s*(variante|version|option)\\s*[:\\-]?\\s*", "");
+        return label.length() == 0 ? "Preparation" : label;
+    }
+
+    private List<String> labelsForChoices(List<VariantChoice> choices) {
+        List<String> labels = new ArrayList<String>();
+        for (VariantChoice choice : choices) {
+            labels.add(choice.label);
+        }
+        return labels;
+    }
+
+    private List<String> labelsForInlineChoices(List<InlineVariantChoice> choices) {
+        List<String> labels = new ArrayList<String>();
+        for (InlineVariantChoice choice : choices) {
+            labels.add(choice.label);
+        }
+        return labels;
+    }
+
+    private void updateInlineVariantMeta(TextView meta, Recipe recipe, InlineVariantChoice choice) {
+        int stepCount = choice.group.steps.isEmpty() ? recipe.steps.size() : choice.group.steps.size();
+        StringBuilder builder = new StringBuilder();
+        builder.append(choice.group.items.size()).append(choice.group.items.size() > 1 ? " ingredients" : " ingredient");
+        if (stepCount > 0) builder.append(" - ").append(stepCount).append(stepCount > 1 ? " etapes" : " etape");
+        if (choice.group.note.length() > 0) builder.append(" - note");
+        meta.setText(builder.toString());
     }
 
     private void addRecipeTools(LinearLayout content, final Recipe recipe) {
@@ -618,7 +804,8 @@ public class MainActivity extends Activity {
 
     private void addIngredients(LinearLayout content, Recipe recipe) {
         LinearLayout section = addSection(content, "Ingredients");
-        if (recipe.ingredients.isEmpty()) {
+        List<Recipe.Group> groups = selectedIngredientGroups(recipe);
+        if (groups.isEmpty()) {
             body(section, "Aucun ingredient detaille pour cette fiche.");
             return;
         }
@@ -630,26 +817,33 @@ public class MainActivity extends Activity {
                 copyIngredients(recipe);
             }
         });
-        for (Recipe.Group group : recipe.ingredients) {
-            subTitle(section, group.title);
-            for (String item : group.items) {
-                bulletRow(section, item);
-            }
-            if (group.note.length() > 0) body(section, group.note, COLOR_MUTED);
-            for (String step : group.steps) {
-                bulletRow(section, step);
-            }
+        for (Recipe.Group group : groups) {
+            addIngredientGroup(section, group, !recipe.variantGroups);
         }
     }
 
     private void addSteps(LinearLayout content, Recipe recipe) {
         LinearLayout section = addSection(content, "Etapes");
-        if (recipe.steps.isEmpty()) {
+        List<String> steps = selectedRecipeSteps(recipe);
+        if (steps.isEmpty()) {
             body(section, "Aucune etape detaillee pour cette fiche.");
             return;
         }
-        for (int index = 0; index < recipe.steps.size(); index += 1) {
-            stepRow(section, index + 1, recipe.steps.get(index));
+        for (int index = 0; index < steps.size(); index += 1) {
+            stepRow(section, index + 1, steps.get(index));
+        }
+    }
+
+    private void addIngredientGroup(LinearLayout section, Recipe.Group group, boolean includeGroupSteps) {
+        subTitle(section, group.title);
+        for (String item : group.items) {
+            bulletRow(section, item);
+        }
+        if (group.note.length() > 0) body(section, group.note, COLOR_MUTED);
+        if (includeGroupSteps) {
+            for (String step : group.steps) {
+                bulletRow(section, step);
+            }
         }
     }
 
@@ -856,6 +1050,50 @@ public class MainActivity extends Activity {
         return button;
     }
 
+    private Spinner createSpinner(final List<String> labels) {
+        Spinner spinner = new Spinner(this);
+        spinner.setPadding(dp(8), 0, dp(8), 0);
+        spinner.setBackground(panel(COLOR_CARD_SOFT, COLOR_BORDER, 1, 8));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, labels) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView view = (TextView) super.getView(position, convertView, parent);
+                styleSpinnerText(view, false);
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                TextView view = (TextView) super.getDropDownView(position, convertView, parent);
+                styleSpinnerText(view, true);
+                return view;
+            }
+        };
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        return spinner;
+    }
+
+    private void styleSpinnerText(TextView view, boolean dropdown) {
+        view.setTextColor(COLOR_TEXT);
+        view.setTextSize(15);
+        view.setTypeface(Typeface.DEFAULT_BOLD);
+        view.setSingleLine(!dropdown);
+        view.setMaxLines(dropdown ? 2 : 1);
+        view.setEllipsize(TextUtils.TruncateAt.END);
+        view.setPadding(dp(12), dp(8), dp(12), dp(8));
+        view.setBackgroundColor(dropdown ? COLOR_CARD_SOFT : Color.TRANSPARENT);
+    }
+
+    private LinearLayout.LayoutParams fullWidthParams(int topMargin, int height) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                height
+        );
+        params.topMargin = topMargin;
+        return params;
+    }
+
     private void showShoppingList() {
         showingDetail = true;
 
@@ -948,11 +1186,8 @@ public class MainActivity extends Activity {
                     }
                 });
 
-                for (Recipe.Group group : recipe.ingredients) {
-                    subTitle(section, group.title);
-                    for (String item : group.items) {
-                        bulletRow(section, item);
-                    }
+                for (Recipe.Group group : selectedIngredientGroups(recipe)) {
+                    addIngredientGroup(section, group, false);
                 }
             }
         }
@@ -1030,21 +1265,15 @@ public class MainActivity extends Activity {
         }
     }
 
-    private static String buildIngredientsText(Recipe recipe) {
+    private String buildIngredientsText(Recipe recipe) {
         StringBuilder builder = new StringBuilder();
         builder.append(recipe.title).append('\n');
         builder.append("Ingredients").append('\n');
-        for (Recipe.Group group : recipe.ingredients) {
-            builder.append('\n').append(group.title).append('\n');
-            for (String item : group.items) {
-                builder.append("- ").append(item).append('\n');
-            }
-            if (group.note.length() > 0) builder.append("Note: ").append(group.note).append('\n');
-        }
+        appendIngredients(builder, recipe);
         return builder.toString().trim();
     }
 
-    private static String buildRecipeText(Recipe recipe) {
+    private String buildRecipeText(Recipe recipe) {
         StringBuilder builder = new StringBuilder();
         builder.append(recipe.title).append('\n');
         String meta = recipe.metaLine();
@@ -1053,10 +1282,11 @@ public class MainActivity extends Activity {
         builder.append('\n').append("Ingredients").append('\n');
         appendIngredients(builder, recipe);
 
-        if (!recipe.steps.isEmpty()) {
+        List<String> steps = selectedRecipeSteps(recipe);
+        if (!steps.isEmpty()) {
             builder.append('\n').append("Etapes").append('\n');
-            for (int index = 0; index < recipe.steps.size(); index += 1) {
-                builder.append(index + 1).append(". ").append(recipe.steps.get(index)).append('\n');
+            for (int index = 0; index < steps.size(); index += 1) {
+                builder.append(index + 1).append(". ").append(steps.get(index)).append('\n');
             }
         }
 
@@ -1087,8 +1317,8 @@ public class MainActivity extends Activity {
         return builder.toString().trim();
     }
 
-    private static void appendIngredients(StringBuilder builder, Recipe recipe) {
-        for (Recipe.Group group : recipe.ingredients) {
+    private void appendIngredients(StringBuilder builder, Recipe recipe) {
+        for (Recipe.Group group : selectedIngredientGroups(recipe)) {
             builder.append('\n').append(group.title).append('\n');
             for (String item : group.items) {
                 builder.append("- ").append(item).append('\n');
@@ -1124,6 +1354,26 @@ public class MainActivity extends Activity {
             return rest == 0 ? hours + "h" : hours + "h" + (rest < 10 ? "0" : "") + rest;
         }
         return minutes + "min";
+    }
+
+    private static final class VariantChoice {
+        final String label;
+        final Recipe recipe;
+
+        VariantChoice(String label, Recipe recipe) {
+            this.label = label;
+            this.recipe = recipe;
+        }
+    }
+
+    private static final class InlineVariantChoice {
+        final String label;
+        final Recipe.Group group;
+
+        InlineVariantChoice(String label, Recipe.Group group) {
+            this.label = label;
+            this.group = group;
+        }
     }
 
     private void loadUserState() {

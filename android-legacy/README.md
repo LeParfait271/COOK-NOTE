@@ -17,8 +17,12 @@ Le mode d'emploi complet est dans
 - App native Java Native Lite, sans WebView systeme et sans GeckoView
 - Catalogue local `recipes-lite.json`
 - Images locales reduites a `480px` max pour l APK Android 5 uniquement
-- Accueil compact avec liste recyclee, panneau recherche/filtres replie et cache
-  image limite
+- accueil parent Android compact avec les fiches parents du site par defaut,
+  liste recyclee, panneau recherche/filtres replie et cache image limite
+- Puce `Toutes fiches` dans la recherche pour parcourir le catalogue complet
+  sans remettre les recettes enfants en vrac sur l'accueil
+- selecteurs natifs de variantes pour les collections et preparation choisie
+  pour les fiches a variantes internes, sans afficher toutes les variantes en bloc
 - Fonctions natives legeres : favoris locaux, derniers ouverts, filtres
   saison/difficulte, copie ingredients, liste de courses locale, copie fiche,
   partage fiche et bouton natif de mise a jour

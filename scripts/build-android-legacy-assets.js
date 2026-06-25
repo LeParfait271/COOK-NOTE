@@ -236,6 +236,7 @@ function compactRecipe(id, recipe, imageName, detailImageName) {
     cookTime: Number.isFinite(recipe.cookTime) ? recipe.cookTime : 0,
     master: stripHtml(recipe.master || ''),
     masterType: stripHtml(recipe.masterType || ''),
+    variantGroups: Boolean(recipe.variantGroups),
     variants,
     ingredients,
     steps,

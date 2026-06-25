@@ -17,6 +17,7 @@ final class Recipe {
     final int cookTime;
     final String master;
     final String masterType;
+    final boolean variantGroups;
     final List<Variant> variants;
     final List<Group> ingredients;
     final List<String> steps;
@@ -41,6 +42,7 @@ final class Recipe {
             int cookTime,
             String master,
             String masterType,
+            boolean variantGroups,
             List<Variant> variants,
             List<Group> ingredients,
             List<String> steps,
@@ -64,6 +66,7 @@ final class Recipe {
         this.cookTime = cookTime;
         this.master = master;
         this.masterType = masterType;
+        this.variantGroups = variantGroups;
         this.variants = safe(variants);
         this.ingredients = safe(ingredients);
         this.steps = safe(steps);

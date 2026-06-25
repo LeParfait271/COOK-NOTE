@@ -77,8 +77,43 @@ final class CookNoteRepository {
         return byId.get(id);
     }
 
+    List<Recipe> homeRecipes() {
+        List<Recipe> output = new ArrayList<Recipe>();
+        for (Recipe recipe : recipes) {
+            if (recipe.master.length() == 0) output.add(recipe);
+        }
+        Collections.sort(output, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe left, Recipe right) {
+                int rank = homeRank(left.id) - homeRank(right.id);
+                if (rank != 0) return rank;
+                return left.title.compareToIgnoreCase(right.title);
+            }
+        });
+        return output;
+    }
+
+    List<Recipe> searchableRecipes() {
+        List<Recipe> output = new ArrayList<Recipe>();
+        for (Recipe recipe : recipes) {
+            if (!recipe.isCollection()) output.add(recipe);
+        }
+        return output;
+    }
+
     List<Recipe> filter(String rawQuery, String category) {
         return filter(rawQuery, category, "Toutes", "Toutes", null, null);
+    }
+
+    List<Recipe> filterSearchable(
+            String rawQuery,
+            String category,
+            String season,
+            String difficulty,
+            Set<String> favoriteIds,
+            List<String> recentIds
+    ) {
+        return filter(rawQuery, category, season, difficulty, favoriteIds, recentIds, true);
     }
 
     List<Recipe> filter(
@@ -88,6 +123,18 @@ final class CookNoteRepository {
             String difficulty,
             Set<String> favoriteIds,
             List<String> recentIds
+    ) {
+        return filter(rawQuery, category, season, difficulty, favoriteIds, recentIds, false);
+    }
+
+    private List<Recipe> filter(
+            String rawQuery,
+            String category,
+            String season,
+            String difficulty,
+            Set<String> favoriteIds,
+            List<String> recentIds,
+            boolean searchableOnly
     ) {
         String query = normalize(rawQuery);
         boolean allCategories = category == null || category.length() == 0 || "Toutes".equals(category);
@@ -106,6 +153,7 @@ final class CookNoteRepository {
 
         List<Recipe> output = new ArrayList<Recipe>();
         for (Recipe recipe : source) {
+            if (searchableOnly && recipe.isCollection()) continue;
             if (!allCategories && !recipe.categories.contains(category)) continue;
             if (favoritesOnly && !favoriteIds.contains(recipe.id)) continue;
             if (!matchesSeason(recipe, season)) continue;
@@ -168,6 +216,7 @@ final class CookNoteRepository {
                 json.optInt("cookTime", 0),
                 json.optString("master", ""),
                 json.optString("masterType", ""),
+                json.optBoolean("variantGroups", false),
                 variants(json.optJSONArray("variants")),
                 groups(json.optJSONArray("ingredients")),
                 stringList(json.optJSONArray("steps")),
@@ -252,6 +301,18 @@ final class CookNoteRepository {
         if ("Plats".equals(category)) return 5;
         if ("Accompagnements".equals(category)) return 6;
         if ("Desserts".equals(category)) return 7;
+        return 99;
+    }
+
+    private static int homeRank(String id) {
+        if ("petit_dejeuner_maitre".equals(id)) return 0;
+        if ("apero_maitre".equals(id)) return 1;
+        if ("entrees_maitre".equals(id)) return 2;
+        if ("sauces_maitre".equals(id)) return 3;
+        if ("elements_base_maitre".equals(id)) return 4;
+        if ("plats_maitre".equals(id)) return 5;
+        if ("accompagnements_maitre".equals(id)) return 6;
+        if ("desserts_maitre".equals(id)) return 7;
         return 99;
     }
 

@@ -40,6 +40,7 @@ const androidLegacySettingsGradle = read('android-legacy/settings.gradle');
 const androidLegacyManifest = read('android-legacy/app/src/main/AndroidManifest.xml');
 const androidLegacyStrings = read('android-legacy/app/src/main/res/values/strings.xml');
 const androidLegacyMainActivity = read('android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java');
+const androidLegacyRecipe = read('android-legacy/app/src/main/java/fr/cooknote/legacy/Recipe.java');
 const androidLegacyRepository = read('android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java');
 const androidLegacyImageLoader = read('android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java');
 const androidLegacyAdapter = read('android-legacy/app/src/main/java/fr/cooknote/legacy/RecipeAdapter.java');
@@ -128,11 +129,18 @@ expect(
     && !androidLegacyManifest.includes('largeHeap')
     && androidLegacyMainActivity.includes('ListView')
     && androidLegacyMainActivity.includes('RecipeAdapter')
+    && androidLegacyMainActivity.includes('Spinner')
+    && androidLegacyMainActivity.includes('ArrayAdapter')
     && androidLegacyMainActivity.includes('loadDetail')
     && androidLegacyMainActivity.includes('addSection')
     && androidLegacyMainActivity.includes('addInfoChips')
     && androidLegacyMainActivity.includes('stepRow')
     && androidLegacyMainActivity.includes('bulletRow')
+    && androidLegacyMainActivity.includes('addInlineVariantPicker')
+    && androidLegacyMainActivity.includes('selectedIngredientGroups')
+    && androidLegacyMainActivity.includes('selectedRecipeSteps')
+    && androidLegacyMainActivity.includes('Ouvrir la fiche')
+    && androidLegacyMainActivity.includes('Preparation')
     && androidLegacyMainActivity.includes('SharedPreferences')
     && androidLegacyMainActivity.includes('favoriteIds')
     && androidLegacyMainActivity.includes('recentIds')
@@ -140,6 +148,12 @@ expect(
     && androidLegacyMainActivity.includes('shoppingRecipeIds')
     && androidLegacyMainActivity.includes('searchPanelOpen')
     && androidLegacyMainActivity.includes('setSearchPanelOpen')
+    && androidLegacyMainActivity.includes('isHomeMode')
+    && androidLegacyMainActivity.includes('browseAllRecipes')
+    && androidLegacyMainActivity.includes('Toutes fiches')
+    && androidLegacyMainActivity.includes('fiches parents')
+    && androidLegacyMainActivity.includes('repository.homeRecipes()')
+    && androidLegacyMainActivity.includes('repository.filterSearchable')
     && androidLegacyMainActivity.includes('Rechercher / filtrer')
     && androidLegacyMainActivity.includes('Filtres actifs')
     && androidLegacyMainActivity.includes('selectedSeason')
@@ -159,6 +173,12 @@ expect(
     && androidLegacyMainActivity.includes('cook-note-android-legacy.apk')
     && androidLegacyMainActivity.includes('GradientDrawable')
     && androidLegacyRepository.includes('recipes-lite.json')
+    && androidLegacyRepository.includes('homeRecipes')
+    && androidLegacyRepository.includes('filterSearchable')
+    && androidLegacyRepository.includes('recipe.master.length() == 0')
+    && androidLegacyRepository.includes('searchableOnly && recipe.isCollection()')
+    && androidLegacyRepository.includes('json.optBoolean("variantGroups", false)')
+    && androidLegacyRecipe.includes('variantGroups')
     && androidLegacyRepository.includes('detailImage')
     && androidLegacyRepository.includes('matchesSeason')
     && androidLegacyRepository.includes('matchesDifficulty')
@@ -180,6 +200,7 @@ expect(
     && legacyAssetsScript.includes('recipes-lite.json')
     && legacyAssetsScript.includes('detail-images')
     && legacyAssetsScript.includes('detailImage')
+    && legacyAssetsScript.includes('variantGroups: Boolean(recipe.variantGroups)')
     && legacyAssetsScript.includes('android-legacy-native-lite')
     && legacyAssetsScript.includes('copyLiteImage')
     && legacyAssetsScript.includes('recipe-card-images')
@@ -274,6 +295,10 @@ expect(
   'derniers ouverts',
   'filtres saison/difficulte',
   'panneau recherche/filtres replie',
+  'accueil parent Android',
+  'Toutes fiches',
+  'selecteurs natifs de variantes',
+  'preparation choisie',
   'copie ingredients',
   'liste de courses locale',
   'copie fiche',
@@ -293,6 +318,10 @@ expect(
     && androidReadme.includes('favoris locaux')
     && androidReadme.includes('derniers ouverts')
     && androidReadme.includes('panneau recherche/filtres replie')
+    && androidReadme.includes('accueil parent Android')
+    && androidReadme.includes('Toutes fiches')
+    && androidReadme.includes('selecteurs natifs de variantes')
+    && androidReadme.includes('preparation choisie')
     && androidReadme.includes('filtres')
     && androidReadme.includes('copie ingredients')
     && androidReadme.includes('liste de courses locale')
@@ -342,6 +371,10 @@ expect(
   'derniers ouverts',
   'filtres saison/difficulte',
   'panneau recherche/filtres replie',
+  'accueil parent Android',
+  'Toutes fiches',
+  'selecteurs natifs de variantes',
+  'preparation choisie',
   'copie ingredients',
   'liste de courses locale',
   'copie fiche',

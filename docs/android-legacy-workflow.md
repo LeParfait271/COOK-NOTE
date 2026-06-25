@@ -51,6 +51,18 @@ seulement via `Rechercher / filtrer`. L accueil doit aussi garder un bouton
 stable de l APK `cook-note-android-legacy.apk`. Ces elements restent des vues
 Android simples, pas un rendu web.
 
+L accueil parent Android doit reprendre le rangement du site : sans recherche
+ni filtre actif, afficher seulement les fiches parents racines du catalogue,
+pas toutes les recettes enfants en vrac. La puce `Toutes fiches` vit dans le
+panneau recherche/filtres et permet de parcourir le catalogue cherchable sans
+casser cet accueil parent.
+
+Les variantes doivent suivre la construction du site. Les fiches collections
+utilisent des selecteurs natifs de variantes au lieu d afficher toutes les
+fiches enfants en colonnes. Les fiches a variantes internes utilisent une
+preparation choisie : une seule variante active affiche ses ingredients et ses
+etapes, les autres restent dans le selecteur natif.
+
 Le workflow officiel passe par `scripts/build-android-legacy-assets.js`, qui
 genere une sortie dediee dans :
 
@@ -239,6 +251,9 @@ C est voulu.
 - Ne pas supprimer les fonctions natives legeres reintegrees : favoris locaux,
   derniers ouverts, filtres saison/difficulte, panneau recherche/filtres replie,
   copie ingredients, liste de courses locale, copie fiche et partage fiche.
+- Ne pas afficher toutes les variantes d une collection ou d une fiche a
+  variantes internes a plat : garder les selecteurs natifs de variantes et la
+  preparation choisie.
 - Ne pas publier une nouvelle release APK sans demande explicite.
 - Ne jamais publier un seul APK : toute mise a jour app doit passer par
   `npm run apps:update-all`.
