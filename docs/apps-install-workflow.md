@@ -104,7 +104,9 @@ prerendues par `scripts/build-site.js`.
 - Assets embarques : copie WebView ancien generee par
   `scripts/build-android-legacy-assets.js`, avec JS ES5, polyfills
   `core-js-bundle.min.js`, service worker desactive et loader compatible
-  ancien WebView
+  ancien WebView. La sortie Legacy remplace aussi le CSS moderne par un CSS sans
+  `var()`, `color-mix()`, `clamp()` ni CSS Grid, et injecte un runtime ES5 qui
+  affiche une erreur visible au lieu d un ecran noir.
 - Demarrage : `MainActivity` injecte `www/index.html` avec
   `loadDataWithBaseURL`, puis sert les autres URLs depuis les assets locaux.
   Garder ce demarrage natif, la permission `INTERNET`, le rendu logiciel et la

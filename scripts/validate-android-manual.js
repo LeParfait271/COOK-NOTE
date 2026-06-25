@@ -111,6 +111,11 @@ expect(
     && legacyAssetsScript.includes('core-js-bundle.min.js')
     && legacyAssetsScript.includes('Service worker disabled in Android Legacy')
     && legacyAssetsScript.includes('id="loading-screen"')
+    && legacyAssetsScript.includes('legacyCss')
+    && legacyAssetsScript.includes('color-mix')
+    && legacyAssetsScript.includes('display\\s*:\\s*grid')
+    && legacyAssetsScript.includes('cook-note-legacy-error')
+    && legacyAssetsScript.includes('URLSearchParams')
     && packageJson.devDependencies?.['@babel/core']
     && packageJson.devDependencies?.['@babel/preset-env']
     && packageJson.devDependencies?.['core-js-bundle']
@@ -189,6 +194,10 @@ expect(
   'core-js-bundle.min.js',
   'JS ES5',
   'service worker desactive',
+  'CSS Legacy sans `var()`',
+  'color-mix()',
+  'CSS Grid',
+  'panneau d erreur visible',
   'loadDataWithBaseURL',
   'rendu logiciel'
 ].forEach(fragment => {
@@ -223,6 +232,8 @@ expect(
   'Ne jamais publier un seul APK',
   'scripts/build-android-legacy-assets.js',
   'core-js-bundle.min.js',
+  'CSS Grid',
+  'ecran noir',
   'loadDataWithBaseURL'
 ].forEach(fragment => {
   expect(`Documentation globale apps incomplete (${fragment}).`, appsWorkflowDoc.includes(fragment));

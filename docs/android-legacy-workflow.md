@@ -53,9 +53,13 @@ android-legacy/build/generated/cook-note-www
 
 Cette copie ajoute `core-js-bundle.min.js`, produit du JS ES5 avec Babel,
 garde le service worker desactive dans l APK local et garde un loader compatible
-ancien WebView, sans CSS moderne comme `grid`, `inset` ou `min()`. Le chargement
-initial reste natif via `loadDataWithBaseURL`; ne pas revenir a un demarrage
-Legacy uniquement base sur `loadUrl`.
+ancien WebView, sans CSS moderne comme `grid`, `inset` ou `min()`. Elle genere
+aussi un CSS Legacy sans `var()`, `color-mix()`, `clamp()` ni CSS Grid, car le
+WebView Android 5 peut monter React puis afficher un ecran noir si les styles
+modernes sont ignores. Le runtime Legacy injecte des polyfills WebView et un
+panneau d erreur visible si le JavaScript plante. Le chargement initial reste
+natif via `loadDataWithBaseURL`; ne pas revenir a un demarrage Legacy uniquement
+base sur `loadUrl`.
 
 ## Pourquoi l app ne suit pas automatiquement le site
 
