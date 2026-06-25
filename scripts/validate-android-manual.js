@@ -125,12 +125,18 @@ expect(
     && androidLegacyMainActivity.includes('ListView')
     && androidLegacyMainActivity.includes('RecipeAdapter')
     && androidLegacyMainActivity.includes('loadDetail')
+    && androidLegacyMainActivity.includes('addSection')
+    && androidLegacyMainActivity.includes('addInfoChips')
+    && androidLegacyMainActivity.includes('stepRow')
+    && androidLegacyMainActivity.includes('bulletRow')
+    && androidLegacyMainActivity.includes('GradientDrawable')
     && androidLegacyRepository.includes('recipes-lite.json')
     && androidLegacyRepository.includes('detailImage')
     && androidLegacyImageLoader.includes('RGB_565')
     && androidLegacyImageLoader.includes('LruCache')
     && androidLegacyImageLoader.includes('detail-images/')
     && androidLegacyAdapter.includes('BaseAdapter')
+    && androidLegacyAdapter.includes('setEllipsize')
     && !/Gecko|WebView|ServerSocket|127\.0\.0\.1|LocalAssetServer/.test(androidLegacyMainActivity + androidLegacyRepository + androidLegacyImageLoader)
 );
 expect(
@@ -215,6 +221,8 @@ expect(
   'jpeg-js',
   'ListView',
   'RGB_565',
+  'pastilles',
+  'etapes numerotees',
   'sans WebView systeme et sans GeckoView',
   'assets/www'
 ].forEach(fragment => {
@@ -259,6 +267,8 @@ expect(
   'jpeg-js',
   'ListView',
   'RGB_565',
+  'pastilles',
+  'etapes numerotees',
   'sans GeckoView'
 ].forEach(fragment => {
   expect(`Documentation globale apps incomplete (${fragment}).`, appsWorkflowDoc.includes(fragment));

@@ -3,6 +3,8 @@ package fr.cooknote.legacy;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +63,7 @@ final class RecipeAdapter extends BaseAdapter {
         holder.title.setText(recipe.title);
         holder.meta.setText(recipe.metaLine());
         holder.badge.setText(recipe.isCollection() ? "Collection" : recipe.primaryCategory());
-        imageLoader.load(recipe.image, holder.image, dp(116), dp(74));
+        imageLoader.load(recipe.image, holder.image, dp(122), dp(78));
         return convertView;
     }
 
@@ -69,17 +71,18 @@ final class RecipeAdapter extends BaseAdapter {
         LinearLayout root = new LinearLayout(context);
         root.setOrientation(LinearLayout.HORIZONTAL);
         root.setGravity(Gravity.CENTER_VERTICAL);
-        root.setPadding(dp(10), dp(7), dp(10), dp(7));
-        root.setBackgroundColor(Color.rgb(10, 9, 8));
+        root.setPadding(dp(10), dp(8), dp(10), dp(8));
+        root.setBackground(panel(Color.rgb(11, 10, 9), Color.rgb(54, 45, 31), 1, 0));
         root.setLayoutParams(new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(92)
+                dp(102)
         ));
 
         ImageView image = new ImageView(context);
         image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(dp(116), dp(74));
-        imageParams.rightMargin = dp(10);
+        image.setBackgroundColor(Color.rgb(24, 22, 18));
+        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(dp(122), dp(78));
+        imageParams.rightMargin = dp(12);
         root.addView(image, imageParams);
 
         LinearLayout textColumn = new LinearLayout(context);
@@ -92,6 +95,8 @@ final class RecipeAdapter extends BaseAdapter {
         badge.setTextSize(11);
         badge.setTypeface(Typeface.DEFAULT_BOLD);
         badge.setSingleLine(true);
+        badge.setEllipsize(TextUtils.TruncateAt.END);
+        badge.setIncludeFontPadding(false);
         textColumn.addView(badge);
 
         TextView title = new TextView(context);
@@ -99,7 +104,9 @@ final class RecipeAdapter extends BaseAdapter {
         title.setTextSize(16);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         title.setMaxLines(2);
+        title.setEllipsize(TextUtils.TruncateAt.END);
         title.setIncludeFontPadding(false);
+        title.setLineSpacing(dp(1), 1.05f);
         LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -111,6 +118,8 @@ final class RecipeAdapter extends BaseAdapter {
         meta.setTextColor(Color.rgb(207, 198, 184));
         meta.setTextSize(12);
         meta.setSingleLine(true);
+        meta.setEllipsize(TextUtils.TruncateAt.END);
+        meta.setIncludeFontPadding(false);
         LinearLayout.LayoutParams metaParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -129,6 +138,14 @@ final class RecipeAdapter extends BaseAdapter {
 
     private int dp(int value) {
         return (int) (value * context.getResources().getDisplayMetrics().density + 0.5f);
+    }
+
+    private GradientDrawable panel(int color, int strokeColor, int strokeWidth, int radiusDp) {
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setColor(color);
+        drawable.setCornerRadius(dp(radiusDp));
+        if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
+        return drawable;
     }
 
     private static final class ViewHolder {

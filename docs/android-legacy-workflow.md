@@ -38,6 +38,11 @@ ne depend pas du WebView systeme et n embarque plus GeckoView ARMv7. `MainActivi
 lit un JSON local, affiche une `ListView` recyclee, ouvre les fiches dans des
 vues Android natives, et charge les images avec un cache memoire limite.
 
+La lecture doit rester confortable malgre le mode Lite : titres ellipses dans la
+liste, fiches decoupees en sections natives, infos rapides en pastilles,
+ingredients en lignes lisibles, etapes numerotees et variantes cliquables. Ces
+elements restent des vues Android simples, pas un rendu web.
+
 Le workflow officiel passe par `scripts/build-android-legacy-assets.js`, qui
 genere une sortie dediee dans :
 
@@ -187,7 +192,8 @@ C est voulu.
 ## Fichiers importants
 
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java`
-  contient l interface native Android 5 Lite.
+  contient l interface native Android 5 Lite, les sections de fiche, les
+  pastilles d infos et les etapes numerotees.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java`
   lit `recipes-lite.json`.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java`
