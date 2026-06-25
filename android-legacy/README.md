@@ -20,7 +20,8 @@ Le mode d'emploi complet est dans
 - Accueil compact avec liste recyclee, panneau recherche/filtres replie et cache
   image limite
 - Fonctions natives legeres : favoris locaux, derniers ouverts, filtres
-  saison/difficulte, copie ingredients et bouton natif de mise a jour
+  saison/difficulte, copie ingredients, liste de courses locale, copie fiche,
+  partage fiche et bouton natif de mise a jour
 - aucun changement de recette requis pour l app
 
 ## Mise a jour explicite

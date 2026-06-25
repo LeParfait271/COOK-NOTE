@@ -136,6 +136,8 @@ expect(
     && androidLegacyMainActivity.includes('SharedPreferences')
     && androidLegacyMainActivity.includes('favoriteIds')
     && androidLegacyMainActivity.includes('recentIds')
+    && androidLegacyMainActivity.includes('PREF_SHOPPING')
+    && androidLegacyMainActivity.includes('shoppingRecipeIds')
     && androidLegacyMainActivity.includes('searchPanelOpen')
     && androidLegacyMainActivity.includes('setSearchPanelOpen')
     && androidLegacyMainActivity.includes('Rechercher / filtrer')
@@ -143,6 +145,13 @@ expect(
     && androidLegacyMainActivity.includes('selectedSeason')
     && androidLegacyMainActivity.includes('selectedDifficulty')
     && androidLegacyMainActivity.includes('copyIngredients')
+    && androidLegacyMainActivity.includes('showShoppingList')
+    && androidLegacyMainActivity.includes('buildShoppingText')
+    && androidLegacyMainActivity.includes('copyShoppingList')
+    && androidLegacyMainActivity.includes('copyRecipe')
+    && androidLegacyMainActivity.includes('shareRecipe')
+    && androidLegacyMainActivity.includes('Intent.ACTION_SEND')
+    && androidLegacyMainActivity.includes('Ajouter aux courses')
     && androidLegacyMainActivity.includes('ClipboardManager')
     && androidLegacyMainActivity.includes('UPDATE_APK_URL')
     && androidLegacyMainActivity.includes('Mise a jour')
@@ -266,6 +275,9 @@ expect(
   'filtres saison/difficulte',
   'panneau recherche/filtres replie',
   'copie ingredients',
+  'liste de courses locale',
+  'copie fiche',
+  'partage fiche',
   'bouton natif de mise a jour',
   'etapes numerotees',
   'sans WebView systeme et sans GeckoView',
@@ -283,6 +295,9 @@ expect(
     && androidReadme.includes('panneau recherche/filtres replie')
     && androidReadme.includes('filtres')
     && androidReadme.includes('copie ingredients')
+    && androidReadme.includes('liste de courses locale')
+    && androidReadme.includes('copie fiche')
+    && androidReadme.includes('partage fiche')
     && androidReadme.includes('bouton natif de mise a jour')
     && androidReadme.includes('update-all')
     && androidReadme.includes('publish-all')
@@ -328,6 +343,9 @@ expect(
   'filtres saison/difficulte',
   'panneau recherche/filtres replie',
   'copie ingredients',
+  'liste de courses locale',
+  'copie fiche',
+  'partage fiche',
   'bouton natif de mise a jour',
   'etapes numerotees',
   'sans GeckoView'

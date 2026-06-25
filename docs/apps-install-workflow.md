@@ -121,11 +121,14 @@ prerendues par `scripts/build-site.js`.
   replie, recherche locale, filtres categories, filtres saison/difficulte,
   favoris locaux, derniers ouverts, fiches natives en sections lisibles, infos
   rapides en pastilles, ingredients en lignes, copie ingredients, bouton natif
-  de mise a jour, etapes numerotees et variantes cliquables
+  de mise a jour, liste de courses locale, copie fiche, partage fiche,
+  etapes numerotees et variantes cliquables
 
 Le panneau recherche/filtres replie garde les filtres hors de l accueil tant
 que l utilisateur ne touche pas `Rechercher / filtrer`. Le bouton natif de mise
 a jour reste disponible sous forme compacte avec `Mise a jour`.
+Le bouton `Courses` ouvre une liste locale simple stockee en `SharedPreferences`
+et copiable, sans serveur, sans WebView et sans fusion couteuse.
 Le bouton natif de mise a jour ouvre toujours l APK Android 5.0+ stable.
 
 Les assets Legacy sont generes par `scripts/build-android-legacy-assets.js`.

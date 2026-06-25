@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
     private static final String PREFS_NAME = "cook_note_legacy";
     private static final String PREF_FAVORITES = "favorites";
     private static final String PREF_RECENT = "recent";
+    private static final String PREF_SHOPPING = "shopping";
     private static final int MAX_RECENT = 18;
     private static final int COLOR_BG = Color.rgb(5, 5, 5);
     private static final int COLOR_PANEL = Color.rgb(18, 16, 12);
@@ -62,6 +63,7 @@ public class MainActivity extends Activity {
     private LinearLayout difficultyStrip;
     private LinearLayout searchPanel;
     private Button searchToggle;
+    private Button shoppingButton;
     private TextView counterView;
     private EditText searchBox;
     private String selectedCategory = "Toutes";
@@ -75,6 +77,7 @@ public class MainActivity extends Activity {
     private final Stack<String> detailBackStack = new Stack<String>();
     private final Set<String> favoriteIds = new HashSet<String>();
     private final ArrayList<String> recentIds = new ArrayList<String>();
+    private final ArrayList<String> shoppingRecipeIds = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,12 +126,25 @@ public class MainActivity extends Activity {
 
         searchToggle = actionButton("Rechercher / filtrer", true);
         LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(0, dp(42), 1);
-        searchParams.rightMargin = dp(8);
+        searchParams.rightMargin = dp(7);
         actionRow.addView(searchToggle, searchParams);
         searchToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setSearchPanelOpen(!searchPanelOpen);
+            }
+        });
+
+        shoppingButton = actionButton("Courses (" + shoppingRecipeIds.size() + ")", false);
+        LinearLayout.LayoutParams shoppingParams = new LinearLayout.LayoutParams(0, dp(42), 1);
+        shoppingParams.rightMargin = dp(7);
+        actionRow.addView(shoppingButton, shoppingParams);
+        shoppingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard();
+                setSearchPanelOpen(false);
+                showShoppingList();
             }
         });
 
@@ -516,6 +532,7 @@ public class MainActivity extends Activity {
         if (recipe.isCollection()) {
             addVariants(content, recipe);
         } else {
+            addRecipeTools(content, recipe);
             addIngredients(content, recipe);
             addSteps(content, recipe);
             addNotes(content, recipe);
@@ -565,6 +582,38 @@ public class MainActivity extends Activity {
                 });
             }
         }
+    }
+
+    private void addRecipeTools(LinearLayout content, final Recipe recipe) {
+        LinearLayout section = addSection(content, "Actions");
+
+        Button shopping = sectionButton(isInShopping(recipe.id) ? "Retirer des courses" : "Ajouter aux courses");
+        section.addView(shopping);
+        shopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleShopping(recipe);
+                openRecipe(recipe, false);
+            }
+        });
+
+        Button copy = sectionButton("Copier fiche");
+        section.addView(copy);
+        copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyRecipe(recipe);
+            }
+        });
+
+        Button share = sectionButton("Partager fiche");
+        section.addView(share);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareRecipe(recipe);
+            }
+        });
     }
 
     private void addIngredients(LinearLayout content, Recipe recipe) {
@@ -807,6 +856,110 @@ public class MainActivity extends Activity {
         return button;
     }
 
+    private void showShoppingList() {
+        showingDetail = true;
+
+        LinearLayout root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(COLOR_BG);
+
+        LinearLayout top = new LinearLayout(this);
+        top.setOrientation(LinearLayout.HORIZONTAL);
+        top.setGravity(Gravity.CENTER_VERTICAL);
+        top.setPadding(dp(10), dp(8), dp(10), dp(8));
+        top.setBackgroundColor(COLOR_PANEL);
+        root.addView(top, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+
+        Button back = new Button(this);
+        back.setText("Retour");
+        back.setTextColor(Color.rgb(21, 17, 8));
+        back.setTextSize(13);
+        back.setTypeface(Typeface.DEFAULT_BOLD);
+        back.setBackground(panel(COLOR_ORANGE, COLOR_ORANGE, 1, 8));
+        top.addView(back, new LinearLayout.LayoutParams(dp(104), dp(42)));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goBack();
+            }
+        });
+
+        TextView title = text("Liste de courses", 20, COLOR_TEXT, true);
+        title.setGravity(Gravity.CENTER_VERTICAL);
+        title.setPadding(dp(12), 0, 0, 0);
+        top.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout content = new LinearLayout(this);
+        content.setOrientation(LinearLayout.VERTICAL);
+        content.setPadding(dp(14), dp(14), dp(14), dp(26));
+        scroll.addView(content);
+        root.addView(scroll, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                0,
+                1
+        ));
+
+        LinearLayout actions = addSection(content, "Courses");
+        body(actions, shoppingRecipeIds.size() + " recette(s) dans la liste", COLOR_MUTED);
+
+        Button copy = sectionButton("Copier la liste");
+        copy.setEnabled(!shoppingRecipeIds.isEmpty());
+        actions.addView(copy);
+        copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyShoppingList();
+            }
+        });
+
+        Button clear = sectionButton("Vider la liste");
+        clear.setEnabled(!shoppingRecipeIds.isEmpty());
+        actions.addView(clear);
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearShoppingList();
+            }
+        });
+
+        if (shoppingRecipeIds.isEmpty()) {
+            body(actions, "Ajoute une recette depuis une fiche pour preparer les courses.");
+        } else {
+            ArrayList<String> ids = new ArrayList<String>(shoppingRecipeIds);
+            for (final String id : ids) {
+                final Recipe recipe = repository.find(id);
+                if (recipe == null) continue;
+                LinearLayout section = addSection(content, recipe.title);
+                TextView meta = text(recipe.metaLine(), 12, COLOR_DIM, false);
+                meta.setPadding(0, dp(5), 0, dp(3));
+                section.addView(meta);
+
+                Button remove = sectionButton("Retirer cette recette");
+                section.addView(remove);
+                remove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        removeShopping(id);
+                        showShoppingList();
+                    }
+                });
+
+                for (Recipe.Group group : recipe.ingredients) {
+                    subTitle(section, group.title);
+                    for (String item : group.items) {
+                        bulletRow(section, item);
+                    }
+                }
+            }
+        }
+
+        setContentView(root);
+    }
+
     private Button actionButton(String value, boolean primary) {
         Button button = new Button(this);
         button.setText(value);
@@ -836,6 +989,32 @@ public class MainActivity extends Activity {
         Toast.makeText(this, "Ingredients copies", Toast.LENGTH_SHORT).show();
     }
 
+    private void copyRecipe(Recipe recipe) {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboard == null) return;
+        clipboard.setPrimaryClip(ClipData.newPlainText(recipe.title, buildRecipeText(recipe)));
+        Toast.makeText(this, "Fiche copiee", Toast.LENGTH_SHORT).show();
+    }
+
+    private void shareRecipe(Recipe recipe) {
+        Intent send = new Intent(Intent.ACTION_SEND);
+        send.setType("text/plain");
+        send.putExtra(Intent.EXTRA_SUBJECT, recipe.title);
+        send.putExtra(Intent.EXTRA_TEXT, buildRecipeText(recipe));
+        try {
+            startActivity(Intent.createChooser(send, "Partager"));
+        } catch (ActivityNotFoundException exception) {
+            copyRecipe(recipe);
+        }
+    }
+
+    private void copyShoppingList() {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboard == null) return;
+        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note - liste de courses", buildShoppingText()));
+        Toast.makeText(this, "Liste de courses copiee", Toast.LENGTH_SHORT).show();
+    }
+
     private void openUpdateDownload() {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(UPDATE_APK_URL));
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -863,6 +1042,59 @@ public class MainActivity extends Activity {
             if (group.note.length() > 0) builder.append("Note: ").append(group.note).append('\n');
         }
         return builder.toString().trim();
+    }
+
+    private static String buildRecipeText(Recipe recipe) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(recipe.title).append('\n');
+        String meta = recipe.metaLine();
+        if (meta.length() > 0) builder.append(meta).append('\n');
+
+        builder.append('\n').append("Ingredients").append('\n');
+        appendIngredients(builder, recipe);
+
+        if (!recipe.steps.isEmpty()) {
+            builder.append('\n').append("Etapes").append('\n');
+            for (int index = 0; index < recipe.steps.size(); index += 1) {
+                builder.append(index + 1).append(". ").append(recipe.steps.get(index)).append('\n');
+            }
+        }
+
+        if (!recipe.notes.isEmpty()) {
+            builder.append('\n').append("Notes").append('\n');
+            for (String note : recipe.notes) {
+                builder.append("- ").append(note).append('\n');
+            }
+        }
+
+        return builder.toString().trim();
+    }
+
+    private String buildShoppingText() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Cook Note - Liste de courses").append('\n');
+        if (shoppingRecipeIds.isEmpty()) {
+            builder.append('\n').append("Aucune recette.");
+            return builder.toString();
+        }
+
+        for (String id : shoppingRecipeIds) {
+            Recipe recipe = repository.find(id);
+            if (recipe == null) continue;
+            builder.append('\n').append(recipe.title).append('\n');
+            appendIngredients(builder, recipe);
+        }
+        return builder.toString().trim();
+    }
+
+    private static void appendIngredients(StringBuilder builder, Recipe recipe) {
+        for (Recipe.Group group : recipe.ingredients) {
+            builder.append('\n').append(group.title).append('\n');
+            for (String item : group.items) {
+                builder.append("- ").append(item).append('\n');
+            }
+            if (group.note.length() > 0) builder.append("Note: ").append(group.note).append('\n');
+        }
     }
 
     private GradientDrawable panel(int color, int strokeColor, int strokeWidth, int radiusDp) {
@@ -898,14 +1130,17 @@ public class MainActivity extends Activity {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         favoriteIds.clear();
         recentIds.clear();
+        shoppingRecipeIds.clear();
         parseIds(prefs.getString(PREF_FAVORITES, ""), favoriteIds, 0);
         parseIds(prefs.getString(PREF_RECENT, ""), recentIds, MAX_RECENT);
+        parseIds(prefs.getString(PREF_SHOPPING, ""), shoppingRecipeIds, 0);
     }
 
     private void saveUserState() {
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putString(PREF_FAVORITES, joinIds(new ArrayList<String>(favoriteIds)));
         editor.putString(PREF_RECENT, joinIds(recentIds));
+        editor.putString(PREF_SHOPPING, joinIds(shoppingRecipeIds));
         editor.apply();
     }
 
@@ -943,6 +1178,10 @@ public class MainActivity extends Activity {
         return favoriteIds.contains(id);
     }
 
+    private boolean isInShopping(String id) {
+        return shoppingRecipeIds.contains(id);
+    }
+
     private void toggleFavorite(String id) {
         if (favoriteIds.contains(id)) {
             favoriteIds.remove(id);
@@ -951,6 +1190,35 @@ public class MainActivity extends Activity {
         }
         saveUserState();
         if (adapter != null) adapter.setFavoriteIds(favoriteIds);
+    }
+
+    private void toggleShopping(Recipe recipe) {
+        if (shoppingRecipeIds.contains(recipe.id)) {
+            shoppingRecipeIds.remove(recipe.id);
+            Toast.makeText(this, "Retire des courses", Toast.LENGTH_SHORT).show();
+        } else {
+            shoppingRecipeIds.add(recipe.id);
+            Toast.makeText(this, "Ajoute aux courses", Toast.LENGTH_SHORT).show();
+        }
+        saveUserState();
+        refreshShoppingButton();
+    }
+
+    private void removeShopping(String id) {
+        shoppingRecipeIds.remove(id);
+        saveUserState();
+        refreshShoppingButton();
+    }
+
+    private void clearShoppingList() {
+        shoppingRecipeIds.clear();
+        saveUserState();
+        refreshShoppingButton();
+        showShoppingList();
+    }
+
+    private void refreshShoppingButton() {
+        if (shoppingButton != null) shoppingButton.setText("Courses (" + shoppingRecipeIds.size() + ")");
     }
 
     private void rememberRecent(String id) {
