@@ -60,6 +60,23 @@ function request(url) {
   });
 }
 
+function requestText(url) {
+  return new Promise((resolve, reject) => {
+    const req = http.get(url, response => {
+      const chunks = [];
+      response.on('data', chunk => chunks.push(chunk));
+      response.on('end', () => resolve({
+        status: response.statusCode,
+        text: Buffer.concat(chunks).toString('utf8')
+      }));
+    });
+    req.on('error', reject);
+    req.setTimeout(5000, () => {
+      req.destroy(new Error(`Timeout ${url}`));
+    });
+  });
+}
+
 async function waitForServer(baseUrl) {
   for (let attempt = 0; attempt < 30; attempt += 1) {
     try {
@@ -106,6 +123,12 @@ async function verifyServer() {
       if (status !== 200) throw new Error(`${target}: HTTP ${status}`);
       console.log(`HTTP 200 ${target}`);
     }
+    const recipePage = await requestText(`${baseUrl}/recette/cassoulet`);
+    if (recipePage.status !== 200) throw new Error(`/recette/cassoulet: HTTP ${recipePage.status}`);
+    if (!recipePage.text.includes('COOK_NOTE_PRERENDERED_RECIPES')) {
+      throw new Error('/recette/cassoulet: page prerendue absente.');
+    }
+    console.log('HTTP 200 /recette/cassoulet (prerendu)');
   } catch (error) {
     console.error(logs.trim());
     throw error;

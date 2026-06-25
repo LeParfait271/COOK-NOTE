@@ -14,6 +14,9 @@
 /recipe.html
   Cache-Control: no-cache
 
+/recette/*
+  Cache-Control: no-cache
+
 /service-worker.js
   Cache-Control: no-cache
 

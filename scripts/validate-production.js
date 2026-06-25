@@ -87,6 +87,7 @@ const packageJson = read('package.json');
 const headers = read('_headers');
 const redirects = read('_redirects');
 const workflow = read('.github/workflows/cook-note.yml');
+const buildSite = read('scripts/build-site.js');
 
 const FORBIDDEN_INLINE_ALIASES = new Set([
   'base',
@@ -323,8 +324,14 @@ if (!headers.includes("Content-Security-Policy: default-src 'self'")) {
 if (!headers.includes('/service-worker.js') || !headers.includes('Cache-Control: no-cache')) {
   fail('_headers: service worker doit rester en no-cache.');
 }
+if (!headers.includes('/recette/*') || !headers.includes('Cache-Control: no-cache')) {
+  fail('_headers: pages recettes prerendue doivent rester en no-cache.');
+}
 if (!redirects.includes('/recette/* /index.html 200')) {
   fail('_redirects: fallback SPA recettes absent.');
+}
+if (!buildSite.includes('writeStaticRecipePages') || !buildSite.includes('COOK_NOTE_PRERENDERED_RECIPES') || !buildSite.includes('writeDistRedirects')) {
+  fail('build-site.js: prerendu statique des recettes absent.');
 }
 if (!workflow.includes('npm run test:visual') || !workflow.includes('Upload visual smoke artifacts')) {
   fail('GitHub Actions: tests visuels Playwright absents.');

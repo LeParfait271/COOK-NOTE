@@ -190,6 +190,15 @@ function safePath(urlPath) {
   return filePath;
 }
 
+function prerenderedRecipePath(urlPath) {
+  const match = urlPath.match(/^\/recette\/([^/]+)\/?$/);
+  if (!match) return null;
+  const id = decodeURIComponent(match[1]);
+  if (!/^[a-z0-9_-]+$/.test(id)) return null;
+  const filePath = path.join(ROOT, 'dist', 'recette', id, 'index.html');
+  return fs.existsSync(filePath) ? filePath : null;
+}
+
 function serveFile(req, res, filePath, noStore = false) {
   fs.readFile(filePath, (error, data) => {
     if (error) {
@@ -550,6 +559,12 @@ function route(req, res) {
 
   if (url.pathname === '/admin-login.html') {
     serveFile(req, res, path.join(ROOT, 'admin-login.html'), true);
+    return;
+  }
+
+  const prerenderedRecipe = prerenderedRecipePath(url.pathname);
+  if (prerenderedRecipe) {
+    serveFile(req, res, prerenderedRecipe, true);
     return;
   }
 

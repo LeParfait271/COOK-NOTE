@@ -66,6 +66,16 @@ function read(relative) {
   return fs.readFileSync(path.join(DIST, relative), 'utf8');
 }
 
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
 function normalizeAssetPath(asset) {
   return asset
     .split('?')[0]
@@ -108,6 +118,7 @@ if (!fs.existsSync(DIST)) {
   });
 
   const recipes = exists('recipes.js') ? loadRecipesFromDist() : {};
+  const redirects = exists('_redirects') ? read('_redirects') : '';
   Object.entries(recipes).forEach(([id, recipe]) => {
     const image = recipe?.image;
     if (!image || !image.startsWith('/assets/recipe-images-optimized/')) {
@@ -120,6 +131,26 @@ if (!fs.existsSync(DIST)) {
       .replace(/\.(?:png|jpe?g|webp)$/i, '.jpg');
     if (!exists(optimized)) fail(`dist/${optimized}: image optimisee manquante (${id}).`);
     if (!exists(card)) fail(`dist/${card}: miniature manquante (${id}).`);
+
+    const slug = encodeURIComponent(id);
+    const prerenderedPage = `recette/${slug}/index.html`;
+    if (!exists(prerenderedPage)) {
+      fail(`dist/${prerenderedPage}: page recette prerendue manquante (${id}).`);
+    } else {
+      const prerenderedHtml = read(prerenderedPage);
+      if (!prerenderedHtml.includes('COOK_NOTE_PRERENDERED_RECIPES')) {
+        fail(`dist/${prerenderedPage}: donnees de boot recette absentes.`);
+      }
+      if (!prerenderedHtml.includes(`>${escapeHtml(recipe.title)} - Cook Note</title>`)) {
+        fail(`dist/${prerenderedPage}: titre recette prerendu incoherent.`);
+      }
+      if (prerenderedHtml.includes('loading-screen')) {
+        fail(`dist/${prerenderedPage}: loader bloquant interdit dans une page prerendue.`);
+      }
+    }
+    if (!redirects.includes(`/recette/${slug} /recette/${slug}/index.html 200`)) {
+      fail(`dist/_redirects: route statique recette absente (${id}).`);
+    }
   });
 
   const manifest = exists('assets/image-manifest.js')
