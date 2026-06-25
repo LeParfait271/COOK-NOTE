@@ -3,6 +3,7 @@ const path = require('node:path');
 
 const ROOT = path.resolve(__dirname, '..');
 const VERSION_RE = /^v(\d+)\.(\d+)$/;
+const EXPLICIT_VERSION_RE = /^v\d+\.\d{2}$/;
 
 function read(file) {
   return fs.readFileSync(path.join(ROOT, file), 'utf8');
@@ -25,7 +26,9 @@ function parseVersion(value) {
 
 function nextVersion(value) {
   const parsed = parseVersion(value);
-  return `v${parsed.major}.${String(parsed.minor + 1).padStart(2, '0')}`;
+  const nextMinor = parsed.minor + 1;
+  if (nextMinor > 99) return `v${parsed.major + 1}.00`;
+  return `v${parsed.major}.${String(nextMinor).padStart(2, '0')}`;
 }
 
 function numericVersion(value) {
@@ -49,7 +52,10 @@ const app = read('app.js');
 const current = app.match(/const SITE_VERSION = '([^']+)'/)?.[1];
 if (!current) fail('SITE_VERSION introuvable dans app.js.');
 
-const explicitVersion = args.find(arg => VERSION_RE.test(arg));
+const explicitVersion = args.find(arg => /^v\d+\.\d+$/.test(arg));
+if (explicitVersion && !EXPLICIT_VERSION_RE.test(explicitVersion)) {
+  fail(`Version explicite invalide: ${explicitVersion}. Attendu: vX.YY, par exemple v2.00.`);
+}
 const version = explicitVersion || (args.includes('--next') ? nextVersion(current) : null);
 if (!version) fail(`Usage: node scripts/bump-version.js --next | vX.YY. Version actuelle: ${current}`);
 

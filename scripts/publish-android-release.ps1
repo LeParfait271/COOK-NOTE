@@ -65,7 +65,9 @@ $Notes = @"
 Applications Cook Note $VersionName.
 
 - Android Legacy: cook-note-android-legacy.apk
+- Android Legacy versionne: cook-note-android-legacy-v$VersionName.apk
 - Android Modern: cook-note-android-modern.apk
+- Android Modern versionne: cook-note-android-modern-v$VersionName.apk
 - iOS ancien/recent: installation PWA Safari depuis le site.
 - Applications secondaires, mises a jour manuelles.
 "@

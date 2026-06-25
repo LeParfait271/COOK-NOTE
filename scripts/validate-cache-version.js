@@ -51,6 +51,9 @@ const validateUi = read('scripts/validate-ui.js');
 const siteVersion = app.match(/const SITE_VERSION = 'v(\d+)\.(\d+)'/)?.slice(1, 3);
 const siteDate = app.match(/const SITE_UPDATED_AT = '(\d{2}\/\d{2}\/\d{2})'/)?.[1];
 if (!siteVersion) fail('app.js: SITE_VERSION introuvable ou invalide.');
+if (siteVersion && Number(siteVersion[1]) > 99) {
+  fail('app.js: SITE_VERSION doit rester au format vX.YY avec passage v1.99 -> v2.00.');
+}
 if (!siteDate) fail('app.js: SITE_UPDATED_AT introuvable ou invalide.');
 
 const expectedAssetVersion = siteVersion ? `${Number(siteVersion[0])}${siteVersion[1].padStart(2, '0')}` : '';

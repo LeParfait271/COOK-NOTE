@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -99,6 +100,47 @@ final class CookNoteRepository {
             if (!recipe.isCollection()) output.add(recipe);
         }
         return output;
+    }
+
+    List<Recipe> childrenForParent(Recipe parent) {
+        List<Recipe> output = new ArrayList<Recipe>();
+        if (parent == null || parent.id.length() == 0) return output;
+        for (Recipe recipe : recipes) {
+            if (recipe.id.equals(parent.id)) continue;
+            if (belongsToParent(recipe, parent.id, new HashSet<String>())) output.add(recipe);
+        }
+        sortRecipeList(output);
+        return output;
+    }
+
+    int collectionCount(Recipe recipe) {
+        if (recipe == null) return 0;
+        int childCount = childrenForParent(recipe).size();
+        return childCount > 0 ? childCount : recipe.variants.size();
+    }
+
+    Map<String, Integer> collectionCounts() {
+        Map<String, Integer> counts = new HashMap<String, Integer>();
+        for (Recipe recipe : recipes) {
+            if (recipe.isCollection() || recipe.master.length() == 0) {
+                counts.put(recipe.id, collectionCount(recipe));
+            }
+        }
+        return counts;
+    }
+
+    List<Recipe> parentTrail(Recipe recipe) {
+        List<Recipe> trail = new ArrayList<Recipe>();
+        if (recipe == null) return trail;
+        String parentId = recipe.master;
+        Set<String> visited = new HashSet<String>();
+        while (parentId != null && parentId.length() > 0 && visited.add(parentId)) {
+            Recipe parent = byId.get(parentId);
+            if (parent == null) break;
+            trail.add(0, parent);
+            parentId = parent.master;
+        }
+        return trail;
     }
 
     List<Recipe> filter(String rawQuery, String category) {
@@ -215,6 +257,7 @@ final class CookNoteRepository {
                 json.optInt("activeTime", 0),
                 json.optInt("cookTime", 0),
                 json.optString("master", ""),
+                stringList(json.optJSONArray("additionalMasters")),
                 json.optString("masterType", ""),
                 json.optBoolean("variantGroups", false),
                 variants(json.optJSONArray("variants")),
@@ -314,6 +357,26 @@ final class CookNoteRepository {
         if ("accompagnements_maitre".equals(id)) return 6;
         if ("desserts_maitre".equals(id)) return 7;
         return 99;
+    }
+
+    private boolean belongsToParent(Recipe recipe, String parentId, Set<String> visited) {
+        if (recipe.master.equals(parentId)) return true;
+        if (recipe.additionalMasters.contains(parentId)) return true;
+        if (recipe.master.length() == 0 || !visited.add(recipe.master)) return false;
+        Recipe parent = byId.get(recipe.master);
+        return parent != null && belongsToParent(parent, parentId, visited);
+    }
+
+    private static void sortRecipeList(List<Recipe> output) {
+        Collections.sort(output, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe left, Recipe right) {
+                int category = categoryRank(left.primaryCategory()) - categoryRank(right.primaryCategory());
+                if (category != 0) return category;
+                if (left.isCollection() != right.isCollection()) return left.isCollection() ? -1 : 1;
+                return left.title.compareToIgnoreCase(right.title);
+            }
+        });
     }
 
     private static String readAsset(Context context, String asset) throws Exception {

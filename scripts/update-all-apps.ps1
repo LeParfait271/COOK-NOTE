@@ -12,6 +12,15 @@ $LegacyScript = Join-Path $PSScriptRoot "build-android-legacy.ps1"
 $ModernScript = Join-Path $PSScriptRoot "build-android-modern.ps1"
 $PublishScript = Join-Path $PSScriptRoot "publish-android-release.ps1"
 
+function Get-CookNoteVersionName {
+  $AppJs = Get-Content -Raw (Join-Path $Root "app.js")
+  $Match = [regex]::Match($AppJs, "const SITE_VERSION = 'v(\d+)\.(\d{2})'")
+  if (-not $Match.Success) {
+    throw "SITE_VERSION invalide. Attendu: vX.YY avec passage v1.99 -> v2.00."
+  }
+  return "$($Match.Groups[1].Value).$($Match.Groups[2].Value)"
+}
+
 function Run-NpmBuild {
   Push-Location $Root
   try {
@@ -56,11 +65,15 @@ if (-not (Test-Path (Join-Path $Root "dist\index.html"))) {
   throw "dist/index.html introuvable. Lance npm run build avant les apps."
 }
 
+$VersionName = Get-CookNoteVersionName
+
 Run-AndroidBuild $LegacyScript "Build Android Legacy"
 Run-AndroidBuild $ModernScript "Build Android Modern"
 
-$LegacyDownload = Copy-ExpectedApk "legacy" "cook-note-android-legacy.apk"
-$ModernDownload = Copy-ExpectedApk "modern" "cook-note-android-modern.apk"
+$LegacyStableDownload = Copy-ExpectedApk "legacy" "cook-note-android-legacy.apk"
+$ModernStableDownload = Copy-ExpectedApk "modern" "cook-note-android-modern.apk"
+$LegacyVersionedDownload = Copy-ExpectedApk "legacy" "cook-note-android-legacy-v$VersionName.apk"
+$ModernVersionedDownload = Copy-ExpectedApk "modern" "cook-note-android-modern-v$VersionName.apk"
 
 if (Test-Path (Join-Path $Root "dist\downloads")) {
   throw "dist\downloads ne doit jamais exister. Les APK doivent rester servis depuis GitHub."
@@ -71,13 +84,23 @@ if ($PublishRelease) {
   if ($LASTEXITCODE -ne 0) {
     throw "Publication Android Legacy echouee avec le code $LASTEXITCODE."
   }
+  & $PublishScript -Channel legacy -AssetName "cook-note-android-legacy-v$VersionName.apk"
+  if ($LASTEXITCODE -ne 0) {
+    throw "Publication Android Legacy versionnee echouee avec le code $LASTEXITCODE."
+  }
   & $PublishScript -Channel modern
   if ($LASTEXITCODE -ne 0) {
     throw "Publication Android Modern echouee avec le code $LASTEXITCODE."
   }
+  & $PublishScript -Channel modern -AssetName "cook-note-android-modern-v$VersionName.apk"
+  if ($LASTEXITCODE -ne 0) {
+    throw "Publication Android Modern versionnee echouee avec le code $LASTEXITCODE."
+  }
 }
 
 Write-Host "Mise a jour groupee des applications Cook Note OK:"
-Write-Host "  Android Legacy: $LegacyDownload"
-Write-Host "  Android Modern: $ModernDownload"
+Write-Host "  Android Legacy stable: $LegacyStableDownload"
+Write-Host "  Android Legacy versionne: $LegacyVersionedDownload"
+Write-Host "  Android Modern stable: $ModernStableDownload"
+Write-Host "  Android Modern versionne: $ModernVersionedDownload"
 Write-Host "  iOS ancien/recent: entrees PWA du footer a verifier dans le meme lot."

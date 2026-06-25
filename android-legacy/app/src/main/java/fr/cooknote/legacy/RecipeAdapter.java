@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 final class RecipeAdapter extends BaseAdapter {
@@ -24,6 +25,7 @@ final class RecipeAdapter extends BaseAdapter {
     private final ImageLoader imageLoader;
     private final List<Recipe> items = new ArrayList<Recipe>();
     private final Set<String> favoriteIds = new HashSet<String>();
+    private Map<String, Integer> collectionCounts;
 
     RecipeAdapter(Context context, ImageLoader imageLoader) {
         this.context = context;
@@ -39,6 +41,11 @@ final class RecipeAdapter extends BaseAdapter {
     void setFavoriteIds(Set<String> ids) {
         favoriteIds.clear();
         if (ids != null) favoriteIds.addAll(ids);
+        notifyDataSetChanged();
+    }
+
+    void setCollectionCounts(Map<String, Integer> counts) {
+        collectionCounts = counts;
         notifyDataSetChanged();
     }
 
@@ -70,11 +77,22 @@ final class RecipeAdapter extends BaseAdapter {
 
         Recipe recipe = getItem(position);
         holder.title.setText(recipe.title);
-        holder.meta.setText(recipe.metaLine());
-        String badge = recipe.isCollection() ? "Collection" : recipe.primaryCategory();
+        holder.meta.setText(displayMeta(recipe));
+        String badge = recipe.isCollection() ? "Collection - " + collectionCount(recipe) + " fiches" : recipe.primaryCategory();
         holder.badge.setText(favoriteIds.contains(recipe.id) ? "Favori - " + badge : badge);
         imageLoader.load(recipe.image, holder.image, dp(122), dp(78));
         return convertView;
+    }
+
+    private String displayMeta(Recipe recipe) {
+        if (!recipe.isCollection()) return recipe.metaLine();
+        return recipe.primaryCategory() + " - " + collectionCount(recipe) + " fiches rangees";
+    }
+
+    private int collectionCount(Recipe recipe) {
+        if (collectionCounts == null) return recipe.variants.size();
+        Integer count = collectionCounts.get(recipe.id);
+        return count == null ? recipe.variants.size() : count.intValue();
     }
 
     private ViewHolder createRow() {

@@ -10,7 +10,7 @@ if (!versionMatch.find()) {
 }
 def major = versionMatch.group(1) as int
 def minor = versionMatch.group(2) as int
-def cookNoteVersionName = "${major}.${minor}"
+def cookNoteVersionName = String.format('%d.%02d', major, minor)
 def cookNoteVersionCode = (major * 1000) + minor
 
 android {

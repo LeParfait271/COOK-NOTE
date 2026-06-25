@@ -103,12 +103,17 @@ function detectAppEnvironment() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.100';
+const SITE_VERSION = 'v2.00';
 const SITE_UPDATED_AT = '26/06/26';
 const APP_ENVIRONMENT = detectAppEnvironment();
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
+const APP_VERSION_NUMBER = SITE_VERSION.replace(/^v/, '');
+const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${APP_VERSION_NUMBER}.apk`;
+const ANDROID_MODERN_APK_FILE = `cook-note-android-modern-v${APP_VERSION_NUMBER}.apk`;
+const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
+const ANDROID_MODERN_STABLE_APK_FILE = 'cook-note-android-modern.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
     id: 'android-legacy',
@@ -123,10 +128,13 @@ const APP_INSTALL_OPTIONS = Object.freeze([
       'Ouvre le fichier telecharge, puis autorise l installation depuis le navigateur si Android le demande.',
       'Si le lien direct affiche une erreur, utilise le lien brut ou la page GitHub.'
     ],
-    fileName: 'cook-note-android-legacy.apk',
-    href: `${APP_REPO_DOWNLOAD_BASE}/cook-note-android-legacy.apk`,
-    rawHref: `${APP_RAW_DOWNLOAD_BASE}/cook-note-android-legacy.apk`,
-    pageHref: `${APP_REPO_FILE_BASE}/cook-note-android-legacy.apk`,
+    fileName: ANDROID_LEGACY_APK_FILE,
+    href: `${APP_REPO_DOWNLOAD_BASE}/${ANDROID_LEGACY_APK_FILE}`,
+    rawHref: `${APP_RAW_DOWNLOAD_BASE}/${ANDROID_LEGACY_APK_FILE}`,
+    pageHref: `${APP_REPO_FILE_BASE}/${ANDROID_LEGACY_APK_FILE}`,
+    stableHref: `${APP_REPO_DOWNLOAD_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`,
+    stableRawHref: `${APP_RAW_DOWNLOAD_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`,
+    stablePageHref: `${APP_REPO_FILE_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`,
     note: `Version APK ${SITE_VERSION.replace(/^v/, '')}, Android 5.0 minimum.`
   },
   {
@@ -142,10 +150,13 @@ const APP_INSTALL_OPTIONS = Object.freeze([
       'Ouvre le fichier telecharge, puis confirme l installation.',
       'Si le lien direct affiche une erreur, utilise le lien brut ou la page GitHub.'
     ],
-    fileName: 'cook-note-android-modern.apk',
-    href: `${APP_REPO_DOWNLOAD_BASE}/cook-note-android-modern.apk`,
-    rawHref: `${APP_RAW_DOWNLOAD_BASE}/cook-note-android-modern.apk`,
-    pageHref: `${APP_REPO_FILE_BASE}/cook-note-android-modern.apk`,
+    fileName: ANDROID_MODERN_APK_FILE,
+    href: `${APP_REPO_DOWNLOAD_BASE}/${ANDROID_MODERN_APK_FILE}`,
+    rawHref: `${APP_RAW_DOWNLOAD_BASE}/${ANDROID_MODERN_APK_FILE}`,
+    pageHref: `${APP_REPO_FILE_BASE}/${ANDROID_MODERN_APK_FILE}`,
+    stableHref: `${APP_REPO_DOWNLOAD_BASE}/${ANDROID_MODERN_STABLE_APK_FILE}`,
+    stableRawHref: `${APP_RAW_DOWNLOAD_BASE}/${ANDROID_MODERN_STABLE_APK_FILE}`,
+    stablePageHref: `${APP_REPO_FILE_BASE}/${ANDROID_MODERN_STABLE_APK_FILE}`,
     note: `Version APK ${SITE_VERSION.replace(/^v/, '')}, Android 8.0 minimum.`
   },
   {
@@ -4868,6 +4879,7 @@ function AppInstallPanel({ option, onClose }) {
       ),
       h('div', { className: 'app-install-card' },
         h('p', null, option.body),
+        option.kind === 'apk' && h('p', { className: 'app-install-file' }, option.fileName),
         h('ol', null, option.steps.map(step => h('li', { key: step }, step))),
         option.kind === 'apk' && h('div', { className: 'app-install-links' },
           h('a', {
@@ -4885,7 +4897,12 @@ function AppInstallPanel({ option, onClose }) {
             className: 'btn btn-ghost',
             href: option.pageHref,
             rel: 'noopener noreferrer'
-          }, 'Page GitHub')
+          }, 'Page GitHub'),
+          option.stableHref && h('a', {
+            className: 'btn btn-ghost',
+            href: option.stableHref,
+            rel: 'noopener noreferrer'
+          }, 'Lien stable')
         ),
         h('p', { className: 'app-install-note' }, option.note)
       ),

@@ -110,19 +110,45 @@ public class MainActivity extends Activity {
         LinearLayout header = new LinearLayout(this);
         header.setOrientation(LinearLayout.VERTICAL);
         header.setPadding(dp(14), dp(12), dp(14), dp(10));
-        header.setBackgroundColor(COLOR_PANEL);
+        header.setBackground(panelGradient(COLOR_PANEL, Color.rgb(37, 25, 13), COLOR_BORDER, 1, 0));
         root.addView(header, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         ));
 
+        LinearLayout brandRow = new LinearLayout(this);
+        brandRow.setOrientation(LinearLayout.HORIZONTAL);
+        brandRow.setGravity(Gravity.CENTER_VERTICAL);
+        brandRow.setPadding(dp(10), dp(10), dp(10), dp(10));
+        brandRow.setBackground(panel(Color.rgb(12, 10, 8), Color.rgb(97, 70, 30), 1, 10));
+        header.addView(brandRow, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+
+        ImageView logo = new ImageView(this);
+        logo.setImageResource(R.drawable.ic_launcher);
+        logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        LinearLayout.LayoutParams logoParams = new LinearLayout.LayoutParams(dp(54), dp(54));
+        logoParams.rightMargin = dp(11);
+        brandRow.addView(logo, logoParams);
+
+        LinearLayout brandCopy = new LinearLayout(this);
+        brandCopy.setOrientation(LinearLayout.VERTICAL);
+        brandRow.addView(brandCopy, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
         TextView title = text("Cook Note", 28, COLOR_TEXT, true);
         title.setGravity(Gravity.CENTER_VERTICAL);
-        header.addView(title);
+        title.setIncludeFontPadding(false);
+        brandCopy.addView(title);
 
-        TextView subtitle = text("Livre local - Android 5 Lite - v" + repository.version, 12, COLOR_MUTED, false);
-        subtitle.setPadding(0, dp(2), 0, dp(2));
-        header.addView(subtitle);
+        TextView subtitle = text("Android 5.0+ Legacy - local - v" + repository.version, 12, COLOR_MUTED, true);
+        subtitle.setPadding(0, dp(4), 0, 0);
+        brandCopy.addView(subtitle);
+
+        TextView catalogStatus = text(repository.homeRecipes().size() + " fiches parents - " + repository.searchableRecipes().size() + " recettes", 11, COLOR_DIM, false);
+        catalogStatus.setPadding(0, dp(3), 0, 0);
+        brandCopy.addView(catalogStatus);
 
         LinearLayout actionRow = new LinearLayout(this);
         actionRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -227,6 +253,7 @@ public class MainActivity extends Activity {
         listView.setScrollingCacheEnabled(false);
         listView.setAnimationCacheEnabled(false);
         adapter = new RecipeAdapter(this, imageLoader);
+        adapter.setCollectionCounts(repository.collectionCounts());
         listView.setAdapter(adapter);
         root.addView(listView, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -490,7 +517,7 @@ public class MainActivity extends Activity {
         top.setOrientation(LinearLayout.HORIZONTAL);
         top.setGravity(Gravity.CENTER_VERTICAL);
         top.setPadding(dp(10), dp(8), dp(10), dp(8));
-        top.setBackgroundColor(COLOR_PANEL);
+        top.setBackground(panelGradient(COLOR_PANEL, Color.rgb(31, 22, 13), COLOR_BORDER, 1, 0));
         root.addView(top, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -551,7 +578,7 @@ public class MainActivity extends Activity {
         hero.setBackgroundColor(COLOR_CARD);
         content.addView(hero, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(190)
+                dp(212)
         ));
         imageLoader.loadDetail(recipe.detailImage, hero, 960, 480);
 
@@ -563,6 +590,7 @@ public class MainActivity extends Activity {
         title.setLineSpacing(dp(1), 1.06f);
         content.addView(title);
 
+        addParentPath(content, recipe);
         addInfoChips(content, recipe);
 
         if (recipe.isCollection()) {
@@ -587,6 +615,7 @@ public class MainActivity extends Activity {
             body(section, "Aucune variante disponible.");
             return;
         }
+        body(section, choices.size() + " fiche(s) rangee(s) ici.", COLOR_MUTED);
 
         final int selectedIndex = selectedCollectionVariantIndex(recipe, choices);
         final int[] currentIndex = new int[]{selectedIndex};
@@ -657,11 +686,24 @@ public class MainActivity extends Activity {
 
     private List<VariantChoice> collectionVariantChoices(Recipe recipe) {
         List<VariantChoice> choices = new ArrayList<VariantChoice>();
+        Map<String, String> directLabels = new HashMap<String, String>();
+        Set<String> added = new HashSet<String>();
+        for (Recipe.Variant variant : recipe.variants) {
+            directLabels.put(variant.id, variant.label);
+        }
+        for (Recipe target : repository.childrenForParent(recipe)) {
+            String directLabel = directLabels.get(target.id);
+            String label = directLabel != null && directLabel.length() > 0 ? directLabel : target.title;
+            choices.add(new VariantChoice(label, target));
+            added.add(target.id);
+        }
         for (Recipe.Variant variant : recipe.variants) {
             Recipe target = repository.find(variant.id);
             if (target == null) continue;
+            if (added.contains(target.id)) continue;
             String label = variant.label.length() > 0 ? variant.label : target.title;
             choices.add(new VariantChoice(label, target));
+            added.add(target.id);
         }
         Collections.sort(choices, new Comparator<VariantChoice>() {
             @Override
@@ -680,7 +722,12 @@ public class MainActivity extends Activity {
     }
 
     private void updateVariantMeta(TextView meta, Recipe recipe) {
-        meta.setText(recipe.metaLine());
+        meta.setText(displayMeta(recipe));
+    }
+
+    private String displayMeta(Recipe recipe) {
+        if (!recipe.isCollection()) return recipe.metaLine();
+        return recipe.primaryCategory() + " - " + repository.collectionCount(recipe) + " fiches rangees";
     }
 
     private List<InlineVariantChoice> inlineVariantChoices(Recipe recipe) {
@@ -874,6 +921,20 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void addParentPath(LinearLayout content, Recipe recipe) {
+        List<Recipe> trail = repository.parentTrail(recipe);
+        if (trail.isEmpty()) return;
+        StringBuilder builder = new StringBuilder();
+        for (Recipe parent : trail) {
+            if (builder.length() > 0) builder.append(" > ");
+            builder.append(parent.title);
+        }
+        TextView path = text(builder.toString(), 12, COLOR_MUTED, true);
+        path.setSingleLine(false);
+        path.setPadding(0, dp(8), 0, 0);
+        content.addView(path);
+    }
+
     private void addInfoChips(LinearLayout content, Recipe recipe) {
         HorizontalScrollView scroller = new HorizontalScrollView(this);
         scroller.setHorizontalScrollBarEnabled(false);
@@ -884,7 +945,7 @@ public class MainActivity extends Activity {
         addInfoChip(row, "Categorie", recipe.primaryCategory());
         if (!recipe.seasons.isEmpty()) addInfoChip(row, "Saison", shortList(recipe.seasons, 2));
         if (recipe.isCollection()) {
-            addInfoChip(row, "Variantes", String.valueOf(recipe.variants.size()));
+            addInfoChip(row, "Fiches", String.valueOf(repository.collectionCount(recipe)));
         } else {
             String difficulty = recipe.difficultyLabel();
             if (difficulty.length() > 0) addInfoChip(row, "Difficulte", difficulty);
@@ -1330,6 +1391,13 @@ public class MainActivity extends Activity {
     private GradientDrawable panel(int color, int strokeColor, int strokeWidth, int radiusDp) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setColor(color);
+        drawable.setCornerRadius(dp(radiusDp));
+        if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
+        return drawable;
+    }
+
+    private GradientDrawable panelGradient(int startColor, int endColor, int strokeColor, int strokeWidth, int radiusDp) {
+        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{startColor, endColor});
         drawable.setCornerRadius(dp(radiusDp));
         if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
         return drawable;

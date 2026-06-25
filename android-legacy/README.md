@@ -19,6 +19,8 @@ Le mode d'emploi complet est dans
 - Images locales reduites a `480px` max pour l APK Android 5 uniquement
 - accueil parent Android compact avec les fiches parents du site par defaut,
   liste recyclee, panneau recherche/filtres replie et cache image limite
+- rattachements parents additionnels lus depuis `additionalMasters` pour que
+  les fiches parents affichent tout leur contenu range
 - Puce `Toutes fiches` dans la recherche pour parcourir le catalogue complet
   sans remettre les recettes enfants en vrac sur l'accueil
 - selecteurs natifs de variantes pour les collections et preparation choisie
@@ -53,10 +55,12 @@ npm run android:legacy:setup
 ## Publication GitHub
 
 Le site peut proposer le bouton `Android 5.0+` en bas de page. Ce bouton pointe
-vers la copie APK stable du depot GitHub :
+vers la copie APK au nom APK versionne du depot GitHub, avec un alias stable
+pour la mise a jour native :
 
 ```text
 https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk
+https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy-vX.YY.apk
 ```
 
 L app Android 5.0+ affiche aussi `Mise a jour` dans son accueil. Ce bouton

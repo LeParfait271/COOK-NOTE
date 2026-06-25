@@ -25,7 +25,7 @@ Le mode d'emploi complet est dans
 Depuis la racine du depot :
 
 ```powershell
-npm run android:modern:update-apk
+npm run apps:update-all
 ```
 
 Sortie APK :
@@ -40,10 +40,16 @@ Le bouton `Android 8.0+` du footer pointe vers :
 
 ```text
 https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-modern.apk
+https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-modern-vX.YY.apk
 ```
 
 Ne publier cette APK que sur demande explicite :
 
 ```powershell
-npm run android:modern:publish-release
+npm run apps:publish-all
 ```
+
+Les sous-commandes `android:modern:update-apk` et
+`android:modern:publish-release` restent disponibles pour diagnostic, mais le
+workflow normal met Android Legacy, Android Modern et les entrees iOS a jour
+ensemble.

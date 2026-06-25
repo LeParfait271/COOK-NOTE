@@ -9,10 +9,12 @@ projets secondaires manuels.
 Le footer du site doit proposer quatre installations distinctes :
 
 - `Android 5.0+` : APK Android Legacy pour tablette ancienne, nom installe
-  `Cook Note Android 5.0+`, asset `cook-note-android-legacy.apk`
+  `Cook Note Android 5.0+`, asset stable `cook-note-android-legacy.apk`
+  et nom APK versionne `cook-note-android-legacy-vX.YY.apk`
 - `Android 8.0+` : APK Android Modern, nom installe
   `Cook Note HD Android 8.0+`, asset
-  `cook-note-android-modern.apk`, rendu HD premium via `modern-app-hd`
+  stable `cook-note-android-modern.apk`, nom APK versionne
+  `cook-note-android-modern-vX.YY.apk`, rendu HD premium via `modern-app-hd`
 - `iOS ancien` : installation PWA Safari guidee
 - `iOS recent` : installation PWA Safari guidee, rendu HD premium via
   `modern-app-hd` quand elle est lancee en plein ecran
@@ -23,19 +25,21 @@ utilise l'URL GitHub standard, pas Cloudflare Pages, car Pages limite chaque
 asset public a 25 MiB :
 
 ```text
-https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk
-https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-modern.apk
+https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy-vX.YY.apk
+https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-modern-vX.YY.apk
 ```
 
 Le panneau doit aussi garder un lien brut de secours :
 
 ```text
-https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk
-https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-modern.apk
+https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy-vX.YY.apk
+https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-modern-vX.YY.apk
 ```
 
 Et une page GitHub de secours si le navigateur de la tablette refuse le
-telechargement direct.
+telechargement direct. Les alias stables `cook-note-android-legacy.apk` et
+`cook-note-android-modern.apk` restent presents pour les mises a jour natives
+depuis les applications deja installees.
 
 Les copies telechargeables sont versionnees uniquement dans `downloads/`. Elles
 ne doivent pas etre copiees dans `dist/`, sinon le deploy Cloudflare Pages peut
@@ -62,6 +66,8 @@ Modern, puis remplace ensemble les deux copies telechargeables :
 ```text
 downloads/cook-note-android-legacy.apk
 downloads/cook-note-android-modern.apk
+downloads/cook-note-android-legacy-vX.YY.apk
+downloads/cook-note-android-modern-vX.YY.apk
 ```
 
 Les deux entrees iOS restent des installations PWA Safari, donc elles ne
@@ -121,7 +127,8 @@ prerendues par `scripts/build-site.js`.
   fiches parents du site par defaut, panneau recherche/filtres replie,
   recherche locale, filtres categories, filtres saison/difficulte, favoris locaux,
   derniers ouverts, fiches natives en sections lisibles, infos rapides en
-  pastilles, ingredients en lignes, copie ingredients, bouton natif de mise a
+  pastilles, ingredients en lignes, copie ingredients, rattachements parents
+  additionnels, bouton natif de mise a
   jour, liste de courses locale, copie fiche, partage fiche, etapes numerotees
   et selecteurs natifs de variantes
 
@@ -130,6 +137,8 @@ que l utilisateur ne touche pas `Rechercher / filtrer`. Le bouton natif de mise
 a jour reste disponible sous forme compacte avec `Mise a jour`.
 La puce `Toutes fiches` reste dans le panneau de recherche pour parcourir le
 catalogue complet sans remettre les recettes enfants en vrac sur l'accueil.
+Les fiches parents lisent `master` et `additionalMasters`, afin que les
+rattachements parents additionnels du site soient visibles dans l app.
 Les collections Android Legacy doivent ouvrir leurs variantes via un selecteur
 natif, pas en affichant toutes les fiches enfants a plat. Les fiches avec
 variantes internes gardent aussi une preparation choisie : une seule preparation
@@ -208,6 +217,8 @@ Cette release doit contenir les deux assets Android stables :
 ```text
 cook-note-android-legacy.apk
 cook-note-android-modern.apk
+cook-note-android-legacy-vX.YY.apk
+cook-note-android-modern-vX.YY.apk
 ```
 
 `gh` doit etre installe et authentifie avec `gh auth login`. Si `gh` est absent,
@@ -219,8 +230,10 @@ tant que les copies `downloads/*.apk` sont presentes dans le depot GitHub.
 ## Regles de travail
 
 - Ne jamais versionner les APK generes dans `android-legacy/` ou `android-modern/`.
-- Les seules copies APK autorisees dans Git sont `downloads/cook-note-android-legacy.apk`
-  et `downloads/cook-note-android-modern.apk`, apres demande explicite de
+- Les seules copies APK autorisees dans Git sont `downloads/cook-note-android-legacy.apk`,
+  `downloads/cook-note-android-modern.apk`,
+  `downloads/cook-note-android-legacy-vX.YY.apk` et
+  `downloads/cook-note-android-modern-vX.YY.apk`, apres demande explicite de
   publication app.
 - Ne jamais copier les APK dans `dist/` : Cloudflare Pages refuse les assets de
   plus de 25 MiB.

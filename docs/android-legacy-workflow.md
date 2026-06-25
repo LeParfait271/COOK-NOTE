@@ -56,6 +56,9 @@ ni filtre actif, afficher seulement les fiches parents racines du catalogue,
 pas toutes les recettes enfants en vrac. La puce `Toutes fiches` vit dans le
 panneau recherche/filtres et permet de parcourir le catalogue cherchable sans
 casser cet accueil parent.
+Les fiches parents doivent lire `master` et `additionalMasters`, afin que les
+rattachements parents additionnels du site apparaissent dans les collections
+Android Legacy.
 
 Les variantes doivent suivre la construction du site. Les fiches collections
 utilisent des selecteurs natifs de variantes au lieu d afficher toutes les
@@ -133,7 +136,8 @@ npm run apps:publish-all
 
 Cette commande demande GitHub CLI (`gh`) authentifie. Elle cree ou met a jour
 une release commune `apps-vX.YY` et publie l APK sous le nom stable
-`cook-note-android-legacy.apk`.
+`cook-note-android-legacy.apk`, avec une copie au nom APK versionne
+`cook-note-android-legacy-vX.YY.apk`.
 
 La commande `npm run android:legacy:publish-release` existe encore comme
 sous-commande interne de diagnostic, mais elle ne doit pas etre le workflow
@@ -165,6 +169,7 @@ GitHub :
 
 ```text
 https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk
+https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy-vX.YY.apk
 ```
 
 Dans l APK installe, le bouton natif `Mise a jour` doit ouvrir la meme
@@ -173,16 +178,19 @@ choisit `Installer une mise a jour`. Ne pas changer le package
 `fr.cooknote.legacy`, sinon Android ne pourra plus remplacer l ancienne app et
 les favoris locaux seraient perdus.
 
-Cette URL reste la meme d une version Android a l autre. Le fichier source
-autorise est `downloads/cook-note-android-legacy.apk`. Il ne doit pas etre copie
-dans `dist/`, car Cloudflare Pages limite chaque fichier public a 25 MiB. Le
-panneau garde aussi un lien brut `raw.githubusercontent.com` et une page GitHub
-du fichier pour les navigateurs anciens qui gerent mal le telechargement direct.
+L URL stable reste la meme d une version Android a l autre pour le bouton natif
+de mise a jour. Le bouton du site peut pointer vers le nom APK versionne
+`downloads/cook-note-android-legacy-vX.YY.apk`, tandis que l alias stable
+`downloads/cook-note-android-legacy.apk` reste disponible. Ces fichiers ne
+doivent pas etre copies dans `dist/`, car Cloudflare Pages limite chaque fichier
+public a 25 MiB. Le panneau garde aussi un lien brut `raw.githubusercontent.com`
+et une page GitHub du fichier pour les navigateurs anciens qui gerent mal le
+telechargement direct.
 
 Les APK generes dans `android-legacy/` ne doivent pas etre ajoutes au depot Git.
-Seule la copie telechargeable `downloads/cook-note-android-legacy.apk` est
-versionnee quand l utilisateur demande explicitement une publication app depuis
-le site.
+Seules les copies telechargeables `downloads/cook-note-android-legacy.apk` et
+`downloads/cook-note-android-legacy-vX.YY.apk` sont versionnees quand
+l utilisateur demande explicitement une publication app depuis le site.
 
 ## Workflow quand on travaille seulement sur le site
 
@@ -208,7 +216,9 @@ C est voulu.
 5. Ne pas committer les APK depuis les dossiers Android : ce sont des artefacts locaux ignores.
 6. `npm run apps:update-all` copie ensemble les APK valides vers
    `downloads/cook-note-android-legacy.apk` et
-   `downloads/cook-note-android-modern.apk`. Verifier que `dist/downloads/`
+   `downloads/cook-note-android-modern.apk`, plus
+   `downloads/cook-note-android-legacy-vX.YY.apk` et
+   `downloads/cook-note-android-modern-vX.YY.apk`. Verifier que `dist/downloads/`
    n existe pas.
 7. Si l utilisateur demande aussi une Release GitHub, lancer
    `npm run apps:publish-all` apres authentification GitHub CLI.
@@ -224,7 +234,8 @@ C est voulu.
   ingredients, la liste de courses locale, la copie fiche, le partage fiche,
   le bouton natif de mise a jour et les etapes numerotees.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java`
-  lit `recipes-lite.json`.
+  lit `recipes-lite.json`, les `master`, les `additionalMasters` et les
+  rattachements parents additionnels.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java`
   decode les miniatures et les images detail locales en `RGB_565` avec un petit cache memoire.
 - `android-legacy/app/build.gradle` lit `SITE_VERSION` dans `app.js` pour
@@ -234,7 +245,8 @@ C est voulu.
 - `scripts/build-android-legacy.ps1` construit l APK et nettoie la sortie APK
   avant packaging.
 - `scripts/publish-android-release.ps1` publie l APK local sur GitHub Releases
-  avec l asset stable `cook-note-android-legacy.apk`.
+  avec l asset stable `cook-note-android-legacy.apk` et le nom APK versionne
+  `cook-note-android-legacy-vX.YY.apk`.
 - `scripts/setup-android-legacy-tools.ps1` installe JDK, Gradle et Android SDK
   dans `%LOCALAPPDATA%\CookNoteAndroidTools`.
 - `scripts/validate-android-manual.js` bloque les regressions qui brancheraient

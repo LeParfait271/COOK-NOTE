@@ -46,6 +46,9 @@ const androidLegacyImageLoader = read('android-legacy/app/src/main/java/fr/cookn
 const androidLegacyAdapter = read('android-legacy/app/src/main/java/fr/cooknote/legacy/RecipeAdapter.java');
 const androidModernMainActivity = read('android-modern/app/src/main/java/fr/cooknote/modern/MainActivity.java');
 const androidModernStrings = read('android-modern/app/src/main/res/values/strings.xml');
+const siteVersionName = (appScript.match(/const SITE_VERSION = 'v(\d+\.\d{2})'/) || [])[1] || '0.00';
+const legacyVersionedApk = `downloads/cook-note-android-legacy-v${siteVersionName}.apk`;
+const modernVersionedApk = `downloads/cook-note-android-modern-v${siteVersionName}.apk`;
 
 ['build', 'check', 'preflight', 'dev', 'start'].forEach(scriptName => {
   const command = packageJson.scripts?.[scriptName] || '';
@@ -154,6 +157,12 @@ expect(
     && androidLegacyMainActivity.includes('fiches parents')
     && androidLegacyMainActivity.includes('repository.homeRecipes()')
     && androidLegacyMainActivity.includes('repository.filterSearchable')
+    && androidLegacyMainActivity.includes('repository.childrenForParent')
+    && androidLegacyMainActivity.includes('repository.collectionCount')
+    && androidLegacyMainActivity.includes('addParentPath')
+    && androidLegacyMainActivity.includes('parentTrail')
+    && androidLegacyMainActivity.includes('panelGradient')
+    && androidLegacyMainActivity.includes('R.drawable.ic_launcher')
     && androidLegacyMainActivity.includes('Rechercher / filtrer')
     && androidLegacyMainActivity.includes('Filtres actifs')
     && androidLegacyMainActivity.includes('selectedSeason')
@@ -175,6 +184,11 @@ expect(
     && androidLegacyRepository.includes('recipes-lite.json')
     && androidLegacyRepository.includes('homeRecipes')
     && androidLegacyRepository.includes('filterSearchable')
+    && androidLegacyRepository.includes('childrenForParent')
+    && androidLegacyRepository.includes('belongsToParent')
+    && androidLegacyRepository.includes('additionalMasters')
+    && androidLegacyRepository.includes('collectionCounts')
+    && androidLegacyRepository.includes('parentTrail')
     && androidLegacyRepository.includes('recipe.master.length() == 0')
     && androidLegacyRepository.includes('searchableOnly && recipe.isCollection()')
     && androidLegacyRepository.includes('json.optBoolean("variantGroups", false)')
@@ -188,6 +202,7 @@ expect(
     && androidLegacyAdapter.includes('BaseAdapter')
     && androidLegacyAdapter.includes('setEllipsize')
     && androidLegacyAdapter.includes('favoriteIds')
+    && androidLegacyAdapter.includes('collectionCounts')
     && !/Gecko|WebView|ServerSocket|127\.0\.0\.1|LocalAssetServer/.test(androidLegacyMainActivity + androidLegacyRepository + androidLegacyImageLoader)
 );
 expect(
@@ -201,6 +216,7 @@ expect(
     && legacyAssetsScript.includes('detail-images')
     && legacyAssetsScript.includes('detailImage')
     && legacyAssetsScript.includes('variantGroups: Boolean(recipe.variantGroups)')
+    && legacyAssetsScript.includes('additionalMasters: cleanArray(recipe.additionalMasters)')
     && legacyAssetsScript.includes('android-legacy-native-lite')
     && legacyAssetsScript.includes('copyLiteImage')
     && legacyAssetsScript.includes('recipe-card-images')
@@ -213,6 +229,9 @@ expect(
     && updateAllAppsScript.includes('build-android-modern.ps1')
     && updateAllAppsScript.includes('cook-note-android-legacy.apk')
     && updateAllAppsScript.includes('cook-note-android-modern.apk')
+    && updateAllAppsScript.includes('Get-CookNoteVersionName')
+    && updateAllAppsScript.includes('cook-note-android-legacy-v$VersionName.apk')
+    && updateAllAppsScript.includes('cook-note-android-modern-v$VersionName.apk')
     && updateAllAppsScript.includes('dist\\downloads')
     && updateAllAppsScript.includes('PublishRelease')
     && updateAllAppsScript.includes('publish-android-release.ps1')
@@ -228,12 +247,16 @@ expect(
     && publishScript.includes('apps-v$VersionName')
     && publishScript.includes('cook-note-android-legacy.apk')
     && publishScript.includes('cook-note-android-modern.apk')
+    && publishScript.includes('cook-note-android-legacy-v$VersionName.apk')
+    && publishScript.includes('cook-note-android-modern-v$VersionName.apk')
 );
 expect(
   'Les APK telechargeables doivent rester hors dist Cloudflare Pages.',
   !buildSiteScript.includes("'downloads'")
     && exists('downloads/cook-note-android-legacy.apk')
     && exists('downloads/cook-note-android-modern.apk')
+    && exists(legacyVersionedApk)
+    && exists(modernVersionedApk)
     && !exists('dist/downloads')
 );
 expect(
@@ -274,6 +297,7 @@ expect(
   'npm run android:legacy:update-apk',
   'npm run android:legacy:publish-release',
   'cook-note-android-legacy.apk',
+  'cook-note-android-legacy-vX.YY.apk',
   'apps-vX.YY',
   '/downloads/',
   'commit/push du site ne change pas l APK installe',
@@ -298,6 +322,8 @@ expect(
   'accueil parent Android',
   'Toutes fiches',
   'selecteurs natifs de variantes',
+  'rattachements parents additionnels',
+  'nom APK versionne',
   'preparation choisie',
   'copie ingredients',
   'liste de courses locale',
@@ -321,6 +347,8 @@ expect(
     && androidReadme.includes('accueil parent Android')
     && androidReadme.includes('Toutes fiches')
     && androidReadme.includes('selecteurs natifs de variantes')
+    && androidReadme.includes('rattachements parents additionnels')
+    && androidReadme.includes('nom APK versionne')
     && androidReadme.includes('preparation choisie')
     && androidReadme.includes('filtres')
     && androidReadme.includes('copie ingredients')
@@ -347,7 +375,9 @@ expect(
   'Cook Note Android 5.0+',
   'Cook Note HD Android 8.0+',
   'cook-note-android-legacy.apk',
+  'cook-note-android-legacy-vX.YY.apk',
   'cook-note-android-modern.apk',
+  'cook-note-android-modern-vX.YY.apk',
   'modern-app-hd',
   'CookNoteModernApp/HD',
   'raw.githubusercontent.com',
@@ -374,6 +404,8 @@ expect(
   'accueil parent Android',
   'Toutes fiches',
   'selecteurs natifs de variantes',
+  'rattachements parents additionnels',
+  'nom APK versionne',
   'preparation choisie',
   'copie ingredients',
   'liste de courses locale',
@@ -417,7 +449,9 @@ const globalTracked = spawnSync('git', ['ls-files'], {
 if (globalTracked.status === 0) {
   const allowedApks = new Set([
     'downloads/cook-note-android-legacy.apk',
-    'downloads/cook-note-android-modern.apk'
+    'downloads/cook-note-android-modern.apk',
+    legacyVersionedApk,
+    modernVersionedApk
   ]);
   const forbiddenApks = globalTracked.stdout
     .split(/\r?\n/)
