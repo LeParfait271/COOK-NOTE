@@ -103,7 +103,7 @@ function detectAppEnvironment() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.94';
+const SITE_VERSION = 'v1.95';
 const SITE_UPDATED_AT = '25/06/26';
 const APP_ENVIRONMENT = detectAppEnvironment();
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
@@ -113,9 +113,9 @@ const APP_INSTALL_OPTIONS = Object.freeze([
   {
     id: 'android-legacy',
     kind: 'apk',
-    label: 'Android 5',
-    detail: 'APK tablette ancienne',
-    title: 'Installer Cook Note sur Android 5',
+    label: 'Android 5.0+',
+    detail: 'APK Legacy',
+    title: 'Installer Cook Note Android 5.0+',
     body: 'APK Legacy pour les tablettes anciennes. Le fichier est heberge sur GitHub pour eviter les limites de taille Cloudflare Pages.',
     steps: [
       'Touche Telecharger l APK.',
@@ -132,10 +132,10 @@ const APP_INSTALL_OPTIONS = Object.freeze([
   {
     id: 'android-modern',
     kind: 'apk',
-    label: 'Android recent',
+    label: 'Android 8.0+',
     detail: 'APK HD premium',
-    title: 'Installer Cook Note HD sur Android recent',
-    body: 'APK Modern pour Android recent, avec rendu HD premium, WebView plus rapide et cache local du livre de cuisine.',
+    title: 'Installer Cook Note HD Android 8.0+',
+    body: 'APK Modern pour Android 8.0+, avec rendu HD premium, WebView plus rapide et cache local du livre de cuisine.',
     steps: [
       'Touche Telecharger l APK.',
       'Accepte le telechargement si Android affiche un avertissement.',

@@ -8,15 +8,17 @@ projets secondaires manuels.
 
 Le footer du site doit proposer quatre installations distinctes :
 
-- `Android 5` : APK Android Legacy pour tablette ancienne, asset
-  `cook-note-android-legacy.apk`
-- `Android recent` : APK Android Modern, asset
+- `Android 5.0+` : APK Android Legacy pour tablette ancienne, nom installe
+  `Cook Note Android 5.0+`, asset `cook-note-android-legacy.apk`
+- `Android 8.0+` : APK Android Modern, nom installe
+  `Cook Note HD Android 8.0+`, asset
   `cook-note-android-modern.apk`, rendu HD premium via `modern-app-hd`
 - `iOS ancien` : installation PWA Safari guidee
 - `iOS recent` : installation PWA Safari guidee, rendu HD premium via
   `modern-app-hd` quand elle est lancee en plein ecran
 
-Les deux boutons Android ouvrent un panneau d'installation. Le bouton primaire
+Les deux boutons Android doivent afficher la version minimale directement dans
+leur label : `Android 5.0+` et `Android 8.0+`. Ils ouvrent un panneau d'installation. Le bouton primaire
 utilise l'URL GitHub standard, pas Cloudflare Pages, car Pages limite chaque
 asset public a 25 MiB :
 
@@ -67,7 +69,7 @@ produisent pas d APK ou d IPA. Elles doivent quand meme etre verifiees dans le
 meme lot : libelles du footer, panneau d aide, manifest PWA, balises Apple et
 absence de promesse de telechargement `.ipa`.
 
-Les apps anciennes restent volontairement legeres : Android 5 garde Native Lite
+Les apps anciennes restent volontairement legeres : Android 5.0+ garde Native Lite
 avec images reduites, et iOS ancien garde la PWA simple Safari. Les apps
 recentes peuvent au contraire utiliser le rendu premium `modern-app-hd`.
 Android Modern s'identifie avec le user-agent `CookNoteModernApp/HD`, puis le

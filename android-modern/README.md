@@ -1,6 +1,6 @@
 # Cook Note Android Modern
 
-Wrapper Android recent pour Cook Note.
+Wrapper Android 8.0+ pour Cook Note.
 
 Important: cette application est un projet secondaire manuel. Elle ne se met
 pas a jour automatiquement quand le site change, et elle ne doit pas etre
@@ -12,6 +12,7 @@ Le mode d'emploi complet est dans
 ## Principe
 
 - Android minimum: `minSdkVersion 26`
+- Nom installe: `Cook Note HD Android 8.0+`
 - Package Android: `fr.cooknote.modern`
 - WebView natif Java fullscreen
 - Site servi depuis les assets APK via `https://cook-note.local/`
@@ -35,7 +36,7 @@ android-modern/app/build/outputs/apk/debug/app-debug.apk
 
 ## Publication GitHub
 
-Le bouton `Android recent` du footer pointe vers :
+Le bouton `Android 8.0+` du footer pointe vers :
 
 ```text
 https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-modern.apk

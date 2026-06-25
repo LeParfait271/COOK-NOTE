@@ -38,11 +38,13 @@ const androidBuildGradle = read('android-legacy/app/build.gradle');
 const androidModernBuildGradle = read('android-modern/app/build.gradle');
 const androidLegacySettingsGradle = read('android-legacy/settings.gradle');
 const androidLegacyManifest = read('android-legacy/app/src/main/AndroidManifest.xml');
+const androidLegacyStrings = read('android-legacy/app/src/main/res/values/strings.xml');
 const androidLegacyMainActivity = read('android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java');
 const androidLegacyRepository = read('android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java');
 const androidLegacyImageLoader = read('android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java');
 const androidLegacyAdapter = read('android-legacy/app/src/main/java/fr/cooknote/legacy/RecipeAdapter.java');
 const androidModernMainActivity = read('android-modern/app/src/main/java/fr/cooknote/modern/MainActivity.java');
+const androidModernStrings = read('android-modern/app/src/main/res/values/strings.xml');
 
 ['build', 'check', 'preflight', 'dev', 'start'].forEach(scriptName => {
   const command = packageJson.scripts?.[scriptName] || '';
@@ -202,6 +204,11 @@ expect(
     && androidModernMainActivity.includes('responseHeaders')
 );
 expect(
+  'Les noms Android doivent afficher la version minimale.',
+  androidLegacyStrings.includes('Cook Note Android 5.0+')
+    && androidModernStrings.includes('Cook Note HD Android 8.0+')
+);
+expect(
   'Le rendu HD des apps recentes doit rester isole du mode Legacy.',
   appScript.includes('detectAppEnvironment')
     && appScript.includes('modern-app-hd')
@@ -259,10 +266,12 @@ expect(
     && androidModernReadme.includes('cook-note-android-modern.apk')
 );
 [
-  'Android 5',
-  'Android recent',
+  'Android 5.0+',
+  'Android 8.0+',
   'iOS ancien',
   'iOS recent',
+  'Cook Note Android 5.0+',
+  'Cook Note HD Android 8.0+',
   'cook-note-android-legacy.apk',
   'cook-note-android-modern.apk',
   'modern-app-hd',

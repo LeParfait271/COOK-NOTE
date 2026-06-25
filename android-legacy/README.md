@@ -13,6 +13,7 @@ Le mode d'emploi complet est dans
 ## Principe
 
 - Android minimum: `minSdkVersion 21`, donc Android 5.0
+- Nom installe: `Cook Note Android 5.0+`
 - App native Java Native Lite, sans WebView systeme et sans GeckoView
 - Catalogue local `recipes-lite.json`
 - Images locales reduites a `480px` max pour l APK Android 5 uniquement
@@ -43,7 +44,7 @@ npm run android:legacy:setup
 
 ## Publication GitHub
 
-Le site peut proposer le bouton `Android 5` en bas de page. Ce bouton pointe
+Le site peut proposer le bouton `Android 5.0+` en bas de page. Ce bouton pointe
 vers la copie APK stable du depot GitHub :
 
 ```text
