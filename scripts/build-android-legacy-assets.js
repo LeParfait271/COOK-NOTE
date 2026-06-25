@@ -6,10 +6,13 @@ const jpeg = require('jpeg-js');
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'android-legacy', 'build', 'generated', 'cook-note-lite');
 const OUT_IMAGE_DIR = path.join(OUT_DIR, 'images');
+const OUT_DETAIL_IMAGE_DIR = path.join(OUT_DIR, 'detail-images');
 const RECIPES_FILE = path.join(ROOT, 'recipes.js');
 const APP_FILE = path.join(ROOT, 'app.js');
 const MAX_IMAGE_WIDTH = 480;
+const DETAIL_IMAGE_WIDTH = 960;
 const JPEG_QUALITY = 54;
+const DETAIL_JPEG_QUALITY = 66;
 
 const CATEGORY_ORDER = [
   'Petit-dejeuner',
@@ -90,19 +93,21 @@ function safeBasename(imagePath) {
   return path.basename(clean);
 }
 
-function imageSourceFor(imagePath) {
+function imageSourceFor(imagePath, preferCardImage) {
   const clean = String(imagePath || '').replace(/^\/+/, '').replace(/\\/g, '/');
   const basename = path.basename(clean);
   if (!basename) return null;
 
   const cardCandidate = path.join(ROOT, 'assets', 'recipe-card-images', basename);
-  if (fs.existsSync(cardCandidate)) return cardCandidate;
-
   const directCandidate = path.join(ROOT, clean);
-  if (fs.existsSync(directCandidate)) return directCandidate;
-
   const optimizedCandidate = path.join(ROOT, 'assets', 'recipe-images-optimized', basename);
-  if (fs.existsSync(optimizedCandidate)) return optimizedCandidate;
+  const candidates = preferCardImage
+    ? [cardCandidate, directCandidate, optimizedCandidate]
+    : [directCandidate, optimizedCandidate, cardCandidate];
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) return candidate;
+  }
 
   return null;
 }
@@ -125,30 +130,30 @@ function resizeNearest(decoded, targetWidth, targetHeight) {
   return { data: output, width: targetWidth, height: targetHeight };
 }
 
-function writeLiteJpeg(source, destination) {
+function writeLiteJpeg(source, destination, maxWidth, quality) {
   const input = fs.readFileSync(source);
   const decoded = jpeg.decode(input, { useTArray: true, maxMemoryUsageInMB: 512 });
-  const targetWidth = Math.min(MAX_IMAGE_WIDTH, decoded.width);
+  const targetWidth = Math.min(maxWidth, decoded.width);
   const targetHeight = Math.max(1, Math.round((decoded.height * targetWidth) / decoded.width));
   const resized = targetWidth === decoded.width
     ? { data: Buffer.from(decoded.data), width: decoded.width, height: decoded.height }
     : resizeNearest(decoded, targetWidth, targetHeight);
-  const encoded = jpeg.encode(resized, JPEG_QUALITY).data;
+  const encoded = jpeg.encode(resized, quality).data;
   fs.writeFileSync(destination, encoded);
 }
 
-function copyLiteImage(imagePath, copiedImages) {
+function copyLiteImage(imagePath, copiedImages, targetDir, preferCardImage, maxWidth, quality) {
   const basename = safeBasename(imagePath);
   if (!basename || copiedImages.has(basename)) return basename;
 
-  const source = imageSourceFor(imagePath);
+  const source = imageSourceFor(imagePath, preferCardImage);
   if (!source) return '';
 
-  const destination = path.join(OUT_IMAGE_DIR, basename);
+  const destination = path.join(targetDir, basename);
   ensureDir(path.dirname(destination));
 
   if (/\.jpe?g$/i.test(source)) {
-    writeLiteJpeg(source, destination);
+    writeLiteJpeg(source, destination, maxWidth, quality);
   } else {
     fs.copyFileSync(source, destination);
   }
@@ -191,7 +196,7 @@ function cleanPractical(practical) {
     .filter(section => section.items.length);
 }
 
-function compactRecipe(id, recipe, imageName) {
+function compactRecipe(id, recipe, imageName, detailImageName) {
   const categories = cleanArray(recipe.categories).map(cleanCategory);
   const variants = Array.isArray(recipe.variants)
     ? recipe.variants.map(variant => ({
@@ -221,6 +226,7 @@ function compactRecipe(id, recipe, imageName) {
     id,
     title: stripHtml(recipe.title || id),
     image: imageName,
+    detailImage: detailImageName,
     categories,
     seasons: cleanArray(recipe.seasons),
     difficulty: stripHtml(recipe.difficulty || ''),
@@ -262,14 +268,17 @@ function categorySummary(recipes) {
 function buildLiteAssets() {
   const recipes = loadRecipes();
   const copiedImages = new Set();
+  const copiedDetailImages = new Set();
 
   fs.rmSync(OUT_DIR, { recursive: true, force: true });
   ensureDir(OUT_IMAGE_DIR);
+  ensureDir(OUT_DETAIL_IMAGE_DIR);
 
   const outputRecipes = Object.entries(recipes)
     .map(([id, recipe]) => {
-      const imageName = copyLiteImage(recipe.image, copiedImages);
-      return compactRecipe(id, recipe, imageName);
+      const imageName = copyLiteImage(recipe.image, copiedImages, OUT_IMAGE_DIR, true, MAX_IMAGE_WIDTH, JPEG_QUALITY);
+      const detailImageName = copyLiteImage(recipe.image, copiedDetailImages, OUT_DETAIL_IMAGE_DIR, false, DETAIL_IMAGE_WIDTH, DETAIL_JPEG_QUALITY);
+      return compactRecipe(id, recipe, imageName, detailImageName || imageName);
     })
     .sort((left, right) => left.title.localeCompare(right.title, 'fr', { sensitivity: 'base' }));
 
@@ -278,7 +287,9 @@ function buildLiteAssets() {
     mode: 'android-legacy-native-lite',
     version: loadVersion(),
     imageMaxWidth: MAX_IMAGE_WIDTH,
+    detailImageMaxWidth: DETAIL_IMAGE_WIDTH,
     jpegQuality: JPEG_QUALITY,
+    detailJpegQuality: DETAIL_JPEG_QUALITY,
     categories: categorySummary(outputRecipes),
     recipes: outputRecipes
   };
@@ -288,6 +299,7 @@ function buildLiteAssets() {
   console.log(`Assets Android Legacy Native Lite OK: ${OUT_DIR}`);
   console.log(`Recettes natives: ${outputRecipes.length}`);
   console.log(`Images natives ${MAX_IMAGE_WIDTH}px max: ${copiedImages.size}`);
+  console.log(`Images detail natives ${DETAIL_IMAGE_WIDTH}px max: ${copiedDetailImages.size}`);
 }
 
 buildLiteAssets();

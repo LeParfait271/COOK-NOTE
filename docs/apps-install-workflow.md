@@ -104,8 +104,9 @@ prerendues par `scripts/build-site.js`.
 - Moteur : aucun moteur web lourd, app native Java Native Lite
 - Donnees embarquees : `recipes-lite.json` et images locales dans
   `android-legacy/build/generated/cook-note-lite`
-- Images Legacy : `480px` maximum, JPEG recompresses via `jpeg-js`, decodees en
-  `RGB_565` avec petit cache memoire
+- Images Legacy : miniatures de liste `480px` maximum, images de fiche
+  `960px` maximum, JPEG recompresses via `jpeg-js`, decodees en `RGB_565`
+  avec petit cache memoire
 - Interface : `ListView` recyclee, recherche locale, filtres categories, fiches
   natives et variantes cliquables
 

@@ -246,7 +246,7 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 dp(190)
         ));
-        imageLoader.load(recipe.image, hero, dp(480), dp(240));
+        imageLoader.loadDetail(recipe.detailImage, hero, 960, 480);
 
         TextView category = text(recipe.primaryCategory(), 12, COLOR_GOLD, true);
         category.setPadding(0, dp(14), 0, dp(6));

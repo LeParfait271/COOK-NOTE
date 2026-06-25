@@ -124,9 +124,12 @@ expect(
     && !androidLegacyManifest.includes('largeHeap')
     && androidLegacyMainActivity.includes('ListView')
     && androidLegacyMainActivity.includes('RecipeAdapter')
+    && androidLegacyMainActivity.includes('loadDetail')
     && androidLegacyRepository.includes('recipes-lite.json')
+    && androidLegacyRepository.includes('detailImage')
     && androidLegacyImageLoader.includes('RGB_565')
     && androidLegacyImageLoader.includes('LruCache')
+    && androidLegacyImageLoader.includes('detail-images/')
     && androidLegacyAdapter.includes('BaseAdapter')
     && !/Gecko|WebView|ServerSocket|127\.0\.0\.1|LocalAssetServer/.test(androidLegacyMainActivity + androidLegacyRepository + androidLegacyImageLoader)
 );
@@ -134,8 +137,12 @@ expect(
   'Les assets Android Legacy doivent etre generes en catalogue natif allege.',
   legacyAssetsScript.includes("require('jpeg-js')")
     && legacyAssetsScript.includes('MAX_IMAGE_WIDTH = 480')
+    && legacyAssetsScript.includes('DETAIL_IMAGE_WIDTH = 960')
     && legacyAssetsScript.includes('JPEG_QUALITY')
+    && legacyAssetsScript.includes('DETAIL_JPEG_QUALITY')
     && legacyAssetsScript.includes('recipes-lite.json')
+    && legacyAssetsScript.includes('detail-images')
+    && legacyAssetsScript.includes('detailImage')
     && legacyAssetsScript.includes('android-legacy-native-lite')
     && legacyAssetsScript.includes('copyLiteImage')
     && legacyAssetsScript.includes('recipe-card-images')
@@ -203,6 +210,8 @@ expect(
   'Native Lite',
   'recipes-lite.json',
   '480px',
+  '960px',
+  'detail-images',
   'jpeg-js',
   'ListView',
   'RGB_565',
@@ -246,6 +255,7 @@ expect(
   'Native Lite',
   'recipes-lite.json',
   '480px',
+  '960px',
   'jpeg-js',
   'ListView',
   'RGB_565',

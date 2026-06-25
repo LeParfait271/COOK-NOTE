@@ -7,6 +7,7 @@ final class Recipe {
     final String id;
     final String title;
     final String image;
+    final String detailImage;
     final List<String> categories;
     final List<String> seasons;
     final String difficulty;
@@ -30,6 +31,7 @@ final class Recipe {
             String id,
             String title,
             String image,
+            String detailImage,
             List<String> categories,
             List<String> seasons,
             String difficulty,
@@ -52,6 +54,7 @@ final class Recipe {
         this.id = id;
         this.title = title;
         this.image = image;
+        this.detailImage = detailImage;
         this.categories = safe(categories);
         this.seasons = safe(seasons);
         this.difficulty = difficulty;

@@ -48,7 +48,8 @@ android-legacy/build/generated/cook-note-lite
 Cette sortie contient :
 
 - `recipes-lite.json`, un catalogue compact sans source externe ;
-- `images/`, les images recette locales reduites a `480px` maximum ;
+- `images/`, les images recette locales reduites a `480px` maximum pour la liste ;
+- `detail-images/`, les images de fiche reduites a `960px` maximum ;
 - des JPEG recompresses avec `jpeg-js` pour limiter le decode RAM/CPU ;
 - aucun fichier `assets/www`, aucun React, aucun service worker et aucun CSS du site.
 
@@ -190,7 +191,7 @@ C est voulu.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java`
   lit `recipes-lite.json`.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java`
-  decode les images locales en `RGB_565` avec un petit cache memoire.
+  decode les miniatures et les images detail locales en `RGB_565` avec un petit cache memoire.
 - `android-legacy/app/build.gradle` lit `SITE_VERSION` dans `app.js` pour
   produire `versionName` et `versionCode`, puis monte
   `android-legacy/build/generated/cook-note-lite` comme assets APK.

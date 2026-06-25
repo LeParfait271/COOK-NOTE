@@ -102,6 +102,7 @@ final class CookNoteRepository {
                 json.optString("id", ""),
                 json.optString("title", ""),
                 json.optString("image", ""),
+                json.optString("detailImage", json.optString("image", "")),
                 stringList(json.optJSONArray("categories")),
                 stringList(json.optJSONArray("seasons")),
                 json.optString("difficulty", ""),

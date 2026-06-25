@@ -41,8 +41,20 @@ final class ImageLoader {
             imageView.setImageDrawable(placeholder);
             return;
         }
-        imageView.setTag(imageName);
-        Bitmap cached = cache.get(imageName);
+        loadAsset("images/" + imageName, imageView, requestedWidth, requestedHeight);
+    }
+
+    void loadDetail(final String imageName, final ImageView imageView, final int requestedWidth, final int requestedHeight) {
+        if (imageName == null || imageName.length() == 0) {
+            imageView.setImageDrawable(placeholder);
+            return;
+        }
+        loadAsset("detail-images/" + imageName, imageView, requestedWidth, requestedHeight);
+    }
+
+    private void loadAsset(final String assetPath, final ImageView imageView, final int requestedWidth, final int requestedHeight) {
+        imageView.setTag(assetPath);
+        Bitmap cached = cache.get(assetPath);
         if (cached != null) {
             imageView.setImageBitmap(cached);
             return;
@@ -51,13 +63,13 @@ final class ImageLoader {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                final Bitmap bitmap = decode(imageName, requestedWidth, requestedHeight);
-                if (bitmap != null) cache.put(imageName, bitmap);
+                final Bitmap bitmap = decode(assetPath, requestedWidth, requestedHeight);
+                if (bitmap != null) cache.put(assetPath, bitmap);
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         Object tag = imageView.getTag();
-                        if (imageName.equals(tag) && bitmap != null) {
+                        if (assetPath.equals(tag) && bitmap != null) {
                             imageView.setImageBitmap(bitmap);
                         }
                     }
@@ -71,8 +83,7 @@ final class ImageLoader {
         cache.evictAll();
     }
 
-    private Bitmap decode(String imageName, int requestedWidth, int requestedHeight) {
-        String assetPath = "images/" + imageName;
+    private Bitmap decode(String assetPath, int requestedWidth, int requestedHeight) {
         BitmapFactory.Options bounds = new BitmapFactory.Options();
         bounds.inJustDecodeBounds = true;
         InputStream stream = null;
