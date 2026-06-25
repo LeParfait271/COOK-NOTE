@@ -29,6 +29,21 @@ android {
     androidResources {
         noCompress += ['html', 'js', 'css', 'json']
     }
+
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'org.mozilla.geckoview:geckoview-armeabi-v7a:91.0.20210830133508'
 }
 
 tasks.register('syncCookNoteDist', Sync) {

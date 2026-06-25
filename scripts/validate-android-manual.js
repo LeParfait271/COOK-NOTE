@@ -30,6 +30,7 @@ const updateAllAppsScript = read('scripts/update-all-apps.ps1');
 const publishScript = read('scripts/publish-android-release.ps1');
 const androidBuildGradle = read('android-legacy/app/build.gradle');
 const androidModernBuildGradle = read('android-modern/app/build.gradle');
+const androidLegacySettingsGradle = read('android-legacy/settings.gradle');
 const androidLegacyManifest = read('android-legacy/app/src/main/AndroidManifest.xml');
 const androidLegacyMainActivity = read('android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java');
 const androidModernMainActivity = read('android-modern/app/src/main/java/fr/cooknote/modern/MainActivity.java');
@@ -101,10 +102,12 @@ expect(
     && androidModernBuildGradle.includes('syncCookNoteDist') && buildModernScript.includes('APK Cook Note Android Modern OK')
 );
 expect(
-  'Android Legacy doit passer par des assets compatibles ancien WebView.',
+  'Android Legacy doit passer par des assets compatibles moteur ancien.',
   buildScript.includes('node scripts/build-android-legacy-assets.js')
     && androidBuildGradle.includes('legacyAssetRoot')
     && androidBuildGradle.includes('android-legacy/build/generated/cook-note-www')
+    && androidBuildGradle.includes('org.mozilla.geckoview:geckoview-armeabi-v7a')
+    && androidLegacySettingsGradle.includes('maven.mozilla.org/maven2')
     && legacyAssetsScript.includes('@babel/core')
     && legacyAssetsScript.includes('@babel/preset-env')
     && legacyAssetsScript.includes("targets: { chrome: '37', android: '5' }")
@@ -116,16 +119,26 @@ expect(
     && legacyAssetsScript.includes('display\\s*:\\s*grid')
     && legacyAssetsScript.includes('cook-note-legacy-error')
     && legacyAssetsScript.includes('URLSearchParams')
+    && legacyAssetsScript.includes('replaceHeroImagesWithCardImages')
+    && legacyAssetsScript.includes('recipe-images-optimized')
+    && legacyAssetsScript.includes('recipe-card-images')
     && packageJson.devDependencies?.['@babel/core']
     && packageJson.devDependencies?.['@babel/preset-env']
     && packageJson.devDependencies?.['core-js-bundle']
 );
 expect(
-  'Android Legacy doit charger le HTML initial depuis les assets natifs pour eviter l ecran noir WebView Android 5.',
+  'Android Legacy doit utiliser GeckoView embarque et un serveur local pour eviter la dependance au WebView systeme.',
   androidLegacyManifest.includes('android.permission.INTERNET')
-    && androidLegacyMainActivity.includes('loadDataWithBaseURL')
-    && androidLegacyMainActivity.includes('readAssetText("www/index.html")')
-    && androidLegacyMainActivity.includes('setLayerType(View.LAYER_TYPE_SOFTWARE')
+    && androidLegacyManifest.includes('android:usesCleartextTraffic="true"')
+    && androidLegacyManifest.includes('android:largeHeap="true"')
+    && androidBuildGradle.includes('useLegacyPackaging = true')
+    && androidLegacyMainActivity.includes('GeckoView')
+    && androidLegacyMainActivity.includes('GeckoRuntime.create')
+    && androidLegacyMainActivity.includes('LocalAssetServer')
+    && androidLegacyMainActivity.includes('ServerSocket')
+    && androidLegacyMainActivity.includes('127.0.0.1')
+    && androidLegacyMainActivity.includes('www/" + assetPath')
+    && androidLegacyMainActivity.includes('GeckoSession.NavigationDelegate')
     && androidLegacyMainActivity.includes('showNativeError')
 );
 expect(
@@ -198,8 +211,11 @@ expect(
   'color-mix()',
   'CSS Grid',
   'panneau d erreur visible',
-  'loadDataWithBaseURL',
-  'rendu logiciel'
+  'GeckoView',
+  'WebView systeme',
+  'serveur HTTP local',
+  '100 MiB',
+  'recipe-images-optimized'
 ].forEach(fragment => {
   expect(`Documentation Android manuelle incomplete (${fragment}).`, workflowDoc.includes(fragment));
 });
@@ -234,7 +250,9 @@ expect(
   'core-js-bundle.min.js',
   'CSS Grid',
   'ecran noir',
-  'loadDataWithBaseURL'
+  'GeckoView',
+  'WebView systeme',
+  '100 MiB'
 ].forEach(fragment => {
   expect(`Documentation globale apps incomplete (${fragment}).`, appsWorkflowDoc.includes(fragment));
 });

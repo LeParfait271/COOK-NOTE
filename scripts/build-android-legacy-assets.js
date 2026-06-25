@@ -7,6 +7,8 @@ const DIST = path.join(ROOT, 'dist');
 const LEGACY_DIST = path.join(ROOT, 'android-legacy', 'build', 'generated', 'cook-note-www');
 const CORE_JS_SOURCE = path.join(ROOT, 'node_modules', 'core-js-bundle', 'minified.js');
 const CORE_JS_TARGET = path.join(LEGACY_DIST, 'assets', 'vendor', 'core-js-bundle.min.js');
+const LEGACY_CARD_IMAGES = path.join(LEGACY_DIST, 'assets', 'recipe-card-images');
+const LEGACY_OPTIMIZED_IMAGES = path.join(LEGACY_DIST, 'assets', 'recipe-images-optimized');
 
 const JS_FILES = [
   'app.js',
@@ -407,6 +409,33 @@ function copyDist() {
   fs.cpSync(DIST, LEGACY_DIST, { recursive: true });
 }
 
+function replaceHeroImagesWithCardImages() {
+  if (!fs.existsSync(LEGACY_CARD_IMAGES)) {
+    throw new Error('assets/recipe-card-images introuvable dans la sortie Android Legacy.');
+  }
+
+  fs.rmSync(LEGACY_OPTIMIZED_IMAGES, { recursive: true, force: true });
+  fs.mkdirSync(LEGACY_OPTIMIZED_IMAGES, { recursive: true });
+
+  let copied = 0;
+  fs.readdirSync(LEGACY_CARD_IMAGES, { withFileTypes: true }).forEach(entry => {
+    if (!entry.isFile()) return;
+    const lower = entry.name.toLowerCase();
+    if (!/\.(jpg|jpeg|png|webp)$/.test(lower)) return;
+    fs.copyFileSync(
+      path.join(LEGACY_CARD_IMAGES, entry.name),
+      path.join(LEGACY_OPTIMIZED_IMAGES, entry.name)
+    );
+    copied += 1;
+  });
+
+  if (copied === 0) {
+    throw new Error('Aucune miniature recette trouvee pour alleger Android Legacy.');
+  }
+
+  return copied;
+}
+
 function transformJs(relativePath) {
   const target = path.join(LEGACY_DIST, relativePath);
   if (!fs.existsSync(target)) throw new Error(`${relativePath}: fichier JS introuvable dans les assets Legacy.`);
@@ -481,9 +510,11 @@ function patchCss() {
 }
 
 copyDist();
+const lightweightImageCount = replaceHeroImagesWithCardImages();
 copyPolyfill();
 JS_FILES.forEach(transformJs);
 patchCss();
 patchHtmlFiles();
 
-console.log(`Assets Android Legacy compatibles WebView ancien OK: ${LEGACY_DIST}`);
+console.log(`Assets Android Legacy compatibles moteur embarque OK: ${LEGACY_DIST}`);
+console.log(`Images HD remplacees par miniatures dans l APK Legacy: ${lightweightImageCount}`);

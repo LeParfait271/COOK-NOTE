@@ -29,22 +29,21 @@ sur la tablette et ne pas traiter l Android comme une etape obligatoire du site.
 
 - Projet : `android-legacy/`
 - Plateforme cible : Android 5.0 minimum, donc `minSdk 21`
-- Type : wrapper natif Java + WebView fullscreen
+- Type : wrapper natif Java + GeckoView fullscreen, avec moteur embarque
 - Source affichee : copie locale de `dist/` dans les assets APK
-- Origin locale interne : `https://cook-note.local/`
+- Origin locale interne : serveur HTTP loopback `http://127.0.0.1:<port>/`
 - Package Android : `fr.cooknote.legacy`
 
-Le WebView intercepte les URLs Cook Note et sert les fichiers depuis
-`app/src/main/assets/www/` dans l APK. Les liens externes sont ouverts par le
-navigateur Android. Sur Android 5, le HTML initial ne doit pas etre charge par
-un simple `loadUrl` vers l origine locale : certains vieux WebView restent noirs
-avant l interception. `MainActivity` lit donc `www/index.html` depuis les assets
-natifs et l injecte avec `loadDataWithBaseURL`. Le WebView Legacy garde aussi la
-permission `INTERNET`, un rendu logiciel et une page d erreur native visible pour
-eviter un ecran noir silencieux.
+Android Legacy ne depend plus du WebView systeme de la tablette. `MainActivity`
+embarque GeckoView ARMv7, demarre un petit serveur HTTP local sur
+`127.0.0.1`, sert les fichiers de `app/src/main/assets/www/` depuis l APK et
+charge Cook Note dans GeckoView. Les liens externes sont ouverts par Android.
+Garder la permission `INTERNET`, `usesCleartextTraffic`, `extractNativeLibs`,
+`largeHeap`, le panneau de chargement natif, le panneau d erreur visible et la page d erreur native visible
+pour eviter un ecran noir silencieux si le moteur ou la tablette plante.
 
-Android 5 peut utiliser un WebView tres ancien. L APK Legacy ne doit donc pas
-embarquer directement les assets web modernes bruts. Le workflow officiel passe
+Android 5 peut etre tres limite. L APK Legacy ne doit donc pas embarquer
+directement les assets web modernes bruts. Le workflow officiel passe
 par `scripts/build-android-legacy-assets.js`, qui genere une copie dediee dans :
 
 ```text
@@ -55,11 +54,15 @@ Cette copie ajoute `core-js-bundle.min.js`, produit du JS ES5 avec Babel,
 garde le service worker desactive dans l APK local et garde un loader compatible
 ancien WebView, sans CSS moderne comme `grid`, `inset` ou `min()`. Elle genere
 aussi un CSS Legacy sans `var()`, `color-mix()`, `clamp()` ni CSS Grid, car le
-WebView Android 5 peut monter React puis afficher un ecran noir si les styles
-modernes sont ignores. Le runtime Legacy injecte des polyfills WebView et un
-panneau d erreur visible si le JavaScript plante. Le chargement initial reste
-natif via `loadDataWithBaseURL`; ne pas revenir a un demarrage Legacy uniquement
-base sur `loadUrl`.
+moteur ancien peut monter React puis afficher un ecran noir si les styles
+modernes sont ignores. Le runtime Legacy injecte des polyfills ES5 et un panneau
+d erreur visible si le JavaScript plante.
+
+Pour que l APK Android 5 reste publiable dans `downloads/` sans depasser la
+limite GitHub de 100 MiB par fichier, la sortie Legacy remplace les grandes
+images `assets/recipe-images-optimized/` par les miniatures homonymes de
+`assets/recipe-card-images/`. Cette reduction ne concerne que l APK Legacy :
+le site web, Android Modern et les recettes gardent les visuels HD habituels.
 
 ## Pourquoi l app ne suit pas automatiquement le site
 
@@ -194,7 +197,7 @@ C est voulu.
 ## Fichiers importants
 
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java`
-  contient le WebView et le mapping des routes locales.
+  contient GeckoView, le serveur HTTP loopback et le mapping des routes locales.
 - `android-legacy/app/build.gradle` lit `SITE_VERSION` dans `app.js` pour
   produire `versionName` et `versionCode`.
 - `scripts/build-android-legacy.ps1` construit l APK.

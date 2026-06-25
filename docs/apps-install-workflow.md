@@ -101,16 +101,22 @@ prerendues par `scripts/build-site.js`.
 - Package : `fr.cooknote.legacy`
 - Android minimum : `minSdk 21`
 - Objectif : Android 5.0 et tablettes anciennes
-- Assets embarques : copie WebView ancien generee par
+- Moteur : GeckoView ARMv7 embarque, sans dependance au WebView systeme.
+- Assets embarques : copie moteur ancien generee par
   `scripts/build-android-legacy-assets.js`, avec JS ES5, polyfills
   `core-js-bundle.min.js`, service worker desactive et loader compatible
   ancien WebView. La sortie Legacy remplace aussi le CSS moderne par un CSS sans
   `var()`, `color-mix()`, `clamp()` ni CSS Grid, et injecte un runtime ES5 qui
   affiche une erreur visible au lieu d un ecran noir.
-- Demarrage : `MainActivity` injecte `www/index.html` avec
-  `loadDataWithBaseURL`, puis sert les autres URLs depuis les assets locaux.
-  Garder ce demarrage natif, la permission `INTERNET`, le rendu logiciel et la
-  page d erreur native pour eviter les ecrans noirs sur Android 5.
+- Images Legacy : pour rester sous la limite GitHub de 100 MiB par APK dans
+  `downloads/`, les grandes images embarquees sont remplacees par les miniatures
+  homonymes dans la sortie Android 5 seulement. Le site HD et Android Modern ne
+  sont pas reduits.
+- Demarrage : `MainActivity` demarre un serveur HTTP local `127.0.0.1`, sert
+  les assets locaux depuis l APK, puis charge Cook Note avec GeckoView. Garder
+  `INTERNET`, `usesCleartextTraffic`, `extractNativeLibs`, `largeHeap`, le
+  panneau de chargement natif et la page d erreur native pour eviter les ecrans
+  noirs sur Android 5.
 - Build explicite :
 
 ```powershell

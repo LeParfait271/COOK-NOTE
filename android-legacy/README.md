@@ -1,6 +1,7 @@
 # Cook Note Android Legacy
 
-Wrapper Android 5.0 compatible pour Cook Note.
+Application Android 5.0 compatible pour Cook Note, avec moteur GeckoView
+embarque.
 
 Important: cette application est un projet secondaire. Elle ne se met pas a jour
 automatiquement quand le site change, et elle ne doit pas etre branchee sur
@@ -12,8 +13,9 @@ Le mode d'emploi complet est dans
 ## Principe
 
 - Android minimum: `minSdkVersion 21`, donc Android 5.0
-- WebView natif Java fullscreen
-- Site servi depuis les assets APK via `https://cook-note.local/`
+- GeckoView ARMv7 fullscreen, sans dependance au WebView systeme
+- Site servi depuis les assets APK via un serveur local `127.0.0.1`
+- Images embarquees allegees dans l APK Android 5 uniquement pour rester sous la limite GitHub
 - `dist/` est copie dans l APK uniquement quand le build Android est lance
 - aucun changement de recette requis pour l app
 
@@ -42,10 +44,10 @@ npm run android:legacy:setup
 ## Publication GitHub
 
 Le site peut proposer le bouton `Android 5` en bas de page. Ce bouton
-pointe vers l asset stable GitHub Releases :
+pointe vers la copie APK stable du depot GitHub :
 
 ```text
-https://github.com/LeParfait271/COOK-NOTE/releases/latest/download/cook-note-android-legacy.apk
+https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk
 ```
 
 Ne publier cette APK que sur demande explicite :
