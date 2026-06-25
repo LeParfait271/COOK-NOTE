@@ -25,6 +25,7 @@ const buildSiteScript = read('scripts/build-site.js');
 const serviceWorker = read('service-worker.js');
 const buildScript = read('scripts/build-android-legacy.ps1');
 const buildModernScript = read('scripts/build-android-modern.ps1');
+const legacyAssetsScript = read('scripts/build-android-legacy-assets.js');
 const updateAllAppsScript = read('scripts/update-all-apps.ps1');
 const publishScript = read('scripts/publish-android-release.ps1');
 const androidBuildGradle = read('android-legacy/app/build.gradle');
@@ -36,7 +37,7 @@ normalSiteScripts.forEach(scriptName => {
   const command = packageJson.scripts?.[scriptName] || '';
   expect(
     `Le script npm ${scriptName} ne doit jamais builder l'APK Android.`,
-    !/build-android-(?:legacy|modern)|update-all-apps|publish-android-release|apps:(?:update|publish)-all|android:(?:legacy|modern):(?:apk|update|setup|publish)/.test(command)
+    !/build-android-(?:legacy|modern)\.ps1|update-all-apps|publish-android-release|apps:(?:update|publish)-all|android:(?:legacy|modern):(?:apk|update|setup|publish)/.test(command)
   );
 });
 
@@ -78,6 +79,7 @@ expect(
 expect(
   'Le validateur Android manuel doit etre branche au check.',
   packageText.includes('scripts/validate-android-manual.js')
+    && packageText.includes('scripts/build-android-legacy-assets.js')
 );
 
 [
@@ -95,6 +97,21 @@ expect(
   'Le script APK doit synchroniser dist seulement quand on le lance explicitement.',
   androidBuildGradle.includes('syncCookNoteDist') && buildScript.includes('APK Cook Note Android Legacy OK')
     && androidModernBuildGradle.includes('syncCookNoteDist') && buildModernScript.includes('APK Cook Note Android Modern OK')
+);
+expect(
+  'Android Legacy doit passer par des assets compatibles ancien WebView.',
+  buildScript.includes('node scripts/build-android-legacy-assets.js')
+    && androidBuildGradle.includes('legacyAssetRoot')
+    && androidBuildGradle.includes('android-legacy/build/generated/cook-note-www')
+    && legacyAssetsScript.includes('@babel/core')
+    && legacyAssetsScript.includes('@babel/preset-env')
+    && legacyAssetsScript.includes("targets: { chrome: '37', android: '5' }")
+    && legacyAssetsScript.includes('core-js-bundle.min.js')
+    && legacyAssetsScript.includes('Service worker disabled in Android Legacy')
+    && legacyAssetsScript.includes('id="loading-screen"')
+    && packageJson.devDependencies?.['@babel/core']
+    && packageJson.devDependencies?.['@babel/preset-env']
+    && packageJson.devDependencies?.['core-js-bundle']
 );
 expect(
   'Le script de mise a jour groupee doit fabriquer et copier les deux APK Android ensemble.',
@@ -157,7 +174,11 @@ expect(
   'Android 5.0',
   'npm run apps:update-all',
   'mise a jour groupee',
-  'Ne jamais publier un seul APK'
+  'Ne jamais publier un seul APK',
+  'scripts/build-android-legacy-assets.js',
+  'core-js-bundle.min.js',
+  'JS ES5',
+  'service worker desactive'
 ].forEach(fragment => {
   expect(`Documentation Android manuelle incomplete (${fragment}).`, workflowDoc.includes(fragment));
 });
@@ -187,7 +208,9 @@ expect(
   'npm run apps:update-all',
   'npm run apps:publish-all',
   'Mise a jour groupee obligatoire',
-  'Ne jamais publier un seul APK'
+  'Ne jamais publier un seul APK',
+  'scripts/build-android-legacy-assets.js',
+  'core-js-bundle.min.js'
 ].forEach(fragment => {
   expect(`Documentation globale apps incomplete (${fragment}).`, appsWorkflowDoc.includes(fragment));
 });

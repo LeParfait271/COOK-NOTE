@@ -20,15 +20,15 @@
   <meta property="og:description" content="Carnet de recettes maison avec variantes, techniques, favoris et liste de courses." />
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://cook-note.pages.dev/" />
-  <meta property="og:image"       content="https://cook-note.pages.dev/assets/base-du-site.png?v=186" />
-  <meta property="og:image:secure_url" content="https://cook-note.pages.dev/assets/base-du-site.png?v=186" />
+  <meta property="og:image"       content="https://cook-note.pages.dev/assets/base-du-site.png?v=187" />
+  <meta property="og:image:secure_url" content="https://cook-note.pages.dev/assets/base-du-site.png?v=187" />
   <meta property="og:image:width" content="1445" />
   <meta property="og:image:height" content="1088" />
   <meta property="og:image:alt"   content="Cook Note" />
   <meta name="twitter:card"       content="summary_large_image" />
   <meta name="twitter:title"      content="Cook Note" />
   <meta name="twitter:description" content="Carnet de recettes maison avec variantes, techniques, favoris et liste de courses." />
-  <meta name="twitter:image"      content="https://cook-note.pages.dev/assets/base-du-site.png?v=186" />
+  <meta name="twitter:image"      content="https://cook-note.pages.dev/assets/base-du-site.png?v=187" />
   <link rel="canonical" href="https://cook-note.pages.dev/" />
   <script id="recipe-jsonld" type="application/ld+json">
     {
@@ -47,7 +47,7 @@
   <link rel="preload" as="image" href="/assets/base-principale-fond-site.jpg" fetchpriority="high" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/style.css?v=186" />
+  <link rel="stylesheet" href="/style.css?v=187" />
 
   <!-- Librairies locales pour garder le site autonome -->
 </head>
@@ -68,10 +68,12 @@
   <style>
     #loading-screen {
       position: fixed;
-      inset: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
       z-index: 99999;
-      display: grid;
-      place-items: center;
+      display: block;
       background:
         linear-gradient(115deg, rgba(0,0,0,.92), rgba(0,0,0,.72)),
         url("/assets/base-principale-fond-site.jpg") center / cover;
@@ -79,23 +81,31 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     .loading-scene {
-      display: grid;
-      gap: 18px;
-      justify-items: center;
-      width: min(460px, 82vw);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 82%;
+      max-width: 460px;
+      text-align: center;
+      transform: translate(-50%, -50%);
     }
     .loading-scene img {
-      width: min(420px, 78vw);
+      width: 78%;
+      max-width: 420px;
+      height: auto;
       filter: drop-shadow(0 18px 34px rgba(0,0,0,.52));
     }
     .loading-shell {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      width: min(360px, 78vw);
+      width: 78%;
+      max-width: 360px;
+      margin: 18px auto 0;
+      font-size: 0;
     }
     .loading-shell span {
+      display: inline-block;
+      width: 31%;
       height: 44px;
+      margin: 0 1%;
       border: 1px solid rgba(251,191,36,.22);
       border-radius: 8px;
       background: linear-gradient(90deg, rgba(255,255,255,.04), rgba(251,191,36,.13), rgba(255,255,255,.04));
@@ -103,8 +113,10 @@
       animation: lsShimmer 1.5s ease-in-out infinite;
     }
     .loading-bar {
-      width: min(220px, 62vw);
+      width: 62%;
+      max-width: 220px;
       height: 3px;
+      margin: 18px auto 0;
       overflow: hidden;
       border-radius: 999px;
       background: rgba(255,255,255,.12);
@@ -126,12 +138,12 @@
   <!-- Le catalogue de recettes doit être chargé AVANT app.js -->
   <script src="/assets/vendor/react.production.min.js"></script>
   <script src="/assets/vendor/react-dom.production.min.js"></script>
-  <script src="/assets/catalog-1.js?v=186"></script>
-  <script src="/assets/image-manifest.js?v=186"></script>
-  <script src="/app-images.js?v=186"></script>
+  <script src="/assets/catalog-1.js?v=187"></script>
+  <script src="/assets/image-manifest.js?v=187"></script>
+  <script src="/app-images.js?v=187"></script>
 
   <!-- App React sans transpilation côté navigateur -->
-  <script src="/app.js?v=186"></script>
+  <script src="/app.js?v=187"></script>
 
   <!-- Service Worker -->
   <script>
@@ -171,7 +183,7 @@
           refreshing = true;
           window.location.reload();
         });
-        navigator.serviceWorker.register('/service-worker.js?v=186').then(registration => {
+        navigator.serviceWorker.register('/service-worker.js?v=187').then(registration => {
           showUpdateAction(registration);
           registration.addEventListener('updatefound', () => {
             const worker = registration.installing;

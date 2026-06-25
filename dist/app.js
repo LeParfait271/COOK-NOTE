@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.86';
+const SITE_VERSION = 'v1.87';
 const SITE_UPDATED_AT = '25/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -97,7 +97,7 @@ const APP_INSTALL_OPTIONS = Object.freeze([
     href: `${APP_REPO_DOWNLOAD_BASE}/cook-note-android-legacy.apk`,
     rawHref: `${APP_RAW_DOWNLOAD_BASE}/cook-note-android-legacy.apk`,
     pageHref: `${APP_REPO_FILE_BASE}/cook-note-android-legacy.apk`,
-    note: 'Version APK 1.83, Android 5.0 minimum.'
+    note: `Version APK ${SITE_VERSION.replace(/^v/, '')}, Android 5.0 minimum.`
   },
   {
     id: 'android-modern',
@@ -116,7 +116,7 @@ const APP_INSTALL_OPTIONS = Object.freeze([
     href: `${APP_REPO_DOWNLOAD_BASE}/cook-note-android-modern.apk`,
     rawHref: `${APP_RAW_DOWNLOAD_BASE}/cook-note-android-modern.apk`,
     pageHref: `${APP_REPO_FILE_BASE}/cook-note-android-modern.apk`,
-    note: 'Version APK 1.83, Android 8.0 minimum.'
+    note: `Version APK ${SITE_VERSION.replace(/^v/, '')}, Android 8.0 minimum.`
   },
   {
     id: 'ios-legacy',
@@ -970,10 +970,17 @@ function uniqInOrder(values) {
 }
 
 function getCurrentSeason(date = new Date()) {
-  const month = Number(new Intl.DateTimeFormat('fr-FR', {
-    timeZone: 'Europe/Paris',
-    month: 'numeric'
-  }).format(date));
+  let month = date.getMonth() + 1;
+  if (typeof Intl !== 'undefined' && Intl.DateTimeFormat) {
+    try {
+      month = Number(new Intl.DateTimeFormat('fr-FR', {
+        timeZone: 'Europe/Paris',
+        month: 'numeric'
+      }).format(date));
+    } catch {
+      month = date.getMonth() + 1;
+    }
+  }
   if ([3, 4, 5].includes(month)) return 'Printemps';
   if ([6, 7, 8].includes(month)) return 'Été';
   if ([9, 10, 11].includes(month)) return 'Automne';

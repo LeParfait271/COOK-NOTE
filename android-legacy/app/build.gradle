@@ -3,6 +3,7 @@ plugins {
 }
 
 def repoRoot = rootProject.projectDir.parentFile
+def legacyAssetRoot = new File(repoRoot, 'android-legacy/build/generated/cook-note-www')
 def appJs = new File(repoRoot, 'app.js').text
 def versionMatch = appJs =~ /const SITE_VERSION = 'v(\d+)\.(\d+)'/
 if (!versionMatch.find()) {
@@ -31,7 +32,7 @@ android {
 }
 
 tasks.register('syncCookNoteDist', Sync) {
-    from(new File(repoRoot, 'dist'))
+    from(legacyAssetRoot.exists() ? legacyAssetRoot : new File(repoRoot, 'dist'))
     into(layout.projectDirectory.dir('src/main/assets/www'))
     exclude('assets/recipe-images/**')
     exclude('downloads/**')

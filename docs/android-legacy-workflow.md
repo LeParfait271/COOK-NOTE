@@ -38,6 +38,18 @@ Le WebView intercepte les URLs Cook Note et sert les fichiers depuis
 `app/src/main/assets/www/` dans l APK. Les liens externes sont ouverts par le
 navigateur Android.
 
+Android 5 peut utiliser un WebView tres ancien. L APK Legacy ne doit donc pas
+embarquer directement les assets web modernes bruts. Le workflow officiel passe
+par `scripts/build-android-legacy-assets.js`, qui genere une copie dediee dans :
+
+```text
+android-legacy/build/generated/cook-note-www
+```
+
+Cette copie ajoute `core-js-bundle.min.js`, produit du JS ES5 avec Babel,
+garde le service worker desactive dans l APK local et garde un loader compatible
+ancien WebView, sans CSS moderne comme `grid`, `inset` ou `min()`.
+
 ## Pourquoi l app ne suit pas automatiquement le site
 
 Le build normal du site doit rester rapide et propre :
@@ -53,8 +65,10 @@ Le dossier Android copie `dist/` uniquement pendant un build Android demande :
 npm run apps:update-all
 ```
 
-Cette commande lance `scripts/build-android-legacy.ps1`. Gradle execute alors la
-tache `syncCookNoteDist`, qui copie le `dist/` courant dans
+Cette commande lance `scripts/build-android-legacy.ps1`. Le script genere
+d'abord les assets compatibles WebView ancien avec
+`scripts/build-android-legacy-assets.js`. Gradle execute ensuite la tache
+`syncCookNoteDist`, qui copie cette sortie dediee dans
 `android-legacy/app/src/main/assets/www/` avant de fabriquer l APK.
 
 Le dossier `android-legacy/app/src/main/assets/www/` est ignore par Git. Il est

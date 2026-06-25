@@ -42,6 +42,13 @@ if (-not (Test-Path (Join-Path $Root "dist\index.html"))) {
   throw "dist/index.html introuvable. Lance npm run build avant l'APK."
 }
 
+Push-Location $Root
+try {
+  node scripts/build-android-legacy-assets.js
+} finally {
+  Pop-Location
+}
+
 $Java = Get-Command java -ErrorAction SilentlyContinue
 if (-not $Java) {
   throw "Java/JDK introuvable. Installe JDK 17 puis relance scripts/build-android-legacy.ps1."

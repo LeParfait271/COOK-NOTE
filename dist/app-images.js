@@ -1,7 +1,7 @@
 /* global window */
 
 (function initCookNoteImages() {
-  const IMAGE_HELPER_VERSION = 'v1.86';
+  const IMAGE_HELPER_VERSION = 'v1.87';
   const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
 
   function recipeCardImageUrl(image) {

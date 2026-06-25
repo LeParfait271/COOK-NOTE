@@ -101,6 +101,10 @@ prerendues par `scripts/build-site.js`.
 - Package : `fr.cooknote.legacy`
 - Android minimum : `minSdk 21`
 - Objectif : Android 5.0 et tablettes anciennes
+- Assets embarques : copie WebView ancien generee par
+  `scripts/build-android-legacy-assets.js`, avec JS ES5, polyfills
+  `core-js-bundle.min.js`, service worker desactive et loader compatible
+  ancien WebView
 - Build explicite :
 
 ```powershell
