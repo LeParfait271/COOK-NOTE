@@ -32,7 +32,7 @@ if ($BundledGradle) {
 if (-not $SkipWebBuild) {
   Push-Location $Root
   try {
-    npm run build
+    npm.cmd run build
   } finally {
     Pop-Location
   }

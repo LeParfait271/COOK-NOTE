@@ -268,6 +268,15 @@ if ([indexHtml, robots, sitemap].some(text => text.includes('1c1996d6.cook-note.
 if (!indexHtml.includes('https://cook-note.pages.dev/')) {
   fail('index.html: domaine canonique public absent.');
 }
+[
+  'mobile-web-app-capable',
+  'apple-mobile-web-app-capable',
+  'apple-mobile-web-app-title',
+  'apple-mobile-web-app-status-bar-style'
+].forEach(fragment => {
+  if (!indexHtml.includes(fragment)) fail(`index.html: balise PWA Apple absente (${fragment}).`);
+  if (!buildSite.includes(fragment)) fail(`build-site.js: balise PWA Apple absente des pages prerendues (${fragment}).`);
+});
 ['unpkg.com', 'cdn.jsdelivr.net', 'fonts.googleapis.com', 'fonts.gstatic.com'].forEach(domain => {
   if (indexHtml.includes(domain)) fail(`index.html: dependance CDN restante (${domain}).`);
 });

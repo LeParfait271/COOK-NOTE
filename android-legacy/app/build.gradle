@@ -24,6 +24,10 @@ android {
         versionCode cookNoteVersionCode
         versionName cookNoteVersionName
     }
+
+    androidResources {
+        noCompress += ['html', 'js', 'css', 'json', 'jpg', 'jpeg', 'png', 'svg', 'webp']
+    }
 }
 
 tasks.register('syncCookNoteDist', Copy) {

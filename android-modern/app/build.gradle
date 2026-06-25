@@ -1,0 +1,44 @@
+plugins {
+    id 'com.android.application'
+}
+
+def repoRoot = rootProject.projectDir.parentFile
+def appJs = new File(repoRoot, 'app.js').text
+def versionMatch = appJs =~ /const SITE_VERSION = 'v(\d+)\.(\d+)'/
+if (!versionMatch.find()) {
+    throw new GradleException('SITE_VERSION introuvable dans app.js')
+}
+def major = versionMatch.group(1) as int
+def minor = versionMatch.group(2) as int
+def cookNoteVersionName = "${major}.${minor}"
+def cookNoteVersionCode = (major * 1000) + minor
+
+android {
+    namespace 'fr.cooknote.modern'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'fr.cooknote.modern'
+        minSdk 26
+        targetSdk 35
+        versionCode cookNoteVersionCode
+        versionName cookNoteVersionName
+    }
+
+    androidResources {
+        noCompress += ['html', 'js', 'css', 'json', 'jpg', 'jpeg', 'png', 'svg', 'webp']
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+tasks.register('syncCookNoteDist', Copy) {
+    from(new File(repoRoot, 'dist'))
+    into(layout.projectDirectory.dir('src/main/assets/www'))
+    exclude('assets/recipe-images/**')
+}
+
+preBuild.dependsOn('syncCookNoteDist')

@@ -74,9 +74,55 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v1.80';
+const SITE_VERSION = 'v1.81';
 const SITE_UPDATED_AT = '25/06/26';
-const ANDROID_APK_DOWNLOAD_URL = 'https://github.com/LeParfait271/COOK-NOTE/releases/latest/download/cook-note-android.apk';
+const APP_RELEASE_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/releases/latest/download';
+const APP_INSTALL_OPTIONS = Object.freeze([
+  {
+    id: 'android-legacy',
+    kind: 'download',
+    label: 'Android 5',
+    detail: 'APK tablette ancienne',
+    href: `${APP_RELEASE_DOWNLOAD_BASE}/cook-note-android-legacy.apk`
+  },
+  {
+    id: 'android-modern',
+    kind: 'download',
+    label: 'Android recent',
+    detail: 'APK fluide',
+    href: `${APP_RELEASE_DOWNLOAD_BASE}/cook-note-android-modern.apk`
+  },
+  {
+    id: 'ios-legacy',
+    kind: 'guide',
+    label: 'iOS ancien',
+    detail: 'Safari iPad/iPhone',
+    title: 'Installer sur ancien iPad ou iPhone',
+    body: 'Version web app legere pour les appareils Apple anciens. Elle garde le site en plein ecran depuis Safari, sans App Store.',
+    steps: [
+      'Ouvre Cook Note dans Safari.',
+      'Touche le bouton Partager.',
+      'Choisis Ajouter a l ecran d accueil.',
+      'Valide Cook Note, puis ouvre depuis l icone.'
+    ],
+    note: 'Si le bouton n apparait pas, mets Safari en mode classique et recharge la page.'
+  },
+  {
+    id: 'ios-modern',
+    kind: 'guide',
+    label: 'iOS recent',
+    detail: 'PWA plein ecran',
+    title: 'Installer sur iPhone ou iPad recent',
+    body: 'Installation PWA recommandee sur iOS/iPadOS recent : icone dediee, plein ecran et cache local du site.',
+    steps: [
+      'Ouvre Cook Note dans Safari.',
+      'Touche Partager, puis Ajouter a l ecran d accueil.',
+      'Lance Cook Note depuis l icone installee.',
+      'Garde le site ouvert une premiere fois pour remplir le cache.'
+    ],
+    note: 'Apple impose cette installation Safari pour une app web hors App Store ou TestFlight.'
+  }
+]);
 const SITE_CACHE_VERSION = SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`);
 const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
 const DEFERRED_CATALOG_CHUNK_SRCS = [2, 3, 4].map(index => `/assets/catalog-${index}.js?v=${SITE_CACHE_VERSION}`);
@@ -4202,6 +4248,11 @@ const ICON_PATHS = {
     'M7 10l5 5 5-5',
     'M5 19h14'
   ],
+  device: [
+    'M8 2.8h8a2 2 0 0 1 2 2v14.4a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4.8a2 2 0 0 1 2-2Z',
+    'M10 5.8h4',
+    'M11 18.2h2'
+  ],
   arrowUp: [
     'M12 20V5',
     'M6 11l6-6 6 6'
@@ -4730,6 +4781,36 @@ function TechniquesView({ targetTechniqueId, goHome }) {
             ))
           )
         ))
+      )
+    )
+  );
+}
+
+function AppInstallPanel({ option, onClose }) {
+  if (!option) return null;
+  return h('div', { className: 'modal-backdrop app-install-backdrop', onMouseDown: onClose },
+    h('section', {
+      className: 'modal-panel app-install-modal',
+      role: 'dialog',
+      'aria-modal': 'true',
+      'aria-labelledby': 'app-install-title',
+      onMouseDown: event => event.stopPropagation()
+    },
+      h('div', { className: 'modal-head' },
+        h('div', null,
+          h('p', { className: 'eyebrow' }, option.label),
+          h('h2', { id: 'app-install-title' }, option.title)
+        ),
+        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
+      ),
+      h('div', { className: 'app-install-card' },
+        h('p', null, option.body),
+        h('ol', null, option.steps.map(step => h('li', { key: step }, step))),
+        h('p', { className: 'app-install-note' }, option.note)
+      ),
+      h('div', { className: 'modal-actions' },
+        h('a', { className: 'btn btn-primary', href: '/', onClick: onClose }, 'Ouvrir Cook Note'),
+        h('button', { type: 'button', className: 'btn btn-ghost', onClick: onClose }, 'Fermer')
       )
     )
   );
@@ -6402,6 +6483,7 @@ function App() {
   const [shoppingOpen, setShoppingOpen] = useState(false);
   const [menuPlannerOpen, setMenuPlannerOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
+  const [installGuide, setInstallGuide] = useState(null);
   const [recentRecipeIds, setRecentRecipeIds] = useState(() => readStoredList(STORAGE_KEYS.recentRecipes, []));
   const [recentSearches, setRecentSearches] = useState(() => readStoredList(STORAGE_KEYS.recentSearches, []));
   const [personalNotes, setPersonalNotes] = useState(() => readJson(STORAGE_KEYS.personalNotes, {}));
@@ -7057,6 +7139,10 @@ function App() {
           setPreferencesOpen(false);
           return;
         }
+        if (installGuide) {
+          setInstallGuide(null);
+          return;
+        }
         if (menuPlannerOpen) {
           closeMenuPlanner();
           return;
@@ -7090,7 +7176,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [activeRecipe, activePage, catalogRecipes, canUndo, canRedo, commandOpen, searchOpen, preferencesOpen, menuPlannerOpen]);
+  }, [activeRecipe, activePage, catalogRecipes, canUndo, canRedo, commandOpen, searchOpen, preferencesOpen, installGuide, menuPlannerOpen]);
 
   if (!recipes.length) {
     return h('div', { className: 'mc-shell' },
@@ -7206,13 +7292,23 @@ function App() {
           h('span', { className: 'site-footer-count' }, catalogStats.label),
           h('span', { className: 'site-footer-version' }, `${SITE_VERSION} / ${SITE_UPDATED_AT}`)
         ),
-        h('div', { className: 'site-footer-actions' },
-          h('a', {
-            className: 'site-footer-action site-footer-install',
-            href: ANDROID_APK_DOWNLOAD_URL,
-            rel: 'noopener noreferrer',
-            title: 'Telecharger l APK Android depuis GitHub'
-          }, h(Icon, { name: 'download' }), h('span', null, 'Installer Android')),
+        h('div', { className: 'site-footer-actions', 'aria-label': 'Installer Cook Note' },
+          APP_INSTALL_OPTIONS.map(option => option.kind === 'download'
+            ? h('a', {
+              key: option.id,
+              className: `site-footer-action site-footer-install site-footer-install-${option.id}`,
+              href: option.href,
+              rel: 'noopener noreferrer',
+              title: `${option.label} - ${option.detail}`
+            }, h(Icon, { name: 'download' }), h('span', null, option.label), h('small', null, option.detail))
+            : h('button', {
+              key: option.id,
+              type: 'button',
+              className: `site-footer-action site-footer-install site-footer-install-${option.id}`,
+              onClick: () => setInstallGuide(option),
+              title: `${option.label} - ${option.detail}`
+            }, h(Icon, { name: 'device' }), h('span', null, option.label), h('small', null, option.detail))
+          ),
           h('button', {
             type: 'button',
             className: 'site-footer-action site-footer-top',
@@ -7243,6 +7339,10 @@ function App() {
       onClose: () => setPreferencesOpen(false),
       preferences,
       setPreferences
+    }),
+    h(AppInstallPanel, {
+      option: installGuide,
+      onClose: () => setInstallGuide(null)
     }),
     h(CommandPalette, {
       open: commandOpen,

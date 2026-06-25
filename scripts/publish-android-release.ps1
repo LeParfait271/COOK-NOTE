@@ -1,15 +1,34 @@
 param(
-  [string]$ApkPath = "android-legacy\app\build\outputs\apk\debug\app-debug.apk",
+  [ValidateSet("legacy", "modern")]
+  [string]$Channel = "legacy",
+  [string]$ApkPath = "",
   [string]$Repository = "LeParfait271/COOK-NOTE",
-  [string]$AssetName = "cook-note-android.apk"
+  [string]$AssetName = ""
 )
 
 $ErrorActionPreference = "Stop"
 
 $Root = Resolve-Path (Join-Path $PSScriptRoot "..")
+$ChannelDefaults = @{
+  legacy = @{
+    ApkPath = "android-legacy\app\build\outputs\apk\debug\app-debug.apk"
+    AssetName = "cook-note-android-legacy.apk"
+    Label = "Android Legacy"
+  }
+  modern = @{
+    ApkPath = "android-modern\app\build\outputs\apk\debug\app-debug.apk"
+    AssetName = "cook-note-android-modern.apk"
+    Label = "Android Modern"
+  }
+}
+
+if (-not $ApkPath) { $ApkPath = $ChannelDefaults[$Channel].ApkPath }
+if (-not $AssetName) { $AssetName = $ChannelDefaults[$Channel].AssetName }
+$ChannelLabel = $ChannelDefaults[$Channel].Label
+
 $ResolvedApk = Resolve-Path (Join-Path $Root $ApkPath) -ErrorAction SilentlyContinue
 if (-not $ResolvedApk) {
-  throw "APK introuvable: $ApkPath. Lance d'abord npm run android:legacy:update-apk."
+  throw "APK introuvable: $ApkPath. Lance d'abord npm run android:$Channel:update-apk."
 }
 
 $Gh = Get-Command gh -ErrorAction SilentlyContinue
@@ -40,14 +59,15 @@ if (-not $VersionMatch.Success) {
 }
 
 $VersionName = $VersionMatch.Groups[1].Value
-$ReleaseTag = "android-v$VersionName"
-$ReleaseTitle = "Cook Note Android $VersionName"
+$ReleaseTag = "apps-v$VersionName"
+$ReleaseTitle = "Cook Note Apps $VersionName"
 $Notes = @"
-APK Android Legacy Cook Note $VersionName.
+Applications Cook Note $VersionName.
 
-- Compatible Android 5.0 minimum.
-- Application secondaire, mise a jour manuelle.
-- Asset stable pour le site: $AssetName
+- Android Legacy: cook-note-android-legacy.apk
+- Android Modern: cook-note-android-modern.apk
+- iOS ancien/recent: installation PWA Safari depuis le site.
+- Applications secondaires, mises a jour manuelles.
 "@
 
 $TempApk = Join-Path ([IO.Path]::GetTempPath()) $AssetName
@@ -73,4 +93,5 @@ try {
 
 Write-Host "Release Android publiee:"
 Write-Host "  Tag: $ReleaseTag"
+Write-Host "  Canal: $ChannelLabel"
 Write-Host "  APK: https://github.com/$Repository/releases/latest/download/$AssetName"

@@ -3,6 +3,8 @@
 Ce document est la reference pour l'application Android Legacy Cook Note.
 Elle est un projet secondaire en parallele du site, pas la source de verite.
 GitHub et le site web restent prioritaires.
+La reference globale des quatre installations est dans
+`docs/apps-install-workflow.md`.
 
 ## Regle principale
 
@@ -79,8 +81,8 @@ npm run android:legacy:publish-release
 ```
 
 Cette commande demande GitHub CLI (`gh`) authentifie. Elle cree ou met a jour
-une release `android-vX.YY` et publie l APK sous le nom stable
-`cook-note-android.apk`.
+une release commune `apps-vX.YY` et publie l APK sous le nom stable
+`cook-note-android-legacy.apk`.
 
 Construire sans relancer le build web, si `dist/` est deja a jour :
 
@@ -102,11 +104,11 @@ npm run validate:android
 
 ## Installation depuis le site
 
-Le footer du site contient un bouton `Installer Android`. Il pointe vers l asset
+Le footer du site contient un bouton `Android 5`. Il pointe vers l asset
 GitHub Release stable :
 
 ```text
-https://github.com/LeParfait271/COOK-NOTE/releases/latest/download/cook-note-android.apk
+https://github.com/LeParfait271/COOK-NOTE/releases/latest/download/cook-note-android-legacy.apk
 ```
 
 Cette URL reste la meme d une version Android a l autre. Le site peut donc etre
@@ -150,7 +152,7 @@ C est voulu.
   produire `versionName` et `versionCode`.
 - `scripts/build-android-legacy.ps1` construit l APK.
 - `scripts/publish-android-release.ps1` publie l APK local sur GitHub Releases
-  avec l asset stable `cook-note-android.apk`.
+  avec l asset stable `cook-note-android-legacy.apk`.
 - `scripts/setup-android-legacy-tools.ps1` installe JDK, Gradle et Android SDK
   dans `%LOCALAPPDATA%\CookNoteAndroidTools`.
 - `scripts/validate-android-manual.js` bloque les regressions qui brancheraient
