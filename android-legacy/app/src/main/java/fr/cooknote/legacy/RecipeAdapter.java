@@ -32,9 +32,9 @@ final class RecipeAdapter extends BaseAdapter {
     private static final int COLOR_BORDER = Color.rgb(113, 84, 36);
     private static final int COLOR_GOLD = Color.rgb(251, 191, 36);
     private static final int COLOR_ORANGE = Color.rgb(245, 158, 11);
-    private static final int CARD_MIN_WIDTH_DP = 276;
-    private static final int CARD_SPACING_DP = 10;
-    private static final int CARD_MIN_HEIGHT_DP = 132;
+    private static final int CARD_MIN_WIDTH_DP = 286;
+    private static final int CARD_SPACING_DP = 11;
+    private static final int CARD_MIN_HEIGHT_DP = 130;
 
     private final Context context;
     private final ImageLoader imageLoader;
@@ -156,7 +156,7 @@ final class RecipeAdapter extends BaseAdapter {
         ));
 
         View veil = new View(context);
-        veil.setBackgroundColor(Color.argb(54, 0, 0, 0));
+        veil.setBackgroundColor(Color.argb(62, 0, 0, 0));
         frame.addView(veil, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -164,7 +164,7 @@ final class RecipeAdapter extends BaseAdapter {
 
         LinearLayout overlay = new LinearLayout(context);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(12), dp(9), dp(12), dp(11));
+        overlay.setPadding(dp(12), dp(8), dp(12), dp(10));
         overlay.setBackground(bottomOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -183,7 +183,7 @@ final class RecipeAdapter extends BaseAdapter {
 
         TextView badge = new TextView(context);
         badge.setTextColor(COLOR_GOLD);
-        badge.setTextSize(10);
+        badge.setTextSize(9);
         badge.setTypeface(Typeface.DEFAULT_BOLD);
         badge.setSingleLine(true);
         badge.setEllipsize(TextUtils.TruncateAt.END);
@@ -195,7 +195,7 @@ final class RecipeAdapter extends BaseAdapter {
 
         TextView count = new TextView(context);
         count.setTextColor(COLOR_ORANGE);
-        count.setTextSize(10);
+        count.setTextSize(9);
         count.setTypeface(Typeface.DEFAULT_BOLD);
         count.setGravity(Gravity.CENTER);
         count.setSingleLine(true);
@@ -212,23 +212,23 @@ final class RecipeAdapter extends BaseAdapter {
 
         TextView title = new TextView(context);
         title.setTextColor(Color.rgb(249, 242, 231));
-        title.setTextSize(16);
+        title.setTextSize(15);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setIncludeFontPadding(false);
-        title.setLineSpacing(dp(1), 1.05f);
+        title.setLineSpacing(dp(1), 1.02f);
         title.setShadowLayer(2.2f, 0, dp(1), Color.BLACK);
         LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        titleParams.topMargin = dp(7);
+        titleParams.topMargin = dp(6);
         overlay.addView(title, titleParams);
 
         TextView meta = new TextView(context);
         meta.setTextColor(Color.rgb(216, 207, 193));
-        meta.setTextSize(11);
+        meta.setTextSize(10.5f);
         meta.setSingleLine(true);
         meta.setEllipsize(TextUtils.TruncateAt.END);
         meta.setIncludeFontPadding(false);
@@ -236,7 +236,7 @@ final class RecipeAdapter extends BaseAdapter {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        metaParams.topMargin = dp(5);
+        metaParams.topMargin = dp(4);
         overlay.addView(meta, metaParams);
 
         ViewHolder holder = new ViewHolder();
