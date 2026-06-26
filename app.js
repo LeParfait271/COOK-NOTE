@@ -103,7 +103,7 @@ function detectAppEnvironment() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.11';
+const SITE_VERSION = 'v2.12';
 const SITE_UPDATED_AT = '26/06/26';
 const APP_ENVIRONMENT = detectAppEnvironment();
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
@@ -7389,8 +7389,7 @@ function App() {
           ),
           h('div', { className: 'site-footer-copy' },
           h('p', { className: 'site-footer-brand' }, 'Cook Note \u00a9 2026.'),
-          h('p', null, 'Carnet personnel de recettes et techniques culinaires.'),
-          h('p', null, 'Développé par MaruChiwa.'),
+          h('p', null, 'Carnet personnel et applications pour Android de recettes et techniques culinaires développé par MaruChiwa.'),
           )
         ),
         h('div', { className: 'site-footer-stats', 'aria-label': 'Informations catalogue' },
