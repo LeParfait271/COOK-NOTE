@@ -156,7 +156,7 @@ final class RecipeAdapter extends BaseAdapter {
 
         LinearLayout overlay = new LinearLayout(context);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(12), dp(10), dp(12), dp(11));
+        overlay.setPadding(dp(12), dp(9), dp(12), dp(11));
         overlay.setBackground(bottomOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -182,7 +182,8 @@ final class RecipeAdapter extends BaseAdapter {
         badge.setIncludeFontPadding(false);
         badge.setPadding(dp(7), dp(3), dp(7), dp(3));
         badge.setBackground(panel(Color.argb(174, 15, 11, 7), COLOR_BORDER, 1, 12));
-        topLine.addView(badge, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        LinearLayout.LayoutParams badgeParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.72f);
+        topLine.addView(badge, badgeParams);
 
         TextView count = new TextView(context);
         count.setTextColor(COLOR_ORANGE);
@@ -192,8 +193,8 @@ final class RecipeAdapter extends BaseAdapter {
         count.setSingleLine(true);
         count.setEllipsize(TextUtils.TruncateAt.END);
         count.setIncludeFontPadding(false);
-        count.setPadding(dp(7), dp(4), dp(7), dp(4));
-        count.setBackground(panel(Color.argb(182, 20, 13, 7), COLOR_BORDER, 1, 13));
+        count.setPadding(dp(6), dp(3), dp(6), dp(3));
+        count.setBackground(panel(Color.argb(168, 18, 12, 7), COLOR_BORDER, 1, 12));
         LinearLayout.LayoutParams countParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -202,23 +203,23 @@ final class RecipeAdapter extends BaseAdapter {
         topLine.addView(count, countParams);
 
         TextView title = new TextView(context);
-        title.setTextColor(COLOR_TEXT);
-        title.setTextSize(17);
+        title.setTextColor(Color.rgb(246, 239, 227));
+        title.setTextSize(16);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setIncludeFontPadding(false);
         title.setLineSpacing(dp(1), 1.05f);
-        title.setShadowLayer(3.5f, 0, dp(2), Color.BLACK);
+        title.setShadowLayer(2.5f, 0, dp(1), Color.BLACK);
         LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        titleParams.topMargin = dp(8);
+        titleParams.topMargin = dp(7);
         overlay.addView(title, titleParams);
 
         TextView meta = new TextView(context);
-        meta.setTextColor(COLOR_MUTED);
+        meta.setTextColor(Color.rgb(216, 207, 193));
         meta.setTextSize(11);
         meta.setSingleLine(true);
         meta.setEllipsize(TextUtils.TruncateAt.END);
