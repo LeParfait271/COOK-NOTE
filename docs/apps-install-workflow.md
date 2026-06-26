@@ -121,7 +121,7 @@ prerendues par `scripts/build-site.js`.
 - Donnees embarquees : `recipes-lite.json` et images locales dans
   `android-legacy/build/generated/cook-note-lite`
 - Images Legacy : miniatures de grille `480px` maximum, images de fiche
-  `960px` maximum, JPEG recompresses via `jpeg-js`, decodees en `RGB_565`
+  `1280px` maximum, JPEG recompresses via `jpeg-js`, decodees en `RGB_565`
   avec petit cache memoire
 - Interface : `GridView` recyclee en cartes image 16/9 proches du site, accueil parent Android
   compact avec les fiches parents du site par defaut, panneau recherche/filtres replie,

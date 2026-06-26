@@ -93,9 +93,8 @@ final class RecipeAdapter extends BaseAdapter {
         Recipe recipe = getItem(position);
         holder.title.setText(recipe.title);
         holder.meta.setText(displayMeta(recipe));
-        String badge = recipe.primaryCategory();
-        holder.badge.setText(favoriteIds.contains(recipe.id) ? "Favori - " + badge : badge);
-        holder.count.setText(recipe.isCollection() ? collectionCount(recipe) + " fiches" : "Fiche");
+        holder.badge.setText(recipe.primaryCategory());
+        holder.count.setText(cardInfo(recipe));
         int cardWidth = resizeCardForParent(holder, parent);
         int cardHeight = Math.max(dp(CARD_MIN_HEIGHT_DP), (cardWidth * 9) / 16);
         imageLoader.load(recipe.image, holder.image, cardWidth, cardHeight);
@@ -105,6 +104,15 @@ final class RecipeAdapter extends BaseAdapter {
     private String displayMeta(Recipe recipe) {
         if (!recipe.isCollection()) return recipe.metaLine();
         return recipe.primaryCategory() + " - " + collectionCount(recipe) + " fiches rangees";
+    }
+
+    private String cardInfo(Recipe recipe) {
+        if (favoriteIds.contains(recipe.id)) return "Favori";
+        if (recipe.isCollection()) return collectionCount(recipe) + " fiches";
+        int totalTime = recipe.activeTime + recipe.cookTime;
+        if (totalTime > 0) return formatMinutes(totalTime);
+        String difficulty = recipe.difficultyLabel();
+        return difficulty.length() > 0 ? difficulty : "Fiche";
     }
 
     private int collectionCount(Recipe recipe) {
@@ -148,7 +156,7 @@ final class RecipeAdapter extends BaseAdapter {
         ));
 
         View veil = new View(context);
-        veil.setBackgroundColor(Color.argb(62, 0, 0, 0));
+        veil.setBackgroundColor(Color.argb(54, 0, 0, 0));
         frame.addView(veil, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -181,7 +189,7 @@ final class RecipeAdapter extends BaseAdapter {
         badge.setEllipsize(TextUtils.TruncateAt.END);
         badge.setIncludeFontPadding(false);
         badge.setPadding(dp(7), dp(3), dp(7), dp(3));
-        badge.setBackground(panel(Color.argb(174, 15, 11, 7), COLOR_BORDER, 1, 12));
+        badge.setBackground(panel(Color.argb(158, 15, 11, 7), COLOR_BORDER, 1, 12));
         LinearLayout.LayoutParams badgeParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.72f);
         topLine.addView(badge, badgeParams);
 
@@ -194,7 +202,7 @@ final class RecipeAdapter extends BaseAdapter {
         count.setEllipsize(TextUtils.TruncateAt.END);
         count.setIncludeFontPadding(false);
         count.setPadding(dp(6), dp(3), dp(6), dp(3));
-        count.setBackground(panel(Color.argb(168, 18, 12, 7), COLOR_BORDER, 1, 12));
+        count.setBackground(panel(Color.argb(158, 18, 12, 7), COLOR_BORDER, 1, 12));
         LinearLayout.LayoutParams countParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -203,14 +211,14 @@ final class RecipeAdapter extends BaseAdapter {
         topLine.addView(count, countParams);
 
         TextView title = new TextView(context);
-        title.setTextColor(Color.rgb(246, 239, 227));
+        title.setTextColor(Color.rgb(249, 242, 231));
         title.setTextSize(16);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setIncludeFontPadding(false);
         title.setLineSpacing(dp(1), 1.05f);
-        title.setShadowLayer(2.5f, 0, dp(1), Color.BLACK);
+        title.setShadowLayer(2.2f, 0, dp(1), Color.BLACK);
         LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -283,9 +291,18 @@ final class RecipeAdapter extends BaseAdapter {
     private GradientDrawable bottomOverlayGradient() {
         return new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{
                 Color.argb(8, 0, 0, 0),
-                Color.argb(122, 0, 0, 0),
-                Color.argb(238, 5, 4, 3)
+                Color.argb(112, 0, 0, 0),
+                Color.argb(226, 5, 4, 3)
         });
+    }
+
+    private static String formatMinutes(int minutes) {
+        if (minutes >= 60) {
+            int hours = minutes / 60;
+            int rest = minutes % 60;
+            return rest == 0 ? hours + "h" : hours + "h" + (rest < 10 ? "0" : "") + rest;
+        }
+        return minutes + "min";
     }
 
     private StateListDrawable selectablePanel(int normalColor, int pressedColor, int strokeColor, int strokeWidth, int radiusDp) {

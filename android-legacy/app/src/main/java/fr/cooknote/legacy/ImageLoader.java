@@ -24,7 +24,7 @@ final class ImageLoader {
     ImageLoader(Context context) {
         this.context = context.getApplicationContext();
         int maxMemoryKb = (int) (Runtime.getRuntime().maxMemory() / 1024);
-        int cacheKb = Math.min(6 * 1024, Math.max(2 * 1024, maxMemoryKb / 10));
+        int cacheKb = Math.min(10 * 1024, Math.max(4 * 1024, maxMemoryKb / 8));
         this.cache = new LruCache<String, Bitmap>(cacheKb) {
             @Override
             protected int sizeOf(String key, Bitmap bitmap) {
@@ -53,8 +53,9 @@ final class ImageLoader {
     }
 
     private void loadAsset(final String assetPath, final ImageView imageView, final int requestedWidth, final int requestedHeight) {
-        imageView.setTag(assetPath);
-        Bitmap cached = cache.get(assetPath);
+        final String cacheKey = assetPath + "@" + Math.max(1, requestedWidth) + "x" + Math.max(1, requestedHeight);
+        imageView.setTag(cacheKey);
+        Bitmap cached = cache.get(cacheKey);
         if (cached != null) {
             imageView.setImageBitmap(cached);
             return;
@@ -64,12 +65,12 @@ final class ImageLoader {
             @Override
             public void run() {
                 final Bitmap bitmap = decode(assetPath, requestedWidth, requestedHeight);
-                if (bitmap != null) cache.put(assetPath, bitmap);
+                if (bitmap != null) cache.put(cacheKey, bitmap);
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         Object tag = imageView.getTag();
-                        if (assetPath.equals(tag) && bitmap != null) {
+                        if (cacheKey.equals(tag) && bitmap != null) {
                             imageView.setImageBitmap(bitmap);
                         }
                     }
