@@ -132,20 +132,30 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.WRAP_CONTENT
         ));
 
+        FrameLayout logoFrame = new FrameLayout(this);
+        logoFrame.setPadding(dp(2), dp(2), dp(2), dp(2));
+        logoFrame.setBackground(panelGradient(Color.rgb(7, 6, 5), Color.rgb(33, 25, 15), COLOR_BORDER, 1, 8));
+        LinearLayout.LayoutParams logoFrameParams = new LinearLayout.LayoutParams(dp(60), dp(60));
+        logoFrameParams.rightMargin = dp(13);
+        brandRow.addView(logoFrame, logoFrameParams);
+
         ImageView logo = new ImageView(this);
         logo.setImageResource(R.drawable.ic_launcher);
         logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        LinearLayout.LayoutParams logoParams = new LinearLayout.LayoutParams(dp(54), dp(54));
-        logoParams.rightMargin = dp(12);
-        brandRow.addView(logo, logoParams);
+        logoFrame.addView(logo, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                Gravity.CENTER
+        ));
 
         LinearLayout brandCopy = new LinearLayout(this);
         brandCopy.setOrientation(LinearLayout.VERTICAL);
         brandRow.addView(brandCopy, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
-        TextView title = text("Cook Note", 28, COLOR_TEXT, true);
+        TextView title = text("Cook Note", 30, COLOR_TEXT, true);
         title.setGravity(Gravity.CENTER_VERTICAL);
         title.setIncludeFontPadding(false);
+        title.setLetterSpacing(0.02f);
         title.setShadowLayer(4f, 0, dp(1), Color.BLACK);
         brandCopy.addView(title);
 
@@ -209,7 +219,7 @@ public class MainActivity extends Activity {
 
         searchPanel = new LinearLayout(this);
         searchPanel.setOrientation(LinearLayout.VERTICAL);
-        searchPanel.setPadding(dp(10), dp(10), dp(10), dp(10));
+        searchPanel.setPadding(dp(12), dp(11), dp(12), dp(12));
         searchPanel.setBackground(panelGradient(COLOR_CARD, Color.rgb(28, 23, 16), COLOR_BORDER, 1, 8));
         LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -238,9 +248,11 @@ public class MainActivity extends Activity {
         searchBoxParams.topMargin = dp(9);
         searchPanel.addView(searchBox, searchBoxParams);
 
-        quickStrip = addChipScroller(searchPanel, dp(10));
+        addFilterGroupLabel(searchPanel, "ACCES RAPIDE", dp(10));
+        quickStrip = addChipScroller(searchPanel, dp(6));
         rebuildQuickChips();
 
+        addFilterGroupLabel(searchPanel, "CATEGORIES", dp(10));
         HorizontalScrollView scroller = new HorizontalScrollView(this);
         scroller.setHorizontalScrollBarEnabled(false);
         categoryStrip = new LinearLayout(this);
@@ -250,14 +262,16 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        scrollerParams.topMargin = dp(10);
+        scrollerParams.topMargin = dp(6);
         searchPanel.addView(scroller, scrollerParams);
         rebuildCategoryChips();
 
-        seasonStrip = addChipScroller(searchPanel, dp(8));
+        addFilterGroupLabel(searchPanel, "SAISON", dp(9));
+        seasonStrip = addChipScroller(searchPanel, dp(6));
         rebuildSeasonChips();
 
-        difficultyStrip = addChipScroller(searchPanel, dp(8));
+        addFilterGroupLabel(searchPanel, "DIFFICULTE", dp(9));
+        difficultyStrip = addChipScroller(searchPanel, dp(6));
         rebuildDifficultyChips();
 
         setSearchPanelOpen(searchPanelOpen);
@@ -338,6 +352,19 @@ public class MainActivity extends Activity {
         scrollerParams.topMargin = topMargin;
         parent.addView(scroller, scrollerParams);
         return row;
+    }
+
+    private void addFilterGroupLabel(LinearLayout parent, String value, int topMargin) {
+        TextView label = text(value, 9, COLOR_DIM, true);
+        label.setIncludeFontPadding(false);
+        label.setSingleLine(true);
+        label.setLetterSpacing(0.08f);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.topMargin = topMargin;
+        parent.addView(label, params);
     }
 
     private void addHeaderStat(LinearLayout row, String value, String label) {
@@ -870,6 +897,7 @@ public class MainActivity extends Activity {
         LinearLayout card = new LinearLayout(this);
         card.setOrientation(LinearLayout.VERTICAL);
         card.setPadding(dp(11), dp(9), dp(11), dp(10));
+        card.setMinimumHeight(dp(66));
         card.setBackground(panelGradient(COLOR_CARD, Color.rgb(31, 27, 20), COLOR_BORDER_SOFT, 1, 8));
 
         TextView labelView = text(label, 10, COLOR_GOLD, true);
@@ -1518,19 +1546,25 @@ public class MainActivity extends Activity {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.TOP);
-        row.setPadding(0, dp(6), 0, dp(4));
+        row.setPadding(dp(9), dp(8), dp(9), dp(8));
+        row.setBackground(panel(Color.rgb(21, 19, 15), Color.rgb(45, 37, 25), 1, 7));
 
         View marker = new View(this);
         marker.setBackground(panel(COLOR_ORANGE, COLOR_ORANGE, 1, 4));
         LinearLayout.LayoutParams markerParams = new LinearLayout.LayoutParams(dp(7), dp(7));
-        markerParams.topMargin = dp(7);
+        markerParams.topMargin = dp(8);
         markerParams.rightMargin = dp(9);
         row.addView(marker, markerParams);
 
         TextView text = text(value, 15, COLOR_TEXT, false);
         text.setLineSpacing(dp(2), 1.10f);
         row.addView(text, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-        content.addView(row);
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        rowParams.topMargin = dp(7);
+        content.addView(row, rowParams);
     }
 
     private void stepRow(LinearLayout content, int number, String value) {
@@ -1562,7 +1596,8 @@ public class MainActivity extends Activity {
     private void labelValue(LinearLayout content, String label, String value) {
         LinearLayout block = new LinearLayout(this);
         block.setOrientation(LinearLayout.VERTICAL);
-        block.setPadding(0, dp(8), 0, dp(2));
+        block.setPadding(dp(10), dp(9), dp(10), dp(10));
+        block.setBackground(panel(Color.rgb(21, 19, 15), Color.rgb(45, 37, 25), 1, 7));
         if (label != null && label.length() > 0) {
             TextView labelView = text(label, 12, COLOR_GOLD, true);
             labelView.setPadding(0, 0, 0, dp(2));
@@ -1571,7 +1606,12 @@ public class MainActivity extends Activity {
         TextView valueView = text(value, 15, COLOR_TEXT, false);
         valueView.setLineSpacing(dp(2), 1.10f);
         block.addView(valueView);
-        content.addView(block);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.topMargin = dp(8);
+        content.addView(block, params);
     }
 
     private void body(LinearLayout content, String value) {
@@ -1910,9 +1950,25 @@ public class MainActivity extends Activity {
 
     private StateListDrawable buttonPanel(boolean primary) {
         if (primary) {
-            return selectablePanel(COLOR_ORANGE, COLOR_GOLD, COLOR_ORANGE, 1, 8);
+            return selectableGradientPanel(
+                    COLOR_ORANGE,
+                    COLOR_GOLD,
+                    Color.rgb(255, 210, 82),
+                    Color.rgb(251, 191, 36),
+                    COLOR_ORANGE,
+                    1,
+                    8
+            );
         }
-        return selectablePanel(Color.rgb(24, 22, 18), COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 8);
+        return selectableGradientPanel(
+                Color.rgb(23, 21, 17),
+                Color.rgb(34, 29, 21),
+                Color.rgb(42, 31, 18),
+                Color.rgb(55, 40, 22),
+                COLOR_BORDER_SOFT,
+                1,
+                8
+        );
     }
 
     private StateListDrawable selectablePanel(int normalColor, int pressedColor, int strokeColor, int strokeWidth, int radiusDp) {
@@ -1924,8 +1980,24 @@ public class MainActivity extends Activity {
         return drawable;
     }
 
+    private StateListDrawable selectableGradientPanel(int normalStart, int normalEnd, int pressedStart, int pressedEnd, int strokeColor, int strokeWidth, int radiusDp) {
+        StateListDrawable drawable = new StateListDrawable();
+        drawable.addState(new int[]{-android.R.attr.state_enabled}, panel(Color.rgb(34, 31, 27), Color.rgb(55, 49, 39), strokeWidth, radiusDp));
+        drawable.addState(new int[]{android.R.attr.state_pressed}, gradientPanel(pressedStart, pressedEnd, strokeColor, strokeWidth, radiusDp));
+        drawable.addState(new int[]{android.R.attr.state_focused}, gradientPanel(pressedStart, pressedEnd, strokeColor, strokeWidth, radiusDp));
+        drawable.addState(new int[]{}, gradientPanel(normalStart, normalEnd, strokeColor, strokeWidth, radiusDp));
+        return drawable;
+    }
+
     private GradientDrawable panelGradient(int startColor, int endColor, int strokeColor, int strokeWidth, int radiusDp) {
         GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{startColor, endColor});
+        drawable.setCornerRadius(dp(radiusDp));
+        if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
+        return drawable;
+    }
+
+    private GradientDrawable gradientPanel(int startColor, int endColor, int strokeColor, int strokeWidth, int radiusDp) {
+        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{startColor, endColor});
         drawable.setCornerRadius(dp(radiusDp));
         if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
         return drawable;

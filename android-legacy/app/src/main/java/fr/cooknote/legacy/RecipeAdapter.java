@@ -93,7 +93,7 @@ final class RecipeAdapter extends BaseAdapter {
         Recipe recipe = getItem(position);
         holder.title.setText(recipe.title);
         holder.meta.setText(displayMeta(recipe));
-        String badge = recipe.isCollection() ? "Collection - " + collectionCount(recipe) + " fiches" : recipe.primaryCategory();
+        String badge = recipe.primaryCategory();
         holder.badge.setText(favoriteIds.contains(recipe.id) ? "Favori - " + badge : badge);
         holder.count.setText(recipe.isCollection() ? collectionCount(recipe) + " fiches" : "Fiche");
         int cardWidth = resizeCardForParent(holder, parent);
