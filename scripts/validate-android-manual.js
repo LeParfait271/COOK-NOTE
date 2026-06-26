@@ -130,7 +130,10 @@ expect(
     && !androidLegacyManifest.includes('android.permission.INTERNET')
     && !androidLegacyManifest.includes('usesCleartextTraffic')
     && !androidLegacyManifest.includes('largeHeap')
-    && androidLegacyMainActivity.includes('ListView')
+    && androidLegacyMainActivity.includes('GridView')
+    && androidLegacyMainActivity.includes('GridView.AUTO_FIT')
+    && androidLegacyMainActivity.includes('setColumnWidth')
+    && androidLegacyMainActivity.includes('setHorizontalSpacing')
     && androidLegacyMainActivity.includes('RecipeAdapter')
     && androidLegacyMainActivity.includes('Spinner')
     && androidLegacyMainActivity.includes('ArrayAdapter')
@@ -209,6 +212,8 @@ expect(
     && androidLegacyImageLoader.includes('LruCache')
     && androidLegacyImageLoader.includes('detail-images/')
     && androidLegacyAdapter.includes('BaseAdapter')
+    && androidLegacyAdapter.includes('FrameLayout')
+    && androidLegacyAdapter.includes('Color.argb')
     && androidLegacyAdapter.includes('StateListDrawable')
     && androidLegacyAdapter.includes('selectablePanel')
     && androidLegacyAdapter.includes('holder.count')
@@ -324,10 +329,10 @@ expect(
   '960px',
   'detail-images',
   'jpeg-js',
-  'ListView',
+  'GridView',
   'RGB_565',
   'refonte visuelle native premium',
-  'cartes tactiles',
+  'cartes image',
   'header compact avec stats locales',
   'hero',
   'actions principales/secondaires',
@@ -419,10 +424,10 @@ expect(
   '480px',
   '960px',
   'jpeg-js',
-  'ListView',
+  'GridView',
   'RGB_565',
   'refonte visuelle native premium',
-  'cartes tactiles',
+  'cartes image',
   'header compact avec stats locales',
   'hero de fiche encadre',
   'actions principales/secondaires',

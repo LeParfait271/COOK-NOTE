@@ -120,11 +120,11 @@ prerendues par `scripts/build-site.js`.
 - Moteur : aucun moteur web lourd, app native Java Native Lite
 - Donnees embarquees : `recipes-lite.json` et images locales dans
   `android-legacy/build/generated/cook-note-lite`
-- Images Legacy : miniatures de liste `480px` maximum, images de fiche
+- Images Legacy : miniatures de grille `480px` maximum, images de fiche
   `960px` maximum, JPEG recompresses via `jpeg-js`, decodees en `RGB_565`
   avec petit cache memoire
-- Interface : `ListView` recyclee, accueil parent Android compact avec les
-  fiches parents du site par defaut, panneau recherche/filtres replie,
+- Interface : `GridView` recyclee en cartes image proches du site, accueil parent Android
+  compact avec les fiches parents du site par defaut, panneau recherche/filtres replie,
   recherche locale, filtres categories, filtres saison/difficulte, favoris locaux,
   derniers ouverts, fiches natives en sections lisibles, infos rapides en
   pastilles, ingredients en lignes, copie ingredients, rattachements parents
@@ -132,7 +132,7 @@ prerendues par `scripts/build-site.js`.
   jour, liste de courses locale, copie fiche, partage fiche, etapes numerotees
   cartes parent visibles et selecteurs natifs de preparation
 - Direction visuelle Android Legacy : refonte visuelle native premium sans moteur web,
-  header compact avec stats locales, liste `ListView` en cartes tactiles
+  header compact avec stats locales, grille `GridView` en cartes image tactiles
   recyclees, hero de fiche encadre, sections cadrees, pastilles lisibles, etats
   presses natifs et actions principales/secondaires distinguees
 

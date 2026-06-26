@@ -35,8 +35,9 @@ sur la tablette et ne pas traiter Android comme une etape obligatoire du site.
 Android Legacy est faite pour les tablettes anciennes avec peu de RAM et un CPU
 modeste. Elle ne charge pas le site React, ne demarre pas de serveur HTTP local,
 ne depend pas du WebView systeme et n embarque plus GeckoView ARMv7. `MainActivity`
-lit un JSON local, affiche une `ListView` recyclee, ouvre les fiches dans des
-vues Android natives, et charge les images avec un cache memoire limite.
+lit un JSON local, affiche une `GridView` recyclee en cartes image proches du
+site, ouvre les fiches dans des vues Android natives, et charge les images avec
+un cache memoire limite.
 
 La lecture doit rester confortable malgre le mode Lite : titres ellipses dans la
 liste, fiches decoupees en sections natives, infos rapides en pastilles,
@@ -52,8 +53,8 @@ stable de l APK `cook-note-android-legacy.apk`. Ces elements restent des vues
 Android simples, pas un rendu web.
 
 La direction visuelle attendue est une refonte visuelle native premium mais
-Native Lite : header compact avec stats locales, liste `ListView` en cartes
-tactiles recyclees, fonds sombres cadres, etats presses via `StateListDrawable`,
+Native Lite : header compact avec stats locales, grille `GridView` en cartes
+image tactiles recyclees, fonds sombres cadres, etats presses via `StateListDrawable`,
 sections cadrees, hero de fiche encadre, pastilles lisibles et actions
 principales/secondaires distinguees. Ne pas revenir a des controles Android par
 defaut sans direction Cook Note.

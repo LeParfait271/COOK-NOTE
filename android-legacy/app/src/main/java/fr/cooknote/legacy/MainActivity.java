@@ -27,7 +27,7 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -272,23 +272,29 @@ public class MainActivity extends Activity {
         counterParams.topMargin = dp(9);
         header.addView(counterView, counterParams);
 
-        ListView listView = new ListView(this);
-        listView.setBackgroundColor(COLOR_BG);
-        listView.setCacheColorHint(COLOR_BG);
-        listView.setDividerHeight(0);
-        listView.setFastScrollEnabled(true);
-        listView.setScrollingCacheEnabled(false);
-        listView.setAnimationCacheEnabled(false);
+        GridView gridView = new GridView(this);
+        gridView.setBackgroundColor(COLOR_BG);
+        gridView.setCacheColorHint(COLOR_BG);
+        gridView.setNumColumns(GridView.AUTO_FIT);
+        gridView.setColumnWidth(dp(184));
+        gridView.setHorizontalSpacing(dp(8));
+        gridView.setVerticalSpacing(dp(10));
+        gridView.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+        gridView.setPadding(dp(8), dp(10), dp(8), dp(18));
+        gridView.setClipToPadding(false);
+        gridView.setFastScrollEnabled(true);
+        gridView.setScrollingCacheEnabled(false);
+        gridView.setAnimationCacheEnabled(false);
         adapter = new RecipeAdapter(this, imageLoader);
         adapter.setCollectionCounts(repository.collectionCounts());
-        listView.setAdapter(adapter);
-        root.addView(listView, new LinearLayout.LayoutParams(
+        gridView.setAdapter(adapter);
+        root.addView(gridView, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 0,
                 1
         ));
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 hideKeyboard();

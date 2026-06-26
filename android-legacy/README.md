@@ -18,7 +18,8 @@ Le mode d'emploi complet est dans
 - Catalogue local `recipes-lite.json`
 - Images locales reduites a `480px` max pour l APK Android 5 uniquement
 - accueil parent Android compact avec les fiches parents du site par defaut,
-  liste recyclee, panneau recherche/filtres replie et cache image limite
+  grille recyclee de cartes image proches du site, panneau recherche/filtres replie
+  et cache image limite
 - refonte visuelle native premium : header compact, stats locales, cartes
   tactiles, sections cadrees, hero de fiche encadre et actions principales /
   secondaires distinguees

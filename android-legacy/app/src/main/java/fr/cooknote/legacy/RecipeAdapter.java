@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -91,8 +92,8 @@ final class RecipeAdapter extends BaseAdapter {
         holder.meta.setText(displayMeta(recipe));
         String badge = recipe.isCollection() ? "Collection - " + collectionCount(recipe) + " fiches" : recipe.primaryCategory();
         holder.badge.setText(favoriteIds.contains(recipe.id) ? "Favori - " + badge : badge);
-        holder.count.setText(recipe.isCollection() ? collectionCount(recipe) + " fiches" : "Voir");
-        imageLoader.load(recipe.image, holder.image, dp(126), dp(82));
+        holder.count.setText(recipe.isCollection() ? collectionCount(recipe) + " fiches" : "Fiche");
+        imageLoader.load(recipe.image, holder.image, dp(244), dp(154));
         return convertView;
     }
 
@@ -110,19 +111,25 @@ final class RecipeAdapter extends BaseAdapter {
     private ViewHolder createRow() {
         LinearLayout root = new LinearLayout(context);
         root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(dp(8), dp(5), dp(8), dp(5));
+        root.setPadding(dp(2), 0, dp(2), 0);
         root.setBackgroundColor(COLOR_BG);
         root.setLayoutParams(new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(114)
+                dp(190)
         ));
 
         LinearLayout card = new LinearLayout(context);
-        card.setOrientation(LinearLayout.HORIZONTAL);
-        card.setGravity(Gravity.CENTER_VERTICAL);
-        card.setPadding(dp(8), dp(8), dp(9), dp(8));
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(1), dp(1), dp(1), dp(1));
         card.setBackground(selectablePanel(COLOR_CARD, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 10));
         root.addView(card, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+
+        FrameLayout frame = new FrameLayout(context);
+        frame.setBackgroundColor(COLOR_CARD_SOFT);
+        card.addView(frame, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
@@ -130,14 +137,36 @@ final class RecipeAdapter extends BaseAdapter {
         ImageView image = new ImageView(context);
         image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         image.setBackgroundColor(COLOR_CARD_SOFT);
-        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(dp(126), dp(82));
-        imageParams.rightMargin = dp(12);
-        card.addView(image, imageParams);
+        frame.addView(image, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
 
-        LinearLayout textColumn = new LinearLayout(context);
-        textColumn.setOrientation(LinearLayout.VERTICAL);
-        textColumn.setGravity(Gravity.CENTER_VERTICAL);
-        card.addView(textColumn, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+        View veil = new View(context);
+        veil.setBackgroundColor(Color.argb(92, 0, 0, 0));
+        frame.addView(veil, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+
+        LinearLayout overlay = new LinearLayout(context);
+        overlay.setOrientation(LinearLayout.VERTICAL);
+        overlay.setPadding(dp(10), dp(10), dp(10), dp(10));
+        overlay.setBackgroundColor(Color.argb(214, 7, 6, 5));
+        FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                Gravity.BOTTOM
+        );
+        frame.addView(overlay, overlayParams);
+
+        LinearLayout topLine = new LinearLayout(context);
+        topLine.setOrientation(LinearLayout.HORIZONTAL);
+        topLine.setGravity(Gravity.CENTER_VERTICAL);
+        overlay.addView(topLine, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
 
         TextView badge = new TextView(context);
         badge.setTextColor(COLOR_GOLD);
@@ -148,7 +177,24 @@ final class RecipeAdapter extends BaseAdapter {
         badge.setIncludeFontPadding(false);
         badge.setPadding(dp(7), dp(3), dp(7), dp(3));
         badge.setBackground(panel(Color.rgb(37, 28, 15), Color.rgb(93, 67, 26), 1, 12));
-        textColumn.addView(badge);
+        topLine.addView(badge, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
+        TextView count = new TextView(context);
+        count.setTextColor(COLOR_ORANGE);
+        count.setTextSize(10);
+        count.setTypeface(Typeface.DEFAULT_BOLD);
+        count.setGravity(Gravity.CENTER);
+        count.setSingleLine(true);
+        count.setEllipsize(TextUtils.TruncateAt.END);
+        count.setIncludeFontPadding(false);
+        count.setPadding(dp(7), dp(4), dp(7), dp(4));
+        count.setBackground(panel(Color.rgb(39, 30, 18), Color.rgb(93, 67, 26), 1, 13));
+        LinearLayout.LayoutParams countParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        countParams.leftMargin = dp(6);
+        topLine.addView(count, countParams);
 
         TextView title = new TextView(context);
         title.setTextColor(COLOR_TEXT);
@@ -162,12 +208,12 @@ final class RecipeAdapter extends BaseAdapter {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        titleParams.topMargin = dp(4);
-        textColumn.addView(title, titleParams);
+        titleParams.topMargin = dp(8);
+        overlay.addView(title, titleParams);
 
         TextView meta = new TextView(context);
         meta.setTextColor(COLOR_MUTED);
-        meta.setTextSize(12);
+        meta.setTextSize(11);
         meta.setSingleLine(true);
         meta.setEllipsize(TextUtils.TruncateAt.END);
         meta.setIncludeFontPadding(false);
@@ -176,21 +222,7 @@ final class RecipeAdapter extends BaseAdapter {
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
         metaParams.topMargin = dp(5);
-        textColumn.addView(meta, metaParams);
-
-        TextView count = new TextView(context);
-        count.setTextColor(COLOR_ORANGE);
-        count.setTextSize(11);
-        count.setTypeface(Typeface.DEFAULT_BOLD);
-        count.setGravity(Gravity.CENTER);
-        count.setSingleLine(true);
-        count.setEllipsize(TextUtils.TruncateAt.END);
-        count.setIncludeFontPadding(false);
-        count.setPadding(dp(8), dp(5), dp(8), dp(5));
-        count.setBackground(panel(Color.rgb(39, 30, 18), Color.rgb(93, 67, 26), 1, 14));
-        LinearLayout.LayoutParams countParams = new LinearLayout.LayoutParams(dp(62), ViewGroup.LayoutParams.WRAP_CONTENT);
-        countParams.leftMargin = dp(8);
-        card.addView(count, countParams);
+        overlay.addView(meta, metaParams);
 
         ViewHolder holder = new ViewHolder();
         holder.root = root;
