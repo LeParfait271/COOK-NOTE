@@ -32,6 +32,9 @@ final class RecipeAdapter extends BaseAdapter {
     private static final int COLOR_BORDER = Color.rgb(58, 49, 35);
     private static final int COLOR_GOLD = Color.rgb(251, 191, 36);
     private static final int COLOR_ORANGE = Color.rgb(245, 158, 11);
+    private static final int CARD_MIN_WIDTH_DP = 276;
+    private static final int CARD_SPACING_DP = 10;
+    private static final int CARD_MIN_HEIGHT_DP = 132;
 
     private final Context context;
     private final ImageLoader imageLoader;
@@ -93,7 +96,9 @@ final class RecipeAdapter extends BaseAdapter {
         String badge = recipe.isCollection() ? "Collection - " + collectionCount(recipe) + " fiches" : recipe.primaryCategory();
         holder.badge.setText(favoriteIds.contains(recipe.id) ? "Favori - " + badge : badge);
         holder.count.setText(recipe.isCollection() ? collectionCount(recipe) + " fiches" : "Fiche");
-        imageLoader.load(recipe.image, holder.image, dp(244), dp(154));
+        int cardWidth = resizeCardForParent(holder, parent);
+        int cardHeight = Math.max(dp(CARD_MIN_HEIGHT_DP), (cardWidth * 9) / 16);
+        imageLoader.load(recipe.image, holder.image, cardWidth, cardHeight);
         return convertView;
     }
 
@@ -115,7 +120,7 @@ final class RecipeAdapter extends BaseAdapter {
         root.setBackgroundColor(COLOR_BG);
         root.setLayoutParams(new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(190)
+                dp(156)
         ));
 
         LinearLayout card = new LinearLayout(context);
@@ -232,6 +237,33 @@ final class RecipeAdapter extends BaseAdapter {
         holder.meta = meta;
         holder.count = count;
         return holder;
+    }
+
+    private int resizeCardForParent(ViewHolder holder, ViewGroup parent) {
+        int cardWidth = cardWidthForParent(parent);
+        int cardHeight = Math.max(dp(CARD_MIN_HEIGHT_DP), (cardWidth * 9) / 16);
+        ViewGroup.LayoutParams params = holder.root.getLayoutParams();
+        if (params == null) {
+            holder.root.setLayoutParams(new AbsListView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    cardHeight
+            ));
+        } else if (params.height != cardHeight) {
+            params.height = cardHeight;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            holder.root.setLayoutParams(params);
+        }
+        return cardWidth;
+    }
+
+    private int cardWidthForParent(ViewGroup parent) {
+        int minWidth = dp(CARD_MIN_WIDTH_DP);
+        int spacing = dp(CARD_SPACING_DP);
+        int available = parent == null ? 0 : parent.getWidth() - parent.getPaddingLeft() - parent.getPaddingRight();
+        if (available <= 0) return minWidth;
+        int columns = Math.max(1, (available + spacing) / (minWidth + spacing));
+        int width = (available - (spacing * (columns - 1))) / columns;
+        return Math.max(minWidth, width);
     }
 
     private int dp(int value) {

@@ -35,7 +35,7 @@ sur la tablette et ne pas traiter Android comme une etape obligatoire du site.
 Android Legacy est faite pour les tablettes anciennes avec peu de RAM et un CPU
 modeste. Elle ne charge pas le site React, ne demarre pas de serveur HTTP local,
 ne depend pas du WebView systeme et n embarque plus GeckoView ARMv7. `MainActivity`
-lit un JSON local, affiche une `GridView` recyclee en cartes image proches du
+lit un JSON local, affiche une `GridView` recyclee en cartes image 16/9 proches du
 site, ouvre les fiches dans des vues Android natives, et charge les images avec
 un cache memoire limite.
 
@@ -54,7 +54,7 @@ Android simples, pas un rendu web.
 
 La direction visuelle attendue est une refonte visuelle native premium mais
 Native Lite : header compact avec stats locales, grille `GridView` en cartes
-image tactiles recyclees, fonds sombres cadres, etats presses via `StateListDrawable`,
+image 16/9 tactiles recyclees, fonds sombres cadres, etats presses via `StateListDrawable`,
 sections cadrees, hero de fiche encadre, pastilles lisibles et actions
 principales/secondaires distinguees. Ne pas revenir a des controles Android par
 defaut sans direction Cook Note.
@@ -69,8 +69,8 @@ rattachements parents additionnels du site apparaissent dans les collections
 Android Legacy.
 
 Les variantes doivent suivre la construction du site. Les fiches parents et
-collections affichent leurs recettes en cartes parent visibles, comme sur le
-site, jamais dans un menu deroulant. Les fiches a variantes internes utilisent
+collections affichent leurs recettes en grille de cartes parent 16/9 visibles,
+comme sur le site, jamais dans un menu deroulant. Les fiches a variantes internes utilisent
 une preparation choisie : une seule variante active affiche ses ingredients et
 ses etapes, les autres restent dans le selecteur natif.
 

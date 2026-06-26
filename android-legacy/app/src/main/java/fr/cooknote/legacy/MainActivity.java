@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -276,11 +277,11 @@ public class MainActivity extends Activity {
         gridView.setBackgroundColor(COLOR_BG);
         gridView.setCacheColorHint(COLOR_BG);
         gridView.setNumColumns(GridView.AUTO_FIT);
-        gridView.setColumnWidth(dp(184));
-        gridView.setHorizontalSpacing(dp(8));
-        gridView.setVerticalSpacing(dp(10));
+        gridView.setColumnWidth(dp(276));
+        gridView.setHorizontalSpacing(dp(10));
+        gridView.setVerticalSpacing(dp(12));
         gridView.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
-        gridView.setPadding(dp(8), dp(10), dp(8), dp(18));
+        gridView.setPadding(dp(10), dp(10), dp(10), dp(18));
         gridView.setClipToPadding(false);
         gridView.setFastScrollEnabled(true);
         gridView.setScrollingCacheEnabled(false);
@@ -689,39 +690,112 @@ public class MainActivity extends Activity {
             return;
         }
         body(section, choices.size() + " fiche(s) rangee(s) ici.", COLOR_MUTED);
-        for (VariantChoice choice : choices) {
-            addCollectionCard(section, recipe, choice);
+        int columns = collectionGridColumns();
+        int cardHeight = collectionCardHeight(columns);
+        LinearLayout row = null;
+        for (int index = 0; index < choices.size(); index += 1) {
+            if (index % columns == 0) {
+                row = new LinearLayout(this);
+                row.setOrientation(LinearLayout.HORIZONTAL);
+                LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+                rowParams.topMargin = dp(10);
+                section.addView(row, rowParams);
+            }
+            addCollectionCard(row, recipe, choices.get(index), cardHeight, index % columns < columns - 1);
+        }
+        int missing = choices.size() % columns;
+        if (row != null && missing > 0) {
+            for (int index = missing; index < columns; index += 1) {
+                addCollectionSpacer(row, cardHeight, index < columns - 1);
+            }
         }
     }
 
-    private void addCollectionCard(LinearLayout section, final Recipe parentRecipe, final VariantChoice choice) {
+    private int collectionGridColumns() {
+        int width = getResources().getDisplayMetrics().widthPixels;
+        if (width >= dp(1000)) return 3;
+        if (width >= dp(620)) return 2;
+        return 1;
+    }
+
+    private int collectionCardHeight(int columns) {
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int available = Math.max(dp(260), width - dp(56) - (dp(10) * (columns - 1)));
+        int cardWidth = available / columns;
+        return Math.max(dp(132), (cardWidth * 9) / 16);
+    }
+
+    private void addCollectionCard(LinearLayout row, final Recipe parentRecipe, final VariantChoice choice, int cardHeight, boolean rightMargin) {
         LinearLayout card = new LinearLayout(this);
-        card.setOrientation(LinearLayout.HORIZONTAL);
-        card.setGravity(Gravity.CENTER_VERTICAL);
-        card.setPadding(dp(8), dp(8), dp(9), dp(8));
-        card.setMinimumHeight(dp(88));
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(1), dp(1), dp(1), dp(1));
         card.setBackground(selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 10));
         card.setClickable(true);
+
+        FrameLayout frame = new FrameLayout(this);
+        frame.setBackgroundColor(COLOR_CARD);
+        card.addView(frame, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
 
         ImageView image = new ImageView(this);
         image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         image.setBackgroundColor(COLOR_CARD);
-        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(dp(112), dp(72));
-        imageParams.rightMargin = dp(12);
-        card.addView(image, imageParams);
-        imageLoader.load(choice.recipe.image, image, dp(112), dp(72));
+        frame.addView(image, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+        imageLoader.load(choice.recipe.image, image, dp(340), cardHeight);
 
-        LinearLayout textColumn = new LinearLayout(this);
-        textColumn.setOrientation(LinearLayout.VERTICAL);
-        textColumn.setGravity(Gravity.CENTER_VERTICAL);
-        card.addView(textColumn, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        View veil = new View(this);
+        veil.setBackgroundColor(Color.argb(94, 0, 0, 0));
+        frame.addView(veil, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+
+        LinearLayout overlay = new LinearLayout(this);
+        overlay.setOrientation(LinearLayout.VERTICAL);
+        overlay.setPadding(dp(10), dp(9), dp(10), dp(9));
+        overlay.setBackgroundColor(Color.argb(214, 7, 6, 5));
+        FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                Gravity.BOTTOM
+        );
+        frame.addView(overlay, overlayParams);
+
+        LinearLayout topLine = new LinearLayout(this);
+        topLine.setOrientation(LinearLayout.HORIZONTAL);
+        topLine.setGravity(Gravity.CENTER_VERTICAL);
+        overlay.addView(topLine, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
 
         TextView badge = text(choice.recipe.primaryCategory(), 10, COLOR_GOLD, true);
         badge.setSingleLine(true);
         badge.setEllipsize(TextUtils.TruncateAt.END);
         badge.setPadding(dp(7), dp(3), dp(7), dp(3));
         badge.setBackground(panel(Color.rgb(37, 28, 15), Color.rgb(93, 67, 26), 1, 12));
-        textColumn.addView(badge);
+        topLine.addView(badge, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
+        TextView open = text("Voir", 11, COLOR_ORANGE, true);
+        open.setGravity(Gravity.CENTER);
+        open.setSingleLine(true);
+        open.setEllipsize(TextUtils.TruncateAt.END);
+        open.setBackground(panel(Color.rgb(39, 30, 18), Color.rgb(93, 67, 26), 1, 14));
+        open.setPadding(dp(8), dp(4), dp(8), dp(4));
+        LinearLayout.LayoutParams openParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        openParams.leftMargin = dp(6);
+        topLine.addView(open, openParams);
 
         TextView title = text(choice.label, 16, COLOR_TEXT, true);
         title.setMaxLines(2);
@@ -731,33 +805,26 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        titleParams.topMargin = dp(4);
-        textColumn.addView(title, titleParams);
+        titleParams.topMargin = dp(7);
+        overlay.addView(title, titleParams);
 
-        TextView meta = text(displayMeta(choice.recipe), 12, COLOR_MUTED, false);
+        TextView meta = text(displayMeta(choice.recipe), 11, COLOR_MUTED, false);
         meta.setSingleLine(true);
         meta.setEllipsize(TextUtils.TruncateAt.END);
         LinearLayout.LayoutParams metaParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        metaParams.topMargin = dp(5);
-        textColumn.addView(meta, metaParams);
-
-        TextView open = text("Voir", 12, COLOR_ORANGE, true);
-        open.setGravity(Gravity.CENTER);
-        open.setBackground(panel(Color.rgb(39, 30, 18), Color.rgb(93, 67, 26), 1, 14));
-        open.setPadding(dp(8), dp(5), dp(8), dp(5));
-        LinearLayout.LayoutParams openParams = new LinearLayout.LayoutParams(dp(56), ViewGroup.LayoutParams.WRAP_CONTENT);
-        openParams.leftMargin = dp(8);
-        card.addView(open, openParams);
+        metaParams.topMargin = dp(4);
+        overlay.addView(meta, metaParams);
 
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                0,
+                cardHeight,
+                1
         );
-        cardParams.topMargin = dp(10);
-        section.addView(card, cardParams);
+        if (rightMargin) cardParams.rightMargin = dp(10);
+        row.addView(card, cardParams);
         card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -765,6 +832,13 @@ public class MainActivity extends Activity {
                 openRecipe(choice.recipe, false);
             }
         });
+    }
+
+    private void addCollectionSpacer(LinearLayout row, int cardHeight, boolean rightMargin) {
+        View spacer = new View(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, cardHeight, 1);
+        if (rightMargin) params.rightMargin = dp(10);
+        row.addView(spacer, params);
     }
 
     private void addInlineVariantPicker(LinearLayout content, final Recipe recipe) {

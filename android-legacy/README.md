@@ -18,7 +18,7 @@ Le mode d'emploi complet est dans
 - Catalogue local `recipes-lite.json`
 - Images locales reduites a `480px` max pour l APK Android 5 uniquement
 - accueil parent Android compact avec les fiches parents du site par defaut,
-  grille recyclee de cartes image proches du site, panneau recherche/filtres replie
+  grille recyclee de cartes image 16/9 proches du site, panneau recherche/filtres replie
   et cache image limite
 - refonte visuelle native premium : header compact, stats locales, cartes
   tactiles, sections cadrees, hero de fiche encadre et actions principales /
@@ -27,8 +27,8 @@ Le mode d'emploi complet est dans
   les fiches parents affichent tout leur contenu range
 - Puce `Toutes fiches` dans la recherche pour parcourir le catalogue complet
   sans remettre les recettes enfants en vrac sur l'accueil
-- cartes parent visibles pour les collections, comme sur le site, sans menu
-  deroulant pour choisir une recette
+- cartes parent visibles pour les collections, avec des cartes parent 16/9
+  visibles comme sur le site, sans menu deroulant pour choisir une recette
 - selecteurs natifs uniquement pour la preparation choisie des fiches a
   variantes internes, sans afficher toutes les variantes en bloc
 - Fonctions natives legeres : favoris locaux, derniers ouverts, filtres

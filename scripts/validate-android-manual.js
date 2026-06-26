@@ -132,8 +132,12 @@ expect(
     && !androidLegacyManifest.includes('largeHeap')
     && androidLegacyMainActivity.includes('GridView')
     && androidLegacyMainActivity.includes('GridView.AUTO_FIT')
-    && androidLegacyMainActivity.includes('setColumnWidth')
+    && androidLegacyMainActivity.includes('setColumnWidth(dp(276))')
     && androidLegacyMainActivity.includes('setHorizontalSpacing')
+    && androidLegacyMainActivity.includes('FrameLayout')
+    && androidLegacyMainActivity.includes('collectionGridColumns')
+    && androidLegacyMainActivity.includes('collectionCardHeight')
+    && androidLegacyMainActivity.includes('(cardWidth * 9) / 16')
     && androidLegacyMainActivity.includes('RecipeAdapter')
     && androidLegacyMainActivity.includes('Spinner')
     && androidLegacyMainActivity.includes('ArrayAdapter')
@@ -214,6 +218,10 @@ expect(
     && androidLegacyAdapter.includes('BaseAdapter')
     && androidLegacyAdapter.includes('FrameLayout')
     && androidLegacyAdapter.includes('Color.argb')
+    && androidLegacyAdapter.includes('CARD_MIN_WIDTH_DP = 276')
+    && androidLegacyAdapter.includes('resizeCardForParent')
+    && androidLegacyAdapter.includes('cardWidthForParent')
+    && androidLegacyAdapter.includes('(cardWidth * 9) / 16')
     && androidLegacyAdapter.includes('StateListDrawable')
     && androidLegacyAdapter.includes('selectablePanel')
     && androidLegacyAdapter.includes('holder.count')
@@ -333,6 +341,7 @@ expect(
   'RGB_565',
   'refonte visuelle native premium',
   'cartes image',
+  '16/9',
   'header compact avec stats locales',
   'hero',
   'actions principales/secondaires',
@@ -428,6 +437,7 @@ expect(
   'RGB_565',
   'refonte visuelle native premium',
   'cartes image',
+  '16/9',
   'header compact avec stats locales',
   'hero de fiche encadre',
   'actions principales/secondaires',

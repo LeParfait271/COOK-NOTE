@@ -123,7 +123,7 @@ prerendues par `scripts/build-site.js`.
 - Images Legacy : miniatures de grille `480px` maximum, images de fiche
   `960px` maximum, JPEG recompresses via `jpeg-js`, decodees en `RGB_565`
   avec petit cache memoire
-- Interface : `GridView` recyclee en cartes image proches du site, accueil parent Android
+- Interface : `GridView` recyclee en cartes image 16/9 proches du site, accueil parent Android
   compact avec les fiches parents du site par defaut, panneau recherche/filtres replie,
   recherche locale, filtres categories, filtres saison/difficulte, favoris locaux,
   derniers ouverts, fiches natives en sections lisibles, infos rapides en
@@ -132,7 +132,7 @@ prerendues par `scripts/build-site.js`.
   jour, liste de courses locale, copie fiche, partage fiche, etapes numerotees
   cartes parent visibles et selecteurs natifs de preparation
 - Direction visuelle Android Legacy : refonte visuelle native premium sans moteur web,
-  header compact avec stats locales, grille `GridView` en cartes image tactiles
+  header compact avec stats locales, grille `GridView` en cartes image 16/9 tactiles
   recyclees, hero de fiche encadre, sections cadrees, pastilles lisibles, etats
   presses natifs et actions principales/secondaires distinguees
 
@@ -143,8 +143,8 @@ La puce `Toutes fiches` reste dans le panneau de recherche pour parcourir le
 catalogue complet sans remettre les recettes enfants en vrac sur l'accueil.
 Les fiches parents lisent `master` et `additionalMasters`, afin que les
 rattachements parents additionnels du site soient visibles dans l app.
-Les collections Android Legacy doivent afficher les recettes en cartes parent
-visibles, comme le site, pas dans un menu deroulant. Les fiches avec variantes
+Les collections Android Legacy doivent afficher les recettes en grille de cartes parent
+16/9 visibles, comme le site, pas dans un menu deroulant. Les fiches avec variantes
 internes gardent une preparation choisie : une seule preparation active affiche
 ingredients et etapes.
 Le bouton `Courses` ouvre une liste locale simple stockee en `SharedPreferences`
