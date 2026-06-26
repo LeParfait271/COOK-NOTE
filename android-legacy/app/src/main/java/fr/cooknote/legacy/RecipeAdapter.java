@@ -30,6 +30,7 @@ final class RecipeAdapter extends BaseAdapter {
     private static final int COLOR_TEXT = Color.rgb(255, 247, 237);
     private static final int COLOR_MUTED = Color.rgb(222, 214, 200);
     private static final int COLOR_BORDER = Color.rgb(113, 84, 36);
+    private static final int COLOR_BORDER_BRIGHT = Color.rgb(176, 128, 45);
     private static final int COLOR_GOLD = Color.rgb(251, 191, 36);
     private static final int COLOR_ORANGE = Color.rgb(245, 158, 11);
     private static final int CARD_MIN_WIDTH_DP = 286;
@@ -156,15 +157,43 @@ final class RecipeAdapter extends BaseAdapter {
         ));
 
         View veil = new View(context);
-        veil.setBackgroundColor(Color.argb(62, 0, 0, 0));
+        veil.setBackgroundColor(Color.argb(58, 0, 0, 0));
         frame.addView(veil, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
 
+        View topEdge = new View(context);
+        topEdge.setBackground(gradientPanel(
+                Color.argb(168, 251, 191, 36),
+                Color.argb(18, 251, 191, 36),
+                Color.TRANSPARENT,
+                0,
+                0
+        ));
+        frame.addView(topEdge, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                dp(2),
+                Gravity.TOP
+        ));
+
+        View bottomEdge = new View(context);
+        bottomEdge.setBackground(gradientPanel(
+                Color.argb(28, 245, 158, 11),
+                Color.argb(158, 245, 158, 11),
+                Color.TRANSPARENT,
+                0,
+                0
+        ));
+        frame.addView(bottomEdge, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                dp(2),
+                Gravity.BOTTOM
+        ));
+
         LinearLayout overlay = new LinearLayout(context);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(12), dp(8), dp(12), dp(10));
+        overlay.setPadding(dp(12), dp(7), dp(12), dp(10));
         overlay.setBackground(bottomOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -172,6 +201,21 @@ final class RecipeAdapter extends BaseAdapter {
                 Gravity.BOTTOM
         );
         frame.addView(overlay, overlayParams);
+
+        View overlayEdge = new View(context);
+        overlayEdge.setBackground(gradientPanel(
+                Color.argb(136, 251, 191, 36),
+                Color.argb(12, 251, 191, 36),
+                Color.TRANSPARENT,
+                0,
+                0
+        ));
+        LinearLayout.LayoutParams overlayEdgeParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                dp(1)
+        );
+        overlayEdgeParams.bottomMargin = dp(7);
+        overlay.addView(overlayEdge, overlayEdgeParams);
 
         LinearLayout topLine = new LinearLayout(context);
         topLine.setOrientation(LinearLayout.HORIZONTAL);
@@ -189,7 +233,7 @@ final class RecipeAdapter extends BaseAdapter {
         badge.setEllipsize(TextUtils.TruncateAt.END);
         badge.setIncludeFontPadding(false);
         badge.setPadding(dp(7), dp(3), dp(7), dp(3));
-        badge.setBackground(panel(Color.argb(158, 15, 11, 7), COLOR_BORDER, 1, 12));
+        badge.setBackground(panel(Color.argb(170, 12, 9, 6), COLOR_BORDER_BRIGHT, 1, 12));
         LinearLayout.LayoutParams badgeParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.72f);
         topLine.addView(badge, badgeParams);
 
@@ -202,7 +246,7 @@ final class RecipeAdapter extends BaseAdapter {
         count.setEllipsize(TextUtils.TruncateAt.END);
         count.setIncludeFontPadding(false);
         count.setPadding(dp(6), dp(3), dp(6), dp(3));
-        count.setBackground(panel(Color.argb(158, 18, 12, 7), COLOR_BORDER, 1, 12));
+        count.setBackground(panel(Color.argb(170, 22, 13, 6), COLOR_BORDER_BRIGHT, 1, 12));
         LinearLayout.LayoutParams countParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -283,6 +327,13 @@ final class RecipeAdapter extends BaseAdapter {
     private GradientDrawable panel(int color, int strokeColor, int strokeWidth, int radiusDp) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setColor(color);
+        drawable.setCornerRadius(dp(radiusDp));
+        if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
+        return drawable;
+    }
+
+    private GradientDrawable gradientPanel(int startColor, int endColor, int strokeColor, int strokeWidth, int radiusDp) {
+        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{startColor, endColor});
         drawable.setCornerRadius(dp(radiusDp));
         if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
         return drawable;
