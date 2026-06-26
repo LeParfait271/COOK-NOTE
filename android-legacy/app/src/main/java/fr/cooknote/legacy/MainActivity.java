@@ -52,18 +52,18 @@ public class MainActivity extends Activity {
     private static final String PREF_SHOPPING = "shopping";
     private static final int MAX_RECENT = 18;
     private static final int COLOR_BG = Color.rgb(4, 4, 4);
-    private static final int COLOR_PANEL = Color.rgb(18, 16, 12);
-    private static final int COLOR_PANEL_DEEP = Color.rgb(11, 9, 7);
-    private static final int COLOR_CARD = Color.rgb(23, 21, 17);
-    private static final int COLOR_CARD_SOFT = Color.rgb(32, 29, 24);
-    private static final int COLOR_CARD_ACTIVE = Color.rgb(43, 34, 22);
+    private static final int COLOR_PANEL = Color.rgb(17, 16, 13);
+    private static final int COLOR_PANEL_DEEP = Color.rgb(8, 7, 6);
+    private static final int COLOR_CARD = Color.rgb(18, 17, 14);
+    private static final int COLOR_CARD_SOFT = Color.rgb(28, 26, 21);
+    private static final int COLOR_CARD_ACTIVE = Color.rgb(52, 39, 20);
     private static final int COLOR_TEXT = Color.rgb(255, 247, 237);
     private static final int COLOR_TEXT_DARK = Color.rgb(22, 17, 8);
-    private static final int COLOR_MUTED = Color.rgb(207, 198, 184);
-    private static final int COLOR_DIM = Color.rgb(162, 151, 133);
-    private static final int COLOR_BORDER = Color.rgb(84, 70, 43);
-    private static final int COLOR_BORDER_SOFT = Color.rgb(58, 49, 35);
-    private static final int COLOR_LINE = Color.rgb(68, 55, 35);
+    private static final int COLOR_MUTED = Color.rgb(222, 214, 200);
+    private static final int COLOR_DIM = Color.rgb(178, 165, 145);
+    private static final int COLOR_BORDER = Color.rgb(113, 84, 36);
+    private static final int COLOR_BORDER_SOFT = Color.rgb(78, 64, 38);
+    private static final int COLOR_LINE = Color.rgb(92, 72, 38);
     private static final int COLOR_GOLD = Color.rgb(251, 191, 36);
     private static final int COLOR_ORANGE = Color.rgb(245, 158, 11);
 
@@ -115,8 +115,8 @@ public class MainActivity extends Activity {
 
         LinearLayout header = new LinearLayout(this);
         header.setOrientation(LinearLayout.VERTICAL);
-        header.setPadding(dp(12), dp(10), dp(12), dp(10));
-        header.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(35, 24, 13), COLOR_BORDER, 1, 0));
+        header.setPadding(dp(12), dp(11), dp(12), dp(11));
+        header.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(18, 14, 9), COLOR_BORDER_SOFT, 1, 0));
         root.addView(header, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -125,8 +125,8 @@ public class MainActivity extends Activity {
         LinearLayout brandRow = new LinearLayout(this);
         brandRow.setOrientation(LinearLayout.HORIZONTAL);
         brandRow.setGravity(Gravity.CENTER_VERTICAL);
-        brandRow.setPadding(dp(10), dp(9), dp(10), dp(9));
-        brandRow.setBackground(panelGradient(Color.rgb(12, 10, 8), Color.rgb(31, 22, 14), Color.rgb(104, 76, 31), 1, 10));
+        brandRow.setPadding(dp(12), dp(10), dp(12), dp(10));
+        brandRow.setBackground(panelGradient(Color.rgb(9, 8, 6), Color.rgb(29, 23, 16), COLOR_BORDER, 1, 8));
         header.addView(brandRow, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -135,7 +135,7 @@ public class MainActivity extends Activity {
         ImageView logo = new ImageView(this);
         logo.setImageResource(R.drawable.ic_launcher);
         logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        LinearLayout.LayoutParams logoParams = new LinearLayout.LayoutParams(dp(50), dp(50));
+        LinearLayout.LayoutParams logoParams = new LinearLayout.LayoutParams(dp(54), dp(54));
         logoParams.rightMargin = dp(12);
         brandRow.addView(logo, logoParams);
 
@@ -146,6 +146,7 @@ public class MainActivity extends Activity {
         TextView title = text("Cook Note", 28, COLOR_TEXT, true);
         title.setGravity(Gravity.CENTER_VERTICAL);
         title.setIncludeFontPadding(false);
+        title.setShadowLayer(4f, 0, dp(1), Color.BLACK);
         brandCopy.addView(title);
 
         TextView subtitle = text("Carnet tablette Android 5.0+ - v" + repository.version, 12, COLOR_MUTED, true);
@@ -209,7 +210,7 @@ public class MainActivity extends Activity {
         searchPanel = new LinearLayout(this);
         searchPanel.setOrientation(LinearLayout.VERTICAL);
         searchPanel.setPadding(dp(10), dp(10), dp(10), dp(10));
-        searchPanel.setBackground(panelGradient(COLOR_CARD, Color.rgb(30, 24, 17), COLOR_BORDER, 1, 10));
+        searchPanel.setBackground(panelGradient(COLOR_CARD, Color.rgb(28, 23, 16), COLOR_BORDER, 1, 8));
         LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -265,7 +266,7 @@ public class MainActivity extends Activity {
         counterView.setPadding(dp(10), dp(7), dp(10), dp(7));
         counterView.setSingleLine(true);
         counterView.setEllipsize(TextUtils.TruncateAt.END);
-        counterView.setBackground(panel(Color.rgb(12, 11, 9), COLOR_BORDER_SOFT, 1, 8));
+        counterView.setBackground(panel(Color.rgb(12, 10, 8), COLOR_BORDER_SOFT, 1, 8));
         LinearLayout.LayoutParams counterParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -342,8 +343,8 @@ public class MainActivity extends Activity {
     private void addHeaderStat(LinearLayout row, String value, String label) {
         LinearLayout stat = new LinearLayout(this);
         stat.setOrientation(LinearLayout.VERTICAL);
-        stat.setPadding(dp(8), dp(5), dp(8), dp(6));
-        stat.setBackground(panel(COLOR_PANEL_DEEP, COLOR_BORDER_SOFT, 1, 8));
+        stat.setPadding(dp(9), dp(6), dp(9), dp(7));
+        stat.setBackground(panelGradient(Color.rgb(11, 9, 7), Color.rgb(26, 21, 15), COLOR_BORDER_SOFT, 1, 8));
 
         TextView valueView = text(value, 13, COLOR_TEXT, true);
         valueView.setIncludeFontPadding(false);
@@ -462,10 +463,10 @@ public class MainActivity extends Activity {
     private void addFilterChip(LinearLayout strip, String label, boolean selected, View.OnClickListener listener) {
         TextView chip = text(label, 14, selected ? COLOR_TEXT_DARK : COLOR_TEXT, true);
         chip.setGravity(Gravity.CENTER);
-        chip.setPadding(dp(13), dp(8), dp(13), dp(8));
+        chip.setPadding(dp(14), dp(8), dp(14), dp(8));
         chip.setBackground(selected
-                ? selectablePanel(COLOR_ORANGE, COLOR_GOLD, COLOR_ORANGE, 1, 18)
-                : selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 18));
+                ? selectablePanel(COLOR_ORANGE, COLOR_GOLD, COLOR_ORANGE, 1, 16)
+                : selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 16));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -577,7 +578,7 @@ public class MainActivity extends Activity {
         top.setOrientation(LinearLayout.HORIZONTAL);
         top.setGravity(Gravity.CENTER_VERTICAL);
         top.setPadding(dp(10), dp(8), dp(10), dp(8));
-        top.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(31, 22, 13), COLOR_BORDER, 1, 0));
+        top.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(20, 15, 10), COLOR_BORDER, 1, 0));
         root.addView(top, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -651,7 +652,7 @@ public class MainActivity extends Activity {
     private void addDetailHero(LinearLayout content, final Recipe recipe) {
         FrameLayout heroCard = new FrameLayout(this);
         heroCard.setPadding(dp(1), dp(1), dp(1), dp(1));
-        heroCard.setBackground(panelGradient(Color.rgb(12, 10, 8), Color.rgb(31, 23, 15), Color.rgb(104, 76, 31), 1, 12));
+        heroCard.setBackground(panelGradient(Color.rgb(8, 7, 6), Color.rgb(29, 23, 16), COLOR_BORDER, 1, 8));
         content.addView(heroCard, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 detailHeroHeight()
@@ -667,7 +668,7 @@ public class MainActivity extends Activity {
         imageLoader.loadDetail(recipe.detailImage, hero, 960, 540);
 
         View veil = new View(this);
-        veil.setBackgroundColor(Color.argb(recipe.isCollection() ? 156 : 116, 0, 0, 0));
+        veil.setBackgroundColor(Color.argb(recipe.isCollection() ? 118 : 84, 0, 0, 0));
         heroCard.addView(veil, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -675,8 +676,8 @@ public class MainActivity extends Activity {
 
         LinearLayout overlay = new LinearLayout(this);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(13), dp(12), dp(13), dp(13));
-        overlay.setBackgroundColor(Color.argb(220, 7, 6, 5));
+        overlay.setPadding(dp(14), dp(13), dp(14), dp(14));
+        overlay.setBackground(bottomOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -693,7 +694,7 @@ public class MainActivity extends Activity {
         category.setSingleLine(true);
         category.setEllipsize(TextUtils.TruncateAt.END);
         category.setPadding(dp(8), dp(4), dp(8), dp(4));
-        category.setBackground(panel(Color.rgb(43, 31, 15), Color.rgb(120, 82, 22), 1, 12));
+        category.setBackground(panel(Color.argb(174, 15, 11, 7), COLOR_BORDER, 1, 12));
         LinearLayout.LayoutParams categoryParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -705,6 +706,7 @@ public class MainActivity extends Activity {
         title.setMaxLines(3);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setLineSpacing(dp(1), 1.03f);
+        title.setShadowLayer(4f, 0, dp(2), Color.BLACK);
         LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -868,7 +870,7 @@ public class MainActivity extends Activity {
         LinearLayout card = new LinearLayout(this);
         card.setOrientation(LinearLayout.VERTICAL);
         card.setPadding(dp(11), dp(9), dp(11), dp(10));
-        card.setBackground(panelGradient(COLOR_CARD, Color.rgb(34, 29, 21), COLOR_BORDER_SOFT, 1, 10));
+        card.setBackground(panelGradient(COLOR_CARD, Color.rgb(31, 27, 20), COLOR_BORDER_SOFT, 1, 8));
 
         TextView labelView = text(label, 10, COLOR_GOLD, true);
         labelView.setSingleLine(true);
@@ -1034,7 +1036,7 @@ public class MainActivity extends Activity {
         LinearLayout card = new LinearLayout(this);
         card.setOrientation(LinearLayout.VERTICAL);
         card.setPadding(dp(1), dp(1), dp(1), dp(1));
-        card.setBackground(selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 10));
+        card.setBackground(selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 8));
         card.setClickable(true);
 
         FrameLayout frame = new FrameLayout(this);
@@ -1054,7 +1056,7 @@ public class MainActivity extends Activity {
         imageLoader.load(choice.recipe.image, image, dp(340), cardHeight);
 
         View veil = new View(this);
-        veil.setBackgroundColor(Color.argb(94, 0, 0, 0));
+        veil.setBackgroundColor(Color.argb(68, 0, 0, 0));
         frame.addView(veil, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -1062,8 +1064,8 @@ public class MainActivity extends Activity {
 
         LinearLayout overlay = new LinearLayout(this);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(10), dp(9), dp(10), dp(9));
-        overlay.setBackgroundColor(Color.argb(214, 7, 6, 5));
+        overlay.setPadding(dp(12), dp(10), dp(12), dp(11));
+        overlay.setBackground(bottomOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -1083,14 +1085,14 @@ public class MainActivity extends Activity {
         badge.setSingleLine(true);
         badge.setEllipsize(TextUtils.TruncateAt.END);
         badge.setPadding(dp(7), dp(3), dp(7), dp(3));
-        badge.setBackground(panel(Color.rgb(37, 28, 15), Color.rgb(93, 67, 26), 1, 12));
+        badge.setBackground(panel(Color.argb(174, 15, 11, 7), COLOR_BORDER, 1, 12));
         topLine.addView(badge, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
         TextView open = text("Voir", 11, COLOR_ORANGE, true);
         open.setGravity(Gravity.CENTER);
         open.setSingleLine(true);
         open.setEllipsize(TextUtils.TruncateAt.END);
-        open.setBackground(panel(Color.rgb(39, 30, 18), Color.rgb(93, 67, 26), 1, 14));
+        open.setBackground(panel(Color.argb(182, 20, 13, 7), COLOR_BORDER, 1, 14));
         open.setPadding(dp(8), dp(4), dp(8), dp(4));
         LinearLayout.LayoutParams openParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -1103,6 +1105,7 @@ public class MainActivity extends Activity {
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setLineSpacing(dp(1), 1.04f);
+        title.setShadowLayer(3.5f, 0, dp(2), Color.BLACK);
         LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -1444,7 +1447,7 @@ public class MainActivity extends Activity {
         LinearLayout chip = new LinearLayout(this);
         chip.setOrientation(LinearLayout.VERTICAL);
         chip.setPadding(dp(11), dp(7), dp(11), dp(8));
-        chip.setBackground(panelGradient(COLOR_CARD_SOFT, Color.rgb(39, 31, 20), COLOR_BORDER_SOFT, 1, 8));
+        chip.setBackground(panelGradient(COLOR_CARD_SOFT, Color.rgb(34, 28, 19), COLOR_BORDER_SOFT, 1, 8));
 
         TextView labelView = text(label, 10, COLOR_GOLD, true);
         labelView.setSingleLine(true);
@@ -1466,8 +1469,8 @@ public class MainActivity extends Activity {
     private LinearLayout addSection(LinearLayout content, String value) {
         LinearLayout section = new LinearLayout(this);
         section.setOrientation(LinearLayout.VERTICAL);
-        section.setPadding(dp(12), dp(12), dp(12), dp(14));
-        section.setBackground(panelGradient(COLOR_CARD, Color.rgb(29, 24, 18), COLOR_BORDER_SOFT, 1, 10));
+        section.setPadding(dp(14), dp(13), dp(14), dp(15));
+        section.setBackground(panelGradient(COLOR_CARD, Color.rgb(27, 23, 17), COLOR_BORDER_SOFT, 1, 8));
 
         LinearLayout titleRow = new LinearLayout(this);
         titleRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -1480,6 +1483,7 @@ public class MainActivity extends Activity {
 
         TextView title = text(value, 18, COLOR_GOLD, true);
         title.setIncludeFontPadding(false);
+        title.setShadowLayer(2.5f, 0, dp(1), Color.BLACK);
         titleRow.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
         section.addView(titleRow);
 
@@ -1533,8 +1537,8 @@ public class MainActivity extends Activity {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.TOP);
-        row.setPadding(dp(9), dp(9), dp(9), dp(9));
-        row.setBackground(panelGradient(COLOR_CARD_SOFT, Color.rgb(39, 31, 20), COLOR_BORDER_SOFT, 1, 10));
+        row.setPadding(dp(10), dp(10), dp(10), dp(10));
+        row.setBackground(panelGradient(COLOR_CARD_SOFT, Color.rgb(34, 28, 19), COLOR_BORDER_SOFT, 1, 8));
 
         TextView index = text(String.valueOf(number), 13, COLOR_TEXT_DARK, true);
         index.setGravity(Gravity.CENTER);
@@ -1661,7 +1665,7 @@ public class MainActivity extends Activity {
         top.setOrientation(LinearLayout.HORIZONTAL);
         top.setGravity(Gravity.CENTER_VERTICAL);
         top.setPadding(dp(10), dp(8), dp(10), dp(8));
-        top.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(31, 22, 13), COLOR_BORDER, 1, 0));
+        top.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(20, 15, 10), COLOR_BORDER, 1, 0));
         root.addView(top, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -1896,11 +1900,19 @@ public class MainActivity extends Activity {
         return drawable;
     }
 
+    private GradientDrawable bottomOverlayGradient() {
+        return new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{
+                Color.argb(8, 0, 0, 0),
+                Color.argb(122, 0, 0, 0),
+                Color.argb(238, 5, 4, 3)
+        });
+    }
+
     private StateListDrawable buttonPanel(boolean primary) {
         if (primary) {
             return selectablePanel(COLOR_ORANGE, COLOR_GOLD, COLOR_ORANGE, 1, 8);
         }
-        return selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 8);
+        return selectablePanel(Color.rgb(24, 22, 18), COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 8);
     }
 
     private StateListDrawable selectablePanel(int normalColor, int pressedColor, int strokeColor, int strokeWidth, int radiusDp) {
