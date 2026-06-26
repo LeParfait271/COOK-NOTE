@@ -131,9 +131,13 @@ prerendues par `scripts/build-site.js`.
   additionnels, bouton natif de mise a
   jour, liste de courses locale, copie fiche, partage fiche, etapes numerotees
   cartes parent visibles et selecteurs natifs de preparation
+- Direction visuelle Android Legacy : refonte visuelle native premium sans moteur web,
+  header compact avec stats locales, liste `ListView` en cartes tactiles
+  recyclees, hero de fiche encadre, sections cadrees, pastilles lisibles, etats
+  presses natifs et actions principales/secondaires distinguees
 
 Le panneau recherche/filtres replie garde les filtres hors de l accueil tant
-que l utilisateur ne touche pas `Rechercher / filtrer`. Le bouton natif de mise
+que l utilisateur ne touche pas `Recherche`. Le bouton natif de mise
 a jour reste disponible sous forme compacte avec `Mise a jour`.
 La puce `Toutes fiches` reste dans le panneau de recherche pour parcourir le
 catalogue complet sans remettre les recettes enfants en vrac sur l'accueil.

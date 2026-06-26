@@ -139,6 +139,13 @@ expect(
     && androidLegacyMainActivity.includes('addInfoChips')
     && androidLegacyMainActivity.includes('stepRow')
     && androidLegacyMainActivity.includes('bulletRow')
+    && androidLegacyMainActivity.includes('addHeaderStat')
+    && androidLegacyMainActivity.includes('StateListDrawable')
+    && androidLegacyMainActivity.includes('selectablePanel')
+    && androidLegacyMainActivity.includes('buttonPanel')
+    && androidLegacyMainActivity.includes('Carnet tablette Android 5.0+')
+    && androidLegacyMainActivity.includes('RECHERCHE ET FILTRES')
+    && androidLegacyMainActivity.includes('sectionButton(String value, boolean primary)')
     && androidLegacyMainActivity.includes('addInlineVariantPicker')
     && androidLegacyMainActivity.includes('selectedIngredientGroups')
     && androidLegacyMainActivity.includes('selectedRecipeSteps')
@@ -165,8 +172,8 @@ expect(
     && androidLegacyMainActivity.includes('parentTrail')
     && androidLegacyMainActivity.includes('panelGradient')
     && androidLegacyMainActivity.includes('R.drawable.ic_launcher')
-    && androidLegacyMainActivity.includes('Rechercher / filtrer')
-    && androidLegacyMainActivity.includes('Filtres actifs')
+    && androidLegacyMainActivity.includes('Recherche')
+    && androidLegacyMainActivity.includes('Filtres (')
     && androidLegacyMainActivity.includes('selectedSeason')
     && androidLegacyMainActivity.includes('selectedDifficulty')
     && androidLegacyMainActivity.includes('copyIngredients')
@@ -202,6 +209,9 @@ expect(
     && androidLegacyImageLoader.includes('LruCache')
     && androidLegacyImageLoader.includes('detail-images/')
     && androidLegacyAdapter.includes('BaseAdapter')
+    && androidLegacyAdapter.includes('StateListDrawable')
+    && androidLegacyAdapter.includes('selectablePanel')
+    && androidLegacyAdapter.includes('holder.count')
     && androidLegacyAdapter.includes('setEllipsize')
     && androidLegacyAdapter.includes('favoriteIds')
     && androidLegacyAdapter.includes('collectionCounts')
@@ -316,6 +326,11 @@ expect(
   'jpeg-js',
   'ListView',
   'RGB_565',
+  'refonte visuelle native premium',
+  'cartes tactiles',
+  'header compact avec stats locales',
+  'hero',
+  'actions principales/secondaires',
   'pastilles',
   'favoris locaux',
   'derniers ouverts',
@@ -345,6 +360,10 @@ expect(
   'android-legacy/README.md doit pointer vers la documentation complete.',
   androidReadme.includes('docs/android-legacy-workflow.md')
     && androidReadme.includes('Native Lite')
+    && androidReadme.includes('refonte visuelle native premium')
+    && androidReadme.includes('cartes')
+    && androidReadme.includes('hero')
+    && androidReadme.includes('actions principales')
     && androidReadme.includes('favoris locaux')
     && androidReadme.includes('derniers ouverts')
     && androidReadme.includes('panneau recherche/filtres replie')
@@ -402,6 +421,11 @@ expect(
   'jpeg-js',
   'ListView',
   'RGB_565',
+  'refonte visuelle native premium',
+  'cartes tactiles',
+  'header compact avec stats locales',
+  'hero de fiche encadre',
+  'actions principales/secondaires',
   'pastilles',
   'favoris locaux',
   'derniers ouverts',

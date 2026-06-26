@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -49,14 +50,19 @@ public class MainActivity extends Activity {
     private static final String PREF_RECENT = "recent";
     private static final String PREF_SHOPPING = "shopping";
     private static final int MAX_RECENT = 18;
-    private static final int COLOR_BG = Color.rgb(5, 5, 5);
+    private static final int COLOR_BG = Color.rgb(4, 4, 4);
     private static final int COLOR_PANEL = Color.rgb(18, 16, 12);
-    private static final int COLOR_CARD = Color.rgb(24, 22, 18);
-    private static final int COLOR_CARD_SOFT = Color.rgb(31, 28, 23);
+    private static final int COLOR_PANEL_DEEP = Color.rgb(11, 9, 7);
+    private static final int COLOR_CARD = Color.rgb(23, 21, 17);
+    private static final int COLOR_CARD_SOFT = Color.rgb(32, 29, 24);
+    private static final int COLOR_CARD_ACTIVE = Color.rgb(43, 34, 22);
     private static final int COLOR_TEXT = Color.rgb(255, 247, 237);
+    private static final int COLOR_TEXT_DARK = Color.rgb(22, 17, 8);
     private static final int COLOR_MUTED = Color.rgb(207, 198, 184);
     private static final int COLOR_DIM = Color.rgb(162, 151, 133);
     private static final int COLOR_BORDER = Color.rgb(84, 70, 43);
+    private static final int COLOR_BORDER_SOFT = Color.rgb(58, 49, 35);
+    private static final int COLOR_LINE = Color.rgb(68, 55, 35);
     private static final int COLOR_GOLD = Color.rgb(251, 191, 36);
     private static final int COLOR_ORANGE = Color.rgb(245, 158, 11);
 
@@ -108,8 +114,8 @@ public class MainActivity extends Activity {
 
         LinearLayout header = new LinearLayout(this);
         header.setOrientation(LinearLayout.VERTICAL);
-        header.setPadding(dp(14), dp(12), dp(14), dp(10));
-        header.setBackground(panelGradient(COLOR_PANEL, Color.rgb(37, 25, 13), COLOR_BORDER, 1, 0));
+        header.setPadding(dp(12), dp(10), dp(12), dp(10));
+        header.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(35, 24, 13), COLOR_BORDER, 1, 0));
         root.addView(header, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -118,8 +124,8 @@ public class MainActivity extends Activity {
         LinearLayout brandRow = new LinearLayout(this);
         brandRow.setOrientation(LinearLayout.HORIZONTAL);
         brandRow.setGravity(Gravity.CENTER_VERTICAL);
-        brandRow.setPadding(dp(10), dp(10), dp(10), dp(10));
-        brandRow.setBackground(panel(Color.rgb(12, 10, 8), Color.rgb(97, 70, 30), 1, 10));
+        brandRow.setPadding(dp(10), dp(9), dp(10), dp(9));
+        brandRow.setBackground(panelGradient(Color.rgb(12, 10, 8), Color.rgb(31, 22, 14), Color.rgb(104, 76, 31), 1, 10));
         header.addView(brandRow, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -128,8 +134,8 @@ public class MainActivity extends Activity {
         ImageView logo = new ImageView(this);
         logo.setImageResource(R.drawable.ic_launcher);
         logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        LinearLayout.LayoutParams logoParams = new LinearLayout.LayoutParams(dp(54), dp(54));
-        logoParams.rightMargin = dp(11);
+        LinearLayout.LayoutParams logoParams = new LinearLayout.LayoutParams(dp(50), dp(50));
+        logoParams.rightMargin = dp(12);
         brandRow.addView(logo, logoParams);
 
         LinearLayout brandCopy = new LinearLayout(this);
@@ -141,13 +147,21 @@ public class MainActivity extends Activity {
         title.setIncludeFontPadding(false);
         brandCopy.addView(title);
 
-        TextView subtitle = text("Android 5.0+ Legacy - local - v" + repository.version, 12, COLOR_MUTED, true);
-        subtitle.setPadding(0, dp(4), 0, 0);
+        TextView subtitle = text("Carnet tablette Android 5.0+ - v" + repository.version, 12, COLOR_MUTED, true);
+        subtitle.setPadding(0, dp(3), 0, 0);
         brandCopy.addView(subtitle);
 
-        TextView catalogStatus = text(repository.homeRecipes().size() + " fiches parents - " + repository.searchableRecipes().size() + " recettes", 11, COLOR_DIM, false);
-        catalogStatus.setPadding(0, dp(3), 0, 0);
-        brandCopy.addView(catalogStatus);
+        LinearLayout stats = new LinearLayout(this);
+        stats.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams statsParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        statsParams.topMargin = dp(8);
+        brandCopy.addView(stats, statsParams);
+        addHeaderStat(stats, String.valueOf(repository.homeRecipes().size()), "parents");
+        addHeaderStat(stats, String.valueOf(repository.searchableRecipes().size()), "recettes");
+        addHeaderStat(stats, String.valueOf(favoriteIds.size()), "favoris");
 
         LinearLayout actionRow = new LinearLayout(this);
         actionRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -155,10 +169,10 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        actionParams.topMargin = dp(8);
+        actionParams.topMargin = dp(10);
         header.addView(actionRow, actionParams);
 
-        searchToggle = actionButton("Rechercher / filtrer", true);
+        searchToggle = actionButton("Recherche", true);
         LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(0, dp(42), 1);
         searchParams.rightMargin = dp(7);
         actionRow.addView(searchToggle, searchParams);
@@ -194,13 +208,17 @@ public class MainActivity extends Activity {
         searchPanel = new LinearLayout(this);
         searchPanel.setOrientation(LinearLayout.VERTICAL);
         searchPanel.setPadding(dp(10), dp(10), dp(10), dp(10));
-        searchPanel.setBackground(panel(COLOR_CARD, COLOR_BORDER, 1, 8));
+        searchPanel.setBackground(panelGradient(COLOR_CARD, Color.rgb(30, 24, 17), COLOR_BORDER, 1, 10));
         LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
         panelParams.topMargin = dp(10);
         header.addView(searchPanel, panelParams);
+
+        TextView searchLabel = text("RECHERCHE ET FILTRES", 10, COLOR_GOLD, true);
+        searchLabel.setIncludeFontPadding(false);
+        searchPanel.addView(searchLabel);
 
         searchBox = new EditText(this);
         searchBox.setSingleLine(true);
@@ -209,12 +227,14 @@ public class MainActivity extends Activity {
         searchBox.setTextSize(16);
         searchBox.setHint("Rechercher une recette, un ingredient...");
         searchBox.setPadding(dp(12), 0, dp(12), 0);
-        searchBox.setBackground(panel(COLOR_CARD_SOFT, COLOR_BORDER, 1, 8));
+        searchBox.setBackground(panel(COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
         searchBox.setText(currentQuery);
-        searchPanel.addView(searchBox, new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams searchBoxParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 dp(46)
-        ));
+        );
+        searchBoxParams.topMargin = dp(9);
+        searchPanel.addView(searchBox, searchBoxParams);
 
         quickStrip = addChipScroller(searchPanel, dp(10));
         rebuildQuickChips();
@@ -241,13 +261,21 @@ public class MainActivity extends Activity {
         setSearchPanelOpen(searchPanelOpen);
 
         counterView = text("", 12, COLOR_MUTED, true);
-        counterView.setPadding(0, dp(8), 0, 0);
-        header.addView(counterView);
+        counterView.setPadding(dp(10), dp(7), dp(10), dp(7));
+        counterView.setSingleLine(true);
+        counterView.setEllipsize(TextUtils.TruncateAt.END);
+        counterView.setBackground(panel(Color.rgb(12, 11, 9), COLOR_BORDER_SOFT, 1, 8));
+        LinearLayout.LayoutParams counterParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        counterParams.topMargin = dp(9);
+        header.addView(counterView, counterParams);
 
         ListView listView = new ListView(this);
         listView.setBackgroundColor(COLOR_BG);
         listView.setCacheColorHint(COLOR_BG);
-        listView.setDividerHeight(1);
+        listView.setDividerHeight(0);
         listView.setFastScrollEnabled(true);
         listView.setScrollingCacheEnabled(false);
         listView.setAnimationCacheEnabled(false);
@@ -302,6 +330,30 @@ public class MainActivity extends Activity {
         scrollerParams.topMargin = topMargin;
         parent.addView(scroller, scrollerParams);
         return row;
+    }
+
+    private void addHeaderStat(LinearLayout row, String value, String label) {
+        LinearLayout stat = new LinearLayout(this);
+        stat.setOrientation(LinearLayout.VERTICAL);
+        stat.setPadding(dp(8), dp(5), dp(8), dp(6));
+        stat.setBackground(panel(COLOR_PANEL_DEEP, COLOR_BORDER_SOFT, 1, 8));
+
+        TextView valueView = text(value, 13, COLOR_TEXT, true);
+        valueView.setIncludeFontPadding(false);
+        stat.addView(valueView);
+
+        TextView labelView = text(label, 9, COLOR_DIM, true);
+        labelView.setIncludeFontPadding(false);
+        labelView.setSingleLine(true);
+        stat.addView(labelView);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                0,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                1
+        );
+        params.rightMargin = dp(6);
+        row.addView(stat, params);
     }
 
     private void rebuildQuickChips() {
@@ -401,10 +453,12 @@ public class MainActivity extends Activity {
     }
 
     private void addFilterChip(LinearLayout strip, String label, boolean selected, View.OnClickListener listener) {
-        TextView chip = text(label, 14, selected ? Color.rgb(21, 17, 8) : COLOR_TEXT, true);
+        TextView chip = text(label, 14, selected ? COLOR_TEXT_DARK : COLOR_TEXT, true);
         chip.setGravity(Gravity.CENTER);
         chip.setPadding(dp(13), dp(8), dp(13), dp(8));
-        chip.setBackground(panel(selected ? COLOR_ORANGE : COLOR_CARD_SOFT, selected ? COLOR_ORANGE : COLOR_BORDER, 1, 18));
+        chip.setBackground(selected
+                ? selectablePanel(COLOR_ORANGE, COLOR_GOLD, COLOR_ORANGE, 1, 18)
+                : selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 18));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -446,9 +500,9 @@ public class MainActivity extends Activity {
     }
 
     private String buildSearchToggleLabel() {
-        if (searchPanelOpen) return "Fermer recherche";
+        if (searchPanelOpen) return "Fermer";
         int activeFilters = countActiveFilters();
-        return activeFilters == 0 ? "Rechercher / filtrer" : "Filtres actifs (" + activeFilters + ")";
+        return activeFilters == 0 ? "Recherche" : "Filtres (" + activeFilters + ")";
     }
 
     private int countActiveFilters() {
@@ -516,7 +570,7 @@ public class MainActivity extends Activity {
         top.setOrientation(LinearLayout.HORIZONTAL);
         top.setGravity(Gravity.CENTER_VERTICAL);
         top.setPadding(dp(10), dp(8), dp(10), dp(8));
-        top.setBackground(panelGradient(COLOR_PANEL, Color.rgb(31, 22, 13), COLOR_BORDER, 1, 0));
+        top.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(31, 22, 13), COLOR_BORDER, 1, 0));
         root.addView(top, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -524,10 +578,11 @@ public class MainActivity extends Activity {
 
         Button back = new Button(this);
         back.setText("Retour");
-        back.setTextColor(Color.rgb(21, 17, 8));
+        back.setTextColor(COLOR_TEXT_DARK);
         back.setTextSize(13);
         back.setTypeface(Typeface.DEFAULT_BOLD);
-        back.setBackground(panel(COLOR_ORANGE, COLOR_ORANGE, 1, 8));
+        back.setAllCaps(false);
+        back.setBackground(buttonPanel(true));
         top.addView(back, new LinearLayout.LayoutParams(dp(104), dp(42)));
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -546,10 +601,11 @@ public class MainActivity extends Activity {
         if (!recipe.isCollection()) {
             Button favorite = new Button(this);
             favorite.setText(isFavorite(recipe.id) ? "Favori" : "+ Favori");
-            favorite.setTextColor(isFavorite(recipe.id) ? Color.rgb(21, 17, 8) : COLOR_TEXT);
+            favorite.setTextColor(isFavorite(recipe.id) ? COLOR_TEXT_DARK : COLOR_TEXT);
             favorite.setTextSize(12);
             favorite.setTypeface(Typeface.DEFAULT_BOLD);
-            favorite.setBackground(panel(isFavorite(recipe.id) ? COLOR_GOLD : COLOR_CARD_SOFT, isFavorite(recipe.id) ? COLOR_GOLD : COLOR_BORDER, 1, 8));
+            favorite.setAllCaps(false);
+            favorite.setBackground(isFavorite(recipe.id) ? buttonPanel(true) : buttonPanel(false));
             top.addView(favorite, new LinearLayout.LayoutParams(dp(96), dp(42)));
             favorite.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -572,22 +628,34 @@ public class MainActivity extends Activity {
                 1
         ));
 
+        LinearLayout heroCard = new LinearLayout(this);
+        heroCard.setOrientation(LinearLayout.VERTICAL);
+        heroCard.setPadding(dp(1), dp(1), dp(1), dp(12));
+        heroCard.setBackground(panelGradient(Color.rgb(15, 13, 10), Color.rgb(31, 23, 15), Color.rgb(104, 76, 31), 1, 12));
+        content.addView(heroCard, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+
         ImageView hero = new ImageView(this);
         hero.setScaleType(ImageView.ScaleType.CENTER_CROP);
         hero.setBackgroundColor(COLOR_CARD);
-        content.addView(hero, new LinearLayout.LayoutParams(
+        heroCard.addView(hero, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(212)
+                dp(214)
         ));
         imageLoader.loadDetail(recipe.detailImage, hero, 960, 480);
 
         TextView category = text(recipe.primaryCategory(), 12, COLOR_GOLD, true);
-        category.setPadding(0, dp(14), 0, dp(6));
-        content.addView(category);
+        category.setPadding(dp(12), dp(12), dp(12), dp(5));
+        category.setSingleLine(true);
+        category.setEllipsize(TextUtils.TruncateAt.END);
+        heroCard.addView(category);
 
         TextView title = text(recipe.title, 28, COLOR_TEXT, true);
         title.setLineSpacing(dp(1), 1.06f);
-        content.addView(title);
+        title.setPadding(dp(12), 0, dp(12), 0);
+        heroCard.addView(title);
 
         addParentPath(content, recipe);
         addInfoChips(content, recipe);
@@ -624,17 +692,18 @@ public class MainActivity extends Activity {
         LinearLayout card = new LinearLayout(this);
         card.setOrientation(LinearLayout.HORIZONTAL);
         card.setGravity(Gravity.CENTER_VERTICAL);
-        card.setPadding(dp(9), dp(8), dp(9), dp(8));
-        card.setBackground(panel(COLOR_CARD_SOFT, Color.rgb(58, 49, 35), 1, 8));
+        card.setPadding(dp(8), dp(8), dp(9), dp(8));
+        card.setMinimumHeight(dp(88));
+        card.setBackground(selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 10));
         card.setClickable(true);
 
         ImageView image = new ImageView(this);
         image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         image.setBackgroundColor(COLOR_CARD);
-        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(dp(104), dp(68));
-        imageParams.rightMargin = dp(11);
+        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(dp(112), dp(72));
+        imageParams.rightMargin = dp(12);
         card.addView(image, imageParams);
-        imageLoader.load(choice.recipe.image, image, dp(104), dp(68));
+        imageLoader.load(choice.recipe.image, image, dp(112), dp(72));
 
         LinearLayout textColumn = new LinearLayout(this);
         textColumn.setOrientation(LinearLayout.VERTICAL);
@@ -644,6 +713,8 @@ public class MainActivity extends Activity {
         TextView badge = text(choice.recipe.primaryCategory(), 10, COLOR_GOLD, true);
         badge.setSingleLine(true);
         badge.setEllipsize(TextUtils.TruncateAt.END);
+        badge.setPadding(dp(7), dp(3), dp(7), dp(3));
+        badge.setBackground(panel(Color.rgb(37, 28, 15), Color.rgb(93, 67, 26), 1, 12));
         textColumn.addView(badge);
 
         TextView title = text(choice.label, 16, COLOR_TEXT, true);
@@ -667,9 +738,11 @@ public class MainActivity extends Activity {
         metaParams.topMargin = dp(5);
         textColumn.addView(meta, metaParams);
 
-        TextView open = text("Ouvrir", 12, COLOR_ORANGE, true);
+        TextView open = text("Voir", 12, COLOR_ORANGE, true);
         open.setGravity(Gravity.CENTER);
-        LinearLayout.LayoutParams openParams = new LinearLayout.LayoutParams(dp(58), ViewGroup.LayoutParams.WRAP_CONTENT);
+        open.setBackground(panel(Color.rgb(39, 30, 18), Color.rgb(93, 67, 26), 1, 14));
+        open.setPadding(dp(8), dp(5), dp(8), dp(5));
+        LinearLayout.LayoutParams openParams = new LinearLayout.LayoutParams(dp(56), ViewGroup.LayoutParams.WRAP_CONTENT);
         openParams.leftMargin = dp(8);
         card.addView(open, openParams);
 
@@ -836,7 +909,7 @@ public class MainActivity extends Activity {
     private void addRecipeTools(LinearLayout content, final Recipe recipe) {
         LinearLayout section = addSection(content, "Actions");
 
-        Button shopping = sectionButton(isInShopping(recipe.id) ? "Retirer des courses" : "Ajouter aux courses");
+        Button shopping = sectionButton(isInShopping(recipe.id) ? "Retirer des courses" : "Ajouter aux courses", true);
         section.addView(shopping);
         shopping.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -846,7 +919,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button copy = sectionButton("Copier fiche");
+        Button copy = sectionButton("Copier fiche", false);
         section.addView(copy);
         copy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -855,7 +928,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button share = sectionButton("Partager fiche");
+        Button share = sectionButton("Partager fiche", false);
         section.addView(share);
         share.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -872,7 +945,7 @@ public class MainActivity extends Activity {
             body(section, "Aucun ingredient detaille pour cette fiche.");
             return;
         }
-        Button copy = sectionButton("Copier ingredients");
+        Button copy = sectionButton("Copier ingredients", false);
         section.addView(copy);
         copy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -942,13 +1015,19 @@ public class MainActivity extends Activity {
         if (trail.isEmpty()) return;
         StringBuilder builder = new StringBuilder();
         for (Recipe parent : trail) {
-            if (builder.length() > 0) builder.append(" > ");
+            if (builder.length() > 0) builder.append("  /  ");
             builder.append(parent.title);
         }
         TextView path = text(builder.toString(), 12, COLOR_MUTED, true);
         path.setSingleLine(false);
-        path.setPadding(0, dp(8), 0, 0);
-        content.addView(path);
+        path.setPadding(dp(10), dp(8), dp(10), dp(8));
+        path.setBackground(panel(COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.topMargin = dp(10);
+        content.addView(path, params);
     }
 
     private void addInfoChips(LinearLayout content, Recipe recipe) {
@@ -983,7 +1062,7 @@ public class MainActivity extends Activity {
         LinearLayout chip = new LinearLayout(this);
         chip.setOrientation(LinearLayout.VERTICAL);
         chip.setPadding(dp(11), dp(7), dp(11), dp(8));
-        chip.setBackground(panel(COLOR_CARD_SOFT, COLOR_BORDER, 1, 8));
+        chip.setBackground(panelGradient(COLOR_CARD_SOFT, Color.rgb(39, 31, 20), COLOR_BORDER_SOFT, 1, 8));
 
         TextView labelView = text(label, 10, COLOR_GOLD, true);
         labelView.setSingleLine(true);
@@ -1005,15 +1084,25 @@ public class MainActivity extends Activity {
     private LinearLayout addSection(LinearLayout content, String value) {
         LinearLayout section = new LinearLayout(this);
         section.setOrientation(LinearLayout.VERTICAL);
-        section.setPadding(dp(13), dp(12), dp(13), dp(14));
-        section.setBackground(panel(COLOR_CARD, COLOR_BORDER, 1, 8));
+        section.setPadding(dp(12), dp(12), dp(12), dp(14));
+        section.setBackground(panelGradient(COLOR_CARD, Color.rgb(29, 24, 18), COLOR_BORDER_SOFT, 1, 10));
 
-        TextView title = text(value, 19, COLOR_GOLD, true);
+        LinearLayout titleRow = new LinearLayout(this);
+        titleRow.setOrientation(LinearLayout.HORIZONTAL);
+        titleRow.setGravity(Gravity.CENTER_VERTICAL);
+        View accent = new View(this);
+        accent.setBackground(panel(COLOR_ORANGE, COLOR_ORANGE, 1, 3));
+        LinearLayout.LayoutParams accentParams = new LinearLayout.LayoutParams(dp(4), dp(22));
+        accentParams.rightMargin = dp(9);
+        titleRow.addView(accent, accentParams);
+
+        TextView title = text(value, 18, COLOR_GOLD, true);
         title.setIncludeFontPadding(false);
-        section.addView(title);
+        titleRow.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        section.addView(titleRow);
 
         View divider = new View(this);
-        divider.setBackgroundColor(Color.rgb(60, 50, 33));
+        divider.setBackgroundColor(COLOR_LINE);
         LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 dp(1)
@@ -1043,11 +1132,11 @@ public class MainActivity extends Activity {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.TOP);
-        row.setPadding(0, dp(5), 0, dp(3));
+        row.setPadding(0, dp(6), 0, dp(4));
 
         View marker = new View(this);
-        marker.setBackground(panel(COLOR_ORANGE, COLOR_ORANGE, 1, 3));
-        LinearLayout.LayoutParams markerParams = new LinearLayout.LayoutParams(dp(6), dp(6));
+        marker.setBackground(panel(COLOR_ORANGE, COLOR_ORANGE, 1, 4));
+        LinearLayout.LayoutParams markerParams = new LinearLayout.LayoutParams(dp(7), dp(7));
         markerParams.topMargin = dp(7);
         markerParams.rightMargin = dp(9);
         row.addView(marker, markerParams);
@@ -1063,9 +1152,9 @@ public class MainActivity extends Activity {
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.TOP);
         row.setPadding(dp(9), dp(9), dp(9), dp(9));
-        row.setBackground(panel(COLOR_CARD_SOFT, Color.rgb(58, 49, 35), 1, 8));
+        row.setBackground(panelGradient(COLOR_CARD_SOFT, Color.rgb(39, 31, 20), COLOR_BORDER_SOFT, 1, 10));
 
-        TextView index = text(String.valueOf(number), 13, Color.rgb(21, 17, 8), true);
+        TextView index = text(String.valueOf(number), 13, COLOR_TEXT_DARK, true);
         index.setGravity(Gravity.CENTER);
         index.setBackground(panel(COLOR_ORANGE, COLOR_ORANGE, 1, 16));
         row.addView(index, new LinearLayout.LayoutParams(dp(32), dp(32)));
@@ -1111,12 +1200,20 @@ public class MainActivity extends Activity {
     }
 
     private Button sectionButton(String value) {
+        return sectionButton(value, true);
+    }
+
+    private Button sectionButton(String value, boolean primary) {
         Button button = new Button(this);
         button.setText(value);
-        button.setTextColor(Color.rgb(21, 17, 8));
+        button.setTextColor(primary ? COLOR_TEXT_DARK : COLOR_TEXT);
         button.setTextSize(13);
         button.setTypeface(Typeface.DEFAULT_BOLD);
-        button.setBackground(panel(COLOR_ORANGE, COLOR_ORANGE, 1, 8));
+        button.setAllCaps(false);
+        button.setMinHeight(0);
+        button.setMinimumHeight(0);
+        button.setPadding(dp(8), 0, dp(8), 0);
+        button.setBackground(buttonPanel(primary));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 dp(42)
@@ -1182,7 +1279,7 @@ public class MainActivity extends Activity {
         top.setOrientation(LinearLayout.HORIZONTAL);
         top.setGravity(Gravity.CENTER_VERTICAL);
         top.setPadding(dp(10), dp(8), dp(10), dp(8));
-        top.setBackgroundColor(COLOR_PANEL);
+        top.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(31, 22, 13), COLOR_BORDER, 1, 0));
         root.addView(top, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -1190,10 +1287,11 @@ public class MainActivity extends Activity {
 
         Button back = new Button(this);
         back.setText("Retour");
-        back.setTextColor(Color.rgb(21, 17, 8));
+        back.setTextColor(COLOR_TEXT_DARK);
         back.setTextSize(13);
         back.setTypeface(Typeface.DEFAULT_BOLD);
-        back.setBackground(panel(COLOR_ORANGE, COLOR_ORANGE, 1, 8));
+        back.setAllCaps(false);
+        back.setBackground(buttonPanel(true));
         top.addView(back, new LinearLayout.LayoutParams(dp(104), dp(42)));
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1221,7 +1319,7 @@ public class MainActivity extends Activity {
         LinearLayout actions = addSection(content, "Courses");
         body(actions, shoppingRecipeIds.size() + " recette(s) dans la liste", COLOR_MUTED);
 
-        Button copy = sectionButton("Copier la liste");
+        Button copy = sectionButton("Copier la liste", true);
         copy.setEnabled(!shoppingRecipeIds.isEmpty());
         actions.addView(copy);
         copy.setOnClickListener(new View.OnClickListener() {
@@ -1231,7 +1329,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button clear = sectionButton("Vider la liste");
+        Button clear = sectionButton("Vider la liste", false);
         clear.setEnabled(!shoppingRecipeIds.isEmpty());
         actions.addView(clear);
         clear.setOnClickListener(new View.OnClickListener() {
@@ -1253,7 +1351,7 @@ public class MainActivity extends Activity {
                 meta.setPadding(0, dp(5), 0, dp(3));
                 section.addView(meta);
 
-                Button remove = sectionButton("Retirer cette recette");
+                Button remove = sectionButton("Retirer cette recette", false);
                 section.addView(remove);
                 remove.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -1275,12 +1373,16 @@ public class MainActivity extends Activity {
     private Button actionButton(String value, boolean primary) {
         Button button = new Button(this);
         button.setText(value);
-        button.setTextColor(primary ? Color.rgb(21, 17, 8) : COLOR_TEXT);
+        button.setTextColor(primary ? COLOR_TEXT_DARK : COLOR_TEXT);
         button.setTextSize(13);
         button.setSingleLine(true);
         button.setEllipsize(TextUtils.TruncateAt.END);
         button.setTypeface(Typeface.DEFAULT_BOLD);
-        button.setBackground(panel(primary ? COLOR_ORANGE : COLOR_CARD_SOFT, primary ? COLOR_ORANGE : COLOR_BORDER, 1, 8));
+        button.setAllCaps(false);
+        button.setMinHeight(0);
+        button.setMinimumHeight(0);
+        button.setPadding(dp(6), 0, dp(6), 0);
+        button.setBackground(buttonPanel(primary));
         return button;
     }
 
@@ -1409,6 +1511,22 @@ public class MainActivity extends Activity {
         drawable.setColor(color);
         drawable.setCornerRadius(dp(radiusDp));
         if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
+        return drawable;
+    }
+
+    private StateListDrawable buttonPanel(boolean primary) {
+        if (primary) {
+            return selectablePanel(COLOR_ORANGE, COLOR_GOLD, COLOR_ORANGE, 1, 8);
+        }
+        return selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 8);
+    }
+
+    private StateListDrawable selectablePanel(int normalColor, int pressedColor, int strokeColor, int strokeWidth, int radiusDp) {
+        StateListDrawable drawable = new StateListDrawable();
+        drawable.addState(new int[]{-android.R.attr.state_enabled}, panel(Color.rgb(34, 31, 27), Color.rgb(55, 49, 39), strokeWidth, radiusDp));
+        drawable.addState(new int[]{android.R.attr.state_pressed}, panel(pressedColor, strokeColor, strokeWidth, radiusDp));
+        drawable.addState(new int[]{android.R.attr.state_focused}, panel(pressedColor, strokeColor, strokeWidth, radiusDp));
+        drawable.addState(new int[]{}, panel(normalColor, strokeColor, strokeWidth, radiusDp));
         return drawable;
     }
 
