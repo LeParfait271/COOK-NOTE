@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { TextDecoder } = require('node:util');
 const jpeg = require('jpeg-js');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -13,6 +14,37 @@ const MAX_IMAGE_WIDTH = 480;
 const DETAIL_IMAGE_WIDTH = 960;
 const JPEG_QUALITY = 54;
 const DETAIL_JPEG_QUALITY = 66;
+const ENCODING_SUSPECT_RE = /(?:\u00c3[\u0080-\u00bf]|\u00c2[\u00a0-\u00bf]|\u00e2[\u0080-\u00bf\u20ac-\u2122]|\uFFFD)/;
+const WINDOWS_1252_BYTE_BY_CODEPOINT = new Map([
+  [0x20AC, 0x80],
+  [0x201A, 0x82],
+  [0x0192, 0x83],
+  [0x201E, 0x84],
+  [0x2026, 0x85],
+  [0x2020, 0x86],
+  [0x2021, 0x87],
+  [0x02C6, 0x88],
+  [0x2030, 0x89],
+  [0x0160, 0x8A],
+  [0x2039, 0x8B],
+  [0x0152, 0x8C],
+  [0x017D, 0x8E],
+  [0x2018, 0x91],
+  [0x2019, 0x92],
+  [0x201C, 0x93],
+  [0x201D, 0x94],
+  [0x2022, 0x95],
+  [0x2013, 0x96],
+  [0x2014, 0x97],
+  [0x02DC, 0x98],
+  [0x2122, 0x99],
+  [0x0161, 0x9A],
+  [0x203A, 0x9B],
+  [0x0153, 0x9C],
+  [0x017E, 0x9E],
+  [0x0178, 0x9F]
+]);
+const UTF8_DECODER = new TextDecoder('utf-8', { fatal: false });
 
 const CATEGORY_ORDER = [
   'Petit-dejeuner',
@@ -48,12 +80,58 @@ function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
+function mojibakeScore(value) {
+  const text = String(value || '');
+  return (text.match(/[\u00c3\u00c2\u00c5\uFFFD]/g) || []).length
+    + (text.match(/\u00e2[\u0080-\u00bf\u20ac-\u2122]/g) || []).length;
+}
+
+function repairMojibakeText(value) {
+  const text = String(value || '');
+  if (!ENCODING_SUSPECT_RE.test(text)) return text;
+  try {
+    const bytes = Uint8Array.from(Array.from(text, char => {
+      const codePoint = char.codePointAt(0);
+      return WINDOWS_1252_BYTE_BY_CODEPOINT.get(codePoint) ?? (codePoint <= 255 ? codePoint : 63);
+    }));
+    const decoded = UTF8_DECODER.decode(bytes);
+    return mojibakeScore(decoded) < mojibakeScore(text) ? decoded : text;
+  } catch {
+    return text;
+  }
+}
+
 function stripHtml(value) {
-  return String(value || '')
+  return repairMojibakeText(value)
     .replace(/<span\b[^>]*data-goto=(["'])([^"']+)\1[^>]*>(.*?)<\/span>/gi, '$3')
     .replace(/<[^>]+>/g, '')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function collectEncodingIssues(value, keyPath, issues) {
+  if (issues.length >= 12) return;
+  if (typeof value === 'string') {
+    if (ENCODING_SUSPECT_RE.test(value)) {
+      issues.push(`${keyPath}: ${value.slice(0, 90)}`);
+    }
+    return;
+  }
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => collectEncodingIssues(item, `${keyPath}[${index}]`, issues));
+    return;
+  }
+  if (value && typeof value === 'object') {
+    Object.entries(value).forEach(([key, item]) => collectEncodingIssues(item, `${keyPath}.${key}`, issues));
+  }
+}
+
+function assertNoEncodingIssues(payload) {
+  const issues = [];
+  collectEncodingIssues(payload, 'recipes-lite', issues);
+  if (issues.length) {
+    throw new Error(`Texte UTF-8 suspect dans les assets Android Legacy:\n${issues.join('\n')}`);
+  }
 }
 
 function normalizeText(value) {
@@ -296,6 +374,7 @@ function buildLiteAssets() {
     recipes: outputRecipes
   };
 
+  assertNoEncodingIssues(payload);
   fs.writeFileSync(path.join(OUT_DIR, 'recipes-lite.json'), JSON.stringify(payload), 'utf8');
 
   console.log(`Assets Android Legacy Native Lite OK: ${OUT_DIR}`);

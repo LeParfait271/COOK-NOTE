@@ -212,6 +212,10 @@ expect(
     && androidLegacyRepository.includes('detailImage')
     && androidLegacyRepository.includes('matchesSeason')
     && androidLegacyRepository.includes('matchesDifficulty')
+    && androidLegacyRepository.includes('cleanString')
+    && androidLegacyRepository.includes('repairText')
+    && androidLegacyRepository.includes('mojibakeScore')
+    && androidLegacyRepository.includes('windows1252Byte')
     && androidLegacyImageLoader.includes('RGB_565')
     && androidLegacyImageLoader.includes('LruCache')
     && androidLegacyImageLoader.includes('detail-images/')
@@ -246,6 +250,9 @@ expect(
     && legacyAssetsScript.includes('copyLiteImage')
     && legacyAssetsScript.includes('recipe-card-images')
     && legacyAssetsScript.includes('recipe-images-optimized')
+    && legacyAssetsScript.includes('repairMojibakeText')
+    && legacyAssetsScript.includes('assertNoEncodingIssues')
+    && legacyAssetsScript.includes('ENCODING_SUSPECT_RE')
     && packageJson.devDependencies?.['jpeg-js']
 );
 expect(

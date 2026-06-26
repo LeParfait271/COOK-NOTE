@@ -129,6 +129,7 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
   'registre de couverture des features',
   'npm run validate:performance',
   'admin d\'ajout recette',
+  'reparation anti-mojibake',
   'detection des bases et composants',
   'batch multi-recettes',
   'dashboard de sante du catalogue',
@@ -190,6 +191,7 @@ expect('Workflow apps global non documente.', validators.appsWorkflow.includes('
 expect('Script apps groupe non branche.', validators.packageJson.includes('"apps:update-all"') && validators.packageJson.includes('"apps:publish-all"') && validators.updateAllApps.includes('build-android-legacy.ps1') && validators.updateAllApps.includes('build-android-modern.ps1') && validators.updateAllApps.includes('cook-note-android-legacy.apk') && validators.updateAllApps.includes('cook-note-android-modern.apk') && validators.updateAllApps.includes('cook-note-android-legacy-v$VersionName.apk') && validators.updateAllApps.includes('cook-note-android-modern-v$VersionName.apk') && validators.updateAllApps.includes('dist\\downloads'));
 expect('Assets Legacy Native Lite non branches.', validators.legacyAssets.includes("require('jpeg-js')") && validators.legacyAssets.includes('recipes-lite.json') && validators.legacyAssets.includes('MAX_IMAGE_WIDTH = 480') && validators.legacyAssets.includes('DETAIL_IMAGE_WIDTH = 960') && validators.legacyAssets.includes('detail-images') && validators.legacyAssets.includes('detailImage') && validators.legacyAssets.includes('additionalMasters') && validators.legacyAssets.includes('copyLiteImage') && validators.legacyAssets.includes('android-legacy-native-lite') && validators.packageJson.includes('scripts/build-android-legacy-assets.js') && validators.packageJson.includes('jpeg-js'));
 expect('Validation Android manuel non branchee.', validators.androidManual.includes('Validation Android manuel OK.') && validators.androidManual.includes('Native Lite') && validators.androidManual.includes('modern-app-hd') && validators.androidManual.includes('CookNoteModernApp/HD') && validators.packageJson.includes('scripts/validate-android-manual.js') && validators.packageJson.includes('apps:update-all') && validators.packageJson.includes('apps:publish-all') && validators.packageJson.includes('android:legacy:update-apk') && validators.packageJson.includes('android:legacy:publish-release') && validators.packageJson.includes('android:modern:update-apk') && validators.packageJson.includes('android:modern:publish-release') && validators.packageJson.includes('jpeg-js'));
+expect('Nettoyage encodage Android Legacy non branche.', validators.legacyAssets.includes('repairMojibakeText') && validators.legacyAssets.includes('assertNoEncodingIssues') && validators.androidManual.includes('cleanString') && validators.androidManual.includes('windows1252Byte'));
 expect('Validation regles non branchee au check.', validators.packageJson.includes('scripts/validate-project-rules.js'));
 
 if (errors.length) {

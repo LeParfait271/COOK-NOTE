@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function mojibakeScore(value) {
     const text = String(value || '');
-    return (text.match(/[ÃÂÅ�]/g) || []).length + (text.match(/â[\u20ac\u2122\u0153\u20ac\u201c\u201d\u00a0-\u00bf]/g) || []).length;
+    return (text.match(/[ÃÂÅ\uFFFD]/g) || []).length + (text.match(/â[\u20ac\u2122\u0153\u20ac\u201c\u201d\u00a0-\u00bf]/g) || []).length;
   }
 
   function repairText(value) {

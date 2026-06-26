@@ -82,6 +82,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Chaque recette feuille doit avoir une image locale unique. Pas de doublon d'image entre recettes feuilles.
 - Aucune image recette ne doit venir du web ou pointer vers une URL externe. Les images recette ajoutees doivent etre generees ou validees localement, copiees dans `assets/recipe-images/`, optimisees, miniaturisees et auditees avant push.
 - Les donnees recette ne doivent jamais contenir de champs publics de source, credit, attribution, imageSource, sourceUrl ou importedFrom. Les sources de travail restent hors catalogue.
+- Les textes affiches doivent rester en UTF-8 sain; le site, le build et les apps gardent une reparation anti-mojibake et bloquent les caracteres suspects avant publication.
 - Les images recette ne doivent pas etre reutilisees visuellement : pas de meme fichier, pas de meme composition recadree/reteinte, pas de presque-doublon. `npm run validate:visual-images` doit bloquer les doublons exacts et les images trop similaires avant push.
 - Les recettes doivent pointer vers les copies legeres dans `assets/recipe-images-optimized/`. Les PNG originaux dans `assets/recipe-images/` restent les masters et ne doivent pas etre supprimes.
 - Le manifest `assets/image-manifest.js` doit etre genere via `npm run generate:image-manifest`, versionne avec le cache, et valide en CI. Les miniatures d'interface doivent utiliser `assets/recipe-card-images/` quand l'image n'est pas le hero ou une vraie image de partage.

@@ -245,20 +245,20 @@ final class CookNoteRepository {
 
     private static Recipe parseRecipe(JSONObject json) {
         return new Recipe(
-                json.optString("id", ""),
-                json.optString("title", ""),
-                json.optString("image", ""),
-                json.optString("detailImage", json.optString("image", "")),
+                cleanString(json.optString("id", "")),
+                cleanString(json.optString("title", "")),
+                cleanString(json.optString("image", "")),
+                cleanString(json.optString("detailImage", json.optString("image", ""))),
                 stringList(json.optJSONArray("categories")),
                 stringList(json.optJSONArray("seasons")),
-                json.optString("difficulty", ""),
+                cleanString(json.optString("difficulty", "")),
                 json.optInt("difficultyScore", 0),
-                json.optString("yield", ""),
+                cleanString(json.optString("yield", "")),
                 json.optInt("activeTime", 0),
                 json.optInt("cookTime", 0),
-                json.optString("master", ""),
+                cleanString(json.optString("master", "")),
                 stringList(json.optJSONArray("additionalMasters")),
-                json.optString("masterType", ""),
+                cleanString(json.optString("masterType", "")),
                 json.optBoolean("variantGroups", false),
                 variants(json.optJSONArray("variants")),
                 groups(json.optJSONArray("ingredients")),
@@ -278,8 +278,8 @@ final class CookNoteRepository {
         for (int index = 0; index < array.length(); index += 1) {
             JSONObject item = array.optJSONObject(index);
             if (item == null) continue;
-            String id = item.optString("id", "");
-            if (id.length() > 0) output.add(new Recipe.Variant(id, item.optString("label", "")));
+            String id = cleanString(item.optString("id", ""));
+            if (id.length() > 0) output.add(new Recipe.Variant(id, cleanString(item.optString("label", ""))));
         }
         return output;
     }
@@ -291,9 +291,9 @@ final class CookNoteRepository {
             JSONObject item = array.optJSONObject(index);
             if (item == null) continue;
             output.add(new Recipe.Group(
-                    item.optString("group", "Base"),
+                    cleanString(item.optString("group", "Base")),
                     stringList(item.optJSONArray("items")),
-                    item.optString("note", ""),
+                    cleanString(item.optString("note", "")),
                     stringList(item.optJSONArray("steps"))
             ));
         }
@@ -306,7 +306,7 @@ final class CookNoteRepository {
         for (int index = 0; index < array.length(); index += 1) {
             JSONObject item = array.optJSONObject(index);
             if (item == null) continue;
-            output.add(new Recipe.Technical(item.optString("label", ""), item.optString("value", "")));
+            output.add(new Recipe.Technical(cleanString(item.optString("label", "")), cleanString(item.optString("value", ""))));
         }
         return output;
     }
@@ -318,7 +318,7 @@ final class CookNoteRepository {
             JSONObject item = array.optJSONObject(index);
             if (item == null) continue;
             output.add(new Recipe.PracticalSection(
-                    item.optString("title", ""),
+                    cleanString(item.optString("title", "")),
                     stringList(item.optJSONArray("items"))
             ));
         }
@@ -329,10 +329,81 @@ final class CookNoteRepository {
         List<String> output = new ArrayList<String>();
         if (array == null) return output;
         for (int index = 0; index < array.length(); index += 1) {
-            String value = array.optString(index, "").trim();
+            String value = cleanString(array.optString(index, ""));
             if (value.length() > 0) output.add(value);
         }
         return output;
+    }
+
+    private static String cleanString(String value) {
+        return repairText(value == null ? "" : value).trim();
+    }
+
+    private static String repairText(String value) {
+        if (value == null || value.length() == 0 || !looksMojibake(value)) return value == null ? "" : value;
+        try {
+            byte[] bytes = new byte[value.length()];
+            for (int index = 0; index < value.length(); index += 1) {
+                bytes[index] = (byte) windows1252Byte(value.charAt(index));
+            }
+            String decoded = new String(bytes, "UTF-8");
+            return mojibakeScore(decoded) < mojibakeScore(value) ? decoded : value;
+        } catch (Exception ignored) {
+            return value;
+        }
+    }
+
+    private static boolean looksMojibake(String value) {
+        for (int index = 0; index < value.length(); index += 1) {
+            char current = value.charAt(index);
+            if (current == '\u00C3' || current == '\u00C2' || current == '\u00C5' || current == '\u00E2' || current == '\uFFFD') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static int mojibakeScore(String value) {
+        int score = 0;
+        for (int index = 0; index < value.length(); index += 1) {
+            char current = value.charAt(index);
+            if (current == '\u00C3' || current == '\u00C2' || current == '\u00C5' || current == '\uFFFD') score += 1;
+            if (current == '\u00E2') score += 2;
+        }
+        return score;
+    }
+
+    private static int windows1252Byte(char value) {
+        switch (value) {
+            case '\u20AC': return 0x80;
+            case '\u201A': return 0x82;
+            case '\u0192': return 0x83;
+            case '\u201E': return 0x84;
+            case '\u2026': return 0x85;
+            case '\u2020': return 0x86;
+            case '\u2021': return 0x87;
+            case '\u02C6': return 0x88;
+            case '\u2030': return 0x89;
+            case '\u0160': return 0x8A;
+            case '\u2039': return 0x8B;
+            case '\u0152': return 0x8C;
+            case '\u017D': return 0x8E;
+            case '\u2018': return 0x91;
+            case '\u2019': return 0x92;
+            case '\u201C': return 0x93;
+            case '\u201D': return 0x94;
+            case '\u2022': return 0x95;
+            case '\u2013': return 0x96;
+            case '\u2014': return 0x97;
+            case '\u02DC': return 0x98;
+            case '\u2122': return 0x99;
+            case '\u0161': return 0x9A;
+            case '\u203A': return 0x9B;
+            case '\u0153': return 0x9C;
+            case '\u017E': return 0x9E;
+            case '\u0178': return 0x9F;
+            default: return value <= 255 ? value : 63;
+        }
     }
 
     private static int categoryRank(String category) {

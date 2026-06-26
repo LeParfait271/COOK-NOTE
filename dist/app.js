@@ -103,7 +103,7 @@ function detectAppEnvironment() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.04';
+const SITE_VERSION = 'v2.05';
 const SITE_UPDATED_AT = '26/06/26';
 const APP_ENVIRONMENT = detectAppEnvironment();
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
@@ -942,7 +942,7 @@ const WINDOWS_1252_BYTE_BY_CODEPOINT = {
 
 function mojibakeScore(value) {
   const text = String(value || '');
-  return (text.match(/[ÃÂÅ�]/g) || []).length + (text.match(/â[\u20ac\u2122\u0153\u20ac\u201c\u201d\u00a0-\u00bf]/g) || []).length;
+  return (text.match(/[ÃÂÅ\uFFFD]/g) || []).length + (text.match(/â[\u20ac\u2122\u0153\u20ac\u201c\u201d\u00a0-\u00bf]/g) || []).length;
 }
 
 function repairMojibakeText(value) {
