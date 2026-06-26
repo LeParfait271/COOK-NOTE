@@ -130,7 +130,7 @@ prerendues par `scripts/build-site.js`.
   pastilles, ingredients en lignes, copie ingredients, rattachements parents
   additionnels, bouton natif de mise a
   jour, liste de courses locale, copie fiche, partage fiche, etapes numerotees
-  et selecteurs natifs de variantes
+  cartes parent visibles et selecteurs natifs de preparation
 
 Le panneau recherche/filtres replie garde les filtres hors de l accueil tant
 que l utilisateur ne touche pas `Rechercher / filtrer`. Le bouton natif de mise
@@ -139,10 +139,10 @@ La puce `Toutes fiches` reste dans le panneau de recherche pour parcourir le
 catalogue complet sans remettre les recettes enfants en vrac sur l'accueil.
 Les fiches parents lisent `master` et `additionalMasters`, afin que les
 rattachements parents additionnels du site soient visibles dans l app.
-Les collections Android Legacy doivent ouvrir leurs variantes via un selecteur
-natif, pas en affichant toutes les fiches enfants a plat. Les fiches avec
-variantes internes gardent aussi une preparation choisie : une seule preparation
-active affiche ingredients et etapes.
+Les collections Android Legacy doivent afficher les recettes en cartes parent
+visibles, comme le site, pas dans un menu deroulant. Les fiches avec variantes
+internes gardent une preparation choisie : une seule preparation active affiche
+ingredients et etapes.
 Le bouton `Courses` ouvre une liste locale simple stockee en `SharedPreferences`
 et copiable, sans serveur, sans WebView et sans fusion couteuse.
 Le bouton natif de mise a jour ouvre toujours l APK Android 5.0+ stable.

@@ -142,7 +142,9 @@ expect(
     && androidLegacyMainActivity.includes('addInlineVariantPicker')
     && androidLegacyMainActivity.includes('selectedIngredientGroups')
     && androidLegacyMainActivity.includes('selectedRecipeSteps')
-    && androidLegacyMainActivity.includes('Ouvrir la fiche')
+    && androidLegacyMainActivity.includes('addCollectionCards')
+    && androidLegacyMainActivity.includes('addCollectionCard')
+    && androidLegacyMainActivity.includes('"Recettes"')
     && androidLegacyMainActivity.includes('Preparation')
     && androidLegacyMainActivity.includes('SharedPreferences')
     && androidLegacyMainActivity.includes('favoriteIds')
@@ -321,7 +323,9 @@ expect(
   'panneau recherche/filtres replie',
   'accueil parent Android',
   'Toutes fiches',
-  'selecteurs natifs de variantes',
+  'cartes parent visibles',
+  'menu deroulant',
+  'selecteur natif',
   'rattachements parents additionnels',
   'nom APK versionne',
   'preparation choisie',
@@ -346,7 +350,9 @@ expect(
     && androidReadme.includes('panneau recherche/filtres replie')
     && androidReadme.includes('accueil parent Android')
     && androidReadme.includes('Toutes fiches')
-    && androidReadme.includes('selecteurs natifs de variantes')
+    && androidReadme.includes('cartes parent visibles')
+    && androidReadme.includes('menu')
+    && androidReadme.includes('selecteurs natifs uniquement')
     && androidReadme.includes('rattachements parents additionnels')
     && androidReadme.includes('nom APK versionne')
     && androidReadme.includes('preparation choisie')
@@ -403,7 +409,9 @@ expect(
   'panneau recherche/filtres replie',
   'accueil parent Android',
   'Toutes fiches',
-  'selecteurs natifs de variantes',
+  'cartes parent visibles',
+  'menu deroulant',
+  'selecteurs natifs de preparation',
   'rattachements parents additionnels',
   'nom APK versionne',
   'preparation choisie',

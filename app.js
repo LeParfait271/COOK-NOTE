@@ -103,7 +103,7 @@ function detectAppEnvironment() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.00';
+const SITE_VERSION = 'v2.01';
 const SITE_UPDATED_AT = '26/06/26';
 const APP_ENVIRONMENT = detectAppEnvironment();
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';

@@ -60,11 +60,11 @@ Les fiches parents doivent lire `master` et `additionalMasters`, afin que les
 rattachements parents additionnels du site apparaissent dans les collections
 Android Legacy.
 
-Les variantes doivent suivre la construction du site. Les fiches collections
-utilisent des selecteurs natifs de variantes au lieu d afficher toutes les
-fiches enfants en colonnes. Les fiches a variantes internes utilisent une
-preparation choisie : une seule variante active affiche ses ingredients et ses
-etapes, les autres restent dans le selecteur natif.
+Les variantes doivent suivre la construction du site. Les fiches parents et
+collections affichent leurs recettes en cartes parent visibles, comme sur le
+site, jamais dans un menu deroulant. Les fiches a variantes internes utilisent
+une preparation choisie : une seule variante active affiche ses ingredients et
+ses etapes, les autres restent dans le selecteur natif.
 
 Le workflow officiel passe par `scripts/build-android-legacy-assets.js`, qui
 genere une sortie dediee dans :
@@ -263,9 +263,10 @@ C est voulu.
 - Ne pas supprimer les fonctions natives legeres reintegrees : favoris locaux,
   derniers ouverts, filtres saison/difficulte, panneau recherche/filtres replie,
   copie ingredients, liste de courses locale, copie fiche et partage fiche.
-- Ne pas afficher toutes les variantes d une collection ou d une fiche a
-  variantes internes a plat : garder les selecteurs natifs de variantes et la
-  preparation choisie.
+- Ne pas cacher les recettes d une fiche parent dans un menu deroulant :
+  garder des cartes parent visibles comme sur le site.
+- Ne pas afficher toutes les preparations d une fiche a variantes internes a
+  plat : garder le selecteur natif et la preparation choisie.
 - Ne pas publier une nouvelle release APK sans demande explicite.
 - Ne jamais publier un seul APK : toute mise a jour app doit passer par
   `npm run apps:update-all`.

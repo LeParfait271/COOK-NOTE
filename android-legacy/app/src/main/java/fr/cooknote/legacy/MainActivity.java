@@ -85,7 +85,6 @@ public class MainActivity extends Activity {
     private final Set<String> favoriteIds = new HashSet<String>();
     private final ArrayList<String> recentIds = new ArrayList<String>();
     private final ArrayList<String> shoppingRecipeIds = new ArrayList<String>();
-    private final Map<String, Integer> collectionVariantSelections = new HashMap<String, Integer>();
     private final Map<String, Integer> inlineVariantSelections = new HashMap<String, Integer>();
 
     @Override
@@ -594,7 +593,7 @@ public class MainActivity extends Activity {
         addInfoChips(content, recipe);
 
         if (recipe.isCollection()) {
-            addVariants(content, recipe);
+            addCollectionCards(content, recipe);
         } else {
             if (recipe.variantGroups) addInlineVariantPicker(content, recipe);
             addRecipeTools(content, recipe);
@@ -608,47 +607,83 @@ public class MainActivity extends Activity {
         setContentView(root);
     }
 
-    private void addVariants(LinearLayout content, final Recipe recipe) {
-        LinearLayout section = addSection(content, "Variantes");
+    private void addCollectionCards(LinearLayout content, final Recipe recipe) {
+        LinearLayout section = addSection(content, "Recettes");
         final List<VariantChoice> choices = collectionVariantChoices(recipe);
         if (choices.isEmpty()) {
-            body(section, "Aucune variante disponible.");
+            body(section, "Aucune fiche disponible.");
             return;
         }
         body(section, choices.size() + " fiche(s) rangee(s) ici.", COLOR_MUTED);
+        for (VariantChoice choice : choices) {
+            addCollectionCard(section, recipe, choice);
+        }
+    }
 
-        final int selectedIndex = selectedCollectionVariantIndex(recipe, choices);
-        final int[] currentIndex = new int[]{selectedIndex};
-        Spinner spinner = createSpinner(labelsForChoices(choices));
-        spinner.setSelection(selectedIndex);
-        section.addView(spinner, fullWidthParams(dp(10), dp(46)));
+    private void addCollectionCard(LinearLayout section, final Recipe parentRecipe, final VariantChoice choice) {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.HORIZONTAL);
+        card.setGravity(Gravity.CENTER_VERTICAL);
+        card.setPadding(dp(9), dp(8), dp(9), dp(8));
+        card.setBackground(panel(COLOR_CARD_SOFT, Color.rgb(58, 49, 35), 1, 8));
+        card.setClickable(true);
 
-        final TextView meta = text("", 13, COLOR_MUTED, false);
-        meta.setPadding(0, dp(8), 0, 0);
-        section.addView(meta);
-        updateVariantMeta(meta, choices.get(selectedIndex).recipe);
+        ImageView image = new ImageView(this);
+        image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        image.setBackgroundColor(COLOR_CARD);
+        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(dp(104), dp(68));
+        imageParams.rightMargin = dp(11);
+        card.addView(image, imageParams);
+        imageLoader.load(choice.recipe.image, image, dp(104), dp(68));
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == currentIndex[0]) return;
-                currentIndex[0] = position;
-                collectionVariantSelections.put(recipe.id, position);
-                updateVariantMeta(meta, choices.get(position).recipe);
-            }
+        LinearLayout textColumn = new LinearLayout(this);
+        textColumn.setOrientation(LinearLayout.VERTICAL);
+        textColumn.setGravity(Gravity.CENTER_VERTICAL);
+        card.addView(textColumn, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        TextView badge = text(choice.recipe.primaryCategory(), 10, COLOR_GOLD, true);
+        badge.setSingleLine(true);
+        badge.setEllipsize(TextUtils.TruncateAt.END);
+        textColumn.addView(badge);
 
-        Button open = sectionButton("Ouvrir la fiche");
-        section.addView(open);
-        open.setOnClickListener(new View.OnClickListener() {
+        TextView title = text(choice.label, 16, COLOR_TEXT, true);
+        title.setMaxLines(2);
+        title.setEllipsize(TextUtils.TruncateAt.END);
+        title.setLineSpacing(dp(1), 1.04f);
+        LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        titleParams.topMargin = dp(4);
+        textColumn.addView(title, titleParams);
+
+        TextView meta = text(displayMeta(choice.recipe), 12, COLOR_MUTED, false);
+        meta.setSingleLine(true);
+        meta.setEllipsize(TextUtils.TruncateAt.END);
+        LinearLayout.LayoutParams metaParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        metaParams.topMargin = dp(5);
+        textColumn.addView(meta, metaParams);
+
+        TextView open = text("Ouvrir", 12, COLOR_ORANGE, true);
+        open.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams openParams = new LinearLayout.LayoutParams(dp(58), ViewGroup.LayoutParams.WRAP_CONTENT);
+        openParams.leftMargin = dp(8);
+        card.addView(open, openParams);
+
+        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        cardParams.topMargin = dp(10);
+        section.addView(card, cardParams);
+        card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                detailBackStack.push(recipe.id);
-                openRecipe(choices.get(currentIndex[0]).recipe, false);
+                detailBackStack.push(parentRecipe.id);
+                openRecipe(choice.recipe, false);
             }
         });
     }
@@ -712,17 +747,6 @@ public class MainActivity extends Activity {
             }
         });
         return choices;
-    }
-
-    private int selectedCollectionVariantIndex(Recipe recipe, List<VariantChoice> choices) {
-        Integer saved = collectionVariantSelections.get(recipe.id);
-        int index = saved == null ? 0 : saved.intValue();
-        if (index < 0 || index >= choices.size()) return 0;
-        return index;
-    }
-
-    private void updateVariantMeta(TextView meta, Recipe recipe) {
-        meta.setText(displayMeta(recipe));
     }
 
     private String displayMeta(Recipe recipe) {
@@ -790,14 +814,6 @@ public class MainActivity extends Activity {
         String label = value == null ? "" : value.trim();
         label = label.replaceFirst("(?i)^\\s*(variante|version|option)\\s*[:\\-]?\\s*", "");
         return label.length() == 0 ? "Preparation" : label;
-    }
-
-    private List<String> labelsForChoices(List<VariantChoice> choices) {
-        List<String> labels = new ArrayList<String>();
-        for (VariantChoice choice : choices) {
-            labels.add(choice.label);
-        }
-        return labels;
     }
 
     private List<String> labelsForInlineChoices(List<InlineVariantChoice> choices) {

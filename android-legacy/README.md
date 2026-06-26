@@ -23,8 +23,10 @@ Le mode d'emploi complet est dans
   les fiches parents affichent tout leur contenu range
 - Puce `Toutes fiches` dans la recherche pour parcourir le catalogue complet
   sans remettre les recettes enfants en vrac sur l'accueil
-- selecteurs natifs de variantes pour les collections et preparation choisie
-  pour les fiches a variantes internes, sans afficher toutes les variantes en bloc
+- cartes parent visibles pour les collections, comme sur le site, sans menu
+  deroulant pour choisir une recette
+- selecteurs natifs uniquement pour la preparation choisie des fiches a
+  variantes internes, sans afficher toutes les variantes en bloc
 - Fonctions natives legeres : favoris locaux, derniers ouverts, filtres
   saison/difficulte, copie ingredients, liste de courses locale, copie fiche,
   partage fiche et bouton natif de mise a jour
