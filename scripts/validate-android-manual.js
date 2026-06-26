@@ -197,6 +197,12 @@ expect(
     && androidLegacyMainActivity.includes('Intent.ACTION_VIEW')
     && androidLegacyMainActivity.includes('cook-note-android-legacy.apk')
     && androidLegacyMainActivity.includes('GradientDrawable')
+    && androidLegacyMainActivity.includes('addDetailHero')
+    && androidLegacyMainActivity.includes('detailHeroHeight')
+    && androidLegacyMainActivity.includes('addHeroActions')
+    && androidLegacyMainActivity.includes('addRecipeContentGrid')
+    && androidLegacyMainActivity.includes('addBeforePanel')
+    && androidLegacyMainActivity.includes('Avant de commencer')
     && androidLegacyRepository.includes('recipes-lite.json')
     && androidLegacyRepository.includes('homeRecipes')
     && androidLegacyRepository.includes('filterSearchable')
@@ -351,6 +357,8 @@ expect(
   '16/9',
   'header compact avec stats locales',
   'hero',
+  'fiche recette detaillee proche du site',
+  'grille Ingredients/Etapes/Avant de commencer',
   'actions principales/secondaires',
   'pastilles',
   'favoris locaux',
@@ -384,6 +392,8 @@ expect(
     && androidReadme.includes('refonte visuelle native premium')
     && androidReadme.includes('cartes')
     && androidReadme.includes('hero')
+    && androidReadme.includes('fiche recette detaillee proche du site')
+    && androidReadme.includes('grille Ingredients/Etapes/Avant de commencer')
     && androidReadme.includes('actions principales')
     && androidReadme.includes('favoris locaux')
     && androidReadme.includes('derniers ouverts')
@@ -447,6 +457,8 @@ expect(
   '16/9',
   'header compact avec stats locales',
   'hero de fiche encadre',
+  'fiche recette detaillee proche du site',
+  'grille Ingredients/Etapes/Avant de commencer',
   'actions principales/secondaires',
   'pastilles',
   'favoris locaux',

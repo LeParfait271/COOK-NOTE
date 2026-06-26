@@ -40,7 +40,8 @@ site, ouvre les fiches dans des vues Android natives, et charge les images avec
 un cache memoire limite.
 
 La lecture doit rester confortable malgre le mode Lite : titres ellipses dans la
-liste, fiches decoupees en sections natives, infos rapides en pastilles,
+liste, fiche recette detaillee proche du site avec hero 16/9, actions dans le
+hero, grille Ingredients/Etapes/Avant de commencer, infos rapides en pastilles,
 ingredients en lignes lisibles, etapes numerotees et variantes cliquables. Les
 fonctions reintegrees doivent rester natives et peu couteuses : favoris locaux
 `SharedPreferences`, derniers ouverts, filtres saison/difficulte et copie des
@@ -55,8 +56,8 @@ Android simples, pas un rendu web.
 La direction visuelle attendue est une refonte visuelle native premium mais
 Native Lite : header compact avec stats locales, grille `GridView` en cartes
 image 16/9 tactiles recyclees, fonds sombres cadres, etats presses via `StateListDrawable`,
-sections cadrees, hero de fiche encadre, pastilles lisibles et actions
-principales/secondaires distinguees. Ne pas revenir a des controles Android par
+sections cadrees, hero de fiche encadre, grille Ingredients/Etapes/Avant de
+commencer, pastilles lisibles et actions principales/secondaires distinguees. Ne pas revenir a des controles Android par
 defaut sans direction Cook Note.
 
 L accueil parent Android doit reprendre le rangement du site : sans recherche
@@ -273,7 +274,8 @@ C est voulu.
   copie ingredients, liste de courses locale, copie fiche et partage fiche.
 - Ne pas remplacer la refonte visuelle native premium par des blocs Android
   par defaut : garder cartes tactiles, header compact avec stats locales, hero
-  encadre, sections cadrees et actions principales/secondaires distinguees.
+  encadre, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer,
+  sections cadrees et actions principales/secondaires distinguees.
 - Ne pas cacher les recettes d une fiche parent dans un menu deroulant :
   garder des cartes parent visibles comme sur le site.
 - Ne pas afficher toutes les preparations d une fiche a variantes internes a

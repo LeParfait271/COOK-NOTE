@@ -21,8 +21,8 @@ Le mode d'emploi complet est dans
   grille recyclee de cartes image 16/9 proches du site, panneau recherche/filtres replie
   et cache image limite
 - refonte visuelle native premium : header compact, stats locales, cartes
-  tactiles, sections cadrees, hero de fiche encadre et actions principales /
-  secondaires distinguees
+  tactiles, sections cadrees, hero de fiche encadre, fiche recette detaillee proche du site,
+  grille Ingredients/Etapes/Avant de commencer et actions principales / secondaires distinguees
 - rattachements parents additionnels lus depuis `additionalMasters` pour que
   les fiches parents affichent tout leur contenu range
 - Puce `Toutes fiches` dans la recherche pour parcourir le catalogue complet

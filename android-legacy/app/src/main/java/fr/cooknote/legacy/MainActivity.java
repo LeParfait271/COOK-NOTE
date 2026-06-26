@@ -635,51 +635,353 @@ public class MainActivity extends Activity {
                 1
         ));
 
-        LinearLayout heroCard = new LinearLayout(this);
-        heroCard.setOrientation(LinearLayout.VERTICAL);
-        heroCard.setPadding(dp(1), dp(1), dp(1), dp(12));
-        heroCard.setBackground(panelGradient(Color.rgb(15, 13, 10), Color.rgb(31, 23, 15), Color.rgb(104, 76, 31), 1, 12));
-        content.addView(heroCard, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-
-        ImageView hero = new ImageView(this);
-        hero.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        hero.setBackgroundColor(COLOR_CARD);
-        heroCard.addView(hero, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(214)
-        ));
-        imageLoader.loadDetail(recipe.detailImage, hero, 960, 480);
-
-        TextView category = text(recipe.primaryCategory(), 12, COLOR_GOLD, true);
-        category.setPadding(dp(12), dp(12), dp(12), dp(5));
-        category.setSingleLine(true);
-        category.setEllipsize(TextUtils.TruncateAt.END);
-        heroCard.addView(category);
-
-        TextView title = text(recipe.title, 28, COLOR_TEXT, true);
-        title.setLineSpacing(dp(1), 1.06f);
-        title.setPadding(dp(12), 0, dp(12), 0);
-        heroCard.addView(title);
-
-        addParentPath(content, recipe);
-        addInfoChips(content, recipe);
+        addDetailHero(content, recipe);
+        addQuickFacts(content, recipe);
 
         if (recipe.isCollection()) {
             addCollectionCards(content, recipe);
         } else {
             if (recipe.variantGroups) addInlineVariantPicker(content, recipe);
-            addRecipeTools(content, recipe);
-            addIngredients(content, recipe);
-            addSteps(content, recipe);
-            addNotes(content, recipe);
-            addTechnical(content, recipe);
-            addPractical(content, recipe);
+            addRecipeContentGrid(content, recipe);
         }
 
         setContentView(root);
+    }
+
+    private void addDetailHero(LinearLayout content, final Recipe recipe) {
+        FrameLayout heroCard = new FrameLayout(this);
+        heroCard.setPadding(dp(1), dp(1), dp(1), dp(1));
+        heroCard.setBackground(panelGradient(Color.rgb(12, 10, 8), Color.rgb(31, 23, 15), Color.rgb(104, 76, 31), 1, 12));
+        content.addView(heroCard, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                detailHeroHeight()
+        ));
+
+        ImageView hero = new ImageView(this);
+        hero.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        hero.setBackgroundColor(COLOR_CARD);
+        heroCard.addView(hero, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+        imageLoader.loadDetail(recipe.detailImage, hero, 960, 540);
+
+        View veil = new View(this);
+        veil.setBackgroundColor(Color.argb(recipe.isCollection() ? 156 : 116, 0, 0, 0));
+        heroCard.addView(veil, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+
+        LinearLayout overlay = new LinearLayout(this);
+        overlay.setOrientation(LinearLayout.VERTICAL);
+        overlay.setPadding(dp(13), dp(12), dp(13), dp(13));
+        overlay.setBackgroundColor(Color.argb(220, 7, 6, 5));
+        FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                Gravity.BOTTOM
+        );
+        heroCard.addView(overlay, overlayParams);
+
+        TextView breadcrumb = text(detailBreadcrumb(recipe), 11, COLOR_MUTED, true);
+        breadcrumb.setSingleLine(true);
+        breadcrumb.setEllipsize(TextUtils.TruncateAt.END);
+        overlay.addView(breadcrumb);
+
+        TextView category = text(recipe.primaryCategory(), 11, COLOR_GOLD, true);
+        category.setSingleLine(true);
+        category.setEllipsize(TextUtils.TruncateAt.END);
+        category.setPadding(dp(8), dp(4), dp(8), dp(4));
+        category.setBackground(panel(Color.rgb(43, 31, 15), Color.rgb(120, 82, 22), 1, 12));
+        LinearLayout.LayoutParams categoryParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        categoryParams.topMargin = dp(7);
+        overlay.addView(category, categoryParams);
+
+        TextView title = text(recipe.title, recipe.isCollection() ? 28 : 26, COLOR_TEXT, true);
+        title.setMaxLines(3);
+        title.setEllipsize(TextUtils.TruncateAt.END);
+        title.setLineSpacing(dp(1), 1.03f);
+        LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        titleParams.topMargin = dp(7);
+        overlay.addView(title, titleParams);
+
+        String meta = recipe.isCollection()
+                ? repository.collectionCount(recipe) + " fiches rangees"
+                : recipe.metaLine();
+        TextView metaView = text(meta, 12, COLOR_MUTED, true);
+        metaView.setSingleLine(false);
+        metaView.setPadding(0, dp(4), 0, 0);
+        overlay.addView(metaView);
+
+        if (!recipe.isCollection()) addHeroActions(overlay, recipe);
+    }
+
+    private String detailBreadcrumb(Recipe recipe) {
+        StringBuilder builder = new StringBuilder("Cook Note");
+        List<Recipe> trail = repository.parentTrail(recipe);
+        for (Recipe parent : trail) {
+            builder.append(" / ").append(parent.title);
+        }
+        if (trail.isEmpty() && recipe.master.length() == 0) {
+            builder.append(" / ").append(recipe.primaryCategory());
+        }
+        return builder.toString();
+    }
+
+    private int detailHeroHeight() {
+        int width = getResources().getDisplayMetrics().widthPixels - dp(28);
+        int height = Math.max(dp(248), (width * 9) / 16);
+        return Math.min(dp(430), height);
+    }
+
+    private void addHeroActions(LinearLayout overlay, final Recipe recipe) {
+        ArrayList<Button> buttons = new ArrayList<Button>();
+
+        Button shopping = actionButton(isInShopping(recipe.id) ? "Dans courses" : "+ Courses", true);
+        shopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleShopping(recipe);
+                openRecipe(recipe, false);
+            }
+        });
+        buttons.add(shopping);
+
+        Button copy = actionButton("Copier", false);
+        copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyRecipe(recipe);
+            }
+        });
+        buttons.add(copy);
+
+        Button share = actionButton("Partager", false);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareRecipe(recipe);
+            }
+        });
+        buttons.add(share);
+
+        Button favorite = actionButton(isFavorite(recipe.id) ? "Favori" : "+ Favori", isFavorite(recipe.id));
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleFavorite(recipe.id);
+                openRecipe(recipe, false);
+            }
+        });
+        buttons.add(favorite);
+
+        int perRow = getResources().getDisplayMetrics().widthPixels >= dp(720) ? 4 : 2;
+        LinearLayout row = null;
+        for (int index = 0; index < buttons.size(); index += 1) {
+            if (index % perRow == 0) {
+                row = new LinearLayout(this);
+                row.setOrientation(LinearLayout.HORIZONTAL);
+                LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+                rowParams.topMargin = dp(index == 0 ? 10 : 7);
+                overlay.addView(row, rowParams);
+            }
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(40), 1);
+            if (index % perRow < perRow - 1) params.rightMargin = dp(7);
+            row.addView(buttons.get(index), params);
+        }
+    }
+
+    private void addQuickFacts(LinearLayout content, Recipe recipe) {
+        ArrayList<String[]> facts = new ArrayList<String[]>();
+        facts.add(new String[]{"Categorie", recipe.primaryCategory()});
+        if (!recipe.seasons.isEmpty()) facts.add(new String[]{"Saison", shortList(recipe.seasons, 2)});
+
+        if (recipe.isCollection()) {
+            facts.add(new String[]{"Collection", repository.collectionCount(recipe) + " fiches"});
+        } else {
+            String difficulty = recipe.difficultyLabel();
+            if (difficulty.length() > 0) facts.add(new String[]{"Difficulte", difficulty});
+            if (recipe.yield.length() > 0) facts.add(new String[]{"Quantite", recipe.yield});
+            if (recipe.activeTime > 0) facts.add(new String[]{"Actif", formatMinutes(recipe.activeTime)});
+            if (recipe.cookTime > 0) facts.add(new String[]{"Cuisson", formatMinutes(recipe.cookTime)});
+            int totalTime = recipe.activeTime + recipe.cookTime;
+            if (totalTime > 0) facts.add(new String[]{"Temps", formatMinutes(totalTime)});
+            int ingredientCount = countSelectedIngredients(recipe);
+            if (ingredientCount > 0) facts.add(new String[]{"Ingredients", String.valueOf(ingredientCount)});
+            int stepCount = selectedRecipeSteps(recipe).size();
+            if (stepCount > 0) facts.add(new String[]{"Etapes", String.valueOf(stepCount)});
+        }
+
+        if (facts.isEmpty()) return;
+
+        LinearLayout block = new LinearLayout(this);
+        block.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams blockParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        blockParams.topMargin = dp(12);
+        content.addView(block, blockParams);
+
+        int columns = quickFactColumns();
+        LinearLayout row = null;
+        for (int index = 0; index < facts.size(); index += 1) {
+            if (index % columns == 0) {
+                row = new LinearLayout(this);
+                row.setOrientation(LinearLayout.HORIZONTAL);
+                LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+                if (index > 0) rowParams.topMargin = dp(8);
+                block.addView(row, rowParams);
+            }
+            addQuickFactCard(row, facts.get(index)[0], facts.get(index)[1], index % columns < columns - 1);
+        }
+
+        int missing = facts.size() % columns;
+        if (row != null && missing > 0) {
+            for (int index = missing; index < columns; index += 1) {
+                addQuickFactSpacer(row, index < columns - 1);
+            }
+        }
+    }
+
+    private int quickFactColumns() {
+        int width = getResources().getDisplayMetrics().widthPixels;
+        if (width >= dp(940)) return 4;
+        if (width >= dp(620)) return 3;
+        return 2;
+    }
+
+    private void addQuickFactCard(LinearLayout row, String label, String value, boolean rightMargin) {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(11), dp(9), dp(11), dp(10));
+        card.setBackground(panelGradient(COLOR_CARD, Color.rgb(34, 29, 21), COLOR_BORDER_SOFT, 1, 10));
+
+        TextView labelView = text(label, 10, COLOR_GOLD, true);
+        labelView.setSingleLine(true);
+        labelView.setEllipsize(TextUtils.TruncateAt.END);
+        card.addView(labelView);
+
+        TextView valueView = text(value, 13, COLOR_TEXT, true);
+        valueView.setMaxLines(2);
+        valueView.setEllipsize(TextUtils.TruncateAt.END);
+        valueView.setPadding(0, dp(3), 0, 0);
+        card.addView(valueView);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+        if (rightMargin) params.rightMargin = dp(8);
+        row.addView(card, params);
+    }
+
+    private void addQuickFactSpacer(LinearLayout row, boolean rightMargin) {
+        View spacer = new View(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(1), 1);
+        if (rightMargin) params.rightMargin = dp(8);
+        row.addView(spacer, params);
+    }
+
+    private void addRecipeContentGrid(LinearLayout content, Recipe recipe) {
+        int columns = detailColumnCount();
+        if (columns <= 1) {
+            addIngredients(content, recipe);
+            addSteps(content, recipe);
+            addBeforePanel(content, recipe);
+            return;
+        }
+
+        LinearLayout grid = new LinearLayout(this);
+        grid.setOrientation(LinearLayout.HORIZONTAL);
+        grid.setBaselineAligned(false);
+        LinearLayout.LayoutParams gridParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        gridParams.topMargin = dp(2);
+        content.addView(grid, gridParams);
+
+        LinearLayout left = detailColumn();
+        LinearLayout middle = detailColumn();
+        LinearLayout right = columns >= 3 ? detailColumn() : null;
+
+        LinearLayout.LayoutParams leftParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+        leftParams.rightMargin = dp(10);
+        grid.addView(left, leftParams);
+
+        LinearLayout.LayoutParams middleParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+        if (columns >= 3) middleParams.rightMargin = dp(10);
+        grid.addView(middle, middleParams);
+
+        if (right != null) {
+            grid.addView(right, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        }
+
+        addIngredients(left, recipe);
+        addSteps(middle, recipe);
+        if (right != null) {
+            addBeforePanel(right, recipe);
+        } else {
+            addBeforePanel(middle, recipe);
+        }
+    }
+
+    private int detailColumnCount() {
+        int width = getResources().getDisplayMetrics().widthPixels;
+        if (width >= dp(1120)) return 3;
+        if (width >= dp(760)) return 2;
+        return 1;
+    }
+
+    private LinearLayout detailColumn() {
+        LinearLayout column = new LinearLayout(this);
+        column.setOrientation(LinearLayout.VERTICAL);
+        return column;
+    }
+
+    private void addBeforePanel(LinearLayout content, Recipe recipe) {
+        if (recipe.notes.isEmpty() && recipe.technical.isEmpty() && recipe.practical.isEmpty()) return;
+
+        LinearLayout section = addSection(content, "Avant de commencer");
+        if (!recipe.notes.isEmpty()) {
+            subTitle(section, "Notes");
+            for (String note : recipe.notes) {
+                bulletRow(section, note);
+            }
+        }
+        if (!recipe.technical.isEmpty()) {
+            subTitle(section, "Technique");
+            for (Recipe.Technical item : recipe.technical) {
+                labelValue(section, item.label, item.value);
+            }
+        }
+        if (!recipe.practical.isEmpty()) {
+            for (Recipe.PracticalSection practicalSection : recipe.practical) {
+                subTitle(section, practicalSection.title);
+                for (String item : practicalSection.items) {
+                    bulletRow(section, item);
+                }
+            }
+        }
+    }
+
+    private int countSelectedIngredients(Recipe recipe) {
+        int count = 0;
+        for (Recipe.Group group : selectedIngredientGroups(recipe)) {
+            count += group.items.size();
+        }
+        return count;
     }
 
     private void addCollectionCards(LinearLayout content, final Recipe recipe) {

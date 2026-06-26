@@ -126,14 +126,16 @@ prerendues par `scripts/build-site.js`.
 - Interface : `GridView` recyclee en cartes image 16/9 proches du site, accueil parent Android
   compact avec les fiches parents du site par defaut, panneau recherche/filtres replie,
   recherche locale, filtres categories, filtres saison/difficulte, favoris locaux,
-  derniers ouverts, fiches natives en sections lisibles, infos rapides en
+  derniers ouverts, fiche recette detaillee proche du site avec hero 16/9,
+  actions dans le hero, grille Ingredients/Etapes/Avant de commencer, infos rapides en
   pastilles, ingredients en lignes, copie ingredients, rattachements parents
   additionnels, bouton natif de mise a
   jour, liste de courses locale, copie fiche, partage fiche, etapes numerotees
   cartes parent visibles et selecteurs natifs de preparation
 - Direction visuelle Android Legacy : refonte visuelle native premium sans moteur web,
   header compact avec stats locales, grille `GridView` en cartes image 16/9 tactiles
-  recyclees, hero de fiche encadre, sections cadrees, pastilles lisibles, etats
+  recyclees, hero de fiche encadre, grille Ingredients/Etapes/Avant de commencer,
+  sections cadrees, pastilles lisibles, etats
   presses natifs et actions principales/secondaires distinguees
 
 Le panneau recherche/filtres replie garde les filtres hors de l accueil tant
