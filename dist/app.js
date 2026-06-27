@@ -103,7 +103,7 @@ function detectAppEnvironment() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.17';
+const SITE_VERSION = 'v2.18';
 const SITE_UPDATED_AT = '27/06/26';
 const APP_ENVIRONMENT = detectAppEnvironment();
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
@@ -4468,17 +4468,6 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   const className = ['recipe-card', renderCardImage ? 'has-image' : '', master ? 'master-card' : '']
     .filter(Boolean)
     .join(' ');
-  const variantLabel = master ? '' : getRecipeVariantLabel(recipe, recipesById);
-  const cardFacts = !master && variantLabel ? [variantLabel] : [];
-  const serviceSummary = !master ? getRecipeServiceSummary(recipe) : '';
-  const timing = !master ? getRecipeTiming(recipe) : null;
-  const quickFacts = !master ? [
-    timing?.active ? `Actif ${formatMinutesShort(timing.active)}` : '',
-    timing?.cook ? `Cuisson ${formatMinutesShort(timing.cook)}` : '',
-    difficultyText(recipe),
-    serviceSummary
-  ].filter(Boolean).slice(0, 3) : [];
-  const favoriteStatus = isFavorite ? personalNote?.status : '';
 
   return h('article', {
     className,
@@ -4511,44 +4500,10 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
           }
         }
       }),
-      !renderCardImage && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1)),
-      recipe.video && h('span', { className: 'video-badge' }, 'Vidéo'),
-      !master && !hideFavorite && h('button', {
-        type: 'button',
-        className: isFavorite ? 'fav-btn active' : 'fav-btn',
-        onClick: event => {
-          event.stopPropagation();
-          toggleFavorite(recipe.id);
-        },
-        'aria-label': isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'
-      }, h(Icon, { name: 'heart', filled: isFavorite }))
+      !renderCardImage && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1))
     ),
     h('div', { className: 'card-body' },
-      !master && h('div', { className: 'tag-line' }, h('span', null, categoryLine(recipe))),
-      h('h3', null, recipe.title),
-      favoriteStatus && h('span', { className: 'favorite-status-badge' }, favoriteStatus),
-      !master && cardFacts.length > 0 && h('div', { className: 'card-facts' },
-        cardFacts.map(fact => h('span', { key: fact }, fact))
-      ),
-      h('p', { className: 'card-meta' },
-        master
-          ? h('span', null, `${countLeafRecipes(recipe, recipesById)} recette${countLeafRecipes(recipe, recipesById) > 1 ? 's' : ''}`)
-          : h('span', null, `${countIngredients(recipe)} ingrédients`)
-      ),
-      !master && h('span', { className: `nutri-score nutri-${getNutriScore(recipe).toLowerCase()}` }, `Nutri ${getNutriScore(recipe)}`),
-      !master && quickFacts.length > 0 && h('div', { className: 'card-quicklook', 'aria-label': 'Repères rapides' },
-        quickFacts.map(fact => h('span', { key: fact }, fact))
-      ),
-      !master && h('div', { className: 'mini-tags card-overlay-tags' },
-        (recipe.tagsExtracted || []).slice(0, 2).map(tag => h('button', {
-          key: tag,
-          type: 'button',
-          onClick: event => {
-            event.stopPropagation();
-            setTagFilter(tag);
-          }
-        }, tag))
-      )
+      h('h3', null, recipe.title)
     )
   );
 }
@@ -5824,8 +5779,6 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
         const item = recipesById[variant.id];
         if (!item) return null;
         const image = item.image || parent.image;
-        const variantLabel = getRecipeVariantLabel(item, recipesById);
-        const quickFacts = [difficultyText(item), getRecipeServiceSummary(item)].filter(Boolean);
         return h('button', {
           key: variant.id,
           type: 'button',
@@ -5835,12 +5788,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
         },
           image && h('span', { className: 'variant-card-bg', style: imageBackgroundStyle(image) }),
           h('span', { className: 'variant-card-body' },
-            h('small', null, categoryLine(item)),
-            h('strong', null, variant.label || item.title),
-            variantLabel && h('em', null, variantLabel)
-          ),
-          quickFacts.length > 0 && h('span', { className: 'variant-card-quicklook', 'aria-label': 'Repères rapides' },
-            quickFacts.map(fact => h('span', { key: fact }, fact))
+            h('strong', null, variant.label || item.title)
           )
         );
       })

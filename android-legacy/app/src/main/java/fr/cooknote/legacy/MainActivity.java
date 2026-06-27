@@ -1215,34 +1215,6 @@ public class MainActivity extends Activity {
         overlayEdgeParams.bottomMargin = dp(7);
         overlay.addView(overlayEdge, overlayEdgeParams);
 
-        LinearLayout topLine = new LinearLayout(this);
-        topLine.setOrientation(LinearLayout.HORIZONTAL);
-        topLine.setGravity(Gravity.CENTER_VERTICAL);
-        overlay.addView(topLine, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-
-        TextView badge = text(choice.recipe.primaryCategory(), 9, COLOR_GOLD, true);
-        badge.setSingleLine(true);
-        badge.setEllipsize(TextUtils.TruncateAt.END);
-        badge.setPadding(dp(7), dp(3), dp(7), dp(3));
-        badge.setBackground(panel(Color.argb(170, 12, 9, 6), COLOR_BORDER_BRIGHT, 1, 12));
-        topLine.addView(badge, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.72f));
-
-        TextView open = text("Voir", 10, COLOR_ORANGE, true);
-        open.setGravity(Gravity.CENTER);
-        open.setSingleLine(true);
-        open.setEllipsize(TextUtils.TruncateAt.END);
-        open.setBackground(panel(Color.argb(170, 22, 13, 6), COLOR_BORDER_BRIGHT, 1, 12));
-        open.setPadding(dp(7), dp(3), dp(7), dp(3));
-        LinearLayout.LayoutParams openParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        openParams.leftMargin = dp(6);
-        topLine.addView(open, openParams);
-
         TextView title = text(choice.label, 15, Color.rgb(246, 239, 227), true);
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
@@ -1252,18 +1224,7 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        titleParams.topMargin = dp(7);
         overlay.addView(title, titleParams);
-
-        TextView meta = text(displayMeta(choice.recipe), 10, COLOR_MUTED, false);
-        meta.setSingleLine(true);
-        meta.setEllipsize(TextUtils.TruncateAt.END);
-        LinearLayout.LayoutParams metaParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        metaParams.topMargin = dp(4);
-        overlay.addView(meta, metaParams);
 
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
                 0,

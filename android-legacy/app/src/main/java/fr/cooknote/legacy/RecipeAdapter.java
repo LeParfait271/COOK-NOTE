@@ -93,39 +93,10 @@ final class RecipeAdapter extends BaseAdapter {
 
         Recipe recipe = getItem(position);
         holder.title.setText(recipe.title);
-        holder.meta.setText(displayMeta(recipe));
-        holder.badge.setText(recipe.primaryCategory());
-        holder.count.setText(cardInfo(recipe));
         int cardWidth = resizeCardForParent(holder, parent);
         int cardHeight = Math.max(dp(CARD_MIN_HEIGHT_DP), (cardWidth * 9) / 16);
         imageLoader.load(recipe.image, holder.image, cardWidth, cardHeight);
         return convertView;
-    }
-
-    private String displayMeta(Recipe recipe) {
-        if (recipe.isCollection()) return countLabel(collectionCount(recipe), "fiche rangee", "fiches rangees");
-        ArrayList<String> parts = new ArrayList<String>();
-        String difficulty = recipe.difficultyLabel();
-        if (difficulty.length() > 0) parts.add(difficulty);
-        if (recipe.yield.length() > 0) parts.add(recipe.yield);
-        int totalTime = recipe.activeTime + recipe.cookTime;
-        if (totalTime > 0) parts.add(formatMinutes(totalTime));
-        return joinMetaParts(parts, "Fiche recette");
-    }
-
-    private String cardInfo(Recipe recipe) {
-        if (favoriteIds.contains(recipe.id)) return "Favori";
-        if (recipe.isCollection()) return collectionCount(recipe) + " fiches";
-        int totalTime = recipe.activeTime + recipe.cookTime;
-        if (totalTime > 0) return formatMinutes(totalTime);
-        String difficulty = recipe.difficultyLabel();
-        return difficulty.length() > 0 ? difficulty : "Fiche";
-    }
-
-    private int collectionCount(Recipe recipe) {
-        if (collectionCounts == null) return recipe.variants.size();
-        Integer count = collectionCounts.get(recipe.id);
-        return count == null ? recipe.variants.size() : count.intValue();
     }
 
     private ViewHolder createRow() {
@@ -223,43 +194,6 @@ final class RecipeAdapter extends BaseAdapter {
         overlayEdgeParams.bottomMargin = dp(7);
         overlay.addView(overlayEdge, overlayEdgeParams);
 
-        LinearLayout topLine = new LinearLayout(context);
-        topLine.setOrientation(LinearLayout.HORIZONTAL);
-        topLine.setGravity(Gravity.CENTER_VERTICAL);
-        overlay.addView(topLine, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-
-        TextView badge = new TextView(context);
-        badge.setTextColor(COLOR_GOLD);
-        badge.setTextSize(9);
-        badge.setTypeface(Typeface.DEFAULT_BOLD);
-        badge.setSingleLine(true);
-        badge.setEllipsize(TextUtils.TruncateAt.END);
-        badge.setIncludeFontPadding(false);
-        badge.setPadding(dp(7), dp(3), dp(7), dp(3));
-        badge.setBackground(panel(Color.argb(170, 12, 9, 6), COLOR_BORDER_BRIGHT, 1, 12));
-        LinearLayout.LayoutParams badgeParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.72f);
-        topLine.addView(badge, badgeParams);
-
-        TextView count = new TextView(context);
-        count.setTextColor(COLOR_ORANGE);
-        count.setTextSize(9);
-        count.setTypeface(Typeface.DEFAULT_BOLD);
-        count.setGravity(Gravity.CENTER);
-        count.setSingleLine(true);
-        count.setEllipsize(TextUtils.TruncateAt.END);
-        count.setIncludeFontPadding(false);
-        count.setPadding(dp(6), dp(3), dp(6), dp(3));
-        count.setBackground(panel(Color.argb(170, 22, 13, 6), COLOR_BORDER_BRIGHT, 1, 12));
-        LinearLayout.LayoutParams countParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        countParams.leftMargin = dp(6);
-        topLine.addView(count, countParams);
-
         TextView title = new TextView(context);
         title.setTextColor(Color.rgb(249, 242, 231));
         title.setTextSize(15);
@@ -273,29 +207,12 @@ final class RecipeAdapter extends BaseAdapter {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        titleParams.topMargin = dp(6);
         overlay.addView(title, titleParams);
-
-        TextView meta = new TextView(context);
-        meta.setTextColor(Color.rgb(216, 207, 193));
-        meta.setTextSize(10.5f);
-        meta.setSingleLine(true);
-        meta.setEllipsize(TextUtils.TruncateAt.END);
-        meta.setIncludeFontPadding(false);
-        LinearLayout.LayoutParams metaParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        metaParams.topMargin = dp(4);
-        overlay.addView(meta, metaParams);
 
         ViewHolder holder = new ViewHolder();
         holder.root = root;
         holder.image = image;
-        holder.badge = badge;
         holder.title = title;
-        holder.meta = meta;
-        holder.count = count;
         return holder;
     }
 
@@ -353,30 +270,6 @@ final class RecipeAdapter extends BaseAdapter {
         });
     }
 
-    private static String formatMinutes(int minutes) {
-        if (minutes >= 60) {
-            int hours = minutes / 60;
-            int rest = minutes % 60;
-            return rest == 0 ? hours + "h" : hours + "h" + (rest < 10 ? "0" : "") + rest;
-        }
-        return minutes + "min";
-    }
-
-    private static String joinMetaParts(List<String> parts, String fallback) {
-        if (parts == null || parts.isEmpty()) return fallback;
-        StringBuilder builder = new StringBuilder();
-        for (String part : parts) {
-            if (part == null || part.length() == 0) continue;
-            if (builder.length() > 0) builder.append(" - ");
-            builder.append(part);
-        }
-        return builder.length() == 0 ? fallback : builder.toString();
-    }
-
-    private static String countLabel(int count, String singular, String plural) {
-        return count + " " + (count > 1 ? plural : singular);
-    }
-
     private StateListDrawable selectablePanel(int normalColor, int pressedColor, int strokeColor, int strokeWidth, int radiusDp) {
         StateListDrawable drawable = new StateListDrawable();
         drawable.addState(new int[]{android.R.attr.state_pressed}, panel(pressedColor, strokeColor, strokeWidth, radiusDp));
@@ -388,9 +281,6 @@ final class RecipeAdapter extends BaseAdapter {
     private static final class ViewHolder {
         LinearLayout root;
         ImageView image;
-        TextView badge;
         TextView title;
-        TextView meta;
-        TextView count;
     }
 }
