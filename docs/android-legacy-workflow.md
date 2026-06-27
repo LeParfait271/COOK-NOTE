@@ -2,8 +2,8 @@
 
 Ce document est la reference pour l'application Android Legacy Cook Note.
 Elle est un projet secondaire en parallele du site, pas la source de verite.
-GitHub et le site web restent prioritaires. La reference globale des quatre
-installations est dans `docs/apps-install-workflow.md`.
+GitHub et le site web restent prioritaires. La reference globale de
+l'installation hors navigateur est dans `docs/apps-install-workflow.md`.
 
 ## Regle principale
 
@@ -90,8 +90,8 @@ Cette sortie contient :
 - des JPEG recompresses avec `jpeg-js` pour limiter le decode RAM/CPU ;
 - aucun fichier `assets/www`, aucun React, aucun service worker et aucun CSS du site.
 
-Le site HD, Android Modern et les recettes gardent les visuels habituels. La
-reduction d image ne concerne que l APK Android 5.
+Le site et les recettes gardent les visuels habituels. La reduction d image ne
+concerne que l APK Android 5.
 
 ## Pourquoi l app ne suit pas automatiquement le site
 
@@ -133,9 +133,8 @@ npm run apps:update-all
 
 La commande `npm run android:legacy:update-apk` existe encore comme
 sous-commande de diagnostic, mais elle ne doit pas etre le workflow final :
-quand Android Legacy change, Android Modern doit etre revu dans le meme lot.
-Cette mise a jour groupee est obligatoire pour eviter une app en avance sur
-l'autre.
+`npm run apps:update-all` reste la commande finale pour garder le build, les
+copies APK telechargeables et les checks alignes.
 
 Publier l APK courant sur GitHub Releases, seulement sur demande explicite :
 
@@ -219,16 +218,12 @@ C est voulu.
 3. Lancer `npm run apps:update-all`.
 4. Verifier l APK :
    - `aapt dump badging android-legacy/app/build/outputs/apk/debug/app-debug.apk`
-   - `aapt dump badging android-modern/app/build/outputs/apk/debug/app-debug.apk`
    - `apksigner verify --verbose android-legacy/app/build/outputs/apk/debug/app-debug.apk`
-   - `apksigner verify --verbose android-modern/app/build/outputs/apk/debug/app-debug.apk`
 5. Ne pas committer les APK depuis les dossiers Android : ce sont des artefacts locaux ignores.
-6. `npm run apps:update-all` copie ensemble les APK valides vers
+6. `npm run apps:update-all` copie l APK valide vers
    `downloads/cook-note-android-legacy.apk` et
-   `downloads/cook-note-android-modern.apk`, plus
-   `downloads/cook-note-android-legacy-vX.YY.apk` et
-   `downloads/cook-note-android-modern-vX.YY.apk`. Verifier que `dist/downloads/`
-   n existe pas.
+   `downloads/cook-note-android-legacy-vX.YY.apk`. Verifier que
+   `dist/downloads/` n existe pas.
 7. Si l utilisateur demande aussi une Release GitHub, lancer
    `npm run apps:publish-all` apres authentification GitHub CLI.
 8. Commit/push seulement les changements de code, documentation et copies APK demandees.
@@ -281,8 +276,10 @@ C est voulu.
 - Ne pas afficher toutes les preparations d une fiche a variantes internes a
   plat : garder le selecteur natif et la preparation choisie.
 - Ne pas publier une nouvelle release APK sans demande explicite.
-- Ne jamais publier un seul APK : toute mise a jour app doit passer par
-  `npm run apps:update-all`.
+- Toute mise a jour app doit passer par `npm run apps:update-all`, meme si le
+  workflow ne construit plus que l APK Android Legacy.
+- Ne pas recreer Android Modern/HD, ni remettre de bouton moderne, sans demande
+  explicite.
 - Ne pas traiter l APK comme la source de verite des recettes.
 - Ne pas modifier les recettes pour l app Android sans demande separee.
 - Ne pas supposer qu un push du site doit mettre a jour la tablette.

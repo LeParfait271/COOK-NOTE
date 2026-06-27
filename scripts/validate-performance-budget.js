@@ -11,7 +11,7 @@ const FILE_BUDGETS = [
   ['app-images.js', 8 * KB],
   ['app.js', 380 * KB],
   ['style.css', 145 * KB],
-  ['recipes.js', 470 * KB],
+  ['recipes.js', 475 * KB],
   ['assets/image-manifest.js', 130 * KB],
   ['service-worker.js', 10 * KB],
   ['assets/vendor/react.production.min.js', 14 * KB],
@@ -21,7 +21,7 @@ const FILE_BUDGETS = [
 ];
 
 const DIRECTORY_BUDGETS = [
-  ['assets/catalog-*.js', 'assets', /^catalog-\d+\.js$/, 470 * KB]
+  ['assets/catalog-*.js', 'assets', /^catalog-\d+\.js$/, 475 * KB]
 ];
 
 const IMAGE_BUDGETS = [

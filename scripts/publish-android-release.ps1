@@ -1,5 +1,5 @@
 param(
-  [ValidateSet("legacy", "modern")]
+  [ValidateSet("legacy")]
   [string]$Channel = "legacy",
   [string]$ApkPath = "",
   [string]$Repository = "LeParfait271/COOK-NOTE",
@@ -14,11 +14,6 @@ $ChannelDefaults = @{
     ApkPath = "android-legacy\app\build\outputs\apk\debug\app-debug.apk"
     AssetName = "cook-note-android-legacy.apk"
     Label = "Android Legacy"
-  }
-  modern = @{
-    ApkPath = "android-modern\app\build\outputs\apk\debug\app-debug.apk"
-    AssetName = "cook-note-android-modern.apk"
-    Label = "Android Modern"
   }
 }
 
@@ -66,9 +61,7 @@ Applications Cook Note $VersionName.
 
 - Android Legacy: cook-note-android-legacy.apk
 - Android Legacy versionne: cook-note-android-legacy-v$VersionName.apk
-- Android Modern: cook-note-android-modern.apk
-- Android Modern versionne: cook-note-android-modern-v$VersionName.apk
-- Applications secondaires, mises a jour manuelles.
+- Application secondaire, mise a jour manuelle.
 "@
 
 $TempApk = Join-Path ([IO.Path]::GetTempPath()) $AssetName

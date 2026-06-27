@@ -9,7 +9,6 @@ $ErrorActionPreference = "Stop"
 $Root = Resolve-Path (Join-Path $PSScriptRoot "..")
 $DownloadsDir = Join-Path $Root "downloads"
 $LegacyScript = Join-Path $PSScriptRoot "build-android-legacy.ps1"
-$ModernScript = Join-Path $PSScriptRoot "build-android-modern.ps1"
 $PublishScript = Join-Path $PSScriptRoot "publish-android-release.ps1"
 
 function Get-CookNoteVersionName {
@@ -68,12 +67,9 @@ if (-not (Test-Path (Join-Path $Root "dist\index.html"))) {
 $VersionName = Get-CookNoteVersionName
 
 Run-AndroidBuild $LegacyScript "Build Android Legacy"
-Run-AndroidBuild $ModernScript "Build Android Modern"
 
 $LegacyStableDownload = Copy-ExpectedApk "legacy" "cook-note-android-legacy.apk"
-$ModernStableDownload = Copy-ExpectedApk "modern" "cook-note-android-modern.apk"
 $LegacyVersionedDownload = Copy-ExpectedApk "legacy" "cook-note-android-legacy-v$VersionName.apk"
-$ModernVersionedDownload = Copy-ExpectedApk "modern" "cook-note-android-modern-v$VersionName.apk"
 
 if (Test-Path (Join-Path $Root "dist\downloads")) {
   throw "dist\downloads ne doit jamais exister. Les APK doivent rester servis depuis GitHub."
@@ -88,18 +84,8 @@ if ($PublishRelease) {
   if ($LASTEXITCODE -ne 0) {
     throw "Publication Android Legacy versionnee echouee avec le code $LASTEXITCODE."
   }
-  & $PublishScript -Channel modern
-  if ($LASTEXITCODE -ne 0) {
-    throw "Publication Android Modern echouee avec le code $LASTEXITCODE."
-  }
-  & $PublishScript -Channel modern -AssetName "cook-note-android-modern-v$VersionName.apk"
-  if ($LASTEXITCODE -ne 0) {
-    throw "Publication Android Modern versionnee echouee avec le code $LASTEXITCODE."
-  }
 }
 
-Write-Host "Mise a jour groupee des applications Cook Note OK:"
+Write-Host "Mise a jour de l'application Cook Note OK:"
 Write-Host "  Android Legacy stable: $LegacyStableDownload"
 Write-Host "  Android Legacy versionne: $LegacyVersionedDownload"
-Write-Host "  Android Modern stable: $ModernStableDownload"
-Write-Host "  Android Modern versionne: $ModernVersionedDownload"

@@ -20,9 +20,7 @@ function expect(label, condition) {
 const packageJson = JSON.parse(read('package.json'));
 const packageText = read('package.json');
 const androidGitignore = read('android-legacy/.gitignore');
-const androidModernGitignore = read('android-modern/.gitignore');
 const androidReadme = read('android-legacy/README.md');
-const androidModernReadme = read('android-modern/README.md');
 const workflowDoc = read('docs/android-legacy-workflow.md');
 const appsWorkflowDoc = read('docs/apps-install-workflow.md');
 const appScript = read('app.js');
@@ -30,12 +28,10 @@ const styleSheet = read('style.css');
 const buildSiteScript = read('scripts/build-site.js');
 const serviceWorker = read('service-worker.js');
 const buildScript = read('scripts/build-android-legacy.ps1');
-const buildModernScript = read('scripts/build-android-modern.ps1');
 const legacyAssetsScript = read('scripts/build-android-legacy-assets.js');
 const updateAllAppsScript = read('scripts/update-all-apps.ps1');
 const publishScript = read('scripts/publish-android-release.ps1');
 const androidBuildGradle = read('android-legacy/app/build.gradle');
-const androidModernBuildGradle = read('android-modern/app/build.gradle');
 const androidLegacySettingsGradle = read('android-legacy/settings.gradle');
 const androidLegacyManifest = read('android-legacy/app/src/main/AndroidManifest.xml');
 const androidLegacyStrings = read('android-legacy/app/src/main/res/values/strings.xml');
@@ -44,17 +40,14 @@ const androidLegacyRecipe = read('android-legacy/app/src/main/java/fr/cooknote/l
 const androidLegacyRepository = read('android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java');
 const androidLegacyImageLoader = read('android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java');
 const androidLegacyAdapter = read('android-legacy/app/src/main/java/fr/cooknote/legacy/RecipeAdapter.java');
-const androidModernMainActivity = read('android-modern/app/src/main/java/fr/cooknote/modern/MainActivity.java');
-const androidModernStrings = read('android-modern/app/src/main/res/values/strings.xml');
 const siteVersionName = (appScript.match(/const SITE_VERSION = 'v(\d+\.\d{2})'/) || [])[1] || '0.00';
 const legacyVersionedApk = `downloads/cook-note-android-legacy-v${siteVersionName}.apk`;
-const modernVersionedApk = `downloads/cook-note-android-modern-v${siteVersionName}.apk`;
 
 ['build', 'check', 'preflight', 'dev', 'start'].forEach(scriptName => {
   const command = packageJson.scripts?.[scriptName] || '';
   expect(
     `Le script npm ${scriptName} ne doit jamais builder l'APK Android.`,
-    !/build-android-(?:legacy|modern)\.ps1|update-all-apps|publish-android-release|apps:(?:update|publish)-all|android:(?:legacy|modern):(?:apk|update|setup|publish)/.test(command)
+    !/build-android-legacy\.ps1|update-all-apps|publish-android-release|apps:(?:update|publish)-all|android:legacy:(?:apk|update|setup|publish)/.test(command)
   );
 });
 
@@ -72,17 +65,8 @@ expect(
     && packageJson.scripts?.['android:legacy:publish-release']?.includes('-Channel legacy')
 );
 expect(
-  'Le build Android Modern doit rester une commande explicite.',
-  packageJson.scripts?.['android:modern:update-apk']?.includes('build-android-modern.ps1')
-);
-expect(
-  'Le setup Android Modern doit rester une commande explicite.',
-  packageJson.scripts?.['android:modern:setup']?.includes('setup-android-legacy-tools.ps1')
-);
-expect(
-  'La publication GitHub Android Modern doit rester une commande explicite.',
-  packageJson.scripts?.['android:modern:publish-release']?.includes('publish-android-release.ps1')
-    && packageJson.scripts?.['android:modern:publish-release']?.includes('-Channel modern')
+  'Les commandes Android Modern doivent etre supprimees.',
+  !packageText.includes('android:modern') && !packageText.includes('build-android-modern.ps1')
 );
 expect(
   'La mise a jour app doit rester groupee via apps:update-all.',
@@ -106,17 +90,11 @@ expect(
   'app/build/'
 ].forEach(fragment => {
   expect(`android-legacy/.gitignore doit ignorer ${fragment}`, androidGitignore.includes(fragment));
-  expect(`android-modern/.gitignore doit ignorer ${fragment}`, androidModernGitignore.includes(fragment));
 });
-expect(
-  'android-modern/.gitignore doit ignorer les assets web generes.',
-  androidModernGitignore.includes('app/src/main/assets/www/')
-);
 
 expect(
   'Le script APK doit synchroniser les assets seulement quand on le lance explicitement.',
   androidBuildGradle.includes('syncCookNoteDist') && buildScript.includes('APK Cook Note Android Legacy OK')
-    && androidModernBuildGradle.includes('syncCookNoteDist') && buildModernScript.includes('APK Cook Note Android Modern OK')
 );
 expect(
   'Android Legacy doit etre une app native Lite, pas un wrapper web lourd.',
@@ -265,39 +243,34 @@ expect(
     && packageJson.devDependencies?.['jpeg-js']
 );
 expect(
-  'Le script de mise a jour groupee doit fabriquer et copier les deux APK Android ensemble.',
+  'Le script de mise a jour app doit fabriquer et copier uniquement l APK Android Legacy.',
   updateAllAppsScript.includes('build-android-legacy.ps1')
-    && updateAllAppsScript.includes('build-android-modern.ps1')
     && updateAllAppsScript.includes('cook-note-android-legacy.apk')
-    && updateAllAppsScript.includes('cook-note-android-modern.apk')
     && updateAllAppsScript.includes('Get-CookNoteVersionName')
     && updateAllAppsScript.includes('cook-note-android-legacy-v$VersionName.apk')
-    && updateAllAppsScript.includes('cook-note-android-modern-v$VersionName.apk')
     && updateAllAppsScript.includes('dist\\downloads')
     && updateAllAppsScript.includes('PublishRelease')
     && updateAllAppsScript.includes('publish-android-release.ps1')
+    && !updateAllAppsScript.includes('build-android-modern.ps1')
+    && !updateAllAppsScript.includes('cook-note-android-modern.apk')
 );
 expect(
   'Le script APK doit echouer si Gradle echoue.',
   buildScript.includes('$LASTEXITCODE') && buildScript.includes('Gradle a echoue')
-    && buildModernScript.includes('$LASTEXITCODE') && buildModernScript.includes('Gradle a echoue')
 );
 expect(
   'Le script de publication Android doit pousser un asset GitHub stable.',
   publishScript.includes('gh release')
     && publishScript.includes('apps-v$VersionName')
     && publishScript.includes('cook-note-android-legacy.apk')
-    && publishScript.includes('cook-note-android-modern.apk')
     && publishScript.includes('cook-note-android-legacy-v$VersionName.apk')
-    && publishScript.includes('cook-note-android-modern-v$VersionName.apk')
+    && !publishScript.includes('cook-note-android-modern.apk')
 );
 expect(
   'Les APK telechargeables doivent rester hors dist Cloudflare Pages.',
   !buildSiteScript.includes("'downloads'")
     && exists('downloads/cook-note-android-legacy.apk')
-    && exists('downloads/cook-note-android-modern.apk')
     && exists(legacyVersionedApk)
-    && exists(modernVersionedApk)
     && !exists('dist/downloads')
 );
 expect(
@@ -305,30 +278,19 @@ expect(
   serviceWorker.includes("url.pathname.startsWith('/downloads/')")
 );
 expect(
-  'Android Modern doit rester optimise pour lecture locale fluide.',
-  androidModernBuildGradle.includes("tasks.register('syncCookNoteDist', Sync)")
-    && androidModernBuildGradle.includes("noCompress += ['html', 'js', 'css', 'json']")
-    && !androidModernBuildGradle.includes("'jpg'")
-    && androidModernBuildGradle.includes("exclude('downloads/**')")
-    && androidModernMainActivity.includes('setOffscreenPreRaster(true)')
-    && androidModernMainActivity.includes('CookNoteModernApp/HD')
-    && androidModernMainActivity.includes('setRendererPriorityPolicy')
-    && androidModernMainActivity.includes('responseHeaders')
+  'App Android HD/Modern encore presente.',
+  !exists('android-modern')
+    && !exists('scripts/build-android-modern.ps1')
+    && !exists('downloads/cook-note-android-modern.apk')
+    && !appScript.includes('modern-app-hd')
+    && !appScript.includes('android-modern-app')
+    && !appScript.includes('ios-modern-pwa')
+    && !styleSheet.includes('.mc-shell.modern-app-hd')
+    && !packageText.includes('android:modern')
 );
 expect(
   'Les noms Android doivent afficher la version minimale.',
   androidLegacyStrings.includes('Cook Note Android 5.0+')
-    && androidModernStrings.includes('Cook Note HD Android 8.0+')
-);
-expect(
-  'Le rendu HD des apps recentes doit rester isole du mode Legacy.',
-  appScript.includes('detectAppEnvironment')
-    && appScript.includes('modern-app-hd')
-    && appScript.includes('android-modern-app')
-    && appScript.includes('ios-modern-pwa')
-    && styleSheet.includes('.mc-shell.modern-app-hd')
-    && styleSheet.includes('.modern-app-hd .recipe-detail-hero')
-    && !androidLegacyMainActivity.includes('modern-app-hd')
 );
 
 [
@@ -344,8 +306,8 @@ expect(
   'commit/push du site ne change pas l APK installe',
   'Android 5.0',
   'npm run apps:update-all',
-  'mise a jour groupee',
-  'Ne jamais publier un seul APK',
+  'workflow ne construit plus que l APK Android Legacy',
+  'Ne pas recreer Android Modern/HD',
   'scripts/build-android-legacy-assets.js',
   'Native Lite',
   'recipes-lite.json',
@@ -420,29 +382,22 @@ expect(
     && androidReadme.includes('cook-note-android-legacy.apk')
 );
 expect(
-  'android-modern/README.md doit documenter le workflow moderne.',
-  androidModernReadme.includes('docs/apps-install-workflow.md')
-    && androidModernReadme.includes('android:modern:update-apk')
-    && androidModernReadme.includes('android:modern:publish-release')
-    && androidModernReadme.includes('cook-note-android-modern.apk')
+  'android-legacy/README.md doit rappeler que Legacy est la seule app installable.',
+  androidReadme.includes('Cook Note Android 5.0+')
+    && !androidReadme.includes('Android 8.0+')
+    && !androidReadme.includes('cook-note-android-modern')
 );
 [
   'Android 5.0+',
-  'Android 8.0+',
   'Cook Note Android 5.0+',
-  'Cook Note HD Android 8.0+',
   'cook-note-android-legacy.apk',
   'cook-note-android-legacy-vX.YY.apk',
-  'cook-note-android-modern.apk',
-  'cook-note-android-modern-vX.YY.apk',
-  'modern-app-hd',
-  'CookNoteModernApp/HD',
   'raw.githubusercontent.com',
   '/downloads/',
   'npm run apps:update-all',
   'npm run apps:publish-all',
-  'Mise a jour groupee obligatoire',
-  'Ne jamais publier un seul APK',
+  'Mise a jour explicite',
+  'workflow commun historique',
   'scripts/build-android-legacy-assets.js',
   'Native Lite',
   'recipes-lite.json',
@@ -482,6 +437,13 @@ expect(
 ].forEach(fragment => {
   expect(`Documentation globale apps incomplete (${fragment}).`, appsWorkflowDoc.includes(fragment));
 });
+expect(
+  'Documentation globale apps contient encore Android HD/Modern.',
+  !appsWorkflowDoc.includes('Android 8.0+')
+    && !appsWorkflowDoc.includes('cook-note-android-modern')
+    && !appsWorkflowDoc.includes('modern-app-hd')
+    && !appsWorkflowDoc.includes('CookNoteModernApp/HD')
+);
 
 expect(
   'Les balises iOS PWA doivent etre presentes.',
@@ -490,7 +452,7 @@ expect(
     && read('scripts/build-site.js').includes('apple-mobile-web-app-capable')
 );
 
-const gitTracked = spawnSync('git', ['ls-files', 'android-legacy', 'android-modern'], {
+const gitTracked = spawnSync('git', ['ls-files', 'android-legacy'], {
   cwd: ROOT,
   encoding: 'utf8',
   shell: false
@@ -514,9 +476,7 @@ const globalTracked = spawnSync('git', ['ls-files'], {
 if (globalTracked.status === 0) {
   const allowedApks = new Set([
     'downloads/cook-note-android-legacy.apk',
-    'downloads/cook-note-android-modern.apk',
-    legacyVersionedApk,
-    modernVersionedApk
+    legacyVersionedApk
   ]);
   const forbiddenApks = globalTracked.stdout
     .split(/\r?\n/)
