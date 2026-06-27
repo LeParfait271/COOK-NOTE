@@ -716,6 +716,7 @@ public class MainActivity extends Activity {
         ));
 
         addDetailHero(content, recipe);
+        if (!recipe.isCollection()) addHeroActions(content, recipe);
         addQuickFacts(content, recipe);
 
         if (recipe.isCollection()) {
@@ -802,7 +803,6 @@ public class MainActivity extends Activity {
         metaView.setPadding(0, dp(4), 0, 0);
         overlay.addView(metaView);
 
-        if (!recipe.isCollection()) addHeroActions(overlay, recipe);
     }
 
     private String detailBreadcrumb(Recipe recipe) {
@@ -818,7 +818,7 @@ public class MainActivity extends Activity {
     }
 
     private String detailMetaLine(Recipe recipe) {
-        if (recipe.isCollection()) return repository.collectionCount(recipe) + " fiches rangees";
+        if (recipe.isCollection()) return countLabel(repository.collectionCount(recipe), "fiche rangee", "fiches rangees");
 
         ArrayList<String> parts = new ArrayList<String>();
         String difficulty = recipe.difficultyLabel();
@@ -827,9 +827,9 @@ public class MainActivity extends Activity {
         int totalTime = recipe.activeTime + recipe.cookTime;
         if (totalTime > 0) parts.add(formatMinutes(totalTime));
         int ingredientCount = countSelectedIngredients(recipe);
-        if (ingredientCount > 0) parts.add(ingredientCount + " ingredients");
+        if (ingredientCount > 0) parts.add(countLabel(ingredientCount, "ingredient", "ingredients"));
         int stepCount = selectedRecipeSteps(recipe).size();
-        if (stepCount > 0) parts.add(stepCount + " etapes");
+        if (stepCount > 0) parts.add(countLabel(stepCount, "etape", "etapes"));
         return joinMetaParts(parts, "Fiche Cook Note");
     }
 
@@ -844,7 +844,26 @@ public class MainActivity extends Activity {
         return Math.max(dp(360), Math.min(width, DETAIL_IMAGE_MAX_WIDTH));
     }
 
-    private void addHeroActions(LinearLayout overlay, final Recipe recipe) {
+    private void addHeroActions(LinearLayout content, final Recipe recipe) {
+        LinearLayout panel = new LinearLayout(this);
+        panel.setOrientation(LinearLayout.VERTICAL);
+        panel.setPadding(dp(10), dp(9), dp(10), dp(10));
+        panel.setBackground(panelGradient(Color.rgb(13, 12, 10), Color.rgb(28, 23, 16), COLOR_BORDER_SOFT, 1, 8));
+        LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        panelParams.topMargin = dp(10);
+        content.addView(panel, panelParams);
+
+        addAccentLine(panel, 0, 8);
+
+        TextView label = text("Actions rapides", 10, COLOR_GOLD, true);
+        label.setSingleLine(true);
+        label.setLetterSpacing(0.06f);
+        label.setIncludeFontPadding(false);
+        panel.addView(label);
+
         ArrayList<Button> buttons = new ArrayList<Button>();
 
         Button shopping = actionButton(isInShopping(recipe.id) ? "Dans courses" : "+ Courses", true);
@@ -895,10 +914,10 @@ public class MainActivity extends Activity {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT
                 );
-                rowParams.topMargin = dp(index == 0 ? 10 : 7);
-                overlay.addView(row, rowParams);
+                rowParams.topMargin = dp(index == 0 ? 9 : 7);
+                panel.addView(row, rowParams);
             }
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(36), 1);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(34), 1);
             if (index % perRow < perRow - 1) params.rightMargin = dp(7);
             row.addView(buttons.get(index), params);
         }
@@ -909,7 +928,7 @@ public class MainActivity extends Activity {
         if (!recipe.seasons.isEmpty()) facts.add(new String[]{"Saison", shortList(recipe.seasons, 2)});
 
         if (recipe.isCollection()) {
-            facts.add(new String[]{"Collection", repository.collectionCount(recipe) + " fiches"});
+            facts.add(new String[]{"Collection", countLabel(repository.collectionCount(recipe), "fiche", "fiches")});
         } else {
             String difficulty = recipe.difficultyLabel();
             if (difficulty.length() > 0) facts.add(new String[]{"Difficulte", difficulty});
@@ -1067,7 +1086,8 @@ public class MainActivity extends Activity {
     private void addBeforePanel(LinearLayout content, Recipe recipe) {
         if (recipe.notes.isEmpty() && recipe.technical.isEmpty() && recipe.practical.isEmpty()) return;
 
-        LinearLayout section = addSection(content, "Avant de commencer");
+        int beforeCount = recipe.notes.size() + recipe.technical.size() + recipe.practical.size();
+        LinearLayout section = addSection(content, "Avant de commencer", countLabel(beforeCount, "info", "infos"));
         if (!recipe.notes.isEmpty()) {
             subTitle(section, "Notes");
             for (String note : recipe.notes) {
@@ -1099,13 +1119,12 @@ public class MainActivity extends Activity {
     }
 
     private void addCollectionCards(LinearLayout content, final Recipe recipe) {
-        LinearLayout section = addSection(content, "Recettes");
         final List<VariantChoice> choices = collectionVariantChoices(recipe);
+        LinearLayout section = addSection(content, "Recettes", countLabel(choices.size(), "fiche", "fiches"));
         if (choices.isEmpty()) {
             body(section, "Aucune fiche disponible.");
             return;
         }
-        body(section, choices.size() + " fiche(s) rangee(s) ici.", COLOR_MUTED);
         int columns = collectionGridColumns();
         int cardHeight = collectionCardHeight(columns);
         LinearLayout row = null;
@@ -1273,7 +1292,7 @@ public class MainActivity extends Activity {
         final List<InlineVariantChoice> choices = inlineVariantChoices(recipe);
         if (choices.size() <= 1) return;
 
-        LinearLayout section = addSection(content, "Preparation");
+        LinearLayout section = addSection(content, "Preparation", countLabel(choices.size(), "version", "versions"));
         final int selectedIndex = selectedInlineVariantIndex(recipe, choices);
         final int[] currentIndex = new int[]{selectedIndex};
         Spinner spinner = createSpinner(labelsForInlineChoices(choices));
@@ -1331,7 +1350,7 @@ public class MainActivity extends Activity {
     }
 
     private String displayMeta(Recipe recipe) {
-        if (recipe.isCollection()) return repository.collectionCount(recipe) + " fiches rangees";
+        if (recipe.isCollection()) return countLabel(repository.collectionCount(recipe), "fiche rangee", "fiches rangees");
         ArrayList<String> parts = new ArrayList<String>();
         String difficulty = recipe.difficultyLabel();
         if (difficulty.length() > 0) parts.add(difficulty);
@@ -1421,7 +1440,7 @@ public class MainActivity extends Activity {
     }
 
     private void addRecipeTools(LinearLayout content, final Recipe recipe) {
-        LinearLayout section = addSection(content, "Actions");
+        LinearLayout section = addSection(content, "Actions", "3 outils");
 
         Button shopping = sectionButton(isInShopping(recipe.id) ? "Retirer des courses" : "Ajouter aux courses", true);
         section.addView(shopping);
@@ -1453,8 +1472,9 @@ public class MainActivity extends Activity {
     }
 
     private void addIngredients(LinearLayout content, Recipe recipe) {
-        LinearLayout section = addSection(content, "Ingredients");
         List<Recipe.Group> groups = selectedIngredientGroups(recipe);
+        int ingredientCount = countSelectedIngredients(recipe);
+        LinearLayout section = addSection(content, "Ingredients", ingredientCount > 0 ? countLabel(ingredientCount, "element", "elements") : null);
         if (groups.isEmpty()) {
             body(section, "Aucun ingredient detaille pour cette fiche.");
             return;
@@ -1473,8 +1493,8 @@ public class MainActivity extends Activity {
     }
 
     private void addSteps(LinearLayout content, Recipe recipe) {
-        LinearLayout section = addSection(content, "Etapes");
         List<String> steps = selectedRecipeSteps(recipe);
+        LinearLayout section = addSection(content, "Etapes", steps.size() > 0 ? countLabel(steps.size(), "etape", "etapes") : null);
         if (steps.isEmpty()) {
             body(section, "Aucune etape detaillee pour cette fiche.");
             return;
@@ -1499,7 +1519,7 @@ public class MainActivity extends Activity {
 
     private void addNotes(LinearLayout content, Recipe recipe) {
         if (recipe.notes.isEmpty()) return;
-        LinearLayout section = addSection(content, "Notes");
+        LinearLayout section = addSection(content, "Notes", countLabel(recipe.notes.size(), "note", "notes"));
         for (String note : recipe.notes) {
             bulletRow(section, note);
         }
@@ -1507,7 +1527,7 @@ public class MainActivity extends Activity {
 
     private void addTechnical(LinearLayout content, Recipe recipe) {
         if (recipe.technical.isEmpty()) return;
-        LinearLayout section = addSection(content, "Technique");
+        LinearLayout section = addSection(content, "Technique", countLabel(recipe.technical.size(), "info", "infos"));
         for (Recipe.Technical item : recipe.technical) {
             labelValue(section, item.label, item.value);
         }
@@ -1515,7 +1535,7 @@ public class MainActivity extends Activity {
 
     private void addPractical(LinearLayout content, Recipe recipe) {
         if (recipe.practical.isEmpty()) return;
-        LinearLayout section = addSection(content, "Pratique");
+        LinearLayout section = addSection(content, "Pratique", countLabel(recipe.practical.size(), "bloc", "blocs"));
         for (Recipe.PracticalSection practicalSection : recipe.practical) {
             subTitle(section, practicalSection.title);
             for (String item : practicalSection.items) {
@@ -1595,6 +1615,10 @@ public class MainActivity extends Activity {
     }
 
     private LinearLayout addSection(LinearLayout content, String value) {
+        return addSection(content, value, null);
+    }
+
+    private LinearLayout addSection(LinearLayout content, String value, String meta) {
         LinearLayout section = new LinearLayout(this);
         section.setOrientation(LinearLayout.VERTICAL);
         section.setPadding(dp(12), dp(11), dp(12), dp(13));
@@ -1615,6 +1639,20 @@ public class MainActivity extends Activity {
         title.setIncludeFontPadding(false);
         title.setShadowLayer(2.2f, 0, dp(1), Color.BLACK);
         titleRow.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        if (meta != null && meta.length() > 0) {
+            TextView metaPill = text(meta, 10, COLOR_ORANGE, true);
+            metaPill.setGravity(Gravity.CENTER);
+            metaPill.setSingleLine(true);
+            metaPill.setEllipsize(TextUtils.TruncateAt.END);
+            metaPill.setPadding(dp(8), dp(3), dp(8), dp(3));
+            metaPill.setBackground(panel(Color.argb(152, 20, 13, 7), COLOR_BORDER_SOFT, 1, 12));
+            LinearLayout.LayoutParams pillParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            pillParams.leftMargin = dp(8);
+            titleRow.addView(metaPill, pillParams);
+        }
         section.addView(titleRow);
 
         View divider = new View(this);
@@ -1850,8 +1888,8 @@ public class MainActivity extends Activity {
                 1
         ));
 
-        LinearLayout actions = addSection(content, "Courses");
-        body(actions, shoppingRecipeIds.size() + " recette(s) dans la liste", COLOR_MUTED);
+        LinearLayout actions = addSection(content, "Courses", countLabel(shoppingRecipeIds.size(), "fiche", "fiches"));
+        body(actions, countLabel(shoppingRecipeIds.size(), "recette dans la liste", "recettes dans la liste"), COLOR_MUTED);
 
         Button copy = sectionButton("Copier la liste", true);
         copy.setEnabled(!shoppingRecipeIds.isEmpty());
@@ -2120,6 +2158,10 @@ public class MainActivity extends Activity {
             builder.append(part);
         }
         return builder.length() == 0 ? fallback : builder.toString();
+    }
+
+    private static String countLabel(int count, String singular, String plural) {
+        return count + " " + (count > 1 ? plural : singular);
     }
 
     private static boolean sameText(String left, String right) {

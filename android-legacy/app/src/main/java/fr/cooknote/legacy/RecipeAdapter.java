@@ -103,7 +103,7 @@ final class RecipeAdapter extends BaseAdapter {
     }
 
     private String displayMeta(Recipe recipe) {
-        if (recipe.isCollection()) return collectionCount(recipe) + " fiches rangees";
+        if (recipe.isCollection()) return countLabel(collectionCount(recipe), "fiche rangee", "fiches rangees");
         ArrayList<String> parts = new ArrayList<String>();
         String difficulty = recipe.difficultyLabel();
         if (difficulty.length() > 0) parts.add(difficulty);
@@ -371,6 +371,10 @@ final class RecipeAdapter extends BaseAdapter {
             builder.append(part);
         }
         return builder.length() == 0 ? fallback : builder.toString();
+    }
+
+    private static String countLabel(int count, String singular, String plural) {
+        return count + " " + (count > 1 ? plural : singular);
     }
 
     private StateListDrawable selectablePanel(int normalColor, int pressedColor, int strokeColor, int strokeWidth, int radiusDp) {
