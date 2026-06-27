@@ -103,8 +103,14 @@ final class RecipeAdapter extends BaseAdapter {
     }
 
     private String displayMeta(Recipe recipe) {
-        if (!recipe.isCollection()) return recipe.metaLine();
-        return recipe.primaryCategory() + " - " + collectionCount(recipe) + " fiches rangees";
+        if (recipe.isCollection()) return collectionCount(recipe) + " fiches rangees";
+        ArrayList<String> parts = new ArrayList<String>();
+        String difficulty = recipe.difficultyLabel();
+        if (difficulty.length() > 0) parts.add(difficulty);
+        if (recipe.yield.length() > 0) parts.add(recipe.yield);
+        int totalTime = recipe.activeTime + recipe.cookTime;
+        if (totalTime > 0) parts.add(formatMinutes(totalTime));
+        return joinMetaParts(parts, "Fiche recette");
     }
 
     private String cardInfo(Recipe recipe) {
@@ -354,6 +360,17 @@ final class RecipeAdapter extends BaseAdapter {
             return rest == 0 ? hours + "h" : hours + "h" + (rest < 10 ? "0" : "") + rest;
         }
         return minutes + "min";
+    }
+
+    private static String joinMetaParts(List<String> parts, String fallback) {
+        if (parts == null || parts.isEmpty()) return fallback;
+        StringBuilder builder = new StringBuilder();
+        for (String part : parts) {
+            if (part == null || part.length() == 0) continue;
+            if (builder.length() > 0) builder.append(" - ");
+            builder.append(part);
+        }
+        return builder.length() == 0 ? fallback : builder.toString();
     }
 
     private StateListDrawable selectablePanel(int normalColor, int pressedColor, int strokeColor, int strokeWidth, int radiusDp) {

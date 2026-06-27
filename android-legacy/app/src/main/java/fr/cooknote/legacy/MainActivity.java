@@ -678,7 +678,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        TextView topTitle = text(recipe.primaryCategory(), 12, COLOR_MUTED, true);
+        TextView topTitle = text(recipe.isCollection() ? "Collection" : "Fiche recette", 12, COLOR_MUTED, true);
         topTitle.setGravity(Gravity.CENTER_VERTICAL);
         topTitle.setPadding(dp(12), 0, 0, 0);
         topTitle.setSingleLine(true);
@@ -796,9 +796,7 @@ public class MainActivity extends Activity {
         titleParams.topMargin = dp(7);
         overlay.addView(title, titleParams);
 
-        String meta = recipe.isCollection()
-                ? repository.collectionCount(recipe) + " fiches rangees"
-                : recipe.metaLine();
+        String meta = detailMetaLine(recipe);
         TextView metaView = text(meta, 11, COLOR_MUTED, true);
         metaView.setSingleLine(false);
         metaView.setPadding(0, dp(4), 0, 0);
@@ -811,12 +809,28 @@ public class MainActivity extends Activity {
         StringBuilder builder = new StringBuilder("Cook Note");
         List<Recipe> trail = repository.parentTrail(recipe);
         for (Recipe parent : trail) {
+            if (sameText(parent.title, recipe.primaryCategory())) continue;
+            if (sameText(parent.title, recipe.title)) continue;
             builder.append(" / ").append(parent.title);
         }
-        if (trail.isEmpty() && recipe.master.length() == 0) {
-            builder.append(" / ").append(recipe.primaryCategory());
-        }
+        if (builder.length() == "Cook Note".length()) builder.append(recipe.isCollection() ? " / Collection" : " / Fiche");
         return builder.toString();
+    }
+
+    private String detailMetaLine(Recipe recipe) {
+        if (recipe.isCollection()) return repository.collectionCount(recipe) + " fiches rangees";
+
+        ArrayList<String> parts = new ArrayList<String>();
+        String difficulty = recipe.difficultyLabel();
+        if (difficulty.length() > 0) parts.add(difficulty);
+        if (recipe.yield.length() > 0) parts.add(recipe.yield);
+        int totalTime = recipe.activeTime + recipe.cookTime;
+        if (totalTime > 0) parts.add(formatMinutes(totalTime));
+        int ingredientCount = countSelectedIngredients(recipe);
+        if (ingredientCount > 0) parts.add(ingredientCount + " ingredients");
+        int stepCount = selectedRecipeSteps(recipe).size();
+        if (stepCount > 0) parts.add(stepCount + " etapes");
+        return joinMetaParts(parts, "Fiche Cook Note");
     }
 
     private int detailHeroHeight() {
@@ -892,7 +906,6 @@ public class MainActivity extends Activity {
 
     private void addQuickFacts(LinearLayout content, Recipe recipe) {
         ArrayList<String[]> facts = new ArrayList<String[]>();
-        facts.add(new String[]{"Categorie", recipe.primaryCategory()});
         if (!recipe.seasons.isEmpty()) facts.add(new String[]{"Saison", shortList(recipe.seasons, 2)});
 
         if (recipe.isCollection()) {
@@ -1318,8 +1331,14 @@ public class MainActivity extends Activity {
     }
 
     private String displayMeta(Recipe recipe) {
-        if (!recipe.isCollection()) return recipe.metaLine();
-        return recipe.primaryCategory() + " - " + repository.collectionCount(recipe) + " fiches rangees";
+        if (recipe.isCollection()) return repository.collectionCount(recipe) + " fiches rangees";
+        ArrayList<String> parts = new ArrayList<String>();
+        String difficulty = recipe.difficultyLabel();
+        if (difficulty.length() > 0) parts.add(difficulty);
+        if (recipe.yield.length() > 0) parts.add(recipe.yield);
+        int totalTime = recipe.activeTime + recipe.cookTime;
+        if (totalTime > 0) parts.add(formatMinutes(totalTime));
+        return joinMetaParts(parts, "Fiche recette");
     }
 
     private List<InlineVariantChoice> inlineVariantChoices(Recipe recipe) {
@@ -1532,7 +1551,6 @@ public class MainActivity extends Activity {
         row.setOrientation(LinearLayout.HORIZONTAL);
         scroller.addView(row);
 
-        addInfoChip(row, "Categorie", recipe.primaryCategory());
         if (!recipe.seasons.isEmpty()) addInfoChip(row, "Saison", shortList(recipe.seasons, 2));
         if (recipe.isCollection()) {
             addInfoChip(row, "Fiches", String.valueOf(repository.collectionCount(recipe)));
@@ -2091,6 +2109,22 @@ public class MainActivity extends Activity {
         drawable.setCornerRadius(dp(radiusDp));
         if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
         return drawable;
+    }
+
+    private static String joinMetaParts(List<String> parts, String fallback) {
+        if (parts == null || parts.isEmpty()) return fallback;
+        StringBuilder builder = new StringBuilder();
+        for (String part : parts) {
+            if (part == null || part.length() == 0) continue;
+            if (builder.length() > 0) builder.append(" - ");
+            builder.append(part);
+        }
+        return builder.length() == 0 ? fallback : builder.toString();
+    }
+
+    private static boolean sameText(String left, String right) {
+        if (left == null || right == null) return false;
+        return left.trim().equalsIgnoreCase(right.trim());
     }
 
     private static String shortList(List<String> values, int maxItems) {
