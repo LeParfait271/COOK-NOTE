@@ -103,7 +103,7 @@ function detectAppEnvironment() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.18';
+const SITE_VERSION = 'v2.19';
 const SITE_UPDATED_AT = '27/06/26';
 const APP_ENVIRONMENT = detectAppEnvironment();
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
@@ -158,36 +158,6 @@ const APP_INSTALL_OPTIONS = Object.freeze([
     stableRawHref: `${APP_RAW_DOWNLOAD_BASE}/${ANDROID_MODERN_STABLE_APK_FILE}`,
     stablePageHref: `${APP_REPO_FILE_BASE}/${ANDROID_MODERN_STABLE_APK_FILE}`,
     note: `Version APK ${SITE_VERSION.replace(/^v/, '')}, Android 8.0 minimum.`
-  },
-  {
-    id: 'ios-legacy',
-    kind: 'guide',
-    label: 'iOS ancien',
-    detail: 'Safari iPad/iPhone',
-    title: 'Installer sur ancien iPad ou iPhone',
-    body: 'Version web app legere pour les appareils Apple anciens. Elle garde le site en plein ecran depuis Safari, sans App Store.',
-    steps: [
-      'Ouvre Cook Note dans Safari.',
-      'Touche le bouton Partager.',
-      'Choisis Ajouter a l ecran d accueil.',
-      'Valide Cook Note, puis ouvre depuis l icone.'
-    ],
-    note: 'Si le bouton n apparait pas, mets Safari en mode classique et recharge la page.'
-  },
-  {
-    id: 'ios-modern',
-    kind: 'guide',
-    label: 'iOS recent',
-    detail: 'PWA HD plein ecran',
-    title: 'Installer sur iPhone ou iPad recent',
-    body: 'Installation PWA recommandee sur iOS/iPadOS recent : rendu HD premium, icone dediee, plein ecran et cache local du site.',
-    steps: [
-      'Ouvre Cook Note dans Safari.',
-      'Touche Partager, puis Ajouter a l ecran d accueil.',
-      'Lance Cook Note depuis l icone installee.',
-      'Garde le site ouvert une premiere fois pour remplir le cache.'
-    ],
-    note: 'Apple impose cette installation Safari pour une app web hors App Store ou TestFlight.'
   }
 ]);
 const SITE_CACHE_VERSION = SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`);
@@ -6253,7 +6223,6 @@ function RecipeView({
 
   const heroUsesHomeImage = showVariants;
   const heroImage = heroUsesHomeImage ? HERO_IMAGE : (selectedRecipe.image || recipe.image);
-  const heroEyebrow = isMasterRecipe(recipe) ? 'Catégorie' : primaryCategory(recipe);
   const heroStyle = heroImage
     ? {
       backgroundImage: heroUsesHomeImage
@@ -6277,7 +6246,6 @@ function RecipeView({
       h('div', { className: 'detail-hero-copy' },
         heroUsesHomeImage && h('img', { className: 'detail-hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(COOK_NOTE_LOGO) }),
         h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome, openRecipe }),
-        h('p', { className: 'eyebrow' }, heroEyebrow),
         h('h1', null, recipe.title),
         h('div', { className: 'detail-meta' },
           showVariants
@@ -7337,7 +7305,8 @@ function App() {
           ),
           h('div', { className: 'site-footer-copy' },
           h('p', { className: 'site-footer-brand' }, 'Cook Note \u00a9 2026.'),
-          h('p', null, 'Carnet personnel et applications pour Android de recettes et techniques culinaires développé par MaruChiwa.'),
+          h('p', null, 'Carnet personnel de recettes et techniques culinaires développé par MaruChiwa.'),
+          h('p', null, 'Application stand alone Android 5+ développé par MaruChiwa.'),
           )
         ),
         h('div', { className: 'site-footer-stats', 'aria-label': 'Informations catalogue' },

@@ -429,8 +429,6 @@ expect(
 [
   'Android 5.0+',
   'Android 8.0+',
-  'iOS ancien',
-  'iOS recent',
   'Cook Note Android 5.0+',
   'Cook Note HD Android 8.0+',
   'cook-note-android-legacy.apk',
@@ -441,8 +439,6 @@ expect(
   'CookNoteModernApp/HD',
   'raw.githubusercontent.com',
   '/downloads/',
-  'Ajouter a l ecran d accueil',
-  'ne doivent pas pretendre telecharger un `.ipa`',
   'npm run apps:update-all',
   'npm run apps:publish-all',
   'Mise a jour groupee obligatoire',

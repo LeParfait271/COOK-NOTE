@@ -133,9 +133,9 @@ npm run apps:update-all
 
 La commande `npm run android:legacy:update-apk` existe encore comme
 sous-commande de diagnostic, mais elle ne doit pas etre le workflow final :
-quand Android Legacy change, Android Modern et les deux entrees iOS PWA doivent
-etre revus dans le meme lot. Cette mise a jour groupee est obligatoire pour
-eviter une app en avance sur les autres.
+quand Android Legacy change, Android Modern doit etre revu dans le meme lot.
+Cette mise a jour groupee est obligatoire pour eviter une app en avance sur
+l'autre.
 
 Publier l APK courant sur GitHub Releases, seulement sur demande explicite :
 

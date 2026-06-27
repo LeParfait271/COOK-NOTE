@@ -773,18 +773,6 @@ public class MainActivity extends Activity {
         breadcrumb.setEllipsize(TextUtils.TruncateAt.END);
         overlay.addView(breadcrumb);
 
-        TextView category = text(recipe.primaryCategory(), 10, COLOR_GOLD, true);
-        category.setSingleLine(true);
-        category.setEllipsize(TextUtils.TruncateAt.END);
-        category.setPadding(dp(8), dp(4), dp(8), dp(4));
-        category.setBackground(panel(Color.argb(158, 15, 11, 7), COLOR_BORDER, 1, 12));
-        LinearLayout.LayoutParams categoryParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        categoryParams.topMargin = dp(7);
-        overlay.addView(category, categoryParams);
-
         TextView title = text(recipe.title, recipe.isCollection() ? 24 : 22, Color.rgb(249, 242, 231), true);
         title.setMaxLines(3);
         title.setEllipsize(TextUtils.TruncateAt.END);

@@ -4,9 +4,9 @@ Ce document est la reference pour les installations Cook Note hors navigateur.
 Le site web et GitHub restent la source de verite. Les applications sont des
 projets secondaires manuels.
 
-## Les 4 entrees du footer
+## Les 2 entrees Android du footer
 
-Le footer du site doit proposer quatre installations distinctes :
+Le footer du site doit proposer deux installations Android distinctes :
 
 - `Android 5.0+` : APK Android Legacy pour tablette ancienne, nom installe
   `Cook Note Android 5.0+`, asset stable `cook-note-android-legacy.apk`
@@ -15,9 +15,6 @@ Le footer du site doit proposer quatre installations distinctes :
   `Cook Note HD Android 8.0+`, asset
   stable `cook-note-android-modern.apk`, nom APK versionne
   `cook-note-android-modern-vX.YY.apk`, rendu HD premium via `modern-app-hd`
-- `iOS ancien` : installation PWA Safari guidee
-- `iOS recent` : installation PWA Safari guidee, rendu HD premium via
-  `modern-app-hd` quand elle est lancee en plein ecran
 
 Les deux boutons Android doivent afficher la version minimale directement dans
 leur label : `Android 5.0+` et `Android 8.0+`. Ils ouvrent un panneau d'installation. Le bouton primaire
@@ -46,8 +43,6 @@ ne doivent pas etre copiees dans `dist/`, sinon le deploy Cloudflare Pages peut
 echouer. Les APK generes dans les dossiers Android restent des artefacts locaux
 ignores.
 
-Les deux boutons iOS ouvrent un panneau d'aide dans le site. Ils ne doivent pas pretendre telecharger un `.ipa` directement.
-
 ## Mise a jour groupee obligatoire
 
 Quand une application Cook Note est mise a jour, toutes les applications doivent
@@ -70,17 +65,10 @@ downloads/cook-note-android-legacy-vX.YY.apk
 downloads/cook-note-android-modern-vX.YY.apk
 ```
 
-Les deux entrees iOS restent des installations PWA Safari, donc elles ne
-produisent pas d APK ou d IPA. Elles doivent quand meme etre verifiees dans le
-meme lot : libelles du footer, panneau d aide, manifest PWA, balises Apple et
-absence de promesse de telechargement `.ipa`.
-
-Les apps anciennes restent volontairement legeres : Android 5.0+ garde Native Lite
-avec images reduites, et iOS ancien garde la PWA simple Safari. Les apps
-recentes peuvent au contraire utiliser le rendu premium `modern-app-hd`.
-Android Modern s'identifie avec le user-agent `CookNoteModernApp/HD`, puis le
-site applique le skin HD. iOS recent applique le meme skin seulement en PWA plein
-ecran sur appareil Apple moderne.
+L'app ancienne reste volontairement legere : Android 5.0+ garde Native Lite
+avec images reduites. L'app recente peut au contraire utiliser le rendu premium
+`modern-app-hd`. Android Modern s'identifie avec le user-agent
+`CookNoteModernApp/HD`, puis le site applique le skin HD.
 
 Publication Release GitHub, seulement sur demande explicite :
 
@@ -94,22 +82,6 @@ et `npm run android:modern:publish-release` sont des sous-commandes de
 diagnostic. Elles ne doivent pas etre utilisees comme workflow final de
 publication, parce qu elles peuvent laisser une seule app en avance sur les
 autres.
-
-## Limite Apple
-
-Un vrai `.ipa` iPhone/iPad ne s'installe pas librement depuis un simple bouton
-web. Il faut une signature Apple et une distribution App Store, TestFlight,
-Ad Hoc, Enterprise ou MDM.
-
-Pour une installation directe depuis le site, le chemin fiable est donc :
-
-1. ouvrir Cook Note dans Safari ;
-2. utiliser `Partager` ;
-3. choisir `Ajouter a l ecran d accueil` ;
-4. lancer Cook Note depuis l icone.
-
-Les balises PWA Apple doivent rester dans `index.html` et dans les pages
-prerendues par `scripts/build-site.js`.
 
 ## Android Legacy
 
@@ -245,13 +217,13 @@ tant que les copies `downloads/*.apk` sont presentes dans le depot GitHub.
   plus de 25 MiB.
 - Ne jamais versionner `android-legacy/build/generated/cook-note-lite/`.
 - Ne jamais versionner `android-modern/app/src/main/assets/www/`.
-- Ne jamais brancher Android ou iOS a `npm run build`, `npm run check`,
+- Ne jamais brancher les apps Android a `npm run build`, `npm run check`,
   `npm run preflight`, `start` ou `dev`.
 - Ne publier une nouvelle app que sur demande explicite utilisateur.
 - Toute mise a jour app doit passer par `npm run apps:update-all`.
 - Toute publication Release app doit passer par `npm run apps:publish-all`.
 - Ne jamais publier un seul APK : Android Legacy et Android Modern doivent
-  avancer ensemble, avec verification des deux entrees iOS PWA.
+  avancer ensemble.
 - Un push du site ne met pas a jour les apps deja installees.
 - Les vieilles apps peuvent sacrifier la qualite visuelle pour la fluidite ; les
   apps recentes doivent garder le meilleur rendu possible.
