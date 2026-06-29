@@ -18,25 +18,24 @@ Le mode d'emploi complet est dans
 - Catalogue local `recipes-lite.json`
 - Images locales reduites a `480px` max pour l APK Android 5 uniquement
 - accueil parent Android compact avec les fiches parents du site par defaut,
-  grille recyclee de cartes image 16/9 proches du site, panneau recherche/filtres replie
+  grille recyclee de cartes image 16/9 proches du site, recherche simple sans filtres
   et cache image limite
 - refonte visuelle native premium : header compact, stats locales, cartes
   tactiles, sections cadrees, hero de fiche encadre, fiche recette detaillee proche du site,
   grille Ingredients/Etapes/Avant de commencer et actions principales / secondaires distinguees
 - rattachements parents additionnels lus depuis `additionalMasters` pour que
   les fiches parents affichent tout leur contenu range
-- Puce `Toutes fiches` dans la recherche pour parcourir le catalogue complet
-  sans remettre les recettes enfants en vrac sur l'accueil
+- Recherche basique et efficace : un champ texte, un bouton `Effacer`, aucun
+  filtre dans la recherche
 - cartes parent visibles pour les collections, avec des cartes parent 16/9
   visibles comme sur le site, sans menu deroulant pour choisir une recette
 - selecteurs natifs uniquement pour la preparation choisie des fiches a
   variantes internes, sans afficher toutes les variantes en bloc
-- Fonctions natives legeres : favoris locaux, derniers ouverts, filtres
-  saison/difficulte, copie ingredients, liste de courses locale, copie fiche,
-  partage fiche, recette surprise, ecran actif persistant et bouton natif de
-  mise a jour
-- Garde-fou lexical : bouton natif de mise a jour, recette surprise,
-  ecran actif persistant, cartes parent visibles
+- Fonctions natives legeres : favoris locaux, recherche simple sans filtres,
+  copie ingredients, liste de courses locale, copie fiche, partage fiche,
+  ecran actif persistant et bouton natif de mise a jour
+- Garde-fou lexical : bouton natif de mise a jour, ecran actif persistant,
+  cartes parent visibles, recherche simple sans filtres
 - aucun changement de recette requis pour l app
 
 ## Mise a jour explicite

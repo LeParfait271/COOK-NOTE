@@ -42,7 +42,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
 
@@ -50,10 +49,8 @@ public class MainActivity extends Activity {
     private static final String UPDATE_APK_URL = "https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk";
     private static final String PREFS_NAME = "cook_note_legacy";
     private static final String PREF_FAVORITES = "favorites";
-    private static final String PREF_RECENT = "recent";
     private static final String PREF_SHOPPING = "shopping";
     private static final String PREF_KEEP_SCREEN_ON = "keep_screen_on";
-    private static final int MAX_RECENT = 18;
     private static final int COLOR_BG = Color.rgb(4, 4, 4);
     private static final int COLOR_PANEL = Color.rgb(17, 16, 13);
     private static final int COLOR_PANEL_DEEP = Color.rgb(8, 7, 6);
@@ -75,31 +72,20 @@ public class MainActivity extends Activity {
     private CookNoteRepository repository;
     private ImageLoader imageLoader;
     private RecipeAdapter adapter;
-    private LinearLayout quickStrip;
-    private LinearLayout categoryStrip;
-    private LinearLayout seasonStrip;
-    private LinearLayout difficultyStrip;
     private LinearLayout searchPanel;
     private Button searchToggle;
     private Button shoppingButton;
+    private Button clearSearchButton;
     private TextView counterView;
     private EditText searchBox;
-    private String selectedCategory = "Toutes";
-    private String selectedSeason = "Toutes";
-    private String selectedDifficulty = "Toutes";
     private String currentQuery = "";
-    private boolean favoritesOnly;
-    private boolean recentOnly;
-    private boolean browseAllRecipes;
     private boolean searchPanelOpen;
     private boolean showingDetail;
     private boolean keepScreenOn;
     private final Stack<String> detailBackStack = new Stack<String>();
     private final Set<String> favoriteIds = new HashSet<String>();
-    private final ArrayList<String> recentIds = new ArrayList<String>();
     private final ArrayList<String> shoppingRecipeIds = new ArrayList<String>();
     private final Map<String, Integer> inlineVariantSelections = new HashMap<String, Integer>();
-    private final Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,51 +224,41 @@ public class MainActivity extends Activity {
         panelParams.topMargin = dp(10);
         header.addView(searchPanel, panelParams);
 
-        TextView searchLabel = text("RECHERCHE ET FILTRES", 10, COLOR_GOLD, true);
+        TextView searchLabel = text("RECHERCHE SIMPLE", 10, COLOR_GOLD, true);
         searchLabel.setIncludeFontPadding(false);
         searchPanel.addView(searchLabel);
+
+        LinearLayout searchRow = new LinearLayout(this);
+        searchRow.setOrientation(LinearLayout.HORIZONTAL);
+        searchRow.setGravity(Gravity.CENTER_VERTICAL);
+        LinearLayout.LayoutParams searchRowParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                dp(42)
+        );
+        searchRowParams.topMargin = dp(9);
+        searchPanel.addView(searchRow, searchRowParams);
 
         searchBox = new EditText(this);
         searchBox.setSingleLine(true);
         searchBox.setTextColor(COLOR_TEXT);
         searchBox.setHintTextColor(COLOR_MUTED);
         searchBox.setTextSize(14);
-        searchBox.setHint("Rechercher une recette, un ingredient...");
+        searchBox.setHint("Recette ou ingredient...");
         searchBox.setPadding(dp(12), 0, dp(12), 0);
         searchBox.setBackground(panel(COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
         searchBox.setText(currentQuery);
-        LinearLayout.LayoutParams searchBoxParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(42)
-        );
-        searchBoxParams.topMargin = dp(9);
-        searchPanel.addView(searchBox, searchBoxParams);
+        LinearLayout.LayoutParams searchBoxParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        searchBoxParams.rightMargin = dp(7);
+        searchRow.addView(searchBox, searchBoxParams);
 
-        addFilterGroupLabel(searchPanel, "ACCES RAPIDE", dp(10));
-        quickStrip = addChipScroller(searchPanel, dp(6));
-        rebuildQuickChips();
-
-        addFilterGroupLabel(searchPanel, "CATEGORIES", dp(10));
-        HorizontalScrollView scroller = new HorizontalScrollView(this);
-        scroller.setHorizontalScrollBarEnabled(false);
-        categoryStrip = new LinearLayout(this);
-        categoryStrip.setOrientation(LinearLayout.HORIZONTAL);
-        scroller.addView(categoryStrip);
-        LinearLayout.LayoutParams scrollerParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        scrollerParams.topMargin = dp(6);
-        searchPanel.addView(scroller, scrollerParams);
-        rebuildCategoryChips();
-
-        addFilterGroupLabel(searchPanel, "SAISON", dp(9));
-        seasonStrip = addChipScroller(searchPanel, dp(6));
-        rebuildSeasonChips();
-
-        addFilterGroupLabel(searchPanel, "DIFFICULTE", dp(9));
-        difficultyStrip = addChipScroller(searchPanel, dp(6));
-        rebuildDifficultyChips();
+        clearSearchButton = actionButton("Effacer", false);
+        searchRow.addView(clearSearchButton, new LinearLayout.LayoutParams(dp(92), ViewGroup.LayoutParams.MATCH_PARENT));
+        clearSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearSearch();
+            }
+        });
 
         setSearchPanelOpen(searchPanelOpen);
 
@@ -347,34 +323,6 @@ public class MainActivity extends Activity {
 
         setContentView(root);
         applyFilters();
-    }
-
-    private LinearLayout addChipScroller(LinearLayout parent, int topMargin) {
-        HorizontalScrollView scroller = new HorizontalScrollView(this);
-        scroller.setHorizontalScrollBarEnabled(false);
-        LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        scroller.addView(row);
-        LinearLayout.LayoutParams scrollerParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        scrollerParams.topMargin = topMargin;
-        parent.addView(scroller, scrollerParams);
-        return row;
-    }
-
-    private void addFilterGroupLabel(LinearLayout parent, String value, int topMargin) {
-        TextView label = text(value, 9, COLOR_DIM, true);
-        label.setIncludeFontPadding(false);
-        label.setSingleLine(true);
-        label.setLetterSpacing(0.08f);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        params.topMargin = topMargin;
-        parent.addView(label, params);
     }
 
     private void addAccentLine(LinearLayout parent, int topMarginDp, int bottomMarginDp) {
@@ -449,137 +397,9 @@ public class MainActivity extends Activity {
         row.addView(stat, params);
     }
 
-    private void rebuildQuickChips() {
-        if (quickStrip == null) return;
-        quickStrip.removeAllViews();
-        addFilterChip(quickStrip, "Favoris (" + favoriteIds.size() + ")", favoritesOnly, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                favoritesOnly = !favoritesOnly;
-                rebuildQuickChips();
-                applyFilters();
-            }
-        });
-        addFilterChip(quickStrip, "Derniers (" + recentIds.size() + ")", recentOnly, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recentOnly = !recentOnly;
-                rebuildQuickChips();
-                applyFilters();
-            }
-        });
-        addFilterChip(quickStrip, "Toutes fiches", browseAllRecipes, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                browseAllRecipes = !browseAllRecipes;
-                rebuildQuickChips();
-                applyFilters();
-            }
-        });
-        addFilterChip(quickStrip, "Surprise", false, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openSurpriseRecipe();
-            }
-        });
-        addFilterChip(quickStrip, "Reset", false, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clearFilters();
-            }
-        });
-    }
-
-    private void rebuildCategoryChips() {
-        if (categoryStrip == null) return;
-        categoryStrip.removeAllViews();
-        addCategoryChip("Toutes");
-        for (String category : repository.categories) {
-            addCategoryChip(category);
-        }
-    }
-
-    private void rebuildSeasonChips() {
-        if (seasonStrip == null) return;
-        seasonStrip.removeAllViews();
-        addSeasonChip("Toutes");
-        addSeasonChip("Printemps");
-        addSeasonChip("Ete");
-        addSeasonChip("Automne");
-        addSeasonChip("Hiver");
-    }
-
-    private void rebuildDifficultyChips() {
-        if (difficultyStrip == null) return;
-        difficultyStrip.removeAllViews();
-        addDifficultyChip("Toutes");
-        addDifficultyChip("Facile");
-        addDifficultyChip("Moyen");
-        addDifficultyChip("Technique");
-    }
-
-    private void addCategoryChip(final String category) {
-        addFilterChip(categoryStrip, category, category.equals(selectedCategory), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectedCategory = category;
-                rebuildCategoryChips();
-                applyFilters();
-            }
-        });
-    }
-
-    private void addSeasonChip(final String season) {
-        addFilterChip(seasonStrip, season, season.equals(selectedSeason), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectedSeason = season;
-                rebuildSeasonChips();
-                applyFilters();
-            }
-        });
-    }
-
-    private void addDifficultyChip(final String difficulty) {
-        addFilterChip(difficultyStrip, difficulty, difficulty.equals(selectedDifficulty), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectedDifficulty = difficulty;
-                rebuildDifficultyChips();
-                applyFilters();
-            }
-        });
-    }
-
-    private void addFilterChip(LinearLayout strip, String label, boolean selected, View.OnClickListener listener) {
-        TextView chip = text(label, 12, selected ? COLOR_TEXT_DARK : COLOR_TEXT, true);
-        chip.setGravity(Gravity.CENTER);
-        chip.setPadding(dp(12), dp(7), dp(12), dp(7));
-        chip.setBackground(selected
-                ? selectablePanel(COLOR_ORANGE, COLOR_GOLD, COLOR_ORANGE, 1, 16)
-                : selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 16));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        params.rightMargin = dp(8);
-        strip.addView(chip, params);
-        chip.setOnClickListener(listener);
-    }
-
-    private void clearFilters() {
-        selectedCategory = "Toutes";
-        selectedSeason = "Toutes";
-        selectedDifficulty = "Toutes";
-        favoritesOnly = false;
-        recentOnly = false;
-        browseAllRecipes = false;
+    private void clearSearch() {
         currentQuery = "";
         if (searchBox != null) searchBox.setText("");
-        rebuildQuickChips();
-        rebuildCategoryChips();
-        rebuildSeasonChips();
-        rebuildDifficultyChips();
         applyFilters();
     }
 
@@ -600,30 +420,11 @@ public class MainActivity extends Activity {
 
     private String buildSearchToggleLabel() {
         if (searchPanelOpen) return "Fermer";
-        int activeFilters = countActiveFilters();
-        return activeFilters == 0 ? "Recherche" : "Filtres (" + activeFilters + ")";
-    }
-
-    private int countActiveFilters() {
-        int count = 0;
-        if (currentQuery.trim().length() > 0) count += 1;
-        if (!"Toutes".equals(selectedCategory)) count += 1;
-        if (!"Toutes".equals(selectedSeason)) count += 1;
-        if (!"Toutes".equals(selectedDifficulty)) count += 1;
-        if (favoritesOnly) count += 1;
-        if (recentOnly) count += 1;
-        if (browseAllRecipes) count += 1;
-        return count;
+        return currentQuery.trim().length() == 0 ? "Recherche" : "Recherche active";
     }
 
     private boolean isHomeMode() {
-        return !browseAllRecipes
-                && currentQuery.trim().length() == 0
-                && "Toutes".equals(selectedCategory)
-                && "Toutes".equals(selectedSeason)
-                && "Toutes".equals(selectedDifficulty)
-                && !favoritesOnly
-                && !recentOnly;
+        return currentQuery.trim().length() == 0;
     }
 
     private void applyFilters() {
@@ -631,56 +432,22 @@ public class MainActivity extends Activity {
         boolean homeMode = isHomeMode();
         List<Recipe> filtered = homeMode
                 ? repository.homeRecipes()
-                : repository.filterSearchable(
-                        currentQuery,
-                        selectedCategory,
-                        selectedSeason,
-                        selectedDifficulty,
-                        favoritesOnly ? favoriteIds : null,
-                        recentOnly ? recentIds : null
-                );
+                : repository.filterSearchable(currentQuery, "Toutes", "Toutes", "Toutes", null, null);
         adapter.setFavoriteIds(favoriteIds);
         adapter.setItems(filtered);
         StringBuilder label = new StringBuilder();
-        label.append(filtered.size()).append(homeMode ? " fiches parents" : " fiches visibles");
+        label.append(filtered.size()).append(homeMode ? " fiches parents" : " resultats");
         if (homeMode) label.append(" - accueil");
-        if (browseAllRecipes) label.append(" - toutes fiches");
-        if (!"Toutes".equals(selectedCategory)) label.append(" - ").append(selectedCategory);
-        if (favoritesOnly) label.append(" - favoris");
-        if (recentOnly) label.append(" - derniers ouverts");
-        if (!"Toutes".equals(selectedSeason)) label.append(" - ").append(selectedSeason);
-        if (!"Toutes".equals(selectedDifficulty)) label.append(" - ").append(selectedDifficulty);
+        if (!homeMode) label.append(" - recherche");
         counterView.setText(label.toString());
         if (searchToggle != null) searchToggle.setText(buildSearchToggleLabel());
-    }
-
-    private void openSurpriseRecipe() {
-        hideKeyboard();
-        setSearchPanelOpen(false);
-        List<Recipe> candidates = repository.filterSearchable(
-                currentQuery,
-                selectedCategory,
-                selectedSeason,
-                selectedDifficulty,
-                favoritesOnly ? favoriteIds : null,
-                recentOnly ? recentIds : null
-        );
-        if (candidates.isEmpty()) {
-            candidates = repository.filterSearchable("", "Toutes", "Toutes", "Toutes", null, null);
-        }
-        if (candidates.isEmpty()) {
-            Toast.makeText(this, "Aucune recette disponible", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Recipe recipe = candidates.get(random.nextInt(candidates.size()));
-        openRecipe(recipe, false);
+        if (clearSearchButton != null) clearSearchButton.setEnabled(!homeMode);
     }
 
     private void openRecipe(Recipe recipe, boolean pushCurrent) {
         if (pushCurrent && showingDetail && !detailBackStack.contains(recipe.id)) {
             detailBackStack.push(recipe.id);
         }
-        rememberRecent(recipe.id);
         showingDetail = true;
         applyKeepScreenOn();
 
@@ -2208,18 +1975,15 @@ public class MainActivity extends Activity {
     private void loadUserState() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         favoriteIds.clear();
-        recentIds.clear();
         shoppingRecipeIds.clear();
         keepScreenOn = prefs.getBoolean(PREF_KEEP_SCREEN_ON, false);
         parseIds(prefs.getString(PREF_FAVORITES, ""), favoriteIds, 0);
-        parseIds(prefs.getString(PREF_RECENT, ""), recentIds, MAX_RECENT);
         parseIds(prefs.getString(PREF_SHOPPING, ""), shoppingRecipeIds, 0);
     }
 
     private void saveUserState() {
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putString(PREF_FAVORITES, joinIds(new ArrayList<String>(favoriteIds)));
-        editor.putString(PREF_RECENT, joinIds(recentIds));
         editor.putString(PREF_SHOPPING, joinIds(shoppingRecipeIds));
         editor.putBoolean(PREF_KEEP_SCREEN_ON, keepScreenOn);
         editor.apply();
@@ -2315,16 +2079,6 @@ public class MainActivity extends Activity {
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
-    }
-
-    private void rememberRecent(String id) {
-        if (id == null || id.length() == 0) return;
-        recentIds.remove(id);
-        recentIds.add(0, id);
-        while (recentIds.size() > MAX_RECENT) {
-            recentIds.remove(recentIds.size() - 1);
-        }
-        saveUserState();
     }
 
     private void goBack() {

@@ -78,31 +78,29 @@ diagnostic. Elle ne doit pas etre utilisee comme workflow final de publication.
   `1280px` maximum, JPEG recompresses via `jpeg-js`, decodees en `RGB_565`
   avec petit cache memoire
 - Interface : `GridView` recyclee en cartes image 16/9 proches du site, accueil
-  parent Android compact avec les fiches parents du site par defaut, panneau
-  recherche/filtres replie, recherche locale, filtres categories, filtres
-  saison/difficulte, favoris locaux, derniers ouverts, fiche recette detaillee
+  parent Android compact avec les fiches parents du site par defaut, recherche
+  simple sans filtres, favoris locaux, fiche recette detaillee
   proche du site avec hero 16/9, actions dans le hero, grille
   Ingredients/Etapes/Avant de commencer, infos rapides en pastilles,
   ingredients en lignes, copie ingredients, rattachements parents additionnels,
   bouton natif de mise a jour, liste de courses locale, copie fiche, partage
-  fiche, recette surprise, ecran actif persistant, etapes numerotees, cartes
-  parent visibles et selecteurs natifs de preparation
+  fiche, ecran actif persistant, etapes numerotees, cartes parent visibles et
+  selecteurs natifs de preparation
 - Direction visuelle Android Legacy : refonte visuelle native premium sans
   moteur web, header compact avec stats locales, grille `GridView` en cartes
   image 16/9 tactiles recyclees, hero de fiche encadre, sections cadrees,
   pastilles lisibles, etats presses natifs et actions principales/secondaires
   distinguees
 
-Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, filtres saison/difficulte, accueil parent Android, selecteurs natifs de preparation, partage fiche, cartes parent visibles, recette surprise, ecran actif persistant.
+Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, recherche simple sans filtres, accueil parent Android, selecteurs natifs de preparation, partage fiche, cartes parent visibles, ecran actif persistant.
 
-Le panneau recherche/filtres replie garde les filtres hors de l'accueil tant que
-l'utilisateur ne touche pas `Recherche`. Le bouton natif de mise a jour reste
-disponible sous forme compacte avec `Mise a jour`. La puce `Toutes fiches`
-reste dans le panneau de recherche pour parcourir le catalogue complet sans
-remettre les recettes enfants en vrac sur l'accueil.
-La puce `Surprise` reste dans ce meme panneau et ouvre une recette compatible
-avec les filtres actifs. Le reglage `Ecran actif` reste natif et persistant pour
-cuisiner sans mise en veille.
+La recherche Android Legacy reste volontairement basique : elle est fermee tant
+que l'utilisateur ne touche pas `Recherche`, puis affiche seulement un champ
+texte et `Effacer`. Elle cherche dans tout le catalogue, sans filtres de
+categorie, saison, difficulte, favoris, recents, `Toutes fiches` ou bouton aleatoire.
+Le bouton natif de mise a jour reste disponible sous forme compacte avec
+`Mise a jour`. Le reglage `Ecran actif` reste natif et persistant pour cuisiner
+sans mise en veille.
 
 Les fiches parents lisent `master` et `additionalMasters`, afin que les
 rattachements parents additionnels du site soient visibles dans l'app. Les

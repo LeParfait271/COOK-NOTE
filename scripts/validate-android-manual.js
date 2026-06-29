@@ -129,7 +129,9 @@ expect(
     && androidLegacyMainActivity.includes('selectablePanel')
     && androidLegacyMainActivity.includes('buttonPanel')
     && androidLegacyMainActivity.includes('Carnet tablette Android 5.0+')
-    && androidLegacyMainActivity.includes('RECHERCHE ET FILTRES')
+    && androidLegacyMainActivity.includes('RECHERCHE SIMPLE')
+    && androidLegacyMainActivity.includes('clearSearch')
+    && androidLegacyMainActivity.includes('Recherche active')
     && androidLegacyMainActivity.includes('sectionButton(String value, boolean primary)')
     && androidLegacyMainActivity.includes('addInlineVariantPicker')
     && androidLegacyMainActivity.includes('selectedIngredientGroups')
@@ -140,18 +142,13 @@ expect(
     && androidLegacyMainActivity.includes('Preparation')
     && androidLegacyMainActivity.includes('SharedPreferences')
     && androidLegacyMainActivity.includes('favoriteIds')
-    && androidLegacyMainActivity.includes('recentIds')
     && androidLegacyMainActivity.includes('PREF_SHOPPING')
     && androidLegacyMainActivity.includes('PREF_KEEP_SCREEN_ON')
     && androidLegacyMainActivity.includes('shoppingRecipeIds')
     && androidLegacyMainActivity.includes('FLAG_KEEP_SCREEN_ON')
-    && androidLegacyMainActivity.includes('openSurpriseRecipe')
-    && androidLegacyMainActivity.includes('Surprise')
     && androidLegacyMainActivity.includes('searchPanelOpen')
     && androidLegacyMainActivity.includes('setSearchPanelOpen')
     && androidLegacyMainActivity.includes('isHomeMode')
-    && androidLegacyMainActivity.includes('browseAllRecipes')
-    && androidLegacyMainActivity.includes('Toutes fiches')
     && androidLegacyMainActivity.includes('fiches parents')
     && androidLegacyMainActivity.includes('repository.homeRecipes()')
     && androidLegacyMainActivity.includes('repository.filterSearchable')
@@ -162,9 +159,16 @@ expect(
     && androidLegacyMainActivity.includes('panelGradient')
     && androidLegacyMainActivity.includes('R.drawable.ic_launcher')
     && androidLegacyMainActivity.includes('Recherche')
-    && androidLegacyMainActivity.includes('Filtres (')
-    && androidLegacyMainActivity.includes('selectedSeason')
-    && androidLegacyMainActivity.includes('selectedDifficulty')
+    && !androidLegacyMainActivity.includes('RECHERCHE ET FILTRES')
+    && !androidLegacyMainActivity.includes('Filtres (')
+    && !androidLegacyMainActivity.includes('selectedSeason')
+    && !androidLegacyMainActivity.includes('selectedDifficulty')
+    && !androidLegacyMainActivity.includes('selectedCategory')
+    && !androidLegacyMainActivity.includes('browseAllRecipes')
+    && !androidLegacyMainActivity.includes('recentIds')
+    && !androidLegacyMainActivity.includes('Toutes fiches')
+    && !androidLegacyMainActivity.includes('openSurpriseRecipe')
+    && !androidLegacyMainActivity.includes('Surprise')
     && androidLegacyMainActivity.includes('copyIngredients')
     && androidLegacyMainActivity.includes('showShoppingList')
     && androidLegacyMainActivity.includes('buildShoppingText')
@@ -331,11 +335,8 @@ expect(
   'actions principales/secondaires',
   'pastilles',
   'favoris locaux',
-  'derniers ouverts',
-  'filtres saison/difficulte',
-  'panneau recherche/filtres replie',
+  'recherche simple sans filtres',
   'accueil parent Android',
-  'Toutes fiches',
   'cartes parent visibles',
   'menu deroulant',
   'selecteur natif',
@@ -346,7 +347,6 @@ expect(
   'liste de courses locale',
   'copie fiche',
   'partage fiche',
-  'recette surprise',
   'ecran actif',
   'bouton natif de mise a jour',
   'etapes numerotees',
@@ -367,22 +367,18 @@ expect(
     && androidReadme.includes('grille Ingredients/Etapes/Avant de commencer')
     && androidReadme.includes('actions principales')
     && androidReadme.includes('favoris locaux')
-    && androidReadme.includes('derniers ouverts')
-    && androidReadme.includes('panneau recherche/filtres replie')
+    && androidReadme.includes('recherche simple sans filtres')
     && androidReadme.includes('accueil parent Android')
-    && androidReadme.includes('Toutes fiches')
     && androidReadme.includes('cartes parent visibles')
     && androidReadme.includes('menu')
     && androidReadme.includes('selecteurs natifs uniquement')
     && androidReadme.includes('rattachements parents additionnels')
     && androidReadme.includes('nom APK versionne')
     && androidReadme.includes('preparation choisie')
-    && androidReadme.includes('filtres')
     && androidReadme.includes('copie ingredients')
     && androidReadme.includes('liste de courses locale')
     && androidReadme.includes('copie fiche')
     && androidReadme.includes('partage fiche')
-    && androidReadme.includes('recette surprise')
     && androidReadme.includes('ecran actif')
     && androidReadme.includes('bouton natif de mise a jour')
     && androidReadme.includes('update-all')
@@ -424,11 +420,8 @@ expect(
   'actions principales/secondaires',
   'pastilles',
   'favoris locaux',
-  'derniers ouverts',
-  'filtres saison/difficulte',
-  'panneau recherche/filtres replie',
+  'recherche simple sans filtres',
   'accueil parent Android',
-  'Toutes fiches',
   'cartes parent visibles',
   'menu deroulant',
   'selecteurs natifs de preparation',
@@ -439,7 +432,6 @@ expect(
   'liste de courses locale',
   'copie fiche',
   'partage fiche',
-  'recette surprise',
   'ecran actif',
   'bouton natif de mise a jour',
   'etapes numerotees',
