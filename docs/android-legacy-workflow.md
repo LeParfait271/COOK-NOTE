@@ -46,7 +46,8 @@ ingredients en lignes lisibles, etapes numerotees et variantes cliquables. Les
 fonctions reintegrees doivent rester natives et peu couteuses : favoris locaux
 `SharedPreferences`, derniers ouverts, filtres saison/difficulte et copie des
 ingredients vers le presse-papiers, liste de courses locale, copie fiche et
-partage fiche. L accueil doit rester compact : la recherche et tous les filtres
+partage fiche, recette surprise depuis les filtres actifs et ecran actif
+persistant pour cuisiner sans mise en veille. L accueil doit rester compact : la recherche et tous les filtres
 doivent etre caches dans un panneau recherche/filtres replie qui s ouvre
 seulement via `Recherche`. L accueil doit aussi garder un bouton
 `Courses` compact et un bouton natif de mise a jour qui ouvre l URL GitHub
@@ -65,6 +66,8 @@ ni filtre actif, afficher seulement les fiches parents racines du catalogue,
 pas toutes les recettes enfants en vrac. La puce `Toutes fiches` vit dans le
 panneau recherche/filtres et permet de parcourir le catalogue cherchable sans
 casser cet accueil parent.
+La puce `Surprise` reste aussi dans ce panneau : elle ouvre une recette compatible
+avec les filtres actifs, sans ajouter de carte permanente sur l accueil.
 Les fiches parents doivent lire `master` et `additionalMasters`, afin que les
 rattachements parents additionnels du site apparaissent dans les collections
 Android Legacy.
@@ -236,7 +239,8 @@ C est voulu.
   pastilles d infos, les favoris, les derniers ouverts, les filtres
   saison/difficulte dans un panneau recherche/filtres replie, la copie
   ingredients, la liste de courses locale, la copie fiche, le partage fiche,
-  le bouton natif de mise a jour et les etapes numerotees.
+  la recette surprise, l ecran actif persistant, le bouton natif de mise a jour
+  et les etapes numerotees.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java`
   lit `recipes-lite.json`, les `master`, les `additionalMasters` et les
   rattachements parents additionnels.
@@ -266,7 +270,8 @@ C est voulu.
   ou `assets/www` dans Android Legacy.
 - Ne pas supprimer les fonctions natives legeres reintegrees : favoris locaux,
   derniers ouverts, filtres saison/difficulte, panneau recherche/filtres replie,
-  copie ingredients, liste de courses locale, copie fiche et partage fiche.
+  copie ingredients, liste de courses locale, copie fiche, partage fiche,
+  recette surprise et ecran actif persistant.
 - Ne pas remplacer la refonte visuelle native premium par des blocs Android
   par defaut : garder cartes tactiles, header compact avec stats locales, hero
   encadre, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer,

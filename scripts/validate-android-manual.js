@@ -142,7 +142,11 @@ expect(
     && androidLegacyMainActivity.includes('favoriteIds')
     && androidLegacyMainActivity.includes('recentIds')
     && androidLegacyMainActivity.includes('PREF_SHOPPING')
+    && androidLegacyMainActivity.includes('PREF_KEEP_SCREEN_ON')
     && androidLegacyMainActivity.includes('shoppingRecipeIds')
+    && androidLegacyMainActivity.includes('FLAG_KEEP_SCREEN_ON')
+    && androidLegacyMainActivity.includes('openSurpriseRecipe')
+    && androidLegacyMainActivity.includes('Surprise')
     && androidLegacyMainActivity.includes('searchPanelOpen')
     && androidLegacyMainActivity.includes('setSearchPanelOpen')
     && androidLegacyMainActivity.includes('isHomeMode')
@@ -342,6 +346,8 @@ expect(
   'liste de courses locale',
   'copie fiche',
   'partage fiche',
+  'recette surprise',
+  'ecran actif',
   'bouton natif de mise a jour',
   'etapes numerotees',
   'sans WebView systeme et sans GeckoView',
@@ -376,6 +382,8 @@ expect(
     && androidReadme.includes('liste de courses locale')
     && androidReadme.includes('copie fiche')
     && androidReadme.includes('partage fiche')
+    && androidReadme.includes('recette surprise')
+    && androidReadme.includes('ecran actif')
     && androidReadme.includes('bouton natif de mise a jour')
     && androidReadme.includes('update-all')
     && androidReadme.includes('publish-all')
@@ -431,6 +439,8 @@ expect(
   'liste de courses locale',
   'copie fiche',
   'partage fiche',
+  'recette surprise',
+  'ecran actif',
   'bouton natif de mise a jour',
   'etapes numerotees',
   'sans GeckoView'

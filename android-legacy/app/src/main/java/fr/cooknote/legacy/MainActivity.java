@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -41,6 +42,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
 
@@ -50,6 +52,7 @@ public class MainActivity extends Activity {
     private static final String PREF_FAVORITES = "favorites";
     private static final String PREF_RECENT = "recent";
     private static final String PREF_SHOPPING = "shopping";
+    private static final String PREF_KEEP_SCREEN_ON = "keep_screen_on";
     private static final int MAX_RECENT = 18;
     private static final int COLOR_BG = Color.rgb(4, 4, 4);
     private static final int COLOR_PANEL = Color.rgb(17, 16, 13);
@@ -90,11 +93,13 @@ public class MainActivity extends Activity {
     private boolean browseAllRecipes;
     private boolean searchPanelOpen;
     private boolean showingDetail;
+    private boolean keepScreenOn;
     private final Stack<String> detailBackStack = new Stack<String>();
     private final Set<String> favoriteIds = new HashSet<String>();
     private final ArrayList<String> recentIds = new ArrayList<String>();
     private final ArrayList<String> shoppingRecipeIds = new ArrayList<String>();
     private final Map<String, Integer> inlineVariantSelections = new HashMap<String, Integer>();
+    private final Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +108,7 @@ public class MainActivity extends Activity {
         try {
             repository = CookNoteRepository.load(this);
             loadUserState();
+            applyKeepScreenOn();
             showList();
         } catch (Exception exception) {
             showNativeError("Cook Note Android 5 Lite", "Catalogue impossible a lire.\n\n" + exception.getMessage());
@@ -470,6 +476,12 @@ public class MainActivity extends Activity {
                 applyFilters();
             }
         });
+        addFilterChip(quickStrip, "Surprise", false, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSurpriseRecipe();
+            }
+        });
         addFilterChip(quickStrip, "Reset", false, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -642,12 +654,35 @@ public class MainActivity extends Activity {
         if (searchToggle != null) searchToggle.setText(buildSearchToggleLabel());
     }
 
+    private void openSurpriseRecipe() {
+        hideKeyboard();
+        setSearchPanelOpen(false);
+        List<Recipe> candidates = repository.filterSearchable(
+                currentQuery,
+                selectedCategory,
+                selectedSeason,
+                selectedDifficulty,
+                favoritesOnly ? favoriteIds : null,
+                recentOnly ? recentIds : null
+        );
+        if (candidates.isEmpty()) {
+            candidates = repository.filterSearchable("", "Toutes", "Toutes", "Toutes", null, null);
+        }
+        if (candidates.isEmpty()) {
+            Toast.makeText(this, "Aucune recette disponible", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Recipe recipe = candidates.get(random.nextInt(candidates.size()));
+        openRecipe(recipe, false);
+    }
+
     private void openRecipe(Recipe recipe, boolean pushCurrent) {
         if (pushCurrent && showingDetail && !detailBackStack.contains(recipe.id)) {
             detailBackStack.push(recipe.id);
         }
         rememberRecent(recipe.id);
         showingDetail = true;
+        applyKeepScreenOn();
 
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
@@ -891,6 +926,16 @@ public class MainActivity extends Activity {
             }
         });
         buttons.add(favorite);
+
+        Button screen = actionButton(keepScreenOn ? "Ecran actif" : "Veille auto", keepScreenOn);
+        screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setKeepScreenOn(!keepScreenOn);
+                openRecipe(recipe, false);
+            }
+        });
+        buttons.add(screen);
 
         int perRow = getResources().getDisplayMetrics().widthPixels >= dp(720) ? 4 : 2;
         LinearLayout row = null;
@@ -1791,6 +1836,7 @@ public class MainActivity extends Activity {
 
     private void showShoppingList() {
         showingDetail = true;
+        applyKeepScreenOn();
 
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
@@ -2164,6 +2210,7 @@ public class MainActivity extends Activity {
         favoriteIds.clear();
         recentIds.clear();
         shoppingRecipeIds.clear();
+        keepScreenOn = prefs.getBoolean(PREF_KEEP_SCREEN_ON, false);
         parseIds(prefs.getString(PREF_FAVORITES, ""), favoriteIds, 0);
         parseIds(prefs.getString(PREF_RECENT, ""), recentIds, MAX_RECENT);
         parseIds(prefs.getString(PREF_SHOPPING, ""), shoppingRecipeIds, 0);
@@ -2174,6 +2221,7 @@ public class MainActivity extends Activity {
         editor.putString(PREF_FAVORITES, joinIds(new ArrayList<String>(favoriteIds)));
         editor.putString(PREF_RECENT, joinIds(recentIds));
         editor.putString(PREF_SHOPPING, joinIds(shoppingRecipeIds));
+        editor.putBoolean(PREF_KEEP_SCREEN_ON, keepScreenOn);
         editor.apply();
     }
 
@@ -2252,6 +2300,21 @@ public class MainActivity extends Activity {
 
     private void refreshShoppingButton() {
         if (shoppingButton != null) shoppingButton.setText("Courses (" + shoppingRecipeIds.size() + ")");
+    }
+
+    private void setKeepScreenOn(boolean enabled) {
+        keepScreenOn = enabled;
+        applyKeepScreenOn();
+        saveUserState();
+        Toast.makeText(this, enabled ? "Ecran garde actif" : "Veille automatique", Toast.LENGTH_SHORT).show();
+    }
+
+    private void applyKeepScreenOn() {
+        if (keepScreenOn) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
     }
 
     private void rememberRecent(String id) {

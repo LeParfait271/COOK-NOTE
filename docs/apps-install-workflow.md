@@ -85,21 +85,24 @@ diagnostic. Elle ne doit pas etre utilisee comme workflow final de publication.
   Ingredients/Etapes/Avant de commencer, infos rapides en pastilles,
   ingredients en lignes, copie ingredients, rattachements parents additionnels,
   bouton natif de mise a jour, liste de courses locale, copie fiche, partage
-  fiche, etapes numerotees, cartes parent visibles et selecteurs natifs de
-  preparation
+  fiche, recette surprise, ecran actif persistant, etapes numerotees, cartes
+  parent visibles et selecteurs natifs de preparation
 - Direction visuelle Android Legacy : refonte visuelle native premium sans
   moteur web, header compact avec stats locales, grille `GridView` en cartes
   image 16/9 tactiles recyclees, hero de fiche encadre, sections cadrees,
   pastilles lisibles, etats presses natifs et actions principales/secondaires
   distinguees
 
-Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, filtres saison/difficulte, accueil parent Android, selecteurs natifs de preparation, partage fiche.
+Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, filtres saison/difficulte, accueil parent Android, selecteurs natifs de preparation, partage fiche, cartes parent visibles, recette surprise, ecran actif persistant.
 
 Le panneau recherche/filtres replie garde les filtres hors de l'accueil tant que
 l'utilisateur ne touche pas `Recherche`. Le bouton natif de mise a jour reste
 disponible sous forme compacte avec `Mise a jour`. La puce `Toutes fiches`
 reste dans le panneau de recherche pour parcourir le catalogue complet sans
 remettre les recettes enfants en vrac sur l'accueil.
+La puce `Surprise` reste dans ce meme panneau et ouvre une recette compatible
+avec les filtres actifs. Le reglage `Ecran actif` reste natif et persistant pour
+cuisiner sans mise en veille.
 
 Les fiches parents lisent `master` et `additionalMasters`, afin que les
 rattachements parents additionnels du site soient visibles dans l'app. Les
