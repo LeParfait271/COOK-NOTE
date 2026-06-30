@@ -1479,7 +1479,8 @@ public class MainActivity extends Activity {
         }
         int columns = collectionGridColumns();
         int cardHeight = collectionCardHeight(columns);
-        prewarmCollectionImages(choices, cardHeight);
+        int cardImageWidth = collectionCardImageWidth(columns);
+        prewarmCollectionImages(choices, cardImageWidth, cardHeight);
         LinearLayout row = null;
         for (int index = 0; index < choices.size(); index += 1) {
             if (index % columns == 0) {
@@ -1492,7 +1493,7 @@ public class MainActivity extends Activity {
                 rowParams.topMargin = dp(10);
                 section.addView(row, rowParams);
             }
-            addCollectionCard(row, recipe, choices.get(index), cardHeight, index % columns < columns - 1);
+            addCollectionCard(row, recipe, choices.get(index), cardHeight, cardImageWidth, index % columns < columns - 1);
         }
         int missing = choices.size() % columns;
         if (row != null && missing > 0) {
@@ -1510,13 +1511,21 @@ public class MainActivity extends Activity {
     }
 
     private int collectionCardHeight(int columns) {
-        int width = getResources().getDisplayMetrics().widthPixels;
-        int available = Math.max(dp(260), width - dp(56) - (dp(10) * (columns - 1)));
-        int cardWidth = available / columns;
+        int cardWidth = collectionCardWidth(columns);
         return Math.max(dp(132), (cardWidth * 9) / 16);
     }
 
-    private void addCollectionCard(LinearLayout row, final Recipe parentRecipe, final VariantChoice choice, int cardHeight, boolean rightMargin) {
+    private int collectionCardImageWidth(int columns) {
+        return Math.min(dp(480), Math.max(dp(340), collectionCardWidth(columns)));
+    }
+
+    private int collectionCardWidth(int columns) {
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int available = Math.max(dp(260), width - dp(56) - (dp(10) * (columns - 1)));
+        return Math.max(dp(260), available / Math.max(1, columns));
+    }
+
+    private void addCollectionCard(LinearLayout row, final Recipe parentRecipe, final VariantChoice choice, int cardHeight, int cardImageWidth, boolean rightMargin) {
         LinearLayout card = new LinearLayout(this);
         card.setOrientation(LinearLayout.VERTICAL);
         card.setPadding(dp(1), dp(1), dp(1), dp(1));
@@ -1537,7 +1546,7 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
-        imageLoader.load(choice.recipe.image, image, dp(340), cardHeight);
+        imageLoader.load(choice.recipe.image, image, cardImageWidth, cardHeight);
 
         View veil = new View(this);
         veil.setBackgroundColor(Color.argb(56, 0, 0, 0));
@@ -1594,13 +1603,12 @@ public class MainActivity extends Activity {
         });
     }
 
-    private void prewarmCollectionImages(List<VariantChoice> choices, int cardHeight) {
+    private void prewarmCollectionImages(List<VariantChoice> choices, int cardImageWidth, int cardHeight) {
         if (choices == null || imageLoader == null) return;
-        int width = Math.max(dp(180), (getResources().getDisplayMetrics().widthPixels - dp(42)) / Math.max(1, collectionGridColumns()));
         int limit = Math.min(choices.size(), COLLECTION_PREWARM_LIMIT);
         for (int index = 0; index < limit; index += 1) {
             Recipe recipe = choices.get(index).recipe;
-            imageLoader.prefetch(recipe.image, width, cardHeight);
+            imageLoader.prefetch(recipe.image, cardImageWidth, cardHeight);
             if (index == 0) imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
         }
     }
