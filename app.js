@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.43';
+const SITE_VERSION = 'v2.44';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -4519,6 +4519,7 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
               key: collection.id || 'all',
               type: 'button',
               className: favoriteCollection === collection.id ? 'active' : '',
+              'aria-pressed': favoriteCollection === collection.id,
               onClick: () => setFavoriteCollection?.(collection.id)
             },
               h('span', null, collection.label),
@@ -4537,6 +4538,7 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
                 key: item,
                 type: 'button',
                 className: active ? 'active' : '',
+                'aria-pressed': active,
                 onClick: () => setSeason(value)
               }, item);
             })
@@ -4546,6 +4548,7 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
               key: item.value || 'all',
               type: 'button',
               className: categoryFilter === item.value ? 'active' : '',
+              'aria-pressed': categoryFilter === item.value,
               onClick: () => setCategoryFilter(item.value)
             },
               h('span', null, item.label),
@@ -4697,6 +4700,7 @@ function TechniquesView({ targetTechniqueId, goHome }) {
             key: label,
             type: 'button',
             className: techniqueFilter === value ? 'active' : '',
+            'aria-pressed': techniqueFilter === value,
             onClick: () => setTechniqueFilter(value)
           }, h('span', null, label), h('small', null, count));
         })
@@ -5701,6 +5705,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
           type: 'button',
           className: 'variant-card',
           style: { '--card-accent': getCategoryColor(item) },
+          'aria-label': `Ouvrir ${variant.label || item.title}`,
           onClick: () => openRecipe(variant.id)
         },
           image && h('span', { className: 'variant-card-bg', style: imageBackgroundStyle(image) }),
@@ -7264,12 +7269,14 @@ function App() {
               type: 'button',
               className: `site-footer-action site-footer-install site-footer-install-${option.id}`,
               onClick: () => setInstallGuide(option),
+              'aria-label': `Installer ${option.label} - ${option.detail}`,
               title: `${option.label} - ${option.detail}`
             }, h(Icon, { name: option.kind === 'apk' ? 'download' : 'device' }), h('span', null, option.label), h('small', null, option.detail))
           ),
           h('button', {
             type: 'button',
             className: 'site-footer-action site-footer-top',
+            'aria-label': 'Retour en haut de page',
             onClick: () => window.scrollTo({ top: 0, behavior: preferences.reduceMotion ? 'auto' : 'smooth' })
           }, h(Icon, { name: 'arrowUp' }), h('span', null, 'Retour haut'))
         )

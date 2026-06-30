@@ -129,6 +129,7 @@ final class RecipeAdapter extends BaseAdapter {
 
         Recipe recipe = getItem(position);
         holder.title.setText(recipe.title);
+        holder.image.setContentDescription("Image de " + recipe.title);
         int cardWidth = resizeCardForParent(holder, parent);
         int cardHeight = Math.max(dp(cardMinHeightDp()), (cardWidth * 9) / 16);
         imageLoader.load(recipe.image, holder.image, cardWidth, cardHeight);

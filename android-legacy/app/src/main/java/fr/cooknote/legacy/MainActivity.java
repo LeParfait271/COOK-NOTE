@@ -1050,6 +1050,7 @@ public class MainActivity extends Activity {
         ImageView hero = new ImageView(this);
         hero.setScaleType(ImageView.ScaleType.CENTER_CROP);
         hero.setBackgroundColor(COLOR_CARD);
+        hero.setContentDescription("Image de " + recipe.title);
         heroCard.addView(hero, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -1542,6 +1543,7 @@ public class MainActivity extends Activity {
         ImageView image = new ImageView(this);
         image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         image.setBackgroundColor(COLOR_CARD);
+        image.setContentDescription("Image de " + choice.label);
         frame.addView(image, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
