@@ -241,6 +241,11 @@ expect(
     && androidLegacyRepository.includes('searchSmart')
     && androidLegacyRepository.includes('scoreRecipe')
     && androidLegacyRepository.includes('fuzzyContains')
+    && androidLegacyRepository.includes('titleWords')
+    && androidLegacyRepository.includes('searchWords')
+    && androidLegacyRepository.includes('splitWords')
+    && androidLegacyRepository.includes('containsWord(entry.titleWords')
+    && androidLegacyRepository.includes('fuzzyContains(entry.searchWords')
     && androidLegacyRepository.includes('childrenForParent')
     && androidLegacyRepository.includes('childrenByParent')
     && androidLegacyRepository.includes('buildChildrenByParent')
@@ -421,6 +426,9 @@ expect(
   'recherche simple sans filtres',
   'recherche intelligente sans filtres',
   'index recherche precompile',
+  'mots recherche predecoupes',
+  'fuzzy sans split',
+  'allocations recherche reduites',
   'catalogue parent precompile',
   'enfants parents preclasses',
   'compteurs collection caches',
@@ -476,6 +484,9 @@ expect(
     && androidReadme.includes('recherche simple sans filtres')
     && androidReadme.includes('recherche intelligente sans filtres')
     && androidReadme.includes('index recherche precompile')
+    && androidReadme.includes('mots recherche predecoupes')
+    && androidReadme.includes('fuzzy sans split')
+    && androidReadme.includes('allocations recherche reduites')
     && androidReadme.includes('catalogue parent precompile')
     && androidReadme.includes('enfants parents preclasses')
     && androidReadme.includes('compteurs collection caches')
@@ -552,6 +563,9 @@ expect(
   'recherche simple sans filtres',
   'recherche intelligente sans filtres',
   'index recherche precompile',
+  'mots recherche predecoupes',
+  'fuzzy sans split',
+  'allocations recherche reduites',
   'catalogue parent precompile',
   'enfants parents preclasses',
   'compteurs collection caches',

@@ -296,7 +296,7 @@ final class CookNoteRepository {
 
         for (String token : tokens) {
             if (token.length() == 0) continue;
-            int tokenScore = scoreToken(token, title, aliases, tags, categories, search);
+            int tokenScore = scoreToken(token, entry);
             if (tokenScore <= 0) return -1;
             score += tokenScore;
         }
@@ -305,29 +305,35 @@ final class CookNoteRepository {
         return score;
     }
 
-    private static int scoreToken(String token, String title, String aliases, String tags, String categories, String search) {
+    private static int scoreToken(String token, SearchEntry entry) {
+        String title = entry.title;
+        String aliases = entry.aliases;
+        String tags = entry.tags;
+        String categories = entry.categories;
+        String search = entry.search;
         if (title.equals(token)) return 160;
-        if (containsWord(title, token)) return 130;
+        if (containsWord(entry.titleWords, token)) return 130;
         if (title.contains(token)) return 105;
-        if (containsWord(aliases, token)) return 118;
+        if (containsWord(entry.aliasWords, token)) return 118;
         if (aliases.contains(token)) return 96;
-        if (containsWord(tags, token) || containsWord(categories, token)) return 74;
+        if (containsWord(entry.tagWords, token) || containsWord(entry.categoryWords, token)) return 74;
         if (search.contains(token)) return 36;
-        if (fuzzyContains(title, token)) return 48;
-        if (fuzzyContains(search, token)) return 16;
+        if (fuzzyContains(entry.titleWords, token)) return 48;
+        if (fuzzyContains(entry.searchWords, token)) return 16;
         return 0;
     }
 
-    private static boolean containsWord(String text, String token) {
-        if (text == null || token == null || token.length() == 0) return false;
-        String padded = " " + text + " ";
-        return padded.indexOf(" " + token + " ") >= 0;
+    private static boolean containsWord(String[] words, String token) {
+        if (words == null || token == null || token.length() == 0) return false;
+        for (String word : words) {
+            if (token.equals(word)) return true;
+        }
+        return false;
     }
 
-    private static boolean fuzzyContains(String text, String token) {
-        if (text == null || token == null || token.length() < 4) return false;
+    private static boolean fuzzyContains(String[] words, String token) {
+        if (words == null || words.length == 0 || token == null || token.length() < 4) return false;
         int maxDistance = token.length() <= 5 ? 1 : 2;
-        String[] words = text.split(" ");
         int checked = 0;
         for (String word : words) {
             if (word.length() < 4) continue;
@@ -653,6 +659,11 @@ final class CookNoteRepository {
         final String tags;
         final String categories;
         final String search;
+        final String[] titleWords;
+        final String[] aliasWords;
+        final String[] tagWords;
+        final String[] categoryWords;
+        final String[] searchWords;
 
         SearchEntry(String id, String title, String aliases, String tags, String categories, String search) {
             this.id = id;
@@ -661,6 +672,11 @@ final class CookNoteRepository {
             this.tags = tags == null ? "" : tags;
             this.categories = categories == null ? "" : categories;
             this.search = search == null ? "" : search;
+            this.titleWords = splitWords(this.title);
+            this.aliasWords = splitWords(this.aliases);
+            this.tagWords = splitWords(this.tags);
+            this.categoryWords = splitWords(this.categories);
+            this.searchWords = splitWords(this.search);
         }
 
         static SearchEntry fromRecipe(Recipe recipe) {
@@ -672,6 +688,11 @@ final class CookNoteRepository {
                     normalize(joinList(recipe.categories)),
                     recipe.searchText
             );
+        }
+
+        private static String[] splitWords(String value) {
+            if (value == null || value.length() == 0) return new String[0];
+            return value.split(" ");
         }
     }
 
