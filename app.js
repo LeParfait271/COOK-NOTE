@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.53';
+const SITE_VERSION = 'v2.54';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -5776,19 +5776,21 @@ function LinkedRecipesBlock({ links, openRecipe }) {
     acc.get(role).push(item);
     return acc;
   }, new Map());
-  return h('div', { className: 'linked-recipes-block' },
+  return h('div', { className: 'linked-recipes-block', 'aria-label': 'Recettes liees a cette fiche' },
     h('p', { className: 'eyebrow' }, 'Recettes liées'),
     Array.from(groups.entries()).map(([role, items]) => h('div', { key: role, className: 'linked-recipe-group' },
       h('div', { className: 'linked-recipe-group-title' }, role),
-      h('div', { className: 'linked-recipe-list' },
+      h('div', { className: 'linked-recipe-list', role: 'list' },
         items.map(item => h('button', {
           key: item.id,
           type: 'button',
           className: 'linked-recipe-item',
+          role: 'listitem',
           style: { '--card-accent': getCategoryColor(item.recipe) },
-          onClick: () => openRecipe(item.id)
+          onClick: () => openRecipe(item.id),
+          'aria-label': `Ouvrir ${item.recipe.title}, ${item.role || primaryCategory(item.recipe)}`
         },
-          h('span', { className: 'linked-recipe-thumb', style: imageBackgroundStyle(item.recipe.image) }),
+          h('span', { className: 'linked-recipe-thumb', style: imageBackgroundStyle(item.recipe.image), 'aria-hidden': true }),
           h('span', { className: 'linked-recipe-copy' },
             h('small', null, primaryCategory(item.recipe)),
             h('strong', null, item.recipe.title)
@@ -5800,7 +5802,8 @@ function LinkedRecipesBlock({ links, openRecipe }) {
       type: 'button',
       className: expanded ? 'linked-recipe-toggle active' : 'linked-recipe-toggle',
       onClick: () => setExpanded(value => !value),
-      'aria-expanded': expanded
+      'aria-expanded': expanded,
+      'aria-label': expanded ? 'Masquer les recettes liees supplementaires' : `Afficher ${hiddenCount} recette${hiddenCount > 1 ? 's' : ''} liee${hiddenCount > 1 ? 's' : ''} supplementaire${hiddenCount > 1 ? 's' : ''}`
     }, expanded ? 'Masquer les recettes liées' : `Voir ${hiddenCount} autre${hiddenCount > 1 ? 's' : ''} recette${hiddenCount > 1 ? 's' : ''}`)
   );
 }

@@ -3285,13 +3285,14 @@ a {
 }
 
 .linked-recipe-copy strong {
+  display: -webkit-box;
+  min-width: 0;
   overflow: hidden;
   color: var(--text);
   font-size: 13px;
   line-height: 1.25;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  min-width: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .recipe-panel,
