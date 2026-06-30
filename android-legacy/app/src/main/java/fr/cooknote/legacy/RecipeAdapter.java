@@ -44,6 +44,9 @@ final class RecipeAdapter extends BaseAdapter {
     private Map<String, Integer> collectionCounts;
     private boolean compactCards;
     private boolean prefetchEnabled = true;
+    private int lastPrefetchPosition = -1;
+    private int lastPrefetchWidth;
+    private int lastPrefetchHeight;
 
     RecipeAdapter(Context context, ImageLoader imageLoader) {
         this.context = context;
@@ -54,6 +57,7 @@ final class RecipeAdapter extends BaseAdapter {
         if (sameItems(recipes)) return;
         items.clear();
         if (recipes != null) items.addAll(recipes);
+        resetPrefetchWindow();
         notifyDataSetChanged();
     }
 
@@ -74,11 +78,13 @@ final class RecipeAdapter extends BaseAdapter {
     void setCompactCards(boolean compact) {
         if (compactCards == compact) return;
         compactCards = compact;
+        resetPrefetchWindow();
         notifyDataSetChanged();
     }
 
     void setPrefetchEnabled(boolean enabled) {
         prefetchEnabled = enabled;
+        if (!enabled) resetPrefetchWindow();
     }
 
     @Override
@@ -93,7 +99,13 @@ final class RecipeAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        Recipe recipe = getItem(position);
+        return recipe == null || recipe.id == null ? position : recipe.id.hashCode();
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return true;
     }
 
     @Override
@@ -117,11 +129,21 @@ final class RecipeAdapter extends BaseAdapter {
     }
 
     private void prefetchAround(int position, int cardWidth, int cardHeight) {
+        if (position == lastPrefetchPosition && cardWidth == lastPrefetchWidth && cardHeight == lastPrefetchHeight) return;
+        lastPrefetchPosition = position;
+        lastPrefetchWidth = cardWidth;
+        lastPrefetchHeight = cardHeight;
         for (int offset = 1; offset <= 1; offset += 1) {
             int index = position + offset;
             if (index >= items.size()) return;
             imageLoader.prefetch(items.get(index).image, cardWidth, cardHeight);
         }
+    }
+
+    private void resetPrefetchWindow() {
+        lastPrefetchPosition = -1;
+        lastPrefetchWidth = 0;
+        lastPrefetchHeight = 0;
     }
 
     private boolean sameItems(List<Recipe> recipes) {

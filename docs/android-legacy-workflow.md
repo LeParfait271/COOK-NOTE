@@ -48,7 +48,11 @@ fonctions reintegrees doivent rester natives et peu couteuses : favoris locaux
 sans filtres sous le capot, copie des ingredients vers le presse-papiers, liste
 de courses locale avec courses cochables, copie fiche et partage fiche,
 navigation restaurable, swipe retour bord gauche, prechargement images, audit
-perf leger et ecran actif persistant pour cuisiner sans mise en veille. L accueil doit rester compact :
+perf leger et ecran actif persistant pour cuisiner sans mise en veille. Le
+prechauffage images differe doit laisser les images visibles passer avant les
+prefetchs, avec cache image normalise, nettoyage vues recyclees et prefetch
+carte borne pour ne pas garder de travail mort pendant les scrolls rapides.
+L accueil doit rester compact :
 la recherche s ouvre seulement via `Recherche` et ne contient qu un champ texte
 avec un bouton `Effacer`. L accueil doit aussi garder un bouton
 `Courses` compact et un bouton natif de mise a jour qui ouvre l URL GitHub
@@ -104,9 +108,10 @@ Cette sortie contient :
 Les fonctions natives legeres actuellement attendues incluent aussi les
 quantites ajustables, les courses fusionnees, les preferences locales discretes,
 le diagnostic hors ligne, le cache image adaptatif, le decode image serialise,
-la coalescence chargements image, le prechauffage images borne, la position de
-grille conservee, la liberation memoire de liste, la pile retour bornee et le
-scroll fluide. Ces
+la coalescence chargements image, le cache image normalise, le nettoyage vues
+recyclees, le prechauffage images borne, le prechauffage images differe, la
+position de grille conservee, la liberation memoire de liste, la pile retour
+bornee, le prefetch carte borne et le scroll fluide. Ces
 fonctions doivent rester Android natives, sans filtres visibles dans la
 recherche et sans moteur web.
 

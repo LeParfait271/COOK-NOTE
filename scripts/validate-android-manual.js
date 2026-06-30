@@ -136,6 +136,10 @@ expect(
     && androidLegacyMainActivity.includes('SEARCH_DEBOUNCE_MS')
     && androidLegacyMainActivity.includes('scheduleApplyFilters')
     && androidLegacyMainActivity.includes('lastAppliedQuery')
+    && androidLegacyMainActivity.includes('LIST_PREWARM_DELAY_MS')
+    && androidLegacyMainActivity.includes('prewarmListRunnable')
+    && androidLegacyMainActivity.includes('scheduleListPrewarm')
+    && androidLegacyMainActivity.includes('cancelListPrewarm')
     && androidLegacyMainActivity.includes('prewarmListImages')
     && androidLegacyMainActivity.includes('prewarmCollectionImages')
     && androidLegacyMainActivity.includes('LIST_PREWARM_LIMIT')
@@ -254,6 +258,9 @@ expect(
     && androidLegacyImageLoader.includes('LruCache')
     && androidLegacyImageLoader.includes('newSingleThreadExecutor')
     && androidLegacyImageLoader.includes('cachedAfterQueue')
+    && androidLegacyImageLoader.includes('CACHE_DIMENSION_BUCKET')
+    && androidLegacyImageLoader.includes('normalizedDimension')
+    && androidLegacyImageLoader.includes('removeWaitingTargetLocked')
     && androidLegacyImageLoader.includes('waitingTargets')
     && androidLegacyImageLoader.includes('registerWaitingTarget')
     && androidLegacyImageLoader.includes('takeWaitingTargets')
@@ -271,6 +278,9 @@ expect(
     && androidLegacyAdapter.includes('(cardWidth * 9) / 16')
     && androidLegacyAdapter.includes('StateListDrawable')
     && androidLegacyAdapter.includes('prefetchAround')
+    && androidLegacyAdapter.includes('hasStableIds')
+    && androidLegacyAdapter.includes('lastPrefetchPosition')
+    && androidLegacyAdapter.includes('resetPrefetchWindow')
     && androidLegacyAdapter.includes('sameItems')
     && androidLegacyAdapter.includes('setCompactCards')
     && androidLegacyAdapter.includes('setPrefetchEnabled')
@@ -401,6 +411,10 @@ expect(
   'swipe retour bord gauche',
   'navigation restaurable',
   'prechargement images',
+  'prechauffage images differe',
+  'cache image normalise',
+  'nettoyage vues recyclees',
+  'prefetch carte borne',
   'accueil parent Android',
   'cartes parent visibles',
   'menu deroulant',
@@ -446,6 +460,10 @@ expect(
     && androidReadme.includes('swipe retour bord gauche')
     && androidReadme.includes('navigation restaurable')
     && androidReadme.includes('prechargement images')
+    && androidReadme.includes('prechauffage images differe')
+    && androidReadme.includes('cache image normalise')
+    && androidReadme.includes('nettoyage vues recyclees')
+    && androidReadme.includes('prefetch carte borne')
     && androidReadme.includes('accueil parent Android')
     && androidReadme.includes('cartes parent visibles')
     && androidReadme.includes('menu')
@@ -512,6 +530,10 @@ expect(
   'swipe retour bord gauche',
   'navigation restaurable',
   'prechargement images',
+  'prechauffage images differe',
+  'cache image normalise',
+  'nettoyage vues recyclees',
+  'prefetch carte borne',
   'accueil parent Android',
   'cartes parent visibles',
   'menu deroulant',

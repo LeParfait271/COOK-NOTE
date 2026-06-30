@@ -21,6 +21,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 final class ImageLoader {
+    private static final int CACHE_DIMENSION_BUCKET = 32;
+
     private final Context context;
     private final LruCache<String, Bitmap> cache;
     private final ExecutorService executor;
@@ -73,7 +75,9 @@ final class ImageLoader {
     }
 
     private void loadAsset(final String assetPath, final ImageView imageView, final int requestedWidth, final int requestedHeight) {
-        final String cacheKey = assetPath + "@" + Math.max(1, requestedWidth) + "x" + Math.max(1, requestedHeight);
+        final int cacheWidth = normalizedDimension(requestedWidth);
+        final int cacheHeight = normalizedDimension(requestedHeight);
+        final String cacheKey = cacheKey(assetPath, cacheWidth, cacheHeight);
         imageView.setTag(cacheKey);
         Bitmap cached = cache.get(cacheKey);
         if (cached != null) {
@@ -88,7 +92,7 @@ final class ImageLoader {
                 final Bitmap cachedAfterQueue = cache.get(cacheKey);
                 final Bitmap bitmap = cachedAfterQueue != null
                         ? cachedAfterQueue
-                        : decode(assetPath, requestedWidth, requestedHeight);
+                        : decode(assetPath, cacheWidth, cacheHeight);
                 if (bitmap != null) cache.put(cacheKey, bitmap);
                 mainHandler.post(new Runnable() {
                     @Override
@@ -109,7 +113,9 @@ final class ImageLoader {
     }
 
     private void prefetchAsset(final String assetPath, final int requestedWidth, final int requestedHeight) {
-        final String cacheKey = assetPath + "@" + Math.max(1, requestedWidth) + "x" + Math.max(1, requestedHeight);
+        final int cacheWidth = normalizedDimension(requestedWidth);
+        final int cacheHeight = normalizedDimension(requestedHeight);
+        final String cacheKey = cacheKey(assetPath, cacheWidth, cacheHeight);
         if (cache.get(cacheKey) != null) return;
         if (hasWaitingTargets(cacheKey)) return;
         if (!pendingKeys.add(cacheKey)) return;
@@ -118,7 +124,7 @@ final class ImageLoader {
             public void run() {
                 try {
                     if (cache.get(cacheKey) != null) return;
-                    Bitmap bitmap = decode(assetPath, requestedWidth, requestedHeight);
+                    Bitmap bitmap = decode(assetPath, cacheWidth, cacheHeight);
                     if (bitmap != null) cache.put(cacheKey, bitmap);
                 } finally {
                     pendingKeys.remove(cacheKey);
@@ -151,15 +157,35 @@ final class ImageLoader {
 
     private boolean registerWaitingTarget(String cacheKey, ImageView imageView) {
         synchronized (waitingTargets) {
+            removeWaitingTargetLocked(imageView, cacheKey);
             ArrayList<ImageView> targets = waitingTargets.get(cacheKey);
             if (targets != null) {
-                targets.add(imageView);
+                if (!targets.contains(imageView)) targets.add(imageView);
                 return false;
             }
             targets = new ArrayList<ImageView>();
             targets.add(imageView);
             waitingTargets.put(cacheKey, targets);
             return true;
+        }
+    }
+
+    private void removeWaitingTargetLocked(ImageView imageView, String keepKey) {
+        if (imageView == null || waitingTargets.isEmpty()) return;
+        ArrayList<String> emptyKeys = null;
+        for (Map.Entry<String, ArrayList<ImageView>> entry : waitingTargets.entrySet()) {
+            if (keepKey != null && keepKey.equals(entry.getKey())) continue;
+            ArrayList<ImageView> targets = entry.getValue();
+            if (targets == null) continue;
+            targets.remove(imageView);
+            if (targets.isEmpty()) {
+                if (emptyKeys == null) emptyKeys = new ArrayList<String>();
+                emptyKeys.add(entry.getKey());
+            }
+        }
+        if (emptyKeys == null) return;
+        for (String key : emptyKeys) {
+            waitingTargets.remove(key);
         }
     }
 
@@ -183,6 +209,15 @@ final class ImageLoader {
             }
             return count;
         }
+    }
+
+    private static String cacheKey(String assetPath, int requestedWidth, int requestedHeight) {
+        return assetPath + "@" + requestedWidth + "x" + requestedHeight;
+    }
+
+    private static int normalizedDimension(int dimension) {
+        int safe = Math.max(1, dimension);
+        return ((safe + CACHE_DIMENSION_BUCKET - 1) / CACHE_DIMENSION_BUCKET) * CACHE_DIMENSION_BUCKET;
     }
 
     private Bitmap decode(String assetPath, int requestedWidth, int requestedHeight) {

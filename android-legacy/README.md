@@ -35,8 +35,9 @@ Le mode d'emploi complet est dans
   copie ingredients, liste de courses locale, quantites ajustables, courses
   fusionnees, preferences locales discretes, diagnostic hors ligne, index
   recherche precompile, recherche temporisee, cache image adaptatif, decode
-  image serialise, coalescence chargements image, scroll fluide, position de
-  grille conservee, copie fiche,
+  image serialise, coalescence chargements image, cache image normalise,
+  nettoyage vues recyclees, prechauffage images differe, scroll fluide,
+  position de grille conservee, prefetch carte borne, copie fiche,
   partage fiche, navigation restaurable, swipe retour bord gauche,
   prechargement images borne, liberation memoire de liste, courses cochables,
   audit perf leger, ecran actif persistant et bouton natif de mise a jour
@@ -44,8 +45,9 @@ Le mode d'emploi complet est dans
   cartes parent visibles, recherche simple sans filtres, recherche intelligente
   sans filtres, recherche temporisee, navigation restaurable, swipe retour bord
   gauche, prechargement images borne, decode image serialise, coalescence
-  chargements image, position de grille conservee, liberation memoire de liste,
-  courses cochables, courses fusionnees, quantites ajustables,
+  chargements image, cache image normalise, nettoyage vues recyclees,
+  prechauffage images differe, position de grille conservee, liberation memoire
+  de liste, prefetch carte borne, courses cochables, courses fusionnees, quantites ajustables,
   preferences locales discretes, diagnostic hors ligne, cache image adaptatif,
   scroll fluide, index recherche precompile, audit perf leger
 - aucun changement de recette requis pour l app

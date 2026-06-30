@@ -99,6 +99,7 @@ public class MainActivity extends Activity {
     private static final int BACK_SWIPE_EDGE_DP = 64;
     private static final int BACK_SWIPE_TRIGGER_DP = 86;
     private static final int SEARCH_DEBOUNCE_MS = 140;
+    private static final int LIST_PREWARM_DELAY_MS = 220;
     private static final int LIST_PREWARM_LIMIT = 8;
     private static final int COLLECTION_PREWARM_LIMIT = 8;
     private static final int MAX_BACK_STACK = 16;
@@ -151,10 +152,17 @@ public class MainActivity extends Activity {
             applyFilters();
         }
     };
+    private final Runnable prewarmListRunnable = new Runnable() {
+        @Override
+        public void run() {
+            runScheduledListPrewarm();
+        }
+    };
     private final Stack<NavState> detailBackStack = new Stack<NavState>();
     private final Set<String> favoriteIds = new HashSet<String>();
     private final Set<String> shoppingDoneKeys = new HashSet<String>();
     private final ArrayList<String> shoppingRecipeIds = new ArrayList<String>();
+    private List<Recipe> pendingListPrewarmRecipes = Collections.emptyList();
     private final Map<String, Integer> inlineVariantSelections = new HashMap<String, Integer>();
 
     @Override
@@ -753,7 +761,7 @@ public class MainActivity extends Activity {
         adapter.setFavoriteIds(favoriteIds);
         adapter.setItems(filtered);
         if (filterChanged) resetListPosition();
-        prewarmListImages(filtered);
+        scheduleListPrewarm(filtered);
         filtersApplied = true;
         lastAppliedQuery = query;
         lastAppliedHomeMode = homeMode;
@@ -798,8 +806,32 @@ public class MainActivity extends Activity {
     }
 
     private void releaseListSurface() {
+        cancelListPrewarm();
         recipeGridView = null;
         adapter = null;
+    }
+
+    private void scheduleListPrewarm(List<Recipe> recipes) {
+        uiHandler.removeCallbacks(prewarmListRunnable);
+        if (recipes == null || recipes.isEmpty() || imageLoader == null) {
+            pendingListPrewarmRecipes = Collections.emptyList();
+            return;
+        }
+        int limit = Math.min(recipes.size(), LIST_PREWARM_LIMIT);
+        pendingListPrewarmRecipes = new ArrayList<Recipe>(recipes.subList(0, limit));
+        uiHandler.postDelayed(prewarmListRunnable, LIST_PREWARM_DELAY_MS);
+    }
+
+    private void runScheduledListPrewarm() {
+        if (currentScreen != SCREEN_LIST || pendingListPrewarmRecipes.isEmpty()) return;
+        List<Recipe> recipes = pendingListPrewarmRecipes;
+        pendingListPrewarmRecipes = Collections.emptyList();
+        prewarmListImages(recipes);
+    }
+
+    private void cancelListPrewarm() {
+        uiHandler.removeCallbacks(prewarmListRunnable);
+        pendingListPrewarmRecipes = Collections.emptyList();
     }
 
     private void prewarmListImages(List<Recipe> recipes) {
@@ -3137,6 +3169,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         uiHandler.removeCallbacks(applyFiltersRunnable);
+        cancelListPrewarm();
         if (imageLoader != null) imageLoader.shutdown();
         super.onDestroy();
     }
