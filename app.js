@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.55';
+const SITE_VERSION = 'v2.56';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -6396,15 +6396,15 @@ function RecipeView({
           h('p', { className: 'eyebrow' }, 'Mémo'),
           h('h2', { className: 'read-before-title' }, 'Avant de commencer')
         ),
-        h('div', { className: 'allergen-card' },
+        h('div', { className: 'allergen-card', 'aria-label': 'Allergenes detectes' },
           h('p', { className: 'eyebrow' }, 'Allergènes'),
           recipeAllergens.length
-            ? h('ul', { className: 'allergen-list' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
+            ? h('ul', { className: 'allergen-list', 'aria-label': 'Liste des allergenes detectes' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
             : h('p', { className: 'allergen-empty' }, 'Aucun allergène majeur détecté dans les ingrédients.')
         ),
-        averageWeights.length > 0 && h('div', { className: 'average-weight-card' },
+        averageWeights.length > 0 && h('div', { className: 'average-weight-card', 'aria-label': 'Poids moyens utiles' },
           h('p', { className: 'eyebrow' }, 'Poids moyens'),
-          h('dl', null, averageWeights.map(item =>
+          h('dl', { 'aria-label': 'Correspondances de poids moyens' }, averageWeights.map(item =>
             h(React.Fragment, { key: `${detailKey}:average:${item.label}` },
               h('dt', null, item.label),
               h('dd', null, item.value)
@@ -6424,9 +6424,9 @@ function RecipeView({
           h('h2', null, 'Astuces et liens'),
           h('ul', null, displayNotes.map((note, index) => h('li', { key: `${detailKey}:note:${index}` }, renderLinkedText(sanitizeNoteHtml(note), inlineTargets, openRecipe, techniqueTargets, openTechnique))))
         ),
-        (selectedRecipe.technical || recipe.technical || []).length > 0 && h('div', { className: 'technical-card' },
+        (selectedRecipe.technical || recipe.technical || []).length > 0 && h('div', { className: 'technical-card', 'aria-label': 'Fiche technique de la recette' },
           h('p', { className: 'eyebrow' }, 'Fiche technique'),
-          h('dl', null, (selectedRecipe.technical || recipe.technical || []).map((item, index) =>
+          h('dl', { 'aria-label': 'Points techniques' }, (selectedRecipe.technical || recipe.technical || []).map((item, index) =>
             h(React.Fragment, { key: `${detailKey}:technical:${index}` },
               h('dt', null, renderLinkedText(item.label || item.title || 'Point clé', inlineTargets, openRecipe, techniqueTargets, openTechnique)),
               h('dd', null, renderLinkedText(item.value || item.text || '', inlineTargets, openRecipe, techniqueTargets, openTechnique))
