@@ -274,6 +274,8 @@ public class MainActivity extends Activity {
 
     private void showList() {
         long startedAt = System.currentTimeMillis();
+        releaseScreenImages();
+        releaseListSurface();
         currentScreen = SCREEN_LIST;
         currentRecipeId = "";
         showingDetail = false;
@@ -832,6 +834,25 @@ public class MainActivity extends Activity {
         adapter = null;
     }
 
+    private void releaseScreenImages() {
+        if (imageLoader == null) return;
+        View content = getWindow().getDecorView().findViewById(android.R.id.content);
+        releaseImagesInTree(content);
+    }
+
+    private void releaseImagesInTree(View view) {
+        if (view == null) return;
+        if (view instanceof ImageView) {
+            imageLoader.detach((ImageView) view);
+            return;
+        }
+        if (!(view instanceof ViewGroup)) return;
+        ViewGroup group = (ViewGroup) view;
+        for (int index = 0; index < group.getChildCount(); index += 1) {
+            releaseImagesInTree(group.getChildAt(index));
+        }
+    }
+
     private void handleListScrollStateChanged(AbsListView view, int scrollState) {
         listScrollState = scrollState;
         boolean allowPrefetch = scrollState != AbsListView.OnScrollListener.SCROLL_STATE_FLING;
@@ -920,6 +941,7 @@ public class MainActivity extends Activity {
     private void openRecipe(Recipe recipe, boolean pushCurrent) {
         long startedAt = System.currentTimeMillis();
         if (pushCurrent) pushNavigationState();
+        releaseScreenImages();
         currentScreen = SCREEN_RECIPE;
         currentRecipeId = recipe.id;
         lastRecipeId = recipe.id;
@@ -2149,6 +2171,7 @@ public class MainActivity extends Activity {
     private void showShoppingList(boolean pushCurrent) {
         long startedAt = System.currentTimeMillis();
         if (pushCurrent) pushNavigationState();
+        releaseScreenImages();
         currentScreen = SCREEN_SHOPPING;
         currentRecipeId = "";
         showingDetail = true;
@@ -2286,6 +2309,7 @@ public class MainActivity extends Activity {
     private void showDiagnostic(boolean pushCurrent) {
         long startedAt = System.currentTimeMillis();
         if (pushCurrent) pushNavigationState();
+        releaseScreenImages();
         currentScreen = SCREEN_DIAGNOSTIC;
         currentRecipeId = "";
         showingDetail = true;
@@ -3292,6 +3316,7 @@ public class MainActivity extends Activity {
     }
 
     private void showNativeError(String title, String detail) {
+        releaseScreenImages();
         TextView errorView = text(title + "\n\n" + detail, 18, COLOR_GOLD, true);
         errorView.setBackgroundColor(COLOR_BG);
         errorView.setPadding(dp(24), dp(36), dp(24), dp(24));

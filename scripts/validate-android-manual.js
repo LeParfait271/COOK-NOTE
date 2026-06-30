@@ -177,6 +177,9 @@ expect(
     && androidLegacyMainActivity.includes('restoreListPosition')
     && androidLegacyMainActivity.includes('setSelectionFromTop')
     && androidLegacyMainActivity.includes('releaseListSurface')
+    && androidLegacyMainActivity.includes('releaseScreenImages')
+    && androidLegacyMainActivity.includes('releaseImagesInTree')
+    && androidLegacyMainActivity.includes('android.R.id.content')
     && androidLegacyMainActivity.includes('cancelPendingPrefetch')
     && androidLegacyMainActivity.includes('perfLog')
     && androidLegacyMainActivity.includes('isHomeMode')
@@ -468,6 +471,7 @@ expect(
   'nettoyage vues recyclees',
   'vues image recyclees detachees',
   'cibles image obsoletes liberees',
+  'images ecran detachees avant remplacement',
   'chargements visibles coalesces',
   'decodages visibles obsoletes ignores',
   'prefetch carte borne',
@@ -536,6 +540,7 @@ expect(
     && androidReadme.includes('nettoyage vues recyclees')
     && androidReadme.includes('vues image recyclees detachees')
     && androidReadme.includes('cibles image obsoletes liberees')
+    && androidReadme.includes('images ecran detachees avant remplacement')
     && androidReadme.includes('chargements visibles coalesces')
     && androidReadme.includes('decodages visibles obsoletes ignores')
     && androidReadme.includes('prefetch carte borne')
@@ -625,6 +630,7 @@ expect(
   'nettoyage vues recyclees',
   'vues image recyclees detachees',
   'cibles image obsoletes liberees',
+  'images ecran detachees avant remplacement',
   'chargements visibles coalesces',
   'decodages visibles obsoletes ignores',
   'prefetch carte borne',
