@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.45';
+const SITE_VERSION = 'v2.46';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -7189,6 +7189,7 @@ function App() {
       openSearch: openCommandPalette,
       openPreferences: () => setPreferencesOpen(true)
     }),
+    h('a', { className: 'skip-link', href: '#cook-note-content' }, 'Aller au contenu'),
     h('nav', { className: 'mobile-bottom-nav', 'aria-label': 'Navigation mobile' },
       h('button', { type: 'button', onClick: goHome, 'aria-label': 'Accueil', 'aria-current': !activeRecipe && activePage === 'home' && !onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'home' })), h('span', { className: 'sr-only' }, 'Accueil')),
       h('button', { type: 'button', onClick: openCommandPalette, 'aria-label': 'Recherche', 'aria-current': commandOpen || searchOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'search' })), 'Recherche'),
@@ -7196,6 +7197,7 @@ function App() {
       h('button', { type: 'button', onClick: showFavorites, 'aria-label': 'Favoris', 'aria-current': onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'heart' })), 'Favoris'),
       h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses', 'aria-current': shoppingOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Courses')
     ),
+    h('div', { id: 'cook-note-content', className: 'content-anchor', tabIndex: -1 },
     missingRecipeId
       ? (catalogResolvingRecipe
         ? h(CatalogLoadingView)
@@ -7246,7 +7248,8 @@ function App() {
           openRecipe,
           clearFavoriteView: () => { setOnlyFavorites(false); setFavoriteCollection(''); },
           setTagFilter: updateTagFilter
-        }),
+        })
+    ),
     h('footer', { className: 'site-footer' },
       h('div', { className: 'site-footer-inner' },
         h('div', { className: 'site-footer-identity' },
