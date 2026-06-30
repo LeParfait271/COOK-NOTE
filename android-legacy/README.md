@@ -35,15 +35,17 @@ Le mode d'emploi complet est dans
   copie ingredients, liste de courses locale, quantites ajustables, courses
   fusionnees, preferences locales discretes, diagnostic hors ligne, index
   recherche precompile, recherche temporisee, cache image adaptatif, decode
-  image serialise, scroll fluide, copie fiche,
+  image serialise, coalescence chargements image, scroll fluide, position de
+  grille conservee, copie fiche,
   partage fiche, navigation restaurable, swipe retour bord gauche,
-  prechargement images borne, courses cochables, audit perf leger, ecran actif
-  persistant et bouton natif de mise a jour
+  prechargement images borne, liberation memoire de liste, courses cochables,
+  audit perf leger, ecran actif persistant et bouton natif de mise a jour
 - Garde-fou lexical : bouton natif de mise a jour, ecran actif persistant,
   cartes parent visibles, recherche simple sans filtres, recherche intelligente
   sans filtres, recherche temporisee, navigation restaurable, swipe retour bord
-  gauche, prechargement images borne, decode image serialise, courses cochables,
-  courses fusionnees, quantites ajustables,
+  gauche, prechargement images borne, decode image serialise, coalescence
+  chargements image, position de grille conservee, liberation memoire de liste,
+  courses cochables, courses fusionnees, quantites ajustables,
   preferences locales discretes, diagnostic hors ligne, cache image adaptatif,
   scroll fluide, index recherche precompile, audit perf leger
 - aucun changement de recette requis pour l app

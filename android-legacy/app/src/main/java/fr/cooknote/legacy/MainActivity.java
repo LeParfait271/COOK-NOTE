@@ -73,6 +73,8 @@ public class MainActivity extends Activity {
     private static final String STATE_QUERY = "query";
     private static final String STATE_SEARCH_OPEN = "search_open";
     private static final String STATE_BACK_STACK = "back_stack";
+    private static final String STATE_LIST_FIRST = "list_first";
+    private static final String STATE_LIST_TOP = "list_top";
     private static final int SCREEN_LIST = 0;
     private static final int SCREEN_RECIPE = 1;
     private static final int SCREEN_SHOPPING = 2;
@@ -111,6 +113,7 @@ public class MainActivity extends Activity {
     private CookNoteRepository repository;
     private ImageLoader imageLoader;
     private RecipeAdapter adapter;
+    private GridView recipeGridView;
     private LinearLayout searchPanel;
     private LinearLayout prefsPanel;
     private Button searchToggle;
@@ -135,6 +138,8 @@ public class MainActivity extends Activity {
     private boolean lastAppliedHomeMode;
     private int lastAppliedCount;
     private boolean filtersApplied;
+    private int listFirstVisiblePosition;
+    private int listTopOffset;
     private float backSwipeStartX;
     private float backSwipeStartY;
     private boolean backSwipeCandidate;
@@ -181,6 +186,8 @@ public class MainActivity extends Activity {
         outState.putString(STATE_QUERY, currentQuery);
         outState.putBoolean(STATE_SEARCH_OPEN, searchPanelOpen);
         outState.putString(STATE_BACK_STACK, serializeBackStack());
+        outState.putInt(STATE_LIST_FIRST, listFirstVisiblePosition);
+        outState.putInt(STATE_LIST_TOP, listTopOffset);
         super.onSaveInstanceState(outState);
     }
 
@@ -191,6 +198,8 @@ public class MainActivity extends Activity {
         currentScreen = state.getInt(STATE_SCREEN, SCREEN_LIST);
         currentRecipeId = state.getString(STATE_RECIPE_ID, "");
         restoreBackStack(state.getString(STATE_BACK_STACK, ""));
+        listFirstVisiblePosition = Math.max(0, state.getInt(STATE_LIST_FIRST, 0));
+        listTopOffset = state.getInt(STATE_LIST_TOP, 0);
         if (currentScreen == SCREEN_RECIPE && repository.find(currentRecipeId) == null) {
             currentScreen = SCREEN_LIST;
             currentRecipeId = "";
@@ -436,7 +445,8 @@ public class MainActivity extends Activity {
         counterParams.topMargin = dp(7);
         header.addView(counterView, counterParams);
 
-        GridView gridView = new GridView(this);
+        final GridView gridView = new GridView(this);
+        recipeGridView = gridView;
         gridView.setBackgroundColor(COLOR_BG);
         gridView.setCacheColorHint(COLOR_BG);
         gridView.setNumColumns(GridView.AUTO_FIT);
@@ -467,6 +477,7 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 hideKeyboard();
+                if (parent instanceof AbsListView) rememberListPosition((AbsListView) parent);
                 setSearchPanelOpen(false);
                 openRecipe(adapter.getItem(position), true);
             }
@@ -479,6 +490,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                rememberListPosition(view);
             }
         });
 
@@ -501,6 +513,7 @@ public class MainActivity extends Activity {
         setContentView(root);
         resetFilterSnapshot();
         applyFiltersNow();
+        restoreListPosition(gridView);
         perfLog("showList", startedAt);
     }
 
@@ -729,6 +742,7 @@ public class MainActivity extends Activity {
         long startedAt = System.currentTimeMillis();
         String query = normalizedQuery();
         boolean homeMode = query.length() == 0;
+        boolean filterChanged = filtersApplied && (homeMode != lastAppliedHomeMode || !query.equals(lastAppliedQuery));
         if (filtersApplied && homeMode == lastAppliedHomeMode && query.equals(lastAppliedQuery)) {
             updateFilterControls(homeMode, lastAppliedCount);
             return;
@@ -738,6 +752,7 @@ public class MainActivity extends Activity {
                 : repository.searchSmart(query);
         adapter.setFavoriteIds(favoriteIds);
         adapter.setItems(filtered);
+        if (filterChanged) resetListPosition();
         prewarmListImages(filtered);
         filtersApplied = true;
         lastAppliedQuery = query;
@@ -756,6 +771,35 @@ public class MainActivity extends Activity {
         counterView.setText(label.toString());
         if (searchToggle != null) searchToggle.setText(buildSearchToggleLabel());
         if (clearSearchButton != null) clearSearchButton.setEnabled(!homeMode);
+    }
+
+    private void rememberListPosition(AbsListView view) {
+        if (view == null || currentScreen != SCREEN_LIST) return;
+        listFirstVisiblePosition = Math.max(0, view.getFirstVisiblePosition());
+        View firstChild = view.getChildAt(0);
+        listTopOffset = firstChild == null ? 0 : firstChild.getTop() - view.getPaddingTop();
+    }
+
+    private void restoreListPosition(final GridView gridView) {
+        if (gridView == null) return;
+        if (listFirstVisiblePosition <= 0 && listTopOffset == 0) return;
+        gridView.post(new Runnable() {
+            @Override
+            public void run() {
+                gridView.setSelectionFromTop(Math.max(0, listFirstVisiblePosition), listTopOffset + gridView.getPaddingTop());
+            }
+        });
+    }
+
+    private void resetListPosition() {
+        listFirstVisiblePosition = 0;
+        listTopOffset = 0;
+        if (recipeGridView != null) recipeGridView.setSelection(0);
+    }
+
+    private void releaseListSurface() {
+        recipeGridView = null;
+        adapter = null;
     }
 
     private void prewarmListImages(List<Recipe> recipes) {
@@ -778,6 +822,7 @@ public class MainActivity extends Activity {
         currentRecipeId = recipe.id;
         lastRecipeId = recipe.id;
         showingDetail = true;
+        releaseListSurface();
         applyKeepScreenOn();
         saveUserState();
         imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
@@ -2005,6 +2050,7 @@ public class MainActivity extends Activity {
         currentScreen = SCREEN_SHOPPING;
         currentRecipeId = "";
         showingDetail = true;
+        releaseListSurface();
         applyKeepScreenOn();
 
         LinearLayout root = new LinearLayout(this);
@@ -2141,6 +2187,7 @@ public class MainActivity extends Activity {
         currentScreen = SCREEN_DIAGNOSTIC;
         currentRecipeId = "";
         showingDetail = true;
+        releaseListSurface();
 
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);

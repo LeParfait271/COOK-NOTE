@@ -11,8 +11,11 @@ import android.util.LruCache;
 import android.widget.ImageView;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,6 +27,7 @@ final class ImageLoader {
     private final Handler mainHandler;
     private final ColorDrawable placeholder;
     private final Set<String> pendingKeys;
+    private final Map<String, ArrayList<ImageView>> waitingTargets;
 
     ImageLoader(Context context) {
         this.context = context.getApplicationContext();
@@ -39,6 +43,7 @@ final class ImageLoader {
         this.mainHandler = new Handler(Looper.getMainLooper());
         this.placeholder = new ColorDrawable(Color.rgb(18, 16, 12));
         this.pendingKeys = Collections.synchronizedSet(new HashSet<String>());
+        this.waitingTargets = new HashMap<String, ArrayList<ImageView>>();
     }
 
     void load(final String imageName, final ImageView imageView, final int requestedWidth, final int requestedHeight) {
@@ -76,30 +81,26 @@ final class ImageLoader {
             return;
         }
         imageView.setImageDrawable(placeholder);
+        if (!registerWaitingTarget(cacheKey, imageView)) return;
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 final Bitmap cachedAfterQueue = cache.get(cacheKey);
-                if (cachedAfterQueue != null) {
-                    mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Object tag = imageView.getTag();
-                            if (cacheKey.equals(tag)) {
-                                imageView.setImageBitmap(cachedAfterQueue);
-                            }
-                        }
-                    });
-                    return;
-                }
-                final Bitmap bitmap = decode(assetPath, requestedWidth, requestedHeight);
+                final Bitmap bitmap = cachedAfterQueue != null
+                        ? cachedAfterQueue
+                        : decode(assetPath, requestedWidth, requestedHeight);
                 if (bitmap != null) cache.put(cacheKey, bitmap);
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Object tag = imageView.getTag();
-                        if (cacheKey.equals(tag) && bitmap != null) {
-                            imageView.setImageBitmap(bitmap);
+                        ArrayList<ImageView> targets = takeWaitingTargets(cacheKey);
+                        if (targets == null || bitmap == null) return;
+                        for (ImageView target : targets) {
+                            if (target == null) continue;
+                            Object tag = target.getTag();
+                            if (cacheKey.equals(tag)) {
+                                target.setImageBitmap(bitmap);
+                            }
                         }
                     }
                 });
@@ -110,6 +111,7 @@ final class ImageLoader {
     private void prefetchAsset(final String assetPath, final int requestedWidth, final int requestedHeight) {
         final String cacheKey = assetPath + "@" + Math.max(1, requestedWidth) + "x" + Math.max(1, requestedHeight);
         if (cache.get(cacheKey) != null) return;
+        if (hasWaitingTargets(cacheKey)) return;
         if (!pendingKeys.add(cacheKey)) return;
         executor.execute(new Runnable() {
             @Override
@@ -129,6 +131,9 @@ final class ImageLoader {
         executor.shutdownNow();
         cache.evictAll();
         pendingKeys.clear();
+        synchronized (waitingTargets) {
+            waitingTargets.clear();
+        }
     }
 
     void trimMemory(boolean aggressive) {
@@ -141,7 +146,43 @@ final class ImageLoader {
     }
 
     String cacheSummary() {
-        return cache.size() + " KB / " + cache.maxSize() + " KB, attentes " + pendingKeys.size();
+        return cache.size() + " KB / " + cache.maxSize() + " KB, attentes " + pendingKeys.size() + ", vues " + waitingTargetCount();
+    }
+
+    private boolean registerWaitingTarget(String cacheKey, ImageView imageView) {
+        synchronized (waitingTargets) {
+            ArrayList<ImageView> targets = waitingTargets.get(cacheKey);
+            if (targets != null) {
+                targets.add(imageView);
+                return false;
+            }
+            targets = new ArrayList<ImageView>();
+            targets.add(imageView);
+            waitingTargets.put(cacheKey, targets);
+            return true;
+        }
+    }
+
+    private ArrayList<ImageView> takeWaitingTargets(String cacheKey) {
+        synchronized (waitingTargets) {
+            return waitingTargets.remove(cacheKey);
+        }
+    }
+
+    private boolean hasWaitingTargets(String cacheKey) {
+        synchronized (waitingTargets) {
+            return waitingTargets.containsKey(cacheKey);
+        }
+    }
+
+    private int waitingTargetCount() {
+        synchronized (waitingTargets) {
+            int count = 0;
+            for (ArrayList<ImageView> targets : waitingTargets.values()) {
+                if (targets != null) count += targets.size();
+            }
+            return count;
+        }
     }
 
     private Bitmap decode(String assetPath, int requestedWidth, int requestedHeight) {
