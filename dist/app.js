@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.47';
+const SITE_VERSION = 'v2.48';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -4464,6 +4464,11 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
     .filter(Boolean)
     .join(' ');
   const visibleRecipes = hasMore ? recipes.slice(0, visibleCount) : recipes;
+  const remainingRecipeCount = Math.max(0, recipes.length - visibleCount);
+  const nextRecipeBatchCount = Math.min(GRID_RENDER_BATCH_SIZE, remainingRecipeCount);
+  const loadMoreLabel = nextRecipeBatchCount > 0
+    ? `Afficher ${nextRecipeBatchCount} recette${nextRecipeBatchCount > 1 ? 's' : ''} de plus, ${remainingRecipeCount} restante${remainingRecipeCount > 1 ? 's' : ''}`
+    : 'Afficher plus de recettes';
 
   return h(React.Fragment, null,
     h('div', { className: gridClassName },
@@ -4482,6 +4487,8 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
     hasMore && h('div', { className: 'recipe-grid-load-more', ref: loadMoreRef },
       h('button', {
         type: 'button',
+        title: loadMoreLabel,
+        'aria-label': loadMoreLabel,
         onClick: () => setVisibleCount(count => Math.min(recipes.length, count + GRID_RENDER_BATCH_SIZE))
       }, 'Afficher plus')
     )
