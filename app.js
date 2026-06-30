@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.49';
+const SITE_VERSION = 'v2.50';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -5394,7 +5394,8 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
               key: recipe.id,
               type: 'button',
               onClick: () => removeRecipe(recipe.id),
-              title: 'Retirer du panier courses'
+              title: 'Retirer du panier courses',
+              'aria-label': `Retirer ${recipe.title} du panier courses`
             }, recipe.title, h('span', null, '×')))
           )
         : h('p', { className: 'muted' }, 'Ajoute une recette depuis sa fiche pour construire une liste groupée.'),
@@ -5402,7 +5403,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
         h('span', null, `${activeShoppingData.groupedItems.length} à acheter`),
         activeShoppingData.ownedGroupedItems.length > 0 && h('span', null, `${activeShoppingData.ownedGroupedItems.length} déjà maison`),
         h('span', null, `${checkedCount} coché${checkedCount > 1 ? 's' : ''}`),
-        checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}) }, 'Tout décocher')
+        checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}), 'aria-label': `Tout décocher (${checkedCount} article${checkedCount > 1 ? 's' : ''})` }, 'Tout décocher')
       ),
       recipes.length > 0 && activeShoppingData.smartGroups.length > 0 && h('div', { className: 'shopping-smart-groups' },
         activeShoppingData.smartGroups.map(group => h('span', { key: group.label }, `${group.label}: ${group.items.map(item => item.name).join(', ')}`))
@@ -5430,6 +5431,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
               h('input', {
                 type: 'checkbox',
                 checked,
+                'aria-label': `${checked ? 'Décocher' : 'Cocher'} ${[amount, item.name].filter(Boolean).join(' ')}`,
                 onChange: () => setShoppingChecked(prev => ({ ...prev, [item.key]: !prev[item.key] }))
               }),
               h('span', { className: 'shopping-line-main' },
@@ -5441,14 +5443,14 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
               h('button', { type: 'button', className: 'shopping-owned-btn', onClick: event => {
                 event.preventDefault();
                 toggleOwnedItem(item.key);
-              } }, 'J’ai déjà')
+              }, 'aria-label': `Marquer ${item.name} comme déjà à la maison`, title: 'Marquer comme déjà à la maison' }, 'J’ai déjà')
             );
           })
         ))
       ),
       activeShoppingData.ownedGroupedItems.length > 0 && h('div', { className: 'shopping-owned-list' },
         h('strong', null, 'Déjà à la maison'),
-        activeShoppingData.ownedGroupedItems.map(item => h('button', { key: item.key, type: 'button', onClick: () => toggleOwnedItem(item.key) }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')}`))
+        activeShoppingData.ownedGroupedItems.map(item => h('button', { key: item.key, type: 'button', onClick: () => toggleOwnedItem(item.key), 'aria-label': `Remettre ${item.name} dans la liste à acheter`, title: 'Remettre dans la liste' }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')}`))
       ),
       h('pre', { className: 'cart-output combined-cart' }, text),
       h('div', { className: 'modal-actions' },

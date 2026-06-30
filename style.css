@@ -4203,6 +4203,12 @@ a {
   font-weight: 900;
 }
 
+.shopping-owned-btn:hover,
+.shopping-owned-btn:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 54%, var(--line));
+  color: var(--accent);
+}
+
 .shopping-line small {
   grid-column: 2;
   color: var(--muted);
