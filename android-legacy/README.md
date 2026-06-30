@@ -38,6 +38,8 @@ Le mode d'emploi complet est dans
   image serialise, coalescence chargements image, images visibles prioritaires,
   file image prioritaire, annulation prefetch obsolete, cache image normalise,
   nettoyage vues recyclees, prechauffage images differe, scroll fluide,
+  prechauffage visible apres scroll, annulation prechauffage en fling,
+  prefetch ralenti hors inertie,
   mots recherche predecoupes, fuzzy sans split, allocations recherche reduites,
   cache resultats recherche borne, requetes recentes reutilisees, classement recherche memoise,
   catalogue parent precompile, enfants parents preclasses, compteurs collection caches,
@@ -52,7 +54,8 @@ Le mode d'emploi complet est dans
   chargements image, images visibles prioritaires, file image prioritaire,
   annulation prefetch obsolete, cache image normalise, nettoyage vues recyclees,
   prechauffage images differe, position de grille conservee, liberation memoire
-  de liste, mots recherche predecoupes, fuzzy sans split,
+  de liste, prechauffage visible apres scroll, annulation prechauffage en fling,
+  prefetch ralenti hors inertie, mots recherche predecoupes, fuzzy sans split,
   allocations recherche reduites, cache resultats recherche borne,
   requetes recentes reutilisees, classement recherche memoise, catalogue parent precompile, enfants parents preclasses,
   compteurs collection caches, prefetch carte borne, courses cochables, courses fusionnees, quantites ajustables,

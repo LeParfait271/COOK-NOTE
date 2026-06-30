@@ -100,7 +100,9 @@ public class MainActivity extends Activity {
     private static final int BACK_SWIPE_TRIGGER_DP = 86;
     private static final int SEARCH_DEBOUNCE_MS = 140;
     private static final int LIST_PREWARM_DELAY_MS = 220;
+    private static final int LIST_IDLE_PREWARM_DELAY_MS = 120;
     private static final int LIST_PREWARM_LIMIT = 8;
+    private static final int LIST_VISIBLE_PREFETCH_LIMIT = 6;
     private static final int COLLECTION_PREWARM_LIMIT = 8;
     private static final int MAX_BACK_STACK = 16;
     private static final boolean PERF_LOG_ENABLED = true;
@@ -141,6 +143,7 @@ public class MainActivity extends Activity {
     private boolean filtersApplied;
     private int listFirstVisiblePosition;
     private int listTopOffset;
+    private int listScrollState = AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
     private float backSwipeStartX;
     private float backSwipeStartY;
     private boolean backSwipeCandidate;
@@ -156,6 +159,12 @@ public class MainActivity extends Activity {
         @Override
         public void run() {
             runScheduledListPrewarm();
+        }
+    };
+    private final Runnable visibleRangePrewarmRunnable = new Runnable() {
+        @Override
+        public void run() {
+            runScheduledVisibleRangePrewarm();
         }
     };
     private final Stack<NavState> detailBackStack = new Stack<NavState>();
@@ -268,6 +277,7 @@ public class MainActivity extends Activity {
         currentScreen = SCREEN_LIST;
         currentRecipeId = "";
         showingDetail = false;
+        listScrollState = AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(COLOR_BG);
@@ -493,12 +503,15 @@ public class MainActivity extends Activity {
         gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (adapter != null) adapter.setPrefetchEnabled(scrollState != SCROLL_STATE_FLING);
+                handleListScrollStateChanged(view, scrollState);
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 rememberListPosition(view);
+                if (listScrollState != SCROLL_STATE_FLING) {
+                    scheduleVisibleRangePrewarm(view, firstVisibleItem, visibleItemCount, totalItemCount);
+                }
             }
         });
 
@@ -807,9 +820,24 @@ public class MainActivity extends Activity {
 
     private void releaseListSurface() {
         cancelListPrewarm();
+        cancelVisibleRangePrewarm();
         if (imageLoader != null) imageLoader.cancelPendingPrefetch();
         recipeGridView = null;
         adapter = null;
+    }
+
+    private void handleListScrollStateChanged(AbsListView view, int scrollState) {
+        listScrollState = scrollState;
+        boolean allowPrefetch = scrollState != AbsListView.OnScrollListener.SCROLL_STATE_FLING;
+        if (adapter != null) adapter.setPrefetchEnabled(allowPrefetch);
+        if (!allowPrefetch) {
+            cancelVisibleRangePrewarm();
+            if (imageLoader != null) imageLoader.cancelPendingPrefetch();
+            return;
+        }
+        if (view != null) {
+            scheduleVisibleRangePrewarm(view, view.getFirstVisiblePosition(), view.getChildCount(), view.getCount());
+        }
     }
 
     private void scheduleListPrewarm(List<Recipe> recipes) {
@@ -833,6 +861,41 @@ public class MainActivity extends Activity {
     private void cancelListPrewarm() {
         uiHandler.removeCallbacks(prewarmListRunnable);
         pendingListPrewarmRecipes = Collections.emptyList();
+    }
+
+    private void scheduleVisibleRangePrewarm(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        if (currentScreen != SCREEN_LIST || view == null || adapter == null || imageLoader == null) return;
+        if (visibleItemCount <= 0 || totalItemCount <= 0) return;
+        uiHandler.removeCallbacks(visibleRangePrewarmRunnable);
+        uiHandler.postDelayed(visibleRangePrewarmRunnable, LIST_IDLE_PREWARM_DELAY_MS);
+    }
+
+    private void runScheduledVisibleRangePrewarm() {
+        if (currentScreen != SCREEN_LIST || recipeGridView == null || adapter == null || imageLoader == null) return;
+        if (listScrollState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) return;
+        int first = Math.max(0, recipeGridView.getFirstVisiblePosition());
+        int visible = Math.max(1, recipeGridView.getChildCount());
+        int start = Math.min(adapter.getCount(), first + visible);
+        int end = Math.min(adapter.getCount(), start + LIST_VISIBLE_PREFETCH_LIMIT);
+        if (start >= end) return;
+        int width = visibleCardWidth();
+        int height = Math.max(dp(compactCards ? 112 : 130), (width * 9) / 16);
+        for (int index = start; index < end; index += 1) {
+            imageLoader.prefetch(adapter.getItem(index).image, width, height);
+        }
+    }
+
+    private void cancelVisibleRangePrewarm() {
+        uiHandler.removeCallbacks(visibleRangePrewarmRunnable);
+    }
+
+    private int visibleCardWidth() {
+        if (recipeGridView != null && recipeGridView.getColumnWidth() > 0) {
+            return recipeGridView.getColumnWidth();
+        }
+        int minWidth = dp(compactCards ? 244 : 286);
+        int available = getResources().getDisplayMetrics().widthPixels - dp(20);
+        return Math.max(minWidth, available);
     }
 
     private void prewarmListImages(List<Recipe> recipes) {

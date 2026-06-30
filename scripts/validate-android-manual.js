@@ -307,6 +307,13 @@ expect(
     && androidLegacyAdapter.includes('sameItems')
     && androidLegacyAdapter.includes('setCompactCards')
     && androidLegacyAdapter.includes('setPrefetchEnabled')
+    && androidLegacyMainActivity.includes('handleListScrollStateChanged')
+    && androidLegacyMainActivity.includes('LIST_IDLE_PREWARM_DELAY_MS')
+    && androidLegacyMainActivity.includes('LIST_VISIBLE_PREFETCH_LIMIT')
+    && androidLegacyMainActivity.includes('scheduleVisibleRangePrewarm')
+    && androidLegacyMainActivity.includes('runScheduledVisibleRangePrewarm')
+    && androidLegacyMainActivity.includes('cancelVisibleRangePrewarm')
+    && androidLegacyMainActivity.includes('visibleCardWidth')
     && androidLegacyAdapter.includes('compactCards')
     && androidLegacyAdapter.includes('prefetchEnabled')
     && androidLegacyAdapter.includes('selectablePanel')
@@ -444,6 +451,9 @@ expect(
   'navigation restaurable',
   'prechargement images',
   'prechauffage images differe',
+  'prechauffage visible apres scroll',
+  'annulation prechauffage en fling',
+  'prefetch ralenti hors inertie',
   'images visibles prioritaires',
   'file image prioritaire',
   'annulation prefetch obsolete',
@@ -505,6 +515,9 @@ expect(
     && androidReadme.includes('navigation restaurable')
     && androidReadme.includes('prechargement images')
     && androidReadme.includes('prechauffage images differe')
+    && androidReadme.includes('prechauffage visible apres scroll')
+    && androidReadme.includes('annulation prechauffage en fling')
+    && androidReadme.includes('prefetch ralenti hors inertie')
     && androidReadme.includes('images visibles prioritaires')
     && androidReadme.includes('file image prioritaire')
     && androidReadme.includes('annulation prefetch obsolete')
@@ -587,6 +600,9 @@ expect(
   'navigation restaurable',
   'prechargement images',
   'prechauffage images differe',
+  'prechauffage visible apres scroll',
+  'annulation prechauffage en fling',
+  'prefetch ralenti hors inertie',
   'images visibles prioritaires',
   'file image prioritaire',
   'annulation prefetch obsolete',
