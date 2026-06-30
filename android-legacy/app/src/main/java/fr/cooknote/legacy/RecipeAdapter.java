@@ -42,6 +42,8 @@ final class RecipeAdapter extends BaseAdapter {
     private final List<Recipe> items = new ArrayList<Recipe>();
     private final Set<String> favoriteIds = new HashSet<String>();
     private Map<String, Integer> collectionCounts;
+    private boolean compactCards;
+    private boolean prefetchEnabled = true;
 
     RecipeAdapter(Context context, ImageLoader imageLoader) {
         this.context = context;
@@ -63,6 +65,16 @@ final class RecipeAdapter extends BaseAdapter {
     void setCollectionCounts(Map<String, Integer> counts) {
         collectionCounts = counts;
         notifyDataSetChanged();
+    }
+
+    void setCompactCards(boolean compact) {
+        if (compactCards == compact) return;
+        compactCards = compact;
+        notifyDataSetChanged();
+    }
+
+    void setPrefetchEnabled(boolean enabled) {
+        prefetchEnabled = enabled;
     }
 
     @Override
@@ -94,9 +106,9 @@ final class RecipeAdapter extends BaseAdapter {
         Recipe recipe = getItem(position);
         holder.title.setText(recipe.title);
         int cardWidth = resizeCardForParent(holder, parent);
-        int cardHeight = Math.max(dp(CARD_MIN_HEIGHT_DP), (cardWidth * 9) / 16);
+        int cardHeight = Math.max(dp(cardMinHeightDp()), (cardWidth * 9) / 16);
         imageLoader.load(recipe.image, holder.image, cardWidth, cardHeight);
-        prefetchAround(position, cardWidth, cardHeight);
+        if (prefetchEnabled) prefetchAround(position, cardWidth, cardHeight);
         return convertView;
     }
 
@@ -115,7 +127,7 @@ final class RecipeAdapter extends BaseAdapter {
         root.setBackgroundColor(COLOR_BG);
         root.setLayoutParams(new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(156)
+                dp(compactCards ? 134 : 156)
         ));
 
         LinearLayout card = new LinearLayout(context);
@@ -227,7 +239,7 @@ final class RecipeAdapter extends BaseAdapter {
 
     private int resizeCardForParent(ViewHolder holder, ViewGroup parent) {
         int cardWidth = cardWidthForParent(parent);
-        int cardHeight = Math.max(dp(CARD_MIN_HEIGHT_DP), (cardWidth * 9) / 16);
+        int cardHeight = Math.max(dp(cardMinHeightDp()), (cardWidth * 9) / 16);
         ViewGroup.LayoutParams params = holder.root.getLayoutParams();
         if (params == null) {
             holder.root.setLayoutParams(new AbsListView.LayoutParams(
@@ -243,13 +255,25 @@ final class RecipeAdapter extends BaseAdapter {
     }
 
     private int cardWidthForParent(ViewGroup parent) {
-        int minWidth = dp(CARD_MIN_WIDTH_DP);
-        int spacing = dp(CARD_SPACING_DP);
+        int minWidth = dp(cardMinWidthDp());
+        int spacing = dp(cardSpacingDp());
         int available = parent == null ? 0 : parent.getWidth() - parent.getPaddingLeft() - parent.getPaddingRight();
         if (available <= 0) return minWidth;
         int columns = Math.max(1, (available + spacing) / (minWidth + spacing));
         int width = (available - (spacing * (columns - 1))) / columns;
         return Math.max(minWidth, width);
+    }
+
+    private int cardMinWidthDp() {
+        return compactCards ? 244 : CARD_MIN_WIDTH_DP;
+    }
+
+    private int cardSpacingDp() {
+        return compactCards ? 8 : CARD_SPACING_DP;
+    }
+
+    private int cardMinHeightDp() {
+        return compactCards ? 112 : CARD_MIN_HEIGHT_DP;
     }
 
     private int dp(int value) {

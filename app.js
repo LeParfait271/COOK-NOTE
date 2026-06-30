@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.28';
+const SITE_VERSION = 'v2.29';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -4388,6 +4388,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   return h('article', {
     className,
     style,
+    'data-recipe-id': recipe.id,
     tabIndex: 0,
     role: 'button',
     'aria-label': `Ouvrir ${recipe.title}`,

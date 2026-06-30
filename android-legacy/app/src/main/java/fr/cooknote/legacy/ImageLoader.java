@@ -114,6 +114,19 @@ final class ImageLoader {
         pendingKeys.clear();
     }
 
+    void trimMemory(boolean aggressive) {
+        pendingKeys.clear();
+        if (aggressive) {
+            cache.evictAll();
+        } else {
+            cache.trimToSize(Math.max(0, cache.maxSize() / 2));
+        }
+    }
+
+    String cacheSummary() {
+        return cache.size() + " KB / " + cache.maxSize() + " KB, attentes " + pendingKeys.size();
+    }
+
     private Bitmap decode(String assetPath, int requestedWidth, int requestedHeight) {
         BitmapFactory.Options bounds = new BitmapFactory.Options();
         bounds.inJustDecodeBounds = true;

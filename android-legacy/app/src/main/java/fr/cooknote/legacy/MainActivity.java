@@ -1,6 +1,7 @@
 package fr.cooknote.legacy;
 
 import android.app.Activity;
+import android.content.ComponentCallbacks2;
 import android.content.ActivityNotFoundException;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -24,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.AdapterView;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -44,10 +46,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends Activity {
     private static final String UPDATE_APK_URL = "https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk";
@@ -56,6 +61,11 @@ public class MainActivity extends Activity {
     private static final String PREF_SHOPPING = "shopping";
     private static final String PREF_SHOPPING_DONE = "shopping_done";
     private static final String PREF_KEEP_SCREEN_ON = "keep_screen_on";
+    private static final String PREF_QUANTITY_FACTOR = "quantity_factor";
+    private static final String PREF_TEXT_MODE = "text_mode";
+    private static final String PREF_COMPACT_CARDS = "compact_cards";
+    private static final String PREF_OPEN_LAST = "open_last";
+    private static final String PREF_LAST_RECIPE = "last_recipe";
     private static final String STATE_SCREEN = "screen";
     private static final String STATE_RECIPE_ID = "recipe_id";
     private static final String STATE_QUERY = "query";
@@ -64,6 +74,7 @@ public class MainActivity extends Activity {
     private static final int SCREEN_LIST = 0;
     private static final int SCREEN_RECIPE = 1;
     private static final int SCREEN_SHOPPING = 2;
+    private static final int SCREEN_DIAGNOSTIC = 3;
     private static final int COLOR_BG = Color.rgb(4, 4, 4);
     private static final int COLOR_PANEL = Color.rgb(17, 16, 13);
     private static final int COLOR_PANEL_DEEP = Color.rgb(8, 7, 6);
@@ -85,22 +96,35 @@ public class MainActivity extends Activity {
     private static final int BACK_SWIPE_TRIGGER_DP = 86;
     private static final boolean PERF_LOG_ENABLED = true;
     private static final String PERF_TAG = "CookNotePerf";
+    private static final float[] QUANTITY_FACTORS = new float[]{0.5f, 1f, 1.5f, 2f, 3f, 4f};
+    private static final Pattern INGREDIENT_AMOUNT_PATTERN = Pattern.compile(
+            "^\\s*(\\d+/\\d+|\\d+(?:[,.]\\d+)?)(?:\\s*(?:-|a|\\u00E0)\\s*(\\d+/\\d+|\\d+(?:[,.]\\d+)?))?\\s*([A-Za-z]+)?\\s*(.*)$",
+            Pattern.CASE_INSENSITIVE
+    );
 
     private CookNoteRepository repository;
     private ImageLoader imageLoader;
     private RecipeAdapter adapter;
     private LinearLayout searchPanel;
+    private LinearLayout prefsPanel;
     private Button searchToggle;
+    private Button prefsToggle;
     private Button shoppingButton;
     private Button clearSearchButton;
     private TextView counterView;
     private EditText searchBox;
     private String currentQuery = "";
     private boolean searchPanelOpen;
+    private boolean prefsPanelOpen;
     private boolean showingDetail;
     private boolean keepScreenOn;
+    private boolean compactCards;
+    private boolean openLastRecipe;
+    private int textMode;
+    private float quantityFactor = 1f;
     private int currentScreen = SCREEN_LIST;
     private String currentRecipeId = "";
+    private String lastRecipeId = "";
     private float backSwipeStartX;
     private float backSwipeStartY;
     private boolean backSwipeCandidate;
@@ -119,6 +143,13 @@ public class MainActivity extends Activity {
             repository = CookNoteRepository.load(this);
             loadUserState();
             restoreScreenState(savedInstanceState);
+            if (savedInstanceState == null && currentScreen == SCREEN_LIST && openLastRecipe && lastRecipeId.length() > 0) {
+                Recipe lastRecipe = repository.find(lastRecipeId);
+                if (lastRecipe != null) {
+                    currentScreen = SCREEN_RECIPE;
+                    currentRecipeId = lastRecipe.id;
+                }
+            }
             applyKeepScreenOn();
             showCurrentScreen();
         } catch (Exception exception) {
@@ -159,6 +190,10 @@ public class MainActivity extends Activity {
         }
         if (currentScreen == SCREEN_SHOPPING) {
             showShoppingList(false);
+            return;
+        }
+        if (currentScreen == SCREEN_DIAGNOSTIC) {
+            showDiagnostic(false);
             return;
         }
         showList();
@@ -295,7 +330,18 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 hideKeyboard();
                 setSearchPanelOpen(false);
-                showShoppingList();
+                showShoppingList(true);
+            }
+        });
+
+        prefsToggle = actionButton("Reglages", false);
+        LinearLayout.LayoutParams prefsParams = new LinearLayout.LayoutParams(0, dp(36), 1);
+        prefsParams.rightMargin = dp(7);
+        actionRow.addView(prefsToggle, prefsParams);
+        prefsToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setPrefsPanelOpen(!prefsPanelOpen);
             }
         });
 
@@ -338,7 +384,7 @@ public class MainActivity extends Activity {
         searchBox.setSingleLine(true);
         searchBox.setTextColor(COLOR_TEXT);
         searchBox.setHintTextColor(COLOR_MUTED);
-        searchBox.setTextSize(14);
+        searchBox.setTextSize(adjustedTextSize(14));
         searchBox.setHint("Recette ou ingredient...");
         searchBox.setPadding(dp(12), 0, dp(12), 0);
         searchBox.setBackground(panel(COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
@@ -357,6 +403,8 @@ public class MainActivity extends Activity {
         });
 
         setSearchPanelOpen(searchPanelOpen);
+        addPrefsPanel(header);
+        setPrefsPanelOpen(prefsPanelOpen);
 
         counterView = text("", 12, COLOR_MUTED, true);
         counterView.setPadding(dp(9), dp(5), dp(9), dp(6));
@@ -374,16 +422,21 @@ public class MainActivity extends Activity {
         gridView.setBackgroundColor(COLOR_BG);
         gridView.setCacheColorHint(COLOR_BG);
         gridView.setNumColumns(GridView.AUTO_FIT);
-        gridView.setColumnWidth(dp(286));
-        gridView.setHorizontalSpacing(dp(11));
-        gridView.setVerticalSpacing(dp(12));
+        gridView.setColumnWidth(dp(compactCards ? 244 : 286));
+        gridView.setHorizontalSpacing(dp(compactCards ? 8 : 11));
+        gridView.setVerticalSpacing(dp(compactCards ? 9 : 12));
         gridView.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
         gridView.setPadding(dp(10), dp(10), dp(10), dp(18));
         gridView.setClipToPadding(false);
         gridView.setFastScrollEnabled(true);
+        gridView.setSmoothScrollbarEnabled(true);
+        gridView.setVerticalScrollBarEnabled(false);
+        gridView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        gridView.setFadingEdgeLength(0);
         gridView.setScrollingCacheEnabled(false);
         gridView.setAnimationCacheEnabled(false);
         adapter = new RecipeAdapter(this, imageLoader);
+        adapter.setCompactCards(compactCards);
         adapter.setCollectionCounts(repository.collectionCounts());
         gridView.setAdapter(adapter);
         root.addView(gridView, new LinearLayout.LayoutParams(
@@ -397,7 +450,17 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 hideKeyboard();
                 setSearchPanelOpen(false);
-                openRecipe(adapter.getItem(position), false);
+                openRecipe(adapter.getItem(position), true);
+            }
+        });
+        gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (adapter != null) adapter.setPrefetchEnabled(scrollState != SCROLL_STATE_FLING);
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             }
         });
 
@@ -502,11 +565,18 @@ public class MainActivity extends Activity {
 
     private void setSearchPanelOpen(boolean open) {
         searchPanelOpen = open;
+        if (open) prefsPanelOpen = false;
         if (searchPanel != null) {
             searchPanel.setVisibility(open ? View.VISIBLE : View.GONE);
         }
+        if (prefsPanel != null) {
+            prefsPanel.setVisibility(prefsPanelOpen ? View.VISIBLE : View.GONE);
+        }
         if (searchToggle != null) {
             searchToggle.setText(buildSearchToggleLabel());
+        }
+        if (prefsToggle != null) {
+            prefsToggle.setText(buildPrefsToggleLabel());
         }
         if (open) {
             showKeyboard();
@@ -518,6 +588,97 @@ public class MainActivity extends Activity {
     private String buildSearchToggleLabel() {
         if (searchPanelOpen) return "Fermer";
         return currentQuery.trim().length() == 0 ? "Recherche" : "Recherche active";
+    }
+
+    private void setPrefsPanelOpen(boolean open) {
+        prefsPanelOpen = open;
+        if (open) {
+            searchPanelOpen = false;
+            hideKeyboard();
+        }
+        if (prefsPanel != null) prefsPanel.setVisibility(open ? View.VISIBLE : View.GONE);
+        if (searchPanel != null) searchPanel.setVisibility(searchPanelOpen ? View.VISIBLE : View.GONE);
+        if (prefsToggle != null) prefsToggle.setText(buildPrefsToggleLabel());
+        if (searchToggle != null) searchToggle.setText(buildSearchToggleLabel());
+    }
+
+    private String buildPrefsToggleLabel() {
+        return prefsPanelOpen ? "Fermer" : "Reglages";
+    }
+
+    private void addPrefsPanel(LinearLayout header) {
+        prefsPanel = new LinearLayout(this);
+        prefsPanel.setOrientation(LinearLayout.VERTICAL);
+        prefsPanel.setPadding(dp(12), dp(11), dp(12), dp(12));
+        prefsPanel.setBackground(panelGradient(COLOR_CARD, Color.rgb(28, 23, 16), COLOR_BORDER, 1, 8));
+        LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        panelParams.topMargin = dp(10);
+        header.addView(prefsPanel, panelParams);
+
+        TextView label = text("REGLAGES", 10, COLOR_GOLD, true);
+        label.setIncludeFontPadding(false);
+        prefsPanel.addView(label);
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                dp(38)
+        );
+        rowParams.topMargin = dp(9);
+        prefsPanel.addView(row, rowParams);
+
+        addPrefsButton(row, textScaleLabel(), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cycleTextMode();
+            }
+        }, true);
+        addPrefsButton(row, compactCards ? "Cartes compact" : "Cartes confort", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                compactCards = !compactCards;
+                saveUserState();
+                showList();
+            }
+        }, true);
+        addPrefsButton(row, openLastRecipe ? "Derniere oui" : "Derniere non", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openLastRecipe = !openLastRecipe;
+                saveUserState();
+                showList();
+            }
+        }, true);
+        addPrefsButton(row, "Diagnostic", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDiagnostic(true);
+            }
+        }, false);
+    }
+
+    private void addPrefsButton(LinearLayout row, String label, View.OnClickListener listener, boolean rightMargin) {
+        Button button = actionButton(label, false);
+        button.setOnClickListener(listener);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        if (rightMargin) params.rightMargin = dp(7);
+        row.addView(button, params);
+    }
+
+    private String textScaleLabel() {
+        if (textMode <= 0) return "Texte 100%";
+        if (textMode == 1) return "Texte 110%";
+        return "Texte 120%";
+    }
+
+    private void cycleTextMode() {
+        textMode = (textMode + 1) % 3;
+        saveUserState();
+        showList();
     }
 
     private boolean isHomeMode() {
@@ -561,8 +722,10 @@ public class MainActivity extends Activity {
         if (pushCurrent) pushNavigationState();
         currentScreen = SCREEN_RECIPE;
         currentRecipeId = recipe.id;
+        lastRecipeId = recipe.id;
         showingDetail = true;
         applyKeepScreenOn();
+        saveUserState();
         imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
 
         LinearLayout root = new LinearLayout(this);
@@ -621,6 +784,10 @@ public class MainActivity extends Activity {
 
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(false);
+        scroll.setSmoothScrollingEnabled(true);
+        scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        scroll.setVerticalScrollBarEnabled(false);
+        scroll.setFadingEdgeLength(0);
         LinearLayout content = new LinearLayout(this);
         content.setOrientation(LinearLayout.VERTICAL);
         content.setPadding(dp(12), dp(12), dp(12), dp(24));
@@ -634,6 +801,7 @@ public class MainActivity extends Activity {
         addDetailHero(content, recipe);
         if (!recipe.isCollection()) addHeroActions(content, recipe);
         addQuickFacts(content, recipe);
+        if (!recipe.isCollection()) addQuantityControls(content, recipe);
 
         if (recipe.isCollection()) {
             addCollectionCards(content, recipe);
@@ -939,6 +1107,52 @@ public class MainActivity extends Activity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(1), 1);
         if (rightMargin) params.rightMargin = dp(8);
         row.addView(spacer, params);
+    }
+
+    private void addQuantityControls(LinearLayout content, final Recipe recipe) {
+        LinearLayout section = addSection(content, "Quantites", "x" + factorLabel(quantityFactor));
+        TextView help = text("Ajuste les ingredients affiches, la copie et les courses fusionnees.", 12, COLOR_MUTED, false);
+        help.setPadding(0, dp(6), 0, dp(2));
+        section.addView(help);
+
+        int perRow = getResources().getDisplayMetrics().widthPixels >= dp(700) ? 6 : 3;
+        LinearLayout row = null;
+        for (int index = 0; index < QUANTITY_FACTORS.length; index += 1) {
+            if (index % perRow == 0) {
+                row = new LinearLayout(this);
+                row.setOrientation(LinearLayout.HORIZONTAL);
+                LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        dp(36)
+                );
+                rowParams.topMargin = dp(index == 0 ? 9 : 7);
+                section.addView(row, rowParams);
+            }
+            final float factor = QUANTITY_FACTORS[index];
+            Button button = actionButton("x" + factorLabel(factor), sameFactor(quantityFactor, factor));
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    quantityFactor = factor;
+                    saveUserState();
+                    openRecipe(recipe, false);
+                }
+            });
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+            if (index % perRow < perRow - 1) params.rightMargin = dp(7);
+            row.addView(button, params);
+        }
+    }
+
+    private String factorLabel(float factor) {
+        if (sameFactor(factor, Math.round(factor))) return String.valueOf((int) Math.round(factor));
+        String raw = String.valueOf(Math.round(factor * 10f) / 10f);
+        if (raw.endsWith(".0")) raw = raw.substring(0, raw.length() - 2);
+        return raw.replace('.', ',');
+    }
+
+    private boolean sameFactor(float left, float right) {
+        return Math.abs(left - right) < 0.01f;
     }
 
     private void addRecipeContentGrid(LinearLayout content, Recipe recipe) {
@@ -1394,7 +1608,7 @@ public class MainActivity extends Activity {
     private void addIngredientGroup(LinearLayout section, Recipe.Group group, boolean includeGroupSteps) {
         subTitle(section, group.title);
         for (String item : group.items) {
-            bulletRow(section, item);
+            bulletRow(section, scaleIngredient(item));
         }
         if (group.note.length() > 0) body(section, group.note, COLOR_MUTED);
         if (includeGroupSteps) {
@@ -1666,7 +1880,7 @@ public class MainActivity extends Activity {
         Button button = new Button(this);
         button.setText(value);
         button.setTextColor(primary ? COLOR_TEXT_DARK : COLOR_TEXT);
-        button.setTextSize(12);
+        button.setTextSize(adjustedTextSize(12));
         button.setTypeface(Typeface.DEFAULT_BOLD);
         button.setAllCaps(false);
         button.setMinHeight(0);
@@ -1709,7 +1923,7 @@ public class MainActivity extends Activity {
 
     private void styleSpinnerText(TextView view, boolean dropdown) {
         view.setTextColor(COLOR_TEXT);
-        view.setTextSize(14);
+        view.setTextSize(adjustedTextSize(14));
         view.setTypeface(Typeface.DEFAULT_BOLD);
         view.setSingleLine(!dropdown);
         view.setMaxLines(dropdown ? 2 : 1);
@@ -1774,6 +1988,9 @@ public class MainActivity extends Activity {
         top.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
         ScrollView scroll = new ScrollView(this);
+        scroll.setSmoothScrollingEnabled(true);
+        scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        scroll.setVerticalScrollBarEnabled(false);
         LinearLayout content = new LinearLayout(this);
         content.setOrientation(LinearLayout.VERTICAL);
         content.setPadding(dp(12), dp(12), dp(12), dp(24));
@@ -1830,6 +2047,7 @@ public class MainActivity extends Activity {
         if (shoppingRecipeIds.isEmpty()) {
             body(actions, "Ajoute une recette depuis une fiche pour preparer les courses.");
         } else {
+            addMergedShoppingSection(content);
             ArrayList<String> ids = new ArrayList<String>(shoppingRecipeIds);
             for (final String id : ids) {
                 final Recipe recipe = repository.find(id);
@@ -1863,12 +2081,216 @@ public class MainActivity extends Activity {
         perfLog("showShoppingList", startedAt);
     }
 
+    private void showDiagnostic(boolean pushCurrent) {
+        long startedAt = System.currentTimeMillis();
+        if (pushCurrent) pushNavigationState();
+        currentScreen = SCREEN_DIAGNOSTIC;
+        currentRecipeId = "";
+        showingDetail = true;
+
+        LinearLayout root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(COLOR_BG);
+
+        LinearLayout top = new LinearLayout(this);
+        top.setOrientation(LinearLayout.HORIZONTAL);
+        top.setGravity(Gravity.CENTER_VERTICAL);
+        top.setPadding(dp(10), dp(6), dp(10), dp(6));
+        top.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(20, 15, 10), COLOR_BORDER, 1, 0));
+        root.addView(top, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+
+        Button back = new Button(this);
+        back.setText("Retour");
+        back.setTextColor(COLOR_TEXT_DARK);
+        back.setTextSize(12);
+        back.setTypeface(Typeface.DEFAULT_BOLD);
+        back.setAllCaps(false);
+        back.setBackground(buttonPanel(true));
+        top.addView(back, new LinearLayout.LayoutParams(dp(86), dp(36)));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goBack();
+            }
+        });
+
+        TextView title = text("Diagnostic hors ligne", 17, COLOR_TEXT, true);
+        title.setGravity(Gravity.CENTER_VERTICAL);
+        title.setPadding(dp(12), 0, 0, 0);
+        top.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
+        ScrollView scroll = new ScrollView(this);
+        scroll.setSmoothScrollingEnabled(true);
+        scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        scroll.setVerticalScrollBarEnabled(false);
+        LinearLayout content = new LinearLayout(this);
+        content.setOrientation(LinearLayout.VERTICAL);
+        content.setPadding(dp(12), dp(12), dp(12), dp(24));
+        scroll.addView(content);
+        root.addView(scroll, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                0,
+                1
+        ));
+
+        LinearLayout section = addSection(content, "Etat APK", "offline");
+        labelValue(section, "Version", repository.version);
+        labelValue(section, "Catalogue", repository.homeRecipes().size() + " parents / " + repository.searchableRecipes().size() + " fiches");
+        labelValue(section, "Images", repository.recipes.size() + " vignettes / " + repository.recipes.size() + " details");
+        labelValue(section, "Cache image", imageLoader == null ? "indisponible" : imageLoader.cacheSummary());
+        labelValue(section, "Memoire Java", (Runtime.getRuntime().maxMemory() / 1024 / 1024) + " MB max");
+        labelValue(section, "Reglages", "quantites x" + factorLabel(quantityFactor) + ", " + textScaleLabel() + ", " + (compactCards ? "cartes compactes" : "cartes confort"));
+        labelValue(section, "Derniere fiche", lastRecipeId.length() == 0 ? "aucune" : lastRecipeId);
+
+        Button copy = sectionButton("Copier diagnostic", true);
+        section.addView(copy);
+        copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyDiagnostic();
+            }
+        });
+
+        Button copyApk = sectionButton("Copier lien APK", false);
+        section.addView(copyApk);
+        copyApk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyApkLink();
+            }
+        });
+
+        Button trim = sectionButton("Vider cache image", false);
+        section.addView(trim);
+        trim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageLoader != null) imageLoader.trimMemory(true);
+                Toast.makeText(MainActivity.this, "Cache image vide", Toast.LENGTH_SHORT).show();
+                showDiagnostic(false);
+            }
+        });
+
+        setContentView(root);
+        perfLog("showDiagnostic", startedAt);
+    }
+
+    private void copyDiagnostic() {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboard == null) return;
+        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note diagnostic", buildDiagnosticText()));
+        Toast.makeText(this, "Diagnostic copie", Toast.LENGTH_SHORT).show();
+    }
+
+    private void copyApkLink() {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboard == null) return;
+        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note APK Android 5.0+", UPDATE_APK_URL));
+        Toast.makeText(this, "Lien APK copie", Toast.LENGTH_SHORT).show();
+    }
+
+    private String buildDiagnosticText() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Cook Note Android 5.0+").append('\n');
+        builder.append("Version: ").append(repository.version).append('\n');
+        builder.append("Parents: ").append(repository.homeRecipes().size()).append('\n');
+        builder.append("Fiches: ").append(repository.searchableRecipes().size()).append('\n');
+        builder.append("Cache image: ").append(imageLoader == null ? "indisponible" : imageLoader.cacheSummary()).append('\n');
+        builder.append("Memoire max: ").append(Runtime.getRuntime().maxMemory() / 1024 / 1024).append(" MB").append('\n');
+        builder.append("Quantites: x").append(factorLabel(quantityFactor)).append('\n');
+        builder.append("Texte: ").append(textScaleLabel()).append('\n');
+        builder.append("Cartes: ").append(compactCards ? "compactes" : "confort").append('\n');
+        builder.append("Reprise derniere fiche: ").append(openLastRecipe ? "oui" : "non").append('\n');
+        builder.append("APK: ").append(UPDATE_APK_URL);
+        return builder.toString();
+    }
+
+    private void addMergedShoppingSection(LinearLayout content) {
+        List<ShoppingLine> lines = mergedShoppingLines();
+        LinearLayout section = addSection(content, "Courses fusionnees", countLabel(lines.size(), "ligne", "lignes"));
+        if (lines.isEmpty()) {
+            body(section, "Aucun ingredient disponible.");
+            return;
+        }
+        body(section, "Les quantites identiques sont additionnees automatiquement.", COLOR_MUTED);
+        for (ShoppingLine line : lines) {
+            addMergedShoppingCheckRow(section, line);
+        }
+    }
+
+    private void addMergedShoppingCheckRow(LinearLayout section, final ShoppingLine line) {
+        CheckBox checkBox = new CheckBox(this);
+        checkBox.setText(line.display());
+        checkBox.setTextColor(COLOR_TEXT);
+        checkBox.setTextSize(adjustedTextSize(13));
+        checkBox.setTypeface(Typeface.DEFAULT);
+        checkBox.setButtonTintList(null);
+        checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
+        checkBox.setBackground(panelGradient(Color.rgb(18, 16, 13), Color.rgb(29, 24, 17), Color.rgb(42, 35, 24), 1, 7));
+        checkBox.setChecked(shoppingDoneKeys.contains(line.doneKey));
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    shoppingDoneKeys.add(line.doneKey);
+                } else {
+                    shoppingDoneKeys.remove(line.doneKey);
+                }
+                saveUserState();
+            }
+        });
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.topMargin = dp(5);
+        section.addView(checkBox, params);
+    }
+
+    private List<ShoppingLine> mergedShoppingLines() {
+        LinkedHashMap<String, ShoppingLine> merged = new LinkedHashMap<String, ShoppingLine>();
+        for (String id : shoppingRecipeIds) {
+            Recipe recipe = repository.find(id);
+            if (recipe == null) continue;
+            for (Recipe.Group group : selectedIngredientGroups(recipe)) {
+                for (String item : group.items) {
+                    ParsedIngredient parsed = parseIngredient(item);
+                    String key;
+                    ShoppingLine line;
+                    if (parsed.scalable) {
+                        key = "q|" + CookNoteRepository.normalize(parsed.unit) + "|" + CookNoteRepository.normalize(parsed.remainder);
+                        line = merged.get(key);
+                        if (line == null) {
+                            line = ShoppingLine.scaled(key, parsed.unit, parsed.remainder);
+                            merged.put(key, line);
+                        }
+                        line.amount += parsed.amount * quantityFactor;
+                        if (parsed.amountEnd > 0) line.amountEnd += parsed.amountEnd * quantityFactor;
+                    } else {
+                        key = "r|" + CookNoteRepository.normalize(item);
+                        line = merged.get(key);
+                        if (line == null) {
+                            line = ShoppingLine.raw(key, scaleIngredient(item));
+                            merged.put(key, line);
+                        } else {
+                            line.count += 1;
+                        }
+                    }
+                }
+            }
+        }
+        return new ArrayList<ShoppingLine>(merged.values());
+    }
+
     private void addShoppingCheckRow(LinearLayout section, final Recipe recipe, Recipe.Group group, final String item) {
         final String key = shoppingItemKey(recipe, group, item);
         CheckBox checkBox = new CheckBox(this);
-        checkBox.setText(item);
+        checkBox.setText(scaleIngredient(item));
         checkBox.setTextColor(COLOR_TEXT);
-        checkBox.setTextSize(13);
+        checkBox.setTextSize(adjustedTextSize(13));
         checkBox.setTypeface(Typeface.DEFAULT);
         checkBox.setButtonTintList(null);
         checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
@@ -1915,7 +2337,7 @@ public class MainActivity extends Activity {
         Button button = new Button(this);
         button.setText(value);
         button.setTextColor(primary ? COLOR_TEXT_DARK : COLOR_TEXT);
-        button.setTextSize(11);
+        button.setTextSize(adjustedTextSize(11));
         button.setSingleLine(true);
         button.setEllipsize(TextUtils.TruncateAt.END);
         button.setTypeface(Typeface.DEFAULT_BOLD);
@@ -1930,11 +2352,17 @@ public class MainActivity extends Activity {
     private TextView text(String value, int sp, int color, boolean bold) {
         TextView text = new TextView(this);
         text.setText(value);
-        text.setTextSize(sp);
+        text.setTextSize(adjustedTextSize(sp));
         text.setTextColor(color);
         text.setIncludeFontPadding(true);
         if (bold) text.setTypeface(Typeface.DEFAULT_BOLD);
         return text;
+    }
+
+    private int adjustedTextSize(int sp) {
+        if (textMode <= 0) return sp;
+        if (textMode == 1) return sp + 1;
+        return sp + 2;
     }
 
     private void copyIngredients(Recipe recipe) {
@@ -2033,6 +2461,31 @@ public class MainActivity extends Activity {
             return builder.toString();
         }
 
+        List<ShoppingLine> lines = mergedShoppingLines();
+        for (ShoppingLine line : lines) {
+            boolean done = shoppingDoneKeys.contains(line.doneKey);
+            if (todoOnly && done) continue;
+            if (includeChecks) builder.append(done ? "[x] " : "[ ] ");
+            else builder.append("- ");
+            builder.append(line.display()).append('\n');
+        }
+        if (!todoOnly) {
+            builder.append('\n').append("Recettes").append('\n');
+            for (String id : shoppingRecipeIds) {
+                Recipe recipe = repository.find(id);
+                if (recipe != null) builder.append("- ").append(recipe.title).append('\n');
+            }
+        }
+        if (todoOnly && builder.length() == headerLength) {
+            builder.append('\n').append("Tout est coche.");
+        }
+        return builder.toString().trim();
+    }
+
+    private String buildShoppingTextByRecipe(boolean todoOnly, boolean includeChecks) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Cook Note - Liste de courses").append('\n');
+        int headerLength = builder.length();
         for (String id : shoppingRecipeIds) {
             Recipe recipe = repository.find(id);
             if (recipe == null) continue;
@@ -2057,7 +2510,7 @@ public class MainActivity extends Activity {
                 if (todoOnly && done) continue;
                 if (includeChecks) groupBuilder.append(done ? "[x] " : "[ ] ");
                 else groupBuilder.append("- ");
-                groupBuilder.append(item).append('\n');
+                groupBuilder.append(scaleIngredient(item)).append('\n');
             }
             if (groupBuilder.length() == 0) continue;
             builder.append('\n').append(group.title).append('\n');
@@ -2072,10 +2525,64 @@ public class MainActivity extends Activity {
         for (Recipe.Group group : selectedIngredientGroups(recipe)) {
             builder.append('\n').append(group.title).append('\n');
             for (String item : group.items) {
-                builder.append("- ").append(item).append('\n');
+                builder.append("- ").append(scaleIngredient(item)).append('\n');
             }
             if (group.note.length() > 0) builder.append("Note: ").append(group.note).append('\n');
         }
+    }
+
+    private String scaleIngredient(String item) {
+        ParsedIngredient parsed = parseIngredient(item);
+        if (!parsed.scalable || sameFactor(quantityFactor, 1f)) return item;
+        StringBuilder builder = new StringBuilder();
+        builder.append(formatAmount(parsed.amount * quantityFactor));
+        if (parsed.amountEnd > 0) builder.append("-").append(formatAmount(parsed.amountEnd * quantityFactor));
+        if (parsed.unit.length() > 0) builder.append(' ').append(parsed.unit);
+        if (parsed.remainder.length() > 0) builder.append(' ').append(parsed.remainder);
+        return builder.toString().trim();
+    }
+
+    private ParsedIngredient parseIngredient(String item) {
+        if (item == null) return ParsedIngredient.raw("");
+        Matcher matcher = INGREDIENT_AMOUNT_PATTERN.matcher(item);
+        if (!matcher.matches()) return ParsedIngredient.raw(item);
+        double amount = parseAmount(matcher.group(1));
+        double amountEnd = parseAmount(matcher.group(2));
+        if (amount <= 0) return ParsedIngredient.raw(item);
+        String unit = safeTrim(matcher.group(3));
+        String remainder = safeTrim(matcher.group(4));
+        if (unit.length() == 0 && remainder.length() == 0) return ParsedIngredient.raw(item);
+        return new ParsedIngredient(true, amount, amountEnd, unit, remainder, item);
+    }
+
+    private double parseAmount(String raw) {
+        if (raw == null || raw.length() == 0) return -1;
+        String value = raw.replace(',', '.').trim();
+        int slash = value.indexOf('/');
+        try {
+            if (slash > 0) {
+                double left = Double.parseDouble(value.substring(0, slash));
+                double right = Double.parseDouble(value.substring(slash + 1));
+                return right == 0 ? -1 : left / right;
+            }
+            return Double.parseDouble(value);
+        } catch (Exception ignored) {
+            return -1;
+        }
+    }
+
+    private static String formatAmount(double value) {
+        if (value <= 0) return "";
+        double rounded = Math.round(value * 10d) / 10d;
+        long whole = Math.round(rounded);
+        if (Math.abs(rounded - whole) < 0.05d) return String.valueOf(whole);
+        String raw = String.valueOf(rounded);
+        if (raw.endsWith(".0")) raw = raw.substring(0, raw.length() - 2);
+        return raw.replace('.', ',');
+    }
+
+    private static String safeTrim(String value) {
+        return value == null ? "" : value.trim();
     }
 
     private GradientDrawable panel(int color, int strokeColor, int strokeWidth, int radiusDp) {
@@ -2210,6 +2717,66 @@ public class MainActivity extends Activity {
         }
     }
 
+    private static final class ParsedIngredient {
+        final boolean scalable;
+        final double amount;
+        final double amountEnd;
+        final String unit;
+        final String remainder;
+        final String raw;
+
+        ParsedIngredient(boolean scalable, double amount, double amountEnd, String unit, String remainder, String raw) {
+            this.scalable = scalable;
+            this.amount = amount;
+            this.amountEnd = amountEnd;
+            this.unit = unit == null ? "" : unit;
+            this.remainder = remainder == null ? "" : remainder;
+            this.raw = raw == null ? "" : raw;
+        }
+
+        static ParsedIngredient raw(String raw) {
+            return new ParsedIngredient(false, 0, 0, "", "", raw);
+        }
+    }
+
+    private static final class ShoppingLine {
+        final String doneKey;
+        final String unit;
+        final String remainder;
+        final String raw;
+        double amount;
+        double amountEnd;
+        int count;
+        boolean scalable;
+
+        private ShoppingLine(String doneKey, String unit, String remainder, String raw, boolean scalable) {
+            this.doneKey = "merged|" + doneKey;
+            this.unit = unit == null ? "" : unit;
+            this.remainder = remainder == null ? "" : remainder;
+            this.raw = raw == null ? "" : raw;
+            this.scalable = scalable;
+            this.count = 1;
+        }
+
+        static ShoppingLine scaled(String doneKey, String unit, String remainder) {
+            return new ShoppingLine(doneKey, unit, remainder, "", true);
+        }
+
+        static ShoppingLine raw(String doneKey, String raw) {
+            return new ShoppingLine(doneKey, "", "", raw, false);
+        }
+
+        String display() {
+            if (!scalable) return count <= 1 ? raw : raw + " x" + count;
+            StringBuilder builder = new StringBuilder();
+            builder.append(formatAmount(amount));
+            if (amountEnd > 0) builder.append("-").append(formatAmount(amountEnd));
+            if (unit.length() > 0) builder.append(' ').append(unit);
+            if (remainder.length() > 0) builder.append(' ').append(remainder);
+            return builder.toString().trim();
+        }
+    }
+
     private static final class NavState {
         final int screen;
         final String recipeId;
@@ -2226,6 +2793,11 @@ public class MainActivity extends Activity {
         shoppingRecipeIds.clear();
         shoppingDoneKeys.clear();
         keepScreenOn = prefs.getBoolean(PREF_KEEP_SCREEN_ON, false);
+        quantityFactor = clampQuantityFactor(prefs.getFloat(PREF_QUANTITY_FACTOR, 1f));
+        textMode = Math.max(0, Math.min(2, prefs.getInt(PREF_TEXT_MODE, 0)));
+        compactCards = prefs.getBoolean(PREF_COMPACT_CARDS, false);
+        openLastRecipe = prefs.getBoolean(PREF_OPEN_LAST, false);
+        lastRecipeId = prefs.getString(PREF_LAST_RECIPE, "");
         parseIds(prefs.getString(PREF_FAVORITES, ""), favoriteIds, 0);
         parseIds(prefs.getString(PREF_SHOPPING, ""), shoppingRecipeIds, 0);
         parseRawIds(prefs.getString(PREF_SHOPPING_DONE, ""), shoppingDoneKeys);
@@ -2237,7 +2809,19 @@ public class MainActivity extends Activity {
         editor.putString(PREF_SHOPPING, joinIds(shoppingRecipeIds));
         editor.putString(PREF_SHOPPING_DONE, joinIds(new ArrayList<String>(shoppingDoneKeys)));
         editor.putBoolean(PREF_KEEP_SCREEN_ON, keepScreenOn);
+        editor.putFloat(PREF_QUANTITY_FACTOR, quantityFactor);
+        editor.putInt(PREF_TEXT_MODE, textMode);
+        editor.putBoolean(PREF_COMPACT_CARDS, compactCards);
+        editor.putBoolean(PREF_OPEN_LAST, openLastRecipe);
+        editor.putString(PREF_LAST_RECIPE, lastRecipeId == null ? "" : lastRecipeId);
         editor.apply();
+    }
+
+    private float clampQuantityFactor(float value) {
+        for (float factor : QUANTITY_FACTORS) {
+            if (sameFactor(value, factor)) return factor;
+        }
+        return 1f;
     }
 
     private void parseIds(String raw, Set<String> output, int limit) {
@@ -2329,7 +2913,7 @@ public class MainActivity extends Activity {
         ArrayList<String> remove = new ArrayList<String>();
         String prefix = id + "|";
         for (String key : shoppingDoneKeys) {
-            if (key.startsWith(prefix)) remove.add(key);
+            if (key.startsWith(prefix) || key.startsWith("merged|")) remove.add(key);
         }
         shoppingDoneKeys.removeAll(remove);
     }
@@ -2365,6 +2949,9 @@ public class MainActivity extends Activity {
             } else if (previous.screen == SCREEN_SHOPPING) {
                 showShoppingList(false);
                 return;
+            } else if (previous.screen == SCREEN_DIAGNOSTIC) {
+                showDiagnostic(false);
+                return;
             }
         }
         showList();
@@ -2375,6 +2962,8 @@ public class MainActivity extends Activity {
             detailBackStack.push(new NavState(SCREEN_RECIPE, currentRecipeId));
         } else if (currentScreen == SCREEN_SHOPPING) {
             detailBackStack.push(new NavState(SCREEN_SHOPPING, ""));
+        } else if (currentScreen == SCREEN_DIAGNOSTIC) {
+            detailBackStack.push(new NavState(SCREEN_DIAGNOSTIC, ""));
         }
     }
 
@@ -2441,6 +3030,21 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         if (imageLoader != null) imageLoader.shutdown();
         super.onDestroy();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        if (imageLoader == null) return;
+        if (level >= ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW) {
+            imageLoader.trimMemory(level >= ComponentCallbacks2.TRIM_MEMORY_MODERATE);
+        }
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        if (imageLoader != null) imageLoader.trimMemory(true);
     }
 
     private void hideKeyboard() {

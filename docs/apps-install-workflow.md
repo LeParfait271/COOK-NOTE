@@ -86,15 +86,17 @@ diagnostic. Elle ne doit pas etre utilisee comme workflow final de publication.
   bouton natif de mise a jour, liste de courses locale, copie fiche, partage
   fiche, recherche intelligente sans filtres, navigation restaurable, swipe
   retour bord gauche, prechargement images, courses cochables, audit perf
-  leger, ecran actif persistant, etapes numerotees, cartes parent visibles et
-  selecteurs natifs de preparation
+  leger, ecran actif persistant, etapes numerotees, quantites ajustables,
+  courses fusionnees, preferences locales discretes, diagnostic hors ligne,
+  cache image adaptatif, scroll fluide, index recherche precompile, cartes
+  parent visibles et selecteurs natifs de preparation
 - Direction visuelle Android Legacy : refonte visuelle native premium sans
   moteur web, header compact avec stats locales, grille `GridView` en cartes
   image 16/9 tactiles recyclees, hero de fiche encadre, sections cadrees,
   pastilles lisibles, etats presses natifs et actions principales/secondaires
   distinguees
 
-Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, recherche simple sans filtres, recherche intelligente sans filtres, accueil parent Android, selecteurs natifs de preparation, partage fiche, navigation restaurable, swipe retour bord gauche, prechargement images, courses cochables, audit perf leger, cartes parent visibles, ecran actif persistant.
+Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, recherche simple sans filtres, recherche intelligente sans filtres, index recherche precompile, accueil parent Android, selecteurs natifs de preparation, partage fiche, navigation restaurable, swipe retour bord gauche, prechargement images, courses cochables, courses fusionnees, quantites ajustables, preferences locales discretes, diagnostic hors ligne, cache image adaptatif, scroll fluide, audit perf leger, cartes parent visibles, ecran actif persistant.
 
 La recherche Android Legacy reste volontairement basique : elle est fermee tant
 que l'utilisateur ne touche pas `Recherche`, puis affiche seulement un champ
@@ -114,8 +116,9 @@ variantes internes gardent une preparation choisie : une seule preparation
 active affiche ingredients et etapes.
 
 Le bouton `Courses` ouvre une liste locale simple stockee en `SharedPreferences`,
-cochable et copiable, sans serveur, sans WebView et sans fusion couteuse. Le
-bouton natif de mise a jour ouvre toujours l'APK Android 5.0+ stable.
+cochable et copiable, avec une fusion native legere des ingredients compatibles,
+sans serveur et sans WebView. Le bouton natif de mise a jour ouvre toujours
+l'APK Android 5.0+ stable.
 
 Les assets Legacy sont generes par `scripts/build-android-legacy-assets.js`.
 Android Legacy ne doit pas embarquer `assets/www`, React, service worker,

@@ -20,13 +20,15 @@ import java.util.Set;
 
 final class CookNoteRepository {
     private static final String RECIPES_ASSET = "recipes-lite.json";
+    private static final String SEARCH_INDEX_ASSET = "search-index-lite.json";
 
     final String version;
     final List<Recipe> recipes;
     final List<String> categories;
     private final Map<String, Recipe> byId;
+    private final Map<String, SearchEntry> searchIndex;
 
-    private CookNoteRepository(String version, List<Recipe> recipes, List<String> categories) {
+    private CookNoteRepository(String version, List<Recipe> recipes, List<String> categories, Map<String, SearchEntry> searchIndex) {
         this.version = version;
         this.recipes = Collections.unmodifiableList(recipes);
         this.categories = Collections.unmodifiableList(categories);
@@ -34,6 +36,9 @@ final class CookNoteRepository {
         for (Recipe recipe : recipes) {
             this.byId.put(recipe.id, recipe);
         }
+        this.searchIndex = searchIndex == null
+                ? Collections.<String, SearchEntry>emptyMap()
+                : Collections.unmodifiableMap(searchIndex);
     }
 
     static CookNoteRepository load(Context context) throws Exception {
@@ -71,7 +76,7 @@ final class CookNoteRepository {
             }
         }
 
-        return new CookNoteRepository(root.optString("version", ""), recipes, categories);
+        return new CookNoteRepository(root.optString("version", ""), recipes, categories, loadSearchIndex(context));
     }
 
     Recipe find(String id) {
@@ -165,7 +170,8 @@ final class CookNoteRepository {
         List<SearchResult> results = new ArrayList<SearchResult>();
         for (Recipe recipe : recipes) {
             if (recipe.isCollection()) continue;
-            int score = scoreRecipe(recipe, query, tokens);
+            SearchEntry entry = searchIndex.get(recipe.id);
+            int score = scoreRecipe(entry != null ? entry : SearchEntry.fromRecipe(recipe), query, tokens);
             if (score > 0) results.add(new SearchResult(recipe, score));
         }
         Collections.sort(results, new Comparator<SearchResult>() {
@@ -243,12 +249,12 @@ final class CookNoteRepository {
         return true;
     }
 
-    private static int scoreRecipe(Recipe recipe, String query, String[] tokens) {
-        String title = normalize(recipe.title);
-        String aliases = normalize(joinList(recipe.aliases));
-        String tags = normalize(joinList(recipe.tags));
-        String categories = normalize(joinList(recipe.categories));
-        String search = recipe.searchText == null ? "" : recipe.searchText;
+    private static int scoreRecipe(SearchEntry entry, String query, String[] tokens) {
+        String title = entry.title;
+        String aliases = entry.aliases;
+        String tags = entry.tags;
+        String categories = entry.categories;
+        String search = entry.search;
         int score = 0;
 
         if (title.equals(query)) score += 520;
@@ -338,6 +344,31 @@ final class CookNoteRepository {
             builder.append(value);
         }
         return builder.toString();
+    }
+
+    private static Map<String, SearchEntry> loadSearchIndex(Context context) {
+        Map<String, SearchEntry> output = new HashMap<String, SearchEntry>();
+        try {
+            JSONObject root = new JSONObject(readAsset(context, SEARCH_INDEX_ASSET));
+            JSONArray entries = root.optJSONArray("entries");
+            if (entries == null) return output;
+            for (int index = 0; index < entries.length(); index += 1) {
+                JSONObject item = entries.optJSONObject(index);
+                if (item == null) continue;
+                SearchEntry entry = new SearchEntry(
+                        cleanString(item.optString("id", "")),
+                        cleanString(item.optString("title", "")),
+                        cleanString(item.optString("aliases", "")),
+                        cleanString(item.optString("tags", "")),
+                        cleanString(item.optString("categories", "")),
+                        cleanString(item.optString("search", ""))
+                );
+                if (entry.id.length() > 0) output.put(entry.id, entry);
+            }
+        } catch (Exception ignored) {
+            output.clear();
+        }
+        return output;
     }
 
     private static boolean matchesSeason(Recipe recipe, String season) {
@@ -582,6 +613,35 @@ final class CookNoteRepository {
         SearchResult(Recipe recipe, int score) {
             this.recipe = recipe;
             this.score = score;
+        }
+    }
+
+    private static final class SearchEntry {
+        final String id;
+        final String title;
+        final String aliases;
+        final String tags;
+        final String categories;
+        final String search;
+
+        SearchEntry(String id, String title, String aliases, String tags, String categories, String search) {
+            this.id = id;
+            this.title = title == null ? "" : title;
+            this.aliases = aliases == null ? "" : aliases;
+            this.tags = tags == null ? "" : tags;
+            this.categories = categories == null ? "" : categories;
+            this.search = search == null ? "" : search;
+        }
+
+        static SearchEntry fromRecipe(Recipe recipe) {
+            return new SearchEntry(
+                    recipe.id,
+                    normalize(recipe.title),
+                    normalize(joinList(recipe.aliases)),
+                    normalize(joinList(recipe.tags)),
+                    normalize(joinList(recipe.categories)),
+                    recipe.searchText
+            );
         }
     }
 

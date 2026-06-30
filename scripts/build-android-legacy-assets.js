@@ -328,6 +328,17 @@ function compactRecipe(id, recipe, imageName, detailImageName) {
   };
 }
 
+function searchIndexEntry(recipe) {
+  return {
+    id: recipe.id,
+    title: normalizeText(recipe.title),
+    aliases: normalizeText(recipe.aliases.join(' ')),
+    tags: normalizeText(recipe.tags.join(' ')),
+    categories: normalizeText(recipe.categories.join(' ')),
+    search: recipe.searchText
+  };
+}
+
 function categorySummary(recipes) {
   const counts = new Map();
   recipes.forEach(recipe => {
@@ -373,12 +384,23 @@ function buildLiteAssets() {
     categories: categorySummary(outputRecipes),
     recipes: outputRecipes
   };
+  const searchIndex = {
+    schema: 1,
+    mode: 'android-legacy-search-index',
+    version: payload.version,
+    entries: outputRecipes
+      .filter(recipe => !recipe.variants.length && recipe.masterType !== 'collection')
+      .map(searchIndexEntry)
+  };
 
   assertNoEncodingIssues(payload);
+  assertNoEncodingIssues(searchIndex);
   fs.writeFileSync(path.join(OUT_DIR, 'recipes-lite.json'), JSON.stringify(payload), 'utf8');
+  fs.writeFileSync(path.join(OUT_DIR, 'search-index-lite.json'), JSON.stringify(searchIndex), 'utf8');
 
   console.log(`Assets Android Legacy Native Lite OK: ${OUT_DIR}`);
   console.log(`Recettes natives: ${outputRecipes.length}`);
+  console.log(`Index recherche natif: ${searchIndex.entries.length}`);
   console.log(`Images natives ${MAX_IMAGE_WIDTH}px max: ${copiedImages.size}`);
   console.log(`Images detail natives ${DETAIL_IMAGE_WIDTH}px max: ${copiedDetailImages.size}`);
 }

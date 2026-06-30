@@ -110,7 +110,7 @@ expect(
     && !androidLegacyManifest.includes('largeHeap')
     && androidLegacyMainActivity.includes('GridView')
     && androidLegacyMainActivity.includes('GridView.AUTO_FIT')
-    && androidLegacyMainActivity.includes('setColumnWidth(dp(286))')
+    && androidLegacyMainActivity.includes('setColumnWidth(dp(compactCards ? 244 : 286))')
     && androidLegacyMainActivity.includes('setHorizontalSpacing')
     && androidLegacyMainActivity.includes('FrameLayout')
     && androidLegacyMainActivity.includes('collectionGridColumns')
@@ -147,6 +147,11 @@ expect(
     && androidLegacyMainActivity.includes('favoriteIds')
     && androidLegacyMainActivity.includes('PREF_SHOPPING')
     && androidLegacyMainActivity.includes('PREF_KEEP_SCREEN_ON')
+    && androidLegacyMainActivity.includes('PREF_QUANTITY_FACTOR')
+    && androidLegacyMainActivity.includes('PREF_TEXT_MODE')
+    && androidLegacyMainActivity.includes('PREF_COMPACT_CARDS')
+    && androidLegacyMainActivity.includes('PREF_OPEN_LAST')
+    && androidLegacyMainActivity.includes('SCREEN_DIAGNOSTIC')
     && androidLegacyMainActivity.includes('shoppingRecipeIds')
     && androidLegacyMainActivity.includes('FLAG_KEEP_SCREEN_ON')
     && androidLegacyMainActivity.includes('searchPanelOpen')
@@ -182,6 +187,14 @@ expect(
     && androidLegacyMainActivity.includes('showShoppingList')
     && androidLegacyMainActivity.includes('buildShoppingText')
     && androidLegacyMainActivity.includes('copyShoppingList')
+    && androidLegacyMainActivity.includes('addQuantityControls')
+    && androidLegacyMainActivity.includes('scaleIngredient')
+    && androidLegacyMainActivity.includes('mergedShoppingLines')
+    && androidLegacyMainActivity.includes('Courses fusionnees')
+    && androidLegacyMainActivity.includes('showDiagnostic')
+    && androidLegacyMainActivity.includes('buildDiagnosticText')
+    && androidLegacyMainActivity.includes('onTrimMemory')
+    && androidLegacyMainActivity.includes('adjustedTextSize')
     && androidLegacyMainActivity.includes('PREF_SHOPPING_DONE')
     && androidLegacyMainActivity.includes('CheckBox')
     && androidLegacyMainActivity.includes('copyShoppingTodo')
@@ -202,6 +215,9 @@ expect(
     && androidLegacyMainActivity.includes('addBeforePanel')
     && androidLegacyMainActivity.includes('Avant de commencer')
     && androidLegacyRepository.includes('recipes-lite.json')
+    && androidLegacyRepository.includes('search-index-lite.json')
+    && androidLegacyRepository.includes('SEARCH_INDEX_ASSET')
+    && androidLegacyRepository.includes('SearchEntry')
     && androidLegacyRepository.includes('homeRecipes')
     && androidLegacyRepository.includes('filterSearchable')
     && androidLegacyRepository.includes('searchSmart')
@@ -226,6 +242,8 @@ expect(
     && androidLegacyImageLoader.includes('RGB_565')
     && androidLegacyImageLoader.includes('LruCache')
     && androidLegacyImageLoader.includes('prefetchDetail')
+    && androidLegacyImageLoader.includes('trimMemory')
+    && androidLegacyImageLoader.includes('cacheSummary')
     && androidLegacyImageLoader.includes('pendingKeys')
     && androidLegacyImageLoader.includes('detail-images/')
     && androidLegacyAdapter.includes('BaseAdapter')
@@ -237,6 +255,10 @@ expect(
     && androidLegacyAdapter.includes('(cardWidth * 9) / 16')
     && androidLegacyAdapter.includes('StateListDrawable')
     && androidLegacyAdapter.includes('prefetchAround')
+    && androidLegacyAdapter.includes('setCompactCards')
+    && androidLegacyAdapter.includes('setPrefetchEnabled')
+    && androidLegacyAdapter.includes('compactCards')
+    && androidLegacyAdapter.includes('prefetchEnabled')
     && androidLegacyAdapter.includes('selectablePanel')
     && androidLegacyAdapter.includes('holder.title.setText(recipe.title)')
     && !androidLegacyAdapter.includes('holder.count')
@@ -255,6 +277,9 @@ expect(
     && legacyAssetsScript.includes('JPEG_QUALITY')
     && legacyAssetsScript.includes('DETAIL_JPEG_QUALITY')
     && legacyAssetsScript.includes('recipes-lite.json')
+    && legacyAssetsScript.includes('search-index-lite.json')
+    && legacyAssetsScript.includes('android-legacy-search-index')
+    && legacyAssetsScript.includes('searchIndexEntry')
     && legacyAssetsScript.includes('detail-images')
     && legacyAssetsScript.includes('detailImage')
     && legacyAssetsScript.includes('variantGroups: Boolean(recipe.variantGroups)')
@@ -355,6 +380,7 @@ expect(
   'favoris locaux',
   'recherche simple sans filtres',
   'recherche intelligente sans filtres',
+  'index recherche precompile',
   'swipe retour bord gauche',
   'navigation restaurable',
   'prechargement images',
@@ -368,6 +394,12 @@ expect(
   'copie ingredients',
   'liste de courses locale',
   'courses cochables',
+  'courses fusionnees',
+  'quantites ajustables',
+  'preferences locales discretes',
+  'diagnostic hors ligne',
+  'cache image adaptatif',
+  'scroll fluide',
   'copie fiche',
   'partage fiche',
   'ecran actif',
@@ -393,6 +425,7 @@ expect(
     && androidReadme.includes('favoris locaux')
     && androidReadme.includes('recherche simple sans filtres')
     && androidReadme.includes('recherche intelligente sans filtres')
+    && androidReadme.includes('index recherche precompile')
     && androidReadme.includes('swipe retour bord gauche')
     && androidReadme.includes('navigation restaurable')
     && androidReadme.includes('prechargement images')
@@ -406,6 +439,12 @@ expect(
     && androidReadme.includes('copie ingredients')
     && androidReadme.includes('liste de courses locale')
     && androidReadme.includes('courses cochables')
+    && androidReadme.includes('courses fusionnees')
+    && androidReadme.includes('quantites ajustables')
+    && androidReadme.includes('preferences locales discretes')
+    && androidReadme.includes('diagnostic hors ligne')
+    && androidReadme.includes('cache image adaptatif')
+    && androidReadme.includes('scroll fluide')
     && androidReadme.includes('copie fiche')
     && androidReadme.includes('partage fiche')
     && androidReadme.includes('ecran actif')
@@ -452,6 +491,7 @@ expect(
   'favoris locaux',
   'recherche simple sans filtres',
   'recherche intelligente sans filtres',
+  'index recherche precompile',
   'swipe retour bord gauche',
   'navigation restaurable',
   'prechargement images',
@@ -465,6 +505,12 @@ expect(
   'copie ingredients',
   'liste de courses locale',
   'courses cochables',
+  'courses fusionnees',
+  'quantites ajustables',
+  'preferences locales discretes',
+  'diagnostic hors ligne',
+  'cache image adaptatif',
+  'scroll fluide',
   'copie fiche',
   'partage fiche',
   'ecran actif',

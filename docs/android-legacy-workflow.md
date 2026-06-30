@@ -69,6 +69,8 @@ cherche dans tout le catalogue sans filtres de categorie, saison, difficulte,
 favoris ou recents. Le classement interne peut corriger de petites fautes et
 favoriser les titres/alias sans exposer de filtres dans l interface.
 Garder le libelle exact de garde-fou : recherche intelligente sans filtres.
+Le moteur s'appuie sur un index recherche precompile `search-index-lite.json`
+pour eviter de recalculer les champs de recherche a chaque frappe.
 Les fiches parents doivent lire `master` et `additionalMasters`, afin que les
 rattachements parents additionnels du site apparaissent dans les collections
 Android Legacy.
@@ -89,10 +91,17 @@ android-legacy/build/generated/cook-note-lite
 Cette sortie contient :
 
 - `recipes-lite.json`, un catalogue compact sans source externe ;
+- `search-index-lite.json`, un index recherche precompile pour l APK ;
 - `images/`, les images recette locales reduites a `480px` maximum pour la liste ;
 - `detail-images/`, les images de fiche reduites a `1280px` maximum ;
 - des JPEG recompresses avec `jpeg-js` pour limiter le decode RAM/CPU ;
 - aucun fichier `assets/www`, aucun React, aucun service worker et aucun CSS du site.
+
+Les fonctions natives legeres actuellement attendues incluent aussi les
+quantites ajustables, les courses fusionnees, les preferences locales discretes,
+le diagnostic hors ligne, le cache image adaptatif et le scroll fluide. Ces
+fonctions doivent rester Android natives, sans filtres visibles dans la
+recherche et sans moteur web.
 
 Le site et les recettes gardent les visuels habituels. La reduction d image ne
 concerne que l APK Android 5.

@@ -1,99 +1,15 @@
 {
-  "generatedAt": "2026-06-22T23:14:56.969Z",
-  "total": 252,
-  "weakCount": 7,
+  "generatedAt": "2026-06-30T04:06:20.567Z",
+  "total": 268,
+  "weakCount": 3,
   "issueBuckets": {
     "missingCard": 0,
-    "smallOptimized": 9,
-    "smallCard": 36,
+    "smallOptimized": 7,
+    "smallCard": 32,
     "framing": 0,
     "duplicates": 0
   },
   "rows": [
-    {
-      "id": "cookies_chocolat_moelleux",
-      "title": "Cookies chocolat moelleux",
-      "score": 70,
-      "issues": [
-        "Image optimisee petite (960x540)",
-        "Miniature petite (520x293)"
-      ],
-      "optimized": "assets/recipe-images-optimized/cookies_chocolat_moelleux_spooky.jpg",
-      "card": "assets/recipe-card-images/cookies_chocolat_moelleux_spooky.jpg",
-      "optimizedSize": {
-        "width": 960,
-        "height": 540
-      },
-      "optimizedBytes": 135062,
-      "cardSize": {
-        "width": 520,
-        "height": 293
-      },
-      "cardBytes": 24201
-    },
-    {
-      "id": "mayonnaise_maison",
-      "title": "Mayonnaise",
-      "score": 70,
-      "issues": [
-        "Image optimisee petite (960x540)",
-        "Miniature petite (520x293)"
-      ],
-      "optimized": "assets/recipe-images-optimized/mayonnaise_maison_spooky.jpg",
-      "card": "assets/recipe-card-images/mayonnaise_maison_spooky.jpg",
-      "optimizedSize": {
-        "width": 960,
-        "height": 540
-      },
-      "optimizedBytes": 139474,
-      "cardSize": {
-        "width": 520,
-        "height": 293
-      },
-      "cardBytes": 19833
-    },
-    {
-      "id": "beurre_ail",
-      "title": "Beurre à l’ail",
-      "score": 80,
-      "issues": [
-        "Miniature petite (520x292)",
-        "Miniature tres legere (16 Ko)"
-      ],
-      "optimized": "assets/recipe-images-optimized/beurre_ail_spooky.jpg",
-      "card": "assets/recipe-card-images/beurre_ail_spooky.jpg",
-      "optimizedSize": {
-        "width": 1672,
-        "height": 941
-      },
-      "optimizedBytes": 285163,
-      "cardSize": {
-        "width": 520,
-        "height": 292
-      },
-      "cardBytes": 16773
-    },
-    {
-      "id": "cassolette_crevettes_ravioles_persil",
-      "title": "Cassolette de crevettes et ravioles au persil",
-      "score": 80,
-      "issues": [
-        "Miniature petite (520x293)",
-        "Miniature tres legere (15 Ko)"
-      ],
-      "optimized": "assets/recipe-images-optimized/cassolette_crevettes_ravioles_persil.jpg",
-      "card": "assets/recipe-card-images/cassolette_crevettes_ravioles_persil.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 215997,
-      "cardSize": {
-        "width": 520,
-        "height": 293
-      },
-      "cardBytes": 15760
-    },
     {
       "id": "frites_belges",
       "title": "Frites belges",
@@ -156,6 +72,46 @@
         "height": 293
       },
       "cardBytes": 17006
+    },
+    {
+      "id": "cookies_chocolat_moelleux",
+      "title": "Cookies chocolat moelleux",
+      "score": 82,
+      "issues": [
+        "Image optimisee petite (960x540)"
+      ],
+      "optimized": "assets/recipe-images-optimized/cookies_chocolat_moelleux_spooky.jpg",
+      "card": "assets/recipe-card-images/cookies_chocolat_moelleux_spooky.jpg",
+      "optimizedSize": {
+        "width": 960,
+        "height": 540
+      },
+      "optimizedBytes": 135062,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 85635
+    },
+    {
+      "id": "mayonnaise_maison",
+      "title": "Mayonnaise",
+      "score": 82,
+      "issues": [
+        "Image optimisee petite (960x540)"
+      ],
+      "optimized": "assets/recipe-images-optimized/mayonnaise_maison_spooky.jpg",
+      "card": "assets/recipe-card-images/mayonnaise_maison_spooky.jpg",
+      "optimizedSize": {
+        "width": 960,
+        "height": 540
+      },
+      "optimizedBytes": 139474,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 81707
     },
     {
       "id": "verrines_chataignes_foie_gras",
@@ -759,7 +715,7 @@
     },
     {
       "id": "ajitsuke_tamago_oeufs_marines_ramen",
-      "title": "Ajitsuke tamago oeufs marinés ramen",
+      "title": "Ajitsuke tamago œufs marinés ramen",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/ajitsuke_tamago_oeufs_marines_ramen_v2_spooky.jpg",
@@ -884,6 +840,24 @@
       "cardBytes": 84643
     },
     {
+      "id": "beurre_ail",
+      "title": "Beurre à l’ail",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/beurre_ail_spooky.jpg",
+      "card": "assets/recipe-card-images/beurre_ail_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 200117,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 67480
+    },
+    {
       "id": "beurre_clarifie",
       "title": "Beurre clarifié",
       "score": 100,
@@ -992,6 +966,24 @@
       "cardBytes": 25521
     },
     {
+      "id": "brioche_perdue_caramel_beurre_sale",
+      "title": "Brioche perdue sauce caramel au beurre salé",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/brioche_perdue_caramel_beurre_sale_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/brioche_perdue_caramel_beurre_sale_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1046
+      },
+      "optimizedBytes": 313289,
+      "cardSize": {
+        "width": 760,
+        "height": 568
+      },
+      "cardBytes": 99806
+    },
+    {
       "id": "brochettes_crevettes_chorizo",
       "title": "Brochettes crevettes chorizo",
       "score": 100,
@@ -1011,7 +1003,7 @@
     },
     {
       "id": "brochettes_melon_epice",
-      "title": "Brochettes de melon epice",
+      "title": "Brochettes de melon épice",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/brochettes_melon_epice_cooknote_v2_spooky.jpg",
@@ -1137,7 +1129,7 @@
     },
     {
       "id": "carottes_persillade_creme",
-      "title": "Carottes persillade creme",
+      "title": "Carottes persillade crème",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/carottes_persillade_creme_photo_v2_spooky.jpg",
@@ -1155,7 +1147,7 @@
     },
     {
       "id": "carottes_roties_miel_epices",
-      "title": "Carottes roties miel epices",
+      "title": "Carottes rôties miel épices",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/carottes_roties_miel_epices_photo_v2_spooky.jpg",
@@ -1224,6 +1216,24 @@
         "height": 520
       },
       "cardBytes": 31825
+    },
+    {
+      "id": "cassolette_crevettes_ravioles_persil",
+      "title": "Cassolette de crevettes et ravioles au persil",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/cassolette_crevettes_ravioles_persil.jpg",
+      "card": "assets/recipe-card-images/cassolette_crevettes_ravioles_persil.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 215997,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 67823
     },
     {
       "id": "cassoulet",
@@ -1298,8 +1308,26 @@
       "cardBytes": 40094
     },
     {
+      "id": "chapelure_maison",
+      "title": "Chapelure de pain",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/chapelure_maison_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/chapelure_maison_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 280146,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 95269
+    },
+    {
       "id": "chapelure_parfumee",
-      "title": "Chapelure parfumee",
+      "title": "Chapelure parfumée",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/chapelure_parfumee_photo_v2_spooky.jpg",
@@ -1460,6 +1488,42 @@
       "cardBytes": 43113
     },
     {
+      "id": "clafoutis_abricots_rhum_vanille",
+      "title": "Clafoutis aux abricots, rhum et vanille",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/clafoutis_abricots_rhum_vanille_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/clafoutis_abricots_rhum_vanille_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 355612,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 113283
+    },
+    {
+      "id": "clafoutis_myrtilles_nectarines",
+      "title": "Clafoutis aux myrtilles et nectarines",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/clafoutis_myrtilles_nectarines_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/clafoutis_myrtilles_nectarines_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 334922,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 107265
+    },
+    {
       "id": "cochon_confit_biere_erable",
       "title": "Cochon confit à la bière et au sirop d’érable",
       "score": 100,
@@ -1512,6 +1576,24 @@
         "height": 507
       },
       "cardBytes": 84693
+    },
+    {
+      "id": "cookies_avoine_noix_fruits_secs",
+      "title": "Cookies aux flocons d’avoine, noix et fruits secs",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/cookies_avoine_noix_fruits_secs_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/cookies_avoine_noix_fruits_secs_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1043
+      },
+      "optimizedBytes": 386915,
+      "cardSize": {
+        "width": 760,
+        "height": 566
+      },
+      "cardBytes": 127189
     },
     {
       "id": "caramel_cheesecake_cookies",
@@ -1838,8 +1920,26 @@
       "cardBytes": 40969
     },
     {
+      "id": "crepes_lait_amandes",
+      "title": "Crêpes au lait d’amandes",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/crepes_lait_amandes_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/crepes_lait_amandes_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 283897,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 92622
+    },
+    {
       "id": "crevettes_provencale",
-      "title": "Crevettes a la provencale",
+      "title": "Crevettes à la provençale",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/crevettes_provencale_spooky.jpg",
@@ -2109,7 +2209,7 @@
     },
     {
       "id": "dhal_lentilles_epices",
-      "title": "Dhal lentilles epices",
+      "title": "Dhal lentilles épices",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/dhal_lentilles_epices_spooky.jpg",
@@ -2127,7 +2227,7 @@
     },
     {
       "id": "ecrasee_pommes_de_terre_truffe_saint_jacques",
-      "title": "Ecrasee de pommes de terre a l'huile de truffe et Saint-Jacques",
+      "title": "Écrasée de pommes de terre à l’huile de truffe et Saint-Jacques",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/ecrasee_pommes_de_terre_truffe_saint_jacques_cooknote_v2_spooky.jpg",
@@ -2199,7 +2299,7 @@
     },
     {
       "id": "flan_patissier_epais_vanille",
-      "title": "Flan pâtissier épais vanille",
+      "title": "Flan parisien vanille",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/flan_patissier_epais_vanille_v2_spooky.jpg",
@@ -2214,6 +2314,24 @@
         "height": 520
       },
       "cardBytes": 113310
+    },
+    {
+      "id": "flan_vanille_cremeux",
+      "title": "Flan vanille crémeux",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/flan_vanille_cremeux_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/flan_vanille_cremeux_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 289461,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 91271
     },
     {
       "id": "creme_amande_citron",
@@ -2252,6 +2370,24 @@
       "cardBytes": 29100
     },
     {
+      "id": "frites_four_maison",
+      "title": "Frites au four",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/frites_four_maison_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/frites_four_maison_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 325208,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 102395
+    },
+    {
       "id": "frites_patate_douce",
       "title": "Frites de patate douce",
       "score": 100,
@@ -2268,6 +2404,24 @@
         "height": 520
       },
       "cardBytes": 29743
+    },
+    {
+      "id": "gateau_roule_framboise",
+      "title": "Gâteau roulé à la framboise",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/gateau_roule_framboise_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/gateau_roule_framboise_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1046
+      },
+      "optimizedBytes": 334358,
+      "cardSize": {
+        "width": 760,
+        "height": 568
+      },
+      "cardBytes": 110158
     },
     {
       "id": "gaufre_bruxelles",
@@ -2361,7 +2515,7 @@
     },
     {
       "id": "gratin_pates_chorizo",
-      "title": "Gratin de pates au chorizo",
+      "title": "Gratin de pâtes au chorizo",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/gratin_pates_chorizo_spooky.jpg",
@@ -2523,7 +2677,7 @@
     },
     {
       "id": "houmous_hakocem",
-      "title": "Houmous tahine tres cremeux",
+      "title": "Houmous tahine très crémeux",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/houmous_hakocem_v2_spooky.jpg",
@@ -2577,7 +2731,7 @@
     },
     {
       "id": "irish_stew_guinness",
-      "title": "Irish stew a la Guinness",
+      "title": "Irish stew à la Guinness",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/irish_stew_guinness_cooknote_v2_spooky.jpg",
@@ -2595,7 +2749,7 @@
     },
     {
       "id": "joues_de_boeuf_carottes_orange_vin_rouge",
-      "title": "Joues de boeuf carottes orange vin rouge",
+      "title": "Joues de bœuf carottes orange vin rouge",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/joues_de_boeuf_carottes_orange_vin_rouge_v2_spooky.jpg",
@@ -2613,7 +2767,7 @@
     },
     {
       "id": "joues_boeuf_whiskey_orange",
-      "title": "Joues de boeuf whiskey orange",
+      "title": "Joues de bœuf whiskey orange",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/joues_boeuf_whiskey_orange_v2_spooky.jpg",
@@ -2862,6 +3016,42 @@
         "height": 520
       },
       "cardBytes": 85476
+    },
+    {
+      "id": "mousse_chocolat",
+      "title": "Mousse au chocolat",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/mousse_chocolat_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/mousse_chocolat_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 298536,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 94344
+    },
+    {
+      "id": "muffins_framboises",
+      "title": "Muffins aux framboises",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/muffins_framboises_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/muffins_framboises_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 317983,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 100298
     },
     {
       "id": "nems_vietnam",
@@ -3153,7 +3343,7 @@
     },
     {
       "id": "pates_crumble_chorizo",
-      "title": "Pates au crumble de chorizo",
+      "title": "Pâtes au crumble de chorizo",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/pates_crumble_chorizo_spooky.jpg",
@@ -3189,7 +3379,7 @@
     },
     {
       "id": "pates_brocolis_amandes",
-      "title": "Pates brocolis amandes",
+      "title": "Pâtes brocolis amandes",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/pates_brocolis_amandes_spooky.jpg",
@@ -3225,7 +3415,7 @@
     },
     {
       "id": "pates_tomates_confites_parmesan",
-      "title": "Pates tomates confites parmesan",
+      "title": "Pâtes tomates confites parmesan",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/pates_tomates_confites_parmesan_spooky.jpg",
@@ -3261,7 +3451,7 @@
     },
     {
       "id": "petits_pois_francaise",
-      "title": "Petits pois a la francaise",
+      "title": "Petits pois à la française",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/petits_pois_francaise_cooknote_v2_spooky.jpg",
@@ -3279,7 +3469,7 @@
     },
     {
       "id": "piperade_oeuf_plat",
-      "title": "Piperade oeuf au plat",
+      "title": "Piperade œuf au plat",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/piperade_oeuf_plat_spooky.jpg",
@@ -3315,7 +3505,7 @@
     },
     {
       "id": "poires_roties_orange_miel",
-      "title": "Poires roties orange miel",
+      "title": "Poires rôties orange miel",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/poires_roties_orange_miel_photo_v2_spooky.jpg",
@@ -3368,6 +3558,24 @@
       "cardBytes": 106709
     },
     {
+      "id": "pommes_de_terre_confites_ail_romarin",
+      "title": "Pommes de terre confites à l’ail et au romarin",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/pommes_de_terre_confites_ail_romarin_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/pommes_de_terre_confites_ail_romarin_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 344777,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 108472
+    },
+    {
       "id": "pommes_de_terre_fondantes_moutarde",
       "title": "Pommes de terre fondantes aux herbes et moutarde",
       "score": 100,
@@ -3405,7 +3613,7 @@
     },
     {
       "id": "pommes_de_terre_suedoises",
-      "title": "Pommes de terre roties au four a la suedoise",
+      "title": "Pommes de terre rôties au four à la suédoise",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/pommes_de_terre_suedoises_cooknote_v2_spooky.jpg",
@@ -3675,7 +3883,7 @@
     },
     {
       "id": "puree_patates_douces",
-      "title": "Puree de patates douces",
+      "title": "Purée de patates douces",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/puree_patates_douces_v2_spooky.jpg",
@@ -3690,6 +3898,42 @@
         "height": 360
       },
       "cardBytes": 31873
+    },
+    {
+      "id": "puree_pommes_de_terre_ail_rose_huile_olive",
+      "title": "Purée de pommes de terre à l’ail rose et huile d’olive",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/puree_pommes_de_terre_ail_rose_huile_olive_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/puree_pommes_de_terre_ail_rose_huile_olive_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 258105,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 86662
+    },
+    {
+      "id": "puree_pommes_de_terre_carottes",
+      "title": "Purée de pommes de terre et carottes",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/puree_pommes_de_terre_carottes_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/puree_pommes_de_terre_carottes_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 267661,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 86471
     },
     {
       "id": "puree_pommes_de_terre_citron",
@@ -3711,7 +3955,7 @@
     },
     {
       "id": "queue_boeuf_carottes_vin_rouge",
-      "title": "Queue de boeuf aux carottes et vin rouge",
+      "title": "Queue de bœuf aux carottes et vin rouge",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/queue_boeuf_carottes_vin_rouge_cooknote_v2_spooky.jpg",
@@ -3729,7 +3973,7 @@
     },
     {
       "id": "ragout_boeuf_biere",
-      "title": "Ragout de boeuf a la biere",
+      "title": "Ragoût de bœuf à la bière",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/ragout_boeuf_biere_cooknote_v2_spooky.jpg",
@@ -3909,7 +4153,7 @@
     },
     {
       "id": "salade_oeufs_durs_mayonnaise_bistrot",
-      "title": "Salade oeufs durs mayonnaise",
+      "title": "Salade œufs durs mayonnaise",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/salade_oeufs_durs_mayonnaise_bistrot_cooknote_v3_spooky.jpg",
@@ -3963,7 +4207,7 @@
     },
     {
       "id": "samoussas_boeuf_epinards_petits_pois",
-      "title": "Samoussas boeuf epinards petits pois",
+      "title": "Samoussas bœuf epinards petits pois",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/samoussas_boeuf_epinards_petits_pois_photo_v2_spooky.jpg",
@@ -4035,7 +4279,7 @@
     },
     {
       "id": "sauce_chevre_creme",
-      "title": "Sauce chevre creme",
+      "title": "Sauce chevre crème",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/sauce_chevre_creme_v2_spooky.jpg",
@@ -4077,15 +4321,15 @@
       "optimized": "assets/recipe-images-optimized/sauce_nem_cooknote_v2_spooky.jpg",
       "card": "assets/recipe-card-images/sauce_nem_cooknote_v2_spooky.jpg",
       "optimizedSize": {
-        "width": 960,
-        "height": 720
+        "width": 1400,
+        "height": 788
       },
-      "optimizedBytes": 118016,
+      "optimizedBytes": 169561,
       "cardSize": {
-        "width": 480,
-        "height": 360
+        "width": 760,
+        "height": 428
       },
-      "cardBytes": 32585
+      "cardBytes": 56020
     },
     {
       "id": "sauce_roquefort",
@@ -4269,7 +4513,7 @@
     },
     {
       "id": "soupe_paysanne_morteau",
-      "title": "Soupe paysanne a la saucisse de Morteau",
+      "title": "Soupe paysanne à la saucisse de Morteau",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/soupe_paysanne_morteau_cooknote_v2_spooky.jpg",
@@ -4304,6 +4548,24 @@
       "cardBytes": 74071
     },
     {
+      "id": "spritz_vanille_chocolat",
+      "title": "Spritz vanille chocolat",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/spritz_vanille_chocolat_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/spritz_vanille_chocolat_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 264516,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 87700
+    },
+    {
       "id": "tagliatelles_agrumes",
       "title": "Tagliatelles aux agrumes",
       "score": 100,
@@ -4320,6 +4582,24 @@
         "height": 507
       },
       "cardBytes": 83207
+    },
+    {
+      "id": "tarte_abricots_amandes_romarin",
+      "title": "Tarte aux abricots, amandes et romarin",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/tarte_abricots_amandes_romarin_cooknote_v1_spooky.jpg",
+      "card": "assets/recipe-card-images/tarte_abricots_amandes_romarin_cooknote_v1_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 314011,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 100808
     },
     {
       "id": "tarte_aux_myrtilles",
@@ -4593,7 +4873,7 @@
     },
     {
       "id": "veloute_hiver_noix_cajou",
-      "title": "Veloute d'hiver noix de cajou",
+      "title": "Velouté d'hiver noix de cajou",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/veloute_hiver_noix_cajou_cooknote_v3_spooky.jpg",
