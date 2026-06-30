@@ -96,7 +96,16 @@ final class RecipeAdapter extends BaseAdapter {
         int cardWidth = resizeCardForParent(holder, parent);
         int cardHeight = Math.max(dp(CARD_MIN_HEIGHT_DP), (cardWidth * 9) / 16);
         imageLoader.load(recipe.image, holder.image, cardWidth, cardHeight);
+        prefetchAround(position, cardWidth, cardHeight);
         return convertView;
+    }
+
+    private void prefetchAround(int position, int cardWidth, int cardHeight) {
+        for (int offset = 1; offset <= 2; offset += 1) {
+            int index = position + offset;
+            if (index >= items.size()) return;
+            imageLoader.prefetch(items.get(index).image, cardWidth, cardHeight);
+        }
     }
 
     private ViewHolder createRow() {

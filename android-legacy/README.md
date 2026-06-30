@@ -26,16 +26,19 @@ Le mode d'emploi complet est dans
 - rattachements parents additionnels lus depuis `additionalMasters` pour que
   les fiches parents affichent tout leur contenu range
 - Recherche basique et efficace : un champ texte, un bouton `Effacer`, aucun
-  filtre dans la recherche
+  filtre dans la recherche, avec recherche intelligente sans filtres sous le capot
 - cartes parent visibles pour les collections, avec des cartes parent 16/9
   visibles comme sur le site, sans menu deroulant pour choisir une recette
 - selecteurs natifs uniquement pour la preparation choisie des fiches a
   variantes internes, sans afficher toutes les variantes en bloc
 - Fonctions natives legeres : favoris locaux, recherche simple sans filtres,
   copie ingredients, liste de courses locale, copie fiche, partage fiche,
-  swipe retour bord gauche, ecran actif persistant et bouton natif de mise a jour
+  navigation restaurable, swipe retour bord gauche, prechargement images, courses
+  cochables, audit perf leger, ecran actif persistant et bouton natif de mise a jour
 - Garde-fou lexical : bouton natif de mise a jour, ecran actif persistant,
-  cartes parent visibles, recherche simple sans filtres, swipe retour bord gauche
+  cartes parent visibles, recherche simple sans filtres, recherche intelligente
+  sans filtres, navigation restaurable, swipe retour bord gauche, prechargement
+  images, courses cochables, audit perf leger
 - aucun changement de recette requis pour l app
 
 ## Mise a jour explicite

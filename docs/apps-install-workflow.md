@@ -84,20 +84,24 @@ diagnostic. Elle ne doit pas etre utilisee comme workflow final de publication.
   Ingredients/Etapes/Avant de commencer, infos rapides en pastilles,
   ingredients en lignes, copie ingredients, rattachements parents additionnels,
   bouton natif de mise a jour, liste de courses locale, copie fiche, partage
-  fiche, swipe retour bord gauche, ecran actif persistant, etapes numerotees,
-  cartes parent visibles et selecteurs natifs de preparation
+  fiche, recherche intelligente sans filtres, navigation restaurable, swipe
+  retour bord gauche, prechargement images, courses cochables, audit perf
+  leger, ecran actif persistant, etapes numerotees, cartes parent visibles et
+  selecteurs natifs de preparation
 - Direction visuelle Android Legacy : refonte visuelle native premium sans
   moteur web, header compact avec stats locales, grille `GridView` en cartes
   image 16/9 tactiles recyclees, hero de fiche encadre, sections cadrees,
   pastilles lisibles, etats presses natifs et actions principales/secondaires
   distinguees
 
-Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, recherche simple sans filtres, accueil parent Android, selecteurs natifs de preparation, partage fiche, swipe retour bord gauche, cartes parent visibles, ecran actif persistant.
+Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, recherche simple sans filtres, recherche intelligente sans filtres, accueil parent Android, selecteurs natifs de preparation, partage fiche, navigation restaurable, swipe retour bord gauche, prechargement images, courses cochables, audit perf leger, cartes parent visibles, ecran actif persistant.
 
 La recherche Android Legacy reste volontairement basique : elle est fermee tant
 que l'utilisateur ne touche pas `Recherche`, puis affiche seulement un champ
 texte et `Effacer`. Elle cherche dans tout le catalogue, sans filtres de
 categorie, saison, difficulte, favoris, recents, `Toutes fiches` ou bouton aleatoire.
+Le moteur peut classer par pertinence, ignorer les accents et tolerer de petites
+fautes sans ajouter de controles visibles.
 Le bouton natif de mise a jour reste disponible sous forme compacte avec
 `Mise a jour`. Le reglage `Ecran actif` reste natif et persistant pour cuisiner
 sans mise en veille.
@@ -109,9 +113,9 @@ parent 16/9 visibles, comme le site, pas dans un menu deroulant. Les fiches avec
 variantes internes gardent une preparation choisie : une seule preparation
 active affiche ingredients et etapes.
 
-Le bouton `Courses` ouvre une liste locale simple stockee en `SharedPreferences`
-et copiable, sans serveur, sans WebView et sans fusion couteuse. Le bouton natif
-de mise a jour ouvre toujours l'APK Android 5.0+ stable.
+Le bouton `Courses` ouvre une liste locale simple stockee en `SharedPreferences`,
+cochable et copiable, sans serveur, sans WebView et sans fusion couteuse. Le
+bouton natif de mise a jour ouvre toujours l'APK Android 5.0+ stable.
 
 Les assets Legacy sont generes par `scripts/build-android-legacy-assets.js`.
 Android Legacy ne doit pas embarquer `assets/www`, React, service worker,

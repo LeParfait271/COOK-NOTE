@@ -11,6 +11,9 @@ import android.util.LruCache;
 import android.widget.ImageView;
 
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,20 +23,22 @@ final class ImageLoader {
     private final ExecutorService executor;
     private final Handler mainHandler;
     private final ColorDrawable placeholder;
+    private final Set<String> pendingKeys;
 
     ImageLoader(Context context) {
         this.context = context.getApplicationContext();
         int maxMemoryKb = (int) (Runtime.getRuntime().maxMemory() / 1024);
-        int cacheKb = Math.min(10 * 1024, Math.max(4 * 1024, maxMemoryKb / 8));
+        int cacheKb = Math.min(14 * 1024, Math.max(5 * 1024, maxMemoryKb / 7));
         this.cache = new LruCache<String, Bitmap>(cacheKb) {
             @Override
             protected int sizeOf(String key, Bitmap bitmap) {
                 return bitmap.getByteCount() / 1024;
             }
         };
-        this.executor = Executors.newSingleThreadExecutor();
+        this.executor = Executors.newFixedThreadPool(2);
         this.mainHandler = new Handler(Looper.getMainLooper());
         this.placeholder = new ColorDrawable(Color.rgb(18, 16, 12));
+        this.pendingKeys = Collections.synchronizedSet(new HashSet<String>());
     }
 
     void load(final String imageName, final ImageView imageView, final int requestedWidth, final int requestedHeight) {
@@ -50,6 +55,16 @@ final class ImageLoader {
             return;
         }
         loadAsset("detail-images/" + imageName, imageView, requestedWidth, requestedHeight);
+    }
+
+    void prefetch(final String imageName, final int requestedWidth, final int requestedHeight) {
+        if (imageName == null || imageName.length() == 0) return;
+        prefetchAsset("images/" + imageName, requestedWidth, requestedHeight);
+    }
+
+    void prefetchDetail(final String imageName, final int requestedWidth, final int requestedHeight) {
+        if (imageName == null || imageName.length() == 0) return;
+        prefetchAsset("detail-images/" + imageName, requestedWidth, requestedHeight);
     }
 
     private void loadAsset(final String assetPath, final ImageView imageView, final int requestedWidth, final int requestedHeight) {
@@ -79,9 +94,24 @@ final class ImageLoader {
         });
     }
 
+    private void prefetchAsset(final String assetPath, final int requestedWidth, final int requestedHeight) {
+        final String cacheKey = assetPath + "@" + Math.max(1, requestedWidth) + "x" + Math.max(1, requestedHeight);
+        if (cache.get(cacheKey) != null) return;
+        if (!pendingKeys.add(cacheKey)) return;
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bitmap = decode(assetPath, requestedWidth, requestedHeight);
+                if (bitmap != null) cache.put(cacheKey, bitmap);
+                pendingKeys.remove(cacheKey);
+            }
+        });
+    }
+
     void shutdown() {
         executor.shutdownNow();
         cache.evictAll();
+        pendingKeys.clear();
     }
 
     private Bitmap decode(String assetPath, int requestedWidth, int requestedHeight) {

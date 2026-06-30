@@ -44,9 +44,11 @@ liste, fiche recette detaillee proche du site avec hero 16/9, actions dans le
 hero, grille Ingredients/Etapes/Avant de commencer, infos rapides en pastilles,
 ingredients en lignes lisibles, etapes numerotees et variantes cliquables. Les
 fonctions reintegrees doivent rester natives et peu couteuses : favoris locaux
-`SharedPreferences`, recherche simple sans filtres, copie des ingredients vers
-le presse-papiers, liste de courses locale, copie fiche et partage fiche, ecran
-actif persistant pour cuisiner sans mise en veille. L accueil doit rester compact :
+`SharedPreferences`, recherche simple sans filtres avec recherche intelligente
+sans filtres sous le capot, copie des ingredients vers le presse-papiers, liste
+de courses locale avec courses cochables, copie fiche et partage fiche,
+navigation restaurable, swipe retour bord gauche, prechargement images, audit
+perf leger et ecran actif persistant pour cuisiner sans mise en veille. L accueil doit rester compact :
 la recherche s ouvre seulement via `Recherche` et ne contient qu un champ texte
 avec un bouton `Effacer`. L accueil doit aussi garder un bouton
 `Courses` compact et un bouton natif de mise a jour qui ouvre l URL GitHub
@@ -64,7 +66,9 @@ L accueil parent Android doit reprendre le rangement du site : sans recherche
 active, afficher seulement les fiches parents racines du catalogue, pas toutes
 les recettes enfants en vrac. Quand l utilisateur tape une recherche, l app
 cherche dans tout le catalogue sans filtres de categorie, saison, difficulte,
-favoris ou recents.
+favoris ou recents. Le classement interne peut corriger de petites fautes et
+favoriser les titres/alias sans exposer de filtres dans l interface.
+Garder le libelle exact de garde-fou : recherche intelligente sans filtres.
 Les fiches parents doivent lire `master` et `additionalMasters`, afin que les
 rattachements parents additionnels du site apparaissent dans les collections
 Android Legacy.
@@ -235,13 +239,16 @@ C est voulu.
   contient l interface native Android 5 Lite, les sections de fiche, les
   pastilles d infos, les favoris, la recherche simple sans filtres, la copie
   ingredients, la liste de courses locale, la copie fiche, le partage fiche,
-  le swipe retour bord gauche, l ecran actif persistant, le bouton natif de
+  la navigation restaurable, le swipe retour bord gauche, les courses
+  cochables, l audit perf leger, l ecran actif persistant, le bouton natif de
   mise a jour et les etapes numerotees.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java`
   lit `recipes-lite.json`, les `master`, les `additionalMasters` et les
-  rattachements parents additionnels.
+  rattachements parents additionnels, puis gere la recherche intelligente sans
+  filtres.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java`
-  decode les miniatures et les images detail locales en `RGB_565` avec un petit cache memoire.
+  decode les miniatures et les images detail locales en `RGB_565` avec un petit
+  cache memoire et le prechargement images.
 - `android-legacy/app/build.gradle` lit `SITE_VERSION` dans `app.js` pour
   produire `versionName` et `versionCode`, puis monte
   `android-legacy/build/generated/cook-note-lite` comme assets APK.
@@ -266,7 +273,9 @@ C est voulu.
   ou `assets/www` dans Android Legacy.
 - Ne pas supprimer les fonctions natives legeres reintegrees : favoris locaux,
   recherche simple sans filtres, copie ingredients, liste de courses locale,
-  copie fiche, partage fiche, swipe retour bord gauche et ecran actif persistant.
+  courses cochables, copie fiche, partage fiche, navigation restaurable, swipe
+  retour bord gauche, prechargement images, audit perf leger et ecran actif
+  persistant.
 - Ne pas remettre de filtres dans la recherche Android Legacy : pas de categorie,
   saison, difficulte, favoris, recents, `Toutes fiches` ou bouton aleatoire dans
   le panneau de recherche.

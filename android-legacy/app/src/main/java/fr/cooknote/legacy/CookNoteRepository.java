@@ -158,6 +158,34 @@ final class CookNoteRepository {
         return filter(rawQuery, category, season, difficulty, favoriteIds, recentIds, true);
     }
 
+    List<Recipe> searchSmart(String rawQuery) {
+        String query = normalize(rawQuery);
+        if (query.length() == 0) return searchableRecipes();
+        String[] tokens = query.split(" ");
+        List<SearchResult> results = new ArrayList<SearchResult>();
+        for (Recipe recipe : recipes) {
+            if (recipe.isCollection()) continue;
+            int score = scoreRecipe(recipe, query, tokens);
+            if (score > 0) results.add(new SearchResult(recipe, score));
+        }
+        Collections.sort(results, new Comparator<SearchResult>() {
+            @Override
+            public int compare(SearchResult left, SearchResult right) {
+                int score = right.score - left.score;
+                if (score != 0) return score;
+                int category = categoryRank(left.recipe.primaryCategory()) - categoryRank(right.recipe.primaryCategory());
+                if (category != 0) return category;
+                return left.recipe.title.compareToIgnoreCase(right.recipe.title);
+            }
+        });
+
+        List<Recipe> output = new ArrayList<Recipe>(results.size());
+        for (SearchResult result : results) {
+            output.add(result.recipe);
+        }
+        return output;
+    }
+
     List<Recipe> filter(
             String rawQuery,
             String category,
@@ -213,6 +241,103 @@ final class CookNoteRepository {
             if (token.length() > 0 && !safeText.contains(token)) return false;
         }
         return true;
+    }
+
+    private static int scoreRecipe(Recipe recipe, String query, String[] tokens) {
+        String title = normalize(recipe.title);
+        String aliases = normalize(joinList(recipe.aliases));
+        String tags = normalize(joinList(recipe.tags));
+        String categories = normalize(joinList(recipe.categories));
+        String search = recipe.searchText == null ? "" : recipe.searchText;
+        int score = 0;
+
+        if (title.equals(query)) score += 520;
+        else if (title.startsWith(query)) score += 320;
+        else if (title.contains(query)) score += 240;
+        if (aliases.contains(query)) score += 210;
+        if (tags.contains(query) || categories.contains(query)) score += 90;
+        if (search.contains(query)) score += 72;
+
+        for (String token : tokens) {
+            if (token.length() == 0) continue;
+            int tokenScore = scoreToken(token, title, aliases, tags, categories, search);
+            if (tokenScore <= 0) return -1;
+            score += tokenScore;
+        }
+
+        score -= Math.min(45, title.length() / 3);
+        return score;
+    }
+
+    private static int scoreToken(String token, String title, String aliases, String tags, String categories, String search) {
+        if (title.equals(token)) return 160;
+        if (containsWord(title, token)) return 130;
+        if (title.contains(token)) return 105;
+        if (containsWord(aliases, token)) return 118;
+        if (aliases.contains(token)) return 96;
+        if (containsWord(tags, token) || containsWord(categories, token)) return 74;
+        if (search.contains(token)) return 36;
+        if (fuzzyContains(title, token)) return 48;
+        if (fuzzyContains(search, token)) return 16;
+        return 0;
+    }
+
+    private static boolean containsWord(String text, String token) {
+        if (text == null || token == null || token.length() == 0) return false;
+        String padded = " " + text + " ";
+        return padded.indexOf(" " + token + " ") >= 0;
+    }
+
+    private static boolean fuzzyContains(String text, String token) {
+        if (text == null || token == null || token.length() < 4) return false;
+        int maxDistance = token.length() <= 5 ? 1 : 2;
+        String[] words = text.split(" ");
+        int checked = 0;
+        for (String word : words) {
+            if (word.length() < 4) continue;
+            if (Math.abs(word.length() - token.length()) > maxDistance) continue;
+            if (withinDistance(word, token, maxDistance)) return true;
+            checked += 1;
+            if (checked >= 140) break;
+        }
+        return false;
+    }
+
+    private static boolean withinDistance(String left, String right, int maxDistance) {
+        int[] previous = new int[right.length() + 1];
+        int[] current = new int[right.length() + 1];
+        for (int column = 0; column <= right.length(); column += 1) {
+            previous[column] = column;
+        }
+        for (int row = 1; row <= left.length(); row += 1) {
+            current[0] = row;
+            int rowBest = current[0];
+            for (int column = 1; column <= right.length(); column += 1) {
+                int cost = left.charAt(row - 1) == right.charAt(column - 1) ? 0 : 1;
+                int value = Math.min(
+                        Math.min(current[column - 1] + 1, previous[column] + 1),
+                        previous[column - 1] + cost
+                );
+                current[column] = value;
+                if (value < rowBest) rowBest = value;
+            }
+            if (rowBest > maxDistance) return false;
+            int[] swap = previous;
+            previous = current;
+            current = swap;
+        }
+        return previous[right.length()] <= maxDistance;
+    }
+
+    private static String joinList(List<String> values) {
+        if (values == null || values.isEmpty()) return "";
+        StringBuilder builder = new StringBuilder();
+        for (String value : values) {
+            if (value == null || value.length() == 0) continue;
+            if (builder.length() > 0) builder.append(' ');
+            builder.append(value);
+        }
+        return builder.toString();
     }
 
     private static boolean matchesSeason(Recipe recipe, String season) {
@@ -448,6 +573,16 @@ final class CookNoteRepository {
                 return left.title.compareToIgnoreCase(right.title);
             }
         });
+    }
+
+    private static final class SearchResult {
+        final Recipe recipe;
+        final int score;
+
+        SearchResult(Recipe recipe, int score) {
+            this.recipe = recipe;
+            this.score = score;
+        }
     }
 
     private static String readAsset(Context context, String asset) throws Exception {

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,6 +26,8 @@ import android.content.SharedPreferences;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
@@ -51,7 +54,16 @@ public class MainActivity extends Activity {
     private static final String PREFS_NAME = "cook_note_legacy";
     private static final String PREF_FAVORITES = "favorites";
     private static final String PREF_SHOPPING = "shopping";
+    private static final String PREF_SHOPPING_DONE = "shopping_done";
     private static final String PREF_KEEP_SCREEN_ON = "keep_screen_on";
+    private static final String STATE_SCREEN = "screen";
+    private static final String STATE_RECIPE_ID = "recipe_id";
+    private static final String STATE_QUERY = "query";
+    private static final String STATE_SEARCH_OPEN = "search_open";
+    private static final String STATE_BACK_STACK = "back_stack";
+    private static final int SCREEN_LIST = 0;
+    private static final int SCREEN_RECIPE = 1;
+    private static final int SCREEN_SHOPPING = 2;
     private static final int COLOR_BG = Color.rgb(4, 4, 4);
     private static final int COLOR_PANEL = Color.rgb(17, 16, 13);
     private static final int COLOR_PANEL_DEEP = Color.rgb(8, 7, 6);
@@ -71,6 +83,8 @@ public class MainActivity extends Activity {
     private static final int DETAIL_IMAGE_MAX_WIDTH = 1280;
     private static final int BACK_SWIPE_EDGE_DP = 64;
     private static final int BACK_SWIPE_TRIGGER_DP = 86;
+    private static final boolean PERF_LOG_ENABLED = true;
+    private static final String PERF_TAG = "CookNotePerf";
 
     private CookNoteRepository repository;
     private ImageLoader imageLoader;
@@ -85,12 +99,15 @@ public class MainActivity extends Activity {
     private boolean searchPanelOpen;
     private boolean showingDetail;
     private boolean keepScreenOn;
+    private int currentScreen = SCREEN_LIST;
+    private String currentRecipeId = "";
     private float backSwipeStartX;
     private float backSwipeStartY;
     private boolean backSwipeCandidate;
     private boolean backSwipeTriggered;
-    private final Stack<String> detailBackStack = new Stack<String>();
+    private final Stack<NavState> detailBackStack = new Stack<NavState>();
     private final Set<String> favoriteIds = new HashSet<String>();
+    private final Set<String> shoppingDoneKeys = new HashSet<String>();
     private final ArrayList<String> shoppingRecipeIds = new ArrayList<String>();
     private final Map<String, Integer> inlineVariantSelections = new HashMap<String, Integer>();
 
@@ -101,14 +118,85 @@ public class MainActivity extends Activity {
         try {
             repository = CookNoteRepository.load(this);
             loadUserState();
+            restoreScreenState(savedInstanceState);
             applyKeepScreenOn();
-            showList();
+            showCurrentScreen();
         } catch (Exception exception) {
             showNativeError("Cook Note Android 5 Lite", "Catalogue impossible a lire.\n\n" + exception.getMessage());
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(STATE_SCREEN, currentScreen);
+        outState.putString(STATE_RECIPE_ID, currentRecipeId);
+        outState.putString(STATE_QUERY, currentQuery);
+        outState.putBoolean(STATE_SEARCH_OPEN, searchPanelOpen);
+        outState.putString(STATE_BACK_STACK, serializeBackStack());
+        super.onSaveInstanceState(outState);
+    }
+
+    private void restoreScreenState(Bundle state) {
+        if (state == null) return;
+        currentQuery = state.getString(STATE_QUERY, "");
+        searchPanelOpen = state.getBoolean(STATE_SEARCH_OPEN, false);
+        currentScreen = state.getInt(STATE_SCREEN, SCREEN_LIST);
+        currentRecipeId = state.getString(STATE_RECIPE_ID, "");
+        restoreBackStack(state.getString(STATE_BACK_STACK, ""));
+        if (currentScreen == SCREEN_RECIPE && repository.find(currentRecipeId) == null) {
+            currentScreen = SCREEN_LIST;
+            currentRecipeId = "";
+        }
+    }
+
+    private void showCurrentScreen() {
+        if (currentScreen == SCREEN_RECIPE) {
+            Recipe recipe = repository.find(currentRecipeId);
+            if (recipe != null) {
+                openRecipe(recipe, false);
+                return;
+            }
+        }
+        if (currentScreen == SCREEN_SHOPPING) {
+            showShoppingList(false);
+            return;
+        }
+        showList();
+    }
+
+    private String serializeBackStack() {
+        StringBuilder builder = new StringBuilder();
+        for (NavState state : detailBackStack) {
+            if (builder.length() > 0) builder.append('\n');
+            builder.append(state.screen).append('|').append(state.recipeId);
+        }
+        return builder.toString();
+    }
+
+    private void restoreBackStack(String raw) {
+        detailBackStack.clear();
+        if (raw == null || raw.length() == 0) return;
+        String[] rows = raw.split("\\n");
+        for (String row : rows) {
+            int separator = row.indexOf('|');
+            if (separator <= 0) continue;
+            int screen;
+            try {
+                screen = Integer.parseInt(row.substring(0, separator));
+            } catch (Exception ignored) {
+                continue;
+            }
+            String recipeId = row.substring(separator + 1);
+            if (screen == SCREEN_RECIPE && repository.find(recipeId) == null) continue;
+            if (screen == SCREEN_LIST) continue;
+            detailBackStack.push(new NavState(screen, recipeId));
+        }
+    }
+
     private void showList() {
+        long startedAt = System.currentTimeMillis();
+        currentScreen = SCREEN_LIST;
+        currentRecipeId = "";
         showingDetail = false;
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
@@ -212,6 +300,7 @@ public class MainActivity extends Activity {
         });
 
         Button update = actionButton("Mise a jour", false);
+        update.setText("Maj v" + repository.version);
         actionRow.addView(update, new LinearLayout.LayoutParams(0, dp(36), 1));
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,6 +419,7 @@ public class MainActivity extends Activity {
 
         setContentView(root);
         applyFilters();
+        perfLog("showList", startedAt);
     }
 
     private void addAccentLine(LinearLayout parent, int topMarginDp, int bottomMarginDp) {
@@ -436,12 +526,14 @@ public class MainActivity extends Activity {
 
     private void applyFilters() {
         if (adapter == null) return;
+        long startedAt = System.currentTimeMillis();
         boolean homeMode = isHomeMode();
         List<Recipe> filtered = homeMode
                 ? repository.homeRecipes()
-                : repository.filterSearchable(currentQuery, "Toutes", "Toutes", "Toutes", null, null);
+                : repository.searchSmart(currentQuery);
         adapter.setFavoriteIds(favoriteIds);
         adapter.setItems(filtered);
+        prewarmListImages(filtered);
         StringBuilder label = new StringBuilder();
         label.append(filtered.size()).append(homeMode ? " fiches parents" : " resultats");
         if (homeMode) label.append(" - accueil");
@@ -449,14 +541,29 @@ public class MainActivity extends Activity {
         counterView.setText(label.toString());
         if (searchToggle != null) searchToggle.setText(buildSearchToggleLabel());
         if (clearSearchButton != null) clearSearchButton.setEnabled(!homeMode);
+        perfLog(homeMode ? "homeGrid" : "searchGrid", startedAt);
+    }
+
+    private void prewarmListImages(List<Recipe> recipes) {
+        if (recipes == null || imageLoader == null) return;
+        int width = Math.max(dp(286), getResources().getDisplayMetrics().widthPixels / 3);
+        int height = Math.max(dp(130), (width * 9) / 16);
+        int limit = Math.min(recipes.size(), 12);
+        for (int index = 0; index < limit; index += 1) {
+            Recipe recipe = recipes.get(index);
+            imageLoader.prefetch(recipe.image, width, height);
+            if (index < 3) imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
+        }
     }
 
     private void openRecipe(Recipe recipe, boolean pushCurrent) {
-        if (pushCurrent && showingDetail && !detailBackStack.contains(recipe.id)) {
-            detailBackStack.push(recipe.id);
-        }
+        long startedAt = System.currentTimeMillis();
+        if (pushCurrent) pushNavigationState();
+        currentScreen = SCREEN_RECIPE;
+        currentRecipeId = recipe.id;
         showingDetail = true;
         applyKeepScreenOn();
+        imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
 
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
@@ -536,6 +643,7 @@ public class MainActivity extends Activity {
         }
 
         setContentView(root);
+        perfLog("openRecipe:" + recipe.id, startedAt);
     }
 
     private void addDetailHero(LinearLayout content, final Recipe recipe) {
@@ -934,6 +1042,7 @@ public class MainActivity extends Activity {
         }
         int columns = collectionGridColumns();
         int cardHeight = collectionCardHeight(columns);
+        prewarmCollectionImages(choices, cardHeight);
         LinearLayout row = null;
         for (int index = 0; index < choices.size(); index += 1) {
             if (index % columns == 0) {
@@ -1043,10 +1152,20 @@ public class MainActivity extends Activity {
         card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                detailBackStack.push(parentRecipe.id);
-                openRecipe(choice.recipe, false);
+                openRecipe(choice.recipe, true);
             }
         });
+    }
+
+    private void prewarmCollectionImages(List<VariantChoice> choices, int cardHeight) {
+        if (choices == null || imageLoader == null) return;
+        int width = Math.max(dp(180), (getResources().getDisplayMetrics().widthPixels - dp(42)) / Math.max(1, collectionGridColumns()));
+        int limit = Math.min(choices.size(), 12);
+        for (int index = 0; index < limit; index += 1) {
+            Recipe recipe = choices.get(index).recipe;
+            imageLoader.prefetch(recipe.image, width, cardHeight);
+            if (index < 4) imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
+        }
     }
 
     private void addCollectionSpacer(LinearLayout row, int cardHeight, boolean rightMargin) {
@@ -1609,6 +1728,14 @@ public class MainActivity extends Activity {
     }
 
     private void showShoppingList() {
+        showShoppingList(false);
+    }
+
+    private void showShoppingList(boolean pushCurrent) {
+        long startedAt = System.currentTimeMillis();
+        if (pushCurrent) pushNavigationState();
+        currentScreen = SCREEN_SHOPPING;
+        currentRecipeId = "";
         showingDetail = true;
         applyKeepScreenOn();
 
@@ -1670,6 +1797,26 @@ public class MainActivity extends Activity {
             }
         });
 
+        Button copyTodo = sectionButton("Copier a faire", false);
+        copyTodo.setEnabled(!shoppingRecipeIds.isEmpty());
+        actions.addView(copyTodo);
+        copyTodo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyShoppingTodo();
+            }
+        });
+
+        Button resetDone = sectionButton("Tout decocher", false);
+        resetDone.setEnabled(!shoppingDoneKeys.isEmpty());
+        actions.addView(resetDone);
+        resetDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearShoppingDone();
+            }
+        });
+
         Button clear = sectionButton("Vider la liste", false);
         clear.setEnabled(!shoppingRecipeIds.isEmpty());
         actions.addView(clear);
@@ -1703,12 +1850,65 @@ public class MainActivity extends Activity {
                 });
 
                 for (Recipe.Group group : selectedIngredientGroups(recipe)) {
-                    addIngredientGroup(section, group, false);
+                    subTitle(section, group.title);
+                    for (String item : group.items) {
+                        addShoppingCheckRow(section, recipe, group, item);
+                    }
+                    if (group.note.length() > 0) body(section, group.note, COLOR_MUTED);
                 }
             }
         }
 
         setContentView(root);
+        perfLog("showShoppingList", startedAt);
+    }
+
+    private void addShoppingCheckRow(LinearLayout section, final Recipe recipe, Recipe.Group group, final String item) {
+        final String key = shoppingItemKey(recipe, group, item);
+        CheckBox checkBox = new CheckBox(this);
+        checkBox.setText(item);
+        checkBox.setTextColor(COLOR_TEXT);
+        checkBox.setTextSize(13);
+        checkBox.setTypeface(Typeface.DEFAULT);
+        checkBox.setButtonTintList(null);
+        checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
+        checkBox.setBackground(panelGradient(Color.rgb(18, 16, 13), Color.rgb(29, 24, 17), Color.rgb(42, 35, 24), 1, 7));
+        checkBox.setChecked(shoppingDoneKeys.contains(key));
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    shoppingDoneKeys.add(key);
+                } else {
+                    shoppingDoneKeys.remove(key);
+                }
+                saveUserState();
+            }
+        });
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.topMargin = dp(5);
+        section.addView(checkBox, params);
+    }
+
+    private String shoppingItemKey(Recipe recipe, Recipe.Group group, String item) {
+        String groupTitle = group == null ? "" : group.title;
+        return recipe.id + "|" + CookNoteRepository.normalize(groupTitle) + "|" + CookNoteRepository.normalize(item);
+    }
+
+    private void copyShoppingTodo() {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboard == null) return;
+        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note - courses a faire", buildShoppingText(true, false)));
+        Toast.makeText(this, "Courses restantes copiees", Toast.LENGTH_SHORT).show();
+    }
+
+    private void clearShoppingDone() {
+        shoppingDoneKeys.clear();
+        saveUserState();
+        showShoppingList();
     }
 
     private Button actionButton(String value, boolean primary) {
@@ -1766,7 +1966,7 @@ public class MainActivity extends Activity {
     private void copyShoppingList() {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         if (clipboard == null) return;
-        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note - liste de courses", buildShoppingText()));
+        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note - liste de courses", buildShoppingText(false, true)));
         Toast.makeText(this, "Liste de courses copiee", Toast.LENGTH_SHORT).show();
     }
 
@@ -1775,11 +1975,11 @@ public class MainActivity extends Activity {
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         try {
             startActivity(intent);
-            Toast.makeText(this, "Telechargement de la mise a jour", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Cook Note v" + repository.version + " - telechargement manuel", Toast.LENGTH_LONG).show();
         } catch (ActivityNotFoundException exception) {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard != null) {
-                clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note APK Android 5.0+", UPDATE_APK_URL));
+                clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note APK Android 5.0+ v" + repository.version, UPDATE_APK_URL));
             }
             Toast.makeText(this, "Lien copie dans le presse-papiers", Toast.LENGTH_LONG).show();
         }
@@ -1821,8 +2021,13 @@ public class MainActivity extends Activity {
     }
 
     private String buildShoppingText() {
+        return buildShoppingText(false, true);
+    }
+
+    private String buildShoppingText(boolean todoOnly, boolean includeChecks) {
         StringBuilder builder = new StringBuilder();
         builder.append("Cook Note - Liste de courses").append('\n');
+        int headerLength = builder.length();
         if (shoppingRecipeIds.isEmpty()) {
             builder.append('\n').append("Aucune recette.");
             return builder.toString();
@@ -1831,10 +2036,36 @@ public class MainActivity extends Activity {
         for (String id : shoppingRecipeIds) {
             Recipe recipe = repository.find(id);
             if (recipe == null) continue;
+            StringBuilder recipeBuilder = new StringBuilder();
+            appendShoppingIngredients(recipeBuilder, recipe, todoOnly, includeChecks);
+            if (todoOnly && recipeBuilder.length() == 0) continue;
             builder.append('\n').append(recipe.title).append('\n');
-            appendIngredients(builder, recipe);
+            builder.append(recipeBuilder);
+        }
+        if (todoOnly && builder.length() == headerLength) {
+            builder.append('\n').append("Tout est coche.");
         }
         return builder.toString().trim();
+    }
+
+    private void appendShoppingIngredients(StringBuilder builder, Recipe recipe, boolean todoOnly, boolean includeChecks) {
+        for (Recipe.Group group : selectedIngredientGroups(recipe)) {
+            StringBuilder groupBuilder = new StringBuilder();
+            for (String item : group.items) {
+                String key = shoppingItemKey(recipe, group, item);
+                boolean done = shoppingDoneKeys.contains(key);
+                if (todoOnly && done) continue;
+                if (includeChecks) groupBuilder.append(done ? "[x] " : "[ ] ");
+                else groupBuilder.append("- ");
+                groupBuilder.append(item).append('\n');
+            }
+            if (groupBuilder.length() == 0) continue;
+            builder.append('\n').append(group.title).append('\n');
+            builder.append(groupBuilder);
+            if (group.note.length() > 0 && !todoOnly) {
+                builder.append("Note: ").append(group.note).append('\n');
+            }
+        }
     }
 
     private void appendIngredients(StringBuilder builder, Recipe recipe) {
@@ -1979,19 +2210,32 @@ public class MainActivity extends Activity {
         }
     }
 
+    private static final class NavState {
+        final int screen;
+        final String recipeId;
+
+        NavState(int screen, String recipeId) {
+            this.screen = screen;
+            this.recipeId = recipeId == null ? "" : recipeId;
+        }
+    }
+
     private void loadUserState() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         favoriteIds.clear();
         shoppingRecipeIds.clear();
+        shoppingDoneKeys.clear();
         keepScreenOn = prefs.getBoolean(PREF_KEEP_SCREEN_ON, false);
         parseIds(prefs.getString(PREF_FAVORITES, ""), favoriteIds, 0);
         parseIds(prefs.getString(PREF_SHOPPING, ""), shoppingRecipeIds, 0);
+        parseRawIds(prefs.getString(PREF_SHOPPING_DONE, ""), shoppingDoneKeys);
     }
 
     private void saveUserState() {
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putString(PREF_FAVORITES, joinIds(new ArrayList<String>(favoriteIds)));
         editor.putString(PREF_SHOPPING, joinIds(shoppingRecipeIds));
+        editor.putString(PREF_SHOPPING_DONE, joinIds(new ArrayList<String>(shoppingDoneKeys)));
         editor.putBoolean(PREF_KEEP_SCREEN_ON, keepScreenOn);
         editor.apply();
     }
@@ -2013,6 +2257,14 @@ public class MainActivity extends Activity {
             if (id.length() == 0 || repository.find(id) == null || output.contains(id)) continue;
             output.add(id);
             if (limit > 0 && output.size() >= limit) return;
+        }
+    }
+
+    private void parseRawIds(String raw, Set<String> output) {
+        if (raw == null || raw.length() == 0) return;
+        String[] ids = raw.split("\\n");
+        for (String id : ids) {
+            if (id.length() > 0) output.add(id);
         }
     }
 
@@ -2047,6 +2299,7 @@ public class MainActivity extends Activity {
     private void toggleShopping(Recipe recipe) {
         if (shoppingRecipeIds.contains(recipe.id)) {
             shoppingRecipeIds.remove(recipe.id);
+            removeShoppingDoneForRecipe(recipe.id);
             Toast.makeText(this, "Retire des courses", Toast.LENGTH_SHORT).show();
         } else {
             shoppingRecipeIds.add(recipe.id);
@@ -2058,15 +2311,27 @@ public class MainActivity extends Activity {
 
     private void removeShopping(String id) {
         shoppingRecipeIds.remove(id);
+        removeShoppingDoneForRecipe(id);
         saveUserState();
         refreshShoppingButton();
     }
 
     private void clearShoppingList() {
         shoppingRecipeIds.clear();
+        shoppingDoneKeys.clear();
         saveUserState();
         refreshShoppingButton();
         showShoppingList();
+    }
+
+    private void removeShoppingDoneForRecipe(String id) {
+        if (id == null || id.length() == 0 || shoppingDoneKeys.isEmpty()) return;
+        ArrayList<String> remove = new ArrayList<String>();
+        String prefix = id + "|";
+        for (String key : shoppingDoneKeys) {
+            if (key.startsWith(prefix)) remove.add(key);
+        }
+        shoppingDoneKeys.removeAll(remove);
     }
 
     private void refreshShoppingButton() {
@@ -2089,14 +2354,34 @@ public class MainActivity extends Activity {
     }
 
     private void goBack() {
-        if (!detailBackStack.empty()) {
-            Recipe previous = repository.find(detailBackStack.pop());
-            if (previous != null) {
-                openRecipe(previous, false);
+        while (!detailBackStack.empty()) {
+            NavState previous = detailBackStack.pop();
+            if (previous.screen == SCREEN_RECIPE) {
+                Recipe recipe = repository.find(previous.recipeId);
+                if (recipe != null) {
+                    openRecipe(recipe, false);
+                    return;
+                }
+            } else if (previous.screen == SCREEN_SHOPPING) {
+                showShoppingList(false);
                 return;
             }
         }
         showList();
+    }
+
+    private void pushNavigationState() {
+        if (currentScreen == SCREEN_RECIPE && currentRecipeId.length() > 0) {
+            detailBackStack.push(new NavState(SCREEN_RECIPE, currentRecipeId));
+        } else if (currentScreen == SCREEN_SHOPPING) {
+            detailBackStack.push(new NavState(SCREEN_SHOPPING, ""));
+        }
+    }
+
+    private void perfLog(String label, long startedAt) {
+        if (!PERF_LOG_ENABLED) return;
+        long elapsed = Math.max(0, System.currentTimeMillis() - startedAt);
+        Log.d(PERF_TAG, label + " " + elapsed + "ms");
     }
 
     @Override

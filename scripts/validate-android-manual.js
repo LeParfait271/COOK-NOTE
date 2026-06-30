@@ -132,6 +132,9 @@ expect(
     && androidLegacyMainActivity.includes('RECHERCHE SIMPLE')
     && androidLegacyMainActivity.includes('clearSearch')
     && androidLegacyMainActivity.includes('Recherche active')
+    && androidLegacyMainActivity.includes('repository.searchSmart')
+    && androidLegacyMainActivity.includes('prewarmListImages')
+    && androidLegacyMainActivity.includes('prewarmCollectionImages')
     && androidLegacyMainActivity.includes('sectionButton(String value, boolean primary)')
     && androidLegacyMainActivity.includes('addInlineVariantPicker')
     && androidLegacyMainActivity.includes('selectedIngredientGroups')
@@ -151,10 +154,13 @@ expect(
     && androidLegacyMainActivity.includes('dispatchTouchEvent')
     && androidLegacyMainActivity.includes('handleBackSwipe')
     && androidLegacyMainActivity.includes('BACK_SWIPE_EDGE_DP')
+    && androidLegacyMainActivity.includes('onSaveInstanceState')
+    && androidLegacyMainActivity.includes('showCurrentScreen')
+    && androidLegacyMainActivity.includes('NavState')
+    && androidLegacyMainActivity.includes('perfLog')
     && androidLegacyMainActivity.includes('isHomeMode')
     && androidLegacyMainActivity.includes('fiches parents')
     && androidLegacyMainActivity.includes('repository.homeRecipes()')
-    && androidLegacyMainActivity.includes('repository.filterSearchable')
     && androidLegacyMainActivity.includes('repository.childrenForParent')
     && androidLegacyMainActivity.includes('repository.collectionCount')
     && androidLegacyMainActivity.includes('addParentPath')
@@ -176,6 +182,9 @@ expect(
     && androidLegacyMainActivity.includes('showShoppingList')
     && androidLegacyMainActivity.includes('buildShoppingText')
     && androidLegacyMainActivity.includes('copyShoppingList')
+    && androidLegacyMainActivity.includes('PREF_SHOPPING_DONE')
+    && androidLegacyMainActivity.includes('CheckBox')
+    && androidLegacyMainActivity.includes('copyShoppingTodo')
     && androidLegacyMainActivity.includes('copyRecipe')
     && androidLegacyMainActivity.includes('shareRecipe')
     && androidLegacyMainActivity.includes('Intent.ACTION_SEND')
@@ -195,6 +204,9 @@ expect(
     && androidLegacyRepository.includes('recipes-lite.json')
     && androidLegacyRepository.includes('homeRecipes')
     && androidLegacyRepository.includes('filterSearchable')
+    && androidLegacyRepository.includes('searchSmart')
+    && androidLegacyRepository.includes('scoreRecipe')
+    && androidLegacyRepository.includes('fuzzyContains')
     && androidLegacyRepository.includes('childrenForParent')
     && androidLegacyRepository.includes('belongsToParent')
     && androidLegacyRepository.includes('additionalMasters')
@@ -213,6 +225,8 @@ expect(
     && androidLegacyRepository.includes('windows1252Byte')
     && androidLegacyImageLoader.includes('RGB_565')
     && androidLegacyImageLoader.includes('LruCache')
+    && androidLegacyImageLoader.includes('prefetchDetail')
+    && androidLegacyImageLoader.includes('pendingKeys')
     && androidLegacyImageLoader.includes('detail-images/')
     && androidLegacyAdapter.includes('BaseAdapter')
     && androidLegacyAdapter.includes('FrameLayout')
@@ -222,6 +236,7 @@ expect(
     && androidLegacyAdapter.includes('cardWidthForParent')
     && androidLegacyAdapter.includes('(cardWidth * 9) / 16')
     && androidLegacyAdapter.includes('StateListDrawable')
+    && androidLegacyAdapter.includes('prefetchAround')
     && androidLegacyAdapter.includes('selectablePanel')
     && androidLegacyAdapter.includes('holder.title.setText(recipe.title)')
     && !androidLegacyAdapter.includes('holder.count')
@@ -339,7 +354,10 @@ expect(
   'pastilles',
   'favoris locaux',
   'recherche simple sans filtres',
+  'recherche intelligente sans filtres',
   'swipe retour bord gauche',
+  'navigation restaurable',
+  'prechargement images',
   'accueil parent Android',
   'cartes parent visibles',
   'menu deroulant',
@@ -349,10 +367,12 @@ expect(
   'preparation choisie',
   'copie ingredients',
   'liste de courses locale',
+  'courses cochables',
   'copie fiche',
   'partage fiche',
   'ecran actif',
   'bouton natif de mise a jour',
+  'audit perf leger',
   'etapes numerotees',
   'sans WebView systeme et sans GeckoView',
   'assets/www'
@@ -372,7 +392,10 @@ expect(
     && androidReadme.includes('actions principales')
     && androidReadme.includes('favoris locaux')
     && androidReadme.includes('recherche simple sans filtres')
+    && androidReadme.includes('recherche intelligente sans filtres')
     && androidReadme.includes('swipe retour bord gauche')
+    && androidReadme.includes('navigation restaurable')
+    && androidReadme.includes('prechargement images')
     && androidReadme.includes('accueil parent Android')
     && androidReadme.includes('cartes parent visibles')
     && androidReadme.includes('menu')
@@ -382,9 +405,11 @@ expect(
     && androidReadme.includes('preparation choisie')
     && androidReadme.includes('copie ingredients')
     && androidReadme.includes('liste de courses locale')
+    && androidReadme.includes('courses cochables')
     && androidReadme.includes('copie fiche')
     && androidReadme.includes('partage fiche')
     && androidReadme.includes('ecran actif')
+    && androidReadme.includes('audit perf leger')
     && androidReadme.includes('bouton natif de mise a jour')
     && androidReadme.includes('update-all')
     && androidReadme.includes('publish-all')
@@ -426,7 +451,10 @@ expect(
   'pastilles',
   'favoris locaux',
   'recherche simple sans filtres',
+  'recherche intelligente sans filtres',
   'swipe retour bord gauche',
+  'navigation restaurable',
+  'prechargement images',
   'accueil parent Android',
   'cartes parent visibles',
   'menu deroulant',
@@ -436,10 +464,12 @@ expect(
   'preparation choisie',
   'copie ingredients',
   'liste de courses locale',
+  'courses cochables',
   'copie fiche',
   'partage fiche',
   'ecran actif',
   'bouton natif de mise a jour',
+  'audit perf leger',
   'etapes numerotees',
   'sans GeckoView'
 ].forEach(fragment => {
