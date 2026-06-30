@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.26';
+const SITE_VERSION = 'v2.27';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -4362,8 +4362,21 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
 function Hero() {
   return h('section', { className: 'hero' },
     h('div', { className: 'hero-inner' },
-      h('h1', { className: 'sr-only' }, 'Cook Note'),
-      h('img', { className: 'hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(COOK_NOTE_LOGO) })
+      h('div', { className: 'hero-copy' },
+        h('p', { className: 'hero-kicker' }, 'Carnet de cuisine premium'),
+        h('h1', null, 'Cook Note'),
+        h('p', { className: 'hero-lede' }, 'Recettes maison, gestes utiles et organisation de cuisine dans une interface claire, rapide et elegante.'),
+        h('div', { className: 'hero-stats', 'aria-label': 'Points forts Cook Note' },
+          h('span', null, '268 fiches'),
+          h('span', null, 'Saisons'),
+          h('span', null, 'Courses'),
+          h('span', null, 'Cuisine guidee')
+        )
+      ),
+      h('div', { className: 'hero-brand-card', 'aria-hidden': true },
+        h('img', { className: 'hero-logo', src: COOK_NOTE_LOGO, alt: '', decoding: 'async', ...imageSizeAttrs(COOK_NOTE_LOGO) }),
+        h('span', null, SITE_VERSION)
+      )
     )
   );
 }
@@ -4381,6 +4394,13 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   const style = { '--card-accent': color };
   const renderCardImage = Boolean(recipe.image);
   const cardImage = renderCardImage ? recipeCardImageUrl(recipe.image) : '';
+  const timing = getRecipeTiming(recipe);
+  const badges = getRecipeCardBadges(recipe, recipesById);
+  const facts = [
+    master ? 'Collection' : difficultyText(recipe).replace(/^Difficult\S*\s*/, ''),
+    master ? `${(recipe.variants || []).length || 'Collection'} choix` : `${countIngredients(recipe)} ingredients`,
+    !master && (formatMinutesShort(timing.active) || 'A estimer')
+  ].filter(Boolean);
   const className = ['recipe-card', renderCardImage ? 'has-image' : '', master ? 'master-card' : '']
     .filter(Boolean)
     .join(' ');
@@ -4419,7 +4439,17 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       !renderCardImage && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1))
     ),
     h('div', { className: 'card-body' },
-      h('h3', null, recipe.title)
+      h('div', { className: 'tag-line' },
+        h('span', null, categoryLabel(primaryCategory(recipe))),
+        !master && h('span', { className: `nutri-score nutri-${getNutriScore(recipe).toLowerCase()}` }, `Nutri ${getNutriScore(recipe)}`)
+      ),
+      h('h3', null, recipe.title),
+      h('div', { className: 'card-facts' },
+        facts.map(fact => h('span', { key: fact }, fact))
+      ),
+      badges.length > 0 && h('div', { className: 'card-quicklook' },
+        badges.map(badge => h('span', { key: badge }, badge))
+      )
     )
   );
 }
