@@ -3988,6 +3988,11 @@ a {
   color: #fff;
 }
 
+.menu-theme-tabs button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 70%, #fff);
+  outline-offset: 2px;
+}
+
 .menu-planner-reason {
   margin: 6px 0 12px;
   color: color-mix(in srgb, var(--text) 72%, var(--muted));

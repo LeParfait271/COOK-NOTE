@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.51';
+const SITE_VERSION = 'v2.52';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -5510,7 +5510,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
           h('h2', { id: 'menu-planner-title' }, 'Composer un repas')
         ),
         h('div', { className: 'menu-planner-head-actions' },
-          h(Button, { variant: 'subtle', onClick: changeWholeMenu }, 'Autre menu'),
+          h(Button, { variant: 'subtle', onClick: changeWholeMenu, ariaLabel: 'Proposer un autre menu complet' }, 'Autre menu'),
           h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
         )
       ),
@@ -5519,6 +5519,8 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
           key: theme.id,
           type: 'button',
           className: theme.id === themeId ? 'active' : '',
+          'aria-pressed': theme.id === themeId,
+          'aria-label': `Choisir le style ${theme.label}`,
           onClick: () => {
             setThemeId(theme.id);
             setOffset(0);
@@ -5532,6 +5534,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
           h('select', {
             className: 'quantity-select',
             value: String(peopleCount),
+            'aria-label': 'Nombre de personnes du menu',
             onChange: event => setPeopleCount(Number(event.target.value))
           },
             [1, 2, 3, 4, 5, 6, 8, 10, 12].map(value => h('option', { key: value, value: String(value) }, String(value)))
@@ -5543,15 +5546,15 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
       h('p', { className: 'menu-planner-reason' }, menu.reason),
       h('div', { className: 'menu-planner-grid' },
         menuItems.map((item, index) => h('article', { key: `${item.key}-${item.recipe.id}-${index}`, className: 'menu-planner-card' },
-          h('span', { className: 'menu-planner-image', style: imageBackgroundStyle(item.recipe.image) }),
+          h('span', { className: 'menu-planner-image', style: imageBackgroundStyle(item.recipe.image), 'aria-hidden': true }),
           h('div', null,
             h('p', { className: 'eyebrow' }, item.label),
             h('h3', null, item.recipe.title),
             h('small', null, [primaryCategory(item.recipe), difficultyText(item.recipe), getRecipeTiming(item.recipe).active ? `Actif ${formatMinutesShort(getRecipeTiming(item.recipe).active)}` : '', getQuantityDisplay(item.recipe, menuFactorById[item.recipe.id] || 1)].filter(Boolean).join(' · ')),
             item.note && h('p', { className: 'menu-planner-note' }, item.note),
             h('div', { className: 'menu-planner-card-actions' },
-              h(Button, { variant: 'subtle', onClick: () => openRecipe(item.recipe.id) }, 'Ouvrir'),
-              h(Button, { variant: 'ghost', onClick: () => changeOneItem(menuItemSlotKey(item, index)) }, 'Changer')
+              h(Button, { variant: 'subtle', onClick: () => openRecipe(item.recipe.id), ariaLabel: `Ouvrir ${item.recipe.title}` }, 'Ouvrir'),
+              h(Button, { variant: 'ghost', onClick: () => changeOneItem(menuItemSlotKey(item, index)), ariaLabel: `Changer ${item.label} : ${item.recipe.title}` }, 'Changer')
             )
           )
         ))
@@ -5597,7 +5600,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
         )
       ),
       h('div', { className: 'modal-actions' },
-        h(Button, { variant: 'primary', disabled: !menuRecipes.length, onClick: addToShopping }, 'Ajouter le menu aux courses')
+        h(Button, { variant: 'primary', disabled: !menuRecipes.length, onClick: addToShopping, ariaLabel: `Ajouter le menu aux courses pour ${peopleCount} personnes` }, 'Ajouter le menu aux courses')
       )
     )
   );
