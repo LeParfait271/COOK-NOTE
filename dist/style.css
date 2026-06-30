@@ -2026,6 +2026,11 @@ a {
 }
 
 .recipe-breadcrumb button {
+  display: inline-block;
+  max-width: min(100%, 320px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   border: 0;
   background: transparent;
   color: #fff;
@@ -2037,6 +2042,11 @@ a {
 }
 
 .recipe-breadcrumb strong {
+  display: inline-block;
+  max-width: min(100%, 420px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: #fff;
 }
 

@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.48';
+const SITE_VERSION = 'v2.49';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -5743,17 +5743,17 @@ function RecipeBreadcrumb({ recipe, selectedRecipe, showVariants, goHome, openRe
   const openCategory = () => categoryParentId ? openRecipe(categoryParentId) : goHome();
   const openCurrentParent = () => openRecipe(breadcrumbRecipe.id);
   return h('nav', { className: 'recipe-breadcrumb', 'aria-label': 'Fil d’Ariane' },
-    h('button', { type: 'button', onClick: goHome }, 'Cook Note'),
+    h('button', { type: 'button', onClick: goHome, 'aria-label': 'Retour au catalogue Cook Note', title: 'Retour au catalogue' }, 'Cook Note'),
     h('span', null, '/'),
     !isRootParent && !repeatsTitle && h(React.Fragment, null,
       categoryParentId
-        ? h('button', { type: 'button', onClick: openCategory }, category)
+        ? h('button', { type: 'button', onClick: openCategory, 'aria-label': `Ouvrir la catégorie ${category}`, title: `Ouvrir ${category}` }, category)
         : h('span', null, category),
       h('span', null, '/')
     ),
     isRootParent
-      ? h('button', { type: 'button', onClick: openCurrentParent }, breadcrumbRecipe.title)
-      : h('strong', null, breadcrumbRecipe.title)
+      ? h('button', { type: 'button', onClick: openCurrentParent, 'aria-label': `Ouvrir ${breadcrumbRecipe.title}`, title: breadcrumbRecipe.title }, breadcrumbRecipe.title)
+      : h('strong', { 'aria-current': 'page' }, breadcrumbRecipe.title)
   );
 }
 
