@@ -78,6 +78,8 @@ Garder le libelle exact de garde-fou : recherche intelligente sans filtres.
 Le moteur s'appuie sur un index recherche precompile `search-index-lite.json`
 pour eviter de recalculer les champs de recherche a chaque frappe.
 Les mots recherche predecoupes gardent le fuzzy sans split et les allocations recherche reduites pendant la saisie sur les tablettes lentes.
+Un cache resultats recherche borne reutilise les requetes recentes reutilisees
+et garde le classement recherche memoise sans grossir sans limite.
 La saisie est temporisee cote Android, afin de ne pas relancer la grille a chaque
 caractere sur une tablette 2 Go.
 La position de grille doit etre conservee quand on ouvre une fiche puis qu on
@@ -114,7 +116,7 @@ le diagnostic hors ligne, le cache image adaptatif, le decode image serialise,
 la coalescence chargements image, les images visibles prioritaires, la file
 image prioritaire, l annulation prefetch obsolete, le cache image normalise, le
 nettoyage vues recyclees, le prechauffage images borne, le prechauffage images
-differe, les mots recherche predecoupes, le fuzzy sans split, les allocations recherche reduites, le catalogue parent precompile, les enfants parents preclasses, les
+differe, les mots recherche predecoupes, le fuzzy sans split, les allocations recherche reduites, le cache resultats recherche borne, les requetes recentes reutilisees, le classement recherche memoise, le catalogue parent precompile, les enfants parents preclasses, les
 compteurs collection caches, la position de grille conservee, la liberation
 memoire de liste, la pile retour bornee, le prefetch carte borne et le scroll fluide. Ces
 fonctions doivent rester Android natives, sans filtres visibles dans la

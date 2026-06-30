@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -21,6 +22,7 @@ import java.util.Set;
 final class CookNoteRepository {
     private static final String RECIPES_ASSET = "recipes-lite.json";
     private static final String SEARCH_INDEX_ASSET = "search-index-lite.json";
+    private static final int SEARCH_CACHE_LIMIT = 12;
 
     final String version;
     final List<Recipe> recipes;
@@ -31,6 +33,7 @@ final class CookNoteRepository {
     private final List<Recipe> searchableRecipes;
     private final Map<String, List<Recipe>> childrenByParent;
     private final Map<String, Integer> collectionCounts;
+    private final Map<String, List<Recipe>> searchResultsCache;
 
     private CookNoteRepository(String version, List<Recipe> recipes, List<String> categories, Map<String, SearchEntry> searchIndex) {
         this.version = version;
@@ -47,6 +50,7 @@ final class CookNoteRepository {
         this.searchableRecipes = buildSearchableRecipes();
         this.childrenByParent = buildChildrenByParent();
         this.collectionCounts = buildCollectionCounts();
+        this.searchResultsCache = buildSearchResultsCache();
     }
 
     static CookNoteRepository load(Context context) throws Exception {
@@ -165,6 +169,15 @@ final class CookNoteRepository {
         return Collections.unmodifiableMap(counts);
     }
 
+    private Map<String, List<Recipe>> buildSearchResultsCache() {
+        return new LinkedHashMap<String, List<Recipe>>(SEARCH_CACHE_LIMIT + 1, 0.75f, true) {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<String, List<Recipe>> eldest) {
+                return size() > SEARCH_CACHE_LIMIT;
+            }
+        };
+    }
+
     List<Recipe> parentTrail(Recipe recipe) {
         List<Recipe> trail = new ArrayList<Recipe>();
         if (recipe == null) return trail;
@@ -197,6 +210,8 @@ final class CookNoteRepository {
     List<Recipe> searchSmart(String rawQuery) {
         String query = normalize(rawQuery);
         if (query.length() == 0) return searchableRecipes();
+        List<Recipe> cached = searchResultsCache.get(query);
+        if (cached != null) return cached;
         String[] tokens = query.split(" ");
         List<SearchResult> results = new ArrayList<SearchResult>();
         for (Recipe recipe : searchableRecipes) {
@@ -219,7 +234,9 @@ final class CookNoteRepository {
         for (SearchResult result : results) {
             output.add(result.recipe);
         }
-        return output;
+        List<Recipe> cachedOutput = Collections.unmodifiableList(output);
+        searchResultsCache.put(query, cachedOutput);
+        return cachedOutput;
     }
 
     List<Recipe> filter(
