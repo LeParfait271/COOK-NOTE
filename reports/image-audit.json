@@ -1,78 +1,15 @@
 {
-  "generatedAt": "2026-06-30T04:06:20.567Z",
+  "generatedAt": "2026-06-30T04:10:30.663Z",
   "total": 268,
-  "weakCount": 3,
+  "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
-    "smallOptimized": 7,
-    "smallCard": 32,
+    "smallOptimized": 4,
+    "smallCard": 29,
     "framing": 0,
     "duplicates": 0
   },
   "rows": [
-    {
-      "id": "frites_belges",
-      "title": "Frites belges",
-      "score": 80,
-      "issues": [
-        "Miniature petite (520x293)",
-        "Miniature tres legere (17 Ko)"
-      ],
-      "optimized": "assets/recipe-images-optimized/frites_belges_spooky.jpg",
-      "card": "assets/recipe-card-images/frites_belges_spooky.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 223087,
-      "cardSize": {
-        "width": 520,
-        "height": 293
-      },
-      "cardBytes": 17722
-    },
-    {
-      "id": "gazpacho_tomate_menthe_basilic",
-      "title": "Gazpacho tomate, menthe et basilic",
-      "score": 80,
-      "issues": [
-        "Miniature petite (520x293)",
-        "Miniature tres legere (17 Ko)"
-      ],
-      "optimized": "assets/recipe-images-optimized/gazpacho_tomate_menthe_basilic_spooky.jpg",
-      "card": "assets/recipe-card-images/gazpacho_tomate_menthe_basilic_spooky.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 236004,
-      "cardSize": {
-        "width": 520,
-        "height": 293
-      },
-      "cardBytes": 17395
-    },
-    {
-      "id": "pain_hot_dog",
-      "title": "Pain hot dog brioché",
-      "score": 80,
-      "issues": [
-        "Miniature petite (520x293)",
-        "Miniature tres legere (17 Ko)"
-      ],
-      "optimized": "assets/recipe-images-optimized/pain_hot_dog_spooky.jpg",
-      "card": "assets/recipe-card-images/pain_hot_dog_spooky.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 235921,
-      "cardSize": {
-        "width": 520,
-        "height": 293
-      },
-      "cardBytes": 17006
-    },
     {
       "id": "cookies_chocolat_moelleux",
       "title": "Cookies chocolat moelleux",
@@ -2388,6 +2325,24 @@
       "cardBytes": 102395
     },
     {
+      "id": "frites_belges",
+      "title": "Frites belges",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/frites_belges_spooky.jpg",
+      "card": "assets/recipe-card-images/frites_belges_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 223087,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 73262
+    },
+    {
       "id": "frites_patate_douce",
       "title": "Frites de patate douce",
       "score": 100,
@@ -2440,6 +2395,24 @@
         "height": 520
       },
       "cardBytes": 82068
+    },
+    {
+      "id": "gazpacho_tomate_menthe_basilic",
+      "title": "Gazpacho tomate, menthe et basilic",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/gazpacho_tomate_menthe_basilic_spooky.jpg",
+      "card": "assets/recipe-card-images/gazpacho_tomate_menthe_basilic_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 236004,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 74630
     },
     {
       "id": "gratin_chou_fleur_comte_lardons",
@@ -3160,6 +3133,24 @@
         "height": 520
       },
       "cardBytes": 84696
+    },
+    {
+      "id": "pain_hot_dog",
+      "title": "Pain hot dog brioché",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipe-images-optimized/pain_hot_dog_spooky.jpg",
+      "card": "assets/recipe-card-images/pain_hot_dog_spooky.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 235921,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 72977
     },
     {
       "id": "pains_burgers_brioche",

@@ -61,9 +61,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 84643
   },
   "assets/recipe-card-images/beurre_ail_spooky.jpg": {
-    "width": 520,
-    "height": 292,
-    "bytes": 16773
+    "width": 760,
+    "height": 428,
+    "bytes": 67480
   },
   "assets/recipe-card-images/beurre_clarifie_v2_spooky.jpg": {
     "width": 1040,
@@ -176,9 +176,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 31825
   },
   "assets/recipe-card-images/cassolette_crevettes_ravioles_persil.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 15760
+    "width": 760,
+    "height": 428,
+    "bytes": 67823
   },
   "assets/recipe-card-images/cassoulet_cooknote_v2_spooky.jpg": {
     "width": 480,
@@ -311,9 +311,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 48431
   },
   "assets/recipe-card-images/cookies_chocolat_moelleux_spooky.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 24201
+    "width": 760,
+    "height": 428,
+    "bytes": 85635
   },
   "assets/recipe-card-images/cookies_chocolat_noir_lait_spooky.jpg": {
     "width": 520,
@@ -531,9 +531,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 91271
   },
   "assets/recipe-card-images/frites_belges_spooky.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 17722
+    "width": 760,
+    "height": 428,
+    "bytes": 73262
   },
   "assets/recipe-card-images/frites_four_maison_cooknote_v1_spooky.jpg": {
     "width": 760,
@@ -571,9 +571,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 20098
   },
   "assets/recipe-card-images/gazpacho_tomate_menthe_basilic_spooky.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 17395
+    "width": 760,
+    "height": 428,
+    "bytes": 74630
   },
   "assets/recipe-card-images/gratin_chou_fleur_chorizo_cocottes_cooknote_v2_spooky.jpg": {
     "width": 480,
@@ -716,9 +716,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 43056
   },
   "assets/recipe-card-images/mayonnaise_maison_spooky.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 19833
+    "width": 760,
+    "height": 428,
+    "bytes": 81707
   },
   "assets/recipe-card-images/meringue_italienne_spooky.jpg": {
     "width": 520,
@@ -786,9 +786,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 19539
   },
   "assets/recipe-card-images/pain_hot_dog_spooky.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 17006
+    "width": 760,
+    "height": 428,
+    "bytes": 72977
   },
   "assets/recipe-card-images/pains_burgers_brioche_spooky.jpg": {
     "width": 520,
@@ -1181,9 +1181,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 19839
   },
   "assets/recipe-card-images/sauce_nem_cooknote_v2_spooky.jpg": {
-    "width": 480,
-    "height": 360,
-    "bytes": 32585
+    "width": 760,
+    "height": 428,
+    "bytes": 56020
   },
   "assets/recipe-card-images/sauce_roquefort_v2_spooky.jpg": {
     "width": 760,
@@ -1401,9 +1401,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 213472
   },
   "assets/recipe-images-optimized/beurre_ail_spooky.jpg": {
-    "width": 1672,
-    "height": 941,
-    "bytes": 285163
+    "width": 1400,
+    "height": 788,
+    "bytes": 200117
   },
   "assets/recipe-images-optimized/beurre_clarifie_v2_spooky.jpg": {
     "width": 1536,
@@ -2521,9 +2521,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 273629
   },
   "assets/recipe-images-optimized/sauce_nem_cooknote_v2_spooky.jpg": {
-    "width": 960,
-    "height": 720,
-    "bytes": 118016
+    "width": 1400,
+    "height": 788,
+    "bytes": 169561
   },
   "assets/recipe-images-optimized/sauce_roquefort_v2_spooky.jpg": {
     "width": 1400,

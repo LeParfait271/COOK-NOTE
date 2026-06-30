@@ -531,9 +531,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 91271
   },
   "assets/recipe-card-images/frites_belges_spooky.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 17722
+    "width": 760,
+    "height": 428,
+    "bytes": 73262
   },
   "assets/recipe-card-images/frites_four_maison_cooknote_v1_spooky.jpg": {
     "width": 760,
@@ -571,9 +571,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 20098
   },
   "assets/recipe-card-images/gazpacho_tomate_menthe_basilic_spooky.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 17395
+    "width": 760,
+    "height": 428,
+    "bytes": 74630
   },
   "assets/recipe-card-images/gratin_chou_fleur_chorizo_cocottes_cooknote_v2_spooky.jpg": {
     "width": 480,
@@ -786,9 +786,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 19539
   },
   "assets/recipe-card-images/pain_hot_dog_spooky.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 17006
+    "width": 760,
+    "height": 428,
+    "bytes": 72977
   },
   "assets/recipe-card-images/pains_burgers_brioche_spooky.jpg": {
     "width": 520,
