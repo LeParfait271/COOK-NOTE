@@ -235,14 +235,20 @@ expect(
     && androidLegacyRepository.includes('SEARCH_INDEX_ASSET')
     && androidLegacyRepository.includes('SearchEntry')
     && androidLegacyRepository.includes('homeRecipes')
+    && androidLegacyRepository.includes('buildHomeRecipes')
+    && androidLegacyRepository.includes('searchableRecipes')
     && androidLegacyRepository.includes('filterSearchable')
     && androidLegacyRepository.includes('searchSmart')
     && androidLegacyRepository.includes('scoreRecipe')
     && androidLegacyRepository.includes('fuzzyContains')
     && androidLegacyRepository.includes('childrenForParent')
+    && androidLegacyRepository.includes('childrenByParent')
+    && androidLegacyRepository.includes('buildChildrenByParent')
     && androidLegacyRepository.includes('belongsToParent')
     && androidLegacyRepository.includes('additionalMasters')
     && androidLegacyRepository.includes('collectionCounts')
+    && androidLegacyRepository.includes('buildCollectionCounts')
+    && androidLegacyRepository.includes('Collections.unmodifiableMap')
     && androidLegacyRepository.includes('parentTrail')
     && androidLegacyRepository.includes('recipe.master.length() == 0')
     && androidLegacyRepository.includes('searchableOnly && recipe.isCollection()')
@@ -415,6 +421,9 @@ expect(
   'recherche simple sans filtres',
   'recherche intelligente sans filtres',
   'index recherche precompile',
+  'catalogue parent precompile',
+  'enfants parents preclasses',
+  'compteurs collection caches',
   'swipe retour bord gauche',
   'navigation restaurable',
   'prechargement images',
@@ -467,6 +476,9 @@ expect(
     && androidReadme.includes('recherche simple sans filtres')
     && androidReadme.includes('recherche intelligente sans filtres')
     && androidReadme.includes('index recherche precompile')
+    && androidReadme.includes('catalogue parent precompile')
+    && androidReadme.includes('enfants parents preclasses')
+    && androidReadme.includes('compteurs collection caches')
     && androidReadme.includes('swipe retour bord gauche')
     && androidReadme.includes('navigation restaurable')
     && androidReadme.includes('prechargement images')
@@ -540,6 +552,9 @@ expect(
   'recherche simple sans filtres',
   'recherche intelligente sans filtres',
   'index recherche precompile',
+  'catalogue parent precompile',
+  'enfants parents preclasses',
+  'compteurs collection caches',
   'swipe retour bord gauche',
   'navigation restaurable',
   'prechargement images',

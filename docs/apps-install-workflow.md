@@ -89,7 +89,8 @@ diagnostic. Elle ne doit pas etre utilisee comme workflow final de publication.
   image serialise, coalescence chargements image, images visibles prioritaires,
   file image prioritaire, annulation prefetch obsolete, cache image normalise,
   nettoyage vues recyclees, prechauffage images differe, position de grille
-  conservee, liberation memoire de liste, pile retour bornee, prefetch carte
+  conservee, catalogue parent precompile, enfants parents preclasses,
+  compteurs collection caches, liberation memoire de liste, pile retour bornee, prefetch carte
   borne, courses cochables, audit perf leger, ecran actif persistant, etapes numerotees, quantites ajustables,
   courses fusionnees, preferences locales discretes, diagnostic hors ligne,
   cache image adaptatif, scroll fluide, index recherche precompile, cartes
@@ -100,7 +101,7 @@ diagnostic. Elle ne doit pas etre utilisee comme workflow final de publication.
   pastilles lisibles, etats presses natifs et actions principales/secondaires
   distinguees
 
-Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, recherche simple sans filtres, recherche intelligente sans filtres, recherche temporisee, index recherche precompile, accueil parent Android, selecteurs natifs de preparation, partage fiche, navigation restaurable, swipe retour bord gauche, prechargement images borne, decode image serialise, coalescence chargements image, images visibles prioritaires, file image prioritaire, annulation prefetch obsolete, cache image normalise, nettoyage vues recyclees, prechauffage images differe, position de grille conservee, liberation memoire de liste, pile retour bornee, prefetch carte borne, courses cochables, courses fusionnees, quantites ajustables, preferences locales discretes, diagnostic hors ligne, cache image adaptatif, scroll fluide, audit perf leger, cartes parent visibles, ecran actif persistant.
+Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, recherche simple sans filtres, recherche intelligente sans filtres, recherche temporisee, index recherche precompile, accueil parent Android, selecteurs natifs de preparation, partage fiche, navigation restaurable, swipe retour bord gauche, prechargement images borne, decode image serialise, coalescence chargements image, images visibles prioritaires, file image prioritaire, annulation prefetch obsolete, cache image normalise, nettoyage vues recyclees, prechauffage images differe, catalogue parent precompile, enfants parents preclasses, compteurs collection caches, position de grille conservee, liberation memoire de liste, pile retour bornee, prefetch carte borne, courses cochables, courses fusionnees, quantites ajustables, preferences locales discretes, diagnostic hors ligne, cache image adaptatif, scroll fluide, audit perf leger, cartes parent visibles, ecran actif persistant.
 
 La recherche Android Legacy reste volontairement basique : elle est fermee tant
 que l'utilisateur ne touche pas `Recherche`, puis affiche seulement un champ

@@ -113,8 +113,9 @@ le diagnostic hors ligne, le cache image adaptatif, le decode image serialise,
 la coalescence chargements image, les images visibles prioritaires, la file
 image prioritaire, l annulation prefetch obsolete, le cache image normalise, le
 nettoyage vues recyclees, le prechauffage images borne, le prechauffage images
-differe, la position de grille conservee, la liberation memoire de liste, la
-pile retour bornee, le prefetch carte borne et le scroll fluide. Ces
+differe, le catalogue parent precompile, les enfants parents preclasses, les
+compteurs collection caches, la position de grille conservee, la liberation
+memoire de liste, la pile retour bornee, le prefetch carte borne et le scroll fluide. Ces
 fonctions doivent rester Android natives, sans filtres visibles dans la
 recherche et sans moteur web.
 

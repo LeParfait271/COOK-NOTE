@@ -38,6 +38,7 @@ Le mode d'emploi complet est dans
   image serialise, coalescence chargements image, images visibles prioritaires,
   file image prioritaire, annulation prefetch obsolete, cache image normalise,
   nettoyage vues recyclees, prechauffage images differe, scroll fluide,
+  catalogue parent precompile, enfants parents preclasses, compteurs collection caches,
   position de grille conservee, prefetch carte borne, copie fiche,
   partage fiche, navigation restaurable, swipe retour bord gauche,
   prechargement images borne, liberation memoire de liste, courses cochables,
@@ -49,7 +50,8 @@ Le mode d'emploi complet est dans
   chargements image, images visibles prioritaires, file image prioritaire,
   annulation prefetch obsolete, cache image normalise, nettoyage vues recyclees,
   prechauffage images differe, position de grille conservee, liberation memoire
-  de liste, prefetch carte borne, courses cochables, courses fusionnees, quantites ajustables,
+  de liste, catalogue parent precompile, enfants parents preclasses,
+  compteurs collection caches, prefetch carte borne, courses cochables, courses fusionnees, quantites ajustables,
   preferences locales discretes, diagnostic hors ligne, cache image adaptatif,
   scroll fluide, index recherche precompile, audit perf leger
 - aucun changement de recette requis pour l app

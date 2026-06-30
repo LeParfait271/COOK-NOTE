@@ -27,6 +27,10 @@ final class CookNoteRepository {
     final List<String> categories;
     private final Map<String, Recipe> byId;
     private final Map<String, SearchEntry> searchIndex;
+    private final List<Recipe> homeRecipes;
+    private final List<Recipe> searchableRecipes;
+    private final Map<String, List<Recipe>> childrenByParent;
+    private final Map<String, Integer> collectionCounts;
 
     private CookNoteRepository(String version, List<Recipe> recipes, List<String> categories, Map<String, SearchEntry> searchIndex) {
         this.version = version;
@@ -39,6 +43,10 @@ final class CookNoteRepository {
         this.searchIndex = searchIndex == null
                 ? Collections.<String, SearchEntry>emptyMap()
                 : Collections.unmodifiableMap(searchIndex);
+        this.homeRecipes = buildHomeRecipes();
+        this.searchableRecipes = buildSearchableRecipes();
+        this.childrenByParent = buildChildrenByParent();
+        this.collectionCounts = buildCollectionCounts();
     }
 
     static CookNoteRepository load(Context context) throws Exception {
@@ -84,6 +92,30 @@ final class CookNoteRepository {
     }
 
     List<Recipe> homeRecipes() {
+        return homeRecipes;
+    }
+
+    List<Recipe> searchableRecipes() {
+        return searchableRecipes;
+    }
+
+    List<Recipe> childrenForParent(Recipe parent) {
+        if (parent == null || parent.id.length() == 0) return Collections.emptyList();
+        List<Recipe> children = childrenByParent.get(parent.id);
+        return children == null ? Collections.<Recipe>emptyList() : children;
+    }
+
+    int collectionCount(Recipe recipe) {
+        if (recipe == null) return 0;
+        Integer count = collectionCounts.get(recipe.id);
+        return count == null ? recipe.variants.size() : count.intValue();
+    }
+
+    Map<String, Integer> collectionCounts() {
+        return collectionCounts;
+    }
+
+    private List<Recipe> buildHomeRecipes() {
         List<Recipe> output = new ArrayList<Recipe>();
         for (Recipe recipe : recipes) {
             if (recipe.master.length() == 0) output.add(recipe);
@@ -96,42 +128,41 @@ final class CookNoteRepository {
                 return left.title.compareToIgnoreCase(right.title);
             }
         });
-        return output;
+        return Collections.unmodifiableList(output);
     }
 
-    List<Recipe> searchableRecipes() {
+    private List<Recipe> buildSearchableRecipes() {
         List<Recipe> output = new ArrayList<Recipe>();
         for (Recipe recipe : recipes) {
             if (!recipe.isCollection()) output.add(recipe);
         }
-        return output;
+        return Collections.unmodifiableList(output);
     }
 
-    List<Recipe> childrenForParent(Recipe parent) {
-        List<Recipe> output = new ArrayList<Recipe>();
-        if (parent == null || parent.id.length() == 0) return output;
-        for (Recipe recipe : recipes) {
-            if (recipe.id.equals(parent.id)) continue;
-            if (belongsToParent(recipe, parent.id, new HashSet<String>())) output.add(recipe);
+    private Map<String, List<Recipe>> buildChildrenByParent() {
+        Map<String, List<Recipe>> output = new HashMap<String, List<Recipe>>();
+        for (Recipe parent : recipes) {
+            List<Recipe> children = new ArrayList<Recipe>();
+            for (Recipe recipe : recipes) {
+                if (recipe.id.equals(parent.id)) continue;
+                if (belongsToParent(recipe, parent.id, new HashSet<String>())) children.add(recipe);
+            }
+            sortRecipeList(children);
+            output.put(parent.id, Collections.unmodifiableList(children));
         }
-        sortRecipeList(output);
-        return output;
+        return Collections.unmodifiableMap(output);
     }
 
-    int collectionCount(Recipe recipe) {
-        if (recipe == null) return 0;
-        int childCount = childrenForParent(recipe).size();
-        return childCount > 0 ? childCount : recipe.variants.size();
-    }
-
-    Map<String, Integer> collectionCounts() {
+    private Map<String, Integer> buildCollectionCounts() {
         Map<String, Integer> counts = new HashMap<String, Integer>();
         for (Recipe recipe : recipes) {
             if (recipe.isCollection() || recipe.master.length() == 0) {
-                counts.put(recipe.id, collectionCount(recipe));
+                List<Recipe> children = childrenByParent.get(recipe.id);
+                int childCount = children == null ? 0 : children.size();
+                counts.put(recipe.id, childCount > 0 ? childCount : recipe.variants.size());
             }
         }
-        return counts;
+        return Collections.unmodifiableMap(counts);
     }
 
     List<Recipe> parentTrail(Recipe recipe) {
@@ -168,8 +199,7 @@ final class CookNoteRepository {
         if (query.length() == 0) return searchableRecipes();
         String[] tokens = query.split(" ");
         List<SearchResult> results = new ArrayList<SearchResult>();
-        for (Recipe recipe : recipes) {
-            if (recipe.isCollection()) continue;
+        for (Recipe recipe : searchableRecipes) {
             SearchEntry entry = searchIndex.get(recipe.id);
             int score = scoreRecipe(entry != null ? entry : SearchEntry.fromRecipe(recipe), query, tokens);
             if (score > 0) results.add(new SearchResult(recipe, score));
