@@ -87,6 +87,14 @@ final class RecipeAdapter extends BaseAdapter {
         if (!enabled) resetPrefetchWindow();
     }
 
+    void releaseView(View view) {
+        if (view == null || imageLoader == null) return;
+        Object tag = view.getTag();
+        if (!(tag instanceof ViewHolder)) return;
+        ViewHolder holder = (ViewHolder) tag;
+        imageLoader.detach(holder.image);
+    }
+
     @Override
     public int getCount() {
         return items.size();

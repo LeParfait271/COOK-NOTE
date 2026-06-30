@@ -287,6 +287,8 @@ expect(
     && androidLegacyImageLoader.includes('waitingTargets')
     && androidLegacyImageLoader.includes('registerWaitingTarget')
     && androidLegacyImageLoader.includes('takeWaitingTargets')
+    && androidLegacyImageLoader.includes('detach(ImageView')
+    && androidLegacyImageLoader.includes('unregisterWaitingTarget')
     && androidLegacyImageLoader.includes('prefetchDetail')
     && androidLegacyImageLoader.includes('trimMemory')
     && androidLegacyImageLoader.includes('cacheSummary')
@@ -307,7 +309,10 @@ expect(
     && androidLegacyAdapter.includes('sameItems')
     && androidLegacyAdapter.includes('setCompactCards')
     && androidLegacyAdapter.includes('setPrefetchEnabled')
+    && androidLegacyAdapter.includes('releaseView')
     && androidLegacyMainActivity.includes('handleListScrollStateChanged')
+    && androidLegacyMainActivity.includes('setRecyclerListener')
+    && androidLegacyMainActivity.includes('onMovedToScrapHeap')
     && androidLegacyMainActivity.includes('LIST_IDLE_PREWARM_DELAY_MS')
     && androidLegacyMainActivity.includes('LIST_VISIBLE_PREFETCH_LIMIT')
     && androidLegacyMainActivity.includes('scheduleVisibleRangePrewarm')
@@ -459,6 +464,8 @@ expect(
   'annulation prefetch obsolete',
   'cache image normalise',
   'nettoyage vues recyclees',
+  'vues image recyclees detachees',
+  'cibles image obsoletes liberees',
   'prefetch carte borne',
   'accueil parent Android',
   'cartes parent visibles',
@@ -523,6 +530,8 @@ expect(
     && androidReadme.includes('annulation prefetch obsolete')
     && androidReadme.includes('cache image normalise')
     && androidReadme.includes('nettoyage vues recyclees')
+    && androidReadme.includes('vues image recyclees detachees')
+    && androidReadme.includes('cibles image obsoletes liberees')
     && androidReadme.includes('prefetch carte borne')
     && androidReadme.includes('accueil parent Android')
     && androidReadme.includes('cartes parent visibles')
@@ -608,6 +617,8 @@ expect(
   'annulation prefetch obsolete',
   'cache image normalise',
   'nettoyage vues recyclees',
+  'vues image recyclees detachees',
+  'cibles image obsoletes liberees',
   'prefetch carte borne',
   'accueil parent Android',
   'cartes parent visibles',

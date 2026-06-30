@@ -52,8 +52,9 @@ perf leger et ecran actif persistant pour cuisiner sans mise en veille. Le
 prechauffage images differe doit laisser les images visibles passer avant les
 prefetchs. Le chargeur garde une file image prioritaire mono-thread :
 images visibles prioritaires, annulation prefetch obsolete, cache image
-normalise, nettoyage vues recyclees et prefetch carte borne pour ne pas garder
-de travail mort pendant les scrolls rapides.
+normalise, nettoyage vues recyclees, vues image recyclees detachees,
+cibles image obsoletes liberees et prefetch carte borne pour ne pas garder de travail
+mort pendant les scrolls rapides.
 La grille annule le prechauffage en fling, garde le prefetch ralenti hors
 inertie et relance un prechauffage visible apres scroll seulement quand la
 grille redevient calme.
@@ -118,7 +119,7 @@ quantites ajustables, les courses fusionnees, les preferences locales discretes,
 le diagnostic hors ligne, le cache image adaptatif, le decode image serialise,
 la coalescence chargements image, les images visibles prioritaires, la file
 image prioritaire, l annulation prefetch obsolete, le cache image normalise, le
-nettoyage vues recyclees, le prechauffage images borne, le prechauffage images
+nettoyage vues recyclees, les vues image recyclees detachees, les cibles image obsoletes liberees, le prechauffage images borne, le prechauffage images
 differe, le prechauffage visible apres scroll, l annulation prechauffage en fling, le prefetch ralenti hors inertie, les mots recherche predecoupes, le fuzzy sans split, les allocations recherche reduites, le cache resultats recherche borne, les requetes recentes reutilisees, le classement recherche memoise, le catalogue parent precompile, les enfants parents preclasses, les
 compteurs collection caches, la position de grille conservee, la liberation
 memoire de liste, la pile retour bornee, le prefetch carte borne et le scroll fluide. Ces

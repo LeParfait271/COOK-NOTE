@@ -37,7 +37,8 @@ Le mode d'emploi complet est dans
   recherche precompile, recherche temporisee, cache image adaptatif, decode
   image serialise, coalescence chargements image, images visibles prioritaires,
   file image prioritaire, annulation prefetch obsolete, cache image normalise,
-  nettoyage vues recyclees, prechauffage images differe, scroll fluide,
+  nettoyage vues recyclees, vues image recyclees detachees,
+  cibles image obsoletes liberees, prechauffage images differe, scroll fluide,
   prechauffage visible apres scroll, annulation prechauffage en fling,
   prefetch ralenti hors inertie,
   mots recherche predecoupes, fuzzy sans split, allocations recherche reduites,
@@ -53,6 +54,7 @@ Le mode d'emploi complet est dans
   gauche, prechargement images borne, decode image serialise, coalescence
   chargements image, images visibles prioritaires, file image prioritaire,
   annulation prefetch obsolete, cache image normalise, nettoyage vues recyclees,
+  vues image recyclees detachees, cibles image obsoletes liberees,
   prechauffage images differe, position de grille conservee, liberation memoire
   de liste, prechauffage visible apres scroll, annulation prechauffage en fling,
   prefetch ralenti hors inertie, mots recherche predecoupes, fuzzy sans split,

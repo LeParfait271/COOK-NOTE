@@ -66,7 +66,7 @@ final class ImageLoader {
 
     void load(final String imageName, final ImageView imageView, final int requestedWidth, final int requestedHeight) {
         if (imageName == null || imageName.length() == 0) {
-            imageView.setImageDrawable(placeholder);
+            detach(imageView);
             return;
         }
         loadAsset("images/" + imageName, imageView, requestedWidth, requestedHeight);
@@ -74,10 +74,17 @@ final class ImageLoader {
 
     void loadDetail(final String imageName, final ImageView imageView, final int requestedWidth, final int requestedHeight) {
         if (imageName == null || imageName.length() == 0) {
-            imageView.setImageDrawable(placeholder);
+            detach(imageView);
             return;
         }
         loadAsset("detail-images/" + imageName, imageView, requestedWidth, requestedHeight);
+    }
+
+    void detach(ImageView imageView) {
+        if (imageView == null) return;
+        unregisterWaitingTarget(imageView);
+        imageView.setTag(null);
+        imageView.setImageDrawable(placeholder);
     }
 
     void prefetch(final String imageName, final int requestedWidth, final int requestedHeight) {
@@ -94,6 +101,7 @@ final class ImageLoader {
         final int cacheWidth = normalizedDimension(requestedWidth);
         final int cacheHeight = normalizedDimension(requestedHeight);
         final String cacheKey = cacheKey(assetPath, cacheWidth, cacheHeight);
+        unregisterWaitingTarget(imageView);
         imageView.setTag(cacheKey);
         Bitmap cached = cache.get(cacheKey);
         if (cached != null) {
@@ -191,6 +199,12 @@ final class ImageLoader {
             targets.add(imageView);
             waitingTargets.put(cacheKey, targets);
             return true;
+        }
+    }
+
+    private void unregisterWaitingTarget(ImageView imageView) {
+        synchronized (waitingTargets) {
+            removeWaitingTargetLocked(imageView, null);
         }
     }
 

@@ -485,6 +485,12 @@ public class MainActivity extends Activity {
         adapter.setCompactCards(compactCards);
         adapter.setCollectionCounts(repository.collectionCounts());
         gridView.setAdapter(adapter);
+        gridView.setRecyclerListener(new AbsListView.RecyclerListener() {
+            @Override
+            public void onMovedToScrapHeap(View view) {
+                if (adapter != null) adapter.releaseView(view);
+            }
+        });
         root.addView(gridView, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 0,
