@@ -9,6 +9,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -94,6 +96,10 @@ public class MainActivity extends Activity {
     private static final int DETAIL_IMAGE_MAX_WIDTH = 1280;
     private static final int BACK_SWIPE_EDGE_DP = 64;
     private static final int BACK_SWIPE_TRIGGER_DP = 86;
+    private static final int SEARCH_DEBOUNCE_MS = 140;
+    private static final int LIST_PREWARM_LIMIT = 8;
+    private static final int COLLECTION_PREWARM_LIMIT = 8;
+    private static final int MAX_BACK_STACK = 16;
     private static final boolean PERF_LOG_ENABLED = true;
     private static final String PERF_TAG = "CookNotePerf";
     private static final float[] QUANTITY_FACTORS = new float[]{0.5f, 1f, 1.5f, 2f, 3f, 4f};
@@ -125,10 +131,21 @@ public class MainActivity extends Activity {
     private int currentScreen = SCREEN_LIST;
     private String currentRecipeId = "";
     private String lastRecipeId = "";
+    private String lastAppliedQuery = null;
+    private boolean lastAppliedHomeMode;
+    private int lastAppliedCount;
+    private boolean filtersApplied;
     private float backSwipeStartX;
     private float backSwipeStartY;
     private boolean backSwipeCandidate;
     private boolean backSwipeTriggered;
+    private final Handler uiHandler = new Handler(Looper.getMainLooper());
+    private final Runnable applyFiltersRunnable = new Runnable() {
+        @Override
+        public void run() {
+            applyFilters();
+        }
+    };
     private final Stack<NavState> detailBackStack = new Stack<NavState>();
     private final Set<String> favoriteIds = new HashSet<String>();
     private final Set<String> shoppingDoneKeys = new HashSet<String>();
@@ -225,6 +242,7 @@ public class MainActivity extends Activity {
             if (screen == SCREEN_RECIPE && repository.find(recipeId) == null) continue;
             if (screen == SCREEN_LIST) continue;
             detailBackStack.push(new NavState(screen, recipeId));
+            trimBackStack();
         }
     }
 
@@ -472,7 +490,7 @@ public class MainActivity extends Activity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 currentQuery = String.valueOf(s);
-                applyFilters();
+                scheduleApplyFilters();
             }
 
             @Override
@@ -481,7 +499,8 @@ public class MainActivity extends Activity {
         });
 
         setContentView(root);
-        applyFilters();
+        resetFilterSnapshot();
+        applyFiltersNow();
         perfLog("showList", startedAt);
     }
 
@@ -559,8 +578,8 @@ public class MainActivity extends Activity {
 
     private void clearSearch() {
         currentQuery = "";
-        if (searchBox != null) searchBox.setText("");
-        applyFilters();
+        if (searchBox != null && searchBox.getText().length() > 0) searchBox.setText("");
+        applyFiltersNow();
     }
 
     private void setSearchPanelOpen(boolean open) {
@@ -682,38 +701,73 @@ public class MainActivity extends Activity {
     }
 
     private boolean isHomeMode() {
-        return currentQuery.trim().length() == 0;
+        return normalizedQuery().length() == 0;
+    }
+
+    private String normalizedQuery() {
+        return currentQuery == null ? "" : currentQuery.trim();
+    }
+
+    private void resetFilterSnapshot() {
+        filtersApplied = false;
+        lastAppliedQuery = null;
+        lastAppliedCount = 0;
+    }
+
+    private void scheduleApplyFilters() {
+        uiHandler.removeCallbacks(applyFiltersRunnable);
+        uiHandler.postDelayed(applyFiltersRunnable, SEARCH_DEBOUNCE_MS);
+    }
+
+    private void applyFiltersNow() {
+        uiHandler.removeCallbacks(applyFiltersRunnable);
+        applyFilters();
     }
 
     private void applyFilters() {
         if (adapter == null) return;
         long startedAt = System.currentTimeMillis();
-        boolean homeMode = isHomeMode();
+        String query = normalizedQuery();
+        boolean homeMode = query.length() == 0;
+        if (filtersApplied && homeMode == lastAppliedHomeMode && query.equals(lastAppliedQuery)) {
+            updateFilterControls(homeMode, lastAppliedCount);
+            return;
+        }
         List<Recipe> filtered = homeMode
                 ? repository.homeRecipes()
-                : repository.searchSmart(currentQuery);
+                : repository.searchSmart(query);
         adapter.setFavoriteIds(favoriteIds);
         adapter.setItems(filtered);
         prewarmListImages(filtered);
+        filtersApplied = true;
+        lastAppliedQuery = query;
+        lastAppliedHomeMode = homeMode;
+        lastAppliedCount = filtered.size();
+        updateFilterControls(homeMode, filtered.size());
+        perfLog(homeMode ? "homeGrid" : "searchGrid", startedAt);
+    }
+
+    private void updateFilterControls(boolean homeMode, int count) {
+        if (counterView == null) return;
         StringBuilder label = new StringBuilder();
-        label.append(filtered.size()).append(homeMode ? " fiches parents" : " resultats");
+        label.append(count).append(homeMode ? " fiches parents" : " resultats");
         if (homeMode) label.append(" - accueil");
         if (!homeMode) label.append(" - recherche");
         counterView.setText(label.toString());
         if (searchToggle != null) searchToggle.setText(buildSearchToggleLabel());
         if (clearSearchButton != null) clearSearchButton.setEnabled(!homeMode);
-        perfLog(homeMode ? "homeGrid" : "searchGrid", startedAt);
     }
 
     private void prewarmListImages(List<Recipe> recipes) {
         if (recipes == null || imageLoader == null) return;
         int width = Math.max(dp(286), getResources().getDisplayMetrics().widthPixels / 3);
         int height = Math.max(dp(130), (width * 9) / 16);
-        int limit = Math.min(recipes.size(), 12);
+        int limit = Math.min(recipes.size(), LIST_PREWARM_LIMIT);
+        boolean homeMode = isHomeMode();
         for (int index = 0; index < limit; index += 1) {
             Recipe recipe = recipes.get(index);
             imageLoader.prefetch(recipe.image, width, height);
-            if (index < 3) imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
+            if (!homeMode && index == 0) imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
         }
     }
 
@@ -1374,11 +1428,11 @@ public class MainActivity extends Activity {
     private void prewarmCollectionImages(List<VariantChoice> choices, int cardHeight) {
         if (choices == null || imageLoader == null) return;
         int width = Math.max(dp(180), (getResources().getDisplayMetrics().widthPixels - dp(42)) / Math.max(1, collectionGridColumns()));
-        int limit = Math.min(choices.size(), 12);
+        int limit = Math.min(choices.size(), COLLECTION_PREWARM_LIMIT);
         for (int index = 0; index < limit; index += 1) {
             Recipe recipe = choices.get(index).recipe;
             imageLoader.prefetch(recipe.image, width, cardHeight);
-            if (index < 4) imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
+            if (index == 0) imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
         }
     }
 
@@ -2965,6 +3019,13 @@ public class MainActivity extends Activity {
         } else if (currentScreen == SCREEN_DIAGNOSTIC) {
             detailBackStack.push(new NavState(SCREEN_DIAGNOSTIC, ""));
         }
+        trimBackStack();
+    }
+
+    private void trimBackStack() {
+        while (detailBackStack.size() > MAX_BACK_STACK) {
+            detailBackStack.remove(0);
+        }
     }
 
     private void perfLog(String label, long startedAt) {
@@ -3028,8 +3089,15 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        uiHandler.removeCallbacks(applyFiltersRunnable);
         if (imageLoader != null) imageLoader.shutdown();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        if (imageLoader != null) imageLoader.trimMemory(false);
+        super.onStop();
     }
 
     @Override

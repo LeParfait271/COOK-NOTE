@@ -34,14 +34,16 @@ Le mode d'emploi complet est dans
 - Fonctions natives legeres : favoris locaux, recherche simple sans filtres,
   copie ingredients, liste de courses locale, quantites ajustables, courses
   fusionnees, preferences locales discretes, diagnostic hors ligne, index
-  recherche precompile, cache image adaptatif, scroll fluide, copie fiche,
+  recherche precompile, recherche temporisee, cache image adaptatif, decode
+  image serialise, scroll fluide, copie fiche,
   partage fiche, navigation restaurable, swipe retour bord gauche,
-  prechargement images, courses cochables, audit perf leger, ecran actif
+  prechargement images borne, courses cochables, audit perf leger, ecran actif
   persistant et bouton natif de mise a jour
 - Garde-fou lexical : bouton natif de mise a jour, ecran actif persistant,
   cartes parent visibles, recherche simple sans filtres, recherche intelligente
-  sans filtres, navigation restaurable, swipe retour bord gauche, prechargement
-  images, courses cochables, courses fusionnees, quantites ajustables,
+  sans filtres, recherche temporisee, navigation restaurable, swipe retour bord
+  gauche, prechargement images borne, decode image serialise, courses cochables,
+  courses fusionnees, quantites ajustables,
   preferences locales discretes, diagnostic hors ligne, cache image adaptatif,
   scroll fluide, index recherche precompile, audit perf leger
 - aucun changement de recette requis pour l app

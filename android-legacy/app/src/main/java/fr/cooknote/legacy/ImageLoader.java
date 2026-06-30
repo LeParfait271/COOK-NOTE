@@ -35,7 +35,7 @@ final class ImageLoader {
                 return bitmap.getByteCount() / 1024;
             }
         };
-        this.executor = Executors.newFixedThreadPool(2);
+        this.executor = Executors.newSingleThreadExecutor();
         this.mainHandler = new Handler(Looper.getMainLooper());
         this.placeholder = new ColorDrawable(Color.rgb(18, 16, 12));
         this.pendingKeys = Collections.synchronizedSet(new HashSet<String>());
@@ -79,6 +79,19 @@ final class ImageLoader {
         executor.execute(new Runnable() {
             @Override
             public void run() {
+                final Bitmap cachedAfterQueue = cache.get(cacheKey);
+                if (cachedAfterQueue != null) {
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Object tag = imageView.getTag();
+                            if (cacheKey.equals(tag)) {
+                                imageView.setImageBitmap(cachedAfterQueue);
+                            }
+                        }
+                    });
+                    return;
+                }
                 final Bitmap bitmap = decode(assetPath, requestedWidth, requestedHeight);
                 if (bitmap != null) cache.put(cacheKey, bitmap);
                 mainHandler.post(new Runnable() {
@@ -101,9 +114,13 @@ final class ImageLoader {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                Bitmap bitmap = decode(assetPath, requestedWidth, requestedHeight);
-                if (bitmap != null) cache.put(cacheKey, bitmap);
-                pendingKeys.remove(cacheKey);
+                try {
+                    if (cache.get(cacheKey) != null) return;
+                    Bitmap bitmap = decode(assetPath, requestedWidth, requestedHeight);
+                    if (bitmap != null) cache.put(cacheKey, bitmap);
+                } finally {
+                    pendingKeys.remove(cacheKey);
+                }
             }
         });
     }

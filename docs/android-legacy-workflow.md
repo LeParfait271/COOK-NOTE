@@ -71,6 +71,8 @@ favoriser les titres/alias sans exposer de filtres dans l interface.
 Garder le libelle exact de garde-fou : recherche intelligente sans filtres.
 Le moteur s'appuie sur un index recherche precompile `search-index-lite.json`
 pour eviter de recalculer les champs de recherche a chaque frappe.
+La saisie est temporisee cote Android, afin de ne pas relancer la grille a chaque
+caractere sur une tablette 2 Go.
 Les fiches parents doivent lire `master` et `additionalMasters`, afin que les
 rattachements parents additionnels du site apparaissent dans les collections
 Android Legacy.
@@ -99,7 +101,8 @@ Cette sortie contient :
 
 Les fonctions natives legeres actuellement attendues incluent aussi les
 quantites ajustables, les courses fusionnees, les preferences locales discretes,
-le diagnostic hors ligne, le cache image adaptatif et le scroll fluide. Ces
+le diagnostic hors ligne, le cache image adaptatif, le decode image serialise,
+le prechauffage images borne, la pile retour bornee et le scroll fluide. Ces
 fonctions doivent rester Android natives, sans filtres visibles dans la
 recherche et sans moteur web.
 

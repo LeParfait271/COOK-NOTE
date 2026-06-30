@@ -51,14 +51,18 @@ final class RecipeAdapter extends BaseAdapter {
     }
 
     void setItems(List<Recipe> recipes) {
+        if (sameItems(recipes)) return;
         items.clear();
-        items.addAll(recipes);
+        if (recipes != null) items.addAll(recipes);
         notifyDataSetChanged();
     }
 
     void setFavoriteIds(Set<String> ids) {
+        HashSet<String> next = new HashSet<String>();
+        if (ids != null) next.addAll(ids);
+        if (favoriteIds.equals(next)) return;
         favoriteIds.clear();
-        if (ids != null) favoriteIds.addAll(ids);
+        favoriteIds.addAll(next);
         notifyDataSetChanged();
     }
 
@@ -113,11 +117,24 @@ final class RecipeAdapter extends BaseAdapter {
     }
 
     private void prefetchAround(int position, int cardWidth, int cardHeight) {
-        for (int offset = 1; offset <= 2; offset += 1) {
+        for (int offset = 1; offset <= 1; offset += 1) {
             int index = position + offset;
             if (index >= items.size()) return;
             imageLoader.prefetch(items.get(index).image, cardWidth, cardHeight);
         }
+    }
+
+    private boolean sameItems(List<Recipe> recipes) {
+        if (recipes == null) return items.isEmpty();
+        if (recipes.size() != items.size()) return false;
+        for (int index = 0; index < recipes.size(); index += 1) {
+            Recipe current = items.get(index);
+            Recipe next = recipes.get(index);
+            if (current == next) continue;
+            if (current == null || next == null) return false;
+            if (!TextUtils.equals(current.id, next.id)) return false;
+        }
+        return true;
     }
 
     private ViewHolder createRow() {
