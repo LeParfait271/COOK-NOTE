@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.52';
+const SITE_VERSION = 'v2.53';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -4858,13 +4858,13 @@ function SharePanel({ open, onClose, recipe, notify }) {
 
   if (!open) return null;
   return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
-    h('section', { className: 'modal-panel share-modal', role: 'dialog', 'aria-modal': 'true', onMouseDown: event => event.stopPropagation() },
+    h('section', { className: 'modal-panel share-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'share-modal-title', onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
-        h('div', null, h('p', { className: 'eyebrow' }, 'Partager'), h('h2', null, recipe.title)),
+        h('div', null, h('p', { className: 'eyebrow' }, 'Partager'), h('h2', { id: 'share-modal-title' }, recipe.title)),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'share-card' },
-        h('div', { className: 'share-card-media', style: imageStyle },
+        h('div', { className: 'share-card-media', style: imageStyle, 'aria-hidden': true },
           !recipe.image && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1))
         ),
         h('div', { className: 'share-card-copy' },
@@ -4877,24 +4877,24 @@ function SharePanel({ open, onClose, recipe, notify }) {
             h('span', { className: `nutri-score nutri-${getNutriScore(recipe).toLowerCase()}` }, `Nutri ${getNutriScore(recipe)}`)
           )
         ),
-        h('div', { className: qrReady ? 'share-qr is-ready' : 'share-qr' },
-          h('canvas', { ref: canvasRef, className: 'qr-canvas', width: 132, height: 132 }),
+        h('div', { className: qrReady ? 'share-qr is-ready' : 'share-qr', 'aria-label': `QR code de ${recipe.title}` },
+          h('canvas', { ref: canvasRef, className: 'qr-canvas', width: 132, height: 132, 'aria-label': `QR code du lien ${recipe.title}` }),
           !qrReady && h('span', null, 'Lien pret')
         )
       ),
-      h('div', { className: 'share-link-box' }, url),
+      h('div', { className: 'share-link-box', title: url, 'aria-label': `Lien de partage ${url}` }, url),
       h('div', { className: 'share-actions' },
-        navigator.share && h(Button, { variant: 'primary', onClick: nativeShare }, 'Partager'),
+        navigator.share && h(Button, { variant: 'primary', onClick: nativeShare, ariaLabel: `Partager ${recipe.title}` }, 'Partager'),
         h(Button, { variant: navigator.share ? 'subtle' : 'primary', onClick: () => copyText(url).then(() => {
           setCopied(true);
           notify?.('Lien de recette copié');
-        }) }, copied ? 'Lien copie' : 'Copier le lien'),
+        }), ariaLabel: `Copier le lien de ${recipe.title}` }, copied ? 'Lien copie' : 'Copier le lien'),
         h(Button, { variant: 'subtle', onClick: () => copyText(text).then(() => {
           setCopiedText(true);
           notify?.('Texte de recette copié');
-        }) }, copiedText ? 'Texte copie' : 'Copier le texte'),
-        h('a', { className: 'btn btn-subtle', href: `https://wa.me/?text=${encodeURIComponent(text)}`, target: '_blank', rel: 'noreferrer' }, 'WhatsApp'),
-        h('a', { className: 'btn btn-subtle', href: `mailto:?subject=${encodeURIComponent(recipe.title)}&body=${encodeURIComponent(text)}` }, 'Email')
+        }), ariaLabel: `Copier le texte de partage de ${recipe.title}` }, copiedText ? 'Texte copie' : 'Copier le texte'),
+        h('a', { className: 'btn btn-subtle', href: `https://wa.me/?text=${encodeURIComponent(text)}`, target: '_blank', rel: 'noreferrer', 'aria-label': `Partager ${recipe.title} sur WhatsApp` }, 'WhatsApp'),
+        h('a', { className: 'btn btn-subtle', href: `mailto:?subject=${encodeURIComponent(recipe.title)}&body=${encodeURIComponent(text)}`, 'aria-label': `Partager ${recipe.title} par email` }, 'Email')
       )
     )
   );
