@@ -177,6 +177,7 @@ expect(
     && androidLegacyMainActivity.includes('restoreListPosition')
     && androidLegacyMainActivity.includes('setSelectionFromTop')
     && androidLegacyMainActivity.includes('releaseListSurface')
+    && androidLegacyMainActivity.includes('cancelPendingPrefetch')
     && androidLegacyMainActivity.includes('perfLog')
     && androidLegacyMainActivity.includes('isHomeMode')
     && androidLegacyMainActivity.includes('fiches parents')
@@ -256,7 +257,13 @@ expect(
     && androidLegacyRepository.includes('windows1252Byte')
     && androidLegacyImageLoader.includes('RGB_565')
     && androidLegacyImageLoader.includes('LruCache')
-    && androidLegacyImageLoader.includes('newSingleThreadExecutor')
+    && androidLegacyImageLoader.includes('ThreadPoolExecutor')
+    && androidLegacyImageLoader.includes('PriorityBlockingQueue')
+    && androidLegacyImageLoader.includes('PRIORITY_VISIBLE')
+    && androidLegacyImageLoader.includes('PRIORITY_PREFETCH')
+    && androidLegacyImageLoader.includes('ImageTask')
+    && androidLegacyImageLoader.includes('prefetchGeneration')
+    && androidLegacyImageLoader.includes('cancelPendingPrefetch')
     && androidLegacyImageLoader.includes('cachedAfterQueue')
     && androidLegacyImageLoader.includes('CACHE_DIMENSION_BUCKET')
     && androidLegacyImageLoader.includes('normalizedDimension')
@@ -412,6 +419,9 @@ expect(
   'navigation restaurable',
   'prechargement images',
   'prechauffage images differe',
+  'images visibles prioritaires',
+  'file image prioritaire',
+  'annulation prefetch obsolete',
   'cache image normalise',
   'nettoyage vues recyclees',
   'prefetch carte borne',
@@ -461,6 +471,9 @@ expect(
     && androidReadme.includes('navigation restaurable')
     && androidReadme.includes('prechargement images')
     && androidReadme.includes('prechauffage images differe')
+    && androidReadme.includes('images visibles prioritaires')
+    && androidReadme.includes('file image prioritaire')
+    && androidReadme.includes('annulation prefetch obsolete')
     && androidReadme.includes('cache image normalise')
     && androidReadme.includes('nettoyage vues recyclees')
     && androidReadme.includes('prefetch carte borne')
@@ -531,6 +544,9 @@ expect(
   'navigation restaurable',
   'prechargement images',
   'prechauffage images differe',
+  'images visibles prioritaires',
+  'file image prioritaire',
+  'annulation prefetch obsolete',
   'cache image normalise',
   'nettoyage vues recyclees',
   'prefetch carte borne',

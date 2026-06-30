@@ -807,6 +807,7 @@ public class MainActivity extends Activity {
 
     private void releaseListSurface() {
         cancelListPrewarm();
+        if (imageLoader != null) imageLoader.cancelPendingPrefetch();
         recipeGridView = null;
         adapter = null;
     }

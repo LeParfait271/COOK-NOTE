@@ -18,10 +18,16 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 final class ImageLoader {
     private static final int CACHE_DIMENSION_BUCKET = 32;
+    private static final int PRIORITY_VISIBLE = 0;
+    private static final int PRIORITY_PREFETCH = 1;
 
     private final Context context;
     private final LruCache<String, Bitmap> cache;
@@ -30,6 +36,8 @@ final class ImageLoader {
     private final ColorDrawable placeholder;
     private final Set<String> pendingKeys;
     private final Map<String, ArrayList<ImageView>> waitingTargets;
+    private final AtomicLong taskSequence;
+    private final AtomicInteger prefetchGeneration;
 
     ImageLoader(Context context) {
         this.context = context.getApplicationContext();
@@ -41,11 +49,19 @@ final class ImageLoader {
                 return bitmap.getByteCount() / 1024;
             }
         };
-        this.executor = Executors.newSingleThreadExecutor();
+        this.executor = new ThreadPoolExecutor(
+                1,
+                1,
+                0L,
+                TimeUnit.MILLISECONDS,
+                new PriorityBlockingQueue<Runnable>()
+        );
         this.mainHandler = new Handler(Looper.getMainLooper());
         this.placeholder = new ColorDrawable(Color.rgb(18, 16, 12));
         this.pendingKeys = Collections.synchronizedSet(new HashSet<String>());
         this.waitingTargets = new HashMap<String, ArrayList<ImageView>>();
+        this.taskSequence = new AtomicLong();
+        this.prefetchGeneration = new AtomicInteger();
     }
 
     void load(final String imageName, final ImageView imageView, final int requestedWidth, final int requestedHeight) {
@@ -86,7 +102,7 @@ final class ImageLoader {
         }
         imageView.setImageDrawable(placeholder);
         if (!registerWaitingTarget(cacheKey, imageView)) return;
-        executor.execute(new Runnable() {
+        executor.execute(task(PRIORITY_VISIBLE, new Runnable() {
             @Override
             public void run() {
                 final Bitmap cachedAfterQueue = cache.get(cacheKey);
@@ -109,7 +125,7 @@ final class ImageLoader {
                     }
                 });
             }
-        });
+        }));
     }
 
     private void prefetchAsset(final String assetPath, final int requestedWidth, final int requestedHeight) {
@@ -119,10 +135,12 @@ final class ImageLoader {
         if (cache.get(cacheKey) != null) return;
         if (hasWaitingTargets(cacheKey)) return;
         if (!pendingKeys.add(cacheKey)) return;
-        executor.execute(new Runnable() {
+        final int generation = prefetchGeneration.get();
+        executor.execute(task(PRIORITY_PREFETCH, new Runnable() {
             @Override
             public void run() {
                 try {
+                    if (generation != prefetchGeneration.get()) return;
                     if (cache.get(cacheKey) != null) return;
                     Bitmap bitmap = decode(assetPath, cacheWidth, cacheHeight);
                     if (bitmap != null) cache.put(cacheKey, bitmap);
@@ -130,11 +148,12 @@ final class ImageLoader {
                     pendingKeys.remove(cacheKey);
                 }
             }
-        });
+        }));
     }
 
     void shutdown() {
         executor.shutdownNow();
+        prefetchGeneration.incrementAndGet();
         cache.evictAll();
         pendingKeys.clear();
         synchronized (waitingTargets) {
@@ -143,12 +162,17 @@ final class ImageLoader {
     }
 
     void trimMemory(boolean aggressive) {
-        pendingKeys.clear();
+        cancelPendingPrefetch();
         if (aggressive) {
             cache.evictAll();
         } else {
             cache.trimToSize(Math.max(0, cache.maxSize() / 2));
         }
+    }
+
+    void cancelPendingPrefetch() {
+        prefetchGeneration.incrementAndGet();
+        pendingKeys.clear();
     }
 
     String cacheSummary() {
@@ -220,6 +244,10 @@ final class ImageLoader {
         return ((safe + CACHE_DIMENSION_BUCKET - 1) / CACHE_DIMENSION_BUCKET) * CACHE_DIMENSION_BUCKET;
     }
 
+    private ImageTask task(int priority, Runnable runnable) {
+        return new ImageTask(priority, taskSequence.getAndIncrement(), runnable);
+    }
+
     private Bitmap decode(String assetPath, int requestedWidth, int requestedHeight) {
         BitmapFactory.Options bounds = new BitmapFactory.Options();
         bounds.inJustDecodeBounds = true;
@@ -266,6 +294,31 @@ final class ImageLoader {
             stream.close();
         } catch (Exception ignored) {
             // Nothing to close.
+        }
+    }
+
+    private static final class ImageTask implements Runnable, Comparable<ImageTask> {
+        private final int priority;
+        private final long sequence;
+        private final Runnable runnable;
+
+        ImageTask(int priority, long sequence, Runnable runnable) {
+            this.priority = priority;
+            this.sequence = sequence;
+            this.runnable = runnable;
+        }
+
+        @Override
+        public void run() {
+            runnable.run();
+        }
+
+        @Override
+        public int compareTo(ImageTask other) {
+            if (other == null) return -1;
+            if (priority != other.priority) return priority < other.priority ? -1 : 1;
+            if (sequence == other.sequence) return 0;
+            return sequence < other.sequence ? -1 : 1;
         }
     }
 }
