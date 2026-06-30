@@ -35,6 +35,7 @@ final class ImageLoader {
     private final Handler mainHandler;
     private final ColorDrawable placeholder;
     private final Set<String> pendingKeys;
+    private final Set<String> visiblePendingKeys;
     private final Map<String, ArrayList<ImageView>> waitingTargets;
     private final AtomicLong taskSequence;
     private final AtomicInteger prefetchGeneration;
@@ -59,6 +60,7 @@ final class ImageLoader {
         this.mainHandler = new Handler(Looper.getMainLooper());
         this.placeholder = new ColorDrawable(Color.rgb(18, 16, 12));
         this.pendingKeys = Collections.synchronizedSet(new HashSet<String>());
+        this.visiblePendingKeys = Collections.synchronizedSet(new HashSet<String>());
         this.waitingTargets = new HashMap<String, ArrayList<ImageView>>();
         this.taskSequence = new AtomicLong();
         this.prefetchGeneration = new AtomicInteger();
@@ -110,28 +112,34 @@ final class ImageLoader {
         }
         imageView.setImageDrawable(placeholder);
         if (!registerWaitingTarget(cacheKey, imageView)) return;
+        if (!visiblePendingKeys.add(cacheKey)) return;
         executor.execute(task(PRIORITY_VISIBLE, new Runnable() {
             @Override
             public void run() {
-                final Bitmap cachedAfterQueue = cache.get(cacheKey);
-                final Bitmap bitmap = cachedAfterQueue != null
-                        ? cachedAfterQueue
-                        : decode(assetPath, cacheWidth, cacheHeight);
-                if (bitmap != null) cache.put(cacheKey, bitmap);
-                mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ArrayList<ImageView> targets = takeWaitingTargets(cacheKey);
-                        if (targets == null || bitmap == null) return;
-                        for (ImageView target : targets) {
-                            if (target == null) continue;
-                            Object tag = target.getTag();
-                            if (cacheKey.equals(tag)) {
-                                target.setImageBitmap(bitmap);
+                try {
+                    if (!hasWaitingTargets(cacheKey)) return;
+                    final Bitmap cachedAfterQueue = cache.get(cacheKey);
+                    final Bitmap bitmap = cachedAfterQueue != null
+                            ? cachedAfterQueue
+                            : decode(assetPath, cacheWidth, cacheHeight);
+                    if (bitmap != null && cachedAfterQueue == null) cache.put(cacheKey, bitmap);
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ArrayList<ImageView> targets = takeWaitingTargets(cacheKey);
+                            if (targets == null || bitmap == null) return;
+                            for (ImageView target : targets) {
+                                if (target == null) continue;
+                                Object tag = target.getTag();
+                                if (cacheKey.equals(tag)) {
+                                    target.setImageBitmap(bitmap);
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                } finally {
+                    visiblePendingKeys.remove(cacheKey);
+                }
             }
         }));
     }
@@ -164,6 +172,7 @@ final class ImageLoader {
         prefetchGeneration.incrementAndGet();
         cache.evictAll();
         pendingKeys.clear();
+        visiblePendingKeys.clear();
         synchronized (waitingTargets) {
             waitingTargets.clear();
         }
@@ -184,7 +193,7 @@ final class ImageLoader {
     }
 
     String cacheSummary() {
-        return cache.size() + " KB / " + cache.maxSize() + " KB, attentes " + pendingKeys.size() + ", vues " + waitingTargetCount();
+        return cache.size() + " KB / " + cache.maxSize() + " KB, prefetch " + pendingKeys.size() + ", visibles " + visiblePendingKeys.size() + ", vues " + waitingTargetCount();
     }
 
     private boolean registerWaitingTarget(String cacheKey, ImageView imageView) {

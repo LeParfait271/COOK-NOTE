@@ -35,7 +35,8 @@ Le mode d'emploi complet est dans
   copie ingredients, liste de courses locale, quantites ajustables, courses
   fusionnees, preferences locales discretes, diagnostic hors ligne, index
   recherche precompile, recherche temporisee, cache image adaptatif, decode
-  image serialise, coalescence chargements image, images visibles prioritaires,
+  image serialise, coalescence chargements image, chargements visibles
+  coalesces, decodages visibles obsoletes ignores, images visibles prioritaires,
   file image prioritaire, annulation prefetch obsolete, cache image normalise,
   nettoyage vues recyclees, vues image recyclees detachees,
   cibles image obsoletes liberees, prechauffage images differe, scroll fluide,
@@ -52,7 +53,8 @@ Le mode d'emploi complet est dans
   cartes parent visibles, recherche simple sans filtres, recherche intelligente
   sans filtres, recherche temporisee, navigation restaurable, swipe retour bord
   gauche, prechargement images borne, decode image serialise, coalescence
-  chargements image, images visibles prioritaires, file image prioritaire,
+  chargements image, chargements visibles coalesces, decodages visibles
+  obsoletes ignores, images visibles prioritaires, file image prioritaire,
   annulation prefetch obsolete, cache image normalise, nettoyage vues recyclees,
   vues image recyclees detachees, cibles image obsoletes liberees,
   prechauffage images differe, position de grille conservee, liberation memoire

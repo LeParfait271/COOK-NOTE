@@ -293,6 +293,8 @@ expect(
     && androidLegacyImageLoader.includes('trimMemory')
     && androidLegacyImageLoader.includes('cacheSummary')
     && androidLegacyImageLoader.includes('pendingKeys')
+    && androidLegacyImageLoader.includes('visiblePendingKeys')
+    && androidLegacyImageLoader.includes('!hasWaitingTargets(cacheKey)')
     && androidLegacyImageLoader.includes('detail-images/')
     && androidLegacyAdapter.includes('BaseAdapter')
     && androidLegacyAdapter.includes('FrameLayout')
@@ -466,6 +468,8 @@ expect(
   'nettoyage vues recyclees',
   'vues image recyclees detachees',
   'cibles image obsoletes liberees',
+  'chargements visibles coalesces',
+  'decodages visibles obsoletes ignores',
   'prefetch carte borne',
   'accueil parent Android',
   'cartes parent visibles',
@@ -532,6 +536,8 @@ expect(
     && androidReadme.includes('nettoyage vues recyclees')
     && androidReadme.includes('vues image recyclees detachees')
     && androidReadme.includes('cibles image obsoletes liberees')
+    && androidReadme.includes('chargements visibles coalesces')
+    && androidReadme.includes('decodages visibles obsoletes ignores')
     && androidReadme.includes('prefetch carte borne')
     && androidReadme.includes('accueil parent Android')
     && androidReadme.includes('cartes parent visibles')
@@ -619,6 +625,8 @@ expect(
   'nettoyage vues recyclees',
   'vues image recyclees detachees',
   'cibles image obsoletes liberees',
+  'chargements visibles coalesces',
+  'decodages visibles obsoletes ignores',
   'prefetch carte borne',
   'accueil parent Android',
   'cartes parent visibles',
