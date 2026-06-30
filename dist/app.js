@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.54';
+const SITE_VERSION = 'v2.55';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -5837,12 +5837,14 @@ function PersonalRecipeNotes({ recipeId, value, updatePersonalRecipeNote }) {
   const note = value || {};
   const status = note.status || '';
   const text = note.text || '';
+  const noteTitleId = `personal-note-title-${recipeId}`;
+  const noteHelpId = `personal-note-help-${recipeId}`;
   const update = patch => updatePersonalRecipeNote?.(recipeId, { ...note, ...patch, updatedAt: Date.now() });
-  return h('div', { className: 'personal-notes-card' },
+  return h('div', { className: 'personal-notes-card', 'aria-labelledby': noteTitleId },
     h('div', { className: 'personal-notes-head' },
       h('div', null,
         h('p', { className: 'eyebrow' }, 'Carnet perso'),
-        h('h2', null, 'Note privée')
+        h('h2', { id: noteTitleId }, 'Note privée')
       ),
       status && h('span', null, status)
     ),
@@ -5850,6 +5852,7 @@ function PersonalRecipeNotes({ recipeId, value, updatePersonalRecipeNote }) {
       h('span', null, 'Statut'),
       h('select', {
         value: status,
+        'aria-label': 'Statut de la note privée',
         onChange: event => update({ status: event.target.value })
       },
         h('option', { value: '' }, 'Non classée'),
@@ -5864,13 +5867,16 @@ function PersonalRecipeNotes({ recipeId, value, updatePersonalRecipeNote }) {
         value: text,
         rows: 4,
         maxLength: 600,
+        'aria-describedby': noteHelpId,
         placeholder: 'Ex : moins de sucre, cuisson +3 min, validée pour 8 personnes...',
         onChange: event => update({ text: event.target.value })
-      })
+      }),
+      h('small', { id: noteHelpId, className: 'personal-note-meter' }, `${text.length}/600 caractères`)
     ),
     (status || text) && h('button', {
       type: 'button',
       className: 'personal-note-clear',
+      'aria-label': 'Effacer la note privée de cette recette',
       onClick: () => updatePersonalRecipeNote?.(recipeId, null)
     }, 'Effacer la note')
   );
