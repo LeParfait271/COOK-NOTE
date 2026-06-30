@@ -33,9 +33,9 @@ Le mode d'emploi complet est dans
   variantes internes, sans afficher toutes les variantes en bloc
 - Fonctions natives legeres : favoris locaux, recherche simple sans filtres,
   copie ingredients, liste de courses locale, copie fiche, partage fiche,
-  ecran actif persistant et bouton natif de mise a jour
+  swipe retour bord gauche, ecran actif persistant et bouton natif de mise a jour
 - Garde-fou lexical : bouton natif de mise a jour, ecran actif persistant,
-  cartes parent visibles, recherche simple sans filtres
+  cartes parent visibles, recherche simple sans filtres, swipe retour bord gauche
 - aucun changement de recette requis pour l app
 
 ## Mise a jour explicite

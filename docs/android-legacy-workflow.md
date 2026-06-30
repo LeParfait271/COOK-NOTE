@@ -235,8 +235,8 @@ C est voulu.
   contient l interface native Android 5 Lite, les sections de fiche, les
   pastilles d infos, les favoris, la recherche simple sans filtres, la copie
   ingredients, la liste de courses locale, la copie fiche, le partage fiche,
-  l ecran actif persistant, le bouton natif de mise a jour et les etapes
-  numerotees.
+  le swipe retour bord gauche, l ecran actif persistant, le bouton natif de
+  mise a jour et les etapes numerotees.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java`
   lit `recipes-lite.json`, les `master`, les `additionalMasters` et les
   rattachements parents additionnels.
@@ -266,7 +266,7 @@ C est voulu.
   ou `assets/www` dans Android Legacy.
 - Ne pas supprimer les fonctions natives legeres reintegrees : favoris locaux,
   recherche simple sans filtres, copie ingredients, liste de courses locale,
-  copie fiche, partage fiche et ecran actif persistant.
+  copie fiche, partage fiche, swipe retour bord gauche et ecran actif persistant.
 - Ne pas remettre de filtres dans la recherche Android Legacy : pas de categorie,
   saison, difficulte, favoris, recents, `Toutes fiches` ou bouton aleatoire dans
   le panneau de recherche.

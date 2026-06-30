@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -68,6 +69,8 @@ public class MainActivity extends Activity {
     private static final int COLOR_GOLD = Color.rgb(251, 191, 36);
     private static final int COLOR_ORANGE = Color.rgb(245, 158, 11);
     private static final int DETAIL_IMAGE_MAX_WIDTH = 1280;
+    private static final int BACK_SWIPE_EDGE_DP = 64;
+    private static final int BACK_SWIPE_TRIGGER_DP = 86;
 
     private CookNoteRepository repository;
     private ImageLoader imageLoader;
@@ -82,6 +85,10 @@ public class MainActivity extends Activity {
     private boolean searchPanelOpen;
     private boolean showingDetail;
     private boolean keepScreenOn;
+    private float backSwipeStartX;
+    private float backSwipeStartY;
+    private boolean backSwipeCandidate;
+    private boolean backSwipeTriggered;
     private final Stack<String> detailBackStack = new Stack<String>();
     private final Set<String> favoriteIds = new HashSet<String>();
     private final ArrayList<String> shoppingRecipeIds = new ArrayList<String>();
@@ -2090,6 +2097,50 @@ public class MainActivity extends Activity {
             }
         }
         showList();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (handleBackSwipe(event)) return true;
+        return super.dispatchTouchEvent(event);
+    }
+
+    private boolean handleBackSwipe(MotionEvent event) {
+        int action = event.getActionMasked();
+        if (action == MotionEvent.ACTION_DOWN) {
+            backSwipeStartX = event.getX();
+            backSwipeStartY = event.getY();
+            backSwipeCandidate = showingDetail && backSwipeStartX <= dp(BACK_SWIPE_EDGE_DP);
+            backSwipeTriggered = false;
+            return false;
+        }
+
+        if (!backSwipeCandidate && !backSwipeTriggered) return false;
+
+        if (action == MotionEvent.ACTION_MOVE) {
+            float deltaX = event.getX() - backSwipeStartX;
+            float deltaY = Math.abs(event.getY() - backSwipeStartY);
+            if (deltaY > dp(36) && deltaY > Math.abs(deltaX)) {
+                backSwipeCandidate = false;
+                return false;
+            }
+            if (deltaX > dp(BACK_SWIPE_TRIGGER_DP) && deltaX > deltaY * 1.55f) {
+                backSwipeCandidate = false;
+                backSwipeTriggered = true;
+                hideKeyboard();
+                goBack();
+                return true;
+            }
+        }
+
+        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
+            boolean consumed = backSwipeTriggered;
+            backSwipeCandidate = false;
+            backSwipeTriggered = false;
+            return consumed;
+        }
+
+        return backSwipeTriggered;
     }
 
     @Override

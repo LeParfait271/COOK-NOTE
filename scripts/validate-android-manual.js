@@ -148,6 +148,9 @@ expect(
     && androidLegacyMainActivity.includes('FLAG_KEEP_SCREEN_ON')
     && androidLegacyMainActivity.includes('searchPanelOpen')
     && androidLegacyMainActivity.includes('setSearchPanelOpen')
+    && androidLegacyMainActivity.includes('dispatchTouchEvent')
+    && androidLegacyMainActivity.includes('handleBackSwipe')
+    && androidLegacyMainActivity.includes('BACK_SWIPE_EDGE_DP')
     && androidLegacyMainActivity.includes('isHomeMode')
     && androidLegacyMainActivity.includes('fiches parents')
     && androidLegacyMainActivity.includes('repository.homeRecipes()')
@@ -336,6 +339,7 @@ expect(
   'pastilles',
   'favoris locaux',
   'recherche simple sans filtres',
+  'swipe retour bord gauche',
   'accueil parent Android',
   'cartes parent visibles',
   'menu deroulant',
@@ -368,6 +372,7 @@ expect(
     && androidReadme.includes('actions principales')
     && androidReadme.includes('favoris locaux')
     && androidReadme.includes('recherche simple sans filtres')
+    && androidReadme.includes('swipe retour bord gauche')
     && androidReadme.includes('accueil parent Android')
     && androidReadme.includes('cartes parent visibles')
     && androidReadme.includes('menu')
@@ -421,6 +426,7 @@ expect(
   'pastilles',
   'favoris locaux',
   'recherche simple sans filtres',
+  'swipe retour bord gauche',
   'accueil parent Android',
   'cartes parent visibles',
   'menu deroulant',

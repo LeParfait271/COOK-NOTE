@@ -84,15 +84,15 @@ diagnostic. Elle ne doit pas etre utilisee comme workflow final de publication.
   Ingredients/Etapes/Avant de commencer, infos rapides en pastilles,
   ingredients en lignes, copie ingredients, rattachements parents additionnels,
   bouton natif de mise a jour, liste de courses locale, copie fiche, partage
-  fiche, ecran actif persistant, etapes numerotees, cartes parent visibles et
-  selecteurs natifs de preparation
+  fiche, swipe retour bord gauche, ecran actif persistant, etapes numerotees,
+  cartes parent visibles et selecteurs natifs de preparation
 - Direction visuelle Android Legacy : refonte visuelle native premium sans
   moteur web, header compact avec stats locales, grille `GridView` en cartes
   image 16/9 tactiles recyclees, hero de fiche encadre, sections cadrees,
   pastilles lisibles, etats presses natifs et actions principales/secondaires
   distinguees
 
-Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, recherche simple sans filtres, accueil parent Android, selecteurs natifs de preparation, partage fiche, cartes parent visibles, ecran actif persistant.
+Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, recherche simple sans filtres, accueil parent Android, selecteurs natifs de preparation, partage fiche, swipe retour bord gauche, cartes parent visibles, ecran actif persistant.
 
 La recherche Android Legacy reste volontairement basique : elle est fermee tant
 que l'utilisateur ne touche pas `Recherche`, puis affiche seulement un champ
