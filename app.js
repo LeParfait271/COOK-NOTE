@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.50';
+const SITE_VERSION = 'v2.51';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -5612,30 +5612,30 @@ function PreferencesPanel({ open, onClose, preferences, setPreferences }) {
   };
   const density = preferences.density || 'comfort';
   return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
-    h('section', { className: 'modal-panel preferences-modal', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Préférences d’affichage', onMouseDown: event => event.stopPropagation() },
+    h('section', { className: 'modal-panel preferences-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'preferences-title', onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
         h('div', null,
           h('p', { className: 'eyebrow' }, 'Affichage'),
-          h('h2', null, 'Préférences')
+          h('h2', { id: 'preferences-title' }, 'Préférences')
         ),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'preference-group' },
         h('strong', null, 'Densité des cartes'),
         h('div', { className: 'segmented-control', role: 'group', 'aria-label': 'Densité des cartes' },
-          h('button', { type: 'button', className: density === 'compact' ? 'active' : '', onClick: () => update({ density: 'compact' }) }, 'Compact'),
-          h('button', { type: 'button', className: density === 'comfort' ? 'active' : '', onClick: () => update({ density: 'comfort' }) }, 'Confort')
+          h('button', { type: 'button', className: density === 'compact' ? 'active' : '', 'aria-pressed': density === 'compact', title: 'Afficher plus de cartes', onClick: () => update({ density: 'compact' }) }, 'Compact'),
+          h('button', { type: 'button', className: density === 'comfort' ? 'active' : '', 'aria-pressed': density === 'comfort', title: 'Afficher des cartes plus aérées', onClick: () => update({ density: 'comfort' }) }, 'Confort')
         )
       ),
       h('label', { className: 'preference-check' },
-        h('input', { type: 'checkbox', checked: Boolean(preferences.largeText), onChange: event => update({ largeText: event.target.checked }) }),
+        h('input', { type: 'checkbox', checked: Boolean(preferences.largeText), 'aria-label': 'Activer le texte plus lisible', onChange: event => update({ largeText: event.target.checked }) }),
         h('span', null,
           h('strong', null, 'Texte plus lisible'),
           h('small', null, 'Agrandit légèrement les fiches et les panneaux.')
         )
       ),
       h('label', { className: 'preference-check' },
-        h('input', { type: 'checkbox', checked: Boolean(preferences.reduceMotion), onChange: event => update({ reduceMotion: event.target.checked }) }),
+        h('input', { type: 'checkbox', checked: Boolean(preferences.reduceMotion), 'aria-label': 'Activer les animations calmes', onChange: event => update({ reduceMotion: event.target.checked }) }),
         h('span', null,
           h('strong', null, 'Animations calmes'),
           h('small', null, 'Réduit les mouvements sans enlever les lumières du thème.')

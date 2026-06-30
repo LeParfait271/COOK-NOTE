@@ -3527,6 +3527,11 @@ a {
   color: var(--accent-ink);
 }
 
+.segmented-control button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 70%, #fff);
+  outline-offset: 2px;
+}
+
 .preference-check {
   grid-template-columns: auto minmax(0, 1fr);
   align-items: start;
