@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.46';
+const SITE_VERSION = 'v2.47';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -4371,7 +4371,13 @@ function Hero() {
 function ActiveChips({ chips }) {
   if (!chips.length) return null;
   return h('div', { className: 'active-chips', 'aria-label': 'Filtres actifs' },
-    chips.map(chip => h('button', { key: chip.key, type: 'button', onClick: chip.clear }, `${chip.label} ×`))
+    chips.map(chip => h('button', {
+      key: chip.key,
+      type: 'button',
+      onClick: chip.clear,
+      title: `Retirer le filtre ${chip.label}`,
+      'aria-label': `Retirer le filtre ${chip.label}`
+    }, `${chip.label} ×`))
   );
 }
 
@@ -5637,7 +5643,9 @@ function ToastStack({ toasts, dismissToast }) {
       key: toast.id,
       type: 'button',
       className: `toast toast-${toast.tone || 'info'}`,
-      onClick: () => dismissToast(toast.id)
+      onClick: () => dismissToast(toast.id),
+      title: 'Fermer la notification',
+      'aria-label': `Fermer la notification : ${toast.message}`
     },
       h('strong', null, toast.title || 'Cook Note'),
       h('span', null, toast.message)
