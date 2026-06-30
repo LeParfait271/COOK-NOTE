@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -429,6 +431,8 @@ public class MainActivity extends Activity {
 
         searchBox = new EditText(this);
         searchBox.setSingleLine(true);
+        searchBox.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        searchBox.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchBox.setTextColor(COLOR_TEXT);
         searchBox.setHintTextColor(COLOR_MUTED);
         searchBox.setTextSize(adjustedTextSize(14));
@@ -536,6 +540,16 @@ public class MainActivity extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
+        searchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView view, int actionId, android.view.KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE) {
+                    hideKeyboard();
+                    return true;
+                }
+                return false;
             }
         });
 

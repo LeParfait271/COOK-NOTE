@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.44';
+const SITE_VERSION = 'v2.45';
 const SITE_UPDATED_AT = '30/06/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -5009,7 +5009,7 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
         }, item.label))
       ),
       hasQuery
-        ? h('div', { className: 'search-result-count' }, `${results.length} résultat${results.length > 1 ? 's' : ''} pour "${query}"`)
+        ? h('div', { className: 'search-result-count', role: 'status', 'aria-live': 'polite' }, `${results.length} résultat${results.length > 1 ? 's' : ''} pour "${query}"`)
         : h('div', { className: 'search-discovery' },
           (recentSearches.length > 0 || recentRecipes.length > 0) && h('div', { className: 'search-memory-grid' },
             recentSearches.length > 0 && h('section', { className: 'search-memory-card' },
@@ -5025,7 +5025,7 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
               h('div', { className: 'recent-recipe-list' },
                 recentRecipes.slice(0, 4).map(recipe =>
                   h('button', { key: recipe.id, type: 'button', onClick: () => openSearchRecipe(recipe) },
-                    h('span', { className: 'search-result-image', style: imageBackgroundStyle(recipe.image) }),
+                    h('span', { className: 'search-result-image', style: imageBackgroundStyle(recipe.image), 'aria-hidden': true }),
                     h('span', null, recipe.title)
                   )
                 )
@@ -5062,9 +5062,10 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
                   key: recipe.id,
                   type: 'button',
                   className: 'search-result',
+                  'aria-label': `Ouvrir ${recipe.title}`,
                   onClick: () => openSearchRecipe(recipe)
                 },
-                  h('span', { className: 'search-result-image', style: imageBackgroundStyle(recipe.image) }),
+                  h('span', { className: 'search-result-image', style: imageBackgroundStyle(recipe.image), 'aria-hidden': true }),
                   h('span', { className: 'search-result-copy' },
                     h('strong', null, recipe.title),
                     h('small', null, recipe.yield || difficultyText(recipe)),
