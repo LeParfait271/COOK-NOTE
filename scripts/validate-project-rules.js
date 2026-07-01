@@ -257,7 +257,7 @@ expect('Validation Android manuel non branchee.', validators.androidManual.inclu
 expect('Nettoyage encodage Android Legacy non branche.', validators.legacyAssets.includes('repairMojibakeText') && validators.legacyAssets.includes('assertNoEncodingIssues') && validators.androidManual.includes('cleanString') && validators.androidManual.includes('windows1252Byte'));
 expect('Validation regles non branchee au check.', validators.packageJson.includes('scripts/validate-project-rules.js'));
 expect('CI non reproductible: npm ci doit etre utilise avec package-lock.json.', validators.workflow.includes('npm ci --no-audit --no-fund'));
-expect('Version Playwright non epinglee pour Node 20/CI.', validators.packageJson.includes('"@playwright/test": "1.53.1"') && validators.packageLock.includes('@playwright/test/-/test-1.53.1.tgz') && !validators.packageJson.includes('"@playwright/test": "^'));
+expect('Version Playwright non epinglee pour Node 20/CI.', validators.packageJson.includes('"@playwright/test": "1.61.1"') && validators.packageLock.includes('@playwright/test/-/test-1.61.1.tgz') && !validators.packageJson.includes('"@playwright/test": "^'));
 expect('Tests visuels incompatibles CSP stricte: page.waitForFunction exige unsafe-eval avec certaines versions Playwright.', !validators.visualSmoke.includes('waitForFunction') && rules.includes('unsafe-eval'));
 
 if (errors.length) {

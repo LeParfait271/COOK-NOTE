@@ -20,6 +20,9 @@ function expect(file, fragment) {
 const headers = read('_headers');
 const redirects = read('_redirects');
 const server = read('server.js');
+const adminHtml = read('admin.html');
+const adminLoginHtml = read('admin-login.html');
+const adminCss = read('admin.css');
 const packageJson = read('package.json');
 const rules = read('COOK_NOTE_RULES.md');
 
@@ -60,10 +63,24 @@ const rules = read('COOK_NOTE_RULES.md');
   "headers['cache-control'] = staticCacheControl(filePath, noStore)",
   'isTrustedOrigin',
   'requireTrustedOrigin',
-  'Origine non autorisee'
+  'Origine non autorisee',
+  'LOGIN_MAX_FAILURES',
+  'recordLoginFailure',
+  'loginRetryAfterSeconds',
+  "'retry-after'",
+  'isAllowedImagePayload',
+  'Signature image invalide'
 ].forEach(fragment => {
   if (!server.includes(fragment)) fail(`server.js: garde-fou headers absent (${fragment}).`);
 });
+
+['fonts.googleapis.com', 'fonts.gstatic.com', 'unpkg.com', 'cdn.jsdelivr.net'].forEach(domain => {
+  if (adminHtml.includes(domain)) fail(`admin.html: domaine externe interdit (${domain}).`);
+  if (adminLoginHtml.includes(domain)) fail(`admin-login.html: domaine externe interdit (${domain}).`);
+});
+if (adminCss.includes('font-family: Inter')) {
+  fail('admin.css: police externe Inter encore referencee.');
+}
 
 expect('package.json', 'scripts/validate-headers.js');
 expect('check.ps1', 'scripts\\validate-headers.js');
@@ -79,6 +96,9 @@ if (!rules.includes('Les headers de production')) {
 }
 if (!rules.includes('Origin') || !rules.includes('CSRF')) {
   fail('COOK_NOTE_RULES.md: regle CSRF admin absente.');
+}
+if (!rules.includes('429') || !rules.includes('Retry-After') || !rules.includes('signature binaire')) {
+  fail('COOK_NOTE_RULES.md: regles securite admin recentes absentes.');
 }
 
 if (errors.length) {

@@ -135,6 +135,9 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les headers de production Cloudflare Pages doivent rester versionnes dans `_headers` : CSP stricte adaptee au site autonome, service worker et HTML en `no-cache`, JS/CSS/catalogues/manifest en cache court, images et vendors en immutable.
 - Les routes statiques Cloudflare Pages doivent rester versionnees dans `_redirects` pour que `/recette/*` et `/techniques` rechargent directement l'app sans 404.
 - Les routes admin qui modifient l'etat (`login`, `logout`, creation, edition, suppression, upload) doivent refuser les requetes avec un `Origin` different de l'hote courant afin de limiter les risques CSRF.
+- La connexion admin doit limiter les echecs repetes par adresse et renvoyer `429` avec `Retry-After` quand le seuil est atteint.
+- Les uploads admin doivent verifier l'extension et la signature binaire reelle des images (`jpg`, `png`, `webp`) avant ecriture dans `assets/uploads/`.
+- Les pages admin doivent respecter la CSP locale sans domaine externe de fonts ou CDN.
 - Quand `app.js`, `recipes.js` ou `style.css` change, bump la version des assets dans `index.html` et `service-worker.js` pour eviter un melange de cache ancien/nouveau.
 - A chaque push visible du site, augmenter la version affichee dans `SITE_VERSION` de `0.01`, mettre `SITE_UPDATED_AT` a la date du jour au format `JJ/MM/AA`, puis garder le footer au format `vX.XX / JJ/MM/AA`. La numerotation reste sur deux chiffres apres le point : apres `v1.99`, passer a `v2.00`, puis `v2.01`, jamais `v1.100`.
 - Le mode cuisine et les boutons minuteurs ont ete supprimes. Ne pas recreer `focusMode`, `recipe-focus-mode`, `Mode cuisine`, `step-timer`, `timerEnd`, `timerLabel`, `cooking-step-card` ou `cooking-step-actions`.

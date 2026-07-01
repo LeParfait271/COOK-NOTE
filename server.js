@@ -12,8 +12,11 @@ const SESSION_COOKIE = 'cook_note_session';
 const MAX_JSON_BYTES = 2 * 1024 * 1024;
 const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
 const SESSION_TTL_MS = 1000 * 60 * 60 * 12;
+const LOGIN_WINDOW_MS = 1000 * 60 * 15;
+const LOGIN_MAX_FAILURES = 8;
 const VALID_IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp']);
 const sessions = new Map();
+const loginFailures = new Map();
 const PUBLIC_ROOT_FILES = new Set([
   'index.html',
   'recipe.html',
@@ -101,10 +104,11 @@ function send(res, status, body, headers = {}) {
   res.end(body);
 }
 
-function sendJson(res, status, payload) {
+function sendJson(res, status, payload, headers = {}) {
   send(res, status, JSON.stringify(payload), {
     'content-type': 'application/json; charset=utf-8',
-    'cache-control': 'no-store'
+    'cache-control': 'no-store',
+    ...headers
   });
 }
 
@@ -151,6 +155,42 @@ function passwordMatches(candidate, expected) {
   const candidateHash = crypto.createHash('sha256').update(String(candidate || '')).digest();
   const expectedHash = crypto.createHash('sha256').update(String(expected || '')).digest();
   return crypto.timingSafeEqual(candidateHash, expectedHash);
+}
+
+function clientAddress(req) {
+  const forwarded = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+  return forwarded || req.socket.remoteAddress || 'local';
+}
+
+function loginFailureState(req) {
+  const key = clientAddress(req);
+  const now = Date.now();
+  const state = loginFailures.get(key);
+  if (!state || now - state.firstAttemptAt > LOGIN_WINDOW_MS) {
+    return { key, count: 0, firstAttemptAt: now };
+  }
+  return { key, ...state };
+}
+
+function loginRetryAfterSeconds(req) {
+  const state = loginFailureState(req);
+  return Math.max(1, Math.ceil((LOGIN_WINDOW_MS - (Date.now() - state.firstAttemptAt)) / 1000));
+}
+
+function isLoginRateLimited(req) {
+  return loginFailureState(req).count >= LOGIN_MAX_FAILURES;
+}
+
+function recordLoginFailure(req) {
+  const state = loginFailureState(req);
+  loginFailures.set(state.key, {
+    count: state.count + 1,
+    firstAttemptAt: state.firstAttemptAt
+  });
+}
+
+function clearLoginFailures(req) {
+  loginFailures.delete(clientAddress(req));
 }
 
 function requireAdmin(req, res) {
@@ -426,6 +466,27 @@ function parseMultipart(buffer, boundary) {
     .filter(Boolean);
 }
 
+function startsWithBytes(buffer, bytes) {
+  return buffer.length >= bytes.length && bytes.every((byte, index) => buffer[index] === byte);
+}
+
+function asciiAt(buffer, start, length) {
+  return buffer.subarray(start, start + length).toString('ascii');
+}
+
+function isAllowedImagePayload(ext, data) {
+  if (ext === '.jpg' || ext === '.jpeg') {
+    return data.length >= 3 && data[0] === 0xff && data[1] === 0xd8 && data[2] === 0xff;
+  }
+  if (ext === '.png') {
+    return startsWithBytes(data, [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  }
+  if (ext === '.webp') {
+    return data.length >= 12 && asciiAt(data, 0, 4) === 'RIFF' && asciiAt(data, 8, 4) === 'WEBP';
+  }
+  return false;
+}
+
 async function handleUpload(req, res, url) {
   const contentType = req.headers['content-type'] || '';
   const boundary = /boundary=(.+)$/.exec(contentType)?.[1];
@@ -447,6 +508,10 @@ async function handleUpload(req, res, url) {
   const ext = path.extname(file.filename).toLowerCase();
   if (!VALID_IMAGE_EXT.has(ext)) {
     sendJson(res, 400, { error: 'Format refuse. Utiliser jpg, jpeg, png ou webp.' });
+    return;
+  }
+  if (!isAllowedImagePayload(ext, file.data)) {
+    sendJson(res, 400, { error: 'Signature image invalide pour cette extension.' });
     return;
   }
   const slug = sanitizeId(url.searchParams.get('slug') || 'recette') || 'recette';
@@ -543,10 +608,18 @@ function route(req, res) {
         sendJson(res, 503, { error: 'Admin non configure. Definir COOK_NOTE_ADMIN_PASSWORD.' });
         return;
       }
+      if (isLoginRateLimited(req)) {
+        sendJson(res, 429, { error: 'Trop de tentatives. Reessayer plus tard.' }, {
+          'retry-after': String(loginRetryAfterSeconds(req))
+        });
+        return;
+      }
       if (!passwordMatches(body.password, ADMIN_PASSWORD)) {
+        recordLoginFailure(req);
         sendJson(res, 401, { error: 'Mot de passe invalide' });
         return;
       }
+      clearLoginFailures(req);
       const token = crypto.randomBytes(32).toString('hex');
       sessions.set(token, { createdAt: Date.now() });
       const secure = req.headers['x-forwarded-proto'] === 'https' || req.socket.encrypted ? '; Secure' : '';

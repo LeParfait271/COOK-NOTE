@@ -8,9 +8,9 @@ Cook Note est un carnet culinaire web pour organiser un vrai repertoire de
 recettes sans perdre les variantes :
 
 - fiches parents : Coulis, Chantilly, Cremes, Pates, Cookies, etc. ;
-- selection d'une variante dans la fiche parent ;
+- ouverture directe des recettes depuis les fiches parents ;
 - panier de courses combine entre plusieurs recettes ;
-- mode cuisine avec checklist, progression et minuteurs ;
+- fiches detaillees avec ingredients, etapes, notes pratiques et liens internes ;
 - fiches techniques pour les familles de recettes ;
 - back-office protege pour maintenir le catalogue.
 

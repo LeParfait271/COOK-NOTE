@@ -9,7 +9,7 @@ Cook Note est un carnet culinaire web avec :
 - fiches parents pour regrouper les variantes d'une meme famille ;
 - recettes consultables par saison, categorie, tags et recherche avancee ;
 - panier de courses combine entre plusieurs recettes cochees ;
-- mode cuisine avec checklist, progression et minuteurs d'etapes ;
+- fiches detaillees avec ingredients, etapes, notes pratiques et liens internes ;
 - fiches techniques sur les familles importantes ;
 - images servies depuis le projet dans assets/recipe-images/ ou assets/uploads/.
 - garde-fou maitre dans A_LIRE_EN_PREMIER.md.
@@ -28,7 +28,7 @@ Il permet :
 - categories, saisons, difficulte, rendement, tags, video ;
 - fiche parent et variantes ;
 - ingredients groupes, etapes, notes et fiche technique ;
-- import d'images vers assets/uploads/ ;
+- import d'images vers assets/uploads/ avec verification du type reel ;
 - sauvegarde automatique de recipes.js dans backups/ avant chaque ecriture.
 
 Configurer le mot de passe avec :
