@@ -20,6 +20,7 @@ function expect(label, condition) {
 const packageJson = JSON.parse(read('package.json'));
 const packageText = read('package.json');
 const androidGitignore = read('android-legacy/.gitignore');
+const androidGradleProperties = read('android-legacy/gradle.properties');
 const androidReadme = read('android-legacy/README.md');
 const workflowDoc = read('docs/android-legacy-workflow.md');
 const appsWorkflowDoc = read('docs/apps-install-workflow.md');
@@ -42,7 +43,7 @@ const androidLegacyRecipe = read('android-legacy/app/src/main/java/fr/cooknote/l
 const androidLegacyRepository = read('android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java');
 const androidLegacyImageLoader = read('android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java');
 const androidLegacyAdapter = read('android-legacy/app/src/main/java/fr/cooknote/legacy/RecipeAdapter.java');
-const androidApkVersionName = (appScript.match(/const ANDROID_LEGACY_APK_VERSION = '(\d+\.\d{2})'/) || [])[1] || '0.00';
+const androidApkVersionName = (androidGradleProperties.match(/^cookNoteAndroidVersion=(\d+\.\d{2})$/m) || [])[1] || '0.00';
 const legacyVersionedApk = `downloads/cook-note-android-legacy-v${androidApkVersionName}.apk`;
 
 ['build', 'check', 'preflight', 'dev', 'start'].forEach(scriptName => {
@@ -195,6 +196,9 @@ expect(
     && androidLegacyMainActivity.includes('android.R.id.content')
     && androidLegacyMainActivity.includes('cancelPendingPrefetch')
     && androidLegacyMainActivity.includes('perfLog')
+    && androidLegacyMainActivity.includes('PERF_LOG_ENABLED = false')
+    && !androidLegacyMainActivity.includes('Log.d(')
+    && !androidLegacyMainActivity.includes('import android.util.Log')
     && androidLegacyMainActivity.includes('isHomeMode')
     && androidLegacyMainActivity.includes('fiches principales')
     && androidLegacyMainActivity.includes('repository.homeRecipes()')
@@ -270,7 +274,9 @@ expect(
     && androidLegacyRepository.includes('childrenForParent')
     && androidLegacyRepository.includes('childrenByParent')
     && androidLegacyRepository.includes('buildChildrenByParent')
-    && androidLegacyRepository.includes('belongsToParent')
+    && androidLegacyRepository.includes('addParentChild')
+    && !androidLegacyRepository.includes('belongsToParent(recipe, parent.id, new HashSet<String>())')
+    && !androidLegacyRepository.includes('private boolean belongsToParent')
     && androidLegacyRepository.includes('additionalMasters')
     && androidLegacyRepository.includes('collectionCounts')
     && androidLegacyRepository.includes('buildCollectionCounts')
@@ -395,6 +401,8 @@ expect(
     && updateAllAppsScript.includes('ReadAllText')
     && updateAllAppsScript.includes('Encoding]::UTF8')
     && updateAllAppsScript.includes('Get-CookNoteVersionName')
+    && updateAllAppsScript.includes('android-legacy\\gradle.properties')
+    && updateAllAppsScript.includes('cookNoteAndroidVersion')
     && updateAllAppsScript.includes('cook-note-android-legacy-v$VersionName.apk')
     && updateAllAppsScript.includes('Remove-StaleVersionedApks')
     && updateAllAppsScript.includes('dist\\downloads')
@@ -417,7 +425,12 @@ expect(
 );
 expect(
   'Version APK Android encore couplee a SITE_VERSION.',
-  appScript.includes("const ANDROID_LEGACY_APK_VERSION = '")
+  androidGradleProperties.includes('cookNoteAndroidVersion=')
+    && androidBuildGradle.includes('cookNoteAndroidVersion')
+    && !androidBuildGradle.includes('SITE_VERSION')
+    && legacyAssetsScript.includes('cookNoteAndroidVersion')
+    && updateAllAppsScript.includes('cookNoteAndroidVersion')
+    && appScript.includes("const ANDROID_LEGACY_APK_VERSION = '")
     && appScript.includes('cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk')
     && appScript.includes('Version APK ${ANDROID_LEGACY_APK_VERSION}')
     && !appScript.includes('const APP_VERSION_NUMBER = SITE_VERSION')

@@ -12,12 +12,12 @@ $LegacyScript = Join-Path $PSScriptRoot "build-android-legacy.ps1"
 $PublishScript = Join-Path $PSScriptRoot "publish-android-release.ps1"
 
 function Get-CookNoteVersionName {
-  $AppJs = [System.IO.File]::ReadAllText((Join-Path $Root "app.js"), [System.Text.Encoding]::UTF8)
-  $Match = [regex]::Match($AppJs, "const SITE_VERSION = 'v(\d+)\.(\d{2})'")
+  $GradleProperties = [System.IO.File]::ReadAllText((Join-Path $Root "android-legacy\gradle.properties"), [System.Text.Encoding]::UTF8)
+  $Match = [regex]::Match($GradleProperties, "(?m)^cookNoteAndroidVersion=(\d+\.\d{2})$")
   if (-not $Match.Success) {
-    throw "SITE_VERSION invalide. Attendu: vX.YY avec passage v1.99 -> v2.00."
+    throw "cookNoteAndroidVersion invalide dans android-legacy/gradle.properties. Attendu: X.YY."
   }
-  return "$($Match.Groups[1].Value).$($Match.Groups[2].Value)"
+  return $Match.Groups[1].Value
 }
 
 function Sync-AndroidApkVersion($VersionName, [bool]$AllowWrite) {
@@ -31,7 +31,7 @@ function Sync-AndroidApkVersion($VersionName, [bool]$AllowWrite) {
   $NextAppJs = [regex]::Replace($AppJs, $Pattern, $Replacement, 1)
   if ($NextAppJs -eq $AppJs) { return }
   if (-not $AllowWrite) {
-    throw "ANDROID_LEGACY_APK_VERSION doit passer a $VersionName. Relance sans -SkipWebBuild pour regenerer le site public."
+    return
   }
   $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
   [System.IO.File]::WriteAllText($AppPath, $NextAppJs, $Utf8NoBom)

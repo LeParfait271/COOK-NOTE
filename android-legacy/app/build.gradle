@@ -4,10 +4,10 @@ plugins {
 
 def repoRoot = rootProject.projectDir.parentFile
 def legacyAssetRoot = new File(repoRoot, 'android-legacy/build/generated/cook-note-lite')
-def appJs = new File(repoRoot, 'app.js').text
-def versionMatch = appJs =~ /const SITE_VERSION = 'v(\d+)\.(\d+)'/
+def androidVersionName = project.findProperty('cookNoteAndroidVersion') ?: ''
+def versionMatch = androidVersionName =~ /^(\d+)\.(\d{2})$/
 if (!versionMatch.find()) {
-    throw new GradleException('SITE_VERSION introuvable dans app.js')
+    throw new GradleException('cookNoteAndroidVersion invalide dans android-legacy/gradle.properties. Attendu: X.YY')
 }
 def major = versionMatch.group(1) as int
 def minor = versionMatch.group(2) as int

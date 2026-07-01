@@ -22,9 +22,12 @@ installee reste locale, mais le depot doit proposer une APK a jour quand la
 parite site/app l'exige. Le site peut continuer a bumper son cache ou modifier
 `dist/` sans regenerer l APK si le changement est uniquement technique.
 
-`SITE_VERSION` pilote seulement le cache et le footer web. Le nom APK versionne
-du panneau Android vient de `ANDROID_LEGACY_APK_VERSION` dans `app.js`, mis a
-jour par `npm run apps:update-all`.
+`SITE_VERSION` pilote seulement le cache et le footer web. La version native
+APK utilisee par Gradle et les assets vient de `cookNoteAndroidVersion` dans
+`android-legacy/gradle.properties`. Le nom APK versionne du panneau Android
+vient de `ANDROID_LEGACY_APK_VERSION` dans `app.js` et n'est synchronise que
+avec `cookNoteAndroidVersion` pendant un workflow site/app volontaire via
+`npm run apps:update-all`.
 
 ## Role de l app
 
@@ -292,14 +295,16 @@ C est voulu.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java`
   decode les miniatures et les images detail locales en `RGB_565` avec un petit
   cache memoire et le prechargement images.
-- `android-legacy/app/build.gradle` lit `SITE_VERSION` dans `app.js` pour
-  produire `versionName` et `versionCode`, puis monte
-  `android-legacy/build/generated/cook-note-lite` comme assets APK. Le build
-  officiel distribue est `release`, signe avec la configuration debug locale
-  pour rester installable dans le workflow manuel, avec R8 et shrink resources.
+- `android-legacy/app/build.gradle` lit `cookNoteAndroidVersion` dans
+  `android-legacy/gradle.properties` pour produire `versionName` et
+  `versionCode`, puis monte `android-legacy/build/generated/cook-note-lite`
+  comme assets APK. Le build officiel distribue est `release`, signe avec la
+  configuration debug locale pour rester installable dans le workflow manuel,
+  avec R8 et shrink resources.
 - `app.js` expose `ANDROID_LEGACY_APK_VERSION` pour le lien de telechargement
   public. Cette version peut rester plus ancienne que `SITE_VERSION` tant que
-  l APK n'a pas ete reconstruite explicitement.
+  l APK n'a pas ete reconstruite explicitement et synchronisee avec
+  `cookNoteAndroidVersion` dans le panneau web.
 - `scripts/build-android-legacy-assets.js` genere le catalogue Native Lite.
 - `scripts/build-android-legacy.ps1` construit l APK et nettoie la sortie APK
   avant packaging.

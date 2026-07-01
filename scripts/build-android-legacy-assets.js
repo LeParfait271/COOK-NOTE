@@ -10,6 +10,7 @@ const OUT_IMAGE_DIR = path.join(OUT_DIR, 'images');
 const OUT_DETAIL_IMAGE_DIR = path.join(OUT_DIR, 'detail-images');
 const RECIPES_FILE = path.join(ROOT, 'recipes.js');
 const APP_FILE = path.join(ROOT, 'app.js');
+const ANDROID_GRADLE_PROPERTIES_FILE = path.join(ROOT, 'android-legacy', 'gradle.properties');
 const MAX_IMAGE_WIDTH = 480;
 const DETAIL_IMAGE_WIDTH = 1280;
 const JPEG_QUALITY = 54;
@@ -161,6 +162,12 @@ function loadRecipes() {
 }
 
 function loadVersion() {
+  if (fs.existsSync(ANDROID_GRADLE_PROPERTIES_FILE)) {
+    const androidMatch = read(ANDROID_GRADLE_PROPERTIES_FILE).match(/^cookNoteAndroidVersion=(\d+\.\d{2})$/m);
+    if (androidMatch) return androidMatch[1];
+  }
+  const apkMatch = read(APP_FILE).match(/const ANDROID_LEGACY_APK_VERSION = '(\d+\.\d{2})'/);
+  if (apkMatch) return apkMatch[1];
   const match = read(APP_FILE).match(/const SITE_VERSION = 'v(\d+\.\d+)'/);
   return match ? match[1] : '0.0';
 }

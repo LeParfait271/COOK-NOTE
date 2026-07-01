@@ -14,7 +14,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -108,8 +107,7 @@ public class MainActivity extends Activity {
     private static final int MAX_BACK_STACK = 16;
     private static final int TRIM_MEMORY_RUNNING_LOW_LEVEL = 10;
     private static final int TRIM_MEMORY_MODERATE_LEVEL = 60;
-    private static final boolean PERF_LOG_ENABLED = true;
-    private static final String PERF_TAG = "CookNotePerf";
+    private static final boolean PERF_LOG_ENABLED = false;
     private static final float[] QUANTITY_FACTORS = new float[]{0.5f, 1f, 1.5f, 2f, 3f, 4f};
     private static final Pattern INGREDIENT_AMOUNT_PATTERN = Pattern.compile(
             "^\\s*(\\d+/\\d+|\\d+(?:[,.]\\d+)?)(?:\\s*(?:-|a|\\u00E0)\\s*(\\d+/\\d+|\\d+(?:[,.]\\d+)?))?\\s*([A-Za-z]+)?\\s*(.*)$",
@@ -276,7 +274,7 @@ public class MainActivity extends Activity {
     }
 
     private void showList() {
-        long startedAt = System.currentTimeMillis();
+        long startedAt = perfStart();
         releaseScreenImages();
         releaseListSurface();
         currentScreen = SCREEN_LIST;
@@ -557,7 +555,7 @@ public class MainActivity extends Activity {
         resetFilterSnapshot();
         applyFiltersNow();
         restoreListPosition(gridView);
-        perfLog("showList", startedAt);
+        if (PERF_LOG_ENABLED) perfLog("showList", startedAt);
     }
 
     private void addAccentLine(LinearLayout parent, int topMarginDp, int bottomMarginDp) {
@@ -782,7 +780,7 @@ public class MainActivity extends Activity {
 
     private void applyFilters() {
         if (adapter == null) return;
-        long startedAt = System.currentTimeMillis();
+        long startedAt = perfStart();
         String query = normalizedQuery();
         boolean homeMode = query.length() == 0;
         boolean filterChanged = filtersApplied && (homeMode != lastAppliedHomeMode || !query.equals(lastAppliedQuery));
@@ -802,7 +800,7 @@ public class MainActivity extends Activity {
         lastAppliedHomeMode = homeMode;
         lastAppliedCount = filtered.size();
         updateFilterControls(homeMode, filtered.size());
-        perfLog(homeMode ? "homeGrid" : "searchGrid", startedAt);
+        if (PERF_LOG_ENABLED) perfLog(homeMode ? "homeGrid" : "searchGrid", startedAt);
     }
 
     private void updateFilterControls(boolean homeMode, int count) {
@@ -953,7 +951,7 @@ public class MainActivity extends Activity {
     }
 
     private void openRecipe(Recipe recipe, boolean pushCurrent) {
-        long startedAt = System.currentTimeMillis();
+        long startedAt = perfStart();
         if (pushCurrent) pushNavigationState();
         releaseScreenImages();
         currentScreen = SCREEN_RECIPE;
@@ -1048,7 +1046,7 @@ public class MainActivity extends Activity {
         }
 
         setContentView(root);
-        perfLog("openRecipe:" + recipe.id, startedAt);
+        if (PERF_LOG_ENABLED) perfLog("openRecipe:" + recipe.id, startedAt);
     }
 
     private void addDetailHero(LinearLayout content, final Recipe recipe) {
@@ -2184,7 +2182,7 @@ public class MainActivity extends Activity {
     }
 
     private void showShoppingList(boolean pushCurrent) {
-        long startedAt = System.currentTimeMillis();
+        long startedAt = perfStart();
         if (pushCurrent) pushNavigationState();
         releaseScreenImages();
         currentScreen = SCREEN_SHOPPING;
@@ -2318,11 +2316,11 @@ public class MainActivity extends Activity {
         }
 
         setContentView(root);
-        perfLog("showShoppingList", startedAt);
+        if (PERF_LOG_ENABLED) perfLog("showShoppingList", startedAt);
     }
 
     private void showDiagnostic(boolean pushCurrent) {
-        long startedAt = System.currentTimeMillis();
+        long startedAt = perfStart();
         if (pushCurrent) pushNavigationState();
         releaseScreenImages();
         currentScreen = SCREEN_DIAGNOSTIC;
@@ -2417,7 +2415,7 @@ public class MainActivity extends Activity {
         });
 
         setContentView(root);
-        perfLog("showDiagnostic", startedAt);
+        if (PERF_LOG_ENABLED) perfLog("showDiagnostic", startedAt);
     }
 
     private void copyDiagnostic() {
@@ -3224,10 +3222,12 @@ public class MainActivity extends Activity {
         }
     }
 
+    private long perfStart() {
+        return PERF_LOG_ENABLED ? System.currentTimeMillis() : 0L;
+    }
+
     private void perfLog(String label, long startedAt) {
         if (!PERF_LOG_ENABLED) return;
-        long elapsed = Math.max(0, System.currentTimeMillis() - startedAt);
-        Log.d(PERF_TAG, label + " " + elapsed + "ms");
     }
 
     @Override

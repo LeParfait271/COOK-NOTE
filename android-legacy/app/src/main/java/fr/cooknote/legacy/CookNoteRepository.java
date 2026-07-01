@@ -144,15 +144,37 @@ final class CookNoteRepository {
     }
 
     private Map<String, List<Recipe>> buildChildrenByParent() {
-        Map<String, List<Recipe>> output = new HashMap<String, List<Recipe>>();
-        for (Recipe parent : recipes) {
-            List<Recipe> children = new ArrayList<Recipe>();
-            for (Recipe recipe : recipes) {
-                if (recipe.id.equals(parent.id)) continue;
-                if (belongsToParent(recipe, parent.id, new HashSet<String>())) children.add(recipe);
+        Map<String, ArrayList<Recipe>> mutable = new HashMap<String, ArrayList<Recipe>>();
+        for (Recipe recipe : recipes) {
+            mutable.put(recipe.id, new ArrayList<Recipe>());
+        }
+
+        for (Recipe recipe : recipes) {
+            for (String parentId : recipe.additionalMasters) {
+                addParentChild(mutable, parentId, recipe);
             }
+
+            String parentId = recipe.master;
+            Set<String> visited = null;
+            while (parentId != null && parentId.length() > 0) {
+                if (parentId.equals(recipe.id)) break;
+                if (visited == null) visited = new HashSet<String>();
+                if (!visited.add(parentId)) break;
+                addParentChild(mutable, parentId, recipe);
+                Recipe parent = byId.get(parentId);
+                if (parent == null) break;
+                for (String additionalParentId : parent.additionalMasters) {
+                    addParentChild(mutable, additionalParentId, recipe);
+                }
+                parentId = parent.master;
+            }
+        }
+
+        Map<String, List<Recipe>> output = new HashMap<String, List<Recipe>>();
+        for (Map.Entry<String, ArrayList<Recipe>> entry : mutable.entrySet()) {
+            ArrayList<Recipe> children = entry.getValue();
             sortRecipeList(children);
-            output.put(parent.id, Collections.unmodifiableList(children));
+            output.put(entry.getKey(), Collections.unmodifiableList(children));
         }
         return Collections.unmodifiableMap(output);
     }
@@ -639,12 +661,19 @@ final class CookNoteRepository {
         return 99;
     }
 
-    private boolean belongsToParent(Recipe recipe, String parentId, Set<String> visited) {
-        if (recipe.master.equals(parentId)) return true;
-        if (recipe.additionalMasters.contains(parentId)) return true;
-        if (recipe.master.length() == 0 || !visited.add(recipe.master)) return false;
-        Recipe parent = byId.get(recipe.master);
-        return parent != null && belongsToParent(parent, parentId, visited);
+    private static void addParentChild(Map<String, ArrayList<Recipe>> output, String parentId, Recipe child) {
+        if (parentId == null || parentId.length() == 0 || child == null || parentId.equals(child.id)) return;
+        ArrayList<Recipe> children = output.get(parentId);
+        if (children == null || containsRecipe(children, child.id)) return;
+        children.add(child);
+    }
+
+    private static boolean containsRecipe(List<Recipe> recipes, String id) {
+        if (id == null || id.length() == 0) return false;
+        for (Recipe recipe : recipes) {
+            if (recipe != null && id.equals(recipe.id)) return true;
+        }
+        return false;
     }
 
     private static void sortRecipeList(List<Recipe> output) {
