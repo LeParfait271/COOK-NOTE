@@ -1,11 +1,11 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v267
+//  Cook Note - Service Worker PWA v268
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v267';
-const IMAGE_CACHE_NAME = 'cook-note-images-v267';
+const CACHE_NAME = 'cook-note-v268';
+const IMAGE_CACHE_NAME = 'cook-note-images-v268';
 const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
@@ -29,12 +29,12 @@ const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=267',
-  '/app-images.js?v=267',
-  '/assets/catalog-1.js?v=267',
-  '/assets/image-manifest.js?v=267',
-  '/style.css?v=267',
-  '/recipe.js?v=267',
+  '/app.js?v=268',
+  '/app-images.js?v=268',
+  '/assets/catalog-1.js?v=268',
+  '/assets/image-manifest.js?v=268',
+  '/style.css?v=268',
+  '/recipe.js?v=268',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',

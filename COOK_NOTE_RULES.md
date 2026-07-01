@@ -127,6 +127,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - La barre de fiche active / `recipe-command-dock` ne doit jamais etre sticky ni fixed : elle reste a sa place dans le flux et ne suit pas le scroll.
 - Avant un push visible, lancer le preflight quand la modification touche l'UI, les recettes, le cache, le service worker ou les images : `node scripts/preflight.js`.
 - Les versions cache/site doivent etre synchronisees par `node scripts/bump-version.js --next` ou validees par `node scripts/validate-cache-version.js`.
+- Les scripts PowerShell qui lisent puis reecrivent des sources UTF-8 comme `app.js` doivent utiliser un encodage UTF-8 explicite en lecture et en ecriture. Ne jamais utiliser `Get-Content -Raw` suivi d'une reecriture sur ces fichiers, sinon les accents peuvent etre mojibakes.
 - Les validateurs ne doivent pas porter la version de release courante en dur (`vX.YY`, date ou `?v=N`). Ils doivent deriver la version depuis `app.js` et laisser `scripts/validate-cache-version.js` verifier les assets reels.
 - Pour quelques images seulement, utiliser `scripts/optimize-selected-images.ps1` avec des noms explicites, pas l'optimisation globale forcee qui peut modifier tout le catalogue de miniatures.
 - Le preflight doit refuser les diffs image anormalement larges, sauf lot complet et equilibre master/optimisee/miniature qui passe `scripts/audit-images.js`. Il doit resynchroniser les catalogues, lancer les validations, demarrer un serveur local sur port libre et tester les assets critiques.

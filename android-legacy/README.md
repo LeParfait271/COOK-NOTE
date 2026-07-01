@@ -82,7 +82,7 @@ npm run apps:update-all
 Sortie APK :
 
 ```text
-android-legacy/app/build/outputs/apk/debug/app-debug.apk
+android-legacy/app/build/outputs/apk/release/app-release.apk
 ```
 
 Si Java, Gradle ou Android SDK sont absents :

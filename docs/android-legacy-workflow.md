@@ -202,10 +202,10 @@ Construire sans relancer le build web, si `dist/` est deja a jour :
 powershell.exe -ExecutionPolicy Bypass -File .\scripts\build-android-legacy.ps1 -SkipWebBuild
 ```
 
-Sortie APK debug :
+Sortie APK officielle :
 
 ```text
-android-legacy/app/build/outputs/apk/debug/app-debug.apk
+android-legacy/app/build/outputs/apk/release/app-release.apk
 ```
 
 Verifier le comportement manuel Android :
@@ -262,8 +262,8 @@ C est voulu.
 2. S assurer que le site est propre et que `dist/` est a jour.
 3. Lancer `npm run apps:update-all`.
 4. Verifier l APK :
-   - `aapt dump badging android-legacy/app/build/outputs/apk/debug/app-debug.apk`
-   - `apksigner verify --verbose android-legacy/app/build/outputs/apk/debug/app-debug.apk`
+   - `aapt dump badging android-legacy/app/build/outputs/apk/release/app-release.apk`
+   - `apksigner verify --verbose android-legacy/app/build/outputs/apk/release/app-release.apk`
 5. Ne pas committer les APK depuis les dossiers Android : ce sont des artefacts locaux ignores.
 6. `npm run apps:update-all` copie l APK valide vers
    `downloads/cook-note-android-legacy.apk` et
@@ -292,7 +292,9 @@ C est voulu.
   cache memoire et le prechargement images.
 - `android-legacy/app/build.gradle` lit `SITE_VERSION` dans `app.js` pour
   produire `versionName` et `versionCode`, puis monte
-  `android-legacy/build/generated/cook-note-lite` comme assets APK.
+  `android-legacy/build/generated/cook-note-lite` comme assets APK. Le build
+  officiel distribue est `release`, signe avec la configuration debug locale
+  pour rester installable dans le workflow manuel, avec R8 et shrink resources.
 - `app.js` expose `ANDROID_LEGACY_APK_VERSION` pour le lien de telechargement
   public. Cette version peut rester plus ancienne que `SITE_VERSION` tant que
   l APK n'a pas ete reconstruite explicitement.

@@ -35,6 +35,15 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
     sourceSets {
         main {
             assets.srcDirs = [legacyAssetRoot]
@@ -54,3 +63,7 @@ tasks.register('syncCookNoteDist', Sync) {
 }
 
 preBuild.dependsOn('syncCookNoteDist')
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += ['-Xlint:deprecation']
+}

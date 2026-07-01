@@ -11,7 +11,7 @@ $ErrorActionPreference = "Stop"
 $Root = Resolve-Path (Join-Path $PSScriptRoot "..")
 $ChannelDefaults = @{
   legacy = @{
-    ApkPath = "android-legacy\app\build\outputs\apk\debug\app-debug.apk"
+    ApkPath = "android-legacy\app\build\outputs\apk\release\app-release.apk"
     AssetName = "cook-note-android-legacy.apk"
     Label = "Android Legacy"
   }

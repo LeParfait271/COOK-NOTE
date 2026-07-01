@@ -1,7 +1,6 @@
 package fr.cooknote.legacy;
 
 import android.app.Activity;
-import android.content.ComponentCallbacks2;
 import android.content.ActivityNotFoundException;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -107,6 +106,8 @@ public class MainActivity extends Activity {
     private static final int LIST_VISIBLE_PREFETCH_LIMIT = 6;
     private static final int COLLECTION_PREWARM_LIMIT = 8;
     private static final int MAX_BACK_STACK = 16;
+    private static final int TRIM_MEMORY_RUNNING_LOW_LEVEL = 10;
+    private static final int TRIM_MEMORY_MODERATE_LEVEL = 60;
     private static final boolean PERF_LOG_ENABLED = true;
     private static final String PERF_TAG = "CookNotePerf";
     private static final float[] QUANTITY_FACTORS = new float[]{0.5f, 1f, 1.5f, 2f, 3f, 4f};
@@ -486,7 +487,6 @@ public class MainActivity extends Activity {
         gridView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         gridView.setFadingEdgeLength(0);
         gridView.setScrollingCacheEnabled(false);
-        gridView.setAnimationCacheEnabled(false);
         adapter = new RecipeAdapter(this, imageLoader);
         adapter.setCompactCards(compactCards);
         adapter.setCollectionCounts(repository.collectionCounts());
@@ -1565,7 +1565,7 @@ public class MainActivity extends Activity {
         imageLoader.load(choice.recipe.image, image, cardImageWidth, cardHeight);
 
         View veil = new View(this);
-        veil.setBackgroundColor(Color.argb(56, 0, 0, 0));
+        veil.setBackgroundColor(Color.argb(38, 0, 0, 0));
         frame.addView(veil, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -1575,23 +1575,14 @@ public class MainActivity extends Activity {
 
         LinearLayout overlay = new LinearLayout(this);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(12), dp(7), dp(12), dp(10));
-        overlay.setBackground(bottomOverlayGradient());
+        overlay.setPadding(dp(12), dp(10), dp(12), dp(12));
+        overlay.setBackground(cardTitleOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 Gravity.BOTTOM
         );
         frame.addView(overlay, overlayParams);
-
-        View overlayEdge = new View(this);
-        overlayEdge.setBackground(gradientPanel(Color.argb(136, 251, 191, 36), Color.argb(12, 251, 191, 36), Color.TRANSPARENT, 0, 0));
-        LinearLayout.LayoutParams overlayEdgeParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(1)
-        );
-        overlayEdgeParams.bottomMargin = dp(7);
-        overlay.addView(overlayEdge, overlayEdgeParams);
 
         TextView title = text(choice.label, 15, Color.rgb(246, 239, 227), true);
         title.setMaxLines(2);
@@ -2852,6 +2843,14 @@ public class MainActivity extends Activity {
         });
     }
 
+    private GradientDrawable cardTitleOverlayGradient() {
+        return new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{
+                Color.argb(0, 0, 0, 0),
+                Color.argb(82, 0, 0, 0),
+                Color.argb(206, 5, 4, 3)
+        });
+    }
+
     private StateListDrawable buttonPanel(boolean primary) {
         if (primary) {
             return selectableGradientPanel(
@@ -3275,6 +3274,7 @@ public class MainActivity extends Activity {
         return backSwipeTriggered;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onBackPressed() {
         if (showingDetail) {
@@ -3302,8 +3302,8 @@ public class MainActivity extends Activity {
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
         if (imageLoader == null) return;
-        if (level >= ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW) {
-            imageLoader.trimMemory(level >= ComponentCallbacks2.TRIM_MEMORY_MODERATE);
+        if (level >= TRIM_MEMORY_RUNNING_LOW_LEVEL) {
+            imageLoader.trimMemory(level >= TRIM_MEMORY_MODERATE_LEVEL);
         }
     }
 

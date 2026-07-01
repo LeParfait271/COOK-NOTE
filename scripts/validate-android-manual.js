@@ -71,10 +71,12 @@ expect(
 expect(
   'La mise a jour app doit rester groupee via apps:update-all.',
   packageJson.scripts?.['apps:update-all']?.includes('update-all-apps.ps1')
+    && packageJson.scripts?.['apps:update-all']?.includes('-Release')
 );
 expect(
   'La publication app doit rester groupee via apps:publish-all.',
   packageJson.scripts?.['apps:publish-all']?.includes('update-all-apps.ps1')
+    && packageJson.scripts?.['apps:publish-all']?.includes('-Release')
     && packageJson.scripts?.['apps:publish-all']?.includes('-PublishRelease')
 );
 expect(
@@ -346,6 +348,20 @@ expect(
     && !/Gecko|WebView|ServerSocket|127\.0\.0\.1|LocalAssetServer/.test(androidLegacyMainActivity + androidLegacyRepository + androidLegacyImageLoader)
 );
 expect(
+  'Android Legacy doit activer R8 et le shrink resources sur l APK distribue.',
+  androidBuildGradle.includes('minifyEnabled true')
+    && androidBuildGradle.includes('shrinkResources true')
+    && androidBuildGradle.includes('signingConfig signingConfigs.debug')
+    && androidBuildGradle.includes("proguard-android-optimize.txt")
+    && exists('android-legacy/app/proguard-rules.pro')
+);
+expect(
+  'Les titres de cartes Android doivent rester fondus dans l image, sans cartouche noir lourd.',
+  androidLegacyAdapter.includes('cardTitleOverlayGradient')
+    && androidLegacyMainActivity.includes('cardTitleOverlayGradient')
+    && !androidLegacyAdapter.includes('overlayEdge')
+);
+expect(
   'Les assets Android Legacy doivent etre generes en catalogue natif allege.',
   legacyAssetsScript.includes("require('jpeg-js')")
     && legacyAssetsScript.includes('MAX_IMAGE_WIDTH = 480')
@@ -373,6 +389,9 @@ expect(
   'Le script de mise a jour app doit fabriquer et copier uniquement l APK Android Legacy.',
   updateAllAppsScript.includes('build-android-legacy.ps1')
     && updateAllAppsScript.includes('cook-note-android-legacy.apk')
+    && updateAllAppsScript.includes('app-release.apk')
+    && updateAllAppsScript.includes('ReadAllText')
+    && updateAllAppsScript.includes('Encoding]::UTF8')
     && updateAllAppsScript.includes('Get-CookNoteVersionName')
     && updateAllAppsScript.includes('cook-note-android-legacy-v$VersionName.apk')
     && updateAllAppsScript.includes('Remove-StaleVersionedApks')

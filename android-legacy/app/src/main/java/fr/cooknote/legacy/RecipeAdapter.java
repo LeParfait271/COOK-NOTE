@@ -203,7 +203,7 @@ final class RecipeAdapter extends BaseAdapter {
         ));
 
         View veil = new View(context);
-        veil.setBackgroundColor(Color.argb(58, 0, 0, 0));
+        veil.setBackgroundColor(Color.argb(38, 0, 0, 0));
         frame.addView(veil, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -239,29 +239,14 @@ final class RecipeAdapter extends BaseAdapter {
 
         LinearLayout overlay = new LinearLayout(context);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(12), dp(7), dp(12), dp(10));
-        overlay.setBackground(bottomOverlayGradient());
+        overlay.setPadding(dp(12), dp(10), dp(12), dp(12));
+        overlay.setBackground(cardTitleOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 Gravity.BOTTOM
         );
         frame.addView(overlay, overlayParams);
-
-        View overlayEdge = new View(context);
-        overlayEdge.setBackground(gradientPanel(
-                Color.argb(136, 251, 191, 36),
-                Color.argb(12, 251, 191, 36),
-                Color.TRANSPARENT,
-                0,
-                0
-        ));
-        LinearLayout.LayoutParams overlayEdgeParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(1)
-        );
-        overlayEdgeParams.bottomMargin = dp(7);
-        overlay.addView(overlayEdge, overlayEdgeParams);
 
         TextView title = new TextView(context);
         title.setTextColor(Color.rgb(249, 242, 231));
@@ -343,11 +328,11 @@ final class RecipeAdapter extends BaseAdapter {
         return drawable;
     }
 
-    private GradientDrawable bottomOverlayGradient() {
+    private GradientDrawable cardTitleOverlayGradient() {
         return new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{
-                Color.argb(8, 0, 0, 0),
-                Color.argb(112, 0, 0, 0),
-                Color.argb(226, 5, 4, 3)
+                Color.argb(0, 0, 0, 0),
+                Color.argb(82, 0, 0, 0),
+                Color.argb(206, 5, 4, 3)
         });
     }
 

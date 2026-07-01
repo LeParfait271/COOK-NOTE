@@ -85,11 +85,18 @@ try {
   Pop-Location
 }
 
-$ApkName = if ($Release) { "app-release-unsigned.apk" } else { "app-debug.apk" }
 $ApkVariantDir = if ($Release) { "release" } else { "debug" }
-$ApkPath = Join-Path $AndroidDir "app\build\outputs\apk\$ApkVariantDir\$ApkName"
+$ApkNames = if ($Release) { @("app-release.apk", "app-release-unsigned.apk") } else { @("app-debug.apk") }
+$ApkPath = $null
+foreach ($ApkName in $ApkNames) {
+  $Candidate = Join-Path $AndroidDir "app\build\outputs\apk\$ApkVariantDir\$ApkName"
+  if (Test-Path $Candidate) {
+    $ApkPath = $Candidate
+    break
+  }
+}
 if (-not (Test-Path $ApkPath)) {
-  throw "APK attendu introuvable: $ApkPath"
+  throw "APK attendu introuvable dans android-legacy/app/build/outputs/apk/$ApkVariantDir."
 }
 
 Write-Host "APK Cook Note Android Legacy OK: $ApkPath"

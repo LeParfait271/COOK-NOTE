@@ -12,7 +12,7 @@ $LegacyScript = Join-Path $PSScriptRoot "build-android-legacy.ps1"
 $PublishScript = Join-Path $PSScriptRoot "publish-android-release.ps1"
 
 function Get-CookNoteVersionName {
-  $AppJs = Get-Content -Raw (Join-Path $Root "app.js")
+  $AppJs = [System.IO.File]::ReadAllText((Join-Path $Root "app.js"), [System.Text.Encoding]::UTF8)
   $Match = [regex]::Match($AppJs, "const SITE_VERSION = 'v(\d+)\.(\d{2})'")
   if (-not $Match.Success) {
     throw "SITE_VERSION invalide. Attendu: vX.YY avec passage v1.99 -> v2.00."
@@ -22,7 +22,7 @@ function Get-CookNoteVersionName {
 
 function Sync-AndroidApkVersion($VersionName, [bool]$AllowWrite) {
   $AppPath = Join-Path $Root "app.js"
-  $AppJs = Get-Content -Raw $AppPath
+  $AppJs = [System.IO.File]::ReadAllText($AppPath, [System.Text.Encoding]::UTF8)
   $Pattern = "const ANDROID_LEGACY_APK_VERSION = '\d+\.\d{2}';"
   $Replacement = "const ANDROID_LEGACY_APK_VERSION = '$VersionName';"
   if ($AppJs -notmatch $Pattern) {
@@ -62,10 +62,17 @@ function Run-AndroidBuild($ScriptPath, $Label) {
 
 function Copy-ExpectedApk($Channel, $TargetName) {
   $VariantDir = if ($Release) { "release" } else { "debug" }
-  $ApkName = if ($Release) { "app-release-unsigned.apk" } else { "app-debug.apk" }
-  $ApkPath = Join-Path $Root "android-$Channel\app\build\outputs\apk\$VariantDir\$ApkName"
+  $ApkNames = if ($Release) { @("app-release.apk", "app-release-unsigned.apk") } else { @("app-debug.apk") }
+  $ApkPath = $null
+  foreach ($ApkName in $ApkNames) {
+    $Candidate = Join-Path $Root "android-$Channel\app\build\outputs\apk\$VariantDir\$ApkName"
+    if (Test-Path $Candidate) {
+      $ApkPath = $Candidate
+      break
+    }
+  }
   if (-not (Test-Path $ApkPath)) {
-    throw "APK $Channel introuvable: $ApkPath"
+    throw "APK $Channel introuvable dans android-$Channel/app/build/outputs/apk/$VariantDir."
   }
   New-Item -ItemType Directory -Path $DownloadsDir -Force | Out-Null
   $TargetPath = Join-Path $DownloadsDir $TargetName

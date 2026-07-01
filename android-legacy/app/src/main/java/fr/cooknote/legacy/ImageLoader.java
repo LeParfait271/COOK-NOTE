@@ -286,7 +286,6 @@ final class ImageLoader {
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.RGB_565;
-        options.inDither = true;
         options.inSampleSize = sampleSize(bounds.outWidth, bounds.outHeight, requestedWidth, requestedHeight);
 
         try {

@@ -144,11 +144,15 @@ Build explicite :
 npm run apps:update-all
 ```
 
-Sortie locale :
+Sortie locale officielle :
 
 ```text
-android-legacy/app/build/outputs/apk/debug/app-debug.apk
+android-legacy/app/build/outputs/apk/release/app-release.apk
 ```
+
+L APK distribue par le workflow officiel est un build `release`, signe avec la
+configuration debug locale du workflow manuel, avec R8 actif et ressources
+shrinkees.
 
 Publication explicite :
 
