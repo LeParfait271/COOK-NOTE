@@ -11,8 +11,10 @@ sensibles et les validations minimales.
    production, cache, Android ou workflow.
 3. Lire `docs/architecture.md` avant de toucher au build, a `dist/`, au service
    worker, aux headers, aux routes ou aux assets publics.
-4. Lire `README.txt` et `GUIDE_COMPLET.txt` pour le contexte utilisateur.
-5. Lire la documentation specialisee si le travail touche Android ou les apps :
+4. Lire `docs/design-system.md` avant toute passe de direction artistique,
+   design system, ergonomie, animation ou dark mode.
+5. Lire `README.txt` et `GUIDE_COMPLET.txt` pour le contexte utilisateur.
+6. Lire la documentation specialisee si le travail touche Android ou les apps :
    `docs/android-legacy-workflow.md` et `docs/apps-install-workflow.md`.
 
 Si une regle nouvelle apparait pendant le travail, l'ajouter dans

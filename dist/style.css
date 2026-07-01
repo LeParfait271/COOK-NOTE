@@ -1,9 +1,15 @@
 :root {
   --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ds-radius-sm: 7px;
+  --ds-radius-md: 8px;
+  --ds-radius-pill: 999px;
+  --ds-duration: 200ms;
+  --ds-duration-slow: 250ms;
+  --ds-ease: cubic-bezier(.22, .72, .2, 1);
   --radius: 8px;
   --shadow: 0 18px 70px rgba(0, 0, 0, .34);
   --shadow-soft: 0 10px 34px rgba(0, 0, 0, .22);
-  --speed: 180ms ease;
+  --speed: var(--ds-duration) var(--ds-ease);
 }
 
 *,
@@ -35,6 +41,7 @@ body {
   min-height: 100vh;
   background: #050505;
   color: #fff7ed;
+  color-scheme: dark;
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -121,6 +128,7 @@ a {
 .mc-shell {
   --bg: #050505;
   --bg-2: #11100d;
+  --panel: rgba(15, 14, 12, .9);
   --surface: rgba(18, 18, 16, .78);
   --surface-strong: rgba(28, 28, 24, .94);
   --surface-soft: rgba(255, 255, 255, .055);
@@ -6193,6 +6201,166 @@ a {
     white-space: normal;
   }
 }
+
+/* Design system. */
+.mc-shell {
+  --rim: rgba(239, 214, 154, .24);
+  --line: rgba(239, 214, 154, .18);
+  --surface: rgba(17, 16, 14, .84);
+  --surface-strong: rgba(23, 21, 18, .96);
+  --surface-soft: rgba(255, 248, 234, .06);
+  --glass: color-mix(in srgb, var(--surface-strong) 88%, transparent);
+  --ds-focus-ring: 0 0 0 3px color-mix(in srgb, var(--ambient-accent, var(--accent)) 28%, transparent);
+  --ds-focus-border: color-mix(in srgb, var(--ambient-accent, var(--accent)) 72%, rgba(255, 255, 255, .22));
+  --ds-shadow-panel:
+    inset 0 1px 0 rgba(255, 255, 255, .07),
+    0 18px 50px rgba(0, 0, 0, .28);
+  --ds-shadow-elevated:
+    inset 0 1px 0 rgba(255, 255, 255, .09),
+    0 24px 72px rgba(0, 0, 0, .38);
+  background:
+    linear-gradient(180deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .94) 58%, #050505),
+    url("/assets/base-principale-fond-site.jpg") center top / cover repeat-y,
+    #050505;
+  color-scheme: dark;
+}
+
+.mc-shell :where(button, a, input, select, textarea) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mc-shell :where(button, .btn, a, input, select, textarea, .command-row, .command-recipe-row, .search-result) {
+  transition-property: background, border-color, box-shadow, color, filter, opacity, transform;
+  transition-duration: var(--ds-duration);
+  transition-timing-function: var(--ds-ease);
+}
+
+.mc-shell :where(button, .btn, .site-footer-action) {
+  border-radius: var(--ds-radius-sm);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .055);
+}
+
+.mc-shell :where(button, .btn, .site-footer-action):hover {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 48%, var(--line));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .09),
+    0 12px 28px rgba(0, 0, 0, .24);
+}
+
+.mc-shell :where(button, .btn, .site-footer-action):active {
+  transform: translateY(0) scale(.985);
+}
+
+.mc-shell :where(button, a, input, select, textarea, [tabindex]):focus-visible {
+  outline: 0;
+  border-color: var(--ds-focus-border);
+  box-shadow: var(--ds-focus-ring);
+}
+
+.mc-shell :where(button, input, select, textarea):disabled,
+.mc-shell :where(.btn[aria-disabled="true"], .is-disabled) {
+  cursor: not-allowed;
+  opacity: .48;
+  filter: saturate(.75);
+  transform: none;
+  box-shadow: none;
+}
+
+.mc-shell :where(input, select, textarea, .share-link-box, .cart-output) {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 20%, var(--line));
+  border-radius: var(--ds-radius-sm);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .012)),
+    rgba(0, 0, 0, .24);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .045);
+}
+
+.mc-shell :where(input, select, textarea):focus {
+  border-color: var(--ds-focus-border);
+  box-shadow: var(--ds-focus-ring), inset 0 1px 0 rgba(255, 255, 255, .06);
+}
+
+.mc-shell :where(.season-block, .recipe-panel, .recipe-summary-panel, .variant-picker-panel, .variant-choice-panel, .modal-panel, .menu-planner-card, .menu-service-panel, .shopping-aisle, .empty-state, .fatal-state, .command-palette, .recipe-command-dock, .site-footer-inner, .fridge-assistant, .recipe-chef-strip, .menu-quality-band, .shopping-store-dashboard) {
+  border-color: var(--rim);
+  border-radius: var(--ds-radius-md);
+  box-shadow: var(--ds-shadow-panel);
+}
+
+.mc-shell :where(.recipe-card, .variant-card, .menu-planner-card, .search-result, .command-row, .command-recipe-row) {
+  border-radius: var(--ds-radius-md);
+  transition-property: border-color, box-shadow, filter, transform;
+  transition-duration: var(--ds-duration);
+  transition-timing-function: var(--ds-ease);
+}
+
+.mc-shell :where(.recipe-card, .variant-card, .menu-planner-card, .search-result, .command-row, .command-recipe-row):hover,
+.mc-shell :where(.recipe-card, .variant-card, .menu-planner-card, .search-result, .command-row, .command-recipe-row):focus-visible {
+  border-color: color-mix(in srgb, var(--card-accent, var(--ambient-accent, var(--accent))) 44%, var(--line));
+  box-shadow: var(--ds-shadow-elevated);
+}
+
+.mc-shell .modal-panel {
+  animation: modalIn var(--ds-duration-slow) var(--ds-ease) both;
+}
+
+.toast {
+  position: relative;
+  overflow: hidden;
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 44%, var(--line));
+  border-radius: var(--ds-radius-md);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 13%, transparent), rgba(255, 255, 255, .03)),
+    var(--surface-strong);
+  animation: toastIn var(--ds-duration) var(--ds-ease) both;
+}
+
+.toast::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--ambient-accent, var(--accent));
+}
+
+.toast-success::before {
+  background: #22c55e;
+}
+
+.catalog-loading-view .not-found-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.catalog-loading-view .not-found-panel::after {
+  content: "";
+  width: min(360px, 72%);
+  height: 8px;
+  border-radius: var(--ds-radius-pill);
+  background:
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, .22), transparent),
+    color-mix(in srgb, var(--ambient-accent, var(--accent)) 16%, rgba(255, 255, 255, .06));
+  background-size: 220% 100%;
+  animation: skeletonSweep 1.3s var(--ds-ease) infinite;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes skeletonSweep {
+  to {
+    background-position: -220% 0;
+  }
+}
+
 @media print {
   @page {
     margin: 12mm;

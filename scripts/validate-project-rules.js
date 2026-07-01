@@ -5,6 +5,7 @@ const ROOT = path.resolve(__dirname, '..');
 const rulesPath = path.join(ROOT, 'COOK_NOTE_RULES.md');
 const masterGuardPath = path.join(ROOT, 'A_LIRE_EN_PREMIER.md');
 const agentsPath = path.join(ROOT, 'AGENTS.md');
+const designSystemPath = path.join(ROOT, 'docs', 'design-system.md');
 const packagePath = path.join(ROOT, 'package.json');
 const packageLockPath = path.join(ROOT, 'package-lock.json');
 const validators = {
@@ -26,6 +27,8 @@ const validators = {
   workflow: fs.readFileSync(path.join(ROOT, '.github', 'workflows', 'cook-note.yml'), 'utf8'),
   wrangler: fs.existsSync(path.join(ROOT, 'wrangler.toml')) ? fs.readFileSync(path.join(ROOT, 'wrangler.toml'), 'utf8') : '',
   architecture: fs.readFileSync(path.join(ROOT, 'docs', 'architecture.md'), 'utf8'),
+  style: fs.readFileSync(path.join(ROOT, 'style.css'), 'utf8'),
+  adminCss: fs.readFileSync(path.join(ROOT, 'admin.css'), 'utf8'),
   gitignore: fs.readFileSync(path.join(ROOT, '.gitignore'), 'utf8'),
   packageJson: fs.readFileSync(packagePath, 'utf8'),
   packageLock: fs.existsSync(packageLockPath) ? fs.readFileSync(packageLockPath, 'utf8') : ''
@@ -39,11 +42,13 @@ function expect(label, condition) {
 expect('Fichier de regles Cook Note absent.', fs.existsSync(rulesPath));
 expect('Garde-fou maitre A_LIRE_EN_PREMIER.md absent.', fs.existsSync(masterGuardPath));
 expect('Pointeur agents AGENTS.md absent.', fs.existsSync(agentsPath));
+expect('Design system Cook Note absent.', fs.existsSync(designSystemPath));
 expect('package-lock.json absent: installations CI non reproductibles.', fs.existsSync(packageLockPath));
 
 const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : '';
 const masterGuard = fs.existsSync(masterGuardPath) ? fs.readFileSync(masterGuardPath, 'utf8') : '';
 const agentsGuide = fs.existsSync(agentsPath) ? fs.readFileSync(agentsPath, 'utf8') : '';
+const designSystem = fs.existsSync(designSystemPath) ? fs.readFileSync(designSystemPath, 'utf8') : '';
 
 [
   'Lois qualite permanentes',
@@ -60,6 +65,10 @@ const agentsGuide = fs.existsSync(agentsPath) ? fs.readFileSync(agentsPath, 'utf
   expect(`A_LIRE_EN_PREMIER.md: loi qualite absente (${fragment}).`, masterGuard.includes(fragment));
 });
 expect('COOK_NOTE_RULES.md: rappel des lois qualite absent.', rules.includes('lois qualite permanentes') && rules.includes('ne jamais degrader') && rules.includes('validation continue'));
+expect('COOK_NOTE_RULES.md: lien design system absent.', rules.includes('docs/design-system.md') && rules.includes('prefers-reduced-motion'));
+expect('Design system incomplet.', designSystem.includes('--ds-radius-md') && designSystem.includes('150ms') && designSystem.includes('250ms') && designSystem.includes('focus visible') && designSystem.includes('prefers-reduced-motion'));
+expect('Tokens design system site absents.', validators.style.includes('--ds-radius-md') && validators.style.includes('--ds-duration') && validators.style.includes('--ds-ease') && validators.style.includes('prefers-reduced-motion'));
+expect('Tokens design system admin absents.', validators.adminCss.includes('--ds-radius-md') && validators.adminCss.includes('--ds-duration') && validators.adminCss.includes('--ds-ease') && validators.adminCss.includes('prefers-reduced-motion'));
 
 [
   'A_LIRE_EN_PREMIER.md',
@@ -221,6 +230,7 @@ expect('COOK_NOTE_RULES.md: rappel des lois qualite absent.', rules.includes('lo
   'Ordre de lecture obligatoire',
   'COOK_NOTE_RULES.md',
   'docs/architecture.md',
+  'docs/design-system.md',
   'Autonomie et autorisations',
   'Zones sensibles',
   'Interdits forts',
