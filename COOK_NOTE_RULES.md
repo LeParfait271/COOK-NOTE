@@ -50,6 +50,10 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les icones des boutons doivent rester coherentes, premium, et blanches quand elles sont sur des boutons sombres.
 - Les passes design premium doivent ameliorer les composants existants sans rajouter de sections gadget sur l'accueil. Travailler surtout cartes, panneaux, boutons, etats hover/focus, responsive et performance.
 - Toute passe de direction artistique doit respecter `docs/design-system.md` : tokens communs, dark mode sombre equilibre, transitions entre 150 et 250ms, focus visible permanent et support de `prefers-reduced-motion`.
+- Les filtres de saison mobiles doivent rester en grille stable avec hauteurs tactiles constantes, jamais en flex row qui grossit ou change de rythme selon les libelles.
+- Les actions de fiche recette doivent garder une hauteur commune entre boutons texte, boutons icones et selecteur de quantite pour eviter les micro-desalignements visibles.
+- Le selecteur de quantite doit rester lisible et contraste dans le hero recette, meme apres les surcharges globales des champs de formulaire.
+- Les cartes recette doivent garder un zoom hover court et leger : pas de transition image au-dela de `250ms`, pas de grossissement agressif qui fatigue le GPU ou donne une sensation de jank.
 - Le footer doit afficher le compteur catalogue automatique : fiches recettes servies + variantes inline. Ce compteur doit venir de `window.RECIPES`, jamais d'un nombre ecrit en dur.
 - Le footer ne doit pas afficher l'annee dans une pilule separee : garder `Cook Note © 2026.` dans le texte d'identite, puis compteur et version uniquement dans les badges.
 - Les boutons partager et imprimer du hero ne doivent apparaitre que sur les vraies fiches recettes servies, jamais sur les categories, collections ou fiches parentes.

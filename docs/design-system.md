@@ -18,6 +18,8 @@ Ce document est la reference visuelle du projet. Toute passe UI doit ameliorer l
 - Motion standard : `200ms`.
 - Motion lente maximale : `250ms`.
 - Courbe : `cubic-bezier(.22, .72, .2, 1)`.
+- Hauteur controle standard : `40px`.
+- Hauteur tactile mobile : `44px`.
 
 ## Couleurs
 
@@ -47,16 +49,22 @@ Chaque composant interactif doit couvrir :
 
 Les boutons, cartes, panneaux, modales, toasts, inputs et tabs doivent reutiliser les memes rayons, durees, courbes et focus ring.
 
+Les controles qui vivent sur une meme ligne d'action doivent partager la meme hauteur visible : bouton texte, bouton icone et select de quantite ne doivent pas avoir de rythme different.
+
+Le select de quantite est un controle prioritaire : il doit rester contraste sur desktop et mobile meme si les styles globaux des champs changent.
+
 ## Motion
 
 - Transitions entre `150ms` et `250ms`.
 - Pas d'animation decorative permanente.
 - Les apparitions de modales et toasts sont utiles, courtes et calmes.
+- Le zoom image des cartes recette doit rester court et leger pour eviter la sensation de jank au scroll ou au hover.
 - Respect obligatoire de `prefers-reduced-motion`.
 
 ## Responsive
 
 - Mobile : aucun texte ne doit chevaucher son conteneur.
+- Mobile : les tabs/filtres courts doivent utiliser une grille stable plutot qu'une flex row aleatoire quand le nombre d'items est connu.
 - Tablette : les grilles doivent conserver des tailles stables.
 - Desktop : les panneaux doivent respirer sans diluer les actions.
 
