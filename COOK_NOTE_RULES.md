@@ -4,11 +4,12 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 
 ## Methode obligatoire
 
+- Lire `A_LIRE_EN_PREMIER.md` avant toute intervention sur le depot.
 - Lire ces regles avant de modifier les recettes, l'UI ou les images.
 - Respecter les patterns existants du site avant d'inventer une nouvelle structure.
 - Quand une convention utilisateur est nouvelle, faire trois choses : l'ajouter ici, ajouter une validation si elle peut etre testee, puis lancer le check complet.
 - Ne pas demander de confirmation inutile. Demander seulement quand il faut valider une image, une operation destructive, ou une ambiguite impossible a resoudre proprement.
-- Apres une modification terminee, lancer les checks disponibles, commit, puis push sur `main`.
+- Apres une modification terminee, lancer les checks disponibles, commit, puis push sur `main`. Le push est le comportement normal apres validation OK, sauf demande explicite de pause ou blocage Git/reseau.
 - Regenerer le sitemap quand des recettes, ids, URLs ou fiches supprimables changent.
 
 ## Donnees recettes

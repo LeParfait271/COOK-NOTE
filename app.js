@@ -74,8 +74,8 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.56';
-const SITE_UPDATED_AT = '30/06/26';
+const SITE_VERSION = 'v2.58';
+const SITE_UPDATED_AT = '01/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
@@ -4498,7 +4498,14 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
 function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, personalNotes = {}, favoriteCollection, setFavoriteCollection }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
-  const visibleIds = new Set(sections.flatMap(section => (section.recipes || []).map(recipe => recipe.id)));
+  const visibleRecipes = sections.flatMap(section => section.recipes || []);
+  const visibleIds = new Set(visibleRecipes.map(recipe => recipe.id));
+  const visibleLeafRecipes = visibleRecipes.filter(recipe => !isMasterRecipe(recipe));
+  const visibleQuickRecipes = visibleLeafRecipes.filter(recipe => {
+    const timing = getRecipeTiming(recipe);
+    return timing.active > 0 && timing.active <= 20;
+  });
+  const visibleCollectionCount = visibleRecipes.filter(recipe => isMasterRecipe(recipe)).length;
   const dashboardLabel = onlyFavorites ? 'Favoris' : (selectedSeason || 'Toutes saisons');
   const favoriteRecipes = favorites.map(id => recipesById[id]).filter(Boolean);
   const favoriteCollectionCounts = onlyFavorites ? FAVORITE_COLLECTIONS.reduce((counts, collection) => {
@@ -4521,6 +4528,12 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
           h('span', null, dashboardLabel),
           h('span', null, `${visibleIds.size} fiche${visibleIds.size > 1 ? 's' : ''}`),
           sections.length > 1 && h('span', null, `${sections.length} groupes`)
+        ),
+        visibleIds.size > 0 && h('div', { className: 'home-catalog-insights', 'aria-label': 'Indicateurs du catalogue visible' },
+          h('span', null, h('strong', null, visibleIds.size), h('small', null, 'fiches visibles')),
+          h('span', null, h('strong', null, visibleLeafRecipes.length), h('small', null, 'recettes servies')),
+          h('span', null, h('strong', null, visibleQuickRecipes.length), h('small', null, 'actives <= 20 min')),
+          h('span', null, h('strong', null, visibleCollectionCount), h('small', null, 'collections'))
         ),
         onlyFavorites && Object.keys(favoriteStatusCounts).length > 0 && h('div', { className: 'favorite-status-summary' },
           Object.entries(favoriteStatusCounts).map(([status, count]) => h('span', { key: status }, `${status}: ${count}`))
@@ -5330,6 +5343,13 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
   const compactText = open && recipes.length ? shoppingListText(recipes, factorById, ownedItems, 'compact') : 'Courses Cook Note\nAucune recette.';
   const visibleShoppingKeys = useMemo(() => new Set(shoppingData.groupedItems.map(item => item.key)), [shoppingData]);
   const checkedCount = activeShoppingData.groupedItems.filter(item => checkedItems[item.key]).length;
+  const handledCount = checkedCount + activeShoppingData.ownedGroupedItems.length;
+  const totalShoppingCount = shoppingData.groupedItems.length;
+  const handledRatio = totalShoppingCount ? Math.round((handledCount / totalShoppingCount) * 100) : 0;
+  const freshAisleCount = activeShoppingData.aisleGroups
+    .filter(group => /primeur|cremerie|oeufs|boucherie|poissonnerie/.test(normalizeText(group.label)))
+    .reduce((total, group) => total + group.items.length, 0);
+  const topAisles = activeShoppingData.aisleGroups.slice(0, 4).map(group => group.label);
   const setShoppingChecked = updater => {
     setCheckedItems(prev => {
       const next = typeof updater === 'function' ? updater(prev) : updater;
@@ -5404,6 +5424,18 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
         activeShoppingData.ownedGroupedItems.length > 0 && h('span', null, `${activeShoppingData.ownedGroupedItems.length} déjà maison`),
         h('span', null, `${checkedCount} coché${checkedCount > 1 ? 's' : ''}`),
         checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}), 'aria-label': `Tout décocher (${checkedCount} article${checkedCount > 1 ? 's' : ''})` }, 'Tout décocher')
+      ),
+      recipes.length > 0 && h('div', { className: 'shopping-store-dashboard', style: { '--shopping-progress': `${handledRatio}%` }, 'aria-label': 'Synthese magasin' },
+        h('div', { className: 'shopping-store-score' },
+          h('span', { 'aria-hidden': true }, h('span', null)),
+          h('strong', null, `${handledRatio}%`),
+          h('small', null, 'traite')
+        ),
+        h('div', { className: 'shopping-store-metrics' },
+          h('span', null, h('strong', null, activeShoppingData.aisleGroups.length), h('small', null, 'rayons')),
+          h('span', null, h('strong', null, freshAisleCount), h('small', null, 'frais')),
+          h('span', null, h('strong', null, topAisles.length ? topAisles.join(' / ') : 'Aucun'), h('small', null, 'trajet'))
+        )
       ),
       recipes.length > 0 && activeShoppingData.smartGroups.length > 0 && h('div', { className: 'shopping-smart-groups' },
         activeShoppingData.smartGroups.map(group => h('span', { key: group.label }, `${group.label}: ${group.items.map(item => item.name).join(', ')}`))
@@ -5483,6 +5515,12 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
   const shoppingData = useMemo(() => open ? buildShoppingListData(menuRecipes, menuFactorById) : EMPTY_SHOPPING_DATA, [open, menuRecipes, menuFactorById]);
   const servicePlan = useMemo(() => open ? buildMenuServicePlan(menuRecipes, shoppingData) : EMPTY_MENU_SERVICE_PLAN, [open, menuRecipes, shoppingData]);
   if (!open) return null;
+  const menuQuality = Number.isFinite(menu.quality) ? Math.max(0, Math.min(100, menu.quality)) : 0;
+  const menuQualityLabel = menuQuality >= 86 ? 'Service fluide'
+    : menuQuality >= 74 ? 'Accord solide'
+      : menuQuality >= 60 ? 'Menu correct'
+        : 'A affiner';
+  const menuRoleLine = menuItems.map(item => item.label).filter(Boolean).join(' / ');
   const rememberMenu = currentMenu => {
     if (!currentMenu?.signature) return;
     const next = [currentMenu.signature, ...menuHistory.filter(item => item !== currentMenu.signature)].slice(0, 12);
@@ -5544,6 +5582,17 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
         h('span', { className: 'menu-serving-hint' }, 'Les quantités du menu et des courses suivent ce nombre.')
       ),
       h('p', { className: 'menu-planner-reason' }, menu.reason),
+      h('div', { className: 'menu-quality-band', style: { '--menu-quality': `${menuQuality}%` }, 'aria-label': 'Qualite du menu' },
+        h('div', { className: 'menu-quality-score' },
+          h('span', null, h('span', null)),
+          h('strong', null, `${menuQuality || '--'}/100`),
+          h('small', null, menuQualityLabel)
+        ),
+        h('div', { className: 'menu-quality-copy' },
+          h('strong', null, menu.theme?.pitch || 'Menu equilibre.'),
+          h('small', null, menuRoleLine || 'Roles a composer')
+        )
+      ),
       h('div', { className: 'menu-planner-grid' },
         menuItems.map((item, index) => h('article', { key: `${item.key}-${item.recipe.id}-${index}`, className: 'menu-planner-card' },
           h('span', { className: 'menu-planner-image', style: imageBackgroundStyle(item.recipe.image), 'aria-hidden': true }),
@@ -5895,6 +5944,14 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
   const seasons = (recipe.seasons || []).filter(item => item !== 'Toutes saisons');
   const equipment = getRecipeEquipment(recipe);
   const timing = getRecipeTiming(recipe);
+  const serviceItems = getRecipeServiceItems(recipe).slice(0, 2);
+  const riskSignals = getRecipeRiskSignals(recipe).slice(0, 2);
+  const chefNotes = [
+    timing.active && timing.active <= 20 ? 'Mise en place courte : garder les ingredients visibles avant cuisson.' : '',
+    timing.rest ? 'Prevoir le repos avant de promettre le service.' : '',
+    ...serviceItems,
+    ...riskSignals.map(signal => `${signal.label} : point de vigilance.`)
+  ].filter(Boolean).slice(0, 4);
   const facts = [
     { label: 'Temps actif', value: formatMinutesShort(timing.active) || 'A estimer' },
     timing.cook && { label: 'Cuisson', value: formatMinutesShort(timing.cook) },
@@ -5915,6 +5972,10 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
         h('span', null, item.label),
         h('strong', null, item.value)
       ))
+    ),
+    chefNotes.length > 0 && h('div', { className: 'recipe-chef-strip', 'aria-label': 'Lecture chef de la recette' },
+      h('strong', null, 'Lecture chef'),
+      h('ul', null, chefNotes.map(item => h('li', { key: item }, item)))
     ),
     equipment.length > 0 && h('div', { className: 'recipe-equipment-strip' },
       h('strong', null, 'Matériel nécessaire'),

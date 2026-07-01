@@ -12,6 +12,7 @@ Cook Note est un carnet culinaire web avec :
 - mode cuisine avec checklist, progression et minuteurs d'etapes ;
 - fiches techniques sur les familles importantes ;
 - images servies depuis le projet dans assets/recipe-images/ ou assets/uploads/.
+- garde-fou maitre dans A_LIRE_EN_PREMIER.md.
 - regles projet centralisees dans COOK_NOTE_RULES.md.
 
 ADMIN
@@ -126,6 +127,7 @@ REGLES RECETTES
 
 Avant de modifier les donnees ou l'interface, lire :
 
+   A_LIRE_EN_PREMIER.md
    COOK_NOTE_RULES.md
 
 Les conventions importantes y sont notees : arrondis au-dessus de 50g, vanille sans

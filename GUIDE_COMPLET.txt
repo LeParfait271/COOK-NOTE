@@ -29,6 +29,8 @@ ARCHITECTURE
 - scripts/validate-project-rules.js : verification que les regles Cook Note restent branchees.
 - scripts/validate-production.js : verification sitemap, robots, service worker et anciens ids.
 - scripts/audit-recipes.js : rapport de completude et de rangement.
+- A_LIRE_EN_PREMIER.md : garde-fou maitre a lire avant toute intervention.
+- AGENTS.md : pointeur court pour les agents de code.
 - COOK_NOTE_RULES.md : source de verite des conventions utilisateur.
 - backups/ : copies horodatees de recipes.js avant ecriture admin.
 

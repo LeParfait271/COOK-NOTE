@@ -3,6 +3,8 @@ const path = require('node:path');
 
 const ROOT = path.resolve(__dirname, '..');
 const rulesPath = path.join(ROOT, 'COOK_NOTE_RULES.md');
+const masterGuardPath = path.join(ROOT, 'A_LIRE_EN_PREMIER.md');
+const agentsPath = path.join(ROOT, 'AGENTS.md');
 const packagePath = path.join(ROOT, 'package.json');
 const validators = {
   recipes: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-recipes.js'), 'utf8'),
@@ -32,9 +34,14 @@ function expect(label, condition) {
 }
 
 expect('Fichier de regles Cook Note absent.', fs.existsSync(rulesPath));
+expect('Garde-fou maitre A_LIRE_EN_PREMIER.md absent.', fs.existsSync(masterGuardPath));
+expect('Pointeur agents AGENTS.md absent.', fs.existsSync(agentsPath));
 
 const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : '';
+const masterGuard = fs.existsSync(masterGuardPath) ? fs.readFileSync(masterGuardPath, 'utf8') : '';
+const agentsGuide = fs.existsSync(agentsPath) ? fs.readFileSync(agentsPath, 'utf8') : '';
 [
+  'A_LIRE_EN_PREMIER.md',
   'arrondir au multiple de `5g`',
   'vanille selon gout ou arôme vanille selon dosage indiqué sur la bouteille',
   'cassonade ou vergeoise',
@@ -188,6 +195,25 @@ const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : ''
 ].forEach(fragment => {
   expect(`Regle manquante dans COOK_NOTE_RULES.md (${fragment}).`, rules.includes(fragment));
 });
+
+[
+  'Ordre de lecture obligatoire',
+  'COOK_NOTE_RULES.md',
+  'docs/architecture.md',
+  'Autonomie et autorisations',
+  'Zones sensibles',
+  'Interdits forts',
+  'dist/',
+  'Android Legacy',
+  'powershell.exe -ExecutionPolicy Bypass -File .\\check.ps1',
+  'npm run build',
+  'npm run apps:update-all',
+  'Pas de secret dans Git'
+].forEach(fragment => {
+  expect(`Garde-fou maitre incomplet (${fragment}).`, masterGuard.includes(fragment));
+});
+
+expect('AGENTS.md ne pointe pas vers le garde-fou maitre.', agentsGuide.includes('A_LIRE_EN_PREMIER.md') && agentsGuide.includes('COOK_NOTE_RULES.md'));
 
 expect('Validation arrondi grammes non branchee.', validators.recipes.includes('checkRoundedLargeGramAmounts'));
 expect('Validation dosage vanille non branchee.', validators.recipes.includes('checkVanillaDosage'));
