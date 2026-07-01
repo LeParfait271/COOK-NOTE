@@ -1,6 +1,6 @@
 # Audit Cook Note
 
-Genere le 2026-07-01T19:23:25.983Z.
+Genere le 2026-07-01T20:52:56.871Z.
 
 - Recettes totales : 268
 - Recettes feuilles : 249
@@ -115,7 +115,7 @@ Genere le 2026-07-01T19:23:25.983Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Brochettes crevettes chorizo (brochettes_crevettes_chorizo) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
-- Brochettes de melon épice (brochettes_melon_epice) : 100/100 - OK
+- Brochettes de melon épicé (brochettes_melon_epice) : 100/100 - OK
 - Bruschetta roquefort noix (bruschetta_roquefort_noix) : 100/100 - OK
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -529,7 +529,7 @@ Genere le 2026-07-01T19:23:25.983Z.
 - Bricks fromage miel poires pecan (bricks_fromage_miel_poires_pecan)
 - Brie farci aux fruits secs et noix (brie_farci_fruits_secs_noix)
 - Brochettes crevettes chorizo (brochettes_crevettes_chorizo)
-- Brochettes de melon épice (brochettes_melon_epice)
+- Brochettes de melon épicé (brochettes_melon_epice)
 - Bruschetta roquefort noix (bruschetta_roquefort_noix)
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo)
 - Cake au citron (cake_citron)

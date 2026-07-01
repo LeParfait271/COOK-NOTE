@@ -23,6 +23,8 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Beurre pommade : quand une recette demande du beurre pommade ou ramolli, indiquer le repere utile `sortir le beurre environ 45 a 60min avant`, selon la temperature de la piece. Il doit etre souple, pas fondu.
 - Cuilleres : les reperes de poids doivent preciser l'usage. Pour poudres et pates, considerer une cuillere rase. Pour les liquides, remplir au niveau. Le texte explicatif doit rester dans `Repere indicatif`, pas melange dans `Poids moyens`.
 - Les poids moyens des cuilleres ou supports utiles doivent apparaitre dans la colonne `Avant de commencer` quand la recette contient ce type de mesure.
+- Les poids moyens ingredient doivent respecter l'aliment exact : citron jaune et citron vert sont deux reperes distincts, `jus de citron vert` ne doit jamais utiliser le rendement d'un citron jaune, et les ingredients en piece comme `1 melon` doivent aussi declencher leur repere utile.
+- La validation `scripts/validate-average-weights.js` doit rester branchee au `npm run check` pour couvrir toutes les fiches et la liste de courses.
 - Les notes ne doivent pas dupliquer les informations deja rangees automatiquement dans conservation, erreurs, resultat ou reperes.
 - Les conservations doivent expliquer avant et apres cuisson quand c'est utile.
 - Les techniques de cuisinier necessaires doivent etre presentes dans la page Techniques et liees automatiquement ou explicitement dans les recettes.
@@ -73,7 +75,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Historique des menus : ne pas reproposer exactement la meme combinaison de recettes quand l'utilisateur demande un autre menu ou ajoute un menu aux courses.
 - Mode menu : proposer un choix du nombre de personnes et appliquer ce facteur aux rendements affiches, au resume des courses et aux quantites envoyees dans la liste de courses.
 - Mode menu : quand une fiche est ouverte depuis le menu, le bouton retour du navigateur doit rouvrir le meme mode menu avec son contexte, pas renvoyer l'utilisateur sur une page sans le menu.
-- Le panier courses doit regrouper les noms proches sans perdre le sens : beurre doux/ramolli/fondu vers beurre, cassonade/vergeoise ensemble, huiles neutres ensemble, chocolat noir/lait/blanc separes.
+- Le panier courses doit regrouper les noms proches sans perdre le sens : beurre doux/ramolli/fondu vers beurre, cassonade/vergeoise ensemble, huiles neutres ensemble, chocolat noir/lait/blanc separes, citron jaune et citron vert separes quand la recette le demande.
 - Liste de courses : mode `J’ai déjà` obligatoire pour retirer un ingredient de la liste a acheter sans supprimer la recette.
 - Liste de courses : les rayons doivent rester proches d'un magasin reel : primeur, cremerie et oeufs, boucherie, poissonnerie, boulangerie, epicerie salee et epicerie sucree.
 - Liste de courses : regrouper les familles proches quand c'est utile, par exemple citron/jus/zeste, oeufs/jaunes/blancs, ail, tomates, cremes et laitages.

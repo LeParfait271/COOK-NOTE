@@ -29,6 +29,14 @@ const NON_INGREDIENT_ITEM_RE = /\b(equivaut|equivalent|conversion|repere indicat
 const JOINED_DURATION_WORD_RE = /\b[A-Za-zÀ-ÖØ-öø-ÿ]+d[eè]s\s+\d+\s*min\b/i;
 const AMBIGUOUS_HOT_PLAT_FRESH_SERVICE_RE = /\b(?:a\s+servir|servir|envoyer)\s+avec\b[^.]*\b(?:dessert|element|élément|salade)\b[^.]*\bfrais/i;
 const COLD_RECIPE_IDENTITY_RE = /\b(?:salade|tartare|carpaccio|ceviche|poke|poke bowl|gaspacho|taboule|taboulé|mousse|panna cotta|flan|clafoutis|cake)\b/i;
+const COMMON_RECIPE_TYPO_RULES = [
+  { pattern: /\bbien mur\b/i, expected: 'bien mûr' },
+  { pattern: /\bpaprika fume\b/i, expected: 'paprika fumé' },
+  { pattern: /\bdelicatement\b/i, expected: 'délicatement' },
+  { pattern: /\bpreparer\b/i, expected: 'préparer' },
+  { pattern: /\bla piece\b/i, expected: 'la pièce' },
+  { pattern: /\bfraicheur\b/i, expected: 'fraîcheur' }
+];
 const FORBIDDEN_RECIPE_SOURCE_KEYS = new Set([
   'source',
   'sourceurl',
@@ -293,6 +301,15 @@ function checkCulinarySense(id, recipe, value) {
   if (isHotMainDish(recipe) && AMBIGUOUS_HOT_PLAT_FRESH_SERVICE_RE.test(text)) {
     errors.push(`${id}: formulation de service ambigue pour un plat chaud; preferer "prevoir" ou "accompagner de" (${text}).`);
   }
+}
+
+function checkCommonRecipeTypos(id, value) {
+  const text = String(value || '');
+  COMMON_RECIPE_TYPO_RULES.forEach(rule => {
+    if (rule.pattern.test(text)) {
+      errors.push(`${id}: faute courante detectee, utiliser "${rule.expected}" (${text}).`);
+    }
+  });
 }
 
 if (!recipes || typeof recipes !== 'object') {
@@ -608,6 +625,7 @@ if (!recipes || typeof recipes !== 'object') {
       }
       checkPepperWording(id, value);
       checkCulinarySense(id, recipe, value);
+      checkCommonRecipeTypos(id, value);
     });
     checkForbiddenDisplayTerms(recipe, id);
     checkForbiddenSourceMetadata(recipe, id);

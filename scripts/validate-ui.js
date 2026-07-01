@@ -100,6 +100,16 @@ const adminCssUsesPremiumTokens = [
   '--ds-motion-slow: 320ms',
   '--ds-ease-out: cubic-bezier(.22, .72, .2, 1)'
 ].every(fragment => files.adminCss.includes(fragment));
+const averageWeightsUseExactIngredients = [
+  "label: 'Citron vert'",
+  "label: 'Jus d’un citron vert'",
+  "label: 'Jus d’un citron jaune'",
+  "label: 'Melon moyen'",
+  'shouldShowAverageWeightForLine',
+  "return 'citron vert'",
+  "return 'melon'",
+  'melon(?:s)?'
+].every(fragment => files.app.includes(fragment)) && files.rules.includes('jus de citron vert') && files.rules.includes('1 melon');
 
 function expect(label, condition) {
   if (!condition) errors.push(label);
@@ -165,6 +175,7 @@ expect('Mode menu perdu au retour recette.', files.app.includes('markMenuPlanner
 expect('Mode menu semaine force encore des desserts longs.', files.app.includes('isWeeknightDessert') && files.app.includes("theme.id !== 'semaine' || isWeeknightDessert(recipe)") && files.rules.includes('Mode menu soir de semaine'));
 expect('Mode menu sans registre accords professionnels.', files.app.includes('MENU_PAIRING_RULES') && files.app.includes('creamy-sauce-needs-neutral-side') && files.app.includes('need-crunch-or-freshness') && files.rules.includes('tomate expressive interdite avec sauce cremeuse'));
 expect('Liste courses sans ameliorations permanentes.', files.app.includes('shoppingPurchaseHint') && files.app.includes('shoppingSmartGroupKey') && files.app.includes('filterShoppingListData') && files.app.includes('shoppingOwned') && files.style.includes('.shopping-owned-btn'));
+expect('Poids moyens ingredient trop generiques.', averageWeightsUseExactIngredients);
 expect('Liste courses sans libelles accessibles fins.', files.app.includes("'aria-label': `Retirer ${recipe.title} du panier courses`") && files.app.includes("'aria-label': `${checked ? 'Décocher' : 'Cocher'} ${[amount, item.name].filter(Boolean).join(' ')}`") && files.app.includes("'aria-label': `Marquer ${item.name} comme déjà à la maison`") && files.app.includes("'aria-label': `Remettre ${item.name} dans la liste à acheter`") && files.style.includes('.shopping-owned-btn:focus-visible'));
 expect('Admin sans diagnostic ajout recette.', files.admin.includes('renderDiagnostics') && files.admin.includes('inferDiagnosticRole') && files.adminHtml.includes('recipe-diagnostics') && files.adminCss.includes('.admin-diagnostic-panel'));
 expect('Detection composants menu trop fragile.', files.app.includes('MENU_COMPONENT_PATTERNS') && files.app.includes('appareil') && files.app.includes('fourrage') && files.app.includes('condiment'));

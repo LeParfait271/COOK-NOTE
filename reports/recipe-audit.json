@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-01T19:23:25.983Z",
+  "generatedAt": "2026-07-01T20:52:56.871Z",
   "totals": {
     "recipes": 268,
     "leaves": 249,
@@ -375,7 +375,7 @@
     },
     {
       "id": "brochettes_melon_epice",
-      "title": "Brochettes de melon épice",
+      "title": "Brochettes de melon épicé",
       "count": 0
     },
     {
@@ -672,7 +672,7 @@
     },
     {
       "id": "brochettes_melon_epice",
-      "title": "Brochettes de melon épice",
+      "title": "Brochettes de melon épicé",
       "score": 100,
       "issues": [],
       "qualityIssues": [],

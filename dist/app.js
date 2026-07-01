@@ -74,12 +74,12 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.70';
+const SITE_VERSION = 'v2.71';
 const SITE_UPDATED_AT = '01/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.70';
+const ANDROID_LEGACY_APK_VERSION = '2.71';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -1236,8 +1236,10 @@ const AVERAGE_WEIGHT_RULES = [
   { label: 'Œuf moyen', value: '≈ 55g', pattern: /\b(oeuf|oeufs|œuf|œufs|oeufs entiers|œufs entiers|oeuf entier|œuf entier)\b/, except: /\b(jaunes?|blancs?) d['’ ]?(oeuf|oeufs)\b/ },
   { label: 'Jaune d’œuf', value: '≈ 18g', pattern: /\bjaunes? d['’ ]?(oeuf|oeufs)\b/ },
   { label: 'Blanc d’œuf', value: '≈ 30g', pattern: /\bblancs? d['’ ]?(oeuf|oeufs)\b/ },
-  { label: 'Citron jaune', value: '≈ 100 à 120g', pattern: /\b(citron entier|citron jaune|citrons jaunes)\b/ },
-  { label: 'Jus d’un citron', value: '≈ 40 à 50g', pattern: /\bjus de citron\b/ },
+  { label: 'Citron jaune', value: '≈ 100 à 120g', pattern: /\b(citron entier|citron jaune|citrons jaunes|citron bio|citron non traite|citron non traité|citron)\b/, except: /\b(jus|zeste|quartiers?|citron vert|lime|confit)\b/ },
+  { label: 'Citron vert', value: '≈ 60 à 80g', pattern: /\b(citron vert|citrons verts|lime|limes)\b/, except: /\b(jus|zeste)\b/ },
+  { label: 'Jus d’un citron vert', value: '≈ 20 à 30g', pattern: /\b(jus de citron vert|jus de lime)\b/ },
+  { label: 'Jus d’un citron jaune', value: '≈ 40 à 50g', pattern: /\bjus de citron\b/, except: /\b(citron vert|lime)\b/ },
   { label: 'Gousse d’ail', value: '≈ 5g', pattern: /\b(gousse d ail|gousses d ail|ail)\b/ },
   { label: 'Oignon moyen', value: '≈ 100 à 120g', pattern: /\b(oignon|oignons)\b/ },
   { label: 'Échalote', value: '≈ 25 à 30g', pattern: /\b(echalote|echalotes)\b/ },
@@ -1247,6 +1249,7 @@ const AVERAGE_WEIGHT_RULES = [
   { label: 'Patate douce moyenne', value: '≈ 250g', pattern: /\b(patate douce|patates douces)\b/ },
   { label: 'Avocat', value: '≈ 150g de chair', pattern: /\b(avocat|avocats)\b/ },
   { label: 'Poivron', value: '≈ 150 à 180g', pattern: /\b(poivron|poivrons)\b/ },
+  { label: 'Melon moyen', value: '≈ 800g à 1kg', pattern: /\b(melon|melons|melon charentais)\b/, except: /\b(jus de melon|billes? de melon)\b/ },
   { label: 'Courgette moyenne', value: '≈ 200g', pattern: /\b(courgette|courgettes)\b/ },
   { label: 'Aubergine moyenne', value: '≈ 300g', pattern: /\b(aubergine|aubergines)\b/ },
   { label: 'Jus d’une orange', value: '≈ 70 à 90g', pattern: /\bjus d['’ ]?orange\b/ },
@@ -1324,6 +1327,11 @@ function getSpoonMeasureInfo(line) {
   };
 }
 
+function shouldShowAverageWeightForLine(text) {
+  if (/\b\d+(?:[.,]\d+)?\s*g\b/.test(text)) return true;
+  return /^(?:\d+(?:[.,]\d+)?(?:\/\d+)?|une?|quelques|des)\s+(?!min\b|minutes?\b|g\b|kg\b|ml\b|cl\b|l\b|c\.?\b|cuill|pinc[eé]e\b|trait\b|filet\b)/.test(text);
+}
+
 function getRecipeAverageWeights(recipe) {
   const explicit = Array.isArray(recipe?.averageWeights) ? recipe.averageWeights : [];
   const found = new Map();
@@ -1337,7 +1345,7 @@ function getRecipeAverageWeights(recipe) {
       const text = normalizeText(item);
       const spoonInfo = getSpoonMeasureInfo(item);
       if (spoonInfo && !found.has(spoonInfo.label)) found.set(spoonInfo.label, spoonInfo.value);
-      if (!/\b\d+(?:[.,]\d+)?\s*g\b/.test(text)) return;
+      if (!shouldShowAverageWeightForLine(text)) return;
       AVERAGE_WEIGHT_RULES.forEach(rule => {
         if (rule.except?.test(text)) return;
         if (rule.pattern.test(text) && !found.has(rule.label)) found.set(rule.label, rule.value);
@@ -1769,7 +1777,9 @@ function normalizeShoppingName(value) {
       .replace(/\bde pepins de raisin\b/g, 'pepins raisin')
       .replace(/\bd avocat\b/g, 'avocat');
   }
+  if (/^citrons?\s+verts?\b|^limes?\b/.test(text)) return 'citron vert';
   if (/^citrons?\b/.test(text)) return 'citron';
+  if (/^melons?\b/.test(text)) return 'melon';
   if (/^tomates?\b/.test(text)) return 'tomate';
   if (/^oeufs?\b|^œufs?\b/.test(text)) return 'oeufs';
   return text.replace(/\s+/g, ' ').trim();
@@ -1777,9 +1787,13 @@ function normalizeShoppingName(value) {
 
 function canonicalShoppingName(value) {
   const text = normalizeText(value);
+  if (/\bjus de citron vert\b|\bjus de lime\b/.test(text)) return 'jus de citron vert';
   if (/\bjus de citron\b/.test(text)) return 'jus de citron';
+  if (/\bzeste de citron vert\b|\bzestes de citron vert\b|\bzeste de lime\b/.test(text)) return 'zeste de citron vert';
   if (/\bzeste de citron\b|\bzestes de citron\b/.test(text)) return 'zeste de citron';
+  if (/^citrons?\s+verts?\b|^limes?\b/.test(text)) return 'citron vert';
   if (/^citrons?\b/.test(text)) return 'citron';
+  if (/^melons?\b/.test(text)) return 'melon';
   if (/^oignons?\b/.test(text)) return 'oignon';
   if (/^echalotes?\b|^échalotes?\b/.test(text)) return 'échalote';
   if (/^gousses? d ail\b|^ail\b/.test(text)) return 'ail';
@@ -1811,7 +1825,7 @@ function parseShoppingIngredient(line) {
   const cleaned = stripHtml(line).replace(/^[-•]\s*/, '').trim();
   const match = cleaned.match(/^(\d+(?:[.,]\d+)?(?:\/\d+)?)(\s*(?:[\u2013\u2014-]|à|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?\s*(g|kg|ml|cl|l)\s+(.*)$/i);
   if (!match) {
-    const countMatch = cleaned.match(/^(\d+(?:[.,]\d+)?(?:\/\d+)?)(\s*(?:[\u2013\u2014-]|à|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?\s+(?!recette\b|c\.|cuill|pinc[eé]e\b|trait\b|filet\b)(citron(?:s)?|oignon(?:s)?|échalote(?:s)?|echalote(?:s)?|gousse(?:s)? d[’']ail|œuf(?:s)?|oeuf(?:s)?|jaune(?:s)?|blanc(?:s)?|tomate(?:s)?|avocat(?:s)?|pomme(?:s)?|poire(?:s)?|carotte(?:s)?|courgette(?:s)?)(.*)$/i);
+    const countMatch = cleaned.match(/^(\d+(?:[.,]\d+)?(?:\/\d+)?)(\s*(?:[\u2013\u2014-]|à|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?\s+(?!recette\b|c\.|cuill|pinc[eé]e\b|trait\b|filet\b)(citron(?:s)?|melon(?:s)?|oignon(?:s)?|échalote(?:s)?|echalote(?:s)?|gousse(?:s)? d[’']ail|œuf(?:s)?|oeuf(?:s)?|jaune(?:s)?|blanc(?:s)?|tomate(?:s)?|avocat(?:s)?|pomme(?:s)?|poire(?:s)?|carotte(?:s)?|courgette(?:s)?)(.*)$/i);
     if (!countMatch) return null;
     const first = parseAmount(countMatch[1]);
     const second = countMatch[3] ? parseAmount(countMatch[3]) : null;
@@ -1866,6 +1880,7 @@ function shoppingPurchaseHint(item) {
   if (item.unit === 'piece') {
     if (/\boeufs|œufs\b/.test(text)) return `${Math.max(1, Math.ceil(item.first / 6))} boîte${item.first > 6 ? 's' : ''} de 6`;
     if (/\bcitron\b/.test(text)) return item.first >= 4 ? '1 filet ou vrac' : 'vrac';
+    if (/\bmelon\b/.test(text)) return 'à l’unité';
   }
   return '';
 }
