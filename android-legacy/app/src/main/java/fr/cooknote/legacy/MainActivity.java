@@ -345,8 +345,8 @@ public class MainActivity extends Activity {
         );
         statsParams.topMargin = dp(6);
         brandCopy.addView(stats, statsParams);
-        addHeaderStat(stats, String.valueOf(repository.homeRecipes().size()), "parents");
-        addHeaderStat(stats, String.valueOf(repository.searchableRecipes().size()), "recettes");
+        addHeaderStat(stats, String.valueOf(repository.homeRecipes().size()), "accueil");
+        addHeaderStat(stats, String.valueOf(repository.searchableRecipes().size()), "fiches");
         addHeaderStat(stats, String.valueOf(favoriteIds.size()), "favoris");
 
         addAccentLine(header, 8, 0);
@@ -808,7 +808,7 @@ public class MainActivity extends Activity {
     private void updateFilterControls(boolean homeMode, int count) {
         if (counterView == null) return;
         StringBuilder label = new StringBuilder();
-        label.append(count).append(homeMode ? " fiches parents" : " resultats");
+        label.append(count).append(homeMode ? " fiches principales" : " resultats");
         if (homeMode) label.append(" - accueil");
         if (!homeMode) label.append(" - recherche");
         counterView.setText(label.toString());

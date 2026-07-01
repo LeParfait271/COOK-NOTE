@@ -116,12 +116,24 @@ const byId = Object.fromEntries(leaves.map(recipe => [recipe.id, recipe]));
   'cassoulet',
   'irish_stew_guinness',
   'saucisse_lentilles',
+  'saucisses_aux_lentilles',
   'dhal_lentilles_epices',
   'porc_chorizo_haricots_tarbais',
   'haricots_tarbais_chorizo_tomate',
+  'haricots_blancs_tomates_montbeliard',
   'poulet_chorizo_vin_blanc_citron',
+  'poulet_tomates_poivron_vin_blanc_thym',
+  'poulet_sauce_pimentee',
+  'poelee_ble_poulet_curcuma',
+  'curry_poulet_crevettes',
   'cocotte_pois_chiches_tomates_montbeliard',
-  'pates_pesto_tomates_mozzarella'
+  'pates_pesto_tomates_mozzarella',
+  'ragout_boeuf_biere',
+  'queue_boeuf_carottes_vin_rouge',
+  'parmentier_confit_canard_patates_douces',
+  'soupe_paysanne_morteau',
+  'saumon_au_four_simple',
+  'gratin_chou_fleur_chorizo_cocottes'
 ].forEach(id => {
   const recipe = byId[id];
   expect(`Lecture chef: recette chaude introuvable (${id}).`, Boolean(recipe));

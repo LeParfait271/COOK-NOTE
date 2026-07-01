@@ -74,12 +74,12 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.68';
+const SITE_VERSION = 'v2.69';
 const SITE_UPDATED_AT = '01/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.68';
+const ANDROID_LEGACY_APK_VERSION = '2.69';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -1147,8 +1147,13 @@ function hasHotServiceIdentity(identityText) {
   return /\b(cassoulet|ragout|stew|cocotte|gratin|dhal|curry|poulet|boeuf|porc|agneau|saucisse|lentilles|haricots|pates|tagliatelles|crevettes|encornets|calamar|souffle|veloute|soupe|poelee)\b/.test(identityText);
 }
 
+function hasHotServicePriority(recipe, identityText) {
+  if (hasColdServiceIdentity(identityText)) return false;
+  return hasRecipeCategory(recipe, /\bplats?\b/) || hasHotServiceIdentity(identityText);
+}
+
 function getRecipeServiceTemperature(recipe, serviceText, identityText) {
-  if (hasExplicitHotService(serviceText)) return 'hot';
+  if (hasExplicitHotService(serviceText) || hasHotServicePriority(recipe, identityText)) return 'hot';
   if (hasExplicitColdService(serviceText) || hasColdServiceIdentity(identityText)) return 'cold';
   if (hasTemperateServiceIdentity(identityText)) return 'temperate';
   if (hasRecipeCategory(recipe, /\bplats?\b/) || hasHotServiceIdentity(identityText)) return 'hot';
@@ -1176,7 +1181,7 @@ function getRecipeRiskSignals(recipe) {
     if (pattern.test(sourceText) && !signals.some(item => item.label === label)) signals.push({ label, level });
   };
   add('Conserve', 'high', /\b(sterilis|bocal|bocaux|conserve|pate de lapin|pate lapin|pate de campagne|terrine|rillettes|saindoux)\b/);
-  if ((hasColdServiceIdentity(identityText) || hasExplicitColdService(serviceText)) && !signals.some(item => item.label === 'Froid')) {
+  if (!hasHotServicePriority(recipe, identityText) && (hasColdServiceIdentity(identityText) || hasExplicitColdService(serviceText)) && !signals.some(item => item.label === 'Froid')) {
     signals.push({ label: 'Froid', level: 'medium' });
   }
   add('Œufs crus', 'medium', /\b(mayonnaise|aioli|aïoli|rouille|oeuf cru|jaune cru)\b/);
@@ -1188,7 +1193,9 @@ function getRecipeRiskSignals(recipe) {
 
 function getRecipeServiceItems(recipe) {
   const practicalService = asTextList(recipe?.service || recipe?.practical?.service);
-  if (practicalService.length) return practicalService.slice(0, 4);
+  const identityText = getRecipeIdentityText(recipe);
+  const practicalServiceLooksCold = /froid|froide|frais|fraiche|fraiches/i.test(practicalService.join(' '));
+  if (practicalService.length && !(hasHotServicePriority(recipe, identityText) && practicalServiceLooksCold)) return practicalService.slice(0, 4);
   const serviceText = getRecipeInstructionText(recipe);
   const text = normalizeText([
     recipe?.title,
@@ -1199,7 +1206,6 @@ function getRecipeServiceItems(recipe) {
     ...(recipe?.steps || []),
     ...(recipe?.notes || [])
   ].map(stripHtml).join(' '));
-  const identityText = getRecipeIdentityText(recipe);
   const items = [...practicalService];
   const add = item => {
     if (item && !items.includes(item)) items.push(item);

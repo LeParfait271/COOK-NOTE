@@ -196,7 +196,7 @@ expect(
     && androidLegacyMainActivity.includes('cancelPendingPrefetch')
     && androidLegacyMainActivity.includes('perfLog')
     && androidLegacyMainActivity.includes('isHomeMode')
-    && androidLegacyMainActivity.includes('fiches parents')
+    && androidLegacyMainActivity.includes('fiches principales')
     && androidLegacyMainActivity.includes('repository.homeRecipes()')
     && androidLegacyMainActivity.includes('repository.childrenForParent')
     && androidLegacyMainActivity.includes('repository.collectionCount')

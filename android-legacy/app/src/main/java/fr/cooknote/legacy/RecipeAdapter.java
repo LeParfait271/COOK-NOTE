@@ -203,7 +203,7 @@ final class RecipeAdapter extends BaseAdapter {
         ));
 
         View veil = new View(context);
-        veil.setBackgroundColor(Color.argb(38, 0, 0, 0));
+        veil.setBackgroundColor(Color.argb(24, 0, 0, 0));
         frame.addView(veil, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -211,8 +211,8 @@ final class RecipeAdapter extends BaseAdapter {
 
         View topEdge = new View(context);
         topEdge.setBackground(gradientPanel(
-                Color.argb(168, 251, 191, 36),
-                Color.argb(18, 251, 191, 36),
+                Color.argb(58, 251, 191, 36),
+                Color.argb(0, 251, 191, 36),
                 Color.TRANSPARENT,
                 0,
                 0
@@ -225,8 +225,8 @@ final class RecipeAdapter extends BaseAdapter {
 
         View bottomEdge = new View(context);
         bottomEdge.setBackground(gradientPanel(
-                Color.argb(28, 245, 158, 11),
-                Color.argb(158, 245, 158, 11),
+                Color.argb(0, 245, 158, 11),
+                Color.argb(72, 245, 158, 11),
                 Color.TRANSPARENT,
                 0,
                 0
@@ -239,7 +239,7 @@ final class RecipeAdapter extends BaseAdapter {
 
         LinearLayout overlay = new LinearLayout(context);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(12), dp(10), dp(12), dp(12));
+        overlay.setPadding(dp(14), dp(22), dp(14), dp(13));
         overlay.setBackground(cardTitleOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -250,13 +250,13 @@ final class RecipeAdapter extends BaseAdapter {
 
         TextView title = new TextView(context);
         title.setTextColor(Color.rgb(249, 242, 231));
-        title.setTextSize(15);
+        title.setTextSize(16);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setIncludeFontPadding(false);
         title.setLineSpacing(dp(1), 1.02f);
-        title.setShadowLayer(2.2f, 0, dp(1), Color.BLACK);
+        title.setShadowLayer(2.0f, 0, dp(1), Color.argb(220, 0, 0, 0));
         LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -331,8 +331,8 @@ final class RecipeAdapter extends BaseAdapter {
     private GradientDrawable cardTitleOverlayGradient() {
         return new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{
                 Color.argb(0, 0, 0, 0),
-                Color.argb(82, 0, 0, 0),
-                Color.argb(206, 5, 4, 3)
+                Color.argb(60, 0, 0, 0),
+                Color.argb(188, 5, 4, 3)
         });
     }
 
