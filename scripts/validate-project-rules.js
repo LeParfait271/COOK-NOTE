@@ -12,6 +12,7 @@ const validators = {
   recipes: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-recipes.js'), 'utf8'),
   ui: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-ui.js'), 'utf8'),
   production: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-production.js'), 'utf8'),
+  featureCoverage: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-feature-coverage.js'), 'utf8'),
   cache: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-cache-version.js'), 'utf8'),
   visualImages: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-visual-image-duplicates.js'), 'utf8'),
   dist: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-dist.js'), 'utf8'),
@@ -278,6 +279,7 @@ expect('Artefact dist Cloudflare Pages non versionne.', !/(^|\n)dist\/(\r?\n|$)/
 expect('Build command Cloudflare Pages non documentee.', validators.wrangler.includes('Build command: npm run build') && validators.architecture.includes('Build command : `npm run build`') && validators.architecture.includes('No build command specified') && rules.includes('Build command: npm run build'));
 expect('Module runtime images non protege.', validators.packageJson.includes('node --check app-images.js') && validators.production.includes('/app-images.js') && validators.cache.includes('app-images.js') && validators.dist.includes("'app-images.js'") && validators.preflight.includes('/app-images.js'));
 expect('Validation couverture features non branchee.', validators.packageJson.includes('scripts/validate-feature-coverage.js'));
+expect('Garde-fou Lecture chef temperature absent.', rules.includes('La Lecture chef ne doit jamais deduire un service froid') && validators.featureCoverage.includes('service froid faux positif') && validators.featureCoverage.includes('pates_pesto_tomates_mozzarella') && validators.featureCoverage.includes('signal proteine faux positif'));
 expect('Validation cache/version non branchee.', validators.cache.includes('Validation cache/version OK.') && validators.packageJson.includes('scripts/validate-cache-version.js'));
 expect('Validateurs encore couples a la version de release.', validators.cache.includes('ne doit pas contenir de version/date de release en dur') && !validators.bumpVersion.includes("write('scripts/validate-ui.js'") && validators.ui.includes('siteAssetVersion') && rules.includes('Les validateurs ne doivent pas porter la version de release courante en dur') && validators.architecture.includes('Les validateurs ne portent pas la version courante en dur'));
 expect('Validation budget performance non branchee.', validators.packageJson.includes('scripts/validate-performance-budget.js'));

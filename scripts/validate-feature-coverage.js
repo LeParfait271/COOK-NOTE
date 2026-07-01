@@ -111,6 +111,52 @@ leaves.forEach(recipe => {
 });
 
 const byId = Object.fromEntries(leaves.map(recipe => [recipe.id, recipe]));
+
+[
+  'cassoulet',
+  'irish_stew_guinness',
+  'saucisse_lentilles',
+  'dhal_lentilles_epices',
+  'porc_chorizo_haricots_tarbais',
+  'haricots_tarbais_chorizo_tomate',
+  'poulet_chorizo_vin_blanc_citron',
+  'cocotte_pois_chiches_tomates_montbeliard',
+  'pates_pesto_tomates_mozzarella'
+].forEach(id => {
+  const recipe = byId[id];
+  expect(`Lecture chef: recette chaude introuvable (${id}).`, Boolean(recipe));
+  if (recipe) {
+    const serviceText = ctx.getRecipeServiceItems(recipe).join(' | ').toLowerCase();
+    const riskSignals = ctx.getRecipeRiskSignals(recipe);
+    expect(`Lecture chef: service froid faux positif (${id}).`, !/froid|frais/.test(serviceText) && /chaud/.test(serviceText));
+    expect(`Lecture chef: risque froid faux positif (${id}).`, !riskSignals.some(signal => signal.label === 'Froid'));
+  }
+});
+
+[
+  'terrine_campagne',
+  'rillettes_porc',
+  'tiramisu_citron',
+  'gazpacho_tomate_menthe_basilic',
+  'salade_caprese'
+].forEach(id => {
+  const recipe = byId[id];
+  expect(`Lecture chef: recette froide introuvable (${id}).`, Boolean(recipe));
+  if (recipe) {
+    const serviceText = ctx.getRecipeServiceItems(recipe).join(' | ').toLowerCase();
+    expect(`Lecture chef: service frais absent (${id}).`, /froid|frais/.test(serviceText));
+  }
+});
+
+['salade_caprese'].forEach(id => {
+  const recipe = byId[id];
+  expect(`Lecture chef: recette proteine neutre introuvable (${id}).`, Boolean(recipe));
+  if (recipe) {
+    const proteinSignals = ctx.getRecipeRiskSignals(recipe).filter(signal => signal.label === 'Mer' || signal.label === 'Viande');
+    expect(`Lecture chef: signal proteine faux positif (${id}).`, proteinSignals.length === 0);
+  }
+});
+
 expect('Mode menu: registre accords trop court.', Array.isArray(ctx.window.MENU_PAIRING_RULES) && ctx.window.MENU_PAIRING_RULES.length >= 100);
 const themes = ['bistrot', 'mediterraneen', 'semaine', 'invites', 'apero', 'confort', 'ete'];
 themes.forEach(themeId => {

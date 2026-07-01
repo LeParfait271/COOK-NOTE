@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.65';
+const SITE_VERSION = 'v2.66';
 const SITE_UPDATED_AT = '01/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -1104,33 +1104,92 @@ function getRecipeAllergens(recipe) {
   return uniq(Array.from(allergens));
 }
 
+function getRecipeIdentityText(recipe) {
+  return normalizeText([
+    recipe?.title,
+    ...(recipe?.categories || []),
+    ...(recipe?.tags || []),
+    ...(recipe?.aliases || [])
+  ].map(stripHtml).join(' '));
+}
+
+function getRecipeInstructionText(recipe) {
+  return normalizeText([
+    ...(recipe?.steps || []),
+    ...(recipe?.notes || [])
+  ].map(stripHtml).join(' '));
+}
+
+function hasRecipeCategory(recipe, pattern) {
+  return (recipe?.categories || []).some(category => pattern.test(normalizeText(category)));
+}
+
+function hasExplicitColdService(text) {
+  const directServiceMatches = [...String(text || '').matchAll(/\b(servir|deguster|dresser|envoyer)\b(.{0,80})\b(froid|froide|frais|fraiche|fraiches|bien frais)\b/g)];
+  return directServiceMatches.some(match => !/\bavec\b/.test(match[2]))
+    || /\b(refrigerer|placer au frais|mettre au frais|reserver au frais|garder au frais)\b.{0,80}\bavant (de )?(servir|service|dresser|deguster)\b/.test(text);
+}
+
+function hasExplicitHotService(text) {
+  return /\b(servir|deguster|dresser|envoyer)\b.{0,80}\b(chaud|chaude|brulant|brulante)\b/.test(text)
+    || /\b(chaud|chaude|brulant|brulante)\b.{0,80}\b(servir|deguster|dresser|envoyer)\b/.test(text);
+}
+
+function hasColdServiceIdentity(identityText) {
+  return /\b(terrine|rillettes|salade|crudites|gaspacho|gazpacho|tiramisu|mojito|mousse|chantilly|coulis|vinaigrette|mayonnaise|aioli|ricotta fouettee|brie farci|tomate mozzarella|oeufs mimosa)\b/.test(identityText);
+}
+
+function hasTemperateServiceIdentity(identityText) {
+  return /\b(cake|pain|brioche|cookies|cookie|biscuit|spritz|madeleine|muffin|pancake|crepe|tarte|clafoutis|beurre a l ail)\b/.test(identityText);
+}
+
+function hasHotServiceIdentity(identityText) {
+  return /\b(cassoulet|ragout|stew|cocotte|gratin|dhal|curry|poulet|boeuf|porc|agneau|saucisse|lentilles|haricots|pates|tagliatelles|crevettes|encornets|calamar|souffle|veloute|soupe|poelee)\b/.test(identityText);
+}
+
+function getRecipeServiceTemperature(recipe, serviceText, identityText) {
+  if (hasExplicitHotService(serviceText)) return 'hot';
+  if (hasExplicitColdService(serviceText) || hasColdServiceIdentity(identityText)) return 'cold';
+  if (hasTemperateServiceIdentity(identityText)) return 'temperate';
+  if (hasRecipeCategory(recipe, /\bplats?\b/) || hasHotServiceIdentity(identityText)) return 'hot';
+  if (/\b(friture|frire|frites|beignet|tempura|gril|griller|gratiner|four|chaud|cuire|cuisson|mijoter|saisir|poeler|sauter|rotir|braiser|rechauffer)\b/.test(serviceText)) return 'hot';
+  return '';
+}
+
 function getRecipeRiskSignals(recipe) {
-  const text = normalizeText([
+  const identityText = getRecipeIdentityText(recipe);
+  const serviceText = getRecipeInstructionText(recipe);
+  const ingredientText = normalizeText([
+    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])])
+  ].map(stripHtml).join(' '));
+  const riskText = normalizeText([
     recipe?.title,
     recipe?.yield,
     ...(recipe?.categories || []),
     ...(recipe?.tags || []),
     ...(recipe?.aliases || []),
     ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
-    ...(recipe?.steps || []),
-    ...(recipe?.notes || [])
+    ...(recipe?.steps || [])
   ].map(stripHtml).join(' '));
   const signals = [];
-  const add = (label, level, pattern) => {
-    if (pattern.test(text) && !signals.some(item => item.label === label)) signals.push({ label, level });
+  const add = (label, level, pattern, sourceText = riskText) => {
+    if (pattern.test(sourceText) && !signals.some(item => item.label === label)) signals.push({ label, level });
   };
   add('Conserve', 'high', /\b(sterilis|bocal|bocaux|conserve|pate de lapin|pate lapin|pate de campagne|terrine|rillettes|saindoux)\b/);
-  add('Froid', 'medium', /\b(creme|chantilly|mascarpone|diplomate|patissiere|fromage frais|mozzarella|brie|tiramisu|salade|gaspacho|gazpacho)\b/);
+  if ((hasColdServiceIdentity(identityText) || hasExplicitColdService(serviceText)) && !signals.some(item => item.label === 'Froid')) {
+    signals.push({ label: 'Froid', level: 'medium' });
+  }
   add('Œufs crus', 'medium', /\b(mayonnaise|aioli|aïoli|rouille|oeuf cru|jaune cru)\b/);
   add('Friture', 'medium', /\b(friture|frire|beignet|tempura|huile a 160|huile a 180|huile a 190)\b/);
-  add('Mer', 'medium', /\b(poisson|crevette|crevettes|calamar|calamars|moule|moules|crustace|crustaces)\b/);
-  add('Viande', 'medium', /\b(porc|poulet|boeuf|bœuf|lapin|viande|gorge|foie|jambon|lardon|bacon)\b/);
+  add('Mer', 'medium', /\b(poisson|poissons|crevette|crevettes|calamar|calamars|encornet|encornets|moules?|crustace|crustaces)\b/, ingredientText);
+  add('Viande', 'medium', /\b(porc|poulet|boeuf|bœuf|lapin|agneau|viande|gorge|foie|jambon|lardon|bacon|saucisse|chorizo)\b/, ingredientText);
   return signals;
 }
 
 function getRecipeServiceItems(recipe) {
   const practicalService = asTextList(recipe?.service || recipe?.practical?.service);
   if (practicalService.length) return practicalService.slice(0, 4);
+  const serviceText = getRecipeInstructionText(recipe);
   const text = normalizeText([
     recipe?.title,
     recipe?.yield,
@@ -1140,22 +1199,18 @@ function getRecipeServiceItems(recipe) {
     ...(recipe?.steps || []),
     ...(recipe?.notes || [])
   ].map(stripHtml).join(' '));
-  const identityText = normalizeText([
-    recipe?.title,
-    ...(recipe?.categories || []),
-    ...(recipe?.tags || []),
-    ...(recipe?.aliases || [])
-  ].map(stripHtml).join(' '));
+  const identityText = getRecipeIdentityText(recipe);
   const items = [...practicalService];
   const add = item => {
     if (item && !items.includes(item)) items.push(item);
   };
+  const serviceTemperature = getRecipeServiceTemperature(recipe, serviceText, identityText);
   const hasRestBeforeService = /\blaisser reposer\b.*\bavant (de )?serv(ir|ice)|\breposer \d+\s*(min|minutes)\b.*\bavant (de )?serv(ir|ice)/.test(text);
-  if (/\b(friture|frire|frites|beignet|tempura|gril|griller|gratiner|four|chaud)\b/.test(text)) {
+  if (serviceTemperature === 'hot') {
     add(hasRestBeforeService ? 'Laisser reposer le temps indiqué, puis servir chaud.' : 'Servir chaud, juste après cuisson.');
-  } else if (/\b(terrine|rillettes|brie|salade|gaspacho|gazpacho|tiramisu|mojito|froid)\b/.test(text)) {
-    add('Servir froid ou frais selon la recette.');
-  } else if (/\b(cake|pain|brioche|cookies|beurre a l ail|beurre à l ail)\b/.test(text)) {
+  } else if (serviceTemperature === 'cold') {
+    add('Servir frais, après le repos au froid indiqué.');
+  } else if (serviceTemperature === 'temperate') {
     add('Servir tiède ou à température ambiante selon la texture recherchée.');
   }
   if (/\b(friture|frire|frites|beignet|tempura)\b/.test(text)) add('Saler ou finir juste avant d’envoyer pour garder le croustillant.');
