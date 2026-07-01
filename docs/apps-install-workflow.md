@@ -33,8 +33,10 @@ present pour les mises a jour natives depuis l'application deja installee.
 
 Les copies telechargeables sont versionnees uniquement dans `downloads/`. Elles
 ne doivent pas etre copiees dans `dist/`, sinon le deploy Cloudflare Pages peut
-echouer. Les APK generes dans le dossier Android restent des artefacts locaux
-ignores.
+echouer. Le nom versionne affiche par le site vient de
+`ANDROID_LEGACY_APK_VERSION` dans `app.js`, pas de `SITE_VERSION`, afin qu'un
+bump web ne force pas une nouvelle APK. Les APK generes dans le dossier Android
+restent des artefacts locaux ignores.
 
 ## Mise a jour explicite
 
@@ -46,7 +48,8 @@ npm run apps:update-all
 ```
 
 Cette commande reconstruit le site courant, fabrique Android Legacy, puis
-remplace les deux copies telechargeables autorisees :
+aligne `ANDROID_LEGACY_APK_VERSION` sur la version site courante, fabrique
+Android Legacy, puis remplace les deux copies telechargeables autorisees :
 
 ```text
 downloads/cook-note-android-legacy.apk

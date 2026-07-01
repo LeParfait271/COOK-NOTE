@@ -14,6 +14,11 @@ Un commit/push du site ne change pas l APK installe sur la tablette. Le site
 peut continuer a evoluer, a bumper son cache, a modifier `dist/` ou a recevoir
 des recettes sans regenerer ni publier un nouvel APK Android.
 
+Le site peut donc afficher une version web plus recente que l APK. `SITE_VERSION`
+pilote seulement le cache et le footer web. Le nom APK versionne du panneau
+Android vient de `ANDROID_LEGACY_APK_VERSION` dans `app.js`, mis a jour
+uniquement par `npm run apps:update-all`.
+
 On met a jour l APK seulement quand l'utilisateur le demande explicitement, par
 exemple avec une phrase du type :
 
@@ -288,6 +293,9 @@ C est voulu.
 - `android-legacy/app/build.gradle` lit `SITE_VERSION` dans `app.js` pour
   produire `versionName` et `versionCode`, puis monte
   `android-legacy/build/generated/cook-note-lite` comme assets APK.
+- `app.js` expose `ANDROID_LEGACY_APK_VERSION` pour le lien de telechargement
+  public. Cette version peut rester plus ancienne que `SITE_VERSION` tant que
+  l APK n'a pas ete reconstruite explicitement.
 - `scripts/build-android-legacy-assets.js` genere le catalogue Native Lite.
 - `scripts/build-android-legacy.ps1` construit l APK et nettoie la sortie APK
   avant packaging.

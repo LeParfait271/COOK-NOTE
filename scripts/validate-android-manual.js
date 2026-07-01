@@ -40,8 +40,8 @@ const androidLegacyRecipe = read('android-legacy/app/src/main/java/fr/cooknote/l
 const androidLegacyRepository = read('android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java');
 const androidLegacyImageLoader = read('android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java');
 const androidLegacyAdapter = read('android-legacy/app/src/main/java/fr/cooknote/legacy/RecipeAdapter.java');
-const siteVersionName = (appScript.match(/const SITE_VERSION = 'v(\d+\.\d{2})'/) || [])[1] || '0.00';
-const legacyVersionedApk = `downloads/cook-note-android-legacy-v${siteVersionName}.apk`;
+const androidApkVersionName = (appScript.match(/const ANDROID_LEGACY_APK_VERSION = '(\d+\.\d{2})'/) || [])[1] || '0.00';
+const legacyVersionedApk = `downloads/cook-note-android-legacy-v${androidApkVersionName}.apk`;
 
 ['build', 'check', 'preflight', 'dev', 'start'].forEach(scriptName => {
   const command = packageJson.scripts?.[scriptName] || '';
@@ -393,6 +393,14 @@ expect(
     && publishScript.includes('cook-note-android-legacy.apk')
     && publishScript.includes('cook-note-android-legacy-v$VersionName.apk')
     && !publishScript.includes('cook-note-android-modern.apk')
+);
+expect(
+  'Version APK Android encore couplee a SITE_VERSION.',
+  appScript.includes("const ANDROID_LEGACY_APK_VERSION = '")
+    && appScript.includes('cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk')
+    && appScript.includes('Version APK ${ANDROID_LEGACY_APK_VERSION}')
+    && !appScript.includes('const APP_VERSION_NUMBER = SITE_VERSION')
+    && !appScript.includes('cook-note-android-legacy-v${APP_VERSION_NUMBER}.apk')
 );
 expect(
   'Les APK telechargeables doivent rester hors dist Cloudflare Pages.',

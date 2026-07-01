@@ -20,6 +20,23 @@ function Get-CookNoteVersionName {
   return "$($Match.Groups[1].Value).$($Match.Groups[2].Value)"
 }
 
+function Sync-AndroidApkVersion($VersionName, [bool]$AllowWrite) {
+  $AppPath = Join-Path $Root "app.js"
+  $AppJs = Get-Content -Raw $AppPath
+  $Pattern = "const ANDROID_LEGACY_APK_VERSION = '\d+\.\d{2}';"
+  $Replacement = "const ANDROID_LEGACY_APK_VERSION = '$VersionName';"
+  if ($AppJs -notmatch $Pattern) {
+    throw "ANDROID_LEGACY_APK_VERSION introuvable dans app.js."
+  }
+  $NextAppJs = [regex]::Replace($AppJs, $Pattern, $Replacement, 1)
+  if ($NextAppJs -eq $AppJs) { return }
+  if (-not $AllowWrite) {
+    throw "ANDROID_LEGACY_APK_VERSION doit passer a $VersionName. Relance sans -SkipWebBuild pour regenerer le site public."
+  }
+  $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+  [System.IO.File]::WriteAllText($AppPath, $NextAppJs, $Utf8NoBom)
+}
+
 function Run-NpmBuild {
   Push-Location $Root
   try {
@@ -63,6 +80,9 @@ function Remove-StaleVersionedApks($CurrentName) {
     Remove-Item -Force
 }
 
+$VersionName = Get-CookNoteVersionName
+Sync-AndroidApkVersion $VersionName (-not $SkipWebBuild)
+
 if (-not $SkipWebBuild) {
   Run-NpmBuild
 }
@@ -70,8 +90,6 @@ if (-not $SkipWebBuild) {
 if (-not (Test-Path (Join-Path $Root "dist\index.html"))) {
   throw "dist/index.html introuvable. Lance npm run build avant les apps."
 }
-
-$VersionName = Get-CookNoteVersionName
 
 Run-AndroidBuild $LegacyScript "Build Android Legacy"
 
