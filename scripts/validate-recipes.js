@@ -26,6 +26,9 @@ const MISSING_APOSTROPHE_RE = /(?:^|[^A-Za-zÀ-ÖØ-öø-ÿ])(?:[dljmnst]|qu|jus
 
 const NON_INGREDIENT_GROUP_RE = /\b(conversion|equivalence|repere|poids moyens?|memo|avant de commencer)\b/i;
 const NON_INGREDIENT_ITEM_RE = /\b(equivaut|equivalent|conversion|repere indicatif)\b/i;
+const JOINED_DURATION_WORD_RE = /\b[A-Za-zÀ-ÖØ-öø-ÿ]+d[eè]s\s+\d+\s*min\b/i;
+const AMBIGUOUS_HOT_PLAT_FRESH_SERVICE_RE = /\b(?:a\s+servir|servir|envoyer)\s+avec\b[^.]*\b(?:dessert|element|élément|salade)\b[^.]*\bfrais/i;
+const COLD_RECIPE_IDENTITY_RE = /\b(?:salade|tartare|carpaccio|ceviche|poke|poke bowl|gaspacho|taboule|taboulé|mousse|panna cotta|flan|clafoutis|cake)\b/i;
 const FORBIDDEN_RECIPE_SOURCE_KEYS = new Set([
   'source',
   'sourceurl',
@@ -273,6 +276,22 @@ function checkBrownSugarWording(id, value) {
   if (!/\b(cassonade|vergeoise|sucre roux|sucre cassonade)\b/i.test(text)) return;
   if (!/\bcassonade\b/i.test(text) || !/\bvergeoise\b/i.test(text)) {
     errors.push(`${id}: ecrire "cassonade ou vergeoise" pour les sucres roux (${value}).`);
+  }
+}
+
+function isHotMainDish(recipe) {
+  const categories = (recipe.categories || []).map(normalizeComparable);
+  if (!categories.includes('plats')) return false;
+  return !COLD_RECIPE_IDENTITY_RE.test(normalizeComparable(recipe.title));
+}
+
+function checkCulinarySense(id, recipe, value) {
+  const text = String(value || '');
+  if (JOINED_DURATION_WORD_RE.test(text)) {
+    errors.push(`${id}: mot colle avant une duree de cuisson, verifier l'espace et l'accent (${text}).`);
+  }
+  if (isHotMainDish(recipe) && AMBIGUOUS_HOT_PLAT_FRESH_SERVICE_RE.test(text)) {
+    errors.push(`${id}: formulation de service ambigue pour un plat chaud; preferer "prevoir" ou "accompagner de" (${text}).`);
   }
 }
 
@@ -588,6 +607,7 @@ if (!recipes || typeof recipes !== 'object') {
         errors.push(`${id}: unite non metrique interdite (${value}).`);
       }
       checkPepperWording(id, value);
+      checkCulinarySense(id, recipe, value);
     });
     checkForbiddenDisplayTerms(recipe, id);
     checkForbiddenSourceMetadata(recipe, id);
