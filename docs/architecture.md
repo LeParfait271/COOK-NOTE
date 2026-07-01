@@ -43,3 +43,13 @@ Si le log Cloudflare affiche `No build command specified. Skipping build step.`,
 - `npm run check` : validations completes + build + validation de `dist`.
 - `npm run validate:dist` : verifie que `dist` ne contient pas de fichiers source ou admin, que les assets precaches existent, et que toutes les images optimisees/miniatures referencees sont presentes.
 - GitHub Actions reconstruit `dist`, le valide, lance les tests visuels, puis publie `cook-note-dist` en artefact CI.
+
+## Readiness release
+
+Une version prete production doit rester reproductible depuis les sources versionnees :
+
+- `SITE_VERSION` et les versions `?v=N` sont la source de cache publique, derivees par `scripts/bump-version.js`.
+- Les validateurs ne portent pas la version courante en dur : ils lisent `app.js` ou les fichiers publics a valider.
+- `npm run build`, `npm run check` et `npm run preflight` doivent passer avant un push visible quand UI, cache, recettes ou images changent.
+- Les tests visuels Playwright sont obligatoires quand une modification change le rendu ou l'ergonomie.
+- Le rollback consiste a redeployer le commit precedent, avec son `dist/`, son service worker et ses assets coherents.

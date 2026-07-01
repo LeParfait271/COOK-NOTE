@@ -77,14 +77,10 @@ assetVersions.forEach(version => {
   }
 });
 
-if (siteVersion) {
-  const fullVersion = `v${Number(siteVersion[0])}.${siteVersion[1].padStart(2, '0')}`;
-  if (!validateUi.includes(`const SITE_VERSION = '${fullVersion}'`)) {
-    fail('scripts/validate-ui.js: garde-fou SITE_VERSION non aligne.');
-  }
-  if (siteDate && !validateUi.includes(`const SITE_UPDATED_AT = '${siteDate}'`)) {
-    fail('scripts/validate-ui.js: garde-fou SITE_UPDATED_AT non aligne.');
-  }
+if (/\/assets\/(?:image-manifest|app-images)\.js\?v=\d+/.test(validateUi)
+  || /const SITE_VERSION = 'v\d+\.\d{2}'/.test(validateUi)
+  || /const SITE_UPDATED_AT = '\d{2}\/\d{2}\/\d{2}'/.test(validateUi)) {
+  fail('scripts/validate-ui.js: ne doit pas contenir de version/date de release en dur.');
 }
 
 const changedFiles = changedFilesAgainstHead();
@@ -94,8 +90,7 @@ if (changedFiles.some(isCatalogOrVisualChange)) {
     'app.js',
     'app-images.js',
     'index.html',
-    'service-worker.js',
-    'scripts/validate-ui.js'
+    'service-worker.js'
   ].forEach(file => {
     if (!changedSet.has(file)) {
       fail(`${file}: bump version/cache obligatoire quand recettes, catalogues, images ou sitemap changent.`);

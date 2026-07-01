@@ -124,6 +124,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - La barre de fiche active / `recipe-command-dock` ne doit jamais etre sticky ni fixed : elle reste a sa place dans le flux et ne suit pas le scroll.
 - Avant un push visible, lancer le preflight quand la modification touche l'UI, les recettes, le cache, le service worker ou les images : `node scripts/preflight.js`.
 - Les versions cache/site doivent etre synchronisees par `node scripts/bump-version.js --next` ou validees par `node scripts/validate-cache-version.js`.
+- Les validateurs ne doivent pas porter la version de release courante en dur (`vX.YY`, date ou `?v=N`). Ils doivent deriver la version depuis `app.js` et laisser `scripts/validate-cache-version.js` verifier les assets reels.
 - Pour quelques images seulement, utiliser `scripts/optimize-selected-images.ps1` avec des noms explicites, pas l'optimisation globale forcee qui peut modifier tout le catalogue de miniatures.
 - Le preflight doit refuser les diffs image anormalement larges, sauf lot complet et equilibre master/optimisee/miniature qui passe `scripts/audit-images.js`. Il doit resynchroniser les catalogues, lancer les validations, demarrer un serveur local sur port libre et tester les assets critiques.
 - Les scripts de validation doivent rester branches dans `npm run check`.
@@ -150,5 +151,6 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les pages admin doivent respecter la CSP locale sans domaine externe de fonts ou CDN.
 - Quand `app.js`, `recipes.js` ou `style.css` change, bump la version des assets dans `index.html` et `service-worker.js` pour eviter un melange de cache ancien/nouveau.
 - A chaque push visible du site, augmenter la version affichee dans `SITE_VERSION` de `0.01`, mettre `SITE_UPDATED_AT` a la date du jour au format `JJ/MM/AA`, puis garder le footer au format `vX.XX / JJ/MM/AA`. La numerotation reste sur deux chiffres apres le point : apres `v1.99`, passer a `v2.00`, puis `v2.01`, jamais `v1.100`.
+- Readiness release : avant push, la livraison doit avoir un build reproductible, `check`, `preflight` si UI/cache/recettes/images changent, tests visuels si l'interface change, `dist/` regenere, cache/service worker coherent, headers/routes valides et rollback possible via le commit precedent.
 - Le mode cuisine et les boutons minuteurs ont ete supprimes. Ne pas recreer `focusMode`, `recipe-focus-mode`, `Mode cuisine`, `step-timer`, `timerEnd`, `timerLabel`, `cooking-step-card` ou `cooking-step-actions`.
 - Si une regle est trop subjective pour etre testee automatiquement, elle doit au minimum etre ecrite ici et mentionnee dans le compte rendu.

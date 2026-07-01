@@ -276,6 +276,7 @@ expect('Build command Cloudflare Pages non documentee.', validators.wrangler.inc
 expect('Module runtime images non protege.', validators.packageJson.includes('node --check app-images.js') && validators.production.includes('/app-images.js') && validators.cache.includes('app-images.js') && validators.dist.includes("'app-images.js'") && validators.preflight.includes('/app-images.js'));
 expect('Validation couverture features non branchee.', validators.packageJson.includes('scripts/validate-feature-coverage.js'));
 expect('Validation cache/version non branchee.', validators.cache.includes('Validation cache/version OK.') && validators.packageJson.includes('scripts/validate-cache-version.js'));
+expect('Validateurs encore couples a la version de release.', validators.cache.includes('ne doit pas contenir de version/date de release en dur') && !validators.bumpVersion.includes("write('scripts/validate-ui.js'") && validators.ui.includes('siteAssetVersion') && rules.includes('Les validateurs ne doivent pas porter la version de release courante en dur') && validators.architecture.includes('Les validateurs ne portent pas la version courante en dur'));
 expect('Validation budget performance non branchee.', validators.packageJson.includes('scripts/validate-performance-budget.js'));
 expect('Validation cache image immutable non branchee.', validators.performance.includes('IMMUTABLE_IMAGE_PATHS') && validators.performance.includes('logs runtime interdits'));
 expect('Script bump-version non branche.', validators.bumpVersion.includes('Version Cook Note') && validators.packageJson.includes('scripts/bump-version.js'));
@@ -294,6 +295,7 @@ expect('CI non reproductible: npm ci doit etre utilise avec package-lock.json.',
 expect('Audit securite CI non branche.', validators.packageJson.includes('"audit:security": "npm audit --audit-level=high"') && validators.workflow.includes('npm run audit:security') && rules.includes('npm run audit:security'));
 expect('Version Playwright non epinglee pour Node 20/CI.', validators.packageJson.includes('"@playwright/test": "1.61.1"') && validators.packageLock.includes('@playwright/test/-/test-1.61.1.tgz') && !validators.packageJson.includes('"@playwright/test": "^'));
 expect('Tests visuels incompatibles CSP stricte: page.waitForFunction exige unsafe-eval avec certaines versions Playwright.', !validators.visualSmoke.includes('waitForFunction') && rules.includes('unsafe-eval'));
+expect('Readiness release non documentee.', rules.includes('Readiness release') && validators.architecture.includes('## Readiness release') && validators.architecture.includes('rollback consiste a redeployer le commit precedent'));
 
 if (errors.length) {
   console.error(errors.join('\n'));

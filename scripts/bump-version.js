@@ -70,12 +70,6 @@ write('app.js', app
 write('app-images.js', read('app-images.js')
   .replace(/const IMAGE_HELPER_VERSION = 'v\d+\.\d+';/g, `const IMAGE_HELPER_VERSION = '${version}';`));
 
-write('scripts/validate-ui.js', read('scripts/validate-ui.js')
-  .replace(/const SITE_VERSION = 'v\d+\.\d+'/g, `const SITE_VERSION = '${version}'`)
-  .replace(/const SITE_UPDATED_AT = '\d{2}\/\d{2}\/\d{2}'/g, `const SITE_UPDATED_AT = '${date}'`)
-  .replace(/(image-manifest\.js\?v=)\d+/g, `$1${numeric}`)
-  .replace(/(app-images\.js\?v=)\d+/g, `$1${numeric}`));
-
 write('index.html', read('index.html')
   .replace(/(base-du-site\.png\?v=)\d+/g, `$1${numeric}`)
   .replace(/(style\.css\?v=)\d+/g, `$1${numeric}`)
