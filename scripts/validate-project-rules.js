@@ -44,6 +44,23 @@ expect('package-lock.json absent: installations CI non reproductibles.', fs.exis
 const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : '';
 const masterGuard = fs.existsSync(masterGuardPath) ? fs.readFileSync(masterGuardPath, 'utf8') : '';
 const agentsGuide = fs.existsSync(agentsPath) ? fs.readFileSync(agentsPath, 'utf8') : '';
+
+[
+  'Lois qualite permanentes',
+  'Ne jamais degrader',
+  'Tolerance zero dette technique',
+  'Priorite a la stabilite',
+  'Performance mesurable',
+  'Securite par defaut',
+  'Architecture durable',
+  'Validation continue',
+  'Auto-evaluation',
+  "Rapport d'intervention"
+].forEach(fragment => {
+  expect(`A_LIRE_EN_PREMIER.md: loi qualite absente (${fragment}).`, masterGuard.includes(fragment));
+});
+expect('COOK_NOTE_RULES.md: rappel des lois qualite absent.', rules.includes('lois qualite permanentes') && rules.includes('ne jamais degrader') && rules.includes('validation continue'));
+
 [
   'A_LIRE_EN_PREMIER.md',
   'arrondir au multiple de `5g`',

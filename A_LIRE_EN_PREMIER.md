@@ -36,6 +36,50 @@ Ne pas traiter le depot comme un brouillon. Chaque changement doit preserver :
 - l'absence de secret dans Git ;
 - la compatibilite Android Legacy quand elle est concernee.
 
+## Lois qualite permanentes
+
+Chaque intervention doit laisser le projet dans un meilleur etat qu'avant. Si
+aucune amelioration pertinente n'est possible apres audit, dire clairement que la
+mission est terminee plutot que fabriquer du changement.
+
+- Ne jamais degrader le projet : une modification doit ameliorer au moins la
+  performance, la securite, la lisibilite, la robustesse, la maintenabilite,
+  l'evolutivite, l'UX, l'accessibilite ou la documentation.
+- Tolerance zero dette technique : retirer le code mort, les imports inutiles,
+  les dependances inutilisees, les fichiers orphelins, les commentaires obsoletes
+  et les duplications significatives quand ils sont dans le scope ou sans risque.
+- Priorite a la stabilite : identifier les impacts, preserver le comportement
+  metier et eviter les regressions avant toute modification importante.
+- Performance mesurable : optimiser seulement avec un gain justifiable en CPU,
+  memoire, GPU, trafic reseau, temps de chargement, re-renders, bundle, APK ou
+  temps de compilation. Ne pas complexifier pour un gain insignifiant.
+- Securite par defaut : considerer toute entree utilisateur comme non fiable,
+  valider strictement, appliquer le moindre privilege, proteger les secrets et ne
+  laisser aucune vulnerabilite OWASP connue sans correction ou note explicite.
+- Architecture durable : garder le projet coherent, modulaire, testable,
+  documente et extensible. Preferer KISS, YAGNI, DRY, separation des
+  responsabilites et composition avant abstraction lourde.
+- UX et accessibilite : chaque ecran doit rester rapide, coherent, responsive,
+  navigable au clavier quand applicable, lisible et comprehensible dans ses etats
+  de chargement, d'erreur et vides.
+- Android et web : optimiser en continu l'APK, le demarrage, la memoire, la
+  batterie, Gradle/manifest/R8 quand Android est explicitement dans le scope ;
+  optimiser Lighthouse, Core Web Vitals, SEO, WCAG et rendu quand le web change.
+- API et donnees : garder les API coherentes, rapides, documentees, securisees
+  et robustes. Rechercher les problemes d'integrite, contraintes, index et
+  duplications si une base de donnees apparait un jour.
+- Documentation : documenter toute decision d'architecture importante et garder
+  README, variables d'environnement, scripts et procedures de deploiement a jour.
+- Validation continue : apres une serie de modifications, lancer les validations
+  adaptees (syntaxe, build, tests, performance, securite) et corriger ce qui
+  casse avant commit.
+- Auto-evaluation : refaire une passe d'audit avant de terminer, chercher les
+  ameliorations restantes et corriger celles qui apportent une valeur reelle sans
+  introduire de risque.
+- Rapport d'intervention : pour un changement important, donner le resume, les
+  benefices attendus, les risques, les fichiers touches, les validations et les
+  recommandations futures.
+
 ## Autonomie et autorisations
 
 Carte blanche signifie : avancer, installer les outils necessaires, lancer les

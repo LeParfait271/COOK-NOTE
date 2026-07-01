@@ -6,6 +6,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 
 - Lire `A_LIRE_EN_PREMIER.md` avant toute intervention sur le depot.
 - Lire ces regles avant de modifier les recettes, l'UI ou les images.
+- Respecter les lois qualite permanentes du garde-fou maitre : ne jamais degrader, reduire la dette technique, privilegier stabilite, securite, performance mesurable, documentation et validation continue.
 - Respecter les patterns existants du site avant d'inventer une nouvelle structure.
 - Quand une convention utilisateur est nouvelle, faire trois choses : l'ajouter ici, ajouter une validation si elle peut etre testee, puis lancer le check complet.
 - Ne pas demander de confirmation inutile. Demander seulement quand il faut valider une image, une operation destructive, ou une ambiguite impossible a resoudre proprement.
