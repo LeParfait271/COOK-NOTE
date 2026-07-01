@@ -24,7 +24,8 @@ const siteUpdatedAt = files.app.match(/const SITE_UPDATED_AT = '(\d{2}\/\d{2}\/\
 const recipeTabsAreSticky = [...files.style.matchAll(/\.recipe-tabs\s*\{([^}]*)\}/g)]
   .some(match => /position:\s*sticky/.test(match[1]));
 const mobileSeasonTabsUseStableGrid = /@media\s*\(max-width:\s*700px\)\s*\{[\s\S]*?\.season-tabs\s*\{[\s\S]*?display:\s*grid;[\s\S]*?grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(files.style);
-const cardImageMotionIsBounded = /\.card-media\s*\{[\s\S]*?transition:\s*transform var\(--ds-duration-slow\) var\(--ds-ease\), filter var\(--speed\);/.test(files.style)
+const cardImageMotionIsBounded = files.style.includes('--ds-card-image-motion: 250ms')
+  && /\.card-media\s*\{[\s\S]*?transition:\s*transform var\(--ds-card-image-motion\) var\(--ds-ease\), filter var\(--speed\);/.test(files.style)
   && !files.style.includes('transform 420ms ease')
   && !files.style.includes('softEnter .28s ease');
 const detailActionControlsAreAligned = files.style.includes('--control-height-md: 40px')
@@ -35,11 +36,70 @@ const quantitySelectStaysReadable = /\.mc-shell\s+\.quantity-select\s*\{[\s\S]*?
 const designSystemIncludesStableMobileTabs = files.designSystem.includes('grille stable')
   && files.designSystem.includes('Hauteur tactile mobile');
 const designSystemIncludesBoundedCardZoom = files.designSystem.includes('zoom image des cartes recette')
+  && files.designSystem.includes('--ds-card-image-motion')
   && files.designSystem.includes('250ms');
 const designSystemIncludesAlignedActionControls = files.designSystem.includes('meme hauteur visible')
   && files.designSystem.includes('select de quantite');
 const designSystemIncludesReadableQuantitySelect = files.designSystem.includes('select de quantite est un controle prioritaire')
   && files.designSystem.includes('rester contraste');
+const designSystemIncludesPremiumTokens = [
+  '--ds-color-background',
+  '--ds-color-surface',
+  '--ds-color-elevated',
+  '--ds-color-primary',
+  '--ds-color-text-primary',
+  '--ds-color-border',
+  '--ds-color-success',
+  '--ds-space-1',
+  '--ds-space-8',
+  '--ds-radius-sm` = `6px',
+  '--ds-radius-md` = `10px',
+  '--ds-radius-lg` = `16px',
+  '--ds-radius-xl` = `24px',
+  '--ds-shadow-3',
+  '--ds-motion-fast` = `120ms',
+  '--ds-motion-normal` = `200ms',
+  '--ds-motion-slow` = `320ms',
+  'vrai dark mode'
+].every(fragment => files.designSystem.includes(fragment));
+const publicCssUsesPremiumTokens = [
+  '--ds-color-background: #050505',
+  '--ds-color-surface:',
+  '--ds-color-elevated:',
+  '--ds-color-primary:',
+  '--ds-color-text-primary:',
+  '--ds-color-border:',
+  '--ds-space-1: 4px',
+  '--ds-space-8: 64px',
+  '--ds-radius-sm: 6px',
+  '--ds-radius-md: 10px',
+  '--ds-radius-lg: 16px',
+  '--ds-radius-xl: 24px',
+  '--ds-shadow-3:',
+  '--ds-motion-fast: 120ms',
+  '--ds-motion-normal: 200ms',
+  '--ds-motion-slow: 320ms',
+  '--ds-ease-out: cubic-bezier(.22, .72, .2, 1)'
+].every(fragment => files.style.includes(fragment));
+const adminCssUsesPremiumTokens = [
+  '--ds-color-background: #050505',
+  '--ds-color-surface:',
+  '--ds-color-elevated:',
+  '--ds-color-primary:',
+  '--ds-color-text-primary:',
+  '--ds-color-border:',
+  '--ds-space-1: 4px',
+  '--ds-space-8: 64px',
+  '--ds-radius-sm: 6px',
+  '--ds-radius-md: 10px',
+  '--ds-radius-lg: 16px',
+  '--ds-radius-xl: 24px',
+  '--ds-shadow-3:',
+  '--ds-motion-fast: 120ms',
+  '--ds-motion-normal: 200ms',
+  '--ds-motion-slow: 320ms',
+  '--ds-ease-out: cubic-bezier(.22, .72, .2, 1)'
+].every(fragment => files.adminCss.includes(fragment));
 
 function expect(label, condition) {
   if (!condition) errors.push(label);
@@ -67,6 +127,7 @@ expect('Route /techniques absente du serveur.', files.server.includes("url.pathn
 expect('Export recette propre absent.', files.app.includes('recipeExportText') && files.app.includes('Copier fiche'));
 expect('Resume recette premium absent.', files.app.includes('recipe-summary-panel') && files.style.includes('.recipe-summary-panel'));
 expect('Passe premium composants absente.', files.style.includes('content-visibility: auto') && files.style.includes('.recipe-card::before') && files.style.includes('.variant-card::before') && files.app.includes("name: 'spark'"));
+expect('Design system premium non verrouille.', designSystemIncludesPremiumTokens && publicCssUsesPremiumTokens && adminCssUsesPremiumTokens && files.rules.includes('motion system `120ms / 200ms / 320ms`') && files.rules.includes('tokens du design system'));
 expect('Passe pixel-perfect sans grille stable pour filtres saison mobile.', mobileSeasonTabsUseStableGrid && files.rules.includes('filtres de saison mobiles') && designSystemIncludesStableMobileTabs);
 expect('Motion cartes recette non bornee a 250ms.', cardImageMotionIsBounded && files.rules.includes('transition image au-dela de `250ms`') && designSystemIncludesBoundedCardZoom);
 expect('Actions fiche recette sans hauteur commune.', detailActionControlsAreAligned && files.rules.includes('hauteur commune entre boutons texte') && designSystemIncludesAlignedActionControls);

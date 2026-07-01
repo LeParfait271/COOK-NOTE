@@ -1,18 +1,71 @@
 :root {
-  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --ds-radius-sm: 7px;
-  --ds-radius-md: 8px;
+  --ds-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font: var(--ds-font-family);
+  --ds-color-background: #050505;
+  --ds-color-background-muted: #11100d;
+  --ds-color-surface: rgba(17, 16, 14, .84);
+  --ds-color-surface-strong: rgba(23, 21, 18, .96);
+  --ds-color-surface-soft: rgba(255, 248, 234, .06);
+  --ds-color-elevated: rgba(28, 26, 22, .96);
+  --ds-color-primary: #fbbf24;
+  --ds-color-primary-ink: #151108;
+  --ds-color-secondary: #f97316;
+  --ds-color-accent: var(--ds-color-primary);
+  --ds-color-text-primary: #fff7ed;
+  --ds-color-text-secondary: #d7cfc1;
+  --ds-color-text-muted: #b8b1a6;
+  --ds-color-border: rgba(239, 214, 154, .18);
+  --ds-color-border-strong: rgba(239, 214, 154, .24);
+  --ds-color-divider: rgba(255, 255, 255, .13);
+  --ds-color-success: #22c55e;
+  --ds-color-warning: #f59e0b;
+  --ds-color-error: #ef4444;
+  --ds-color-error-text: #fecaca;
+  --ds-color-info: #38bdf8;
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 24px;
+  --ds-space-6: 32px;
+  --ds-space-7: 48px;
+  --ds-space-8: 64px;
+  --ds-radius-sm: 6px;
+  --ds-radius-md: 10px;
+  --ds-radius-lg: 16px;
+  --ds-radius-xl: 24px;
   --ds-radius-pill: 999px;
-  --ds-duration: 200ms;
-  --ds-duration-slow: 250ms;
-  --ds-ease: cubic-bezier(.22, .72, .2, 1);
+  --ds-shadow-0: none;
+  --ds-shadow-1:
+    inset 0 1px 0 rgba(255, 255, 255, .07),
+    0 18px 50px rgba(0, 0, 0, .28);
+  --ds-shadow-2:
+    inset 0 1px 0 rgba(255, 255, 255, .09),
+    0 24px 72px rgba(0, 0, 0, .38);
+  --ds-shadow-3:
+    inset 0 1px 0 rgba(255, 255, 255, .1),
+    0 32px 92px rgba(0, 0, 0, .46);
+  --ds-motion-fast: 120ms;
+  --ds-motion-normal: 200ms;
+  --ds-motion-slow: 320ms;
+  --ds-card-image-motion: 250ms;
+  --ds-duration-fast: var(--ds-motion-fast);
+  --ds-duration: var(--ds-motion-normal);
+  --ds-duration-slow: var(--ds-motion-slow);
+  --ds-ease-out: cubic-bezier(.22, .72, .2, 1);
+  --ds-ease: var(--ds-ease-out);
+  --ds-type-display: clamp(36px, 4.2vw, 56px);
+  --ds-type-heading: clamp(22px, 2vw, 32px);
+  --ds-type-body: 16px;
+  --ds-type-caption: 12px;
+  --ds-type-label: 13px;
   --control-height-sm: 32px;
   --control-height-md: 40px;
   --control-height-touch: 44px;
-  --motion-enter-y: 6px;
-  --radius: 8px;
-  --shadow: 0 18px 70px rgba(0, 0, 0, .34);
-  --shadow-soft: 0 10px 34px rgba(0, 0, 0, .22);
+  --motion-enter-y: var(--ds-space-2);
+  --radius: var(--ds-radius-md);
+  --shadow: var(--ds-shadow-3);
+  --shadow-soft: var(--ds-shadow-1);
   --speed: var(--ds-duration) var(--ds-ease);
 }
 
@@ -43,8 +96,8 @@ body::-webkit-scrollbar,
 body {
   margin: 0;
   min-height: 100vh;
-  background: #050505;
-  color: #fff7ed;
+  background: var(--ds-color-background);
+  color: var(--ds-color-text-primary);
   color-scheme: dark;
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
@@ -75,7 +128,7 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent, var(--ds-color-primary));
   outline-offset: 3px;
 }
 
@@ -102,9 +155,9 @@ a {
   z-index: 9999;
   transform: translateY(-160%);
   border: 1px solid color-mix(in srgb, var(--accent) 58%, rgba(255, 255, 255, .22));
-  border-radius: 8px;
+  border-radius: var(--ds-radius-sm);
   background: rgba(10, 10, 8, .96);
-  color: #fff7ed;
+  color: var(--ds-color-text-primary);
   padding: 9px 12px;
   font-size: 13px;
   font-weight: 900;
@@ -130,22 +183,22 @@ a {
 }
 
 .mc-shell {
-  --bg: #050505;
-  --bg-2: #11100d;
-  --panel: rgba(15, 14, 12, .9);
-  --surface: rgba(18, 18, 16, .78);
-  --surface-strong: rgba(28, 28, 24, .94);
-  --surface-soft: rgba(255, 255, 255, .055);
-  --line: rgba(255, 255, 255, .13);
-  --line-strong: rgba(255, 255, 255, .22);
+  --bg: var(--ds-color-background);
+  --bg-2: var(--ds-color-background-muted);
+  --panel: var(--ds-color-elevated);
+  --surface: var(--ds-color-surface);
+  --surface-strong: var(--ds-color-surface-strong);
+  --surface-soft: var(--ds-color-surface-soft);
+  --line: var(--ds-color-divider);
+  --line-strong: var(--ds-color-border-strong);
   --glass: color-mix(in srgb, var(--surface-strong) 82%, transparent);
   --glow: color-mix(in srgb, var(--accent) 20%, transparent);
-  --text: #fff7ed;
-  --muted: #b8b1a6;
-  --accent: #fbbf24;
-  --accent-2: #f97316;
-  --mako: #00f5d4;
-  --accent-ink: #151108;
+  --text: var(--ds-color-text-primary);
+  --muted: var(--ds-color-text-muted);
+  --accent: var(--ds-color-primary);
+  --accent-2: var(--ds-color-secondary);
+  --mako: var(--ds-color-info);
+  --accent-ink: var(--ds-color-primary-ink);
   min-height: 100vh;
   background:
     radial-gradient(circle at 18% 8%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 28rem),
@@ -295,7 +348,7 @@ a {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
   align-items: stretch;
-  gap: 8px;
+  gap: var(--ds-space-2);
 }
 
 .site-footer-action {
@@ -582,8 +635,8 @@ a {
   min-width: 20px;
   height: 20px;
   border: 2px solid var(--surface-strong);
-  border-radius: 999px;
-  background: #ef4444;
+  border-radius: var(--ds-radius-pill);
+  background: var(--ds-color-error);
   color: #fff;
   font-size: 11px;
   line-height: 1;
@@ -595,17 +648,17 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--ds-space-2);
   max-width: 100%;
   min-width: 0;
   min-height: 38px;
   border: 1px solid color-mix(in srgb, var(--line-strong) 78%, transparent);
-  border-radius: var(--radius);
+  border-radius: var(--ds-radius-sm);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .025)),
     color-mix(in srgb, var(--surface-strong) 84%, transparent);
   color: var(--text);
-  padding: 0 16px;
+  padding: 0 var(--ds-space-4);
   font-weight: 850;
   line-height: 1.15;
   text-decoration: none;
@@ -1002,7 +1055,7 @@ a {
   gap: 4px;
   max-width: min(640px, 54vw);
   border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
-  border-radius: var(--radius);
+  border-radius: var(--ds-radius-sm);
   background: rgba(255, 255, 255, .035);
   padding: 4px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
@@ -1470,7 +1523,7 @@ a {
   transform: scale(1.005);
   transform-origin: center;
   backface-visibility: hidden;
-  transition: transform var(--ds-duration-slow) var(--ds-ease), filter var(--speed);
+  transition: transform var(--ds-card-image-motion) var(--ds-ease), filter var(--speed);
 }
 
 .card-image {
@@ -1972,7 +2025,7 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #fff;
+  color: var(--ds-color-text-primary);
 }
 
 .recipe-detail-hero h1 {
@@ -3886,7 +3939,7 @@ a {
 .menu-theme-tabs button.active {
   border-color: color-mix(in srgb, var(--accent) 48%, var(--line));
   background: color-mix(in srgb, var(--accent) 18%, var(--surface-soft));
-  color: #fff;
+  color: var(--ds-color-text-primary);
 }
 
 .menu-theme-tabs button:focus-visible {
@@ -4232,7 +4285,7 @@ a {
   bottom: 18px;
   z-index: 70;
   display: grid;
-  gap: 8px;
+  gap: var(--ds-space-2);
   width: min(360px, calc(100vw - 32px));
   pointer-events: none;
 }
@@ -4242,16 +4295,16 @@ a {
   gap: 3px;
   width: 100%;
   border: 1px solid color-mix(in srgb, var(--accent) 42%, var(--line));
-  border-radius: var(--radius);
+  border-radius: var(--ds-radius-md);
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, transparent), rgba(255, 255, 255, .035)),
     var(--surface-strong);
   color: var(--text);
-  padding: 11px 13px;
+  padding: var(--ds-space-3) var(--ds-space-4);
   text-align: left;
   box-shadow: 0 14px 42px rgba(0, 0, 0, .42);
   pointer-events: auto;
-  animation: toastIn 220ms ease both;
+  animation: toastIn var(--ds-duration) var(--ds-ease) both;
 }
 
 .toast strong {
@@ -5542,8 +5595,8 @@ a {
 @supports (view-transition-name: root) {
   ::view-transition-old(root),
   ::view-transition-new(root) {
-    animation-duration: 260ms;
-    animation-timing-function: cubic-bezier(.22, .72, .2, 1);
+    animation-duration: var(--ds-motion-slow);
+    animation-timing-function: var(--ds-ease-out);
   }
 }
 
@@ -6042,20 +6095,16 @@ a {
 
 /* Design system. */
 .mc-shell {
-  --rim: rgba(239, 214, 154, .24);
-  --line: rgba(239, 214, 154, .18);
-  --surface: rgba(17, 16, 14, .84);
-  --surface-strong: rgba(23, 21, 18, .96);
-  --surface-soft: rgba(255, 248, 234, .06);
+  --rim: var(--ds-color-border-strong);
+  --line: var(--ds-color-border);
+  --surface: var(--ds-color-surface);
+  --surface-strong: var(--ds-color-surface-strong);
+  --surface-soft: var(--ds-color-surface-soft);
   --glass: color-mix(in srgb, var(--surface-strong) 88%, transparent);
   --ds-focus-ring: 0 0 0 3px color-mix(in srgb, var(--ambient-accent, var(--accent)) 28%, transparent);
   --ds-focus-border: color-mix(in srgb, var(--ambient-accent, var(--accent)) 72%, rgba(255, 255, 255, .22));
-  --ds-shadow-panel:
-    inset 0 1px 0 rgba(255, 255, 255, .07),
-    0 18px 50px rgba(0, 0, 0, .28);
-  --ds-shadow-elevated:
-    inset 0 1px 0 rgba(255, 255, 255, .09),
-    0 24px 72px rgba(0, 0, 0, .38);
+  --ds-shadow-panel: var(--ds-shadow-1);
+  --ds-shadow-elevated: var(--ds-shadow-2);
   background:
     linear-gradient(180deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .94) 58%, #050505),
     url("/assets/base-principale-fond-site.jpg") center top / cover repeat-y,
@@ -6153,7 +6202,7 @@ a {
 }
 
 .mc-shell .modal-panel {
-  animation: modalIn var(--ds-duration-slow) var(--ds-ease) both;
+  animation: modalIn var(--ds-motion-slow) var(--ds-ease) both;
 }
 
 .toast {
@@ -6176,7 +6225,7 @@ a {
 }
 
 .toast-success::before {
-  background: #22c55e;
+  background: var(--ds-color-success);
 }
 
 .catalog-loading-view .not-found-panel {

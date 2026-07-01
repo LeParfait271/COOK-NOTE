@@ -49,7 +49,8 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Ne pas remettre l'ancien panneau de variante selectionnee : une carte de collection doit ouvrir directement la fiche recette normale.
 - Les icones des boutons doivent rester coherentes, premium, et blanches quand elles sont sur des boutons sombres.
 - Les passes design premium doivent ameliorer les composants existants sans rajouter de sections gadget sur l'accueil. Travailler surtout cartes, panneaux, boutons, etats hover/focus, responsive et performance.
-- Toute passe de direction artistique doit respecter `docs/design-system.md` : tokens communs, dark mode sombre equilibre, transitions entre 150 et 250ms, focus visible permanent et support de `prefers-reduced-motion`.
+- Toute passe de direction artistique doit respecter `docs/design-system.md` : tokens communs, dark mode sombre equilibre, motion system `120ms / 200ms / 320ms`, focus visible permanent et support de `prefers-reduced-motion`.
+- Les nouveaux styles UI doivent utiliser les tokens du design system pour couleurs, spacing, radius, ombres, typo et motion. Une valeur locale n'est acceptable que pour une mesure de layout non reutilisable.
 - Les filtres de saison mobiles doivent rester en grille stable avec hauteurs tactiles constantes, jamais en flex row qui grossit ou change de rythme selon les libelles.
 - Les actions de fiche recette doivent garder une hauteur commune entre boutons texte, boutons icones et selecteur de quantite pour eviter les micro-desalignements visibles.
 - Le selecteur de quantite doit rester lisible et contraste dans le hero recette, meme apres les surcharges globales des champs de formulaire.

@@ -1,25 +1,71 @@
 :root {
-  --bg: #050505;
-  --bg-2: #12100c;
-  --surface: rgba(22, 21, 18, .9);
-  --surface-2: rgba(255, 255, 255, .06);
-  --line: rgba(255, 255, 255, .13);
-  --text: #fff7ed;
-  --muted: #b8b1a6;
-  --accent: #fbbf24;
-  --accent-2: #f97316;
-  --danger: #ef4444;
-  --ds-radius-xs: 5px;
-  --ds-radius-sm: 7px;
-  --ds-radius-md: 8px;
+  --ds-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ds-color-background: #050505;
+  --ds-color-background-muted: #11100d;
+  --ds-color-surface: rgba(17, 16, 14, .84);
+  --ds-color-surface-strong: rgba(23, 21, 18, .96);
+  --ds-color-surface-soft: rgba(255, 248, 234, .06);
+  --ds-color-elevated: rgba(28, 26, 22, .96);
+  --ds-color-primary: #fbbf24;
+  --ds-color-primary-ink: #151108;
+  --ds-color-secondary: #f97316;
+  --ds-color-accent: var(--ds-color-primary);
+  --ds-color-text-primary: #fff7ed;
+  --ds-color-text-secondary: #d7cfc1;
+  --ds-color-text-muted: #b8b1a6;
+  --ds-color-border: rgba(239, 214, 154, .18);
+  --ds-color-border-strong: rgba(239, 214, 154, .24);
+  --ds-color-divider: rgba(255, 255, 255, .13);
+  --ds-color-success: #22c55e;
+  --ds-color-warning: #f59e0b;
+  --ds-color-error: #ef4444;
+  --ds-color-error-text: #fecaca;
+  --ds-color-info: #38bdf8;
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 24px;
+  --ds-space-6: 32px;
+  --ds-space-7: 48px;
+  --ds-space-8: 64px;
+  --bg: var(--ds-color-background);
+  --bg-2: var(--ds-color-background-muted);
+  --surface: var(--ds-color-surface);
+  --surface-2: var(--ds-color-surface-soft);
+  --line: var(--ds-color-divider);
+  --text: var(--ds-color-text-primary);
+  --muted: var(--ds-color-text-muted);
+  --accent: var(--ds-color-primary);
+  --accent-2: var(--ds-color-secondary);
+  --danger: var(--ds-color-error);
+  --accent-ink: var(--ds-color-primary-ink);
+  --ds-radius-xs: var(--ds-radius-sm);
+  --ds-radius-sm: 6px;
+  --ds-radius-md: 10px;
+  --ds-radius-lg: 16px;
+  --ds-radius-xl: 24px;
   --ds-radius-pill: 999px;
-  --ds-duration-fast: 150ms;
-  --ds-duration: 200ms;
-  --ds-duration-slow: 250ms;
-  --ds-ease: cubic-bezier(.22, .72, .2, 1);
+  --ds-shadow-1:
+    inset 0 1px 0 rgba(255, 255, 255, .07),
+    0 18px 50px rgba(0, 0, 0, .28);
+  --ds-shadow-2:
+    inset 0 1px 0 rgba(255, 255, 255, .09),
+    0 24px 72px rgba(0, 0, 0, .38);
+  --ds-shadow-3:
+    inset 0 1px 0 rgba(255, 255, 255, .1),
+    0 32px 92px rgba(0, 0, 0, .46);
+  --ds-motion-fast: 120ms;
+  --ds-motion-normal: 200ms;
+  --ds-motion-slow: 320ms;
+  --ds-duration-fast: var(--ds-motion-fast);
+  --ds-duration: var(--ds-motion-normal);
+  --ds-duration-slow: var(--ds-motion-slow);
+  --ds-ease-out: cubic-bezier(.22, .72, .2, 1);
+  --ds-ease: var(--ds-ease-out);
   --ds-focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
-  --radius: 8px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --radius: var(--ds-radius-md);
+  font-family: var(--ds-font-family);
 }
 
 * {
@@ -34,7 +80,7 @@ body {
     linear-gradient(180deg, var(--bg), var(--bg-2));
   color: var(--text);
   color-scheme: dark;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--ds-font-family);
 }
 
 button,
@@ -49,7 +95,7 @@ button {
   border: 0;
   border-radius: var(--radius);
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #171106;
+  color: var(--accent-ink);
   padding: 0 14px;
   font-weight: 900;
   cursor: pointer;
@@ -63,9 +109,9 @@ button.secondary,
 }
 
 button.danger {
-  border: 1px solid rgba(239, 68, 68, .4);
-  background: rgba(239, 68, 68, .14);
-  color: #fecaca;
+  border: 1px solid color-mix(in srgb, var(--ds-color-error) 40%, transparent);
+  background: color-mix(in srgb, var(--ds-color-error) 14%, transparent);
+  color: var(--ds-color-error-text);
 }
 
 a {
@@ -113,7 +159,7 @@ a {
   height: 42px;
   border-radius: var(--radius);
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #171106;
+  color: var(--accent-ink);
   font-weight: 950;
 }
 
@@ -335,11 +381,11 @@ textarea {
 }
 
 .admin-diagnostic-grid li.ok {
-  color: #bbf7d0;
+  color: color-mix(in srgb, var(--ds-color-success) 38%, white);
 }
 
 .admin-diagnostic-grid li.warn {
-  color: #fed7aa;
+  color: color-mix(in srgb, var(--ds-color-warning) 38%, white);
 }
 
 .recipe-form {
