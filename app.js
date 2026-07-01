@@ -74,7 +74,7 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.58';
+const SITE_VERSION = 'v2.59';
 const SITE_UPDATED_AT = '01/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
@@ -4498,15 +4498,6 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
 function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, personalNotes = {}, favoriteCollection, setFavoriteCollection }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
-  const visibleRecipes = sections.flatMap(section => section.recipes || []);
-  const visibleIds = new Set(visibleRecipes.map(recipe => recipe.id));
-  const visibleLeafRecipes = visibleRecipes.filter(recipe => !isMasterRecipe(recipe));
-  const visibleQuickRecipes = visibleLeafRecipes.filter(recipe => {
-    const timing = getRecipeTiming(recipe);
-    return timing.active > 0 && timing.active <= 20;
-  });
-  const visibleCollectionCount = visibleRecipes.filter(recipe => isMasterRecipe(recipe)).length;
-  const dashboardLabel = onlyFavorites ? 'Favoris' : (selectedSeason || 'Toutes saisons');
   const favoriteRecipes = favorites.map(id => recipesById[id]).filter(Boolean);
   const favoriteCollectionCounts = onlyFavorites ? FAVORITE_COLLECTIONS.reduce((counts, collection) => {
     counts[collection.id] = collection.id
@@ -4524,17 +4515,6 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
       h('div', { className: 'season-dashboard-copy' },
         h('p', { className: 'eyebrow' }, onlyFavorites ? 'Favoris' : 'Catalogue'),
         h('h2', null, onlyFavorites ? 'Mes recettes favorites' : 'Recettes'),
-        h('div', { className: 'season-dashboard-meta', 'aria-label': 'Résumé de la sélection' },
-          h('span', null, dashboardLabel),
-          h('span', null, `${visibleIds.size} fiche${visibleIds.size > 1 ? 's' : ''}`),
-          sections.length > 1 && h('span', null, `${sections.length} groupes`)
-        ),
-        visibleIds.size > 0 && h('div', { className: 'home-catalog-insights', 'aria-label': 'Indicateurs du catalogue visible' },
-          h('span', null, h('strong', null, visibleIds.size), h('small', null, 'fiches visibles')),
-          h('span', null, h('strong', null, visibleLeafRecipes.length), h('small', null, 'recettes servies')),
-          h('span', null, h('strong', null, visibleQuickRecipes.length), h('small', null, 'actives <= 20 min')),
-          h('span', null, h('strong', null, visibleCollectionCount), h('small', null, 'collections'))
-        ),
         onlyFavorites && Object.keys(favoriteStatusCounts).length > 0 && h('div', { className: 'favorite-status-summary' },
           Object.entries(favoriteStatusCounts).map(([status, count]) => h('span', { key: status }, `${status}: ${count}`))
         ),

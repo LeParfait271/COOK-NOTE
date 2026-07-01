@@ -1102,26 +1102,6 @@ a {
   gap: 6px;
 }
 
-.season-dashboard-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  align-items: center;
-}
-
-.season-dashboard-meta span {
-  min-height: 24px;
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
-  border-radius: 999px;
-  background: rgba(0, 0, 0, .12);
-  color: color-mix(in srgb, var(--text) 86%, var(--muted));
-  padding: 0 9px;
-  font-size: 11.5px;
-  font-weight: 850;
-}
-
 .favorite-status-summary {
   display: flex;
   flex-wrap: wrap;
@@ -5946,49 +5926,7 @@ a {
   }
 }
 
-/* Premium pass: catalogue, recipe brief, menu and shopping cockpit */
-.home-catalog-insights {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
-  width: min(100%, 760px);
-  margin-top: 12px;
-}
-
-.home-catalog-insights span {
-  min-width: 0;
-  min-height: 54px;
-  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--rim));
-  border-radius: 8px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .018)),
-    rgba(0, 0, 0, .22);
-  padding: 9px 10px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07);
-}
-
-.home-catalog-insights strong,
-.home-catalog-insights small {
-  display: block;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.home-catalog-insights strong {
-  color: var(--text);
-  font-size: 17px;
-  line-height: 1.1;
-}
-
-.home-catalog-insights small {
-  margin-top: 3px;
-  color: color-mix(in srgb, var(--muted) 86%, var(--text));
-  font-size: 11px;
-  font-weight: 850;
-}
-
+/* Premium pass: recipe brief, menu and shopping cockpit */
 .home-view .recipe-card:not(.master-card)::after,
 .recipe-card.master-card::after {
   content: "";
@@ -6221,10 +6159,6 @@ a {
 }
 
 @media (max-width: 820px) {
-  .home-catalog-insights {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .menu-quality-band,
   .shopping-store-dashboard {
     grid-template-columns: 1fr;
@@ -6255,20 +6189,6 @@ a {
 }
 
 @media (max-width: 520px) {
-  .home-catalog-insights {
-    gap: 7px;
-  }
-
-  .home-catalog-insights span {
-    min-height: 48px;
-    padding: 8px;
-  }
-
-  .home-catalog-insights strong {
-    font-size: 15px;
-  }
-
-  .home-catalog-insights small,
   .menu-quality-copy small {
     white-space: normal;
   }
