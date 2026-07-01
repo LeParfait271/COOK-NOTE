@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-01T02:13:22.457Z",
+  "generatedAt": "2026-07-01T03:46:09.256Z",
   "totals": {
     "recipes": 268,
     "leaves": 249,
     "masters": 19,
     "lowScore": 15,
     "categoryIdeas": 21,
-    "qualityIssues": 4
+    "qualityIssues": 0
   },
   "averageScore": 89,
   "healthDashboard": {
@@ -1489,9 +1489,7 @@
       "title": "Flan vanille crémeux",
       "score": 100,
       "issues": [],
-      "qualityIssues": [
-        "Ingredient probablement duplique : 90g sucre / 90g sucre."
-      ],
+      "qualityIssues": [],
       "suggestions": []
     },
     {
@@ -2104,9 +2102,7 @@
       "issues": [
         "Conservation ou securite alimentaire a verifier."
       ],
-      "qualityIssues": [
-        "Ingredient probablement duplique : 1g piment d’Espelette / 1g piment d’Espelette."
-      ],
+      "qualityIssues": [],
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
@@ -2443,10 +2439,7 @@
       "title": "Poulet tikka masala",
       "score": 100,
       "issues": [],
-      "qualityIssues": [
-        "Ingredient probablement duplique : 8g garam masala / 8g garam masala.",
-        "Ingredient probablement duplique : 4g paprika / 4g paprika."
-      ],
+      "qualityIssues": [],
       "suggestions": [
         "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
@@ -3064,9 +3057,7 @@
       "issues": [
         "Conservation ou securite alimentaire a verifier."
       ],
-      "qualityIssues": [
-        "Ingredient probablement duplique : 120g crème liquide entière / 120g crème liquide entière."
-      ],
+      "qualityIssues": [],
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]

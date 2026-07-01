@@ -13,8 +13,8 @@ const CATEGORY_PARENT_ROUTES = [
 ];
 
 async function waitForCookNote(page) {
-  await page.waitForFunction(() => Boolean(document.querySelector('#root')?.children.length), null, { timeout: 14000 });
-  await page.waitForFunction(() => !document.querySelector('#loading-screen'), null, { timeout: 14000 });
+  await expect(page.locator('#root > *').first()).toBeVisible({ timeout: 14000 });
+  await expect(page.locator('#loading-screen')).toBeHidden({ timeout: 14000 });
 }
 
 async function settleVisualFrame(page) {
@@ -25,7 +25,7 @@ async function settleVisualFrame(page) {
     window.scrollTo(0, 0);
     root.style.scrollBehavior = previous;
   });
-  await page.waitForFunction(() => window.scrollY === 0);
+  await page.waitForTimeout(50);
   await page.evaluate(() => new Promise(resolve => {
     requestAnimationFrame(() => requestAnimationFrame(resolve));
   }));

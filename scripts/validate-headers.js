@@ -57,7 +57,10 @@ const rules = read('COOK_NOTE_RULES.md');
   "relative === 'app-images.js'",
   "'x-content-type-options': 'nosniff'",
   "'referrer-policy': 'strict-origin-when-cross-origin'",
-  "headers['cache-control'] = staticCacheControl(filePath, noStore)"
+  "headers['cache-control'] = staticCacheControl(filePath, noStore)",
+  'isTrustedOrigin',
+  'requireTrustedOrigin',
+  'Origine non autorisee'
 ].forEach(fragment => {
   if (!server.includes(fragment)) fail(`server.js: garde-fou headers absent (${fragment}).`);
 });
@@ -73,6 +76,9 @@ if (!packageJson.includes('validate:headers')) {
 }
 if (!rules.includes('Les headers de production')) {
   fail('COOK_NOTE_RULES.md: regle production headers absente.');
+}
+if (!rules.includes('Origin') || !rules.includes('CSRF')) {
+  fail('COOK_NOTE_RULES.md: regle CSRF admin absente.');
 }
 
 if (errors.length) {

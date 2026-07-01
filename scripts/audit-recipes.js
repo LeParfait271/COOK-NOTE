@@ -128,14 +128,16 @@ function qualityIssuesFor(id, recipe) {
   });
 
   if (!recipe.variantGroups) {
-    const seen = new Map();
-    ingredientGroups.forEach(group => (group.items || []).forEach(item => {
-      const key = ingredientCore(item);
-      if (!key) return;
-      seen.set(key, [...(seen.get(key) || []), stripHtml(item)]);
-    }));
-    seen.forEach(values => {
-      if (values.length > 1) issues.push(`Ingredient probablement duplique : ${values.join(' / ')}.`);
+    ingredientGroups.forEach(group => {
+      const seen = new Map();
+      (group.items || []).forEach(item => {
+        const key = ingredientCore(item);
+        if (!key) return;
+        seen.set(key, [...(seen.get(key) || []), stripHtml(item)]);
+      });
+      seen.forEach(values => {
+        if (values.length > 1) issues.push(`Ingredient probablement duplique dans ${group.group || 'un groupe'} : ${values.join(' / ')}.`);
+      });
     });
   }
 

@@ -118,6 +118,23 @@ function parseCookies(req) {
   return cookies;
 }
 
+function isTrustedOrigin(req) {
+  const origin = req.headers.origin;
+  if (!origin) return true;
+  try {
+    const originUrl = new URL(origin);
+    return originUrl.host.toLowerCase() === String(req.headers.host || '').toLowerCase();
+  } catch {
+    return false;
+  }
+}
+
+function requireTrustedOrigin(req, res) {
+  if (isTrustedOrigin(req)) return true;
+  sendJson(res, 403, { error: 'Origine non autorisee' });
+  return false;
+}
+
 function isAuthed(req) {
   const token = parseCookies(req)[SESSION_COOKIE];
   const session = token && sessions.get(token);
@@ -442,6 +459,7 @@ async function handleUpload(req, res, url) {
 
 async function handleApi(req, res, url) {
   try {
+    if (!['GET', 'HEAD'].includes(req.method) && !requireTrustedOrigin(req, res)) return;
     if (!requireAdmin(req, res)) return;
 
     if (req.method === 'POST' && url.pathname === '/api/admin/logout') {
@@ -519,6 +537,7 @@ function route(req, res) {
   }
 
   if (req.method === 'POST' && url.pathname === '/api/admin/login') {
+    if (!requireTrustedOrigin(req, res)) return;
     readJson(req).then(body => {
       if (!ADMIN_PASSWORD) {
         sendJson(res, 503, { error: 'Admin non configure. Definir COOK_NOTE_ADMIN_PASSWORD.' });

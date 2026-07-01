@@ -39,7 +39,7 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "@playwright/test": "^1.53.1",
+    "@playwright/test": "1.53.1",
     "jpeg-js": "^0.4.4"
   }
 }

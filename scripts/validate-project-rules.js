@@ -6,6 +6,7 @@ const rulesPath = path.join(ROOT, 'COOK_NOTE_RULES.md');
 const masterGuardPath = path.join(ROOT, 'A_LIRE_EN_PREMIER.md');
 const agentsPath = path.join(ROOT, 'AGENTS.md');
 const packagePath = path.join(ROOT, 'package.json');
+const packageLockPath = path.join(ROOT, 'package-lock.json');
 const validators = {
   recipes: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-recipes.js'), 'utf8'),
   ui: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-ui.js'), 'utf8'),
@@ -18,6 +19,7 @@ const validators = {
   audit: fs.readFileSync(path.join(ROOT, 'scripts', 'audit-recipes.js'), 'utf8'),
   androidManual: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-android-manual.js'), 'utf8'),
   legacyAssets: fs.readFileSync(path.join(ROOT, 'scripts', 'build-android-legacy-assets.js'), 'utf8'),
+  visualSmoke: fs.readFileSync(path.join(ROOT, 'tests', 'visual-smoke.spec.js'), 'utf8'),
   updateAllApps: fs.readFileSync(path.join(ROOT, 'scripts', 'update-all-apps.ps1'), 'utf8'),
   androidWorkflow: fs.readFileSync(path.join(ROOT, 'docs', 'android-legacy-workflow.md'), 'utf8'),
   appsWorkflow: fs.readFileSync(path.join(ROOT, 'docs', 'apps-install-workflow.md'), 'utf8'),
@@ -25,7 +27,8 @@ const validators = {
   wrangler: fs.existsSync(path.join(ROOT, 'wrangler.toml')) ? fs.readFileSync(path.join(ROOT, 'wrangler.toml'), 'utf8') : '',
   architecture: fs.readFileSync(path.join(ROOT, 'docs', 'architecture.md'), 'utf8'),
   gitignore: fs.readFileSync(path.join(ROOT, '.gitignore'), 'utf8'),
-  packageJson: fs.readFileSync(packagePath, 'utf8')
+  packageJson: fs.readFileSync(packagePath, 'utf8'),
+  packageLock: fs.existsSync(packageLockPath) ? fs.readFileSync(packageLockPath, 'utf8') : ''
 };
 const errors = [];
 
@@ -36,6 +39,7 @@ function expect(label, condition) {
 expect('Fichier de regles Cook Note absent.', fs.existsSync(rulesPath));
 expect('Garde-fou maitre A_LIRE_EN_PREMIER.md absent.', fs.existsSync(masterGuardPath));
 expect('Pointeur agents AGENTS.md absent.', fs.existsSync(agentsPath));
+expect('package-lock.json absent: installations CI non reproductibles.', fs.existsSync(packageLockPath));
 
 const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : '';
 const masterGuard = fs.existsSync(masterGuardPath) ? fs.readFileSync(masterGuardPath, 'utf8') : '';
@@ -252,6 +256,9 @@ expect('Assets Legacy Native Lite non branches.', validators.legacyAssets.includ
 expect('Validation Android manuel non branchee.', validators.androidManual.includes('Validation Android manuel OK.') && validators.androidManual.includes('Native Lite') && validators.androidManual.includes('App Android HD/Modern encore presente') && validators.packageJson.includes('scripts/validate-android-manual.js') && validators.packageJson.includes('apps:update-all') && validators.packageJson.includes('apps:publish-all') && validators.packageJson.includes('android:legacy:update-apk') && validators.packageJson.includes('android:legacy:publish-release') && !validators.packageJson.includes('android:modern:update-apk') && !validators.packageJson.includes('android:modern:publish-release') && validators.packageJson.includes('jpeg-js'));
 expect('Nettoyage encodage Android Legacy non branche.', validators.legacyAssets.includes('repairMojibakeText') && validators.legacyAssets.includes('assertNoEncodingIssues') && validators.androidManual.includes('cleanString') && validators.androidManual.includes('windows1252Byte'));
 expect('Validation regles non branchee au check.', validators.packageJson.includes('scripts/validate-project-rules.js'));
+expect('CI non reproductible: npm ci doit etre utilise avec package-lock.json.', validators.workflow.includes('npm ci --no-audit --no-fund'));
+expect('Version Playwright non epinglee pour Node 20/CI.', validators.packageJson.includes('"@playwright/test": "1.53.1"') && validators.packageLock.includes('@playwright/test/-/test-1.53.1.tgz') && !validators.packageJson.includes('"@playwright/test": "^'));
+expect('Tests visuels incompatibles CSP stricte: page.waitForFunction exige unsafe-eval avec certaines versions Playwright.', !validators.visualSmoke.includes('waitForFunction') && rules.includes('unsafe-eval'));
 
 if (errors.length) {
   console.error(errors.join('\n'));

@@ -1,13 +1,13 @@
 # Audit Cook Note
 
-Genere le 2026-07-01T02:13:22.457Z.
+Genere le 2026-07-01T03:46:09.256Z.
 
 - Recettes totales : 268
 - Recettes feuilles : 249
 - Fiches parentes : 19
 - Score moyen : 89/100
 - Fiches sous 78 : 15
-- Fiches avec defauts a verifier : 4
+- Fiches avec defauts a verifier : 0
 
 ## Dashboard sante
 
@@ -247,8 +247,7 @@ Genere le 2026-07-01T02:13:22.457Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Fish and chips (fish_and_chips) : 100/100 - OK
 - Flan parisien vanille (flan_patissier_epais_vanille) : 100/100 - OK
-- Flan vanille crémeux (flan_vanille_cremeux) : 100/100
-  - Ingredient probablement duplique : 90g sucre / 90g sucre.
+- Flan vanille crémeux (flan_vanille_cremeux) : 100/100 - OK
 - Fond de tarte amande (creme_amande_citron) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Frites (frites_maison) : 82/100 - OK
@@ -344,8 +343,8 @@ Genere le 2026-07-01T02:13:22.457Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Paris-Brest (paris_brest) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Parmentier de confit de canard et patates douces (parmentier_confit_canard_patates_douces) : 82/100
-  - Ingredient probablement duplique : 1g piment d’Espelette / 1g piment d’Espelette.
+- Parmentier de confit de canard et patates douces (parmentier_confit_canard_patates_douces) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Patates douces au four (patates_douces_four) : 100/100 - OK
 - Pâte à choux (pate_choux) : 66/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -395,9 +394,7 @@ Genere le 2026-07-01T02:13:22.457Z.
 - Poulet pommes de terre asperges (poulet_pommes_de_terre_asperges) : 100/100 - OK
 - Poulet sauce pimentée (poulet_sauce_pimentee) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
-- Poulet tikka masala (poulet_tikka_masala) : 100/100
-  - Ingredient probablement duplique : 8g garam masala / 8g garam masala.
-  - Ingredient probablement duplique : 4g paprika / 4g paprika.
+- Poulet tikka masala (poulet_tikka_masala) : 100/100 - OK
 - Puree butternut pommes de terre curry (puree_butternut_pommes_terre_curry) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Puree de chou-fleur (puree_chou_fleur) : 100/100 - OK
@@ -491,8 +488,8 @@ Genere le 2026-07-01T02:13:22.457Z.
 - Tortillas (tortillas_mexicaines) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Velouté d'hiver noix de cajou (veloute_hiver_noix_cajou) : 100/100 - OK
-- Verrines châtaignes et foie gras (verrines_chataignes_foie_gras) : 82/100
-  - Ingredient probablement duplique : 120g crème liquide entière / 120g crème liquide entière.
+- Verrines châtaignes et foie gras (verrines_chataignes_foie_gras) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Vinaigrette (vinaigrette) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 
