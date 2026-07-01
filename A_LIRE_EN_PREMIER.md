@@ -98,11 +98,20 @@ utilisateur claire :
 - supprimer beaucoup de fichiers, de recettes, d'images ou d'assets ;
 - ouvrir une release, declencher un deploiement manuel ou publier un livrable
   externe ;
-- construire ou publier l'APK Android ;
+- construire ou publier l'APK Android hors workflow de parite site/app ;
 - changer des mots de passe, secrets, tokens, droits ou variables sensibles ;
 - remplacer une image visible par une image generee non encore validee ;
 - faire une migration irreversible ou un nettoyage massif ;
 - modifier volontairement l'identite visuelle globale du site.
+
+Instruction permanente utilisateur : quand une intervention modifie une
+fonctionnalite visible du site, une recette, le catalogue, l'UX ou un
+comportement utile aussi dans l'application tablette, auditer et mettre a jour
+Android Legacy dans le meme lot. Porter l'equivalent en Native Lite pour
+tablette peu puissante, puis lancer `npm run apps:update-all` avant commit/push.
+Exceptions admises : demande explicite web-only ou changement purement
+technique sans impact utilisateur Android, a signaler dans le compte rendu.
+Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour tablette peu puissante.
 
 Les installations doivent rester justifiees par le besoin du projet. Preferer les
 scripts et dependances existants avant d'ajouter un outil. Ne jamais versionner
@@ -140,8 +149,8 @@ restantes. Ne pas faire de changement cosmique non verifiable juste pour
 - `service-worker.js`, `index.html`, `app.js`, `app-images.js`, `style.css` :
   synchroniser versions/cache quand ils changent.
 - `_headers`, `_redirects`, `wrangler.toml` : production Cloudflare.
-- `android-legacy/`, `downloads/`, docs apps : workflow manuel, uniquement sur
-  demande explicite pour build/release.
+- `android-legacy/`, `downloads/`, docs apps : workflow manuel de parite
+  site/app ou demande explicite, jamais branche automatiquement au build web.
 - `server.js`, `admin.js`, `admin*.html`, `admin.css` : back-office et surface
   admin. Ne jamais affaiblir auth, backups ou protections.
 
@@ -208,7 +217,7 @@ npm run validate:image-manifest
 npm run optimize:selected
 ```
 
-Android Legacy, seulement sur demande explicite :
+Android Legacy, pour parite site/app visible ou demande explicite :
 
 ```powershell
 npm run apps:update-all

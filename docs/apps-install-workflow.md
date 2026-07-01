@@ -2,7 +2,7 @@
 
 Ce document est la reference pour l'installation Cook Note hors navigateur.
 Le site web et GitHub restent la source de verite. L'application Android est un
-projet secondaire manuel.
+projet secondaire manuel avec parite site/app pour les changements visibles.
 
 ## Entree Android du footer
 
@@ -38,7 +38,7 @@ echouer. Le nom versionne affiche par le site vient de
 bump web ne force pas une nouvelle APK. Les APK generes dans le dossier Android
 restent des artefacts locaux ignores.
 
-## Mise a jour explicite
+## Mise a jour explicite ou parite site/app
 
 Quand l'application Cook Note est mise a jour, utiliser le workflow commun
 historique. Il ne construit maintenant que l'APK Android Legacy :
@@ -58,6 +58,15 @@ downloads/cook-note-android-legacy-vX.YY.apk
 
 L'app ancienne reste volontairement legere : Android 5.0+ garde Native Lite avec
 images reduites et interface Android native.
+
+Regle de parite : quand une fonctionnalite visible du site, une recette, le
+catalogue ou une UX utile sur tablette change, porter l'equivalent en Native
+Lite pour tablette peu puissante et lancer `npm run apps:update-all` dans le
+meme lot. Ne pas copier le web : adapter en vues natives simples, peu gourmandes
+en CPU, RAM, GPU et batterie. Un changement purement technique du site ou une
+demande web-only peut laisser l APK inchangee, avec justification dans le compte
+rendu.
+Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour tablette peu puissante.
 
 Publication Release GitHub, seulement sur demande explicite :
 
@@ -186,17 +195,19 @@ que les copies `downloads/*.apk` sont presentes dans le depot GitHub.
 - Ne jamais versionner les APK generes dans `android-legacy/`.
 - Les seules copies APK autorisees dans Git sont
   `downloads/cook-note-android-legacy.apk` et
-  `downloads/cook-note-android-legacy-vX.YY.apk`, apres demande explicite de
-  publication app.
+  `downloads/cook-note-android-legacy-vX.YY.apk`, apres workflow de parite
+  site/app ou demande explicite de publication app.
 - Ne jamais copier les APK dans `dist/` : Cloudflare Pages refuse les assets de
   plus de 25 MiB.
 - Ne jamais versionner `android-legacy/build/generated/cook-note-lite/`.
 - Ne jamais brancher l'app Android a `npm run build`, `npm run check`,
   `npm run preflight`, `start` ou `dev`.
-- Ne publier une nouvelle app que sur demande explicite utilisateur.
+- Ne publier une Release GitHub app que sur demande explicite utilisateur.
 - Toute mise a jour app doit passer par `npm run apps:update-all`.
 - Toute publication Release app doit passer par `npm run apps:publish-all`.
 - Un push du site ne met pas a jour les apps deja installees.
+- Une mise a jour visible du site doit auditer la parite Android : porter en
+  Native Lite ou expliquer pourquoi l APK n'est pas concernee.
 - L'app Android Legacy peut sacrifier un peu de qualite visuelle pour la
   fluidite, mais elle doit garder une direction native premium et lisible.
 - Les recettes ne doivent pas etre modifiees pour une app mobile sans demande

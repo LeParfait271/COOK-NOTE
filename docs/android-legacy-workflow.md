@@ -5,29 +5,26 @@ Elle est un projet secondaire en parallele du site, pas la source de verite.
 GitHub et le site web restent prioritaires. La reference globale de
 l'installation hors navigateur est dans `docs/apps-install-workflow.md`.
 
-## Regle principale
+## Regle principale : parite Native Lite
 
-L'application Android Legacy ne se met pas a jour automatiquement quand le site
-change.
+L'application Android Legacy ne se met pas a jour automatiquement sur la tablette quand le site change : l'utilisateur doit toujours telecharger puis installer la nouvelle APK. En revanche, la regle projet impose la parite site/app pour les changements visibles.
 
-Un commit/push du site ne change pas l APK installe sur la tablette. Le site
-peut continuer a evoluer, a bumper son cache, a modifier `dist/` ou a recevoir
-des recettes sans regenerer ni publier un nouvel APK Android.
+Quand une intervention modifie une fonctionnalite visible du site, une recette,
+le catalogue, l'UX ou un comportement utile aussi sur tablette, auditer Android
+Legacy dans le meme lot. Si l'equivalent a du sens, le porter en Native Lite
+pour tablette peu puissante, puis lancer `npm run apps:update-all` avant
+commit/push. Si le changement est web-only, purement technique, ou sans impact
+utilisateur Android, le noter dans le compte rendu.
+Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour tablette peu puissante.
 
-Le site peut donc afficher une version web plus recente que l APK. `SITE_VERSION`
-pilote seulement le cache et le footer web. Le nom APK versionne du panneau
-Android vient de `ANDROID_LEGACY_APK_VERSION` dans `app.js`, mis a jour
-uniquement par `npm run apps:update-all`.
+Un commit/push du site ne change pas l APK installe sur la tablette. L APK deja
+installee reste locale, mais le depot doit proposer une APK a jour quand la
+parite site/app l'exige. Le site peut continuer a bumper son cache ou modifier
+`dist/` sans regenerer l APK si le changement est uniquement technique.
 
-On met a jour l APK seulement quand l'utilisateur le demande explicitement, par
-exemple avec une phrase du type :
-
-- "mets a jour l APK"
-- "rebuild l application Android"
-- "prepare une nouvelle version tablette"
-
-Sans demande explicite, ne pas lancer le build Android, ne pas remplacer l APK
-sur la tablette et ne pas traiter Android comme une etape obligatoire du site.
+`SITE_VERSION` pilote seulement le cache et le footer web. Le nom APK versionne
+du panneau Android vient de `ANDROID_LEGACY_APK_VERSION` dans `app.js`, mis a
+jour par `npm run apps:update-all`.
 
 ## Role de l app
 
@@ -138,7 +135,7 @@ recherche et sans moteur web.
 Le site et les recettes gardent les visuels habituels. La reduction d image ne
 concerne que l APK Android 5.
 
-## Pourquoi l app ne suit pas automatiquement le site
+## Pourquoi l app ne suit pas le build web automatiquement
 
 Le build normal du site doit rester rapide et propre :
 
@@ -148,7 +145,7 @@ Le build normal du site doit rester rapide et propre :
 - aucun de ces scripts ne doit lancer Gradle ni produire d APK
 
 Le dossier Android lit les assets Lite uniquement pendant un build Android
-demande :
+volontaire, declenche par la parite site/app ou par une demande explicite :
 
 ```powershell
 npm run apps:update-all
@@ -170,7 +167,8 @@ Installer ou reparer les outils Android portables :
 npm run android:legacy:setup
 ```
 
-Construire une nouvelle APK quand l'utilisateur le demande explicitement :
+Construire une nouvelle APK quand la parite site/app l'exige ou quand
+l'utilisateur le demande explicitement :
 
 ```powershell
 npm run apps:update-all
@@ -242,37 +240,41 @@ telechargement direct.
 
 Les APK generes dans `android-legacy/` ne doivent pas etre ajoutes au depot Git.
 Seules les copies telechargeables `downloads/cook-note-android-legacy.apk` et
-`downloads/cook-note-android-legacy-vX.YY.apk` sont versionnees quand
-l utilisateur demande explicitement une publication app depuis le site.
+`downloads/cook-note-android-legacy-vX.YY.apk` sont versionnees apres workflow
+de parite site/app ou quand l utilisateur demande explicitement une publication
+app depuis le site.
 
-## Workflow quand on travaille seulement sur le site
+## Workflow quand un changement reste web-only
 
-1. Modifier le site, les recettes ou les images selon la demande.
-2. Bump version/cache avant push visible du site.
-3. Lancer les checks habituels du site.
-4. Commit et push.
-5. Ne pas lancer `npm run android:legacy:update-apk`, sauf demande explicite.
+1. Verifier que le changement ne modifie pas une fonctionnalite visible utile
+   sur tablette : docs, cache pur, CI, admin local ou correctif web-only.
+2. Modifier le site selon la demande.
+3. Bump version/cache avant push visible du site si necessaire.
+4. Lancer les checks habituels du site.
+5. Ne pas lancer `npm run android:legacy:update-apk`; documenter pourquoi l APK
+   n'est pas concernee.
 
 Dans ce cas, l APK deja installe sur la tablette garde son ancien contenu.
 C est voulu.
 
-## Workflow quand l utilisateur demande une mise a jour APK
+## Workflow quand la parite Android est requise
 
 1. Synchroniser GitHub avec `git pull --ff-only`.
-2. S assurer que le site est propre et que `dist/` est a jour.
-3. Lancer `npm run apps:update-all`.
-4. Verifier l APK :
+2. Identifier l equivalent Native Lite adapte a une tablette peu puissante.
+3. S assurer que le site est propre et que `dist/` est a jour.
+4. Lancer `npm run apps:update-all`.
+5. Verifier l APK :
    - `aapt dump badging android-legacy/app/build/outputs/apk/release/app-release.apk`
    - `apksigner verify --verbose android-legacy/app/build/outputs/apk/release/app-release.apk`
-5. Ne pas committer les APK depuis les dossiers Android : ce sont des artefacts locaux ignores.
-6. `npm run apps:update-all` copie l APK valide vers
+6. Ne pas committer les APK depuis les dossiers Android : ce sont des artefacts locaux ignores.
+7. `npm run apps:update-all` copie l APK valide vers
    `downloads/cook-note-android-legacy.apk` et
    `downloads/cook-note-android-legacy-vX.YY.apk`. Verifier que
    `dist/downloads/` n existe pas.
-7. Si l utilisateur demande aussi une Release GitHub, lancer
+8. Si l utilisateur demande aussi une Release GitHub, lancer
    `npm run apps:publish-all` apres authentification GitHub CLI.
-8. Commit/push seulement les changements de code, documentation et copies APK demandees.
-9. Donner le chemin local de l APK et/ou l URL de telechargement du site a l utilisateur.
+9. Commit/push les changements de code, documentation et copies APK.
+10. Donner le chemin local de l APK et/ou l URL de telechargement du site a l utilisateur.
 
 ## Fichiers importants
 
@@ -339,5 +341,7 @@ C est voulu.
 - Ne pas recreer Android Modern/HD, ni remettre de bouton moderne, sans demande
   explicite.
 - Ne pas traiter l APK comme la source de verite des recettes.
-- Ne pas modifier les recettes pour l app Android sans demande separee.
-- Ne pas supposer qu un push du site doit mettre a jour la tablette.
+- Ne pas modifier les recettes pour l app Android sans demande separee, sauf
+  correction de parite sur une recette deja modifiee cote site.
+- Ne pas laisser une fonctionnalite visible du site sans decision Android :
+  porter en Native Lite ou documenter pourquoi l APK n'est pas concernee.

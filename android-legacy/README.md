@@ -3,9 +3,12 @@
 Application Android 5.0 compatible pour Cook Note, optimisee pour tablettes
 anciennes avec peu de RAM et CPU modeste.
 
-Important: cette application est un projet secondaire. Elle ne se met pas a jour
-automatiquement quand le site change, et elle ne doit pas etre branchee sur
-`npm run build`, `npm run check` ou `npm run preflight`.
+Important: cette application est un projet secondaire avec parite site/app. Elle
+ne se met pas a jour automatiquement sur la tablette quand le site change, et
+elle ne doit pas etre branchee sur `npm run build`, `npm run check` ou
+`npm run preflight`. En revanche, toute mise a jour visible du site utile sur
+tablette doit etre auditee et portee en Native Lite dans le meme lot.
+Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour tablette peu puissante.
 
 Le mode d'emploi complet est dans
 [`docs/android-legacy-workflow.md`](../docs/android-legacy-workflow.md).
@@ -69,9 +72,11 @@ Le mode d'emploi complet est dans
   scroll fluide, index recherche precompile, audit perf leger
 - aucun changement de recette requis pour l app
 
-## Mise a jour explicite
+## Mise a jour explicite ou parite site/app
 
-Ne construire une nouvelle APK que si l'utilisateur le demande explicitement.
+Construire une nouvelle APK si la parite site/app l'exige ou si l'utilisateur
+le demande explicitement. Adapter les fonctionnalites au format Native Lite pour
+tablette peu puissante.
 
 Depuis la racine du depot :
 
@@ -122,4 +127,5 @@ npm run validate:android
 ```
 
 Ce check verifie que le workflow Android reste manuel, que les assets APK
-generes ne sont pas versionnes, et que l app Legacy reste native Lite.
+generes ne sont pas versionnes, que l app Legacy reste native Lite et que la
+parite site/app visible reste documentee.

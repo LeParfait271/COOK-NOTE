@@ -23,6 +23,8 @@ const androidGitignore = read('android-legacy/.gitignore');
 const androidReadme = read('android-legacy/README.md');
 const workflowDoc = read('docs/android-legacy-workflow.md');
 const appsWorkflowDoc = read('docs/apps-install-workflow.md');
+const projectRules = read('COOK_NOTE_RULES.md');
+const masterGuard = read('A_LIRE_EN_PREMIER.md');
 const appScript = read('app.js');
 const styleSheet = read('style.css');
 const buildSiteScript = read('scripts/build-site.js');
@@ -451,7 +453,10 @@ expect(
 [
   'Android Legacy',
   'projet secondaire',
-  'ne se met pas a jour automatiquement',
+  'parite site/app',
+  'ne se met pas a jour automatiquement sur la tablette',
+  'fonctionnalite visible du site',
+  'tablette peu puissante',
   'npm run android:legacy:update-apk',
   'npm run android:legacy:publish-release',
   'cook-note-android-legacy.apk',
@@ -540,6 +545,20 @@ expect(
   expect(`Documentation Android manuelle incomplete (${fragment}).`, workflowDoc.includes(fragment));
 });
 
+[
+  'parite site/app',
+  'fonctionnalite visible du site',
+  'Native Lite pour tablette peu puissante',
+  'npm run apps:update-all'
+].forEach(fragment => {
+  expect(`Regle de parite Android absente des docs (${fragment}).`,
+    workflowDoc.includes(fragment)
+      && appsWorkflowDoc.includes(fragment)
+      && androidReadme.includes(fragment)
+      && projectRules.includes(fragment)
+      && masterGuard.includes(fragment));
+});
+
 expect(
   'android-legacy/README.md doit pointer vers la documentation complete.',
   androidReadme.includes('docs/android-legacy-workflow.md')
@@ -621,7 +640,7 @@ expect(
   '/downloads/',
   'npm run apps:update-all',
   'npm run apps:publish-all',
-  'Mise a jour explicite',
+  'Mise a jour explicite ou parite site/app',
   'workflow commun historique',
   'scripts/build-android-legacy-assets.js',
   'Native Lite',
