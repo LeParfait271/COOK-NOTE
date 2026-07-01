@@ -64,6 +64,12 @@ mission est terminee plutot que fabriquer du changement.
 - UX et accessibilite : chaque ecran doit rester rapide, coherent, responsive,
   navigable au clavier quand applicable, lisible et comprehensible dans ses etats
   de chargement, d'erreur et vides.
+- Direction artistique premium : appliquer le Silent Design avant d'ajouter un
+  effet. Retirer ce qui attire l'attention sans valeur, puis soigner rythme,
+  continuite, hierarchie visuelle, respiration, micro-interactions et premiere
+  impression dans `docs/design-system.md`.
+  Garde-fou design premium : Silent Design et premiere impression doivent rester
+  verifies avant toute passe visuelle.
 - Android et web : optimiser en continu l'APK, le demarrage, la memoire, la
   batterie, Gradle/manifest/R8 quand Android est explicitement dans le scope ;
   optimiser Lighthouse, Core Web Vitals, SEO, WCAG et rendu quand le web change.

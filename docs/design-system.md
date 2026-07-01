@@ -9,6 +9,40 @@ Ce document est la reference visuelle du projet. Toute passe UI doit ameliorer l
 - Les images recettes restent le signal principal. Les effets doivent soutenir la lecture, pas la remplacer.
 - Les gradients sont utilises avec retenue, jamais comme decoration autonome.
 - L'interface publique et l'admin doivent sembler appartenir au meme produit.
+- Silent Design : retirer tout ce qui attire l'attention sans valeur avant
+  d'ajouter une couleur, une ombre, une bordure, un texte ou une animation.
+
+## Direction premium
+
+Ces principes cadrent les passes de polish. Ils ne changent jamais la logique
+metier et ne justifient pas d'ajouter une section gadget.
+
+- Cinematic UI Engine : l'interface doit sembler filmee, avec un rythme entre
+  les ecrans, des apparitions par sequences et des transitions qui preservent la
+  continuite. Eviter les changements brusques.
+- Magnetic Interaction Engine : les elements interactifs doivent donner un
+  feedback immediat. Hover leger, press clair, focus visible et zones tactiles
+  confortables ; pas d'effet qui fatigue le GPU ou gene la precision.
+- Color Intelligence Engine : aucune teinte libre. Les contrastes, surfaces,
+  etats et accents partent des tokens et restent harmonises dans le theme sombre.
+- Breathing Layout Engine : chaque ecran doit respirer. Corriger blocs denses,
+  listes interminables, cartes ecrasees, marges aleatoires et paddings trop
+  proches avant d'ajouter du decor.
+- Eye Tracking Simulator : verifier l'ordre de regard attendu. Le premier signal
+  doit etre l'action ou l'information utile, puis le contexte, puis les details.
+- Subconscious Quality Engine : traquer les details qui donnent une impression
+  amateur : ombres lourdes, icones mal centrees, marges irregulieres, contrastes
+  violents, animations robotiques, boutons trop petits.
+- Screenshot Test : une capture de l'accueil, d'une fiche, d'un panneau et de
+  l'admin doit donner envie d'utiliser ou installer le produit.
+- Award Winning Design : rechercher equilibre, lumiere, composition, coherence
+  et finesse sans copier une identite externe.
+- First Impression Optimizer : les cinq premieres secondes doivent etre nettes :
+  accueil comprehensible, arrivee fluide, vitesse percue forte et premier clic
+  evident.
+- Premium Value Perception : chaque detail doit augmenter la valeur percue :
+  finition, coherence, transitions, etats de chargement, retours visuels et
+  sobriete.
 
 ## Tokens principaux
 

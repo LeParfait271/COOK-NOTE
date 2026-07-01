@@ -70,6 +70,23 @@ const designSystem = fs.existsSync(designSystemPath) ? fs.readFileSync(designSys
 expect('COOK_NOTE_RULES.md: rappel des lois qualite absent.', rules.includes('lois qualite permanentes') && rules.includes('ne jamais degrader') && rules.includes('validation continue'));
 expect('COOK_NOTE_RULES.md: lien design system absent.', rules.includes('docs/design-system.md') && rules.includes('prefers-reduced-motion'));
 expect('Design system incomplet.', designSystem.includes('--ds-radius-md') && designSystem.includes('120ms') && designSystem.includes('200ms') && designSystem.includes('320ms') && designSystem.includes('--ds-card-image-motion') && designSystem.includes('250ms') && designSystem.includes('focus visible') && designSystem.includes('prefers-reduced-motion'));
+[
+  'Silent Design',
+  'Cinematic UI Engine',
+  'Magnetic Interaction Engine',
+  'Color Intelligence Engine',
+  'Breathing Layout Engine',
+  'Eye Tracking Simulator',
+  'Subconscious Quality Engine',
+  'Screenshot Test',
+  'Award Winning Design',
+  'First Impression Optimizer',
+  'Premium Value Perception'
+].forEach(fragment => {
+  expect(`Principe design premium absent (${fragment}).`,
+    designSystem.includes(fragment) && rules.includes(fragment));
+});
+expect('Garde-fou design premium absent du maitre.', masterGuard.includes('Silent Design') && masterGuard.includes('premiere impression'));
 expect('Tokens design system site absents.', validators.style.includes('--ds-color-background') && validators.style.includes('--ds-space-8: 64px') && validators.style.includes('--ds-radius-md: 10px') && validators.style.includes('--ds-motion-fast: 120ms') && validators.style.includes('--ds-motion-slow: 320ms') && validators.style.includes('--ds-ease-out') && validators.style.includes('prefers-reduced-motion'));
 expect('Tokens design system admin absents.', validators.adminCss.includes('--ds-color-background') && validators.adminCss.includes('--ds-space-8: 64px') && validators.adminCss.includes('--ds-radius-md: 10px') && validators.adminCss.includes('--ds-motion-fast: 120ms') && validators.adminCss.includes('--ds-motion-slow: 320ms') && validators.adminCss.includes('--ds-ease-out') && validators.adminCss.includes('prefers-reduced-motion'));
 
@@ -213,6 +230,17 @@ expect('Tokens design system admin absents.', validators.adminCss.includes('--ds
   'dashboard de sante du catalogue',
   'audit visuel',
   'sans rajouter de sections gadget',
+  'Silent Design obligatoire',
+  'Cinematic UI Engine',
+  'Magnetic Interaction Engine',
+  'Color Intelligence Engine',
+  'Breathing Layout Engine',
+  'Eye Tracking Simulator',
+  'Subconscious Quality Engine',
+  'Screenshot Test',
+  'Award Winning Design',
+  'First Impression Optimizer',
+  'Premium Value Perception',
   'motion system `120ms / 200ms / 320ms`',
   'tokens du design system',
   'jamais sur les categories, collections ou fiches parentes',
