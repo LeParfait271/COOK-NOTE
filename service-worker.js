@@ -1,11 +1,11 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v260
+//  Cook Note - Service Worker PWA v261
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v260';
-const IMAGE_CACHE_NAME = 'cook-note-images-v260';
+const CACHE_NAME = 'cook-note-v261';
+const IMAGE_CACHE_NAME = 'cook-note-images-v261';
 const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
@@ -16,16 +16,25 @@ const FAST_CHANGING_PATHS = new Set([
   '/manifest.json',
   '/assets/image-manifest.js'
 ]);
+const IMMUTABLE_IMAGE_PATHS = [
+  '/assets/recipe-card-images/',
+  '/assets/recipe-images-optimized/',
+  '/assets/base-du-site.png',
+  '/assets/base-principale-fond-site.jpg',
+  '/assets/cook-note.png',
+  '/assets/cook-note-white.png',
+  '/assets/cook-note-mark.svg'
+];
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=260',
-  '/app-images.js?v=260',
-  '/assets/catalog-1.js?v=260',
-  '/assets/image-manifest.js?v=260',
-  '/style.css?v=260',
-  '/recipe.js?v=260',
+  '/app.js?v=261',
+  '/app-images.js?v=261',
+  '/assets/catalog-1.js?v=261',
+  '/assets/image-manifest.js?v=261',
+  '/style.css?v=261',
+  '/recipe.js?v=261',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
@@ -42,14 +51,15 @@ async function trimCache(cacheName, maxEntries) {
   await Promise.all(keys.slice(0, keys.length - maxEntries).map(request => cache.delete(request)));
 }
 
+function isImmutableImageRequest(url) {
+  return IMMUTABLE_IMAGE_PATHS.some(path => url.pathname === path || url.pathname.startsWith(path));
+}
+
 // Installation
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
-      .then(() => {
-        console.log('[SW v260] Assets statiques mis en cache.');
-      })
   );
 });
 
@@ -60,9 +70,7 @@ self.addEventListener('activate', (event) => {
       Promise.all(
         keys.filter(k => ![CACHE_NAME, IMAGE_CACHE_NAME].includes(k)).map(k => caches.delete(k))
       )
-    ).then(() => {
-        console.log('[SW v260] Anciens caches supprimés.');
-    })
+    )
   );
   self.clients.claim();
 });
@@ -94,6 +102,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       caches.open(IMAGE_CACHE_NAME).then(async cache => {
         const cached = await cache.match(event.request);
+        if (cached && isImmutableImageRequest(url)) return cached;
         const refresh = fetch(event.request).then(response => {
           if (response && response.status === 200 && response.type === 'basic') {
             cache.put(event.request, response.clone()).then(() => trimCache(IMAGE_CACHE_NAME, IMAGE_CACHE_LIMIT));

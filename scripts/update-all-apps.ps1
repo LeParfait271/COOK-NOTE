@@ -56,6 +56,13 @@ function Copy-ExpectedApk($Channel, $TargetName) {
   return $TargetPath
 }
 
+function Remove-StaleVersionedApks($CurrentName) {
+  if (-not (Test-Path $DownloadsDir)) { return }
+  Get-ChildItem -LiteralPath $DownloadsDir -Filter "cook-note-android-legacy-v*.apk" -File |
+    Where-Object { $_.Name -ne $CurrentName } |
+    Remove-Item -Force
+}
+
 if (-not $SkipWebBuild) {
   Run-NpmBuild
 }
@@ -69,7 +76,9 @@ $VersionName = Get-CookNoteVersionName
 Run-AndroidBuild $LegacyScript "Build Android Legacy"
 
 $LegacyStableDownload = Copy-ExpectedApk "legacy" "cook-note-android-legacy.apk"
-$LegacyVersionedDownload = Copy-ExpectedApk "legacy" "cook-note-android-legacy-v$VersionName.apk"
+$LegacyVersionedName = "cook-note-android-legacy-v$VersionName.apk"
+$LegacyVersionedDownload = Copy-ExpectedApk "legacy" $LegacyVersionedName
+Remove-StaleVersionedApks $LegacyVersionedName
 
 if (Test-Path (Join-Path $Root "dist\downloads")) {
   throw "dist\downloads ne doit jamais exister. Les APK doivent rester servis depuis GitHub."

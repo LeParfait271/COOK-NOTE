@@ -158,6 +158,16 @@ if (index.includes('/assets/vendor/confetti.browser.min.js') || index.includes('
 if (!serviceWorker.includes('IMAGE_CACHE_NAME') || serviceWorker.includes("'/assets/catalog-2.js?v=")) {
   fail('service-worker.js: cache runtime images ou precache catalogue differe incorrect.');
 }
+[
+  'IMMUTABLE_IMAGE_PATHS',
+  'isImmutableImageRequest',
+  'if (cached && isImmutableImageRequest(url)) return cached'
+].forEach(fragment => {
+  if (!serviceWorker.includes(fragment)) fail(`Optimisation service worker absente (${fragment}).`);
+});
+if (/console\.(?:log|warn|error)\(/.test(serviceWorker)) {
+  fail('service-worker.js: logs runtime interdits dans le worker de production.');
+}
 
 if (errors.length) {
   console.error(errors.join('\n'));

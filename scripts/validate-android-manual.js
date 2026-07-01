@@ -375,6 +375,7 @@ expect(
     && updateAllAppsScript.includes('cook-note-android-legacy.apk')
     && updateAllAppsScript.includes('Get-CookNoteVersionName')
     && updateAllAppsScript.includes('cook-note-android-legacy-v$VersionName.apk')
+    && updateAllAppsScript.includes('Remove-StaleVersionedApks')
     && updateAllAppsScript.includes('dist\\downloads')
     && updateAllAppsScript.includes('PublishRelease')
     && updateAllAppsScript.includes('publish-android-release.ps1')

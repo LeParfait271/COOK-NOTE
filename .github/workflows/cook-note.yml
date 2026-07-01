@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
+      - name: Run dependency security audit
+        run: npm run audit:security
+
       - name: Validate generated image manifest
         run: npm run validate:image-manifest
 
