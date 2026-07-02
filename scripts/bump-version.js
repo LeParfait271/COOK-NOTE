@@ -95,11 +95,13 @@ write('index.html', read('index.html')
   .replace(/(catalog-\d+\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(image-manifest\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app-images\.js\?v=)\d+/g, `$1${numeric}`)
+  .replace(/(i18n\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(service-worker\.js\?v=)\d+/g, `$1${numeric}`));
 
 write('recipe.html', read('recipe.html')
   .replace(/(style\.css\?v=)\d+/g, `$1${numeric}`)
+  .replace(/(i18n\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(recipes\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(recipe\.js\?v=)\d+/g, `$1${numeric}`));
 
@@ -109,6 +111,7 @@ write('service-worker.js', read('service-worker.js')
   .replace(/IMAGE_CACHE_NAME = 'cook-note-images-v\d+'/g, `IMAGE_CACHE_NAME = 'cook-note-images-v${numeric}'`)
   .replace(/(app\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app-images\.js\?v=)\d+/g, `$1${numeric}`)
+  .replace(/(i18n\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(catalog-\d+\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(image-manifest\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(style\.css\?v=)\d+/g, `$1${numeric}`)

@@ -44,6 +44,13 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 
 ## Interface
 
+- Internationalisation site : tout texte visible hors donnees recettes doit
+  passer par `i18n.js`, `CookNoteI18n.t/text` ou un attribut `data-i18n-*` sur
+  les pages statiques. Les catalogues FR/EN doivent rester synchronises, les
+  liens `hreflang` doivent rester presents, et `npm run validate:i18n` doit
+  rester vert avant toute livraison. Ne jamais traduire approximativement le
+  contenu culinaire : une traduction complete des recettes doit passer par des
+  champs localises controles et valides recette par recette.
 - `Materiel necessaire` reste dans la fiche rapide en haut, pas dans la colonne de droite.
 - La colonne droite s'appelle `Avant de commencer`.
 - Sur mobile, les informations de la colonne droite doivent rester accessibles via l'onglet/encart mobile, pas via une fausse etape.

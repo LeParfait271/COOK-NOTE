@@ -17,6 +17,20 @@ const h = (type, props, ...children) => React.createElement(
   ...children.map(repairReactChildText)
 );
 
+const CookNoteI18n = window.CookNoteI18n || {
+  supportedLocales: ['fr'],
+  t: key => key,
+  text: value => value,
+  locale: () => 'fr',
+  setLocale: () => 'fr',
+  subscribe: () => () => {},
+  applyDocumentLanguage: () => {},
+  ensureAlternateLinks: () => {},
+  translateCategory: value => value
+};
+const t = (key, params) => CookNoteI18n.t(key, params);
+const translateUiText = value => CookNoteI18n.text(value);
+
 const deferredScriptLoads = new Map();
 
 function loadDeferredScript(src, globalName = '') {
@@ -74,12 +88,12 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.75';
+const SITE_VERSION = 'v2.76';
 const SITE_UPDATED_AT = '02/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.75';
+const ANDROID_LEGACY_APK_VERSION = '2.76';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -890,7 +904,7 @@ function repairReactProps(props) {
   let repaired = props;
   REPAIRABLE_REACT_PROPS.forEach(name => {
     if (typeof props[name] !== 'string') return;
-    const text = repairMojibakeText(props[name]);
+    const text = translateUiText(repairMojibakeText(props[name]));
     if (text === props[name]) return;
     if (repaired === props) repaired = { ...props };
     repaired[name] = text;
@@ -899,7 +913,7 @@ function repairReactProps(props) {
 }
 
 function repairReactChildText(child) {
-  if (typeof child === 'string') return repairMojibakeText(child);
+  if (typeof child === 'string') return translateUiText(repairMojibakeText(child));
   if (Array.isArray(child)) return child.map(repairReactChildText);
   return child;
 }
@@ -4002,18 +4016,22 @@ function truncateText(value, max = 156) {
 }
 
 function recipeDescription(recipe, recipesById = {}) {
-  if (!recipe?.title) return 'Cook Note : carnet de recettes avec ingrédients, quantités ajustables, étapes et notes pratiques.';
-  const category = primaryCategory(recipe).toLowerCase();
-  const yieldText = recipe.yield ? ` pour ${recipe.yield}` : '';
+  if (!recipe?.title) return t('site.description');
+  const isEnglish = CookNoteI18n.locale() === 'en';
+  const category = (isEnglish ? CookNoteI18n.translateCategory(primaryCategory(recipe)) : primaryCategory(recipe)).toLowerCase();
+  const yieldText = recipe.yield ? `${isEnglish ? ' for' : ' pour'} ${recipe.yield}` : '';
   const ingredientNames = (recipe.ingredients || [])
     .flatMap(group => group.items || [])
     .map(item => stripHtml(item).replace(/^\d+(?:[.,]\d+)?(?:\s*(?:g|kg|ml|cl|l))?\s*/i, '').trim())
     .filter(Boolean)
     .slice(0, 3);
-  const linked = getLinkedRecipeRefs(recipe, recipesById).slice(0, 2).map(item => item.recipe.title);
-  const tail = linked.length ? ` Liens utiles : ${linked.join(', ')}.` : '';
-  const ingredients = ingredientNames.length ? ` Avec ${ingredientNames.join(', ')}.` : '';
-  return truncateText(`${recipe.title} sur Cook Note : recette ${category}${yieldText}, avec ingrédients, étapes et notes pratiques.${ingredients}${tail}`);
+  const ingredientsText = ingredientNames.length ? `${isEnglish ? ' with' : ' avec'} ${ingredientNames.join(', ')}` : '';
+  return truncateText(t('seo.recipe.description', {
+    title: recipe.title,
+    category,
+    yieldText,
+    ingredientsText
+  }));
 }
 
 function getPathRecipe() {
@@ -4121,6 +4139,7 @@ function absoluteAssetUrl(url) {
 function recipeJsonLd(recipe, recipesById = {}) {
   if (!recipe || isMasterRecipe(recipe)) return null;
   const url = `${window.location.origin}${getRecipeUrl(recipe.id)}`;
+  const locale = CookNoteI18n.locale();
   const linkedRecipes = getLinkedRecipeRefs(recipe, recipesById);
   const keywords = uniq([...(recipe.tags || []), ...(recipe.tagsExtracted || []), ...(recipe.categories || []), primaryCategory(recipe)]).join(', ');
   const recipeText = normalizeText([recipe.title, ...(recipe.tags || []), ...(recipe.categories || []), ...(recipe.ingredients || []).flatMap(group => group.items || [])].join(' '));
@@ -4134,10 +4153,10 @@ function recipeJsonLd(recipe, recipesById = {}) {
     image: recipe.image ? [absoluteAssetUrl(recipe.image)] : undefined,
     author: { '@type': 'Organization', name: 'Cook Note' },
     publisher: { '@type': 'Organization', name: 'Cook Note', url: getHomeUrl() },
-    inLanguage: 'fr-FR',
-    recipeCuisine: 'Cuisine maison',
+    inLanguage: locale === 'en' ? 'en-US' : 'fr-FR',
+    recipeCuisine: locale === 'en' ? 'Home cooking' : 'Cuisine maison',
     recipeYield: recipe.yield || undefined,
-    recipeCategory: (recipe.categories || []).join(', ') || undefined,
+    recipeCategory: (recipe.categories || []).map(category => locale === 'en' ? CookNoteI18n.translateCategory(category) : category).join(', ') || undefined,
     keywords: keywords || undefined,
     suitableForDiet: /\b(vegetarien|végétarien|sans viande)\b/.test(recipeText) ? 'https://schema.org/VegetarianDiet' : undefined,
     recipeIngredient: (recipe.ingredients || []).flatMap(group => group.items || []).map(stripHtml),
@@ -4157,7 +4176,7 @@ function recipeJsonLd(recipe, recipesById = {}) {
         '@id': `${url}#breadcrumb`,
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Cook Note', item: getHomeUrl() },
-          { '@type': 'ListItem', position: 2, name: primaryCategory(recipe), item: getHomeUrl() },
+          { '@type': 'ListItem', position: 2, name: locale === 'en' ? CookNoteI18n.translateCategory(primaryCategory(recipe)) : primaryCategory(recipe), item: getHomeUrl() },
           { '@type': 'ListItem', position: 3, name: recipe.title, item: url }
         ]
       }
@@ -4167,13 +4186,14 @@ function recipeJsonLd(recipe, recipesById = {}) {
 
 function websiteJsonLd() {
   const url = getHomeUrl();
+  const locale = CookNoteI18n.locale();
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Cook Note',
-    description: 'Carnet de recettes avec ingrédients, quantités ajustables, étapes, techniques de cuisinier, favoris et liste de courses.',
+    description: t('site.description'),
     url,
-    inLanguage: 'fr-FR',
+    inLanguage: locale === 'en' ? 'en-US' : 'fr-FR',
     potentialAction: {
       '@type': 'SearchAction',
       target: `${url}?q={search_term_string}`,
@@ -4184,12 +4204,14 @@ function websiteJsonLd() {
 
 function techniquesJsonLd() {
   const url = getTechniquesUrl();
+  const locale = CookNoteI18n.locale();
   return {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'Technique de cuisinier',
-    description: 'Gestes de cuisine Cook Note : coupes, cuissons, pâtisserie, sauces, moules, friture et bases de cuisinier.',
+    name: t('seo.techniques.title').replace(' - Cook Note', ''),
+    description: t('seo.techniques.description'),
     url,
+    inLanguage: locale === 'en' ? 'en-US' : 'fr-FR',
     hasPart: SORTED_TECHNIQUE_GUIDES.map(guide => ({
       '@type': 'HowTo',
       name: guide.title,
@@ -4203,15 +4225,15 @@ function techniquesJsonLd() {
 function updateDocumentMeta(recipe, recipesById = {}, page = 'home') {
   const isTechniques = page === 'techniques';
   const title = isTechniques
-    ? 'Technique de cuisinier - Cook Note'
+    ? t('seo.techniques.title')
     : recipe?.title
       ? `${recipe.title} - Cook Note`
-      : 'Cook Note';
+      : t('seo.home.title');
   const description = isTechniques
-    ? 'Technique de cuisinier : gestes de base pour tailler, cuire, abaisser une pâte, foncer un moule, monter une sauce et réussir les préparations.'
+    ? t('seo.techniques.description')
     : recipe?.title
       ? recipeDescription(recipe, recipesById)
-      : 'Cook Note : carnet de recettes avec ingrédients, quantités ajustables, étapes et notes pratiques.';
+      : t('site.description');
   const canonicalUrl = isTechniques
     ? getTechniquesUrl()
     : recipe?.id
@@ -4233,6 +4255,8 @@ function updateDocumentMeta(recipe, recipesById = {}, page = 'home') {
     document.head.appendChild(canonical);
   }
   canonical.setAttribute('href', canonicalUrl);
+  CookNoteI18n.applyDocumentLanguage();
+  CookNoteI18n.ensureAlternateLinks(canonicalUrl);
   const image = absoluteAssetUrl(recipe?.image || HERO_IMAGE);
   setMetaContent('meta[property="og:image"]', image);
   setMetaContent('meta[property="og:image:secure_url"]', image);
@@ -4381,6 +4405,36 @@ function useDebouncedValue(value, delay = 180) {
   return debouncedValue;
 }
 
+function useI18nLocale() {
+  const [locale, setLocaleState] = useState(() => CookNoteI18n.locale());
+
+  useEffect(() => CookNoteI18n.subscribe(setLocaleState), []);
+
+  return locale;
+}
+
+function LanguageSwitcher() {
+  const locale = CookNoteI18n.locale();
+  const currentLanguage = t(locale === 'en' ? 'language.en' : 'language.fr');
+  return h('label', {
+    className: 'language-switcher',
+    'aria-label': t('language.current', { language: currentLanguage }),
+    title: t('language.selector')
+  },
+    h('span', { className: 'sr-only' }, t('language.selector')),
+    h('select', {
+      className: 'btn',
+      value: locale,
+      onChange: event => CookNoteI18n.setLocale(event.target.value),
+      'aria-label': t('language.selector')
+    },
+      CookNoteI18n.supportedLocales.map(localeCode =>
+        h('option', { key: localeCode, value: localeCode }, t(`language.${localeCode}`))
+      )
+    )
+  );
+}
+
 function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, openMenuPlanner, openTechniques, query, openSearch, openPreferences }) {
   return h('header', { className: 'topbar' },
     h('div', { className: 'top-left' },
@@ -4408,6 +4462,7 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
       ])
     ),
     h('div', { className: 'top-right' },
+      h(LanguageSwitcher),
       h(Button, {
         variant: 'ghost',
         className: query.trim() ? 'top-search-button icon-square active' : 'top-search-button icon-square',
@@ -6556,6 +6611,7 @@ function RecipeView({
 }
 
 function App() {
+  const activeLocale = useI18nLocale();
   const [recipeSource, setRecipeSource] = useState(() => (window.RECIPES && typeof window.RECIPES === 'object' ? window.RECIPES : {}));
   const [fullRecipeCatalogLoaded, setFullRecipeCatalogLoaded] = useState(false);
   const [catalogChunksLoaded, setCatalogChunksLoaded] = useState(() => Boolean(window.COOK_NOTE_CATALOG_COMPLETE));
@@ -6671,7 +6727,7 @@ function App() {
 
   useEffect(() => {
     updateDocumentMeta(activeSeoRecipe, recipesById, activePage);
-  }, [activeSeoRecipe?.id, recipesById, activePage]);
+  }, [activeSeoRecipe?.id, recipesById, activePage, activeLocale]);
 
   useEffect(() => {
     if (!activeId || fullRecipeCatalogLoaded) return;
@@ -7311,6 +7367,7 @@ function App() {
   const catalogResolvingRecipe = Boolean(missingRecipeId && !catalogChunksLoaded);
   const shellClassName = [
     'mc-shell',
+    activeLocale === 'en' ? 'locale-en' : 'locale-fr',
     preferences.density === 'compact' ? 'display-compact' : '',
     preferences.largeText ? 'display-large-text' : '',
     preferences.reduceMotion ? 'display-reduce-motion' : ''
@@ -7321,7 +7378,8 @@ function App() {
   return h('div', {
     className: shellClassName,
     style: shellStyle,
-    'data-app-mode': 'standard'
+    'data-app-mode': 'standard',
+    'data-locale': activeLocale
   },
     h(TopBarFixed, {
       onHome: goHome,

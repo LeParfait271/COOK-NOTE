@@ -73,7 +73,7 @@ async function expectBackgroundImagesReady(page, selector, minCount) {
 
 test.describe('Cook Note visual smoke', () => {
   test('home renders cards, images and clean text', async ({ page }, testInfo) => {
-    await page.goto('/');
+    await page.goto('/?lang=fr');
     await waitForCookNote(page);
 
     await expect(page.locator('.home-view')).toBeVisible();
@@ -102,7 +102,7 @@ test.describe('Cook Note visual smoke', () => {
   });
 
   test('direct recipe route renders hero and decoded copy', async ({ page }, testInfo) => {
-    await page.goto('/recette/poulet_sauce_pimentee');
+    await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
     await waitForCookNote(page);
 
     await expect(page.locator('.recipe-view')).toBeVisible();
@@ -122,7 +122,7 @@ test.describe('Cook Note visual smoke', () => {
 
   for (const [recipeId, expectedTitle] of CATEGORY_PARENT_ROUTES) {
     test(`category parent ${recipeId} renders variants cleanly`, async ({ page }, testInfo) => {
-      await page.goto(`/recette/${recipeId}`);
+      await page.goto(`/recette/${recipeId}?lang=fr`);
       await waitForCookNote(page);
 
       await expect(page.locator('.recipe-view')).toBeVisible();

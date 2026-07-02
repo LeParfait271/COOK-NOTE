@@ -78,6 +78,10 @@ mission est terminee plutot que fabriquer du changement.
   duplications si une base de donnees apparait un jour.
 - Documentation : documenter toute decision d'architecture importante et garder
   README, variables d'environnement, scripts et procedures de deploiement a jour.
+- Internationalisation : tout nouveau texte visible doit passer par `i18n.js`
+  ou par un attribut `data-i18n-*` sur les pages statiques. Les catalogues FR et
+  EN doivent rester synchronises et `npm run validate:i18n` doit rester vert
+  avant toute livraison visible.
 - Validation continue : apres une serie de modifications, lancer les validations
   adaptees (syntaxe, build, tests, performance, securite) et corriger ce qui
   casse avant commit.

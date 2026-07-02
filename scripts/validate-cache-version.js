@@ -73,12 +73,12 @@ if (expectedProductVersion && !fs.existsSync(path.join(ROOT, 'downloads', `cook-
   fail(`downloads/cook-note-android-legacy-v${expectedProductVersion}.apk manquant pour la version produit publiee.`);
 }
 const assetVersions = [
-  ...index.matchAll(/\b(?:app|app-images|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g),
+  ...index.matchAll(/\b(?:app|app-images|i18n|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g),
   ...index.matchAll(/\bimage-manifest\.js\?v=(\d+)/g),
   ...index.matchAll(/service-worker\.js\?v=(\d+)/g),
   ...index.matchAll(/\bbase-du-site\.png\?v=(\d+)/g),
-  ...recipeHtml.matchAll(/\b(?:recipe|recipes|style)\.(?:js|css)\?v=(\d+)/g),
-  ...serviceWorker.matchAll(/\b(?:app|app-images|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g),
+  ...recipeHtml.matchAll(/\b(?:i18n|recipe|recipes|style)\.(?:js|css)\?v=(\d+)/g),
+  ...serviceWorker.matchAll(/\b(?:app|app-images|i18n|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g),
   ...serviceWorker.matchAll(/CACHE_NAME\s*=\s*'cook-note-v(\d+)'/g),
   ...serviceWorker.matchAll(/IMAGE_CACHE_NAME\s*=\s*'cook-note-images-v(\d+)'/g)
 ].map(match => match[1]);
