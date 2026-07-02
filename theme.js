@@ -32,12 +32,12 @@
   function art(t) {
     const d = g.document, r = d?.documentElement;
     if (!r) return;
-    const a = assets(t);
+    const a = assets(t), f = t === L && !OK;
     r.dataset.artDirection = t === L ? 'day' : 'night';
     r.dataset.artAssets = t === L && !OK ? 'night-fallback' : 'approved';
-    r.style.setProperty('--art-background-image', `url("${a.background}")`);
-    r.style.setProperty('--art-hero-image', `url("${a.hero}")`);
-    r.style.setProperty('--art-logo-image', `url("${a.logo}")`);
+    r.style.setProperty('--art-background-image', f ? 'none' : `url("${a.background}")`);
+    r.style.setProperty('--art-hero-image', f ? 'none' : `url("${a.hero}")`);
+    r.style.setProperty('--art-logo-image', f ? 'none' : `url("${a.logo}")`);
     d.querySelectorAll?.('[data-art-asset]').forEach(e => {
       const k = e.getAttribute('data-art-asset'), u = a[k] || N[k];
       if (!u) return;

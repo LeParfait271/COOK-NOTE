@@ -77,6 +77,15 @@ async function expectBackgroundImagesReady(page, selector, minCount) {
   }).toPass({ timeout: 12000 });
 }
 
+async function expectSelectedLanguage(page, value, label) {
+  const selector = page.locator('.language-switcher select');
+  await expect(selector).toHaveValue(value);
+  await expect(async () => {
+    const selectedLabel = await selector.evaluate(select => select.selectedOptions[0]?.textContent || '');
+    expect(selectedLabel).toBe(label);
+  }).toPass();
+}
+
 test.describe('Cook Note visual smoke', () => {
   test('home renders cards, images and clean text', async ({ page }, testInfo) => {
     await forceTheme(page, 'dark');
@@ -115,7 +124,21 @@ test.describe('Cook Note visual smoke', () => {
 
     await expect(page.locator('.mc-shell.theme-light')).toBeVisible();
     await expect(page.locator('.theme-toggle-btn')).toHaveAttribute('aria-pressed', 'true');
+    await expectSelectedLanguage(page, 'fr', 'FR');
     await expect(page.locator('.home-view')).toBeVisible();
+    const lightFallbackArt = await page.evaluate(() => ({
+      background: getComputedStyle(document.documentElement).getPropertyValue('--art-background-image').trim(),
+      hero: getComputedStyle(document.documentElement).getPropertyValue('--art-hero-image').trim(),
+      assets: document.documentElement.dataset.artAssets
+    }));
+    if (lightFallbackArt.assets === 'night-fallback') {
+      expect(lightFallbackArt.background).toBe('none');
+      expect(lightFallbackArt.hero).toBe('none');
+      const firstCardMediaOpacity = await page.locator('.recipe-card .card-media').first().evaluate(node =>
+        getComputedStyle(node).opacity
+      );
+      expect(firstCardMediaOpacity).toBe('0');
+    }
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
     await settleVisualFrame(page);
@@ -124,6 +147,28 @@ test.describe('Cook Note visual smoke', () => {
       path: testInfo.outputPath(`home-light-${testInfo.project.name}.png`),
       fullPage: false
     });
+  });
+
+  test('english recipe controls stay translated', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/poulet_sauce_pimentee?lang=en');
+    await waitForCookNote(page);
+
+    await expectSelectedLanguage(page, 'en', 'EN');
+    const dock = page.locator('.recipe-command-dock');
+    await expect(dock).toBeVisible();
+    await expect(dock).toContainText('Active sheet');
+    await expect(dock.getByRole('button', { name: /Add to shopping|Remove from shopping/i })).toBeVisible();
+    await expect(dock.getByRole('button', { name: /Add to favorites|Remove from favorites/i })).toBeVisible();
+    await expect(dock).toContainText(/(?:\+ )?Shopping/);
+    await expect(dock).toContainText('Favorite');
+    await expect(dock).toContainText('0% ready');
+    await expect(dock).not.toContainText('Fiche active');
+    const dockText = await dock.innerText();
+    expect(dockText).not.toMatch(/(^|\s)Favori($|\s)/);
+    expect(dockText).not.toMatch(/(^|\s)prêt($|\s)/);
+    await expectNoMojibake(page);
+    await expectNoHorizontalOverflow(page);
   });
 
   test('direct recipe route renders hero and decoded copy', async ({ page }, testInfo) => {

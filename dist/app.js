@@ -105,12 +105,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   logo: '/assets/cook-note-white.png',
   appIcon: '/assets/cook-note.png'
 });
-const SITE_VERSION = 'v2.78';
+const SITE_VERSION = 'v2.79';
 const SITE_UPDATED_AT = '02/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.78';
+const ANDROID_LEGACY_APK_VERSION = '2.79';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -4464,7 +4464,7 @@ function LanguageSwitcher() {
       'aria-label': t('language.selector')
     },
       CookNoteI18n.supportedLocales.map(localeCode =>
-        h('option', { key: localeCode, value: localeCode }, t(`language.${localeCode}`))
+        h('option', { key: localeCode, value: localeCode }, localeCode.toUpperCase())
       )
     )
   );
@@ -6425,7 +6425,7 @@ function RecipeView({
   }
 
   const heroUsesHomeImage = showVariants;
-  const artHeroImage = artAsset('hero', activeTheme);
+  const artHeroImage = activeTheme === 'light' && !CookNoteTheme.dayAssetsApproved ? '' : artAsset('hero', activeTheme);
   const artLogoImage = artAsset('logo', activeTheme);
   const heroImage = heroUsesHomeImage ? artHeroImage : (selectedRecipe.image || recipe.image);
   const heroStyle = heroImage
