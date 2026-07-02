@@ -107,24 +107,17 @@ const FALLBACK_ART_ASSETS = Object.freeze({
 });
 const DAY_RECIPE_ART_IMAGES = Object.freeze({
   petit_dejeuner_maitre: '/assets/day/category-petit-dejeuner-day.jpg',
-  desserts_maitre: '/assets/day/category-petit-dejeuner-day.jpg',
   apero_maitre: '/assets/day/category-apero-day.jpg',
-  entrees_maitre: '/assets/day/category-apero-day.jpg',
   plats_maitre: '/assets/day/category-plats-day.jpg',
-  accompagnements_maitre: '/assets/day/category-plats-day.jpg',
   sauces_maitre: '/assets/day/category-sauces-bases-day.jpg',
-  elements_base_maitre: '/assets/day/category-sauces-bases-day.jpg',
-  bouillabaisse_rouille: '/assets/day/recipe-seafood-day.jpg',
-  brochettes_crevettes_chorizo: '/assets/day/recipe-seafood-day.jpg',
-  cabillaud_crumble_chorizo: '/assets/day/recipe-seafood-day.jpg',
-  beignets_calamar: '/assets/day/recipe-seafood-day.jpg'
+  bouillabaisse_rouille: '/assets/day/recipe-seafood-day.jpg'
 });
-const SITE_VERSION = 'v2.81';
+const SITE_VERSION = 'v2.82';
 const SITE_UPDATED_AT = '02/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.81';
+const ANDROID_LEGACY_APK_VERSION = '2.82';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([

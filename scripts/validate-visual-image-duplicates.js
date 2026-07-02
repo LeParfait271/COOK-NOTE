@@ -32,6 +32,13 @@ function loadRecipes() {
   return context.window.RECIPES || {};
 }
 
+function loadDayRecipeArtImages() {
+  const app = read('app.js');
+  const match = app.match(/const\s+DAY_RECIPE_ART_IMAGES\s*=\s*Object\.freeze\(\{([\s\S]*?)\}\);/);
+  if (!match) return new Map();
+  return new Map(Array.from(match[1].matchAll(/([a-z0-9_]+):\s*'([^']+)'/gi), item => [item[1], item[2]]));
+}
+
 function imagePath(image) {
   return path.join(ROOT, image.replace(/^\/+/, '').replace(/\?.*$/, ''));
 }
@@ -75,6 +82,7 @@ function imageSignature(filePath) {
 
 async function main() {
   const recipes = loadRecipes();
+  const dayRecipeArtImages = loadDayRecipeArtImages();
   const imageRows = [];
   for (const [id, recipe] of Object.entries(recipes)) {
     if (!recipe?.image || !recipe.image.startsWith('/assets/')) continue;
@@ -88,6 +96,38 @@ async function main() {
       signature: imageSignature(filePath)
     });
   }
+
+  const dayResolvedImages = new Map();
+  dayRecipeArtImages.forEach((image, id) => {
+    if (!recipes[id]) errors.push(`Image jour reference une fiche inconnue: ${id} (${image}).`);
+    if (!image.startsWith('/assets/day/')) errors.push(`${id}: image jour hors assets/day (${image}).`);
+    if (!fs.existsSync(imagePath(image))) errors.push(`${id}: image jour introuvable (${image}).`);
+  });
+  Object.entries(recipes).forEach(([id, recipe]) => {
+    const image = dayRecipeArtImages.get(id) || recipe?.image;
+    if (!image) return;
+    if (!dayResolvedImages.has(image)) dayResolvedImages.set(image, []);
+    dayResolvedImages.get(image).push(id);
+  });
+  dayResolvedImages.forEach((ids, image) => {
+    if (ids.length > 1) errors.push(`Image dupliquee en mode jour (${image}): ${ids.join(', ')}.`);
+  });
+  const dayHashes = new Map();
+  dayResolvedImages.forEach((ids, image) => {
+    if (!image.startsWith('/assets/')) return;
+    const filePath = imagePath(image);
+    if (!fs.existsSync(filePath)) return;
+    const hash = crypto.createHash('sha1').update(fs.readFileSync(filePath)).digest('hex');
+    if (!dayHashes.has(hash)) dayHashes.set(hash, []);
+    ids.forEach(id => dayHashes.get(hash).push({ id, image }));
+  });
+  dayHashes.forEach(rows => {
+    const ids = new Set(rows.map(row => row.id));
+    const images = new Set(rows.map(row => row.image));
+    if (ids.size > 1 && images.size > 1) {
+      errors.push(`Image exactement dupliquee en mode jour: ${rows.map(row => `${row.id} (${row.image})`).join(' / ')}`);
+    }
+  });
 
   const hashes = new Map();
   imageRows.forEach(row => {
