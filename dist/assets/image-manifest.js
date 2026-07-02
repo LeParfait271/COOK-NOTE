@@ -30,25 +30,45 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 864,
     "bytes": 358445
   },
+  "assets/day/category-accompagnements-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 441892
+  },
   "assets/day/category-apero-day.jpg": {
-    "width": 1672,
-    "height": 941,
-    "bytes": 342199
+    "width": 1280,
+    "height": 720,
+    "bytes": 390532
+  },
+  "assets/day/category-bases-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 424699
+  },
+  "assets/day/category-desserts-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 418382
+  },
+  "assets/day/category-entrees-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 429428
   },
   "assets/day/category-petit-dejeuner-day.jpg": {
-    "width": 1620,
-    "height": 971,
-    "bytes": 334422
+    "width": 1280,
+    "height": 720,
+    "bytes": 396614
   },
   "assets/day/category-plats-day.jpg": {
-    "width": 1624,
-    "height": 969,
-    "bytes": 333978
+    "width": 1280,
+    "height": 720,
+    "bytes": 436826
   },
-  "assets/day/category-sauces-bases-day.jpg": {
-    "width": 1623,
-    "height": 969,
-    "bytes": 320125
+  "assets/day/category-sauces-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 410543
   },
   "assets/day/cook-note-day.png": {
     "width": 948,

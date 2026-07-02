@@ -1,11 +1,11 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v282
+//  Cook Note - Service Worker PWA v283
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v282';
-const IMAGE_CACHE_NAME = 'cook-note-images-v282';
+const CACHE_NAME = 'cook-note-v283';
+const IMAGE_CACHE_NAME = 'cook-note-images-v283';
 const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
@@ -32,14 +32,14 @@ const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=282',
-  '/app-images.js?v=282',
-  '/theme.js?v=282',
-  '/i18n.js?v=282',
-  '/assets/catalog-1.js?v=282',
-  '/assets/image-manifest.js?v=282',
-  '/style.css?v=282',
-  '/recipe.js?v=282',
+  '/app.js?v=283',
+  '/app-images.js?v=283',
+  '/theme.js?v=283',
+  '/i18n.js?v=283',
+  '/assets/catalog-1.js?v=283',
+  '/assets/image-manifest.js?v=283',
+  '/style.css?v=283',
+  '/recipe.js?v=283',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
@@ -50,9 +50,13 @@ const STATIC_ASSETS = [
   '/assets/day/base-du-site-day.jpg',
   '/assets/day/base-principale-fond-site-day.jpg',
   '/assets/day/category-apero-day.jpg',
+  '/assets/day/category-accompagnements-day.jpg',
+  '/assets/day/category-bases-day.jpg',
+  '/assets/day/category-desserts-day.jpg',
+  '/assets/day/category-entrees-day.jpg',
   '/assets/day/category-petit-dejeuner-day.jpg',
   '/assets/day/category-plats-day.jpg',
-  '/assets/day/category-sauces-bases-day.jpg',
+  '/assets/day/category-sauces-day.jpg',
   '/assets/day/cook-note-day.png',
   '/assets/day/recipe-seafood-day.jpg',
 ];
