@@ -105,12 +105,26 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   logo: '/assets/cook-note-white.png',
   appIcon: '/assets/cook-note.png'
 });
-const SITE_VERSION = 'v2.79';
+const DAY_RECIPE_ART_IMAGES = Object.freeze({
+  petit_dejeuner_maitre: '/assets/day/category-petit-dejeuner-day.jpg',
+  desserts_maitre: '/assets/day/category-petit-dejeuner-day.jpg',
+  apero_maitre: '/assets/day/category-apero-day.jpg',
+  entrees_maitre: '/assets/day/category-apero-day.jpg',
+  plats_maitre: '/assets/day/category-plats-day.jpg',
+  accompagnements_maitre: '/assets/day/category-plats-day.jpg',
+  sauces_maitre: '/assets/day/category-sauces-bases-day.jpg',
+  elements_base_maitre: '/assets/day/category-sauces-bases-day.jpg',
+  bouillabaisse_rouille: '/assets/day/recipe-seafood-day.jpg',
+  brochettes_crevettes_chorizo: '/assets/day/recipe-seafood-day.jpg',
+  cabillaud_crumble_chorizo: '/assets/day/recipe-seafood-day.jpg',
+  beignets_calamar: '/assets/day/recipe-seafood-day.jpg'
+});
+const SITE_VERSION = 'v2.80';
 const SITE_UPDATED_AT = '02/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.79';
+const ANDROID_LEGACY_APK_VERSION = '2.80';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -4157,6 +4171,14 @@ function artAsset(name, theme) {
   return CookNoteTheme.asset?.(name, theme) || FALLBACK_ART_ASSETS[name] || '';
 }
 
+function isDayArtTheme() {
+  return Boolean(CookNoteTheme.dayAssetsApproved && document.documentElement?.dataset.theme === 'light');
+}
+
+function dayRecipeArtImage(recipe) {
+  return isDayArtTheme() ? DAY_RECIPE_ART_IMAGES[recipe?.id] || '' : '';
+}
+
 function recipeJsonLd(recipe, recipesById = {}) {
   if (!recipe || isMasterRecipe(recipe)) return null;
   const url = `${window.location.origin}${getRecipeUrl(recipe.id)}`;
@@ -4534,11 +4556,12 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
 }
 
 function Hero() {
+  const dayArt = isDayArtTheme();
   const logo = artAsset('logo');
-  return h('section', { className: 'hero' },
+  return h('section', { className: dayArt ? 'hero hero-day-art' : 'hero' },
     h('div', { className: 'hero-inner' },
-      h('h1', { className: 'sr-only' }, 'Cook Note'),
-      h('img', { className: 'hero-logo', src: logo, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(logo) })
+      h('h1', { className: dayArt ? 'hero-wordmark' : 'sr-only' }, 'Cook Note'),
+      !dayArt && h('img', { className: 'hero-logo', src: logo, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(logo) })
     )
   );
 }
@@ -4560,8 +4583,9 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   const master = isMasterRecipe(recipe);
   const color = getCategoryColor(recipe);
   const style = { '--card-accent': color };
-  const renderCardImage = Boolean(recipe.image);
-  const cardImage = renderCardImage ? recipeCardImageUrl(recipe.image) : '';
+  const sourceImage = dayRecipeArtImage(recipe) || recipe.image;
+  const renderCardImage = Boolean(sourceImage);
+  const cardImage = renderCardImage ? recipeCardImageUrl(sourceImage) : '';
   const className = ['recipe-card', renderCardImage ? 'has-image' : '', master ? 'master-card' : '']
     .filter(Boolean)
     .join(' ');
@@ -5928,7 +5952,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
       sortedVariantRefs.map(variant => {
         const item = recipesById[variant.id];
         if (!item) return null;
-        const image = item.image || parent.image;
+        const image = dayRecipeArtImage(item) || item.image || dayRecipeArtImage(parent) || parent.image;
         return h('button', {
           key: variant.id,
           type: 'button',
@@ -6425,8 +6449,9 @@ function RecipeView({
   }
 
   const heroUsesHomeImage = showVariants;
-  const artHeroImage = activeTheme === 'light' && !CookNoteTheme.dayAssetsApproved ? '' : artAsset('hero', activeTheme);
+  const artHeroImage = artAsset('hero', activeTheme);
   const artLogoImage = artAsset('logo', activeTheme);
+  const showArtLogoImage = !(activeTheme === 'light' && CookNoteTheme.dayAssetsApproved);
   const heroImage = heroUsesHomeImage ? artHeroImage : (selectedRecipe.image || recipe.image);
   const heroStyle = heroImage
     ? {
@@ -6449,7 +6474,7 @@ function RecipeView({
       style: heroStyle
     },
       h('div', { className: 'detail-hero-copy' },
-        heroUsesHomeImage && h('img', { className: 'detail-hero-logo', src: artLogoImage, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(artLogoImage) }),
+        heroUsesHomeImage && showArtLogoImage && h('img', { className: 'detail-hero-logo', src: artLogoImage, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(artLogoImage) }),
         h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome, openRecipe }),
         h('h1', null, recipe.title),
         h('div', { className: 'detail-meta' },

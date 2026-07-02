@@ -227,7 +227,14 @@ if (!staticAssets) {
     '/assets/vendor/react.production.min.js',
     '/assets/vendor/react-dom.production.min.js',
     '/assets/cook-note.png',
-    '/assets/cook-note-white.png'
+    '/assets/cook-note-white.png',
+    '/assets/day/base-du-site-day.jpg',
+    '/assets/day/base-principale-fond-site-day.jpg',
+    '/assets/day/category-apero-day.jpg',
+    '/assets/day/category-petit-dejeuner-day.jpg',
+    '/assets/day/category-plats-day.jpg',
+    '/assets/day/category-sauces-bases-day.jpg',
+    '/assets/day/recipe-seafood-day.jpg'
   ].forEach(required => {
     if (!normalizedStaticAssets.includes(required)) fail(`service-worker.js: asset critique absent du precache (${required}).`);
   });

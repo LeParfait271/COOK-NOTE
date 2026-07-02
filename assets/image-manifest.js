@@ -20,6 +20,41 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 302,
     "bytes": 578951
   },
+  "assets/day/base-du-site-day.jpg": {
+    "width": 1821,
+    "height": 864,
+    "bytes": 358445
+  },
+  "assets/day/base-principale-fond-site-day.jpg": {
+    "width": 1821,
+    "height": 864,
+    "bytes": 358445
+  },
+  "assets/day/category-apero-day.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 342199
+  },
+  "assets/day/category-petit-dejeuner-day.jpg": {
+    "width": 1620,
+    "height": 971,
+    "bytes": 334422
+  },
+  "assets/day/category-plats-day.jpg": {
+    "width": 1624,
+    "height": 969,
+    "bytes": 333978
+  },
+  "assets/day/category-sauces-bases-day.jpg": {
+    "width": 1623,
+    "height": 969,
+    "bytes": 320125
+  },
+  "assets/day/recipe-seafood-day.jpg": {
+    "width": 1536,
+    "height": 1024,
+    "bytes": 382670
+  },
   "assets/recipe-card-images/aioli_citronne_leger_spooky.jpg": {
     "width": 520,
     "height": 293,

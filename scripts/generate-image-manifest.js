@@ -4,6 +4,15 @@ const vm = require('node:vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_FILE = path.join(ROOT, 'assets', 'image-manifest.js');
+const DAY_ART_FILES = [
+  'assets/day/base-du-site-day.jpg',
+  'assets/day/base-principale-fond-site-day.jpg',
+  'assets/day/category-apero-day.jpg',
+  'assets/day/category-petit-dejeuner-day.jpg',
+  'assets/day/category-plats-day.jpg',
+  'assets/day/category-sauces-bases-day.jpg',
+  'assets/day/recipe-seafood-day.jpg'
+];
 const CHECK_ONLY = process.argv.includes('--check');
 
 function read(file) {
@@ -94,6 +103,7 @@ function buildManifest() {
     'assets/cook-note.png',
     'assets/cook-note-white.png'
   ]);
+  DAY_ART_FILES.forEach(file => files.add(file));
 
   Object.values(recipes).forEach(recipe => {
     const image = recipe?.image;

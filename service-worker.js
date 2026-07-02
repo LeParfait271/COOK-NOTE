@@ -1,11 +1,11 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v279
+//  Cook Note - Service Worker PWA v280
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v279';
-const IMAGE_CACHE_NAME = 'cook-note-images-v279';
+const CACHE_NAME = 'cook-note-v280';
+const IMAGE_CACHE_NAME = 'cook-note-images-v280';
 const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
@@ -19,6 +19,7 @@ const FAST_CHANGING_PATHS = new Set([
   '/assets/image-manifest.js'
 ]);
 const IMMUTABLE_IMAGE_PATHS = [
+  '/assets/day/',
   '/assets/recipe-card-images/',
   '/assets/recipe-images-optimized/',
   '/assets/base-du-site.png',
@@ -31,14 +32,14 @@ const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=279',
-  '/app-images.js?v=279',
-  '/theme.js?v=279',
-  '/i18n.js?v=279',
-  '/assets/catalog-1.js?v=279',
-  '/assets/image-manifest.js?v=279',
-  '/style.css?v=279',
-  '/recipe.js?v=279',
+  '/app.js?v=280',
+  '/app-images.js?v=280',
+  '/theme.js?v=280',
+  '/i18n.js?v=280',
+  '/assets/catalog-1.js?v=280',
+  '/assets/image-manifest.js?v=280',
+  '/style.css?v=280',
+  '/recipe.js?v=280',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
@@ -46,6 +47,13 @@ const STATIC_ASSETS = [
   '/assets/cook-note.png',
   '/assets/cook-note-white.png',
   '/assets/base-principale-fond-site.jpg',
+  '/assets/day/base-du-site-day.jpg',
+  '/assets/day/base-principale-fond-site-day.jpg',
+  '/assets/day/category-apero-day.jpg',
+  '/assets/day/category-petit-dejeuner-day.jpg',
+  '/assets/day/category-plats-day.jpg',
+  '/assets/day/category-sauces-bases-day.jpg',
+  '/assets/day/recipe-seafood-day.jpg',
 ];
 
 async function trimCache(cacheName, maxEntries) {

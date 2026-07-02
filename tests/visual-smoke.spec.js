@@ -126,19 +126,21 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.theme-toggle-btn')).toHaveAttribute('aria-pressed', 'true');
     await expectSelectedLanguage(page, 'fr', 'FR');
     await expect(page.locator('.home-view')).toBeVisible();
-    const lightFallbackArt = await page.evaluate(() => ({
+    const lightArt = await page.evaluate(() => ({
       background: getComputedStyle(document.documentElement).getPropertyValue('--art-background-image').trim(),
       hero: getComputedStyle(document.documentElement).getPropertyValue('--art-hero-image').trim(),
       assets: document.documentElement.dataset.artAssets
     }));
-    if (lightFallbackArt.assets === 'night-fallback') {
-      expect(lightFallbackArt.background).toBe('none');
-      expect(lightFallbackArt.hero).toBe('none');
-      const firstCardMediaOpacity = await page.locator('.recipe-card .card-media').first().evaluate(node =>
-        getComputedStyle(node).opacity
-      );
-      expect(firstCardMediaOpacity).toBe('0');
-    }
+    expect(lightArt.assets).toBe('approved');
+    expect(lightArt.background).toContain('/assets/day/base-principale-fond-site-day.jpg');
+    expect(lightArt.hero).toContain('/assets/day/base-du-site-day.jpg');
+    await expect(page.locator('.hero-wordmark')).toBeVisible();
+    const firstDayCardSource = await page.locator('.recipe-card.master-card .card-image').first().getAttribute('src');
+    expect(firstDayCardSource).toContain('/assets/day/');
+    const firstCardMediaOpacity = await page.locator('.recipe-card.master-card .card-media').first().evaluate(node =>
+      getComputedStyle(node).opacity
+    );
+    expect(Number(firstCardMediaOpacity)).toBeGreaterThan(0.95);
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
     await settleVisualFrame(page);

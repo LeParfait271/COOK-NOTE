@@ -70,7 +70,9 @@ expect('Variables art direction absentes.', darkRuntime.documentElement.style.va
 const lightRuntime = loadTheme(true);
 expect('prefers-color-scheme light non detecte.', lightRuntime.documentElement.dataset.theme === 'light');
 expect('Direction artistique jour non appliquee.', lightRuntime.documentElement.dataset.artDirection === 'day');
-expect('Assets jour non valides doivent rester en fallback nuit.', lightRuntime.api?.dayAssetsApproved === false && lightRuntime.documentElement.dataset.artAssets === 'night-fallback');
+expect('Assets jour valides non actifs.', lightRuntime.api?.dayAssetsApproved === true && lightRuntime.documentElement.dataset.artAssets === 'approved');
+expect('Asset hero jour incorrect.', lightRuntime.api?.asset?.('hero') === '/assets/day/base-du-site-day.jpg');
+expect('Variables jour non branchees.', lightRuntime.documentElement.style.values['--art-background-image'] === 'url("/assets/day/base-principale-fond-site-day.jpg")');
 lightRuntime.api.setTheme('dark');
 expect('setTheme dark inactif.', lightRuntime.documentElement.dataset.theme === 'dark');
 expect('Preference theme non persistee.', /"theme":"dark"/.test(lightRuntime.store.get('cook_note_preferences') || ''));
@@ -83,10 +85,11 @@ expect('Background art direction non tokenise.', style.includes('var(--art-backg
 expect('Background shell non tokenise.', style.includes('--ds-shell-background') && style.includes('background: var(--ds-shell-background)'));
 expect('Theme light shell absent.', style.includes('.mc-shell.theme-light'));
 expect('Surfaces light non couvertes.', style.includes('.mc-shell.theme-light :where(.site-footer-inner'));
+expect('Wordmark jour absent.', style.includes('.hero-wordmark'));
 
 const app = read('app.js');
 expect('Runtime theme non branche dans app.js.', app.includes('CookNoteTheme') && app.includes('activeTheme') && app.includes('toggleTheme'));
-expect('Assets art direction non branches dans app.js.', app.includes('FALLBACK_ART_ASSETS') && app.includes('function artAsset') && app.includes("artAsset('hero'") && app.includes("artAsset('logo'"));
+expect('Assets art direction non branches dans app.js.', app.includes('FALLBACK_ART_ASSETS') && app.includes('DAY_RECIPE_ART_IMAGES') && app.includes('function artAsset') && app.includes("artAsset('hero'") && app.includes("artAsset('logo'"));
 expect('Theme non expose dans la topbar.', app.includes('theme-toggle-btn') && app.includes('Passer en mode jour') && app.includes('Passer en mode nuit'));
 expect('Theme absent des preferences.', app.includes("'Thème'") && app.includes("update({ theme: 'light' })"));
 expect('Shell theme non marque.', app.includes("'data-theme': activeTheme") && app.includes("theme-light"));

@@ -26,9 +26,19 @@ const DIRECTORY_BUDGETS = [
 ];
 
 const IMAGE_BUDGETS = [
+  ['assets/day/', 420 * KB],
   ['assets/recipe-card-images/', 170 * KB],
   ['assets/recipe-images-optimized/', 520 * KB],
   ['assets/recipe-images/', 3600 * KB]
+];
+const DAY_ART_FILES = [
+  'assets/day/base-du-site-day.jpg',
+  'assets/day/base-principale-fond-site-day.jpg',
+  'assets/day/category-apero-day.jpg',
+  'assets/day/category-petit-dejeuner-day.jpg',
+  'assets/day/category-plats-day.jpg',
+  'assets/day/category-sauces-bases-day.jpg',
+  'assets/day/recipe-seafood-day.jpg'
 ];
 
 function read(file) {
@@ -102,6 +112,7 @@ const expectedImages = new Set([
   'assets/cook-note.png',
   'assets/cook-note-white.png'
 ]);
+DAY_ART_FILES.forEach(file => expectedImages.add(file));
 
 Object.entries(recipes).forEach(([id, recipe]) => {
   const image = recipe?.image;
