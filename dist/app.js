@@ -106,22 +106,22 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/cook-note.png'
 });
 const DAY_RECIPE_ART_IMAGES = Object.freeze({
-  petit_dejeuner_maitre: '/assets/day/category-petit-dejeuner-day.jpg',
-  apero_maitre: '/assets/day/category-apero-day.jpg',
-  entrees_maitre: '/assets/day/category-entrees-day.jpg',
-  sauces_maitre: '/assets/day/category-sauces-day.jpg',
-  elements_base_maitre: '/assets/day/category-bases-day.jpg',
-  plats_maitre: '/assets/day/category-plats-day.jpg',
-  accompagnements_maitre: '/assets/day/category-accompagnements-day.jpg',
-  desserts_maitre: '/assets/day/category-desserts-day.jpg',
-  bouillabaisse_rouille: '/assets/day/recipe-seafood-day.jpg'
+  petit_dejeuner_maitre: '/assets/day/category-petit-dejeuner-day.jpg?v=284',
+  apero_maitre: '/assets/day/category-apero-day.jpg?v=284',
+  entrees_maitre: '/assets/day/category-entrees-day.jpg?v=284',
+  sauces_maitre: '/assets/day/category-sauces-day.jpg?v=284',
+  elements_base_maitre: '/assets/day/category-bases-day.jpg?v=284',
+  plats_maitre: '/assets/day/category-plats-day.jpg?v=284',
+  accompagnements_maitre: '/assets/day/category-accompagnements-day.jpg?v=284',
+  desserts_maitre: '/assets/day/category-desserts-day.jpg?v=284',
+  bouillabaisse_rouille: '/assets/day/recipe-seafood-day.jpg?v=284'
 });
-const SITE_VERSION = 'v2.83';
+const SITE_VERSION = 'v2.84';
 const SITE_UPDATED_AT = '02/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.83';
+const ANDROID_LEGACY_APK_VERSION = '2.84';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([

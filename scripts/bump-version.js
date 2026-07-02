@@ -77,6 +77,7 @@ const android = androidVersion(version);
 let nextApp = replaceRequired(app, /const SITE_VERSION = '[^']+';/, `const SITE_VERSION = '${version}';`, 'SITE_VERSION');
 nextApp = replaceRequired(nextApp, /const SITE_UPDATED_AT = '[^']+';/, `const SITE_UPDATED_AT = '${date}';`, 'SITE_UPDATED_AT');
 nextApp = replaceRequired(nextApp, /const ANDROID_LEGACY_APK_VERSION = '\d+\.\d{2}';/, `const ANDROID_LEGACY_APK_VERSION = '${android}';`, 'ANDROID_LEGACY_APK_VERSION');
+nextApp = nextApp.replace(/(\/assets\/day\/[^'"]+\.(?:jpg|png)\?v=)\d+/g, `$1${numeric}`);
 write('app.js', nextApp);
 
 write('android-legacy/gradle.properties', replaceRequired(
@@ -113,6 +114,7 @@ write('service-worker.js', read('service-worker.js')
   .replace(/Service Worker PWA v\d+/g, `Service Worker PWA v${numeric}`)
   .replace(/CACHE_NAME = 'cook-note-v\d+'/g, `CACHE_NAME = 'cook-note-v${numeric}'`)
   .replace(/IMAGE_CACHE_NAME = 'cook-note-images-v\d+'/g, `IMAGE_CACHE_NAME = 'cook-note-images-v${numeric}'`)
+  .replace(/(\/assets\/day\/[^'"]+\.(?:jpg|png)\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app-images\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(theme\.js\?v=)\d+/g, `$1${numeric}`)
