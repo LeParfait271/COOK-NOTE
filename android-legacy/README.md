@@ -54,8 +54,10 @@ Le mode d'emploi complet est dans
   prechargement images borne, liberation memoire de liste, courses cochables,
   audit perf leger, ecran actif persistant et bouton natif de mise a jour
 - Fiche detail Android allegee : pas de saisons, difficulte, nombre d etapes,
-  bouton favori ou bouton partager ; `Avant de commencer` embarque allergenes,
-  poids moyens utiles, repere cuilleres, conservation et rechauffage.
+  bouton favori ou bouton partager ; `Avant de commencer` reste complet et
+  derive des helpers web avec allergenes, materiel, poids moyens utiles, timing,
+  recettes liees, repere cuilleres, conseils pratiques, notes restantes,
+  conservation, rechauffage et fiche technique.
 - Garde-fou lexical : bouton natif de mise a jour, ecran actif persistant,
   cartes parent visibles, recherche simple sans filtres, recherche intelligente
   sans filtres, recherche temporisee, navigation restaurable, swipe retour bord

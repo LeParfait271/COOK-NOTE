@@ -1497,28 +1497,17 @@ public class MainActivity extends Activity {
     }
 
     private void addBeforePanel(LinearLayout content, Recipe recipe) {
-        if (recipe.notes.isEmpty() && recipe.technical.isEmpty() && recipe.practical.isEmpty()) return;
+        if (recipe.practical.isEmpty()) return;
 
-        int beforeCount = recipe.notes.size() + recipe.technical.size() + recipe.practical.size();
+        int beforeCount = 0;
+        for (Recipe.PracticalSection practicalSection : recipe.practical) {
+            beforeCount += Math.max(1, practicalSection.items.size());
+        }
         LinearLayout section = addSection(content, "Avant de commencer", countLabel(beforeCount, "info", "infos"));
-        if (!recipe.notes.isEmpty()) {
-            subTitle(section, "Notes");
-            for (String note : recipe.notes) {
-                bulletRow(section, note);
-            }
-        }
-        if (!recipe.technical.isEmpty()) {
-            subTitle(section, "Technique");
-            for (Recipe.Technical item : recipe.technical) {
-                labelValue(section, item.label, item.value);
-            }
-        }
-        if (!recipe.practical.isEmpty()) {
-            for (Recipe.PracticalSection practicalSection : recipe.practical) {
-                subTitle(section, practicalSection.title);
-                for (String item : practicalSection.items) {
-                    bulletRow(section, item);
-                }
+        for (Recipe.PracticalSection practicalSection : recipe.practical) {
+            subTitle(section, practicalSection.title);
+            for (String item : practicalSection.items) {
+                bulletRow(section, item);
             }
         }
     }

@@ -121,8 +121,11 @@ Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour t
 Fiche detail Android : rester allegee pour tablette faible, sans saisons,
 difficulte, nombre d'etapes, bouton favori ou bouton partager. Le rendement se
 choisit avec un selecteur natif de personnes quand possible, et `Avant de
-commencer` doit porter les allergenes, poids moyens utiles, repere cuilleres,
-conservation et rechauffage disponibles dans le catalogue.
+commencer` doit rester complet : reprendre les memes donnees utiles que la fiche
+web, rendues en Native Lite, dont allergenes, materiel, poids moyens, timing,
+recettes liees, repere cuilleres, conseils pratiques, notes restantes,
+conservation, rechauffage et fiche technique quand ces donnees existent dans le
+catalogue.
 Version produit unique : le site et l APK publiee doivent toujours porter la
 meme version produit `X.YY`. `SITE_VERSION` utilise `vX.YY`,
 `cookNoteAndroidVersion` dans `android-legacy/gradle.properties` utilise

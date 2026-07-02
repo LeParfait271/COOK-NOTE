@@ -169,6 +169,13 @@ const byId = Object.fromEntries(leaves.map(recipe => [recipe.id, recipe]));
   }
 });
 
+const beurreAil = byId.beurre_ail;
+expect('Lecture chef: beurre ail introuvable.', Boolean(beurreAil));
+if (beurreAil) {
+  const serviceText = ctx.getRecipeServiceItems(beurreAil).join(' | ').toLowerCase();
+  expect('Lecture chef: beurre ail classe a servir chaud.', !/servir chaud/.test(serviceText) && /tartinable/.test(serviceText));
+}
+
 expect('Mode menu: registre accords trop court.', Array.isArray(ctx.window.MENU_PAIRING_RULES) && ctx.window.MENU_PAIRING_RULES.length >= 100);
 const themes = ['bistrot', 'mediterraneen', 'semaine', 'invites', 'apero', 'confort', 'ete'];
 themes.forEach(themeId => {

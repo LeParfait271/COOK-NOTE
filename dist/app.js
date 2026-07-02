@@ -74,12 +74,12 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.74';
+const SITE_VERSION = 'v2.75';
 const SITE_UPDATED_AT = '02/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.74';
+const ANDROID_LEGACY_APK_VERSION = '2.75';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -1140,7 +1140,7 @@ function hasColdServiceIdentity(identityText) {
 }
 
 function hasTemperateServiceIdentity(identityText) {
-  return /\b(cake|pain|brioche|cookies|cookie|biscuit|spritz|madeleine|muffin|pancake|crepe|tarte|clafoutis|beurre a l ail)\b/.test(identityText);
+  return /\b(cake|pain|brioche|cookies|cookie|biscuit|spritz|madeleine|muffin|pancake|crepe|tarte|clafoutis)\b/.test(identityText);
 }
 
 function hasHotServiceIdentity(identityText) {
@@ -1156,8 +1156,6 @@ function getRecipeServiceTemperature(recipe, serviceText, identityText) {
   if (hasExplicitHotService(serviceText) || hasHotServicePriority(recipe, identityText)) return 'hot';
   if (hasExplicitColdService(serviceText) || hasColdServiceIdentity(identityText)) return 'cold';
   if (hasTemperateServiceIdentity(identityText)) return 'temperate';
-  if (hasRecipeCategory(recipe, /\bplats?\b/) || hasHotServiceIdentity(identityText)) return 'hot';
-  if (/\b(friture|frire|frites|beignet|tempura|gril|griller|gratiner|four|chaud|cuire|cuisson|mijoter|saisir|poeler|sauter|rotir|braiser|rechauffer)\b/.test(serviceText)) return 'hot';
   return '';
 }
 
@@ -1212,7 +1210,9 @@ function getRecipeServiceItems(recipe) {
   };
   const serviceTemperature = getRecipeServiceTemperature(recipe, serviceText, identityText);
   const hasRestBeforeService = /\blaisser reposer\b.*\bavant (de )?serv(ir|ice)|\breposer \d+\s*(min|minutes)\b.*\bavant (de )?serv(ir|ice)/.test(text);
-  if (serviceTemperature === 'hot') {
+  if (/\bbeurre a l.?ail\b/.test(identityText)) {
+    add("Servir tartinable, sorti quelques minutes du froid selon l'usage.");
+  } else if (serviceTemperature === 'hot') {
     add(hasRestBeforeService ? 'Laisser reposer le temps indiqué, puis servir chaud.' : 'Servir chaud, juste après cuisson.');
   } else if (serviceTemperature === 'cold') {
     add('Servir frais, après le repos au froid indiqué.');

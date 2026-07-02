@@ -53,8 +53,10 @@ chargent l ecran sans aider la tablette en cuisine. Le choix de quantite doit
 etre un selecteur natif de personnes lorsque la fiche a un rendement en
 personnes ou parts, et il doit mettre a jour les rendements affiches, les
 ingredients, la copie et les courses. Les informations `Avant de commencer`
-doivent integrer allergenes, poids moyens utiles, repere cuilleres,
-conservation et rechauffage quand les donnees existent dans le catalogue. Les
+doivent etre completes et derivees des helpers de la fiche web : allergenes,
+materiel, poids moyens utiles, timing, recettes liees, repere cuilleres,
+conseils pratiques, notes restantes, conservation, rechauffage et fiche
+technique quand les donnees existent dans le catalogue. Les
 fonctions reintegrees doivent rester natives et peu couteuses : recherche simple sans filtres avec recherche intelligente
 sans filtres sous le capot, copie des ingredients vers le presse-papiers, liste
 de courses locale avec courses cochables, copie fiche, navigation restaurable,

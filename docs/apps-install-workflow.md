@@ -118,8 +118,9 @@ diagnostic. Elle ne doit pas etre utilisee comme workflow final de publication.
   borne, courses cochables, audit perf leger, ecran actif persistant, etapes numerotees, quantites ajustables,
   courses fusionnees, preferences locales discretes, diagnostic hors ligne,
   cache image adaptatif, scroll fluide, index recherche precompile, cartes
-  parent visibles, selecteurs natifs de preparation, allergenes et poids moyens
-  dans Avant de commencer
+  parent visibles, selecteurs natifs de preparation, Avant de commencer complet
+  derive des helpers web avec allergenes, materiel, poids moyens, timing,
+  recettes liees, conseils pratiques, notes restantes et fiche technique
 - Direction visuelle Android Legacy : refonte visuelle native premium sans
   moteur web, header compact avec stats locales, grille `GridView` en cartes
   image 16/9 tactiles recyclees, hero de fiche encadre, sections cadrees,
