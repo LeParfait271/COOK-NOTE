@@ -118,9 +118,13 @@ tablette peu puissante, puis lancer `npm run apps:update-all` avant commit/push.
 Exceptions admises : demande explicite web-only ou changement purement
 technique sans impact utilisateur Android, a signaler dans le compte rendu.
 Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour tablette peu puissante.
-Version APK : `cookNoteAndroidVersion` dans `android-legacy/gradle.properties`
-pilote la version native. `SITE_VERSION` reste reserve au site, et
-`ANDROID_LEGACY_APK_VERSION` sert au lien de telechargement affiche par le site.
+Version produit unique : le site et l APK publiee doivent toujours porter la
+meme version produit `X.YY`. `SITE_VERSION` utilise `vX.YY`,
+`cookNoteAndroidVersion` dans `android-legacy/gradle.properties` utilise
+`X.YY`, et `ANDROID_LEGACY_APK_VERSION` dans `app.js` utilise aussi `X.YY`.
+`scripts/bump-version.js` doit synchroniser les trois, puis
+`npm run apps:update-all` reconstruit l APK correspondante quand une mise a jour
+est publiee.
 
 Les installations doivent rester justifiees par le besoin du projet. Preferer les
 scripts et dependances existants avant d'ajouter un outil. Ne jamais versionner

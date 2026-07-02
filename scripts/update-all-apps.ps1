@@ -11,13 +11,27 @@ $DownloadsDir = Join-Path $Root "downloads"
 $LegacyScript = Join-Path $PSScriptRoot "build-android-legacy.ps1"
 $PublishScript = Join-Path $PSScriptRoot "publish-android-release.ps1"
 
+function Get-SiteVersionName {
+  $AppJs = [System.IO.File]::ReadAllText((Join-Path $Root "app.js"), [System.Text.Encoding]::UTF8)
+  $Match = [regex]::Match($AppJs, "const SITE_VERSION = 'v(\d+\.\d{2})';")
+  if (-not $Match.Success) {
+    throw "SITE_VERSION invalide dans app.js. Attendu: vX.YY."
+  }
+  return $Match.Groups[1].Value
+}
+
 function Get-CookNoteVersionName {
+  $SiteVersion = Get-SiteVersionName
   $GradleProperties = [System.IO.File]::ReadAllText((Join-Path $Root "android-legacy\gradle.properties"), [System.Text.Encoding]::UTF8)
   $Match = [regex]::Match($GradleProperties, "(?m)^cookNoteAndroidVersion=(\d+\.\d{2})$")
   if (-not $Match.Success) {
     throw "cookNoteAndroidVersion invalide dans android-legacy/gradle.properties. Attendu: X.YY."
   }
-  return $Match.Groups[1].Value
+  $AndroidVersion = $Match.Groups[1].Value
+  if ($AndroidVersion -ne $SiteVersion) {
+    throw "Versions site/APK non alignees: SITE_VERSION=$SiteVersion, cookNoteAndroidVersion=$AndroidVersion. Lance node scripts/bump-version.js v$SiteVersion ou corrige la version produit avant de reconstruire l APK."
+  }
+  return $SiteVersion
 }
 
 function Sync-AndroidApkVersion($VersionName, [bool]$AllowWrite) {

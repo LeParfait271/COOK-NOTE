@@ -162,14 +162,21 @@ function loadRecipes() {
 }
 
 function loadVersion() {
-  if (fs.existsSync(ANDROID_GRADLE_PROPERTIES_FILE)) {
-    const androidMatch = read(ANDROID_GRADLE_PROPERTIES_FILE).match(/^cookNoteAndroidVersion=(\d+\.\d{2})$/m);
-    if (androidMatch) return androidMatch[1];
-  }
+  const siteMatch = read(APP_FILE).match(/const SITE_VERSION = 'v(\d+\.\d{2})'/);
   const apkMatch = read(APP_FILE).match(/const ANDROID_LEGACY_APK_VERSION = '(\d+\.\d{2})'/);
-  if (apkMatch) return apkMatch[1];
-  const match = read(APP_FILE).match(/const SITE_VERSION = 'v(\d+\.\d+)'/);
-  return match ? match[1] : '0.0';
+  const androidMatch = fs.existsSync(ANDROID_GRADLE_PROPERTIES_FILE)
+    ? read(ANDROID_GRADLE_PROPERTIES_FILE).match(/^cookNoteAndroidVersion=(\d+\.\d{2})$/m)
+    : null;
+  const siteVersion = siteMatch?.[1];
+  const apkVersion = apkMatch?.[1];
+  const androidVersion = androidMatch?.[1];
+  if (!siteVersion || !apkVersion || !androidVersion) {
+    throw new Error('Versions Cook Note incompletes: SITE_VERSION, ANDROID_LEGACY_APK_VERSION et cookNoteAndroidVersion sont obligatoires.');
+  }
+  if (siteVersion !== apkVersion || siteVersion !== androidVersion) {
+    throw new Error(`Versions Cook Note non alignees: site=${siteVersion}, lien APK=${apkVersion}, APK native=${androidVersion}.`);
+  }
+  return androidVersion;
 }
 
 function safeBasename(imagePath) {

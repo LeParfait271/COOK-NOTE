@@ -18,16 +18,15 @@ utilisateur Android, le noter dans le compte rendu.
 Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour tablette peu puissante.
 
 Un commit/push du site ne change pas l APK installe sur la tablette. L APK deja
-installee reste locale, mais le depot doit proposer une APK a jour quand la
-parite site/app l'exige. Le site peut continuer a bumper son cache ou modifier
-`dist/` sans regenerer l APK si le changement est uniquement technique.
+installee reste locale, mais le depot doit proposer une APK de meme version
+produit quand une version Cook Note est publiee.
 
-`SITE_VERSION` pilote seulement le cache et le footer web. La version native
-APK utilisee par Gradle et les assets vient de `cookNoteAndroidVersion` dans
-`android-legacy/gradle.properties`. Le nom APK versionne du panneau Android
-vient de `ANDROID_LEGACY_APK_VERSION` dans `app.js` et n'est synchronise que
-avec `cookNoteAndroidVersion` pendant un workflow site/app volontaire via
-`npm run apps:update-all`.
+La version produit publiee est unique : `SITE_VERSION` porte `vX.YY`,
+`cookNoteAndroidVersion` dans `android-legacy/gradle.properties` porte `X.YY`,
+et `ANDROID_LEGACY_APK_VERSION` dans `app.js` porte aussi `X.YY`. Ces trois
+valeurs doivent toujours rester alignees. `scripts/bump-version.js` synchronise
+les trois sources, puis `npm run apps:update-all` fabrique l APK
+`downloads/cook-note-android-legacy-vX.YY.apk` correspondante.
 
 ## Role de l app
 
@@ -250,12 +249,14 @@ app depuis le site.
 ## Workflow quand un changement reste web-only
 
 1. Verifier que le changement ne modifie pas une fonctionnalite visible utile
-   sur tablette : docs, cache pur, CI, admin local ou correctif web-only.
+   sur tablette : docs, CI, admin local ou correctif web-only.
 2. Modifier le site selon la demande.
-3. Bump version/cache avant push visible du site si necessaire.
+3. Si une version publiee est creee, bump la version produit unique et garder
+   site/APK sur la meme version `X.YY`.
 4. Lancer les checks habituels du site.
-5. Ne pas lancer `npm run android:legacy:update-apk`; documenter pourquoi l APK
-   n'est pas concernee.
+5. Ne pas lancer `npm run android:legacy:update-apk` seul; si la version produit
+   change, passer par `npm run apps:update-all` ou documenter clairement pourquoi
+   aucune publication utilisateur n'est faite.
 
 Dans ce cas, l APK deja installe sur la tablette garde son ancien contenu.
 C est voulu.
@@ -302,9 +303,8 @@ C est voulu.
   configuration debug locale pour rester installable dans le workflow manuel,
   avec R8 et shrink resources.
 - `app.js` expose `ANDROID_LEGACY_APK_VERSION` pour le lien de telechargement
-  public. Cette version peut rester plus ancienne que `SITE_VERSION` tant que
-  l APK n'a pas ete reconstruite explicitement et synchronisee avec
-  `cookNoteAndroidVersion` dans le panneau web.
+  public. Cette version doit toujours etre la meme version produit `X.YY` que
+  `SITE_VERSION` et `cookNoteAndroidVersion`.
 - `scripts/build-android-legacy-assets.js` genere le catalogue Native Lite.
 - `scripts/build-android-legacy.ps1` construit l APK et nettoie la sortie APK
   avant packaging.

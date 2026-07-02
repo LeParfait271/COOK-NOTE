@@ -43,6 +43,8 @@ const androidLegacyRecipe = read('android-legacy/app/src/main/java/fr/cooknote/l
 const androidLegacyRepository = read('android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java');
 const androidLegacyImageLoader = read('android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java');
 const androidLegacyAdapter = read('android-legacy/app/src/main/java/fr/cooknote/legacy/RecipeAdapter.java');
+const siteVersionName = (appScript.match(/const SITE_VERSION = 'v(\d+\.\d{2})';/) || [])[1] || '0.00';
+const androidLinkVersionName = (appScript.match(/const ANDROID_LEGACY_APK_VERSION = '(\d+\.\d{2})';/) || [])[1] || '0.00';
 const androidApkVersionName = (androidGradleProperties.match(/^cookNoteAndroidVersion=(\d+\.\d{2})$/m) || [])[1] || '0.00';
 const legacyVersionedApk = `downloads/cook-note-android-legacy-v${androidApkVersionName}.apk`;
 
@@ -424,15 +426,20 @@ expect(
     && !publishScript.includes('cook-note-android-modern.apk')
 );
 expect(
-  'Version APK Android encore couplee a SITE_VERSION.',
+  'Versions site/APK non alignees.',
   androidGradleProperties.includes('cookNoteAndroidVersion=')
     && androidBuildGradle.includes('cookNoteAndroidVersion')
     && !androidBuildGradle.includes('SITE_VERSION')
     && legacyAssetsScript.includes('cookNoteAndroidVersion')
+    && legacyAssetsScript.includes('Versions Cook Note non alignees')
     && updateAllAppsScript.includes('cookNoteAndroidVersion')
+    && updateAllAppsScript.includes('Versions site/APK non alignees')
     && appScript.includes("const ANDROID_LEGACY_APK_VERSION = '")
     && appScript.includes('cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk')
     && appScript.includes('Version APK ${ANDROID_LEGACY_APK_VERSION}')
+    && siteVersionName === androidLinkVersionName
+    && siteVersionName === androidApkVersionName
+    && exists(`downloads/cook-note-android-legacy-v${siteVersionName}.apk`)
     && !appScript.includes('const APP_VERSION_NUMBER = SITE_VERSION')
     && !appScript.includes('cook-note-android-legacy-v${APP_VERSION_NUMBER}.apk')
 );

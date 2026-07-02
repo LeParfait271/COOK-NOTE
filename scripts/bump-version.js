@@ -18,6 +18,11 @@ function fail(message) {
   process.exit(1);
 }
 
+function replaceRequired(text, pattern, replacement, label) {
+  if (!pattern.test(text)) fail(`${label} introuvable.`);
+  return text.replace(pattern, replacement);
+}
+
 function parseVersion(value) {
   const match = String(value || '').match(VERSION_RE);
   if (!match) fail(`Version invalide: ${value}. Attendu: v1.16`);
@@ -34,6 +39,11 @@ function nextVersion(value) {
 function numericVersion(value) {
   const parsed = parseVersion(value);
   return `${parsed.major}${String(parsed.minor).padStart(2, '0')}`;
+}
+
+function androidVersion(value) {
+  const parsed = parseVersion(value);
+  return `${parsed.major}.${String(parsed.minor).padStart(2, '0')}`;
 }
 
 function todayFr() {
@@ -62,10 +72,19 @@ if (!version) fail(`Usage: node scripts/bump-version.js --next | vX.YY. Version 
 const dateArg = args.find(arg => /^\d{2}\/\d{2}\/\d{2}$/.test(arg));
 const date = dateArg || todayFr();
 const numeric = numericVersion(version);
+const android = androidVersion(version);
 
-write('app.js', app
-  .replace(/const SITE_VERSION = '[^']+';/, `const SITE_VERSION = '${version}';`)
-  .replace(/const SITE_UPDATED_AT = '[^']+';/, `const SITE_UPDATED_AT = '${date}';`));
+let nextApp = replaceRequired(app, /const SITE_VERSION = '[^']+';/, `const SITE_VERSION = '${version}';`, 'SITE_VERSION');
+nextApp = replaceRequired(nextApp, /const SITE_UPDATED_AT = '[^']+';/, `const SITE_UPDATED_AT = '${date}';`, 'SITE_UPDATED_AT');
+nextApp = replaceRequired(nextApp, /const ANDROID_LEGACY_APK_VERSION = '\d+\.\d{2}';/, `const ANDROID_LEGACY_APK_VERSION = '${android}';`, 'ANDROID_LEGACY_APK_VERSION');
+write('app.js', nextApp);
+
+write('android-legacy/gradle.properties', replaceRequired(
+  read('android-legacy/gradle.properties'),
+  /^cookNoteAndroidVersion=\d+\.\d{2}$/m,
+  `cookNoteAndroidVersion=${android}`,
+  'cookNoteAndroidVersion'
+));
 
 write('app-images.js', read('app-images.js')
   .replace(/const IMAGE_HELPER_VERSION = 'v\d+\.\d+';/g, `const IMAGE_HELPER_VERSION = '${version}';`));

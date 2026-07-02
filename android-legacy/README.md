@@ -111,9 +111,11 @@ L app Android 5.0+ affiche aussi `Mise a jour` dans son accueil. Ce bouton
 ouvre la meme URL stable pour telecharger la nouvelle APK et l installer
 par-dessus l ancienne sans perdre les donnees locales.
 
-La version native de l APK vient de `cookNoteAndroidVersion` dans
-`android-legacy/gradle.properties`. Ne pas la deriver de `SITE_VERSION`, qui
-sert au cache et au footer web.
+La version publiee doit toujours etre la meme cote site et cote APK :
+`SITE_VERSION` utilise `vX.YY`, `ANDROID_LEGACY_APK_VERSION` utilise `X.YY` et
+`cookNoteAndroidVersion` dans `android-legacy/gradle.properties` utilise aussi
+`X.YY`. Utiliser `node scripts/bump-version.js --next` ou une version explicite
+pour synchroniser les trois avant `npm run apps:update-all`.
 
 Ne publier cette APK que sur demande explicite :
 
