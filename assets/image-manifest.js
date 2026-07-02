@@ -75,10 +75,215 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 302,
     "bytes": 583278
   },
+  "assets/day/recipe-aioli_citronne_leger-day.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 292571
+  },
+  "assets/day/recipe-beignets_calamar-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 317462
+  },
+  "assets/day/recipe-beurre_ail-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 339326
+  },
+  "assets/day/recipe-billes_mozzarella_marinees-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 320270
+  },
+  "assets/day/recipe-brie_farci_fruits_secs_noix-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 315886
+  },
+  "assets/day/recipe-brioche_perdue_caramel_beurre_sale-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 351714
+  },
+  "assets/day/recipe-brochettes_crevettes_chorizo-day.jpg": {
+    "width": 1400,
+    "height": 1025,
+    "bytes": 351396
+  },
+  "assets/day/recipe-brochettes_melon_epice-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 359331
+  },
+  "assets/day/recipe-bruschetta_roquefort_noix-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 335671
+  },
+  "assets/day/recipe-cake_sale_lardon-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 312045
+  },
+  "assets/day/recipe-cake_tomate_chorizo_feta-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 363060
+  },
+  "assets/day/recipe-chocolat_ancien-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 288722
+  },
+  "assets/day/recipe-chorizo_au_cidre-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 288248
+  },
+  "assets/day/recipe-chou_fleur_croustillant-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 375721
+  },
+  "assets/day/recipe-cookies_sales_variantes-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 327820
+  },
+  "assets/day/recipe-crepes_lait_amandes-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 253496
+  },
+  "assets/day/recipe-croquettes_pommes_de_terre-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 332461
+  },
+  "assets/day/recipe-falafels_four-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 355659
+  },
+  "assets/day/recipe-gaufre_bruxelles-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 311589
+  },
+  "assets/day/recipe-gressins_fromage_olives-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 354746
+  },
+  "assets/day/recipe-houmous_hakocem-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 341131
+  },
+  "assets/day/recipe-madeleines_comte_epices_douces-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 323722
+  },
+  "assets/day/recipe-mojitos_variantes-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 352005
+  },
+  "assets/day/recipe-oeuf_chili_crisp_toast-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 360906
+  },
+  "assets/day/recipe-oeufs_cocotte_chorizo-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 347774
+  },
+  "assets/day/recipe-oeufs_mimosa_variantes-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 352538
+  },
+  "assets/day/recipe-pain_grille_beurre_ail_herbes-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 319316
+  },
+  "assets/day/recipe-pancakes_fluffy-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 259689
+  },
+  "assets/day/recipe-pancakes_variantes-day.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 330017
+  },
+  "assets/day/recipe-pate_lapin_piment_espelette-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 333599
+  },
+  "assets/day/recipe-pesto_tomates_sechees_sans_cajou-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 335462
+  },
+  "assets/day/recipe-rillettes_porc-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 352299
+  },
+  "assets/day/recipe-rillettes_poulet-day.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 368294
+  },
+  "assets/day/recipe-samoussas_boeuf_epinards_petits_pois-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 338124
+  },
+  "assets/day/recipe-sauce_yaourt_citronnee-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 340368
+  },
   "assets/day/recipe-seafood-day.jpg": {
     "width": 1536,
     "height": 1024,
     "bytes": 382670
+  },
+  "assets/day/recipe-tempura_beignets_calamar_crevettes-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 344722
+  },
+  "assets/day/recipe-terrine_campagne-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 356547
+  },
+  "assets/day/recipe-terrine_porc_pistaches-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 389992
+  },
+  "assets/day/recipe-tomates_cocktail_thon_mascarpone-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 300005
+  },
+  "assets/day/recipe-tomates_variantes-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 405530
+  },
+  "assets/day/recipe-verrines_chataignes_foie_gras-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 328169
   },
   "assets/recipe-card-images/aioli_citronne_leger_spooky.jpg": {
     "width": 520,

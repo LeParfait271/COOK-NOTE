@@ -4,19 +4,10 @@ const vm = require('node:vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_FILE = path.join(ROOT, 'assets', 'image-manifest.js');
-const DAY_ART_FILES = [
+const BASE_DAY_ART_FILES = [
   'assets/day/base-du-site-day.jpg',
   'assets/day/base-principale-fond-site-day.jpg',
-  'assets/day/category-apero-day.jpg',
-  'assets/day/category-accompagnements-day.jpg',
-  'assets/day/category-bases-day.jpg',
-  'assets/day/category-desserts-day.jpg',
-  'assets/day/category-entrees-day.jpg',
-  'assets/day/category-petit-dejeuner-day.jpg',
-  'assets/day/category-plats-day.jpg',
-  'assets/day/category-sauces-day.jpg',
-  'assets/day/cook-note-day.png',
-  'assets/day/recipe-seafood-day.jpg'
+  'assets/day/cook-note-day.png'
 ];
 const CHECK_ONLY = process.argv.includes('--check');
 
@@ -33,6 +24,17 @@ function loadRecipes() {
 
 function normalizeKey(file) {
   return file.replace(/\\/g, '/').replace(/^\/+/, '').replace(/\?.*$/, '');
+}
+
+function loadDayArtFiles() {
+  const app = read('app.js');
+  const match = app.match(/const\s+DAY_RECIPE_ART_IMAGES\s*=\s*Object\.freeze\(\{([\s\S]*?)\}\);/);
+  if (!match) throw new Error('DAY_RECIPE_ART_IMAGES introuvable dans app.js.');
+  const files = new Set(BASE_DAY_ART_FILES);
+  for (const item of match[1].matchAll(/:\s*'([^']+)'/g)) {
+    files.add(normalizeKey(item[1]));
+  }
+  return files;
 }
 
 function recipeCardPath(image) {
@@ -108,7 +110,7 @@ function buildManifest() {
     'assets/cook-note.png',
     'assets/cook-note-white.png'
   ]);
-  DAY_ART_FILES.forEach(file => files.add(file));
+  loadDayArtFiles().forEach(file => files.add(file));
 
   Object.values(recipes).forEach(recipe => {
     const image = recipe?.image;
