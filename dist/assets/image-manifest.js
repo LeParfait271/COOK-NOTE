@@ -100,6 +100,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 339326
   },
+  "assets/day/recipe-beurre_d_escargot_persille-day.jpg": {
+    "width": 1400,
+    "height": 821,
+    "bytes": 283231
+  },
   "assets/day/recipe-billes_mozzarella_marinees-day.jpg": {
     "width": 1400,
     "height": 933,
@@ -179,6 +184,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 327820
+  },
+  "assets/day/recipe-coulis_maitre-day.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 242191
   },
   "assets/day/recipe-crepes_lait_amandes-day.jpg": {
     "width": 1400,
@@ -315,10 +325,35 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 338124
   },
+  "assets/day/recipe-sauce_chevre_creme-day.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 228562
+  },
+  "assets/day/recipe-sauce_mornay-day.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 243295
+  },
+  "assets/day/recipe-sauce_roquefort-day.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 261058
+  },
   "assets/day/recipe-sauce_yaourt_citronnee-day.jpg": {
     "width": 1400,
     "height": 933,
     "bytes": 340368
+  },
+  "assets/day/recipe-sauces_assaisonnements_maitre-day.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 310734
+  },
+  "assets/day/recipe-sauces_burger_variantes-day.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 269257
   },
   "assets/day/recipe-seafood-day.jpg": {
     "width": 1536,
@@ -354,6 +389,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 405530
+  },
+  "assets/day/recipe-toppings_frites-day.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 286664
   },
   "assets/day/recipe-veloute_hiver_noix_cajou-day.jpg": {
     "width": 1400,
