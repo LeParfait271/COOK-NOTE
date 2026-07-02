@@ -1,9 +1,9 @@
 # Audit Cook Note
 
-Genere le 2026-07-01T20:52:56.871Z.
+Genere le 2026-07-02T02:13:03.453Z.
 
-- Recettes totales : 268
-- Recettes feuilles : 249
+- Recettes totales : 267
+- Recettes feuilles : 248
 - Fiches parentes : 19
 - Score moyen : 89/100
 - Fiches sous 78 : 15
@@ -12,10 +12,10 @@ Genere le 2026-07-01T20:52:56.871Z.
 ## Dashboard sante
 
 - Pretes : 105
-- A ameliorer : 129
+- A ameliorer : 128
 - Faibles : 15
 - Decouverte faible : 33
-- Conservation/securite a verifier : 126
+- Conservation/securite a verifier : 125
 - Risque image/production : 0
 - Sans liens internes explicites : 217
 
@@ -428,8 +428,6 @@ Genere le 2026-07-01T20:52:56.871Z.
 - Salade epinards clementines amande feta (salade_epinards_clementines_amande_feta) : 100/100 - OK
 - Salade melon, mozzarella et jambon cru (salade_melon_mozzarella_jambon_cru) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
-- Salade œufs durs mayonnaise (salade_oeufs_durs_mayonnaise_bistrot) : 82/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Salade pois chiches feta olives (salade_pois_chiche_feta_olives) : 100/100 - OK
 - Salade pois chiches thon poivrons (salade_pois_chiches_thon_poivrons) : 100/100 - OK
 - Samoussas bœuf epinards petits pois (samoussas_boeuf_epinards_petits_pois) : 100/100 - OK
@@ -504,7 +502,6 @@ Genere le 2026-07-01T20:52:56.871Z.
 - Pâtes au pesto, tomates cerises et mozzarella (pates_pesto_tomates_mozzarella) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Poulet sauce pimentée (poulet_sauce_pimentee) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Riz sauté au poulet (riz_saute_poulet) : Categorie possible : Accompagnements (semble etre un accompagnement).
-- Salade œufs durs mayonnaise (salade_oeufs_durs_mayonnaise_bistrot) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Pancakes (pancakes_variantes) : Categorie possible : Base (semble etre une base reutilisable).
 - Asperges mimosa (asperges_mimosa) : Categorie possible : Apéro (semble utile a l apero).
 - Chou vert en sauce tomate (chou_vert_sauce_tomate) : Categorie possible : Sauces (semble etre une sauce ou un condiment).

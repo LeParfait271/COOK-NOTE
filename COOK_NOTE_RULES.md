@@ -25,6 +25,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les poids moyens des cuilleres ou supports utiles doivent apparaitre dans la colonne `Avant de commencer` quand la recette contient ce type de mesure.
 - Les poids moyens ingredient doivent respecter l'aliment exact : citron jaune et citron vert sont deux reperes distincts, `jus de citron vert` ne doit jamais utiliser le rendement d'un citron jaune, et les ingredients en piece comme `1 melon` doivent aussi declencher leur repere utile.
 - La validation `scripts/validate-average-weights.js` doit rester branchee au `npm run check` pour couvrir toutes les fiches et la liste de courses.
+- Oeufs durs : depart a froid obligatoire, cuisson `12 a 13min`, refroidissement immediat en fin de cuisson, puis ecaler les oeufs froids pour limiter la casse.
 - Les notes ne doivent pas dupliquer les informations deja rangees automatiquement dans conservation, erreurs, resultat ou reperes.
 - Les conservations doivent expliquer avant et apres cuisson quand c'est utile.
 - Les techniques de cuisinier necessaires doivent etre presentes dans la page Techniques et liees automatiquement ou explicitement dans les recettes.

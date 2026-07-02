@@ -74,12 +74,12 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.71';
-const SITE_UPDATED_AT = '01/07/26';
+const SITE_VERSION = 'v2.72';
+const SITE_UPDATED_AT = '02/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.71';
+const ANDROID_LEGACY_APK_VERSION = '2.73';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -2188,7 +2188,6 @@ const MENU_STARTER_IDS = new Set([
   'rillettes_poulet',
   'salade_avocat_oeuf_epinards',
   'salade_melon_mozzarella_jambon_cru',
-  'salade_oeufs_durs_mayonnaise_bistrot',
   'terrine_campagne',
   'terrine_porc_pistaches',
   'tomates_variantes'

@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-07-01T20:52:56.871Z",
+  "generatedAt": "2026-07-02T02:13:03.453Z",
   "totals": {
-    "recipes": 268,
-    "leaves": 249,
+    "recipes": 267,
+    "leaves": 248,
     "masters": 19,
     "lowScore": 15,
-    "categoryIdeas": 21,
+    "categoryIdeas": 20,
     "qualityIssues": 0
   },
   "averageScore": 89,
   "healthDashboard": {
     "ready": 105,
-    "improve": 129,
+    "improve": 128,
     "weak": 15,
     "missingDiscovery": 33,
-    "missingSafety": 126,
+    "missingSafety": 125,
     "productionRisk": 0,
     "fewLinks": 217
   },
@@ -260,11 +260,6 @@
       "id": "riz_saute_poulet",
       "title": "Riz sauté au poulet",
       "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
-    },
-    {
-      "id": "salade_oeufs_durs_mayonnaise_bistrot",
-      "title": "Salade œufs durs mayonnaise",
-      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
       "id": "pancakes_variantes",
@@ -2656,19 +2651,6 @@
       "qualityIssues": [],
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "salade_oeufs_durs_mayonnaise_bistrot",
-      "title": "Salade œufs durs mayonnaise",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
-        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
     },
     {

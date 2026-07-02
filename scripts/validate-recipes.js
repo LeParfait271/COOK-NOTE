@@ -50,6 +50,9 @@ const FORBIDDEN_RECIPE_SOURCE_KEYS = new Set([
   'credits',
   'attribution'
 ]);
+const REMOVED_RECIPE_IDS = new Set([
+  'salade_oeufs_durs_mayonnaise_bistrot'
+]);
 const FORBIDDEN_RECIPE_IMAGE_BY_ID = new Map([
   ['crevettes_ail_persil', [
     '/assets/recipe-images-optimized/crevettes_ail_persil_spooky.jpg',
@@ -207,6 +210,8 @@ function checkMissingApostrophe(value, location) {
 
 function normalizeComparable(value) {
   return String(value || '')
+    .replace(/\u0153/g, 'oe')
+    .replace(/\u0152/g, 'oe')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/<[^>]+>/g, '')
@@ -312,6 +317,27 @@ function checkCommonRecipeTypos(id, value) {
   });
 }
 
+function checkHardBoiledEggMethod(id, recipe, isMaster) {
+  if (isMaster || id === 'ajitsuke_tamago_oeufs_marines_ramen') return;
+  const recipeText = normalizeComparable(collectStrings(recipe).join(' '));
+  const titleText = normalizeComparable(recipe.title);
+  const mentionsHardBoiledEggs = /\boeufs? durs?\b/.test(recipeText)
+    || /\boeufs? mimosa\b/.test(recipeText)
+    || /\bmimosa\b/.test(titleText);
+  if (!mentionsHardBoiledEggs) return;
+
+  const stepsText = normalizeComparable(collectStrings(recipe.steps || []).join(' '));
+  const missing = [];
+  if (!/\bdepart a froid\b/.test(stepsText)) missing.push('depart a froid');
+  if (!/\b12 a 13min\b/.test(stepsText)) missing.push('12 a 13min');
+  if (!/\brefroidir immediatement\b/.test(stepsText)) missing.push('refroidir immediatement');
+  if (!/\bfin de cuisson\b/.test(stepsText)) missing.push('fin de cuisson');
+  if (!/\becaler\b/.test(stepsText) || !/\bfroids?\b/.test(stepsText)) missing.push('ecaler les oeufs froids');
+  if (missing.length) {
+    errors.push(`${id}: methode oeufs durs incomplete, ajouter ${missing.join(', ')}.`);
+  }
+}
+
 if (!recipes || typeof recipes !== 'object') {
   errors.push('window.RECIPES est introuvable.');
 } else {
@@ -324,6 +350,10 @@ if (!recipes || typeof recipes !== 'object') {
   const leafCache = new Map();
   const leafImages = new Map();
   const leafImageHashes = new Map();
+
+  REMOVED_RECIPE_IDS.forEach(removedId => {
+    if (ids.has(removedId)) errors.push(`${removedId}: recette supprimee ne doit pas revenir dans recipes.js.`);
+  });
 
   function leafIdsFor(parentId, seen = new Set()) {
     if (leafCache.has(parentId)) return leafCache.get(parentId);
@@ -370,6 +400,17 @@ if (!recipes || typeof recipes !== 'object') {
     if (expected && !hasLink) errors.push(`${parentId}: doit contenir ${childId}.`);
     if (!expected && hasLink) errors.push(`${parentId}: ne doit pas contenir ${childId}.`);
   }
+
+  REMOVED_RECIPE_IDS.forEach(removedId => {
+    Object.entries(recipes).forEach(([parentId, recipe]) => {
+      if ((recipe.variants || []).some(variant => variant?.id === removedId)) {
+        errors.push(`${parentId}: reference une recette supprimee (${removedId}).`);
+      }
+      if ((recipe.linkedRecipes || []).some(link => link?.id === removedId)) {
+        errors.push(`${parentId}: lien interne vers une recette supprimee (${removedId}).`);
+      }
+    });
+  });
 
   function expectVariantGroupSteps(id, expectedGroups) {
     const recipe = recipes[id];
@@ -629,6 +670,7 @@ if (!recipes || typeof recipes !== 'object') {
     });
     checkForbiddenDisplayTerms(recipe, id);
     checkForbiddenSourceMetadata(recipe, id);
+    checkHardBoiledEggMethod(id, recipe, isMaster);
 
     let resolvedImagePath = null;
     if (!recipe.image) {
@@ -695,7 +737,13 @@ if (!recipes || typeof recipes !== 'object') {
 textFilesToCheck.forEach(filePath => {
   if (!fs.existsSync(filePath)) return;
   const relative = path.relative(ROOT, filePath).replace(/\\/g, '/');
-  fs.readFileSync(filePath, 'utf8').split(/\r?\n/).forEach((line, index) => {
+  const fileText = fs.readFileSync(filePath, 'utf8');
+  if (relative === 'app.js') {
+    REMOVED_RECIPE_IDS.forEach(removedId => {
+      if (fileText.includes(removedId)) errors.push(`${relative}: reference une recette supprimee (${removedId}).`);
+    });
+  }
+  fileText.split(/\r?\n/).forEach((line, index) => {
     const intentionalMojibakeRepair = relative === 'app.js' && (
       line.includes('mojibakeScore') ||
       line.includes('repairMojibakeText') ||

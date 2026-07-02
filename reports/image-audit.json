@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-01T10:55:08.210Z",
-  "total": 268,
+  "generatedAt": "2026-07-02T02:13:03.897Z",
+  "total": 267,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -940,7 +940,7 @@
     },
     {
       "id": "brochettes_melon_epice",
-      "title": "Brochettes de melon épice",
+      "title": "Brochettes de melon épicé",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipe-images-optimized/brochettes_melon_epice_cooknote_v2_spooky.jpg",
@@ -4141,24 +4141,6 @@
         "height": 507
       },
       "cardBytes": 70783
-    },
-    {
-      "id": "salade_oeufs_durs_mayonnaise_bistrot",
-      "title": "Salade œufs durs mayonnaise",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipe-images-optimized/salade_oeufs_durs_mayonnaise_bistrot_cooknote_v3_spooky.jpg",
-      "card": "assets/recipe-card-images/salade_oeufs_durs_mayonnaise_bistrot_cooknote_v3_spooky.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 240753,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 76113
     },
     {
       "id": "salade_pois_chiche_feta_olives",

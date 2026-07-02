@@ -1135,11 +1135,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 293,
     "bytes": 19234
   },
-  "assets/recipe-card-images/salade_oeufs_durs_mayonnaise_bistrot_cooknote_v3_spooky.jpg": {
-    "width": 760,
-    "height": 428,
-    "bytes": 76113
-  },
   "assets/recipe-card-images/salade_pois_chiche_feta_olives_photo_v2_spooky.jpg": {
     "width": 760,
     "height": 507,
@@ -2475,11 +2470,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 258641
   },
-  "assets/recipe-images-optimized/salade_oeufs_durs_mayonnaise_bistrot_cooknote_v3_spooky.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 240753
-  },
   "assets/recipe-images-optimized/salade_pois_chiche_feta_olives_photo_v2_spooky.jpg": {
     "width": 1400,
     "height": 933,
@@ -3814,11 +3804,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1672,
     "height": 941,
     "bytes": 2518305
-  },
-  "assets/recipe-images/salade_oeufs_durs_mayonnaise_bistrot_cooknote_v3_spooky.png": {
-    "width": 1672,
-    "height": 941,
-    "bytes": 2422206
   },
   "assets/recipe-images/salade_pois_chiche_feta_olives_photo_v2_spooky.png": {
     "width": 1536,
