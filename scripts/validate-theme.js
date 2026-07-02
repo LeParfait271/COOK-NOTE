@@ -21,7 +21,12 @@ function loadTheme(prefersLight = false) {
   const store = new Map();
   const documentElement = {
     dataset: {},
-    style: {}
+    style: {
+      values: {},
+      setProperty(key, value) {
+        this.values[key] = value;
+      }
+    }
   };
   const context = {
     window: {
@@ -31,7 +36,9 @@ function loadTheme(prefersLight = false) {
       },
       document: {
         documentElement,
-        querySelector: () => ({ setAttribute() {} })
+        querySelector: () => ({ setAttribute() {} }),
+        querySelectorAll: () => [],
+        addEventListener() {}
       },
       matchMedia: () => ({
         matches: prefersLight,
@@ -56,9 +63,14 @@ expect('CookNoteTheme global absent.', Boolean(darkRuntime.api));
 expect('Themes dark/light absents.', darkRuntime.api?.themes?.includes('dark') && darkRuntime.api?.themes?.includes('light'));
 expect('Theme par defaut incorrect.', darkRuntime.api?.defaultTheme === 'dark');
 expect('Theme sombre non applique par defaut.', darkRuntime.documentElement.dataset.theme === 'dark');
+expect('Direction artistique nuit non appliquee.', darkRuntime.documentElement.dataset.artDirection === 'night');
+expect('Asset hero nuit incorrect.', darkRuntime.api?.asset?.('hero') === '/assets/base-du-site.png');
+expect('Variables art direction absentes.', darkRuntime.documentElement.style.values['--art-background-image'] === 'url("/assets/base-principale-fond-site.jpg")');
 
 const lightRuntime = loadTheme(true);
 expect('prefers-color-scheme light non detecte.', lightRuntime.documentElement.dataset.theme === 'light');
+expect('Direction artistique jour non appliquee.', lightRuntime.documentElement.dataset.artDirection === 'day');
+expect('Assets jour non valides doivent rester en fallback nuit.', lightRuntime.api?.dayAssetsApproved === false && lightRuntime.documentElement.dataset.artAssets === 'night-fallback');
 lightRuntime.api.setTheme('dark');
 expect('setTheme dark inactif.', lightRuntime.documentElement.dataset.theme === 'dark');
 expect('Preference theme non persistee.', /"theme":"dark"/.test(lightRuntime.store.get('cook_note_preferences') || ''));
@@ -66,12 +78,15 @@ expect('Preference theme non persistee.', /"theme":"dark"/.test(lightRuntime.sto
 const style = read('style.css');
 expect('Tokens theme clair absents.', style.includes(':root[data-theme="light"]'));
 expect('Token color-scheme absent.', style.includes('--ds-color-scheme'));
+expect('Tokens art direction absents.', style.includes('--art-background-image') && style.includes('--art-hero-image') && style.includes('--art-logo-image'));
+expect('Background art direction non tokenise.', style.includes('var(--art-background-image) center top'));
 expect('Background shell non tokenise.', style.includes('--ds-shell-background') && style.includes('background: var(--ds-shell-background)'));
 expect('Theme light shell absent.', style.includes('.mc-shell.theme-light'));
 expect('Surfaces light non couvertes.', style.includes('.mc-shell.theme-light :where(.site-footer-inner'));
 
 const app = read('app.js');
 expect('Runtime theme non branche dans app.js.', app.includes('CookNoteTheme') && app.includes('activeTheme') && app.includes('toggleTheme'));
+expect('Assets art direction non branches dans app.js.', app.includes('FALLBACK_ART_ASSETS') && app.includes('function artAsset') && app.includes("artAsset('hero'") && app.includes("artAsset('logo'"));
 expect('Theme non expose dans la topbar.', app.includes('theme-toggle-btn') && app.includes('Passer en mode jour') && app.includes('Passer en mode nuit'));
 expect('Theme absent des preferences.', app.includes("'Thème'") && app.includes("update({ theme: 'light' })"));
 expect('Shell theme non marque.', app.includes("'data-theme': activeTheme") && app.includes("theme-light"));
@@ -86,11 +101,15 @@ const packageJson = read('package.json');
 
 expect('theme.js non charge dans index.html.', index.includes('/theme.js?v='));
 expect('theme.js doit charger avant style.css dans index.html.', index.indexOf('/theme.js?v=') < index.indexOf('/style.css?v='));
+expect('Version assets art direction absente dans index.html.', index.includes('COOK_NOTE_ASSET_VERSION'));
+expect('Assets art direction absents dans index.html.', index.includes('data-art-asset="hero"') && index.includes('data-art-asset="background"') && index.includes('data-art-asset="appIcon"'));
 expect('theme.js non charge dans recipe.html.', recipe.includes('/theme.js?v='));
 expect('theme.js doit charger avant style.css dans recipe.html.', recipe.indexOf('/theme.js?v=') < recipe.indexOf('/style.css?v='));
+expect('Version assets art direction absente dans recipe.html.', recipe.includes('COOK_NOTE_ASSET_VERSION'));
 expect('Meta color-scheme non ouverte.', index.includes('content="dark light"') && recipe.includes('content="dark light"'));
 expect('theme.js non copie dans dist.', buildSite.includes("'theme.js'"));
 expect('theme.js absent des pages prerendues.', buildSite.includes('/theme.js?v=${version}'));
+expect('Assets art direction absents des pages prerendues.', buildSite.includes('OPTIONAL_ASSET_DIRS') && buildSite.includes('data-art-asset="background"') && buildSite.includes('data-art-asset="logo"'));
 expect('theme.js non precache.', serviceWorker.includes('/theme.js?v='));
 expect('theme.js non network-first.', serviceWorker.includes("'/theme.js'"));
 expect('theme.js non servi localement.', server.includes("'theme.js'"));

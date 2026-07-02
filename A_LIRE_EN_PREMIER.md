@@ -86,6 +86,12 @@ mission est terminee plutot que fabriquer du changement.
   visible doit utiliser les tokens du design system et fonctionner en theme
   `dark` et `light`. Ne pas ajouter de couleur directe dans un composant quand
   un token semantique existe. `npm run validate:theme` doit rester vert.
+- Direction artistique duale : les univers `night` et `day` partagent la meme
+  logique, la meme structure UX et les memes composants. Les assets de marque,
+  fonds, hero et illustrations passent par `theme.js` / `CookNoteTheme.asset`.
+  Le mode nuit reste la reference. Les images du mode jour doivent etre montrees
+  et validees avant integration ; tant qu'elles ne sont pas validees, le mode
+  jour garde les assets nuit en fallback explicite.
 - Validation continue : apres une serie de modifications, lancer les validations
   adaptees (syntaxe, build, tests, performance, securite) et corriger ce qui
   casse avant commit.

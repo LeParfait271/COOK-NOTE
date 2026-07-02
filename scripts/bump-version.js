@@ -90,6 +90,7 @@ write('app-images.js', read('app-images.js')
   .replace(/const IMAGE_HELPER_VERSION = 'v\d+\.\d+';/g, `const IMAGE_HELPER_VERSION = '${version}';`));
 
 write('index.html', read('index.html')
+  .replace(/(COOK_NOTE_ASSET_VERSION\s*=\s*')\d+(';)/g, `$1${numeric}$2`)
   .replace(/(base-du-site\.png\?v=)\d+/g, `$1${numeric}`)
   .replace(/(style\.css\?v=)\d+/g, `$1${numeric}`)
   .replace(/(catalog-\d+\.js\?v=)\d+/g, `$1${numeric}`)
@@ -101,6 +102,7 @@ write('index.html', read('index.html')
   .replace(/(service-worker\.js\?v=)\d+/g, `$1${numeric}`));
 
 write('recipe.html', read('recipe.html')
+  .replace(/(COOK_NOTE_ASSET_VERSION\s*=\s*')\d+(';)/g, `$1${numeric}$2`)
   .replace(/(style\.css\?v=)\d+/g, `$1${numeric}`)
   .replace(/(theme\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(i18n\.js\?v=)\d+/g, `$1${numeric}`)

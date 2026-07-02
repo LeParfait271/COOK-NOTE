@@ -1,116 +1,97 @@
-(function initCookNoteTheme(global) {
+(g => {
   'use strict';
-
-  const STORAGE_KEY = 'cook_note_preferences';
-  const DEFAULT_THEME = 'dark';
-  const THEMES = ['dark', 'light'];
-  const THEME_COLORS = {
-    dark: '#fbbf24',
-    light: '#b45309'
+  const S = 'cook_note_preferences', D = 'dark', L = 'light', T = [D, L], OK = false;
+  const C = { dark: '#fbbf24', light: '#b45309' };
+  const N = Object.freeze({
+    background: '/assets/base-principale-fond-site.jpg',
+    hero: '/assets/base-du-site.png',
+    logo: '/assets/cook-note-white.png',
+    appIcon: '/assets/cook-note.png'
+  });
+  const J = Object.freeze({
+    background: '/assets/day/base-principale-fond-site-day.jpg',
+    hero: '/assets/day/base-du-site-day.png',
+    logo: '/assets/day/cook-note-day.png',
+    appIcon: '/assets/day/cook-note-day.png'
+  });
+  const M = Object.freeze({ dark: N, light: OK ? J : N });
+  const E = new Set();
+  const valid = v => T.includes(v);
+  const read = () => { try { return JSON.parse(g.localStorage?.getItem(S) || '{}'); } catch { return {}; } };
+  const write = v => { try { g.localStorage?.setItem(S, JSON.stringify(v)); } catch {} };
+  const sys = () => { try { return g.matchMedia?.('(prefers-color-scheme: light)').matches ? L : D; } catch { return D; } };
+  const stored = () => { const v = read().theme; return valid(v) ? v : ''; };
+  const resolve = v => valid(v) ? v : stored() || sys();
+  const assets = v => M[resolve(v)] || N;
+  const asset = (k, v) => assets(v)[k] || N[k] || '';
+  const ver = u => {
+    const v = g.COOK_NOTE_ASSET_VERSION;
+    return u && v && !/\?v=/.test(u) ? `${u}?v=${v}` : u || '';
   };
-  const listeners = new Set();
-
-  function isValidTheme(value) {
-    return THEMES.includes(value);
-  }
-
-  function readPreferences() {
-    try {
-      const raw = global.localStorage?.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : {};
-    } catch {
-      return {};
-    }
-  }
-
-  function writePreferences(next) {
-    try {
-      global.localStorage?.setItem(STORAGE_KEY, JSON.stringify(next));
-    } catch {
-      /* Ignore private browsing restrictions. */
-    }
-  }
-
-  function systemTheme() {
-    try {
-      return global.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : DEFAULT_THEME;
-    } catch {
-      return DEFAULT_THEME;
-    }
-  }
-
-  function storedTheme() {
-    const theme = readPreferences().theme;
-    return isValidTheme(theme) ? theme : '';
-  }
-
-  function resolveTheme(value) {
-    if (isValidTheme(value)) return value;
-    return storedTheme() || systemTheme();
-  }
-
-  function updateMeta(theme) {
-    if (!global.document) return;
-    const themeColor = global.document.querySelector('meta[name="theme-color"]');
-    if (themeColor) themeColor.setAttribute('content', THEME_COLORS[theme] || THEME_COLORS.dark);
-    const colorScheme = global.document.querySelector('meta[name="color-scheme"]');
-    if (colorScheme) colorScheme.setAttribute('content', 'dark light');
-  }
-
-  function applyTheme(value) {
-    const theme = resolveTheme(value);
-    if (global.document?.documentElement) {
-      global.document.documentElement.dataset.theme = theme;
-      global.document.documentElement.style.colorScheme = theme;
-    }
-    updateMeta(theme);
-    return theme;
-  }
-
-  function setTheme(value) {
-    const theme = isValidTheme(value) ? value : DEFAULT_THEME;
-    const preferences = readPreferences();
-    writePreferences({ ...preferences, theme });
-    applyTheme(theme);
-    listeners.forEach(listener => listener(theme));
-    try {
-      global.dispatchEvent?.(new CustomEvent('cook-note:theme-change', { detail: { theme } }));
-    } catch {
-      /* CustomEvent may be unavailable in old browsers. */
-    }
-    return theme;
-  }
-
-  function toggleTheme() {
-    return setTheme(applyTheme() === 'light' ? 'dark' : 'light');
-  }
-
-  function subscribe(listener) {
-    if (typeof listener !== 'function') return () => {};
-    listeners.add(listener);
-    return () => listeners.delete(listener);
-  }
-
-  const media = global.matchMedia?.('(prefers-color-scheme: light)');
-  if (media && typeof media.addEventListener === 'function') {
-    media.addEventListener('change', () => {
-      if (storedTheme()) return;
-      const theme = applyTheme(systemTheme());
-      listeners.forEach(listener => listener(theme));
+  const abs = u => !u || /^https?:\/\//i.test(u) ? u || '' : `${g.location?.origin || 'https://cook-note.pages.dev'}${u}`;
+  function art(t) {
+    const d = g.document, r = d?.documentElement;
+    if (!r) return;
+    const a = assets(t);
+    r.dataset.artDirection = t === L ? 'day' : 'night';
+    r.dataset.artAssets = t === L && !OK ? 'night-fallback' : 'approved';
+    r.style.setProperty('--art-background-image', `url("${a.background}")`);
+    r.style.setProperty('--art-hero-image', `url("${a.hero}")`);
+    r.style.setProperty('--art-logo-image', `url("${a.logo}")`);
+    d.querySelectorAll?.('[data-art-asset]').forEach(e => {
+      const k = e.getAttribute('data-art-asset'), u = a[k] || N[k];
+      if (!u) return;
+      const v = e.hasAttribute('data-art-versioned') ? ver(u) : u;
+      const x = e.getAttribute('data-art-target')
+        || (e.tagName === 'META' ? 'content' : e.tagName === 'LINK' ? 'href' : 'src' in e ? 'src' : '');
+      if (x) e.setAttribute(x, e.hasAttribute('data-art-absolute') ? abs(v) : v);
     });
   }
-
-  const api = {
-    defaultTheme: DEFAULT_THEME,
-    themes: THEMES,
-    theme: () => applyTheme(),
-    applyTheme,
-    setTheme,
-    toggleTheme,
-    subscribe,
-    isValidTheme
+  function meta(t) {
+    const d = g.document;
+    d?.querySelector('meta[name="theme-color"]')?.setAttribute('content', C[t] || C.dark);
+    d?.querySelector('meta[name="color-scheme"]')?.setAttribute('content', 'dark light');
+  }
+  function apply(v) {
+    const t = resolve(v), r = g.document?.documentElement;
+    if (r) {
+      r.dataset.theme = t;
+      r.style.colorScheme = t;
+    }
+    art(t);
+    meta(t);
+    return t;
+  }
+  function set(v) {
+    const t = valid(v) ? v : D;
+    write({ ...read(), theme: t });
+    apply(t);
+    E.forEach(f => f(t));
+    try { g.dispatchEvent?.(new CustomEvent('cook-note:theme-change', { detail: { theme: t } })); } catch {}
+    return t;
+  }
+  const toggle = () => set(apply() === L ? D : L);
+  const sub = f => typeof f === 'function' ? (E.add(f), () => E.delete(f)) : () => {};
+  g.matchMedia?.('(prefers-color-scheme: light)')?.addEventListener?.('change', () => {
+    if (stored()) return;
+    const t = apply(sys());
+    E.forEach(f => f(t));
+  });
+  g.CookNoteTheme = {
+    defaultTheme: D,
+    themes: T,
+    dayAssetsApproved: OK,
+    dayAssetCandidates: J,
+    theme: () => apply(),
+    assets,
+    asset,
+    applyArtAssets: art,
+    applyTheme: apply,
+    setTheme: set,
+    toggleTheme: toggle,
+    subscribe: sub,
+    isValidTheme: valid
   };
-
-  global.CookNoteTheme = api;
-  applyTheme();
+  apply();
+  g.document?.addEventListener?.('DOMContentLoaded', () => apply());
 })(window);

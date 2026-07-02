@@ -34,6 +34,9 @@ const CookNoteTheme = window.CookNoteTheme || {
   themes: ['dark'],
   defaultTheme: 'dark',
   theme: () => 'dark',
+  assets: () => ({}),
+  asset: () => '',
+  applyArtAssets: () => {},
   applyTheme: () => 'dark',
   setTheme: () => 'dark',
   toggleTheme: () => 'dark',
@@ -96,14 +99,18 @@ function runConfettiBurst() {
   }).catch(() => {});
 }
 
-const HERO_IMAGE = '/assets/base-du-site.png';
-const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.77';
+const FALLBACK_ART_ASSETS = Object.freeze({
+  background: '/assets/base-principale-fond-site.jpg',
+  hero: '/assets/base-du-site.png',
+  logo: '/assets/cook-note-white.png',
+  appIcon: '/assets/cook-note.png'
+});
+const SITE_VERSION = 'v2.78';
 const SITE_UPDATED_AT = '02/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.77';
+const ANDROID_LEGACY_APK_VERSION = '2.78';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -4146,6 +4153,10 @@ function absoluteAssetUrl(url) {
   }
 }
 
+function artAsset(name, theme) {
+  return CookNoteTheme.asset?.(name, theme) || FALLBACK_ART_ASSETS[name] || '';
+}
+
 function recipeJsonLd(recipe, recipesById = {}) {
   if (!recipe || isMasterRecipe(recipe)) return null;
   const url = `${window.location.origin}${getRecipeUrl(recipe.id)}`;
@@ -4267,7 +4278,7 @@ function updateDocumentMeta(recipe, recipesById = {}, page = 'home') {
   canonical.setAttribute('href', canonicalUrl);
   CookNoteI18n.applyDocumentLanguage();
   CookNoteI18n.ensureAlternateLinks(canonicalUrl);
-  const image = absoluteAssetUrl(recipe?.image || HERO_IMAGE);
+  const image = absoluteAssetUrl(recipe?.image || artAsset('hero'));
   setMetaContent('meta[property="og:image"]', image);
   setMetaContent('meta[property="og:image:secure_url"]', image);
   setMetaContent('meta[name="twitter:image"]', image);
@@ -4523,10 +4534,11 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
 }
 
 function Hero() {
+  const logo = artAsset('logo');
   return h('section', { className: 'hero' },
     h('div', { className: 'hero-inner' },
       h('h1', { className: 'sr-only' }, 'Cook Note'),
-      h('img', { className: 'hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(COOK_NOTE_LOGO) })
+      h('img', { className: 'hero-logo', src: logo, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(logo) })
     )
   );
 }
@@ -6284,7 +6296,8 @@ function RecipeView({
   openTechnique,
   notify,
   personalRecipeNote,
-  updatePersonalRecipeNote
+  updatePersonalRecipeNote,
+  activeTheme
 }) {
   const [factor, setFactor] = useState(1);
   const variantRefs = useMemo(() => (
@@ -6412,7 +6425,9 @@ function RecipeView({
   }
 
   const heroUsesHomeImage = showVariants;
-  const heroImage = heroUsesHomeImage ? HERO_IMAGE : (selectedRecipe.image || recipe.image);
+  const artHeroImage = artAsset('hero', activeTheme);
+  const artLogoImage = artAsset('logo', activeTheme);
+  const heroImage = heroUsesHomeImage ? artHeroImage : (selectedRecipe.image || recipe.image);
   const heroStyle = heroImage
     ? {
       backgroundImage: heroUsesHomeImage
@@ -6434,7 +6449,7 @@ function RecipeView({
       style: heroStyle
     },
       h('div', { className: 'detail-hero-copy' },
-        heroUsesHomeImage && h('img', { className: 'detail-hero-logo', src: COOK_NOTE_LOGO, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(COOK_NOTE_LOGO) }),
+        heroUsesHomeImage && h('img', { className: 'detail-hero-logo', src: artLogoImage, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(artLogoImage) }),
         h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome, openRecipe }),
         h('h1', null, recipe.title),
         h('div', { className: 'detail-meta' },
@@ -7502,7 +7517,8 @@ function App() {
           openTechnique,
           notify,
           personalRecipeNote: personalNotes[activeRecipe.id],
-          updatePersonalRecipeNote
+          updatePersonalRecipeNote,
+          activeTheme
         })
       : activePage === 'techniques'
         ? h(TechniquesView, {

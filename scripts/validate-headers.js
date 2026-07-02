@@ -38,6 +38,7 @@ const rules = read('COOK_NOTE_RULES.md');
   'Cache-Control: no-cache',
   '/app-images.js',
   '/assets/recipe-card-images/*',
+  '/assets/day/*',
   'Cache-Control: public, max-age=31536000, immutable',
   '/assets/image-manifest.js',
   'Cache-Control: public, max-age=300, must-revalidate'

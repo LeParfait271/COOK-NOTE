@@ -11,6 +11,10 @@ Ce document est la reference visuelle du projet. Toute passe UI doit ameliorer l
 - L'interface publique et l'admin doivent sembler appartenir au meme produit.
 - Silent Design : retirer tout ce qui attire l'attention sans valeur avant
   d'ajouter une couleur, une ombre, une bordure, un texte ou une animation.
+- Dual Art Direction : `night` est l'univers principal, profond et stable ;
+  `day` est un univers lumineux, naturel et frais du meme produit. La logique,
+  les layouts et les composants restent communs. La difference passe par les
+  tokens d'ambiance et les assets conditionnels, jamais par une inversion CSS.
 
 ## Direction premium
 
@@ -122,6 +126,21 @@ Respect obligatoire de `prefers-reduced-motion`.
   confortable.
 - `npm run validate:theme` verifie le runtime, le chargement avant CSS, le
   service worker, le build et les points d'integration principaux.
+
+## Assets conditionnels
+
+- Les assets de marque et d'ambiance passent par `theme.js` :
+  `CookNoteTheme.asset(name, theme)` dans React, `data-art-asset` dans le HTML
+  statique et `--art-*` dans le CSS.
+- Assets supportes : `background`, `hero`, `logo`, `appIcon`.
+- `DAY_ASSETS_APPROVED` reste `false` tant que les previews jour ne sont pas
+  validees. Dans cet etat, le mode jour utilise volontairement les assets nuit
+  avec `data-art-assets="night-fallback"`.
+- Les futures images jour validees vont dans `assets/day/` avec des noms
+  stables : `base-principale-fond-site-day.jpg`, `base-du-site-day.png`,
+  `cook-note-day.png`.
+- Interdit : `filter`, inversion automatique, image nocturne forcee dans le
+  mode jour, ou chemin d'asset global en dur dans un composant.
 
 ## Dark Mode
 

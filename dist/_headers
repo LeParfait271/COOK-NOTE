@@ -65,6 +65,9 @@
 /assets/recipe-images/*
   Cache-Control: public, max-age=31536000, immutable
 
+/assets/day/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /assets/base-du-site.png
   Cache-Control: public, max-age=31536000, immutable
 

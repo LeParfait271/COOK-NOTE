@@ -41,6 +41,10 @@ const ASSET_DIRS = [
   'vendor'
 ];
 
+const OPTIONAL_ASSET_DIRS = [
+  'day'
+];
+
 const SITE_URL = 'https://cook-note.pages.dev';
 const CATEGORY_ACCENTS = {
   'Apéro': '#b51f30',
@@ -76,6 +80,12 @@ function copyDirectory(relative) {
   const destination = path.join(DIST, relative);
   if (!fs.existsSync(source)) throw new Error(`${relative}: dossier source introuvable.`);
   fs.cpSync(source, destination, { recursive: true });
+}
+
+function copyOptionalDirectory(relative) {
+  const source = path.join(ROOT, relative);
+  if (!fs.existsSync(source)) return;
+  fs.cpSync(source, path.join(DIST, relative), { recursive: true });
 }
 
 function loadImageManifest() {
@@ -353,9 +363,10 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `  <link rel="canonical" href="${escapeHtml(absoluteRecipeUrl(id))}" />`,
     '  <link rel="manifest" href="/manifest.json" />',
     '  <link rel="icon" href="/assets/cook-note-mark.svg" type="image/svg+xml" />',
-    '  <link rel="apple-touch-icon" href="/assets/cook-note.png" />',
-    '  <link rel="preload" as="image" href="/assets/base-principale-fond-site.jpg" fetchpriority="high" />',
+    '  <link rel="apple-touch-icon" href="/assets/cook-note.png" data-art-asset="appIcon" data-art-target="href" />',
+    '  <link rel="preload" as="image" href="/assets/base-principale-fond-site.jpg" fetchpriority="high" data-art-asset="background" data-art-target="href" />',
     image && `  <link rel="preload" as="image" href="${escapeHtml(image)}" fetchpriority="high" />`,
+    `  <script>window.COOK_NOTE_ASSET_VERSION = '${version}';</script>`,
     `  <script src="/theme.js?v=${version}"></script>`,
     `  <link rel="stylesheet" href="/style.css?v=${version}" />`,
     `  <script id="recipe-jsonld" type="application/ld+json">${safeJson(jsonLd)}</script>`,
@@ -366,7 +377,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `      <main class="recipe-view static-prerender" style="--accent:${escapeHtml(accent)};--accent-2:${escapeHtml(accent)}">`,
     `        <section class="recipe-detail-hero has-photo${variantRefs(fullRecipe).length ? ' parent-hero' : ''}" style="${heroStyle}">`,
     '          <div class="detail-hero-copy">',
-    variantRefs(fullRecipe).length ? '            <img class="detail-hero-logo" src="/assets/cook-note-white.png" alt="Cook Note" decoding="async" width="948" height="302" />' : '',
+    variantRefs(fullRecipe).length ? '            <img class="detail-hero-logo" src="/assets/cook-note-white.png" alt="Cook Note" decoding="async" width="948" height="302" data-art-asset="logo" />' : '',
     `            <p class="eyebrow">${escapeHtml(primaryCategory(fullRecipe))}</p>`,
     `            <h1>${escapeHtml(fullRecipe.title)}</h1>`,
     '            <div class="detail-meta">',
@@ -448,6 +459,7 @@ const recipes = loadRecipes();
 ROOT_FILES.forEach(copyFile);
 ASSET_FILES.forEach(file => copyFile(path.join('assets', file)));
 ASSET_DIRS.forEach(dir => copyDirectory(path.join('assets', dir)));
+OPTIONAL_ASSET_DIRS.forEach(dir => copyOptionalDirectory(path.join('assets', dir)));
 writeDistImageManifest();
 writeStaticRecipePages(recipes);
 writeDistRedirects(recipes);

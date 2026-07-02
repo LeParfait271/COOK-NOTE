@@ -61,6 +61,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les passes design premium doivent ameliorer les composants existants sans rajouter de sections gadget sur l'accueil. Travailler surtout cartes, panneaux, boutons, etats hover/focus, responsive et performance.
 - Toute passe de direction artistique doit respecter `docs/design-system.md` : tokens communs, dark mode sombre equilibre, motion system `120ms / 200ms / 320ms`, focus visible permanent et support de `prefers-reduced-motion`.
 - Themes site : le mode nuit est la reference et ne doit pas changer d'identite. Le mode jour est porte par `theme.js`, `data-theme`, `.theme-dark/.theme-light` et les tokens CSS. Toute nouvelle UI doit fonctionner dans les deux themes sans couleur hardcodee quand un token semantique existe. Le choix utilisateur doit rester instantane, sans rechargement, persiste dans `cook_note_preferences`, et `npm run validate:theme` doit bloquer les regressions.
+- Direction artistique Jour/Nuit : `night` et `day` sont deux univers visuels du meme produit, pas une inversion CSS. Les composants gardent la meme UX et les memes tokens de structure ; seuls les tokens d'ambiance et les assets conditionnels changent. Les backgrounds, logos, hero, illustrations et visuels marketing doivent passer par `CookNoteTheme.asset` ou `data-art-asset`. Les assets jour restent en fallback nuit tant que l'utilisateur n'a pas valide les previews.
 - Silent Design obligatoire : supprimer d'abord ce qui attire l'attention sans valeur avant d'ajouter un effet. Les passes premium doivent viser une interface filmee mais calme : Cinematic UI Engine, Magnetic Interaction Engine, Color Intelligence Engine, Breathing Layout Engine, Eye Tracking Simulator, Subconscious Quality Engine, Screenshot Test, Award Winning Design, First Impression Optimizer et Premium Value Perception, sans animations gadget ni surcharge visuelle.
 - Les nouveaux styles UI doivent utiliser les tokens du design system pour couleurs, spacing, radius, ombres, typo et motion. Une valeur locale n'est acceptable que pour une mesure de layout non reutilisable.
 - Les filtres de saison mobiles doivent rester en grille stable avec hauteurs tactiles constantes, jamais en flex row qui grossit ou change de rythme selon les libelles.
@@ -117,6 +118,11 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - L'audit image `npm run audit:images` doit rester disponible pour reperer images trop petites, miniatures faibles, cadrages atypiques et doublons visuels avant une passe photo.
 - Avant d'integrer une image generee, montrer le visuel et attendre validation utilisateur, sauf validation deja donnee explicitement.
 - Quand une image est validee, la copier dans `assets/recipe-images/` avec un nom stable lie a l'id recette.
+- Les images de direction artistique globale du mode jour (fond, hero, splash,
+  logo, illustration) ne sont pas des images recette. Les stocker dans
+  `assets/day/` seulement apres validation visuelle, avec un nom stable. Ne pas
+  utiliser de filtre CSS, d'inversion automatique ou de duplication incoherente
+  pour simuler le mode jour.
 
 ## Production
 
