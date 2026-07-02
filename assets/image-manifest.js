@@ -865,45 +865,45 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 520,
     "bytes": 68506
   },
-  "assets/recipe-card-images/parent_accompagnements.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 26919
+  "assets/recipe-card-images/parent_accompagnements_moon.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 139915
   },
-  "assets/recipe-card-images/parent_apero.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 24155
+  "assets/recipe-card-images/parent_apero_moon.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 126637
   },
-  "assets/recipe-card-images/parent_base.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 24266
+  "assets/recipe-card-images/parent_base_moon.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 132191
   },
-  "assets/recipe-card-images/parent_desserts.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 26947
+  "assets/recipe-card-images/parent_desserts_moon.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 126945
   },
-  "assets/recipe-card-images/parent_entrees.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 28327
+  "assets/recipe-card-images/parent_entrees_moon.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 137393
   },
-  "assets/recipe-card-images/parent_petit_dejeuner.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 30937
+  "assets/recipe-card-images/parent_petit_dejeuner_moon.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 117413
   },
-  "assets/recipe-card-images/parent_plats.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 28413
+  "assets/recipe-card-images/parent_plats_moon.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 144018
   },
-  "assets/recipe-card-images/parent_sauces.jpg": {
-    "width": 520,
-    "height": 293,
-    "bytes": 24259
+  "assets/recipe-card-images/parent_sauces_moon.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 133311
   },
   "assets/recipe-card-images/paris_brest_spooky.jpg": {
     "width": 520,
@@ -2200,45 +2200,45 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 173867
   },
-  "assets/recipe-images-optimized/parent_accompagnements.jpg": {
+  "assets/recipe-images-optimized/parent_accompagnements_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 444225
+    "bytes": 487534
   },
-  "assets/recipe-images-optimized/parent_apero.jpg": {
+  "assets/recipe-images-optimized/parent_apero_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 328152
+    "bytes": 440484
   },
-  "assets/recipe-images-optimized/parent_base.jpg": {
+  "assets/recipe-images-optimized/parent_base_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 311889
+    "bytes": 447101
   },
-  "assets/recipe-images-optimized/parent_desserts.jpg": {
+  "assets/recipe-images-optimized/parent_desserts_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 373892
+    "bytes": 444522
   },
-  "assets/recipe-images-optimized/parent_entrees.jpg": {
+  "assets/recipe-images-optimized/parent_entrees_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 388408
+    "bytes": 464653
   },
-  "assets/recipe-images-optimized/parent_petit_dejeuner.jpg": {
+  "assets/recipe-images-optimized/parent_petit_dejeuner_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 423436
+    "bytes": 369889
   },
-  "assets/recipe-images-optimized/parent_plats.jpg": {
+  "assets/recipe-images-optimized/parent_plats_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 389880
+    "bytes": 505011
   },
-  "assets/recipe-images-optimized/parent_sauces.jpg": {
+  "assets/recipe-images-optimized/parent_sauces_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 344280
+    "bytes": 461983
   },
   "assets/recipe-images-optimized/paris_brest_spooky.jpg": {
     "width": 1024,
@@ -3535,45 +3535,45 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 2124407
   },
-  "assets/recipe-images/parent_accompagnements.png": {
-    "width": 1672,
-    "height": 941,
-    "bytes": 3501193
+  "assets/recipe-images/parent_accompagnements_moon.png": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 3248351
   },
-  "assets/recipe-images/parent_apero.png": {
-    "width": 1672,
-    "height": 941,
-    "bytes": 2964817
+  "assets/recipe-images/parent_apero_moon.png": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 3354759
   },
-  "assets/recipe-images/parent_base.png": {
-    "width": 1672,
-    "height": 941,
-    "bytes": 2738214
+  "assets/recipe-images/parent_base_moon.png": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 3327483
   },
-  "assets/recipe-images/parent_desserts.png": {
-    "width": 1672,
-    "height": 941,
-    "bytes": 3198150
+  "assets/recipe-images/parent_desserts_moon.png": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 3176231
   },
-  "assets/recipe-images/parent_entrees.png": {
-    "width": 1672,
-    "height": 941,
-    "bytes": 3199815
+  "assets/recipe-images/parent_entrees_moon.png": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 3368705
   },
-  "assets/recipe-images/parent_petit_dejeuner.png": {
-    "width": 1672,
-    "height": 941,
-    "bytes": 3235447
+  "assets/recipe-images/parent_petit_dejeuner_moon.png": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 3299972
   },
-  "assets/recipe-images/parent_plats.png": {
-    "width": 1672,
-    "height": 941,
-    "bytes": 3082398
+  "assets/recipe-images/parent_plats_moon.png": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 3363640
   },
-  "assets/recipe-images/parent_sauces.png": {
-    "width": 1672,
-    "height": 941,
-    "bytes": 2931587
+  "assets/recipe-images/parent_sauces_moon.png": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 3325809
   },
   "assets/recipe-images/paris_brest_spooky.png": {
     "width": 1024,
