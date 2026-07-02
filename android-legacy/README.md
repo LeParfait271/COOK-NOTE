@@ -34,8 +34,8 @@ Le mode d'emploi complet est dans
   visibles comme sur le site, sans menu deroulant pour choisir une recette
 - selecteurs natifs uniquement pour la preparation choisie des fiches a
   variantes internes, sans afficher toutes les variantes en bloc
-- Fonctions natives legeres : favoris locaux, recherche simple sans filtres,
-  copie ingredients, liste de courses locale, quantites ajustables, courses
+- Fonctions natives legeres : recherche simple sans filtres,
+  copie ingredients, liste de courses locale, selecteur de personnes, quantites ajustables, courses
   fusionnees, preferences locales discretes, diagnostic hors ligne, index
   recherche precompile, recherche temporisee, cache image adaptatif, decode
   image serialise, coalescence chargements image, chargements visibles
@@ -50,9 +50,12 @@ Le mode d'emploi complet est dans
   cache resultats recherche borne, requetes recentes reutilisees, classement recherche memoise,
   catalogue parent precompile, enfants parents preclasses, compteurs collection caches,
   position de grille conservee, prefetch carte borne, copie fiche,
-  partage fiche, navigation restaurable, swipe retour bord gauche,
+  navigation restaurable, swipe retour bord gauche,
   prechargement images borne, liberation memoire de liste, courses cochables,
   audit perf leger, ecran actif persistant et bouton natif de mise a jour
+- Fiche detail Android allegee : pas de saisons, difficulte, nombre d etapes,
+  bouton favori ou bouton partager ; `Avant de commencer` embarque allergenes,
+  poids moyens utiles, repere cuilleres, conservation et rechauffage.
 - Garde-fou lexical : bouton natif de mise a jour, ecran actif persistant,
   cartes parent visibles, recherche simple sans filtres, recherche intelligente
   sans filtres, recherche temporisee, navigation restaurable, swipe retour bord

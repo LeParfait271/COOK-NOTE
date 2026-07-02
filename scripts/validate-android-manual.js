@@ -134,7 +134,7 @@ expect(
     && androidLegacyMainActivity.includes('ArrayAdapter')
     && androidLegacyMainActivity.includes('loadDetail')
     && androidLegacyMainActivity.includes('addSection')
-    && androidLegacyMainActivity.includes('addInfoChips')
+    && !androidLegacyMainActivity.includes('addInfoChips')
     && androidLegacyMainActivity.includes('stepRow')
     && androidLegacyMainActivity.includes('bulletRow')
     && androidLegacyMainActivity.includes('addHeaderStat')
@@ -169,7 +169,7 @@ expect(
     && androidLegacyMainActivity.includes('"Recettes"')
     && androidLegacyMainActivity.includes('Preparation')
     && androidLegacyMainActivity.includes('SharedPreferences')
-    && androidLegacyMainActivity.includes('favoriteIds')
+    && !androidLegacyMainActivity.includes('favoriteIds')
     && androidLegacyMainActivity.includes('PREF_SHOPPING')
     && androidLegacyMainActivity.includes('PREF_KEEP_SCREEN_ON')
     && androidLegacyMainActivity.includes('PREF_QUANTITY_FACTOR')
@@ -237,9 +237,14 @@ expect(
     && androidLegacyMainActivity.includes('CheckBox')
     && androidLegacyMainActivity.includes('copyShoppingTodo')
     && androidLegacyMainActivity.includes('copyRecipe')
-    && androidLegacyMainActivity.includes('shareRecipe')
-    && androidLegacyMainActivity.includes('Intent.ACTION_SEND')
-    && androidLegacyMainActivity.includes('Ajouter aux courses')
+    && androidLegacyMainActivity.includes('SERVING_COUNT_PATTERN')
+    && androidLegacyMainActivity.includes('servingOptions')
+    && androidLegacyMainActivity.includes('baseServings')
+    && androidLegacyMainActivity.includes('"Personnes"')
+    && !androidLegacyMainActivity.includes('actionButton("Partager"')
+    && !androidLegacyMainActivity.includes('actionButton(isFavorite')
+    && !androidLegacyMainActivity.includes('new Intent(Intent.ACTION_SEND)')
+    && androidLegacyMainActivity.includes('"+ Courses"')
     && androidLegacyMainActivity.includes('ClipboardManager')
     && androidLegacyMainActivity.includes('UPDATE_APK_URL')
     && androidLegacyMainActivity.includes('Mise a jour')
@@ -252,6 +257,10 @@ expect(
     && androidLegacyMainActivity.includes('addRecipeContentGrid')
     && androidLegacyMainActivity.includes('addBeforePanel')
     && androidLegacyMainActivity.includes('Avant de commencer')
+    && legacyAssetsScript.includes('detectAllergens')
+    && legacyAssetsScript.includes('averageWeightItems')
+    && legacyAssetsScript.includes('reheating')
+    && legacyAssetsScript.includes('Poids moyens')
     && androidLegacyRepository.includes('recipes-lite.json')
     && androidLegacyRepository.includes('search-index-lite.json')
     && androidLegacyRepository.includes('SEARCH_INDEX_ASSET')
@@ -259,7 +268,7 @@ expect(
     && androidLegacyRepository.includes('homeRecipes')
     && androidLegacyRepository.includes('buildHomeRecipes')
     && androidLegacyRepository.includes('searchableRecipes')
-    && androidLegacyRepository.includes('filterSearchable')
+    && !androidLegacyRepository.includes('filterSearchable')
     && androidLegacyRepository.includes('searchSmart')
     && androidLegacyRepository.includes('scoreRecipe')
     && androidLegacyRepository.includes('fuzzyContains')
@@ -285,12 +294,12 @@ expect(
     && androidLegacyRepository.includes('Collections.unmodifiableMap')
     && androidLegacyRepository.includes('parentTrail')
     && androidLegacyRepository.includes('recipe.master.length() == 0')
-    && androidLegacyRepository.includes('searchableOnly && recipe.isCollection()')
+    && !androidLegacyRepository.includes('searchableOnly && recipe.isCollection()')
     && androidLegacyRepository.includes('json.optBoolean("variantGroups", false)')
     && androidLegacyRecipe.includes('variantGroups')
     && androidLegacyRepository.includes('detailImage')
-    && androidLegacyRepository.includes('matchesSeason')
-    && androidLegacyRepository.includes('matchesDifficulty')
+    && !androidLegacyRepository.includes('matchesSeason')
+    && !androidLegacyRepository.includes('matchesDifficulty')
     && androidLegacyRepository.includes('cleanString')
     && androidLegacyRepository.includes('repairText')
     && androidLegacyRepository.includes('mojibakeScore')
@@ -353,7 +362,7 @@ expect(
     && !androidLegacyAdapter.includes('holder.meta')
     && !androidLegacyAdapter.includes('holder.badge')
     && androidLegacyAdapter.includes('setEllipsize')
-    && androidLegacyAdapter.includes('favoriteIds')
+    && !androidLegacyAdapter.includes('favoriteIds')
     && androidLegacyAdapter.includes('collectionCounts')
     && !/Gecko|WebView|ServerSocket|127\.0\.0\.1|LocalAssetServer/.test(androidLegacyMainActivity + androidLegacyRepository + androidLegacyImageLoader)
 );
@@ -506,7 +515,6 @@ expect(
   'grille Ingredients/Etapes/Avant de commencer',
   'actions principales/secondaires',
   'pastilles',
-  'favoris locaux',
   'recherche simple sans filtres',
   'recherche intelligente sans filtres',
   'index recherche precompile',
@@ -554,7 +562,9 @@ expect(
   'cache image adaptatif',
   'scroll fluide',
   'copie fiche',
-  'partage fiche',
+  'selecteur de personnes',
+  'allergenes',
+  'poids moyens',
   'ecran actif',
   'bouton natif de mise a jour',
   'audit perf leger',
@@ -589,7 +599,6 @@ expect(
     && androidReadme.includes('fiche recette detaillee proche du site')
     && androidReadme.includes('grille Ingredients/Etapes/Avant de commencer')
     && androidReadme.includes('actions principales')
-    && androidReadme.includes('favoris locaux')
     && androidReadme.includes('recherche simple sans filtres')
     && androidReadme.includes('recherche intelligente sans filtres')
     && androidReadme.includes('index recherche precompile')
@@ -637,7 +646,9 @@ expect(
     && androidReadme.includes('cache image adaptatif')
     && androidReadme.includes('scroll fluide')
     && androidReadme.includes('copie fiche')
-    && androidReadme.includes('partage fiche')
+    && androidReadme.includes('selecteur de personnes')
+    && androidReadme.includes('allergenes')
+    && androidReadme.includes('poids moyens')
     && androidReadme.includes('ecran actif')
     && androidReadme.includes('audit perf leger')
     && androidReadme.includes('bouton natif de mise a jour')
@@ -679,7 +690,6 @@ expect(
   'grille Ingredients/Etapes/Avant de commencer',
   'actions principales/secondaires',
   'pastilles',
-  'favoris locaux',
   'recherche simple sans filtres',
   'recherche intelligente sans filtres',
   'index recherche precompile',
@@ -727,7 +737,8 @@ expect(
   'cache image adaptatif',
   'scroll fluide',
   'copie fiche',
-  'partage fiche',
+  'selecteur de personnes',
+  'allergenes et poids moyens',
   'ecran actif',
   'bouton natif de mise a jour',
   'audit perf leger',

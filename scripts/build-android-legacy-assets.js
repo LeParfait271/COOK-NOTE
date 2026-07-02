@@ -272,19 +272,168 @@ function cleanTechnical(items) {
   })).filter(item => item.label || item.value);
 }
 
-function cleanPractical(practical) {
-  if (!practical || typeof practical !== 'object') return [];
+function asTextList(value) {
+  if (Array.isArray(value)) return cleanArray(value);
+  const single = stripHtml(value || '');
+  return single ? [single] : [];
+}
+
+function uniqueText(items) {
+  const seen = new Set();
+  const output = [];
+  items.forEach(item => {
+    const cleaned = stripHtml(item);
+    const key = normalizeText(cleaned);
+    if (!key || seen.has(key)) return;
+    seen.add(key);
+    output.push(cleaned);
+  });
+  return output;
+}
+
+function ingredientLines(recipe) {
+  return Array.isArray(recipe.ingredients)
+    ? recipe.ingredients.flatMap(group => cleanArray(group.items))
+    : [];
+}
+
+function recipeRuleText(recipe) {
+  return normalizeText([
+    recipe.title,
+    recipe.yield,
+    ...(recipe.tags || []),
+    ...(recipe.aliases || []),
+    ...ingredientLines(recipe)
+  ].join(' '));
+}
+
+const ALLERGEN_RULES = [
+  ['Gluten', /\b(farine|ble|pain|pains|brioche|brioches|bun|buns|pate a choux|pate sucree|pate a tarte|chapelure|semoule|orge|avoine|epeautre|tortillas?)\b/],
+  ['Oeufs', /\b(oeuf|oeufs|jaune d oeuf|jaunes d oeufs|blanc d oeuf|blancs d oeufs|mimosa|mayonnaise)\b/],
+  ['Lait', /\b(lait|beurre|creme|fromage|parmesan|comte|cheddar|mozzarella|mascarpone|ricotta|yaourt|yogourt|feta)\b/],
+  ['Fruits a coque', /\b(amande|amandes|noisette|noisettes|pistache|pistaches|noix|pecan|cajou|praline|pralinoise|pignons?)\b/],
+  ['Arachides', /\b(arachide|arachides|cacahuete|cacahuetes|beurre de cacahuete)\b/],
+  ['Soja', /\b(soja|sauce soja|tofu|miso|edamame)\b/],
+  ['Moutarde', /\b(moutarde|graines de moutarde)\b/],
+  ['Poisson', /\b(poisson|saumon|thon|cabillaud|anchois|sardine|dorade|bar|bouillabaisse)\b/],
+  ['Crustaces', /\b(crevette|crevettes|crabe|homard|langoustine|gambas)\b/],
+  ['Mollusques', /\b(calamar|calamars|chipiron|chipirons|palourde|palourdes|poulpe|encornet|encornets|moules de bouchot|chair de moules)\b/],
+  ['Sesame', /\b(sesame|tahini|tahin)\b/],
+  ['Sulfites', /\b(sulfite|sulfites|vin blanc|vin rouge|vinaigre de vin)\b/],
+  ['Celeri', /\b(celeri|celeri rave|celeri-rave)\b/],
+  ['Lupin', /\b(lupin|farine de lupin)\b/]
+];
+
+const AVERAGE_WEIGHT_RULES = [
+  { label: 'Oeuf moyen', value: '~ 55g', pattern: /\b(oeuf|oeufs|oeufs entiers|oeuf entier)\b/, except: /\b(jaunes?|blancs?) d[' ]?(oeuf|oeufs)\b/ },
+  { label: 'Jaune d oeuf', value: '~ 18g', pattern: /\bjaunes? d[' ]?(oeuf|oeufs)\b/ },
+  { label: 'Blanc d oeuf', value: '~ 30g', pattern: /\bblancs? d[' ]?(oeuf|oeufs)\b/ },
+  { label: 'Citron jaune', value: '~ 100 a 120g', pattern: /\b(citron entier|citron jaune|citrons jaunes|citron bio|citron non traite|citron)\b/, except: /\b(jus|zeste|quartiers?|citron vert|lime|confit)\b/ },
+  { label: 'Citron vert', value: '~ 60 a 80g', pattern: /\b(citron vert|citrons verts|lime|limes)\b/, except: /\b(jus|zeste)\b/ },
+  { label: 'Jus d un citron vert', value: '~ 20 a 30g', pattern: /\b(jus de citron vert|jus de lime)\b/ },
+  { label: 'Jus d un citron jaune', value: '~ 40 a 50g', pattern: /\bjus de citron\b/, except: /\b(citron vert|lime)\b/ },
+  { label: 'Gousse d ail', value: '~ 5g', pattern: /\b(gousse d ail|gousses d ail|ail)\b/ },
+  { label: 'Oignon moyen', value: '~ 100 a 120g', pattern: /\b(oignon|oignons)\b/ },
+  { label: 'Echalote', value: '~ 25 a 30g', pattern: /\b(echalote|echalotes)\b/ },
+  { label: 'Tomate moyenne', value: '~ 120g', pattern: /\b(tomate|tomates)\b/ },
+  { label: 'Carotte moyenne', value: '~ 100g', pattern: /\b(carotte|carottes)\b/ },
+  { label: 'Pomme de terre moyenne', value: '~ 150g', pattern: /\b(pomme de terre|pommes de terre)\b/ },
+  { label: 'Patate douce moyenne', value: '~ 250g', pattern: /\b(patate douce|patates douces)\b/ },
+  { label: 'Avocat', value: '~ 150g de chair', pattern: /\b(avocat|avocats)\b/ },
+  { label: 'Poivron', value: '~ 150 a 180g', pattern: /\b(poivron|poivrons)\b/ },
+  { label: 'Melon moyen', value: '~ 800g a 1kg', pattern: /\b(melon|melons|melon charentais)\b/, except: /\b(jus de melon|billes? de melon)\b/ },
+  { label: 'Courgette moyenne', value: '~ 200g', pattern: /\b(courgette|courgettes)\b/ },
+  { label: 'Aubergine moyenne', value: '~ 300g', pattern: /\b(aubergine|aubergines)\b/ },
+  { label: 'Jus d une orange', value: '~ 70 a 90g', pattern: /\bjus d[' ]?orange\b/ },
+  { label: 'Orange', value: '~ 150 a 180g', pattern: /\b(orange|oranges)\b/, except: /\bjus d[' ]?orange\b/ },
+  { label: 'Pomme', value: '~ 150g', pattern: /\b(pomme|pommes)\b(?!\s+de\s+terre)/ },
+  { label: 'Poire', value: '~ 160g', pattern: /\b(poire|poires)\b/ }
+];
+
+const SPOON_WEIGHT_NOTE = 'Repere indicatif : cuilleres rases pour les poudres et pates, liquides remplis a niveau.';
+
+function detectAllergens(recipe) {
+  const allergens = new Set(cleanArray(recipe.allergens));
+  const text = recipeRuleText(recipe).replace(
+    /\b(?:beurrer|fariner|graisser|chemiser|huiler|foncer|remplir|garnir|preparer|utiliser|verser|poser|dans|sur)\s+(?:un|une|des|le|la|les)?\s*moules?\b|\bmoules?\s+a\s+(?:cake|tarte|manque|muffins?|charniere|savarin|gateau|gratin|ramequins?)\b/g,
+    ' '
+  );
+  ALLERGEN_RULES.forEach(([label, pattern]) => {
+    if (pattern.test(text)) allergens.add(label);
+  });
+  return uniqueText([...allergens]);
+}
+
+function shouldShowAverageWeightForLine(text) {
+  if (/\b\d+(?:[.,]\d+)?\s*g\b/.test(text)) return true;
+  return /^(?:\d+(?:[.,]\d+)?(?:\/\d+)?|une?|quelques|des)\s+(?!min\b|minutes?\b|g\b|kg\b|ml\b|cl\b|l\b|c\.?\b|cuill|pincee\b|trait\b|filet\b)/.test(text);
+}
+
+function averageWeightItems(recipe) {
+  const found = new Map();
+  if (Array.isArray(recipe.averageWeights)) {
+    recipe.averageWeights.forEach(item => {
+      const label = stripHtml(item?.label || item?.name || '');
+      const value = stripHtml(item?.value || item?.weight || '');
+      if (label && value) found.set(label, value);
+    });
+  }
+  ingredientLines(recipe).forEach(item => {
+    const text = normalizeText(item);
+    if (!shouldShowAverageWeightForLine(text)) return;
+    AVERAGE_WEIGHT_RULES.forEach(rule => {
+      if (rule.except?.test(text)) return;
+      if (rule.pattern.test(text) && !found.has(rule.label)) found.set(rule.label, rule.value);
+    });
+  });
+  return Array.from(found, ([label, value]) => `${label}: ${value}`);
+}
+
+function hasSpoonMeasures(recipe) {
+  return ingredientLines(recipe).some(item =>
+    /\b(\d+(?:[,.]\d+)?)\s*(c\.?\s*a\s*(?:soupe|cafe)|cuilleres?\s*a\s*(?:soupe|cafe))\b/.test(normalizeText(item))
+  );
+}
+
+function inferStorage(recipe) {
+  const text = recipeRuleText(recipe);
+  if (/\b(creme|lait|fromage|yaourt|oeuf|oeufs|mayonnaise|poisson|saumon|thon|crevette|crabe)\b/.test(text)) {
+    return ['Conserver au refrigerateur a 0-4C en contenant propre ferme et consommer sous 24-48h.'];
+  }
+  if (/\b(cuit|cuire|four|poele|mijoter|gratin|soupe|plat)\b/.test(text)) {
+    return ['Refroidir rapidement, conserver en boite hermetique au refrigerateur 3-4 jours et rechauffer doucement.'];
+  }
+  return [];
+}
+
+function cleanPractical(recipe) {
+  const practical = recipe && recipe.practical && typeof recipe.practical === 'object' ? recipe.practical : {};
+  const allergens = detectAllergens(recipe);
   const labels = {
-    equipment: 'Materiel',
-    storage: 'Conservation',
-    mistakes: 'A eviter',
-    result: 'Resultat'
+    equipment: ['Materiel', asTextList(practical.equipment)],
+    measures: ['Repere indicatif', hasSpoonMeasures(recipe) ? [SPOON_WEIGHT_NOTE] : []],
+    weights: ['Poids moyens', [...averageWeightItems(recipe), ...asTextList(practical.weights)]],
+    storage: ['Conservation', uniqueText([...inferStorage(recipe), ...asTextList(recipe.storage), ...asTextList(practical.storage)])],
+    reheating: ['Rechauffage', uniqueText([...asTextList(recipe.reheating), ...asTextList(practical.reheating)])],
+    tips: ['A savoir', uniqueText([...asTextList(recipe.tips), ...asTextList(practical.tips)])],
+    substitutions: ['Substitutions', uniqueText([...asTextList(recipe.substitutions), ...asTextList(practical.substitutions)])],
+    mistakes: ['A eviter', uniqueText([...asTextList(recipe.mistakes), ...asTextList(practical.mistakes)])],
+    result: ['Resultat', uniqueText([...asTextList(recipe.result), ...asTextList(practical.result)])],
+    service: ['Service', uniqueText([...asTextList(recipe.service), ...asTextList(practical.service)])],
+    timeline: ['Timing', uniqueText([...asTextList(recipe.timeline), ...asTextList(practical.timeline)])]
   };
-  return Object.entries(labels)
-    .map(([key, title]) => ({
+  return [
+    {
+      title: 'Allergenes',
+      items: allergens.length
+        ? allergens
+        : ['Aucun allergene majeur detecte dans les ingredients.']
+    },
+    ...Object.values(labels).map(([title, items]) => ({
       title,
-      items: cleanArray(practical[key])
+      items: uniqueText(items)
     }))
+  ]
     .filter(section => section.items.length);
 }
 
@@ -300,7 +449,7 @@ function compactRecipe(id, recipe, imageName, detailImageName) {
   const steps = cleanArray(recipe.steps);
   const notes = cleanArray(recipe.notes);
   const technical = cleanTechnical(recipe.technical);
-  const practical = cleanPractical(recipe.practical);
+  const practical = cleanPractical(recipe);
   const aliases = cleanArray(recipe.aliases);
   const tags = cleanArray(recipe.tags);
   const searchText = normalizeText([
@@ -311,7 +460,9 @@ function compactRecipe(id, recipe, imageName, detailImageName) {
     ...tags,
     ...ingredients.flatMap(group => [group.group, ...group.items]),
     ...steps,
-    ...notes
+    ...notes,
+    ...technical.flatMap(item => [item.label, item.value]),
+    ...practical.flatMap(section => [section.title, ...section.items])
   ].join(' '));
 
   return {

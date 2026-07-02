@@ -44,14 +44,21 @@ site, ouvre les fiches dans des vues Android natives, et charge les images avec
 un cache memoire limite.
 
 La lecture doit rester confortable malgre le mode Lite : titres ellipses dans la
-liste, fiche recette detaillee proche du site avec hero 16/9, actions dans le
-hero, grille Ingredients/Etapes/Avant de commencer, infos rapides en pastilles,
-ingredients en lignes lisibles, etapes numerotees et variantes cliquables. Les
-fonctions reintegrees doivent rester natives et peu couteuses : favoris locaux
-`SharedPreferences`, recherche simple sans filtres avec recherche intelligente
+liste, fiche recette detaillee proche du site avec hero 16/9, actions utiles
+dans le hero, grille Ingredients/Etapes/Avant de commencer, infos rapides en
+pastilles allegees, ingredients en lignes lisibles, etapes numerotees et
+variantes cliquables. La fiche detail Android ne doit pas remettre saisons,
+difficulte, nombre d etapes, bouton favori ou bouton partager : ces elements
+chargent l ecran sans aider la tablette en cuisine. Le choix de quantite doit
+etre un selecteur natif de personnes lorsque la fiche a un rendement en
+personnes ou parts, et il doit mettre a jour les rendements affiches, les
+ingredients, la copie et les courses. Les informations `Avant de commencer`
+doivent integrer allergenes, poids moyens utiles, repere cuilleres,
+conservation et rechauffage quand les donnees existent dans le catalogue. Les
+fonctions reintegrees doivent rester natives et peu couteuses : recherche simple sans filtres avec recherche intelligente
 sans filtres sous le capot, copie des ingredients vers le presse-papiers, liste
-de courses locale avec courses cochables, copie fiche et partage fiche,
-navigation restaurable, swipe retour bord gauche, prechargement images, audit
+de courses locale avec courses cochables, copie fiche, navigation restaurable,
+swipe retour bord gauche, prechargement images, audit
 perf leger et ecran actif persistant pour cuisiner sans mise en veille. Le
 prechauffage images differe doit laisser les images visibles passer avant les
 prefetchs. Le chargeur garde une file image prioritaire mono-thread :
@@ -229,7 +236,7 @@ Dans l APK installe, le bouton natif `Mise a jour` doit ouvrir la meme
 URL. Sur la tablette, l utilisateur telecharge alors la nouvelle APK puis
 choisit `Installer une mise a jour`. Ne pas changer le package
 `fr.cooknote.legacy`, sinon Android ne pourra plus remplacer l ancienne app et
-les favoris locaux seraient perdus.
+les preferences locales et les courses seraient perdues.
 
 L URL stable reste la meme d une version Android a l autre pour le bouton natif
 de mise a jour. Le bouton du site peut pointer vers le nom APK versionne
@@ -284,9 +291,10 @@ C est voulu.
 
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java`
   contient l interface native Android 5 Lite, les sections de fiche, les
-  pastilles d infos, les favoris, la recherche simple sans filtres, la copie
-  ingredients, la liste de courses locale, la copie fiche, le partage fiche,
-  la navigation restaurable, le swipe retour bord gauche, les courses
+  pastilles d infos allegees, la recherche simple sans filtres, la copie
+  ingredients, la liste de courses locale, la copie
+  fiche, le selecteur de personnes, la navigation restaurable, le swipe retour
+  bord gauche, les courses
   cochables, l audit perf leger, l ecran actif persistant, le bouton natif de
   mise a jour et les etapes numerotees.
 - `android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java`
@@ -305,7 +313,9 @@ C est voulu.
 - `app.js` expose `ANDROID_LEGACY_APK_VERSION` pour le lien de telechargement
   public. Cette version doit toujours etre la meme version produit `X.YY` que
   `SITE_VERSION` et `cookNoteAndroidVersion`.
-- `scripts/build-android-legacy-assets.js` genere le catalogue Native Lite.
+- `scripts/build-android-legacy-assets.js` genere le catalogue Native Lite,
+  y compris les sections `Avant de commencer` utiles a l APK : allergenes,
+  poids moyens, repere cuilleres, conservation et rechauffage.
 - `scripts/build-android-legacy.ps1` construit l APK et nettoie la sortie APK
   avant packaging.
 - `scripts/publish-android-release.ps1` publie l APK local sur GitHub Releases
@@ -324,11 +334,13 @@ C est voulu.
 - Ne pas versionner les APK ou AAB generes dans les dossiers Android.
 - Ne pas remettre GeckoView, WebView, React, service worker, serveur HTTP local
   ou `assets/www` dans Android Legacy.
-- Ne pas supprimer les fonctions natives legeres reintegrees : favoris locaux,
-  recherche simple sans filtres, copie ingredients, liste de courses locale,
-  courses cochables, copie fiche, partage fiche, navigation restaurable, swipe
-  retour bord gauche, prechargement images, audit perf leger et ecran actif
-  persistant.
+- Ne pas supprimer les fonctions natives legeres reintegrees : recherche simple
+  sans filtres, copie ingredients, liste de courses locale,
+  courses cochables, copie fiche, selecteur de personnes, navigation restaurable,
+  swipe retour bord gauche, prechargement images, audit perf leger et ecran
+  actif persistant.
+- Ne pas remettre sur la fiche detail Android les saisons, la difficulte, le
+  nombre d etapes, le bouton favori ou le bouton partager.
 - Ne pas remettre de filtres dans la recherche Android Legacy : pas de categorie,
   saison, difficulte, favoris, recents, `Toutes fiches` ou bouton aleatoire dans
   le panneau de recherche.

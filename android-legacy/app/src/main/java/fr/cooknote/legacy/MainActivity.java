@@ -34,7 +34,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.GridView;
@@ -59,7 +58,6 @@ import java.util.regex.Pattern;
 public class MainActivity extends Activity {
     private static final String UPDATE_APK_URL = "https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk";
     private static final String PREFS_NAME = "cook_note_legacy";
-    private static final String PREF_FAVORITES = "favorites";
     private static final String PREF_SHOPPING = "shopping";
     private static final String PREF_SHOPPING_DONE = "shopping_done";
     private static final String PREF_KEEP_SCREEN_ON = "keep_screen_on";
@@ -109,6 +107,13 @@ public class MainActivity extends Activity {
     private static final int TRIM_MEMORY_MODERATE_LEVEL = 60;
     private static final boolean PERF_LOG_ENABLED = false;
     private static final float[] QUANTITY_FACTORS = new float[]{0.5f, 1f, 1.5f, 2f, 3f, 4f};
+    private static final int MIN_SERVINGS = 1;
+    private static final int DEFAULT_MAX_SERVING_CHOICES = 12;
+    private static final int HARD_MAX_SERVING_CHOICES = 24;
+    private static final Pattern SERVING_COUNT_PATTERN = Pattern.compile(
+            "\\b(\\d+)\\s*(?:-|a|\\u00E0)?\\s*(\\d+)?\\s*(?:personnes?|pers\\.?|convives?|parts?)\\b",
+            Pattern.CASE_INSENSITIVE
+    );
     private static final Pattern INGREDIENT_AMOUNT_PATTERN = Pattern.compile(
             "^\\s*(\\d+/\\d+|\\d+(?:[,.]\\d+)?)(?:\\s*(?:-|a|\\u00E0)\\s*(\\d+/\\d+|\\d+(?:[,.]\\d+)?))?\\s*([A-Za-z]+)?\\s*(.*)$",
             Pattern.CASE_INSENSITIVE
@@ -169,7 +174,6 @@ public class MainActivity extends Activity {
         }
     };
     private final Stack<NavState> detailBackStack = new Stack<NavState>();
-    private final Set<String> favoriteIds = new HashSet<String>();
     private final Set<String> shoppingDoneKeys = new HashSet<String>();
     private final ArrayList<String> shoppingRecipeIds = new ArrayList<String>();
     private List<Recipe> pendingListPrewarmRecipes = Collections.emptyList();
@@ -345,7 +349,6 @@ public class MainActivity extends Activity {
         brandCopy.addView(stats, statsParams);
         addHeaderStat(stats, String.valueOf(repository.homeRecipes().size()), "accueil");
         addHeaderStat(stats, String.valueOf(repository.searchableRecipes().size()), "fiches");
-        addHeaderStat(stats, String.valueOf(favoriteIds.size()), "favoris");
 
         addAccentLine(header, 8, 0);
 
@@ -791,7 +794,6 @@ public class MainActivity extends Activity {
         List<Recipe> filtered = homeMode
                 ? repository.homeRecipes()
                 : repository.searchSmart(query);
-        adapter.setFavoriteIds(favoriteIds);
         adapter.setItems(filtered);
         if (filterChanged) resetListPosition();
         scheduleListPrewarm(filtered);
@@ -999,24 +1001,6 @@ public class MainActivity extends Activity {
         topTitle.setEllipsize(TextUtils.TruncateAt.END);
         top.addView(topTitle, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
-        if (!recipe.isCollection()) {
-            Button favorite = new Button(this);
-            favorite.setText(isFavorite(recipe.id) ? "Favori" : "+ Favori");
-            favorite.setTextColor(isFavorite(recipe.id) ? COLOR_TEXT_DARK : COLOR_TEXT);
-            favorite.setTextSize(11);
-            favorite.setTypeface(Typeface.DEFAULT_BOLD);
-            favorite.setAllCaps(false);
-            favorite.setBackground(isFavorite(recipe.id) ? buttonPanel(true) : buttonPanel(false));
-            top.addView(favorite, new LinearLayout.LayoutParams(dp(84), dp(36)));
-            favorite.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    toggleFavorite(recipe.id);
-                    openRecipe(recipe, false);
-                }
-            });
-        }
-
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(false);
         scroll.setSmoothScrollingEnabled(true);
@@ -1130,15 +1114,12 @@ public class MainActivity extends Activity {
         if (recipe.isCollection()) return countLabel(repository.collectionCount(recipe), "fiche rangee", "fiches rangees");
 
         ArrayList<String> parts = new ArrayList<String>();
-        String difficulty = recipe.difficultyLabel();
-        if (difficulty.length() > 0) parts.add(difficulty);
-        if (recipe.yield.length() > 0) parts.add(recipe.yield);
+        String serving = servingSummary(recipe);
+        if (serving.length() > 0) parts.add(serving);
         int totalTime = recipe.activeTime + recipe.cookTime;
         if (totalTime > 0) parts.add(formatMinutes(totalTime));
         int ingredientCount = countSelectedIngredients(recipe);
         if (ingredientCount > 0) parts.add(countLabel(ingredientCount, "ingredient", "ingredients"));
-        int stepCount = selectedRecipeSteps(recipe).size();
-        if (stepCount > 0) parts.add(countLabel(stepCount, "etape", "etapes"));
         return joinMetaParts(parts, "Fiche Cook Note");
     }
 
@@ -1194,25 +1175,6 @@ public class MainActivity extends Activity {
         });
         buttons.add(copy);
 
-        Button share = actionButton("Partager", false);
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shareRecipe(recipe);
-            }
-        });
-        buttons.add(share);
-
-        Button favorite = actionButton(isFavorite(recipe.id) ? "Favori" : "+ Favori", isFavorite(recipe.id));
-        favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleFavorite(recipe.id);
-                openRecipe(recipe, false);
-            }
-        });
-        buttons.add(favorite);
-
         Button screen = actionButton(keepScreenOn ? "Ecran actif" : "Veille auto", keepScreenOn);
         screen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1244,22 +1206,20 @@ public class MainActivity extends Activity {
 
     private void addQuickFacts(LinearLayout content, Recipe recipe) {
         ArrayList<String[]> facts = new ArrayList<String[]>();
-        if (!recipe.seasons.isEmpty()) facts.add(new String[]{"Saison", shortList(recipe.seasons, 2)});
 
         if (recipe.isCollection()) {
             facts.add(new String[]{"Collection", countLabel(repository.collectionCount(recipe), "fiche", "fiches")});
         } else {
-            String difficulty = recipe.difficultyLabel();
-            if (difficulty.length() > 0) facts.add(new String[]{"Difficulte", difficulty});
-            if (recipe.yield.length() > 0) facts.add(new String[]{"Quantite", recipe.yield});
+            String serving = servingSummary(recipe);
+            if (serving.length() > 0) {
+                facts.add(new String[]{baseServings(recipe) > 0 ? "Personnes" : "Quantite", serving});
+            }
             if (recipe.activeTime > 0) facts.add(new String[]{"Actif", formatMinutes(recipe.activeTime)});
             if (recipe.cookTime > 0) facts.add(new String[]{"Cuisson", formatMinutes(recipe.cookTime)});
             int totalTime = recipe.activeTime + recipe.cookTime;
             if (totalTime > 0) facts.add(new String[]{"Temps", formatMinutes(totalTime)});
             int ingredientCount = countSelectedIngredients(recipe);
             if (ingredientCount > 0) facts.add(new String[]{"Ingredients", String.valueOf(ingredientCount)});
-            int stepCount = selectedRecipeSteps(recipe).size();
-            if (stepCount > 0) facts.add(new String[]{"Etapes", String.valueOf(stepCount)});
         }
 
         if (facts.isEmpty()) return;
@@ -1346,6 +1306,47 @@ public class MainActivity extends Activity {
     }
 
     private void addQuantityControls(LinearLayout content, final Recipe recipe) {
+        final int baseServings = baseServings(recipe);
+        if (baseServings > 0) {
+            final int selectedServings = selectedServings(recipe);
+            LinearLayout section = addSection(content, "Personnes", servingLabel(selectedServings));
+            TextView help = text("Choisis le nombre de personnes. Les ingredients, la copie et les courses suivent.", 12, COLOR_MUTED, false);
+            help.setPadding(0, dp(6), 0, dp(2));
+            section.addView(help);
+
+            final ArrayList<Integer> servings = servingOptions(baseServings);
+            ArrayList<String> labels = new ArrayList<String>();
+            for (Integer serving : servings) {
+                labels.add(servingLabel(serving.intValue()));
+            }
+            final int selectedIndex = Math.max(0, servings.indexOf(Integer.valueOf(selectedServings)));
+            final int[] currentIndex = new int[]{selectedIndex};
+            Spinner spinner = createSpinner(labels);
+            spinner.setSelection(selectedIndex);
+            section.addView(spinner, fullWidthParams(dp(10), dp(46)));
+
+            TextView base = text("Base de la fiche : " + servingLabel(baseServings) + ".", 11, COLOR_DIM, false);
+            base.setPadding(0, dp(7), 0, 0);
+            section.addView(base);
+
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (position == currentIndex[0]) return;
+                    currentIndex[0] = position;
+                    int selected = servings.get(position).intValue();
+                    quantityFactor = clampQuantityFactor((float) selected / (float) baseServings);
+                    saveUserState();
+                    openRecipe(recipe, false);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+            return;
+        }
+
         LinearLayout section = addSection(content, "Quantites", "x" + factorLabel(quantityFactor));
         TextView help = text("Ajuste les ingredients affiches, la copie et les courses fusionnees.", 12, COLOR_MUTED, false);
         help.setPadding(0, dp(6), 0, dp(2));
@@ -1378,6 +1379,53 @@ public class MainActivity extends Activity {
             if (index % perRow < perRow - 1) params.rightMargin = dp(7);
             row.addView(button, params);
         }
+    }
+
+    private int baseServings(Recipe recipe) {
+        if (recipe == null || recipe.yield.length() == 0) return 0;
+        Matcher matcher = SERVING_COUNT_PATTERN.matcher(CookNoteRepository.normalize(recipe.yield));
+        if (!matcher.find()) return 0;
+        try {
+            return Math.max(MIN_SERVINGS, Integer.parseInt(matcher.group(1)));
+        } catch (Exception ignored) {
+            return 0;
+        }
+    }
+
+    private int selectedServings(Recipe recipe) {
+        int base = baseServings(recipe);
+        if (base <= 0) return 0;
+        int selected = Math.round(base * quantityFactor);
+        return clampServingChoice(selected, base);
+    }
+
+    private int clampServingChoice(int selected, int base) {
+        int max = maxServingChoice(base);
+        if (selected < MIN_SERVINGS) return MIN_SERVINGS;
+        return Math.min(selected, max);
+    }
+
+    private int maxServingChoice(int base) {
+        return Math.max(DEFAULT_MAX_SERVING_CHOICES, Math.min(HARD_MAX_SERVING_CHOICES, base * 2));
+    }
+
+    private ArrayList<Integer> servingOptions(int base) {
+        ArrayList<Integer> options = new ArrayList<Integer>();
+        int max = maxServingChoice(base);
+        for (int value = MIN_SERVINGS; value <= max; value += 1) {
+            options.add(Integer.valueOf(value));
+        }
+        return options;
+    }
+
+    private String servingSummary(Recipe recipe) {
+        int servings = selectedServings(recipe);
+        if (servings > 0) return servingLabel(servings);
+        return recipe == null ? "" : recipe.yield;
+    }
+
+    private String servingLabel(int count) {
+        return count + (count > 1 ? " personnes" : " personne");
     }
 
     private String factorLabel(float factor) {
@@ -1768,44 +1816,10 @@ public class MainActivity extends Activity {
     }
 
     private void updateInlineVariantMeta(TextView meta, Recipe recipe, InlineVariantChoice choice) {
-        int stepCount = choice.group.steps.isEmpty() ? recipe.steps.size() : choice.group.steps.size();
         StringBuilder builder = new StringBuilder();
         builder.append(choice.group.items.size()).append(choice.group.items.size() > 1 ? " ingredients" : " ingredient");
-        if (stepCount > 0) builder.append(" - ").append(stepCount).append(stepCount > 1 ? " etapes" : " etape");
         if (choice.group.note.length() > 0) builder.append(" - note");
         meta.setText(builder.toString());
-    }
-
-    private void addRecipeTools(LinearLayout content, final Recipe recipe) {
-        LinearLayout section = addSection(content, "Actions", "3 outils");
-
-        Button shopping = sectionButton(isInShopping(recipe.id) ? "Retirer des courses" : "Ajouter aux courses", true);
-        section.addView(shopping);
-        shopping.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleShopping(recipe);
-                openRecipe(recipe, false);
-            }
-        });
-
-        Button copy = sectionButton("Copier fiche", false);
-        section.addView(copy);
-        copy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                copyRecipe(recipe);
-            }
-        });
-
-        Button share = sectionButton("Partager fiche", false);
-        section.addView(share);
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shareRecipe(recipe);
-            }
-        });
     }
 
     private void addIngredients(LinearLayout content, Recipe recipe) {
@@ -1831,7 +1845,7 @@ public class MainActivity extends Activity {
 
     private void addSteps(LinearLayout content, Recipe recipe) {
         List<String> steps = selectedRecipeSteps(recipe);
-        LinearLayout section = addSection(content, "Etapes", steps.size() > 0 ? countLabel(steps.size(), "etape", "etapes") : null);
+        LinearLayout section = addSection(content, "Etapes");
         if (steps.isEmpty()) {
             body(section, "Aucune etape detaillee pour cette fiche.");
             return;
@@ -1899,56 +1913,6 @@ public class MainActivity extends Activity {
         );
         params.topMargin = dp(10);
         content.addView(path, params);
-    }
-
-    private void addInfoChips(LinearLayout content, Recipe recipe) {
-        HorizontalScrollView scroller = new HorizontalScrollView(this);
-        scroller.setHorizontalScrollBarEnabled(false);
-        LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        scroller.addView(row);
-
-        if (!recipe.seasons.isEmpty()) addInfoChip(row, "Saison", shortList(recipe.seasons, 2));
-        if (recipe.isCollection()) {
-            addInfoChip(row, "Fiches", String.valueOf(repository.collectionCount(recipe)));
-        } else {
-            String difficulty = recipe.difficultyLabel();
-            if (difficulty.length() > 0) addInfoChip(row, "Difficulte", difficulty);
-            if (recipe.yield.length() > 0) addInfoChip(row, "Quantite", recipe.yield);
-            int totalTime = recipe.activeTime + recipe.cookTime;
-            if (totalTime > 0) addInfoChip(row, "Temps", formatMinutes(totalTime));
-        }
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        params.topMargin = dp(10);
-        params.bottomMargin = dp(2);
-        content.addView(scroller, params);
-    }
-
-    private void addInfoChip(LinearLayout row, String label, String value) {
-        LinearLayout chip = new LinearLayout(this);
-        chip.setOrientation(LinearLayout.VERTICAL);
-        chip.setPadding(dp(11), dp(7), dp(11), dp(8));
-        chip.setBackground(panelGradient(COLOR_CARD_SOFT, Color.rgb(34, 28, 19), COLOR_BORDER_SOFT, 1, 8));
-
-        TextView labelView = text(label, 10, COLOR_GOLD, true);
-        labelView.setSingleLine(true);
-        chip.addView(labelView);
-
-        TextView valueView = text(value, 13, COLOR_TEXT, true);
-        valueView.setSingleLine(true);
-        valueView.setPadding(0, dp(2), 0, 0);
-        chip.addView(valueView);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        params.rightMargin = dp(8);
-        row.addView(chip, params);
     }
 
     private LinearLayout addSection(LinearLayout content, String value) {
@@ -2619,18 +2583,6 @@ public class MainActivity extends Activity {
         Toast.makeText(this, "Fiche copiee", Toast.LENGTH_SHORT).show();
     }
 
-    private void shareRecipe(Recipe recipe) {
-        Intent send = new Intent(Intent.ACTION_SEND);
-        send.setType("text/plain");
-        send.putExtra(Intent.EXTRA_SUBJECT, recipe.title);
-        send.putExtra(Intent.EXTRA_TEXT, buildRecipeText(recipe));
-        try {
-            startActivity(Intent.createChooser(send, "Partager"));
-        } catch (ActivityNotFoundException exception) {
-            copyRecipe(recipe);
-        }
-    }
-
     private void copyShoppingList() {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         if (clipboard == null) return;
@@ -3037,7 +2989,6 @@ public class MainActivity extends Activity {
 
     private void loadUserState() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        favoriteIds.clear();
         shoppingRecipeIds.clear();
         shoppingDoneKeys.clear();
         keepScreenOn = prefs.getBoolean(PREF_KEEP_SCREEN_ON, false);
@@ -3046,14 +2997,12 @@ public class MainActivity extends Activity {
         compactCards = prefs.getBoolean(PREF_COMPACT_CARDS, false);
         openLastRecipe = prefs.getBoolean(PREF_OPEN_LAST, false);
         lastRecipeId = prefs.getString(PREF_LAST_RECIPE, "");
-        parseIds(prefs.getString(PREF_FAVORITES, ""), favoriteIds, 0);
         parseIds(prefs.getString(PREF_SHOPPING, ""), shoppingRecipeIds, 0);
         parseRawIds(prefs.getString(PREF_SHOPPING_DONE, ""), shoppingDoneKeys);
     }
 
     private void saveUserState() {
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putString(PREF_FAVORITES, joinIds(new ArrayList<String>(favoriteIds)));
         editor.putString(PREF_SHOPPING, joinIds(shoppingRecipeIds));
         editor.putString(PREF_SHOPPING_DONE, joinIds(new ArrayList<String>(shoppingDoneKeys)));
         editor.putBoolean(PREF_KEEP_SCREEN_ON, keepScreenOn);
@@ -3066,20 +3015,9 @@ public class MainActivity extends Activity {
     }
 
     private float clampQuantityFactor(float value) {
-        for (float factor : QUANTITY_FACTORS) {
-            if (sameFactor(value, factor)) return factor;
-        }
-        return 1f;
-    }
-
-    private void parseIds(String raw, Set<String> output, int limit) {
-        if (raw == null || raw.length() == 0) return;
-        String[] ids = raw.split("\\n");
-        for (String id : ids) {
-            if (id.length() == 0 || repository.find(id) == null) continue;
-            output.add(id);
-            if (limit > 0 && output.size() >= limit) return;
-        }
+        if (Float.isNaN(value) || Float.isInfinite(value)) return 1f;
+        if (value < 0.25f) return 0.25f;
+        return Math.min(value, 6f);
     }
 
     private void parseIds(String raw, List<String> output, int limit) {
@@ -3110,22 +3048,8 @@ public class MainActivity extends Activity {
         return builder.toString();
     }
 
-    private boolean isFavorite(String id) {
-        return favoriteIds.contains(id);
-    }
-
     private boolean isInShopping(String id) {
         return shoppingRecipeIds.contains(id);
-    }
-
-    private void toggleFavorite(String id) {
-        if (favoriteIds.contains(id)) {
-            favoriteIds.remove(id);
-        } else {
-            favoriteIds.add(id);
-        }
-        saveUserState();
-        if (adapter != null) adapter.setFavoriteIds(favoriteIds);
     }
 
     private void toggleShopping(Recipe recipe) {

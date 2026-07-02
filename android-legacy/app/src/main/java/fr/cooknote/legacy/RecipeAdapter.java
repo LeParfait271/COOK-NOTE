@@ -17,10 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 final class RecipeAdapter extends BaseAdapter {
     private static final int COLOR_BG = Color.rgb(4, 4, 4);
@@ -40,7 +38,6 @@ final class RecipeAdapter extends BaseAdapter {
     private final Context context;
     private final ImageLoader imageLoader;
     private final List<Recipe> items = new ArrayList<Recipe>();
-    private final Set<String> favoriteIds = new HashSet<String>();
     private Map<String, Integer> collectionCounts;
     private boolean compactCards;
     private boolean prefetchEnabled = true;
@@ -58,15 +55,6 @@ final class RecipeAdapter extends BaseAdapter {
         items.clear();
         if (recipes != null) items.addAll(recipes);
         resetPrefetchWindow();
-        notifyDataSetChanged();
-    }
-
-    void setFavoriteIds(Set<String> ids) {
-        HashSet<String> next = new HashSet<String>();
-        if (ids != null) next.addAll(ids);
-        if (favoriteIds.equals(next)) return;
-        favoriteIds.clear();
-        favoriteIds.addAll(next);
         notifyDataSetChanged();
     }
 

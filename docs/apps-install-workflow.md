@@ -97,12 +97,12 @@ diagnostic. Elle ne doit pas etre utilisee comme workflow final de publication.
   avec petit cache memoire
 - Interface : `GridView` recyclee en cartes image 16/9 proches du site, accueil
   parent Android compact avec les fiches parents du site par defaut, recherche
-  simple sans filtres, favoris locaux, fiche recette detaillee
-  proche du site avec hero 16/9, actions dans le hero, grille
-  Ingredients/Etapes/Avant de commencer, infos rapides en pastilles,
+  simple sans filtres, fiche recette detaillee
+  proche du site avec hero 16/9, actions utiles dans le hero, grille
+  Ingredients/Etapes/Avant de commencer, infos rapides en pastilles allegees,
   ingredients en lignes, copie ingredients, rattachements parents additionnels,
-  bouton natif de mise a jour, liste de courses locale, copie fiche, partage
-  fiche, recherche intelligente sans filtres, navigation restaurable, swipe
+  bouton natif de mise a jour, liste de courses locale, copie fiche, selecteur
+  de personnes, recherche intelligente sans filtres, navigation restaurable, swipe
   retour bord gauche, recherche temporisee, prechargement images borne, decode
   image serialise, coalescence chargements image, chargements visibles
   coalesces, decodages visibles obsoletes ignores, images visibles prioritaires,
@@ -118,14 +118,15 @@ diagnostic. Elle ne doit pas etre utilisee comme workflow final de publication.
   borne, courses cochables, audit perf leger, ecran actif persistant, etapes numerotees, quantites ajustables,
   courses fusionnees, preferences locales discretes, diagnostic hors ligne,
   cache image adaptatif, scroll fluide, index recherche precompile, cartes
-  parent visibles et selecteurs natifs de preparation
+  parent visibles, selecteurs natifs de preparation, allergenes et poids moyens
+  dans Avant de commencer
 - Direction visuelle Android Legacy : refonte visuelle native premium sans
   moteur web, header compact avec stats locales, grille `GridView` en cartes
   image 16/9 tactiles recyclees, hero de fiche encadre, sections cadrees,
   pastilles lisibles, etats presses natifs et actions principales/secondaires
   distinguees
 
-Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, recherche simple sans filtres, recherche intelligente sans filtres, recherche temporisee, index recherche precompile, mots recherche predecoupes, fuzzy sans split, allocations recherche reduites, cache resultats recherche borne, requetes recentes reutilisees, classement recherche memoise, accueil parent Android, selecteurs natifs de preparation, partage fiche, navigation restaurable, swipe retour bord gauche, prechargement images borne, decode image serialise, coalescence chargements image, chargements visibles coalesces, decodages visibles obsoletes ignores, images visibles prioritaires, file image prioritaire, annulation prefetch obsolete, cache image normalise, nettoyage vues recyclees, vues image recyclees detachees, cibles image obsoletes liberees, images ecran detachees avant remplacement, prechauffage images differe, prechauffage visible apres scroll, annulation prechauffage en fling, prefetch ralenti hors inertie, catalogue parent precompile, enfants parents preclasses, compteurs collection caches, position de grille conservee, liberation memoire de liste, pile retour bornee, prefetch carte borne, courses cochables, courses fusionnees, quantites ajustables, preferences locales discretes, diagnostic hors ligne, cache image adaptatif, scroll fluide, audit perf leger, cartes parent visibles, ecran actif persistant.
+Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, recherche simple sans filtres, recherche intelligente sans filtres, recherche temporisee, index recherche precompile, mots recherche predecoupes, fuzzy sans split, allocations recherche reduites, cache resultats recherche borne, requetes recentes reutilisees, classement recherche memoise, accueil parent Android, selecteurs natifs de preparation, selecteur de personnes, allergenes et poids moyens Android, navigation restaurable, swipe retour bord gauche, prechargement images borne, decode image serialise, coalescence chargements image, chargements visibles coalesces, decodages visibles obsoletes ignores, images visibles prioritaires, file image prioritaire, annulation prefetch obsolete, cache image normalise, nettoyage vues recyclees, vues image recyclees detachees, cibles image obsoletes liberees, images ecran detachees avant remplacement, prechauffage images differe, prechauffage visible apres scroll, annulation prechauffage en fling, prefetch ralenti hors inertie, catalogue parent precompile, enfants parents preclasses, compteurs collection caches, position de grille conservee, liberation memoire de liste, pile retour bornee, prefetch carte borne, courses cochables, courses fusionnees, quantites ajustables, preferences locales discretes, diagnostic hors ligne, cache image adaptatif, scroll fluide, audit perf leger, cartes parent visibles, ecran actif persistant.
 
 La recherche Android Legacy reste volontairement basique : elle est fermee tant
 que l'utilisateur ne touche pas `Recherche`, puis affiche seulement un champ
