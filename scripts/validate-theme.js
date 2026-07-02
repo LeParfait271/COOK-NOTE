@@ -72,6 +72,7 @@ expect('prefers-color-scheme light non detecte.', lightRuntime.documentElement.d
 expect('Direction artistique jour non appliquee.', lightRuntime.documentElement.dataset.artDirection === 'day');
 expect('Assets jour valides non actifs.', lightRuntime.api?.dayAssetsApproved === true && lightRuntime.documentElement.dataset.artAssets === 'approved');
 expect('Asset hero jour incorrect.', lightRuntime.api?.asset?.('hero') === '/assets/day/base-du-site-day.jpg');
+expect('Logo jour incorrect.', lightRuntime.api?.asset?.('logo') === '/assets/day/cook-note-day.png');
 expect('Variables jour non branchees.', lightRuntime.documentElement.style.values['--art-background-image'] === 'url("/assets/day/base-principale-fond-site-day.jpg")');
 lightRuntime.api.setTheme('dark');
 expect('setTheme dark inactif.', lightRuntime.documentElement.dataset.theme === 'dark');
@@ -85,7 +86,7 @@ expect('Background art direction non tokenise.', style.includes('var(--art-backg
 expect('Background shell non tokenise.', style.includes('--ds-shell-background') && style.includes('background: var(--ds-shell-background)'));
 expect('Theme light shell absent.', style.includes('.mc-shell.theme-light'));
 expect('Surfaces light non couvertes.', style.includes('.mc-shell.theme-light :where(.site-footer-inner'));
-expect('Wordmark jour absent.', style.includes('.hero-wordmark'));
+expect('Logo jour non style.', style.includes('mix-blend-mode:multiply'));
 
 const app = read('app.js');
 expect('Runtime theme non branche dans app.js.', app.includes('CookNoteTheme') && app.includes('activeTheme') && app.includes('toggleTheme'));

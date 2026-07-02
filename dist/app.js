@@ -119,12 +119,12 @@ const DAY_RECIPE_ART_IMAGES = Object.freeze({
   cabillaud_crumble_chorizo: '/assets/day/recipe-seafood-day.jpg',
   beignets_calamar: '/assets/day/recipe-seafood-day.jpg'
 });
-const SITE_VERSION = 'v2.80';
+const SITE_VERSION = 'v2.81';
 const SITE_UPDATED_AT = '02/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.80';
+const ANDROID_LEGACY_APK_VERSION = '2.81';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -4560,8 +4560,8 @@ function Hero() {
   const logo = artAsset('logo');
   return h('section', { className: dayArt ? 'hero hero-day-art' : 'hero' },
     h('div', { className: 'hero-inner' },
-      h('h1', { className: dayArt ? 'hero-wordmark' : 'sr-only' }, 'Cook Note'),
-      !dayArt && h('img', { className: 'hero-logo', src: logo, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(logo) })
+      h('h1', { className: 'sr-only' }, 'Cook Note'),
+      h('img', { className: 'hero-logo', src: logo, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(logo) })
     )
   );
 }
@@ -6451,7 +6451,6 @@ function RecipeView({
   const heroUsesHomeImage = showVariants;
   const artHeroImage = artAsset('hero', activeTheme);
   const artLogoImage = artAsset('logo', activeTheme);
-  const showArtLogoImage = !(activeTheme === 'light' && CookNoteTheme.dayAssetsApproved);
   const heroImage = heroUsesHomeImage ? artHeroImage : (selectedRecipe.image || recipe.image);
   const heroStyle = heroImage
     ? {
@@ -6474,7 +6473,7 @@ function RecipeView({
       style: heroStyle
     },
       h('div', { className: 'detail-hero-copy' },
-        heroUsesHomeImage && showArtLogoImage && h('img', { className: 'detail-hero-logo', src: artLogoImage, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(artLogoImage) }),
+        heroUsesHomeImage && h('img', { className: 'detail-hero-logo', src: artLogoImage, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(artLogoImage) }),
         h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome, openRecipe }),
         h('h1', null, recipe.title),
         h('div', { className: 'detail-meta' },

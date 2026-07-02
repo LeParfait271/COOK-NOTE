@@ -11,7 +11,7 @@
   const J = Object.freeze({
     background: '/assets/day/base-principale-fond-site-day.jpg',
     hero: '/assets/day/base-du-site-day.jpg',
-    logo: '/assets/cook-note.png',
+    logo: '/assets/day/cook-note-day.png',
     appIcon: '/assets/cook-note.png'
   });
   const M = Object.freeze({ dark: N, light: OK ? J : N });

@@ -11,6 +11,7 @@ const DAY_ART_FILES = [
   'assets/day/category-petit-dejeuner-day.jpg',
   'assets/day/category-plats-day.jpg',
   'assets/day/category-sauces-bases-day.jpg',
+  'assets/day/cook-note-day.png',
   'assets/day/recipe-seafood-day.jpg'
 ];
 const CHECK_ONLY = process.argv.includes('--check');

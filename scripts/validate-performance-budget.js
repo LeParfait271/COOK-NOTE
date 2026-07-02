@@ -26,7 +26,7 @@ const DIRECTORY_BUDGETS = [
 ];
 
 const IMAGE_BUDGETS = [
-  ['assets/day/', 420 * KB],
+  ['assets/day/', 620 * KB],
   ['assets/recipe-card-images/', 170 * KB],
   ['assets/recipe-images-optimized/', 520 * KB],
   ['assets/recipe-images/', 3600 * KB]
@@ -38,6 +38,7 @@ const DAY_ART_FILES = [
   'assets/day/category-petit-dejeuner-day.jpg',
   'assets/day/category-plats-day.jpg',
   'assets/day/category-sauces-bases-day.jpg',
+  'assets/day/cook-note-day.png',
   'assets/day/recipe-seafood-day.jpg'
 ];
 

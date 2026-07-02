@@ -234,6 +234,7 @@ if (!staticAssets) {
     '/assets/day/category-petit-dejeuner-day.jpg',
     '/assets/day/category-plats-day.jpg',
     '/assets/day/category-sauces-bases-day.jpg',
+    '/assets/day/cook-note-day.png',
     '/assets/day/recipe-seafood-day.jpg'
   ].forEach(required => {
     if (!normalizedStaticAssets.includes(required)) fail(`service-worker.js: asset critique absent du precache (${required}).`);

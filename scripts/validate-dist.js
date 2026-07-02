@@ -28,6 +28,7 @@ const REQUIRED_FILES = [
   'assets/day/category-petit-dejeuner-day.jpg',
   'assets/day/category-plats-day.jpg',
   'assets/day/category-sauces-bases-day.jpg',
+  'assets/day/cook-note-day.png',
   'assets/day/recipe-seafood-day.jpg',
   'assets/image-manifest.js',
   'assets/vendor/react.production.min.js',

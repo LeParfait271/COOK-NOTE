@@ -50,6 +50,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 969,
     "bytes": 320125
   },
+  "assets/day/cook-note-day.png": {
+    "width": 948,
+    "height": 302,
+    "bytes": 583278
+  },
   "assets/day/recipe-seafood-day.jpg": {
     "width": 1536,
     "height": 1024,
