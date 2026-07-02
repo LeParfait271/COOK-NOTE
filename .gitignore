@@ -4,5 +4,6 @@ admin.local.json
 backups/
 test-results/
 playwright-report/
+tmp/
 .DS_Store
 *.log

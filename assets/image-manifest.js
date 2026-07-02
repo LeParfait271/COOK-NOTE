@@ -80,6 +80,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1050,
     "bytes": 292571
   },
+  "assets/day/recipe-ajitsuke_tamago_oeufs_marines_ramen-day.jpg": {
+    "width": 1400,
+    "height": 815,
+    "bytes": 211106
+  },
+  "assets/day/recipe-asperges_mimosa-day.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 281571
+  },
   "assets/day/recipe-beignets_calamar-day.jpg": {
     "width": 1400,
     "height": 933,
@@ -94,6 +104,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 320270
+  },
+  "assets/day/recipe-bricks_fromage_miel_poires_pecan-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 255161
   },
   "assets/day/recipe-brie_farci_fruits_secs_noix-day.jpg": {
     "width": 1400,
@@ -130,6 +145,21 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 363060
   },
+  "assets/day/recipe-carpaccio_betterave_mozzarella_yuzu-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 425234
+  },
+  "assets/day/recipe-cassolette_crevettes_ravioles_persil-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 248668
+  },
+  "assets/day/recipe-chipirons_a_la_plancha-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 319492
+  },
   "assets/day/recipe-chocolat_ancien-day.jpg": {
     "width": 1400,
     "height": 933,
@@ -160,6 +190,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 332461
   },
+  "assets/day/recipe-crudites_maitre-day.jpg": {
+    "width": 1400,
+    "height": 787,
+    "bytes": 293149
+  },
   "assets/day/recipe-falafels_four-day.jpg": {
     "width": 1400,
     "height": 933,
@@ -179,6 +214,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 341131
+  },
+  "assets/day/recipe-legumes_rotis-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 302969
   },
   "assets/day/recipe-madeleines_comte_epices_douces-day.jpg": {
     "width": 1400,
@@ -200,10 +240,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 347774
   },
+  "assets/day/recipe-oeufs_meurette_faciles-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 314657
+  },
   "assets/day/recipe-oeufs_mimosa_variantes-day.jpg": {
     "width": 1400,
     "height": 933,
     "bytes": 352538
+  },
+  "assets/day/recipe-oignons_rotis_thym_miel-day.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 298335
   },
   "assets/day/recipe-pain_grille_beurre_ail_herbes-day.jpg": {
     "width": 1400,
@@ -240,6 +290,26 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1050,
     "bytes": 368294
   },
+  "assets/day/recipe-salade_caprese-day.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 306247
+  },
+  "assets/day/recipe-salade_epinards_clementines_amande_feta-day.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 258643
+  },
+  "assets/day/recipe-salade_pois_chiche_feta_olives-day.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 250178
+  },
+  "assets/day/recipe-salade_pois_chiches_thon_poivrons-day.jpg": {
+    "width": 1400,
+    "height": 768,
+    "bytes": 302394
+  },
   "assets/day/recipe-samoussas_boeuf_epinards_petits_pois-day.jpg": {
     "width": 1400,
     "height": 933,
@@ -275,10 +345,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 300005
   },
+  "assets/day/recipe-tomates_maitre-day.jpg": {
+    "width": 1400,
+    "height": 780,
+    "bytes": 313436
+  },
   "assets/day/recipe-tomates_variantes-day.jpg": {
     "width": 1400,
     "height": 933,
     "bytes": 405530
+  },
+  "assets/day/recipe-veloute_hiver_noix_cajou-day.jpg": {
+    "width": 1400,
+    "height": 798,
+    "bytes": 268521
   },
   "assets/day/recipe-verrines_chataignes_foie_gras-day.jpg": {
     "width": 1400,
