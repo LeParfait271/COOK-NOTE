@@ -11,6 +11,7 @@ const REQUIRED_FILES = [
   '_redirects',
   'app.js',
   'app-images.js',
+  'theme.js',
   'i18n.js',
   'assets/base-du-site.png',
   'assets/base-principale-fond-site.jpg',
@@ -178,7 +179,7 @@ if (!fs.existsSync(DIST)) {
     }
   }
 
-  ['index.html', 'recipe.html', 'i18n.js', 'recipes.js', 'service-worker.js', 'style.css'].forEach(file => {
+  ['index.html', 'recipe.html', 'theme.js', 'i18n.js', 'recipes.js', 'service-worker.js', 'style.css'].forEach(file => {
     if (exists(file) && /\ufffd/.test(read(file))) {
       fail(`dist/${file}: caractere de remplacement UTF-8 detecte.`);
     }

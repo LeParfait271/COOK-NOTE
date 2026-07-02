@@ -30,6 +30,16 @@ const CookNoteI18n = window.CookNoteI18n || {
 };
 const t = (key, params) => CookNoteI18n.t(key, params);
 const translateUiText = value => CookNoteI18n.text(value);
+const CookNoteTheme = window.CookNoteTheme || {
+  themes: ['dark'],
+  defaultTheme: 'dark',
+  theme: () => 'dark',
+  applyTheme: () => 'dark',
+  setTheme: () => 'dark',
+  toggleTheme: () => 'dark',
+  subscribe: () => () => {},
+  isValidTheme: value => value === 'dark'
+};
 
 const deferredScriptLoads = new Map();
 
@@ -88,12 +98,12 @@ function runConfettiBurst() {
 
 const HERO_IMAGE = '/assets/base-du-site.png';
 const COOK_NOTE_LOGO = '/assets/cook-note-white.png';
-const SITE_VERSION = 'v2.76';
+const SITE_VERSION = 'v2.77';
 const SITE_UPDATED_AT = '02/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.76';
+const ANDROID_LEGACY_APK_VERSION = '2.77';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -4361,6 +4371,20 @@ const ICON_PATHS = {
     'M10 17h10',
     'M6 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z'
   ],
+  sun: [
+    'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z',
+    'M12 2.8V5',
+    'M12 19v2.2',
+    'M4.2 4.2l1.6 1.6',
+    'M18.2 18.2l1.6 1.6',
+    'M2.8 12H5',
+    'M19 12h2.2',
+    'M4.2 19.8l1.6-1.6',
+    'M18.2 5.8l1.6-1.6'
+  ],
+  moon: [
+    'M20.5 14.8A7.8 7.8 0 0 1 9.2 3.5 8.7 8.7 0 1 0 20.5 14.8Z'
+  ],
   close: [
     'M6 6l12 12',
     'M18 6 6 18'
@@ -4435,7 +4459,8 @@ function LanguageSwitcher() {
   );
 }
 
-function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, openMenuPlanner, openTechniques, query, openSearch, openPreferences }) {
+function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, openMenuPlanner, openTechniques, query, openSearch, openPreferences, activeTheme, toggleTheme }) {
+  const themeToggleLabel = activeTheme === 'light' ? 'Passer en mode nuit' : 'Passer en mode jour';
   return h('header', { className: 'topbar' },
     h('div', { className: 'top-left' },
       h(Button, { variant: 'subtle', className: 'icon-square', onClick: onHome, title: 'Accueil', ariaLabel: 'Accueil' }, h(Icon, { name: 'home' }))
@@ -4463,6 +4488,14 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
     ),
     h('div', { className: 'top-right' },
       h(LanguageSwitcher),
+      h(Button, {
+        variant: 'ghost',
+        className: 'theme-toggle-btn icon-square',
+        onClick: toggleTheme,
+        title: themeToggleLabel,
+        ariaLabel: themeToggleLabel,
+        pressed: activeTheme === 'light'
+      }, h(Icon, { name: activeTheme === 'light' ? 'moon' : 'sun' })),
       h(Button, {
         variant: 'ghost',
         className: query.trim() ? 'top-search-button icon-square active' : 'top-search-button icon-square',
@@ -5765,14 +5798,11 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
   );
 }
 
-function PreferencesPanel({ open, onClose, preferences, setPreferences }) {
+function PreferencesPanel({ open, onClose, preferences, updatePreferences }) {
   if (!open) return null;
-  const update = patch => {
-    const next = { ...preferences, ...patch };
-    setPreferences(next);
-    writeJson(STORAGE_KEYS.preferences, next);
-  };
+  const update = patch => updatePreferences(patch);
   const density = preferences.density || 'comfort';
+  const theme = preferences.theme === 'light' ? 'light' : 'dark';
   return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
     h('section', { className: 'modal-panel preferences-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'preferences-title', onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
@@ -5781,6 +5811,13 @@ function PreferencesPanel({ open, onClose, preferences, setPreferences }) {
           h('h2', { id: 'preferences-title' }, 'Préférences')
         ),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
+      ),
+      h('div', { className: 'preference-group' },
+        h('strong', null, 'Thème'),
+        h('div', { className: 'segmented-control', role: 'group', 'aria-label': 'Thème' },
+          h('button', { type: 'button', className: theme === 'dark' ? 'active' : '', 'aria-pressed': theme === 'dark', title: 'Conserver le mode nuit', onClick: () => update({ theme: 'dark' }) }, 'Nuit'),
+          h('button', { type: 'button', className: theme === 'light' ? 'active' : '', 'aria-pressed': theme === 'light', title: 'Activer le mode jour', onClick: () => update({ theme: 'light' }) }, 'Jour')
+        )
       ),
       h('div', { className: 'preference-group' },
         h('strong', null, 'Densité des cartes'),
@@ -6629,7 +6666,17 @@ function App() {
   const searchableRecipes = useMemo(() => recipes.filter(recipe => !isMasterRecipe(recipe)), [recipes]);
   const currentSeason = useMemo(() => getCurrentSeason(), []);
 
-  const [preferences, setPreferences] = useState(() => ({ density: 'comfort', largeText: false, reduceMotion: false, ...readJson(STORAGE_KEYS.preferences, {}) }));
+  const [preferences, setPreferences] = useState(() => {
+    const stored = readJson(STORAGE_KEYS.preferences, {});
+    const detectedTheme = CookNoteTheme.theme();
+    return {
+      density: 'comfort',
+      largeText: false,
+      reduceMotion: false,
+      ...stored,
+      theme: CookNoteTheme.isValidTheme(stored.theme) ? stored.theme : detectedTheme
+    };
+  });
   const [query, setQuery] = useState(() => new URLSearchParams(window.location.search).get('q') || '');
   const searchFilterQuery = useDebouncedValue(query, 120);
   const [difficultyFilter, setDifficultyFilter] = useState('');
@@ -6666,6 +6713,27 @@ function App() {
   const historyIndexRef = useRef(0);
   const catalogChunkLoadRef = useRef(null);
   const fullRecipeLoadRef = useRef(null);
+  const activeTheme = preferences.theme === 'light' ? 'light' : 'dark';
+  const updatePreferences = patch => {
+    setPreferences(current => {
+      const nextTheme = Object.prototype.hasOwnProperty.call(patch, 'theme') && CookNoteTheme.isValidTheme(patch.theme)
+        ? patch.theme
+        : current.theme;
+      const next = { ...current, ...patch, theme: nextTheme };
+      writeJson(STORAGE_KEYS.preferences, next);
+      if (Object.prototype.hasOwnProperty.call(patch, 'theme')) CookNoteTheme.setTheme(next.theme);
+      return next;
+    });
+  };
+  const toggleTheme = () => updatePreferences({ theme: activeTheme === 'light' ? 'dark' : 'light' });
+
+  useEffect(() => {
+    CookNoteTheme.applyTheme(activeTheme);
+  }, [activeTheme]);
+
+  useEffect(() => CookNoteTheme.subscribe(theme => {
+    setPreferences(current => current.theme === theme ? current : { ...current, theme });
+  }), []);
 
   const activeRecipe = activeId ? recipesById[activeId] : null;
   const activeSeoRecipe = activeRecipe;
@@ -7368,6 +7436,7 @@ function App() {
   const shellClassName = [
     'mc-shell',
     activeLocale === 'en' ? 'locale-en' : 'locale-fr',
+    activeTheme === 'light' ? 'theme-light' : 'theme-dark',
     preferences.density === 'compact' ? 'display-compact' : '',
     preferences.largeText ? 'display-large-text' : '',
     preferences.reduceMotion ? 'display-reduce-motion' : ''
@@ -7379,7 +7448,8 @@ function App() {
     className: shellClassName,
     style: shellStyle,
     'data-app-mode': 'standard',
-    'data-locale': activeLocale
+    'data-locale': activeLocale,
+    'data-theme': activeTheme
   },
     h(TopBarFixed, {
       onHome: goHome,
@@ -7390,7 +7460,9 @@ function App() {
       openTechniques: goTechniques,
       query,
       openSearch: openCommandPalette,
-      openPreferences: () => setPreferencesOpen(true)
+      openPreferences: () => setPreferencesOpen(true),
+      activeTheme,
+      toggleTheme
     }),
     h('a', { className: 'skip-link', href: '#cook-note-content' }, 'Aller au contenu'),
     h('nav', { className: 'mobile-bottom-nav', 'aria-label': 'Navigation mobile' },
@@ -7510,7 +7582,7 @@ function App() {
       open: preferencesOpen,
       onClose: () => setPreferencesOpen(false),
       preferences,
-      setPreferences
+      updatePreferences
     }),
     h(AppInstallPanel, {
       option: installGuide,

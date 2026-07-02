@@ -22,6 +22,12 @@
   --ds-color-error: #ef4444;
   --ds-color-error-text: #fecaca;
   --ds-color-info: #38bdf8;
+  --ds-color-scheme: dark;
+  --ds-loading-overlay: linear-gradient(115deg, rgba(0,0,0,.92), rgba(0,0,0,.72));
+  --ds-shell-background:
+    linear-gradient(180deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .94) 58%, #050505),
+    url("/assets/base-principale-fond-site.jpg") center top / cover repeat-y,
+    #050505;
   --ds-space-1: 4px;
   --ds-space-2: 8px;
   --ds-space-3: 12px;
@@ -69,6 +75,35 @@
   --speed: var(--ds-duration) var(--ds-ease);
 }
 
+:root[data-theme="light"] {
+  --ds-color-background: #f5efe4;
+  --ds-color-background-muted: #ebe1d0;
+  --ds-color-surface: rgba(255, 251, 243, .86);
+  --ds-color-surface-strong: rgba(255, 250, 239, .96);
+  --ds-color-surface-soft: rgba(112, 74, 28, .08);
+  --ds-color-elevated: rgba(255, 252, 246, .98);
+  --ds-color-primary: #b45309;
+  --ds-color-primary-ink: #fff8ea;
+  --ds-color-secondary: #d97706;
+  --ds-color-text-primary: #20170f;
+  --ds-color-text-secondary: #4d4236;
+  --ds-color-text-muted: #6f6255;
+  --ds-color-border: rgba(112, 74, 28, .20);
+  --ds-color-border-strong: rgba(112, 74, 28, .30);
+  --ds-color-divider: rgba(66, 45, 24, .16);
+  --ds-color-error-text: #7f1d1d;
+  --ds-color-info: #0369a1;
+  --ds-color-scheme: light;
+  --ds-loading-overlay: linear-gradient(115deg, rgba(248,242,232,.95), rgba(248,242,232,.78));
+  --ds-shell-background:
+    linear-gradient(180deg, rgba(249, 244, 235, .90), rgba(244, 236, 222, .97) 58%, #f5efe4),
+    url("/assets/base-principale-fond-site.jpg") center top / cover repeat-y,
+    #f5efe4;
+  --ds-shadow-1: 0 16px 42px rgba(74, 53, 27, .13);
+  --ds-shadow-2: 0 22px 58px rgba(74, 53, 27, .17);
+  --ds-shadow-3: 0 28px 78px rgba(74, 53, 27, .22);
+}
+
 *,
 *::before,
 *::after {
@@ -98,7 +133,7 @@ body {
   min-height: 100vh;
   background: var(--ds-color-background);
   color: var(--ds-color-text-primary);
-  color-scheme: dark;
+  color-scheme: var(--ds-color-scheme);
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -6019,11 +6054,55 @@ a {
   --ds-focus-border: color-mix(in srgb, var(--ambient-accent, var(--accent)) 72%, rgba(255, 255, 255, .22));
   --ds-shadow-panel: var(--ds-shadow-1);
   --ds-shadow-elevated: var(--ds-shadow-2);
-  background:
-    linear-gradient(180deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .94) 58%, #050505),
-    url("/assets/base-principale-fond-site.jpg") center top / cover repeat-y,
-    #050505;
-  color-scheme: dark;
+  background: var(--ds-shell-background);
+  color-scheme: var(--ds-color-scheme);
+}
+
+.mc-shell.theme-light {
+  --glass: color-mix(in srgb, var(--surface-strong) 90%, transparent);
+  --ds-focus-ring: 0 0 0 3px color-mix(in srgb, var(--ambient-accent, var(--accent)) 20%, transparent);
+  --ds-focus-border: color-mix(in srgb, var(--ambient-accent, var(--accent)) 58%, var(--line));
+}
+
+.mc-shell.theme-light .topbar,
+.mc-shell.theme-light .mobile-bottom-nav {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .72), rgba(255, 250, 239, .88)), color-mix(in srgb, var(--surface-strong) 92%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 18%, var(--line));
+  box-shadow: 0 14px 38px rgba(84, 61, 31, .14);
+}
+
+.mc-shell.theme-light :where(.btn, .site-footer-action, .season-tabs button, .season-category-tabs button, .active-chips button, .segmented-control button, .icon-btn) {
+  background: color-mix(in srgb, var(--surface-strong) 76%, transparent);
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 22%, var(--line));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .72);
+}
+
+.mc-shell.theme-light :where(.btn:hover, .btn:focus-visible, .site-footer-action:hover, .segmented-control button.active) {
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-strong));
+  color: var(--text);
+  box-shadow: var(--ds-shadow-1);
+}
+
+.mc-shell.theme-light :where(.btn-primary, .quantity-select, .segmented-control button.active) {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--accent-ink);
+  border-color: transparent;
+}
+
+.mc-shell.theme-light :where(.site-footer-inner, .recipe-panel, .recipe-summary-panel, .variant-picker-panel, .variant-choice-panel, .modal-panel, .menu-planner-card, .menu-service-panel, .shopping-aisle, .empty-state, .fatal-state, .command-palette, .recipe-command-dock, .fridge-assistant, .recipe-chef-strip, .menu-quality-band, .shopping-store-dashboard, .preference-group) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .58), rgba(255, 250, 241, .82)), var(--surface);
+  border-color: var(--rim);
+  box-shadow: var(--ds-shadow-panel);
+}
+
+.mc-shell.theme-light :where(input, select, textarea, .share-link-box, .cart-output) {
+  background: rgba(255, 252, 246, .74);
+  color: var(--text);
+}
+
+.mc-shell.theme-light .toast {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 10%, transparent), rgba(255, 255, 255, .62)), var(--surface-strong);
 }
 
 .mc-shell :where(button, a, input, select, textarea) {

@@ -86,6 +86,12 @@ sections cadrees, hero de fiche encadre, grille Ingredients/Etapes/Avant de
 commencer, pastilles lisibles et actions principales/secondaires distinguees. Ne pas revenir a des controles Android par
 defaut sans direction Cook Note.
 
+Theme Android : le mode nuit reste la reference. Le mode jour doit rester natif,
+lisible et leger, pilote par les palettes Java de `MainActivity` et
+`RecipeAdapter`, avec detection du theme systeme au premier lancement puis
+preference persistante dans `SharedPreferences`. Ne jamais remplacer cette
+logique par une WebView ou par le CSS du site.
+
 L accueil parent Android doit reprendre le rangement du site : sans recherche
 active, afficher seulement les fiches parents racines du catalogue, pas toutes
 les recettes enfants en vrac. Quand l utilisateur tape une recherche, l app
@@ -130,7 +136,7 @@ Cette sortie contient :
 
 Les fonctions natives legeres actuellement attendues incluent aussi les
 quantites ajustables, les courses fusionnees, les preferences locales discretes,
-le diagnostic hors ligne, le cache image adaptatif, le decode image serialise,
+le theme jour/nuit natif, le diagnostic hors ligne, le cache image adaptatif, le decode image serialise,
 la coalescence chargements image, les chargements visibles coalesces, les
 decodages visibles obsoletes ignores, les images visibles prioritaires, la file
 image prioritaire, l annulation prefetch obsolete, le cache image normalise, le

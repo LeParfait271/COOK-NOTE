@@ -12,7 +12,7 @@ sensibles et les validations minimales.
 3. Lire `docs/architecture.md` avant de toucher au build, a `dist/`, au service
    worker, aux headers, aux routes ou aux assets publics.
 4. Lire `docs/design-system.md` avant toute passe de direction artistique,
-   design system, ergonomie, animation ou dark mode.
+   design system, ergonomie, animation, dark mode ou theme clair.
 5. Lire `README.txt` et `GUIDE_COMPLET.txt` pour le contexte utilisateur.
 6. Lire la documentation specialisee si le travail touche Android ou les apps :
    `docs/android-legacy-workflow.md` et `docs/apps-install-workflow.md`.
@@ -82,6 +82,10 @@ mission est terminee plutot que fabriquer du changement.
   ou par un attribut `data-i18n-*` sur les pages statiques. Les catalogues FR et
   EN doivent rester synchronises et `npm run validate:i18n` doit rester vert
   avant toute livraison visible.
+- Themes : le mode nuit reste la reference visuelle. Tout nouveau composant
+  visible doit utiliser les tokens du design system et fonctionner en theme
+  `dark` et `light`. Ne pas ajouter de couleur directe dans un composant quand
+  un token semantique existe. `npm run validate:theme` doit rester vert.
 - Validation continue : apres une serie de modifications, lancer les validations
   adaptees (syntaxe, build, tests, performance, securite) et corriger ce qui
   casse avant commit.

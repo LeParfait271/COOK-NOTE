@@ -113,6 +113,7 @@ async function verifyServer() {
       '/',
       `/app.js?v=${version}`,
       `/app-images.js?v=${version}`,
+      `/theme.js?v=${version}`,
       `/i18n.js?v=${version}`,
       `/style.css?v=${version}`,
       `/assets/catalog-1.js?v=${version}`,

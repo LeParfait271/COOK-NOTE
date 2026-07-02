@@ -21,16 +21,16 @@ import java.util.List;
 import java.util.Map;
 
 final class RecipeAdapter extends BaseAdapter {
-    private static final int COLOR_BG = Color.rgb(4, 4, 4);
-    private static final int COLOR_CARD = Color.rgb(18, 17, 14);
-    private static final int COLOR_CARD_SOFT = Color.rgb(28, 26, 21);
-    private static final int COLOR_CARD_ACTIVE = Color.rgb(52, 39, 20);
-    private static final int COLOR_TEXT = Color.rgb(255, 247, 237);
-    private static final int COLOR_MUTED = Color.rgb(222, 214, 200);
-    private static final int COLOR_BORDER = Color.rgb(113, 84, 36);
-    private static final int COLOR_BORDER_BRIGHT = Color.rgb(176, 128, 45);
-    private static final int COLOR_GOLD = Color.rgb(251, 191, 36);
-    private static final int COLOR_ORANGE = Color.rgb(245, 158, 11);
+    private int COLOR_BG = Color.rgb(4, 4, 4);
+    private int COLOR_CARD = Color.rgb(18, 17, 14);
+    private int COLOR_CARD_SOFT = Color.rgb(28, 26, 21);
+    private int COLOR_CARD_ACTIVE = Color.rgb(52, 39, 20);
+    private int COLOR_TEXT = Color.rgb(255, 247, 237);
+    private int COLOR_MUTED = Color.rgb(222, 214, 200);
+    private int COLOR_BORDER = Color.rgb(113, 84, 36);
+    private int COLOR_BORDER_BRIGHT = Color.rgb(176, 128, 45);
+    private int COLOR_GOLD = Color.rgb(251, 191, 36);
+    private int COLOR_ORANGE = Color.rgb(245, 158, 11);
     private static final int CARD_MIN_WIDTH_DP = 286;
     private static final int CARD_SPACING_DP = 11;
     private static final int CARD_MIN_HEIGHT_DP = 130;
@@ -40,6 +40,7 @@ final class RecipeAdapter extends BaseAdapter {
     private final List<Recipe> items = new ArrayList<Recipe>();
     private Map<String, Integer> collectionCounts;
     private boolean compactCards;
+    private boolean lightTheme;
     private boolean prefetchEnabled = true;
     private int lastPrefetchPosition = -1;
     private int lastPrefetchWidth;
@@ -67,6 +68,13 @@ final class RecipeAdapter extends BaseAdapter {
         if (compactCards == compact) return;
         compactCards = compact;
         resetPrefetchWindow();
+        notifyDataSetChanged();
+    }
+
+    void setLightTheme(boolean enabled) {
+        if (lightTheme == enabled) return;
+        lightTheme = enabled;
+        applyThemePalette();
         notifyDataSetChanged();
     }
 
@@ -141,6 +149,32 @@ final class RecipeAdapter extends BaseAdapter {
         lastPrefetchPosition = -1;
         lastPrefetchWidth = 0;
         lastPrefetchHeight = 0;
+    }
+
+    private void applyThemePalette() {
+        if (lightTheme) {
+            COLOR_BG = Color.rgb(245, 239, 228);
+            COLOR_CARD = Color.rgb(255, 248, 237);
+            COLOR_CARD_SOFT = Color.rgb(243, 234, 220);
+            COLOR_CARD_ACTIVE = Color.rgb(234, 210, 174);
+            COLOR_TEXT = Color.rgb(32, 23, 15);
+            COLOR_MUTED = Color.rgb(77, 66, 54);
+            COLOR_BORDER = Color.rgb(185, 133, 67);
+            COLOR_BORDER_BRIGHT = Color.rgb(217, 119, 6);
+            COLOR_GOLD = Color.rgb(180, 83, 9);
+            COLOR_ORANGE = Color.rgb(217, 119, 6);
+        } else {
+            COLOR_BG = Color.rgb(4, 4, 4);
+            COLOR_CARD = Color.rgb(18, 17, 14);
+            COLOR_CARD_SOFT = Color.rgb(28, 26, 21);
+            COLOR_CARD_ACTIVE = Color.rgb(52, 39, 20);
+            COLOR_TEXT = Color.rgb(255, 247, 237);
+            COLOR_MUTED = Color.rgb(222, 214, 200);
+            COLOR_BORDER = Color.rgb(113, 84, 36);
+            COLOR_BORDER_BRIGHT = Color.rgb(176, 128, 45);
+            COLOR_GOLD = Color.rgb(251, 191, 36);
+            COLOR_ORANGE = Color.rgb(245, 158, 11);
+        }
     }
 
     private boolean sameItems(List<Recipe> recipes) {

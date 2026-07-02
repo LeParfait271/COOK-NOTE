@@ -104,6 +104,25 @@ Les ombres restent douces, jamais lourdes.
 
 Respect obligatoire de `prefers-reduced-motion`.
 
+## Themes
+
+- Le theme `dark` est la reference visuelle Cook Note. Il peut etre corrige ou
+  uniformise, mais son identite sombre chaude ne doit pas etre remplacee.
+- Le theme `light` conserve la meme hierarchie, avec des fonds ivoire doux, des
+  surfaces chaudes, un accent ambre/brun et des contrastes confortables. Pas de
+  blanc pur agressif.
+- `theme.js` applique `data-theme` avant le chargement du CSS pour limiter le
+  scintillement, detecte `prefers-color-scheme` au premier lancement, puis
+  respecte le choix stocke dans `cook_note_preferences`.
+- Les couleurs passent par les tokens semantiques. Un composant ne doit pas
+  porter une couleur de theme en dur si `--ds-color-*`, `--ds-shadow-*` ou un
+  token de surface couvre le besoin.
+- Toute nouvelle surface doit etre testee au minimum en `.theme-dark` et
+  `.theme-light`, avec focus visible, hover/active lisible et contraste texte
+  confortable.
+- `npm run validate:theme` verifie le runtime, le chargement avant CSS, le
+  service worker, le build et les points d'integration principaux.
+
 ## Dark Mode
 
 - Le theme public est un vrai dark mode : fonds noirs chauds, surfaces brun-noir, lignes champagne faibles, accent ambre.

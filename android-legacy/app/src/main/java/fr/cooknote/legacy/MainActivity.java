@@ -2,6 +2,7 @@ package fr.cooknote.legacy;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -66,6 +67,9 @@ public class MainActivity extends Activity {
     private static final String PREF_COMPACT_CARDS = "compact_cards";
     private static final String PREF_OPEN_LAST = "open_last";
     private static final String PREF_LAST_RECIPE = "last_recipe";
+    private static final String PREF_THEME = "theme";
+    private static final String THEME_DARK = "dark";
+    private static final String THEME_LIGHT = "light";
     private static final String STATE_SCREEN = "screen";
     private static final String STATE_RECIPE_ID = "recipe_id";
     private static final String STATE_QUERY = "query";
@@ -77,22 +81,22 @@ public class MainActivity extends Activity {
     private static final int SCREEN_RECIPE = 1;
     private static final int SCREEN_SHOPPING = 2;
     private static final int SCREEN_DIAGNOSTIC = 3;
-    private static final int COLOR_BG = Color.rgb(4, 4, 4);
-    private static final int COLOR_PANEL = Color.rgb(17, 16, 13);
-    private static final int COLOR_PANEL_DEEP = Color.rgb(8, 7, 6);
-    private static final int COLOR_CARD = Color.rgb(18, 17, 14);
-    private static final int COLOR_CARD_SOFT = Color.rgb(28, 26, 21);
-    private static final int COLOR_CARD_ACTIVE = Color.rgb(52, 39, 20);
-    private static final int COLOR_TEXT = Color.rgb(255, 247, 237);
-    private static final int COLOR_TEXT_DARK = Color.rgb(22, 17, 8);
-    private static final int COLOR_MUTED = Color.rgb(222, 214, 200);
-    private static final int COLOR_DIM = Color.rgb(178, 165, 145);
-    private static final int COLOR_BORDER = Color.rgb(113, 84, 36);
-    private static final int COLOR_BORDER_BRIGHT = Color.rgb(176, 128, 45);
-    private static final int COLOR_BORDER_SOFT = Color.rgb(78, 64, 38);
-    private static final int COLOR_LINE = Color.rgb(92, 72, 38);
-    private static final int COLOR_GOLD = Color.rgb(251, 191, 36);
-    private static final int COLOR_ORANGE = Color.rgb(245, 158, 11);
+    private int COLOR_BG = Color.rgb(4, 4, 4);
+    private int COLOR_PANEL = Color.rgb(17, 16, 13);
+    private int COLOR_PANEL_DEEP = Color.rgb(8, 7, 6);
+    private int COLOR_CARD = Color.rgb(18, 17, 14);
+    private int COLOR_CARD_SOFT = Color.rgb(28, 26, 21);
+    private int COLOR_CARD_ACTIVE = Color.rgb(52, 39, 20);
+    private int COLOR_TEXT = Color.rgb(255, 247, 237);
+    private int COLOR_TEXT_DARK = Color.rgb(22, 17, 8);
+    private int COLOR_MUTED = Color.rgb(222, 214, 200);
+    private int COLOR_DIM = Color.rgb(178, 165, 145);
+    private int COLOR_BORDER = Color.rgb(113, 84, 36);
+    private int COLOR_BORDER_BRIGHT = Color.rgb(176, 128, 45);
+    private int COLOR_BORDER_SOFT = Color.rgb(78, 64, 38);
+    private int COLOR_LINE = Color.rgb(92, 72, 38);
+    private int COLOR_GOLD = Color.rgb(251, 191, 36);
+    private int COLOR_ORANGE = Color.rgb(245, 158, 11);
     private static final int DETAIL_IMAGE_MAX_WIDTH = 1280;
     private static final int BACK_SWIPE_EDGE_DP = 64;
     private static final int BACK_SWIPE_TRIGGER_DP = 86;
@@ -138,6 +142,7 @@ public class MainActivity extends Activity {
     private boolean keepScreenOn;
     private boolean compactCards;
     private boolean openLastRecipe;
+    private boolean lightTheme;
     private int textMode;
     private float quantityFactor = 1f;
     private int currentScreen = SCREEN_LIST;
@@ -292,7 +297,7 @@ public class MainActivity extends Activity {
         LinearLayout header = new LinearLayout(this);
         header.setOrientation(LinearLayout.VERTICAL);
         header.setPadding(dp(10), dp(7), dp(10), dp(8));
-        header.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(18, 14, 9), COLOR_BORDER_SOFT, 1, 0));
+        header.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER_SOFT, 1, 0));
         root.addView(header, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -302,7 +307,7 @@ public class MainActivity extends Activity {
         brandRow.setOrientation(LinearLayout.HORIZONTAL);
         brandRow.setGravity(Gravity.CENTER_VERTICAL);
         brandRow.setPadding(dp(10), dp(7), dp(10), dp(8));
-        brandRow.setBackground(panelGradient(Color.rgb(9, 8, 6), Color.rgb(29, 23, 16), COLOR_BORDER, 1, 8));
+        brandRow.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 8));
         header.addView(brandRow, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -310,7 +315,7 @@ public class MainActivity extends Activity {
 
         FrameLayout logoFrame = new FrameLayout(this);
         logoFrame.setPadding(dp(2), dp(2), dp(2), dp(2));
-        logoFrame.setBackground(panelGradient(Color.rgb(7, 6, 5), Color.rgb(33, 25, 15), COLOR_BORDER, 1, 8));
+        logoFrame.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 8));
         LinearLayout.LayoutParams logoFrameParams = new LinearLayout.LayoutParams(dp(48), dp(48));
         logoFrameParams.rightMargin = dp(12);
         brandRow.addView(logoFrame, logoFrameParams);
@@ -409,7 +414,7 @@ public class MainActivity extends Activity {
         searchPanel = new LinearLayout(this);
         searchPanel.setOrientation(LinearLayout.VERTICAL);
         searchPanel.setPadding(dp(12), dp(11), dp(12), dp(12));
-        searchPanel.setBackground(panelGradient(COLOR_CARD, Color.rgb(28, 23, 16), COLOR_BORDER, 1, 8));
+        searchPanel.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER, 1, 8));
         LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -463,7 +468,7 @@ public class MainActivity extends Activity {
         counterView.setPadding(dp(9), dp(5), dp(9), dp(6));
         counterView.setSingleLine(true);
         counterView.setEllipsize(TextUtils.TruncateAt.END);
-        counterView.setBackground(panel(Color.rgb(12, 10, 8), COLOR_BORDER_SOFT, 1, 8));
+        counterView.setBackground(panel(COLOR_PANEL_DEEP, COLOR_BORDER_SOFT, 1, 8));
         LinearLayout.LayoutParams counterParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -489,6 +494,7 @@ public class MainActivity extends Activity {
         gridView.setFadingEdgeLength(0);
         gridView.setScrollingCacheEnabled(false);
         adapter = new RecipeAdapter(this, imageLoader);
+        adapter.setLightTheme(lightTheme);
         adapter.setCompactCards(compactCards);
         adapter.setCollectionCounts(repository.collectionCounts());
         gridView.setAdapter(adapter);
@@ -614,7 +620,7 @@ public class MainActivity extends Activity {
         stat.setOrientation(LinearLayout.VERTICAL);
         stat.setPadding(dp(9), dp(4), dp(9), dp(5));
         stat.setMinimumWidth(dp(88));
-        stat.setBackground(panelGradient(Color.rgb(11, 9, 7), Color.rgb(26, 21, 15), COLOR_BORDER_SOFT, 1, 8));
+        stat.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
 
         TextView valueView = text(value, 11, COLOR_TEXT, true);
         valueView.setIncludeFontPadding(false);
@@ -686,7 +692,7 @@ public class MainActivity extends Activity {
         prefsPanel = new LinearLayout(this);
         prefsPanel.setOrientation(LinearLayout.VERTICAL);
         prefsPanel.setPadding(dp(12), dp(11), dp(12), dp(12));
-        prefsPanel.setBackground(panelGradient(COLOR_CARD, Color.rgb(28, 23, 16), COLOR_BORDER, 1, 8));
+        prefsPanel.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER, 1, 8));
         LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -697,6 +703,22 @@ public class MainActivity extends Activity {
         TextView label = text("REGLAGES", 10, COLOR_GOLD, true);
         label.setIncludeFontPadding(false);
         prefsPanel.addView(label);
+
+        LinearLayout themeRow = new LinearLayout(this);
+        themeRow.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams themeRowParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                dp(38)
+        );
+        themeRowParams.topMargin = dp(9);
+        prefsPanel.addView(themeRow, themeRowParams);
+
+        addPrefsButton(themeRow, lightTheme ? "Mode jour" : "Mode nuit", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setLightTheme(!lightTheme);
+            }
+        }, false);
 
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
@@ -973,7 +995,7 @@ public class MainActivity extends Activity {
         top.setOrientation(LinearLayout.HORIZONTAL);
         top.setGravity(Gravity.CENTER_VERTICAL);
         top.setPadding(dp(10), dp(6), dp(10), dp(6));
-        top.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(20, 15, 10), COLOR_BORDER, 1, 0));
+        top.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER, 1, 0));
         root.addView(top, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -1036,7 +1058,7 @@ public class MainActivity extends Activity {
     private void addDetailHero(LinearLayout content, final Recipe recipe) {
         FrameLayout heroCard = new FrameLayout(this);
         heroCard.setPadding(dp(1), dp(1), dp(1), dp(1));
-        heroCard.setBackground(panelGradient(Color.rgb(8, 7, 6), Color.rgb(29, 23, 16), COLOR_BORDER, 1, 8));
+        heroCard.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 8));
         int heroHeight = detailHeroHeight();
         content.addView(heroCard, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -1078,7 +1100,7 @@ public class MainActivity extends Activity {
         breadcrumb.setEllipsize(TextUtils.TruncateAt.END);
         overlay.addView(breadcrumb);
 
-        TextView title = text(recipe.title, recipe.isCollection() ? 24 : 22, Color.rgb(249, 242, 231), true);
+        TextView title = text(recipe.title, recipe.isCollection() ? 24 : 22, COLOR_TEXT, true);
         title.setMaxLines(3);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setLineSpacing(dp(1), 1.03f);
@@ -1138,7 +1160,7 @@ public class MainActivity extends Activity {
         LinearLayout panel = new LinearLayout(this);
         panel.setOrientation(LinearLayout.VERTICAL);
         panel.setPadding(dp(10), dp(9), dp(10), dp(10));
-        panel.setBackground(panelGradient(Color.rgb(13, 12, 10), Color.rgb(28, 23, 16), COLOR_BORDER_SOFT, 1, 8));
+        panel.setBackground(panelGradient(COLOR_PANEL, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
         LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -1269,7 +1291,7 @@ public class MainActivity extends Activity {
         card.setOrientation(LinearLayout.VERTICAL);
         card.setPadding(dp(9), dp(7), dp(9), dp(8));
         card.setMinimumHeight(dp(54));
-        card.setBackground(panelGradient(Color.rgb(15, 14, 11), Color.rgb(29, 25, 18), COLOR_BORDER_SOFT, 1, 8));
+        card.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
 
         TextView labelView = text(label, 9, COLOR_GOLD, true);
         labelView.setSingleLine(true);
@@ -1287,7 +1309,7 @@ public class MainActivity extends Activity {
         lineParams.bottomMargin = dp(1);
         card.addView(line, lineParams);
 
-        TextView valueView = text(value, 12, Color.rgb(249, 242, 231), true);
+        TextView valueView = text(value, 12, COLOR_TEXT, true);
         valueView.setMaxLines(2);
         valueView.setEllipsize(TextUtils.TruncateAt.END);
         valueView.setPadding(0, dp(3), 0, 0);
@@ -1619,7 +1641,7 @@ public class MainActivity extends Activity {
         );
         frame.addView(overlay, overlayParams);
 
-        TextView title = text(choice.label, 15, Color.rgb(246, 239, 227), true);
+        TextView title = text(choice.label, 15, COLOR_TEXT, true);
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setLineSpacing(dp(1), 1.04f);
@@ -1912,7 +1934,7 @@ public class MainActivity extends Activity {
         LinearLayout section = new LinearLayout(this);
         section.setOrientation(LinearLayout.VERTICAL);
         section.setPadding(dp(12), dp(11), dp(12), dp(13));
-        section.setBackground(panelGradient(Color.rgb(15, 14, 11), Color.rgb(27, 23, 17), COLOR_BORDER_SOFT, 1, 8));
+        section.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
 
         addAccentLine(section, 0, 9);
 
@@ -1966,7 +1988,7 @@ public class MainActivity extends Activity {
 
     private void subTitle(LinearLayout content, String value) {
         if (content == null || value == null || value.length() == 0) return;
-        TextView text = text(value, 13, Color.rgb(249, 242, 231), true);
+        TextView text = text(value, 13, COLOR_TEXT, true);
         text.setLineSpacing(dp(1), 1.05f);
         text.setPadding(0, dp(10), 0, dp(4));
         content.addView(text);
@@ -1977,7 +1999,7 @@ public class MainActivity extends Activity {
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.TOP);
         row.setPadding(dp(8), dp(6), dp(8), dp(7));
-        row.setBackground(panelGradient(Color.rgb(18, 16, 13), Color.rgb(29, 24, 17), Color.rgb(42, 35, 24), 1, 7));
+        row.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
 
         View marker = new View(this);
         marker.setBackground(panel(COLOR_GOLD, COLOR_GOLD, 1, 4));
@@ -2002,7 +2024,7 @@ public class MainActivity extends Activity {
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.TOP);
         row.setPadding(dp(8), dp(8), dp(8), dp(8));
-        row.setBackground(panelGradient(Color.rgb(22, 20, 16), Color.rgb(34, 28, 19), COLOR_BORDER_SOFT, 1, 8));
+        row.setBackground(panelGradient(COLOR_CARD_ACTIVE, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
 
         View rail = new View(this);
         rail.setBackground(panel(Color.argb(210, 251, 191, 36), COLOR_ORANGE, 1, 3));
@@ -2033,7 +2055,7 @@ public class MainActivity extends Activity {
         LinearLayout block = new LinearLayout(this);
         block.setOrientation(LinearLayout.VERTICAL);
         block.setPadding(dp(9), dp(8), dp(9), dp(9));
-        block.setBackground(panelGradient(Color.rgb(18, 16, 13), Color.rgb(29, 24, 17), Color.rgb(42, 35, 24), 1, 7));
+        block.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
         if (label != null && label.length() > 0) {
         TextView labelView = text(label, 11, COLOR_GOLD, true);
             labelView.setPadding(0, 0, 0, dp(2));
@@ -2152,7 +2174,7 @@ public class MainActivity extends Activity {
         top.setOrientation(LinearLayout.HORIZONTAL);
         top.setGravity(Gravity.CENTER_VERTICAL);
         top.setPadding(dp(10), dp(6), dp(10), dp(6));
-        top.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(20, 15, 10), COLOR_BORDER, 1, 0));
+        top.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER, 1, 0));
         root.addView(top, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -2289,7 +2311,7 @@ public class MainActivity extends Activity {
         top.setOrientation(LinearLayout.HORIZONTAL);
         top.setGravity(Gravity.CENTER_VERTICAL);
         top.setPadding(dp(10), dp(6), dp(10), dp(6));
-        top.setBackground(panelGradient(COLOR_PANEL_DEEP, Color.rgb(20, 15, 10), COLOR_BORDER, 1, 0));
+        top.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER, 1, 0));
         root.addView(top, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -2422,7 +2444,7 @@ public class MainActivity extends Activity {
         checkBox.setTypeface(Typeface.DEFAULT);
         checkBox.setButtonTintList(null);
         checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
-        checkBox.setBackground(panelGradient(Color.rgb(18, 16, 13), Color.rgb(29, 24, 17), Color.rgb(42, 35, 24), 1, 7));
+        checkBox.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
         checkBox.setChecked(shoppingDoneKeys.contains(line.doneKey));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -2487,7 +2509,7 @@ public class MainActivity extends Activity {
         checkBox.setTypeface(Typeface.DEFAULT);
         checkBox.setButtonTintList(null);
         checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
-        checkBox.setBackground(panelGradient(Color.rgb(18, 16, 13), Color.rgb(29, 24, 17), Color.rgb(42, 35, 24), 1, 7));
+        checkBox.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
         checkBox.setChecked(shoppingDoneKeys.contains(key));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -2793,20 +2815,20 @@ public class MainActivity extends Activity {
     private StateListDrawable buttonPanel(boolean primary) {
         if (primary) {
             return selectableGradientPanel(
-                    Color.rgb(239, 136, 18),
-                    Color.rgb(251, 178, 28),
-                    Color.rgb(249, 173, 30),
-                    Color.rgb(251, 191, 36),
+                    COLOR_ORANGE,
+                    COLOR_GOLD,
+                    COLOR_ORANGE,
+                    COLOR_GOLD,
                     COLOR_ORANGE,
                     1,
                     8
             );
         }
         return selectableGradientPanel(
-                Color.rgb(23, 21, 17),
-                Color.rgb(34, 29, 21),
-                Color.rgb(42, 31, 18),
-                Color.rgb(55, 40, 22),
+                COLOR_CARD,
+                COLOR_CARD_SOFT,
+                COLOR_CARD_ACTIVE,
+                COLOR_CARD_SOFT,
                 COLOR_BORDER_SOFT,
                 1,
                 8
@@ -2815,7 +2837,7 @@ public class MainActivity extends Activity {
 
     private StateListDrawable selectablePanel(int normalColor, int pressedColor, int strokeColor, int strokeWidth, int radiusDp) {
         StateListDrawable drawable = new StateListDrawable();
-        drawable.addState(new int[]{-android.R.attr.state_enabled}, panel(Color.rgb(34, 31, 27), Color.rgb(55, 49, 39), strokeWidth, radiusDp));
+        drawable.addState(new int[]{-android.R.attr.state_enabled}, panel(COLOR_CARD_SOFT, COLOR_BORDER_SOFT, strokeWidth, radiusDp));
         drawable.addState(new int[]{android.R.attr.state_pressed}, panel(pressedColor, strokeColor, strokeWidth, radiusDp));
         drawable.addState(new int[]{android.R.attr.state_focused}, panel(pressedColor, strokeColor, strokeWidth, radiusDp));
         drawable.addState(new int[]{}, panel(normalColor, strokeColor, strokeWidth, radiusDp));
@@ -2824,7 +2846,7 @@ public class MainActivity extends Activity {
 
     private StateListDrawable selectableGradientPanel(int normalStart, int normalEnd, int pressedStart, int pressedEnd, int strokeColor, int strokeWidth, int radiusDp) {
         StateListDrawable drawable = new StateListDrawable();
-        drawable.addState(new int[]{-android.R.attr.state_enabled}, panel(Color.rgb(34, 31, 27), Color.rgb(55, 49, 39), strokeWidth, radiusDp));
+        drawable.addState(new int[]{-android.R.attr.state_enabled}, panel(COLOR_CARD_SOFT, COLOR_BORDER_SOFT, strokeWidth, radiusDp));
         drawable.addState(new int[]{android.R.attr.state_pressed}, gradientPanel(pressedStart, pressedEnd, strokeColor, strokeWidth, radiusDp));
         drawable.addState(new int[]{android.R.attr.state_focused}, gradientPanel(pressedStart, pressedEnd, strokeColor, strokeWidth, radiusDp));
         drawable.addState(new int[]{}, gradientPanel(normalStart, normalEnd, strokeColor, strokeWidth, radiusDp));
@@ -2986,6 +3008,11 @@ public class MainActivity extends Activity {
         compactCards = prefs.getBoolean(PREF_COMPACT_CARDS, false);
         openLastRecipe = prefs.getBoolean(PREF_OPEN_LAST, false);
         lastRecipeId = prefs.getString(PREF_LAST_RECIPE, "");
+        String preferredTheme = prefs.contains(PREF_THEME)
+                ? prefs.getString(PREF_THEME, THEME_DARK)
+                : defaultThemeMode();
+        lightTheme = THEME_LIGHT.equals(preferredTheme);
+        applyThemePalette();
         parseIds(prefs.getString(PREF_SHOPPING, ""), shoppingRecipeIds, 0);
         parseRawIds(prefs.getString(PREF_SHOPPING_DONE, ""), shoppingDoneKeys);
     }
@@ -3000,7 +3027,61 @@ public class MainActivity extends Activity {
         editor.putBoolean(PREF_COMPACT_CARDS, compactCards);
         editor.putBoolean(PREF_OPEN_LAST, openLastRecipe);
         editor.putString(PREF_LAST_RECIPE, lastRecipeId == null ? "" : lastRecipeId);
+        editor.putString(PREF_THEME, lightTheme ? THEME_LIGHT : THEME_DARK);
         editor.apply();
+    }
+
+    private String defaultThemeMode() {
+        int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return mode == Configuration.UI_MODE_NIGHT_NO ? THEME_LIGHT : THEME_DARK;
+    }
+
+    private void setLightTheme(boolean enabled) {
+        if (lightTheme == enabled) return;
+        lightTheme = enabled;
+        applyThemePalette();
+        saveUserState();
+        Toast.makeText(this, enabled ? "Mode jour" : "Mode nuit", Toast.LENGTH_SHORT).show();
+        showCurrentScreen();
+    }
+
+    private void applyThemePalette() {
+        if (lightTheme) {
+            COLOR_BG = Color.rgb(245, 239, 228);
+            COLOR_PANEL = Color.rgb(239, 227, 209);
+            COLOR_PANEL_DEEP = Color.rgb(233, 220, 200);
+            COLOR_CARD = Color.rgb(255, 248, 237);
+            COLOR_CARD_SOFT = Color.rgb(243, 234, 220);
+            COLOR_CARD_ACTIVE = Color.rgb(234, 210, 174);
+            COLOR_TEXT = Color.rgb(32, 23, 15);
+            COLOR_TEXT_DARK = Color.rgb(36, 24, 10);
+            COLOR_MUTED = Color.rgb(77, 66, 54);
+            COLOR_DIM = Color.rgb(111, 98, 85);
+            COLOR_BORDER = Color.rgb(185, 133, 67);
+            COLOR_BORDER_BRIGHT = Color.rgb(217, 119, 6);
+            COLOR_BORDER_SOFT = Color.rgb(216, 197, 165);
+            COLOR_LINE = Color.rgb(213, 191, 153);
+            COLOR_GOLD = Color.rgb(180, 83, 9);
+            COLOR_ORANGE = Color.rgb(217, 119, 6);
+        } else {
+            COLOR_BG = Color.rgb(4, 4, 4);
+            COLOR_PANEL = Color.rgb(17, 16, 13);
+            COLOR_PANEL_DEEP = Color.rgb(8, 7, 6);
+            COLOR_CARD = Color.rgb(18, 17, 14);
+            COLOR_CARD_SOFT = Color.rgb(28, 26, 21);
+            COLOR_CARD_ACTIVE = Color.rgb(52, 39, 20);
+            COLOR_TEXT = Color.rgb(255, 247, 237);
+            COLOR_TEXT_DARK = Color.rgb(22, 17, 8);
+            COLOR_MUTED = Color.rgb(222, 214, 200);
+            COLOR_DIM = Color.rgb(178, 165, 145);
+            COLOR_BORDER = Color.rgb(113, 84, 36);
+            COLOR_BORDER_BRIGHT = Color.rgb(176, 128, 45);
+            COLOR_BORDER_SOFT = Color.rgb(78, 64, 38);
+            COLOR_LINE = Color.rgb(92, 72, 38);
+            COLOR_GOLD = Color.rgb(251, 191, 36);
+            COLOR_ORANGE = Color.rgb(245, 158, 11);
+        }
+        if (adapter != null) adapter.setLightTheme(lightTheme);
     }
 
     private float clampQuantityFactor(float value) {
