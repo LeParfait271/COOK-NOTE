@@ -106,12 +106,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/cook-note.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v2.94';
+const SITE_VERSION = 'v2.95';
 const SITE_UPDATED_AT = '04/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.94';
+const ANDROID_LEGACY_APK_VERSION = '2.95';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -121,11 +121,11 @@ const APP_INSTALL_OPTIONS = Object.freeze([
     label: 'Android 5.0+',
     detail: 'APK Legacy',
     title: 'Installer Cook Note Android 5.0+',
-    body: 'APK Legacy pour les tablettes anciennes. Le fichier est heberge sur GitHub pour eviter les limites de taille Cloudflare Pages.',
+    body: 'APK Legacy pour les tablettes anciennes. Le fichier est hébergé sur GitHub pour éviter les limites de taille Cloudflare Pages.',
     steps: [
-      'Touche Telecharger l APK.',
-      'Si Android affiche une alerte, autorise le telechargement.',
-      'Ouvre le fichier telecharge, puis autorise l installation depuis le navigateur si Android le demande.',
+      'Touche Télécharger l’APK.',
+      'Si Android affiche une alerte, autorise le téléchargement.',
+      'Ouvre le fichier téléchargé, puis autorise l’installation depuis le navigateur si Android le demande.',
       'Si le lien direct affiche une erreur, utilise le lien brut ou la page GitHub.'
     ],
     fileName: ANDROID_LEGACY_APK_FILE,
@@ -149,7 +149,7 @@ const GRID_RENDER_BATCH_SIZE = 24;
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
 const SEARCH_DIFFICULTY_OPTIONS = [
-  { value: '', label: 'Toutes difficultes' },
+  { value: '', label: 'Toutes difficultés' },
   { value: 'easy', label: 'Facile', min: 1, max: 3 },
   { value: 'medium', label: 'Moyen', min: 4, max: 6 },
   { value: 'hard', label: 'Technique', min: 7, max: 10 }
@@ -4726,7 +4726,7 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
 
   if (!recipes.length) {
     return h('div', { className: 'empty-state' },
-      h('h2', null, 'Aucune recette ne matche'),
+      h('h2', null, 'Aucune recette ne correspond'),
       h('p', null, 'Les filtres sont trop serrés pour le contenu actuel.')
     );
   }
@@ -5039,7 +5039,7 @@ function AppInstallPanel({ option, onClose }) {
             href: option.href,
             rel: 'noopener noreferrer',
             download: option.fileName
-          }, 'Telecharger l APK'),
+          }, 'Télécharger l’APK'),
           h('a', {
             className: 'btn btn-ghost',
             href: option.rawHref,
@@ -5144,7 +5144,7 @@ function SharePanel({ open, onClose, recipe, notify }) {
         ),
         h('div', { className: qrReady ? 'share-qr is-ready' : 'share-qr', 'aria-label': `QR code de ${recipe.title}` },
           h('canvas', { ref: canvasRef, className: 'qr-canvas', width: 132, height: 132, 'aria-label': `QR code du lien ${recipe.title}` }),
-          !qrReady && h('span', null, 'Lien pret')
+          !qrReady && h('span', null, 'Lien prêt')
         )
       ),
       h('div', { className: 'share-link-box', title: url, 'aria-label': `Lien de partage ${url}` }, url),
@@ -5591,7 +5591,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
   const shoppingData = useMemo(() => open ? buildShoppingListData(recipes, factorById) : EMPTY_SHOPPING_DATA, [open, recipes, factorById]);
   const activeShoppingData = useMemo(() => open ? filterShoppingListData(shoppingData, ownedItems) : EMPTY_SHOPPING_DATA, [open, shoppingData, ownedItems]);
   const batchPlan = useMemo(() => open ? getBatchPlanData(recipes) : [], [open, recipes]);
-  const text = open && recipes.length ? shoppingListText(recipes, factorById, ownedItems) : 'Liste de courses Cook Note\n\nAucune recette cochee.';
+  const text = open && recipes.length ? shoppingListText(recipes, factorById, ownedItems) : 'Liste de courses Cook Note\n\nAucune recette cochée.';
   const compactText = open && recipes.length ? shoppingListText(recipes, factorById, ownedItems, 'compact') : 'Courses Cook Note\nAucune recette.';
   const visibleShoppingKeys = useMemo(() => new Set(shoppingData.groupedItems.map(item => item.key)), [shoppingData]);
   const checkedCount = activeShoppingData.groupedItems.filter(item => checkedItems[item.key]).length;
@@ -5677,11 +5677,11 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
         h('span', null, `${checkedCount} coché${checkedCount > 1 ? 's' : ''}`),
         checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}), 'aria-label': `Tout décocher (${checkedCount} article${checkedCount > 1 ? 's' : ''})` }, 'Tout décocher')
       ),
-      recipes.length > 0 && h('div', { className: 'shopping-store-dashboard', style: { '--shopping-progress': `${handledRatio}%` }, 'aria-label': 'Synthese magasin' },
+      recipes.length > 0 && h('div', { className: 'shopping-store-dashboard', style: { '--shopping-progress': `${handledRatio}%` }, 'aria-label': 'Synthèse magasin' },
         h('div', { className: 'shopping-store-score' },
           h('span', { 'aria-hidden': true }, h('span', null)),
           h('strong', null, `${handledRatio}%`),
-          h('small', null, 'traite')
+          h('small', null, 'traité')
         ),
         h('div', { className: 'shopping-store-metrics' },
           h('span', null, h('strong', null, activeShoppingData.aisleGroups.length), h('small', null, 'rayons')),
@@ -5834,15 +5834,15 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
         h('span', { className: 'menu-serving-hint' }, 'Les quantités du menu et des courses suivent ce nombre.')
       ),
       h('p', { className: 'menu-planner-reason' }, menu.reason),
-      h('div', { className: 'menu-quality-band', style: { '--menu-quality': `${menuQuality}%` }, 'aria-label': 'Qualite du menu' },
+      h('div', { className: 'menu-quality-band', style: { '--menu-quality': `${menuQuality}%` }, 'aria-label': 'Qualité du menu' },
         h('div', { className: 'menu-quality-score' },
           h('span', null, h('span', null)),
           h('strong', null, `${menuQuality || '--'}/100`),
           h('small', null, menuQualityLabel)
         ),
         h('div', { className: 'menu-quality-copy' },
-          h('strong', null, menu.theme?.pitch || 'Menu equilibre.'),
-          h('small', null, menuRoleLine || 'Roles a composer')
+          h('strong', null, menu.theme?.pitch || 'Menu équilibré.'),
+          h('small', null, menuRoleLine || 'Rôles à composer')
         )
       ),
       h('div', { className: 'menu-planner-grid' },
@@ -6083,7 +6083,7 @@ function LinkedRecipesBlock({ links, openRecipe }) {
     acc.get(role).push(item);
     return acc;
   }, new Map());
-  return h('div', { className: 'linked-recipes-block', 'aria-label': 'Recettes liees a cette fiche' },
+  return h('div', { className: 'linked-recipes-block', 'aria-label': 'Recettes liées à cette fiche' },
     h('p', { className: 'eyebrow' }, 'Recettes liées'),
     Array.from(groups.entries()).map(([role, items]) => h('div', { key: role, className: 'linked-recipe-group' },
       h('div', { className: 'linked-recipe-group-title' }, role),
@@ -6110,7 +6110,7 @@ function LinkedRecipesBlock({ links, openRecipe }) {
       className: expanded ? 'linked-recipe-toggle active' : 'linked-recipe-toggle',
       onClick: () => setExpanded(value => !value),
       'aria-expanded': expanded,
-      'aria-label': expanded ? 'Masquer les recettes liees supplementaires' : `Afficher ${hiddenCount} recette${hiddenCount > 1 ? 's' : ''} liee${hiddenCount > 1 ? 's' : ''} supplementaire${hiddenCount > 1 ? 's' : ''}`
+      'aria-label': expanded ? 'Masquer les recettes liées supplémentaires' : `Afficher ${hiddenCount} recette${hiddenCount > 1 ? 's' : ''} liée${hiddenCount > 1 ? 's' : ''} supplémentaire${hiddenCount > 1 ? 's' : ''}`
     }, expanded ? 'Masquer les recettes liées' : `Voir ${hiddenCount} autre${hiddenCount > 1 ? 's' : ''} recette${hiddenCount > 1 ? 's' : ''}`)
   );
 }
@@ -6718,10 +6718,10 @@ function RecipeView({
           h('p', { className: 'eyebrow' }, 'Mémo'),
           h('h2', { className: 'read-before-title' }, 'Avant de commencer')
         ),
-        h('div', { className: 'allergen-card', 'aria-label': 'Allergenes detectes' },
+        h('div', { className: 'allergen-card', 'aria-label': 'Allergènes détectés' },
           h('p', { className: 'eyebrow' }, 'Allergènes'),
           recipeAllergens.length
-            ? h('ul', { className: 'allergen-list', 'aria-label': 'Liste des allergenes detectes' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
+            ? h('ul', { className: 'allergen-list', 'aria-label': 'Liste des allergènes détectés' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
             : h('p', { className: 'allergen-empty' }, 'Aucun allergène majeur détecté dans les ingrédients.')
         ),
         averageWeights.length > 0 && h('div', { className: 'average-weight-card', 'aria-label': 'Poids moyens utiles' },
@@ -7649,7 +7649,7 @@ function App() {
           h('div', { className: 'site-footer-copy' },
           h('p', { className: 'site-footer-brand' }, 'Cook Note \u00a9 2026.'),
           h('p', null, 'Carnet personnel de recettes et techniques culinaires développé par MaruChiwa.'),
-          h('p', null, 'Application stand alone Android 5+ développé par MaruChiwa.'),
+          h('p', null, 'Application autonome Android 5+ développée par MaruChiwa.'),
           )
         ),
         h('div', { className: 'site-footer-stats', 'aria-label': 'Informations catalogue' },
