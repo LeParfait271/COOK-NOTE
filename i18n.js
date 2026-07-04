@@ -134,6 +134,9 @@
     'Sections de la recette': 'Recipe sections',
     'Choisir une variante': 'Choose a variant',
     'Variante active': 'Active variant',
+    'Choisir la préparation': 'Choose the preparation',
+    'Aucune variante sélectionnée': 'No variant selected',
+    'Sélectionne une variante pour afficher les détails.': 'Select a variant to show the details.',
     'Choisis une variante pour afficher les ingrédients et les étapes correspondantes.': 'Choose a variant to show the matching ingredients and steps.',
     'Choisis un groupe d’ingrédients': 'Choose an ingredient group',
     'Ouvre un groupe d’ingrédients pour afficher les étapes correspondantes.': 'Open an ingredient group to show the matching steps.',
@@ -242,6 +245,9 @@
     'Pâte légère': 'Light batter',
     'Aïoli citronné léger': 'Light lemon aioli',
     'Variante tempura': 'Tempura variant',
+    'Casserole ou sauteuse haute': 'Tall saucepan or deep saute pan',
+    'Grille d’égouttage': 'Draining rack',
+    'Thermomètre de cuisson': 'Cooking thermometer',
     'Jus d’un citron jaune': 'Juice of one lemon',
     "Jus d'un citron jaune": 'Juice of one lemon',
     'Gousse d’ail': 'Garlic clove',
@@ -622,7 +628,11 @@
     [/^(\d+) recipe card(s?)$/, match => `${match[1]} recipe card${match[1] === '1' ? '' : 's'}`],
     [/^(\d+) ingr\u00e9dient(s?)$/, match => `${match[1]} ingredient${match[1] === '1' ? '' : 's'}`],
     [/^(\d+) \u00e9tape(s?)$/, match => `${match[1]} step${match[1] === '1' ? '' : 's'}`],
+    [/^(\d+) option(s?)$/, match => `${match[1]} option${match[1] === '1' ? '' : 's'}`],
     [/^(\d+)% pr\u00eat$/, match => `${match[1]}% ready`],
+    [/^Actif (.+)$/, match => `Active ${match[1]}`],
+    [/^Cuisson (.+)$/, match => `Cooking ${match[1]}`],
+    [/^Repos (.+)$/, match => `Rest ${match[1]}`],
     [/^Difficult\u00e9 (.+)$/, match => `Difficulty ${text(match[1])}`],
     [/^Ouvrir (.+)$/, match => `Open ${text(match[1])}`],
     [/^Pour (.+)$/, match => `For ${text(match[1])}`],
@@ -787,7 +797,7 @@
     if (!key || key.length > 260 || /[<>]/.test(value)) return false;
     return culinaryReplacementsEn.some(([source]) => key.includes(normalizeI18nKey(source)))
       || /\b\d+\s*(?:g|kg|ml|cl|l|min|h|%|c)\b/i.test(key)
-      || /\b(?:cuire|cuis|fouetter|fouette|melanger|melange|mixer|mixe|ajouter|ajoute|verser|verse|servir|sers|prechauffer|prechauffe|reserver|reserve|laisser|laisse|incorporer|incorpore|assaisonner|assaisonne|egoutter|egoutte|retirer|retire|couper|coupe|enfourner|enfourne|dorer|dore)\b/i.test(key);
+      || /\b(?:cuire|cuis|fouetter|fouette|melanger|melange|mixer|mixe|ajouter|ajoute|verser|verse|servir|sers|prechauffer|prechauffe|preparer|prepare|rincer|rince|eponger|eponge|chauffer|chauffe|tremper|trempe|frire|frit|saler|sale|passer|passe|garder|garde|reserver|reserve|laisser|laisse|incorporer|incorpore|assaisonner|assaisonne|egoutter|egoutte|retirer|retire|couper|coupe|enfourner|enfourne|dorer|dore)\b/i.test(key);
   }
 
   function translateRecipeText(value) {
@@ -815,8 +825,14 @@
       .replace(/\bPr\u00e9parer\b/gi, 'Prepare')
       .replace(/\bRince\b/gi, 'Rinse')
       .replace(/\bRincer\b/gi, 'Rinse')
+      .replace(/\bÉponge\b/gi, 'Pat dry')
+      .replace(/\bÉponger\b/gi, 'Pat dry')
       .replace(/\bEssuie\b/gi, 'Pat dry')
       .replace(/\bEssuyer\b/gi, 'Pat dry')
+      .replace(/\bChauffe\b/gi, 'Heat')
+      .replace(/\bChauffer\b/gi, 'Heat')
+      .replace(/\bTrempe\b/gi, 'Dip')
+      .replace(/\bTremper\b/gi, 'Dip')
       .replace(/\bFouette\b/gi, 'Whisk')
       .replace(/\bFouetter\b/gi, 'Whisk')
       .replace(/\bAjoute\b/gi, 'Add')
@@ -835,6 +851,10 @@
       .replace(/\bSecouer\b/gi, 'Shake')
       .replace(/\bSale\b/gi, 'Salt')
       .replace(/\bSaler\b/gi, 'Salt')
+      .replace(/\bPasse\b/gi, 'Dust')
+      .replace(/\bPasser\b/gi, 'Dust')
+      .replace(/\bGarde\b/gi, 'Keep')
+      .replace(/\bGarder\b/gi, 'Keep')
       .replace(/\bPorte\b/gi, 'Bring')
       .replace(/\bPorter\b/gi, 'Bring')
       .replace(/\bFlambe\b/gi, 'Flambé')
