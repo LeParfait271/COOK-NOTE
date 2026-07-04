@@ -80,6 +80,7 @@ nextApp = replaceRequired(nextApp, /const ANDROID_LEGACY_APK_VERSION = '\d+\.\d{
 write('app.js', nextApp);
 
 write('app-art-images.js', read('app-art-images.js')
+  .replace(/\bconst v='\d+'/g, `const v='${numeric}'`)
   .replace(/(\/assets\/(?:day|dark)\/[^'"]+\.(?:jpg|png)\?v=)\d+/g, `$1${numeric}`));
 
 write('android-legacy/gradle.properties', replaceRequired(

@@ -85,9 +85,15 @@ expect('Note vigilance mer non traduite.', i18n.text('Mer : point de vigilance.'
 expect('Libelle carnet perso non traduit.', i18n.text('Carnet perso') === 'Personal notebook');
 expect('Statut note non traduit.', i18n.text('Non classée') === 'Unclassified');
 expect('Titre infos pratiques non traduit.', i18n.text('Infos pratiques') === 'Practical info');
+expect('Message fiche rapide non traduit.', i18n.text('Sélectionne une variante pour afficher les informations de la fiche rapide.') === 'Select a variant to show the quick sheet.');
+expect('Message mobile avant recette non traduit.', i18n.text('Consulte les notes, allergènes et points techniques avant de lancer la recette.') === 'Review the notes, allergens and technical points before starting the recipe.');
 expect('Titre a savoir non traduit.', i18n.text('À savoir') === 'Good to know');
 expect('Titre erreurs non traduit.', i18n.text('Erreurs à éviter') === 'Mistakes to avoid');
 expect('Titre resultat attendu non traduit.', i18n.text('Résultat attendu') === 'Expected result');
+expect('Pate legere a frire non traduite.', i18n.text('Pâte légère à frire') === 'Light frying batter');
+expect('Note calamars croustillant non traduite.', i18n.text('La pâte doit rester froide, légère et légèrement irrégulière.') === 'The batter should stay cold, light and slightly uneven.');
+expect('Erreur calamars surcharge non traduite.', i18n.text('Ne surcharge pas le bain d’huile pour garder une friture nette et non grasse.') === 'Do not overcrowd the oil bath; it keeps the frying clean and light.');
+expect('Technique egouttage non traduite.', i18n.text('Préférer une grille au papier pour éviter la vapeur.') === 'Use a rack rather than paper towels to avoid steam.');
 expect('Titre poelee non traduit.', i18n.text('Poêlée de blé au poulet et curcuma') === 'Pan-fried wheat with chicken and turmeric');
 expect('Cuisson pancakes non traduite.', i18n.text('Repos 10min puis cuisson en petites louches sur poêle beurrée.') === 'Rest for 10 minutes, then cook small ladles of batter in a buttered pan.');
 expect('Blanc oeuf non traduit.', i18n.text('30g blanc d’œuf') === '30g egg white');

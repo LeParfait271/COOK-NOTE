@@ -40,6 +40,23 @@ function changedFilesAgainstHead() {
   return [...files];
 }
 
+function appArtImagesChangeRequiresManifest() {
+  try {
+    const before = execFileSync('git', ['show', 'HEAD:app-art-images.js'], {
+      cwd: ROOT,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore']
+    });
+    const after = read('app-art-images.js');
+    const normalize = text => text
+      .replace(/\bconst v='\d+'/g, "const v=''")
+      .replace(/(\?v=)\d+/g, '$1');
+    return normalize(before) !== normalize(after);
+  } catch {
+    return true;
+  }
+}
+
 function isCatalogOrVisualChange(file) {
   return file === 'recipes.js'
     || file === 'app-images.js'
@@ -53,7 +70,6 @@ function isCatalogOrVisualChange(file) {
 
 function isImageManifestChange(file) {
   return file === 'assets/image-manifest.js'
-    || file === 'app-art-images.js'
     || /^assets\/(?:day|dark)\//.test(file)
     || /^assets\/recipe-(?:images|images-optimized|card-images)\//.test(file);
 }
@@ -132,7 +148,8 @@ if (changedFiles.some(isCatalogOrVisualChange)) {
   });
 }
 
-if (changedFiles.some(isImageManifestChange) && !changedSet.has('assets/image-manifest.js')) {
+const themeArtSourcesChanged = changedSet.has('app-art-images.js') && appArtImagesChangeRequiresManifest();
+if ((changedFiles.some(isImageManifestChange) || themeArtSourcesChanged) && !changedSet.has('assets/image-manifest.js')) {
   fail('assets/image-manifest.js: regeneration obligatoire quand les images changent.');
 }
 
