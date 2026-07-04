@@ -95,11 +95,24 @@
     'Mémo': 'Memo',
     'Allergènes': 'Allergens',
     'Aucun allergène majeur détecté dans les ingrédients.': 'No major allergen detected in the ingredients.',
+    'Gluten': 'Gluten',
+    'Lait': 'Milk',
+    'Mollusques': 'Molluscs',
+    'Moutarde': 'Mustard',
+    'Œufs': 'Eggs',
+    'Oeufs': 'Eggs',
     'Poids moyens': 'Average weights',
     'Poids moyens utiles': 'Useful average weights',
     'Correspondances de poids moyens': 'Average-weight references',
     'Recettes liées': 'Related recipes',
     'Notes': 'Notes',
+    'Carnet perso': 'Personal notebook',
+    'Note privée': 'Private note',
+    'Statut': 'Status',
+    'Non classée': 'Unclassified',
+    'À refaire': 'To redo',
+    'Testée / validée': 'Tested / approved',
+    'À ajuster': 'Needs adjustment',
     'Astuces et liens': 'Tips and links',
     'Fiche technique': 'Technical sheet',
     'Points techniques': 'Technical points',
@@ -224,6 +237,30 @@
   };
 
   const recipePhraseEn = {
+    'Beignets de calamar': 'Calamari fritters',
+    'Calamars': 'Calamari',
+    'Pâte légère': 'Light batter',
+    'Aïoli citronné léger': 'Light lemon aioli',
+    'Variante tempura': 'Tempura variant',
+    'Jus d’un citron jaune': 'Juice of one lemon',
+    "Jus d'un citron jaune": 'Juice of one lemon',
+    'Gousse d’ail': 'Garlic clove',
+    "Gousse d'ail": 'Garlic clove',
+    'Blanc d’œuf': 'Egg white',
+    'Blanc d’oeuf': 'Egg white',
+    'Jaune d’œuf': 'Egg yolk',
+    'Jaune d’oeuf': 'Egg yolk',
+    'Rincer rapidement les calamars, les éponger, puis couper les tubes en anneaux réguliers de 1 à 1,5cm.': 'Quickly rinse the calamari, pat them dry, then cut the tubes into even 1 to 1.5cm rings.',
+    'Mélanger lait, citron, ail, sel, poivre du moulin et piment, puis mariner les calamars 30min à 2h au frais.': 'Mix the milk, lemon, garlic, salt, freshly ground pepper and chili, then marinate the calamari for 30 minutes to 2 hours in the fridge.',
+    'Préparer l’<span data-goto="aioli_citronne_leger">aïoli citronné léger</span>, puis le garder au frais.': 'Prepare the light lemon aioli, then keep it chilled.',
+    'Préparer au dernier moment la <span data-goto="pate_legere_beignets_calamar_crevettes">pâte légère</span> ou la <span data-goto="tempura_beignets_calamar_crevettes">tempura</span>, selon le croustillant voulu.': 'Prepare the light batter or tempura at the last moment, depending on the crunch you want.',
+    'Égoutter les calamars, les éponger très soigneusement, puis les passer légèrement dans farine ou fécule.': 'Drain the calamari, pat them very thoroughly dry, then dust them lightly with flour or starch.',
+    'Chauffer l’huile à 180°C.': 'Heat the oil to 180°C.',
+    'Tremper les calamars dans la pâte choisie et frire par petites quantités 1min 30 à 2min maximum.': 'Dip the calamari in the chosen batter and fry in small batches for 1 minute 30 seconds to 2 minutes maximum.',
+    'Égoutter sur grille, saler légèrement et servir immédiatement avec citron et sauce.': 'Drain on a rack, salt lightly and serve immediately with lemon and sauce.',
+    'Mélanger farine, fécule et sel, puis ajouter jaune d’œuf et eau gazeuse glacée au dernier moment.': 'Mix the flour, starch and salt, then add the egg yolk and ice-cold sparkling water at the last moment.',
+    'Garder une pâte irrégulière et très froide, puis tremper les calamars bien secs.': 'Keep the batter uneven and very cold, then dip the well-dried calamari.',
+    'Frire immédiatement en petites fournées dans une huile chaude jusqu’à obtenir des beignets légèrement dorés, légers et croustillants.': 'Fry immediately in small batches in hot oil until the fritters are lightly golden, light and crisp.',
     'Crumble pomme-poire': 'Apple and pear crumble',
     'Flan parisien vanille': 'Parisian vanilla custard tart',
     'Flan p\u00e2tissier \u00e9pais vanille': 'Thick Parisian vanilla custard tart',
@@ -274,6 +311,37 @@
   };
 
   const culinaryReplacementsEn = [
+    ['beignets de calamar', 'calamari fritters'],
+    ['anneaux de calamar', 'calamari rings'],
+    ['aïoli citronné léger', 'light lemon aioli'],
+    ['pâte légère', 'light batter'],
+    ['jus d’un citron jaune', 'juice of one lemon'],
+    ["jus d'un citron jaune", 'juice of one lemon'],
+    ['gousse d’ail', 'garlic clove'],
+    ["gousse d'ail", 'garlic clove'],
+    ['blanc d’œuf', 'egg white'],
+    ['blanc d’oeuf', 'egg white'],
+    ['jaune d’œuf', 'egg yolk'],
+    ['jaune d’oeuf', 'egg yolk'],
+    ['calamars', 'calamari'],
+    ['calamar', 'calamari'],
+    ['eau gazeuse très froide', 'very cold sparkling water'],
+    ['eau gazeuse glacée', 'ice-cold sparkling water'],
+    ['eau gazeuse', 'sparkling water'],
+    ['vodka très froide', 'very cold vodka'],
+    ['ail écrasé', 'crushed garlic'],
+    ['ail râpé', 'grated garlic'],
+    ['beignets', 'fritters'],
+    ['beignet', 'fritter'],
+    ['mollusques', 'molluscs'],
+    ['éponger', 'pat dry'],
+    ['mariner', 'marinate'],
+    ['mariné', 'marinated'],
+    ['marinés', 'marinated'],
+    ['rincer', 'rinse'],
+    ['tubes', 'tubes'],
+    ['anneaux', 'rings'],
+    ['frais', 'chilled'],
     ['papier cuisson', 'parchment paper'],
     ['plaque de cuisson', 'baking sheet'],
     ['poche à douille', 'piping bag'],
@@ -586,6 +654,9 @@
     [/^Fermer la notification : (.+)$/, match => `Close notification: ${match[1]}`],
     [/^Choisir le style (.+)$/, match => `Choose ${match[1]} style`],
     [/^Afficher (\d+) recette(s?) liée(s?) supplémentaire(s?)$/, match => `Show ${match[1]} more related recipe${match[1] === '1' ? '' : 's'}`],
+    [/^Tu suis actuellement "(.+)". Le sélecteur au-dessus change aussi les ingrédients et les étapes\.$/, match => `You are currently using "${text(match[1])}". The selector above also changes the ingredients and steps.`],
+    [/^Variante active : (.+). Ingrédients et étapes suivent ce choix\.$/, match => `Active variant: ${text(match[1])}. Ingredients and steps follow this choice.`],
+    [/^Choisis une variante au-dessus pour afficher les ingrédients détaillés et les étapes correspondantes\.$/, () => 'Choose a variant above to show the detailed ingredients and matching steps.'],
     [/^(.+) de saison : (.+)$/, match => `Seasonal ${match[1]}: ${match[2]}`]
   ];
 
@@ -666,7 +737,7 @@
     [/^(.+?)\s+à la\s+(.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
     [/^(.+?)\s+à l[’'](.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
     [/^(.+?)\s+en\s+(.+)$/i, match => `${translateRecipeFragment(match[1])} in ${translateRecipeFragment(match[2])}`],
-    [/^(Curry|Gratin|Salade|Soupe|Velouté|Purée|Crumble|Tarte|Gâteau|Crème|Sauce|Coulis|Compotée|Poêlée|Ragoût)\s+de\s+(.+)$/i, match => `${translateRecipeFragment(match[2])} ${translateRecipeFragment(match[1])}`]
+    [/^(Beignets?|Billes|Brochettes|Bricks|Croquettes|Verrines|Gressins|Madeleines|Muffins|Cookies|Choux|Donuts|Churros|Tempura|Curry|Gratin|Salade|Soupe|Velouté|Purée|Crumble|Tarte|Gâteau|Crème|Sauce|Coulis|Compotée|Poêlée|Ragoût)\s+de\s+(.+)$/i, match => `${translateRecipeFragment(match[2])} ${translateRecipeFragment(match[1])}`]
   ];
 
   function translateRecipeStructure(source) {
@@ -740,6 +811,12 @@
       .replace(/\bPr\u00e9chauffer\b/gi, 'Preheat')
       .replace(/\bMélange\b/gi, 'Mix')
       .replace(/\bM\u00e9langer\b/gi, 'Mix')
+      .replace(/\bPrépare\b/gi, 'Prepare')
+      .replace(/\bPr\u00e9parer\b/gi, 'Prepare')
+      .replace(/\bRince\b/gi, 'Rinse')
+      .replace(/\bRincer\b/gi, 'Rinse')
+      .replace(/\bEssuie\b/gi, 'Pat dry')
+      .replace(/\bEssuyer\b/gi, 'Pat dry')
       .replace(/\bFouette\b/gi, 'Whisk')
       .replace(/\bFouetter\b/gi, 'Whisk')
       .replace(/\bAjoute\b/gi, 'Add')

@@ -106,12 +106,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/cook-note.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v2.99';
+const SITE_VERSION = 'v3.00';
 const SITE_UPDATED_AT = '04/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.99';
+const ANDROID_LEGACY_APK_VERSION = '3.00';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -3533,7 +3533,10 @@ function polishDisplayText(value) {
 }
 
 function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], openTechnique = null) {
-  const value = polishDisplayText(text);
+  const rawValue = polishDisplayText(text);
+  const value = translateUiText(rawValue);
+  const activeTargets = value === rawValue ? targets : [];
+  const activeTechniqueTargets = value === rawValue ? techniqueTargets : [];
   const explicitLinkPattern = /<span\s+data-goto=(["'])([^"']+)\1[^>]*>(.*?)<\/span>/i;
   const explicitMatch = value.match(explicitLinkPattern);
   if (explicitMatch) {
@@ -3553,8 +3556,8 @@ function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], open
       renderLinkedText(value.slice(index + full.length), targets, openRecipe, techniqueTargets, openTechnique)
     );
   }
-  const targetMatch = findLinkedTextMatch(value, targets);
-  const techniqueMatch = openTechnique ? findLinkedTextMatch(value, techniqueTargets) : null;
+  const targetMatch = findLinkedTextMatch(value, activeTargets);
+  const techniqueMatch = openTechnique ? findLinkedTextMatch(value, activeTechniqueTargets) : null;
   if (!targetMatch && !techniqueMatch) return value;
   const targetIndex = targetMatch ? targetMatch.index : Number.POSITIVE_INFINITY;
   const techniqueIndex = techniqueMatch ? techniqueMatch.index : Number.POSITIVE_INFINITY;
