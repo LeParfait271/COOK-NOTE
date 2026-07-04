@@ -106,12 +106,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/cook-note.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v2.92';
+const SITE_VERSION = 'v2.93';
 const SITE_UPDATED_AT = '04/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.92';
+const ANDROID_LEGACY_APK_VERSION = '2.93';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -4634,12 +4634,82 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   );
 }
 
+function useCenteredScrollFeature(containerRef, dependencyKey) {
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return undefined;
+    const media = window.matchMedia?.('(hover: none), (pointer: coarse), (max-width: 760px)');
+    if (!media) return undefined;
+    let featuredCard = null;
+    let frame = 0;
+
+    const clearFeaturedCard = () => {
+      if (!featuredCard) return;
+      featuredCard.classList.remove('is-scroll-featured');
+      featuredCard = null;
+    };
+
+    const updateFeaturedCard = () => {
+      frame = 0;
+      if (!media.matches) {
+        clearFeaturedCard();
+        return;
+      }
+
+      const cards = Array.from(container.querySelectorAll('.recipe-card.has-image'));
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+      const targetY = viewportHeight * 0.52;
+      const activationTop = viewportHeight * 0.28;
+      const activationBottom = viewportHeight * 0.78;
+      let nextCard = null;
+      let nextDistance = Number.POSITIVE_INFINITY;
+
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.bottom < activationTop || rect.top > activationBottom) return;
+        const center = rect.top + rect.height / 2;
+        const distance = Math.abs(center - targetY);
+        if (distance < nextDistance) {
+          nextDistance = distance;
+          nextCard = card;
+        }
+      });
+
+      if (nextCard === featuredCard) return;
+      clearFeaturedCard();
+      featuredCard = nextCard;
+      featuredCard?.classList.add('is-scroll-featured');
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateFeaturedCard);
+    };
+
+    requestUpdate();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    window.addEventListener('orientationchange', requestUpdate);
+    media?.addEventListener?.('change', requestUpdate);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+      window.removeEventListener('orientationchange', requestUpdate);
+      media?.removeEventListener?.('change', requestUpdate);
+      clearFeaturedCard();
+    };
+  }, [containerRef, dependencyKey]);
+}
+
 function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNotes = {} }) {
   const masterGrid = recipes.length > 0 && recipes.every(isMasterRecipe);
   const recipeKey = recipes.map(recipe => recipe.id).join('|');
   const chunkedGrid = !masterGrid && recipes.length > GRID_INITIAL_RENDER_COUNT;
   const initialVisibleCount = chunkedGrid ? GRID_INITIAL_RENDER_COUNT : recipes.length;
   const [visibleCount, setVisibleCount] = useState(initialVisibleCount);
+  const gridRef = useRef(null);
   const loadMoreRef = useRef(null);
   const hasMore = visibleCount < recipes.length;
 
@@ -4656,6 +4726,8 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
     observer.observe(loadMoreRef.current);
     return () => observer.disconnect();
   }, [hasMore, recipes.length, recipeKey]);
+
+  useCenteredScrollFeature(gridRef, `${recipeKey}:${visibleCount}`);
 
   if (!recipes.length) {
     return h('div', { className: 'empty-state' },
@@ -4674,7 +4746,7 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
     : 'Afficher plus de recettes';
 
   return h(React.Fragment, null,
-    h('div', { className: gridClassName },
+    h('div', { className: gridClassName, ref: gridRef },
       visibleRecipes.map(recipe => h(RecipeCard, {
         key: recipe.id,
         recipe,

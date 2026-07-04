@@ -6220,6 +6220,17 @@ a {
   z-index: 5;
 }
 
+.mc-shell .recipe-card.is-scroll-featured {
+  z-index: 5;
+  transform: translateY(-3px);
+  filter: saturate(1.10) contrast(1.03);
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 72%, var(--line));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--card-accent, var(--accent)) 46%, transparent),
+    0 0 36px color-mix(in srgb, var(--card-accent, var(--accent)) 32%, transparent),
+    0 24px 72px rgba(0, 0, 0, .52);
+}
+
 .card-ambilight,
 .variant-card-ambilight {
   position: absolute;
@@ -6241,6 +6252,7 @@ a {
 
 .recipe-card.has-image:hover .card-ambilight,
 .recipe-card.has-image:focus-visible .card-ambilight,
+.recipe-card.has-image.is-scroll-featured .card-ambilight,
 .variant-card:hover .variant-card-ambilight,
 .variant-card:focus-visible .variant-card-ambilight {
   opacity: var(--ambilight-hover-opacity);
@@ -6269,14 +6281,34 @@ a {
 
 .recipe-card.has-image:hover .card-media,
 .recipe-card.has-image:focus-visible .card-media,
+.recipe-card.has-image.is-scroll-featured .card-media,
 .variant-card:hover .variant-card-bg,
 .variant-card:focus-visible .variant-card-bg {
   transform: none;
 }
 
 .recipe-card.has-image:hover .card-image,
-.recipe-card.has-image:focus-visible .card-image {
+.recipe-card.has-image:focus-visible .card-image,
+.recipe-card.has-image.is-scroll-featured .card-image {
   transform: scale(1.04);
+}
+
+.recipe-card.is-scroll-featured .card-media::after {
+  opacity: .76;
+}
+
+.recipe-card:not(.master-card).is-scroll-featured h3 {
+  transform: translateY(calc(var(--title-hover-lift) * .62));
+}
+
+.home-view .recipe-card:not(.master-card).is-scroll-featured h3 {
+  transform: none;
+}
+
+.home-view .recipe-card:not(.master-card).is-scroll-featured::after,
+.recipe-card.master-card.is-scroll-featured::after {
+  opacity: .9;
+  transform: scale(1);
 }
 
 .recipe-card.has-image .card-body,
