@@ -54,11 +54,19 @@ function loadExistingRuntimeMap(numeric) {
   };
 }
 
-function loadRecipeIds() {
+function loadRecipes() {
   const context = { window: {} };
   vm.createContext(context);
   vm.runInContext(read('recipes.js'), context, { filename: path.join(ROOT, 'recipes.js') });
-  return new Set(Object.keys(context.window.RECIPES || {}));
+  return context.window.RECIPES || {};
+}
+
+function recipeHasVariants(recipe) {
+  return Array.isArray(recipe?.variants) && recipe.variants.some(variant => variant?.id);
+}
+
+function usesOriginalParentImage(recipe) {
+  return Boolean(recipe && (recipe.masterType === 'collection' || recipeHasVariants(recipe)));
 }
 
 function listFiles(relative) {
@@ -68,7 +76,7 @@ function listFiles(relative) {
 }
 
 function addDayFiles(map, numeric) {
-  const recipeIds = loadRecipeIds();
+  const recipeIds = new Set(Object.keys(loadRecipes()));
   listFiles('assets/day').forEach(file => {
     if (/^recipe-.+-day\.jpg$/i.test(file)) {
       const id = file.replace(/^recipe-/i, '').replace(/-day\.jpg$/i, '');
@@ -80,7 +88,7 @@ function addDayFiles(map, numeric) {
 }
 
 function addDarkFiles(map, numeric) {
-  const recipeIds = loadRecipeIds();
+  const recipeIds = new Set(Object.keys(loadRecipes()));
   listFiles('assets/dark').forEach(file => {
     if (!/^recipe-.+-dark\.jpg$/i.test(file)) return;
     const id = file.replace(/^recipe-/i, '').replace(/-dark\.jpg$/i, '');
@@ -88,8 +96,8 @@ function addDarkFiles(map, numeric) {
   });
 }
 
-function filterKnownRecipes(map, recipeIds) {
-  return Object.fromEntries(Object.entries(map).filter(([id]) => recipeIds.has(id)));
+function filterDisplayArtRecipes(map, recipes) {
+  return Object.fromEntries(Object.entries(map).filter(([id]) => recipes[id] && !usesOriginalParentImage(recipes[id])));
 }
 
 function renderMap(map, indent) {
@@ -100,13 +108,13 @@ function renderMap(map, indent) {
 }
 
 const numeric = currentNumericVersion();
-const recipeIds = loadRecipeIds();
+const recipes = loadRecipes();
 const maps = loadExistingRuntimeMap(numeric);
 maps.light = { ...loadInlineDayMap(numeric), ...maps.light };
 addDayFiles(maps.light, numeric);
 addDarkFiles(maps.dark, numeric);
-maps.light = filterKnownRecipes(maps.light, recipeIds);
-maps.dark = filterKnownRecipes(maps.dark, recipeIds);
+maps.light = filterDisplayArtRecipes(maps.light, recipes);
+maps.dark = filterDisplayArtRecipes(maps.dark, recipes);
 
 const text = `/* global window */
 

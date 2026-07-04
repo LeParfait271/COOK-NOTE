@@ -127,6 +127,9 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
   mode jour dans `assets/day/`, mode nuit dans `assets/dark/`. Ce module doit
   rester versionne dans `index.html`, le service worker, le build `dist/` et les
   validateurs comme `app-images.js`.
+- Les fiches parents et collections gardent leur image de fiche d'origine
+  (`recipe.image`) : les overrides `app-art-images.js` ne doivent jamais
+  remplacer les cartes parents de l'accueil ou des collections.
 
 ## Production
 
