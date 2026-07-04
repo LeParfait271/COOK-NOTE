@@ -100,11 +100,20 @@ function filterDisplayArtRecipes(map, recipes) {
   return Object.fromEntries(Object.entries(map).filter(([id]) => recipes[id] && !usesOriginalParentImage(recipes[id])));
 }
 
-function renderMap(map, indent) {
-  return Object.entries(map)
+function compactMapPayload(map, dir, suffix, numericVersion) {
+  const ids = [];
+  const extra = {};
+  Object.entries(map)
     .sort(([left], [right]) => left.localeCompare(right, 'fr', { sensitivity: 'base' }))
-    .map(([id, url]) => `${indent}${id}: '${url}'`)
-    .join(',\n');
+    .forEach(([id, url]) => {
+      const expected = `/assets/${dir}/recipe-${id}-${suffix}.jpg?v=${numericVersion}`;
+      if (url === expected) {
+        ids.push(id);
+      } else {
+        extra[id] = url;
+      }
+    });
+  return { ids, extra };
 }
 
 const numeric = currentNumericVersion();
@@ -116,21 +125,9 @@ addDarkFiles(maps.dark, numeric);
 maps.light = filterDisplayArtRecipes(maps.light, recipes);
 maps.dark = filterDisplayArtRecipes(maps.dark, recipes);
 
-const text = `/* global window */
-
-(function initCookNoteArtImages() {
-  'use strict';
-
-  window.COOK_NOTE_THEME_RECIPE_ART = Object.freeze({
-    dark: Object.freeze({
-${renderMap(maps.dark, '      ')}
-    }),
-    light: Object.freeze({
-${renderMap(maps.light, '      ')}
-    })
-  });
-}());
-`;
+const darkPayload = compactMapPayload(maps.dark, 'dark', 'dark', numeric);
+const lightPayload = compactMapPayload(maps.light, 'day', 'day', numeric);
+const text = `/* global window */\n(function initCookNoteArtImages(){'use strict';const v='${numeric}',m=(ids,d,s,e)=>Object.freeze(Object.assign(Object.fromEntries(ids.map(id=>[id,'/assets/'+d+'/recipe-'+id+'-'+s+'.jpg?v='+v])),e));window.COOK_NOTE_THEME_RECIPE_ART=Object.freeze({dark:m(${JSON.stringify(darkPayload.ids)},'dark','dark',${JSON.stringify(darkPayload.extra)}),light:m(${JSON.stringify(lightPayload.ids)},'day','day',${JSON.stringify(lightPayload.extra)})});}());\n`;
 
 fs.writeFileSync(OUT_FILE, text, 'utf8');
 console.log(`Images art generees: dark=${Object.keys(maps.dark).length}, light=${Object.keys(maps.light).length}`);

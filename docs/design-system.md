@@ -116,8 +116,8 @@ Respect obligatoire de `prefers-reduced-motion`.
   surfaces chaudes, un accent ambre/brun et des contrastes confortables. Pas de
   blanc pur agressif.
 - `theme.js` applique `data-theme` avant le chargement du CSS pour limiter le
-  scintillement, detecte `prefers-color-scheme` au premier lancement, puis
-  respecte le choix stocke dans `cook_note_preferences`.
+  scintillement. Le dark mode reste le mode de base, puis le choix utilisateur
+  jour/nuit est stocke dans `cook_note_preferences`.
 - Les couleurs passent par les tokens semantiques. Un composant ne doit pas
   porter une couleur de theme en dur si `--ds-color-*`, `--ds-shadow-*` ou un
   token de surface couvre le besoin.

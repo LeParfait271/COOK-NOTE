@@ -20,11 +20,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 302,
     "bytes": 578951
   },
-  "assets/dark/recipe-accompagnements_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 315205
-  },
   "assets/dark/recipe-aioli_citronne_leger-dark.jpg": {
     "width": 1280,
     "height": 720,
@@ -34,11 +29,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 270317
-  },
-  "assets/dark/recipe-apero_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 338159
   },
   "assets/dark/recipe-asperges_mimosa-dark.jpg": {
     "width": 1280,
@@ -59,11 +49,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 258977
-  },
-  "assets/dark/recipe-bases_salees_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 318375
   },
   "assets/dark/recipe-beignets_calamar-dark.jpg": {
     "width": 1280,
@@ -89,11 +74,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 324540
-  },
-  "assets/dark/recipe-biscuits_gouters_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 317764
   },
   "assets/dark/recipe-bouillabaisse_rouille-dark.jpg": {
     "width": 1536,
@@ -215,11 +195,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 280781
   },
-  "assets/dark/recipe-chantilly_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 301150
-  },
   "assets/dark/recipe-chapelure_maison-dark.jpg": {
     "width": 1280,
     "height": 720,
@@ -340,11 +315,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 314120
   },
-  "assets/dark/recipe-cookies_sucres_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 344287
-  },
   "assets/dark/recipe-cotelettes_porc_miel_moutarde-dark.jpg": {
     "width": 1536,
     "height": 864,
@@ -415,11 +385,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 296484
   },
-  "assets/dark/recipe-cremes_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 306484
-  },
   "assets/dark/recipe-crepes_lait_amandes-dark.jpg": {
     "width": 1536,
     "height": 864,
@@ -444,11 +409,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 313048
-  },
-  "assets/dark/recipe-crudites_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 322727
   },
   "assets/dark/recipe-crumble_carottes_cumin_noisettes_parmesan-dark.jpg": {
     "width": 1536,
@@ -495,16 +455,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 864,
     "bytes": 143091
   },
-  "assets/dark/recipe-desserts_cuillere_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 321584
-  },
-  "assets/dark/recipe-desserts_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 318098
-  },
   "assets/dark/recipe-dhal_lentilles_epices-dark.jpg": {
     "width": 1536,
     "height": 864,
@@ -520,20 +470,10 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 864,
     "bytes": 147225
   },
-  "assets/dark/recipe-elements_base_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 313579
-  },
   "assets/dark/recipe-encornets_chorizo-dark.jpg": {
     "width": 1536,
     "height": 864,
     "bytes": 145082
-  },
-  "assets/dark/recipe-entrees_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 329466
   },
   "assets/dark/recipe-falafels_four-dark.jpg": {
     "width": 1280,
@@ -865,11 +805,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 278360
   },
-  "assets/dark/recipe-pates_bases_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 303696
-  },
   "assets/dark/recipe-pates_brocolis_amandes-dark.jpg": {
     "width": 1536,
     "height": 864,
@@ -905,11 +840,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 333341
   },
-  "assets/dark/recipe-petit_dejeuner_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 327037
-  },
   "assets/dark/recipe-petits_pois_francaise-dark.jpg": {
     "width": 1536,
     "height": 864,
@@ -919,11 +849,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1536,
     "height": 864,
     "bytes": 154003
-  },
-  "assets/dark/recipe-plats_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 312079
   },
   "assets/dark/recipe-poelee_ble_poulet_curcuma-dark.jpg": {
     "width": 1536,
@@ -1190,20 +1115,10 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 268200
   },
-  "assets/dark/recipe-sauces_assaisonnements_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 329236
-  },
   "assets/dark/recipe-sauces_burger_variantes-dark.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 285160
-  },
-  "assets/dark/recipe-sauces_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 314247
   },
   "assets/dark/recipe-saucisse_lentilles-dark.jpg": {
     "width": 1536,
@@ -1270,11 +1185,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 374362
   },
-  "assets/dark/recipe-tartes_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 309921
-  },
   "assets/dark/recipe-temps_cuisson_legumes_autocuiseur-dark.jpg": {
     "width": 1536,
     "height": 864,
@@ -1314,11 +1224,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1536,
     "height": 864,
     "bytes": 144385
-  },
-  "assets/dark/recipe-tomates_maitre-dark.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 315793
   },
   "assets/dark/recipe-tomates_provencales-dark.jpg": {
     "width": 1280,
@@ -1365,46 +1270,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 864,
     "bytes": 358445
   },
-  "assets/day/category-accompagnements-day.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 441892
-  },
-  "assets/day/category-apero-day.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 390532
-  },
-  "assets/day/category-bases-day.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 424699
-  },
-  "assets/day/category-desserts-day.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 418382
-  },
-  "assets/day/category-entrees-day.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 429428
-  },
-  "assets/day/category-petit-dejeuner-day.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 396614
-  },
-  "assets/day/category-plats-day.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 436826
-  },
-  "assets/day/category-sauces-day.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 410543
-  },
   "assets/day/cook-note-day.png": {
     "width": 948,
     "height": 302,
@@ -1440,11 +1305,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 864,
     "bytes": 173585
   },
-  "assets/day/recipe-bases_salees_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 192266
-  },
   "assets/day/recipe-beignets_calamar-day.jpg": {
     "width": 1400,
     "height": 933,
@@ -1469,11 +1329,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 320270
-  },
-  "assets/day/recipe-biscuits_gouters_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 216301
   },
   "assets/day/recipe-bricks_fromage_miel_poires_pecan-day.jpg": {
     "width": 1400,
@@ -1589,11 +1444,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1536,
     "height": 864,
     "bytes": 205447
-  },
-  "assets/day/recipe-chantilly_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 206676
   },
   "assets/day/recipe-chapelure_maison-day.jpg": {
     "width": 1536,
@@ -1715,11 +1565,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 327820
   },
-  "assets/day/recipe-cookies_sucres_maitre-day.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 356396
-  },
   "assets/day/recipe-cotelettes_porc_miel_moutarde-day.jpg": {
     "width": 1536,
     "height": 864,
@@ -1790,11 +1635,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 339014
   },
-  "assets/day/recipe-cremes_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 215529
-  },
   "assets/day/recipe-crepes_lait_amandes-day.jpg": {
     "width": 1400,
     "height": 933,
@@ -1819,11 +1659,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 332461
-  },
-  "assets/day/recipe-crudites_maitre-day.jpg": {
-    "width": 1400,
-    "height": 787,
-    "bytes": 293149
   },
   "assets/day/recipe-crumble_carottes_cumin_noisettes_parmesan-day.jpg": {
     "width": 1536,
@@ -1869,11 +1704,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1536,
     "height": 864,
     "bytes": 183952
-  },
-  "assets/day/recipe-desserts_cuillere_maitre-day.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 349954
   },
   "assets/day/recipe-dhal_lentilles_epices-day.jpg": {
     "width": 1536,
@@ -2225,11 +2055,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 864,
     "bytes": 220285
   },
-  "assets/day/recipe-pates_bases_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 205369
-  },
   "assets/day/recipe-pates_brocolis_amandes-day.jpg": {
     "width": 1536,
     "height": 864,
@@ -2540,11 +2365,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 340368
   },
-  "assets/day/recipe-sauces_assaisonnements_maitre-day.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 310734
-  },
   "assets/day/recipe-sauces_burger_variantes-day.jpg": {
     "width": 1400,
     "height": 788,
@@ -2620,11 +2440,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 328816
   },
-  "assets/day/recipe-tartes_maitre-day.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 369130
-  },
   "assets/day/recipe-temps_cuisson_legumes_autocuiseur-day.jpg": {
     "width": 1536,
     "height": 864,
@@ -2664,11 +2479,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1536,
     "height": 864,
     "bytes": 184764
-  },
-  "assets/day/recipe-tomates_maitre-day.jpg": {
-    "width": 1400,
-    "height": 780,
-    "bytes": 313436
   },
   "assets/day/recipe-tomates_provencales-day.jpg": {
     "width": 1536,

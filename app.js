@@ -4170,7 +4170,12 @@ function themeRecipeArtImage(recipe) {
   return THEME_RECIPE_ART_IMAGES[theme]?.[recipe?.id] || '';
 }
 
+function usesOriginalParentImage(recipe) {
+  return isCategoryCollectionRecipe(recipe) || isMasterRecipe(recipe);
+}
+
 function displayRecipeImage(recipe) {
+  if (usesOriginalParentImage(recipe)) return recipe.image || themeRecipeArtImage(recipe) || '';
   return themeRecipeArtImage(recipe) || recipe?.image || '';
 }
 
@@ -5041,6 +5046,7 @@ function AppInstallPanel({ option, onClose }) {
             className: 'btn btn-primary',
             href: option.href,
             rel: 'noopener noreferrer',
+            'aria-label': 'Telecharger l APK',
             download: option.fileName
           }, 'Télécharger l’APK'),
           h('a', {
@@ -6086,7 +6092,7 @@ function LinkedRecipesBlock({ links, openRecipe }) {
     acc.get(role).push(item);
     return acc;
   }, new Map());
-  return h('div', { className: 'linked-recipes-block', 'aria-label': 'Recettes liées à cette fiche' },
+  return h('div', { className: 'linked-recipes-block', 'aria-label': 'Recettes liees a cette fiche' },
     h('p', { className: 'eyebrow' }, 'Recettes liées'),
     Array.from(groups.entries()).map(([role, items]) => h('div', { key: role, className: 'linked-recipe-group' },
       h('div', { className: 'linked-recipe-group-title' }, role),
@@ -6113,7 +6119,7 @@ function LinkedRecipesBlock({ links, openRecipe }) {
       className: expanded ? 'linked-recipe-toggle active' : 'linked-recipe-toggle',
       onClick: () => setExpanded(value => !value),
       'aria-expanded': expanded,
-      'aria-label': expanded ? 'Masquer les recettes liées supplémentaires' : `Afficher ${hiddenCount} recette${hiddenCount > 1 ? 's' : ''} liée${hiddenCount > 1 ? 's' : ''} supplémentaire${hiddenCount > 1 ? 's' : ''}`
+      'aria-label': expanded ? 'Masquer les recettes liees supplementaires' : `Afficher ${hiddenCount} recette${hiddenCount > 1 ? 's' : ''} liee${hiddenCount > 1 ? 's' : ''} supplementaire${hiddenCount > 1 ? 's' : ''}`
     }, expanded ? 'Masquer les recettes liées' : `Voir ${hiddenCount} autre${hiddenCount > 1 ? 's' : ''} recette${hiddenCount > 1 ? 's' : ''}`)
   );
 }
@@ -6721,10 +6727,10 @@ function RecipeView({
           h('p', { className: 'eyebrow' }, 'Mémo'),
           h('h2', { className: 'read-before-title' }, 'Avant de commencer')
         ),
-        h('div', { className: 'allergen-card', 'aria-label': 'Allergènes détectés' },
+        h('div', { className: 'allergen-card', 'aria-label': 'Allergenes detectes' },
           h('p', { className: 'eyebrow' }, 'Allergènes'),
           recipeAllergens.length
-            ? h('ul', { className: 'allergen-list', 'aria-label': 'Liste des allergènes détectés' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
+            ? h('ul', { className: 'allergen-list', 'aria-label': 'Liste des allergenes detectes' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
             : h('p', { className: 'allergen-empty' }, 'Aucun allergène majeur détecté dans les ingrédients.')
         ),
         averageWeights.length > 0 && h('div', { className: 'average-weight-card', 'aria-label': 'Poids moyens utiles' },

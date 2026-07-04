@@ -1381,8 +1381,8 @@
     return String(value || '')
       .replace(/\s*,\s*/g, ', ')
       .replace(/\s+([,.;:])/g, '$1')
-      .replace(/\bd[â€™'’](?=\p{L})/giu, 'of ')
-      .replace(/\bl[â€™'’](?=\p{L})/giu, '')
+      .replace(/\bd['’](?=\p{L})/giu, 'of ')
+      .replace(/\bl['’](?=\p{L})/giu, '')
       .replace(/\bof with\b/gi, 'with')
       .replace(/\bwith with\b/gi, 'with')
       .replace(/\bfor with\b/gi, 'for')
@@ -1392,7 +1392,7 @@
       .replace(/\band of\b/gi, 'and')
       .replace(/\bpeu of\b/gi, 'little')
       .replace(/\ba peu\b/gi, 'a little')
-      .replace(/\bsi nÃ©cessaire\b/gi, 'if needed')
+      .replace(/\bsi nécessaire\b/gi, 'if needed')
       .replace(/\bsi nécessaire\b/gi, 'if needed')
       .replace(/\bsi\s+/gi, 'if ')
       .replace(/\bin in\b/gi, 'in')
@@ -1403,7 +1403,7 @@
       .replace(/\bdes\s+/gi, 'of ')
       .replace(/\bau\s+/gi, 'with ')
       .replace(/\baux\s+/gi, 'with ')
-      .replace(/\bÃ \s+/gi, 'to ')
+      .replace(/\bà\s+/gi, 'to ')
       .replace(/\bà\s+/gi, 'to ')
       .replace(/\bavec\s+/gi, 'with ')
       .replace(/\bet,/gi, 'and,')
@@ -1417,12 +1417,12 @@
       .replace(/\bpuis\s+/gi, 'then ')
       .replace(/\bquand\s+/gi, 'when ')
       .replace(/\bavant\s+/gi, 'before ')
-      .replace(/\baprÃ¨s\s+/gi, 'after ')
+      .replace(/\baprès\s+/gi, 'after ')
       .replace(/\bapr\u00e8s\s+/gi, 'after ')
       .replace(/\bpendant\s+/gi, 'for ')
-      .replace(/\bjusqu[â€™']Ã \s+/gi, 'until ')
+      .replace(/\bjusqu['’]à\s+/gi, 'until ')
       .replace(/\bjusqu[’']à\s+/gi, 'until ')
-      .replace(/\btrÃ¨s\s+/gi, 'very ')
+      .replace(/\btrès\s+/gi, 'very ')
       .replace(/\btr\u00e8s\s+/gi, 'very ')
       .replace(/\btrop\s+/gi, 'too ')
       .replace(/\bbien\s+/gi, 'well ')
@@ -1443,7 +1443,7 @@
       .replace(/\bplus\s+longtemps\b/gi, 'longer')
       .replace(/\bpas\s+/gi, 'not ')
       .replace(/\bne\s+/gi, '')
-      .replace(/\bn['â€™’]\s*/gi, '')
+      .replace(/\bn['’]\s*/gi, '')
       .replace(/\s+/g, ' ')
       .trim();
   }
@@ -1517,7 +1517,7 @@
       .slice()
       .sort((left, right) => right[0].length - left[0].length)
       .forEach(([source, translated]) => {
-        const normalizedSource = source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/[â€™'’]/g, "[â€™'’]");
+        const normalizedSource = source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/['’]/g, "['’]");
         output = output.replace(new RegExp(`(^|[^\\p{L}])${normalizedSource}(?=$|[^\\p{L}])`, 'giu'), `$1${translated}`);
       });
     return cleanRecipeEnglish(output);
