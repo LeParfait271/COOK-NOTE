@@ -19,9 +19,8 @@
   const valid = v => T.includes(v);
   const read = () => { try { return JSON.parse(g.localStorage?.getItem(S) || '{}'); } catch { return {}; } };
   const write = v => { try { g.localStorage?.setItem(S, JSON.stringify(v)); } catch {} };
-  const sys = () => { try { return g.matchMedia?.('(prefers-color-scheme: light)').matches ? L : D; } catch { return D; } };
   const stored = () => { const v = read().theme; return valid(v) ? v : ''; };
-  const resolve = v => valid(v) ? v : stored() || sys();
+  const resolve = v => valid(v) ? v : stored() || D;
   const assets = v => M[resolve(v)] || N;
   const asset = (k, v) => assets(v)[k] || N[k] || '';
   const ver = u => {
@@ -74,7 +73,7 @@
   const sub = f => typeof f === 'function' ? (E.add(f), () => E.delete(f)) : () => {};
   g.matchMedia?.('(prefers-color-scheme: light)')?.addEventListener?.('change', () => {
     if (stored()) return;
-    const t = apply(sys());
+    const t = apply(D);
     E.forEach(f => f(t));
   });
   g.CookNoteTheme = {

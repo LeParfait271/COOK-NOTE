@@ -106,12 +106,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/cook-note.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v2.90';
+const SITE_VERSION = 'v3.03';
 const SITE_UPDATED_AT = '04/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '2.90';
+const ANDROID_LEGACY_APK_VERSION = '3.03';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -121,11 +121,11 @@ const APP_INSTALL_OPTIONS = Object.freeze([
     label: 'Android 5.0+',
     detail: 'APK Legacy',
     title: 'Installer Cook Note Android 5.0+',
-    body: 'APK Legacy pour les tablettes anciennes. Le fichier est heberge sur GitHub pour eviter les limites de taille Cloudflare Pages.',
+    body: 'APK Legacy pour les tablettes anciennes. Le fichier est hébergé sur GitHub pour éviter les limites de taille Cloudflare Pages.',
     steps: [
-      'Touche Telecharger l APK.',
-      'Si Android affiche une alerte, autorise le telechargement.',
-      'Ouvre le fichier telecharge, puis autorise l installation depuis le navigateur si Android le demande.',
+      'Touche Télécharger l’APK.',
+      'Si Android affiche une alerte, autorise le téléchargement.',
+      'Ouvre le fichier téléchargé, puis autorise l’installation depuis le navigateur si Android le demande.',
       'Si le lien direct affiche une erreur, utilise le lien brut ou la page GitHub.'
     ],
     fileName: ANDROID_LEGACY_APK_FILE,
@@ -149,7 +149,7 @@ const GRID_RENDER_BATCH_SIZE = 24;
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
 const SEARCH_DIFFICULTY_OPTIONS = [
-  { value: '', label: 'Toutes difficultes' },
+  { value: '', label: 'Toutes difficultés' },
   { value: 'easy', label: 'Facile', min: 1, max: 3 },
   { value: 'medium', label: 'Moyen', min: 4, max: 6 },
   { value: 'hard', label: 'Technique', min: 7, max: 10 }
@@ -3533,7 +3533,10 @@ function polishDisplayText(value) {
 }
 
 function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], openTechnique = null) {
-  const value = polishDisplayText(text);
+  const rawValue = polishDisplayText(text);
+  const value = translateUiText(rawValue);
+  const activeTargets = value === rawValue ? targets : [];
+  const activeTechniqueTargets = value === rawValue ? techniqueTargets : [];
   const explicitLinkPattern = /<span\s+data-goto=(["'])([^"']+)\1[^>]*>(.*?)<\/span>/i;
   const explicitMatch = value.match(explicitLinkPattern);
   if (explicitMatch) {
@@ -3553,8 +3556,8 @@ function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], open
       renderLinkedText(value.slice(index + full.length), targets, openRecipe, techniqueTargets, openTechnique)
     );
   }
-  const targetMatch = findLinkedTextMatch(value, targets);
-  const techniqueMatch = openTechnique ? findLinkedTextMatch(value, techniqueTargets) : null;
+  const targetMatch = findLinkedTextMatch(value, activeTargets);
+  const techniqueMatch = openTechnique ? findLinkedTextMatch(value, activeTechniqueTargets) : null;
   if (!targetMatch && !techniqueMatch) return value;
   const targetIndex = targetMatch ? targetMatch.index : Number.POSITIVE_INFINITY;
   const techniqueIndex = techniqueMatch ? techniqueMatch.index : Number.POSITIVE_INFINITY;
@@ -4167,13 +4170,12 @@ function themeRecipeArtImage(recipe) {
   return THEME_RECIPE_ART_IMAGES[theme]?.[recipe?.id] || '';
 }
 
-function usesOriginalParentImage(recipe) {
-  return Boolean(recipe && (isCategoryCollectionRecipe(recipe) || isMasterRecipe(recipe)));
+function displayRecipeImage(recipe) {
+  return themeRecipeArtImage(recipe) || recipe?.image || '';
 }
 
-function displayRecipeImage(recipe) {
-  if (usesOriginalParentImage(recipe)) return recipe.image || themeRecipeArtImage(recipe) || '';
-  return themeRecipeArtImage(recipe) || recipe?.image || '';
+function ambilightStyle(image, extra = {}) {
+  return image ? { ...extra, '--ambilight-image': `url("${image}")` } : extra;
 }
 
 function recipeJsonLd(recipe, recipesById = {}) {
@@ -4586,10 +4588,11 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   const className = ['recipe-card', renderCardImage ? 'has-image' : '', master ? 'master-card' : '']
     .filter(Boolean)
     .join(' ');
+  const cardStyle = ambilightStyle(cardImage, style);
 
   return h('article', {
     className,
-    style,
+    style: cardStyle,
     'data-recipe-id': recipe.id,
     tabIndex: 0,
     role: 'button',
@@ -4602,6 +4605,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       }
     }
   },
+    renderCardImage && h('span', { className: 'card-ambilight', 'aria-hidden': true }),
     h('div', { className: 'card-media' },
       renderCardImage && h('img', {
         className: 'card-image',
@@ -4628,12 +4632,82 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   );
 }
 
+function useCenteredScrollFeature(containerRef, dependencyKey) {
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return undefined;
+    const media = window.matchMedia?.('(hover: none), (pointer: coarse), (max-width: 760px)');
+    if (!media) return undefined;
+    let featuredCard = null;
+    let frame = 0;
+
+    const clearFeaturedCard = () => {
+      if (!featuredCard) return;
+      featuredCard.classList.remove('is-scroll-featured');
+      featuredCard = null;
+    };
+
+    const updateFeaturedCard = () => {
+      frame = 0;
+      if (!media.matches) {
+        clearFeaturedCard();
+        return;
+      }
+
+      const cards = Array.from(container.querySelectorAll('.recipe-card.has-image'));
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+      const targetY = viewportHeight * 0.52;
+      const activationTop = viewportHeight * 0.28;
+      const activationBottom = viewportHeight * 0.78;
+      let nextCard = null;
+      let nextDistance = Number.POSITIVE_INFINITY;
+
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.bottom < activationTop || rect.top > activationBottom) return;
+        const center = rect.top + rect.height / 2;
+        const distance = Math.abs(center - targetY);
+        if (distance < nextDistance) {
+          nextDistance = distance;
+          nextCard = card;
+        }
+      });
+
+      if (nextCard === featuredCard) return;
+      clearFeaturedCard();
+      featuredCard = nextCard;
+      featuredCard?.classList.add('is-scroll-featured');
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateFeaturedCard);
+    };
+
+    requestUpdate();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    window.addEventListener('orientationchange', requestUpdate);
+    media?.addEventListener?.('change', requestUpdate);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+      window.removeEventListener('orientationchange', requestUpdate);
+      media?.removeEventListener?.('change', requestUpdate);
+      clearFeaturedCard();
+    };
+  }, [containerRef, dependencyKey]);
+}
+
 function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNotes = {} }) {
   const masterGrid = recipes.length > 0 && recipes.every(isMasterRecipe);
   const recipeKey = recipes.map(recipe => recipe.id).join('|');
   const chunkedGrid = !masterGrid && recipes.length > GRID_INITIAL_RENDER_COUNT;
   const initialVisibleCount = chunkedGrid ? GRID_INITIAL_RENDER_COUNT : recipes.length;
   const [visibleCount, setVisibleCount] = useState(initialVisibleCount);
+  const gridRef = useRef(null);
   const loadMoreRef = useRef(null);
   const hasMore = visibleCount < recipes.length;
 
@@ -4651,9 +4725,11 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
     return () => observer.disconnect();
   }, [hasMore, recipes.length, recipeKey]);
 
+  useCenteredScrollFeature(gridRef, `${recipeKey}:${visibleCount}`);
+
   if (!recipes.length) {
     return h('div', { className: 'empty-state' },
-      h('h2', null, 'Aucune recette ne matche'),
+      h('h2', null, 'Aucune recette ne correspond'),
       h('p', null, 'Les filtres sont trop serrés pour le contenu actuel.')
     );
   }
@@ -4668,7 +4744,7 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
     : 'Afficher plus de recettes';
 
   return h(React.Fragment, null,
-    h('div', { className: gridClassName },
+    h('div', { className: gridClassName, ref: gridRef },
       visibleRecipes.map(recipe => h(RecipeCard, {
         key: recipe.id,
         recipe,
@@ -4966,7 +5042,7 @@ function AppInstallPanel({ option, onClose }) {
             href: option.href,
             rel: 'noopener noreferrer',
             download: option.fileName
-          }, 'Telecharger l APK'),
+          }, 'Télécharger l’APK'),
           h('a', {
             className: 'btn btn-ghost',
             href: option.rawHref,
@@ -5071,7 +5147,7 @@ function SharePanel({ open, onClose, recipe, notify }) {
         ),
         h('div', { className: qrReady ? 'share-qr is-ready' : 'share-qr', 'aria-label': `QR code de ${recipe.title}` },
           h('canvas', { ref: canvasRef, className: 'qr-canvas', width: 132, height: 132, 'aria-label': `QR code du lien ${recipe.title}` }),
-          !qrReady && h('span', null, 'Lien pret')
+          !qrReady && h('span', null, 'Lien prêt')
         )
       ),
       h('div', { className: 'share-link-box', title: url, 'aria-label': `Lien de partage ${url}` }, url),
@@ -5080,11 +5156,11 @@ function SharePanel({ open, onClose, recipe, notify }) {
         h(Button, { variant: navigator.share ? 'subtle' : 'primary', onClick: () => copyText(url).then(() => {
           setCopied(true);
           notify?.('Lien de recette copié');
-        }), ariaLabel: `Copier le lien de ${recipe.title}` }, copied ? 'Lien copie' : 'Copier le lien'),
+        }), ariaLabel: `Copier le lien de ${recipe.title}` }, copied ? 'Lien copié' : 'Copier le lien'),
         h(Button, { variant: 'subtle', onClick: () => copyText(text).then(() => {
           setCopiedText(true);
           notify?.('Texte de recette copié');
-        }), ariaLabel: `Copier le texte de partage de ${recipe.title}` }, copiedText ? 'Texte copie' : 'Copier le texte'),
+        }), ariaLabel: `Copier le texte de partage de ${recipe.title}` }, copiedText ? 'Texte copié' : 'Copier le texte'),
         h('a', { className: 'btn btn-subtle', href: `https://wa.me/?text=${encodeURIComponent(text)}`, target: '_blank', rel: 'noreferrer', 'aria-label': `Partager ${recipe.title} sur WhatsApp` }, 'WhatsApp'),
         h('a', { className: 'btn btn-subtle', href: `mailto:?subject=${encodeURIComponent(recipe.title)}&body=${encodeURIComponent(text)}`, 'aria-label': `Partager ${recipe.title} par email` }, 'Email')
       )
@@ -5518,7 +5594,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
   const shoppingData = useMemo(() => open ? buildShoppingListData(recipes, factorById) : EMPTY_SHOPPING_DATA, [open, recipes, factorById]);
   const activeShoppingData = useMemo(() => open ? filterShoppingListData(shoppingData, ownedItems) : EMPTY_SHOPPING_DATA, [open, shoppingData, ownedItems]);
   const batchPlan = useMemo(() => open ? getBatchPlanData(recipes) : [], [open, recipes]);
-  const text = open && recipes.length ? shoppingListText(recipes, factorById, ownedItems) : 'Liste de courses Cook Note\n\nAucune recette cochee.';
+  const text = open && recipes.length ? shoppingListText(recipes, factorById, ownedItems) : 'Liste de courses Cook Note\n\nAucune recette cochée.';
   const compactText = open && recipes.length ? shoppingListText(recipes, factorById, ownedItems, 'compact') : 'Courses Cook Note\nAucune recette.';
   const visibleShoppingKeys = useMemo(() => new Set(shoppingData.groupedItems.map(item => item.key)), [shoppingData]);
   const checkedCount = activeShoppingData.groupedItems.filter(item => checkedItems[item.key]).length;
@@ -5604,11 +5680,11 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
         h('span', null, `${checkedCount} coché${checkedCount > 1 ? 's' : ''}`),
         checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}), 'aria-label': `Tout décocher (${checkedCount} article${checkedCount > 1 ? 's' : ''})` }, 'Tout décocher')
       ),
-      recipes.length > 0 && h('div', { className: 'shopping-store-dashboard', style: { '--shopping-progress': `${handledRatio}%` }, 'aria-label': 'Synthese magasin' },
+      recipes.length > 0 && h('div', { className: 'shopping-store-dashboard', style: { '--shopping-progress': `${handledRatio}%` }, 'aria-label': 'Synthèse magasin' },
         h('div', { className: 'shopping-store-score' },
           h('span', { 'aria-hidden': true }, h('span', null)),
           h('strong', null, `${handledRatio}%`),
-          h('small', null, 'traite')
+          h('small', null, 'traité')
         ),
         h('div', { className: 'shopping-store-metrics' },
           h('span', null, h('strong', null, activeShoppingData.aisleGroups.length), h('small', null, 'rayons')),
@@ -5761,15 +5837,15 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
         h('span', { className: 'menu-serving-hint' }, 'Les quantités du menu et des courses suivent ce nombre.')
       ),
       h('p', { className: 'menu-planner-reason' }, menu.reason),
-      h('div', { className: 'menu-quality-band', style: { '--menu-quality': `${menuQuality}%` }, 'aria-label': 'Qualite du menu' },
+      h('div', { className: 'menu-quality-band', style: { '--menu-quality': `${menuQuality}%` }, 'aria-label': 'Qualité du menu' },
         h('div', { className: 'menu-quality-score' },
           h('span', null, h('span', null)),
           h('strong', null, `${menuQuality || '--'}/100`),
           h('small', null, menuQualityLabel)
         ),
         h('div', { className: 'menu-quality-copy' },
-          h('strong', null, menu.theme?.pitch || 'Menu equilibre.'),
-          h('small', null, menuRoleLine || 'Roles a composer')
+          h('strong', null, menu.theme?.pitch || 'Menu équilibré.'),
+          h('small', null, menuRoleLine || 'Rôles à composer')
         )
       ),
       h('div', { className: 'menu-planner-grid' },
@@ -5953,14 +6029,16 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
         const item = recipesById[variant.id];
         if (!item) return null;
         const image = displayRecipeImage(item) || displayRecipeImage(parent);
+        const cardImage = image ? recipeCardImageUrl(image) : '';
         return h('button', {
           key: variant.id,
           type: 'button',
           className: 'variant-card',
-          style: { '--card-accent': getCategoryColor(item) },
+          style: ambilightStyle(cardImage, { '--card-accent': getCategoryColor(item) }),
           'aria-label': `Ouvrir ${variant.label || item.title}`,
           onClick: () => openRecipe(variant.id)
         },
+          cardImage && h('span', { className: 'variant-card-ambilight', 'aria-hidden': true }),
           image && h('span', { className: 'variant-card-bg', style: imageBackgroundStyle(image) }),
           h('span', { className: 'variant-card-body' },
             h('strong', null, variant.label || item.title)
@@ -6008,7 +6086,7 @@ function LinkedRecipesBlock({ links, openRecipe }) {
     acc.get(role).push(item);
     return acc;
   }, new Map());
-  return h('div', { className: 'linked-recipes-block', 'aria-label': 'Recettes liees a cette fiche' },
+  return h('div', { className: 'linked-recipes-block', 'aria-label': 'Recettes liées à cette fiche' },
     h('p', { className: 'eyebrow' }, 'Recettes liées'),
     Array.from(groups.entries()).map(([role, items]) => h('div', { key: role, className: 'linked-recipe-group' },
       h('div', { className: 'linked-recipe-group-title' }, role),
@@ -6035,7 +6113,7 @@ function LinkedRecipesBlock({ links, openRecipe }) {
       className: expanded ? 'linked-recipe-toggle active' : 'linked-recipe-toggle',
       onClick: () => setExpanded(value => !value),
       'aria-expanded': expanded,
-      'aria-label': expanded ? 'Masquer les recettes liees supplementaires' : `Afficher ${hiddenCount} recette${hiddenCount > 1 ? 's' : ''} liee${hiddenCount > 1 ? 's' : ''} supplementaire${hiddenCount > 1 ? 's' : ''}`
+      'aria-label': expanded ? 'Masquer les recettes liées supplémentaires' : `Afficher ${hiddenCount} recette${hiddenCount > 1 ? 's' : ''} liée${hiddenCount > 1 ? 's' : ''} supplémentaire${hiddenCount > 1 ? 's' : ''}`
     }, expanded ? 'Masquer les recettes liées' : `Voir ${hiddenCount} autre${hiddenCount > 1 ? 's' : ''} recette${hiddenCount > 1 ? 's' : ''}`)
   );
 }
@@ -6643,10 +6721,10 @@ function RecipeView({
           h('p', { className: 'eyebrow' }, 'Mémo'),
           h('h2', { className: 'read-before-title' }, 'Avant de commencer')
         ),
-        h('div', { className: 'allergen-card', 'aria-label': 'Allergenes detectes' },
+        h('div', { className: 'allergen-card', 'aria-label': 'Allergènes détectés' },
           h('p', { className: 'eyebrow' }, 'Allergènes'),
           recipeAllergens.length
-            ? h('ul', { className: 'allergen-list', 'aria-label': 'Liste des allergenes detectes' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
+            ? h('ul', { className: 'allergen-list', 'aria-label': 'Liste des allergènes détectés' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
             : h('p', { className: 'allergen-empty' }, 'Aucun allergène majeur détecté dans les ingrédients.')
         ),
         averageWeights.length > 0 && h('div', { className: 'average-weight-card', 'aria-label': 'Poids moyens utiles' },
@@ -7574,7 +7652,7 @@ function App() {
           h('div', { className: 'site-footer-copy' },
           h('p', { className: 'site-footer-brand' }, 'Cook Note \u00a9 2026.'),
           h('p', null, 'Carnet personnel de recettes et techniques culinaires développé par MaruChiwa.'),
-          h('p', null, 'Application stand alone Android 5+ développé par MaruChiwa.'),
+          h('p', null, 'Application autonome Android 5+ développée par MaruChiwa.'),
           )
         ),
         h('div', { className: 'site-footer-stats', 'aria-label': 'Informations catalogue' },

@@ -239,9 +239,8 @@ a {
   --accent-ink: var(--ds-color-primary-ink);
   min-height: 100vh;
   background:
-    radial-gradient(circle at 18% 8%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 28rem),
-    radial-gradient(circle at 88% 0%, rgba(0, 245, 212, .055), transparent 22rem),
-    radial-gradient(circle at 88% 0%, color-mix(in srgb, var(--accent-2) 16%, transparent), transparent 24rem),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 34%),
+    linear-gradient(215deg, color-mix(in srgb, var(--accent-2) 8%, transparent), transparent 38%),
     linear-gradient(180deg, var(--bg), var(--bg-2));
   color: var(--text);
   isolation: isolate;
@@ -318,7 +317,7 @@ a {
   border: 1px solid color-mix(in srgb, var(--accent) 50%, var(--line));
   border-radius: 8px;
   background:
-    radial-gradient(circle at 34% 22%, rgba(255, 227, 138, .18), transparent 44%),
+    linear-gradient(135deg, rgba(255, 227, 138, .16), transparent 56%),
     linear-gradient(145deg, rgba(255, 255, 255, .06), rgba(0, 0, 0, .22));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .09),
@@ -933,7 +932,7 @@ a {
   min-height: 100vh;
   background:
     linear-gradient(180deg, rgba(5, 5, 5, .58), rgba(5, 5, 5, .80) 42%, rgba(5, 5, 5, .92)),
-    radial-gradient(circle at 50% 0%, rgba(251, 191, 36, .10), transparent 34rem),
+    linear-gradient(160deg, rgba(251, 191, 36, .08), transparent 36%),
     var(--art-background-image) center top / max(118%, 1920px) auto no-repeat;
 }
 
@@ -1548,7 +1547,7 @@ a {
   aspect-ratio: auto;
   background-color: #050505;
   background:
-    radial-gradient(circle at 70% 16%, color-mix(in srgb, var(--card-accent, var(--accent)) 42%, transparent), transparent 42%),
+    linear-gradient(135deg, color-mix(in srgb, var(--card-accent, var(--accent)) 24%, transparent), transparent 54%),
     linear-gradient(135deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .015));
   background-position: center;
   background-size: cover;
@@ -1610,7 +1609,7 @@ a {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 28%, rgba(0, 0, 0, 0), rgba(0, 0, 0, .10) 42%, rgba(0, 0, 0, .46) 88%),
+    linear-gradient(140deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .12) 48%, rgba(0, 0, 0, .46)),
     linear-gradient(180deg, rgba(0, 0, 0, .24), rgba(0, 0, 0, .34) 42%, rgba(0, 0, 0, .78));
   transition: opacity var(--speed);
 }
@@ -1961,7 +1960,7 @@ a {
   align-items: end;
   border-bottom: 1px solid var(--line);
   background:
-    radial-gradient(circle at 76% 10%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 30rem),
+    linear-gradient(120deg, transparent 42%, color-mix(in srgb, var(--accent) 16%, transparent)),
     linear-gradient(135deg, var(--bg), var(--bg-2));
   background-position: center;
   background-size: cover;
@@ -2380,7 +2379,7 @@ a {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 32%, rgba(0, 0, 0, 0), rgba(0, 0, 0, .22) 58%),
+    linear-gradient(135deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .26) 68%),
     linear-gradient(180deg, rgba(0, 0, 0, .10), rgba(0, 0, 0, .62));
   transition: opacity var(--speed);
 }
@@ -4400,7 +4399,7 @@ a {
 .recipe-card:not(.master-card) .card-media::after {
   background:
     linear-gradient(180deg, rgba(0, 0, 0, .06), rgba(0, 0, 0, .18)),
-    radial-gradient(circle at 50% 100%, rgba(0, 0, 0, .20), transparent 58%);
+    linear-gradient(0deg, rgba(0, 0, 0, .20), transparent 58%);
   opacity: 1;
 }
 
@@ -4638,7 +4637,7 @@ a {
   .home-view {
     background:
       linear-gradient(180deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .90) 42%, rgba(5, 5, 5, .96)),
-      radial-gradient(circle at 50% 0%, rgba(251, 191, 36, .10), transparent 28rem),
+      linear-gradient(160deg, rgba(251, 191, 36, .08), transparent 34%),
       #050505;
   }
 
@@ -6204,6 +6203,123 @@ a {
   box-shadow: var(--ds-shadow-elevated);
 }
 
+.mc-shell :where(.recipe-card.has-image, .variant-card) {
+  --ambilight-image: none;
+  --ambilight-spread: clamp(14px, 2vw, 24px);
+  --ambilight-blur: clamp(18px, 2.4vw, 30px);
+  --ambilight-hover-blur: clamp(22px, 2.8vw, 34px);
+  --ambilight-opacity: .46;
+  --ambilight-hover-opacity: .74;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.mc-shell :where(.recipe-card.has-image, .variant-card):hover,
+.mc-shell :where(.recipe-card.has-image, .variant-card):focus-visible {
+  z-index: 5;
+}
+
+.mc-shell .recipe-card.is-scroll-featured {
+  z-index: 5;
+  transform: translateY(-3px);
+  filter: saturate(1.10) contrast(1.03);
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 72%, var(--line));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--card-accent, var(--accent)) 46%, transparent),
+    0 0 36px color-mix(in srgb, var(--card-accent, var(--accent)) 32%, transparent),
+    0 24px 72px rgba(0, 0, 0, .52);
+}
+
+.card-ambilight,
+.variant-card-ambilight {
+  position: absolute;
+  inset: calc(var(--ambilight-spread) * -1);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: var(--ambilight-image);
+  background-position: center;
+  background-size: cover;
+  filter: blur(var(--ambilight-blur)) saturate(1.65) brightness(1.18);
+  opacity: var(--ambilight-opacity);
+  transform: scale(1.045);
+  transition:
+    opacity var(--ds-duration-slow) var(--ds-ease),
+    transform var(--ds-duration-slow) var(--ds-ease),
+    filter var(--ds-duration-slow) var(--ds-ease);
+}
+
+.recipe-card.has-image:hover .card-ambilight,
+.recipe-card.has-image:focus-visible .card-ambilight,
+.recipe-card.has-image.is-scroll-featured .card-ambilight,
+.variant-card:hover .variant-card-ambilight,
+.variant-card:focus-visible .variant-card-ambilight {
+  opacity: var(--ambilight-hover-opacity);
+  transform: scale(1.085);
+  filter: blur(var(--ambilight-hover-blur)) saturate(1.9) brightness(1.28);
+}
+
+.recipe-card.has-image .card-media,
+.variant-card .variant-card-bg {
+  z-index: 1;
+  border-radius: inherit;
+  transform: none;
+}
+
+.variant-card::after {
+  z-index: 2;
+}
+
+.variant-card::before {
+  z-index: 4;
+}
+
+.recipe-card.has-image .card-image {
+  transition: transform var(--ds-card-image-motion) var(--ds-ease), filter var(--speed);
+}
+
+.recipe-card.has-image:hover .card-media,
+.recipe-card.has-image:focus-visible .card-media,
+.recipe-card.has-image.is-scroll-featured .card-media,
+.variant-card:hover .variant-card-bg,
+.variant-card:focus-visible .variant-card-bg {
+  transform: none;
+}
+
+.recipe-card.has-image:hover .card-image,
+.recipe-card.has-image:focus-visible .card-image,
+.recipe-card.has-image.is-scroll-featured .card-image {
+  transform: scale(1.04);
+}
+
+.recipe-card.is-scroll-featured .card-media::after {
+  opacity: .76;
+}
+
+.recipe-card:not(.master-card).is-scroll-featured h3 {
+  transform: translateY(calc(var(--title-hover-lift) * .62));
+}
+
+.home-view .recipe-card:not(.master-card).is-scroll-featured h3 {
+  transform: none;
+}
+
+.home-view .recipe-card:not(.master-card).is-scroll-featured::after,
+.recipe-card.master-card.is-scroll-featured::after {
+  opacity: .9;
+  transform: scale(1);
+}
+
+.recipe-card.has-image .card-body,
+.variant-card-body {
+  z-index: 3;
+}
+
+.theme-light :where(.card-ambilight, .variant-card-ambilight) {
+  opacity: .28;
+  filter: blur(var(--ambilight-blur)) saturate(1.25) brightness(1.04);
+}
+
 .mc-shell .modal-panel {
   animation: modalIn var(--ds-motion-slow) var(--ds-ease) both;
 }
@@ -6307,6 +6423,694 @@ a {
 @keyframes skeletonSweep {
   to {
     background-position: -220% 0;
+  }
+}
+
+/* Visual polish pass: connect the shell, cards and panels with the active recipe mood. */
+.mc-shell {
+  --visual-rim: color-mix(in srgb, var(--ambient-accent, var(--accent)) 28%, var(--rim));
+  --visual-glow: color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 13%, transparent), transparent 34%),
+    linear-gradient(215deg, color-mix(in srgb, var(--accent-2) 9%, transparent), transparent 38%),
+    var(--ds-shell-background);
+}
+
+.topbar {
+  border-bottom-color: var(--visual-rim);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 94%, transparent), color-mix(in srgb, var(--surface-strong) 78%, transparent)),
+    linear-gradient(90deg, var(--visual-glow), transparent 48%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .045),
+    0 18px 58px rgba(0, 0, 0, .34);
+}
+
+.brand-logo-box,
+.mobile-nav-icon,
+.site-footer-mark {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 30%, transparent),
+    0 0 28px color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent);
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: clamp(68px, 11vw, 150px);
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 86%, transparent) 72%, var(--bg));
+  z-index: 0;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-logo {
+  transform: translateZ(0);
+}
+
+.season-dashboard,
+.season-block,
+.fridge-assistant,
+.recipe-summary-panel,
+.variant-picker-panel,
+.variant-choice-panel,
+.recipe-panel,
+.menu-quality-band,
+.shopping-store-dashboard,
+.site-footer-inner {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--visual-rim);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 6%, transparent), transparent 180px),
+    color-mix(in srgb, var(--surface) 94%, transparent);
+}
+
+.season-dashboard::before,
+.season-block::before,
+.recipe-panel::before,
+.recipe-summary-panel::before,
+.variant-picker-panel::before,
+.variant-choice-panel::before,
+.menu-quality-band::before,
+.shopping-store-dashboard::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent, color-mix(in srgb, var(--ambient-accent, var(--accent)) 80%, white), transparent);
+  opacity: .58;
+}
+
+.season-dashboard::after,
+.fridge-assistant::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto auto;
+  width: min(420px, 54vw);
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent, color-mix(in srgb, var(--ambient-accent, var(--accent)) 12%, transparent), transparent);
+  opacity: .68;
+}
+
+.season-dashboard > *,
+.fridge-assistant > * {
+  position: relative;
+  z-index: 1;
+}
+
+.season-block,
+.variant-picker-panel,
+.variant-choice-panel {
+  overflow: visible;
+}
+
+.season-tabs,
+.season-category-tabs,
+.menu-theme-tabs {
+  padding: 4px;
+  border: 1px solid color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, var(--line));
+  border-radius: var(--ds-radius-md);
+  background: color-mix(in srgb, var(--surface-strong) 68%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .045);
+}
+
+.season-tabs button.active,
+.season-category-tabs button.active,
+.menu-theme-tabs button.active {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .14),
+    0 0 24px color-mix(in srgb, var(--ambient-accent, var(--accent)) 22%, transparent);
+}
+
+.home-view .recipe-card:not(.master-card),
+.recipe-card.master-card,
+.variant-card,
+.menu-planner-card,
+.search-result {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .05),
+    0 24px 68px rgba(0, 0, 0, .34);
+}
+
+.home-view .recipe-card:not(.master-card)::before,
+.recipe-card.master-card::before,
+.variant-card::before {
+  border-color: color-mix(in srgb, var(--card-accent, var(--ambient-accent, var(--accent))) 34%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+
+.home-view .recipe-card:not(.master-card)::after,
+.recipe-card.master-card::after {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--card-accent, var(--accent)) 16%, transparent), transparent 40%),
+    linear-gradient(180deg, transparent, rgba(0, 0, 0, .28));
+}
+
+.home-view .recipe-card:not(.master-card):hover,
+.home-view .recipe-card:not(.master-card):focus-visible,
+.recipe-card.master-card:hover,
+.recipe-card.master-card:focus-visible,
+.variant-card:hover,
+.variant-card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--card-accent, var(--ambient-accent, var(--accent))) 40%, transparent),
+    0 0 46px color-mix(in srgb, var(--card-accent, var(--ambient-accent, var(--accent))) 30%, transparent),
+    0 30px 86px rgba(0, 0, 0, .48);
+}
+
+.home-view .recipe-card:not(.master-card) h3,
+.recipe-card.master-card h3,
+.variant-card-body strong {
+  text-shadow:
+    0 2px 10px rgba(0, 0, 0, .86),
+    0 0 28px rgba(0, 0, 0, .72);
+}
+
+.card-ambilight,
+.variant-card-ambilight {
+  mix-blend-mode: screen;
+}
+
+.theme-light :where(.card-ambilight, .variant-card-ambilight) {
+  mix-blend-mode: multiply;
+}
+
+.recipe-detail-hero {
+  box-shadow:
+    inset 0 -190px 150px rgba(0, 0, 0, .78),
+    inset 0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent),
+    0 34px 90px rgba(0, 0, 0, .44);
+}
+
+.recipe-detail-hero::after {
+  box-shadow: 0 0 26px color-mix(in srgb, var(--ambient-accent, var(--accent)) 22%, transparent);
+}
+
+.modal-backdrop {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 10%, transparent), transparent 46%),
+    rgba(0, 0, 0, .66);
+}
+
+.modal-panel {
+  border-color: var(--visual-rim);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 14%, transparent),
+    0 34px 94px rgba(0, 0, 0, .58);
+}
+
+.mobile-bottom-nav {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 24%, var(--line));
+  box-shadow:
+    0 -1px 0 rgba(255, 255, 255, .045),
+    0 -18px 46px rgba(0, 0, 0, .42);
+}
+
+.mobile-bottom-nav button[aria-current="page"] {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    0 0 24px color-mix(in srgb, var(--ambient-accent, var(--accent)) 20%, transparent);
+}
+
+.theme-light .mc-shell,
+.mc-shell.theme-light {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 8%, transparent), transparent 36%),
+    var(--ds-shell-background);
+}
+
+.mc-shell.theme-light :where(.season-dashboard, .season-block, .fridge-assistant, .recipe-summary-panel, .variant-picker-panel, .variant-choice-panel, .recipe-panel, .menu-quality-band, .shopping-store-dashboard, .site-footer-inner) {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 5%, transparent), transparent 180px),
+    rgba(255, 252, 246, .78);
+}
+
+@media (max-width: 700px) {
+  .topbar {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, .04),
+      0 12px 34px rgba(0, 0, 0, .28);
+  }
+
+  .hero::after {
+    height: 78px;
+  }
+
+  .season-dashboard,
+  .fridge-assistant {
+    border-radius: var(--ds-radius-md);
+  }
+
+  .home-view .recipe-card:not(.master-card):hover,
+  .home-view .recipe-card:not(.master-card):focus-visible,
+  .home-view .recipe-card:not(.master-card).is-scroll-featured {
+    transform: translateY(-2px);
+  }
+
+  .recipe-card.has-image.is-scroll-featured .card-ambilight {
+    opacity: .82;
+  }
+
+  .modal-panel {
+    box-shadow: 0 -18px 70px rgba(0, 0, 0, .58);
+  }
+}
+
+/* Visual polish pass 2: make daily-use panels easier to scan. */
+.panel-heading {
+  position: relative;
+  padding-bottom: 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 18%, var(--line));
+}
+
+.panel-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: min(96px, 40%);
+  height: 1px;
+  background: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 72%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 24%, transparent);
+}
+
+.ingredient-group li,
+.notes-panel ul:not(.allergen-list) > li {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 10%, transparent);
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, .008)),
+    color-mix(in srgb, var(--surface-soft) 50%, transparent);
+  padding: 8px 10px;
+  transition: background var(--speed), border-color var(--speed), box-shadow var(--speed), transform var(--speed);
+}
+
+.ingredient-group li:hover,
+.notes-panel ul:not(.allergen-list) > li:hover {
+  border-color: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 30%, var(--line));
+  background: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 7%, var(--surface-soft));
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .18);
+}
+
+.ingredient-group li:has(input:checked) {
+  border-color: color-mix(in srgb, #22c55e 30%, var(--line));
+  background: color-mix(in srgb, #22c55e 7%, var(--surface-soft));
+}
+
+.step-list li {
+  position: relative;
+  overflow: hidden;
+}
+
+.step-list li::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 56%, transparent);
+  opacity: .45;
+  transition: opacity var(--speed), background var(--speed);
+}
+
+.step-list li:hover::before {
+  opacity: .86;
+}
+
+.step-list li.done::before {
+  background: #22c55e;
+  opacity: .68;
+}
+
+.step-number {
+  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 36%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    0 0 16px color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 18%, transparent);
+}
+
+.before-start-card,
+.allergen-card,
+.average-weight-card,
+.technical-card,
+.personal-notes-card,
+.practical-section {
+  border-color: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 28%, var(--line));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .045),
+    0 14px 34px rgba(0, 0, 0, .18);
+}
+
+.personal-notes-card textarea {
+  min-height: 118px;
+  border-color: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 20%, var(--line));
+}
+
+.search-result,
+.linked-recipe-item,
+.menu-planner-card,
+.shopping-aisle {
+  position: relative;
+  overflow: hidden;
+}
+
+.search-result::before,
+.linked-recipe-item::before,
+.menu-planner-card::before,
+.shopping-aisle::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: color-mix(in srgb, var(--card-accent, var(--ambient-accent, var(--accent))) 50%, transparent);
+  opacity: .42;
+  pointer-events: none;
+}
+
+.search-result:hover::before,
+.search-result:focus-visible::before,
+.linked-recipe-item:hover::before,
+.linked-recipe-item:focus-visible::before,
+.menu-planner-card:hover::before,
+.menu-planner-card:focus-within::before,
+.shopping-aisle:hover::before {
+  opacity: .85;
+}
+
+.search-result-image,
+.linked-recipe-thumb,
+.menu-planner-image {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .08),
+    0 10px 24px rgba(0, 0, 0, .28);
+}
+
+.menu-planner-card,
+.shopping-aisle,
+.menu-service-panel {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 6%, transparent), rgba(255, 255, 255, .012)),
+    color-mix(in srgb, var(--surface-soft) 78%, transparent);
+}
+
+.menu-planner-card h3,
+.linked-recipe-copy strong,
+.search-result-copy strong {
+  text-wrap: balance;
+}
+
+.shopping-line {
+  margin-inline: -6px;
+  border-radius: 7px;
+  padding-inline: 6px;
+  transition: background var(--speed), border-color var(--speed), transform var(--speed);
+}
+
+.shopping-line:hover,
+.shopping-line:focus-within {
+  background: color-mix(in srgb, var(--ambient-accent, var(--accent)) 7%, transparent);
+}
+
+.shopping-line.checked {
+  background: color-mix(in srgb, #22c55e 6%, transparent);
+}
+
+.shopping-smart-groups span,
+.shopping-owned-list button,
+.menu-planner-summary span {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .055);
+}
+
+.mc-shell.theme-light :where(.ingredient-group li, .notes-panel ul:not(.allergen-list) > li, .step-list li, .menu-planner-card, .shopping-aisle, .menu-service-panel, .search-result, .linked-recipe-item) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, .16)),
+    color-mix(in srgb, var(--surface-strong) 70%, transparent);
+}
+
+.mc-shell.theme-light :where(.before-start-card, .allergen-card, .average-weight-card, .technical-card, .personal-notes-card, .practical-section) {
+  box-shadow: 0 12px 30px rgba(84, 61, 31, .10);
+}
+
+@media (max-width: 700px) {
+  .panel-heading {
+    padding-bottom: 10px;
+  }
+
+  .ingredient-group li,
+  .notes-panel ul:not(.allergen-list) > li,
+  .step-list li {
+    padding: 9px;
+  }
+
+  .search-result {
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+
+  .search-result > .nutri-score {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .menu-planner-card {
+    grid-template-columns: 88px minmax(0, 1fr);
+  }
+
+  .menu-planner-image {
+    min-height: 88px;
+  }
+
+  .shopping-line {
+    margin-inline: -4px;
+    padding-inline: 4px;
+  }
+}
+
+/* Visual polish pass 3: navigation, dock and mobile finishing. */
+.topbar {
+  position: sticky;
+}
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: clamp(16px, 3vw, 42px);
+  right: clamp(16px, 3vw, 42px);
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ambient-accent, var(--accent)) 38%, rgba(255, 255, 255, .16)), transparent);
+  opacity: .78;
+  pointer-events: none;
+}
+
+.brand {
+  margin: -4px -6px;
+  padding: 4px 6px;
+  border-radius: var(--ds-radius-sm);
+  transition: background var(--speed), transform var(--speed), filter var(--speed);
+}
+
+.brand:hover,
+.brand:focus-visible {
+  background: color-mix(in srgb, var(--ambient-accent, var(--accent)) 9%, transparent);
+  filter: saturate(1.05);
+  transform: translateY(-1px);
+}
+
+.top-actions .btn,
+.top-actions .icon-square,
+.mobile-bottom-nav button,
+.recipe-dock-tabs button,
+.dock-action,
+.recipe-grid-load-more button {
+  position: relative;
+  overflow: hidden;
+}
+
+.top-actions .btn::after,
+.top-actions .icon-square::after,
+.recipe-grid-load-more button::after {
+  content: "";
+  position: absolute;
+  inset: auto 12px 4px;
+  height: 2px;
+  border-radius: var(--ds-radius-pill);
+  background: color-mix(in srgb, var(--ambient-accent, var(--accent)) 72%, white);
+  opacity: 0;
+  transform: scaleX(.45);
+  transform-origin: center;
+  transition: opacity var(--speed), transform var(--speed);
+}
+
+.top-actions .btn:hover::after,
+.top-actions .btn:focus-visible::after,
+.top-actions .icon-square:hover::after,
+.top-actions .icon-square:focus-visible::after,
+.recipe-grid-load-more button:hover::after,
+.recipe-grid-load-more button:focus-visible::after {
+  opacity: .82;
+  transform: scaleX(1);
+}
+
+.mobile-bottom-nav {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 24%, rgba(255, 255, 255, .12));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 10%, transparent),
+    0 18px 44px rgba(0, 0, 0, .46);
+}
+
+.mobile-bottom-nav button::after,
+.recipe-dock-tabs button::after,
+.dock-action::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 5px;
+  height: 2px;
+  border-radius: var(--ds-radius-pill);
+  background: color-mix(in srgb, var(--ambient-accent, var(--accent)) 72%, white);
+  opacity: 0;
+  transform: scaleX(.38);
+  transform-origin: center;
+  transition: opacity var(--speed), transform var(--speed);
+}
+
+.mobile-bottom-nav button[aria-current="page"]::after,
+.mobile-bottom-nav button:hover::after,
+.mobile-bottom-nav button:focus-visible::after,
+.recipe-dock-tabs button.active::after,
+.recipe-dock-tabs button:hover::after,
+.recipe-dock-tabs button:focus-visible::after,
+.dock-action:hover::after,
+.dock-action:focus-visible::after {
+  opacity: .88;
+  transform: scaleX(1);
+}
+
+.recipe-command-dock,
+.command-palette {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 22%, rgba(255, 255, 255, .12));
+}
+
+.recipe-command-dock {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 9%, transparent),
+    0 -22px 64px rgba(0, 0, 0, .48);
+}
+
+.recipe-dock-tabs button,
+.dock-action {
+  transition: color var(--speed), border-color var(--speed), background var(--speed), transform var(--speed), box-shadow var(--speed);
+}
+
+.recipe-dock-tabs button:hover,
+.recipe-dock-tabs button:focus-visible,
+.dock-action:hover,
+.dock-action:focus-visible {
+  transform: translateY(-1px);
+}
+
+.command-input-shell:focus-within {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 52%, rgba(255, 255, 255, .2));
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent),
+    0 16px 36px rgba(0, 0, 0, .28);
+}
+
+.season-block-head {
+  position: relative;
+  padding-bottom: 10px;
+  border-bottom: 1px solid color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, rgba(255, 255, 255, .09));
+}
+
+.season-block-head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: min(148px, 34%);
+  height: 1px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 72%, white), transparent);
+}
+
+.recipe-grid-load-more button {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 28%, rgba(255, 255, 255, .16));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .06),
+    0 14px 34px rgba(0, 0, 0, .22);
+}
+
+.mc-shell.theme-light .topbar::after,
+.mc-shell.theme-light .season-block-head::after {
+  opacity: .62;
+}
+
+.mc-shell.theme-light .mobile-bottom-nav {
+  background: rgba(255, 250, 239, .94);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 12%, transparent),
+    0 18px 42px rgba(84, 61, 31, .18);
+}
+
+.mc-shell.theme-light .recipe-command-dock {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 9%, transparent),
+    0 -18px 52px rgba(84, 61, 31, .16);
+}
+
+@media (max-width: 700px) {
+  body {
+    padding-bottom: calc(86px + env(safe-area-inset-bottom));
+  }
+
+  .mobile-bottom-nav {
+    left: 8px;
+    right: 8px;
+    bottom: max(8px, env(safe-area-inset-bottom));
+    border-radius: 10px;
+    padding-bottom: max(6px, env(safe-area-inset-bottom));
+  }
+
+  .mobile-bottom-nav button {
+    min-height: 48px;
+  }
+
+  .recipe-command-dock {
+    width: min(100% - 18px, 1180px);
+    border-radius: 10px;
+  }
+
+  .recipe-dock-main {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-dock-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .recipe-dock-tabs button,
+  .dock-action {
+    min-height: 44px;
+  }
+
+  .command-input-shell {
+    min-height: 48px;
   }
 }
 

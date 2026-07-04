@@ -1,4 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const CookNoteI18n = window.CookNoteI18n || {
+    locale: () => 'fr',
+    text: value => value,
+    t: (key, params = {}) => {
+      if (key === 'seo.recipe.description') {
+        return `${params.title || 'Recette'} sur Cook Note : recette ${params.category || ''}${params.yieldText || ''}${params.ingredientsText || ''}.`;
+      }
+      return key;
+    },
+    applyDocumentLanguage: () => {},
+    localizeDocument: () => {}
+  };
+
   function sanitizeNoteHtml(value) {
     const template = document.createElement('template');
     template.innerHTML = String(value || '');
@@ -79,9 +92,50 @@ document.addEventListener('DOMContentLoaded', () => {
     return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, normalizeValue(item)]));
   }
 
+  function translateText(value) {
+    if (typeof value !== 'string') return value;
+    return CookNoteI18n.text(repairText(value));
+  }
+
+  function translateHtmlNote(value) {
+    const template = document.createElement('template');
+    template.innerHTML = sanitizeNoteHtml(value);
+    const walker = document.createTreeWalker(template.content, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      if (node.nodeValue?.trim()) node.nodeValue = translateText(node.nodeValue);
+    });
+    return template.innerHTML;
+  }
+
+  function localizedRecipeDescription(recipe) {
+    const titleText = translateText(recipe.title);
+    const category = translateText((recipe.categories || [])[0] || 'Recette');
+    const yieldText = recipe.yield ? `, ${translateText(recipe.yield)}` : '';
+    const ingredientPreview = (recipe.ingredients || [])
+      .flatMap(group => group.items || [])
+      .slice(0, 4)
+      .map(translateText)
+      .join(', ');
+    const ingredientsText = ingredientPreview
+      ? `${CookNoteI18n.locale() === 'en' ? ', ingredients: ' : ', ingrédients : '}${ingredientPreview}`
+      : '';
+
+    return CookNoteI18n.t('seo.recipe.description', {
+      title: titleText,
+      category,
+      yieldText,
+      ingredientsText
+    });
+  }
+
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
   const recipe = id && window.RECIPES ? normalizeValue(window.RECIPES[id]) : null;
+
+  CookNoteI18n.applyDocumentLanguage();
+  CookNoteI18n.localizeDocument(document);
 
   const title = document.getElementById('title');
   const ingredients = document.getElementById('ingredients');
@@ -91,25 +145,30 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!title || !ingredients || !steps || !notes) return;
 
   if (!recipe) {
-    title.textContent = 'Recette introuvable';
-    ingredients.textContent = 'Retournez à la liste des recettes.';
+    title.textContent = translateText('Recette introuvable');
+    ingredients.textContent = translateText('Retournez à la liste des recettes.');
     return;
   }
 
-  document.title = recipe.title;
-  title.textContent = recipe.title;
-  document.querySelector('meta[name="description"]')?.setAttribute('content', `${recipe.title} sur Cook Note : ingrédients, étapes et astuces.`);
+  const localizedTitle = translateText(recipe.title);
+  const localizedDescription = localizedRecipeDescription(recipe);
+
+  document.title = `${localizedTitle} - Cook Note`;
+  title.textContent = localizedTitle;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', localizedDescription);
   const jsonLd = document.createElement('script');
   jsonLd.type = 'application/ld+json';
   jsonLd.textContent = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Recipe',
-    name: recipe.title,
+    name: localizedTitle,
     image: recipe.image ? new URL(recipe.image, window.location.origin).href : undefined,
-    recipeYield: recipe.yield || undefined,
-    recipeCategory: (recipe.categories || []).join(', ') || undefined,
-    recipeIngredient: (recipe.ingredients || []).flatMap(group => group.items || []),
-    recipeInstructions: (recipe.steps || []).map(step => ({ '@type': 'HowToStep', text: step }))
+    description: localizedDescription,
+    inLanguage: CookNoteI18n.locale(),
+    recipeYield: recipe.yield ? translateText(recipe.yield) : undefined,
+    recipeCategory: (recipe.categories || []).map(translateText).join(', ') || undefined,
+    recipeIngredient: (recipe.ingredients || []).flatMap(group => group.items || []).map(translateText),
+    recipeInstructions: (recipe.steps || []).map(step => ({ '@type': 'HowToStep', text: translateText(step) }))
   });
   document.head.appendChild(jsonLd);
 
@@ -119,13 +178,13 @@ document.addEventListener('DOMContentLoaded', () => {
       section.className = 'recipe-panel';
 
       const heading = document.createElement('h3');
-      heading.textContent = group.group || 'Base';
+      heading.textContent = translateText(group.group || 'Base');
       section.appendChild(heading);
 
       const list = document.createElement('ul');
       (group.items || []).forEach(item => {
         const li = document.createElement('li');
-        li.textContent = item;
+        li.textContent = translateText(item);
         list.appendChild(li);
       });
       section.appendChild(list);
@@ -137,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
   steps.replaceChildren(
     ...(recipe.steps || []).map(step => {
       const li = document.createElement('li');
-      li.textContent = step;
+      li.textContent = translateText(step);
       return li;
     })
   );
@@ -145,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
   notes.replaceChildren(
     ...(recipe.notes || []).map(note => {
       const li = document.createElement('li');
-      li.innerHTML = sanitizeNoteHtml(note);
+      li.innerHTML = translateHtmlNote(note);
       return li;
     })
   );
