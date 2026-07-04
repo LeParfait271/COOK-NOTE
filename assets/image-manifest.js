@@ -323,7 +323,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-crumble_pomme_poire-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 326416
+    "bytes": 322260
   },
   "assets/dark/recipe-donuts_cloud-dark.jpg": {
     "width": 1280,
@@ -338,12 +338,12 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-flan_patissier_epais_vanille-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 283413
+    "bytes": 337820
   },
   "assets/dark/recipe-flan_vanille_cremeux-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 291943
+    "bytes": 298703
   },
   "assets/dark/recipe-gaspacho_melon-dark.jpg": {
     "width": 1280,
@@ -668,7 +668,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-tarte_citron_meringuee-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 317964
+    "bytes": 374362
   },
   "assets/dark/recipe-tempura_beignets_calamar_crevettes-dark.jpg": {
     "width": 1280,

@@ -177,7 +177,7 @@
     'Fil d’Ariane': 'Breadcrumb',
     'Retour au catalogue Cook Note': 'Back to Cook Note catalog',
     'Retour au catalogue': 'Back to catalog',
-    'Recettes liees a cette fiche': 'Recipes related to this sheet',
+    'Recettes liees a cette fiche': 'Recipes related to this recipe card',
     'Masquer les recettes liees supplementaires': 'Hide additional related recipes',
     'Statut de la note privée': 'Private note status',
     'Ex : moins de sucre, cuisson +3 min, validée pour 8 personnes...': 'Ex: less sugar, cook +3 min, approved for 8 people...',
@@ -186,7 +186,7 @@
     'Résumé de la recette': 'Recipe summary',
     'Allergenes detectes': 'Detected allergens',
     'Liste des allergenes detectes': 'Detected allergen list',
-    'Fiche technique de la recette': 'Recipe technical sheet',
+    'Fiche technique de la recette': 'Recipe technical notes',
     'Mettre à jour': 'Update',
     'Mettre Cook Note à jour': 'Update Cook Note',
     'Mise à jour...': 'Updating...',
@@ -209,10 +209,185 @@
     'Collection': 'Collection'
   };
 
+  const recipePhraseEn = {
+    'Crumble pomme-poire': 'Apple and pear crumble',
+    'Flan parisien vanille': 'Parisian vanilla custard tart',
+    'Flan p\u00e2tissier \u00e9pais vanille': 'Thick Parisian vanilla custard tart',
+    'Flan vanille cr\u00e9meux': 'Creamy vanilla custards',
+    'Tarte citron meringu\u00e9e': 'Lemon meringue tart',
+    'Chantilly classique': 'Classic Chantilly cream',
+    'Chantilly stabilis\u00e9e': 'Stabilized Chantilly cream',
+    'Court-bouillon': 'Court bouillon',
+    'P\u00e2te \u00e0 choux': 'Choux pastry',
+    'P\u00e2te sucr\u00e9e': 'Sweet tart dough',
+    'P\u00e2tes \u00e0 tarte': 'Tart doughs',
+    'Cochon confit \u00e0 la bi\u00e8re et au sirop d\u2019\u00e9rable': 'Pork confit with beer and maple syrup',
+    'C\u00f4telettes de porc miel moutarde': 'Pork chops with honey and mustard',
+    'Bouillabaisse': 'Bouillabaisse',
+    'Frites belges': 'Belgian fries',
+    'Frites': 'Fries',
+    'Gaufres de pommes de terre croustillantes': 'Crispy potato waffles',
+    'Gazpacho tomate, menthe et basilic': 'Tomato, mint and basil gazpacho',
+    'Gaspacho de melon': 'Melon gazpacho',
+    'Salade melon, mozzarella et jambon cru': 'Melon, mozzarella and prosciutto salad',
+    'Salade avocat, \u0153uf et \u00e9pinards': 'Avocado, egg and spinach salad',
+    'Tomates proven\u00e7ales': 'Proven\u00e7al tomatoes',
+    'Tortillas': 'Tortillas',
+    'Babeurre': 'Buttermilk',
+    'Pain hot dog brioch\u00e9': 'Brioche hot dog buns',
+    'Pains burgers brioch\u00e9s': 'Brioche burger buns',
+    'Base pour flan sal\u00e9': 'Savory flan base',
+    'Beurre clarifi\u00e9': 'Clarified butter',
+    'Beurre \u00e0 l\u2019ail': 'Garlic butter',
+    'Cr\u00e8me citron': 'Lemon curd',
+    'Cr\u00e8me diplomate vanille': 'Vanilla diplomat cream',
+    'Cr\u00e8me p\u00e2tissi\u00e8re vanille': 'Vanilla pastry cream',
+    'Cr\u00e8me p\u00e2tissi\u00e8re pralin\u00e9': 'Praline pastry cream',
+    'Cr\u00e8me pistache \u00e0 garnir': 'Pistachio filling cream',
+    'Cr\u00e8me pralin\u00e9': 'Praline cream',
+    'Meringue italienne': 'Italian meringue',
+    'Mousse au chocolat': 'Chocolate mousse'
+  };
+
+  const culinaryReplacementsEn = [
+    ['huile d\u2019olive', 'olive oil'],
+    ["huile d'olive", 'olive oil'],
+    ['jus de citron vert', 'lime juice'],
+    ['jus de citron', 'lemon juice'],
+    ['zeste de citron', 'lemon zest'],
+    ['poivre du moulin', 'freshly ground pepper'],
+    ['sel fin', 'fine salt'],
+    ['sucre glace', 'icing sugar'],
+    ['sucre blond', 'light brown sugar'],
+    ['sucre', 'sugar'],
+    ['farine', 'flour'],
+    ['beurre doux', 'unsalted butter'],
+    ['beurre fondu', 'melted butter'],
+    ['beurre', 'butter'],
+    ['lait entier', 'whole milk'],
+    ['lait', 'milk'],
+    ['cr\u00e8me liquide', 'cream'],
+    ['cr\u00e8me', 'cream'],
+    ['\u0153ufs', 'eggs'],
+    ['oeufs', 'eggs'],
+    ['\u0153uf', 'egg'],
+    ['oeuf', 'egg'],
+    ['ail', 'garlic'],
+    ['oignon', 'onion'],
+    ['oignons', 'onions'],
+    ['\u00e9chalote', 'shallot'],
+    ['\u00e9chalotes', 'shallots'],
+    ['persil', 'parsley'],
+    ['basilic', 'basil'],
+    ['menthe', 'mint'],
+    ['ciboulette', 'chives'],
+    ['thym', 'thyme'],
+    ['romarin', 'rosemary'],
+    ['vanille', 'vanilla'],
+    ['chocolat noir', 'dark chocolate'],
+    ['chocolat blanc', 'white chocolate'],
+    ['chocolat', 'chocolate'],
+    ['citron vert', 'lime'],
+    ['citron', 'lemon'],
+    ['pomme de terre', 'potato'],
+    ['pommes de terre', 'potatoes'],
+    ['pomme', 'apple'],
+    ['pommes', 'apples'],
+    ['poire', 'pear'],
+    ['poires', 'pears'],
+    ['fraise', 'strawberry'],
+    ['fraises', 'strawberries'],
+    ['framboise', 'raspberry'],
+    ['framboises', 'raspberries'],
+    ['myrtille', 'blueberry'],
+    ['myrtilles', 'blueberries'],
+    ['abricot', 'apricot'],
+    ['abricots', 'apricots'],
+    ['tomate', 'tomato'],
+    ['tomates', 'tomatoes'],
+    ['carotte', 'carrot'],
+    ['carottes', 'carrots'],
+    ['courgette', 'zucchini'],
+    ['courgettes', 'zucchini'],
+    ['chou-fleur', 'cauliflower'],
+    ['brocoli', 'broccoli'],
+    ['poireau', 'leek'],
+    ['poireaux', 'leeks'],
+    ['champignon', 'mushroom'],
+    ['champignons', 'mushrooms'],
+    ['poulet', 'chicken'],
+    ['porc', 'pork'],
+    ['boeuf', 'beef'],
+    ['b\u0153uf', 'beef'],
+    ['agneau', 'lamb'],
+    ['saumon', 'salmon'],
+    ['cabillaud', 'cod'],
+    ['crevette', 'shrimp'],
+    ['crevettes', 'shrimp'],
+    ['calamar', 'squid'],
+    ['encornets', 'squid'],
+    ['fromage', 'cheese'],
+    ['parmesan', 'Parmesan'],
+    ['mozzarella', 'mozzarella'],
+    ['feta', 'feta'],
+    ['moutarde', 'mustard'],
+    ['miel', 'honey'],
+    ['vinaigre', 'vinegar'],
+    ['levure chimique', 'baking powder'],
+    ['poudre d\u2019amandes', 'almond flour'],
+    ["poudre d'amandes", 'almond flour'],
+    ['amandes', 'almonds'],
+    ['noisettes', 'hazelnuts'],
+    ['noix', 'walnuts'],
+    ['pignons', 'pine nuts'],
+    ['p\u00e2te feuillet\u00e9e', 'puff pastry'],
+    ['p\u00e2te sabl\u00e9e', 'shortcrust pastry'],
+    ['p\u00e2te sucr\u00e9e', 'sweet tart dough'],
+    ['p\u00e2te \u00e0 choux', 'choux pastry'],
+    ['tarte', 'tart'],
+    ['g\u00e2teau', 'cake'],
+    ['cr\u00eapes', 'crepes'],
+    ['muffins', 'muffins'],
+    ['cookies', 'cookies'],
+    ['sauce', 'sauce'],
+    ['salade', 'salad'],
+    ['soupe', 'soup'],
+    ['pur\u00e9e', 'mash'],
+    ['gratin', 'gratin'],
+    ['coulis', 'coulis'],
+    ['environ', 'about'],
+    ['optionnel', 'optional'],
+    ['optionnelle', 'optional'],
+    ['ramolli', 'softened'],
+    ['hach\u00e9', 'minced'],
+    ['hach\u00e9e', 'minced'],
+    ['cisel\u00e9', 'finely sliced'],
+    ['cisel\u00e9e', 'finely sliced'],
+    ['r\u00e2p\u00e9', 'grated'],
+    ['r\u00e2p\u00e9e', 'grated'],
+    ['fondu', 'melted'],
+    ['fondue', 'melted'],
+    ['froid', 'cold'],
+    ['froide', 'cold'],
+    ['chaud', 'hot'],
+    ['chaude', 'hot'],
+    ['toutes saisons', 'all seasons'],
+    ['personnes', 'people'],
+    ['portions', 'servings'],
+    ['parts', 'slices']
+  ];
+
   const dynamicRules = [
+    [/^(\d+) recipe card(s?)$/, match => `${match[1]} recipe card${match[1] === '1' ? '' : 's'}`],
+    [/^(\d+) ingr\u00e9dient(s?)$/, match => `${match[1]} ingredient${match[1] === '1' ? '' : 's'}`],
+    [/^(\d+) \u00e9tape(s?)$/, match => `${match[1]} step${match[1] === '1' ? '' : 's'}`],
+    [/^(\d+)% pr\u00eat$/, match => `${match[1]}% ready`],
+    [/^Difficult\u00e9 (.+)$/, match => `Difficulty ${text(match[1])}`],
+    [/^Ouvrir (.+)$/, match => `Open ${text(match[1])}`],
+    [/^Pour (.+)$/, match => `For ${text(match[1])}`],
     [/^Version APK ([0-9.]+), Android 5\.0 minimum\.$/, match => `APK version ${match[1]}, Android 5.0 minimum.`],
     [/^(\d+) recette(s?)$/, match => `${match[1]} recipe${match[1] === '1' ? '' : 's'}`],
-    [/^(\d+) fiche(s?)$/, match => `${match[1]} sheet${match[1] === '1' ? '' : 's'}`],
+    [/^(\d+) fiche(s?)$/, match => `${match[1]} recipe card${match[1] === '1' ? '' : 's'}`],
     [/^(\d+) ingrédient(s?)$/, match => `${match[1]} ingredient${match[1] === '1' ? '' : 's'}`],
     [/^(\d+) étape(s?)$/, match => `${match[1]} step${match[1] === '1' ? '' : 's'}`],
     [/^(\d+) course(s?)$/, match => `${match[1]} shopping item${match[1] === '1' ? '' : 's'}`],
@@ -245,6 +420,101 @@
     return String(template || '').replace(/\{([a-zA-Z0-9_]+)\}/g, (_, key) => (
       Object.prototype.hasOwnProperty.call(params || {}, key) ? params[key] : ''
     ));
+  }
+
+  function repairI18nMojibake(value) {
+    const text = String(value || '');
+    if (!/[ÃÂâ]/.test(text)) return text;
+    try {
+      const decoded = decodeURIComponent(escape(text));
+      const sourceScore = (text.match(/[ÃÂâ]/g) || []).length;
+      const decodedScore = (decoded.match(/[ÃÂâ]/g) || []).length;
+      return decodedScore < sourceScore ? decoded : text;
+    } catch {
+      return text;
+    }
+  }
+
+  function normalizeI18nKey(value) {
+    return repairI18nMojibake(value)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[’‘]/g, "'")
+      .replace(/[œŒ]/g, 'oe')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
+  }
+
+  const phraseLookupEn = new Map();
+  Object.entries({ ...phraseEn, ...recipePhraseEn }).forEach(([source, translated]) => {
+    phraseLookupEn.set(normalizeI18nKey(source), translated);
+  });
+
+  function replaceCulinaryTerms(value) {
+    let output = ` ${value} `;
+    culinaryReplacementsEn
+      .slice()
+      .sort((left, right) => right[0].length - left[0].length)
+      .forEach(([source, translated]) => {
+        const normalizedSource = source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/[’']/g, "[’']");
+        output = output.replace(new RegExp(`(^|[^\\p{L}])${normalizedSource}(?=$|[^\\p{L}])`, 'giu'), `$1${translated}`);
+      });
+
+    return output
+      .replace(/\s+d[’']\s+/gi, ' of ')
+      .replace(/\s+de\s+l[’']\s+/gi, ' of ')
+      .replace(/\s+de\s+la\s+/gi, ' of ')
+      .replace(/\s+du\s+/gi, ' of ')
+      .replace(/\s+des\s+/gi, ' of ')
+      .replace(/\s+aux\s+/gi, ' with ')
+      .replace(/\s+au\s+/gi, ' with ')
+      .replace(/\s+\u00e0\s+la\s+/gi, ' with ')
+      .replace(/\s+\u00e0\s+l[’']\s+/gi, ' with ')
+      .replace(/\s+et\s+/gi, ' and ')
+      .replace(/\s+ou\s+/gi, ' or ')
+      .replace(/\s+avec\s+/gi, ' with ')
+      .replace(/\s+pour\s+/gi, ' for ')
+      .replace(/\s+si besoin\s*/gi, ' if needed')
+      .replace(/\s+option\s*/gi, ' optional')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function looksLikeRecipeText(value) {
+    const key = normalizeI18nKey(value);
+    if (!key || key.length > 260 || /[<>]/.test(value)) return false;
+    return culinaryReplacementsEn.some(([source]) => key.includes(normalizeI18nKey(source)))
+      || /\b\d+\s*(?:g|kg|ml|cl|l|min|h|%|c)\b/i.test(key)
+      || /\b(?:cuire|fouetter|melanger|mixer|ajouter|servir|prechauffer|reserver|assaisonner|egoutter)\b/i.test(key);
+  }
+
+  function translateRecipeText(value) {
+    const source = repairI18nMojibake(value).trim();
+    const exact = recipePhraseEn[source] || phraseLookupEn.get(normalizeI18nKey(source));
+    if (exact) return exact;
+    if (!looksLikeRecipeText(source)) return '';
+
+    let translated = replaceCulinaryTerms(source)
+      .replace(/\bPr\u00e9chauffer\b/gi, 'Preheat')
+      .replace(/\bM\u00e9langer\b/gi, 'Mix')
+      .replace(/\bFouetter\b/gi, 'Whisk')
+      .replace(/\bAjouter\b/gi, 'Add')
+      .replace(/\bCuire\b/gi, 'Cook')
+      .replace(/\bServir\b/gi, 'Serve')
+      .replace(/\bR\u00e9server\b/gi, 'Set aside')
+      .replace(/\bMixer\b/gi, 'Blend')
+      .replace(/\bGo\u00fbter\b/gi, 'Taste')
+      .replace(/\bLaisser\b/gi, 'Let')
+      .replace(/\bIncorporer\b/gi, 'Fold in')
+      .replace(/\bAssaisonner\b/gi, 'Season')
+      .replace(/\bDorer\b/gi, 'Brown')
+      .replace(/\bRefroidir\b/gi, 'Cool');
+
+    if (translated === source) return '';
+    return source[0] === source[0]?.toUpperCase()
+      ? translated.charAt(0).toUpperCase() + translated.slice(1)
+      : translated;
   }
 
   function safeLocale(value) {
@@ -291,13 +561,14 @@
 
   function text(value) {
     if (typeof value !== 'string' || currentLocale === DEFAULT_LOCALE) return value;
-    const translated = phraseEn[value];
+    const source = repairI18nMojibake(value);
+    const translated = phraseEn[value] || phraseEn[source] || phraseLookupEn.get(normalizeI18nKey(source));
     if (translated) return translated;
     for (const [pattern, render] of dynamicRules) {
-      const match = value.match(pattern);
+      const match = source.match(pattern);
       if (match) return render(match);
     }
-    return value;
+    return translateRecipeText(source) || source;
   }
 
   function setLocale(locale) {
@@ -388,6 +659,7 @@
     applyDocumentLanguage,
     ensureAlternateLinks,
     translateCategory,
+    translateRecipeText,
     localizeDocument
   };
 

@@ -74,6 +74,8 @@ i18n.setLocale('en');
 expect('Traduction de base inactive.', i18n.text('Accueil') === 'Home');
 expect('Traduction par cle inactive.', i18n.t('language.selector') === 'Language');
 expect('Traduction dynamique inactive.', i18n.text('3 recettes') === '3 recipes');
+expect('Traduction recette exacte inactive.', i18n.text('Crumble pomme-poire') === 'Apple and pear crumble');
+expect('Traduction recette future inactive.', i18n.text('200g beurre doux ramolli').includes('unsalted butter'));
 
 const staticKeys = new Set(frKeys);
 for (const match of app.matchAll(/\bt\(\s*['"`]([^'"`]+)['"`]/g)) {
@@ -83,6 +85,7 @@ for (const match of app.matchAll(/\bt\(\s*['"`]([^'"`]+)['"`]/g)) {
 }
 
 expect('Runtime i18n non branche dans app.js.', app.includes('CookNoteI18n') && app.includes('translateUiText') && app.includes('repairReactChildText') && app.includes('repairReactProps'));
+expect('Traduction automatique recettes absente.', read('i18n.js').includes('translateRecipeText') && read('i18n.js').includes('culinaryReplacementsEn'));
 expect('Hook locale React absent.', app.includes('useI18nLocale') && app.includes('CookNoteI18n.subscribe'));
 expect('Selecteur de langue absent.', app.includes('function LanguageSwitcher') && app.includes('language-switcher') && app.includes('supportedLocales'));
 expect('SEO i18n absent.', app.includes("t('site.description')") && app.includes("t('seo.techniques.description')") && app.includes('ensureAlternateLinks'));
