@@ -175,6 +175,31 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
+  test('english inline variant recipe content stays translated', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/beignets_calamar?lang=en');
+    await waitForCookNote(page);
+
+    await expectSelectedLanguage(page, 'en', 'EN');
+    await expect(page.getByRole('heading', { level: 1, name: /Calamari fritters/i })).toBeVisible();
+    await page.locator('.variant-choice-button').filter({ hasText: /Calamari/i }).first().click();
+    const mobileTabs = page.locator('.recipe-tabs');
+    if (await mobileTabs.isVisible()) {
+      await mobileTabs.getByRole('button', { name: /Steps/i }).click();
+    }
+    await expect(page.locator('.step-list')).toBeVisible();
+    await expect(page.locator('.step-list')).toContainText('Quickly rinse the calamari');
+    await expect(page.locator('.step-list')).toContainText('Mix the milk, lemon, garlic, salt');
+    await expect(page.locator('.step-list')).not.toContainText('Rincer rapidement les calamars');
+    await expect(page.locator('.step-list')).not.toContainText('Mélanger lait');
+    await expect(page.locator('.practical-block')).toContainText('Practical info');
+    await expect(page.locator('.practical-block')).toContainText('Good to know');
+    await expect(page.locator('.practical-block')).not.toContainText('Infos pratiques');
+    await expect(page.locator('.recipe-command-dock')).toContainText('Active sheet');
+    await expectNoMojibake(page);
+    await expectNoHorizontalOverflow(page);
+  });
+
   test('direct recipe route renders hero and decoded copy', async ({ page }, testInfo) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/poulet_sauce_pimentee?lang=fr');

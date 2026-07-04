@@ -73,6 +73,7 @@
     'Imprimer la liste': 'Print list',
     'Copier': 'Copy',
     'Copiée': 'Copied',
+    'Copier la fiche': 'Copy recipe',
     'Copier fiche': 'Copy recipe',
     'Fiche copiée': 'Recipe copied',
     'Copier le lien': 'Copy link',
@@ -102,6 +103,8 @@
     'Moutarde': 'Mustard',
     'Œufs': 'Eggs',
     'Oeufs': 'Eggs',
+    'Œufs crus': 'Raw eggs',
+    'Oeufs crus': 'Raw eggs',
     'Poids moyens': 'Average weights',
     'Poids moyens utiles': 'Useful average weights',
     'Correspondances de poids moyens': 'Average-weight references',
@@ -118,6 +121,21 @@
     'Fiche technique': 'Technical sheet',
     'Points techniques': 'Technical points',
     'Matériel nécessaire': 'Required equipment',
+    'Tenue': 'Stability',
+    'Usage': 'Use',
+    'Température': 'Temperature',
+    'Travail': 'Handling',
+    'Équilibre': 'Balance',
+    'Maturité': 'Ripeness',
+    'Texture': 'Texture',
+    'Utilisation': 'Use',
+    'Appareil': 'Mixture',
+    'Friture': 'Frying',
+    'Finition': 'Finishing',
+    'Assemblage': 'Assembly',
+    'Assemblage final': 'Final assembly',
+    'Composants liés': 'Linked components',
+    'Conversion levure': 'Yeast conversion',
     'Résumé': 'Summary',
     'Fiche rapide': 'Quick sheet',
     'Fiche active': 'Active sheet',
@@ -127,6 +145,14 @@
     'Difficulté': 'Difficulty',
     'Quantité': 'Quantity',
     'Saison': 'Season',
+    'Repères': 'Practical cues',
+    'Repère indicatif': 'Guideline',
+    'Repères de préparation': 'Prep timeline',
+    'Infos pratiques': 'Practical info',
+    'À savoir': 'Good to know',
+    'Erreurs à éviter': 'Mistakes to avoid',
+    'Résultat attendu': 'Expected result',
+    'Réchauffage': 'Reheating',
     'Lecture chef': 'Chef notes',
     'Lecture chef de la recette': 'Recipe chef notes',
     'Choix de variante': 'Variant choice',
@@ -137,10 +163,13 @@
     'Variante active': 'Active variant',
     'Choisir la préparation': 'Choose the preparation',
     'Aucune variante sélectionnée': 'No variant selected',
+    'Choix requis': 'Choice required',
     'Sélectionne une variante pour afficher les détails.': 'Select a variant to show the details.',
     'Choisis une variante pour afficher les ingrédients et les étapes correspondantes.': 'Choose a variant to show the matching ingredients and steps.',
     'Choisis un groupe d’ingrédients': 'Choose an ingredient group',
     'Ouvre un groupe d’ingrédients pour afficher les étapes correspondantes.': 'Open an ingredient group to show the matching steps.',
+    'Glisse pour passer d’un panneau à l’autre': 'Swipe between panels',
+    'Voir les notes': 'View notes',
     'Recettes introuvables': 'Recipes not found',
     'Recette introuvable': 'Recipe not found',
     'Retournez à la liste des recettes.': 'Go back to the recipe list.',
@@ -210,9 +239,12 @@
     'Ex : moins de sucre, cuisson +3 min, validée pour 8 personnes...': 'Ex: less sugar, cook +3 min, approved for 8 people...',
     'Effacer la note privée de cette recette': 'Clear this recipe private note',
     'Effacer la note': 'Clear note',
+    'Point clé': 'Key point',
     'Résumé de la recette': 'Recipe summary',
     'Allergènes détectés': 'Detected allergens',
+    'Allergenes detectes': 'Detected allergens',
     'Liste des allergènes détectés': 'Detected allergen list',
+    'Liste des allergenes detectes': 'Detected allergen list',
     'Fiche technique de la recette': 'Recipe technical notes',
     'Mettre à jour': 'Update',
     'Mettre Cook Note à jour': 'Update Cook Note',
@@ -239,7 +271,45 @@
     'Recette': 'Recipe',
     'Mer': 'Seafood',
     'Viande': 'Meat',
-    'Collection': 'Collection'
+    'Collection': 'Collection',
+    'Bases salées': 'Savory bases',
+    'Ricotta fouettée': 'Whipped ricotta',
+    'Version séchées': 'Dried version',
+    'Version confites': 'Confit version',
+    'Version babeurre': 'Buttermilk version',
+    'Pâtissière': 'Pastry cream',
+    'Craquelin': 'Craquelin topping',
+    'Garnissage': 'Filling',
+    'Pâte': 'Dough',
+    'Pâte à crumble': 'Crumble topping',
+    'Fruits': 'Fruit',
+    'Légumes & aromates': 'Vegetables and aromatics',
+    'Liquides': 'Liquids',
+    'Appareil': 'Mixture',
+    'Meringues': 'Meringues',
+    'Verser le vinaigre balsamique dans une petite casserole à fond épais.': 'Pour the balsamic vinegar into a small heavy-bottomed saucepan.',
+    'Verser sur les ingredients secs et mélanger juste assez pour garder une pâte épaisse.': 'Pour over the dry ingredients and mix just enough to keep a thick batter.',
+    'Verser sur les ingrédients secs et mélanger juste assez pour garder une pâte épaisse.': 'Pour over the dry ingredients and mix just enough to keep a thick batter.',
+    'Rôtir 20 à 25min face coupee vers le haut, jusqu’au jus concentre et aux bords légèrement fripes.': 'Roast for 20 to 25 minutes cut side up, until the juices are concentrated and the edges are lightly wrinkled.',
+    'Rôtir 20 à 25min face coupée vers le haut, jusqu’au jus concentré et aux bords légèrement fripés.': 'Roast for 20 to 25 minutes cut side up, until the juices are concentrated and the edges are lightly wrinkled.',
+    'Cuire jusqu’aux bords dorés et au centre encore tendre, puis laisser tiédir sur plaque avant de déplacer.': 'Cook until golden at the edges and still tender in the center, then let cool until warm on the tray before moving.',
+    'Mise en place courte : garder les ingredients visibles avant cuisson.': 'Short prep: keep the ingredients visible before cooking.',
+    'Mise en place courte : garder les ingrédients visibles avant cuisson.': 'Short prep: keep the ingredients visible before cooking.',
+    'Prevoir le repos avant de promettre le service.': 'Allow for the resting time before promising service.',
+    'Prévoir le repos avant de promettre le service.': 'Allow for the resting time before promising service.',
+    'A estimer': 'To estimate',
+    'À estimer': 'To estimate',
+    'Fiche recette copiée': 'Recipe copied',
+    'Servir chaud, juste après cuisson.': 'Serve hot, right after cooking.',
+    'Laisser reposer le temps indiqué, puis servir chaud.': 'Let it rest for the indicated time, then serve hot.',
+    'Servir frais, après le repos au froid indiqué.': 'Serve chilled, after the indicated cold rest.',
+    'Servir tiède ou à température ambiante selon la texture recherchée.': 'Serve warm or at room temperature, depending on the texture you want.',
+    "Servir tartinable, sorti quelques minutes du froid selon l'usage.": 'Serve spreadable, taken out of the fridge a few minutes beforehand depending on use.',
+    'Saler ou finir juste avant d’envoyer pour garder le croustillant.': 'Salt or finish just before serving to keep it crisp.',
+    'Faire les finitions au dernier moment.': 'Add the finishing touches at the last moment.',
+    'Après cuisson : refroidis rapidement, conserve en boîte hermétique au réfrigérateur 3–4 jours et réchauffe au four, à la poêle ou doucement selon la texture.': 'After cooking: cool quickly, store in an airtight container in the fridge for 3 to 4 days, and reheat in the oven, in a pan, or gently depending on the texture.',
+    'Après préparation : conserve au réfrigérateur à 0–4°C en contenant propre fermé et consomme sous 24–48h.': 'After preparation: store in a clean closed container in the fridge at 0 to 4°C and eat within 24 to 48 hours.',
+    'Après préparation : conserve couvert dans un contenant propre ; mets au réfrigérateur dès qu’il y a humidité, fruit coupé, sauce ou garniture fraîche.': 'After preparation: keep covered in a clean container; refrigerate whenever there is moisture, cut fruit, sauce, or a fresh garnish.'
   };
 
   const recipePhraseEn = {
@@ -433,6 +503,24 @@
     ['frigo', 'refrigerator'],
     ['congélateur', 'freezer'],
     ['casserole', 'saucepan'],
+    ['casserole à fond épais', 'heavy-bottomed saucepan'],
+    ['fond épais', 'heavy bottom'],
+    ['petite casserole', 'small saucepan'],
+    ['petit plat à gratin', 'small baking dish'],
+    ['plat à gratin', 'baking dish'],
+    ['plaque préchauffée', 'preheated tray'],
+    ['plaque de cuisson', 'baking sheet'],
+    ['branches de céleri', 'celery stalks'],
+    ['branches de celeri', 'celery stalks'],
+    ['branche de céleri', 'celery stalk'],
+    ['branche de celeri', 'celery stalk'],
+    ['clous de girofle', 'cloves'],
+    ['clou de girofle', 'clove'],
+    ['babeurre', 'buttermilk'],
+    ['piments secs', 'dried chilies'],
+    ['piment sec', 'dried chili'],
+    ['balsamique', 'balsamic'],
+    ['plaque', 'tray'],
     ['couteau', 'knife'],
     ['pointe', 'tip'],
     ['cercle', 'ring'],
@@ -522,6 +610,14 @@
     ['saumon', 'salmon'],
     ['cabillaud', 'cod'],
     ['thon', 'tuna'],
+    ['pâte à crumble', 'crumble topping'],
+    ['pate a crumble', 'crumble topping'],
+    ['pâte à frire', 'frying batter'],
+    ['pate a frire', 'frying batter'],
+    ['pâte tandoori', 'tandoori paste'],
+    ['pate tandoori', 'tandoori paste'],
+    ['pâte', 'dough'],
+    ['pate', 'dough'],
     ['calamars', 'calamari'],
     ['calamar', 'calamari'],
     ['chipirons', 'baby squid'],
@@ -583,6 +679,11 @@
     ['fécule de maïs', 'cornstarch'],
     ['fécule', 'starch'],
     ['levure chimique', 'baking powder'],
+    ['levure fraîche', 'fresh yeast'],
+    ['levure fraiche', 'fresh yeast'],
+    ['levure', 'yeast'],
+    ['gélatine', 'gelatin'],
+    ['gelatine', 'gelatin'],
     ['levure boulangère', 'baker’s yeast'],
     ['poudre d’amandes', 'almond flour'],
     ["poudre d'amandes", 'almond flour'],
@@ -590,6 +691,14 @@
     ['amandes', 'almonds'],
     ['noisettes torréfiées', 'toasted hazelnuts'],
     ['noisettes', 'hazelnuts'],
+    ['noisette', 'hazelnut'],
+    ['pâte de noisette', 'hazelnut paste'],
+    ['pate de noisette', 'hazelnut paste'],
+    ['praliné noisette', 'hazelnut praline'],
+    ['praline noisette', 'hazelnut praline'],
+    ['cacao non sucré', 'unsweetened cocoa'],
+    ['cacao non sucre', 'unsweetened cocoa'],
+    ['cacao', 'cocoa'],
     ['noix', 'walnuts'],
     ['pignons', 'pine nuts'],
     ['sucre glace', 'icing sugar'],
@@ -1011,12 +1120,150 @@
     ['été', 'summer'],
     ['automne', 'autumn'],
     ['hiver', 'winter'],
+    ['mangue mûre', 'ripe mango'],
+    ['mangues mûres', 'ripe mangoes'],
+    ['mangue', 'mango'],
+    ['pêches mûres', 'ripe peaches'],
+    ['pêche mûre', 'ripe peach'],
+    ['pêches', 'peaches'],
+    ['pêche', 'peach'],
+    ['abricots mûrs', 'ripe apricots'],
+    ['abricot mûr', 'ripe apricot'],
+    ['abricots', 'apricots'],
+    ['abricot', 'apricot'],
+    ['myrtilles', 'blueberries'],
+    ['myrtille', 'blueberry'],
+    ['mûres', 'blackberries'],
+    ['mûre', 'blackberry'],
+    ['ananas frais', 'fresh pineapple'],
+    ['ananas', 'pineapple'],
+    ['kiwis mûrs', 'ripe kiwis'],
+    ['kiwi mûr', 'ripe kiwi'],
+    ['kiwis', 'kiwis'],
+    ['pommes', 'apples'],
+    ['pomme', 'apple'],
+    ['poires', 'pears'],
+    ['poire', 'pear'],
+    ['pépins', 'seeds'],
+    ['peau', 'skin'],
+    ['peaux', 'skins'],
     ['personnes', 'people'],
     ['portions', 'servings'],
     ['parts', 'slices']
   ];
 
   const recipeGrammarReplacementsEn = [
+    ['astuce cuisson', 'cooking tip:'],
+    ['en fin de cuisson', 'at the end of cooking'],
+    ['fin de cuisson', 'end of cooking'],
+    ['le temps indiqué', 'the indicated time'],
+    ['temps indiqué', 'indicated time'],
+    ['fruit choisi', 'chosen fruit'],
+    ['pâte choisie', 'chosen batter'],
+    ['goût frais', 'fresh taste'],
+    ['goût', 'taste'],
+    ['acidité', 'acidity'],
+    ['couleur bien rouge', 'bright red color'],
+    ['bien rouge', 'bright red'],
+    ['couleur', 'color'],
+    ['quelques gouttes', 'a few drops'],
+    ['dès que', 'as soon as'],
+    ['dès qu’il', 'as soon as it'],
+    ["dès qu'il", 'as soon as it'],
+    ['au contact', 'directly on the surface'],
+    ['forme un bec souple à ferme', 'forms soft to firm peaks'],
+    ['souple à ferme', 'soft to firm'],
+    ['bec souple', 'soft peak'],
+    ['texture pommade', 'soft, spreadable texture'],
+    ['bouche légère', 'light mouthfeel'],
+    ['plus douce', 'milder'],
+    ['petit pot', 'small container'],
+    ['papier cuisson', 'parchment paper'],
+    ['une seule couche', 'a single layer'],
+    ['face coupée contre la plaque', 'cut side down on the tray'],
+    ['face coupee contre la plaque', 'cut side down on the tray'],
+    ['face coupée vers le haut', 'cut side up'],
+    ['face coupee vers le haut', 'cut side up'],
+    ['cœur juste tendre', 'just-tender center'],
+    ['coeur juste tendre', 'just-tender center'],
+    ['cœur tendre', 'tender center'],
+    ['coeur tendre', 'tender center'],
+    ['bords dorés', 'golden edges'],
+    ['bords dores', 'golden edges'],
+    ['pointes grillées', 'toasted tips'],
+    ['pointes grillees', 'toasted tips'],
+    ['jus concentré', 'concentrated juices'],
+    ['jus concentre', 'concentrated juices'],
+    ['légèrement fripés', 'lightly wrinkled'],
+    ['legerement fripes', 'lightly wrinkled'],
+    ['croûte plus nette', 'cleaner crust'],
+    ['croute plus nette', 'cleaner crust'],
+    ['centre encore tendre', 'center still soft'],
+    ['pâte lisse', 'smooth dough'],
+    ['pate lisse', 'smooth dough'],
+    ['légèrement collante', 'slightly sticky'],
+    ['legerement collante', 'slightly sticky'],
+    ['mie dense', 'dense crumb'],
+    ['apprêt insuffisant', 'underproofing'],
+    ['appret insuffisant', 'underproofing'],
+    ['le lendemain', 'the next day'],
+    ['jusqu’au dressage', 'until plating'],
+    ["jusqu'au dressage", 'until plating'],
+    ['dressage', 'plating'],
+    ['garnitures', 'toppings'],
+    ['garniture', 'topping'],
+    ['ingrédients secs', 'dry ingredients'],
+    ['ingredients secs', 'dry ingredients'],
+    ['juste assez', 'just enough'],
+    ['pancakes cuits', 'cooked pancakes'],
+    ['cuits', 'cooked'],
+    ['cuites', 'cooked'],
+    ['filmés', 'wrapped'],
+    ['filmes', 'wrapped'],
+    ['boîte hermétique', 'airtight container'],
+    ['boite hermetique', 'airtight container'],
+    ['perte de texture', 'loss of texture'],
+    ['semaines', 'weeks'],
+    ['semaine', 'week'],
+    ['jours', 'days'],
+    ['jour', 'day'],
+    ['pièces', 'pieces'],
+    ['pieces', 'pieces'],
+    ['individuels', 'individual'],
+    ['décor', 'decoration'],
+    ['decor', 'decoration'],
+    ['composant pour', 'component for'],
+    ['composants liés', 'linked components'],
+    ['composants lies', 'linked components'],
+    ['voir', 'see'],
+    ['récipient', 'container'],
+    ['contenant propre', 'clean container'],
+    ['boîte hermétique', 'airtight container'],
+    ['refroidissement', 'cooling'],
+    ['utilisation', 'use'],
+    ['température', 'temperature'],
+    ['maturité', 'ripeness'],
+    ['équilibre', 'balance'],
+    ['assaisonnement', 'seasoning'],
+    ['très finement', 'very finely'],
+    ['progressivement', 'gradually'],
+    ['rapidement', 'quickly'],
+    ['soigneusement', 'carefully'],
+    ['constamment', 'constantly'],
+    ['franchement', 'clearly'],
+    ['naturellement', 'naturally'],
+    ['toujours', 'always'],
+    ['plutôt', 'preferably'],
+    ['peu', 'briefly'],
+    ['vite', 'quickly'],
+    ['assez', 'enough'],
+    ['vrai', 'proper'],
+    ['bonne', 'good'],
+    ['mais non', 'but not'],
+    ['souple', 'soft'],
+    ['ferme', 'firm'],
+    ['fondu', 'melted'],
+    ['fondue', 'melted'],
     ['faire fondre', 'melt'],
     ['fais fondre', 'melt'],
     ['faire revenir', 'saute'],
@@ -1140,6 +1387,7 @@
     ['sélectionner', 'select'],
     ['selectionner', 'select'],
     ['choisir', 'choose'],
+    ['suivre', 'follow'],
     ['afficher', 'show'],
     ['respecter', 'respect'],
     ['mélanger', 'mix'],
@@ -1254,6 +1502,34 @@
     ['retourner', 'turn over'],
     ['prolonger', 'extend'],
     ['utiliser', 'use'],
+    ['utilisé', 'used'],
+    ['utilisee', 'used'],
+    ['utilisée', 'used'],
+    ['recouvrir', 'cover'],
+    ['pétrir', 'knead'],
+    ['petrir', 'knead'],
+    ['bouler', 'shape into a ball'],
+    ['tiédir', 'cool until warm'],
+    ['tiedir', 'cool until warm'],
+    ['déplacer', 'move'],
+    ['deplacer', 'move'],
+    ['surveiller', 'watch'],
+    ['retournant', 'turning'],
+    ['dessèchement', 'drying out'],
+    ['dessechement', 'drying out'],
+    ['répartition régulière', 'even distribution'],
+    ['repartition reguliere', 'even distribution'],
+    ['intensité souhaitée', 'desired intensity'],
+    ['intensite souhaitee', 'desired intensity'],
+    ['rouler en boudin', 'roll into a log'],
+    ['en boudin', 'into a log'],
+    ['boudin', 'log'],
+    ['former', 'form'],
+    ['forme', 'forms'],
+    ['indiqué', 'indicated'],
+    ['indique', 'indicated'],
+    ['choisi', 'chosen'],
+    ['choisie', 'chosen'],
     ['vérifier', 'check'],
     ['verifier', 'check'],
     ['conserver', 'store'],
@@ -1293,11 +1569,13 @@
     [/^(\d+) ingr\u00e9dient(s?)$/, match => `${match[1]} ingredient${match[1] === '1' ? '' : 's'}`],
     [/^(\d+) \u00e9tape(s?)$/, match => `${match[1]} step${match[1] === '1' ? '' : 's'}`],
     [/^(\d+) option(s?)$/, match => `${match[1]} option${match[1] === '1' ? '' : 's'}`],
+    [/^(\d+)\/(\d+) caract\u00e8res$/, match => `${match[1]}/${match[2]} characters`],
     [/^(\d+)% pr\u00eat$/, match => `${match[1]}% ready`],
     [/^Actif (.+)$/, match => `Active ${match[1]}`],
     [/^Cuisson (.+)$/, match => `Cooking ${match[1]}`],
     [/^Repos (.+)$/, match => `Rest ${match[1]}`],
     [/^Difficult\u00e9 (.+)$/, match => `Difficulty ${text(match[1])}`],
+    [/^Ouvrir la cat\u00e9gorie (.+)$/, match => `Open category ${text(match[1])}`],
     [/^Ouvrir (.+)$/, match => `Open ${text(match[1])}`],
     [/^Pour (.+)$/, match => `For ${text(match[1])}`],
     [/^Version APK ([0-9.]+), Android 5\.0 minimum\.$/, match => `APK version ${match[1]}, Android 5.0 minimum.`],
@@ -1379,12 +1657,35 @@
 
   function cleanRecipeEnglish(value) {
     return String(value || '')
+      .replace(/(\d+)\s*(?:à|a)\s*(\d+)/gi, '$1 to $2')
       .replace(/\s*,\s*/g, ', ')
       .replace(/\s+([,.;:])/g, '$1')
+      .replace(/\bafin de\s+/gi, 'to ')
+      .replace(/\bpour\s+(?:garder|obtenir|afficher|éviter|eviter|émulsionner|emulsionner|émulsifier|emulsifier)\b/gi, match => {
+        const verb = match.replace(/^pour\s+/i, '').toLowerCase();
+        return {
+          garder: 'to keep',
+          obtenir: 'to get',
+          afficher: 'to show',
+          'éviter': 'to avoid',
+          eviter: 'to avoid',
+          'émulsionner': 'to emulsify',
+          emulsionner: 'to emulsify',
+          'émulsifier': 'to emulsify',
+          emulsifier: 'to emulsify'
+        }[verb] || 'to ';
+      })
+      .replace(/\b(?:pour|for)\s+show\b/gi, 'to show')
+      .replace(/\b(?:pour|for)\s+keep\b/gi, 'to keep')
+      .replace(/\b(?:pour|for)\s+get\b/gi, 'to get')
+      .replace(/\b(?:pour|for)\s+avoid\b/gi, 'to avoid')
       .replace(/\bd['’](?=\p{L})/giu, 'of ')
       .replace(/\bl['’](?=\p{L})/giu, '')
       .replace(/\bof with\b/gi, 'with')
       .replace(/\bwith with\b/gi, 'with')
+      .replace(/\bin of\b/gi, 'in')
+      .replace(/\btransfer in\b/gi, 'transfer to')
+      .replace(/\btransfer to of\b/gi, 'transfer to')
       .replace(/\bfor with\b/gi, 'for')
       .replace(/\bto with\b/gi, 'with')
       .replace(/\bfor emulsify\b/gi, 'to emulsify')
@@ -1399,10 +1700,12 @@
       .replace(/\bthe the\b/gi, 'the')
       .replace(/\bde\s+/gi, 'of ')
       .replace(/\bd'\s*/gi, 'of ')
+      .replace(/\bd’\s*/gi, 'of ')
       .replace(/\bdu\s+/gi, 'of ')
       .replace(/\bdes\s+/gi, 'of ')
       .replace(/\bau\s+/gi, 'with ')
       .replace(/\baux\s+/gi, 'with ')
+      .replace(/\bà\s+/gi, 'to ')
       .replace(/\bà\s+/gi, 'to ')
       .replace(/\bà\s+/gi, 'to ')
       .replace(/\bavec\s+/gi, 'with ')
@@ -1417,9 +1720,18 @@
       .replace(/\bpuis\s+/gi, 'then ')
       .replace(/\bquand\s+/gi, 'when ')
       .replace(/\bavant\s+/gi, 'before ')
+      .replace(/\bdès que\s+/gi, 'as soon as ')
+      .replace(/\bdes que\s+/gi, 'as soon as ')
+      .replace(/\bjusqu['’]au\s+/gi, 'until the ')
+      .replace(/\bjusqu['’]aux\s+/gi, 'until the ')
+      .replace(/\bjusqu\s+aux\s+/gi, 'until the ')
+      .replace(/\bjusqu['’]with\s+/gi, 'until ')
+      .replace(/\bjusqu\s+with\s+/gi, 'until ')
       .replace(/\baprès\s+/gi, 'after ')
       .replace(/\bapr\u00e8s\s+/gi, 'after ')
+      .replace(/\baprès\s+/gi, 'after ')
       .replace(/\bpendant\s+/gi, 'for ')
+      .replace(/\bjusqu['’]à\s+/gi, 'until ')
       .replace(/\bjusqu['’]à\s+/gi, 'until ')
       .replace(/\bjusqu[’']à\s+/gi, 'until ')
       .replace(/\btrès\s+/gi, 'very ')
@@ -1443,6 +1755,11 @@
       .replace(/\bplus\s+longtemps\b/gi, 'longer')
       .replace(/\bpas\s+/gi, 'not ')
       .replace(/\bne\s+/gi, '')
+      .replace(/\band (Add|Mix|Cook|Fold|Transfer|Roll|Serve|Keep|Cut|Pour|Whisk|Heat|Bake|Fry|Drain|Salt|Taste)\b/g, (_, verb) => `and ${verb.toLowerCase()}`)
+      .replace(/\bthen (Add|Mix|Cook|Fold|Transfer|Roll|Serve|Keep|Cut|Pour|Whisk|Heat|Bake|Fry|Drain|Salt|Taste)\b/g, (_, verb) => `then ${verb.toLowerCase()}`)
+      .replace(/\band Add\b/g, 'and add')
+      .replace(/\bbefore of\b/gi, 'before')
+      .replace(/([.!?])\s+([a-z])/g, (_, end, letter) => `${end} ${letter.toUpperCase()}`)
       .replace(/\bn['’]\s*/gi, '')
       .replace(/\s+/g, ' ')
       .trim();
@@ -1487,7 +1804,7 @@
       .slice()
       .sort((left, right) => right[0].length - left[0].length)
       .forEach(([source, translated]) => {
-        const normalizedSource = source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/[’']/g, "[’']");
+        const normalizedSource = repairI18nMojibake(source).replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/['\u2019’]/g, "['\\u2019’]");
         output = output.replace(new RegExp(`(^|[^\\p{L}])${normalizedSource}(?=$|[^\\p{L}])`, 'giu'), `$1${translated}`);
       });
 
@@ -1517,10 +1834,10 @@
       .slice()
       .sort((left, right) => right[0].length - left[0].length)
       .forEach(([source, translated]) => {
-        const normalizedSource = source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/['’]/g, "['’]");
+        const normalizedSource = repairI18nMojibake(source).replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/['\u2019’]/g, "['\\u2019’]");
         output = output.replace(new RegExp(`(^|[^\\p{L}])${normalizedSource}(?=$|[^\\p{L}])`, 'giu'), `$1${translated}`);
       });
-    return cleanRecipeEnglish(output);
+    return output.replace(/\s+/g, ' ').trim();
   }
 
   function looksLikeRecipeText(value) {
@@ -1544,7 +1861,7 @@
     if (structured) return structured;
     if (!looksLikeRecipeText(source)) return '';
 
-    let translated = replaceRecipeGrammar(replaceCulinaryTerms(source))
+    let translated = replaceCulinaryTerms(replaceRecipeGrammar(source))
       .replace(/\bFais cuire\b/gi, 'Cook')
       .replace(/\bFaire cuire\b/gi, 'Cook')
       .replace(/\bFais revenir\b/gi, 'Sauté')

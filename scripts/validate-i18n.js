@@ -84,12 +84,18 @@ expect('Etape crevettes non traduite.', i18n.text('Monter les brochettes en alte
 expect('Note vigilance mer non traduite.', i18n.text('Mer : point de vigilance.') === 'Seafood: watch point.');
 expect('Libelle carnet perso non traduit.', i18n.text('Carnet perso') === 'Personal notebook');
 expect('Statut note non traduit.', i18n.text('Non classée') === 'Unclassified');
+expect('Titre infos pratiques non traduit.', i18n.text('Infos pratiques') === 'Practical info');
+expect('Titre a savoir non traduit.', i18n.text('À savoir') === 'Good to know');
+expect('Titre erreurs non traduit.', i18n.text('Erreurs à éviter') === 'Mistakes to avoid');
+expect('Titre resultat attendu non traduit.', i18n.text('Résultat attendu') === 'Expected result');
 expect('Titre poelee non traduit.', i18n.text('Poêlée de blé au poulet et curcuma') === 'Pan-fried wheat with chicken and turmeric');
 expect('Cuisson pancakes non traduite.', i18n.text('Repos 10min puis cuisson en petites louches sur poêle beurrée.') === 'Rest for 10 minutes, then cook small ladles of batter in a buttered pan.');
 expect('Blanc oeuf non traduit.', i18n.text('30g blanc d’œuf') === '30g egg white');
 expect('Jaune oeuf non traduit.', i18n.text('20g jaune d’œuf') === '20g egg yolk');
 expect('Reduction jus non traduite.', i18n.text('Faire réduire le jus quelques minutes si besoin avant de servir.') === 'Reduce the juices for a few minutes if needed before serving.');
 expect('Recette future patates non traduite.', i18n.text('Lentilles tomate pommes de terre sautées').includes('sautéed potatoes'));
+expect('Plage quantite future non traduite.', i18n.text('50 à 70g sucre') === '50 to 70g sugar');
+expect('Phrase future verser non traduite.', i18n.text('Verser le vinaigre balsamique dans une petite casserole à fond épais.') === 'Pour the balsamic vinegar into a small heavy-bottomed saucepan.');
 
 const staticKeys = new Set(frKeys);
 for (const match of app.matchAll(/\bt\(\s*['"`]([^'"`]+)['"`]/g)) {
