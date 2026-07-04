@@ -75,6 +75,11 @@
     'Copiée': 'Copied',
     'Copier fiche': 'Copy recipe',
     'Fiche copiée': 'Recipe copied',
+    'Copier le lien': 'Copy link',
+    'Copier le texte': 'Copy text',
+    'Texte copié': 'Text copied',
+    'Lien de recette copié': 'Recipe link copied',
+    'Texte de recette copié': 'Recipe text copied',
     'Ajouter aux courses': 'Add to shopping',
     'Dans les courses': 'In shopping',
     'Retirer des courses': 'Remove from shopping',
@@ -120,6 +125,8 @@
     'Choisis un groupe d’ingrédients': 'Choose an ingredient group',
     'Ouvre un groupe d’ingrédients pour afficher les étapes correspondantes.': 'Open an ingredient group to show the matching steps.',
     'Recettes introuvables': 'Recipes not found',
+    'Recette introuvable': 'Recipe not found',
+    'Retournez à la liste des recettes.': 'Go back to the recipe list.',
     'Le fichier de recettes doit définir window.RECIPES avant app.js.': 'The recipe file must define window.RECIPES before app.js.',
     'Retour au carnet': 'Back to notebook',
     'Retour aux recettes': 'Back to recipes',
@@ -253,10 +260,151 @@
     'Cr\u00e8me pistache \u00e0 garnir': 'Pistachio filling cream',
     'Cr\u00e8me pralin\u00e9': 'Praline cream',
     'Meringue italienne': 'Italian meringue',
-    'Mousse au chocolat': 'Chocolate mousse'
+    'Mousse au chocolat': 'Chocolate mousse',
+    'Cabillaud au four, crumble de chorizo': 'Baked cod with chorizo crumble',
+    'Poulet au chorizo, vin blanc et citron': 'Chicken with chorizo, white wine and lemon',
+    'Poulet aux tomates, poivron, vin blanc et thym': 'Chicken with tomatoes, bell pepper, white wine and thyme',
+    'Joues de bœuf carottes orange vin rouge': 'Beef cheeks with carrots, orange and red wine',
+    'Joues de bœuf whiskey orange': 'Beef cheeks with whiskey and orange',
+    'Pâtes tomates confites parmesan': 'Pasta with confit tomatoes and Parmesan',
+    'Gratin de pâtes au chorizo': 'Pasta gratin with chorizo',
+    'Pommes de terre fondantes aux herbes et moutarde': 'Fondant potatoes with herbs and mustard',
+    'Pommes de terre au four à la grecque': 'Greek-style baked potatoes',
+    'Temps de cuisson des légumes à l’autocuiseur': 'Pressure-cooker vegetable cooking times'
   };
 
   const culinaryReplacementsEn = [
+    ['papier cuisson', 'parchment paper'],
+    ['plaque de cuisson', 'baking sheet'],
+    ['poche à douille', 'piping bag'],
+    ['huile de friture', 'frying oil'],
+    ['huile neutre', 'neutral oil'],
+    ['eau froide', 'cold water'],
+    ['eau chaude', 'hot water'],
+    ['bouillon de volaille', 'chicken stock'],
+    ['bouillon de légumes', 'vegetable stock'],
+    ['vin blanc', 'white wine'],
+    ['vin rouge', 'red wine'],
+    ['sirop d’érable', 'maple syrup'],
+    ["sirop d'érable", 'maple syrup'],
+    ['paprika fumé', 'smoked paprika'],
+    ['piment d’Espelette', 'Espelette pepper'],
+    ["piment d'Espelette", 'Espelette pepper'],
+    ['fleur de sel', 'sea salt flakes'],
+    ['sucre roux', 'brown sugar'],
+    ['cassonade', 'brown sugar'],
+    ['fécule de maïs', 'cornstarch'],
+    ['maïzena', 'cornstarch'],
+    ['fécule', 'starch'],
+    ['chapelure', 'breadcrumbs'],
+    ['beurre froid', 'cold butter'],
+    ['beurre mou', 'softened butter'],
+    ['crème fraîche', 'creme fraiche'],
+    ['crème épaisse', 'thick cream'],
+    ['lait de coco', 'coconut milk'],
+    ['mascarpone', 'mascarpone'],
+    ['yaourt', 'yogurt'],
+    ['chocolat au lait', 'milk chocolate'],
+    ['citron confit', 'preserved lemon'],
+    ['patates douces', 'sweet potatoes'],
+    ['patate douce', 'sweet potato'],
+    ['poivrons', 'bell peppers'],
+    ['poivron', 'bell pepper'],
+    ['petits pois', 'peas'],
+    ['pois chiches', 'chickpeas'],
+    ['haricots blancs', 'white beans'],
+    ['haricots tarbais', 'Tarbais beans'],
+    ['haricots', 'beans'],
+    ['lentilles vertes', 'green lentils'],
+    ['lentilles', 'lentils'],
+    ['saucisse de Morteau', 'Morteau sausage'],
+    ['saucisses', 'sausages'],
+    ['saucisse', 'sausage'],
+    ['poitrine fumée', 'smoked bacon'],
+    ['jambon cru', 'prosciutto'],
+    ['foie gras', 'foie gras'],
+    ['saint-jacques', 'scallops'],
+    ['noix de cajou', 'cashews'],
+    ['poudre de noisettes', 'hazelnut flour'],
+    ['papier sulfurisé', 'parchment paper'],
+    ['cuillère à soupe', 'tablespoon'],
+    ['cuillères à soupe', 'tablespoons'],
+    ['cuillère à café', 'teaspoon'],
+    ['cuillères à café', 'teaspoons'],
+    ['c. à soupe', 'tbsp'],
+    ['c. à café', 'tsp'],
+    ['feu doux', 'low heat'],
+    ['feu moyen', 'medium heat'],
+    ['feu vif', 'high heat'],
+    ['hors feu', 'off the heat'],
+    ['à couvert', 'covered'],
+    ['huile', 'oil'],
+    ['eau', 'water'],
+    ['bouillon', 'stock'],
+    ['cidre', 'cider'],
+    ['bière', 'beer'],
+    ['rhum', 'rum'],
+    ['whiskey', 'whiskey'],
+    ['muscade', 'nutmeg'],
+    ['paprika', 'paprika'],
+    ['piment', 'chili'],
+    ['cumin', 'cumin'],
+    ['curcuma', 'turmeric'],
+    ['curry', 'curry'],
+    ['herbes', 'herbs'],
+    ['laurier', 'bay leaf'],
+    ['origan', 'oregano'],
+    ['poivre', 'pepper'],
+    ['sel', 'salt'],
+    ['praliné', 'praline'],
+    ['riz', 'rice'],
+    ['pâtes', 'pasta'],
+    ['blé', 'wheat'],
+    ['canard', 'duck'],
+    ['dinde', 'turkey'],
+    ['chorizo', 'chorizo'],
+    ['lardons', 'bacon lardons'],
+    ['comté', 'Comté'],
+    ['roquefort', 'Roquefort'],
+    ['chèvre', 'goat cheese'],
+    ['pistaches', 'pistachios'],
+    ['gaufres', 'waffles'],
+    ['pancakes', 'pancakes'],
+    ['brioche', 'brioche'],
+    ['velouté', 'creamy soup'],
+    ['marinade', 'marinade'],
+    ['garniture', 'filling'],
+    ['dressage', 'plating'],
+    ['cuisson', 'cooking'],
+    ['préparation', 'preparation'],
+    ['four', 'oven'],
+    ['poêle', 'pan'],
+    ['casserole', 'saucepan'],
+    ['faitout', 'pot'],
+    ['moule', 'pan'],
+    ['saladier', 'mixing bowl'],
+    ['bol', 'bowl'],
+    ['fouet', 'whisk'],
+    ['spatule', 'spatula'],
+    ['maryse', 'spatula'],
+    ['pinceau', 'brush'],
+    ['morceaux', 'pieces'],
+    ['dés', 'dice'],
+    ['rondelles', 'slices'],
+    ['lamelles', 'slices'],
+    ['feuilles', 'leaves'],
+    ['sucs', 'fond'],
+    ['ébullition', 'boil'],
+    ['progressivement', 'gradually'],
+    ['délicatement', 'gently'],
+    ['pincée', 'pinch'],
+    ['gousses', 'cloves'],
+    ['gousse', 'clove'],
+    ['tiède', 'warm'],
+    ['minutes', 'minutes'],
+    ['minute', 'minute'],
+    ['heures', 'hours'],
+    ['heure', 'hour'],
     ['huile d\u2019olive', 'olive oil'],
     ["huile d'olive", 'olive oil'],
     ['jus de citron vert', 'lime juice'],
@@ -426,6 +574,8 @@
     [/^Installer (.+) - (.+)$/, match => `Install ${match[1]} - ${match[2]}`],
     [/^Partager (.+) sur WhatsApp$/, match => `Share ${match[1]} on WhatsApp`],
     [/^Partager (.+) par email$/, match => `Share ${match[1]} by email`],
+    [/^Copier le lien de (.+)$/, match => `Copy ${text(match[1])} link`],
+    [/^Copier le texte de partage de (.+)$/, match => `Copy ${text(match[1])} share text`],
     [/^QR code de (.+)$/, match => `QR code for ${match[1]}`],
     [/^QR code du lien (.+)$/, match => `QR code for ${match[1]} link`],
     [/^Lien de partage (.+)$/, match => `Share link ${match[1]}`],
@@ -476,6 +626,61 @@
     phraseLookupEn.set(normalizeI18nKey(source), translated);
   });
 
+  function capitalizeRecipeEnglish(value) {
+    const text = String(value || '').trim();
+    return text ? text.charAt(0).toUpperCase() + text.slice(1) : text;
+  }
+
+  function cleanRecipeEnglish(value) {
+    return String(value || '')
+      .replace(/\s*,\s*/g, ', ')
+      .replace(/\s+([,.;:])/g, '$1')
+      .replace(/\bof with\b/gi, 'with')
+      .replace(/\bwith with\b/gi, 'with')
+      .replace(/\bfor with\b/gi, 'for')
+      .replace(/\bde\s+/gi, 'of ')
+      .replace(/\bdu\s+/gi, 'of ')
+      .replace(/\bdes\s+/gi, 'of ')
+      .replace(/\bau\s+/gi, 'with ')
+      .replace(/\baux\s+/gi, 'with ')
+      .replace(/\bavec\s+/gi, 'with ')
+      .replace(/\bet\s+/gi, 'and ')
+      .replace(/\bou\s+/gi, 'or ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function translateRecipeFragment(value) {
+    const exact = phraseLookupEn.get(normalizeI18nKey(value));
+    if (exact) return exact;
+    return cleanRecipeEnglish(replaceCulinaryTerms(repairI18nMojibake(value)));
+  }
+
+  const recipeStructureRulesEn = [
+    [/^(.+?)\s+au four(?:,?\s+(.+))?$/i, match => {
+      const base = translateRecipeFragment(match[1]);
+      return match[2] ? `${base} baked with ${translateRecipeFragment(match[2])}` : `Baked ${base}`;
+    }],
+    [/^(.+?)\s+aux\s+(.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
+    [/^(.+?)\s+au\s+(.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
+    [/^(.+?)\s+à la\s+(.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
+    [/^(.+?)\s+à l[’'](.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
+    [/^(.+?)\s+en\s+(.+)$/i, match => `${translateRecipeFragment(match[1])} in ${translateRecipeFragment(match[2])}`],
+    [/^(Curry|Gratin|Salade|Soupe|Velouté|Purée|Crumble|Tarte|Gâteau|Crème|Sauce|Coulis|Compotée|Poêlée|Ragoût)\s+de\s+(.+)$/i, match => `${translateRecipeFragment(match[2])} ${translateRecipeFragment(match[1])}`]
+  ];
+
+  function translateRecipeStructure(source) {
+    for (const [pattern, render] of recipeStructureRulesEn) {
+      const match = source.match(pattern);
+      if (!match) continue;
+      const translated = cleanRecipeEnglish(render(match));
+      if (translated && normalizeI18nKey(translated) !== normalizeI18nKey(source)) {
+        return capitalizeRecipeEnglish(translated);
+      }
+    }
+    return '';
+  }
+
   function replaceCulinaryTerms(value) {
     let output = ` ${value} `;
     culinaryReplacementsEn
@@ -511,39 +716,93 @@
     if (!key || key.length > 260 || /[<>]/.test(value)) return false;
     return culinaryReplacementsEn.some(([source]) => key.includes(normalizeI18nKey(source)))
       || /\b\d+\s*(?:g|kg|ml|cl|l|min|h|%|c)\b/i.test(key)
-      || /\b(?:cuire|fouetter|melanger|mixer|ajouter|servir|prechauffer|reserver|assaisonner|egoutter)\b/i.test(key);
+      || /\b(?:cuire|cuis|fouetter|fouette|melanger|melange|mixer|mixe|ajouter|ajoute|verser|verse|servir|sers|prechauffer|prechauffe|reserver|reserve|laisser|laisse|incorporer|incorpore|assaisonner|assaisonne|egoutter|egoutte|retirer|retire|couper|coupe|enfourner|enfourne|dorer|dore)\b/i.test(key);
   }
 
   function translateRecipeText(value) {
     const source = repairI18nMojibake(value).trim();
     const exact = recipePhraseEn[source] || phraseLookupEn.get(normalizeI18nKey(source));
     if (exact) return exact;
+    const structured = translateRecipeStructure(source);
+    if (structured) return structured;
     if (!looksLikeRecipeText(source)) return '';
 
     let translated = replaceCulinaryTerms(source)
+      .replace(/\bFais cuire\b/gi, 'Cook')
+      .replace(/\bFaire cuire\b/gi, 'Cook')
+      .replace(/\bFais revenir\b/gi, 'Sauté')
+      .replace(/\bFaire revenir\b/gi, 'Sauté')
+      .replace(/\bFais dorer\b/gi, 'Brown')
+      .replace(/\bFaire dorer\b/gi, 'Brown')
+      .replace(/\bFais frémir\b/gi, 'Bring to a gentle simmer')
+      .replace(/\bFaire frémir\b/gi, 'Bring to a gentle simmer')
+      .replace(/\bPréchauffe\b/gi, 'Preheat')
       .replace(/\bPr\u00e9chauffer\b/gi, 'Preheat')
+      .replace(/\bMélange\b/gi, 'Mix')
       .replace(/\bM\u00e9langer\b/gi, 'Mix')
+      .replace(/\bFouette\b/gi, 'Whisk')
       .replace(/\bFouetter\b/gi, 'Whisk')
+      .replace(/\bAjoute\b/gi, 'Add')
       .replace(/\bAjouter\b/gi, 'Add')
+      .replace(/\bVerse\b/gi, 'Pour')
+      .replace(/\bVerser\b/gi, 'Pour')
+      .replace(/\bCuis\b/gi, 'Cook')
       .replace(/\bCuire\b/gi, 'Cook')
+      .replace(/\bFais frire\b/gi, 'Fry')
       .replace(/\bFrire\b/gi, 'Fry')
+      .replace(/\bMijote\b/gi, 'Simmer')
       .replace(/\bMijoter\b/gi, 'Simmer')
+      .replace(/\bRôtis\b/gi, 'Roast')
       .replace(/\bRôtir\b/gi, 'Roast')
+      .replace(/\bSecoue\b/gi, 'Shake')
       .replace(/\bSecouer\b/gi, 'Shake')
+      .replace(/\bSale\b/gi, 'Salt')
       .replace(/\bSaler\b/gi, 'Salt')
+      .replace(/\bPorte\b/gi, 'Bring')
       .replace(/\bPorter\b/gi, 'Bring')
+      .replace(/\bFlambe\b/gi, 'Flambé')
       .replace(/\bFlamber\b/gi, 'Flambé')
+      .replace(/\bRéduis\b/gi, 'Reduce')
       .replace(/\bRéduire\b/gi, 'Reduce')
+      .replace(/\bCouvre\b/gi, 'Cover')
       .replace(/\bCouvrir\b/gi, 'Cover')
+      .replace(/\bSers\b/gi, 'Serve')
       .replace(/\bServir\b/gi, 'Serve')
+      .replace(/\bRéserve\b/gi, 'Set aside')
       .replace(/\bR\u00e9server\b/gi, 'Set aside')
+      .replace(/\bMixe\b/gi, 'Blend')
       .replace(/\bMixer\b/gi, 'Blend')
+      .replace(/\bGoûte\b/gi, 'Taste')
       .replace(/\bGo\u00fbter\b/gi, 'Taste')
+      .replace(/\bLaisse\b/gi, 'Let')
       .replace(/\bLaisser\b/gi, 'Let')
+      .replace(/\bIncorpore\b/gi, 'Fold in')
       .replace(/\bIncorporer\b/gi, 'Fold in')
+      .replace(/\bAssaisonne\b/gi, 'Season')
       .replace(/\bAssaisonner\b/gi, 'Season')
+      .replace(/\bDore\b/gi, 'Brown')
       .replace(/\bDorer\b/gi, 'Brown')
-      .replace(/\bRefroidir\b/gi, 'Cool');
+      .replace(/\bRefroidis\b/gi, 'Cool')
+      .replace(/\bRefroidir\b/gi, 'Cool')
+      .replace(/\bÉgoutte\b/gi, 'Drain')
+      .replace(/\bÉgoutter\b/gi, 'Drain')
+      .replace(/\bRetire\b/gi, 'Remove')
+      .replace(/\bRetirer\b/gi, 'Remove')
+      .replace(/\bCoupe\b/gi, 'Cut')
+      .replace(/\bCouper\b/gi, 'Cut')
+      .replace(/\bÉmince\b/gi, 'Slice thinly')
+      .replace(/\bÉmincer\b/gi, 'Slice thinly')
+      .replace(/\bHache\b/gi, 'Chop')
+      .replace(/\bHacher\b/gi, 'Chop')
+      .replace(/\bDépose\b/gi, 'Place')
+      .replace(/\bDéposer\b/gi, 'Place')
+      .replace(/\bPlace\b/gi, 'Place')
+      .replace(/\bFilme\b/gi, 'Cover with film')
+      .replace(/\bFilmer\b/gi, 'Cover with film')
+      .replace(/\bEnfourne\b/gi, 'Bake')
+      .replace(/\bEnfourner\b/gi, 'Bake');
+
+    translated = cleanRecipeEnglish(translated);
 
     if (translated === source) return '';
     return source[0] === source[0]?.toUpperCase()
