@@ -239,9 +239,8 @@ a {
   --accent-ink: var(--ds-color-primary-ink);
   min-height: 100vh;
   background:
-    radial-gradient(circle at 18% 8%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 28rem),
-    radial-gradient(circle at 88% 0%, rgba(0, 245, 212, .055), transparent 22rem),
-    radial-gradient(circle at 88% 0%, color-mix(in srgb, var(--accent-2) 16%, transparent), transparent 24rem),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 34%),
+    linear-gradient(215deg, color-mix(in srgb, var(--accent-2) 8%, transparent), transparent 38%),
     linear-gradient(180deg, var(--bg), var(--bg-2));
   color: var(--text);
   isolation: isolate;
@@ -318,7 +317,7 @@ a {
   border: 1px solid color-mix(in srgb, var(--accent) 50%, var(--line));
   border-radius: 8px;
   background:
-    radial-gradient(circle at 34% 22%, rgba(255, 227, 138, .18), transparent 44%),
+    linear-gradient(135deg, rgba(255, 227, 138, .16), transparent 56%),
     linear-gradient(145deg, rgba(255, 255, 255, .06), rgba(0, 0, 0, .22));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .09),
@@ -933,7 +932,7 @@ a {
   min-height: 100vh;
   background:
     linear-gradient(180deg, rgba(5, 5, 5, .58), rgba(5, 5, 5, .80) 42%, rgba(5, 5, 5, .92)),
-    radial-gradient(circle at 50% 0%, rgba(251, 191, 36, .10), transparent 34rem),
+    linear-gradient(160deg, rgba(251, 191, 36, .08), transparent 36%),
     var(--art-background-image) center top / max(118%, 1920px) auto no-repeat;
 }
 
@@ -1548,7 +1547,7 @@ a {
   aspect-ratio: auto;
   background-color: #050505;
   background:
-    radial-gradient(circle at 70% 16%, color-mix(in srgb, var(--card-accent, var(--accent)) 42%, transparent), transparent 42%),
+    linear-gradient(135deg, color-mix(in srgb, var(--card-accent, var(--accent)) 24%, transparent), transparent 54%),
     linear-gradient(135deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .015));
   background-position: center;
   background-size: cover;
@@ -1610,7 +1609,7 @@ a {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 28%, rgba(0, 0, 0, 0), rgba(0, 0, 0, .10) 42%, rgba(0, 0, 0, .46) 88%),
+    linear-gradient(140deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .12) 48%, rgba(0, 0, 0, .46)),
     linear-gradient(180deg, rgba(0, 0, 0, .24), rgba(0, 0, 0, .34) 42%, rgba(0, 0, 0, .78));
   transition: opacity var(--speed);
 }
@@ -1961,7 +1960,7 @@ a {
   align-items: end;
   border-bottom: 1px solid var(--line);
   background:
-    radial-gradient(circle at 76% 10%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 30rem),
+    linear-gradient(120deg, transparent 42%, color-mix(in srgb, var(--accent) 16%, transparent)),
     linear-gradient(135deg, var(--bg), var(--bg-2));
   background-position: center;
   background-size: cover;
@@ -2380,7 +2379,7 @@ a {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 32%, rgba(0, 0, 0, 0), rgba(0, 0, 0, .22) 58%),
+    linear-gradient(135deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .26) 68%),
     linear-gradient(180deg, rgba(0, 0, 0, .10), rgba(0, 0, 0, .62));
   transition: opacity var(--speed);
 }
@@ -4400,7 +4399,7 @@ a {
 .recipe-card:not(.master-card) .card-media::after {
   background:
     linear-gradient(180deg, rgba(0, 0, 0, .06), rgba(0, 0, 0, .18)),
-    radial-gradient(circle at 50% 100%, rgba(0, 0, 0, .20), transparent 58%);
+    linear-gradient(0deg, rgba(0, 0, 0, .20), transparent 58%);
   opacity: 1;
 }
 
@@ -4638,7 +4637,7 @@ a {
   .home-view {
     background:
       linear-gradient(180deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .90) 42%, rgba(5, 5, 5, .96)),
-      radial-gradient(circle at 50% 0%, rgba(251, 191, 36, .10), transparent 28rem),
+      linear-gradient(160deg, rgba(251, 191, 36, .08), transparent 34%),
       #050505;
   }
 
@@ -6899,6 +6898,219 @@ a {
   .shopping-line {
     margin-inline: -4px;
     padding-inline: 4px;
+  }
+}
+
+/* Visual polish pass 3: navigation, dock and mobile finishing. */
+.topbar {
+  position: sticky;
+}
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: clamp(16px, 3vw, 42px);
+  right: clamp(16px, 3vw, 42px);
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ambient-accent, var(--accent)) 38%, rgba(255, 255, 255, .16)), transparent);
+  opacity: .78;
+  pointer-events: none;
+}
+
+.brand {
+  margin: -4px -6px;
+  padding: 4px 6px;
+  border-radius: var(--ds-radius-sm);
+  transition: background var(--speed), transform var(--speed), filter var(--speed);
+}
+
+.brand:hover,
+.brand:focus-visible {
+  background: color-mix(in srgb, var(--ambient-accent, var(--accent)) 9%, transparent);
+  filter: saturate(1.05);
+  transform: translateY(-1px);
+}
+
+.top-actions .btn,
+.top-actions .icon-square,
+.mobile-bottom-nav button,
+.recipe-dock-tabs button,
+.dock-action,
+.recipe-grid-load-more button {
+  position: relative;
+  overflow: hidden;
+}
+
+.top-actions .btn::after,
+.top-actions .icon-square::after,
+.recipe-grid-load-more button::after {
+  content: "";
+  position: absolute;
+  inset: auto 12px 4px;
+  height: 2px;
+  border-radius: var(--ds-radius-pill);
+  background: color-mix(in srgb, var(--ambient-accent, var(--accent)) 72%, white);
+  opacity: 0;
+  transform: scaleX(.45);
+  transform-origin: center;
+  transition: opacity var(--speed), transform var(--speed);
+}
+
+.top-actions .btn:hover::after,
+.top-actions .btn:focus-visible::after,
+.top-actions .icon-square:hover::after,
+.top-actions .icon-square:focus-visible::after,
+.recipe-grid-load-more button:hover::after,
+.recipe-grid-load-more button:focus-visible::after {
+  opacity: .82;
+  transform: scaleX(1);
+}
+
+.mobile-bottom-nav {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 24%, rgba(255, 255, 255, .12));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 10%, transparent),
+    0 18px 44px rgba(0, 0, 0, .46);
+}
+
+.mobile-bottom-nav button::after,
+.recipe-dock-tabs button::after,
+.dock-action::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 5px;
+  height: 2px;
+  border-radius: var(--ds-radius-pill);
+  background: color-mix(in srgb, var(--ambient-accent, var(--accent)) 72%, white);
+  opacity: 0;
+  transform: scaleX(.38);
+  transform-origin: center;
+  transition: opacity var(--speed), transform var(--speed);
+}
+
+.mobile-bottom-nav button[aria-current="page"]::after,
+.mobile-bottom-nav button:hover::after,
+.mobile-bottom-nav button:focus-visible::after,
+.recipe-dock-tabs button.active::after,
+.recipe-dock-tabs button:hover::after,
+.recipe-dock-tabs button:focus-visible::after,
+.dock-action:hover::after,
+.dock-action:focus-visible::after {
+  opacity: .88;
+  transform: scaleX(1);
+}
+
+.recipe-command-dock,
+.command-palette {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 22%, rgba(255, 255, 255, .12));
+}
+
+.recipe-command-dock {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 9%, transparent),
+    0 -22px 64px rgba(0, 0, 0, .48);
+}
+
+.recipe-dock-tabs button,
+.dock-action {
+  transition: color var(--speed), border-color var(--speed), background var(--speed), transform var(--speed), box-shadow var(--speed);
+}
+
+.recipe-dock-tabs button:hover,
+.recipe-dock-tabs button:focus-visible,
+.dock-action:hover,
+.dock-action:focus-visible {
+  transform: translateY(-1px);
+}
+
+.command-input-shell:focus-within {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 52%, rgba(255, 255, 255, .2));
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent),
+    0 16px 36px rgba(0, 0, 0, .28);
+}
+
+.season-block-head {
+  position: relative;
+  padding-bottom: 10px;
+  border-bottom: 1px solid color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, rgba(255, 255, 255, .09));
+}
+
+.season-block-head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: min(148px, 34%);
+  height: 1px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 72%, white), transparent);
+}
+
+.recipe-grid-load-more button {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 28%, rgba(255, 255, 255, .16));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .06),
+    0 14px 34px rgba(0, 0, 0, .22);
+}
+
+.mc-shell.theme-light .topbar::after,
+.mc-shell.theme-light .season-block-head::after {
+  opacity: .62;
+}
+
+.mc-shell.theme-light .mobile-bottom-nav {
+  background: rgba(255, 250, 239, .94);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 12%, transparent),
+    0 18px 42px rgba(84, 61, 31, .18);
+}
+
+.mc-shell.theme-light .recipe-command-dock {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 9%, transparent),
+    0 -18px 52px rgba(84, 61, 31, .16);
+}
+
+@media (max-width: 700px) {
+  body {
+    padding-bottom: calc(86px + env(safe-area-inset-bottom));
+  }
+
+  .mobile-bottom-nav {
+    left: 8px;
+    right: 8px;
+    bottom: max(8px, env(safe-area-inset-bottom));
+    border-radius: 10px;
+    padding-bottom: max(6px, env(safe-area-inset-bottom));
+  }
+
+  .mobile-bottom-nav button {
+    min-height: 48px;
+  }
+
+  .recipe-command-dock {
+    width: min(100% - 18px, 1180px);
+    border-radius: 10px;
+  }
+
+  .recipe-dock-main {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-dock-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .recipe-dock-tabs button,
+  .dock-action {
+    min-height: 44px;
+  }
+
+  .command-input-shell {
+    min-height: 48px;
   }
 }
 
