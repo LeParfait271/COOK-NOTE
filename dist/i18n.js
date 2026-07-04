@@ -332,6 +332,8 @@
   const recipePhraseEn = {
     'Brochettes crevettes chorizo': 'Shrimp and chorizo skewers',
     'Beignets de calamar': 'Calamari fritters',
+    'Gressins fromage olives': 'Cheese and olive breadsticks',
+    'Oeufs cocotte chorizo': 'Baked eggs with chorizo',
     'Calamars': 'Calamari',
     'Pâte légère': 'Light batter',
     'Aïoli citronné léger': 'Light lemon aioli',
