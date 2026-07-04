@@ -98,6 +98,7 @@
     'Gluten': 'Gluten',
     'Lait': 'Milk',
     'Mollusques': 'Molluscs',
+    'Crustacés': 'Shellfish',
     'Moutarde': 'Mustard',
     'Œufs': 'Eggs',
     'Oeufs': 'Eggs',
@@ -236,15 +237,23 @@
     'Menu équilibré.': 'Balanced menu.',
     'Rôles à composer': 'Roles to build',
     'Recette': 'Recipe',
+    'Mer': 'Seafood',
+    'Viande': 'Meat',
     'Collection': 'Collection'
   };
 
   const recipePhraseEn = {
+    'Brochettes crevettes chorizo': 'Shrimp and chorizo skewers',
     'Beignets de calamar': 'Calamari fritters',
     'Calamars': 'Calamari',
     'Pâte légère': 'Light batter',
     'Aïoli citronné léger': 'Light lemon aioli',
     'Variante tempura': 'Tempura variant',
+    'Bol': 'Bowl',
+    'Pics à brochettes': 'Skewers',
+    'Pics a brochettes': 'Skewers',
+    'Plancha ou poêle': 'Plancha or frying pan',
+    'Plancha ou poele': 'Plancha or frying pan',
     'Casserole ou sauteuse haute': 'Tall saucepan or deep saute pan',
     'Grille d’égouttage': 'Draining rack',
     'Thermomètre de cuisson': 'Cooking thermometer',
@@ -267,6 +276,11 @@
     'Mélanger farine, fécule et sel, puis ajouter jaune d’œuf et eau gazeuse glacée au dernier moment.': 'Mix the flour, starch and salt, then add the egg yolk and ice-cold sparkling water at the last moment.',
     'Garder une pâte irrégulière et très froide, puis tremper les calamars bien secs.': 'Keep the batter uneven and very cold, then dip the well-dried calamari.',
     'Frire immédiatement en petites fournées dans une huile chaude jusqu’à obtenir des beignets légèrement dorés, légers et croustillants.': 'Fry immediately in small batches in hot oil until the fritters are lightly golden, light and crisp.',
+    'Mélanger huile, citron, ail, persil et poivre du moulin.': 'Mix the oil, lemon, garlic, parsley and freshly ground pepper.',
+    'Enrober les crevettes 10min, pas plus longtemps.': 'Coat the shrimp for 10 minutes, no longer.',
+    'Monter les brochettes en alternant crevettes et chorizo.': 'Assemble the skewers, alternating shrimp and chorizo.',
+    'Cuire à la plancha ou à la poêle chaude 2 à 3min par face.': 'Cook on a plancha or in a hot frying pan for 2 to 3 minutes per side.',
+    'Servir aussitôt avec un trait de citron.': 'Serve immediately with a squeeze of lemon.',
     'Crumble pomme-poire': 'Apple and pear crumble',
     'Flan parisien vanille': 'Parisian vanilla custard tart',
     'Flan p\u00e2tissier \u00e9pais vanille': 'Thick Parisian vanilla custard tart',
@@ -317,7 +331,26 @@
   };
 
   const culinaryReplacementsEn = [
+    ['brochettes crevettes chorizo', 'shrimp and chorizo skewers'],
     ['beignets de calamar', 'calamari fritters'],
+    ['grosses crevettes décortiquées', 'large peeled shrimp'],
+    ['grosses crevettes decortiquees', 'large peeled shrimp'],
+    ['grosses crevettes', 'large shrimp'],
+    ['crevettes décortiquées', 'peeled shrimp'],
+    ['crevettes decortiquees', 'peeled shrimp'],
+    ['crevettes', 'shrimp'],
+    ['crevette', 'shrimp'],
+    ['chorizo en rondelles', 'sliced chorizo'],
+    ['chorizo', 'chorizo'],
+    ['pics à brochettes', 'skewers'],
+    ['pics a brochettes', 'skewers'],
+    ['plancha ou poêle', 'plancha or frying pan'],
+    ['plancha ou poele', 'plancha or frying pan'],
+    ['brochettes', 'skewers'],
+    ['brochette', 'skewer'],
+    ['crustacés', 'shellfish'],
+    ['bol', 'bowl'],
+    ['trait de citron', 'squeeze of lemon'],
     ['anneaux de calamar', 'calamari rings'],
     ['aïoli citronné léger', 'light lemon aioli'],
     ['pâte légère', 'light batter'],
@@ -664,6 +697,7 @@
     [/^Fermer la notification : (.+)$/, match => `Close notification: ${match[1]}`],
     [/^Choisir le style (.+)$/, match => `Choose ${match[1]} style`],
     [/^Afficher (\d+) recette(s?) liée(s?) supplémentaire(s?)$/, match => `Show ${match[1]} more related recipe${match[1] === '1' ? '' : 's'}`],
+    [/^(.+) : point de vigilance\.$/, match => `${text(match[1])}: watch point.`],
     [/^Tu suis actuellement "(.+)". Le sélecteur au-dessus change aussi les ingrédients et les étapes\.$/, match => `You are currently using "${text(match[1])}". The selector above also changes the ingredients and steps.`],
     [/^Variante active : (.+). Ingrédients et étapes suivent ce choix\.$/, match => `Active variant: ${text(match[1])}. Ingredients and steps follow this choice.`],
     [/^Choisis une variante au-dessus pour afficher les ingrédients détaillés et les étapes correspondantes\.$/, () => 'Choose a variant above to show the detailed ingredients and matching steps.'],
@@ -747,6 +781,7 @@
     [/^(.+?)\s+à la\s+(.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
     [/^(.+?)\s+à l[’'](.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
     [/^(.+?)\s+en\s+(.+)$/i, match => `${translateRecipeFragment(match[1])} in ${translateRecipeFragment(match[2])}`],
+    [/^(Brochettes?)\s+(.+)$/i, match => `${translateRecipeFragment(match[2])} ${translateRecipeFragment(match[1])}`],
     [/^(Beignets?|Billes|Brochettes|Bricks|Croquettes|Verrines|Gressins|Madeleines|Muffins|Cookies|Choux|Donuts|Churros|Tempura|Curry|Gratin|Salade|Soupe|Velouté|Purée|Crumble|Tarte|Gâteau|Crème|Sauce|Coulis|Compotée|Poêlée|Ragoût)\s+de\s+(.+)$/i, match => `${translateRecipeFragment(match[2])} ${translateRecipeFragment(match[1])}`]
   ];
 
@@ -797,7 +832,7 @@
     if (!key || key.length > 260 || /[<>]/.test(value)) return false;
     return culinaryReplacementsEn.some(([source]) => key.includes(normalizeI18nKey(source)))
       || /\b\d+\s*(?:g|kg|ml|cl|l|min|h|%|c)\b/i.test(key)
-      || /\b(?:cuire|cuis|fouetter|fouette|melanger|melange|mixer|mixe|ajouter|ajoute|verser|verse|servir|sers|prechauffer|prechauffe|preparer|prepare|rincer|rince|eponger|eponge|chauffer|chauffe|tremper|trempe|frire|frit|saler|sale|passer|passe|garder|garde|reserver|reserve|laisser|laisse|incorporer|incorpore|assaisonner|assaisonne|egoutter|egoutte|retirer|retire|couper|coupe|enfourner|enfourne|dorer|dore)\b/i.test(key);
+      || /\b(?:cuire|cuis|fouetter|fouette|melanger|melange|mixer|mixe|ajouter|ajoute|verser|verse|servir|sers|prechauffer|prechauffe|preparer|prepare|rincer|rince|eponger|eponge|chauffer|chauffe|tremper|trempe|frire|frit|saler|sale|passer|passe|garder|garde|enrober|enrobe|monter|monte|alterner|alterne|reserver|reserve|laisser|laisse|incorporer|incorpore|assaisonner|assaisonne|egoutter|egoutte|retirer|retire|couper|coupe|enfourner|enfourne|dorer|dore)\b/i.test(key);
   }
 
   function translateRecipeText(value) {
@@ -843,6 +878,12 @@
       .replace(/\bCuire\b/gi, 'Cook')
       .replace(/\bFais frire\b/gi, 'Fry')
       .replace(/\bFrire\b/gi, 'Fry')
+      .replace(/\bEnrobe\b/gi, 'Coat')
+      .replace(/\bEnrober\b/gi, 'Coat')
+      .replace(/\bMonte\b/gi, 'Assemble')
+      .replace(/\bMonter\b/gi, 'Assemble')
+      .replace(/\bAlterne\b/gi, 'Alternate')
+      .replace(/\bAlterner\b/gi, 'Alternate')
       .replace(/\bMijote\b/gi, 'Simmer')
       .replace(/\bMijoter\b/gi, 'Simmer')
       .replace(/\bRôtis\b/gi, 'Roast')
