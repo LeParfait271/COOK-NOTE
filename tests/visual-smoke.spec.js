@@ -137,7 +137,8 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.hero-logo')).toBeVisible();
     await expect(page.locator('.hero-logo')).toHaveAttribute('src', /\/assets\/day\/cook-note-day\.png/);
     const firstDayCardSource = await page.locator('.recipe-card.master-card .card-image').first().getAttribute('src');
-    expect(firstDayCardSource).toContain('/assets/day/');
+    expect(firstDayCardSource).toContain('/assets/recipe-card-images/parent_');
+    expect(firstDayCardSource).not.toContain('/assets/day/');
     const firstCardMediaOpacity = await page.locator('.recipe-card.master-card .card-media').first().evaluate(node =>
       getComputedStyle(node).opacity
     );
