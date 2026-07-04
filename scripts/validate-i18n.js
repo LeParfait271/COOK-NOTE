@@ -76,6 +76,20 @@ expect('Traduction par cle inactive.', i18n.t('language.selector') === 'Language
 expect('Traduction dynamique inactive.', i18n.text('3 recettes') === '3 recipes');
 expect('Traduction recette exacte inactive.', i18n.text('Crumble pomme-poire') === 'Apple and pear crumble');
 expect('Traduction recette future inactive.', i18n.text('200g beurre doux ramolli').includes('unsalted butter'));
+expect('Titre brochettes non traduit.', i18n.text('Brochettes crevettes chorizo') === 'Shrimp and chorizo skewers');
+expect('Allergene crustaces non traduit.', i18n.text('Crustacés') === 'Shellfish');
+expect('Materiel brochettes non traduit.', i18n.text('Pics à brochettes') === 'Skewers');
+expect('Ingredient crevettes non traduit.', i18n.text('500g grosses crevettes décortiquées').includes('large peeled shrimp'));
+expect('Etape crevettes non traduite.', i18n.text('Monter les brochettes en alternant crevettes et chorizo.').includes('alternating shrimp and chorizo'));
+expect('Note vigilance mer non traduite.', i18n.text('Mer : point de vigilance.') === 'Seafood: watch point.');
+expect('Libelle carnet perso non traduit.', i18n.text('Carnet perso') === 'Personal notebook');
+expect('Statut note non traduit.', i18n.text('Non classée') === 'Unclassified');
+expect('Titre poelee non traduit.', i18n.text('Poêlée de blé au poulet et curcuma') === 'Pan-fried wheat with chicken and turmeric');
+expect('Cuisson pancakes non traduite.', i18n.text('Repos 10min puis cuisson en petites louches sur poêle beurrée.') === 'Rest for 10 minutes, then cook small ladles of batter in a buttered pan.');
+expect('Blanc oeuf non traduit.', i18n.text('30g blanc d’œuf') === '30g egg white');
+expect('Jaune oeuf non traduit.', i18n.text('20g jaune d’œuf') === '20g egg yolk');
+expect('Reduction jus non traduite.', i18n.text('Faire réduire le jus quelques minutes si besoin avant de servir.') === 'Reduce the juices for a few minutes if needed before serving.');
+expect('Recette future patates non traduite.', i18n.text('Lentilles tomate pommes de terre sautées').includes('sautéed potatoes'));
 
 const staticKeys = new Set(frKeys);
 for (const match of app.matchAll(/\bt\(\s*['"`]([^'"`]+)['"`]/g)) {
