@@ -2666,9 +2666,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 138350
   },
   "assets/recipe-card-images/carres_cremeux_citron_vert_spooky.jpg": {
-    "width": 760,
-    "height": 760,
-    "bytes": 150797
+    "width": 960,
+    "height": 540,
+    "bytes": 166740
   },
   "assets/recipe-card-images/cassolette_crevettes_ravioles_persil.jpg": {
     "width": 760,
@@ -2686,19 +2686,19 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 95172
   },
   "assets/recipe-card-images/chantilly_classique_spooky.jpg": {
-    "width": 760,
-    "height": 760,
-    "bytes": 170535
+    "width": 960,
+    "height": 540,
+    "bytes": 154504
   },
   "assets/recipe-card-images/chantilly_gelatine_spooky.jpg": {
-    "width": 760,
-    "height": 760,
-    "bytes": 163161
+    "width": 960,
+    "height": 540,
+    "bytes": 138769
   },
   "assets/recipe-card-images/chantilly_maitre_spooky.jpg": {
-    "width": 760,
-    "height": 760,
-    "bytes": 163077
+    "width": 960,
+    "height": 540,
+    "bytes": 156916
   },
   "assets/recipe-card-images/chapelure_maison_cooknote_v1_spooky.jpg": {
     "width": 760,
@@ -2836,9 +2836,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 133116
   },
   "assets/recipe-card-images/coulis_maitre_v4_spooky.jpg": {
-    "width": 760,
-    "height": 760,
-    "bytes": 94407
+    "width": 960,
+    "height": 540,
+    "bytes": 145217
   },
   "assets/recipe-card-images/court_bouillon_spooky.jpg": {
     "width": 760,
@@ -2941,9 +2941,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 144333
   },
   "assets/recipe-card-images/crumble_pomme_poire.jpg": {
-    "width": 760,
-    "height": 570,
-    "bytes": 122284
+    "width": 960,
+    "height": 540,
+    "bytes": 165678
   },
   "assets/recipe-card-images/cuisses_de_poulet_miel_moutarde_v2_spooky.jpg": {
     "width": 1040,
@@ -3016,9 +3016,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 69243
   },
   "assets/recipe-card-images/flan_patissier_epais_vanille_v2_spooky.jpg": {
-    "width": 1040,
-    "height": 520,
-    "bytes": 113310
+    "width": 960,
+    "height": 540,
+    "bytes": 152516
   },
   "assets/recipe-card-images/flan_vanille_cremeux_cooknote_v1_spooky.jpg": {
     "width": 760,
@@ -3301,44 +3301,44 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 97215
   },
   "assets/recipe-card-images/parent_accompagnements_moon.jpg": {
-    "width": 760,
-    "height": 428,
-    "bytes": 139915
+    "width": 960,
+    "height": 540,
+    "bytes": 167708
   },
   "assets/recipe-card-images/parent_apero_moon.jpg": {
-    "width": 760,
-    "height": 428,
-    "bytes": 126637
+    "width": 960,
+    "height": 540,
+    "bytes": 170210
   },
   "assets/recipe-card-images/parent_base_moon.jpg": {
-    "width": 760,
-    "height": 428,
-    "bytes": 132191
+    "width": 960,
+    "height": 540,
+    "bytes": 155589
   },
   "assets/recipe-card-images/parent_desserts_moon.jpg": {
-    "width": 760,
-    "height": 428,
-    "bytes": 126945
+    "width": 960,
+    "height": 540,
+    "bytes": 164373
   },
   "assets/recipe-card-images/parent_entrees_moon.jpg": {
-    "width": 760,
-    "height": 428,
-    "bytes": 137393
+    "width": 960,
+    "height": 540,
+    "bytes": 171338
   },
   "assets/recipe-card-images/parent_petit_dejeuner_moon.jpg": {
-    "width": 760,
-    "height": 428,
-    "bytes": 117413
+    "width": 960,
+    "height": 540,
+    "bytes": 173985
   },
   "assets/recipe-card-images/parent_plats_moon.jpg": {
-    "width": 760,
-    "height": 428,
-    "bytes": 144018
+    "width": 960,
+    "height": 540,
+    "bytes": 164036
   },
   "assets/recipe-card-images/parent_sauces_moon.jpg": {
-    "width": 760,
-    "height": 428,
-    "bytes": 133311
+    "width": 960,
+    "height": 540,
+    "bytes": 173223
   },
   "assets/recipe-card-images/paris_brest_spooky.jpg": {
     "width": 760,
@@ -3731,9 +3731,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 126700
   },
   "assets/recipe-card-images/southern_biscuits_spooky.jpg": {
-    "width": 760,
-    "height": 507,
-    "bytes": 74071
+    "width": 960,
+    "height": 540,
+    "bytes": 159914
   },
   "assets/recipe-card-images/spritz_vanille_chocolat_cooknote_v1_spooky.jpg": {
     "width": 760,
@@ -4001,9 +4001,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 295841
   },
   "assets/recipe-images-optimized/carres_cremeux_citron_vert_spooky.jpg": {
-    "width": 1254,
-    "height": 1254,
-    "bytes": 350783
+    "width": 1400,
+    "height": 788,
+    "bytes": 309378
   },
   "assets/recipe-images-optimized/cassolette_crevettes_ravioles_persil.jpg": {
     "width": 1400,
@@ -4021,19 +4021,19 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 365653
   },
   "assets/recipe-images-optimized/chantilly_classique_spooky.jpg": {
-    "width": 1024,
-    "height": 1024,
-    "bytes": 279962
+    "width": 1400,
+    "height": 788,
+    "bytes": 286015
   },
   "assets/recipe-images-optimized/chantilly_gelatine_spooky.jpg": {
-    "width": 1024,
-    "height": 1024,
-    "bytes": 266474
+    "width": 1400,
+    "height": 788,
+    "bytes": 247109
   },
   "assets/recipe-images-optimized/chantilly_maitre_spooky.jpg": {
-    "width": 1024,
-    "height": 1024,
-    "bytes": 267468
+    "width": 1400,
+    "height": 788,
+    "bytes": 295057
   },
   "assets/recipe-images-optimized/chapelure_maison_cooknote_v1_spooky.jpg": {
     "width": 1400,
@@ -4171,9 +4171,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 233953
   },
   "assets/recipe-images-optimized/coulis_maitre_v4_spooky.jpg": {
-    "width": 1024,
-    "height": 1024,
-    "bytes": 169911
+    "width": 1400,
+    "height": 788,
+    "bytes": 280000
   },
   "assets/recipe-images-optimized/court_bouillon_spooky.jpg": {
     "width": 1024,
@@ -4277,8 +4277,8 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   },
   "assets/recipe-images-optimized/crumble_pomme_poire.jpg": {
     "width": 1400,
-    "height": 1050,
-    "bytes": 301794
+    "height": 788,
+    "bytes": 315725
   },
   "assets/recipe-images-optimized/cuisses_de_poulet_miel_moutarde_v2_spooky.jpg": {
     "width": 1536,
@@ -4351,9 +4351,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 215553
   },
   "assets/recipe-images-optimized/flan_patissier_epais_vanille_v2_spooky.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 247716
+    "width": 1400,
+    "height": 788,
+    "bytes": 287652
   },
   "assets/recipe-images-optimized/flan_vanille_cremeux_cooknote_v1_spooky.jpg": {
     "width": 1400,
@@ -4638,42 +4638,42 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/recipe-images-optimized/parent_accompagnements_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 487534
+    "bytes": 353524
   },
   "assets/recipe-images-optimized/parent_apero_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 440484
+    "bytes": 356584
   },
   "assets/recipe-images-optimized/parent_base_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 447101
+    "bytes": 290449
   },
   "assets/recipe-images-optimized/parent_desserts_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 444522
+    "bytes": 311595
   },
   "assets/recipe-images-optimized/parent_entrees_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 464653
+    "bytes": 361889
   },
   "assets/recipe-images-optimized/parent_petit_dejeuner_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 369889
+    "bytes": 330029
   },
   "assets/recipe-images-optimized/parent_plats_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 505011
+    "bytes": 347176
   },
   "assets/recipe-images-optimized/parent_sauces_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 461983
+    "bytes": 330638
   },
   "assets/recipe-images-optimized/paris_brest_spooky.jpg": {
     "width": 1024,
@@ -5067,8 +5067,8 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   },
   "assets/recipe-images-optimized/southern_biscuits_spooky.jpg": {
     "width": 1400,
-    "height": 933,
-    "bytes": 230325
+    "height": 788,
+    "bytes": 334936
   },
   "assets/recipe-images-optimized/spritz_vanille_chocolat_cooknote_v1_spooky.jpg": {
     "width": 1400,
