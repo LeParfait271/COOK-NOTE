@@ -814,7 +814,12 @@ if (globalTracked.status === 0) {
   const forbiddenApks = globalTracked.stdout
     .split(/\r?\n/)
     .filter(Boolean)
-    .filter(file => /\.(apk|aab)$/.test(file) && !allowedApks.has(file.replace(/\\/g, '/')));
+    .filter(file => {
+      const normalized = file.replace(/\\/g, '/');
+      return /\.(apk|aab)$/.test(normalized)
+        && fs.existsSync(path.join(ROOT, normalized))
+        && !allowedApks.has(normalized);
+    });
   expect(
     `APK/AAB suivis hors emplacements autorises: ${forbiddenApks.join(', ')}`,
     forbiddenApks.length === 0

@@ -13,7 +13,8 @@ const FILE_BUDGETS = [
   ['app.js', 380 * KB],
   ['style.css', 151 * KB],
   ['recipes.js', 475 * KB],
-  ['assets/image-manifest.js', 130 * KB],
+  ['assets/image-manifest.js', 180 * KB],
+  ['app-art-images.js', 40 * KB],
   ['service-worker.js', 10 * KB],
   ['assets/vendor/react.production.min.js', 14 * KB],
   ['assets/vendor/react-dom.production.min.js', 150 * KB],
@@ -27,6 +28,7 @@ const DIRECTORY_BUDGETS = [
 
 const IMAGE_BUDGETS = [
   ['assets/day/', 620 * KB],
+  ['assets/dark/', 620 * KB],
   ['assets/recipe-card-images/', 170 * KB],
   ['assets/recipe-images-optimized/', 520 * KB],
   ['assets/recipe-images/', 3600 * KB]
@@ -71,17 +73,19 @@ function normalizeKey(file) {
   return file.replace(/\\/g, '/').replace(/^\/+/, '').replace(/\?.*$/, '');
 }
 
-function loadDayArtFiles() {
-  const app = read('app.js');
-  const match = app.match(/const\s+DAY_RECIPE_ART_IMAGES\s*=\s*Object\.freeze\(\{([\s\S]*?)\}\);/);
-  if (!match) {
-    fail('DAY_RECIPE_ART_IMAGES introuvable dans app.js.');
-    return new Set(BASE_DAY_ART_FILES);
-  }
+function loadThemeRecipeArt() {
+  const context = { window: {}, Object };
+  vm.createContext(context);
+  vm.runInContext(read('app-art-images.js'), context, { filename: path.join(ROOT, 'app-art-images.js') });
+  return context.window.COOK_NOTE_THEME_RECIPE_ART || {};
+}
+
+function loadThemeArtFiles() {
+  const themeArt = loadThemeRecipeArt();
   const files = new Set(BASE_DAY_ART_FILES);
-  for (const item of match[1].matchAll(/:\s*'([^']+)'/g)) {
-    files.add(normalizeKey(item[1]));
-  }
+  Object.values(themeArt).forEach(map => {
+    Object.values(map || {}).forEach(image => files.add(normalizeKey(image)));
+  });
   return files;
 }
 
@@ -122,7 +126,7 @@ const expectedImages = new Set([
   'assets/cook-note.png',
   'assets/cook-note-white.png'
 ]);
-loadDayArtFiles().forEach(file => expectedImages.add(file));
+loadThemeArtFiles().forEach(file => expectedImages.add(file));
 
 Object.entries(recipes).forEach(([id, recipe]) => {
   const image = recipe?.image;
@@ -160,8 +164,8 @@ const serviceWorker = read('service-worker.js');
 [
   'imageSizeAttrs(cardImage)',
   'fetchPriority',
-  'imageBackgroundStyle(recipe.image)',
-  'imageBackgroundStyle(item.recipe.image)',
+  'displayRecipeImage(recipe)',
+  'displayRecipeImage(item.recipe)',
   'DEFERRED_CATALOG_CHUNK_SRCS',
   'loadDeferredCatalogChunks',
   'GRID_INITIAL_RENDER_COUNT',

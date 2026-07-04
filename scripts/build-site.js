@@ -10,6 +10,7 @@ const ROOT_FILES = [
   '_redirects',
   'app.js',
   'app-images.js',
+  'app-art-images.js',
   'theme.js',
   'i18n.js',
   'index.html',
@@ -42,7 +43,8 @@ const ASSET_DIRS = [
 ];
 
 const OPTIONAL_ASSET_DIRS = [
-  'day'
+  'day',
+  'dark'
 ];
 
 const SITE_URL = 'https://cook-note.pages.dev';
@@ -394,6 +396,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `  <script src="/assets/catalog-1.js?v=${version}"></script>`,
     `  <script src="/assets/image-manifest.js?v=${version}"></script>`,
     `  <script src="/app-images.js?v=${version}"></script>`,
+    `  <script src="/app-art-images.js?v=${version}"></script>`,
     `  <script src="/i18n.js?v=${version}"></script>`,
     '  <script>',
     `    window.COOK_NOTE_PRERENDERED_ROUTE = ${safeJson(id)};`,

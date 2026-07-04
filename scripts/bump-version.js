@@ -77,8 +77,10 @@ const android = androidVersion(version);
 let nextApp = replaceRequired(app, /const SITE_VERSION = '[^']+';/, `const SITE_VERSION = '${version}';`, 'SITE_VERSION');
 nextApp = replaceRequired(nextApp, /const SITE_UPDATED_AT = '[^']+';/, `const SITE_UPDATED_AT = '${date}';`, 'SITE_UPDATED_AT');
 nextApp = replaceRequired(nextApp, /const ANDROID_LEGACY_APK_VERSION = '\d+\.\d{2}';/, `const ANDROID_LEGACY_APK_VERSION = '${android}';`, 'ANDROID_LEGACY_APK_VERSION');
-nextApp = nextApp.replace(/(\/assets\/day\/[^'"]+\.(?:jpg|png)\?v=)\d+/g, `$1${numeric}`);
 write('app.js', nextApp);
+
+write('app-art-images.js', read('app-art-images.js')
+  .replace(/(\/assets\/(?:day|dark)\/[^'"]+\.(?:jpg|png)\?v=)\d+/g, `$1${numeric}`));
 
 write('android-legacy/gradle.properties', replaceRequired(
   read('android-legacy/gradle.properties'),
@@ -97,6 +99,7 @@ write('index.html', read('index.html')
   .replace(/(catalog-\d+\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(image-manifest\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app-images\.js\?v=)\d+/g, `$1${numeric}`)
+  .replace(/(app-art-images\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(theme\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(i18n\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app\.js\?v=)\d+/g, `$1${numeric}`)
@@ -115,8 +118,10 @@ write('service-worker.js', read('service-worker.js')
   .replace(/CACHE_NAME = 'cook-note-v\d+'/g, `CACHE_NAME = 'cook-note-v${numeric}'`)
   .replace(/IMAGE_CACHE_NAME = 'cook-note-images-v\d+'/g, `IMAGE_CACHE_NAME = 'cook-note-images-v${numeric}'`)
   .replace(/(\/assets\/day\/[^'"]+\.(?:jpg|png)\?v=)\d+/g, `$1${numeric}`)
+  .replace(/(\/assets\/dark\/[^'"]+\.(?:jpg|png)\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app-images\.js\?v=)\d+/g, `$1${numeric}`)
+  .replace(/(app-art-images\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(theme\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(i18n\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(catalog-\d+\.js\?v=)\d+/g, `$1${numeric}`)

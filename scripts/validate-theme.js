@@ -89,8 +89,10 @@ expect('Surfaces light non couvertes.', style.includes('.mc-shell.theme-light :w
 expect('Logo jour non style.', style.includes('mix-blend-mode:multiply'));
 
 const app = read('app.js');
+const appArtImages = read('app-art-images.js');
 expect('Runtime theme non branche dans app.js.', app.includes('CookNoteTheme') && app.includes('activeTheme') && app.includes('toggleTheme'));
-expect('Assets art direction non branches dans app.js.', app.includes('FALLBACK_ART_ASSETS') && app.includes('DAY_RECIPE_ART_IMAGES') && app.includes('function artAsset') && app.includes("artAsset('hero'") && app.includes("artAsset('logo'"));
+expect('Assets art direction non branches dans app.js.', app.includes('FALLBACK_ART_ASSETS') && app.includes('THEME_RECIPE_ART_IMAGES') && app.includes('displayRecipeImage') && app.includes('function artAsset') && app.includes("artAsset('hero'") && app.includes("artAsset('logo'"));
+expect('Runtime images theme absent.', appArtImages.includes('COOK_NOTE_THEME_RECIPE_ART') && appArtImages.includes('/assets/day/') && appArtImages.includes('/assets/dark/'));
 expect('Theme non expose dans la topbar.', app.includes('theme-toggle-btn') && app.includes('Passer en mode jour') && app.includes('Passer en mode nuit'));
 expect('Theme absent des preferences.', app.includes("'Thème'") && app.includes("update({ theme: 'light' })"));
 expect('Shell theme non marque.', app.includes("'data-theme': activeTheme") && app.includes("theme-light"));
@@ -104,6 +106,7 @@ const preflight = read('scripts/preflight.js');
 const packageJson = read('package.json');
 
 expect('theme.js non charge dans index.html.', index.includes('/theme.js?v='));
+expect('app-art-images.js non charge dans index.html.', index.includes('/app-art-images.js?v='));
 expect('theme.js doit charger avant style.css dans index.html.', index.indexOf('/theme.js?v=') < index.indexOf('/style.css?v='));
 expect('Version assets art direction absente dans index.html.', index.includes('COOK_NOTE_ASSET_VERSION'));
 expect('Assets art direction absents dans index.html.', index.includes('data-art-asset="hero"') && index.includes('data-art-asset="background"') && index.includes('data-art-asset="appIcon"'));
@@ -112,10 +115,14 @@ expect('theme.js doit charger avant style.css dans recipe.html.', recipe.indexOf
 expect('Version assets art direction absente dans recipe.html.', recipe.includes('COOK_NOTE_ASSET_VERSION'));
 expect('Meta color-scheme non ouverte.', index.includes('content="dark light"') && recipe.includes('content="dark light"'));
 expect('theme.js non copie dans dist.', buildSite.includes("'theme.js'"));
+expect('app-art-images.js non copie dans dist.', buildSite.includes("'app-art-images.js'"));
 expect('theme.js absent des pages prerendues.', buildSite.includes('/theme.js?v=${version}'));
+expect('app-art-images.js absent des pages prerendues.', buildSite.includes('/app-art-images.js?v=${version}'));
 expect('Assets art direction absents des pages prerendues.', buildSite.includes('OPTIONAL_ASSET_DIRS') && buildSite.includes('data-art-asset="background"') && buildSite.includes('data-art-asset="logo"'));
 expect('theme.js non precache.', serviceWorker.includes('/theme.js?v='));
+expect('app-art-images.js non precache.', serviceWorker.includes('/app-art-images.js?v='));
 expect('theme.js non network-first.', serviceWorker.includes("'/theme.js'"));
+expect('app-art-images.js non network-first.', serviceWorker.includes("'/app-art-images.js'"));
 expect('theme.js non servi localement.', server.includes("'theme.js'"));
 expect('theme.js non teste en preflight.', preflight.includes('/theme.js?v=${version}'));
 expect('Validation theme non branchee au check.', packageJson.includes('scripts/validate-theme.js'));

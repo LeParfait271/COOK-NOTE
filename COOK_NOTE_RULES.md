@@ -123,6 +123,10 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
   `assets/day/` seulement apres validation visuelle, avec un nom stable. Ne pas
   utiliser de filtre CSS, d'inversion automatique ou de duplication incoherente
   pour simuler le mode jour.
+- Les overrides visuels recette par theme sont publies via `app-art-images.js` :
+  mode jour dans `assets/day/`, mode nuit dans `assets/dark/`. Ce module doit
+  rester versionne dans `index.html`, le service worker, le build `dist/` et les
+  validateurs comme `app-images.js`.
 
 ## Production
 
@@ -153,7 +157,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Le site doit avoir un artefact de production reproductible via `npm run build`. La sortie publique est `dist/`, validee par `scripts/validate-dist.js`, et declaree pour Cloudflare Pages avec `pages_build_output_dir = "dist"`.
 - Cloudflare Pages Git doit avoir `Build command: npm run build` et `Build output directory: dist`; si le log indique `No build command specified`, corriger le reglage Pages avant de relancer le deploiement.
 - `dist/` est versionne comme artefact public Cloudflare Pages parce que le projet Pages actuel ne lance pas de build command. Il doit etre regenere par `npm run build` avant push, valide par `scripts/validate-dist.js`, et ne doit contenir ni admin, ni scripts, ni tests, ni rapports, ni PNG masters `assets/recipe-images/`. Les masters restent dans GitHub, les JPG optimises et miniatures sont les seuls visuels recette publies.
-- Les modules runtime extraits de `app.js`, comme `app-images.js`, doivent etre charges avant `app.js`, versionnes dans `index.html` et `service-worker.js`, precaches, inclus dans `npm run check` et copies dans `dist/`.
+- Les modules runtime extraits de `app.js`, comme `app-images.js` et `app-art-images.js`, doivent etre charges avant `app.js`, versionnes dans `index.html` et `service-worker.js`, precaches, inclus dans `npm run check` et copies dans `dist/`.
 - Les tests visuels Playwright doivent rester branches dans GitHub Actions via `npm run test:visual`, avec captures desktop/mobile en artefacts pour verifier l'accueil, une fiche directe, les images chargees, le texte decode et l'absence de debordement horizontal.
 - Les tests visuels doivent rester compatibles avec la CSP stricte du site : ne pas utiliser `page.waitForFunction` ou une technique qui exige `unsafe-eval`.
 - Les dependances Node doivent rester reproductibles : `package-lock.json` est versionne, GitHub Actions installe avec `npm ci --no-audit --no-fund`, et `@playwright/test` reste epingle sur une version compatible Node 20 tant que la CI utilise Node 20.

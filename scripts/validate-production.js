@@ -23,6 +23,7 @@ const TEXT_FILES_TO_SCAN = [
   'index.html',
   'recipe.html',
   'app-images.js',
+  'app-art-images.js',
   'theme.js',
   'i18n.js',
   'app.js',
@@ -217,6 +218,7 @@ if (!staticAssets) {
     '/recipe.html',
     '/app.js',
     '/app-images.js',
+    '/app-art-images.js',
     '/theme.js',
     '/i18n.js',
     '/assets/catalog-1.js',
@@ -239,7 +241,8 @@ if (!staticAssets) {
     '/assets/day/category-plats-day.jpg',
     '/assets/day/category-sauces-day.jpg',
     '/assets/day/cook-note-day.png',
-    '/assets/day/recipe-seafood-day.jpg'
+    '/assets/day/recipe-seafood-day.jpg',
+    '/assets/dark/recipe-beurre_ail-dark.jpg'
   ].forEach(required => {
     if (!normalizedStaticAssets.includes(required)) fail(`service-worker.js: asset critique absent du precache (${required}).`);
   });
@@ -259,12 +262,12 @@ if (!/IMAGE_CACHE_NAME\s*=\s*['"]cook-note-images-v\d+['"]/.test(serviceWorker))
 }
 
 const indexAssetVersions = [
-  ...indexHtml.matchAll(/\b(?:app|app-images|theme|i18n|catalog-\d+|image-manifest|style)\.(?:js|css)\?v=(\d+)/g),
+  ...indexHtml.matchAll(/\b(?:app|app-images|app-art-images|theme|i18n|catalog-\d+|image-manifest|style)\.(?:js|css)\?v=(\d+)/g),
   ...indexHtml.matchAll(/\bbase-du-site\.png\?v=(\d+)/g),
   ...recipeHtml.matchAll(/\b(?:theme|i18n|recipe|recipes|style)\.(?:js|css)\?v=(\d+)/g)
 ].map(match => match[1]);
 const swRegistrationVersion = indexHtml.match(/service-worker\.js\?v=(\d+)/)?.[1];
-const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|app-images|theme|i18n|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
+const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|app-images|app-art-images|theme|i18n|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
 const swCacheVersion = serviceWorker.match(/CACHE_NAME\s*=\s*['"]cook-note-v(\d+)['"]/)?.[1];
 const allAssetVersions = [...indexAssetVersions, swRegistrationVersion, ...swAssetVersions, swCacheVersion].filter(Boolean);
 if (!allAssetVersions.length || new Set(allAssetVersions).size !== 1) {
@@ -302,6 +305,7 @@ if (!indexHtml.includes('https://cook-note.pages.dev/')) {
   'src="/assets/vendor/react-dom.production.min.js"',
   'src="/assets/catalog-1.js?',
   'src="/app-images.js?',
+  'src="/app-art-images.js?',
   'src="/theme.js?',
   'src="/i18n.js?',
   'src="/app.js?',
@@ -309,7 +313,7 @@ if (!indexHtml.includes('https://cook-note.pages.dev/')) {
 ].forEach(fragment => {
   if (!indexHtml.includes(fragment)) fail(`index.html: chemin racine attendu absent (${fragment}).`);
 });
-['href="style.css', 'src="assets/vendor', 'src="recipes.js', 'src="assets/catalog-', 'src="app-images.js', 'src="theme.js', 'src="i18n.js', 'src="app.js', "register('service-worker.js"].forEach(fragment => {
+['href="style.css', 'src="assets/vendor', 'src="recipes.js', 'src="assets/catalog-', 'src="app-images.js', 'src="app-art-images.js', 'src="theme.js', 'src="i18n.js', 'src="app.js', "register('service-worker.js"].forEach(fragment => {
   if (indexHtml.includes(fragment)) fail(`index.html: chemin relatif fragile detecte (${fragment}).`);
 });
 

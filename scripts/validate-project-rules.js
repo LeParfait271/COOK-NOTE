@@ -133,6 +133,7 @@ expect('Tokens design system admin absents.', validators.adminCss.includes('--ds
   '`dist/`',
   'modules runtime extraits de `app.js`',
   'app-images.js',
+  'app-art-images.js',
   'node scripts/bump-version.js --next',
   'scripts/optimize-selected-images.ps1',
   'app Android Legacy est un projet secondaire manuel',
@@ -310,7 +311,7 @@ expect('Build production dist non branche.', validators.packageJson.includes('"b
 expect('Sortie Cloudflare Pages dist non declaree.', validators.wrangler.includes('pages_build_output_dir = "dist"') && validators.workflow.includes('npm run build') && validators.workflow.includes('cook-note-dist'));
 expect('Artefact dist Cloudflare Pages non versionne.', !/(^|\n)dist\/(\r?\n|$)/.test(validators.gitignore) && validators.architecture.includes('`dist/` est versionne comme artefact public Cloudflare Pages') && rules.includes('`dist/` est versionne comme artefact public Cloudflare Pages'));
 expect('Build command Cloudflare Pages non documentee.', validators.wrangler.includes('Build command: npm run build') && validators.architecture.includes('Build command : `npm run build`') && validators.architecture.includes('No build command specified') && rules.includes('Build command: npm run build'));
-expect('Module runtime images non protege.', validators.packageJson.includes('node --check app-images.js') && validators.production.includes('/app-images.js') && validators.cache.includes('app-images.js') && validators.dist.includes("'app-images.js'") && validators.preflight.includes('/app-images.js'));
+expect('Module runtime images non protege.', validators.packageJson.includes('node --check app-images.js') && validators.packageJson.includes('node --check app-art-images.js') && validators.production.includes('/app-images.js') && validators.production.includes('/app-art-images.js') && validators.cache.includes('app-images.js') && validators.cache.includes('app-art-images.js') && validators.dist.includes("'app-images.js'") && validators.dist.includes("'app-art-images.js'") && validators.preflight.includes('/app-images.js') && validators.preflight.includes('/app-art-images.js'));
 expect('Validation couverture features non branchee.', validators.packageJson.includes('scripts/validate-feature-coverage.js'));
 expect('Garde-fou Lecture chef temperature absent.', rules.includes('La Lecture chef ne doit jamais deduire un service froid') && validators.featureCoverage.includes('service froid faux positif') && validators.featureCoverage.includes('pates_pesto_tomates_mozzarella') && validators.featureCoverage.includes('signal proteine faux positif'));
 expect('Validation cache/version non branchee.', validators.cache.includes('Validation cache/version OK.') && validators.packageJson.includes('scripts/validate-cache-version.js'));

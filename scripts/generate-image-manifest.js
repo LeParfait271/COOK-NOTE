@@ -26,14 +26,19 @@ function normalizeKey(file) {
   return file.replace(/\\/g, '/').replace(/^\/+/, '').replace(/\?.*$/, '');
 }
 
-function loadDayArtFiles() {
-  const app = read('app.js');
-  const match = app.match(/const\s+DAY_RECIPE_ART_IMAGES\s*=\s*Object\.freeze\(\{([\s\S]*?)\}\);/);
-  if (!match) throw new Error('DAY_RECIPE_ART_IMAGES introuvable dans app.js.');
+function loadThemeRecipeArt() {
+  const context = { window: {}, Object };
+  vm.createContext(context);
+  vm.runInContext(read('app-art-images.js'), context, { filename: path.join(ROOT, 'app-art-images.js') });
+  return context.window.COOK_NOTE_THEME_RECIPE_ART || {};
+}
+
+function loadThemeArtFiles() {
+  const themeArt = loadThemeRecipeArt();
   const files = new Set(BASE_DAY_ART_FILES);
-  for (const item of match[1].matchAll(/:\s*'([^']+)'/g)) {
-    files.add(normalizeKey(item[1]));
-  }
+  Object.values(themeArt).forEach(map => {
+    Object.values(map || {}).forEach(image => files.add(normalizeKey(image)));
+  });
   return files;
 }
 
@@ -110,7 +115,7 @@ function buildManifest() {
     'assets/cook-note.png',
     'assets/cook-note-white.png'
   ]);
-  loadDayArtFiles().forEach(file => files.add(file));
+  loadThemeArtFiles().forEach(file => files.add(file));
 
   Object.values(recipes).forEach(recipe => {
     const image = recipe?.image;

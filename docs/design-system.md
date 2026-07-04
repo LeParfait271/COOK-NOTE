@@ -133,12 +133,15 @@ Respect obligatoire de `prefers-reduced-motion`.
   `CookNoteTheme.asset(name, theme)` dans React, `data-art-asset` dans le HTML
   statique et `--art-*` dans le CSS.
 - Assets supportes : `background`, `hero`, `logo`, `appIcon`.
-- `DAY_ASSETS_APPROVED` reste `false` tant que les previews jour ne sont pas
-  validees. Dans cet etat, le mode jour utilise volontairement les assets nuit
-  avec `data-art-assets="night-fallback"`.
+- `DAY_ASSETS_APPROVED` reste le verrou de validation visuelle : `true` active
+  les assets jour avec `data-art-assets="approved"`, `false` force le fallback
+  nuit avec `data-art-assets="night-fallback"`.
 - Les futures images jour validees vont dans `assets/day/` avec des noms
   stables : `base-principale-fond-site-day.jpg`, `base-du-site-day.png`,
   `cook-note-day.png`.
+- Les overrides image recette sont declares dans `app-art-images.js` :
+  `assets/day/recipe-*-day.jpg` pour le mode jour et
+  `assets/dark/recipe-*-dark.jpg` pour le mode nuit.
 - Interdit : `filter`, inversion automatique, image nocturne forcee dans le
   mode jour, ou chemin d'asset global en dur dans un composant.
 

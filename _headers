@@ -26,6 +26,9 @@
 /app-images.js
   Cache-Control: public, max-age=300, must-revalidate
 
+/app-art-images.js
+  Cache-Control: public, max-age=300, must-revalidate
+
 /style.css
   Cache-Control: public, max-age=300, must-revalidate
 
@@ -66,6 +69,9 @@
   Cache-Control: public, max-age=31536000, immutable
 
 /assets/day/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/dark/*
   Cache-Control: public, max-age=31536000, immutable
 
 /assets/base-du-site.png
