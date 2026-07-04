@@ -6432,8 +6432,8 @@ a {
   --visual-rim: color-mix(in srgb, var(--ambient-accent, var(--accent)) 28%, var(--rim));
   --visual-glow: color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent);
   background:
-    radial-gradient(circle at 16% 0%, color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent), transparent 28rem),
-    radial-gradient(circle at 86% 10%, color-mix(in srgb, var(--accent-2) 12%, transparent), transparent 25rem),
+    linear-gradient(135deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 13%, transparent), transparent 34%),
+    linear-gradient(215deg, color-mix(in srgb, var(--accent-2) 9%, transparent), transparent 38%),
     var(--ds-shell-background);
 }
 
@@ -6441,7 +6441,7 @@ a {
   border-bottom-color: var(--visual-rim);
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 94%, transparent), color-mix(in srgb, var(--surface-strong) 78%, transparent)),
-    radial-gradient(circle at 20% 0%, var(--visual-glow), transparent 28rem);
+    linear-gradient(90deg, var(--visual-glow), transparent 48%);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, .045),
     0 18px 58px rgba(0, 0, 0, .34);
@@ -6520,14 +6520,12 @@ a {
 .fridge-assistant::after {
   content: "";
   position: absolute;
-  inset: -38% -16% auto auto;
-  width: min(340px, 46vw);
-  aspect-ratio: 1;
-  border-radius: 50%;
+  inset: 0 0 auto auto;
+  width: min(420px, 54vw);
+  height: 100%;
   pointer-events: none;
-  background: radial-gradient(circle, color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent), transparent 66%);
-  filter: blur(18px);
-  opacity: .78;
+  background: linear-gradient(115deg, transparent, color-mix(in srgb, var(--ambient-accent, var(--accent)) 12%, transparent), transparent);
+  opacity: .68;
 }
 
 .season-dashboard > *,
@@ -6627,7 +6625,7 @@ a {
 
 .modal-backdrop {
   background:
-    radial-gradient(circle at 50% 12%, color-mix(in srgb, var(--ambient-accent, var(--accent)) 12%, transparent), transparent 32rem),
+    linear-gradient(180deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 10%, transparent), transparent 46%),
     rgba(0, 0, 0, .66);
 }
 
@@ -6654,7 +6652,7 @@ a {
 .theme-light .mc-shell,
 .mc-shell.theme-light {
   background:
-    radial-gradient(circle at 16% 0%, color-mix(in srgb, var(--ambient-accent, var(--accent)) 10%, transparent), transparent 28rem),
+    linear-gradient(135deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 8%, transparent), transparent 36%),
     var(--ds-shell-background);
 }
 
@@ -6692,6 +6690,215 @@ a {
 
   .modal-panel {
     box-shadow: 0 -18px 70px rgba(0, 0, 0, .58);
+  }
+}
+
+/* Visual polish pass 2: make daily-use panels easier to scan. */
+.panel-heading {
+  position: relative;
+  padding-bottom: 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 18%, var(--line));
+}
+
+.panel-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: min(96px, 40%);
+  height: 1px;
+  background: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 72%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 24%, transparent);
+}
+
+.ingredient-group li,
+.notes-panel ul:not(.allergen-list) > li {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 10%, transparent);
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, .008)),
+    color-mix(in srgb, var(--surface-soft) 50%, transparent);
+  padding: 8px 10px;
+  transition: background var(--speed), border-color var(--speed), box-shadow var(--speed), transform var(--speed);
+}
+
+.ingredient-group li:hover,
+.notes-panel ul:not(.allergen-list) > li:hover {
+  border-color: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 30%, var(--line));
+  background: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 7%, var(--surface-soft));
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .18);
+}
+
+.ingredient-group li:has(input:checked) {
+  border-color: color-mix(in srgb, #22c55e 30%, var(--line));
+  background: color-mix(in srgb, #22c55e 7%, var(--surface-soft));
+}
+
+.step-list li {
+  position: relative;
+  overflow: hidden;
+}
+
+.step-list li::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 56%, transparent);
+  opacity: .45;
+  transition: opacity var(--speed), background var(--speed);
+}
+
+.step-list li:hover::before {
+  opacity: .86;
+}
+
+.step-list li.done::before {
+  background: #22c55e;
+  opacity: .68;
+}
+
+.step-number {
+  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 36%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    0 0 16px color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 18%, transparent);
+}
+
+.before-start-card,
+.allergen-card,
+.average-weight-card,
+.technical-card,
+.personal-notes-card,
+.practical-section {
+  border-color: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 28%, var(--line));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .045),
+    0 14px 34px rgba(0, 0, 0, .18);
+}
+
+.personal-notes-card textarea {
+  min-height: 118px;
+  border-color: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 20%, var(--line));
+}
+
+.search-result,
+.linked-recipe-item,
+.menu-planner-card,
+.shopping-aisle {
+  position: relative;
+  overflow: hidden;
+}
+
+.search-result::before,
+.linked-recipe-item::before,
+.menu-planner-card::before,
+.shopping-aisle::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: color-mix(in srgb, var(--card-accent, var(--ambient-accent, var(--accent))) 50%, transparent);
+  opacity: .42;
+  pointer-events: none;
+}
+
+.search-result:hover::before,
+.search-result:focus-visible::before,
+.linked-recipe-item:hover::before,
+.linked-recipe-item:focus-visible::before,
+.menu-planner-card:hover::before,
+.menu-planner-card:focus-within::before,
+.shopping-aisle:hover::before {
+  opacity: .85;
+}
+
+.search-result-image,
+.linked-recipe-thumb,
+.menu-planner-image {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .08),
+    0 10px 24px rgba(0, 0, 0, .28);
+}
+
+.menu-planner-card,
+.shopping-aisle,
+.menu-service-panel {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 6%, transparent), rgba(255, 255, 255, .012)),
+    color-mix(in srgb, var(--surface-soft) 78%, transparent);
+}
+
+.menu-planner-card h3,
+.linked-recipe-copy strong,
+.search-result-copy strong {
+  text-wrap: balance;
+}
+
+.shopping-line {
+  margin-inline: -6px;
+  border-radius: 7px;
+  padding-inline: 6px;
+  transition: background var(--speed), border-color var(--speed), transform var(--speed);
+}
+
+.shopping-line:hover,
+.shopping-line:focus-within {
+  background: color-mix(in srgb, var(--ambient-accent, var(--accent)) 7%, transparent);
+}
+
+.shopping-line.checked {
+  background: color-mix(in srgb, #22c55e 6%, transparent);
+}
+
+.shopping-smart-groups span,
+.shopping-owned-list button,
+.menu-planner-summary span {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .055);
+}
+
+.mc-shell.theme-light :where(.ingredient-group li, .notes-panel ul:not(.allergen-list) > li, .step-list li, .menu-planner-card, .shopping-aisle, .menu-service-panel, .search-result, .linked-recipe-item) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, .16)),
+    color-mix(in srgb, var(--surface-strong) 70%, transparent);
+}
+
+.mc-shell.theme-light :where(.before-start-card, .allergen-card, .average-weight-card, .technical-card, .personal-notes-card, .practical-section) {
+  box-shadow: 0 12px 30px rgba(84, 61, 31, .10);
+}
+
+@media (max-width: 700px) {
+  .panel-heading {
+    padding-bottom: 10px;
+  }
+
+  .ingredient-group li,
+  .notes-panel ul:not(.allergen-list) > li,
+  .step-list li {
+    padding: 9px;
+  }
+
+  .search-result {
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+
+  .search-result > .nutri-score {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .menu-planner-card {
+    grid-template-columns: 88px minmax(0, 1fr);
+  }
+
+  .menu-planner-image {
+    min-height: 88px;
+  }
+
+  .shopping-line {
+    margin-inline: -4px;
+    padding-inline: 4px;
   }
 }
 
