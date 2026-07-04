@@ -431,8 +431,8 @@ function writeDistRedirects(recipes) {
     .flatMap(id => {
       const slug = encodeURIComponent(id);
       return [
-        `/recette/${slug} /recette/${slug}/index.html 200`,
-        `/recette/${slug}/ /recette/${slug} 301`
+        `/recette/${slug} /recette/${slug}/ 301`,
+        `/recette/${slug}/ /recette/${slug}/index.html 200`
       ];
     });
   fs.writeFileSync(path.join(DIST, '_redirects'), [...recipeRules, base, ''].join('\n'), 'utf8');
