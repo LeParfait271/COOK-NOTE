@@ -1,11 +1,11 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v291
+//  Cook Note - Service Worker PWA v292
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v291';
-const IMAGE_CACHE_NAME = 'cook-note-images-v291';
+const CACHE_NAME = 'cook-note-v292';
+const IMAGE_CACHE_NAME = 'cook-note-images-v292';
 const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
@@ -34,15 +34,15 @@ const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=291',
-  '/app-images.js?v=291',
-  '/app-art-images.js?v=291',
-  '/theme.js?v=291',
-  '/i18n.js?v=291',
-  '/assets/catalog-1.js?v=291',
-  '/assets/image-manifest.js?v=291',
-  '/style.css?v=291',
-  '/recipe.js?v=291',
+  '/app.js?v=292',
+  '/app-images.js?v=292',
+  '/app-art-images.js?v=292',
+  '/theme.js?v=292',
+  '/i18n.js?v=292',
+  '/assets/catalog-1.js?v=292',
+  '/assets/image-manifest.js?v=292',
+  '/style.css?v=292',
+  '/recipe.js?v=292',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
@@ -50,19 +50,19 @@ const STATIC_ASSETS = [
   '/assets/cook-note.png',
   '/assets/cook-note-white.png',
   '/assets/base-principale-fond-site.jpg',
-  '/assets/day/base-du-site-day.jpg?v=291',
-  '/assets/day/base-principale-fond-site-day.jpg?v=291',
-  '/assets/day/category-apero-day.jpg?v=291',
-  '/assets/day/category-accompagnements-day.jpg?v=291',
-  '/assets/day/category-bases-day.jpg?v=291',
-  '/assets/day/category-desserts-day.jpg?v=291',
-  '/assets/day/category-entrees-day.jpg?v=291',
-  '/assets/day/category-petit-dejeuner-day.jpg?v=291',
-  '/assets/day/category-plats-day.jpg?v=291',
-  '/assets/day/category-sauces-day.jpg?v=291',
-  '/assets/day/cook-note-day.png?v=291',
-  '/assets/day/recipe-seafood-day.jpg?v=291',
-  '/assets/dark/recipe-beurre_ail-dark.jpg?v=291',
+  '/assets/day/base-du-site-day.jpg?v=292',
+  '/assets/day/base-principale-fond-site-day.jpg?v=292',
+  '/assets/day/category-apero-day.jpg?v=292',
+  '/assets/day/category-accompagnements-day.jpg?v=292',
+  '/assets/day/category-bases-day.jpg?v=292',
+  '/assets/day/category-desserts-day.jpg?v=292',
+  '/assets/day/category-entrees-day.jpg?v=292',
+  '/assets/day/category-petit-dejeuner-day.jpg?v=292',
+  '/assets/day/category-plats-day.jpg?v=292',
+  '/assets/day/category-sauces-day.jpg?v=292',
+  '/assets/day/cook-note-day.png?v=292',
+  '/assets/day/recipe-seafood-day.jpg?v=292',
+  '/assets/dark/recipe-beurre_ail-dark.jpg?v=292',
 ];
 
 async function trimCache(cacheName, maxEntries) {

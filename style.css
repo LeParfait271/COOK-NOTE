@@ -6204,6 +6204,91 @@ a {
   box-shadow: var(--ds-shadow-elevated);
 }
 
+.mc-shell :where(.recipe-card.has-image, .variant-card) {
+  --ambilight-image: none;
+  --ambilight-spread: clamp(14px, 2vw, 24px);
+  --ambilight-blur: clamp(18px, 2.4vw, 30px);
+  --ambilight-hover-blur: clamp(22px, 2.8vw, 34px);
+  --ambilight-opacity: .46;
+  --ambilight-hover-opacity: .74;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.mc-shell :where(.recipe-card.has-image, .variant-card):hover,
+.mc-shell :where(.recipe-card.has-image, .variant-card):focus-visible {
+  z-index: 5;
+}
+
+.card-ambilight,
+.variant-card-ambilight {
+  position: absolute;
+  inset: calc(var(--ambilight-spread) * -1);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: var(--ambilight-image);
+  background-position: center;
+  background-size: cover;
+  filter: blur(var(--ambilight-blur)) saturate(1.65) brightness(1.18);
+  opacity: var(--ambilight-opacity);
+  transform: scale(1.045);
+  transition:
+    opacity var(--ds-duration-slow) var(--ds-ease),
+    transform var(--ds-duration-slow) var(--ds-ease),
+    filter var(--ds-duration-slow) var(--ds-ease);
+}
+
+.recipe-card.has-image:hover .card-ambilight,
+.recipe-card.has-image:focus-visible .card-ambilight,
+.variant-card:hover .variant-card-ambilight,
+.variant-card:focus-visible .variant-card-ambilight {
+  opacity: var(--ambilight-hover-opacity);
+  transform: scale(1.085);
+  filter: blur(var(--ambilight-hover-blur)) saturate(1.9) brightness(1.28);
+}
+
+.recipe-card.has-image .card-media,
+.variant-card .variant-card-bg {
+  z-index: 1;
+  border-radius: inherit;
+  transform: none;
+}
+
+.variant-card::after {
+  z-index: 2;
+}
+
+.variant-card::before {
+  z-index: 4;
+}
+
+.recipe-card.has-image .card-image {
+  transition: transform var(--ds-card-image-motion) var(--ds-ease), filter var(--speed);
+}
+
+.recipe-card.has-image:hover .card-media,
+.recipe-card.has-image:focus-visible .card-media,
+.variant-card:hover .variant-card-bg,
+.variant-card:focus-visible .variant-card-bg {
+  transform: none;
+}
+
+.recipe-card.has-image:hover .card-image,
+.recipe-card.has-image:focus-visible .card-image {
+  transform: scale(1.04);
+}
+
+.recipe-card.has-image .card-body,
+.variant-card-body {
+  z-index: 3;
+}
+
+.theme-light :where(.card-ambilight, .variant-card-ambilight) {
+  opacity: .28;
+  filter: blur(var(--ambilight-blur)) saturate(1.25) brightness(1.04);
+}
+
 .mc-shell .modal-panel {
   animation: modalIn var(--ds-motion-slow) var(--ds-ease) both;
 }
