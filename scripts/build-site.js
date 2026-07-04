@@ -429,7 +429,7 @@ function writeDistRedirects(recipes) {
       const slug = encodeURIComponent(id);
       return [
         `/recette/${slug} /recette/${slug}/index.html 200`,
-        `/recette/${slug}/ /recette/${slug}/index.html 200`
+        `/recette/${slug}/ /recette/${slug} 301`
       ];
     });
   fs.writeFileSync(path.join(DIST, '_redirects'), [...recipeRules, base, ''].join('\n'), 'utf8');

@@ -354,11 +354,17 @@ if (!headers.includes('/service-worker.js') || !headers.includes('Cache-Control:
 if (!headers.includes('/recette/*') || !headers.includes('Cache-Control: no-cache')) {
   fail('_headers: pages recettes prerendue doivent rester en no-cache.');
 }
-if (!redirects.includes('/recette/* /index.html 200')) {
+if (!redirects.includes('/recette/* / 200')) {
   fail('_redirects: fallback SPA recettes absent.');
+}
+if (redirects.includes('/recette/* /index.html 200') || redirects.includes('/techniques/ /index.html 200')) {
+  fail('_redirects: fallback Cloudflare invalide vers index.html.');
 }
 if (!buildSite.includes('writeStaticRecipePages') || !buildSite.includes('COOK_NOTE_PRERENDERED_RECIPES') || !buildSite.includes('writeDistRedirects')) {
   fail('build-site.js: prerendu statique des recettes absent.');
+}
+if (!buildSite.includes('`/recette/${slug}/ /recette/${slug} 301`')) {
+  fail('build-site.js: redirection canonique des recettes avec slash final absente.');
 }
 if (!workflow.includes('npm run test:visual') || !workflow.includes('Upload visual smoke artifacts')) {
   fail('GitHub Actions: tests visuels Playwright absents.');

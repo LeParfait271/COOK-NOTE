@@ -36,6 +36,11 @@ pages_build_output_dir = "dist"
 
 Cloudflare Pages doit donc publier `dist/`, pas la racine du depot.
 
+`dist/_redirects` contient les routes statiques des recettes prerendered et les
+fallbacks SPA. Les routes avec slash final doivent pointer en 301 vers l'URL
+canonique sans slash, et les fallbacks SPA doivent servir `/` plutot que
+`/index.html`, sinon Cloudflare Pages detecte une boucle et ignore la regle.
+
 Si le log Cloudflare affiche `No build command specified. Skipping build step.`, le deploiement reste valide parce que `dist/` est versionne. Il faut seulement s'assurer que `npm run build` a ete relance avant le push.
 
 ## Validations

@@ -47,11 +47,18 @@ const rules = read('COOK_NOTE_RULES.md');
 });
 
 [
-  '/recette/* /index.html 200',
-  '/techniques /index.html 200',
-  '/techniques/ /index.html 200'
+  '/recette/* / 200',
+  '/techniques / 200',
+  '/techniques/ /techniques 301'
 ].forEach(fragment => {
   if (!redirects.includes(fragment)) fail(`_redirects: route SPA absente (${fragment}).`);
+});
+
+[
+  '/recette/* /index.html 200',
+  '/techniques/ /index.html 200'
+].forEach(fragment => {
+  if (redirects.includes(fragment)) fail(`_redirects: route refusee par Cloudflare (${fragment}).`);
 });
 
 [
