@@ -323,7 +323,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-coulis_maitre-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 91714
+    "bytes": 289065
   },
   "assets/dark/recipe-court_bouillon-dark.jpg": {
     "width": 1280,
