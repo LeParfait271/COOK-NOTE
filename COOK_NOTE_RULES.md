@@ -127,9 +127,15 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
   mode jour dans `assets/day/`, mode nuit dans `assets/dark/`. Ce module doit
   rester versionne dans `index.html`, le service worker, le build `dist/` et les
   validateurs comme `app-images.js`.
-- Les fiches parents et collections gardent leur image de fiche d'origine
-  (`recipe.image`) : les overrides `app-art-images.js` ne doivent jamais
-  remplacer les cartes parents de l'accueil ou des collections.
+- Les 8 fiches parents racine gardent leurs images `parent_*_moon`
+  avec banniere en haut de l'image. Elles utilisent `recipe.image`
+  en priorite, puis seulement l'image theme en fallback.
+- Les sous-parents et collections peuvent utiliser les images parent theme
+  validees quand elles existent (`assets/dark/recipe-*_maitre-dark.jpg`
+  en mode nuit, `assets/day/recipe-*_maitre-day.jpg` en mode jour), puis
+  `recipe.image` en fallback. Les images parent validees sont verrouillees
+  par `scripts/validate-parent-art-lock.js` et ne doivent plus etre regenerees,
+  recompressees ou remplacees sans demande explicite.
 
 ## Production
 

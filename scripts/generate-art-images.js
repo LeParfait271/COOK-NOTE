@@ -61,14 +61,6 @@ function loadRecipes() {
   return context.window.RECIPES || {};
 }
 
-function recipeHasVariants(recipe) {
-  return Array.isArray(recipe?.variants) && recipe.variants.some(variant => variant?.id);
-}
-
-function usesOriginalParentImage(recipe) {
-  return Boolean(recipe && (recipe.masterType === 'collection' || recipeHasVariants(recipe)));
-}
-
 function listFiles(relative) {
   const dir = path.join(ROOT, relative);
   if (!fs.existsSync(dir)) return [];
@@ -97,7 +89,7 @@ function addDarkFiles(map, numeric) {
 }
 
 function filterDisplayArtRecipes(map, recipes) {
-  return Object.fromEntries(Object.entries(map).filter(([id]) => recipes[id] && !usesOriginalParentImage(recipes[id])));
+  return Object.fromEntries(Object.entries(map).filter(([id]) => recipes[id]));
 }
 
 function compactMapPayload(map, dir, suffix, numericVersion) {
