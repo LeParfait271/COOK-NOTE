@@ -387,7 +387,7 @@
     'Frites belges': 'Belgian fries',
     'Frites': 'Fries',
     'Gaufres de pommes de terre croustillantes': 'Crispy potato waffles',
-    'Gazpacho tomate, menthe et basilic': 'Tomato, mint and basil gazpacho',
+    'Gaspacho tomate, menthe et basilic': 'Tomato, mint and basil gazpacho',
     'Gaspacho de melon': 'Melon gazpacho',
     'Salade melon, mozzarella et jambon cru': 'Melon, mozzarella and prosciutto salad',
     'Salade avocat, \u0153uf et \u00e9pinards': 'Avocado, egg and spinach salad',
