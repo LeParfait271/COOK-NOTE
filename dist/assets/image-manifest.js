@@ -2338,7 +2338,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/day/recipe-sauce_caramel-day.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 367437
+    "bytes": 274485
   },
   "assets/day/recipe-sauce_chevre_creme-day.jpg": {
     "width": 1400,
