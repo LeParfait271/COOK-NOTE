@@ -84,6 +84,21 @@ async function expectSelectedLanguage(page, value, label) {
   await expect(page.locator('.language-switcher select')).toHaveCount(0);
 }
 
+async function expectLightDockActiveStateReadable(page) {
+  const activeTab = page.locator('.recipe-dock-tabs button.active:visible').first();
+  await expect(activeTab).toBeVisible();
+  const colors = await activeTab.evaluate(node => {
+    const styles = getComputedStyle(node);
+    const marker = getComputedStyle(node, '::after');
+    return {
+      text: styles.color,
+      marker: marker.backgroundColor
+    };
+  });
+  expect(colors.text).not.toBe('rgb(255, 255, 255)');
+  expect(colors.marker).not.toBe('rgb(255, 255, 255)');
+}
+
 test.describe('Cook Note visual smoke', () => {
   test('home renders cards, images and clean text', async ({ page }, testInfo) => {
     await forceTheme(page, 'dark');
@@ -153,6 +168,11 @@ test.describe('Cook Note visual smoke', () => {
       path: testInfo.outputPath(`home-light-${testInfo.project.name}.png`),
       fullPage: false
     });
+
+    await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
+    await waitForCookNote(page);
+    await expect(page.locator('.recipe-command-dock')).toBeVisible();
+    await expectLightDockActiveStateReadable(page);
   });
 
   test('english recipe controls stay translated', async ({ page }) => {
