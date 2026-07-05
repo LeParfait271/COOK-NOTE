@@ -6,6 +6,7 @@ const {
   imageSizeAttrs,
   imageBackgroundStyle
 } = window.CookNoteImages || {};
+const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
 
 if (!recipeCardImageUrl || !imageSizeAttrs || !imageBackgroundStyle) {
   throw new Error('CookNoteImages doit etre charge avant app.js.');
@@ -81,6 +82,15 @@ function loadDeferredScript(src, globalName = '') {
   return promise;
 }
 
+function imageManifestEntry(src) {
+  const path = String(src || '').replace(/^\/+/, '').split('?')[0];
+  return IMAGE_MANIFEST[path] || IMAGE_MANIFEST[`/${path}`] || null;
+}
+
+function imageNaturalWidth(src, fallback = 1280) {
+  return imageManifestEntry(src)?.width || fallback;
+}
+
 function scheduleIdleTask(callback, timeout = 1200) {
   if (typeof window.requestIdleCallback === 'function') {
     const id = window.requestIdleCallback(callback, { timeout });
@@ -106,12 +116,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/cook-note.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.17';
+const SITE_VERSION = 'v3.18';
 const SITE_UPDATED_AT = '05/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '3.17';
+const ANDROID_LEGACY_APK_VERSION = '3.18';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -6546,8 +6556,10 @@ function RecipeView({
   const artHeroImage = artAsset('hero', activeTheme);
   const artLogoImage = artAsset('logo', activeTheme);
   const heroImage = heroUsesHomeImage ? artHeroImage : displayRecipeImage(selectedRecipe || recipe);
+  const heroImageWidth = heroImage ? Math.max(960, Math.min(imageNaturalWidth(heroImage), 1536)) : 0;
   const heroStyle = heroImage
     ? {
+      '--recipe-hero-image-max': `${heroImageWidth}px`,
       backgroundImage: heroUsesHomeImage
         ? `linear-gradient(110deg, rgba(4,4,5,.92), rgba(4,4,5,.54) 48%, rgba(4,4,5,.84)), url("${heroImage}")`
         : `linear-gradient(90deg, rgba(4,4,5,.92), rgba(4,4,5,.50)), url("${heroImage}")`

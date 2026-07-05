@@ -1588,7 +1588,7 @@ a {
   object-fit: cover;
   object-position: center;
   filter: brightness(.84) saturate(.94) contrast(1.08);
-  transform: translate3d(0, 0, 0);
+  transform: none;
   user-select: none;
 }
 
@@ -6340,7 +6340,7 @@ a {
 .recipe-card.has-image:hover .card-image,
 .recipe-card.has-image:focus-visible .card-image,
 .recipe-card.has-image.is-scroll-featured .card-image {
-  transform: scale(1.04);
+  transform: none;
 }
 
 .recipe-card.is-scroll-featured .card-media::after {
@@ -6678,7 +6678,7 @@ a {
     background-color: #050505;
     background-repeat: no-repeat;
     background-position: center, center;
-    background-size: 100% 100%, min(1400px, max(1180px, 74vw)) auto;
+    background-size: 100% 100%, min(var(--recipe-hero-image-max, 1280px), max(960px, 67vw)) auto;
   }
 }
 
