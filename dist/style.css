@@ -6673,6 +6673,15 @@ a {
   box-shadow: 0 0 26px color-mix(in srgb, var(--ambient-accent, var(--accent)) 22%, transparent);
 }
 
+@media (min-width: 901px) {
+  .recipe-detail-hero.has-photo:not(.parent-hero) {
+    background-color: #050505;
+    background-repeat: no-repeat;
+    background-position: center, center;
+    background-size: 100% 100%, min(1400px, max(1180px, 74vw)) auto;
+  }
+}
+
 .modal-backdrop {
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 10%, transparent), transparent 46%),
