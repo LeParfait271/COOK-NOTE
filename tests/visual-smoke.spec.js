@@ -78,12 +78,10 @@ async function expectBackgroundImagesReady(page, selector, minCount) {
 }
 
 async function expectSelectedLanguage(page, value, label) {
-  const selector = page.locator('.language-switcher select');
-  await expect(selector).toHaveValue(value);
-  await expect(async () => {
-    const selectedLabel = await selector.evaluate(select => select.selectedOptions[0]?.textContent || '');
-    expect(selectedLabel).toBe(label);
-  }).toPass();
+  const toggle = page.locator('.language-toggle:visible').first();
+  await expect(toggle).toHaveAttribute('data-locale', value);
+  await expect(toggle.locator('.language-toggle-code.active')).toHaveText(label);
+  await expect(page.locator('.language-switcher select')).toHaveCount(0);
 }
 
 test.describe('Cook Note visual smoke', () => {
@@ -124,6 +122,10 @@ test.describe('Cook Note visual smoke', () => {
 
     await expect(page.locator('.mc-shell.theme-light')).toBeVisible();
     await expect(page.locator('.theme-toggle-btn')).toHaveAttribute('aria-pressed', 'true');
+    await expectSelectedLanguage(page, 'fr', 'FR');
+    await page.locator('.language-toggle:visible').first().click();
+    await expectSelectedLanguage(page, 'en', 'EN');
+    await page.locator('.language-toggle:visible').first().click();
     await expectSelectedLanguage(page, 'fr', 'FR');
     await expect(page.locator('.home-view')).toBeVisible();
     const lightArt = await page.evaluate(() => ({

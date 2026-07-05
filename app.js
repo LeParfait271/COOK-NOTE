@@ -106,12 +106,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/cook-note.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.06';
+const SITE_VERSION = 'v3.07';
 const SITE_UPDATED_AT = '05/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '3.06';
+const ANDROID_LEGACY_APK_VERSION = '3.07';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -4477,22 +4477,32 @@ function useI18nLocale() {
 function LanguageSwitcher() {
   const locale = CookNoteI18n.locale();
   const currentLanguage = t(locale === 'en' ? 'language.en' : 'language.fr');
-  return h('label', {
+  const nextLocale = locale === 'en' ? 'fr' : 'en';
+  const nextLanguage = t(nextLocale === 'en' ? 'language.en' : 'language.fr');
+  return h('div', {
     className: 'language-switcher',
-    'aria-label': t('language.current', { language: currentLanguage }),
     title: t('language.selector')
   },
     h('span', { className: 'sr-only' }, t('language.selector')),
-    h('select', {
-      className: 'btn',
-      value: locale,
-      onChange: event => CookNoteI18n.setLocale(event.target.value),
-      'aria-label': t('language.selector')
-    },
-      CookNoteI18n.supportedLocales.map(localeCode =>
-        h('option', { key: localeCode, value: localeCode }, localeCode.toUpperCase())
-      )
-    )
+    h('button', {
+      type: 'button',
+      className: 'btn language-toggle',
+      onClick: () => CookNoteI18n.setLocale(nextLocale),
+      'aria-label': `${t('language.current', { language: currentLanguage })}. ${t('language.selector')} : ${nextLanguage}`,
+      'aria-pressed': locale === 'en',
+      'data-locale': locale,
+      'data-next-locale': nextLocale,
+      title: `${t('language.selector')} : ${nextLanguage}`
+    }, CookNoteI18n.supportedLocales.reduce((children, localeCode, index) => {
+      if (index > 0) {
+        children.push(h('span', { key: `separator-${localeCode}`, className: 'language-toggle-separator', 'aria-hidden': 'true' }, '/'));
+      }
+      children.push(h('span', {
+        key: localeCode,
+        className: localeCode === locale ? 'language-toggle-code active' : 'language-toggle-code'
+      }, localeCode.toUpperCase()));
+      return children;
+    }, []))
   );
 }
 
@@ -7593,7 +7603,8 @@ function App() {
       h('button', { type: 'button', onClick: openCommandPalette, 'aria-label': 'Recherche', 'aria-current': commandOpen || searchOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'search' })), 'Recherche'),
       h('button', { type: 'button', onClick: openMenuPlanner, 'aria-label': 'Mode menu', 'aria-current': menuPlannerOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'spark' })), 'Menu'),
       h('button', { type: 'button', onClick: showFavorites, 'aria-label': 'Favoris', 'aria-current': onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'heart' })), 'Favoris'),
-      h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses', 'aria-current': shoppingOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Courses')
+      h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses', 'aria-current': shoppingOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Courses'),
+      h(LanguageSwitcher)
     ),
     h('div', { id: 'cook-note-content', className: 'content-anchor', tabIndex: -1 },
     missingRecipeId

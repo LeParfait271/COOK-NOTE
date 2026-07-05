@@ -113,7 +113,7 @@ for (const match of app.matchAll(/\bt\(\s*['"`]([^'"`]+)['"`]/g)) {
 expect('Runtime i18n non branche dans app.js.', app.includes('CookNoteI18n') && app.includes('translateUiText') && app.includes('repairReactChildText') && app.includes('repairReactProps'));
 expect('Traduction automatique recettes absente.', read('i18n.js').includes('translateRecipeText') && read('i18n.js').includes('culinaryReplacementsEn'));
 expect('Hook locale React absent.', app.includes('useI18nLocale') && app.includes('CookNoteI18n.subscribe'));
-expect('Selecteur de langue absent.', app.includes('function LanguageSwitcher') && app.includes('language-switcher') && app.includes('supportedLocales'));
+expect('Bouton de langue absent.', app.includes('function LanguageSwitcher') && app.includes('language-switcher') && app.includes('language-toggle') && app.includes('supportedLocales') && app.includes('setLocale(nextLocale)') && !app.includes('.language-switcher select'));
 expect('SEO i18n absent.', app.includes("t('site.description')") && app.includes("t('seo.techniques.description')") && app.includes('ensureAlternateLinks'));
 
 expect('i18n.js non charge dans index.html.', index.includes('/i18n.js?v='));
