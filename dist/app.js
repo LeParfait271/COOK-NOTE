@@ -116,12 +116,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/cook-note.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.19';
+const SITE_VERSION = 'v3.20';
 const SITE_UPDATED_AT = '05/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '3.19';
+const ANDROID_LEGACY_APK_VERSION = '3.20';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -1050,10 +1050,6 @@ function recipeHasCategory(recipe, category) {
 function isCategoryCollectionRecipe(recipe) {
   if (!recipe) return false;
   return Object.values(CATEGORY_PARENT_IDS).includes(recipe.id) || recipe.masterType === 'collection';
-}
-
-function isRootCategoryParentRecipe(recipe) {
-  return Boolean(recipe && Object.values(CATEGORY_PARENT_IDS).includes(recipe.id));
 }
 
 function seasonGroupCategory(recipe) {
@@ -4189,7 +4185,6 @@ function usesOriginalParentImage(recipe) {
 }
 
 function displayRecipeImage(recipe) {
-  if (isRootCategoryParentRecipe(recipe)) return recipe.image || themeRecipeArtImage(recipe) || '';
   if (usesOriginalParentImage(recipe)) return themeRecipeArtImage(recipe) || recipe.image || '';
   return themeRecipeArtImage(recipe) || recipe?.image || '';
 }
