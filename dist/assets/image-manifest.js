@@ -463,7 +463,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-donuts_cloud-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 323244
+    "bytes": 291445
   },
   "assets/dark/recipe-ecrasee_pommes_de_terre_truffe_saint_jacques-dark.jpg": {
     "width": 1536,
@@ -2993,7 +2993,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/recipe-card-images/donuts_cloud_spooky.jpg": {
     "width": 760,
     "height": 760,
-    "bytes": 161481
+    "bytes": 159344
   },
   "assets/recipe-card-images/ecrasee_pommes_de_terre_truffe_saint_jacques_cooknote_v2_spooky.jpg": {
     "width": 760,
@@ -4328,7 +4328,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/recipe-images-optimized/donuts_cloud_spooky.jpg": {
     "width": 1024,
     "height": 1024,
-    "bytes": 265431
+    "bytes": 294584
   },
   "assets/recipe-images-optimized/ecrasee_pommes_de_terre_truffe_saint_jacques_cooknote_v2_spooky.jpg": {
     "width": 960,
