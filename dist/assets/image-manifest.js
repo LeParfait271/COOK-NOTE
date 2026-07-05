@@ -2306,9 +2306,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 258643
   },
   "assets/day/recipe-salade_melon_mozzarella_jambon_cru-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 167519
+    "width": 1280,
+    "height": 720,
+    "bytes": 288183
   },
   "assets/day/recipe-salade_pois_chiche_feta_olives-day.jpg": {
     "width": 1400,
@@ -2481,9 +2481,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 184764
   },
   "assets/day/recipe-tomates_provencales-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 203470
+    "width": 1280,
+    "height": 720,
+    "bytes": 306405
   },
   "assets/day/recipe-tomates_variantes-day.jpg": {
     "width": 1400,
