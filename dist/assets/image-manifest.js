@@ -528,7 +528,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-gaufre_bruxelles-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 313941
+    "bytes": 194028
   },
   "assets/dark/recipe-gaufres_pommes_terre-dark.jpg": {
     "width": 1536,
