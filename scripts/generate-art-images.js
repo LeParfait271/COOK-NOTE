@@ -16,6 +16,19 @@ const CATEGORY_DAY_IMAGES = Object.freeze({
   'category-sauces-day.jpg': 'sauces_maitre'
 });
 
+const DARK_PARENT_IMAGE_OVERRIDES = Object.freeze({
+  accompagnements_maitre: 'recipe-accompagnements_maitre-dark.jpg',
+  apero_maitre: 'recipe-apero_maitre-dark.jpg',
+  desserts_maitre: 'recipe-desserts_maitre-dark.jpg',
+  elements_base_maitre: 'recipe-elements_base_maitre-dark.jpg',
+  entrees_maitre: 'recipe-entrees_maitre-dark.jpg',
+  petit_dejeuner_maitre: 'recipe-petit_dejeuner_maitre-dark.jpg',
+  plats_maitre: 'recipe-plats_maitre-dark.jpg',
+  sauces_maitre: 'recipe-sauces_maitre-dark.jpg'
+});
+
+const PARENT_ART_REVISION = 'parent-title';
+
 function read(file) {
   return fs.readFileSync(path.join(ROOT, file), 'utf8');
 }
@@ -28,7 +41,7 @@ function currentNumericVersion() {
 }
 
 function cleanVersion(url, numeric) {
-  return String(url || '').replace(/\?v=\d+$/, `?v=${numeric}`);
+  return String(url || '').replace(/\?v=\d+(?:-[a-z0-9-]+)?$/i, `?v=${numeric}`);
 }
 
 function loadInlineDayMap(numeric) {
@@ -74,8 +87,11 @@ function addDayFiles(map, numeric) {
       const id = file.replace(/^recipe-/i, '').replace(/-day\.jpg$/i, '');
       if (recipeIds.has(id)) map[id] = `/assets/day/${file}?v=${numeric}`;
     }
-    const categoryId = CATEGORY_DAY_IMAGES[file];
-    if (categoryId) map[categoryId] = `/assets/day/${file}?v=${numeric}`;
+  });
+  Object.entries(CATEGORY_DAY_IMAGES).forEach(([file, id]) => {
+    if (recipeIds.has(id) && fs.existsSync(path.join(ROOT, 'assets/day', file))) {
+      map[id] = `/assets/day/${file}?v=${numeric}-${PARENT_ART_REVISION}`;
+    }
   });
 }
 
@@ -85,6 +101,11 @@ function addDarkFiles(map, numeric) {
     if (!/^recipe-.+-dark\.jpg$/i.test(file)) return;
     const id = file.replace(/^recipe-/i, '').replace(/-dark\.jpg$/i, '');
     if (recipeIds.has(id)) map[id] = `/assets/dark/${file}?v=${numeric}`;
+  });
+  Object.entries(DARK_PARENT_IMAGE_OVERRIDES).forEach(([id, file]) => {
+    if (recipeIds.has(id) && fs.existsSync(path.join(ROOT, 'assets/dark', file))) {
+      map[id] = `/assets/dark/${file}?v=${numeric}-${PARENT_ART_REVISION}`;
+    }
   });
 }
 

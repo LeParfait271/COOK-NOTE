@@ -2,6 +2,7 @@
 
 (function initCookNoteImages() {
   const IMAGE_HELPER_VERSION = 'v3.20';
+  const IMAGE_HELPER_REVISION = 'parent-title';
   const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
 
   function recipeCardImageUrl(image) {
@@ -30,7 +31,7 @@
   }
 
   window.CookNoteImages = Object.freeze({
-    version: IMAGE_HELPER_VERSION,
+    version: `${IMAGE_HELPER_VERSION}-${IMAGE_HELPER_REVISION}`,
     recipeCardImageUrl,
     imageSizeAttrs,
     imageBackgroundStyle

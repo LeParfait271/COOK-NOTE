@@ -148,7 +148,7 @@ const APP_INSTALL_OPTIONS = Object.freeze([
     note: `Version APK ${ANDROID_LEGACY_APK_VERSION}, Android 5.0 minimum.`
   }
 ]);
-const SITE_CACHE_VERSION = SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`);
+const SITE_CACHE_VERSION = `${SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`)}-parent-title`;
 const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
 const DEFERRED_CATALOG_CHUNK_SRCS = [2, 3, 4].map(index => `/assets/catalog-${index}.js?v=${SITE_CACHE_VERSION}`);
 const QR_CODE_SCRIPT_SRC = '/assets/vendor/qrcode.min.js';

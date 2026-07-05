@@ -48,6 +48,7 @@ const OPTIONAL_ASSET_DIRS = [
 ];
 
 const SITE_URL = 'https://cook-note.pages.dev';
+const PARENT_ART_CACHE_REVISION = 'parent-title';
 const CATEGORY_ACCENTS = {
   'Apéro': '#b51f30',
   'Entrées': '#697c1f',
@@ -116,7 +117,7 @@ function cacheVersion() {
   const app = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
   const match = app.match(/const SITE_VERSION = 'v(\d+)\.(\d+)'/);
   if (!match) throw new Error('SITE_VERSION introuvable dans app.js.');
-  return `${Number(match[1])}${match[2].padStart(2, '0')}`;
+  return `${Number(match[1])}${match[2].padStart(2, '0')}-${PARENT_ART_CACHE_REVISION}`;
 }
 
 function escapeHtml(value) {

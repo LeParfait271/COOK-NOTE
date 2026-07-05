@@ -81,7 +81,7 @@ write('app.js', nextApp);
 
 write('app-art-images.js', read('app-art-images.js')
   .replace(/\bconst v='\d+'/g, `const v='${numeric}'`)
-  .replace(/(\/assets\/(?:day|dark)\/[^'"]+\.(?:jpg|png)\?v=)\d+/g, `$1${numeric}`));
+  .replace(/(\/assets\/(?:day|dark)\/[^'"]+\.(?:jpg|png)\?v=)\d+(?:-[a-z0-9-]+)?/gi, `$1${numeric}`));
 
 write('android-legacy/gradle.properties', replaceRequired(
   read('android-legacy/gradle.properties'),

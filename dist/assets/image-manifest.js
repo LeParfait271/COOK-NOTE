@@ -23,7 +23,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-accompagnements_maitre-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 315205
+    "bytes": 570940
   },
   "assets/dark/recipe-aioli_citronne_leger-dark.jpg": {
     "width": 1280,
@@ -38,7 +38,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-apero_maitre-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 338159
+    "bytes": 519023
   },
   "assets/dark/recipe-asperges_mimosa-dark.jpg": {
     "width": 1280,
@@ -503,7 +503,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-desserts_maitre-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 318098
+    "bytes": 527341
   },
   "assets/dark/recipe-dhal_lentilles_epices-dark.jpg": {
     "width": 1536,
@@ -523,7 +523,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-elements_base_maitre-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 313579
+    "bytes": 524971
   },
   "assets/dark/recipe-encornets_chorizo-dark.jpg": {
     "width": 1536,
@@ -533,7 +533,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-entrees_maitre-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 329466
+    "bytes": 543852
   },
   "assets/dark/recipe-falafels_four-dark.jpg": {
     "width": 1280,
@@ -908,7 +908,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-petit_dejeuner_maitre-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 327037
+    "bytes": 428801
   },
   "assets/dark/recipe-petits_pois_francaise-dark.jpg": {
     "width": 1536,
@@ -923,7 +923,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-plats_maitre-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 312079
+    "bytes": 592900
   },
   "assets/dark/recipe-poelee_ble_poulet_curcuma-dark.jpg": {
     "width": 1536,
@@ -1203,7 +1203,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/dark/recipe-sauces_maitre-dark.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 314247
+    "bytes": 544058
   },
   "assets/dark/recipe-saucisse_lentilles-dark.jpg": {
     "width": 1536,
@@ -1365,15 +1365,50 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 864,
     "bytes": 358445
   },
+  "assets/day/category-accompagnements-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 441892
+  },
+  "assets/day/category-apero-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 390532
+  },
+  "assets/day/category-bases-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 424699
+  },
+  "assets/day/category-desserts-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 418382
+  },
+  "assets/day/category-entrees-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 429428
+  },
+  "assets/day/category-petit-dejeuner-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 396614
+  },
+  "assets/day/category-plats-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 436826
+  },
+  "assets/day/category-sauces-day.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 410543
+  },
   "assets/day/cook-note-day.png": {
     "width": 948,
     "height": 302,
     "bytes": 583278
-  },
-  "assets/day/recipe-accompagnements_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 296608
   },
   "assets/day/recipe-aioli_citronne_leger-day.jpg": {
     "width": 1400,
@@ -1384,11 +1419,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 815,
     "bytes": 211106
-  },
-  "assets/day/recipe-apero_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 273029
   },
   "assets/day/recipe-asperges_mimosa-day.jpg": {
     "width": 1400,
@@ -1845,11 +1875,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 349954
   },
-  "assets/day/recipe-desserts_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 274027
-  },
   "assets/day/recipe-dhal_lentilles_epices-day.jpg": {
     "width": 1536,
     "height": 864,
@@ -1865,20 +1890,10 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 864,
     "bytes": 188775
   },
-  "assets/day/recipe-elements_base_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 283649
-  },
   "assets/day/recipe-encornets_chorizo-day.jpg": {
     "width": 1536,
     "height": 864,
     "bytes": 185091
-  },
-  "assets/day/recipe-entrees_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 296104
   },
   "assets/day/recipe-falafels_four-day.jpg": {
     "width": 1400,
@@ -2250,11 +2265,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 349421
   },
-  "assets/day/recipe-petit_dejeuner_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 263080
-  },
   "assets/day/recipe-petits_pois_francaise-day.jpg": {
     "width": 1536,
     "height": 864,
@@ -2264,11 +2274,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1536,
     "height": 864,
     "bytes": 196391
-  },
-  "assets/day/recipe-plats_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 301158
   },
   "assets/day/recipe-poelee_ble_poulet_curcuma-day.jpg": {
     "width": 1536,
@@ -2544,11 +2549,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 269257
-  },
-  "assets/day/recipe-sauces_maitre-day.jpg": {
-    "width": 1536,
-    "height": 864,
-    "bytes": 286604
   },
   "assets/day/recipe-saucisse_lentilles-day.jpg": {
     "width": 1536,
@@ -3493,42 +3493,42 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/recipe-card-images/parent_accompagnements_moon.jpg": {
     "width": 960,
     "height": 540,
-    "bytes": 167708
+    "bytes": 301815
   },
   "assets/recipe-card-images/parent_apero_moon.jpg": {
     "width": 960,
     "height": 540,
-    "bytes": 170210
+    "bytes": 274812
   },
   "assets/recipe-card-images/parent_base_moon.jpg": {
     "width": 960,
     "height": 540,
-    "bytes": 155589
+    "bytes": 282117
   },
   "assets/recipe-card-images/parent_desserts_moon.jpg": {
     "width": 960,
     "height": 540,
-    "bytes": 164373
+    "bytes": 278399
   },
   "assets/recipe-card-images/parent_entrees_moon.jpg": {
     "width": 960,
     "height": 540,
-    "bytes": 171338
+    "bytes": 292221
   },
   "assets/recipe-card-images/parent_petit_dejeuner_moon.jpg": {
     "width": 960,
     "height": 540,
-    "bytes": 173985
+    "bytes": 238785
   },
   "assets/recipe-card-images/parent_plats_moon.jpg": {
     "width": 960,
     "height": 540,
-    "bytes": 164036
+    "bytes": 314064
   },
   "assets/recipe-card-images/parent_sauces_moon.jpg": {
     "width": 960,
     "height": 540,
-    "bytes": 173223
+    "bytes": 290896
   },
   "assets/recipe-card-images/paris_brest_spooky.jpg": {
     "width": 760,
@@ -4828,42 +4828,42 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/recipe-images-optimized/parent_accompagnements_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 353524
+    "bytes": 602509
   },
   "assets/recipe-images-optimized/parent_apero_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 356584
+    "bytes": 546002
   },
   "assets/recipe-images-optimized/parent_base_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 290449
+    "bytes": 550797
   },
   "assets/recipe-images-optimized/parent_desserts_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 311595
+    "bytes": 553796
   },
   "assets/recipe-images-optimized/parent_entrees_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 361889
+    "bytes": 570808
   },
   "assets/recipe-images-optimized/parent_petit_dejeuner_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 330029
+    "bytes": 447319
   },
   "assets/recipe-images-optimized/parent_plats_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 347176
+    "bytes": 623739
   },
   "assets/recipe-images-optimized/parent_sauces_moon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 330638
+    "bytes": 570535
   },
   "assets/recipe-images-optimized/paris_brest_spooky.jpg": {
     "width": 1024,
