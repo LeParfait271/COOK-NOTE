@@ -51,7 +51,7 @@ function imageInfo(relativePath) {
 
 function cardPathFromOptimized(image) {
   return image
-    .replace(/^\/assets\/recipe-images-optimized\//, 'assets/recipe-card-images/')
+    .replace(/^\/assets\/recipes\/heroes\//, 'assets/recipes/cards/')
     .replace(/\?.*$/, '')
     .replace(/\.(?:png|jpe?g|webp)$/i, '.jpg');
 }
@@ -107,7 +107,7 @@ function run() {
   const rows = [];
   const hashes = new Map();
   Object.entries(recipes).forEach(([id, recipe]) => {
-    if (!recipe.image || !recipe.image.startsWith('/assets/recipe-images-optimized/')) return;
+    if (!recipe.image || !recipe.image.startsWith('/assets/recipes/heroes/')) return;
     const optimizedRelative = optimizedPath(recipe.image);
     const cardRelative = cardPathFromOptimized(recipe.image);
     const optimized = imageInfo(optimizedRelative);

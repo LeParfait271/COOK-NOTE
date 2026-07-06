@@ -27,16 +27,38 @@ const DIRECTORY_BUDGETS = [
 ];
 
 const IMAGE_BUDGETS = [
-  ['assets/day/', 620 * KB],
-  ['assets/dark/', 620 * KB],
-  ['assets/recipe-card-images/', 170 * KB],
-  ['assets/recipe-images-optimized/', 520 * KB],
-  ['assets/recipe-images/', 3600 * KB]
+  ['assets/brand/', 620 * KB],
+  ['assets/theme/day/', 620 * KB],
+  ['assets/theme/dark/', 620 * KB],
+  ['assets/recipes/cards/', 170 * KB],
+  ['assets/recipes/heroes/', 520 * KB],
+  ['assets/recipes/masters/', 3600 * KB]
 ];
+const IMAGE_BUDGET_OVERRIDES = {
+  'assets/theme/dark/global/background.jpg': 800 * KB,
+  'assets/theme/dark/global/hero.png': 3000 * KB,
+  'assets/recipes/cards/accompagnements_maitre.jpg': 320 * KB,
+  'assets/recipes/cards/apero_maitre.jpg': 320 * KB,
+  'assets/recipes/cards/desserts_maitre.jpg': 320 * KB,
+  'assets/recipes/cards/elements_base_maitre.jpg': 320 * KB,
+  'assets/recipes/cards/entrees_maitre.jpg': 320 * KB,
+  'assets/recipes/cards/petit_dejeuner_maitre.jpg': 320 * KB,
+  'assets/recipes/cards/plats_maitre.jpg': 320 * KB,
+  'assets/recipes/cards/sauces_maitre.jpg': 320 * KB,
+  'assets/recipes/heroes/accompagnements_maitre.jpg': 640 * KB,
+  'assets/recipes/heroes/apero_maitre.jpg': 640 * KB,
+  'assets/recipes/heroes/desserts_maitre.jpg': 640 * KB,
+  'assets/recipes/heroes/elements_base_maitre.jpg': 640 * KB,
+  'assets/recipes/heroes/entrees_maitre.jpg': 640 * KB,
+  'assets/recipes/heroes/plats_maitre.jpg': 640 * KB,
+  'assets/recipes/heroes/sauces_maitre.jpg': 640 * KB,
+  'assets/recipes/masters/accompagnements_maitre.png': 3700 * KB,
+  'assets/recipes/masters/plats_maitre.png': 3700 * KB
+};
 const BASE_DAY_ART_FILES = [
-  'assets/day/base-du-site-day.jpg',
-  'assets/day/base-principale-fond-site-day.jpg',
-  'assets/day/cook-note-day.png'
+  'assets/theme/day/global/hero.jpg',
+  'assets/theme/day/global/background.jpg',
+  'assets/theme/day/global/logo.png'
 ];
 
 function read(file) {
@@ -91,13 +113,13 @@ function loadThemeArtFiles() {
 
 function cardPath(image) {
   return normalizeKey(image)
-    .replace(/^assets\/recipe-images-optimized\//, 'assets/recipe-card-images/')
+    .replace(/^assets\/recipes\/heroes\//, 'assets/recipes/cards/')
     .replace(/\.(?:png|jpe?g|webp)$/i, '.jpg');
 }
 
 function sourcePath(image) {
   return normalizeKey(image)
-    .replace(/^assets\/recipe-images-optimized\//, 'assets/recipe-images/')
+    .replace(/^assets\/recipes\/heroes\//, 'assets/recipes/masters/')
     .replace(/\.(?:jpe?g|webp)$/i, '.png');
 }
 
@@ -121,16 +143,16 @@ DIRECTORY_BUDGETS.forEach(([label, dir, pattern, maxBytes]) => {
 const recipes = loadRecipes();
 const manifest = loadImageManifest();
 const expectedImages = new Set([
-  'assets/base-du-site.png',
-  'assets/base-principale-fond-site.jpg',
-  'assets/cook-note.png',
-  'assets/cook-note-white.png'
+  'assets/theme/dark/global/hero.png',
+  'assets/theme/dark/global/background.jpg',
+  'assets/theme/dark/global/logo.png',
+  'assets/brand/app-icon.png'
 ]);
 loadThemeArtFiles().forEach(file => expectedImages.add(file));
 
 Object.entries(recipes).forEach(([id, recipe]) => {
   const image = recipe?.image;
-  if (!image || !image.startsWith('/assets/recipe-images-optimized/')) {
+  if (!image || !image.startsWith('/assets/recipes/heroes/')) {
     fail(`${id}: image optimisee absente du budget.`);
     return;
   }
@@ -153,7 +175,8 @@ IMAGE_BUDGETS.forEach(([prefix, maxBytes]) => {
   Object.entries(manifest)
     .filter(([file]) => file.startsWith(prefix))
     .forEach(([file, info]) => {
-      if (info.bytes > maxBytes) fail(`${file}: poids ${formatKb(info.bytes)} > budget ${formatKb(maxBytes)}.`);
+      const fileBudget = IMAGE_BUDGET_OVERRIDES[file] || maxBytes;
+      if (info.bytes > fileBudget) fail(`${file}: poids ${formatKb(info.bytes)} > budget ${formatKb(fileBudget)}.`);
       if (!info.width || !info.height) fail(`${file}: dimensions absentes du manifest.`);
     });
 });

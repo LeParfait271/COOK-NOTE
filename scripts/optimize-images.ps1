@@ -1,6 +1,6 @@
 param(
-  [string]$SourceDir = "assets\recipe-images",
-  [string]$DestinationDir = "assets\recipe-images-optimized",
+  [string]$SourceDir = "assets\recipes\masters",
+  [string]$DestinationDir = "assets\recipes\heroes",
   [int]$MaxWidth = 1400,
   [int]$Quality = 86,
   [switch]$Force

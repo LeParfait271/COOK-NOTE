@@ -5,5 +5,7 @@ backups/
 test-results/
 playwright-report/
 tmp/
+design-previews/
+mongoose.exe
 .DS_Store
 *.log

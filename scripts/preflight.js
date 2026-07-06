@@ -149,15 +149,15 @@ function validateDiffScope() {
   const files = status.split(/\r?\n/)
     .map(line => line.slice(3).trim())
     .filter(Boolean);
-  const imageFiles = files.filter(file => /^assets\/recipe-(?:images|images-optimized|card-images)\//.test(file.replace(/\\/g, '/')));
+  const imageFiles = files.filter(file => /^assets\/recipes\/(?:masters|heroes|cards)\//.test(file.replace(/\\/g, '/')));
   const byDir = new Map();
   imageFiles.forEach(file => {
     const normalized = file.replace(/\\/g, '/');
-    const dir = normalized.split('/').slice(0, 2).join('/');
+    const dir = normalized.split('/').slice(0, 3).join('/');
     byDir.set(dir, (byDir.get(dir) || 0) + 1);
   });
   if (imageFiles.length > changedImageSoftLimit) {
-    const expectedDirs = ['assets/recipe-images', 'assets/recipe-images-optimized', 'assets/recipe-card-images'];
+    const expectedDirs = ['assets/recipes/masters', 'assets/recipes/heroes', 'assets/recipes/cards'];
     const counts = expectedDirs.map(dir => byDir.get(dir) || 0);
     const balancedBatch = counts.every(count => count > 0 && count === counts[0]);
     if (!balancedBatch || imageFiles.length > changedImageBatchLimit) {

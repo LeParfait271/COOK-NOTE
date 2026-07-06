@@ -64,7 +64,7 @@ const files = {
 const FEATURE_COVERAGE = [
   { name: 'Recherche', checks: ['scoreRecipeSearch', 'scoreIngredientSearch', 'getRecipeIntentLabels', 'ingredient-match-badge'] },
   { name: 'Fiche recette', checks: ['RecipeView', 'getRecipeAllergens', 'getRecipeAverageWeights', 'renderLinkedText'] },
-  { name: 'Images', checks: ['recipeCardImageUrl', 'imageBackgroundStyle', 'imageSizeAttrs', 'onError: event =>', 'recipe-images-optimized', 'recipe-card-images', 'image-manifest.js', 'validate-visual-image-duplicates.js', 'PERCEPTUAL_CORRELATION_LIMIT'] },
+  { name: 'Images', checks: ['recipeCardImageUrl', 'imageBackgroundStyle', 'imageSizeAttrs', 'onError: event =>', 'assets/recipes/heroes', 'assets/recipes/cards', 'image-manifest.js', 'validate-visual-image-duplicates.js', 'PERCEPTUAL_CORRELATION_LIMIT'] },
   { name: 'Mode menu', checks: ['buildMenuSuggestion', 'menuDessertAffinity', 'menuSignature', 'buildMenuServicePlan', 'isWeeknightDessert', 'MENU_PAIRING_RULES'] },
   { name: 'Liste de courses', checks: ['buildShoppingListData', 'filterShoppingListData', 'shoppingPurchaseHint', 'shoppingSmartGroupKey'] },
   { name: 'Techniques', checks: ['TECHNIQUE_GUIDES', 'buildTechniqueTargets', 'openTechnique', 'inline-technique-link'] },

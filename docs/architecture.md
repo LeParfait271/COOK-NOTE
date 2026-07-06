@@ -7,10 +7,10 @@ Cook Note reste une web app statique autonome : le navigateur charge HTML, CSS, 
 - `index.html`, `recipe.html`, `app.js`, `app-images.js`, `app-art-images.js`, `recipe.js`, `style.css` : shell public du site.
 - `recipes.js` : catalogue complet, source GitHub des fiches recette.
 - `assets/catalog-*.js` : catalogues compacts de l'accueil, generes depuis `recipes.js`.
-- `assets/recipe-images/` : masters PNG des images recette, gardes dans GitHub.
-- `assets/recipe-images-optimized/` : JPG servis en hero de fiche.
-- `assets/recipe-card-images/` : JPG legers servis sur les cartes.
-- `assets/day/` et `assets/dark/` : overrides visuels jour/nuit et assets
+- `assets/recipes/masters/` : masters PNG des images recette, gardes dans GitHub.
+- `assets/recipes/heroes/` : JPG servis en hero de fiche.
+- `assets/recipes/cards/` : JPG legers servis sur les cartes.
+- `assets/theme/day/` et `assets/theme/dark/` : overrides visuels jour/nuit et assets
   d'ambiance servis par `theme.js` et `app-art-images.js`.
 - `scripts/` : generation, validation, audit et preflight.
 - `tests/` : smoke tests visuels Playwright.
@@ -19,7 +19,7 @@ Cook Note reste une web app statique autonome : le navigateur charge HTML, CSS, 
 
 `npm run build` cree `dist/`.
 
-Le build copie uniquement le site public, les modules runtime extraits, les vendors locaux, les catalogues, `recipes.js`, les JPG optimises, les miniatures et les overrides `assets/day/` + `assets/dark/`. Il regenere aussi un `assets/image-manifest.js` de production sans les masters PNG.
+Le build copie uniquement le site public, les modules runtime extraits, les vendors locaux, les catalogues, `recipes.js`, les JPG optimises, les miniatures et les overrides `assets/theme/day/` + `assets/theme/dark/`. Il regenere aussi un `assets/image-manifest.js` de production sans les masters PNG.
 
 `dist/` est versionne comme artefact public Cloudflare Pages. Il se regenere toujours depuis les sources versionnees avec `npm run build`, puis `scripts/validate-dist.js` verifie qu'il ne contient que le site public.
 

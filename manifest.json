@@ -14,7 +14,7 @@
   "categories": ["food", "lifestyle", "utilities"],
   "icons": [
     {
-      "src": "assets/cook-note.png",
+      "src": "assets/brand/app-icon.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "any maskable"
@@ -26,14 +26,14 @@
       "short_name": "Favoris",
       "url": "/?view=__favs__",
       "description": "Voir mes recettes favorites",
-      "icons": [{ "src": "assets/cook-note.png", "sizes": "128x128", "type": "image/png" }]
+      "icons": [{ "src": "assets/brand/app-icon.png", "sizes": "128x128", "type": "image/png" }]
     },
     {
       "name": "Techniques de cuisinier",
       "short_name": "Techniques",
       "url": "/techniques",
       "description": "Ouvrir les gestes de cuisine",
-      "icons": [{ "src": "assets/cook-note.png", "sizes": "128x128", "type": "image/png" }]
+      "icons": [{ "src": "assets/brand/app-icon.png", "sizes": "128x128", "type": "image/png" }]
     }
   ],
   "screenshots": []

@@ -105,7 +105,7 @@ async function main() {
     const resolvedImages = new Map();
     artImages.forEach((image, id) => {
       if (!recipes[id]) errors.push(`Image ${theme} reference une fiche inconnue: ${id} (${image}).`);
-      if (!image.startsWith(`/assets/${theme === 'light' ? 'day' : 'dark'}/`)) errors.push(`${id}: image ${theme} hors assets/${theme === 'light' ? 'day' : 'dark'} (${image}).`);
+      if (!image.startsWith(`/assets/theme/${theme === 'light' ? 'day' : 'dark'}/`)) errors.push(`${id}: image ${theme} hors assets/theme/${theme === 'light' ? 'day' : 'dark'} (${image}).`);
       if (!fs.existsSync(imagePath(image))) errors.push(`${id}: image ${theme} introuvable (${image}).`);
     });
     Object.entries(recipes).forEach(([id, recipe]) => {

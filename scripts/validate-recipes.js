@@ -53,28 +53,6 @@ const FORBIDDEN_RECIPE_SOURCE_KEYS = new Set([
 const REMOVED_RECIPE_IDS = new Set([
   'salade_oeufs_durs_mayonnaise_bistrot'
 ]);
-const FORBIDDEN_RECIPE_IMAGE_BY_ID = new Map([
-  ['crevettes_ail_persil', [
-    '/assets/recipe-images-optimized/crevettes_ail_persil_spooky.jpg',
-    '/assets/recipe-images-optimized/crevettes_ail_persil_photo_v2_spooky.jpg',
-    '/assets/recipe-images-optimized/crevettes_ail_persil_photo_v4_spooky.jpg'
-  ]],
-  ['bruschetta_roquefort_noix', ['/assets/recipe-images-optimized/bruschetta_roquefort_noix_spooky.jpg']],
-  ['pates_tarte_variantes', ['/assets/recipe-images-optimized/pates_tarte_variantes_spooky.jpg']],
-  ['nems_vietnam', ['/assets/recipe-images-optimized/nems_vietnam_spooky.jpg']],
-  ['oeufs_cocotte_chorizo', ['/assets/recipe-images-optimized/oeufs_cocotte_chorizo_spooky.jpg']],
-  ['asperges_mimosa', ['/assets/recipe-images-optimized/asperges_mimosa_spooky.jpg']],
-  ['salade_pois_chiche_feta_olives', ['/assets/recipe-images-optimized/salade_pois_chiche_feta_olives_spooky.jpg']],
-  ['carottes_persillade_creme', ['/assets/recipe-images-optimized/carottes_persillade_creme_spooky.jpg']],
-  ['tagliatelles_agrumes', ['/assets/recipe-images-optimized/tagliatelles_agrumes_spooky.jpg']],
-  ['bricks_fromage_miel_poires_pecan', ['/assets/recipe-images-optimized/bricks_fromage_miel_poires_pecan_spooky.jpg']],
-  ['oeufs_meurette_faciles', ['/assets/recipe-images-optimized/oeufs_meurette_faciles_spooky.jpg']],
-  ['poires_roties_orange_miel', ['/assets/recipe-images-optimized/poires_roties_orange_miel_spooky.jpg']],
-  ['chapelure_parfumee', ['/assets/recipe-images-optimized/chapelure_parfumee_spooky.jpg']],
-  ['carottes_roties_miel_epices', ['/assets/recipe-images-optimized/carottes_roties_miel_epices_spooky.jpg']],
-  ['samoussas_boeuf_epinards_petits_pois', ['/assets/recipe-images-optimized/samoussas_boeuf_epinards_petits_pois_spooky.jpg']],
-  ['gressins_fromage_olives', ['/assets/recipe-images-optimized/gressins_fromage_olives_spooky.jpg']]
-]);
 const WINDOWS_1252_BYTE_BY_CODEPOINT = {
   0x20AC: 0x80,
   0x201A: 0x82,
@@ -677,25 +655,23 @@ if (!recipes || typeof recipes !== 'object') {
       errors.push(`${id}: image manquante.`);
     } else if (/^(?:https?:)?\/\//i.test(recipe.image)) {
       errors.push(`${id}: image externe interdite (${recipe.image}). Utiliser une image locale generee, optimisee et auditee.`);
-    } else if ((FORBIDDEN_RECIPE_IMAGE_BY_ID.get(id) || []).includes(recipe.image)) {
-      errors.push(`${id}: ancienne URL image interdite apres remplacement visuel (${recipe.image}). Utiliser un nouveau nom stable pour eviter le cache.`);
     } else if (/\.svg(?:$|\?)/i.test(recipe.image)) {
       errors.push(`${id}: image SVG placeholder interdite (${recipe.image}).`);
-    } else if (/^\/assets\/recipe-images\/.*\.png(?:$|\?)/i.test(recipe.image)) {
-      errors.push(`${id}: image recette non optimisee (${recipe.image}). Utiliser assets/recipe-images-optimized/ et garder le PNG original.`);
+    } else if (/^\/assets\/recipes\/masters\/.*\.(?:png|jpe?g|webp)(?:$|\?)/i.test(recipe.image)) {
+      errors.push(`${id}: image recette non optimisee (${recipe.image}). Utiliser assets/recipes/heroes/ et garder le master original.`);
     } else if (recipe.image.startsWith('/')) {
       const filePath = path.join(ROOT, recipe.image.replace(/^\/+/, ''));
       if (!fs.existsSync(filePath)) errors.push(`${id}: image locale introuvable (${recipe.image}).`);
       else {
         resolvedImagePath = filePath;
-        if (!isMaster && /^\/assets\/recipe-images-optimized\/.*\.jpg(?:$|\?)/i.test(recipe.image) && fs.statSync(filePath).size < 80000) {
+        if (!isMaster && /^\/assets\/recipes\/heroes\/.*\.jpg(?:$|\?)/i.test(recipe.image) && fs.statSync(filePath).size < 80000) {
           errors.push(`${id}: image recette trop legere, probablement placeholder (${recipe.image}).`);
         }
       }
-      if (/^\/assets\/recipe-images-optimized\/.*\.jpg(?:$|\?)/i.test(recipe.image)) {
+      if (/^\/assets\/recipes\/heroes\/.*\.jpg(?:$|\?)/i.test(recipe.image)) {
         const originalPath = path.join(ROOT, recipe.image
           .replace(/^\/+/, '')
-          .replace(/^assets[\\/]recipe-images-optimized[\\/]/, 'assets/recipe-images/')
+          .replace(/^assets[\\/]recipes[\\/]heroes[\\/]/, 'assets/recipes/masters/')
           .replace(/\.jpg(?:$|\?)/i, '.png'));
         if (!fs.existsSync(originalPath)) errors.push(`${id}: master PNG introuvable pour l'image optimisee (${recipe.image}).`);
       }

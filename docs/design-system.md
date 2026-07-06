@@ -136,12 +136,11 @@ Respect obligatoire de `prefers-reduced-motion`.
 - `DAY_ASSETS_APPROVED` reste le verrou de validation visuelle : `true` active
   les assets jour avec `data-art-assets="approved"`, `false` force le fallback
   nuit avec `data-art-assets="night-fallback"`.
-- Les futures images jour validees vont dans `assets/day/` avec des noms
-  stables : `base-principale-fond-site-day.jpg`, `base-du-site-day.png`,
-  `cook-note-day.png`.
+- Les futures images jour validees vont dans `assets/theme/day/` avec des noms
+  stables sous `global/`, `categories/` ou `recipes/`.
 - Les overrides image recette sont declares dans `app-art-images.js` :
-  `assets/day/recipe-*-day.jpg` pour le mode jour et
-  `assets/dark/recipe-*-dark.jpg` pour le mode nuit.
+  `assets/theme/day/recipes/*.jpg` pour le mode jour et
+  `assets/theme/dark/recipes/*.jpg` pour le mode nuit.
 - Interdit : `filter`, inversion automatique, image nocturne forcee dans le
   mode jour, ou chemin d'asset global en dur dans un composant.
 

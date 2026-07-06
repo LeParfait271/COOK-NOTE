@@ -15,6 +15,7 @@ const validators = {
   featureCoverage: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-feature-coverage.js'), 'utf8'),
   cache: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-cache-version.js'), 'utf8'),
   visualImages: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-visual-image-duplicates.js'), 'utf8'),
+  imageCleanup: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-image-cleanup.js'), 'utf8'),
   dist: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-dist.js'), 'utf8'),
   performance: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-performance-budget.js'), 'utf8'),
   preflight: fs.readFileSync(path.join(ROOT, 'scripts', 'preflight.js'), 'utf8'),
@@ -104,8 +105,8 @@ expect('Tokens design system admin absents.', validators.adminCss.includes('--ds
   'Les donnees recette ne doivent jamais contenir de champs publics de source',
   'pas de presque-doublon',
   'npm run validate:visual-images',
-  'assets/recipe-images-optimized/',
-  'assets/recipe-card-images/',
+  'assets/recipes/heroes/',
+  'assets/recipes/cards/',
   'assets/image-manifest.js',
   'npm run generate:image-manifest',
   'npm run optimize:images',
@@ -298,10 +299,11 @@ expect('Validation unites non metriques non branchee.', validators.recipes.inclu
 expect('Validation images uniques non branchee.', validators.recipes.includes('leafImageHashes'));
 expect('Validation sources recette interdites non branchee.', validators.recipes.includes('FORBIDDEN_RECIPE_SOURCE_KEYS') && validators.recipes.includes('image externe interdite'));
 expect('Validation doublons visuels non branchee.', validators.visualImages.includes('PERCEPTUAL_CORRELATION_LIMIT') && validators.packageJson.includes('scripts/validate-visual-image-duplicates.js'));
-expect('Validation images optimisees non branchee.', validators.recipes.includes('recipe-images-optimized') && validators.recipes.includes('master PNG introuvable'));
-expect('Validation anciennes URLs images remplacees non branchee.', validators.recipes.includes('FORBIDDEN_RECIPE_IMAGE_BY_ID') && validators.recipes.includes('ancienne URL image interdite'));
-expect('Validation miniatures cartes non branchee.', validators.production.includes('recipe-card-images') && validators.production.includes('miniature carte introuvable'));
+expect('Validation images optimisees non branchee.', validators.recipes.includes('assets/recipes/heroes') && validators.recipes.includes('master PNG introuvable'));
+expect('Validation chemins images locaux non branchee.', validators.recipes.includes('image locale introuvable') && validators.recipes.includes('image recette non optimisee'));
+expect('Validation miniatures cartes non branchee.', validators.production.includes('assets/recipes/cards') && validators.production.includes('miniature carte introuvable'));
 expect('Validation manifest images non branchee.', validators.packageJson.includes('scripts/generate-image-manifest.js') && validators.production.includes('assets/image-manifest.js') && validators.cache.includes('assets/image-manifest.js'));
+expect('Validation nettoyage images non branchee.', validators.imageCleanup.includes('image presente mais non utilisee') && validators.imageCleanup.includes('aucun id recette correspondant') && validators.packageJson.includes('scripts/validate-image-cleanup.js'));
 expect('Validation materiel necessaire colonne droite non branchee.', validators.ui.includes('Materiel necessaire encore dans la colonne droite'));
 expect('Validation anti-doublon notes pratiques non branchee.', validators.ui.includes('Notes pratiques encore classees en double'));
 expect('Validation recherche intention non branchee.', validators.ui.includes('Recherche par intention absente'));

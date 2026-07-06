@@ -6,9 +6,9 @@
   const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
 
   function recipeCardImageUrl(image) {
-    if (!image || !image.startsWith('/assets/recipe-images-optimized/')) return image;
+    if (!image || !image.startsWith('/assets/recipes/heroes/')) return image;
     return image
-      .replace('/assets/recipe-images-optimized/', '/assets/recipe-card-images/')
+      .replace('/assets/recipes/heroes/', '/assets/recipes/cards/')
       .replace(/\.(?:png|jpe?g|webp)(\?.*)?$/i, '.jpg$1');
   }
 

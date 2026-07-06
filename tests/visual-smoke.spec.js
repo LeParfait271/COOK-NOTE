@@ -121,9 +121,9 @@ test.describe('Cook Note visual smoke', () => {
     await expectImagesReady(page, '.hero-logo', 1);
     await expectImagesReady(page, '.recipe-card img', 6);
     const firstDarkCardSource = await page.locator('.recipe-card.master-card .card-image').first().getAttribute('src');
-    expect(firstDarkCardSource).toContain('/assets/dark/recipe-');
-    expect(firstDarkCardSource).toContain('_maitre-dark.jpg?v=');
-    expect(firstDarkCardSource).not.toContain('/assets/recipe-card-images/parent_');
+    expect(firstDarkCardSource).toContain('/assets/theme/dark/categories/');
+    expect(firstDarkCardSource).toContain('_maitre.jpg?v=');
+    expect(firstDarkCardSource).not.toContain('/assets/recipes/cards/parent_');
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
     await settleVisualFrame(page);
@@ -153,14 +153,14 @@ test.describe('Cook Note visual smoke', () => {
       assets: document.documentElement.dataset.artAssets
     }));
     expect(lightArt.assets).toBe('approved');
-    expect(lightArt.background).toContain('/assets/day/base-principale-fond-site-day.jpg');
-    expect(lightArt.hero).toContain('/assets/day/base-du-site-day.jpg');
+    expect(lightArt.background).toContain('/assets/theme/day/global/background.jpg');
+    expect(lightArt.hero).toContain('/assets/theme/day/global/hero.jpg');
     await expect(page.locator('.hero-logo')).toBeVisible();
-    await expect(page.locator('.hero-logo')).toHaveAttribute('src', /\/assets\/day\/cook-note-day\.png/);
+    await expect(page.locator('.hero-logo')).toHaveAttribute('src', /\/assets\/theme\/day\/global\/logo\.png/);
     const firstDayCardSource = await page.locator('.recipe-card.master-card .card-image').first().getAttribute('src');
-    expect(firstDayCardSource).toContain('/assets/day/recipe-');
-    expect(firstDayCardSource).toContain('_maitre-day.jpg?v=');
-    expect(firstDayCardSource).not.toContain('/assets/recipe-card-images/parent_');
+    expect(firstDayCardSource).toContain('/assets/theme/day/categories/');
+    expect(firstDayCardSource).toContain('_maitre.jpg?v=');
+    expect(firstDayCardSource).not.toContain('/assets/recipes/cards/parent_');
     const firstCardMediaOpacity = await page.locator('.recipe-card.master-card .card-media').first().evaluate(node =>
       getComputedStyle(node).opacity
     );

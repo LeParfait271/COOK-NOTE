@@ -102,13 +102,13 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 ## Images
 
 - Chaque recette feuille doit avoir une image locale unique. Pas de doublon d'image entre recettes feuilles.
-- Aucune image recette ne doit venir du web ou pointer vers une URL externe. Les images recette ajoutees doivent etre generees ou validees localement, copiees dans `assets/recipe-images/`, optimisees, miniaturisees et auditees avant push.
+- Aucune image recette ne doit venir du web ou pointer vers une URL externe. Les images recette ajoutees doivent etre generees ou validees localement, copiees dans `assets/recipes/masters/`, optimisees dans `assets/recipes/heroes/`, miniaturisees dans `assets/recipes/cards/` et auditees avant push.
 - Les donnees recette ne doivent jamais contenir de champs publics de source, credit, attribution, imageSource, sourceUrl ou importedFrom. Les sources de travail restent hors catalogue.
 - Les textes affiches doivent rester en UTF-8 sain; le site, le build et les apps gardent une reparation anti-mojibake et bloquent les caracteres suspects avant publication.
 - Les images recette ne doivent pas etre reutilisees visuellement : pas de meme fichier, pas de meme composition recadree/reteinte, pas de presque-doublon. `npm run validate:visual-images` doit bloquer les doublons exacts et les images trop similaires avant push.
-- Les recettes doivent pointer vers les copies legeres dans `assets/recipe-images-optimized/`. Les PNG originaux dans `assets/recipe-images/` restent les masters et ne doivent pas etre supprimes.
-- Le manifest `assets/image-manifest.js` doit etre genere via `npm run generate:image-manifest`, versionne avec le cache, et valide en CI. Les miniatures d'interface doivent utiliser `assets/recipe-card-images/` quand l'image n'est pas le hero ou une vraie image de partage.
-- Chaque image optimisee referencee par une recette doit avoir une miniature homonyme dans `assets/recipe-card-images/`, sinon les cartes de l'accueil risquent d'afficher une image manquante.
+- Les recettes doivent pointer vers les copies legeres dans `assets/recipes/heroes/`. Les PNG originaux dans `assets/recipes/masters/` restent les masters et ne doivent pas etre supprimes.
+- Le manifest `assets/image-manifest.js` doit etre genere via `npm run generate:image-manifest`, versionne avec le cache, et valide en CI. Les miniatures d'interface doivent utiliser `assets/recipes/cards/` quand l'image n'est pas le hero ou une vraie image de partage.
+- Chaque image optimisee referencee par une recette doit avoir une miniature homonyme dans `assets/recipes/cards/`, sinon les cartes de l'accueil risquent d'afficher une image manquante.
 - Quand une image recette est ajoutee ou modifiee, regenerer les copies optimisees avec `npm run optimize:images` avant de push.
 - Les images doivent rester raccord au style Cook Note : sombre, gothique, nourriture lisible, ambiance cuisine/patisserie etrange, pas de texte dans l'image, pas de watermark.
 - Une image recette doit representer le plat exact ou une variante visuelle evidente du plat. Une image jolie mais semantiquement fausse (falafels pour nems, boulettes pour rouleaux, dessert pour base, etc.) est une erreur bloquante.
@@ -116,21 +116,22 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Quand une image visible est remplacee parce qu'elle etait fausse, moche, dessinee, dupliquee ou mal cadree, utiliser un nouveau nom de fichier stable pour contourner le cache image. Ne pas repointer la recette vers l'ancienne URL corrigee en place.
 - Les ids, URLs et noms de fichiers de recettes ne doivent pas garder de trace de source externe, d'auteur, de blog ou de personne citee dans la source de travail. Utiliser un nom culinaire neutre et stable.
 - L'audit image `npm run audit:images` doit rester disponible pour reperer images trop petites, miniatures faibles, cadrages atypiques et doublons visuels avant une passe photo.
+- `npm run validate:image-cleanup` doit bloquer les images presentes mais non utilisees, les images referencees absentes et les noms qui ne correspondent plus aux ids recette ou theme.
 - Avant d'integrer une image generee, montrer le visuel et attendre validation utilisateur, sauf validation deja donnee explicitement.
-- Quand une image est validee, la copier dans `assets/recipe-images/` avec un nom stable lie a l'id recette.
+- Quand une image est validee, la copier dans `assets/recipes/masters/` avec un nom stable lie a l'id recette.
 - Les images de direction artistique globale du mode jour (fond, hero, splash,
   logo, illustration) ne sont pas des images recette. Les stocker dans
-  `assets/day/` seulement apres validation visuelle, avec un nom stable. Ne pas
+  `assets/theme/day/global/` seulement apres validation visuelle, avec un nom stable. Ne pas
   utiliser de filtre CSS, d'inversion automatique ou de duplication incoherente
   pour simuler le mode jour.
 - Les overrides visuels recette par theme sont publies via `app-art-images.js` :
-  mode jour dans `assets/day/`, mode nuit dans `assets/dark/`. Ce module doit
+  mode jour dans `assets/theme/day/`, mode nuit dans `assets/theme/dark/`. Ce module doit
   rester versionne dans `index.html`, le service worker, le build `dist/` et les
   validateurs comme `app-images.js`.
 - Les fiches parents racine et collections utilisent les images parent theme
   validees avec banniere en haut de l'image quand elles existent :
-  `assets/dark/recipe-*_maitre-dark.jpg` en mode nuit et
-  `assets/day/recipe-*_maitre-day.jpg` en mode jour.
+  `assets/theme/dark/categories/*_maitre.jpg` en mode nuit et
+  `assets/theme/day/categories/*_maitre.jpg` en mode jour.
 - Les anciennes images `parent_*_moon` restent des fallbacks seulement :
   elles ne doivent pas passer avant les images parent theme validees.
 - Les images parent validees sont verrouillees par
@@ -165,7 +166,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les scripts de validation doivent rester branches dans `npm run check`.
 - Le site doit avoir un artefact de production reproductible via `npm run build`. La sortie publique est `dist/`, validee par `scripts/validate-dist.js`, et declaree pour Cloudflare Pages avec `pages_build_output_dir = "dist"`.
 - Cloudflare Pages Git doit avoir `Build command: npm run build` et `Build output directory: dist`; si le log indique `No build command specified`, corriger le reglage Pages avant de relancer le deploiement.
-- `dist/` est versionne comme artefact public Cloudflare Pages parce que le projet Pages actuel ne lance pas de build command. Il doit etre regenere par `npm run build` avant push, valide par `scripts/validate-dist.js`, et ne doit contenir ni admin, ni scripts, ni tests, ni rapports, ni PNG masters `assets/recipe-images/`. Les masters restent dans GitHub, les JPG optimises et miniatures sont les seuls visuels recette publies.
+- `dist/` est versionne comme artefact public Cloudflare Pages parce que le projet Pages actuel ne lance pas de build command. Il doit etre regenere par `npm run build` avant push, valide par `scripts/validate-dist.js`, et ne doit contenir ni admin, ni scripts, ni tests, ni rapports, ni PNG masters `assets/recipes/masters/`. Les masters restent dans GitHub, les JPG optimises et miniatures sont les seuls visuels recette publies.
 - Les modules runtime extraits de `app.js`, comme `app-images.js` et `app-art-images.js`, doivent etre charges avant `app.js`, versionnes dans `index.html` et `service-worker.js`, precaches, inclus dans `npm run check` et copies dans `dist/`.
 - Les tests visuels Playwright doivent rester branches dans GitHub Actions via `npm run test:visual`, avec captures desktop/mobile en artefacts pour verifier l'accueil, une fiche directe, les images chargees, le texte decode et l'absence de debordement horizontal.
 - Les tests visuels doivent rester compatibles avec la CSP stricte du site : ne pas utiliser `page.waitForFunction` ou une technique qui exige `unsafe-eval`.
@@ -176,7 +177,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Lancer `npm run audit:recipes` quand un gros lot de recettes ou de rangements change, puis lire `reports/recipe-audit.md`.
 - Le service worker ne doit precacher que des assets existants. Les anciennes URLs ou images supprimees ne doivent jamais rester dans le sitemap ou le cache.
 - Les pages HTML et les fichiers qui changent souvent doivent rester en reseau d abord avec cache de secours ; les images locales peuvent rester en cache-first.
-- Les images publiques immutables (`assets/recipe-card-images/`, `assets/recipe-images-optimized/`, logos et fonds) ne doivent pas etre rafraichies en arriere-plan a chaque lecture quand elles sont deja en cache. Le service worker doit retourner le cache directement pour limiter data, batterie et latence.
+- Les images publiques immutables (`assets/recipes/cards/`, `assets/recipes/heroes/`, `assets/theme/`, `assets/brand/`) ne doivent pas etre rafraichies en arriere-plan a chaque lecture quand elles sont deja en cache. Le service worker doit retourner le cache directement pour limiter data, batterie et latence.
 - Le service worker de production ne doit pas contenir de `console.log`, `console.warn` ou `console.error` runtime.
 - Les headers de production Cloudflare Pages doivent rester versionnes dans `_headers` : CSP stricte adaptee au site autonome, service worker et HTML en `no-cache`, JS/CSS/catalogues/manifest en cache court, images et vendors en immutable.
 - Les routes statiques Cloudflare Pages doivent rester versionnees dans `_redirects` pour que `/recette/*` et `/techniques` rechargent directement l'app sans 404. Les fallbacks SPA doivent cibler `/`, pas `/index.html`, et les recettes sans slash doivent rediriger en 301 vers l'URL canonique avec slash final, puis servir `/recette/<id>/index.html`, pour eviter les boucles detectees par Cloudflare Pages.

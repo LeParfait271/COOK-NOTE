@@ -21,7 +21,7 @@ ARCHITECTURE
 - recipes.js : source publique des recettes et fiches parents.
 - server.js : serveur Node et API admin.
 - admin-login.html, admin.html, admin.js, admin.css : back-office.
-- assets/recipe-images/ : images de recettes livrees avec le site.
+- assets/recipes/heroes/ : images de recettes livrees avec le site.
 - assets/uploads/ : images importees depuis l'admin.
 - scripts/validate-recipes.js : validation du catalogue.
 - scripts/validate-quantities.js : validation des multiplicateurs et rendements.

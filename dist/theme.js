@@ -3,16 +3,16 @@
   const S = 'cook_note_preferences', D = 'dark', L = 'light', T = [D, L], OK = true;
   const C = { dark: '#fbbf24', light: '#b45309' };
   const N = Object.freeze({
-    background: '/assets/base-principale-fond-site.jpg',
-    hero: '/assets/base-du-site.png',
-    logo: '/assets/cook-note-white.png',
-    appIcon: '/assets/cook-note.png'
+    background: '/assets/theme/dark/global/background.jpg',
+    hero: '/assets/theme/dark/global/hero.png',
+    logo: '/assets/theme/dark/global/logo.png',
+    appIcon: '/assets/brand/app-icon.png'
   });
   const J = Object.freeze({
-    background: '/assets/day/base-principale-fond-site-day.jpg',
-    hero: '/assets/day/base-du-site-day.jpg',
-    logo: '/assets/day/cook-note-day.png',
-    appIcon: '/assets/cook-note.png'
+    background: '/assets/theme/day/global/background.jpg',
+    hero: '/assets/theme/day/global/hero.jpg',
+    logo: '/assets/theme/day/global/logo.png',
+    appIcon: '/assets/brand/app-icon.png'
   });
   const M = Object.freeze({ dark: N, light: OK ? J : N });
   const E = new Set();

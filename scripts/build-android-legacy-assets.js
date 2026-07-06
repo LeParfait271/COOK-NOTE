@@ -250,9 +250,9 @@ function imageSourceFor(imagePath, preferCardImage) {
   const basename = path.basename(clean);
   if (!basename) return null;
 
-  const cardCandidate = path.join(ROOT, 'assets', 'recipe-card-images', basename);
+  const cardCandidate = path.join(ROOT, 'assets', 'recipes', 'cards', basename);
   const directCandidate = path.join(ROOT, clean);
-  const optimizedCandidate = path.join(ROOT, 'assets', 'recipe-images-optimized', basename);
+  const optimizedCandidate = path.join(ROOT, 'assets', 'recipes', 'heroes', basename);
   const candidates = preferCardImage
     ? [cardCandidate, directCandidate, optimizedCandidate]
     : [directCandidate, optimizedCandidate, cardCandidate];

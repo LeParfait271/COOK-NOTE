@@ -104,7 +104,7 @@ function adminQualityChecks(id, recipe) {
   add('Rangement', recipe.categories.length > 0 && recipe.seasons.length > 0 && Boolean(recipe.master || recipe.variants.length), 'catégorie, saison, parent');
   add('Recherche', recipe.tags.length >= 2, 'au moins 2 tags utiles');
   add('Structure', recipe.ingredients.length > 0 && recipe.steps.length > 0, 'ingrédients et étapes');
-  add('Image', recipe.image.startsWith('/assets/recipe-images-optimized/'), 'image locale optimisée');
+  add('Image', recipe.image.startsWith('/assets/recipes/heroes/'), 'image locale optimisée');
   add('SEO', recipe.title.length >= 4 && recipe.steps.join(' ').length >= 80, 'titre + contenu descriptif');
   return checks;
 }
@@ -120,7 +120,7 @@ function renderDiagnostics(id, recipe) {
     { label: 'Rôle menu', value: role },
     { label: 'Rayons', value: aisles.length ? aisles.join(', ') : 'À déduire' },
     { label: 'Allergènes', value: allergens.length ? allergens.join(', ') : 'Aucun majeur détecté' },
-    { label: 'Image', value: recipe.image ? (recipe.image.startsWith('/assets/recipe-images-optimized/') ? 'Optimisée' : 'À optimiser') : 'Manquante' },
+    { label: 'Image', value: recipe.image ? (recipe.image.startsWith('/assets/recipes/heroes/') ? 'Optimisée' : 'À optimiser') : 'Manquante' },
     { label: 'Checks', value: `${checks.filter(item => item.ok).length}/${checks.length} OK` }
   ].map(item => `
     <article>

@@ -12,11 +12,11 @@ const STALE_RECIPE_IDS = [
   'coulis_guide'
 ];
 const STALE_IMAGE_PATHS = [
-  'assets/recipe-images/coulis_fraise_spooky.png',
-  'assets/recipe-images/coulis_framboise_spooky.png',
-  'assets/recipe-images/coulis_abricot_vanille_spooky.png',
-  'assets/recipe-images/coulis_poire_spooky.png',
-  'assets/recipe-images/coulis_guide_spooky.png'
+  'assets/recipes/masters/coulis_fraise.png',
+  'assets/recipes/masters/coulis_framboise.png',
+  'assets/recipes/masters/coulis_abricot_vanille.png',
+  'assets/recipes/masters/coulis_poire.png',
+  'assets/recipes/masters/coulis_guide.png'
 ];
 const MOJIBAKE_PATTERN = /\u00c3[\u0080-\u00bf]|\u00c2[\u0080-\u00bf]|\u00c5[\u0080-\u00bf\u0152\u0153\u0160\u0161\u0178\u017d\u017e\u2018-\u201d]|\u00e2[\u0080-\u00bf\u20ac\u201a-\u201e\u2020-\u2021\u2026\u2030\u2039\u2122]|\ufffd/;
 const TEXT_FILES_TO_SCAN = [
@@ -186,9 +186,9 @@ recipeIds.forEach(id => {
 });
 
 Object.entries(recipes).forEach(([id, recipe]) => {
-  if (recipe.image && /^\/assets\/recipe-images-optimized\/.*\.jpg(?:$|\?)/i.test(recipe.image)) {
+  if (recipe.image && /^\/assets\/recipes\/heroes\/.*\.jpg(?:$|\?)/i.test(recipe.image)) {
     const cardImagePath = recipe.image
-      .replace(/^\/assets\/recipe-images-optimized\//, 'assets/recipe-card-images/')
+      .replace(/^\/assets\/recipes\/heroes\//, 'assets/recipes/cards/')
       .replace(/\?.*$/, '');
     if (!fs.existsSync(path.join(ROOT, cardImagePath))) {
       fail(`${id}: miniature carte introuvable (${cardImagePath}).`);
@@ -228,21 +228,21 @@ if (!staticAssets) {
     '/manifest.json',
     '/assets/vendor/react.production.min.js',
     '/assets/vendor/react-dom.production.min.js',
-    '/assets/cook-note.png',
-    '/assets/cook-note-white.png',
-    '/assets/day/base-du-site-day.jpg',
-    '/assets/day/base-principale-fond-site-day.jpg',
-    '/assets/day/category-apero-day.jpg',
-    '/assets/day/category-accompagnements-day.jpg',
-    '/assets/day/category-bases-day.jpg',
-    '/assets/day/category-desserts-day.jpg',
-    '/assets/day/category-entrees-day.jpg',
-    '/assets/day/category-petit-dejeuner-day.jpg',
-    '/assets/day/category-plats-day.jpg',
-    '/assets/day/category-sauces-day.jpg',
-    '/assets/day/cook-note-day.png',
-    '/assets/day/recipe-seafood-day.jpg',
-    '/assets/dark/recipe-beurre_ail-dark.jpg'
+    '/assets/brand/app-icon.png',
+    '/assets/theme/dark/global/logo.png',
+    '/assets/theme/day/global/hero.jpg',
+    '/assets/theme/day/global/background.jpg',
+    '/assets/theme/day/categories/apero_maitre.jpg',
+    '/assets/theme/day/categories/accompagnements_maitre.jpg',
+    '/assets/theme/day/categories/elements_base_maitre.jpg',
+    '/assets/theme/day/categories/desserts_maitre.jpg',
+    '/assets/theme/day/categories/entrees_maitre.jpg',
+    '/assets/theme/day/categories/petit_dejeuner_maitre.jpg',
+    '/assets/theme/day/categories/plats_maitre.jpg',
+    '/assets/theme/day/categories/sauces_maitre.jpg',
+    '/assets/theme/day/global/logo.png',
+    '/assets/theme/day/recipes/bouillabaisse_rouille.jpg',
+    '/assets/theme/dark/recipes/beurre_ail.jpg'
   ].forEach(required => {
     if (!normalizedStaticAssets.includes(required)) fail(`service-worker.js: asset critique absent du precache (${required}).`);
   });

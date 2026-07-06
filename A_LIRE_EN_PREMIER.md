@@ -174,9 +174,9 @@ restantes. Ne pas faire de changement cosmique non verifiable juste pour
 
 - `recipes.js` : source principale du catalogue. Verifier parents, variantes,
   liens internes, quantites, images, categories et recherche.
-- `assets/recipe-images/` : masters image. Ne pas supprimer lors d'une
+- `assets/recipes/masters/` : masters image. Ne pas supprimer lors d'une
   optimisation.
-- `assets/recipe-images-optimized/` et `assets/recipe-card-images/` :
+- `assets/recipes/heroes/` et `assets/recipes/cards/` :
   fichiers servis. Les generer par scripts.
 - `assets/image-manifest.js` : generer avec `npm run generate:image-manifest`.
 - `dist/` : artefact public Cloudflare Pages. Le regenerer avec

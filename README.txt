@@ -11,7 +11,7 @@ Cook Note est un carnet culinaire web avec :
 - panier de courses combine entre plusieurs recettes cochees ;
 - fiches detaillees avec ingredients, etapes, notes pratiques et liens internes ;
 - fiches techniques sur les familles importantes ;
-- images servies depuis le projet dans assets/recipe-images/ ou assets/uploads/.
+- images servies depuis le projet dans assets/recipes/heroes/ ou assets/uploads/.
 - garde-fou maitre dans A_LIRE_EN_PREMIER.md.
 - regles projet centralisees dans COOK_NOTE_RULES.md.
 
@@ -59,7 +59,7 @@ SCHEMA RECETTE
     steps: ['Etape 1', 'Etape 2'],
     notes: ['Astuce ou lien HTML data-goto'],
     technical: [{ label: 'Texture', value: 'Point technique' }],
-    image: '/assets/recipe-images/recette_id.jpg',
+    image: '/assets/recipes/heroes/recette_id.jpg',
     video: 'https://youtube.com/...',
     tags: ['rapide', 'base']
   }

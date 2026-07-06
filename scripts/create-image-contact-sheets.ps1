@@ -101,8 +101,8 @@ function New-ContactSheets([string]$name, [array]$files) {
   }
 }
 
-New-ContactSheets "recipe-images-optimized" @(Get-ImageFiles "assets\recipe-images-optimized")
-New-ContactSheets "theme-dark" @(Get-ImageFiles "assets\dark")
-New-ContactSheets "theme-day" @(Get-ImageFiles "assets\day")
+New-ContactSheets "recipes-heroes" @(Get-ImageFiles "assets\recipes\heroes")
+New-ContactSheets "theme-dark" @(Get-ImageFiles "assets\theme\dark")
+New-ContactSheets "theme-day" @(Get-ImageFiles "assets\theme\day")
 
 Write-Host "Contact sheets written to $outRoot"

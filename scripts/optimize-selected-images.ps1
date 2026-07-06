@@ -1,9 +1,9 @@
 param(
   [Parameter(Mandatory = $true)]
   [string[]]$Names,
-  [string]$SourceDir = "assets\recipe-images",
-  [string]$OptimizedDir = "assets\recipe-images-optimized",
-  [string]$CardDir = "assets\recipe-card-images",
+  [string]$SourceDir = "assets\recipes\masters",
+  [string]$OptimizedDir = "assets\recipes\heroes",
+  [string]$CardDir = "assets\recipes\cards",
   [int]$OptimizedMaxWidth = 1400,
   [int]$CardMaxWidth = 760,
   [int]$OptimizedQuality = 86,

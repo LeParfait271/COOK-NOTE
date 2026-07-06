@@ -14,27 +14,26 @@ const REQUIRED_FILES = [
   'app-art-images.js',
   'theme.js',
   'i18n.js',
-  'assets/base-du-site.png',
-  'assets/base-principale-fond-site.jpg',
+  'assets/brand/app-icon.png',
+  'assets/brand/mark.svg',
   'assets/catalog-1.js',
   'assets/catalog-2.js',
   'assets/catalog-3.js',
   'assets/catalog-4.js',
-  'assets/cook-note-mark.svg',
-  'assets/cook-note-white.png',
-  'assets/cook-note.png',
-  'assets/day/base-du-site-day.jpg',
-  'assets/day/base-principale-fond-site-day.jpg',
-  'assets/day/category-apero-day.jpg',
-  'assets/day/category-accompagnements-day.jpg',
-  'assets/day/category-bases-day.jpg',
-  'assets/day/category-desserts-day.jpg',
-  'assets/day/category-entrees-day.jpg',
-  'assets/day/category-petit-dejeuner-day.jpg',
-  'assets/day/category-plats-day.jpg',
-  'assets/day/category-sauces-day.jpg',
-  'assets/day/cook-note-day.png',
-  'assets/day/recipe-seafood-day.jpg',
+  'assets/theme/dark/global/background.jpg',
+  'assets/theme/dark/global/hero.png',
+  'assets/theme/dark/global/logo.png',
+  'assets/theme/day/global/background.jpg',
+  'assets/theme/day/global/hero.jpg',
+  'assets/theme/day/global/logo.png',
+  'assets/theme/day/categories/apero_maitre.jpg',
+  'assets/theme/day/categories/accompagnements_maitre.jpg',
+  'assets/theme/day/categories/elements_base_maitre.jpg',
+  'assets/theme/day/categories/desserts_maitre.jpg',
+  'assets/theme/day/categories/entrees_maitre.jpg',
+  'assets/theme/day/categories/petit_dejeuner_maitre.jpg',
+  'assets/theme/day/categories/plats_maitre.jpg',
+  'assets/theme/day/categories/sauces_maitre.jpg',
   'assets/image-manifest.js',
   'assets/vendor/react.production.min.js',
   'assets/vendor/react-dom.production.min.js',
@@ -57,7 +56,7 @@ const FORBIDDEN_PATHS = [
   'admin.js',
   'admin.css',
   'admin.local.example.json',
-  'assets/recipe-images',
+  'assets/recipes/masters',
   'backups',
   'docs',
   'node_modules',
@@ -143,13 +142,13 @@ if (!fs.existsSync(DIST)) {
   });
   Object.entries(recipes).forEach(([id, recipe]) => {
     const image = recipe?.image;
-    if (!image || !image.startsWith('/assets/recipe-images-optimized/')) {
+    if (!image || !image.startsWith('/assets/recipes/heroes/')) {
       fail(`${id}: image production absente ou non optimisee.`);
       return;
     }
     const optimized = normalizeAssetPath(image);
     const card = optimized
-      .replace(/^assets\/recipe-images-optimized\//, 'assets/recipe-card-images/')
+      .replace(/^assets\/recipes\/heroes\//, 'assets/recipes/cards/')
       .replace(/\.(?:png|jpe?g|webp)$/i, '.jpg');
     if (!exists(optimized)) fail(`dist/${optimized}: image optimisee manquante (${id}).`);
     if (!exists(card)) fail(`dist/${card}: miniature manquante (${id}).`);
@@ -182,7 +181,7 @@ if (!fs.existsSync(DIST)) {
     ? loadScriptObject('assets/image-manifest.js', 'COOK_NOTE_IMAGE_MANIFEST')
     : {};
   Object.keys(manifest).forEach(file => {
-    if (file.startsWith('assets/recipe-images/')) {
+    if (file.startsWith('assets/recipes/masters/')) {
       fail(`dist/assets/image-manifest.js: master PNG publie dans le manifest (${file}).`);
     }
     if (!exists(file)) fail(`dist/${file}: fichier liste dans le manifest absent.`);

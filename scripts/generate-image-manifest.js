@@ -4,10 +4,10 @@ const vm = require('node:vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_FILE = path.join(ROOT, 'assets', 'image-manifest.js');
-const BASE_DAY_ART_FILES = [
-  'assets/day/base-du-site-day.jpg',
-  'assets/day/base-principale-fond-site-day.jpg',
-  'assets/day/cook-note-day.png'
+const THEME_GLOBAL_ART_FILES = [
+  'assets/theme/day/global/background.jpg',
+  'assets/theme/day/global/hero.jpg',
+  'assets/theme/day/global/logo.png'
 ];
 const CHECK_ONLY = process.argv.includes('--check');
 
@@ -35,7 +35,7 @@ function loadThemeRecipeArt() {
 
 function loadThemeArtFiles() {
   const themeArt = loadThemeRecipeArt();
-  const files = new Set(BASE_DAY_ART_FILES);
+  const files = new Set(THEME_GLOBAL_ART_FILES);
   Object.values(themeArt).forEach(map => {
     Object.values(map || {}).forEach(image => files.add(normalizeKey(image)));
   });
@@ -44,13 +44,13 @@ function loadThemeArtFiles() {
 
 function recipeCardPath(image) {
   return normalizeKey(image)
-    .replace(/^assets\/recipe-images-optimized\//, 'assets/recipe-card-images/')
+    .replace(/^assets\/recipes\/heroes\//, 'assets/recipes/cards/')
     .replace(/\.(?:png|jpe?g|webp)$/i, '.jpg');
 }
 
 function imageSourcePath(image) {
   return normalizeKey(image)
-    .replace(/^assets\/recipe-images-optimized\//, 'assets/recipe-images/')
+    .replace(/^assets\/recipes\/heroes\//, 'assets/recipes/masters/')
     .replace(/\.(?:jpe?g|webp)$/i, '.png');
 }
 
@@ -110,16 +110,16 @@ function imageInfo(file) {
 function buildManifest() {
   const recipes = loadRecipes();
   const files = new Set([
-    'assets/base-du-site.png',
-    'assets/base-principale-fond-site.jpg',
-    'assets/cook-note.png',
-    'assets/cook-note-white.png'
+    'assets/theme/dark/global/hero.png',
+    'assets/theme/dark/global/background.jpg',
+    'assets/theme/dark/global/logo.png',
+    'assets/brand/app-icon.png'
   ]);
   loadThemeArtFiles().forEach(file => files.add(file));
 
   Object.values(recipes).forEach(recipe => {
     const image = recipe?.image;
-    if (!image || !image.startsWith('/assets/recipe-images-optimized/')) return;
+    if (!image || !image.startsWith('/assets/recipes/heroes/')) return;
     files.add(normalizeKey(image));
     files.add(recipeCardPath(image));
     files.add(imageSourcePath(image));

@@ -59,32 +59,20 @@
 /assets/vendor/*
   Cache-Control: public, max-age=31536000, immutable
 
-/assets/recipe-card-images/*
+/assets/recipes/cards/*
   Cache-Control: public, max-age=31536000, immutable
 
-/assets/recipe-images-optimized/*
+/assets/recipes/heroes/*
   Cache-Control: public, max-age=31536000, immutable
 
-/assets/recipe-images/*
+/assets/recipes/masters/*
   Cache-Control: public, max-age=31536000, immutable
 
-/assets/day/*
+/assets/theme/day/*
   Cache-Control: public, max-age=31536000, immutable
 
-/assets/dark/*
+/assets/theme/dark/*
   Cache-Control: public, max-age=31536000, immutable
 
-/assets/base-du-site.png
-  Cache-Control: public, max-age=31536000, immutable
-
-/assets/base-principale-fond-site.jpg
-  Cache-Control: public, max-age=31536000, immutable
-
-/assets/cook-note.png
-  Cache-Control: public, max-age=31536000, immutable
-
-/assets/cook-note-white.png
-  Cache-Control: public, max-age=31536000, immutable
-
-/assets/cook-note-mark.svg
+/assets/brand/*
   Cache-Control: public, max-age=31536000, immutable

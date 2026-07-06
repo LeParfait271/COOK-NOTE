@@ -110,10 +110,10 @@ function runConfettiBurst() {
 }
 
 const FALLBACK_ART_ASSETS = Object.freeze({
-  background: '/assets/base-principale-fond-site.jpg',
-  hero: '/assets/base-du-site.png',
-  logo: '/assets/cook-note-white.png',
-  appIcon: '/assets/cook-note.png'
+  background: '/assets/theme/dark/global/background.jpg',
+  hero: '/assets/theme/dark/global/hero.png',
+  logo: '/assets/theme/dark/global/logo.png',
+  appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
 const SITE_VERSION = 'v3.20';
@@ -7676,7 +7676,7 @@ function App() {
       h('div', { className: 'site-footer-inner' },
         h('div', { className: 'site-footer-identity' },
           h('div', { className: 'site-footer-mark' },
-          h('img', { src: '/assets/cook-note-mark.svg', alt: '', width: 128, height: 128, loading: 'lazy', decoding: 'async' })
+          h('img', { src: '/assets/brand/mark.svg', alt: '', width: 128, height: 128, loading: 'lazy', decoding: 'async' })
           ),
           h('div', { className: 'site-footer-copy' },
           h('p', { className: 'site-footer-brand' }, 'Cook Note \u00a9 2026.'),

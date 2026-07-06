@@ -24,9 +24,9 @@
   --ds-color-info: #38bdf8;
   --ds-color-scheme: dark;
   --ds-loading-overlay: linear-gradient(115deg, rgba(0,0,0,.92), rgba(0,0,0,.72));
-  --art-background-image: url("/assets/base-principale-fond-site.jpg");
-  --art-hero-image: url("/assets/base-du-site.png");
-  --art-logo-image: url("/assets/cook-note-white.png");
+  --art-background-image: url("/assets/theme/dark/global/background.jpg");
+  --art-hero-image: url("/assets/theme/dark/global/hero.png");
+  --art-logo-image: url("/assets/theme/dark/global/logo.png");
   --ds-shell-background:
     linear-gradient(180deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .94) 58%, #050505),
     var(--art-background-image) center top / cover repeat-y,
