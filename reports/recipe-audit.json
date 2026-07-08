@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-02T02:13:03.453Z",
+  "generatedAt": "2026-07-08T13:12:16.283Z",
   "totals": {
     "recipes": 267,
     "leaves": 248,
@@ -1560,6 +1560,18 @@
       ]
     },
     {
+      "id": "gazpacho_tomate_menthe_basilic",
+      "title": "Gaspacho tomate, menthe et basilic",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "gateau_roule_framboise",
       "title": "Gâteau roulé à la framboise",
       "score": 82,
@@ -1587,18 +1599,6 @@
     {
       "id": "gaufres_pommes_terre",
       "title": "Gaufres de pommes de terre croustillantes",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "gazpacho_tomate_menthe_basilic",
-      "title": "Gazpacho tomate, menthe et basilic",
       "score": 82,
       "issues": [
         "Conservation ou securite alimentaire a verifier."

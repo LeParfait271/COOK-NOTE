@@ -1,6 +1,6 @@
 # Audit Cook Note
 
-Genere le 2026-07-02T02:13:03.453Z.
+Genere le 2026-07-08T13:12:16.283Z.
 
 - Recettes totales : 267
 - Recettes feuilles : 248
@@ -260,14 +260,14 @@ Genere le 2026-07-02T02:13:03.453Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gaspacho de melon (gaspacho_melon) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Gaspacho tomate, menthe et basilic (gazpacho_tomate_menthe_basilic) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gâteau roulé à la framboise (gateau_roule_framboise) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gaufres (gaufre_bruxelles) : 66/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Gaufres de pommes de terre croustillantes (gaufres_pommes_terre) : 82/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-- Gazpacho tomate, menthe et basilic (gazpacho_tomate_menthe_basilic) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gratin chou-fleur comte lardons (gratin_chou_fleur_comte_lardons) : 100/100 - OK
 - Gratin chou-fleur mascarpone moutarde (gratin_chou_fleur_mascarpone_moutarde) : 100/100 - OK
