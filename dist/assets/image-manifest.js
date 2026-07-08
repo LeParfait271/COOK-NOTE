@@ -3053,7 +3053,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/theme/dark/recipes/coulis_maitre.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 177894
+    "bytes": 165237
   },
   "assets/theme/dark/recipes/court_bouillon.jpg": {
     "width": 1280,
@@ -3478,7 +3478,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/theme/dark/recipes/oeufs_meurette_faciles.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 225866
+    "bytes": 162209
   },
   "assets/theme/dark/recipes/oeufs_mimosa_variantes.jpg": {
     "width": 1400,
@@ -3488,7 +3488,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/theme/dark/recipes/oignons_rotis_thym_miel.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 218921
+    "bytes": 171712
   },
   "assets/theme/dark/recipes/pain_grille_beurre_ail_herbes.jpg": {
     "width": 1400,
@@ -3588,7 +3588,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/theme/dark/recipes/pesto_variantes.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 192501
+    "bytes": 157021
   },
   "assets/theme/dark/recipes/petits_pois_francaise.jpg": {
     "width": 1280,
@@ -3753,7 +3753,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/theme/dark/recipes/ricotta_fouettee.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 189487
+    "bytes": 192679
   },
   "assets/theme/dark/recipes/rillettes_porc.jpg": {
     "width": 1400,
@@ -3788,7 +3788,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/theme/dark/recipes/rouille_haut_de_gamme.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 197566
+    "bytes": 174582
   },
   "assets/theme/dark/recipes/salade_avocat_oeuf_epinards.jpg": {
     "width": 1280,
@@ -3798,7 +3798,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/theme/dark/recipes/salade_caprese.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 214873
+    "bytes": 161194
   },
   "assets/theme/dark/recipes/salade_epinards_clementines_amande_feta.jpg": {
     "width": 1280,
@@ -3818,7 +3818,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/theme/dark/recipes/salade_pois_chiches_thon_poivrons.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 228369
+    "bytes": 179140
   },
   "assets/theme/dark/recipes/samoussas_boeuf_epinards_petits_pois.jpg": {
     "width": 1400,
@@ -3848,17 +3848,17 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/theme/dark/recipes/sauce_mornay.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 173726
+    "bytes": 152999
   },
   "assets/theme/dark/recipes/sauce_nem.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 158083
+    "bytes": 139183
   },
   "assets/theme/dark/recipes/sauce_roquefort.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 180620
+    "bytes": 145797
   },
   "assets/theme/dark/recipes/sauce_yaourt_citronnee.jpg": {
     "width": 1400,
@@ -3976,9 +3976,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 207162
   },
   "assets/theme/dark/recipes/tomates_cocktail_thon_mascarpone.jpg": {
-    "width": 1400,
-    "height": 718,
-    "bytes": 210776
+    "width": 1280,
+    "height": 720,
+    "bytes": 164207
   },
   "assets/theme/dark/recipes/tomates_farcies.jpg": {
     "width": 1280,
@@ -3993,22 +3993,22 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/theme/dark/recipes/tomates_provencales.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 227103
+    "bytes": 191461
   },
   "assets/theme/dark/recipes/tomates_variantes.jpg": {
-    "width": 1400,
-    "height": 765,
-    "bytes": 218438
+    "width": 1280,
+    "height": 720,
+    "bytes": 189935
   },
   "assets/theme/dark/recipes/toppings_frites.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 177658
+    "bytes": 173789
   },
   "assets/theme/dark/recipes/tortillas_mexicaines.jpg": {
     "width": 1280,
     "height": 720,
-    "bytes": 187044
+    "bytes": 180106
   },
   "assets/theme/dark/recipes/veloute_hiver_noix_cajou.jpg": {
     "width": 1280,

@@ -11,7 +11,7 @@ const LOCKED_PARENT_ART = Object.freeze({
   'assets/theme/dark/recipes/biscuits_gouters_maitre.jpg': '2e899e7988ff577ec5c2892fa0ab01b34f8da11ef3e75c4564faf9b7f580d28a',
   'assets/theme/dark/recipes/chantilly_maitre.jpg': 'edb97a5b176e92b9e593e8b19c50eb0d1e12570b7728f9740c83084dfca1a315',
   'assets/theme/dark/recipes/cookies_sucres_maitre.jpg': '8ed9f53699888928ef1aebd36f75a2ed6d9f8cd114e3da9fabad55fd92edb35b',
-  'assets/theme/dark/recipes/coulis_maitre.jpg': '1a0269e1f65c581b5b2cac1b3b0fe73f73ba6ac4cba45e2f06d3336bb0e226ad',
+  'assets/theme/dark/recipes/coulis_maitre.jpg': 'c0c4e2c55cd1149f855a0378e25bf16b63be2a2e2fca81a0194e23478ec62240',
   'assets/theme/dark/recipes/cremes_maitre.jpg': '2da5b9359323bf4d76e1280ba5f556756d563c3601a408b27fb0b8b9ff9a823d',
   'assets/theme/dark/recipes/crudites_maitre.jpg': 'a7fba93621537db7788e3292235b7138988097ac794e9ff1aeff94e2ff99ebcb',
   'assets/theme/dark/recipes/desserts_cuillere_maitre.jpg': '014f5f6776347266e889417d383afeaf7da91db86207de5080c3ce00c682c573',
