@@ -4161,9 +4161,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 315886
   },
   "assets/theme/day/recipes/brioche_perdue_caramel_beurre_sale.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 178170
+    "width": 1280,
+    "height": 720,
+    "bytes": 235059
   },
   "assets/theme/day/recipes/brochettes_crevettes_chorizo.jpg": {
     "width": 1400,
@@ -4286,9 +4286,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 319492
   },
   "assets/theme/day/recipes/chocolat_ancien.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 178184
+    "width": 1280,
+    "height": 720,
+    "bytes": 209725
   },
   "assets/theme/day/recipes/chorizo_au_cidre.jpg": {
     "width": 1400,
@@ -4471,9 +4471,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 215529
   },
   "assets/theme/day/recipes/crepes_lait_amandes.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 180066
+    "width": 1280,
+    "height": 720,
+    "bytes": 240832
   },
   "assets/theme/day/recipes/crevettes_ail_persil.jpg": {
     "width": 1536,
@@ -4621,9 +4621,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 345811
   },
   "assets/theme/day/recipes/gaufre_bruxelles.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 206217
+    "width": 1280,
+    "height": 720,
+    "bytes": 230343
   },
   "assets/theme/day/recipes/gaufres_pommes_terre.jpg": {
     "width": 1536,
@@ -4816,9 +4816,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 190162
   },
   "assets/theme/day/recipes/oeuf_chili_crisp_toast.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 191247
+    "width": 1280,
+    "height": 720,
+    "bytes": 253288
   },
   "assets/theme/day/recipes/oeufs_cocotte_chorizo.jpg": {
     "width": 1400,
@@ -4856,14 +4856,14 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 157826
   },
   "assets/theme/day/recipes/pancakes_fluffy.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 171621
+    "width": 1280,
+    "height": 720,
+    "bytes": 206609
   },
   "assets/theme/day/recipes/pancakes_variantes.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 156432
+    "width": 1280,
+    "height": 720,
+    "bytes": 226674
   },
   "assets/theme/day/recipes/paris_brest.jpg": {
     "width": 1280,
