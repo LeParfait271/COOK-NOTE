@@ -322,6 +322,134 @@ textarea {
   font-weight: 800;
 }
 
+.admin-health-panel {
+  display: grid;
+  gap: 12px;
+  margin: 12px 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 9%, transparent), transparent 62%),
+    rgba(255, 255, 255, .045);
+  padding: 12px;
+}
+
+.admin-health-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.admin-health-head h2,
+.admin-health-head p {
+  margin: 0;
+}
+
+.admin-health-head span {
+  max-width: 52%;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.admin-health-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  gap: 7px;
+}
+
+.admin-health-metrics article {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, .18);
+  padding: 8px;
+}
+
+.admin-health-metrics span,
+.admin-health-metrics small,
+.admin-health-queue > span,
+.admin-health-queue small,
+.admin-health-empty span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.admin-health-metrics strong {
+  display: block;
+  margin: 3px 0;
+  color: var(--accent);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.admin-health-queue {
+  display: grid;
+  gap: 7px;
+}
+
+.admin-health-duplicates {
+  display: grid;
+  gap: 6px;
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, .16);
+  padding: 9px;
+}
+
+.admin-health-duplicates > span {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.admin-health-duplicates small,
+.admin-health-duplicates em {
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.admin-health-item {
+  display: grid;
+  min-height: auto;
+  justify-items: start;
+  gap: 3px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, .2);
+  color: var(--text);
+  padding: 8px;
+  text-align: left;
+}
+
+.admin-health-item:hover,
+.admin-health-item:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  box-shadow: var(--ds-focus-ring);
+}
+
+.admin-health-item strong {
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+
+.admin-health-queue em,
+.admin-health-empty {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+}
+
 .admin-diagnostic-panel {
   display: grid;
   gap: 12px;
@@ -523,6 +651,7 @@ textarea:focus-visible {
 .login-card,
 .recipe-sidebar,
 .editor-panel,
+.admin-health-panel,
 .admin-diagnostic-panel,
 .admin-diagnostic-grid article,
 fieldset,
@@ -558,8 +687,18 @@ fieldset,
   .admin-layout,
   .form-grid,
   .media-box,
+  .admin-health-metrics,
   .admin-diagnostic-grid {
     grid-template-columns: 1fr;
+  }
+
+  .admin-health-head {
+    display: grid;
+  }
+
+  .admin-health-head span {
+    max-width: none;
+    text-align: left;
   }
 
   .recipe-sidebar {

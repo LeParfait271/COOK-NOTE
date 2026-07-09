@@ -11,6 +11,7 @@ const OUT_DETAIL_IMAGE_DIR = path.join(OUT_DIR, 'detail-images');
 const RECIPES_FILE = path.join(ROOT, 'recipes.js');
 const APP_FILE = path.join(ROOT, 'app.js');
 const APP_IMAGES_FILE = path.join(ROOT, 'app-images.js');
+const APP_PREMIUM_FILE = path.join(ROOT, 'app-premium.js');
 const ANDROID_GRADLE_PROPERTIES_FILE = path.join(ROOT, 'android-legacy', 'gradle.properties');
 const MAX_IMAGE_WIDTH = 480;
 const DETAIL_IMAGE_WIDTH = 1280;
@@ -211,6 +212,7 @@ function loadAppHelpers() {
 
   vm.createContext(context);
   vm.runInContext(read(APP_IMAGES_FILE), context, { filename: APP_IMAGES_FILE });
+  vm.runInContext(read(APP_PREMIUM_FILE), context, { filename: APP_PREMIUM_FILE });
   vm.runInContext(`${appCode.slice(0, end)}
 globalThis.__cookNoteAndroidHelpers = {
   getRecipeAllergens,

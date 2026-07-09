@@ -36,12 +36,14 @@ function loadAppContext() {
   vm.runInContext(read('recipes.js'), context, { filename: path.join(ROOT, 'recipes.js') });
   vm.runInContext(read('assets/image-manifest.js'), context, { filename: path.join(ROOT, 'assets/image-manifest.js') });
   vm.runInContext(read('app-images.js'), context, { filename: path.join(ROOT, 'app-images.js') });
+  vm.runInContext(read('app-premium.js'), context, { filename: path.join(ROOT, 'app-premium.js') });
   vm.runInContext(read('app.js'), context, { filename: path.join(ROOT, 'app.js') });
   return context;
 }
 
 const files = {
   appImages: read('app-images.js'),
+  appPremium: read('app-premium.js'),
   app: read('app.js'),
   style: read('style.css'),
   packageJson: read('package.json'),
@@ -74,7 +76,7 @@ const FEATURE_COVERAGE = [
 
 FEATURE_COVERAGE.forEach(feature => {
   feature.checks.forEach(fragment => {
-    const haystack = `${files.appImages}\n${files.app}\n${files.style}\n${files.packageJson}\n${files.production}\n${files.recipes}\n${files.ui}\n${files.admin}\n${files.adminHtml}\n${files.adminCss}\n${files.auditRecipes}\n${files.auditImages}\n${files.visualImages}\n${files.performance}\n${files.headers}\n${files.workflow}\n${files.visualSmoke}\n${files.rules}`;
+    const haystack = `${files.appImages}\n${files.appPremium}\n${files.app}\n${files.style}\n${files.packageJson}\n${files.production}\n${files.recipes}\n${files.ui}\n${files.admin}\n${files.adminHtml}\n${files.adminCss}\n${files.auditRecipes}\n${files.auditImages}\n${files.visualImages}\n${files.performance}\n${files.headers}\n${files.workflow}\n${files.visualSmoke}\n${files.rules}`;
     expect(`Couverture feature ${feature.name} incomplete (${fragment}).`, haystack.includes(fragment));
   });
 });
@@ -89,7 +91,7 @@ FEATURE_COVERAGE.forEach(feature => {
   'issueBuckets',
   'Fichiers a ouvrir'
 ].forEach(fragment => {
-  const haystack = `${files.app}\n${files.style}\n${files.admin}\n${files.adminHtml}\n${files.adminCss}\n${files.auditRecipes}\n${files.auditImages}`;
+  const haystack = `${files.appPremium}\n${files.app}\n${files.style}\n${files.admin}\n${files.adminHtml}\n${files.adminCss}\n${files.auditRecipes}\n${files.auditImages}`;
   expect(`Couverture nouvelle amelioration incomplete (${fragment}).`, haystack.includes(fragment));
 });
 

@@ -116,12 +116,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.28';
+const SITE_VERSION = 'v3.29';
 const SITE_UPDATED_AT = '09/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '3.28';
+const ANDROID_LEGACY_APK_VERSION = '3.29';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -785,10 +785,32 @@ const STORAGE_KEYS = {
   recentRecipes: 'cook_note_recent_recipes',
   recentSearches: 'cook_note_recent_searches',
   personalNotes: 'cook_note_personal_recipe_notes',
+  pantry: 'cook_note_pantry_items',
   homeScroll: 'cook_note_home_scroll',
   scrollPositions: 'cook_note_session_scroll_positions',
   legacyFavorites: ['mc_food_favorites', 'cuisine_favs']
 };
+
+const {
+  PANTRY_SUGGESTIONS,
+  normalizePantryItems,
+  pantryIndex,
+  pantryHasIngredientName,
+  getSmartSubstitutionNotes,
+  scorePantryRecipe,
+  pantryMatchLabel,
+  semanticRecipeSignals,
+  recipeMatchesSearchConstraints,
+  semanticRecipeSearchScore,
+  searchSuggestionTerms,
+  filterFreshShoppingData,
+  shoppingListTextFromData,
+  PantryPanel,
+  PantryAssistant,
+  downloadSharePosterCard,
+  trapModalFocus,
+  cacheUrlsForOffline
+} = window.CookNotePremium;
 
 function readJson(key, fallback) {
   try {
@@ -1124,23 +1146,23 @@ function getRecipeAllergens(recipe) {
     if (pattern.test(text)) allergens.add(label);
   };
 
-  addIf('Gluten', /\b(farine|ble|pain|pains|brioche|brioches|bun|buns|pate a choux|pate sucree|pate a tarte|pates a tarte|chapelure|semoule|orge|avoine|epeautre|tortillas?)\b/);
-  addIf('Œufs', /\b(oeuf|oeufs|jaune d oeuf|jaunes d oeufs|blanc d oeuf|blancs d oeufs|mimosa)\b/);
-  addIf('Lait', /\b(lait entier|lait tiede|lait froid|lait chaud|lait ribot|babeurre|beurre|creme|fromage|parmesan|comte|cheddar|mozzarella|mascarpone|ricotta|yaourt|yogourt)\b/);
-  addIf('Fruits à coque', /\b(amande|amandes|noisette|noisettes|pistache|pistaches|noix|pecan|cajou|praline|praline|pralinoise)\b/);
-  addIf('Arachides', /\b(arachide|arachides|cacahuete|cacahuetes|beurre de cacahuete)\b/);
-  addIf('Soja', /\b(soja|sauce soja|tofu|miso|edamame)\b/);
+  const nutText = text.replace(/\bnoix de (?:coco|muscade)\b/g, ' ');
+  addIf('Gluten', /\b(farine|ble|blé|froment|seigle|orge|avoine|epeautre|épeautre|malt|semoule|couscous|boulgour|chapelure|panko|pain|pains|brioche|brioches|bun|buns|pate a choux|pate sucree|pate a tarte|pates a tarte|pates|pâtes|nouilles|ravioles?|tortillas?)\b/);
+  addIf('Œufs', /\b(oeuf|oeufs|œuf|œufs|jaune d oeuf|jaunes d oeufs|jaune d œuf|jaunes d œufs|blanc d oeuf|blancs d oeufs|blanc d œuf|blancs d œufs|mimosa)\b/);
+  addIf('Lait', /\b(lait|lactose|babeurre|beurre|creme|crème|fromage|parmesan|comte|comté|cheddar|mozzarella|mascarpone|ricotta|yaourt|yogourt|feta|roquefort|chevre|chèvre|brie|mornay|chantilly)\b/);
+  if (/\b(amande|amandes|noisette|noisettes|pistache|pistaches|noix|pecan|pécan|cajou|macadamia|praline|praliné|pralinoise|pignon|pignons)\b/.test(nutText)) allergens.add('Fruits à coque');
+  addIf('Arachides', /\b(arachide|arachides|cacahuete|cacahuetes|cacahuète|cacahuètes|beurre de cacahuete|beurre de cacahuète)\b/);
+  addIf('Soja', /\b(soja|sauce soja|tofu|miso|edamame|tamari)\b/);
   addIf('Moutarde', /\b(moutarde|graines de moutarde)\b/);
-  addIf('Miel', /\b(miel)\b/);
-  addIf('Poisson', /\b(poisson|saumon|thon|cabillaud|anchois|sardine|dorade|bar|bouillabaisse)\b/);
-  addIf('Crustacés', /\b(crevette|crevettes|crabe|homard|langoustine|gambas)\b/);
-  if (/\b(calamar|calamars|chipiron|chipirons|palourde|palourdes|poulpe|encornet|encornets)\b/.test(molluskAllergenText)
+  addIf('Poisson', /\b(poisson|saumon|thon|cabillaud|anchois|sardine|dorade|bar|lieu|merlu|truite|maquereau|bouillabaisse|nuoc mam|sauce poisson)\b/);
+  addIf('Crustacés', /\b(crevette|crevettes|crabe|homard|langoustine|langoustines|gambas|écrevisse|ecrevisse)\b/);
+  if (/\b(calamar|calamars|chipiron|chipirons|palourde|palourdes|poulpe|encornet|encornets|saint jacques|saint-jacques|coquilles? saint jacques|coquilles? saint-jacques)\b/.test(molluskAllergenText)
     || /\bmoules?\s+(?:de bouchot|marinieres?|cuites?|crues?|nettoyees?|entieres?|decortiquees?)\b|\bchair de moules?\b/.test(molluskAllergenText)) {
     allergens.add('Mollusques');
   }
   addIf('Sésame', /\b(sesame|tahini|tahin)\b/);
-  addIf('Sulfites', /\b(sulfite|sulfites|vin blanc|vin rouge|vinaigre de vin)\b/);
-  addIf('Céleri', /\b(celeri|celeri rave|celeri-rave)\b/);
+  addIf('Sulfites', /\b(sulfite|sulfites|vin blanc|vin rouge|vinaigre de vin|vinaigre balsamique)\b/);
+  addIf('Céleri', /\b(celeri|céleri|celeri rave|céleri rave|celeri-rave|céleri-rave)\b/);
   addIf('Lupin', /\b(lupin|farine de lupin)\b/);
 
   return uniq(Array.from(allergens));
@@ -2007,10 +2029,14 @@ function buildShoppingListData(recipes, factorById = {}) {
   return { blocks, groupedItems, aisleGroups, smartGroups: buildShoppingSmartGroups(groupedItems) };
 }
 
-function filterShoppingListData(data, ownedItems = {}) {
-  const isOwned = item => Boolean(ownedItems[item.key]);
+function filterShoppingListData(data, ownedItems = {}, pantryItems = []) {
+  const index = pantryIndex(pantryItems);
+  const hasPantryItems = Array.isArray(pantryItems) && pantryItems.length > 0;
+  const pantryOwns = item => hasPantryItems && pantryHasIngredientName(item.name, index);
+  const isOwned = item => Boolean(ownedItems[item.key]) || pantryOwns(item);
+  const markOwned = item => ({ ...item, ownedByPantry: pantryOwns(item) && !ownedItems[item.key] });
   const groupedItems = data.groupedItems.filter(item => !isOwned(item));
-  const ownedGroupedItems = data.groupedItems.filter(isOwned);
+  const ownedGroupedItems = data.groupedItems.filter(isOwned).map(markOwned);
   const aisleGroups = SHOPPING_AISLES.map(aisle => ({
     label: aisle.label,
     items: groupedItems.filter(item => item.aisle === aisle.label)
@@ -2028,9 +2054,9 @@ const EMPTY_SHOPPING_DATA = {
   smartGroups: []
 };
 
-function shoppingListText(recipes, factorById = {}, ownedItems = {}, mode = 'detailed') {
+function shoppingListText(recipes, factorById = {}, ownedItems = {}, mode = 'detailed', pantryItems = []) {
   const data = buildShoppingListData(recipes, factorById);
-  const filtered = filterShoppingListData(data, ownedItems);
+  const filtered = filterShoppingListData(data, ownedItems, pantryItems);
   if (mode === 'compact') {
     return [
       'Courses Cook Note',
@@ -2056,7 +2082,7 @@ function shoppingListText(recipes, factorById = {}, ownedItems = {}, mode = 'det
     ...filtered.smartGroups.map(group => `- ${group.label}: ${group.items.map(item => item.name).join(', ')}`),
     filtered.ownedGroupedItems.length ? '' : '',
     filtered.ownedGroupedItems.length ? '## Déjà à la maison' : '',
-    ...filtered.ownedGroupedItems.map(item => `- ${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')}`),
+    ...filtered.ownedGroupedItems.map(item => `- ${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')}${item.ownedByPantry ? ' (placard)' : ''}`),
     '',
     '## Détail par recette',
     ...data.blocks
@@ -2139,6 +2165,14 @@ function formatMinutesShort(minutes) {
     return rest ? `${hours}h${String(rest).padStart(2, '0')}` : `${hours}h`;
   }
   return `${minutes} min`;
+}
+
+function minutesToIsoDuration(minutes) {
+  const value = Math.max(0, Math.round(Number(minutes) || 0));
+  if (!value) return undefined;
+  const hours = Math.floor(value / 60);
+  const rest = value % 60;
+  return `PT${hours ? `${hours}H` : ''}${rest ? `${rest}M` : ''}`;
 }
 
 function getRecipeCardBadges(recipe, recipesById = {}) {
@@ -3082,6 +3116,22 @@ function getBatchPlanData(recipes) {
     /\bbeurre\b/.test(combinedText) && 'Sortir le beurre nécessaire au début si une texture pommade ou souple est utile.',
     /\bfour|enfourner|prechauffer|préchauffer\b/.test(combinedText) && 'Préchauffer le four avant la mise en place chaude.'
   ].filter(Boolean);
+  const advanceItems = recipes.map(recipe => {
+    const text = normalizeText([
+      recipe.title,
+      ...(recipe.steps || []),
+      ...(recipe.notes || []),
+      ...(recipe.practical?.tips || [])
+    ].join(' '));
+    if (!/\b(la veille|avance|repos|mariner|refroidir|conservation|congel|base|pate|pâte|sauce|creme|crème)\b/.test(text)) return '';
+    if (/\b(mariner|repos|la veille)\b/.test(text)) return `${recipe.title} : lancer marinades, repos ou bases froides en premier.`;
+    if (/\b(sauce|creme|crème|pate|pâte|base)\b/.test(text)) return `${recipe.title} : préparer la base séparément, refroidir proprement et finir au service.`;
+    return `${recipe.title} : isoler les éléments qui se gardent, puis garder les finitions fragiles pour la fin.`;
+  }).filter(Boolean).slice(0, 5);
+  const storageItems = recipes.flatMap(recipe => {
+    const storage = getRecipePracticalSections(recipe).find(section => section.key === 'storage');
+    return storage?.items?.[0] ? [`${recipe.title} : ${storage.items[0]}`] : [];
+  }).slice(0, 5);
   return [
     {
       key: 'prep',
@@ -3095,6 +3145,11 @@ function getBatchPlanData(recipes) {
       key: 'shared',
       label: 'Gestes groupés',
       items: sharedPrep
+    },
+    {
+      key: 'advance',
+      label: 'Bases à faire en avance',
+      items: advanceItems
     },
     {
       key: 'cold',
@@ -3119,6 +3174,11 @@ function getBatchPlanData(recipes) {
         .filter(item => /\b(servir|dresser|finir|zeste|saupoudrer|napper|decore|garnir)\b/.test(item.text))
         .slice(0, 4)
         .map(item => `${item.recipe.title} : ${stripHtml(item.step)}`)
+    },
+    {
+      key: 'storage',
+      label: 'Conservation',
+      items: storageItems
     }
   ].filter(group => group.items.length);
 }
@@ -3142,6 +3202,7 @@ function getRecipeSearchText(recipe, tags, recipesById = {}) {
     .join(' ');
   const facets = getRecipeSearchFacets(recipe).join(' ');
   const intents = getRecipeIntentLabels(recipe, recipesById).join(' ');
+  const semanticText = semanticRecipeSignals(recipe, recipesById).labels.join(' ');
   const timing = getRecipeTiming(recipe);
   const timingText = [
     timing.active && `actif ${formatMinutesShort(timing.active)}`,
@@ -3166,6 +3227,7 @@ function getRecipeSearchText(recipe, tags, recipesById = {}) {
     ingredients,
     facets,
     intents,
+    semanticText,
     timingText,
     practicalText,
     linkedText,
@@ -3178,6 +3240,14 @@ function getRecipeSearchText(recipe, tags, recipesById = {}) {
 const SEARCH_SYNONYMS = {
   mayo: ['mayonnaise'],
   mayonaise: ['mayonnaise'],
+  tirramissu: ['tiramisu'],
+  tiramissu: ['tiramisu'],
+  tirramisu: ['tiramisu'],
+  bourssin: ['boursin', 'fromage frais'],
+  boursain: ['boursin', 'fromage frais'],
+  saintjacques: ['saint jacques', 'st jacques', 'noix de saint jacques'],
+  jacque: ['jacques', 'saintjacques'],
+  jacques: ['jacque', 'saintjacques'],
   sauce: ['dip', 'assaisonnement', 'condiment'],
   sauces: ['dip', 'assaisonnement', 'condiment'],
   dessert: ['sucré', 'sucre', 'gâteau', 'cake', 'biscuit'],
@@ -3303,6 +3373,8 @@ function searchTokens(value) {
     .replace(/\bsoir\s+de\s+semaine\b/g, 'semaine')
     .replace(/\bchou\s+fleur\b/g, 'choufleur')
     .replace(/\bpomme\s+de\s+terre\b/g, 'pdt')
+    .replace(/\bst[.\s-]*jacques?\b/g, 'saintjacques')
+    .replace(/\bsaint[-\s]*jacques?\b/g, 'saintjacques')
     .split(/\s+/)
     .map(token => token.replace(/[^a-z0-9-]/g, '').trim())
     .filter(token => token.length > 1 && !SEARCH_STOPWORDS.has(token));
@@ -3342,6 +3414,9 @@ function scoreRecipeSearch(recipe, query, recipesById = {}) {
   if (!needle) return { score: 0, reasons: [] };
   const tokenGroups = expandSearchTokens(searchTokens(needle));
   if (!tokenGroups.length) return { score: 0, reasons: [] };
+  const indexedText = recipe.searchText || getRecipeSearchText(recipe, recipe.tagsExtracted || recipe.tags || [], recipesById);
+  const indexedMatch = tokenGroups.every(group => group.some(token => indexedText.includes(token) || isCloseSearchToken(token, indexedText)));
+  if (!indexedMatch) return { score: 0, reasons: [] };
   const title = normalizeText(recipe.title);
   const aliases = normalizeText((recipe.aliases || []).join(' '));
   const tags = normalizeText([...(recipe.tags || []), ...(recipe.tagsExtracted || [])].join(' '));
@@ -3376,8 +3451,6 @@ function scoreRecipeSearch(recipe, query, recipesById = {}) {
   ];
   let score = 0;
   const reasons = new Set();
-  const allMatched = tokenGroups.every(group => fields.some(field => group.some(token => field.text.includes(token) || isCloseSearchToken(token, field.text))));
-  if (!allMatched) return { score: 0, reasons: [] };
   if (title === needle) score += 220;
   if (title.startsWith(needle)) score += 150;
   fields.forEach(field => {
@@ -3391,6 +3464,11 @@ function scoreRecipeSearch(recipe, query, recipesById = {}) {
       }
     });
   });
+  const semantic = semanticRecipeSearchScore(recipe, needle, recipesById);
+  if (semantic.score) {
+    score += semantic.score;
+    semantic.reasons.forEach(reason => reasons.add(reason));
+  }
   return { score, reasons: Array.from(reasons).slice(0, 3) };
 }
 
@@ -3760,6 +3838,7 @@ function getRecipePracticalSections(recipe) {
   ]);
   add('substitutions', 'Substitutions', [
     ...asTextList(recipe?.substitutions || practical.substitutions),
+    ...getSmartSubstitutionNotes(recipe),
     ...substitutionNotes
   ]);
   add('service', 'Service', getRecipeServiceItems(recipe));
@@ -4200,6 +4279,9 @@ function recipeJsonLd(recipe, recipesById = {}) {
   const linkedRecipes = getLinkedRecipeRefs(recipe, recipesById);
   const keywords = uniq([...(recipe.tags || []), ...(recipe.tagsExtracted || []), ...(recipe.categories || []), primaryCategory(recipe)]).join(', ');
   const recipeText = normalizeText([recipe.title, ...(recipe.tags || []), ...(recipe.categories || []), ...(recipe.ingredients || []).flatMap(group => group.items || [])].join(' '));
+  const timing = getRecipeTiming(recipe);
+  const steps = getRecipeSteps(recipe);
+  const equipment = getRecipeEquipment(recipe);
   const recipeNode = {
     '@type': 'Recipe',
     '@id': `${url}#recipe`,
@@ -4215,9 +4297,14 @@ function recipeJsonLd(recipe, recipesById = {}) {
     recipeYield: recipe.yield || undefined,
     recipeCategory: (recipe.categories || []).map(category => locale === 'en' ? CookNoteI18n.translateCategory(category) : category).join(', ') || undefined,
     keywords: keywords || undefined,
+    prepTime: minutesToIsoDuration(recipe.activeTime || timing.active),
+    cookTime: minutesToIsoDuration(recipe.cookTime || timing.cook),
+    totalTime: minutesToIsoDuration(recipe.totalTime || timing.total),
     suitableForDiet: /\b(vegetarien|végétarien|sans viande)\b/.test(recipeText) ? 'https://schema.org/VegetarianDiet' : undefined,
     recipeIngredient: (recipe.ingredients || []).flatMap(group => group.items || []).map(stripHtml),
-    recipeInstructions: (recipe.steps || []).map(step => ({ '@type': 'HowToStep', text: stripHtml(step) })),
+    recipeInstructions: steps.map((step, index) => ({ '@type': 'HowToStep', position: index + 1, name: `Étape ${index + 1}`, text: stripHtml(step) })),
+    tool: equipment.map(item => ({ '@type': 'HowToTool', name: stripHtml(item) })),
+    isAccessibleForFree: true,
     mentions: linkedRecipes.map(item => ({
       '@type': 'Recipe',
       name: item.recipe.title,
@@ -4362,6 +4449,15 @@ const ICON_PATHS = {
     'M9 9.2 12 4l3 5.2',
     'M8.4 13h7.2',
     'M8.7 16.4h6.6'
+  ],
+  pantry: [
+    'M5 5.2h14v15H5z',
+    'M5 9.2h14',
+    'M12 5.2v15',
+    'M8.1 12.4h1.2',
+    'M14.7 12.4h1.2',
+    'M8.1 16h1.2',
+    'M14.7 16h1.2'
   ],
   book: [
     'M5 4.8h7a3 3 0 0 1 3 3V20H8a3 3 0 0 0-3-3V4.8Z',
@@ -4516,7 +4612,7 @@ function LanguageSwitcher() {
   );
 }
 
-function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, openMenuPlanner, openTechniques, query, openSearch, openPreferences, activeTheme, toggleTheme }) {
+function TopBarFixed({ onHome, shoppingCount, pantryCount = 0, showFavorites, openShoppingBasket, openMenuPlanner, openPantry, openTechniques, query, openSearch, openPreferences, activeTheme, toggleTheme }) {
   const themeToggleLabel = activeTheme === 'light' ? 'Passer en mode nuit' : 'Passer en mode jour';
   return h('header', { className: 'topbar' },
     h('div', { className: 'top-left' },
@@ -4530,6 +4626,10 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
       h(Button, { variant: 'subtle', className: 'top-menu-btn', onClick: openMenuPlanner }, [
         h(Icon, { key: 'icon', name: 'spark' }),
         h('span', { key: 'label' }, 'Menu')
+      ]),
+      h(Button, { variant: 'subtle', className: 'top-pantry-btn', onClick: openPantry }, [
+        h(Icon, { key: 'icon', name: 'pantry' }),
+        h('span', { key: 'label' }, pantryCount ? `Placard ${pantryCount}` : 'Placard')
       ]),
       h('a', {
         className: 'btn btn-subtle top-request-btn',
@@ -4876,6 +4976,14 @@ function HomeView(props) {
     h(Hero),
     h('div', { className: 'content-wrap' },
       h(ActiveChips, { chips: props.activeChips }),
+      h(PantryAssistant, {
+        pantryItems: props.pantryItems,
+        pantryMode: props.pantryMode,
+        openPantry: props.openPantry,
+        activatePantryMode: props.activatePantryMode,
+        clearPantryMode: props.clearPantryMode,
+        pantryMatches: props.pantryMatches
+      }),
       h(SeasonSections, {
         sections: props.sections,
         recipesById: props.recipesById,
@@ -5048,6 +5156,8 @@ function AppInstallPanel({ option, onClose }) {
       role: 'dialog',
       'aria-modal': 'true',
       'aria-labelledby': 'app-install-title',
+      tabIndex: -1,
+      onKeyDown: trapModalFocus,
       onMouseDown: event => event.stopPropagation()
     },
       h('div', { className: 'modal-head' },
@@ -5098,6 +5208,7 @@ function AppInstallPanel({ option, onClose }) {
 function SharePanel({ open, onClose, recipe, notify }) {
   const [copied, setCopied] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
+  const [posterBusy, setPosterBusy] = useState(false);
   const [qrReady, setQrReady] = useState(false);
   const canvasRef = useRef(null);
   const shareData = useMemo(() => {
@@ -5125,10 +5236,32 @@ function SharePanel({ open, onClose, recipe, notify }) {
     }).catch(() => {});
   }
 
+  async function downloadSharePoster(format = 'story') {
+    if (posterBusy) return;
+    setPosterBusy(true);
+    try {
+      await downloadSharePosterCard({
+        title: recipe.title,
+        description,
+        imageUrl,
+        metaText: [primaryCategory(recipe), recipe.yield, getNutriScore(recipe) && `Nutri ${getNutriScore(recipe)}`].filter(Boolean).join(' · '),
+        qrReady,
+        qrCanvas: canvasRef.current,
+        format
+      });
+      notify?.('Carte de partage téléchargée', 'success');
+    } catch {
+      notify?.('Carte de partage impossible à générer', 'error');
+    } finally {
+      setPosterBusy(false);
+    }
+  }
+
   useEffect(() => {
     let cancelled = false;
     setCopied(false);
     setCopiedText(false);
+    setPosterBusy(false);
     setQrReady(false);
     if (!open || !canvasRef.current) return () => {
       cancelled = true;
@@ -5152,7 +5285,7 @@ function SharePanel({ open, onClose, recipe, notify }) {
 
   if (!open) return null;
   return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
-    h('section', { className: 'modal-panel share-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'share-modal-title', onMouseDown: event => event.stopPropagation() },
+    h('section', { className: 'modal-panel share-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'share-modal-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
         h('div', null, h('p', { className: 'eyebrow' }, 'Partager'), h('h2', { id: 'share-modal-title' }, recipe.title)),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
@@ -5187,6 +5320,9 @@ function SharePanel({ open, onClose, recipe, notify }) {
           setCopiedText(true);
           notify?.('Texte de recette copié');
         }), ariaLabel: `Copier le texte de partage de ${recipe.title}` }, copiedText ? 'Texte copié' : 'Copier le texte'),
+        h(Button, { variant: 'subtle', disabled: posterBusy, onClick: () => downloadSharePoster('story'), ariaLabel: `Télécharger une story de ${recipe.title}` }, posterBusy ? 'Carte...' : 'Story'),
+        h(Button, { variant: 'subtle', disabled: posterBusy, onClick: () => downloadSharePoster('square'), ariaLabel: `Télécharger une carte carrée de ${recipe.title}` }, 'Carré'),
+        h(Button, { variant: 'subtle', disabled: posterBusy, onClick: () => downloadSharePoster('print'), ariaLabel: `Télécharger une fiche imprimable de ${recipe.title}` }, 'Fiche'),
         h('a', { className: 'btn btn-subtle', href: `https://wa.me/?text=${encodeURIComponent(text)}`, target: '_blank', rel: 'noreferrer', 'aria-label': `Partager ${recipe.title} sur WhatsApp` }, 'WhatsApp'),
         h('a', { className: 'btn btn-subtle', href: `mailto:?subject=${encodeURIComponent(recipe.title)}&body=${encodeURIComponent(text)}`, 'aria-label': `Partager ${recipe.title} par email` }, 'Email')
       )
@@ -5194,7 +5330,7 @@ function SharePanel({ open, onClose, recipe, notify }) {
   );
 }
 
-function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDifficultyFilter, searchRef, results, resultMeta, ingredientMeta, openRecipe, recentRecipes = [], recentSearches = [], rememberSearch }) {
+function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDifficultyFilter, searchRef, results, resultMeta, ingredientMeta, pantryMeta = new Map(), pantryItems = [], openPantry, activatePantryMode, openRecipe, recentRecipes = [], recentSearches = [], rememberSearch }) {
   if (!open) return null;
   const hasQuery = Boolean(query.trim());
   const ingredientTokens = ingredientSearchTokens(query);
@@ -5255,8 +5391,21 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
     { label: 'La veille', query: 'la veille' },
     { label: 'Sauce', query: 'sauce' }
   ];
+  suggestions.push({ title: 'Contraintes', items: [
+    { label: 'Sans gluten', query: 'sans gluten' },
+    { label: 'Sans lait', query: 'sans lait' },
+    { label: 'Moins de 30 min', query: 'moins de 30 min' },
+    { label: 'Dessert sans four', query: 'dessert sans four' },
+    { label: 'Apéro froid', query: 'apéro froid' },
+    { label: 'Reste de jaunes d’œufs', query: 'reste de jaunes d’œufs' }
+  ] });
+  const liveSuggestions = hasQuery ? searchSuggestionTerms(query, results) : [];
   const rememberCurrentSearch = () => {
     if (query.trim()) rememberSearch?.(query);
+  };
+  const openPantryIdeas = () => {
+    activatePantryMode?.();
+    onClose();
   };
   const openSearchRecipe = recipe => {
     rememberCurrentSearch();
@@ -5269,6 +5418,8 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
       role: 'dialog',
       'aria-modal': 'true',
       'aria-label': 'Recherche',
+      tabIndex: -1,
+      onKeyDown: trapModalFocus,
       onMouseDown: event => event.stopPropagation()
     },
       h('div', { className: 'modal-head' },
@@ -5305,7 +5456,22 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
           SEARCH_DIFFICULTY_OPTIONS.map(option => h('option', { key: option.value, value: option.value }, option.label))
         )
       ),
+      hasQuery && liveSuggestions.length > 0 && h('div', { className: 'search-live-suggestions', 'aria-label': 'Suggestions pendant la frappe' },
+        liveSuggestions.map(item => h('button', {
+          key: item,
+          type: 'button',
+          onClick: () => {
+            setQuery(item);
+            rememberSearch?.(item);
+          }
+        }, item))
+      ),
       !hasQuery && h('div', { className: 'search-quick-rail', 'aria-label': 'Recherches rapides' },
+        pantryItems.length > 0 && h('button', {
+          key: 'pantry',
+          type: 'button',
+          onClick: openPantryIdeas
+        }, 'Mon placard'),
         quickSearches.map(item => h('button', {
           key: item.query,
           type: 'button',
@@ -5334,11 +5500,18 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
                   h('button', { key: recipe.id, type: 'button', onClick: () => openSearchRecipe(recipe) },
                     h('span', { className: 'search-result-image', style: imageBackgroundStyle(displayRecipeImage(recipe)), 'aria-hidden': true }),
                     h('span', null, recipe.title)
-                  )
                 )
               )
             )
           ),
+          pantryItems.length > 0 && h('section', { className: 'search-memory-card pantry-memory-card' },
+            h('strong', null, 'Placard'),
+            h('div', { className: 'search-suggestions' },
+              h('button', { type: 'button', onClick: () => { onClose(); openPantry?.(); } }, `${pantryItems.length} ingrédient${pantryItems.length > 1 ? 's' : ''}`),
+              h('button', { type: 'button', onClick: openPantryIdeas }, 'Idées placard')
+            )
+          )
+        ),
           h('div', { className: 'search-suggestion-groups' },
           suggestions.map(group => h('section', { key: group.title, className: 'search-suggestion-group' },
             h('strong', null, group.title),
@@ -5364,6 +5537,7 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
               group.recipes.map(recipe => {
                 const meta = resultMeta.get(recipe.id);
                 const ingredient = ingredientMeta.get(recipe.id);
+                const pantry = pantryMeta.get(recipe.id);
                 const availability = ingredient ? ingredientAvailabilityGroup(ingredient) : null;
                 return h('button', {
                   key: recipe.id,
@@ -5377,6 +5551,8 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
                     h('strong', null, recipe.title),
                     h('small', null, recipe.yield || difficultyText(recipe)),
                     availability && h('span', { className: `ingredient-match-badge ${availability.key}` }, availability.label),
+                    pantry && h('span', { className: pantry.missing.length ? 'pantry-match-badge' : 'pantry-match-badge ready' }, pantryMatchLabel(pantry)),
+                    pantry?.substitutable?.length > 0 && h('small', { className: 'pantry-substitution-hint' }, `Remplace : ${pantry.substitutable.slice(0, 2).map(item => `${item.missing} → ${item.replacement}`).join(', ')}`),
                     meta?.reasons?.length && h('span', { className: 'search-reason-pills' },
                       meta.reasons.slice(0, 3).map(reason => h('em', { key: reason }, reason))
                     ),
@@ -5414,10 +5590,12 @@ function CommandPalette({
   goHome,
   showFavorites,
   openMenuPlanner,
+  openPantry,
   openTechniques,
   openShoppingBasket,
   setSeasonFilter,
   allSeasons = [],
+  pantryCount = 0,
   shoppingCount = 0
 }) {
   const [term, setTerm] = useState('');
@@ -5455,6 +5633,13 @@ function CommandPalette({
       label: 'Composer un menu',
       detail: 'Accords, service, liste de courses',
       run: openMenuPlanner
+    },
+    {
+      id: 'pantry',
+      icon: 'pantry',
+      label: 'Mon placard',
+      detail: pantryCount ? `${pantryCount} ingrédient${pantryCount > 1 ? 's' : ''} disponible${pantryCount > 1 ? 's' : ''}` : 'Anti-gaspi et idées rapides',
+      run: openPantry
     },
     {
       id: 'techniques',
@@ -5533,6 +5718,8 @@ function CommandPalette({
       role: 'dialog',
       'aria-modal': 'true',
       'aria-label': 'Commandes Cook Note',
+      tabIndex: -1,
+      onKeyDown: trapModalFocus,
       onMouseDown: event => event.stopPropagation()
     },
       h('div', { className: 'command-input-shell' },
@@ -5613,24 +5800,30 @@ function CommandPalette({
     )
   );
 }
-function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe, clearShopping, notify }) {
+function ShoppingBasketPanel({ open, onClose, recipes, factorById, pantryItems = [], removeRecipe, clearShopping, notify }) {
   const [copied, setCopied] = useState(false);
+  const [freshOnly, setFreshOnly] = useState(false);
   const [checkedItems, setCheckedItems] = useState(() => readJson(STORAGE_KEYS.shoppingChecked, {}));
   const [ownedItems, setOwnedItems] = useState(() => readJson(STORAGE_KEYS.shoppingOwned, {}));
   const shoppingData = useMemo(() => open ? buildShoppingListData(recipes, factorById) : EMPTY_SHOPPING_DATA, [open, recipes, factorById]);
-  const activeShoppingData = useMemo(() => open ? filterShoppingListData(shoppingData, ownedItems) : EMPTY_SHOPPING_DATA, [open, shoppingData, ownedItems]);
+  const activeShoppingData = useMemo(() => open ? filterShoppingListData(shoppingData, ownedItems, pantryItems) : EMPTY_SHOPPING_DATA, [open, shoppingData, ownedItems, pantryItems]);
+  const scopedShoppingData = useMemo(() => freshOnly ? filterFreshShoppingData(activeShoppingData) : activeShoppingData, [freshOnly, activeShoppingData]);
   const batchPlan = useMemo(() => open ? getBatchPlanData(recipes) : [], [open, recipes]);
-  const text = open && recipes.length ? shoppingListText(recipes, factorById, ownedItems) : 'Liste de courses Cook Note\n\nAucune recette cochée.';
-  const compactText = open && recipes.length ? shoppingListText(recipes, factorById, ownedItems, 'compact') : 'Courses Cook Note\nAucune recette.';
+  const text = open && recipes.length
+    ? freshOnly ? shoppingListTextFromData(scopedShoppingData, 'fresh') : shoppingListText(recipes, factorById, ownedItems, 'detailed', pantryItems)
+    : 'Liste de courses Cook Note\n\nAucune recette cochée.';
+  const compactText = open && recipes.length
+    ? freshOnly ? shoppingListTextFromData(scopedShoppingData, 'fresh') : shoppingListText(recipes, factorById, ownedItems, 'compact', pantryItems)
+    : 'Courses Cook Note\nAucune recette.';
   const visibleShoppingKeys = useMemo(() => new Set(shoppingData.groupedItems.map(item => item.key)), [shoppingData]);
-  const checkedCount = activeShoppingData.groupedItems.filter(item => checkedItems[item.key]).length;
-  const handledCount = checkedCount + activeShoppingData.ownedGroupedItems.length;
-  const totalShoppingCount = shoppingData.groupedItems.length;
+  const checkedCount = scopedShoppingData.groupedItems.filter(item => checkedItems[item.key]).length;
+  const handledCount = checkedCount + scopedShoppingData.ownedGroupedItems.length;
+  const totalShoppingCount = scopedShoppingData.groupedItems.length + scopedShoppingData.ownedGroupedItems.length;
   const handledRatio = totalShoppingCount ? Math.round((handledCount / totalShoppingCount) * 100) : 0;
-  const freshAisleCount = activeShoppingData.aisleGroups
+  const freshAisleCount = scopedShoppingData.aisleGroups
     .filter(group => /primeur|cremerie|oeufs|boucherie|poissonnerie/.test(normalizeText(group.label)))
     .reduce((total, group) => total + group.items.length, 0);
-  const topAisles = activeShoppingData.aisleGroups.slice(0, 4).map(group => group.label);
+  const topAisles = scopedShoppingData.aisleGroups.slice(0, 4).map(group => group.label);
   const setShoppingChecked = updater => {
     setCheckedItems(prev => {
       const next = typeof updater === 'function' ? updater(prev) : updater;
@@ -5681,7 +5874,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
 
   if (!open) return null;
   return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
-    h('section', { className: 'modal-panel shopping-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'shopping-modal-title', onMouseDown: event => event.stopPropagation() },
+    h('section', { className: 'modal-panel shopping-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'shopping-modal-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
         h('div', null,
           h('p', { className: 'eyebrow' }, 'Panier courses'),
@@ -5701,9 +5894,15 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
           )
         : h('p', { className: 'muted' }, 'Ajoute une recette depuis sa fiche pour construire une liste groupée.'),
       recipes.length > 0 && h('div', { className: 'shopping-summary' },
-        h('span', null, `${activeShoppingData.groupedItems.length} à acheter`),
-        activeShoppingData.ownedGroupedItems.length > 0 && h('span', null, `${activeShoppingData.ownedGroupedItems.length} déjà maison`),
+        h('span', null, `${scopedShoppingData.groupedItems.length} à acheter`),
+        scopedShoppingData.ownedGroupedItems.length > 0 && h('span', null, `${scopedShoppingData.ownedGroupedItems.length} déjà maison`),
         h('span', null, `${checkedCount} coché${checkedCount > 1 ? 's' : ''}`),
+        h('button', {
+          type: 'button',
+          className: freshOnly ? 'active' : '',
+          'aria-pressed': freshOnly,
+          onClick: () => setFreshOnly(value => !value)
+        }, freshOnly ? 'Tout afficher' : 'Frais seulement'),
         checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}), 'aria-label': `Tout décocher (${checkedCount} article${checkedCount > 1 ? 's' : ''})` }, 'Tout décocher')
       ),
       recipes.length > 0 && h('div', { className: 'shopping-store-dashboard', style: { '--shopping-progress': `${handledRatio}%` }, 'aria-label': 'Synthèse magasin' },
@@ -5713,13 +5912,13 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
           h('small', null, 'traité')
         ),
         h('div', { className: 'shopping-store-metrics' },
-          h('span', null, h('strong', null, activeShoppingData.aisleGroups.length), h('small', null, 'rayons')),
+          h('span', null, h('strong', null, scopedShoppingData.aisleGroups.length), h('small', null, 'rayons')),
           h('span', null, h('strong', null, freshAisleCount), h('small', null, 'frais')),
           h('span', null, h('strong', null, topAisles.length ? topAisles.join(' / ') : 'Aucun'), h('small', null, 'trajet'))
         )
       ),
-      recipes.length > 0 && activeShoppingData.smartGroups.length > 0 && h('div', { className: 'shopping-smart-groups' },
-        activeShoppingData.smartGroups.map(group => h('span', { key: group.label }, `${group.label}: ${group.items.map(item => item.name).join(', ')}`))
+      recipes.length > 0 && scopedShoppingData.smartGroups.length > 0 && h('div', { className: 'shopping-smart-groups' },
+        scopedShoppingData.smartGroups.map(group => h('span', { key: group.label }, `${group.label}: ${group.items.map(item => item.name).join(', ')}`))
       ),
       recipes.length > 1 && batchPlan.length > 0 && h('div', { className: 'batch-plan' },
         h('div', { className: 'batch-plan-head' },
@@ -5732,7 +5931,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
         ))
       ),
       recipes.length > 0 && h('div', { className: 'shopping-aisles' },
-        activeShoppingData.aisleGroups.map(group => h('section', { key: group.label, className: 'shopping-aisle' },
+        scopedShoppingData.aisleGroups.map(group => h('section', { key: group.label, className: 'shopping-aisle' },
           h('div', { className: 'shopping-aisle-head' },
             h('strong', null, group.label),
             h('span', null, `${group.items.length} article${group.items.length > 1 ? 's' : ''}`)
@@ -5761,9 +5960,15 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, removeRecipe,
           })
         ))
       ),
-      activeShoppingData.ownedGroupedItems.length > 0 && h('div', { className: 'shopping-owned-list' },
+      recipes.length > 0 && freshOnly && scopedShoppingData.groupedItems.length === 0 && scopedShoppingData.ownedGroupedItems.length === 0 && h('div', { className: 'empty-state shopping-empty' },
+        h('h2', null, 'Aucun achat frais'),
+        h('p', null, 'Les recettes cochées sont couvertes par les rayons secs ou par ce qui est déjà à la maison.')
+      ),
+      scopedShoppingData.ownedGroupedItems.length > 0 && h('div', { className: 'shopping-owned-list' },
         h('strong', null, 'Déjà à la maison'),
-        activeShoppingData.ownedGroupedItems.map(item => h('button', { key: item.key, type: 'button', onClick: () => toggleOwnedItem(item.key), 'aria-label': `Remettre ${item.name} dans la liste à acheter`, title: 'Remettre dans la liste' }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')}`))
+        scopedShoppingData.ownedGroupedItems.map(item => item.ownedByPantry
+          ? h('span', { key: item.key, title: 'Présent dans le placard' }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')} · placard`)
+          : h('button', { key: item.key, type: 'button', onClick: () => toggleOwnedItem(item.key), 'aria-label': `Remettre ${item.name} dans la liste à acheter`, title: 'Remettre dans la liste' }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')}`))
       ),
       h('pre', { className: 'cart-output combined-cart' }, text),
       h('div', { className: 'modal-actions' },
@@ -5822,7 +6027,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
     setItemOffsets(current => ({ ...current, [index]: (current[index] || 0) + 1 }));
   };
   return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
-    h('section', { className: 'modal-panel menu-planner-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'menu-planner-title', onMouseDown: event => event.stopPropagation() },
+    h('section', { className: 'modal-panel menu-planner-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'menu-planner-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
         h('div', null,
           h('p', { className: 'eyebrow' }, 'Mode menu'),
@@ -5936,13 +6141,13 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
   );
 }
 
-function PreferencesPanel({ open, onClose, preferences, updatePreferences }) {
+function PreferencesPanel({ open, onClose, preferences, updatePreferences, favoriteCount = 0, isOnline = true, offlineBusy = false, preloadFavoritesOffline }) {
   if (!open) return null;
   const update = patch => updatePreferences(patch);
   const density = preferences.density || 'comfort';
   const theme = preferences.theme === 'light' ? 'light' : 'dark';
   return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
-    h('section', { className: 'modal-panel preferences-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'preferences-title', onMouseDown: event => event.stopPropagation() },
+    h('section', { className: 'modal-panel preferences-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'preferences-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
         h('div', null,
           h('p', { className: 'eyebrow' }, 'Affichage'),
@@ -5978,7 +6183,31 @@ function PreferencesPanel({ open, onClose, preferences, updatePreferences }) {
           h('small', null, 'Réduit les mouvements sans enlever les lumières du thème.')
         )
       ),
+      h('div', { className: 'preference-group preference-offline-group' },
+        h('div', null,
+          h('strong', null, 'Favoris hors-ligne'),
+          h('small', null, isOnline
+            ? `${favoriteCount} favori${favoriteCount > 1 ? 's' : ''} à préparer pour une consultation sans réseau.`
+            : 'Connexion absente : les favoris déjà préchargés restent disponibles.')
+        ),
+        h(Button, {
+          variant: 'subtle',
+          disabled: offlineBusy || !favoriteCount || !isOnline,
+          onClick: preloadFavoritesOffline,
+          ariaLabel: 'Précharger les recettes favorites hors-ligne'
+        }, offlineBusy ? 'Préchargement...' : 'Précharger')
+      ),
     )
+  );
+}
+
+function OfflineStatusBar({ isOnline, favoriteCount }) {
+  if (isOnline) return null;
+  return h('div', { className: 'offline-status-bar', role: 'status' },
+    h(Icon, { name: 'download' }),
+    h('span', null, favoriteCount
+      ? `${favoriteCount} favori${favoriteCount > 1 ? 's' : ''} utilisable${favoriteCount > 1 ? 's' : ''} si déjà préchargé${favoriteCount > 1 ? 's' : ''}.`
+      : 'Mode hors-ligne : les pages déjà ouvertes restent accessibles.')
   );
 }
 
@@ -6233,6 +6462,9 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
   const timing = getRecipeTiming(recipe);
   const serviceItems = getRecipeServiceItems(recipe).slice(0, 2);
   const riskSignals = getRecipeRiskSignals(recipe).slice(0, 2);
+  const allergens = getRecipeAllergens(recipe).slice(0, 2);
+  const semanticLabels = semanticRecipeSignals(recipe).labels.filter(label => !/^sans /.test(normalizeText(label))).slice(0, 2);
+  const substitutionCount = getSmartSubstitutionNotes(recipe).length;
   const chefNotes = [
     timing.active && timing.active <= 20 ? 'Mise en place courte : garder les ingredients visibles avant cuisson.' : '',
     timing.rest ? 'Prevoir le repos avant de promettre le service.' : '',
@@ -6249,10 +6481,23 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
     { label: 'Étapes', value: `${stepTotal || getRecipeSteps(recipe).length} étapes` },
     seasons.length && { label: 'Saison', value: seasons.slice(0, 2).join(' / ') },
   ].filter(Boolean);
+  const premiumBadges = [
+    { label: 'Famille', value: primaryCategory(recipe) },
+    timing.total && { label: 'Total', value: formatMinutesShort(timing.total) },
+    allergens.length ? { label: 'Allergènes', value: allergens.join(' / ') } : { label: 'Allergènes', value: 'Aucun majeur détecté' },
+    substitutionCount && { label: 'Substitutions', value: `${substitutionCount} pistes` },
+    ...semanticLabels.map(label => ({ label: 'Usage', value: label }))
+  ].filter(Boolean).slice(0, 5);
   return h('section', { className: 'recipe-summary-panel', 'aria-label': 'Résumé de la recette' },
     h('div', { className: 'recipe-summary-head' },
       h('p', { className: 'eyebrow' }, 'Résumé'),
       h('h2', null, 'Fiche rapide')
+    ),
+    h('div', { className: 'recipe-magazine-strip', 'aria-label': 'Badges premium de la recette' },
+      premiumBadges.map(item => h('span', { key: `${item.label}:${item.value}` },
+        h('small', null, item.label),
+        h('strong', null, item.value)
+      ))
     ),
     h('div', { className: 'recipe-quick-facts' },
       facts.map(item => h('div', { key: item.label, className: 'recipe-quick-fact' },
@@ -6842,11 +7087,16 @@ function App() {
   const [historyVersion, setHistoryVersion] = useState(0);
   const [shoppingOpen, setShoppingOpen] = useState(false);
   const [menuPlannerOpen, setMenuPlannerOpen] = useState(false);
+  const [pantryOpen, setPantryOpen] = useState(false);
+  const [pantryMode, setPantryMode] = useState(() => new URLSearchParams(window.location.search).get('view') === '__pantry__');
   const [preferencesOpen, setPreferencesOpen] = useState(false);
+  const [offlineBusy, setOfflineBusy] = useState(false);
+  const [isOnline, setIsOnline] = useState(() => navigator.onLine !== false);
   const [installGuide, setInstallGuide] = useState(null);
   const [recentRecipeIds, setRecentRecipeIds] = useState(() => readStoredList(STORAGE_KEYS.recentRecipes, []));
   const [recentSearches, setRecentSearches] = useState(() => readStoredList(STORAGE_KEYS.recentSearches, []));
   const [personalNotes, setPersonalNotes] = useState(() => readJson(STORAGE_KEYS.personalNotes, {}));
+  const [pantryItems, setPantryItemsState] = useState(() => readStoredList(STORAGE_KEYS.pantry, []));
   const [toasts, setToasts] = useState([]);
   const searchRef = useRef(null);
   const commandRef = useRef(null);
@@ -6880,13 +7130,39 @@ function App() {
     setPreferences(current => current.theme === theme ? current : { ...current, theme });
   }), []);
 
+  useEffect(() => {
+    const updateOnlineStatus = () => setIsOnline(navigator.onLine !== false);
+    updateOnlineStatus();
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    return () => {
+      window.removeEventListener('online', updateOnlineStatus);
+      window.removeEventListener('offline', updateOnlineStatus);
+    };
+  }, []);
+
   const activeRecipe = activeId ? recipesById[activeId] : null;
   const activeSeoRecipe = activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => recipesById[id]).filter(Boolean), [shoppingIds, recipesById]);
   const recentRecipes = useMemo(() => recentRecipeIds.map(id => recipesById[id]).filter(recipe => recipe && !isMasterRecipe(recipe)), [recentRecipeIds, recipesById]);
-  const hasRecipeFilters = Boolean(query.trim() || season || seasonCategory || tagFilter || onlyFavorites);
+  const hasRecipeFilters = Boolean(query.trim() || season || seasonCategory || tagFilter || onlyFavorites || pantryMode);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
+  const normalizedPantryItems = useMemo(() => normalizePantryItems(pantryItems).map(item => item.label), [pantryItems]);
+  const pantryMeta = useMemo(() => {
+    const map = new Map();
+    if (!normalizedPantryItems.length) return map;
+    searchableRecipes.forEach(recipe => {
+      const meta = scorePantryRecipe(recipe, normalizedPantryItems);
+      if (meta.score > 0) map.set(recipe.id, meta);
+    });
+    return map;
+  }, [searchableRecipes, normalizedPantryItems]);
+  const pantryMatches = useMemo(() => searchableRecipes
+    .map(recipe => ({ recipe, meta: pantryMeta.get(recipe.id) }))
+    .filter(item => item.meta)
+    .sort((a, b) => b.meta.score - a.meta.score || a.meta.missing.length - b.meta.missing.length || a.recipe.title.localeCompare(b.recipe.title, 'fr'))
+    .slice(0, 8), [searchableRecipes, pantryMeta]);
 
   useEffect(() => {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -7057,15 +7333,23 @@ function App() {
     const activeFavoriteCollection = FAVORITE_COLLECTIONS.find(collection => collection.id === favoriteCollection);
     let list = catalogRecipes.filter(recipe => {
       if (activeSearchQuery && !searchMeta.has(recipe.id) && !ingredientMeta.has(recipe.id)) return false;
+      if (activeSearchQuery && !recipeMatchesSearchConstraints(recipe, activeSearchQuery, recipesById)) return false;
       if (activeSearchQuery && !matchesDifficultyFilter(recipe, difficultyFilter)) return false;
       if (season && !recipeHasSeason(recipe, season, recipesById)) return false;
       if (tagFilter && !(recipe.tagsExtracted || []).includes(tagFilter)) return false;
       if (onlyFavorites && !favorites.includes(recipe.id)) return false;
+      if (pantryMode && !pantryMeta.has(recipe.id)) return false;
       if (onlyFavorites && activeFavoriteCollection?.id && !activeFavoriteCollection.match?.(recipe, personalNotes[recipe.id])) return false;
       return true;
     });
 
     list = [...list].sort((a, b) => {
+      if (pantryMode) {
+        const pantryScore = (pantryMeta.get(b.id)?.score || 0) - (pantryMeta.get(a.id)?.score || 0);
+        if (pantryScore) return pantryScore;
+        const pantryMissing = (pantryMeta.get(a.id)?.missing?.length || 99) - (pantryMeta.get(b.id)?.missing?.length || 99);
+        if (pantryMissing) return pantryMissing;
+      }
       if (activeSearchQuery) {
         const score = ((searchMeta.get(b.id)?.score || 0) + (ingredientMeta.get(b.id)?.score || 0))
           - ((searchMeta.get(a.id)?.score || 0) + (ingredientMeta.get(a.id)?.score || 0));
@@ -7076,7 +7360,7 @@ function App() {
       return a.title.localeCompare(b.title, 'fr');
     });
     return list;
-  }, [catalogRecipes, searchFilterQuery, searchMeta, ingredientMeta, difficultyFilter, season, tagFilter, onlyFavorites, favorites, recipesById, favoriteCollection, personalNotes]);
+  }, [catalogRecipes, searchFilterQuery, searchMeta, ingredientMeta, difficultyFilter, season, tagFilter, onlyFavorites, favorites, recipesById, favoriteCollection, personalNotes, pantryMode, pantryMeta]);
 
   const seasonCategoryOptions = useMemo(() => {
     if (!season) return [];
@@ -7161,6 +7445,7 @@ function App() {
     season && { key: 'season', label: season, clear: () => updateSeason('') },
     seasonCategory && { key: 'seasonCategory', label: categoryLabel(seasonCategory), clear: () => setSeasonCategory('') },
     tagFilter && { key: 'tag', label: `Tag: ${tagFilter}`, clear: () => updateTagFilter('') },
+    pantryMode && { key: 'pantry', label: 'Idées placard', clear: () => setPantryMode(false) },
     onlyFavorites && { key: 'favorites', label: 'Favoris', clear: () => { setOnlyFavorites(false); setFavoriteCollection(''); } },
     onlyFavorites && favoriteCollection && { key: 'favoriteCollection', label: FAVORITE_COLLECTIONS.find(item => item.id === favoriteCollection)?.label || 'Collection', clear: () => setFavoriteCollection('') }
   ].filter(Boolean);
@@ -7192,6 +7477,39 @@ function App() {
     const next = [clean, ...recentSearches.filter(item => normalizeText(item) !== normalizeText(clean))].slice(0, 8);
     setRecentSearches(next);
     writeJson(STORAGE_KEYS.recentSearches, next);
+  }
+
+  function persistPantryItems(next) {
+    const normalized = normalizePantryItems(next).map(item => item.label);
+    setPantryItemsState(normalized);
+    writeJson(STORAGE_KEYS.pantry, normalized);
+  }
+
+  function openPantryPanel() {
+    loadDeferredCatalogChunks().catch(() => {});
+    setPantryOpen(true);
+  }
+
+  function showPantryIdeas() {
+    loadDeferredCatalogChunks().catch(() => {});
+    if (!normalizedPantryItems.length) {
+      openPantryPanel();
+      notify('Ajoute quelques ingrédients au placard', 'info');
+      return;
+    }
+    saveCurrentScrollPosition(lastRouteKeyRef.current);
+    pendingScrollModeRef.current = 'top';
+    runViewTransition(() => {
+      setActivePage('home');
+      setTargetTechniqueId('');
+      setOnlyFavorites(false);
+      setFavoriteCollection('');
+      setPantryMode(true);
+      setActiveId(null);
+    });
+    history.pushState('', document.title, '/?view=__pantry__');
+    lastRouteKeyRef.current = currentScrollRouteKey();
+    setTimeout(() => document.getElementById('recettes')?.scrollIntoView({ behavior: 'smooth' }), 0);
   }
 
   function persistFavorites(next) {
@@ -7260,6 +7578,63 @@ function App() {
     persistShopping(merged);
     persistShoppingFactors(ids.reduce((next, id) => ({ ...next, [id]: factorById[id] || shoppingFactors[id] || 1 }), { ...shoppingFactors }));
     setShoppingOpen(true);
+  }
+
+  function favoriteOfflineUrls(sourceById = recipesById) {
+    const urls = new Set([
+      '/',
+      '/index.html',
+      '/recipe.html',
+      `/style.css?v=${SITE_CACHE_VERSION}`,
+      `/app.js?v=${SITE_CACHE_VERSION}`,
+      `/app-premium.js?v=${SITE_CACHE_VERSION}`,
+      `/recipe.js?v=${SITE_CACHE_VERSION}`,
+      FULL_RECIPE_CATALOG_SRC,
+      ...DEFERRED_CATALOG_CHUNK_SRCS,
+      '/manifest.json',
+      '/assets/brand/mark.svg',
+      '/assets/brand/app-icon.png',
+      '/assets/theme/dark/global/logo.png',
+      '/assets/theme/dark/global/background.jpg'
+    ]);
+    favorites.forEach(id => {
+      const recipe = recipesById[id] || sourceById[id];
+      if (!recipe) return;
+      urls.add(getRecipeUrl(id));
+      urls.add(`${getRecipeUrl(id)}/`);
+      const image = displayRecipeImage(recipe);
+      if (image) urls.add(image);
+      getLinkedRecipeRefs(recipe, sourceById).slice(0, 4).forEach(link => {
+        urls.add(getRecipeUrl(link.recipe.id));
+        const linkedImage = displayRecipeImage(link.recipe);
+        if (linkedImage) urls.add(linkedImage);
+      });
+    });
+    return Array.from(urls);
+  }
+
+  async function preloadFavoriteRecipesOffline() {
+    if (offlineBusy) return;
+    if (!favorites.length) {
+      notify('Ajoute des recettes en favoris avant de précharger.', 'info');
+      return;
+    }
+    if (!isOnline) {
+      notify('Connexion nécessaire pour précharger les favoris.', 'info');
+      return;
+    }
+    setOfflineBusy(true);
+    try {
+      const loadedSource = catalogChunksLoaded ? recipeSource : await loadDeferredCatalogChunks().catch(() => recipeSource);
+      const loadedRecipes = Object.fromEntries(Object.entries(normalizeLoadedRecipeValue(loadedSource)).map(([id, recipe]) => [id, { id, ...recipe }]));
+      const favoriteCount = favorites.filter(id => recipesById[id] || loadedRecipes[id]).length;
+      const result = await cacheUrlsForOffline(favoriteOfflineUrls(loadedRecipes));
+      notify(`${favoriteCount} favori${favoriteCount > 1 ? 's' : ''} prêt${favoriteCount > 1 ? 's' : ''} hors-ligne (${result.cached || 0}/${result.total || 0})`, 'success');
+    } catch {
+      notify('Préchargement hors-ligne impossible pour le moment.', 'error');
+    } finally {
+      setOfflineBusy(false);
+    }
   }
 
   function loadDeferredCatalogChunks() {
@@ -7336,6 +7711,7 @@ function App() {
       setActiveId(id);
       setOnlyFavorites(false);
       setFavoriteCollection('');
+      setPantryMode(false);
     });
     const nextUrl = getRecipeUrl(id);
     if (window.location.pathname + window.location.search !== nextUrl) {
@@ -7354,6 +7730,7 @@ function App() {
       setTargetTechniqueId('');
       setOnlyFavorites(false);
       setFavoriteCollection('');
+      setPantryMode(false);
       setActiveId(null);
     });
     history.pushState('', document.title, '/');
@@ -7369,6 +7746,7 @@ function App() {
       setTargetTechniqueId('');
       setOnlyFavorites(true);
       setFavoriteCollection('');
+      setPantryMode(false);
       setActiveId(null);
     });
     history.pushState('', document.title, '/?view=__favs__');
@@ -7385,6 +7763,7 @@ function App() {
       setTargetTechniqueId('');
       setActiveId(null);
       setOnlyFavorites(false);
+      setPantryMode(false);
     });
     history.pushState('', document.title, '/techniques');
     lastRouteKeyRef.current = currentScrollRouteKey();
@@ -7399,6 +7778,7 @@ function App() {
       setTargetTechniqueId(id);
       setActiveId(null);
       setOnlyFavorites(false);
+      setPantryMode(false);
     });
     history.pushState('', document.title, `/techniques#${encodeURIComponent(id)}`);
     lastRouteKeyRef.current = currentScrollRouteKey();
@@ -7460,7 +7840,9 @@ function App() {
       runViewTransition(() => {
         setActivePage(page);
         setTargetTechniqueId(technique);
-        setOnlyFavorites(new URLSearchParams(window.location.search).get('view') === '__favs__');
+        const view = new URLSearchParams(window.location.search).get('view');
+        setOnlyFavorites(view === '__favs__');
+        setPantryMode(view === '__pantry__');
         setActiveId(recipe);
         setMenuPlannerOpen(Boolean(event?.state?.menuPlannerOpen));
       });
@@ -7599,9 +7981,11 @@ function App() {
     h(TopBarFixed, {
       onHome: goHome,
       shoppingCount: shoppingRecipes.length,
+      pantryCount: normalizedPantryItems.length,
       showFavorites,
       openShoppingBasket: () => setShoppingOpen(true),
       openMenuPlanner,
+      openPantry: openPantryPanel,
       openTechniques: goTechniques,
       query,
       openSearch: openCommandPalette,
@@ -7609,6 +7993,7 @@ function App() {
       activeTheme,
       toggleTheme
     }),
+    h(OfflineStatusBar, { isOnline, favoriteCount: favorites.length }),
     h('a', { className: 'skip-link', href: '#cook-note-content' }, 'Aller au contenu'),
     h('nav', { className: 'mobile-bottom-nav', 'aria-label': 'Navigation mobile' },
       h('button', { type: 'button', onClick: goHome, 'aria-label': 'Accueil', 'aria-current': !activeRecipe && activePage === 'home' && !onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'home' })), h('span', { className: 'sr-only' }, 'Accueil')),
@@ -7663,6 +8048,12 @@ function App() {
           onlyFavorites,
           activeChips,
           personalNotes,
+          pantryItems: normalizedPantryItems,
+          pantryMode,
+          pantryMatches,
+          openPantry: openPantryPanel,
+          activatePantryMode: showPantryIdeas,
+          clearPantryMode: () => setPantryMode(false),
           favoriteCollection,
           setFavoriteCollection,
           filterProps,
@@ -7713,8 +8104,19 @@ function App() {
       onClose: () => setShoppingOpen(false),
       recipes: shoppingRecipes,
       factorById: shoppingFactors,
+      pantryItems: normalizedPantryItems,
       removeRecipe: removeShopping,
       clearShopping,
+      notify
+    }),
+    h(PantryPanel, {
+      open: pantryOpen,
+      onClose: () => setPantryOpen(false),
+      items: normalizedPantryItems,
+      setItems: persistPantryItems,
+      recipes: searchableRecipes,
+      openRecipe,
+      activatePantryMode: showPantryIdeas,
       notify
     }),
     h(MenuPlannerPanel, {
@@ -7729,7 +8131,11 @@ function App() {
       open: preferencesOpen,
       onClose: () => setPreferencesOpen(false),
       preferences,
-      updatePreferences
+      updatePreferences,
+      favoriteCount: favorites.length,
+      isOnline,
+      offlineBusy,
+      preloadFavoritesOffline: preloadFavoriteRecipesOffline
     }),
     h(AppInstallPanel, {
       option: installGuide,
@@ -7749,10 +8155,12 @@ function App() {
       goHome,
       showFavorites,
       openMenuPlanner,
+      openPantry: openPantryPanel,
       openTechniques: goTechniques,
       openShoppingBasket: () => setShoppingOpen(true),
       setSeasonFilter: updateSeason,
       allSeasons,
+      pantryCount: normalizedPantryItems.length,
       shoppingCount: shoppingRecipes.length
     }),
     h(SearchPanel, {
@@ -7766,6 +8174,10 @@ function App() {
       results: filteredRecipes,
       resultMeta: searchMeta,
       ingredientMeta,
+      pantryMeta,
+      pantryItems: normalizedPantryItems,
+      openPantry: openPantryPanel,
+      activatePantryMode: showPantryIdeas,
       openRecipe,
       recentRecipes,
       recentSearches,

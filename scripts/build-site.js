@@ -9,6 +9,7 @@ const ROOT_FILES = [
   '_headers',
   '_redirects',
   'app.js',
+  'app-premium.js',
   'app-images.js',
   'app-art-images.js',
   'theme.js',
@@ -226,6 +227,121 @@ function timingFacts(recipe) {
   return `${minutes}min`;
 }
 
+function stepMinutes(step) {
+  const text = stripHtml(step).toLowerCase();
+  const hourMatch = text.match(/(\d+(?:[.,]\d+)?)\s*h/);
+  if (hourMatch) return Math.round(Number(hourMatch[1].replace(',', '.')) * 60);
+  const minuteMatch = text.match(/(\d+(?:[.,]\d+)?)\s*(?:min|minute)/);
+  return minuteMatch ? Math.round(Number(minuteMatch[1].replace(',', '.'))) : 0;
+}
+
+function recipeTimingData(recipe) {
+  const steps = recipe?.steps || [];
+  const timedSteps = steps.map(stepMinutes).filter(minutes => minutes > 0);
+  const timedTotal = timedSteps.reduce((sum, minutes) => sum + minutes, 0);
+  const cook = Number(recipe?.cookTime) || steps
+    .filter(step => /\b(cuire|cuisson|four|enfourner|frire|poele|mijoter|griller|rotir|saisir)\b/i.test(stripHtml(step)))
+    .map(stepMinutes)
+    .reduce((sum, minutes) => sum + minutes, 0);
+  const active = Number(recipe?.activeTime) || Math.max(5, Math.min(90, Math.round(((recipe?.ingredients || []).flatMap(group => group.items || []).length * 2.2) + (steps.length * 2.5))));
+  return {
+    active,
+    cook: cook || timedTotal || 0,
+    total: Number(recipe?.totalTime) || active + timedTotal
+  };
+}
+
+function minutesToIsoDuration(minutes) {
+  const value = Math.max(0, Math.round(Number(minutes) || 0));
+  if (!value) return undefined;
+  const hours = Math.floor(value / 60);
+  const rest = value % 60;
+  return `PT${hours ? `${hours}H` : ''}${rest ? `${rest}M` : ''}`;
+}
+
+function recipeKeywords(recipe) {
+  return [...new Set([...(recipe?.tags || []), ...(recipe?.categories || []), primaryCategory(recipe)].filter(Boolean))].join(', ');
+}
+
+function buildRecipeJsonLd(id, recipe, recipes) {
+  const fullRecipe = { id, ...recipe };
+  const url = absoluteRecipeUrl(id);
+  const variants = variantRefs(fullRecipe)
+    .map((variant, index) => ({ variant, recipe: recipes[variant.id], index }))
+    .filter(item => item.recipe);
+  const breadcrumb = {
+    '@type': 'BreadcrumbList',
+    '@id': `${url}#breadcrumb`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Cook Note', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: primaryCategory(fullRecipe), item: SITE_URL },
+      { '@type': 'ListItem', position: 3, name: fullRecipe.title, item: url }
+    ]
+  };
+  if (variants.length) {
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'CollectionPage',
+          '@id': `${url}#collection`,
+          name: fullRecipe.title,
+          description: recipeDescription(fullRecipe),
+          url,
+          image: absoluteImageUrl(fullRecipe),
+          inLanguage: 'fr-FR',
+          mainEntity: {
+            '@type': 'ItemList',
+            itemListElement: variants.map(({ variant, recipe: child, index }) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name: variant.label || child.title,
+              url: absoluteRecipeUrl(variant.id),
+              image: absoluteImageUrl(child)
+            }))
+          }
+        },
+        breadcrumb
+      ]
+    };
+  }
+  const timing = recipeTimingData(fullRecipe);
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Recipe',
+        '@id': `${url}#recipe`,
+        name: fullRecipe.title,
+        description: recipeDescription(fullRecipe),
+        url,
+        mainEntityOfPage: url,
+        image: [absoluteImageUrl(fullRecipe)],
+        author: { '@type': 'Organization', name: 'Cook Note' },
+        publisher: { '@type': 'Organization', name: 'Cook Note', url: SITE_URL },
+        inLanguage: 'fr-FR',
+        recipeCuisine: 'Cuisine maison',
+        recipeYield: fullRecipe.yield || undefined,
+        recipeCategory: (fullRecipe.categories || []).join(', ') || undefined,
+        keywords: recipeKeywords(fullRecipe) || undefined,
+        prepTime: minutesToIsoDuration(timing.active),
+        cookTime: minutesToIsoDuration(timing.cook),
+        totalTime: minutesToIsoDuration(timing.total),
+        suitableForDiet: /\b(vegetarien|végétarien|sans viande)\b/i.test(recipeKeywords(fullRecipe)) ? 'https://schema.org/VegetarianDiet' : undefined,
+        recipeIngredient: (fullRecipe.ingredients || []).flatMap(group => group.items || []).map(stripHtml),
+        recipeInstructions: (fullRecipe.steps || []).map((step, index) => ({
+          '@type': 'HowToStep',
+          position: index + 1,
+          name: `Etape ${index + 1}`,
+          text: stripHtml(step)
+        })),
+        isAccessibleForFree: true
+      },
+      breadcrumb
+    ]
+  };
+}
+
 function renderList(items, tag = 'ul') {
   if (!items.length) return '';
   const children = items.map(item => `<li>${escapeHtml(stripHtml(item))}</li>`).join('');
@@ -322,18 +438,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     (fullRecipe.steps || []).length ? `${(fullRecipe.steps || []).length} étapes` : '',
     timingFacts(fullRecipe)
   ].filter(Boolean);
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': variantRefs(fullRecipe).length ? 'CollectionPage' : 'Recipe',
-    name: fullRecipe.title,
-    description,
-    url: absoluteRecipeUrl(id),
-    image: absoluteImageUrl(fullRecipe),
-    recipeYield: fullRecipe.yield || undefined,
-    recipeCategory: (fullRecipe.categories || []).join(', ') || undefined,
-    recipeIngredient: (fullRecipe.ingredients || []).flatMap(group => group.items || []).map(stripHtml),
-    recipeInstructions: (fullRecipe.steps || []).map(step => ({ '@type': 'HowToStep', text: stripHtml(step) }))
-  };
+  const jsonLd = buildRecipeJsonLd(id, recipe, recipes);
   return [
     '<!DOCTYPE html>',
     '<html lang="fr">',
@@ -393,6 +498,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `  <script src="/app-images.js?v=${version}"></script>`,
     `  <script src="/app-art-images.js?v=${version}"></script>`,
     `  <script src="/i18n.js?v=${version}"></script>`,
+    `  <script src="/app-premium.js?v=${version}"></script>`,
     '  <script>',
     `    window.COOK_NOTE_PRERENDERED_ROUTE = ${safeJson(id)};`,
     `    window.COOK_NOTE_PRERENDERED_RECIPES = ${safeJson(routeRecipes)};`,

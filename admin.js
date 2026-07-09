@@ -48,6 +48,8 @@ function normalizeText(value) {
   return String(value || '')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[œŒ]/g, 'oe')
+    .replace(/[æÆ]/g, 'ae')
     .toLowerCase();
 }
 
@@ -65,7 +67,8 @@ function recipeDiagnosticText(recipe) {
     ...(recipe.tags || []),
     ...(recipe.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
     ...(recipe.steps || []),
-    ...(recipe.notes || [])
+    ...(recipe.notes || []),
+    ...(recipe.technical || []).flatMap(item => [item.label, item.title, item.value, item.text])
   ].join(' '));
 }
 
@@ -88,25 +91,208 @@ function inferDiagnosticAisles(recipe) {
 
 function inferDiagnosticAllergens(recipe) {
   const text = recipeDiagnosticText(recipe);
+  const nutText = text
+    .replace(/\bnoix de coco\b/g, '')
+    .replace(/\bnoix de muscade\b/g, '');
+  const seafoodText = text
+    .replace(/\bmoules?\s+(a|de|en)\s+(cake|tarte|manque|savarin|muffin|madeleine|charniere|gratin|four)\b/g, '')
+    .replace(/\bmoules?\s+(cake|tarte|manque|savarin|muffin|madeleine|charniere|gratin)\b/g, '');
   const items = [];
-  if (/\b(lait|creme|crème|beurre|fromage|mascarpone|yaourt)\b/.test(text)) items.push('Lait');
-  if (/\b(oeuf|œuf|jaune|blanc)\b/.test(text)) items.push('Œufs');
-  if (/\b(farine|pates|pâtes|pain|brioche)\b/.test(text)) items.push('Gluten');
-  if (/\b(noix|amande|noisette|pistache)\b/.test(text)) items.push('Fruits à coque');
-  if (/\b(crevette|calamar|moule|poisson|saumon|cabillaud|thon)\b/.test(text)) items.push('Poisson/fruits de mer');
+  const add = (label, pattern, source = text) => {
+    if (pattern.test(source) && !items.includes(label)) items.push(label);
+  };
+  add('Gluten', /\b(farine|ble|froment|seigle|orge|avoine|epeautre|malt|semoule|couscous|boulgour|chapelure|panko|pain|brioche|bun|buns|pates?|nouilles?|ravioles?|tortillas?|speculoos|biscuit|biscuits|genoise|pizza)\b/);
+  add('Œufs', /\b(oeufs?|jaunes?\s+d\s*oeufs?|blancs?\s+d\s*oeufs?|meringue|mayonnaise)\b/);
+  add('Lait/lactose', /\b(lait|lactose|beurre|creme|fromage|yaourt|mascarpone|ricotta|mozzarella|parmesan|comte|feta|chevre|brie|roquefort|mornay|chantilly|babeurre)\b/);
+  add('Fruits à coque', /\b(amandes?|noisettes?|pistaches?|noix|pecan|cajou|macadamia|praline|pralines?|pignons?)\b/, nutText);
+  add('Arachides', /\b(arachides?|cacahuetes?|beurre\s+de\s+cacahuete)\b/);
+  add('Soja', /\b(soja|tofu|tamari|edamame|miso)\b/);
+  add('Sésame', /\b(sesame|tahini|tahin)\b/);
+  add('Moutarde', /\b(moutarde)\b/);
+  add('Poisson', /\b(poisson|saumon|cabillaud|thon|anchois|sardines?|truite|bar|dorade|colin|merlu|nuoc\s*mam|sauce\s+poisson)\b/);
+  add('Crustacés', /\b(crevettes?|gambas|langoustines?|crabes?|homards?|ecrevisses?)\b/);
+  add('Mollusques', /\b(moules?|calamars?|encornets?|seiches?|poulpes?|coquilles?\s+saint\s+jacques?|huitres?|palourdes?)\b/, seafoodText);
+  add('Céleri', /\b(celeri|celeri-rave)\b/);
+  add('Sulfites', /\b(sulfites?|vin|vinaigre|balsamique|cidre|biere)\b/);
+  add('Lupin', /\b(lupin)\b/);
   return items;
 }
 
 function adminQualityChecks(id, recipe) {
   const checks = [];
   const add = (label, ok, detail) => checks.push({ label, ok, detail });
+  const categories = recipe.categories || [];
+  const seasons = recipe.seasons || [];
+  const tags = recipe.tags || [];
+  const ingredients = recipe.ingredients || [];
+  const steps = recipe.steps || [];
+  const variants = recipe.variants || [];
+  const notes = recipe.notes || [];
+  const technical = recipe.technical || [];
+  const practicalText = normalizeText([...notes, ...technical.flatMap(item => [item.label, item.title, item.value, item.text])].join(' '));
+  const hasConservation = /\b(conservation|conserver|garde|frigo|refrigerateur|congel|congelation|avance|veille|jours?)\b/.test(practicalText);
+  const hasLinks = Boolean(recipe.master || variants.length || /\b(data-goto|recette liee|voir aussi|base|sauce)\b/.test(recipeDiagnosticText(recipe)));
   add('Identité', Boolean(id && recipe.title && recipe.yield), 'slug, titre, rendement');
-  add('Rangement', recipe.categories.length > 0 && recipe.seasons.length > 0 && Boolean(recipe.master || recipe.variants.length), 'catégorie, saison, parent');
-  add('Recherche', recipe.tags.length >= 2, 'au moins 2 tags utiles');
-  add('Structure', recipe.ingredients.length > 0 && recipe.steps.length > 0, 'ingrédients et étapes');
-  add('Image', recipe.image.startsWith('/assets/recipes/heroes/'), 'image locale optimisée');
-  add('SEO', recipe.title.length >= 4 && recipe.steps.join(' ').length >= 80, 'titre + contenu descriptif');
+  add('Rangement', categories.length > 0 && seasons.length > 0, 'catégorie + saison');
+  add('Recherche', tags.length >= 2, 'au moins 2 tags utiles');
+  add('Structure', ingredients.length > 0 && steps.length > 0, 'ingrédients et étapes');
+  add('Image', String(recipe.image || '').startsWith('/assets/recipes/heroes/'), 'image locale optimisée');
+  add('SEO', String(recipe.title || '').length >= 4 && steps.join(' ').length >= 80, 'titre + contenu descriptif');
+  add('Conservation', hasConservation, 'note conservation / avance / frigo');
+  add('Liens', hasLinks, 'parent, variante ou renvoi utile');
   return checks;
+}
+
+function recipeHealthSummary(id, recipe) {
+  const checks = adminQualityChecks(id, recipe);
+  const allergens = inferDiagnosticAllergens(recipe);
+  const failed = checks.filter(item => !item.ok);
+  return {
+    id,
+    recipe,
+    checks,
+    failed,
+    allergens,
+    score: checks.length - failed.length,
+    qualityScore: Math.round(((checks.length - failed.length) / checks.length) * 100)
+  };
+}
+
+function recipeDuplicateTokens(recipe) {
+  const stopwords = new Set(['avec', 'sans', 'pour', 'dans', 'base', 'recette', 'preparation', 'cuisson', 'sel', 'poivre']);
+  const text = normalizeText([
+    recipe.title,
+    ...(recipe.categories || []),
+    ...(recipe.tags || []),
+    ...(recipe.ingredients || []).flatMap(group => [group.group, ...(group.items || [])])
+  ].join(' '));
+  return new Set(text.split(/[^a-z0-9]+/).filter(token => token.length > 3 && !stopwords.has(token)));
+}
+
+function jaccardSimilarity(a, b) {
+  if (!a.size || !b.size) return 0;
+  let intersection = 0;
+  a.forEach(token => {
+    if (b.has(token)) intersection += 1;
+  });
+  return intersection / (a.size + b.size - intersection);
+}
+
+function findCatalogDuplicateSignals(summaries) {
+  const tokensById = new Map(summaries.map(item => [item.id, recipeDuplicateTokens(item.recipe)]));
+  const similarRecipes = [];
+  for (let left = 0; left < summaries.length; left += 1) {
+    for (let right = left + 1; right < summaries.length; right += 1) {
+      const a = summaries[left];
+      const b = summaries[right];
+      const score = jaccardSimilarity(tokensById.get(a.id), tokensById.get(b.id));
+      const titleA = normalizeText(a.recipe.title).replace(/\b(variante|version)\b/g, '').trim();
+      const titleB = normalizeText(b.recipe.title).replace(/\b(variante|version)\b/g, '').trim();
+      const sameTitle = titleA && titleA === titleB;
+      if (score >= 0.62 || sameTitle) similarRecipes.push({ a, b, score: sameTitle ? Math.max(score, .88) : score });
+    }
+  }
+  const images = new Map();
+  summaries.forEach(item => {
+    const image = String(item.recipe.image || '').trim();
+    if (!image) return;
+    if (!images.has(image)) images.set(image, []);
+    images.get(image).push(item);
+  });
+  const imageDuplicates = Array.from(images.entries())
+    .filter(([, items]) => items.length > 1)
+    .map(([image, items]) => ({ image, items }));
+  const ids = new Set(summaries.map(item => item.id));
+  const variantIssues = summaries.flatMap(item => {
+    const issues = [];
+    (item.recipe.variants || []).forEach(variant => {
+      if (!ids.has(variant.id)) issues.push(`${item.recipe.title || item.id} → variante absente : ${variant.id}`);
+    });
+    if (item.recipe.master && !ids.has(item.recipe.master)) issues.push(`${item.recipe.title || item.id} → master absent : ${item.recipe.master}`);
+    return issues;
+  });
+  return {
+    similarRecipes: similarRecipes.sort((a, b) => b.score - a.score).slice(0, 6),
+    imageDuplicates: imageDuplicates.sort((a, b) => b.items.length - a.items.length).slice(0, 6),
+    variantIssues: variantIssues.slice(0, 6)
+  };
+}
+
+function renderCatalogHealth(visibleCount = null) {
+  const target = $('#admin-health-panel');
+  if (!target) return;
+  const summaries = Object.entries(recipes).map(([id, recipe]) => recipeHealthSummary(id, recipe));
+  if (!summaries.length) {
+    target.innerHTML = `
+      <div class="admin-health-empty">
+        <strong>Catalogue vide</strong>
+        <span>Crée une première recette pour lancer les contrôles.</span>
+      </div>
+    `;
+    return;
+  }
+  const total = summaries.length;
+  const weak = summaries.filter(item => item.failed.length);
+  const missingImage = summaries.filter(item => item.failed.some(check => check.label === 'Image'));
+  const missingConservation = summaries.filter(item => item.failed.some(check => check.label === 'Conservation'));
+  const missingLinks = summaries.filter(item => item.failed.some(check => check.label === 'Liens'));
+  const averageScore = Math.round(summaries.reduce((sum, item) => sum + item.qualityScore, 0) / total);
+  const duplicateSignals = findCatalogDuplicateSignals(summaries);
+  const allergenCounts = new Map();
+  summaries.forEach(item => item.allergens.forEach(label => allergenCounts.set(label, (allergenCounts.get(label) || 0) + 1)));
+  const topAllergens = Array.from(allergenCounts.entries())
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'fr'))
+    .slice(0, 4);
+  const queue = weak
+    .sort((a, b) => a.score - b.score || b.failed.length - a.failed.length || (a.recipe.title || a.id).localeCompare(b.recipe.title || b.id, 'fr'))
+    .slice(0, 5);
+  const metrics = [
+    { label: 'Recettes', value: String(total), detail: visibleCount === null ? 'catalogue' : `${visibleCount} visibles` },
+    { label: 'Score moyen', value: `${averageScore}%`, detail: 'qualité globale' },
+    { label: 'À renforcer', value: String(weak.length), detail: `${Math.round(((total - weak.length) / total) * 100)}% OK` },
+    { label: 'Images', value: String(missingImage.length), detail: 'à optimiser' },
+    { label: 'Conservation', value: String(missingConservation.length), detail: 'à documenter' },
+    { label: 'Liens', value: String(missingLinks.length), detail: 'à relier' },
+    { label: 'Doublons', value: String(duplicateSignals.similarRecipes.length), detail: 'recettes proches' },
+    { label: 'Images doublées', value: String(duplicateSignals.imageDuplicates.length), detail: 'visuels partagés' },
+    { label: 'Variantes', value: String(duplicateSignals.variantIssues.length), detail: 'liens suspects' }
+  ];
+  const duplicateRows = [
+    ...duplicateSignals.similarRecipes.map(item => `${item.a.recipe.title || item.a.id} / ${item.b.recipe.title || item.b.id} · ${Math.round(item.score * 100)}% proche`),
+    ...duplicateSignals.imageDuplicates.map(item => `${item.items.length} fiches utilisent ${item.image.split('/').pop()}`),
+    ...duplicateSignals.variantIssues
+  ].slice(0, 8);
+  target.innerHTML = `
+    <div class="admin-health-head">
+      <div>
+        <p class="eyebrow">Qualité catalogue</p>
+        <h2>Cockpit</h2>
+      </div>
+      <span>${escapeHtml(topAllergens.length ? topAllergens.map(([label, count]) => `${label} ${count}`).join(' · ') : 'Allergènes majeurs : aucun signal fort')}</span>
+    </div>
+    <div class="admin-health-metrics">
+      ${metrics.map(item => `
+        <article>
+          <span>${escapeHtml(item.label)}</span>
+          <strong>${escapeHtml(item.value)}</strong>
+          <small>${escapeHtml(item.detail)}</small>
+        </article>
+      `).join('')}
+    </div>
+    <div class="admin-health-duplicates">
+      <span>Contrôle doublons</span>
+      ${duplicateRows.length ? duplicateRows.map(item => `<small>${escapeHtml(item)}</small>`).join('') : '<em>Aucun doublon fort, image réutilisée ou variante cassée détecté.</em>'}
+    </div>
+    <div class="admin-health-queue">
+      <span>Priorité</span>
+      ${queue.length ? queue.map(item => `
+        <button type="button" data-id="${escapeHtml(item.id)}" class="admin-health-item">
+          <strong>${escapeHtml(item.recipe.title || item.id)}</strong>
+          <small>${escapeHtml(item.failed.slice(0, 3).map(check => check.label).join(', '))}</small>
+        </button>
+      `).join('') : '<em>Tout le catalogue passe les checks principaux.</em>'}
+    </div>
+  `;
 }
 
 function renderDiagnostics(id, recipe) {
@@ -191,6 +377,7 @@ function renderList() {
       <small>${escapeHtml(id)} · ${escapeHtml((recipe.categories || []).join(', '))} · ${escapeHtml(DIFFICULTY[recipe.difficulty] || recipe.difficulty || '')}</small>
     </button>
   `).join('');
+  renderCatalogHealth(entries.length);
 }
 
 function setChecked(name, values) {
@@ -435,6 +622,10 @@ function bind() {
   $('#recipe-list').addEventListener('click', event => {
     const button = event.target.closest('[data-id]');
     if (button) selectRecipe(button.dataset.id);
+  });
+  $('#admin-health-panel').addEventListener('click', event => {
+    const button = event.target.closest('[data-id]');
+    if (button && recipes[button.dataset.id]) selectRecipe(button.dataset.id);
   });
   $('#recipe-search').addEventListener('input', renderList);
   $('#new-btn').addEventListener('click', newRecipe);

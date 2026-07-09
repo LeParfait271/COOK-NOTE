@@ -593,12 +593,14 @@ a {
   min-width: 40px;
 }
 
-.top-techniques-btn .site-icon {
+.top-techniques-btn .site-icon,
+.top-pantry-btn .site-icon {
   width: 18px;
   height: 18px;
 }
 
 .top-techniques-btn,
+.top-pantry-btn,
 .top-request-btn {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .055);
 }
@@ -3591,6 +3593,62 @@ a {
   line-height: 1.35;
 }
 
+.preference-offline-group {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.preference-offline-group div {
+  display: grid;
+  gap: 4px;
+}
+
+.preference-offline-group small {
+  color: var(--muted);
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.preference-offline-group .btn {
+  white-space: nowrap;
+}
+
+.offline-status-bar {
+  position: sticky;
+  top: 57px;
+  z-index: 19;
+  display: flex;
+  width: min(980px, calc(100% - 28px));
+  min-height: 38px;
+  align-items: center;
+  gap: 9px;
+  margin: 10px auto 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--line));
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 13%, transparent), transparent 62%),
+    color-mix(in srgb, var(--surface-strong) 94%, transparent);
+  color: var(--text);
+  padding: 7px 11px;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, .24);
+  backdrop-filter: blur(14px);
+}
+
+.offline-status-bar .site-icon {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+}
+
+.offline-status-bar span {
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
 .search-backdrop {
   background: rgba(0, 0, 0, .78);
   backdrop-filter: blur(8px);
@@ -3871,6 +3929,164 @@ a {
 
 .search-empty {
   margin-top: 12px;
+}
+
+.pantry-modal {
+  width: min(820px, 100%);
+}
+
+.pantry-add-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.pantry-add-row input {
+  min-height: 44px;
+}
+
+.pantry-suggestions,
+.pantry-current-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.pantry-suggestions button,
+.pantry-current-list button,
+.pantry-match-badge {
+  min-height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+  color: var(--text);
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.pantry-suggestions button.active,
+.pantry-match-badge.ready {
+  border-color: color-mix(in srgb, var(--ds-color-success) 42%, var(--line));
+  background: color-mix(in srgb, var(--ds-color-success) 15%, var(--surface-soft));
+  color: color-mix(in srgb, var(--ds-color-success) 48%, #fff);
+}
+
+.pantry-current-list button span {
+  margin-left: 7px;
+  color: var(--accent);
+  font-weight: 950;
+}
+
+.pantry-score-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.pantry-score-row span {
+  display: grid;
+  gap: 3px;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface-soft) 78%, transparent);
+  padding: 10px;
+}
+
+.pantry-score-row strong {
+  color: var(--accent);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.pantry-score-row small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.pantry-match-list {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.pantry-match-row {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+  min-height: 82px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .012)),
+    color-mix(in srgb, var(--surface-soft) 78%, transparent);
+  color: var(--text);
+  padding: 10px;
+  text-align: left;
+}
+
+.pantry-match-row:hover,
+.pantry-match-row:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 54%, var(--line));
+  box-shadow: 0 16px 34px rgba(0, 0, 0, .32);
+}
+
+.pantry-match-image {
+  width: 72px;
+  aspect-ratio: 1;
+  border-radius: 7px;
+  background: var(--surface-strong) center / cover no-repeat;
+}
+
+.pantry-match-copy {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.pantry-match-copy strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pantry-match-copy small {
+  color: var(--muted);
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.pantry-match-badge {
+  display: inline-grid;
+  place-items: center;
+  white-space: nowrap;
+}
+
+.pantry-empty {
+  margin: 12px 0;
+}
+
+@media (max-width: 700px) {
+  .pantry-add-row,
+  .pantry-score-row,
+  .pantry-match-row {
+    grid-template-columns: 1fr;
+  }
+
+  .pantry-match-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .pantry-match-badge {
+    justify-self: start;
+  }
 }
 
 .shopping-picked {
@@ -4156,7 +4372,8 @@ a {
 }
 
 .shopping-smart-groups span,
-.shopping-owned-list button {
+.shopping-owned-list button,
+.shopping-owned-list span {
   border: 1px solid var(--line);
   border-radius: 999px;
   background: color-mix(in srgb, var(--accent) 9%, var(--surface-soft));
@@ -4164,6 +4381,10 @@ a {
   padding: 6px 10px;
   font-size: 12px;
   font-weight: 850;
+}
+
+.shopping-owned-list span {
+  color: color-mix(in srgb, var(--ds-color-success) 42%, var(--text));
 }
 
 .shopping-owned-list strong {
@@ -4704,6 +4925,20 @@ a {
 
   .topbar {
     display: none;
+  }
+
+  .offline-status-bar {
+    top: 10px;
+    width: calc(100% - 24px);
+    margin-top: 10px;
+  }
+
+  .preference-offline-group {
+    grid-template-columns: 1fr;
+  }
+
+  .preference-offline-group .btn {
+    width: 100%;
   }
 
   .top-request-btn span {
@@ -5900,6 +6135,8 @@ a {
 }
 
 .recipe-chef-strip{display:grid;gap:12px;border:1px solid color-mix(in srgb,var(--accent) 22%,var(--line));border-radius:8px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 8%,transparent),rgba(255,255,255,.022)),rgba(0,0,0,.14);padding:14px}.recipe-chef-strip strong{color:color-mix(in srgb,var(--accent) 82%,var(--text));font-size:12px;font-weight:950;text-transform:uppercase}.recipe-chef-strip ul{display:grid;gap:8px;margin:0;padding:0;list-style:none}.recipe-chef-strip li{position:relative;min-width:0;border-left:2px solid color-mix(in srgb,var(--accent) 42%,transparent);border-radius:6px;background:color-mix(in srgb,var(--surface) 52%,transparent);color:color-mix(in srgb,var(--text) 84%,var(--muted));padding:8px 10px 8px 12px;font-size:13px;font-weight:800;line-height:1.35;overflow-wrap:anywhere}
+
+.recipe-magazine-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px;margin:0 0 12px}.recipe-magazine-strip span{min-width:0;border:1px solid color-mix(in srgb,var(--accent) 24%,var(--line));border-radius:8px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 12%,transparent),rgba(255,255,255,.026));padding:9px 10px}.recipe-magazine-strip small,.recipe-magazine-strip strong{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.recipe-magazine-strip small{color:var(--muted);font-size:10px;font-weight:950;text-transform:uppercase}.recipe-magazine-strip strong{margin-top:3px;color:var(--text);font-size:13px;font-weight:950}.search-live-suggestions{display:flex;flex-wrap:wrap;gap:7px;margin:-2px 0 12px}.search-live-suggestions button,.shopping-summary button.active{border-color:color-mix(in srgb,var(--accent) 58%,var(--line));background:color-mix(in srgb,var(--accent) 15%,var(--surface-soft));color:var(--text);box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 12%,transparent)}.pantry-substitution-hint{color:color-mix(in srgb,var(--accent) 78%,var(--text));font-weight:900}.theme-light .recipe-magazine-strip span{background:rgba(255,252,246,.72);box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}@media (prefers-reduced-motion:no-preference){.favorite-action.active,.top-pantry-btn:active,.cart-icon-btn:active,.shopping-owned-btn:active{animation:premium-tap .42s cubic-bezier(.2,.8,.2,1)}.pantry-match-row,.shopping-line,.search-result{transition:transform var(--speed),border-color var(--speed),box-shadow var(--speed),background var(--speed)}.pantry-match-row:hover,.shopping-line:hover,.search-result:hover{transform:translateY(-1px)}@keyframes premium-tap{0%{transform:scale(.96)}55%{transform:scale(1.05)}100%{transform:scale(1)}}}
 
 .menu-quality-band,
 .shopping-store-dashboard {

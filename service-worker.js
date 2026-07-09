@@ -1,14 +1,15 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v328
+//  Cook Note - Service Worker PWA v329
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v328';
-const IMAGE_CACHE_NAME = 'cook-note-images-v328';
+const CACHE_NAME = 'cook-note-v329';
+const IMAGE_CACHE_NAME = 'cook-note-images-v329';
 const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
+  '/app-premium.js',
   '/app-images.js',
   '/app-art-images.js',
   '/theme.js',
@@ -34,15 +35,16 @@ const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=328-parent-title',
-  '/app-images.js?v=328-parent-title',
-  '/app-art-images.js?v=328-parent-title',
-  '/theme.js?v=328-parent-title',
-  '/i18n.js?v=328-parent-title',
-  '/assets/catalog-1.js?v=328-parent-title',
-  '/assets/image-manifest.js?v=328-parent-title',
-  '/style.css?v=328-parent-title',
-  '/recipe.js?v=328-parent-title',
+  '/app.js?v=329-parent-title',
+  '/app-premium.js?v=329-parent-title',
+  '/app-images.js?v=329-parent-title',
+  '/app-art-images.js?v=329-parent-title',
+  '/theme.js?v=329-parent-title',
+  '/i18n.js?v=329-parent-title',
+  '/assets/catalog-1.js?v=329-parent-title',
+  '/assets/image-manifest.js?v=329-parent-title',
+  '/style.css?v=329-parent-title',
+  '/recipe.js?v=329-parent-title',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
@@ -76,6 +78,49 @@ function isImmutableImageRequest(url) {
   return IMMUTABLE_IMAGE_PATHS.some(path => url.pathname === path || url.pathname.startsWith(path));
 }
 
+function isCacheableLocalUrl(url) {
+  return url.origin === self.location.origin
+    && !url.pathname.startsWith('/admin')
+    && !url.pathname.startsWith('/api/')
+    && !url.pathname.startsWith('/downloads/');
+}
+
+function isImageUrl(url) {
+  return /\.(?:avif|gif|jpe?g|png|svg|webp)$/i.test(url.pathname)
+    || url.pathname.startsWith('/assets/recipes/')
+    || url.pathname.startsWith('/assets/theme/')
+    || url.pathname.startsWith('/assets/brand/');
+}
+
+async function cacheRequestedUrls(urls = []) {
+  const localUrls = Array.from(new Set(urls.map(value => {
+    try {
+      const url = new URL(value, self.location.origin);
+      return isCacheableLocalUrl(url) ? url.href : '';
+    } catch {
+      return '';
+    }
+  }).filter(Boolean)));
+  const staticCache = await caches.open(CACHE_NAME);
+  const imageCache = await caches.open(IMAGE_CACHE_NAME);
+  let cached = 0;
+  await Promise.allSettled(localUrls.map(async href => {
+    const url = new URL(href);
+    const request = new Request(url.href, { credentials: 'same-origin' });
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      cached += 1;
+      return;
+    }
+    const response = await fetch(request, { cache: 'no-store' });
+    if (!response || response.status !== 200 || response.type !== 'basic') return;
+    await (isImageUrl(url) ? imageCache : staticCache).put(request, response.clone());
+    cached += 1;
+  }));
+  await trimCache(IMAGE_CACHE_NAME, IMAGE_CACHE_LIMIT);
+  return { cached, total: localUrls.length };
+}
+
 // Installation
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -99,6 +144,18 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
+  }
+  if (event.data && event.data.type === 'CACHE_URLS') {
+    const port = event.ports && event.ports[0];
+    event.waitUntil(
+      cacheRequestedUrls(Array.isArray(event.data.urls) ? event.data.urls : [])
+        .then(result => {
+          if (port) port.postMessage({ type: 'CACHE_URLS_DONE', ...result });
+        })
+        .catch(() => {
+          if (port) port.postMessage({ type: 'CACHE_URLS_DONE', error: true });
+        })
+    );
   }
 });
 
