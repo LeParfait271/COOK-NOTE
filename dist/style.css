@@ -7658,6 +7658,86 @@ a {
   background: color-mix(in srgb, var(--ambient-accent, var(--accent)) 82%, #6f4315);
 }
 
+/* Premium home bands: softer than boxed cards, with no hard side rail. */
+.home-view .fridge-assistant,
+.home-view .season-dashboard,
+.home-view .season-block {
+  border: 0;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 18% 0, color-mix(in srgb, var(--ambient-accent, var(--accent)) 12%, transparent), transparent 36%),
+    linear-gradient(180deg, rgba(255, 255, 255, .056), rgba(255, 255, 255, .014)),
+    color-mix(in srgb, var(--surface) 88%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--ambient-accent, var(--accent)) 25%, rgba(255, 255, 255, .08)),
+    inset 0 -1px 0 rgba(255, 255, 255, .035),
+    0 24px 76px rgba(0, 0, 0, .24);
+}
+
+.home-view .fridge-assistant {
+  padding: clamp(16px, 1.5vw, 22px);
+}
+
+.home-view .season-dashboard {
+  min-height: 78px;
+  margin-bottom: 18px;
+  padding: clamp(15px, 1.4vw, 20px);
+}
+
+.home-view .season-block {
+  padding: clamp(15px, 1.5vw, 22px);
+}
+
+.home-view .season-dashboard::before,
+.home-view .season-block::before {
+  inset: 0 clamp(14px, 2vw, 28px) auto;
+  width: auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ambient-accent, var(--accent)) 70%, white), transparent);
+  opacity: .72;
+}
+
+.home-view .season-dashboard::after,
+.home-view .fridge-assistant::after {
+  width: min(560px, 66vw);
+  background:
+    linear-gradient(115deg, transparent, color-mix(in srgb, var(--ambient-accent, var(--accent)) 10%, transparent), transparent),
+    radial-gradient(circle at 92% 8%, rgba(255, 255, 255, .08), transparent 34%);
+  opacity: .5;
+}
+
+.home-view .season-block-head {
+  border-bottom-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 14%, rgba(255, 255, 255, .07));
+}
+
+.home-view .season-block-head::after {
+  width: min(120px, 28%);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 58%, white), transparent);
+  opacity: .58;
+}
+
+.home-view .season-tabs,
+.home-view .season-category-tabs {
+  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 13%, rgba(255, 255, 255, .1));
+  background: color-mix(in srgb, var(--surface-strong) 42%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .05),
+    0 10px 30px rgba(0, 0, 0, .18);
+}
+
+.mc-shell.theme-light .home-view .fridge-assistant,
+.mc-shell.theme-light .home-view .season-dashboard,
+.mc-shell.theme-light .home-view .season-block {
+  background:
+    radial-gradient(circle at 18% 0, color-mix(in srgb, var(--ambient-accent, var(--accent)) 10%, transparent), transparent 38%),
+    linear-gradient(180deg, rgba(255, 255, 255, .78), rgba(255, 252, 246, .58)),
+    rgba(255, 252, 246, .72);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .88),
+    inset 0 -1px 0 color-mix(in srgb, var(--ambient-accent, var(--accent)) 12%, rgba(112, 78, 37, .1)),
+    0 22px 56px rgba(84, 61, 31, .12);
+}
+
 @media (max-width: 700px) {
   body {
     padding-bottom: calc(86px + env(safe-area-inset-bottom));
@@ -7695,6 +7775,20 @@ a {
 
   .command-input-shell {
     min-height: 48px;
+  }
+
+  .home-view .fridge-assistant,
+  .home-view .season-dashboard,
+  .home-view .season-block {
+    border-radius: 10px;
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--ambient-accent, var(--accent)) 20%, rgba(255, 255, 255, .08)),
+      0 16px 44px rgba(0, 0, 0, .2);
+  }
+
+  .home-view .season-dashboard,
+  .home-view .season-block {
+    padding: 14px;
   }
 }
 

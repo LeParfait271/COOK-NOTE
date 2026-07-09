@@ -25,6 +25,7 @@ const PUBLIC_ROOT_FILES = new Set([
   'app.js',
   'app-images.js',
   'app-art-images.js',
+  'app-premium.js',
   'theme.js',
   'i18n.js',
   'recipes.js',
