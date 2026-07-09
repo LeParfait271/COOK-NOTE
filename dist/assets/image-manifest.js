@@ -2716,9 +2716,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 544058
   },
   "assets/theme/dark/global/background.jpg": {
-    "width": 1536,
-    "height": 1024,
-    "bytes": 749815
+    "width": 1672,
+    "height": 941,
+    "bytes": 255965
   },
   "assets/theme/dark/global/hero.png": {
     "width": 1445,
@@ -4068,12 +4068,12 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/theme/day/global/background.jpg": {
     "width": 1821,
     "height": 864,
-    "bytes": 358445
+    "bytes": 343062
   },
   "assets/theme/day/global/hero.jpg": {
     "width": 1821,
     "height": 864,
-    "bytes": 358445
+    "bytes": 343062
   },
   "assets/theme/day/global/logo.png": {
     "width": 948,
