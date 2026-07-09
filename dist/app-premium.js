@@ -128,6 +128,136 @@
     }
   ];
 
+  const FLAVOR_PAIRING_RULES = [
+    {
+      key: 'citron',
+      label: 'Citron',
+      pattern: /\b(citron|citron vert|lime|zeste|jus de citron)\b/,
+      profile: 'acide frais',
+      pairs: [
+        { label: 'poulet', pattern: /\b(poulet|volaille)\b/, reason: 'reveil aromatique et jus plus net' },
+        { label: 'poisson', pattern: /\b(poisson|saumon|cabillaud|thon)\b/, reason: 'coupe le gras et rafraichit' },
+        { label: 'beurre', pattern: /\bbeurre\b/, reason: 'arrondit l acidite' },
+        { label: 'ail', pattern: /\bail\b/, reason: 'donne du relief sale' },
+        { label: 'thym', pattern: /\b(thym|romarin|origan)\b/, reason: 'accent mediterraneen' }
+      ],
+      boosters: ['zeste minute', 'fleur de sel', 'herbes fraiches']
+    },
+    {
+      key: 'tomate',
+      label: 'Tomate',
+      pattern: /\b(tomate|tomates|tomates confites|coulis tomate)\b/,
+      profile: 'umami acidule',
+      pairs: [
+        { label: 'basilic', pattern: /\bbasilic\b/, reason: 'parfum frais immediat' },
+        { label: 'mozzarella', pattern: /\b(mozzarella|burrata|feta)\b/, reason: 'cremeux qui calme l acidite' },
+        { label: 'ail', pattern: /\bail\b/, reason: 'base salee profonde' },
+        { label: 'chorizo', pattern: /\b(chorizo|lardon|bacon)\b/, reason: 'fumee et gras' },
+        { label: 'vinaigre', pattern: /\b(vinaigre|balsamique)\b/, reason: 'tension plus nette' }
+      ],
+      boosters: ['huile d olive', 'poivre', 'sucre pincee']
+    },
+    {
+      key: 'chocolat',
+      label: 'Chocolat',
+      pattern: /\b(chocolat|cacao|ganache)\b/,
+      profile: 'amer rond',
+      pairs: [
+        { label: 'cafe', pattern: /\b(cafe|espresso)\b/, reason: 'renforce l amertume noble' },
+        { label: 'noisette', pattern: /\b(noisette|praline|praline)\b/, reason: 'rondeur grillee' },
+        { label: 'orange', pattern: /\b(orange|zeste d orange)\b/, reason: 'contraste agrume' },
+        { label: 'sel', pattern: /\b(fleur de sel|sel)\b/, reason: 'rend le chocolat plus lisible' },
+        { label: 'vanille', pattern: /\bvanille\b/, reason: 'adouci la finale' }
+      ],
+      boosters: ['fleur de sel', 'cafe court', 'noisettes grillees']
+    },
+    {
+      key: 'carotte',
+      label: 'Carotte',
+      pattern: /\b(carotte|carottes)\b/,
+      profile: 'doux vegetal',
+      pairs: [
+        { label: 'cumin', pattern: /\bcumin\b/, reason: 'chaleur terreuse' },
+        { label: 'orange', pattern: /\borange\b/, reason: 'sucre et acidite' },
+        { label: 'miel', pattern: /\b(miel|erable|sirop d erable)\b/, reason: 'glacage brillant' },
+        { label: 'noisette', pattern: /\b(noisette|amande)\b/, reason: 'croquant grille' },
+        { label: 'chevre', pattern: /\b(chevre|feta|fromage)\b/, reason: 'sel et acidite lactee' }
+      ],
+      boosters: ['beurre noisette', 'persil', 'poivre']
+    },
+    {
+      key: 'pomme_de_terre',
+      label: 'Pomme de terre',
+      pattern: /\b(pomme de terre|pommes de terre|grenaille|rattes|puree)\b/,
+      profile: 'neutre fondant',
+      pairs: [
+        { label: 'ail', pattern: /\bail\b/, reason: 'structure aromatique' },
+        { label: 'romarin', pattern: /\b(romarin|thym)\b/, reason: 'note rotie' },
+        { label: 'beurre', pattern: /\bbeurre\b/, reason: 'rondeur et brillance' },
+        { label: 'moutarde', pattern: /\bmoutarde\b/, reason: 'relance la finale' },
+        { label: 'fromage', pattern: /\b(fromage|comte|parmesan|cheddar)\b/, reason: 'gratine et umami' }
+      ],
+      boosters: ['fleur de sel', 'herbes', 'poivre noir']
+    },
+    {
+      key: 'crevette',
+      label: 'Crevette',
+      pattern: /\b(crevette|crevettes|gambas)\b/,
+      profile: 'iode sucre',
+      pairs: [
+        { label: 'ail', pattern: /\bail\b/, reason: 'relief sale' },
+        { label: 'citron', pattern: /\b(citron|lime|citron vert)\b/, reason: 'fraicheur' },
+        { label: 'chorizo', pattern: /\bchorizo\b/, reason: 'fumee et gras' },
+        { label: 'persil', pattern: /\b(persil|coriandre)\b/, reason: 'final frais' },
+        { label: 'piment', pattern: /\b(piment|harissa|chili)\b/, reason: 'tension chaude' }
+      ],
+      boosters: ['huile d olive', 'zeste', 'herbes']
+    },
+    {
+      key: 'oeuf',
+      label: 'Oeuf',
+      pattern: /\b(oeuf|oeufs|jaune|blanc|omelette|mimosa)\b/,
+      profile: 'doux riche',
+      pairs: [
+        { label: 'moutarde', pattern: /\bmoutarde\b/, reason: 'attaque plus vive' },
+        { label: 'ciboulette', pattern: /\b(ciboulette|persil|aneth)\b/, reason: 'fraicheur' },
+        { label: 'fromage', pattern: /\b(fromage|comte|parmesan|cheddar)\b/, reason: 'umami' },
+        { label: 'piment', pattern: /\b(piment|chili|paprika)\b/, reason: 'contraste chaud' },
+        { label: 'champignon', pattern: /\b(champignon|truffe)\b/, reason: 'profondeur terreuse' }
+      ],
+      boosters: ['poivre', 'fleur de sel', 'herbes']
+    },
+    {
+      key: 'agneau',
+      label: 'Agneau',
+      pattern: /\b(agneau|carre d agneau|cotes d agneau)\b/,
+      profile: 'viande ronde',
+      pairs: [
+        { label: 'ail', pattern: /\bail\b/, reason: 'base aromatique' },
+        { label: 'romarin', pattern: /\b(romarin|thym)\b/, reason: 'signature rotie' },
+        { label: 'miel', pattern: /\bmiel\b/, reason: 'laquage doux' },
+        { label: 'citron', pattern: /\bcitron\b/, reason: 'coupe le gras' },
+        { label: 'menthe', pattern: /\bmenthe\b/, reason: 'fraicheur nette' }
+      ],
+      boosters: ['jus court', 'herbes', 'poivre']
+    }
+  ];
+
+  const INGREDIENT_GUIDE_RULES = [
+    { label: 'Citron', pattern: /\b(citron|citron vert|lime|zeste|jus de citron)\b/, family: 'Agrume', season: 'Hiver-printemps, disponible toute l annee', storage: 'Entier au frais 2 a 3 semaines; zeste a prelever avant pressage.', pairings: 'Poisson, poulet, beurre, ail, herbes.', avoid: 'Le jus trop tot cuit les textures fragiles et ternit les herbes.' },
+    { label: 'Tomate', pattern: /\b(tomate|tomates|tomates confites|coulis tomate)\b/, family: 'Legume-fruit', season: 'Ete pour le frais; confit/coulis hors saison.', storage: 'A temperature ambiante si elle est entiere; au frais une fois coupee.', pairings: 'Basilic, mozzarella, ail, huile d olive, vinaigre.', avoid: 'Frigo trop long: parfum eteint et texture farineuse.' },
+    { label: 'Oeuf', pattern: /\b(oeuf|oeufs|jaune|blanc|omelette|mimosa)\b/, family: 'Liaison/proteine', season: 'Toute saison', storage: 'Au frais, pointe vers le bas; blancs/jaunes se gardent couverts 24-48h.', pairings: 'Moutarde, herbes, fromage, champignon, piment doux.', avoid: 'Trop chauffer une liaison aux oeufs: grainage ou texture caoutchouc.' },
+    { label: 'Beurre', pattern: /\bbeurre\b/, family: 'Gras aromatique', season: 'Toute saison', storage: 'Au frais bien emballe; clarifie pour mieux supporter la chaleur.', pairings: 'Ail, citron, sauge, pomme de terre, chocolat.', avoid: 'Beurre brule: amertume. Viser noisette puis stopper.' },
+    { label: 'Mascarpone', pattern: /\bmascarpone\b/, family: 'Cremerie', season: 'Toute saison', storage: 'Au froid, bien ferme; utiliser vite apres ouverture.', pairings: 'Cafe, citron, chocolat, tomate, herbes.', avoid: 'Le fouetter trop fort peut le detendre ou le grainer.' },
+    { label: 'Pomme de terre', pattern: /\b(pomme de terre|pommes de terre|grenaille|rattes|puree)\b/, family: 'Feculent', season: 'Toute saison', storage: 'Au sec, a l abri de la lumiere; jamais au froid humide.', pairings: 'Ail, romarin, beurre, moutarde, fromage.', avoid: 'Trop travailler une puree: texture elastique.' },
+    { label: 'Chocolat', pattern: /\b(chocolat|cacao|ganache)\b/, family: 'Dessert', season: 'Toute saison', storage: 'Au sec, 16-18 C idealement, loin des odeurs.', pairings: 'Cafe, noisette, orange, vanille, fleur de sel.', avoid: 'Eau dans du chocolat fondu: masse et texture granuleuse.' },
+    { label: 'Crevette', pattern: /\b(crevette|crevettes|gambas)\b/, family: 'Mer', season: 'Toute saison selon origine', storage: 'Au froid 0-4 C, cuisson rapide, consommation sous 24h si cuite.', pairings: 'Ail, citron, chorizo, persil, piment.', avoid: 'Surcuisson: chair seche et caoutchouteuse.' },
+    { label: 'Carotte', pattern: /\b(carotte|carottes)\b/, family: 'Legume racine', season: 'Automne-printemps', storage: 'Au bac legumes, sans fanes; couvrir si elle est taillee.', pairings: 'Cumin, orange, miel, noisette, fromage frais.', avoid: 'Coupe irreguliere: cuisson inegale.' },
+    { label: 'Ail', pattern: /\bail\b/, family: 'Aromate', season: 'Toute saison', storage: 'Au sec, aere, hors frigo; germe a retirer si trop fort.', pairings: 'Tomate, pomme de terre, crevette, agneau, beurre.', avoid: 'Ail brule: amertume tres presente.' },
+    { label: 'Moutarde', pattern: /\bmoutarde\b/, family: 'Condiment', season: 'Toute saison', storage: 'Au frais apres ouverture pour garder le piquant.', pairings: 'Oeuf, porc, pomme de terre, miel, vinaigre.', avoid: 'Bouillir longtemps: piquant affaibli et sauce plus plate.' },
+    { label: 'Chorizo', pattern: /\bchorizo\b/, family: 'Charcuterie epicee', season: 'Toute saison', storage: 'Au frais une fois tranche; proteger du dessechement.', pairings: 'Tomate, crevette, pomme de terre, oeuf, poivron.', avoid: 'Saler trop tot: le chorizo apporte deja sel et gras.' }
+  ];
+
   function pantryEntryLabel(value) {
     if (value && typeof value === 'object') return value.label || value.name || value.title || '';
     return value;
@@ -338,6 +468,149 @@
       add('Texture controlee', 'si tu remplaces un produit gras par du lait, ajoute progressivement et garde une option epaisse sous la main pour rattraper la liaison.');
     }
     return notes.slice(0, 5);
+  }
+
+  function premiumUniq(items = []) {
+    const seen = new Set();
+    return items.filter(item => {
+      const key = normalizeText(item);
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
+  function premiumRecipeText(recipe) {
+    return normalizeText([
+      recipe?.title,
+      recipe?.yield,
+      ...(recipe?.categories || []),
+      ...(recipe?.tags || []),
+      ...(recipe?.aliases || []),
+      ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || []), group.note, ...(group.notes || [])]),
+      ...(recipe?.steps || []),
+      ...(recipe?.notes || []),
+      ...(recipe?.technical || []).flatMap(item => [item.label, item.title, item.value, item.text])
+    ].join(' '));
+  }
+
+  function premiumIngredientNames(recipe) {
+    const names = [];
+    (recipe?.ingredients || []).forEach(group => {
+      (group.items || []).forEach(line => {
+        const parts = typeof splitShoppingIngredientParts === 'function'
+          ? splitShoppingIngredientParts(stripHtml(line))
+          : [stripHtml(line)];
+        parts.forEach(part => {
+          const parsed = typeof parseShoppingIngredient === 'function' ? parseShoppingIngredient(part) : null;
+          const rawName = parsed?.name || part
+            .replace(/^[-*]\s*/, '')
+            .replace(/^\d+(?:[.,]\d+)?(?:\s*(?:g|kg|ml|cl|l|c\.|cuill|pincee|sachet|boite|piece|pieces))?\s+/i, '')
+            .trim();
+          const name = typeof canonicalShoppingName === 'function' ? canonicalShoppingName(rawName) : rawName;
+          if (name) names.push(name);
+        });
+      });
+    });
+    return premiumUniq(names).slice(0, 32);
+  }
+
+  function getRecipeFlavorMap(recipe) {
+    const text = premiumRecipeText(recipe);
+    if (!text) return [];
+    return FLAVOR_PAIRING_RULES
+      .filter(rule => rule.pattern.test(text))
+      .map(rule => {
+        const present = rule.pairs.filter(pair => pair.pattern.test(text));
+        const missing = rule.pairs.filter(pair => !pair.pattern.test(text)).slice(0, 2);
+        return {
+          key: rule.key,
+          label: rule.label,
+          profile: rule.profile,
+          matches: present.map(pair => ({ label: pair.label, reason: pair.reason })),
+          suggestions: missing.map(pair => pair.label),
+          boosters: rule.boosters || []
+        };
+      })
+      .sort((a, b) => b.matches.length - a.matches.length || a.label.localeCompare(b.label, 'fr', { sensitivity: 'base' }))
+      .slice(0, 5);
+  }
+
+  function getRecipeFlavorPairingNotes(recipe) {
+    return getRecipeFlavorMap(recipe).map(item => {
+      const matches = item.matches.length
+        ? item.matches.slice(0, 3).map(pair => `${pair.label} (${pair.reason})`).join(', ')
+        : `a renforcer avec ${item.suggestions.slice(0, 2).join(', ')}`;
+      const boosters = item.boosters.length ? ` Finition: ${item.boosters.slice(0, 2).join(', ')}.` : '';
+      return `${item.label}: profil ${item.profile}; accords ${matches}.${boosters}`;
+    });
+  }
+
+  function getRecipeIngredientCards(recipe) {
+    const text = premiumRecipeText(recipe);
+    const ingredientNames = normalizeText(premiumIngredientNames(recipe).join(' '));
+    return INGREDIENT_GUIDE_RULES
+      .filter(rule => rule.pattern.test(text) || rule.pattern.test(ingredientNames))
+      .slice(0, 6)
+      .map(rule => ({
+        label: rule.label,
+        family: rule.family,
+        season: rule.season,
+        storage: rule.storage,
+        pairings: rule.pairings,
+        avoid: rule.avoid
+      }));
+  }
+
+  function getIngredientGuideNotes(recipe) {
+    return getRecipeIngredientCards(recipe)
+      .slice(0, 4)
+      .map(item => `${item.label}: ${item.storage} Accord cle: ${item.pairings} Point vigilance: ${item.avoid}`);
+  }
+
+  function getRecipePlatingGuide(recipe) {
+    const text = premiumRecipeText(recipe);
+    const categoryText = normalizeText((recipe?.categories || []).join(' '));
+    const items = [];
+    const add = (label, value) => {
+      if (value && !items.some(item => normalizeText(item.label) === normalizeText(label))) items.push({ label, value });
+    };
+
+    if (/\b(soupe|veloute|gaspacho|gazpacho|coulis)\b/.test(text)) {
+      add('Support', 'Bol ou assiette creuse, chaud pour veloute chaud, froid pour gaspacho.');
+      add('Relief', 'Creer un cercle de creme, huile ou herbes et ajouter un topping croquant au centre.');
+    } else if (/\b(dessert|gateau|tarte|creme|mousse|chocolat|cookie|flan|tiramisu)\b/.test(categoryText + ' ' + text)) {
+      add('Support', 'Assiette claire ou coupelle froide; laisser un bord propre pour un rendu magazine.');
+      add('Contraste', 'Ajouter un contraste net: zeste, cacao, fruit frais, fleur de sel ou eclat croquant.');
+    } else if (/\b(apero|aperitif|verrine|toast|tartinade|rillettes|houmous)\b/.test(categoryText + ' ' + text)) {
+      add('Support', 'Plateau sombre, bois ou ardoise; alterner hauteurs et petites portions faciles a saisir.');
+      add('Rythme', 'Repeter une finition simple sur chaque piece: herbe, zeste, graine ou point de sauce.');
+    } else if (/\b(pates|riz|risotto|gratin|puree|curry|dhal|lentilles)\b/.test(text)) {
+      add('Support', 'Assiette creuse ou bol large pour garder sauce et chaleur.');
+      add('Volume', 'Monter le centre, napper autour, puis finir avec herbes, poivre ou ingredient croustillant.');
+    } else if (/\b(poulet|boeuf|porc|agneau|poisson|saumon|crevette|calamar)\b/.test(text)) {
+      add('Support', 'Assiette chaude et grande surface; poser la piece principale legerement decalee.');
+      add('Sauce', 'Napper en cordon court ou servir a part pour garder la texture de la piece.');
+    } else {
+      add('Support', 'Assiette simple, bord propre, portion lisible en un point focal.');
+      add('Finition', 'Terminer par une touche de couleur, de brillant ou de croquant selon la recette.');
+    }
+
+    if (/\b(citron|zeste|herbes|persil|basilic|coriandre|ciboulette)\b/.test(text)) {
+      add('Derniere minute', 'Zestes et herbes au dernier moment pour garder couleur et parfum.');
+    }
+    if (/\b(friture|frire|frites|beignet|tempura|croustillant)\b/.test(text)) {
+      add('Croustillant', 'Egoutter sur grille, saler juste avant service, ne pas enfermer sous cloche.');
+    }
+    if (/\b(sauce|jus|creme|coulis|vinaigrette)\b/.test(text)) {
+      add('Trait de sauce', 'Utiliser la sauce comme ligne de lecture: sous la piece, en points ou en petit cordon.');
+    }
+    add('Photo', 'Angle 45 degres, lumiere laterale douce, fond simple et garniture visible.');
+    return items.slice(0, 5);
+  }
+
+  function getRecipePlatingNotes(recipe) {
+    return getRecipePlatingGuide(recipe).map(item => `${item.label}: ${item.value}`);
   }
 
   function recipePantryRequirements(recipe) {
@@ -1157,6 +1430,12 @@
     substitutionOptionsForIngredient,
     getSmartSubstitutionNotes,
     getVariantAdaptationNotes,
+    getRecipeFlavorMap,
+    getRecipeFlavorPairingNotes,
+    getRecipeIngredientCards,
+    getIngredientGuideNotes,
+    getRecipePlatingGuide,
+    getRecipePlatingNotes,
     recipePantryRequirements,
     scorePantryRecipe,
     pantryMatchLabel,

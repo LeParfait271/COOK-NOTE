@@ -3154,6 +3154,196 @@ a {
   padding: 12px;
 }
 
+.flavor-map-block,
+.ingredient-knowledge-block,
+.plating-guide-block,
+.recipe-graph-panel {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 14px;
+  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 18%, var(--line));
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--panel-accent, var(--accent)) 8%, transparent), rgba(255, 255, 255, .012)),
+    rgba(0, 0, 0, .12);
+  padding: 12px;
+}
+
+.premium-block-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.premium-block-head h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.flavor-map-grid,
+.ingredient-knowledge-grid,
+.plating-guide-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.flavor-node,
+.ingredient-knowledge-card,
+.plating-guide-card,
+.recipe-graph-node {
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 18%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
+  color: var(--text);
+}
+
+.flavor-node,
+.ingredient-knowledge-card,
+.plating-guide-card {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+.flavor-node-head,
+.ingredient-knowledge-card > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.flavor-node strong,
+.ingredient-knowledge-card strong,
+.plating-guide-card strong,
+.recipe-graph-center strong,
+.recipe-graph-node strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flavor-node small,
+.ingredient-knowledge-card small,
+.plating-guide-card p,
+.recipe-graph-center small,
+.recipe-graph-node small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.flavor-pairs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.flavor-pairs span {
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--text);
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 950;
+}
+
+.flavor-suggestion,
+.flavor-boosters {
+  display: block;
+}
+
+.ingredient-knowledge-card p {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.42;
+}
+
+.ingredient-knowledge-card dl {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+}
+
+.ingredient-knowledge-card dt {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.ingredient-knowledge-card dd {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.plating-guide-grid {
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+}
+
+.plating-guide-card p {
+  margin: 0;
+}
+
+.recipe-graph-canvas {
+  display: grid;
+  gap: 10px;
+}
+
+.recipe-graph-center {
+  display: grid;
+  gap: 3px;
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, var(--line));
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, transparent), rgba(255, 255, 255, .018)),
+    color-mix(in srgb, var(--surface-soft) 82%, transparent);
+  padding: 10px;
+}
+
+.recipe-graph-group {
+  display: grid;
+  gap: 7px;
+}
+
+.recipe-graph-group > span {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.recipe-graph-group > div {
+  display: grid;
+  gap: 7px;
+  padding-left: 12px;
+  border-left: 1px solid color-mix(in srgb, var(--accent) 26%, var(--line));
+}
+
+.recipe-graph-node {
+  display: grid;
+  justify-items: start;
+  gap: 3px;
+  min-height: 52px;
+  padding: 8px 9px;
+  text-align: left;
+  transition: transform var(--speed), border-color var(--speed), box-shadow var(--speed);
+}
+
+.recipe-graph-node:hover,
+.recipe-graph-node:focus-visible {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 60%, var(--line));
+  box-shadow: 0 12px 26px color-mix(in srgb, var(--card-accent, var(--accent)) 18%, transparent);
+}
+
 .personal-notes-head {
   display: flex;
   justify-content: space-between;
@@ -7138,6 +7328,10 @@ a {
 .average-weight-card,
 .technical-card,
 .personal-notes-card,
+.flavor-map-block,
+.ingredient-knowledge-block,
+.plating-guide-block,
+.recipe-graph-panel,
 .practical-section {
   border-color: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 28%, var(--line));
   box-shadow:
@@ -7231,7 +7425,7 @@ a {
     color-mix(in srgb, var(--surface-strong) 70%, transparent);
 }
 
-.mc-shell.theme-light :where(.before-start-card, .allergen-card, .average-weight-card, .technical-card, .personal-notes-card, .practical-section) {
+.mc-shell.theme-light :where(.before-start-card, .allergen-card, .average-weight-card, .technical-card, .personal-notes-card, .flavor-map-block, .ingredient-knowledge-block, .plating-guide-block, .recipe-graph-panel, .practical-section) {
   box-shadow: 0 12px 30px rgba(84, 61, 31, .10);
 }
 
