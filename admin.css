@@ -460,6 +460,28 @@ textarea {
   padding: 12px;
 }
 
+.admin-import-panel {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent 64%),
+    rgba(255, 255, 255, .045);
+  padding: 12px;
+}
+
+.admin-import-panel h3 {
+  margin: 3px 0 0;
+}
+
+.admin-import-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .admin-diagnostic-panel h3 {
   margin: 3px 0 0;
 }
@@ -514,6 +536,47 @@ textarea {
 
 .admin-diagnostic-grid li.warn {
   color: color-mix(in srgb, var(--ds-color-warning) 38%, white);
+}
+
+.admin-fix-panel {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, .16);
+  padding: 10px;
+}
+
+.admin-fix-panel > span {
+  grid-column: 1 / -1;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.admin-fix-panel button {
+  display: grid;
+  justify-items: start;
+  min-height: auto;
+  gap: 3px;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, .18);
+  color: var(--text);
+  padding: 9px;
+  text-align: left;
+}
+
+.admin-fix-panel button small,
+.admin-fix-panel em {
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.35;
 }
 
 .recipe-form {

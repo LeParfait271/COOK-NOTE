@@ -50,6 +50,17 @@
         </div>
 
         <output id="admin-message" class="admin-message" role="status"></output>
+        <section class="admin-import-panel" aria-labelledby="admin-import-title">
+          <div>
+            <p class="eyebrow">Import intelligent</p>
+            <h3 id="admin-import-title">Transformer une recette brute</h3>
+          </div>
+          <textarea id="field-import-raw" rows="8" spellcheck="false" placeholder="Colle une recette complete: titre, ingredients, etapes, notes..."></textarea>
+          <div class="admin-import-actions">
+            <button id="import-parse-btn" type="button" class="secondary">Preparer la fiche</button>
+            <button id="import-clear-btn" type="button" class="secondary">Vider</button>
+          </div>
+        </section>
         <section class="admin-diagnostic-panel" aria-live="polite">
           <div>
             <p class="eyebrow">Diagnostic</p>

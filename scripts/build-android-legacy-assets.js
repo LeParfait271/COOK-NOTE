@@ -221,7 +221,10 @@ globalThis.__cookNoteAndroidHelpers = {
   getRecipePracticalSections,
   getDisplayNotes,
   getPrepTimeline,
-  getLinkedRecipeRefs
+  getLinkedRecipeRefs,
+  getSmartSubstitutionNotes,
+  getVariantAdaptationNotes,
+  semanticRecipeSignals
 };`, context, { filename: APP_FILE });
 
   const helpers = context.__cookNoteAndroidHelpers;
@@ -232,7 +235,10 @@ globalThis.__cookNoteAndroidHelpers = {
     'getRecipePracticalSections',
     'getDisplayNotes',
     'getPrepTimeline',
-    'getLinkedRecipeRefs'
+    'getLinkedRecipeRefs',
+    'getSmartSubstitutionNotes',
+    'getVariantAdaptationNotes',
+    'semanticRecipeSignals'
   ].forEach(name => {
     if (typeof helpers?.[name] !== 'function') {
       throw new Error(`Helper fiche recette introuvable pour Android Legacy: ${name}.`);
@@ -380,6 +386,10 @@ function completeBeforeSections(id, recipe, recipes, helpers) {
   addBeforeSection(sections, 'Allergenes', allergens.length
     ? allergens
     : ['Aucun allergene majeur detecte dans les ingredients.']);
+  const semanticLabels = helpers.semanticRecipeSignals(sourceRecipe, recipes)?.labels || [];
+  addBeforeSection(sections, 'Intentions premium', semanticLabels.slice(0, 5));
+  addBeforeSection(sections, 'Substitutions premium', helpers.getSmartSubstitutionNotes(sourceRecipe) || []);
+  addBeforeSection(sections, 'Variantes contraintes', helpers.getVariantAdaptationNotes(sourceRecipe) || []);
   addBeforeSection(sections, 'Materiel necessaire', helpers.getRecipeEquipment(sourceRecipe) || []);
   addBeforeSection(
     sections,

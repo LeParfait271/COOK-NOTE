@@ -128,12 +128,69 @@
     }
   ];
 
+  function pantryEntryLabel(value) {
+    if (value && typeof value === 'object') return value.label || value.name || value.title || '';
+    return value;
+  }
+
   function cleanPantryLabel(value) {
-    return stripHtml(value)
+    return stripHtml(pantryEntryLabel(value))
       .replace(/^[-•]\s*/, '')
       .replace(/\s+/g, ' ')
       .trim()
       .slice(0, 80);
+  }
+
+  function normalizePantryDate(value) {
+    const raw = String(value || '').trim();
+    if (!raw) return '';
+    const iso = raw.match(/\b(20\d{2})[-/](\d{1,2})[-/](\d{1,2})\b/);
+    if (iso) return `${iso[1]}-${iso[2].padStart(2, '0')}-${iso[3].padStart(2, '0')}`;
+    const fr = raw.match(/\b(\d{1,2})[-/](\d{1,2})[-/](20\d{2})\b/);
+    if (fr) return `${fr[3]}-${fr[2].padStart(2, '0')}-${fr[1].padStart(2, '0')}`;
+    return /^\d{4}-\d{2}-\d{2}$/.test(raw) ? raw : '';
+  }
+
+  function parsePantryDraftEntry(value, defaults = {}) {
+    const source = String(value || '').trim();
+    const date = normalizePantryDate(source) || normalizePantryDate(defaults.expiresAt);
+    const opened = Boolean(defaults.opened) || /\b(ouvert|ouverte|entame|entam[eé]e|reste|restes)\b/i.test(source);
+    const quantityMatch = source.match(/\b(\d+(?:[.,]\d+)?\s*(?:x|g|kg|ml|cl|l|pi[eè]ces?|pots?|bocaux?|tranches?|sachets?|boites?|boîtes?))\b/i);
+    const quantity = stripHtml(defaults.quantity || quantityMatch?.[1] || '').slice(0, 32);
+    const label = cleanPantryLabel(source
+      .replace(/\b20\d{2}[-/]\d{1,2}[-/]\d{1,2}\b/g, ' ')
+      .replace(/\b\d{1,2}[-/]\d{1,2}[-/]20\d{2}\b/g, ' ')
+      .replace(/\b(ouvert|ouverte|entame|entam[eé]e|reste|restes)\b/ig, ' ')
+      .replace(quantityMatch?.[0] || '', ' '));
+    return { label: label || cleanPantryLabel(source), quantity, expiresAt: date, opened, note: stripHtml(defaults.note || '').slice(0, 80) };
+  }
+
+  function pantryDaysUntil(expiresAt) {
+    const date = normalizePantryDate(expiresAt);
+    if (!date) return null;
+    const today = new Date();
+    const now = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+    const target = new Date(`${date}T00:00:00`).getTime();
+    if (!Number.isFinite(target)) return null;
+    return Math.round((target - now) / 86400000);
+  }
+
+  function pantryPriority(item) {
+    const days = pantryDaysUntil(item?.expiresAt);
+    let score = item?.opened ? 38 : 0;
+    if (days !== null) score += days < 0 ? 95 : days <= 2 ? 80 : days <= 5 ? 55 : days <= 10 ? 25 : 0;
+    if (/\b(reste|restes|entame|entam[eé])\b/.test(normalizeText(item?.note || item?.label || ''))) score += 20;
+    return score;
+  }
+
+  function pantryStatusLabel(item) {
+    const days = pantryDaysUntil(item?.expiresAt);
+    if (days !== null && days < 0) return 'à vérifier';
+    if (days === 0) return 'aujourd’hui';
+    if (days === 1) return 'demain';
+    if (days !== null && days <= 5) return `${days} jours`;
+    if (item?.opened) return 'ouvert';
+    return '';
   }
 
   function pantryItemKey(value) {
@@ -149,11 +206,39 @@
   function normalizePantryItems(items = []) {
     const map = new Map();
     items.forEach(item => {
-      const label = cleanPantryLabel(item);
+      const entry = item && typeof item === 'object' ? item : parsePantryDraftEntry(item);
+      const label = cleanPantryLabel(entry);
       const key = pantryItemKey(label);
-      if (label && key && !map.has(key)) map.set(key, label);
+      if (label && key && !map.has(key)) {
+        const normalized = {
+          key,
+          label,
+          quantity: stripHtml(entry.quantity || '').slice(0, 32),
+          expiresAt: normalizePantryDate(entry.expiresAt),
+          opened: Boolean(entry.opened),
+          note: stripHtml(entry.note || '').slice(0, 80)
+        };
+        normalized.priority = pantryPriority(normalized);
+        normalized.status = pantryStatusLabel(normalized);
+        map.set(key, normalized);
+      }
     });
-    return Array.from(map, ([key, label]) => ({ key, label })).sort((a, b) => a.label.localeCompare(b.label, 'fr', { sensitivity: 'base' }));
+    return Array.from(map.values()).sort((a, b) => b.priority - a.priority || a.label.localeCompare(b.label, 'fr', { sensitivity: 'base' }));
+  }
+
+  function serializePantryItem(item) {
+    const normalized = item?.key ? item : normalizePantryItems([item])[0];
+    if (!normalized?.label) return null;
+    const output = { label: normalized.label };
+    if (normalized.quantity) output.quantity = normalized.quantity;
+    if (normalized.expiresAt) output.expiresAt = normalized.expiresAt;
+    if (normalized.opened) output.opened = true;
+    if (normalized.note) output.note = normalized.note;
+    return output;
+  }
+
+  function serializePantryItems(items = []) {
+    return normalizePantryItems(items).map(serializePantryItem).filter(Boolean);
   }
 
   function pantryIndex(items = []) {
@@ -214,6 +299,45 @@
         const owned = pantryHasSubstitution(option, index) ? 'disponible au placard' : 'option';
         return `${formatSubstitution(option)} · ${owned}.`;
       });
+  }
+
+  function getVariantAdaptationNotes(recipe) {
+    if (!recipe) return [];
+    const sourceText = [
+      recipe.title,
+      ...(recipe.categories || []),
+      ...(recipe.tags || []),
+      ...(recipe.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
+      ...(recipe.steps || []),
+      ...(recipe.notes || [])
+    ].join(' ');
+    const text = normalizeText(sourceText);
+    const allergens = typeof getRecipeAllergens === 'function' ? getRecipeAllergens(recipe).map(normalizeText) : [];
+    const hasMilk = allergens.some(item => item.includes('lait') || item.includes('lactose')) || /\b(lait|creme|beurre|fromage|yaourt|mascarpone|mozzarella|parmesan|ricotta)\b/.test(text);
+    const hasGluten = allergens.some(item => item.includes('gluten')) || /\b(farine|pain|chapelure|panko|pates?|brioche|semoule|ble|froment)\b/.test(text);
+    const hasEgg = allergens.some(item => item.includes('oeuf')) || /\b(oeufs?|jaune|blanc|meringue|mayonnaise)\b/.test(text);
+    const hasVariants = Boolean(recipe.master || (recipe.variants || []).length);
+    const notes = [];
+    const add = (label, body) => {
+      const line = `${label}: ${body}`;
+      if (!notes.some(item => normalizeText(item) === normalizeText(line))) notes.push(line);
+    };
+    if (hasVariants) {
+      add('Base + variantes', 'garde le meme ordre de preparation et isole les ingredients qui changent; la texture reste plus stable que si toute la recette est reecrite.');
+    }
+    if (hasMilk) {
+      add('Adaptation sans lait', 'creme -> creme vegetale epaisse ou lait + un peu de beurre/huile; beurre -> huile douce. Impact: texture moins ronde, sauce parfois plus fluide.');
+    }
+    if (hasGluten) {
+      add('Adaptation sans gluten', 'farine/chapelure/pain -> farine de riz + fecule, panko sans gluten ou pain sans gluten. Impact: tenue plus fragile, repos utile avant cuisson.');
+    }
+    if (hasEgg) {
+      add('Adaptation sans oeufs', 'liaison -> graines de lin hydratees, yaourt epais ou fecule selon recette; dorure -> lait ou creme. Impact: mie plus dense et coloration plus douce.');
+    }
+    if (/\b(creme|sauce|veloute|ganache|chantilly|mousse)\b/.test(text)) {
+      add('Texture controlee', 'si tu remplaces un produit gras par du lait, ajoute progressivement et garde une option epaisse sous la main pour rattraper la liaison.');
+    }
+    return notes.slice(0, 5);
   }
 
   function recipePantryRequirements(recipe) {
@@ -418,34 +542,41 @@
 
   function PantryPanel({ open, onClose, items = [], setItems, recipes = [], openRecipe, activatePantryMode, notify }) {
     const [draft, setDraft] = useState('');
+    const [draftQuantity, setDraftQuantity] = useState('');
+    const [draftExpiry, setDraftExpiry] = useState('');
+    const [draftOpened, setDraftOpened] = useState(false);
     const pantryItems = useMemo(() => normalizePantryItems(items), [items]);
-    const pantryLabels = useMemo(() => pantryItems.map(item => item.label), [pantryItems]);
     const pantryMatches = useMemo(() => {
-      if (!open || !pantryLabels.length) return [];
+      if (!open || !pantryItems.length) return [];
       return recipes
-        .map(recipe => ({ recipe, meta: scorePantryRecipe(recipe, pantryLabels) }))
+        .map(recipe => ({ recipe, meta: scorePantryRecipe(recipe, pantryItems) }))
         .filter(item => item.meta.score > 0)
         .sort((a, b) => b.meta.score - a.meta.score || a.meta.missing.length - b.meta.missing.length || a.recipe.title.localeCompare(b.recipe.title, 'fr'))
         .slice(0, 8);
-    }, [open, recipes, pantryLabels]);
+    }, [open, recipes, pantryItems]);
     const readyCount = pantryMatches.filter(item => item.meta.missing.length === 0).length;
     const nearReadyCount = pantryMatches.filter(item => item.meta.missing.length > 0 && item.meta.missing.length <= 2).length;
-    const commitItems = next => setItems?.(normalizePantryItems(next).map(item => item.label));
+    const urgentCount = pantryItems.filter(item => item.priority >= 55).length;
+    const commitItems = next => setItems?.(serializePantryItems(next));
     const addItems = value => {
       const nextItems = String(value || '')
         .split(/[,;\n]+/)
-        .map(cleanPantryLabel)
+        .map(item => parsePantryDraftEntry(item, { quantity: draftQuantity, expiresAt: draftExpiry, opened: draftOpened }))
+        .map(serializePantryItem)
         .filter(Boolean);
       if (!nextItems.length) return;
-      commitItems([...pantryLabels, ...nextItems]);
+      commitItems([...pantryItems, ...nextItems]);
       setDraft('');
+      setDraftQuantity('');
+      setDraftExpiry('');
+      setDraftOpened(false);
     };
-    const removeItem = key => commitItems(pantryItems.filter(item => item.key !== key).map(item => item.label));
+    const removeItem = key => commitItems(pantryItems.filter(item => item.key !== key));
     const toggleSuggestion = label => {
       const key = pantryItemKey(label);
       if (!key) return;
       if (pantryItems.some(item => item.key === key)) removeItem(key);
-      else commitItems([...pantryLabels, label]);
+      else commitItems([...pantryItems, parsePantryDraftEntry(label)]);
     };
     const openMatchedRecipe = recipe => {
       onClose();
@@ -457,7 +588,12 @@
     };
 
     useEffect(() => {
-      if (open) setDraft('');
+      if (open) {
+        setDraft('');
+        setDraftQuantity('');
+        setDraftExpiry('');
+        setDraftOpened(false);
+      }
     }, [open]);
 
     if (!open) return null;
@@ -490,8 +626,30 @@
             id: 'pantry-add-input',
             value: draft,
             onChange: event => setDraft(event.target.value),
-            placeholder: 'oeufs, citron, pommes de terre...'
+            placeholder: 'oeufs, citron, restes de poulet...'
           }),
+          h('label', { className: 'sr-only', htmlFor: 'pantry-quantity-input' }, 'Quantite'),
+          h('input', {
+            id: 'pantry-quantity-input',
+            value: draftQuantity,
+            onChange: event => setDraftQuantity(event.target.value),
+            placeholder: 'quantite'
+          }),
+          h('label', { className: 'sr-only', htmlFor: 'pantry-expiry-input' }, 'Date limite'),
+          h('input', {
+            id: 'pantry-expiry-input',
+            type: 'date',
+            value: draftExpiry,
+            onChange: event => setDraftExpiry(event.target.value)
+          }),
+          h('label', { className: 'pantry-opened-toggle' },
+            h('input', {
+              type: 'checkbox',
+              checked: draftOpened,
+              onChange: event => setDraftOpened(event.target.checked)
+            }),
+            h('span', null, 'Ouvert / reste')
+          ),
           h(Button, { variant: 'primary', type: 'submit', disabled: !draft.trim() }, 'Ajouter')
         ),
         h('div', { className: 'pantry-suggestions', 'aria-label': 'Suggestions placard' },
@@ -510,6 +668,7 @@
           pantryItems.map(item => h('button', {
             key: item.key,
             type: 'button',
+            className: item.priority >= 55 ? 'urgent' : '',
             onClick: () => removeItem(item.key),
             title: 'Retirer du placard',
             'aria-label': `Retirer ${item.label} du placard`
@@ -560,6 +719,194 @@
     );
   }
 
+  function PantryPanelV2({ open, onClose, items = [], setItems, recipes = [], openRecipe, activatePantryMode, notify }) {
+    const [draft, setDraft] = useState('');
+    const [draftQuantity, setDraftQuantity] = useState('');
+    const [draftExpiry, setDraftExpiry] = useState('');
+    const [draftOpened, setDraftOpened] = useState(false);
+    const pantryItems = useMemo(() => normalizePantryItems(items), [items]);
+    const pantryMatches = useMemo(() => {
+      if (!open || !pantryItems.length) return [];
+      return recipes
+        .map(recipe => ({ recipe, meta: scorePantryRecipe(recipe, pantryItems) }))
+        .filter(item => item.meta.score > 0)
+        .sort((a, b) => b.meta.score - a.meta.score || a.meta.missing.length - b.meta.missing.length || a.recipe.title.localeCompare(b.recipe.title, 'fr'))
+        .slice(0, 8);
+    }, [open, recipes, pantryItems]);
+    const readyCount = pantryMatches.filter(item => item.meta.missing.length === 0).length;
+    const nearReadyCount = pantryMatches.filter(item => item.meta.missing.length > 0 && item.meta.missing.length <= 2).length;
+    const urgentCount = pantryItems.filter(item => item.priority >= 55).length;
+    const openedCount = pantryItems.filter(item => item.opened).length;
+    const commitItems = next => setItems?.(serializePantryItems(next));
+    const clearDraft = () => {
+      setDraft('');
+      setDraftQuantity('');
+      setDraftExpiry('');
+      setDraftOpened(false);
+    };
+    const addItems = value => {
+      const nextItems = String(value || '')
+        .split(/[,;\n]+/)
+        .map(item => parsePantryDraftEntry(item, { quantity: draftQuantity, expiresAt: draftExpiry, opened: draftOpened }))
+        .map(serializePantryItem)
+        .filter(Boolean);
+      if (!nextItems.length) return;
+      commitItems([...pantryItems, ...nextItems]);
+      clearDraft();
+    };
+    const removeItem = key => commitItems(pantryItems.filter(item => item.key !== key));
+    const toggleSuggestion = label => {
+      const key = pantryItemKey(label);
+      if (!key) return;
+      if (pantryItems.some(item => item.key === key)) removeItem(key);
+      else commitItems([...pantryItems, parsePantryDraftEntry(label)]);
+    };
+    const openMatchedRecipe = recipe => {
+      onClose();
+      openRecipe(recipe.id);
+    };
+    const viewAllMatches = () => {
+      activatePantryMode?.();
+      onClose();
+    };
+
+    useEffect(() => {
+      if (open) clearDraft();
+    }, [open]);
+
+    if (!open) return null;
+    return h('div', { className: 'modal-backdrop pantry-backdrop', onMouseDown: onClose },
+      h('section', {
+        className: 'modal-panel pantry-modal',
+        role: 'dialog',
+        'aria-modal': 'true',
+        'aria-labelledby': 'pantry-modal-title',
+        tabIndex: -1,
+        onKeyDown: trapModalFocus,
+        onMouseDown: event => event.stopPropagation()
+      },
+        h('div', { className: 'modal-head' },
+          h('div', null,
+            h('p', { className: 'eyebrow' }, 'Anti-gaspi'),
+            h('h2', { id: 'pantry-modal-title' }, 'Mon placard')
+          ),
+          h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
+        ),
+        h('form', {
+          className: 'pantry-add-row',
+          onSubmit: event => {
+            event.preventDefault();
+            addItems(draft);
+          }
+        },
+          h('label', { className: 'sr-only', htmlFor: 'pantry-add-input' }, 'Ajouter un ingredient au placard'),
+          h('input', {
+            id: 'pantry-add-input',
+            value: draft,
+            onChange: event => setDraft(event.target.value),
+            placeholder: 'oeufs, citron, restes de poulet...'
+          }),
+          h('label', { className: 'sr-only', htmlFor: 'pantry-quantity-input' }, 'Quantite'),
+          h('input', {
+            id: 'pantry-quantity-input',
+            value: draftQuantity,
+            onChange: event => setDraftQuantity(event.target.value),
+            placeholder: 'quantite'
+          }),
+          h('label', { className: 'sr-only', htmlFor: 'pantry-expiry-input' }, 'Date limite'),
+          h('input', {
+            id: 'pantry-expiry-input',
+            type: 'date',
+            value: draftExpiry,
+            onChange: event => setDraftExpiry(event.target.value)
+          }),
+          h('label', { className: 'pantry-opened-toggle' },
+            h('input', {
+              type: 'checkbox',
+              checked: draftOpened,
+              onChange: event => setDraftOpened(event.target.checked)
+            }),
+            h('span', null, 'Ouvert / reste')
+          ),
+          h(Button, { variant: 'primary', type: 'submit', disabled: !draft.trim() }, 'Ajouter')
+        ),
+        h('div', { className: 'pantry-suggestions', 'aria-label': 'Suggestions placard' },
+          PANTRY_SUGGESTIONS.map(label => {
+            const active = pantryItems.some(item => item.key === pantryItemKey(label));
+            return h('button', {
+              key: label,
+              type: 'button',
+              className: active ? 'active' : '',
+              'aria-pressed': active,
+              onClick: () => toggleSuggestion(label)
+            }, label);
+          })
+        ),
+        pantryItems.length > 0 && h('div', { className: 'pantry-current-list' },
+          pantryItems.map(item => h('button', {
+            key: item.key,
+            type: 'button',
+            className: item.priority >= 55 ? 'urgent' : '',
+            onClick: () => removeItem(item.key),
+            title: 'Retirer du placard',
+            'aria-label': `Retirer ${item.label} du placard`
+          },
+            h('strong', null, item.label),
+            (item.quantity || item.status || item.opened) && h('small', null, [
+              item.quantity,
+              item.status ? `a utiliser: ${item.status}` : '',
+              !item.status && item.opened ? 'ouvert' : ''
+            ].filter(Boolean).join(' - ')),
+            h('span', null, 'x')
+          ))
+        ),
+        h('div', { className: 'pantry-score-row', role: 'status', 'aria-live': 'polite' },
+          h('span', null, h('strong', null, pantryItems.length), h('small', null, 'ingredients')),
+          h('span', null, h('strong', null, urgentCount), h('small', null, 'a utiliser vite')),
+          h('span', null, h('strong', null, openedCount), h('small', null, 'ouverts/restes')),
+          h('span', null, h('strong', null, readyCount), h('small', null, 'sans achat')),
+          h('span', null, h('strong', null, nearReadyCount), h('small', null, '1-2 achats'))
+        ),
+        pantryMatches.length > 0 && h('div', { className: 'pantry-match-list' },
+          pantryMatches.map(({ recipe, meta }) => {
+            const replacements = (meta.substitutable || []).slice(0, 2);
+            return h('button', {
+              key: recipe.id,
+              type: 'button',
+              className: 'pantry-match-row',
+              onClick: () => openMatchedRecipe(recipe),
+              'aria-label': `Ouvrir ${recipe.title}`
+            },
+              h('span', { className: 'pantry-match-image', style: imageBackgroundStyle(displayRecipeImage(recipe)), 'aria-hidden': true }),
+              h('span', { className: 'pantry-match-copy' },
+                h('strong', null, recipe.title),
+                h('small', null, meta.missing.length ? `Manque: ${meta.missing.slice(0, 3).join(', ')}` : replacements.length ? `Remplacements: ${replacements.map(item => item.missing).join(', ')}` : 'Tout est dans le placard'),
+                replacements.length > 0 && h('small', { className: 'pantry-substitution-hint' }, replacements.map(item => `${item.missing} -> ${item.replacement}`).join(', ')),
+                h('span', { className: 'search-reason-pills' }, [
+                  ...meta.matched.slice(0, 3),
+                  ...replacements.map(item => item.replacement)
+                ].slice(0, 4).map(item => h('em', { key: item }, item)))
+              ),
+              h('span', { className: meta.missing.length ? 'pantry-match-badge' : 'pantry-match-badge ready' }, pantryMatchLabel(meta))
+            );
+          })
+        ),
+        !pantryMatches.length && h('div', { className: 'empty-state pantry-empty' },
+          h('h2', null, pantryItems.length ? 'Aucune idee solide' : 'Placard vide'),
+          h('p', null, pantryItems.length ? 'Ajoute deux ou trois ingredients de plus pour affiner les idees.' : 'Ajoute quelques ingredients pour lancer les idees anti-gaspi.')
+        ),
+        h('div', { className: 'modal-actions' },
+          h(Button, { variant: 'primary', disabled: !pantryMatches.length, onClick: viewAllMatches }, 'Voir les idees'),
+          h(Button, { variant: 'subtle', disabled: !pantryItems.length, onClick: () => {
+            commitItems([]);
+            notify?.('Placard vide', 'info');
+          } }, 'Vider'),
+          h(Button, { variant: 'ghost', onClick: onClose }, 'Fermer')
+        )
+      )
+    );
+  }
+
   function PantryAssistant({ pantryItems = [], pantryMode, openPantry, activatePantryMode, clearPantryMode, pantryMatches = [] }) {
     const visibleItems = normalizePantryItems(pantryItems).slice(0, 8);
     const best = pantryMatches[0];
@@ -584,6 +931,46 @@
             onClick: pantryMode ? clearPantryMode : activatePantryMode,
             disabled: !pantryItems.length
           }, pantryMode ? 'Toutes les recettes' : 'Idées placard')
+        )
+      )
+    );
+  }
+
+  function PantryAssistantV2({ pantryItems = [], pantryMode, openPantry, activatePantryMode, clearPantryMode, pantryMatches = [] }) {
+    const visibleItems = normalizePantryItems(pantryItems).slice(0, 8);
+    const urgentItems = visibleItems.filter(item => item.priority >= 55);
+    const best = pantryMatches[0];
+    const summary = best
+      ? pantryMatchLabel(best.meta)
+      : urgentItems.length
+        ? `${urgentItems.length} a utiliser vite`
+        : `${visibleItems.length} ingredient${visibleItems.length > 1 ? 's' : ''} disponible${visibleItems.length > 1 ? 's' : ''}`;
+    return h('section', { className: 'fridge-assistant', 'aria-label': 'Assistant placard' },
+      h('div', { className: 'fridge-assistant-copy' },
+        h('p', { className: 'eyebrow' }, 'Anti-gaspi'),
+        h('h3', null, best ? best.recipe.title : 'Idees depuis ton placard'),
+        h('p', null, summary)
+      ),
+      h('div', { className: 'fridge-assistant-controls' },
+        h('button', { type: 'button', className: 'fridge-open-btn', onClick: openPantry },
+          h(Icon, { name: 'pantry' }),
+          h('span', null, 'Gerer le placard')
+        ),
+        h('div', { className: 'fridge-chips' },
+          visibleItems.length
+            ? visibleItems.map(item => h('button', {
+              key: item.key,
+              type: 'button',
+              className: item.priority >= 55 ? 'urgent' : '',
+              onClick: openPantry
+            }, item.status ? `${item.label} - ${item.status}` : item.label))
+            : PANTRY_SUGGESTIONS.slice(0, 6).map(label => h('button', { key: label, type: 'button', onClick: openPantry }, label)),
+          h('button', {
+            type: 'button',
+            className: pantryMode ? 'active' : '',
+            onClick: pantryMode ? clearPantryMode : activatePantryMode,
+            disabled: !pantryItems.length
+          }, pantryMode ? 'Toutes les recettes' : 'Idees placard')
         )
       )
     );
@@ -758,12 +1145,18 @@
     PANTRY_LOW_IMPACT_PATTERN,
     PANTRY_OPTIONAL_PATTERN,
     cleanPantryLabel,
+    parsePantryDraftEntry,
+    pantryDaysUntil,
+    pantryPriority,
+    pantryStatusLabel,
     pantryItemKey,
     normalizePantryItems,
+    serializePantryItems,
     pantryIndex,
     pantryHasIngredientName,
     substitutionOptionsForIngredient,
     getSmartSubstitutionNotes,
+    getVariantAdaptationNotes,
     recipePantryRequirements,
     scorePantryRecipe,
     pantryMatchLabel,
@@ -773,8 +1166,8 @@
     searchSuggestionTerms,
     filterFreshShoppingData,
     shoppingListTextFromData,
-    PantryPanel,
-    PantryAssistant,
+    PantryPanel: PantryPanelV2,
+    PantryAssistant: PantryAssistantV2,
     downloadSharePosterCard,
     trapModalFocus,
     cacheUrlsForOffline

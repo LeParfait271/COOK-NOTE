@@ -116,12 +116,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.29';
+const SITE_VERSION = 'v3.30';
 const SITE_UPDATED_AT = '09/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '3.29';
+const ANDROID_LEGACY_APK_VERSION = '3.30';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -794,9 +794,11 @@ const STORAGE_KEYS = {
 const {
   PANTRY_SUGGESTIONS,
   normalizePantryItems,
+  serializePantryItems,
   pantryIndex,
   pantryHasIngredientName,
   getSmartSubstitutionNotes,
+  getVariantAdaptationNotes,
   scorePantryRecipe,
   pantryMatchLabel,
   semanticRecipeSignals,
@@ -3839,6 +3841,7 @@ function getRecipePracticalSections(recipe) {
   add('substitutions', 'Substitutions', [
     ...asTextList(recipe?.substitutions || practical.substitutions),
     ...getSmartSubstitutionNotes(recipe),
+    ...getVariantAdaptationNotes(recipe),
     ...substitutionNotes
   ]);
   add('service', 'Service', getRecipeServiceItems(recipe));
@@ -7148,7 +7151,7 @@ function App() {
   const hasRecipeFilters = Boolean(query.trim() || season || seasonCategory || tagFilter || onlyFavorites || pantryMode);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
-  const normalizedPantryItems = useMemo(() => normalizePantryItems(pantryItems).map(item => item.label), [pantryItems]);
+  const normalizedPantryItems = useMemo(() => normalizePantryItems(pantryItems), [pantryItems]);
   const pantryMeta = useMemo(() => {
     const map = new Map();
     if (!normalizedPantryItems.length) return map;
@@ -7480,7 +7483,7 @@ function App() {
   }
 
   function persistPantryItems(next) {
-    const normalized = normalizePantryItems(next).map(item => item.label);
+    const normalized = serializePantryItems(next);
     setPantryItemsState(normalized);
     writeJson(STORAGE_KEYS.pantry, normalized);
   }

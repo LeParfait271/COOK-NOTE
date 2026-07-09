@@ -5,6 +5,7 @@ const vm = require('node:vm');
 const ROOT = path.resolve(__dirname, '..');
 const recipesPath = path.join(ROOT, 'recipes.js');
 const appImagesPath = path.join(ROOT, 'app-images.js');
+const appPremiumPath = path.join(ROOT, 'app-premium.js');
 const appPath = path.join(ROOT, 'app.js');
 const errors = [];
 
@@ -38,6 +39,7 @@ function loadHelpers() {
 
   vm.createContext(context);
   vm.runInContext(fs.readFileSync(appImagesPath, 'utf8'), context, { filename: appImagesPath });
+  vm.runInContext(fs.readFileSync(appPremiumPath, 'utf8'), context, { filename: appPremiumPath });
   vm.runInContext(`${appCode.slice(0, end)}
 globalThis.__averageWeightHelpers = {
   getRecipeAverageWeights,

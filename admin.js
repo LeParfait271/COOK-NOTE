@@ -35,7 +35,8 @@ const fields = {
   ingredients: $('#field-ingredients'),
   steps: $('#field-steps'),
   notes: $('#field-notes'),
-  technical: $('#field-technical')
+  technical: $('#field-technical'),
+  importRaw: $('#field-import-raw')
 };
 
 function message(text, isError = false) {
@@ -118,6 +119,130 @@ function inferDiagnosticAllergens(recipe) {
   return items;
 }
 
+function uniqValues(items) {
+  const seen = new Set();
+  return (items || []).filter(item => {
+    const key = normalizeText(item);
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function pickOption(options, key, fallback = '') {
+  const normalizedKey = normalizeText(key);
+  return options.find(item => normalizeText(item) === normalizedKey) || fallback || options[0] || '';
+}
+
+function inferCategoryFromText(text) {
+  const normalized = normalizeText(text);
+  if (/\b(sauce|vinaigrette|pesto|mayonnaise|coulis|condiment)\b/.test(normalized)) return pickOption(CATEGORIES, 'Sauces', 'Sauces');
+  if (/\b(dessert|gateau|tarte|creme|mousse|chocolat|sucre|biscuit|cookie|flan)\b/.test(normalized)) return pickOption(CATEGORIES, 'Desserts', 'Desserts');
+  if (/\b(petit dejeuner|granola|pancake|gaufre|brioche|porridge)\b/.test(normalized)) return pickOption(CATEGORIES, 'Petit-dejeuner', 'Petit-dejeuner');
+  if (/\b(apero|aperitif|tartinade|toast|verrine|chips|dip)\b/.test(normalized)) return pickOption(CATEGORIES, 'Apero', CATEGORIES[0]);
+  if (/\b(entree|salade|soupe|veloute|carpaccio)\b/.test(normalized)) return pickOption(CATEGORIES, 'Entrees', CATEGORIES[1]);
+  if (/\b(base|fond|pate|bouillon|appareil)\b/.test(normalized)) return pickOption(CATEGORIES, 'Base', 'Base');
+  return pickOption(CATEGORIES, 'Plats', 'Plats');
+}
+
+function inferTagsForRecipe(recipe) {
+  const text = recipeDiagnosticText(recipe);
+  const tags = [];
+  const add = (label, pattern) => {
+    if (pattern instanceof RegExp ? pattern.test(text) : Boolean(pattern)) tags.push(label);
+  };
+  add('rapide', /\b(rapide|express|minute|15|20|30)\b/);
+  add('four', /\b(four|enfourner|prechauffer)\b/);
+  add('sans four', !/\b(four|enfourner|prechauffer)\b/.test(text));
+  add('froid', /\b(froid|frais|repos|frigo)\b/);
+  add('anti-gaspi', /\b(reste|restes|placard|anti gaspillage|jaune|blanc)\b/);
+  add('vegetarien', !/\b(poulet|boeuf|bÅ“uf|porc|jambon|lardon|saumon|thon|crevette|poisson)\b/.test(text));
+  (recipe.categories || []).forEach(item => tags.push(item));
+  return uniqValues([...(recipe.tags || []), ...tags]).slice(0, 8);
+}
+
+function cleanImportedLine(line) {
+  return String(line || '')
+    .replace(/^[\s\-*•]+/, '')
+    .replace(/^\d+[.)]\s*/, '')
+    .trim();
+}
+
+function parseRawRecipe(text) {
+  const lines = String(text || '')
+    .replace(/\r/g, '')
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean);
+  if (!lines.length) throw new Error('Colle une recette brute avant import.');
+
+  const headingPattern = /^(ingredients?|ingr[eÃ©]dients?|preparation|pr[eÃ©]paration|etapes?|[eÃ©]tapes?|methode|m[eÃ©]thode|notes?|astuces?|conservation)\s*:?\s*$/i;
+  const title = cleanImportedLine(lines.find(line => !headingPattern.test(line)) || lines[0]).slice(0, 90);
+  let section = 'intro';
+  const ingredients = [];
+  const steps = [];
+  const notes = [];
+  const intro = [];
+  lines.forEach((line, index) => {
+    const normalized = normalizeText(line);
+    if (/^ingredients?\b|^ingredients?\s*:|^ingr/.test(normalized)) {
+      section = 'ingredients';
+      return;
+    }
+    if (/^(preparation|etapes?|methode)\b/.test(normalized)) {
+      section = 'steps';
+      return;
+    }
+    if (/^(notes?|astuces?|conservation)\b/.test(normalized)) {
+      section = 'notes';
+      return;
+    }
+    if (index === 0 && cleanImportedLine(line) === title) return;
+    const clean = cleanImportedLine(line);
+    if (!clean) return;
+    const ingredientLike = /^[-*•]/.test(line) || /\b\d+(?:[.,]\d+)?\s*(g|kg|ml|cl|l|c\.|cuill|pincee|pinc[eÃ©]e|sachet|boite|boite|oeufs?|jaunes?|blancs?)\b/i.test(line);
+    const stepLike = /^\d+[.)]\s*/.test(line) || /\b(melange|m[eÃ©]lange|ajoute|verse|fais|faites|chauffe|prechauffe|pr[eÃ©]chauffe|enfourne|cuis|cuire|laisse|reserve|r[eÃ©]serve|mix|coupe|epluche|[eÃ©]pluche)\b/i.test(line);
+    if (section === 'ingredients' || (section === 'intro' && ingredientLike && !stepLike)) {
+      ingredients.push(clean);
+      return;
+    }
+    if (section === 'steps' || stepLike) {
+      section = 'steps';
+      steps.push(clean);
+      return;
+    }
+    if (section === 'notes') notes.push(clean);
+    else intro.push(clean);
+  });
+
+  const sourceText = [title, ...lines].join(' ');
+  const yieldMatch = sourceText.match(/\b(\d+\s*(?:personnes?|portions?|parts?|verrines?|pieces?|pi[eÃ¨]ces?))\b/i);
+  const recipe = {
+    title,
+    categories: [inferCategoryFromText(sourceText)],
+    seasons: [pickOption(SEASONS, 'Toutes saisons', SEASONS[SEASONS.length - 1])].filter(Boolean),
+    difficulty: steps.length >= 10 || /\b(temperer|macaron|pate levee|levain|emulsion|foisonner)\b/.test(normalizeText(sourceText)) ? 'hard' : steps.length >= 6 ? 'medium' : 'easy',
+    yield: yieldMatch ? yieldMatch[1] : '',
+    ingredients: [{ group: 'Base', items: uniqValues(ingredients.length ? ingredients : intro.filter(line => line.length <= 90).slice(0, 12)) }],
+    steps: uniqValues(steps.length ? steps : intro.filter(line => line.length > 25).slice(0, 8)),
+    notes: uniqValues(notes),
+    image: '',
+    video: '',
+    tags: [],
+    master: '',
+    variants: [],
+    masterType: '',
+    technical: []
+  };
+  if (!recipe.notes.some(note => /\b(conservation|frigo|congel|jour|jours)\b/i.test(note))) {
+    recipe.notes.push('Conservation: refroidir rapidement si besoin, garder en boite fermee au refrigerateur et consommer sous 24-48 h selon ingredients frais.');
+  }
+  const allergens = inferDiagnosticAllergens(recipe);
+  if (allergens.length) recipe.technical.push({ label: 'Allergenes detectes', value: allergens.join(', ') });
+  recipe.tags = inferTagsForRecipe(recipe);
+  return recipe;
+}
+
 function adminQualityChecks(id, recipe) {
   const checks = [];
   const add = (label, ok, detail) => checks.push({ label, ok, detail });
@@ -156,6 +281,64 @@ function recipeHealthSummary(id, recipe) {
     score: checks.length - failed.length,
     qualityScore: Math.round(((checks.length - failed.length) / checks.length) * 100)
   };
+}
+
+function hasTechnicalSignal(recipe, pattern) {
+  return pattern.test(normalizeText((recipe.technical || []).flatMap(item => [item.label, item.title, item.value, item.text]).join(' ')));
+}
+
+function recipeFixSuggestions(id, recipe) {
+  const checks = adminQualityChecks(id, recipe);
+  const failed = new Set(checks.filter(item => !item.ok).map(item => normalizeText(item.label)));
+  const fixes = [];
+  const add = (key, label, detail) => fixes.push({ key, label, detail });
+  if (failed.has('rangement')) add('rangement', 'Ranger', 'categorie probable + Toutes saisons');
+  if (failed.has('recherche')) add('tags', 'Tags', 'tags deduits du titre, des ingredients et contraintes');
+  if (failed.has('conservation')) add('conservation', 'Conservation', 'note frigo/conservation prudente');
+  const allergens = inferDiagnosticAllergens(recipe);
+  if (allergens.length && !hasTechnicalSignal(recipe, /\ballergen|gluten|lait|lactose|oeuf|arachide|sesame|moutarde|poisson|crustace|mollusque\b/)) {
+    add('allergens', 'Allergenes', allergens.join(', '));
+  }
+  if (failed.has('identite') && !recipe.yield) add('yield', 'Rendement', 'proposition 4 portions a ajuster');
+  if (failed.has('seo') && (recipe.steps || []).join(' ').length < 80) add('seo-note', 'SEO', 'note de service et intention recette');
+  return fixes;
+}
+
+function appendUniqueLine(current, line) {
+  const lines = linesToArray(current);
+  if (!lines.some(item => normalizeText(item) === normalizeText(line))) lines.push(line);
+  return arrayToLines(lines);
+}
+
+function applyRecipeFix(key) {
+  const id = mode === 'edit' ? activeId : slugify(fields.id.value || fields.title.value || 'recette');
+  const recipe = collectRecipe();
+  const text = recipeDiagnosticText(recipe);
+  if (key === 'rangement') {
+    const categories = recipe.categories.length ? recipe.categories : [inferCategoryFromText(text)];
+    const seasons = recipe.seasons.length ? recipe.seasons : [pickOption(SEASONS, 'Toutes saisons', SEASONS[SEASONS.length - 1])].filter(Boolean);
+    setChecked('category', categories);
+    setChecked('season', seasons);
+  }
+  if (key === 'tags') {
+    fields.tags.value = inferTagsForRecipe(recipe).join(', ');
+  }
+  if (key === 'conservation') {
+    fields.notes.value = appendUniqueLine(fields.notes.value, 'Conservation: refroidir rapidement si besoin, garder en boite fermee au refrigerateur et consommer sous 24-48 h selon ingredients frais.');
+  }
+  if (key === 'allergens') {
+    const allergens = inferDiagnosticAllergens(recipe);
+    if (allergens.length) fields.technical.value = appendUniqueLine(fields.technical.value, `Allergenes detectes: ${allergens.join(', ')}`);
+  }
+  if (key === 'yield' && !recipe.yield) {
+    fields.yield.value = '4 portions';
+  }
+  if (key === 'seo-note') {
+    fields.notes.value = appendUniqueLine(fields.notes.value, `Service: ${recipe.title || id} se sert idealement juste apres preparation pour garder la meilleure texture.`);
+  }
+  updatePreview();
+  renderCatalogHealth();
+  message('Correction appliquee. Pense a sauvegarder.');
 }
 
 function recipeDuplicateTokens(recipe) {
@@ -288,7 +471,7 @@ function renderCatalogHealth(visibleCount = null) {
       ${queue.length ? queue.map(item => `
         <button type="button" data-id="${escapeHtml(item.id)}" class="admin-health-item">
           <strong>${escapeHtml(item.recipe.title || item.id)}</strong>
-          <small>${escapeHtml(item.failed.slice(0, 3).map(check => check.label).join(', '))}</small>
+          <small>${escapeHtml(item.failed.slice(0, 3).map(check => check.label).join(', '))} - ${recipeFixSuggestions(item.id, item.recipe).length} corrections</small>
         </button>
       `).join('') : '<em>Tout le catalogue passe les checks principaux.</em>'}
     </div>
@@ -302,6 +485,7 @@ function renderDiagnostics(id, recipe) {
   const aisles = inferDiagnosticAisles(recipe);
   const allergens = inferDiagnosticAllergens(recipe);
   const checks = adminQualityChecks(id, recipe);
+  const fixes = recipeFixSuggestions(id, recipe);
   target.innerHTML = [
     { label: 'Rôle menu', value: role },
     { label: 'Rayons', value: aisles.length ? aisles.join(', ') : 'À déduire' },
@@ -317,6 +501,15 @@ function renderDiagnostics(id, recipe) {
     <ul>
       ${checks.map(item => `<li class="${item.ok ? 'ok' : 'warn'}">${escapeHtml(item.label)} : ${escapeHtml(item.ok ? 'OK' : item.detail)}</li>`).join('')}
     </ul>
+    <div class="admin-fix-panel">
+      <span>Corrections proposees</span>
+      ${fixes.length ? fixes.map(item => `
+        <button type="button" data-fix-key="${escapeHtml(item.key)}">
+          <strong>${escapeHtml(item.label)}</strong>
+          <small>${escapeHtml(item.detail)}</small>
+        </button>
+      `).join('') : '<em>Aucune correction automatique utile.</em>'}
+    </div>
   `;
 }
 
@@ -501,6 +694,36 @@ function newRecipe() {
   message('');
 }
 
+function fillEditorFromRecipe(recipe, suggestedId = '') {
+  activeId = null;
+  mode = 'create';
+  $('#editor-title').textContent = recipe.title || 'Nouvelle recette';
+  fields.id.disabled = false;
+  fields.id.value = suggestedId || slugify(recipe.title || 'recette');
+  fields.title.value = recipe.title || '';
+  fields.difficulty.value = recipe.difficulty || 'easy';
+  fields.yield.value = recipe.yield || '';
+  fields.tags.value = (recipe.tags || []).join(', ');
+  fields.video.value = recipe.video || '';
+  fields.image.value = recipe.image || '';
+  fields.master.value = recipe.master || '';
+  fields.variants.value = variantsToText(recipe.variants || []);
+  fields.ingredients.value = ingredientsToText(recipe.ingredients || []);
+  fields.steps.value = arrayToLines(recipe.steps || []);
+  fields.notes.value = arrayToLines(recipe.notes || []);
+  fields.technical.value = technicalToText(recipe.technical || []);
+  setChecked('category', recipe.categories || []);
+  setChecked('season', recipe.seasons || []);
+  updatePreview();
+  renderList();
+}
+
+function importRawRecipe() {
+  const recipe = parseRawRecipe(fields.importRaw.value);
+  fillEditorFromRecipe(recipe, slugify(recipe.title || 'recette'));
+  message('Import prepare. Relis puis sauvegarde la fiche.');
+}
+
 function collectRecipe() {
   const variants = textToVariants(fields.variants.value);
   return {
@@ -632,6 +855,21 @@ function bind() {
   $('#save-btn').addEventListener('click', () => saveRecipe().catch(error => message(error.message, true)));
   $('#delete-btn').addEventListener('click', () => deleteRecipe().catch(error => message(error.message, true)));
   $('#duplicate-btn').addEventListener('click', duplicateRecipe);
+  $('#import-parse-btn')?.addEventListener('click', () => {
+    try {
+      importRawRecipe();
+    } catch (error) {
+      message(error.message, true);
+    }
+  });
+  $('#import-clear-btn')?.addEventListener('click', () => {
+    fields.importRaw.value = '';
+    message('Import vide.');
+  });
+  $('#recipe-diagnostics').addEventListener('click', event => {
+    const button = event.target.closest('[data-fix-key]');
+    if (button) applyRecipeFix(button.dataset.fixKey);
+  });
   $('#logout-btn').addEventListener('click', async () => {
     await api('/api/admin/logout', { method: 'POST', body: '{}' }).catch(() => {});
     window.location.href = '/admin-login.html';
