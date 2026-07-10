@@ -11,6 +11,7 @@ const FILE_BUDGETS = [
   ['app-images.js', 8 * KB],
   ['theme.js', 4 * KB],
   ['app-premium.js', 76 * KB],
+  ['app-techniques.js', 40 * KB],
   ['app.js', 400 * KB],
   ['style.css', 192 * KB],
   ['recipes.js', 475 * KB],

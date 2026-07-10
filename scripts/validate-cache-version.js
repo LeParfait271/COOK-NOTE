@@ -105,14 +105,14 @@ if (expectedProductVersion && !fs.existsSync(path.join(ROOT, 'downloads', `cook-
   fail(`downloads/cook-note-android-legacy-v${expectedProductVersion}.apk manquant pour la version produit publiee.`);
 }
 const assetVersions = [
-  ...index.matchAll(/\b(?:app|app-premium|app-images|app-art-images|theme|i18n|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g),
+  ...index.matchAll(/\b(?:app|app-premium|app-techniques|app-images|app-art-images|theme|i18n|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g),
   ...index.matchAll(/\bimage-manifest\.js\?v=(\d+)/g),
   ...index.matchAll(/service-worker\.js\?v=(\d+)/g),
   ...index.matchAll(/\bbase-du-site\.png\?v=(\d+)/g),
   ...index.matchAll(/COOK_NOTE_ASSET_VERSION\s*=\s*'(\d+)'/g),
   ...recipeHtml.matchAll(/\b(?:theme|i18n|recipe|recipes|style)\.(?:js|css)\?v=(\d+)/g),
   ...recipeHtml.matchAll(/COOK_NOTE_ASSET_VERSION\s*=\s*'(\d+)'/g),
-  ...serviceWorker.matchAll(/\b(?:app|app-premium|app-images|app-art-images|theme|i18n|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g),
+  ...serviceWorker.matchAll(/\b(?:app|app-premium|app-techniques|app-images|app-art-images|theme|i18n|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g),
   ...serviceWorker.matchAll(/CACHE_NAME\s*=\s*'cook-note-v(\d+)'/g),
   ...serviceWorker.matchAll(/IMAGE_CACHE_NAME\s*=\s*'cook-note-images-v(\d+)'/g)
 ].map(match => match[1]);
@@ -126,7 +126,7 @@ assetVersions.forEach(version => {
   }
 });
 
-if (/\/(?:assets\/image-manifest|app-premium|app-images|app-art-images)\.js\?v=\d+/.test(validateUi)
+if (/\/(?:assets\/image-manifest|app-premium|app-techniques|app-images|app-art-images)\.js\?v=\d+/.test(validateUi)
   || /const SITE_VERSION = 'v\d+\.\d{2}'/.test(validateUi)
   || /const SITE_UPDATED_AT = '\d{2}\/\d{2}\/\d{2}'/.test(validateUi)) {
   fail('scripts/validate-ui.js: ne doit pas contenir de version/date de release en dur.');

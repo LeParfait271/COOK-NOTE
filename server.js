@@ -26,6 +26,7 @@ const PUBLIC_ROOT_FILES = new Set([
   'app-images.js',
   'app-art-images.js',
   'app-premium.js',
+  'app-techniques.js',
   'theme.js',
   'i18n.js',
   'recipes.js',
@@ -284,6 +285,7 @@ function staticCacheControl(filePath, noStore = false) {
     relative === 'app.js' ||
     relative === 'app-images.js' ||
     relative === 'app-art-images.js' ||
+    relative === 'app-techniques.js' ||
     relative === 'theme.js' ||
     relative === 'i18n.js' ||
     relative === 'style.css' ||
