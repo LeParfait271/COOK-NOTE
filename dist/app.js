@@ -116,12 +116,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.41';
+const SITE_VERSION = 'v3.42';
 const SITE_UPDATED_AT = '10/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '3.41';
+const ANDROID_LEGACY_APK_VERSION = '3.42';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -1698,7 +1698,8 @@ function servingOptionsFor(recipe) {
   if (!info) return [];
   const base = Math.round(info.base);
   const max = Math.max(24, base * 2);
-  return uniq([1, 2, 3, 4, 5, 6, 8, 10, 12, base, base * 2]
+  const directCounts = Array.from({ length: Math.min(12, max) }, (_, index) => index + 1);
+  return uniq([...directCounts, 14, 16, 18, 20, 24, base, base * 2]
     .filter(value => Number.isFinite(value) && value >= 1 && value <= max)
     .map(String))
     .map(Number)
@@ -6203,11 +6204,16 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '' }) {
   const servingOptions = servingOptionsFor(recipe);
   if (servingInfo && servingOptions.length) {
     const currentTarget = getServingTarget(recipe, factor);
+    const labelText = servingInfo.unit === 'personne'
+      ? 'Personnes'
+      : servingInfo.unit === 'part'
+        ? 'Parts'
+        : 'Portions';
     return h('label', {
       className: ['factor-control serving-control quantity-select-control', className].filter(Boolean).join(' '),
       'aria-label': `Choisir le nombre de ${servingUnitLabel(servingInfo, 2)}`
     },
-      h('span', { className: 'factor-label' }, 'Quantité'),
+      h('span', { className: 'factor-label' }, labelText),
       h('select', {
         className: 'quantity-select',
         value: String(currentTarget),
@@ -6598,6 +6604,9 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
 
 function RecipeCommandDock({
   title,
+  recipe,
+  factor,
+  setFactor,
   progress,
   canShowSteps,
   mobileDetailTab,
@@ -6632,6 +6641,9 @@ function RecipeCommandDock({
         h('span', { className: 'eyebrow' }, 'Fiche active'),
         h('strong', null, title),
         h('small', null, canShowSteps ? `${safeProgress}% pr\u00eat` : 'Choix requis')
+      ),
+      recipe && h('div', { className: 'recipe-dock-quantity' },
+        h(QuantityFactorControl, { recipe, factor, setFactor, className: 'recipe-dock-quantity-control' })
       ),
       h('div', { className: 'recipe-dock-tabs', 'aria-label': 'Sections de la fiche' },
         tabs.map(tab => h('button', {
@@ -6900,6 +6912,9 @@ function RecipeView({
     }),
     hasSelectedVariant && h(RecipeCommandDock, {
       title: selectedRecipe.title,
+      recipe: selectedRecipe,
+      factor,
+      setFactor,
       progress,
       canShowSteps,
       mobileDetailTab,
