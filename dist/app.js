@@ -116,12 +116,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.37';
+const SITE_VERSION = 'v3.38';
 const SITE_UPDATED_AT = '10/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '3.37';
+const ANDROID_LEGACY_APK_VERSION = '3.38';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -6561,9 +6561,6 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
   const timing = getRecipeTiming(recipe);
   const serviceItems = getRecipeServiceItems(recipe).slice(0, 2);
   const riskSignals = getRecipeRiskSignals(recipe).slice(0, 2);
-  const allergens = getRecipeAllergens(recipe).slice(0, 2);
-  const semanticLabels = semanticRecipeSignals(recipe).labels.filter(label => !/^sans /.test(normalizeText(label))).slice(0, 2);
-  const substitutionCount = getSmartSubstitutionNotes(recipe).length;
   const chefNotes = [
     timing.active && timing.active <= 20 ? 'Mise en place courte : garder les ingredients visibles avant cuisson.' : '',
     timing.rest ? 'Prevoir le repos avant de promettre le service.' : '',
@@ -6571,6 +6568,7 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
     ...riskSignals.map(signal => `${signal.label} : point de vigilance.`)
   ].filter(Boolean).slice(0, 4);
   const facts = [
+    timing.total && { label: 'Total', value: formatMinutesShort(timing.total) },
     { label: 'Temps actif', value: formatMinutesShort(timing.active) || 'A estimer' },
     timing.cook && { label: 'Cuisson', value: formatMinutesShort(timing.cook) },
     timing.rest && { label: 'Repos / froid', value: formatMinutesShort(timing.rest) },
@@ -6580,23 +6578,10 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
     { label: 'Étapes', value: `${stepTotal || getRecipeSteps(recipe).length} étapes` },
     seasons.length && { label: 'Saison', value: seasons.slice(0, 2).join(' / ') },
   ].filter(Boolean);
-  const premiumBadges = [
-    { label: 'Famille', value: primaryCategory(recipe) },
-    timing.total && { label: 'Total', value: formatMinutesShort(timing.total) },
-    allergens.length ? { label: 'Allergènes', value: allergens.join(' / ') } : { label: 'Allergènes', value: 'Aucun majeur détecté' },
-    substitutionCount && { label: 'Substitutions', value: `${substitutionCount} pistes` },
-    ...semanticLabels.map(label => ({ label: 'Usage', value: label }))
-  ].filter(Boolean).slice(0, 5);
   return h('section', { className: 'recipe-summary-panel', 'aria-label': 'Résumé de la recette' },
     h('div', { className: 'recipe-summary-head' },
       h('p', { className: 'eyebrow' }, 'Résumé'),
       h('h2', null, 'Fiche rapide')
-    ),
-    h('div', { className: 'recipe-magazine-strip', 'aria-label': 'Badges premium de la recette' },
-      premiumBadges.map(item => h('span', { key: `${item.label}:${item.value}` },
-        h('small', null, item.label),
-        h('strong', null, item.value)
-      ))
     ),
     h('div', { className: 'recipe-quick-facts' },
       facts.map(item => h('div', { key: item.label, className: 'recipe-quick-fact' },
