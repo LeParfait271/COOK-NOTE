@@ -116,12 +116,12 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.39';
+const SITE_VERSION = 'v3.40';
 const SITE_UPDATED_AT = '10/07/26';
 const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '3.39';
+const ANDROID_LEGACY_APK_VERSION = '3.40';
 const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
@@ -6420,70 +6420,6 @@ function PlatingGuideBlock({ recipe }) {
   );
 }
 
-function getRecipeGraphGroups(recipe, recipesById = {}, linkedRecipes = []) {
-  const seen = new Set([recipe?.id].filter(Boolean));
-  const groups = [];
-  const addGroup = (label, rawItems) => {
-    const items = rawItems
-      .filter(item => item?.id && recipesById[item.id] && !seen.has(item.id))
-      .map(item => {
-        seen.add(item.id);
-        return { ...item, recipe: recipesById[item.id] };
-      });
-    if (items.length) groups.push({ label, items });
-  };
-
-  if (recipe?.master && recipesById[recipe.master]) {
-    const parent = recipesById[recipe.master];
-    addGroup('Collection', [
-      { id: parent.id, role: 'Parent' },
-      ...sortVariantRefs(getLeafVariantRefs(parent, recipesById), recipesById).map(item => ({ id: item.id, role: 'Variante' })).slice(0, 5)
-    ]);
-  } else {
-    addGroup('Variantes', sortVariantRefs(getLeafVariantRefs(recipe, recipesById), recipesById).map(item => ({ id: item.id, role: 'Variante' })).slice(0, 6));
-  }
-
-  addGroup('Bases et liens', linkedRecipes.map(item => ({ id: item.id, role: item.role || 'Lien' })).slice(0, 7));
-
-  const categoryParentId = CATEGORY_PARENT_IDS[primaryCategory(recipe)];
-  if (categoryParentId) addGroup('Catalogue', [{ id: categoryParentId, role: primaryCategory(recipe) }]);
-  return groups;
-}
-
-function RecipeGraphPanel({ recipe, recipesById, linkedRecipes = [], openRecipe }) {
-  const groups = getRecipeGraphGroups(recipe, recipesById, linkedRecipes);
-  if (!groups.length) return null;
-  return h('div', { className: 'recipe-graph-panel', 'aria-label': 'Graphe des relations recette' },
-    h('div', { className: 'premium-block-head' },
-      h('p', { className: 'eyebrow' }, 'Graphe'),
-      h('h2', null, 'Carte recette')
-    ),
-    h('div', { className: 'recipe-graph-canvas' },
-      h('div', { className: 'recipe-graph-center' },
-        h('small', null, primaryCategory(recipe)),
-        h('strong', null, recipe.title)
-      ),
-      groups.map(group => h('section', { key: group.label, className: 'recipe-graph-group' },
-        h('span', null, group.label),
-        h('div', { role: 'list' },
-          group.items.map(item => h('button', {
-            key: `${group.label}:${item.id}`,
-            type: 'button',
-            role: 'listitem',
-            className: 'recipe-graph-node',
-            style: { '--card-accent': getCategoryColor(item.recipe) },
-            onClick: () => openRecipe(item.id),
-            'aria-label': `Ouvrir ${item.recipe.title}`
-          },
-            h('small', null, item.role || primaryCategory(item.recipe)),
-            h('strong', null, item.recipe.title)
-          ))
-        )
-      ))
-    )
-  );
-}
-
 function PrepTimelineBlock({ recipe }) {
   const items = getPrepTimeline(recipe);
   if (!items.length) return null;
@@ -6803,8 +6739,7 @@ function RecipeView({
   const flavorMap = hasSelectedVariant ? getRecipeFlavorMap(selectedRecipe) : [];
   const ingredientCards = hasSelectedVariant ? getRecipeIngredientCards(selectedRecipe) : [];
   const platingGuide = hasSelectedVariant ? getRecipePlatingGuide(selectedRecipe) : [];
-  const recipeGraphGroups = hasSelectedVariant ? getRecipeGraphGroups(selectedRecipe, recipesById, linkedRecipes) : [];
-  const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length + flavorMap.length + ingredientCards.length + platingGuide.length + recipeGraphGroups.length;
+  const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length + flavorMap.length + ingredientCards.length + platingGuide.length;
   const selectedGroupLabel = selectedInlineVariantGroup?.group?.group || '';
   const mobileTabOrder = ['ingredients', 'steps', 'notes'];
 
@@ -7106,7 +7041,6 @@ function RecipeView({
           updatePersonalRecipeNote
         }),
         h(PrepTimelineBlock, { recipe: selectedRecipe }),
-        h(RecipeGraphPanel, { recipe: selectedRecipe, recipesById, linkedRecipes, openRecipe }),
         h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
         h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique }),
         displayNotes.length > 0 && h('div', { className: 'free-notes-block' },
