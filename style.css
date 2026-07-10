@@ -7020,6 +7020,49 @@ a {
   transform: translateZ(0);
 }
 
+.theme-dark .hero {
+  min-height: clamp(230px, 28vw, 390px);
+  border-bottom: 1px solid color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent);
+  background:
+    linear-gradient(180deg, rgba(2, 2, 3, .10), rgba(2, 2, 3, .24) 46%, rgba(2, 2, 3, .68) 84%, var(--bg)),
+    linear-gradient(90deg, rgba(0, 0, 0, .34), transparent 24%, transparent 76%, rgba(0, 0, 0, .34)),
+    var(--art-hero-image) center 45% / cover no-repeat;
+  box-shadow:
+    inset 0 -82px 88px rgba(0, 0, 0, .48),
+    inset 0 1px 0 rgba(255, 255, 255, .035);
+}
+
+.theme-dark .hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(251, 191, 36, .18), transparent 26rem),
+    linear-gradient(180deg, rgba(0, 0, 0, .20), transparent 34%, rgba(0, 0, 0, .18));
+  mix-blend-mode: screen;
+  opacity: .72;
+}
+
+.theme-dark .hero::after {
+  height: clamp(92px, 13vw, 170px);
+  background:
+    linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 76%, transparent) 64%, var(--bg));
+}
+
+.theme-dark .hero .hero-inner {
+  padding: clamp(44px, 7vw, 96px) 0;
+}
+
+.theme-dark .hero-logo {
+  width: min(560px, 72vw);
+  max-height: clamp(100px, 10vw, 136px);
+  filter:
+    drop-shadow(0 18px 34px rgba(0, 0, 0, .78))
+    drop-shadow(0 0 22px rgba(251, 191, 36, .10));
+}
+
 .season-dashboard,
 .season-block,
 .fridge-assistant,
