@@ -99,6 +99,7 @@
     'Gluten': 'Gluten',
     'Lait': 'Milk',
     'Mollusques': 'Molluscs',
+    'Mer : point de vigilance.': 'Seafood: watch point.',
     'Crustacés': 'Shellfish',
     'Moutarde': 'Mustard',
     'Œufs': 'Eggs',
@@ -432,10 +433,902 @@
     'Repos idéal une nuit au réfrigérateur.': 'Ideally rest overnight in the refrigerator.',
     'Faire mariner les viandes coupées avec cognac, échalote, ail, sel, poivre du moulin et thym pendant 2h au frais.': 'Marinate the cut meats with cognac, shallot, garlic, salt, freshly ground pepper and thyme for 2 hours in the refrigerator.',
     'Couper les viandes bien froides en morceaux et les faire mariner 2h avec alcool, échalote, ail, sel fin, poivre du moulin et quatre-épices.': 'Cut the very cold meats into pieces and marinate for 2 hours with alcohol, shallot, garlic, fine salt, freshly ground pepper and quatre-épices.',
-    'Fouetter les œufs avec le sucre et le sel sans faire trop mousser.': 'Whisk the eggs with the sugar and salt without making the mixture too foamy.'
+    'Fouetter les œufs avec le sucre et le sel sans faire trop mousser.': 'Whisk the eggs with the sugar and salt without making the mixture too foamy.',
+    'Plier en triangles serres.': 'Fold into tight triangles.',
+    'Repere menu : version plus moutardee que la fiche saucisse lentilles.': 'Menu cue: more mustard-forward than the sausage and lentils sheet.',
+    'Batteur ou robot': 'Hand mixer or stand mixer',
+    'Ne pas mixer la patate douce longtemps, elle deviendrait collante.': 'Do not blend the sweet potato too long; it would become sticky.',
+    'Mieux vaut couper regulierement et prolonger 1 a 2min que trop cuire des le depart.': 'It is better to cut evenly and add 1 to 2 minutes than to overcook from the start.',
+    'Minuteur': 'Timer',
+    'Ne pas remplir au-dela du niveau de securite.': 'Do not fill beyond the safety level.',
+    'La sauce huitre apporte une note salee-sucree, mais la recette reste bonne sans elle.': 'Oyster sauce adds a sweet-salty note, but the recipe is still good without it.',
+    'Repartir dans le panier de l air fryer sans trop tasser.': 'Spread in the air-fryer basket without packing too tightly.',
+    'Remuer': 'Stir',
+    'Ne pas surcharger le panier.': 'Do not overcrowd the basket.',
+    'La veille': 'The day before',
+    'S il n est pas parfaitement sec, le repartir sur une plaque et secher 15 a 20min a 100C.': 'If it is not perfectly dry, spread it on a tray and dry for 15 to 20 minutes at 100C.',
+    'Eviter le mixeur, il rendrait l amidon elastique.': 'Avoid the blender; it would make the starch elastic.',
+    'Elle saisit la surface et limite l effet pomme de terre vapeur.': 'It sears the surface and limits the steamed-potato effect.',
+    'Les frites doivent se toucher le moins possible.': 'The fries should touch as little as possible.',
+    'Les carottes retiennent de l eau, il faut les laisser bien s egoutter.': 'Carrots hold water, so let them drain well.',
+    'Il s incorpore mieux et garde la puree souple.': 'It folds in better and keeps the mash soft.',
+    'Elle confit sans dessecher et laisse le romarin infuser.': 'It confits without drying out and lets the rosemary infuse.',
+    'Ne pas hacher le romarin trop finement, il brulerait plus vite.': 'Do not chop the rosemary too finely; it would burn faster.',
+    'sans lactose': 'lactose-free',
+    'Il detend la pate et rend les crepes plus souples.': 'It relaxes the batter and makes the crepes more flexible.',
+    'Le rhum doit parfumer sans dominer, il peut etre supprime pour une version familiale.': 'The rum should perfume without dominating; it can be omitted for a family version.',
+    'Remplir les caissettes aux trois quarts.': 'Fill the paper cases three-quarters full.',
+    'Ne pas noyer la brioche, elle casserait dans la poele.': 'Do not soak the brioche too much; it would break in the pan.',
+    "Repartir dans le panier de l'air fryer sans trop tasser.": 'Spread in the air-fryer basket without packing too tightly.',
+    "S'il n'est pas parfaitement sec, le repartir sur une plaque et secher 15 a 20min a 100C.": 'If it is not perfectly dry, spread it on a tray and dry for 15 to 20 minutes at 100C.',
+    "Eviter le mixeur, il rendrait l'amidon elastique.": 'Avoid the blender; it would make the starch elastic.',
+    "Elle saisit la surface et limite l'effet pomme de terre vapeur.": 'It sears the surface and limits the steamed-potato effect.',
+    "Les carottes retiennent de l'eau, il faut les laisser bien s'egoutter.": 'Carrots hold water, so let them drain well.',
+    "Il s'incorpore mieux et garde la puree souple.": 'It folds in better and keeps the mash soft.',
+    "Rouler le biscuit dans le torchon pendant qu'il est encore chaud, puis laisser tiedir.": 'Roll the sponge in the towel while it is still hot, then let it cool until warm.',
+    'Ne pas attendre que le biscuit refroidisse a plat avant de le rouler.': 'Do not wait for the sponge to cool flat before rolling it.',
+    'Incorporer les jaunes au chocolat tiede, un par un.': 'Fold the yolks into the warm chocolate, one at a time.'
   };
 
   const culinaryReplacementsEn = [
+    ['ne presse pas trop fort', 'do not press too hard'],
+    ['presse pas trop fort', 'do not press too hard'],
+    ['peut devenir amer', 'can turn bitter'],
+    ['peut devenir amere', 'can turn bitter'],
+    ['ne reduis pas trop', 'do not reduce too much'],
+    ['reduit pas trop', 'does not reduce too much'],
+    ['evite de cuire', 'avoid cooking'],
+    ['eviter de cuire', 'avoid cooking'],
+    ['perd sa couleur verte', 'loses its green color'],
+    ['donne plutot une texture de', 'gives more of a'],
+    ['detends bien apres mixage', 'loosen well after blending'],
+    ['filtre soigneusement', 'strain carefully'],
+    ['filtrer soigneusement', 'strain carefully'],
+    ['plus genants que ceux de', 'more noticeable than those of'],
+    ['plus genantes que celles de', 'more noticeable than those of'],
+    ['mixeur plongeant', 'immersion blender'],
+    ['blender puissant', 'high-powered blender'],
+    ['un blender puissant', 'a high-powered blender'],
+    ['astuce cuisson cru', 'no-cook tip'],
+    ['astuce cuisson', 'cooking tip:'],
+    ['finition commune', 'common finish'],
+    ['apres refroidissement', 'after cooling'],
+    ['texture nappante', 'coating consistency'],
+    ['texture de compote fluide', 'loose compote texture'],
+    ['compote fluide', 'loose compote'],
+    ['bonne brillance', 'nice shine'],
+    ['sucre present mais pas dominant', 'noticeable but not dominant sweetness'],
+    ['acidite assez vive', 'bright enough acidity'],
+    ['reveiller le fruit', 'wake up the fruit'],
+    ['filme au contact', 'cover with film directly on the surface'],
+    ['filmer au contact', 'cover with film directly on the surface'],
+    ['film au contact', 'film directly on the surface'],
+    ['au contact', 'directly on the surface'],
+    ['chaleur residuelle', 'residual heat'],
+    ['texture finale', 'final texture'],
+    ['pate humide', 'wet paste'],
+    ['corser les pates', 'make the dough tough'],
+    ['ce qu il faut', 'only as much as needed'],
+    ["ce qu'il faut", 'only as much as needed'],
+    ['plutot que', 'rather than'],
+    ['minuteur seul', 'timer alone'],
+    ['la sauce attend', 'the sauce has to wait'],
+    ['selon sauce', 'depending on the sauce'],
+    ['selon la texture', 'depending on the texture'],
+    ['selon le fruit', 'depending on the fruit'],
+    ['selon les pepins', 'depending on the seeds'],
+    ['selon l usage', 'depending on the use'],
+    ["selon l'usage", 'depending on the use'],
+    ['selon l equilibre voulu', 'depending on the desired balance'],
+    ["selon l'equilibre voulu", 'depending on the desired balance'],
+    ['selon l equilibre', 'depending on the balance'],
+    ['cote chair', 'flesh side'],
+    ['face coupee vers le haut', 'cut side up'],
+    ['plat de cuisson', 'baking dish'],
+    ['pepins de mure', 'blackberry seeds'],
+    ['jus de citron', 'lemon juice'],
+    ['gouttes de citron', 'drops of lemon'],
+    ['pepins', 'seeds'],
+    ['passoire', 'strainer'],
+    ['sinon', 'otherwise'],
+    ['beaucoup', 'a lot'],
+    ['toujours', 'always'],
+    ['rapidement', 'quickly'],
+    ['naturellement', 'naturally'],
+    ['soigneusement', 'carefully'],
+    ['longtemps', 'too long'],
+    ['fibreux', 'fibrous'],
+    ['puissant', 'powerful'],
+    ['meilleur resultat', 'better result'],
+    ['resultat', 'result'],
+    ['mixage', 'blending'],
+    ['oxydation', 'oxidation'],
+    ['ameres', 'bitter'],
+    ['amere', 'bitter'],
+    ['amer', 'bitter'],
+    ['cru', 'raw'],
+    ['verte', 'green'],
+    ['vert', 'green'],
+    ['fluide', 'loose'],
+    ['nappante', 'coating'],
+    ['brillance', 'shine'],
+    ['dominant', 'dominant'],
+    ['vive', 'bright'],
+    ['fibre', 'fiber'],
+    ['fibres', 'fibers'],
+    ['peaux', 'skins'],
+    ['peau', 'skin'],
+    ['mures', 'blackberries'],
+    ['mure', 'blackberry'],
+    ['mango', 'mango'],
+    ['mangue', 'mango'],
+    ['myrtille', 'blueberry'],
+    ['myrtilles', 'blueberries'],
+    ['ananas', 'pineapple'],
+    ['kiwi', 'kiwi'],
+    ['pomme', 'apple'],
+    ['abricot', 'apricot'],
+    ['framboise', 'raspberry'],
+    ['framboises', 'raspberries'],
+    ['cuisson', 'cooking'],
+    ['passer au tamis', 'pass through a sieve'],
+    ['tamis', 'sieve'],
+    ['ajuste', 'adjust'],
+    ['ajuster', 'adjust'],
+    ['presse', 'press'],
+    ['presser', 'press'],
+    ['filtre', 'strain'],
+    ['filtrer', 'strain'],
+    ['reduis', 'reduce'],
+    ['reduire', 'reduce'],
+    ['detends', 'loosen'],
+    ['detendre', 'loosen'],
+    ['devient', 'becomes'],
+    ['devenir', 'become'],
+    ['epaissit', 'thickens'],
+    ['epaissir', 'thicken'],
+    ['evite', 'avoid'],
+    ['eviter', 'avoid'],
+    ['perd', 'loses'],
+    ['peut', 'can'],
+    ['donne', 'gives'],
+    ['donner', 'give'],
+    ['indique', 'indicated'],
+    ['choisi', 'chosen'],
+    ['choisie', 'chosen'],
+    ['suivre', 'follow'],
+    ['corriger', 'adjust'],
+    ['corrige', 'adjust'],
+    ['finition', 'finish'],
+    ['refroidissement', 'cooling'],
+    ['conservation', 'storage'],
+    ['portion', 'serving'],
+    ['petites portions', 'small portions'],
+    ['sortir legerement', 'take out slightly'],
+    ['sortir', 'take out'],
+    ['raffermir', 'firm up'],
+    ['trancher', 'slice'],
+    ['tartiner', 'spread'],
+    ['fondue', 'melted'],
+    ['figerait', 'would set'],
+    ['perdrait', 'would lose'],
+    ['joliment', 'nicely'],
+    ['presente', 'present'],
+    ['brillante', 'shiny'],
+    ['aeree', 'airy'],
+    ['aere', 'airy'],
+    ['chaleur tournante', 'fan-assisted oven'],
+    ['leger fremissement', 'gentle simmer'],
+    ['legere fremissement', 'gentle simmer'],
+    ['elements chauds separes', 'hot elements separate'],
+    ['dressage attend', 'plating has to wait'],
+    ['elle rend beaucoup d eau', 'it releases a lot of water'],
+    ["elle rend beaucoup d'eau", 'it releases a lot of water'],
+    ['la mettre dans un bol froid', 'put it in a cold bowl'],
+    ['les poser face coupee vers le haut', 'place them cut side up'],
+    ['eau de vegetation s est concentree', 'vegetable moisture has concentrated'],
+    ["eau de vegetation s'est concentree", 'vegetable moisture has concentrated'],
+    ['face coupee contre la plaque', 'cut side down on the tray'],
+    ['pointes grillees', 'toasted tips'],
+    ['coeur juste tendre', 'just-tender center'],
+    ['brosse le potimarron', 'scrub the pumpkin'],
+    ['brosser le potimarron', 'scrub the pumpkin'],
+    ['potimarron', 'pumpkin'],
+    ['leouvrir', 'open it'],
+    ['l ouvrir', 'open it'],
+    ["l'ouvrir", 'open it'],
+    ['graines et filaments', 'seeds and fibers'],
+    ['grosses frites', 'large wedges'],
+    ['grosses fries', 'large wedges'],
+    ['retourner une fois', 'turn once'],
+    ['une fois', 'once'],
+    ['a 200c', 'at 200C'],
+    ['a 180c', 'at 180C'],
+    ['a 170c', 'at 170C'],
+    ['a 160c', 'at 160C'],
+    ['a 150c', 'at 150C'],
+    ['choux de bruxelles', 'Brussels sprouts'],
+    ['choux of bruxelles', 'Brussels sprouts'],
+    ['sommites', 'florets'],
+    ['coupees en deux', 'halved'],
+    ['coupes en deux', 'halved'],
+    ['coupes in deux', 'halved'],
+    ['eau de vegetation', 'vegetable moisture'],
+    ['s est concentree', 'has concentrated'],
+    ["s'est concentree", 'has concentrated'],
+    ['chaleur moderee', 'moderate heat'],
+    ['cuisson forte', 'high-heat cooking'],
+    ['cuisson longue', 'long baking'],
+    ['laquer', 'glaze'],
+    ['exces de liquide', 'excess liquid'],
+    ['exces of runny', 'excess liquid'],
+    ['empeche la coloration', 'prevents browning'],
+    ['empeche the browning', 'prevents browning'],
+    ['faire bruler', 'burn'],
+    ['bruler', 'burn'],
+    ['brule', 'burns'],
+    ['brulee', 'burned'],
+    ['qui a touche le cru', 'that touched raw food'],
+    ['a touche le cru', 'touched raw food'],
+    ['marinade crue', 'raw marinade'],
+    ['porter franchement a ebullition', 'bring to a full boil'],
+    ['porter a ebullition', 'bring to a boil'],
+    ['doit devenir une sauce', 'must become a sauce'],
+    ['doit servir de sauce', 'must be used as a sauce'],
+    ['servir de sauce', 'be used as a sauce'],
+    ['reutiliser', 'reuse'],
+    ['jeter', 'discard'],
+    ['franchement', 'fully'],
+    ['des de jambon', 'ham cubes'],
+    ['jambon', 'ham'],
+    ['assez petits', 'small enough'],
+    ['se tiennent bien', 'hold together well'],
+    ['se tiennent', 'hold together'],
+    ['dessus bulle', 'top bubbles'],
+    ['fromage se stabilise', 'cheese sets'],
+    ['se stabilise', 'sets'],
+    ['legere coloration', 'light browning'],
+    ['texture attendue', 'expected texture'],
+    ['realiser', 'make'],
+    ['pocher', 'pipe'],
+    ['disque', 'disk'],
+    ['longue', 'long'],
+    ['bien seches', 'fully dry'],
+    ['bien seche', 'fully dry'],
+    ['seches et stables', 'dry and stable'],
+    ['seches', 'dry'],
+    ['exces', 'excess'],
+    ['belle coloration', 'nice browning'],
+    ['belle', 'nice'],
+    ['legere', 'light'],
+    ['leger', 'light'],
+    ['doux au toucher', 'smooth to the touch'],
+    ['four doux', 'low oven'],
+    ['rechauffage doux', 'gentle reheating'],
+    ['doux', 'gentle'],
+    ['douce', 'gentle'],
+    ['gros quartiers', 'large pieces'],
+    ['gros morceaux', 'large pieces'],
+    ['gros oeufs', 'large eggs'],
+    ['gros', 'large'],
+    ['grosses', 'large'],
+    ['grosse', 'large'],
+    ['petits', 'small'],
+    ['petites', 'small'],
+    ['petit', 'small'],
+    ['propres', 'clean'],
+    ['morceau', 'piece'],
+    ['morceaux', 'pieces'],
+    ['cuits', 'cooked'],
+    ['mi-cuits au chocolat', 'molten chocolate cakes'],
+    ['mi-cuits', 'molten cakes'],
+    ['coupe en des', 'diced'],
+    ['coupe in dice', 'diced'],
+    ['des de jambon', 'ham cubes'],
+    ['en des', 'diced'],
+    ['mousseux', 'foamy'],
+    ['blancs mousseux', 'foamy egg whites'],
+    ['blancs montes', 'whipped egg whites'],
+    ['trous', 'holes'],
+    ['levee', 'raised'],
+    ['croustillante', 'crisp'],
+    ['croustillants', 'crisp'],
+    ['moelleuse', 'soft'],
+    ['moelleux', 'soft'],
+    ['fondante', 'melting'],
+    ['fondants', 'tender'],
+    ['attendu', 'expected'],
+    ['amande', 'almond'],
+    ['amandes', 'almonds'],
+    ['sirop', 'syrup'],
+    ['poudre de piment', 'chili powder'],
+    ['flocons de piment', 'chili flakes'],
+    ['cinq-epices', 'five-spice'],
+    ['graines de sesame', 'sesame seeds'],
+    ['resistant a la chaleur', 'heatproof'],
+    ['resistant with chaleur', 'heatproof'],
+    ['se conserver', 'be stored'],
+    ['correctement stockee', 'stored properly'],
+    ['elle doit reveiller', 'it should wake up'],
+    ['elle doit', 'it should'],
+    ['ni faire fumer', 'or smoke'],
+    ['ni fumer', 'or smoke'],
+    ['precipiter', 'rush'],
+    ['ne jamais precipiter', 'never rush'],
+    ['jamais', 'never'],
+    ['melanges mousseux', 'foamy mixtures'],
+    ['sors', 'take out'],
+    ['ramollir', 'soften'],
+    ['temperature de la piece', 'room temperature'],
+    ['piece il doit', 'room; it should'],
+    ['il doit', 'it should'],
+    ['mais pas', 'but not'],
+    ['pommade', 'softened'],
+    ['cremeux', 'creamy'],
+    ['grossierement', 'coarsely'],
+    ['tiedit', 'cools until lukewarm'],
+    ['au-dessus', 'above'],
+    ['depart a froid', 'cold start'],
+    ['depuis le depart a froid', 'from a cold start'],
+    ['foncage', 'lining'],
+    ['colmate', 'patch'],
+    ['meme epaisseur', 'the same thickness'],
+    ['se ressoude', 'seals itself'],
+    ['casse', 'breaks'],
+    ['fondante', 'melting'],
+    ['cuisson lente indispensable', 'slow cooking is essential'],
+    ['meme fiche', 'same sheet'],
+    ['meme temperature', 'same temperature'],
+    ['meme quantite', 'same quantity'],
+    ['citronne', 'lemony'],
+    ['traditionnel', 'traditional'],
+    ['epaisseur reguliere', 'even thickness'],
+    ['epaisseur', 'thickness'],
+    ['entre deux feuilles', 'between two sheets'],
+    ['feuilles de papier cuisson', 'sheets of parchment paper'],
+    ['sans ajouter de farine', 'without adding flour'],
+    ['qu il soit', 'so it is'],
+    ["qu'il soit", 'so it is'],
+    ['qu elle devienne translucide', 'it turns translucent'],
+    ["qu'elle devienne translucide", 'it turns translucent'],
+    ['qu elle reste', 'so it stays'],
+    ["qu'elle reste", 'so it stays'],
+    ['elle peut apporter de l amertume', 'it can bring bitterness'],
+    ["elle peut apporter de l'amertume", 'it can bring bitterness'],
+    ['amertume', 'bitterness'],
+    ['infuse', 'infused'],
+    ['plus reguliere', 'more even'],
+    ['parfum plus propre', 'cleaner aroma'],
+    ['ajoute a sec', 'added dry'],
+    ['idealement', 'ideally'],
+    ['faciliter', 'help'],
+    ['quantite', 'quantity'],
+    ['indiquee', 'indicated'],
+    ['precision', 'precision'],
+    ['aide a obtenir', 'helps produce'],
+    ['aide', 'helps'],
+    ['mie', 'crumb'],
+    ['tranches fines', 'thin slices'],
+    ['fines', 'thin'],
+    ['afin que la sauce tienne bien', 'so the sauce clings well'],
+    ['sauce tienne bien', 'sauce clings well'],
+    ['tienne bien', 'holds well'],
+    ['plaques de ravioles', 'ravioli sheets'],
+    ['une par une', 'one by one'],
+    ['ecumoire large', 'large slotted spoon'],
+    ['ecumoire', 'slotted spoon'],
+    ['beurre clarifie', 'clarified butter'],
+    ['clarifie', 'clarified'],
+    ['selon besoin', 'as needed'],
+    ['besoin', 'need'],
+    ['moins il reste d eau', 'the less water remains'],
+    ["moins il reste d'eau", 'the less water remains'],
+    ['seront croustillantes', 'will be crisp'],
+    ['alcool', 'alcohol'],
+    ['remplace', 'replace'],
+    ['par la meme quantite', 'with the same quantity of'],
+    ['eau gazeuse', 'sparkling water'],
+    ['blender tourne', 'blender is running'],
+    ['sans concombre', 'cucumber-free'],
+    ['gaspacho melon sans concombre', 'cucumber-free melon gazpacho'],
+    ['papier absorbant', 'paper towels'],
+    ['mieux', 'better'],
+    ['sur grille', 'on a rack'],
+    ['finition plus nette', 'cleaner finish'],
+    ['deuxieme bain', 'second fry'],
+    ['juste avant le service', 'just before service'],
+    ['a part', 'separate'],
+    ['jusqu a la fin', 'until the end'],
+    ["jusqu'a la fin", 'until the end'],
+    ['reste lisible', 'stays distinct'],
+    ['ne disparaisse pas', 'does not disappear'],
+    ['disparaisse', 'disappear'],
+    ['lisible', 'distinct'],
+    ['batonnets reguliers', 'even sticks'],
+    ['tous les fours', 'all ovens'],
+    ['ne colorent pas de la meme facon', 'do not brown the same way'],
+    ['meme facon', 'same way'],
+    ['sous le gril', 'under the broiler'],
+    ['continue a gratiner', 'keeps gratinating'],
+    ['jusqu au dernier moment', 'until the last moment'],
+    ["jusqu'au dernier moment", 'until the last moment'],
+    ['optionnelle', 'optional'],
+    ['elle aide surtout', 'it mainly helps'],
+    ['friture plus seche', 'drier frying'],
+    ['ne surcharge pas', 'do not overload'],
+    ['se detendre', 'loosen'],
+    ['repartir dans les empreintes', 'divide among the molds'],
+    ['remplissant aux trois quarts', 'filling them three-quarters full'],
+    ['empreintes', 'molds'],
+    ['pommade pour s etaler', 'softened so it spreads'],
+    ["pommade pour s'etaler", 'softened so it spreads'],
+    ['dechirer le pain', 'tearing the bread'],
+    ['surdose pas', 'do not overdo'],
+    ['ail cru', 'raw garlic'],
+    ['ne jette pas', 'do not discard'],
+    ['huile parfumee', 'flavored oil'],
+    ['un a un', 'one at a time'],
+    ['centre doit etre pris', 'center should be set'],
+    ['finit de se stabiliser', 'finishes setting'],
+    ['en tiedissant', 'as it cools slightly'],
+    ['faire secher des cerises', 'dry cherries'],
+    ['temperature douce et longue', 'low, slow heat'],
+    ['chaleur forte', 'high heat'],
+    ['qui cuit le fruit', 'that cooks the fruit'],
+    ['ne remplis pas', 'do not fill'],
+    ['jusqu en haut', 'to the top'],
+    ["jusqu'en haut", 'to the top'],
+    ['marge limite les debordements', 'headspace limits overflow'],
+    ['sterilisation', 'sterilization'],
+    ['35 a 45min', '35 to 45 min'],
+    ['25 a 35min', '25 to 35 min'],
+    ['22 a 35min', '22 to 35 min'],
+    ['30 a 45min', '30 to 45 min'],
+    ['15 a 25min', '15 to 25 min'],
+    ['18 a 35min', '18 to 35 min'],
+    ['30 a 40min', '30 to 40 min'],
+    ['pates et bases patissieres', 'pastry doughs and bases'],
+    ['toppings et garnitures', 'toppings and fillings'],
+    ['sauces, pestos et assaisonnements', 'sauces, pestos and seasonings'],
+    ['tomates preparees', 'prepared tomatoes'],
+    ['biscuits, cookies et meringues', 'biscuits, cookies and meringues'],
+    ['bases salees', 'savory bases'],
+    ['cookies sales', 'savory cookies'],
+    ['cookies sucres', 'sweet cookies'],
+    ['petites preparations sucrees ou salees', 'small sweet or savory preparations'],
+    ['bases salees utiles', 'useful savory bases'],
+    ['preparations salees', 'savory preparations'],
+    ['preparations sucrees', 'sweet preparations'],
+    ['preparations', 'preparations'],
+    ['patissieres', 'pastry'],
+    ['patissiere', 'pastry cream'],
+    ['patisserie', 'pastry'],
+    ['cremes a garnir', 'filling creams'],
+    ['creme a garnir', 'filling cream'],
+    ['chantilly stabilisee', 'stabilized Chantilly cream'],
+    ['chantilly', 'Chantilly cream'],
+    ['diplomate', 'diplomat cream'],
+    ['version allegee', 'lighter version'],
+    ['version traditionnelle', 'traditional version'],
+    ['traditionnelle', 'traditional'],
+    ['mediterraneenne', 'Mediterranean'],
+    ['mexicaine', 'Mexican'],
+    ['thai citronnelle', 'Thai lemongrass'],
+    ['citronnelle', 'lemongrass'],
+    ['teriyaki rapide', 'quick teriyaki'],
+    ['bbq fume', 'smoky BBQ'],
+    ['legumes balsamique', 'balsamic vegetables'],
+    ['harissa rouge', 'red harissa'],
+    ['sauce aigre-douce vietnamienne', 'Vietnamese sweet-and-sour sauce'],
+    ['sauce nem', 'Vietnamese dipping sauce'],
+    ['sauce caramel', 'caramel sauce'],
+    ['rouille', 'rouille sauce'],
+    ['marinades', 'marinades'],
+    ['mayonnaise', 'mayonnaise'],
+    ['pestos', 'pestos'],
+    ['vinaigrette', 'vinaigrette'],
+    ['coulis', 'fruit coulis'],
+    ['churros', 'churros'],
+    ['meringues', 'meringues'],
+    ['tortillas', 'tortillas'],
+    ['southern biscuits', 'Southern biscuits'],
+    ['macaron ourea', 'Ourea macaron'],
+    ['fin de preparation', 'end of preparation'],
+    ['surtout apres', 'especially after'],
+    ['surtout', 'especially'],
+    ['reduction', 'reduction'],
+    ['rotissage', 'roasting'],
+    ['en fin', 'at the end'],
+    ['frais ou en congelation', 'in the fridge or frozen'],
+    ['congelation possible', 'can be frozen'],
+    ['congelation', 'freezing'],
+    ['decongelation', 'thawing'],
+    ['refrigerateur', 'refrigerator'],
+    ['boite hermetique', 'airtight container'],
+    ['hermetique', 'airtight'],
+    ['mois', 'months'],
+    ['semaines', 'weeks'],
+    ['semaine', 'week'],
+    ['jours', 'days'],
+    ['jour', 'day'],
+    ['3 j', '3 days'],
+    ['par petites portions', 'in small portions'],
+    ['petites portions', 'small portions'],
+    ['portions', 'servings'],
+    ['pieces', 'pieces'],
+    ['individuels', 'individual'],
+    ['commune', 'common'],
+    ['base commune', 'common base'],
+    ['seche', 'dry'],
+    ['seches', 'dry'],
+    ['secs', 'dry'],
+    ['sablee', 'shortcrust'],
+    ['sucree', 'sweet'],
+    ['sucrees', 'sweet'],
+    ['sales', 'savory'],
+    ['salees', 'savory'],
+    ['sale', 'savory'],
+    ['parfume', 'flavored'],
+    ['parfumee', 'flavored'],
+    ['tartinable', 'spreadable'],
+    ['bien aile', 'garlicky'],
+    ['aile', 'garlicky'],
+    ['grace a', 'thanks to'],
+    ['parfait sur', 'perfect on'],
+    ['pain grille', 'toasted bread'],
+    ['legumes rotis', 'roasted vegetables'],
+    ['legumes', 'vegetables'],
+    ['legume', 'vegetable'],
+    ['rotis', 'roasted'],
+    ['roties', 'roasted'],
+    ['roti', 'roasted'],
+    ['grillee', 'grilled'],
+    ['grille', 'grilled'],
+    ['fraiches', 'fresh'],
+    ['fraiche', 'fresh'],
+    ['frais', 'fresh'],
+    ['mure', 'ripe'],
+    ['mures', 'ripe'],
+    ['zeste de', 'zest of'],
+    ['zeste', 'zest'],
+    ['piments', 'chilies'],
+    ['pimentes', 'spicy'],
+    ['choix', 'choice'],
+    ['au choix', 'of your choice'],
+    ['un seul bloc', 'one single block'],
+    ['seul bloc', 'single block'],
+    ['ci-dessous', 'below'],
+    ['repere de taille', 'size guide'],
+    ['repere', 'guide'],
+    ['taille', 'size'],
+    ['aromates', 'aromatics'],
+    ['ecraser', 'crush'],
+    ['sans ecraser', 'without crushing'],
+    ['sont dorees', 'are golden'],
+    ['aretes sont dorees', 'edges are golden'],
+    ['aretes dorees', 'golden edges'],
+    ['chair fondante', 'melting flesh'],
+    ['chair tendre', 'tender flesh'],
+    ['chair', 'flesh'],
+    ['couche fine', 'thin layer'],
+    ['couche', 'layer'],
+    ['fine', 'thin'],
+    ['produit', 'product'],
+    ['aliment', 'food'],
+    ['tous les ingredients', 'all the ingredients'],
+    ['tous', 'all'],
+    ['propre', 'clean'],
+    ['nappante', 'coating'],
+    ['nappant', 'coating'],
+    ['nappe la cuillere', 'coats the spoon'],
+    ['nappe', 'coats'],
+    ['cuillere', 'spoon'],
+    ['epaississement', 'thickening'],
+    ['epaissir', 'thicken'],
+    ['epaissit', 'thickens'],
+    ['pectine', 'pectin'],
+    ['present mais pas dominant', 'present but not dominant'],
+    ['present', 'present'],
+    ['dominant', 'dominant'],
+    ['vive', 'bright'],
+    ['brillance', 'shine'],
+    ['texture nappante', 'coating texture'],
+    ['verifie', 'check'],
+    ['possible', 'possible'],
+    ['avant service', 'before serving'],
+    ['service', 'serving'],
+    ['secouer avant service', 'shake before serving'],
+    ['secouer', 'shake'],
+    ['ajuster', 'adjust'],
+    ['utiliser rapidement', 'use quickly'],
+    ['couvrir d huile', 'cover with oil'],
+    ['couvrir dhuile', 'cover with oil'],
+    ['au frais', 'in the refrigerator'],
+    ['avant cuisson', 'before cooking'],
+    ['avant', 'before'],
+    ['fondre', 'melt'],
+    ['hydrater', 'bloom'],
+    ['reste froid', 'cold remaining cream'],
+    ['reste', 'remaining'],
+    ['huiles', 'oils'],
+    ['huile', 'oil'],
+    ['huilee', 'oiled'],
+    ['huile', 'oil'],
+    ['lisser', 'smooth'],
+    ['detendre', 'loosen'],
+    ['la detendre', 'loosen it'],
+    ['bulles d air', 'air bubbles'],
+    ['bulles', 'bubbles'],
+    ['fois', 'times'],
+    ['seule', 'alone'],
+    ['assemblee', 'assembled'],
+    ['incorporation', 'folding in'],
+    ['a nouveau', 'again'],
+    ['apres decongelation', 'after thawing'],
+    ['apres cuisson', 'after cooking'],
+    ['apres preparation', 'after preparation'],
+    ['sur-appret', 'overproofing'],
+    ['appret insuffisant', 'underproofing'],
+    ['appret', 'proofing'],
+    ['retombent', 'collapse'],
+    ['qui', 'that'],
+    ['mie dense', 'dense crumb'],
+    ['longue', 'long'],
+    ['stables', 'stable'],
+    ['perte de texture', 'loss of texture'],
+    ['pour pocher', 'for poaching'],
+    ['pocher poissons', 'poach fish'],
+    ['pocher poisson', 'poach fish'],
+    ['base aromatique', 'aromatic base'],
+    ['ideal', 'ideal'],
+    ['poissons', 'fish'],
+    ['crustaces', 'shellfish'],
+    ['volailles', 'poultry'],
+    ['composant pour', 'component for'],
+    ['decor pour', 'decoration for'],
+    ['decor', 'decoration'],
+    ['petites meringues', 'small meringues'],
+    ['petites', 'small'],
+    ['petits', 'small'],
+    ['allongee', 'loosened'],
+    ['moelleux', 'soft texture'],
+    ['fondante', 'melting'],
+    ['tendre', 'tender'],
+    ['tendres', 'tender'],
+    ['dorees', 'golden'],
+    ['doree', 'golden'],
+    ['dores', 'golden'],
+    ['dore', 'golden'],
+    ['legerement', 'slightly'],
+    ['tres', 'very'],
+    ['bien', 'well'],
+    ['jusqu a', 'until'],
+    ["jusqu'a", 'until'],
+    ['jusqu au', 'until the'],
+    ["jusqu'au", 'until the'],
+    ['jusqu aux', 'until the'],
+    ["jusqu'aux", 'until the'],
+    ['a feu doux', 'over low heat'],
+    ['a feu moyen', 'over medium heat'],
+    ['a feu vif', 'over high heat'],
+    ['feu doux', 'low heat'],
+    ['feu moyen', 'medium heat'],
+    ['feu vif', 'high heat'],
+    ['couper le feu', 'turn off the heat'],
+    ['le feu', 'the heat'],
+    ['elle continuera', 'it will continue'],
+    ['continuera', 'will continue'],
+    ['en refroidissant', 'as it cools'],
+    ['refroidissant', 'cooling'],
+    ['filtrer', 'strain'],
+    ['figue', 'fig'],
+    ['espresso', 'espresso'],
+    ['cacao', 'cocoa'],
+    ['orange', 'orange'],
+    ['rechauffer quelques minutes au four doux', 'reheat for a few minutes in a low oven'],
+    ['rechauffer quelques secondes', 'reheat for a few seconds'],
+    ['rechauffer', 'reheat'],
+    ['quelques minutes', 'a few minutes'],
+    ['quelques secondes', 'a few seconds'],
+    ['four doux', 'low oven'],
+    ['vapeur', 'steam'],
+    ['humidite', 'moisture'],
+    ['retrouver', 'restore'],
+    ['decoupe', 'cutting'],
+    ['apres decoupe', 'after cutting'],
+    ['degustation', 'serving'],
+    ['avant degustation', 'before serving'],
+    ['plusieurs recettes', 'several recipes'],
+    ['plusieurs portions', 'several servings'],
+    ['plusieurs jours', 'several days'],
+    ['plusieurs', 'several'],
+    ['utiles', 'useful'],
+    ['utile', 'useful'],
+    ['voulue', 'chosen'],
+    ['voulu', 'chosen'],
+    ['confites', 'confit'],
+    ['confite', 'confit'],
+    ['sechees', 'dried'],
+    ['sechee', 'dried'],
+    ['saler progressivement', 'salt gradually'],
+    ['gras', 'fat'],
+    ['en fin de preparation', 'at the end of preparation'],
+    ['in end of preparation', 'at the end of preparation'],
+    ['morceaux crus agressifs', 'harsh raw pieces'],
+    ['crus agressifs', 'harsh raw'],
+    ['crus', 'raw'],
+    ['agressifs', 'harsh'],
+    ['piler', 'pound'],
+    ['pilier', 'pound'],
+    ['marquer', 'sear'],
+    ['sont epais', 'are thick'],
+    ['sont', 'are'],
+    ['epaisse', 'thick'],
+    ['epais', 'thick'],
+    ['entiere', 'whole'],
+    ['entier', 'whole'],
+    ['battu', 'beaten'],
+    ['battre', 'beat'],
+    ['gratter la gousse', 'scrape the pod'],
+    ['gratter', 'scrape'],
+    ['gousse si entiere', 'pod if whole'],
+    ['base technique', 'technical base'],
+    ['entremets', 'entremets'],
+    ['patisseries classiques', 'classic pastries'],
+    ['classiques', 'classic'],
+    ['utilise par exemple dans', 'used for example in'],
+    ['utilise', 'used'],
+    ['par exemple', 'for example'],
+    ['pancakes fluffy', 'fluffy pancakes'],
+    ['asperges mimosa', 'mimosa asparagus'],
+    ['asperges', 'asparagus'],
+    ['carpaccio betterave mozzarella yuzu', 'beetroot, mozzarella and yuzu carpaccio'],
+    ['betterave', 'beetroot'],
+    ['nems vietnamiens', 'Vietnamese spring rolls'],
+    ['potee au chou', 'cabbage stew'],
+    ['chou vert en sauce tomate', 'green cabbage in tomato sauce'],
+    ['chou vert', 'green cabbage'],
+    ['chou pointu', 'pointed cabbage'],
+    ['chou fleur', 'cauliflower'],
+    ['chou-fleur', 'cauliflower'],
+    ['chou', 'cabbage'],
+    ['toppings frites', 'fries toppings'],
+    ['tartes', 'tarts'],
+    ['frites chaudes', 'hot fries'],
+    ['frites', 'fries'],
+    ['ile flottante', 'floating island dessert'],
+    ['speculoos', 'speculoos'],
+    ['tiramisu speculoos', 'speculoos tiramisu'],
+    ['terrine de campagne', 'country terrine'],
+    ['appareil a cake', 'cake batter'],
+    ['preparation du moule', 'pan preparation'],
+    ['demouler', 'unmold'],
+    ['proprement', 'cleanly'],
+    ['cuisson lente indispensable', 'slow cooking is essential'],
+    ['lente', 'slow'],
+    ['indispensable', 'essential'],
+    ['servir rapidement', 'serve quickly'],
+    ['avocat', 'avocado'],
+    ['bicarbonate', 'baking soda'],
+    ['coques', 'shells'],
+    ['glacage', 'glaze'],
+    ['texture cible', 'target texture'],
+    ['stockage optimal', 'optimal storage'],
+    ['endroit frais et sec', 'cool dry place'],
+    ['endroit', 'place'],
+    ['sec', 'dry'],
+    ['tranches', 'slices'],
+    ['plutot', 'preferably'],
+    ['qu en', 'than in'],
+    ["qu'en", 'than in'],
+    ['aromes', 'aromas'],
+    ['le lendemain', 'the next day'],
+    ['souvent meilleur', 'often better'],
+    ['se stabilisent', 'stabilize'],
+    ['se tient', 'holds'],
+    ['doit etre', 'should be'],
+    ['etre pochee', 'be piped'],
+    ['pochee', 'piped'],
+    ['stries', 'ridges'],
+    ['douille', 'piping tip'],
+    ['friture et finition', 'frying and finishing'],
+    ['sauce mornay', 'Mornay sauce'],
+    ['sauces burger', 'burger sauces'],
+    ['bases', 'bases'],
+    ['gros cookies', 'large cookies'],
+    ['beurres', 'butters'],
+    ['passage au congelateur', 'time in the freezer'],
+    ['aident', 'help'],
+    ['boudins', 'logs'],
+    ['film alimentaire', 'plastic wrap'],
+    ['au moins', 'at least'],
+    ['se conservent', 'keep'],
+    ['boules', 'balls'],
+    ['donnent', 'make'],
+    ['environ', 'about'],
+    ['boite fermee', 'closed container'],
+    ['fermee', 'closed'],
+    ['fourrage cheesecake', 'cheesecake filling'],
+    ['fourrage', 'filling'],
+    ['torréfier les poivres', 'toast the peppercorns'],
+    ['torrefier les poivres', 'toast the peppercorns'],
+    ['chauffer doucement et laisser reduire', 'heat gently and reduce'],
+    ['garnitures adaptees', 'matching sides'],
+    ['adaptees', 'suitable'],
+    ['celeri-rave', 'celeriac'],
+    ['carottes glacees', 'glazed carrots'],
+    ['ecrase de pommes de terre', 'mashed potatoes'],
+    ['option gastronomique', 'gourmet option'],
+    ['emulsion', 'emulsion'],
+    ['relief', 'depth'],
+    ['safran', 'saffron'],
+    ['daurades royales', 'gilthead sea bream'],
+    ['rougets barbets', 'red mullets'],
+    ['rascasses de ligne', 'line-caught scorpionfish'],
+    ['etoiles de badiane', 'star anise'],
+    ['graines de cardamome', 'cardamom pods'],
+    ['fenouils', 'fennel bulbs'],
+    ['pocher quelques minutes', 'poach for a few minutes'],
+    ['estragon', 'tarragon'],
+    ['poivron rouge roti mixe', 'blended roasted red pepper'],
+    ['poivron rouge', 'red bell pepper'],
+    ['rouge', 'red'],
+    ['deja montee', 'already emulsified'],
+    ['ancienne preparation', 'previous mixture'],
+    ['petit a petit', 'little by little'],
+    ['tranche', 'splits'],
+    ['acidite', 'acidity'],
+    ['bisque', 'bisque'],
+    ['ravioles', 'ravioli'],
+    ['gril', 'broiler'],
+    ['option haut de gamme', 'premium option'],
+    ['bain ne doit pas etre trop charge', 'the oil bath must not be overloaded'],
+    ['chute de temperature', 'temperature drop'],
+    ['rend les frites grasses', 'makes the fries greasy'],
+    ['pains', 'buns'],
+    ['oeuf entier battu', 'whole beaten egg'],
+    ['oeuf entier', 'whole egg'],
+    ['faconnage', 'shaping'],
+    ['farce betterave', 'beetroot filling'],
+    ['farce', 'filling'],
+    ['graines de sesame noir', 'black sesame seeds'],
+    ['graines de sesame torrefiees', 'toasted sesame seeds'],
+    ['graines de pavot', 'poppy seeds'],
+    ['graines de tournesol', 'sunflower seeds'],
+    ['graines', 'seeds'],
+    ['pavot', 'poppy'],
+    ['dorure', 'egg wash'],
+    ['pousse', 'proofing'],
+    ['gout', 'taste'],
+    ['option luxe', 'luxury option'],
+    ['mojito classique', 'classic mojito'],
+    ['mojito concombre', 'cucumber mojito'],
+    ['mojito fruit de la passion', 'passion fruit mojito'],
+    ['glacons', 'ice cubes'],
+    ['mini-billes de melon', 'mini melon balls'],
+    ['roquette', 'arugula'],
+    ['oignon rouge', 'red onion'],
+    ['mozzarella marinee', 'marinated mozzarella'],
+    ['marinee', 'marinated'],
+    ['chiffonnade', 'thin ribbons'],
+    ['anti-gaspillage', 'anti-waste'],
+    ['premier bain', 'first fry'],
+    ['second bain', 'second fry'],
+    ['cible', 'target'],
+    ['liens utiles', 'useful links'],
+    ['lait de coco entier', 'full-fat coconut milk'],
+    ['epices', 'spices'],
+    ['sentir bon', 'smell fragrant'],
+    ['bruler', 'burn'],
+    ['roux', 'roux'],
+    ['montage', 'assembly'],
+    ['meringue italienne', 'Italian meringue'],
+    ['brulee', 'torched'],
+    ['chalumeau', 'kitchen torch'],
+    ['colorer', 'brown'],
+    ['tout le tiramisu', 'the whole tiramisu'],
+    ['trempage', 'soaking'],
+    ['saladiers', 'mixing bowls'],
     ['choisir une variante pour afficher les recettes.', 'Choose a variant to show the recipes.'],
     ['choisir une variante pour afficher les ingrédients et les étapes.', 'Choose a variant to show the ingredients and steps.'],
     ['choisir une variante pour afficher la recette complète.', 'Choose a variant to show the full recipe.'],
@@ -1172,6 +2065,32 @@
   ];
 
   const recipeGrammarReplacementsEn = [
+    ["d'huile d'olive", 'olive oil'],
+    ["l'huile d'olive", 'olive oil'],
+    ["a l'huile d'olive", 'with olive oil'],
+    ["a l'huile", 'with oil'],
+    ["d'huile", 'oil'],
+    ["l'huile", 'oil'],
+    ["l'ail", 'garlic'],
+    ["d'ail", 'garlic'],
+    ["a l'ail", 'with garlic'],
+    ["l'oeuf", 'egg'],
+    ["d'oeuf", 'egg'],
+    ["a l'oeuf", 'with egg'],
+    ["l'oeufs", 'eggs'],
+    ["d'oeufs", 'eggs'],
+    ["l'eau", 'water'],
+    ["d'eau", 'water'],
+    ["l'echalote", 'shallot'],
+    ["d'echalote", 'shallot'],
+    ["l'oignon", 'onion'],
+    ["d'oignon", 'onion'],
+    ["l'appareil", 'the mixture'],
+    ["d'appareil", 'mixture'],
+    ["l'emulsion", 'the emulsion'],
+    ["d'emulsion", 'emulsion'],
+    ["l'assaisonnement", 'the seasoning'],
+    ["d'assaisonnement", 'seasoning'],
     ['astuce cuisson', 'cooking tip:'],
     ['en fin de cuisson', 'at the end of cooking'],
     ['fin de cuisson', 'end of cooking'],
@@ -1657,11 +2576,29 @@
     return repairI18nMojibake(value)
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\u00b0/g, '')
       .replace(/[’‘]/g, "'")
       .replace(/[œŒ]/g, 'oe')
       .replace(/\s+/g, ' ')
       .trim()
       .toLowerCase();
+  }
+
+  function normalizeRecipeReplacementText(value) {
+    return repairI18nMojibake(value)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[\u0152\u0153]/g, 'oe')
+      .replace(/[\u00c6\u00e6]/g, 'ae')
+      .replace(/\u00b0/g, '')
+      .replace(/[\u2018\u2019\u201a\u201b\u2032]/g, "'")
+      .replace(/[\u2013\u2014]/g, '-');
+  }
+
+  function escapeRecipeReplacementSource(value) {
+    return normalizeRecipeReplacementText(value)
+      .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      .replace(/'/g, "['\\u2019]");
   }
 
   const phraseLookupEn = new Map();
@@ -1676,7 +2613,14 @@
 
   function cleanRecipeEnglish(value) {
     return String(value || '')
-      .replace(/(\d+)\s*(?:à|a)\s*(\d+)/gi, '$1 to $2')
+      .replace(/(\d+)\s*(?:\u00e0|a)\s*(\d+)/gi, '$1 to $2')
+      .replace(/\bgrace a\b/gi, 'thanks to')
+      .replace(/\bjusqu['\u2019]?a\s+/gi, 'until ')
+      .replace(/\bjusqu\s+a\s+/gi, 'until ')
+      .replace(/\ba feu doux\b/gi, 'over low heat')
+      .replace(/\ba feu moyen\b/gi, 'over medium heat')
+      .replace(/\ba feu vif\b/gi, 'over high heat')
+      .replace(/\ba temperature ambiante\b/gi, 'at room temperature')
       .replace(/\s*,\s*/g, ', ')
       .replace(/\s+([,.;:])/g, '$1')
       .replace(/\bafin de\s+/gi, 'to ')
@@ -1702,11 +2646,120 @@
       .replace(/\bl['’](?=\p{L})/giu, '')
       .replace(/\bof with\b/gi, 'with')
       .replace(/\bwith with\b/gi, 'with')
+      .replace(/\bloe(?=[a-z])/gi, '')
+      .replace(/\bdoeenviron\b/gi, 'about')
+      .replace(/\bdoe(?=[a-z])/gi, 'of ')
+      .replace(/\bjusquoea\b/gi, 'until')
+      .replace(/\bjusquoeau\b/gi, 'until the')
+      .replace(/\bjusquoeaux\b/gi, 'until the')
+      .replace(/\bquoeun\b/gi, 'than a')
+      .replace(/\bquoeune\b/gi, 'than a')
+      .replace(/\bquoeil\b/gi, 'so it')
+      .replace(/\bquoeelle\b/gi, 'so it')
+      .replace(/\bquoeelles\b/gi, 'so they')
+      .replace(/\bquoeen\b/gi, 'than in')
       .replace(/\bin of\b/gi, 'in')
       .replace(/\btransfer in\b/gi, 'transfer to')
       .replace(/\btransfer to of\b/gi, 'transfer to')
       .replace(/\bfor with\b/gi, 'for')
       .replace(/\bto with\b/gi, 'with')
+      .replace(/\ba (low|medium|high) heat\b/gi, 'over $1 heat')
+      .replace(/\bin end of preparation\b/gi, 'at the end of preparation')
+      .replace(/\bcover of\b/gi, 'cover with')
+      .replace(/\bjar clean\b/gi, 'clean jar')
+      .replace(/\bthe conservation\b/gi, 'storage')
+      .replace(/\bversion milder\b/gi, 'milder version')
+      .replace(/\bwater simmering\b/gi, 'simmering water')
+      .replace(/\bwell drain\b/gi, 'drain well')
+      .replace(/\bavoid of cook\b/gi, 'avoid cooking')
+      .replace(/\bil loses\b/gi, 'it loses')
+      .replace(/\bil would lose\b/gi, 'it would lose')
+      .replace(/\belle rend\b/gi, 'it releases')
+      .replace(/\ba lot water\b/gi, 'a lot of water')
+      .replace(/\bthen the put\b/gi, 'then put it')
+      .replace(/\bthe put\b/gi, 'put it')
+      .replace(/\bin a bowl cold\b/gi, 'in a cold bowl')
+      .replace(/\btexture smooth\b/gi, 'smooth texture')
+      .replace(/\btexture soft\b/gi, 'soft texture')
+      .replace(/\bkeep a texture smooth\b/gi, 'keep a smooth texture')
+      .replace(/\bpreferably que\b/gi, 'rather than')
+      .replace(/\bque the\b/gi, 'than the')
+      .replace(/\bthe timer alone\b/gi, 'the timer alone')
+      .replace(/\bhot elements separate\b/gi, 'hot elements separate')
+      .replace(/\bthe plating attend\b/gi, 'the plating has to wait')
+      .replace(/\bplating attend\b/gi, 'plating has to wait')
+      .replace(/\bNot melt\b/g, 'Do not melt')
+      .replace(/\bbutter il\b/gi, 'butter; it')
+      .replace(/\bmoins nicely\b/gi, 'less neatly')
+      .replace(/\bmeat grilled\b/gi, 'grilled meat')
+      .replace(/\bthin layer oil\b/gi, 'thin layer of oil')
+      .replace(/\bbring a leger gentle simmer\b/gi, 'bring to a gentle simmer')
+      .replace(/\bleger gentle simmer\b/gi, 'gentle simmer')
+      .replace(/\bsalt slightly flesh side\b/gi, 'salt the flesh side lightly')
+      .replace(/\bthen the set cut side up\b/gi, 'then place them cut side up')
+      .replace(/\bthe set cut side up\b/gi, 'place them cut side up')
+      .replace(/\bdepending on balance chosen\b/gi, 'depending on the desired balance')
+      .replace(/\bdepending on sauce\b/gi, 'depending on the sauce')
+      .replace(/\bCut the tomatoes Roma\b/gi, 'Cut the Roma tomatoes')
+      .replace(/\bturn over a times\b/gi, 'turn once')
+      .replace(/\bwater of vegetation s est concentree\b/gi, 'vegetable moisture has concentrated')
+      .replace(/\buntil the toasted tips and with just-tender center\b/gi, 'until the tips are toasted and the center is just tender')
+      .replace(/\bfor the choux\b/gi, 'for the cabbages')
+      .replace(/\bBrosser the\b/g, 'Scrub the')
+      .replace(/\bleouvrir\b/gi, 'open it')
+      .replace(/\bgrosses fries\b/gi, 'large wedges')
+      .replace(/\bgrosses frites\b/gi, 'large wedges')
+      .replace(/\bchaleur tournante\b/gi, 'fan-assisted oven')
+      .replace(/\bfan oven\b/gi, 'fan oven')
+      .replace(/(\d+)\s*(?:\u00e0|a)\s*(\d+)\s*min/gi, '$1 to $2 min')
+      .replace(/\s+(?:\u00e0|a)\s+(\d+\s*°?\s*C)/gi, ' at $1')
+      .replace(/\bchoux of Bruxelles\b/gi, 'Brussels sprouts')
+      .replace(/\bchoux de Bruxelles\b/gi, 'Brussels sprouts')
+      .replace(/\bin sommites\b/gi, 'as florets')
+      .replace(/\bsommites\b/gi, 'florets')
+      .replace(/\bcoupes in deux\b/gi, 'halved')
+      .replace(/\bcoupes en deux\b/gi, 'halved')
+      .replace(/\bcoupees en deux\b/gi, 'halved')
+      .replace(/\bl['’]?vegetable moisture\b/gi, 'vegetable moisture')
+      .replace(/\bwater of vegetation s est concentree\b/gi, 'vegetable moisture has concentrated')
+      .replace(/\bvegetable moisture s est concentree\b/gi, 'vegetable moisture has concentrated')
+      .replace(/\bhas concentree\b/gi, 'has concentrated')
+      .replace(/\bavoid que garlic burns\b/gi, 'avoid burning the garlic')
+      .replace(/\bavoid que garlic brule\b/gi, 'avoid burning the garlic')
+      .replace(/\bavoid que\b/gi, 'so that')
+      .replace(/\bto avoid of burn\b/gi, 'to avoid burning')
+      .replace(/\bCook a chaleur moderee\b/gi, 'Cook over moderate heat')
+      .replace(/\bchaleur moderee\b/gi, 'moderate heat')
+      .replace(/\bcooking strong\b/gi, 'high-heat cooking')
+      .replace(/\bthen laquer\b/gi, 'then glaze')
+      .replace(/\bexces of runny\b/gi, 'excess liquid')
+      .replace(/\bprevents the browning\b/gi, 'prevents browning')
+      .replace(/\bJeter the marinade\b/g, 'Discard the marinade')
+      .replace(/\bNot reutiliser\b/g, 'Do not reuse')
+      .replace(/\breutiliser\b/gi, 'reuse')
+      .replace(/\bcrue\b/gi, 'raw')
+      .replace(/\belle should\b/gi, 'it should')
+      .replace(/\bthe bring clearly a boil\b/gi, 'bring it to a full boil')
+      .replace(/\bthe bring a boil\b/gi, 'bring it to a boil')
+      .replace(/\bbring a boil\b/gi, 'bring to a boil')
+      .replace(/\bserve of sauce\b/gi, 'be used as a sauce')
+      .replace(/\bAstuce Keep\b/g, 'Tip: keep')
+      .replace(/\bfor que the cookies se tiennent well\b/gi, 'so the cookies hold together well')
+      .replace(/\bfor que the cheese se stabilise\b/gi, 'so the cheese sets')
+      .replace(/\bfor que\b/gi, 'so that')
+      .replace(/\band que\b/gi, 'and')
+      .replace(/\bse tiennent\b/gi, 'hold together')
+      .replace(/\bdessus bulle\b/gi, 'top bubbles')
+      .replace(/\blegere browning\b/gi, 'light browning')
+      .replace(/\bTexture attendue legere\b/g, 'Expected texture: light')
+      .replace(/\bTexture attendue\b/g, 'Expected texture')
+      .replace(/\bRealiser\b/g, 'Make')
+      .replace(/\bpocher\b/gi, 'pipe')
+      .replace(/\bdisque\b/gi, 'disk')
+      .replace(/\bCooking longue\b/g, 'Long baking')
+      .replace(/\bbien seches\b/gi, 'fully dry')
+      .replace(/\bseches and stables\b/gi, 'dry and stable')
+      .replace(/\bin whisking\b/gi, 'while whisking')
       .replace(/\bfor emulsify\b/gi, 'to emulsify')
       .replace(/\bor of\b/gi, 'or')
       .replace(/\band of\b/gi, 'and')
@@ -1727,6 +2780,8 @@
       .replace(/\bà\s+/gi, 'to ')
       .replace(/\bà\s+/gi, 'to ')
       .replace(/\bà\s+/gi, 'to ')
+      .replace(/\ba la\s+/gi, 'with ')
+      .replace(/\ba l'\s*/gi, 'with ')
       .replace(/\bavec\s+/gi, 'with ')
       .replace(/\bet,/gi, 'and,')
       .replace(/\bet\s+/gi, 'and ')
@@ -1741,6 +2796,7 @@
       .replace(/\bavant\s+/gi, 'before ')
       .replace(/\bdès que\s+/gi, 'as soon as ')
       .replace(/\bdes que\s+/gi, 'as soon as ')
+      .replace(/\bdes qu'\s*/gi, 'as soon as ')
       .replace(/\bjusqu['’]au\s+/gi, 'until the ')
       .replace(/\bjusqu['’]aux\s+/gi, 'until the ')
       .replace(/\bjusqu\s+aux\s+/gi, 'until the ')
@@ -1749,12 +2805,14 @@
       .replace(/\baprès\s+/gi, 'after ')
       .replace(/\bapr\u00e8s\s+/gi, 'after ')
       .replace(/\baprès\s+/gi, 'after ')
+      .replace(/\bapres\s+/gi, 'after ')
       .replace(/\bpendant\s+/gi, 'for ')
       .replace(/\bjusqu['’]à\s+/gi, 'until ')
       .replace(/\bjusqu['’]à\s+/gi, 'until ')
       .replace(/\bjusqu[’']à\s+/gi, 'until ')
       .replace(/\btrès\s+/gi, 'very ')
       .replace(/\btr\u00e8s\s+/gi, 'very ')
+      .replace(/\btres\s+/gi, 'very ')
       .replace(/\btrop\s+/gi, 'too ')
       .replace(/\bbien\s+/gi, 'well ')
       .replace(/\ble\s+/gi, 'the ')
@@ -1780,6 +2838,236 @@
       .replace(/\bbefore of\b/gi, 'before')
       .replace(/([.!?])\s+([a-z])/g, (_, end, letter) => `${end} ${letter.toUpperCase()}`)
       .replace(/\bn['’]\s*/gi, '')
+      .replace(/\bhuile of olive\b/gi, 'olive oil')
+      .replace(/\boil of olive\b/gi, 'olive oil')
+      .replace(/\boil neutral\b/gi, 'neutral oil')
+      .replace(/\bolive oil mild\b/gi, 'mild olive oil')
+      .replace(/\bassemble with neutral oil\b/gi, 'whisk in neutral oil')
+      .replace(/\bversees\b/gi, 'poured')
+      .replace(/\bhuile\b/gi, 'oil')
+      .replace(/\bail\b/gi, 'garlic')
+      .replace(/\babricot\b/gi, 'apricot')
+      .replace(/\bananas\b/gi, 'pineapple')
+      .replace(/\bdevient\b/gi, 'becomes')
+      .replace(/\bacide\b/gi, 'acidic')
+      .replace(/\bgoute\b/gi, 'taste')
+      .replace(/\btout\b/gi, 'all')
+      .replace(/\bajouter\b/gi, 'add')
+      .replace(/\bdouces\b/gi, 'mild')
+      .replace(/\bdouce\b/gi, 'mild')
+      .replace(/\bneutre\b/gi, 'neutral')
+      .replace(/\bdeja\b/gi, 'already')
+      .replace(/\bquelques\b/gi, 'a few')
+      .replace(/\bsecondes\b/gi, 'seconds')
+      .replace(/\bfouettant\b/gi, 'whisking')
+      .replace(/\bbocal\b/gi, 'jar')
+      .replace(/\bpreparees\b/gi, 'prepared')
+      .replace(/\belles\b/gi, 'they')
+      .replace(/\bqu'elles\b/gi, 'they')
+      .replace(/\begoutter\b/gi, 'drain')
+      .replace(/\bfremissante\b/gi, 'simmering')
+      .replace(/\bdoit\b/gi, 'should')
+      .replace(/\bdoivent\b/gi, 'should')
+      .replace(/\betre\b/gi, 'be')
+      .replace(/\boeufs\b/gi, 'eggs')
+      .replace(/\boeuf\b/gi, 'egg')
+      .replace(/\bwhite\s+(?:of\s+)?(?:uf|egg)\b/gi, 'egg white')
+      .replace(/\byolk\s+(?:of\s+)?(?:uf|egg)\b/gi, 'egg yolk')
+      .replace(/\beau\b/gi, 'water')
+      .replace(/\bechalote\b/gi, 'shallot')
+      .replace(/\boignon\b/gi, 'onion')
+      .replace(/\bappareil\b/gi, 'mixture')
+      .replace(/\bconcentre of tomato\b/gi, 'tomato paste')
+      .replace(/\bconcentre\b/gi, 'concentrate')
+      .replace(/\bbain of water\b/gi, 'ice bath')
+      .replace(/\bbain glace\b/gi, 'ice bath')
+      .replace(/\bbain\b/gi, 'bath')
+      .replace(/\bfriture\b/gi, 'frying')
+      .replace(/\bemulsion\b/gi, 'emulsion')
+      .replace(/\bepices\b/gi, 'spices')
+      .replace(/\brouleau\b/gi, 'rolling pin')
+      .replace(/\bproche\b/gi, 'close')
+      .replace(/\bgout\b/gi, 'taste')
+      .replace(/\bcover of\b/gi, 'cover with')
+      .replace(/\bjar clean\b/gi, 'clean jar')
+      .replace(/\bthe conservation\b/gi, 'storage')
+      .replace(/\bwater simmering\b/gi, 'simmering water')
+      .replace(/\bwell drain\b/gi, 'drain well')
+      .replace(/\boil neutral\b/gi, 'neutral oil')
+      .replace(/\bolive oil mild\b/gi, 'mild olive oil')
+      .replace(/\bAssemble with neutral oil\b/g, 'Whisk in neutral oil')
+      .replace(/\bassemble with neutral oil\b/gi, 'whisk in neutral oil')
+      .replace(/\bExpected texture legere\b/g, 'Expected texture: light')
+      .replace(/\bExpected texture light\b/g, 'Expected texture: light')
+      .replace(/\bElle should\b/g, 'It should')
+      .replace(/\belle should\b/gi, 'it should')
+      .replace(/\bif elle\b/gi, 'if it')
+      .replace(/\belle est correctement stockee\b/gi, 'it is stored properly')
+      .replace(/\bse store\b/gi, 'be stored')
+      .replace(/\bNot reuse\b/g, 'Do not reuse')
+      .replace(/\bFais not\b/gi, 'Do not')
+      .replace(/\bthe bring clearly a boil if it should become a sauce\b/gi, 'bring it to a full boil if it will become a sauce')
+      .replace(/\bthe bring clearly a boil\b/gi, 'bring it to a full boil')
+      .replace(/\bthe bring a boil\b/gi, 'bring it to a boil')
+      .replace(/\bit should serve of sauce\b/gi, 'it must be used as a sauce')
+      .replace(/\bserve of sauce\b/gi, 'be used as a sauce')
+      .replace(/\bexces of\b/gi, 'excess ')
+      .replace(/\ba belle browning\b/gi, 'nice browning')
+      .replace(/\bbelle browning\b/gi, 'nice browning')
+      .replace(/\bPour on foamy egg whites\b/g, 'poured over foamy egg whites')
+      .replace(/\bwith cream with butter\b/gi, 'into the buttercream')
+      .replace(/\buntil this que\b/gi, 'until')
+      .replace(/\bthe fruits soient\b/gi, 'the fruit is')
+      .replace(/\bthe crumble soit\b/gi, 'the crumble is')
+      .replace(/\bsoient\b/gi, 'are')
+      .replace(/\bsoit\b/gi, 'is')
+      .replace(/\bflocons of chili\b/gi, 'chili flakes')
+      .replace(/\bpowder of chili\b/gi, 'chili powder')
+      .replace(/\bcinq-spices\b/gi, 'five-spice')
+      .replace(/\bseeds of sesame\b/gi, 'sesame seeds')
+      .replace(/\bbowl resistant with chaleur\b/gi, 'heatproof bowl')
+      .replace(/\bwithout burn garlic ni smoke oil\b/gi, 'without burning the garlic or smoking the oil')
+      .replace(/\bVraie gaufre of Bruxelles\b/g, 'True Brussels waffle')
+      .replace(/\bdough levee\b/gi, 'raised dough')
+      .replace(/\bblancs montes\b/gi, 'whipped egg whites')
+      .replace(/\bgros trous\b/gi, 'large holes')
+      .replace(/\btexture legere\b/gi, 'light texture')
+      .replace(/\bResult attendu\b/g, 'Expected result')
+      .replace(/\bdough croustillante\b/gi, 'crisp dough')
+      .replace(/\bcream of amande\b/gi, 'almond cream')
+      .replace(/\bcream lemon\b/gi, 'lemon cream')
+      .replace(/\bmeringue legere\b/gi, 'light meringue')
+      .replace(/\bNe jamais precipiter\b/g, 'Never rush')
+      .replace(/\bou les\b/gi, 'or the')
+      .replace(/\bmelanges mousseux\b/gi, 'foamy mixtures')
+      .replace(/\bchorizo coupe in dice\b/gi, 'diced chorizo')
+      .replace(/\bcoupe in dice\b/gi, 'diced')
+      .replace(/\bin the oven doux\b/gi, 'in a low oven')
+      .replace(/\breheating doux\b/gi, 'gentle reheating')
+      .replace(/\bbriefly of sauce\b/gi, 'a little sauce')
+      .replace(/\bCooking lente indispensable pour une texture fondante\b/gi, 'Slow cooking is essential for a melting texture')
+      .replace(/\bSors the butter a ramollir\b/gi, 'Take the butter out to soften')
+      .replace(/\bpiece il should\b/gi, 'room; it should')
+      .replace(/\bmais not\b/gi, 'but not')
+      .replace(/\bgros pieces\b/gi, 'large pieces')
+      .replace(/\bau-dessus dice eggs\b/gi, 'above the eggs')
+      .replace(/\bdepuis the depart a cold\b/gi, 'from a cold start')
+      .replace(/\bPress dice logs\b/gi, 'Press logs')
+      .replace(/\bau-dessus of oil\b/gi, 'over the oil')
+      .replace(/\bdice pieces\b/gi, 'pieces')
+      .replace(/\bthe cake on its grilled\b/gi, 'the cake on its rack')
+      .replace(/\bwith toucher\b/gi, 'to the touch')
+      .replace(/\bTake out the butter a ramollir\b/gi, 'Take the butter out to soften')
+      .replace(/\bfor que the butter hazelnut tiedit\b/gi, 'while the brown butter cools until lukewarm')
+      .replace(/\bbutter hazelnut\b/gi, 'brown butter')
+      .replace(/\bMeme sheet\b/g, 'Same sheet')
+      .replace(/\bMeme\b/g, 'Same')
+      .replace(/\bmeme\b/gi, 'same')
+      .replace(/\bcitronne\b/gi, 'lemony')
+      .replace(/\btraditionnel\b/gi, 'traditional')
+      .replace(/\bepaisseur\b/gi, 'thickness')
+      .replace(/\bentre deux leaves\b/gi, 'between two sheets')
+      .replace(/\bleaves of parchment paper\b/gi, 'sheets of parchment paper')
+      .replace(/\bwithout add of flour\b/gi, 'without adding flour')
+      .replace(/\belle seals itself\b/gi, 'it seals itself')
+      .replace(/\bfor qu['’]?il is\b/gi, 'so it is')
+      .replace(/\bqu['’]?il is\b/gi, 'so it is')
+      .replace(/\bfor que the brown butter cools until lukewarm\b/gi, 'while the brown butter cools until lukewarm')
+      .replace(/\broom temperature il should\b/gi, 'room temperature; it should')
+      .replace(/\bit turns translucide\b/gi, 'it turns translucent')
+      .replace(/\bthis qu['’]?elle devienne translucide\b/gi, 'it turns translucent')
+      .replace(/\belle can apporter of amertume\b/gi, 'it can bring bitterness')
+      .replace(/\bcolor plus reguliere\b/gi, 'more even color')
+      .replace(/\bparfum plus clean que\b/gi, 'cleaner aroma than')
+      .replace(/\bclean que\b/gi, 'cleaner than')
+      .replace(/\bAdd a dry\b/gi, 'added dry')
+      .replace(/\bidealement\b/gi, 'ideally')
+      .replace(/\bwith same temperature\b/gi, 'at the same temperature')
+      .replace(/\bfor faciliter\b/gi, 'to help')
+      .replace(/\bquantite\b/gi, 'quantity')
+      .replace(/\bindiquee\b/gi, 'indicated')
+      .replace(/\bprecision aide a get\b/gi, 'precision helps produce')
+      .replace(/\bmie\b/gi, 'crumb')
+      .replace(/\binto slices fines\b/gi, 'in thin slices')
+      .replace(/\bafin que the sauce tienne well\b/gi, 'so the sauce clings well')
+      .replace(/\bdice fries\b/gi, 'fries')
+      .replace(/\bplaques of ravioli\b/gi, 'ravioli sheets')
+      .replace(/\ba par une\b/gi, 'one by one')
+      .replace(/\bthe remove gently\b/gi, 'remove them gently')
+      .replace(/\bwith a ecumoire large\b/gi, 'with a large slotted spoon')
+      .replace(/\bclarifie\b/gi, 'clarified')
+      .replace(/\bdepending on need\b/gi, 'as needed')
+      .replace(/\bMoins il remaining water\b/gi, 'The less water remains')
+      .replace(/\bplus the waffles seront croustillantes\b/gi, 'the crispier the waffles will be')
+      .replace(/\bwithout alcool\b/gi, 'without alcohol')
+      .replace(/\bremplace the rum par the same quantity water gazeuse\b/gi, 'replace the rum with the same quantity of sparkling water')
+      .replace(/\bfor que the blender tourne\b/gi, 'while the blender is running')
+      .replace(/\bgaspacho melon sans concombre\b/gi, 'cucumber-free melon gazpacho')
+      .replace(/\bpapier absorbant ou, mieux, on grilled\b/gi, 'paper towels or, better, a rack')
+      .replace(/\bplus nette\b/gi, 'cleaner')
+      .replace(/\bthen fais the deuxieme bath juste before the serving\b/gi, 'then do the second fry just before serving')
+      .replace(/\ba part\b/gi, 'separate')
+      .replace(/\buntil the fin\b/gi, 'until the end')
+      .replace(/\bfor qu['’]?elle remaining lisible\b/gi, 'so it stays distinct')
+      .replace(/\bdisparaisse not\b/gi, 'does not disappear')
+      .replace(/\beven of (\d+)\s+to\s+(\d+mm) of thickness\b/gi, 'even, $1 to $2 thick')
+      .replace(/\bSurveille the cooking all the fours colorent not of same facon\b/gi, 'Watch the cooking; all ovens brown differently')
+      .replace(/\belle continue a gratiner\b/gi, 'it keeps gratinating')
+      .replace(/\bjusqu['’]?at the last moment\b/gi, 'until the last moment')
+      .replace(/\bThe vodka est optionalal\b/gi, 'The vodka is optional')
+      .replace(/\belle aide especially a get\b/gi, 'it mainly helps produce')
+      .replace(/\bfrying plus dry\b/gi, 'drier frying')
+      .replace(/\bSurcharge not\b/gi, 'Do not overload')
+      .replace(/\belle can se loosen\b/gi, 'it can loosen')
+      .replace(/\bRépartir dans les empreintes en remplissant aux trois quarts\b/g, 'Divide among the molds, filling them three-quarters full')
+      .replace(/\bIl should\b/g, 'It should')
+      .replace(/\bfor s'spread\b/gi, 'so it spreads')
+      .replace(/\bwithout dechirer the pain\b/gi, 'without tearing the bread')
+      .replace(/\bSurdose not\b/gi, 'Do not overdo')
+      .replace(/\bil becomes\b/gi, 'it becomes')
+      .replace(/\bJette not\b/gi, 'Do not discard')
+      .replace(/\belle Season\b/gi, 'it seasons')
+      .replace(/\bAdd the eggs a a un\b/gi, 'Add the eggs one at a time')
+      .replace(/\bcentre should be pris mais encore soft\b/gi, 'center should be set but still soft')
+      .replace(/\bil finit of se stabiliser in tiedissant\b/gi, 'it finishes setting as it cools slightly')
+      .replace(/\bfaire dry dice cherries\b/gi, 'dry cherries')
+      .replace(/\bMieux vaut a temperature gentle and long qu['’]?a chaleur strong that cooked the fruit\b/gi, 'Low, slow heat is better than high heat that cooks the fruit')
+      .replace(/\bRemplis not the bocaux jusqu['’]?in haut the marge limite the debordements with sterilisation\b/gi, 'Do not fill the jars to the top; headspace limits overflow during sterilization')
+      .replace(/\bcleaner aroma que\b/gi, 'cleaner aroma than')
+      .replace(/\bfor que the blender is running\b/gi, 'while the blender is running')
+      .replace(/\bou, better\b/gi, 'or, better')
+      .replace(/\bthen fais the second fry\b/gi, 'then do the second fry')
+      .replace(/\belle keeps gratinating\b/gi, 'it keeps gratinating')
+      .replace(/\bmais encore soft il finishes setting\b/gi, 'but still soft; it finishes setting')
+      .replace(/\bDough rustique, flavored, with a chaleur gentle of Espelette pepper\b/gi, 'Rustic, fragrant pate with gentle Espelette pepper heat')
+      .replace(/\bchaleur gentle\b/gi, 'gentle heat')
+      .replace(/\bThe cold stabilise the topping and facilite the serving\b/gi, 'The cold stabilizes the filling and makes serving easier')
+      .replace(/\bcentre should trembler slightly with sortie of oven il se raffermit in the refrigerator\b/gi, 'center should wobble slightly when it comes out of the oven; it firms up in the refrigerator')
+      .replace(/\bPack down fermement the base avoid qu['’]?elle s['’]?effrite with cutting\b/gi, 'Pack the base firmly so it does not crumble when cut')
+      .replace(/\bNot sous-cook: the surface should be well coloree\b/gi, 'Do not undercook: the surface should be well browned')
+      .replace(/\bcoupe in brunoise\b/gi, 'diced')
+      .replace(/\bamidon dice potatoes: il helps a lier\b/gi, 'potato starch: it helps bind')
+      .replace(/\bThe chili d Espelette flavored plus qu il should burn\b/gi, 'Espelette pepper should perfume more than burn')
+      .replace(/\bsauce brune flavored e leorange, finale chaleureuse\b/gi, 'brown sauce scented with orange and a warm finish')
+      .replace(/\bCarrots fondantes, sauce coco-curry courte and finale citronnee\b/gi, 'Tender carrots, short coconut-curry sauce and lemony finish')
+      .replace(/\bRectifier chaleur and acidity\b/gi, 'Adjust heat and acidity')
+      .replace(/\bPlier en triangles serres\b/gi, 'Fold into tight triangles')
+      .replace(/\bwatch l oil hot\b/gi, 'watch the hot oil')
+      .replace(/\bnever remplir the saucepan au-dela of moitie\b/gi, 'never fill the saucepan more than halfway')
+      .replace(/\btomato concentree\b/gi, 'concentrated tomato')
+      .replace(/\bconcentree\b/gi, 'concentrated')
+      .replace(/\bposes dessus\b/gi, 'set on top')
+      .replace(/\bfor qu['’]?elle se tienne\b/gi, 'so it holds')
+      .replace(/\bil gagne in taste\b/gi, 'it gains flavor')
+      .replace(/\bmore mustard-based que\b/gi, 'more mustard-forward than')
+      .replace(/\bcheck que the chicken est cooked a coeur\b/gi, 'check that the chicken is cooked through')
+      .replace(/\bsauce tomato bell pepper concentrated\b/gi, 'concentrated tomato and pepper sauce')
+      .replace(/\bwell gouteux, mais grated finement for qu['’]?il se repartisse\b/gi, 'flavorful, but finely grated so it disperses')
+      .replace(/\bDo not bouillir fort the foie fat, il can graisser\b/gi, 'Do not boil the foie gras hard; it can turn greasy')
+      .replace(/\bThe cream est optionalal, elle arrondit the turmeric\b/gi, 'The cream is optional; it rounds out the turmeric')
+      .replace(/\bBatteur ou robot\b/g, 'Hand mixer or stand mixer')
+      .replace(/\bil reveille\b/gi, 'it brightens')
+      .replace(/\bwithout masquer\b/gi, 'without masking')
       .replace(/\s+/g, ' ')
       .trim();
   }
@@ -1799,15 +3087,19 @@
     [/^(.+?)\s+au\s+(.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
     [/^(.+?)\s+à la\s+(.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
     [/^(.+?)\s+à l[’'](.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
+    [/^(.+?)\s+a la\s+(.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
+    [/^(.+?)\s+a l['](.+)$/i, match => `${translateRecipeFragment(match[1])} with ${translateRecipeFragment(match[2])}`],
     [/^(.+?)\s+en\s+(.+)$/i, match => `${translateRecipeFragment(match[1])} in ${translateRecipeFragment(match[2])}`],
     [/^(Brochettes?)\s+(.+)$/i, match => `${translateRecipeFragment(match[2])} ${translateRecipeFragment(match[1])}`],
+    [/^(Beignets?|Billes|Brochettes|Bricks|Croquettes|Verrines|Gressins|Madeleines|Muffins|Cookies|Choux|Donuts|Churros|Tempura|Curry|Gratin|Salade|Soupe|Veloute|Puree|Crumble|Tarte|Gateau|Creme|Sauce|Coulis|Compotee|Poelee|Ragout)\s+de\s+(.+)$/i, match => `${translateRecipeFragment(match[2])} ${translateRecipeFragment(match[1])}`],
     [/^(Beignets?|Billes|Brochettes|Bricks|Croquettes|Verrines|Gressins|Madeleines|Muffins|Cookies|Choux|Donuts|Churros|Tempura|Curry|Gratin|Salade|Soupe|Velouté|Purée|Crumble|Tarte|Gâteau|Crème|Sauce|Coulis|Compotée|Poêlée|Ragoût)\s+de\s+(.+)$/i, match => `${translateRecipeFragment(match[2])} ${translateRecipeFragment(match[1])}`]
   ];
 
   function translateRecipeStructure(source) {
     if (/[.;!?]/.test(source) || source.length > 110) return '';
+    const normalizedSource = normalizeRecipeReplacementText(source);
     for (const [pattern, render] of recipeStructureRulesEn) {
-      const match = source.match(pattern);
+      const match = normalizedSource.match(pattern);
       if (!match) continue;
       const translated = cleanRecipeEnglish(render(match));
       if (translated && normalizeI18nKey(translated) !== normalizeI18nKey(source)) {
@@ -1818,12 +3110,12 @@
   }
 
   function replaceCulinaryTerms(value) {
-    let output = ` ${value} `;
+    let output = ` ${normalizeRecipeReplacementText(value)} `;
     culinaryReplacementsEn
       .slice()
       .sort((left, right) => right[0].length - left[0].length)
       .forEach(([source, translated]) => {
-        const normalizedSource = repairI18nMojibake(source).replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/['\u2019’]/g, "['\\u2019’]");
+        const normalizedSource = escapeRecipeReplacementSource(source);
         output = output.replace(new RegExp(`(^|[^\\p{L}])${normalizedSource}(?=$|[^\\p{L}])`, 'giu'), `$1${translated}`);
       });
 
@@ -1848,12 +3140,12 @@
   }
 
   function replaceRecipeGrammar(value) {
-    let output = ` ${repairI18nMojibake(value)} `;
+    let output = ` ${normalizeRecipeReplacementText(value)} `;
     recipeGrammarReplacementsEn
       .slice()
       .sort((left, right) => right[0].length - left[0].length)
       .forEach(([source, translated]) => {
-        const normalizedSource = repairI18nMojibake(source).replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/['\u2019’]/g, "['\\u2019’]");
+        const normalizedSource = escapeRecipeReplacementSource(source);
         output = output.replace(new RegExp(`(^|[^\\p{L}])${normalizedSource}(?=$|[^\\p{L}])`, 'giu'), `$1${translated}`);
       });
     return output.replace(/\s+/g, ' ').trim();
@@ -2032,11 +3324,13 @@
     const source = repairI18nMojibake(value);
     const translated = phraseEn[value] || phraseEn[source] || phraseLookupEn.get(normalizeI18nKey(source));
     if (translated) return translated;
+    const recipeTranslated = translateRecipeText(source);
+    if (recipeTranslated) return recipeTranslated;
     for (const [pattern, render] of dynamicRules) {
       const match = source.match(pattern);
       if (match) return render(match);
     }
-    return translateRecipeText(source) || source;
+    return source;
   }
 
   function setLocale(locale) {
