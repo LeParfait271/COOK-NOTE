@@ -571,15 +571,24 @@
   function getRecipePlatingGuide(recipe) {
     const text = premiumRecipeText(recipe);
     const categoryText = normalizeText((recipe?.categories || []).join(' '));
+    const explicitPlating = asTextList(recipe?.plating || recipe?.practical?.plating);
+    const isDrink = /\b(boisson|boissons|chocolat chaud|mojito|cocktail|smoothie|milkshake|limonade|sirop|jus)\b/.test(categoryText + ' ' + text);
+    const hasPlatingIntent = explicitPlating.length > 0
+      || /\b(dressage|dresser|presentation|présentation|assiette|coupelle|ramequin|verrine|plateau|ardoise|napper|parsemer|decorer|décorer|garnir|garniture|finition|pocher|cordon|topping|coulis)\b/.test(text)
+      || /\b(apero|aperitif|entrees|entrées|plats|desserts|sauces)\b/.test(categoryText);
+    if (isDrink && !explicitPlating.length) return [];
+    if (!hasPlatingIntent) return [];
     const items = [];
     const add = (label, value) => {
       if (value && !items.some(item => normalizeText(item.label) === normalizeText(label))) items.push({ label, value });
     };
 
+    explicitPlating.forEach((item, index) => add(index === 0 ? 'Dressage' : `Finition ${index + 1}`, item));
+
     if (/\b(soupe|veloute|gaspacho|gazpacho|coulis)\b/.test(text)) {
       add('Support', 'Bol ou assiette creuse, chaud pour veloute chaud, froid pour gaspacho.');
       add('Relief', 'Creer un cercle de creme, huile ou herbes et ajouter un topping croquant au centre.');
-    } else if (/\b(dessert|gateau|tarte|creme|mousse|chocolat|cookie|flan|tiramisu)\b/.test(categoryText + ' ' + text)) {
+    } else if (/\b(dessert|gateau|tarte|creme|mousse|cookie|flan|tiramisu)\b/.test(categoryText + ' ' + text)) {
       add('Support', 'Assiette claire ou coupelle froide; laisser un bord propre pour un rendu magazine.');
       add('Contraste', 'Ajouter un contraste net: zeste, cacao, fruit frais, fleur de sel ou eclat croquant.');
     } else if (/\b(apero|aperitif|verrine|toast|tartinade|rillettes|houmous)\b/.test(categoryText + ' ' + text)) {
@@ -602,10 +611,10 @@
     if (/\b(friture|frire|frites|beignet|tempura|croustillant)\b/.test(text)) {
       add('Croustillant', 'Egoutter sur grille, saler juste avant service, ne pas enfermer sous cloche.');
     }
-    if (/\b(sauce|jus|creme|coulis|vinaigrette)\b/.test(text)) {
+    if (!isDrink && /\b(sauce|jus|creme|coulis|vinaigrette)\b/.test(text)) {
       add('Trait de sauce', 'Utiliser la sauce comme ligne de lecture: sous la piece, en points ou en petit cordon.');
     }
-    add('Photo', 'Angle 45 degres, lumiere laterale douce, fond simple et garniture visible.');
+    if (items.length >= 2) add('Photo', 'Angle 45 degres, lumiere laterale douce, fond simple et garniture visible.');
     return items.slice(0, 5);
   }
 
