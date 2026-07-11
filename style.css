@@ -1589,7 +1589,7 @@ a {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(.84) saturate(.94) contrast(1.08);
+  filter: none;
   transform: none;
   user-select: none;
 }
@@ -4872,10 +4872,6 @@ a {
   opacity: 1;
 }
 
-.recipe-card:not(.master-card) .card-image {
-  filter: brightness(.9) saturate(.98) contrast(1.04);
-}
-
 .recipe-card:not(.master-card):hover .card-media,
 .recipe-card:not(.master-card):focus-visible .card-media {
   transform: none;
@@ -5652,10 +5648,6 @@ a {
   opacity: 1;
 }
 
-.home-view .recipe-card:not(.master-card) .card-image {
-  filter: brightness(.98) saturate(1) contrast(1.02);
-}
-
 .recipe-card[data-recipe-id="terrine_porc_pistaches"] .card-image {
   object-position: center 34%;
 }
@@ -6375,7 +6367,7 @@ a {
 .home-view .recipe-card:not(.master-card):focus-visible .card-image,
 .recipe-card.master-card:hover .card-image,
 .recipe-card.master-card:focus-visible .card-image {
-  filter: brightness(.98) saturate(1.06) contrast(1.08);
+  filter: saturate(1.06) contrast(1.05);
 }
 
 .recipe-chef-strip{display:grid;gap:12px;border:1px solid color-mix(in srgb,var(--accent) 22%,var(--line));border-radius:8px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 8%,transparent),rgba(255,255,255,.022)),rgba(0,0,0,.14);padding:14px}.recipe-chef-strip strong{color:color-mix(in srgb,var(--accent) 82%,var(--text));font-size:12px;font-weight:950;text-transform:uppercase}.recipe-chef-strip ul{display:grid;gap:8px;margin:0;padding:0;list-style:none}.recipe-chef-strip li{position:relative;min-width:0;border-left:2px solid color-mix(in srgb,var(--accent) 42%,transparent);border-radius:6px;background:color-mix(in srgb,var(--surface) 52%,transparent);color:color-mix(in srgb,var(--text) 84%,var(--muted));padding:8px 10px 8px 12px;font-size:13px;font-weight:800;line-height:1.35;overflow-wrap:anywhere}
