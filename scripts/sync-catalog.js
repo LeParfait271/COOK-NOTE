@@ -55,6 +55,8 @@ function leafVariantCount(recipe, recipesById, seen = new Set()) {
 function compactRecipeForCatalog(recipe, recipesById) {
   const compact = JSON.parse(JSON.stringify(recipe));
   delete compact.practical;
+  delete compact.notes;
+  delete compact.steps;
   const leafCount = leafVariantCount(compact, recipesById);
   if (leafCount > 1) compact.leafCount = leafCount;
   return compact;
@@ -78,7 +80,7 @@ CATALOG_FILES.forEach((file, index) => {
   const json = JSON.stringify(chunk);
   const text = [
     `// Cook Note - catalogue recettes chunk ${index + 1}/${CATALOG_FILES.length}`,
-    `window.RECIPES = Object.assign(window.RECIPES || {}, ${json});`,
+    `(function(){ var __CAT__ = ${json}; window.RECIPES = window.RECIPES || {}; Object.keys(__CAT__).forEach(function(k){ window.RECIPES[k] = Object.assign(window.RECIPES[k] || {}, __CAT__[k]); }); })();`,
     ''
   ].join('\n');
   fs.writeFileSync(path.join(ROOT, file), escapeAscii(text), 'utf8');

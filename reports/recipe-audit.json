@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T04:47:38.137Z",
+  "generatedAt": "2026-07-11T05:40:49.252Z",
   "totals": {
     "recipes": 267,
     "leaves": 248,
@@ -8,18 +8,28 @@
     "categoryIdeas": 20,
     "qualityIssues": 0
   },
-  "averageScore": 91,
+  "averageScore": 99,
   "healthDashboard": {
-    "ready": 119,
-    "improve": 129,
+    "ready": 226,
+    "improve": 22,
     "weak": 0,
     "missingDiscovery": 18,
-    "missingSafety": 111,
+    "missingSafety": 4,
     "productionRisk": 0,
     "fewLinks": 217
   },
   "weakestRecipes": [],
   "categoryIdeas": [
+    {
+      "id": "pancakes_variantes",
+      "title": "Pancakes",
+      "text": "Categorie possible : Base (semble etre une base reutilisable)."
+    },
+    {
+      "id": "asperges_mimosa",
+      "title": "Asperges mimosa",
+      "text": "Categorie possible : Apéro (semble utile a l apero)."
+    },
     {
       "id": "bouillabaisse_rouille",
       "title": "Bouillabaisse",
@@ -36,6 +46,11 @@
       "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
     },
     {
+      "id": "chou_vert_sauce_tomate",
+      "title": "Chou vert en sauce tomate",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
       "id": "cotelettes_porc_miel_moutarde",
       "title": "Côtelettes de porc miel moutarde",
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
@@ -44,41 +59,6 @@
       "id": "crumble_carottes_cumin_noisettes_parmesan",
       "title": "Crumble de carottes cumin noisettes parmesan",
       "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
-    },
-    {
-      "id": "lentilles_tomate_pommes_de_terre_sautees",
-      "title": "Lentilles tomate pommes de terre sautées",
-      "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
-    },
-    {
-      "id": "pates_pesto_tomates_mozzarella",
-      "title": "Pâtes au pesto, tomates cerises et mozzarella",
-      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
-    },
-    {
-      "id": "poulet_sauce_pimentee",
-      "title": "Poulet sauce pimentée",
-      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
-    },
-    {
-      "id": "riz_saute_poulet",
-      "title": "Riz sauté au poulet",
-      "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
-    },
-    {
-      "id": "pancakes_variantes",
-      "title": "Pancakes",
-      "text": "Categorie possible : Base (semble etre une base reutilisable)."
-    },
-    {
-      "id": "asperges_mimosa",
-      "title": "Asperges mimosa",
-      "text": "Categorie possible : Apéro (semble utile a l apero)."
-    },
-    {
-      "id": "chou_vert_sauce_tomate",
-      "title": "Chou vert en sauce tomate",
-      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
       "id": "ecrasee_pommes_de_terre_truffe_saint_jacques",
@@ -96,6 +76,11 @@
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
+      "id": "lentilles_tomate_pommes_de_terre_sautees",
+      "title": "Lentilles tomate pommes de terre sautées",
+      "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
+    },
+    {
       "id": "oeuf_chili_crisp_toast",
       "title": "Œuf sur le plat chili crisp sur toast",
       "text": "Categorie possible : Apéro (semble utile a l apero)."
@@ -111,14 +96,29 @@
       "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
     },
     {
+      "id": "pates_pesto_tomates_mozzarella",
+      "title": "Pâtes au pesto, tomates cerises et mozzarella",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
       "id": "poulet_pommes_de_terre_asperges",
       "title": "Poulet pommes de terre asperges",
       "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
     },
     {
+      "id": "poulet_sauce_pimentee",
+      "title": "Poulet sauce pimentée",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
       "id": "poulet_tikka_masala",
       "title": "Poulet tikka masala",
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
+      "id": "riz_saute_poulet",
+      "title": "Riz sauté au poulet",
+      "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
     }
   ],
   "recipesWithFewLinks": [
@@ -277,26 +277,18 @@
     {
       "id": "aioli_citronne_leger",
       "title": "Aïoli citronné léger",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "ajitsuke_tamago_oeufs_marines_ramen",
       "title": "Ajitsuke tamago œufs marinés ramen",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "asperges_mimosa",
@@ -311,14 +303,10 @@
     {
       "id": "babeurre_maison",
       "title": "Babeurre",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "balsamique_reduit",
@@ -331,14 +319,10 @@
     {
       "id": "base_pour_flan_sale",
       "title": "Base pour flan salé",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "donuts_cloud",
@@ -355,74 +339,51 @@
     {
       "id": "beignets_calamar",
       "title": "Beignets de calamar",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "beurre_ail",
       "title": "Beurre à l’ail",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "beurre_clarifie",
       "title": "Beurre clarifié",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "beurre_d_escargot_persille",
       "title": "Beurre d’escargot persillé",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "billes_mozzarella_marinees",
       "title": "Billes de mozzarella marinées",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "bouillabaisse_rouille",
       "title": "Bouillabaisse",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": [
         "Recette longue : verifier que les etapes restent faciles a suivre sur mobile.",
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
     },
@@ -437,25 +398,18 @@
     {
       "id": "brie_farci_fruits_secs_noix",
       "title": "Brie farci aux fruits secs et noix",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "brioche_perdue_caramel_beurre_sale",
       "title": "Brioche perdue sauce caramel au beurre salé",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
     },
@@ -488,13 +442,10 @@
     {
       "id": "cabillaud_crumble_chorizo",
       "title": "Cabillaud au four, crumble de chorizo",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Desserts (semble etre sucré ou patissier)."
       ]
     },
@@ -511,38 +462,26 @@
     {
       "id": "cake_sale_lardon",
       "title": "Cake salé poitrine fumée",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "cake_tomate_chorizo_feta",
       "title": "Cake tomate chorizo feta",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "carottes_braisees",
       "title": "Carottes braisées",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "carottes_braisees_orange_citron_confit",
@@ -571,26 +510,18 @@
     {
       "id": "carpaccio_betterave_mozzarella_yuzu",
       "title": "Carpaccio betterave mozzarella yuzu",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "carre_d_agneau_croute_d_herbes",
       "title": "Carré d’agneau croûte d’herbes",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "carres_cremeux_citron_vert",
@@ -603,14 +534,11 @@
     {
       "id": "cassolette_crevettes_ravioles_persil",
       "title": "Cassolette de crevettes et ravioles au persil",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": [
-        "Recette longue : verifier que les etapes restent faciles a suivre sur mobile.",
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+        "Recette longue : verifier que les etapes restent faciles a suivre sur mobile."
       ]
     },
     {
@@ -664,14 +592,10 @@
     {
       "id": "chipirons_a_la_plancha",
       "title": "Chipirons à la plancha",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "chocolat_ancien",
@@ -684,14 +608,10 @@
     {
       "id": "chorizo_au_cidre",
       "title": "Chorizo au cidre",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "chou_vert_sauce_tomate",
@@ -706,14 +626,10 @@
     {
       "id": "chou_fleur_croustillant",
       "title": "Chou-fleur croustillant",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "chou_fleur_coco_curry",
@@ -736,50 +652,34 @@
     {
       "id": "churros_maison",
       "title": "Churros",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "clafoutis_abricots_rhum_vanille",
       "title": "Clafoutis aux abricots, rhum et vanille",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "clafoutis_cerises_bocuse",
       "title": "Clafoutis aux cerises",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "clafoutis_myrtilles_nectarines",
       "title": "Clafoutis aux myrtilles et nectarines",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "cochon_confit_biere_erable",
@@ -794,14 +694,10 @@
     {
       "id": "cocotte_pois_chiches_tomates_montbeliard",
       "title": "Cocotte de pois chiches tomates et saucisse de Montbéliard",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "porc_chorizo_haricots_tarbais",
@@ -834,14 +730,10 @@
     {
       "id": "cookies_avoine_noix_fruits_secs",
       "title": "Cookies aux flocons d’avoine, noix et fruits secs",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "caramel_cheesecake_cookies",
@@ -854,14 +746,10 @@
     {
       "id": "cookies_cerise_chocolat",
       "title": "Cookies cerise chocolat",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "cookies_chocolat_blanc_cranberry",
@@ -902,13 +790,10 @@
     {
       "id": "cotelettes_porc_miel_moutarde",
       "title": "Côtelettes de porc miel moutarde",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
     },
@@ -987,14 +872,10 @@
     {
       "id": "creme_kinder_nutella",
       "title": "Crème Nutella à garnir",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "creme_patissiere_praline",
@@ -1033,14 +914,10 @@
     {
       "id": "crepes_lait_amandes",
       "title": "Crêpes au lait d’amandes",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "crevettes_provencale",
@@ -1061,14 +938,10 @@
     {
       "id": "croque_madame",
       "title": "Croque-madame",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "croquettes_pommes_de_terre",
@@ -1081,63 +954,44 @@
     {
       "id": "crumble_carottes_cumin_noisettes_parmesan",
       "title": "Crumble de carottes cumin noisettes parmesan",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Desserts (semble etre sucré ou patissier)."
       ]
     },
     {
       "id": "crumble_pomme_poire",
       "title": "Crumble pomme-poire",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "cuisses_poulet_asiatique",
       "title": "Cuisses de poulet asiatique",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "cuisses_de_poulet_miel_moutarde",
       "title": "Cuisses de poulet miel moutarde",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "cuisses_de_poulet_rhum_miel_piment",
       "title": "Cuisses de poulet rhum miel piment",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "cuisses_poulet_four_tomates_thym",
@@ -1150,14 +1004,10 @@
     {
       "id": "curry_carottes_lait_coco",
       "title": "Curry de carottes lait de coco",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "curry_lentilles_coco",
@@ -1167,9 +1017,7 @@
         "Conservation ou securite alimentaire a verifier."
       ],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "curry_poulet_crevettes",
@@ -1208,14 +1056,10 @@
     {
       "id": "falafels_four",
       "title": "Falafels au four",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "fish_and_chips",
@@ -1246,98 +1090,66 @@
     {
       "id": "creme_amande_citron",
       "title": "Fond de tarte amande",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "frites_maison",
       "title": "Frites",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "frites_four_maison",
       "title": "Frites au four",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "frites_belges",
       "title": "Frites belges",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "frites_patate_douce",
       "title": "Frites de patate douce",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "gaspacho_melon",
       "title": "Gaspacho de melon",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "gazpacho_tomate_menthe_basilic",
       "title": "Gaspacho tomate, menthe et basilic",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "gateau_roule_framboise",
       "title": "Gâteau roulé à la framboise",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "gaufre_bruxelles",
@@ -1350,14 +1162,10 @@
     {
       "id": "gaufres_pommes_terre",
       "title": "Gaufres de pommes de terre croustillantes",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "gratin_chou_fleur_comte_lardons",
@@ -1378,14 +1186,10 @@
     {
       "id": "gratin_chou_fleur",
       "title": "Gratin de chou-fleur",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "gratin_chou_fleur_chorizo_cocottes",
@@ -1406,14 +1210,10 @@
     {
       "id": "gratin_dauphinois",
       "title": "Gratin de pommes de terre",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "gressins_fromage_olives",
@@ -1442,14 +1242,10 @@
     {
       "id": "haricots_blancs_tomates_montbeliard",
       "title": "Haricots blancs tomates et saucisse de Montbéliard",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "haricots_tarbais_chorizo_tomate",
@@ -1472,26 +1268,18 @@
     {
       "id": "hauts_de_cuisses_poulet_orange_oignon",
       "title": "Hauts de cuisses poulet orange oignon",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "houmous_hakocem",
       "title": "Houmous tahine très crémeux",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "huile_pimentee_pizza",
@@ -1524,38 +1312,26 @@
     {
       "id": "joues_de_boeuf_carottes_orange_vin_rouge",
       "title": "Joues de bœuf carottes orange vin rouge",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "joues_boeuf_whiskey_orange",
       "title": "Joues de bœuf whiskey orange",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "joues_de_porc_chorizo_piment",
       "title": "Joues de porc chorizo piment",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "joues_porc_cidre_miel",
@@ -1576,39 +1352,28 @@
     {
       "id": "lentilles_a_la_bourguignonne",
       "title": "Lentilles à la bourguignonne",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "lentilles_tomate_pommes_de_terre_sautees",
       "title": "Lentilles tomate pommes de terre sautées",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Accompagnements (semble etre un accompagnement)."
       ]
     },
     {
       "id": "macaron_ourea_pierre_herme",
       "title": "Macaron Ouréa",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "madeleines_comte_epices_douces",
@@ -1629,26 +1394,18 @@
     {
       "id": "compotee_citron",
       "title": "Marmelade citron",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "mayonnaise_maison",
       "title": "Mayonnaise",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "meringue_italienne",
@@ -1679,38 +1436,26 @@
     {
       "id": "mojitos_variantes",
       "title": "Mojitos",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "mousse_chocolat",
       "title": "Mousse au chocolat",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "muffins_framboises",
       "title": "Muffins aux framboises",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "nems_vietnam",
@@ -1749,14 +1494,10 @@
     {
       "id": "oeufs_mimosa_variantes",
       "title": "Œufs mimosa",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "oignons_rotis_thym_miel",
@@ -1771,26 +1512,18 @@
     {
       "id": "pain_grille_beurre_ail_herbes",
       "title": "Pain grillé beurre ail et herbes",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "pain_hot_dog",
       "title": "Pain hot dog brioché",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "pains_burgers_brioche",
@@ -1817,14 +1550,10 @@
     {
       "id": "pancakes_fluffy",
       "title": "Pancakes fluffy",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "paris_brest",
@@ -1839,14 +1568,10 @@
     {
       "id": "parmentier_confit_canard_patates_douces",
       "title": "Parmentier de confit de canard et patates douces",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "patates_douces_four",
@@ -1875,14 +1600,10 @@
     {
       "id": "pate_legere_beignets_calamar_crevettes",
       "title": "Pâte légère à frire",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "pate_sucree",
@@ -1919,13 +1640,10 @@
     {
       "id": "pates_pesto_tomates_mozzarella",
       "title": "Pâtes au pesto, tomates cerises et mozzarella",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
     },
@@ -1948,14 +1666,10 @@
     {
       "id": "pesto_tomates_sechees_sans_cajou",
       "title": "Pesto tomates séchées",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "pesto_variantes",
@@ -1986,14 +1700,10 @@
     {
       "id": "poelee_ble_poulet_curcuma",
       "title": "Poêlée de blé au poulet et curcuma",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "poires_roties_orange_miel",
@@ -2006,50 +1716,34 @@
     {
       "id": "pommes_de_terre_air_fryer",
       "title": "Pommes de terre à l’air fryer",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "pommes_de_terre_grecques_citron_origan",
       "title": "Pommes de terre au four à la grecque",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "pommes_de_terre_confites_ail_romarin",
       "title": "Pommes de terre confites à l’ail et au romarin",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "pommes_de_terre_fondantes_moutarde",
       "title": "Pommes de terre fondantes aux herbes et moutarde",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "pommes_grenaille_herbes",
@@ -2083,9 +1777,7 @@
         "Conservation ou securite alimentaire a verifier."
       ],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "potee_chou",
@@ -2114,38 +1806,26 @@
     {
       "id": "poulet_basquaise",
       "title": "Poulet basquaise",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "poulet_frit_air_fryer",
       "title": "Poulet frit air fryer",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "poulet_gaston_gerard",
       "title": "Poulet Gaston Gérard",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "poulet_pommes_de_terre_asperges",
@@ -2160,13 +1840,10 @@
     {
       "id": "poulet_sauce_pimentee",
       "title": "Poulet sauce pimentée",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
     },
@@ -2183,14 +1860,10 @@
     {
       "id": "puree_butternut_pommes_terre_curry",
       "title": "Puree butternut pommes de terre curry",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "puree_chou_fleur",
@@ -2203,14 +1876,10 @@
     {
       "id": "puree_courge_butternut",
       "title": "Purée de courge butternut",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "puree_patates_douces",
@@ -2223,38 +1892,26 @@
     {
       "id": "puree_pommes_de_terre_ail_rose_huile_olive",
       "title": "Purée de pommes de terre à l’ail rose et huile d’olive",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "puree_pommes_de_terre_carottes",
       "title": "Purée de pommes de terre et carottes",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "puree_pommes_de_terre_citron",
       "title": "Purée pommes de terre citron",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "queue_boeuf_carottes_vin_rouge",
@@ -2307,37 +1964,26 @@
     {
       "id": "riz_au_citron",
       "title": "Riz au citron",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "riz_cantonnais",
       "title": "Riz cantonnais",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "riz_saute_poulet",
       "title": "Riz sauté au poulet",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Accompagnements (semble etre un accompagnement)."
       ]
     },
@@ -2352,14 +1998,10 @@
     {
       "id": "rouille_haut_de_gamme",
       "title": "Rouille",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "salade_avocat_oeuf_epinards",
@@ -2380,14 +2022,10 @@
     {
       "id": "salade_melon_mozzarella_jambon_cru",
       "title": "Salade melon, mozzarella et jambon cru",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "salade_pois_chiche_feta_olives",
@@ -2424,14 +2062,10 @@
     {
       "id": "sauce_aux_poivres",
       "title": "Sauce aux poivres",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "sauce_caramel",
@@ -2444,26 +2078,18 @@
     {
       "id": "sauce_chevre_creme",
       "title": "Sauce chevre crème",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "sauce_mornay",
       "title": "Sauce Mornay",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "sauce_nem",
@@ -2476,26 +2102,18 @@
     {
       "id": "sauce_roquefort",
       "title": "Sauce roquefort",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "sauce_yaourt_citronnee",
       "title": "Sauce yaourt citronnée",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "sauces_burger_variantes",
@@ -2518,14 +2136,10 @@
     {
       "id": "saucisse_puree_maison",
       "title": "Saucisse purée",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "saucisses_aux_lentilles",
@@ -2546,14 +2160,10 @@
     {
       "id": "saumon_au_four_tomates_olives_basilic",
       "title": "Saumon au four tomates olives basilic",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "souffle_fromage_facile",
@@ -2582,14 +2192,10 @@
     {
       "id": "spritz_vanille_chocolat",
       "title": "Spritz vanille chocolat",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "tagliatelles_agrumes",
@@ -2602,14 +2208,10 @@
     {
       "id": "tarte_abricots_amandes_romarin",
       "title": "Tarte aux abricots, amandes et romarin",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "tarte_aux_myrtilles",
@@ -2632,26 +2234,18 @@
     {
       "id": "temps_cuisson_legumes_autocuiseur",
       "title": "Temps de cuisson des légumes à l’autocuiseur",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "tempura_beignets_calamar_crevettes",
       "title": "Tempura",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "terrine_campagne",
@@ -2722,38 +2316,26 @@
     {
       "id": "tomates_provencales",
       "title": "Tomates provençales",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "toppings_frites",
       "title": "Toppings frites",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "tortillas_mexicaines",
       "title": "Tortillas",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "veloute_hiver_noix_cajou",
@@ -2766,14 +2348,10 @@
     {
       "id": "verrines_chataignes_foie_gras",
       "title": "Verrines châtaignes et foie gras",
-      "score": 82,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "vinaigrette",

@@ -173,6 +173,8 @@ function leafVariantCount(recipe, seen = new Set()) {
 function compactRecipeForCatalog(id, recipe) {
   const compact = JSON.parse(JSON.stringify({ id, ...recipe }));
   delete compact.practical;
+  delete compact.notes;
+  delete compact.steps;
   const leafCount = leafVariantCount({ id, ...compact });
   if (leafCount > 1) compact.leafCount = leafCount;
   return compact;
