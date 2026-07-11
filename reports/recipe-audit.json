@@ -1,220 +1,24 @@
 {
-  "generatedAt": "2026-07-08T13:12:16.283Z",
+  "generatedAt": "2026-07-11T04:47:38.137Z",
   "totals": {
     "recipes": 267,
     "leaves": 248,
     "masters": 19,
-    "lowScore": 15,
+    "lowScore": 0,
     "categoryIdeas": 20,
     "qualityIssues": 0
   },
-  "averageScore": 89,
+  "averageScore": 91,
   "healthDashboard": {
-    "ready": 105,
-    "improve": 128,
-    "weak": 15,
-    "missingDiscovery": 33,
-    "missingSafety": 125,
+    "ready": 119,
+    "improve": 129,
+    "weak": 0,
+    "missingDiscovery": 18,
+    "missingSafety": 111,
     "productionRisk": 0,
     "fewLinks": 217
   },
-  "weakestRecipes": [
-    {
-      "id": "chantilly_gelatine",
-      "title": "Chantilly stabilisée",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "craquelin_cacao",
-      "title": "Craquelin cacao",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "creme_beurre_meringue_italienne",
-      "title": "Crème au beurre meringue italienne",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "creme_citron_lemon_curd",
-      "title": "Crème citron",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "creme_diplomate_vanille",
-      "title": "Crème diplomate vanille",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "mascarpone",
-      "title": "Crème mascarpone vanille",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "creme_patissiere_praline",
-      "title": "Crème pâtissière praliné",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "creme_patissiere_vanille",
-      "title": "Crème pâtissière vanille",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "creme_pistache",
-      "title": "Crème pistache à garnir",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "creme_praline",
-      "title": "Crème praliné",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "gaufre_bruxelles",
-      "title": "Gaufres",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "meringue_italienne",
-      "title": "Meringue italienne",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "pate_choux",
-      "title": "Pâte à choux",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "salade_avocat_oeuf_epinards",
-      "title": "Salade avocat, œuf et épinards",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    },
-    {
-      "id": "tiramisu_speculoos",
-      "title": "Tiramisu spéculoos",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
-      "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
-    }
-  ],
+  "weakestRecipes": [],
   "categoryIdeas": [
     {
       "id": "bouillabaisse_rouille",
@@ -836,15 +640,10 @@
     {
       "id": "chantilly_gelatine",
       "title": "Chantilly stabilisée",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "chapelure_maison",
@@ -1136,54 +935,34 @@
     {
       "id": "craquelin_cacao",
       "title": "Craquelin cacao",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "creme_beurre_meringue_italienne",
       "title": "Crème au beurre meringue italienne",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "creme_citron_lemon_curd",
       "title": "Crème citron",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "creme_diplomate_vanille",
       "title": "Crème diplomate vanille",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "creme_diplomate_cloud",
@@ -1200,15 +979,10 @@
     {
       "id": "mascarpone",
       "title": "Crème mascarpone vanille",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "creme_kinder_nutella",
@@ -1225,54 +999,36 @@
     {
       "id": "creme_patissiere_praline",
       "title": "Crème pâtissière praliné",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "creme_patissiere_vanille",
       "title": "Crème pâtissière vanille",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "creme_pistache",
       "title": "Crème pistache à garnir",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "creme_praline",
       "title": "Crème praliné",
-      "score": 66,
+      "score": 82,
       "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
+        "Conservation ou securite alimentaire a verifier."
       ],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "crepes_lait_amandes",
@@ -1586,15 +1342,10 @@
     {
       "id": "gaufre_bruxelles",
       "title": "Gaufres",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "gaufres_pommes_terre",
@@ -1902,15 +1653,10 @@
     {
       "id": "meringue_italienne",
       "title": "Meringue italienne",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "meringues",
@@ -2113,15 +1859,10 @@
     {
       "id": "pate_choux",
       "title": "Pâte à choux",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "pate_lapin_piment_espelette",
@@ -2623,15 +2364,10 @@
     {
       "id": "salade_avocat_oeuf_epinards",
       "title": "Salade avocat, œuf et épinards",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "salade_epinards_clementines_amande_feta",
@@ -2944,15 +2680,10 @@
     {
       "id": "tiramisu_speculoos",
       "title": "Tiramisu spéculoos",
-      "score": 66,
-      "issues": [
-        "Conservation ou securite alimentaire a verifier.",
-        "Decouverte faible : tags, alias ou liens internes pauvres."
-      ],
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
-      "suggestions": [
-        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
-      ]
+      "suggestions": []
     },
     {
       "id": "salade_caprese",

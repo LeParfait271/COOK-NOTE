@@ -1,86 +1,27 @@
 # Audit Cook Note
 
-Genere le 2026-07-08T13:12:16.283Z.
+Genere le 2026-07-11T04:47:38.137Z.
 
 - Recettes totales : 267
 - Recettes feuilles : 248
 - Fiches parentes : 19
-- Score moyen : 89/100
-- Fiches sous 78 : 15
+- Score moyen : 91/100
+- Fiches sous 78 : 0
 - Fiches avec defauts a verifier : 0
 
 ## Dashboard sante
 
-- Pretes : 105
-- A ameliorer : 128
-- Faibles : 15
-- Decouverte faible : 33
-- Conservation/securite a verifier : 125
+- Pretes : 119
+- A ameliorer : 129
+- Faibles : 0
+- Decouverte faible : 18
+- Conservation/securite a verifier : 111
 - Risque image/production : 0
 - Sans liens internes explicites : 217
 
 ## Fiches a surveiller
 
-- Chantilly stabilisée (chantilly_gelatine) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Craquelin cacao (craquelin_cacao) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Crème au beurre meringue italienne (creme_beurre_meringue_italienne) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Crème citron (creme_citron_lemon_curd) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Crème diplomate vanille (creme_diplomate_vanille) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Crème mascarpone vanille (mascarpone) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Crème pâtissière praliné (creme_patissiere_praline) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Crème pâtissière vanille (creme_patissiere_vanille) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Crème pistache à garnir (creme_pistache) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Crème praliné (creme_praline) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Gaufres (gaufre_bruxelles) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Meringue italienne (meringue_italienne) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Pâte à choux (pate_choux) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Salade avocat, œuf et épinards (salade_avocat_oeuf_epinards) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
-- Tiramisu spéculoos (tiramisu_speculoos) : 66/100
-  - Conservation ou securite alimentaire a verifier.
-  - Decouverte faible : tags, alias ou liens internes pauvres.
-  - Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.
+Aucune fiche faible detectee.
 
 ## Audit integral
 
@@ -139,9 +80,7 @@ Genere le 2026-07-08T13:12:16.283Z.
 - Cassoulet (cassoulet) : 100/100 - OK
 - Cerises séchées (cerises_sechees_maison) : 100/100 - OK
 - Chantilly classique (chantilly_classique) : 100/100 - OK
-- Chantilly stabilisée (chantilly_gelatine) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Chantilly stabilisée (chantilly_gelatine) : 100/100 - OK
 - Chapelure de pain (chapelure_maison) : 100/100 - OK
 - Chapelure parfumée (chapelure_parfumee) : 100/100 - OK
 - Chipirons à la plancha (chipirons_a_la_plancha) : 82/100 - OK
@@ -186,37 +125,20 @@ Genere le 2026-07-08T13:12:16.283Z.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Court-bouillon (court_bouillon) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Craquelin cacao (craquelin_cacao) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Crème au beurre meringue italienne (creme_beurre_meringue_italienne) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Crème citron (creme_citron_lemon_curd) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Crème diplomate vanille (creme_diplomate_vanille) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Craquelin cacao (craquelin_cacao) : 100/100 - OK
+- Crème au beurre meringue italienne (creme_beurre_meringue_italienne) : 100/100 - OK
+- Crème citron (creme_citron_lemon_curd) : 100/100 - OK
+- Crème diplomate vanille (creme_diplomate_vanille) : 100/100 - OK
 - Crème diplomate vanille à garnir (creme_diplomate_cloud) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Crème mascarpone vanille (mascarpone) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Crème mascarpone vanille (mascarpone) : 100/100 - OK
 - Crème Nutella à garnir (creme_kinder_nutella) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
-- Crème pâtissière praliné (creme_patissiere_praline) : 66/100 - OK
+- Crème pâtissière praliné (creme_patissiere_praline) : 100/100 - OK
+- Crème pâtissière vanille (creme_patissiere_vanille) : 100/100 - OK
+- Crème pistache à garnir (creme_pistache) : 100/100 - OK
+- Crème praliné (creme_praline) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Crème pâtissière vanille (creme_patissiere_vanille) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Crème pistache à garnir (creme_pistache) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Crème praliné (creme_praline) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Crêpes au lait d’amandes (crepes_lait_amandes) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Crevettes à la provençale (crevettes_provencale) : 100/100 - OK
@@ -264,9 +186,7 @@ Genere le 2026-07-08T13:12:16.283Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gâteau roulé à la framboise (gateau_roule_framboise) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
-- Gaufres (gaufre_bruxelles) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Gaufres (gaufre_bruxelles) : 100/100 - OK
 - Gaufres de pommes de terre croustillantes (gaufres_pommes_terre) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gratin chou-fleur comte lardons (gratin_chou_fleur_comte_lardons) : 100/100 - OK
@@ -312,9 +232,7 @@ Genere le 2026-07-08T13:12:16.283Z.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Mayonnaise (mayonnaise_maison) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
-- Meringue italienne (meringue_italienne) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Meringue italienne (meringue_italienne) : 100/100 - OK
 - Meringues (meringues) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Mi-cuits au chocolat (mi_cuits_chocolat) : 100/100 - OK
@@ -346,9 +264,7 @@ Genere le 2026-07-08T13:12:16.283Z.
 - Parmentier de confit de canard et patates douces (parmentier_confit_canard_patates_douces) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Patates douces au four (patates_douces_four) : 100/100 - OK
-- Pâte à choux (pate_choux) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Pâte à choux (pate_choux) : 100/100 - OK
 - Pâté de lapin au piment d’Espelette (pate_lapin_piment_espelette) : 100/100 - OK
 - Pâte légère à frire (pate_legere_beignets_calamar_crevettes) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -422,9 +338,7 @@ Genere le 2026-07-08T13:12:16.283Z.
 - Rougail saucisse (rougail_saucisse) : 100/100 - OK
 - Rouille (rouille_haut_de_gamme) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
-- Salade avocat, œuf et épinards (salade_avocat_oeuf_epinards) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Salade avocat, œuf et épinards (salade_avocat_oeuf_epinards) : 100/100 - OK
 - Salade epinards clementines amande feta (salade_epinards_clementines_amande_feta) : 100/100 - OK
 - Salade melon, mozzarella et jambon cru (salade_melon_mozzarella_jambon_cru) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -471,9 +385,7 @@ Genere le 2026-07-08T13:12:16.283Z.
 - Terrine de campagne (terrine_campagne) : 100/100 - OK
 - Terrine de porc aux pistaches (terrine_porc_pistaches) : 100/100 - OK
 - Tiramisu citron meringué (tiramisu_citron) : 100/100 - OK
-- Tiramisu spéculoos (tiramisu_speculoos) : 66/100 - OK
-  - A surveiller : Conservation ou securite alimentaire a verifier.
-  - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Tiramisu spéculoos (tiramisu_speculoos) : 100/100 - OK
 - Tomate mozzarella basilic (salade_caprese) : 100/100 - OK
 - Tomates cocktail farcies au mascarpone, thon et ciboulette (tomates_cocktail_thon_mascarpone) : 100/100 - OK
 - Tomates confites et séchées (tomates_variantes) : 84/100 - OK
