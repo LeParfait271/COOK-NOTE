@@ -2,6 +2,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
+let terser = null;
+try { terser = require('terser'); } catch (e) { terser = null; }
+
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
 
@@ -66,12 +69,44 @@ function ensureParent(file) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
 }
 
+function minifyJs(code) {
+  if (!terser) return code;
+  try {
+    const minifyFn = terser.minify_sync || terser.minify;
+    const result = minifyFn(code, { compress: true, mangle: true });
+    if (result && result.error) return code;
+    return (result && result.code) || code;
+  } catch (e) {
+    return code;
+  }
+}
+
+function minifyCss(code) {
+  try {
+    return code
+      .replace(/\/\*[\s\S]*?\*\//g, '')
+      .replace(/\s+/g, ' ')
+      .replace(/\s*([{}:;,>])\s*/g, '$1')
+      .trim();
+  } catch (e) {
+    return code;
+  }
+}
+
 function copyFile(relative) {
   const source = path.join(ROOT, relative);
   const destination = path.join(DIST, relative);
   if (!fs.existsSync(source)) throw new Error(`${relative}: fichier source introuvable.`);
   ensureParent(destination);
-  fs.copyFileSync(source, destination);
+  if (relative === 'service-worker.js') {
+    fs.copyFileSync(source, destination);
+  } else if (relative.endsWith('.js')) {
+    fs.writeFileSync(destination, minifyJs(fs.readFileSync(source, 'utf8')), 'utf8');
+  } else if (relative.endsWith('.css')) {
+    fs.writeFileSync(destination, minifyCss(fs.readFileSync(source, 'utf8')), 'utf8');
+  } else {
+    fs.copyFileSync(source, destination);
+  }
 }
 
 function copyDirectory(relative) {

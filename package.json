@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@playwright/test": "1.61.1",
-    "jpeg-js": "^0.4.4"
+    "jpeg-js": "^0.4.4",
+    "terser": "^5.49.0"
   }
 }
-
