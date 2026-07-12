@@ -9,3 +9,4 @@ design-previews/
 mongoose.exe
 .DS_Store
 *.log
+reports/*.png
