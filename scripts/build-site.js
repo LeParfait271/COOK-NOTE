@@ -567,11 +567,10 @@ function writeDistRedirects(recipes) {
   const recipeRules = Object.keys(recipes)
     .sort((left, right) => left.localeCompare(right, 'fr', { sensitivity: 'base' }))
     .flatMap(id => {
-      const slug = encodeURIComponent(id);
-      return [
-        `/recette/${slug} /recette/${slug}/ 301`,
-        `/recette/${slug}/ /recette/${slug}/index.html 200`
-      ];
+        const slug = encodeURIComponent(id);
+        return [
+          `/recette/${slug} /recette/${slug}/ 301`
+        ];
     });
   fs.writeFileSync(path.join(DIST, '_redirects'), [...recipeRules, base, ''].join('\n'), 'utf8');
 }

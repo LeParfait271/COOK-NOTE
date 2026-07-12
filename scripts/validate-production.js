@@ -375,9 +375,11 @@ if (redirects.includes('/recette/* /index.html 200') || redirects.includes('/tec
 if (!buildSite.includes('writeStaticRecipePages') || !buildSite.includes('COOK_NOTE_PRERENDERED_RECIPES') || !buildSite.includes('writeDistRedirects')) {
   fail('build-site.js: prerendu statique des recettes absent.');
 }
-if (!buildSite.includes('`/recette/${slug} /recette/${slug}/ 301`')
-  || !buildSite.includes('`/recette/${slug}/ /recette/${slug}/index.html 200`')) {
+if (!buildSite.includes('`/recette/${slug} /recette/${slug}/ 301`')) {
   fail('build-site.js: redirection canonique des recettes vers slash final absente.');
+}
+if (buildSite.includes('`/recette/${slug}/ /recette/${slug}/index.html 200`')) {
+  fail('build-site.js: redirection vers index.html interdite (boucle Cloudflare).');
 }
 if (!workflow.includes('npm run test:visual') || !workflow.includes('Upload visual smoke artifacts')) {
   fail('GitHub Actions: tests visuels Playwright absents.');

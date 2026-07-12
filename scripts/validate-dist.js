@@ -140,6 +140,9 @@ if (!fs.existsSync(DIST)) {
     if (/^\/(?:recette\/\*|techniques\/)\s+\/index\.html\s+200\b/.test(clean)) {
       fail(`dist/_redirects:${index + 1}: fallback Cloudflare invalide vers index.html.`);
     }
+    if (/^\/recette\/[^/]+\/\s+\/recette\/[^/]+\/index\.html\s+200\b/.test(clean)) {
+      fail(`dist/_redirects:${index + 1}: boucle Cloudflare detectee (redirection vers index.html interdite).`);
+    }
   });
   Object.entries(recipes).forEach(([id, recipe]) => {
     const image = recipe?.image;
@@ -172,9 +175,6 @@ if (!fs.existsSync(DIST)) {
     }
     if (!redirects.includes(`/recette/${slug} /recette/${slug}/ 301`)) {
       fail(`dist/_redirects: redirection recette sans slash absente (${id}).`);
-    }
-    if (!redirects.includes(`/recette/${slug}/ /recette/${slug}/index.html 200`)) {
-      fail(`dist/_redirects: route statique recette absente (${id}).`);
     }
   });
 
