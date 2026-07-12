@@ -2,7 +2,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const { TextDecoder } = require('node:util');
-const jpeg = require('jpeg-js');
+let jpeg;
+try { jpeg = require('./vendor/jpeg-js'); } catch (e) { jpeg = require('jpeg-js'); }
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'android-legacy', 'build', 'generated', 'cook-note-lite');

@@ -9,6 +9,9 @@ const errors = [];
 
 function loadJpeg() {
   try {
+    return require('./vendor/jpeg-js');
+  } catch {}
+  try {
     return require('jpeg-js');
   } catch {}
   const home = process.env.USERPROFILE || process.env.HOME || '';
