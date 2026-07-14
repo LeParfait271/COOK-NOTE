@@ -1,7 +1,9 @@
 package fr.cooknote.legacy;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -61,6 +63,8 @@ public class MainActivity extends Activity {
     private static final String PREFS_NAME = "cook_note_legacy";
     private static final String PREF_SHOPPING = "shopping";
     private static final String PREF_SHOPPING_DONE = "shopping_done";
+    private static final String PREF_INGREDIENT_DONE = "ingredient_done";
+    private static final String PREF_RECENT_SEARCHES = "recent_searches";
     private static final String PREF_KEEP_SCREEN_ON = "keep_screen_on";
     private static final String PREF_QUANTITY_FACTOR = "quantity_factor";
     private static final String PREF_TEXT_MODE = "text_mode";
@@ -128,6 +132,7 @@ public class MainActivity extends Activity {
     private RecipeAdapter adapter;
     private GridView recipeGridView;
     private LinearLayout searchPanel;
+    private LinearLayout recentChipsRow;
     private LinearLayout prefsPanel;
     private Button searchToggle;
     private Button prefsToggle;
@@ -180,6 +185,8 @@ public class MainActivity extends Activity {
     };
     private final Stack<NavState> detailBackStack = new Stack<NavState>();
     private final Set<String> shoppingDoneKeys = new HashSet<String>();
+    private final Set<String> ingredientDoneKeys = new HashSet<String>();
+    private final ArrayList<String> recentSearches = new ArrayList<String>();
     private final ArrayList<String> shoppingRecipeIds = new ArrayList<String>();
     private List<Recipe> pendingListPrewarmRecipes = Collections.emptyList();
     private final Map<String, Integer> inlineVariantSelections = new HashMap<String, Integer>();
@@ -436,6 +443,18 @@ public class MainActivity extends Activity {
         searchRowParams.topMargin = dp(9);
         searchPanel.addView(searchRow, searchRowParams);
 
+        recentChipsRow = new LinearLayout(this);
+        recentChipsRow.setOrientation(LinearLayout.HORIZONTAL);
+        recentChipsRow.setGravity(Gravity.CENTER_VERTICAL);
+        recentChipsRow.setPadding(dp(2), dp(9), dp(2), dp(2));
+        LinearLayout.LayoutParams chipsParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        chipsParams.topMargin = dp(2);
+        searchPanel.addView(recentChipsRow, chipsParams);
+        refreshRecentChips();
+
         searchBox = new EditText(this);
         searchBox.setSingleLine(true);
         searchBox.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
@@ -517,6 +536,32 @@ public class MainActivity extends Activity {
                 if (parent instanceof AbsListView) rememberListPosition((AbsListView) parent);
                 setSearchPanelOpen(false);
                 openRecipe(adapter.getItem(position), true);
+            }
+        });
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final Recipe recipe = adapter.getItem(position);
+                if (recipe == null) return true;
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle(recipe.title);
+                builder.setItems(new CharSequence[]{"Ajouter aux courses", "Copier la recette", "Ouvrir la fiche"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            toggleShopping(recipe);
+                            refreshShoppingButton();
+                        } else if (which == 1) {
+                            copyRecipe(recipe);
+                        } else {
+                            hideKeyboard();
+                            setSearchPanelOpen(false);
+                            openRecipe(recipe, true);
+                        }
+                    }
+                });
+                builder.show();
+                return true;
             }
         });
         gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -643,6 +688,61 @@ public class MainActivity extends Activity {
         currentQuery = "";
         if (searchBox != null && searchBox.getText().length() > 0) searchBox.setText("");
         applyFiltersNow();
+    }
+
+    private void rememberRecentSearch(String query) {
+        String q = query == null ? "" : query.trim();
+        if (q.length() < 2) return;
+        recentSearches.remove(q);
+        recentSearches.add(0, q);
+        while (recentSearches.size() > 6) recentSearches.remove(recentSearches.size() - 1);
+        saveUserState();
+        refreshRecentChips();
+    }
+
+    private void refreshRecentChips() {
+        if (recentChipsRow == null) return;
+        recentChipsRow.removeAllViews();
+        if (recentSearches.isEmpty()) {
+            recentChipsRow.setVisibility(View.GONE);
+            return;
+        }
+        recentChipsRow.setVisibility(View.VISIBLE);
+        TextView label = text("Recentes", 10, COLOR_DIM, true);
+        label.setPadding(0, 0, dp(8), 0);
+        recentChipsRow.addView(label);
+        for (final String query : recentSearches) {
+            Button chip = chipButton(query);
+            chip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (searchBox != null) searchBox.setText(query);
+                    currentQuery = query;
+                    applyFiltersNow();
+                }
+            });
+            recentChipsRow.addView(chip);
+        }
+    }
+
+    private Button chipButton(String value) {
+        Button button = new Button(this);
+        button.setText(value);
+        button.setTextColor(COLOR_TEXT);
+        button.setTextSize(adjustedTextSize(11));
+        button.setSingleLine(true);
+        button.setEllipsize(TextUtils.TruncateAt.END);
+        button.setTypeface(Typeface.DEFAULT_BOLD);
+        button.setAllCaps(false);
+        button.setMinHeight(0);
+        button.setMinimumHeight(0);
+        button.setPadding(dp(10), 0, dp(10), 0);
+        button.setBackground(selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 14));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, dp(30));
+        params.rightMargin = dp(6);
+        button.setLayoutParams(params);
+        return button;
     }
 
     private void setSearchPanelOpen(boolean open) {
@@ -816,6 +916,7 @@ public class MainActivity extends Activity {
         List<Recipe> filtered = homeMode
                 ? repository.homeRecipes()
                 : repository.searchSmart(query);
+        if (!homeMode) rememberRecentSearch(query);
         adapter.setItems(filtered);
         if (filterChanged) resetListPosition();
         scheduleListPrewarm(filtered);
@@ -1838,9 +1939,39 @@ public class MainActivity extends Activity {
                 copyIngredients(recipe);
             }
         });
+        Button reset = sectionButton("Reinitialiser la preparation", false);
+        reset.setEnabled(hasIngredientChecks(recipe));
+        section.addView(reset);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearIngredientChecks(recipe);
+                openRecipe(recipe, false);
+            }
+        });
         for (Recipe.Group group : groups) {
-            addIngredientGroup(section, group, !recipe.variantGroups);
+            addIngredientGroup(section, recipe, group, !recipe.variantGroups);
         }
+    }
+
+    private boolean hasIngredientChecks(Recipe recipe) {
+        if (recipe == null) return false;
+        String prefix = "ing|" + recipe.id + "|";
+        for (String key : ingredientDoneKeys) {
+            if (key.startsWith(prefix)) return true;
+        }
+        return false;
+    }
+
+    private void clearIngredientChecks(Recipe recipe) {
+        if (recipe == null) return;
+        String prefix = "ing|" + recipe.id + "|";
+        ArrayList<String> remove = new ArrayList<String>();
+        for (String key : ingredientDoneKeys) {
+            if (key.startsWith(prefix)) remove.add(key);
+        }
+        ingredientDoneKeys.removeAll(remove);
+        saveUserState();
     }
 
     private void addSteps(LinearLayout content, Recipe recipe) {
@@ -1855,10 +1986,10 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void addIngredientGroup(LinearLayout section, Recipe.Group group, boolean includeGroupSteps) {
+    private void addIngredientGroup(LinearLayout section, Recipe recipe, Recipe.Group group, boolean includeGroupSteps) {
         subTitle(section, group.title);
         for (String item : group.items) {
-            bulletRow(section, scaleIngredient(item));
+            addIngredientCheckRow(section, recipe, group, item);
         }
         if (group.note.length() > 0) body(section, group.note, COLOR_MUTED);
         if (includeGroupSteps) {
@@ -1866,6 +1997,33 @@ public class MainActivity extends Activity {
                 bulletRow(section, step);
             }
         }
+    }
+
+    private void addIngredientCheckRow(LinearLayout section, Recipe recipe, Recipe.Group group, final String item) {
+        final String key = "ing|" + recipe.id + "|" + CookNoteRepository.normalize(group.title) + "|" + CookNoteRepository.normalize(item);
+        CheckBox checkBox = new CheckBox(this);
+        checkBox.setText(scaleIngredient(item));
+        checkBox.setTextColor(COLOR_TEXT);
+        checkBox.setTextSize(adjustedTextSize(13));
+        checkBox.setTypeface(Typeface.DEFAULT);
+        checkBox.setButtonTintList(null);
+        checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
+        checkBox.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
+        checkBox.setChecked(ingredientDoneKeys.contains(key));
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) ingredientDoneKeys.add(key);
+                else ingredientDoneKeys.remove(key);
+                saveUserState();
+            }
+        });
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.topMargin = dp(5);
+        section.addView(checkBox, params);
     }
 
     private void addParentPath(LinearLayout content, Recipe recipe) {
@@ -2938,12 +3096,16 @@ public class MainActivity extends Activity {
         applyThemePalette();
         parseIds(prefs.getString(PREF_SHOPPING, ""), shoppingRecipeIds, 0);
         parseRawIds(prefs.getString(PREF_SHOPPING_DONE, ""), shoppingDoneKeys);
+        parseRawIds(prefs.getString(PREF_INGREDIENT_DONE, ""), ingredientDoneKeys);
+        parseRecentSearches(prefs.getString(PREF_RECENT_SEARCHES, ""), recentSearches);
     }
 
     private void saveUserState() {
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putString(PREF_SHOPPING, joinIds(shoppingRecipeIds));
         editor.putString(PREF_SHOPPING_DONE, joinIds(new ArrayList<String>(shoppingDoneKeys)));
+        editor.putString(PREF_INGREDIENT_DONE, joinIds(new ArrayList<String>(ingredientDoneKeys)));
+        editor.putString(PREF_RECENT_SEARCHES, joinIds(recentSearches));
         editor.putBoolean(PREF_KEEP_SCREEN_ON, keepScreenOn);
         editor.putFloat(PREF_QUANTITY_FACTOR, quantityFactor);
         editor.putInt(PREF_TEXT_MODE, textMode);
@@ -3029,6 +3191,16 @@ public class MainActivity extends Activity {
         for (String id : ids) {
             if (id.length() > 0) output.add(id);
         }
+    }
+
+    private void parseRecentSearches(String raw, List<String> output) {
+        if (raw == null || raw.length() == 0) return;
+        output.clear();
+        String[] ids = raw.split("\\n");
+        for (String id : ids) {
+            if (id.length() >= 2 && !output.contains(id)) output.add(id);
+        }
+        while (output.size() > 6) output.remove(output.size() - 1);
     }
 
     private static String joinIds(List<String> ids) {

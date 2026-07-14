@@ -11,6 +11,7 @@ import android.util.LruCache;
 import android.widget.ImageView;
 
 import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -272,25 +273,36 @@ final class ImageLoader {
     }
 
     private Bitmap decode(String assetPath, int requestedWidth, int requestedHeight) {
+        byte[] data = readAssetBytes(assetPath);
+        if (data == null) return null;
+
         BitmapFactory.Options bounds = new BitmapFactory.Options();
         bounds.inJustDecodeBounds = true;
-        InputStream stream = null;
-        try {
-            stream = context.getAssets().open(assetPath);
-            BitmapFactory.decodeStream(stream, null, bounds);
-        } catch (Exception ignored) {
-            return null;
-        } finally {
-            close(stream);
-        }
+        BitmapFactory.decodeByteArray(data, 0, data.length, bounds);
+        if (bounds.outWidth <= 0 || bounds.outHeight <= 0) return null;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.RGB_565;
         options.inSampleSize = sampleSize(bounds.outWidth, bounds.outHeight, requestedWidth, requestedHeight);
 
         try {
+            return BitmapFactory.decodeByteArray(data, 0, data.length, options);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    private byte[] readAssetBytes(String assetPath) {
+        InputStream stream = null;
+        try {
             stream = context.getAssets().open(assetPath);
-            return BitmapFactory.decodeStream(stream, null, options);
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            byte[] buffer = new byte[8192];
+            int count;
+            while ((count = stream.read(buffer)) != -1) {
+                output.write(buffer, 0, count);
+            }
+            return output.toByteArray();
         } catch (Exception ignored) {
             return null;
         } finally {
