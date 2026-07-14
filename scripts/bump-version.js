@@ -135,4 +135,10 @@ write('service-worker.js', read('service-worker.js')
   .replace(/(recipe\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/\[SW v\d+\]/g, `[SW v${numeric}]`));
 
+write('downloads/android-latest-version.json', `${JSON.stringify({
+  versionCode: Number(numeric),
+  versionName: android,
+  apkUrl: 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk'
+}, null, 2)}\n`);
+
 console.log(`Version Cook Note: ${current} -> ${version} / ${date}`);

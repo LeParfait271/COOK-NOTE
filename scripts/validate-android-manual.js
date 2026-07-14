@@ -112,7 +112,6 @@ expect(
     && androidBuildGradle.includes("noCompress += ['json']")
     && !androidBuildGradle.includes('org.mozilla.geckoview')
     && !androidLegacySettingsGradle.includes('maven.mozilla.org/maven2')
-    && !androidLegacyManifest.includes('android.permission.INTERNET')
     && !androidLegacyManifest.includes('usesCleartextTraffic')
     && !androidLegacyManifest.includes('largeHeap')
     && androidLegacyMainActivity.includes('GridView')
@@ -393,10 +392,45 @@ expect(
   'Android Legacy doit activer R8 et le shrink resources sur l APK distribue.',
   androidBuildGradle.includes('minifyEnabled true')
     && androidBuildGradle.includes('shrinkResources true')
-    && androidBuildGradle.includes('signingConfig signingConfigs.debug')
     && androidBuildGradle.includes("proguard-android-optimize.txt")
     && exists('android-legacy/app/proguard-rules.pro')
 );
+expect(
+  'Android Legacy doit signer la release avec une cle dediee stable pour garder les mises a jour installables.',
+  androidBuildGradle.includes('signingConfig signingConfigs.release')
+    && androidBuildGradle.includes("storeFile file('cook-note-release.jks')")
+    && exists('android-legacy/app/cook-note-release.jks')
+    && !androidBuildGradle.includes('signingConfig signingConfigs.debug')
+);
+expect(
+  'Android Legacy doit permettre la verification et l installation guidee des mises a jour.',
+  androidLegacyManifest.includes('android.permission.INTERNET')
+    && androidLegacyManifest.includes('android.permission.REQUEST_INSTALL_PACKAGES')
+    && androidLegacyMainActivity.includes('checkForUpdatesAsync')
+    && androidLegacyMainActivity.includes('DownloadManager')
+    && androidLegacyMainActivity.includes('UPDATE_MANIFEST_URL')
+    && androidLegacyMainActivity.includes('launchInstall')
+);
+(() => {
+  const versionMatch = androidGradleProperties.match(/^cookNoteAndroidVersion=(\d+)\.(\d{2})$/m);
+  const expectedCode = versionMatch ? Number(versionMatch[1]) * 1000 + Number(versionMatch[2]) : null;
+  const expectedName = versionMatch ? `${versionMatch[1]}.${versionMatch[2]}` : null;
+  let manifest = null;
+  try {
+    manifest = JSON.parse(read('downloads/android-latest-version.json'));
+  } catch (error) {
+    manifest = null;
+  }
+  expect(
+    'Le manifeste de mise a jour Android (downloads/android-latest-version.json) doit exister et porter la meme version produit.',
+    manifest !== null
+      && expectedCode !== null
+      && manifest.versionCode === expectedCode
+      && manifest.versionName === expectedName
+      && typeof manifest.apkUrl === 'string'
+      && manifest.apkUrl.length > 0
+  );
+})();
 expect(
   'Les titres de cartes Android doivent rester fondus dans l image, sans cartouche noir lourd.',
   androidLegacyAdapter.includes('cardTitleOverlayGradient')

@@ -2,9 +2,17 @@ package fr.cooknote.legacy;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
+import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.Settings;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -57,9 +65,18 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import org.json.JSONObject;
 
 public class MainActivity extends Activity {
     private static final String UPDATE_APK_URL = "https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk";
+    private static final String UPDATE_MANIFEST_URL = "https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/android-latest-version.json";
+    private static final String UPDATE_APK_MIME = "application/vnd.android.package-archive";
+    private static final int UPDATE_HTTP_TIMEOUT_MS = 6000;
     private static final String PREFS_NAME = "cook_note_legacy";
     private static final String PREF_SHOPPING = "shopping";
     private static final String PREF_SHOPPING_DONE = "shopping_done";
@@ -72,6 +89,7 @@ public class MainActivity extends Activity {
     private static final String PREF_OPEN_LAST = "open_last";
     private static final String PREF_LAST_RECIPE = "last_recipe";
     private static final String PREF_THEME = "theme";
+    private static final String PREF_UPDATE_SKIP_CODE = "update_skip_code";
     private static final String THEME_DARK = "dark";
     private static final String THEME_LIGHT = "light";
     private static final String STATE_SCREEN = "screen";
@@ -190,6 +208,9 @@ public class MainActivity extends Activity {
     private final ArrayList<String> shoppingRecipeIds = new ArrayList<String>();
     private List<Recipe> pendingListPrewarmRecipes = Collections.emptyList();
     private final Map<String, Integer> inlineVariantSelections = new HashMap<String, Integer>();
+    private long updateDownloadId = -1L;
+    private String updateDownloadVersion = "";
+    private BroadcastReceiver updateDownloadReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,6 +229,7 @@ public class MainActivity extends Activity {
             }
             applyKeepScreenOn();
             showCurrentScreen();
+            checkForUpdatesAsync(false);
         } catch (Exception exception) {
             showNativeError("Cook Note Android 5 Lite", "Catalogue impossible a lire.\n\n" + exception.getMessage());
         }
@@ -414,7 +436,7 @@ public class MainActivity extends Activity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openUpdateDownload();
+                checkForUpdatesAsync(true);
             }
         });
 
@@ -2489,6 +2511,15 @@ public class MainActivity extends Activity {
             }
         });
 
+        Button checkUpdate = sectionButton("Verifier mise a jour", false);
+        section.addView(checkUpdate);
+        checkUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkForUpdatesAsync(true);
+            }
+        });
+
         Button copyApk = sectionButton("Copier lien APK", false);
         section.addView(copyApk);
         copyApk.setOnClickListener(new View.OnClickListener() {
@@ -2733,6 +2764,182 @@ public class MainActivity extends Activity {
                 clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note APK Android 5.0+ v" + repository.version, UPDATE_APK_URL));
             }
             Toast.makeText(this, "Lien copie dans le presse-papiers", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private int installedVersionCode() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
+            return info.versionCode;
+        } catch (Exception exception) {
+            return 0;
+        }
+    }
+
+    private void checkForUpdatesAsync(final boolean manual) {
+        final int installedCode = installedVersionCode();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpURLConnection connection = null;
+                try {
+                    URL url = new URL(UPDATE_MANIFEST_URL);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setConnectTimeout(UPDATE_HTTP_TIMEOUT_MS);
+                    connection.setReadTimeout(UPDATE_HTTP_TIMEOUT_MS);
+                    connection.setRequestProperty("Accept", "application/json");
+                    connection.setInstanceFollowRedirects(true);
+                    if (connection.getResponseCode() != 200) {
+                        if (manual) postUpdateToast("Verification impossible pour le moment.");
+                        return;
+                    }
+                    StringBuilder content = new StringBuilder();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+                    String line;
+                    while ((line = reader.readLine()) != null) content.append(line);
+                    reader.close();
+                    JSONObject json = new JSONObject(content.toString());
+                    final int latestCode = json.optInt("versionCode", 0);
+                    final String latestName = json.optString("versionName", "");
+                    final String apkUrl = json.optString("apkUrl", UPDATE_APK_URL);
+                    if (latestCode > installedCode) {
+                        uiHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                onUpdateAvailable(latestCode, latestName, apkUrl, manual);
+                            }
+                        });
+                    } else if (manual) {
+                        postUpdateToast("Cook Note est deja a jour.");
+                    }
+                } catch (Exception exception) {
+                    if (manual) postUpdateToast("Verification impossible (hors ligne ?).");
+                } finally {
+                    if (connection != null) connection.disconnect();
+                }
+            }
+        }).start();
+    }
+
+    private void postUpdateToast(final String message) {
+        uiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!isFinishing()) Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void onUpdateAvailable(final int latestCode, final String latestName, final String apkUrl, boolean manual) {
+        if (isFinishing()) return;
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        if (!manual && prefs.getInt(PREF_UPDATE_SKIP_CODE, 0) >= latestCode) return;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Mise a jour disponible");
+        builder.setMessage("Cook Note v" + latestName + " est disponible.\nInstaller maintenant ?");
+        builder.setPositiveButton("Installer", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startUpdateDownload(apkUrl, latestName);
+            }
+        });
+        builder.setNegativeButton("Plus tard", null);
+        builder.setNeutralButton("Ignorer", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putInt(PREF_UPDATE_SKIP_CODE, latestCode).apply();
+            }
+        });
+        builder.show();
+    }
+
+    private void startUpdateDownload(String apkUrl, String versionName) {
+        String targetUrl = (apkUrl == null || apkUrl.length() == 0) ? UPDATE_APK_URL : apkUrl;
+        DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        if (manager == null) {
+            openUpdateDownload();
+            return;
+        }
+        try {
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(targetUrl));
+            request.setTitle("Cook Note v" + versionName);
+            request.setDescription("Telechargement de la mise a jour");
+            request.setMimeType(UPDATE_APK_MIME);
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, "cook-note-update.apk");
+            registerUpdateReceiver();
+            updateDownloadVersion = versionName;
+            updateDownloadId = manager.enqueue(request);
+            Toast.makeText(this, "Telechargement de Cook Note v" + versionName + "...", Toast.LENGTH_SHORT).show();
+        } catch (Exception exception) {
+            openUpdateDownload();
+        }
+    }
+
+    private void registerUpdateReceiver() {
+        if (updateDownloadReceiver != null) return;
+        updateDownloadReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1L);
+                if (id != -1L && id == updateDownloadId) onUpdateDownloaded(id);
+            }
+        };
+        IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(updateDownloadReceiver, filter, Context.RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(updateDownloadReceiver, filter);
+        }
+    }
+
+    private void onUpdateDownloaded(long id) {
+        DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        if (manager == null) return;
+        Cursor cursor = null;
+        try {
+            DownloadManager.Query query = new DownloadManager.Query();
+            query.setFilterById(id);
+            cursor = manager.query(query);
+            if (cursor != null && cursor.moveToFirst()) {
+                int statusColumn = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
+                int status = statusColumn >= 0 ? cursor.getInt(statusColumn) : DownloadManager.STATUS_FAILED;
+                if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                    launchInstall(manager.getUriForDownloadedFile(id));
+                } else {
+                    Toast.makeText(this, "Telechargement echoue, ouverture du navigateur", Toast.LENGTH_LONG).show();
+                    openUpdateDownload();
+                }
+            }
+        } catch (Exception exception) {
+            openUpdateDownload();
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+
+    private void launchInstall(Uri apkUri) {
+        if (apkUri == null) {
+            openUpdateDownload();
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !getPackageManager().canRequestPackageInstalls()) {
+            Toast.makeText(this, "Autorise l'installation d'apps depuis Cook Note, puis relance la mise a jour", Toast.LENGTH_LONG).show();
+            try {
+                startActivity(new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:" + getPackageName())));
+                return;
+            } catch (Exception ignored) {
+                // Continue and let the system installer surface the permission prompt.
+            }
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(apkUri, UPDATE_APK_MIME);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException exception) {
+            openUpdateDownload();
         }
     }
 
@@ -3377,6 +3584,14 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         uiHandler.removeCallbacks(applyFiltersRunnable);
         cancelListPrewarm();
+        if (updateDownloadReceiver != null) {
+            try {
+                unregisterReceiver(updateDownloadReceiver);
+            } catch (Exception ignored) {
+                // Receiver may already be gone if registration failed.
+            }
+            updateDownloadReceiver = null;
+        }
         if (imageLoader != null) imageLoader.shutdown();
         super.onDestroy();
     }
