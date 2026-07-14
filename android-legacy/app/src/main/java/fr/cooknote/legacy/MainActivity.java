@@ -1745,17 +1745,6 @@ public class MainActivity extends Activity {
         return choices;
     }
 
-    private String displayMeta(Recipe recipe) {
-        if (recipe.isCollection()) return countLabel(repository.collectionCount(recipe), "fiche rangee", "fiches rangees");
-        ArrayList<String> parts = new ArrayList<String>();
-        String difficulty = recipe.difficultyLabel();
-        if (difficulty.length() > 0) parts.add(difficulty);
-        if (recipe.yield.length() > 0) parts.add(recipe.yield);
-        int totalTime = recipe.activeTime + recipe.cookTime;
-        if (totalTime > 0) parts.add(formatMinutes(totalTime));
-        return joinMetaParts(parts, "Fiche recette");
-    }
-
     private List<InlineVariantChoice> inlineVariantChoices(Recipe recipe) {
         List<InlineVariantChoice> choices = new ArrayList<InlineVariantChoice>();
         for (int index = 0; index < recipe.ingredients.size(); index += 1) {
@@ -1875,33 +1864,6 @@ public class MainActivity extends Activity {
         if (includeGroupSteps) {
             for (String step : group.steps) {
                 bulletRow(section, step);
-            }
-        }
-    }
-
-    private void addNotes(LinearLayout content, Recipe recipe) {
-        if (recipe.notes.isEmpty()) return;
-        LinearLayout section = addSection(content, "Notes", countLabel(recipe.notes.size(), "note", "notes"));
-        for (String note : recipe.notes) {
-            bulletRow(section, note);
-        }
-    }
-
-    private void addTechnical(LinearLayout content, Recipe recipe) {
-        if (recipe.technical.isEmpty()) return;
-        LinearLayout section = addSection(content, "Technique", countLabel(recipe.technical.size(), "info", "infos"));
-        for (Recipe.Technical item : recipe.technical) {
-            labelValue(section, item.label, item.value);
-        }
-    }
-
-    private void addPractical(LinearLayout content, Recipe recipe) {
-        if (recipe.practical.isEmpty()) return;
-        LinearLayout section = addSection(content, "Pratique", countLabel(recipe.practical.size(), "bloc", "blocs"));
-        for (Recipe.PracticalSection practicalSection : recipe.practical) {
-            subTitle(section, practicalSection.title);
-            for (String item : practicalSection.items) {
-                bulletRow(section, item);
             }
         }
     }
@@ -2683,45 +2645,6 @@ public class MainActivity extends Activity {
             builder.append('\n').append("Tout est coche.");
         }
         return builder.toString().trim();
-    }
-
-    private String buildShoppingTextByRecipe(boolean todoOnly, boolean includeChecks) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Cook Note - Liste de courses").append('\n');
-        int headerLength = builder.length();
-        for (String id : shoppingRecipeIds) {
-            Recipe recipe = repository.find(id);
-            if (recipe == null) continue;
-            StringBuilder recipeBuilder = new StringBuilder();
-            appendShoppingIngredients(recipeBuilder, recipe, todoOnly, includeChecks);
-            if (todoOnly && recipeBuilder.length() == 0) continue;
-            builder.append('\n').append(recipe.title).append('\n');
-            builder.append(recipeBuilder);
-        }
-        if (todoOnly && builder.length() == headerLength) {
-            builder.append('\n').append("Tout est coche.");
-        }
-        return builder.toString().trim();
-    }
-
-    private void appendShoppingIngredients(StringBuilder builder, Recipe recipe, boolean todoOnly, boolean includeChecks) {
-        for (Recipe.Group group : selectedIngredientGroups(recipe)) {
-            StringBuilder groupBuilder = new StringBuilder();
-            for (String item : group.items) {
-                String key = shoppingItemKey(recipe, group, item);
-                boolean done = shoppingDoneKeys.contains(key);
-                if (todoOnly && done) continue;
-                if (includeChecks) groupBuilder.append(done ? "[x] " : "[ ] ");
-                else groupBuilder.append("- ");
-                groupBuilder.append(scaleIngredient(item)).append('\n');
-            }
-            if (groupBuilder.length() == 0) continue;
-            builder.append('\n').append(group.title).append('\n');
-            builder.append(groupBuilder);
-            if (group.note.length() > 0 && !todoOnly) {
-                builder.append("Note: ").append(group.note).append('\n');
-            }
-        }
     }
 
     private void appendIngredients(StringBuilder builder, Recipe recipe) {

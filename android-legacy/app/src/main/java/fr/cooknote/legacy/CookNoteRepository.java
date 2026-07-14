@@ -264,7 +264,10 @@ final class CookNoteRepository {
         for (String token : tokens) {
             if (token.length() == 0) continue;
             int tokenScore = scoreToken(token, entry);
-            if (tokenScore <= 0) return -1;
+            if (tokenScore <= 0) {
+                if (token.length() < 4) continue;
+                return -1;
+            }
             score += tokenScore;
         }
 

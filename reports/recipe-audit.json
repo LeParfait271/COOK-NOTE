@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T05:40:49.252Z",
+  "generatedAt": "2026-07-11T23:54:24.307Z",
   "totals": {
     "recipes": 267,
     "leaves": 248,
@@ -8,18 +8,33 @@
     "categoryIdeas": 20,
     "qualityIssues": 0
   },
-  "averageScore": 99,
+  "averageScore": 96,
   "healthDashboard": {
-    "ready": 226,
-    "improve": 22,
+    "ready": 195,
+    "improve": 53,
     "weak": 0,
     "missingDiscovery": 18,
-    "missingSafety": 4,
+    "missingSafety": 35,
     "productionRisk": 0,
     "fewLinks": 217
   },
   "weakestRecipes": [],
   "categoryIdeas": [
+    {
+      "id": "cotelettes_porc_miel_moutarde",
+      "title": "Côtelettes de porc miel moutarde",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
+      "id": "lentilles_tomate_pommes_de_terre_sautees",
+      "title": "Lentilles tomate pommes de terre sautées",
+      "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
+    },
+    {
+      "id": "poulet_sauce_pimentee",
+      "title": "Poulet sauce pimentée",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
     {
       "id": "pancakes_variantes",
       "title": "Pancakes",
@@ -51,11 +66,6 @@
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
-      "id": "cotelettes_porc_miel_moutarde",
-      "title": "Côtelettes de porc miel moutarde",
-      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
-    },
-    {
       "id": "crumble_carottes_cumin_noisettes_parmesan",
       "title": "Crumble de carottes cumin noisettes parmesan",
       "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
@@ -74,11 +84,6 @@
       "id": "haricots_tarbais_chorizo_tomate",
       "title": "Haricots tarbais au chorizo et sauce tomate",
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
-    },
-    {
-      "id": "lentilles_tomate_pommes_de_terre_sautees",
-      "title": "Lentilles tomate pommes de terre sautées",
-      "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
     },
     {
       "id": "oeuf_chili_crisp_toast",
@@ -104,11 +109,6 @@
       "id": "poulet_pommes_de_terre_asperges",
       "title": "Poulet pommes de terre asperges",
       "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
-    },
-    {
-      "id": "poulet_sauce_pimentee",
-      "title": "Poulet sauce pimentée",
-      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
       "id": "poulet_tikka_masala",
@@ -518,8 +518,10 @@
     {
       "id": "carre_d_agneau_croute_d_herbes",
       "title": "Carré d’agneau croûte d’herbes",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -592,8 +594,10 @@
     {
       "id": "chipirons_a_la_plancha",
       "title": "Chipirons à la plancha",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -626,8 +630,10 @@
     {
       "id": "chou_fleur_croustillant",
       "title": "Chou-fleur croustillant",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -694,8 +700,10 @@
     {
       "id": "cocotte_pois_chiches_tomates_montbeliard",
       "title": "Cocotte de pois chiches tomates et saucisse de Montbéliard",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -790,8 +798,10 @@
     {
       "id": "cotelettes_porc_miel_moutarde",
       "title": "Côtelettes de porc miel moutarde",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": [
         "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
@@ -872,8 +882,10 @@
     {
       "id": "creme_kinder_nutella",
       "title": "Crème Nutella à garnir",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -972,16 +984,20 @@
     {
       "id": "cuisses_poulet_asiatique",
       "title": "Cuisses de poulet asiatique",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "cuisses_de_poulet_miel_moutarde",
       "title": "Cuisses de poulet miel moutarde",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1090,8 +1106,10 @@
     {
       "id": "creme_amande_citron",
       "title": "Fond de tarte amande",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1122,8 +1140,10 @@
     {
       "id": "frites_patate_douce",
       "title": "Frites de patate douce",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1210,8 +1230,10 @@
     {
       "id": "gratin_dauphinois",
       "title": "Gratin de pommes de terre",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1312,24 +1334,30 @@
     {
       "id": "joues_de_boeuf_carottes_orange_vin_rouge",
       "title": "Joues de bœuf carottes orange vin rouge",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "joues_boeuf_whiskey_orange",
       "title": "Joues de bœuf whiskey orange",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "joues_de_porc_chorizo_piment",
       "title": "Joues de porc chorizo piment",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1360,8 +1388,10 @@
     {
       "id": "lentilles_tomate_pommes_de_terre_sautees",
       "title": "Lentilles tomate pommes de terre sautées",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": [
         "Categorie possible : Accompagnements (semble etre un accompagnement)."
@@ -1402,8 +1432,10 @@
     {
       "id": "mayonnaise_maison",
       "title": "Mayonnaise",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1700,8 +1732,10 @@
     {
       "id": "poelee_ble_poulet_curcuma",
       "title": "Poêlée de blé au poulet et curcuma",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1716,8 +1750,10 @@
     {
       "id": "pommes_de_terre_air_fryer",
       "title": "Pommes de terre à l’air fryer",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1806,24 +1842,30 @@
     {
       "id": "poulet_basquaise",
       "title": "Poulet basquaise",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "poulet_frit_air_fryer",
       "title": "Poulet frit air fryer",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "poulet_gaston_gerard",
       "title": "Poulet Gaston Gérard",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1840,8 +1882,10 @@
     {
       "id": "poulet_sauce_pimentee",
       "title": "Poulet sauce pimentée",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": [
         "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
@@ -1876,8 +1920,10 @@
     {
       "id": "puree_courge_butternut",
       "title": "Purée de courge butternut",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1892,8 +1938,10 @@
     {
       "id": "puree_pommes_de_terre_ail_rose_huile_olive",
       "title": "Purée de pommes de terre à l’ail rose et huile d’olive",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -2062,8 +2110,10 @@
     {
       "id": "sauce_aux_poivres",
       "title": "Sauce aux poivres",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -2078,16 +2128,20 @@
     {
       "id": "sauce_chevre_creme",
       "title": "Sauce chevre crème",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "sauce_mornay",
       "title": "Sauce Mornay",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -2102,8 +2156,10 @@
     {
       "id": "sauce_roquefort",
       "title": "Sauce roquefort",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -2316,16 +2372,20 @@
     {
       "id": "tomates_provencales",
       "title": "Tomates provençales",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "toppings_frites",
       "title": "Toppings frites",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -2348,8 +2408,10 @@
     {
       "id": "verrines_chataignes_foie_gras",
       "title": "Verrines châtaignes et foie gras",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
