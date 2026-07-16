@@ -107,7 +107,6 @@ public class MainActivity extends Activity {
     private int COLOR_PANEL = Color.rgb(19, 17, 13);
     private int COLOR_PANEL_DEEP = Color.rgb(12, 10, 8);
     private int COLOR_SURFACE = Color.rgb(24, 21, 16);
-    private int COLOR_ELEVATED = Color.rgb(33, 28, 21);
     private int COLOR_CARD = Color.rgb(22, 19, 15);
     private int COLOR_CARD_SOFT = Color.rgb(30, 26, 20);
     private int COLOR_CARD_ACTIVE = Color.rgb(58, 43, 22);
@@ -122,7 +121,6 @@ public class MainActivity extends Activity {
     private int COLOR_GOLD = Color.rgb(251, 191, 36);
     private int COLOR_ORANGE = Color.rgb(245, 158, 11);
     private int COLOR_GOLD_SOFT = Color.rgb(214, 158, 64);
-    private int COLOR_SHEEN = Color.rgb(255, 224, 150);
     private static final int DETAIL_IMAGE_MAX_WIDTH = 1280;
     private static final int BACK_SWIPE_EDGE_DP = 64;
     private static final int BACK_SWIPE_TRIGGER_DP = 86;
@@ -3693,15 +3691,5 @@ public class MainActivity extends Activity {
                 .setDuration(220)
                 .setInterpolator(new android.view.animation.PathInterpolator(0.22f, 0.72f, 0.2f, 1f))
                 .start();
-    }
-
-    private void liftCard(View card, boolean raised) {
-        if (card == null) return;
-        float elevation = raised ? dp(6) : dp(2);
-        card.animate()
-                .setDuration(200)
-                .setInterpolator(new android.view.animation.PathInterpolator(0.22f, 0.72f, 0.2f, 1f))
-                .start();
-        card.setTranslationZ(elevation);
     }
 }
