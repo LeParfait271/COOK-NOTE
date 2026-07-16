@@ -139,9 +139,9 @@ const APP_INSTALL_OPTIONS = Object.freeze([
       'Si le lien direct affiche une erreur, utilise le lien brut ou la page GitHub.'
     ],
     fileName: ANDROID_LEGACY_APK_FILE,
-    href: `${APP_REPO_DOWNLOAD_BASE}/${ANDROID_LEGACY_APK_FILE}`,
-    rawHref: `${APP_RAW_DOWNLOAD_BASE}/${ANDROID_LEGACY_APK_FILE}`,
-    pageHref: `${APP_REPO_FILE_BASE}/${ANDROID_LEGACY_APK_FILE}`,
+    href: `${APP_REPO_DOWNLOAD_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`,
+    rawHref: `${APP_RAW_DOWNLOAD_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`,
+    pageHref: `${APP_REPO_FILE_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`,
     stableHref: `${APP_REPO_DOWNLOAD_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`,
     stableRawHref: `${APP_RAW_DOWNLOAD_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`,
     stablePageHref: `${APP_REPO_FILE_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`,
