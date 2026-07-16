@@ -2726,8 +2726,6 @@ public class MainActivity extends Activity {
         button.setBackground(buttonPanel(primary));
         button.setElevation(dp(2));
         button.setStateListAnimator(null);
-        button.setOutlineSpotShadowColor(COLOR_GOLD);
-        button.setOutlineAmbientShadowColor(COLOR_GOLD);
         button.setFocusableInTouchMode(true);
         return button;
     }
