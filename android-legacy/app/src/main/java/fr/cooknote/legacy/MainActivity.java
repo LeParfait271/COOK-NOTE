@@ -103,22 +103,26 @@ public class MainActivity extends Activity {
     private static final int SCREEN_RECIPE = 1;
     private static final int SCREEN_SHOPPING = 2;
     private static final int SCREEN_DIAGNOSTIC = 3;
-    private int COLOR_BG = Color.rgb(4, 4, 4);
-    private int COLOR_PANEL = Color.rgb(17, 16, 13);
-    private int COLOR_PANEL_DEEP = Color.rgb(8, 7, 6);
-    private int COLOR_CARD = Color.rgb(18, 17, 14);
-    private int COLOR_CARD_SOFT = Color.rgb(28, 26, 21);
-    private int COLOR_CARD_ACTIVE = Color.rgb(52, 39, 20);
-    private int COLOR_TEXT = Color.rgb(255, 247, 237);
-    private int COLOR_TEXT_DARK = Color.rgb(22, 17, 8);
-    private int COLOR_MUTED = Color.rgb(222, 214, 200);
-    private int COLOR_DIM = Color.rgb(178, 165, 145);
-    private int COLOR_BORDER = Color.rgb(113, 84, 36);
-    private int COLOR_BORDER_BRIGHT = Color.rgb(176, 128, 45);
-    private int COLOR_BORDER_SOFT = Color.rgb(78, 64, 38);
-    private int COLOR_LINE = Color.rgb(92, 72, 38);
+    private int COLOR_BG = Color.rgb(7, 6, 5);
+    private int COLOR_PANEL = Color.rgb(19, 17, 13);
+    private int COLOR_PANEL_DEEP = Color.rgb(12, 10, 8);
+    private int COLOR_SURFACE = Color.rgb(24, 21, 16);
+    private int COLOR_ELEVATED = Color.rgb(33, 28, 21);
+    private int COLOR_CARD = Color.rgb(22, 19, 15);
+    private int COLOR_CARD_SOFT = Color.rgb(30, 26, 20);
+    private int COLOR_CARD_ACTIVE = Color.rgb(58, 43, 22);
+    private int COLOR_TEXT = Color.rgb(255, 248, 238);
+    private int COLOR_TEXT_DARK = Color.rgb(24, 18, 9);
+    private int COLOR_MUTED = Color.rgb(226, 217, 202);
+    private int COLOR_DIM = Color.rgb(184, 170, 149);
+    private int COLOR_BORDER = Color.rgb(120, 90, 42);
+    private int COLOR_BORDER_BRIGHT = Color.rgb(184, 134, 52);
+    private int COLOR_BORDER_SOFT = Color.rgb(82, 67, 40);
+    private int COLOR_LINE = Color.rgb(96, 76, 42);
     private int COLOR_GOLD = Color.rgb(251, 191, 36);
     private int COLOR_ORANGE = Color.rgb(245, 158, 11);
+    private int COLOR_GOLD_SOFT = Color.rgb(214, 158, 64);
+    private int COLOR_SHEEN = Color.rgb(255, 224, 150);
     private static final int DETAIL_IMAGE_MAX_WIDTH = 1280;
     private static final int BACK_SWIPE_EDGE_DP = 64;
     private static final int BACK_SWIPE_TRIGGER_DP = 86;
@@ -325,8 +329,9 @@ public class MainActivity extends Activity {
 
         LinearLayout header = new LinearLayout(this);
         header.setOrientation(LinearLayout.VERTICAL);
-        header.setPadding(dp(10), dp(7), dp(10), dp(8));
+        header.setPadding(dp(14), dp(12), dp(14), dp(10));
         header.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER_SOFT, 1, 0));
+        header.setElevation(dp(4));
         root.addView(header, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -335,18 +340,19 @@ public class MainActivity extends Activity {
         LinearLayout brandRow = new LinearLayout(this);
         brandRow.setOrientation(LinearLayout.HORIZONTAL);
         brandRow.setGravity(Gravity.CENTER_VERTICAL);
-        brandRow.setPadding(dp(10), dp(7), dp(10), dp(8));
-        brandRow.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 8));
+        brandRow.setPadding(dp(4), dp(6), dp(4), dp(6));
+        brandRow.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_SURFACE, COLOR_BORDER_SOFT, 1, 14));
         header.addView(brandRow, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         ));
 
         FrameLayout logoFrame = new FrameLayout(this);
-        logoFrame.setPadding(dp(2), dp(2), dp(2), dp(2));
-        logoFrame.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 8));
-        LinearLayout.LayoutParams logoFrameParams = new LinearLayout.LayoutParams(dp(48), dp(48));
-        logoFrameParams.rightMargin = dp(12);
+        logoFrame.setPadding(dp(3), dp(3), dp(3), dp(3));
+        logoFrame.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_CARD_ACTIVE, COLOR_BORDER_BRIGHT, 1, 14));
+        logoFrame.setElevation(dp(3));
+        LinearLayout.LayoutParams logoFrameParams = new LinearLayout.LayoutParams(dp(54), dp(54));
+        logoFrameParams.rightMargin = dp(14);
         brandRow.addView(logoFrame, logoFrameParams);
 
         ImageView logo = new ImageView(this);
@@ -362,15 +368,15 @@ public class MainActivity extends Activity {
         brandCopy.setOrientation(LinearLayout.VERTICAL);
         brandRow.addView(brandCopy, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
-        TextView title = text("Cook Note", 23, COLOR_TEXT, true);
+        TextView title = text("Cook Note", 26, COLOR_TEXT, true);
         title.setGravity(Gravity.CENTER_VERTICAL);
         title.setIncludeFontPadding(false);
-        title.setLetterSpacing(0.02f);
+        title.setLetterSpacing(0.04f);
         title.setShadowLayer(2.5f, 0, dp(1), Color.BLACK);
         brandCopy.addView(title);
 
-        TextView subtitle = text("Carnet tablette Android 5.0+ - v" + repository.version, 10, COLOR_MUTED, true);
-        subtitle.setPadding(0, dp(2), 0, 0);
+        TextView subtitle = text("Carnet tablette Android 5.0+  -  v" + repository.version, 10, COLOR_DIM, true);
+        subtitle.setPadding(0, dp(3), 0, 0);
         brandCopy.addView(subtitle);
 
         LinearLayout stats = new LinearLayout(this);
@@ -379,12 +385,12 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        statsParams.topMargin = dp(6);
+        statsParams.topMargin = dp(9);
         brandCopy.addView(stats, statsParams);
         addHeaderStat(stats, String.valueOf(repository.homeRecipes().size()), "accueil");
         addHeaderStat(stats, String.valueOf(repository.searchableRecipes().size()), "fiches");
 
-        addAccentLine(header, 8, 0);
+        addAccentLine(header, 9, 0);
 
         LinearLayout actionRow = new LinearLayout(this);
         actionRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -395,8 +401,11 @@ public class MainActivity extends Activity {
         actionParams.topMargin = dp(8);
         header.addView(actionRow, actionParams);
 
+        animateIn(header, 0);
+        animateIn(actionRow, 70);
+
         searchToggle = actionButton("Recherche", true);
-        LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(0, dp(36), 1);
+        LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(0, dp(40), 1);
         searchParams.rightMargin = dp(7);
         actionRow.addView(searchToggle, searchParams);
         searchToggle.setOnClickListener(new View.OnClickListener() {
@@ -407,7 +416,7 @@ public class MainActivity extends Activity {
         });
 
         shoppingButton = actionButton("Courses (" + shoppingRecipeIds.size() + ")", false);
-        LinearLayout.LayoutParams shoppingParams = new LinearLayout.LayoutParams(0, dp(36), 1);
+        LinearLayout.LayoutParams shoppingParams = new LinearLayout.LayoutParams(0, dp(40), 1);
         shoppingParams.rightMargin = dp(7);
         actionRow.addView(shoppingButton, shoppingParams);
         shoppingButton.setOnClickListener(new View.OnClickListener() {
@@ -420,7 +429,7 @@ public class MainActivity extends Activity {
         });
 
         prefsToggle = actionButton("Reglages", false);
-        LinearLayout.LayoutParams prefsParams = new LinearLayout.LayoutParams(0, dp(36), 1);
+        LinearLayout.LayoutParams prefsParams = new LinearLayout.LayoutParams(0, dp(40), 1);
         prefsParams.rightMargin = dp(7);
         actionRow.addView(prefsToggle, prefsParams);
         prefsToggle.setOnClickListener(new View.OnClickListener() {
@@ -432,7 +441,7 @@ public class MainActivity extends Activity {
 
         Button update = actionButton("Mise a jour", false);
         update.setText("Maj v" + repository.version);
-        actionRow.addView(update, new LinearLayout.LayoutParams(0, dp(36), 1));
+        actionRow.addView(update, new LinearLayout.LayoutParams(0, dp(40), 1));
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -685,11 +694,11 @@ public class MainActivity extends Activity {
     private void addHeaderStat(LinearLayout row, String value, String label) {
         LinearLayout stat = new LinearLayout(this);
         stat.setOrientation(LinearLayout.VERTICAL);
-        stat.setPadding(dp(9), dp(4), dp(9), dp(5));
-        stat.setMinimumWidth(dp(88));
-        stat.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
+        stat.setPadding(dp(12), dp(6), dp(12), dp(7));
+        stat.setMinimumWidth(dp(92));
+        stat.setBackground(panelGradient(COLOR_SURFACE, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 12));
 
-        TextView valueView = text(value, 11, COLOR_TEXT, true);
+        TextView valueView = text(value, 13, COLOR_GOLD_SOFT, true);
         valueView.setIncludeFontPadding(false);
         stat.addView(valueView);
 
@@ -702,7 +711,7 @@ public class MainActivity extends Activity {
         LinearLayout.LayoutParams params = compactStats
                 ? new LinearLayout.LayoutParams(dp(108), ViewGroup.LayoutParams.WRAP_CONTENT)
                 : new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
-        params.rightMargin = dp(6);
+        params.rightMargin = dp(7);
         row.addView(stat, params);
     }
 
@@ -1181,7 +1190,8 @@ public class MainActivity extends Activity {
     private void addDetailHero(LinearLayout content, final Recipe recipe) {
         FrameLayout heroCard = new FrameLayout(this);
         heroCard.setPadding(dp(1), dp(1), dp(1), dp(1));
-        heroCard.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 8));
+        heroCard.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_CARD_ACTIVE, COLOR_BORDER_BRIGHT, 1, 16));
+        heroCard.setElevation(dp(4));
         int heroHeight = detailHeroHeight();
         content.addView(heroCard, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -1199,7 +1209,7 @@ public class MainActivity extends Activity {
         imageLoader.loadDetail(recipe.detailImage, hero, detailImageRequestWidth(), heroHeight);
 
         View veil = new View(this);
-        veil.setBackgroundColor(Color.argb(recipe.isCollection() ? 104 : 72, 0, 0, 0));
+        veil.setBackgroundColor(Color.argb(recipe.isCollection() ? 96 : 66, 0, 0, 0));
         heroCard.addView(veil, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -1209,7 +1219,7 @@ public class MainActivity extends Activity {
 
         LinearLayout overlay = new LinearLayout(this);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(13), dp(12), dp(13), dp(13));
+        overlay.setPadding(dp(15), dp(13), dp(15), dp(14));
         overlay.setBackground(bottomOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -1217,6 +1227,8 @@ public class MainActivity extends Activity {
                 Gravity.BOTTOM
         );
         heroCard.addView(overlay, overlayParams);
+
+        animateIn(heroCard, 0);
 
         TextView breadcrumb = text(detailBreadcrumb(recipe), 10, COLOR_MUTED, true);
         breadcrumb.setSingleLine(true);
@@ -2710,8 +2722,13 @@ public class MainActivity extends Activity {
         button.setAllCaps(false);
         button.setMinHeight(0);
         button.setMinimumHeight(0);
-        button.setPadding(dp(6), 0, dp(6), 0);
+        button.setPadding(dp(10), 0, dp(10), 0);
         button.setBackground(buttonPanel(primary));
+        button.setElevation(dp(2));
+        button.setStateListAnimator(null);
+        button.setOutlineSpotShadowColor(COLOR_GOLD);
+        button.setOutlineAmbientShadowColor(COLOR_GOLD);
+        button.setFocusableInTouchMode(true);
         return button;
     }
 
@@ -2866,7 +2883,8 @@ public class MainActivity extends Activity {
             request.setDescription("Telechargement de la mise a jour");
             request.setMimeType(UPDATE_APK_MIME);
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, "cook-note-update.apk");
+            request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS,
+                    "cook-note-update-" + versionName + ".apk");
             registerUpdateReceiver();
             updateDownloadVersion = versionName;
             updateDownloadId = manager.enqueue(request);
@@ -3656,5 +3674,44 @@ public class MainActivity extends Activity {
 
     private int dp(int value) {
         return (int) (value * getResources().getDisplayMetrics().density + 0.5f);
+    }
+
+    private boolean motionEnabled() {
+        try {
+            float scale = android.provider.Settings.Global.getFloat(
+                    getContentResolver(),
+                    android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1f);
+            return scale > 0.0f;
+        } catch (Exception ignored) {
+            return true;
+        }
+    }
+
+    private void animateIn(View view, int delayMs) {
+        if (view == null) return;
+        if (!motionEnabled()) {
+            view.setAlpha(1f);
+            view.setTranslationY(0f);
+            return;
+        }
+        view.setAlpha(0f);
+        view.setTranslationY(dp(10));
+        view.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setStartDelay(delayMs)
+                .setDuration(220)
+                .setInterpolator(new android.view.animation.PathInterpolator(0.22f, 0.72f, 0.2f, 1f))
+                .start();
+    }
+
+    private void liftCard(View card, boolean raised) {
+        if (card == null) return;
+        float elevation = raised ? dp(6) : dp(2);
+        card.animate()
+                .setDuration(200)
+                .setInterpolator(new android.view.animation.PathInterpolator(0.22f, 0.72f, 0.2f, 1f))
+                .start();
+        card.setTranslationZ(elevation);
     }
 }

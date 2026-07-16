@@ -5,10 +5,12 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.PathInterpolator;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
@@ -21,16 +23,18 @@ import java.util.List;
 import java.util.Map;
 
 final class RecipeAdapter extends BaseAdapter {
-    private int COLOR_BG = Color.rgb(4, 4, 4);
-    private int COLOR_CARD = Color.rgb(18, 17, 14);
-    private int COLOR_CARD_SOFT = Color.rgb(28, 26, 21);
-    private int COLOR_CARD_ACTIVE = Color.rgb(52, 39, 20);
-    private int COLOR_TEXT = Color.rgb(255, 247, 237);
-    private int COLOR_MUTED = Color.rgb(222, 214, 200);
-    private int COLOR_BORDER = Color.rgb(113, 84, 36);
-    private int COLOR_BORDER_BRIGHT = Color.rgb(176, 128, 45);
+    private int COLOR_BG = Color.rgb(7, 6, 5);
+    private int COLOR_CARD = Color.rgb(22, 19, 15);
+    private int COLOR_CARD_SOFT = Color.rgb(30, 26, 20);
+    private int COLOR_CARD_ACTIVE = Color.rgb(58, 43, 22);
+    private int COLOR_TEXT = Color.rgb(255, 248, 238);
+    private int COLOR_MUTED = Color.rgb(226, 217, 202);
+    private int COLOR_BORDER = Color.rgb(120, 90, 42);
+    private int COLOR_BORDER_BRIGHT = Color.rgb(184, 134, 52);
     private int COLOR_GOLD = Color.rgb(251, 191, 36);
     private int COLOR_ORANGE = Color.rgb(245, 158, 11);
+    private int COLOR_SHEEN = Color.rgb(255, 224, 150);
+    private int COLOR_GOLD_SOFT = Color.rgb(214, 158, 64);
     private static final int CARD_MIN_WIDTH_DP = 286;
     private static final int CARD_SPACING_DP = 11;
     private static final int CARD_MIN_HEIGHT_DP = 130;
@@ -193,7 +197,7 @@ final class RecipeAdapter extends BaseAdapter {
     private ViewHolder createRow() {
         LinearLayout root = new LinearLayout(context);
         root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(dp(2), 0, dp(2), 0);
+        root.setPadding(dp(3), dp(3), dp(3), dp(4));
         root.setBackgroundColor(COLOR_BG);
         root.setLayoutParams(new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -203,7 +207,8 @@ final class RecipeAdapter extends BaseAdapter {
         LinearLayout card = new LinearLayout(context);
         card.setOrientation(LinearLayout.VERTICAL);
         card.setPadding(dp(1), dp(1), dp(1), dp(1));
-        card.setBackground(selectablePanel(COLOR_CARD, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 8));
+        card.setBackground(selectablePanel(COLOR_CARD, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 16));
+        card.setElevation(dp(3));
         root.addView(card, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -225,7 +230,7 @@ final class RecipeAdapter extends BaseAdapter {
         ));
 
         View veil = new View(context);
-        veil.setBackgroundColor(Color.argb(24, 0, 0, 0));
+        veil.setBackgroundColor(Color.argb(18, 0, 0, 0));
         frame.addView(veil, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -233,7 +238,7 @@ final class RecipeAdapter extends BaseAdapter {
 
         View topEdge = new View(context);
         topEdge.setBackground(gradientPanel(
-                Color.argb(58, 251, 191, 36),
+                Color.argb(120, 251, 191, 36),
                 Color.argb(0, 251, 191, 36),
                 Color.TRANSPARENT,
                 0,
@@ -241,27 +246,27 @@ final class RecipeAdapter extends BaseAdapter {
         ));
         frame.addView(topEdge, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(2),
+                dp(3),
                 Gravity.TOP
         ));
 
         View bottomEdge = new View(context);
         bottomEdge.setBackground(gradientPanel(
                 Color.argb(0, 245, 158, 11),
-                Color.argb(72, 245, 158, 11),
+                Color.argb(96, 245, 158, 11),
                 Color.TRANSPARENT,
                 0,
                 0
         ));
         frame.addView(bottomEdge, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(2),
+                dp(3),
                 Gravity.BOTTOM
         ));
 
         LinearLayout overlay = new LinearLayout(context);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(14), dp(22), dp(14), dp(13));
+        overlay.setPadding(dp(15), dp(24), dp(15), dp(14));
         overlay.setBackground(cardTitleOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -271,24 +276,38 @@ final class RecipeAdapter extends BaseAdapter {
         frame.addView(overlay, overlayParams);
 
         TextView title = new TextView(context);
-        title.setTextColor(Color.rgb(249, 242, 231));
+        title.setTextColor(Color.rgb(255, 250, 240));
         title.setTextSize(16);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setIncludeFontPadding(false);
-        title.setLineSpacing(dp(1), 1.02f);
-        title.setShadowLayer(2.0f, 0, dp(1), Color.argb(220, 0, 0, 0));
+        title.setLineSpacing(dp(1), 1.04f);
+        title.setShadowLayer(3.0f, 0, dp(2), Color.argb(235, 0, 0, 0));
         LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
         overlay.addView(title, titleParams);
 
+        TextView accent = new TextView(context);
+        accent.setText("Cook Note");
+        accent.setTextColor(Color.rgb(255, 214, 130));
+        accent.setTextSize(10);
+        accent.setTypeface(Typeface.DEFAULT_BOLD);
+        accent.setLetterSpacing(0.08f);
+        accent.setIncludeFontPadding(false);
+        accent.setPadding(0, dp(4), 0, 0);
+        overlay.addView(accent, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+
         ViewHolder holder = new ViewHolder();
         holder.root = root;
         holder.image = image;
         holder.title = title;
+        animateIn(card, 0);
         return holder;
     }
 
@@ -333,6 +352,35 @@ final class RecipeAdapter extends BaseAdapter {
 
     private int dp(int value) {
         return (int) (value * context.getResources().getDisplayMetrics().density + 0.5f);
+    }
+
+    private boolean motionEnabled() {
+        try {
+            float scale = Settings.Global.getFloat(
+                    context.getContentResolver(),
+                    Settings.Global.ANIMATOR_DURATION_SCALE, 1f);
+            return scale > 0.0f;
+        } catch (Exception ignored) {
+            return true;
+        }
+    }
+
+    private void animateIn(View view, int delayMs) {
+        if (view == null) return;
+        if (!motionEnabled()) {
+            view.setAlpha(1f);
+            view.setTranslationY(0f);
+            return;
+        }
+        view.setAlpha(0f);
+        view.setTranslationY(dp(12));
+        view.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setStartDelay(delayMs)
+                .setDuration(220)
+                .setInterpolator(new PathInterpolator(0.22f, 0.72f, 0.2f, 1f))
+                .start();
     }
 
     private GradientDrawable panel(int color, int strokeColor, int strokeWidth, int radiusDp) {
