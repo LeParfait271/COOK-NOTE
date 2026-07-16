@@ -329,9 +329,8 @@ public class MainActivity extends Activity {
 
         LinearLayout header = new LinearLayout(this);
         header.setOrientation(LinearLayout.VERTICAL);
-        header.setPadding(dp(14), dp(12), dp(14), dp(10));
-        header.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER_SOFT, 1, 0));
-        header.setElevation(dp(4));
+        header.setPadding(dp(16), dp(14), dp(16), dp(12));
+        header.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, 0, 0, 0));
         root.addView(header, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -340,18 +339,15 @@ public class MainActivity extends Activity {
         LinearLayout brandRow = new LinearLayout(this);
         brandRow.setOrientation(LinearLayout.HORIZONTAL);
         brandRow.setGravity(Gravity.CENTER_VERTICAL);
-        brandRow.setPadding(dp(4), dp(6), dp(4), dp(6));
-        brandRow.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_SURFACE, COLOR_BORDER_SOFT, 1, 14));
         header.addView(brandRow, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         ));
 
         FrameLayout logoFrame = new FrameLayout(this);
-        logoFrame.setPadding(dp(3), dp(3), dp(3), dp(3));
-        logoFrame.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_CARD_ACTIVE, COLOR_BORDER_BRIGHT, 1, 14));
-        logoFrame.setElevation(dp(3));
-        LinearLayout.LayoutParams logoFrameParams = new LinearLayout.LayoutParams(dp(54), dp(54));
+        logoFrame.setPadding(dp(7), dp(7), dp(7), dp(7));
+        logoFrame.setBackground(panel(COLOR_CARD_ACTIVE, COLOR_BORDER_BRIGHT, 1, 40));
+        LinearLayout.LayoutParams logoFrameParams = new LinearLayout.LayoutParams(dp(52), dp(52));
         logoFrameParams.rightMargin = dp(14);
         brandRow.addView(logoFrame, logoFrameParams);
 
@@ -368,15 +364,14 @@ public class MainActivity extends Activity {
         brandCopy.setOrientation(LinearLayout.VERTICAL);
         brandRow.addView(brandCopy, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
-        TextView title = text("Cook Note", 26, COLOR_TEXT, true);
+        TextView title = text("Cook Note", 27, COLOR_TEXT, true);
         title.setGravity(Gravity.CENTER_VERTICAL);
         title.setIncludeFontPadding(false);
-        title.setLetterSpacing(0.04f);
-        title.setShadowLayer(2.5f, 0, dp(1), Color.BLACK);
+        title.setLetterSpacing(0.05f);
         brandCopy.addView(title);
 
-        TextView subtitle = text("Carnet tablette Android 5.0+  -  v" + repository.version, 10, COLOR_DIM, true);
-        subtitle.setPadding(0, dp(3), 0, 0);
+        TextView subtitle = text("Carnet tablette Android 5.0+   -   v" + repository.version, 10, COLOR_DIM, true);
+        subtitle.setPadding(0, dp(4), 0, 0);
         brandCopy.addView(subtitle);
 
         LinearLayout stats = new LinearLayout(this);
@@ -385,12 +380,12 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        statsParams.topMargin = dp(9);
+        statsParams.topMargin = dp(11);
         brandCopy.addView(stats, statsParams);
         addHeaderStat(stats, String.valueOf(repository.homeRecipes().size()), "accueil");
         addHeaderStat(stats, String.valueOf(repository.searchableRecipes().size()), "fiches");
 
-        addAccentLine(header, 9, 0);
+        addAccentLine(header, 11, 0);
 
         LinearLayout actionRow = new LinearLayout(this);
         actionRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -1189,9 +1184,7 @@ public class MainActivity extends Activity {
 
     private void addDetailHero(LinearLayout content, final Recipe recipe) {
         FrameLayout heroCard = new FrameLayout(this);
-        heroCard.setPadding(dp(1), dp(1), dp(1), dp(1));
-        heroCard.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_CARD_ACTIVE, COLOR_BORDER_BRIGHT, 1, 16));
-        heroCard.setElevation(dp(4));
+        heroCard.setBackground(panel(COLOR_CARD, COLOR_BORDER_BRIGHT, 1, 16));
         int heroHeight = detailHeroHeight();
         content.addView(heroCard, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -2724,7 +2717,6 @@ public class MainActivity extends Activity {
         button.setMinimumHeight(0);
         button.setPadding(dp(10), 0, dp(10), 0);
         button.setBackground(buttonPanel(primary));
-        button.setElevation(dp(2));
         button.setStateListAnimator(null);
         button.setFocusableInTouchMode(true);
         return button;

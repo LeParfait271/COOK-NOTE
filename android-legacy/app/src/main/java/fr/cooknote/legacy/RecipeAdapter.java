@@ -197,18 +197,16 @@ final class RecipeAdapter extends BaseAdapter {
     private ViewHolder createRow() {
         LinearLayout root = new LinearLayout(context);
         root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(dp(3), dp(3), dp(3), dp(4));
+        root.setPadding(dp(4), dp(4), dp(4), dp(8));
         root.setBackgroundColor(COLOR_BG);
         root.setLayoutParams(new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(compactCards ? 134 : 156)
+                dp(compactCards ? 138 : 160)
         ));
 
         LinearLayout card = new LinearLayout(context);
         card.setOrientation(LinearLayout.VERTICAL);
-        card.setPadding(dp(1), dp(1), dp(1), dp(1));
         card.setBackground(selectablePanel(COLOR_CARD, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 16));
-        card.setElevation(dp(3));
         root.addView(card, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -230,43 +228,15 @@ final class RecipeAdapter extends BaseAdapter {
         ));
 
         View veil = new View(context);
-        veil.setBackgroundColor(Color.argb(18, 0, 0, 0));
+        veil.setBackgroundColor(Color.argb(16, 0, 0, 0));
         frame.addView(veil, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
 
-        View topEdge = new View(context);
-        topEdge.setBackground(gradientPanel(
-                Color.argb(120, 251, 191, 36),
-                Color.argb(0, 251, 191, 36),
-                Color.TRANSPARENT,
-                0,
-                0
-        ));
-        frame.addView(topEdge, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(3),
-                Gravity.TOP
-        ));
-
-        View bottomEdge = new View(context);
-        bottomEdge.setBackground(gradientPanel(
-                Color.argb(0, 245, 158, 11),
-                Color.argb(96, 245, 158, 11),
-                Color.TRANSPARENT,
-                0,
-                0
-        ));
-        frame.addView(bottomEdge, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(3),
-                Gravity.BOTTOM
-        ));
-
         LinearLayout overlay = new LinearLayout(context);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(15), dp(24), dp(15), dp(14));
+        overlay.setPadding(dp(16), dp(26), dp(16), dp(15));
         overlay.setBackground(cardTitleOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -276,14 +246,14 @@ final class RecipeAdapter extends BaseAdapter {
         frame.addView(overlay, overlayParams);
 
         TextView title = new TextView(context);
-        title.setTextColor(Color.rgb(255, 250, 240));
-        title.setTextSize(16);
+        title.setTextColor(Color.rgb(255, 251, 244));
+        title.setTextSize(17);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setIncludeFontPadding(false);
-        title.setLineSpacing(dp(1), 1.04f);
-        title.setShadowLayer(3.0f, 0, dp(2), Color.argb(235, 0, 0, 0));
+        title.setLineSpacing(dp(1), 1.05f);
+        title.setShadowLayer(4.0f, 0, dp(2), Color.argb(240, 0, 0, 0));
         LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -291,13 +261,13 @@ final class RecipeAdapter extends BaseAdapter {
         overlay.addView(title, titleParams);
 
         TextView accent = new TextView(context);
-        accent.setText("Cook Note");
-        accent.setTextColor(Color.rgb(255, 214, 130));
+        accent.setText("COOK NOTE");
+        accent.setTextColor(Color.rgb(251, 191, 36));
         accent.setTextSize(10);
         accent.setTypeface(Typeface.DEFAULT_BOLD);
-        accent.setLetterSpacing(0.08f);
+        accent.setLetterSpacing(0.14f);
         accent.setIncludeFontPadding(false);
-        accent.setPadding(0, dp(4), 0, 0);
+        accent.setPadding(0, dp(5), 0, 0);
         overlay.addView(accent, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
