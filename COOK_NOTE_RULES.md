@@ -192,3 +192,10 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Readiness release : avant push, la livraison doit avoir un build reproductible, `check`, `preflight` si UI/cache/recettes/images changent, tests visuels si l'interface change, `dist/` regenere, cache/service worker coherent, headers/routes valides et rollback possible via le commit precedent.
 - Le mode cuisine et les boutons minuteurs ont ete supprimes. Ne pas recreer `focusMode`, `recipe-focus-mode`, `Mode cuisine`, `step-timer`, `timerEnd`, `timerLabel`, `cooking-step-card` ou `cooking-step-actions`.
 - Si une regle est trop subjective pour etre testee automatiquement, elle doit au minimum etre ecrite ici et mentionnee dans le compte rendu.
+
+## Workflow de livraison (agent local + GitHub Desktop)
+
+- L'agent travaille en local sur le depot (clone de `github.com/LeParfait271/COOK-NOTE`). Il fait le travail, lance les validations utiles et commit en local.
+- L'agent ne tente pas le push vers GitHub : l'environnement n'a pas d'identifiants Git configures et le push est refuse (`could not read Username`).
+- Le push est fait par l'utilisateur via **GitHub Desktop** connecte au dossier local du projet (`C:\COOK NOTE\COOK-NOTE v2` chez l'utilisateur, meme depot que celui de l'agent). Apres un commit de l'agent, l'utilisateur n'a qu'a ouvrir GitHub Desktop et cliquer sur **Push origin**.
+- L'agent laisse donc le commit en local pret a pusher et signale simplement a l'utilisateur de faire le Push dans GitHub Desktop. Il ne demande pas d'identifiants, ne configure pas d'auth et ne relance pas de commande push.
