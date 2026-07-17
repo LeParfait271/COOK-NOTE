@@ -10,3 +10,12 @@ mongoose.exe
 .DS_Store
 *.log
 reports/*.png
+
+# APK / AAB generes hors downloads/ (eviter commit accidentel)
+*.apk
+*.aab
+!downloads/*.apk
+
+# Keystore debug (regeneree par machine, jamais versionnee)
+*.debug.jks
+android-legacy/app/debug.keystore
