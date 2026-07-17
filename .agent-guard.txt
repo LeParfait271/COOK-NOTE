@@ -1,0 +1,17 @@
+# Garde-fou agent Cook Note - NE PAS IGNORER
+
+DEPOT VALIDE UNIQUE (Windows monté en WSL) :
+  /mnt/c/COOK NOTE/COOK-NOTE v2
+
+INTERDIT ABSOLU :
+  /home/maruchiwa/projects/COOK-NOTE   (clone parasite - SUPPRIME)
+  Tout autre clone, copie ou dossier intermediaire.
+
+REGLE:
+  Avant TOUTE lecture/modif/build, verifier que le chemin courant
+  commence par "/mnt/c/COOK Note/COOK-NOTE v2".
+  Sinon: STOP, ne rien faire, alerter l'utilisateur.
+
+PUSH:
+  Interdit a l'agent. L'utilisateur push via GitHub Desktop
+  sur le depot valide ci-dessus.
