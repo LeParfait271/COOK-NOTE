@@ -73,6 +73,7 @@ const dateArg = args.find(arg => /^\d{2}\/\d{2}\/\d{2}$/.test(arg));
 const date = dateArg || todayFr();
 const numeric = numericVersion(version);
 const android = androidVersion(version);
+const versionParts = parseVersion(version);
 
 let nextApp = replaceRequired(app, /const SITE_VERSION = '[^']+';/, `const SITE_VERSION = '${version}';`, 'SITE_VERSION');
 nextApp = replaceRequired(nextApp, /const SITE_UPDATED_AT = '[^']+';/, `const SITE_UPDATED_AT = '${date}';`, 'SITE_UPDATED_AT');
@@ -136,7 +137,7 @@ write('service-worker.js', read('service-worker.js')
   .replace(/\[SW v\d+\]/g, `[SW v${numeric}]`));
 
 write('downloads/android-latest-version.json', `${JSON.stringify({
-  versionCode: Number(numeric),
+  versionCode: versionParts.major * 1000 + versionParts.minor,
   versionName: android,
   apkUrl: 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk'
 }, null, 2)}\n`);
