@@ -385,6 +385,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 760,
     "bytes": 166310
   },
+  "assets/recipes/cards/cremes_dessert_chocolat.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 53670
+  },
   "assets/recipes/cards/crepes_lait_amandes.jpg": {
     "width": 760,
     "height": 428,
@@ -1689,6 +1694,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 273707
+  },
+  "assets/recipes/heroes/cremes_dessert_chocolat.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 168888
   },
   "assets/recipes/heroes/crepes_lait_amandes.jpg": {
     "width": 1400,

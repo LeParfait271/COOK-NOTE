@@ -394,3 +394,75 @@ window.RECIPES.desserts_maitre.variants.push({
 
 window.RECIPES.cake_chocolat_amandes = {"title":"Cake au chocolat et aux amandes","master":"desserts_maitre","image":"/assets/recipes/heroes/cake_chocolat_amandes.jpg","categories":["Desserts"],"seasons":["Toutes saisons"],"difficulty":"easy","difficultyScore":2,"yield":"1 cake de 10 parts","activeTime":20,"cookTime":45,"aliases":["cake chocolat amandes","cake au chocolat noir et amandes","gâteau chocolat amandes"],"tags":["cake","chocolat","amandes","goûter","gâteau"],"ingredients":[{"group":"Pâte","items":["125g chocolat noir","100g sucre","125g beurre doux ramolli","4 œufs","75g fécule de maïs","50g farine T55","10g levure chimique","50g amandes effilées"]},{"group":"Moule","items":["15g beurre doux"]}],"steps":["Sortir le beurre environ 45 à 60min avant : il doit être souple, jamais fondu.","Préchauffer le four à 150°C en chaleur statique et beurrer un moule à cake de 26 × 10cm.","Faire fondre doucement le chocolat au bain-marie ou au micro-ondes par courtes séquences, puis le lisser.","Ajouter le sucre et le beurre ramolli au chocolat, puis fouetter jusqu’à obtenir une pâte homogène.","Incorporer les œufs un par un, en mélangeant soigneusement après chaque ajout.","Tamiser ensemble la fécule de maïs, la farine et la levure, puis les incorporer sans travailler excessivement la pâte.","Ajouter les amandes effilées en réservant une petite poignée pour le dessus.","Verser dans le moule, lisser et parsemer des amandes réservées.","Cuire environ 45min : une lame plantée au centre doit ressortir avec quelques miettes humides, sans pâte crue.","Laisser reposer 10min dans le moule, démouler puis refroidir sur une grille avant de trancher."],"notes":["Les amandes effilées donnent davantage de relief que la poudre d’amandes, qui produirait un cake plus homogène et fondant.","Le cake se tranche encore mieux le lendemain, lorsque sa mie a eu le temps de se stabiliser.","Servir à température ambiante ou légèrement tiédi pour retrouver tout le parfum du chocolat."],"technical":[{"label":"Cuisson douce","value":"Une température de 150°C limite le dessèchement et permet au centre de cuire avant que la croûte ne durcisse."},{"label":"Mélange","value":"Après ajout de la farine, mélanger seulement jusqu’à disparition des traces sèches pour garder une mie tendre."},{"label":"Point de cuisson","value":"La lame peut porter quelques miettes humides, mais jamais de pâte liquide."}],"practical":{"equipment":["Moule à cake de 26 × 10cm","Saladier","Fouet","Maryse","Tamis","Grille"],"storage":["2 à 3 jours à température ambiante, parfaitement emballé ou en boîte hermétique.","Congélation possible jusqu’à 2 mois, entier ou prédécoupé et soigneusement emballé."],"mistakes":["Ne pas utiliser du beurre fondu à la place du beurre ramolli.","Ne pas fouetter longuement après ajout de la farine.","Ne pas prolonger la cuisson jusqu’à obtenir une lame parfaitement sèche, le cake perdrait son moelleux."],"result":["Cake chocolaté à la mie dense et moelleuse, ponctuée d’amandes légèrement croquantes."]}};
 window.RECIPES.desserts_maitre.variants.push({"id":"cake_chocolat_amandes","label":"Cake au chocolat et aux amandes"});
+
+window.RECIPES.cremes_dessert_chocolat = {
+  "title": "Crèmes dessert au chocolat",
+  "master": "desserts_maitre",
+  "image": "/assets/recipes/heroes/cremes_dessert_chocolat.jpg",
+  "categories": ["Desserts"],
+  "seasons": ["Toutes saisons"],
+  "difficulty": "easy",
+  "difficultyScore": 2,
+  "yield": "10 petits ramequins",
+  "activeTime": 10,
+  "cookTime": 10,
+  "aliases": ["crème dessert chocolat", "petites crèmes au chocolat", "crème chocolat avec œufs"],
+  "tags": ["chocolat", "crème dessert", "œufs", "cacao", "sans gluten"],
+  "ingredients": [
+    {
+      "group": "Crèmes au chocolat",
+      "items": [
+        "90g chocolat noir pâtissier",
+        "2 œufs",
+        "15g cacao non sucré",
+        "70g sucre",
+        "500g lait demi-écrémé",
+        "5g fécule de maïs"
+      ]
+    }
+  ],
+  "steps": [
+    "Hacher le chocolat et le faire fondre doucement au bain-marie, puis le lisser.",
+    "Fouetter les œufs avec le sucre dans une casserole ou un saladier résistant à la chaleur.",
+    "Incorporer le chocolat fondu, puis ajouter le cacao tamisé.",
+    "Délayer la fécule de maïs dans environ 50g de lait froid, puis l’ajouter au mélange.",
+    "Verser progressivement le reste du lait en fouettant pour obtenir un appareil homogène.",
+    "Cuire à feu doux environ 10min en remuant constamment, jusqu’à ce que la crème épaississe et nappe la spatule.",
+    "Passer la crème au tamis fin si nécessaire, puis la répartir immédiatement dans les ramequins.",
+    "Filmer au contact, laisser tiédir puis réserver 3 à 4h au réfrigérateur avant de servir bien froid."
+  ],
+  "notes": [
+    "Un chocolat pâtissier entre 50 et 70% de cacao donne une saveur équilibrée et une texture régulière.",
+    "La crème continue d’épaissir en refroidissant : arrêter la cuisson dès qu’elle nappe franchement la spatule.",
+    "Pour une crème moins sucrée, réduire le sucre à 50g avec un chocolat déjà doux."
+  ],
+  "technical": [
+    {
+      "label": "Cuisson douce",
+      "value": "Remuer sans interruption et éviter l’ébullition forte afin que les œufs épaississent sans coaguler."
+    },
+    {
+      "label": "Texture",
+      "value": "Le mélange est prêt lorsqu’un doigt passé sur la spatule laisse une trace nette qui ne se referme pas."
+    },
+    {
+      "label": "Refroidissement",
+      "value": "Le film posé au contact empêche la formation d’une peau à la surface."
+    }
+  ],
+  "practical": {
+    "equipment": ["Casserole à fond épais", "Fouet", "Spatule", "Tamis fin", "10 petits ramequins"],
+    "storage": ["3 jours au réfrigérateur à 0–4°C, filmées au contact.", "Ne pas congeler : la texture deviendrait granuleuse après décongélation."],
+    "mistakes": [
+      "Ne pas verser la fécule directement dans le liquide chaud, elle formerait des grumeaux.",
+      "Ne pas cuire à feu vif, les œufs risqueraient de coaguler au fond de la casserole.",
+      "Ne pas laisser refroidir sans couvrir la surface."
+    ],
+    "result": ["Crème chocolatée lisse, brillante et veloutée, assez ferme pour tenir à la cuillère tout en restant fondante."]
+  }
+};
+
+window.RECIPES.desserts_maitre.variants.push({
+  "id": "cremes_dessert_chocolat",
+  "label": "Crèmes dessert au chocolat"
+});
