@@ -261,20 +261,18 @@ Seules les copies telechargeables `downloads/cook-note-android-legacy.apk` et
 de parite site/app ou quand l utilisateur demande explicitement une publication
 app depuis le site.
 
-## Workflow quand un changement reste web-only
+## Workflow pour toute modification, y compris web-only
 
-1. Verifier que le changement ne modifie pas une fonctionnalite visible utile
-   sur tablette : docs, CI, admin local ou correctif web-only.
-2. Modifier le site selon la demande.
-3. Si une version publiee est creee, bump la version produit unique et garder
-   site/APK sur la meme version `X.YY`.
+1. Toute modification versionnee du projet augmente la version produit de
+   `0.01`, meme pour docs, CI, admin local, build ou correctif technique.
+2. Verifier si une adaptation fonctionnelle Native Lite est necessaire. Un
+   changement web-only peut ne demander aucun changement de code Android.
+3. Lancer `node scripts/bump-version.js --next`.
 4. Lancer les checks habituels du site.
-5. Ne pas lancer `npm run android:legacy:update-apk` seul; si la version produit
-   change, passer par `npm run apps:update-all` ou documenter clairement pourquoi
-   aucune publication utilisateur n'est faite.
-
-Dans ce cas, l APK deja installe sur la tablette garde son ancien contenu.
-C est voulu.
+5. Lancer obligatoirement `npm run apps:update-all` pour reconstruire le site et
+   l APK avec la meme version `X.YY`.
+6. Ne jamais committer une modification avec l ancienne APK ou une version
+   differente entre site, manifeste de mise a jour et APK.
 
 ## Workflow quand la parite Android est requise
 

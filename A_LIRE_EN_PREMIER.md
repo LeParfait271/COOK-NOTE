@@ -148,6 +148,15 @@ meme version produit `X.YY`. `SITE_VERSION` utilise `vX.YY`,
 `npm run apps:update-all` reconstruit l APK correspondante quand une mise a jour
 est publiee.
 
+Regle permanente de version : toute modification versionnee du projet, sans
+exception pour la documentation, les scripts, la CI, l admin local, le build ou
+un correctif technique, augmente la version produit de `0.01`. Le site et l APK
+doivent toujours porter exactement la meme version. Avant chaque commit, lancer
+`node scripts/bump-version.js --next`, puis `npm run apps:update-all` afin de
+reconstruire et valider ensemble le site, `dist/`, le manifeste de mise a jour
+Android et les deux APK telechargeables. Ne jamais committer un changement avec
+l ancienne version ou avec une APK portant un autre numero.
+
 Les installations doivent rester justifiees par le besoin du projet. Preferer les
 scripts et dependances existants avant d'ajouter un outil. Ne jamais versionner
 `node_modules/`, `.tools/`, fichiers de cache, rapports temporaires, secrets ou

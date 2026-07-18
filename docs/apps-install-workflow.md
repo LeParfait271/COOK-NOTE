@@ -68,11 +68,13 @@ demande web-only peut laisser l APK inchangee, avec justification dans le compte
 rendu.
 Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour tablette peu puissante.
 
-Regle de version : des qu'une version Cook Note est publiee, le site et l APK
-doivent porter la meme version produit `X.YY`. `node scripts/bump-version.js`
-synchronise `SITE_VERSION`, `ANDROID_LEGACY_APK_VERSION` et
-`cookNoteAndroidVersion`; `npm run apps:update-all` fabrique ensuite l APK du
-meme numero.
+Regle permanente de version : toute modification versionnee du projet augmente
+la version produit de `0.01`, y compris documentation, scripts, CI, admin local,
+build et correctifs techniques. Le site et l APK doivent toujours porter la meme
+version produit `X.YY`. `node scripts/bump-version.js --next` synchronise
+`SITE_VERSION`, `ANDROID_LEGACY_APK_VERSION` et `cookNoteAndroidVersion`, puis
+`npm run apps:update-all` reconstruit obligatoirement le site et l APK du meme
+numero avant commit.
 
 Publication Release GitHub, seulement sur demande explicite :
 

@@ -55,6 +55,11 @@ Si le log Cloudflare affiche `No build command specified. Skipping build step.`,
 
 Une version prete production doit rester reproductible depuis les sources versionnees :
 
+- Toute modification versionnee du projet augmente la version produit de `0.01`,
+  sans exception pour la documentation, les scripts, la CI, l admin local, le
+  build ou un correctif technique. Le bump est suivi de `npm run apps:update-all`
+  avant commit afin que le site, `dist/`, le manifeste Android et l APK restent
+  toujours sur la meme version.
 - `SITE_VERSION` et les versions `?v=N` sont la source de cache publique, derivees par `scripts/bump-version.js`. La version produit publiee reste unique : `SITE_VERSION` (`vX.YY`), `ANDROID_LEGACY_APK_VERSION` (`X.YY`) et `cookNoteAndroidVersion` (`X.YY`) doivent rester alignes.
 - Les validateurs ne portent pas la version courante en dur : ils lisent `app.js` ou les fichiers publics a valider.
 - `npm run build`, `npm run check` et `npm run preflight` doivent passer avant un push visible quand UI, cache, recettes ou images changent.
