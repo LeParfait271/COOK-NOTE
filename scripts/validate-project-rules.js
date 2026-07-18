@@ -17,6 +17,7 @@ const validators = {
   visualImages: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-visual-image-duplicates.js'), 'utf8'),
   imageCleanup: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-image-cleanup.js'), 'utf8'),
   dist: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-dist.js'), 'utf8'),
+  buildSite: fs.readFileSync(path.join(ROOT, 'scripts', 'build-site.js'), 'utf8'),
   performance: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-performance-budget.js'), 'utf8'),
   preflight: fs.readFileSync(path.join(ROOT, 'scripts', 'preflight.js'), 'utf8'),
   bumpVersion: fs.readFileSync(path.join(ROOT, 'scripts', 'bump-version.js'), 'utf8'),
@@ -30,6 +31,8 @@ const validators = {
   workflow: fs.readFileSync(path.join(ROOT, '.github', 'workflows', 'cook-note.yml'), 'utf8'),
   wrangler: fs.existsSync(path.join(ROOT, 'wrangler.toml')) ? fs.readFileSync(path.join(ROOT, 'wrangler.toml'), 'utf8') : '',
   architecture: fs.readFileSync(path.join(ROOT, 'docs', 'architecture.md'), 'utf8'),
+  completeGuide: fs.readFileSync(path.join(ROOT, 'GUIDE_COMPLET.txt'), 'utf8'),
+  windowsCheck: fs.readFileSync(path.join(ROOT, 'check.ps1'), 'utf8'),
   style: fs.readFileSync(path.join(ROOT, 'style.css'), 'utf8'),
   adminCss: fs.readFileSync(path.join(ROOT, 'admin.css'), 'utf8'),
   gitignore: fs.readFileSync(path.join(ROOT, '.gitignore'), 'utf8'),
@@ -310,9 +313,12 @@ expect('Validation recherche intention non branchee.', validators.ui.includes('R
 expect('Validation panier courses noms proches non branchee.', fs.readFileSync(path.join(ROOT, 'scripts', 'validate-quantities.js'), 'utf8').includes('test_panier_noms'));
 expect('Validation production non branchee.', validators.production.includes('Validation production OK.') && validators.packageJson.includes('scripts/validate-production.js'));
 expect('Build production dist non branche.', validators.packageJson.includes('"build": "node scripts/build-site.js"') && validators.packageJson.includes('scripts/validate-dist.js') && validators.dist.includes('Validation dist OK.'));
+expect('Build production masque encore une absence ou un echec Terser.', validators.packageJson.includes('"terser"') && validators.packageLock.includes('node_modules/terser') && validators.packageJson.includes('scripts/build-site.js') && validators.buildSite.includes('Dependance terser absente') && validators.buildSite.includes('Minification JavaScript impossible'));
 expect('Sortie Cloudflare Pages dist non declaree.', validators.wrangler.includes('pages_build_output_dir = "dist"') && validators.workflow.includes('npm run build') && validators.workflow.includes('cook-note-dist'));
 expect('Artefact dist Cloudflare Pages non versionne.', !/(^|\n)dist\/(\r?\n|$)/.test(validators.gitignore) && validators.architecture.includes('`dist/` est versionne comme artefact public Cloudflare Pages') && rules.includes('`dist/` est versionne comme artefact public Cloudflare Pages'));
 expect('Build command Cloudflare Pages non documentee.', validators.wrangler.includes('Build command: npm run build') && validators.architecture.includes('Build command : `npm run build`') && validators.architecture.includes('No build command specified') && rules.includes('Build command: npm run build'));
+expect('Guide complet encore aligne sur une ancienne architecture sans build.', validators.completeGuide.includes('scripts/build-site.js') && validators.completeGuide.includes('Build output directory: dist') && !validators.completeGuide.includes('site public React sans build'));
+expect('Guide complet expose encore le serveur admin en production.', validators.completeGuide.includes('back-office sont reserves a la maintenance locale') && !validators.completeGuide.includes("Si l'admin doit etre accessible en ligne"));
 expect('Module runtime images non protege.', validators.packageJson.includes('node --check app-images.js') && validators.packageJson.includes('node --check app-art-images.js') && validators.production.includes('/app-images.js') && validators.production.includes('/app-art-images.js') && validators.cache.includes('app-images.js') && validators.cache.includes('app-art-images.js') && validators.dist.includes("'app-images.js'") && validators.dist.includes("'app-art-images.js'") && validators.preflight.includes('/app-images.js') && validators.preflight.includes('/app-art-images.js'));
 expect('Validation couverture features non branchee.', validators.packageJson.includes('scripts/validate-feature-coverage.js'));
 expect('Garde-fou Lecture chef temperature absent.', rules.includes('La Lecture chef ne doit jamais deduire un service froid') && validators.featureCoverage.includes('service froid faux positif') && validators.featureCoverage.includes('pates_pesto_tomates_mozzarella') && validators.featureCoverage.includes('signal proteine faux positif'));
@@ -333,6 +339,22 @@ expect('Assets Legacy Native Lite non branches.', validators.legacyAssets.includ
 expect('Validation Android manuel non branchee.', validators.androidManual.includes('Validation Android manuel OK.') && validators.androidManual.includes('Native Lite') && validators.androidManual.includes('App Android HD/Modern encore presente') && validators.packageJson.includes('scripts/validate-android-manual.js') && validators.packageJson.includes('apps:update-all') && validators.packageJson.includes('apps:publish-all') && validators.packageJson.includes('android:legacy:update-apk') && validators.packageJson.includes('android:legacy:publish-release') && !validators.packageJson.includes('android:modern:update-apk') && !validators.packageJson.includes('android:modern:publish-release') && validators.packageJson.includes('jpeg-js'));
 expect('Nettoyage encodage Android Legacy non branche.', validators.legacyAssets.includes('repairMojibakeText') && validators.legacyAssets.includes('assertNoEncodingIssues') && validators.androidManual.includes('cleanString') && validators.androidManual.includes('windows1252Byte'));
 expect('Validation regles non branchee au check.', validators.packageJson.includes('scripts/validate-project-rules.js'));
+[
+  'app-art-images.js',
+  'app-premium.js',
+  'app-techniques.js',
+  'theme.js',
+  'i18n.js',
+  'scripts\\validate-average-weights.js',
+  'scripts\\validate-parent-placement.js',
+  'scripts\\validate-parent-art-lock.js',
+  'scripts\\generate-art-images.js',
+  'scripts\\validate-i18n.js',
+  'scripts\\validate-theme.js',
+  'scripts\\build-android-legacy-assets.js'
+].forEach(fragment => {
+  expect(`Fallback Windows check.ps1 incomplet (${fragment}).`, validators.windowsCheck.includes(fragment));
+});
 expect('CI non reproductible: npm ci doit etre utilise avec package-lock.json.', validators.workflow.includes('npm ci --no-audit --no-fund'));
 expect('Audit securite CI non branche.', validators.packageJson.includes('"audit:security": "npm audit --audit-level=high"') && validators.workflow.includes('npm run audit:security') && rules.includes('npm run audit:security'));
 expect('Version Playwright non epinglee pour Node 20/CI.', validators.packageJson.includes('"@playwright/test": "1.61.1"') && validators.packageLock.includes('@playwright/test/-/test-1.61.1.tgz') && !validators.packageJson.includes('"@playwright/test": "^'));

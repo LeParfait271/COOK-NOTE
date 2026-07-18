@@ -5,6 +5,10 @@ const vm = require('node:vm');
 let terser = null;
 try { terser = require('terser'); } catch (e) { terser = null; }
 
+if (!terser || typeof (terser.minify_sync || terser.minify) !== 'function') {
+  throw new Error('Dependance terser absente. Lancez npm ci avant npm run build.');
+}
+
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
 
@@ -70,14 +74,14 @@ function ensureParent(file) {
 }
 
 function minifyJs(code) {
-  if (!terser) return code;
   try {
     const minifyFn = terser.minify_sync || terser.minify;
     const result = minifyFn(code, { compress: true, mangle: true });
-    if (result && result.error) return code;
-    return (result && result.code) || code;
+    if (result && result.error) throw result.error;
+    if (!result || typeof result.code !== 'string') throw new Error('Terser n a retourne aucun code.');
+    return result.code;
   } catch (e) {
-    return code;
+    throw new Error(`Minification JavaScript impossible: ${e.message}`);
   }
 }
 

@@ -17,9 +17,13 @@ recettes sans perdre les variantes :
 ARCHITECTURE
 ------------
 
-- index.html, app.js, style.css : site public React sans build.
+- index.html, app.js, style.css : sources du site public React autonome, sans
+  transpilation ni bundler applicatif.
+- scripts/build-site.js : build de production qui regenere dist/ depuis les
+  sources versionnees.
+- dist/ : artefact public valide et publie par Cloudflare Pages.
 - recipes.js : source publique des recettes et fiches parents.
-- server.js : serveur Node et API admin.
+- server.js : serveur de developpement local et API admin locale.
 - admin-login.html, admin.html, admin.js, admin.css : back-office.
 - assets/recipes/heroes/ : images de recettes livrees avec le site.
 - assets/uploads/ : images importees depuis l'admin.
@@ -115,16 +119,20 @@ Rapports :
 DEPLOIEMENT
 -----------
 
-Le site public peut etre servi comme fichiers statiques si l'admin n'est pas
-necessaire sur l'hebergement public.
+Le site public est deploye comme application statique sur Cloudflare Pages.
+Toujours publier l'artefact dist/ genere et valide :
 
-Si l'admin doit etre accessible en ligne, deployer le serveur Node avec :
+   npm run build
+   npm run validate:dist
 
-   npm start
+Configuration Cloudflare Pages attendue :
 
-et definir obligatoirement :
+   Build command: npm run build
+   Build output directory: dist
 
-   COOK_NOTE_ADMIN_PASSWORD
+Le serveur Node et le back-office sont reserves a la maintenance locale. Ne pas
+exposer server.js, /admin, admin.local.json, les backups ou les outils de
+maintenance dans l'hebergement public statique.
 
 Avant mise en ligne :
 
@@ -132,5 +140,5 @@ Avant mise en ligne :
 2. verifier l'accueil desktop/mobile ;
 3. verifier une fiche parent et plusieurs variantes ;
 4. tester le panier courses avec au moins deux recettes ;
-5. tester /admin avec connexion ;
-6. verifier qu'aucun fichier de documentation ne presente le site comme un outil local.
+5. tester /admin avec connexion dans l'environnement local si le back-office a change ;
+6. verifier que dist/ ne contient aucun fichier admin, script, test ou rapport.
