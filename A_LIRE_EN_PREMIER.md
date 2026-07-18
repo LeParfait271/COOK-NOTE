@@ -132,6 +132,7 @@ tablette peu puissante, puis lancer `npm run apps:update-all` avant commit/push.
 Exceptions admises : demande explicite web-only ou changement purement
 technique sans impact utilisateur Android, a signaler dans le compte rendu.
 Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour tablette peu puissante.
+Hierarchie catalogue : le site et l APK n affichent que les 8 fiches parentes racines et les fiches recettes directement rattachees ; aucune fiche parente intermediaire n est admise.
 Fiche detail Android : rester allegee pour tablette faible, sans saisons,
 difficulte, nombre d'etapes, bouton favori ou bouton partager. Le rendement se
 choisit avec un selecteur natif de personnes quand possible, et `Avant de
@@ -147,6 +148,8 @@ meme version produit `X.YY`. `SITE_VERSION` utilise `vX.YY`,
 `scripts/bump-version.js` doit synchroniser les trois, puis
 `npm run apps:update-all` reconstruit l APK correspondante quand une mise a jour
 est publiee.
+Le telechargement public Android 5 utilise toujours le meme lien brut stable :
+`https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk`.
 
 Regle permanente de version : toute modification versionnee du projet, sans
 exception pour la documentation, les scripts, la CI, l admin local, le build ou

@@ -508,8 +508,8 @@ expect(
     && updateAllAppsScript.includes('cookNoteAndroidVersion')
     && updateAllAppsScript.includes('Versions site/APK non alignees')
     && appScript.includes("const ANDROID_LEGACY_APK_VERSION = '")
-    && appScript.includes('cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk')
-    && appScript.includes('Version APK ${ANDROID_LEGACY_APK_VERSION}')
+    && appScript.includes("ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk'")
+    && appScript.includes('https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads')
     && siteVersionName === androidLinkVersionName
     && siteVersionName === androidApkVersionName
     && exists(`downloads/cook-note-android-legacy-v${siteVersionName}.apk`)

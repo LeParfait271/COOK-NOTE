@@ -116,13 +116,10 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.50';
+const SITE_VERSION = 'v3.51';
 const SITE_UPDATED_AT = '18/07/26';
-const APP_REPO_DOWNLOAD_BASE = 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
-const APP_REPO_FILE_BASE = 'https://github.com/LeParfait271/COOK-NOTE/blob/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '3.50';
-const ANDROID_LEGACY_APK_FILE = `cook-note-android-legacy-v${ANDROID_LEGACY_APK_VERSION}.apk`;
+const ANDROID_LEGACY_APK_VERSION = '3.51';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
@@ -130,22 +127,7 @@ const APP_INSTALL_OPTIONS = Object.freeze([
     kind: 'apk',
     label: 'Android 5.0+',
     detail: 'APK Legacy',
-    title: 'Installer Cook Note Android 5.0+',
-    body: 'APK Legacy pour les tablettes anciennes. Le fichier est hébergé sur GitHub pour éviter les limites de taille Cloudflare Pages.',
-    steps: [
-      'Touche Télécharger l’APK.',
-      'Si Android affiche une alerte, autorise le téléchargement.',
-      'Ouvre le fichier téléchargé, puis autorise l’installation depuis le navigateur si Android le demande.',
-      'Si le lien direct affiche une erreur, utilise le lien brut ou la page GitHub.'
-    ],
-    fileName: ANDROID_LEGACY_APK_FILE,
-    href: `${APP_REPO_DOWNLOAD_BASE}/${ANDROID_LEGACY_APK_FILE}`,
-    rawHref: `${APP_RAW_DOWNLOAD_BASE}/${ANDROID_LEGACY_APK_FILE}`,
-    pageHref: `${APP_REPO_FILE_BASE}/${ANDROID_LEGACY_APK_FILE}`,
-    stableHref: `${APP_REPO_DOWNLOAD_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`,
-    stableRawHref: `${APP_RAW_DOWNLOAD_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`,
-    stablePageHref: `${APP_REPO_FILE_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`,
-    note: `Version APK ${ANDROID_LEGACY_APK_VERSION}, Android 5.0 minimum.`
+    href: `${APP_RAW_DOWNLOAD_BASE}/${ANDROID_LEGACY_STABLE_APK_FILE}`
   }
 ]);
 const SITE_CACHE_VERSION = `${SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`)}-parent-title`;
@@ -5147,63 +5129,6 @@ function TechniquesView({ targetTechniqueId, goHome }) {
   );
 }
 
-function AppInstallPanel({ option, onClose }) {
-  if (!option) return null;
-  return h('div', { className: 'modal-backdrop app-install-backdrop', onMouseDown: onClose },
-    h('section', {
-      className: 'modal-panel app-install-modal',
-      role: 'dialog',
-      'aria-modal': 'true',
-      'aria-labelledby': 'app-install-title',
-      tabIndex: -1,
-      onKeyDown: trapModalFocus,
-      onMouseDown: event => event.stopPropagation()
-    },
-      h('div', { className: 'modal-head' },
-        h('div', null,
-          h('p', { className: 'eyebrow' }, option.label),
-          h('h2', { id: 'app-install-title' }, option.title)
-        ),
-        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
-      ),
-      h('div', { className: 'app-install-card' },
-        h('p', null, option.body),
-        option.kind === 'apk' && h('p', { className: 'app-install-file' }, option.fileName),
-        h('ol', null, option.steps.map(step => h('li', { key: step }, step))),
-        option.kind === 'apk' && h('div', { className: 'app-install-links' },
-          h('a', {
-            className: 'btn btn-primary',
-            href: option.href,
-            rel: 'noopener noreferrer',
-            'aria-label': 'Telecharger l APK',
-            download: option.fileName
-          }, 'Télécharger l’APK'),
-          h('a', {
-            className: 'btn btn-ghost',
-            href: option.rawHref,
-            rel: 'noopener noreferrer'
-          }, 'Lien brut'),
-          h('a', {
-            className: 'btn btn-ghost',
-            href: option.pageHref,
-            rel: 'noopener noreferrer'
-          }, 'Page GitHub'),
-          option.stableHref && h('a', {
-            className: 'btn btn-ghost',
-            href: option.stableHref,
-            rel: 'noopener noreferrer'
-          }, 'Lien stable')
-        ),
-        h('p', { className: 'app-install-note' }, option.note)
-      ),
-      h('div', { className: 'modal-actions' },
-        option.kind !== 'apk' && h('a', { className: 'btn btn-primary', href: '/', onClick: onClose }, 'Ouvrir Cook Note'),
-        h('button', { type: 'button', className: 'btn btn-ghost', onClick: onClose }, 'Fermer')
-      )
-    )
-  );
-}
-
 function SharePanel({ open, onClose, recipe, notify }) {
   const [copied, setCopied] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
@@ -7133,7 +7058,6 @@ function App() {
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [offlineBusy, setOfflineBusy] = useState(false);
   const [isOnline, setIsOnline] = useState(() => navigator.onLine !== false);
-  const [installGuide, setInstallGuide] = useState(null);
   const [recentRecipeIds, setRecentRecipeIds] = useState(() => readStoredList(STORAGE_KEYS.recentRecipes, []));
   const [recentSearches, setRecentSearches] = useState(() => readStoredList(STORAGE_KEYS.recentSearches, []));
   const [personalNotes, setPersonalNotes] = useState(() => readJson(STORAGE_KEYS.personalNotes, {}));
@@ -7881,10 +7805,6 @@ function App() {
           setPreferencesOpen(false);
           return;
         }
-        if (installGuide) {
-          setInstallGuide(null);
-          return;
-        }
         if (menuPlannerOpen) {
           closeMenuPlanner();
           return;
@@ -7918,7 +7838,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [activeRecipe, activePage, catalogRecipes, canUndo, canRedo, commandOpen, searchOpen, preferencesOpen, installGuide, menuPlannerOpen]);
+  }, [activeRecipe, activePage, catalogRecipes, canUndo, canRedo, commandOpen, searchOpen, preferencesOpen, menuPlannerOpen]);
 
   if (!recipes.length) {
     return h('div', { className: 'mc-shell' },
@@ -8062,11 +7982,10 @@ function App() {
         ),
         h('div', { className: 'site-footer-actions', 'aria-label': 'Installer Cook Note' },
           APP_INSTALL_OPTIONS.map(option =>
-            h('button', {
+            h('a', {
               key: option.id,
-              type: 'button',
               className: `site-footer-action site-footer-install site-footer-install-${option.id}`,
-              onClick: () => setInstallGuide(option),
+              href: option.href,
               'aria-label': `Installer ${option.label} - ${option.detail}`,
               title: `${option.label} - ${option.detail}`
             }, h(Icon, { name: option.kind === 'apk' ? 'download' : 'device' }), h('span', null, option.label), h('small', null, option.detail))
@@ -8107,10 +8026,6 @@ function App() {
       isOnline,
       offlineBusy,
       preloadFavoritesOffline: preloadFavoriteRecipesOffline
-    }),
-    h(AppInstallPanel, {
-      option: installGuide,
-      onClose: () => setInstallGuide(null)
     }),
     h(CommandPalette, {
       open: commandOpen,

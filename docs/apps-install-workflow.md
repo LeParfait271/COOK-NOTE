@@ -145,9 +145,10 @@ Le bouton natif de mise a jour reste disponible sous forme compacte avec
 sans mise en veille.
 
 Les fiches parents lisent `master` et `additionalMasters`, afin que les
-rattachements parents additionnels du site soient visibles dans l'app. Les
-collections Android Legacy doivent afficher les recettes en grille de cartes
-parent 16/9 visibles, comme le site, pas dans un menu deroulant. Les fiches avec
+rattachements parents additionnels du site soient visibles dans l'app. La
+hierarchie est strictement plate : les 8 fiches parentes racines affichent
+directement les recettes en grille de cartes 16/9, sans collection ou fiche
+parente intermediaire et sans menu deroulant. Les fiches avec
 variantes internes gardent une preparation choisie : une seule preparation
 active affiche ingredients et etapes.
 

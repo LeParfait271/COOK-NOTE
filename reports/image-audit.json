@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-11T23:54:24.785Z",
-  "total": 267,
+  "generatedAt": "2026-07-18T01:37:14.431Z",
+  "total": 256,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -513,24 +513,6 @@
       "cardBytes": 282117
     },
     {
-      "id": "bases_salees_maitre",
-      "title": "Bases salées",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/bases_salees_maitre.jpg",
-      "card": "assets/recipes/cards/bases_salees_maitre.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 244505,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 165367
-    },
-    {
       "id": "donuts_cloud",
       "title": "Beignets Cloud",
       "score": 100,
@@ -583,24 +565,6 @@
         "height": 520
       },
       "cardBytes": 135693
-    },
-    {
-      "id": "biscuits_gouters_maitre",
-      "title": "Biscuits, cookies et meringues",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/biscuits_gouters_maitre.jpg",
-      "card": "assets/recipes/cards/biscuits_gouters_maitre.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 272325,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 165755
     },
     {
       "id": "bouillabaisse_rouille",
@@ -925,24 +889,6 @@
         "height": 428
       },
       "cardBytes": 95172
-    },
-    {
-      "id": "chantilly_maitre",
-      "title": "Chantilly",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/chantilly_maitre.jpg",
-      "card": "assets/recipes/cards/chantilly_maitre.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 295057,
-      "cardSize": {
-        "width": 960,
-        "height": 540
-      },
-      "cardBytes": 156916
     },
     {
       "id": "chantilly_classique",
@@ -1413,24 +1359,6 @@
       "cardBytes": 54550
     },
     {
-      "id": "cookies_sucres_maitre",
-      "title": "Cookies sucrés",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/cookies_sucres_maitre.jpg",
-      "card": "assets/recipes/cards/cookies_sucres_maitre.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 282500,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 172361
-    },
-    {
       "id": "cotelettes_porc_miel_moutarde",
       "title": "Côtelettes de porc miel moutarde",
       "score": 100,
@@ -1773,24 +1701,6 @@
       "cardBytes": 64707
     },
     {
-      "id": "crudites_maitre",
-      "title": "Crudités et salades fraîches",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/crudites_maitre.jpg",
-      "card": "assets/recipes/cards/crudites_maitre.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 278865,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 170347
-    },
-    {
       "id": "crumble_carottes_cumin_noisettes_parmesan",
       "title": "Crumble de carottes cumin noisettes parmesan",
       "score": 100,
@@ -1969,24 +1879,6 @@
         "height": 540
       },
       "cardBytes": 278399
-    },
-    {
-      "id": "desserts_cuillere_maitre",
-      "title": "Desserts à la cuillère",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/desserts_cuillere_maitre.jpg",
-      "card": "assets/recipes/cards/desserts_cuillere_maitre.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 290223,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 166712
     },
     {
       "id": "dhal_lentilles_epices",
@@ -3213,24 +3105,6 @@
       "cardBytes": 85659
     },
     {
-      "id": "pates_bases_maitre",
-      "title": "Pâtes et bases pâtissières",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/pates_bases_maitre.jpg",
-      "card": "assets/recipes/cards/pates_bases_maitre.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 262656,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 159343
-    },
-    {
       "id": "pates_tomates_confites_parmesan",
       "title": "Pâtes tomates confites parmesan",
       "score": 100,
@@ -4275,24 +4149,6 @@
       "cardBytes": 104384
     },
     {
-      "id": "sauces_assaisonnements_maitre",
-      "title": "Sauces, pestos et assaisonnements",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/sauces_assaisonnements_maitre.jpg",
-      "card": "assets/recipes/cards/sauces_assaisonnements_maitre.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 263429,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 159418
-    },
-    {
       "id": "saucisse_lentilles",
       "title": "Saucisse lentilles",
       "score": 100,
@@ -4527,24 +4383,6 @@
       "cardBytes": 171497
     },
     {
-      "id": "tartes_maitre",
-      "title": "Tartes",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/tartes_maitre.jpg",
-      "card": "assets/recipes/cards/tartes_maitre.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 282525,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 172919
-    },
-    {
       "id": "temps_cuisson_legumes_autocuiseur",
       "title": "Temps de cuisson des légumes à l’autocuiseur",
       "score": 100,
@@ -4707,24 +4545,6 @@
       "cardBytes": 72746
     },
     {
-      "id": "tomates_maitre",
-      "title": "Tomates préparées",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/tomates_maitre.jpg",
-      "card": "assets/recipes/cards/tomates_maitre.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 277996,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 169212
-    },
-    {
       "id": "tomates_provencales",
       "title": "Tomates provençales",
       "score": 100,
@@ -4741,24 +4561,6 @@
         "height": 570
       },
       "cardBytes": 109251
-    },
-    {
-      "id": "cremes_maitre",
-      "title": "Toppings et garnitures",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/cremes_maitre.jpg",
-      "card": "assets/recipes/cards/cremes_maitre.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 265886,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 162608
     },
     {
       "id": "toppings_frites",

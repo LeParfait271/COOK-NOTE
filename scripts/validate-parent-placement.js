@@ -82,6 +82,10 @@ const ids = new Set(Object.keys(recipes));
 const masterIds = new Set(Object.entries(recipes).filter(([, recipe]) => isMaster(recipe)).map(([id]) => id));
 const errors = [];
 
+masterIds.forEach(parentId => {
+  if (!ROOT_IDS.has(parentId)) errors.push(`${parentId}: fiche parente intermediaire interdite; rattacher directement ses recettes a une fiche racine.`);
+});
+
 ROOT_IDS.forEach(rootId => {
   if (!ids.has(rootId)) errors.push(`${rootId}: fiche racine introuvable.`);
   else if (!masterIds.has(rootId)) errors.push(`${rootId}: fiche racine sans variantes.`);

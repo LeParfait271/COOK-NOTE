@@ -473,11 +473,11 @@ if (!recipes || typeof recipes !== 'object') {
   expectParentLink('entrees_maitre', 'samoussas_boeuf_epinards_petits_pois', true);
 
   expectRecipePlacement('pesto_tomates_sechees_sans_cajou', {
-    master: 'sauces_assaisonnements_maitre',
+    master: 'sauces_maitre',
     categories: ['Sauces', 'Apéro', 'Accompagnements'],
     additionalMasters: ['apero_maitre', 'accompagnements_maitre']
   });
-  expectParentLink('sauces_assaisonnements_maitre', 'pesto_tomates_sechees_sans_cajou', true);
+  expectParentLink('sauces_maitre', 'pesto_tomates_sechees_sans_cajou', true);
   expectParentLink('apero_maitre', 'pesto_tomates_sechees_sans_cajou', true);
   expectParentLink('accompagnements_maitre', 'pesto_tomates_sechees_sans_cajou', true);
 
@@ -489,13 +489,16 @@ if (!recipes || typeof recipes !== 'object') {
   expectParentLink('plats_maitre', 'gratin_dauphinois', true);
   expectParentLink('accompagnements_maitre', 'gratin_dauphinois', true);
 
-  expectRecipePlacement('chantilly_maitre', {
-    master: 'cremes_maitre',
-    categories: ['Desserts', 'Base'],
-    additionalMasters: ['elements_base_maitre']
+  expectRecipePlacement('chantilly_classique', {
+    master: 'desserts_maitre',
+    categories: ['Desserts']
   });
-  expectParentLink('cremes_maitre', 'chantilly_maitre', true);
-  expectParentLink('elements_base_maitre', 'chantilly_maitre', true);
+  expectParentLink('desserts_maitre', 'chantilly_classique', true);
+  expectRecipePlacement('chantilly_gelatine', {
+    master: 'desserts_maitre',
+    categories: ['Desserts']
+  });
+  expectParentLink('desserts_maitre', 'chantilly_gelatine', true);
 
   expectRecipePlacement('verrines_chataignes_foie_gras', {
     master: 'apero_maitre',
@@ -515,11 +518,11 @@ if (!recipes || typeof recipes !== 'object') {
   expectParentLink('elements_base_maitre', 'temps_cuisson_legumes_autocuiseur', true);
 
   expectRecipePlacement('tomates_provencales', {
-    master: 'tomates_maitre',
+    master: 'entrees_maitre',
     categories: ['Accompagnements', 'Entrées'],
     additionalMasters: ['accompagnements_maitre']
   });
-  expectParentLink('tomates_maitre', 'tomates_provencales', true);
+  expectParentLink('entrees_maitre', 'tomates_provencales', true);
   expectParentLink('accompagnements_maitre', 'tomates_provencales', true);
 
   expectRecipePlacement('oeufs_cocotte_chorizo', {

@@ -98,6 +98,9 @@ les recettes enfants en vrac. Quand l utilisateur tape une recherche, l app
 cherche dans tout le catalogue sans filtres de categorie, saison, difficulte,
 favoris ou recents. Le classement interne peut corriger de petites fautes et
 favoriser les titres/alias sans exposer de filtres dans l interface.
+La hierarchie reste plate : les 8 parents racines affichent directement leurs
+fiches recettes. Aucune collection ou fiche parente intermediaire ne doit etre
+generee dans l APK.
 Garder le libelle exact de garde-fou : recherche intelligente sans filtres.
 Le moteur s'appuie sur un index recherche precompile `search-index-lite.json`
 pour eviter de recalculer les champs de recherche a chaque frappe.
@@ -112,8 +115,8 @@ Les fiches parents doivent lire `master` et `additionalMasters`, afin que les
 rattachements parents additionnels du site apparaissent dans les collections
 Android Legacy.
 
-Les variantes doivent suivre la construction du site. Les fiches parents et
-collections affichent leurs recettes en grille de cartes parent 16/9 visibles,
+Les variantes doivent suivre la construction du site. Les fiches parents
+affichent leurs recettes en grille de cartes parent 16/9 visibles,
 comme sur le site, jamais dans un menu deroulant. Les fiches a variantes internes utilisent
 une preparation choisie : une seule variante active affiche ses ingredients et
 ses etapes, les autres restent dans le selecteur natif.
