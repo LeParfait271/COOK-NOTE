@@ -4961,9 +4961,29 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
 }
 
 function HomeView(props) {
+  const hour = new Date().getHours();
+  const momentLabel = hour < 11 ? 'Inspiration du matin' : hour < 18 ? 'Cuisine du jour' : 'Table du soir';
   return h('main', { className: 'home-view' },
     h(Hero),
     h('div', { className: 'content-wrap' },
+      !props.onlyFavorites && h('section', { className: 'home-command-center', 'aria-label': 'Acces rapides Cook Note' },
+        h('div', { className: 'home-command-copy' },
+          h('p', { className: 'eyebrow' }, momentLabel),
+          h('h1', null, 'Que voulez-vous cuisiner ?'),
+          h('p', null, 'Recherchez une recette, un ingredient ou une envie dans votre carnet.')
+        ),
+        h('button', { type: 'button', className: 'home-search-launcher', onClick: props.openSearch },
+          h(Icon, { name: 'search' }),
+          h('span', null, 'Rechercher une recette ou un ingredient'),
+          h('kbd', null, '/')
+        ),
+        h('nav', { className: 'home-quick-actions', 'aria-label': 'Raccourcis culinaires' },
+          h('button', { type: 'button', onClick: props.openMenuPlanner }, h(Icon, { name: 'spark' }), h('span', null, 'Composer un menu')),
+          h('button', { type: 'button', onClick: props.showFavorites }, h(Icon, { name: 'heart' }), h('span', null, 'Mes favoris')),
+          h('button', { type: 'button', onClick: props.openShoppingBasket }, h(Icon, { name: 'basket' }), h('span', null, 'Liste de courses')),
+          h('button', { type: 'button', onClick: props.openTechniques }, h(Icon, { name: 'book' }), h('span', null, 'Techniques'))
+        )
+      ),
       h(ActiveChips, { chips: props.activeChips }),
       h(SeasonSections, {
         sections: props.sections,
@@ -7961,7 +7981,12 @@ function App() {
           toggleFavorite,
           openRecipe,
           clearFavoriteView: () => { setOnlyFavorites(false); setFavoriteCollection(''); },
-          setTagFilter: updateTagFilter
+          setTagFilter: updateTagFilter,
+          openSearch,
+          openMenuPlanner,
+          showFavorites,
+          openShoppingBasket: () => setShoppingOpen(true),
+          openTechniques: goTechniques
         })
     ),
     h('footer', { className: 'site-footer' },

@@ -961,6 +961,79 @@ a {
     var(--art-background-image) center top / max(118%, 1920px) auto no-repeat;
 }
 
+.home-command-center {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(250px, .82fr) minmax(360px, 1.18fr);
+  gap: clamp(18px, 2.4vw, 34px);
+  margin: 0 0 18px;
+  padding: clamp(22px, 3vw, 38px);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ambient-accent, var(--accent)) 26%, var(--line));
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 88% 8%, color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent), transparent 36%),
+    linear-gradient(135deg, color-mix(in srgb, var(--surface-strong) 96%, transparent), color-mix(in srgb, var(--surface) 88%, transparent));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 28px 84px rgba(0,0,0,.3);
+}
+
+.home-command-center::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 28%, rgba(255,255,255,.055) 48%, transparent 68%);
+  transform: translateX(-42%);
+  animation: home-command-glint 12s ease-in-out infinite;
+}
+
+.home-command-copy h1 { margin: 4px 0 8px; font-size: clamp(28px, 3vw, 46px); line-height: .98; }
+.home-command-copy > p:last-child { max-width: 42ch; margin: 0; color: var(--muted); line-height: 1.55; }
+
+.home-search-launcher {
+  align-self: end;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 13px;
+  min-height: 58px;
+  padding: 0 16px;
+  border: 1px solid color-mix(in srgb, var(--ambient-accent, var(--accent)) 46%, var(--line));
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
+  color: var(--text);
+  text-align: left;
+  font-weight: 850;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 40px rgba(0,0,0,.2);
+}
+.home-search-launcher:hover, .home-search-launcher:focus-visible { transform: translateY(-2px); border-color: var(--ambient-accent, var(--accent)); box-shadow: 0 18px 48px color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent); }
+.home-search-launcher kbd { min-width: 28px; padding: 5px 8px; border: 1px solid var(--line); border-radius: 7px; color: var(--muted); text-align: center; font: inherit; font-size: 12px; }
+
+.home-quick-actions { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.home-quick-actions button { display: flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--surface-soft) 78%, transparent); color: var(--text); font-weight: 850; }
+.home-quick-actions button:hover, .home-quick-actions button:focus-visible { border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 58%, var(--line)); background: color-mix(in srgb, var(--ambient-accent, var(--accent)) 12%, var(--surface-soft)); transform: translateY(-2px); }
+
+.mc-shell.theme-light .home-command-center { background: radial-gradient(circle at 88% 8%, color-mix(in srgb, var(--ambient-accent, var(--accent)) 12%, transparent), transparent 36%), linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,250,240,.78)); box-shadow: inset 0 1px 0 #fff, 0 24px 64px rgba(84,61,31,.14); }
+.mc-shell.theme-light .home-search-launcher, .mc-shell.theme-light .home-quick-actions button { background: rgba(255,252,246,.78); color: var(--text); }
+
+@keyframes home-command-glint { 0%, 72%, 100% { transform: translateX(-42%); opacity: 0; } 78% { opacity: .8; } 92% { transform: translateX(48%); opacity: 0; } }
+
+@media (min-width: 901px) {
+  .home-view > .hero { min-height: clamp(250px, 28vw, 380px); }
+  .home-view > .hero .hero-inner { padding: clamp(32px, 5vw, 68px) 0; }
+}
+
+@media (max-width: 760px) {
+  .home-command-center { grid-template-columns: 1fr; padding: 20px; border-radius: 16px; }
+  .home-search-launcher { align-self: auto; }
+  .home-quick-actions { grid-column: auto; grid-template-columns: repeat(2, 1fr); }
+  .home-quick-actions button { min-height: 52px; flex-direction: column; gap: 4px; font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) { .home-command-center::after { animation: none; } }
+
 .field {
   display: grid;
   gap: 6px;
