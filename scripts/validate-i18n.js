@@ -102,6 +102,9 @@ expect('Reduction jus non traduite.', i18n.text('Faire réduire le jus quelques 
 expect('Recette future patates non traduite.', i18n.text('Lentilles tomate pommes de terre sautées').includes('sautéed potatoes'));
 expect('Plage quantite future non traduite.', i18n.text('50 à 70g sucre') === '50 to 70g sugar');
 expect('Phrase future verser non traduite.', i18n.text('Verser le vinaigre balsamique dans une petite casserole à fond épais.') === 'Pour the balsamic vinegar into a small heavy-bottomed saucepan.');
+expect('Stockage pomme de terre premium mal traduit.', i18n.text('Au sec, a l abri de la lumiere; jamais au froid humide.') === 'Store in a dry, dark, well-ventilated place; never in a damp refrigerator.');
+expect('Accords pomme de terre premium mal traduits.', i18n.text('Ail, romarin, beurre, moutarde, fromage.') === 'Garlic, rosemary, butter, mustard and cheese.');
+expect('Vigilance pomme de terre premium mal traduite.', i18n.text('Trop travailler une puree: texture elastique.') === 'Overworking mashed potatoes makes them gluey.');
 
 const staticKeys = new Set(frKeys);
 for (const match of app.matchAll(/\bt\(\s*['"`]([^'"`]+)['"`]/g)) {
