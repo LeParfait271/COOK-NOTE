@@ -126,11 +126,12 @@ utilisateur claire :
 
 Instruction permanente utilisateur : quand une intervention modifie une
 fonctionnalite visible du site, une recette, le catalogue, l'UX ou un
-comportement utile aussi dans l'application tablette, auditer et mettre a jour
-Android Legacy dans le meme lot. Porter l'equivalent en Native Lite pour
-tablette peu puissante, puis lancer `npm run apps:update-all` avant commit/push.
-Exceptions admises : demande explicite web-only ou changement purement
-technique sans impact utilisateur Android, a signaler dans le compte rendu.
+comportement utile aussi dans l'application tablette, auditer Android Legacy et
+preparer l'adaptation Native Lite dans le meme lot si elle est necessaire.
+Ne jamais reconstruire l'APK, remplacer les fichiers de `downloads/`, regenerer
+son manifeste de mise a jour ni lancer `npm run apps:update-all` sans demande
+explicite de l'utilisateur. Un changement de code Android peut donc rester pret
+a construire jusqu'a cette demande.
 Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour tablette peu puissante.
 Hierarchie catalogue : le site et l APK n affichent que les 8 fiches parentes racines et les fiches recettes directement rattachees ; aucune fiche parente intermediaire n est admise.
 Fiche detail Android : rester allegee pour tablette faible, sans saisons,
@@ -151,14 +152,15 @@ est publiee.
 Le telechargement public Android 5 utilise toujours le meme lien brut stable :
 `https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk`.
 
-Regle permanente de version : toute modification versionnee du projet, sans
-exception pour la documentation, les scripts, la CI, l admin local, le build ou
-un correctif technique, augmente la version produit de `0.01`. Le site et l APK
-doivent toujours porter exactement la meme version. Avant chaque commit, lancer
-`node scripts/bump-version.js --next`, puis `npm run apps:update-all` afin de
-reconstruire et valider ensemble le site, `dist/`, le manifeste de mise a jour
-Android et les deux APK telechargeables. Ne jamais committer un changement avec
-l ancienne version ou avec une APK portant un autre numero.
+Regle permanente de version : toute modification produit versionnee augmente la
+version du site de `0.01`. Une modification limitee aux garde-fous ou au workflow
+interne, sans effet sur le produit livre, ne declenche pas de release. La version de
+l'APK publiee reste celle du dernier APK effectivement construit. La parite des
+numeros redevient obligatoire au moment ou l'utilisateur demande explicitement
+la reconstruction : synchroniser alors les sources Android sur la version du
+site, lancer `npm run apps:update-all`, puis valider ensemble `dist/`, manifeste
+et APK. Ne jamais annoncer ni publier une nouvelle version APK sans binaire
+reconstruit correspondant.
 
 Les installations doivent rester justifiees par le besoin du projet. Preferer les
 scripts et dependances existants avant d'ajouter un outil. Ne jamais versionner

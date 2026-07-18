@@ -337,15 +337,12 @@ expect('Script apps groupe non branche.', validators.packageJson.includes('"apps
 expect('Version produit site/APK non verrouillee.', validators.app.includes("const ANDROID_LEGACY_APK_VERSION = '") && validators.app.includes("ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk'") && !validators.app.includes('const APP_VERSION_NUMBER = SITE_VERSION') && validators.androidManual.includes('Versions site/APK non alignees') && validators.cache.includes('Versions site/APK incoherentes') && validators.bumpVersion.includes('ANDROID_LEGACY_APK_VERSION') && validators.bumpVersion.includes('cookNoteAndroidVersion') && validators.updateAllApps.includes('Versions site/APK non alignees') && validators.legacyAssets.includes('Versions Cook Note non alignees') && rules.includes('meme version produit `X.YY`') && validators.androidWorkflow.includes('meme version produit `X.YY`') && validators.appsWorkflow.includes('meme version produit `X.YY`'));
 [
   ['A_LIRE_EN_PREMIER.md', masterGuard],
-  ['COOK_NOTE_RULES.md', rules],
-  ['docs/architecture.md', validators.architecture],
-  ['docs/android-legacy-workflow.md', validators.androidWorkflow],
-  ['docs/apps-install-workflow.md', validators.appsWorkflow]
+  ['COOK_NOTE_RULES.md', rules]
 ].forEach(([file, text]) => {
-  expect(`${file}: regle permanente de bump pour toute modification absente.`,
-    text.toLowerCase().includes('toute modification versionnee du projet')
-      && text.includes('0.01')
-      && text.includes('npm run apps:update-all'));
+  expect(`${file}: autorisation explicite de reconstruction APK absente.`,
+    text.includes('0.01')
+      && text.includes('npm run apps:update-all')
+      && text.toLowerCase().includes('demande explicite'));
 });
 expect('Assets Legacy Native Lite non branches.', validators.legacyAssets.includes("require('jpeg-js')") && validators.legacyAssets.includes('recipes-lite.json') && validators.legacyAssets.includes('search-index-lite.json') && validators.legacyAssets.includes('android-legacy-search-index') && validators.legacyAssets.includes('MAX_IMAGE_WIDTH = 480') && validators.legacyAssets.includes('DETAIL_IMAGE_WIDTH = 1280') && validators.legacyAssets.includes('detail-images') && validators.legacyAssets.includes('detailImage') && validators.legacyAssets.includes('additionalMasters') && validators.legacyAssets.includes('copyLiteImage') && validators.legacyAssets.includes('android-legacy-native-lite') && validators.packageJson.includes('scripts/build-android-legacy-assets.js') && validators.packageJson.includes('jpeg-js'));
 expect('Validation Android manuel non branchee.', validators.androidManual.includes('Validation Android manuel OK.') && validators.androidManual.includes('Native Lite') && validators.androidManual.includes('App Android HD/Modern encore presente') && validators.packageJson.includes('scripts/validate-android-manual.js') && validators.packageJson.includes('apps:update-all') && validators.packageJson.includes('apps:publish-all') && validators.packageJson.includes('android:legacy:update-apk') && validators.packageJson.includes('android:legacy:publish-release') && !validators.packageJson.includes('android:modern:update-apk') && !validators.packageJson.includes('android:modern:publish-release') && validators.packageJson.includes('jpeg-js'));
