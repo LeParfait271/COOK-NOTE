@@ -110,6 +110,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 85184
   },
+  "assets/recipes/cards/cake_chocolat_amandes.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 63996
+  },
   "assets/recipes/cards/cake_citron.jpg": {
     "width": 760,
     "height": 570,
@@ -1409,6 +1414,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1672,
     "height": 941,
     "bytes": 389693
+  },
+  "assets/recipes/heroes/cake_chocolat_amandes.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 209420
   },
   "assets/recipes/heroes/cake_citron.jpg": {
     "width": 1400,

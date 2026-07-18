@@ -1,9 +1,9 @@
 # Audit Cook Note
 
-Genere le 2026-07-18T18:17:03.119Z.
+Genere le 2026-07-18T18:41:57.256Z.
 
-- Recettes totales : 260
-- Recettes feuilles : 252
+- Recettes totales : 261
+- Recettes feuilles : 253
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -12,12 +12,12 @@ Genere le 2026-07-18T18:17:03.119Z.
 ## Dashboard sante
 
 - Pretes : 198
-- A ameliorer : 54
+- A ameliorer : 55
 - Faibles : 0
 - Decouverte faible : 18
-- Conservation/securite a verifier : 36
+- Conservation/securite a verifier : 37
 - Risque image/production : 0
-- Sans liens internes explicites : 221
+- Sans liens internes explicites : 222
 
 ## Fiches a surveiller
 
@@ -47,6 +47,8 @@ Aucune fiche faible detectee.
 - Brochettes de melon épicé (brochettes_melon_epice) : 100/100 - OK
 - Bruschetta roquefort noix (bruschetta_roquefort_noix) : 100/100 - OK
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo) : 100/100 - OK
+- Cake au chocolat et aux amandes (cake_chocolat_amandes) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cake au citron (cake_citron) : 100/100 - OK
 - Cake salé poitrine fumée (cake_sale_lardon) : 100/100 - OK
 - Cake tomate chorizo feta (cake_tomate_chorizo_feta) : 100/100 - OK
@@ -370,6 +372,7 @@ Aucune fiche faible detectee.
 - Brochettes de melon épicé (brochettes_melon_epice)
 - Bruschetta roquefort noix (bruschetta_roquefort_noix)
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo)
+- Cake au chocolat et aux amandes (cake_chocolat_amandes)
 - Cake au citron (cake_citron)
 - Cake salé poitrine fumée (cake_sale_lardon)
 - Cake tomate chorizo feta (cake_tomate_chorizo_feta)
@@ -386,4 +389,3 @@ Aucune fiche faible detectee.
 - Chantilly stabilisée (chantilly_gelatine)
 - Chapelure de pain (chapelure_maison)
 - Chapelure parfumée (chapelure_parfumee)
-- Chipirons à la plancha (chipirons_a_la_plancha)
