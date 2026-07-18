@@ -26,8 +26,7 @@ Le mode d'emploi complet est dans
 - refonte visuelle native premium : header compact, stats locales, cartes
   tactiles, sections cadrees, hero de fiche encadre, fiche recette detaillee proche du site,
   grille Ingredients/Etapes/Avant de commencer et actions principales / secondaires distinguees
-- theme jour/nuit natif : nuit conservee comme reference, jour sobre et lisible,
-  detection du theme systeme au premier lancement puis preference locale persistante
+- theme nuit premium unique, sans selecteur de theme ni reglage visuel superflu
 - rattachements parents additionnels lus depuis `additionalMasters` pour que
   les fiches parents affichent tout leur contenu range
 - Recherche basique et efficace : un champ texte, un bouton `Effacer`, aucun
@@ -54,7 +53,7 @@ Le mode d'emploi complet est dans
   position de grille conservee, prefetch carte borne, copie fiche,
   navigation restaurable, swipe retour bord gauche,
   prechargement images borne, liberation memoire de liste, courses cochables,
-  audit perf leger, theme jour/nuit natif, ecran actif persistant et bouton natif de mise a jour
+  audit perf leger, theme nuit premium, ecran actif persistant et bouton natif de mise a jour
 - Fiche detail Android allegee : pas de saisons, difficulte, nombre d etapes,
   bouton favori ou bouton partager ; `Avant de commencer` reste complet et
   derive des helpers web avec allergenes, materiel, poids moyens utiles, timing,

@@ -380,19 +380,15 @@ expect(
     && !/Gecko|WebView|ServerSocket|127\.0\.0\.1|LocalAssetServer/.test(androidLegacyMainActivity + androidLegacyRepository + androidLegacyImageLoader)
 );
 expect(
-  'Android Legacy doit garder une preference de theme native jour/nuit synchronisee avec la palette.',
-  androidLegacyMainActivity.includes('PREF_THEME')
-    && androidLegacyMainActivity.includes('THEME_DARK')
-    && androidLegacyMainActivity.includes('THEME_LIGHT')
-    && androidLegacyMainActivity.includes('Configuration.UI_MODE_NIGHT_NO')
-    && androidLegacyMainActivity.includes('defaultThemeMode')
-    && androidLegacyMainActivity.includes('applyThemePalette')
-    && androidLegacyMainActivity.includes('setLightTheme(!lightTheme)')
-    && androidLegacyMainActivity.includes('adapter.setLightTheme(lightTheme)')
-    && androidLegacyMainActivity.includes('Mode jour')
-    && androidLegacyMainActivity.includes('Mode nuit')
-    && androidLegacyAdapter.includes('setLightTheme')
-    && androidLegacyAdapter.includes('applyThemePalette')
+  'Android Legacy doit exposer uniquement le theme nuit et des actions d accueil sobres.',
+  androidLegacyMainActivity.includes('lightTheme = false;')
+    && !androidLegacyMainActivity.includes('addPrefsPanel(header)')
+    && !androidLegacyMainActivity.includes('update.setText("MISE A JOUR')
+    && androidLegacyMainActivity.includes('actionButton("MISE A JOUR", false)')
+    && projectRules.includes('theme nuit premium')
+    && projectRules.includes('Texte 100%')
+    && projectRules.includes('Cartes confort')
+    && projectRules.includes('Derniere non')
 );
 expect(
   'Android Legacy doit activer R8 et le shrink resources sur l APK distribue.',

@@ -431,19 +431,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        prefsToggle = actionButton("REGLAGES", false);
-        LinearLayout.LayoutParams prefsParams = new LinearLayout.LayoutParams(0, dp(44), 1);
-        prefsParams.rightMargin = dp(7);
-        actionRow.addView(prefsToggle, prefsParams);
-        prefsToggle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setPrefsPanelOpen(!prefsPanelOpen);
-            }
-        });
-
         Button update = actionButton("MISE A JOUR", false);
-        update.setText("MISE A JOUR  ·  v" + repository.version);
         actionRow.addView(update, new LinearLayout.LayoutParams(0, dp(44), 1));
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -514,8 +502,7 @@ public class MainActivity extends Activity {
         });
 
         setSearchPanelOpen(searchPanelOpen);
-        addPrefsPanel(header);
-        setPrefsPanelOpen(prefsPanelOpen);
+        prefsPanelOpen = false;
 
         counterView = text("", 12, COLOR_MUTED, true);
         counterView.setPadding(dp(9), dp(5), dp(9), dp(6));
@@ -3334,10 +3321,7 @@ public class MainActivity extends Activity {
         compactCards = prefs.getBoolean(PREF_COMPACT_CARDS, false);
         openLastRecipe = prefs.getBoolean(PREF_OPEN_LAST, false);
         lastRecipeId = prefs.getString(PREF_LAST_RECIPE, "");
-        String preferredTheme = prefs.contains(PREF_THEME)
-                ? prefs.getString(PREF_THEME, THEME_DARK)
-                : defaultThemeMode();
-        lightTheme = THEME_LIGHT.equals(preferredTheme);
+        lightTheme = false;
         applyThemePalette();
         parseIds(prefs.getString(PREF_SHOPPING, ""), shoppingRecipeIds, 0);
         parseRawIds(prefs.getString(PREF_SHOPPING_DONE, ""), shoppingDoneKeys);
