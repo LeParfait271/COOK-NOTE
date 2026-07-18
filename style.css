@@ -6548,6 +6548,28 @@ a {
   box-shadow: 0 14px 38px rgba(84, 61, 31, .14);
 }
 
+.mc-shell.theme-light .topbar :is(.btn, .icon-square) {
+  color: var(--text);
+}
+
+.mc-shell.theme-light .topbar .site-icon {
+  color: currentColor;
+  filter: none;
+}
+
+.mc-shell.theme-light .topbar .btn-ghost {
+  background: color-mix(in srgb, var(--surface-strong) 82%, var(--accent) 4%);
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--line));
+}
+
+.mc-shell.theme-light .topbar .btn-ghost:hover,
+.mc-shell.theme-light .topbar .btn-ghost:focus-visible,
+.mc-shell.theme-light .topbar .btn-ghost[aria-pressed="true"] {
+  color: var(--text);
+  background: color-mix(in srgb, var(--accent) 13%, var(--surface-strong));
+  border-color: color-mix(in srgb, var(--accent) 58%, var(--line));
+}
+
 .mc-shell.theme-light :where(.btn, .site-footer-action, .season-tabs button, .season-category-tabs button, .active-chips button, .segmented-control button, .icon-btn) {
   background: color-mix(in srgb, var(--surface-strong) 76%, transparent);
   color: var(--text);

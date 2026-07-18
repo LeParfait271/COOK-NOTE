@@ -157,6 +157,18 @@ test.describe('Cook Note visual smoke', () => {
     expect(lightArt.hero).toContain('/assets/theme/day/global/hero.jpg');
     await expect(page.locator('.hero-logo')).toBeVisible();
     await expect(page.locator('.hero-logo')).toHaveAttribute('src', /\/assets\/theme\/day\/global\/logo\.png/);
+    const topbarColors = await page.locator('.topbar').evaluate(node => {
+      const icon = node.querySelector('.top-right .site-icon');
+      const button = node.querySelector('.top-right .icon-square');
+      return {
+        icon: icon ? getComputedStyle(icon).color : '',
+        button: button ? getComputedStyle(button).color : '',
+        background: button ? getComputedStyle(button).backgroundColor : ''
+      };
+    });
+    expect(topbarColors.icon).toBe(topbarColors.button);
+    expect(topbarColors.icon).not.toBe('rgb(255, 255, 255)');
+    expect(topbarColors.background).not.toBe('rgba(0, 0, 0, 0)');
     const firstDayCardSource = await page.locator('.recipe-card.master-card .card-image').first().getAttribute('src');
     expect(firstDayCardSource).toContain('/assets/theme/day/categories/');
     expect(firstDayCardSource).toContain('_maitre.jpg?v=');
