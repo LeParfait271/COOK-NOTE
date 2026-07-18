@@ -129,6 +129,12 @@ final class RecipeAdapter extends BaseAdapter {
 
         Recipe recipe = getItem(position);
         holder.title.setText(recipe.title);
+        Integer collectionCount = collectionCounts == null ? null : collectionCounts.get(recipe.id);
+        if (collectionCount != null && collectionCount > 0) {
+            holder.meta.setText("COLLECTION  ·  " + collectionCount + " RECETTES");
+        } else {
+            holder.meta.setText("FICHE RECETTE");
+        }
         holder.image.setContentDescription("Image de " + recipe.title);
         int cardWidth = resizeCardForParent(holder, parent);
         int cardHeight = Math.max(dp(cardMinHeightDp()), (cardWidth * 9) / 16);
@@ -158,9 +164,9 @@ final class RecipeAdapter extends BaseAdapter {
     private void applyThemePalette() {
         if (lightTheme) {
             COLOR_BG = Color.rgb(245, 239, 228);
-            COLOR_CARD = Color.rgb(255, 248, 237);
-            COLOR_CARD_SOFT = Color.rgb(243, 234, 220);
-            COLOR_CARD_ACTIVE = Color.rgb(234, 210, 174);
+            COLOR_CARD = Color.rgb(255, 251, 245);
+            COLOR_CARD_SOFT = Color.rgb(241, 232, 217);
+            COLOR_CARD_ACTIVE = Color.rgb(230, 204, 164);
             COLOR_TEXT = Color.rgb(32, 23, 15);
             COLOR_MUTED = Color.rgb(77, 66, 54);
             COLOR_BORDER = Color.rgb(185, 133, 67);
@@ -168,10 +174,10 @@ final class RecipeAdapter extends BaseAdapter {
             COLOR_GOLD = Color.rgb(180, 83, 9);
             COLOR_ORANGE = Color.rgb(217, 119, 6);
         } else {
-            COLOR_BG = Color.rgb(4, 4, 4);
-            COLOR_CARD = Color.rgb(18, 17, 14);
-            COLOR_CARD_SOFT = Color.rgb(28, 26, 21);
-            COLOR_CARD_ACTIVE = Color.rgb(52, 39, 20);
+            COLOR_BG = Color.rgb(7, 8, 10);
+            COLOR_CARD = Color.rgb(20, 20, 20);
+            COLOR_CARD_SOFT = Color.rgb(30, 29, 26);
+            COLOR_CARD_ACTIVE = Color.rgb(54, 40, 20);
             COLOR_TEXT = Color.rgb(255, 247, 237);
             COLOR_MUTED = Color.rgb(222, 214, 200);
             COLOR_BORDER = Color.rgb(113, 84, 36);
@@ -197,7 +203,7 @@ final class RecipeAdapter extends BaseAdapter {
     private ViewHolder createRow() {
         LinearLayout root = new LinearLayout(context);
         root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(dp(4), dp(4), dp(4), dp(8));
+        root.setPadding(dp(5), dp(5), dp(5), dp(9));
         root.setBackgroundColor(COLOR_BG);
         root.setLayoutParams(new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -206,7 +212,7 @@ final class RecipeAdapter extends BaseAdapter {
 
         LinearLayout card = new LinearLayout(context);
         card.setOrientation(LinearLayout.VERTICAL);
-        card.setBackground(selectablePanel(COLOR_CARD, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 16));
+        card.setBackground(selectablePanel(COLOR_CARD, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 18));
         root.addView(card, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -236,7 +242,7 @@ final class RecipeAdapter extends BaseAdapter {
 
         LinearLayout overlay = new LinearLayout(context);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(16), dp(26), dp(16), dp(15));
+        overlay.setPadding(dp(17), dp(34), dp(17), dp(16));
         overlay.setBackground(cardTitleOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -247,7 +253,7 @@ final class RecipeAdapter extends BaseAdapter {
 
         TextView title = new TextView(context);
         title.setTextColor(Color.rgb(255, 251, 244));
-        title.setTextSize(17);
+        title.setTextSize(18);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
@@ -260,15 +266,14 @@ final class RecipeAdapter extends BaseAdapter {
         );
         overlay.addView(title, titleParams);
 
-        TextView accent = new TextView(context);
-        accent.setText("COOK NOTE");
-        accent.setTextColor(Color.rgb(251, 191, 36));
-        accent.setTextSize(10);
-        accent.setTypeface(Typeface.DEFAULT_BOLD);
-        accent.setLetterSpacing(0.14f);
-        accent.setIncludeFontPadding(false);
-        accent.setPadding(0, dp(5), 0, 0);
-        overlay.addView(accent, new LinearLayout.LayoutParams(
+        TextView meta = new TextView(context);
+        meta.setTextColor(Color.rgb(251, 191, 36));
+        meta.setTextSize(9);
+        meta.setTypeface(Typeface.DEFAULT_BOLD);
+        meta.setLetterSpacing(0.13f);
+        meta.setIncludeFontPadding(false);
+        meta.setPadding(0, dp(6), 0, 0);
+        overlay.addView(meta, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         ));
@@ -277,6 +282,7 @@ final class RecipeAdapter extends BaseAdapter {
         holder.root = root;
         holder.image = image;
         holder.title = title;
+        holder.meta = meta;
         animateIn(card, 0);
         return holder;
     }
@@ -388,5 +394,6 @@ final class RecipeAdapter extends BaseAdapter {
         LinearLayout root;
         ImageView image;
         TextView title;
+        TextView meta;
     }
 }

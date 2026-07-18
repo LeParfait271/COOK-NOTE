@@ -105,14 +105,15 @@ npm run android:legacy:setup
 
 ## Publication GitHub
 
-Le site peut proposer le bouton `Android 5.0+` en bas de page. Ce bouton pointe
-vers la copie APK au nom APK versionne du depot GitHub, avec un alias stable
-pour la mise a jour native :
+Le site propose le bouton `Android 5.0+` en bas de page. Ce bouton telecharge
+directement l'alias brut stable, identique pour toutes les versions :
 
 ```text
-https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk
-https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy-vX.YY.apk
+https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk
 ```
+
+Le nom APK versionne reste disponible uniquement comme artefact de publication
+et ne doit jamais remplacer ce chemin stable dans le footer.
 
 L app Android 5.0+ affiche aussi `Mise a jour` dans son accueil. Ce bouton
 ouvre la meme URL stable pour telecharger la nouvelle APK et l installer

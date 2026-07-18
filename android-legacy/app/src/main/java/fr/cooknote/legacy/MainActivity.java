@@ -221,6 +221,7 @@ public class MainActivity extends Activity {
         try {
             repository = CookNoteRepository.load(this);
             loadUserState();
+            applySystemChrome();
             restoreScreenState(savedInstanceState);
             if (savedInstanceState == null && currentScreen == SCREEN_LIST && openLastRecipe && lastRecipeId.length() > 0) {
                 Recipe lastRecipe = repository.find(lastRecipeId);
@@ -327,7 +328,7 @@ public class MainActivity extends Activity {
 
         LinearLayout header = new LinearLayout(this);
         header.setOrientation(LinearLayout.VERTICAL);
-        header.setPadding(dp(16), dp(14), dp(16), dp(12));
+        header.setPadding(dp(20), dp(16), dp(20), dp(14));
         header.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, 0, 0, 0));
         root.addView(header, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -343,10 +344,10 @@ public class MainActivity extends Activity {
         ));
 
         FrameLayout logoFrame = new FrameLayout(this);
-        logoFrame.setPadding(dp(7), dp(7), dp(7), dp(7));
-        logoFrame.setBackground(panel(COLOR_CARD_ACTIVE, COLOR_BORDER_BRIGHT, 1, 40));
-        LinearLayout.LayoutParams logoFrameParams = new LinearLayout.LayoutParams(dp(52), dp(52));
-        logoFrameParams.rightMargin = dp(14);
+        logoFrame.setPadding(dp(8), dp(8), dp(8), dp(8));
+        logoFrame.setBackground(panelGradient(COLOR_CARD_ACTIVE, COLOR_PANEL_DEEP, COLOR_BORDER_BRIGHT, 1, 18));
+        LinearLayout.LayoutParams logoFrameParams = new LinearLayout.LayoutParams(dp(62), dp(62));
+        logoFrameParams.rightMargin = dp(16);
         brandRow.addView(logoFrame, logoFrameParams);
 
         ImageView logo = new ImageView(this);
@@ -362,13 +363,13 @@ public class MainActivity extends Activity {
         brandCopy.setOrientation(LinearLayout.VERTICAL);
         brandRow.addView(brandCopy, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
-        TextView title = text("Cook Note", 27, COLOR_TEXT, true);
+        TextView title = text("COOK NOTE", 28, COLOR_TEXT, true);
         title.setGravity(Gravity.CENTER_VERTICAL);
         title.setIncludeFontPadding(false);
-        title.setLetterSpacing(0.05f);
+        title.setLetterSpacing(0.08f);
         brandCopy.addView(title);
 
-        TextView subtitle = text("Carnet tablette Android 5.0+   -   v" + repository.version, 10, COLOR_DIM, true);
+        TextView subtitle = text("NATIVE LITE  /  ANDROID 5+  /  v" + repository.version, 10, COLOR_DIM, true);
         subtitle.setPadding(0, dp(4), 0, 0);
         brandCopy.addView(subtitle);
 
@@ -382,6 +383,15 @@ public class MainActivity extends Activity {
         brandCopy.addView(stats, statsParams);
         addHeaderStat(stats, String.valueOf(repository.homeRecipes().size()), "accueil");
         addHeaderStat(stats, String.valueOf(repository.searchableRecipes().size()), "fiches");
+
+        LinearLayout statusStack = new LinearLayout(this);
+        statusStack.setOrientation(LinearLayout.VERTICAL);
+        statusStack.setGravity(Gravity.RIGHT);
+        LinearLayout.LayoutParams statusParams = new LinearLayout.LayoutParams(dp(190), ViewGroup.LayoutParams.WRAP_CONTENT);
+        statusParams.leftMargin = dp(12);
+        brandRow.addView(statusStack, statusParams);
+        addStatusPill(statusStack, "●  PRET HORS LIGNE", true);
+        addStatusPill(statusStack, "CATALOGUE LOCAL", false);
 
         addAccentLine(header, 11, 0);
 
@@ -397,8 +407,8 @@ public class MainActivity extends Activity {
         animateIn(header, 0);
         animateIn(actionRow, 70);
 
-        searchToggle = actionButton("Recherche", true);
-        LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(0, dp(40), 1);
+        searchToggle = actionButton("RECHERCHER", true);
+        LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(0, dp(44), 1);
         searchParams.rightMargin = dp(7);
         actionRow.addView(searchToggle, searchParams);
         searchToggle.setOnClickListener(new View.OnClickListener() {
@@ -408,8 +418,8 @@ public class MainActivity extends Activity {
             }
         });
 
-        shoppingButton = actionButton("Courses (" + shoppingRecipeIds.size() + ")", false);
-        LinearLayout.LayoutParams shoppingParams = new LinearLayout.LayoutParams(0, dp(40), 1);
+        shoppingButton = actionButton("COURSES  ·  " + shoppingRecipeIds.size(), false);
+        LinearLayout.LayoutParams shoppingParams = new LinearLayout.LayoutParams(0, dp(44), 1);
         shoppingParams.rightMargin = dp(7);
         actionRow.addView(shoppingButton, shoppingParams);
         shoppingButton.setOnClickListener(new View.OnClickListener() {
@@ -421,8 +431,8 @@ public class MainActivity extends Activity {
             }
         });
 
-        prefsToggle = actionButton("Reglages", false);
-        LinearLayout.LayoutParams prefsParams = new LinearLayout.LayoutParams(0, dp(40), 1);
+        prefsToggle = actionButton("REGLAGES", false);
+        LinearLayout.LayoutParams prefsParams = new LinearLayout.LayoutParams(0, dp(44), 1);
         prefsParams.rightMargin = dp(7);
         actionRow.addView(prefsToggle, prefsParams);
         prefsToggle.setOnClickListener(new View.OnClickListener() {
@@ -432,9 +442,9 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button update = actionButton("Mise a jour", false);
-        update.setText("Maj v" + repository.version);
-        actionRow.addView(update, new LinearLayout.LayoutParams(0, dp(40), 1));
+        Button update = actionButton("MISE A JOUR", false);
+        update.setText("MISE A JOUR  ·  v" + repository.version);
+        actionRow.addView(update, new LinearLayout.LayoutParams(0, dp(44), 1));
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -444,8 +454,8 @@ public class MainActivity extends Activity {
 
         searchPanel = new LinearLayout(this);
         searchPanel.setOrientation(LinearLayout.VERTICAL);
-        searchPanel.setPadding(dp(12), dp(11), dp(12), dp(12));
-        searchPanel.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER, 1, 8));
+        searchPanel.setPadding(dp(14), dp(13), dp(14), dp(14));
+        searchPanel.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER, 1, 14));
         LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -511,7 +521,8 @@ public class MainActivity extends Activity {
         counterView.setPadding(dp(9), dp(5), dp(9), dp(6));
         counterView.setSingleLine(true);
         counterView.setEllipsize(TextUtils.TruncateAt.END);
-        counterView.setBackground(panel(COLOR_PANEL_DEEP, COLOR_BORDER_SOFT, 1, 8));
+        counterView.setLetterSpacing(0.04f);
+        counterView.setBackground(panel(COLOR_PANEL_DEEP, COLOR_BORDER_SOFT, 1, 12));
         LinearLayout.LayoutParams counterParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -687,15 +698,15 @@ public class MainActivity extends Activity {
     private void addHeaderStat(LinearLayout row, String value, String label) {
         LinearLayout stat = new LinearLayout(this);
         stat.setOrientation(LinearLayout.VERTICAL);
-        stat.setPadding(dp(12), dp(6), dp(12), dp(7));
+        stat.setPadding(dp(12), dp(7), dp(12), dp(8));
         stat.setMinimumWidth(dp(92));
-        stat.setBackground(panelGradient(COLOR_SURFACE, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 12));
+        stat.setBackground(panelGradient(COLOR_SURFACE, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 14));
 
-        TextView valueView = text(value, 13, COLOR_GOLD_SOFT, true);
+        TextView valueView = text(value, 14, COLOR_GOLD_SOFT, true);
         valueView.setIncludeFontPadding(false);
         stat.addView(valueView);
 
-        TextView labelView = text(label, 9, COLOR_DIM, true);
+        TextView labelView = text(label.toUpperCase(), 9, COLOR_DIM, true);
         labelView.setIncludeFontPadding(false);
         labelView.setSingleLine(true);
         stat.addView(labelView);
@@ -706,6 +717,20 @@ public class MainActivity extends Activity {
                 : new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         params.rightMargin = dp(7);
         row.addView(stat, params);
+    }
+
+    private void addStatusPill(LinearLayout parent, String value, boolean active) {
+        TextView pill = text(value, 9, active ? COLOR_GOLD : COLOR_DIM, true);
+        pill.setGravity(Gravity.CENTER);
+        pill.setSingleLine(true);
+        pill.setLetterSpacing(0.08f);
+        pill.setPadding(dp(10), dp(7), dp(10), dp(7));
+        pill.setBackground(panel(active ? COLOR_CARD_ACTIVE : COLOR_PANEL_DEEP,
+                active ? COLOR_BORDER_BRIGHT : COLOR_BORDER_SOFT, 1, 14));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.bottomMargin = dp(7);
+        parent.addView(pill, params);
     }
 
     private void clearSearch() {
@@ -792,8 +817,8 @@ public class MainActivity extends Activity {
     }
 
     private String buildSearchToggleLabel() {
-        if (searchPanelOpen) return "Fermer";
-        return currentQuery.trim().length() == 0 ? "Recherche" : "Recherche active";
+        if (searchPanelOpen) return "FERMER";
+        return currentQuery.trim().length() == 0 ? "RECHERCHER" : "RECHERCHE ACTIVE";
     }
 
     private void setPrefsPanelOpen(boolean open) {
@@ -809,7 +834,7 @@ public class MainActivity extends Activity {
     }
 
     private String buildPrefsToggleLabel() {
-        return prefsPanelOpen ? "Fermer" : "Reglages";
+        return prefsPanelOpen ? "FERMER" : "REGLAGES";
     }
 
     private void addPrefsPanel(LinearLayout header) {
@@ -3355,6 +3380,7 @@ public class MainActivity extends Activity {
             COLOR_BG = Color.rgb(245, 239, 228);
             COLOR_PANEL = Color.rgb(239, 227, 209);
             COLOR_PANEL_DEEP = Color.rgb(233, 220, 200);
+            COLOR_SURFACE = Color.rgb(250, 244, 234);
             COLOR_CARD = Color.rgb(255, 248, 237);
             COLOR_CARD_SOFT = Color.rgb(243, 234, 220);
             COLOR_CARD_ACTIVE = Color.rgb(234, 210, 174);
@@ -3369,12 +3395,13 @@ public class MainActivity extends Activity {
             COLOR_GOLD = Color.rgb(180, 83, 9);
             COLOR_ORANGE = Color.rgb(217, 119, 6);
         } else {
-            COLOR_BG = Color.rgb(4, 4, 4);
-            COLOR_PANEL = Color.rgb(17, 16, 13);
-            COLOR_PANEL_DEEP = Color.rgb(8, 7, 6);
-            COLOR_CARD = Color.rgb(18, 17, 14);
-            COLOR_CARD_SOFT = Color.rgb(28, 26, 21);
-            COLOR_CARD_ACTIVE = Color.rgb(52, 39, 20);
+            COLOR_BG = Color.rgb(7, 8, 10);
+            COLOR_PANEL = Color.rgb(17, 18, 21);
+            COLOR_PANEL_DEEP = Color.rgb(10, 11, 13);
+            COLOR_SURFACE = Color.rgb(23, 23, 24);
+            COLOR_CARD = Color.rgb(20, 20, 20);
+            COLOR_CARD_SOFT = Color.rgb(30, 29, 26);
+            COLOR_CARD_ACTIVE = Color.rgb(54, 40, 20);
             COLOR_TEXT = Color.rgb(255, 247, 237);
             COLOR_TEXT_DARK = Color.rgb(22, 17, 8);
             COLOR_MUTED = Color.rgb(222, 214, 200);
@@ -3387,6 +3414,13 @@ public class MainActivity extends Activity {
             COLOR_ORANGE = Color.rgb(245, 158, 11);
         }
         if (adapter != null) adapter.setLightTheme(lightTheme);
+        applySystemChrome();
+    }
+
+    private void applySystemChrome() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return;
+        getWindow().setStatusBarColor(Color.rgb(5, 6, 8));
+        getWindow().setNavigationBarColor(Color.rgb(5, 6, 8));
     }
 
     private float clampQuantityFactor(float value) {
@@ -3476,7 +3510,7 @@ public class MainActivity extends Activity {
     }
 
     private void refreshShoppingButton() {
-        if (shoppingButton != null) shoppingButton.setText("Courses (" + shoppingRecipeIds.size() + ")");
+        if (shoppingButton != null) shoppingButton.setText("COURSES  ·  " + shoppingRecipeIds.size());
     }
 
     private void setKeepScreenOn(boolean enabled) {
