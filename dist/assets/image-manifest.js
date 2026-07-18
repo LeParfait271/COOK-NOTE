@@ -722,8 +722,8 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   },
   "assets/recipes/cards/mousse_chocolat.jpg": {
     "width": 760,
-    "height": 570,
-    "bytes": 94344
+    "height": 428,
+    "bytes": 76062
   },
   "assets/recipes/cards/muffins_framboises.jpg": {
     "width": 760,
@@ -2007,8 +2007,8 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   },
   "assets/recipes/heroes/mousse_chocolat.jpg": {
     "width": 1400,
-    "height": 1050,
-    "bytes": 298536
+    "height": 788,
+    "bytes": 263183
   },
   "assets/recipes/heroes/muffins_framboises.jpg": {
     "width": 1400,

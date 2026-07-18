@@ -112,3 +112,72 @@ window.RECIPES.desserts_maitre.variants.push({
   "id": "granola_maison_chocolat",
   "label": "Granola croustillant au chocolat"
 });
+
+Object.assign(window.RECIPES.mousse_chocolat, {
+  "title": "Mousse au chocolat Pierre Hermé",
+  "yield": "4 personnes",
+  "activeTime": 20,
+  "cookTime": 5,
+  "aliases": [
+    "mousse chocolat",
+    "mousse chocolat noir",
+    "mousse chocolat Pierre Hermé",
+    "mousse chocolat aérienne"
+  ],
+  "tags": ["chocolat", "mousse", "dessert", "œufs", "Pierre Hermé"],
+  "ingredients": [
+    {
+      "group": "Mousse",
+      "items": [
+        "170g chocolat noir à 70%",
+        "80g lait entier",
+        "1 jaune d’œuf environ 20g",
+        "4 blancs d’œufs froids environ 120g",
+        "20g sucre"
+      ]
+    }
+  ],
+  "steps": [
+    "Hacher le chocolat noir et le faire fondre doucement au bain-marie, sans laisser le fond du récipient toucher l’eau.",
+    "Chauffer le lait entier jusqu’au premier frémissement, puis le verser en trois fois sur le chocolat fondu en mélangeant à la maryse.",
+    "Mélanger brièvement au fouet pour obtenir une émulsion lisse et brillante, puis laisser redescendre la préparation autour de 40°C.",
+    "Ajouter le jaune d’œuf et mélanger immédiatement jusqu’à texture homogène.",
+    "Commencer à fouetter les blancs d’œufs froids à vitesse moyenne.",
+    "Quand les blancs deviennent mousseux, ajouter le sucre progressivement et continuer jusqu’à un bec d’oiseau souple, brillant et non cassant.",
+    "Incorporer un tiers des blancs au fouet pour détendre franchement la base chocolatée.",
+    "Ajouter le reste des blancs en deux fois à la maryse, en soulevant la masse du centre vers les bords sans chercher à supprimer toutes les marbrures trop vite.",
+    "Répartir dans quatre coupes, couvrir et laisser prendre au réfrigérateur au moins 2h avant de servir."
+  ],
+  "notes": [
+    "La base chocolatée doit être tiède, autour de 40°C : trop chaude, elle liquéfie les blancs ; trop froide, elle fige et forme des grains.",
+    "Des blancs montés au bec d’oiseau donnent une mousse plus soyeuse que des blancs très fermes et secs.",
+    "Sortir les coupes 5min avant dégustation pour que les arômes du chocolat soient plus nets."
+  ],
+  "technical": [
+    {
+      "label": "Émulsion",
+      "value": "Verser le lait chaud progressivement sur le chocolat crée un noyau lisse, élastique et brillant."
+    },
+    {
+      "label": "Température",
+      "value": "Ajouter le jaune puis les blancs lorsque la base chocolat-lait est proche de 40°C."
+    },
+    {
+      "label": "Blancs",
+      "value": "Ils doivent former un bec d’oiseau souple : assez montés pour tenir, encore flexibles pour s’incorporer sans grainer."
+    }
+  ],
+  "practical": {
+    "equipment": ["Cul-de-poule", "Casserole", "Bain-marie", "Fouet", "Batteur", "Maryse", "4 coupes"],
+    "storage": ["24h maximum au réfrigérateur à 0–4°C, couverte, en raison des œufs peu cuits."],
+    "mistakes": [
+      "Ne pas verser le lait bouillant en une seule fois, l’émulsion pourrait se séparer.",
+      "Ne pas monter les blancs jusqu’à une masse sèche et cassante.",
+      "Ne pas incorporer les blancs dans une base encore brûlante ou déjà figée."
+    ],
+    "result": ["Mousse aérienne mais crémeuse, régulière, brillante, avec une saveur franche de chocolat noir et aucune sensation de beurre."]
+  }
+});
+window.RECIPES.desserts_maitre.variants
+  .filter(variant => variant.id === "mousse_chocolat")
+  .forEach(variant => { variant.label = "Mousse au chocolat Pierre Hermé"; });

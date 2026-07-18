@@ -1,6 +1,6 @@
 # Audit Cook Note
 
-Genere le 2026-07-18T14:02:44.581Z.
+Genere le 2026-07-18T14:44:37.423Z.
 
 - Recettes totales : 257
 - Recettes feuilles : 249
@@ -193,7 +193,7 @@ Aucune fiche faible detectee.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Mi-cuits au chocolat (mi_cuits_chocolat) : 100/100 - OK
 - Mojitos (mojitos_variantes) : 100/100 - OK
-- Mousse au chocolat (mousse_chocolat) : 100/100 - OK
+- Mousse au chocolat Pierre Hermé (mousse_chocolat) : 100/100 - OK
 - Muffins aux framboises (muffins_framboises) : 100/100 - OK
 - Nems vietnamiens (nems_vietnam) : 100/100 - OK
 - Œuf sur le plat chili crisp sur toast (oeuf_chili_crisp_toast) : 100/100 - OK
