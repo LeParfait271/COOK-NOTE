@@ -367,6 +367,31 @@ function addBeforeSection(sections, title, items) {
   if (cleanTitle && cleanItems.length) sections.push({ title: cleanTitle, items: cleanItems });
 }
 
+function dedupeBeforeSections(sections) {
+  const seenItems = new Set();
+  const byTitle = new Map();
+  const output = [];
+  sections.forEach(section => {
+    const items = uniqueText(section.items || []).filter(item => {
+      const key = normalizeText(item);
+      if (!key || seenItems.has(key)) return false;
+      seenItems.add(key);
+      return true;
+    });
+    if (!items.length) return;
+    const titleKey = normalizeText(section.title);
+    const existing = byTitle.get(titleKey);
+    if (existing) {
+      existing.items.push(...items);
+      return;
+    }
+    const cleanSection = { title: section.title, items };
+    byTitle.set(titleKey, cleanSection);
+    output.push(cleanSection);
+  });
+  return output;
+}
+
 function recipesWithIds(recipes) {
   return Object.fromEntries(
     Object.entries(recipes).map(([id, recipe]) => [id, { ...recipe, id }])
@@ -407,7 +432,7 @@ function completeBeforeSections(id, recipe, recipes, helpers) {
   addBeforeSection(sections, 'Notes', helpers.getDisplayNotes(sourceRecipe, practicalSections) || []);
   addBeforeSection(sections, 'Technique', cleanTechnical(sourceRecipe.technical).map(item => labelValueText(item.label, item.value)));
 
-  return sections;
+  return dedupeBeforeSections(sections);
 }
 
 function compactRecipe(id, recipe, imageName, detailImageName, recipes, helpers) {
@@ -494,6 +519,22 @@ function categorySummary(recipes) {
     });
 }
 
+function assertNoDuplicateBeforeItems(recipes) {
+  recipes.forEach(recipe => {
+    const seen = new Map();
+    (recipe.practical || []).forEach(section => {
+      (section.items || []).forEach(item => {
+        const key = normalizeText(item);
+        if (!key) return;
+        if (seen.has(key)) {
+          throw new Error(`Doublon Avant de commencer (${recipe.id}): ${seen.get(key)} / ${section.title} - ${item}`);
+        }
+        seen.set(key, section.title);
+      });
+    });
+  });
+}
+
 function buildLiteAssets() {
   const recipes = loadRecipes();
   const helperRecipes = recipesWithIds(recipes);
@@ -533,6 +574,7 @@ function buildLiteAssets() {
       .map(searchIndexEntry)
   };
 
+  assertNoDuplicateBeforeItems(outputRecipes);
   assertNoEncodingIssues(payload);
   assertNoEncodingIssues(searchIndex);
   fs.writeFileSync(path.join(OUT_DIR, 'recipes-lite.json'), JSON.stringify(payload), 'utf8');

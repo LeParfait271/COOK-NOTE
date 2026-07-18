@@ -60,6 +60,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -139,7 +140,7 @@ public class MainActivity extends Activity {
     private static final int DEFAULT_MAX_SERVING_CHOICES = 12;
     private static final int HARD_MAX_SERVING_CHOICES = 24;
     private static final Pattern SERVING_COUNT_PATTERN = Pattern.compile(
-            "\\b(\\d+)\\s*(?:-|a|\\u00E0)?\\s*(\\d+)?\\s*(?:personnes?|pers\\.?|convives?|parts?)\\b",
+            "\\b(\\d+)\\s*(?:-|a|\\u00E0)?\\s*(\\d+)?\\s*(personnes?|portions?|pers\\.?|convives?|parts?)\\b",
             Pattern.CASE_INSENSITIVE
     );
     private static final Pattern INGREDIENT_AMOUNT_PATTERN = Pattern.compile(
@@ -1372,7 +1373,7 @@ public class MainActivity extends Activity {
         } else {
             String serving = servingSummary(recipe);
             if (serving.length() > 0) {
-                facts.add(new String[]{baseServings(recipe) > 0 ? "Personnes" : "Quantite", serving});
+                facts.add(new String[]{baseServings(recipe) > 0 ? servingSectionTitle(recipe) : "Quantite", serving});
             }
             if (recipe.activeTime > 0) facts.add(new String[]{"Actif", formatMinutes(recipe.activeTime)});
             if (recipe.cookTime > 0) facts.add(new String[]{"Cuisson", formatMinutes(recipe.cookTime)});
@@ -1469,15 +1470,15 @@ public class MainActivity extends Activity {
         final int baseServings = baseServings(recipe);
         if (baseServings > 0) {
             final int selectedServings = selectedServings(recipe);
-            LinearLayout section = addSection(content, "Personnes", servingLabel(selectedServings));
-            TextView help = text("Choisis le nombre de personnes. Les ingredients, la copie et les courses suivent.", 12, COLOR_MUTED, false);
+            LinearLayout section = addSection(content, servingSectionTitle(recipe), servingLabel(recipe, selectedServings));
+            TextView help = text("Choisis la quantite servie. Les ingredients, la copie et les courses suivent.", 12, COLOR_MUTED, false);
             help.setPadding(0, dp(6), 0, dp(2));
             section.addView(help);
 
             final ArrayList<Integer> servings = servingOptions(baseServings);
             ArrayList<String> labels = new ArrayList<String>();
             for (Integer serving : servings) {
-                labels.add(servingLabel(serving.intValue()));
+                labels.add(servingLabel(recipe, serving.intValue()));
             }
             final int selectedIndex = Math.max(0, servings.indexOf(Integer.valueOf(selectedServings)));
             final int[] currentIndex = new int[]{selectedIndex};
@@ -1485,7 +1486,7 @@ public class MainActivity extends Activity {
             spinner.setSelection(selectedIndex);
             section.addView(spinner, fullWidthParams(dp(10), dp(46)));
 
-            TextView base = text("Base de la fiche : " + servingLabel(baseServings) + ".", 11, COLOR_DIM, false);
+            TextView base = text("Base de la fiche : " + servingLabel(recipe, baseServings) + ".", 11, COLOR_DIM, false);
             base.setPadding(0, dp(7), 0, 0);
             section.addView(base);
 
@@ -1580,12 +1581,32 @@ public class MainActivity extends Activity {
 
     private String servingSummary(Recipe recipe) {
         int servings = selectedServings(recipe);
-        if (servings > 0) return servingLabel(servings);
+        if (servings > 0) return servingLabel(recipe, servings);
         return recipe == null ? "" : recipe.yield;
     }
 
-    private String servingLabel(int count) {
-        return count + (count > 1 ? " personnes" : " personne");
+    private String servingUnit(Recipe recipe) {
+        if (recipe != null) {
+            Matcher matcher = SERVING_COUNT_PATTERN.matcher(CookNoteRepository.normalize(recipe.yield));
+            if (matcher.find()) {
+                String unit = matcher.group(3).toLowerCase(Locale.FRANCE);
+                if (unit.startsWith("portion")) return "portion";
+                if (unit.startsWith("part")) return "part";
+            }
+        }
+        return "personne";
+    }
+
+    private String servingSectionTitle(Recipe recipe) {
+        String unit = servingUnit(recipe);
+        if ("portion".equals(unit)) return "Portions";
+        if ("part".equals(unit)) return "Parts";
+        return "Personnes";
+    }
+
+    private String servingLabel(Recipe recipe, int count) {
+        String unit = servingUnit(recipe);
+        return count + " " + unit + (count > 1 ? "s" : "");
     }
 
     private String factorLabel(float factor) {
