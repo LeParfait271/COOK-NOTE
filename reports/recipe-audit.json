@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-18T18:41:57.256Z",
+  "generatedAt": "2026-07-18T23:29:54.989Z",
   "totals": {
-    "recipes": 261,
-    "leaves": 253,
+    "recipes": 278,
+    "leaves": 270,
     "masters": 8,
     "lowScore": 0,
     "categoryIdeas": 20,
@@ -10,13 +10,13 @@
   },
   "averageScore": 96,
   "healthDashboard": {
-    "ready": 198,
-    "improve": 55,
+    "ready": 207,
+    "improve": 63,
     "weak": 0,
     "missingDiscovery": 18,
-    "missingSafety": 37,
+    "missingSafety": 45,
     "productionRisk": 0,
-    "fewLinks": 222
+    "fewLinks": 238
   },
   "weakestRecipes": [],
   "categoryIdeas": [
@@ -123,8 +123,18 @@
   ],
   "recipesWithFewLinks": [
     {
+      "id": "aioli_safran",
+      "title": "Aïoli au safran",
+      "count": 0
+    },
+    {
       "id": "ajitsuke_tamago_oeufs_marines_ramen",
       "title": "Ajitsuke tamago œufs marinés ramen",
+      "count": 0
+    },
+    {
+      "id": "asperges_vertes_lard",
+      "title": "Asperges vertes au lard grillé",
       "count": 0
     },
     {
@@ -198,6 +208,11 @@
       "count": 0
     },
     {
+      "id": "cake_marbre_chocolat",
+      "title": "Cake marbré au chocolat",
+      "count": 0
+    },
+    {
       "id": "cake_sale_lardon",
       "title": "Cake salé poitrine fumée",
       "count": 0
@@ -256,24 +271,17 @@
       "id": "cerises_sechees_maison",
       "title": "Cerises séchées",
       "count": 0
-    },
-    {
-      "id": "chantilly_gelatine",
-      "title": "Chantilly stabilisée",
-      "count": 0
-    },
-    {
-      "id": "chapelure_maison",
-      "title": "Chapelure de pain",
-      "count": 0
-    },
-    {
-      "id": "chapelure_parfumee",
-      "title": "Chapelure parfumée",
-      "count": 0
     }
   ],
   "reviewedRecipes": [
+    {
+      "id": "aioli_safran",
+      "title": "Aïoli au safran",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
     {
       "id": "aioli_citronne_leger",
       "title": "Aïoli citronné léger",
@@ -299,6 +307,14 @@
       "suggestions": [
         "Categorie possible : Apéro (semble utile a l apero)."
       ]
+    },
+    {
+      "id": "asperges_vertes_lard",
+      "title": "Asperges vertes au lard grillé",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "babeurre_maison",
@@ -472,6 +488,18 @@
       ]
     },
     {
+      "id": "cake_marbre_chocolat",
+      "title": "Cake marbré au chocolat",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "cake_sale_lardon",
       "title": "Cake salé poitrine fumée",
       "score": 100,
@@ -598,6 +626,26 @@
     {
       "id": "chapelure_parfumee",
       "title": "Chapelure parfumée",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cheesecake_basque",
+      "title": "Cheesecake basque",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
+      "id": "cheesecake_caramel_nougatine_speculoos",
+      "title": "Cheesecake caramel, nougatine et spéculoos",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -808,6 +856,14 @@
       "suggestions": []
     },
     {
+      "id": "coq_au_vin",
+      "title": "Coq au vin",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "cotelettes_porc_miel_moutarde",
       "title": "Côtelettes de porc miel moutarde",
       "score": 82,
@@ -936,8 +992,24 @@
       "suggestions": []
     },
     {
+      "id": "cremes_dessert_chocolat",
+      "title": "Crèmes dessert au chocolat",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "crepes_lait_amandes",
       "title": "Crêpes au lait d’amandes",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "crepes_suzette",
+      "title": "Crêpes Suzette",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -992,6 +1064,18 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "crumble_pomme_poire_violier",
+      "title": "Crumble pomme-poire de Benoît Violier",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "cuisses_poulet_asiatique",
@@ -1122,6 +1206,22 @@
       "issues": [
         "Conservation ou securite alimentaire a verifier."
       ],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "fondant_chocolat_caminada",
+      "title": "Fondant au chocolat d’Andreas Caminada",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "fondue_grand_marnier",
+      "title": "Fondue moitié-moitié au Grand Marnier",
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -1356,6 +1456,18 @@
       "suggestions": []
     },
     {
+      "id": "jarret_agneau_petits_legumes",
+      "title": "Jarret d’agneau braisé aux petits légumes",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "joues_de_boeuf_carottes_orange_vin_rouge",
       "title": "Joues de bœuf carottes orange vin rouge",
       "score": 82,
@@ -1428,6 +1540,18 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "macaronis_chalet",
+      "title": "Macaronis du chalet",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "madeleines_comte_epices_douces",
@@ -1687,6 +1811,18 @@
       "qualityIssues": [],
       "suggestions": [
         "Notes nombreuses : verifier que tout est bien range dans les sections pratiques."
+      ]
+    },
+    {
+      "id": "carbonara_romaine",
+      "title": "Pâtes à la carbonara",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
     },
     {
@@ -2100,6 +2236,14 @@
       "suggestions": []
     },
     {
+      "id": "salade_pommes_terre_ottolenghi",
+      "title": "Salade de pommes de terre d’Ottolenghi",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "salade_epinards_clementines_amande_feta",
       "title": "Salade epinards clementines amande feta",
       "score": 100,
@@ -2260,6 +2404,18 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "smash_burger",
+      "title": "Smash Burger et buns briochés",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "souffle_fromage_facile",
@@ -2446,6 +2602,18 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "tresse_beurre_caminada",
+      "title": "Tresse au beurre d’Andreas Caminada",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "veloute_hiver_noix_cajou",

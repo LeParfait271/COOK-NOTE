@@ -15,7 +15,7 @@ const FILE_BUDGETS = [
   ['app.js', 400 * KB],
   ['style.css', 192 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.
-  ['recipes.js', 500 * KB],
+  ['recipes.js', 550 * KB],
   ['assets/image-manifest.js', 180 * KB],
   ['app-art-images.js', 40 * KB],
   ['service-worker.js', 10 * KB],

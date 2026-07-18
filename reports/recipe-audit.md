@@ -1,9 +1,9 @@
 # Audit Cook Note
 
-Genere le 2026-07-18T18:41:57.256Z.
+Genere le 2026-07-18T23:29:54.989Z.
 
-- Recettes totales : 261
-- Recettes feuilles : 253
+- Recettes totales : 278
+- Recettes feuilles : 270
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -11,13 +11,13 @@ Genere le 2026-07-18T18:41:57.256Z.
 
 ## Dashboard sante
 
-- Pretes : 198
-- A ameliorer : 55
+- Pretes : 207
+- A ameliorer : 63
 - Faibles : 0
 - Decouverte faible : 18
-- Conservation/securite a verifier : 37
+- Conservation/securite a verifier : 45
 - Risque image/production : 0
-- Sans liens internes explicites : 222
+- Sans liens internes explicites : 238
 
 ## Fiches a surveiller
 
@@ -25,9 +25,11 @@ Aucune fiche faible detectee.
 
 ## Audit integral
 
+- Aïoli au safran (aioli_safran) : 100/100 - OK
 - Aïoli citronné léger (aioli_citronne_leger) : 100/100 - OK
 - Ajitsuke tamago œufs marinés ramen (ajitsuke_tamago_oeufs_marines_ramen) : 100/100 - OK
 - Asperges mimosa (asperges_mimosa) : 100/100 - OK
+- Asperges vertes au lard grillé (asperges_vertes_lard) : 100/100 - OK
 - Babeurre (babeurre_maison) : 100/100 - OK
 - Balsamique réduit (balsamique_reduit) : 100/100 - OK
 - Base pour flan salé (base_pour_flan_sale) : 100/100 - OK
@@ -50,6 +52,8 @@ Aucune fiche faible detectee.
 - Cake au chocolat et aux amandes (cake_chocolat_amandes) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cake au citron (cake_citron) : 100/100 - OK
+- Cake marbré au chocolat (cake_marbre_chocolat) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cake salé poitrine fumée (cake_sale_lardon) : 100/100 - OK
 - Cake tomate chorizo feta (cake_tomate_chorizo_feta) : 100/100 - OK
 - Carottes braisées (carottes_braisees) : 100/100 - OK
@@ -67,6 +71,9 @@ Aucune fiche faible detectee.
 - Chantilly stabilisée (chantilly_gelatine) : 100/100 - OK
 - Chapelure de pain (chapelure_maison) : 100/100 - OK
 - Chapelure parfumée (chapelure_parfumee) : 100/100 - OK
+- Cheesecake basque (cheesecake_basque) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Cheesecake caramel, nougatine et spéculoos (cheesecake_caramel_nougatine_speculoos) : 100/100 - OK
 - Chipirons à la plancha (chipirons_a_la_plancha) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Chocolat chaud à l'ancienne (chocolat_ancien) : 100/100 - OK
@@ -96,6 +103,7 @@ Aucune fiche faible detectee.
 - Cookies moelleux aux pépites de chocolat et noix (cookies_chocolat_noix) : 100/100 - OK
 - Cookies salés (cookies_sales_variantes) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Coq au vin (coq_au_vin) : 100/100 - OK
 - Côtelettes de porc miel moutarde (cotelettes_porc_miel_moutarde) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Coulis (coulis_maitre) : 84/100 - OK
@@ -116,13 +124,17 @@ Aucune fiche faible detectee.
 - Crème pistache à garnir (creme_pistache) : 100/100 - OK
 - Crème praliné (creme_praline) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Crèmes dessert au chocolat (cremes_dessert_chocolat) : 100/100 - OK
 - Crêpes au lait d’amandes (crepes_lait_amandes) : 100/100 - OK
+- Crêpes Suzette (crepes_suzette) : 100/100 - OK
 - Crevettes à la provençale (crevettes_provencale) : 100/100 - OK
 - Crevettes en persillade (crevettes_ail_persil) : 100/100 - OK
 - Croque-madame (croque_madame) : 100/100 - OK
 - Croquettes de pommes de terre (croquettes_pommes_de_terre) : 100/100 - OK
 - Crumble de carottes cumin noisettes parmesan (crumble_carottes_cumin_noisettes_parmesan) : 100/100 - OK
 - Crumble pomme-poire (crumble_pomme_poire) : 100/100 - OK
+- Crumble pomme-poire de Benoît Violier (crumble_pomme_poire_violier) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cuisses de poulet asiatique (cuisses_poulet_asiatique) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cuisses de poulet miel moutarde (cuisses_de_poulet_miel_moutarde) : 82/100 - OK
@@ -142,6 +154,8 @@ Aucune fiche faible detectee.
 - Flan vanille crémeux (flan_vanille_cremeux) : 100/100 - OK
 - Fond de tarte amande (creme_amande_citron) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Fondant au chocolat d’Andreas Caminada (fondant_chocolat_caminada) : 100/100 - OK
+- Fondue moitié-moitié au Grand Marnier (fondue_grand_marnier) : 100/100 - OK
 - Frites (frites_maison) : 100/100 - OK
 - Frites au four (frites_four_maison) : 100/100 - OK
 - Frites belges (frites_belges) : 100/100 - OK
@@ -173,6 +187,8 @@ Aucune fiche faible detectee.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Île flottante (ile_flottante) : 100/100 - OK
 - Irish stew à la Guinness (irish_stew_guinness) : 100/100 - OK
+- Jarret d’agneau braisé aux petits légumes (jarret_agneau_petits_legumes) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Joues de bœuf carottes orange vin rouge (joues_de_boeuf_carottes_orange_vin_rouge) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Joues de bœuf whiskey orange (joues_boeuf_whiskey_orange) : 82/100 - OK
@@ -185,6 +201,8 @@ Aucune fiche faible detectee.
 - Lentilles tomate pommes de terre sautées (lentilles_tomate_pommes_de_terre_sautees) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Macaron Ouréa (macaron_ourea_pierre_herme) : 100/100 - OK
+- Macaronis du chalet (macaronis_chalet) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Madeleines au Comté et épices douces (madeleines_comte_epices_douces) : 100/100 - OK
 - Marinades (marinades_guide) : 100/100 - OK
 - Marmelade citron (compotee_citron) : 100/100 - OK
@@ -221,6 +239,8 @@ Aucune fiche faible detectee.
 - Pâte légère à frire (pate_legere_beignets_calamar_crevettes) : 100/100 - OK
 - Pâte sucrée (pate_sucree) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Pâtes à la carbonara (carbonara_romaine) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pâtes à tarte (pates_tarte_variantes) : 100/100 - OK
 - Pâtes au crumble de chorizo (pates_crumble_chorizo) : 100/100 - OK
 - Pâtes au pesto, tomates cerises et mozzarella (pates_pesto_tomates_mozzarella) : 100/100 - OK
@@ -278,6 +298,7 @@ Aucune fiche faible detectee.
 - Rougail saucisse (rougail_saucisse) : 100/100 - OK
 - Rouille (rouille_haut_de_gamme) : 100/100 - OK
 - Salade avocat, œuf et épinards (salade_avocat_oeuf_epinards) : 100/100 - OK
+- Salade de pommes de terre d’Ottolenghi (salade_pommes_terre_ottolenghi) : 100/100 - OK
 - Salade epinards clementines amande feta (salade_epinards_clementines_amande_feta) : 100/100 - OK
 - Salade melon, mozzarella et jambon cru (salade_melon_mozzarella_jambon_cru) : 100/100 - OK
 - Salade pois chiches feta olives (salade_pois_chiche_feta_olives) : 100/100 - OK
@@ -302,6 +323,8 @@ Aucune fiche faible detectee.
 - Saucisses aux lentilles (saucisses_aux_lentilles) : 100/100 - OK
 - Saumon au four (saumon_au_four_simple) : 100/100 - OK
 - Saumon au four tomates olives basilic (saumon_au_four_tomates_olives_basilic) : 100/100 - OK
+- Smash Burger et buns briochés (smash_burger) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Souffle au fromage facile (souffle_fromage_facile) : 100/100 - OK
 - Soupe paysanne à la saucisse de Morteau (soupe_paysanne_morteau) : 100/100 - OK
 - Southern biscuits (southern_biscuits) : 100/100 - OK
@@ -328,6 +351,8 @@ Aucune fiche faible detectee.
 - Toppings frites (toppings_frites) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Tortillas (tortillas_mexicaines) : 100/100 - OK
+- Tresse au beurre d’Andreas Caminada (tresse_beurre_caminada) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Velouté d'hiver noix de cajou (veloute_hiver_noix_cajou) : 100/100 - OK
 - Verrines châtaignes et foie gras (verrines_chataignes_foie_gras) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -359,7 +384,9 @@ Aucune fiche faible detectee.
 
 ## Fiches a relier progressivement
 
+- Aïoli au safran (aioli_safran)
 - Ajitsuke tamago œufs marinés ramen (ajitsuke_tamago_oeufs_marines_ramen)
+- Asperges vertes au lard grillé (asperges_vertes_lard)
 - Babeurre (babeurre_maison)
 - Balsamique réduit (balsamique_reduit)
 - Base pour flan salé (base_pour_flan_sale)
@@ -374,6 +401,7 @@ Aucune fiche faible detectee.
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo)
 - Cake au chocolat et aux amandes (cake_chocolat_amandes)
 - Cake au citron (cake_citron)
+- Cake marbré au chocolat (cake_marbre_chocolat)
 - Cake salé poitrine fumée (cake_sale_lardon)
 - Cake tomate chorizo feta (cake_tomate_chorizo_feta)
 - Carottes braisées (carottes_braisees)
@@ -386,6 +414,3 @@ Aucune fiche faible detectee.
 - Cassolette de crevettes et ravioles au persil (cassolette_crevettes_ravioles_persil)
 - Cassoulet (cassoulet)
 - Cerises séchées (cerises_sechees_maison)
-- Chantilly stabilisée (chantilly_gelatine)
-- Chapelure de pain (chapelure_maison)
-- Chapelure parfumée (chapelure_parfumee)

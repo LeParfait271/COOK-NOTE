@@ -15,6 +15,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 65431
   },
+  "assets/recipes/cards/aioli_safran.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 60138
+  },
   "assets/recipes/cards/ajitsuke_tamago_oeufs_marines_ramen.jpg": {
     "width": 1040,
     "height": 520,
@@ -29,6 +34,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 507,
     "bytes": 86494
+  },
+  "assets/recipes/cards/asperges_vertes_lard.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 76396
   },
   "assets/recipes/cards/babeurre_maison.jpg": {
     "width": 760,
@@ -140,6 +150,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 760,
     "bytes": 129250
   },
+  "assets/recipes/cards/carbonara_romaine.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 69418
+  },
   "assets/recipes/cards/carottes_braisees_orange_citron_confit.jpg": {
     "width": 760,
     "height": 428,
@@ -209,6 +224,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 507,
     "bytes": 96855
+  },
+  "assets/recipes/cards/cheesecake_basque.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 61539
   },
   "assets/recipes/cards/cheesecake_caramel_nougatine_speculoos.jpg": {
     "width": 760,
@@ -325,6 +345,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 405,
     "bytes": 54550
   },
+  "assets/recipes/cards/coq_au_vin.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 67984
+  },
   "assets/recipes/cards/cotelettes_porc_miel_moutarde.jpg": {
     "width": 760,
     "height": 760,
@@ -405,6 +430,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 55237
   },
+  "assets/recipes/cards/crepes_suzette.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 64897
+  },
   "assets/recipes/cards/crevettes_ail_persil.jpg": {
     "width": 760,
     "height": 428,
@@ -429,6 +459,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 570,
     "bytes": 144333
+  },
+  "assets/recipes/cards/crumble_pomme_poire_violier.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 70387
   },
   "assets/recipes/cards/crumble_pomme_poire.jpg": {
     "width": 960,
@@ -524,6 +559,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 570,
     "bytes": 91271
+  },
+  "assets/recipes/cards/fondant_chocolat_caminada.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 69733
+  },
+  "assets/recipes/cards/fondue_grand_marnier.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 59652
   },
   "assets/recipes/cards/frites_belges.jpg": {
     "width": 760,
@@ -660,6 +705,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 570,
     "bytes": 122887
   },
+  "assets/recipes/cards/jarret_agneau_petits_legumes.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 70915
+  },
   "assets/recipes/cards/joues_boeuf_whiskey_orange.jpg": {
     "width": 760,
     "height": 507,
@@ -699,6 +749,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 760,
     "bytes": 163316
+  },
+  "assets/recipes/cards/macaronis_chalet.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 69245
   },
   "assets/recipes/cards/madeleines_comte_epices_douces.jpg": {
     "width": 760,
@@ -1125,6 +1180,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 85782
   },
+  "assets/recipes/cards/salade_pommes_terre_ottolenghi.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 73752
+  },
   "assets/recipes/cards/samoussas_boeuf_epinards_petits_pois.jpg": {
     "width": 760,
     "height": 417,
@@ -1204,6 +1264,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1040,
     "height": 520,
     "bytes": 131161
+  },
+  "assets/recipes/cards/smash_burger.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 64524
   },
   "assets/recipes/cards/souffle_fromage_facile.jpg": {
     "width": 760,
@@ -1310,6 +1375,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 760,
     "bytes": 166858
   },
+  "assets/recipes/cards/tresse_beurre_caminada.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 63362
+  },
   "assets/recipes/cards/veloute_hiver_noix_cajou.jpg": {
     "width": 760,
     "height": 428,
@@ -1335,6 +1405,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 209827
   },
+  "assets/recipes/heroes/aioli_safran.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 191860
+  },
   "assets/recipes/heroes/ajitsuke_tamago_oeufs_marines_ramen.jpg": {
     "width": 1536,
     "height": 864,
@@ -1349,6 +1424,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 265417
+  },
+  "assets/recipes/heroes/asperges_vertes_lard.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 250330
   },
   "assets/recipes/heroes/babeurre_maison.jpg": {
     "width": 1024,
@@ -1460,6 +1540,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1254,
     "bytes": 315443
   },
+  "assets/recipes/heroes/carbonara_romaine.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 220318
+  },
   "assets/recipes/heroes/carottes_braisees_orange_citron_confit.jpg": {
     "width": 1400,
     "height": 788,
@@ -1529,6 +1614,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 302167
+  },
+  "assets/recipes/heroes/cheesecake_basque.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 200631
   },
   "assets/recipes/heroes/cheesecake_caramel_nougatine_speculoos.jpg": {
     "width": 1400,
@@ -1645,6 +1735,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 746,
     "bytes": 171337
   },
+  "assets/recipes/heroes/coq_au_vin.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 223148
+  },
   "assets/recipes/heroes/cotelettes_porc_miel_moutarde.jpg": {
     "width": 1024,
     "height": 1024,
@@ -1725,6 +1820,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 180066
   },
+  "assets/recipes/heroes/crepes_suzette.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 209412
+  },
   "assets/recipes/heroes/crevettes_ail_persil.jpg": {
     "width": 1400,
     "height": 788,
@@ -1749,6 +1849,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 960,
     "height": 720,
     "bytes": 134516
+  },
+  "assets/recipes/heroes/crumble_pomme_poire_violier.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 232046
   },
   "assets/recipes/heroes/crumble_pomme_poire.jpg": {
     "width": 1400,
@@ -1844,6 +1949,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 1050,
     "bytes": 289461
+  },
+  "assets/recipes/heroes/fondant_chocolat_caminada.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 240526
+  },
+  "assets/recipes/heroes/fondue_grand_marnier.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 191195
   },
   "assets/recipes/heroes/frites_belges.jpg": {
     "width": 1400,
@@ -1980,6 +2095,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 116017
   },
+  "assets/recipes/heroes/jarret_agneau_petits_legumes.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 226976
+  },
   "assets/recipes/heroes/joues_boeuf_whiskey_orange.jpg": {
     "width": 1400,
     "height": 933,
@@ -2019,6 +2139,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 263656
+  },
+  "assets/recipes/heroes/macaronis_chalet.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 228847
   },
   "assets/recipes/heroes/madeleines_comte_epices_douces.jpg": {
     "width": 1400,
@@ -2445,6 +2570,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 280067
   },
+  "assets/recipes/heroes/salade_pommes_terre_ottolenghi.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 240508
+  },
   "assets/recipes/heroes/samoussas_boeuf_epinards_petits_pois.jpg": {
     "width": 1400,
     "height": 769,
@@ -2524,6 +2654,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1536,
     "height": 864,
     "bytes": 292245
+  },
+  "assets/recipes/heroes/smash_burger.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 203702
   },
   "assets/recipes/heroes/souffle_fromage_facile.jpg": {
     "width": 1400,
@@ -2629,6 +2764,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 286371
+  },
+  "assets/recipes/heroes/tresse_beurre_caminada.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 201674
   },
   "assets/recipes/heroes/veloute_hiver_noix_cajou.jpg": {
     "width": 1400,
