@@ -1017,6 +1017,7 @@ a {
 
 .mc-shell.theme-light .home-command-center { background: radial-gradient(circle at 88% 8%, color-mix(in srgb, var(--ambient-accent, var(--accent)) 12%, transparent), transparent 36%), linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,250,240,.78)); box-shadow: inset 0 1px 0 #fff, 0 24px 64px rgba(84,61,31,.14); }
 .mc-shell.theme-light .home-search-launcher, .mc-shell.theme-light .home-quick-actions button { background: rgba(255,252,246,.78); color: var(--text); }
+.mc-shell.theme-light .home-command-center .site-icon { color: var(--text); filter: none; }
 
 @keyframes home-command-glint { 0%, 72%, 100% { transform: translateX(-42%); opacity: 0; } 78% { opacity: .8; } 92% { transform: translateX(48%); opacity: 0; } }
 
@@ -1033,6 +1034,10 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) { .home-command-center::after { animation: none; } }
+
+@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+  .home-view > .hero { background-attachment: fixed; }
+}
 
 .field {
   display: grid;
@@ -4302,6 +4307,62 @@ a {
 
   .pantry-match-badge {
     justify-self: start;
+  }
+}
+
+/* Home premium finale: hero plus direct, catalogue dense et galerie tactile. */
+.mc-shell .home-view > .hero,
+.mc-shell.theme-light .home-view > .hero.hero-day-art {
+  min-height: clamp(220px, 25vw, 340px);
+}
+
+.mc-shell .home-view > .hero .hero-inner,
+.mc-shell.theme-light .home-view > .hero.hero-day-art .hero-inner {
+  padding: clamp(28px, 4.5vw, 58px) 0;
+}
+
+.home-view .content-wrap { padding-top: clamp(14px, 2vw, 24px); }
+.home-view .season-dashboard { margin-top: 0; }
+
+@media (max-width: 700px) {
+  .mc-shell .home-view > .hero,
+  .mc-shell.theme-light .home-view > .hero.hero-day-art { min-height: 210px; }
+  .mc-shell .home-view > .hero .hero-inner,
+  .mc-shell.theme-light .home-view > .hero.hero-day-art .hero-inner { padding: 28px 0; }
+  .home-view .master-recipe-grid {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-inline: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .home-view .master-recipe-grid {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-columns: 1fr;
+    margin-inline: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .home-view .master-recipe-grid {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-columns: 1fr;
+    margin-inline: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
   }
 }
 
@@ -7966,5 +8027,30 @@ a {
   .inline-technique-link {
     color: #111 !important;
     text-decoration: none !important;
+  }
+}
+
+/* Final home composition overrides. */
+.mc-shell .home-view > .hero,
+.mc-shell.theme-light .home-view > .hero.hero-day-art { min-height: clamp(220px, 25vw, 340px); }
+.mc-shell .home-view > .hero .hero-inner,
+.mc-shell.theme-light .home-view > .hero.hero-day-art .hero-inner { padding: clamp(28px, 4.5vw, 58px) 0; }
+.home-view .content-wrap { padding-top: clamp(14px, 2vw, 24px); }
+
+@media (max-width: 700px) {
+  .mc-shell .home-view > .hero,
+  .mc-shell.theme-light .home-view > .hero.hero-day-art { min-height: 210px; }
+  .mc-shell .home-view > .hero .hero-inner,
+  .mc-shell.theme-light .home-view > .hero.hero-day-art .hero-inner { padding: 28px 0; }
+  .home-view .master-recipe-grid {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-inline: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
   }
 }
