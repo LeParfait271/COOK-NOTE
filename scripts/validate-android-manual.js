@@ -506,7 +506,7 @@ expect(
     && !publishScript.includes('cook-note-android-modern.apk')
 );
 expect(
-  'Versions site/APK non alignees.',
+  'Versions Android publiees incoherentes.',
   androidGradleProperties.includes('cookNoteAndroidVersion=')
     && androidBuildGradle.includes('cookNoteAndroidVersion')
     && !androidBuildGradle.includes('SITE_VERSION')
@@ -517,9 +517,9 @@ expect(
     && appScript.includes("const ANDROID_LEGACY_APK_VERSION = '")
     && appScript.includes("ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk'")
     && appScript.includes('https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads')
-    && siteVersionName === androidLinkVersionName
-    && siteVersionName === androidApkVersionName
-    && exists(`downloads/cook-note-android-legacy-v${siteVersionName}.apk`)
+    && androidLinkVersionName === androidApkVersionName
+    && Number(siteVersionName.replace('.', '')) >= Number(androidApkVersionName.replace('.', ''))
+    && exists(`downloads/cook-note-android-legacy-v${androidApkVersionName}.apk`)
     && !appScript.includes('const APP_VERSION_NUMBER = SITE_VERSION')
     && !appScript.includes('cook-note-android-legacy-v${APP_VERSION_NUMBER}.apk')
 );

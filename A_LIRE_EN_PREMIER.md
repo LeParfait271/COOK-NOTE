@@ -161,6 +161,8 @@ la reconstruction : synchroniser alors les sources Android sur la version du
 site, lancer `npm run apps:update-all`, puis valider ensemble `dist/`, manifeste
 et APK. Ne jamais annoncer ni publier une nouvelle version APK sans binaire
 reconstruit correspondant.
+Utiliser `node scripts/bump-version.js --next --site-only` pour une livraison
+sans reconstruction APK.
 
 Les installations doivent rester justifiees par le besoin du projet. Preferer les
 scripts et dependances existants avant d'ajouter un outil. Ne jamais versionner

@@ -95,14 +95,15 @@ const androidApkVersion = app.match(/const ANDROID_LEGACY_APK_VERSION = '(\d+\.\
 const androidNativeVersion = androidGradleProperties.match(/^cookNoteAndroidVersion=(\d+\.\d{2})$/m)?.[1];
 if (!androidApkVersion) fail('app.js: ANDROID_LEGACY_APK_VERSION introuvable ou invalide.');
 if (!androidNativeVersion) fail('android-legacy/gradle.properties: cookNoteAndroidVersion introuvable ou invalide.');
-if (expectedProductVersion && androidApkVersion !== expectedProductVersion) {
-  fail(`Versions site/APK incoherentes: ANDROID_LEGACY_APK_VERSION=${androidApkVersion}, attendu ${expectedProductVersion}.`);
+if (androidApkVersion !== androidNativeVersion) {
+  fail(`Versions APK incoherentes: lien=${androidApkVersion}, binaire=${androidNativeVersion}.`);
 }
-if (expectedProductVersion && androidNativeVersion !== expectedProductVersion) {
-  fail(`Versions site/APK incoherentes: cookNoteAndroidVersion=${androidNativeVersion}, attendu ${expectedProductVersion}.`);
+const versionNumber = value => Number(String(value).replace('.', ''));
+if (expectedProductVersion && versionNumber(androidApkVersion) > versionNumber(expectedProductVersion)) {
+  fail(`La version APK ${androidApkVersion} ne peut pas depasser la version site ${expectedProductVersion}.`);
 }
-if (expectedProductVersion && !fs.existsSync(path.join(ROOT, 'downloads', `cook-note-android-legacy-v${expectedProductVersion}.apk`))) {
-  fail(`downloads/cook-note-android-legacy-v${expectedProductVersion}.apk manquant pour la version produit publiee.`);
+if (!fs.existsSync(path.join(ROOT, 'downloads', `cook-note-android-legacy-v${androidApkVersion}.apk`))) {
+  fail(`downloads/cook-note-android-legacy-v${androidApkVersion}.apk manquant pour la derniere version APK construite.`);
 }
 const assetVersions = [
   ...index.matchAll(/\b(?:app|app-premium|app-techniques|app-images|app-art-images|theme|i18n|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g),

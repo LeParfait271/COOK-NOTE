@@ -1,10 +1,10 @@
 # Audit Cook Note
 
-Genere le 2026-07-11T23:54:24.307Z.
+Genere le 2026-07-18T14:02:44.581Z.
 
-- Recettes totales : 267
-- Recettes feuilles : 248
-- Fiches parentes : 19
+- Recettes totales : 257
+- Recettes feuilles : 249
+- Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
 - Fiches avec defauts a verifier : 0
@@ -12,12 +12,12 @@ Genere le 2026-07-11T23:54:24.307Z.
 ## Dashboard sante
 
 - Pretes : 195
-- A ameliorer : 53
+- A ameliorer : 54
 - Faibles : 0
 - Decouverte faible : 18
-- Conservation/securite a verifier : 35
+- Conservation/securite a verifier : 36
 - Risque image/production : 0
-- Sans liens internes explicites : 217
+- Sans liens internes explicites : 218
 
 ## Fiches a surveiller
 
@@ -150,6 +150,8 @@ Aucune fiche faible detectee.
 - Gâteau roulé à la framboise (gateau_roule_framboise) : 100/100 - OK
 - Gaufres (gaufre_bruxelles) : 100/100 - OK
 - Gaufres de pommes de terre croustillantes (gaufres_pommes_terre) : 100/100 - OK
+- Granola croustillant au chocolat (granola_maison_chocolat) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gratin chou-fleur comte lardons (gratin_chou_fleur_comte_lardons) : 100/100 - OK
 - Gratin chou-fleur mascarpone moutarde (gratin_chou_fleur_mascarpone_moutarde) : 100/100 - OK
 - Gratin de chou-fleur (gratin_chou_fleur) : 100/100 - OK

@@ -550,6 +550,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 74630
   },
+  "assets/recipes/cards/granola_maison_chocolat.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 75435
+  },
   "assets/recipes/cards/gratin_chou_fleur_chorizo_cocottes.jpg": {
     "width": 760,
     "height": 570,
@@ -1829,6 +1834,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 236004
+  },
+  "assets/recipes/heroes/granola_maison_chocolat.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 243506
   },
   "assets/recipes/heroes/gratin_chou_fleur_chorizo_cocottes.jpg": {
     "width": 960,

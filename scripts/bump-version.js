@@ -58,6 +58,7 @@ function todayFr() {
 }
 
 const args = process.argv.slice(2);
+const siteOnly = args.includes('--site-only');
 const app = read('app.js');
 const current = app.match(/const SITE_VERSION = '([^']+)'/)?.[1];
 if (!current) fail('SITE_VERSION introuvable dans app.js.');
@@ -77,19 +78,23 @@ const versionParts = parseVersion(version);
 
 let nextApp = replaceRequired(app, /const SITE_VERSION = '[^']+';/, `const SITE_VERSION = '${version}';`, 'SITE_VERSION');
 nextApp = replaceRequired(nextApp, /const SITE_UPDATED_AT = '[^']+';/, `const SITE_UPDATED_AT = '${date}';`, 'SITE_UPDATED_AT');
-nextApp = replaceRequired(nextApp, /const ANDROID_LEGACY_APK_VERSION = '\d+\.\d{2}';/, `const ANDROID_LEGACY_APK_VERSION = '${android}';`, 'ANDROID_LEGACY_APK_VERSION');
+if (!siteOnly) {
+  nextApp = replaceRequired(nextApp, /const ANDROID_LEGACY_APK_VERSION = '\d+\.\d{2}';/, `const ANDROID_LEGACY_APK_VERSION = '${android}';`, 'ANDROID_LEGACY_APK_VERSION');
+}
 write('app.js', nextApp);
 
 write('app-art-images.js', read('app-art-images.js')
   .replace(/\bconst v='\d+'/g, `const v='${numeric}'`)
   .replace(/(\/assets\/(?:day|dark)\/[^'"]+\.(?:jpg|png)\?v=)\d+(?:-[a-z0-9-]+)?/gi, `$1${numeric}`));
 
-write('android-legacy/gradle.properties', replaceRequired(
-  read('android-legacy/gradle.properties'),
-  /^cookNoteAndroidVersion=\d+\.\d{2}$/m,
-  `cookNoteAndroidVersion=${android}`,
-  'cookNoteAndroidVersion'
-));
+if (!siteOnly) {
+  write('android-legacy/gradle.properties', replaceRequired(
+    read('android-legacy/gradle.properties'),
+    /^cookNoteAndroidVersion=\d+\.\d{2}$/m,
+    `cookNoteAndroidVersion=${android}`,
+    'cookNoteAndroidVersion'
+  ));
+}
 
 write('app-images.js', read('app-images.js')
   .replace(/const IMAGE_HELPER_VERSION = 'v\d+\.\d+';/g, `const IMAGE_HELPER_VERSION = '${version}';`));
@@ -136,10 +141,12 @@ write('service-worker.js', read('service-worker.js')
   .replace(/(recipe\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/\[SW v\d+\]/g, `[SW v${numeric}]`));
 
-write('downloads/android-latest-version.json', `${JSON.stringify({
-  versionCode: versionParts.major * 1000 + versionParts.minor,
-  versionName: android,
-  apkUrl: 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk'
-}, null, 2)}\n`);
+if (!siteOnly) {
+  write('downloads/android-latest-version.json', `${JSON.stringify({
+    versionCode: versionParts.major * 1000 + versionParts.minor,
+    versionName: android,
+    apkUrl: 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk'
+  }, null, 2)}\n`);
+}
 
-console.log(`Version Cook Note: ${current} -> ${version} / ${date}`);
+console.log(`Version Cook Note${siteOnly ? ' site' : ''}: ${current} -> ${version} / ${date}`);

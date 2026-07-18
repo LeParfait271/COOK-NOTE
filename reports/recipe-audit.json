@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-11T23:54:24.307Z",
+  "generatedAt": "2026-07-18T14:02:44.581Z",
   "totals": {
-    "recipes": 267,
-    "leaves": 248,
-    "masters": 19,
+    "recipes": 257,
+    "leaves": 249,
+    "masters": 8,
     "lowScore": 0,
     "categoryIdeas": 20,
     "qualityIssues": 0
@@ -11,12 +11,12 @@
   "averageScore": 96,
   "healthDashboard": {
     "ready": 195,
-    "improve": 53,
+    "improve": 54,
     "weak": 0,
     "missingDiscovery": 18,
-    "missingSafety": 35,
+    "missingSafety": 36,
     "productionRisk": 0,
-    "fewLinks": 217
+    "fewLinks": 218
   },
   "weakestRecipes": [],
   "categoryIdeas": [
@@ -1186,6 +1186,18 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "granola_maison_chocolat",
+      "title": "Granola croustillant au chocolat",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "gratin_chou_fleur_comte_lardons",
