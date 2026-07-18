@@ -181,3 +181,70 @@ Object.assign(window.RECIPES.mousse_chocolat, {
 window.RECIPES.desserts_maitre.variants
   .filter(variant => variant.id === "mousse_chocolat")
   .forEach(variant => { variant.label = "Mousse au chocolat Pierre Hermé"; });
+
+window.RECIPES.mousse_toblerone = {
+  "title": "Mousse au Toblerone",
+  "master": "desserts_maitre",
+  "image": "/assets/recipes/heroes/mousse_toblerone.jpg",
+  "categories": ["Desserts"],
+  "seasons": ["Toutes saisons"],
+  "difficulty": "easy",
+  "difficultyScore": 1,
+  "yield": "4 à 6 petites verrines",
+  "activeTime": 10,
+  "cookTime": 5,
+  "aliases": ["mousse Toblerone", "mousse chocolat Toblerone", "mousse sans œufs ajoutés"],
+  "tags": ["chocolat", "Toblerone", "mousse", "verrines", "dessert express", "sans œufs ajoutés"],
+  "ingredients": [
+    {
+      "group": "Mousse",
+      "items": [
+        "150g Toblerone noir, plus quelques éclats pour décorer selon goût",
+        "150g lait concentré non sucré très froid",
+        "5g jus de citron jaune"
+      ]
+    }
+  ],
+  "steps": [
+    "Placer un saladier et les fouets au congélateur pendant 15min. Garder le lait concentré non sucré au réfrigérateur jusqu’au dernier moment.",
+    "Concasser le Toblerone noir et réserver quelques éclats pour la finition.",
+    "Faire fondre doucement le reste du Toblerone au bain-marie, ou au micro-ondes par séquences de 30 secondes en mélangeant entre chaque chauffe.",
+    "Lisser le chocolat fondu puis le laisser tiédir : il doit rester fluide sans être chaud.",
+    "Verser le lait concentré très froid et le jus de citron dans le saladier froid.",
+    "Fouetter d’abord à vitesse lente, puis augmenter progressivement jusqu’à obtenir une mousse légère qui forme des sillons souples.",
+    "Ajouter un tiers de la mousse au Toblerone fondu pour le détendre.",
+    "Incorporer délicatement ce mélange au reste de mousse avec une maryse, jusqu’à couleur homogène sans faire retomber la préparation.",
+    "Répartir dans 4 à 6 petites verrines et réfrigérer au moins 1h.",
+    "Décorer avec les éclats réservés juste avant de servir."
+  ],
+  "notes": [
+    "Cette recette ne contient pas d’œufs ajoutés, mais le Toblerone peut contenir du blanc d’œuf dans sa composition.",
+    "Pour une alimentation sans gluten ou en cas d’allergie, vérifier impérativement la liste d’ingrédients et les traces indiquées sur l’emballage utilisé.",
+    "La mousse est meilleure le jour même : elle devient progressivement plus dense au réfrigérateur."
+  ],
+  "technical": [
+    {
+      "label": "Foisonnement",
+      "value": "Le froid du lait, du saladier et des fouets permet au lait concentré non sucré d’emprisonner davantage d’air."
+    },
+    {
+      "label": "Température",
+      "value": "Le Toblerone doit être fluide mais tiède : trop chaud, il fait retomber la mousse ; trop froid, il forme des grains."
+    }
+  ],
+  "practical": {
+    "equipment": ["Saladier", "Batteur électrique", "Maryse", "Bain-marie ou micro-ondes", "4 à 6 petites verrines"],
+    "storage": ["24h maximum au réfrigérateur à 0–4°C, verrines couvertes."],
+    "mistakes": [
+      "Ne pas utiliser un lait concentré à température ambiante, il foisonnerait difficilement.",
+      "Ne pas verser le Toblerone encore chaud directement dans toute la mousse.",
+      "Ne pas confondre lait concentré non sucré et lait concentré sucré."
+    ],
+    "result": ["Mousse chocolatée dense mais aérée, aux notes de miel et de nougat, avec de petits éclats croquants de Toblerone."]
+  }
+};
+
+window.RECIPES.desserts_maitre.variants.push({
+  "id": "mousse_toblerone",
+  "label": "Mousse au Toblerone"
+});

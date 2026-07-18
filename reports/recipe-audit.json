@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-18T14:44:37.423Z",
+  "generatedAt": "2026-07-18T16:05:40.170Z",
   "totals": {
-    "recipes": 257,
-    "leaves": 249,
+    "recipes": 258,
+    "leaves": 250,
     "masters": 8,
     "lowScore": 0,
     "categoryIdeas": 20,
@@ -10,13 +10,13 @@
   },
   "averageScore": 96,
   "healthDashboard": {
-    "ready": 195,
+    "ready": 196,
     "improve": 54,
     "weak": 0,
     "missingDiscovery": 18,
     "missingSafety": 36,
     "productionRisk": 0,
-    "fewLinks": 218
+    "fewLinks": 219
   },
   "weakestRecipes": [],
   "categoryIdeas": [
@@ -1488,6 +1488,14 @@
     {
       "id": "mousse_chocolat",
       "title": "Mousse au chocolat Pierre Hermé",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "mousse_toblerone",
+      "title": "Mousse au Toblerone",
       "score": 100,
       "issues": [],
       "qualityIssues": [],

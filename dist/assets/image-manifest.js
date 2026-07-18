@@ -725,6 +725,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 76062
   },
+  "assets/recipes/cards/mousse_toblerone.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 67319
+  },
   "assets/recipes/cards/muffins_framboises.jpg": {
     "width": 760,
     "height": 570,
@@ -2009,6 +2014,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 263183
+  },
+  "assets/recipes/heroes/mousse_toblerone.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 206524
   },
   "assets/recipes/heroes/muffins_framboises.jpg": {
     "width": 1400,
