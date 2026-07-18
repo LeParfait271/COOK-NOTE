@@ -334,3 +334,60 @@ window.RECIPES.desserts_maitre.variants.push({
   "id": "panna_cotta_myrtilles_erable_cannelle",
   "label": "Panna cotta aux myrtilles, érable et cannelle"
 });
+
+window.RECIPES.tiramisu_creme_marrons = {
+  "title": "Tiramisu à la crème de marrons",
+  "master": "desserts_maitre",
+  "image": "/assets/recipes/heroes/tiramisu_creme_marrons.jpg",
+  "categories": ["Desserts"],
+  "seasons": ["Automne", "Hiver"],
+  "difficulty": "easy",
+  "difficultyScore": 2,
+  "yield": "6 personnes",
+  "activeTime": 25,
+  "cookTime": 0,
+  "aliases": ["tiramisu marrons", "tiramisu crème de marrons", "tiramisu châtaigne", "tiramisu marrons rhum raisins"],
+  "tags": ["tiramisu", "crème de marrons", "mascarpone", "café", "rhum", "raisins secs", "dessert sans cuisson"],
+  "ingredients": [
+    {
+      "group": "Crème aux marrons",
+      "items": ["3 œufs extra-frais", "250g mascarpone", "100g crème de marrons", "50g sucre"]
+    },
+    {
+      "group": "Montage",
+      "items": ["24 biscuits à la cuillère, environ 200g", "250g café fort refroidi", "50g raisins secs", "45g rhum ambré", "20g cacao non sucré"]
+    }
+  ],
+  "steps": [
+    "Deux heures avant, couvrir les raisins secs de rhum et laisser macérer.",
+    "Préparer un café très fort et le laisser refroidir.",
+    "Égoutter les raisins, récupérer le rhum et le mélanger au café froid.",
+    "Séparer les blancs des jaunes d’œufs dans deux saladiers propres.",
+    "Fouetter les jaunes et le sucre 2 à 3min, jusqu’à mélange clair et épais.",
+    "Ajouter la crème de marrons puis le mascarpone, sans travailler excessivement la crème.",
+    "Incorporer les raisins égouttés à la crème.",
+    "Monter les blancs en neige souple et brillante, puis en incorporer un tiers pour détendre la crème.",
+    "Ajouter le reste des blancs en deux fois à la maryse, par mouvements enveloppants.",
+    "Tremper rapidement la moitié des biscuits dans le café au rhum et les répartir au fond de six verrines ou d’un plat.",
+    "Couvrir avec la moitié de la crème, ajouter une seconde couche de biscuits imbibés puis terminer avec le reste de crème.",
+    "Couvrir et laisser prendre au réfrigérateur au moins 12h.",
+    "Tamiser le cacao non sucré sur le tiramisu juste avant de servir."
+  ],
+  "notes": ["Les verrines donnent un service plus net que le grand plat, cette crème souple étant délicate à découper.", "Le café doit être froid avant le trempage pour ne pas ramollir instantanément les biscuits.", "Pour une version sans alcool, remplacer le rhum par du café supplémentaire et faire gonfler les raisins dans un peu d’eau chaude."],
+  "technical": [
+    {"label": "Mascarpone", "value": "Le mélanger sans excès : un fouettage prolongé peut liquéfier ou grainer la crème."},
+    {"label": "Imbibage", "value": "Un aller-retour rapide dans le café suffit ; les biscuits continuent de s’humidifier pendant les 12h de repos."},
+    {"label": "Repos", "value": "Une nuit au froid stabilise la crème et harmonise les saveurs de marron, café, rhum et cacao."}
+  ],
+  "practical": {
+    "equipment": ["2 saladiers", "Batteur électrique", "Maryse", "Passoire fine", "Tamis", "6 verrines ou un plat"],
+    "storage": ["Conserver couvert à 0–4°C et consommer dans les 24h en raison des œufs crus.", "Ne pas congeler : le mascarpone et les blancs montés perdraient leur texture."],
+    "mistakes": ["Ne pas utiliser un café encore chaud.", "Ne pas détremper les biscuits, sinon le fond deviendrait liquide.", "Ne pas fouetter longuement le mascarpone après son incorporation.", "Ne pas réduire le repos de 12h, nécessaire à la tenue et à l’équilibre du dessert."],
+    "result": ["Tiramisu crémeux et aérien, aux notes de châtaigne, de café et de cacao, ponctué de raisins moelleux parfumés au rhum."]
+  }
+};
+
+window.RECIPES.desserts_maitre.variants.push({
+  "id": "tiramisu_creme_marrons",
+  "label": "Tiramisu à la crème de marrons"
+});

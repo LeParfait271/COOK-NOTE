@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-18T17:27:59.244Z",
+  "generatedAt": "2026-07-18T18:17:03.119Z",
   "totals": {
-    "recipes": 259,
-    "leaves": 251,
+    "recipes": 260,
+    "leaves": 252,
     "masters": 8,
     "lowScore": 0,
     "categoryIdeas": 20,
@@ -10,13 +10,13 @@
   },
   "averageScore": 96,
   "healthDashboard": {
-    "ready": 197,
+    "ready": 198,
     "improve": 54,
     "weak": 0,
     "missingDiscovery": 18,
     "missingSafety": 36,
     "productionRisk": 0,
-    "fewLinks": 220
+    "fewLinks": 221
   },
   "weakestRecipes": [],
   "categoryIdeas": [
@@ -2346,6 +2346,16 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "tiramisu_creme_marrons",
+      "title": "Tiramisu à la crème de marrons",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": [
+        "Recette longue : verifier que les etapes restent faciles a suivre sur mobile."
+      ]
     },
     {
       "id": "tiramisu_citron",

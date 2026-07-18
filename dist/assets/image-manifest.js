@@ -1250,6 +1250,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 105574
   },
+  "assets/recipes/cards/tiramisu_creme_marrons.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 61853
+  },
   "assets/recipes/cards/tiramisu_speculoos.jpg": {
     "width": 760,
     "height": 760,
@@ -2544,6 +2549,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1672,
     "height": 941,
     "bytes": 419920
+  },
+  "assets/recipes/heroes/tiramisu_creme_marrons.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 197238
   },
   "assets/recipes/heroes/tiramisu_speculoos.jpg": {
     "width": 1024,

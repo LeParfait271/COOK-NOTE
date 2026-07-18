@@ -1,9 +1,9 @@
 # Audit Cook Note
 
-Genere le 2026-07-18T17:27:59.244Z.
+Genere le 2026-07-18T18:17:03.119Z.
 
-- Recettes totales : 259
-- Recettes feuilles : 251
+- Recettes totales : 260
+- Recettes feuilles : 252
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -11,13 +11,13 @@ Genere le 2026-07-18T17:27:59.244Z.
 
 ## Dashboard sante
 
-- Pretes : 197
+- Pretes : 198
 - A ameliorer : 54
 - Faibles : 0
 - Decouverte faible : 18
 - Conservation/securite a verifier : 36
 - Risque image/production : 0
-- Sans liens internes explicites : 220
+- Sans liens internes explicites : 221
 
 ## Fiches a surveiller
 
@@ -313,6 +313,7 @@ Aucune fiche faible detectee.
 - Tempura (tempura_beignets_calamar_crevettes) : 100/100 - OK
 - Terrine de campagne (terrine_campagne) : 100/100 - OK
 - Terrine de porc aux pistaches (terrine_porc_pistaches) : 100/100 - OK
+- Tiramisu à la crème de marrons (tiramisu_creme_marrons) : 100/100 - OK
 - Tiramisu citron meringué (tiramisu_citron) : 100/100 - OK
 - Tiramisu spéculoos (tiramisu_speculoos) : 100/100 - OK
 - Tomate mozzarella basilic (salade_caprese) : 100/100 - OK
