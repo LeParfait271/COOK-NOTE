@@ -120,6 +120,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 570,
     "bytes": 97593
   },
+  "assets/recipes/cards/cake_marbre_chocolat.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 62943
+  },
   "assets/recipes/cards/cake_sale_lardon.jpg": {
     "width": 760,
     "height": 342,
@@ -1429,6 +1434,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 1050,
     "bytes": 292162
+  },
+  "assets/recipes/heroes/cake_marbre_chocolat.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 191965
   },
   "assets/recipes/heroes/cake_sale_lardon.jpg": {
     "width": 1400,

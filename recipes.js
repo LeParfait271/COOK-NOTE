@@ -466,3 +466,85 @@ window.RECIPES.desserts_maitre.variants.push({
   "id": "cremes_dessert_chocolat",
   "label": "Crèmes dessert au chocolat"
 });
+
+window.RECIPES.cake_marbre_chocolat = {
+  "title": "Cake marbré au chocolat",
+  "master": "desserts_maitre",
+  "image": "/assets/recipes/heroes/cake_marbre_chocolat.jpg",
+  "categories": ["Desserts"],
+  "seasons": ["Toutes saisons"],
+  "difficulty": "easy",
+  "difficultyScore": 2,
+  "yield": "1 cake de 8 parts",
+  "activeTime": 15,
+  "cookTime": 50,
+  "aliases": ["cake marbré chocolat vanille", "gâteau marbré", "marbré au cacao"],
+  "tags": ["cake", "marbré", "chocolat", "cacao", "vanille", "goûter"],
+  "ingredients": [
+    {
+      "group": "Pâte marbrée",
+      "items": [
+        "225g beurre doux ramolli",
+        "225g cassonade ou vergeoise",
+        "4 œufs",
+        "215g farine T55",
+        "10g levure chimique",
+        "45g lait entier",
+        "Arôme vanille selon dosage indiqué sur la bouteille",
+        "15g cacao non sucré"
+      ]
+    },
+    {
+      "group": "Moule",
+      "items": ["15g beurre doux", "10g farine T55"]
+    }
+  ],
+  "steps": [
+    "Sortir le beurre environ 45 à 60min avant : il doit être très souple mais jamais fondu.",
+    "Préchauffer le four à 180°C en chaleur statique, puis beurrer et fariner un moule à cake de 24cm.",
+    "Fouetter le beurre ramolli avec la cassonade ou vergeoise jusqu’à obtenir une texture crémeuse.",
+    "Ajouter les œufs un par un en mélangeant soigneusement après chaque ajout.",
+    "Tamiser la farine avec la levure, puis les incorporer sans travailler excessivement la pâte.",
+    "Ajouter le lait et l’arôme vanille, puis mélanger seulement jusqu’à obtenir une pâte homogène.",
+    "Partager la pâte en deux portions de poids équivalent et incorporer le cacao tamisé dans l’une d’elles.",
+    "Alterner des cuillerées de pâte vanillée et de pâte chocolatée dans le moule jusqu’à épuisement.",
+    "Tapoter doucement le moule sur le plan de travail, puis tracer deux ou trois mouvements en huit avec une brochette pour créer le marbrage.",
+    "Cuire 45 à 55min ; vérifier dès 45min avec une lame qui doit ressortir sèche ou avec quelques miettes tendres.",
+    "Laisser reposer 10min dans le moule, démouler puis refroidir complètement sur une grille."
+  ],
+  "notes": [
+    "Peser les deux portions de pâte donne un marbrage plus équilibré et une cuisson régulière.",
+    "Quelques mouvements de brochette suffisent : trop mélanger ferait disparaître les contrastes vanille-cacao.",
+    "Le cake gagne en moelleux et se tranche plus nettement après quelques heures de repos."
+  ],
+  "technical": [
+    {
+      "label": "Beurre crémé",
+      "value": "Un beurre souple emprisonne de fines bulles avec le sucre et donne une mie plus légère."
+    },
+    {
+      "label": "Marbrage",
+      "value": "Alterner de petites masses de pâte puis dessiner peu de huit produit des veines nettes sans mélanger les couleurs."
+    },
+    {
+      "label": "Cuisson",
+      "value": "Contrôler au centre du cake : une cuisson prolongée assèche rapidement la mie riche en beurre."
+    }
+  ],
+  "practical": {
+    "equipment": ["Moule à cake de 24cm", "2 saladiers", "Fouet ou batteur", "Maryse", "Tamis", "Brochette", "Grille"],
+    "storage": ["2 à 3 jours à température ambiante, parfaitement emballé ou en boîte hermétique.", "Congélation possible jusqu’à 2 mois, entier ou en tranches bien emballées."],
+    "mistakes": [
+      "Ne pas utiliser un beurre froid ou fondu.",
+      "Ne pas fouetter longuement après l’ajout de la farine.",
+      "Ne pas multiplier les passages de brochette, les deux pâtes se confondraient.",
+      "Ne pas attendre une lame totalement desséchée avant de sortir le cake."
+    ],
+    "result": ["Cake moelleux et beurré, avec une mie vanillée parcourue de volutes nettes au cacao."]
+  }
+};
+
+window.RECIPES.desserts_maitre.variants.push({
+  "id": "cake_marbre_chocolat",
+  "label": "Cake marbré au chocolat"
+});
