@@ -411,6 +411,13 @@ expect(
     && androidLegacyMainActivity.includes('UPDATE_MANIFEST_URL')
     && androidLegacyMainActivity.includes('launchInstall')
 );
+expect(
+  'Les controles tactiles Android doivent reagir a la premiere pression sans prise de focus intermediaire.',
+  !androidLegacyMainActivity.includes('setFocusableInTouchMode(true)')
+    && (androidLegacyMainActivity.match(/new CheckBox\(this\)/g) || []).length === 3
+    && (androidLegacyMainActivity.match(/checkBox\.setFocusable\(false\)/g) || []).length === 3
+    && (androidLegacyMainActivity.match(/checkBox\.setClickable\(true\)/g) || []).length === 3
+);
 (() => {
   const versionMatch = androidGradleProperties.match(/^cookNoteAndroidVersion=(\d+)\.(\d{2})$/m);
   const expectedCode = versionMatch ? Number(versionMatch[1]) * 1000 + Number(versionMatch[2]) : null;

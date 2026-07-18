@@ -2032,6 +2032,8 @@ public class MainActivity extends Activity {
         checkBox.setTextSize(adjustedTextSize(13));
         checkBox.setTypeface(Typeface.DEFAULT);
         checkBox.setButtonTintList(null);
+        checkBox.setFocusable(false);
+        checkBox.setClickable(true);
         checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
         checkBox.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
         checkBox.setChecked(ingredientDoneKeys.contains(key));
@@ -2597,6 +2599,8 @@ public class MainActivity extends Activity {
         checkBox.setTextSize(adjustedTextSize(13));
         checkBox.setTypeface(Typeface.DEFAULT);
         checkBox.setButtonTintList(null);
+        checkBox.setFocusable(false);
+        checkBox.setClickable(true);
         checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
         checkBox.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
         checkBox.setChecked(shoppingDoneKeys.contains(line.doneKey));
@@ -2662,6 +2666,8 @@ public class MainActivity extends Activity {
         checkBox.setTextSize(adjustedTextSize(13));
         checkBox.setTypeface(Typeface.DEFAULT);
         checkBox.setButtonTintList(null);
+        checkBox.setFocusable(false);
+        checkBox.setClickable(true);
         checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
         checkBox.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
         checkBox.setChecked(shoppingDoneKeys.contains(key));
@@ -2716,7 +2722,8 @@ public class MainActivity extends Activity {
         button.setPadding(dp(10), 0, dp(10), 0);
         button.setBackground(buttonPanel(primary));
         button.setStateListAnimator(null);
-        button.setFocusableInTouchMode(true);
+        button.setFocusable(false);
+        button.setFocusableInTouchMode(false);
         return button;
     }
 
