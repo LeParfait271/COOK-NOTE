@@ -790,6 +790,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 48819
   },
+  "assets/recipes/cards/panna_cotta_myrtilles_erable_cannelle.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 53944
+  },
   "assets/recipes/cards/paris_brest.jpg": {
     "width": 760,
     "height": 760,
@@ -2079,6 +2084,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 156432
+  },
+  "assets/recipes/heroes/panna_cotta_myrtilles_erable_cannelle.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 168993
   },
   "assets/recipes/heroes/paris_brest.jpg": {
     "width": 1024,

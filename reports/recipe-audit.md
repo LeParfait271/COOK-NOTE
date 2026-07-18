@@ -1,9 +1,9 @@
 # Audit Cook Note
 
-Genere le 2026-07-18T16:05:40.170Z.
+Genere le 2026-07-18T17:27:59.244Z.
 
-- Recettes totales : 258
-- Recettes feuilles : 250
+- Recettes totales : 259
+- Recettes feuilles : 251
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -11,13 +11,13 @@ Genere le 2026-07-18T16:05:40.170Z.
 
 ## Dashboard sante
 
-- Pretes : 196
+- Pretes : 197
 - A ameliorer : 54
 - Faibles : 0
 - Decouverte faible : 18
 - Conservation/securite a verifier : 36
 - Risque image/production : 0
-- Sans liens internes explicites : 219
+- Sans liens internes explicites : 220
 
 ## Fiches a surveiller
 
@@ -209,6 +209,7 @@ Aucune fiche faible detectee.
 - Pancakes (pancakes_variantes) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Pancakes fluffy (pancakes_fluffy) : 100/100 - OK
+- Panna cotta aux myrtilles, érable et cannelle (panna_cotta_myrtilles_erable_cannelle) : 100/100 - OK
 - Paris-Brest (paris_brest) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Parmentier de confit de canard et patates douces (parmentier_confit_canard_patates_douces) : 100/100 - OK

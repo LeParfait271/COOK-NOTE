@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-18T16:05:40.170Z",
+  "generatedAt": "2026-07-18T17:27:59.244Z",
   "totals": {
-    "recipes": 258,
-    "leaves": 250,
+    "recipes": 259,
+    "leaves": 251,
     "masters": 8,
     "lowScore": 0,
     "categoryIdeas": 20,
@@ -10,13 +10,13 @@
   },
   "averageScore": 96,
   "healthDashboard": {
-    "ready": 196,
+    "ready": 197,
     "improve": 54,
     "weak": 0,
     "missingDiscovery": 18,
     "missingSafety": 36,
     "productionRisk": 0,
-    "fewLinks": 219
+    "fewLinks": 220
   },
   "weakestRecipes": [],
   "categoryIdeas": [
@@ -1602,6 +1602,14 @@
     {
       "id": "pancakes_fluffy",
       "title": "Pancakes fluffy",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "panna_cotta_myrtilles_erable_cannelle",
+      "title": "Panna cotta aux myrtilles, érable et cannelle",
       "score": 100,
       "issues": [],
       "qualityIssues": [],

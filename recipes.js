@@ -248,3 +248,89 @@ window.RECIPES.desserts_maitre.variants.push({
   "id": "mousse_toblerone",
   "label": "Mousse au Toblerone"
 });
+
+window.RECIPES.panna_cotta_myrtilles_erable_cannelle = {
+  "title": "Panna cotta aux myrtilles, érable et cannelle",
+  "master": "desserts_maitre",
+  "image": "/assets/recipes/heroes/panna_cotta_myrtilles_erable_cannelle.jpg",
+  "categories": ["Desserts"],
+  "seasons": ["Été", "Toutes saisons"],
+  "difficulty": "easy",
+  "difficultyScore": 1,
+  "yield": "4 verrines",
+  "activeTime": 10,
+  "cookTime": 5,
+  "aliases": [
+    "pannacotta myrtilles",
+    "panna cotta myrtilles",
+    "panna cotta sirop d’érable",
+    "panna cotta cannelle"
+  ],
+  "tags": ["panna cotta", "myrtilles", "sirop d’érable", "cannelle", "verrines", "sans œufs"],
+  "ingredients": [
+    {
+      "group": "Panna cotta",
+      "items": [
+        "250g crème fleurette entière",
+        "250g lait demi-écrémé",
+        "135g sirop d’érable",
+        "6g gélatine, soit environ 3 feuilles de 2g",
+        "2g cannelle moulue"
+      ]
+    },
+    {
+      "group": "Finition",
+      "items": ["100g myrtilles fraîches"]
+    }
+  ],
+  "steps": [
+    "Faire tremper les feuilles de gélatine dans un grand bol d’eau très froide pendant 10 à 15min.",
+    "Verser la crème fleurette, le lait, le sirop d’érable et la cannelle dans une casserole.",
+    "Chauffer à feu moyen en mélangeant jusqu’au premier frémissement, sans laisser bouillir longuement.",
+    "Retirer la casserole du feu, essorer soigneusement la gélatine puis l’ajouter immédiatement.",
+    "Mélanger doucement au fouet jusqu’à dissolution complète, sans incorporer d’air.",
+    "Laisser reposer 2min puis mélanger de nouveau afin de répartir la cannelle avant de verser.",
+    "Répartir la préparation dans quatre verrines et laisser tiédir 20min à température ambiante.",
+    "Couvrir puis laisser prendre au réfrigérateur au moins 4h, idéalement une nuit.",
+    "Rincer rapidement les myrtilles, les sécher parfaitement et les répartir sur les panna cotta juste avant de servir."
+  ],
+  "notes": [
+    "Le sirop d’érable sucre et parfume l’appareil : choisir un sirop pur au goût franc.",
+    "La cannelle doit rester en arrière-plan pour soutenir la myrtille sans masquer son acidité.",
+    "Des myrtilles surgelées peuvent convenir, mais les décongeler et les égoutter séparément pour éviter qu’elles ne détrempent la surface."
+  ],
+  "technical": [
+    {
+      "label": "Gélatine",
+      "value": "Toujours l’incorporer hors du feu dans un liquide chaud ; une ébullition prolongée affaiblit son pouvoir gélifiant."
+    },
+    {
+      "label": "Texture",
+      "value": "Six grammes de gélatine donnent une panna cotta souple en verrine, prise mais encore tremblotante."
+    },
+    {
+      "label": "Cannelle",
+      "value": "Un second mélange juste avant le remplissage limite son dépôt au fond de la casserole."
+    }
+  ],
+  "practical": {
+    "equipment": ["Casserole", "Fouet", "Bol", "Passoire fine optionnelle", "4 verrines"],
+    "storage": [
+      "Préparer la panna cotta jusqu’à 48h à l’avance et la conserver couverte à 0–4°C.",
+      "Ajouter les myrtilles au dernier moment ; conserver les verrines garnies 24h maximum."
+    ],
+    "mistakes": [
+      "Ne pas faire bouillir longtemps la préparation après ajout de la gélatine.",
+      "Ne pas verser dans les verrines sans remuer une dernière fois, la cannelle pourrait se concentrer dans les dernières portions.",
+      "Ne pas ajouter des myrtilles encore humides plusieurs heures à l’avance."
+    ],
+    "result": [
+      "Panna cotta lisse et tremblotante, douce et lactée, relevée par l’érable, la cannelle et l’acidité fraîche des myrtilles."
+    ]
+  }
+};
+
+window.RECIPES.desserts_maitre.variants.push({
+  "id": "panna_cotta_myrtilles_erable_cannelle",
+  "label": "Panna cotta aux myrtilles, érable et cannelle"
+});
