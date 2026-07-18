@@ -548,3 +548,72 @@ window.RECIPES.desserts_maitre.variants.push({
   "id": "cake_marbre_chocolat",
   "label": "Cake marbré au chocolat"
 });
+
+window.RECIPES.cheesecake_caramel_nougatine_speculoos = {
+  "title": "Cheesecake caramel, nougatine et spéculoos",
+  "master": "desserts_maitre",
+  "linkedRecipes": [{"id": "sauce_caramel", "role": "Alternative de finition"}],
+  "image": "/assets/recipes/heroes/cheesecake_caramel_nougatine_speculoos.jpg",
+  "categories": ["Desserts"],
+  "seasons": ["Toutes saisons"],
+  "difficulty": "medium",
+  "difficultyScore": 3,
+  "yield": "8 cheesecakes individuels",
+  "activeTime": 30,
+  "cookTime": 60,
+  "aliases": ["cheesecake caramel spéculoos", "cheesecake nougatine", "cheesecake caramel beurre salé"],
+  "tags": ["cheesecake", "caramel", "nougatine", "spéculoos", "fromage frais", "dessert de fête"],
+  "ingredients": [
+    {
+      "group": "Base spéculoos",
+      "items": ["130g spéculoos, environ 16 biscuits", "20g beurre doux fondu"]
+    },
+    {
+      "group": "Appareil cheesecake",
+      "items": ["650g fromage frais entier dense", "3 œufs", "1 jaune d’œuf", "200g sucre", "10g farine T45"]
+    },
+    {
+      "group": "Nougatine",
+      "items": ["100g sucre", "20g amandes hachées"]
+    },
+    {
+      "group": "Sauce caramel",
+      "items": ["50g sucre", "10g beurre doux", "100g crème liquide entière", "1 pincée de fleur de sel"]
+    }
+  ],
+  "steps": [
+    "Préparer la nougatine : faire fondre les 100g de sucre à sec dans une casserole jusqu’à obtenir un caramel blond uniforme.",
+    "Retirer du feu, ajouter immédiatement les amandes hachées, mélanger puis étaler très finement sur du papier cuisson.",
+    "Laisser refroidir complètement la nougatine, puis la casser en petits éclats en réservant les plus beaux pour la finition.",
+    "Préchauffer le four à 90°C en chaleur statique et graisser huit cercles individuels posés sur une plaque couverte de papier cuisson.",
+    "Réduire les spéculoos en poudre, les mélanger au beurre fondu puis répartir et tasser fermement au fond des cercles.",
+    "Fouetter brièvement les œufs, le jaune et le sucre, puis incorporer la farine tamisée.",
+    "Ajouter le fromage frais à température ambiante et mélanger à vitesse lente seulement jusqu’à obtenir un appareil lisse, sans incorporer trop d’air.",
+    "Incorporer les petits éclats de nougatine, puis répartir l’appareil sur les fonds de spéculoos.",
+    "Cuire environ 1h à 90°C : les bords doivent être pris et le centre encore légèrement tremblotant.",
+    "Laisser refroidir dans les cercles, puis réserver au réfrigérateur au moins 6h, idéalement une nuit, avant de démouler.",
+    "Préparer le caramel : cuire les 50g de sucre jusqu’à couleur ambrée, ajouter le beurre puis déglacer prudemment avec la crème chaude.",
+    "Laisser frémir jusqu’à texture nappante, ajouter la fleur de sel puis refroidir ; napper les cheesecakes et ajouter les éclats de nougatine réservés juste avant de servir."
+  ],
+  "notes": [
+    "Choisir un fromage frais entier et dense ; une version allégée rendrait davantage d’eau et donnerait une tenue moins nette.",
+    "La <span data-goto=\"sauce_caramel\">sauce caramel du carnet</span> peut remplacer la finition préparée ici si elle est déjà disponible.",
+    "Ajouter le caramel et la nougatine au dernier moment préserve le contraste entre le crémeux, le nappage et le croustillant."
+  ],
+  "technical": [
+    {"label": "Cuisson douce", "value": "À 90°C, l’appareil coagule lentement, reste très crémeux et fissure moins facilement."},
+    {"label": "Mélange", "value": "Travailler le fromage frais lentement limite l’air incorporé, responsable de gonflement puis d’affaissement."},
+    {"label": "Caramel", "value": "Chauffer la crème avant de déglacer réduit le choc thermique et les projections."}
+  ],
+  "practical": {
+    "equipment": ["8 cercles à pâtisserie", "Plaque", "Papier cuisson", "Robot ou fouet", "2 casseroles", "Maryse"],
+    "storage": ["Cheesecakes non nappés : 48h au réfrigérateur à 0–4°C, bien couverts.", "Sauce caramel : 5 jours au réfrigérateur dans un pot fermé.", "Nougatine : 3 jours au sec dans une boîte hermétique, séparée des cheesecakes."],
+    "mistakes": ["Ne pas utiliser de fromage frais allégé ou trop humide.", "Ne pas fouetter longuement l’appareil après ajout du fromage.", "Ne pas chercher une prise totalement ferme à la sortie du four.", "Ne pas garnir de nougatine plusieurs heures à l’avance, elle ramollirait."],
+    "result": ["Cheesecake très crémeux sur base spéculoos, nappé d’un caramel légèrement salé et ponctué d’éclats de nougatine croquante."]
+  }
+};
+
+window.RECIPES.desserts_maitre.variants.push({
+  "id": "cheesecake_caramel_nougatine_speculoos",
+  "label": "Cheesecake caramel, nougatine et spéculoos"
+});

@@ -210,6 +210,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 507,
     "bytes": 96855
   },
+  "assets/recipes/cards/cheesecake_caramel_nougatine_speculoos.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 63790
+  },
   "assets/recipes/cards/chipirons_a_la_plancha.jpg": {
     "width": 1040,
     "height": 520,
@@ -1524,6 +1529,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 302167
+  },
+  "assets/recipes/heroes/cheesecake_caramel_nougatine_speculoos.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 201339
   },
   "assets/recipes/heroes/chipirons_a_la_plancha.jpg": {
     "width": 1536,
