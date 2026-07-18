@@ -238,6 +238,7 @@ a {
   --mako: var(--ds-color-info);
   --accent-ink: var(--ds-color-primary-ink);
   min-height: 100vh;
+  overflow-x: clip;
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 34%),
     linear-gradient(215deg, color-mix(in srgb, var(--accent-2) 8%, transparent), transparent 38%),
