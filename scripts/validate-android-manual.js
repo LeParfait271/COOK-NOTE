@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const vm = require('node:vm');
 const { spawnSync } = require('node:child_process');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -33,6 +34,21 @@ const serviceWorker = read('service-worker.js');
 const buildScript = read('scripts/build-android-legacy.ps1');
 const legacyAssetsScript = read('scripts/build-android-legacy-assets.js');
 const updateAllAppsScript = read('scripts/update-all-apps.ps1');
+
+const imageParityContext = { window: {} };
+vm.createContext(imageParityContext);
+vm.runInContext(read('recipes.js'), imageParityContext, { filename: 'recipes.js' });
+vm.runInContext(read('app-art-images.js'), imageParityContext, { filename: 'app-art-images.js' });
+const parityRecipes = imageParityContext.window.RECIPES || {};
+const parityDarkImages = imageParityContext.window.COOK_NOTE_THEME_RECIPE_ART?.dark || {};
+const missingParityImages = Object.entries(parityRecipes).filter(([id, recipe]) => {
+  const publicPath = String(parityDarkImages[id] || recipe.image || '').replace(/^\/+/, '').replace(/\?.*$/, '');
+  return !publicPath || !exists(publicPath);
+});
+expect(
+  'Toutes les images Android doivent avoir une source identique au mode nuit courant du site.',
+  Object.keys(parityDarkImages).length > 0 && missingParityImages.length === 0
+);
 const publishScript = read('scripts/publish-android-release.ps1');
 const androidBuildGradle = read('android-legacy/app/build.gradle');
 const androidLegacySettingsGradle = read('android-legacy/settings.gradle');
@@ -472,6 +488,10 @@ expect(
     && legacyAssetsScript.includes('additionalMasters: cleanArray(recipe.additionalMasters)')
     && legacyAssetsScript.includes('android-legacy-native-lite')
     && legacyAssetsScript.includes('copyLiteImage')
+    && legacyAssetsScript.includes('APP_ART_IMAGES_FILE')
+    && legacyAssetsScript.includes('COOK_NOTE_THEME_RECIPE_ART')
+    && legacyAssetsScript.includes('resizeBilinear')
+    && !legacyAssetsScript.includes('resizeNearest')
     && legacyAssetsScript.includes("assets', 'recipes', 'cards")
     && legacyAssetsScript.includes("assets', 'recipes', 'heroes")
     && legacyAssetsScript.includes('repairMojibakeText')

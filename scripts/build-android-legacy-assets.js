@@ -13,12 +13,13 @@ const HOME_HERO_SOURCE = path.join(ROOT, 'assets', 'theme', 'dark', 'global', 'h
 const RECIPES_FILE = path.join(ROOT, 'recipes.js');
 const APP_FILE = path.join(ROOT, 'app.js');
 const APP_IMAGES_FILE = path.join(ROOT, 'app-images.js');
+const APP_ART_IMAGES_FILE = path.join(ROOT, 'app-art-images.js');
 const APP_PREMIUM_FILE = path.join(ROOT, 'app-premium.js');
 const ANDROID_GRADLE_PROPERTIES_FILE = path.join(ROOT, 'android-legacy', 'gradle.properties');
 const MAX_IMAGE_WIDTH = 480;
 const DETAIL_IMAGE_WIDTH = 1280;
-const JPEG_QUALITY = 54;
-const DETAIL_JPEG_QUALITY = 68;
+const JPEG_QUALITY = 80;
+const DETAIL_JPEG_QUALITY = 86;
 const ENCODING_SUSPECT_RE = /(?:\u00c3[\u0080-\u00bf]|\u00c2[\u00a0-\u00bf]|\u00e2[\u0080-\u00bf\u20ac-\u2122]|\uFFFD)/;
 const WINDOWS_1252_BYTE_BY_CODEPOINT = new Map([
   [0x20AC, 0x80],
@@ -255,37 +256,63 @@ function safeBasename(imagePath) {
   return path.basename(clean);
 }
 
-function imageSourceFor(imagePath, preferCardImage) {
+function loadDarkThemeRecipeImages() {
+  const context = { window: {} };
+  vm.createContext(context);
+  vm.runInContext(read(APP_ART_IMAGES_FILE), context, { filename: APP_ART_IMAGES_FILE });
+  return context.window.COOK_NOTE_THEME_RECIPE_ART?.dark || {};
+}
+
+function localAssetPath(assetUrl) {
+  const clean = String(assetUrl || '').replace(/^\/+/, '').replace(/\?.*$/, '').replace(/\\/g, '/');
+  return clean ? path.join(ROOT, clean) : null;
+}
+
+function imageSourceFor(recipeId, imagePath, preferCardImage, darkThemeImages) {
   const clean = String(imagePath || '').replace(/^\/+/, '').replace(/\\/g, '/');
   const basename = path.basename(clean);
   if (!basename) return null;
 
+  const themeCandidate = localAssetPath(darkThemeImages?.[recipeId]);
   const cardCandidate = path.join(ROOT, 'assets', 'recipes', 'cards', basename);
   const directCandidate = path.join(ROOT, clean);
   const optimizedCandidate = path.join(ROOT, 'assets', 'recipes', 'heroes', basename);
   const candidates = preferCardImage
-    ? [cardCandidate, directCandidate, optimizedCandidate]
-    : [directCandidate, optimizedCandidate, cardCandidate];
+    ? [themeCandidate, cardCandidate, directCandidate, optimizedCandidate]
+    : [themeCandidate, directCandidate, optimizedCandidate, cardCandidate];
 
   for (const candidate of candidates) {
-    if (fs.existsSync(candidate)) return candidate;
+    if (candidate && fs.existsSync(candidate)) return candidate;
   }
 
   return null;
 }
 
-function resizeNearest(decoded, targetWidth, targetHeight) {
+function resizeBilinear(decoded, targetWidth, targetHeight) {
   const source = decoded.data;
   const output = Buffer.alloc(targetWidth * targetHeight * 4);
+  const scaleX = decoded.width / targetWidth;
+  const scaleY = decoded.height / targetHeight;
   for (let y = 0; y < targetHeight; y += 1) {
-    const sourceY = Math.min(decoded.height - 1, Math.floor((y * decoded.height) / targetHeight));
+    const sourceY = Math.max(0, Math.min(decoded.height - 1, (y + 0.5) * scaleY - 0.5));
+    const y0 = Math.floor(sourceY);
+    const y1 = Math.min(decoded.height - 1, y0 + 1);
+    const fy = sourceY - y0;
     for (let x = 0; x < targetWidth; x += 1) {
-      const sourceX = Math.min(decoded.width - 1, Math.floor((x * decoded.width) / targetWidth));
-      const sourceIndex = (sourceY * decoded.width + sourceX) * 4;
+      const sourceX = Math.max(0, Math.min(decoded.width - 1, (x + 0.5) * scaleX - 0.5));
+      const x0 = Math.floor(sourceX);
+      const x1 = Math.min(decoded.width - 1, x0 + 1);
+      const fx = sourceX - x0;
       const targetIndex = (y * targetWidth + x) * 4;
-      output[targetIndex] = source[sourceIndex];
-      output[targetIndex + 1] = source[sourceIndex + 1];
-      output[targetIndex + 2] = source[sourceIndex + 2];
+      const topLeft = (y0 * decoded.width + x0) * 4;
+      const topRight = (y0 * decoded.width + x1) * 4;
+      const bottomLeft = (y1 * decoded.width + x0) * 4;
+      const bottomRight = (y1 * decoded.width + x1) * 4;
+      for (let channel = 0; channel < 3; channel += 1) {
+        const top = source[topLeft + channel] * (1 - fx) + source[topRight + channel] * fx;
+        const bottom = source[bottomLeft + channel] * (1 - fx) + source[bottomRight + channel] * fx;
+        output[targetIndex + channel] = Math.round(top * (1 - fy) + bottom * fy);
+      }
       output[targetIndex + 3] = 255;
     }
   }
@@ -299,16 +326,16 @@ function writeLiteJpeg(source, destination, maxWidth, quality) {
   const targetHeight = Math.max(1, Math.round((decoded.height * targetWidth) / decoded.width));
   const resized = targetWidth === decoded.width
     ? { data: Buffer.from(decoded.data), width: decoded.width, height: decoded.height }
-    : resizeNearest(decoded, targetWidth, targetHeight);
+    : resizeBilinear(decoded, targetWidth, targetHeight);
   const encoded = jpeg.encode(resized, quality).data;
   fs.writeFileSync(destination, encoded);
 }
 
-function copyLiteImage(imagePath, copiedImages, targetDir, preferCardImage, maxWidth, quality) {
+function copyLiteImage(recipeId, imagePath, copiedImages, targetDir, preferCardImage, maxWidth, quality, darkThemeImages) {
   const basename = safeBasename(imagePath);
   if (!basename || copiedImages.has(basename)) return basename;
 
-  const source = imageSourceFor(imagePath, preferCardImage);
+  const source = imageSourceFor(recipeId, imagePath, preferCardImage, darkThemeImages);
   if (!source) return '';
 
   const destination = path.join(targetDir, basename);
@@ -540,6 +567,7 @@ function buildLiteAssets() {
   const recipes = loadRecipes();
   const helperRecipes = recipesWithIds(recipes);
   const helpers = loadAppHelpers();
+  const darkThemeImages = loadDarkThemeRecipeImages();
   const copiedImages = new Set();
   const copiedDetailImages = new Set();
 
@@ -550,8 +578,8 @@ function buildLiteAssets() {
 
   const outputRecipes = Object.entries(recipes)
     .map(([id, recipe]) => {
-      const imageName = copyLiteImage(recipe.image, copiedImages, OUT_IMAGE_DIR, true, MAX_IMAGE_WIDTH, JPEG_QUALITY);
-      const detailImageName = copyLiteImage(recipe.image, copiedDetailImages, OUT_DETAIL_IMAGE_DIR, false, DETAIL_IMAGE_WIDTH, DETAIL_JPEG_QUALITY);
+      const imageName = copyLiteImage(id, recipe.image, copiedImages, OUT_IMAGE_DIR, true, MAX_IMAGE_WIDTH, JPEG_QUALITY, darkThemeImages);
+      const detailImageName = copyLiteImage(id, recipe.image, copiedDetailImages, OUT_DETAIL_IMAGE_DIR, false, DETAIL_IMAGE_WIDTH, DETAIL_JPEG_QUALITY, darkThemeImages);
       return compactRecipe(id, recipe, imageName, detailImageName || imageName, helperRecipes, helpers);
     })
     .sort((left, right) => left.title.localeCompare(right.title, 'fr', { sensitivity: 'base' }));
@@ -587,6 +615,7 @@ function buildLiteAssets() {
   console.log(`Index recherche natif: ${searchIndex.entries.length}`);
   console.log(`Images natives ${MAX_IMAGE_WIDTH}px max: ${copiedImages.size}`);
   console.log(`Images detail natives ${DETAIL_IMAGE_WIDTH}px max: ${copiedDetailImages.size}`);
+  console.log(`Images alignees sur le theme nuit du site: ${Object.keys(darkThemeImages).length}`);
 }
 
 buildLiteAssets();

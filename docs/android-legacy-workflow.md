@@ -325,6 +325,10 @@ app depuis le site.
 - `scripts/build-android-legacy-assets.js` genere le catalogue Native Lite,
   y compris les sections `Avant de commencer` utiles a l APK : allergenes,
   poids moyens, repere cuilleres, conservation et rechauffage.
+  Les images sont derivees en priorite des assets nuit actuellement affiches
+  par le site (`assets/theme/dark`), avec repli sur l image de recette seulement
+  lorsqu aucun asset de theme n existe. Le redimensionnement reste lisse et ne
+  reutilise jamais les anciennes sorties generees Android.
 - `scripts/build-android-legacy.ps1` construit l APK et nettoie la sortie APK
   avant packaging.
 - `scripts/publish-android-release.ps1` publie l APK local sur GitHub Releases
