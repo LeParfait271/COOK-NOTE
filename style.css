@@ -4468,82 +4468,30 @@ a {
   display: none;
 }
 
-.home-view .season-block {
-  margin-bottom: clamp(48px, 7vw, 82px);
-  padding: 0;
-}
-
+.home-view .season-block{margin-bottom:clamp(48px,7vw,82px);padding:0}
 .home-view .season-block-head {
   margin-bottom: 18px;
   padding-bottom: 14px;
   border-bottom-color: color-mix(in srgb, var(--line) 58%, transparent);
 }
+.home-view .season-block-head::after{display:none}
+.home-view .season-tabs,.home-view .season-category-tabs{justify-content:center;max-width:100%;padding:2px;border-color:color-mix(in srgb,var(--line) 72%,transparent);border-radius:9px;background:transparent;box-shadow:none}
 
-.home-view .season-block-head::after { display: none; }
-
-.home-view .season-tabs,
-.home-view .season-category-tabs {
-  justify-content: center;
-  max-width: 100%;
-  padding: 2px;
-  border-color: color-mix(in srgb, var(--line) 72%, transparent);
-  border-radius: 9px;
-  background: transparent;
-  box-shadow: none;
-}
-
-.home-view .season-dashboard-copy,
-.home-view .season-filter-stack { justify-items: center; }
+.home-view .season-dashboard-copy,.home-view .season-filter-stack{justify-items:center}
+.home-view .season-dashboard{grid-template-columns:minmax(0,1fr);justify-items:center;gap:12px;text-align:center}.home-view .season-dashboard>button{grid-column:1;grid-row:auto;justify-self:center}
 .home-view .season-dashboard-copy{gap:2px}.home-view .season-dashboard-copy h2{font-size:clamp(24px,3vw,34px)}.home-view .season-tabs button{min-height:34px;padding:0 10px;font-size:12px}
 
-.home-view .recipe-card,
-.home-view .recipe-card.master-card {
-  border-color: color-mix(in srgb, var(--line) 68%, transparent);
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--surface) 52%, transparent);
-  box-shadow: none;
-}
+.home-view .recipe-card,.home-view .recipe-card.master-card{border-color:color-mix(in srgb,var(--line) 68%,transparent);border-radius:10px;background:color-mix(in srgb,var(--surface) 52%,transparent);box-shadow:none}
 
-.home-view .recipe-card::before,
-.home-view .recipe-card::after {
-  display: none !important;
-}
+.home-view .recipe-card::before,.home-view .recipe-card::after{display:none!important}.home-view .recipe-card:hover,.home-view .recipe-card:focus-visible{transform:translateY(-3px);border-color:color-mix(in srgb,var(--ambient-accent,var(--accent)) 42%,var(--line));box-shadow:0 18px 44px rgba(0,0,0,.22)}.home-view .card-media,.home-view .recipe-card.master-card .card-media{border-radius:9px 9px 0 0}
 
-.home-view .recipe-card:hover,
-.home-view .recipe-card:focus-visible {
-  transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 42%, var(--line));
-  box-shadow: 0 18px 44px rgba(0, 0, 0, .22);
-}
+.topbar{border-bottom-color:color-mix(in srgb,var(--line) 62%,transparent);background:color-mix(in srgb,var(--surface-strong) 88%,transparent);box-shadow:0 10px 34px rgba(0,0,0,.22)}
 
-.home-view .card-media,
-.home-view .recipe-card.master-card .card-media {
-  border-radius: 9px 9px 0 0;
-}
+:where(.recipe-panel,.recipe-summary-panel,.variant-picker-panel,.variant-choice-panel,.site-footer-inner){border-color:color-mix(in srgb,var(--line) 76%,transparent);box-shadow:0 18px 54px rgba(0,0,0,.2)}
 
-.topbar {
-  border-bottom-color: color-mix(in srgb, var(--line) 62%, transparent);
-  background: color-mix(in srgb, var(--surface-strong) 88%, transparent);
-  box-shadow: 0 10px 34px rgba(0, 0, 0, .22);
-}
+.mc-shell.theme-light .home-command-center,.mc-shell.theme-light .home-view .season-dashboard,.mc-shell.theme-light .home-view .season-block,.mc-shell.theme-light .home-view .fridge-assistant{background:transparent;box-shadow:none}
 
-:where(.recipe-panel, .recipe-summary-panel, .variant-picker-panel, .variant-choice-panel, .site-footer-inner) {
-  border-color: color-mix(in srgb, var(--line) 76%, transparent);
-  box-shadow: 0 18px 54px rgba(0, 0, 0, .2);
-}
-
-.mc-shell.theme-light .home-command-center,
-.mc-shell.theme-light .home-view .season-dashboard,
-.mc-shell.theme-light .home-view .season-block,
-.mc-shell.theme-light .home-view .fridge-assistant {
-  background: transparent;
-  box-shadow: none;
-}
-
-.mc-shell.theme-light .home-search-launcher {
-  background: rgba(255, 252, 246, .62);
-  box-shadow: none;
-}
+.mc-shell.theme-light .home-search-launcher{background:rgba(255,252,246,.62);box-shadow:none}
 
 .mc-shell.theme-light .home-view .recipe-card,
 .mc-shell.theme-light .home-view .recipe-card.master-card {
