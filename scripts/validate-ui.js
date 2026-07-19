@@ -110,6 +110,11 @@ const averageWeightsUseExactIngredients = [
   "return 'melon'",
   'melon(?:s)?'
 ].every(fragment => files.app.includes(fragment)) && files.rules.includes('jus de citron vert') && files.rules.includes('1 melon');
+const homeHeroHasNoPixelLine = /\.home-view\s*>\s*\.hero\s*\{[^}]*border-bottom:\s*0\s*!important;/.test(files.style)
+  && !/\.theme-dark\s+\.hero\s*\{[^}]*border-bottom:\s*1px/.test(files.style)
+  && files.rules.includes("sans bordure, filet dore, separateur ni ligne d'un pixel")
+  && files.designSystem.includes('Continuite du hero')
+  && files.designSystem.includes("bordure ni filet d'un pixel");
 
 function expect(label, condition) {
   if (!condition) errors.push(label);
@@ -142,6 +147,7 @@ expect('Passe pixel-perfect sans grille stable pour filtres saison mobile.', mob
 expect('Motion cartes recette non bornee a 250ms.', cardImageMotionIsBounded && files.rules.includes('transition image au-dela de `250ms`') && designSystemIncludesBoundedCardZoom);
 expect('Actions fiche recette sans hauteur commune.', detailActionControlsAreAligned && files.rules.includes('hauteur commune entre boutons texte') && designSystemIncludesAlignedActionControls);
 expect('Selecteur de quantite hero trop peu lisible.', quantitySelectStaysReadable && files.rules.includes('selecteur de quantite doit rester lisible') && designSystemIncludesReadableQuantitySelect);
+expect("Le filet d'un pixel sous le hero d'accueil est revenu.", homeHeroHasNoPixelLine);
 expect('Palette de commandes absente.', files.app.includes('function CommandPalette') && files.app.includes('commandOpen') && files.app.includes('commandRef') && files.app.includes('openCommandPalette') && files.style.includes('.command-palette') && files.style.includes('.command-input-shell'));
 expect('Transitions de vue absentes.', files.app.includes('function runViewTransition') && files.app.includes('document.startViewTransition') && files.style.includes('::view-transition-new(root)'));
 expect('Dock recette absent.', files.app.includes('function RecipeCommandDock') && files.app.includes('recipe-command-dock') && files.style.includes('.recipe-command-dock') && files.style.includes('--dock-progress'));

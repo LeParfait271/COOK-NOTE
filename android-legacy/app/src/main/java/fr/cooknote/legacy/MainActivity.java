@@ -397,8 +397,6 @@ public class MainActivity extends Activity {
         addStatusPill(statusStack, "●  PRET HORS LIGNE", true);
         addStatusPill(statusStack, "CATALOGUE LOCAL", false);
 
-        addAccentLine(header, 11, 0);
-
         FrameLayout homeHero = new FrameLayout(this);
         homeHero.setBackgroundColor(COLOR_PANEL_DEEP);
         int homeHeroHeight = Math.min(dp(250), Math.max(dp(170), getResources().getDisplayMetrics().widthPixels / 6));

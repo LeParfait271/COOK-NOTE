@@ -141,6 +141,7 @@ expect(
     && androidLegacyMainActivity.includes('ANDROID 5+  /  v')
     && androidLegacyMainActivity.includes('PRET HORS LIGNE')
     && androidLegacyMainActivity.includes('home-hero.png')
+    && !androidLegacyMainActivity.includes('addAccentLine(header, 11, 0)')
     && androidLegacyMainActivity.includes('INSPIRATION DU MATIN')
     && androidLegacyMainActivity.includes('Que voulez-vous cuisiner ?')
     && androidLegacyMainActivity.includes('Recherchez une recette, un ingredient ou une envie dans votre carnet.')

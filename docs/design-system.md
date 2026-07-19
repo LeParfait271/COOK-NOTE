@@ -39,6 +39,8 @@ metier et ne justifient pas d'ajouter une section gadget.
   violents, animations robotiques, boutons trop petits.
 - Screenshot Test : une capture de l'accueil, d'une fiche, d'un panneau et de
   l'admin doit donner envie d'utiliser ou installer le produit.
+- Continuite du hero d'accueil : sa transition vers le contenu reste sans
+  bordure ni filet d'un pixel. Le fondu porte seul la separation visuelle.
 - Award Winning Design : rechercher equilibre, lumiere, composition, coherence
   et finesse sans copier une identite externe.
 - First Impression Optimizer : les cinq premieres secondes doivent etre nettes :

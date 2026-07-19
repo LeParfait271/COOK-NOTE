@@ -4314,7 +4314,7 @@ a {
 
 .home-view > .hero {
   min-height: clamp(300px, 38vw, 520px) !important;
-  border-bottom: 0;
+  border-bottom: 0 !important;
   background-position: center 44% !important;
   background-attachment: scroll !important;
   box-shadow: none !important;
@@ -7372,7 +7372,7 @@ a {
 
 .theme-dark .hero {
   min-height: clamp(230px, 28vw, 390px);
-  border-bottom: 1px solid color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent);
+  border-bottom: 0;
   background:
     linear-gradient(180deg, rgba(2, 2, 3, .10), rgba(2, 2, 3, .24) 46%, rgba(2, 2, 3, .68) 84%, var(--bg)),
     linear-gradient(90deg, rgba(0, 0, 0, .34), transparent 24%, transparent 76%, rgba(0, 0, 0, .34)),
