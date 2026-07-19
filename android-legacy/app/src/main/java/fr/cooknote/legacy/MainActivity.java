@@ -329,8 +329,7 @@ public class MainActivity extends Activity {
 
         LinearLayout header = new LinearLayout(this);
         header.setOrientation(LinearLayout.VERTICAL);
-        header.setPadding(dp(20), dp(16), dp(20), dp(14));
-        header.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, 0, 0, 0));
+        header.setBackgroundColor(COLOR_BG);
         root.addView(header, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -339,16 +338,18 @@ public class MainActivity extends Activity {
         LinearLayout brandRow = new LinearLayout(this);
         brandRow.setOrientation(LinearLayout.HORIZONTAL);
         brandRow.setGravity(Gravity.CENTER_VERTICAL);
+        brandRow.setPadding(dp(18), dp(8), dp(18), dp(8));
+        brandRow.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER_SOFT, 1, 0));
         header.addView(brandRow, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         ));
 
         FrameLayout logoFrame = new FrameLayout(this);
-        logoFrame.setPadding(dp(8), dp(8), dp(8), dp(8));
-        logoFrame.setBackground(panelGradient(COLOR_CARD_ACTIVE, COLOR_PANEL_DEEP, COLOR_BORDER_BRIGHT, 1, 18));
-        LinearLayout.LayoutParams logoFrameParams = new LinearLayout.LayoutParams(dp(62), dp(62));
-        logoFrameParams.rightMargin = dp(16);
+        logoFrame.setPadding(dp(4), dp(4), dp(4), dp(4));
+        logoFrame.setBackground(panel(COLOR_CARD, COLOR_BORDER_SOFT, 1, 10));
+        LinearLayout.LayoutParams logoFrameParams = new LinearLayout.LayoutParams(dp(42), dp(42));
+        logoFrameParams.rightMargin = dp(11);
         brandRow.addView(logoFrame, logoFrameParams);
 
         ImageView logo = new ImageView(this);
@@ -364,14 +365,14 @@ public class MainActivity extends Activity {
         brandCopy.setOrientation(LinearLayout.VERTICAL);
         brandRow.addView(brandCopy, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
-        TextView title = text("COOK NOTE", 28, COLOR_TEXT, true);
+        TextView title = text("COOK NOTE", 18, COLOR_TEXT, true);
         title.setGravity(Gravity.CENTER_VERTICAL);
         title.setIncludeFontPadding(false);
         title.setLetterSpacing(0.08f);
         brandCopy.addView(title);
 
-        TextView subtitle = text("NATIVE LITE  /  ANDROID 5+  /  v" + repository.version, 10, COLOR_DIM, true);
-        subtitle.setPadding(0, dp(4), 0, 0);
+        TextView subtitle = text("ANDROID 5+  /  v" + repository.version, 9, COLOR_DIM, true);
+        subtitle.setPadding(0, dp(2), 0, 0);
         brandCopy.addView(subtitle);
 
         LinearLayout stats = new LinearLayout(this);
@@ -384,6 +385,7 @@ public class MainActivity extends Activity {
         brandCopy.addView(stats, statsParams);
         addHeaderStat(stats, String.valueOf(repository.homeRecipes().size()), "accueil");
         addHeaderStat(stats, String.valueOf(repository.searchableRecipes().size()), "fiches");
+        stats.setVisibility(View.GONE);
 
         LinearLayout statusStack = new LinearLayout(this);
         statusStack.setOrientation(LinearLayout.VERTICAL);
@@ -391,13 +393,57 @@ public class MainActivity extends Activity {
         LinearLayout.LayoutParams statusParams = new LinearLayout.LayoutParams(dp(190), ViewGroup.LayoutParams.WRAP_CONTENT);
         statusParams.leftMargin = dp(12);
         brandRow.addView(statusStack, statusParams);
+        statusStack.setVisibility(View.GONE);
         addStatusPill(statusStack, "●  PRET HORS LIGNE", true);
         addStatusPill(statusStack, "CATALOGUE LOCAL", false);
 
         addAccentLine(header, 11, 0);
 
+        FrameLayout homeHero = new FrameLayout(this);
+        homeHero.setBackgroundColor(COLOR_PANEL_DEEP);
+        int homeHeroHeight = Math.min(dp(250), Math.max(dp(170), getResources().getDisplayMetrics().widthPixels / 6));
+        header.addView(homeHero, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, homeHeroHeight));
+
+        ImageView heroImage = new ImageView(this);
+        heroImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        heroImage.setContentDescription("Univers Cook Note");
+        homeHero.addView(heroImage, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        imageLoader.loadDetail("home-hero.png", heroImage, getResources().getDisplayMetrics().widthPixels, homeHeroHeight);
+
+        View heroVeil = new View(this);
+        heroVeil.setBackground(bottomOverlayGradient());
+        homeHero.addView(heroVeil, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        TextView heroBrand = text("COOK NOTE", 34, COLOR_TEXT, true);
+        heroBrand.setGravity(Gravity.CENTER);
+        heroBrand.setLetterSpacing(0.08f);
+        heroBrand.setShadowLayer(5f, 0, dp(2), Color.BLACK);
+        homeHero.addView(heroBrand, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, Gravity.CENTER));
+
+        LinearLayout welcome = new LinearLayout(this);
+        welcome.setOrientation(LinearLayout.VERTICAL);
+        welcome.setGravity(Gravity.CENTER_HORIZONTAL);
+        welcome.setPadding(dp(20), dp(14), dp(20), dp(4));
+        header.addView(welcome, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        TextView inspiration = text("INSPIRATION DU MATIN", 9, COLOR_GOLD, true);
+        inspiration.setGravity(Gravity.CENTER);
+        inspiration.setLetterSpacing(0.14f);
+        welcome.addView(inspiration);
+
+        TextView prompt = text("Que voulez-vous cuisiner ?", 27, COLOR_TEXT, true);
+        prompt.setGravity(Gravity.CENTER);
+        prompt.setPadding(0, dp(4), 0, 0);
+        welcome.addView(prompt);
+
+        TextView welcomeCopy = text("Recherchez une recette, un ingredient ou une envie dans votre carnet.", 12, COLOR_DIM, false);
+        welcomeCopy.setGravity(Gravity.CENTER);
+        welcomeCopy.setPadding(0, dp(4), 0, dp(2));
+        welcome.addView(welcomeCopy);
+
         LinearLayout actionRow = new LinearLayout(this);
         actionRow.setOrientation(LinearLayout.HORIZONTAL);
+        actionRow.setPadding(dp(20), dp(6), dp(20), 0);
         LinearLayout.LayoutParams actionParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -408,7 +454,7 @@ public class MainActivity extends Activity {
         animateIn(header, 0);
         animateIn(actionRow, 70);
 
-        searchToggle = actionButton("RECHERCHER", true);
+        searchToggle = actionButton("RECHERCHER UNE RECETTE", true);
         LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(0, dp(44), 1);
         searchParams.rightMargin = dp(7);
         actionRow.addView(searchToggle, searchParams);
@@ -443,16 +489,19 @@ public class MainActivity extends Activity {
 
         searchPanel = new LinearLayout(this);
         searchPanel.setOrientation(LinearLayout.VERTICAL);
-        searchPanel.setPadding(dp(14), dp(13), dp(14), dp(14));
-        searchPanel.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER, 1, 14));
+        searchPanel.setPadding(dp(14), dp(11), dp(14), dp(12));
+        searchPanel.setBackground(panel(COLOR_CARD, COLOR_BORDER_SOFT, 1, 10));
         LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        panelParams.topMargin = dp(10);
+        panelParams.leftMargin = dp(20);
+        panelParams.rightMargin = dp(20);
+        panelParams.topMargin = dp(7);
         header.addView(searchPanel, panelParams);
 
-        TextView searchLabel = text("RECHERCHE SIMPLE", 10, COLOR_GOLD, true);
+        TextView searchLabel = text("RECHERCHE", 9, COLOR_GOLD, true);
+        searchLabel.setGravity(Gravity.CENTER);
         searchLabel.setIncludeFontPadding(false);
         searchPanel.addView(searchLabel);
 
@@ -505,17 +554,27 @@ public class MainActivity extends Activity {
         setSearchPanelOpen(searchPanelOpen);
         prefsPanelOpen = false;
 
-        counterView = text("", 12, COLOR_MUTED, true);
-        counterView.setPadding(dp(9), dp(5), dp(9), dp(6));
+        TextView catalogEyebrow = text("CATALOGUE", 9, COLOR_GOLD, true);
+        catalogEyebrow.setGravity(Gravity.CENTER);
+        catalogEyebrow.setLetterSpacing(0.14f);
+        catalogEyebrow.setPadding(0, dp(10), 0, 0);
+        header.addView(catalogEyebrow);
+
+        TextView catalogTitle = text("Recettes", 22, COLOR_TEXT, true);
+        catalogTitle.setGravity(Gravity.CENTER);
+        catalogTitle.setPadding(0, dp(1), 0, 0);
+        header.addView(catalogTitle);
+
+        counterView = text("", 10, COLOR_DIM, true);
+        counterView.setGravity(Gravity.CENTER);
+        counterView.setPadding(dp(9), dp(2), dp(9), dp(7));
         counterView.setSingleLine(true);
         counterView.setEllipsize(TextUtils.TruncateAt.END);
-        counterView.setLetterSpacing(0.04f);
-        counterView.setBackground(panel(COLOR_PANEL_DEEP, COLOR_BORDER_SOFT, 1, 12));
+        counterView.setLetterSpacing(0.03f);
         LinearLayout.LayoutParams counterParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        counterParams.topMargin = dp(7);
         header.addView(counterView, counterParams);
 
         final GridView gridView = new GridView(this);

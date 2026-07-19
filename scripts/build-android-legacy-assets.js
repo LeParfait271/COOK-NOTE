@@ -9,6 +9,7 @@ const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'android-legacy', 'build', 'generated', 'cook-note-lite');
 const OUT_IMAGE_DIR = path.join(OUT_DIR, 'images');
 const OUT_DETAIL_IMAGE_DIR = path.join(OUT_DIR, 'detail-images');
+const HOME_HERO_SOURCE = path.join(ROOT, 'assets', 'theme', 'dark', 'global', 'hero.png');
 const RECIPES_FILE = path.join(ROOT, 'recipes.js');
 const APP_FILE = path.join(ROOT, 'app.js');
 const APP_IMAGES_FILE = path.join(ROOT, 'app-images.js');
@@ -545,6 +546,7 @@ function buildLiteAssets() {
   fs.rmSync(OUT_DIR, { recursive: true, force: true });
   ensureDir(OUT_IMAGE_DIR);
   ensureDir(OUT_DETAIL_IMAGE_DIR);
+  fs.copyFileSync(HOME_HERO_SOURCE, path.join(OUT_DETAIL_IMAGE_DIR, 'home-hero.png'));
 
   const outputRecipes = Object.entries(recipes)
     .map(([id, recipe]) => {
