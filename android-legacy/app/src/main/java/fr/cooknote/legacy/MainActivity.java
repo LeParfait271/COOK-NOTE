@@ -399,7 +399,7 @@ public class MainActivity extends Activity {
 
         FrameLayout homeHero = new FrameLayout(this);
         homeHero.setBackgroundColor(COLOR_PANEL_DEEP);
-        int homeHeroHeight = Math.min(dp(250), Math.max(dp(170), getResources().getDisplayMetrics().widthPixels / 6));
+        int homeHeroHeight = Math.min(dp(125), Math.max(dp(85), getResources().getDisplayMetrics().widthPixels / 12));
         header.addView(homeHero, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, homeHeroHeight));
 
         ImageView heroImage = new ImageView(this);
@@ -1259,7 +1259,7 @@ public class MainActivity extends Activity {
 
         LinearLayout overlay = new LinearLayout(this);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(15), dp(13), dp(15), dp(14));
+        overlay.setPadding(dp(15), dp(7), dp(15), dp(8));
         overlay.setBackground(bottomOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -1275,8 +1275,8 @@ public class MainActivity extends Activity {
         breadcrumb.setEllipsize(TextUtils.TruncateAt.END);
         overlay.addView(breadcrumb);
 
-        TextView title = text(recipe.title, recipe.isCollection() ? 24 : 22, COLOR_TEXT, true);
-        title.setMaxLines(3);
+        TextView title = text(recipe.title, recipe.isCollection() ? 21 : 20, COLOR_TEXT, true);
+        title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setLineSpacing(dp(1), 1.03f);
         title.setShadowLayer(3f, 0, dp(1), Color.BLACK);
@@ -1284,13 +1284,13 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        titleParams.topMargin = dp(7);
+        titleParams.topMargin = dp(3);
         overlay.addView(title, titleParams);
 
         String meta = detailMetaLine(recipe);
         TextView metaView = text(meta, 11, COLOR_MUTED, true);
         metaView.setSingleLine(false);
-        metaView.setPadding(0, dp(4), 0, 0);
+        metaView.setPadding(0, dp(2), 0, 0);
         overlay.addView(metaView);
 
     }
@@ -1322,8 +1322,8 @@ public class MainActivity extends Activity {
 
     private int detailHeroHeight() {
         int width = getResources().getDisplayMetrics().widthPixels - dp(28);
-        int height = Math.max(dp(248), (width * 9) / 16);
-        return Math.min(dp(430), height);
+        int height = Math.max(dp(124), (width * 9) / 32);
+        return Math.min(dp(215), height);
     }
 
     private int detailImageRequestWidth() {

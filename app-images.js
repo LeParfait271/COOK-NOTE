@@ -1,7 +1,7 @@
 /* global window */
 
 (function initCookNoteImages() {
-  const IMAGE_HELPER_VERSION = 'v3.77';
+  const IMAGE_HELPER_VERSION = 'v3.78';
   const IMAGE_HELPER_REVISION = 'parent-title';
   const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
 
