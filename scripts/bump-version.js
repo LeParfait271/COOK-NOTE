@@ -145,7 +145,7 @@ if (!siteOnly) {
   write('downloads/android-latest-version.json', `${JSON.stringify({
     versionCode: versionParts.major * 1000 + versionParts.minor,
     versionName: android,
-    apkUrl: 'https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk'
+    apkUrl: 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk'
   }, null, 2)}\n`);
 }
 

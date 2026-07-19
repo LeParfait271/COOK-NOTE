@@ -74,7 +74,7 @@ import java.net.URL;
 import org.json.JSONObject;
 
 public class MainActivity extends Activity {
-    private static final String UPDATE_APK_URL = "https://github.com/LeParfait271/COOK-NOTE/raw/main/downloads/cook-note-android-legacy.apk";
+    private static final String UPDATE_APK_URL = "https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk";
     private static final String UPDATE_MANIFEST_URL = "https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/android-latest-version.json";
     private static final String UPDATE_APK_MIME = "application/vnd.android.package-archive";
     private static final int UPDATE_HTTP_TIMEOUT_MS = 6000;
@@ -2892,7 +2892,7 @@ public class MainActivity extends Activity {
                     connection.setRequestProperty("Accept", "application/json");
                     connection.setInstanceFollowRedirects(true);
                     if (connection.getResponseCode() != 200) {
-                        if (manual) postUpdateToast("Verification impossible pour le moment.");
+                        if (manual) fallbackToStableUpdate();
                         return;
                     }
                     StringBuilder content = new StringBuilder();
@@ -2915,7 +2915,7 @@ public class MainActivity extends Activity {
                         postUpdateToast("Cook Note est deja a jour.");
                     }
                 } catch (Exception exception) {
-                    if (manual) postUpdateToast("Verification impossible (hors ligne ?).");
+                    if (manual) fallbackToStableUpdate();
                 } finally {
                     if (connection != null) connection.disconnect();
                 }
@@ -2928,6 +2928,19 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 if (!isFinishing()) Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void fallbackToStableUpdate() {
+        uiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (isFinishing()) return;
+                Toast.makeText(MainActivity.this,
+                        "Verification indisponible. Telechargement de la derniere version...",
+                        Toast.LENGTH_LONG).show();
+                startUpdateDownload(UPDATE_APK_URL, "stable");
             }
         });
     }
