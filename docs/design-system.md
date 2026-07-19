@@ -180,6 +180,10 @@ Les controles qui vivent sur une meme ligne d'action doivent partager la meme ha
 
 Le select de quantite est un controle prioritaire : il doit rester contraste sur desktop et mobile meme si les styles globaux des champs changent.
 
+Les icones de la barre superieure utilisent `--topbar-icon-color`. Le theme nuit
+le definit en clair et le theme jour en texte sombre ; le controle visuel couvre
+toutes les icones d'action, pas seulement le bouton de theme.
+
 ## Responsive
 
 - Mobile : aucun texte ne doit chevaucher son conteneur.

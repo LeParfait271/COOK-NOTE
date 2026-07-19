@@ -69,6 +69,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les filtres de saison mobiles doivent rester en grille stable avec hauteurs tactiles constantes, jamais en flex row qui grossit ou change de rythme selon les libelles.
 - Les actions de fiche recette doivent garder une hauteur commune entre boutons texte, boutons icones et selecteur de quantite pour eviter les micro-desalignements visibles.
 - Le selecteur de quantite doit rester lisible et contraste dans le hero recette, meme apres les surcharges globales des champs de formulaire.
+- En mode jour, toutes les icones de la barre superieure doivent utiliser le token `--topbar-icon-color` et rester sombres et visibles dans tous leurs etats. Interdiction de valider seulement la premiere icone : le bouton theme, la recherche, les favoris et les reglages doivent tous etre controles automatiquement contre un retour a `rgb(255, 255, 255)`.
 - Les cartes recette doivent garder un zoom hover court et leger : pas de transition image au-dela de `250ms`, pas de grossissement agressif qui fatigue le GPU ou donne une sensation de jank.
 - Le footer doit afficher le compteur catalogue automatique : fiches recettes servies + variantes inline. Ce compteur doit venir de `window.RECIPES`, jamais d'un nombre ecrit en dur.
 - Le footer ne doit pas afficher l'annee dans une pilule separee : garder `Cook Note © 2026.` dans le texte d'identite, puis compteur et version uniquement dans les badges.

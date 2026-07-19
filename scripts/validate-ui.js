@@ -115,6 +115,12 @@ const homeHeroHasNoPixelLine = /\.home-view\s*>\s*\.hero\s*\{[^}]*border-bottom:
   && files.rules.includes("sans bordure, filet dore, separateur ni ligne d'un pixel")
   && files.designSystem.includes('Continuite du hero')
   && files.designSystem.includes("bordure ni filet d'un pixel");
+const lightTopbarIconsStayVisible = files.style.includes('--topbar-icon-color:#fff')
+  && files.style.includes('--topbar-icon-color:var(--text)')
+  && files.style.includes('.mc-shell.theme-light .topbar .site-icon')
+  && files.style.includes('color:var(--topbar-icon-color)')
+  && files.rules.includes('la recherche, les favoris et les reglages doivent tous etre controles')
+  && files.designSystem.includes('toutes les icones d\'action');
 
 function expect(label, condition) {
   if (!condition) errors.push(label);
@@ -148,6 +154,7 @@ expect('Motion cartes recette non bornee a 250ms.', cardImageMotionIsBounded && 
 expect('Actions fiche recette sans hauteur commune.', detailActionControlsAreAligned && files.rules.includes('hauteur commune entre boutons texte') && designSystemIncludesAlignedActionControls);
 expect('Selecteur de quantite hero trop peu lisible.', quantitySelectStaysReadable && files.rules.includes('selecteur de quantite doit rester lisible') && designSystemIncludesReadableQuantitySelect);
 expect("Le filet d'un pixel sous le hero d'accueil est revenu.", homeHeroHasNoPixelLine);
+expect('Les icones de la topbar peuvent redevenir invisibles en mode jour.', lightTopbarIconsStayVisible);
 expect('Palette de commandes absente.', files.app.includes('function CommandPalette') && files.app.includes('commandOpen') && files.app.includes('commandRef') && files.app.includes('openCommandPalette') && files.style.includes('.command-palette') && files.style.includes('.command-input-shell'));
 expect('Transitions de vue absentes.', files.app.includes('function runViewTransition') && files.app.includes('document.startViewTransition') && files.style.includes('::view-transition-new(root)'));
 expect('Dock recette absent.', files.app.includes('function RecipeCommandDock') && files.app.includes('recipe-command-dock') && files.style.includes('.recipe-command-dock') && files.style.includes('--dock-progress'));

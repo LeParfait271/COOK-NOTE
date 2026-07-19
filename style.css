@@ -220,7 +220,7 @@ a {
   min-height: 100vh;
 }
 
-.mc-shell {
+.mc-shell{
   --bg: var(--ds-color-background);
   --bg-2: var(--ds-color-background-muted);
   --panel: var(--ds-color-elevated);
@@ -6089,9 +6089,9 @@ a {
 }
 
 .mc-shell {
-  --ambient-accent: var(--accent);
+  --ambient-accent:var(--accent);
+  --topbar-icon-color:#fff;
 }
-
 .topbar {
   border-bottom-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 24%, var(--line));
   box-shadow:
@@ -6939,6 +6939,7 @@ a {
   --glass: color-mix(in srgb, var(--surface-strong) 90%, transparent);
   --ds-focus-ring: 0 0 0 3px color-mix(in srgb, var(--ambient-accent, var(--accent)) 20%, transparent);
   --ds-focus-border: color-mix(in srgb, var(--ambient-accent, var(--accent)) 58%, var(--line));
+  --topbar-icon-color:var(--text);
 }
 
 .mc-shell.theme-light .topbar,
@@ -6953,7 +6954,7 @@ a {
 }
 
 .mc-shell.theme-light .topbar .site-icon {
-  color: currentColor;
+  color:var(--topbar-icon-color);
   filter: none;
 }
 

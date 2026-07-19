@@ -158,17 +158,23 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.hero-logo')).toBeVisible();
     await expect(page.locator('.hero-logo')).toHaveAttribute('src', /\/assets\/theme\/day\/global\/logo\.png/);
     const topbarColors = await page.locator('.topbar').evaluate(node => {
-      const icon = node.querySelector('.top-right .site-icon');
-      const button = node.querySelector('.top-right .icon-square');
-      return {
-        icon: icon ? getComputedStyle(icon).color : '',
-        button: button ? getComputedStyle(button).color : '',
-        background: button ? getComputedStyle(button).backgroundColor : ''
-      };
+      const buttons = Array.from(node.querySelectorAll('.top-right .icon-square'));
+      return buttons.map(button => {
+        const icon = button.querySelector('.site-icon');
+        return {
+          label: button.getAttribute('aria-label') || '',
+          icon: icon ? getComputedStyle(icon).color : '',
+          button: getComputedStyle(button).color,
+          background: getComputedStyle(button).backgroundColor
+        };
+      });
     });
-    expect(topbarColors.icon).toBe(topbarColors.button);
-    expect(topbarColors.icon).not.toBe('rgb(255, 255, 255)');
-    expect(topbarColors.background).not.toBe('rgba(0, 0, 0, 0)');
+    expect(topbarColors).toHaveLength(4);
+    topbarColors.forEach(colors => {
+      expect(colors.icon, colors.label).toBe(colors.button);
+      expect(colors.icon, colors.label).not.toBe('rgb(255, 255, 255)');
+      expect(colors.background, colors.label).not.toBe('rgba(0, 0, 0, 0)');
+    });
     const firstDayCardSource = await page.locator('.recipe-card.master-card .card-image').first().getAttribute('src');
     expect(firstDayCardSource).toContain('/assets/theme/day/categories/');
     expect(firstDayCardSource).toContain('_maitre.jpg?v=');
