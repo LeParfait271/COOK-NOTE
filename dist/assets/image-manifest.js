@@ -2831,9 +2831,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 255965
   },
   "assets/theme/dark/global/hero.png": {
-    "width": 1445,
-    "height": 1088,
-    "bytes": 2845126
+    "width": 1672,
+    "height": 941,
+    "bytes": 2730249
   },
   "assets/theme/dark/global/logo.png": {
     "width": 948,
