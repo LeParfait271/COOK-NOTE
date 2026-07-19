@@ -119,7 +119,7 @@ const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.free
 const SITE_VERSION = 'v3.78';
 const SITE_UPDATED_AT = '19/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '3.77';
+const ANDROID_LEGACY_APK_VERSION = '3.78';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
