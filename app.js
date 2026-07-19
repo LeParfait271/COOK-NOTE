@@ -116,7 +116,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.74';
+const SITE_VERSION = 'v3.75';
 const SITE_UPDATED_AT = '19/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '3.73';
@@ -4970,17 +4970,10 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
 }
 
 function HomeView(props) {
-  const hour = new Date().getHours();
-  const momentLabel = hour < 11 ? 'Inspiration du matin' : hour < 18 ? 'Cuisine du jour' : 'Table du soir';
   return h('main', { className: 'home-view' },
     h(Hero),
     h('div', { className: 'content-wrap' },
       !props.onlyFavorites && h('section', { className: 'home-command-center', 'aria-label': 'Acces rapides Cook Note' },
-        h('div', { className: 'home-command-copy' },
-          h('p', { className: 'eyebrow' }, momentLabel),
-          h('h1', null, 'Que voulez-vous cuisiner ?'),
-          h('p', null, 'Recherchez une recette, un ingredient ou une envie dans votre carnet.')
-        ),
         h('button', { type: 'button', className: 'home-search-launcher', onClick: props.openSearch },
           h(Icon, { name: 'search' }),
           h('span', null, 'Rechercher une recette ou un ingredient'),

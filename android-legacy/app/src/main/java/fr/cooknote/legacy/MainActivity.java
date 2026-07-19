@@ -418,27 +418,6 @@ public class MainActivity extends Activity {
         heroBrand.setShadowLayer(5f, 0, dp(2), Color.BLACK);
         homeHero.addView(heroBrand, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, Gravity.CENTER));
 
-        LinearLayout welcome = new LinearLayout(this);
-        welcome.setOrientation(LinearLayout.VERTICAL);
-        welcome.setGravity(Gravity.CENTER_HORIZONTAL);
-        welcome.setPadding(dp(20), dp(14), dp(20), dp(4));
-        header.addView(welcome, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        TextView inspiration = text("INSPIRATION DU MATIN", 9, COLOR_GOLD, true);
-        inspiration.setGravity(Gravity.CENTER);
-        inspiration.setLetterSpacing(0.14f);
-        welcome.addView(inspiration);
-
-        TextView prompt = text("Que voulez-vous cuisiner ?", 27, COLOR_TEXT, true);
-        prompt.setGravity(Gravity.CENTER);
-        prompt.setPadding(0, dp(4), 0, 0);
-        welcome.addView(prompt);
-
-        TextView welcomeCopy = text("Recherchez une recette, un ingredient ou une envie dans votre carnet.", 12, COLOR_DIM, false);
-        welcomeCopy.setGravity(Gravity.CENTER);
-        welcomeCopy.setPadding(0, dp(4), 0, dp(2));
-        welcome.addView(welcomeCopy);
-
         LinearLayout actionRow = new LinearLayout(this);
         actionRow.setOrientation(LinearLayout.HORIZONTAL);
         actionRow.setPadding(dp(20), dp(6), dp(20), 0);
