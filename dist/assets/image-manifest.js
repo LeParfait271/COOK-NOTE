@@ -55,6 +55,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 102270
   },
+  "assets/recipes/cards/bavette_boeuf_chili_rub.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 80555
+  },
   "assets/recipes/cards/beignets_calamar.jpg": {
     "width": 760,
     "height": 343,
@@ -525,6 +530,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 570,
     "bytes": 131070
   },
+  "assets/recipes/cards/effiloche_agneau_moutarde.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 61539
+  },
   "assets/recipes/cards/elements_base_maitre.jpg": {
     "width": 960,
     "height": 540,
@@ -569,6 +579,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 428,
     "bytes": 59652
+  },
+  "assets/recipes/cards/fraises_marinees_tuiles_cacao.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 60091
   },
   "assets/recipes/cards/frites_belges.jpg": {
     "width": 760,
@@ -1300,6 +1315,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 507,
     "bytes": 83207
   },
+  "assets/recipes/cards/tartare_boeuf_pimente.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 60397
+  },
   "assets/recipes/cards/tarte_abricots_amandes_romarin.jpg": {
     "width": 760,
     "height": 570,
@@ -1334,6 +1354,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 428,
     "bytes": 72439
+  },
+  "assets/recipes/cards/tiramisu_amaretto.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 54503
   },
   "assets/recipes/cards/tiramisu_citron.jpg": {
     "width": 760,
@@ -1449,6 +1474,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1672,
     "height": 941,
     "bytes": 402548
+  },
+  "assets/recipes/heroes/bavette_boeuf_chili_rub.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 250345
   },
   "assets/recipes/heroes/beignets_calamar.jpg": {
     "width": 1400,
@@ -1920,6 +1950,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 123103
   },
+  "assets/recipes/heroes/effiloche_agneau_moutarde.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 184553
+  },
   "assets/recipes/heroes/elements_base_maitre.jpg": {
     "width": 1400,
     "height": 788,
@@ -1964,6 +1999,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 191195
+  },
+  "assets/recipes/heroes/fraises_marinees_tuiles_cacao.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 185530
   },
   "assets/recipes/heroes/frites_belges.jpg": {
     "width": 1400,
@@ -2695,6 +2735,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 260877
   },
+  "assets/recipes/heroes/tartare_boeuf_pimente.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 186279
+  },
   "assets/recipes/heroes/tarte_abricots_amandes_romarin.jpg": {
     "width": 1400,
     "height": 1050,
@@ -2729,6 +2774,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 237513
+  },
+  "assets/recipes/heroes/tiramisu_amaretto.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 171868
   },
   "assets/recipes/heroes/tiramisu_citron.jpg": {
     "width": 1672,

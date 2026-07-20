@@ -1,9 +1,9 @@
 # Audit Cook Note
 
-Genere le 2026-07-20T02:47:29.631Z.
+Genere le 2026-07-20T03:14:26.911Z.
 
-- Recettes totales : 279
-- Recettes feuilles : 271
+- Recettes totales : 284
+- Recettes feuilles : 276
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -11,13 +11,13 @@ Genere le 2026-07-20T02:47:29.631Z.
 
 ## Dashboard sante
 
-- Pretes : 207
-- A ameliorer : 64
+- Pretes : 210
+- A ameliorer : 66
 - Faibles : 0
 - Decouverte faible : 18
-- Conservation/securite a verifier : 46
+- Conservation/securite a verifier : 48
 - Risque image/production : 0
-- Sans liens internes explicites : 239
+- Sans liens internes explicites : 244
 
 ## Fiches a surveiller
 
@@ -33,6 +33,7 @@ Aucune fiche faible detectee.
 - Babeurre (babeurre_maison) : 100/100 - OK
 - Balsamique réduit (balsamique_reduit) : 100/100 - OK
 - Base pour flan salé (base_pour_flan_sale) : 100/100 - OK
+- Bavette de bœuf au chili rub (bavette_boeuf_chili_rub) : 100/100 - OK
 - Beignets Cloud (donuts_cloud) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Beignets de calamar (beignets_calamar) : 100/100 - OK
@@ -147,6 +148,8 @@ Aucune fiche faible detectee.
 - Curry de poulet aux crevettes (curry_poulet_crevettes) : 100/100 - OK
 - Dhal lentilles épices (dhal_lentilles_epices) : 100/100 - OK
 - Écrasée de pommes de terre à l’huile de truffe et Saint-Jacques (ecrasee_pommes_de_terre_truffe_saint_jacques) : 100/100 - OK
+- Effiloché d’agneau à la moutarde (effiloche_agneau_moutarde) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Encornets sautes au chorizo (encornets_chorizo) : 100/100 - OK
 - Falafels au four (falafels_four) : 100/100 - OK
 - Fish and chips (fish_and_chips) : 100/100 - OK
@@ -156,6 +159,7 @@ Aucune fiche faible detectee.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Fondant au chocolat d’Andreas Caminada (fondant_chocolat_caminada) : 100/100 - OK
 - Fondue moitié-moitié au Grand Marnier (fondue_grand_marnier) : 100/100 - OK
+- Fraises marinées et tuiles de cacao (fraises_marinees_tuiles_cacao) : 100/100 - OK
 - Frites (frites_maison) : 100/100 - OK
 - Frites au four (frites_four_maison) : 100/100 - OK
 - Frites belges (frites_belges) : 100/100 - OK
@@ -332,6 +336,8 @@ Aucune fiche faible detectee.
 - Southern biscuits (southern_biscuits) : 100/100 - OK
 - Spritz vanille chocolat (spritz_vanille_chocolat) : 100/100 - OK
 - Tagliatelles aux agrumes (tagliatelles_agrumes) : 100/100 - OK
+- Tartare de bœuf légèrement pimenté (tartare_boeuf_pimente) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Tarte aux abricots, amandes et romarin (tarte_abricots_amandes_romarin) : 100/100 - OK
 - Tarte aux myrtilles (tarte_aux_myrtilles) : 100/100 - OK
 - Tarte citron meringuée (tarte_citron_meringuee) : 84/100 - OK
@@ -340,9 +346,10 @@ Aucune fiche faible detectee.
 - Tempura (tempura_beignets_calamar_crevettes) : 100/100 - OK
 - Terrine de campagne (terrine_campagne) : 100/100 - OK
 - Terrine de porc aux pistaches (terrine_porc_pistaches) : 100/100 - OK
+- Tiramisu à l’amaretto (tiramisu_amaretto) : 100/100 - OK
 - Tiramisu à la crème de marrons (tiramisu_creme_marrons) : 100/100 - OK
 - Tiramisu citron meringué (tiramisu_citron) : 100/100 - OK
-- Tiramisu spéculoos (tiramisu_speculoos) : 100/100 - OK
+- Tiramisu en verrine (tiramisu_speculoos) : 100/100 - OK
 - Tomate mozzarella basilic (salade_caprese) : 100/100 - OK
 - Tomates cocktail farcies au mascarpone, thon et ciboulette (tomates_cocktail_thon_mascarpone) : 100/100 - OK
 - Tomates confites et séchées (tomates_variantes) : 84/100 - OK
@@ -366,6 +373,7 @@ Aucune fiche faible detectee.
 - Côtelettes de porc miel moutarde (cotelettes_porc_miel_moutarde) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Lentilles tomate pommes de terre sautées (lentilles_tomate_pommes_de_terre_sautees) : Categorie possible : Accompagnements (semble etre un accompagnement).
 - Poulet sauce pimentée (poulet_sauce_pimentee) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
+- Tartare de bœuf légèrement pimenté (tartare_boeuf_pimente) : Categorie possible : Apéro (semble utile a l apero).
 - Pancakes (pancakes_variantes) : Categorie possible : Base (semble etre une base reutilisable).
 - Asperges mimosa (asperges_mimosa) : Categorie possible : Apéro (semble utile a l apero).
 - Bouillabaisse (bouillabaisse_rouille) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
@@ -392,6 +400,7 @@ Aucune fiche faible detectee.
 - Babeurre (babeurre_maison)
 - Balsamique réduit (balsamique_reduit)
 - Base pour flan salé (base_pour_flan_sale)
+- Bavette de bœuf au chili rub (bavette_boeuf_chili_rub)
 - Beurre clarifié (beurre_clarifie)
 - Beurre d’escargot persillé (beurre_d_escargot_persille)
 - Billes de mozzarella marinées (billes_mozzarella_marinees)
@@ -415,4 +424,3 @@ Aucune fiche faible detectee.
 - Carrés crémeux citron vert (carres_cremeux_citron_vert)
 - Cassolette de crevettes et ravioles au persil (cassolette_crevettes_ravioles_persil)
 - Cassoulet (cassoulet)
-- Cerises séchées (cerises_sechees_maison)

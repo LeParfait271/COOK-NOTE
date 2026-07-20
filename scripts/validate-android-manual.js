@@ -121,7 +121,8 @@ expect(
 );
 expect(
   'Android Legacy doit etre une app native Lite, pas un wrapper web lourd.',
-  buildScript.includes('node scripts/build-android-legacy-assets.js')
+  buildScript.includes('scripts/build-android-legacy-assets.js')
+    && (buildScript.includes('& $Node') || buildScript.includes('node scripts/build-android-legacy-assets.js'))
     && buildScript.includes('$LegacyApkOutput')
     && androidBuildGradle.includes('cook-note-lite')
     && androidBuildGradle.includes('assets.srcDirs = [legacyAssetRoot]')

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-20T02:47:29.809Z",
-  "total": 279,
+  "generatedAt": "2026-07-20T03:14:26.991Z",
+  "total": 284,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -547,6 +547,24 @@
         "height": 540
       },
       "cardBytes": 282117
+    },
+    {
+      "id": "bavette_boeuf_chili_rub",
+      "title": "Bavette de bœuf au chili rub",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/bavette_boeuf_chili_rub.jpg",
+      "card": "assets/recipes/cards/bavette_boeuf_chili_rub.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 250345,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 80555
     },
     {
       "id": "donuts_cloud",
@@ -2097,6 +2115,24 @@
       "cardBytes": 131070
     },
     {
+      "id": "effiloche_agneau_moutarde",
+      "title": "Effiloché d’agneau à la moutarde",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/effiloche_agneau_moutarde.jpg",
+      "card": "assets/recipes/cards/effiloche_agneau_moutarde.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 184553,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 61539
+    },
+    {
       "id": "encornets_chorizo",
       "title": "Encornets sautes au chorizo",
       "score": 100,
@@ -2239,6 +2275,24 @@
         "height": 428
       },
       "cardBytes": 59652
+    },
+    {
+      "id": "fraises_marinees_tuiles_cacao",
+      "title": "Fraises marinées et tuiles de cacao",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/fraises_marinees_tuiles_cacao.jpg",
+      "card": "assets/recipes/cards/fraises_marinees_tuiles_cacao.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 185530,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 60091
     },
     {
       "id": "frites_maison",
@@ -4707,6 +4761,24 @@
       "cardBytes": 83207
     },
     {
+      "id": "tartare_boeuf_pimente",
+      "title": "Tartare de bœuf légèrement pimenté",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/tartare_boeuf_pimente.jpg",
+      "card": "assets/recipes/cards/tartare_boeuf_pimente.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 186279,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 60397
+    },
+    {
       "id": "tarte_abricots_amandes_romarin",
       "title": "Tarte aux abricots, amandes et romarin",
       "score": 100,
@@ -4833,6 +4905,24 @@
       "cardBytes": 72439
     },
     {
+      "id": "tiramisu_amaretto",
+      "title": "Tiramisu à l’amaretto",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/tiramisu_amaretto.jpg",
+      "card": "assets/recipes/cards/tiramisu_amaretto.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 171868,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 54503
+    },
+    {
       "id": "tiramisu_creme_marrons",
       "title": "Tiramisu à la crème de marrons",
       "score": 100,
@@ -4870,7 +4960,7 @@
     },
     {
       "id": "tiramisu_speculoos",
-      "title": "Tiramisu spéculoos",
+      "title": "Tiramisu en verrine",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/tiramisu_speculoos.jpg",

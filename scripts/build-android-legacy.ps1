@@ -9,6 +9,12 @@ $Root = Resolve-Path (Join-Path $PSScriptRoot "..")
 $AndroidDir = Join-Path $Root "android-legacy"
 $GradleTask = if ($Release) { ":app:assembleRelease" } else { ":app:assembleDebug" }
 $ToolsRoot = Join-Path $env:LOCALAPPDATA "CookNoteAndroidTools"
+$BundledNode = Join-Path $Root ".tools\node\current\node.exe"
+$BundledNpm = Join-Path $Root ".tools\node\current\npm.cmd"
+$NodeCommand = Get-Command node -ErrorAction SilentlyContinue
+$NpmCommand = Get-Command npm.cmd -ErrorAction SilentlyContinue
+$Node = if ($NodeCommand) { $NodeCommand.Source } elseif (Test-Path $BundledNode) { $BundledNode } else { $null }
+$Npm = if ($NpmCommand) { $NpmCommand.Source } elseif (Test-Path $BundledNpm) { $BundledNpm } else { $null }
 
 function Require-Command($Name, $Message) {
   $Command = Get-Command $Name -ErrorAction SilentlyContinue
@@ -30,9 +36,12 @@ if ($BundledGradle) {
 }
 
 if (-not $SkipWebBuild) {
+  if (-not $Npm) {
+    throw "npm.cmd introuvable dans le PATH et dans .tools/node/current."
+  }
   Push-Location $Root
   try {
-    npm.cmd run build
+    & $Npm run build
   } finally {
     Pop-Location
   }
@@ -44,7 +53,10 @@ if (-not (Test-Path (Join-Path $Root "dist\index.html"))) {
 
 Push-Location $Root
 try {
-  node scripts/build-android-legacy-assets.js
+  if (-not $Node) {
+    throw "node introuvable dans le PATH et dans .tools/node/current."
+  }
+  & $Node scripts/build-android-legacy-assets.js
 } finally {
   Pop-Location
 }

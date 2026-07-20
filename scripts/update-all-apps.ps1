@@ -10,6 +10,9 @@ $Root = Resolve-Path (Join-Path $PSScriptRoot "..")
 $DownloadsDir = Join-Path $Root "downloads"
 $LegacyScript = Join-Path $PSScriptRoot "build-android-legacy.ps1"
 $PublishScript = Join-Path $PSScriptRoot "publish-android-release.ps1"
+$BundledNode = Join-Path $Root ".tools\node\current\node.exe"
+$NodeCommand = Get-Command node -ErrorAction SilentlyContinue
+$Node = if ($NodeCommand) { $NodeCommand.Source } elseif (Test-Path $BundledNode) { $BundledNode } else { $null }
 
 function Get-SiteVersionName {
   $AppJs = [System.IO.File]::ReadAllText((Join-Path $Root "app.js"), [System.Text.Encoding]::UTF8)
@@ -51,10 +54,13 @@ function Sync-AndroidApkVersion($VersionName, [bool]$AllowWrite) {
   [System.IO.File]::WriteAllText($AppPath, $NextAppJs, $Utf8NoBom)
 }
 
-function Run-NpmBuild {
+function Run-WebBuild {
+  if (-not $Node) {
+    throw "node introuvable dans le PATH et dans .tools/node/current."
+  }
   Push-Location $Root
   try {
-    npm.cmd run build
+    & $Node scripts/build-site.js
     if ($LASTEXITCODE -ne 0) {
       throw "npm run build a echoue avec le code $LASTEXITCODE."
     }
@@ -105,7 +111,7 @@ $VersionName = Get-CookNoteVersionName
 Sync-AndroidApkVersion $VersionName (-not $SkipWebBuild)
 
 if (-not $SkipWebBuild) {
-  Run-NpmBuild
+  Run-WebBuild
 }
 
 if (-not (Test-Path (Join-Path $Root "dist\index.html"))) {

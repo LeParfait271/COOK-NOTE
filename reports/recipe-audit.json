@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-07-20T02:47:29.631Z",
+  "generatedAt": "2026-07-20T03:14:26.911Z",
   "totals": {
-    "recipes": 279,
-    "leaves": 271,
+    "recipes": 284,
+    "leaves": 276,
     "masters": 8,
     "lowScore": 0,
-    "categoryIdeas": 20,
+    "categoryIdeas": 21,
     "qualityIssues": 0
   },
   "averageScore": 96,
   "healthDashboard": {
-    "ready": 207,
-    "improve": 64,
+    "ready": 210,
+    "improve": 66,
     "weak": 0,
     "missingDiscovery": 18,
-    "missingSafety": 46,
+    "missingSafety": 48,
     "productionRisk": 0,
-    "fewLinks": 239
+    "fewLinks": 244
   },
   "weakestRecipes": [],
   "categoryIdeas": [
@@ -34,6 +34,11 @@
       "id": "poulet_sauce_pimentee",
       "title": "Poulet sauce pimentée",
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
+      "id": "tartare_boeuf_pimente",
+      "title": "Tartare de bœuf légèrement pimenté",
+      "text": "Categorie possible : Apéro (semble utile a l apero)."
     },
     {
       "id": "pancakes_variantes",
@@ -153,6 +158,11 @@
       "count": 0
     },
     {
+      "id": "bavette_boeuf_chili_rub",
+      "title": "Bavette de bœuf au chili rub",
+      "count": 0
+    },
+    {
       "id": "beurre_clarifie",
       "title": "Beurre clarifié",
       "count": 0
@@ -266,11 +276,6 @@
       "id": "cassoulet",
       "title": "Cassoulet",
       "count": 0
-    },
-    {
-      "id": "cerises_sechees_maison",
-      "title": "Cerises séchées",
-      "count": 0
     }
   ],
   "reviewedRecipes": [
@@ -335,6 +340,14 @@
     {
       "id": "base_pour_flan_sale",
       "title": "Base pour flan salé",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "bavette_boeuf_chili_rub",
+      "title": "Bavette de bœuf au chili rub",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -1158,6 +1171,18 @@
       ]
     },
     {
+      "id": "effiloche_agneau_moutarde",
+      "title": "Effiloché d’agneau à la moutarde",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "encornets_chorizo",
       "title": "Encornets sautes au chorizo",
       "score": 100,
@@ -1220,6 +1245,14 @@
     {
       "id": "fondue_grand_marnier",
       "title": "Fondue moitié-moitié au Grand Marnier",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "fraises_marinees_tuiles_cacao",
+      "title": "Fraises marinées et tuiles de cacao",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -2470,6 +2503,19 @@
       "suggestions": []
     },
     {
+      "id": "tartare_boeuf_pimente",
+      "title": "Tartare de bœuf légèrement pimenté",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Apéro (semble utile a l apero)."
+      ]
+    },
+    {
       "id": "tarte_abricots_amandes_romarin",
       "title": "Tarte aux abricots, amandes et romarin",
       "score": 100,
@@ -2528,6 +2574,14 @@
       "suggestions": []
     },
     {
+      "id": "tiramisu_amaretto",
+      "title": "Tiramisu à l’amaretto",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "tiramisu_creme_marrons",
       "title": "Tiramisu à la crème de marrons",
       "score": 100,
@@ -2547,7 +2601,7 @@
     },
     {
       "id": "tiramisu_speculoos",
-      "title": "Tiramisu spéculoos",
+      "title": "Tiramisu en verrine",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
