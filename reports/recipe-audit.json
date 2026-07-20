@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-18T23:29:54.989Z",
+  "generatedAt": "2026-07-20T02:47:29.631Z",
   "totals": {
-    "recipes": 278,
-    "leaves": 270,
+    "recipes": 279,
+    "leaves": 271,
     "masters": 8,
     "lowScore": 0,
     "categoryIdeas": 20,
@@ -11,12 +11,12 @@
   "averageScore": 96,
   "healthDashboard": {
     "ready": 207,
-    "improve": 63,
+    "improve": 64,
     "weak": 0,
     "missingDiscovery": 18,
-    "missingSafety": 45,
+    "missingSafety": 46,
     "productionRisk": 0,
-    "fewLinks": 238
+    "fewLinks": 239
   },
   "weakestRecipes": [],
   "categoryIdeas": [
@@ -1360,6 +1360,18 @@
       ],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "gratin_rigatoni_ricotta_epinards",
+      "title": "Gratin de rigatoni ricotta-épinards",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "gressins_fromage_olives",

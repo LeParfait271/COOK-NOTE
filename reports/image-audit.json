@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-18T23:35:17.989Z",
-  "total": 278,
+  "generatedAt": "2026-07-20T02:47:29.809Z",
+  "total": 279,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -2527,6 +2527,24 @@
         "height": 520
       },
       "cardBytes": 114397
+    },
+    {
+      "id": "gratin_rigatoni_ricotta_epinards",
+      "title": "Gratin de rigatoni ricotta-épinards",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/gratin_rigatoni_ricotta_epinards.jpg",
+      "card": "assets/recipes/cards/gratin_rigatoni_ricotta_epinards.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 217375,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 68041
     },
     {
       "id": "gressins_fromage_olives",

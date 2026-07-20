@@ -1,9 +1,9 @@
 # Audit Cook Note
 
-Genere le 2026-07-18T23:29:54.989Z.
+Genere le 2026-07-20T02:47:29.631Z.
 
-- Recettes totales : 278
-- Recettes feuilles : 270
+- Recettes totales : 279
+- Recettes feuilles : 271
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -12,12 +12,12 @@ Genere le 2026-07-18T23:29:54.989Z.
 ## Dashboard sante
 
 - Pretes : 207
-- A ameliorer : 63
+- A ameliorer : 64
 - Faibles : 0
 - Decouverte faible : 18
-- Conservation/securite a verifier : 45
+- Conservation/securite a verifier : 46
 - Risque image/production : 0
-- Sans liens internes explicites : 238
+- Sans liens internes explicites : 239
 
 ## Fiches a surveiller
 
@@ -174,6 +174,8 @@ Aucune fiche faible detectee.
 - Gratin de chou-fleur au chorizo en mini cocottes (gratin_chou_fleur_chorizo_cocottes) : 100/100 - OK
 - Gratin de pâtes au chorizo (gratin_pates_chorizo) : 100/100 - OK
 - Gratin de pommes de terre (gratin_dauphinois) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Gratin de rigatoni ricotta-épinards (gratin_rigatoni_ricotta_epinards) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gressins fromage olives (gressins_fromage_olives) : 100/100 - OK
 - Grillades porc miel orange piment (grillades_porc_miel_orange_piment) : 100/100 - OK

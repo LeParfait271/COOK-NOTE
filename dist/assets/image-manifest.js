@@ -650,6 +650,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 507,
     "bytes": 67411
   },
+  "assets/recipes/cards/gratin_rigatoni_ricotta_epinards.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 68041
+  },
   "assets/recipes/cards/gressins_fromage_olives.jpg": {
     "width": 760,
     "height": 428,
@@ -2039,6 +2044,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 172789
+  },
+  "assets/recipes/heroes/gratin_rigatoni_ricotta_epinards.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 217375
   },
   "assets/recipes/heroes/gressins_fromage_olives.jpg": {
     "width": 1400,
