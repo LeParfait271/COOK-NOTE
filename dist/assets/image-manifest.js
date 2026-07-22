@@ -565,6 +565,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 69243
   },
+  "assets/recipes/cards/flammekueche.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 70710
+  },
   "assets/recipes/cards/flan_patissier_epais_vanille.jpg": {
     "width": 960,
     "height": 540,
@@ -1989,6 +1994,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 215553
+  },
+  "assets/recipes/heroes/flammekueche.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 206511
   },
   "assets/recipes/heroes/flan_patissier_epais_vanille.jpg": {
     "width": 1400,

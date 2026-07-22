@@ -914,3 +914,71 @@ window.RECIPES.biscuits_sables_vanille_chocolat = {
   }
 };
 window.RECIPES.desserts_maitre.variants.push({"id":"biscuits_sables_vanille_chocolat","label":"Biscuits sablés vanille-chocolat"});
+
+window.RECIPES.flammekueche = {
+  "title": "Flammekueche",
+  "master": "plats_maitre",
+  "additionalMasters": ["apero_maitre"],
+  "image": "/assets/recipes/heroes/flammekueche.jpg",
+  "categories": ["Plats", "Apéro"],
+  "seasons": ["Automne", "Hiver", "Toutes saisons"],
+  "difficulty": "easy",
+  "difficultyScore": 2,
+  "yield": "1 grande flammekueche, 2 à 4 personnes",
+  "activeTime": 25,
+  "cookTime": 7,
+  "restTime": 60,
+  "tags": ["flammekueche", "tarte flambée", "Alsace", "lard", "oignons", "crème fraîche"],
+  "aliases": ["tarte flambée alsacienne", "flammeküche", "tarte fine lard oignons"],
+  "ingredients": [
+    {
+      "group": "Pâte fine",
+      "items": [
+        "125g farine T55",
+        "6g levure fraîche",
+        "55g eau tiède",
+        "10g saindoux",
+        "5g huile d’olive",
+        "1 pincée de sel"
+      ]
+    },
+    {
+      "group": "Garniture",
+      "items": [
+        "200g crème fraîche épaisse",
+        "10 fines tranches de lard fumé",
+        "2 oignons jaunes",
+        "10g ciboulette",
+        "Poivre du moulin"
+      ]
+    }
+  ],
+  "steps": [
+    "Délayer la levure fraîche dans l’eau tiède, jamais brûlante. Mélanger la farine et le sel, puis ajouter l’eau avec la levure, le saindoux et l’huile d’olive.",
+    "Pétrir 5 à 7min, jusqu’à obtenir une pâte lisse et souple. Former une boule, couvrir hermétiquement et laisser reposer environ 1h à température ambiante.",
+    "Placer une plaque ou une pierre à pizza dans le four et préchauffer à 230°C pendant au moins 20min.",
+    "Peler les oignons et les émincer en lamelles extrêmement fines. Ciseler la ciboulette et couper le lard en morceaux réguliers si nécessaire.",
+    "Abaisser la pâte sur un plan légèrement fariné en un grand ovale très fin, presque translucide, puis la déposer sur une feuille de papier cuisson.",
+    "Étaler la crème fraîche en couche mince en laissant un petit bord libre. Ajouter légèrement du poivre du moulin puis précuire 4min sur la plaque brûlante.",
+    "Répartir rapidement le lard, les oignons et la ciboulette. Remettre au four 2 à 3min, jusqu’à ce que les bords soient bien dorés, la crème frémissante et le lard légèrement croustillant.",
+    "Servir immédiatement, entière ou découpée en rectangles, pendant que la pâte reste très croustillante."
+  ],
+  "notes": [
+    "La pâte doit être beaucoup plus fine qu’une pâte à pizza : c’est la clé d’une flammekueche légère et croustillante.",
+    "Le lard apporte déjà du sel ; goûter avant d’en ajouter à la garniture.",
+    "Pour un service apéritif, découper la tarte flambée en petits rectangles dès la sortie du four."
+  ],
+  "technical": [
+    {"label": "Abaisse", "value": "Une pâte presque translucide cuit en quelques minutes et reste sèche sous la crème."},
+    {"label": "Four", "value": "Une plaque préchauffée saisit immédiatement le dessous et évite une base molle."},
+    {"label": "Oignons", "value": "Des lamelles très fines deviennent tendres pendant la cuisson éclair sans rendre trop d’eau."}
+  ],
+  "practical": {
+    "equipment": ["Plaque lourde ou pierre à pizza", "Rouleau à pâtisserie", "Papier cuisson", "Couteau ou mandoline"],
+    "storage": ["La flammekueche est meilleure immédiatement.", "Conserver un reste au maximum 24h au réfrigérateur et le réchauffer 4 à 5min à 220°C."],
+    "mistakes": ["Ne pas laisser une pâte épaisse.", "Ne pas surcharger de crème fraîche.", "Ne pas utiliser des rondelles d’oignon épaisses.", "Ne pas réchauffer au micro-ondes, qui ramollit la pâte."],
+    "result": ["Tarte flambée très fine, croustillante sur les bords, crémeuse au centre, avec oignons fondants et lard fumé doré."]
+  }
+};
+window.RECIPES.plats_maitre.variants.push({"id":"flammekueche","label":"Flammekueche"});
+window.RECIPES.apero_maitre.variants.push({"id":"flammekueche","label":"Flammekueche"});

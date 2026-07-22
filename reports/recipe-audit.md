@@ -1,7 +1,7 @@
 # Audit Cook Note
 
-- Recettes totales : 285
-- Recettes feuilles : 277
+- Recettes totales : 286
+- Recettes feuilles : 278
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -10,12 +10,12 @@
 ## Dashboard sante
 
 - Pretes : 211
-- A ameliorer : 66
+- A ameliorer : 67
 - Faibles : 0
 - Decouverte faible : 18
-- Conservation/securite a verifier : 48
+- Conservation/securite a verifier : 49
 - Risque image/production : 0
-- Sans liens internes explicites : 245
+- Sans liens internes explicites : 246
 
 ## Fiches a surveiller
 
@@ -152,6 +152,8 @@ Aucune fiche faible detectee.
 - Encornets sautes au chorizo (encornets_chorizo) : 100/100 - OK
 - Falafels au four (falafels_four) : 100/100 - OK
 - Fish and chips (fish_and_chips) : 100/100 - OK
+- Flammekueche (flammekueche) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Flan parisien vanille (flan_patissier_epais_vanille) : 100/100 - OK
 - Flan vanille crémeux (flan_vanille_cremeux) : 100/100 - OK
 - Fond de tarte amande (creme_amande_citron) : 82/100 - OK
@@ -370,6 +372,7 @@ Aucune fiche faible detectee.
 ## Idees de rangement prudentes
 
 - Côtelettes de porc miel moutarde (cotelettes_porc_miel_moutarde) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
+- Flammekueche (flammekueche) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Lentilles tomate pommes de terre sautées (lentilles_tomate_pommes_de_terre_sautees) : Categorie possible : Accompagnements (semble etre un accompagnement).
 - Poulet sauce pimentée (poulet_sauce_pimentee) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Tartare de bœuf légèrement pimenté (tartare_boeuf_pimente) : Categorie possible : Apéro (semble utile a l apero).

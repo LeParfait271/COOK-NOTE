@@ -1,5 +1,5 @@
 {
-  "total": 285,
+  "total": 286,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -2202,6 +2202,24 @@
         "height": 428
       },
       "cardBytes": 69243
+    },
+    {
+      "id": "flammekueche",
+      "title": "Flammekueche",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/flammekueche.jpg",
+      "card": "assets/recipes/cards/flammekueche.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 206511,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 70710
     },
     {
       "id": "flan_patissier_epais_vanille",

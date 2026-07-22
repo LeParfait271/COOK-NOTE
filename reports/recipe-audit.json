@@ -1,21 +1,21 @@
 {
   "totals": {
-    "recipes": 285,
-    "leaves": 277,
+    "recipes": 286,
+    "leaves": 278,
     "masters": 8,
     "lowScore": 0,
-    "categoryIdeas": 21,
+    "categoryIdeas": 22,
     "qualityIssues": 0
   },
   "averageScore": 96,
   "healthDashboard": {
     "ready": 211,
-    "improve": 66,
+    "improve": 67,
     "weak": 0,
     "missingDiscovery": 18,
-    "missingSafety": 48,
+    "missingSafety": 49,
     "productionRisk": 0,
-    "fewLinks": 245
+    "fewLinks": 246
   },
   "weakestRecipes": [],
   "categoryIdeas": [
@@ -23,6 +23,11 @@
       "id": "cotelettes_porc_miel_moutarde",
       "title": "Côtelettes de porc miel moutarde",
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
+      "id": "flammekueche",
+      "title": "Flammekueche",
+      "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
     },
     {
       "id": "lentilles_tomate_pommes_de_terre_sautees",
@@ -1213,6 +1218,19 @@
       "qualityIssues": [],
       "suggestions": [
         "Categorie possible : Accompagnements (semble etre un accompagnement)."
+      ]
+    },
+    {
+      "id": "flammekueche",
+      "title": "Flammekueche",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Desserts (semble etre sucré ou patissier)."
       ]
     },
     {
