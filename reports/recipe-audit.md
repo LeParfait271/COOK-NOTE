@@ -1,7 +1,7 @@
 # Audit Cook Note
 
-- Recettes totales : 286
-- Recettes feuilles : 278
+- Recettes totales : 288
+- Recettes feuilles : 280
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -9,13 +9,13 @@
 
 ## Dashboard sante
 
-- Pretes : 211
-- A ameliorer : 67
+- Pretes : 212
+- A ameliorer : 68
 - Faibles : 0
 - Decouverte faible : 18
-- Conservation/securite a verifier : 49
+- Conservation/securite a verifier : 50
 - Risque image/production : 0
-- Sans liens internes explicites : 246
+- Sans liens internes explicites : 248
 
 ## Fiches a surveiller
 
@@ -211,6 +211,8 @@ Aucune fiche faible detectee.
 - Macaronis du chalet (macaronis_chalet) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Madeleines au Comté et épices douces (madeleines_comte_epices_douces) : 100/100 - OK
+- Madeleines au miel et au thym (madeleines_miel_thym) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Marinades (marinades_guide) : 100/100 - OK
 - Marmelade citron (compotee_citron) : 100/100 - OK
 - Mayonnaise (mayonnaise_maison) : 82/100 - OK
@@ -340,6 +342,7 @@ Aucune fiche faible detectee.
 - Tartare de bœuf légèrement pimenté (tartare_boeuf_pimente) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Tarte aux abricots, amandes et romarin (tarte_abricots_amandes_romarin) : 100/100 - OK
+- Tarte aux fraises et poivre Timut (tarte_fraises_timut) : 100/100 - OK
 - Tarte aux myrtilles (tarte_aux_myrtilles) : 100/100 - OK
 - Tarte citron meringuée (tarte_citron_meringuee) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.

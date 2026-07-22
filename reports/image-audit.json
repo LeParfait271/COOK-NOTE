@@ -1,5 +1,5 @@
 {
-  "total": 286,
+  "total": 288,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -3014,6 +3014,24 @@
       "cardBytes": 69245
     },
     {
+      "id": "madeleines_miel_thym",
+      "title": "Madeleines au miel et au thym",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/madeleines_miel_thym.jpg",
+      "card": "assets/recipes/cards/madeleines_miel_thym.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 185337,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 61718
+    },
+    {
       "id": "marinades_guide",
       "title": "Marinades",
       "score": 100,
@@ -4830,6 +4848,24 @@
         "height": 570
       },
       "cardBytes": 100808
+    },
+    {
+      "id": "tarte_fraises_timut",
+      "title": "Tarte aux fraises et poivre Timut",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/tarte_fraises_timut.jpg",
+      "card": "assets/recipes/cards/tarte_fraises_timut.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 231267,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 75422
     },
     {
       "id": "tarte_aux_myrtilles",

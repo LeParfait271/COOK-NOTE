@@ -790,6 +790,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 389,
     "bytes": 60149
   },
+  "assets/recipes/cards/madeleines_miel_thym.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 61718
+  },
   "assets/recipes/cards/marinades_guide.jpg": {
     "width": 760,
     "height": 570,
@@ -1344,6 +1349,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 760,
     "bytes": 171497
+  },
+  "assets/recipes/cards/tarte_fraises_timut.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 75422
   },
   "assets/recipes/cards/temps_cuisson_legumes_autocuiseur.jpg": {
     "width": 760,
@@ -2220,6 +2230,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 716,
     "bytes": 192113
   },
+  "assets/recipes/heroes/madeleines_miel_thym.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 185337
+  },
   "assets/recipes/heroes/marinades_guide.jpg": {
     "width": 1400,
     "height": 1050,
@@ -2774,6 +2789,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 280771
+  },
+  "assets/recipes/heroes/tarte_fraises_timut.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 231267
   },
   "assets/recipes/heroes/temps_cuisson_legumes_autocuiseur.jpg": {
     "width": 1400,

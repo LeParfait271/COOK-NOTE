@@ -231,7 +231,7 @@ function checkPepperWording(id, value) {
   if (id === 'sauce_aux_poivres') return;
   const normalized = normalizeComparable(value);
   if (!/\bpoivre\b|\bpoivrer\b/.test(normalized)) return;
-  const allowed = /\bpoivre du moulin\b|\bpoivre timut\b|\bpoivre de sichuan\b|\bgrains? de poivre\b/.test(normalized);
+  const allowed = /\bpoivre du moulin\b|\bpoivre (?:de )?timut\b|\bpoivre de sichuan\b|\bgrains? de poivre\b/.test(normalized);
   if (/\bpoivrer\b/.test(normalized) || !allowed) {
     errors.push(`${id}: utiliser "poivre du moulin" pour l'assaisonnement (${value}).`);
   }

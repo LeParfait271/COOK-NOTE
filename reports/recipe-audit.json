@@ -1,7 +1,7 @@
 {
   "totals": {
-    "recipes": 286,
-    "leaves": 278,
+    "recipes": 288,
+    "leaves": 280,
     "masters": 8,
     "lowScore": 0,
     "categoryIdeas": 22,
@@ -9,13 +9,13 @@
   },
   "averageScore": 96,
   "healthDashboard": {
-    "ready": 211,
-    "improve": 67,
+    "ready": 212,
+    "improve": 68,
     "weak": 0,
     "missingDiscovery": 18,
-    "missingSafety": 49,
+    "missingSafety": 50,
     "productionRisk": 0,
-    "fewLinks": 246
+    "fewLinks": 248
   },
   "weakestRecipes": [],
   "categoryIdeas": [
@@ -1632,6 +1632,18 @@
       "suggestions": []
     },
     {
+      "id": "madeleines_miel_thym",
+      "title": "Madeleines au miel et au thym",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "marinades_guide",
       "title": "Marinades",
       "score": 100,
@@ -2543,6 +2555,14 @@
     {
       "id": "tarte_abricots_amandes_romarin",
       "title": "Tarte aux abricots, amandes et romarin",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "tarte_fraises_timut",
+      "title": "Tarte aux fraises et poivre Timut",
       "score": 100,
       "issues": [],
       "qualityIssues": [],

@@ -982,3 +982,95 @@ window.RECIPES.flammekueche = {
 };
 window.RECIPES.plats_maitre.variants.push({"id":"flammekueche","label":"Flammekueche"});
 window.RECIPES.apero_maitre.variants.push({"id":"flammekueche","label":"Flammekueche"});
+
+window.RECIPES.tarte_fraises_timut = {
+  "title": "Tarte aux fraises et poivre Timut",
+  "master": "desserts_maitre",
+  "image": "/assets/recipes/heroes/tarte_fraises_timut.jpg",
+  "categories": ["Desserts"],
+  "seasons": ["Printemps", "Été"],
+  "difficulty": "hard",
+  "difficultyScore": 4,
+  "yield": "1 tarte de 24cm, 8 personnes",
+  "activeTime": 60,
+  "cookTime": 40,
+  "restTime": 180,
+  "tags": ["tarte", "fraises", "poivre Timut", "crème pâtissière", "pâte sucrée"],
+  "aliases": ["tarte fraises timut", "tarte aux fraises crème pâtissière", "tarte fraise pâtissière"],
+  "ingredients": [
+    {"group": "Pâte sucrée", "items": ["150g beurre doux ramolli", "95g sucre glace", "30g poudre d’amandes", "60g œuf battu", "1g sel fin", "250g farine T55"]},
+    {"group": "Compotée de fraises au Timut", "items": ["250g fraises", "100g sucre", "1g gélatine", "Poivre de Timut selon goût"]},
+    {"group": "Crème pâtissière au Timut", "items": ["125g lait entier", "2g poivre de Timut", "40g jaunes d’œufs", "15g sucre", "12g fécule de maïs", "10g beurre doux"]},
+    {"group": "Finition", "items": ["500g fraises fraîches"]}
+  ],
+  "steps": [
+    "Sortir le beurre 45 à 60min avant. Le travailler à la feuille jusqu’à texture pommade, puis incorporer le sucre glace et la poudre d’amandes.",
+    "Ajouter l’œuf battu et le sel. Incorporer enfin la farine en travaillant le moins possible, juste jusqu’à agglomération. Aplatir, couvrir au contact et réfrigérer 2h.",
+    "Abaisser la pâte à 2mm, la remettre 30min au froid, puis foncer un cercle de 24cm. Placer 15min au congélateur.",
+    "Préchauffer le four ventilé à 175°C. Chemiser le fond de papier aluminium, ajouter des poids et cuire 20min. Retirer poids et aluminium, puis poursuivre environ 10min jusqu’à coloration brune uniforme. Refroidir complètement.",
+    "Pour la compotée, hydrater la gélatine dans de l’eau froide. Couper 250g de fraises en petits morceaux et les cuire doucement avec le sucre et du poivre de Timut fraîchement moulu pendant 8 à 10min.",
+    "Hors du feu, incorporer la gélatine essorée. Refroidir rapidement puis réserver au réfrigérateur. Fouetter brièvement avant le montage pour l’assouplir.",
+    "Pour la crème, chauffer le lait avec les 2g de poivre de Timut puis filtrer. Fouetter les jaunes, le sucre et la fécule de maïs.",
+    "Verser la moitié du lait chaud sur les jaunes en fouettant, remettre l’ensemble dans la casserole et faire bouillir 2min sans cesser de mélanger.",
+    "Hors du feu, incorporer le beurre. Couvrir au contact, refroidir rapidement puis, vers 35°C, fouetter pour obtenir une crème parfaitement lisse.",
+    "Étaler une couche régulière de compotée dans le fond froid. Ajouter la crème pâtissière jusqu’au bord, puis disposer harmonieusement les fraises fraîches lavées, parfaitement séchées et découpées. Réserver au frais jusqu’au service."
+  ],
+  "notes": ["Le Timut évoque le pamplemousse : le doser avec retenue pour soutenir la fraise sans masquer son parfum.", "Le fond doit être totalement froid avant le montage pour préserver le croustillant.", "La quantité de fraises de finition dépend légèrement de leur calibre et du motif choisi."],
+  "technical": [
+    {"label": "Pâte", "value": "Travailler la farine au minimum limite le gluten et conserve une texture friable."},
+    {"label": "Crème", "value": "Deux minutes d’ébullition cuisent correctement la fécule et stabilisent la crème pâtissière."},
+    {"label": "Montage", "value": "Des fraises parfaitement sèches évitent de détremper la crème et le fond."}
+  ],
+  "practical": {
+    "equipment": ["Robot muni de la feuille", "Cercle à tarte de 24cm", "Rouleau", "Poids de cuisson", "Deux casseroles", "Fouet", "Thermomètre optionnel"],
+    "storage": ["Conserver la tarte montée au réfrigérateur et la consommer dans les 24h.", "Le fond cuit se conserve 2 jours au sec avant montage.", "La pâte crue peut être congelée 2 mois, bien emballée."],
+    "mistakes": ["Ne pas pétrir la pâte après ajout de la farine.", "Ne pas monter la tarte avec des éléments encore chauds.", "Ne pas ajouter des fraises mouillées.", "Ne pas surdoser le poivre de Timut."],
+    "result": ["Tarte nette et croustillante, crème soyeuse, cœur de fraise concentré et fraîcheur d’agrumes du Timut."]
+  }
+};
+window.RECIPES.desserts_maitre.variants.push({"id":"tarte_fraises_timut","label":"Tarte aux fraises et poivre Timut"});
+
+window.RECIPES.madeleines_miel_thym = {
+  "title": "Madeleines au miel et au thym",
+  "master": "desserts_maitre",
+  "additionalMasters": ["petit_dejeuner_maitre"],
+  "image": "/assets/recipes/heroes/madeleines_miel_thym.jpg",
+  "categories": ["Desserts", "Petit-déjeuner"],
+  "seasons": ["Printemps", "Été", "Toutes saisons"],
+  "difficulty": "medium",
+  "difficultyScore": 3,
+  "yield": "environ 24 madeleines",
+  "activeTime": 25,
+  "cookTime": 15,
+  "restTime": 140,
+  "tags": ["madeleines", "miel", "thym", "citron", "goûter"],
+  "aliases": ["madeleine miel thym", "madeleines citron thym", "madeleines au miel"],
+  "ingredients": [
+    {"group": "Appareil", "items": ["200g beurre doux", "160g sucre", "40g miel", "4 œufs", "200g farine T55", "6g levure chimique", "Zestes fins de 2 citrons jaunes", "1 pincée de sel", "25g branches de thym frais pour l’infusion", "5g feuilles de thym frais finement hachées"]},
+    {"group": "Moules", "items": ["15g beurre doux", "15g farine"]}
+  ],
+  "steps": [
+    "Faire fondre doucement les 200g de beurre avec les branches de thym. Couvrir, laisser infuser 20min hors du feu, puis filtrer et laisser tiédir.",
+    "Fouetter les œufs avec le sucre, le miel et les zestes de citron jusqu’à obtenir un mélange homogène et légèrement mousseux.",
+    "Tamiser ensemble la farine, la levure chimique et le sel, puis les incorporer sans trop travailler la pâte.",
+    "Verser progressivement le beurre tiède infusé en mélangeant, puis ajouter les feuilles de thym finement hachées.",
+    "Transférer l’appareil dans une poche à douille ou le couvrir au contact. Réfrigérer au minimum 2h pour qu’il soit parfaitement froid.",
+    "Beurrer et fariner très légèrement les empreintes. Préchauffer le four à 180°C.",
+    "Remplir les moules aux trois quarts et cuire environ 15min, jusqu’à madeleines bien bombées, dorées sur les bords et souples au centre.",
+    "Démouler après 2min et laisser refroidir sur une grille pour préserver les bords légèrement croustillants."
+  ],
+  "notes": ["Le contraste entre appareil froid et four chaud favorise la bosse caractéristique.", "Un miel floral doux laisse le thym et le citron rester lisibles.", "Hacher seulement les feuilles tendres ; les tiges seraient désagréables dans la mie."],
+  "technical": [
+    {"label": "Infusion", "value": "Infuser à couvert limite la perte des arômes volatils du thym."},
+    {"label": "Repos", "value": "Deux heures de froid hydratent la farine et renforcent le choc thermique nécessaire à la bosse."},
+    {"label": "Cuisson", "value": "Les bords doivent être dorés tandis que le centre reste souple pour une mie moelleuse."}
+  ],
+  "practical": {
+    "equipment": ["Moule à madeleines", "Petite casserole", "Passoire fine", "Fouet", "Poche à douille optionnelle", "Grille"],
+    "storage": ["Conserver 3 jours dans une boîte hermétique à température ambiante.", "Congeler les madeleines refroidies jusqu’à 1 mois et les réchauffer 3min à 160°C."],
+    "mistakes": ["Ne pas verser un beurre brûlant dans les œufs.", "Ne pas supprimer le repos au froid.", "Ne pas remplir les empreintes jusqu’au bord.", "Ne pas laisser les tiges de thym dans l’appareil."],
+    "result": ["Madeleines bien bossues, dorées, moelleuses, au miel rond avec une finale fraîche de citron et de thym."]
+  }
+};
+window.RECIPES.desserts_maitre.variants.push({"id":"madeleines_miel_thym","label":"Madeleines au miel et au thym"});
+window.RECIPES.petit_dejeuner_maitre.variants.push({"id":"madeleines_miel_thym","label":"Madeleines au miel et au thym"});
