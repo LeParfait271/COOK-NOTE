@@ -1,9 +1,7 @@
 # Audit Cook Note
 
-Genere le 2026-07-20T03:34:06.117Z.
-
-- Recettes totales : 284
-- Recettes feuilles : 276
+- Recettes totales : 285
+- Recettes feuilles : 277
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -11,13 +9,13 @@ Genere le 2026-07-20T03:34:06.117Z.
 
 ## Dashboard sante
 
-- Pretes : 210
+- Pretes : 211
 - A ameliorer : 66
 - Faibles : 0
 - Decouverte faible : 18
 - Conservation/securite a verifier : 48
 - Risque image/production : 0
-- Sans liens internes explicites : 244
+- Sans liens internes explicites : 245
 
 ## Fiches a surveiller
 
@@ -41,6 +39,7 @@ Aucune fiche faible detectee.
 - Beurre clarifié (beurre_clarifie) : 100/100 - OK
 - Beurre d’escargot persillé (beurre_d_escargot_persille) : 100/100 - OK
 - Billes de mozzarella marinées (billes_mozzarella_marinees) : 100/100 - OK
+- Biscuits sablés vanille-chocolat (biscuits_sables_vanille_chocolat) : 100/100 - OK
 - Bouillabaisse (bouillabaisse_rouille) : 100/100 - OK
 - Bricks fromage miel poires pecan (bricks_fromage_miel_poires_pecan) : 100/100 - OK
 - Brie farci aux fruits secs et noix (brie_farci_fruits_secs_noix) : 100/100 - OK
@@ -404,6 +403,7 @@ Aucune fiche faible detectee.
 - Beurre clarifié (beurre_clarifie)
 - Beurre d’escargot persillé (beurre_d_escargot_persille)
 - Billes de mozzarella marinées (billes_mozzarella_marinees)
+- Biscuits sablés vanille-chocolat (biscuits_sables_vanille_chocolat)
 - Bricks fromage miel poires pecan (bricks_fromage_miel_poires_pecan)
 - Brie farci aux fruits secs et noix (brie_farci_fruits_secs_noix)
 - Brochettes crevettes chorizo (brochettes_crevettes_chorizo)
@@ -423,4 +423,3 @@ Aucune fiche faible detectee.
 - Carré d’agneau croûte d’herbes (carre_d_agneau_croute_d_herbes)
 - Carrés crémeux citron vert (carres_cremeux_citron_vert)
 - Cassolette de crevettes et ravioles au persil (cassolette_crevettes_ravioles_persil)
-- Cassoulet (cassoulet)

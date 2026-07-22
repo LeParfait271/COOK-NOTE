@@ -234,21 +234,7 @@ if (!staticAssets) {
     '/manifest.json',
     '/assets/vendor/react.production.min.js',
     '/assets/vendor/react-dom.production.min.js',
-    '/assets/brand/app-icon.png',
-    '/assets/theme/dark/global/logo.png',
-    '/assets/theme/day/global/hero.jpg',
-    '/assets/theme/day/global/background.jpg',
-    '/assets/theme/day/categories/apero_maitre.jpg',
-    '/assets/theme/day/categories/accompagnements_maitre.jpg',
-    '/assets/theme/day/categories/elements_base_maitre.jpg',
-    '/assets/theme/day/categories/desserts_maitre.jpg',
-    '/assets/theme/day/categories/entrees_maitre.jpg',
-    '/assets/theme/day/categories/petit_dejeuner_maitre.jpg',
-    '/assets/theme/day/categories/plats_maitre.jpg',
-    '/assets/theme/day/categories/sauces_maitre.jpg',
-    '/assets/theme/day/global/logo.png',
-    '/assets/theme/day/recipes/bouillabaisse_rouille.jpg',
-    '/assets/theme/dark/recipes/beurre_ail.jpg'
+    '/assets/brand/app-icon.png'
   ].forEach(required => {
     if (!normalizedStaticAssets.includes(required)) fail(`service-worker.js: asset critique absent du precache (${required}).`);
   });

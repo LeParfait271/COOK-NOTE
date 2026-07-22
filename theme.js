@@ -5,11 +5,11 @@
   const N = Object.freeze({
     background: '/assets/theme/dark/global/background.jpg',
     hero: '/assets/theme/dark/global/hero.png',
-    logo: '/assets/theme/dark/global/logo.png',
+    logo: '/assets/brand/app-icon.png',
     appIcon: '/assets/brand/app-icon.png'
   });
   const J = Object.freeze({
-    background: '/assets/theme/day/global/background.jpg',
+    background: '/assets/theme/day/global/hero.jpg',
     hero: '/assets/theme/day/global/hero.jpg',
     logo: '/assets/theme/day/global/logo.png',
     appIcon: '/assets/brand/app-icon.png'

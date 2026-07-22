@@ -85,6 +85,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 343,
     "bytes": 46101
   },
+  "assets/recipes/cards/biscuits_sables_vanille_chocolat.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 67474
+  },
   "assets/recipes/cards/bouillabaisse_rouille.jpg": {
     "width": 760,
     "height": 760,
@@ -1505,6 +1510,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 632,
     "bytes": 149078
   },
+  "assets/recipes/heroes/biscuits_sables_vanille_chocolat.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 200509
+  },
   "assets/recipes/heroes/bouillabaisse_rouille.jpg": {
     "width": 1024,
     "height": 1024,
@@ -2895,11 +2905,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 941,
     "bytes": 2730249
   },
-  "assets/theme/dark/global/logo.png": {
-    "width": 948,
-    "height": 302,
-    "bytes": 578951
-  },
   "assets/theme/dark/recipes/aioli_citronne_leger.jpg": {
     "width": 1400,
     "height": 788,
@@ -2969,11 +2974,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 770,
     "bytes": 211247
-  },
-  "assets/theme/dark/recipes/brioche_perdue_caramel_beurre_sale.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 178170
   },
   "assets/theme/dark/recipes/brochettes_crevettes_chorizo.jpg": {
     "width": 1400,
@@ -3089,11 +3089,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 219634
-  },
-  "assets/theme/dark/recipes/chocolat_ancien.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 178184
   },
   "assets/theme/dark/recipes/chorizo_au_cidre.jpg": {
     "width": 1400,
@@ -3265,11 +3260,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 190220
   },
-  "assets/theme/dark/recipes/crepes_lait_amandes.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 180066
-  },
   "assets/theme/dark/recipes/crevettes_ail_persil.jpg": {
     "width": 1280,
     "height": 720,
@@ -3404,11 +3394,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 209775
-  },
-  "assets/theme/dark/recipes/gaufre_bruxelles.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 206217
   },
   "assets/theme/dark/recipes/gaufres_pommes_terre.jpg": {
     "width": 1280,
@@ -3600,11 +3585,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 194684
   },
-  "assets/theme/dark/recipes/oeuf_chili_crisp_toast.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 191247
-  },
   "assets/theme/dark/recipes/oeufs_cocotte_chorizo.jpg": {
     "width": 1400,
     "height": 700,
@@ -3639,16 +3619,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 179457
-  },
-  "assets/theme/dark/recipes/pancakes_fluffy.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 171621
-  },
-  "assets/theme/dark/recipes/pancakes_variantes.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 156432
   },
   "assets/theme/dark/recipes/paris_brest.jpg": {
     "width": 1280,
@@ -4179,11 +4149,6 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 410543
-  },
-  "assets/theme/day/global/background.jpg": {
-    "width": 1821,
-    "height": 864,
-    "bytes": 343062
   },
   "assets/theme/day/global/hero.jpg": {
     "width": 1821,

@@ -25,6 +25,8 @@
     "test:visual": "node scripts/run-visual-tests.js",
     "validate:cache": "node scripts/validate-cache-version.js",
     "validate:recipes": "node scripts/validate-recipes.js",
+    "validate:recipe-links": "node scripts/validate-recipe-links.js",
+    "validate:recipe-duplicates": "node scripts/validate-recipe-duplicates.js",
     "validate:rules": "node scripts/validate-project-rules.js",
     "validate:parents": "node scripts/validate-parent-placement.js",
     "validate:parent-art": "node scripts/validate-parent-art-lock.js",

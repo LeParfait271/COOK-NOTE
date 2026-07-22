@@ -60,7 +60,6 @@ const IMAGE_BUDGET_OVERRIDES = {
 };
 const BASE_DAY_ART_FILES = [
   'assets/theme/day/global/hero.jpg',
-  'assets/theme/day/global/background.jpg',
   'assets/theme/day/global/logo.png'
 ];
 
@@ -148,7 +147,6 @@ const manifest = loadImageManifest();
 const expectedImages = new Set([
   'assets/theme/dark/global/hero.png',
   'assets/theme/dark/global/background.jpg',
-  'assets/theme/dark/global/logo.png',
   'assets/brand/app-icon.png'
 ]);
 loadThemeArtFiles().forEach(file => expectedImages.add(file));

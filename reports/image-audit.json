@@ -1,6 +1,5 @@
 {
-  "generatedAt": "2026-07-20T03:34:06.425Z",
-  "total": 284,
+  "total": 285,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -619,6 +618,24 @@
         "height": 520
       },
       "cardBytes": 135693
+    },
+    {
+      "id": "biscuits_sables_vanille_chocolat",
+      "title": "Biscuits sablés vanille-chocolat",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/biscuits_sables_vanille_chocolat.jpg",
+      "card": "assets/recipes/cards/biscuits_sables_vanille_chocolat.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 200509,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 67474
     },
     {
       "id": "bouillabaisse_rouille",

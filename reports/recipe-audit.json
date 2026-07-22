@@ -1,8 +1,7 @@
 {
-  "generatedAt": "2026-07-20T03:34:06.117Z",
   "totals": {
-    "recipes": 284,
-    "leaves": 276,
+    "recipes": 285,
+    "leaves": 277,
     "masters": 8,
     "lowScore": 0,
     "categoryIdeas": 21,
@@ -10,13 +9,13 @@
   },
   "averageScore": 96,
   "healthDashboard": {
-    "ready": 210,
+    "ready": 211,
     "improve": 66,
     "weak": 0,
     "missingDiscovery": 18,
     "missingSafety": 48,
     "productionRisk": 0,
-    "fewLinks": 244
+    "fewLinks": 245
   },
   "weakestRecipes": [],
   "categoryIdeas": [
@@ -178,6 +177,11 @@
       "count": 0
     },
     {
+      "id": "biscuits_sables_vanille_chocolat",
+      "title": "Biscuits sablés vanille-chocolat",
+      "count": 0
+    },
+    {
       "id": "bricks_fromage_miel_poires_pecan",
       "title": "Bricks fromage miel poires pecan",
       "count": 0
@@ -270,11 +274,6 @@
     {
       "id": "cassolette_crevettes_ravioles_persil",
       "title": "Cassolette de crevettes et ravioles au persil",
-      "count": 0
-    },
-    {
-      "id": "cassoulet",
-      "title": "Cassoulet",
       "count": 0
     }
   ],
@@ -400,6 +399,14 @@
     {
       "id": "billes_mozzarella_marinees",
       "title": "Billes de mozzarella marinées",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "biscuits_sables_vanille_chocolat",
+      "title": "Biscuits sablés vanille-chocolat",
       "score": 100,
       "issues": [],
       "qualityIssues": [],

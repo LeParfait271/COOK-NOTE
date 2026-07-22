@@ -218,7 +218,6 @@ const healthDashboard = {
 };
 
 const summary = {
-  generatedAt: new Date().toISOString(),
   totals: {
     recipes: allIds.length,
     leaves: leaves.length,
@@ -237,8 +236,6 @@ const summary = {
 
 const markdown = [
   '# Audit Cook Note',
-  '',
-  `Genere le ${summary.generatedAt}.`,
   '',
   `- Recettes totales : ${summary.totals.recipes}`,
   `- Recettes feuilles : ${summary.totals.leaves}`,

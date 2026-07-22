@@ -11,8 +11,6 @@ const EXPECTED_BRAND_FILES = new Set([
 const EXPECTED_GLOBAL_THEME_FILES = new Set([
   'assets/theme/dark/global/background.jpg',
   'assets/theme/dark/global/hero.png',
-  'assets/theme/dark/global/logo.png',
-  'assets/theme/day/global/background.jpg',
   'assets/theme/day/global/hero.jpg',
   'assets/theme/day/global/logo.png'
 ]);

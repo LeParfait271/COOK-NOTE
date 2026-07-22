@@ -151,7 +151,6 @@ function run() {
     duplicates: rows.filter(row => row.issues.some(issue => /Image identique/.test(issue))).length
   };
   const report = {
-    generatedAt: new Date().toISOString(),
     total: rows.length,
     weakCount: weak.length,
     issueBuckets,
@@ -161,8 +160,6 @@ function run() {
   fs.writeFileSync(JSON_REPORT, `${JSON.stringify(report, null, 2)}\n`);
   fs.writeFileSync(MD_REPORT, [
     '# Audit images Cook Note',
-    '',
-    `Genere le ${report.generatedAt}.`,
     '',
     `- Images recette auditees : ${report.total}`,
     `- Images a revoir : ${report.weakCount}`,

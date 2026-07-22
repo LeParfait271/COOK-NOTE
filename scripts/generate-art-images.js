@@ -102,7 +102,11 @@ function addDarkFiles(map, numeric) {
 }
 
 function filterDisplayArtRecipes(map, recipes) {
-  return Object.fromEntries(Object.entries(map).filter(([id]) => recipes[id]));
+  return Object.fromEntries(Object.entries(map).filter(([id, url]) => {
+    if (!recipes[id]) return false;
+    const relative = String(url || '').split('?')[0].replace(/^\//, '');
+    return relative.length > 0 && fs.existsSync(path.join(ROOT, relative));
+  }));
 }
 
 function compactMapPayload(map, theme, numericVersion) {

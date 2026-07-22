@@ -26,7 +26,7 @@
   --ds-loading-overlay: linear-gradient(115deg, rgba(0,0,0,.92), rgba(0,0,0,.72));
   --art-background-image: url("/assets/theme/dark/global/background.jpg");
   --art-hero-image: url("/assets/theme/dark/global/hero.png");
-  --art-logo-image: url("/assets/theme/dark/global/logo.png");
+  --art-logo-image: url("/assets/brand/app-icon.png");
   --ds-shell-background:
     linear-gradient(180deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .94) 58%, #050505),
     var(--art-background-image) center top / cover repeat-y,
@@ -466,49 +466,6 @@ a {
   backdrop-filter: blur(20px) saturate(1.12);
 }
 
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--text);
-  text-align: left;
-}
-
-.brand-logo-box {
-  display: grid;
-  place-items: center;
-  width: 92px;
-  height: 42px;
-  overflow: hidden;
-  border: 0;
-  border-radius: var(--radius);
-  background: #000;
-}
-
-.brand-logo {
-  width: 96%;
-  height: auto;
-  object-fit: contain;
-}
-
-.brand-copy {
-  display: grid;
-  min-width: 0;
-}
-
-.brand-copy strong {
-  overflow: hidden;
-  max-width: 260px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 15px;
-}
-
-.brand-copy small,
 .field label,
 .eyebrow {
   color: var(--muted);
@@ -516,10 +473,6 @@ a {
   font-weight: 850;
   letter-spacing: .08em;
   text-transform: uppercase;
-}
-
-.brand-copy small {
-  color: var(--muted);
 }
 
 .field input,
@@ -646,24 +599,6 @@ a {
   font-size: 13px;
   font-weight: 850;
   white-space: nowrap;
-}
-
-.top-search {
-  width: 0;
-  max-width: min(320px, 100%);
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(8px);
-  transition: width var(--speed), opacity var(--speed), transform var(--speed);
-  justify-self: end;
-}
-
-.top-search.is-open {
-  width: min(320px, 100%);
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(0);
 }
 
 .top-search-button {
@@ -988,9 +923,6 @@ a {
   transform: translateX(-42%);
   animation: home-command-glint 12s ease-in-out infinite;
 }
-
-.home-command-copy h1 { margin: 4px 0 8px; font-size: clamp(28px, 3vw, 46px); line-height: .98; }
-.home-command-copy > p:last-child { max-width: 42ch; margin: 0; color: var(--muted); line-height: 1.55; }
 
 .home-search-launcher {
   align-self: end;
@@ -1739,25 +1671,15 @@ a {
   padding: 22px 18px 18px;
 }
 
-.tag-line,
 .season-line,
-.card-meta,
-.detail-meta,
-.mini-tags {
+.detail-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
   align-items: center;
 }
 
-.tag-line {
-  justify-content: center;
-  max-width: 94%;
-}
-
-.tag-line span,
 .season-line span,
-.card-meta span,
 .detail-meta span,
 .detail-meta button {
   display: inline-flex;
@@ -1773,23 +1695,6 @@ a {
   font-size: 12px;
   font-weight: 850;
   line-height: 1.2;
-}
-
-.tag-line span:first-child {
-  max-width: 100%;
-  justify-content: center;
-  text-align: center;
-  white-space: normal;
-  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 42%, var(--line));
-  color: color-mix(in srgb, var(--card-accent, var(--accent)) 78%, var(--text));
-  box-shadow: 0 0 18px color-mix(in srgb, var(--card-accent, var(--accent)) 14%, transparent);
-}
-
-.recipe-card.master-card .tag-line span {
-  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 48%, rgba(255, 255, 255, .18));
-  background: rgba(0, 0, 0, .38);
-  color: color-mix(in srgb, var(--card-accent, var(--accent)) 72%, #fff);
-  text-shadow: 0 1px 8px rgba(0, 0, 0, .72);
 }
 
 .nutri-score {
@@ -1853,81 +1758,6 @@ a {
   font-weight: 950;
   text-align: center;
   overflow-wrap: normal;
-}
-
-.card-facts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
-  max-width: 96%;
-}
-
-.card-facts span {
-  max-width: 150px;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--card-accent, var(--accent)) 34%, var(--line));
-  border-radius: 999px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)),
-    rgba(0, 0, 0, .40);
-  color: rgba(255, 255, 255, .88);
-  padding: 4px 8px;
-  font-size: 11px;
-  font-weight: 850;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  backdrop-filter: blur(8px);
-}
-
-.card-meta {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  margin: 0;
-}
-
-.recipe-card.master-card .card-meta span {
-  min-height: 28px;
-  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 48%, rgba(255, 255, 255, .20));
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .03)),
-    rgba(0, 0, 0, .58);
-  color: #fff;
-  font-weight: 950;
-  box-shadow: 0 0 18px color-mix(in srgb, var(--card-accent, var(--accent)) 16%, transparent);
-  backdrop-filter: blur(10px);
-}
-
-.recipe-card.master-card:hover .card-meta span,
-.recipe-card.master-card:focus-visible .card-meta span {
-  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 78%, white);
-  background: color-mix(in srgb, var(--card-accent, var(--accent)) 24%, rgba(0, 0, 0, .62));
-}
-
-.card-overlay-tags {
-  position: absolute;
-  left: 10px;
-  bottom: 10px;
-  max-width: calc(100% - 110px);
-}
-
-.mini-tags button {
-  border: 0;
-  border-radius: 999px;
-  background: rgba(0, 245, 212, .10);
-  color: color-mix(in srgb, var(--mako) 62%, var(--muted));
-  padding: 4px 8px;
-  font-size: 11px;
-  font-weight: 850;
-  transition: background var(--speed), color var(--speed), transform var(--speed);
-}
-
-.mini-tags button:hover,
-.mini-tags button:focus-visible {
-  transform: translateY(-1px);
-  background: rgba(0, 245, 212, .18);
-  color: color-mix(in srgb, var(--mako) 82%, #fff);
 }
 
 .recipe-view {
@@ -2702,8 +2532,7 @@ a {
   font-weight: 900;
 }
 
-.factor-control,
-.history-actions {
+.factor-control {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 4px;
@@ -2771,8 +2600,7 @@ a {
   white-space: nowrap;
 }
 
-.factor-control button,
-.history-actions button {
+.factor-control button {
   flex: 0 0 auto;
   min-height: 32px;
   border: 0;
@@ -2788,8 +2616,7 @@ a {
   min-width: 34px;
 }
 
-.factor-control button.active,
-.history-actions button:hover:not(:disabled) {
+.factor-control button.active {
   background: var(--accent);
   color: var(--accent-ink);
 }
@@ -4364,29 +4191,6 @@ a {
 }
 
 .home-command-center::after { display: none; }
-.home-command-copy { align-self: center; }
-
-.home-command-copy .eyebrow {
-  margin-bottom: 10px;
-  letter-spacing: .16em;
-  opacity: .82;
-}
-
-.home-command-copy h1 {
-  max-width: 15ch;
-  margin: 0 0 14px;
-  font-size: clamp(36px, 4.6vw, 62px);
-  line-height: .98;
-  letter-spacing: -.045em;
-}
-
-.home-command-copy > p:last-child {
-  max-width: 54ch;
-  margin-inline: auto;
-  font-size: 15px;
-  line-height: 1.65;
-}
-
 .home-search-launcher {
   align-self: center;
   width:min(100%,760px);
@@ -7286,7 +7090,6 @@ a {
     0 18px 58px rgba(0, 0, 0, .34);
 }
 
-.brand-logo-box,
 .mobile-nav-icon,
 .site-footer-mark {
   box-shadow:
@@ -7818,20 +7621,6 @@ a {
   background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ambient-accent, var(--accent)) 38%, rgba(255, 255, 255, .16)), transparent);
   opacity: .78;
   pointer-events: none;
-}
-
-.brand {
-  margin: -4px -6px;
-  padding: 4px 6px;
-  border-radius: var(--ds-radius-sm);
-  transition: background var(--speed), transform var(--speed), filter var(--speed);
-}
-
-.brand:hover,
-.brand:focus-visible {
-  background: color-mix(in srgb, var(--ambient-accent, var(--accent)) 9%, transparent);
-  filter: saturate(1.05);
-  transform: translateY(-1px);
 }
 
 .top-actions .btn,

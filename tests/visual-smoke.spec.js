@@ -153,7 +153,7 @@ test.describe('Cook Note visual smoke', () => {
       assets: document.documentElement.dataset.artAssets
     }));
     expect(lightArt.assets).toBe('approved');
-    expect(lightArt.background).toContain('/assets/theme/day/global/background.jpg');
+    expect(lightArt.background).toContain('/assets/theme/day/global/hero.jpg');
     expect(lightArt.hero).toContain('/assets/theme/day/global/hero.jpg');
     await expect(page.locator('.hero-logo')).toBeVisible();
     await expect(page.locator('.hero-logo')).toHaveAttribute('src', /\/assets\/theme\/day\/global\/logo\.png/);

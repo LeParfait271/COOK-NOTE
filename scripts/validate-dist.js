@@ -23,8 +23,6 @@ const REQUIRED_FILES = [
   'assets/catalog-4.js',
   'assets/theme/dark/global/background.jpg',
   'assets/theme/dark/global/hero.png',
-  'assets/theme/dark/global/logo.png',
-  'assets/theme/day/global/background.jpg',
   'assets/theme/day/global/hero.jpg',
   'assets/theme/day/global/logo.png',
   'assets/theme/day/categories/apero_maitre.jpg',

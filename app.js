@@ -112,14 +112,14 @@ function runConfettiBurst() {
 const FALLBACK_ART_ASSETS = Object.freeze({
   background: '/assets/theme/dark/global/background.jpg',
   hero: '/assets/theme/dark/global/hero.png',
-  logo: '/assets/theme/dark/global/logo.png',
+  logo: '/assets/brand/app-icon.png',
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.80';
-const SITE_UPDATED_AT = '20/07/26';
+const SITE_VERSION = 'v3.81';
+const SITE_UPDATED_AT = '22/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '3.80';
+const ANDROID_LEGACY_APK_VERSION = '3.81';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
@@ -1273,14 +1273,6 @@ function getRecipeServiceItems(recipe) {
   return items.slice(0, 4);
 }
 
-function getRecipeServiceSummary(recipe) {
-  const first = getRecipeServiceItems(recipe)[0] || '';
-  if (/chaud/i.test(first)) return 'Chaud';
-  if (/froid|frais/i.test(first)) return 'Froid';
-  if (/ti[eè]de|temp[eé]rature/i.test(first)) return 'Tiède';
-  return first ? 'Service' : '';
-}
-
 const AVERAGE_WEIGHT_RULES = [
   { label: 'Œuf moyen', value: '≈ 55g', pattern: /\b(oeuf|oeufs|œuf|œufs|oeufs entiers|œufs entiers|oeuf entier|œuf entier)\b/, except: /\b(jaunes?|blancs?) d['’ ]?(oeuf|oeufs)\b/ },
   { label: 'Jaune d’œuf', value: '≈ 18g', pattern: /\bjaunes? d['’ ]?(oeuf|oeufs)\b/ },
@@ -1744,25 +1736,6 @@ function scaleIngredient(text, factor) {
     return `${formatNumber(first * factor)}${separator}${formatNumber(second * factor)}${rest}`;
   }
   return `${formatNumber(first * factor)}${rest}`;
-}
-
-function scaleYield(text, factor) {
-  const value = String(text || '');
-  if (factor === 1 || !value) return value;
-  let scaledCount = 0;
-  return value.replace(/(\d+(?:[.,]\d+)?(?:\/\d+)?)(\s*(?:[–-]|à|a)\s*(\d+(?:[.,]\d+)?(?:\/\d+)?))?/gi, (match, firstRaw, rangeSep, secondRaw, offset, fullText) => {
-    const after = fullText.slice(offset + match.length).trimStart().toLowerCase();
-    const isDetailAmount = scaledCount > 0 && /^(?:g|kg|mg|ml|cl|cm|mm)\b/.test(after);
-    if (isDetailAmount) return match;
-    const first = parseAmount(firstRaw);
-    const second = secondRaw ? parseAmount(secondRaw) : null;
-    if (!Number.isFinite(first)) return match;
-    scaledCount += 1;
-    if (second !== null && Number.isFinite(second)) {
-      return `${formatNumber(first * factor)}${rangeSep}${formatNumber(second * factor)}`;
-    }
-    return formatNumber(first * factor);
-  });
 }
 
 function scaleYieldDisplay(text, factor) {
@@ -3167,13 +3140,6 @@ function getBatchPlanData(recipes) {
       items: storageItems
     }
   ].filter(group => group.items.length);
-}
-
-function formatRemaining(ms) {
-  const seconds = Math.max(0, Math.ceil(ms / 1000));
-  const minutes = Math.floor(seconds / 60);
-  const rest = seconds % 60;
-  return `${String(minutes).padStart(2, '0')}:${String(rest).padStart(2, '0')}`;
 }
 
 function getRecipeSearchText(recipe, tags, recipesById = {}) {
@@ -7525,7 +7491,6 @@ function App() {
       '/manifest.json',
       '/assets/brand/mark.svg',
       '/assets/brand/app-icon.png',
-      '/assets/theme/dark/global/logo.png',
       '/assets/theme/dark/global/background.jpg'
     ]);
     favorites.forEach(id => {

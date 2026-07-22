@@ -1,11 +1,11 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v380
+//  Cook Note - Service Worker PWA v381
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v380';
-const IMAGE_CACHE_NAME = 'cook-note-images-v380';
+const CACHE_NAME = 'cook-note-v381';
+const IMAGE_CACHE_NAME = 'cook-note-images-v381';
 const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
@@ -29,44 +29,29 @@ const IMMUTABLE_IMAGE_PATHS = [
   '/assets/theme/dark/global/hero.png',
   '/assets/theme/dark/global/background.jpg',
   '/assets/brand/app-icon.png',
-  '/assets/theme/dark/global/logo.png',
   '/assets/brand/mark.svg'
 ];
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recipe.html',
-  '/app.js?v=380-parent-title',
-  '/app-techniques.js?v=380-parent-title',
-  '/app-premium.js?v=380-parent-title',
-  '/app-images.js?v=380-parent-title',
-  '/app-art-images.js?v=380-parent-title',
-  '/theme.js?v=380-parent-title',
-  '/i18n.js?v=380-parent-title',
-  '/assets/catalog-1.js?v=380-parent-title',
-  '/assets/image-manifest.js?v=380-parent-title',
-  '/style.css?v=380-parent-title',
-  '/recipe.js?v=380-parent-title',
+  '/app.js?v=381-parent-title',
+  '/app-techniques.js?v=381-parent-title',
+  '/app-premium.js?v=381-parent-title',
+  '/app-images.js?v=381-parent-title',
+  '/app-art-images.js?v=381-parent-title',
+  '/theme.js?v=381-parent-title',
+  '/i18n.js?v=381-parent-title',
+  '/assets/catalog-1.js?v=381-parent-title',
+  '/assets/image-manifest.js?v=381-parent-title',
+  '/style.css?v=381-parent-title',
+  '/recipe.js?v=381-parent-title',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
   '/assets/brand/mark.svg',
   '/assets/brand/app-icon.png',
-  '/assets/theme/dark/global/logo.png',
   '/assets/theme/dark/global/background.jpg',
-  '/assets/theme/day/global/hero.jpg?v=320-parent-title',
-  '/assets/theme/day/global/background.jpg?v=320-parent-title',
-  '/assets/theme/day/categories/apero_maitre.jpg?v=320-parent-title',
-  '/assets/theme/day/categories/accompagnements_maitre.jpg?v=320-parent-title',
-  '/assets/theme/day/categories/elements_base_maitre.jpg?v=320-parent-title',
-  '/assets/theme/day/categories/desserts_maitre.jpg?v=320-parent-title',
-  '/assets/theme/day/categories/entrees_maitre.jpg?v=320-parent-title',
-  '/assets/theme/day/categories/petit_dejeuner_maitre.jpg?v=320-parent-title',
-  '/assets/theme/day/categories/plats_maitre.jpg?v=320-parent-title',
-  '/assets/theme/day/categories/sauces_maitre.jpg?v=320-parent-title',
-  '/assets/theme/day/global/logo.png?v=320-parent-title',
-  '/assets/theme/day/recipes/bouillabaisse_rouille.jpg?v=320-parent-title',
-  '/assets/theme/dark/recipes/beurre_ail.jpg?v=320-parent-title',
 ];
 
 async function trimCache(cacheName, maxEntries) {

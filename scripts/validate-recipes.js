@@ -742,3 +742,5 @@ if (errors.length) {
 }
 
 console.log('Validation recettes OK.');
+require('./validate-recipe-links');
+require('./validate-recipe-duplicates');

@@ -1,8 +1,6 @@
 # Audit images Cook Note
 
-Genere le 2026-07-20T03:34:06.425Z.
-
-- Images recette auditees : 284
+- Images recette auditees : 285
 - Images a revoir : 0
 - Miniatures manquantes : 0
 - Images optimisees faibles : 2

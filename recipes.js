@@ -847,3 +847,70 @@ window.RECIPES.tartare_boeuf_pimente = {
 };
 window.RECIPES.entrees_maitre.variants.push({"id":"tartare_boeuf_pimente","label":"Tartare de bœuf légèrement pimenté"});
 window.RECIPES.plats_maitre.variants.push({"id":"tartare_boeuf_pimente","label":"Tartare de bœuf légèrement pimenté"});
+
+window.RECIPES.biscuits_sables_vanille_chocolat = {
+  "title": "Biscuits sablés vanille-chocolat",
+  "master": "desserts_maitre",
+  "image": "/assets/recipes/heroes/biscuits_sables_vanille_chocolat.jpg",
+  "categories": ["Desserts"],
+  "seasons": ["Toutes saisons"],
+  "difficulty": "easy",
+  "difficultyScore": 3,
+  "yield": "environ 55 biscuits",
+  "activeTime": 25,
+  "cookTime": 15,
+  "restTime": 120,
+  "tags": ["biscuits", "sablés", "vanille", "chocolat", "goûter"],
+  "aliases": ["sablés marbrés", "biscuits spirale vanille chocolat", "sablés vanille cacao"],
+  "ingredients": [
+    {
+      "group": "Pâte sablée vanille",
+      "items": [
+        "175g beurre doux froid en petits morceaux",
+        "75g sucre",
+        "5g sucre vanillé",
+        "10g lait entier",
+        "1g sel",
+        "260g farine"
+      ]
+    },
+    {
+      "group": "Pâte sablée chocolat",
+      "items": [
+        "175g beurre doux froid en petits morceaux",
+        "85g sucre",
+        "5g sucre vanillé",
+        "10g lait entier",
+        "1g sel",
+        "260g farine",
+        "20g cacao en poudre non sucré"
+      ]
+    }
+  ],
+  "steps": [
+    "Préparer d'abord la pâte vanille : mélanger au robot le beurre, les sucres, le lait et le sel pendant 2 à 3min à vitesse lente, jusqu'à disparition des morceaux de beurre.",
+    "Ajouter la farine et mélanger juste assez pour former une pâte homogène, sans la pétrir. Aplatir, couvrir et réfrigérer 1h.",
+    "Préparer la pâte chocolat de la même façon, puis incorporer ensemble la farine et le cacao. Aplatir, couvrir et réfrigérer 1h.",
+    "Abaisser les deux pâtes en rectangles de même taille sur 4 à 5mm d'épaisseur. Les superposer puis les rouler sans laisser de poche d'air pour former un boudin marbré serré.",
+    "Réfrigérer le rouleau au moins 1h, jusqu'à ce qu'il soit suffisamment ferme pour être tranché nettement.",
+    "Préchauffer le four à 180°C. Couper des rondelles régulières d'environ 6mm avec un couteau lisse et les espacer sur une plaque couverte de papier cuisson.",
+    "Cuire 12 à 15min, jusqu'à ce que les bords soient légèrement dorés. Laisser raffermir 5min sur la plaque puis refroidir complètement sur grille."
+  ],
+  "notes": [
+    "Préparer la pâte vanille avant la pâte chocolat permet de réutiliser le même bol sans le laver entre les deux préparations.",
+    "Ne pas trop travailler la farine : une pâte pétrie devient élastique et les biscuits perdent leur texture friable.",
+    "Conservation : 10 à 14 jours dans une boîte hermétique à température ambiante, à l'abri de l'humidité.",
+    "Congélation : le rouleau cru se conserve 2 mois bien emballé ; le laisser revenir quelques minutes à température ambiante avant de le trancher."
+  ],
+  "technical": [
+    {"label": "Marbrage", "value": "Des rectangles de même taille et un roulage serré donnent une spirale nette sans trous."},
+    {"label": "Cuisson", "value": "Sortir les sablés quand les bords blondissent : ils deviennent croustillants en refroidissant."}
+  ],
+  "practical": {
+    "equipment": ["Robot muni de la feuille ou grand saladier", "Rouleau à pâtisserie", "Couteau lisse", "Plaques de cuisson", "Papier cuisson", "Grille"],
+    "result": ["Sablés friables et croustillants, aux spirales vanille-cacao bien dessinées."],
+    "mistakes": ["Ne pas pétrir les pâtes après l'ajout de la farine.", "Ne pas couper le rouleau tant qu'il reste souple : les spirales s'écraseraient."],
+    "storage": ["Laisser refroidir complètement avant de fermer la boîte pour éviter la condensation."]
+  }
+};
+window.RECIPES.desserts_maitre.variants.push({"id":"biscuits_sables_vanille_chocolat","label":"Biscuits sablés vanille-chocolat"});

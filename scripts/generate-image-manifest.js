@@ -5,7 +5,6 @@ const vm = require('node:vm');
 const ROOT = path.resolve(__dirname, '..');
 const OUT_FILE = path.join(ROOT, 'assets', 'image-manifest.js');
 const THEME_GLOBAL_ART_FILES = [
-  'assets/theme/day/global/background.jpg',
   'assets/theme/day/global/hero.jpg',
   'assets/theme/day/global/logo.png'
 ];
@@ -112,7 +111,6 @@ function buildManifest() {
   const files = new Set([
     'assets/theme/dark/global/hero.png',
     'assets/theme/dark/global/background.jpg',
-    'assets/theme/dark/global/logo.png',
     'assets/brand/app-icon.png'
   ]);
   loadThemeArtFiles().forEach(file => files.add(file));

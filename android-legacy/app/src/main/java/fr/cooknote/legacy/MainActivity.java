@@ -8,7 +8,6 @@ import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Environment;
@@ -85,14 +84,8 @@ public class MainActivity extends Activity {
     private static final String PREF_RECENT_SEARCHES = "recent_searches";
     private static final String PREF_KEEP_SCREEN_ON = "keep_screen_on";
     private static final String PREF_QUANTITY_FACTOR = "quantity_factor";
-    private static final String PREF_TEXT_MODE = "text_mode";
-    private static final String PREF_COMPACT_CARDS = "compact_cards";
-    private static final String PREF_OPEN_LAST = "open_last";
     private static final String PREF_LAST_RECIPE = "last_recipe";
-    private static final String PREF_THEME = "theme";
     private static final String PREF_UPDATE_SKIP_CODE = "update_skip_code";
-    private static final String THEME_DARK = "dark";
-    private static final String THEME_LIGHT = "light";
     private static final String STATE_SCREEN = "screen";
     private static final String STATE_RECIPE_ID = "recipe_id";
     private static final String STATE_QUERY = "query";
@@ -103,7 +96,6 @@ public class MainActivity extends Activity {
     private static final int SCREEN_LIST = 0;
     private static final int SCREEN_RECIPE = 1;
     private static final int SCREEN_SHOPPING = 2;
-    private static final int SCREEN_DIAGNOSTIC = 3;
     private int COLOR_BG = Color.rgb(7, 6, 5);
     private int COLOR_PANEL = Color.rgb(19, 17, 13);
     private int COLOR_PANEL_DEEP = Color.rgb(12, 10, 8);
@@ -154,22 +146,15 @@ public class MainActivity extends Activity {
     private GridView recipeGridView;
     private LinearLayout searchPanel;
     private LinearLayout recentChipsRow;
-    private LinearLayout prefsPanel;
     private Button searchToggle;
-    private Button prefsToggle;
     private Button shoppingButton;
     private Button clearSearchButton;
     private TextView counterView;
     private EditText searchBox;
     private String currentQuery = "";
     private boolean searchPanelOpen;
-    private boolean prefsPanelOpen;
     private boolean showingDetail;
     private boolean keepScreenOn;
-    private boolean compactCards;
-    private boolean openLastRecipe;
-    private boolean lightTheme;
-    private int textMode;
     private float quantityFactor = 1f;
     private int currentScreen = SCREEN_LIST;
     private String currentRecipeId = "";
@@ -224,13 +209,6 @@ public class MainActivity extends Activity {
             loadUserState();
             applySystemChrome();
             restoreScreenState(savedInstanceState);
-            if (savedInstanceState == null && currentScreen == SCREEN_LIST && openLastRecipe && lastRecipeId.length() > 0) {
-                Recipe lastRecipe = repository.find(lastRecipeId);
-                if (lastRecipe != null) {
-                    currentScreen = SCREEN_RECIPE;
-                    currentRecipeId = lastRecipe.id;
-                }
-            }
             applyKeepScreenOn();
             showCurrentScreen();
             checkForUpdatesAsync(false);
@@ -276,10 +254,6 @@ public class MainActivity extends Activity {
         }
         if (currentScreen == SCREEN_SHOPPING) {
             showShoppingList(false);
-            return;
-        }
-        if (currentScreen == SCREEN_DIAGNOSTIC) {
-            showDiagnostic(false);
             return;
         }
         showList();
@@ -529,7 +503,6 @@ public class MainActivity extends Activity {
         });
 
         setSearchPanelOpen(searchPanelOpen);
-        prefsPanelOpen = false;
 
         TextView catalogEyebrow = text("CATALOGUE", 9, COLOR_GOLD, true);
         catalogEyebrow.setGravity(Gravity.CENTER);
@@ -559,9 +532,9 @@ public class MainActivity extends Activity {
         gridView.setBackgroundColor(COLOR_BG);
         gridView.setCacheColorHint(COLOR_BG);
         gridView.setNumColumns(GridView.AUTO_FIT);
-        gridView.setColumnWidth(dp(compactCards ? 244 : 286));
-        gridView.setHorizontalSpacing(dp(compactCards ? 8 : 11));
-        gridView.setVerticalSpacing(dp(compactCards ? 9 : 12));
+        gridView.setColumnWidth(dp(286));
+        gridView.setHorizontalSpacing(dp(11));
+        gridView.setVerticalSpacing(dp(12));
         gridView.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
         gridView.setPadding(dp(10), dp(10), dp(10), dp(18));
         gridView.setClipToPadding(false);
@@ -572,8 +545,8 @@ public class MainActivity extends Activity {
         gridView.setFadingEdgeLength(0);
         gridView.setScrollingCacheEnabled(false);
         adapter = new RecipeAdapter(this, imageLoader);
-        adapter.setLightTheme(lightTheme);
-        adapter.setCompactCards(compactCards);
+        adapter.setLightTheme(false);
+        adapter.setCompactCards(false);
         adapter.setCollectionCounts(repository.collectionCounts());
         gridView.setAdapter(adapter);
         gridView.setRecyclerListener(new AbsListView.RecyclerListener() {
@@ -820,18 +793,11 @@ public class MainActivity extends Activity {
 
     private void setSearchPanelOpen(boolean open) {
         searchPanelOpen = open;
-        if (open) prefsPanelOpen = false;
         if (searchPanel != null) {
             searchPanel.setVisibility(open ? View.VISIBLE : View.GONE);
         }
-        if (prefsPanel != null) {
-            prefsPanel.setVisibility(prefsPanelOpen ? View.VISIBLE : View.GONE);
-        }
         if (searchToggle != null) {
             searchToggle.setText(buildSearchToggleLabel());
-        }
-        if (prefsToggle != null) {
-            prefsToggle.setText(buildPrefsToggleLabel());
         }
         if (open) {
             showKeyboard();
@@ -843,113 +809,6 @@ public class MainActivity extends Activity {
     private String buildSearchToggleLabel() {
         if (searchPanelOpen) return "FERMER";
         return currentQuery.trim().length() == 0 ? "RECHERCHER" : "RECHERCHE ACTIVE";
-    }
-
-    private void setPrefsPanelOpen(boolean open) {
-        prefsPanelOpen = open;
-        if (open) {
-            searchPanelOpen = false;
-            hideKeyboard();
-        }
-        if (prefsPanel != null) prefsPanel.setVisibility(open ? View.VISIBLE : View.GONE);
-        if (searchPanel != null) searchPanel.setVisibility(searchPanelOpen ? View.VISIBLE : View.GONE);
-        if (prefsToggle != null) prefsToggle.setText(buildPrefsToggleLabel());
-        if (searchToggle != null) searchToggle.setText(buildSearchToggleLabel());
-    }
-
-    private String buildPrefsToggleLabel() {
-        return prefsPanelOpen ? "FERMER" : "REGLAGES";
-    }
-
-    private void addPrefsPanel(LinearLayout header) {
-        prefsPanel = new LinearLayout(this);
-        prefsPanel.setOrientation(LinearLayout.VERTICAL);
-        prefsPanel.setPadding(dp(12), dp(11), dp(12), dp(12));
-        prefsPanel.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER, 1, 8));
-        LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        panelParams.topMargin = dp(10);
-        header.addView(prefsPanel, panelParams);
-
-        TextView label = text("REGLAGES", 10, COLOR_GOLD, true);
-        label.setIncludeFontPadding(false);
-        prefsPanel.addView(label);
-
-        LinearLayout themeRow = new LinearLayout(this);
-        themeRow.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams themeRowParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(38)
-        );
-        themeRowParams.topMargin = dp(9);
-        prefsPanel.addView(themeRow, themeRowParams);
-
-        addPrefsButton(themeRow, lightTheme ? "Mode jour" : "Mode nuit", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setLightTheme(!lightTheme);
-            }
-        }, false);
-
-        LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(38)
-        );
-        rowParams.topMargin = dp(9);
-        prefsPanel.addView(row, rowParams);
-
-        addPrefsButton(row, textScaleLabel(), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cycleTextMode();
-            }
-        }, true);
-        addPrefsButton(row, compactCards ? "Cartes compact" : "Cartes confort", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                compactCards = !compactCards;
-                saveUserState();
-                showList();
-            }
-        }, true);
-        addPrefsButton(row, openLastRecipe ? "Derniere oui" : "Derniere non", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openLastRecipe = !openLastRecipe;
-                saveUserState();
-                showList();
-            }
-        }, true);
-        addPrefsButton(row, "Diagnostic", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDiagnostic(true);
-            }
-        }, false);
-    }
-
-    private void addPrefsButton(LinearLayout row, String label, View.OnClickListener listener, boolean rightMargin) {
-        Button button = actionButton(label, false);
-        button.setOnClickListener(listener);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
-        if (rightMargin) params.rightMargin = dp(7);
-        row.addView(button, params);
-    }
-
-    private String textScaleLabel() {
-        if (textMode <= 0) return "Texte 100%";
-        if (textMode == 1) return "Texte 110%";
-        return "Texte 120%";
-    }
-
-    private void cycleTextMode() {
-        textMode = (textMode + 1) % 3;
-        saveUserState();
-        showList();
     }
 
     private boolean isHomeMode() {
@@ -1116,7 +975,7 @@ public class MainActivity extends Activity {
         int end = Math.min(adapter.getCount(), start + LIST_VISIBLE_PREFETCH_LIMIT);
         if (start >= end) return;
         int width = visibleCardWidth();
-        int height = Math.max(dp(compactCards ? 112 : 130), (width * 9) / 16);
+        int height = Math.max(dp(130), (width * 9) / 16);
         for (int index = start; index < end; index += 1) {
             imageLoader.prefetch(adapter.getItem(index).image, width, height);
         }
@@ -1130,7 +989,7 @@ public class MainActivity extends Activity {
         if (recipeGridView != null && recipeGridView.getColumnWidth() > 0) {
             return recipeGridView.getColumnWidth();
         }
-        int minWidth = dp(compactCards ? 244 : 286);
+        int minWidth = dp(286);
         int available = getResources().getDisplayMetrics().widthPixels - dp(20);
         return Math.max(minWidth, available);
     }
@@ -2510,144 +2369,6 @@ public class MainActivity extends Activity {
         if (PERF_LOG_ENABLED) perfLog("showShoppingList", startedAt);
     }
 
-    private void showDiagnostic(boolean pushCurrent) {
-        long startedAt = perfStart();
-        if (pushCurrent) pushNavigationState();
-        releaseScreenImages();
-        currentScreen = SCREEN_DIAGNOSTIC;
-        currentRecipeId = "";
-        showingDetail = true;
-        releaseListSurface();
-
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setBackgroundColor(COLOR_BG);
-
-        LinearLayout top = new LinearLayout(this);
-        top.setOrientation(LinearLayout.HORIZONTAL);
-        top.setGravity(Gravity.CENTER_VERTICAL);
-        top.setPadding(dp(10), dp(6), dp(10), dp(6));
-        top.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER, 1, 0));
-        root.addView(top, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-
-        Button back = new Button(this);
-        back.setText("Retour");
-        back.setTextColor(COLOR_TEXT_DARK);
-        back.setTextSize(12);
-        back.setTypeface(Typeface.DEFAULT_BOLD);
-        back.setAllCaps(false);
-        back.setBackground(buttonPanel(true));
-        top.addView(back, new LinearLayout.LayoutParams(dp(86), dp(36)));
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goBack();
-            }
-        });
-
-        TextView title = text("Diagnostic hors ligne", 17, COLOR_TEXT, true);
-        title.setGravity(Gravity.CENTER_VERTICAL);
-        title.setPadding(dp(12), 0, 0, 0);
-        top.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-
-        ScrollView scroll = new ScrollView(this);
-        scroll.setSmoothScrollingEnabled(true);
-        scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        scroll.setVerticalScrollBarEnabled(false);
-        LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.VERTICAL);
-        content.setPadding(dp(12), dp(12), dp(12), dp(24));
-        scroll.addView(content);
-        root.addView(scroll, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                0,
-                1
-        ));
-
-        LinearLayout section = addSection(content, "Etat APK", "offline");
-        labelValue(section, "Version", repository.version);
-        labelValue(section, "Catalogue", repository.homeRecipes().size() + " parents / " + repository.searchableRecipes().size() + " fiches");
-        labelValue(section, "Images", repository.recipes.size() + " vignettes / " + repository.recipes.size() + " details");
-        labelValue(section, "Cache image", imageLoader == null ? "indisponible" : imageLoader.cacheSummary());
-        labelValue(section, "Memoire Java", (Runtime.getRuntime().maxMemory() / 1024 / 1024) + " MB max");
-        labelValue(section, "Reglages", "quantites x" + factorLabel(quantityFactor) + ", " + textScaleLabel() + ", " + (compactCards ? "cartes compactes" : "cartes confort"));
-        labelValue(section, "Derniere fiche", lastRecipeId.length() == 0 ? "aucune" : lastRecipeId);
-
-        Button copy = sectionButton("Copier diagnostic", true);
-        section.addView(copy);
-        copy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                copyDiagnostic();
-            }
-        });
-
-        Button checkUpdate = sectionButton("Verifier mise a jour", false);
-        section.addView(checkUpdate);
-        checkUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkForUpdatesAsync(true);
-            }
-        });
-
-        Button copyApk = sectionButton("Copier lien APK", false);
-        section.addView(copyApk);
-        copyApk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                copyApkLink();
-            }
-        });
-
-        Button trim = sectionButton("Vider cache image", false);
-        section.addView(trim);
-        trim.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (imageLoader != null) imageLoader.trimMemory(true);
-                Toast.makeText(MainActivity.this, "Cache image vide", Toast.LENGTH_SHORT).show();
-                showDiagnostic(false);
-            }
-        });
-
-        setContentView(root);
-        if (PERF_LOG_ENABLED) perfLog("showDiagnostic", startedAt);
-    }
-
-    private void copyDiagnostic() {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        if (clipboard == null) return;
-        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note diagnostic", buildDiagnosticText()));
-        Toast.makeText(this, "Diagnostic copie", Toast.LENGTH_SHORT).show();
-    }
-
-    private void copyApkLink() {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        if (clipboard == null) return;
-        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note APK Android 5.0+", UPDATE_APK_URL));
-        Toast.makeText(this, "Lien APK copie", Toast.LENGTH_SHORT).show();
-    }
-
-    private String buildDiagnosticText() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Cook Note Android 5.0+").append('\n');
-        builder.append("Version: ").append(repository.version).append('\n');
-        builder.append("Parents: ").append(repository.homeRecipes().size()).append('\n');
-        builder.append("Fiches: ").append(repository.searchableRecipes().size()).append('\n');
-        builder.append("Cache image: ").append(imageLoader == null ? "indisponible" : imageLoader.cacheSummary()).append('\n');
-        builder.append("Memoire max: ").append(Runtime.getRuntime().maxMemory() / 1024 / 1024).append(" MB").append('\n');
-        builder.append("Quantites: x").append(factorLabel(quantityFactor)).append('\n');
-        builder.append("Texte: ").append(textScaleLabel()).append('\n');
-        builder.append("Cartes: ").append(compactCards ? "compactes" : "confort").append('\n');
-        builder.append("Reprise derniere fiche: ").append(openLastRecipe ? "oui" : "non").append('\n');
-        builder.append("APK: ").append(UPDATE_APK_URL);
-        return builder.toString();
-    }
-
     private void addMergedShoppingSection(LinearLayout content) {
         List<ShoppingLine> lines = mergedShoppingLines();
         LinearLayout section = addSection(content, "Courses fusionnees", countLabel(lines.size(), "ligne", "lignes"));
@@ -2807,9 +2528,7 @@ public class MainActivity extends Activity {
     }
 
     private int adjustedTextSize(int sp) {
-        if (textMode <= 0) return sp;
-        if (textMode == 1) return sp + 1;
-        return sp + 2;
+        return sp;
     }
 
     private void copyIngredients(Recipe recipe) {
@@ -3387,12 +3106,7 @@ public class MainActivity extends Activity {
         shoppingDoneKeys.clear();
         keepScreenOn = prefs.getBoolean(PREF_KEEP_SCREEN_ON, false);
         quantityFactor = clampQuantityFactor(prefs.getFloat(PREF_QUANTITY_FACTOR, 1f));
-        textMode = Math.max(0, Math.min(2, prefs.getInt(PREF_TEXT_MODE, 0)));
-        compactCards = prefs.getBoolean(PREF_COMPACT_CARDS, false);
-        openLastRecipe = prefs.getBoolean(PREF_OPEN_LAST, false);
         lastRecipeId = prefs.getString(PREF_LAST_RECIPE, "");
-        lightTheme = false;
-        applyThemePalette();
         parseIds(prefs.getString(PREF_SHOPPING, ""), shoppingRecipeIds, 0);
         parseRawIds(prefs.getString(PREF_SHOPPING_DONE, ""), shoppingDoneKeys);
         parseRawIds(prefs.getString(PREF_INGREDIENT_DONE, ""), ingredientDoneKeys);
@@ -3407,68 +3121,8 @@ public class MainActivity extends Activity {
         editor.putString(PREF_RECENT_SEARCHES, joinIds(recentSearches));
         editor.putBoolean(PREF_KEEP_SCREEN_ON, keepScreenOn);
         editor.putFloat(PREF_QUANTITY_FACTOR, quantityFactor);
-        editor.putInt(PREF_TEXT_MODE, textMode);
-        editor.putBoolean(PREF_COMPACT_CARDS, compactCards);
-        editor.putBoolean(PREF_OPEN_LAST, openLastRecipe);
         editor.putString(PREF_LAST_RECIPE, lastRecipeId == null ? "" : lastRecipeId);
-        editor.putString(PREF_THEME, lightTheme ? THEME_LIGHT : THEME_DARK);
         editor.apply();
-    }
-
-    private String defaultThemeMode() {
-        int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        return mode == Configuration.UI_MODE_NIGHT_NO ? THEME_LIGHT : THEME_DARK;
-    }
-
-    private void setLightTheme(boolean enabled) {
-        if (lightTheme == enabled) return;
-        lightTheme = enabled;
-        applyThemePalette();
-        saveUserState();
-        Toast.makeText(this, enabled ? "Mode jour" : "Mode nuit", Toast.LENGTH_SHORT).show();
-        showCurrentScreen();
-    }
-
-    private void applyThemePalette() {
-        if (lightTheme) {
-            COLOR_BG = Color.rgb(245, 239, 228);
-            COLOR_PANEL = Color.rgb(239, 227, 209);
-            COLOR_PANEL_DEEP = Color.rgb(233, 220, 200);
-            COLOR_SURFACE = Color.rgb(250, 244, 234);
-            COLOR_CARD = Color.rgb(255, 248, 237);
-            COLOR_CARD_SOFT = Color.rgb(243, 234, 220);
-            COLOR_CARD_ACTIVE = Color.rgb(234, 210, 174);
-            COLOR_TEXT = Color.rgb(32, 23, 15);
-            COLOR_TEXT_DARK = Color.rgb(36, 24, 10);
-            COLOR_MUTED = Color.rgb(77, 66, 54);
-            COLOR_DIM = Color.rgb(111, 98, 85);
-            COLOR_BORDER = Color.rgb(185, 133, 67);
-            COLOR_BORDER_BRIGHT = Color.rgb(217, 119, 6);
-            COLOR_BORDER_SOFT = Color.rgb(216, 197, 165);
-            COLOR_LINE = Color.rgb(213, 191, 153);
-            COLOR_GOLD = Color.rgb(180, 83, 9);
-            COLOR_ORANGE = Color.rgb(217, 119, 6);
-        } else {
-            COLOR_BG = Color.rgb(7, 8, 10);
-            COLOR_PANEL = Color.rgb(17, 18, 21);
-            COLOR_PANEL_DEEP = Color.rgb(10, 11, 13);
-            COLOR_SURFACE = Color.rgb(23, 23, 24);
-            COLOR_CARD = Color.rgb(20, 20, 20);
-            COLOR_CARD_SOFT = Color.rgb(30, 29, 26);
-            COLOR_CARD_ACTIVE = Color.rgb(54, 40, 20);
-            COLOR_TEXT = Color.rgb(255, 247, 237);
-            COLOR_TEXT_DARK = Color.rgb(22, 17, 8);
-            COLOR_MUTED = Color.rgb(222, 214, 200);
-            COLOR_DIM = Color.rgb(178, 165, 145);
-            COLOR_BORDER = Color.rgb(113, 84, 36);
-            COLOR_BORDER_BRIGHT = Color.rgb(176, 128, 45);
-            COLOR_BORDER_SOFT = Color.rgb(78, 64, 38);
-            COLOR_LINE = Color.rgb(92, 72, 38);
-            COLOR_GOLD = Color.rgb(251, 191, 36);
-            COLOR_ORANGE = Color.rgb(245, 158, 11);
-        }
-        if (adapter != null) adapter.setLightTheme(lightTheme);
-        applySystemChrome();
     }
 
     private void applySystemChrome() {
@@ -3594,9 +3248,6 @@ public class MainActivity extends Activity {
             } else if (previous.screen == SCREEN_SHOPPING) {
                 showShoppingList(false);
                 return;
-            } else if (previous.screen == SCREEN_DIAGNOSTIC) {
-                showDiagnostic(false);
-                return;
             }
         }
         showList();
@@ -3607,8 +3258,6 @@ public class MainActivity extends Activity {
             detailBackStack.push(new NavState(SCREEN_RECIPE, currentRecipeId));
         } else if (currentScreen == SCREEN_SHOPPING) {
             detailBackStack.push(new NavState(SCREEN_SHOPPING, ""));
-        } else if (currentScreen == SCREEN_DIAGNOSTIC) {
-            detailBackStack.push(new NavState(SCREEN_DIAGNOSTIC, ""));
         }
         trimBackStack();
     }

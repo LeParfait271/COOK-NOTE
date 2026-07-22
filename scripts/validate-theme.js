@@ -75,7 +75,7 @@ expect('Direction artistique jour non appliquee.', lightRuntime.documentElement.
 expect('Assets jour valides non actifs.', lightRuntime.api?.dayAssetsApproved === true && lightRuntime.documentElement.dataset.artAssets === 'approved');
 expect('Asset hero jour incorrect.', lightRuntime.api?.asset?.('hero') === '/assets/theme/day/global/hero.jpg');
 expect('Logo jour incorrect.', lightRuntime.api?.asset?.('logo') === '/assets/theme/day/global/logo.png');
-expect('Variables jour non branchees.', lightRuntime.documentElement.style.values['--art-background-image'] === 'url("/assets/theme/day/global/background.jpg")');
+expect('Variables jour non branchees.', lightRuntime.documentElement.style.values['--art-background-image'] === 'url("/assets/theme/day/global/hero.jpg")');
 lightRuntime.api.setTheme('dark');
 expect('setTheme dark inactif.', lightRuntime.documentElement.dataset.theme === 'dark');
 expect('Preference theme non persistee.', /"theme":"dark"/.test(lightRuntime.store.get('cook_note_preferences') || ''));
