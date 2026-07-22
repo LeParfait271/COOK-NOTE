@@ -3640,7 +3640,7 @@ a {
 }
 
 .search-modal {
-  width: min(780px, 100%);
+  width: min(680px, 100%);
   overscroll-behavior: contain;
 }
 
@@ -3650,41 +3650,12 @@ a {
   font-weight: 850;
 }
 
-.search-filter-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 10px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
-  padding: 8px 10px;
-}
-
-.search-filter-row label {
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.search-filter-row select {
-  min-height: 36px;
-  min-width: 172px;
-  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
-  border-radius: 7px;
-  background: var(--surface-strong);
-  color: var(--text);
-  padding: 0 10px;
-  font-weight: 850;
-}
-
 .search-quick-rail {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
-  margin: 10px 0 2px;
+  justify-content: center;
+  margin: 12px 0 0;
 }
 
 .search-quick-rail button {
@@ -3715,77 +3686,6 @@ a {
   font-weight: 850;
 }
 
-.search-discovery {
-  display: grid;
-  gap: 14px;
-  margin-top: 14px;
-}
-
-.search-memory-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.search-memory-card {
-  display: grid;
-  gap: 10px;
-  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
-  border-radius: var(--radius);
-  background: color-mix(in srgb, var(--accent) 7%, var(--surface-soft));
-  padding: 12px;
-}
-
-.search-memory-card > strong {
-  color: var(--accent);
-  font-size: 12px;
-  font-weight: 950;
-  text-transform: uppercase;
-}
-
-.recent-recipe-list {
-  display: grid;
-  gap: 8px;
-}
-
-.recent-recipe-list button {
-  display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
-  gap: 9px;
-  align-items: center;
-  min-height: 50px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  background: color-mix(in srgb, var(--surface-strong) 80%, transparent);
-  color: var(--text);
-  padding: 6px;
-  text-align: left;
-  font-weight: 850;
-}
-
-.recent-recipe-list .search-result-image {
-  width: 42px;
-}
-
-.search-suggestions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.search-suggestion-groups {
-  display: grid;
-  gap: 14px;
-  margin-top: 14px;
-}
-
-.search-suggestion-group {
-  display: grid;
-  gap: 8px;
-}
-
-.search-suggestion-group > strong,
 .search-result-group-head strong {
   color: var(--accent);
   font-size: 12px;
@@ -3793,18 +3693,11 @@ a {
   text-transform: uppercase;
 }
 
-.search-suggestions button {
-  max-width: 100%;
-  min-width: 0;
-  min-height: 34px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface-soft);
-  color: var(--text);
-  padding: 0 12px;
-  font-weight: 850;
-  overflow-wrap: anywhere;
-  white-space: normal;
+.search-empty-state {
+  margin: 14px 0 2px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
 }
 
 .search-results {
@@ -5051,7 +4944,7 @@ a {
 }
 
 .search-modal {
-  width: min(920px, 100%);
+  width: min(680px, 100%);
   max-height: min(86dvh, 820px);
   overflow: auto;
 }
@@ -5073,10 +4966,6 @@ a {
 
 .search-result-copy small {
   line-height: 1.25;
-}
-
-.search-suggestion-groups {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .recipe-detail-hero {
@@ -5377,10 +5266,6 @@ a {
   .search-modal-field input {
     min-height: 48px;
     font-size: 16px;
-  }
-
-  .search-memory-grid {
-    grid-template-columns: 1fr;
   }
 
   .search-result > .nutri-score {
@@ -5694,10 +5579,6 @@ a {
   .recipe-card:not(.master-card) .card-meta span {
     min-height: 26px;
     font-size: 11px;
-  }
-
-  .search-suggestion-groups {
-    grid-template-columns: 1fr;
   }
 
   .search-result {

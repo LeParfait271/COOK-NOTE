@@ -81,7 +81,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Les liens Techniques doivent centrer la carte visee, la faire clignoter assez longtemps, et garder le halo actif tant qu'on est sur la page.
 - La Lecture chef ne doit jamais deduire un service froid ou un signal proteine depuis une note de conservation, un accompagnement frais ou un dessert frais. Les plats chauds comme cassoulet, stew, saucisse-lentilles, dhal, pates au pesto ou cocotte doivent afficher un service chaud et ne jamais porter le signal `Froid`.
 - La recherche doit comprendre les intentions utilisateur courantes : rapide, sans cuisson, cuisson au four, friture, a preparer a l'avance, congelable, vegetarien, froid et ingredients proches.
-- La recherche doit proposer un selecteur de difficulte qui filtre vraiment les resultats par score : facile 1-3, moyen 4-6, technique 7-10.
+- La fenetre de recherche reste volontairement epuree : un titre court, un champ principal, quatre raccourcis maximum et les resultats. Ne pas remettre de filtre de difficulte, recherches recentes, dernieres fiches ni groupes massifs de suggestions dans cette fenetre.
 - Le mode menu doit rester un outil de decision direct : composer entree/plat/accompagnement ou sauce/dessert, ouvrir chaque fiche et ajouter le menu entier aux courses fusionnees.
 - Mode menu : accords dessert obligatoires. Apres un plat lourd, cremeux, frit ou tres fromage, favoriser un dessert frais/citron/fruit. Apres un plat leger, un dessert plus gourmand peut etre propose.
 - Mode menu soir de semaine : ne pas forcer de dessert. Si un dessert est propose, il doit etre ultra rapide, avec moins de 10 minutes d'actif.

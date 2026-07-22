@@ -116,8 +116,8 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.83';
-const SITE_UPDATED_AT = '22/07/26';
+const SITE_VERSION = 'v3.84';
+const SITE_UPDATED_AT = '23/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '3.81';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
@@ -140,12 +140,6 @@ const GRID_RENDER_BATCH_SIZE = 24;
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
-const SEARCH_DIFFICULTY_OPTIONS = [
-  { value: '', label: 'Toutes difficultés' },
-  { value: 'easy', label: 'Facile', min: 1, max: 3 },
-  { value: 'medium', label: 'Moyen', min: 4, max: 6 },
-  { value: 'hard', label: 'Technique', min: 7, max: 10 }
-];
 const CATEGORY_ACCENTS = {
   'Apéro': '#b51f30',
   'Entrées': '#697c1f',
@@ -1080,20 +1074,6 @@ function difficultyText(recipe) {
   return Number.isFinite(recipe?.difficultyScore)
     ? `Difficulté ${recipe.difficultyScore}/10`
     : (DIFFICULTY_LABELS[recipe?.difficulty] || 'Recette');
-}
-
-function recipeDifficultyScore(recipe) {
-  if (Number.isFinite(recipe?.difficultyScore)) return recipe.difficultyScore;
-  if (normalizeText(recipe?.difficulty) === 'easy') return 3;
-  if (normalizeText(recipe?.difficulty) === 'hard') return 8;
-  return 5;
-}
-
-function matchesDifficultyFilter(recipe, filter) {
-  const option = SEARCH_DIFFICULTY_OPTIONS.find(item => item.value === filter);
-  if (!option || !option.value) return true;
-  const score = recipeDifficultyScore(recipe);
-  return score >= option.min && score <= option.max;
 }
 
 function getNutriScore(recipe) {
@@ -5242,7 +5222,7 @@ function SharePanel({ open, onClose, recipe, notify }) {
   );
 }
 
-function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDifficultyFilter, searchRef, results, resultMeta, ingredientMeta, openRecipe, recentRecipes = [], recentSearches = [], rememberSearch }) {
+function SearchPanel({ open, onClose, query, setQuery, searchRef, results, resultMeta, ingredientMeta, openRecipe, rememberSearch }) {
   if (!open) return null;
   const hasQuery = Boolean(query.trim());
   const ingredientTokens = ingredientSearchTokens(query);
@@ -5257,60 +5237,12 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
     groups.get(key).recipes.push(recipe);
     return groups;
   }, new Map());
-  const suggestions = [
-    { title: 'Ingrédients', items: [
-      { label: 'Citron', query: 'citron' },
-      { label: 'Œufs', query: 'oeuf' },
-      { label: 'Chocolat', query: 'chocolat' },
-      { label: 'Beurre noisette', query: 'beurre noisette' },
-      { label: 'Reste de pommes de terre', query: 'reste pomme de terre' }
-    ] },
-    { title: 'Intentions', items: [
-      { label: 'Rapide', query: 'rapide' },
-      { label: 'Sans cuisson', query: 'sans cuisson' },
-      { label: 'La veille', query: 'la veille' },
-      { label: 'À préparer', query: 'à préparer à l’avance' },
-      { label: 'Congelable', query: 'congelable' },
-      { label: 'Soir de semaine', query: 'soir de semaine' }
-    ] },
-    { title: 'Textures', items: [
-      { label: 'Croustillant', query: 'croustillant' },
-      { label: 'Moelleux', query: 'moelleux' },
-      { label: 'Cr\u00e9meux', query: 'cremeux' },
-      { label: 'Fourr\u00e9', query: 'fourre' },
-      { label: 'Léger', query: 'leger' }
-    ] },
-    { title: 'Méthodes', items: [
-      { label: 'Four', query: 'cuisson au four' },
-      { label: 'Friture', query: 'friture' },
-      { label: 'Froid', query: 'froid' },
-      { label: 'Air fryer', query: 'air fryer' },
-      { label: 'Plancha', query: 'plancha' },
-      { label: 'Acidulé', query: 'acidule' }
-    ] },
-    { title: 'Familles', items: [
-      { label: 'Apéro', query: 'apéro' },
-      { label: 'Sauces', query: 'sauce' },
-      { label: 'Bases', query: 'base' },
-      { label: 'Familial', query: 'familial' }
-    ] }
-  ];
   const quickSearches = [
-    { label: 'Plat rapide', query: 'rapide plat' },
+    { label: 'Rapide', query: 'rapide' },
     { label: 'Ap\u00e9ro', query: 'apero' },
     { label: 'Au four', query: 'cuisson au four' },
-    { label: 'Pommes de terre', query: 'pommes de terre' },
-    { label: 'La veille', query: 'la veille' },
-    { label: 'Sauce', query: 'sauce' }
+    { label: 'Dessert', query: 'dessert' }
   ];
-  suggestions.push({ title: 'Contraintes', items: [
-    { label: 'Sans gluten', query: 'sans gluten' },
-    { label: 'Sans lait', query: 'sans lait' },
-    { label: 'Moins de 30 min', query: 'moins de 30 min' },
-    { label: 'Dessert sans four', query: 'dessert sans four' },
-    { label: 'Apéro froid', query: 'apéro froid' },
-    { label: 'Reste de jaunes d’œufs', query: 'reste de jaunes d’œufs' }
-  ] });
   const liveSuggestions = hasQuery ? searchSuggestionTerms(query, results) : [];
   const rememberCurrentSearch = () => {
     if (query.trim()) rememberSearch?.(query);
@@ -5331,10 +5263,7 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
       onMouseDown: event => event.stopPropagation()
     },
       h('div', { className: 'modal-head' },
-        h('div', null,
-          h('p', { className: 'eyebrow' }, 'Recherche'),
-          h('h2', null, 'Trouver une recette')
-        ),
+        h('h2', null, 'Rechercher'),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'field search-modal-field' },
@@ -5353,16 +5282,6 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
           },
           placeholder: 'Recette, ingrédients, usage, saison...'
         })
-      ),
-      h('div', { className: 'search-filter-row' },
-        h('label', { htmlFor: 'recipe-difficulty-filter' }, 'Difficult\u00e9'),
-        h('select', {
-          id: 'recipe-difficulty-filter',
-          value: difficultyFilter,
-          onChange: event => setDifficultyFilter(event.target.value)
-        },
-          SEARCH_DIFFICULTY_OPTIONS.map(option => h('option', { key: option.value, value: option.value }, option.label))
-        )
       ),
       hasQuery && liveSuggestions.length > 0 && h('div', { className: 'search-live-suggestions', 'aria-label': 'Suggestions pendant la frappe' },
         liveSuggestions.map(item => h('button', {
@@ -5384,44 +5303,10 @@ function SearchPanel({ open, onClose, query, setQuery, difficultyFilter, setDiff
           }
         }, item.label))
       ),
+      !hasQuery && h('p', { className: 'search-empty-state' }, 'Saisissez un plat, un ingrédient ou une envie.'),
       hasQuery
         ? h('div', { className: 'search-result-count', role: 'status', 'aria-live': 'polite' }, `${results.length} résultat${results.length > 1 ? 's' : ''} pour "${query}"`)
-        : h('div', { className: 'search-discovery' },
-          (recentSearches.length > 0 || recentRecipes.length > 0) && h('div', { className: 'search-memory-grid' },
-            recentSearches.length > 0 && h('section', { className: 'search-memory-card' },
-              h('strong', null, 'Recherches récentes'),
-              h('div', { className: 'search-suggestions' },
-                recentSearches.slice(0, 6).map(item =>
-                  h('button', { key: item, type: 'button', onClick: () => setQuery(item) }, item)
-                )
-              )
-            ),
-            recentRecipes.length > 0 && h('section', { className: 'search-memory-card' },
-              h('strong', null, 'Dernières fiches'),
-              h('div', { className: 'recent-recipe-list' },
-                recentRecipes.slice(0, 4).map(recipe =>
-                  h('button', { key: recipe.id, type: 'button', onClick: () => openSearchRecipe(recipe) },
-                    h('span', { className: 'search-result-image', style: imageBackgroundStyle(displayRecipeImage(recipe)), 'aria-hidden': true }),
-                    h('span', null, recipe.title)
-                )
-              )
-            )
-          )
-        ),
-          h('div', { className: 'search-suggestion-groups' },
-          suggestions.map(group => h('section', { key: group.title, className: 'search-suggestion-group' },
-            h('strong', null, group.title),
-            h('div', { className: 'search-suggestions' },
-              group.items.map(item =>
-                h('button', { key: item.query, type: 'button', onClick: () => {
-                  setQuery(item.query);
-                  rememberSearch?.(item.query);
-                } }, item.label)
-              )
-            )
-          ))
-          )
-        ),
+        : null,
       hasQuery && (visibleResults.length
         ? h('div', { className: 'search-result-groups' },
           Array.from(resultGroups.values()).map(group => h('section', { key: group.key, className: group.ingredientGroup ? 'search-result-group ingredient-match-group' : 'search-result-group' },
@@ -7025,7 +6910,6 @@ function App() {
   });
   const [query, setQuery] = useState(() => new URLSearchParams(window.location.search).get('q') || '');
   const searchFilterQuery = useDebouncedValue(query, 120);
-  const [difficultyFilter, setDifficultyFilter] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [season, setSeason] = useState('');
@@ -7271,7 +7155,6 @@ function App() {
     let list = catalogRecipes.filter(recipe => {
       if (activeSearchQuery && !searchMeta.has(recipe.id) && !ingredientMeta.has(recipe.id)) return false;
       if (activeSearchQuery && !recipeMatchesSearchConstraints(recipe, activeSearchQuery, recipesById)) return false;
-      if (activeSearchQuery && !matchesDifficultyFilter(recipe, difficultyFilter)) return false;
       if (season && !recipeHasSeason(recipe, season, recipesById)) return false;
       if (tagFilter && !(recipe.tagsExtracted || []).includes(tagFilter)) return false;
       if (onlyFavorites && !favorites.includes(recipe.id)) return false;
@@ -7290,7 +7173,7 @@ function App() {
       return a.title.localeCompare(b.title, 'fr');
     });
     return list;
-  }, [catalogRecipes, searchFilterQuery, searchMeta, ingredientMeta, difficultyFilter, season, tagFilter, onlyFavorites, favorites, recipesById, favoriteCollection, personalNotes]);
+  }, [catalogRecipes, searchFilterQuery, searchMeta, ingredientMeta, season, tagFilter, onlyFavorites, favorites, recipesById, favoriteCollection, personalNotes]);
 
   const seasonCategoryOptions = useMemo(() => {
     if (!season) return [];
@@ -7371,7 +7254,6 @@ function App() {
   }, [currentSeason, filteredRecipes, onlyFavorites, season, seasonCategory]);
   const activeChips = [
     query && { key: 'query', label: `Recherche: ${query}`, clear: () => setQuery('') },
-    query && difficultyFilter && { key: 'difficulty', label: SEARCH_DIFFICULTY_OPTIONS.find(item => item.value === difficultyFilter)?.label || 'Difficulte', clear: () => setDifficultyFilter('') },
     season && { key: 'season', label: season, clear: () => updateSeason('') },
     seasonCategory && { key: 'seasonCategory', label: categoryLabel(seasonCategory), clear: () => setSeasonCategory('') },
     tagFilter && { key: 'tag', label: `Tag: ${tagFilter}`, clear: () => updateTagFilter('') },
@@ -8044,15 +7926,11 @@ function App() {
       onClose: () => setSearchOpen(false),
       query,
       setQuery: updateSearchQuery,
-      difficultyFilter,
-      setDifficultyFilter,
       searchRef,
       results: filteredRecipes,
       resultMeta: searchMeta,
       ingredientMeta,
       openRecipe,
-      recentRecipes,
-      recentSearches,
       rememberSearch
     }),
     h(ToastStack, { toasts, dismissToast })
