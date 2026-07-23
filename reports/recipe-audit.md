@@ -1,7 +1,7 @@
 # Audit Cook Note
 
-- Recettes totales : 294
-- Recettes feuilles : 286
+- Recettes totales : 298
+- Recettes feuilles : 290
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -9,13 +9,13 @@
 
 ## Dashboard sante
 
-- Pretes : 214
-- A ameliorer : 72
+- Pretes : 216
+- A ameliorer : 74
 - Faibles : 0
 - Decouverte faible : 18
-- Conservation/securite a verifier : 54
+- Conservation/securite a verifier : 56
 - Risque image/production : 0
-- Sans liens internes explicites : 254
+- Sans liens internes explicites : 258
 
 ## Fiches a surveiller
 
@@ -44,6 +44,7 @@ Aucune fiche faible detectee.
 - Bricks fromage miel poires pecan (bricks_fromage_miel_poires_pecan) : 100/100 - OK
 - Brie farci aux fruits secs et noix (brie_farci_fruits_secs_noix) : 100/100 - OK
 - Brioche perdue sauce caramel au beurre salé (brioche_perdue_caramel_beurre_sale) : 100/100 - OK
+- Brioches apéritives, trois garnitures (brioches_aperitives) : 100/100 - OK
 - Brochettes crevettes chorizo (brochettes_crevettes_chorizo) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Brochettes de melon épicé (brochettes_melon_epice) : 100/100 - OK
@@ -112,6 +113,7 @@ Aucune fiche faible detectee.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Craquelin cacao (craquelin_cacao) : 100/100 - OK
 - Crème au beurre meringue italienne (creme_beurre_meringue_italienne) : 100/100 - OK
+- Crème brûlée à la vanille (creme_brulee_vanille) : 100/100 - OK
 - Crème citron (creme_citron_lemon_curd) : 100/100 - OK
 - Crème diplomate vanille (creme_diplomate_vanille) : 100/100 - OK
 - Crème diplomate vanille à garnir (creme_diplomate_cloud) : 84/100 - OK
@@ -151,6 +153,8 @@ Aucune fiche faible detectee.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Encornets sautes au chorizo (encornets_chorizo) : 100/100 - OK
 - Falafels au four (falafels_four) : 100/100 - OK
+- Filet de bœuf au vin rouge, pommes crousti-fondantes (filet_boeuf_vin_rouge) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Fish and chips (fish_and_chips) : 100/100 - OK
 - Flammekueche (flammekueche) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -228,6 +232,8 @@ Aucune fiche faible detectee.
 - Mousse au Toblerone (mousse_toblerone) : 100/100 - OK
 - Muffins aux framboises (muffins_framboises) : 100/100 - OK
 - Nems vietnamiens (nems_vietnam) : 100/100 - OK
+- Œuf parfait, croûtons et lard croustillant (oeuf_parfait_croutons_lard) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Œuf sur le plat chili crisp sur toast (oeuf_chili_crisp_toast) : 100/100 - OK
 - Oeufs cocotte chorizo (oeufs_cocotte_chorizo) : 100/100 - OK
 - Oeufs en meurette faciles (oeufs_meurette_faciles) : 100/100 - OK
@@ -385,8 +391,10 @@ Aucune fiche faible detectee.
 ## Idees de rangement prudentes
 
 - Côtelettes de porc miel moutarde (cotelettes_porc_miel_moutarde) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
+- Filet de bœuf au vin rouge, pommes crousti-fondantes (filet_boeuf_vin_rouge) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Flammekueche (flammekueche) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Lentilles tomate pommes de terre sautées (lentilles_tomate_pommes_de_terre_sautees) : Categorie possible : Accompagnements (semble etre un accompagnement).
+- Œuf parfait, croûtons et lard croustillant (oeuf_parfait_croutons_lard) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Poulet sauce pimentée (poulet_sauce_pimentee) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Tartare de bœuf légèrement pimenté (tartare_boeuf_pimente) : Categorie possible : Apéro (semble utile a l apero).
 - Pancakes (pancakes_variantes) : Categorie possible : Base (semble etre une base reutilisable).
@@ -423,6 +431,7 @@ Aucune fiche faible detectee.
 - Biscuits sablés vanille-chocolat (biscuits_sables_vanille_chocolat)
 - Bricks fromage miel poires pecan (bricks_fromage_miel_poires_pecan)
 - Brie farci aux fruits secs et noix (brie_farci_fruits_secs_noix)
+- Brioches apéritives, trois garnitures (brioches_aperitives)
 - Brochettes crevettes chorizo (brochettes_crevettes_chorizo)
 - Brochettes de melon épicé (brochettes_melon_epice)
 - Bruschetta roquefort noix (bruschetta_roquefort_noix)
@@ -439,4 +448,3 @@ Aucune fiche faible detectee.
 - Carpaccio betterave mozzarella yuzu (carpaccio_betterave_mozzarella_yuzu)
 - Carré d’agneau croûte d’herbes (carre_d_agneau_croute_d_herbes)
 - Carrés crémeux citron vert (carres_cremeux_citron_vert)
-- Cassolette de crevettes et ravioles au persil (cassolette_crevettes_ravioles_persil)

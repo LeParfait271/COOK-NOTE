@@ -110,6 +110,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 56576
   },
+  "assets/recipes/cards/brioches_aperitives.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 67038
+  },
   "assets/recipes/cards/brochettes_crevettes_chorizo.jpg": {
     "width": 760,
     "height": 428,
@@ -390,6 +395,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 760,
     "bytes": 173469
   },
+  "assets/recipes/cards/creme_brulee_vanille.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 52080
+  },
   "assets/recipes/cards/creme_citron_lemon_curd.jpg": {
     "width": 760,
     "height": 760,
@@ -559,6 +569,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 380,
     "bytes": 61439
+  },
+  "assets/recipes/cards/filet_boeuf_vin_rouge.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 64995
   },
   "assets/recipes/cards/fish_and_chips.jpg": {
     "width": 760,
@@ -859,6 +874,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 428,
     "bytes": 60775
+  },
+  "assets/recipes/cards/oeuf_parfait_croutons_lard.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 53329
   },
   "assets/recipes/cards/oeufs_cocotte_chorizo.jpg": {
     "width": 760,
@@ -1580,6 +1600,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 178170
   },
+  "assets/recipes/heroes/brioches_aperitives.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 205766
+  },
   "assets/recipes/heroes/brochettes_crevettes_chorizo.jpg": {
     "width": 1400,
     "height": 788,
@@ -1860,6 +1885,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 285721
   },
+  "assets/recipes/heroes/creme_brulee_vanille.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 160948
+  },
   "assets/recipes/heroes/creme_citron_lemon_curd.jpg": {
     "width": 1024,
     "height": 1024,
@@ -2029,6 +2059,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 700,
     "bytes": 209971
+  },
+  "assets/recipes/heroes/filet_boeuf_vin_rouge.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 195096
   },
   "assets/recipes/heroes/fish_and_chips.jpg": {
     "width": 1400,
@@ -2329,6 +2364,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 191247
+  },
+  "assets/recipes/heroes/oeuf_parfait_croutons_lard.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 166873
   },
   "assets/recipes/heroes/oeufs_cocotte_chorizo.jpg": {
     "width": 1400,

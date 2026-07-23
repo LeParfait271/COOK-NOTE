@@ -1,27 +1,32 @@
 {
   "totals": {
-    "recipes": 294,
-    "leaves": 286,
+    "recipes": 298,
+    "leaves": 290,
     "masters": 8,
     "lowScore": 0,
-    "categoryIdeas": 23,
+    "categoryIdeas": 25,
     "qualityIssues": 0
   },
   "averageScore": 96,
   "healthDashboard": {
-    "ready": 214,
-    "improve": 72,
+    "ready": 216,
+    "improve": 74,
     "weak": 0,
     "missingDiscovery": 18,
-    "missingSafety": 54,
+    "missingSafety": 56,
     "productionRisk": 0,
-    "fewLinks": 254
+    "fewLinks": 258
   },
   "weakestRecipes": [],
   "categoryIdeas": [
     {
       "id": "cotelettes_porc_miel_moutarde",
       "title": "Côtelettes de porc miel moutarde",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
+      "id": "filet_boeuf_vin_rouge",
+      "title": "Filet de bœuf au vin rouge, pommes crousti-fondantes",
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
@@ -33,6 +38,11 @@
       "id": "lentilles_tomate_pommes_de_terre_sautees",
       "title": "Lentilles tomate pommes de terre sautées",
       "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
+    },
+    {
+      "id": "oeuf_parfait_croutons_lard",
+      "title": "Œuf parfait, croûtons et lard croustillant",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
       "id": "poulet_sauce_pimentee",
@@ -202,6 +212,11 @@
       "count": 0
     },
     {
+      "id": "brioches_aperitives",
+      "title": "Brioches apéritives, trois garnitures",
+      "count": 0
+    },
+    {
       "id": "brochettes_crevettes_chorizo",
       "title": "Brochettes crevettes chorizo",
       "count": 0
@@ -279,11 +294,6 @@
     {
       "id": "carres_cremeux_citron_vert",
       "title": "Carrés crémeux citron vert",
-      "count": 0
-    },
-    {
-      "id": "cassolette_crevettes_ravioles_persil",
-      "title": "Cassolette de crevettes et ravioles au persil",
       "count": 0
     }
   ],
@@ -458,6 +468,14 @@
       "suggestions": [
         "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
+    },
+    {
+      "id": "brioches_aperitives",
+      "title": "Brioches apéritives, trois garnitures",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "brochettes_crevettes_chorizo",
@@ -942,6 +960,14 @@
       "suggestions": []
     },
     {
+      "id": "creme_brulee_vanille",
+      "title": "Crème brûlée à la vanille",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "creme_citron_lemon_curd",
       "title": "Crème citron",
       "score": 100,
@@ -1214,6 +1240,19 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "filet_boeuf_vin_rouge",
+      "title": "Filet de bœuf au vin rouge, pommes crousti-fondantes",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
     },
     {
       "id": "fish_and_chips",
@@ -1751,6 +1790,19 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "oeuf_parfait_croutons_lard",
+      "title": "Œuf parfait, croûtons et lard croustillant",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
     },
     {
       "id": "oeuf_chili_crisp_toast",
