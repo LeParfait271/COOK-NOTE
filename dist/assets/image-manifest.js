@@ -4705,6 +4705,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 230546
   },
+  "assets/theme/day/recipes/cremes_dessert_chocolat.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 175162
+  },
   "assets/theme/day/recipes/crepes_lait_amandes.jpg": {
     "width": 1280,
     "height": 720,
@@ -4859,6 +4864,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 226764
+  },
+  "assets/theme/day/recipes/granola_maison_chocolat.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 202873
   },
   "assets/theme/day/recipes/gratin_chou_fleur_chorizo_cocottes.jpg": {
     "width": 1280,
@@ -5030,6 +5040,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 186567
   },
+  "assets/theme/day/recipes/mousse_toblerone.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 219551
+  },
   "assets/theme/day/recipes/muffins_framboises.jpg": {
     "width": 1280,
     "height": 720,
@@ -5089,6 +5104,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 226674
+  },
+  "assets/theme/day/recipes/panna_cotta_myrtilles_erable_cannelle.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 184078
   },
   "assets/theme/day/recipes/paris_brest.jpg": {
     "width": 1280,
