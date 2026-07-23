@@ -310,6 +310,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 760,
     "bytes": 120644
   },
+  "assets/recipes/cards/cocktail_crevettes_palace.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 46974
+  },
   "assets/recipes/cards/cocotte_pois_chiches_tomates_montbeliard.jpg": {
     "width": 760,
     "height": 570,
@@ -1355,6 +1360,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 64524
   },
+  "assets/recipes/cards/souffle_citron_vert_mojito.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 56464
+  },
   "assets/recipes/cards/souffle_fromage_facile.jpg": {
     "width": 760,
     "height": 507,
@@ -1479,6 +1489,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 428,
     "bytes": 63362
+  },
+  "assets/recipes/cards/tresse_beurre_classique.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 52067
   },
   "assets/recipes/cards/veloute_hiver_noix_cajou.jpg": {
     "width": 760,
@@ -1799,6 +1814,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 213513
+  },
+  "assets/recipes/heroes/cocktail_crevettes_palace.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 140464
   },
   "assets/recipes/heroes/cocotte_pois_chiches_tomates_montbeliard.jpg": {
     "width": 1400,
@@ -2845,6 +2865,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 203702
   },
+  "assets/recipes/heroes/souffle_citron_vert_mojito.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 173133
+  },
   "assets/recipes/heroes/souffle_fromage_facile.jpg": {
     "width": 1400,
     "height": 933,
@@ -2969,6 +2994,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 201674
+  },
+  "assets/recipes/heroes/tresse_beurre_classique.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 163213
   },
   "assets/recipes/heroes/veloute_hiver_noix_cajou.jpg": {
     "width": 1400,
@@ -3269,6 +3299,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 200966
+  },
+  "assets/theme/dark/recipes/cocktail_crevettes_palace.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 122406
   },
   "assets/theme/dark/recipes/cocotte_pois_chiches_tomates_montbeliard.jpg": {
     "width": 1280,
@@ -4125,6 +4160,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 198956
   },
+  "assets/theme/dark/recipes/souffle_citron_vert_mojito.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 149565
+  },
   "assets/theme/dark/recipes/souffle_fromage_facile.jpg": {
     "width": 1280,
     "height": 720,
@@ -4224,6 +4264,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 180106
+  },
+  "assets/theme/dark/recipes/tresse_beurre_classique.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 141753
   },
   "assets/theme/dark/recipes/veloute_hiver_noix_cajou.jpg": {
     "width": 1280,
@@ -4534,6 +4579,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 221107
+  },
+  "assets/theme/day/recipes/cocktail_crevettes_palace.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 178870
   },
   "assets/theme/day/recipes/cocotte_pois_chiches_tomates_montbeliard.jpg": {
     "width": 1280,
@@ -5415,6 +5465,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 210674
   },
+  "assets/theme/day/recipes/souffle_citron_vert_mojito.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 175400
+  },
   "assets/theme/day/recipes/souffle_fromage_facile.jpg": {
     "width": 1280,
     "height": 720,
@@ -5514,6 +5569,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 220642
+  },
+  "assets/theme/day/recipes/tresse_beurre_classique.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 176239
   },
   "assets/theme/day/recipes/veloute_hiver_noix_cajou.jpg": {
     "width": 1280,
