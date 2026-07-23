@@ -740,6 +740,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 70915
   },
+  "assets/recipes/cards/jarret_boeuf_braise_biere.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 66460
+  },
   "assets/recipes/cards/joues_boeuf_whiskey_orange.jpg": {
     "width": 760,
     "height": 507,
@@ -875,6 +880,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 760,
     "bytes": 121222
   },
+  "assets/recipes/cards/okonomiyaki_chou.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 69607
+  },
   "assets/recipes/cards/pain_grille_beurre_ail_herbes.jpg": {
     "width": 760,
     "height": 342,
@@ -1000,6 +1010,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 570,
     "bytes": 126808
   },
+  "assets/recipes/cards/poelee_rigatoni_champignons.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 69160
+  },
   "assets/recipes/cards/poires_roties_orange_miel.jpg": {
     "width": 760,
     "height": 507,
@@ -1079,6 +1094,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 428,
     "bytes": 92632
+  },
+  "assets/recipes/cards/poulet_roti_dimanche.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 67246
   },
   "assets/recipes/cards/poulet_sauce_pimentee.jpg": {
     "width": 760,
@@ -1185,6 +1205,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 760,
     "bytes": 110557
   },
+  "assets/recipes/cards/saint_jacques_lard_sauce_thai.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 59922
+  },
   "assets/recipes/cards/salade_avocat_oeuf_epinards.jpg": {
     "width": 760,
     "height": 760,
@@ -1194,6 +1219,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 428,
     "bytes": 82665
+  },
+  "assets/recipes/cards/salade_carottes_citronnee.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 69373
   },
   "assets/recipes/cards/salade_epinards_clementines_amande_feta.jpg": {
     "width": 760,
@@ -2180,6 +2210,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 226976
   },
+  "assets/recipes/heroes/jarret_boeuf_braise_biere.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 206742
+  },
   "assets/recipes/heroes/joues_boeuf_whiskey_orange.jpg": {
     "width": 1400,
     "height": 933,
@@ -2315,6 +2350,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 214343
   },
+  "assets/recipes/heroes/okonomiyaki_chou.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 206517
+  },
   "assets/recipes/heroes/pain_grille_beurre_ail_herbes.jpg": {
     "width": 1400,
     "height": 630,
@@ -2440,6 +2480,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 116913
   },
+  "assets/recipes/heroes/poelee_rigatoni_champignons.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 206613
+  },
   "assets/recipes/heroes/poires_roties_orange_miel.jpg": {
     "width": 1400,
     "height": 933,
@@ -2519,6 +2564,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 308569
+  },
+  "assets/recipes/heroes/poulet_roti_dimanche.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 209207
   },
   "assets/recipes/heroes/poulet_sauce_pimentee.jpg": {
     "width": 960,
@@ -2625,6 +2675,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 197048
   },
+  "assets/recipes/heroes/saint_jacques_lard_sauce_thai.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 185138
+  },
   "assets/recipes/heroes/salade_avocat_oeuf_epinards.jpg": {
     "width": 1024,
     "height": 1024,
@@ -2634,6 +2689,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 264974
+  },
+  "assets/recipes/heroes/salade_carottes_citronnee.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 212824
   },
   "assets/recipes/heroes/salade_epinards_clementines_amande_feta.jpg": {
     "width": 1400,

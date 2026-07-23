@@ -145,6 +145,7 @@
 /recette/ile_flottante /recette/ile_flottante/ 301
 /recette/irish_stew_guinness /recette/irish_stew_guinness/ 301
 /recette/jarret_agneau_petits_legumes /recette/jarret_agneau_petits_legumes/ 301
+/recette/jarret_boeuf_braise_biere /recette/jarret_boeuf_braise_biere/ 301
 /recette/joues_boeuf_whiskey_orange /recette/joues_boeuf_whiskey_orange/ 301
 /recette/joues_de_boeuf_carottes_orange_vin_rouge /recette/joues_de_boeuf_carottes_orange_vin_rouge/ 301
 /recette/joues_de_porc_chorizo_piment /recette/joues_de_porc_chorizo_piment/ 301
@@ -172,6 +173,7 @@
 /recette/oeufs_meurette_faciles /recette/oeufs_meurette_faciles/ 301
 /recette/oeufs_mimosa_variantes /recette/oeufs_mimosa_variantes/ 301
 /recette/oignons_rotis_thym_miel /recette/oignons_rotis_thym_miel/ 301
+/recette/okonomiyaki_chou /recette/okonomiyaki_chou/ 301
 /recette/pain_grille_beurre_ail_herbes /recette/pain_grille_beurre_ail_herbes/ 301
 /recette/pain_hot_dog /recette/pain_hot_dog/ 301
 /recette/pains_burgers_brioche /recette/pains_burgers_brioche/ 301
@@ -197,6 +199,7 @@
 /recette/piperade_oeuf_plat /recette/piperade_oeuf_plat/ 301
 /recette/plats_maitre /recette/plats_maitre/ 301
 /recette/poelee_ble_poulet_curcuma /recette/poelee_ble_poulet_curcuma/ 301
+/recette/poelee_rigatoni_champignons /recette/poelee_rigatoni_champignons/ 301
 /recette/poires_roties_orange_miel /recette/poires_roties_orange_miel/ 301
 /recette/pommes_de_terre_air_fryer /recette/pommes_de_terre_air_fryer/ 301
 /recette/pommes_de_terre_confites_ail_romarin /recette/pommes_de_terre_confites_ail_romarin/ 301
@@ -213,6 +216,7 @@
 /recette/poulet_frit_air_fryer /recette/poulet_frit_air_fryer/ 301
 /recette/poulet_gaston_gerard /recette/poulet_gaston_gerard/ 301
 /recette/poulet_pommes_de_terre_asperges /recette/poulet_pommes_de_terre_asperges/ 301
+/recette/poulet_roti_dimanche /recette/poulet_roti_dimanche/ 301
 /recette/poulet_sauce_pimentee /recette/poulet_sauce_pimentee/ 301
 /recette/poulet_tikka_masala /recette/poulet_tikka_masala/ 301
 /recette/poulet_tomates_poivron_vin_blanc_thym /recette/poulet_tomates_poivron_vin_blanc_thym/ 301
@@ -234,8 +238,10 @@
 /recette/riz_saute_poulet /recette/riz_saute_poulet/ 301
 /recette/rougail_saucisse /recette/rougail_saucisse/ 301
 /recette/rouille_haut_de_gamme /recette/rouille_haut_de_gamme/ 301
+/recette/saint_jacques_lard_sauce_thai /recette/saint_jacques_lard_sauce_thai/ 301
 /recette/salade_avocat_oeuf_epinards /recette/salade_avocat_oeuf_epinards/ 301
 /recette/salade_caprese /recette/salade_caprese/ 301
+/recette/salade_carottes_citronnee /recette/salade_carottes_citronnee/ 301
 /recette/salade_epinards_clementines_amande_feta /recette/salade_epinards_clementines_amande_feta/ 301
 /recette/salade_melon_mozzarella_jambon_cru /recette/salade_melon_mozzarella_jambon_cru/ 301
 /recette/salade_pois_chiche_feta_olives /recette/salade_pois_chiche_feta_olives/ 301

@@ -1,21 +1,21 @@
 {
   "totals": {
-    "recipes": 288,
-    "leaves": 280,
+    "recipes": 294,
+    "leaves": 286,
     "masters": 8,
     "lowScore": 0,
-    "categoryIdeas": 22,
+    "categoryIdeas": 23,
     "qualityIssues": 0
   },
   "averageScore": 96,
   "healthDashboard": {
-    "ready": 212,
-    "improve": 68,
+    "ready": 214,
+    "improve": 72,
     "weak": 0,
     "missingDiscovery": 18,
-    "missingSafety": 50,
+    "missingSafety": 54,
     "productionRisk": 0,
-    "fewLinks": 248
+    "fewLinks": 254
   },
   "weakestRecipes": [],
   "categoryIdeas": [
@@ -128,6 +128,11 @@
       "id": "riz_saute_poulet",
       "title": "Riz sauté au poulet",
       "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
+    },
+    {
+      "id": "saint_jacques_lard_sauce_thai",
+      "title": "Saint-Jacques au lard, sauce thaï",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     }
   ],
   "recipesWithFewLinks": [
@@ -1538,6 +1543,18 @@
       ]
     },
     {
+      "id": "jarret_boeuf_braise_biere",
+      "title": "Jarret de bœuf braisé à la bière",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "joues_de_boeuf_carottes_orange_vin_rouge",
       "title": "Joues de bœuf carottes orange vin rouge",
       "score": 82,
@@ -1780,6 +1797,18 @@
       "suggestions": []
     },
     {
+      "id": "okonomiyaki_chou",
+      "title": "Okonomiyaki au chou",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "pain_grille_beurre_ail_herbes",
       "title": "Pain grillé beurre ail et herbes",
       "score": 100,
@@ -1998,6 +2027,18 @@
       "suggestions": []
     },
     {
+      "id": "poelee_rigatoni_champignons",
+      "title": "Poêlée de rigatoni aux champignons",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "poires_roties_orange_miel",
       "title": "Poires rôties orange miel",
       "score": 100,
@@ -2136,6 +2177,14 @@
       "suggestions": [
         "Categorie possible : Accompagnements (semble etre un accompagnement)."
       ]
+    },
+    {
+      "id": "poulet_roti_dimanche",
+      "title": "Poulet rôti du dimanche",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "poulet_sauce_pimentee",
@@ -2310,12 +2359,34 @@
       "suggestions": []
     },
     {
+      "id": "saint_jacques_lard_sauce_thai",
+      "title": "Saint-Jacques au lard, sauce thaï",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": [
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
+    },
+    {
       "id": "salade_avocat_oeuf_epinards",
       "title": "Salade avocat, œuf et épinards",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "salade_carottes_citronnee",
+      "title": "Salade de carottes citronnée",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "salade_pommes_terre_ottolenghi",

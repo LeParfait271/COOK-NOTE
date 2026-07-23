@@ -1,7 +1,7 @@
 # Audit Cook Note
 
-- Recettes totales : 288
-- Recettes feuilles : 280
+- Recettes totales : 294
+- Recettes feuilles : 286
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -9,13 +9,13 @@
 
 ## Dashboard sante
 
-- Pretes : 212
-- A ameliorer : 68
+- Pretes : 214
+- A ameliorer : 72
 - Faibles : 0
 - Decouverte faible : 18
-- Conservation/securite a verifier : 50
+- Conservation/securite a verifier : 54
 - Risque image/production : 0
-- Sans liens internes explicites : 248
+- Sans liens internes explicites : 254
 
 ## Fiches a surveiller
 
@@ -196,6 +196,8 @@ Aucune fiche faible detectee.
 - Irish stew à la Guinness (irish_stew_guinness) : 100/100 - OK
 - Jarret d’agneau braisé aux petits légumes (jarret_agneau_petits_legumes) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Jarret de bœuf braisé à la bière (jarret_boeuf_braise_biere) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Joues de bœuf carottes orange vin rouge (joues_de_boeuf_carottes_orange_vin_rouge) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Joues de bœuf whiskey orange (joues_boeuf_whiskey_orange) : 82/100 - OK
@@ -232,6 +234,8 @@ Aucune fiche faible detectee.
 - Œufs mimosa (oeufs_mimosa_variantes) : 100/100 - OK
 - Oignons rôtis au thym et au miel (oignons_rotis_thym_miel) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Okonomiyaki au chou (okonomiyaki_chou) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pain grillé beurre ail et herbes (pain_grille_beurre_ail_herbes) : 100/100 - OK
 - Pain hot dog brioché (pain_hot_dog) : 100/100 - OK
 - Pains burgers briochés (pains_burgers_brioche) : 100/100 - OK
@@ -262,6 +266,8 @@ Aucune fiche faible detectee.
 - Piperade œuf au plat (piperade_oeuf_plat) : 100/100 - OK
 - Poêlée de blé au poulet et curcuma (poelee_ble_poulet_curcuma) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Poêlée de rigatoni aux champignons (poelee_rigatoni_champignons) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poires rôties orange miel (poires_roties_orange_miel) : 100/100 - OK
 - Pommes de terre à l’air fryer (pommes_de_terre_air_fryer) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -283,6 +289,7 @@ Aucune fiche faible detectee.
 - Poulet Gaston Gérard (poulet_gaston_gerard) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poulet pommes de terre asperges (poulet_pommes_de_terre_asperges) : 100/100 - OK
+- Poulet rôti du dimanche (poulet_roti_dimanche) : 100/100 - OK
 - Poulet sauce pimentée (poulet_sauce_pimentee) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poulet tikka masala (poulet_tikka_masala) : 100/100 - OK
@@ -306,7 +313,10 @@ Aucune fiche faible detectee.
 - Riz sauté au poulet (riz_saute_poulet) : 100/100 - OK
 - Rougail saucisse (rougail_saucisse) : 100/100 - OK
 - Rouille (rouille_haut_de_gamme) : 100/100 - OK
+- Saint-Jacques au lard, sauce thaï (saint_jacques_lard_sauce_thai) : 100/100 - OK
 - Salade avocat, œuf et épinards (salade_avocat_oeuf_epinards) : 100/100 - OK
+- Salade de carottes citronnée (salade_carottes_citronnee) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Salade de pommes de terre d’Ottolenghi (salade_pommes_terre_ottolenghi) : 100/100 - OK
 - Salade epinards clementines amande feta (salade_epinards_clementines_amande_feta) : 100/100 - OK
 - Salade melon, mozzarella et jambon cru (salade_melon_mozzarella_jambon_cru) : 100/100 - OK
@@ -396,6 +406,7 @@ Aucune fiche faible detectee.
 - Poulet pommes de terre asperges (poulet_pommes_de_terre_asperges) : Categorie possible : Accompagnements (semble etre un accompagnement).
 - Poulet tikka masala (poulet_tikka_masala) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Riz sauté au poulet (riz_saute_poulet) : Categorie possible : Accompagnements (semble etre un accompagnement).
+- Saint-Jacques au lard, sauce thaï (saint_jacques_lard_sauce_thai) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 
 ## Fiches a relier progressivement
 
