@@ -1,7 +1,7 @@
 # Audit Cook Note
 
-- Recettes totales : 298
-- Recettes feuilles : 290
+- Recettes totales : 301
+- Recettes feuilles : 293
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -9,13 +9,13 @@
 
 ## Dashboard sante
 
-- Pretes : 216
-- A ameliorer : 74
+- Pretes : 218
+- A ameliorer : 75
 - Faibles : 0
 - Decouverte faible : 18
-- Conservation/securite a verifier : 56
+- Conservation/securite a verifier : 57
 - Risque image/production : 0
-- Sans liens internes explicites : 258
+- Sans liens internes explicites : 261
 
 ## Fiches a surveiller
 
@@ -91,6 +91,8 @@ Aucune fiche faible detectee.
 - Clafoutis aux myrtilles et nectarines (clafoutis_myrtilles_nectarines) : 100/100 - OK
 - Cochon confit à la bière et au sirop d’érable (cochon_confit_biere_erable) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Cocktail de crevettes Palace (cocktail_crevettes_palace) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cocotte de pois chiches tomates et saucisse de Montbéliard (cocotte_pois_chiches_tomates_montbeliard) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cocotte porc chorizo haricots tarbais (porc_chorizo_haricots_tarbais) : 100/100 - OK
@@ -351,6 +353,7 @@ Aucune fiche faible detectee.
 - Smash Burger et buns briochés (smash_burger) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Souffle au fromage facile (souffle_fromage_facile) : 100/100 - OK
+- Soufflé chaud au citron vert, sorbet mojito (souffle_citron_vert_mojito) : 100/100 - OK
 - Soupe paysanne à la saucisse de Morteau (soupe_paysanne_morteau) : 100/100 - OK
 - Southern biscuits (southern_biscuits) : 100/100 - OK
 - Spritz vanille chocolat (spritz_vanille_chocolat) : 100/100 - OK
@@ -380,6 +383,7 @@ Aucune fiche faible detectee.
 - Toppings frites (toppings_frites) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Tortillas (tortillas_mexicaines) : 100/100 - OK
+- Tresse au beurre classique (tresse_beurre_classique) : 100/100 - OK
 - Tresse au beurre d’Andreas Caminada (tresse_beurre_caminada) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Velouté d'hiver noix de cajou (veloute_hiver_noix_cajou) : 100/100 - OK
@@ -390,6 +394,7 @@ Aucune fiche faible detectee.
 
 ## Idees de rangement prudentes
 
+- Cocktail de crevettes Palace (cocktail_crevettes_palace) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Côtelettes de porc miel moutarde (cotelettes_porc_miel_moutarde) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Filet de bœuf au vin rouge, pommes crousti-fondantes (filet_boeuf_vin_rouge) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Flammekueche (flammekueche) : Categorie possible : Desserts (semble etre sucré ou patissier).
@@ -415,6 +420,7 @@ Aucune fiche faible detectee.
 - Poulet tikka masala (poulet_tikka_masala) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Riz sauté au poulet (riz_saute_poulet) : Categorie possible : Accompagnements (semble etre un accompagnement).
 - Saint-Jacques au lard, sauce thaï (saint_jacques_lard_sauce_thai) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
+- Soufflé chaud au citron vert, sorbet mojito (souffle_citron_vert_mojito) : Categorie possible : Apéro (semble utile a l apero).
 
 ## Fiches a relier progressivement
 

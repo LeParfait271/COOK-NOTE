@@ -1,5 +1,5 @@
 {
-  "total": 288,
+  "total": 301,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -710,6 +710,24 @@
       "cardBytes": 56576
     },
     {
+      "id": "brioches_aperitives",
+      "title": "Brioches apéritives, trois garnitures",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/brioches_aperitives.jpg",
+      "card": "assets/recipes/cards/brioches_aperitives.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 205766,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 67038
+    },
+    {
       "id": "brochettes_crevettes_chorizo",
       "title": "Brochettes crevettes chorizo",
       "score": 100,
@@ -1322,6 +1340,24 @@
       "cardBytes": 120644
     },
     {
+      "id": "cocktail_crevettes_palace",
+      "title": "Cocktail de crevettes Palace",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/cocktail_crevettes_palace.jpg",
+      "card": "assets/recipes/cards/cocktail_crevettes_palace.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 140464,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 46974
+    },
+    {
       "id": "cocotte_pois_chiches_tomates_montbeliard",
       "title": "Cocotte de pois chiches tomates et saucisse de Montbéliard",
       "score": 100,
@@ -1608,6 +1644,24 @@
         "height": 760
       },
       "cardBytes": 173469
+    },
+    {
+      "id": "creme_brulee_vanille",
+      "title": "Crème brûlée à la vanille",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/creme_brulee_vanille.jpg",
+      "card": "assets/recipes/cards/creme_brulee_vanille.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 160948,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 52080
     },
     {
       "id": "creme_citron_lemon_curd",
@@ -2184,6 +2238,24 @@
         "height": 540
       },
       "cardBytes": 292221
+    },
+    {
+      "id": "filet_boeuf_vin_rouge",
+      "title": "Filet de bœuf au vin rouge, pommes crousti-fondantes",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/filet_boeuf_vin_rouge.jpg",
+      "card": "assets/recipes/cards/filet_boeuf_vin_rouge.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 195096,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 64995
     },
     {
       "id": "fish_and_chips",
@@ -2852,6 +2924,24 @@
       "cardBytes": 70915
     },
     {
+      "id": "jarret_boeuf_braise_biere",
+      "title": "Jarret de bœuf braisé à la bière",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/jarret_boeuf_braise_biere.jpg",
+      "card": "assets/recipes/cards/jarret_boeuf_braise_biere.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 206742,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 66460
+    },
+    {
       "id": "joues_de_boeuf_carottes_orange_vin_rouge",
       "title": "Joues de bœuf carottes orange vin rouge",
       "score": 100,
@@ -3212,6 +3302,24 @@
       "cardBytes": 83101
     },
     {
+      "id": "oeuf_parfait_croutons_lard",
+      "title": "Œuf parfait, croûtons et lard croustillant",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/oeuf_parfait_croutons_lard.jpg",
+      "card": "assets/recipes/cards/oeuf_parfait_croutons_lard.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 166873,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 53329
+    },
+    {
       "id": "oeuf_chili_crisp_toast",
       "title": "Œuf sur le plat chili crisp sur toast",
       "score": 100,
@@ -3264,6 +3372,24 @@
         "height": 760
       },
       "cardBytes": 121222
+    },
+    {
+      "id": "okonomiyaki_chou",
+      "title": "Okonomiyaki au chou",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/okonomiyaki_chou.jpg",
+      "card": "assets/recipes/cards/okonomiyaki_chou.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 206517,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 69607
     },
     {
       "id": "pain_hot_dog",
@@ -3680,6 +3806,24 @@
       "cardBytes": 126808
     },
     {
+      "id": "poelee_rigatoni_champignons",
+      "title": "Poêlée de rigatoni aux champignons",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/poelee_rigatoni_champignons.jpg",
+      "card": "assets/recipes/cards/poelee_rigatoni_champignons.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 206613,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 69160
+    },
+    {
       "id": "poires_roties_orange_miel",
       "title": "Poires rôties orange miel",
       "score": 100,
@@ -3966,6 +4110,24 @@
         "height": 428
       },
       "cardBytes": 92632
+    },
+    {
+      "id": "poulet_roti_dimanche",
+      "title": "Poulet rôti du dimanche",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/poulet_roti_dimanche.jpg",
+      "card": "assets/recipes/cards/poulet_roti_dimanche.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 209207,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 67246
     },
     {
       "id": "poulet_sauce_pimentee",
@@ -4328,6 +4490,24 @@
       "cardBytes": 110557
     },
     {
+      "id": "saint_jacques_lard_sauce_thai",
+      "title": "Saint-Jacques au lard, sauce thaï",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/saint_jacques_lard_sauce_thai.jpg",
+      "card": "assets/recipes/cards/saint_jacques_lard_sauce_thai.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 185138,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 59922
+    },
+    {
       "id": "salade_avocat_oeuf_epinards",
       "title": "Salade avocat, œuf et épinards",
       "score": 100,
@@ -4344,6 +4524,24 @@
         "height": 760
       },
       "cardBytes": 125550
+    },
+    {
+      "id": "salade_carottes_citronnee",
+      "title": "Salade de carottes citronnée",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/salade_carottes_citronnee.jpg",
+      "card": "assets/recipes/cards/salade_carottes_citronnee.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 212824,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 69373
     },
     {
       "id": "salade_pommes_terre_ottolenghi",
@@ -4740,6 +4938,24 @@
         "height": 507
       },
       "cardBytes": 70262
+    },
+    {
+      "id": "souffle_citron_vert_mojito",
+      "title": "Soufflé chaud au citron vert, sorbet mojito",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/souffle_citron_vert_mojito.jpg",
+      "card": "assets/recipes/cards/souffle_citron_vert_mojito.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 173133,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 56464
     },
     {
       "id": "soupe_paysanne_morteau",
@@ -5154,6 +5370,24 @@
         "height": 760
       },
       "cardBytes": 166858
+    },
+    {
+      "id": "tresse_beurre_classique",
+      "title": "Tresse au beurre classique",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/tresse_beurre_classique.jpg",
+      "card": "assets/recipes/cards/tresse_beurre_classique.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 163213,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 52067
     },
     {
       "id": "tresse_beurre_caminada",

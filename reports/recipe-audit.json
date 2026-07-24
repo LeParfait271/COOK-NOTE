@@ -1,24 +1,29 @@
 {
   "totals": {
-    "recipes": 298,
-    "leaves": 290,
+    "recipes": 301,
+    "leaves": 293,
     "masters": 8,
     "lowScore": 0,
-    "categoryIdeas": 25,
+    "categoryIdeas": 27,
     "qualityIssues": 0
   },
   "averageScore": 96,
   "healthDashboard": {
-    "ready": 216,
-    "improve": 74,
+    "ready": 218,
+    "improve": 75,
     "weak": 0,
     "missingDiscovery": 18,
-    "missingSafety": 56,
+    "missingSafety": 57,
     "productionRisk": 0,
-    "fewLinks": 258
+    "fewLinks": 261
   },
   "weakestRecipes": [],
   "categoryIdeas": [
+    {
+      "id": "cocktail_crevettes_palace",
+      "title": "Cocktail de crevettes Palace",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
     {
       "id": "cotelettes_porc_miel_moutarde",
       "title": "Côtelettes de porc miel moutarde",
@@ -143,6 +148,11 @@
       "id": "saint_jacques_lard_sauce_thai",
       "title": "Saint-Jacques au lard, sauce thaï",
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
+      "id": "souffle_citron_vert_mojito",
+      "title": "Soufflé chaud au citron vert, sorbet mojito",
+      "text": "Categorie possible : Apéro (semble utile a l apero)."
     }
   ],
   "recipesWithFewLinks": [
@@ -804,6 +814,19 @@
       ],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "cocktail_crevettes_palace",
+      "title": "Cocktail de crevettes Palace",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
     },
     {
       "id": "cocotte_pois_chiches_tomates_montbeliard",
@@ -2631,6 +2654,16 @@
       "suggestions": []
     },
     {
+      "id": "souffle_citron_vert_mojito",
+      "title": "Soufflé chaud au citron vert, sorbet mojito",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": [
+        "Categorie possible : Apéro (semble utile a l apero)."
+      ]
+    },
+    {
       "id": "soupe_paysanne_morteau",
       "title": "Soupe paysanne à la saucisse de Morteau",
       "score": 100,
@@ -2832,6 +2865,14 @@
     {
       "id": "tortillas_mexicaines",
       "title": "Tortillas",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "tresse_beurre_classique",
+      "title": "Tresse au beurre classique",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
