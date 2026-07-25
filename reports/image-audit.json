@@ -1,5 +1,5 @@
 {
-  "total": 302,
+  "total": 313,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -368,6 +368,24 @@
       "cardBytes": 301815
     },
     {
+      "id": "acras_epinards",
+      "title": "Acras aux épinards",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/acras_epinards.jpg",
+      "card": "assets/recipes/cards/acras_epinards.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 223327,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 69080
+    },
+    {
       "id": "aioli_safran",
       "title": "Aïoli au safran",
       "score": 100,
@@ -474,6 +492,24 @@
         "height": 428
       },
       "cardBytes": 76396
+    },
+    {
+      "id": "aubergines_roties_anchois",
+      "title": "Aubergines rôties aux anchois",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/aubergines_roties_anchois.jpg",
+      "card": "assets/recipes/cards/aubergines_roties_anchois.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 249548,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 77187
     },
     {
       "id": "babeurre_maison",
@@ -638,6 +674,24 @@
       "cardBytes": 67474
     },
     {
+      "id": "volaille_farcie_barbecue",
+      "title": "Blanc de volaille farci au barbecue",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/volaille_farcie_barbecue.jpg",
+      "card": "assets/recipes/cards/volaille_farcie_barbecue.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 209567,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 65674
+    },
+    {
       "id": "bouillabaisse_rouille",
       "title": "Bouillabaisse",
       "score": 100,
@@ -762,6 +816,24 @@
         "height": 413
       },
       "cardBytes": 75185
+    },
+    {
+      "id": "burrata_basilic_raisins_grilles",
+      "title": "Burrata au basilic et raisins grillés",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/burrata_basilic_raisins_grilles.jpg",
+      "card": "assets/recipes/cards/burrata_basilic_raisins_grilles.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 182629,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 59858
     },
     {
       "id": "cabillaud_crumble_chorizo",
@@ -1404,12 +1476,30 @@
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 165130,
+      "optimizedBytes": 191561,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 53598
+      "cardBytes": 61681
+    },
+    {
+      "id": "confit_citron",
+      "title": "Confit de citron",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/confit_citron.jpg",
+      "card": "assets/recipes/cards/confit_citron.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 189870,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 56630
     },
     {
       "id": "cookies_beurre_noisette_chocolat_noir_lait",
@@ -3410,6 +3500,42 @@
       "cardBytes": 69607
     },
     {
+      "id": "pain_ail_jamie_oliver",
+      "title": "Pain à l’ail qui déchire de Jamie Oliver",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pain_ail_jamie_oliver.jpg",
+      "card": "assets/recipes/cards/pain_ail_jamie_oliver.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 206402,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 66314
+    },
+    {
+      "id": "pain_zaatar",
+      "title": "Pain au zaatar",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pain_zaatar.jpg",
+      "card": "assets/recipes/cards/pain_zaatar.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 235759,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 72437
+    },
+    {
       "id": "pain_hot_dog",
       "title": "Pain hot dog brioché",
       "score": 100,
@@ -3570,6 +3696,24 @@
         "height": 760
       },
       "cardBytes": 164143
+    },
+    {
+      "id": "pate_tartiner_noisette_praline",
+      "title": "Pâte à tartiner noisette et praliné",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pate_tartiner_noisette_praline.jpg",
+      "card": "assets/recipes/cards/pate_tartiner_noisette_praline.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 183420,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 57502
     },
     {
       "id": "pate_legere_beignets_calamar_crevettes",
@@ -3878,6 +4022,24 @@
       "cardBytes": 83795
     },
     {
+      "id": "pommes_terre_barbecue_sauce",
+      "title": "Pommes de terre au barbecue et sauce aux herbes",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pommes_terre_barbecue_sauce.jpg",
+      "card": "assets/recipes/cards/pommes_terre_barbecue_sauce.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 188531,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 58734
+    },
+    {
       "id": "pommes_de_terre_grecques_citron_origan",
       "title": "Pommes de terre au four à la grecque",
       "score": 100,
@@ -4074,6 +4236,24 @@
         "height": 520
       },
       "cardBytes": 129296
+    },
+    {
+      "id": "poulet_basquaise_four",
+      "title": "Poulet basquaise au four",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/poulet_basquaise_four.jpg",
+      "card": "assets/recipes/cards/poulet_basquaise_four.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 224291,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 67132
     },
     {
       "id": "poulet_frit_air_fryer",
@@ -5478,6 +5658,24 @@
         "height": 760
       },
       "cardBytes": 112621
+    },
+    {
+      "id": "yaourt_citronne_tomates_confites",
+      "title": "Yaourt citronné aux tomates confites",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/yaourt_citronne_tomates_confites.jpg",
+      "card": "assets/recipes/cards/yaourt_citronne_tomates_confites.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 222281,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 70894
     }
   ]
 }

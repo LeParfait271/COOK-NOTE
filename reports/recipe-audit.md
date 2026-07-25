@@ -1,21 +1,21 @@
 # Audit Cook Note
 
-- Recettes totales : 302
-- Recettes feuilles : 294
+- Recettes totales : 313
+- Recettes feuilles : 305
 - Fiches parentes : 8
-- Score moyen : 96/100
+- Score moyen : 95/100
 - Fiches sous 78 : 0
 - Fiches avec defauts a verifier : 0
 
 ## Dashboard sante
 
-- Pretes : 219
-- A ameliorer : 75
+- Pretes : 223
+- A ameliorer : 82
 - Faibles : 0
 - Decouverte faible : 18
-- Conservation/securite a verifier : 57
+- Conservation/securite a verifier : 64
 - Risque image/production : 0
-- Sans liens internes explicites : 262
+- Sans liens internes explicites : 270
 
 ## Fiches a surveiller
 
@@ -23,11 +23,15 @@ Aucune fiche faible detectee.
 
 ## Audit integral
 
+- Acras aux épinards (acras_epinards) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Aïoli au safran (aioli_safran) : 100/100 - OK
 - Aïoli citronné léger (aioli_citronne_leger) : 100/100 - OK
 - Ajitsuke tamago œufs marinés ramen (ajitsuke_tamago_oeufs_marines_ramen) : 100/100 - OK
 - Asperges mimosa (asperges_mimosa) : 100/100 - OK
 - Asperges vertes au lard grillé (asperges_vertes_lard) : 100/100 - OK
+- Aubergines rôties aux anchois (aubergines_roties_anchois) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Babeurre (babeurre_maison) : 100/100 - OK
 - Balsamique réduit (balsamique_reduit) : 100/100 - OK
 - Base pour flan salé (base_pour_flan_sale) : 100/100 - OK
@@ -40,6 +44,7 @@ Aucune fiche faible detectee.
 - Beurre d’escargot persillé (beurre_d_escargot_persille) : 100/100 - OK
 - Billes de mozzarella marinées (billes_mozzarella_marinees) : 100/100 - OK
 - Biscuits sablés vanille-chocolat (biscuits_sables_vanille_chocolat) : 100/100 - OK
+- Blanc de volaille farci au barbecue (volaille_farcie_barbecue) : 100/100 - OK
 - Bouillabaisse (bouillabaisse_rouille) : 100/100 - OK
 - Bricks fromage miel poires pecan (bricks_fromage_miel_poires_pecan) : 100/100 - OK
 - Brie farci aux fruits secs et noix (brie_farci_fruits_secs_noix) : 100/100 - OK
@@ -49,6 +54,8 @@ Aucune fiche faible detectee.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Brochettes de melon épicé (brochettes_melon_epice) : 100/100 - OK
 - Bruschetta roquefort noix (bruschetta_roquefort_noix) : 100/100 - OK
+- Burrata au basilic et raisins grillés (burrata_basilic_raisins_grilles) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo) : 100/100 - OK
 - Cake au chocolat et aux amandes (cake_chocolat_amandes) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -97,6 +104,7 @@ Aucune fiche faible detectee.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cocotte porc chorizo haricots tarbais (porc_chorizo_haricots_tarbais) : 100/100 - OK
 - Colombo d’espadon (colombo_espadon) : 100/100 - OK
+- Confit de citron (confit_citron) : 100/100 - OK
 - Cookies au beurre noisette chocolat noir/lait (cookies_beurre_noisette_chocolat_noir_lait) : 100/100 - OK
 - Cookies au chocolat noir/lait (cookies_chocolat_noir_lait) : 100/100 - OK
 - Cookies aux flocons d’avoine, noix et fruits secs (cookies_avoine_noix_fruits_secs) : 100/100 - OK
@@ -245,6 +253,10 @@ Aucune fiche faible detectee.
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Okonomiyaki au chou (okonomiyaki_chou) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Pain à l’ail qui déchire de Jamie Oliver (pain_ail_jamie_oliver) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Pain au zaatar (pain_zaatar) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pain grillé beurre ail et herbes (pain_grille_beurre_ail_herbes) : 100/100 - OK
 - Pain hot dog brioché (pain_hot_dog) : 100/100 - OK
 - Pains burgers briochés (pains_burgers_brioche) : 100/100 - OK
@@ -257,6 +269,8 @@ Aucune fiche faible detectee.
 - Parmentier de confit de canard et patates douces (parmentier_confit_canard_patates_douces) : 100/100 - OK
 - Patates douces au four (patates_douces_four) : 100/100 - OK
 - Pâte à choux (pate_choux) : 100/100 - OK
+- Pâte à tartiner noisette et praliné (pate_tartiner_noisette_praline) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pâté de lapin au piment d’Espelette (pate_lapin_piment_espelette) : 100/100 - OK
 - Pâte légère à frire (pate_legere_beignets_calamar_crevettes) : 100/100 - OK
 - Pâte sucrée (pate_sucree) : 84/100 - OK
@@ -280,6 +294,7 @@ Aucune fiche faible detectee.
 - Poires rôties orange miel (poires_roties_orange_miel) : 100/100 - OK
 - Pommes de terre à l’air fryer (pommes_de_terre_air_fryer) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Pommes de terre au barbecue et sauce aux herbes (pommes_terre_barbecue_sauce) : 100/100 - OK
 - Pommes de terre au four à la grecque (pommes_de_terre_grecques_citron_origan) : 100/100 - OK
 - Pommes de terre confites à l’ail et au romarin (pommes_de_terre_confites_ail_romarin) : 100/100 - OK
 - Pommes de terre fondantes aux herbes et moutarde (pommes_de_terre_fondantes_moutarde) : 100/100 - OK
@@ -292,6 +307,8 @@ Aucune fiche faible detectee.
 - Poulet au chorizo, vin blanc et citron (poulet_chorizo_vin_blanc_citron) : 100/100 - OK
 - Poulet aux tomates, poivron, vin blanc et thym (poulet_tomates_poivron_vin_blanc_thym) : 100/100 - OK
 - Poulet basquaise (poulet_basquaise) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Poulet basquaise au four (poulet_basquaise_four) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poulet frit air fryer (poulet_frit_air_fryer) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -392,9 +409,11 @@ Aucune fiche faible detectee.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Vinaigrette (vinaigrette) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
+- Yaourt citronné aux tomates confites (yaourt_citronne_tomates_confites) : 100/100 - OK
 
 ## Idees de rangement prudentes
 
+- Aubergines rôties aux anchois (aubergines_roties_anchois) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Cocktail de crevettes Palace (cocktail_crevettes_palace) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Côtelettes de porc miel moutarde (cotelettes_porc_miel_moutarde) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Filet de bœuf au vin rouge, pommes crousti-fondantes (filet_boeuf_vin_rouge) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
@@ -417,6 +436,7 @@ Aucune fiche faible detectee.
 - Pâtes à tarte (pates_tarte_variantes) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Pâtes au crumble de chorizo (pates_crumble_chorizo) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Pâtes au pesto, tomates cerises et mozzarella (pates_pesto_tomates_mozzarella) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
+- Pommes de terre au barbecue et sauce aux herbes (pommes_terre_barbecue_sauce) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Poulet pommes de terre asperges (poulet_pommes_de_terre_asperges) : Categorie possible : Accompagnements (semble etre un accompagnement).
 - Poulet tikka masala (poulet_tikka_masala) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Riz sauté au poulet (riz_saute_poulet) : Categorie possible : Accompagnements (semble etre un accompagnement).
@@ -425,9 +445,11 @@ Aucune fiche faible detectee.
 
 ## Fiches a relier progressivement
 
+- Acras aux épinards (acras_epinards)
 - Aïoli au safran (aioli_safran)
 - Ajitsuke tamago œufs marinés ramen (ajitsuke_tamago_oeufs_marines_ramen)
 - Asperges vertes au lard grillé (asperges_vertes_lard)
+- Aubergines rôties aux anchois (aubergines_roties_anchois)
 - Babeurre (babeurre_maison)
 - Balsamique réduit (balsamique_reduit)
 - Base pour flan salé (base_pour_flan_sale)
@@ -436,12 +458,14 @@ Aucune fiche faible detectee.
 - Beurre d’escargot persillé (beurre_d_escargot_persille)
 - Billes de mozzarella marinées (billes_mozzarella_marinees)
 - Biscuits sablés vanille-chocolat (biscuits_sables_vanille_chocolat)
+- Blanc de volaille farci au barbecue (volaille_farcie_barbecue)
 - Bricks fromage miel poires pecan (bricks_fromage_miel_poires_pecan)
 - Brie farci aux fruits secs et noix (brie_farci_fruits_secs_noix)
 - Brioches apéritives, trois garnitures (brioches_aperitives)
 - Brochettes crevettes chorizo (brochettes_crevettes_chorizo)
 - Brochettes de melon épicé (brochettes_melon_epice)
 - Bruschetta roquefort noix (bruschetta_roquefort_noix)
+- Burrata au basilic et raisins grillés (burrata_basilic_raisins_grilles)
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo)
 - Cake au chocolat et aux amandes (cake_chocolat_amandes)
 - Cake au citron (cake_citron)
@@ -451,7 +475,3 @@ Aucune fiche faible detectee.
 - Carottes braisées (carottes_braisees)
 - Carottes braisees orange citron confit (carottes_braisees_orange_citron_confit)
 - Carottes persillade crème (carottes_persillade_creme)
-- Carottes rôties miel épices (carottes_roties_miel_epices)
-- Carpaccio betterave mozzarella yuzu (carpaccio_betterave_mozzarella_yuzu)
-- Carré d’agneau croûte d’herbes (carre_d_agneau_croute_d_herbes)
-- Carrés crémeux citron vert (carres_cremeux_citron_vert)

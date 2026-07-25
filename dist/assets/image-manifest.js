@@ -10,6 +10,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 540,
     "bytes": 301815
   },
+  "assets/recipes/cards/acras_epinards.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 69080
+  },
   "assets/recipes/cards/aioli_citronne_leger.jpg": {
     "width": 760,
     "height": 428,
@@ -39,6 +44,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 428,
     "bytes": 76396
+  },
+  "assets/recipes/cards/aubergines_roties_anchois.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 77187
   },
   "assets/recipes/cards/babeurre_maison.jpg": {
     "width": 760,
@@ -129,6 +139,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 380,
     "bytes": 63745
+  },
+  "assets/recipes/cards/burrata_basilic_raisins_grilles.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 59858
   },
   "assets/recipes/cards/cabillaud_crumble_chorizo.jpg": {
     "width": 760,
@@ -323,12 +338,17 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/recipes/cards/colombo_espadon.jpg": {
     "width": 760,
     "height": 428,
-    "bytes": 53598
+    "bytes": 61681
   },
   "assets/recipes/cards/compotee_citron.jpg": {
     "width": 760,
     "height": 760,
     "bytes": 159135
+  },
+  "assets/recipes/cards/confit_citron.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 56630
   },
   "assets/recipes/cards/cookies_avoine_noix_fruits_secs.jpg": {
     "width": 760,
@@ -930,6 +950,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 72977
   },
+  "assets/recipes/cards/pain_zaatar.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 72437
+  },
   "assets/recipes/cards/pains_burgers_brioche.jpg": {
     "width": 760,
     "height": 570,
@@ -984,6 +1009,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 760,
     "bytes": 166360
+  },
+  "assets/recipes/cards/pate_tartiner_noisette_praline.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 57502
   },
   "assets/recipes/cards/pates_brocolis_amandes.jpg": {
     "width": 760,
@@ -1090,6 +1120,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 507,
     "bytes": 72731
   },
+  "assets/recipes/cards/pommes_terre_barbecue_sauce.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 58734
+  },
   "assets/recipes/cards/porc_chorizo_haricots_tarbais.jpg": {
     "width": 760,
     "height": 507,
@@ -1104,6 +1139,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 507,
     "bytes": 81586
+  },
+  "assets/recipes/cards/poulet_basquaise_four.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 67132
   },
   "assets/recipes/cards/poulet_basquaise.jpg": {
     "width": 1040,
@@ -1520,10 +1560,25 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 760,
     "bytes": 112621
   },
+  "assets/recipes/cards/volaille_farcie_barbecue.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 65674
+  },
+  "assets/recipes/cards/yaourt_citronne_tomates_confites.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 70894
+  },
   "assets/recipes/heroes/accompagnements_maitre.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 602509
+  },
+  "assets/recipes/heroes/acras_epinards.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 223327
   },
   "assets/recipes/heroes/aioli_citronne_leger.jpg": {
     "width": 1400,
@@ -1554,6 +1609,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 250330
+  },
+  "assets/recipes/heroes/aubergines_roties_anchois.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 249548
   },
   "assets/recipes/heroes/babeurre_maison.jpg": {
     "width": 1024,
@@ -1644,6 +1704,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 700,
     "bytes": 215418
+  },
+  "assets/recipes/heroes/burrata_basilic_raisins_grilles.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 182629
   },
   "assets/recipes/heroes/cabillaud_crumble_chorizo.jpg": {
     "width": 1672,
@@ -1838,12 +1903,17 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/recipes/heroes/colombo_espadon.jpg": {
     "width": 1400,
     "height": 788,
-    "bytes": 165130
+    "bytes": 191561
   },
   "assets/recipes/heroes/compotee_citron.jpg": {
     "width": 1024,
     "height": 1024,
     "bytes": 262705
+  },
+  "assets/recipes/heroes/confit_citron.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 189870
   },
   "assets/recipes/heroes/cookies_avoine_noix_fruits_secs.jpg": {
     "width": 1400,
@@ -2445,6 +2515,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 235921
   },
+  "assets/recipes/heroes/pain_zaatar.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 235759
+  },
   "assets/recipes/heroes/pains_burgers_brioche.jpg": {
     "width": 1400,
     "height": 1050,
@@ -2499,6 +2574,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 292224
+  },
+  "assets/recipes/heroes/pate_tartiner_noisette_praline.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 183420
   },
   "assets/recipes/heroes/pates_brocolis_amandes.jpg": {
     "width": 1400,
@@ -2605,6 +2685,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 210848
   },
+  "assets/recipes/heroes/pommes_terre_barbecue_sauce.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 188531
+  },
   "assets/recipes/heroes/porc_chorizo_haricots_tarbais.jpg": {
     "width": 1400,
     "height": 933,
@@ -2619,6 +2704,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 256203
+  },
+  "assets/recipes/heroes/poulet_basquaise_four.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 224291
   },
   "assets/recipes/heroes/poulet_basquaise.jpg": {
     "width": 1536,
@@ -3035,6 +3125,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 199438
   },
+  "assets/recipes/heroes/volaille_farcie_barbecue.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 209567
+  },
+  "assets/recipes/heroes/yaourt_citronne_tomates_confites.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 222281
+  },
   "assets/theme/dark/categories/accompagnements_maitre.jpg": {
     "width": 1280,
     "height": 720,
@@ -3085,6 +3185,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 941,
     "bytes": 2730249
   },
+  "assets/theme/dark/recipes/acras_epinards.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 358641
+  },
   "assets/theme/dark/recipes/aioli_citronne_leger.jpg": {
     "width": 1400,
     "height": 788,
@@ -3099,6 +3204,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 209072
+  },
+  "assets/theme/dark/recipes/aubergines_roties_anchois.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 398125
   },
   "assets/theme/dark/recipes/babeurre_maison.jpg": {
     "width": 1280,
@@ -3169,6 +3279,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 700,
     "bytes": 215389
+  },
+  "assets/theme/dark/recipes/burrata_basilic_raisins_grilles.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 288176
   },
   "assets/theme/dark/recipes/cabillaud_crumble_chorizo.jpg": {
     "width": 1280,
@@ -3331,14 +3446,19 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 186813
   },
   "assets/theme/dark/recipes/colombo_espadon.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 151349
+    "width": 1672,
+    "height": 941,
+    "bytes": 326246
   },
   "assets/theme/dark/recipes/compotee_citron.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 146534
+  },
+  "assets/theme/dark/recipes/confit_citron.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 312109
   },
   "assets/theme/dark/recipes/cookies_avoine_noix_fruits_secs.jpg": {
     "width": 1280,
@@ -3796,9 +3916,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 171712
   },
   "assets/theme/dark/recipes/pain_ail_jamie_oliver.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 206402
+    "width": 1672,
+    "height": 940,
+    "bytes": 365334
   },
   "assets/theme/dark/recipes/pain_grille_beurre_ail_herbes.jpg": {
     "width": 1400,
@@ -3809,6 +3929,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 186817
+  },
+  "assets/theme/dark/recipes/pain_zaatar.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 376086
   },
   "assets/theme/dark/recipes/pains_burgers_brioche.jpg": {
     "width": 1280,
@@ -3849,6 +3974,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 167610
+  },
+  "assets/theme/dark/recipes/pate_tartiner_noisette_praline.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 292937
   },
   "assets/theme/dark/recipes/pates_brocolis_amandes.jpg": {
     "width": 1280,
@@ -3940,6 +4070,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 190841
   },
+  "assets/theme/dark/recipes/pommes_terre_barbecue_sauce.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 303044
+  },
   "assets/theme/dark/recipes/porc_chorizo_haricots_tarbais.jpg": {
     "width": 1280,
     "height": 720,
@@ -3954,6 +4089,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 198612
+  },
+  "assets/theme/dark/recipes/poulet_basquaise_four.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 361449
   },
   "assets/theme/dark/recipes/poulet_basquaise.jpg": {
     "width": 1280,
@@ -4315,6 +4455,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 188103
   },
+  "assets/theme/dark/recipes/volaille_farcie_barbecue.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 335509
+  },
+  "assets/theme/dark/recipes/yaourt_citronne_tomates_confites.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 352410
+  },
   "assets/theme/day/categories/accompagnements_maitre.jpg": {
     "width": 1280,
     "height": 720,
@@ -4365,6 +4515,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 302,
     "bytes": 583278
   },
+  "assets/theme/day/recipes/acras_epinards.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 431614
+  },
   "assets/theme/day/recipes/aioli_citronne_leger.jpg": {
     "width": 1400,
     "height": 1050,
@@ -4389,6 +4544,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 258834
+  },
+  "assets/theme/day/recipes/aubergines_roties_anchois.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 467766
   },
   "assets/theme/day/recipes/babeurre_maison.jpg": {
     "width": 1280,
@@ -4479,6 +4639,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 335671
+  },
+  "assets/theme/day/recipes/burrata_basilic_raisins_grilles.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 372967
   },
   "assets/theme/day/recipes/cabillaud_crumble_chorizo.jpg": {
     "width": 1280,
@@ -4671,14 +4836,19 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 230335
   },
   "assets/theme/day/recipes/colombo_espadon.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 191120
+    "width": 1672,
+    "height": 941,
+    "bytes": 429686
   },
   "assets/theme/day/recipes/compotee_citron.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 215066
+  },
+  "assets/theme/day/recipes/confit_citron.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 451641
   },
   "assets/theme/day/recipes/cookies_avoine_noix_fruits_secs.jpg": {
     "width": 1280,
@@ -5251,9 +5421,9 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "bytes": 246551
   },
   "assets/theme/day/recipes/pain_ail_jamie_oliver.jpg": {
-    "width": 1400,
-    "height": 788,
-    "bytes": 206402
+    "width": 1672,
+    "height": 941,
+    "bytes": 532363
   },
   "assets/theme/day/recipes/pain_grille_beurre_ail_herbes.jpg": {
     "width": 1400,
@@ -5264,6 +5434,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 218801
+  },
+  "assets/theme/day/recipes/pain_zaatar.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 524666
   },
   "assets/theme/day/recipes/pains_burgers_brioche.jpg": {
     "width": 1280,
@@ -5319,6 +5494,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 219170
+  },
+  "assets/theme/day/recipes/pate_tartiner_noisette_praline.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 459115
   },
   "assets/theme/day/recipes/pates_brocolis_amandes.jpg": {
     "width": 1280,
@@ -5415,6 +5595,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 195924
   },
+  "assets/theme/day/recipes/pommes_terre_barbecue_sauce.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 469183
+  },
   "assets/theme/day/recipes/porc_chorizo_haricots_tarbais.jpg": {
     "width": 1280,
     "height": 720,
@@ -5429,6 +5614,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 228040
+  },
+  "assets/theme/day/recipes/poulet_basquaise_four.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 482150
   },
   "assets/theme/day/recipes/poulet_basquaise.jpg": {
     "width": 1280,
@@ -5839,5 +6029,15 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 216613
+  },
+  "assets/theme/day/recipes/volaille_farcie_barbecue.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 416724
+  },
+  "assets/theme/day/recipes/yaourt_citronne_tomates_confites.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 418193
   }
 });

@@ -1,24 +1,29 @@
 {
   "totals": {
-    "recipes": 302,
-    "leaves": 294,
+    "recipes": 313,
+    "leaves": 305,
     "masters": 8,
     "lowScore": 0,
-    "categoryIdeas": 27,
+    "categoryIdeas": 29,
     "qualityIssues": 0
   },
-  "averageScore": 96,
+  "averageScore": 95,
   "healthDashboard": {
-    "ready": 219,
-    "improve": 75,
+    "ready": 223,
+    "improve": 82,
     "weak": 0,
     "missingDiscovery": 18,
-    "missingSafety": 57,
+    "missingSafety": 64,
     "productionRisk": 0,
-    "fewLinks": 262
+    "fewLinks": 270
   },
   "weakestRecipes": [],
   "categoryIdeas": [
+    {
+      "id": "aubergines_roties_anchois",
+      "title": "Aubergines rôties aux anchois",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
     {
       "id": "cocktail_crevettes_palace",
       "title": "Cocktail de crevettes Palace",
@@ -130,6 +135,11 @@
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
+      "id": "pommes_terre_barbecue_sauce",
+      "title": "Pommes de terre au barbecue et sauce aux herbes",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
       "id": "poulet_pommes_de_terre_asperges",
       "title": "Poulet pommes de terre asperges",
       "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
@@ -157,6 +167,11 @@
   ],
   "recipesWithFewLinks": [
     {
+      "id": "acras_epinards",
+      "title": "Acras aux épinards",
+      "count": 0
+    },
+    {
       "id": "aioli_safran",
       "title": "Aïoli au safran",
       "count": 0
@@ -169,6 +184,11 @@
     {
       "id": "asperges_vertes_lard",
       "title": "Asperges vertes au lard grillé",
+      "count": 0
+    },
+    {
+      "id": "aubergines_roties_anchois",
+      "title": "Aubergines rôties aux anchois",
       "count": 0
     },
     {
@@ -212,6 +232,11 @@
       "count": 0
     },
     {
+      "id": "volaille_farcie_barbecue",
+      "title": "Blanc de volaille farci au barbecue",
+      "count": 0
+    },
+    {
       "id": "bricks_fromage_miel_poires_pecan",
       "title": "Bricks fromage miel poires pecan",
       "count": 0
@@ -239,6 +264,11 @@
     {
       "id": "bruschetta_roquefort_noix",
       "title": "Bruschetta roquefort noix",
+      "count": 0
+    },
+    {
+      "id": "burrata_basilic_raisins_grilles",
+      "title": "Burrata au basilic et raisins grillés",
       "count": 0
     },
     {
@@ -285,29 +315,21 @@
       "id": "carottes_persillade_creme",
       "title": "Carottes persillade crème",
       "count": 0
-    },
-    {
-      "id": "carottes_roties_miel_epices",
-      "title": "Carottes rôties miel épices",
-      "count": 0
-    },
-    {
-      "id": "carpaccio_betterave_mozzarella_yuzu",
-      "title": "Carpaccio betterave mozzarella yuzu",
-      "count": 0
-    },
-    {
-      "id": "carre_d_agneau_croute_d_herbes",
-      "title": "Carré d’agneau croûte d’herbes",
-      "count": 0
-    },
-    {
-      "id": "carres_cremeux_citron_vert",
-      "title": "Carrés crémeux citron vert",
-      "count": 0
     }
   ],
   "reviewedRecipes": [
+    {
+      "id": "acras_epinards",
+      "title": "Acras aux épinards",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
     {
       "id": "aioli_safran",
       "title": "Aïoli au safran",
@@ -349,6 +371,19 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "aubergines_roties_anchois",
+      "title": "Aubergines rôties aux anchois",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
     },
     {
       "id": "babeurre_maison",
@@ -443,6 +478,14 @@
       "suggestions": []
     },
     {
+      "id": "volaille_farcie_barbecue",
+      "title": "Blanc de volaille farci au barbecue",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "bouillabaisse_rouille",
       "title": "Bouillabaisse",
       "score": 100,
@@ -512,6 +555,18 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "burrata_basilic_raisins_grilles",
+      "title": "Burrata au basilic et raisins grillés",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "cabillaud_crumble_chorizo",
@@ -849,6 +904,14 @@
     {
       "id": "colombo_espadon",
       "title": "Colombo d’espadon",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "confit_citron",
+      "title": "Confit de citron",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -1892,6 +1955,30 @@
       ]
     },
     {
+      "id": "pain_ail_jamie_oliver",
+      "title": "Pain à l’ail qui déchire de Jamie Oliver",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
+      "id": "pain_zaatar",
+      "title": "Pain au zaatar",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "pain_grille_beurre_ail_herbes",
       "title": "Pain grillé beurre ail et herbes",
       "score": 100,
@@ -1978,6 +2065,18 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "pate_tartiner_noisette_praline",
+      "title": "Pâte à tartiner noisette et praliné",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "pate_lapin_piment_espelette",
@@ -2140,6 +2239,16 @@
       "suggestions": []
     },
     {
+      "id": "pommes_terre_barbecue_sauce",
+      "title": "Pommes de terre au barbecue et sauce aux herbes",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": [
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
+    },
+    {
       "id": "pommes_de_terre_grecques_citron_origan",
       "title": "Pommes de terre au four à la grecque",
       "score": 100,
@@ -2230,6 +2339,18 @@
       ],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "poulet_basquaise_four",
+      "title": "Poulet basquaise au four",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "poulet_frit_air_fryer",
@@ -2923,6 +3044,14 @@
       "issues": [
         "Decouverte faible : tags, alias ou liens internes pauvres."
       ],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "yaourt_citronne_tomates_confites",
+      "title": "Yaourt citronné aux tomates confites",
+      "score": 100,
+      "issues": [],
       "qualityIssues": [],
       "suggestions": []
     }

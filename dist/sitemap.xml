@@ -10,6 +10,9 @@
     <loc>https://cook-note.pages.dev/recette/accompagnements_maitre</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/acras_epinards</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/aioli_citronne_leger</loc>
   </url>
   <url>
@@ -26,6 +29,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/asperges_vertes_lard</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/aubergines_roties_anchois</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/babeurre_maison</loc>
@@ -80,6 +86,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/bruschetta_roquefort_noix</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/burrata_basilic_raisins_grilles</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/cabillaud_crumble_chorizo</loc>
@@ -200,6 +209,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/compotee_citron</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/confit_citron</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/cookies_avoine_noix_fruits_secs</loc>
@@ -562,6 +574,9 @@
     <loc>https://cook-note.pages.dev/recette/pain_hot_dog</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/pain_zaatar</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/pains_burgers_brioche</loc>
   </url>
   <url>
@@ -593,6 +608,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pate_sucree</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/pate_tartiner_noisette_praline</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pates_brocolis_amandes</loc>
@@ -658,6 +676,9 @@
     <loc>https://cook-note.pages.dev/recette/pommes_paille</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/pommes_terre_barbecue_sauce</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/porc_chorizo_haricots_tarbais</loc>
   </url>
   <url>
@@ -668,6 +689,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/poulet_basquaise</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/poulet_basquaise_four</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/poulet_chorizo_vin_blanc_citron</loc>
@@ -914,5 +938,11 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/vinaigrette</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/volaille_farcie_barbecue</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/yaourt_citronne_tomates_confites</loc>
   </url>
 </urlset>
