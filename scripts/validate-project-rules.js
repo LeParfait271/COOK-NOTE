@@ -106,6 +106,7 @@ expect('Tokens design system admin absents.', validators.adminCss.includes('--ds
   'Chaque recette feuille doit avoir une image locale unique',
   'Aucune image recette ne doit venir du web',
   'Les donnees recette ne doivent jamais contenir de champs publics de source',
+  'Les titres de recettes restent culinaires, neutres et factuels',
   'pas de presque-doublon',
   'npm run validate:visual-images',
   'assets/recipes/heroes/',
@@ -301,6 +302,7 @@ expect('Validation poivre du moulin non branchee.', validators.recipes.includes(
 expect('Validation unites non metriques non branchee.', validators.recipes.includes('NON_METRIC_UNIT_RE'));
 expect('Validation images uniques non branchee.', validators.recipes.includes('leafImageHashes'));
 expect('Validation sources recette interdites non branchee.', validators.recipes.includes('FORBIDDEN_RECIPE_SOURCE_KEYS') && validators.recipes.includes('image externe interdite'));
+expect('Validation qualificatifs marketing des titres non branchee.', validators.recipes.includes('MARKETING_TITLE_QUALIFIER_RE') && validators.recipes.includes('qualificatif marketing interdit dans le titre'));
 expect('Validation doublons visuels non branchee.', validators.visualImages.includes('PERCEPTUAL_CORRELATION_LIMIT') && validators.packageJson.includes('scripts/validate-visual-image-duplicates.js'));
 expect('Validation images optimisees non branchee.', validators.recipes.includes('assets/recipes/heroes') && validators.recipes.includes('master PNG introuvable'));
 expect('Validation chemins images locaux non branchee.', validators.recipes.includes('image locale introuvable') && validators.recipes.includes('image recette non optimisee'));

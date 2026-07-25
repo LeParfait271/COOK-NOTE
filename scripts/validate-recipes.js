@@ -19,6 +19,7 @@ vm.runInContext(code, context, { filename: recipesPath });
 
 const rawRecipes = context.window.RECIPES;
 const errors = [];
+const MARKETING_TITLE_QUALIFIER_RE = /\b(?:rapides?|faciles?|simples?|express|inratables?)\b/i;
 const NON_METRIC_MEASURE_RE = /(^|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])(?:(?:\d+(?:[.,]\d+)?|une?|des|quelques)\s+)(?:cups?|oz|ounces?|tasses?)(?=$|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])/i;
 const ENCODING_SUSPECT_RE = new RegExp('(?:\\uFFFD|\\u00C3|\\u00C2[\\u00A0-\\u00BF]|\\u00E2\\u20AC|\\u00C5[\\u2018\\u2019\\u201C\\u201D])');
 const NON_METRIC_UNIT_RE = /(^|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])(?:cups?|oz|ounces?|tasses?)(?=$|[^0-9A-Za-zÀ-ÖØ-öø-ÿ])/i;
@@ -540,6 +541,9 @@ if (!recipes || typeof recipes !== 'object') {
   for (const [id, recipe] of Object.entries(recipes)) {
     const isMaster = masterIds.has(id);
     if (!recipe.title) errors.push(`${id}: titre manquant.`);
+    if (MARKETING_TITLE_QUALIFIER_RE.test(String(recipe.title || ''))) {
+      errors.push(`${id}: qualificatif marketing interdit dans le titre (${recipe.title}).`);
+    }
     checkMissingApostrophe(recipe.title, `${id}.title`);
     if (!isMaster && (!Array.isArray(recipe.ingredients) || !recipe.ingredients.length)) errors.push(`${id}: ingredients manquants.`);
     if (!isMaster && (!Array.isArray(recipe.steps) || !recipe.steps.length)) errors.push(`${id}: etapes manquantes.`);
