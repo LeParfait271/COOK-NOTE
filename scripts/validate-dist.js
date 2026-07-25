@@ -142,6 +142,13 @@ if (!fs.existsSync(DIST)) {
       fail(`dist/_redirects:${index + 1}: boucle Cloudflare detectee (redirection vers index.html interdite).`);
     }
   });
+  const recipeFallbackIndex = redirects.indexOf('/recette/* / 200');
+  ['/techniques / 200', '/techniques/ /techniques 301'].forEach(rule => {
+    const ruleIndex = redirects.indexOf(rule);
+    if (ruleIndex < 0 || (recipeFallbackIndex >= 0 && ruleIndex > recipeFallbackIndex)) {
+      fail(`dist/_redirects: la route exacte "${rule}" doit preceder le fallback /recette/*.`);
+    }
+  });
   Object.entries(recipes).forEach(([id, recipe]) => {
     const image = recipe?.image;
     if (!image || !image.startsWith('/assets/recipes/heroes/')) {

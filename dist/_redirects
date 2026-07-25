@@ -311,6 +311,6 @@
 /recette/vinaigrette /recette/vinaigrette/ 301
 /recette/volaille_farcie_barbecue /recette/volaille_farcie_barbecue/ 301
 /recette/yaourt_citronne_tomates_confites /recette/yaourt_citronne_tomates_confites/ 301
-/recette/* / 200
 /techniques / 200
 /techniques/ /techniques 301
+/recette/* / 200
