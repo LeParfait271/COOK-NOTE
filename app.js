@@ -4649,6 +4649,7 @@ function ActiveChips({ chips }) {
 
 function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNote }) {
   const master = isMasterRecipe(recipe);
+  const variantLabel = getRecipeVariantLabel(recipe, recipesById);
   const color = getCategoryColor(recipe);
   const style = { '--card-accent': color };
   const sourceImage = displayRecipeImage(recipe);
@@ -4696,7 +4697,10 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       !renderCardImage && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1))
     ),
     h('div', { className: 'card-body' },
-      h('h3', null, recipe.title)
+      h('h3', null, recipe.title),
+      variantLabel && h('p', { className: 'card-meta', 'aria-label': variantLabel },
+        h('span', { className: 'card-variant-count' }, variantLabel)
+      )
     )
   );
 }
