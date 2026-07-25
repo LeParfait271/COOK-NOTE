@@ -1,7 +1,7 @@
 # Audit Cook Note
 
-- Recettes totales : 301
-- Recettes feuilles : 293
+- Recettes totales : 302
+- Recettes feuilles : 294
 - Fiches parentes : 8
 - Score moyen : 96/100
 - Fiches sous 78 : 0
@@ -9,13 +9,13 @@
 
 ## Dashboard sante
 
-- Pretes : 218
+- Pretes : 219
 - A ameliorer : 75
 - Faibles : 0
 - Decouverte faible : 18
 - Conservation/securite a verifier : 57
 - Risque image/production : 0
-- Sans liens internes explicites : 261
+- Sans liens internes explicites : 262
 
 ## Fiches a surveiller
 
@@ -96,6 +96,7 @@ Aucune fiche faible detectee.
 - Cocotte de pois chiches tomates et saucisse de Montbéliard (cocotte_pois_chiches_tomates_montbeliard) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Cocotte porc chorizo haricots tarbais (porc_chorizo_haricots_tarbais) : 100/100 - OK
+- Colombo d’espadon (colombo_espadon) : 100/100 - OK
 - Cookies au beurre noisette chocolat noir/lait (cookies_beurre_noisette_chocolat_noir_lait) : 100/100 - OK
 - Cookies au chocolat noir/lait (cookies_chocolat_noir_lait) : 100/100 - OK
 - Cookies aux flocons d’avoine, noix et fruits secs (cookies_avoine_noix_fruits_secs) : 100/100 - OK

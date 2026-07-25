@@ -320,6 +320,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 570,
     "bytes": 91362
   },
+  "assets/recipes/cards/colombo_espadon.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 53598
+  },
   "assets/recipes/cards/compotee_citron.jpg": {
     "width": 760,
     "height": 760,
@@ -909,6 +914,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 428,
     "bytes": 69607
+  },
+  "assets/recipes/cards/pain_ail_jamie_oliver.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 66314
   },
   "assets/recipes/cards/pain_grille_beurre_ail_herbes.jpg": {
     "width": 760,
@@ -1825,6 +1835,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1050,
     "bytes": 298850
   },
+  "assets/recipes/heroes/colombo_espadon.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 165130
+  },
   "assets/recipes/heroes/compotee_citron.jpg": {
     "width": 1024,
     "height": 1024,
@@ -2414,6 +2429,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 206517
+  },
+  "assets/recipes/heroes/pain_ail_jamie_oliver.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 206402
   },
   "assets/recipes/heroes/pain_grille_beurre_ail_herbes.jpg": {
     "width": 1400,
@@ -3310,6 +3330,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 186813
   },
+  "assets/theme/dark/recipes/colombo_espadon.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 151349
+  },
   "assets/theme/dark/recipes/compotee_citron.jpg": {
     "width": 1280,
     "height": 720,
@@ -3769,6 +3794,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 171712
+  },
+  "assets/theme/dark/recipes/pain_ail_jamie_oliver.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 206402
   },
   "assets/theme/dark/recipes/pain_grille_beurre_ail_herbes.jpg": {
     "width": 1400,
@@ -4640,6 +4670,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 230335
   },
+  "assets/theme/day/recipes/colombo_espadon.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 191120
+  },
   "assets/theme/day/recipes/compotee_citron.jpg": {
     "width": 1280,
     "height": 720,
@@ -5214,6 +5249,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 246551
+  },
+  "assets/theme/day/recipes/pain_ail_jamie_oliver.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 206402
   },
   "assets/theme/day/recipes/pain_grille_beurre_ail_herbes.jpg": {
     "width": 1400,

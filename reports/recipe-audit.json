@@ -1,7 +1,7 @@
 {
   "totals": {
-    "recipes": 301,
-    "leaves": 293,
+    "recipes": 302,
+    "leaves": 294,
     "masters": 8,
     "lowScore": 0,
     "categoryIdeas": 27,
@@ -9,13 +9,13 @@
   },
   "averageScore": 96,
   "healthDashboard": {
-    "ready": 218,
+    "ready": 219,
     "improve": 75,
     "weak": 0,
     "missingDiscovery": 18,
     "missingSafety": 57,
     "productionRisk": 0,
-    "fewLinks": 261
+    "fewLinks": 262
   },
   "weakestRecipes": [],
   "categoryIdeas": [
@@ -841,6 +841,14 @@
     {
       "id": "porc_chorizo_haricots_tarbais",
       "title": "Cocotte porc chorizo haricots tarbais",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "colombo_espadon",
+      "title": "Colombo d’espadon",
       "score": 100,
       "issues": [],
       "qualityIssues": [],

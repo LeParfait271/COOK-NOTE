@@ -1,5 +1,5 @@
 {
-  "total": 301,
+  "total": 302,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -1392,6 +1392,24 @@
         "height": 507
       },
       "cardBytes": 84693
+    },
+    {
+      "id": "colombo_espadon",
+      "title": "Colombo d’espadon",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/colombo_espadon.jpg",
+      "card": "assets/recipes/cards/colombo_espadon.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 165130,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 53598
     },
     {
       "id": "cookies_beurre_noisette_chocolat_noir_lait",
