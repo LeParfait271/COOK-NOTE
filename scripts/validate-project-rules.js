@@ -6,6 +6,7 @@ const rulesPath = path.join(ROOT, 'COOK_NOTE_RULES.md');
 const masterGuardPath = path.join(ROOT, 'A_LIRE_EN_PREMIER.md');
 const agentsPath = path.join(ROOT, 'AGENTS.md');
 const designSystemPath = path.join(ROOT, 'docs', 'design-system.md');
+const recipeWorkflowPath = path.join(ROOT, 'docs', 'recipe-creation-workflow.md');
 const packagePath = path.join(ROOT, 'package.json');
 const packageLockPath = path.join(ROOT, 'package-lock.json');
 const validators = {
@@ -50,12 +51,32 @@ expect('Fichier de regles Cook Note absent.', fs.existsSync(rulesPath));
 expect('Garde-fou maitre A_LIRE_EN_PREMIER.md absent.', fs.existsSync(masterGuardPath));
 expect('Pointeur agents AGENTS.md absent.', fs.existsSync(agentsPath));
 expect('Design system Cook Note absent.', fs.existsSync(designSystemPath));
+expect('Workflow de creation des recettes absent.', fs.existsSync(recipeWorkflowPath));
 expect('package-lock.json absent: installations CI non reproductibles.', fs.existsSync(packageLockPath));
 
 const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : '';
 const masterGuard = fs.existsSync(masterGuardPath) ? fs.readFileSync(masterGuardPath, 'utf8') : '';
 const agentsGuide = fs.existsSync(agentsPath) ? fs.readFileSync(agentsPath, 'utf8') : '';
 const designSystem = fs.existsSync(designSystemPath) ? fs.readFileSync(designSystemPath, 'utf8') : '';
+const recipeWorkflow = fs.existsSync(recipeWorkflowPath) ? fs.readFileSync(recipeWorkflowPath, 'utf8') : '';
+
+expect(
+  'Workflow de creation des recettes incomplet.',
+  recipeWorkflow.includes("L'identite du plat prime")
+    && recipeWorkflow.includes('Poulet basquaise au four')
+    && recipeWorkflow.includes('Mayonnaise et Aioli')
+    && recipeWorkflow.includes("sauce aux herbes")
+    && recipeWorkflow.includes('trois references jour')
+    && recipeWorkflow.includes('trois references nuit')
+    && recipeWorkflow.includes("attendre sa validation")
+);
+expect(
+  'Regles de classement variante ou fiche distincte absentes.',
+  rules.includes('docs/recipe-creation-workflow.md')
+    && rules.includes('Meme plat de base et meme identite culinaire = variante')
+    && rules.includes("Mayonnaise` n'est pas `Aioli")
+    && rules.includes("sauce aux herbes n'est pas une variante")
+);
 
 [
   'Lois qualite permanentes',

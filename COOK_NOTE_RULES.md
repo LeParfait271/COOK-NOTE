@@ -15,6 +15,12 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 
 ## Donnees recettes
 
+- Toute creation ou import de recette suit `docs/recipe-creation-workflow.md`.
+- Avant de creer une fiche, rechercher les noms, synonymes, ingredients et techniques proches dans le catalogue. L'identite culinaire du plat prime sur la cuisson, le materiel ou une modification secondaire.
+- Meme plat de base et meme identite culinaire = variante, meme si la cuisson, le parfum, la presentation ou un ingredient secondaire change. Exemple obligatoire : `Poulet basquaise au four` est une variante de `Poulet basquaise`, pas une famille distincte.
+- Une sauce, une base, une garniture ou un accompagnement utilise par un plat est une recette liee, pas une variante de ce plat. Exemple : la sauce aux herbes n'est pas une variante des pommes de terre au barbecue.
+- Deux preparations ayant un nom et une identite propres restent des fiches distinctes : `Mayonnaise` n'est pas `Aioli`, `Pesto` n'est pas `Tapenade`, `Houmous` n'est pas `Caviar d'aubergines`, `Tiramisu` n'est pas `Charlotte`, `Gratin dauphinois` n'est pas `Tartiflette`.
+- Le partage d'un ingredient principal ne suffit jamais a creer une famille de variantes. En cas de doute semantique reel, presenter le classement propose a l'utilisateur avant de modifier le catalogue.
 - Quantites en grammes : au-dessus de `50g`, arrondir au multiple de `5g` le plus proche. Ne jamais laisser un `57g` ou equivalent dans une recette.
 - Utiliser le systeme metrique. Pas de cups, oz ou tasses.
 - Vanille et aromes : ne jamais donner de dosage numerique arbitraire pour l'arome vanille. Utiliser `vanille selon gout ou arôme vanille selon dosage indiqué sur la bouteille`. Les aromes ne se dosent pas tous pareil.
