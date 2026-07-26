@@ -116,7 +116,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.99';
+const SITE_VERSION = 'v4.00';
 const SITE_UPDATED_AT = '26/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '3.91';
@@ -6120,6 +6120,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
         if (!item) return null;
         const image = displayRecipeImage(item) || displayRecipeImage(parent);
         const cardImage = image ? recipeCardImageUrl(image) : '';
+        const variantLabel = getRecipeVariantLabel(item, recipesById);
         return h('button', {
           key: variant.id,
           type: 'button',
@@ -6131,7 +6132,8 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
           cardImage && h('span', { className: 'variant-card-ambilight', 'aria-hidden': true }),
           image && h('span', { className: 'variant-card-bg', style: imageBackgroundStyle(image) }),
           h('span', { className: 'variant-card-body' },
-            h('strong', null, variant.label || item.title)
+            h('strong', null, variant.label || item.title),
+            variantLabel && h('small', { className: 'variant-card-variant-count' }, variantLabel)
           )
         );
       })
