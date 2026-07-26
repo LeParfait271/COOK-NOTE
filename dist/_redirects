@@ -96,6 +96,7 @@
 /recette/flammekueche /recette/flammekueche/ 301
 /recette/flan_patissier_epais_vanille /recette/flan_patissier_epais_vanille/ 301
 /recette/flan_vanille_cremeux /recette/flan_vanille_cremeux/ 301
+/recette/fond_de_veau /recette/fond_de_veau/ 301
 /recette/fondant_chocolat_caminada /recette/fondant_chocolat_caminada/ 301
 /recette/fondue_grand_marnier /recette/fondue_grand_marnier/ 301
 /recette/fraises_marinees_tuiles_cacao /recette/fraises_marinees_tuiles_cacao/ 301
@@ -208,6 +209,7 @@
 /recette/salades_pois_chiches_variantes /recette/salades_pois_chiches_variantes/ 301
 /recette/samoussas_boeuf_epinards_petits_pois /recette/samoussas_boeuf_epinards_petits_pois/ 301
 /recette/sauce_aigre_douce_vietnam /recette/sauce_aigre_douce_vietnam/ 301
+/recette/sauce_au_porto /recette/sauce_au_porto/ 301
 /recette/sauce_aux_morilles /recette/sauce_aux_morilles/ 301
 /recette/sauce_aux_poivres /recette/sauce_aux_poivres/ 301
 /recette/sauce_bearnaise /recette/sauce_bearnaise/ 301
@@ -215,9 +217,13 @@
 /recette/sauce_bourguignonne /recette/sauce_bourguignonne/ 301
 /recette/sauce_caramel /recette/sauce_caramel/ 301
 /recette/sauce_chasseur /recette/sauce_chasseur/ 301
+/recette/sauce_estragon /recette/sauce_estragon/ 301
 /recette/sauce_gribiche /recette/sauce_gribiche/ 301
+/recette/sauce_hollandaise /recette/sauce_hollandaise/ 301
 /recette/sauce_nem /recette/sauce_nem/ 301
 /recette/sauce_perigueux /recette/sauce_perigueux/ 301
+/recette/sauce_remoulade /recette/sauce_remoulade/ 301
+/recette/sauce_tartare /recette/sauce_tartare/ 301
 /recette/sauce_yaourt_citronnee /recette/sauce_yaourt_citronnee/ 301
 /recette/sauces_burger_variantes /recette/sauces_burger_variantes/ 301
 /recette/sauces_fromage_variantes /recette/sauces_fromage_variantes/ 301

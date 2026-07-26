@@ -500,6 +500,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 570,
     "bytes": 91271
   },
+  "assets/recipes/cards/fond_de_veau.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 83352
+  },
   "assets/recipes/cards/fondant_chocolat_caminada.jpg": {
     "width": 760,
     "height": 428,
@@ -1055,6 +1060,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 507,
     "bytes": 53099
   },
+  "assets/recipes/cards/sauce_au_porto.jpg": {
+    "width": 760,
+    "height": 469,
+    "bytes": 77383
+  },
   "assets/recipes/cards/sauce_aux_morilles.jpg": {
     "width": 760,
     "height": 428,
@@ -1095,10 +1105,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 506,
     "bytes": 80457
   },
+  "assets/recipes/cards/sauce_estragon.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 83985
+  },
   "assets/recipes/cards/sauce_gribiche.jpg": {
     "width": 760,
     "height": 428,
     "bytes": 57825
+  },
+  "assets/recipes/cards/sauce_hollandaise.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 68185
   },
   "assets/recipes/cards/sauce_nem.jpg": {
     "width": 760,
@@ -1109,6 +1129,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 428,
     "bytes": 52226
+  },
+  "assets/recipes/cards/sauce_remoulade.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 80311
+  },
+  "assets/recipes/cards/sauce_tartare.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 83901
   },
   "assets/recipes/cards/sauce_yaourt_citronnee.jpg": {
     "width": 760,
@@ -1775,6 +1805,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1050,
     "bytes": 289461
   },
+  "assets/recipes/heroes/fond_de_veau.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 267366
+  },
   "assets/recipes/heroes/fondant_chocolat_caminada.jpg": {
     "width": 1400,
     "height": 788,
@@ -2330,6 +2365,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 137570
   },
+  "assets/recipes/heroes/sauce_au_porto.jpg": {
+    "width": 1400,
+    "height": 863,
+    "bytes": 230759
+  },
   "assets/recipes/heroes/sauce_aux_morilles.jpg": {
     "width": 1400,
     "height": 788,
@@ -2370,10 +2410,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 932,
     "bytes": 234088
   },
+  "assets/recipes/heroes/sauce_estragon.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 259718
+  },
   "assets/recipes/heroes/sauce_gribiche.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 180277
+  },
+  "assets/recipes/heroes/sauce_hollandaise.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 206553
   },
   "assets/recipes/heroes/sauce_nem.jpg": {
     "width": 1400,
@@ -2384,6 +2434,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 175138
+  },
+  "assets/recipes/heroes/sauce_remoulade.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 246963
+  },
+  "assets/recipes/heroes/sauce_tartare.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 258506
   },
   "assets/recipes/heroes/sauce_yaourt_citronnee.jpg": {
     "width": 1400,
