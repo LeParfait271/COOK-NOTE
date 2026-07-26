@@ -116,8 +116,8 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.95';
-const SITE_UPDATED_AT = '25/07/26';
+const SITE_VERSION = 'v3.97';
+const SITE_UPDATED_AT = '26/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '3.91';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
@@ -1417,10 +1417,45 @@ function getInlineBaseIngredientGroups(recipe) {
 
 function buildInlineVariantRecipe(recipe, option) {
   if (!recipe || !option) return recipe;
+  const nestedRecipe = option.group?.recipe && typeof option.group.recipe === 'object'
+    ? option.group.recipe
+    : {};
+  const { recipe: _nestedRecipe, ...selectedGroup } = option.group || {};
   return {
     ...recipe,
-    ingredients: [...getInlineBaseIngredientGroups(recipe), option.group],
-    steps: option.steps?.length ? option.steps : getSelectedInlineVariantSteps(recipe, option)
+    ...nestedRecipe,
+    id: recipe.id,
+    title: recipe.title,
+    master: recipe.master,
+    additionalMasters: recipe.additionalMasters,
+    categories: recipe.categories,
+    image: recipe.image,
+    ingredients: [...getInlineBaseIngredientGroups(recipe), selectedGroup],
+    steps: option.steps?.length ? option.steps : getSelectedInlineVariantSteps(recipe, option),
+    variantGroups: false,
+    inlineVariantResolved: true
+  };
+}
+
+const INLINE_VARIANT_SHOPPING_SEPARATOR = '::inline::';
+
+function inlineVariantShoppingKey(recipeId, optionIndex) {
+  return `${recipeId}${INLINE_VARIANT_SHOPPING_SEPARATOR}${optionIndex}`;
+}
+
+function resolveShoppingRecipe(recipeId, recipesById = {}) {
+  const [parentId, optionIndexText] = String(recipeId || '').split(INLINE_VARIANT_SHOPPING_SEPARATOR);
+  if (optionIndexText === undefined) return recipesById[recipeId] || null;
+  const parent = recipesById[parentId];
+  if (!parent) return null;
+  const optionIndex = Number(optionIndexText);
+  const option = getInlineVariantOptions(parent).find(item => item.index === optionIndex);
+  if (!option) return null;
+  const selected = buildInlineVariantRecipe(parent, option);
+  return {
+    ...selected,
+    id: recipeId,
+    title: `${parent.title} — ${option.label}`
   };
 }
 
@@ -3425,6 +3460,7 @@ function extractTags(recipe) {
 }
 
 function isVariantIngredientGroup(group, groups = [], recipe = null) {
+  if (recipe?.inlineVariantResolved) return false;
   const label = normalizeText(group?.group || '');
   if (label.includes('base commune') || label === 'base' || label.includes('commun')) return false;
   if (/^\d+\)/.test(label)) return true;
@@ -6352,53 +6388,73 @@ function cleanVariantGroupLabel(label) {
 
 function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
   if (!options.length) return null;
-  const selectedOption = options.find(option => option.index === selectedIndex) || null;
-  const selectedRecipe = selectedOption ? buildInlineVariantRecipe(recipe, selectedOption) : null;
-  const timing = selectedRecipe ? getRecipeTiming(selectedRecipe) : {};
-  const baseCount = getInlineBaseIngredientGroups(recipe)
-    .reduce((sum, group) => sum + (group.items || []).length, 0);
-  const selectedIngredientCount = selectedOption ? baseCount + (selectedOption.group?.items || []).length : 0;
-  const summary = selectedOption ? [
-    `${selectedIngredientCount} ingr\u00e9dients`,
-    `${selectedOption.steps.length || getRecipeSteps(recipe).length} \u00e9tapes`,
-    timing.active && `Actif ${formatMinutesShort(timing.active)}`,
-    timing.cook && `Cuisson ${formatMinutesShort(timing.cook)}`,
-    timing.rest && `Repos ${formatMinutesShort(timing.rest)}`
-  ].filter(Boolean) : [];
+  const optionDetails = options.map((option, position) => {
+    const optionRecipe = buildInlineVariantRecipe(recipe, option);
+    return {
+      ...option,
+      position,
+      ingredientCount: countIngredients(optionRecipe),
+      stepCount: getRecipeSteps(optionRecipe).length
+    };
+  });
+  const selectedOption = optionDetails.find(option => option.index === selectedIndex) || null;
 
   return h('section', { className: 'recipe-panel variant-choice-panel', 'aria-label': 'Choix de variante' },
-    h('div', { className: 'panel-heading' },
-      h('div', null,
+    h('div', { className: 'variant-choice-header' },
+      h('div', { className: 'variant-choice-heading' },
         h('p', { className: 'eyebrow' }, 'Variante'),
-        h('h2', null, 'Choisir la pr\u00e9paration')
+        h('h2', null, 'Choisis une variante'),
+        h('p', { className: 'variant-choice-description' },
+          'Chaque choix ouvre une recette compl\u00e8te avec ses propres ingr\u00e9dients, \u00e9tapes, quantit\u00e9s et conseils.'
+        )
       ),
-      h('span', { className: 'progress-label' }, `${options.length} option${options.length > 1 ? 's' : ''}`)
+      h('span', { className: 'variant-choice-count' }, `${options.length} variante${options.length > 1 ? 's' : ''}`)
     ),
-    h('div', { className: 'variant-choice-tabs' },
-      options.map(option => {
+    h('div', { className: 'variant-choice-tabs', role: 'group', 'aria-label': 'Variantes disponibles' },
+      optionDetails.map(option => {
         const active = Boolean(selectedOption) && option.index === selectedOption.index;
         return h('button', {
           key: `${recipe.id}:variant:${option.index}`,
           type: 'button',
           className: active ? 'variant-choice-button active' : 'variant-choice-button',
           onClick: () => onSelect(option.index),
-          'aria-pressed': active
+          'aria-pressed': active,
+          'aria-controls': 'recipe-detail-content'
         },
-          h('strong', null, option.label || 'Variante'),
-          h('span', null, `${(option.group?.items || []).length} ingr\u00e9dients`),
-          h('small', null, `${option.steps.length || getRecipeSteps(recipe).length} \u00e9tapes`)
+          h('span', { className: 'variant-choice-card-top' },
+            h('span', { className: 'variant-choice-number' }, `Choix ${option.position + 1}`),
+            h('span', { className: 'variant-choice-state' },
+              active ? [h('span', { key: 'check', 'aria-hidden': true }, '\u2713'), 'S\u00e9lectionn\u00e9e'] : 'S\u00e9lectionner'
+            )
+          ),
+          h('strong', { className: 'variant-choice-title' }, option.label || 'Variante'),
+          h('span', { className: 'variant-choice-meta' },
+            h('span', null, `${option.ingredientCount} ingr\u00e9dients`),
+            h('span', null, `${option.stepCount} \u00e9tapes`)
+          )
         );
       })
     ),
-    h('div', { className: 'variant-choice-summary' },
+    h('div', {
+      className: selectedOption ? 'variant-choice-status selected' : 'variant-choice-status waiting',
+      role: 'status',
+      'aria-live': 'polite'
+    },
+      h('span', { className: 'variant-choice-status-icon', 'aria-hidden': true }, selectedOption ? '\u2713' : '\u2192'),
       selectedOption
         ? [
-          h('strong', { key: 'label' }, selectedOption.label || 'Variante active'),
-          ...summary.map(item => h('span', { key: item }, item))
+          h('span', { key: 'copy', className: 'variant-choice-status-copy' },
+            h('small', null, 'Variante s\u00e9lectionn\u00e9e'),
+            h('strong', null, selectedOption.label || 'Variante'),
+            h('span', null, 'Ingr\u00e9dients, \u00e9tapes, quantit\u00e9s et conseils correspondent maintenant \u00e0 ce choix.')
+          )
         ]
         : [
-          h('strong', { key: 'label' }, 'Aucune variante sélectionnée'),
-          h('span', { key: 'hint' }, 'Sélectionne une variante pour afficher les détails.')
+          h('span', { key: 'copy', className: 'variant-choice-status-copy' },
+            h('small', null, 'Choix requis'),
+            h('strong', null, 'Choisis une carte ci-dessus'),
+            h('span', null, 'La fiche compl\u00e8te s\u2019affichera ensuite, sans m\u00e9langer les recettes.')
+          )
         ]
     )
   );
@@ -6517,23 +6573,26 @@ function RecipeView({
   const showVariants = variantRefs.length > 0;
   const leafRecipeCount = showVariants ? countLeafRecipes(recipe, recipesById) : 0;
   const hasSelectedVariant = !showVariants;
-  const selectedRecipe = recipe;
   const inlineTargets = useMemo(() => buildInlineRecipeTargets(recipes), [recipes]);
   const techniqueTargets = useMemo(() => buildTechniqueTargets(), []);
-  const detailKey = hasSelectedVariant ? selectedRecipe.id : recipe.id;
+  const detailKey = recipe.id;
   const [shareOpen, setShareOpen] = useState(false);
   const [exportCopied, setExportCopied] = useState(false);
   const [mobileDetailTab, setMobileDetailTab] = useState('ingredients');
   const [openIngredientGroups, setOpenIngredientGroups] = useState({});
   const mobileSwipeStartRef = useRef(null);
   const completedRef = useRef('');
-  const inlineVariantOptions = useMemo(() => getInlineVariantOptions(selectedRecipe), [selectedRecipe]);
+  const inlineVariantOptions = useMemo(() => getInlineVariantOptions(recipe), [recipe]);
   const needsInlineVariantSelection = inlineVariantOptions.length > 0;
   const selectedInlineVariantGroup = needsInlineVariantSelection
     ? inlineVariantOptions.find(({ index }) => Boolean(openIngredientGroups[`${detailKey}:group:${index}`])) || null
     : null;
-  const canShowSteps = hasSelectedVariant && (!needsInlineVariantSelection || Boolean(selectedInlineVariantGroup));
-  const displaySteps = canShowSteps ? getSelectedInlineVariantSteps(selectedRecipe, selectedInlineVariantGroup) : [];
+  const selectedRecipe = selectedInlineVariantGroup
+    ? buildInlineVariantRecipe(recipe, selectedInlineVariantGroup)
+    : recipe;
+  const hasResolvedRecipe = hasSelectedVariant && (!needsInlineVariantSelection || Boolean(selectedInlineVariantGroup));
+  const canShowSteps = hasResolvedRecipe;
+  const displaySteps = canShowSteps ? getRecipeSteps(selectedRecipe) : [];
   const stepScopeKey = selectedInlineVariantGroup ? `${detailKey}:variant-group:${selectedInlineVariantGroup.index}` : detailKey;
   const stepTotal = displaySteps.length;
   const fallbackStepTotal = getRecipeSteps(selectedRecipe).length;
@@ -6543,18 +6602,21 @@ function RecipeView({
     : `${effectiveStepTotal} étape${effectiveStepTotal > 1 ? 's' : ''}`;
   const doneSteps = Object.keys(checked).filter(key => key.startsWith(`${stepScopeKey}:step:`) && checked[key]).length;
   const progress = stepTotal ? Math.round((doneSteps / stepTotal) * 100) : 0;
-  const canAddToShopping = hasSelectedVariant && canShowSteps;
-  const isInShopping = hasSelectedVariant && shoppingIds.includes(detailKey);
-  const canFavorite = hasSelectedVariant && !isMasterRecipe(selectedRecipe);
-  const showRecipeUtilities = hasSelectedVariant && !isMasterRecipe(selectedRecipe) && !isCategoryCollectionRecipe(selectedRecipe);
-  const recipeAllergens = hasSelectedVariant ? getRecipeAllergens(selectedRecipe) : [];
-  const averageWeights = hasSelectedVariant ? getRecipeAverageWeights(selectedRecipe) : [];
-  const linkedRecipes = hasSelectedVariant ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
-  const practicalSections = hasSelectedVariant ? getRecipePracticalSections(selectedRecipe) : [];
-  const displayNotes = hasSelectedVariant ? getDisplayNotes(selectedRecipe, practicalSections) : [];
-  const flavorMap = hasSelectedVariant ? getRecipeFlavorMap(selectedRecipe) : [];
-  const ingredientCards = hasSelectedVariant ? getRecipeIngredientCards(selectedRecipe) : [];
-  const platingGuide = hasSelectedVariant ? getRecipePlatingGuide(selectedRecipe) : [];
+  const canAddToShopping = hasResolvedRecipe && canShowSteps;
+  const shoppingKey = selectedInlineVariantGroup
+    ? inlineVariantShoppingKey(detailKey, selectedInlineVariantGroup.index)
+    : detailKey;
+  const isInShopping = hasSelectedVariant && shoppingIds.includes(shoppingKey);
+  const canFavorite = hasResolvedRecipe && !isMasterRecipe(selectedRecipe);
+  const showRecipeUtilities = hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && !isCategoryCollectionRecipe(selectedRecipe);
+  const recipeAllergens = hasResolvedRecipe ? getRecipeAllergens(selectedRecipe) : [];
+  const averageWeights = hasResolvedRecipe ? getRecipeAverageWeights(selectedRecipe) : [];
+  const linkedRecipes = hasResolvedRecipe ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
+  const practicalSections = hasResolvedRecipe ? getRecipePracticalSections(selectedRecipe) : [];
+  const displayNotes = hasResolvedRecipe ? getDisplayNotes(selectedRecipe, practicalSections) : [];
+  const flavorMap = hasResolvedRecipe ? getRecipeFlavorMap(selectedRecipe) : [];
+  const ingredientCards = hasResolvedRecipe ? getRecipeIngredientCards(selectedRecipe) : [];
+  const platingGuide = hasResolvedRecipe ? getRecipePlatingGuide(selectedRecipe) : [];
   const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length + flavorMap.length + ingredientCards.length + platingGuide.length;
   const selectedGroupLabel = selectedInlineVariantGroup?.group?.group || '';
   const mobileTabOrder = ['ingredients', 'steps', 'notes'];
@@ -6655,8 +6717,8 @@ function RecipeView({
   return h('main', {
     className: 'recipe-view',
     style: detailStyle,
-    onTouchStart: hasSelectedVariant ? handleMobileTabSwipeStart : undefined,
-    onTouchEnd: hasSelectedVariant ? handleMobileTabSwipeEnd : undefined
+    onTouchStart: hasResolvedRecipe ? handleMobileTabSwipeStart : undefined,
+    onTouchEnd: hasResolvedRecipe ? handleMobileTabSwipeEnd : undefined
   },
     h('section', {
       className: heroImage ? (heroUsesHomeImage ? 'recipe-detail-hero has-photo parent-hero' : 'recipe-detail-hero has-photo') : 'recipe-detail-hero',
@@ -6669,6 +6731,11 @@ function RecipeView({
         h('div', { className: 'detail-meta' },
           showVariants
             ? h('span', { key: 'recipes' }, `${leafRecipeCount} recette${leafRecipeCount > 1 ? 's' : ''}`)
+            : needsInlineVariantSelection && !selectedInlineVariantGroup
+              ? [
+                h('span', { key: 'variants' }, `${inlineVariantOptions.length} variante${inlineVariantOptions.length > 1 ? 's' : ''}`),
+                h('span', { key: 'choice', className: 'detail-meta-choice-required' }, 'Choix requis pour ouvrir la fiche')
+              ]
             : [
               h('span', { key: 'difficulty' }, difficultyText(selectedRecipe)),
               h('span', { key: 'nutri', className: `nutri-score nutri-${getNutriScore(selectedRecipe).toLowerCase()}` }, `Nutri ${getNutriScore(selectedRecipe)}`),
@@ -6677,12 +6744,12 @@ function RecipeView({
               h('span', { key: 'steps' }, stepMetaText)
             ]
         ),
-        hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h('div', { className: 'detail-quantity-row' },
+        hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h('div', { className: 'detail-quantity-row' },
           h(QuantityFactorControl, { recipe: selectedRecipe, factor, setFactor, className: 'detail-quantity-control' })
         ),
-        h('div', { className: 'detail-actions' },
-          hasSelectedVariant && h(Button, { variant: isInShopping ? 'primary' : 'ghost', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(detailKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
-          hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(Button, {
+        hasResolvedRecipe && h('div', { className: 'detail-actions' },
+          h(Button, { variant: isInShopping ? 'primary' : 'ghost', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(shoppingKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
+          !isMasterRecipe(selectedRecipe) && h(Button, {
             variant: 'subtle',
             onClick: copyCurrentRecipe
           }, exportCopied ? 'Fiche copiée' : 'Copier fiche'),
@@ -6699,20 +6766,20 @@ function RecipeView({
       recipesById,
       openRecipe
     }),
-    hasSelectedVariant && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts, {
-      recipe: selectedRecipe,
-      factor,
-      stepTotal: effectiveStepTotal,
-      needsVariantSelection: needsInlineVariantSelection,
-      hasVariantSelection: !needsInlineVariantSelection || Boolean(selectedInlineVariantGroup)
-    }),
     hasSelectedVariant && needsInlineVariantSelection && h(InlineVariantPicker, {
-      recipe: selectedRecipe,
+      recipe,
       options: inlineVariantOptions,
       selectedIndex: selectedInlineVariantGroup?.index,
       onSelect: selectInlineVariant
     }),
-    hasSelectedVariant && h(RecipeCommandDock, {
+    hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts, {
+      recipe: selectedRecipe,
+      factor,
+      stepTotal: effectiveStepTotal,
+      needsVariantSelection: needsInlineVariantSelection,
+      hasVariantSelection: true
+    }),
+    hasResolvedRecipe && h(RecipeCommandDock, {
       title: selectedRecipe.title,
       recipe: selectedRecipe,
       factor,
@@ -6726,7 +6793,7 @@ function RecipeView({
       notesCount,
       canAddToShopping,
       isInShopping,
-      onToggleShopping: () => canAddToShopping && toggleShopping(detailKey, factor),
+      onToggleShopping: () => canAddToShopping && toggleShopping(shoppingKey, factor),
       showRecipeUtilities,
       onCopy: copyCurrentRecipe,
       exportCopied,
@@ -6734,7 +6801,7 @@ function RecipeView({
       isFavorite,
       onToggleFavorite: () => toggleFavorite(detailKey)
     }),
-    hasSelectedVariant && h('div', { className: 'recipe-tabs', 'aria-label': 'Sections de la recette' },
+    hasResolvedRecipe && h('div', { className: 'recipe-tabs', 'aria-label': 'Sections de la recette' },
       [
         { key: 'ingredients', label: 'Ingrédients', count: countIngredients(selectedRecipe) },
         { key: 'steps', label: 'Étapes', count: effectiveStepTotal },
@@ -6747,26 +6814,15 @@ function RecipeView({
         onClick: () => setMobileDetailTab(tab.key)
       }, h('span', null, tab.label), h('small', null, tab.count)))
     ),
-    hasSelectedVariant && h('p', { className: 'mobile-swipe-hint' },
+    hasResolvedRecipe && h('p', { className: 'mobile-swipe-hint' },
       h('span', { 'aria-hidden': true }, '\u2039'),
       ' Glisse pour passer d\u2019un panneau \u00e0 l\u2019autre ',
       h('span', { 'aria-hidden': true }, '\u203a')
     ),
-    hasSelectedVariant && needsInlineVariantSelection && h('div', { className: 'mobile-recipe-guidance' },
-      canShowSteps
-        ? `Variante active : ${selectedGroupLabel}. Ingr\u00e9dients et \u00e9tapes suivent ce choix.`
-        : 'Choisis une variante pour afficher les ingr\u00e9dients et les \u00e9tapes correspondantes.'
-    ),
-    hasSelectedVariant && h('div', { className: 'recipe-detail-grid' },
+    hasResolvedRecipe && h('div', { id: 'recipe-detail-content', className: 'recipe-detail-grid' },
       h('section', { className: mobileDetailTab === 'ingredients' ? 'recipe-panel ingredients-panel active-tab-panel' : 'recipe-panel ingredients-panel' },
         h('div', { className: 'panel-heading' },
           h('div', null, h('p', { className: 'eyebrow' }, 'Mise en place'), h('h2', null, 'Ingrédients'))
-        ),
-        needsInlineVariantSelection && h('div', { className: 'inline-choice-card' },
-          h('strong', null, 'Variante active'),
-          h('p', null, canShowSteps
-            ? `Tu suis actuellement "${selectedGroupLabel}". Le s\u00e9lecteur au-dessus change aussi les ingr\u00e9dients et les \u00e9tapes.`
-            : 'Choisis une variante au-dessus pour afficher les ingr\u00e9dients d\u00e9taill\u00e9s et les \u00e9tapes correspondantes.')
         ),
         (selectedRecipe.ingredients || []).map((group, groupIndex) => {
           const groupKey = `${detailKey}:group:${groupIndex}`;
@@ -6983,7 +7039,7 @@ function App() {
 
   const activeRecipe = activeId ? recipesById[activeId] : null;
   const activeSeoRecipe = activeRecipe;
-  const shoppingRecipes = useMemo(() => shoppingIds.map(id => recipesById[id]).filter(Boolean), [shoppingIds, recipesById]);
+  const shoppingRecipes = useMemo(() => shoppingIds.map(id => resolveShoppingRecipe(id, recipesById)).filter(Boolean), [shoppingIds, recipesById]);
   const recentRecipes = useMemo(() => recentRecipeIds.map(id => recipesById[id]).filter(recipe => recipe && !isMasterRecipe(recipe)), [recentRecipeIds, recipesById]);
   const hasRecipeFilters = Boolean(query.trim() || season || seasonCategory || tagFilter || onlyFavorites);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
@@ -7325,7 +7381,7 @@ function App() {
   }
 
   function toggleShopping(id, factor = 1) {
-    const recipe = recipesById[id];
+    const recipe = resolveShoppingRecipe(id, recipesById);
     if (shoppingIds.includes(id)) {
       persistShopping(shoppingIds.filter(item => item !== id));
       const nextFactors = { ...shoppingFactors };
@@ -7340,7 +7396,7 @@ function App() {
   }
 
   function removeShopping(id) {
-    const recipe = recipesById[id];
+    const recipe = resolveShoppingRecipe(id, recipesById);
     persistShopping(shoppingIds.filter(item => item !== id));
     const nextFactors = { ...shoppingFactors };
     delete nextFactors[id];

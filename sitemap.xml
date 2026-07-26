@@ -13,10 +13,7 @@
     <loc>https://cook-note.pages.dev/recette/acras_epinards</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/aioli_citronne_leger</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/aioli_safran</loc>
+    <loc>https://cook-note.pages.dev/recette/aioli_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/ajitsuke_tamago_oeufs_marines_ramen</loc>
@@ -103,22 +100,13 @@
     <loc>https://cook-note.pages.dev/recette/cake_marbre_chocolat</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/cake_sale_lardon</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/cake_tomate_chorizo_feta</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/caramel_cheesecake_cookies</loc>
+    <loc>https://cook-note.pages.dev/recette/cakes_sales_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/carbonara_romaine</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/carottes_braisees</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/carottes_braisees_orange_citron_confit</loc>
+    <loc>https://cook-note.pages.dev/recette/carottes_braisees_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/carottes_persillade_creme</loc>
@@ -145,16 +133,10 @@
     <loc>https://cook-note.pages.dev/recette/cerises_sechees_maison</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/chantilly_classique</loc>
+    <loc>https://cook-note.pages.dev/recette/chantilly_variantes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/chantilly_gelatine</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/chapelure_maison</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/chapelure_parfumee</loc>
+    <loc>https://cook-note.pages.dev/recette/chapelures_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/cheesecake_basque</loc>
@@ -172,9 +154,6 @@
     <loc>https://cook-note.pages.dev/recette/chorizo_au_cidre</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/chou_fleur_coco_curry</loc>
-  </url>
-  <url>
     <loc>https://cook-note.pages.dev/recette/chou_fleur_croustillant</loc>
   </url>
   <url>
@@ -187,13 +166,7 @@
     <loc>https://cook-note.pages.dev/recette/churros_maison</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/clafoutis_abricots_rhum_vanille</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/clafoutis_cerises_bocuse</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/clafoutis_myrtilles_nectarines</loc>
+    <loc>https://cook-note.pages.dev/recette/clafoutis_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/cochon_confit_biere_erable</loc>
@@ -202,40 +175,16 @@
     <loc>https://cook-note.pages.dev/recette/cocktail_crevettes_palace</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/cocotte_pois_chiches_tomates_montbeliard</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/colombo_espadon</loc>
-  </url>
-  <url>
     <loc>https://cook-note.pages.dev/recette/compotee_citron</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/confit_citron</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/cookies_avoine_noix_fruits_secs</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/cookies_beurre_noisette_chocolat_noir_lait</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/cookies_cerise_chocolat</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/cookies_chocolat_blanc_cranberry</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/cookies_chocolat_moelleux</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/cookies_chocolat_noir_lait</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/cookies_chocolat_noix</loc>
-  </url>
-  <url>
     <loc>https://cook-note.pages.dev/recette/cookies_sales_variantes</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/cookies_sucres_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/coq_au_vin</loc>
@@ -265,34 +214,19 @@
     <loc>https://cook-note.pages.dev/recette/creme_citron_lemon_curd</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/creme_diplomate_cloud</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/creme_diplomate_vanille</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/creme_kinder_nutella</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/creme_patissiere_praline</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/creme_patissiere_vanille</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/creme_pistache</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/creme_praline</loc>
+    <loc>https://cook-note.pages.dev/recette/creme_diplomate_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/cremes_dessert_chocolat</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/crepes_lait_amandes</loc>
+    <loc>https://cook-note.pages.dev/recette/cremes_garnir_variantes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/crepes_suzette</loc>
+    <loc>https://cook-note.pages.dev/recette/cremes_patissieres_variantes</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/crepes_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/crevettes_ail_persil</loc>
@@ -310,31 +244,16 @@
     <loc>https://cook-note.pages.dev/recette/crumble_carottes_cumin_noisettes_parmesan</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/crumble_pomme_poire</loc>
+    <loc>https://cook-note.pages.dev/recette/crumble_pomme_poire_variantes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/crumble_pomme_poire_violier</loc>
+    <loc>https://cook-note.pages.dev/recette/cuisses_poulet_variantes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/cuisses_de_poulet_miel_moutarde</loc>
+    <loc>https://cook-note.pages.dev/recette/currys_carnivores_variantes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/cuisses_de_poulet_rhum_miel_piment</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/cuisses_poulet_asiatique</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/cuisses_poulet_four_tomates_thym</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/curry_carottes_lait_coco</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/curry_lentilles_coco</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/curry_poulet_crevettes</loc>
+    <loc>https://cook-note.pages.dev/recette/currys_vegetariens_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/desserts_maitre</loc>
@@ -388,19 +307,10 @@
     <loc>https://cook-note.pages.dev/recette/fraises_marinees_tuiles_cacao</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/frites_belges</loc>
+    <loc>https://cook-note.pages.dev/recette/frites_variantes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/frites_four_maison</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/frites_maison</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/frites_patate_douce</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/gaspacho_melon</loc>
+    <loc>https://cook-note.pages.dev/recette/gaspachos_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/gateau_roule_framboise</loc>
@@ -412,22 +322,7 @@
     <loc>https://cook-note.pages.dev/recette/gaufres_pommes_terre</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/gazpacho_tomate_menthe_basilic</loc>
-  </url>
-  <url>
     <loc>https://cook-note.pages.dev/recette/granola_maison_chocolat</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/gratin_chou_fleur</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/gratin_chou_fleur_chorizo_cocottes</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/gratin_chou_fleur_comte_lardons</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/gratin_chou_fleur_mascarpone_moutarde</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/gratin_dauphinois</loc>
@@ -439,6 +334,9 @@
     <loc>https://cook-note.pages.dev/recette/gratin_rigatoni_ricotta_epinards</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/gratins_chou_fleur_variantes</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/gressins_fromage_olives</loc>
   </url>
   <url>
@@ -448,16 +346,10 @@
     <loc>https://cook-note.pages.dev/recette/hachis_parmentier</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/haricots_blancs_tomates_montbeliard</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/haricots_tarbais_chorizo_tomate</loc>
+    <loc>https://cook-note.pages.dev/recette/haricots_tarbais_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/harissa_maison</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/hauts_de_cuisses_poulet_orange_oignon</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/houmous_hakocem</loc>
@@ -469,28 +361,19 @@
     <loc>https://cook-note.pages.dev/recette/ile_flottante</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/irish_stew_guinness</loc>
-  </url>
-  <url>
     <loc>https://cook-note.pages.dev/recette/jarret_agneau_petits_legumes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/jarret_boeuf_braise_biere</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/joues_boeuf_whiskey_orange</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/joues_de_boeuf_carottes_orange_vin_rouge</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/joues_de_porc_chorizo_piment</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/joues_porc_cidre_miel</loc>
+    <loc>https://cook-note.pages.dev/recette/joues_mijotees_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/legumes_rotis</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/legumineuses_montbeliard_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/lentilles_a_la_bourguignonne</loc>
@@ -505,25 +388,19 @@
     <loc>https://cook-note.pages.dev/recette/macaronis_chalet</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/madeleines_comte_epices_douces</loc>
+    <loc>https://cook-note.pages.dev/recette/madeleines_salees</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/madeleines_miel_thym</loc>
+    <loc>https://cook-note.pages.dev/recette/madeleines_sucrees</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/marinades_guide</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/mascarpone</loc>
-  </url>
-  <url>
     <loc>https://cook-note.pages.dev/recette/mayonnaise_maison</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/meringue_italienne</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/meringues</loc>
+    <loc>https://cook-note.pages.dev/recette/meringues_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/mi_cuits_chocolat</loc>
@@ -532,10 +409,7 @@
     <loc>https://cook-note.pages.dev/recette/mojitos_variantes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/mousse_chocolat</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/mousse_toblerone</loc>
+    <loc>https://cook-note.pages.dev/recette/mousses_chocolat_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/muffins_framboises</loc>
@@ -565,22 +439,16 @@
     <loc>https://cook-note.pages.dev/recette/okonomiyaki_chou</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/pain_ail_jamie_oliver</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/pain_grille_beurre_ail_herbes</loc>
-  </url>
-  <url>
     <loc>https://cook-note.pages.dev/recette/pain_hot_dog</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pain_zaatar</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/pains_burgers_brioche</loc>
+    <loc>https://cook-note.pages.dev/recette/pains_ail_variantes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/pancakes_fluffy</loc>
+    <loc>https://cook-note.pages.dev/recette/pains_burgers_brioche</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pancakes_variantes</loc>
@@ -599,9 +467,6 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pate_choux</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/pate_lapin_piment_espelette</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pate_legere_beignets_calamar_crevettes</loc>
@@ -626,9 +491,6 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pates_tomates_confites_parmesan</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/pesto_tomates_sechees_sans_cajou</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pesto_variantes</loc>
@@ -679,19 +541,13 @@
     <loc>https://cook-note.pages.dev/recette/pommes_terre_barbecue_sauce</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/porc_chorizo_haricots_tarbais</loc>
-  </url>
-  <url>
     <loc>https://cook-note.pages.dev/recette/potato_wedges_citron_herbes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/potee_chou</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/poulet_basquaise</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/poulet_basquaise_four</loc>
+    <loc>https://cook-note.pages.dev/recette/poulet_basquaise_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/poulet_chorizo_vin_blanc_citron</loc>
@@ -712,37 +568,16 @@
     <loc>https://cook-note.pages.dev/recette/poulet_sauce_pimentee</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/poulet_tikka_masala</loc>
-  </url>
-  <url>
     <loc>https://cook-note.pages.dev/recette/poulet_tomates_poivron_vin_blanc_thym</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/puree_butternut_pommes_terre_curry</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/puree_chou_fleur</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/puree_courge_butternut</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/puree_patates_douces</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/puree_pommes_de_terre_ail_rose_huile_olive</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/puree_pommes_de_terre_carottes</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/puree_pommes_de_terre_citron</loc>
+    <loc>https://cook-note.pages.dev/recette/purees_legumes_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/queue_boeuf_carottes_vin_rouge</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/ragout_boeuf_biere</loc>
+    <loc>https://cook-note.pages.dev/recette/ragouts_boeuf_biere_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/rattes_four</loc>
@@ -751,10 +586,7 @@
     <loc>https://cook-note.pages.dev/recette/ricotta_fouettee</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/rillettes_porc</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/rillettes_poulet</loc>
+    <loc>https://cook-note.pages.dev/recette/rillettes_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/riz_au_citron</loc>
@@ -790,13 +622,10 @@
     <loc>https://cook-note.pages.dev/recette/salade_melon_mozzarella_jambon_cru</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/salade_pois_chiche_feta_olives</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/salade_pois_chiches_thon_poivrons</loc>
-  </url>
-  <url>
     <loc>https://cook-note.pages.dev/recette/salade_pommes_terre_ottolenghi</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/salades_pois_chiches_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/samoussas_boeuf_epinards_petits_pois</loc>
@@ -808,19 +637,25 @@
     <loc>https://cook-note.pages.dev/recette/sauce_aux_poivres</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/sauce_bearnaise</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/sauce_bordelaise</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/sauce_caramel</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/sauce_chevre_creme</loc>
+    <loc>https://cook-note.pages.dev/recette/sauce_chasseur</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/sauce_mornay</loc>
+    <loc>https://cook-note.pages.dev/recette/sauce_gribiche</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/sauce_nem</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/sauce_roquefort</loc>
+    <loc>https://cook-note.pages.dev/recette/sauce_perigueux</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/sauce_yaourt_citronnee</loc>
@@ -829,22 +664,19 @@
     <loc>https://cook-note.pages.dev/recette/sauces_burger_variantes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/sauces_maitre</loc>
+    <loc>https://cook-note.pages.dev/recette/sauces_fromage_variantes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/saucisse_lentilles</loc>
+    <loc>https://cook-note.pages.dev/recette/sauces_maitre</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/saucisse_puree_maison</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/saucisses_aux_lentilles</loc>
+    <loc>https://cook-note.pages.dev/recette/saucisses_lentilles_variantes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/saumon_au_four_simple</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/saumon_au_four_tomates_olives_basilic</loc>
+    <loc>https://cook-note.pages.dev/recette/saumon_four_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/smash_burger</loc>
@@ -889,22 +721,10 @@
     <loc>https://cook-note.pages.dev/recette/tempura_beignets_calamar_crevettes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/terrine_campagne</loc>
+    <loc>https://cook-note.pages.dev/recette/terrines_pates_variantes</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/terrine_porc_pistaches</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/tiramisu_amaretto</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/tiramisu_citron</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/tiramisu_creme_marrons</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/tiramisu_speculoos</loc>
+    <loc>https://cook-note.pages.dev/recette/tiramisu_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/tomates_cocktail_thon_mascarpone</loc>
@@ -925,10 +745,7 @@
     <loc>https://cook-note.pages.dev/recette/tortillas_mexicaines</loc>
   </url>
   <url>
-    <loc>https://cook-note.pages.dev/recette/tresse_beurre_caminada</loc>
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/tresse_beurre_classique</loc>
+    <loc>https://cook-note.pages.dev/recette/tresse_beurre_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/veloute_hiver_noix_cajou</loc>

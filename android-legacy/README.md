@@ -34,7 +34,8 @@ Le mode d'emploi complet est dans
 - cartes parent visibles pour les collections, avec des cartes parent 16/9
   visibles comme sur le site, sans menu deroulant pour choisir une recette
 - selecteurs natifs uniquement pour la preparation choisie des fiches a
-  variantes internes, sans afficher toutes les variantes en bloc
+  variantes internes, sans afficher toutes les variantes en bloc ; le panneau
+  `Choisir une variante` explique le choix et confirme la preparation active
 - Fonctions natives legeres : recherche simple sans filtres,
   copie ingredients, liste de courses locale, selecteur de personnes, quantites ajustables, courses
   fusionnees, preferences locales discretes, diagnostic hors ligne, index

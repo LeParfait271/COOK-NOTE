@@ -245,6 +245,45 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
+  test('merged recipe keeps each curry variant complete and isolated', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/currys_carnivores_variantes?lang=fr');
+    await waitForCookNote(page);
+
+    await expect(page.getByRole('heading', { level: 1, name: /Currys carnivores/i })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 2, name: /Choisis une variante/i })).toBeVisible();
+    await expect(page.locator('.variant-choice-description')).toContainText('Chaque choix ouvre une recette');
+    await expect(page.locator('.detail-meta')).toContainText('3 variantes');
+    await expect(page.locator('.detail-meta')).not.toContainText('48 ingr');
+    await expect(page.locator('.variant-choice-status')).toContainText('Choisis une carte ci-dessus');
+    await expect(page.locator('.recipe-summary-panel')).toHaveCount(0);
+    await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
+    await expect(page.locator('.recipe-detail-grid')).toHaveCount(0);
+    await expect(page.locator('.variant-choice-button')).toHaveCount(3);
+    const selectedVariant = page.locator('.variant-choice-button').filter({ hasText: /Poulet et crevettes/i });
+    await expect(selectedVariant).toHaveAttribute('aria-pressed', 'false');
+    await selectedVariant.click();
+    await expect(selectedVariant).toHaveAttribute('aria-pressed', 'true');
+    await expect(selectedVariant).toContainText('lectionn');
+    await expect(page.locator('.variant-choice-status')).toContainText('Variante s');
+    await expect(page.locator('.recipe-summary-panel')).toBeVisible();
+    await expect(page.locator('.recipe-command-dock')).toBeVisible();
+    await expect(page.locator('.recipe-detail-grid')).toBeVisible();
+    await expect(page.locator('.ingredients-panel')).toContainText('220g crevettes');
+    await expect(page.locator('.ingredients-panel')).not.toContainText('120g yaourt nature');
+    await expect(page.locator('.step-list')).toContainText("Saisir le poulet dans l'huile");
+    await expect(page.locator('.recipe-view')).toContainText('prévoir riz nature');
+    await expect(page.getByRole('button', { name: /Ajouter aux courses/i }).first()).toBeEnabled();
+    const tikkaVariant = page.locator('.variant-choice-button').filter({ hasText: /Poulet tikka masala/i });
+    await tikkaVariant.click();
+    await expect(selectedVariant).toHaveAttribute('aria-pressed', 'false');
+    await expect(tikkaVariant).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.ingredients-panel')).toContainText('120g yaourt nature');
+    await expect(page.locator('.ingredients-panel')).not.toContainText('220g crevettes');
+    await expectNoMojibake(page);
+    await expectNoHorizontalOverflow(page);
+  });
+
   test('direct recipe route renders hero and decoded copy', async ({ page }, testInfo) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/poulet_sauce_pimentee?lang=fr');

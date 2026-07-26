@@ -473,14 +473,14 @@ if (!recipes || typeof recipes !== 'object') {
   expectParentLink('apero_maitre', 'samoussas_boeuf_epinards_petits_pois', true);
   expectParentLink('entrees_maitre', 'samoussas_boeuf_epinards_petits_pois', true);
 
-  expectRecipePlacement('pesto_tomates_sechees_sans_cajou', {
+  expectRecipePlacement('pesto_variantes', {
     master: 'sauces_maitre',
     categories: ['Sauces', 'Apéro', 'Accompagnements'],
     additionalMasters: ['apero_maitre', 'accompagnements_maitre']
   });
-  expectParentLink('sauces_maitre', 'pesto_tomates_sechees_sans_cajou', true);
-  expectParentLink('apero_maitre', 'pesto_tomates_sechees_sans_cajou', true);
-  expectParentLink('accompagnements_maitre', 'pesto_tomates_sechees_sans_cajou', true);
+  expectParentLink('sauces_maitre', 'pesto_variantes', true);
+  expectParentLink('apero_maitre', 'pesto_variantes', true);
+  expectParentLink('accompagnements_maitre', 'pesto_variantes', true);
 
   expectRecipePlacement('gratin_dauphinois', {
     master: 'plats_maitre',
@@ -490,16 +490,11 @@ if (!recipes || typeof recipes !== 'object') {
   expectParentLink('plats_maitre', 'gratin_dauphinois', true);
   expectParentLink('accompagnements_maitre', 'gratin_dauphinois', true);
 
-  expectRecipePlacement('chantilly_classique', {
+  expectRecipePlacement('chantilly_variantes', {
     master: 'desserts_maitre',
     categories: ['Desserts']
   });
-  expectParentLink('desserts_maitre', 'chantilly_classique', true);
-  expectRecipePlacement('chantilly_gelatine', {
-    master: 'desserts_maitre',
-    categories: ['Desserts']
-  });
-  expectParentLink('desserts_maitre', 'chantilly_gelatine', true);
+  expectParentLink('desserts_maitre', 'chantilly_variantes', true);
 
   expectRecipePlacement('verrines_chataignes_foie_gras', {
     master: 'apero_maitre',
@@ -536,7 +531,7 @@ if (!recipes || typeof recipes !== 'object') {
 
   expectVariantGroupSteps('tomates_variantes', ['Version séchées', 'Version confites']);
 
-  expectInternalRecipeLink('pain_grille_beurre_ail_herbes', 'beurre_ail', ['beurre à l’ail', 'beurre ail']);
+  expectInternalRecipeLink('pains_ail_variantes', 'beurre_ail', ['beurre à l’ail', 'beurre ail']);
 
   for (const [id, recipe] of Object.entries(recipes)) {
     const isMaster = masterIds.has(id);

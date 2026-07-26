@@ -180,6 +180,13 @@ Les controles qui vivent sur une meme ligne d'action doivent partager la meme ha
 
 Le select de quantite est un controle prioritaire : il doit rester contraste sur desktop et mobile meme si les styles globaux des champs changent.
 
+Un selecteur de variantes inline precede toujours le contenu de la fiche. Il
+explique en une phrase que chaque choix possede ses propres ingredients, etapes,
+quantites et conseils. Les choix utilisent des cartes entieres tactiles avec un
+numero, un titre non tronque, deux compteurs utiles et un etat selectionne
+explicite. Avant le choix, les panneaux de detail restent caches afin d'eviter
+les faux totaux et les doubles commandes.
+
 Les icones de la barre superieure utilisent `--topbar-icon-color`. Le theme nuit
 le definit en clair et le theme jour en texte sombre ; le controle visuel couvre
 toutes les icones d'action, pas seulement le bouton de theme.

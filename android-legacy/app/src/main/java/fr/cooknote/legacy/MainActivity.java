@@ -1742,10 +1742,19 @@ public class MainActivity extends Activity {
         final List<InlineVariantChoice> choices = inlineVariantChoices(recipe);
         if (choices.size() <= 1) return;
 
-        LinearLayout section = addSection(content, "Preparation", countLabel(choices.size(), "version", "versions"));
+        LinearLayout section = addSection(content, "Choisir une variante", countLabel(choices.size(), "choix", "choix"));
+        TextView guidance = text(
+                "Chaque choix affiche sa recette complete : ingredients, etapes et conseils.",
+                13,
+                COLOR_MUTED,
+                false
+        );
+        guidance.setPadding(0, dp(4), 0, 0);
+        section.addView(guidance);
         final int selectedIndex = selectedInlineVariantIndex(recipe, choices);
         final int[] currentIndex = new int[]{selectedIndex};
         Spinner spinner = createSpinner(labelsForInlineChoices(choices));
+        spinner.setContentDescription("Choisir une variante");
         spinner.setSelection(selectedIndex);
         section.addView(spinner, fullWidthParams(dp(10), dp(46)));
 
@@ -1870,9 +1879,15 @@ public class MainActivity extends Activity {
     }
 
     private void updateInlineVariantMeta(TextView meta, Recipe recipe, InlineVariantChoice choice) {
+        int ingredientCount = choice.group.items.size();
+        for (Recipe.Group group : recipe.ingredients) {
+            if (!isVariantIngredientGroup(group, recipe)) ingredientCount += group.items.size();
+        }
+        int stepCount = choice.group.steps.isEmpty() ? recipe.steps.size() : choice.group.steps.size();
         StringBuilder builder = new StringBuilder();
-        builder.append(choice.group.items.size()).append(choice.group.items.size() > 1 ? " ingredients" : " ingredient");
-        if (choice.group.note.length() > 0) builder.append(" - note");
+        builder.append("Variante selectionnee : ").append(choice.label);
+        builder.append(" - ").append(ingredientCount).append(ingredientCount > 1 ? " ingredients" : " ingredient");
+        builder.append(" - ").append(stepCount).append(stepCount > 1 ? " etapes" : " etape");
         meta.setText(builder.toString());
     }
 

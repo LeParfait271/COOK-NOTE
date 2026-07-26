@@ -119,7 +119,9 @@ Les variantes doivent suivre la construction du site. Les fiches parents
 affichent leurs recettes en grille de cartes parent 16/9 visibles,
 comme sur le site, jamais dans un menu deroulant. Les fiches a variantes internes utilisent
 une preparation choisie : une seule variante active affiche ses ingredients et
-ses etapes, les autres restent dans le selecteur natif.
+ses etapes, les autres restent dans le selecteur natif. Ce selecteur doit porter
+le titre clair `Choisir une variante`, expliquer que la fiche s'adapte au choix
+et confirmer la variante active avec ses compteurs ingredients/etapes.
 
 Le workflow officiel passe par `scripts/build-android-legacy-assets.js`, qui
 genere une sortie dediee dans :

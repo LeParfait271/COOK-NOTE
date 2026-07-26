@@ -116,26 +116,22 @@ const byId = Object.fromEntries(leaves.map(recipe => [recipe.id, recipe]));
 
 [
   'cassoulet',
-  'irish_stew_guinness',
-  'saucisse_lentilles',
-  'saucisses_aux_lentilles',
+  'ragouts_boeuf_biere_variantes',
+  'saucisses_lentilles_variantes',
   'dhal_lentilles_epices',
-  'porc_chorizo_haricots_tarbais',
-  'haricots_tarbais_chorizo_tomate',
-  'haricots_blancs_tomates_montbeliard',
+  'haricots_tarbais_variantes',
+  'legumineuses_montbeliard_variantes',
   'poulet_chorizo_vin_blanc_citron',
   'poulet_tomates_poivron_vin_blanc_thym',
   'poulet_sauce_pimentee',
   'poelee_ble_poulet_curcuma',
-  'curry_poulet_crevettes',
-  'cocotte_pois_chiches_tomates_montbeliard',
+  'currys_carnivores_variantes',
   'pates_pesto_tomates_mozzarella',
-  'ragout_boeuf_biere',
   'queue_boeuf_carottes_vin_rouge',
   'parmentier_confit_canard_patates_douces',
   'soupe_paysanne_morteau',
-  'saumon_au_four_simple',
-  'gratin_chou_fleur_chorizo_cocottes'
+  'saumon_four_variantes',
+  'gratins_chou_fleur_variantes'
 ].forEach(id => {
   const recipe = byId[id];
   expect(`Lecture chef: recette chaude introuvable (${id}).`, Boolean(recipe));
@@ -148,10 +144,10 @@ const byId = Object.fromEntries(leaves.map(recipe => [recipe.id, recipe]));
 });
 
 [
-  'terrine_campagne',
-  'rillettes_porc',
-  'tiramisu_citron',
-  'gazpacho_tomate_menthe_basilic',
+  'terrines_pates_variantes',
+  'rillettes_variantes',
+  'tiramisu_variantes',
+  'gaspachos_variantes',
   'salade_caprese'
 ].forEach(id => {
   const recipe = byId[id];
@@ -224,6 +220,21 @@ if (shoppingData.groupedItems[0]) owned[shoppingData.groupedItems[0].key] = true
 const filtered = ctx.filterShoppingListData(shoppingData, owned);
 expect('Liste courses: mode deja maison inactif.', filtered.ownedGroupedItems.length === 1 && filtered.groupedItems.length === shoppingData.groupedItems.length - 1);
 expect('Liste courses: export compact absent.', ctx.shoppingListText(menuRecipes, {}, owned, 'compact').includes('Courses Cook Note'));
+
+const inlineFamily = byId.currys_carnivores_variantes;
+const inlineOptions = inlineFamily ? ctx.getInlineVariantOptions(inlineFamily) : [];
+expect('Variantes inline: fiche Currys carnivores absente.', Boolean(inlineFamily));
+expect('Variantes inline: choix Currys carnivores incomplets.', inlineOptions.length === 3);
+if (inlineFamily && inlineOptions.length) {
+  const selectedInlineRecipe = ctx.buildInlineVariantRecipe(inlineFamily, inlineOptions[0]);
+  expect('Variantes inline: ingredients de la variante absents.', selectedInlineRecipe.ingredients.some(group => (group.items || []).length > 0));
+  expect('Variantes inline: etapes de la variante absentes.', selectedInlineRecipe.steps.length > 0);
+  expect('Variantes inline: informations detaillees de la recette source absentes.', Array.isArray(selectedInlineRecipe.notes) && selectedInlineRecipe.notes.length > 0);
+  const shoppingKey = ctx.inlineVariantShoppingKey(inlineFamily.id, inlineOptions[0].index);
+  const shoppingRecipe = ctx.resolveShoppingRecipe(shoppingKey, byId);
+  expect('Variantes inline: choix non conserve dans la liste de courses.', shoppingRecipe?.id === shoppingKey && shoppingRecipe.title.includes(inlineOptions[0].label));
+  expect('Variantes inline: liste de courses vide pour la variante choisie.', ctx.buildShoppingListData(shoppingRecipe ? [shoppingRecipe] : []).groupedItems.length > 0);
+}
 
 const searchResults = leaves.map(recipe => ctx.scoreRecipeSearch(recipe, 'rapide', byId)).filter(result => result.score > 0);
 expect('Recherche: intention rapide non couverte par les recettes.', searchResults.length > 0);

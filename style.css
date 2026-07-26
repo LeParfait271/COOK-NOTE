@@ -1697,6 +1697,12 @@ a {
   line-height: 1.2;
 }
 
+.detail-meta .detail-meta-choice-required {
+  border-color: color-mix(in srgb, var(--accent) 54%, var(--line));
+  background: color-mix(in srgb, var(--accent) 16%, rgba(0, 0, 0, .28));
+  color: color-mix(in srgb, var(--accent) 82%, #fff);
+}
+
 .nutri-score {
   display: inline-flex;
   align-items: center;
@@ -2108,85 +2114,242 @@ a {
   --panel-accent: var(--accent);
 }
 
+.variant-choice-panel.recipe-panel {
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+  background:
+    radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 34%),
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 5%, transparent), transparent 190px),
+    var(--surface);
+  padding: clamp(20px, 2.4vw, 30px);
+}
+
+.variant-choice-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.variant-choice-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+.variant-choice-heading {
+  display: grid;
+  gap: 7px;
+  max-width: 760px;
+}
+
+.variant-choice-heading .eyebrow,
+.variant-choice-heading h2,
+.variant-choice-description {
+  margin: 0;
+}
+
+.variant-choice-heading h2 {
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1.05;
+  font-weight: 950;
+}
+
+.variant-choice-description {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.variant-choice-count {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  border: 1px solid color-mix(in srgb, var(--accent) 48%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-soft));
+  color: color-mix(in srgb, var(--accent) 84%, var(--text));
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 950;
+}
+
 .variant-choice-tabs {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
 }
 
 .variant-choice-button {
+  position: relative;
   display: grid;
-  gap: 5px;
+  grid-template-rows: auto 1fr auto;
+  gap: 12px;
   min-width: 0;
-  min-height: 86px;
+  min-height: 142px;
+  overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--ds-radius-md);
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--accent) 9%, transparent), rgba(255, 255, 255, .02)),
+    linear-gradient(145deg, color-mix(in srgb, var(--accent) 6%, transparent), rgba(255, 255, 255, .018)),
     var(--surface-soft);
   color: var(--text);
-  padding: 12px;
+  padding: 15px;
   text-align: left;
-  transition: border-color var(--speed), transform var(--speed), background var(--speed);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .035);
+  transition: border-color var(--speed), transform var(--speed), background var(--speed), box-shadow var(--speed);
 }
 
 .variant-choice-button:hover,
 .variant-choice-button:focus-visible {
-  border-color: color-mix(in srgb, var(--accent) 58%, var(--line));
-  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent) 68%, var(--line));
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .07),
+    0 14px 30px color-mix(in srgb, var(--accent) 10%, rgba(0, 0, 0, .28));
 }
 
 .variant-choice-button.active {
   border-color: var(--accent);
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, transparent), rgba(255, 255, 255, .04)),
+    linear-gradient(145deg, color-mix(in srgb, var(--accent) 19%, transparent), rgba(255, 255, 255, .045)),
     var(--surface-strong);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--accent) 72%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, .09),
+    0 16px 34px color-mix(in srgb, var(--accent) 14%, rgba(0, 0, 0, .30));
 }
 
-.variant-choice-button strong,
-.variant-choice-button span,
-.variant-choice-button small {
-  min-width: 0;
-  overflow: hidden;
-  max-width: 100%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.variant-choice-button strong {
-  font-size: 14px;
-  font-weight: 950;
-}
-
-.variant-choice-button span,
-.variant-choice-button small {
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.variant-choice-summary {
+.variant-choice-card-top {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 8px;
   align-items: center;
-  margin-top: 12px;
+  min-width: 0;
 }
 
-.variant-choice-summary strong,
-.variant-choice-summary span {
-  max-width: 100%;
-  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--line));
+.variant-choice-number,
+.variant-choice-state {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, .045);
-  padding: 6px 10px;
-  font-size: 12px;
-  font-weight: 900;
+  padding: 0 9px;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.variant-choice-number {
+  border: 1px solid var(--line);
+  color: var(--muted);
+  background: color-mix(in srgb, var(--surface-strong) 84%, transparent);
+}
+
+.variant-choice-state {
+  gap: 4px;
+  color: color-mix(in srgb, var(--accent) 82%, var(--text));
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
+
+.variant-choice-button.active .variant-choice-state {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.variant-choice-title {
+  align-self: center;
+  min-width: 0;
+  font-size: clamp(16px, 1.5vw, 19px);
+  font-weight: 950;
+  line-height: 1.18;
   overflow-wrap: anywhere;
 }
 
-.variant-choice-summary strong {
+.variant-choice-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.variant-choice-meta > span + span::before {
+  content: "\2022";
+  margin-right: 14px;
+  color: color-mix(in srgb, var(--accent) 72%, var(--muted));
+}
+
+.variant-choice-status {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  margin-top: 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+  border-radius: var(--ds-radius-md);
+  background: color-mix(in srgb, var(--accent) 6%, var(--surface-soft));
+  padding: 13px 14px;
+}
+
+.variant-choice-status.waiting {
+  border-style: dashed;
+}
+
+.variant-choice-status.selected {
+  border-color: color-mix(in srgb, var(--accent) 56%, var(--line));
+  background: color-mix(in srgb, var(--accent) 11%, var(--surface-soft));
+}
+
+.variant-choice-status-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid color-mix(in srgb, var(--accent) 46%, var(--line));
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-strong));
   color: var(--accent);
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.variant-choice-status.selected .variant-choice-status-icon {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.variant-choice-status-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.variant-choice-status-copy small {
+  color: color-mix(in srgb, var(--accent) 82%, var(--text));
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.variant-choice-status-copy strong {
+  font-size: 15px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.variant-choice-status-copy > span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.4;
 }
 
 .ingredients-panel {
@@ -5474,28 +5637,39 @@ a {
     margin-top: 10px;
   }
 
+  .variant-choice-header {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .variant-choice-count {
+    justify-self: start;
+  }
+
   .variant-choice-tabs {
     grid-template-columns: 1fr;
     gap: 8px;
   }
 
   .variant-choice-button {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    min-height: 58px;
-    padding: 10px;
+    min-height: 126px;
+    padding: 13px;
   }
 
-  .variant-choice-button strong {
-    grid-column: 1 / -1;
-    white-space: normal;
-    overflow-wrap: anywhere;
+  .variant-choice-title {
+    font-size: 17px;
   }
 
-  .variant-choice-button span,
-  .variant-choice-button small {
-    white-space: normal;
-    overflow-wrap: anywhere;
+  .variant-choice-status {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .variant-choice-status-icon {
+    width: 36px;
+    height: 36px;
   }
 
   .site-footer-inner {
