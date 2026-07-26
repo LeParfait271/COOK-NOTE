@@ -284,6 +284,33 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
+  test('long ingredient panel keeps its final row inside the frame', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/poulet_basquaise_variantes?lang=fr');
+    await waitForCookNote(page);
+
+    const ovenVariant = page.locator('.variant-choice-button').filter({ hasText: /Au four/i });
+    await expect(ovenVariant).toHaveCount(1);
+    await ovenVariant.click();
+
+    const panel = page.locator('.ingredients-panel');
+    await expect(panel).toContainText('1 bouquet garni');
+    const layout = await panel.evaluate(element => {
+      element.scrollTop = element.scrollHeight;
+      const lastItem = element.querySelector('.ingredient-group li:last-child');
+      const panelRect = element.getBoundingClientRect();
+      const lastItemRect = lastItem.getBoundingClientRect();
+      return {
+        overflowY: getComputedStyle(element).overflowY,
+        bottomSpace: panelRect.bottom - lastItemRect.bottom
+      };
+    });
+
+    expect(layout.overflowY).toBe('auto');
+    expect(layout.bottomSpace).toBeGreaterThanOrEqual(12);
+    await expectNoHorizontalOverflow(page);
+  });
+
   test('direct recipe route renders hero and decoded copy', async ({ page }, testInfo) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/poulet_sauce_pimentee?lang=fr');

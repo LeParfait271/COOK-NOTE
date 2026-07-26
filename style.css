@@ -7292,6 +7292,11 @@ a {
     color-mix(in srgb, var(--surface) 94%, transparent);
 }
 
+.ingredients-panel {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .season-dashboard::before,
 .season-block::before,
 .recipe-panel::before,

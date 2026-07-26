@@ -75,6 +75,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 342,
     "bytes": 50611
   },
+  "assets/recipes/cards/beurre_blanc.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 59645
+  },
   "assets/recipes/cards/beurre_clarifie.jpg": {
     "width": 1040,
     "height": 520,
@@ -1050,10 +1055,15 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 507,
     "bytes": 53099
   },
+  "assets/recipes/cards/sauce_aux_morilles.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 61146
+  },
   "assets/recipes/cards/sauce_aux_poivres.jpg": {
     "width": 760,
-    "height": 570,
-    "bytes": 98191
+    "height": 428,
+    "bytes": 66327
   },
   "assets/recipes/cards/sauce_bearnaise.jpg": {
     "width": 760,
@@ -1064,6 +1074,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 428,
     "bytes": 56852
+  },
+  "assets/recipes/cards/sauce_bourguignonne.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 63646
   },
   "assets/recipes/cards/sauce_caramel.jpg": {
     "width": 760,
@@ -1334,6 +1349,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 629,
     "bytes": 159152
+  },
+  "assets/recipes/heroes/beurre_blanc.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 185629
   },
   "assets/recipes/heroes/beurre_clarifie.jpg": {
     "width": 1536,
@@ -2310,10 +2330,15 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 137570
   },
+  "assets/recipes/heroes/sauce_aux_morilles.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 196626
+  },
   "assets/recipes/heroes/sauce_aux_poivres.jpg": {
     "width": 1400,
-    "height": 1050,
-    "bytes": 307501
+    "height": 788,
+    "bytes": 216152
   },
   "assets/recipes/heroes/sauce_bearnaise.jpg": {
     "width": 1400,
@@ -2324,6 +2349,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 196172
+  },
+  "assets/recipes/heroes/sauce_bourguignonne.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 205615
   },
   "assets/recipes/heroes/sauce_caramel.jpg": {
     "width": 1024,
@@ -2634,6 +2664,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 629,
     "bytes": 159116
+  },
+  "assets/theme/dark/recipes/beurre_blanc.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 193693
   },
   "assets/theme/dark/recipes/beurre_clarifie.jpg": {
     "width": 1280,
@@ -3760,10 +3795,15 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 179429
   },
+  "assets/theme/dark/recipes/sauce_aux_morilles.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 191652
+  },
   "assets/theme/dark/recipes/sauce_aux_poivres.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 178926
+    "width": 1400,
+    "height": 788,
+    "bytes": 224071
   },
   "assets/theme/dark/recipes/sauce_bearnaise.jpg": {
     "width": 1400,
@@ -3774,6 +3814,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 196172
+  },
+  "assets/theme/dark/recipes/sauce_bourguignonne.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 180629
   },
   "assets/theme/dark/recipes/sauce_caramel.jpg": {
     "width": 1280,
@@ -4134,6 +4179,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 339326
+  },
+  "assets/theme/day/recipes/beurre_blanc.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 185629
   },
   "assets/theme/day/recipes/beurre_clarifie.jpg": {
     "width": 1280,
@@ -5430,10 +5480,15 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 218540
   },
+  "assets/theme/day/recipes/sauce_aux_morilles.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 196626
+  },
   "assets/theme/day/recipes/sauce_aux_poivres.jpg": {
-    "width": 1280,
-    "height": 720,
-    "bytes": 192650
+    "width": 1400,
+    "height": 788,
+    "bytes": 216152
   },
   "assets/theme/day/recipes/sauce_bearnaise.jpg": {
     "width": 1400,
@@ -5444,6 +5499,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 178933
+  },
+  "assets/theme/day/recipes/sauce_bourguignonne.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 205615
   },
   "assets/theme/day/recipes/sauce_caramel.jpg": {
     "width": 1280,

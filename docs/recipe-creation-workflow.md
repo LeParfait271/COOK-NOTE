@@ -90,15 +90,24 @@ Le partage d'un ingredient principal ne suffit jamais a regrouper deux plats.
 ## 4. Rediger la fiche
 
 1. Utiliser un titre culinaire neutre et factuel.
-2. Renseigner rendement, temps, difficulte, categories, alias et tags utiles.
-3. Donner des quantites metriques conformes aux regles Cook Note.
-4. Separer clairement les groupes d'ingredients et ordonner les etapes.
-5. Completer `Avant de commencer` : materiel, poids moyens, allergenes, timing,
+2. Nommer chaque variante d'apres l'element culinaire qui la distingue le plus :
+   ingredient, alcool, aromate, cuisson ou technique. Exemples :
+   `Sauce aux poivres au cognac`, `Aioli au safran`, `Poulet basquaise au four`.
+   Ne jamais reprendre le nom d'une source, d'un auteur, d'un blog ou d'un site
+   dans le titre ou le libelle public d'une variante.
+3. Interdire dans les titres et libelles de variantes les qualificatifs
+   marketing ou de gamme tels que `rapide`, `facile`, `simple`, `express`,
+   `premium`, `haut de gamme`, `basique`, `ultra simple` ou `inratable`.
+   La difficulte et la duree appartiennent aux champs dedies, pas au nom.
+4. Renseigner rendement, temps, difficulte, categories, alias et tags utiles.
+5. Donner des quantites metriques conformes aux regles Cook Note.
+6. Separer clairement les groupes d'ingredients et ordonner les etapes.
+7. Completer `Avant de commencer` : materiel, poids moyens, allergenes, timing,
    conservation, rechauffage, erreurs a eviter, resultat attendu et technique
    lorsque ces informations sont utiles.
-6. Ajouter les liens internes vers sauces, bases, accompagnements ou techniques
+8. Ajouter les liens internes vers sauces, bases, accompagnements ou techniques
    reutilises.
-7. Ne jamais publier de champ source, credit, attribution ou URL d'origine.
+9. Ne jamais publier de champ source, credit, attribution ou URL d'origine.
 
 ## 5. Preparer et valider les images
 
@@ -125,6 +134,8 @@ Repondre explicitement a ces questions :
 - Le plat a-t-il un autre nom, une autre structure et un resultat distinct ? Si
   oui, choisir une fiche separee.
 - Le rattachement respecte-t-il les huit parents racines ?
+- Le nom de chaque variante decrit-il son element culinaire distinctif sans
+  source, auteur ni qualificatif marketing ?
 - Les images jour et nuit ont-elles ete validees avant integration ?
 
 En cas de doute semantique reel, presenter le classement propose et attendre la
