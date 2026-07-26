@@ -116,7 +116,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v3.97';
+const SITE_VERSION = 'v3.99';
 const SITE_UPDATED_AT = '26/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '3.91';
@@ -1506,11 +1506,11 @@ function countInlineVariantGroups(recipe) {
   return groups.filter(group => isVariantIngredientGroup(group, groups, recipe)).length;
 }
 
-function getRecipeVariantLabel(recipe, recipesById = {}) {
-  const externalVariants = getVariantRefs(recipe);
-  const count = externalVariants.length
-    ? countLeafRecipes(recipe, recipesById)
-    : countInlineVariantGroups(recipe);
+function getRecipeVariantLabel(recipe) {
+  // Les fiches parentes servent uniquement de point d'entrée vers leurs recettes.
+  // Le compteur est réservé aux fiches recette qui portent leurs propres variantes.
+  if (isMasterRecipe(recipe)) return '';
+  const count = countInlineVariantGroups(recipe);
   if (!count) return '';
   return `${count} variante${count > 1 ? 's' : ''}`;
 }
@@ -4258,6 +4258,27 @@ function displayRecipeImage(recipe) {
   return themeRecipeArtImage(recipe) || recipe?.image || '';
 }
 
+function inlineVariantImage(recipe, option) {
+  const nestedRecipe = option?.group?.recipe && typeof option.group.recipe === 'object'
+    ? option.group.recipe
+    : {};
+  const sourceImage = nestedRecipe.image || recipe?.image || '';
+  const sourceId = String(sourceImage).match(/\/([^/?#]+)\.(?:jpe?g|png|webp)(?:[?#].*)?$/i)?.[1] || recipe?.id;
+  const theme = isDayArtTheme() ? 'day' : 'dark';
+  const themedImage = THEME_RECIPE_ART_IMAGES[theme === 'day' ? 'light' : 'dark']?.[sourceId];
+  const themedFallback = `/assets/theme/${theme}/recipes/${sourceId}.jpg`;
+  if (themedImage) return themedImage;
+  if (imageManifestEntry(themedFallback)) {
+    return `${themedFallback}?v=${SITE_VERSION.replace(/\D/g, '')}`;
+  }
+  return displayRecipeImage({
+    ...recipe,
+    ...nestedRecipe,
+    id: sourceId || recipe?.id,
+    image: sourceImage
+  });
+}
+
 function ambilightStyle(image, extra = {}) {
   return image ? { ...extra, '--ambilight-image': `url("${image}")` } : extra;
 }
@@ -6413,10 +6434,12 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
     h('div', { className: 'variant-choice-tabs', role: 'group', 'aria-label': 'Variantes disponibles' },
       optionDetails.map(option => {
         const active = Boolean(selectedOption) && option.index === selectedOption.index;
+        const image = inlineVariantImage(recipe, option);
         return h('button', {
           key: `${recipe.id}:variant:${option.index}`,
           type: 'button',
-          className: active ? 'variant-choice-button active' : 'variant-choice-button',
+          className: `variant-choice-button${image ? ' has-image' : ''}${active ? ' active' : ''}`,
+          style: image ? { '--variant-choice-image': `url("${image}")` } : {},
           onClick: () => onSelect(option.index),
           'aria-pressed': active,
           'aria-controls': 'recipe-detail-content'

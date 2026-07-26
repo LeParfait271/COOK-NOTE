@@ -2580,6 +2580,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 941,
     "bytes": 358641
   },
+  "assets/theme/dark/recipes/aioli_citronne_leger.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 209791
+  },
+  "assets/theme/dark/recipes/aioli_safran.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 182130
+  },
   "assets/theme/dark/recipes/aioli_variantes.jpg": {
     "width": 1400,
     "height": 788,
@@ -2685,6 +2695,31 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 175727
   },
+  "assets/theme/dark/recipes/cake_sale_lardon.jpg": {
+    "width": 1400,
+    "height": 630,
+    "bytes": 162327
+  },
+  "assets/theme/dark/recipes/cake_tomate_chorizo_feta.jpg": {
+    "width": 1400,
+    "height": 632,
+    "bytes": 173723
+  },
+  "assets/theme/dark/recipes/caramel_cheesecake_cookies.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 188845
+  },
+  "assets/theme/dark/recipes/carottes_braisees_orange_citron_confit.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 180120
+  },
+  "assets/theme/dark/recipes/carottes_braisees.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 186214
+  },
   "assets/theme/dark/recipes/carottes_persillade_creme.jpg": {
     "width": 1280,
     "height": 720,
@@ -2725,10 +2760,30 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 161650
   },
+  "assets/theme/dark/recipes/chantilly_classique.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 168979
+  },
+  "assets/theme/dark/recipes/chantilly_gelatine.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 171795
+  },
   "assets/theme/dark/recipes/chantilly_variantes.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 184972
+  },
+  "assets/theme/dark/recipes/chapelure_maison.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 178824
+  },
+  "assets/theme/dark/recipes/chapelure_parfumee.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 191494
   },
   "assets/theme/dark/recipes/chipirons_a_la_plancha.jpg": {
     "width": 1280,
@@ -2739,6 +2794,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 770,
     "bytes": 219613
+  },
+  "assets/theme/dark/recipes/chou_fleur_coco_curry.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 178954
   },
   "assets/theme/dark/recipes/chou_fleur_croustillant.jpg": {
     "width": 1400,
@@ -2760,6 +2820,21 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 185244
   },
+  "assets/theme/dark/recipes/clafoutis_abricots_rhum_vanille.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 194975
+  },
+  "assets/theme/dark/recipes/clafoutis_cerises_bocuse.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 200678
+  },
+  "assets/theme/dark/recipes/clafoutis_myrtilles_nectarines.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 195719
+  },
   "assets/theme/dark/recipes/cochon_confit_biere_erable.jpg": {
     "width": 1280,
     "height": 720,
@@ -2770,6 +2845,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 122406
   },
+  "assets/theme/dark/recipes/cocotte_pois_chiches_tomates_montbeliard.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 186813
+  },
+  "assets/theme/dark/recipes/colombo_espadon.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 326246
+  },
   "assets/theme/dark/recipes/compotee_citron.jpg": {
     "width": 1280,
     "height": 720,
@@ -2779,6 +2864,41 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1672,
     "height": 941,
     "bytes": 312109
+  },
+  "assets/theme/dark/recipes/cookies_avoine_noix_fruits_secs.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 199976
+  },
+  "assets/theme/dark/recipes/cookies_beurre_noisette_chocolat_noir_lait.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 202619
+  },
+  "assets/theme/dark/recipes/cookies_cerise_chocolat.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 202412
+  },
+  "assets/theme/dark/recipes/cookies_chocolat_blanc_cranberry.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 205888
+  },
+  "assets/theme/dark/recipes/cookies_chocolat_moelleux.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 207037
+  },
+  "assets/theme/dark/recipes/cookies_chocolat_noir_lait.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 199814
+  },
+  "assets/theme/dark/recipes/cookies_chocolat_noix.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 202969
   },
   "assets/theme/dark/recipes/cookies_sales_variantes.jpg": {
     "width": 1400,
@@ -2825,10 +2945,55 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 160118
   },
+  "assets/theme/dark/recipes/creme_diplomate_cloud.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 176589
+  },
+  "assets/theme/dark/recipes/creme_diplomate_vanille.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 180569
+  },
   "assets/theme/dark/recipes/creme_diplomate_variantes.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 177619
+  },
+  "assets/theme/dark/recipes/creme_kinder_nutella.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 187120
+  },
+  "assets/theme/dark/recipes/creme_patissiere_praline.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 187074
+  },
+  "assets/theme/dark/recipes/creme_patissiere_vanille.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 160356
+  },
+  "assets/theme/dark/recipes/creme_pistache.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 183303
+  },
+  "assets/theme/dark/recipes/creme_praline.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 190220
+  },
+  "assets/theme/dark/recipes/crepes_lait_amandes.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 232550
+  },
+  "assets/theme/dark/recipes/crepes_suzette.jpg": {
+    "width": 1400,
+    "height": 835,
+    "bytes": 188460
   },
   "assets/theme/dark/recipes/crevettes_ail_persil.jpg": {
     "width": 1280,
@@ -2859,6 +3024,51 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 216972
+  },
+  "assets/theme/dark/recipes/crumble_pomme_poire_violier.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 168728
+  },
+  "assets/theme/dark/recipes/crumble_pomme_poire.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 191534
+  },
+  "assets/theme/dark/recipes/cuisses_de_poulet_miel_moutarde.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 190385
+  },
+  "assets/theme/dark/recipes/cuisses_de_poulet_rhum_miel_piment.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 215534
+  },
+  "assets/theme/dark/recipes/cuisses_poulet_asiatique.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 208953
+  },
+  "assets/theme/dark/recipes/cuisses_poulet_four_tomates_thym.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 200846
+  },
+  "assets/theme/dark/recipes/curry_carottes_lait_coco.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 194696
+  },
+  "assets/theme/dark/recipes/curry_lentilles_coco.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 193463
+  },
+  "assets/theme/dark/recipes/curry_poulet_crevettes.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 217641
   },
   "assets/theme/dark/recipes/dhal_lentilles_epices.jpg": {
     "width": 1280,
@@ -2900,10 +3110,35 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 175251
   },
+  "assets/theme/dark/recipes/frites_belges.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 183788
+  },
+  "assets/theme/dark/recipes/frites_four_maison.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 202045
+  },
+  "assets/theme/dark/recipes/frites_maison.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 185175
+  },
+  "assets/theme/dark/recipes/frites_patate_douce.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 210166
+  },
   "assets/theme/dark/recipes/frites_variantes.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 193285
+  },
+  "assets/theme/dark/recipes/gaspacho_melon.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 201731
   },
   "assets/theme/dark/recipes/gateau_roule_framboise.jpg": {
     "width": 1280,
@@ -2914,6 +3149,31 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 209708
+  },
+  "assets/theme/dark/recipes/gazpacho_tomate_menthe_basilic.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 181997
+  },
+  "assets/theme/dark/recipes/gratin_chou_fleur_chorizo_cocottes.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 214714
+  },
+  "assets/theme/dark/recipes/gratin_chou_fleur_comte_lardons.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 213808
+  },
+  "assets/theme/dark/recipes/gratin_chou_fleur_mascarpone_moutarde.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 198479
+  },
+  "assets/theme/dark/recipes/gratin_chou_fleur.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 208646
   },
   "assets/theme/dark/recipes/gratin_dauphinois.jpg": {
     "width": 1280,
@@ -2945,6 +3205,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 204088
   },
+  "assets/theme/dark/recipes/haricots_blancs_tomates_montbeliard.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 197894
+  },
+  "assets/theme/dark/recipes/haricots_tarbais_chorizo_tomate.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 217577
+  },
   "assets/theme/dark/recipes/haricots_tarbais_variantes.jpg": {
     "width": 1400,
     "height": 788,
@@ -2954,6 +3224,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 185283
+  },
+  "assets/theme/dark/recipes/hauts_de_cuisses_poulet_orange_oignon.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 227071
   },
   "assets/theme/dark/recipes/houmous_hakocem.jpg": {
     "width": 1400,
@@ -2969,6 +3244,31 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 177106
+  },
+  "assets/theme/dark/recipes/irish_stew_guinness.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 201005
+  },
+  "assets/theme/dark/recipes/joues_boeuf_whiskey_orange.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 213267
+  },
+  "assets/theme/dark/recipes/joues_de_boeuf_carottes_orange_vin_rouge.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 218103
+  },
+  "assets/theme/dark/recipes/joues_de_porc_chorizo_piment.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 208781
+  },
+  "assets/theme/dark/recipes/joues_porc_cidre_miel.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 213135
   },
   "assets/theme/dark/recipes/legumes_rotis.jpg": {
     "width": 1280,
@@ -2995,10 +3295,25 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 216534
   },
+  "assets/theme/dark/recipes/mascarpone.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 178245
+  },
   "assets/theme/dark/recipes/mayonnaise_maison.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 154485
+  },
+  "assets/theme/dark/recipes/meringue_italienne.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 161835
+  },
+  "assets/theme/dark/recipes/meringues.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 169929
   },
   "assets/theme/dark/recipes/mi_cuits_chocolat.jpg": {
     "width": 1280,
@@ -3009,6 +3324,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 746,
     "bytes": 229850
+  },
+  "assets/theme/dark/recipes/mousse_chocolat.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 188355
+  },
+  "assets/theme/dark/recipes/mousse_toblerone.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 192102
   },
   "assets/theme/dark/recipes/mousses_chocolat_variantes.jpg": {
     "width": 1400,
@@ -3045,6 +3370,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 171712
   },
+  "assets/theme/dark/recipes/pain_ail_jamie_oliver.jpg": {
+    "width": 1672,
+    "height": 940,
+    "bytes": 365334
+  },
+  "assets/theme/dark/recipes/pain_grille_beurre_ail_herbes.jpg": {
+    "width": 1400,
+    "height": 630,
+    "bytes": 181441
+  },
   "assets/theme/dark/recipes/pain_hot_dog.jpg": {
     "width": 1280,
     "height": 720,
@@ -3059,6 +3394,21 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 179457
+  },
+  "assets/theme/dark/recipes/pancakes_babeurre.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 190469
+  },
+  "assets/theme/dark/recipes/pancakes_fluffy.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 153337
+  },
+  "assets/theme/dark/recipes/pancakes_lait.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 192958
   },
   "assets/theme/dark/recipes/paris_brest.jpg": {
     "width": 1280,
@@ -3079,6 +3429,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 180483
+  },
+  "assets/theme/dark/recipes/pate_lapin_piment_espelette.jpg": {
+    "width": 1400,
+    "height": 700,
+    "bytes": 158083
   },
   "assets/theme/dark/recipes/pate_legere_beignets_calamar_crevettes.jpg": {
     "width": 1280,
@@ -3119,6 +3474,26 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 206184
+  },
+  "assets/theme/dark/recipes/pesto_ail_des_ours.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 212081
+  },
+  "assets/theme/dark/recipes/pesto_citronne.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 196555
+  },
+  "assets/theme/dark/recipes/pesto_genovese.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 185672
+  },
+  "assets/theme/dark/recipes/pesto_tomates_sechees_sans_cajou.jpg": {
+    "width": 1400,
+    "height": 630,
+    "bytes": 178067
   },
   "assets/theme/dark/recipes/pesto_variantes.jpg": {
     "width": 1280,
@@ -3185,6 +3560,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 941,
     "bytes": 303044
   },
+  "assets/theme/dark/recipes/porc_chorizo_haricots_tarbais.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 196364
+  },
   "assets/theme/dark/recipes/potato_wedges_citron_herbes.jpg": {
     "width": 1280,
     "height": 720,
@@ -3195,10 +3575,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 198612
   },
+  "assets/theme/dark/recipes/poulet_basquaise_four.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 361449
+  },
   "assets/theme/dark/recipes/poulet_basquaise_variantes.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 203476
+  },
+  "assets/theme/dark/recipes/poulet_basquaise.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 195779
   },
   "assets/theme/dark/recipes/poulet_chorizo_vin_blanc_citron.jpg": {
     "width": 1280,
@@ -3225,15 +3615,60 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 206914
   },
+  "assets/theme/dark/recipes/poulet_tikka_masala.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 191826
+  },
   "assets/theme/dark/recipes/poulet_tomates_poivron_vin_blanc_thym.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 217795
   },
+  "assets/theme/dark/recipes/puree_butternut_pommes_terre_curry.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 185034
+  },
+  "assets/theme/dark/recipes/puree_chou_fleur.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 184784
+  },
+  "assets/theme/dark/recipes/puree_courge_butternut.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 184029
+  },
+  "assets/theme/dark/recipes/puree_patates_douces.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 189905
+  },
+  "assets/theme/dark/recipes/puree_pommes_de_terre_ail_rose_huile_olive.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 195806
+  },
+  "assets/theme/dark/recipes/puree_pommes_de_terre_carottes.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 201697
+  },
+  "assets/theme/dark/recipes/puree_pommes_de_terre_citron.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 191564
+  },
   "assets/theme/dark/recipes/queue_boeuf_carottes_vin_rouge.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 201009
+  },
+  "assets/theme/dark/recipes/ragout_boeuf_biere.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 204742
   },
   "assets/theme/dark/recipes/rattes_four.jpg": {
     "width": 1280,
@@ -3244,6 +3679,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 192679
+  },
+  "assets/theme/dark/recipes/rillettes_porc.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 207292
+  },
+  "assets/theme/dark/recipes/rillettes_poulet.jpg": {
+    "width": 1400,
+    "height": 800,
+    "bytes": 239289
   },
   "assets/theme/dark/recipes/rillettes_variantes.jpg": {
     "width": 1400,
@@ -3295,6 +3740,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 224396
   },
+  "assets/theme/dark/recipes/salade_pois_chiche_feta_olives.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 219283
+  },
+  "assets/theme/dark/recipes/salade_pois_chiches_thon_poivrons.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 179140
+  },
   "assets/theme/dark/recipes/samoussas_boeuf_epinards_petits_pois.jpg": {
     "width": 1400,
     "height": 769,
@@ -3330,10 +3785,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 213163
   },
+  "assets/theme/dark/recipes/sauce_chevre_creme.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 185689
+  },
   "assets/theme/dark/recipes/sauce_gribiche.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 180277
+  },
+  "assets/theme/dark/recipes/sauce_mornay.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 152999
   },
   "assets/theme/dark/recipes/sauce_nem.jpg": {
     "width": 1280,
@@ -3345,6 +3810,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 175138
   },
+  "assets/theme/dark/recipes/sauce_roquefort.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 145797
+  },
   "assets/theme/dark/recipes/sauce_yaourt_citronnee.jpg": {
     "width": 1400,
     "height": 632,
@@ -3355,10 +3825,30 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 181966
   },
+  "assets/theme/dark/recipes/saucisse_lentilles.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 221721
+  },
   "assets/theme/dark/recipes/saucisse_puree_maison.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 192419
+  },
+  "assets/theme/dark/recipes/saucisses_aux_lentilles.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 219104
+  },
+  "assets/theme/dark/recipes/saumon_au_four_simple.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 201956
+  },
+  "assets/theme/dark/recipes/saumon_au_four_tomates_olives_basilic.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 198956
   },
   "assets/theme/dark/recipes/saumon_four_variantes.jpg": {
     "width": 1400,
@@ -3420,6 +3910,36 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 201201
   },
+  "assets/theme/dark/recipes/terrine_campagne.jpg": {
+    "width": 1400,
+    "height": 769,
+    "bytes": 219323
+  },
+  "assets/theme/dark/recipes/terrine_porc_pistaches.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 237536
+  },
+  "assets/theme/dark/recipes/tiramisu_amaretto.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 183737
+  },
+  "assets/theme/dark/recipes/tiramisu_citron.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 220031
+  },
+  "assets/theme/dark/recipes/tiramisu_creme_marrons.jpg": {
+    "width": 1400,
+    "height": 840,
+    "bytes": 178277
+  },
+  "assets/theme/dark/recipes/tiramisu_speculoos.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 207162
+  },
   "assets/theme/dark/recipes/tiramisu_variantes.jpg": {
     "width": 1400,
     "height": 788,
@@ -3454,6 +3974,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 180106
+  },
+  "assets/theme/dark/recipes/tresse_beurre_caminada.jpg": {
+    "width": 1400,
+    "height": 876,
+    "bytes": 206601
+  },
+  "assets/theme/dark/recipes/tresse_beurre_classique.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 141753
   },
   "assets/theme/dark/recipes/tresse_beurre_variantes.jpg": {
     "width": 1400,
@@ -3539,6 +4069,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1672,
     "height": 941,
     "bytes": 431614
+  },
+  "assets/theme/day/recipes/aioli_citronne_leger.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 292571
+  },
+  "assets/theme/day/recipes/aioli_safran.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 214065
   },
   "assets/theme/day/recipes/aioli_variantes.jpg": {
     "width": 1400,
@@ -3680,10 +4220,35 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 185696
   },
+  "assets/theme/day/recipes/cake_sale_lardon.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 312045
+  },
+  "assets/theme/day/recipes/cake_tomate_chorizo_feta.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 363060
+  },
+  "assets/theme/day/recipes/caramel_cheesecake_cookies.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 216882
+  },
   "assets/theme/day/recipes/carbonara_romaine.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 209410
+  },
+  "assets/theme/day/recipes/carottes_braisees_orange_citron_confit.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 219851
+  },
+  "assets/theme/day/recipes/carottes_braisees.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 205360
   },
   "assets/theme/day/recipes/carottes_persillade_creme.jpg": {
     "width": 1280,
@@ -3725,10 +4290,30 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 223661
   },
+  "assets/theme/day/recipes/chantilly_classique.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 175480
+  },
+  "assets/theme/day/recipes/chantilly_gelatine.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 230808
+  },
   "assets/theme/day/recipes/chantilly_variantes.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 167609
+  },
+  "assets/theme/day/recipes/chapelure_maison.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 239404
+  },
+  "assets/theme/day/recipes/chapelure_parfumee.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 232972
   },
   "assets/theme/day/recipes/cheesecake_basque.jpg": {
     "width": 1280,
@@ -3755,6 +4340,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 288248
   },
+  "assets/theme/day/recipes/chou_fleur_coco_curry.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 219047
+  },
   "assets/theme/day/recipes/chou_fleur_croustillant.jpg": {
     "width": 1400,
     "height": 933,
@@ -3775,6 +4365,21 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 230170
   },
+  "assets/theme/day/recipes/clafoutis_abricots_rhum_vanille.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 229582
+  },
+  "assets/theme/day/recipes/clafoutis_cerises_bocuse.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 236189
+  },
+  "assets/theme/day/recipes/clafoutis_myrtilles_nectarines.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 242995
+  },
   "assets/theme/day/recipes/cochon_confit_biere_erable.jpg": {
     "width": 1280,
     "height": 720,
@@ -3785,6 +4390,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 178870
   },
+  "assets/theme/day/recipes/cocotte_pois_chiches_tomates_montbeliard.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 230335
+  },
+  "assets/theme/day/recipes/colombo_espadon.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 429686
+  },
   "assets/theme/day/recipes/compotee_citron.jpg": {
     "width": 1280,
     "height": 720,
@@ -3794,6 +4409,41 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1672,
     "height": 941,
     "bytes": 451641
+  },
+  "assets/theme/day/recipes/cookies_avoine_noix_fruits_secs.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 233979
+  },
+  "assets/theme/day/recipes/cookies_beurre_noisette_chocolat_noir_lait.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 205923
+  },
+  "assets/theme/day/recipes/cookies_cerise_chocolat.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 225994
+  },
+  "assets/theme/day/recipes/cookies_chocolat_blanc_cranberry.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 207243
+  },
+  "assets/theme/day/recipes/cookies_chocolat_moelleux.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 225864
+  },
+  "assets/theme/day/recipes/cookies_chocolat_noir_lait.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 238990
+  },
+  "assets/theme/day/recipes/cookies_chocolat_noix.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 228255
   },
   "assets/theme/day/recipes/cookies_sales_variantes.jpg": {
     "width": 1400,
@@ -3850,15 +4500,60 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 215728
   },
+  "assets/theme/day/recipes/creme_diplomate_cloud.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 202488
+  },
+  "assets/theme/day/recipes/creme_diplomate_vanille.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 198992
+  },
   "assets/theme/day/recipes/creme_diplomate_variantes.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 153270
   },
+  "assets/theme/day/recipes/creme_kinder_nutella.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 214966
+  },
+  "assets/theme/day/recipes/creme_patissiere_praline.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 199391
+  },
+  "assets/theme/day/recipes/creme_patissiere_vanille.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 198353
+  },
+  "assets/theme/day/recipes/creme_pistache.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 233330
+  },
+  "assets/theme/day/recipes/creme_praline.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 230546
+  },
   "assets/theme/day/recipes/cremes_dessert_chocolat.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 175162
+  },
+  "assets/theme/day/recipes/crepes_lait_amandes.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 240832
+  },
+  "assets/theme/day/recipes/crepes_suzette.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 219013
   },
   "assets/theme/day/recipes/crevettes_ail_persil.jpg": {
     "width": 1280,
@@ -3889,6 +4584,51 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 203078
+  },
+  "assets/theme/day/recipes/crumble_pomme_poire_violier.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 231751
+  },
+  "assets/theme/day/recipes/crumble_pomme_poire.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 218890
+  },
+  "assets/theme/day/recipes/cuisses_de_poulet_miel_moutarde.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 244842
+  },
+  "assets/theme/day/recipes/cuisses_de_poulet_rhum_miel_piment.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 230541
+  },
+  "assets/theme/day/recipes/cuisses_poulet_asiatique.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 233436
+  },
+  "assets/theme/day/recipes/cuisses_poulet_four_tomates_thym.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 272421
+  },
+  "assets/theme/day/recipes/curry_carottes_lait_coco.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 224257
+  },
+  "assets/theme/day/recipes/curry_lentilles_coco.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 203971
+  },
+  "assets/theme/day/recipes/curry_poulet_crevettes.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 218768
   },
   "assets/theme/day/recipes/dhal_lentilles_epices.jpg": {
     "width": 1280,
@@ -3960,10 +4700,35 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 208500
   },
+  "assets/theme/day/recipes/frites_belges.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 194682
+  },
+  "assets/theme/day/recipes/frites_four_maison.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 235025
+  },
+  "assets/theme/day/recipes/frites_maison.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 207770
+  },
+  "assets/theme/day/recipes/frites_patate_douce.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 214596
+  },
   "assets/theme/day/recipes/frites_variantes.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 178192
+  },
+  "assets/theme/day/recipes/gaspacho_melon.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 192729
   },
   "assets/theme/day/recipes/gateau_roule_framboise.jpg": {
     "width": 1280,
@@ -3980,10 +4745,35 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 219629
   },
+  "assets/theme/day/recipes/gazpacho_tomate_menthe_basilic.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 226764
+  },
   "assets/theme/day/recipes/granola_maison_chocolat.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 202873
+  },
+  "assets/theme/day/recipes/gratin_chou_fleur_chorizo_cocottes.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 217599
+  },
+  "assets/theme/day/recipes/gratin_chou_fleur_comte_lardons.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 234032
+  },
+  "assets/theme/day/recipes/gratin_chou_fleur_mascarpone_moutarde.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 223516
+  },
+  "assets/theme/day/recipes/gratin_chou_fleur.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 204309
   },
   "assets/theme/day/recipes/gratin_dauphinois.jpg": {
     "width": 1280,
@@ -4020,6 +4810,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 242255
   },
+  "assets/theme/day/recipes/haricots_blancs_tomates_montbeliard.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 234547
+  },
+  "assets/theme/day/recipes/haricots_tarbais_chorizo_tomate.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 222357
+  },
   "assets/theme/day/recipes/haricots_tarbais_variantes.jpg": {
     "width": 1400,
     "height": 788,
@@ -4029,6 +4829,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 214048
+  },
+  "assets/theme/day/recipes/hauts_de_cuisses_poulet_orange_oignon.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 235194
   },
   "assets/theme/day/recipes/houmous_hakocem.jpg": {
     "width": 1400,
@@ -4045,6 +4850,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 198387
   },
+  "assets/theme/day/recipes/irish_stew_guinness.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 226274
+  },
   "assets/theme/day/recipes/jarret_agneau_petits_legumes.jpg": {
     "width": 1280,
     "height": 720,
@@ -4054,6 +4864,26 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 249261
+  },
+  "assets/theme/day/recipes/joues_boeuf_whiskey_orange.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 233189
+  },
+  "assets/theme/day/recipes/joues_de_boeuf_carottes_orange_vin_rouge.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 246633
+  },
+  "assets/theme/day/recipes/joues_de_porc_chorizo_piment.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 225316
+  },
+  "assets/theme/day/recipes/joues_porc_cidre_miel.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 233498
   },
   "assets/theme/day/recipes/legumes_rotis.jpg": {
     "width": 1280,
@@ -4085,10 +4915,25 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 229789
   },
+  "assets/theme/day/recipes/mascarpone.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 189583
+  },
   "assets/theme/day/recipes/mayonnaise_maison.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 205590
+  },
+  "assets/theme/day/recipes/meringue_italienne.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 209902
+  },
+  "assets/theme/day/recipes/meringues.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 195208
   },
   "assets/theme/day/recipes/mi_cuits_chocolat.jpg": {
     "width": 1280,
@@ -4099,6 +4944,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 933,
     "bytes": 352005
+  },
+  "assets/theme/day/recipes/mousse_chocolat.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 186567
+  },
+  "assets/theme/day/recipes/mousse_toblerone.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 219551
   },
   "assets/theme/day/recipes/mousses_chocolat_variantes.jpg": {
     "width": 1400,
@@ -4150,6 +5005,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 246551
   },
+  "assets/theme/day/recipes/pain_ail_jamie_oliver.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 532363
+  },
+  "assets/theme/day/recipes/pain_grille_beurre_ail_herbes.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 319316
+  },
   "assets/theme/day/recipes/pain_hot_dog.jpg": {
     "width": 1280,
     "height": 720,
@@ -4164,6 +5029,21 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 206679
+  },
+  "assets/theme/day/recipes/pancakes_babeurre.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 302029
+  },
+  "assets/theme/day/recipes/pancakes_fluffy.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 206609
+  },
+  "assets/theme/day/recipes/pancakes_lait.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 300421
   },
   "assets/theme/day/recipes/pancakes_variantes.jpg": {
     "width": 1280,
@@ -4194,6 +5074,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 209806
+  },
+  "assets/theme/day/recipes/pate_lapin_piment_espelette.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 333599
   },
   "assets/theme/day/recipes/pate_legere_beignets_calamar_crevettes.jpg": {
     "width": 1280,
@@ -4234,6 +5119,26 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 231376
+  },
+  "assets/theme/day/recipes/pesto_ail_des_ours.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 315060
+  },
+  "assets/theme/day/recipes/pesto_citronne.jpg": {
+    "width": 1400,
+    "height": 934,
+    "bytes": 285369
+  },
+  "assets/theme/day/recipes/pesto_genovese.jpg": {
+    "width": 1400,
+    "height": 932,
+    "bytes": 304001
+  },
+  "assets/theme/day/recipes/pesto_tomates_sechees_sans_cajou.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 335462
   },
   "assets/theme/day/recipes/pesto_variantes.jpg": {
     "width": 1280,
@@ -4305,6 +5210,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 941,
     "bytes": 469183
   },
+  "assets/theme/day/recipes/porc_chorizo_haricots_tarbais.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 200997
+  },
   "assets/theme/day/recipes/potato_wedges_citron_herbes.jpg": {
     "width": 1280,
     "height": 720,
@@ -4315,10 +5225,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 228040
   },
+  "assets/theme/day/recipes/poulet_basquaise_four.jpg": {
+    "width": 1672,
+    "height": 941,
+    "bytes": 482150
+  },
   "assets/theme/day/recipes/poulet_basquaise_variantes.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 203789
+  },
+  "assets/theme/day/recipes/poulet_basquaise.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 226983
   },
   "assets/theme/day/recipes/poulet_chorizo_vin_blanc_citron.jpg": {
     "width": 1280,
@@ -4350,15 +5270,60 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 243901
   },
+  "assets/theme/day/recipes/poulet_tikka_masala.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 235828
+  },
   "assets/theme/day/recipes/poulet_tomates_poivron_vin_blanc_thym.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 240829
   },
+  "assets/theme/day/recipes/puree_butternut_pommes_terre_curry.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 219275
+  },
+  "assets/theme/day/recipes/puree_chou_fleur.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 208255
+  },
+  "assets/theme/day/recipes/puree_courge_butternut.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 194556
+  },
+  "assets/theme/day/recipes/puree_patates_douces.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 214041
+  },
+  "assets/theme/day/recipes/puree_pommes_de_terre_ail_rose_huile_olive.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 192523
+  },
+  "assets/theme/day/recipes/puree_pommes_de_terre_carottes.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 205513
+  },
+  "assets/theme/day/recipes/puree_pommes_de_terre_citron.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 206894
+  },
   "assets/theme/day/recipes/queue_boeuf_carottes_vin_rouge.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 236843
+  },
+  "assets/theme/day/recipes/ragout_boeuf_biere.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 222558
   },
   "assets/theme/day/recipes/rattes_four.jpg": {
     "width": 1280,
@@ -4369,6 +5334,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 220188
+  },
+  "assets/theme/day/recipes/rillettes_porc.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 352299
+  },
+  "assets/theme/day/recipes/rillettes_poulet.jpg": {
+    "width": 1400,
+    "height": 1050,
+    "bytes": 368294
   },
   "assets/theme/day/recipes/rillettes_variantes.jpg": {
     "width": 1400,
@@ -4430,6 +5405,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 213719
   },
+  "assets/theme/day/recipes/salade_pois_chiche_feta_olives.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 230335
+  },
+  "assets/theme/day/recipes/salade_pois_chiches_thon_poivrons.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 242814
+  },
   "assets/theme/day/recipes/salade_pommes_terre_ottolenghi.jpg": {
     "width": 1280,
     "height": 720,
@@ -4470,10 +5455,20 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 176397
   },
+  "assets/theme/day/recipes/sauce_chevre_creme.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 216614
+  },
   "assets/theme/day/recipes/sauce_gribiche.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 173913
+  },
+  "assets/theme/day/recipes/sauce_mornay.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 193471
   },
   "assets/theme/day/recipes/sauce_nem.jpg": {
     "width": 1280,
@@ -4485,6 +5480,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 182798
   },
+  "assets/theme/day/recipes/sauce_roquefort.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 205442
+  },
   "assets/theme/day/recipes/sauce_yaourt_citronnee.jpg": {
     "width": 1400,
     "height": 933,
@@ -4495,10 +5495,30 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 217661
   },
+  "assets/theme/day/recipes/saucisse_lentilles.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 231213
+  },
   "assets/theme/day/recipes/saucisse_puree_maison.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 205459
+  },
+  "assets/theme/day/recipes/saucisses_aux_lentilles.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 217456
+  },
+  "assets/theme/day/recipes/saumon_au_four_simple.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 236649
+  },
+  "assets/theme/day/recipes/saumon_au_four_tomates_olives_basilic.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 210674
   },
   "assets/theme/day/recipes/saumon_four_variantes.jpg": {
     "width": 1400,
@@ -4575,6 +5595,36 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 344722
   },
+  "assets/theme/day/recipes/terrine_campagne.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 356547
+  },
+  "assets/theme/day/recipes/terrine_porc_pistaches.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 389992
+  },
+  "assets/theme/day/recipes/tiramisu_amaretto.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 231621
+  },
+  "assets/theme/day/recipes/tiramisu_citron.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 212121
+  },
+  "assets/theme/day/recipes/tiramisu_creme_marrons.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 195999
+  },
+  "assets/theme/day/recipes/tiramisu_speculoos.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 233976
+  },
   "assets/theme/day/recipes/tiramisu_variantes.jpg": {
     "width": 1400,
     "height": 788,
@@ -4609,6 +5659,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 220642
+  },
+  "assets/theme/day/recipes/tresse_beurre_caminada.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 226592
+  },
+  "assets/theme/day/recipes/tresse_beurre_classique.jpg": {
+    "width": 1280,
+    "height": 720,
+    "bytes": 176239
   },
   "assets/theme/day/recipes/tresse_beurre_variantes.jpg": {
     "width": 1400,

@@ -65,14 +65,28 @@ function loadRecipes() {
   return context.window.RECIPES || {};
 }
 
+function imageRecipeId(image) {
+  return String(image || '').match(/\/([^/?#]+)\.(?:jpe?g|png|webp)(?:[?#].*)?$/i)?.[1] || '';
+}
+
+function displayRecipeIds(recipes) {
+  const ids = new Set(Object.keys(recipes));
+  Object.values(recipes).forEach(recipe => {
+    (recipe.ingredients || []).forEach(group => {
+      const nestedId = imageRecipeId(group?.recipe?.image);
+      if (nestedId) ids.add(nestedId);
+    });
+  });
+  return ids;
+}
+
 function listFiles(relative) {
   const dir = path.join(ROOT, relative);
   if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir).filter(file => fs.statSync(path.join(dir, file)).isFile());
 }
 
-function addDayFiles(map, numeric) {
-  const recipeIds = new Set(Object.keys(loadRecipes()));
+function addDayFiles(map, numeric, recipeIds) {
   listFiles('assets/theme/day/recipes').forEach(file => {
     if (/\.jpg$/i.test(file)) {
       const id = file.replace(/\.jpg$/i, '');
@@ -87,8 +101,7 @@ function addDayFiles(map, numeric) {
   });
 }
 
-function addDarkFiles(map, numeric) {
-  const recipeIds = new Set(Object.keys(loadRecipes()));
+function addDarkFiles(map, numeric, recipeIds) {
   listFiles('assets/theme/dark/recipes').forEach(file => {
     if (!/\.jpg$/i.test(file)) return;
     const id = file.replace(/\.jpg$/i, '');
@@ -101,9 +114,9 @@ function addDarkFiles(map, numeric) {
   });
 }
 
-function filterDisplayArtRecipes(map, recipes) {
+function filterDisplayArtRecipes(map, recipeIds) {
   return Object.fromEntries(Object.entries(map).filter(([id, url]) => {
-    if (!recipes[id]) return false;
+    if (!recipeIds.has(id)) return false;
     const relative = String(url || '').split('?')[0].replace(/^\//, '');
     return relative.length > 0 && fs.existsSync(path.join(ROOT, relative));
   }));
@@ -127,12 +140,13 @@ function compactMapPayload(map, theme, numericVersion) {
 
 const numeric = currentNumericVersion();
 const recipes = loadRecipes();
+const recipeIds = displayRecipeIds(recipes);
 const maps = loadExistingRuntimeMap(numeric);
 maps.light = { ...loadInlineDayMap(numeric), ...maps.light };
-addDayFiles(maps.light, numeric);
-addDarkFiles(maps.dark, numeric);
-maps.light = filterDisplayArtRecipes(maps.light, recipes);
-maps.dark = filterDisplayArtRecipes(maps.dark, recipes);
+addDayFiles(maps.light, numeric, recipeIds);
+addDarkFiles(maps.dark, numeric, recipeIds);
+maps.light = filterDisplayArtRecipes(maps.light, recipeIds);
+maps.dark = filterDisplayArtRecipes(maps.dark, recipeIds);
 
 const darkPayload = compactMapPayload(maps.dark, 'dark', numeric);
 const lightPayload = compactMapPayload(maps.light, 'day', numeric);

@@ -2222,6 +2222,22 @@ a {
     0 16px 34px color-mix(in srgb, var(--accent) 14%, rgba(0, 0, 0, .30));
 }
 
+.variant-choice-button.has-image {
+  background:
+    linear-gradient(145deg,
+      color-mix(in srgb, var(--surface-strong) 60%, transparent),
+      color-mix(in srgb, var(--surface-strong) 84%, transparent)),
+    var(--variant-choice-image) center / cover no-repeat;
+}
+
+.variant-choice-button.has-image.active {
+  background:
+    linear-gradient(145deg,
+      color-mix(in srgb, var(--accent) 24%, color-mix(in srgb, var(--surface-strong) 52%, transparent)),
+      color-mix(in srgb, var(--surface-strong) 82%, transparent)),
+    var(--variant-choice-image) center / cover no-repeat;
+}
+
 .variant-choice-card-top {
   display: flex;
   justify-content: space-between;
@@ -6417,6 +6433,30 @@ a {
   .dock-action span {
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 360px) {
+  .recipe-dock-main {
+    padding: 8px;
+  }
+
+  .recipe-dock-quantity-control {
+    min-width: 0;
+  }
+
+  .recipe-dock-quantity-control .factor-label {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0 6px;
+    font-size: 11px;
+  }
+
+  .recipe-dock-quantity-control .quantity-select {
+    flex: 0 0 58px;
+    min-width: 58px;
+    padding-left: 6px;
+    padding-right: 20px;
   }
 }
 
