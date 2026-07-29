@@ -3,7 +3,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/brand/app-icon.png": {
     "width": 948,
     "height": 302,
-    "bytes": 578951
+    "bytes": 129136
   },
   "assets/recipes/cards/accompagnements_maitre.jpg": {
     "width": 960,
@@ -4493,7 +4493,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/theme/day/global/logo.png": {
     "width": 948,
     "height": 302,
-    "bytes": 583278
+    "bytes": 124904
   },
   "assets/theme/day/recipes/acras_epinards.jpg": {
     "width": 1672,
