@@ -10,7 +10,9 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Respecter les patterns existants du site avant d'inventer une nouvelle structure.
 - Quand une convention utilisateur est nouvelle, faire trois choses : l'ajouter ici, ajouter une validation si elle peut etre testee, puis lancer le check complet.
 - Ne pas demander de confirmation inutile. Demander seulement quand il faut valider une image, une operation destructive, ou une ambiguite impossible a resoudre proprement.
-- Apres une modification terminee, lancer les checks disponibles, commit, puis push sur `main`. Le push est le comportement normal apres validation OK, sauf demande explicite de pause ou blocage Git/reseau.
+- Apres chaque tache terminee qui modifie le depot, lancer les validations adaptees puis creer automatiquement un commit local, sans attendre une demande supplementaire.
+- Le commit automatique doit contenir uniquement les changements realises pour la tache terminee. Ne jamais embarquer des modifications preexistantes, hors scope ou appartenant a l'utilisateur ; si elles ne peuvent pas etre isolees proprement, ne pas commit et signaler le blocage.
+- Ne jamais pousser automatiquement : le push reste effectue par l'utilisateur dans GitHub Desktop, sauf demande explicite contraire.
 - Regenerer le sitemap quand des recettes, ids, URLs ou fiches supprimables changent.
 
 ## Donnees recettes
