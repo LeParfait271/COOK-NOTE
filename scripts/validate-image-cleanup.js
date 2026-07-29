@@ -79,7 +79,9 @@ function collectLiteralAssetReferences(used) {
     .filter(file => fs.existsSync(path.join(ROOT, file)))
     .forEach(file => {
       const matches = read(file).match(assetPattern) || [];
-      matches.forEach(match => addUsed(used, match, `reference litterale dans ${file}`));
+      matches
+        .filter(match => !match.includes('${'))
+        .forEach(match => addUsed(used, match, `reference litterale dans ${file}`));
     });
 }
 
@@ -87,36 +89,43 @@ function validateExpectedFile(file, label) {
   if (!fs.existsSync(path.join(ROOT, file))) errors.push(`${label}: fichier absent (${file}).`);
 }
 
+function collectRecipeImages(recipe) {
+  const images = [];
+  if (recipe && recipe.image) images.push(recipe.image);
+  (recipe && recipe.ingredients || []).forEach(group => {
+    if (group && group.recipe && group.recipe.image) images.push(group.recipe.image);
+  });
+  return [...new Set(images.map(normalize).filter(Boolean))];
+}
+
 function main() {
   const used = new Map();
   const recipes = loadWindowScript('recipes.js').RECIPES || {};
   const themeArt = loadWindowScript('app-art-images.js').COOK_NOTE_THEME_RECIPE_ART || {};
-  const recipeIds = new Set(Object.keys(recipes));
+  const recipeImageIds = new Set();
 
   EXPECTED_BRAND_FILES.forEach(file => addUsed(used, file, 'asset marque attendu'));
   EXPECTED_GLOBAL_THEME_FILES.forEach(file => addUsed(used, file, 'asset theme global attendu'));
 
   Object.entries(recipes).forEach(([id, recipe]) => {
-    const image = normalize(recipe && recipe.image);
-    const expectedHero = `assets/recipes/heroes/${id}.jpg`;
-    const expectedCard = `assets/recipes/cards/${id}.jpg`;
-    const expectedMaster = `assets/recipes/masters/${id}.png`;
-    if (image !== expectedHero) errors.push(`${id}: image recette attendue ${expectedHero}, actuelle ${image || 'vide'}.`);
-    [expectedHero, expectedCard, expectedMaster].forEach(file => {
-      addUsed(used, file, `image recette ${id}`);
-      validateExpectedFile(file, id);
+    collectRecipeImages(recipe).forEach(image => {
+      const imageId = path.basename(image, path.extname(image));
+      const expectedHero = `assets/recipes/heroes/${imageId}.jpg`;
+      const expectedCard = `assets/recipes/cards/${imageId}.jpg`;
+      const expectedMaster = `assets/recipes/masters/${imageId}.png`;
+      if (image !== expectedHero) errors.push(`${id}: image recette optimisee attendue dans assets/recipes/heroes (${image}).`);
+      recipeImageIds.add(imageId);
+      [expectedHero, expectedCard, expectedMaster].forEach(file => {
+        addUsed(used, file, `image recette ${id}`);
+        validateExpectedFile(file, id);
+      });
     });
-    if (image) {
-      addUsed(used, image, `reference recette ${id}`);
-      addUsed(used, cardPath(image), `miniature derivee de ${id}`);
-      addUsed(used, sourcePath(image), `master source de ${id}`);
-    }
   });
 
   ['masters', 'heroes', 'cards'].forEach(type => {
     walk(`assets/recipes/${type}`).forEach(file => {
       const id = path.basename(file, path.extname(file));
-      if (!recipeIds.has(id)) errors.push(`${file}: aucun id recette correspondant.`);
+      if (!recipeImageIds.has(id)) errors.push(`${file}: aucun visuel de recette correspondant.`);
     });
   });
 

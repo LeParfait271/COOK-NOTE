@@ -1,34 +1,14 @@
 {
-  "total": 313,
+  "total": 278,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
-    "smallOptimized": 2,
+    "smallOptimized": 1,
     "smallCard": 0,
-    "framing": 15,
+    "framing": 12,
     "duplicates": 0
   },
   "rows": [
-    {
-      "id": "cookies_chocolat_moelleux",
-      "title": "Cookies chocolat moelleux",
-      "score": 82,
-      "issues": [
-        "Image optimisee petite (960x540)"
-      ],
-      "optimized": "assets/recipes/heroes/cookies_chocolat_moelleux.jpg",
-      "card": "assets/recipes/cards/cookies_chocolat_moelleux.jpg",
-      "optimizedSize": {
-        "width": 960,
-        "height": 540
-      },
-      "optimizedBytes": 135062,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 85635
-    },
     {
       "id": "mayonnaise_maison",
       "title": "Mayonnaise",
@@ -130,8 +110,8 @@
       "cardBytes": 63745
     },
     {
-      "id": "cake_sale_lardon",
-      "title": "Cake salé poitrine fumée",
+      "id": "cakes_sales_variantes",
+      "title": "Cakes salés",
       "score": 90,
       "issues": [
         "Cadrage atypique (2.22)"
@@ -148,26 +128,6 @@
         "height": 342
       },
       "cardBytes": 50234
-    },
-    {
-      "id": "cake_tomate_chorizo_feta",
-      "title": "Cake tomate chorizo feta",
-      "score": 90,
-      "issues": [
-        "Cadrage atypique (2.22)"
-      ],
-      "optimized": "assets/recipes/heroes/cake_tomate_chorizo_feta.jpg",
-      "card": "assets/recipes/cards/cake_tomate_chorizo_feta.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 632
-      },
-      "optimizedBytes": 173710,
-      "cardSize": {
-        "width": 760,
-        "height": 343
-      },
-      "cardBytes": 53010
     },
     {
       "id": "falafels_four",
@@ -190,8 +150,8 @@
       "cardBytes": 61439
     },
     {
-      "id": "madeleines_comte_epices_douces",
-      "title": "Madeleines au Comté et épices douces",
+      "id": "madeleines_salees",
+      "title": "Madeleines salées",
       "score": 90,
       "issues": [
         "Cadrage atypique (1.96)"
@@ -250,8 +210,8 @@
       "cardBytes": 53513
     },
     {
-      "id": "pain_grille_beurre_ail_herbes",
-      "title": "Pain grillé beurre ail et herbes",
+      "id": "pains_ail_variantes",
+      "title": "Pains à l’ail",
       "score": 90,
       "issues": [
         "Cadrage atypique (2.22)"
@@ -268,46 +228,6 @@
         "height": 342
       },
       "cardBytes": 53470
-    },
-    {
-      "id": "pate_lapin_piment_espelette",
-      "title": "Pâté de lapin au piment d’Espelette",
-      "score": 90,
-      "issues": [
-        "Cadrage atypique (2.00)"
-      ],
-      "optimized": "assets/recipes/heroes/pate_lapin_piment_espelette.jpg",
-      "card": "assets/recipes/cards/pate_lapin_piment_espelette.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 700
-      },
-      "optimizedBytes": 158098,
-      "cardSize": {
-        "width": 760,
-        "height": 380
-      },
-      "cardBytes": 49555
-    },
-    {
-      "id": "pesto_tomates_sechees_sans_cajou",
-      "title": "Pesto tomates séchées",
-      "score": 90,
-      "issues": [
-        "Cadrage atypique (2.22)"
-      ],
-      "optimized": "assets/recipes/heroes/pesto_tomates_sechees_sans_cajou.jpg",
-      "card": "assets/recipes/cards/pesto_tomates_sechees_sans_cajou.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 630
-      },
-      "optimizedBytes": 178099,
-      "cardSize": {
-        "width": 760,
-        "height": 342
-      },
-      "cardBytes": 53155
     },
     {
       "id": "sauce_yaourt_citronnee",
@@ -386,40 +306,22 @@
       "cardBytes": 69080
     },
     {
-      "id": "aioli_safran",
-      "title": "Aïoli au safran",
+      "id": "aioli_variantes",
+      "title": "Aïoli",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/aioli_safran.jpg",
-      "card": "assets/recipes/cards/aioli_safran.jpg",
+      "optimized": "assets/recipes/heroes/aioli_variantes.jpg",
+      "card": "assets/recipes/cards/aioli_variantes.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 191860,
+      "optimizedBytes": 154992,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 60138
-    },
-    {
-      "id": "aioli_citronne_leger",
-      "title": "Aïoli citronné léger",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/aioli_citronne_leger.jpg",
-      "card": "assets/recipes/cards/aioli_citronne_leger.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 209827,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 65431
+      "cardBytes": 48092
     },
     {
       "id": "ajitsuke_tamago_oeufs_marines_ramen",
@@ -620,6 +522,24 @@
       "cardBytes": 159344
     },
     {
+      "id": "beurre_blanc",
+      "title": "Beurre blanc",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/beurre_blanc.jpg",
+      "card": "assets/recipes/cards/beurre_blanc.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 185629,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 59645
+    },
+    {
       "id": "beurre_clarifie",
       "title": "Beurre clarifié",
       "score": 100,
@@ -800,6 +720,60 @@
       "cardBytes": 69194
     },
     {
+      "id": "brochettes_tsukune",
+      "title": "Brochettes de boulettes tsukune",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/brochettes_tsukune.jpg",
+      "card": "assets/recipes/cards/brochettes_tsukune.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 214578,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 69102
+    },
+    {
+      "id": "brochettes_langoustines_coriandre_citron",
+      "title": "Brochettes de langoustines coriandre-citron",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/brochettes_langoustines_coriandre_citron.jpg",
+      "card": "assets/recipes/cards/brochettes_langoustines_coriandre_citron.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 231221,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 74825
+    },
+    {
+      "id": "brochettes_lotte_chorizo_plancha",
+      "title": "Brochettes de lotte au chorizo à la plancha",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/brochettes_lotte_chorizo_plancha.jpg",
+      "card": "assets/recipes/cards/brochettes_lotte_chorizo_plancha.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 222245,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 69662
+    },
+    {
       "id": "brochettes_melon_epice",
       "title": "Brochettes de melon épicé",
       "score": 100,
@@ -816,6 +790,24 @@
         "height": 413
       },
       "cardBytes": 75185
+    },
+    {
+      "id": "brownie_carotte_chevre_amandes",
+      "title": "Brownie salé carotte, chèvre et amandes",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/brownie_carotte_chevre_amandes.jpg",
+      "card": "assets/recipes/cards/brownie_carotte_chevre_amandes.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 217226,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 71046
     },
     {
       "id": "burrata_basilic_raisins_grilles",
@@ -908,7 +900,25 @@
       "cardBytes": 62943
     },
     {
-      "id": "carottes_braisees",
+      "id": "canneles_brocolis_parmesan",
+      "title": "Cannelés brocolis et parmesan",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/canneles_brocolis_parmesan.jpg",
+      "card": "assets/recipes/cards/canneles_brocolis_parmesan.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 194154,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 62975
+    },
+    {
+      "id": "carottes_braisees_variantes",
       "title": "Carottes braisées",
       "score": 100,
       "issues": [],
@@ -924,24 +934,6 @@
         "height": 570
       },
       "cardBytes": 128018
-    },
-    {
-      "id": "carottes_braisees_orange_citron_confit",
-      "title": "Carottes braisees orange citron confit",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/carottes_braisees_orange_citron_confit.jpg",
-      "card": "assets/recipes/cards/carottes_braisees_orange_citron_confit.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 252505,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 75809
     },
     {
       "id": "carottes_persillade_creme",
@@ -1088,44 +1080,26 @@
       "cardBytes": 95172
     },
     {
-      "id": "chantilly_classique",
-      "title": "Chantilly classique",
+      "id": "chantilly_variantes",
+      "title": "Chantilly",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/chantilly_classique.jpg",
-      "card": "assets/recipes/cards/chantilly_classique.jpg",
+      "optimized": "assets/recipes/heroes/chantilly_variantes.jpg",
+      "card": "assets/recipes/cards/chantilly_variantes.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 286015,
+      "optimizedBytes": 184972,
       "cardSize": {
-        "width": 960,
-        "height": 540
+        "width": 760,
+        "height": 428
       },
-      "cardBytes": 154504
+      "cardBytes": 55540
     },
     {
-      "id": "chantilly_gelatine",
-      "title": "Chantilly stabilisée",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/chantilly_gelatine.jpg",
-      "card": "assets/recipes/cards/chantilly_gelatine.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 247109,
-      "cardSize": {
-        "width": 960,
-        "height": 540
-      },
-      "cardBytes": 138769
-    },
-    {
-      "id": "chapelure_maison",
-      "title": "Chapelure de pain",
+      "id": "chapelures_variantes",
+      "title": "Chapelures",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/chapelure_maison.jpg",
@@ -1140,24 +1114,6 @@
         "height": 570
       },
       "cardBytes": 95269
-    },
-    {
-      "id": "chapelure_parfumee",
-      "title": "Chapelure parfumée",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/chapelure_parfumee.jpg",
-      "card": "assets/recipes/cards/chapelure_parfumee.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 933
-      },
-      "optimizedBytes": 302167,
-      "cardSize": {
-        "width": 760,
-        "height": 507
-      },
-      "cardBytes": 96855
     },
     {
       "id": "cheesecake_basque",
@@ -1286,24 +1242,6 @@
       "cardBytes": 58797
     },
     {
-      "id": "chou_fleur_coco_curry",
-      "title": "Chou-fleur lait de coco curry",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/chou_fleur_coco_curry.jpg",
-      "card": "assets/recipes/cards/chou_fleur_coco_curry.jpg",
-      "optimizedSize": {
-        "width": 960,
-        "height": 720
-      },
-      "optimizedBytes": 116594,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 126332
-    },
-    {
       "id": "choux_craquelin",
       "title": "Choux au craquelin",
       "score": 100,
@@ -1340,26 +1278,8 @@
       "cardBytes": 162248
     },
     {
-      "id": "clafoutis_abricots_rhum_vanille",
-      "title": "Clafoutis aux abricots, rhum et vanille",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/clafoutis_abricots_rhum_vanille.jpg",
-      "card": "assets/recipes/cards/clafoutis_abricots_rhum_vanille.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 1050
-      },
-      "optimizedBytes": 355612,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 113283
-    },
-    {
-      "id": "clafoutis_cerises_bocuse",
-      "title": "Clafoutis aux cerises",
+      "id": "clafoutis_variantes",
+      "title": "Clafoutis",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/clafoutis_cerises_bocuse.jpg",
@@ -1374,24 +1294,6 @@
         "height": 428
       },
       "cardBytes": 111231
-    },
-    {
-      "id": "clafoutis_myrtilles_nectarines",
-      "title": "Clafoutis aux myrtilles et nectarines",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/clafoutis_myrtilles_nectarines.jpg",
-      "card": "assets/recipes/cards/clafoutis_myrtilles_nectarines.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 1050
-      },
-      "optimizedBytes": 334922,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 107265
     },
     {
       "id": "cochon_confit_biere_erable",
@@ -1430,60 +1332,6 @@
       "cardBytes": 46974
     },
     {
-      "id": "cocotte_pois_chiches_tomates_montbeliard",
-      "title": "Cocotte de pois chiches tomates et saucisse de Montbéliard",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/cocotte_pois_chiches_tomates_montbeliard.jpg",
-      "card": "assets/recipes/cards/cocotte_pois_chiches_tomates_montbeliard.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 1050
-      },
-      "optimizedBytes": 298850,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 91362
-    },
-    {
-      "id": "porc_chorizo_haricots_tarbais",
-      "title": "Cocotte porc chorizo haricots tarbais",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/porc_chorizo_haricots_tarbais.jpg",
-      "card": "assets/recipes/cards/porc_chorizo_haricots_tarbais.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 933
-      },
-      "optimizedBytes": 223110,
-      "cardSize": {
-        "width": 760,
-        "height": 507
-      },
-      "cardBytes": 84693
-    },
-    {
-      "id": "colombo_espadon",
-      "title": "Colombo d’espadon",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/colombo_espadon.jpg",
-      "card": "assets/recipes/cards/colombo_espadon.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 191561,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 61681
-    },
-    {
       "id": "confit_citron",
       "title": "Confit de citron",
       "score": 100,
@@ -1502,132 +1350,6 @@
       "cardBytes": 56630
     },
     {
-      "id": "cookies_beurre_noisette_chocolat_noir_lait",
-      "title": "Cookies au beurre noisette chocolat noir/lait",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/cookies_beurre_noisette_chocolat_noir_lait.jpg",
-      "card": "assets/recipes/cards/cookies_beurre_noisette_chocolat_noir_lait.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 320526,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 108163
-    },
-    {
-      "id": "cookies_chocolat_noir_lait",
-      "title": "Cookies au chocolat noir/lait",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/cookies_chocolat_noir_lait.jpg",
-      "card": "assets/recipes/cards/cookies_chocolat_noir_lait.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 319474,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 112647
-    },
-    {
-      "id": "cookies_avoine_noix_fruits_secs",
-      "title": "Cookies aux flocons d’avoine, noix et fruits secs",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/cookies_avoine_noix_fruits_secs.jpg",
-      "card": "assets/recipes/cards/cookies_avoine_noix_fruits_secs.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 1043
-      },
-      "optimizedBytes": 386915,
-      "cardSize": {
-        "width": 760,
-        "height": 566
-      },
-      "cardBytes": 127189
-    },
-    {
-      "id": "caramel_cheesecake_cookies",
-      "title": "Cookies caramel cheesecake",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/caramel_cheesecake_cookies.jpg",
-      "card": "assets/recipes/cards/caramel_cheesecake_cookies.jpg",
-      "optimizedSize": {
-        "width": 1254,
-        "height": 1254
-      },
-      "optimizedBytes": 315443,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 129250
-    },
-    {
-      "id": "cookies_cerise_chocolat",
-      "title": "Cookies cerise chocolat",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/cookies_cerise_chocolat.jpg",
-      "card": "assets/recipes/cards/cookies_cerise_chocolat.jpg",
-      "optimizedSize": {
-        "width": 1672,
-        "height": 941
-      },
-      "optimizedBytes": 409249,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 104562
-    },
-    {
-      "id": "cookies_chocolat_blanc_cranberry",
-      "title": "Cookies chocolat blanc cranberry",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/cookies_chocolat_blanc_cranberry.jpg",
-      "card": "assets/recipes/cards/cookies_chocolat_blanc_cranberry.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 278042,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 174029
-    },
-    {
-      "id": "cookies_chocolat_noix",
-      "title": "Cookies moelleux aux pépites de chocolat et noix",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/cookies_chocolat_noix.jpg",
-      "card": "assets/recipes/cards/cookies_chocolat_noix.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 330004,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 114096
-    },
-    {
       "id": "cookies_sales_variantes",
       "title": "Cookies salés",
       "score": 100,
@@ -1644,6 +1366,24 @@
         "height": 405
       },
       "cardBytes": 54550
+    },
+    {
+      "id": "cookies_sucres_variantes",
+      "title": "Cookies sucrés",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/cookies_sucres_variantes.jpg",
+      "card": "assets/recipes/cards/cookies_sucres_variantes.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 203831,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 61682
     },
     {
       "id": "coq_au_vin",
@@ -1698,6 +1438,24 @@
         "height": 540
       },
       "cardBytes": 145217
+    },
+    {
+      "id": "courge_butternut_farcie",
+      "title": "Courge butternut farcie",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/courge_butternut_farcie.jpg",
+      "card": "assets/recipes/cards/courge_butternut_farcie.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 216628,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 72529
     },
     {
       "id": "court_bouillon",
@@ -1790,62 +1548,26 @@
       "cardBytes": 169520
     },
     {
-      "id": "creme_diplomate_vanille",
-      "title": "Crème diplomate vanille",
+      "id": "creme_diplomate_variantes",
+      "title": "Crème diplomate",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/creme_diplomate_vanille.jpg",
-      "card": "assets/recipes/cards/creme_diplomate_vanille.jpg",
+      "optimized": "assets/recipes/heroes/creme_diplomate_variantes.jpg",
+      "card": "assets/recipes/cards/creme_diplomate_variantes.jpg",
       "optimizedSize": {
-        "width": 1024,
-        "height": 1024
+        "width": 1400,
+        "height": 788
       },
-      "optimizedBytes": 282600,
+      "optimizedBytes": 177619,
       "cardSize": {
         "width": 760,
-        "height": 760
+        "height": 428
       },
-      "cardBytes": 171301
+      "cardBytes": 52418
     },
     {
-      "id": "creme_diplomate_cloud",
-      "title": "Crème diplomate vanille à garnir",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/creme_diplomate_cloud.jpg",
-      "card": "assets/recipes/cards/creme_diplomate_cloud.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 261320,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 158270
-    },
-    {
-      "id": "mascarpone",
-      "title": "Crème mascarpone vanille",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/mascarpone.jpg",
-      "card": "assets/recipes/cards/mascarpone.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 283308,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 172518
-    },
-    {
-      "id": "creme_kinder_nutella",
-      "title": "Crème Nutella à garnir",
+      "id": "cremes_garnir_variantes",
+      "title": "Crèmes à garnir",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/creme_kinder_nutella.jpg",
@@ -1860,78 +1582,6 @@
         "height": 760
       },
       "cardBytes": 165738
-    },
-    {
-      "id": "creme_patissiere_praline",
-      "title": "Crème pâtissière praliné",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/creme_patissiere_praline.jpg",
-      "card": "assets/recipes/cards/creme_patissiere_praline.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 289289,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 165414
-    },
-    {
-      "id": "creme_patissiere_vanille",
-      "title": "Crème pâtissière vanille",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/creme_patissiere_vanille.jpg",
-      "card": "assets/recipes/cards/creme_patissiere_vanille.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 223339,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 69195
-    },
-    {
-      "id": "creme_pistache",
-      "title": "Crème pistache à garnir",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/creme_pistache.jpg",
-      "card": "assets/recipes/cards/creme_pistache.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 272833,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 166970
-    },
-    {
-      "id": "creme_praline",
-      "title": "Crème praliné",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/creme_praline.jpg",
-      "card": "assets/recipes/cards/creme_praline.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 273707,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 166310
     },
     {
       "id": "cremes_dessert_chocolat",
@@ -1952,8 +1602,26 @@
       "cardBytes": 53670
     },
     {
-      "id": "crepes_lait_amandes",
-      "title": "Crêpes au lait d’amandes",
+      "id": "cremes_patissieres_variantes",
+      "title": "Crèmes pâtissières",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/creme_patissiere_vanille.jpg",
+      "card": "assets/recipes/cards/creme_patissiere_vanille.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 223339,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 69195
+    },
+    {
+      "id": "crepes_variantes",
+      "title": "Crêpes",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/crepes_lait_amandes.jpg",
@@ -1968,24 +1636,6 @@
         "height": 428
       },
       "cardBytes": 55237
-    },
-    {
-      "id": "crepes_suzette",
-      "title": "Crêpes Suzette",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/crepes_suzette.jpg",
-      "card": "assets/recipes/cards/crepes_suzette.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 209412,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 64897
     },
     {
       "id": "crevettes_provencale",
@@ -2078,80 +1728,26 @@
       "cardBytes": 144333
     },
     {
-      "id": "crumble_pomme_poire",
-      "title": "Crumble pomme-poire",
+      "id": "crumble_pomme_poire_variantes",
+      "title": "Crumbles pomme-poire",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/crumble_pomme_poire.jpg",
-      "card": "assets/recipes/cards/crumble_pomme_poire.jpg",
+      "optimized": "assets/recipes/heroes/crumble_pomme_poire_variantes.jpg",
+      "card": "assets/recipes/cards/crumble_pomme_poire_variantes.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 315725,
-      "cardSize": {
-        "width": 960,
-        "height": 540
-      },
-      "cardBytes": 165678
-    },
-    {
-      "id": "crumble_pomme_poire_violier",
-      "title": "Crumble pomme-poire de Benoît Violier",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/crumble_pomme_poire_violier.jpg",
-      "card": "assets/recipes/cards/crumble_pomme_poire_violier.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 232046,
+      "optimizedBytes": 216972,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 70387
+      "cardBytes": 63711
     },
     {
-      "id": "cuisses_poulet_asiatique",
-      "title": "Cuisses de poulet asiatique",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/cuisses_poulet_asiatique.jpg",
-      "card": "assets/recipes/cards/cuisses_poulet_asiatique.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 1017
-      },
-      "optimizedBytes": 290492,
-      "cardSize": {
-        "width": 760,
-        "height": 552
-      },
-      "cardBytes": 96766
-    },
-    {
-      "id": "cuisses_de_poulet_miel_moutarde",
-      "title": "Cuisses de poulet miel moutarde",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/cuisses_de_poulet_miel_moutarde.jpg",
-      "card": "assets/recipes/cards/cuisses_de_poulet_miel_moutarde.jpg",
-      "optimizedSize": {
-        "width": 1536,
-        "height": 864
-      },
-      "optimizedBytes": 339847,
-      "cardSize": {
-        "width": 1040,
-        "height": 520
-      },
-      "cardBytes": 151347
-    },
-    {
-      "id": "cuisses_de_poulet_rhum_miel_piment",
-      "title": "Cuisses de poulet rhum miel piment",
+      "id": "cuisses_poulet_variantes",
+      "title": "Cuisses de poulet",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/cuisses_de_poulet_rhum_miel_piment.jpg",
@@ -2168,62 +1764,8 @@
       "cardBytes": 124437
     },
     {
-      "id": "cuisses_poulet_four_tomates_thym",
-      "title": "Cuisses de poulet tomates thym",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/cuisses_poulet_four_tomates_thym.jpg",
-      "card": "assets/recipes/cards/cuisses_poulet_four_tomates_thym.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 933
-      },
-      "optimizedBytes": 232007,
-      "cardSize": {
-        "width": 760,
-        "height": 507
-      },
-      "cardBytes": 78368
-    },
-    {
-      "id": "curry_carottes_lait_coco",
-      "title": "Curry de carottes lait de coco",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/curry_carottes_lait_coco.jpg",
-      "card": "assets/recipes/cards/curry_carottes_lait_coco.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 1008
-      },
-      "optimizedBytes": 280274,
-      "cardSize": {
-        "width": 760,
-        "height": 547
-      },
-      "cardBytes": 90046
-    },
-    {
-      "id": "curry_lentilles_coco",
-      "title": "Curry de lentilles vertes au lait de coco",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/curry_lentilles_coco.jpg",
-      "card": "assets/recipes/cards/curry_lentilles_coco.jpg",
-      "optimizedSize": {
-        "width": 1254,
-        "height": 1254
-      },
-      "optimizedBytes": 342243,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 161311
-    },
-    {
-      "id": "curry_poulet_crevettes",
-      "title": "Curry de poulet aux crevettes",
+      "id": "currys_carnivores_variantes",
+      "title": "Currys carnivores",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/curry_poulet_crevettes.jpg",
@@ -2238,6 +1780,24 @@
         "height": 570
       },
       "cardBytes": 123246
+    },
+    {
+      "id": "currys_vegetariens_variantes",
+      "title": "Currys végétariens",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/curry_lentilles_coco.jpg",
+      "card": "assets/recipes/cards/curry_lentilles_coco.jpg",
+      "optimizedSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "optimizedBytes": 342243,
+      "cardSize": {
+        "width": 760,
+        "height": 760
+      },
+      "cardBytes": 161311
     },
     {
       "id": "desserts_maitre",
@@ -2366,6 +1926,24 @@
       "cardBytes": 64995
     },
     {
+      "id": "filet_mignon_porc_farci_epinards",
+      "title": "Filet mignon de porc farci aux épinards",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/filet_mignon_porc_farci_epinards.jpg",
+      "card": "assets/recipes/cards/filet_mignon_porc_farci_epinards.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 191763,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 62756
+    },
+    {
       "id": "fish_and_chips",
       "title": "Fish and chips",
       "score": 100,
@@ -2400,6 +1978,24 @@
         "height": 428
       },
       "cardBytes": 70710
+    },
+    {
+      "id": "flan_courgettes_chevre_curcuma_amandes",
+      "title": "Flan de courgettes au chèvre, curcuma et amandes",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/flan_courgettes_chevre_curcuma_amandes.jpg",
+      "card": "assets/recipes/cards/flan_courgettes_chevre_curcuma_amandes.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 214260,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 70065
     },
     {
       "id": "flan_patissier_epais_vanille",
@@ -2438,6 +2034,24 @@
       "cardBytes": 91271
     },
     {
+      "id": "focaccia_six_cereales",
+      "title": "Focaccia aux six céréales",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/focaccia_six_cereales.jpg",
+      "card": "assets/recipes/cards/focaccia_six_cereales.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 207698,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 66961
+    },
+    {
       "id": "creme_amande_citron",
       "title": "Fond de tarte amande",
       "score": 100,
@@ -2454,6 +2068,24 @@
         "height": 428
       },
       "cardBytes": 61062
+    },
+    {
+      "id": "fond_de_veau",
+      "title": "Fond de veau",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/fond_de_veau.jpg",
+      "card": "assets/recipes/cards/fond_de_veau.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 267366,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 83352
     },
     {
       "id": "fondant_chocolat_caminada",
@@ -2510,98 +2142,62 @@
       "cardBytes": 60091
     },
     {
-      "id": "frites_maison",
+      "id": "frites_variantes",
       "title": "Frites",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/frites_maison.jpg",
-      "card": "assets/recipes/cards/frites_maison.jpg",
-      "optimizedSize": {
-        "width": 960,
-        "height": 720
-      },
-      "optimizedBytes": 101303,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 110620
-    },
-    {
-      "id": "frites_four_maison",
-      "title": "Frites au four",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/frites_four_maison.jpg",
-      "card": "assets/recipes/cards/frites_four_maison.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 1050
-      },
-      "optimizedBytes": 325208,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 102395
-    },
-    {
-      "id": "frites_belges",
-      "title": "Frites belges",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/frites_belges.jpg",
-      "card": "assets/recipes/cards/frites_belges.jpg",
+      "optimized": "assets/recipes/heroes/frites_variantes.jpg",
+      "card": "assets/recipes/cards/frites_variantes.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 223087,
+      "optimizedBytes": 193285,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 73262
+      "cardBytes": 57626
     },
     {
-      "id": "frites_patate_douce",
-      "title": "Frites de patate douce",
+      "id": "galettes_legumes_comte",
+      "title": "Galettes de légumes au Comté",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/frites_patate_douce.jpg",
-      "card": "assets/recipes/cards/frites_patate_douce.jpg",
-      "optimizedSize": {
-        "width": 1254,
-        "height": 1254
-      },
-      "optimizedBytes": 306908,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 142644
-    },
-    {
-      "id": "gaspacho_melon",
-      "title": "Gaspacho de melon",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/gaspacho_melon.jpg",
-      "card": "assets/recipes/cards/gaspacho_melon.jpg",
+      "optimized": "assets/recipes/heroes/galettes_legumes_comte.jpg",
+      "card": "assets/recipes/cards/galettes_legumes_comte.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 220140,
+      "optimizedBytes": 239380,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 86022
+      "cardBytes": 76895
     },
     {
-      "id": "gazpacho_tomate_menthe_basilic",
-      "title": "Gaspacho tomate, menthe et basilic",
+      "id": "galettes_pommes_de_terre_comte",
+      "title": "Galettes de pommes de terre au Comté",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/galettes_pommes_de_terre_comte.jpg",
+      "card": "assets/recipes/cards/galettes_pommes_de_terre_comte.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 215046,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 66455
+    },
+    {
+      "id": "gaspachos_variantes",
+      "title": "Gaspachos",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/gazpacho_tomate_menthe_basilic.jpg",
@@ -2690,76 +2286,22 @@
       "cardBytes": 75435
     },
     {
-      "id": "gratin_chou_fleur_comte_lardons",
-      "title": "Gratin chou-fleur comte lardons",
+      "id": "gratin_coquillettes_poulet",
+      "title": "Gratin de coquillettes au poulet",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/gratin_chou_fleur_comte_lardons.jpg",
-      "card": "assets/recipes/cards/gratin_chou_fleur_comte_lardons.jpg",
+      "optimized": "assets/recipes/heroes/gratin_coquillettes_poulet.jpg",
+      "card": "assets/recipes/cards/gratin_coquillettes_poulet.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 253577,
+      "optimizedBytes": 246624,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 83429
-    },
-    {
-      "id": "gratin_chou_fleur_mascarpone_moutarde",
-      "title": "Gratin chou-fleur mascarpone moutarde",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/gratin_chou_fleur_mascarpone_moutarde.jpg",
-      "card": "assets/recipes/cards/gratin_chou_fleur_mascarpone_moutarde.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 281391,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 86325
-    },
-    {
-      "id": "gratin_chou_fleur",
-      "title": "Gratin de chou-fleur",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/gratin_chou_fleur.jpg",
-      "card": "assets/recipes/cards/gratin_chou_fleur.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 217796,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 123363
-    },
-    {
-      "id": "gratin_chou_fleur_chorizo_cocottes",
-      "title": "Gratin de chou-fleur au chorizo en mini cocottes",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/gratin_chou_fleur_chorizo_cocottes.jpg",
-      "card": "assets/recipes/cards/gratin_chou_fleur_chorizo_cocottes.jpg",
-      "optimizedSize": {
-        "width": 960,
-        "height": 720
-      },
-      "optimizedBytes": 108409,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 116818
+      "cardBytes": 75922
     },
     {
       "id": "gratin_pates_chorizo",
@@ -2816,6 +2358,24 @@
       "cardBytes": 68041
     },
     {
+      "id": "gratins_chou_fleur_variantes",
+      "title": "Gratins de chou-fleur",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/gratins_chou_fleur_variantes.jpg",
+      "card": "assets/recipes/cards/gratins_chou_fleur_variantes.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 191603,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 59080
+    },
+    {
       "id": "gressins_fromage_olives",
       "title": "Gressins fromage olives",
       "score": 100,
@@ -2870,40 +2430,22 @@
       "cardBytes": 59426
     },
     {
-      "id": "haricots_blancs_tomates_montbeliard",
-      "title": "Haricots blancs tomates et saucisse de Montbéliard",
+      "id": "haricots_tarbais_variantes",
+      "title": "Haricots tarbais au chorizo",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/haricots_blancs_tomates_montbeliard.jpg",
-      "card": "assets/recipes/cards/haricots_blancs_tomates_montbeliard.jpg",
+      "optimized": "assets/recipes/heroes/haricots_tarbais_variantes.jpg",
+      "card": "assets/recipes/cards/haricots_tarbais_variantes.jpg",
       "optimizedSize": {
         "width": 1400,
-        "height": 1050
+        "height": 788
       },
-      "optimizedBytes": 277635,
+      "optimizedBytes": 190715,
       "cardSize": {
         "width": 760,
-        "height": 570
+        "height": 428
       },
-      "cardBytes": 83836
-    },
-    {
-      "id": "haricots_tarbais_chorizo_tomate",
-      "title": "Haricots tarbais au chorizo et sauce tomate",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/haricots_tarbais_chorizo_tomate.jpg",
-      "card": "assets/recipes/cards/haricots_tarbais_chorizo_tomate.jpg",
-      "optimizedSize": {
-        "width": 960,
-        "height": 720
-      },
-      "optimizedBytes": 124303,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 132714
+      "cardBytes": 58351
     },
     {
       "id": "harissa_maison",
@@ -2922,24 +2464,6 @@
         "height": 507
       },
       "cardBytes": 90502
-    },
-    {
-      "id": "hauts_de_cuisses_poulet_orange_oignon",
-      "title": "Hauts de cuisses poulet orange oignon",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/hauts_de_cuisses_poulet_orange_oignon.jpg",
-      "card": "assets/recipes/cards/hauts_de_cuisses_poulet_orange_oignon.jpg",
-      "optimizedSize": {
-        "width": 1536,
-        "height": 864
-      },
-      "optimizedBytes": 306556,
-      "cardSize": {
-        "width": 1040,
-        "height": 520
-      },
-      "cardBytes": 139463
     },
     {
       "id": "houmous_hakocem",
@@ -2996,24 +2520,6 @@
       "cardBytes": 76248
     },
     {
-      "id": "irish_stew_guinness",
-      "title": "Irish stew à la Guinness",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/irish_stew_guinness.jpg",
-      "card": "assets/recipes/cards/irish_stew_guinness.jpg",
-      "optimizedSize": {
-        "width": 960,
-        "height": 720
-      },
-      "optimizedBytes": 116017,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 122887
-    },
-    {
       "id": "jarret_agneau_petits_legumes",
       "title": "Jarret d’agneau braisé aux petits légumes",
       "score": 100,
@@ -3050,8 +2556,8 @@
       "cardBytes": 66460
     },
     {
-      "id": "joues_de_boeuf_carottes_orange_vin_rouge",
-      "title": "Joues de bœuf carottes orange vin rouge",
+      "id": "joues_mijotees_variantes",
+      "title": "Joues mijotées",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/joues_de_boeuf_carottes_orange_vin_rouge.jpg",
@@ -3066,60 +2572,6 @@
         "height": 520
       },
       "cardBytes": 128850
-    },
-    {
-      "id": "joues_boeuf_whiskey_orange",
-      "title": "Joues de bœuf whiskey orange",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/joues_boeuf_whiskey_orange.jpg",
-      "card": "assets/recipes/cards/joues_boeuf_whiskey_orange.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 933
-      },
-      "optimizedBytes": 305018,
-      "cardSize": {
-        "width": 760,
-        "height": 507
-      },
-      "cardBytes": 95125
-    },
-    {
-      "id": "joues_de_porc_chorizo_piment",
-      "title": "Joues de porc chorizo piment",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/joues_de_porc_chorizo_piment.jpg",
-      "card": "assets/recipes/cards/joues_de_porc_chorizo_piment.jpg",
-      "optimizedSize": {
-        "width": 1536,
-        "height": 864
-      },
-      "optimizedBytes": 327351,
-      "cardSize": {
-        "width": 1040,
-        "height": 520
-      },
-      "cardBytes": 143357
-    },
-    {
-      "id": "joues_porc_cidre_miel",
-      "title": "Joues de porc cidre miel",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/joues_porc_cidre_miel.jpg",
-      "card": "assets/recipes/cards/joues_porc_cidre_miel.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 230979,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 69218
     },
     {
       "id": "legumes_rotis",
@@ -3138,6 +2590,24 @@
         "height": 760
       },
       "cardBytes": 123847
+    },
+    {
+      "id": "legumineuses_montbeliard_variantes",
+      "title": "Légumineuses à la Montbéliard",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/cocotte_pois_chiches_tomates_montbeliard.jpg",
+      "card": "assets/recipes/cards/cocotte_pois_chiches_tomates_montbeliard.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 298850,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 91362
     },
     {
       "id": "lentilles_a_la_bourguignonne",
@@ -3212,8 +2682,8 @@
       "cardBytes": 69245
     },
     {
-      "id": "madeleines_miel_thym",
-      "title": "Madeleines au miel et au thym",
+      "id": "madeleines_sucrees",
+      "title": "Madeleines sucrées",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/madeleines_miel_thym.jpg",
@@ -3266,25 +2736,7 @@
       "cardBytes": 159135
     },
     {
-      "id": "meringue_italienne",
-      "title": "Meringue italienne",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/meringue_italienne.jpg",
-      "card": "assets/recipes/cards/meringue_italienne.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 258575,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 173747
-    },
-    {
-      "id": "meringues",
+      "id": "meringues_variantes",
       "title": "Meringues",
       "score": 100,
       "issues": [],
@@ -3338,40 +2790,22 @@
       "cardBytes": 69360
     },
     {
-      "id": "mousse_chocolat",
-      "title": "Mousse au chocolat Pierre Hermé",
+      "id": "mousses_chocolat_variantes",
+      "title": "Mousses au chocolat",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/mousse_chocolat.jpg",
-      "card": "assets/recipes/cards/mousse_chocolat.jpg",
+      "optimized": "assets/recipes/heroes/mousses_chocolat_variantes.jpg",
+      "card": "assets/recipes/cards/mousses_chocolat_variantes.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 263183,
+      "optimizedBytes": 208750,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 76062
-    },
-    {
-      "id": "mousse_toblerone",
-      "title": "Mousse au Toblerone",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/mousse_toblerone.jpg",
-      "card": "assets/recipes/cards/mousse_toblerone.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 206524,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 67319
+      "cardBytes": 61709
     },
     {
       "id": "muffins_framboises",
@@ -3390,6 +2824,24 @@
         "height": 570
       },
       "cardBytes": 100298
+    },
+    {
+      "id": "navarin_agneau_printanier",
+      "title": "Navarin d’agneau printanier",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/navarin_agneau_printanier.jpg",
+      "card": "assets/recipes/cards/navarin_agneau_printanier.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 249563,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 77291
     },
     {
       "id": "nems_vietnam",
@@ -3447,7 +2899,7 @@
     },
     {
       "id": "oeufs_meurette_faciles",
-      "title": "Oeufs en meurette faciles",
+      "title": "Œufs en meurette",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/oeufs_meurette_faciles.jpg",
@@ -3500,24 +2952,6 @@
       "cardBytes": 69607
     },
     {
-      "id": "pain_ail_jamie_oliver",
-      "title": "Pain à l’ail qui déchire de Jamie Oliver",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/pain_ail_jamie_oliver.jpg",
-      "card": "assets/recipes/cards/pain_ail_jamie_oliver.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 206402,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 66314
-    },
-    {
       "id": "pain_zaatar",
       "title": "Pain au zaatar",
       "score": 100,
@@ -3534,6 +2968,24 @@
         "height": 428
       },
       "cardBytes": 72437
+    },
+    {
+      "id": "pain_herisson_pesto_mozzarella",
+      "title": "Pain hérisson pesto et mozzarella",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pain_herisson_pesto_mozzarella.jpg",
+      "card": "assets/recipes/cards/pain_herisson_pesto_mozzarella.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 211798,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 67296
     },
     {
       "id": "pain_hot_dog",
@@ -3588,24 +3040,6 @@
         "height": 428
       },
       "cardBytes": 48819
-    },
-    {
-      "id": "pancakes_fluffy",
-      "title": "Pancakes fluffy",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/pancakes_fluffy.jpg",
-      "card": "assets/recipes/cards/pancakes_fluffy.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 171621,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 53145
     },
     {
       "id": "panna_cotta_myrtilles_erable_cannelle",
@@ -4130,6 +3564,24 @@
       "cardBytes": 137703
     },
     {
+      "id": "pommes_duchesse_patate_douce",
+      "title": "Pommes duchesse à la patate douce",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pommes_duchesse_patate_douce.jpg",
+      "card": "assets/recipes/cards/pommes_duchesse_patate_douce.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 165935,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 50511
+    },
+    {
       "id": "pommes_paille",
       "title": "Pommes paille",
       "score": 100,
@@ -4220,40 +3672,22 @@
       "cardBytes": 121308
     },
     {
-      "id": "poulet_basquaise",
+      "id": "poulet_basquaise_variantes",
       "title": "Poulet basquaise",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/poulet_basquaise.jpg",
-      "card": "assets/recipes/cards/poulet_basquaise.jpg",
-      "optimizedSize": {
-        "width": 1536,
-        "height": 864
-      },
-      "optimizedBytes": 287447,
-      "cardSize": {
-        "width": 1040,
-        "height": 520
-      },
-      "cardBytes": 129296
-    },
-    {
-      "id": "poulet_basquaise_four",
-      "title": "Poulet basquaise au four",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/poulet_basquaise_four.jpg",
-      "card": "assets/recipes/cards/poulet_basquaise_four.jpg",
+      "optimized": "assets/recipes/heroes/poulet_basquaise_variantes.jpg",
+      "card": "assets/recipes/cards/poulet_basquaise_variantes.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 224291,
+      "optimizedBytes": 203476,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 67132
+      "cardBytes": 59661
     },
     {
       "id": "poulet_frit_air_fryer",
@@ -4346,134 +3780,8 @@
       "cardBytes": 137104
     },
     {
-      "id": "poulet_tikka_masala",
-      "title": "Poulet tikka masala",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/poulet_tikka_masala.jpg",
-      "card": "assets/recipes/cards/poulet_tikka_masala.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 251411,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 80300
-    },
-    {
-      "id": "puree_butternut_pommes_terre_curry",
-      "title": "Puree butternut pommes de terre curry",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/puree_butternut_pommes_terre_curry.jpg",
-      "card": "assets/recipes/cards/puree_butternut_pommes_terre_curry.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 1005
-      },
-      "optimizedBytes": 261486,
-      "cardSize": {
-        "width": 760,
-        "height": 545
-      },
-      "cardBytes": 82098
-    },
-    {
-      "id": "puree_chou_fleur",
-      "title": "Puree de chou-fleur",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/puree_chou_fleur.jpg",
-      "card": "assets/recipes/cards/puree_chou_fleur.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 933
-      },
-      "optimizedBytes": 179212,
-      "cardSize": {
-        "width": 760,
-        "height": 507
-      },
-      "cardBytes": 59989
-    },
-    {
-      "id": "puree_courge_butternut",
-      "title": "Purée de courge butternut",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/puree_courge_butternut.jpg",
-      "card": "assets/recipes/cards/puree_courge_butternut.jpg",
-      "optimizedSize": {
-        "width": 1672,
-        "height": 941
-      },
-      "optimizedBytes": 389922,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 83196
-    },
-    {
-      "id": "puree_patates_douces",
-      "title": "Purée de patates douces",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/puree_patates_douces.jpg",
-      "card": "assets/recipes/cards/puree_patates_douces.jpg",
-      "optimizedSize": {
-        "width": 960,
-        "height": 720
-      },
-      "optimizedBytes": 113918,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 123678
-    },
-    {
-      "id": "puree_pommes_de_terre_ail_rose_huile_olive",
-      "title": "Purée de pommes de terre à l’ail rose et huile d’olive",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/puree_pommes_de_terre_ail_rose_huile_olive.jpg",
-      "card": "assets/recipes/cards/puree_pommes_de_terre_ail_rose_huile_olive.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 1050
-      },
-      "optimizedBytes": 258105,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 86662
-    },
-    {
-      "id": "puree_pommes_de_terre_carottes",
-      "title": "Purée de pommes de terre et carottes",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/puree_pommes_de_terre_carottes.jpg",
-      "card": "assets/recipes/cards/puree_pommes_de_terre_carottes.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 1050
-      },
-      "optimizedBytes": 267661,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 86471
-    },
-    {
-      "id": "puree_pommes_de_terre_citron",
-      "title": "Purée pommes de terre citron",
+      "id": "purees_legumes_variantes",
+      "title": "Purées de légumes",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/puree_pommes_de_terre_citron.jpg",
@@ -4508,8 +3816,8 @@
       "cardBytes": 127834
     },
     {
-      "id": "ragout_boeuf_biere",
-      "title": "Ragoût de bœuf à la bière",
+      "id": "ragouts_boeuf_biere_variantes",
+      "title": "Ragoûts de bœuf à la bière",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/ragout_boeuf_biere.jpg",
@@ -4562,40 +3870,22 @@
       "cardBytes": 113545
     },
     {
-      "id": "rillettes_porc",
-      "title": "Rillettes de porc",
+      "id": "rillettes_variantes",
+      "title": "Rillettes",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/rillettes_porc.jpg",
-      "card": "assets/recipes/cards/rillettes_porc.jpg",
+      "optimized": "assets/recipes/heroes/rillettes_variantes.jpg",
+      "card": "assets/recipes/cards/rillettes_variantes.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 207294,
+      "optimizedBytes": 192143,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 66640
-    },
-    {
-      "id": "rillettes_poulet",
-      "title": "Rillettes de poulet",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/rillettes_poulet.jpg",
-      "card": "assets/recipes/cards/rillettes_poulet.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 800
-      },
-      "optimizedBytes": 239370,
-      "cardSize": {
-        "width": 760,
-        "height": 434
-      },
-      "cardBytes": 77525
+      "cardBytes": 58390
     },
     {
       "id": "riz_au_citron",
@@ -4796,8 +4086,8 @@
       "cardBytes": 97285
     },
     {
-      "id": "salade_pois_chiche_feta_olives",
-      "title": "Salade pois chiches feta olives",
+      "id": "salades_pois_chiches_variantes",
+      "title": "Salades de pois chiches",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/salade_pois_chiche_feta_olives.jpg",
@@ -4814,26 +4104,8 @@
       "cardBytes": 91333
     },
     {
-      "id": "salade_pois_chiches_thon_poivrons",
-      "title": "Salade pois chiches thon poivrons",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/salade_pois_chiches_thon_poivrons.jpg",
-      "card": "assets/recipes/cards/salade_pois_chiches_thon_poivrons.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 280067,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 85782
-    },
-    {
       "id": "samoussas_boeuf_epinards_petits_pois",
-      "title": "Samoussas bœuf epinards petits pois",
+      "title": "Samoussas au bœuf",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/samoussas_boeuf_epinards_petits_pois.jpg",
@@ -4848,6 +4120,24 @@
         "height": 417
       },
       "cardBytes": 70180
+    },
+    {
+      "id": "sauce_estragon",
+      "title": "Sauce à l’estragon",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/sauce_estragon.jpg",
+      "card": "assets/recipes/cards/sauce_estragon.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 259718,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 83985
     },
     {
       "id": "sauce_aigre_douce_vietnam",
@@ -4868,6 +4158,60 @@
       "cardBytes": 53099
     },
     {
+      "id": "sauce_au_porto",
+      "title": "Sauce au porto",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/sauce_au_porto.jpg",
+      "card": "assets/recipes/cards/sauce_au_porto.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 863
+      },
+      "optimizedBytes": 230759,
+      "cardSize": {
+        "width": 760,
+        "height": 469
+      },
+      "cardBytes": 77383
+    },
+    {
+      "id": "sauce_deux_moutardes_fromage_blanc",
+      "title": "Sauce aux deux moutardes et fromage blanc",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/sauce_deux_moutardes_fromage_blanc.jpg",
+      "card": "assets/recipes/cards/sauce_deux_moutardes_fromage_blanc.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 150307,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 50331
+    },
+    {
+      "id": "sauce_aux_morilles",
+      "title": "Sauce aux morilles",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/sauce_aux_morilles.jpg",
+      "card": "assets/recipes/cards/sauce_aux_morilles.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 196626,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 61146
+    },
+    {
       "id": "sauce_aux_poivres",
       "title": "Sauce aux poivres",
       "score": 100,
@@ -4876,14 +4220,68 @@
       "card": "assets/recipes/cards/sauce_aux_poivres.jpg",
       "optimizedSize": {
         "width": 1400,
-        "height": 1050
+        "height": 788
       },
-      "optimizedBytes": 307501,
+      "optimizedBytes": 216152,
       "cardSize": {
         "width": 760,
-        "height": 570
+        "height": 428
       },
-      "cardBytes": 98191
+      "cardBytes": 66327
+    },
+    {
+      "id": "sauce_bearnaise",
+      "title": "Sauce béarnaise",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/sauce_bearnaise.jpg",
+      "card": "assets/recipes/cards/sauce_bearnaise.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 191352,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 57960
+    },
+    {
+      "id": "sauce_bordelaise",
+      "title": "Sauce bordelaise",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/sauce_bordelaise.jpg",
+      "card": "assets/recipes/cards/sauce_bordelaise.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 196172,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 56852
+    },
+    {
+      "id": "sauce_bourguignonne",
+      "title": "Sauce bourguignonne",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/sauce_bourguignonne.jpg",
+      "card": "assets/recipes/cards/sauce_bourguignonne.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 205615,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 63646
     },
     {
       "id": "sauce_caramel",
@@ -4904,40 +4302,58 @@
       "cardBytes": 100438
     },
     {
-      "id": "sauce_chevre_creme",
-      "title": "Sauce chevre crème",
+      "id": "sauce_chasseur",
+      "title": "Sauce chasseur",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/sauce_chevre_creme.jpg",
-      "card": "assets/recipes/cards/sauce_chevre_creme.jpg",
+      "optimized": "assets/recipes/heroes/sauce_chasseur.jpg",
+      "card": "assets/recipes/cards/sauce_chasseur.jpg",
       "optimizedSize": {
         "width": 1400,
-        "height": 932
+        "height": 788
       },
-      "optimizedBytes": 234088,
+      "optimizedBytes": 213163,
       "cardSize": {
         "width": 760,
-        "height": 506
+        "height": 428
       },
-      "cardBytes": 80457
+      "cardBytes": 62381
     },
     {
-      "id": "sauce_mornay",
-      "title": "Sauce Mornay",
+      "id": "sauce_gribiche",
+      "title": "Sauce gribiche",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/sauce_mornay.jpg",
-      "card": "assets/recipes/cards/sauce_mornay.jpg",
+      "optimized": "assets/recipes/heroes/sauce_gribiche.jpg",
+      "card": "assets/recipes/cards/sauce_gribiche.jpg",
       "optimizedSize": {
         "width": 1400,
-        "height": 1050
+        "height": 788
       },
-      "optimizedBytes": 273629,
+      "optimizedBytes": 180277,
       "cardSize": {
         "width": 760,
-        "height": 570
+        "height": 428
       },
-      "cardBytes": 104214
+      "cardBytes": 57825
+    },
+    {
+      "id": "sauce_hollandaise",
+      "title": "Sauce hollandaise",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/sauce_hollandaise.jpg",
+      "card": "assets/recipes/cards/sauce_hollandaise.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 206553,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 68185
     },
     {
       "id": "sauce_nem",
@@ -4958,22 +4374,58 @@
       "cardBytes": 56020
     },
     {
-      "id": "sauce_roquefort",
-      "title": "Sauce roquefort",
+      "id": "sauce_perigueux",
+      "title": "Sauce Périgueux",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/sauce_roquefort.jpg",
-      "card": "assets/recipes/cards/sauce_roquefort.jpg",
+      "optimized": "assets/recipes/heroes/sauce_perigueux.jpg",
+      "card": "assets/recipes/cards/sauce_perigueux.jpg",
       "optimizedSize": {
         "width": 1400,
-        "height": 1008
+        "height": 788
       },
-      "optimizedBytes": 228620,
+      "optimizedBytes": 175138,
       "cardSize": {
         "width": 760,
-        "height": 547
+        "height": 428
       },
-      "cardBytes": 77909
+      "cardBytes": 52226
+    },
+    {
+      "id": "sauce_remoulade",
+      "title": "Sauce rémoulade",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/sauce_remoulade.jpg",
+      "card": "assets/recipes/cards/sauce_remoulade.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 246963,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 80311
+    },
+    {
+      "id": "sauce_tartare",
+      "title": "Sauce tartare",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/sauce_tartare.jpg",
+      "card": "assets/recipes/cards/sauce_tartare.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 258506,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 83901
     },
     {
       "id": "sauces_maitre",
@@ -4994,6 +4446,24 @@
       "cardBytes": 290896
     },
     {
+      "id": "sauces_fromage_variantes",
+      "title": "Sauces au fromage",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/sauce_chevre_creme.jpg",
+      "card": "assets/recipes/cards/sauce_chevre_creme.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 932
+      },
+      "optimizedBytes": 234088,
+      "cardSize": {
+        "width": 760,
+        "height": 506
+      },
+      "cardBytes": 80457
+    },
+    {
       "id": "sauces_burger_variantes",
       "title": "Sauces burger",
       "score": 100,
@@ -5010,24 +4480,6 @@
         "height": 760
       },
       "cardBytes": 104384
-    },
-    {
-      "id": "saucisse_lentilles",
-      "title": "Saucisse lentilles",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/saucisse_lentilles.jpg",
-      "card": "assets/recipes/cards/saucisse_lentilles.jpg",
-      "optimizedSize": {
-        "width": 960,
-        "height": 720
-      },
-      "optimizedBytes": 114335,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 121348
     },
     {
       "id": "saucisse_puree_maison",
@@ -5048,58 +4500,40 @@
       "cardBytes": 125415
     },
     {
-      "id": "saucisses_aux_lentilles",
+      "id": "saucisses_lentilles_variantes",
       "title": "Saucisses aux lentilles",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/saucisses_aux_lentilles.jpg",
-      "card": "assets/recipes/cards/saucisses_aux_lentilles.jpg",
+      "optimized": "assets/recipes/heroes/saucisse_lentilles.jpg",
+      "card": "assets/recipes/cards/saucisse_lentilles.jpg",
       "optimizedSize": {
         "width": 960,
         "height": 720
       },
-      "optimizedBytes": 111958,
+      "optimizedBytes": 114335,
       "cardSize": {
         "width": 760,
         "height": 570
       },
-      "cardBytes": 120120
+      "cardBytes": 121348
     },
     {
-      "id": "saumon_au_four_simple",
+      "id": "saumon_four_variantes",
       "title": "Saumon au four",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/saumon_au_four_simple.jpg",
-      "card": "assets/recipes/cards/saumon_au_four_simple.jpg",
+      "optimized": "assets/recipes/heroes/saumon_four_variantes.jpg",
+      "card": "assets/recipes/cards/saumon_four_variantes.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 264274,
+      "optimizedBytes": 193887,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 79418
-    },
-    {
-      "id": "saumon_au_four_tomates_olives_basilic",
-      "title": "Saumon au four tomates olives basilic",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/saumon_au_four_tomates_olives_basilic.jpg",
-      "card": "assets/recipes/cards/saumon_au_four_tomates_olives_basilic.jpg",
-      "optimizedSize": {
-        "width": 1536,
-        "height": 864
-      },
-      "optimizedBytes": 292245,
-      "cardSize": {
-        "width": 1040,
-        "height": 520
-      },
-      "cardBytes": 131161
+      "cardBytes": 58996
     },
     {
       "id": "smash_burger",
@@ -5121,7 +4555,7 @@
     },
     {
       "id": "souffle_fromage_facile",
-      "title": "Souffle au fromage facile",
+      "title": "Soufflé au fromage",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/souffle_fromage_facile.jpg",
@@ -5246,24 +4680,6 @@
       "cardBytes": 60397
     },
     {
-      "id": "tarte_abricots_amandes_romarin",
-      "title": "Tarte aux abricots, amandes et romarin",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/tarte_abricots_amandes_romarin.jpg",
-      "card": "assets/recipes/cards/tarte_abricots_amandes_romarin.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 1050
-      },
-      "optimizedBytes": 314011,
-      "cardSize": {
-        "width": 760,
-        "height": 570
-      },
-      "cardBytes": 100808
-    },
-    {
       "id": "tarte_fraises_timut",
       "title": "Tarte aux fraises et poivre Timut",
       "score": 100,
@@ -5318,6 +4734,24 @@
       "cardBytes": 171497
     },
     {
+      "id": "tarte_abricots_amandes_romarin",
+      "title": "Tartes aux abricots et aux amandes",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/tarte_abricots_amandes_romarin.jpg",
+      "card": "assets/recipes/cards/tarte_abricots_amandes_romarin.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 1050
+      },
+      "optimizedBytes": 314011,
+      "cardSize": {
+        "width": 760,
+        "height": 570
+      },
+      "cardBytes": 100808
+    },
+    {
       "id": "temps_cuisson_legumes_autocuiseur",
       "title": "Temps de cuisson des légumes à l’autocuiseur",
       "score": 100,
@@ -5354,8 +4788,8 @@
       "cardBytes": 60770
     },
     {
-      "id": "terrine_campagne",
-      "title": "Terrine de campagne",
+      "id": "terrines_pates_variantes",
+      "title": "Terrines et pâtés",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/terrine_campagne.jpg",
@@ -5372,94 +4806,40 @@
       "cardBytes": 67265
     },
     {
-      "id": "terrine_porc_pistaches",
-      "title": "Terrine de porc aux pistaches",
+      "id": "tian_legumes_racines",
+      "title": "Tian de légumes racines",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/terrine_porc_pistaches.jpg",
-      "card": "assets/recipes/cards/terrine_porc_pistaches.jpg",
+      "optimized": "assets/recipes/heroes/tian_legumes_racines.jpg",
+      "card": "assets/recipes/cards/tian_legumes_racines.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 237513,
+      "optimizedBytes": 233968,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 72439
+      "cardBytes": 73176
     },
     {
-      "id": "tiramisu_amaretto",
-      "title": "Tiramisu à l’amaretto",
+      "id": "tiramisu_variantes",
+      "title": "Tiramisu",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/tiramisu_amaretto.jpg",
-      "card": "assets/recipes/cards/tiramisu_amaretto.jpg",
+      "optimized": "assets/recipes/heroes/tiramisu_variantes.jpg",
+      "card": "assets/recipes/cards/tiramisu_variantes.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 171868,
+      "optimizedBytes": 207495,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 54503
-    },
-    {
-      "id": "tiramisu_creme_marrons",
-      "title": "Tiramisu à la crème de marrons",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/tiramisu_creme_marrons.jpg",
-      "card": "assets/recipes/cards/tiramisu_creme_marrons.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 197238,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 61853
-    },
-    {
-      "id": "tiramisu_citron",
-      "title": "Tiramisu citron meringué",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/tiramisu_citron.jpg",
-      "card": "assets/recipes/cards/tiramisu_citron.jpg",
-      "optimizedSize": {
-        "width": 1672,
-        "height": 941
-      },
-      "optimizedBytes": 419920,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 105574
-    },
-    {
-      "id": "tiramisu_speculoos",
-      "title": "Tiramisu en verrine",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/tiramisu_speculoos.jpg",
-      "card": "assets/recipes/cards/tiramisu_speculoos.jpg",
-      "optimizedSize": {
-        "width": 1024,
-        "height": 1024
-      },
-      "optimizedBytes": 289263,
-      "cardSize": {
-        "width": 760,
-        "height": 760
-      },
-      "cardBytes": 165523
+      "cardBytes": 58749
     },
     {
       "id": "salade_caprese",
@@ -5570,40 +4950,22 @@
       "cardBytes": 166858
     },
     {
-      "id": "tresse_beurre_classique",
-      "title": "Tresse au beurre classique",
+      "id": "tresse_beurre_variantes",
+      "title": "Tresses au beurre",
       "score": 100,
       "issues": [],
-      "optimized": "assets/recipes/heroes/tresse_beurre_classique.jpg",
-      "card": "assets/recipes/cards/tresse_beurre_classique.jpg",
+      "optimized": "assets/recipes/heroes/tresse_beurre_variantes.jpg",
+      "card": "assets/recipes/cards/tresse_beurre_variantes.jpg",
       "optimizedSize": {
         "width": 1400,
         "height": 788
       },
-      "optimizedBytes": 163213,
+      "optimizedBytes": 187996,
       "cardSize": {
         "width": 760,
         "height": 428
       },
-      "cardBytes": 52067
-    },
-    {
-      "id": "tresse_beurre_caminada",
-      "title": "Tresse au beurre d’Andreas Caminada",
-      "score": 100,
-      "issues": [],
-      "optimized": "assets/recipes/heroes/tresse_beurre_caminada.jpg",
-      "card": "assets/recipes/cards/tresse_beurre_caminada.jpg",
-      "optimizedSize": {
-        "width": 1400,
-        "height": 788
-      },
-      "optimizedBytes": 201674,
-      "cardSize": {
-        "width": 760,
-        "height": 428
-      },
-      "cardBytes": 63362
+      "cardBytes": 55876
     },
     {
       "id": "veloute_hiver_noix_cajou",

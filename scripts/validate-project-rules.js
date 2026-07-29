@@ -61,19 +61,35 @@ const designSystem = fs.existsSync(designSystemPath) ? fs.readFileSync(designSys
 const recipeWorkflow = fs.existsSync(recipeWorkflowPath) ? fs.readFileSync(recipeWorkflowPath, 'utf8') : '';
 
 expect(
+  'Raccourci liens recettes absent des instructions agents.',
+  agentsGuide.includes('RACCOURCI UTILISATEUR POUR AJOUTER DES RECETTES')
+    && agentsGuide.includes('contenant uniquement un ou plusieurs liens HTTP(S)')
+    && agentsGuide.includes('docs/recipe-creation-workflow.md')
+    && agentsGuide.includes('docs/visual-references/RECIPE_IMAGE_STYLE.md')
+    && rules.includes('vaut demande complete d\'import dans Cook Note')
+);
+expect(
   'Workflow de creation des recettes incomplet.',
   recipeWorkflow.includes("L'identite du plat prime")
     && recipeWorkflow.includes('Poulet basquaise au four')
     && recipeWorkflow.includes('Mayonnaise et Aioli')
     && recipeWorkflow.includes("sauce aux herbes")
+    && recipeWorkflow.includes('Verrou de classement obligatoire')
+    && recipeWorkflow.includes('meme nom culinaire reconnu')
+    && recipeWorkflow.includes('Preuve avant modification')
+    && recipeWorkflow.includes('decision finale')
+    && recipeWorkflow.includes('sauce Choron')
     && recipeWorkflow.includes('trois references jour')
     && recipeWorkflow.includes('trois references nuit')
-    && recipeWorkflow.includes("attendre sa validation")
+    && recipeWorkflow.includes("sans attendre de validation utilisateur")
 );
 expect(
   'Regles de classement variante ou fiche distincte absentes.',
   rules.includes('docs/recipe-creation-workflow.md')
     && rules.includes('Meme plat de base et meme identite culinaire = variante')
+    && rules.includes('Le verrou de classement')
+    && rules.includes('meme nom culinaire reconnu')
+    && rules.includes('La sauce Choron est une variante')
     && rules.includes("Mayonnaise` n'est pas `Aioli")
     && rules.includes("sauce aux herbes n'est pas une variante")
 );
@@ -139,7 +155,7 @@ expect('Tokens design system admin absents.', validators.adminCss.includes('--ds
   'representer le plat exact',
   'rendu vectoriel plat',
   'nouveau nom de fichier stable',
-  'montrer le visuel et attendre validation utilisateur',
+  'sans attendre de validation utilisateur',
   'Regenerer le sitemap',
   'score de completude',
   'La recherche doit comprendre les intentions',
@@ -329,7 +345,15 @@ expect('Validation images optimisees non branchee.', validators.recipes.includes
 expect('Validation chemins images locaux non branchee.', validators.recipes.includes('image locale introuvable') && validators.recipes.includes('image recette non optimisee'));
 expect('Validation miniatures cartes non branchee.', validators.production.includes('assets/recipes/cards') && validators.production.includes('miniature carte introuvable'));
 expect('Validation manifest images non branchee.', validators.packageJson.includes('scripts/generate-image-manifest.js') && validators.production.includes('assets/image-manifest.js') && validators.cache.includes('assets/image-manifest.js'));
-expect('Validation nettoyage images non branchee.', validators.imageCleanup.includes('image presente mais non utilisee') && validators.imageCleanup.includes('aucun id recette correspondant') && validators.packageJson.includes('scripts/validate-image-cleanup.js'));
+expect(
+  'Validation nettoyage images non branchee.',
+  validators.imageCleanup.includes('image presente mais non utilisee')
+    && (
+      validators.imageCleanup.includes('aucun id recette correspondant')
+      || validators.imageCleanup.includes('aucun visuel de recette correspondant')
+    )
+    && validators.packageJson.includes('scripts/validate-image-cleanup.js')
+);
 expect('Validation materiel necessaire colonne droite non branchee.', validators.ui.includes('Materiel necessaire encore dans la colonne droite'));
 expect('Validation anti-doublon notes pratiques non branchee.', validators.ui.includes('Notes pratiques encore classees en double'));
 expect('Validation recherche intention non branchee.', validators.ui.includes('Recherche par intention absente'));

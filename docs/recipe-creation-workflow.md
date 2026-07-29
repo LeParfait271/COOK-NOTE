@@ -1,157 +1,103 @@
-# Workflow de creation d'une recette
+# Workflow compact d'ajout d'une recette
 
-Ce workflow est obligatoire avant toute integration dans `recipes.js`. Il sert
-a eviter les doublons, a choisir correctement entre variante, recette liee et
-fiche distincte, puis a livrer une fiche complete avec ses images jour et nuit.
+Ordre obligatoire : rechercher, classer, rediger, illustrer, integrer, valider.
+Les details generaux restent dans `COOK_NOTE_RULES.md` et le style des images
+dans `docs/visual-references/RECIPE_IMAGE_STYLE.md`.
 
-## 1. Inventorier avant de creer
+## 1. Recherche
 
-1. Rechercher dans le catalogue le nom du plat, ses synonymes, son ingredient
-   principal et sa technique.
-2. Examiner les fiches proches, leurs variantes, leurs alias et leurs recettes
-   liees.
-3. Ne rien creer tant que l'identite culinaire de la nouvelle proposition n'a
-   pas ete comparee aux fiches existantes.
+- Chercher nom, synonymes, ingredient principal et technique dans `recipes.js`.
+- Examiner fiches proches, alias, variantes et recettes liees.
+- Identifier la fiche existante la plus proche avant toute creation.
 
-## 2. Decider : variante, recette liee ou fiche distincte
+## 2. Verrou de classement obligatoire
 
-L'identite du plat prime sur la methode de cuisson, le materiel ou une simple
-modification d'ingredient.
+L'identite du plat prime sur la cuisson, le materiel et les ingredients
+secondaires.
 
-### Variante de la meme fiche
+### Variante
 
-Creer une variante lorsque le plat conserve le meme nom et la meme identite
-culinaire. Une cuisson differente, un parfum, un ingredient secondaire ou une
-presentation differente ne suffisent pas a creer une nouvelle famille.
+Fusion autorisee seulement si tout est vrai :
 
-Exemples Cook Note :
+1. meme nom culinaire reconnu, apres retrait du parfum, de la garniture, de la
+   cuisson ou de la presentation ;
+2. meme structure, meme fonction a table et meme resultat attendu ;
+3. aucun autre nom culinaire autonome reconnu ;
+4. differences limitees a un parfum, aromate, alcool, ingredient secondaire,
+   garniture, cuisson, materiel, presentation ou adaptation conservant le plat.
 
-- `Poulet basquaise` et `Poulet basquaise au four` : variantes du Poulet
-  basquaise.
-- les tiramisus en verrine, a l'amaretto, a la creme de marrons et citron
-  meringue : variantes du Tiramisu.
-- pesto classique, pesto de tomates sechees et futur pesto d'olives : variantes
-  de la fiche Pestos.
-- aioli citronne leger et aioli au safran : variantes de l'Aioli.
-- les gratins de chou-fleur classique, comte-lardons, mascarpone-moutarde et
-  chorizo : variantes du Gratin de chou-fleur.
-- tresse au beurre classique et tresse au beurre d'Andreas Caminada : variantes
-  de la Tresse au beurre.
-- mousse au chocolat et mousse au Toblerone : variantes de la Mousse au
-  chocolat.
+Un critere faux interdit la fusion.
 
-Test pratique : si une personne dirait naturellement « c'est toujours un
-tiramisu, un pesto ou un poulet basquaise », choisir une variante.
+### Recette liee
 
-### Recette liee ou composant
-
-Une sauce, une base, une garniture ou un accompagnement utilise par un plat
-n'est pas une variante de ce plat. Conserver sa fiche propre lorsqu'elle est
-reutilisable, puis creer un lien interne.
-
-Exemples Cook Note :
-
-- le pesto est lie aux pates au pesto ; les pates ne sont pas une variante du
-  pesto ;
-- la sauce caramel est liee au cheesecake ou a la brioche perdue ; ces desserts
-  ne sont pas des variantes de la sauce ;
-- une sauce aux herbes servie avec des pommes de terre au barbecue reste un
-  accompagnement, pas une variante des pommes de terre.
+Une sauce, base, garniture ou accompagnement reutilisable garde sa fiche et est
+lie au plat. Une sauce aux herbes servie avec des pommes de terre n'est donc pas
+une variante des pommes de terre.
 
 ### Fiche distincte
 
-Creer une fiche distincte lorsque le plat possede un autre nom culinaire, une
-autre structure ou un resultat reconnu comme different.
+Creer une fiche distincte si le nom, la structure, la fonction ou le resultat
+culinaire change. Un ingredient, une couleur, une texture, une image, une
+cuisson ou des mots communs ne suffisent jamais a former une famille.
 
-Exemples :
+Reperes obligatoires :
 
-- Poulet basquaise et Poulet tikka masala ;
-- Pesto et Tapenade ;
-- Houmous et Caviar d'aubergines ;
-- Tiramisu et Charlotte ;
-- Gratin dauphinois et Tartiflette ;
-- Mayonnaise et Aioli ;
-- gratin, puree, croquettes et salade de pommes de terre.
+- `Poulet basquaise au four` -> variante du Poulet basquaise ;
+- `sauce Choron` -> variante de la Bearnaise, jamais de la Mayonnaise ;
+- `Mayonnaise et Aioli`, Pesto et Tapenade, Houmous et Caviar d'aubergines,
+  Tiramisu et Charlotte, Gratin dauphinois et Tartiflette -> fiches distinctes.
 
-Le partage d'un ingredient principal ne suffit jamais a regrouper deux plats.
+### Preuve avant modification
 
-## 3. Choisir le bon rattachement
+Consigner avant d'ecrire dans `recipes.js` :
 
-1. Respecter la hierarchie plate du catalogue : uniquement les huit fiches
-   parentes racines et les recettes directement rattachees.
-2. Ajouter les categories secondaires avec `additionalMasters` lorsqu'une
-   recette a plusieurs usages reels.
-3. Pour une famille culinaire comportant plusieurs recettes ouvrables, conserver
-   une entree de collection claire et des URLs propres pour chaque recette.
-4. Pour plusieurs preparations tres proches dans une seule fiche, utiliser les
-   variantes internes seulement lorsque leurs ingredients et leurs etapes sont
-   presentes dans la meme recette.
+1. nouvelle recette ;
+2. fiche la plus proche et son id, ou `aucune` ;
+3. identite commune eventuelle ;
+4. differences structurantes et secondaires ;
+5. decision finale (`variante`, `recette liee`, `fiche distincte`) et une phrase
+   de justification.
 
-## 4. Rediger la fiche
+`C'est proche`, `memes ingredients` ou `meme cuisson` ne justifie jamais une
+fusion. En cas d'ambiguite semantique persistante, ne rien fusionner et demander
+le classement a l'utilisateur.
 
-1. Utiliser un titre culinaire neutre et factuel.
-2. Nommer chaque variante d'apres l'element culinaire qui la distingue le plus :
-   ingredient, alcool, aromate, cuisson ou technique. Exemples :
-   `Sauce aux poivres au cognac`, `Aioli au safran`, `Poulet basquaise au four`.
-   Ne jamais reprendre le nom d'une source, d'un auteur, d'un blog ou d'un site
-   dans le titre ou le libelle public d'une variante.
-3. Interdire dans les titres et libelles de variantes les qualificatifs
-   marketing ou de gamme tels que `rapide`, `facile`, `simple`, `express`,
-   `premium`, `haut de gamme`, `basique`, `ultra simple` ou `inratable`.
-   La difficulte et la duree appartiennent aux champs dedies, pas au nom.
-4. Renseigner rendement, temps, difficulte, categories, alias et tags utiles.
-5. Donner des quantites metriques conformes aux regles Cook Note.
-6. Separer clairement les groupes d'ingredients et ordonner les etapes.
-7. Completer `Avant de commencer` : materiel, poids moyens, allergenes, timing,
-   conservation, rechauffage, erreurs a eviter, resultat attendu et technique
-   lorsque ces informations sont utiles.
-8. Ajouter les liens internes vers sauces, bases, accompagnements ou techniques
-   reutilises.
-9. Ne jamais publier de champ source, credit, attribution ou URL d'origine.
+## 3. Donnees et rattachement
 
-## 5. Preparer et valider les images
+- Respecter la hierarchie plate : huit parents racines, aucun parent
+  intermediaire ; utiliser `additionalMasters` pour les usages secondaires.
+- Conserver toutes les informations culinaires utiles de la source.
+- Titre neutre et factuel ; variante nommee par son element distinctif notable.
+- Interdits dans titre/libelle : source, auteur, site et qualificatif marketing
+  (`rapide`, `facile`, `simple`, `express`, `premium`, `haut de gamme`,
+  `basique`, `inratable`).
+- Renseigner rendement, temps, difficulte, categories, alias, tags, quantites
+  metriques, groupes, etapes, liens et informations utiles d'`Avant de
+  commencer`.
+- Ne publier aucun champ de source, credit, attribution ou URL d'origine.
 
-1. Verifier les images existantes avant toute generation.
-2. Examiner visuellement au moins trois references jour et trois references nuit
-   pour reprendre exactement la direction artistique Cook Note.
-3. Generer deux compositions reellement distinctes : une image jour et une image
-   nuit representant le plat exact.
-4. Montrer une paire jour/nuit a l'utilisateur et attendre sa validation avant
-   de produire et d'integrer tout le lot.
-5. Conserver les masters puis generer les derives avec les scripts du projet.
-6. Valider le manifeste, les dimensions, le cadrage et l'absence de doublon
-   visuel.
+## 4. Images
 
-## 6. Controle avant integration
+- Lire le kit visuel et examiner ses trois references jour et trois references nuit.
+- Donner a chaque generation une reference du meme theme et du type de plat le
+  plus proche.
+- Creer une composition jour et une nuit du plat exact, sans variantes
+  melangees ; alterner fenetre gauche/droite pour tendre vers 50/50 sur le lot.
+- Comparer chaque sortie au kit et regenerer automatiquement toute image non
+  conforme.
+- Une fois conforme, integrer le lot sans attendre de validation utilisateur ;
+  montrer des apercus seulement sur demande.
+- Conserver les masters, generer les derives locaux et valider manifeste,
+  dimensions, cadrage et doublons.
 
-Repondre explicitement a ces questions :
-
-- Existe-t-il deja une fiche portant la meme identite culinaire ?
-- La difference concerne-t-elle seulement la cuisson, le materiel, un parfum ou
-  un ingredient secondaire ? Si oui, choisir une variante.
-- La nouveaute est-elle seulement une sauce ou un composant ? Si oui, creer un
-  lien, pas une variante du plat.
-- Le plat a-t-il un autre nom, une autre structure et un resultat distinct ? Si
-  oui, choisir une fiche separee.
-- Le rattachement respecte-t-il les huit parents racines ?
-- Le nom de chaque variante decrit-il son element culinaire distinctif sans
-  source, auteur ni qualificatif marketing ?
-- Les images jour et nuit ont-elles ete validees avant integration ?
-
-En cas de doute semantique reel, presenter le classement propose et attendre la
-decision de l'utilisateur avant de modifier le catalogue.
-
-## 7. Integration et livraison
+## 5. Integration
 
 1. Lancer le preflight.
-2. Integrer la recette, ses rattachements, ses liens et ses images.
-3. Regenerer catalogue, manifeste d'images, sitemap et `dist/` avec les scripts
-   officiels.
-4. Augmenter la version du site de `0.01` pour toute modification produit, sans
-   reconstruire l'APK sauf demande explicite.
-5. Lancer les validations recettes, doublons, parents, images, production,
-   performance, theme et distribution.
-6. Auditer la parite Android Legacy sans construire ni publier l'APK sans
-   autorisation explicite.
-7. Apres validations, commit et push sur `main`, puis signaler clairement les
-   eventuels controles bloques.
+2. Integrer recette, classement, liens et images.
+3. Synchroniser catalogue, manifeste, sitemap et `dist/`.
+4. Pour une modification produit, augmenter la version du site de `0.01`.
+5. Valider recettes, quantites, doublons, parents, liens, images, production,
+   performance, theme, cache et distribution.
+6. Auditer Android Legacy sans construire ni publier l'APK sans autorisation.
+7. Rapporter resultat et blocages, puis appliquer les autorisations Git fixees
+   par le depot et la conversation.

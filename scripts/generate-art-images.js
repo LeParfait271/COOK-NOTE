@@ -72,6 +72,8 @@ function imageRecipeId(image) {
 function displayRecipeIds(recipes) {
   const ids = new Set(Object.keys(recipes));
   Object.values(recipes).forEach(recipe => {
+    const primaryId = imageRecipeId(recipe?.image);
+    if (primaryId) ids.add(primaryId);
     (recipe.ingredients || []).forEach(group => {
       const nestedId = imageRecipeId(group?.recipe?.image);
       if (nestedId) ids.add(nestedId);

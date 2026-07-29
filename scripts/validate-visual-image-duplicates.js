@@ -50,6 +50,42 @@ function imagePath(image) {
   return path.join(ROOT, image.replace(/^\/+/, '').replace(/\?.*$/, ''));
 }
 
+function imageRecipeId(image) {
+  return String(image || '').match(/\/([^/?#]+)\.(?:jpe?g|png|webp)(?:[?#].*)?$/i)?.[1] || '';
+}
+
+function recipeImageEntries(recipes) {
+  const byImage = new Map();
+  Object.entries(recipes).forEach(([ownerId, recipe]) => {
+    const candidates = [
+      { image: recipe?.image, title: recipe?.title || ownerId },
+      ...(recipe?.ingredients || []).map(group => ({
+        image: group?.recipe?.image,
+        title: group?.recipe?.title || group?.group || ownerId
+      }))
+    ];
+    candidates.forEach(candidate => {
+      if (!candidate.image || !candidate.image.startsWith('/assets/')) return;
+      const id = imageRecipeId(candidate.image);
+      if (!id || byImage.has(candidate.image)) return;
+      byImage.set(candidate.image, {
+        id,
+        ownerId,
+        title: candidate.title,
+        image: candidate.image
+      });
+    });
+  });
+  return [...byImage.values()];
+}
+
+function displayRecipeIds(recipes) {
+  return new Set([
+    ...Object.keys(recipes),
+    ...recipeImageEntries(recipes).map(entry => entry.id)
+  ]);
+}
+
 function centered(values) {
   const mean = values.reduce((sum, value) => sum + value, 0) / Math.max(1, values.length);
   return values.map(value => value - mean);
@@ -90,15 +126,16 @@ function imageSignature(filePath) {
 async function main() {
   const recipes = loadRecipes();
   const themeRecipeArtImages = loadThemeRecipeArtImages();
+  const recipeImages = recipeImageEntries(recipes);
+  const knownArtIds = displayRecipeIds(recipes);
   const imageRows = [];
-  for (const [id, recipe] of Object.entries(recipes)) {
-    if (!recipe?.image || !recipe.image.startsWith('/assets/')) continue;
-    const filePath = imagePath(recipe.image);
+  for (const entry of recipeImages) {
+    const filePath = imagePath(entry.image);
     if (!fs.existsSync(filePath)) continue;
     imageRows.push({
-      id,
-      title: recipe.title || id,
-      image: recipe.image,
+      id: entry.id,
+      title: entry.title,
+      image: entry.image,
       hash: crypto.createHash('sha1').update(fs.readFileSync(filePath)).digest('hex'),
       signature: imageSignature(filePath)
     });
@@ -107,15 +144,15 @@ async function main() {
   Object.entries(themeRecipeArtImages).forEach(([theme, artImages]) => {
     const resolvedImages = new Map();
     artImages.forEach((image, id) => {
-      if (!recipes[id]) errors.push(`Image ${theme} reference une fiche inconnue: ${id} (${image}).`);
+      if (!knownArtIds.has(id)) errors.push(`Image ${theme} reference une fiche inconnue: ${id} (${image}).`);
       if (!image.startsWith(`/assets/theme/${theme === 'light' ? 'day' : 'dark'}/`)) errors.push(`${id}: image ${theme} hors assets/theme/${theme === 'light' ? 'day' : 'dark'} (${image}).`);
       if (!fs.existsSync(imagePath(image))) errors.push(`${id}: image ${theme} introuvable (${image}).`);
     });
-    Object.entries(recipes).forEach(([id, recipe]) => {
-      const image = artImages.get(id) || recipe?.image;
+    recipeImages.forEach(entry => {
+      const image = artImages.get(entry.id) || entry.image;
       if (!image) return;
       if (!resolvedImages.has(image)) resolvedImages.set(image, []);
-      resolvedImages.get(image).push(id);
+      resolvedImages.get(image).push(entry.id);
     });
     resolvedImages.forEach((ids, image) => {
       if (ids.length > 1) errors.push(`Image dupliquee en mode ${theme} (${image}): ${ids.join(', ')}.`);
