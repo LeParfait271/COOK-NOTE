@@ -575,6 +575,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 76895
   },
+  "assets/recipes/cards/galettes_legumes_four.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 69558
+  },
   "assets/recipes/cards/galettes_pommes_de_terre_comte.jpg": {
     "width": 760,
     "height": 428,
@@ -819,6 +824,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 428,
     "bytes": 72437
+  },
+  "assets/recipes/cards/pains_aux_cereales.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 63622
   },
   "assets/recipes/cards/pains_burgers_brioche.jpg": {
     "width": 760,
@@ -1965,6 +1975,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 239380
   },
+  "assets/recipes/heroes/galettes_legumes_four.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 213417
+  },
   "assets/recipes/heroes/galettes_pommes_de_terre_comte.jpg": {
     "width": 1400,
     "height": 788,
@@ -2209,6 +2224,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 235759
+  },
+  "assets/recipes/heroes/pains_aux_cereales.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 200199
   },
   "assets/recipes/heroes/pains_burgers_brioche.jpg": {
     "width": 1400,
