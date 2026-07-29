@@ -130,10 +130,30 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 69194
   },
+  "assets/recipes/cards/brochettes_langoustines_coriandre_citron.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 74825
+  },
+  "assets/recipes/cards/brochettes_lotte_chorizo_plancha.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 69662
+  },
   "assets/recipes/cards/brochettes_melon_epice.jpg": {
     "width": 760,
     "height": 413,
     "bytes": 75185
+  },
+  "assets/recipes/cards/brochettes_tsukune.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 69102
+  },
+  "assets/recipes/cards/brownie_carotte_chevre_amandes.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 71046
   },
   "assets/recipes/cards/bruschetta_roquefort_noix.jpg": {
     "width": 760,
@@ -169,6 +189,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 342,
     "bytes": 50234
+  },
+  "assets/recipes/cards/canneles_brocolis_parmesan.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 62975
   },
   "assets/recipes/cards/carbonara_romaine.jpg": {
     "width": 760,
@@ -330,6 +355,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 540,
     "bytes": 145217
   },
+  "assets/recipes/cards/courge_butternut_farcie.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 72529
+  },
   "assets/recipes/cards/court_bouillon.jpg": {
     "width": 760,
     "height": 760,
@@ -480,6 +510,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 64995
   },
+  "assets/recipes/cards/filet_mignon_porc_farci_epinards.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 62756
+  },
   "assets/recipes/cards/fish_and_chips.jpg": {
     "width": 760,
     "height": 428,
@@ -490,6 +525,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 70710
   },
+  "assets/recipes/cards/flan_courgettes_chevre_curcuma_amandes.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 70065
+  },
   "assets/recipes/cards/flan_patissier_epais_vanille.jpg": {
     "width": 960,
     "height": 540,
@@ -499,6 +539,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 570,
     "bytes": 91271
+  },
+  "assets/recipes/cards/focaccia_six_cereales.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 66961
   },
   "assets/recipes/cards/fond_de_veau.jpg": {
     "width": 760,
@@ -525,6 +570,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 57626
   },
+  "assets/recipes/cards/galettes_legumes_comte.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 76895
+  },
+  "assets/recipes/cards/galettes_pommes_de_terre_comte.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 66455
+  },
   "assets/recipes/cards/gateau_roule_framboise.jpg": {
     "width": 760,
     "height": 568,
@@ -549,6 +604,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 428,
     "bytes": 75435
+  },
+  "assets/recipes/cards/gratin_coquillettes_poulet.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 75922
   },
   "assets/recipes/cards/gratin_dauphinois.jpg": {
     "width": 1040,
@@ -695,6 +755,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 570,
     "bytes": 100298
   },
+  "assets/recipes/cards/navarin_agneau_printanier.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 77291
+  },
   "assets/recipes/cards/nems_vietnam.jpg": {
     "width": 760,
     "height": 507,
@@ -739,6 +804,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 342,
     "bytes": 53470
+  },
+  "assets/recipes/cards/pain_herisson_pesto_mozzarella.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 67296
   },
   "assets/recipes/cards/pain_hot_dog.jpg": {
     "width": 760,
@@ -1105,6 +1175,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 506,
     "bytes": 80457
   },
+  "assets/recipes/cards/sauce_deux_moutardes_fromage_blanc.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 50331
+  },
   "assets/recipes/cards/sauce_estragon.jpg": {
     "width": 760,
     "height": 507,
@@ -1244,6 +1319,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 417,
     "bytes": 67265
+  },
+  "assets/recipes/cards/tian_legumes_racines.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 73176
   },
   "assets/recipes/cards/tiramisu_variantes.jpg": {
     "width": 760,
@@ -1435,10 +1515,30 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 213624
   },
+  "assets/recipes/heroes/brochettes_langoustines_coriandre_citron.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 231221
+  },
+  "assets/recipes/heroes/brochettes_lotte_chorizo_plancha.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 222245
+  },
   "assets/recipes/heroes/brochettes_melon_epice.jpg": {
     "width": 1400,
     "height": 761,
     "bytes": 233700
+  },
+  "assets/recipes/heroes/brochettes_tsukune.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 214578
+  },
+  "assets/recipes/heroes/brownie_carotte_chevre_amandes.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 217226
   },
   "assets/recipes/heroes/bruschetta_roquefort_noix.jpg": {
     "width": 1400,
@@ -1474,6 +1574,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 630,
     "bytes": 162369
+  },
+  "assets/recipes/heroes/canneles_brocolis_parmesan.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 194154
   },
   "assets/recipes/heroes/carbonara_romaine.jpg": {
     "width": 1400,
@@ -1635,6 +1740,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 280000
   },
+  "assets/recipes/heroes/courge_butternut_farcie.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 216628
+  },
   "assets/recipes/heroes/court_bouillon.jpg": {
     "width": 1024,
     "height": 1024,
@@ -1785,6 +1895,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 195096
   },
+  "assets/recipes/heroes/filet_mignon_porc_farci_epinards.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 191763
+  },
   "assets/recipes/heroes/fish_and_chips.jpg": {
     "width": 1400,
     "height": 788,
@@ -1795,6 +1910,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 206511
   },
+  "assets/recipes/heroes/flan_courgettes_chevre_curcuma_amandes.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 214260
+  },
   "assets/recipes/heroes/flan_patissier_epais_vanille.jpg": {
     "width": 1400,
     "height": 788,
@@ -1804,6 +1924,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 1050,
     "bytes": 289461
+  },
+  "assets/recipes/heroes/focaccia_six_cereales.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 207698
   },
   "assets/recipes/heroes/fond_de_veau.jpg": {
     "width": 1400,
@@ -1830,6 +1955,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 193285
   },
+  "assets/recipes/heroes/galettes_legumes_comte.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 239380
+  },
+  "assets/recipes/heroes/galettes_pommes_de_terre_comte.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 215046
+  },
   "assets/recipes/heroes/gateau_roule_framboise.jpg": {
     "width": 1400,
     "height": 1046,
@@ -1854,6 +1989,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 243506
+  },
+  "assets/recipes/heroes/gratin_coquillettes_poulet.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 246624
   },
   "assets/recipes/heroes/gratin_dauphinois.jpg": {
     "width": 1536,
@@ -2000,6 +2140,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1050,
     "bytes": 317983
   },
+  "assets/recipes/heroes/navarin_agneau_printanier.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 249563
+  },
   "assets/recipes/heroes/nems_vietnam.jpg": {
     "width": 1400,
     "height": 933,
@@ -2044,6 +2189,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 630,
     "bytes": 181484
+  },
+  "assets/recipes/heroes/pain_herisson_pesto_mozzarella.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 211798
   },
   "assets/recipes/heroes/pain_hot_dog.jpg": {
     "width": 1400,
@@ -2410,6 +2560,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 932,
     "bytes": 234088
   },
+  "assets/recipes/heroes/sauce_deux_moutardes_fromage_blanc.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 150307
+  },
   "assets/recipes/heroes/sauce_estragon.jpg": {
     "width": 1400,
     "height": 933,
@@ -2549,6 +2704,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 769,
     "bytes": 219337
+  },
+  "assets/recipes/heroes/tian_legumes_racines.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 233968
   },
   "assets/recipes/heroes/tiramisu_variantes.jpg": {
     "width": 1400,

@@ -386,11 +386,21 @@ public class MainActivity extends Activity {
         heroVeil.setBackground(bottomOverlayGradient());
         homeHero.addView(heroVeil, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        TextView heroBrand = text("COOK NOTE", 34, COLOR_TEXT, true);
-        heroBrand.setGravity(Gravity.CENTER);
-        heroBrand.setLetterSpacing(0.08f);
-        heroBrand.setShadowLayer(5f, 0, dp(2), Color.BLACK);
-        homeHero.addView(heroBrand, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, Gravity.CENTER));
+        ImageView heroBrand = new ImageView(this);
+        heroBrand.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        heroBrand.setAdjustViewBounds(true);
+        heroBrand.setContentDescription("Cook Note");
+        FrameLayout.LayoutParams heroBrandParams = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                Gravity.CENTER
+        );
+        heroBrandParams.leftMargin = dp(26);
+        heroBrandParams.rightMargin = dp(26);
+        heroBrandParams.topMargin = dp(12);
+        heroBrandParams.bottomMargin = dp(12);
+        homeHero.addView(heroBrand, heroBrandParams);
+        imageLoader.loadDetail("home-logo.png", heroBrand, getResources().getDisplayMetrics().widthPixels - dp(52), homeHeroHeight - dp(24));
 
         LinearLayout actionRow = new LinearLayout(this);
         actionRow.setOrientation(LinearLayout.HORIZONTAL);

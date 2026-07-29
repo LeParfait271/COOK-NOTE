@@ -36,17 +36,26 @@ Quand l'application Cook Note est mise a jour, utiliser le workflow commun
 historique. Il ne construit maintenant que l'APK Android Legacy :
 
 ```powershell
-npm run apps:update-all
+npm run apps:rebuild:check
+npm run apps:rebuild
 ```
 
-Cette commande reconstruit le site courant, verifie que la version produit
-site/APK est alignee, fabrique Android Legacy, puis remplace les deux copies
-telechargeables autorisees :
+La premiere commande controle sans modifier. La seconde est idempotente :
+elle garde la version courante du site, sauvegarde la publication precedente,
+synchronise les versions Android si necessaire, reconstruit le site et Android
+Legacy, verifie l APK avant copie, puis remplace les deux copies telechargeables
+autorisees :
 
 ```text
 downloads/cook-note-android-legacy.apk
 downloads/cook-note-android-legacy-vX.YY.apk
 ```
+
+Le resume machine du dernier controle ou rebuild est disponible dans
+`tmp/android-rebuild-latest.json`. `npm run apps:update-all` reste la
+sous-commande historique. Aucune de ces commandes ne publie une GitHub Release ;
+la publication reste reservee a `npm run apps:publish-all` apres demande
+explicite.
 
 L'app ancienne reste volontairement legere : Android 5.0+ garde Native Lite avec
 images reduites et interface Android native.

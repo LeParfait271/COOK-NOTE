@@ -10,6 +10,7 @@ const OUT_DIR = path.join(ROOT, 'android-legacy', 'build', 'generated', 'cook-no
 const OUT_IMAGE_DIR = path.join(OUT_DIR, 'images');
 const OUT_DETAIL_IMAGE_DIR = path.join(OUT_DIR, 'detail-images');
 const HOME_HERO_SOURCE = path.join(ROOT, 'assets', 'theme', 'dark', 'global', 'hero.png');
+const HOME_LOGO_SOURCE = path.join(ROOT, 'assets', 'brand', 'app-icon.png');
 const RECIPES_FILE = path.join(ROOT, 'recipes.js');
 const APP_FILE = path.join(ROOT, 'app.js');
 const APP_IMAGES_FILE = path.join(ROOT, 'app-images.js');
@@ -575,6 +576,7 @@ function buildLiteAssets() {
   ensureDir(OUT_IMAGE_DIR);
   ensureDir(OUT_DETAIL_IMAGE_DIR);
   fs.copyFileSync(HOME_HERO_SOURCE, path.join(OUT_DETAIL_IMAGE_DIR, 'home-hero.png'));
+  fs.copyFileSync(HOME_LOGO_SOURCE, path.join(OUT_DETAIL_IMAGE_DIR, 'home-logo.png'));
 
   const outputRecipes = Object.entries(recipes)
     .map(([id, recipe]) => {

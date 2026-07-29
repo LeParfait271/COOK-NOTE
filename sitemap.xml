@@ -82,7 +82,19 @@
     <loc>https://cook-note.pages.dev/recette/brochettes_crevettes_chorizo</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/brochettes_langoustines_coriandre_citron</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/brochettes_lotte_chorizo_plancha</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/brochettes_melon_epice</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/brochettes_tsukune</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/brownie_carotte_chevre_amandes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/bruschetta_roquefort_noix</loc>
@@ -104,6 +116,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/cakes_sales_variantes</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/canneles_brocolis_parmesan</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/carbonara_romaine</loc>
@@ -199,6 +214,9 @@
     <loc>https://cook-note.pages.dev/recette/coulis_maitre</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/courge_butternut_farcie</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/court_bouillon</loc>
   </url>
   <url>
@@ -289,16 +307,25 @@
     <loc>https://cook-note.pages.dev/recette/filet_boeuf_vin_rouge</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/filet_mignon_porc_farci_epinards</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/fish_and_chips</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/flammekueche</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/flan_courgettes_chevre_curcuma_amandes</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/flan_patissier_epais_vanille</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/flan_vanille_cremeux</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/focaccia_six_cereales</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/fond_de_veau</loc>
@@ -316,6 +343,12 @@
     <loc>https://cook-note.pages.dev/recette/frites_variantes</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/galettes_legumes_comte</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/galettes_pommes_de_terre_comte</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/gaspachos_variantes</loc>
   </url>
   <url>
@@ -329,6 +362,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/granola_maison_chocolat</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/gratin_coquillettes_poulet</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/gratin_dauphinois</loc>
@@ -421,6 +457,9 @@
     <loc>https://cook-note.pages.dev/recette/muffins_framboises</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/navarin_agneau_printanier</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/nems_vietnam</loc>
   </url>
   <url>
@@ -443,6 +482,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/okonomiyaki_chou</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/pain_herisson_pesto_mozzarella</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pain_hot_dog</loc>
@@ -664,6 +706,9 @@
     <loc>https://cook-note.pages.dev/recette/sauce_chasseur</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/sauce_deux_moutardes_fromage_blanc</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/sauce_estragon</loc>
   </url>
   <url>
@@ -749,6 +794,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/terrines_pates_variantes</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/tian_legumes_racines</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/tiramisu_variantes</loc>

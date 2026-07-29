@@ -1,6 +1,8 @@
 param(
   [switch]$SkipWebBuild,
-  [switch]$Release
+  [switch]$Release,
+  [switch]$Offline,
+  [switch]$SkipAssetBuild
 )
 
 $ErrorActionPreference = "Stop"
@@ -51,14 +53,16 @@ if (-not (Test-Path (Join-Path $Root "dist\index.html"))) {
   throw "dist/index.html introuvable. Lance npm run build avant l'APK."
 }
 
-Push-Location $Root
-try {
-  if (-not $Node) {
-    throw "node introuvable dans le PATH et dans .tools/node/current."
+if (-not $SkipAssetBuild) {
+  Push-Location $Root
+  try {
+    if (-not $Node) {
+      throw "node introuvable dans le PATH et dans .tools/node/current."
+    }
+    & $Node scripts/build-android-legacy-assets.js
+  } finally {
+    Pop-Location
   }
-  & $Node scripts/build-android-legacy-assets.js
-} finally {
-  Pop-Location
 }
 
 $Java = Get-Command java -ErrorAction SilentlyContinue
@@ -89,7 +93,12 @@ try {
   if (-not $Gradle) {
     throw "Gradle introuvable. Installe Gradle ou ajoute gradle.bat au PATH."
   }
-  gradle $GradleTask
+  $GradleArguments = @("--no-daemon")
+  if ($Offline) {
+    $GradleArguments += "--offline"
+  }
+  $GradleArguments += $GradleTask
+  gradle @GradleArguments
   if ($LASTEXITCODE -ne 0) {
     throw "Gradle a echoue avec le code $LASTEXITCODE."
   }

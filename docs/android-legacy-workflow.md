@@ -193,13 +193,43 @@ Construire une nouvelle APK quand la parite site/app l'exige ou quand
 l'utilisateur le demande explicitement :
 
 ```powershell
-npm run apps:update-all
+npm run apps:rebuild:check
+npm run apps:rebuild
 ```
 
-La commande `npm run android:legacy:update-apk` existe encore comme
-sous-commande de diagnostic, mais elle ne doit pas etre le workflow final :
-`npm run apps:update-all` reste la commande finale pour garder le build, les
-copies APK telechargeables et les checks alignes.
+`apps:rebuild:check` est un preflight sans ecriture. Il indique la version cible,
+la version APK publiee et si une synchronisation est necessaire.
+`apps:rebuild` est le workflow final idempotent : il utilise la version courante
+du site sans bump implicite, sauvegarde les anciens APK et le manifeste dans
+`backups/android/before-vX.YY/<horodatage>/`, synchronise Android sur le site,
+reconstruit `dist/` et l APK, retente une fois Gradle si necessaire, verifie
+package/version/minSdk/signatures v1-v2 avant toute copie, remplace les deux APK
+de `downloads/`, puis lance les validations Android, cache et `dist`.
+Gradle est lance sans daemon et tente d abord le cache local hors ligne ; le
+reseau n est utilise qu en repli si une dependance manque. Les assets Native
+Lite ne sont generes qu une fois, meme si Gradle doit etre relance.
+La sortie Gradle detaillee est conservee dans
+`tmp/android-gradle-latest.log` au lieu d etre envoyee dans la conversation.
+En cas d echec, seules les 30 dernieres lignes utiles sont affichees.
+
+Un resume compact est ecrit dans `tmp/android-rebuild-latest.json`. Une relance
+apres echec garde la meme version cible et ne provoque donc pas de bump
+supplementaire. Le workflow ne publie jamais de GitHub Release.
+
+Si le build Release a termine mais que l orchestration a ete interrompue avant
+les validations ou les copies, reprendre sans reconstruire avec :
+
+```powershell
+npm run apps:rebuild:finalize
+```
+
+Ce mode refuse de continuer si les versions ne sont pas deja alignees ou si
+l APK Release attendue est absente. Il execute encore toutes les validations,
+la sauvegarde et les copies finales.
+
+`npm run apps:update-all` reste la sous-commande historique de compatibilite.
+`npm run android:legacy:update-apk` reste une sous-commande de diagnostic ; elles
+ne remplacent pas le workflow securise `apps:rebuild`.
 
 Publier l APK courant sur GitHub Releases, seulement sur demande explicite :
 
