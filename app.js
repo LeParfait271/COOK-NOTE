@@ -108,8 +108,8 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.26';
-const SITE_UPDATED_AT = '30/07/26';
+const SITE_VERSION = 'v4.27';
+const SITE_UPDATED_AT = '31/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
@@ -4727,25 +4727,8 @@ function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences
     h('div', { className: 'top-left' },
       h(Button, { variant: 'subtle', className: 'icon-square', onClick: onHome, title: 'Accueil', ariaLabel: 'Accueil' }, h(Icon, { name: 'home' }))
     ),
-    h('nav', { className: 'top-actions', 'aria-label': 'Actions rapides' },
-      h('a', {
-        className: 'btn btn-subtle top-request-btn',
-        href: 'mailto:cooknote271@gmail.com?subject=Demande%20d%27ajout%20de%20recette%20Cook%20Note&body=Bonjour%2C%0A%0AJ%27aimerais%20demander%20l%27ajout%20de%20cette%20recette%20dans%20Cook%20Note%20%3A%0A%0ANom%20de%20la%20recette%20%3A%0AIngr%C3%A9dients%20%3A%0A%C3%89tapes%20%3A%0A%0AMerci.'
-      }, [
-        h(Icon, { key: 'icon', name: 'spark' }),
-        h('span', { key: 'label' }, 'Demander une recette')
-      ])
-    ),
+    h('div', { className: 'top-actions', 'aria-hidden': true }),
     h('div', { className: 'top-right' },
-      h(LanguageSwitcher),
-      h(Button, {
-        variant: 'ghost',
-        className: 'theme-toggle-btn icon-square',
-        onClick: toggleTheme,
-        title: themeToggleLabel,
-        ariaLabel: themeToggleLabel,
-        pressed: activeTheme === 'light'
-      }, h(Icon, { name: activeTheme === 'light' ? 'moon' : 'sun' })),
       h(Button, {
         variant: 'ghost',
         className: query.trim() ? 'top-search-button icon-square active' : 'top-search-button icon-square',
@@ -4761,6 +4744,15 @@ function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences
         title: 'Voir les favoris',
         ariaLabel: 'Voir les favoris'
       }, h(Icon, { name: 'heart' })),
+      h(Button, {
+        variant: 'ghost',
+        className: 'theme-toggle-btn icon-square',
+        onClick: toggleTheme,
+        title: themeToggleLabel,
+        ariaLabel: themeToggleLabel,
+        pressed: activeTheme === 'light'
+      }, h(Icon, { name: activeTheme === 'light' ? 'moon' : 'sun' })),
+      h(LanguageSwitcher),
       h(Button, {
         variant: 'ghost',
         className: 'top-settings-btn icon-square',
@@ -4782,7 +4774,10 @@ function Hero() {
     h('span', { className: 'hero-sentinel hero-sentinel-east', 'aria-hidden': true }),
     h('div', { className: 'hero-inner' },
       h('p', { className: 'hero-system-label' }, t('home.heroSystemLabel')),
-      h('h1', { className: 'hero-wordmark' }, 'Cook Note'),
+      h('h1', { className: 'hero-wordmark' },
+        h('img', { className: 'hero-wordmark-image', src: '/assets/brand/cook-note-white.png', alt: '', width: 948, height: 302, decoding: 'async' }),
+        h('span', { className: 'sr-only' }, 'Cook Note')
+      ),
       h('span', { className: 'hero-axis-mark', 'aria-hidden': true })
     )
   );
@@ -4817,7 +4812,8 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   const sourceImage = displayRecipeImage(recipe);
   const renderCardImage = Boolean(sourceImage);
   const cardImage = renderCardImage ? recipeCardImageUrl(sourceImage) : '';
-  const className = ['recipe-card', renderCardImage ? 'has-image' : '', master ? 'master-card' : '']
+  const hasDayFallback = !isDayArtTheme() && !themeRecipeArtImage(recipe) && Boolean(recipe.image);
+  const className = ['recipe-card', renderCardImage ? 'has-image' : '', hasDayFallback ? 'theme-fallback-day' : '', master ? 'master-card' : '']
     .filter(Boolean)
     .join(' ');
   const cardStyle = ambilightStyle(cardImage, style);
@@ -8118,6 +8114,10 @@ function App() {
               title: `${option.label} - ${option.detail}`
             }, h(Icon, { name: option.kind === 'apk' ? 'download' : 'device' }), h('span', null, option.label), h('small', null, option.detail))
           ),
+          h('a', {
+            className: 'site-footer-action site-footer-request',
+            href: 'mailto:cooknote271@gmail.com?subject=Demande%20d%27ajout%20de%20recette%20Cook%20Note&body=Bonjour%2C%0A%0AJ%27aimerais%20demander%20l%27ajout%20de%20cette%20recette%20dans%20Cook%20Note%20%3A%0A%0ANom%20de%20la%20recette%20%3A%0AIngr%C3%A9dients%20%3A%0A%C3%89tapes%20%3A%0A%0AMerci.'
+          }, h(Icon, { name: 'spark' }), h('span', null, 'Demander une recette'), h('small', null, 'Proposer une fiche')),
           h('button', {
             type: 'button',
             className: 'site-footer-action site-footer-top',
