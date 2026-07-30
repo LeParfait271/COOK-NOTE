@@ -7,6 +7,7 @@ const {
   imageBackgroundStyle
 } = window.CookNoteImages || {};
 const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
+const INITIAL_CATALOG_STATS = window.COOK_NOTE_CATALOG_STATS || {};
 
 if (!recipeCardImageUrl || !imageSizeAttrs || !imageBackgroundStyle) {
   throw new Error('CookNoteImages doit etre charge avant app.js.');
@@ -91,15 +92,6 @@ function imageNaturalWidth(src, fallback = 1280) {
   return imageManifestEntry(src)?.width || fallback;
 }
 
-function scheduleIdleTask(callback, timeout = 1200) {
-  if (typeof window.requestIdleCallback === 'function') {
-    const id = window.requestIdleCallback(callback, { timeout });
-    return () => window.cancelIdleCallback?.(id);
-  }
-  const id = window.setTimeout(callback, Math.min(timeout, 900));
-  return () => window.clearTimeout(id);
-}
-
 function runConfettiBurst() {
   loadDeferredScript(CONFETTI_SCRIPT_SRC, 'confetti').then(confetti => {
     if (typeof confetti !== 'function') return;
@@ -116,7 +108,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.22';
+const SITE_VERSION = 'v4.23';
 const SITE_UPDATED_AT = '30/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
@@ -1516,11 +1508,13 @@ function getRecipeVariantLabel(recipe) {
 }
 
 function getCatalogRecipeStats(recipes) {
-  const ficheCount = recipes.filter(recipe => !isMasterRecipe(recipe)).length;
-  const variantCount = recipes.reduce((sum, recipe) => {
+  const loadedFicheCount = recipes.filter(recipe => !isMasterRecipe(recipe)).length;
+  const loadedVariantCount = recipes.reduce((sum, recipe) => {
     if (isMasterRecipe(recipe)) return sum;
     return sum + countInlineVariantGroups(recipe);
   }, 0);
+  const ficheCount = Math.max(loadedFicheCount, Number(INITIAL_CATALOG_STATS.ficheCount) || 0);
+  const variantCount = Math.max(loadedVariantCount, Number(INITIAL_CATALOG_STATS.variantCount) || 0);
   return {
     ficheCount,
     variantCount,
@@ -7270,20 +7264,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (catalogChunksLoaded) return undefined;
-    let cancelIdle = null;
-    const warmupTimer = window.setTimeout(() => {
-      cancelIdle = scheduleIdleTask(() => {
-        loadDeferredCatalogChunks().catch(() => {});
-      }, 1400);
-    }, 900);
-    return () => {
-      window.clearTimeout(warmupTimer);
-      cancelIdle?.();
-    };
-  }, [catalogChunksLoaded]);
-
-  useEffect(() => {
     if (!activeId || activeRecipe || catalogChunksLoaded) return;
     loadDeferredCatalogChunks().catch(() => {
       loadFullRecipeCatalog().catch(() => {});
@@ -7318,11 +7298,6 @@ function App() {
   useEffect(() => {
     updateDocumentMeta(activeSeoRecipe, recipesById, activePage);
   }, [activeSeoRecipe?.id, recipesById, activePage, activeLocale]);
-
-  useEffect(() => {
-    if (!activeId || fullRecipeCatalogLoaded) return;
-    loadFullRecipeCatalog().catch(() => {});
-  }, [activeId, fullRecipeCatalogLoaded]);
 
   useEffect(() => {
     let persistTimer = 0;
@@ -7764,7 +7739,8 @@ function App() {
   function openRecipe(id) {
     const target = recipesById[id];
     if (!target) return;
-    loadFullRecipeCatalog().catch(() => {});
+    const catalogLoader = isMasterRecipe(target) ? loadDeferredCatalogChunks : loadFullRecipeCatalog;
+    catalogLoader().catch(() => {});
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'top';
     if (!activeRecipe) {

@@ -199,6 +199,7 @@ const serviceWorker = read('service-worker.js');
   'displayRecipeImage(item.recipe)',
   'DEFERRED_CATALOG_CHUNK_SRCS',
   'loadDeferredCatalogChunks',
+  'INITIAL_CATALOG_STATS',
   'GRID_INITIAL_RENDER_COUNT',
   'loadDeferredScript(QR_CODE_SCRIPT_SRC',
   'runConfettiBurst'
@@ -215,6 +216,14 @@ if (index.includes('/assets/vendor/confetti.browser.min.js') || index.includes('
 if (!serviceWorker.includes('IMAGE_CACHE_NAME') || serviceWorker.includes("'/assets/catalog-2.js?v=")) {
   fail('service-worker.js: cache runtime images ou precache catalogue differe incorrect.');
 }
+const staticAssetSource = serviceWorker.match(/const STATIC_ASSETS = \[([\s\S]*?)\];/)?.[1] || '';
+if (
+  staticAssetSource.includes("  '/',")
+  || staticAssetSource.includes("'/recipe.html'")
+  || staticAssetSource.includes("'/recipe.js?v=")
+) {
+  fail('service-worker.js: shell hors-ligne precharge encore des routes ou scripts non requis au demarrage.');
+}
 [
   'IMMUTABLE_IMAGE_PATHS',
   'isImmutableImageRequest',
@@ -222,6 +231,18 @@ if (!serviceWorker.includes('IMAGE_CACHE_NAME') || serviceWorker.includes("'/ass
 ].forEach(fragment => {
   if (!serviceWorker.includes(fragment)) fail(`Optimisation service worker absente (${fragment}).`);
 });
+[
+  'const catalogLoader = isMasterRecipe(target) ? loadDeferredCatalogChunks : loadFullRecipeCatalog;',
+  'catalogLoader().catch(() => {});'
+].forEach(fragment => {
+  if (!app.includes(fragment)) fail(`Chargement catalogue a la demande absent (${fragment}).`);
+});
+if (
+  app.includes('const warmupTimer = window.setTimeout')
+  || app.includes('if (!activeId || fullRecipeCatalogLoaded) return;')
+) {
+  fail('app.js: un catalogue lourd est encore charge automatiquement sans intention utilisateur.');
+}
 if (/console\.(?:log|warn|error)\(/.test(serviceWorker)) {
   fail('service-worker.js: logs runtime interdits dans le worker de production.');
 }

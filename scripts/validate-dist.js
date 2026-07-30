@@ -4,6 +4,7 @@ const vm = require('node:vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
+const MAX_PRODUCTION_IMAGE_MANIFEST_BYTES = 145 * 1024;
 const errors = [];
 
 const REQUIRED_FILES = [
@@ -186,6 +187,12 @@ if (!fs.existsSync(DIST)) {
   const manifest = exists('assets/image-manifest.js')
     ? loadScriptObject('assets/image-manifest.js', 'COOK_NOTE_IMAGE_MANIFEST')
     : {};
+  if (
+    exists('assets/image-manifest.js')
+    && fs.statSync(path.join(DIST, 'assets', 'image-manifest.js')).size > MAX_PRODUCTION_IMAGE_MANIFEST_BYTES
+  ) {
+    fail('dist/assets/image-manifest.js: serialisation non compacte ou poids excessif.');
+  }
   Object.keys(manifest).forEach(file => {
     if (file.startsWith('assets/recipes/masters/')) {
       fail(`dist/assets/image-manifest.js: master PNG publie dans le manifest (${file}).`);

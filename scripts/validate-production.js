@@ -217,9 +217,7 @@ if (!staticAssets) {
 } else {
   const normalizedStaticAssets = staticAssets.map(asset => asset.split('?')[0]);
   [
-    '/',
     '/index.html',
-    '/recipe.html',
     '/app.js',
     '/app-techniques.js',
     '/app-premium.js',
@@ -229,7 +227,6 @@ if (!staticAssets) {
     '/i18n.js',
     '/assets/catalog-1.js',
     '/assets/image-manifest.js',
-    '/recipe.js',
     '/style.css',
     '/manifest.json',
     '/assets/vendor/react.production.min.js',

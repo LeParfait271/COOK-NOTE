@@ -41,6 +41,25 @@ function variantRefs(recipe) {
   return Array.isArray(recipe?.variants) ? recipe.variants.filter(variant => variant && variant.id) : [];
 }
 
+function normalizeText(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
+
+function countInlineVariantGroups(recipe) {
+  if (recipe?.inlineVariantResolved) return 0;
+  return (recipe?.ingredients || []).filter(group => {
+    const label = normalizeText(group?.group);
+    if (label.includes('base commune') || label === 'base' || label.includes('commun')) return false;
+    if (/^\d+\)/.test(label)) return true;
+    if (label.startsWith('variante') || label.startsWith('version') || label.startsWith('option')) return true;
+    return Boolean(recipe?.variantGroups);
+  }).length;
+}
+
 function leafVariantCount(recipe, recipesById, seen = new Set()) {
   if (!recipe || seen.has(recipe.id)) return 0;
   seen.add(recipe.id);
@@ -65,6 +84,13 @@ function compactRecipeForCatalog(recipe, recipesById) {
 const recipes = loadRecipesFrom('recipes.js');
 const allIds = Object.keys(recipes);
 const recipesById = Object.fromEntries(allIds.map(id => [id, { id, ...recipes[id] }]));
+const catalogStats = Object.freeze({
+  ficheCount: Object.values(recipesById).filter(recipe => !variantRefs(recipe).length).length,
+  variantCount: Object.values(recipesById).reduce(
+    (sum, recipe) => sum + (variantRefs(recipe).length ? 0 : countInlineVariantGroups(recipe)),
+    0
+  )
+});
 const criticalIds = CRITICAL_CATALOG_IDS.filter(id => recipes[id]);
 const deferredIds = allIds.filter(id => !criticalIds.includes(id));
 const currentChunks = [
@@ -78,9 +104,12 @@ CATALOG_FILES.forEach((file, index) => {
   const ids = currentChunks[index].filter(id => recipes[id]);
   const chunk = Object.fromEntries(ids.map(id => [id, compactRecipeForCatalog(recipesById[id], recipesById)]));
   const json = JSON.stringify(chunk);
+  const stats = index === 0
+    ? ` window.COOK_NOTE_CATALOG_STATS = Object.freeze(${JSON.stringify(catalogStats)});`
+    : '';
   const text = [
     `// Cook Note - catalogue recettes chunk ${index + 1}/${CATALOG_FILES.length}`,
-    `(function(){ var __CAT__ = ${json}; window.RECIPES = window.RECIPES || {}; Object.keys(__CAT__).forEach(function(k){ window.RECIPES[k] = Object.assign(window.RECIPES[k] || {}, __CAT__[k]); }); })();`,
+    `(function(){ var __CAT__ = ${json};${stats} window.RECIPES = window.RECIPES || {}; Object.keys(__CAT__).forEach(function(k){ window.RECIPES[k] = Object.assign(window.RECIPES[k] || {}, __CAT__[k]); }); })();`,
     ''
   ].join('\n');
   fs.writeFileSync(path.join(ROOT, file), escapeAscii(text), 'utf8');
