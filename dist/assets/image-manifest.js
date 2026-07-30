@@ -10,6 +10,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 540,
     "bytes": 301815
   },
+  "assets/recipes/cards/accras_morue.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 83727
+  },
   "assets/recipes/cards/acras_epinards.jpg": {
     "width": 760,
     "height": 428,
@@ -89,6 +94,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1040,
     "height": 520,
     "bytes": 135693
+  },
+  "assets/recipes/cards/billes_chevre.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 84309
   },
   "assets/recipes/cards/billes_mozzarella_marinees.jpg": {
     "width": 760,
@@ -220,6 +230,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 520,
     "bytes": 130292
   },
+  "assets/recipes/cards/carpaccio_boeuf.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 99974
+  },
   "assets/recipes/cards/carre_d_agneau_croute_d_herbes.jpg": {
     "width": 1040,
     "height": 520,
@@ -294,6 +309,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 760,
     "bytes": 168822
+  },
+  "assets/recipes/cards/choux_mousse_foie_gras.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 73075
   },
   "assets/recipes/cards/churros_maison.jpg": {
     "width": 760,
@@ -690,6 +710,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 520,
     "bytes": 128850
   },
+  "assets/recipes/cards/lapin_saute_chasseur.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 78815
+  },
   "assets/recipes/cards/legumes_rotis.jpg": {
     "width": 760,
     "height": 760,
@@ -865,6 +890,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 760,
     "bytes": 164143
   },
+  "assets/recipes/cards/pate_en_croute_noel.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 77726
+  },
   "assets/recipes/cards/pate_legere_beignets_calamar_crevettes.jpg": {
     "width": 760,
     "height": 427,
@@ -945,6 +975,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 507,
     "bytes": 90244
   },
+  "assets/recipes/cards/pomme_roti_souffle_foie_gras.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 65455
+  },
   "assets/recipes/cards/pommes_de_terre_air_fryer.jpg": {
     "width": 760,
     "height": 570,
@@ -998,7 +1033,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/recipes/cards/potee_chou.jpg": {
     "width": 760,
     "height": 507,
-    "bytes": 81586
+    "bytes": 83312
   },
   "assets/recipes/cards/poulet_basquaise_variantes.jpg": {
     "width": 760,
@@ -1020,6 +1055,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 520,
     "bytes": 123497
   },
+  "assets/recipes/cards/poulet_marengo.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 80518
+  },
   "assets/recipes/cards/poulet_pommes_de_terre_asperges.jpg": {
     "width": 760,
     "height": 428,
@@ -1040,6 +1080,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 570,
     "bytes": 121308
   },
+  "assets/recipes/cards/poulet_vin_jaune.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 90192
+  },
   "assets/recipes/cards/puree_pommes_de_terre_citron.jpg": {
     "width": 1040,
     "height": 520,
@@ -1049,6 +1094,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 760,
     "height": 570,
     "bytes": 127834
+  },
+  "assets/recipes/cards/quichette_thon_parmesan.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 57114
   },
   "assets/recipes/cards/ragout_boeuf_biere.jpg": {
     "width": 760,
@@ -1095,6 +1145,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 760,
     "bytes": 110557
   },
+  "assets/recipes/cards/sables_deux_fromages.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 75436
+  },
   "assets/recipes/cards/saint_jacques_lard_sauce_thai.jpg": {
     "width": 760,
     "height": 428,
@@ -1115,15 +1170,30 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 428,
     "bytes": 69373
   },
+  "assets/recipes/cards/salade_cesar.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 57329
+  },
   "assets/recipes/cards/salade_epinards_clementines_amande_feta.jpg": {
     "width": 760,
     "height": 507,
     "bytes": 70783
   },
+  "assets/recipes/cards/salade_lyonnaise.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 65594
+  },
   "assets/recipes/cards/salade_melon_mozzarella_jambon_cru.jpg": {
     "width": 760,
     "height": 428,
     "bytes": 97285
+  },
+  "assets/recipes/cards/salade_piemontaise.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 47492
   },
   "assets/recipes/cards/salade_pois_chiche_feta_olives.jpg": {
     "width": 760,
@@ -1275,6 +1345,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 507,
     "bytes": 70262
   },
+  "assets/recipes/cards/souffle_fromage.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 45454
+  },
   "assets/recipes/cards/soupe_paysanne_morteau.jpg": {
     "width": 760,
     "height": 570,
@@ -1370,6 +1445,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 760,
     "bytes": 159867
   },
+  "assets/recipes/cards/tortilla_chorizo.jpg": {
+    "width": 760,
+    "height": 507,
+    "bytes": 89289
+  },
+  "assets/recipes/cards/tortilla_espagnole.jpg": {
+    "width": 760,
+    "height": 428,
+    "bytes": 67558
+  },
   "assets/recipes/cards/tortillas_mexicaines.jpg": {
     "width": 760,
     "height": 760,
@@ -1409,6 +1494,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1400,
     "height": 788,
     "bytes": 602509
+  },
+  "assets/recipes/heroes/accras_morue.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 267380
   },
   "assets/recipes/heroes/acras_epinards.jpg": {
     "width": 1400,
@@ -1489,6 +1579,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1536,
     "height": 864,
     "bytes": 297932
+  },
+  "assets/recipes/heroes/billes_chevre.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 266758
   },
   "assets/recipes/heroes/billes_mozzarella_marinees.jpg": {
     "width": 1400,
@@ -1620,6 +1715,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 864,
     "bytes": 276510
   },
+  "assets/recipes/heroes/carpaccio_boeuf.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 294839
+  },
   "assets/recipes/heroes/carre_d_agneau_croute_d_herbes.jpg": {
     "width": 1536,
     "height": 864,
@@ -1694,6 +1794,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1024,
     "height": 1024,
     "bytes": 295095
+  },
+  "assets/recipes/heroes/choux_mousse_foie_gras.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 222811
   },
   "assets/recipes/heroes/churros_maison.jpg": {
     "width": 1024,
@@ -2090,6 +2195,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 864,
     "bytes": 288331
   },
+  "assets/recipes/heroes/lapin_saute_chasseur.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 268236
+  },
   "assets/recipes/heroes/legumes_rotis.jpg": {
     "width": 1024,
     "height": 1024,
@@ -2265,6 +2375,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 269526
   },
+  "assets/recipes/heroes/pate_en_croute_noel.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 241670
+  },
   "assets/recipes/heroes/pate_legere_beignets_calamar_crevettes.jpg": {
     "width": 1400,
     "height": 787,
@@ -2345,6 +2460,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 287742
   },
+  "assets/recipes/heroes/pomme_roti_souffle_foie_gras.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 218692
+  },
   "assets/recipes/heroes/pommes_de_terre_air_fryer.jpg": {
     "width": 1400,
     "height": 1050,
@@ -2398,7 +2518,7 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
   "assets/recipes/heroes/potee_chou.jpg": {
     "width": 1400,
     "height": 933,
-    "bytes": 256203
+    "bytes": 249958
   },
   "assets/recipes/heroes/poulet_basquaise_variantes.jpg": {
     "width": 1400,
@@ -2420,6 +2540,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 864,
     "bytes": 276321
   },
+  "assets/recipes/heroes/poulet_marengo.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 257322
+  },
   "assets/recipes/heroes/poulet_pommes_de_terre_asperges.jpg": {
     "width": 1400,
     "height": 788,
@@ -2440,6 +2565,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 112331
   },
+  "assets/recipes/heroes/poulet_vin_jaune.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 267748
+  },
   "assets/recipes/heroes/puree_pommes_de_terre_citron.jpg": {
     "width": 1536,
     "height": 864,
@@ -2449,6 +2579,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 960,
     "height": 720,
     "bytes": 120915
+  },
+  "assets/recipes/heroes/quichette_thon_parmesan.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 181416
   },
   "assets/recipes/heroes/ragout_boeuf_biere.jpg": {
     "width": 960,
@@ -2495,6 +2630,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 1024,
     "bytes": 197048
   },
+  "assets/recipes/heroes/sables_deux_fromages.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 233964
+  },
   "assets/recipes/heroes/saint_jacques_lard_sauce_thai.jpg": {
     "width": 1400,
     "height": 788,
@@ -2515,15 +2655,30 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 788,
     "bytes": 212824
   },
+  "assets/recipes/heroes/salade_cesar.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 190047
+  },
   "assets/recipes/heroes/salade_epinards_clementines_amande_feta.jpg": {
     "width": 1400,
     "height": 933,
     "bytes": 180106
   },
+  "assets/recipes/heroes/salade_lyonnaise.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 211057
+  },
   "assets/recipes/heroes/salade_melon_mozzarella_jambon_cru.jpg": {
     "width": 1400,
     "height": 788,
     "bytes": 258641
+  },
+  "assets/recipes/heroes/salade_piemontaise.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 146084
   },
   "assets/recipes/heroes/salade_pois_chiche_feta_olives.jpg": {
     "width": 1400,
@@ -2675,6 +2830,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 933,
     "bytes": 180214
   },
+  "assets/recipes/heroes/souffle_fromage.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 156236
+  },
   "assets/recipes/heroes/soupe_paysanne_morteau.jpg": {
     "width": 960,
     "height": 720,
@@ -2769,6 +2929,16 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1254,
     "height": 1254,
     "bytes": 349241
+  },
+  "assets/recipes/heroes/tortilla_chorizo.jpg": {
+    "width": 1400,
+    "height": 933,
+    "bytes": 277028
+  },
+  "assets/recipes/heroes/tortilla_espagnole.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 207461
   },
   "assets/recipes/heroes/tortillas_mexicaines.jpg": {
     "width": 1024,
@@ -3895,6 +4065,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 200296
   },
+  "assets/theme/dark/recipes/pomme_roti_souffle_foie_gras.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 218692
+  },
   "assets/theme/dark/recipes/pommes_de_terre_air_fryer.jpg": {
     "width": 1280,
     "height": 720,
@@ -4050,6 +4225,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 201009
   },
+  "assets/theme/dark/recipes/quichette_thon_parmesan.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 181416
+  },
   "assets/theme/dark/recipes/ragout_boeuf_biere.jpg": {
     "width": 1280,
     "height": 720,
@@ -4120,15 +4300,30 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 161194
   },
+  "assets/theme/dark/recipes/salade_cesar.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 190047
+  },
   "assets/theme/dark/recipes/salade_epinards_clementines_amande_feta.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 232911
   },
+  "assets/theme/dark/recipes/salade_lyonnaise.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 211057
+  },
   "assets/theme/dark/recipes/salade_melon_mozzarella_jambon_cru.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 224396
+  },
+  "assets/theme/dark/recipes/salade_piemontaise.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 146084
   },
   "assets/theme/dark/recipes/salade_pois_chiche_feta_olives.jpg": {
     "width": 1280,
@@ -4304,6 +4499,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 201086
+  },
+  "assets/theme/dark/recipes/souffle_fromage.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 156236
   },
   "assets/theme/dark/recipes/soupe_paysanne_morteau.jpg": {
     "width": 1280,
@@ -5720,6 +5920,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 220797
   },
+  "assets/theme/day/recipes/pomme_roti_souffle_foie_gras.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 180059
+  },
   "assets/theme/day/recipes/pommes_de_terre_air_fryer.jpg": {
     "width": 1280,
     "height": 720,
@@ -5880,6 +6085,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 236843
   },
+  "assets/theme/day/recipes/quichette_thon_parmesan.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 193519
+  },
   "assets/theme/day/recipes/ragout_boeuf_biere.jpg": {
     "width": 1280,
     "height": 720,
@@ -5960,15 +6170,30 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "height": 720,
     "bytes": 216203
   },
+  "assets/theme/day/recipes/salade_cesar.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 215450
+  },
   "assets/theme/day/recipes/salade_epinards_clementines_amande_feta.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 229416
   },
+  "assets/theme/day/recipes/salade_lyonnaise.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 223464
+  },
   "assets/theme/day/recipes/salade_melon_mozzarella_jambon_cru.jpg": {
     "width": 1280,
     "height": 720,
     "bytes": 213719
+  },
+  "assets/theme/day/recipes/salade_piemontaise.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 204513
   },
   "assets/theme/day/recipes/salade_pois_chiche_feta_olives.jpg": {
     "width": 1280,
@@ -6154,6 +6379,11 @@ window.COOK_NOTE_IMAGE_MANIFEST = Object.freeze({
     "width": 1280,
     "height": 720,
     "bytes": 191580
+  },
+  "assets/theme/day/recipes/souffle_fromage.jpg": {
+    "width": 1400,
+    "height": 788,
+    "bytes": 203542
   },
   "assets/theme/day/recipes/soupe_paysanne_morteau.jpg": {
     "width": 1280,

@@ -7963,6 +7963,677 @@ a {
 
 }
 
+/* Gothic high-tech
+   The existing castle artwork stays dominant. Technology appears as a precise,
+   warm-gold instrument layer and wakes only when the interface is used. */
+.mc-shell {
+  --tech-signal: color-mix(in srgb, var(--ambient-accent, var(--accent)) 82%, #fff1bd);
+  --tech-signal-soft: color-mix(in srgb, var(--ambient-accent, var(--accent)) 18%, transparent);
+  --tech-signal-faint: color-mix(in srgb, var(--ambient-accent, var(--accent)) 8%, transparent);
+  --tech-grid-line: color-mix(in srgb, var(--ambient-accent, var(--accent)) 9%, transparent);
+  --tech-metal: color-mix(in srgb, var(--surface-strong) 92%, #080806);
+  --tech-corner: 14px;
+  position: relative;
+  isolation: isolate;
+}
+
+.mc-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--tech-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--tech-grid-line) 1px, transparent 1px),
+    radial-gradient(circle at 50% 0, var(--tech-signal-faint), transparent 38rem);
+  background-size: 48px 48px, 48px 48px, 100% 100%;
+  mask-image: linear-gradient(180deg, transparent, #000 28%, #000 82%, transparent);
+  opacity: .22;
+}
+
+.mc-shell.theme-light {
+  --tech-signal: color-mix(in srgb, var(--ambient-accent, var(--accent)) 78%, #6f4315);
+  --tech-signal-soft: color-mix(in srgb, var(--ambient-accent, var(--accent)) 13%, transparent);
+  --tech-signal-faint: color-mix(in srgb, var(--ambient-accent, var(--accent)) 6%, transparent);
+  --tech-grid-line: color-mix(in srgb, var(--ambient-accent, var(--accent)) 7%, transparent);
+  --tech-metal: color-mix(in srgb, var(--surface-strong) 94%, #f4e6cf);
+}
+
+.topbar {
+  min-height: 58px;
+  border-bottom-color: color-mix(in srgb, var(--tech-signal) 28%, var(--line));
+  background:
+    linear-gradient(90deg, transparent, var(--tech-signal-faint) 28%, transparent 56%),
+    linear-gradient(180deg, color-mix(in srgb, var(--tech-metal) 96%, transparent), color-mix(in srgb, var(--surface-strong) 82%, transparent));
+  box-shadow:
+    inset 0 -1px 0 color-mix(in srgb, var(--tech-signal) 16%, transparent),
+    0 18px 58px rgba(0, 0, 0, .38);
+  backdrop-filter: blur(18px) saturate(1.18);
+}
+
+.topbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 31px, color-mix(in srgb, var(--tech-signal) 10%, transparent) 31px 32px);
+  mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  opacity: .34;
+}
+
+.topbar::after {
+  height: 1px;
+  background:
+    linear-gradient(90deg, transparent, var(--tech-signal) 18%, var(--tech-signal) 50%, transparent 82%);
+  box-shadow: 0 0 18px var(--tech-signal-soft);
+  opacity: .62;
+}
+
+.top-actions .btn,
+.top-actions .icon-square,
+.top-search-button {
+  border-radius: 7px 2px 7px 2px;
+  border-color: color-mix(in srgb, var(--tech-signal) 20%, var(--line));
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .055), transparent 42%),
+    color-mix(in srgb, var(--surface-strong) 76%, transparent);
+}
+
+.top-actions .btn:hover,
+.top-actions .btn:focus-visible,
+.top-actions .icon-square:hover,
+.top-actions .icon-square:focus-visible,
+.top-search-button:hover,
+.top-search-button:focus-visible,
+.top-search-button.active {
+  border-color: color-mix(in srgb, var(--tech-signal) 62%, var(--line));
+  background:
+    linear-gradient(135deg, var(--tech-signal-soft), transparent 58%),
+    color-mix(in srgb, var(--surface-strong) 88%, transparent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--tech-signal) 10%, transparent),
+    0 0 22px var(--tech-signal-soft);
+}
+
+.hero-inner::before,
+.hero-inner::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 34px;
+  height: 112px;
+  pointer-events: none;
+  opacity: .46;
+  transform: translateY(-50%);
+}
+
+.hero-inner::before {
+  left: 0;
+  border-top: 1px solid var(--tech-signal);
+  border-bottom: 1px solid var(--tech-signal);
+  border-left: 1px solid var(--tech-signal);
+  box-shadow: -6px 0 22px var(--tech-signal-soft);
+}
+
+.hero-inner::after {
+  right: 0;
+  border-top: 1px solid var(--tech-signal);
+  border-right: 1px solid var(--tech-signal);
+  border-bottom: 1px solid var(--tech-signal);
+  box-shadow: 6px 0 22px var(--tech-signal-soft);
+}
+
+.theme-dark .hero::before {
+  background:
+    linear-gradient(90deg, transparent 0 49.9%, color-mix(in srgb, var(--tech-signal) 14%, transparent) 50%, transparent 50.1%),
+    repeating-linear-gradient(90deg, transparent 0 79px, color-mix(in srgb, var(--tech-signal) 8%, transparent) 79px 80px),
+    radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--tech-signal) 20%, transparent), transparent 25rem),
+    linear-gradient(180deg, rgba(0, 0, 0, .16), transparent 34%, rgba(0, 0, 0, .18));
+  mask-image: linear-gradient(180deg, #000 0 68%, transparent 96%);
+  mix-blend-mode: screen;
+  opacity: .58;
+}
+
+.theme-light .hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0 49.9%, color-mix(in srgb, var(--tech-signal) 11%, transparent) 50%, transparent 50.1%),
+    repeating-linear-gradient(90deg, transparent 0 79px, color-mix(in srgb, var(--tech-signal) 6%, transparent) 79px 80px),
+    radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--tech-signal) 12%, transparent), transparent 25rem);
+  mask-image: linear-gradient(180deg, #000 0 68%, transparent 96%);
+  mix-blend-mode: multiply;
+  opacity: .52;
+}
+
+.hero-logo {
+  filter:
+    drop-shadow(0 18px 34px rgba(0, 0, 0, .76))
+    drop-shadow(0 0 18px color-mix(in srgb, var(--tech-signal) 13%, transparent));
+}
+
+.mc-shell.theme-light .hero-logo {
+  filter:
+    drop-shadow(0 18px 34px rgba(96, 68, 32, .14))
+    drop-shadow(0 0 16px color-mix(in srgb, var(--tech-signal) 10%, transparent));
+}
+
+.home-command-center {
+  border-radius: 12px 3px 12px 3px;
+  border-color: color-mix(in srgb, var(--tech-signal) 34%, var(--line));
+  background:
+    linear-gradient(var(--tech-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--tech-grid-line) 1px, transparent 1px),
+    radial-gradient(circle at 88% 8%, var(--tech-signal-soft), transparent 36%),
+    linear-gradient(135deg, color-mix(in srgb, var(--tech-metal) 96%, transparent), color-mix(in srgb, var(--surface) 90%, transparent));
+  background-size: 30px 30px, 30px 30px, 100% 100%, 100% 100%;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .075),
+    inset 0 0 0 1px color-mix(in srgb, var(--tech-signal) 6%, transparent),
+    0 28px 84px rgba(0, 0, 0, .34);
+}
+
+.home-command-center::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--tech-signal), var(--tech-signal)) left top / 22px 1px no-repeat,
+    linear-gradient(var(--tech-signal), var(--tech-signal)) left top / 1px 22px no-repeat,
+    linear-gradient(var(--tech-signal), var(--tech-signal)) right top / 22px 1px no-repeat,
+    linear-gradient(var(--tech-signal), var(--tech-signal)) right top / 1px 22px no-repeat,
+    linear-gradient(var(--tech-signal), var(--tech-signal)) left bottom / 22px 1px no-repeat,
+    linear-gradient(var(--tech-signal), var(--tech-signal)) left bottom / 1px 22px no-repeat,
+    linear-gradient(var(--tech-signal), var(--tech-signal)) right bottom / 22px 1px no-repeat,
+    linear-gradient(var(--tech-signal), var(--tech-signal)) right bottom / 1px 22px no-repeat;
+  opacity: .48;
+}
+
+.home-command-center::after {
+  display: block;
+  z-index: 0;
+  opacity: 0;
+  transform: translateX(-46%);
+  animation: none;
+  background: linear-gradient(105deg, transparent 34%, color-mix(in srgb, var(--tech-signal) 13%, transparent) 49%, transparent 64%);
+}
+
+.home-command-center > * {
+  position: relative;
+  z-index: 1;
+}
+
+.home-search-launcher {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px 2px 8px 2px;
+  border-color: color-mix(in srgb, var(--tech-signal) 48%, var(--line));
+  background:
+    linear-gradient(90deg, var(--tech-signal-faint), transparent 28%),
+    color-mix(in srgb, var(--tech-metal) 82%, transparent);
+  box-shadow:
+    inset 3px 0 0 color-mix(in srgb, var(--tech-signal) 52%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, .07),
+    0 16px 40px rgba(0, 0, 0, .24);
+}
+
+.home-search-launcher::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -28%;
+  width: 24%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--tech-signal) 22%, transparent), transparent);
+  opacity: 0;
+  transform: skewX(-18deg);
+}
+
+.home-search-launcher kbd {
+  border-radius: 5px 1px 5px 1px;
+  border-color: color-mix(in srgb, var(--tech-signal) 28%, var(--line));
+  background: color-mix(in srgb, var(--tech-signal) 6%, transparent);
+  color: color-mix(in srgb, var(--text) 72%, var(--tech-signal));
+}
+
+.home-quick-actions button,
+.season-tabs,
+.season-category-tabs,
+.menu-theme-tabs {
+  border-radius: 8px 2px 8px 2px;
+}
+
+.home-quick-actions button {
+  border-color: color-mix(in srgb, var(--tech-signal) 18%, var(--line));
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .035), transparent 50%),
+    color-mix(in srgb, var(--surface-soft) 74%, transparent);
+}
+
+.home-search-launcher:hover,
+.home-search-launcher:focus-visible,
+.home-quick-actions button:hover,
+.home-quick-actions button:focus-visible {
+  border-color: color-mix(in srgb, var(--tech-signal) 72%, var(--line));
+  box-shadow:
+    inset 3px 0 0 color-mix(in srgb, var(--tech-signal) 72%, transparent),
+    0 0 28px var(--tech-signal-soft),
+    0 18px 48px rgba(0, 0, 0, .28);
+}
+
+.season-dashboard,
+.season-block,
+.fridge-assistant,
+.recipe-summary-panel,
+.variant-picker-panel,
+.variant-choice-panel,
+.recipe-panel,
+.menu-quality-band,
+.shopping-store-dashboard,
+.site-footer-inner,
+.modal-panel,
+.command-palette,
+.recipe-command-dock {
+  border-radius: 11px 3px 11px 3px;
+}
+
+.season-dashboard,
+.season-block,
+.fridge-assistant,
+.recipe-summary-panel,
+.variant-picker-panel,
+.variant-choice-panel,
+.recipe-panel,
+.menu-quality-band,
+.shopping-store-dashboard {
+  background:
+    linear-gradient(var(--tech-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--tech-grid-line) 1px, transparent 1px),
+    linear-gradient(180deg, var(--tech-signal-faint), transparent 190px),
+    color-mix(in srgb, var(--surface) 95%, transparent);
+  background-size: 32px 32px, 32px 32px, 100% 100%, 100% 100%;
+}
+
+.recipe-panel,
+.recipe-summary-panel,
+.variant-picker-panel,
+.variant-choice-panel {
+  border-color: color-mix(in srgb, var(--tech-signal) 24%, var(--rim));
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--tech-signal) 5%, transparent),
+    0 22px 64px rgba(0, 0, 0, .3);
+}
+
+.recipe-panel {
+  position: relative;
+}
+
+.recipe-panel::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--tech-signal), var(--tech-signal)) left top / 17px 1px no-repeat,
+    linear-gradient(var(--tech-signal), var(--tech-signal)) left top / 1px 17px no-repeat,
+    linear-gradient(var(--tech-signal), var(--tech-signal)) right bottom / 17px 1px no-repeat,
+    linear-gradient(var(--tech-signal), var(--tech-signal)) right bottom / 1px 17px no-repeat;
+  opacity: .28;
+}
+
+.panel-heading,
+.notes-panel-head,
+.season-block-head {
+  border-bottom-color: color-mix(in srgb, var(--tech-signal) 24%, var(--line));
+}
+
+.panel-heading::after,
+.season-block-head::after {
+  height: 2px;
+  background: linear-gradient(90deg, var(--tech-signal), color-mix(in srgb, var(--tech-signal) 18%, transparent), transparent);
+  box-shadow: 0 0 16px var(--tech-signal-soft);
+}
+
+.panel-heading .eyebrow,
+.notes-panel-head .eyebrow,
+.recipe-detail-hero .eyebrow,
+.recipe-summary-panel .eyebrow {
+  letter-spacing: .16em;
+}
+
+.progress-track {
+  overflow: visible;
+  height: 3px;
+  border-radius: 0;
+  background: color-mix(in srgb, var(--tech-signal) 9%, var(--line));
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .18);
+}
+
+.progress-track span,
+.recipe-dock-progress span {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--tech-signal) 56%, transparent), var(--tech-signal), color-mix(in srgb, var(--tech-signal) 72%, #fff));
+  box-shadow:
+    0 0 12px var(--tech-signal-soft),
+    0 0 26px color-mix(in srgb, var(--tech-signal) 10%, transparent);
+}
+
+.ingredient-group li,
+.notes-panel ul:not(.allergen-list) > li,
+.step-list li,
+.before-start-card,
+.allergen-card,
+.average-weight-card,
+.technical-card,
+.personal-notes-card {
+  border-radius: 7px 2px 7px 2px;
+}
+
+.ingredient-group li,
+.notes-panel ul:not(.allergen-list) > li {
+  border-left-color: color-mix(in srgb, var(--tech-signal) 32%, var(--line));
+}
+
+.ingredient-group input[type="checkbox"],
+.step-list input[type="checkbox"] {
+  accent-color: var(--tech-signal);
+}
+
+.step-number {
+  border-radius: 5px 1px 5px 1px;
+  background:
+    linear-gradient(135deg, var(--tech-signal-soft), transparent),
+    color-mix(in srgb, var(--surface-strong) 82%, transparent);
+  color: var(--tech-signal);
+}
+
+.home-view .recipe-card:not(.master-card),
+.recipe-card.master-card,
+.variant-card,
+.search-result,
+.menu-planner-card {
+  border-radius: 11px 3px 11px 3px;
+  border-color: color-mix(in srgb, var(--card-accent, var(--tech-signal)) 24%, var(--line));
+}
+
+.home-view .recipe-card::before,
+.recipe-card.master-card::before {
+  display: block !important;
+  inset: 7px;
+  z-index: 4;
+  border: 0;
+  border-radius: 0;
+  background:
+    linear-gradient(var(--card-accent, var(--tech-signal)), var(--card-accent, var(--tech-signal))) left top / 18px 1px no-repeat,
+    linear-gradient(var(--card-accent, var(--tech-signal)), var(--card-accent, var(--tech-signal))) left top / 1px 18px no-repeat,
+    linear-gradient(var(--card-accent, var(--tech-signal)), var(--card-accent, var(--tech-signal))) right top / 18px 1px no-repeat,
+    linear-gradient(var(--card-accent, var(--tech-signal)), var(--card-accent, var(--tech-signal))) right top / 1px 18px no-repeat,
+    linear-gradient(var(--card-accent, var(--tech-signal)), var(--card-accent, var(--tech-signal))) left bottom / 18px 1px no-repeat,
+    linear-gradient(var(--card-accent, var(--tech-signal)), var(--card-accent, var(--tech-signal))) left bottom / 1px 18px no-repeat,
+    linear-gradient(var(--card-accent, var(--tech-signal)), var(--card-accent, var(--tech-signal))) right bottom / 18px 1px no-repeat,
+    linear-gradient(var(--card-accent, var(--tech-signal)), var(--card-accent, var(--tech-signal))) right bottom / 1px 18px no-repeat;
+  box-shadow: none;
+  opacity: .34;
+  transition: opacity var(--ds-duration) var(--ds-ease), filter var(--ds-duration) var(--ds-ease);
+}
+
+.home-view .recipe-card:hover::before,
+.home-view .recipe-card:focus-visible::before,
+.recipe-card.master-card:hover::before,
+.recipe-card.master-card:focus-visible::before {
+  opacity: .88;
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--card-accent, var(--tech-signal)) 34%, transparent));
+}
+
+.card-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 0 46%, color-mix(in srgb, var(--card-accent, var(--tech-signal)) 20%, transparent) 49%, transparent 52%),
+    linear-gradient(90deg, transparent 0 49.7%, color-mix(in srgb, var(--card-accent, var(--tech-signal)) 14%, transparent) 50%, transparent 50.3%),
+    repeating-linear-gradient(0deg, transparent 0 31px, color-mix(in srgb, var(--card-accent, var(--tech-signal)) 8%, transparent) 31px 32px);
+  background-size: 100% 220%, 100% 100%, 100% 100%;
+  background-position: center -110%, center, center;
+  opacity: .08;
+  transition: opacity var(--ds-duration-fast) var(--ds-ease);
+}
+
+.recipe-card:hover .card-media::before,
+.recipe-card:focus-visible .card-media::before,
+.recipe-card.is-scroll-featured .card-media::before {
+  opacity: .58;
+}
+
+.card-body,
+.variant-card-body {
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .84);
+}
+
+.card-facts span,
+.card-meta span,
+.detail-meta span,
+.detail-meta button,
+.tag-line span,
+.variant-card-difficulty {
+  border-radius: 5px 1px 5px 1px;
+  border-color: color-mix(in srgb, var(--tech-signal) 18%, var(--line));
+  backdrop-filter: blur(8px);
+}
+
+.recipe-detail-hero {
+  border-bottom: 0;
+}
+
+.recipe-detail-hero::before {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, .80), rgba(0, 0, 0, .18) 54%, rgba(0, 0, 0, .68)),
+    linear-gradient(180deg, rgba(0, 0, 0, .08), rgba(0, 0, 0, .76)),
+    repeating-linear-gradient(90deg, transparent 0 95px, color-mix(in srgb, var(--tech-signal) 8%, transparent) 95px 96px);
+}
+
+.recipe-detail-hero::after {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--tech-signal) 24%, var(--tech-signal) 50%, transparent 82%);
+  box-shadow: 0 0 24px var(--tech-signal-soft);
+}
+
+.recipe-command-dock,
+.command-palette,
+.search-modal {
+  background:
+    linear-gradient(var(--tech-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--tech-grid-line) 1px, transparent 1px),
+    linear-gradient(135deg, var(--tech-signal-faint), transparent 42%),
+    color-mix(in srgb, var(--surface-strong) 96%, transparent);
+  background-size: 28px 28px, 28px 28px, 100% 100%, 100% 100%;
+  border-color: color-mix(in srgb, var(--tech-signal) 30%, var(--line));
+}
+
+.recipe-command-dock {
+  border-radius: 10px 2px 10px 2px;
+  backdrop-filter: blur(20px) saturate(1.14);
+}
+
+.recipe-dock-tabs button,
+.dock-action,
+.mobile-bottom-nav button {
+  border-radius: 7px 2px 7px 2px;
+}
+
+.search-modal {
+  border-radius: 13px 3px 13px 3px;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--tech-signal) 7%, transparent),
+    0 0 42px var(--tech-signal-soft),
+    0 34px 94px rgba(0, 0, 0, .58);
+}
+
+.search-modal-field input,
+.command-input-shell,
+.share-link-box,
+.cart-output {
+  border-radius: 8px 2px 8px 2px;
+  border-color: color-mix(in srgb, var(--tech-signal) 28%, var(--line));
+}
+
+.search-modal-field:focus-within,
+.command-input-shell:focus-within {
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--tech-signal) 15%, transparent),
+    0 0 28px var(--tech-signal-soft);
+}
+
+.mobile-bottom-nav {
+  border-radius: 10px 3px 10px 3px;
+  background:
+    linear-gradient(90deg, var(--tech-signal-faint), transparent 42%),
+    color-mix(in srgb, var(--surface-strong) 94%, transparent);
+  backdrop-filter: blur(18px) saturate(1.16);
+}
+
+.mc-shell.theme-light :where(
+  .home-command-center,
+  .season-dashboard,
+  .season-block,
+  .fridge-assistant,
+  .recipe-summary-panel,
+  .variant-picker-panel,
+  .variant-choice-panel,
+  .recipe-panel,
+  .menu-quality-band,
+  .shopping-store-dashboard,
+  .search-modal,
+  .command-palette,
+  .recipe-command-dock
+) {
+  background:
+    linear-gradient(var(--tech-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--tech-grid-line) 1px, transparent 1px),
+    linear-gradient(180deg, var(--tech-signal-faint), transparent 190px),
+    rgba(255, 252, 246, .86);
+  background-size: 32px 32px, 32px 32px, 100% 100%, 100% 100%;
+  border-color: color-mix(in srgb, var(--tech-signal) 24%, var(--rim));
+}
+
+.mc-shell.theme-light .home-search-launcher,
+.mc-shell.theme-light .home-quick-actions button {
+  background:
+    linear-gradient(135deg, var(--tech-signal-faint), transparent 58%),
+    rgba(255, 252, 246, .86);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .home-command-center:hover::after,
+  .home-command-center:focus-within::after {
+    animation: gothic-tech-glint 820ms var(--ds-ease) both;
+  }
+
+  .home-search-launcher:hover::after,
+  .home-search-launcher:focus-visible::after {
+    animation: gothic-tech-search-scan 680ms var(--ds-ease) both;
+  }
+
+  .recipe-card:hover .card-media::before,
+  .recipe-card:focus-visible .card-media::before {
+    animation: gothic-tech-card-scan 720ms var(--ds-ease) both;
+  }
+}
+
+@keyframes gothic-tech-glint {
+  0% {
+    opacity: 0;
+    transform: translateX(-46%);
+  }
+  36% {
+    opacity: .82;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(46%);
+  }
+}
+
+@keyframes gothic-tech-search-scan {
+  0% {
+    left: -28%;
+    opacity: 0;
+  }
+  24% {
+    opacity: .9;
+  }
+  100% {
+    left: 108%;
+    opacity: 0;
+  }
+}
+
+@keyframes gothic-tech-card-scan {
+  from {
+    background-position: center -110%, center, center;
+  }
+  to {
+    background-position: center 110%, center, center;
+  }
+}
+
+@media (max-width: 760px) {
+  .mc-shell::before {
+    background-size: 36px 36px, 36px 36px, 100% 100%;
+    opacity: .16;
+  }
+
+  .hero-inner::before,
+  .hero-inner::after {
+    display: none;
+  }
+
+  .home-command-center {
+    border-radius: 10px 2px 10px 2px;
+    background-size: 24px 24px, 24px 24px, 100% 100%, 100% 100%;
+  }
+
+  .home-command-center::before {
+    inset: 6px;
+    opacity: .36;
+  }
+
+  .home-search-launcher {
+    min-height: 54px;
+  }
+
+  .home-view .recipe-card::before,
+  .recipe-card.master-card::before {
+    inset: 5px;
+    opacity: .28;
+  }
+
+  .recipe-panel::after {
+    inset: 5px;
+    opacity: .2;
+  }
+
+  .topbar::before {
+    opacity: .2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-command-center::after,
+  .home-search-launcher::after,
+  .card-media::before {
+    animation: none !important;
+  }
+}
+
 @media print {
   @page {
     margin: 12mm;

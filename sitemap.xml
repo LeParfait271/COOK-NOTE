@@ -10,6 +10,9 @@
     <loc>https://cook-note.pages.dev/recette/accompagnements_maitre</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/accras_morue</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/acras_epinards</loc>
   </url>
   <url>
@@ -56,6 +59,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/beurre_d_escargot_persille</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/billes_chevre</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/billes_mozzarella_marinees</loc>
@@ -136,6 +142,9 @@
     <loc>https://cook-note.pages.dev/recette/carpaccio_betterave_mozzarella_yuzu</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/carpaccio_boeuf</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/carre_d_agneau_croute_d_herbes</loc>
   </url>
   <url>
@@ -179,6 +188,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/choux_craquelin</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/choux_mousse_foie_gras</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/churros_maison</loc>
@@ -415,6 +427,9 @@
     <loc>https://cook-note.pages.dev/recette/joues_mijotees_variantes</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/lapin_saute_chasseur</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/legumes_rotis</loc>
   </url>
   <url>
@@ -523,6 +538,9 @@
     <loc>https://cook-note.pages.dev/recette/pate_choux</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/pate_en_croute_noel</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/pate_legere_beignets_calamar_crevettes</loc>
   </url>
   <url>
@@ -571,6 +589,9 @@
     <loc>https://cook-note.pages.dev/recette/poires_roties_orange_miel</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/pomme_roti_souffle_foie_gras</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/pommes_de_terre_air_fryer</loc>
   </url>
   <url>
@@ -616,6 +637,9 @@
     <loc>https://cook-note.pages.dev/recette/poulet_gaston_gerard</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/poulet_marengo</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/poulet_pommes_de_terre_asperges</loc>
   </url>
   <url>
@@ -628,10 +652,16 @@
     <loc>https://cook-note.pages.dev/recette/poulet_tomates_poivron_vin_blanc_thym</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/poulet_vin_jaune</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/purees_legumes_variantes</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/queue_boeuf_carottes_vin_rouge</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/quichette_thon_parmesan</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/ragouts_boeuf_biere_variantes</loc>
@@ -661,6 +691,9 @@
     <loc>https://cook-note.pages.dev/recette/rouille_haut_de_gamme</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/sables_deux_fromages</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/saint_jacques_lard_sauce_thai</loc>
   </url>
   <url>
@@ -673,10 +706,19 @@
     <loc>https://cook-note.pages.dev/recette/salade_carottes_citronnee</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/salade_cesar</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/salade_epinards_clementines_amande_feta</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/salade_lyonnaise</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/salade_melon_mozzarella_jambon_cru</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/salade_piemontaise</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/salade_pommes_terre_ottolenghi</loc>
@@ -766,6 +808,9 @@
     <loc>https://cook-note.pages.dev/recette/souffle_citron_vert_mojito</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/souffle_fromage</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/souffle_fromage_facile</loc>
   </url>
   <url>
@@ -824,6 +869,12 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/toppings_frites</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/tortilla_chorizo</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/tortilla_espagnole</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/tortillas_mexicaines</loc>

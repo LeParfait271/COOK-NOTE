@@ -1,5 +1,5 @@
 {
-  "total": 278,
+  "total": 297,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -288,6 +288,24 @@
       "cardBytes": 301815
     },
     {
+      "id": "accras_morue",
+      "title": "Accras de morue",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/accras_morue.jpg",
+      "card": "assets/recipes/cards/accras_morue.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 267380,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 83727
+    },
+    {
       "id": "acras_epinards",
       "title": "Acras aux épinards",
       "score": 100,
@@ -574,6 +592,24 @@
         "height": 520
       },
       "cardBytes": 135693
+    },
+    {
+      "id": "billes_chevre",
+      "title": "Billes de fromage de chèvre",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/billes_chevre.jpg",
+      "card": "assets/recipes/cards/billes_chevre.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 266758,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 84309
     },
     {
       "id": "biscuits_sables_vanille_chocolat",
@@ -990,6 +1026,24 @@
       "cardBytes": 130292
     },
     {
+      "id": "carpaccio_boeuf",
+      "title": "Carpaccio de bœuf",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/carpaccio_boeuf.jpg",
+      "card": "assets/recipes/cards/carpaccio_boeuf.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 294839,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 99974
+    },
+    {
       "id": "carre_d_agneau_croute_d_herbes",
       "title": "Carré d’agneau croûte d’herbes",
       "score": 100,
@@ -1240,6 +1294,24 @@
         "height": 435
       },
       "cardBytes": 58797
+    },
+    {
+      "id": "choux_mousse_foie_gras",
+      "title": "Choux à la mousse de foie gras",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/choux_mousse_foie_gras.jpg",
+      "card": "assets/recipes/cards/choux_mousse_foie_gras.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 222811,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 73075
     },
     {
       "id": "choux_craquelin",
@@ -2178,6 +2250,24 @@
       "cardBytes": 76895
     },
     {
+      "id": "galettes_legumes_four",
+      "title": "Galettes de légumes au four",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/galettes_legumes_four.jpg",
+      "card": "assets/recipes/cards/galettes_legumes_four.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 213417,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 69558
+    },
+    {
       "id": "galettes_pommes_de_terre_comte",
       "title": "Galettes de pommes de terre au Comté",
       "score": 100,
@@ -2572,6 +2662,24 @@
         "height": 520
       },
       "cardBytes": 128850
+    },
+    {
+      "id": "lapin_saute_chasseur",
+      "title": "Lapin sauté chasseur",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/lapin_saute_chasseur.jpg",
+      "card": "assets/recipes/cards/lapin_saute_chasseur.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 268236,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 78815
     },
     {
       "id": "legumes_rotis",
@@ -3006,6 +3114,24 @@
       "cardBytes": 72977
     },
     {
+      "id": "pains_aux_cereales",
+      "title": "Pains aux céréales",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pains_aux_cereales.jpg",
+      "card": "assets/recipes/cards/pains_aux_cereales.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 200199,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 63622
+    },
+    {
       "id": "pains_burgers_brioche",
       "title": "Pains burgers briochés",
       "score": 100,
@@ -3148,6 +3274,24 @@
         "height": 428
       },
       "cardBytes": 57502
+    },
+    {
+      "id": "pate_en_croute_noel",
+      "title": "Pâté en croûte de Noël",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pate_en_croute_noel.jpg",
+      "card": "assets/recipes/cards/pate_en_croute_noel.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 241670,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 77726
     },
     {
       "id": "pate_legere_beignets_calamar_crevettes",
@@ -3438,6 +3582,24 @@
       "cardBytes": 90244
     },
     {
+      "id": "pomme_roti_souffle_foie_gras",
+      "title": "Pomme rôtie au soufflé de foie gras",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pomme_roti_souffle_foie_gras.jpg",
+      "card": "assets/recipes/cards/pomme_roti_souffle_foie_gras.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 218692,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 65455
+    },
+    {
       "id": "pommes_de_terre_air_fryer",
       "title": "Pommes de terre à l’air fryer",
       "score": 100,
@@ -3619,7 +3781,7 @@
     },
     {
       "id": "potee_chou",
-      "title": "Potee au chou",
+      "title": "Potée aux légumes",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/potee_chou.jpg",
@@ -3628,12 +3790,12 @@
         "width": 1400,
         "height": 933
       },
-      "optimizedBytes": 256203,
+      "optimizedBytes": 249958,
       "cardSize": {
         "width": 760,
         "height": 507
       },
-      "cardBytes": 81586
+      "cardBytes": 83312
     },
     {
       "id": "poulet_chorizo_vin_blanc_citron",
@@ -3652,6 +3814,24 @@
         "height": 570
       },
       "cardBytes": 136164
+    },
+    {
+      "id": "poulet_vin_jaune",
+      "title": "Poulet au vin jaune",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/poulet_vin_jaune.jpg",
+      "card": "assets/recipes/cards/poulet_vin_jaune.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 267748,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 90192
     },
     {
       "id": "poulet_tomates_poivron_vin_blanc_thym",
@@ -3724,6 +3904,24 @@
         "height": 520
       },
       "cardBytes": 123497
+    },
+    {
+      "id": "poulet_marengo",
+      "title": "Poulet Marengo",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/poulet_marengo.jpg",
+      "card": "assets/recipes/cards/poulet_marengo.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 257322,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 80518
     },
     {
       "id": "poulet_pommes_de_terre_asperges",
@@ -3814,6 +4012,24 @@
         "height": 570
       },
       "cardBytes": 127834
+    },
+    {
+      "id": "quichette_thon_parmesan",
+      "title": "Quichette au thon et parmesan",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/quichette_thon_parmesan.jpg",
+      "card": "assets/recipes/cards/quichette_thon_parmesan.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 181416,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 57114
     },
     {
       "id": "ragouts_boeuf_biere_variantes",
@@ -3978,6 +4194,24 @@
       "cardBytes": 110557
     },
     {
+      "id": "sables_deux_fromages",
+      "title": "Sablés aux deux fromages",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/sables_deux_fromages.jpg",
+      "card": "assets/recipes/cards/sables_deux_fromages.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 233964,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 75436
+    },
+    {
       "id": "saint_jacques_lard_sauce_thai",
       "title": "Saint-Jacques au lard, sauce thaï",
       "score": 100,
@@ -4012,6 +4246,24 @@
         "height": 760
       },
       "cardBytes": 125550
+    },
+    {
+      "id": "salade_cesar",
+      "title": "Salade César",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/salade_cesar.jpg",
+      "card": "assets/recipes/cards/salade_cesar.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 190047,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 57329
     },
     {
       "id": "salade_carottes_citronnee",
@@ -4068,6 +4320,24 @@
       "cardBytes": 70783
     },
     {
+      "id": "salade_lyonnaise",
+      "title": "Salade lyonnaise",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/salade_lyonnaise.jpg",
+      "card": "assets/recipes/cards/salade_lyonnaise.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 211057,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 65594
+    },
+    {
       "id": "salade_melon_mozzarella_jambon_cru",
       "title": "Salade melon, mozzarella et jambon cru",
       "score": 100,
@@ -4084,6 +4354,24 @@
         "height": 428
       },
       "cardBytes": 97285
+    },
+    {
+      "id": "salade_piemontaise",
+      "title": "Salade piémontaise",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/salade_piemontaise.jpg",
+      "card": "assets/recipes/cards/salade_piemontaise.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 146084,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 47492
     },
     {
       "id": "salades_pois_chiches_variantes",
@@ -4555,7 +4843,7 @@
     },
     {
       "id": "souffle_fromage_facile",
-      "title": "Soufflé au fromage",
+      "title": "Soufflé au comté",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/souffle_fromage_facile.jpg",
@@ -4570,6 +4858,24 @@
         "height": 507
       },
       "cardBytes": 70262
+    },
+    {
+      "id": "souffle_fromage",
+      "title": "Soufflé au fromage",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/souffle_fromage.jpg",
+      "card": "assets/recipes/cards/souffle_fromage.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 156236,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 45454
     },
     {
       "id": "souffle_citron_vert_mojito",
@@ -4930,6 +5236,42 @@
         "height": 760
       },
       "cardBytes": 159867
+    },
+    {
+      "id": "tortilla_chorizo",
+      "title": "Tortilla au chorizo",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/tortilla_chorizo.jpg",
+      "card": "assets/recipes/cards/tortilla_chorizo.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 933
+      },
+      "optimizedBytes": 277028,
+      "cardSize": {
+        "width": 760,
+        "height": 507
+      },
+      "cardBytes": 89289
+    },
+    {
+      "id": "tortilla_espagnole",
+      "title": "Tortilla espagnole",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/tortilla_espagnole.jpg",
+      "card": "assets/recipes/cards/tortilla_espagnole.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 207461,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 67558
     },
     {
       "id": "tortillas_mexicaines",
