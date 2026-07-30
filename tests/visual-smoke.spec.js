@@ -117,6 +117,23 @@ test.describe('Cook Note visual smoke', () => {
       const count = await page.locator('.recipe-card.master-card .card-category-crest').count();
       expect(count).toBeGreaterThanOrEqual(8);
     }).toPass();
+    await expect(page.locator('.top-menu-btn, .top-techniques-btn')).toHaveCount(0);
+    await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
+    await expect(page.locator('.recipe-card[data-recipe-id="petit_dejeuner_maitre"]')).toHaveAttribute('data-category-crest', 'cup');
+    await expect(page.locator('.recipe-card[data-recipe-id="elements_base_maitre"]')).toHaveAttribute('data-category-crest', 'mortar');
+    const crestPlacement = await page.locator('.recipe-card[data-recipe-id="elements_base_maitre"]').evaluate(card => {
+      const cardBox = card.getBoundingClientRect();
+      const crestBox = card.querySelector('.card-category-crest').getBoundingClientRect();
+      return {
+        distanceFromLeft: crestBox.left - cardBox.left,
+        distanceFromRight: cardBox.right - crestBox.right
+      };
+    });
+    expect(crestPlacement.distanceFromLeft).toBeGreaterThan(crestPlacement.distanceFromRight);
+    const longCategoryTitleFits = await page.locator('.recipe-card[data-recipe-id="accompagnements_maitre"] h3').evaluate(title => (
+      title.scrollWidth <= title.clientWidth + 1
+    ));
+    expect(longCategoryTitleFits).toBe(true);
     await page.keyboard.press('Control+K');
     await expect(page.locator('.command-palette')).toBeVisible();
     await expectNoMojibake(page);
@@ -125,8 +142,15 @@ test.describe('Cook Note visual smoke', () => {
     await page.locator('.home-search-launcher').click();
     await expect(page.locator('.search-modal')).toBeVisible();
     expect(await page.locator('.search-quick-rail button').count()).toBeLessThanOrEqual(4);
+    const searchInput = page.locator('#recipe-search-input');
+    await searchInput.pressSequentially('poulet');
+    await expect(searchInput).toHaveValue('poulet');
+    await expect(page.locator('.search-result-count')).toContainText(/résultat|Recherche en cours/, { timeout: 4000 });
+    await expect(page.locator('.search-result')).not.toHaveCount(0, { timeout: 5000 });
+    await searchInput.fill('');
     await page.keyboard.press('Escape');
     await expect(page.locator('.search-modal')).toBeHidden();
+    await expect(page.locator('.recipe-card.master-card')).toHaveCount(8);
     await page.evaluate(() => document.querySelectorAll('.recipe-card')[7]?.scrollIntoView({ block: 'center' }));
     await page.waitForTimeout(250);
     await page.evaluate(() => document.querySelector('.recipe-card')?.scrollIntoView({ block: 'center' }));
