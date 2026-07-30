@@ -191,23 +191,6 @@ Les icones de la barre superieure utilisent `--topbar-icon-color`. Le theme nuit
 le definit en clair et le theme jour en texte sombre ; le controle visuel couvre
 toutes les icones d'action, pas seulement le bouton de theme.
 
-## Direction gothique high-tech
-
-- Les illustrations de chateaux, la marque Cook Note et la palette chaude restent
-  la couche dominante. La technologie est une couche d'instrumentation, jamais
-  un remplacement cyberpunk de l'univers existant.
-- Les signaux utilisent les tokens `--tech-signal`, `--tech-signal-soft`,
-  `--tech-signal-faint` et `--tech-grid-line`, eux-memes derives de l'accent
-  ambiant. Aucun cyan global ni nouvelle couleur de marque ne doit etre ajoute.
-- Les cadres techniques restent fins : coins de visee, grilles faibles, lignes
-  d'energie et rayons asymetriques. Ils ne doivent ni masquer les images ni
-  ajouter une bordure sous le hero.
-- L'interface reste calme au repos. Les balayages lumineux et scans ne se jouent
-  qu'au hover ou au focus, sur un appareil compatible, et respectent toujours
-  `prefers-reduced-motion`.
-- Le theme jour traduit la meme logique en ivoire et bronze. Il ne copie pas un
-  panneau noir du theme nuit.
-
 ## Responsive
 
 - Mobile : aucun texte ne doit chevaucher son conteneur.
@@ -228,6 +211,4 @@ Avant push visible apres une passe design :
 - lancer le check complet ;
 - lancer le test visuel ;
 - verifier que `style.css`, `admin.css` et cette doc restent coherents ;
-- conserver `style.css` sous 220 Ko et le CSS minifie livre dans `dist` sous
-  192 Ko ;
 - bump la version si `style.css` change.
