@@ -116,7 +116,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.17';
+const SITE_VERSION = 'v4.18';
 const SITE_UPDATED_AT = '30/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
@@ -4539,11 +4539,66 @@ const ICON_PATHS = {
   moon: [
     'M20.5 14.8A7.8 7.8 0 0 1 9.2 3.5 8.7 8.7 0 1 0 20.5 14.8Z'
   ],
+  cocktail: [
+    'M5 4h14l-5.5 7.2h-3L5 4Z',
+    'M12 11.2V20',
+    'M8.5 20h7'
+  ],
+  leaf: [
+    'M19.5 4.5C12 4.2 6.2 7.2 5 14.8c4.4 1 8.7-.3 11.5-3.8 1.7-2.1 2.6-4.4 3-6.5Z',
+    'M5 19c2.8-4.8 6.4-8 11.5-10.2'
+  ],
+  cloche: [
+    'M4 16.5h16',
+    'M6 16.5a6 6 0 0 1 12 0',
+    'M12 7.5V5',
+    'M10.5 5h3'
+  ],
+  sprig: [
+    'M6 20c3.2-5.9 7-10.2 12-14',
+    'M8.2 14.7c-2.9.2-4.3-1.2-4.2-4.1 2.8-.2 4.3 1.2 4.2 4.1Z',
+    'M13 10c-.1-2.9 1.3-4.4 4.2-4.5.1 2.9-1.3 4.4-4.2 4.5Z'
+  ],
+  cake: [
+    'M5 11h14v9H5z',
+    'M5 15c2 1.4 4 .1 7 0s5 1.4 7 0',
+    'M9 11V7',
+    'M15 11V7',
+    'M8.2 6.8 9 5l.8 1.8',
+    'M14.2 6.8 15 5l.8 1.8'
+  ],
+  cup: [
+    'M5 8h11v7.5A4.5 4.5 0 0 1 11.5 20h-2A4.5 4.5 0 0 1 5 15.5V8Z',
+    'M16 10h1.5a2.5 2.5 0 0 1 0 5H16',
+    'M8 4.8c0 1 .8 1.2.8 2.2',
+    'M12 4.8c0 1 .8 1.2.8 2.2'
+  ],
+  drop: [
+    'M12 3.5s6 6.7 6 10.5a6 6 0 0 1-12 0c0-3.8 6-10.5 6-10.5Z',
+    'M9 15.2c.5 1.2 1.4 1.8 2.8 2'
+  ],
+  mortar: [
+    'M5 11h14c-.4 5.5-2.8 8.2-7 8.2S5.4 16.5 5 11Z',
+    'M15.5 10.8 20 5.5',
+    'M18.2 4.3 21 6.7'
+  ],
   close: [
     'M6 6l12 12',
     'M18 6 6 18'
   ]
 };
+
+const CATEGORY_CREST_ICONS = Object.freeze({
+  apero: 'cocktail',
+  entrees: 'leaf',
+  plats: 'cloche',
+  accompagnements: 'sprig',
+  desserts: 'cake',
+  'petit dejeuner': 'cup',
+  sauces: 'drop',
+  bases: 'mortar',
+  'elements de base': 'mortar'
+});
 
 function Icon({ name, filled = false }) {
   return h('svg', {
@@ -4562,6 +4617,10 @@ function Icon({ name, filled = false }) {
       strokeLinejoin: 'round'
     }))
   );
+}
+
+function categoryCrestIcon(recipe) {
+  return CATEGORY_CREST_ICONS[normalizeText(primaryCategory(recipe))] || 'spark';
 }
 
 function ingredientAvailabilityGroup(meta) {
@@ -4684,6 +4743,8 @@ function Hero() {
   const dayArt = isDayArtTheme();
   const logo = artAsset('logo');
   return h('section', { className: dayArt ? 'hero hero-day-art' : 'hero' },
+    h('span', { className: 'hero-atmosphere hero-atmosphere-glow', 'aria-hidden': true }),
+    h('span', { className: 'hero-atmosphere hero-atmosphere-mist', 'aria-hidden': true }),
     h('div', { className: 'hero-inner' },
       h('h1', { className: 'sr-only' }, 'Cook Note'),
       h('img', { className: 'hero-logo', src: logo, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(logo) })
@@ -4704,6 +4765,14 @@ function ActiveChips({ chips }) {
   );
 }
 
+function recipeViewTransitionName(recipeId) {
+  const safeId = String(recipeId || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return safeId ? `recipe-${safeId}` : '';
+}
+
 function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNote }) {
   const master = isMasterRecipe(recipe);
   const variantLabel = getRecipeVariantLabel(recipe, recipesById);
@@ -4716,11 +4785,13 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     .filter(Boolean)
     .join(' ');
   const cardStyle = ambilightStyle(cardImage, style);
+  const transitionName = master ? '' : recipeViewTransitionName(recipe.id);
 
   return h('article', {
     className,
     style: cardStyle,
     'data-recipe-id': recipe.id,
+    'data-category-crest': master ? categoryCrestIcon(recipe) : undefined,
     tabIndex: 0,
     role: 'button',
     'aria-label': `Ouvrir ${recipe.title}`,
@@ -4733,7 +4804,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     }
   },
     renderCardImage && h('span', { className: 'card-ambilight', 'aria-hidden': true }),
-    h('div', { className: 'card-media' },
+    h('div', { className: 'card-media', style: transitionName ? { viewTransitionName: transitionName } : undefined },
       renderCardImage && h('img', {
         className: 'card-image',
         src: cardImage,
@@ -4754,6 +4825,9 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       !renderCardImage && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1))
     ),
     h('div', { className: 'card-body' },
+      master && h('span', { className: 'card-category-crest', 'aria-hidden': true },
+        h(Icon, { name: categoryCrestIcon(recipe) })
+      ),
       h('h3', null, recipe.title),
       variantLabel && h('p', { className: 'card-meta', 'aria-label': variantLabel },
         h('span', { className: 'card-variant-count' }, variantLabel)
@@ -6728,9 +6802,13 @@ function RecipeView({
   const artLogoImage = artAsset('logo', activeTheme);
   const heroImage = heroUsesHomeImage ? artHeroImage : displayRecipeImage(selectedRecipe || recipe);
   const heroImageWidth = heroImage ? Math.max(960, Math.min(imageNaturalWidth(heroImage), 1536)) : 0;
+  const heroTransitionName = !heroUsesHomeImage && selectedRecipe?.id
+    ? recipeViewTransitionName(selectedRecipe.id)
+    : '';
   const heroStyle = heroImage
     ? {
       '--recipe-hero-image-max': `${heroImageWidth}px`,
+      ...(heroTransitionName ? { viewTransitionName: heroTransitionName } : {}),
       backgroundImage: heroUsesHomeImage
         ? `linear-gradient(110deg, rgba(4,4,5,.92), rgba(4,4,5,.54) 48%, rgba(4,4,5,.84)), url("${heroImage}")`
         : `linear-gradient(90deg, rgba(4,4,5,.92), rgba(4,4,5,.50)), url("${heroImage}")`

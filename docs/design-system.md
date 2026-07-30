@@ -50,6 +50,23 @@ metier et ne justifient pas d'ajouter une section gadget.
   finition, coherence, transitions, etats de chargement, retours visuels et
   sobriete.
 
+## Gothique cinematique Cook Note
+
+- Le visuel original aux deux chateaux reste le coeur de l'accueil. La brume et
+  la respiration lumineuse sont uniquement atmospheriques, sans interaction,
+  zonage sale/sucre, fenetres reactives ni action cachee dans la lune.
+- La recherche generale reste un objet clair et immediat sous le hero. Sa
+  modale conserve un titre court, un champ principal, quatre raccourcis maximum
+  et les resultats.
+- Les cartes de l'accueil forment une grille reguliere. Les blasons de categorie
+  sont decoratifs et ne remplacent ni le titre ni la navigation.
+- Le passage d'une carte a sa fiche peut utiliser une transition partagee courte,
+  avec une solution instantanee quand `prefers-reduced-motion` est actif.
+- Sur ordinateur, le panneau Ingredients peut rester visible pendant la lecture
+  des Etapes. Sur mobile, tous les panneaux reprennent le flux normal.
+- La fiche recette reste un folio lisible, jamais un mode cuisine plein ecran ou
+  une navigation sequentielle imposee.
+
 ## Tokens principaux
 
 Les styles nouveaux doivent partir des tokens. Une valeur locale n'est acceptable que pour une mesure de layout non reutilisable.

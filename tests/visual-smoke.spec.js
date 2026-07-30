@@ -106,8 +106,15 @@ test.describe('Cook Note visual smoke', () => {
     await waitForCookNote(page);
 
     await expect(page.locator('.home-view')).toBeVisible();
+    await expect(page.locator('.hero-atmosphere-glow')).toHaveCount(1);
+    await expect(page.locator('.hero-atmosphere-mist')).toHaveCount(1);
+    await expect(page.locator('.home-view > .hero button, .home-view > .hero a')).toHaveCount(0);
     await expect(async () => {
       const count = await page.locator('.recipe-card').count();
+      expect(count).toBeGreaterThanOrEqual(8);
+    }).toPass();
+    await expect(async () => {
+      const count = await page.locator('.recipe-card.master-card .card-category-crest').count();
       expect(count).toBeGreaterThanOrEqual(8);
     }).toPass();
     await page.keyboard.press('Control+K');
@@ -115,6 +122,11 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoMojibake(page);
     await page.keyboard.press('Escape');
     await expect(page.locator('.command-palette')).toBeHidden();
+    await page.locator('.home-search-launcher').click();
+    await expect(page.locator('.search-modal')).toBeVisible();
+    expect(await page.locator('.search-quick-rail button').count()).toBeLessThanOrEqual(4);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('.search-modal')).toBeHidden();
     await page.evaluate(() => document.querySelectorAll('.recipe-card')[7]?.scrollIntoView({ block: 'center' }));
     await page.waitForTimeout(250);
     await page.evaluate(() => document.querySelector('.recipe-card')?.scrollIntoView({ block: 'center' }));

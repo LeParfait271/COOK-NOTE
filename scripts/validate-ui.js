@@ -121,6 +121,29 @@ const lightTopbarIconsStayVisible = files.style.includes('--topbar-icon-color:#f
   && files.style.includes('color:var(--topbar-icon-color)')
   && files.rules.includes('la recherche, les favoris et les reglages doivent tous etre controles')
   && files.designSystem.includes('toutes les icones d\'action');
+const heroComponent = files.app.match(/function Hero\(\)\s*\{[\s\S]*?\r?\n\}\r?\n\r?\nfunction ActiveChips/)?.[0] || '';
+const homeHeroStaysPassive = heroComponent.includes('hero-atmosphere-glow')
+  && heroComponent.includes('hero-atmosphere-mist')
+  && !heroComponent.includes("h('button'")
+  && !heroComponent.includes("h('a'")
+  && !/on(?:Click|Mouse|Pointer)/.test(heroComponent)
+  && !/search/i.test(heroComponent);
+const forbiddenVisualExperiments = [
+  'castle-choice',
+  'castle-zone',
+  'moon-search',
+  'featured-recipe-layout',
+  'recipe-focus-mode'
+].every(fragment => !files.app.includes(fragment) && !files.style.includes(fragment));
+const cinematicGothicDirectionIsLocked = files.app.includes('CATEGORY_CREST_ICONS')
+  && files.app.includes('card-category-crest')
+  && files.app.includes('recipeViewTransitionName')
+  && files.style.includes('--prestige-gold')
+  && files.style.includes('.hero-atmosphere-mist')
+  && files.style.includes('@keyframes prestige-breathe')
+  && files.rules.includes('Les deux chateaux, la lune et l\'atmosphere du hero restent un decor passif')
+  && files.rules.includes('Les grilles de recettes de l\'accueil gardent des cartes de dimensions et de poids visuel reguliers')
+  && files.designSystem.includes('Gothique cinematique Cook Note');
 
 function expect(label, condition) {
   if (!condition) errors.push(label);
@@ -157,6 +180,9 @@ expect("Le filet d'un pixel sous le hero d'accueil est revenu.", homeHeroHasNoPi
 expect('Les icones de la topbar peuvent redevenir invisibles en mode jour.', lightTopbarIconsStayVisible);
 expect('Palette de commandes absente.', files.app.includes('function CommandPalette') && files.app.includes('commandOpen') && files.app.includes('commandRef') && files.app.includes('openCommandPalette') && files.style.includes('.command-palette') && files.style.includes('.command-input-shell'));
 expect('Transitions de vue absentes.', files.app.includes('function runViewTransition') && files.app.includes('document.startViewTransition') && files.style.includes('::view-transition-new(root)'));
+expect('Le hero aux deux chateaux peut redevenir interactif ou porter la recherche.', homeHeroStaysPassive);
+expect('Une experience visuelle explicitement refusee a ete reactivee.', forbiddenVisualExperiments);
+expect('Direction gothique cinematique non verrouillee.', cinematicGothicDirectionIsLocked);
 expect('Dock recette absent.', files.app.includes('function RecipeCommandDock') && files.app.includes('recipe-command-dock') && files.style.includes('.recipe-command-dock') && files.style.includes('--dock-progress'));
 expect('Accent visuel pilote par contenu absent.', files.app.includes('--ambient-accent') && files.style.includes('--ambient-accent') && files.style.includes('var(--ambient-accent'));
 expect('Cartes recettes limitees au titre et au compte de variantes.', files.app.includes("h('div', { className: 'card-body' }") && files.app.includes('getRecipeVariantLabel(recipe, recipesById)') && files.app.includes("className: 'card-variant-count'") && !files.app.includes("h('div', { className: 'tag-line' }") && !files.app.includes("className: 'video-badge'") && !files.app.includes("className: isFavorite ? 'fav-btn active' : 'fav-btn'"));
