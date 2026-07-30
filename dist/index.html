@@ -61,13 +61,10 @@
   <!-- Écran de chargement — caché par React au montage (voir app.js) -->
   <div id="loading-screen" aria-hidden="true">
     <div class="loading-scene">
-      <img src="/assets/brand/app-icon.png" alt="Cook Note" width="948" height="302" decoding="async" data-art-asset="appIcon" />
-      <div class="loading-shell">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <div class="loading-bar"><span></span></div>
+      <div class="loading-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+      <img src="/assets/brand/cook-note-white.png" alt="Cook Note" width="948" height="302" decoding="async" />
+      <p class="loading-status">Ouverture des archives culinaires<span class="loading-dots" aria-hidden="true">...</span></p>
+      <div class="loading-bar" role="progressbar" aria-label="Chargement"><span></span></div>
     </div>
   </div>
 
@@ -93,31 +90,28 @@
       width: 82%;
       max-width: 460px;
       text-align: center;
+      padding: 34px 24px 28px;
+      border: 1px solid rgba(251,191,36,.24);
+      border-radius: 22px;
+      background: rgba(8,8,8,.58);
+      box-shadow: 0 24px 80px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.08);
+      backdrop-filter: blur(12px);
       transform: translate(-50%, -50%);
     }
+    .loading-orbit { position:absolute; top:50%; left:50%; width:220px; height:220px; transform:translate(-50%,-50%); pointer-events:none; opacity:.5; }
+    .loading-orbit span { position:absolute; inset:0; border:1px solid rgba(251,191,36,.24); border-radius:50%; animation: lsOrbit 3.8s linear infinite; }
+    .loading-orbit span:nth-child(2) { inset:18px; animation-duration:2.8s; animation-direction:reverse; border-color:rgba(249,115,22,.22); }
+    .loading-orbit span:nth-child(3) { inset:38px; animation-duration:2.1s; border-style:dashed; }
     .loading-scene img {
       width: 78%;
       max-width: 420px;
       height: auto;
+      position:relative;
+      z-index:1;
       filter: drop-shadow(0 18px 34px rgba(0,0,0,.52));
     }
-    .loading-shell {
-      width: 78%;
-      max-width: 360px;
-      margin: 18px auto 0;
-      font-size: 0;
-    }
-    .loading-shell span {
-      display: inline-block;
-      width: 31%;
-      height: 44px;
-      margin: 0 1%;
-      border: 1px solid rgba(251,191,36,.22);
-      border-radius: 8px;
-      background: linear-gradient(90deg, rgba(255,255,255,.04), rgba(251,191,36,.13), rgba(255,255,255,.04));
-      background-size: 220% 100%;
-      animation: lsShimmer 1.5s ease-in-out infinite;
-    }
+    .loading-status { position:relative; z-index:1; margin:12px 0 0; color:rgba(255,248,234,.74); font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
+    .loading-dots { display:inline-block; width:18px; overflow:hidden; text-align:left; animation:lsDots 1.2s steps(4,end) infinite; }
     .loading-bar {
       width: 62%;
       max-width: 220px;
@@ -135,8 +129,10 @@
       background: linear-gradient(90deg,#fbbf24,#f97316);
       animation: lsBar 1.7s ease-in-out forwards;
     }
-    @keyframes lsBar { from { width:0 } to { width:100% } }
-    @keyframes lsShimmer { 0% { background-position: 120% 0 } 100% { background-position: -120% 0 } }
+    @keyframes lsBar { 0% { width:4% } 50% { width:72% } 100% { width:14% } }
+    @keyframes lsOrbit { to { transform:rotate(360deg) } }
+    @keyframes lsDots { 0% { width:0 } 100% { width:18px } }
+    @media (prefers-reduced-motion: reduce) { .loading-orbit span,.loading-bar span,.loading-dots { animation:none; } .loading-bar span { width:48%; } }
   </style>
 
   <div id="root"></div>
@@ -232,7 +228,7 @@
         setTimeout(hideLoaderWhenRootReady, 80);
       }
     });
-    // Fallback : si React ne monte pas dans 8s, on retire l'écran de chargement
+    // Fallback : si React ne monte pas dans 4s, on retire l'écran de chargement
     // pour ne pas rester bloqué indéfiniment (erreur JS, réseau lent, etc.)
     setTimeout(() => {
       const ls = document.getElementById('loading-screen');
@@ -247,7 +243,7 @@
           }
         }, 650);
       }
-    }, 8000);
+    }, 4000);
   </script>
 </body>
 </html>
