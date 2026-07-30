@@ -108,7 +108,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.24';
+const SITE_VERSION = 'v4.25';
 const SITE_UPDATED_AT = '30/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
@@ -4601,21 +4601,6 @@ const ICON_PATHS = {
   ]
 };
 
-const CATEGORY_CREST_ICONS = Object.freeze({
-  apero: 'cocktail',
-  entrees: 'leaf',
-  plats: 'cloche',
-  accompagnements: 'sprig',
-  desserts: 'cake',
-  'petit dejeuner': 'cup',
-  'petits-dejeuners': 'cup',
-  'petit-dejeuner': 'cup',
-  sauces: 'drop',
-  base: 'mortar',
-  bases: 'mortar',
-  'elements de base': 'mortar'
-});
-
 function Icon({ name, filled = false }) {
   return h('svg', {
     className: 'site-icon',
@@ -4633,10 +4618,6 @@ function Icon({ name, filled = false }) {
       strokeLinejoin: 'round'
     }))
   );
-}
-
-function categoryCrestIcon(recipe) {
-  return CATEGORY_CREST_ICONS[normalizeText(primaryCategory(recipe))] || 'spark';
 }
 
 function ingredientAvailabilityGroup(meta) {
@@ -4719,7 +4700,7 @@ function ScrollProgress() {
   return h('div', { ref: progressRef, className: 'scroll-progress', 'aria-hidden': true });
 }
 
-function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket, query, openSearch, openPreferences, activeTheme, toggleTheme }) {
+function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences, activeTheme, toggleTheme }) {
   const [condensed, setCondensed] = useState(() => window.scrollY > 64);
   const themeToggleLabel = activeTheme === 'light' ? 'Passer en mode nuit' : 'Passer en mode jour';
 
@@ -4753,10 +4734,6 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
       }, [
         h(Icon, { key: 'icon', name: 'spark' }),
         h('span', { key: 'label' }, 'Demander une recette')
-      ]),
-      h(Button, { variant: 'subtle', className: 'cart-icon-btn icon-square', onClick: openShoppingBasket, title: `${shoppingCount} course${shoppingCount > 1 ? 's' : ''}`, ariaLabel: 'Panier courses' }, [
-        h(Icon, { key: 'icon', name: 'basket' }),
-        shoppingCount > 0 && h('span', { className: 'cart-count', key: 'count' }, shoppingCount)
       ])
     ),
     h('div', { className: 'top-right' },
@@ -4797,7 +4774,6 @@ function TopBarFixed({ onHome, shoppingCount, showFavorites, openShoppingBasket,
 
 function Hero() {
   const dayArt = isDayArtTheme();
-  const logo = artAsset('logo');
   return h('section', { className: dayArt ? 'hero hero-day-art' : 'hero' },
     h('span', { className: 'hero-atmosphere hero-atmosphere-glow', 'aria-hidden': true }),
     h('span', { className: 'hero-atmosphere hero-atmosphere-mist', 'aria-hidden': true }),
@@ -4805,9 +4781,8 @@ function Hero() {
     h('span', { className: 'hero-sentinel hero-sentinel-west', 'aria-hidden': true }),
     h('span', { className: 'hero-sentinel hero-sentinel-east', 'aria-hidden': true }),
     h('div', { className: 'hero-inner' },
-      h('h1', { className: 'sr-only' }, 'Cook Note'),
       h('p', { className: 'hero-system-label' }, t('home.heroSystemLabel')),
-      h('img', { className: 'hero-logo', src: logo, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(logo) }),
+      h('h1', { className: 'hero-wordmark' }, 'Cook Note'),
       h('span', { className: 'hero-axis-mark', 'aria-hidden': true })
     )
   );
@@ -4854,7 +4829,6 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     className,
     style: cardStyle,
     'data-recipe-id': recipe.id,
-    'data-category-crest': master ? categoryCrestIcon(recipe) : undefined,
     tabIndex: 0,
     role: 'button',
     'aria-label': `Ouvrir ${recipe.title}`,
@@ -4889,9 +4863,6 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     ),
     h('div', { className: 'card-body' },
       master && romanIndex && h('span', { className: 'card-category-index', 'aria-hidden': true }, romanIndex),
-      master && h('span', { className: 'card-category-crest', 'aria-hidden': true },
-        h(Icon, { name: categoryCrestIcon(recipe) })
-      ),
       h('h3', null, recipe.title),
       variantLabel && h('p', { className: 'card-meta', 'aria-label': variantLabel },
         h('span', { className: 'card-variant-count' }, variantLabel)
@@ -8036,9 +8007,7 @@ function App() {
   },
     h(TopBarFixed, {
       onHome: goHome,
-      shoppingCount: shoppingRecipes.length,
       showFavorites,
-      openShoppingBasket: () => setShoppingOpen(true),
       query,
       openSearch: openCommandPalette,
       openPreferences: () => setPreferencesOpen(true),

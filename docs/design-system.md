@@ -62,8 +62,9 @@ metier et ne justifient pas d'ajouter une section gadget.
   filtres, sans repeter un second titre avant la grille. Le dernier bloc ne porte
   pas de marge basse, le footer partage l'axe de la grille et la recherche garde
   un contour continu sans decoupe asymetrique.
-- Les cartes de l'accueil forment une grille reguliere. Les blasons de categorie
-  sont decoratifs et ne remplacent ni le titre ni la navigation.
+- Le titre `Cook Note` du hero est typographique, sans pictogramme accole. Les
+  cartes de l'accueil forment une grille reguliere et les huit fiches parentes
+  portent uniquement leur numero romain, sans blason de categorie.
 - Le passage d'une carte a sa fiche peut utiliser une transition partagee courte,
   avec une solution instantanee quand `prefers-reduced-motion` est actif.
 - Sur ordinateur, le panneau Ingredients peut rester visible pendant la lecture

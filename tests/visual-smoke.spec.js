@@ -114,23 +114,14 @@ test.describe('Cook Note visual smoke', () => {
       const count = await page.locator('.recipe-card').count();
       expect(count).toBeGreaterThanOrEqual(8);
     }).toPass();
-    await expect(async () => {
-      const count = await page.locator('.recipe-card.master-card .card-category-crest').count();
-      expect(count).toBeGreaterThanOrEqual(8);
-    }).toPass();
-    await expect(page.locator('.top-menu-btn, .top-techniques-btn')).toHaveCount(0);
+    await expect(page.locator('.recipe-card.master-card .card-category-crest')).toHaveCount(0);
+    await expect(page.locator('.recipe-card.master-card .card-category-index')).toHaveCount(8);
+    expect(await page.locator('.recipe-card.master-card .card-category-index').allTextContents())
+      .toEqual(['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII']);
+    await expect(page.locator('.top-menu-btn, .top-techniques-btn, .top-actions .cart-icon-btn, .top-actions [aria-label="Panier courses"]')).toHaveCount(0);
     await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
-    await expect(page.locator('.recipe-card[data-recipe-id="petit_dejeuner_maitre"]')).toHaveAttribute('data-category-crest', 'cup');
-    await expect(page.locator('.recipe-card[data-recipe-id="elements_base_maitre"]')).toHaveAttribute('data-category-crest', 'mortar');
-    const crestPlacement = await page.locator('.recipe-card[data-recipe-id="elements_base_maitre"]').evaluate(card => {
-      const cardBox = card.getBoundingClientRect();
-      const crestBox = card.querySelector('.card-category-crest').getBoundingClientRect();
-      return {
-        distanceFromLeft: crestBox.left - cardBox.left,
-        distanceFromRight: cardBox.right - crestBox.right
-      };
-    });
-    expect(crestPlacement.distanceFromLeft).toBeGreaterThan(crestPlacement.distanceFromRight);
+    await expect(page.locator('.home-view > .hero .hero-logo')).toHaveCount(0);
+    await expect(page.locator('.home-view > .hero .hero-wordmark')).toHaveText('Cook Note');
     const longCategoryTitleFits = await page.locator('.recipe-card[data-recipe-id="accompagnements_maitre"] h3').evaluate(title => (
       title.scrollWidth <= title.clientWidth + 1
     ));
@@ -175,7 +166,6 @@ test.describe('Cook Note visual smoke', () => {
     await page.evaluate(() => document.querySelectorAll('.recipe-card')[7]?.scrollIntoView({ block: 'center' }));
     await page.waitForTimeout(250);
     await page.evaluate(() => document.querySelector('.recipe-card')?.scrollIntoView({ block: 'center' }));
-    await expectImagesReady(page, '.hero-logo', 1);
     await expectImagesReady(page, '.recipe-card img', 6);
     const firstDarkCardSource = await page.locator('.recipe-card.master-card .card-image').first().getAttribute('src');
     expect(firstDarkCardSource).toContain('/assets/theme/dark/categories/');
@@ -215,8 +205,9 @@ test.describe('Cook Note visual smoke', () => {
     expect(lightArt.assets).toBe('approved');
     expect(lightArt.background).toContain('/assets/theme/day/global/hero.jpg');
     expect(lightArt.hero).toContain('/assets/theme/day/global/hero.jpg');
-    await expect(page.locator('.hero-logo')).toBeVisible();
-    await expect(page.locator('.hero-logo')).toHaveAttribute('src', /\/assets\/theme\/day\/global\/logo\.png/);
+    await expect(page.locator('.hero-wordmark')).toBeVisible();
+    await expect(page.locator('.hero-wordmark')).toHaveText('Cook Note');
+    await expect(page.locator('.home-view > .hero .hero-logo')).toHaveCount(0);
     const topbarColors = await page.locator('.topbar').evaluate(node => {
       const buttons = Array.from(node.querySelectorAll('.top-right .icon-square'));
       return buttons.map(button => {
