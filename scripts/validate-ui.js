@@ -148,6 +148,16 @@ const cinematicGothicDirectionIsLocked = files.app.includes('CATEGORY_CREST_ICON
 const homeSearchAreaStaysClean = !files.app.includes('home-command-status')
   && !files.style.includes('.home-command-status')
   && files.app.includes("className: 'home-search-launcher'");
+const defaultCatalogLayoutIsConsolidated = [
+  'const defaultCatalogSection = !onlyFavorites',
+  "className: `season-sections${defaultCatalogSection ? ' is-default-catalog' : ''}`",
+  "className: 'season-dashboard-title-row'",
+  "className: `season-block${isDefaultCatalogBlock ? ' season-block-default' : ''}`"
+].every(fragment => files.app.includes(fragment))
+  && files.style.includes('.home-view .season-sections.is-default-catalog .season-dashboard')
+  && files.style.includes('.home-view .season-block:last-child,')
+  && files.style.includes('clip-path: none')
+  && files.rules.includes("n'affiche qu'un seul titre de catalogue");
 const recipeCardsStayContentSafe = !files.app.includes("className: 'card-facts'")
   && files.app.includes("className: 'card-variant-count'");
 const citadelUiStringsAreLocalized = [
@@ -210,6 +220,7 @@ expect('Le hero aux deux chateaux peut redevenir interactif ou porter la recherc
 expect('Une experience visuelle explicitement refusee a ete reactivee.', forbiddenVisualExperiments);
 expect('Direction gothique cinematique non verrouillee.', cinematicGothicDirectionIsLocked);
 expect('La zone de recherche de l accueil contient de nouveau un surtitre gadget.', homeSearchAreaStaysClean);
+expect("Le catalogue par defaut repete son titre ou laisse revenir l'espace vide avant le footer.", defaultCatalogLayoutIsConsolidated);
 expect('Des metadonnees interdites sont revenues sous les titres des cartes recette.', recipeCardsStayContentSafe);
 expect('Les nouveaux textes de la citadelle ne sont pas synchronises en FR et EN.', citadelUiStringsAreLocalized);
 expect('Les animations de la citadelle contournent le motion system ou le mode reduit.', citadelMotionUsesSystemTokens);

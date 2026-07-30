@@ -108,7 +108,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.23';
+const SITE_VERSION = 'v4.24';
 const SITE_UPDATED_AT = '30/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
@@ -129,6 +129,7 @@ const QR_CODE_SCRIPT_SRC = '/assets/vendor/qrcode.min.js';
 const CONFETTI_SCRIPT_SRC = '/assets/vendor/confetti.browser.min.js';
 const GRID_INITIAL_RENDER_COUNT = 36;
 const GRID_RENDER_BATCH_SIZE = 24;
+const SEARCH_INPUT_COMMIT_DELAY_MS = 180;
 
 const SEASONS = ['Printemps', 'Été', 'Automne', 'Hiver'];
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
@@ -5038,6 +5039,12 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
 function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, personalNotes = {}, favoriteCollection, setFavoriteCollection }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
+  const defaultCatalogSection = !onlyFavorites
+    && !selectedSeason
+    && sections.length === 1
+    && sections[0]?.key === 'all-seasons'
+    ? sections[0]
+    : null;
   const favoriteRecipes = favorites.map(id => recipesById[id]).filter(Boolean);
   const favoriteCollectionCounts = onlyFavorites ? FAVORITE_COLLECTIONS.reduce((counts, collection) => {
     counts[collection.id] = collection.id
@@ -5050,11 +5057,16 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
     counts[status] = (counts[status] || 0) + 1;
     return counts;
   }, {}) : {};
-  return h('section', { className: 'season-sections', id: 'recettes' },
+  return h('section', { className: `season-sections${defaultCatalogSection ? ' is-default-catalog' : ''}`, id: 'recettes' },
     h('div', { className: 'section-title list-title season-dashboard' },
       h('div', { className: 'season-dashboard-copy' },
         h('p', { className: 'eyebrow' }, onlyFavorites ? 'Favoris' : 'Catalogue'),
-        h('h2', null, onlyFavorites ? 'Mes recettes favorites' : 'Recettes'),
+        h('div', { className: 'season-dashboard-title-row' },
+          h('h2', null, onlyFavorites ? 'Mes recettes favorites' : defaultCatalogSection ? 'Toutes les recettes' : 'Recettes'),
+          defaultCatalogSection && h('span', { className: 'season-dashboard-count' },
+            `${defaultCatalogSection.recipes.length} fiche${defaultCatalogSection.recipes.length > 1 ? 's' : ''}`
+          )
+        ),
         onlyFavorites && Object.keys(favoriteStatusCounts).length > 0 && h('div', { className: 'favorite-status-summary' },
           Object.entries(favoriteStatusCounts).map(([status, count]) => h('span', { key: status }, `${status}: ${count}`))
         ),
@@ -5103,13 +5115,19 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
           )
         )
     ),
-    sections.map(section => h('section', { key: section.key, className: 'season-block' },
-      h('div', { className: 'season-block-head' },
-        h('div', null, h('p', { className: 'eyebrow' }, section.kicker), h('h3', null, section.title)),
-        h('span', null, `${section.recipes.length} fiche${section.recipes.length > 1 ? 's' : ''}`)
-      ),
-      h(RecipeGrid, { recipes: section.recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, personalNotes })
-    ))
+    sections.map(section => {
+      const isDefaultCatalogBlock = defaultCatalogSection?.key === section.key;
+      return h('section', {
+        key: section.key,
+        className: `season-block${isDefaultCatalogBlock ? ' season-block-default' : ''}`
+      },
+        !isDefaultCatalogBlock && h('div', { className: 'season-block-head' },
+          h('div', null, h('p', { className: 'eyebrow' }, section.kicker), h('h3', null, section.title)),
+          h('span', null, `${section.recipes.length} fiche${section.recipes.length > 1 ? 's' : ''}`)
+        ),
+        h(RecipeGrid, { recipes: section.recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, personalNotes })
+      );
+    })
   );
 }
 
@@ -5450,7 +5468,7 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
     queryCommitTimerRef.current = window.setTimeout(() => {
       queryCommitTimerRef.current = 0;
       setQuery(value);
-    }, 90);
+    }, SEARCH_INPUT_COMMIT_DELAY_MS);
   };
   const closeSearch = () => {
     updateDraftQuery(draftQueryRef.current, true);
@@ -7831,7 +7849,7 @@ function App() {
   }
 
   function openSearch() {
-    loadDeferredCatalogChunks().catch(() => {});
+    if (String(query || '').trim()) loadDeferredCatalogChunks().catch(() => {});
     setCommandOpen(false);
     setSearchOpen(true);
     setTimeout(() => searchRef.current?.focus(), 0);

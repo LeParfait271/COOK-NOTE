@@ -265,9 +265,10 @@ a {
 }
 
 .site-footer {
-  max-width: 1120px;
-  margin: 64px auto 0;
-  padding: 0 clamp(16px, 4vw, 32px) calc(32px + env(safe-area-inset-bottom));
+  width: min(1120px, calc(100% - 32px));
+  max-width: none;
+  margin: var(--ds-space-7) auto 0;
+  padding: 0 0 calc(32px + env(safe-area-inset-bottom));
   color: color-mix(in srgb, var(--muted) 88%, var(--text));
 }
 
@@ -1235,6 +1236,20 @@ a {
 .season-dashboard-copy {
   display: grid;
   gap: 6px;
+}
+
+.season-dashboard-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--ds-space-2) var(--ds-space-3);
+}
+
+.season-dashboard-count {
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 850;
+  white-space: nowrap;
 }
 
 .favorite-status-summary {
@@ -8219,11 +8234,19 @@ body:has(.modal-backdrop) #cook-note-update-action {
   box-shadow: none;
 }
 
+.home-view {
+  min-height: 0;
+}
+
+.home-view .content-wrap {
+  padding-bottom: var(--ds-space-7);
+}
+
 .home-search-launcher {
   width: min(900px, calc(100% - 44px));
   min-height: 62px;
   border-color: color-mix(in srgb, var(--prestige-gold) 42%, var(--line));
-  border-radius: 5px 14px 5px 14px;
+  border-radius: var(--ds-radius-md);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, .045), transparent),
     color-mix(in srgb, #080807 91%, transparent);
@@ -8233,7 +8256,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
     0 15px 38px rgba(0, 0, 0, .18);
   letter-spacing: .01em;
   backdrop-filter: blur(14px) saturate(1.04);
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  clip-path: none;
   transition: transform var(--speed), border-color var(--speed), box-shadow var(--speed), background var(--speed);
 }
 
@@ -8271,6 +8294,15 @@ body:has(.modal-backdrop) #cook-note-update-action {
 .mc-shell.theme-light :where(.home-search-launcher, .home-quick-actions button) {
   background: rgba(255, 252, 246, .64);
   color: var(--text);
+}
+
+.home-view .season-sections.is-default-catalog .season-dashboard {
+  margin-bottom: 0;
+}
+
+.home-view .season-block:last-child,
+.home-view .season-sections.is-default-catalog .season-block-default {
+  margin-bottom: 0;
 }
 
 @media (min-width: 761px) {
@@ -8792,6 +8824,10 @@ body:has(.modal-backdrop) #cook-note-update-action {
   .home-command-center {
     margin-top: 0;
     padding: 0;
+  }
+
+  .site-footer {
+    width: min(1120px, calc(100% - 28px));
   }
 
   .home-search-launcher {

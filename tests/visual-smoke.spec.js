@@ -153,6 +153,25 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.search-modal')).toBeHidden();
     await expect(page.locator('.recipe-card.master-card')).toHaveCount(8);
     await expect(page.locator('.recipe-card .card-facts')).toHaveCount(0);
+    await expect(page.locator('.season-sections.is-default-catalog')).toHaveCount(1);
+    await expect(page.locator('.season-dashboard h2')).toHaveText('Toutes les recettes');
+    await expect(page.locator('.season-block-default .season-block-head')).toHaveCount(0);
+    const homeLayout = await page.evaluate(() => {
+      const grid = document.querySelector('.master-recipe-grid').getBoundingClientRect();
+      const footer = document.querySelector('.site-footer').getBoundingClientRect();
+      const search = getComputedStyle(document.querySelector('.home-search-launcher'));
+      return {
+        footerGap: footer.top - grid.bottom,
+        leftDelta: Math.abs(footer.left - grid.left),
+        widthDelta: Math.abs(footer.width - grid.width),
+        searchClipPath: search.clipPath
+      };
+    });
+    expect(homeLayout.footerGap).toBeGreaterThanOrEqual(48);
+    expect(homeLayout.footerGap).toBeLessThanOrEqual(128);
+    expect(homeLayout.leftDelta).toBeLessThanOrEqual(1);
+    expect(homeLayout.widthDelta).toBeLessThanOrEqual(1);
+    expect(homeLayout.searchClipPath).toBe('none');
     await page.evaluate(() => document.querySelectorAll('.recipe-card')[7]?.scrollIntoView({ block: 'center' }));
     await page.waitForTimeout(250);
     await page.evaluate(() => document.querySelector('.recipe-card')?.scrollIntoView({ block: 'center' }));

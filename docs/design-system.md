@@ -58,6 +58,10 @@ metier et ne justifient pas d'ajouter une section gadget.
 - La recherche generale reste un objet clair et immediat sous le hero. Sa
   modale conserve un titre court, un champ principal, quatre raccourcis maximum
   et les resultats.
+- Le catalogue par defaut fusionne son titre et son compteur dans l'en-tete des
+  filtres, sans repeter un second titre avant la grille. Le dernier bloc ne porte
+  pas de marge basse, le footer partage l'axe de la grille et la recherche garde
+  un contour continu sans decoupe asymetrique.
 - Les cartes de l'accueil forment une grille reguliere. Les blasons de categorie
   sont decoratifs et ne remplacent ni le titre ni la navigation.
 - Le passage d'une carte a sa fiche peut utiliser une transition partagee courte,

@@ -7,6 +7,7 @@ const SKIP_WEBSERVER = process.env.COOK_NOTE_SKIP_WEBSERVER === '1';
 
 module.exports = defineConfig({
   testDir: './tests',
+  workers: 1,
   timeout: 45000,
   expect: {
     timeout: 12000

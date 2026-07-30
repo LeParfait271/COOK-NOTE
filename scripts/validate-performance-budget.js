@@ -237,6 +237,15 @@ if (
 ].forEach(fragment => {
   if (!app.includes(fragment)) fail(`Chargement catalogue a la demande absent (${fragment}).`);
 });
+[
+  'const SEARCH_INPUT_COMMIT_DELAY_MS = 180;',
+  "if (String(query || '').trim()) loadDeferredCatalogChunks().catch(() => {});"
+].forEach(fragment => {
+  if (!app.includes(fragment)) fail(`Recherche mobile non protegee contre le chargement pendant la frappe (${fragment}).`);
+});
+if (app.includes("function openSearch() {\n    loadDeferredCatalogChunks().catch(() => {});")) {
+  fail('app.js: ouvrir une recherche vide charge encore le catalogue differe avant la saisie.');
+}
 if (
   app.includes('const warmupTimer = window.setTimeout')
   || app.includes('if (!activeId || fullRecipeCatalogLoaded) return;')
