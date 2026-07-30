@@ -108,7 +108,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.25';
+const SITE_VERSION = 'v4.26';
 const SITE_UPDATED_AT = '30/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
@@ -5487,7 +5487,7 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
       onMouseDown: event => event.stopPropagation()
     },
       h('div', { className: 'modal-head' },
-        h('h2', null, 'Rechercher'),
+         h('h2', null, 'Rechercher'),
         h('button', { type: 'button', className: 'icon-btn', onClick: closeSearch, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'field search-modal-field' },
