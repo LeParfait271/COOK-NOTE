@@ -5,6 +5,7 @@ const ROOT = path.resolve(__dirname, '..');
 const files = {
   appImages: fs.readFileSync(path.join(ROOT, 'app-images.js'), 'utf8'),
   app: fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8'),
+  i18n: fs.readFileSync(path.join(ROOT, 'i18n.js'), 'utf8'),
   index: fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'),
   recipe: fs.readFileSync(path.join(ROOT, 'recipe.js'), 'utf8'),
   style: fs.readFileSync(path.join(ROOT, 'style.css'), 'utf8'),
@@ -144,6 +145,31 @@ const cinematicGothicDirectionIsLocked = files.app.includes('CATEGORY_CREST_ICON
   && files.rules.includes('Les deux chateaux, la lune et l\'atmosphere du hero restent un decor passif')
   && files.rules.includes('Les grilles de recettes de l\'accueil gardent des cartes de dimensions et de poids visuel reguliers')
   && files.designSystem.includes('Gothique cinematique Cook Note');
+const homeSearchAreaStaysClean = !files.app.includes('home-command-status')
+  && !files.style.includes('.home-command-status')
+  && files.app.includes("className: 'home-search-launcher'");
+const recipeCardsStayContentSafe = !files.app.includes("className: 'card-facts'")
+  && files.app.includes("className: 'card-variant-count'");
+const citadelUiStringsAreLocalized = [
+  "t('home.heroSystemLabel')",
+  "t('home.searchTitle')",
+  "t('home.searchSubtitle')",
+  "t('search.pending')",
+  "t('search.bestResults'",
+  "t('search.results'"
+].every(fragment => files.app.includes(fragment))
+  && [
+    "'home.heroSystemLabel':",
+    "'home.searchTitle':",
+    "'home.searchSubtitle':",
+    "'search.pending':",
+    "'search.bestResults':",
+    "'search.results':"
+  ].every(fragment => files.i18n.split(fragment).length === 3);
+const citadelMotionUsesSystemTokens = !files.style.includes('220ms')
+  && !files.style.includes('opacity .18s ease')
+  && files.style.includes('animation: prestige-scan var(--ds-motion-slow)')
+  && /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*?\.search-result-count\.search-pending::after\s*\{[\s\S]*?animation:\s*none\s*!important;/.test(files.style);
 
 function expect(label, condition) {
   if (!condition) errors.push(label);
@@ -183,9 +209,13 @@ expect('Transitions de vue absentes.', files.app.includes('function runViewTrans
 expect('Le hero aux deux chateaux peut redevenir interactif ou porter la recherche.', homeHeroStaysPassive);
 expect('Une experience visuelle explicitement refusee a ete reactivee.', forbiddenVisualExperiments);
 expect('Direction gothique cinematique non verrouillee.', cinematicGothicDirectionIsLocked);
+expect('La zone de recherche de l accueil contient de nouveau un surtitre gadget.', homeSearchAreaStaysClean);
+expect('Des metadonnees interdites sont revenues sous les titres des cartes recette.', recipeCardsStayContentSafe);
+expect('Les nouveaux textes de la citadelle ne sont pas synchronises en FR et EN.', citadelUiStringsAreLocalized);
+expect('Les animations de la citadelle contournent le motion system ou le mode reduit.', citadelMotionUsesSystemTokens);
 expect('Dock recette absent.', files.app.includes('function RecipeCommandDock') && files.app.includes('recipe-command-dock') && files.style.includes('.recipe-command-dock') && files.style.includes('--dock-progress'));
 expect('Accent visuel pilote par contenu absent.', files.app.includes('--ambient-accent') && files.style.includes('--ambient-accent') && files.style.includes('var(--ambient-accent'));
-expect('Cartes recettes limitees au titre et au compte de variantes.', files.app.includes("h('div', { className: 'card-body' }") && files.app.includes('getRecipeVariantLabel(recipe, recipesById)') && files.app.includes("className: 'card-variant-count'") && !files.app.includes("h('div', { className: 'tag-line' }") && !files.app.includes("className: 'video-badge'") && !files.app.includes("className: isFavorite ? 'fav-btn active' : 'fav-btn'"));
+expect('Cartes recettes limitees au titre et au compte de variantes.', recipeCardsStayContentSafe && files.app.includes("h('div', { className: 'card-body' }") && files.app.includes('getRecipeVariantLabel(recipe, recipesById)') && !files.app.includes("h('div', { className: 'tag-line' }") && !files.app.includes("className: 'video-badge'") && !files.app.includes("className: isFavorite ? 'fav-btn active' : 'fav-btn'"));
 expect('Cartes variantes parent sans compteur de variantes.', files.app.includes("const variantLabel = getRecipeVariantLabel(item, recipesById);") && files.app.includes("variantLabel && h('small', { className: 'variant-card-variant-count' }, variantLabel)") && !files.app.includes("h('small', null, categoryLine(item))") && !files.app.includes("variant-card-quicklook"));
 expect('Grille des fiches parentes sans respiration dediee.', files.app.includes('master-recipe-grid') && files.style.includes('.master-recipe-grid') && files.style.includes('.home-view .master-recipe-grid .recipe-card.master-card .card-media'));
 expect('Grille longue sans rendu incremental.', files.app.includes('GRID_INITIAL_RENDER_COUNT') && files.app.includes('recipe-grid-load-more') && files.app.includes('remainingRecipeCount') && files.app.includes("'aria-label': loadMoreLabel") && files.style.includes('.recipe-grid-load-more'));

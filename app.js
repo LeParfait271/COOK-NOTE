@@ -116,7 +116,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.21';
+const SITE_VERSION = 'v4.22';
 const SITE_UPDATED_AT = '30/07/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
@@ -4811,7 +4811,7 @@ function Hero() {
     h('span', { className: 'hero-sentinel hero-sentinel-east', 'aria-hidden': true }),
     h('div', { className: 'hero-inner' },
       h('h1', { className: 'sr-only' }, 'Cook Note'),
-      h('p', { className: 'hero-system-label' }, 'Archives culinaires \u00b7 Les deux citadelles'),
+      h('p', { className: 'hero-system-label' }, t('home.heroSystemLabel')),
       h('img', { className: 'hero-logo', src: logo, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(logo) }),
       h('span', { className: 'hero-axis-mark', 'aria-hidden': true })
     )
@@ -4852,7 +4852,6 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     .join(' ');
   const cardStyle = ambilightStyle(cardImage, style);
   const transitionName = master ? '' : recipeViewTransitionName(recipe.id);
-  const timing = master ? null : getRecipeTiming(recipe);
   const categoryIndex = master ? homeCardOrder(recipe) : 0;
   const romanIndex = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'][categoryIndex] || '';
 
@@ -4899,11 +4898,6 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
         h(Icon, { name: categoryCrestIcon(recipe) })
       ),
       h('h3', null, recipe.title),
-      !master && h('p', { className: 'card-facts', 'aria-label': `Informations pour ${recipe.title}` },
-        timing?.active && h('span', null, `Actif ${formatMinutesShort(timing.active)}`),
-        h('span', null, difficultyText(recipe)),
-        h('span', null, primaryCategory(recipe))
-      ),
       variantLabel && h('p', { className: 'card-meta', 'aria-label': variantLabel },
         h('span', { className: 'card-variant-count' }, variantLabel)
       )
@@ -5130,12 +5124,11 @@ function HomeView(props) {
     h(Hero),
     h('div', { className: 'content-wrap' },
       !props.onlyFavorites && h('section', { className: 'home-command-center', 'aria-label': 'Acces rapides Cook Note' },
-        h('span', { className: 'home-command-status', 'aria-hidden': true }, 'SYST\u00c8ME CULINAIRE \u00b7 PR\u00caT'),
         h('button', { type: 'button', className: 'home-search-launcher', onClick: props.openSearch },
           h(Icon, { name: 'search' }),
           h('span', { className: 'home-search-copy' },
-            h('strong', null, 'Rechercher une recette ou un ingr\u00e9dient'),
-            h('small', null, 'Titre, produit, saison, envie ou technique')
+            h('strong', null, t('home.searchTitle')),
+            h('small', null, t('home.searchSubtitle'))
           ),
           h('kbd', null, '/')
         ),
@@ -5558,10 +5551,10 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
       hasQuery
         ? h('div', { className: searchPending ? 'search-result-count search-pending' : 'search-result-count', role: 'status', 'aria-live': 'polite' },
           searchPending
-            ? 'Recherche en cours\u2026'
+            ? t('search.pending')
             : visibleResults.length < results.length
-              ? `${visibleResults.length} meilleurs résultats sur ${results.length} pour "${draftQuery}"`
-              : `${results.length} résultat${results.length > 1 ? 's' : ''} pour "${draftQuery}"`)
+              ? t('search.bestResults', { shown: visibleResults.length, total: results.length, query: draftQuery })
+              : t('search.results', { count: results.length, plural: results.length > 1 ? 's' : '', query: draftQuery }))
         : null,
       hasQuery && !searchPending && (visibleResults.length
         ? h('div', { className: 'search-result-groups' },

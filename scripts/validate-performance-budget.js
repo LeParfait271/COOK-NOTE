@@ -14,7 +14,7 @@ const FILE_BUDGETS = [
   ['app-techniques.js', 40 * KB],
   ['app.js', 400 * KB],
   // Source lisible pour maintenance ; le poids réellement livré reste plafonné séparément.
-  ['style.css', 228 * KB],
+  ['style.css', 220 * KB],
   ['dist/style.css', 192 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.
   ['recipes.js', 760 * KB],
@@ -74,7 +74,12 @@ function fail(message) {
 }
 
 function bytes(file) {
-  return fs.statSync(path.join(ROOT, file)).size;
+  const filePath = path.join(ROOT, file);
+  if (normalizeKey(file) === 'style.css') {
+    const normalizedSource = fs.readFileSync(filePath, 'utf8').replace(/\r\n/g, '\n');
+    return Buffer.byteLength(normalizedSource, 'utf8');
+  }
+  return fs.statSync(filePath).size;
 }
 
 function formatKb(value) {

@@ -16,7 +16,13 @@
       'seo.recipe.description': '{title} sur Cook Note : recette {category}{yieldText}{ingredientsText}.',
       'seo.techniques.description': 'Techniques de cuisine Cook Note : gestes, bases et repères pratiques pour cuisiner plus proprement.',
       'seo.home.title': 'Cook Note',
-      'seo.techniques.title': 'Techniques - Cook Note'
+      'seo.techniques.title': 'Techniques - Cook Note',
+      'home.heroSystemLabel': 'Archives culinaires · Les deux citadelles',
+      'home.searchTitle': 'Rechercher une recette ou un ingrédient',
+      'home.searchSubtitle': 'Titre, produit, saison, envie ou technique',
+      'search.pending': 'Recherche en cours…',
+      'search.bestResults': '{shown} meilleurs résultats sur {total} pour "{query}"',
+      'search.results': '{count} résultat{plural} pour "{query}"'
     },
     en: {
       'language.selector': 'Language',
@@ -28,7 +34,13 @@
       'seo.recipe.description': '{title} on Cook Note: {category} recipe{yieldText}{ingredientsText}.',
       'seo.techniques.description': 'Cook Note cooking techniques: practical gestures, basics and kitchen cues for cleaner cooking.',
       'seo.home.title': 'Cook Note',
-      'seo.techniques.title': 'Techniques - Cook Note'
+      'seo.techniques.title': 'Techniques - Cook Note',
+      'home.heroSystemLabel': 'Culinary archives · The twin citadels',
+      'home.searchTitle': 'Search for a recipe or ingredient',
+      'home.searchSubtitle': 'Title, ingredient, season, craving or technique',
+      'search.pending': 'Searching…',
+      'search.bestResults': '{shown} best results out of {total} for "{query}"',
+      'search.results': '{count} result{plural} for "{query}"'
     }
   };
 

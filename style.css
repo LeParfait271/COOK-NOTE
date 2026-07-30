@@ -7979,7 +7979,10 @@ a {
 }
 
 #cook-note-update-action {
-  transition: opacity .18s ease, transform .18s ease, box-shadow .18s ease;
+  transition:
+    opacity var(--ds-motion-normal) var(--ds-ease),
+    transform var(--ds-motion-normal) var(--ds-ease),
+    box-shadow var(--ds-motion-normal) var(--ds-ease);
 }
 
 body:has(.modal-backdrop) #cook-note-update-action {
@@ -8023,7 +8026,10 @@ body:has(.modal-backdrop) #cook-note-update-action {
     inset 0 -1px 0 rgba(255, 255, 255, .025),
     0 16px 46px rgba(0, 0, 0, .38);
   backdrop-filter: blur(24px) saturate(1.06);
-  transition: min-height 220ms var(--ds-ease), padding 220ms var(--ds-ease), background 220ms var(--ds-ease);
+  transition:
+    min-height var(--ds-motion-normal) var(--ds-ease),
+    padding var(--ds-motion-normal) var(--ds-ease),
+    background var(--ds-motion-normal) var(--ds-ease);
 }
 
 .topbar::after {
@@ -8211,14 +8217,6 @@ body:has(.modal-backdrop) #cook-note-update-action {
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-}
-
-.home-command-status {
-  order: -1;
-  color: color-mix(in srgb, var(--prestige-gold-soft) 70%, var(--muted));
-  font-size: 9px;
-  font-weight: 820;
-  letter-spacing: .22em;
 }
 
 .home-search-launcher {
@@ -8548,7 +8546,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
   margin-left: 9px;
   vertical-align: middle;
   background: linear-gradient(90deg, transparent, var(--prestige-gold), transparent);
-  animation: prestige-scan 760ms ease-in-out infinite alternate;
+  animation: prestige-scan var(--ds-motion-slow) ease-in-out infinite alternate;
 }
 
 .mc-shell.theme-light :where(.search-modal, .command-palette) {
@@ -8803,7 +8801,6 @@ body:has(.modal-backdrop) #cook-note-update-action {
   }
 
   .home-search-copy small,
-  .home-command-status,
   .hero-sentinel {
     display: none;
   }
@@ -8887,7 +8884,8 @@ body:has(.modal-backdrop) #cook-note-update-action {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-atmosphere,
-  .home-command-center::after {
+  .home-command-center::after,
+  .search-result-count.search-pending::after {
     animation: none !important;
   }
 

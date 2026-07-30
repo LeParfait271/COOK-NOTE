@@ -109,6 +109,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.hero-atmosphere-glow')).toHaveCount(1);
     await expect(page.locator('.hero-atmosphere-mist')).toHaveCount(1);
     await expect(page.locator('.home-view > .hero button, .home-view > .hero a')).toHaveCount(0);
+    await expect(page.locator('.home-command-status')).toHaveCount(0);
     await expect(async () => {
       const count = await page.locator('.recipe-card').count();
       expect(count).toBeGreaterThanOrEqual(8);
@@ -151,6 +152,7 @@ test.describe('Cook Note visual smoke', () => {
     await page.keyboard.press('Escape');
     await expect(page.locator('.search-modal')).toBeHidden();
     await expect(page.locator('.recipe-card.master-card')).toHaveCount(8);
+    await expect(page.locator('.recipe-card .card-facts')).toHaveCount(0);
     await page.evaluate(() => document.querySelectorAll('.recipe-card')[7]?.scrollIntoView({ block: 'center' }));
     await page.waitForTimeout(250);
     await page.evaluate(() => document.querySelector('.recipe-card')?.scrollIntoView({ block: 'center' }));
@@ -180,6 +182,9 @@ test.describe('Cook Note visual smoke', () => {
     await expectSelectedLanguage(page, 'fr', 'FR');
     await page.locator('.language-toggle:visible').first().click();
     await expectSelectedLanguage(page, 'en', 'EN');
+    await expect(page.locator('.hero-system-label')).toHaveText('Culinary archives · The twin citadels');
+    await expect(page.locator('.home-search-copy strong')).toHaveText('Search for a recipe or ingredient');
+    await expect(page.locator('.home-search-copy small')).toHaveText('Title, ingredient, season, craving or technique');
     await page.locator('.language-toggle:visible').first().click();
     await expectSelectedLanguage(page, 'fr', 'FR');
     await expect(page.locator('.home-view')).toBeVisible();
