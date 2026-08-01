@@ -108,7 +108,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.34';
+const SITE_VERSION = 'v4.35';
 const SITE_UPDATED_AT = '01/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
@@ -6544,14 +6544,12 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
     timing.rest ? 'Prevoir le repos avant de promettre le service.' : '',
     ...serviceItems,
     ...riskSignals.map(signal => `${signal.label} : point de vigilance.`)
-  ].filter(Boolean).slice(0, 4);
+  ].filter(Boolean).slice(0, 3);
   const facts = [
     timing.total && { label: 'Total', value: formatMinutesShort(timing.total) },
     { label: 'Temps actif', value: formatMinutesShort(timing.active) || 'A estimer' },
     timing.cook && { label: 'Cuisson', value: formatMinutesShort(timing.cook) },
     timing.rest && { label: 'Repos / froid', value: formatMinutesShort(timing.rest) },
-    { label: 'Difficulté', value: difficultyText(recipe).replace('Difficulté ', '') },
-    recipe.yield && { label: 'Quantité', value: getQuantityDisplay(recipe, factor) },
   ].filter(Boolean);
   return h('section', { className: 'recipe-summary-panel', 'aria-label': 'Résumé de la recette' },
     h('div', { className: 'recipe-summary-head' },
@@ -6694,7 +6692,7 @@ function RecipeCommandDock({
     h('div', { className: 'recipe-dock-main' },
       h('div', { className: 'recipe-dock-copy' },
         h('span', { className: 'eyebrow' }, 'Fiche active'),
-        h('strong', null, title),
+        h('strong', { title }, title),
         h('small', { style: canShowSteps ? { display: 'flex', gap: '3px 10px' } : undefined }, canShowSteps
           ? [
             h('span', { key: 'percent' }, `${safeProgress}% pr\u00eat`),
@@ -6951,7 +6949,6 @@ function RecipeView({
             : [
               h('span', { key: 'difficulty' }, difficultyText(selectedRecipe)),
               h('span', { key: 'nutri', className: `nutri-score nutri-${getNutriScore(selectedRecipe).toLowerCase()}` }, `Nutri ${getNutriScore(selectedRecipe)}`),
-              selectedRecipe.yield && h('span', { key: 'yield' }, getQuantityDisplay(selectedRecipe, factor)),
               h('span', { key: 'ingredients' }, `${countIngredients(selectedRecipe)} ingrédients`),
               h('span', { key: 'steps' }, stepMetaText)
             ]
@@ -6960,7 +6957,7 @@ function RecipeView({
           h(QuantityFactorControl, { recipe: selectedRecipe, factor, setFactor, className: 'detail-quantity-control' })
         ),
         hasResolvedRecipe && h('div', { className: 'detail-actions' },
-          h(Button, { variant: isInShopping ? 'primary' : 'ghost', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(shoppingKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
+          h(Button, { variant: 'primary', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(shoppingKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
           !isMasterRecipe(selectedRecipe) && h(Button, {
             variant: 'subtle',
             onClick: copyCurrentRecipe
@@ -6993,7 +6990,7 @@ function RecipeView({
       needsVariantSelection: needsInlineVariantSelection,
       hasVariantSelection: true
     }),
-    hasResolvedRecipe && h('div', { className: 'recipe-command-dock-slot', style: { minHeight: 84 } },
+    hasResolvedRecipe && h('div', { className: 'recipe-command-dock-slot', style: { minHeight: 104 } },
       h(RecipeCommandDock, {
         title: selectedRecipe.title,
         recipe: selectedRecipe,
@@ -7099,7 +7096,7 @@ function RecipeView({
             needsInlineVariantSelection && selectedGroupLabel && h('span', { className: 'progress-label' }, selectedGroupLabel)
           )
         ),
-        canShowSteps && h('div', { className: 'progress-track' }, h('span', { style: { width: `${progress}%` } })),
+        canShowSteps && h('div', { className: 'progress-track', role: 'progressbar', 'aria-label': 'Progression de la recette', 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-valuenow': progress }, h('span', { style: { width: `${progress}%` } })),
         canShowSteps && h('div', { className: 'before-start-card' },
           h('div', null,
             h('strong', null, 'Avant de commencer'),

@@ -1872,8 +1872,8 @@ a {
 }
 
 .mobile-nav-icon .site-icon {
-  width: 21px;
-  height: 21px;
+  width: 19px;
+  height: 19px;
 }
 
 .recipe-tabs {
@@ -2399,7 +2399,7 @@ a {
   width: min(1180px, calc(100% - 32px));
   display: grid;
   gap: 8px;
-  margin: 12px auto 0;
+  margin: 10px auto 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background:
@@ -2436,14 +2436,14 @@ a {
 }
 
 .recipe-quick-fact {
-  min-height: 54px;
+  min-height: 48px;
   border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
   border-radius: var(--radius);
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, transparent), rgba(255, 255, 255, .035)),
     var(--surface);
-  padding: 9px 11px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
+  padding: 8px 10px;
+  box-shadow: none;
 }
 
 .recipe-quick-fact span {
@@ -5325,7 +5325,7 @@ a {
     transform: translate3d(0, 0, 0);
   }
 
-  .topbar{display:grid;grid-template-columns:minmax(0,1fr) auto;padding:6px 12px}.top-left{display:none}.top-right :is(.top-search-button,.top-fav-btn){display:none}.mobile-bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr))}.mobile-bottom-nav :is(.mobile-theme-toggle,.language-switcher){display:none}
+  .topbar{display:grid;grid-template-columns:1fr;padding:6px 12px}.top-left{display:none}.top-right{justify-self:center}.top-right :is(.top-search-button,.top-fav-btn){display:none}.mobile-bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr))}.mobile-bottom-nav :is(.mobile-theme-toggle,.language-switcher){display:none}
 
   .offline-status-bar {
     top: 10px;
@@ -5605,26 +5605,11 @@ a {
     display: block;
   }
 
-  .recipe-detail-hero {
-    min-height: 250px;
-  }
-
   .parent-hero {
     min-height: 270px;
   }
 
-  .detail-hero-copy {
-    padding: 34px 0 24px;
-  }
-
-  .detail-actions {
-    justify-content: flex-start;
-    margin-top: 18px;
-  }
-
-  .detail-actions .btn {
-    min-height: 42px;
-  }
+  .detail-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));justify-content:stretch;gap:8px;margin-top:16px}.detail-actions .btn,.detail-actions>a{width:100%;min-height:44px;padding-inline:10px}.detail-meta{gap:6px}.detail-meta span{min-height:22px;padding-inline:7px;font-size:11px}
 
   .list-title {
     grid-template-columns: 1fr;
@@ -6188,13 +6173,16 @@ a {
 }
 
 .recipe-dock-copy strong {
+  display: -webkit-box;
   overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   color: #fff8ea;
   font-size: 16px;
   font-weight: 950;
   line-height: 1.12;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .recipe-dock-copy small {
@@ -6524,7 +6512,7 @@ a {
   }
 
   .recipe-detail-hero {
-    min-height: 310px;
+    min-height: 0;
   }
 
   .recipe-detail-hero::after {
@@ -6534,12 +6522,7 @@ a {
   }
 
   .detail-hero-copy {
-    padding: 34px 0 26px;
-  }
-
-  .recipe-detail-hero h1 {
-    font-size: clamp(29px, 8.5vw, 36px);
-    line-height: 1.03;
+    padding: 26px 0 22px;
   }
 
   .recipe-summary-panel,
@@ -7922,19 +7905,20 @@ a {
 
 @media (max-width: 700px) {
   body {
-    padding-bottom: calc(86px + env(safe-area-inset-bottom));
+    padding-bottom: calc(82px + env(safe-area-inset-bottom));
   }
 
   .mobile-bottom-nav {
-    left: 8px;
-    right: 8px;
+    inset-inline:12px;
     bottom: max(8px, env(safe-area-inset-bottom));
-    border-radius: 10px;
-    padding-bottom: max(6px, env(safe-area-inset-bottom));
+    border-radius:14px;
+    padding:4px;
+    box-shadow:0 10px 28px #0005;
   }
 
   .mobile-bottom-nav button {
-    min-height: 48px;
+    min-height: 44px;
+    font-size: 10px;
   }
 
   .recipe-command-dock {
@@ -8032,9 +8016,9 @@ a {
 }
 
 .recipe-dock-main {
-  grid-template-columns: minmax(230px, 1fr) auto minmax(340px, auto) auto;
-  gap: 16px;
-  padding: 12px 16px;
+  grid-template-columns: minmax(240px, 1.1fr) auto minmax(320px, auto) auto;
+  gap: 10px;
+  padding: 10px 12px;
 }
 
 .recipe-dock-tabs button,
@@ -8060,7 +8044,7 @@ a {
 
 @media (max-width: 900px) {
   .recipe-detail-hero {
-    min-height: 300px;
+    min-height: 0;
   }
 
   .recipe-detail-grid {
@@ -8713,20 +8697,20 @@ body:has(.modal-backdrop) #cook-note-update-action {
 
 .recipe-detail-grid {
   gap: clamp(16px, 1.8vw, 24px);
-  margin-top: clamp(22px, 2.2vw, 32px);
+  margin-top: clamp(18px, 1.9vw, 26px);
 }
 
 .recipe-panel,
 .recipe-summary-panel {
-  border-color: color-mix(in srgb, var(--prestige-gold) 19%, var(--visual-rim));
-  border-radius: var(--ds-radius-lg);
+  border-color: color-mix(in srgb, var(--prestige-gold) 14%, var(--visual-rim));
+  border-radius: var(--ds-radius-md);
   background:
     linear-gradient(145deg, color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--prestige-gold))) 5%, transparent), transparent 38%),
     linear-gradient(180deg, rgba(255, 255, 255, .032), transparent 180px),
     color-mix(in srgb, #0d0c0a 86%, var(--surface));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .035),
-    0 20px 54px rgba(0, 0, 0, .24);
+    inset 0 1px 0 rgba(255, 255, 255, .025),
+    0 14px 40px rgba(0, 0, 0, .20);
 }
 
 .recipe-panel::before,
@@ -8744,7 +8728,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 .panel-heading h2,
 .notes-panel h2 {
   color: color-mix(in srgb, var(--prestige-gold-soft) 32%, var(--text));
-  font-size: clamp(23px, 2vw, 29px);
+  font-size: clamp(21px, 1.8vw, 26px);
   font-weight: 700;
 }
 
@@ -8763,23 +8747,23 @@ body:has(.modal-backdrop) #cook-note-update-action {
 }
 
 .step-list {
-  gap: 11px;
+  gap: 8px;
 }
 
 .step-list li {
   border-color: color-mix(in srgb, var(--prestige-gold) 14%, var(--line));
-  border-radius: 10px;
+  border-radius: 8px;
   background:
     linear-gradient(90deg, color-mix(in srgb, var(--panel-accent, var(--prestige-gold)) 7%, transparent), transparent 34%),
     rgba(255, 255, 255, .022);
-  padding: 16px 18px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .025);
+  padding: 12px 14px;
+  box-shadow: none;
 }
 
 .step-list li:hover,
 .step-list li:focus-within {
   border-color: color-mix(in srgb, var(--prestige-gold) 34%, var(--panel-accent, var(--line)));
-  transform: translateX(3px);
+  transform: none;
 }
 
 .steps-panel .progress-track span {
@@ -8991,7 +8975,8 @@ body:has(.modal-backdrop) #cook-note-update-action {
   }
 
   .recipe-detail-hero h1 {
-    font-size: clamp(36px, 11vw, 52px);
+    margin-bottom: 14px;
+    font-size: clamp(34px, 9.5vw, 46px);
   }
 
   .recipe-detail-grid {

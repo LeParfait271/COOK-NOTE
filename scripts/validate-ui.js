@@ -29,7 +29,7 @@ const recipeDockIsFixedOnDesktop = files.style.includes('@media (min-width: 1061
   && files.style.includes('left: 50%;')
   && files.style.includes('transform: translateX(-50%);')
   && files.app.includes("className: 'recipe-command-dock-slot'")
-  && files.app.includes('minHeight: 84');
+  && files.app.includes('minHeight: 104');
 const mobileSeasonTabsUseStableGrid = /@media\s*\(max-width:\s*700px\)\s*\{[\s\S]*?\.season-tabs\s*\{[\s\S]*?display:\s*grid;[\s\S]*?grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(files.style);
 const cardImageMotionIsBounded = files.style.includes('--ds-card-image-motion: 250ms')
   && /\.card-media\s*\{[\s\S]*?transition:\s*transform var\(--ds-card-image-motion\) var\(--ds-ease\), filter var\(--speed\);/.test(files.style)
