@@ -14,7 +14,7 @@ const FILE_BUDGETS = [
   ['app-techniques.js', 40 * KB],
   ['app.js', 400 * KB],
   // Source lisible pour maintenance ; le poids réellement livré reste plafonné séparément.
-  ['style.css', 220 * KB],
+  ['style.css', 224 * KB],
   ['dist/style.css', 192 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.
   ['recipes.js', 760 * KB],

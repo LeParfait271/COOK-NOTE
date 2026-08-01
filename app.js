@@ -108,7 +108,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.35';
+const SITE_VERSION = 'v4.36';
 const SITE_UPDATED_AT = '01/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
@@ -4451,7 +4451,8 @@ function Button(props) {
     disabled: props.disabled,
     title: props.title,
     'aria-label': props.ariaLabel,
-    'aria-pressed': props.pressed
+    'aria-pressed': props.pressed,
+    'aria-current': props.current
   }, props.children);
 }
 
@@ -4700,7 +4701,7 @@ function ScrollProgress() {
   return h('div', { ref: progressRef, className: 'scroll-progress', 'aria-hidden': true });
 }
 
-function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences, activeTheme, toggleTheme }) {
+function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences, activeTheme, toggleTheme, homeActive = false, searchActive = false, favoritesActive = false }) {
   const [condensed, setCondensed] = useState(() => window.scrollY > 64);
   const themeToggleLabel = activeTheme === 'light' ? 'Passer en mode nuit' : 'Passer en mode jour';
 
@@ -4725,24 +4726,26 @@ function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences
 
   return h('header', { className: condensed ? 'topbar topbar-condensed' : 'topbar' },
     h('div', { className: 'top-left' },
-      h(Button, { variant: 'subtle', className: 'icon-square', onClick: onHome, title: 'Accueil', ariaLabel: 'Accueil' }, h(Icon, { name: 'home' }))
+      h(Button, { variant: 'subtle', className: homeActive ? 'icon-square active' : 'icon-square', onClick: onHome, title: 'Accueil', ariaLabel: 'Accueil', current: homeActive ? 'page' : undefined }, h(Icon, { name: 'home' }))
     ),
     h('div', { className: 'top-actions', 'aria-hidden': true }),
     h('div', { className: 'top-right' },
       h(Button, {
         variant: 'ghost',
-        className: query.trim() ? 'top-search-button icon-square active' : 'top-search-button icon-square',
+        className: query.trim() || searchActive ? 'top-search-button icon-square active' : 'top-search-button icon-square',
         onClick: openSearch,
         title: 'Rechercher',
         ariaLabel: 'Rechercher',
-        pressed: Boolean(query.trim())
+        pressed: Boolean(query.trim() || searchActive)
       }, h(Icon, { name: 'search' })),
       h(Button, {
         variant: 'ghost',
-        className: 'top-fav-btn icon-square',
+        className: favoritesActive ? 'top-fav-btn icon-square active' : 'top-fav-btn icon-square',
         onClick: showFavorites,
         title: 'Voir les favoris',
-        ariaLabel: 'Voir les favoris'
+        ariaLabel: 'Voir les favoris',
+        pressed: favoritesActive,
+        current: favoritesActive ? 'page' : undefined
       }, h(Icon, { name: 'heart' })),
       h(Button, {
         variant: 'ghost',
@@ -5933,7 +5936,8 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, pantryItems =
           h('ul', null, group.items.map(item => h('li', { key: item }, item)))
         ))
       ),
-      recipes.length > 0 && h('div', { className: 'shopping-aisles' },
+      recipes.length > 0 && h('div', { className: 'shopping-aisles-shell' },
+        h('div', { className: 'shopping-aisles' },
         scopedShoppingData.aisleGroups.map(group => h('section', { key: group.label, className: 'shopping-aisle' },
           h('div', { className: 'shopping-aisle-head' },
             h('strong', null, group.label),
@@ -5962,6 +5966,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, pantryItems =
             );
           })
         ))
+        )
       ),
       recipes.length > 0 && freshOnly && scopedShoppingData.groupedItems.length === 0 && scopedShoppingData.ownedGroupedItems.length === 0 && h('div', { className: 'empty-state shopping-empty' },
         h('h2', null, 'Aucun achat frais'),
@@ -6894,7 +6899,12 @@ function RecipeView({
   }
 
   function continueToRecipeDetails() {
-    document.getElementById('recipe-detail-content')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const target = document.getElementById('recipe-detail-content');
+    if (!target) return;
+    const dock = document.querySelector('.recipe-command-dock');
+    const dockBottom = dock?.getBoundingClientRect().bottom || 0;
+    const top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - dockBottom - 24);
+    window.scrollTo({ top, behavior: 'smooth' });
   }
 
   function copyCurrentRecipe() {
@@ -6917,8 +6927,8 @@ function RecipeView({
       '--recipe-hero-image-max': `${heroImageWidth}px`,
       ...(heroTransitionName ? { viewTransitionName: heroTransitionName } : {}),
       backgroundImage: heroUsesHomeImage
-        ? `linear-gradient(110deg, rgba(4,4,5,.92), rgba(4,4,5,.54) 48%, rgba(4,4,5,.84)), url("${heroImage}")`
-        : `linear-gradient(90deg, rgba(4,4,5,.92), rgba(4,4,5,.50)), url("${heroImage}")`
+        ? `linear-gradient(110deg, rgba(4,4,5,.82), rgba(4,4,5,.40) 48%, rgba(4,4,5,.70)), url("${heroImage}")`
+        : `linear-gradient(90deg, rgba(4,4,5,.72), rgba(4,4,5,.24) 54%, rgba(4,4,5,.52)), url("${heroImage}")`
     }
     : {};
   const detailAccent = getCategoryColor(selectedRecipe);
@@ -8051,7 +8061,10 @@ function App() {
       openSearch: openCommandPalette,
       openPreferences: () => setPreferencesOpen(true),
       activeTheme,
-      toggleTheme
+      toggleTheme,
+      homeActive: !activeRecipe && activePage === 'home' && !onlyFavorites,
+      searchActive: commandOpen || searchOpen,
+      favoritesActive: onlyFavorites
     }),
     h(ScrollProgress),
     h(OfflineStatusBar, { isOnline, favoriteCount: favorites.length }),
