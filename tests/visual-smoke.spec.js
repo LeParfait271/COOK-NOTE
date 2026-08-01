@@ -382,6 +382,28 @@ test.describe('Cook Note visual smoke', () => {
     });
   });
 
+  test('desktop recipe dock stays pinned while scrolling', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
+    await waitForCookNote(page);
+
+    const dock = page.locator('.recipe-command-dock');
+    await expect(dock).toBeVisible();
+    const viewportWidth = await page.evaluate(() => window.innerWidth);
+    if (viewportWidth < 1061) return;
+
+    await expect(dock).toHaveCSS('position', 'fixed');
+    const before = await dock.boundingBox();
+    await page.evaluate(() => window.scrollTo(0, Math.min(900, document.documentElement.scrollHeight)));
+    await page.waitForTimeout(120);
+    const after = await dock.boundingBox();
+
+    expect(before).not.toBeNull();
+    expect(after).not.toBeNull();
+    expect(Math.abs((after?.y || 0) - (before?.y || 0))).toBeLessThanOrEqual(2);
+    await expectNoHorizontalOverflow(page);
+  });
+
   for (const [recipeId, expectedTitle] of CATEGORY_PARENT_ROUTES) {
     test(`category parent ${recipeId} renders variants cleanly`, async ({ page }, testInfo) => {
       await forceTheme(page, 'dark');

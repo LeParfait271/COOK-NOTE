@@ -304,7 +304,7 @@ expect('Tokens design system admin absents.', validators.adminCss.includes('--ds
   'menu deroulant',
   'nom APK versionne',
   'recipe-command-dock',
-  'ne doit jamais etre sticky ni fixed',
+  'reste fixe sous la barre superieure',
   'Sous le nom d\'une carte recette',
   'toutes les categories de la fiche',
   '`Toppings frites` = Accompagnements/Sauces'

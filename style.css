@@ -8816,9 +8816,12 @@ body:has(.modal-backdrop) #cook-note-update-action {
 
 @media (min-width: 1061px) {
   .recipe-command-dock {
-    position: sticky;
-    top: 76px;
-    z-index: 20;
+    position: fixed;
+    top: 54px;
+    left: 50%;
+    margin: 0;
+    transform: translateX(-50%);
+    z-index: 95;
   }
 
   .ingredients-panel,
