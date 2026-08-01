@@ -347,17 +347,17 @@ test.describe('Cook Note visual smoke', () => {
     const panel = page.locator('.ingredients-panel');
     await expect(panel).toContainText('1 bouquet garni');
     const layout = await panel.evaluate(element => {
-      element.scrollTop = element.scrollHeight;
       const lastItem = element.querySelector('.ingredient-group li:last-child');
       const panelRect = element.getBoundingClientRect();
       const lastItemRect = lastItem.getBoundingClientRect();
       return {
         overflowY: getComputedStyle(element).overflowY,
+        viewportWidth: window.innerWidth,
         bottomSpace: panelRect.bottom - lastItemRect.bottom
       };
     });
 
-    expect(layout.overflowY).toBe('auto');
+    expect(layout.overflowY).toBe(layout.viewportWidth < 1061 ? 'auto' : 'visible');
     expect(layout.bottomSpace).toBeGreaterThanOrEqual(12);
     await expectNoHorizontalOverflow(page);
   });

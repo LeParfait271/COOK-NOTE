@@ -108,7 +108,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.32';
+const SITE_VERSION = 'v4.33';
 const SITE_UPDATED_AT = '01/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
@@ -4816,7 +4816,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   const className = ['recipe-card', renderCardImage ? 'has-image' : '', hasDayFallback ? 'theme-fallback-day' : '', master ? 'master-card' : '']
     .filter(Boolean)
     .join(' ');
-  const cardStyle = ambilightStyle(cardImage, style);
+  const cardStyle = { ...ambilightStyle(cardImage, style), cursor: 'pointer' };
   const transitionName = master ? '' : recipeViewTransitionName(recipe.id);
   const categoryIndex = master ? homeCardOrder(recipe) : 0;
   const romanIndex = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'][categoryIndex] || '';
@@ -4964,7 +4964,8 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   useCenteredScrollFeature(gridRef, `${recipeKey}:${visibleCount}`);
 
   if (!recipes.length) {
-    return h('div', { className: 'empty-state' },
+    return h('div', { className: 'empty-state', style: { justifyItems: 'center', textAlign: 'center' } },
+      h('span', { className: 'empty-state-mark', 'aria-hidden': true, style: { display: 'grid', placeItems: 'center', width: 42, height: 42, border: '1px solid color-mix(in srgb,var(--accent) 52%,var(--line))', borderRadius: '999px', background: 'color-mix(in srgb,var(--accent) 12%,var(--surface-soft))' } }, h(Icon, { name: 'book' })),
       h('h2', null, 'Aucune recette ne correspond'),
       h('p', null, 'Les filtres sont trop serrés pour le contenu actuel.')
     );
@@ -5574,7 +5575,8 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
             )
           ))
         )
-        : h('div', { className: 'empty-state search-empty' },
+        : h('div', { className: 'empty-state search-empty', style: { justifyItems: 'center', textAlign: 'center' } },
+          h('span', { className: 'empty-state-mark', 'aria-hidden': true, style: { display: 'grid', placeItems: 'center', width: 42, height: 42, border: '1px solid color-mix(in srgb,var(--accent) 52%,var(--line))', borderRadius: '999px', background: 'color-mix(in srgb,var(--accent) 12%,var(--surface-soft))' } }, h(Icon, { name: 'search' })),
           h('h2', null, 'Aucun résultat'),
           h('p', null, 'Essaie un ingrédient, une catégorie ou un mot proche.')
         ))
@@ -6820,6 +6822,7 @@ function RecipeView({
   const platingGuide = hasResolvedRecipe ? getRecipePlatingGuide(selectedRecipe) : [];
   const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length + flavorMap.length + ingredientCards.length + platingGuide.length;
   const selectedGroupLabel = selectedInlineVariantGroup?.label || selectedInlineVariantGroup?.group?.group || '';
+  const nextStepIndex = displaySteps.findIndex((_, index) => !checked[`${stepScopeKey}:step:${index}`]);
   const mobileTabOrder = ['ingredients', 'steps', 'notes'];
 
   function handleMobileTabSwipeStart(event) {
@@ -6962,10 +6965,10 @@ function RecipeView({
             variant: 'subtle',
             onClick: copyCurrentRecipe
           }, exportCopied ? 'Fiche copiée' : 'Copier fiche'),
-          showRecipeUtilities && h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' })),
+          showRecipeUtilities && h(Button, { variant: 'ghost', className: 'detail-action-button', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' }), h('span', null, 'Partager')),
           selectedRecipe.video && h('a', { className: 'btn btn-ghost', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, 'Voir la vidéo'),
-          showRecipeUtilities && h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, h(Icon, { name: 'print' })),
-          canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'icon-square favorite-action active' : 'icon-square favorite-action', onClick: () => toggleFavorite(detailKey, selectedRecipe.title), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }))
+          showRecipeUtilities && h(Button, { variant: 'ghost', className: 'detail-action-button', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, h(Icon, { name: 'print' }), h('span', null, 'Imprimer')),
+          canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'detail-action-button favorite-action active' : 'detail-action-button favorite-action', onClick: () => toggleFavorite(detailKey, selectedRecipe.title), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }), h('span', null, 'Favori'))
         )
       )
     ),
@@ -7110,7 +7113,8 @@ function RecipeView({
           : h('ol', { className: 'step-list' },
           displaySteps.map((step, index) => {
             const key = `${stepScopeKey}:step:${index}`;
-            return h('li', { key, className: checked[key] ? 'done' : '' },
+             const isNext = nextStepIndex === index;
+             return h('li', { key, className: checked[key] ? 'done' : isNext ? 'next' : '', style: isNext ? { borderColor: 'color-mix(in srgb,var(--accent) 64%,var(--line))', background: 'color-mix(in srgb,var(--accent) 10%,var(--surface-soft))', boxShadow: '0 0 22px color-mix(in srgb,var(--accent) 12%,transparent)' } : undefined, 'aria-current': isNext ? 'step' : undefined },
               h('label', null,
                 h('input', { type: 'checkbox', checked: Boolean(checked[key]), onChange: () => toggle(key) }),
                 h('span', { className: 'step-number' }, String(index + 1).padStart(2, '0')),

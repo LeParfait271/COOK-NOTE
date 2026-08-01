@@ -3004,6 +3004,8 @@ a {
   grid-template-columns: auto 1fr;
   gap: 10px;
   align-items: start;
+  min-height: 40px;
+  cursor: pointer;
   color: var(--text);
   line-height: 1.45;
 }
@@ -3013,9 +3015,9 @@ a {
   appearance: none;
   display: grid;
   place-items: center;
-  width: 19px;
-  height: 19px;
-  margin: 2px 0 0;
+  width: 21px;
+  height: 21px;
+  margin: 0;
   border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 42%, var(--line-strong));
   border-radius: 5px;
   background: rgba(255, 255, 255, .045);
@@ -5230,11 +5232,6 @@ a {
 .detail-actions :where(.btn, .icon-square),
 .detail-quantity-control {
   min-height: 40px;
-}
-
-.detail-actions .icon-square {
-  width: var(--control-height-md);
-  min-width: var(--control-height-md);
 }
 
 @keyframes toastIn {
@@ -8828,7 +8825,8 @@ body:has(.modal-backdrop) #cook-note-update-action {
   .steps-panel {
     position: sticky;
     top: 154px;
-    max-height: calc(100vh - 172px);
+    max-height: none;
+    overflow: visible;
   }
 }
 
