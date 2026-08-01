@@ -145,7 +145,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.recipe-card.master-card')).toHaveCount(8);
     await expect(page.locator('.recipe-card .card-facts')).toHaveCount(0);
     await expect(page.locator('.season-sections.is-default-catalog')).toHaveCount(1);
-    await expect(page.locator('.season-dashboard h2')).toHaveText('Toutes les recettes');
+    await expect(page.locator('.season-dashboard h2')).toHaveText('Toutes les catégories');
     await expect(page.locator('.season-block-default .season-block-head')).toHaveCount(0);
     const homeLayout = await page.evaluate(() => {
       const grid = document.querySelector('.master-recipe-grid').getBoundingClientRect();

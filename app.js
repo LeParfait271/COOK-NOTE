@@ -108,7 +108,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.31';
+const SITE_VERSION = 'v4.32';
 const SITE_UPDATED_AT = '01/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
@@ -1418,7 +1418,7 @@ function buildInlineVariantRecipe(recipe, option) {
     ...recipe,
     ...nestedRecipe,
     id: recipe.id,
-    title: recipe.title,
+    title: `${recipe.title} — ${option.label || 'Variante'}`,
     master: recipe.master,
     additionalMasters: recipe.additionalMasters,
     categories: recipe.categories,
@@ -4825,6 +4825,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     className,
     style: cardStyle,
     'data-recipe-id': recipe.id,
+    title: recipe.title,
     tabIndex: 0,
     role: 'button',
     'aria-label': `Ouvrir ${recipe.title}`,
@@ -5029,9 +5030,9 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
       h('div', { className: 'season-dashboard-copy' },
         h('p', { className: 'eyebrow' }, onlyFavorites ? 'Favoris' : 'Catalogue'),
         h('div', { className: 'season-dashboard-title-row' },
-          h('h2', null, onlyFavorites ? 'Mes recettes favorites' : defaultCatalogSection ? 'Toutes les recettes' : 'Recettes'),
+          h('h2', null, onlyFavorites ? 'Mes recettes favorites' : defaultCatalogSection ? 'Toutes les catégories' : 'Recettes'),
           defaultCatalogSection && h('span', { className: 'season-dashboard-count' },
-            `${defaultCatalogSection.recipes.length} fiche${defaultCatalogSection.recipes.length > 1 ? 's' : ''}`
+            `${defaultCatalogSection.recipes.length} catégorie${defaultCatalogSection.recipes.length > 1 ? 's' : ''}`
           )
         ),
         onlyFavorites && Object.keys(favoriteStatusCounts).length > 0 && h('div', { className: 'favorite-status-summary' },
@@ -5109,7 +5110,7 @@ function HomeView(props) {
             h('strong', null, t('home.searchTitle')),
             h('small', null, t('home.searchSubtitle'))
           ),
-          h('kbd', null, '/')
+          h('span', { className: 'home-search-hint', style: { color: 'var(--muted)', fontSize: 11, whiteSpace: 'nowrap' } }, 'Rechercher')
         ),
         h('nav', { className: 'home-quick-actions', 'aria-label': 'Raccourcis culinaires' },
           h('button', { type: 'button', onClick: props.openMenuPlanner }, h(Icon, { name: 'spark' }), h('span', null, 'Composer un menu')),
@@ -6213,8 +6214,9 @@ function OfflineStatusBar({ isOnline, favoriteCount }) {
 
 function ToastStack({ toasts, dismissToast }) {
   if (!toasts.length) return null;
+  const toast = toasts[0];
   return h('div', { className: 'toast-stack', role: 'status', 'aria-live': 'polite' },
-    toasts.map(toast => h('button', {
+    h('button', {
       key: toast.id,
       type: 'button',
       className: `toast toast-${toast.tone || 'info'}`,
@@ -6224,7 +6226,7 @@ function ToastStack({ toasts, dismissToast }) {
     },
       h('strong', null, toast.title || 'Cook Note'),
       h('span', null, toast.message)
-    ))
+    )
   );
 }
 
@@ -6277,7 +6279,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
   const sortedVariantRefs = sortVariantRefs(variantRefs, recipesById);
   if (!sortedVariantRefs.length) return null;
   return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel collection-links-panel' },
-    h('div', { className: 'panel-heading' },
+    h('div', { className: 'panel-heading', style: { position: 'sticky', top: 76, zIndex: 3, background: 'color-mix(in srgb,var(--surface) 94%,transparent)', paddingTop: 4 } },
       h('div', null,
         h('p', { className: 'eyebrow' }, 'Collection'),
         h('h2', null, parent.title)
@@ -6531,7 +6533,6 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
       h('p', { className: 'recipe-summary-message' }, 'Sélectionne une variante pour afficher les informations de la fiche rapide.')
     );
   }
-  const seasons = (recipe.seasons || []).filter(item => item !== 'Toutes saisons');
   const equipment = getRecipeEquipment(recipe);
   const timing = getRecipeTiming(recipe);
   const serviceItems = getRecipeServiceItems(recipe).slice(0, 2);
@@ -6549,9 +6550,6 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
     timing.rest && { label: 'Repos / froid', value: formatMinutesShort(timing.rest) },
     { label: 'Difficulté', value: difficultyText(recipe).replace('Difficulté ', '') },
     recipe.yield && { label: 'Quantité', value: getQuantityDisplay(recipe, factor) },
-    { label: 'Ingrédients', value: `${countIngredients(recipe)} ingrédients` },
-    { label: 'Étapes', value: `${stepTotal || getRecipeSteps(recipe).length} étapes` },
-    seasons.length && { label: 'Saison', value: seasons.slice(0, 2).join(' / ') },
   ].filter(Boolean);
   return h('section', { className: 'recipe-summary-panel', 'aria-label': 'Résumé de la recette' },
     h('div', { className: 'recipe-summary-head' },
@@ -6579,7 +6577,7 @@ function cleanVariantGroupLabel(label) {
   return String(label || 'Variante').replace(/^\d+\)\s*/, '').replace(/^variante\s*:?\s*/i, '').trim();
 }
 
-function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
+function InlineVariantPicker({ recipe, options, selectedIndex, onSelect, onContinue }) {
   if (!options.length) return null;
   const optionDetails = options.map((option, position) => {
     const optionRecipe = buildInlineVariantRecipe(recipe, option);
@@ -6642,7 +6640,8 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
             h('small', null, 'Variante s\u00e9lectionn\u00e9e'),
             h('strong', null, selectedOption.label || 'Variante'),
             h('span', null, 'Ingr\u00e9dients, \u00e9tapes, quantit\u00e9s et conseils correspondent maintenant \u00e0 ce choix.')
-          )
+          ),
+          h('button', { key: 'continue', type: 'button', className: 'btn btn-primary variant-choice-continue', style: { gridColumn: 2, justifySelf: 'start' }, onClick: onContinue, 'aria-controls': 'recipe-detail-content' }, 'Continuer avec cette variante')
         ]
         : [
           h('span', { key: 'copy', className: 'variant-choice-status-copy' },
@@ -6661,6 +6660,7 @@ function RecipeCommandDock({
   factor,
   setFactor,
   progress,
+  doneSteps,
   canShowSteps,
   mobileDetailTab,
   setMobileDetailTab,
@@ -6693,7 +6693,12 @@ function RecipeCommandDock({
       h('div', { className: 'recipe-dock-copy' },
         h('span', { className: 'eyebrow' }, 'Fiche active'),
         h('strong', null, title),
-        h('small', null, canShowSteps ? `${safeProgress}% pr\u00eat` : 'Choix requis')
+        h('small', { style: canShowSteps ? { display: 'flex', gap: '3px 10px' } : undefined }, canShowSteps
+          ? [
+            h('span', { key: 'percent' }, `${safeProgress}% pr\u00eat`),
+            h('span', { key: 'steps', className: 'recipe-dock-step-count', style: { color: 'color-mix(in srgb,var(--accent) 68%,var(--text))' } }, `${doneSteps}/${stepCount} \u00e9tapes`)
+          ]
+          : 'Choix requis')
       ),
       recipe && h('div', { className: 'recipe-dock-quantity' },
         h(QuantityFactorControl, { recipe, factor, setFactor, className: 'recipe-dock-quantity-control' })
@@ -6804,6 +6809,7 @@ function RecipeView({
   const isInShopping = hasSelectedVariant && shoppingIds.includes(shoppingKey);
   const canFavorite = hasResolvedRecipe && !isMasterRecipe(selectedRecipe);
   const showRecipeUtilities = hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && !isCategoryCollectionRecipe(selectedRecipe);
+  const displayedRecipeTitle = hasResolvedRecipe ? selectedRecipe.title : recipe.title;
   const recipeAllergens = hasResolvedRecipe ? getRecipeAllergens(selectedRecipe) : [];
   const averageWeights = hasResolvedRecipe ? getRecipeAverageWeights(selectedRecipe) : [];
   const linkedRecipes = hasResolvedRecipe ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
@@ -6813,7 +6819,7 @@ function RecipeView({
   const ingredientCards = hasResolvedRecipe ? getRecipeIngredientCards(selectedRecipe) : [];
   const platingGuide = hasResolvedRecipe ? getRecipePlatingGuide(selectedRecipe) : [];
   const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length + flavorMap.length + ingredientCards.length + platingGuide.length;
-  const selectedGroupLabel = selectedInlineVariantGroup?.group?.group || '';
+  const selectedGroupLabel = selectedInlineVariantGroup?.label || selectedInlineVariantGroup?.group?.group || '';
   const mobileTabOrder = ['ingredients', 'steps', 'notes'];
 
   function handleMobileTabSwipeStart(event) {
@@ -6886,10 +6892,14 @@ function RecipeView({
     });
   }
 
+  function continueToRecipeDetails() {
+    document.getElementById('recipe-detail-content')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   function copyCurrentRecipe() {
     return copyText(recipeExportText(selectedRecipe, factor)).then(() => {
       setExportCopied(true);
-      notify?.('Fiche recette copi\u00e9e');
+      notify?.(`Fiche copi\u00e9e : ${selectedRecipe.title}`);
     });
   }
 
@@ -6926,7 +6936,7 @@ function RecipeView({
       h('div', { className: 'detail-hero-copy' },
         heroUsesHomeImage && h('img', { className: 'detail-hero-logo', src: artLogoImage, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(artLogoImage) }),
         h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome, openRecipe }),
-        h('h1', null, recipe.title),
+        h('h1', null, displayedRecipeTitle),
         h('div', { className: 'detail-meta' },
           showVariants
             ? h('span', { key: 'recipes' }, `${leafRecipeCount} recette${leafRecipeCount > 1 ? 's' : ''}`)
@@ -6955,10 +6965,11 @@ function RecipeView({
           showRecipeUtilities && h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' })),
           selectedRecipe.video && h('a', { className: 'btn btn-ghost', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, 'Voir la vidéo'),
           showRecipeUtilities && h(Button, { variant: 'ghost', className: 'icon-square', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, h(Icon, { name: 'print' })),
-          canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'icon-square favorite-action active' : 'icon-square favorite-action', onClick: () => toggleFavorite(detailKey), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }))
+          canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'icon-square favorite-action active' : 'icon-square favorite-action', onClick: () => toggleFavorite(detailKey, selectedRecipe.title), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }))
         )
       )
     ),
+    h('h1', { className: 'print-recipe-heading' }, displayedRecipeTitle),
     showVariants && h(CollectionLinksPanel, {
       parent: recipe,
       variantRefs,
@@ -6969,7 +6980,8 @@ function RecipeView({
       recipe,
       options: inlineVariantOptions,
       selectedIndex: selectedInlineVariantGroup?.index,
-      onSelect: selectInlineVariant
+      onSelect: selectInlineVariant,
+      onContinue: continueToRecipeDetails
     }),
     hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts, {
       recipe: selectedRecipe,
@@ -6984,6 +6996,7 @@ function RecipeView({
       factor,
       setFactor,
       progress,
+      doneSteps,
       canShowSteps,
       mobileDetailTab,
       setMobileDetailTab,
@@ -6998,7 +7011,7 @@ function RecipeView({
       exportCopied,
       canFavorite,
       isFavorite,
-      onToggleFavorite: () => toggleFavorite(detailKey)
+      onToggleFavorite: () => toggleFavorite(detailKey, selectedRecipe.title)
     }),
     hasResolvedRecipe && h('div', { className: 'recipe-tabs', 'aria-label': 'Sections de la recette' },
       [
@@ -7039,11 +7052,32 @@ function RecipeView({
                 : h('h3', null, renderLinkedText(group.group || 'Base', inlineTargets, openRecipe, techniqueTargets, openTechnique)),
             isOpen && h('ul', null, (group.items || []).map((item, itemIndex) => {
               const key = `${detailKey}:ingredient:${groupIndex}:${itemIndex}`;
-              return h('li', { key },
-                h('label', null,
-                  h('input', { type: 'checkbox', checked: Boolean(checked[key]), onChange: () => toggle(key) }),
-                  h('span', null, renderLinkedText(scaleIngredient(item, factor), inlineTargets, openRecipe, techniqueTargets, openTechnique))
-                )
+              const plainItem = stripHtml(item).trim();
+              const isIngredientSeparator = /^[-\u2013\u2014]{1,2}\s*.+?\s*[-\u2013\u2014]{1,2}$/.test(plainItem);
+              return h('li', {
+                key,
+                className: isIngredientSeparator ? 'ingredient-section-label' : '',
+                style: isIngredientSeparator ? {
+                  margin: '8px 0 2px',
+                  border: 0,
+                  borderBottom: '1px solid var(--line)',
+                  borderRadius: 0,
+                  background: 'transparent',
+                  boxShadow: 'none',
+                  color: 'var(--muted)',
+                  padding: '7px 2px 5px',
+                  fontSize: 11,
+                  fontWeight: 950,
+                  letterSpacing: '.08em',
+                  textTransform: 'uppercase'
+                } : undefined
+              },
+                isIngredientSeparator
+                  ? h('span', { className: 'ingredient-section-label' }, renderLinkedText(item, inlineTargets, openRecipe, techniqueTargets, openTechnique))
+                  : h('label', null,
+                    h('input', { type: 'checkbox', checked: Boolean(checked[key]), onChange: () => toggle(key) }),
+                    h('span', null, renderLinkedText(scaleIngredient(item, factor), inlineTargets, openRecipe, techniqueTargets, openTechnique))
+                  )
               );
             })),
             isOpen && (group.note || (group.notes || []).length > 0) && h('div', { className: 'ingredient-group-note' },
@@ -7091,45 +7125,50 @@ function RecipeView({
           h('p', { className: 'eyebrow' }, 'Mémo'),
           h('h2', { className: 'read-before-title' }, 'Avant de commencer')
         ),
-        h('div', { className: 'allergen-card', 'aria-label': 'Allergenes detectes' },
-          h('p', { className: 'eyebrow' }, 'Allergènes'),
-          recipeAllergens.length
-            ? h('ul', { className: 'allergen-list', 'aria-label': 'Liste des allergenes detectes' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
-            : h('p', { className: 'allergen-empty' }, 'Aucun allergène majeur détecté dans les ingrédients.')
+        h('div', { className: 'notes-core-stack' },
+          h('div', { className: 'allergen-card', 'aria-label': 'Allergenes detectes' },
+            h('p', { className: 'eyebrow' }, 'Allergènes'),
+            recipeAllergens.length
+              ? h('ul', { className: 'allergen-list', 'aria-label': 'Liste des allergenes detectes' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
+              : h('p', { className: 'allergen-empty' }, 'Aucun allergène majeur détecté dans les ingrédients.')
+          ),
+          averageWeights.length > 0 && h('div', { className: 'average-weight-card', 'aria-label': 'Poids moyens utiles' },
+            h('p', { className: 'eyebrow' }, 'Poids moyens'),
+            h('dl', { 'aria-label': 'Correspondances de poids moyens' }, averageWeights.map(item =>
+              h(React.Fragment, { key: `${detailKey}:average:${item.label}` },
+                h('dt', null, item.label),
+                h('dd', null, item.value)
+              )
+            ))
+          ),
+          h(PrepTimelineBlock, { recipe: selectedRecipe })
         ),
-        averageWeights.length > 0 && h('div', { className: 'average-weight-card', 'aria-label': 'Poids moyens utiles' },
-          h('p', { className: 'eyebrow' }, 'Poids moyens'),
-          h('dl', { 'aria-label': 'Correspondances de poids moyens' }, averageWeights.map(item =>
-            h(React.Fragment, { key: `${detailKey}:average:${item.label}` },
-              h('dt', null, item.label),
-              h('dd', null, item.value)
-            )
-          ))
-        ),
-        h(FlavorMapBlock, { recipe: selectedRecipe }),
-        h(IngredientKnowledgeBlock, { recipe: selectedRecipe }),
-        h(PlatingGuideBlock, { recipe: selectedRecipe }),
-        h(PersonalRecipeNotes, {
-          recipeId: detailKey,
-          value: personalRecipeNote,
-          updatePersonalRecipeNote
-        }),
-        h(PrepTimelineBlock, { recipe: selectedRecipe }),
-        h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
-        h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique }),
-        displayNotes.length > 0 && h('div', { className: 'free-notes-block' },
-          h('p', { className: 'eyebrow' }, 'Notes'),
-          h('h2', null, 'Astuces et liens'),
-          h('ul', null, displayNotes.map((note, index) => h('li', { key: `${detailKey}:note:${index}` }, renderLinkedText(sanitizeNoteHtml(note), inlineTargets, openRecipe, techniqueTargets, openTechnique))))
-        ),
-        (selectedRecipe.technical || recipe.technical || []).length > 0 && h('div', { className: 'technical-card', 'aria-label': 'Fiche technique de la recette' },
-          h('p', { className: 'eyebrow' }, 'Fiche technique'),
-          h('dl', { 'aria-label': 'Points techniques' }, (selectedRecipe.technical || recipe.technical || []).map((item, index) =>
-            h(React.Fragment, { key: `${detailKey}:technical:${index}` },
-              h('dt', null, renderLinkedText(item.label || item.title || 'Point clé', inlineTargets, openRecipe, techniqueTargets, openTechnique)),
-              h('dd', null, renderLinkedText(item.value || item.text || '', inlineTargets, openRecipe, techniqueTargets, openTechnique))
-            )
-          ))
+        h('div', { className: 'notes-reference-stack', style: { marginTop: 18, borderTop: '1px solid color-mix(in srgb,var(--line) 72%,transparent)', paddingTop: 14 } },
+          h('p', { className: 'eyebrow notes-reference-heading' }, 'Repères complémentaires'),
+          h(FlavorMapBlock, { recipe: selectedRecipe }),
+          h(IngredientKnowledgeBlock, { recipe: selectedRecipe }),
+          h(PlatingGuideBlock, { recipe: selectedRecipe }),
+          h(PersonalRecipeNotes, {
+            recipeId: detailKey,
+            value: personalRecipeNote,
+            updatePersonalRecipeNote
+          }),
+          h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
+          h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique }),
+          displayNotes.length > 0 && h('div', { className: 'free-notes-block' },
+            h('p', { className: 'eyebrow' }, 'Notes'),
+            h('h2', null, 'Astuces et liens'),
+            h('ul', null, displayNotes.map((note, index) => h('li', { key: `${detailKey}:note:${index}` }, renderLinkedText(sanitizeNoteHtml(note), inlineTargets, openRecipe, techniqueTargets, openTechnique))))
+          ),
+          (selectedRecipe.technical || recipe.technical || []).length > 0 && h('div', { className: 'technical-card', 'aria-label': 'Fiche technique de la recette' },
+            h('p', { className: 'eyebrow' }, 'Fiche technique'),
+            h('dl', { 'aria-label': 'Points techniques' }, (selectedRecipe.technical || recipe.technical || []).map((item, index) =>
+              h(React.Fragment, { key: `${detailKey}:technical:${index}` },
+                h('dt', null, renderLinkedText(item.label || item.title || 'Point clé', inlineTargets, openRecipe, techniqueTargets, openTechnique)),
+                h('dd', null, renderLinkedText(item.value || item.text || '', inlineTargets, openRecipe, techniqueTargets, openTechnique))
+              )
+            ))
+          )
         )
       )
     ),
@@ -7519,7 +7558,7 @@ function App() {
 
   function notify(message, tone = 'info', title = 'Cook Note') {
     const id = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-    setToasts(prev => [{ id, title, message, tone }, ...prev].slice(0, 4));
+    setToasts([{ id, title, message, tone }]);
     window.setTimeout(() => dismissToast(id), 3400);
   }
 
@@ -7555,11 +7594,12 @@ function App() {
     writeJson(STORAGE_KEYS.personalNotes, next);
   }
 
-  function toggleFavorite(id) {
+  function toggleFavorite(id, label = '') {
     const recipe = recipesById[id];
     const removing = favorites.includes(id);
+    const displayLabel = label || recipe?.title || 'Recette';
     persistFavorites(removing ? favorites.filter(item => item !== id) : [id, ...favorites]);
-    notify(removing ? `${recipe?.title || 'Recette'} retirée des favoris` : `${recipe?.title || 'Recette'} ajoutée aux favoris`, removing ? 'info' : 'success');
+    notify(removing ? `${displayLabel} retirée des favoris` : `${displayLabel} ajoutée aux favoris`, removing ? 'info' : 'success');
   }
 
   function persistShopping(next) {
