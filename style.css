@@ -451,10 +451,10 @@ a {
 }
 
 .site-footer-install {
-  border-color: color-mix(in srgb, var(--mako) 38%, var(--line));
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--line));
   background:
     linear-gradient(180deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .025)),
-    color-mix(in srgb, var(--mako) 11%, transparent);
+    color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
 .topbar {
@@ -5311,7 +5311,7 @@ a {
 
 @media (max-width: 700px) {
   body {
-    padding-bottom: 74px;
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
   }
 
   .home-view {
@@ -5331,9 +5331,7 @@ a {
     transform: translate3d(0, 0, 0);
   }
 
-  .topbar {
-    display: none;
-  }
+  .topbar{display:grid;grid-template-columns:minmax(0,1fr) auto;padding:6px 12px}.top-left{display:none}.top-right :is(.top-search-button,.top-fav-btn){display:none}.mobile-bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr))}.mobile-bottom-nav :is(.mobile-theme-toggle,.language-switcher){display:none}
 
   .offline-status-bar {
     top: 10px;
@@ -6896,6 +6894,9 @@ a {
   color: var(--text);
 }
 
+.mc-shell.theme-light .recipe-detail-hero.has-photo :is(.recipe-breadcrumb, .detail-meta span, .detail-quantity-control, .detail-quantity-control :is(.factor-label, .quantity-unit, label)) {
+  color: #fff8e8 !important;
+}
 .mc-shell.theme-light .toast {
   background: linear-gradient(135deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 10%, transparent), rgba(255, 255, 255, .62)), var(--surface-strong);
 }
@@ -8111,13 +8112,12 @@ a {
   }
 }
 
-#cook-note-update-action {
+#cook-note-update-action{
   transition:
     opacity var(--ds-motion-normal) var(--ds-ease),
     transform var(--ds-motion-normal) var(--ds-ease),
     box-shadow var(--ds-motion-normal) var(--ds-ease);
 }
-
 body:has(.modal-backdrop) #cook-note-update-action {
   opacity: 0 !important;
   pointer-events: none !important;
@@ -8340,14 +8340,13 @@ body:has(.modal-backdrop) #cook-note-update-action {
   justify-items: center;
   gap: 10px;
   overflow: visible;
-  margin: clamp(-58px, -4vw, -38px) 0 clamp(22px, 2.5vw, 34px);
+  margin: clamp(-28px, -2vw, -16px) 0 clamp(28px, 3vw, 40px);
   padding: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
 }
-
 .home-view {
   min-height: 0;
 }
@@ -8357,8 +8356,8 @@ body:has(.modal-backdrop) #cook-note-update-action {
 }
 
 .home-search-launcher {
-  width: min(900px, calc(100% - 44px));
-  min-height: 62px;
+  width: min(940px, calc(100% - 32px));
+  display: grid;
   border-color: color-mix(in srgb, var(--prestige-gold) 42%, var(--line));
   border-radius: var(--ds-radius-md);
   background:
@@ -8374,6 +8373,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
   transition: transform var(--speed), border-color var(--speed), box-shadow var(--speed), background var(--speed);
 }
 
+.home-search-launcher>:is(.site-icon,kbd){position:static}.home-search-copy{text-align:left}
 .home-search-launcher:hover,
 .home-search-launcher:focus-visible {
   transform: translateY(-2px);
@@ -8394,17 +8394,16 @@ body:has(.modal-backdrop) #cook-note-update-action {
 .home-search-copy small { color: var(--muted); font-size: 11px; font-weight: 650; }
 
 .home-quick-actions {
-  width: min(720px, calc(100% - 44px));
+  width: min(760px, calc(100% - 32px));
   margin-top: 0;
 }
 
 .home-quick-actions button {
-  min-height: 42px;
-  border-radius: 3px 10px 3px 10px;
-  background: color-mix(in srgb, #0a0908 76%, transparent);
-  backdrop-filter: blur(10px);
+  min-height: 44px;
+  border-radius: var(--ds-radius-md);
+  background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
+  backdrop-filter: none;
 }
-
 .mc-shell.theme-light :where(.home-search-launcher, .home-quick-actions button) {
   background: rgba(255, 252, 246, .64);
   color: var(--text);
@@ -8418,7 +8417,6 @@ body:has(.modal-backdrop) #cook-note-update-action {
 .home-view .season-sections.is-default-catalog .season-block-default {
   margin-bottom: 0;
 }
-
 @media (min-width: 761px) {
   .home-view .season-dashboard {
     grid-template-columns: auto minmax(0, 1fr);
@@ -8444,11 +8442,11 @@ body:has(.modal-backdrop) #cook-note-update-action {
 .recipe-card.master-card {
   aspect-ratio: 1.62 / 1;
   border: 1px solid color-mix(in srgb, var(--prestige-gold) 19%, var(--rim));
-  border-radius: 5px 15px 5px 15px;
+  border-radius: var(--ds-radius-lg);
   background: #070605;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .035),
-    0 20px 54px rgba(0, 0, 0, .34);
+    0 14px 38px rgba(0, 0, 0, .28);
   filter: none;
 }
 
@@ -8467,7 +8465,6 @@ body:has(.modal-backdrop) #cook-note-update-action {
   gap: 7px;
   padding: clamp(16px, 1.7vw, 22px);
   background:
-    radial-gradient(circle at 100% 0, color-mix(in srgb, var(--card-accent, var(--prestige-gold)) 11%, transparent), transparent 42%),
     linear-gradient(180deg, transparent 33%, rgba(0, 0, 0, .13) 55%, rgba(0, 0, 0, .68));
   text-align: left;
 }
@@ -8506,7 +8503,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 }
 
 .recipe-card.has-image .card-ambilight {
-  opacity: .12;
+  opacity: 0;
   filter: blur(30px) saturate(1.28) brightness(.92);
   transform: scale(1.025);
 }
@@ -8514,7 +8511,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 .recipe-card.has-image:hover .card-ambilight,
 .recipe-card.has-image:focus-visible .card-ambilight,
 .recipe-card.has-image.is-scroll-featured .card-ambilight {
-  opacity: .42;
+  opacity: .12;
   filter: blur(34px) saturate(1.42) brightness(1.02);
   transform: scale(1.055);
 }
@@ -8534,12 +8531,11 @@ body:has(.modal-backdrop) #cook-note-update-action {
 .home-view .recipe-card:not(.master-card):focus-visible,
 .recipe-card.master-card:hover,
 .recipe-card.master-card:focus-visible {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
   border-color: color-mix(in srgb, var(--prestige-gold) 46%, var(--card-accent, var(--line)));
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--prestige-gold) 12%, transparent),
-    0 26px 66px rgba(0, 0, 0, .44),
-    0 0 34px color-mix(in srgb, var(--card-accent, var(--ambient-accent, var(--prestige-gold))) 13%, transparent);
+    0 20px 46px rgba(0, 0, 0, .34);
 }
 
 .home-view .recipe-card::before {
@@ -8677,9 +8673,9 @@ body:has(.modal-backdrop) #cook-note-update-action {
 .recipe-detail-hero {
   border-bottom: 0;
   box-shadow:
-    inset 0 -210px 170px rgba(0, 0, 0, .82),
+    inset 0 -180px 150px rgba(0, 0, 0, .72),
     inset 0 0 0 1px color-mix(in srgb, var(--prestige-gold) 13%, transparent),
-    0 34px 86px rgba(0, 0, 0, .42);
+    0 24px 58px rgba(0, 0, 0, .30);
 }
 
 /* Navigation rhythm: keep route changes readable without freezing the previous page
@@ -8706,7 +8702,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 
 .recipe-detail-hero::after {
   background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--prestige-gold) 48%, rgba(255, 255, 255, .10)) 50%, transparent);
-  opacity: .48;
+  opacity: .26;
   box-shadow: 0 0 24px color-mix(in srgb, var(--prestige-gold) 14%, transparent);
 }
 
@@ -8733,7 +8729,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 .recipe-panel,
 .recipe-summary-panel {
   border-color: color-mix(in srgb, var(--prestige-gold) 19%, var(--visual-rim));
-  border-radius: 12px;
+  border-radius: var(--ds-radius-lg);
   background:
     linear-gradient(145deg, color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--prestige-gold))) 5%, transparent), transparent 38%),
     linear-gradient(180deg, rgba(255, 255, 255, .032), transparent 180px),
@@ -8898,16 +8894,17 @@ body:has(.modal-backdrop) #cook-note-update-action {
 @media (max-width: 760px) {
   #cook-note-update-action {
     right: 12px !important;
-    bottom: calc(82px + env(safe-area-inset-bottom)) !important;
+    top: calc(62px + env(safe-area-inset-top)) !important;
+    bottom: auto !important;
   }
 
   .home-view > .hero {
-    min-height: 238px !important;
+    min-height: 218px !important;
     background-position: center 48%;
   }
 
   .home-view > .hero .hero-inner {
-    padding: 38px 0 52px !important;
+    padding: 30px 0 42px !important;
   }
 
   .home-view > .hero .hero-wordmark {
