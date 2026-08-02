@@ -108,7 +108,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.38';
+const SITE_VERSION = 'v4.39';
 const SITE_UPDATED_AT = '02/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
@@ -4702,29 +4702,9 @@ function ScrollProgress() {
 }
 
 function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences, activeTheme, toggleTheme, homeActive = false, searchActive = false, favoritesActive = false }) {
-  const [condensed, setCondensed] = useState(() => window.scrollY > 64);
   const themeToggleLabel = activeTheme === 'light' ? 'Passer en mode nuit' : 'Passer en mode jour';
 
-  useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      setCondensed(current => {
-        const next = window.scrollY > 64;
-        return current === next ? current : next;
-      });
-    };
-    const schedule = () => {
-      if (!frame) frame = window.requestAnimationFrame(update);
-    };
-    window.addEventListener('scroll', schedule, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', schedule);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  return h('header', { className: condensed ? 'topbar topbar-condensed' : 'topbar' },
+  return h('header', { className: 'topbar' },
     h('div', { className: 'top-left' },
       h(Button, { variant: 'subtle', className: homeActive ? 'icon-square active' : 'icon-square', onClick: onHome, title: 'Accueil', ariaLabel: 'Accueil', current: homeActive ? 'page' : undefined }, h(Icon, { name: 'home' }))
     ),
