@@ -108,8 +108,8 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.36';
-const SITE_UPDATED_AT = '01/08/26';
+const SITE_VERSION = 'v4.38';
+const SITE_UPDATED_AT = '02/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
@@ -5675,7 +5675,7 @@ function CommandPalette({
       detail: 'Catalogue',
       run: goHome
     },
-    ...allSeasons.slice(0, 4).map(seasonName => ({
+    ...(normalizedTerm ? allSeasons.slice(0, 4) : []).map(seasonName => ({
       id: `season-${seasonName}`,
       icon: 'spark',
       label: seasonName,
@@ -5689,7 +5689,7 @@ function CommandPalette({
   const matchedActions = baseActions.filter(action => {
     if (!normalizedTerm) return true;
     return normalizeText(`${action.label} ${action.detail}`).includes(normalizedTerm);
-  }).slice(0, normalizedTerm ? 6 : 8);
+  }).slice(0, 6);
   const commandRecipes = normalizedTerm
     ? recipes
       .map(recipe => {
@@ -6191,7 +6191,7 @@ function PreferencesPanel({ open, onClose, preferences, updatePreferences, favor
           h('small', null, 'Réduit les mouvements sans enlever les lumières du thème.')
         )
       ),
-      h('div', { className: 'preference-group preference-offline-group' },
+      (favoriteCount > 0 || !isOnline) && h('div', { className: 'preference-group preference-offline-group' },
         h('div', null,
           h('strong', null, 'Favoris hors-ligne'),
           h('small', null, isOnline
@@ -6286,7 +6286,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
   const sortedVariantRefs = sortVariantRefs(variantRefs, recipesById);
   if (!sortedVariantRefs.length) return null;
   return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel collection-links-panel' },
-    h('div', { className: 'panel-heading', style: { position: 'sticky', top: 76, zIndex: 3, background: 'color-mix(in srgb,var(--surface) 94%,transparent)', paddingTop: 4 } },
+    h('div', { className: 'panel-heading collection-links-heading' },
       h('div', null,
         h('p', { className: 'eyebrow' }, 'Collection'),
         h('h2', null, parent.title)
@@ -6646,7 +6646,7 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect, onConti
             h('strong', null, selectedOption.label || 'Variante'),
             h('span', null, 'Ingr\u00e9dients, \u00e9tapes, quantit\u00e9s et conseils correspondent maintenant \u00e0 ce choix.')
           ),
-          h('button', { key: 'continue', type: 'button', className: 'btn btn-primary variant-choice-continue', style: { gridColumn: 2, justifySelf: 'start' }, onClick: onContinue, 'aria-controls': 'recipe-detail-content' }, 'Continuer avec cette variante')
+          h('button', { key: 'continue', type: 'button', className: 'btn btn-primary variant-choice-continue', onClick: onContinue, 'aria-controls': 'recipe-detail-content' }, 'Continuer avec cette variante')
         ]
         : [
           h('span', { key: 'copy', className: 'variant-choice-status-copy' },
@@ -6713,6 +6713,8 @@ function RecipeCommandDock({
           key: tab.key,
           type: 'button',
           className: mobileDetailTab === tab.key ? 'active' : '',
+          title: tab.label,
+          'aria-label': `${tab.label} (${tab.count})`,
           onClick: () => setMobileDetailTab(tab.key),
           'aria-pressed': mobileDetailTab === tab.key
         },
@@ -6727,7 +6729,7 @@ function RecipeCommandDock({
           disabled: !canAddToShopping,
           onClick: onToggleShopping,
           'aria-label': isInShopping ? 'Retirer des courses' : 'Ajouter aux courses'
-        }, h(Icon, { name: 'basket' }), h('span', null, isInShopping ? 'Courses' : '+ Courses')),
+        }, h(Icon, { name: 'basket' }), h('span', null, isInShopping ? 'Courses' : 'Courses')),
         showRecipeUtilities && h('button', {
           type: 'button',
           className: exportCopied ? 'dock-action active' : 'dock-action',
@@ -7801,7 +7803,10 @@ function App() {
       history.pushState('', document.title, nextUrl);
     }
     lastRouteKeyRef.current = currentScrollRouteKey();
-    requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
+    const resetRecipeScroll = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    resetRecipeScroll();
+    requestAnimationFrame(() => requestAnimationFrame(resetRecipeScroll));
+    window.setTimeout(resetRecipeScroll, 80);
   }
 
   function goHome() {
