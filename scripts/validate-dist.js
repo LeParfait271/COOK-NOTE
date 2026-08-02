@@ -132,6 +132,9 @@ if (!fs.existsSync(DIST)) {
   });
 
   const recipes = exists('recipes.js') ? loadRecipesFromDist() : {};
+  const themeRecipeArt = exists('app-art-images.js')
+    ? loadScriptObject('app-art-images.js', 'COOK_NOTE_THEME_RECIPE_ART').dark || {}
+    : {};
   const redirects = exists('_redirects') ? read('_redirects') : '';
   redirects.split(/\r?\n/).forEach((line, index) => {
     const clean = line.trim();
@@ -177,6 +180,10 @@ if (!fs.existsSync(DIST)) {
       }
       if (prerenderedHtml.includes('loading-screen')) {
         fail(`dist/${prerenderedPage}: loader bloquant interdit dans une page prerendue.`);
+      }
+      const themedImage = themeRecipeArt[id];
+      if (themedImage && exists(normalizeAssetPath(themedImage)) && !prerenderedHtml.includes(`href="${themedImage}"`)) {
+        fail(`dist/${prerenderedPage}: hero pre-rendu non aligne sur l art theme (${themedImage}).`);
       }
     }
     if (!redirects.includes(`/recette/${slug} /recette/${slug}/ 301`)) {

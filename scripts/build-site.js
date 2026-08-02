@@ -148,6 +148,21 @@ function loadRecipes() {
   return context.window.RECIPES || {};
 }
 
+let cachedThemeRecipeArt = null;
+
+function loadThemeRecipeArt() {
+  if (cachedThemeRecipeArt) return cachedThemeRecipeArt;
+  const context = { window: {}, Object };
+  vm.createContext(context);
+  vm.runInContext(
+    fs.readFileSync(path.join(ROOT, 'app-art-images.js'), 'utf8'),
+    context,
+    { filename: path.join(ROOT, 'app-art-images.js') }
+  );
+  cachedThemeRecipeArt = context.window.COOK_NOTE_THEME_RECIPE_ART || {};
+  return cachedThemeRecipeArt;
+}
+
 function cacheVersion() {
   const app = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
   const match = app.match(/const SITE_VERSION = 'v(\d+)\.(\d+)'/);
@@ -233,6 +248,17 @@ function absoluteRecipeUrl(id) {
 
 function recipeImage(recipe) {
   return recipe?.image || '/assets/base-du-site.png';
+}
+
+function staticRecipeImage(recipe) {
+  const source = recipeImage(recipe);
+  const match = String(source).match(/\/([^/?#]+)\.(?:jpe?g|png|webp)(?:[?#].*)?$/i);
+  const candidates = [...new Set([recipe?.id, match?.[1]].filter(Boolean))];
+  const themed = candidates.map(id => loadThemeRecipeArt().dark?.[id]).find(Boolean);
+  if (!themed) return source;
+  const themedFile = String(themed).split('?')[0].replace(/^\/+/, '');
+  if (!fs.existsSync(path.join(ROOT, themedFile))) return source;
+  return themed;
 }
 
 function absoluteImageUrl(recipe) {
@@ -422,7 +448,7 @@ function renderVariantCards(recipe, recipes) {
     '<div class="variant-card-grid">',
     variants.map(({ ref, recipe: variant }) => {
       const title = ref.label || variant.title;
-      const image = recipeImage(variant);
+      const image = staticRecipeImage({ ...variant, id: ref.id });
       return [
         `<a class="variant-card" style="--card-accent:${escapeHtml(categoryColor(variant))}" href="${recipeUrl(variant.id)}">`,
         `<span class="variant-card-bg" style="background-image:linear-gradient(180deg, rgba(4,4,5,.22), rgba(4,4,5,.82)), url('${escapeHtml(image)}')"></span>`,
@@ -468,7 +494,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
   const routeRecipes = collectRouteRecipes(id, recipes);
   const accent = categoryColor(fullRecipe);
   const description = recipeDescription(fullRecipe);
-  const image = recipeImage(fullRecipe);
+  const image = staticRecipeImage(fullRecipe);
   const heroStyle = `--accent:${accent};--accent-2:${accent};background-image:linear-gradient(90deg, rgba(4,4,5,.92), rgba(4,4,5,.50)), url('${escapeHtml(image)}')`;
   const variants = renderVariantCards(fullRecipe, recipes);
   const facts = [
