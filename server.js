@@ -25,6 +25,7 @@ const PUBLIC_ROOT_FILES = new Set([
   'app.js',
   'app-images.js',
   'app-art-images.js',
+  'app-inline-variant-rules.js',
   'app-premium.js',
   'app-techniques.js',
   'theme.js',
@@ -285,6 +286,7 @@ function staticCacheControl(filePath, noStore = false) {
     relative === 'app.js' ||
     relative === 'app-images.js' ||
     relative === 'app-art-images.js' ||
+    relative === 'app-inline-variant-rules.js' ||
     relative === 'app-techniques.js' ||
     relative === 'theme.js' ||
     relative === 'i18n.js' ||
@@ -331,7 +333,15 @@ function writeRecipes(recipes) {
     `window.RECIPES = ${JSON.stringify(recipes, null, 2)};`,
     ''
   ].join('\n');
-  fs.writeFileSync(path.join(ROOT, 'recipes.js'), header, 'utf8');
+  const destination = path.join(ROOT, 'recipes.js');
+  const temporary = `${destination}.${process.pid}.tmp`;
+  fs.writeFileSync(temporary, header, { encoding: 'utf8', flag: 'wx' });
+  try {
+    fs.renameSync(temporary, destination);
+  } catch (error) {
+    try { fs.rmSync(temporary, { force: true }); } catch {}
+    throw error;
+  }
 }
 
 function sanitizeId(value) {
@@ -394,7 +404,7 @@ function escapeXml(value) {
 }
 
 function recipeUrl(id) {
-  return `${SITE_URL}/recette/${encodeURIComponent(id)}`;
+  return `${SITE_URL}/recette/${encodeURIComponent(id)}/`;
 }
 
 function sendRobots(res) {
@@ -452,7 +462,29 @@ function validateRecipe(id, recipe, recipes, mode) {
   if (!['easy', 'medium', 'hard'].includes(recipe.difficulty)) errors.push('Difficulte invalide.');
   if (!recipe.ingredients.length) errors.push('Au moins un groupe d\'ingredients avec items requis.');
   if (!recipe.steps.length) errors.push('Au moins une etape requise.');
+  if (recipe.image && /^https?:\/\//i.test(recipe.image)) errors.push('Image distante interdite : importer une image locale dans assets/.');
   return errors;
+}
+
+function recipeReferences(recipes, targetId) {
+  const references = [];
+  const walk = (value, keyPath) => {
+    if (typeof value === 'string') {
+      if (value === targetId) references.push(keyPath);
+      return;
+    }
+    if (Array.isArray(value)) {
+      value.forEach((item, index) => walk(item, `${keyPath}[${index}]`));
+      return;
+    }
+    if (value && typeof value === 'object') {
+      Object.entries(value).forEach(([key, item]) => walk(item, `${keyPath}.${key}`));
+    }
+  };
+  Object.entries(recipes).forEach(([id, recipe]) => {
+    if (id !== targetId) walk(recipe, id);
+  });
+  return [...new Set(references)];
 }
 
 function parseMultipart(buffer, boundary) {
@@ -581,6 +613,13 @@ async function handleApi(req, res, url) {
       }
 
       if (req.method === 'DELETE') {
+        const references = recipeReferences(recipes, id);
+        if (references.length) {
+          return sendJson(res, 409, {
+            error: 'Suppression bloquee : la recette est encore referencee.',
+            references: references.slice(0, 20)
+          });
+        }
         delete recipes[id];
         writeRecipes(recipes);
         return sendJson(res, 200, { ok: true });

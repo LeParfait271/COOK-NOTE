@@ -24,6 +24,7 @@ const TEXT_FILES_TO_SCAN = [
   'recipe.html',
   'app-images.js',
   'app-art-images.js',
+  'app-inline-variant-rules.js',
   'app-premium.js',
   'app-techniques.js',
   'theme.js',
@@ -172,6 +173,27 @@ function leafVariantCount(recipe, seen = new Set()) {
 
 function compactRecipeForCatalog(id, recipe) {
   const compact = JSON.parse(JSON.stringify({ id, ...recipe }));
+  const flattenRecipeText = source => [
+    source?.title,
+    source?.yield,
+    ...(source?.categories || []),
+    ...(source?.seasons || []),
+    ...(source?.tags || []),
+    ...(source?.aliases || []),
+    ...(source?.ingredients || []).flatMap(group => [group.group, ...(group.items || []), group.note, ...(group.notes || [])]),
+    ...(source?.steps || []),
+    ...(source?.notes || []),
+    ...(source?.technical || []).flatMap(item => [item.label, item.value, item.text]),
+    ...Object.values(source?.practical || {}).flatMap(value => Array.isArray(value) ? value : [value])
+  ].filter(Boolean).join(' ');
+  const normalized = flattenRecipeText(recipe).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const signalPatterns = [
+    'rapide', 'express', 'four', 'enfourner', 'gratin', 'frire', 'friture', 'tempura', 'beignet',
+    'air fryer', 'poele', 'plancha', 'mijoter', 'vegetarien', 'vegan', 'sans viande', 'froid',
+    'refrigerateur', 'conservation', 'congeler', 'congelation', 'rechauff', 'service', 'dresser',
+    'la veille', 'avance', 'week-end', 'semaine'
+  ];
+  compact.workflowMask = signalPatterns.reduce((mask, pattern, index) => mask | (normalized.includes(pattern) ? (1 << index) : 0), 0);
   delete compact.practical;
   delete compact.notes;
   delete compact.steps;
@@ -295,6 +317,7 @@ if (!indexHtml.includes('https://cook-note.pages.dev/')) {
   'src="/assets/catalog-1.js?',
   'src="/app-images.js?',
   'src="/app-art-images.js?',
+  'src="/app-inline-variant-rules.js?',
   'src="/app-premium.js?',
   'src="/app-techniques.js?',
   'src="/theme.js?',
@@ -309,7 +332,7 @@ if (!indexHtml.includes('https://cook-note.pages.dev/')) {
 });
 
 const sitemapRecipeIds = new Set();
-for (const match of sitemap.matchAll(/<loc>[^<]+\/recette\/([^<]+)<\/loc>/g)) {
+for (const match of sitemap.matchAll(/<loc>[^<]+\/recette\/([^<]+?)(?:\/)?<\/loc>/g)) {
   sitemapRecipeIds.add(decodeURIComponent(match[1]));
 }
 recipeIds.forEach(id => {
@@ -349,8 +372,8 @@ if (!headers.includes('/service-worker.js') || !headers.includes('Cache-Control:
 if (!headers.includes('/recette/*') || !headers.includes('Cache-Control: no-cache')) {
   fail('_headers: pages recettes prerendue doivent rester en no-cache.');
 }
-if (!redirects.includes('/recette/* / 200')) {
-  fail('_redirects: fallback SPA recettes absent.');
+if (redirects.includes('/recette/* / 200')) {
+  fail('_redirects: fallback SPA recettes masque les pages prerendues.');
 }
 if (redirects.includes('/recette/* /index.html 200') || redirects.includes('/techniques/ /index.html 200')) {
   fail('_redirects: fallback Cloudflare invalide vers index.html.');

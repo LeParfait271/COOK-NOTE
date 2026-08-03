@@ -20,6 +20,7 @@ const ROOT_FILES = [
   'app-premium.js',
   'app-images.js',
   'app-art-images.js',
+  'app-inline-variant-rules.js',
   'theme.js',
   'i18n.js',
   'index.html',
@@ -62,6 +63,15 @@ const CATEGORY_ACCENTS = {
   'Sauces': '#b84a16',
   'Base': '#0f8a84'
 };
+const CATEGORY_ALIASES = Object.freeze({
+  Apero: 'Apéro',
+  Aperos: 'Apéro',
+  Entrees: 'Entrées',
+  'Petit-déjeuner': 'Petits-déjeuners',
+  'Petit dejeuner': 'Petits-déjeuners',
+  Bases: 'Base',
+  Boulangerie: 'Base'
+});
 const DIFFICULTY_LABELS = { easy: 'Facile', medium: 'Intermédiaire', hard: 'Technique' };
 
 function withinRoot(target) {
@@ -198,7 +208,8 @@ function safeJson(value) {
 }
 
 function primaryCategory(recipe) {
-  return (recipe?.categories || [])[0] || 'Recette';
+  const category = (recipe?.categories || [])[0] || 'Recette';
+  return CATEGORY_ALIASES[category] || category;
 }
 
 function categoryColor(recipe) {
@@ -239,7 +250,7 @@ function collectRouteRecipes(id, recipes) {
 }
 
 function recipeUrl(id) {
-  return `/recette/${encodeURIComponent(id)}`;
+  return `/recette/${encodeURIComponent(id)}/`;
 }
 
 function absoluteRecipeUrl(id) {
@@ -278,6 +289,22 @@ function recipeDescription(recipe) {
 }
 
 function timingFacts(recipe) {
+  const explicitTotal = Number(recipe?.totalTime);
+  const explicitActive = Number(recipe?.activeTime);
+  const explicitCook = Number(recipe?.cookTime);
+  const explicitRest = Number(recipe?.restTime);
+  const explicitSum = [explicitActive, explicitCook, explicitRest]
+    .filter(value => Number.isFinite(value) && value > 0)
+    .reduce((sum, value) => sum + value, 0);
+  const declaredMinutes = Number.isFinite(explicitTotal) && explicitTotal > 0 ? explicitTotal : explicitSum;
+  if (declaredMinutes) {
+    if (declaredMinutes >= 60) {
+      const hours = Math.floor(declaredMinutes / 60);
+      const rest = declaredMinutes % 60;
+      return rest ? `${hours}h${String(rest).padStart(2, '0')}` : `${hours}h`;
+    }
+    return `${declaredMinutes}min`;
+  }
   const steps = (recipe?.steps || []).join(' ');
   const matches = [...steps.matchAll(/(\d+)\s*(?:min|minutes?|h|heures?)/gi)];
   const minutes = matches.reduce((sum, match) => {
@@ -310,10 +337,12 @@ function recipeTimingData(recipe) {
     .map(stepMinutes)
     .reduce((sum, minutes) => sum + minutes, 0);
   const active = Number(recipe?.activeTime) || Math.max(5, Math.min(90, Math.round(((recipe?.ingredients || []).flatMap(group => group.items || []).length * 2.2) + (steps.length * 2.5))));
+  const rest = Number(recipe?.restTime) || 0;
   return {
     active,
     cook: cook || timedTotal || 0,
-    total: Number(recipe?.totalTime) || active + timedTotal
+    rest,
+    total: Number(recipe?.totalTime) || active + (cook || timedTotal || 0) + rest
   };
 }
 
@@ -530,9 +559,9 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `  <meta name="twitter:image" content="${escapeHtml(absoluteImageUrl(fullRecipe))}" />`,
     `  <link rel="canonical" href="${escapeHtml(absoluteRecipeUrl(id))}" />`,
     '  <link rel="manifest" href="/manifest.json" />',
-    '  <link rel="icon" href="/assets/cook-note-mark.svg" type="image/svg+xml" />',
-    '  <link rel="apple-touch-icon" href="/assets/cook-note.png" data-art-asset="appIcon" data-art-target="href" />',
-    '  <link rel="preload" as="image" href="/assets/base-principale-fond-site.jpg" fetchpriority="high" data-art-asset="background" data-art-target="href" />',
+    '  <link rel="icon" href="/assets/brand/mark.svg" type="image/svg+xml" />',
+    '  <link rel="apple-touch-icon" href="/assets/brand/app-icon.png" data-art-asset="appIcon" data-art-target="href" />',
+    '  <link rel="preload" as="image" href="/assets/theme/dark/global/background.jpg" fetchpriority="high" data-art-asset="background" data-art-target="href" />',
     image && `  <link rel="preload" as="image" href="${escapeHtml(image)}" fetchpriority="high" />`,
     `  <script>window.COOK_NOTE_ASSET_VERSION = '${version}';</script>`,
     `  <script src="/theme.js?v=${version}"></script>`,
@@ -560,6 +589,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     '  <script src="/assets/vendor/react.production.min.js"></script>',
     '  <script src="/assets/vendor/react-dom.production.min.js"></script>',
     `  <script src="/assets/catalog-1.js?v=${version}"></script>`,
+    `  <script src="/app-inline-variant-rules.js?v=${version}"></script>`,
     `  <script src="/assets/image-manifest.js?v=${version}"></script>`,
     `  <script src="/app-images.js?v=${version}"></script>`,
     `  <script src="/app-art-images.js?v=${version}"></script>`,

@@ -3318,6 +3318,11 @@
     translated = cleanRecipeEnglish(translated);
 
     if (translated === source) return '';
+    const translatedKey = normalizeI18nKey(translated);
+    const untranslatedContent = normalizeI18nKey(source)
+      .split(/\s+/)
+      .filter(token => token.length >= 4 && !/^\d/.test(token) && translatedKey.includes(token));
+    if (untranslatedContent.length) return '';
     return source[0] === source[0]?.toUpperCase()
       ? translated.charAt(0).toUpperCase() + translated.slice(1)
       : translated;

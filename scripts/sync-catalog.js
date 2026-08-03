@@ -60,6 +60,33 @@ function countInlineVariantGroups(recipe) {
   }).length;
 }
 
+function flattenRecipeText(recipe) {
+  return [
+    recipe?.title,
+    recipe?.yield,
+    ...(recipe?.categories || []),
+    ...(recipe?.seasons || []),
+    ...(recipe?.tags || []),
+    ...(recipe?.aliases || []),
+    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || []), group.note, ...(group.notes || [])]),
+    ...(recipe?.steps || []),
+    ...(recipe?.notes || []),
+    ...(recipe?.technical || []).flatMap(item => [item.label, item.value, item.text]),
+    ...Object.values(recipe?.practical || {}).flatMap(value => Array.isArray(value) ? value : [value])
+  ].filter(Boolean).join(' ');
+}
+
+function compactSignalMask(recipe) {
+  const text = normalizeText(flattenRecipeText(recipe));
+  const patterns = [
+    'rapide', 'express', 'four', 'enfourner', 'gratin', 'frire', 'friture', 'tempura', 'beignet',
+    'air fryer', 'poele', 'plancha', 'mijoter', 'vegetarien', 'vegan', 'sans viande', 'froid',
+    'refrigerateur', 'conservation', 'congeler', 'congelation', 'rechauff', 'service', 'dresser',
+    'la veille', 'avance', 'week-end', 'semaine'
+  ];
+  return patterns.reduce((mask, pattern, index) => mask | (text.includes(pattern) ? (1 << index) : 0), 0);
+}
+
 function leafVariantCount(recipe, recipesById, seen = new Set()) {
   if (!recipe || seen.has(recipe.id)) return 0;
   seen.add(recipe.id);
@@ -73,6 +100,7 @@ function leafVariantCount(recipe, recipesById, seen = new Set()) {
 
 function compactRecipeForCatalog(recipe, recipesById) {
   const compact = JSON.parse(JSON.stringify(recipe));
+  compact.workflowMask = compactSignalMask(recipe);
   delete compact.practical;
   delete compact.notes;
   delete compact.steps;

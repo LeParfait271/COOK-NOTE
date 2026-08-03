@@ -93,6 +93,7 @@ function imageNaturalWidth(src, fallback = 1280) {
 }
 
 function runConfettiBurst() {
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
   loadDeferredScript(CONFETTI_SCRIPT_SRC, 'confetti').then(confetti => {
     if (typeof confetti !== 'function') return;
     confetti({ particleCount: 110, spread: 70, origin: { y: .65 } });
@@ -108,7 +109,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.41';
+const SITE_VERSION = 'v4.42';
 const SITE_UPDATED_AT = '03/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.08';
@@ -143,6 +144,15 @@ const CATEGORY_ACCENTS = {
   'Sauces': '#b84a16',
   'Base': '#0f8a84'
 };
+const CATEGORY_ALIASES = Object.freeze({
+  Apero: 'Apéro',
+  Aperos: 'Apéro',
+  Entrees: 'Entrées',
+  'Petit-déjeuner': 'Petits-déjeuners',
+  'Petit dejeuner': 'Petits-déjeuners',
+  Bases: 'Base',
+  Boulangerie: 'Base'
+});
 const HOME_CARD_ORDER = {
   petit_dejeuner_maitre: 1,
   apero_maitre: 2,
@@ -1025,11 +1035,20 @@ function getRecipeSeasonSet(recipe, recipesById = {}) {
 }
 
 function primaryCategory(recipe) {
-  return (recipe.categories || [])[0] || 'Recette';
+  return canonicalCategory((recipe.categories || [])[0]) || 'Recette';
 }
 
 function categoryLine(recipe) {
-  return (recipe.categories || []).filter(Boolean).join(' / ') || 'Recette';
+  return (recipe.categories || []).filter(Boolean).map(canonicalCategory).join(' / ') || 'Recette';
+}
+
+function canonicalCategory(category) {
+  const value = String(category || '').trim();
+  return CATEGORY_ALIASES[value] || value;
+}
+
+function recipeCategories(recipe) {
+  return [...new Set((recipe?.categories || []).filter(Boolean).map(canonicalCategory))];
 }
 
 function categoryLabel(category) {
@@ -1038,7 +1057,7 @@ function categoryLabel(category) {
 
 function recipeHasCategory(recipe, category) {
   if (!category) return true;
-  return (recipe.categories || []).includes(category);
+  return recipeCategories(recipe).includes(canonicalCategory(category));
 }
 
 function isCategoryCollectionRecipe(recipe) {
@@ -1047,7 +1066,7 @@ function isCategoryCollectionRecipe(recipe) {
 }
 
 function seasonGroupCategory(recipe) {
-  const categories = recipe.categories || [];
+  const categories = recipeCategories(recipe);
   return SEASON_CATEGORY_FILTERS.find(item => categories.includes(item.value))?.value || categories[0] || 'Autres';
 }
 
@@ -1385,14 +1404,35 @@ function getIngredientGroupSteps(group) {
     : [];
 }
 
+function getInlineVariantRule(recipe) {
+  return window.COOK_NOTE_INLINE_VARIANT_RULES?.[recipe?.id] || null;
+}
+
 function getSelectedInlineVariantSteps(recipe, selectedInlineVariantGroup) {
-  const groupSteps = getIngredientGroupSteps(selectedInlineVariantGroup?.group);
+  const selectedGroups = Array.isArray(selectedInlineVariantGroup?.groups)
+    ? selectedInlineVariantGroup.groups
+    : [selectedInlineVariantGroup?.group];
+  const groupSteps = selectedGroups.flatMap(getIngredientGroupSteps);
   return groupSteps.length ? groupSteps : getRecipeSteps(recipe);
 }
 
 function getInlineVariantOptions(recipe) {
   if (!recipe?.variantGroups) return [];
   const groups = recipe.ingredients || [];
+  const rule = getInlineVariantRule(recipe);
+  if (rule?.options?.length) {
+    return rule.options.map((option, position) => {
+      const selectedGroups = option.groups.map(index => groups[index]).filter(Boolean);
+      return {
+        index: option.groups[0] ?? position,
+        key: option.key || `variant-${position + 1}`,
+        group: selectedGroups[0],
+        groups: selectedGroups,
+        label: repairMojibakeText(option.label || cleanVariantGroupLabel(selectedGroups[0]?.group)),
+        steps: getSelectedInlineVariantSteps(recipe, { groups: selectedGroups })
+      };
+    });
+  }
   return groups
     .map((group, index) => ({ group, index }))
     .filter(({ group }) => isVariantIngredientGroup(group, groups, recipe))
@@ -1405,15 +1445,20 @@ function getInlineVariantOptions(recipe) {
 
 function getInlineBaseIngredientGroups(recipe) {
   const groups = recipe?.ingredients || [];
+  const rule = getInlineVariantRule(recipe);
+  if (rule?.sharedGroups) return rule.sharedGroups.map(index => groups[index]).filter(Boolean);
   return groups.filter(group => !isVariantIngredientGroup(group, groups, recipe));
 }
 
 function buildInlineVariantRecipe(recipe, option) {
   if (!recipe || !option) return recipe;
-  const nestedRecipe = option.group?.recipe && typeof option.group.recipe === 'object'
-    ? option.group.recipe
-    : {};
-  const { recipe: _nestedRecipe, ...selectedGroup } = option.group || {};
+  const selectedGroups = Array.isArray(option.groups) ? option.groups : [option.group];
+  const nestedGroup = selectedGroups.find(group => group?.recipe && typeof group.recipe === 'object');
+  const nestedRecipe = nestedGroup?.recipe || {};
+  const selectedIngredientGroups = selectedGroups.map(group => {
+    const { recipe: _nestedRecipe, ...selectedGroup } = group || {};
+    return selectedGroup;
+  }).filter(group => group && Array.isArray(group.items));
   return {
     ...recipe,
     ...nestedRecipe,
@@ -1423,7 +1468,7 @@ function buildInlineVariantRecipe(recipe, option) {
     additionalMasters: recipe.additionalMasters,
     categories: recipe.categories,
     image: recipe.image,
-    ingredients: [...getInlineBaseIngredientGroups(recipe), selectedGroup],
+    ingredients: [...getInlineBaseIngredientGroups(recipe), ...selectedIngredientGroups],
     steps: option.steps?.length ? option.steps : getSelectedInlineVariantSteps(recipe, option),
     variantGroups: false,
     inlineVariantResolved: true
@@ -2115,11 +2160,20 @@ function getRecipeTiming(recipe) {
     .map(getStepMinutes)
     .reduce((sum, minutes) => sum + minutes, 0);
   const activeEstimate = Math.max(5, Math.min(90, Math.round((countIngredients(recipe) * 2.2) + (steps.length * 2.5))));
+  const explicitActive = Number(recipe?.activeTime);
+  const explicitCook = Number(recipe?.cookTime);
+  const explicitRest = Number(recipe?.restTime);
+  const explicitTotal = Number(recipe?.totalTime);
+  const active = Number.isFinite(explicitActive) && explicitActive > 0 ? explicitActive : activeEstimate;
+  const cook = Number.isFinite(explicitCook) && explicitCook > 0
+    ? explicitCook
+    : (cookMinutes || (totalTimed && !restMinutes ? totalTimed : 0));
+  const rest = Number.isFinite(explicitRest) && explicitRest > 0 ? explicitRest : restMinutes;
   return {
-    active: activeEstimate,
-    cook: cookMinutes || (totalTimed && !restMinutes ? totalTimed : 0),
-    rest: restMinutes,
-    total: activeEstimate + totalTimed,
+    active,
+    cook,
+    rest,
+    total: Number.isFinite(explicitTotal) && explicitTotal > 0 ? explicitTotal : active + cook + rest,
     hasOven: /\b(four|enfourner|rotir|gratin|plaque)\b/.test(stepText),
     hasFry: /\b(friture|frire|bain d huile|tempura|beignet)\b/.test(stepText),
     hasCold: /\b(refrigerateur|froid|refroidir|repos)\b/.test(stepText)
@@ -2924,9 +2978,23 @@ function menuItemSlotKey(item, index) {
   return `${item?.key || 'slot'}:${index}`;
 }
 
+const COMPACT_WORKFLOW_SIGNALS = Object.freeze([
+  'rapide', 'express', 'four', 'enfourner', 'gratin', 'frire', 'friture', 'tempura', 'beignet',
+  'air fryer', 'poele', 'plancha', 'mijoter', 'vegetarien', 'vegan', 'sans viande', 'froid',
+  'refrigerateur', 'conservation', 'congeler', 'congelation', 'rechauff', 'service', 'dresser',
+  'la veille', 'avance', 'week-end', 'semaine'
+]);
+
+function getCompactWorkflowSignals(recipe) {
+  if (Array.isArray(recipe?.workflowSignals)) return recipe.workflowSignals;
+  const mask = Number(recipe?.workflowMask) || 0;
+  return COMPACT_WORKFLOW_SIGNALS.filter((_, index) => mask & (1 << index));
+}
+
 function menuRecipeStepText(recipe) {
   return normalizeText([
     recipe?.title,
+    ...getCompactWorkflowSignals(recipe),
     ...(recipe?.steps || []),
     ...(recipe?.notes || []),
     ...(recipe?.tags || [])
@@ -3579,7 +3647,7 @@ function polishDisplayText(value) {
     .replace(/\blegume\b/g, 'légume')
     .replace(/\bepices\b/g, 'épices')
     .replace(/\bjusqu a\b/g, 'jusqu’à')
-    .replace(/\b([DdLlMmNnSsTt]) (?=[aeiouhàâäéèêëîïôöùûüAEIOUHÀÂÄÉÈÊËÎÏÔÖÙÛÜ])/g, '$1’')
+    .replace(/(^|[^A-Za-zÀ-ÖØ-öø-ÿ])([DdLlMmNnSsTt]) (?=[aeiouhàâäéèêëîïôöùûüAEIOUHÀÂÄÉÈÊËÎÏÔÖÙÛÜ])/g, '$1$2’')
     .replace(/\b([Cc]) (?=est\b|était\b|etaient\b|étaient\b|étais\b|etait\b)/g, '$1’')
     .replace(/\b([Qq]u) (?=[aeiouhàâäéèêëîïôöùûüAEIOUHÀÂÄÉÈÊËÎÏÔÖÙÛÜ])/g, '$1’')
     .replace(/\b(jusqu|lorsqu|puisqu) (?=[aeiouhàâäéèêëîïôöùûüAEIOUHÀÂÄÉÈÊËÎÏÔÖÙÛÜ])/gi, '$1’')
@@ -3781,7 +3849,7 @@ function inferRecipeConservation(recipe) {
 }
 
 function getRecipePracticalSections(recipe) {
-  const practical = recipe?.practical || {};
+  const practical = recipe?.practical || recipe?.practicalSummary || {};
   const notes = (recipe?.notes || []).map(stripHtml);
   const technical = recipe?.technical || [];
   const sections = [];
@@ -3999,6 +4067,7 @@ function getRecipeWorkflowText(recipe, recipesById = {}) {
     ...(recipe?.seasons || []),
     ...(recipe?.tags || []),
     ...(recipe?.aliases || []),
+    ...getCompactWorkflowSignals(recipe),
     ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || []), group.note, ...(group.notes || [])]),
     ...(recipe?.steps || []),
     ...(recipe?.notes || []),
@@ -4166,7 +4235,7 @@ function getInitialTechnique() {
 }
 
 function getRecipeUrl(recipeId, variantId = '') {
-  return `/recette/${encodeURIComponent(variantId || recipeId)}`;
+  return `/recette/${encodeURIComponent(variantId || recipeId)}/`;
 }
 
 function getHomeUrl() {
@@ -4301,7 +4370,7 @@ function recipeJsonLd(recipe, recipesById = {}) {
   const url = `${window.location.origin}${getRecipeUrl(recipe.id)}`;
   const locale = CookNoteI18n.locale();
   const linkedRecipes = getLinkedRecipeRefs(recipe, recipesById);
-  const keywords = uniq([...(recipe.tags || []), ...(recipe.tagsExtracted || []), ...(recipe.categories || []), primaryCategory(recipe)]).join(', ');
+  const keywords = uniq([...(recipe.tags || []), ...(recipe.tagsExtracted || []), ...recipeCategories(recipe), primaryCategory(recipe)]).join(', ');
   const recipeText = normalizeText([recipe.title, ...(recipe.tags || []), ...(recipe.categories || []), ...(recipe.ingredients || []).flatMap(group => group.items || [])].join(' '));
   const timing = getRecipeTiming(recipe);
   const steps = getRecipeSteps(recipe);
@@ -4319,7 +4388,7 @@ function recipeJsonLd(recipe, recipesById = {}) {
     inLanguage: locale === 'en' ? 'en-US' : 'fr-FR',
     recipeCuisine: locale === 'en' ? 'Home cooking' : 'Cuisine maison',
     recipeYield: recipe.yield || undefined,
-    recipeCategory: (recipe.categories || []).map(category => locale === 'en' ? CookNoteI18n.translateCategory(category) : category).join(', ') || undefined,
+    recipeCategory: recipeCategories(recipe).map(category => locale === 'en' ? CookNoteI18n.translateCategory(category) : category).join(', ') || undefined,
     keywords: keywords || undefined,
     prepTime: minutesToIsoDuration(recipe.activeTime || timing.active),
     cookTime: minutesToIsoDuration(recipe.cookTime || timing.cook),
@@ -5274,6 +5343,8 @@ function SharePanel({ open, onClose, recipe, notify }) {
   const [posterBusy, setPosterBusy] = useState(false);
   const [qrReady, setQrReady] = useState(false);
   const canvasRef = useRef(null);
+  const modalRef = useRef(null);
+  const restoreFocusRef = useRef(null);
   const shareData = useMemo(() => {
     if (!open) return { url: '', description: '', text: '', imageStyle: {}, imageUrl: '' };
     const url = `${window.location.origin}${getRecipeUrl(recipe.id)}`;
@@ -5346,9 +5417,20 @@ function SharePanel({ open, onClose, recipe, notify }) {
     };
   }, [open, url]);
 
+  useEffect(() => {
+    if (open) {
+      restoreFocusRef.current = document.activeElement;
+      requestAnimationFrame(() => modalRef.current?.querySelector('button, a[href], input')?.focus());
+      return undefined;
+    }
+    restoreFocusRef.current?.focus?.();
+    restoreFocusRef.current = null;
+    return undefined;
+  }, [open]);
+
   if (!open) return null;
   return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
-    h('section', { className: 'modal-panel share-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'share-modal-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
+    h('section', { ref: modalRef, className: 'modal-panel share-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'share-modal-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
         h('div', null, h('p', { className: 'eyebrow' }, 'Partager'), h('h2', { id: 'share-modal-title' }, recipe.title)),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
@@ -7007,7 +7089,7 @@ function RecipeView({
         onToggleFavorite: () => toggleFavorite(detailKey, selectedRecipe.title)
       })
     ),
-    hasResolvedRecipe && h('div', { className: 'recipe-tabs', 'aria-label': 'Sections de la recette' },
+    hasResolvedRecipe && h('div', { className: 'recipe-tabs', role: 'tablist', 'aria-label': 'Sections de la recette' },
       [
         { key: 'ingredients', label: 'Ingrédients', count: countIngredients(selectedRecipe) },
         { key: 'steps', label: 'Étapes', count: effectiveStepTotal },
@@ -7017,6 +7099,8 @@ function RecipeView({
         type: 'button',
         className: mobileDetailTab === tab.key ? 'active' : '',
         'aria-selected': mobileDetailTab === tab.key,
+        'aria-controls': `recipe-panel-${tab.key}`,
+        tabIndex: mobileDetailTab === tab.key ? 0 : -1,
         onClick: () => setMobileDetailTab(tab.key)
       }, h('span', null, tab.label), h('small', null, tab.count)))
     ),
@@ -7026,7 +7110,7 @@ function RecipeView({
       h('span', { 'aria-hidden': true }, '\u203a')
     ),
     hasResolvedRecipe && h('div', { id: 'recipe-detail-content', className: 'recipe-detail-grid' },
-      h('section', { className: mobileDetailTab === 'ingredients' ? 'recipe-panel ingredients-panel active-tab-panel' : 'recipe-panel ingredients-panel' },
+      h('section', { id: 'recipe-panel-ingredients', role: 'tabpanel', className: mobileDetailTab === 'ingredients' ? 'recipe-panel ingredients-panel active-tab-panel' : 'recipe-panel ingredients-panel' },
         h('div', { className: 'panel-heading' },
           h('div', null, h('p', { className: 'eyebrow' }, 'Mise en place'), h('h2', null, 'Ingrédients'))
         ),
@@ -7081,7 +7165,7 @@ function RecipeView({
           );
         })
       ),
-      hasSelectedVariant && h('section', { className: mobileDetailTab === 'steps' ? 'recipe-panel steps-panel active-tab-panel' : 'recipe-panel steps-panel' },
+      hasSelectedVariant && h('section', { id: 'recipe-panel-steps', role: 'tabpanel', className: mobileDetailTab === 'steps' ? 'recipe-panel steps-panel active-tab-panel' : 'recipe-panel steps-panel' },
         h('div', { className: 'panel-heading' },
           h('div', null, h('p', { className: 'eyebrow' }, 'Exécution'), h('h2', null, 'Étapes')),
           h('div', { className: 'steps-panel-tools' },
@@ -7115,7 +7199,7 @@ function RecipeView({
           })
         )
       ),
-      hasSelectedVariant && h('aside', { className: mobileDetailTab === 'notes' ? 'recipe-panel notes-panel active-tab-panel' : 'recipe-panel notes-panel' },
+      hasSelectedVariant && h('aside', { id: 'recipe-panel-notes', role: 'tabpanel', className: mobileDetailTab === 'notes' ? 'recipe-panel notes-panel active-tab-panel' : 'recipe-panel notes-panel' },
         h('div', { className: 'notes-panel-head' },
           h('p', { className: 'eyebrow' }, 'Mémo'),
           h('h2', { className: 'read-before-title' }, 'Avant de commencer')
@@ -7229,6 +7313,7 @@ function App() {
   const [toasts, setToasts] = useState([]);
   const searchRef = useRef(null);
   const commandRef = useRef(null);
+  const modalRestoreFocusRef = useRef(null);
   const homeScrollRef = useRef(Number(sessionStorage.getItem(STORAGE_KEYS.homeScroll)) || 0);
   const restoreHomeScrollRef = useRef(false);
   const pendingScrollModeRef = useRef('top');
@@ -7238,6 +7323,18 @@ function App() {
   const catalogChunkLoadRef = useRef(null);
   const fullRecipeLoadRef = useRef(null);
   const activeTheme = preferences.theme === 'light' ? 'light' : 'dark';
+  const anyModalOpen = searchOpen || commandOpen || shoppingOpen || menuPlannerOpen || preferencesOpen;
+
+  useEffect(() => {
+    if (anyModalOpen) {
+      modalRestoreFocusRef.current = document.activeElement;
+      requestAnimationFrame(() => document.querySelector('[role="dialog"] button, [role="dialog"] input, [role="dialog"] select')?.focus());
+      return undefined;
+    }
+    modalRestoreFocusRef.current?.focus?.();
+    modalRestoreFocusRef.current = null;
+    return undefined;
+  }, [anyModalOpen]);
   const updatePreferences = patch => {
     setPreferences(current => {
       const nextTheme = Object.prototype.hasOwnProperty.call(patch, 'theme') && CookNoteTheme.isValidTheme(patch.theme)
@@ -7283,11 +7380,14 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!activeId || activeRecipe || catalogChunksLoaded) return;
-    loadDeferredCatalogChunks().catch(() => {
-      loadFullRecipeCatalog().catch(() => {});
+    if (!activeId || catalogChunksLoaded) return;
+    const needsFullRecipe = Boolean(activeRecipe && !isMasterRecipe(activeRecipe) && !Array.isArray(activeRecipe.steps));
+    if (activeRecipe && !needsFullRecipe) return;
+    const loader = needsFullRecipe ? loadFullRecipeCatalog : loadDeferredCatalogChunks;
+    loader().catch(() => {
+      if (loader !== loadFullRecipeCatalog) loadFullRecipeCatalog().catch(() => {});
     });
-  }, [activeId, activeRecipe?.id, catalogChunksLoaded]);
+  }, [activeId, activeRecipe?.id, activeRecipe?.steps?.length, catalogChunksLoaded]);
 
   useEffect(() => {
     const legacyVariant = new URLSearchParams(window.location.search).get('variant');
@@ -7666,7 +7766,6 @@ function App() {
       const recipe = recipesById[id] || sourceById[id];
       if (!recipe) return;
       urls.add(getRecipeUrl(id));
-      urls.add(`${getRecipeUrl(id)}/`);
       const image = displayRecipeImage(recipe);
       if (image) urls.add(image);
       getLinkedRecipeRefs(recipe, sourceById).slice(0, 4).forEach(link => {

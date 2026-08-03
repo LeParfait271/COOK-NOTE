@@ -9251,7 +9251,6 @@ body:has(.modal-backdrop) #cook-note-update-action {
   .site-footer { width: calc(100% - 28px); }
   .recipe-chef-strip { grid-template-columns: 1fr; gap: 8px; }
   .command-palette { width: calc(100% - 16px); padding: 14px; }
-  .recipe-command-dock-slot { min-height: 178px !important; }
 }
 
 @media print {
@@ -9285,7 +9284,6 @@ body:has(.modal-backdrop) #cook-note-update-action {
   .notes-panel { position: sticky !important; top: var(--recipe-nav-offset); max-height: calc(100vh - 198px); overflow: auto !important; overscroll-behavior: contain; align-self: start; }
 }
 @media screen and (max-width: 1060px) {
-  .recipe-command-dock-slot { min-height: 0 !important; }
   .recipe-dock-main { grid-template-columns: 1fr !important; gap: 6px; padding: 7px; }
   .recipe-dock-copy { display: none; }
   .recipe-dock-quantity { order: 0; width: 100%; justify-content: stretch; }
@@ -9294,4 +9292,5 @@ body:has(.modal-backdrop) #cook-note-update-action {
   .recipe-dock-actions { width: 100%; min-width: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
   .recipe-dock-actions { display: grid; }
 }
-@media screen and (max-width: 700px) { .recipe-detail-hero .detail-hero-copy { padding-top: 126px; } }
+
+@media screen{.recipe-dock-tabs button,.dock-action,.recipe-dock-quantity-control .quantity-select,.season-tabs button,.season-category-tabs button{min-height:44px}.recipe-dock-tabs button span{overflow:visible;text-overflow:clip;white-space:normal;line-height:1.1}}@media screen and (max-width:1060px){.recipe-command-dock-slot{min-height:172px!important}}@media screen and (max-width:700px){.recipe-command-dock-slot{min-height:184px!important}.recipe-detail-hero .detail-hero-copy{padding-top:202px}}

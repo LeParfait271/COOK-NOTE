@@ -1,11 +1,11 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v441
+//  Cook Note - Service Worker PWA v442
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v441';
-const IMAGE_CACHE_NAME = 'cook-note-images-v441';
+const CACHE_NAME = 'cook-note-v442';
+const IMAGE_CACHE_NAME = 'cook-note-images-v442';
 const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
@@ -13,6 +13,7 @@ const FAST_CHANGING_PATHS = new Set([
   '/app-premium.js',
   '/app-images.js',
   '/app-art-images.js',
+  '/app-inline-variant-rules.js',
   '/theme.js',
   '/i18n.js',
   '/recipes.js',
@@ -33,16 +34,17 @@ const IMMUTABLE_IMAGE_PATHS = [
 ];
 const STATIC_ASSETS = [
   '/index.html',
-  '/app.js?v=441-parent-title',
-  '/app-techniques.js?v=441-parent-title',
-  '/app-premium.js?v=441-parent-title',
-  '/app-images.js?v=441-parent-title',
-  '/app-art-images.js?v=441-parent-title',
-  '/theme.js?v=441-parent-title',
-  '/i18n.js?v=441-parent-title',
-  '/assets/catalog-1.js?v=441-parent-title',
-  '/assets/image-manifest.js?v=441-parent-title',
-  '/style.css?v=441-parent-title',
+  '/app.js?v=442-parent-title',
+  '/app-techniques.js?v=442-parent-title',
+  '/app-premium.js?v=442-parent-title',
+  '/app-images.js?v=442-parent-title',
+  '/app-art-images.js?v=442-parent-title',
+  '/app-inline-variant-rules.js?v=442-parent-title',
+  '/theme.js?v=442-parent-title',
+  '/i18n.js?v=442-parent-title',
+  '/assets/catalog-1.js?v=442-parent-title',
+  '/assets/image-manifest.js?v=442-parent-title',
+  '/style.css?v=442-parent-title',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
@@ -109,7 +111,7 @@ async function cacheRequestedUrls(urls = []) {
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => Promise.allSettled(STATIC_ASSETS.map(url => cache.add(url))))
+      .then(cache => cache.addAll(STATIC_ASSETS))
   );
 });
 

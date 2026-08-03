@@ -15,6 +15,7 @@ const RECIPES_FILE = path.join(ROOT, 'recipes.js');
 const APP_FILE = path.join(ROOT, 'app.js');
 const APP_IMAGES_FILE = path.join(ROOT, 'app-images.js');
 const APP_ART_IMAGES_FILE = path.join(ROOT, 'app-art-images.js');
+const INLINE_VARIANT_RULES_FILE = path.join(ROOT, 'app-inline-variant-rules.js');
 const APP_PREMIUM_FILE = path.join(ROOT, 'app-premium.js');
 const ANDROID_GRADLE_PROPERTIES_FILE = path.join(ROOT, 'android-legacy', 'gradle.properties');
 const MAX_IMAGE_WIDTH = 480;
@@ -167,6 +168,14 @@ function loadRecipes() {
   return context.window.RECIPES || {};
 }
 
+function loadInlineVariantRules() {
+  if (!fs.existsSync(INLINE_VARIANT_RULES_FILE)) return {};
+  const context = { window: {} };
+  vm.createContext(context);
+  vm.runInContext(read(INLINE_VARIANT_RULES_FILE), context, { filename: INLINE_VARIANT_RULES_FILE });
+  return context.window.COOK_NOTE_INLINE_VARIANT_RULES || {};
+}
+
 function loadVersion() {
   const siteMatch = read(APP_FILE).match(/const SITE_VERSION = 'v(\d+\.\d{2})'/);
   const apkMatch = read(APP_FILE).match(/const ANDROID_LEGACY_APK_VERSION = '(\d+\.\d{2})'/);
@@ -179,8 +188,12 @@ function loadVersion() {
   if (!siteVersion || !apkVersion || !androidVersion) {
     throw new Error('Versions Cook Note incompletes: SITE_VERSION, ANDROID_LEGACY_APK_VERSION et cookNoteAndroidVersion sont obligatoires.');
   }
-  if (siteVersion !== apkVersion || siteVersion !== androidVersion) {
-    throw new Error(`Versions Cook Note non alignees: site=${siteVersion}, lien APK=${apkVersion}, APK native=${androidVersion}.`);
+  const numeric = value => Number.parseInt(value.replace('.', ''), 10);
+  if (apkVersion !== androidVersion) {
+    throw new Error(`Versions Cook Note non alignees: lien APK=${apkVersion}, APK native=${androidVersion}.`);
+  }
+  if (numeric(siteVersion) < numeric(androidVersion)) {
+    throw new Error(`La version site ${siteVersion} ne peut pas etre inferieure a la version Android ${androidVersion}.`);
   }
   return androidVersion;
 }
@@ -352,13 +365,24 @@ function copyLiteImage(recipeId, imagePath, copiedImages, targetDir, preferCardI
   return basename;
 }
 
-function cleanGroups(groups) {
+function cleanGroups(groups, recipeId, inlineRules) {
   if (!Array.isArray(groups)) return [];
-  return groups.map(group => ({
+  const rule = inlineRules?.[recipeId];
+  const sharedGroups = new Set(rule?.sharedGroups || []);
+  const optionByGroup = new Map((rule?.options || []).flatMap(option => (option.groups || []).map(index => [index, option.key])));
+  const ruledGroups = new Set([...sharedGroups, ...optionByGroup.keys()]);
+  return groups.map((group, index) => ({
     group: stripHtml(group.group || 'Base'),
     items: cleanArray(group.items),
     note: stripHtml(group.note || ''),
-    steps: cleanArray(group.steps)
+    steps: cleanArray(group.steps),
+    ...(rule && !ruledGroups.has(index)
+      ? { variantKey: '__hidden__' }
+      : optionByGroup.get(index)
+        ? { variantKey: optionByGroup.get(index) }
+        : rule && sharedGroups.has(index)
+          ? { variantKey: '__shared__' }
+          : {})
   })).filter(group => group.group || group.items.length || group.note || group.steps.length);
 }
 
@@ -464,7 +488,7 @@ function completeBeforeSections(id, recipe, recipes, helpers) {
   return dedupeBeforeSections(sections);
 }
 
-function compactRecipe(id, recipe, imageName, detailImageName, recipes, helpers) {
+function compactRecipe(id, recipe, imageName, detailImageName, recipes, helpers, inlineRules) {
   const categories = cleanArray(recipe.categories).map(cleanCategory);
   const variants = Array.isArray(recipe.variants)
     ? recipe.variants.map(variant => ({
@@ -472,7 +496,7 @@ function compactRecipe(id, recipe, imageName, detailImageName, recipes, helpers)
       label: stripHtml(variant.label || '')
     })).filter(variant => variant.id)
     : [];
-  const ingredients = cleanGroups(recipe.ingredients);
+  const ingredients = cleanGroups(recipe.ingredients, id, inlineRules);
   const steps = cleanArray(recipe.steps);
   const notes = cleanArray(recipe.notes);
   const technical = cleanTechnical(recipe.technical);
@@ -568,6 +592,7 @@ function buildLiteAssets() {
   const recipes = loadRecipes();
   const helperRecipes = recipesWithIds(recipes);
   const helpers = loadAppHelpers();
+  const inlineRules = loadInlineVariantRules();
   const darkThemeImages = loadDarkThemeRecipeImages();
   const copiedImages = new Set();
   const copiedDetailImages = new Set();
@@ -582,7 +607,7 @@ function buildLiteAssets() {
     .map(([id, recipe]) => {
       const imageName = copyLiteImage(id, recipe.image, copiedImages, OUT_IMAGE_DIR, true, MAX_IMAGE_WIDTH, JPEG_QUALITY, darkThemeImages);
       const detailImageName = copyLiteImage(id, recipe.image, copiedDetailImages, OUT_DETAIL_IMAGE_DIR, false, DETAIL_IMAGE_WIDTH, DETAIL_JPEG_QUALITY, darkThemeImages);
-      return compactRecipe(id, recipe, imageName, detailImageName || imageName, helperRecipes, helpers);
+      return compactRecipe(id, recipe, imageName, detailImageName || imageName, helperRecipes, helpers, inlineRules);
     })
     .sort((left, right) => left.title.localeCompare(right.title, 'fr', { sensitivity: 'base' }));
 

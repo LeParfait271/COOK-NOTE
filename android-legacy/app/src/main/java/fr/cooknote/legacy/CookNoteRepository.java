@@ -435,6 +435,7 @@ final class CookNoteRepository {
             if (item == null) continue;
             output.add(new Recipe.Group(
                     cleanString(item.optString("group", "Base")),
+                    cleanString(item.optString("variantKey", "")),
                     stringList(item.optJSONArray("items")),
                     cleanString(item.optString("note", "")),
                     stringList(item.optJSONArray("steps"))

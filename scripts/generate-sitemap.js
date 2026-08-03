@@ -26,7 +26,7 @@ function loadRecipes() {
 }
 
 function recipeUrl(id) {
-  return `${SITE_URL}/recette/${encodeURIComponent(id)}`;
+  return `${SITE_URL}/recette/${encodeURIComponent(id)}/`;
 }
 
 const recipes = loadRecipes();

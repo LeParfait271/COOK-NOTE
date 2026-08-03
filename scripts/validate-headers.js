@@ -38,6 +38,7 @@ const rules = read('COOK_NOTE_RULES.md');
   'Cache-Control: no-cache',
   '/app-images.js',
   '/app-art-images.js',
+  '/app-inline-variant-rules.js',
   '/assets/recipes/cards/*',
   '/assets/theme/day/*',
   '/assets/theme/dark/*',
@@ -50,12 +51,15 @@ const rules = read('COOK_NOTE_RULES.md');
 });
 
 [
-  '/recette/* / 200',
   '/techniques / 200',
   '/techniques/ /techniques 301'
 ].forEach(fragment => {
   if (!redirects.includes(fragment)) fail(`_redirects: route SPA absente (${fragment}).`);
 });
+
+if (redirects.includes('/recette/* / 200')) {
+  fail('_redirects: le fallback SPA des recettes masque les pages prerendues.');
+}
 
 [
   '/recette/* /index.html 200',

@@ -1820,10 +1820,21 @@ public class MainActivity extends Activity {
 
     private List<InlineVariantChoice> inlineVariantChoices(Recipe recipe) {
         List<InlineVariantChoice> choices = new ArrayList<InlineVariantChoice>();
+        Map<String, InlineVariantChoice> grouped = new LinkedHashMap<String, InlineVariantChoice>();
         for (int index = 0; index < recipe.ingredients.size(); index += 1) {
             Recipe.Group group = recipe.ingredients.get(index);
             if (!isVariantIngredientGroup(group, recipe)) continue;
-            choices.add(new InlineVariantChoice(cleanVariantGroupLabel(group.title), group));
+            if (group.variantKey.length() > 0) {
+                InlineVariantChoice choice = grouped.get(group.variantKey);
+                if (choice == null) {
+                    choice = new InlineVariantChoice(cleanVariantGroupLabel(group.title));
+                    grouped.put(group.variantKey, choice);
+                    choices.add(choice);
+                }
+                choice.groups.add(group);
+            } else {
+                choices.add(new InlineVariantChoice(cleanVariantGroupLabel(group.title), group));
+            }
         }
         if (choices.isEmpty() && recipe.variantGroups) {
             for (Recipe.Group group : recipe.ingredients) {
@@ -1851,22 +1862,32 @@ public class MainActivity extends Activity {
 
         List<Recipe.Group> groups = new ArrayList<Recipe.Group>();
         for (Recipe.Group group : recipe.ingredients) {
+            if ("__hidden__".equals(group.variantKey)) continue;
             if (!isVariantIngredientGroup(group, recipe)) groups.add(group);
         }
 
         InlineVariantChoice selected = selectedInlineVariantChoice(recipe);
-        if (selected != null && !groups.contains(selected.group)) groups.add(selected.group);
+        if (selected != null) {
+            for (Recipe.Group group : selected.groups) {
+                if (!groups.contains(group)) groups.add(group);
+            }
+        }
         return groups;
     }
 
     private List<String> selectedRecipeSteps(Recipe recipe) {
         if (!recipe.variantGroups) return recipe.steps;
         InlineVariantChoice selected = selectedInlineVariantChoice(recipe);
-        if (selected != null && !selected.group.steps.isEmpty()) return selected.group.steps;
+        if (selected != null) {
+            List<String> steps = new ArrayList<String>();
+            for (Recipe.Group group : selected.groups) steps.addAll(group.steps);
+            if (!steps.isEmpty()) return steps;
+        }
         return recipe.steps;
     }
 
     private boolean isVariantIngredientGroup(Recipe.Group group, Recipe recipe) {
+        if ("__shared__".equals(group.variantKey) || "__hidden__".equals(group.variantKey)) return false;
         String label = CookNoteRepository.normalize(group.title);
         if (label.indexOf("base commune") >= 0 || "base".equals(label) || label.indexOf("commun") >= 0) return false;
         if (label.matches("^\\d+.*")) return true;
@@ -1889,11 +1910,15 @@ public class MainActivity extends Activity {
     }
 
     private void updateInlineVariantMeta(TextView meta, Recipe recipe, InlineVariantChoice choice) {
-        int ingredientCount = choice.group.items.size();
+        int ingredientCount = 0;
+        for (Recipe.Group selectedGroup : choice.groups) ingredientCount += selectedGroup.items.size();
         for (Recipe.Group group : recipe.ingredients) {
+            if ("__hidden__".equals(group.variantKey)) continue;
             if (!isVariantIngredientGroup(group, recipe)) ingredientCount += group.items.size();
         }
-        int stepCount = choice.group.steps.isEmpty() ? recipe.steps.size() : choice.group.steps.size();
+        int stepCount = 0;
+        for (Recipe.Group selectedGroup : choice.groups) stepCount += selectedGroup.steps.size();
+        if (stepCount == 0) stepCount = recipe.steps.size();
         StringBuilder builder = new StringBuilder();
         builder.append("Variante selectionnee : ").append(choice.label);
         builder.append(" - ").append(ingredientCount).append(ingredientCount > 1 ? " ingredients" : " ingredient");
@@ -3047,11 +3072,15 @@ public class MainActivity extends Activity {
 
     private static final class InlineVariantChoice {
         final String label;
-        final Recipe.Group group;
+        final List<Recipe.Group> groups = new ArrayList<Recipe.Group>();
 
         InlineVariantChoice(String label, Recipe.Group group) {
             this.label = label;
-            this.group = group;
+            this.groups.add(group);
+        }
+
+        InlineVariantChoice(String label) {
+            this.label = label;
         }
     }
 

@@ -135,12 +135,14 @@ final class Recipe {
 
     static final class Group {
         final String title;
+        final String variantKey;
         final List<String> items;
         final String note;
         final List<String> steps;
 
-        Group(String title, List<String> items, String note, List<String> steps) {
+        Group(String title, String variantKey, List<String> items, String note, List<String> steps) {
             this.title = title;
+            this.variantKey = variantKey == null ? "" : variantKey;
             this.items = safe(items);
             this.note = note;
             this.steps = safe(steps);

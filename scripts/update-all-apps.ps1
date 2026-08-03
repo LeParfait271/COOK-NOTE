@@ -82,7 +82,9 @@ function Run-AndroidBuild($ScriptPath, $Label) {
 
 function Copy-ExpectedApk($Channel, $TargetName) {
   $VariantDir = if ($Release) { "release" } else { "debug" }
-  $ApkNames = if ($Release) { @("app-release.apk", "app-release-unsigned.apk") } else { @("app-debug.apk") }
+  # Une release ne doit jamais retomber silencieusement sur l artefact unsigned :
+  # il serait installable en test mais impossible a mettre a jour pour les utilisateurs.
+  $ApkNames = if ($Release) { @("app-release.apk") } else { @("app-debug.apk") }
   $ApkPath = $null
   foreach ($ApkName in $ApkNames) {
     $Candidate = Join-Path $Root "android-$Channel\app\build\outputs\apk\$VariantDir\$ApkName"
@@ -93,6 +95,9 @@ function Copy-ExpectedApk($Channel, $TargetName) {
   }
   if (-not (Test-Path $ApkPath)) {
     throw "APK $Channel introuvable dans android-$Channel/app/build/outputs/apk/$VariantDir."
+  }
+  if ($Release -and [System.IO.Path]::GetFileName($ApkPath) -ne "app-release.apk") {
+    throw "APK release signe attendu pour $Channel."
   }
   New-Item -ItemType Directory -Path $DownloadsDir -Force | Out-Null
   $TargetPath = Join-Path $DownloadsDir $TargetName

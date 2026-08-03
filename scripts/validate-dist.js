@@ -14,6 +14,7 @@ const REQUIRED_FILES = [
   'app-techniques.js',
   'app-images.js',
   'app-art-images.js',
+  'app-inline-variant-rules.js',
   'theme.js',
   'i18n.js',
   'assets/brand/app-icon.png',
@@ -150,7 +151,7 @@ if (!fs.existsSync(DIST)) {
   ['/techniques / 200', '/techniques/ /techniques 301'].forEach(rule => {
     const ruleIndex = redirects.indexOf(rule);
     if (ruleIndex < 0 || (recipeFallbackIndex >= 0 && ruleIndex > recipeFallbackIndex)) {
-      fail(`dist/_redirects: la route exacte "${rule}" doit preceder le fallback /recette/*.`);
+      fail(`dist/_redirects: la route exacte "${rule}" est absente ou mal ordonnee.`);
     }
   });
   Object.entries(recipes).forEach(([id, recipe]) => {
