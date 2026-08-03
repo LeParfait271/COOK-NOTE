@@ -16,6 +16,7 @@ const validators = {
   featureCoverage: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-feature-coverage.js'), 'utf8'),
   cache: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-cache-version.js'), 'utf8'),
   visualImages: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-visual-image-duplicates.js'), 'utf8'),
+  variantFamilyImages: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-variant-family-images.js'), 'utf8'),
   imageCleanup: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-image-cleanup.js'), 'utf8'),
   dist: fs.readFileSync(path.join(ROOT, 'scripts', 'validate-dist.js'), 'utf8'),
   buildSite: fs.readFileSync(path.join(ROOT, 'scripts', 'build-site.js'), 'utf8'),
@@ -341,6 +342,7 @@ expect('Validation images uniques non branchee.', validators.recipes.includes('l
 expect('Validation sources recette interdites non branchee.', validators.recipes.includes('FORBIDDEN_RECIPE_SOURCE_KEYS') && validators.recipes.includes('image externe interdite'));
 expect('Validation qualificatifs marketing des titres non branchee.', validators.recipes.includes('MARKETING_TITLE_QUALIFIER_RE') && validators.recipes.includes('qualificatif marketing interdit dans le titre'));
 expect('Validation doublons visuels non branchee.', validators.visualImages.includes('PERCEPTUAL_CORRELATION_LIMIT') && validators.packageJson.includes('scripts/validate-visual-image-duplicates.js'));
+expect('Validation images propres des familles variantes non branchee.', validators.variantFamilyImages.includes('image propre attendue') && validators.packageJson.includes('scripts/validate-variant-family-images.js'));
 expect('Validation images optimisees non branchee.', validators.recipes.includes('assets/recipes/heroes') && validators.recipes.includes('master PNG introuvable'));
 expect('Validation chemins images locaux non branchee.', validators.recipes.includes('image locale introuvable') && validators.recipes.includes('image recette non optimisee'));
 expect('Validation miniatures cartes non branchee.', validators.production.includes('assets/recipes/cards') && validators.production.includes('miniature carte introuvable'));

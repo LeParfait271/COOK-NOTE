@@ -5,7 +5,7 @@
 - Miniatures manquantes : 0
 - Images optimisees faibles : 1
 - Miniatures faibles : 0
-- Cadrages atypiques : 12
+- Cadrages atypiques : 10
 - Doublons visuels : 0
 
 ## Priorite
@@ -19,10 +19,10 @@ Aucune image faible detectee.
 - Beurre à l’ail (beurre_ail) : 90/100 - assets/recipes/heroes/beurre_ail.jpg
 - Billes de mozzarella marinées (billes_mozzarella_marinees) : 90/100 - assets/recipes/heroes/billes_mozzarella_marinees.jpg
 - Bruschetta roquefort noix (bruschetta_roquefort_noix) : 90/100 - assets/recipes/heroes/bruschetta_roquefort_noix.jpg
-- Cakes salés (cakes_sales_variantes) : 90/100 - assets/recipes/heroes/cake_sale_lardon.jpg
 - Falafels au four (falafels_four) : 90/100 - assets/recipes/heroes/falafels_four.jpg
 - Madeleines salées (madeleines_salees) : 90/100 - assets/recipes/heroes/madeleines_comte_epices_douces.jpg
 - Oeufs cocotte chorizo (oeufs_cocotte_chorizo) : 90/100 - assets/recipes/heroes/oeufs_cocotte_chorizo.jpg
 - Œufs mimosa (oeufs_mimosa_variantes) : 90/100 - assets/recipes/heroes/oeufs_mimosa_variantes.jpg
+- Sauce yaourt citronnée (sauce_yaourt_citronnee) : 90/100 - assets/recipes/heroes/sauce_yaourt_citronnee.jpg
 
 ## Fichiers a ouvrir
