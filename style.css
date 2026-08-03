@@ -7750,8 +7750,6 @@ a {
 .top-actions .btn,
 .top-actions .icon-square,
 .mobile-bottom-nav button,
-.recipe-dock-tabs button,
-.dock-action,
 .recipe-grid-load-more button {
   position: relative;
   overflow: hidden;
@@ -7789,9 +7787,7 @@ a {
     0 18px 44px rgba(0, 0, 0, .46);
 }
 
-.mobile-bottom-nav button::after,
-.recipe-dock-tabs button::after,
-.dock-action::after {
+.mobile-bottom-nav button::after {
   content: "";
   position: absolute;
   left: 10px;
@@ -7809,12 +7805,7 @@ a {
 .mobile-bottom-nav button[aria-current="page"]::after,
 .mobile-bottom-nav .mobile-theme-toggle[aria-pressed="true"]::after,
 .mobile-bottom-nav button:hover::after,
-.mobile-bottom-nav button:focus-visible::after,
-.recipe-dock-tabs button.active::after,
-.recipe-dock-tabs button:hover::after,
-.recipe-dock-tabs button:focus-visible::after,
-.dock-action:hover::after,
-.dock-action:focus-visible::after {
+.mobile-bottom-nav button:focus-visible::after {
   opacity: .88;
   transform: scaleX(1);
 }
@@ -7828,18 +7819,6 @@ a {
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 7%, transparent),
     0 10px 30px rgba(0, 0, 0, .30);
-}
-
-.recipe-dock-tabs button,
-.dock-action {
-  transition: color var(--speed), border-color var(--speed), background var(--speed), transform var(--speed), box-shadow var(--speed);
-}
-
-.recipe-dock-tabs button:hover,
-.recipe-dock-tabs button:focus-visible,
-.dock-action:hover,
-.dock-action:focus-visible {
-  transform: translateY(-1px);
 }
 
 .command-input-shell:focus-within {
@@ -9176,11 +9155,11 @@ body:has(.modal-backdrop) #cook-note-update-action {
   #recipe-detail-content,
   .collection-links-panel { scroll-margin-top: var(--recipe-nav-offset); }
 
-  .recipe-command-dock-slot { min-height: 116px !important; }
+  .recipe-command-dock-slot { min-height: 0 !important; }
   .recipe-command-dock {
-    width: min(1260px, calc(100% - 48px));
-    top: 54px;
-    border-radius: 0 0 14px 14px;
+    width: min(1340px, calc(100% - clamp(32px, 5vw, 96px)));
+    top: 64px;
+    border-radius: 14px;
     backdrop-filter: blur(22px) saturate(1.04);
   }
   .recipe-dock-main {
@@ -9299,33 +9278,20 @@ body:has(.modal-backdrop) #cook-note-update-action {
   .ingredient-group, .step-list li, .notes-panel > * { break-inside: avoid; }
 }
 
-/* Cooking mode: keep the dock and the three reading zones pinned together. */
+/* Recipe sheet rail: fixed to the fiche without a full-bleed banner. */
 @media screen and (min-width: 1061px) {
-  .recipe-command-dock {
-    position: fixed !important;
-    top: 54px;
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    transform: none;
-    border-radius: 0 0 14px 14px;
-  }
-
-  .recipe-command-dock-slot {
-    min-height: 116px !important;
-  }
-
   .ingredients-panel,
   .steps-panel,
-  .notes-panel {
-    position: sticky !important;
-    top: var(--recipe-nav-offset);
-    max-height: calc(100vh - 198px);
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    overscroll-behavior: contain;
-    align-self: start;
-  }
+  .notes-panel { position: sticky !important; top: var(--recipe-nav-offset); max-height: calc(100vh - 198px); overflow: auto !important; overscroll-behavior: contain; align-self: start; }
 }
+@media screen and (max-width: 1060px) {
+  .recipe-command-dock-slot { min-height: 0 !important; }
+  .recipe-dock-main { grid-template-columns: 1fr !important; gap: 6px; padding: 7px; }
+  .recipe-dock-copy { display: none; }
+  .recipe-dock-quantity { order: 0; width: 100%; justify-content: stretch; }
+  .recipe-dock-quantity-control { width: 100%; }
+  .recipe-dock-tabs,
+  .recipe-dock-actions { width: 100%; min-width: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+  .recipe-dock-actions { display: grid; }
+}
+@media screen and (max-width: 700px) { .recipe-detail-hero .detail-hero-copy { padding-top: 126px; } }
