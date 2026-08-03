@@ -98,9 +98,16 @@ try {
     $GradleArguments += "--offline"
   }
   $GradleArguments += $GradleTask
-  gradle @GradleArguments
-  if ($LASTEXITCODE -ne 0) {
-    throw "Gradle a echoue avec le code $LASTEXITCODE."
+  $PreviousErrorActionPreference = $ErrorActionPreference
+  $ErrorActionPreference = "Continue"
+  try {
+    gradle @GradleArguments
+    $GradleExitCode = $LASTEXITCODE
+  } finally {
+    $ErrorActionPreference = $PreviousErrorActionPreference
+  }
+  if ($GradleExitCode -ne 0) {
+    throw "Gradle a echoue avec le code $GradleExitCode."
   }
 } finally {
   Pop-Location

@@ -3804,7 +3804,8 @@ a {
   gap: 4px;
 }
 
-.preference-offline-group small {
+.preference-offline-group small,
+.preference-data-group small {
   color: var(--muted);
   font-weight: 750;
   line-height: 1.35;
@@ -3813,6 +3814,7 @@ a {
 .preference-offline-group .btn {
   white-space: nowrap;
 }
+
 
 .offline-status-bar {
   position: sticky;

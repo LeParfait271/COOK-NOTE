@@ -2617,6 +2617,7 @@ public class MainActivity extends Activity {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private int installedVersionCode() {
         try {
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);

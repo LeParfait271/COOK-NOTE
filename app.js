@@ -109,10 +109,10 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.44';
+const SITE_VERSION = 'v4.45';
 const SITE_UPDATED_AT = '03/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '4.08';
+const ANDROID_LEGACY_APK_VERSION = '4.45';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
@@ -772,6 +772,22 @@ const STORAGE_KEYS = {
   legacyFavorites: ['mc_food_favorites', 'cuisine_favs']
 };
 
+const LOCAL_DATA_EXPORT_KEYS = Object.freeze([
+  STORAGE_KEYS.favorites,
+  STORAGE_KEYS.shopping,
+  STORAGE_KEYS.shoppingFactors,
+  STORAGE_KEYS.shoppingChecked,
+  STORAGE_KEYS.shoppingOwned,
+  STORAGE_KEYS.menuHistory,
+  STORAGE_KEYS.preferences,
+  STORAGE_KEYS.recentRecipes,
+  STORAGE_KEYS.recentSearches,
+  STORAGE_KEYS.personalNotes,
+  STORAGE_KEYS.pantry
+]);
+const LOCAL_DATA_EXPORT_SCHEMA = 'cook-note-local-data';
+const LOCAL_DATA_EXPORT_VERSION = 1;
+
 const {
   pantryIndex,
   pantryHasIngredientName,
@@ -809,6 +825,48 @@ function writeJson(key, value) {
   } catch {
     /* ignore private browsing restrictions */
   }
+}
+
+function localDataSnapshot() {
+  const data = {};
+  LOCAL_DATA_EXPORT_KEYS.forEach(key => {
+    const raw = localStorage.getItem(key);
+    if (raw !== null) data[key] = readJson(key, null);
+  });
+  return {
+    schema: LOCAL_DATA_EXPORT_SCHEMA,
+    version: LOCAL_DATA_EXPORT_VERSION,
+    exportedAt: new Date().toISOString(),
+    data
+  };
+}
+
+function downloadLocalDataBackup() {
+  const payload = JSON.stringify(localDataSnapshot(), null, 2);
+  const blob = new Blob([payload], { type: 'application/json;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  const date = new Date().toISOString().slice(0, 10);
+  link.href = url;
+  link.download = `cook-note-sauvegarde-${date}.json`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function restoreLocalDataBackup(rawPayload) {
+  const parsed = typeof rawPayload === 'string' ? JSON.parse(rawPayload) : rawPayload;
+  if (!parsed || parsed.schema !== LOCAL_DATA_EXPORT_SCHEMA || parsed.version !== LOCAL_DATA_EXPORT_VERSION || !parsed.data || typeof parsed.data !== 'object') {
+    throw new Error('Format de sauvegarde Cook Note non reconnu.');
+  }
+  const allowed = new Set(LOCAL_DATA_EXPORT_KEYS);
+  const entries = Object.entries(parsed.data).filter(([key]) => allowed.has(key));
+  if (!entries.length) throw new Error('La sauvegarde ne contient aucune donnée Cook Note.');
+  const serialized = JSON.stringify(parsed.data);
+  if (serialized.length > 1000000) throw new Error('La sauvegarde est trop volumineuse.');
+  entries.forEach(([key, value]) => writeJson(key, value));
+  return entries.length;
 }
 
 function readStoredList(key, legacyKeys) {
@@ -1467,7 +1525,7 @@ function buildInlineVariantRecipe(recipe, option) {
     master: recipe.master,
     additionalMasters: recipe.additionalMasters,
     categories: recipe.categories,
-    image: recipe.image,
+    image: nestedRecipe.image || recipe.image,
     ingredients: [...getInlineBaseIngredientGroups(recipe), ...selectedIngredientGroups],
     steps: option.steps?.length ? option.steps : getSelectedInlineVariantSteps(recipe, option),
     variantGroups: false,
@@ -4262,6 +4320,23 @@ function getInitialVariant() {
   return params.get('variant');
 }
 
+function getInitialInlineVariantKey() {
+  if (!getPathRecipe()) return '';
+  const variant = getInitialVariant();
+  return variant && !window.RECIPES?.[variant] ? variant : '';
+}
+
+function getInlineVariantUrl(recipeId, optionKey = '') {
+  const baseUrl = getRecipeUrl(recipeId);
+  return optionKey ? `${baseUrl}?variant=${encodeURIComponent(optionKey)}` : baseUrl;
+}
+
+function getCurrentRecipeUrl(recipe) {
+  if (!recipe?.id) return getHomeUrl();
+  const inlineKey = getPathRecipe() === recipe.id ? getInitialInlineVariantKey() : '';
+  return `${window.location.origin}${getInlineVariantUrl(recipe.id, inlineKey)}`;
+}
+
 function isTypingTarget(target) {
   return ['INPUT', 'TEXTAREA', 'SELECT'].includes(target?.tagName);
 }
@@ -4367,7 +4442,7 @@ function ambilightStyle(image, extra = {}) {
 
 function recipeJsonLd(recipe, recipesById = {}) {
   if (!recipe || isMasterRecipe(recipe)) return null;
-  const url = `${window.location.origin}${getRecipeUrl(recipe.id)}`;
+  const url = getCurrentRecipeUrl(recipe);
   const locale = CookNoteI18n.locale();
   const linkedRecipes = getLinkedRecipeRefs(recipe, recipesById);
   const keywords = uniq([...(recipe.tags || []), ...(recipe.tagsExtracted || []), ...recipeCategories(recipe), primaryCategory(recipe)]).join(', ');
@@ -4474,7 +4549,7 @@ function updateDocumentMeta(recipe, recipesById = {}, page = 'home') {
   const canonicalUrl = isTechniques
     ? getTechniquesUrl()
     : recipe?.id
-      ? `${window.location.origin}${getRecipeUrl(recipe.id)}`
+      ? getCurrentRecipeUrl(recipe)
       : getHomeUrl();
   document.title = title;
   setMetaContent('meta[name="description"]', description);
@@ -5337,7 +5412,7 @@ function TechniquesView({ targetTechniqueId, goHome }) {
   );
 }
 
-function SharePanel({ open, onClose, recipe, notify }) {
+function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
   const [copied, setCopied] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
   const [posterBusy, setPosterBusy] = useState(false);
@@ -5347,7 +5422,7 @@ function SharePanel({ open, onClose, recipe, notify }) {
   const restoreFocusRef = useRef(null);
   const shareData = useMemo(() => {
     if (!open) return { url: '', description: '', text: '', imageStyle: {}, imageUrl: '' };
-    const url = `${window.location.origin}${getRecipeUrl(recipe.id)}`;
+    const url = shareUrl || getCurrentRecipeUrl(recipe);
     const description = recipeDescription(recipe);
     const imageUrl = displayRecipeImage(recipe);
     return {
@@ -5357,7 +5432,7 @@ function SharePanel({ open, onClose, recipe, notify }) {
       imageStyle: imageUrl ? { backgroundImage: `url("${imageUrl}")` } : {},
       imageUrl
     };
-  }, [open, recipe]);
+  }, [open, recipe, shareUrl]);
   const { url, description, text, imageStyle, imageUrl } = shareData;
 
   function nativeShare() {
@@ -6211,7 +6286,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
   );
 }
 
-function PreferencesPanel({ open, onClose, preferences, updatePreferences, favoriteCount = 0, isOnline = true, offlineBusy = false, preloadFavoritesOffline }) {
+function PreferencesPanel({ open, onClose, preferences, updatePreferences, favoriteCount = 0, isOnline = true, offlineBusy = false, preloadFavoritesOffline, exportLocalData, importLocalData }) {
   if (!open) return null;
   const update = patch => updatePreferences(patch);
   const density = preferences.density || 'comfort';
@@ -6266,6 +6341,38 @@ function PreferencesPanel({ open, onClose, preferences, updatePreferences, favor
           onClick: preloadFavoritesOffline,
           ariaLabel: 'Précharger les recettes favorites hors-ligne'
         }, offlineBusy ? 'Préchargement...' : 'Précharger')
+      ),
+      h('div', { className: 'preference-group preference-data-group' },
+        h('div', null,
+          h('strong', null, 'Sauvegarde locale'),
+          h('small', null, 'Exporte ou restaure tes favoris, notes et listes de courses sur cet appareil.')
+        ),
+        h('div', { className: 'preference-data-actions' },
+          h(Button, { variant: 'subtle', onClick: exportLocalData, ariaLabel: 'Exporter les données locales' }, 'Exporter'),
+          h('label', {
+            className: 'btn btn-subtle',
+            tabIndex: 0,
+            role: 'button',
+            'aria-label': 'Importer une sauvegarde locale',
+            onKeyDown: event => {
+              if (event.key !== 'Enter' && event.key !== ' ') return;
+              event.preventDefault();
+              event.currentTarget.querySelector('input')?.click();
+            }
+          },
+            'Importer',
+            h('input', {
+              type: 'file',
+              accept: 'application/json,.json',
+              className: 'sr-only',
+              onChange: event => {
+                const file = event.target.files?.[0];
+                event.target.value = '';
+                if (file) importLocalData?.(file);
+              }
+            })
+          )
+        )
       ),
     )
   );
@@ -6925,8 +7032,12 @@ function RecipeView({
   }, [recipe.id]);
 
   useEffect(() => {
-    setOpenIngredientGroups({});
-  }, [detailKey]);
+    const requestedKey = getInitialInlineVariantKey();
+    const requestedOption = inlineVariantOptions.find(option => option.key === requestedKey);
+    setOpenIngredientGroups(requestedOption
+      ? { [`${detailKey}:group:${requestedOption.index}`]: true }
+      : {});
+  }, [detailKey, inlineVariantOptions]);
 
   useEffect(() => {
     if (!stepTotal || doneSteps !== stepTotal || completedRef.current === stepScopeKey) return;
@@ -6952,6 +7063,7 @@ function RecipeView({
   }
 
   function selectInlineVariant(index) {
+    const option = inlineVariantOptions.find(item => item.index === index);
     setOpenIngredientGroups(prev => {
       const next = { ...prev };
       inlineVariantOptions.forEach(option => {
@@ -6960,6 +7072,9 @@ function RecipeView({
       next[`${detailKey}:group:${index}`] = true;
       return next;
     });
+    if (option) {
+      window.history.replaceState('', document.title, getInlineVariantUrl(recipe.id, option.key));
+    }
   }
 
   function continueToRecipeDetails() {
@@ -7251,7 +7366,15 @@ function RecipeView({
         )
       )
     ),
-    showRecipeUtilities && h(SharePanel, { open: shareOpen, onClose: () => setShareOpen(false), recipe: selectedRecipe, notify })
+    showRecipeUtilities && h(SharePanel, {
+      open: shareOpen,
+      onClose: () => setShareOpen(false),
+      recipe: selectedRecipe,
+      shareUrl: selectedInlineVariantGroup
+        ? `${window.location.origin}${getInlineVariantUrl(recipe.id, selectedInlineVariantGroup.key)}`
+        : '',
+      notify
+    })
   );
 }
 
@@ -7687,6 +7810,34 @@ function App() {
     else next[id] = { status: note.status || '', text: String(note.text || '').slice(0, 600), updatedAt: note.updatedAt || Date.now() };
     setPersonalNotes(next);
     writeJson(STORAGE_KEYS.personalNotes, next);
+  }
+
+  function exportLocalData() {
+    try {
+      downloadLocalDataBackup();
+      notify('Sauvegarde locale téléchargée', 'success');
+    } catch {
+      notify('Sauvegarde locale impossible', 'error');
+    }
+  }
+
+  async function importLocalData(file) {
+    if (!file || file.size > 1000000) {
+      notify('Fichier de sauvegarde trop volumineux', 'error');
+      return;
+    }
+    try {
+      const raw = await file.text();
+      const confirmMessage = CookNoteI18n.locale() === 'en'
+        ? 'This will replace your local Cook Note data. Continue?'
+        : 'Cette action remplacera les données locales Cook Note. Continuer ?';
+      if (!window.confirm(confirmMessage)) return;
+      const count = restoreLocalDataBackup(raw);
+      notify(`${count} éléments restaurés. Rechargement...`, 'success');
+      window.setTimeout(() => window.location.reload(), 700);
+    } catch (error) {
+      notify(error?.message || 'Import de sauvegarde impossible', 'error');
+    }
   }
 
   function toggleFavorite(id, label = '') {
@@ -8293,7 +8444,9 @@ function App() {
       favoriteCount: favorites.length,
       isOnline,
       offlineBusy,
-      preloadFavoritesOffline: preloadFavoriteRecipesOffline
+      preloadFavoritesOffline: preloadFavoriteRecipesOffline,
+      exportLocalData,
+      importLocalData
     }),
     h(CommandPalette, {
       open: commandOpen,

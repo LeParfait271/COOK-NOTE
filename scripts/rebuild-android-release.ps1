@@ -47,7 +47,7 @@ function Get-VersionState {
   $SiteMatch = [regex]::Match($App, "const SITE_VERSION = 'v(\d+\.\d{2})';")
   $AppAndroidMatch = [regex]::Match($App, "const ANDROID_LEGACY_APK_VERSION = '(\d+\.\d{2})';")
   $Gradle = Read-Utf8File $GradlePropertiesPath
-  $GradleMatch = [regex]::Match($Gradle, "(?m)^cookNoteAndroidVersion=(\d+\.\d{2})$")
+  $GradleMatch = [regex]::Match($Gradle, "(?m)^cookNoteAndroidVersion=(\d+\.\d{2})\r?$")
 
   if (-not $SiteMatch.Success -or -not $AppAndroidMatch.Success -or -not $GradleMatch.Success) {
     throw "Versions Cook Note illisibles. Attendu: X.YY."
@@ -173,12 +173,18 @@ function Invoke-AndroidBuild($Retries) {
   do {
     $Attempt += 1
     $AttemptLog = Join-Path $LogDir "android-gradle-attempt-$Attempt.log"
-    if ($Attempt -eq 1) {
-      & powershell.exe -ExecutionPolicy Bypass -File $BuildScript -SkipWebBuild -SkipAssetBuild -Release -Offline *> $AttemptLog
-    } else {
-      & powershell.exe -ExecutionPolicy Bypass -File $BuildScript -SkipWebBuild -SkipAssetBuild -Release *> $AttemptLog
+    $PreviousErrorActionPreference = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+      if ($Attempt -eq 1) {
+        & powershell.exe -ExecutionPolicy Bypass -File $BuildScript -SkipWebBuild -SkipAssetBuild -Release -Offline *> $AttemptLog
+      } else {
+        & powershell.exe -ExecutionPolicy Bypass -File $BuildScript -SkipWebBuild -SkipAssetBuild -Release *> $AttemptLog
+      }
+      $BuildExitCode = $LASTEXITCODE
+    } finally {
+      $ErrorActionPreference = $PreviousErrorActionPreference
     }
-    $BuildExitCode = $LASTEXITCODE
     Copy-Item -LiteralPath $AttemptLog -Destination $GradleLatestLogPath -Force
     if ($BuildExitCode -eq 0) {
       Write-Host "Build Gradle OK (tentative $Attempt). Journal: $GradleLatestLogPath"

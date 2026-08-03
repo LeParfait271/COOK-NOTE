@@ -23,6 +23,10 @@ function ownImagePath(id) {
   return `/assets/recipes/heroes/${id}.jpg`;
 }
 
+function ownDarkImagePath(id) {
+  return `/assets/theme/dark/recipes/${id}.jpg`;
+}
+
 function run() {
   const recipes = loadRecipes();
   const rows = [];
@@ -42,13 +46,17 @@ function run() {
     nestedImages.forEach(image => {
       if (!imageOwners.has(image)) imageOwners.set(image, new Set());
       imageOwners.get(image).add(imageId(image));
+      const nestedId = imageId(image);
+      if (nestedId && !fs.existsSync(path.join(ROOT, ownDarkImagePath(nestedId).replace(/^\//, '')))) {
+        errors.push(`${id}: dark override missing for nested variant (${nestedId}).`);
+      }
     });
 
     const expected = ownImagePath(id);
     if (shouldFix && fs.existsSync(path.join(ROOT, expected.replace(/^\//, '')))) {
       recipe.image = expected;
     }
-    rows.push({ id, image: recipe.image, expected, nestedImages });
+    rows.push({ id, image: recipe.image, expected, nestedImages, darkExpected: ownDarkImagePath(id) });
   });
 
   rows.forEach(row => {
@@ -57,6 +65,12 @@ function run() {
     }
     if (row.nestedImages.some(image => image === row.image && imageId(image) !== row.id)) {
       errors.push(`${row.id}: image de famille réutilisée par une variante (${row.image}).`);
+    }
+  });
+
+  rows.forEach(row => {
+    if (!fs.existsSync(path.join(ROOT, row.darkExpected.replace(/^\//, '')))) {
+      errors.push(`${row.id}: dark override missing (${row.darkExpected}).`);
     }
   });
 
