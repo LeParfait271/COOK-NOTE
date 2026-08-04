@@ -9282,16 +9282,4 @@ body:has(.modal-backdrop) #cook-note-update-action {
 
 @media screen{.recipe-dock-tabs button,.dock-action,.recipe-dock-quantity-control .quantity-select,.season-tabs button,.season-category-tabs button{min-height:44px}.recipe-dock-tabs button span{overflow:visible;text-overflow:clip;white-space:normal;line-height:1.1}}@media screen and (max-width:1060px){.recipe-command-dock-slot{min-height:172px!important}}@media screen and (max-width:700px){.recipe-command-dock-slot{min-height:184px!important}.recipe-detail-hero .detail-hero-copy{padding-top:202px}}
 
-/* The active recipe bar stays anchored below the site header at every breakpoint. */
-@media screen {
-  .recipe-command-dock {
-    position: fixed !important;
-    top: 64px !important;
-    right: auto !important;
-    bottom: auto !important;
-    left: 50% !important;
-    margin: 0 !important;
-    transform: translateX(-50%) !important;
-    z-index: 95 !important;
-  }
-}
+.recipe-command-dock-host{position:fixed;inset:64px 0 auto;z-index:95;min-height:0;background:transparent;pointer-events:none}.recipe-command-dock-host>.recipe-command-dock{position:relative;inset:auto;width:min(1340px,calc(100% - clamp(40px,5vw,96px)));margin:0 auto;transform:none;pointer-events:auto}@media(max-width:1060px){.recipe-command-dock-host>.recipe-command-dock{width:min(100% - 20px,700px)}}

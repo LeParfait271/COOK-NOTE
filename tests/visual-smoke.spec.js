@@ -389,14 +389,18 @@ test.describe('Cook Note visual smoke', () => {
     await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
     await waitForCookNote(page);
 
+    const dockHost = page.locator('#recipe-command-dock-host');
     const dock = page.locator('.recipe-command-dock');
+    await expect(dockHost).toBeVisible();
     await expect(dock).toBeVisible();
-    await expect(dock).toHaveCSS('position', 'fixed');
-    await expect.poll(() => dock.evaluate(node => node.parentElement?.className || '')).toContain('mc-shell');
-    const before = await dock.boundingBox();
+    await expect(dockHost).toHaveCSS('position', 'fixed');
+    await expect(dockHost).toHaveCSS('top', '64px');
+    await expect(dock).toHaveCSS('position', 'relative');
+    await expect.poll(() => dock.evaluate(node => node.parentElement?.id || '')).toBe('recipe-command-dock-host');
+    const before = await dockHost.boundingBox();
     await page.evaluate(() => window.scrollTo(0, Math.min(900, document.documentElement.scrollHeight)));
     await page.waitForTimeout(120);
-    const after = await dock.boundingBox();
+    const after = await dockHost.boundingBox();
 
     expect(before).not.toBeNull();
     expect(after).not.toBeNull();

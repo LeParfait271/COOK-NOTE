@@ -109,8 +109,8 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.49';
-const SITE_UPDATED_AT = '04/08/26';
+const SITE_VERSION = 'v4.50';
+const SITE_UPDATED_AT = '05/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.45';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
@@ -6831,8 +6831,35 @@ function RecipeCommandDock({
   exportCopied,
   canFavorite,
   isFavorite,
-  onToggleFavorite
+  onToggleFavorite,
+  activeTheme,
+  accent
 }) {
+  const [dockHost] = useState(() => {
+    if (typeof document === 'undefined') return null;
+    const existingHost = document.getElementById('recipe-command-dock-host');
+    if (existingHost) return existingHost;
+    const host = document.createElement('div');
+    host.id = 'recipe-command-dock-host';
+    host.className = `recipe-command-dock-host mc-shell ${activeTheme === 'light' ? 'theme-light' : 'theme-dark'}`;
+    host.style.setProperty('--accent', accent || 'var(--ds-color-primary)');
+    host.style.setProperty('--accent-2', accent || 'var(--ds-color-secondary)');
+    document.body.appendChild(host);
+    return host;
+  });
+
+  useEffect(() => {
+    if (!dockHost) return undefined;
+    dockHost.className = `recipe-command-dock-host mc-shell ${activeTheme === 'light' ? 'theme-light' : 'theme-dark'}`;
+    dockHost.style.setProperty('--accent', accent || 'var(--ds-color-primary)');
+    dockHost.style.setProperty('--accent-2', accent || 'var(--ds-color-secondary)');
+    return undefined;
+  }, [dockHost, activeTheme, accent]);
+
+  useEffect(() => () => {
+    if (dockHost?.isConnected) dockHost.remove();
+  }, [dockHost]);
+
   const safeProgress = Math.max(0, Math.min(100, Number(progress) || 0));
   const tabs = [
     { key: 'ingredients', label: 'Ingr\u00e9dients', count: ingredientCount },
@@ -6896,7 +6923,7 @@ function RecipeCommandDock({
       )
     )
   );
-  const dockHost = document.querySelector('.mc-shell') || document.body;
+  if (!dockHost) return null;
   return ReactDOM.createPortal(dock, dockHost);
 }
 
@@ -7184,7 +7211,9 @@ function RecipeView({
         exportCopied,
         canFavorite,
         isFavorite,
-        onToggleFavorite: () => toggleFavorite(detailKey, selectedRecipe.title)
+        onToggleFavorite: () => toggleFavorite(detailKey, selectedRecipe.title),
+        activeTheme,
+        accent: detailAccent
       })
     ),
     hasResolvedRecipe && h('div', { className: 'recipe-tabs', role: 'tablist', 'aria-label': 'Sections de la recette' },
