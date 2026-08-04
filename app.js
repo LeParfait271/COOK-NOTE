@@ -109,7 +109,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.48';
+const SITE_VERSION = 'v4.49';
 const SITE_UPDATED_AT = '04/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.45';
@@ -6839,7 +6839,7 @@ function RecipeCommandDock({
     { key: 'steps', label: '\u00c9tapes', count: stepCount },
     { key: 'notes', label: 'Avant', count: notesCount }
   ];
-  return h('aside', {
+  const dock = h('aside', {
     className: 'recipe-command-dock',
     style: { '--dock-progress': `${safeProgress}%` },
     'aria-label': 'Tableau de bord recette'
@@ -6896,6 +6896,8 @@ function RecipeCommandDock({
       )
     )
   );
+  const dockHost = document.querySelector('.mc-shell') || document.body;
+  return ReactDOM.createPortal(dock, dockHost);
 }
 
 function RecipeView({

@@ -392,6 +392,7 @@ test.describe('Cook Note visual smoke', () => {
     const dock = page.locator('.recipe-command-dock');
     await expect(dock).toBeVisible();
     await expect(dock).toHaveCSS('position', 'fixed');
+    await expect.poll(() => dock.evaluate(node => node.parentElement?.className || '')).toContain('mc-shell');
     const before = await dock.boundingBox();
     await page.evaluate(() => window.scrollTo(0, Math.min(900, document.documentElement.scrollHeight)));
     await page.waitForTimeout(120);
