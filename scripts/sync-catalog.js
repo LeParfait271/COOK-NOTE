@@ -104,6 +104,15 @@ function compactRecipeForCatalog(recipe, recipesById) {
   delete compact.practical;
   delete compact.notes;
   delete compact.steps;
+  (compact.ingredients || []).forEach(group => {
+    const nestedRecipe = group?.recipe;
+    if (!nestedRecipe || typeof nestedRecipe !== 'object') return;
+    delete nestedRecipe.ingredients;
+    delete nestedRecipe.notes;
+    delete nestedRecipe.steps;
+    delete nestedRecipe.technical;
+    delete nestedRecipe.practical;
+  });
   const leafCount = leafVariantCount(compact, recipesById);
   if (leafCount > 1) compact.leafCount = leafCount;
   return compact;
