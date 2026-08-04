@@ -1,5 +1,5 @@
 {
-  "total": 297,
+  "total": 308,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -462,6 +462,24 @@
         "height": 540
       },
       "cardBytes": 282117
+    },
+    {
+      "id": "batonnets_polenta_parmesan",
+      "title": "Bâtonnets croustillants de polenta au parmesan",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/batonnets_polenta_parmesan.jpg",
+      "card": "assets/recipes/cards/batonnets_polenta_parmesan.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 220186,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 72838
     },
     {
       "id": "bavette_boeuf_chili_rub",
@@ -2336,6 +2354,24 @@
       "cardBytes": 95428
     },
     {
+      "id": "gougeres",
+      "title": "Gougères au fromage",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/gougeres.jpg",
+      "card": "assets/recipes/cards/gougeres.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 242667,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 76724
+    },
+    {
       "id": "granola_maison_chocolat",
       "title": "Granola croustillant au chocolat",
       "score": 100,
@@ -2406,6 +2442,24 @@
         "height": 520
       },
       "cardBytes": 114397
+    },
+    {
+      "id": "gratin_pommes_terre_munster",
+      "title": "Gratin de pommes de terre au munster en cocotte",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/gratin_pommes_terre_munster.jpg",
+      "card": "assets/recipes/cards/gratin_pommes_terre_munster.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 168336,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 55934
     },
     {
       "id": "gratin_rigatoni_ricotta_epinards",
@@ -2876,6 +2930,24 @@
       "cardBytes": 69360
     },
     {
+      "id": "mousse_legumes",
+      "title": "Mousse de légumes",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/mousse_legumes.jpg",
+      "card": "assets/recipes/cards/mousse_legumes.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 204388,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 67889
+    },
+    {
       "id": "mousses_chocolat_variantes",
       "title": "Mousses au chocolat",
       "score": 100,
@@ -3036,6 +3108,24 @@
         "height": 428
       },
       "cardBytes": 69607
+    },
+    {
+      "id": "paella_royale",
+      "title": "Paella royale",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/paella_royale.jpg",
+      "card": "assets/recipes/cards/paella_royale.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 237833,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 75948
     },
     {
       "id": "pain_zaatar",
@@ -3596,6 +3686,24 @@
       "cardBytes": 65455
     },
     {
+      "id": "pommes_dauphine",
+      "title": "Pommes Dauphine",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pommes_dauphine.jpg",
+      "card": "assets/recipes/cards/pommes_dauphine.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 175546,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 57444
+    },
+    {
       "id": "pommes_de_terre_air_fryer",
       "title": "Pommes de terre à l’air fryer",
       "score": 100,
@@ -3612,6 +3720,24 @@
         "height": 570
       },
       "cardBytes": 83795
+    },
+    {
+      "id": "pommes_amandine",
+      "title": "Pommes de terre amandine",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pommes_amandine.jpg",
+      "card": "assets/recipes/cards/pommes_amandine.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 216659,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 69817
     },
     {
       "id": "pommes_terre_barbecue_sauce",
@@ -4134,6 +4260,24 @@
         "height": 428
       },
       "cardBytes": 82455
+    },
+    {
+      "id": "riz_pilaf",
+      "title": "Riz pilaf",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/riz_pilaf.jpg",
+      "card": "assets/recipes/cards/riz_pilaf.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 174160,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 59232
     },
     {
       "id": "riz_saute_poulet",
@@ -5090,6 +5234,42 @@
       "cardBytes": 60770
     },
     {
+      "id": "terrine_brie_meaux_noix",
+      "title": "Terrine de Brie de Meaux aux noix et herbes fraîches",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/terrine_brie_meaux_noix.jpg",
+      "card": "assets/recipes/cards/terrine_brie_meaux_noix.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 189558,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 64241
+    },
+    {
+      "id": "terrine_legumes",
+      "title": "Terrine de légumes",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/terrine_legumes.jpg",
+      "card": "assets/recipes/cards/terrine_legumes.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 201278,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 67504
+    },
+    {
       "id": "terrines_pates_variantes",
       "title": "Terrines et pâtés",
       "score": 100,
@@ -5286,6 +5466,24 @@
         "height": 760
       },
       "cardBytes": 166858
+    },
+    {
+      "id": "tranche_chou_fleur_feta",
+      "title": "Tranche de chou-fleur rôti, sauce féta à l’ail et citron",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/tranche_chou_fleur_feta.jpg",
+      "card": "assets/recipes/cards/tranche_chou_fleur_feta.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 191919,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 64330
     },
     {
       "id": "tresse_beurre_variantes",

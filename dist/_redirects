@@ -10,6 +10,7 @@
 /recette/babeurre_maison /recette/babeurre_maison/ 301
 /recette/balsamique_reduit /recette/balsamique_reduit/ 301
 /recette/base_pour_flan_sale /recette/base_pour_flan_sale/ 301
+/recette/batonnets_polenta_parmesan /recette/batonnets_polenta_parmesan/ 301
 /recette/bavette_boeuf_chili_rub /recette/bavette_boeuf_chili_rub/ 301
 /recette/beignets_calamar /recette/beignets_calamar/ 301
 /recette/beurre_ail /recette/beurre_ail/ 301
@@ -121,10 +122,12 @@
 /recette/gateau_roule_framboise /recette/gateau_roule_framboise/ 301
 /recette/gaufre_bruxelles /recette/gaufre_bruxelles/ 301
 /recette/gaufres_pommes_terre /recette/gaufres_pommes_terre/ 301
+/recette/gougeres /recette/gougeres/ 301
 /recette/granola_maison_chocolat /recette/granola_maison_chocolat/ 301
 /recette/gratin_coquillettes_poulet /recette/gratin_coquillettes_poulet/ 301
 /recette/gratin_dauphinois /recette/gratin_dauphinois/ 301
 /recette/gratin_pates_chorizo /recette/gratin_pates_chorizo/ 301
+/recette/gratin_pommes_terre_munster /recette/gratin_pommes_terre_munster/ 301
 /recette/gratin_rigatoni_ricotta_epinards /recette/gratin_rigatoni_ricotta_epinards/ 301
 /recette/gratins_chou_fleur_variantes /recette/gratins_chou_fleur_variantes/ 301
 /recette/gressins_fromage_olives /recette/gressins_fromage_olives/ 301
@@ -152,6 +155,7 @@
 /recette/meringues_variantes /recette/meringues_variantes/ 301
 /recette/mi_cuits_chocolat /recette/mi_cuits_chocolat/ 301
 /recette/mojitos_variantes /recette/mojitos_variantes/ 301
+/recette/mousse_legumes /recette/mousse_legumes/ 301
 /recette/mousses_chocolat_variantes /recette/mousses_chocolat_variantes/ 301
 /recette/muffins_framboises /recette/muffins_framboises/ 301
 /recette/navarin_agneau_printanier /recette/navarin_agneau_printanier/ 301
@@ -163,6 +167,7 @@
 /recette/oeufs_mimosa_variantes /recette/oeufs_mimosa_variantes/ 301
 /recette/oignons_rotis_thym_miel /recette/oignons_rotis_thym_miel/ 301
 /recette/okonomiyaki_chou /recette/okonomiyaki_chou/ 301
+/recette/paella_royale /recette/paella_royale/ 301
 /recette/pain_herisson_pesto_mozzarella /recette/pain_herisson_pesto_mozzarella/ 301
 /recette/pain_hot_dog /recette/pain_hot_dog/ 301
 /recette/pain_zaatar /recette/pain_zaatar/ 301
@@ -193,6 +198,8 @@
 /recette/poelee_rigatoni_champignons /recette/poelee_rigatoni_champignons/ 301
 /recette/poires_roties_orange_miel /recette/poires_roties_orange_miel/ 301
 /recette/pomme_roti_souffle_foie_gras /recette/pomme_roti_souffle_foie_gras/ 301
+/recette/pommes_amandine /recette/pommes_amandine/ 301
+/recette/pommes_dauphine /recette/pommes_dauphine/ 301
 /recette/pommes_de_terre_air_fryer /recette/pommes_de_terre_air_fryer/ 301
 /recette/pommes_de_terre_confites_ail_romarin /recette/pommes_de_terre_confites_ail_romarin/ 301
 /recette/pommes_de_terre_fondantes_moutarde /recette/pommes_de_terre_fondantes_moutarde/ 301
@@ -223,6 +230,7 @@
 /recette/rillettes_variantes /recette/rillettes_variantes/ 301
 /recette/riz_au_citron /recette/riz_au_citron/ 301
 /recette/riz_cantonnais /recette/riz_cantonnais/ 301
+/recette/riz_pilaf /recette/riz_pilaf/ 301
 /recette/riz_saute_poulet /recette/riz_saute_poulet/ 301
 /recette/rougail_saucisse /recette/rougail_saucisse/ 301
 /recette/rouille_haut_de_gamme /recette/rouille_haut_de_gamme/ 301
@@ -278,6 +286,8 @@
 /recette/tarte_fraises_timut /recette/tarte_fraises_timut/ 301
 /recette/temps_cuisson_legumes_autocuiseur /recette/temps_cuisson_legumes_autocuiseur/ 301
 /recette/tempura_beignets_calamar_crevettes /recette/tempura_beignets_calamar_crevettes/ 301
+/recette/terrine_brie_meaux_noix /recette/terrine_brie_meaux_noix/ 301
+/recette/terrine_legumes /recette/terrine_legumes/ 301
 /recette/terrines_pates_variantes /recette/terrines_pates_variantes/ 301
 /recette/tian_legumes_racines /recette/tian_legumes_racines/ 301
 /recette/tiramisu_variantes /recette/tiramisu_variantes/ 301
@@ -289,6 +299,7 @@
 /recette/tortilla_chorizo /recette/tortilla_chorizo/ 301
 /recette/tortilla_espagnole /recette/tortilla_espagnole/ 301
 /recette/tortillas_mexicaines /recette/tortillas_mexicaines/ 301
+/recette/tranche_chou_fleur_feta /recette/tranche_chou_fleur_feta/ 301
 /recette/tresse_beurre_variantes /recette/tresse_beurre_variantes/ 301
 /recette/veloute_hiver_noix_cajou /recette/veloute_hiver_noix_cajou/ 301
 /recette/verrines_chataignes_foie_gras /recette/verrines_chataignes_foie_gras/ 301

@@ -1,21 +1,21 @@
 {
   "totals": {
-    "recipes": 278,
-    "leaves": 270,
+    "recipes": 308,
+    "leaves": 300,
     "masters": 8,
-    "lowScore": 44,
-    "categoryIdeas": 31,
+    "lowScore": 45,
+    "categoryIdeas": 39,
     "qualityIssues": 0
   },
   "averageScore": 87,
   "healthDashboard": {
-    "ready": 144,
-    "improve": 82,
-    "weak": 44,
+    "ready": 149,
+    "improve": 106,
+    "weak": 45,
     "missingDiscovery": 19,
-    "missingSafety": 109,
+    "missingSafety": 133,
     "productionRisk": 0,
-    "fewLinks": 239
+    "fewLinks": 267
   },
   "weakestRecipes": [
     {
@@ -321,6 +321,11 @@
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
+      "id": "choux_mousse_foie_gras",
+      "title": "Choux à la mousse de foie gras",
+      "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
+    },
+    {
       "id": "cocktail_crevettes_palace",
       "title": "Cocktail de crevettes Palace",
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
@@ -346,9 +351,19 @@
       "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
     },
     {
+      "id": "lapin_saute_chasseur",
+      "title": "Lapin sauté chasseur",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
       "id": "lentilles_tomate_pommes_de_terre_sautees",
       "title": "Lentilles tomate pommes de terre sautées",
       "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
+    },
+    {
+      "id": "mousse_legumes",
+      "title": "Mousse de légumes",
+      "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
     },
     {
       "id": "oeuf_parfait_croutons_lard",
@@ -361,6 +376,11 @@
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
+      "id": "poulet_marengo",
+      "title": "Poulet Marengo",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
       "id": "poulet_sauce_pimentee",
       "title": "Poulet sauce pimentée",
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
@@ -369,6 +389,21 @@
       "id": "tartare_boeuf_pimente",
       "title": "Tartare de bœuf légèrement pimenté",
       "text": "Categorie possible : Apéro (semble utile a l apero)."
+    },
+    {
+      "id": "tortilla_chorizo",
+      "title": "Tortilla au chorizo",
+      "text": "Categorie possible : Base (semble etre une base reutilisable)."
+    },
+    {
+      "id": "tortilla_espagnole",
+      "title": "Tortilla espagnole",
+      "text": "Categorie possible : Base (semble etre une base reutilisable)."
+    },
+    {
+      "id": "tranche_chou_fleur_feta",
+      "title": "Tranche de chou-fleur rôti, sauce féta à l’ail et citron",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
       "id": "asperges_mimosa",
@@ -409,6 +444,11 @@
       "id": "ecrasee_pommes_de_terre_truffe_saint_jacques",
       "title": "Écrasée de pommes de terre à l’huile de truffe et Saint-Jacques",
       "text": "Categorie possible : Accompagnements (semble etre un accompagnement)."
+    },
+    {
+      "id": "gougeres",
+      "title": "Gougères au fromage",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
       "id": "oeuf_chili_crisp_toast",
@@ -458,6 +498,11 @@
   ],
   "recipesWithFewLinks": [
     {
+      "id": "accras_morue",
+      "title": "Accras de morue",
+      "count": 0
+    },
+    {
       "id": "acras_epinards",
       "title": "Acras aux épinards",
       "count": 0
@@ -493,6 +538,11 @@
       "count": 0
     },
     {
+      "id": "batonnets_polenta_parmesan",
+      "title": "Bâtonnets croustillants de polenta au parmesan",
+      "count": 0
+    },
+    {
       "id": "bavette_boeuf_chili_rub",
       "title": "Bavette de bœuf au chili rub",
       "count": 0
@@ -510,6 +560,11 @@
     {
       "id": "beurre_d_escargot_persille",
       "title": "Beurre d’escargot persillé",
+      "count": 0
+    },
+    {
+      "id": "billes_chevre",
+      "title": "Billes de fromage de chèvre",
       "count": 0
     },
     {
@@ -591,24 +646,21 @@
       "id": "cake_chocolat_amandes",
       "title": "Cake au chocolat et aux amandes",
       "count": 0
-    },
-    {
-      "id": "cake_citron",
-      "title": "Cake au citron",
-      "count": 0
-    },
-    {
-      "id": "cake_marbre_chocolat",
-      "title": "Cake marbré au chocolat",
-      "count": 0
-    },
-    {
-      "id": "cakes_sales_variantes",
-      "title": "Cakes salés",
-      "count": 0
     }
   ],
   "reviewedRecipes": [
+    {
+      "id": "accras_morue",
+      "title": "Accras de morue",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
     {
       "id": "acras_epinards",
       "title": "Acras aux épinards",
@@ -699,6 +751,14 @@
       "suggestions": []
     },
     {
+      "id": "batonnets_polenta_parmesan",
+      "title": "Bâtonnets croustillants de polenta au parmesan",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "bavette_boeuf_chili_rub",
       "title": "Bavette de bœuf au chili rub",
       "score": 100,
@@ -761,6 +821,18 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "billes_chevre",
+      "title": "Billes de fromage de chèvre",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "billes_mozzarella_marinees",
@@ -1016,6 +1088,18 @@
       "suggestions": []
     },
     {
+      "id": "carpaccio_boeuf",
+      "title": "Carpaccio de bœuf",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "carre_d_agneau_croute_d_herbes",
       "title": "Carré d’agneau croûte d’herbes",
       "score": 82,
@@ -1152,6 +1236,19 @@
       ],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "choux_mousse_foie_gras",
+      "title": "Choux à la mousse de foie gras",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Desserts (semble etre sucré ou patissier)."
+      ]
     },
     {
       "id": "choux_craquelin",
@@ -1689,6 +1786,14 @@
       ]
     },
     {
+      "id": "galettes_legumes_four",
+      "title": "Galettes de légumes au four",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "galettes_pommes_de_terre_comte",
       "title": "Galettes de pommes de terre au Comté",
       "score": 82,
@@ -1739,6 +1844,16 @@
       "suggestions": []
     },
     {
+      "id": "gougeres",
+      "title": "Gougères au fromage",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": [
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
+    },
+    {
       "id": "granola_maison_chocolat",
       "title": "Granola croustillant au chocolat",
       "score": 82,
@@ -1775,6 +1890,18 @@
       ],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "gratin_pommes_terre_munster",
+      "title": "Gratin de pommes de terre au munster en cocotte",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "gratin_rigatoni_ricotta_epinards",
@@ -1910,6 +2037,19 @@
       "qualityIssues": [],
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
+      "id": "lapin_saute_chasseur",
+      "title": "Lapin sauté chasseur",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
     },
     {
@@ -2051,6 +2191,19 @@
       "suggestions": []
     },
     {
+      "id": "mousse_legumes",
+      "title": "Mousse de légumes",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Desserts (semble etre sucré ou patissier)."
+      ]
+    },
+    {
       "id": "mousses_chocolat_variantes",
       "title": "Mousses au chocolat",
       "score": 44,
@@ -2158,6 +2311,18 @@
       ]
     },
     {
+      "id": "paella_royale",
+      "title": "Paella royale",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "pain_zaatar",
       "title": "Pain au zaatar",
       "score": 82,
@@ -2197,6 +2362,18 @@
       "issues": [
         "Structure faible : ingredients ou etapes insuffisants.",
         "Peu de reperes utilisateur : notes ou points techniques absents.",
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
+      "id": "pains_aux_cereales",
+      "title": "Pains aux céréales",
+      "score": 82,
+      "issues": [
         "Conservation ou securite alimentaire a verifier."
       ],
       "qualityIssues": [],
@@ -2281,6 +2458,14 @@
       "suggestions": [
         "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
       ]
+    },
+    {
+      "id": "pate_en_croute_noel",
+      "title": "Pâté en croûte de Noël",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "pate_legere_beignets_calamar_crevettes",
@@ -2420,6 +2605,30 @@
       "suggestions": []
     },
     {
+      "id": "pomme_roti_souffle_foie_gras",
+      "title": "Pomme rôtie au soufflé de foie gras",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
+      "id": "pommes_dauphine",
+      "title": "Pommes Dauphine",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "pommes_de_terre_air_fryer",
       "title": "Pommes de terre à l’air fryer",
       "score": 82,
@@ -2428,6 +2637,18 @@
       ],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "pommes_amandine",
+      "title": "Pommes de terre amandine",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "pommes_terre_barbecue_sauce",
@@ -2517,11 +2738,15 @@
     },
     {
       "id": "potee_chou",
-      "title": "Potee au chou",
-      "score": 100,
-      "issues": [],
+      "title": "Potée aux légumes",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
-      "suggestions": []
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "poulet_chorizo_vin_blanc_citron",
@@ -2530,6 +2755,18 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "poulet_vin_jaune",
+      "title": "Poulet au vin jaune",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "poulet_tomates_poivron_vin_blanc_thym",
@@ -2572,6 +2809,19 @@
       ],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "poulet_marengo",
+      "title": "Poulet Marengo",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
     },
     {
       "id": "poulet_pommes_de_terre_asperges",
@@ -2619,6 +2869,14 @@
     {
       "id": "queue_boeuf_carottes_vin_rouge",
       "title": "Queue de bœuf aux carottes et vin rouge",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "quichette_thon_parmesan",
+      "title": "Quichette au thon et parmesan",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -2685,6 +2943,18 @@
       "suggestions": []
     },
     {
+      "id": "riz_pilaf",
+      "title": "Riz pilaf",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "riz_saute_poulet",
       "title": "Riz sauté au poulet",
       "score": 100,
@@ -2713,6 +2983,18 @@
       "suggestions": []
     },
     {
+      "id": "sables_deux_fromages",
+      "title": "Sablés aux deux fromages",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "saint_jacques_lard_sauce_thai",
       "title": "Saint-Jacques au lard, sauce thaï",
       "score": 100,
@@ -2729,6 +3011,18 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "salade_cesar",
+      "title": "Salade César",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "salade_carottes_citronnee",
@@ -2759,8 +3053,28 @@
       "suggestions": []
     },
     {
+      "id": "salade_lyonnaise",
+      "title": "Salade lyonnaise",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "salade_melon_mozzarella_jambon_cru",
       "title": "Salade melon, mozzarella et jambon cru",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "salade_piemontaise",
+      "title": "Salade piémontaise",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -3070,11 +3384,23 @@
     },
     {
       "id": "souffle_fromage_facile",
-      "title": "Soufflé au fromage",
+      "title": "Soufflé au comté",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "souffle_fromage",
+      "title": "Soufflé au fromage",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "souffle_citron_vert_mojito",
@@ -3187,6 +3513,26 @@
       "suggestions": []
     },
     {
+      "id": "terrine_brie_meaux_noix",
+      "title": "Terrine de Brie de Meaux aux noix et herbes fraîches",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "terrine_legumes",
+      "title": "Terrine de légumes",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
+    },
+    {
       "id": "terrines_pates_variantes",
       "title": "Terrines et pâtés",
       "score": 64,
@@ -3253,16 +3599,19 @@
     {
       "id": "tomates_farcies",
       "title": "Tomates farcies",
-      "score": 100,
-      "issues": [],
+      "score": 80,
+      "issues": [
+        "Structure faible : ingredients ou etapes insuffisants."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "tomates_provencales",
       "title": "Tomates provençales",
-      "score": 82,
+      "score": 62,
       "issues": [
+        "Structure faible : ingredients ou etapes insuffisants.",
         "Conservation ou securite alimentaire a verifier."
       ],
       "qualityIssues": [],
@@ -3279,12 +3628,51 @@
       "suggestions": []
     },
     {
+      "id": "tortilla_chorizo",
+      "title": "Tortilla au chorizo",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Base (semble etre une base reutilisable)."
+      ]
+    },
+    {
+      "id": "tortilla_espagnole",
+      "title": "Tortilla espagnole",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Base (semble etre une base reutilisable)."
+      ]
+    },
+    {
       "id": "tortillas_mexicaines",
       "title": "Tortillas",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "tranche_chou_fleur_feta",
+      "title": "Tranche de chou-fleur rôti, sauce féta à l’ail et citron",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
     },
     {
       "id": "tresse_beurre_variantes",

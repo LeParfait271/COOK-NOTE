@@ -1,21 +1,21 @@
 # Audit Cook Note
 
-- Recettes totales : 278
-- Recettes feuilles : 270
+- Recettes totales : 308
+- Recettes feuilles : 300
 - Fiches parentes : 8
 - Score moyen : 87/100
-- Fiches sous 78 : 44
+- Fiches sous 78 : 45
 - Fiches avec defauts a verifier : 0
 
 ## Dashboard sante
 
-- Pretes : 144
-- A ameliorer : 82
-- Faibles : 44
+- Pretes : 149
+- A ameliorer : 106
+- Faibles : 45
 - Decouverte faible : 19
-- Conservation/securite a verifier : 109
+- Conservation/securite a verifier : 133
 - Risque image/production : 0
-- Sans liens internes explicites : 239
+- Sans liens internes explicites : 267
 
 ## Fiches a surveiller
 
@@ -122,6 +122,8 @@
 
 ## Audit integral
 
+- Accras de morue (accras_morue) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Acras aux épinards (acras_epinards) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Aïoli (aioli_variantes) : 44/100 - OK
@@ -135,6 +137,7 @@
 - Babeurre (babeurre_maison) : 100/100 - OK
 - Balsamique réduit (balsamique_reduit) : 100/100 - OK
 - Base pour flan salé (base_pour_flan_sale) : 100/100 - OK
+- Bâtonnets croustillants de polenta au parmesan (batonnets_polenta_parmesan) : 100/100 - OK
 - Bavette de bœuf au chili rub (bavette_boeuf_chili_rub) : 100/100 - OK
 - Beignets Cloud (donuts_cloud) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
@@ -144,6 +147,8 @@
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Beurre clarifié (beurre_clarifie) : 100/100 - OK
 - Beurre d’escargot persillé (beurre_d_escargot_persille) : 100/100 - OK
+- Billes de fromage de chèvre (billes_chevre) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Billes de mozzarella marinées (billes_mozzarella_marinees) : 100/100 - OK
 - Biscuits sablés vanille-chocolat (biscuits_sables_vanille_chocolat) : 100/100 - OK
 - Blanc de volaille farci au barbecue (volaille_farcie_barbecue) : 100/100 - OK
@@ -180,6 +185,8 @@
 - Carottes persillade crème (carottes_persillade_creme) : 100/100 - OK
 - Carottes rôties miel épices (carottes_roties_miel_epices) : 100/100 - OK
 - Carpaccio betterave mozzarella yuzu (carpaccio_betterave_mozzarella_yuzu) : 100/100 - OK
+- Carpaccio de bœuf (carpaccio_boeuf) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Carré d’agneau croûte d’herbes (carre_d_agneau_croute_d_herbes) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Carrés crémeux citron vert (carres_cremeux_citron_vert) : 100/100 - OK
@@ -201,6 +208,8 @@
 - Chorizo au cidre (chorizo_au_cidre) : 100/100 - OK
 - Chou vert en sauce tomate (chou_vert_sauce_tomate) : 100/100 - OK
 - Chou-fleur croustillant (chou_fleur_croustillant) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Choux à la mousse de foie gras (choux_mousse_foie_gras) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Choux au craquelin (choux_craquelin) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
@@ -293,6 +302,7 @@
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Galettes de légumes au Comté (galettes_legumes_comte) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Galettes de légumes au four (galettes_legumes_four) : 100/100 - OK
 - Galettes de pommes de terre au Comté (galettes_pommes_de_terre_comte) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gaspachos (gaspachos_variantes) : 44/100 - OK
@@ -301,11 +311,14 @@
 - Gâteau roulé à la framboise (gateau_roule_framboise) : 100/100 - OK
 - Gaufres (gaufre_bruxelles) : 100/100 - OK
 - Gaufres de pommes de terre croustillantes (gaufres_pommes_terre) : 100/100 - OK
+- Gougères au fromage (gougeres) : 100/100 - OK
 - Granola croustillant au chocolat (granola_maison_chocolat) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gratin de coquillettes au poulet (gratin_coquillettes_poulet) : 100/100 - OK
 - Gratin de pâtes au chorizo (gratin_pates_chorizo) : 100/100 - OK
 - Gratin de pommes de terre (gratin_dauphinois) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Gratin de pommes de terre au munster en cocotte (gratin_pommes_terre_munster) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Gratin de rigatoni ricotta-épinards (gratin_rigatoni_ricotta_epinards) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -330,6 +343,8 @@
 - Joues mijotées (joues_mijotees_variantes) : 64/100 - OK
   - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Lapin sauté chasseur (lapin_saute_chasseur) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Légumes rôtis au four (legumes_rotis) : 100/100 - OK
 - Légumineuses à la Montbéliard (legumineuses_montbeliard_variantes) : 44/100 - OK
   - A surveiller : Structure faible : ingredients ou etapes insuffisants.
@@ -352,6 +367,8 @@
   - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
 - Mi-cuits au chocolat (mi_cuits_chocolat) : 100/100 - OK
 - Mojitos (mojitos_variantes) : 100/100 - OK
+- Mousse de légumes (mousse_legumes) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Mousses au chocolat (mousses_chocolat_variantes) : 44/100 - OK
   - A surveiller : Structure faible : ingredients ou etapes insuffisants.
   - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
@@ -368,6 +385,8 @@
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
 - Okonomiyaki au chou (okonomiyaki_chou) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Paella royale (paella_royale) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pain au zaatar (pain_zaatar) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pain hérisson pesto et mozzarella (pain_herisson_pesto_mozzarella) : 82/100 - OK
@@ -376,6 +395,8 @@
 - Pains à l’ail (pains_ail_variantes) : 44/100 - OK
   - A surveiller : Structure faible : ingredients ou etapes insuffisants.
   - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
+- Pains aux céréales (pains_aux_cereales) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pains burgers briochés (pains_burgers_brioche) : 100/100 - OK
 - Pancakes (pancakes_variantes) : 64/100 - OK
   - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
@@ -388,6 +409,7 @@
 - Pâte à choux (pate_choux) : 100/100 - OK
 - Pâte à tartiner noisette et praliné (pate_tartiner_noisette_praline) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Pâté en croûte de Noël (pate_en_croute_noel) : 100/100 - OK
 - Pâte légère à frire (pate_legere_beignets_calamar_crevettes) : 100/100 - OK
 - Pâte sucrée (pate_sucree) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
@@ -408,7 +430,13 @@
 - Poêlée de rigatoni aux champignons (poelee_rigatoni_champignons) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poires rôties orange miel (poires_roties_orange_miel) : 100/100 - OK
+- Pomme rôtie au soufflé de foie gras (pomme_roti_souffle_foie_gras) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Pommes Dauphine (pommes_dauphine) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pommes de terre à l’air fryer (pommes_de_terre_air_fryer) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Pommes de terre amandine (pommes_amandine) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pommes de terre au barbecue et sauce aux herbes (pommes_terre_barbecue_sauce) : 100/100 - OK
 - Pommes de terre au four à la grecque (pommes_de_terre_grecques_citron_origan) : 100/100 - OK
@@ -423,8 +451,11 @@
 - Pommes paille (pommes_paille) : 100/100 - OK
 - Potato wedges citron herbes (potato_wedges_citron_herbes) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
-- Potee au chou (potee_chou) : 100/100 - OK
+- Potée aux légumes (potee_chou) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poulet au chorizo, vin blanc et citron (poulet_chorizo_vin_blanc_citron) : 100/100 - OK
+- Poulet au vin jaune (poulet_vin_jaune) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poulet aux tomates, poivron, vin blanc et thym (poulet_tomates_poivron_vin_blanc_thym) : 100/100 - OK
 - Poulet basquaise (poulet_basquaise_variantes) : 44/100 - OK
   - A surveiller : Structure faible : ingredients ou etapes insuffisants.
@@ -432,6 +463,8 @@
 - Poulet frit air fryer (poulet_frit_air_fryer) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poulet Gaston Gérard (poulet_gaston_gerard) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Poulet Marengo (poulet_marengo) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Poulet pommes de terre asperges (poulet_pommes_de_terre_asperges) : 100/100 - OK
 - Poulet rôti du dimanche (poulet_roti_dimanche) : 100/100 - OK
@@ -441,6 +474,7 @@
   - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Queue de bœuf aux carottes et vin rouge (queue_boeuf_carottes_vin_rouge) : 100/100 - OK
+- Quichette au thon et parmesan (quichette_thon_parmesan) : 100/100 - OK
 - Ragoûts de bœuf à la bière (ragouts_boeuf_biere_variantes) : 44/100 - OK
   - A surveiller : Structure faible : ingredients ou etapes insuffisants.
   - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
@@ -451,17 +485,26 @@
   - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
 - Riz au citron (riz_au_citron) : 100/100 - OK
 - Riz cantonnais (riz_cantonnais) : 100/100 - OK
+- Riz pilaf (riz_pilaf) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Riz sauté au poulet (riz_saute_poulet) : 100/100 - OK
 - Rougail saucisse (rougail_saucisse) : 80/100 - OK
   - A surveiller : Structure faible : ingredients ou etapes insuffisants.
 - Rouille (rouille_haut_de_gamme) : 100/100 - OK
+- Sablés aux deux fromages (sables_deux_fromages) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Saint-Jacques au lard, sauce thaï (saint_jacques_lard_sauce_thai) : 100/100 - OK
 - Salade avocat, œuf et épinards (salade_avocat_oeuf_epinards) : 100/100 - OK
+- Salade César (salade_cesar) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Salade de carottes citronnée (salade_carottes_citronnee) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Salade de pommes de terre d’Ottolenghi (salade_pommes_terre_ottolenghi) : 100/100 - OK
 - Salade epinards clementines amande feta (salade_epinards_clementines_amande_feta) : 100/100 - OK
+- Salade lyonnaise (salade_lyonnaise) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Salade melon, mozzarella et jambon cru (salade_melon_mozzarella_jambon_cru) : 100/100 - OK
+- Salade piémontaise (salade_piemontaise) : 100/100 - OK
 - Salades de pois chiches (salades_pois_chiches_variantes) : 44/100 - OK
   - A surveiller : Structure faible : ingredients ou etapes insuffisants.
   - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
@@ -518,7 +561,9 @@
   - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
 - Smash Burger et buns briochés (smash_burger) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
-- Soufflé au fromage (souffle_fromage_facile) : 100/100 - OK
+- Soufflé au comté (souffle_fromage_facile) : 100/100 - OK
+- Soufflé au fromage (souffle_fromage) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Soufflé chaud au citron vert, sorbet mojito (souffle_citron_vert_mojito) : 100/100 - OK
 - Soupe paysanne à la saucisse de Morteau (soupe_paysanne_morteau) : 100/100 - OK
 - Southern biscuits (southern_biscuits) : 100/100 - OK
@@ -535,6 +580,9 @@
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Temps de cuisson des légumes à l’autocuiseur (temps_cuisson_legumes_autocuiseur) : 100/100 - OK
 - Tempura (tempura_beignets_calamar_crevettes) : 100/100 - OK
+- Terrine de Brie de Meaux aux noix et herbes fraîches (terrine_brie_meaux_noix) : 100/100 - OK
+- Terrine de légumes (terrine_legumes) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Terrines et pâtés (terrines_pates_variantes) : 64/100 - OK
   - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
   - A surveiller : Conservation ou securite alimentaire a verifier.
@@ -547,12 +595,20 @@
 - Tomates cocktail farcies au mascarpone, thon et ciboulette (tomates_cocktail_thon_mascarpone) : 100/100 - OK
 - Tomates confites et séchées (tomates_variantes) : 84/100 - OK
   - A surveiller : Decouverte faible : tags, alias ou liens internes pauvres.
-- Tomates farcies (tomates_farcies) : 100/100 - OK
-- Tomates provençales (tomates_provencales) : 82/100 - OK
+- Tomates farcies (tomates_farcies) : 80/100 - OK
+  - A surveiller : Structure faible : ingredients ou etapes insuffisants.
+- Tomates provençales (tomates_provencales) : 62/100 - OK
+  - A surveiller : Structure faible : ingredients ou etapes insuffisants.
   - A surveiller : Conservation ou securite alimentaire a verifier.
 - Toppings frites (toppings_frites) : 82/100 - OK
   - A surveiller : Conservation ou securite alimentaire a verifier.
+- Tortilla au chorizo (tortilla_chorizo) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Tortilla espagnole (tortilla_espagnole) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Tortillas (tortillas_mexicaines) : 100/100 - OK
+- Tranche de chou-fleur rôti, sauce féta à l’ail et citron (tranche_chou_fleur_feta) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Tresses au beurre (tresse_beurre_variantes) : 44/100 - OK
   - A surveiller : Structure faible : ingredients ou etapes insuffisants.
   - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
@@ -569,16 +625,23 @@
 - Pancakes (pancakes_variantes) : Categorie possible : Base (semble etre une base reutilisable).
 - Fish and chips (fish_and_chips) : Categorie possible : Accompagnements (semble etre un accompagnement).
 - Aubergines rôties aux anchois (aubergines_roties_anchois) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
+- Choux à la mousse de foie gras (choux_mousse_foie_gras) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Cocktail de crevettes Palace (cocktail_crevettes_palace) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Côtelettes de porc miel moutarde (cotelettes_porc_miel_moutarde) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Courge butternut farcie (courge_butternut_farcie) : Categorie possible : Accompagnements (semble etre un accompagnement).
 - Filet de bœuf au vin rouge, pommes crousti-fondantes (filet_boeuf_vin_rouge) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Flammekueche (flammekueche) : Categorie possible : Desserts (semble etre sucré ou patissier).
+- Lapin sauté chasseur (lapin_saute_chasseur) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Lentilles tomate pommes de terre sautées (lentilles_tomate_pommes_de_terre_sautees) : Categorie possible : Accompagnements (semble etre un accompagnement).
+- Mousse de légumes (mousse_legumes) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Œuf parfait, croûtons et lard croustillant (oeuf_parfait_croutons_lard) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Pain hérisson pesto et mozzarella (pain_herisson_pesto_mozzarella) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
+- Poulet Marengo (poulet_marengo) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Poulet sauce pimentée (poulet_sauce_pimentee) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Tartare de bœuf légèrement pimenté (tartare_boeuf_pimente) : Categorie possible : Apéro (semble utile a l apero).
+- Tortilla au chorizo (tortilla_chorizo) : Categorie possible : Base (semble etre une base reutilisable).
+- Tortilla espagnole (tortilla_espagnole) : Categorie possible : Base (semble etre une base reutilisable).
+- Tranche de chou-fleur rôti, sauce féta à l’ail et citron (tranche_chou_fleur_feta) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Asperges mimosa (asperges_mimosa) : Categorie possible : Apéro (semble utile a l apero).
 - Bouillabaisse (bouillabaisse_rouille) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Brioche perdue sauce caramel au beurre salé (brioche_perdue_caramel_beurre_sale) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
@@ -587,6 +650,7 @@
 - Chou vert en sauce tomate (chou_vert_sauce_tomate) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Crumble de carottes cumin noisettes parmesan (crumble_carottes_cumin_noisettes_parmesan) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Écrasée de pommes de terre à l’huile de truffe et Saint-Jacques (ecrasee_pommes_de_terre_truffe_saint_jacques) : Categorie possible : Accompagnements (semble etre un accompagnement).
+- Gougères au fromage (gougeres) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Œuf sur le plat chili crisp sur toast (oeuf_chili_crisp_toast) : Categorie possible : Apéro (semble utile a l apero).
 - Pâtes à tarte (pates_tarte_variantes) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Pâtes au crumble de chorizo (pates_crumble_chorizo) : Categorie possible : Desserts (semble etre sucré ou patissier).
@@ -599,6 +663,7 @@
 
 ## Fiches a relier progressivement
 
+- Accras de morue (accras_morue)
 - Acras aux épinards (acras_epinards)
 - Ajitsuke tamago œufs marinés ramen (ajitsuke_tamago_oeufs_marines_ramen)
 - Asperges vertes au lard grillé (asperges_vertes_lard)
@@ -606,10 +671,12 @@
 - Babeurre (babeurre_maison)
 - Balsamique réduit (balsamique_reduit)
 - Base pour flan salé (base_pour_flan_sale)
+- Bâtonnets croustillants de polenta au parmesan (batonnets_polenta_parmesan)
 - Bavette de bœuf au chili rub (bavette_boeuf_chili_rub)
 - Beurre blanc (beurre_blanc)
 - Beurre clarifié (beurre_clarifie)
 - Beurre d’escargot persillé (beurre_d_escargot_persille)
+- Billes de fromage de chèvre (billes_chevre)
 - Billes de mozzarella marinées (billes_mozzarella_marinees)
 - Biscuits sablés vanille-chocolat (biscuits_sables_vanille_chocolat)
 - Blanc de volaille farci au barbecue (volaille_farcie_barbecue)
@@ -626,6 +693,3 @@
 - Burrata au basilic et raisins grillés (burrata_basilic_raisins_grilles)
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo)
 - Cake au chocolat et aux amandes (cake_chocolat_amandes)
-- Cake au citron (cake_citron)
-- Cake marbré au chocolat (cake_marbre_chocolat)
-- Cakes salés (cakes_sales_variantes)
