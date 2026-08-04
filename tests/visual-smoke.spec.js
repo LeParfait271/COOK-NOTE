@@ -372,6 +372,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.getByRole('heading', { name: new RegExp('Poulet sauce piment\\u00e9e', 'i') })).toBeVisible();
     await expect(page.locator('.recipe-detail-hero.has-photo')).toBeVisible();
     await expect(page.locator('.recipe-command-dock')).toBeVisible();
+    await expect(page.locator('.plating-guide-block')).toHaveCount(0);
     await expect(page.getByText(/Ajouter aux courses/i)).toBeVisible();
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
@@ -383,16 +384,13 @@ test.describe('Cook Note visual smoke', () => {
     });
   });
 
-  test('desktop recipe dock stays pinned while scrolling', async ({ page }) => {
+  test('recipe dock stays pinned while scrolling', async ({ page }) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
     await waitForCookNote(page);
 
     const dock = page.locator('.recipe-command-dock');
     await expect(dock).toBeVisible();
-    const viewportWidth = await page.evaluate(() => window.innerWidth);
-    if (viewportWidth < 1061) return;
-
     await expect(dock).toHaveCSS('position', 'fixed');
     const before = await dock.boundingBox();
     await page.evaluate(() => window.scrollTo(0, Math.min(900, document.documentElement.scrollHeight)));

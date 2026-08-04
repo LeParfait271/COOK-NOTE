@@ -109,7 +109,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.47';
+const SITE_VERSION = 'v4.48';
 const SITE_UPDATED_AT = '04/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.45';
@@ -797,7 +797,6 @@ const {
   getRecipeFlavorPairingNotes,
   getRecipeIngredientCards,
   getIngredientGuideNotes,
-  getRecipePlatingGuide,
   getRecipePlatingNotes,
   semanticRecipeSignals,
   recipeMatchesSearchConstraints,
@@ -6620,23 +6619,6 @@ function IngredientKnowledgeBlock({ recipe }) {
   );
 }
 
-function PlatingGuideBlock({ recipe }) {
-  const items = getRecipePlatingGuide(recipe);
-  if (!items.length) return null;
-  return h('div', { className: 'plating-guide-block', 'aria-label': 'Guide de dressage' },
-    h('div', { className: 'premium-block-head' },
-      h('p', { className: 'eyebrow' }, 'Dressage'),
-      h('h2', null, 'Presentation visuelle')
-    ),
-    h('div', { className: 'plating-guide-grid' },
-      items.map(item => h('article', { key: item.label, className: 'plating-guide-card' },
-        h('strong', null, item.label),
-        h('p', null, item.value)
-      ))
-    )
-  );
-}
-
 function PrepTimelineBlock({ recipe }) {
   const items = getPrepTimeline(recipe);
   if (!items.length) return null;
@@ -6993,8 +6975,7 @@ function RecipeView({
   const displayNotes = hasResolvedRecipe ? getDisplayNotes(selectedRecipe, practicalSections) : [];
   const flavorMap = hasResolvedRecipe ? getRecipeFlavorMap(selectedRecipe) : [];
   const ingredientCards = hasResolvedRecipe ? getRecipeIngredientCards(selectedRecipe) : [];
-  const platingGuide = hasResolvedRecipe ? getRecipePlatingGuide(selectedRecipe) : [];
-  const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length + flavorMap.length + ingredientCards.length + platingGuide.length;
+  const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length + flavorMap.length + ingredientCards.length;
   const selectedGroupLabel = selectedInlineVariantGroup?.label || selectedInlineVariantGroup?.group?.group || '';
   const nextStepIndex = displaySteps.findIndex((_, index) => !checked[`${stepScopeKey}:step:${index}`]);
   const mobileTabOrder = ['ingredients', 'steps', 'notes'];
@@ -7341,7 +7322,6 @@ function RecipeView({
           h('p', { className: 'eyebrow notes-reference-heading' }, 'Repères complémentaires'),
           h(FlavorMapBlock, { recipe: selectedRecipe }),
           h(IngredientKnowledgeBlock, { recipe: selectedRecipe }),
-          h(PlatingGuideBlock, { recipe: selectedRecipe }),
           h(PersonalRecipeNotes, {
             recipeId: detailKey,
             value: personalRecipeNote,

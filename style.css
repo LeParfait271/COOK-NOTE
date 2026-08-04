@@ -3278,8 +3278,7 @@ a {
 }
 
 .flavor-map-block,
-.ingredient-knowledge-block,
-.plating-guide-block {
+.ingredient-knowledge-block {
   display: grid;
   gap: 10px;
   margin-bottom: 14px;
@@ -3304,15 +3303,13 @@ a {
 }
 
 .flavor-map-grid,
-.ingredient-knowledge-grid,
-.plating-guide-grid {
+.ingredient-knowledge-grid {
   display: grid;
   gap: 8px;
 }
 
 .flavor-node,
-.ingredient-knowledge-card,
-.plating-guide-card {
+.ingredient-knowledge-card {
   min-width: 0;
   border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 18%, var(--line));
   border-radius: 8px;
@@ -3321,8 +3318,7 @@ a {
 }
 
 .flavor-node,
-.ingredient-knowledge-card,
-.plating-guide-card {
+.ingredient-knowledge-card {
   display: grid;
   gap: 8px;
   padding: 10px;
@@ -3337,16 +3333,14 @@ a {
 }
 
 .flavor-node strong,
-.ingredient-knowledge-card strong,
-.plating-guide-card strong {
+.ingredient-knowledge-card strong {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .flavor-node small,
-.ingredient-knowledge-card small,
-.plating-guide-card p {
+.ingredient-knowledge-card small {
   color: var(--muted);
   font-size: 12px;
   font-weight: 850;
@@ -3399,14 +3393,6 @@ a {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.35;
-}
-
-.plating-guide-grid {
-  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
-}
-
-.plating-guide-card p {
-  margin: 0;
 }
 
 .personal-notes-head {
@@ -7601,7 +7587,6 @@ a {
 .personal-notes-card,
 .flavor-map-block,
 .ingredient-knowledge-block,
-.plating-guide-block,
 .practical-section {
   border-color: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 28%, var(--line));
   box-shadow:
@@ -7695,7 +7680,7 @@ a {
     color-mix(in srgb, var(--surface-strong) 70%, transparent);
 }
 
-.mc-shell.theme-light :where(.before-start-card, .allergen-card, .average-weight-card, .technical-card, .personal-notes-card, .flavor-map-block, .ingredient-knowledge-block, .plating-guide-block, .practical-section) {
+.mc-shell.theme-light :where(.before-start-card, .allergen-card, .average-weight-card, .technical-card, .personal-notes-card, .flavor-map-block, .ingredient-knowledge-block, .practical-section) {
   box-shadow: 0 12px 30px rgba(84, 61, 31, .10);
 }
 
@@ -9030,7 +9015,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 #recipe-detail-content{scroll-margin-top:182px}.recipe-command-dock-slot{min-height:116px}
 .shopping-aisles-shell{position:relative;max-height:min(34vh,320px);margin:14px 0;overflow:auto;overscroll-behavior:contain;scrollbar-color:var(--accent) transparent;scrollbar-width:thin}.shopping-aisles-shell .shopping-aisles{margin:0;padding:0 8px 24px 0}.shopping-aisles-shell::after{content:"";position:sticky;z-index:2;display:block;bottom:0;height:26px;margin-top:-26px;pointer-events:none;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--surface-strong) 94%,transparent))}.shopping-aisles-shell::-webkit-scrollbar{display:block;width:6px;height:6px}.shopping-aisles-shell::-webkit-scrollbar-thumb{border-radius:999px;background:color-mix(in srgb,var(--accent) 78%,transparent)}
 .shopping-modal .combined-cart{max-height:72px;margin:8px 0 0;overflow:auto;padding:8px 10px;font-size:10px;line-height:1.35}.shopping-modal .modal-actions{position:sticky;z-index:3;bottom:-20px;margin:0 -20px -20px;border-top:1px solid color-mix(in srgb,var(--accent) 18%,var(--line));background:linear-gradient(180deg,color-mix(in srgb,var(--surface-strong) 72%,transparent),var(--surface-strong) 34%);padding:12px 20px 20px}
-.notes-core-stack,.notes-reference-stack{display:grid;gap:10px}.notes-reference-stack{margin-top:16px!important;padding-top:12px!important}.notes-panel :is(.allergen-card,.average-weight-card,.technical-card,.personal-notes-card,.flavor-map-block,.ingredient-knowledge-block,.plating-guide-block,.practical-section){margin-bottom:0}
+.notes-core-stack,.notes-reference-stack{display:grid;gap:10px}.notes-reference-stack{margin-top:16px!important;padding-top:12px!important}.notes-panel :is(.allergen-card,.average-weight-card,.technical-card,.personal-notes-card,.flavor-map-block,.ingredient-knowledge-block,.practical-section){margin-bottom:0}
  @media (min-width:1061px){.recipe-detail-hero.has-photo:not(.parent-hero){min-height:clamp(300px,31vw,430px)}}
 @media (max-width:1060px){.shopping-aisles-shell{max-height:min(34vh,260px)}}
 
@@ -9208,7 +9193,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
   .step-list li { min-height: 58px; padding: 13px 15px; line-height: 1.5; }
   .step-text { font-size: 14px; line-height: 1.52; }
   .notes-panel { display: grid; align-content: start; gap: 16px; }
-  .notes-panel :is(.allergen-card, .average-weight-card, .technical-card, .personal-notes-card, .flavor-map-block, .ingredient-knowledge-block, .plating-guide-block, .practical-section) { font-size: 13px; line-height: 1.48; }
+  .notes-panel :is(.allergen-card, .average-weight-card, .technical-card, .personal-notes-card, .flavor-map-block, .ingredient-knowledge-block, .practical-section) { font-size: 13px; line-height: 1.48; }
 
   .variant-choice-tabs { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
   .variant-choice-button { min-height: 132px; padding: 14px; }
@@ -9230,7 +9215,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
   .mc-shell.theme-light .recipe-dock-tabs button, .mc-shell.theme-light .dock-action, .mc-shell.theme-light .recipe-dock-quantity-control { background: #fffaf0 !important; border-color: rgba(112,74,28,.28); }
   .mc-shell.theme-light .recipe-dock-tabs button.active, .mc-shell.theme-light .dock-action.active, .mc-shell.theme-light .recipe-dock-quantity-control .quantity-select { background: color-mix(in srgb, var(--accent) 16%, #fffaf0) !important; color: #20170f !important; }
   .mc-shell.theme-light :is(.recipe-panel, .recipe-summary-panel, .variant-choice-panel, .variant-picker-panel) { background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,249,238,.98)) !important; color: #20170f !important; border-color: rgba(112,74,28,.28); }
-  .mc-shell.theme-light :is(.recipe-quick-fact, .ingredient-group li, .step-list li, .notes-panel .allergen-card, .notes-panel .average-weight-card, .notes-panel .technical-card, .notes-panel .personal-notes-card, .notes-panel .flavor-map-block, .notes-panel .ingredient-knowledge-block, .notes-panel .plating-guide-block, .notes-panel .practical-section) { background: rgba(255,255,255,.78) !important; color: #20170f !important; border-color: rgba(112,74,28,.22) !important; }
+  .mc-shell.theme-light :is(.recipe-quick-fact, .ingredient-group li, .step-list li, .notes-panel .allergen-card, .notes-panel .average-weight-card, .notes-panel .technical-card, .notes-panel .personal-notes-card, .notes-panel .flavor-map-block, .notes-panel .ingredient-knowledge-block, .notes-panel .practical-section) { background: rgba(255,255,255,.78) !important; color: #20170f !important; border-color: rgba(112,74,28,.22) !important; }
   .mc-shell.theme-light .recipe-detail-hero .detail-actions .btn:not(.btn-primary) { background: rgba(20,15,10,.72) !important; color: #fff8e8 !important; border-color: rgba(255,248,232,.48) !important; }
   .mc-shell.theme-light .variant-choice-button.has-image { background: linear-gradient(145deg, rgba(255,250,240,.34), rgba(255,250,240,.58)), var(--variant-choice-image) center/cover no-repeat; }
   .mc-shell.theme-light .command-palette { background: #fffaf0; color: #20170f; }
@@ -9296,3 +9281,17 @@ body:has(.modal-backdrop) #cook-note-update-action {
 }
 
 @media screen{.recipe-dock-tabs button,.dock-action,.recipe-dock-quantity-control .quantity-select,.season-tabs button,.season-category-tabs button{min-height:44px}.recipe-dock-tabs button span{overflow:visible;text-overflow:clip;white-space:normal;line-height:1.1}}@media screen and (max-width:1060px){.recipe-command-dock-slot{min-height:172px!important}}@media screen and (max-width:700px){.recipe-command-dock-slot{min-height:184px!important}.recipe-detail-hero .detail-hero-copy{padding-top:202px}}
+
+/* The active recipe bar stays anchored below the site header at every breakpoint. */
+@media screen {
+  .recipe-command-dock {
+    position: fixed !important;
+    top: 64px !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: 50% !important;
+    margin: 0 !important;
+    transform: translateX(-50%) !important;
+    z-index: 95 !important;
+  }
+}
