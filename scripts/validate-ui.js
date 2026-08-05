@@ -24,13 +24,11 @@ const siteAssetVersion = siteVersionMatch ? `${Number(siteVersionMatch[1])}${sit
 const siteUpdatedAt = files.app.match(/const SITE_UPDATED_AT = '(\d{2}\/\d{2}\/\d{2})'/)?.[1] || '';
 const recipeTabsAreSticky = [...files.style.matchAll(/\.recipe-tabs\s*\{([^}]*)\}/g)]
   .some(match => /position:\s*sticky/.test(match[1]));
-const recipeDockStaysInRecipeFlow = /\.recipe-command-dock-slot\s*\{[^}]*position:\s*static;[^}]*min-height:\s*0\s*!important;/.test(files.style)
-  && /\.recipe-command-dock\s*\{[^}]*position:\s*static;/.test(files.style)
-  && !files.style.includes('.recipe-command-dock-host')
-  && !files.app.includes('ReactDOM.createPortal')
-  && !files.app.includes('recipe-command-dock-host')
-  && files.app.includes("className: 'recipe-command-dock-slot'")
-  && !files.app.includes("className: 'recipe-command-dock-slot', style:");
+const recipeCommandDockRemoved = !files.app.includes('RecipeCommandDock')
+  && !files.app.includes('recipe-command-dock')
+  && !files.style.includes('recipe-command-dock')
+  && !files.style.includes('recipe-dock')
+  && !files.style.includes('dock-action');
 const mobileSeasonTabsUseStableGrid = /@media\s*\(max-width:\s*700px\)\s*\{[\s\S]*?\.season-tabs\s*\{[\s\S]*?display:\s*grid;[\s\S]*?grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(files.style);
 const cardImageMotionIsBounded = files.style.includes('--ds-card-image-motion: 250ms')
   && /\.card-media\s*\{[\s\S]*?transition:\s*transform var\(--ds-card-image-motion\) var\(--ds-ease\), filter var\(--speed\);/.test(files.style)
@@ -231,7 +229,7 @@ expect("Le catalogue par defaut repete son titre ou laisse revenir l'espace vide
 expect('Des metadonnees interdites sont revenues sous les titres des cartes recette.', recipeCardsStayContentSafe);
 expect('Les nouveaux textes de la citadelle ne sont pas synchronises en FR et EN.', citadelUiStringsAreLocalized);
 expect('Les animations de la citadelle contournent le motion system ou le mode reduit.', citadelMotionUsesSystemTokens);
-expect('Dock recette absent.', files.app.includes('function RecipeCommandDock') && files.app.includes('recipe-command-dock') && files.style.includes('.recipe-command-dock') && files.style.includes('--dock-progress'));
+expect('Barre de commandes recette en doublon encore presente.', recipeCommandDockRemoved && files.app.includes("className: 'detail-actions'") && files.app.includes("className: 'recipe-tabs'"));
 expect('Accent visuel pilote par contenu absent.', files.app.includes('--ambient-accent') && files.style.includes('--ambient-accent') && files.style.includes('var(--ambient-accent'));
 expect('Cartes recettes limitees au titre et au compte de variantes.', recipeCardsStayContentSafe && files.app.includes("h('div', { className: 'card-body' }") && files.app.includes('getRecipeVariantLabel(recipe, recipesById)') && !files.app.includes("h('div', { className: 'tag-line' }") && !files.app.includes("className: 'video-badge'") && !files.app.includes("className: isFavorite ? 'fav-btn active' : 'fav-btn'"));
 expect('Cartes variantes parent sans compteur de variantes.', files.app.includes("const variantLabel = getRecipeVariantLabel(item, recipesById);") && files.app.includes("variantLabel && h('small', { className: 'variant-card-variant-count' }, variantLabel)") && !files.app.includes("h('small', null, categoryLine(item))") && !files.app.includes("variant-card-quicklook"));
@@ -280,7 +278,7 @@ expect('Manifest images non charge ou non utilise.', Boolean(siteAssetVersion) &
 expect('Images parents theme sans bannieres verrouillees.', files.app.includes('function usesOriginalParentImage(recipe)') && !files.app.includes('function isRootCategoryParentRecipe(recipe)') && files.app.includes('if (usesOriginalParentImage(recipe)) return themeRecipeArtImage(recipe) || recipe.image ||') && files.rules.includes('Les fiches parents racine et collections utilisent les images parent theme') && files.rules.includes('validees avec banniere en haut de l') && files.rules.includes('`parent_*_moon` restent des fallbacks'));
 expect('Mode cuisine revenu.', !files.app.includes('Mode cuisine') && !files.app.includes('focusMode') && !files.style.includes('recipe-focus-mode') && !files.style.includes('focus-toggle') && !files.style.includes('focus-action'));
 expect('Boutons minuteurs revenus.', !files.app.includes('step-timer') && !files.style.includes('step-timer') && !files.app.includes('timerEnd') && !files.app.includes('timerLabel') && !files.app.includes('cooking-step-card') && !files.style.includes('cooking-step-actions'));
-expect('Fiche complete variantes encore affichee avant le choix.', files.app.includes('hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts') && files.app.includes("hasResolvedRecipe && h('div', { className: 'recipe-command-dock-slot'") && files.app.includes('h(RecipeCommandDock') && files.app.includes("hasResolvedRecipe && h('div', { id: 'recipe-detail-content'") && files.app.includes('Choix requis pour ouvrir la fiche'));
+expect('Fiche complete variantes encore affichee avant le choix.', files.app.includes('hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts') && !files.app.includes('recipe-command-dock') && !files.app.includes('h(RecipeCommandDock') && files.app.includes("hasResolvedRecipe && h('div', { id: 'recipe-detail-content'") && files.app.includes('Choix requis pour ouvrir la fiche'));
 expect('Compteur catalogue footer absent ou statique.', files.app.includes('getCatalogRecipeStats') && files.app.includes('INITIAL_CATALOG_STATS') && files.app.includes('site-footer-count') && files.app.includes('countInlineVariantGroups(recipe)') && files.rules.includes('compteur catalogue automatique') && files.style.includes('.site-footer-count'));
 expect('Footer annee encadree revenue.', files.app.includes('Cook Note \\u00a9 2026.') && !files.app.includes('site-footer-year') && !files.style.includes('.site-footer-year') && files.rules.includes("l'annee dans une pilule separee"));
 expect('Version footer absente.', Boolean(siteVersion && siteUpdatedAt) && files.app.includes('SITE_VERSION') && files.app.includes('SITE_UPDATED_AT') && files.app.includes('site-footer-version'));
@@ -302,7 +300,6 @@ expect('Fil Ariane recette sans libelles accessibles.', files.app.includes("'ari
 expect('Recettes liees sans libelles accessibles fins.', files.app.includes("className: 'linked-recipes-block', 'aria-label': 'Recettes liees a cette fiche'") && files.app.includes("className: 'linked-recipe-list', role: 'list'") && files.app.includes("role: 'listitem'") && files.app.includes("'aria-label': `Ouvrir ${item.recipe.title}, ${item.role || primaryCategory(item.recipe)}`") && files.app.includes("className: 'linked-recipe-thumb', style: imageBackgroundStyle(displayRecipeImage(item.recipe)), 'aria-hidden': true") && files.app.includes("'aria-label': expanded ? 'Masquer les recettes liees supplementaires'") && files.style.includes('-webkit-line-clamp: 2'));
 expect('Lien brut stable Android Legacy du footer absent.', files.app.includes('APP_INSTALL_OPTIONS') && files.app.includes('https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads') && files.app.includes("ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk'") && files.app.includes('href: option.href') && files.app.includes('site-footer-install-${option.id}') && files.style.includes('.site-footer-actions') && !files.app.includes('AppInstallPanel') && !files.app.includes('cook-note-android-modern') && !files.app.includes('Android 8.0+') && !files.app.includes('APK HD premium'));
 expect('App HD/Modern supprimee.', !files.app.includes('detectAppEnvironment') && !files.app.includes('modern-app-hd') && !files.app.includes('android-modern-app') && !files.app.includes('ios-modern-pwa') && !files.style.includes('.mc-shell.modern-app-hd') && !files.packageJson.includes('android:modern') && files.rules.includes('Application Android unique'));
-expect('Barre de fiche active encore flottante pendant le scroll.', recipeDockStaysInRecipeFlow && files.rules.includes('reste ancree dans la fiche et suit le flux normal de la page'));
 expect('Script validate-ui non branche au check.', files.packageJson.includes('scripts/validate-ui.js'));
 
 if (errors.length) {

@@ -84,21 +84,6 @@ async function expectSelectedLanguage(page, value, label) {
   await expect(page.locator('.language-switcher select')).toHaveCount(0);
 }
 
-async function expectLightDockActiveStateReadable(page) {
-  const activeTab = page.locator('.recipe-dock-tabs button.active:visible').first();
-  await expect(activeTab).toBeVisible();
-  const colors = await activeTab.evaluate(node => {
-    const styles = getComputedStyle(node);
-    const marker = getComputedStyle(node, '::after');
-    return {
-      text: styles.color,
-      marker: marker.backgroundColor
-    };
-  });
-  expect(colors.text).not.toBe('rgb(255, 255, 255)');
-  expect(colors.marker).not.toBe('rgb(255, 255, 255)');
-}
-
 test.describe('Cook Note visual smoke', () => {
   test('home renders cards, images and clean text', async ({ page }, testInfo) => {
     await forceTheme(page, 'dark');
@@ -245,8 +230,8 @@ test.describe('Cook Note visual smoke', () => {
 
     await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
     await waitForCookNote(page);
-    await expect(page.locator('.recipe-command-dock')).toBeVisible();
-    await expectLightDockActiveStateReadable(page);
+    await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
+    await expect(page.locator('.detail-actions')).toBeVisible();
   });
 
   test('english recipe controls stay translated', async ({ page }) => {
@@ -255,16 +240,12 @@ test.describe('Cook Note visual smoke', () => {
     await waitForCookNote(page);
 
     await expectSelectedLanguage(page, 'en', 'EN');
-    const dock = page.locator('.recipe-command-dock');
-    await expect(dock).toBeVisible();
-    await expect(dock).toContainText('Active sheet');
-    await expect(dock.getByRole('button', { name: /Add to shopping|Remove from shopping/i })).toBeVisible();
-    await expect(dock.getByRole('button', { name: /Add to favorites|Remove from favorites/i })).toBeVisible();
-    await expect(dock).toContainText(/(?:\+ )?Shopping/);
-    await expect(dock).toContainText('Favorite');
-    await expect(dock).toContainText('0% ready');
-    await expect(dock).not.toContainText('Fiche active');
-    const dockText = await dock.innerText();
+    await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
+    const detailActions = page.locator('.detail-actions');
+    await expect(detailActions).toBeVisible();
+    await expect(detailActions.getByRole('button', { name: /Add to shopping|In shopping|Remove from shopping/i })).toBeVisible();
+    await expect(detailActions.getByRole('button', { name: /Add to favorites|Remove from favorites/i })).toBeVisible();
+    const dockText = await detailActions.innerText();
     expect(dockText).not.toMatch(/(^|\s)Favori($|\s)/);
     expect(dockText).not.toMatch(/(^|\s)prêt($|\s)/);
     await expectNoMojibake(page);
@@ -291,7 +272,8 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.practical-block')).toContainText('Practical info');
     await expect(page.locator('.practical-block')).toContainText('Good to know');
     await expect(page.locator('.practical-block')).not.toContainText('Infos pratiques');
-    await expect(page.locator('.recipe-command-dock')).toContainText('Active sheet');
+    await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
+    await expect(page.locator('.detail-actions')).toBeVisible();
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
   });
@@ -318,7 +300,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect(selectedVariant).toContainText('lectionn');
     await expect(page.locator('.variant-choice-status')).toContainText('Variante s');
     await expect(page.locator('.recipe-summary-panel')).toBeVisible();
-    await expect(page.locator('.recipe-command-dock')).toBeVisible();
+    await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
     await expect(page.locator('.recipe-detail-grid')).toBeVisible();
     await expect(page.locator('.ingredients-panel')).toContainText('220g crevettes');
     await expect(page.locator('.ingredients-panel')).not.toContainText('120g yaourt nature');
@@ -371,7 +353,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.recipe-view')).toBeVisible();
     await expect(page.getByRole('heading', { name: new RegExp('Poulet sauce piment\\u00e9e', 'i') })).toBeVisible();
     await expect(page.locator('.recipe-detail-hero.has-photo')).toBeVisible();
-    await expect(page.locator('.recipe-command-dock')).toBeVisible();
+    await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
     await expect(page.locator('.plating-guide-block')).toHaveCount(0);
     await expect(page.getByText(/Ajouter aux courses/i)).toBeVisible();
     await expectNoMojibake(page);
@@ -384,34 +366,15 @@ test.describe('Cook Note visual smoke', () => {
     });
   });
 
-  test('recipe dock stays anchored in the recipe sheet while scrolling', async ({ page }) => {
+  test('recipe sheet keeps controls in the fiche without a duplicate command bar', async ({ page }) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
     await waitForCookNote(page);
 
-    const dockSlot = page.locator('.recipe-command-dock-slot');
-    const dock = page.locator('.recipe-command-dock');
-    await expect(dockSlot).toBeVisible();
-    await expect(dock).toBeVisible();
-    await expect(page.locator('#recipe-command-dock-host')).toHaveCount(0);
-    await expect(dockSlot).toHaveCSS('position', 'static');
-    await expect(dock).toHaveCSS('position', 'static');
-    await expect.poll(() => dock.evaluate(node => node.parentElement?.className || '')).toContain('recipe-command-dock-slot');
-    const before = await dock.boundingBox();
-    await page.evaluate(() => {
-      const scrollingElement = document.scrollingElement || document.documentElement;
-      scrollingElement.style.scrollBehavior = 'auto';
-      const target = Math.min(900, scrollingElement.scrollHeight - window.innerHeight);
-      window.scrollTo({ top: target, behavior: 'instant' });
-    });
-    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(100);
-    const scrollY = await page.evaluate(() => window.scrollY);
-    const after = await dock.boundingBox();
-
-    expect(before).not.toBeNull();
-    expect(after).not.toBeNull();
-    expect(scrollY).toBeGreaterThan(100);
-    expect((after?.y || 0)).toBeLessThan((before?.y || 0) - 100);
+    await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
+    await expect(page.locator('.recipe-command-dock-slot')).toHaveCount(0);
+    await expect(page.locator('.detail-actions')).toBeVisible();
+    await expect(page.locator('.recipe-detail-grid')).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });
 

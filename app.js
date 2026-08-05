@@ -109,7 +109,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.52';
+const SITE_VERSION = 'v4.53';
 const SITE_UPDATED_AT = '05/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.45';
@@ -6810,94 +6810,6 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect, onConti
   );
 }
 
-function RecipeCommandDock({
-  title,
-  recipe,
-  factor,
-  setFactor,
-  progress,
-  doneSteps,
-  canShowSteps,
-  mobileDetailTab,
-  setMobileDetailTab,
-  ingredientCount,
-  stepCount,
-  notesCount,
-  canAddToShopping,
-  isInShopping,
-  onToggleShopping,
-  showRecipeUtilities,
-  onCopy,
-  exportCopied,
-  canFavorite,
-  isFavorite,
-  onToggleFavorite
-}) {
-  const safeProgress = Math.max(0, Math.min(100, Number(progress) || 0));
-  const tabs = [
-    { key: 'ingredients', label: 'Ingr\u00e9dients', count: ingredientCount },
-    { key: 'steps', label: '\u00c9tapes', count: stepCount },
-    { key: 'notes', label: 'Avant', count: notesCount }
-  ];
-  return h('aside', {
-    className: 'recipe-command-dock',
-    style: { '--dock-progress': `${safeProgress}%` },
-    'aria-label': 'Tableau de bord recette'
-  },
-    h('span', { className: 'recipe-dock-progress', 'aria-hidden': true }, h('span', null)),
-    h('div', { className: 'recipe-dock-main' },
-      h('div', { className: 'recipe-dock-copy' },
-        h('span', { className: 'eyebrow' }, 'Fiche active'),
-        h('strong', { title }, title),
-        h('small', { style: canShowSteps ? { display: 'flex', gap: '3px 10px' } : undefined }, canShowSteps
-          ? [
-            h('span', { key: 'percent' }, `${safeProgress}% pr\u00eat`),
-            h('span', { key: 'steps', className: 'recipe-dock-step-count', style: { color: 'color-mix(in srgb,var(--accent) 68%,var(--text))' } }, `${doneSteps}/${stepCount} \u00e9tapes`)
-          ]
-          : 'Choix requis')
-      ),
-      recipe && h('div', { className: 'recipe-dock-quantity' },
-        h(QuantityFactorControl, { recipe, factor, setFactor, className: 'recipe-dock-quantity-control' })
-      ),
-      h('div', { className: 'recipe-dock-tabs', 'aria-label': 'Sections de la fiche' },
-        tabs.map(tab => h('button', {
-          key: tab.key,
-          type: 'button',
-          className: mobileDetailTab === tab.key ? 'active' : '',
-          title: tab.label,
-          'aria-label': `${tab.label} (${tab.count})`,
-          onClick: () => setMobileDetailTab(tab.key),
-          'aria-pressed': mobileDetailTab === tab.key
-        },
-          h('span', null, tab.label),
-          h('small', null, tab.count)
-        ))
-      ),
-      h('div', { className: 'recipe-dock-actions' },
-        h('button', {
-          type: 'button',
-          className: isInShopping ? 'dock-action active' : 'dock-action',
-          disabled: !canAddToShopping,
-          onClick: onToggleShopping,
-          'aria-label': isInShopping ? 'Retirer des courses' : 'Ajouter aux courses'
-        }, h(Icon, { name: 'basket' }), h('span', null, isInShopping ? 'Courses' : 'Courses')),
-        showRecipeUtilities && h('button', {
-          type: 'button',
-          className: exportCopied ? 'dock-action active' : 'dock-action',
-          onClick: onCopy,
-          'aria-label': 'Copier la fiche'
-        }, h(Icon, { name: 'copy' }), h('span', null, exportCopied ? 'Copi\u00e9e' : 'Copier')),
-        canFavorite && h('button', {
-          type: 'button',
-          className: isFavorite ? 'dock-action active' : 'dock-action',
-          onClick: onToggleFavorite,
-          'aria-label': isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'
-        }, h(Icon, { name: 'heart', filled: isFavorite }), h('span', null, 'Favori'))
-      )
-    )
-  );
-}
-
 function RecipeView({
   recipe,
   isFavorite,
@@ -7061,10 +6973,7 @@ function RecipeView({
   function continueToRecipeDetails() {
     const target = document.getElementById('recipe-detail-content');
     if (!target) return;
-    const dock = document.querySelector('.recipe-command-dock');
-    const dockBottom = dock?.getBoundingClientRect().bottom || 0;
-    const top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - dockBottom - 24);
-    window.scrollTo({ top, behavior: 'smooth' });
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function copyCurrentRecipe() {
@@ -7160,31 +7069,6 @@ function RecipeView({
       needsVariantSelection: needsInlineVariantSelection,
       hasVariantSelection: true
     }),
-    hasResolvedRecipe && h('div', { className: 'recipe-command-dock-slot' },
-      h(RecipeCommandDock, {
-        title: selectedRecipe.title,
-        recipe: selectedRecipe,
-        factor,
-        setFactor,
-        progress,
-        doneSteps,
-        canShowSteps,
-        mobileDetailTab,
-        setMobileDetailTab,
-        ingredientCount: countIngredients(selectedRecipe),
-        stepCount: effectiveStepTotal,
-        notesCount,
-        canAddToShopping,
-        isInShopping,
-        onToggleShopping: () => canAddToShopping && toggleShopping(shoppingKey, factor),
-        showRecipeUtilities,
-        onCopy: copyCurrentRecipe,
-        exportCopied,
-        canFavorite,
-        isFavorite,
-        onToggleFavorite: () => toggleFavorite(detailKey, selectedRecipe.title)
-      })
-    ),
     hasResolvedRecipe && h('div', { className: 'recipe-tabs', role: 'tablist', 'aria-label': 'Sections de la recette' },
       [
         { key: 'ingredients', label: 'Ingrédients', count: countIngredients(selectedRecipe) },
