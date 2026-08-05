@@ -37,6 +37,18 @@
     <loc>https://cook-note.pages.dev/recette/babeurre_maison/</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/babka/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/baguette_francaise_tradition/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/baguette_maison/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/baguette_sans_petrissage/</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/balsamique_reduit/</loc>
   </url>
   <url>
@@ -82,7 +94,19 @@
     <loc>https://cook-note.pages.dev/recette/brie_farci_fruits_secs_noix/</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/brioche_filante/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/brioche_leopard/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/brioche_nanterre/</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/brioche_perdue_caramel_beurre_sale/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/brioche_vendeenne/</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/brioches_aperitives/</loc>
@@ -173,6 +197,12 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/cheesecake_caramel_nougatine_speculoos/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/chinois_abricot/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/chinois_chocolat/</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/chipirons_a_la_plancha/</loc>
@@ -451,6 +481,9 @@
     <loc>https://cook-note.pages.dev/recette/lentilles_tomate_pommes_de_terre_sautees/</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/levain/</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/macaron_ourea_pierre_herme/</loc>
   </url>
   <url>
@@ -514,13 +547,34 @@
     <loc>https://cook-note.pages.dev/recette/okonomiyaki_chou/</loc>
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/osso_buco/</loc>
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/paella_royale/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/pain_bagels/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/pain_gressins_aux_epices/</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pain_herisson_pesto_mozzarella/</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pain_hot_dog/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/pain_mie/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/pain_perdu/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/pain_pita/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/pain_viennois_nature/</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pain_zaatar/</loc>
@@ -557,6 +611,9 @@
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pate_legere_beignets_calamar_crevettes/</loc>
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/pate_pizza_fine/</loc>
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/pate_sucree/</loc>

@@ -8,6 +8,10 @@
 /recette/asperges_vertes_lard /recette/asperges_vertes_lard/ 301
 /recette/aubergines_roties_anchois /recette/aubergines_roties_anchois/ 301
 /recette/babeurre_maison /recette/babeurre_maison/ 301
+/recette/babka /recette/babka/ 301
+/recette/baguette_francaise_tradition /recette/baguette_francaise_tradition/ 301
+/recette/baguette_maison /recette/baguette_maison/ 301
+/recette/baguette_sans_petrissage /recette/baguette_sans_petrissage/ 301
 /recette/balsamique_reduit /recette/balsamique_reduit/ 301
 /recette/base_pour_flan_sale /recette/base_pour_flan_sale/ 301
 /recette/batonnets_polenta_parmesan /recette/batonnets_polenta_parmesan/ 301
@@ -23,7 +27,11 @@
 /recette/bouillabaisse_rouille /recette/bouillabaisse_rouille/ 301
 /recette/bricks_fromage_miel_poires_pecan /recette/bricks_fromage_miel_poires_pecan/ 301
 /recette/brie_farci_fruits_secs_noix /recette/brie_farci_fruits_secs_noix/ 301
+/recette/brioche_filante /recette/brioche_filante/ 301
+/recette/brioche_leopard /recette/brioche_leopard/ 301
+/recette/brioche_nanterre /recette/brioche_nanterre/ 301
 /recette/brioche_perdue_caramel_beurre_sale /recette/brioche_perdue_caramel_beurre_sale/ 301
+/recette/brioche_vendeenne /recette/brioche_vendeenne/ 301
 /recette/brioches_aperitives /recette/brioches_aperitives/ 301
 /recette/brochettes_crevettes_chorizo /recette/brochettes_crevettes_chorizo/ 301
 /recette/brochettes_langoustines_coriandre_citron /recette/brochettes_langoustines_coriandre_citron/ 301
@@ -54,6 +62,8 @@
 /recette/chapelures_variantes /recette/chapelures_variantes/ 301
 /recette/cheesecake_basque /recette/cheesecake_basque/ 301
 /recette/cheesecake_caramel_nougatine_speculoos /recette/cheesecake_caramel_nougatine_speculoos/ 301
+/recette/chinois_abricot /recette/chinois_abricot/ 301
+/recette/chinois_chocolat /recette/chinois_chocolat/ 301
 /recette/chipirons_a_la_plancha /recette/chipirons_a_la_plancha/ 301
 /recette/chocolat_ancien /recette/chocolat_ancien/ 301
 /recette/chorizo_au_cidre /recette/chorizo_au_cidre/ 301
@@ -146,6 +156,7 @@
 /recette/legumineuses_montbeliard_variantes /recette/legumineuses_montbeliard_variantes/ 301
 /recette/lentilles_a_la_bourguignonne /recette/lentilles_a_la_bourguignonne/ 301
 /recette/lentilles_tomate_pommes_de_terre_sautees /recette/lentilles_tomate_pommes_de_terre_sautees/ 301
+/recette/levain /recette/levain/ 301
 /recette/macaron_ourea_pierre_herme /recette/macaron_ourea_pierre_herme/ 301
 /recette/macaronis_chalet /recette/macaronis_chalet/ 301
 /recette/madeleines_salees /recette/madeleines_salees/ 301
@@ -167,9 +178,16 @@
 /recette/oeufs_mimosa_variantes /recette/oeufs_mimosa_variantes/ 301
 /recette/oignons_rotis_thym_miel /recette/oignons_rotis_thym_miel/ 301
 /recette/okonomiyaki_chou /recette/okonomiyaki_chou/ 301
+/recette/osso_buco /recette/osso_buco/ 301
 /recette/paella_royale /recette/paella_royale/ 301
+/recette/pain_bagels /recette/pain_bagels/ 301
+/recette/pain_gressins_aux_epices /recette/pain_gressins_aux_epices/ 301
 /recette/pain_herisson_pesto_mozzarella /recette/pain_herisson_pesto_mozzarella/ 301
 /recette/pain_hot_dog /recette/pain_hot_dog/ 301
+/recette/pain_mie /recette/pain_mie/ 301
+/recette/pain_perdu /recette/pain_perdu/ 301
+/recette/pain_pita /recette/pain_pita/ 301
+/recette/pain_viennois_nature /recette/pain_viennois_nature/ 301
 /recette/pain_zaatar /recette/pain_zaatar/ 301
 /recette/pains_ail_variantes /recette/pains_ail_variantes/ 301
 /recette/pains_aux_cereales /recette/pains_aux_cereales/ 301
@@ -182,6 +200,7 @@
 /recette/pate_choux /recette/pate_choux/ 301
 /recette/pate_en_croute_noel /recette/pate_en_croute_noel/ 301
 /recette/pate_legere_beignets_calamar_crevettes /recette/pate_legere_beignets_calamar_crevettes/ 301
+/recette/pate_pizza_fine /recette/pate_pizza_fine/ 301
 /recette/pate_sucree /recette/pate_sucree/ 301
 /recette/pate_tartiner_noisette_praline /recette/pate_tartiner_noisette_praline/ 301
 /recette/pates_brocolis_amandes /recette/pates_brocolis_amandes/ 301

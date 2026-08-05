@@ -1,5 +1,5 @@
 {
-  "total": 308,
+  "total": 327,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -410,6 +410,96 @@
       "cardBytes": 171627
     },
     {
+      "id": "babka",
+      "title": "Babka au chocolat",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/babka.jpg",
+      "card": "assets/recipes/cards/babka.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 205876,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 69152
+    },
+    {
+      "id": "pain_bagels",
+      "title": "Bagels",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pain_bagels.jpg",
+      "card": "assets/recipes/cards/pain_bagels.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 206661,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 69427
+    },
+    {
+      "id": "baguette_maison",
+      "title": "Baguette à fermentation longue",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/baguette_maison.jpg",
+      "card": "assets/recipes/cards/baguette_maison.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 224668,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 71069
+    },
+    {
+      "id": "baguette_sans_petrissage",
+      "title": "Baguettes sans pétrissage",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/baguette_sans_petrissage.jpg",
+      "card": "assets/recipes/cards/baguette_sans_petrissage.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 202631,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 64566
+    },
+    {
+      "id": "baguette_francaise_tradition",
+      "title": "Baguettes tradition françaises",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/baguette_francaise_tradition.jpg",
+      "card": "assets/recipes/cards/baguette_francaise_tradition.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 217098,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 68643
+    },
+    {
       "id": "balsamique_reduit",
       "title": "Balsamique réduit",
       "score": 100,
@@ -680,6 +770,60 @@
       "cardBytes": 67260
     },
     {
+      "id": "brioche_filante",
+      "title": "Brioche filante",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/brioche_filante.jpg",
+      "card": "assets/recipes/cards/brioche_filante.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 198569,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 64007
+    },
+    {
+      "id": "brioche_leopard",
+      "title": "Brioche léopard",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/brioche_leopard.jpg",
+      "card": "assets/recipes/cards/brioche_leopard.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 242966,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 77246
+    },
+    {
+      "id": "brioche_nanterre",
+      "title": "Brioche Nanterre",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/brioche_nanterre.jpg",
+      "card": "assets/recipes/cards/brioche_nanterre.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 168684,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 56295
+    },
+    {
       "id": "brioche_perdue_caramel_beurre_sale",
       "title": "Brioche perdue sauce caramel au beurre salé",
       "score": 100,
@@ -696,6 +840,24 @@
         "height": 428
       },
       "cardBytes": 56576
+    },
+    {
+      "id": "brioche_vendeenne",
+      "title": "Brioche vendéenne",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/brioche_vendeenne.jpg",
+      "card": "assets/recipes/cards/brioche_vendeenne.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 184339,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 62039
     },
     {
       "id": "brioches_aperitives",
@@ -1200,6 +1362,42 @@
         "height": 428
       },
       "cardBytes": 63790
+    },
+    {
+      "id": "chinois_chocolat",
+      "title": "Chinois au chocolat",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/chinois_chocolat.jpg",
+      "card": "assets/recipes/cards/chinois_chocolat.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 252582,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 81610
+    },
+    {
+      "id": "chinois_abricot",
+      "title": "Chinois aux abricots",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/chinois_abricot.jpg",
+      "card": "assets/recipes/cards/chinois_abricot.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 227842,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 74853
     },
     {
       "id": "chipirons_a_la_plancha",
@@ -2498,6 +2696,24 @@
       "cardBytes": 59080
     },
     {
+      "id": "pain_gressins_aux_epices",
+      "title": "Gressins aux épices",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pain_gressins_aux_epices.jpg",
+      "card": "assets/recipes/cards/pain_gressins_aux_epices.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 189262,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 63192
+    },
+    {
       "id": "gressins_fromage_olives",
       "title": "Gressins fromage olives",
       "score": 100,
@@ -2784,6 +3000,24 @@
         "height": 520
       },
       "cardBytes": 115578
+    },
+    {
+      "id": "levain",
+      "title": "Levain naturel",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/levain.jpg",
+      "card": "assets/recipes/cards/levain.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 208934,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 66157
     },
     {
       "id": "macaron_ourea_pierre_herme",
@@ -3110,6 +3344,24 @@
       "cardBytes": 69607
     },
     {
+      "id": "osso_buco",
+      "title": "Osso buco de veau",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/osso_buco.jpg",
+      "card": "assets/recipes/cards/osso_buco.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 232223,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 74383
+    },
+    {
       "id": "paella_royale",
       "title": "Paella royale",
       "score": 100,
@@ -3146,6 +3398,24 @@
       "cardBytes": 72437
     },
     {
+      "id": "pain_mie",
+      "title": "Pain de mie",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pain_mie.jpg",
+      "card": "assets/recipes/cards/pain_mie.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 188780,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 61113
+    },
+    {
       "id": "pain_herisson_pesto_mozzarella",
       "title": "Pain hérisson pesto et mozzarella",
       "score": 100,
@@ -3180,6 +3450,42 @@
         "height": 428
       },
       "cardBytes": 72977
+    },
+    {
+      "id": "pain_perdu",
+      "title": "Pain perdu",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pain_perdu.jpg",
+      "card": "assets/recipes/cards/pain_perdu.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 220143,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 71658
+    },
+    {
+      "id": "pain_viennois_nature",
+      "title": "Pain viennois nature",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pain_viennois_nature.jpg",
+      "card": "assets/recipes/cards/pain_viennois_nature.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 175800,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 56458
     },
     {
       "id": "pains_ail_variantes",
@@ -3234,6 +3540,24 @@
         "height": 570
       },
       "cardBytes": 116171
+    },
+    {
+      "id": "pain_pita",
+      "title": "Pains pita",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pain_pita.jpg",
+      "card": "assets/recipes/cards/pain_pita.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 173870,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 57244
     },
     {
       "id": "pancakes_variantes",
@@ -3342,6 +3666,24 @@
         "height": 760
       },
       "cardBytes": 164143
+    },
+    {
+      "id": "pate_pizza_fine",
+      "title": "Pâte à pizza fine",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/pate_pizza_fine.jpg",
+      "card": "assets/recipes/cards/pate_pizza_fine.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 213954,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 70304
     },
     {
       "id": "pate_tartiner_noisette_praline",
