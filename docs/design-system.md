@@ -66,9 +66,12 @@ metier et ne justifient pas d'ajouter une section gadget.
   cartes de l'accueil forment une grille reguliere et les huit fiches parentes
   portent uniquement leur numero romain, sans blason de categorie.
 - Le passage d'une carte a sa fiche peut utiliser une transition partagee courte,
-  avec une solution instantanee quand `prefers-reduced-motion` est actif.
-- Sur ordinateur, le panneau Ingredients peut rester visible pendant la lecture
-  des Etapes. Sur mobile, tous les panneaux reprennent le flux normal.
+  avec une solution instantanee quand `prefers-reduced-motion` est actif. La
+  capture precedente reste visible jusqu'au rendu de la suivante : aucun ecran
+  vide ou flash noir n'est acceptable.
+- Sur ordinateur, seul le panneau Ingredients peut rester visible pendant la
+  lecture des Etapes ; les Etapes et les notes gardent le defilement principal.
+  Sur mobile, tous les panneaux reprennent le flux normal.
 - La fiche recette reste un folio lisible, jamais un mode cuisine plein ecran ou
   une navigation sequentielle imposee.
 
@@ -206,8 +209,9 @@ Un selecteur de variantes inline precede toujours le contenu de la fiche. Il
 explique en une phrase que chaque choix possede ses propres ingredients, etapes,
 quantites et conseils. Les choix utilisent des cartes entieres tactiles avec un
 numero, un titre non tronque, deux compteurs utiles et un etat selectionne
-explicite. Avant le choix, les panneaux de detail restent caches afin d'eviter
-les faux totaux et les doubles commandes.
+explicite. Le clic sur une carte ouvre la fiche detaillee et y guide
+directement, sans second bouton de confirmation. Avant le choix, les panneaux
+de detail restent caches afin d'eviter les faux totaux et les doubles commandes.
 
 Les icones de la barre superieure utilisent `--topbar-icon-color`. Le theme nuit
 le definit en clair et le theme jour en texte sombre ; le controle visuel couvre

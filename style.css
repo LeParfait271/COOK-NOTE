@@ -2694,8 +2694,7 @@ a {
   text-shadow: 0 1px 8px rgba(0, 0, 0, .7);
 }
 
-.ingredients-panel,
-.steps-panel {
+.ingredients-panel {
   max-height: min(720px, calc(100vh - 150px));
   overflow-y: auto;
   -ms-overflow-style: none;
@@ -7694,7 +7693,7 @@ a {
   }
 
   .search-modal .search-results {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -8269,7 +8268,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 }
 
 .search-modal .search-results {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .search-result {
@@ -8301,14 +8300,18 @@ body:has(.modal-backdrop) #cook-note-update-action {
 
 @supports (view-transition-name: root) {
   ::view-transition-old(root) {
-    animation: none;
-    opacity: 0;
+    animation: cook-note-route-out 180ms var(--ds-ease-out) both;
   }
   ::view-transition-new(root) {
     animation: cook-note-route-in 180ms var(--ds-ease-out) both;
+    mix-blend-mode: normal;
+  }
+  @keyframes cook-note-route-out {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-2px); }
   }
   @keyframes cook-note-route-in {
-    from { opacity: 0; transform: translateY(4px); }
+    from { opacity: .08; transform: translateY(4px); }
     to { opacity: 1; transform: translateY(0); }
   }
 }
@@ -8816,8 +8819,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 
   .variant-choice-tabs { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
   .variant-choice-button { min-height: 132px; padding: 14px; }
-  .variant-choice-status.selected { grid-template-columns: 42px minmax(0, 1fr) auto; }
-  .variant-choice-status.selected .variant-choice-continue { grid-column: auto !important; justify-self: end !important; white-space: nowrap; }
+  .variant-choice-status.selected { grid-template-columns: 42px minmax(0, 1fr); }
 
   .command-backdrop { background: rgba(0,0,0,.72); backdrop-filter: blur(9px) saturate(.92); }
   .command-palette { width: min(720px, calc(100% - 40px)); max-height: min(720px, calc(100dvh - 48px)); padding: 18px; }
@@ -8839,7 +8841,6 @@ body:has(.modal-backdrop) #cook-note-update-action {
   .recipe-detail-grid, .recipe-summary-panel, .variant-picker-panel, .variant-choice-panel, .detail-hero-copy { width: min(100% - 28px, 920px); }
   .command-action-grid { grid-template-columns: 1fr; }
   .variant-choice-status.selected { grid-template-columns: 40px minmax(0, 1fr); }
-  .variant-choice-status.selected .variant-choice-continue { grid-column: 2 !important; justify-self: start !important; }
 }
 
 @media screen and (max-width: 700px) {
@@ -8877,9 +8878,21 @@ body:has(.modal-backdrop) #cook-note-update-action {
 
 /* Recipe sheet rail: fixed to the fiche without a full-bleed banner. */
 @media screen and (min-width: 1061px) {
-  .ingredients-panel,
+  .ingredients-panel {
+    position: sticky !important;
+    top: var(--recipe-nav-offset);
+    max-height: calc(100vh - 108px);
+    overflow: auto !important;
+    overscroll-behavior: contain;
+    align-self: start;
+  }
+
   .steps-panel,
-  .notes-panel { position: sticky !important; top: var(--recipe-nav-offset); max-height: calc(100vh - 108px); overflow: auto !important; overscroll-behavior: contain; align-self: start; }
+  .notes-panel {
+    position: relative !important;
+    max-height: none !important;
+    overflow: hidden !important;
+  }
 }
 @media screen and (max-width: 1060px) {
 }

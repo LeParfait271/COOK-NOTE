@@ -124,6 +124,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect(searchInput).toHaveValue('poulet');
     await expect(page.locator('.search-result-count')).toContainText(/résultat|Recherche en cours/, { timeout: 4000 });
     await expect(page.locator('.search-result')).not.toHaveCount(0, { timeout: 5000 });
+    await expect(page.locator('.search-result')).toHaveCount(12);
     await searchInput.fill('');
     await page.keyboard.press('Escape');
     await expect(page.locator('.search-modal')).toBeHidden();
@@ -232,6 +233,12 @@ test.describe('Cook Note visual smoke', () => {
     await waitForCookNote(page);
     await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
     await expect(page.locator('.detail-actions')).toBeVisible();
+    await page.locator('.theme-toggle-btn').click();
+    await expect(page.locator('.mc-shell.theme-dark')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe('dark');
+    await page.locator('.theme-toggle-btn').click();
+    await expect(page.locator('.mc-shell.theme-light')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe('light');
   });
 
   test('english recipe controls stay translated', async ({ page }) => {
@@ -299,9 +306,11 @@ test.describe('Cook Note visual smoke', () => {
     await expect(selectedVariant).toHaveAttribute('aria-pressed', 'true');
     await expect(selectedVariant).toContainText('lectionn');
     await expect(page.locator('.variant-choice-status')).toContainText('Variante s');
+    await expect(page.locator('.variant-choice-continue')).toHaveCount(0);
     await expect(page.locator('.recipe-summary-panel')).toBeVisible();
     await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
     await expect(page.locator('.recipe-detail-grid')).toBeVisible();
+    await expect.poll(() => page.locator('#recipe-detail-content').evaluate(element => Math.round(element.getBoundingClientRect().top))).toBeLessThanOrEqual(180);
     await expect(page.locator('.ingredients-panel')).toContainText('220g crevettes');
     await expect(page.locator('.ingredients-panel')).not.toContainText('120g yaourt nature');
     await expect(page.locator('.step-list')).toContainText("Saisir le poulet dans l'huile");
@@ -336,12 +345,24 @@ test.describe('Cook Note visual smoke', () => {
       return {
         overflowY: getComputedStyle(element).overflowY,
         viewportWidth: window.innerWidth,
-        bottomSpace: panelRect.bottom - lastItemRect.bottom
+        bottomSpace: panelRect.bottom - lastItemRect.bottom,
+        ingredientPosition: getComputedStyle(element).position,
+        stepsPosition: getComputedStyle(document.querySelector('.steps-panel')).position,
+        notesPosition: getComputedStyle(document.querySelector('.notes-panel')).position,
+        stepsOverflowY: getComputedStyle(document.querySelector('.steps-panel')).overflowY,
+        notesOverflowY: getComputedStyle(document.querySelector('.notes-panel')).overflowY
       };
     });
 
     expect(layout.overflowY).toBe('auto');
     expect(layout.bottomSpace).toBeGreaterThanOrEqual(12);
+    if (layout.viewportWidth > 1060) {
+      expect(layout.ingredientPosition).toBe('sticky');
+      expect(layout.stepsPosition).toBe('relative');
+      expect(layout.notesPosition).toBe('relative');
+      expect(layout.stepsOverflowY).toBe('hidden');
+      expect(layout.notesOverflowY).toBe('hidden');
+    }
     await expectNoHorizontalOverflow(page);
   });
 

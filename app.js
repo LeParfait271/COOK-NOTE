@@ -109,7 +109,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.54';
+const SITE_VERSION = 'v4.55';
 const SITE_UPDATED_AT = '05/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.45';
@@ -917,15 +917,22 @@ function scrollElementToViewportCenter(element, behavior = 'smooth') {
 
 function runViewTransition(update) {
   if (typeof update !== 'function') return;
+  const commit = () => {
+    if (typeof ReactDOM !== 'undefined' && typeof ReactDOM.flushSync === 'function') {
+      return ReactDOM.flushSync(update);
+    }
+    return update();
+  };
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || document.querySelector('.display-reduce-motion');
   if (typeof document.startViewTransition !== 'function' || reduceMotion) {
-    update();
+    commit();
     return;
   }
   try {
-    document.startViewTransition(() => update());
+    const transition = document.startViewTransition(commit);
+    transition?.finished?.catch(() => {});
   } catch {
-    update();
+    commit();
   }
 }
 
@@ -5589,7 +5596,7 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
   const ingredientTokens = ingredientSearchTokens(draftQuery);
   const hasIngredientMatches = hasQuery && !searchPending && results.some(recipe => ingredientMeta.has(recipe.id));
   const groupByIngredientAvailability = hasIngredientMatches && (draftQuery.includes(',') || ingredientTokens.length > 1);
-  const visibleResults = hasQuery && !searchPending ? results.slice(0, 18) : [];
+  const visibleResults = hasQuery && !searchPending ? results.slice(0, 12) : [];
   const resultGroups = visibleResults.reduce((groups, recipe) => {
     const availability = ingredientMeta.has(recipe.id) ? ingredientAvailabilityGroup(ingredientMeta.get(recipe.id)) : null;
     const key = groupByIngredientAvailability && availability ? availability.key : primaryCategory(recipe);
@@ -6733,7 +6740,7 @@ function cleanVariantGroupLabel(label) {
   return String(label || 'Variante').replace(/^\d+\)\s*/, '').replace(/^variante\s*:?\s*/i, '').trim();
 }
 
-function InlineVariantPicker({ recipe, options, selectedIndex, onSelect, onContinue }) {
+function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
   if (!options.length) return null;
   const optionDetails = options.map((option, position) => {
     const optionRecipe = buildInlineVariantRecipe(recipe, option);
@@ -6791,21 +6798,16 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect, onConti
     },
       h('span', { className: 'variant-choice-status-icon', 'aria-hidden': true }, selectedOption ? '\u2713' : '\u2192'),
       selectedOption
-        ? [
-          h('span', { key: 'copy', className: 'variant-choice-status-copy' },
+        ? h('span', { className: 'variant-choice-status-copy' },
             h('small', null, 'Variante s\u00e9lectionn\u00e9e'),
             h('strong', null, selectedOption.label || 'Variante'),
             h('span', null, 'Ingr\u00e9dients, \u00e9tapes, quantit\u00e9s et conseils correspondent maintenant \u00e0 ce choix.')
-          ),
-          h('button', { key: 'continue', type: 'button', className: 'btn btn-primary variant-choice-continue', onClick: onContinue, 'aria-controls': 'recipe-detail-content' }, 'Continuer avec cette variante')
-        ]
-        : [
-          h('span', { key: 'copy', className: 'variant-choice-status-copy' },
+          )
+        : h('span', { className: 'variant-choice-status-copy' },
             h('small', null, 'Choix requis'),
             h('strong', null, 'Choisis une carte ci-dessus'),
             h('span', null, 'La fiche compl\u00e8te s\u2019affichera ensuite, sans m\u00e9langer les recettes.')
           )
-        ]
     )
   );
 }
@@ -6851,6 +6853,7 @@ function RecipeView({
   const [mobileDetailTab, setMobileDetailTab] = useState('ingredients');
   const [openIngredientGroups, setOpenIngredientGroups] = useState({});
   const mobileSwipeStartRef = useRef(null);
+  const pendingInlineVariantScrollRef = useRef(false);
   const completedRef = useRef('');
   const inlineVariantOptions = useMemo(() => getInlineVariantOptions(recipe), [recipe]);
   const needsInlineVariantSelection = inlineVariantOptions.length > 0;
@@ -6933,6 +6936,13 @@ function RecipeView({
   }, [detailKey, inlineVariantOptions]);
 
   useEffect(() => {
+    if (!pendingInlineVariantScrollRef.current || !selectedInlineVariantGroup) return undefined;
+    pendingInlineVariantScrollRef.current = false;
+    const frame = window.requestAnimationFrame(() => scrollToRecipeDetails());
+    return () => window.cancelAnimationFrame(frame);
+  }, [selectedInlineVariantGroup?.index]);
+
+  useEffect(() => {
     if (!stepTotal || doneSteps !== stepTotal || completedRef.current === stepScopeKey) return;
     completedRef.current = stepScopeKey;
     runConfettiBurst();
@@ -6956,7 +6966,12 @@ function RecipeView({
   }
 
   function selectInlineVariant(index) {
+    if (selectedInlineVariantGroup?.index === index) {
+      scrollToRecipeDetails();
+      return;
+    }
     const option = inlineVariantOptions.find(item => item.index === index);
+    pendingInlineVariantScrollRef.current = Boolean(option);
     setOpenIngredientGroups(prev => {
       const next = { ...prev };
       inlineVariantOptions.forEach(option => {
@@ -6970,10 +6985,11 @@ function RecipeView({
     }
   }
 
-  function continueToRecipeDetails() {
+  function scrollToRecipeDetails() {
     const target = document.getElementById('recipe-detail-content');
     if (!target) return;
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || document.querySelector('.display-reduce-motion');
+    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
   }
 
   function copyCurrentRecipe() {
@@ -7059,8 +7075,7 @@ function RecipeView({
       recipe,
       options: inlineVariantOptions,
       selectedIndex: selectedInlineVariantGroup?.index,
-      onSelect: selectInlineVariant,
-      onContinue: continueToRecipeDetails
+      onSelect: selectInlineVariant
     }),
     hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts, {
       recipe: selectedRecipe,
@@ -7323,15 +7338,22 @@ function App() {
     return undefined;
   }, [anyModalOpen]);
   const updatePreferences = patch => {
-    setPreferences(current => {
-      const nextTheme = Object.prototype.hasOwnProperty.call(patch, 'theme') && CookNoteTheme.isValidTheme(patch.theme)
-        ? patch.theme
-        : current.theme;
-      const next = { ...current, ...patch, theme: nextTheme };
-      writeJson(STORAGE_KEYS.preferences, next);
-      if (Object.prototype.hasOwnProperty.call(patch, 'theme')) CookNoteTheme.setTheme(next.theme);
-      return next;
-    });
+    const isThemePatch = Object.prototype.hasOwnProperty.call(patch, 'theme');
+    const requestedTheme = isThemePatch && CookNoteTheme.isValidTheme(patch.theme) ? patch.theme : '';
+    const commit = () => {
+      if (requestedTheme) CookNoteTheme.applyTheme(requestedTheme);
+      setPreferences(current => {
+        const nextTheme = requestedTheme || current.theme;
+        const next = { ...current, ...patch, theme: nextTheme };
+        writeJson(STORAGE_KEYS.preferences, next);
+        return next;
+      });
+    };
+    if (requestedTheme && typeof ReactDOM !== 'undefined' && typeof ReactDOM.flushSync === 'function') {
+      ReactDOM.flushSync(commit);
+      return;
+    }
+    commit();
   };
   const toggleTheme = () => updatePreferences({ theme: activeTheme === 'light' ? 'dark' : 'light' });
 

@@ -93,6 +93,9 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Le footer doit afficher le compteur catalogue automatique : fiches recettes servies + variantes inline. Ce compteur doit venir de `window.RECIPES`, jamais d'un nombre ecrit en dur.
 - Le footer ne doit pas afficher l'annee dans une pilule separee : garder `Cook Note © 2026.` dans le texte d'identite, puis compteur et version uniquement dans les badges.
 - Les boutons partager et imprimer du hero ne doivent apparaitre que sur les vraies fiches recettes servies, jamais sur les categories, collections ou fiches parentes.
+- Une selection de variante inline ouvre la fiche complete en un seul clic et y guide directement ; ne pas ajouter un second bouton de confirmation.
+- Sur desktop, seul Ingredients peut rester sticky dans la fiche : Etapes et Avant de commencer suivent le defilement principal pour eviter trois zones de scroll concurrentes.
+- Une transition de route ne doit jamais masquer la page precedente avant que la nouvelle fiche soit rendue ; aucun flash noir ou ecran vide n'est acceptable.
 - Sur mobile, les onglets de fiche `Ingredients / Etapes / Avant` ne doivent pas etre sticky pendant le scroll. Si un swipe change de panneau, afficher un indice discret visible sur mobile.
 - Sur mobile, le swipe entre panneaux de fiche doit etre accroche a toute la vue recette, pas seulement a la grille centrale, pour fonctionner meme si le geste commence hors de la case.
 - Les liens Techniques doivent centrer la carte visee, la faire clignoter assez longtemps, et garder le halo actif tant qu'on est sur la page.
