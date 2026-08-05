@@ -384,27 +384,34 @@ test.describe('Cook Note visual smoke', () => {
     });
   });
 
-  test('recipe dock stays pinned while scrolling', async ({ page }) => {
+  test('recipe dock stays anchored in the recipe sheet while scrolling', async ({ page }) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
     await waitForCookNote(page);
 
-    const dockHost = page.locator('#recipe-command-dock-host');
+    const dockSlot = page.locator('.recipe-command-dock-slot');
     const dock = page.locator('.recipe-command-dock');
-    await expect(dockHost).toBeVisible();
+    await expect(dockSlot).toBeVisible();
     await expect(dock).toBeVisible();
-    await expect(dockHost).toHaveCSS('position', 'fixed');
-    await expect(dockHost).toHaveCSS('top', '64px');
-    await expect(dock).toHaveCSS('position', 'relative');
-    await expect.poll(() => dock.evaluate(node => node.parentElement?.id || '')).toBe('recipe-command-dock-host');
-    const before = await dockHost.boundingBox();
-    await page.evaluate(() => window.scrollTo(0, Math.min(900, document.documentElement.scrollHeight)));
-    await page.waitForTimeout(120);
-    const after = await dockHost.boundingBox();
+    await expect(page.locator('#recipe-command-dock-host')).toHaveCount(0);
+    await expect(dockSlot).toHaveCSS('position', 'static');
+    await expect(dock).toHaveCSS('position', 'static');
+    await expect.poll(() => dock.evaluate(node => node.parentElement?.className || '')).toContain('recipe-command-dock-slot');
+    const before = await dock.boundingBox();
+    await page.evaluate(() => {
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      scrollingElement.style.scrollBehavior = 'auto';
+      const target = Math.min(900, scrollingElement.scrollHeight - window.innerHeight);
+      window.scrollTo({ top: target, behavior: 'instant' });
+    });
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(100);
+    const scrollY = await page.evaluate(() => window.scrollY);
+    const after = await dock.boundingBox();
 
     expect(before).not.toBeNull();
     expect(after).not.toBeNull();
-    expect(Math.abs((after?.y || 0) - (before?.y || 0))).toBeLessThanOrEqual(2);
+    expect(scrollY).toBeGreaterThan(100);
+    expect((after?.y || 0)).toBeLessThan((before?.y || 0) - 100);
     await expectNoHorizontalOverflow(page);
   });
 

@@ -8996,8 +8996,8 @@ body:has(.modal-backdrop) #cook-note-update-action {
   }
 }
 
-/* Video polish: keep fixed recipe controls clear of the reading flow. */
-#recipe-detail-content{scroll-margin-top:182px}.recipe-command-dock-slot{min-height:116px}
+/* Keep recipe anchors clear of the fixed top bar. */
+#recipe-detail-content{scroll-margin-top:84px}
 .shopping-aisles-shell{position:relative;max-height:min(34vh,320px);margin:14px 0;overflow:auto;overscroll-behavior:contain;scrollbar-color:var(--accent) transparent;scrollbar-width:thin}.shopping-aisles-shell .shopping-aisles{margin:0;padding:0 8px 24px 0}.shopping-aisles-shell::after{content:"";position:sticky;z-index:2;display:block;bottom:0;height:26px;margin-top:-26px;pointer-events:none;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--surface-strong) 94%,transparent))}.shopping-aisles-shell::-webkit-scrollbar{display:block;width:6px;height:6px}.shopping-aisles-shell::-webkit-scrollbar-thumb{border-radius:999px;background:color-mix(in srgb,var(--accent) 78%,transparent)}
 .shopping-modal .combined-cart{max-height:72px;margin:8px 0 0;overflow:auto;padding:8px 10px;font-size:10px;line-height:1.35}.shopping-modal .modal-actions{position:sticky;z-index:3;bottom:-20px;margin:0 -20px -20px;border-top:1px solid color-mix(in srgb,var(--accent) 18%,var(--line));background:linear-gradient(180deg,color-mix(in srgb,var(--surface-strong) 72%,transparent),var(--surface-strong) 34%);padding:12px 20px 20px}
 .notes-core-stack,.notes-reference-stack{display:grid;gap:10px}.notes-reference-stack{margin-top:16px!important;padding-top:12px!important}.notes-panel :is(.allergen-card,.average-weight-card,.technical-card,.personal-notes-card,.flavor-map-block,.ingredient-knowledge-block,.practical-section){margin-bottom:0}
@@ -9108,9 +9108,9 @@ body:has(.modal-backdrop) #cook-note-update-action {
 }
 
 /* Final cascade overrides. Keep these after the legacy print layer so the
-   desktop dock, theme tokens and paper layout have one unambiguous outcome. */
+   recipe sheet, theme tokens and paper layout have one unambiguous outcome. */
 @media screen {
-  :root { --recipe-nav-offset: 182px; }
+  :root { --recipe-nav-offset: 84px; }
   html { scroll-padding-top: var(--recipe-nav-offset); }
 
   .home-view .season-sections,
@@ -9127,8 +9127,8 @@ body:has(.modal-backdrop) #cook-note-update-action {
   #recipe-detail-content,
   .collection-links-panel { scroll-margin-top: var(--recipe-nav-offset); }
 
-  .recipe-command-dock-slot { min-height: 0 !important; }
-  .recipe-command-dock { width: min(1340px, calc(100% - clamp(32px, 5vw, 96px))); border-radius: 14px; backdrop-filter: blur(22px) saturate(1.04); }
+  .recipe-command-dock-slot { position: static; min-height: 0 !important; }
+  .recipe-command-dock { position: static; width: min(1340px, calc(100% - clamp(32px, 5vw, 96px))); margin-inline: auto; border-radius: 14px; backdrop-filter: blur(22px) saturate(1.04); }
   .recipe-dock-main {
     grid-template-columns: minmax(260px, 1.1fr) minmax(142px, .44fr) minmax(360px, 1.42fr) auto;
     gap: 14px;
@@ -9212,7 +9212,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 }
 
 @media screen and (max-width: 700px) {
-  :root { --recipe-nav-offset: 244px; }
+  :root { --recipe-nav-offset: 84px; }
   .home-view .master-recipe-grid { width: auto; margin-inline: 0; }
   .site-footer, .recipe-detail-grid, .recipe-summary-panel, .variant-picker-panel, .variant-choice-panel, .detail-hero-copy { width: calc(100% - 24px); }
   .site-footer { width: calc(100% - 28px); }
@@ -9248,7 +9248,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 @media screen and (min-width: 1061px) {
   .ingredients-panel,
   .steps-panel,
-  .notes-panel { position: sticky !important; top: var(--recipe-nav-offset); max-height: calc(100vh - 198px); overflow: auto !important; overscroll-behavior: contain; align-self: start; }
+  .notes-panel { position: sticky !important; top: var(--recipe-nav-offset); max-height: calc(100vh - 108px); overflow: auto !important; overscroll-behavior: contain; align-self: start; }
 }
 @media screen and (max-width: 1060px) {
   .recipe-dock-main { grid-template-columns: 1fr !important; gap: 6px; padding: 7px; }
@@ -9260,6 +9260,4 @@ body:has(.modal-backdrop) #cook-note-update-action {
   .recipe-dock-actions { display: grid; }
 }
 
-@media screen{.recipe-dock-tabs button,.dock-action,.recipe-dock-quantity-control .quantity-select,.season-tabs button,.season-category-tabs button{min-height:44px}.recipe-dock-tabs button span{overflow:visible;text-overflow:clip;white-space:normal;line-height:1.1}}@media screen and (max-width:1060px){.recipe-command-dock-slot{min-height:172px!important}}@media screen and (max-width:700px){.recipe-command-dock-slot{min-height:184px!important}.recipe-detail-hero .detail-hero-copy{padding-top:202px}}
-
-.recipe-command-dock-host{position:fixed!important;top:64px!important;right:0!important;bottom:auto!important;left:0!important;z-index:95!important;min-height:0!important;transform:none!important;background:transparent;pointer-events:none}.recipe-command-dock-host>.recipe-command-dock{position:relative!important;top:0!important;right:auto!important;bottom:auto!important;left:auto!important;width:min(1340px,calc(100% - clamp(40px,5vw,96px)))!important;margin:0 auto!important;transform:none!important;pointer-events:auto}@media(max-width:1060px){.recipe-command-dock-host>.recipe-command-dock{width:min(100% - 20px,700px)!important}}
+@media screen{.recipe-dock-tabs button,.dock-action,.recipe-dock-quantity-control .quantity-select,.season-tabs button,.season-category-tabs button{min-height:44px}.recipe-dock-tabs button span{overflow:visible;text-overflow:clip;white-space:normal;line-height:1.1}}

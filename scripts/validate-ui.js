@@ -24,11 +24,13 @@ const siteAssetVersion = siteVersionMatch ? `${Number(siteVersionMatch[1])}${sit
 const siteUpdatedAt = files.app.match(/const SITE_UPDATED_AT = '(\d{2}\/\d{2}\/\d{2})'/)?.[1] || '';
 const recipeTabsAreSticky = [...files.style.matchAll(/\.recipe-tabs\s*\{([^}]*)\}/g)]
   .some(match => /position:\s*sticky/.test(match[1]));
-const recipeDockIsFixedOnDesktop = /\.recipe-command-dock-host\{position:fixed!important;top:64px!important;/.test(files.style)
-  && /\.recipe-command-dock-host>\.recipe-command-dock\{position:relative!important;top:0!important;/.test(files.style)
-  && files.app.includes('document.body.appendChild(host)')
+const recipeDockStaysInRecipeFlow = /\.recipe-command-dock-slot\s*\{[^}]*position:\s*static;[^}]*min-height:\s*0\s*!important;/.test(files.style)
+  && /\.recipe-command-dock\s*\{[^}]*position:\s*static;/.test(files.style)
+  && !files.style.includes('.recipe-command-dock-host')
+  && !files.app.includes('ReactDOM.createPortal')
+  && !files.app.includes('recipe-command-dock-host')
   && files.app.includes("className: 'recipe-command-dock-slot'")
-  && files.app.includes('minHeight: 104');
+  && !files.app.includes("className: 'recipe-command-dock-slot', style:");
 const mobileSeasonTabsUseStableGrid = /@media\s*\(max-width:\s*700px\)\s*\{[\s\S]*?\.season-tabs\s*\{[\s\S]*?display:\s*grid;[\s\S]*?grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(files.style);
 const cardImageMotionIsBounded = files.style.includes('--ds-card-image-motion: 250ms')
   && /\.card-media\s*\{[\s\S]*?transition:\s*transform var\(--ds-card-image-motion\) var\(--ds-ease\), filter var\(--speed\);/.test(files.style)
@@ -300,7 +302,7 @@ expect('Fil Ariane recette sans libelles accessibles.', files.app.includes("'ari
 expect('Recettes liees sans libelles accessibles fins.', files.app.includes("className: 'linked-recipes-block', 'aria-label': 'Recettes liees a cette fiche'") && files.app.includes("className: 'linked-recipe-list', role: 'list'") && files.app.includes("role: 'listitem'") && files.app.includes("'aria-label': `Ouvrir ${item.recipe.title}, ${item.role || primaryCategory(item.recipe)}`") && files.app.includes("className: 'linked-recipe-thumb', style: imageBackgroundStyle(displayRecipeImage(item.recipe)), 'aria-hidden': true") && files.app.includes("'aria-label': expanded ? 'Masquer les recettes liees supplementaires'") && files.style.includes('-webkit-line-clamp: 2'));
 expect('Lien brut stable Android Legacy du footer absent.', files.app.includes('APP_INSTALL_OPTIONS') && files.app.includes('https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads') && files.app.includes("ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk'") && files.app.includes('href: option.href') && files.app.includes('site-footer-install-${option.id}') && files.style.includes('.site-footer-actions') && !files.app.includes('AppInstallPanel') && !files.app.includes('cook-note-android-modern') && !files.app.includes('Android 8.0+') && !files.app.includes('APK HD premium'));
 expect('App HD/Modern supprimee.', !files.app.includes('detectAppEnvironment') && !files.app.includes('modern-app-hd') && !files.app.includes('android-modern-app') && !files.app.includes('ios-modern-pwa') && !files.style.includes('.mc-shell.modern-app-hd') && !files.packageJson.includes('android:modern') && files.rules.includes('Application Android unique'));
-expect('Barre de fiche active non fixe sous la barre superieure.', recipeDockIsFixedOnDesktop && files.rules.includes('reste fixe sous la barre superieure'));
+expect('Barre de fiche active encore flottante pendant le scroll.', recipeDockStaysInRecipeFlow && files.rules.includes('reste ancree dans la fiche et suit le flux normal de la page'));
 expect('Script validate-ui non branche au check.', files.packageJson.includes('scripts/validate-ui.js'));
 
 if (errors.length) {
