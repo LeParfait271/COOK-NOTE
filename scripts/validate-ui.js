@@ -24,10 +24,9 @@ const siteAssetVersion = siteVersionMatch ? `${Number(siteVersionMatch[1])}${sit
 const siteUpdatedAt = files.app.match(/const SITE_UPDATED_AT = '(\d{2}\/\d{2}\/\d{2})'/)?.[1] || '';
 const recipeTabsAreSticky = [...files.style.matchAll(/\.recipe-tabs\s*\{([^}]*)\}/g)]
   .some(match => /position:\s*sticky/.test(match[1]));
-const recipeDockIsFixedOnDesktop = files.style.includes('@media (min-width: 1061px)')
-  && files.style.includes('.recipe-command-dock {\n    position: fixed;\n    top: 54px;')
-  && files.style.includes('left: 50%;')
-  && files.style.includes('transform: translateX(-50%);')
+const recipeDockIsFixedOnDesktop = /\.recipe-command-dock-host\{position:fixed!important;top:64px!important;/.test(files.style)
+  && /\.recipe-command-dock-host>\.recipe-command-dock\{position:relative!important;top:0!important;/.test(files.style)
+  && files.app.includes('document.body.appendChild(host)')
   && files.app.includes("className: 'recipe-command-dock-slot'")
   && files.app.includes('minHeight: 104');
 const mobileSeasonTabsUseStableGrid = /@media\s*\(max-width:\s*700px\)\s*\{[\s\S]*?\.season-tabs\s*\{[\s\S]*?display:\s*grid;[\s\S]*?grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(files.style);
