@@ -114,7 +114,7 @@ public class MainActivity extends Activity {
     private int COLOR_GOLD = Color.rgb(251, 191, 36);
     private int COLOR_ORANGE = Color.rgb(245, 158, 11);
     private int COLOR_GOLD_SOFT = Color.rgb(214, 158, 64);
-    private static final int DETAIL_IMAGE_MAX_WIDTH = 1280;
+    private static final int DETAIL_IMAGE_MAX_WIDTH = 960;
     private static final int BACK_SWIPE_EDGE_DP = 64;
     private static final int BACK_SWIPE_TRIGGER_DP = 86;
     private static final int SEARCH_DEBOUNCE_MS = 140;

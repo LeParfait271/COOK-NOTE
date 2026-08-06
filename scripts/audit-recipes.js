@@ -4,6 +4,7 @@ const vm = require('node:vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const REPORT_DIR = path.join(ROOT, 'reports');
+const APP_FILE = path.join(ROOT, 'app.js');
 const SCORE_WEIGHTS = {
   identity: 12,
   structure: 20,
@@ -22,6 +23,27 @@ function loadRecipes() {
   vm.createContext(context);
   vm.runInContext(read('recipes.js'), context, { filename: path.join(ROOT, 'recipes.js') });
   return context.window.RECIPES || {};
+}
+
+function loadInlineVariantRules() {
+  const context = { window: {} };
+  vm.createContext(context);
+  vm.runInContext(read('app-inline-variant-rules.js'), context, {
+    filename: path.join(ROOT, 'app-inline-variant-rules.js')
+  });
+  return context.window.COOK_NOTE_INLINE_VARIANT_RULES || {};
+}
+
+function sourceMetadata() {
+  const app = fs.readFileSync(APP_FILE, 'utf8');
+  const version = app.match(/const SITE_VERSION = ['"]([^'"]+)['"]/i)?.[1] || 'inconnue';
+  const updatedAt = app.match(/const SITE_UPDATED_AT = ['"]([^'"]+)['"]/i)?.[1] || 'inconnue';
+  const recipesSource = read('recipes.js');
+  return {
+    siteVersion: version,
+    siteUpdatedAt: updatedAt,
+    recipesSha256: require('node:crypto').createHash('sha256').update(recipesSource).digest('hex').slice(0, 12)
+  };
 }
 
 function stripHtml(value) {
@@ -60,6 +82,91 @@ function recipeText(recipe) {
 
 function isMaster(recipe) {
   return Array.isArray(recipe?.variants) && recipe.variants.length > 0;
+}
+
+function isInlineVariantFamily(recipe) {
+  return recipe?.variantGroups === true;
+}
+
+function cleanVariantGroupLabel(label) {
+  return String(label || 'Variante')
+    .replace(/^\d+\)\s*/, '')
+    .replace(/^variante\s*:?\s*/i, '')
+    .trim();
+}
+
+function isVariantIngredientGroup(group, groups, recipe) {
+  const label = normalize(group?.group || '');
+  if (label.includes('base commune') || label === 'base' || label.includes('commun')) return false;
+  if (/^\d+\)/.test(label)) return true;
+  if (label.startsWith('variante') || label.startsWith('version') || label.startsWith('option')) return true;
+  if (recipe?.variantGroups) return true;
+  return false;
+}
+
+function getInlineVariantOptions(id, recipe, inlineVariantRules) {
+  const groups = Array.isArray(recipe?.ingredients) ? recipe.ingredients : [];
+  const rule = inlineVariantRules[id];
+  if (Array.isArray(rule?.options) && rule.options.length) {
+    return rule.options.map((option, position) => {
+      const selectedGroups = (option.groups || []).map(index => groups[index]).filter(Boolean);
+      return {
+        key: option.key || `variant-${position + 1}`,
+        label: option.label || cleanVariantGroupLabel(selectedGroups[0]?.group),
+        groups: selectedGroups
+      };
+    });
+  }
+  return groups
+    .map((group, index) => ({ group, index }))
+    .filter(({ group }) => isVariantIngredientGroup(group, groups, recipe))
+    .map(({ group, index }) => ({
+      key: `variant-${index + 1}`,
+      label: cleanVariantGroupLabel(group?.group),
+      groups: [group]
+    }));
+}
+
+function getInlineBaseIngredientGroups(id, recipe, inlineVariantRules) {
+  const groups = Array.isArray(recipe?.ingredients) ? recipe.ingredients : [];
+  const rule = inlineVariantRules[id];
+  if (Array.isArray(rule?.sharedGroups)) return rule.sharedGroups.map(index => groups[index]).filter(Boolean);
+  return groups.filter(group => !isVariantIngredientGroup(group, groups, recipe));
+}
+
+function buildInlineAuditRecipe(id, recipe, option, inlineVariantRules) {
+  const selectedGroups = option.groups.map(group => {
+    const { recipe: _nestedRecipe, ...selectedGroup } = group || {};
+    return selectedGroup;
+  }).filter(group => group && Array.isArray(group.items));
+  const nestedGroup = option.groups.find(group => group?.recipe && typeof group.recipe === 'object');
+  const nestedRecipe = nestedGroup?.recipe || {};
+  const optionSteps = selectedGroups.flatMap(group => Array.isArray(group.steps) ? group.steps : []).filter(Boolean);
+  return {
+    ...recipe,
+    ...nestedRecipe,
+    id: `${id}::${option.key}`,
+    title: nestedRecipe.title && nestedRecipe.title !== recipe.title
+      ? nestedRecipe.title
+      : `${recipe.title} — ${option.label || 'Variante'}`,
+    master: recipe.master,
+    additionalMasters: recipe.additionalMasters,
+    categories: recipe.categories,
+    image: nestedRecipe.image || recipe.image,
+    ingredients: [
+      ...getInlineBaseIngredientGroups(id, recipe, inlineVariantRules),
+      ...selectedGroups
+    ],
+    steps: optionSteps.length ? optionSteps : (recipe.steps || []),
+    notes: nestedRecipe.notes || recipe.notes,
+    technical: nestedRecipe.technical || recipe.technical,
+    practical: nestedRecipe.practical || recipe.practical,
+    tags: [...new Set([...(recipe.tags || []), ...(nestedRecipe.tags || [])])],
+    aliases: [...new Set([...(recipe.aliases || []), ...(nestedRecipe.aliases || [])])],
+    linkedRecipes: nestedRecipe.linkedRecipes || recipe.linkedRecipes,
+    variantGroups: false,
+    inlineVariantResolved: true
+  };
 }
 
 function hasStorage(recipe) {
@@ -188,10 +295,20 @@ function linkedIds(recipe) {
 }
 
 const recipes = loadRecipes();
+const inlineVariantRules = loadInlineVariantRules();
 const allIds = Object.keys(recipes);
-const leaves = allIds.filter(id => !isMaster(recipes[id]));
+const inlineVariantFamilies = allIds.filter(id => isInlineVariantFamily(recipes[id]));
+const leaves = allIds.filter(id => !isMaster(recipes[id]) && !isInlineVariantFamily(recipes[id]));
 const masters = allIds.filter(id => isMaster(recipes[id]));
-const leafReports = leaves.map(id => scoreLeaf(id, recipes[id], recipes)).sort((a, b) => a.score - b.score || a.title.localeCompare(b.title, 'fr'));
+const standaloneReports = leaves.map(id => scoreLeaf(id, recipes[id], recipes));
+const inlineOptionReports = inlineVariantFamilies.flatMap(id => getInlineVariantOptions(id, recipes[id], inlineVariantRules)
+  .map(option => scoreLeaf(
+    `${id}::${option.key}`,
+    buildInlineAuditRecipe(id, recipes[id], option, inlineVariantRules),
+    recipes
+  )));
+const leafReports = [...standaloneReports, ...inlineOptionReports]
+  .sort((a, b) => a.score - b.score || a.title.localeCompare(b.title, 'fr'));
 const lowScore = leafReports.filter(item => item.score < 78);
 const categoryIdeas = leafReports.flatMap(item => item.suggestions.filter(text => text.startsWith('Categorie possible')).map(text => ({ id: item.id, title: item.title, text })));
 const linkCounts = leaves.map(id => ({ id, title: recipes[id].title, count: linkedIds(recipes[id]).length })).sort((a, b) => a.count - b.count || a.title.localeCompare(b.title, 'fr'));
@@ -218,10 +335,14 @@ const healthDashboard = {
 };
 
 const summary = {
+  source: sourceMetadata(),
   totals: {
     recipes: allIds.length,
     leaves: leaves.length,
     masters: masters.length,
+    inlineVariantFamilies: inlineVariantFamilies.length,
+    inlineVariantOptions: inlineOptionReports.length,
+    auditedRecipes: leafReports.length,
     lowScore: lowScore.length,
     categoryIdeas: categoryIdeas.length,
     qualityIssues: recipesWithQualityIssues.length
@@ -229,6 +350,11 @@ const summary = {
   averageScore: Math.round(leafReports.reduce((sum, item) => sum + item.score, 0) / Math.max(1, leafReports.length)),
   healthDashboard,
   weakestRecipes: lowScore.slice(0, 20),
+  inlineVariantFamilies: inlineVariantFamilies.map(id => ({
+    id,
+    title: recipes[id].title,
+    options: getInlineVariantOptions(id, recipes[id], inlineVariantRules).map(option => option.label)
+  })),
   categoryIdeas: categoryIdeas.slice(0, 40),
   recipesWithFewLinks: linkCounts.filter(item => item.count === 0).slice(0, 30),
   reviewedRecipes
@@ -237,9 +363,13 @@ const summary = {
 const markdown = [
   '# Audit Cook Note',
   '',
-  `- Recettes totales : ${summary.totals.recipes}`,
-  `- Recettes feuilles : ${summary.totals.leaves}`,
-  `- Fiches parentes : ${summary.totals.masters}`,
+  `- Entrees catalogue : ${summary.totals.recipes}`,
+  `- Fiches feuilles autonomes : ${summary.totals.leaves}`,
+  `- Collections racines : ${summary.totals.masters}`,
+  `- Familles a variantes internes : ${summary.totals.inlineVariantFamilies}`,
+  `- Options internes auditees : ${summary.totals.inlineVariantOptions}`,
+  `- Fiches executables auditees : ${summary.totals.auditedRecipes}`,
+  `- Source : ${summary.source.siteVersion} / ${summary.source.siteUpdatedAt} / recipes.js ${summary.source.recipesSha256}`,
   `- Score moyen : ${summary.averageScore}/100`,
   `- Fiches sous 78 : ${summary.totals.lowScore}`,
   `- Fiches avec defauts a verifier : ${summary.totals.qualityIssues}`,
@@ -261,6 +391,12 @@ const markdown = [
     ...item.issues.map(issue => `  - ${issue}`),
     ...item.suggestions.slice(0, 3).map(suggestion => `  - ${suggestion}`)
   ]) : ['Aucune fiche faible detectee.']),
+  '',
+  '## Familles a variantes internes',
+  '',
+  ...(summary.inlineVariantFamilies.length
+    ? summary.inlineVariantFamilies.map(item => `- ${item.title} (${item.id}) : ${item.options.length} option${item.options.length > 1 ? 's' : ''} (${item.options.join(', ')})`)
+    : ['Aucune famille a variantes internes detectee.']),
   '',
   '## Audit integral',
   '',

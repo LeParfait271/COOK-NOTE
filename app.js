@@ -109,10 +109,10 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.55';
-const SITE_UPDATED_AT = '05/08/26';
+const SITE_VERSION = 'v4.56';
+const SITE_UPDATED_AT = '06/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '4.45';
+const ANDROID_LEGACY_APK_VERSION = '4.56';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
@@ -7892,6 +7892,11 @@ function App() {
     return fullRecipeLoadRef.current;
   }
 
+  function openShoppingBasket() {
+    setShoppingOpen(true);
+    loadDeferredCatalogChunks().catch(() => {});
+  }
+
   function openRecipe(id) {
     const target = recipesById[id];
     if (!target) return;
@@ -8195,7 +8200,7 @@ function App() {
       h('button', { type: 'button', onClick: openCommandPalette, 'aria-label': 'Recherche', 'aria-current': commandOpen || searchOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'search' })), 'Rech'),
       h('button', { type: 'button', onClick: openMenuPlanner, 'aria-label': 'Mode menu', 'aria-current': menuPlannerOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'spark' })), 'Menu'),
       h('button', { type: 'button', onClick: showFavorites, 'aria-label': 'Favoris', 'aria-current': onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'heart' })), 'Fav'),
-      h('button', { type: 'button', onClick: () => setShoppingOpen(true), 'aria-label': 'Courses', 'aria-current': shoppingOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Liste'),
+      h('button', { type: 'button', onClick: openShoppingBasket, 'aria-label': 'Courses', 'aria-current': shoppingOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), 'Liste'),
       h('button', {
         type: 'button',
         className: 'mobile-theme-toggle',
@@ -8221,7 +8226,7 @@ function App() {
           toggleFavorite,
           shoppingIds,
           toggleShopping,
-          openShoppingBasket: () => setShoppingOpen(true),
+          openShoppingBasket,
           goHome,
           openRecipe,
           recipes,
@@ -8261,7 +8266,7 @@ function App() {
           openSearch,
           openMenuPlanner,
           showFavorites,
-          openShoppingBasket: () => setShoppingOpen(true),
+          openShoppingBasket,
           openTechniques: goTechniques
         })
     ),
@@ -8349,7 +8354,7 @@ function App() {
       showFavorites,
       openMenuPlanner,
       openTechniques: goTechniques,
-      openShoppingBasket: () => setShoppingOpen(true),
+      openShoppingBasket,
       setSeasonFilter: updateSeason,
       allSeasons,
       shoppingCount: shoppingRecipes.length

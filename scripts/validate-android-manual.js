@@ -487,7 +487,7 @@ expect(
   'Les assets Android Legacy doivent etre generes en catalogue natif allege.',
   legacyAssetsScript.includes("require('jpeg-js')")
     && legacyAssetsScript.includes('MAX_IMAGE_WIDTH = 480')
-    && legacyAssetsScript.includes('DETAIL_IMAGE_WIDTH = 1280')
+    && legacyAssetsScript.includes('DETAIL_IMAGE_WIDTH = 960')
     && legacyAssetsScript.includes('JPEG_QUALITY')
     && legacyAssetsScript.includes('DETAIL_JPEG_QUALITY')
     && legacyAssetsScript.includes('recipes-lite.json')
@@ -608,7 +608,7 @@ expect(
   'Native Lite',
   'recipes-lite.json',
   '480px',
-  '1280px',
+  '960px',
   'detail-images',
   'jpeg-js',
   'GridView',
@@ -784,7 +784,7 @@ expect(
   'Native Lite',
   'recipes-lite.json',
   '480px',
-  '1280px',
+  '960px',
   'jpeg-js',
   'GridView',
   'RGB_565',

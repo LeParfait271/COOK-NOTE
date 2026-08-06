@@ -19,9 +19,9 @@ const INLINE_VARIANT_RULES_FILE = path.join(ROOT, 'app-inline-variant-rules.js')
 const APP_PREMIUM_FILE = path.join(ROOT, 'app-premium.js');
 const ANDROID_GRADLE_PROPERTIES_FILE = path.join(ROOT, 'android-legacy', 'gradle.properties');
 const MAX_IMAGE_WIDTH = 480;
-const DETAIL_IMAGE_WIDTH = 1280;
+const DETAIL_IMAGE_WIDTH = 960;
 const JPEG_QUALITY = 80;
-const DETAIL_JPEG_QUALITY = 86;
+const DETAIL_JPEG_QUALITY = 80;
 const ENCODING_SUSPECT_RE = /(?:\u00c3[\u0080-\u00bf]|\u00c2[\u00a0-\u00bf]|\u00e2[\u0080-\u00bf\u20ac-\u2122]|\uFFFD)/;
 const WINDOWS_1252_BYTE_BY_CODEPOINT = new Map([
   [0x20AC, 0x80],

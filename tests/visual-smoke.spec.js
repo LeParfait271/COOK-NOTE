@@ -399,6 +399,75 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
+  test('shopping basket keeps a recipe and marks an item already at home', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
+    await waitForCookNote(page);
+
+    const addToShopping = page.getByRole('button', { name: /Ajouter aux courses/i }).first();
+    await addToShopping.click();
+    await expect(page.getByRole('button', { name: /Dans les courses/i }).first()).toBeVisible();
+    await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('cook_note_shopping_basket') || '[]')))
+      .toContain('poulet_sauce_pimentee');
+
+    await page.goto('/?lang=fr');
+    await waitForCookNote(page);
+    await page.getByRole('button', { name: 'Liste de courses' }).click();
+    const shoppingModal = page.locator('.shopping-modal');
+    await expect(shoppingModal).toBeVisible();
+    await expect(page.locator('#shopping-modal-title')).toContainText('1 recette');
+    await expect(page.locator('.shopping-line')).not.toHaveCount(0);
+
+    await page.locator('.shopping-owned-btn').first().click();
+    await expect(page.locator('.shopping-owned-list')).toBeVisible();
+    await expectNoMojibake(page);
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test('menu planner sends its scaled menu to shopping', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/?lang=fr');
+    await waitForCookNote(page);
+
+    await page.getByRole('button', { name: 'Composer un menu' }).click();
+    const menuModal = page.locator('.menu-planner-modal');
+    await expect(menuModal).toBeVisible();
+    await expect(menuModal.locator('.menu-planner-card')).toHaveCount(4);
+
+    const peopleSelect = menuModal.locator('select[aria-label="Nombre de personnes du menu"]');
+    await peopleSelect.selectOption('6');
+    await expect(peopleSelect).toHaveValue('6');
+    await expect(menuModal.locator('.menu-serving-hint')).toBeVisible();
+    await menuModal.getByRole('button', { name: 'Ajouter le menu aux courses pour 6 personnes' }).click();
+    await menuModal.getByRole('button', { name: 'Fermer' }).click();
+    await expect(menuModal).toBeHidden();
+
+    const shoppingModal = page.locator('.shopping-modal');
+    await expect(shoppingModal).toBeVisible();
+    await expect(page.locator('#shopping-modal-title')).toContainText(/recette/);
+    await expect(page.locator('.shopping-line')).not.toHaveCount(0);
+    await expectNoMojibake(page);
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test('techniques page filters and highlights a direct technique', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/techniques?lang=fr#emincer');
+    await waitForCookNote(page);
+
+    await expect(page.locator('.techniques-view')).toBeVisible();
+    await expect(page.locator('.technique-card')).not.toHaveCount(0);
+    await expect(page.locator('#technique-emincer')).toHaveClass(/technique-card-highlight/);
+
+    const knifeFilter = page.locator('.technique-filter-tabs button').filter({ hasText: 'Couteau' }).first();
+    await knifeFilter.click();
+    await expect(knifeFilter).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.technique-card')).not.toHaveCount(0);
+    await expect(page.locator('.technique-card-head').first()).toContainText('Couteau');
+    await expectNoMojibake(page);
+    await expectNoHorizontalOverflow(page);
+  });
+
   for (const [recipeId, expectedTitle] of CATEGORY_PARENT_ROUTES) {
     test(`category parent ${recipeId} renders variants cleanly`, async ({ page }, testInfo) => {
       await forceTheme(page, 'dark');
