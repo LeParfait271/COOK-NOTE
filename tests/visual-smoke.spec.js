@@ -120,7 +120,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.search-modal')).toBeVisible();
     expect(await page.locator('.search-quick-rail button').count()).toBeLessThanOrEqual(4);
     const searchInput = page.locator('#recipe-search-input');
-    await searchInput.pressSequentially('poulet');
+    await searchInput.fill('poulet');
     await expect(searchInput).toHaveValue('poulet');
     await expect(page.locator('.search-result-count')).toContainText(/résultat|Recherche en cours/, { timeout: 4000 });
     await expect(page.locator('.search-result')).not.toHaveCount(0, { timeout: 5000 });

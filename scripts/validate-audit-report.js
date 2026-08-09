@@ -46,6 +46,8 @@ if (report?.totals?.recipes !== ids.length) errors.push('Le total des entrees ca
 if (report?.totals?.masters !== masters.length) errors.push('Le nombre de collections racines est stale.');
 if (report?.totals?.inlineVariantFamilies !== inlineFamilies.length) errors.push('Le nombre de familles a variantes internes est stale.');
 if (report?.totals?.leaves !== leaves.length) errors.push('Le nombre de fiches feuilles autonomes est stale.');
+if (report?.totals?.qualityIssues !== 0) errors.push('Le rapport contient encore des alertes de qualite non traitees.');
+if (report?.healthDashboard?.missingDiscovery !== 0) errors.push('Le rapport contient encore des fiches avec une decouverte faible.');
 if (!String(fs.readFileSync(markdownPath, 'utf8')).includes(report?.source?.recipesSha256 || '')) {
   errors.push('Le rapport Markdown n affiche pas le hash source courant.');
 }

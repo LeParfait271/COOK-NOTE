@@ -72,7 +72,8 @@ function collectStrings(recipe) {
     ...(recipe.ingredients || []).flatMap(group => [group.group, ...(group.items || []), group.note, ...(group.notes || [])]),
     ...(recipe.steps || []),
     ...(recipe.notes || []),
-    ...(recipe.technical || []).flatMap(item => [item.label, item.value, item.text])
+    ...(recipe.technical || []).flatMap(item => [item.label, item.value, item.text]),
+    ...Object.values(recipe.practical || {}).flatMap(value => Array.isArray(value) ? value : [value])
   ].filter(Boolean);
 }
 
@@ -170,13 +171,19 @@ function buildInlineAuditRecipe(id, recipe, option, inlineVariantRules) {
 }
 
 function hasStorage(recipe) {
-  return collectStrings(recipe).some(value => /\b(conservation|stockage|refrigerateur|réfrigérateur|congel|au froid|boite hermetique|boîte hermétique)\b/i.test(stripHtml(value)));
+  const text = recipeText(recipe);
+  return /\b(conservation|conserver|stockage|refrigerateur|réfrigérateur|congel|au froid|boite hermetique|boîte hermétique|consommer|\d+\s*(?:h|heures?|jours?|mois))\b/i.test(text);
+}
+
+function requiresStorageGuidance(recipe) {
+  const text = recipeText(recipe);
+  return /\b(oeuf|oeufs|jaune|blanc d oeuf|viande|poulet|porc|boeuf|bœuf|agneau|veau|lapin|canard|poisson|saumon|thon|cabillaud|espadon|crevette|crevettes|calamar|chipiron|lotte|moule|moules|crabe|langoustine|coquillage|fruits de mer|mayonnaise|aioli|aïoli|mascarpone|ricotta|burrata|mozzarella|fromage frais|creme fraiche|crème fraîche|chantilly|babeurre|huile.*ail|ail.*huile)\b/.test(text);
 }
 
 function hasSafety(recipe) {
   const text = recipeText(recipe);
   if (/\b(oeuf cru|huile.*ail|ail.*huile|poisson|mollusque|viande|creme|fromage frais|mascarpone)\b/.test(text)) {
-    return /\b(refrigerateur|au froid|cuillere propre|refroidir|jette|consomme|24|48|3 jours|temperature ambiante)\b/.test(text);
+    return /\b(refrigerateur|au froid|cuillere propre|refroidir|jette|consomme|consommer|temperature ambiante|\d+\s*(?:h|heures?|jours?|mois))\b/.test(text);
   }
   return true;
 }
@@ -211,6 +218,15 @@ function categorySuggestions(recipe, recipes) {
   return suggestions;
 }
 
+function discoveryProfile(id, recipe, recipes) {
+  const rootId = String(id).split('::')[0];
+  const family = rootId !== id ? recipes[rootId] : null;
+  const tags = new Set([...(recipe.tags || []), ...(family?.tags || [])].filter(Boolean));
+  const aliases = new Set([...(recipe.aliases || []), ...(family?.aliases || [])].filter(Boolean));
+  const links = linkedIds(recipe).length > 0 || Boolean(family && linkedIds(family).length > 0);
+  return { tags, aliases, links };
+}
+
 function ingredientCore(value) {
   return normalize(value)
     .trim();
@@ -237,10 +253,16 @@ function qualityIssuesFor(id, recipe) {
   if (!recipe.variantGroups) {
     ingredientGroups.forEach(group => {
       const seen = new Map();
+      let section = 'default';
       (group.items || []).forEach(item => {
+        if (/^\s*[—–-]{1,2}\s*[^—–-]+?\s*[—–-]{1,2}\s*$/.test(String(item))) {
+          section = normalize(item);
+          return;
+        }
         const key = ingredientCore(item);
         if (!key) return;
-        seen.set(key, [...(seen.get(key) || []), stripHtml(item)]);
+        const scopedKey = `${section}\u0000${key}`;
+        seen.set(scopedKey, [...(seen.get(scopedKey) || []), stripHtml(item)]);
       });
       seen.forEach(values => {
         if (values.length > 1) issues.push(`Ingredient probablement duplique dans ${group.group || 'un groupe'} : ${values.join(' / ')}.`);
@@ -273,13 +295,17 @@ function scoreLeaf(id, recipe, recipes) {
   const hasReadableStructure = (recipe.ingredients || []).length > 0 && ((recipe.steps || []).length >= 2 || (recipe.variantGroups && (recipe.ingredients || []).length >= 3 && (recipe.steps || []).length >= 1));
   award('structure', hasReadableStructure, 'Structure faible : ingredients ou etapes insuffisants.');
   award('usability', (recipe.notes || []).length > 0 || (recipe.technical || []).length > 0, 'Peu de reperes utilisateur : notes ou points techniques absents.');
-  award('safety', hasStorage(recipe) && hasSafety(recipe), 'Conservation ou securite alimentaire a verifier.');
-  award('discovery', (recipe.tags || []).length >= 2 && ((recipe.aliases || []).length || text.includes('data goto')), 'Decouverte faible : tags, alias ou liens internes pauvres.');
+  const needsStorage = requiresStorageGuidance(recipe);
+  award('safety', !needsStorage || (hasStorage(recipe) && hasSafety(recipe)), 'Conservation ou securite alimentaire a verifier.');
+  const discovery = discoveryProfile(id, recipe, recipes);
+  const inheritedFamilyDiscovery = id.includes('::') && discovery.tags.size >= 2;
+  const directDiscovery = discovery.tags.size >= 2 && (discovery.aliases.size > 0 || discovery.links || text.includes('data goto'));
+  award('discovery', inheritedFamilyDiscovery || directDiscovery, 'Decouverte faible : tags, alias ou liens internes pauvres.');
   award('production', recipe.image && !/\.svg(?:$|\?)/i.test(recipe.image), 'Image locale exploitable manquante.');
 
   if ((recipe.steps || []).length > 12) suggestions.push('Recette longue : verifier que les etapes restent faciles a suivre sur mobile.');
   if ((recipe.notes || []).length > 8) suggestions.push('Notes nombreuses : verifier que tout est bien range dans les sections pratiques.');
-  if (!hasStorage(recipe)) suggestions.push('Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.');
+  if (needsStorage && !hasStorage(recipe)) suggestions.push('Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.');
   categorySuggestions(recipe, recipes).forEach(item => suggestions.push(`Categorie possible : ${item.category} (${item.reason}).`));
   const qualityIssues = qualityIssuesFor(id, recipe);
 

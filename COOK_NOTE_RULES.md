@@ -123,6 +123,9 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - La detection des bases et composants doit rester generique et future-proof : bases, fonds, appareils, inserts, pates, cremes, sauces, marinades, sirops, toppings, condiments, pains et buns ne doivent pas etre proposes comme recettes servies seules.
 - Le batch multi-recettes doit regrouper les gestes repetitifs quand ils sont detectables : zestes/jus, oeufs, herbes, ail/oignons/echalotes, beurre a sortir et prechauffage du four.
 - Le dashboard de sante du catalogue doit rester disponible via `npm run audit:recipes` avec repartition des fiches pretes, a ameliorer, faibles, decouverte faible, securite/conservation, risque image et liens internes.
+- L audit recette doit lire aussi les donnees `practical.storage` et ne signaler la conservation que pour les preparations perissables ou sensibles ; les fiches stables sans consigne de stockage ne doivent pas etre marquees comme defaillantes.
+- Les doublons d ingredients ne sont une alerte que dans une meme sous-preparation ; un meme sel, sucre ou aromate reutilise dans des sections distinctes d une recette reste volontaire.
+- Les variantes internes heritent des tags et alias de leur famille pour l audit de decouverte ; les familles parentes restent des sources de navigation valides sans imposer un changement de classement culinaire.
 - L'audit visuel doit rester disponible via `npm run audit:images` avec priorites par type de probleme : miniature manquante, image faible, miniature faible, cadrage atypique et doublon visuel.
 
 ## Images
