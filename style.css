@@ -1254,12 +1254,6 @@ a {
   white-space: nowrap;
 }
 
-.favorite-status-summary {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
 .favorite-collection-tabs,.technique-filter-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.technique-filter-tabs{flex-wrap:nowrap;overflow-x:auto}
 
 .favorite-collection-tabs button,
@@ -1293,8 +1287,6 @@ a {
   font-size: 11px;
 }
 
-.favorite-status-summary span,
-.favorite-status-badge,
 .ingredient-match-badge {
   width: fit-content;
   border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--line));
@@ -3263,7 +3255,6 @@ a {
   margin-bottom: 14px;
 }
 
-.personal-notes-card,
 .prep-timeline-block {
   display: grid;
   gap: 10px;
@@ -3394,69 +3385,9 @@ a {
   line-height: 1.35;
 }
 
-.personal-notes-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: start;
-}
-
-.personal-notes-head h2,
 .prep-timeline-block h2 {
   margin: 0;
   font-size: 20px;
-}
-
-.personal-notes-head > span {
-  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 36%, var(--line));
-  border-radius: 999px;
-  color: color-mix(in srgb, var(--panel-accent, var(--accent)) 72%, var(--text));
-  padding: 3px 8px;
-  font-size: 12px;
-  font-weight: 850;
-}
-
-.personal-notes-card .field > span {
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 850;
-}
-
-.personal-notes-card textarea {
-  width: 100%;
-  min-height: 92px;
-  resize: vertical;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: color-mix(in srgb, var(--surface-strong) 72%, transparent);
-  color: var(--text);
-  padding: 10px 12px;
-  line-height: 1.4;
-}
-
-.personal-note-meter {
-  justify-self: end;
-  margin-top: -4px;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 800;
-}
-
-.personal-note-clear {
-  justify-self: start;
-  min-height: 32px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: transparent;
-  color: var(--muted);
-  padding: 0 10px;
-  font-size: 12px;
-  font-weight: 850;
-}
-
-.personal-note-clear:hover {
-  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
-  color: var(--text);
 }
 
 .prep-timeline-block ol {
@@ -7337,7 +7268,6 @@ a {
 .allergen-card,
 .average-weight-card,
 .technical-card,
-.personal-notes-card,
 .flavor-map-block,
 .ingredient-knowledge-block,
 .practical-section {
@@ -7345,11 +7275,6 @@ a {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .045),
     0 14px 34px rgba(0, 0, 0, .18);
-}
-
-.personal-notes-card textarea {
-  min-height: 118px;
-  border-color: color-mix(in srgb, var(--panel-accent, var(--ambient-accent, var(--accent))) 20%, var(--line));
 }
 
 .search-result,
@@ -7433,7 +7358,7 @@ a {
     color-mix(in srgb, var(--surface-strong) 70%, transparent);
 }
 
-.mc-shell.theme-light :where(.before-start-card, .allergen-card, .average-weight-card, .technical-card, .personal-notes-card, .flavor-map-block, .ingredient-knowledge-block, .practical-section) {
+.mc-shell.theme-light :where(.before-start-card, .allergen-card, .average-weight-card, .technical-card, .flavor-map-block, .ingredient-knowledge-block, .practical-section) {
   box-shadow: 0 12px 30px rgba(84, 61, 31, .10);
 }
 
@@ -8659,7 +8584,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 #recipe-detail-content{scroll-margin-top:84px}
 .shopping-aisles-shell{position:relative;max-height:min(34vh,320px);margin:14px 0;overflow:auto;overscroll-behavior:contain;scrollbar-color:var(--accent) transparent;scrollbar-width:thin}.shopping-aisles-shell .shopping-aisles{margin:0;padding:0 8px 24px 0}.shopping-aisles-shell::after{content:"";position:sticky;z-index:2;display:block;bottom:0;height:26px;margin-top:-26px;pointer-events:none;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--surface-strong) 94%,transparent))}.shopping-aisles-shell::-webkit-scrollbar{display:block;width:6px;height:6px}.shopping-aisles-shell::-webkit-scrollbar-thumb{border-radius:999px;background:color-mix(in srgb,var(--accent) 78%,transparent)}
 .shopping-modal .combined-cart{max-height:72px;margin:8px 0 0;overflow:auto;padding:8px 10px;font-size:10px;line-height:1.35}.shopping-modal .modal-actions{position:sticky;z-index:3;bottom:-20px;margin:0 -20px -20px;border-top:1px solid color-mix(in srgb,var(--accent) 18%,var(--line));background:linear-gradient(180deg,color-mix(in srgb,var(--surface-strong) 72%,transparent),var(--surface-strong) 34%);padding:12px 20px 20px}
-.notes-core-stack,.notes-reference-stack{display:grid;gap:10px}.notes-reference-stack{margin-top:16px!important;padding-top:12px!important}.notes-panel :is(.allergen-card,.average-weight-card,.technical-card,.personal-notes-card,.flavor-map-block,.ingredient-knowledge-block,.practical-section){margin-bottom:0}
+.notes-core-stack,.notes-reference-stack{display:grid;gap:10px}.notes-reference-stack{margin-top:16px!important;padding-top:12px!important}.notes-panel :is(.allergen-card,.average-weight-card,.technical-card,.flavor-map-block,.ingredient-knowledge-block,.practical-section){margin-bottom:0}
  @media (min-width:1061px){.recipe-detail-hero.has-photo:not(.parent-hero){min-height:clamp(300px,31vw,430px)}}
 @media (max-width:1060px){.shopping-aisles-shell{max-height:min(34vh,260px)}}
 
@@ -8820,7 +8745,7 @@ body.cooking-mode-open{overflow:hidden}.cooking-mode-backdrop{position:fixed;ins
   .step-list li { min-height: 58px; padding: 13px 15px; line-height: 1.5; }
   .step-text { font-size: 14px; line-height: 1.52; }
   .notes-panel { display: grid; align-content: start; gap: 16px; }
-  .notes-panel :is(.allergen-card, .average-weight-card, .technical-card, .personal-notes-card, .flavor-map-block, .ingredient-knowledge-block, .practical-section) { font-size: 13px; line-height: 1.48; }
+  .notes-panel :is(.allergen-card, .average-weight-card, .technical-card, .flavor-map-block, .ingredient-knowledge-block, .practical-section) { font-size: 13px; line-height: 1.48; }
 
   .variant-choice-tabs { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
   .variant-choice-button { min-height: 132px; padding: 14px; }
@@ -8833,7 +8758,7 @@ body.cooking-mode-open{overflow:hidden}.cooking-mode-backdrop{position:fixed;ins
 
   .mc-shell.theme-light { --text: #20170f; --muted: #4d4236; --line: rgba(112,74,28,.24); --rim: rgba(112,74,28,.32); }
   .mc-shell.theme-light :is(.recipe-panel, .recipe-summary-panel, .variant-choice-panel, .variant-picker-panel) { background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,249,238,.98)) !important; color: #20170f !important; border-color: rgba(112,74,28,.28); }
-  .mc-shell.theme-light :is(.recipe-quick-fact, .ingredient-group li, .step-list li, .notes-panel .allergen-card, .notes-panel .average-weight-card, .notes-panel .technical-card, .notes-panel .personal-notes-card, .notes-panel .flavor-map-block, .notes-panel .ingredient-knowledge-block, .notes-panel .practical-section) { background: rgba(255,255,255,.78) !important; color: #20170f !important; border-color: rgba(112,74,28,.22) !important; }
+  .mc-shell.theme-light :is(.recipe-quick-fact, .ingredient-group li, .step-list li, .notes-panel .allergen-card, .notes-panel .average-weight-card, .notes-panel .technical-card, .notes-panel .flavor-map-block, .notes-panel .ingredient-knowledge-block, .notes-panel .practical-section) { background: rgba(255,255,255,.78) !important; color: #20170f !important; border-color: rgba(112,74,28,.22) !important; }
   .mc-shell.theme-light .recipe-detail-hero .detail-actions .btn:not(.btn-primary) { background: rgba(20,15,10,.72) !important; color: #fff8e8 !important; border-color: rgba(255,248,232,.48) !important; }
   .mc-shell.theme-light .variant-choice-button.has-image { background: linear-gradient(145deg, rgba(255,250,240,.34), rgba(255,250,240,.58)), var(--variant-choice-image) center/cover no-repeat; }
   .mc-shell.theme-light .command-palette { background: #fffaf0; color: #20170f; }

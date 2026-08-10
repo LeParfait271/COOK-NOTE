@@ -110,7 +110,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.62';
+const SITE_VERSION = 'v4.63';
 const SITE_UPDATED_AT = '10/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.58';
@@ -742,8 +742,6 @@ const TECHNIQUE_GUIDES = [...BASE_TECHNIQUE_GUIDES, ...EXTENDED_TECHNIQUE_GUIDES
 const SORTED_TECHNIQUE_GUIDES = [...TECHNIQUE_GUIDES].sort((a, b) => a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
 const FAVORITE_COLLECTIONS = [
   { id: '', label: 'Tout' },
-  { id: 'tester', label: 'À tester', match: (recipe, note) => normalizeText(note?.status).includes('refaire') || normalizeText(note?.status).includes('ajuster') },
-  { id: 'valides', label: 'Validées', match: (recipe, note) => normalizeText(note?.status).includes('validee') },
   { id: 'famille', label: 'Repas famille', match: recipe => /\b(plat|plats|accompagnements|famil|gratin|burger|poulet|porc|boeuf|bœuf)\b/.test(normalizeText([recipe.title, ...(recipe.categories || []), ...(recipe.tags || [])].join(' '))) },
   { id: 'desserts', label: 'Desserts', match: recipe => recipeHasCategory(recipe, 'Desserts') },
   { id: 'sauces', label: 'Sauces', match: recipe => recipeHasCategory(recipe, 'Sauces') }
@@ -767,7 +765,6 @@ const STORAGE_KEYS = {
   preferences: 'cook_note_preferences',
   recentRecipes: 'cook_note_recent_recipes',
   recentSearches: 'cook_note_recent_searches',
-  personalNotes: 'cook_note_personal_recipe_notes',
   pantry: 'cook_note_pantry_items',
   homeScroll: 'cook_note_home_scroll',
   scrollPositions: 'cook_note_session_scroll_positions',
@@ -784,7 +781,6 @@ const LOCAL_DATA_EXPORT_KEYS = Object.freeze([
   STORAGE_KEYS.preferences,
   STORAGE_KEYS.recentRecipes,
   STORAGE_KEYS.recentSearches,
-  STORAGE_KEYS.personalNotes,
   STORAGE_KEYS.pantry
 ]);
 const LOCAL_DATA_EXPORT_SCHEMA = 'cook-note-local-data';
@@ -4941,7 +4937,7 @@ function recipeViewTransitionName(recipeId) {
   return safeId ? `recipe-${safeId}` : '';
 }
 
-function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNote }) {
+function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false }) {
   const master = isMasterRecipe(recipe);
   const variantLabel = getRecipeVariantLabel(recipe, recipesById);
   const color = getCategoryColor(recipe);
@@ -5075,7 +5071,7 @@ function useCenteredScrollFeature(containerRef, dependencyKey) {
   }, [containerRef, dependencyKey]);
 }
 
-function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, personalNotes = {} }) {
+function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false }) {
   const masterGrid = recipes.length > 0 && recipes.every(isMasterRecipe);
   const recipeKey = recipes.map(recipe => recipe.id).join('|');
   const chunkedGrid = !masterGrid && recipes.length > GRID_INITIAL_RENDER_COUNT;
@@ -5128,8 +5124,7 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
         toggleFavorite,
         openRecipe,
         setTagFilter,
-        hideFavorite,
-        personalNote: personalNotes[recipe.id]
+        hideFavorite
       }))
     ),
     hasMore && h('div', { className: 'recipe-grid-load-more', ref: loadMoreRef },
@@ -5143,7 +5138,7 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   );
 }
 
-function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, personalNotes = {}, favoriteCollection, setFavoriteCollection }) {
+function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, favoriteCollection, setFavoriteCollection }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
   const defaultCatalogSection = !onlyFavorites
@@ -5155,13 +5150,8 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
   const favoriteRecipes = favorites.map(id => recipesById[id]).filter(Boolean);
   const favoriteCollectionCounts = onlyFavorites ? FAVORITE_COLLECTIONS.reduce((counts, collection) => {
     counts[collection.id] = collection.id
-      ? favoriteRecipes.filter(recipe => collection.match?.(recipe, personalNotes[recipe.id])).length
+      ? favoriteRecipes.filter(recipe => collection.match?.(recipe)).length
       : favoriteRecipes.length;
-    return counts;
-  }, {}) : {};
-  const favoriteStatusCounts = onlyFavorites ? favorites.reduce((counts, id) => {
-    const status = personalNotes[id]?.status || 'Sans statut';
-    counts[status] = (counts[status] || 0) + 1;
     return counts;
   }, {}) : {};
   return h('section', { className: `season-sections${defaultCatalogSection ? ' is-default-catalog' : ''}`, id: 'recettes' },
@@ -5173,9 +5163,6 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
           defaultCatalogSection && h('span', { className: 'season-dashboard-count' },
             `${defaultCatalogSection.recipes.length} catégorie${defaultCatalogSection.recipes.length > 1 ? 's' : ''}`
           )
-        ),
-        onlyFavorites && Object.keys(favoriteStatusCounts).length > 0 && h('div', { className: 'favorite-status-summary' },
-          Object.entries(favoriteStatusCounts).map(([status, count]) => h('span', { key: status }, `${status}: ${count}`))
         ),
         onlyFavorites && h('div', { className: 'favorite-collection-tabs', 'aria-label': 'Collections de favoris' },
           FAVORITE_COLLECTIONS
@@ -5232,7 +5219,7 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
           h('div', null, h('p', { className: 'eyebrow' }, section.kicker), h('h3', null, section.title)),
           h('span', null, `${section.recipes.length} fiche${section.recipes.length > 1 ? 's' : ''}`)
         ),
-        h(RecipeGrid, { recipes: section.recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, personalNotes })
+        h(RecipeGrid, { recipes: section.recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter })
       );
     })
   );
@@ -5273,7 +5260,6 @@ function HomeView(props) {
         categoryFilter: props.filterProps.seasonCategory,
         setCategoryFilter: props.filterProps.setSeasonCategory,
         categoryOptions: props.filterProps.seasonCategoryOptions,
-        personalNotes: props.personalNotes,
         favoriteCollection: props.favoriteCollection,
         setFavoriteCollection: props.setFavoriteCollection
       })
@@ -6648,55 +6634,6 @@ function PrepTimelineBlock({ recipe }) {
   );
 }
 
-function PersonalRecipeNotes({ recipeId, value, updatePersonalRecipeNote }) {
-  const note = value || {};
-  const status = note.status || '';
-  const text = note.text || '';
-  const noteTitleId = `personal-note-title-${recipeId}`;
-  const noteHelpId = `personal-note-help-${recipeId}`;
-  const update = patch => updatePersonalRecipeNote?.(recipeId, { ...note, ...patch, updatedAt: Date.now() });
-  return h('div', { className: 'personal-notes-card', 'aria-labelledby': noteTitleId },
-    h('div', { className: 'personal-notes-head' },
-      h('div', null,
-        h('p', { className: 'eyebrow' }, 'Carnet perso'),
-        h('h2', { id: noteTitleId }, 'Note privée')
-      ),
-      status && h('span', null, status)
-    ),
-    h('label', { className: 'field' },
-      h('span', null, 'Statut'),
-      h('select', {
-        value: status,
-        'aria-label': 'Statut de la note privée',
-        onChange: event => update({ status: event.target.value })
-      },
-        h('option', { value: '' }, 'Non classée'),
-        h('option', { value: 'À refaire' }, 'À refaire'),
-        h('option', { value: 'Testée / validée' }, 'Testée / validée'),
-        h('option', { value: 'À ajuster' }, 'À ajuster')
-      )
-    ),
-    h('label', { className: 'field personal-note-field' },
-      h('span', null, 'Mémo'),
-      h('textarea', {
-        value: text,
-        rows: 4,
-        maxLength: 600,
-        'aria-describedby': noteHelpId,
-        placeholder: 'Ex : moins de sucre, cuisson +3 min, validée pour 8 personnes...',
-        onChange: event => update({ text: event.target.value })
-      }),
-      h('small', { id: noteHelpId, className: 'personal-note-meter' }, `${text.length}/600 caractères`)
-    ),
-    (status || text) && h('button', {
-      type: 'button',
-      className: 'personal-note-clear',
-      'aria-label': 'Effacer la note privée de cette recette',
-      onClick: () => updatePersonalRecipeNote?.(recipeId, null)
-    }, 'Effacer la note')
-  );
-}
-
 function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = false, hasVariantSelection = true }) {
   if (needsVariantSelection && !hasVariantSelection) {
     return h('section', { className: 'recipe-summary-panel recipe-summary-empty', 'aria-label': 'Résumé de la recette' },
@@ -6841,8 +6778,6 @@ function RecipeView({
   setTagFilter,
   openTechnique,
   notify,
-  personalRecipeNote,
-  updatePersonalRecipeNote,
   activeTheme
 }) {
   const [factor, setFactor] = useState(1);
@@ -7319,11 +7254,6 @@ function RecipeView({
           h('p', { className: 'eyebrow notes-reference-heading' }, 'Repères complémentaires'),
           h(FlavorMapBlock, { recipe: selectedRecipe }),
           h(IngredientKnowledgeBlock, { recipe: selectedRecipe }),
-          h(PersonalRecipeNotes, {
-            recipeId: detailKey,
-            value: personalRecipeNote,
-            updatePersonalRecipeNote
-          }),
           h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
           h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique }),
           displayNotes.length > 0 && h('div', { className: 'free-notes-block' },
@@ -7424,7 +7354,6 @@ function App() {
   const [isOnline, setIsOnline] = useState(() => navigator.onLine !== false);
   const [recentRecipeIds, setRecentRecipeIds] = useState(() => readStoredList(STORAGE_KEYS.recentRecipes, []));
   const [recentSearches, setRecentSearches] = useState(() => readStoredList(STORAGE_KEYS.recentSearches, []));
-  const [personalNotes, setPersonalNotes] = useState(() => readJson(STORAGE_KEYS.personalNotes, {}));
   const [toasts, setToasts] = useState([]);
   const searchRef = useRef(null);
   const commandRef = useRef(null);
@@ -7666,7 +7595,7 @@ function App() {
       if (season && !recipeHasSeason(recipe, season, recipesById)) return false;
       if (tagFilter && !(recipe.tagsExtracted || []).includes(tagFilter)) return false;
       if (onlyFavorites && !favorites.includes(recipe.id)) return false;
-      if (onlyFavorites && activeFavoriteCollection?.id && !activeFavoriteCollection.match?.(recipe, personalNotes[recipe.id])) return false;
+      if (onlyFavorites && activeFavoriteCollection?.id && !activeFavoriteCollection.match?.(recipe)) return false;
       return true;
     });
 
@@ -7681,7 +7610,7 @@ function App() {
       return a.title.localeCompare(b.title, 'fr');
     });
     return list;
-  }, [catalogRecipes, searchOpen, searchFilterQuery, searchMeta, ingredientMeta, season, tagFilter, onlyFavorites, favorites, recipesById, favoriteCollection, personalNotes]);
+  }, [catalogRecipes, searchOpen, searchFilterQuery, searchMeta, ingredientMeta, season, tagFilter, onlyFavorites, favorites, recipesById, favoriteCollection]);
 
   const seasonCategoryOptions = useMemo(() => {
     if (!season) return [];
@@ -7801,14 +7730,6 @@ function App() {
   function persistFavorites(next) {
     setFavorites(next);
     writeJson(STORAGE_KEYS.favorites, next);
-  }
-
-  function updatePersonalRecipeNote(id, note) {
-    const next = { ...personalNotes };
-    if (!note || (!note.status && !String(note.text || '').trim())) delete next[id];
-    else next[id] = { status: note.status || '', text: String(note.text || '').slice(0, 600), updatedAt: note.updatedAt || Date.now() };
-    setPersonalNotes(next);
-    writeJson(STORAGE_KEYS.personalNotes, next);
   }
 
   function exportLocalData() {
@@ -8361,8 +8282,6 @@ function App() {
           setTagFilter: updateTagFilter,
           openTechnique,
           notify,
-          personalRecipeNote: personalNotes[activeRecipe.id],
-          updatePersonalRecipeNote,
           activeTheme
         })
       : activePage === 'techniques'
@@ -8376,7 +8295,6 @@ function App() {
           recipesById,
           onlyFavorites,
           activeChips,
-          personalNotes,
           favoriteCollection,
           setFavoriteCollection,
           filterProps,

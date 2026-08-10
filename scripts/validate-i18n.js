@@ -82,8 +82,6 @@ expect('Materiel brochettes non traduit.', i18n.text('Pics à brochettes') === '
 expect('Ingredient crevettes non traduit.', i18n.text('500g grosses crevettes décortiquées').includes('large peeled shrimp'));
 expect('Etape crevettes non traduite.', i18n.text('Monter les brochettes en alternant crevettes et chorizo.').includes('alternating shrimp and chorizo'));
 expect('Note vigilance mer non traduite.', i18n.text('Mer : point de vigilance.') === 'Seafood: watch point.');
-expect('Libelle carnet perso non traduit.', i18n.text('Carnet perso') === 'Personal notebook');
-expect('Statut note non traduit.', i18n.text('Non classée') === 'Unclassified');
 expect('Titre infos pratiques non traduit.', i18n.text('Infos pratiques') === 'Practical info');
 expect('Message fiche rapide non traduit.', i18n.text('Sélectionne une variante pour afficher les informations de la fiche rapide.') === 'Select a variant to show the quick sheet.');
 expect('Message mobile avant recette non traduit.', i18n.text('Consulte les notes, allergènes et points techniques avant de lancer la recette.') === 'Review the notes, allergens and technical points before starting the recipe.');
