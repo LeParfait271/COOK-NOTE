@@ -94,9 +94,9 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Le footer ne doit pas afficher l'annee dans une pilule separee : garder `Cook Note © 2026.` dans le texte d'identite, puis compteur et version uniquement dans les badges.
 - Les boutons partager et imprimer du hero ne doivent apparaitre que sur les vraies fiches recettes servies, jamais sur les categories, collections ou fiches parentes.
 - Une selection de variante inline ouvre la fiche complete en un seul clic et y guide directement ; ne pas ajouter un second bouton de confirmation.
-- Sur desktop, seul Ingredients peut rester sticky dans la fiche : Etapes et Avant de commencer suivent le defilement principal pour eviter trois zones de scroll concurrentes.
+- Les fiches recette web doivent rester dans un flux unique sans défilement interne : les panneaux `Ingrédients`, `Étapes` et `Avant de commencer` gardent une hauteur automatique, sans `max-height`, `overflow-y: auto/scroll` ni `position: sticky/fixed`. Le seul défilement autorisé est celui de la page pour les recettes longues, afin qu'aucun contenu ne soit masqué.
 - Une transition de route ne doit jamais masquer la page precedente avant que la nouvelle fiche soit rendue ; aucun flash noir ou ecran vide n'est acceptable.
-- Sur mobile, les onglets de fiche `Ingredients / Etapes / Avant` ne doivent pas etre sticky pendant le scroll. Si un swipe change de panneau, afficher un indice discret visible sur mobile.
+- Sur mobile, les onglets de fiche `Ingrédients / Étapes / Avant` restent dans ce flux unique et ne doivent créer aucune zone de défilement interne ni barre de défilement propre au panneau.
 - Sur mobile, le swipe entre panneaux de fiche doit etre accroche a toute la vue recette, pas seulement a la grille centrale, pour fonctionner meme si le geste commence hors de la case.
 - Les liens Techniques doivent centrer la carte visee, la faire clignoter assez longtemps, et garder le halo actif tant qu'on est sur la page.
 - La Lecture chef ne doit jamais deduire un service froid ou un signal proteine depuis une note de conservation, un accompagnement frais ou un dessert frais. Les plats chauds comme cassoulet, stew, saucisse-lentilles, dhal, pates au pesto ou cocotte doivent afficher un service chaud et ne jamais porter le signal `Froid`.
