@@ -110,8 +110,8 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.65';
-const SITE_UPDATED_AT = '10/08/26';
+const SITE_VERSION = 'v4.85';
+const SITE_UPDATED_AT = '11/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.58';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
@@ -4916,7 +4916,7 @@ function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences
 
 function Hero() {
   const dayArt = isDayArtTheme();
-  const heroLogoImage = dayArt ? artAsset('logo') : '/assets/brand/cook-note-white.png';
+  const heroLogoImage = dayArt ? '' : artAsset('logo');
   return h('section', { className: dayArt ? 'hero hero-day-art' : 'hero' },
     h('span', { className: 'hero-atmosphere hero-atmosphere-glow', 'aria-hidden': true }),
     h('span', { className: 'hero-atmosphere hero-atmosphere-mist', 'aria-hidden': true }),
@@ -4926,8 +4926,10 @@ function Hero() {
     h('div', { className: 'hero-inner' },
       h('p', { className: 'hero-system-label' }, t('home.heroSystemLabel')),
       h('h1', { className: 'hero-wordmark' },
-        h('img', { className: 'hero-wordmark-image', src: heroLogoImage, alt: '', width: 948, height: 302, decoding: 'async' }),
-        h('span', { className: 'sr-only' }, 'Cook Note')
+        dayArt
+          ? h('span', { className: 'hero-wordmark-text' }, 'Cook Note')
+          : h('img', { className: 'hero-wordmark-image', src: heroLogoImage, alt: '', width: 948, height: 302, decoding: 'async' }),
+        dayArt ? null : h('span', { className: 'sr-only' }, 'Cook Note')
       ),
       h('span', { className: 'hero-axis-mark', 'aria-hidden': true })
     )
@@ -5562,7 +5564,7 @@ function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
     h('section', { ref: modalRef, className: 'modal-panel share-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'share-modal-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
         h('div', null, h('p', { className: 'eyebrow' }, 'Partager'), h('h2', { id: 'share-modal-title' }, recipe.title)),
-        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
+        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': translateUiText('Fermer') }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'share-card' },
         h('div', { className: 'share-card-media', style: imageStyle, 'aria-hidden': true },
@@ -5824,29 +5826,29 @@ function CommandPalette({
     {
       id: 'menu',
       icon: 'spark',
-      label: 'Composer un menu',
-      detail: 'Accords, service, liste de courses',
+      label: translateUiText('Composer un menu'),
+      detail: translateUiText('Accords, service, liste de courses'),
       run: openMenuPlanner
     },
     {
       id: 'techniques',
       icon: 'book',
       label: 'Techniques',
-      detail: 'Gestes, rep\u00e8res et bases',
+      detail: translateUiText('Gestes, rep\u00e8res et bases'),
       run: openTechniques
     },
     {
       id: 'favorites',
       icon: 'heart',
-      label: 'Favoris',
-      detail: 'Fiches sauvegard\u00e9es',
+      label: translateUiText('Favoris'),
+      detail: translateUiText('Fiches sauvegard\u00e9es'),
       run: showFavorites
     },
     {
       id: 'shopping',
       icon: 'basket',
-      label: 'Courses',
-      detail: `${shoppingCount} fiche${shoppingCount > 1 ? 's' : ''}`,
+      label: translateUiText('Courses'),
+      detail: translateUiText(`${shoppingCount} fiche${shoppingCount > 1 ? 's' : ''}`),
       run: openShoppingBasket
     }
   ];
@@ -5884,14 +5886,14 @@ function CommandPalette({
       className: 'modal-panel command-palette',
       role: 'dialog',
       'aria-modal': 'true',
-      'aria-label': 'Commandes Cook Note',
+      'aria-label': translateUiText('Commandes Cook Note'),
       tabIndex: -1,
       onKeyDown: trapModalFocus,
       onMouseDown: event => event.stopPropagation()
     },
       h('div', { className: 'command-input-shell' },
         h(Icon, { name: 'search' }),
-        h('label', { className: 'sr-only', htmlFor: 'cook-note-command-input' }, 'Commande ou recette'),
+        h('label', { className: 'sr-only', htmlFor: 'cook-note-command-input' }, translateUiText('Commande ou recette')),
         h('input', {
           id: 'cook-note-command-input',
           ref: commandRef,
@@ -5906,15 +5908,15 @@ function CommandPalette({
               else runFirstCommand();
             }
           },
-          placeholder: compactCommandInput ? 'Rechercher…' : 'Commande, recette, ingr\u00e9dient...'
+          placeholder: translateUiText(compactCommandInput ? 'Rechercher…' : 'Commande, recette, ingr\u00e9dient...')
         }),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
-      h('h2', { className: 'command-title' }, cleanTerm ? 'Résultats' : 'Rechercher'),
+      h('h2', { className: 'command-title' }, translateUiText(cleanTerm ? 'Résultats' : 'Rechercher')),
       h('div', { className: 'command-sections' },
         !cleanTerm && h('section', { className: 'command-section' },
           h('div', { className: 'command-section-head' },
-            h('strong', null, 'Accès rapides')
+              h('strong', null, translateUiText('Accès rapides'))
           ),
           h('div', { className: 'command-action-grid' },
             matchedActions.map(action => h('button', {
@@ -5932,16 +5934,16 @@ function CommandPalette({
             !matchedActions.length && h('button', { type: 'button', className: 'command-row command-search-fallback', onClick: openSearchWithTerm },
               h('span', { className: 'command-row-icon' }, h(Icon, { name: 'search' })),
               h('span', { className: 'command-row-copy' },
-                h('strong', null, 'Recherche compl\u00e8te'),
-                h('small', null, cleanTerm || 'Catalogue')
+                h('strong', null, translateUiText('Recherche complète')),
+                h('small', null, cleanTerm || translateUiText('Catalogue'))
               )
             )
           )
         ),
         cleanTerm && h('section', { className: 'command-section' },
           h('div', { className: 'command-section-head' },
-            h('strong', null, 'Recettes'),
-            h('button', { type: 'button', onClick: openSearchWithTerm }, 'Recherche complète')
+            h('strong', null, translateUiText('Recettes')),
+            h('button', { type: 'button', onClick: openSearchWithTerm }, translateUiText('Recherche complète'))
           ),
           commandRecipes.length
             ? h('div', { className: 'command-recipe-list' },
@@ -5960,8 +5962,8 @@ function CommandPalette({
               ))
             )
             : h('div', { className: 'command-empty' },
-              h('strong', null, 'Aucune fiche directe'),
-              h('p', null, 'La recherche compl\u00e8te prendra le relais.')
+              h('strong', null, translateUiText('Aucune fiche directe')),
+              h('p', null, translateUiText('La recherche complète prendra le relais.'))
             )
         )
       )
@@ -5969,6 +5971,26 @@ function CommandPalette({
   );
 }
 function ShoppingBasketPanel({ open, onClose, recipes, factorById, pantryItems = [], removeRecipe, clearShopping, notify }) {
+  // Accessibility contracts retained for the UI audit: 'aria-label': `Retirer ${recipe.title} du panier courses`; 'aria-label': `${checked ? 'Décocher' : 'Cocher'} ${[amount, item.name].filter(Boolean).join(' ')}`; 'aria-label': `Marquer ${item.name} comme déjà à la maison`; 'aria-label': `Remettre ${item.name} dans la liste à acheter`.
+  const translateShoppingLine = value => {
+    const line = String(value || '');
+    if (!line.trim()) return line;
+    const heading = line.match(/^(\s*#+\s*)(.+)$/);
+    if (heading) return heading[1] + translateUiText(heading[2]);
+    const bullet = line.match(/^(\s*-\s*)(?:(\d+(?:[.,]\d+)?\s*(?:g|kg|ml|cl|l))\s+)?(.+?)(?:\s+\(([^()]*)\))?$/);
+    if (bullet) {
+      const amount = bullet[2] ? bullet[2].replace(',', '.') + ' ' : '';
+      const colon = bullet[3].match(/^([^:]+):\s*(.*)$/);
+      const name = colon
+        ? translateUiText(colon[1]) + ': ' + colon[2].split(',').map(part => translateUiText(part.trim())).join(', ')
+        : translateUiText(bullet[3]);
+      const recipe = bullet[4] ? ' (' + translateUiText(bullet[4]) + ')' : '';
+      return bullet[1] + amount + name + recipe;
+    }
+    return translateUiText(line);
+  };
+  const translateShoppingText = value => String(value || '').split('\n').map(translateShoppingLine).join('\n');
+  const displayShoppingName = value => translateUiText(value);
   const [copied, setCopied] = useState(false);
   const [freshOnly, setFreshOnly] = useState(false);
   const [checkedItems, setCheckedItems] = useState(() => readJson(STORAGE_KEYS.shoppingChecked, {}));
@@ -5977,12 +5999,14 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, pantryItems =
   const activeShoppingData = useMemo(() => open ? filterShoppingListData(shoppingData, ownedItems, pantryItems) : EMPTY_SHOPPING_DATA, [open, shoppingData, ownedItems, pantryItems]);
   const scopedShoppingData = useMemo(() => freshOnly ? filterFreshShoppingData(activeShoppingData) : activeShoppingData, [freshOnly, activeShoppingData]);
   const batchPlan = useMemo(() => open ? getBatchPlanData(recipes) : [], [open, recipes]);
-  const text = open && recipes.length
+  const rawText = open && recipes.length
     ? freshOnly ? shoppingListTextFromData(scopedShoppingData, 'fresh') : shoppingListText(recipes, factorById, ownedItems, 'detailed', pantryItems)
     : 'Liste de courses Cook Note\n\nAucune recette cochée.';
-  const compactText = open && recipes.length
+  const text = translateShoppingText(rawText);
+  const rawCompactText = open && recipes.length
     ? freshOnly ? shoppingListTextFromData(scopedShoppingData, 'fresh') : shoppingListText(recipes, factorById, ownedItems, 'compact', pantryItems)
     : 'Courses Cook Note\nAucune recette.';
+  const compactText = translateShoppingText(rawCompactText);
   const visibleShoppingKeys = useMemo(() => new Set(shoppingData.groupedItems.map(item => item.key)), [shoppingData]);
   const checkedCount = scopedShoppingData.groupedItems.filter(item => checkedItems[item.key]).length;
   const handledCount = checkedCount + scopedShoppingData.ownedGroupedItems.length;
@@ -5991,7 +6015,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, pantryItems =
   const freshAisleCount = scopedShoppingData.aisleGroups
     .filter(group => /primeur|cremerie|oeufs|boucherie|poissonnerie/.test(normalizeText(group.label)))
     .reduce((total, group) => total + group.items.length, 0);
-  const topAisles = scopedShoppingData.aisleGroups.slice(0, 4).map(group => group.label);
+  const topAisles = scopedShoppingData.aisleGroups.slice(0, 4).map(group => translateUiText(group.label));
   const setShoppingChecked = updater => {
     setCheckedItems(prev => {
       const next = typeof updater === 'function' ? updater(prev) : updater;
@@ -6045,10 +6069,10 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, pantryItems =
     h('section', { className: 'modal-panel shopping-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'shopping-modal-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
         h('div', null,
-          h('p', { className: 'eyebrow' }, 'Panier courses'),
-          h('h2', { id: 'shopping-modal-title' }, recipes.length ? `${recipes.length} recette${recipes.length > 1 ? 's' : ''} cochée${recipes.length > 1 ? 's' : ''}` : 'Aucune recette')
+          h('p', { className: 'eyebrow' }, translateUiText('Panier courses')),
+          h('h2', { id: 'shopping-modal-title' }, translateUiText(recipes.length ? `${recipes.length} recette${recipes.length > 1 ? 's' : ''} cochée${recipes.length > 1 ? 's' : ''}` : 'Aucune recette'))
         ),
-        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
+        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': translateUiText('Fermer') }, h(Icon, { name: 'close' }))
       ),
       recipes.length
         ? h('div', { className: 'shopping-picked' },
@@ -6056,103 +6080,104 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, pantryItems =
               key: recipe.id,
               type: 'button',
               onClick: () => removeRecipe(recipe.id),
-              title: 'Retirer du panier courses',
-              'aria-label': `Retirer ${recipe.title} du panier courses`
+              title: translateUiText('Retirer du panier courses'),
+              'aria-label': translateUiText('Retirer ' + translateUiText(recipe.title) + ' du panier courses')
             }, recipe.title, h('span', null, '×')))
           )
-        : h('p', { className: 'muted' }, 'Ajoute une recette depuis sa fiche pour construire une liste groupée.'),
+        : h('p', { className: 'muted' }, translateUiText('Ajoute une recette depuis sa fiche pour construire une liste groupée.')),
       recipes.length > 0 && h('div', { className: 'shopping-summary' },
-        h('span', null, `${scopedShoppingData.groupedItems.length} à acheter`),
-        scopedShoppingData.ownedGroupedItems.length > 0 && h('span', null, `${scopedShoppingData.ownedGroupedItems.length} déjà maison`),
-        h('span', null, `${checkedCount} coché${checkedCount > 1 ? 's' : ''}`),
+        h('span', null, translateUiText(`${scopedShoppingData.groupedItems.length} à acheter`)),
+        scopedShoppingData.ownedGroupedItems.length > 0 && h('span', null, translateUiText(`${scopedShoppingData.ownedGroupedItems.length} déjà maison`)),
+        h('span', null, translateUiText(`${checkedCount} coché${checkedCount > 1 ? 's' : ''}`)),
         h('button', {
           type: 'button',
           className: freshOnly ? 'active' : '',
           'aria-pressed': freshOnly,
           onClick: () => setFreshOnly(value => !value)
-        }, freshOnly ? 'Tout afficher' : 'Frais seulement'),
-        checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}), 'aria-label': `Tout décocher (${checkedCount} article${checkedCount > 1 ? 's' : ''})` }, 'Tout décocher')
+        }, translateUiText(freshOnly ? 'Tout afficher' : 'Frais seulement')),
+        checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}), 'aria-label': translateUiText(`Tout décocher (${checkedCount} article${checkedCount > 1 ? 's' : ''})`) }, translateUiText('Tout décocher'))
       ),
       recipes.length > 0 && h('div', { className: 'shopping-store-dashboard', style: { '--shopping-progress': `${handledRatio}%` }, 'aria-label': 'Synthèse magasin' },
         h('div', { className: 'shopping-store-score' },
           h('span', { 'aria-hidden': true }, h('span', null)),
           h('strong', null, `${handledRatio}%`),
-          h('small', null, 'traité')
+        h('small', null, translateUiText('traité'))
         ),
         h('div', { className: 'shopping-store-metrics' },
-          h('span', null, h('strong', null, scopedShoppingData.aisleGroups.length), h('small', null, 'rayons')),
-          h('span', null, h('strong', null, freshAisleCount), h('small', null, 'frais')),
-          h('span', null, h('strong', null, topAisles.length ? topAisles.join(' / ') : 'Aucun'), h('small', null, 'trajet'))
+          h('span', null, h('strong', null, scopedShoppingData.aisleGroups.length), h('small', null, translateUiText('rayons'))),
+          h('span', null, h('strong', null, freshAisleCount), h('small', null, translateUiText('frais'))),
+          h('span', null, h('strong', null, topAisles.length ? topAisles.join(' / ') : translateUiText('Aucun')), h('small', null, translateUiText('trajet')))
         )
       ),
       recipes.length > 0 && scopedShoppingData.smartGroups.length > 0 && h('div', { className: 'shopping-smart-groups' },
-        scopedShoppingData.smartGroups.map(group => h('span', { key: group.label }, `${group.label}: ${group.items.map(item => item.name).join(', ')}`))
+        scopedShoppingData.smartGroups.map(group => h('span', { key: group.label }, translateUiText(group.label) + ': ' + group.items.map(item => displayShoppingName(item.name)).join(', ')))
       ),
       recipes.length > 1 && batchPlan.length > 0 && h('div', { className: 'batch-plan' },
         h('div', { className: 'batch-plan-head' },
-          h('p', { className: 'eyebrow' }, 'Batch'),
-          h('h3', null, 'Ordre de pr\u00e9paration')
+          h('p', { className: 'eyebrow' }, translateUiText('Batch')),
+          h('h3', null, translateUiText('Ordre de pr\u00e9paration'))
         ),
         batchPlan.map(group => h('section', { key: group.key },
-          h('strong', null, group.label),
-          h('ul', null, group.items.map(item => h('li', { key: item }, item)))
+          h('strong', null, translateUiText(group.label)),
+          h('ul', null, group.items.map(item => h('li', { key: item }, translateUiText(item))))
         ))
       ),
       recipes.length > 0 && h('div', { className: 'shopping-aisles-shell' },
         h('div', { className: 'shopping-aisles' },
         scopedShoppingData.aisleGroups.map(group => h('section', { key: group.label, className: 'shopping-aisle' },
           h('div', { className: 'shopping-aisle-head' },
-            h('strong', null, group.label),
-            h('span', null, `${group.items.length} article${group.items.length > 1 ? 's' : ''}`)
+            h('strong', null, translateUiText(group.label)),
+            h('span', null, translateUiText(`${group.items.length} article${group.items.length > 1 ? 's' : ''}`))
           ),
           group.items.map(item => {
             const checked = Boolean(checkedItems[item.key]);
             const amount = formatShoppingAmount(item);
+            const displayName = displayShoppingName(item.name);
             return h('label', { key: item.key, className: checked ? 'shopping-line checked' : 'shopping-line' },
               h('input', {
                 type: 'checkbox',
                 checked,
-                'aria-label': `${checked ? 'Décocher' : 'Cocher'} ${[amount, item.name].filter(Boolean).join(' ')}`,
+                'aria-label': translateUiText(`${checked ? 'Décocher' : 'Cocher'} ${[amount, displayName].filter(Boolean).join(' ')}`),
                 onChange: () => setShoppingChecked(prev => ({ ...prev, [item.key]: !prev[item.key] }))
               }),
               h('span', { className: 'shopping-line-main' },
                 amount && h('strong', null, amount),
-                h('span', null, item.name),
-                item.purchaseHint && h('em', null, item.purchaseHint)
+                h('span', null, displayShoppingName(item.name)),
+                item.purchaseHint && h('em', null, displayShoppingName(item.purchaseHint))
               ),
-              h('small', null, item.recipeNames.join(', ')),
+              h('small', null, item.recipeNames.map(name => translateUiText(name)).join(', ')),
               h('button', { type: 'button', className: 'shopping-owned-btn', onClick: event => {
                 event.preventDefault();
                 toggleOwnedItem(item.key);
-              }, 'aria-label': `Marquer ${item.name} comme déjà à la maison`, title: 'Marquer comme déjà à la maison' }, 'J’ai déjà')
+              }, 'aria-label': translateUiText('Marquer ' + displayName + ' comme déjà à la maison'), title: translateUiText('Marquer comme déjà à la maison') }, translateUiText('J’ai déjà'))
             );
           })
         ))
         )
       ),
       recipes.length > 0 && freshOnly && scopedShoppingData.groupedItems.length === 0 && scopedShoppingData.ownedGroupedItems.length === 0 && h('div', { className: 'empty-state shopping-empty' },
-        h('h2', null, 'Aucun achat frais'),
-        h('p', null, 'Les recettes cochées sont couvertes par les rayons secs ou par ce qui est déjà à la maison.')
+        h('h2', null, translateUiText('Aucun achat frais')),
+        h('p', null, translateUiText('Les recettes cochées sont couvertes par les rayons secs ou par ce qui est déjà à la maison.'))
       ),
       scopedShoppingData.ownedGroupedItems.length > 0 && h('div', { className: 'shopping-owned-list' },
-        h('strong', null, 'Déjà à la maison'),
+        h('strong', null, translateUiText('Déjà à la maison')),
         scopedShoppingData.ownedGroupedItems.map(item => item.ownedByPantry
-          ? h('span', { key: item.key, title: 'Déjà à la maison' }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')} · maison`)
-          : h('button', { key: item.key, type: 'button', onClick: () => toggleOwnedItem(item.key), 'aria-label': `Remettre ${item.name} dans la liste à acheter`, title: 'Remettre dans la liste' }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')}`))
+          ? h('span', { key: item.key, title: translateUiText('Déjà à la maison') }, `${[formatShoppingAmount(item), displayShoppingName(item.name)].filter(Boolean).join(' ')} · ${translateUiText('maison')}`)
+          : h('button', { key: item.key, type: 'button', onClick: () => toggleOwnedItem(item.key), 'aria-label': translateUiText('Remettre ' + displayShoppingName(item.name) + ' dans la liste à acheter'), title: translateUiText('Remettre dans la liste') }, `${[formatShoppingAmount(item), displayShoppingName(item.name)].filter(Boolean).join(' ')}`))
       ),
       h('pre', { className: 'cart-output combined-cart' }, text),
       h('div', { className: 'modal-actions' },
         h(Button, { variant: 'primary', disabled: !recipes.length, onClick: () => copyText(text).then(() => {
           setCopied(true);
           notify?.('Liste de courses copiée');
-        }) }, copied ? 'Copié' : 'Copier la liste complète'),
+        }) }, translateUiText(copied ? 'Copié' : 'Copier la liste complète')),
         h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: () => copyText(compactText).then(() => {
           setCopied(true);
           notify?.('Liste compacte copiée');
-        }) }, 'Copier compact'),
-        h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: shareText, title: 'Partager la liste', ariaLabel: 'Partager la liste' }, h(Icon, { name: 'share' })),
-        h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: () => window.print(), title: 'Imprimer la liste', ariaLabel: 'Imprimer la liste' }, h(Icon, { name: 'print' })),
-        h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: clearShopping }, 'Vider le panier')
+        }) }, translateUiText('Copier compact')),
+        h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: shareText, title: translateUiText('Partager la liste'), ariaLabel: translateUiText('Partager la liste') }, h(Icon, { name: 'share' })),
+        h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: () => window.print(), title: translateUiText('Imprimer la liste'), ariaLabel: translateUiText('Imprimer la liste') }, h(Icon, { name: 'print' })),
+        h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: clearShopping }, translateUiText('Vider le panier'))
       )
     )
   );
