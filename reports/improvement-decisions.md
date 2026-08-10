@@ -1,6 +1,6 @@
 # Registre des améliorations Cook Note
 
-Dernière mise à jour : 09/08/2026
+Dernière mise à jour : 10/08/2026
 
 ## Décisions de cette session
 
@@ -52,3 +52,38 @@ Les six pages fournies ont été recherchées puis verrouillées avant intégrat
 Décision : `variante` pour les cinq Charlottes, `fiche distincte` pour l’Opéra.
 Aucun refus ni exclusion existante n’est réouvert ; aucun champ de source ou URL
 externe n’est publié dans les données recette.
+
+## Améliorations acceptées le 10/08/2026
+
+Le 10/08/2026, « vasi » valide les six améliorations proposées ensuite :
+
+1. expliciter la conservation et les précautions alimentaires des 45 fiches encore
+   signalées par l’audit ;
+2. ajouter des liens internes ciblés, uniquement quand la relation culinaire est
+   suffisamment évidente, sans reclassement automatique global ;
+3. renforcer les parcours clavier et les attributs d’accessibilité par un smoke test ;
+4. vérifier le parcours hors-ligne de la PWA et le cache de secours ;
+5. couvrir la recherche par quelques cas de qualité reproductibles ;
+6. ajouter un smoke test structurel du catalogue Android Legacy et de ses variantes.
+
+Statut : `accepté`, à valider avant le commit local.
+
+Le smoke test Android contrôle le catalogue source et les règles de génération.
+La reconstruction et la publication d’un nouvel APK restent hors de ce lot tant
+qu’une demande explicite de rebuild Android n’est pas formulée. Les exclusions
+antérieures, notamment les filtres de recherche lourds et les reclassements
+automatiques incohérents, restent inchangées et ne seront pas reproposées.
+
+## Bilan du lot du 10/08/2026
+
+Le lot est réalisé et validé :
+
+- les 45 alertes de conservation/sécurité sont documentées ; l’audit passe à
+  `100/100`, avec `0` alerte de conservation et `0` fiche faible ;
+- 28 liens internes ciblés sont ajoutés ; les 212 fiches restantes sans lien sont
+  conservées comme chantier séparé, sans génération automatique de relations ;
+- 46 smoke tests navigateur passent sur desktop et mobile, dont les parcours
+  clavier, hors-ligne, recherche, panier, menu et techniques ;
+- le smoke test Android Legacy passe sur le catalogue source, les huit racines et
+  les variantes ; les assets générés restent en v4.58, signalés comme obsolètes
+  par rapport au site v4.59 jusqu’à une demande explicite de rebuild APK.
