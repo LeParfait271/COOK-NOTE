@@ -1,14 +1,15 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v460
+//  Cook Note - Service Worker PWA v461
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v460';
-const IMAGE_CACHE_NAME = 'cook-note-images-v460';
+const CACHE_NAME = 'cook-note-v461';
+const IMAGE_CACHE_NAME = 'cook-note-images-v461';
 const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
+  '/app-cooking.js',
   '/app-techniques.js',
   '/app-premium.js',
   '/app-images.js',
@@ -34,17 +35,18 @@ const IMMUTABLE_IMAGE_PATHS = [
 ];
 const STATIC_ASSETS = [
   '/index.html',
-  '/app.js?v=460-parent-title',
-  '/app-techniques.js?v=460-parent-title',
-  '/app-premium.js?v=460-parent-title',
-  '/app-images.js?v=460-parent-title',
-  '/app-art-images.js?v=460-parent-title',
-  '/app-inline-variant-rules.js?v=460-parent-title',
-  '/theme.js?v=460-parent-title',
-  '/i18n.js?v=460-parent-title',
-  '/assets/catalog-1.js?v=460-parent-title',
-  '/assets/image-manifest.js?v=460-parent-title',
-  '/style.css?v=460-parent-title',
+  '/app.js?v=461-parent-title',
+  '/app-cooking.js?v=461-parent-title',
+  '/app-techniques.js?v=461-parent-title',
+  '/app-premium.js?v=461-parent-title',
+  '/app-images.js?v=461-parent-title',
+  '/app-art-images.js?v=461-parent-title',
+  '/app-inline-variant-rules.js?v=461-parent-title',
+  '/theme.js?v=461-parent-title',
+  '/i18n.js?v=461-parent-title',
+  '/assets/catalog-1.js?v=461-parent-title',
+  '/assets/image-manifest.js?v=461-parent-title',
+  '/style.css?v=461-parent-title',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
@@ -78,7 +80,7 @@ function isImageUrl(url) {
     || url.pathname.startsWith('/assets/brand/');
 }
 
-async function cacheRequestedUrls(urls = []) {
+async function cacheRequestedUrls(urls = [], onProgress = () => {}) {
   const localUrls = Array.from(new Set(urls.map(value => {
     try {
       const url = new URL(value, self.location.origin);
@@ -90,18 +92,25 @@ async function cacheRequestedUrls(urls = []) {
   const staticCache = await caches.open(CACHE_NAME);
   const imageCache = await caches.open(IMAGE_CACHE_NAME);
   let cached = 0;
+  let completed = 0;
+  onProgress({ cached, completed, total: localUrls.length });
   await Promise.allSettled(localUrls.map(async href => {
-    const url = new URL(href);
-    const request = new Request(url.href, { credentials: 'same-origin' });
-    const cachedResponse = await caches.match(request);
-    if (cachedResponse) {
+    try {
+      const url = new URL(href);
+      const request = new Request(url.href, { credentials: 'same-origin' });
+      const cachedResponse = await caches.match(request);
+      if (cachedResponse) {
+        cached += 1;
+        return;
+      }
+      const response = await fetch(request, { cache: 'no-store' });
+      if (!response || response.status !== 200 || response.type !== 'basic') return;
+      await (isImageUrl(url) ? imageCache : staticCache).put(request, response.clone());
       cached += 1;
-      return;
+    } finally {
+      completed += 1;
+      onProgress({ cached, completed, total: localUrls.length });
     }
-    const response = await fetch(request, { cache: 'no-store' });
-    if (!response || response.status !== 200 || response.type !== 'basic') return;
-    await (isImageUrl(url) ? imageCache : staticCache).put(request, response.clone());
-    cached += 1;
   }));
   await trimCache(IMAGE_CACHE_NAME, IMAGE_CACHE_LIMIT);
   return { cached, total: localUrls.length };
@@ -117,14 +126,14 @@ self.addEventListener('install', (event) => {
 
 // Activation - purge des anciens caches
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
+  event.waitUntil(Promise.all([
     caches.keys().then(keys =>
       Promise.all(
         keys.filter(k => ![CACHE_NAME, IMAGE_CACHE_NAME].includes(k)).map(k => caches.delete(k))
       )
-    )
-  );
-  self.clients.claim();
+    ),
+    self.clients.claim()
+  ]));
 });
 
 self.addEventListener('message', (event) => {
@@ -134,7 +143,12 @@ self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'CACHE_URLS') {
     const port = event.ports && event.ports[0];
     event.waitUntil(
-      cacheRequestedUrls(Array.isArray(event.data.urls) ? event.data.urls : [])
+      cacheRequestedUrls(
+        Array.isArray(event.data.urls) ? event.data.urls : [],
+        progress => {
+          if (port) port.postMessage({ type: 'CACHE_URLS_PROGRESS', ...progress });
+        }
+      )
         .then(result => {
           if (port) port.postMessage({ type: 'CACHE_URLS_DONE', ...result });
         })

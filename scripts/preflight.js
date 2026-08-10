@@ -112,6 +112,7 @@ async function verifyServer() {
     const paths = [
       '/',
       `/app.js?v=${version}`,
+      `/app-cooking.js?v=${version}`,
       `/app-techniques.js?v=${version}`,
       `/app-premium.js?v=${version}`,
       `/app-images.js?v=${version}`,

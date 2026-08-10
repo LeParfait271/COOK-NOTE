@@ -399,6 +399,25 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
+  test('cooking mode advances through the recipe and restores the fiche', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
+    await waitForCookNote(page);
+
+    await page.getByRole('button', { name: 'Mode cuisine' }).click();
+    const cookingMode = page.locator('.cooking-mode-shell');
+    await expect(cookingMode).toBeVisible();
+    await expect(cookingMode.getByRole('heading', { name: 'Poulet sauce pimentée' })).toBeVisible();
+    await expect(cookingMode.locator('.cooking-mode-step-text')).not.toHaveText('');
+    await cookingMode.getByRole('button', { name: 'Étape suivante' }).click();
+    await expect(cookingMode.locator('.cooking-mode-step-count')).toContainText('Étape 2 sur');
+    await cookingMode.getByRole('button', { name: 'Fermer le mode cuisine' }).click();
+    await expect(cookingMode).toBeHidden();
+    await expect(page.locator('.recipe-detail-grid')).toBeVisible();
+    await expectNoMojibake(page);
+    await expectNoHorizontalOverflow(page);
+  });
+
   test('shopping basket keeps a recipe and marks an item already at home', async ({ page }) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/poulet_sauce_pimentee?lang=fr');

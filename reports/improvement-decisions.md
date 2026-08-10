@@ -87,3 +87,14 @@ Le lot est réalisé et validé :
 - le smoke test Android Legacy passe sur le catalogue source, les huit racines et
   les variantes ; les assets générés restent en v4.58, signalés comme obsolètes
   par rapport au site v4.59 jusqu’à une demande explicite de rebuild APK.
+
+## Optimisations haut de gamme acceptées le 10/08/2026
+
+La demande explicite « ok pour tout » réouvre le mode cuisine précédemment exclu
+et valide les cinq axes proposés : performance mobile mesurée, PWA hors-ligne,
+mode cuisine, fiabilité du build et préparation de l’architecture Android moderne.
+Le mode cuisine est chargé à la demande puis couvert par un smoke test ; aucune
+reconstruction ou mise à jour de l’APK Android Legacy n’est autorisée par cette
+décision.
+
+Statut : `accepté`, à valider avant le commit local.

@@ -1389,34 +1389,47 @@
     }
   }
 
-  function cacheUrlsForOffline(urls) {
+  function cacheUrlsForOffline(urls, onProgress) {
     return new Promise((resolve, reject) => {
       if (!('serviceWorker' in navigator) || typeof MessageChannel === 'undefined') {
         reject(new Error('Service worker indisponible.'));
         return;
       }
       const channel = new MessageChannel();
+      let settled = false;
       const timer = window.setTimeout(() => {
+        settled = true;
         resolve({ cached: 0, total: urls.length, timeout: true });
-      }, 9000);
+      }, 30000);
       channel.port1.onmessage = event => {
+        if (event.data?.type === 'CACHE_URLS_PROGRESS') {
+          try { onProgress?.(event.data); } catch {}
+          return;
+        }
+        if (settled) return;
         window.clearTimeout(timer);
         if (event.data?.error) {
+          settled = true;
           reject(new Error('Cache offline impossible.'));
           return;
         }
+        settled = true;
         resolve(event.data || { cached: 0, total: urls.length });
       };
       navigator.serviceWorker.ready.then(registration => {
         const worker = registration.active || navigator.serviceWorker.controller || registration.waiting;
         if (!worker) {
+          if (settled) return;
           window.clearTimeout(timer);
+          settled = true;
           reject(new Error('Service worker non actif.'));
           return;
         }
         worker.postMessage({ type: 'CACHE_URLS', urls }, [channel.port2]);
       }).catch(error => {
+        if (settled) return;
         window.clearTimeout(timer);
+        settled = true;
         reject(error);
       });
     });

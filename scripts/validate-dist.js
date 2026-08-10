@@ -11,6 +11,7 @@ const REQUIRED_FILES = [
   '_headers',
   '_redirects',
   'app.js',
+  'app-cooking.js',
   'app-techniques.js',
   'app-images.js',
   'app-art-images.js',

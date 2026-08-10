@@ -107,14 +107,14 @@ if (!fs.existsSync(path.join(ROOT, 'downloads', `cook-note-android-legacy-v${and
   fail(`downloads/cook-note-android-legacy-v${androidApkVersion}.apk manquant pour la derniere version APK construite.`);
 }
 const assetVersions = [
-  ...index.matchAll(/\b(?:app|app-premium|app-techniques|app-images|app-art-images|app-inline-variant-rules|theme|i18n|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g),
+  ...index.matchAll(/\b(?:app|app-cooking|app-premium|app-techniques|app-images|app-art-images|app-inline-variant-rules|theme|i18n|catalog-\d+|style)\.(?:js|css)\?v=(\d+)/g),
   ...index.matchAll(/\bimage-manifest\.js\?v=(\d+)/g),
   ...index.matchAll(/service-worker\.js\?v=(\d+)/g),
   ...index.matchAll(/\bbase-du-site\.png\?v=(\d+)/g),
   ...index.matchAll(/COOK_NOTE_ASSET_VERSION\s*=\s*'(\d+)'/g),
   ...recipeHtml.matchAll(/\b(?:theme|i18n|recipe|recipes|style)\.(?:js|css)\?v=(\d+)/g),
   ...recipeHtml.matchAll(/COOK_NOTE_ASSET_VERSION\s*=\s*'(\d+)'/g),
-  ...serviceWorker.matchAll(/\b(?:app|app-premium|app-techniques|app-images|app-art-images|app-inline-variant-rules|theme|i18n|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g),
+  ...serviceWorker.matchAll(/\b(?:app|app-cooking|app-premium|app-techniques|app-images|app-art-images|app-inline-variant-rules|theme|i18n|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g),
   ...serviceWorker.matchAll(/CACHE_NAME\s*=\s*'cook-note-v(\d+)'/g),
   ...serviceWorker.matchAll(/IMAGE_CACHE_NAME\s*=\s*'cook-note-images-v(\d+)'/g)
 ].map(match => match[1]);

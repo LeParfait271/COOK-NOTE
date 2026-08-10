@@ -250,6 +250,7 @@ if (!staticAssets) {
   [
     '/index.html',
     '/app.js',
+    '/app-cooking.js',
     '/app-techniques.js',
     '/app-premium.js',
     '/app-images.js',
@@ -282,12 +283,12 @@ if (!/IMAGE_CACHE_NAME\s*=\s*['"]cook-note-images-v\d+['"]/.test(serviceWorker))
 }
 
 const indexAssetVersions = [
-  ...indexHtml.matchAll(/\b(?:app|app-premium|app-techniques|app-images|app-art-images|theme|i18n|catalog-\d+|image-manifest|style)\.(?:js|css)\?v=(\d+)/g),
+  ...indexHtml.matchAll(/\b(?:app|app-cooking|app-premium|app-techniques|app-images|app-art-images|theme|i18n|catalog-\d+|image-manifest|style)\.(?:js|css)\?v=(\d+)/g),
   ...indexHtml.matchAll(/\bbase-du-site\.png\?v=(\d+)/g),
   ...recipeHtml.matchAll(/\b(?:theme|i18n|recipe|recipes|style)\.(?:js|css)\?v=(\d+)/g)
 ].map(match => match[1]);
 const swRegistrationVersion = indexHtml.match(/service-worker\.js\?v=(\d+)/)?.[1];
-const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|app-premium|app-techniques|app-images|app-art-images|theme|i18n|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
+const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|app-cooking|app-premium|app-techniques|app-images|app-art-images|theme|i18n|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
 const swCacheVersion = serviceWorker.match(/CACHE_NAME\s*=\s*['"]cook-note-v(\d+)['"]/)?.[1];
 const allAssetVersions = [...indexAssetVersions, swRegistrationVersion, ...swAssetVersions, swCacheVersion].filter(Boolean);
 if (!allAssetVersions.length || new Set(allAssetVersions).size !== 1) {

@@ -16,6 +16,7 @@ const ROOT_FILES = [
   '_headers',
   '_redirects',
   'app.js',
+  'app-cooking.js',
   'app-techniques.js',
   'app-premium.js',
   'app-images.js',

@@ -1,7 +1,7 @@
 /* global window */
 
 (function initCookNoteImages() {
-  const IMAGE_HELPER_VERSION = 'v4.60';
+  const IMAGE_HELPER_VERSION = 'v4.61';
   const IMAGE_HELPER_REVISION = 'parent-title';
   const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
 
@@ -25,6 +25,12 @@
     return meta?.width && meta?.height ? { width: meta.width, height: meta.height } : {};
   }
 
+  function imageSrcSet(image) {
+    if (!image || !image.startsWith('/assets/recipes/heroes/')) return '';
+    const card = recipeCardImageUrl(image);
+    return card && card !== image ? `${card} 1x, ${image} 2x` : '';
+  }
+
   function imageBackgroundStyle(image, card = true) {
     const url = card ? recipeCardImageUrl(image) : image;
     return url ? { backgroundImage: `url("${url}")` } : {};
@@ -34,6 +40,7 @@
     version: `${IMAGE_HELPER_VERSION}-${IMAGE_HELPER_REVISION}`,
     recipeCardImageUrl,
     imageSizeAttrs,
+    imageSrcSet,
     imageBackgroundStyle
   });
 }());

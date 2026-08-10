@@ -4,12 +4,13 @@ const { useEffect, useMemo, useRef, useState } = React;
 const {
   recipeCardImageUrl,
   imageSizeAttrs,
+  imageSrcSet,
   imageBackgroundStyle
 } = window.CookNoteImages || {};
 const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
 const INITIAL_CATALOG_STATS = window.COOK_NOTE_CATALOG_STATS || {};
 
-if (!recipeCardImageUrl || !imageSizeAttrs || !imageBackgroundStyle) {
+if (!recipeCardImageUrl || !imageSizeAttrs || !imageSrcSet || !imageBackgroundStyle) {
   throw new Error('CookNoteImages doit etre charge avant app.js.');
 }
 
@@ -109,7 +110,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.60';
+const SITE_VERSION = 'v4.61';
 const SITE_UPDATED_AT = '10/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.58';
@@ -126,6 +127,7 @@ const APP_INSTALL_OPTIONS = Object.freeze([
 const SITE_CACHE_VERSION = `${SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`)}-parent-title`;
 const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
 const DEFERRED_CATALOG_CHUNK_SRCS = [2, 3, 4].map(index => `/assets/catalog-${index}.js?v=${SITE_CACHE_VERSION}`);
+const COOKING_MODE_SCRIPT_SRC = `/app-cooking.js?v=${SITE_CACHE_VERSION}`;
 const QR_CODE_SCRIPT_SRC = '/assets/vendor/qrcode.min.js';
 const CONFETTI_SCRIPT_SRC = '/assets/vendor/confetti.browser.min.js';
 const GRID_INITIAL_RENDER_COUNT = 36;
@@ -4771,6 +4773,8 @@ function Icon({ name, filled = false }) {
   );
 }
 
+window.CookNoteCookingRuntime = Object.freeze({ h, t, Button, Icon, stripHtml, scaleIngredient, trapModalFocus });
+
 function ingredientAvailabilityGroup(meta) {
   const missingCount = meta?.missing?.length || 0;
   if (missingCount === 0) return { key: 'all', label: 'Tu as tout', order: 0 };
@@ -4979,6 +4983,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
         loading: 'lazy',
         decoding: 'async',
         fetchPriority: master ? 'high' : 'low',
+        srcSet: imageSrcSet(sourceImage),
         sizes: '(max-width: 760px) calc(100vw - 32px), 380px',
         draggable: false,
         ...imageSizeAttrs(cardImage),
@@ -6292,7 +6297,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
   );
 }
 
-function PreferencesPanel({ open, onClose, preferences, updatePreferences, favoriteCount = 0, isOnline = true, offlineBusy = false, preloadFavoritesOffline, exportLocalData, importLocalData }) {
+function PreferencesPanel({ open, onClose, preferences, updatePreferences, favoriteCount = 0, isOnline = true, offlineBusy = false, offlineProgress = null, preloadFavoritesOffline, exportLocalData, importLocalData }) {
   if (!open) return null;
   const update = patch => updatePreferences(patch);
   const density = preferences.density || 'comfort';
@@ -6346,7 +6351,11 @@ function PreferencesPanel({ open, onClose, preferences, updatePreferences, favor
           disabled: offlineBusy || !favoriteCount || !isOnline,
           onClick: preloadFavoritesOffline,
           ariaLabel: 'Précharger les recettes favorites hors-ligne'
-        }, offlineBusy ? 'Préchargement...' : 'Précharger')
+        }, offlineBusy ? t('offline.preparing') : 'Précharger'),
+        offlineBusy && offlineProgress && h('div', { className: 'offline-progress-wrap' },
+          h('progress', { max: Math.max(1, offlineProgress.total || 1), value: offlineProgress.completed || 0, 'aria-label': t('offline.progress', offlineProgress) }),
+          h('small', null, t('offline.progress', offlineProgress))
+        )
       ),
       h('div', { className: 'preference-group preference-data-group' },
         h('div', null,
@@ -6850,10 +6859,15 @@ function RecipeView({
   const detailKey = recipe.id;
   const [shareOpen, setShareOpen] = useState(false);
   const [exportCopied, setExportCopied] = useState(false);
+  const [cookingModeOpen, setCookingModeOpen] = useState(false);
+  const [cookingModeReady, setCookingModeReady] = useState(() => Boolean(window.CookNoteCookingMode));
+  const [cookingStepIndex, setCookingStepIndex] = useState(0);
+  const [cookingFullscreen, setCookingFullscreen] = useState(false);
   const [mobileDetailTab, setMobileDetailTab] = useState('ingredients');
   const [openIngredientGroups, setOpenIngredientGroups] = useState({});
   const mobileSwipeStartRef = useRef(null);
   const pendingInlineVariantScrollRef = useRef(false);
+  const cookingRestoreFocusRef = useRef(null);
   const completedRef = useRef('');
   const inlineVariantOptions = useMemo(() => getInlineVariantOptions(recipe), [recipe]);
   const needsInlineVariantSelection = inlineVariantOptions.length > 0;
@@ -6948,8 +6962,91 @@ function RecipeView({
     runConfettiBurst();
   }, [stepScopeKey, doneSteps, stepTotal]);
 
+  useEffect(() => {
+    setCookingModeOpen(false);
+    setCookingStepIndex(0);
+    setCookingFullscreen(false);
+  }, [recipe.id, stepScopeKey]);
+
+  useEffect(() => {
+    if (!cookingModeOpen) return undefined;
+    let wakeLock = null;
+    let disposed = false;
+    const requestWakeLock = async () => {
+      if (disposed || document.visibilityState === 'hidden' || !navigator.wakeLock?.request) return;
+      try {
+        wakeLock = await navigator.wakeLock.request('screen');
+      } catch {
+        wakeLock = null;
+      }
+    };
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible' && (!wakeLock || wakeLock.released)) requestWakeLock();
+    };
+    requestWakeLock();
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => {
+      disposed = true;
+      document.removeEventListener('visibilitychange', handleVisibility);
+      const release = wakeLock?.release?.();
+      release?.catch?.(() => {});
+    };
+  }, [cookingModeOpen]);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => setCookingFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
   function toggle(key) {
     setCheckedWithHistory(prev => ({ ...prev, [key]: !prev[key] }));
+  }
+
+  function openCookingMode() {
+    if (!stepTotal) return;
+    cookingRestoreFocusRef.current = document.activeElement;
+    setCookingStepIndex(nextStepIndex >= 0 ? nextStepIndex : Math.max(stepTotal - 1, 0));
+    setMobileDetailTab('steps');
+    const open = () => {
+      setCookingModeReady(true);
+      setCookingModeOpen(true);
+    };
+    if (window.CookNoteCookingMode) open();
+    else loadDeferredScript(COOKING_MODE_SCRIPT_SRC, 'CookNoteCookingMode').then(open).catch(() => notify?.('Mode cuisine indisponible.', 'error'));
+  }
+
+  function closeCookingMode() {
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
+    setCookingModeOpen(false);
+    setCookingFullscreen(false);
+    requestAnimationFrame(() => cookingRestoreFocusRef.current?.focus?.());
+  }
+
+  function previousCookingStep() {
+    setCookingStepIndex(index => Math.max(0, index - 1));
+  }
+
+  function nextCookingStep() {
+    const currentKey = `${stepScopeKey}:step:${cookingStepIndex}`;
+    if (!checked[currentKey]) toggle(currentKey);
+    if (cookingStepIndex >= stepTotal - 1) {
+      closeCookingMode();
+      return;
+    }
+    setCookingStepIndex(index => Math.min(stepTotal - 1, index + 1));
+  }
+
+  async function toggleCookingFullscreen() {
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen?.();
+      } else {
+        await document.querySelector('.cooking-mode-shell')?.requestFullscreen?.();
+      }
+    } catch {
+      /* Fullscreen is an enhancement and can be refused by the browser. */
+    }
   }
 
   function toggleIngredientGroup(groupKey) {
@@ -7057,6 +7154,7 @@ function RecipeView({
             variant: 'subtle',
             onClick: copyCurrentRecipe
           }, exportCopied ? 'Fiche copiée' : 'Copier fiche'),
+          showRecipeUtilities && stepTotal > 0 && h(Button, { variant: 'ghost', className: 'detail-action-button cooking-mode-trigger', onClick: openCookingMode, title: t('cooking.mode'), ariaLabel: t('cooking.mode') }, t('cooking.mode')),
           showRecipeUtilities && h(Button, { variant: 'ghost', className: 'detail-action-button', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' }), h('span', null, 'Partager')),
           selectedRecipe.video && h('a', { className: 'btn btn-ghost', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, 'Voir la vidéo'),
           showRecipeUtilities && h(Button, { variant: 'ghost', className: 'detail-action-button', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, h(Icon, { name: 'print' }), h('span', null, 'Imprimer')),
@@ -7253,6 +7351,20 @@ function RecipeView({
         ? `${window.location.origin}${getInlineVariantUrl(recipe.id, selectedInlineVariantGroup.key)}`
         : '',
       notify
+    }),
+    cookingModeOpen && cookingModeReady && window.CookNoteCookingMode && h(window.CookNoteCookingMode, {
+      recipe: selectedRecipe,
+      steps: displaySteps,
+      stepScopeKey,
+      stepIndex: cookingStepIndex,
+      checked,
+      factor,
+      isFullscreen: cookingFullscreen,
+      onClose: closeCookingMode,
+      onToggleStep: toggle,
+      onPrevious: previousCookingStep,
+      onNext: nextCookingStep,
+      onToggleFullscreen: toggleCookingFullscreen
     })
   );
 }
@@ -7308,6 +7420,7 @@ function App() {
   const [menuPlannerOpen, setMenuPlannerOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [offlineBusy, setOfflineBusy] = useState(false);
+  const [offlineProgress, setOfflineProgress] = useState(null);
   const [isOnline, setIsOnline] = useState(() => navigator.onLine !== false);
   const [recentRecipeIds, setRecentRecipeIds] = useState(() => readStoredList(STORAGE_KEYS.recentRecipes, []));
   const [recentSearches, setRecentSearches] = useState(() => readStoredList(STORAGE_KEYS.recentSearches, []));
@@ -7789,6 +7902,7 @@ function App() {
       '/recipe.html',
       `/style.css?v=${SITE_CACHE_VERSION}`,
       `/app.js?v=${SITE_CACHE_VERSION}`,
+      COOKING_MODE_SCRIPT_SRC,
       `/app-techniques.js?v=${SITE_CACHE_VERSION}`,
       `/app-premium.js?v=${SITE_CACHE_VERSION}`,
       `/recipe.js?v=${SITE_CACHE_VERSION}`,
@@ -7829,12 +7943,15 @@ function App() {
       const loadedSource = catalogChunksLoaded ? recipeSource : await loadDeferredCatalogChunks().catch(() => recipeSource);
       const loadedRecipes = Object.fromEntries(Object.entries(normalizeLoadedRecipeValue(loadedSource)).map(([id, recipe]) => [id, { id, ...recipe }]));
       const favoriteCount = favorites.filter(id => recipesById[id] || loadedRecipes[id]).length;
-      const result = await cacheUrlsForOffline(favoriteOfflineUrls(loadedRecipes));
+      const urls = favoriteOfflineUrls(loadedRecipes);
+      setOfflineProgress({ cached: 0, completed: 0, total: urls.length });
+      const result = await cacheUrlsForOffline(urls, setOfflineProgress);
       notify(`${favoriteCount} favori${favoriteCount > 1 ? 's' : ''} prêt${favoriteCount > 1 ? 's' : ''} hors-ligne (${result.cached || 0}/${result.total || 0})`, 'success');
     } catch {
       notify('Préchargement hors-ligne impossible pour le moment.', 'error');
     } finally {
       setOfflineBusy(false);
+      setOfflineProgress(null);
     }
   }
 
@@ -8339,6 +8456,7 @@ function App() {
       favoriteCount: favorites.length,
       isOnline,
       offlineBusy,
+      offlineProgress,
       preloadFavoritesOffline: preloadFavoriteRecipesOffline,
       exportLocalData,
       importLocalData

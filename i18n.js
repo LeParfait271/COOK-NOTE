@@ -22,7 +22,23 @@
       'home.searchSubtitle': 'Titre, produit, saison, envie ou technique',
       'search.pending': 'Recherche en cours…',
       'search.bestResults': '{shown} meilleurs résultats sur {total} pour "{query}"',
-      'search.results': '{count} résultat{plural} pour "{query}"'
+      'search.results': '{count} résultat{plural} pour "{query}"',
+      'cooking.mode': 'Mode cuisine',
+      'cooking.stepOf': 'Étape {current} sur {total}',
+      'cooking.completedOf': '{completed}/{total} étapes terminées',
+      'cooking.completeStep': 'Terminer l’étape',
+      'cooking.completedStep': 'Étape terminée',
+      'cooking.previous': 'Étape précédente',
+      'cooking.next': 'Étape suivante',
+      'cooking.finish': 'Terminer la recette',
+      'cooking.ingredients': 'Ingrédients',
+      'cooking.showIngredients': 'Afficher les ingrédients',
+      'cooking.hideIngredients': 'Masquer les ingrédients',
+      'cooking.close': 'Fermer le mode cuisine',
+      'cooking.fullscreen': 'Plein écran',
+      'cooking.exitFullscreen': 'Quitter le plein écran',
+      'offline.preparing': 'Préparation hors-ligne…',
+      'offline.progress': '{completed}/{total} ressources préparées'
     },
     en: {
       'language.selector': 'Language',
@@ -40,7 +56,23 @@
       'home.searchSubtitle': 'Title, ingredient, season, craving or technique',
       'search.pending': 'Searching…',
       'search.bestResults': '{shown} best results out of {total} for "{query}"',
-      'search.results': '{count} result{plural} for "{query}"'
+      'search.results': '{count} result{plural} for "{query}"',
+      'cooking.mode': 'Cooking mode',
+      'cooking.stepOf': 'Step {current} of {total}',
+      'cooking.completedOf': '{completed}/{total} steps completed',
+      'cooking.completeStep': 'Complete step',
+      'cooking.completedStep': 'Step completed',
+      'cooking.previous': 'Previous step',
+      'cooking.next': 'Next step',
+      'cooking.finish': 'Finish recipe',
+      'cooking.ingredients': 'Ingredients',
+      'cooking.showIngredients': 'Show ingredients',
+      'cooking.hideIngredients': 'Hide ingredients',
+      'cooking.close': 'Close cooking mode',
+      'cooking.fullscreen': 'Full screen',
+      'cooking.exitFullscreen': 'Exit full screen',
+      'offline.preparing': 'Preparing offline pack…',
+      'offline.progress': '{completed}/{total} resources prepared'
     }
   };
 
