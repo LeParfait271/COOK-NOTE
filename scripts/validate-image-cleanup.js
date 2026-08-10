@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 const vm = require('node:vm');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -59,6 +60,23 @@ function addUsed(used, file, reason) {
   if (!normalized) return;
   if (!used.has(normalized)) used.set(normalized, new Set());
   used.get(normalized).add(reason);
+}
+
+function fileHash(file) {
+  return crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, file))).digest('hex');
+}
+
+function validateThemeBaseDuplicates() {
+  const baseByHash = new Map();
+  walk('assets/recipes/heroes').forEach(file => baseByHash.set(fileHash(file), file));
+  ['day', 'dark'].forEach(theme => {
+    walk(`assets/theme/${theme}/recipes`).forEach(file => {
+      const baseFile = baseByHash.get(fileHash(file));
+      if (baseFile) {
+        errors.push(`${file}: asset theme identique a la base (${baseFile}).`);
+      }
+    });
+  });
 }
 
 function cardPath(image) {
@@ -147,6 +165,7 @@ function main() {
   const unused = allImages.filter(file => !used.has(file));
   const missing = [...used.keys()].filter(file => file.startsWith('assets/') && !fs.existsSync(path.join(ROOT, file)));
 
+  validateThemeBaseDuplicates();
   unused.forEach(file => errors.push(`${file}: image presente mais non utilisee.`));
   missing.forEach(file => errors.push(`${file}: image referencee mais absente.`));
 

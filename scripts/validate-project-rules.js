@@ -354,6 +354,7 @@ expect(
       validators.imageCleanup.includes('aucun id recette correspondant')
       || validators.imageCleanup.includes('aucun visuel de recette correspondant')
     )
+    && validators.imageCleanup.includes('asset theme identique a la base')
     && validators.packageJson.includes('scripts/validate-image-cleanup.js')
 );
 expect('Validation materiel necessaire colonne droite non branchee.', validators.ui.includes('Materiel necessaire encore dans la colonne droite'));

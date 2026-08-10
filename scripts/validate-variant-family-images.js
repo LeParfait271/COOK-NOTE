@@ -6,6 +6,26 @@ const ROOT = path.resolve(__dirname, '..');
 const RECIPES_FILE = path.join(ROOT, 'recipes.js');
 const errors = [];
 const shouldFix = process.argv.includes('--fix');
+// Ces images nuit étaient des copies exactes de l'image optimisée de base.
+// Leur absence est donc volontaire : le runtime reprend l'image de la recette.
+const DARK_THEME_BASE_FALLBACK_IDS = new Set([
+  'aioli_variantes',
+  'chantilly_variantes',
+  'cookies_sucres_variantes',
+  'creme_diplomate_variantes',
+  'crumble_pomme_poire_variantes',
+  'frites_variantes',
+  'gratins_chou_fleur_variantes',
+  'haricots_tarbais_variantes',
+  'mousses_chocolat_variantes',
+  'pommes_nouvelles_roties_herbes_jardin',
+  'poulet_basquaise_variantes',
+  'rillettes_variantes',
+  'sauce_bearnaise',
+  'saumon_four_variantes',
+  'tiramisu_variantes',
+  'tresse_beurre_variantes'
+]);
 
 function loadRecipes() {
   const context = { window: {} };
@@ -25,6 +45,19 @@ function ownImagePath(id) {
 
 function ownDarkImagePath(id) {
   return `/assets/theme/dark/recipes/${id}.jpg`;
+}
+
+function validateDarkImage(id, label) {
+  const darkPath = ownDarkImagePath(id);
+  if (fs.existsSync(path.join(ROOT, darkPath.replace(/^\//, '')))) return;
+  if (!DARK_THEME_BASE_FALLBACK_IDS.has(id)) {
+    errors.push(`${label}: dark override missing (${darkPath}).`);
+    return;
+  }
+  const basePath = ownImagePath(id);
+  if (!fs.existsSync(path.join(ROOT, basePath.replace(/^\//, '')))) {
+    errors.push(`${label}: fallback sombre impossible, image de base absente (${basePath}).`);
+  }
 }
 
 function run() {
@@ -47,9 +80,7 @@ function run() {
       if (!imageOwners.has(image)) imageOwners.set(image, new Set());
       imageOwners.get(image).add(imageId(image));
       const nestedId = imageId(image);
-      if (nestedId && !fs.existsSync(path.join(ROOT, ownDarkImagePath(nestedId).replace(/^\//, '')))) {
-        errors.push(`${id}: dark override missing for nested variant (${nestedId}).`);
-      }
+      if (nestedId) validateDarkImage(nestedId, `${id}: nested variant ${nestedId}`);
     });
 
     const expected = ownImagePath(id);
@@ -69,9 +100,7 @@ function run() {
   });
 
   rows.forEach(row => {
-    if (!fs.existsSync(path.join(ROOT, row.darkExpected.replace(/^\//, '')))) {
-      errors.push(`${row.id}: dark override missing (${row.darkExpected}).`);
-    }
+    validateDarkImage(row.id, row.id);
   });
 
   imageOwners.forEach((owners, image) => {
