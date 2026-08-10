@@ -8902,4 +8902,94 @@ body.cooking-mode-open{overflow:hidden}.cooking-mode-backdrop{position:fixed;ins
 @media screen and (max-width: 1060px) {
 }
 
+/* Clarity pass: keep long controls readable and recipe panels fully open. */
+.site-update-action {
+  position: relative !important;
+  inset: auto !important;
+  z-index: 40;
+  display: flex;
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  margin: 10px clamp(12px, 3vw, 32px) 0 auto;
+  border: 1px solid color-mix(in srgb, var(--accent, #d7a943) 42%, var(--line, rgba(215, 169, 67, .36)));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-strong, #171411) 94%, var(--accent, #d7a943) 6%);
+  color: var(--text, #fff8e8);
+  padding: 8px 13px;
+  font: 800 12px/1 system-ui, sans-serif;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .24);
+  cursor: pointer;
+}
+
+.site-update-action:hover,
+.site-update-action:focus-visible {
+  border-color: color-mix(in srgb, var(--accent, #d7a943) 72%, var(--line, rgba(215, 169, 67, .36)));
+  transform: translateY(-1px);
+}
+
+body:has(.modal-backdrop) #cook-note-update-action {
+  display: none !important;
+}
+
+.technique-filter-tabs {
+  flex-wrap: wrap !important;
+  overflow: visible !important;
+  row-gap: 8px;
+}
+
+.technique-filter-tabs button {
+  flex: 0 1 auto;
+  min-width: max-content !important;
+  white-space: nowrap;
+  line-height: 1.1;
+}
+
+.ingredients-panel,
+.steps-panel,
+.notes-panel {
+  position: static !important;
+  top: auto !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  overflow-y: visible !important;
+  overscroll-behavior: auto !important;
+}
+
+@media screen and (max-width: 700px) {
+  .site-update-action {
+    margin: 8px auto 0;
+  }
+
+  .technique-filter-tabs {
+    column-gap: 6px;
+  }
+}
+
+.mc-shell.theme-light .hero.hero-day-art {
+  background:
+    linear-gradient(180deg, rgba(45, 29, 16, .12), rgba(45, 29, 16, .26) 58%, rgba(245, 239, 228, .94) 100%),
+    linear-gradient(90deg, rgba(45, 29, 16, .24), rgba(45, 29, 16, .04) 50%, rgba(45, 29, 16, .22)),
+    var(--art-hero-image) center / cover no-repeat !important;
+  background-blend-mode: normal, normal, multiply;
+}
+
+.mc-shell.theme-light .hero.hero-day-art::before {
+  background:
+    linear-gradient(90deg, rgba(30, 19, 10, .34), rgba(30, 19, 10, .05) 52%, rgba(30, 19, 10, .28)),
+    linear-gradient(180deg, rgba(30, 19, 10, .04), rgba(30, 19, 10, .34));
+}
+
+.mc-shell.theme-light .hero.hero-day-art .hero-system-label {
+  color: #5a391b;
+  text-shadow: 0 1px 0 rgba(255, 250, 240, .7), 0 2px 10px rgba(30, 19, 10, .34);
+}
+
+.mc-shell.theme-light .hero.hero-day-art .hero-wordmark-image {
+  filter: drop-shadow(0 4px 10px rgba(30, 19, 10, .78));
+}
+
 @media screen{.season-tabs button,.season-category-tabs button{min-height:44px}}

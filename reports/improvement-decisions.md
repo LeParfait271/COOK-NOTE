@@ -68,6 +68,18 @@ Le 10/08/2026, « vasi » valide les six améliorations proposées ensuite :
 
 Statut : `accepté`, à valider avant le commit local.
 
+## Ajustement visuel des fiches accepté le 10/08/2026
+
+La demande de poursuivre les améliorations visuelles en supprimant le défilement
+interne des fiches est appliquée : les panneaux Ingrédients, Étapes et Avant de
+commencer restent ouverts dans le flux de la fiche, sans hauteur plafonnée,
+position sticky ni barre de défilement propre au panneau.
+
+Le défilement global du navigateur reste nécessaire pour les recettes longues,
+afin de conserver toutes les informations accessibles sur mobile et desktop.
+Les filtres Techniques reviennent à la ligne pour éviter tout rail horizontal
+compressé ou chevauchement de libellés.
+
 Le smoke test Android contrôle le catalogue source et les règles de génération.
 La reconstruction et la publication d’un nouvel APK restent hors de ce lot tant
 qu’une demande explicite de rebuild Android n’est pas formulée. Les exclusions

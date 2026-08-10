@@ -326,7 +326,7 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
-  test('long ingredient panel keeps its final row inside the frame', async ({ page }) => {
+  test('long ingredient panel stays fully open inside the fiche', async ({ page }) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/poulet_basquaise_variantes?lang=fr');
     await waitForCookNote(page);
@@ -338,13 +338,12 @@ test.describe('Cook Note visual smoke', () => {
     const panel = page.locator('.ingredients-panel');
     await expect(panel).toContainText('1 bouquet garni');
     const layout = await panel.evaluate(element => {
-      element.scrollTop = element.scrollHeight;
       const lastItem = element.querySelector('.ingredient-group li:last-child');
       const panelRect = element.getBoundingClientRect();
       const lastItemRect = lastItem.getBoundingClientRect();
       return {
         overflowY: getComputedStyle(element).overflowY,
-        viewportWidth: window.innerWidth,
+        scrollDelta: element.scrollHeight - element.clientHeight,
         bottomSpace: panelRect.bottom - lastItemRect.bottom,
         ingredientPosition: getComputedStyle(element).position,
         stepsPosition: getComputedStyle(document.querySelector('.steps-panel')).position,
@@ -354,15 +353,14 @@ test.describe('Cook Note visual smoke', () => {
       };
     });
 
-    expect(layout.overflowY).toBe('auto');
+    expect(layout.overflowY).toBe('visible');
+    expect(layout.scrollDelta).toBe(0);
     expect(layout.bottomSpace).toBeGreaterThanOrEqual(12);
-    if (layout.viewportWidth > 1060) {
-      expect(layout.ingredientPosition).toBe('sticky');
-      expect(layout.stepsPosition).toBe('relative');
-      expect(layout.notesPosition).toBe('relative');
-      expect(layout.stepsOverflowY).toBe('hidden');
-      expect(layout.notesOverflowY).toBe('hidden');
-    }
+    expect(layout.ingredientPosition).toBe('static');
+    expect(layout.stepsPosition).toBe('static');
+    expect(layout.notesPosition).toBe('static');
+    expect(layout.stepsOverflowY).toBe('visible');
+    expect(layout.notesOverflowY).toBe('visible');
     await expectNoHorizontalOverflow(page);
   });
 
