@@ -110,7 +110,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.64';
+const SITE_VERSION = 'v4.65';
 const SITE_UPDATED_AT = '10/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.58';
@@ -4795,6 +4795,26 @@ function useI18nLocale() {
   return locale;
 }
 
+function useMediaQuery(query) {
+  const getMatch = () => Boolean(window.matchMedia?.(query).matches);
+  const [matches, setMatches] = useState(getMatch);
+
+  useEffect(() => {
+    const media = window.matchMedia?.(query);
+    if (!media) return undefined;
+    const update = () => setMatches(media.matches);
+    update();
+    if (typeof media.addEventListener === 'function') {
+      media.addEventListener('change', update);
+      return () => media.removeEventListener('change', update);
+    }
+    media.addListener?.(update);
+    return () => media.removeListener?.(update);
+  }, [query]);
+
+  return matches;
+}
+
 function LanguageSwitcher() {
   const locale = CookNoteI18n.locale();
   const supportedLocales = CookNoteI18n.supportedLocales;
@@ -4937,6 +4957,7 @@ function recipeViewTransitionName(recipeId) {
 
 function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false }) {
   const master = isMasterRecipe(recipe);
+  const showMasterCardTitle = master && CookNoteI18n.locale() === 'en';
   const variantLabel = getRecipeVariantLabel(recipe, recipesById);
   const color = getCategoryColor(recipe);
   const style = { '--card-accent': color };
@@ -4992,7 +5013,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     ),
     h('div', { className: 'card-body' },
       master && romanIndex && h('span', { className: 'card-category-index', 'aria-hidden': true }, romanIndex),
-      h('h3', { className: master ? 'card-title sr-only' : 'card-title' }, recipe.title),
+      h('h3', { className: master && !showMasterCardTitle ? 'card-title sr-only' : 'card-title' }, recipe.title),
       variantLabel && h('p', { className: 'card-meta', 'aria-label': variantLabel },
         h('span', { className: 'card-variant-count' }, variantLabel)
       )
@@ -5069,7 +5090,7 @@ function useCenteredScrollFeature(containerRef, dependencyKey) {
   }, [containerRef, dependencyKey]);
 }
 
-function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false }) {
+function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, emptyState = null }) {
   const masterGrid = recipes.length > 0 && recipes.every(isMasterRecipe);
   const recipeKey = recipes.map(recipe => recipe.id).join('|');
   const chunkedGrid = !masterGrid && recipes.length > GRID_INITIAL_RENDER_COUNT;
@@ -5096,10 +5117,12 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   useCenteredScrollFeature(gridRef, `${recipeKey}:${visibleCount}`);
 
   if (!recipes.length) {
+    const emptyTitle = emptyState?.title || 'Aucune recette ne correspond';
+    const emptyDescription = emptyState?.description || 'Les filtres sont trop serrés pour le contenu actuel.';
     return h('div', { className: 'empty-state', style: { justifyItems: 'center', textAlign: 'center' } },
       h('span', { className: 'empty-state-mark', 'aria-hidden': true, style: { display: 'grid', placeItems: 'center', width: 42, height: 42, border: '1px solid color-mix(in srgb,var(--accent) 52%,var(--line))', borderRadius: '999px', background: 'color-mix(in srgb,var(--accent) 12%,var(--surface-soft))' } }, h(Icon, { name: 'book' })),
-      h('h2', null, 'Aucune recette ne correspond'),
-      h('p', null, 'Les filtres sont trop serrés pour le contenu actuel.')
+      h('h2', null, emptyTitle),
+      h('p', null, emptyDescription)
     );
   }
   const gridClassName = ['recipe-grid', masterGrid ? 'master-recipe-grid' : '']
@@ -5146,6 +5169,12 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
     ? sections[0]
     : null;
   const favoriteRecipes = favorites.map(id => recipesById[id]).filter(Boolean);
+  const favoriteEmptyState = onlyFavorites && favoriteRecipes.length === 0
+    ? {
+      title: 'Aucune recette favorite pour le moment',
+      description: 'Ouvre une fiche puis utilise « Favori » pour la retrouver ici.'
+    }
+    : null;
   const favoriteCollectionCounts = onlyFavorites ? FAVORITE_COLLECTIONS.reduce((counts, collection) => {
     counts[collection.id] = collection.id
       ? favoriteRecipes.filter(recipe => collection.match?.(recipe)).length
@@ -5217,7 +5246,7 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
           h('div', null, h('p', { className: 'eyebrow' }, section.kicker), h('h3', null, section.title)),
           h('span', null, `${section.recipes.length} fiche${section.recipes.length > 1 ? 's' : ''}`)
         ),
-        h(RecipeGrid, { recipes: section.recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter })
+        h(RecipeGrid, { recipes: section.recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, emptyState: favoriteEmptyState })
       );
     })
   );
@@ -5768,6 +5797,7 @@ function CommandPalette({
 }) {
   const [term, setTerm] = useState('');
   const scoringTerm = useDebouncedValue(term, 80);
+  const compactCommandInput = useMediaQuery('(max-width: 420px)');
 
   useEffect(() => {
     if (!open) return;
@@ -5876,7 +5906,7 @@ function CommandPalette({
               else runFirstCommand();
             }
           },
-          placeholder: 'Commande, recette, ingr\u00e9dient...'
+          placeholder: compactCommandInput ? 'Rechercher…' : 'Commande, recette, ingr\u00e9dient...'
         }),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
@@ -6168,7 +6198,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
   };
   return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
     h('section', { className: 'modal-panel menu-planner-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'menu-planner-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
-      h('div', { className: 'modal-head' },
+      h('div', { className: 'modal-head menu-planner-modal-head' },
         h('div', null,
           h('p', { className: 'eyebrow' }, 'Mode menu'),
           h('h2', { id: 'menu-planner-title' }, 'Composer un repas')
@@ -6342,7 +6372,7 @@ function PreferencesPanel({ open, onClose, preferences, updatePreferences, favor
         )
       ),
       h('div', { className: 'preference-group preference-data-group' },
-        h('div', null,
+        h('div', { className: 'preference-data-copy' },
           h('strong', null, 'Sauvegarde locale'),
           h('small', null, 'Exporte ou restaure tes favoris, notes et listes de courses sur cet appareil.')
         ),

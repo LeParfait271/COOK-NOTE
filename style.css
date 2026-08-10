@@ -9126,3 +9126,133 @@ body:has(.modal-backdrop) #cook-note-update-action {
     margin-bottom: 2px;
   }
 }
+
+/* Correctifs issus de l'audit visuel : conserver les libellés et actions lisibles aux formats compacts. */
+.preference-data-copy {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+html[data-locale='en'] .recipe-card.master-card .card-title:not(.sr-only) {
+  position: absolute;
+  top: 8px;
+  right: 6%;
+  left: 6%;
+  z-index: 4;
+  display: flex;
+  min-height: 48px;
+  max-width: none;
+  margin: 0;
+  padding: 6px 12px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--accent) 44%, rgba(255, 248, 234, .58));
+  border-radius: 8px;
+  background: linear-gradient(135deg, #18110c, #372616);
+  color: #fff8ea;
+  font-size: clamp(17px, 1.55vw, 24px);
+  line-height: 1.08;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .78);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .38);
+}
+
+.menu-planner-modal {
+  scroll-padding-top: 84px;
+}
+
+.menu-planner-modal-head {
+  position: sticky;
+  top: -20px;
+  z-index: 5;
+  margin: -20px -20px 16px;
+  padding: 20px 20px 14px;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 96%, transparent), color-mix(in srgb, var(--surface-strong) 88%, transparent));
+  box-shadow: 0 12px 24px rgba(0, 0, 0, .22);
+}
+
+.menu-planner-modal-head > :first-child {
+  min-width: 0;
+}
+
+@media (max-width: 360px) {
+  .shopping-store-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .shopping-store-metrics span:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 340px) {
+  .menu-planner-modal-head {
+    display: grid;
+    gap: 10px;
+  }
+
+  .menu-planner-head-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .menu-planner-head-actions .btn {
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: center;
+  }
+
+  .menu-planner-head-actions .icon-btn {
+    flex: 0 0 38px;
+  }
+}
+
+@media (max-width: 700px) and (max-height: 620px) {
+  .home-view > .hero {
+    min-height: 136px !important;
+  }
+
+  .home-view > .hero .hero-inner {
+    padding: 12px 0 16px !important;
+  }
+
+  .home-view > .hero .hero-system-label,
+  .home-view .season-dashboard-copy .eyebrow {
+    display: none;
+  }
+
+  .home-view .content-wrap {
+    padding-top: 10px;
+  }
+
+  .home-command-center {
+    gap: 8px;
+    margin-bottom: 8px;
+    padding-bottom: 10px;
+  }
+
+  .home-search-launcher {
+    min-height: 50px;
+  }
+
+  .home-search-copy small {
+    display: none;
+  }
+
+  .home-view .season-dashboard {
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+  }
+
+  .home-view .season-dashboard-copy h2 {
+    font-size: 24px;
+  }
+
+  .home-view .season-tabs button {
+    min-height: 32px;
+  }
+}

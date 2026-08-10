@@ -191,6 +191,9 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.hero-system-label')).toHaveText('Culinary archives · The twin citadels');
     await expect(page.locator('.home-search-copy strong')).toHaveText('Search for a recipe or ingredient');
     await expect(page.locator('.home-search-copy small')).toHaveText('Title, ingredient, season, craving or technique');
+    const englishCategoryTitle = page.getByRole('heading', { level: 3, name: 'Appetizers', exact: true });
+    await expect(englishCategoryTitle).toBeVisible();
+    await expect(englishCategoryTitle).not.toHaveClass(/sr-only/);
     await page.locator('.language-toggle:visible').first().click();
     await expectSelectedLanguage(page, 'fr', 'FR');
     await expect(page.locator('.home-view')).toBeVisible();
@@ -271,6 +274,9 @@ test.describe('Cook Note visual smoke', () => {
     const dockText = await detailActions.innerText();
     expect(dockText).not.toMatch(/(^|\s)Favori($|\s)/);
     expect(dockText).not.toMatch(/(^|\s)prêt($|\s)/);
+    await page.goto('/recette/acras_epinards?lang=en');
+    await waitForCookNote(page);
+    await expect(page.getByRole('heading', { level: 1, name: 'Spinach fritters', exact: true })).toBeVisible();
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
   });
@@ -427,6 +433,97 @@ test.describe('Cook Note visual smoke', () => {
     await expect(utilities.getByRole('button', { name: 'Partager' })).toBeVisible();
     await expect(utilities.getByRole('button', { name: 'Imprimer' })).toBeVisible();
     await expect(page.locator('.recipe-detail-grid')).toBeVisible();
+    await expectNoMojibake(page);
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test('empty favorites explains how to save a recipe', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/?lang=fr&view=__favs__');
+    await waitForCookNote(page);
+
+    const emptyState = page.locator('.season-sections .empty-state');
+    await expect(emptyState).toBeVisible();
+    await expect(emptyState.getByRole('heading', { level: 2 })).toHaveText('Aucune recette favorite pour le moment');
+    await expect(emptyState).toContainText('Ouvre une fiche puis utilise « Favori » pour la retrouver ici.');
+    await expectNoMojibake(page);
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test('compact visual controls remain readable at 320 px', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 568 });
+    await forceTheme(page, 'dark');
+    await page.goto('/?lang=fr');
+    await waitForCookNote(page);
+
+    const compactHome = await page.evaluate(() => {
+      const card = document.querySelector('.recipe-card.master-card')?.getBoundingClientRect();
+      const nav = document.querySelector('.mobile-bottom-nav')?.getBoundingClientRect();
+      return {
+        cardTop: card?.top || 0,
+        navTop: nav?.top || 0,
+        overflow: Math.max(0, document.documentElement.scrollWidth - document.documentElement.clientWidth)
+      };
+    });
+    expect(compactHome.cardTop).toBeLessThan(compactHome.navTop - 8);
+    expect(compactHome.overflow).toBeLessThanOrEqual(2);
+
+    await page.getByRole('button', { name: 'Préférences d’affichage', exact: true }).click();
+    const preferenceCopy = page.locator('.preference-data-copy');
+    await expect(preferenceCopy).toBeVisible();
+    const preferenceLayout = await preferenceCopy.evaluate(node => {
+      const title = node.querySelector('strong')?.getBoundingClientRect();
+      const description = node.querySelector('small')?.getBoundingClientRect();
+      return {
+        display: getComputedStyle(node).display,
+        titleBottom: title?.bottom || 0,
+        descriptionTop: description?.top || 0,
+        overflow: node.scrollWidth - node.clientWidth
+      };
+    });
+    expect(preferenceLayout.display).toBe('grid');
+    expect(preferenceLayout.descriptionTop - preferenceLayout.titleBottom).toBeGreaterThanOrEqual(3.5);
+    expect(preferenceLayout.overflow).toBeLessThanOrEqual(1);
+    await page.locator('.preferences-modal').getByRole('button', { name: 'Fermer', exact: true }).click();
+
+    await page.getByRole('button', { name: 'Recherche', exact: true }).click();
+    const commandInput = page.locator('#cook-note-command-input');
+    await expect(commandInput).toHaveAttribute('placeholder', 'Rechercher…');
+    await page.locator('.command-palette').getByRole('button', { name: 'Fermer', exact: true }).click();
+
+    await page.getByRole('button', { name: 'Mode menu', exact: true }).click();
+    const menuModal = page.locator('.menu-planner-modal');
+    await expect(menuModal).toBeVisible();
+    const closeButton = menuModal.getByRole('button', { name: 'Fermer', exact: true });
+    const closeInViewport = await closeButton.evaluate(button => {
+      const rect = button.getBoundingClientRect();
+      return rect.left >= 0 && rect.right <= window.innerWidth && rect.top >= 0 && rect.bottom <= window.innerHeight;
+    });
+    expect(closeInViewport).toBe(true);
+    await menuModal.evaluate(node => { node.scrollTop = node.scrollHeight; });
+    await page.waitForTimeout(120);
+    const stickyHeader = await menuModal.locator('.menu-planner-modal-head').evaluate(header => {
+      const panel = header.closest('.menu-planner-modal')?.getBoundingClientRect();
+      const close = header.querySelector('[aria-label="Fermer"]')?.getBoundingClientRect();
+      return {
+        panelTop: panel?.top || 0,
+        panelBottom: panel?.bottom || 0,
+        closeTop: close?.top || 0,
+        closeBottom: close?.bottom || 0
+      };
+    });
+    expect(stickyHeader.closeTop).toBeGreaterThanOrEqual(stickyHeader.panelTop - 1);
+    expect(stickyHeader.closeBottom).toBeLessThanOrEqual(stickyHeader.panelBottom + 1);
+    await menuModal.getByRole('button', { name: /Ajouter le menu aux courses pour \d+ personnes/ }).click();
+    await closeButton.click();
+
+    const shoppingModal = page.locator('.shopping-modal');
+    await expect(shoppingModal).toBeVisible();
+    const metricWidths = await shoppingModal.locator('.shopping-store-metrics > span').evaluateAll(metrics =>
+      metrics.map(metric => metric.getBoundingClientRect().width)
+    );
+    expect(metricWidths).toHaveLength(3);
+    metricWidths.forEach(width => expect(width).toBeGreaterThanOrEqual(88));
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
   });

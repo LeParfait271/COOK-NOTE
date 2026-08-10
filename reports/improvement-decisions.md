@@ -143,3 +143,37 @@ Statut : `accepté`, à valider avant le commit local.
 La section « Correction intégrale de l’audit visuel du 10/08/2026 » est la décision
 la plus récente pour le site web. Elle annule explicitement la réouverture du mode
 cuisine décrite juste au-dessus, sans rouvrir le périmètre Android.
+
+## Complément réalisé de l’audit visuel du 10/08/2026
+
+La demande explicite « vasi pour tout » autorise aussi la correction des défauts
+restants relevés pendant la contre-vérification visuelle, sans rouvrir les éléments
+déjà déclarés conformes (footer Courses, trajet magasin, lien profond Techniques,
+doublon de titre français des cartes de catégories et action de mise à jour).
+
+Les huit corrections réalisées sont :
+
+1. séparer le titre et le texte de la sauvegarde locale dans les préférences ;
+2. expliquer clairement l’état sans favori au lieu d’afficher un faux message de
+   filtres trop restrictifs ;
+3. afficher sur les cartes de catégories anglaises un cartouche anglais qui couvre
+   le titre français incrusté dans l’illustration ;
+4. traduire intégralement la fiche `Acras aux épinards` en `Spinach fritters` ;
+5. compacter seulement les écrans mobiles courts afin que la première catégorie
+   reste visible avant la navigation basse à 320 × 568 px ;
+6. raccourcir le texte indicatif de la palette de recherche aux petits écrans ;
+7. garder l’en-tête et la fermeture du mode menu accessibles au défilement, avec
+   une disposition empilée à 320 px ;
+8. réorganiser les trois métriques magasin en deux cartes puis un trajet pleine
+   largeur à 320 px, sans écrasement des libellés.
+
+Les vérifications ajoutées couvrent ces états dans le smoke visuel (desktop, mobile
+393 px et format explicite 320 × 568 px), ainsi que la localisation anglaise et
+l’état vide des favoris. Résultat : `52/52` tests navigateur passent ; le contrôle
+technique complet, le build et la validation de `dist/` passent également.
+
+Le lot reste exclusivement web/PWA, livré en `v4.65`. L’APK Android Legacy demeure
+en v4.58 : aucune reconstruction, mise à jour ni publication Android n’a été
+effectuée.
+
+Statut : `réalisé et validé`.
