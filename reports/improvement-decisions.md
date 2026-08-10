@@ -68,6 +68,33 @@ Le 10/08/2026, « vasi » valide les six améliorations proposées ensuite :
 
 Statut : `accepté`, à valider avant le commit local.
 
+## Correction intégrale de l’audit visuel du 10/08/2026
+
+La demande explicite « vasi pour tout », faite après l’audit visuel complet, valide
+la correction de chaque défaut constaté dans ce même audit. Elle remplace, pour le
+périmètre web actuel, la réouverture antérieure du mode cuisine : cette fonctionnalité
+est de nouveau retirée du produit, de ses assets, du cache et des parcours de test.
+
+Les décisions appliquées sont :
+
+1. ramener la palette de recherche à un champ, quatre accès rapides au maximum et
+   des résultats uniquement après saisie ;
+2. donner aux collections leur illustration de catégorie, sans logo Cook Note géant
+   ni répétition du titre et du compteur juste sous le hero ;
+3. supprimer l’espace mort sous la barre fixe, compacter la fiche et regrouper les
+   actions secondaires dans « Plus » ;
+4. recentrer durablement les liens profonds des techniques et replier leurs filtres
+   sur mobile jusqu’à la demande de l’utilisateur ;
+5. rendre les premières catégories visibles avant la navigation basse sur mobile,
+   conserver des cibles tactiles de 44 px et éviter la coupure du trajet Courses ;
+6. supprimer le doublon visuel des titres sur les cartes de catégories lorsque le
+   visuel porte déjà le nom de la catégorie.
+
+Le lot reste strictement web/PWA. Il n’autorise ni reconstruction, ni mise à jour,
+ni publication de l’APK Android Legacy.
+
+Statut : `accepté`, validation visuelle et technique requise avant le commit local.
+
 ## Ajustement visuel des fiches accepté le 10/08/2026
 
 La demande de poursuivre les améliorations visuelles en supprimant le défilement
@@ -110,3 +137,9 @@ reconstruction ou mise à jour de l’APK Android Legacy n’est autorisée par 
 décision.
 
 Statut : `accepté`, à valider avant le commit local.
+
+## Priorité de la correction visuelle
+
+La section « Correction intégrale de l’audit visuel du 10/08/2026 » est la décision
+la plus récente pour le site web. Elle annule explicitement la réouverture du mode
+cuisine décrite juste au-dessus, sans rouvrir le périmètre Android.

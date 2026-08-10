@@ -110,7 +110,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.63';
+const SITE_VERSION = 'v4.64';
 const SITE_UPDATED_AT = '10/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.58';
@@ -127,7 +127,6 @@ const APP_INSTALL_OPTIONS = Object.freeze([
 const SITE_CACHE_VERSION = `${SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`)}-parent-title`;
 const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
 const DEFERRED_CATALOG_CHUNK_SRCS = [2, 3, 4].map(index => `/assets/catalog-${index}.js?v=${SITE_CACHE_VERSION}`);
-const COOKING_MODE_SCRIPT_SRC = `/app-cooking.js?v=${SITE_CACHE_VERSION}`;
 const QR_CODE_SCRIPT_SRC = '/assets/vendor/qrcode.min.js';
 const CONFETTI_SCRIPT_SRC = '/assets/vendor/confetti.browser.min.js';
 const GRID_INITIAL_RENDER_COUNT = 36;
@@ -4769,8 +4768,6 @@ function Icon({ name, filled = false }) {
   );
 }
 
-window.CookNoteCookingRuntime = Object.freeze({ h, t, Button, Icon, stripHtml, scaleIngredient, trapModalFocus });
-
 function ingredientAvailabilityGroup(meta) {
   const missingCount = meta?.missing?.length || 0;
   if (missingCount === 0) return { key: 'all', label: 'Tu as tout', order: 0 };
@@ -4899,6 +4896,7 @@ function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences
 
 function Hero() {
   const dayArt = isDayArtTheme();
+  const heroLogoImage = dayArt ? artAsset('logo') : '/assets/brand/cook-note-white.png';
   return h('section', { className: dayArt ? 'hero hero-day-art' : 'hero' },
     h('span', { className: 'hero-atmosphere hero-atmosphere-glow', 'aria-hidden': true }),
     h('span', { className: 'hero-atmosphere hero-atmosphere-mist', 'aria-hidden': true }),
@@ -4908,7 +4906,7 @@ function Hero() {
     h('div', { className: 'hero-inner' },
       h('p', { className: 'hero-system-label' }, t('home.heroSystemLabel')),
       h('h1', { className: 'hero-wordmark' },
-        h('img', { className: 'hero-wordmark-image', src: '/assets/brand/cook-note-white.png', alt: '', width: 948, height: 302, decoding: 'async' }),
+        h('img', { className: 'hero-wordmark-image', src: heroLogoImage, alt: '', width: 948, height: 302, decoding: 'async' }),
         h('span', { className: 'sr-only' }, 'Cook Note')
       ),
       h('span', { className: 'hero-axis-mark', 'aria-hidden': true })
@@ -4994,7 +4992,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     ),
     h('div', { className: 'card-body' },
       master && romanIndex && h('span', { className: 'card-category-index', 'aria-hidden': true }, romanIndex),
-      h('h3', null, recipe.title),
+      h('h3', { className: master ? 'card-title sr-only' : 'card-title' }, recipe.title),
       variantLabel && h('p', { className: 'card-meta', 'aria-label': variantLabel },
         h('span', { className: 'card-variant-count' }, variantLabel)
       )
@@ -5300,6 +5298,7 @@ function CatalogLoadingView() {
 function TechniquesView({ targetTechniqueId, goHome }) {
   const [highlightedTechniqueId, setHighlightedTechniqueId] = useState('');
   const [techniqueFilter, setTechniqueFilter] = useState('');
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const techniqueLabels = useMemo(() => uniq(SORTED_TECHNIQUE_GUIDES.map(guide => guide.label)), []);
   const visibleTechniques = useMemo(() => techniqueFilter
     ? SORTED_TECHNIQUE_GUIDES.filter(guide => guide.label === techniqueFilter)
@@ -5314,8 +5313,20 @@ function TechniquesView({ targetTechniqueId, goHome }) {
     return Array.from(groups, ([label, guides]) => ({ label, guides }));
   }, [visibleTechniques]);
   useEffect(() => {
-    let frameId = 0;
-    let settleTimer = 0;
+    const frameIds = new Set();
+    const settleTimers = [];
+
+    const scheduleFrame = callback => {
+      const frameId = window.requestAnimationFrame(() => {
+        frameIds.delete(frameId);
+        callback();
+      });
+      frameIds.add(frameId);
+    };
+
+    const clearSettles = () => {
+      settleTimers.splice(0).forEach(timer => window.clearTimeout(timer));
+    };
 
     function hashId() {
       try {
@@ -5323,6 +5334,13 @@ function TechniquesView({ targetTechniqueId, goHome }) {
       } catch {
         return window.location.hash.replace(/^#/, '');
       }
+    }
+
+    function centerTechnique(target, id, behavior) {
+      if (!target?.isConnected) return;
+      target.focus({ preventScroll: true });
+      setHighlightedTechniqueId(id);
+      scrollElementToViewportCenter(target, behavior);
     }
 
     function scrollToTechnique(attempt = 0, forcedId = null) {
@@ -5333,29 +5351,29 @@ function TechniquesView({ targetTechniqueId, goHome }) {
       }
       const target = document.getElementById(`technique-${id}`);
       if (!target) {
-        if (attempt < 30) frameId = requestAnimationFrame(() => scrollToTechnique(attempt + 1, forcedId));
+        if (attempt < 36) scheduleFrame(() => scrollToTechnique(attempt + 1, forcedId));
         return;
       }
-      window.clearTimeout(settleTimer);
-      frameId = requestAnimationFrame(() => {
-        scrollElementToViewportCenter(target);
-        settleTimer = window.setTimeout(() => scrollElementToViewportCenter(target, 'auto'), 650);
+      clearSettles();
+      scheduleFrame(() => centerTechnique(target, id, 'smooth'));
+      [180, 520, 1100, 1800].forEach(delay => {
+        settleTimers.push(window.setTimeout(() => {
+          scheduleFrame(() => centerTechnique(target, id, 'auto'));
+        }, delay));
       });
-      target.focus({ preventScroll: true });
-      setHighlightedTechniqueId(id);
     }
 
     const handleHashChange = () => scrollToTechnique(0, hashId());
     scrollToTechnique();
     window.addEventListener('hashchange', handleHashChange);
     return () => {
-      cancelAnimationFrame(frameId);
-      window.clearTimeout(settleTimer);
+      frameIds.forEach(frameId => window.cancelAnimationFrame(frameId));
+      clearSettles();
       window.removeEventListener('hashchange', handleHashChange);
     };
-  }, [targetTechniqueId]);
-  return h('main', { className: 'techniques-view' },
-    h(Hero),
+  }, [targetTechniqueId, visibleTechniques.length]);
+  const deepLinkedTechnique = Boolean(targetTechniqueId || highlightedTechniqueId);
+  return h('main', { className: deepLinkedTechnique ? 'techniques-view techniques-view--deep-link' : 'techniques-view' },
     h('div', { className: 'content-wrap techniques-wrap' },
       h('div', { className: 'section-title techniques-title' },
         h('div', null,
@@ -5365,7 +5383,14 @@ function TechniquesView({ targetTechniqueId, goHome }) {
         ),
         h(Button, { variant: 'subtle', onClick: goHome }, 'Retour aux recettes')
       ),
-      h('div', { className: 'technique-filter-tabs', 'aria-label': 'Filtrer les techniques' },
+      h('button', {
+        type: 'button',
+        className: filtersOpen ? 'technique-filter-toggle active' : 'technique-filter-toggle',
+        'aria-expanded': filtersOpen,
+        'aria-controls': 'technique-filter-tabs',
+        onClick: () => setFiltersOpen(open => !open)
+      }, techniqueFilter ? `Filtrer : ${techniqueFilter}` : 'Filtrer les gestes'),
+      h('div', { id: 'technique-filter-tabs', className: filtersOpen ? 'technique-filter-tabs is-open' : 'technique-filter-tabs', 'aria-label': 'Filtrer les techniques' },
         ['Toutes', ...techniqueLabels].map(label => {
           const value = label === 'Toutes' ? '' : label;
           const count = value ? SORTED_TECHNIQUE_GUIDES.filter(guide => guide.label === value).length : SORTED_TECHNIQUE_GUIDES.length;
@@ -5374,7 +5399,10 @@ function TechniquesView({ targetTechniqueId, goHome }) {
             type: 'button',
             className: techniqueFilter === value ? 'active' : '',
             'aria-pressed': techniqueFilter === value,
-            onClick: () => setTechniqueFilter(value)
+            onClick: () => {
+              setTechniqueFilter(value);
+              setFiltersOpen(false);
+            }
           }, h('span', null, label), h('small', null, count));
         })
       ),
@@ -5728,18 +5756,14 @@ function CommandPalette({
   commandRef,
   recipes,
   recipesById,
-  recentRecipes = [],
   query,
   setQuery,
   openFullSearch,
   openRecipe,
-  goHome,
   showFavorites,
   openMenuPlanner,
   openTechniques,
   openShoppingBasket,
-  setSeasonFilter,
-  allSeasons = [],
   shoppingCount = 0
 }) {
   const [term, setTerm] = useState('');
@@ -5768,13 +5792,6 @@ function CommandPalette({
   };
   const baseActions = [
     {
-      id: 'search',
-      icon: 'search',
-      label: 'Recherche avanc\u00e9e',
-      detail: 'Filtres, ingr\u00e9dients, difficult\u00e9',
-      run: () => openFullSearch()
-    },
-    {
       id: 'menu',
       icon: 'spark',
       label: 'Composer un menu',
@@ -5801,29 +5818,9 @@ function CommandPalette({
       label: 'Courses',
       detail: `${shoppingCount} fiche${shoppingCount > 1 ? 's' : ''}`,
       run: openShoppingBasket
-    },
-    {
-      id: 'home',
-      icon: 'home',
-      label: 'Accueil',
-      detail: 'Catalogue',
-      run: goHome
-    },
-    ...(normalizedTerm ? allSeasons.slice(0, 4) : []).map(seasonName => ({
-      id: `season-${seasonName}`,
-      icon: 'spark',
-      label: seasonName,
-      detail: 'Filtre saison',
-      run: () => {
-        goHome();
-        setSeasonFilter(seasonName);
-      }
-    }))
+    }
   ];
-  const matchedActions = baseActions.filter(action => {
-    if (!normalizedTerm) return true;
-    return normalizeText(`${action.label} ${action.detail}`).includes(normalizedTerm);
-  }).slice(0, 6);
+  const matchedActions = normalizedTerm ? [] : baseActions;
   const commandRecipes = normalizedTerm
     ? recipes
       .map(recipe => {
@@ -5840,8 +5837,8 @@ function CommandPalette({
       .filter(item => item.score > 0)
       .sort((a, b) => b.score - a.score || a.recipe.title.localeCompare(b.recipe.title, 'fr'))
       .slice(0, 7)
-    : recentRecipes.slice(0, 5).map(recipe => ({ recipe, score: 0, reason: 'Derni\u00e8re fiche' }));
-  const firstCommand = matchedActions[0] || commandRecipes[0];
+    : [];
+  const firstCommand = commandRecipes[0] || matchedActions[0];
   const runRecipe = recipe => {
     onClose();
     openRecipe(recipe.id);
@@ -5875,7 +5872,7 @@ function CommandPalette({
             if (event.key === 'Escape') onClose();
             if (event.key === 'Enter') {
               event.preventDefault();
-              if (commandPending || (cleanTerm && !matchedActions.length && !commandRecipes.length)) openSearchWithTerm();
+              if (!cleanTerm || commandPending || !commandRecipes.length) openSearchWithTerm();
               else runFirstCommand();
             }
           },
@@ -5883,11 +5880,11 @@ function CommandPalette({
         }),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
+      h('h2', { className: 'command-title' }, cleanTerm ? 'Résultats' : 'Rechercher'),
       h('div', { className: 'command-sections' },
-        h('section', { className: 'command-section' },
+        !cleanTerm && h('section', { className: 'command-section' },
           h('div', { className: 'command-section-head' },
-            h('strong', null, 'Actions'),
-            cleanTerm && h('button', { type: 'button', onClick: openSearchWithTerm }, 'Recherche compl\u00e8te')
+            h('strong', null, 'Accès rapides')
           ),
           h('div', { className: 'command-action-grid' },
             matchedActions.map(action => h('button', {
@@ -5911,9 +5908,10 @@ function CommandPalette({
             )
           )
         ),
-        h('section', { className: 'command-section' },
+        cleanTerm && h('section', { className: 'command-section' },
           h('div', { className: 'command-section-head' },
-            h('strong', null, cleanTerm ? 'Recettes' : 'Derni\u00e8res fiches')
+            h('strong', null, 'Recettes'),
+            h('button', { type: 'button', onClick: openSearchWithTerm }, 'Recherche complète')
           ),
           commandRecipes.length
             ? h('div', { className: 'command-recipe-list' },
@@ -6455,14 +6453,8 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '' }) {
 function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) {
   const sortedVariantRefs = sortVariantRefs(variantRefs, recipesById);
   if (!sortedVariantRefs.length) return null;
-  return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel collection-links-panel' },
-    h('div', { className: 'panel-heading collection-links-heading' },
-      h('div', null,
-        h('p', { className: 'eyebrow' }, 'Collection'),
-        h('h2', null, parent.title)
-      ),
-      h('span', { className: 'progress-label' }, `${sortedVariantRefs.length} recette${sortedVariantRefs.length > 1 ? 's' : ''}`)
-    ),
+  return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel collection-links-panel', 'aria-label': `Recettes de la collection ${parent.title}` },
+    h('p', { className: 'collection-links-context' }, 'Choisir une recette'),
     h('div', { className: 'variant-card-grid' },
       sortedVariantRefs.map(variant => {
         const item = recipesById[variant.id];
@@ -6777,8 +6769,7 @@ function RecipeView({
   redo,
   setTagFilter,
   openTechnique,
-  notify,
-  activeTheme
+  notify
 }) {
   const [factor, setFactor] = useState(1);
   const variantRefs = useMemo(() => (
@@ -6793,16 +6784,11 @@ function RecipeView({
   const techniqueTargets = useMemo(() => buildTechniqueTargets(), []);
   const detailKey = recipe.id;
   const [shareOpen, setShareOpen] = useState(false);
-  const [exportCopied, setExportCopied] = useState(false);
-  const [cookingModeOpen, setCookingModeOpen] = useState(false);
-  const [cookingModeReady, setCookingModeReady] = useState(() => Boolean(window.CookNoteCookingMode));
-  const [cookingStepIndex, setCookingStepIndex] = useState(0);
-  const [cookingFullscreen, setCookingFullscreen] = useState(false);
+  const [utilitiesOpen, setUtilitiesOpen] = useState(false);
   const [mobileDetailTab, setMobileDetailTab] = useState('ingredients');
   const [openIngredientGroups, setOpenIngredientGroups] = useState({});
   const mobileSwipeStartRef = useRef(null);
   const pendingInlineVariantScrollRef = useRef(false);
-  const cookingRestoreFocusRef = useRef(null);
   const completedRef = useRef('');
   const inlineVariantOptions = useMemo(() => getInlineVariantOptions(recipe), [recipe]);
   const needsInlineVariantSelection = inlineVariantOptions.length > 0;
@@ -6873,7 +6859,7 @@ function RecipeView({
     completedRef.current = '';
     setMobileDetailTab('ingredients');
     setOpenIngredientGroups({});
-    setExportCopied(false);
+    setUtilitiesOpen(false);
   }, [recipe.id]);
 
   useEffect(() => {
@@ -6897,91 +6883,8 @@ function RecipeView({
     runConfettiBurst();
   }, [stepScopeKey, doneSteps, stepTotal]);
 
-  useEffect(() => {
-    setCookingModeOpen(false);
-    setCookingStepIndex(0);
-    setCookingFullscreen(false);
-  }, [recipe.id, stepScopeKey]);
-
-  useEffect(() => {
-    if (!cookingModeOpen) return undefined;
-    let wakeLock = null;
-    let disposed = false;
-    const requestWakeLock = async () => {
-      if (disposed || document.visibilityState === 'hidden' || !navigator.wakeLock?.request) return;
-      try {
-        wakeLock = await navigator.wakeLock.request('screen');
-      } catch {
-        wakeLock = null;
-      }
-    };
-    const handleVisibility = () => {
-      if (document.visibilityState === 'visible' && (!wakeLock || wakeLock.released)) requestWakeLock();
-    };
-    requestWakeLock();
-    document.addEventListener('visibilitychange', handleVisibility);
-    return () => {
-      disposed = true;
-      document.removeEventListener('visibilitychange', handleVisibility);
-      const release = wakeLock?.release?.();
-      release?.catch?.(() => {});
-    };
-  }, [cookingModeOpen]);
-
-  useEffect(() => {
-    const handleFullscreenChange = () => setCookingFullscreen(Boolean(document.fullscreenElement));
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
-  }, []);
-
   function toggle(key) {
     setCheckedWithHistory(prev => ({ ...prev, [key]: !prev[key] }));
-  }
-
-  function openCookingMode() {
-    if (!stepTotal) return;
-    cookingRestoreFocusRef.current = document.activeElement;
-    setCookingStepIndex(nextStepIndex >= 0 ? nextStepIndex : Math.max(stepTotal - 1, 0));
-    setMobileDetailTab('steps');
-    const open = () => {
-      setCookingModeReady(true);
-      setCookingModeOpen(true);
-    };
-    if (window.CookNoteCookingMode) open();
-    else loadDeferredScript(COOKING_MODE_SCRIPT_SRC, 'CookNoteCookingMode').then(open).catch(() => notify?.('Mode cuisine indisponible.', 'error'));
-  }
-
-  function closeCookingMode() {
-    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
-    setCookingModeOpen(false);
-    setCookingFullscreen(false);
-    requestAnimationFrame(() => cookingRestoreFocusRef.current?.focus?.());
-  }
-
-  function previousCookingStep() {
-    setCookingStepIndex(index => Math.max(0, index - 1));
-  }
-
-  function nextCookingStep() {
-    const currentKey = `${stepScopeKey}:step:${cookingStepIndex}`;
-    if (!checked[currentKey]) toggle(currentKey);
-    if (cookingStepIndex >= stepTotal - 1) {
-      closeCookingMode();
-      return;
-    }
-    setCookingStepIndex(index => Math.min(stepTotal - 1, index + 1));
-  }
-
-  async function toggleCookingFullscreen() {
-    try {
-      if (document.fullscreenElement) {
-        await document.exitFullscreen?.();
-      } else {
-        await document.querySelector('.cooking-mode-shell')?.requestFullscreen?.();
-      }
-    } catch {
-      /* Fullscreen is an enhancement and can be refused by the browser. */
-    }
   }
 
   function toggleIngredientGroup(groupKey) {
@@ -7026,24 +6929,21 @@ function RecipeView({
 
   function copyCurrentRecipe() {
     return copyText(recipeExportText(selectedRecipe, factor)).then(() => {
-      setExportCopied(true);
       notify?.(`Fiche copi\u00e9e : ${selectedRecipe.title}`);
     });
   }
 
-  const heroUsesHomeImage = showVariants;
-  const artHeroImage = artAsset('hero', activeTheme);
-  const artLogoImage = artAsset('logo', activeTheme);
-  const heroImage = heroUsesHomeImage ? artHeroImage : displayRecipeImage(selectedRecipe || recipe);
+  const isCollectionHero = showVariants;
+  const heroImage = displayRecipeImage(selectedRecipe || recipe);
   const heroImageWidth = heroImage ? Math.max(960, Math.min(imageNaturalWidth(heroImage), 1536)) : 0;
-  const heroTransitionName = !heroUsesHomeImage && selectedRecipe?.id
+  const heroTransitionName = !isCollectionHero && selectedRecipe?.id
     ? recipeViewTransitionName(selectedRecipe.id)
     : '';
   const heroStyle = heroImage
     ? {
       '--recipe-hero-image-max': `${heroImageWidth}px`,
       ...(heroTransitionName ? { viewTransitionName: heroTransitionName } : {}),
-      backgroundImage: heroUsesHomeImage
+      backgroundImage: isCollectionHero
         ? `linear-gradient(110deg, rgba(4,4,5,.82), rgba(4,4,5,.40) 48%, rgba(4,4,5,.70)), url("${heroImage}")`
         : `linear-gradient(90deg, rgba(4,4,5,.72), rgba(4,4,5,.24) 54%, rgba(4,4,5,.52)), url("${heroImage}")`
     }
@@ -7058,11 +6958,10 @@ function RecipeView({
     onTouchEnd: hasResolvedRecipe ? handleMobileTabSwipeEnd : undefined
   },
     h('section', {
-      className: heroImage ? (heroUsesHomeImage ? 'recipe-detail-hero has-photo parent-hero' : 'recipe-detail-hero has-photo') : 'recipe-detail-hero',
+      className: heroImage ? (isCollectionHero ? 'recipe-detail-hero has-photo parent-hero' : 'recipe-detail-hero has-photo') : 'recipe-detail-hero',
       style: heroStyle
     },
       h('div', { className: 'detail-hero-copy' },
-        heroUsesHomeImage && h('img', { className: 'detail-hero-logo', src: artLogoImage, alt: 'Cook Note', decoding: 'async', ...imageSizeAttrs(artLogoImage) }),
         h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome, openRecipe }),
         h('h1', null, displayedRecipeTitle),
         h('div', { className: 'detail-meta' },
@@ -7085,15 +6984,26 @@ function RecipeView({
         ),
         hasResolvedRecipe && h('div', { className: 'detail-actions' },
           h(Button, { variant: 'primary', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(shoppingKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
-          !isMasterRecipe(selectedRecipe) && h(Button, {
-            variant: 'subtle',
-            onClick: copyCurrentRecipe
-          }, exportCopied ? 'Fiche copiée' : 'Copier fiche'),
-          showRecipeUtilities && stepTotal > 0 && h(Button, { variant: 'ghost', className: 'detail-action-button cooking-mode-trigger', onClick: openCookingMode, title: t('cooking.mode'), ariaLabel: t('cooking.mode') }, t('cooking.mode')),
-          showRecipeUtilities && h(Button, { variant: 'ghost', className: 'detail-action-button', onClick: () => setShareOpen(true), title: 'Partager', ariaLabel: 'Partager' }, h(Icon, { name: 'share' }), h('span', null, 'Partager')),
-          selectedRecipe.video && h('a', { className: 'btn btn-ghost', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, 'Voir la vidéo'),
-          showRecipeUtilities && h(Button, { variant: 'ghost', className: 'detail-action-button', onClick: () => window.print(), title: 'Imprimer', ariaLabel: 'Imprimer' }, h(Icon, { name: 'print' }), h('span', null, 'Imprimer')),
-          canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'detail-action-button favorite-action active' : 'detail-action-button favorite-action', onClick: () => toggleFavorite(detailKey, selectedRecipe.title), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }), h('span', null, 'Favori'))
+          canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'detail-action-button favorite-action active' : 'detail-action-button favorite-action', onClick: () => toggleFavorite(detailKey, selectedRecipe.title), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }), h('span', null, 'Favori')),
+          showRecipeUtilities && h('details', {
+            className: 'detail-utility-menu',
+            open: utilitiesOpen,
+            onToggle: event => setUtilitiesOpen(event.currentTarget.open)
+          },
+            h('summary', { className: 'btn btn-ghost detail-action-button', 'aria-label': 'Plus d’actions' }, h(Icon, { name: 'settings' }), h('span', null, 'Plus')),
+            h('div', { className: 'detail-utility-popover' },
+              h(Button, { variant: 'ghost', className: 'detail-utility-item', onClick: () => copyCurrentRecipe().finally(() => setUtilitiesOpen(false)) }, h(Icon, { name: 'copy' }), h('span', null, 'Copier fiche')),
+              h(Button, { variant: 'ghost', className: 'detail-utility-item', onClick: () => {
+                setUtilitiesOpen(false);
+                setShareOpen(true);
+              } }, h(Icon, { name: 'share' }), h('span', null, 'Partager')),
+              selectedRecipe.video && h('a', { className: 'btn btn-ghost detail-utility-item', href: selectedRecipe.video, target: '_blank', rel: 'noreferrer' }, h(Icon, { name: 'book' }), h('span', null, 'Voir la vidéo')),
+              h(Button, { variant: 'ghost', className: 'detail-utility-item', onClick: () => {
+                setUtilitiesOpen(false);
+                window.print();
+              } }, h(Icon, { name: 'print' }), h('span', null, 'Imprimer'))
+            )
+          )
         )
       )
     ),
@@ -7281,20 +7191,6 @@ function RecipeView({
         ? `${window.location.origin}${getInlineVariantUrl(recipe.id, selectedInlineVariantGroup.key)}`
         : '',
       notify
-    }),
-    cookingModeOpen && cookingModeReady && window.CookNoteCookingMode && h(window.CookNoteCookingMode, {
-      recipe: selectedRecipe,
-      steps: displaySteps,
-      stepScopeKey,
-      stepIndex: cookingStepIndex,
-      checked,
-      factor,
-      isFullscreen: cookingFullscreen,
-      onClose: closeCookingMode,
-      onToggleStep: toggle,
-      onPrevious: previousCookingStep,
-      onNext: nextCookingStep,
-      onToggleFullscreen: toggleCookingFullscreen
     })
   );
 }
@@ -7421,7 +7317,6 @@ function App() {
   const activeRecipe = activeId ? recipesById[activeId] : null;
   const activeSeoRecipe = activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => resolveShoppingRecipe(id, recipesById)).filter(Boolean), [shoppingIds, recipesById]);
-  const recentRecipes = useMemo(() => recentRecipeIds.map(id => recipesById[id]).filter(recipe => recipe && !isMasterRecipe(recipe)), [recentRecipeIds, recipesById]);
   const hasRecipeFilters = Boolean((!searchOpen && searchFilterQuery.trim()) || season || seasonCategory || tagFilter || onlyFavorites);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
@@ -7823,7 +7718,6 @@ function App() {
       '/recipe.html',
       `/style.css?v=${SITE_CACHE_VERSION}`,
       `/app.js?v=${SITE_CACHE_VERSION}`,
-      COOKING_MODE_SCRIPT_SRC,
       `/app-techniques.js?v=${SITE_CACHE_VERSION}`,
       `/app-premium.js?v=${SITE_CACHE_VERSION}`,
       `/recipe.js?v=${SITE_CACHE_VERSION}`,
@@ -8281,8 +8175,7 @@ function App() {
           redo,
           setTagFilter: updateTagFilter,
           openTechnique,
-          notify,
-          activeTheme
+          notify
         })
       : activePage === 'techniques'
         ? h(TechniquesView, {
@@ -8385,18 +8278,14 @@ function App() {
       commandRef,
       recipes: searchableRecipes,
       recipesById,
-      recentRecipes,
       query,
       setQuery: updateSearchQuery,
       openFullSearch: openSearch,
       openRecipe,
-      goHome,
       showFavorites,
       openMenuPlanner,
       openTechniques: goTechniques,
       openShoppingBasket,
-      setSeasonFilter: updateSeason,
-      allSeasons,
       shoppingCount: shoppingRecipes.length
     }),
     h(SearchPanel, {

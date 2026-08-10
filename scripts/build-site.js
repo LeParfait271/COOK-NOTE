@@ -16,7 +16,6 @@ const ROOT_FILES = [
   '_headers',
   '_redirects',
   'app.js',
-  'app-cooking.js',
   'app-techniques.js',
   'app-premium.js',
   'app-images.js',
@@ -469,12 +468,7 @@ function renderVariantCards(recipe, recipes) {
   if (!variants.length) return '';
   return [
     '<section class="recipe-summary-panel static-prerender-panel">',
-    '<div class="recipe-summary-head">',
-    '<div>',
-    '<p class="eyebrow">Collection</p>',
-    `<h2>${variants.length} fiche${variants.length > 1 ? 's' : ''} prête${variants.length > 1 ? 's' : ''}</h2>`,
-    '</div>',
-    '</div>',
+    '<p class="collection-links-context">Choisir une recette</p>',
     '<div class="variant-card-grid">',
     variants.map(({ ref, recipe: variant }) => {
       const title = ref.label || variant.title;

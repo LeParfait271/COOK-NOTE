@@ -105,14 +105,25 @@ test.describe('Cook Note visual smoke', () => {
       .toEqual(['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII']);
     await expect(page.locator('.top-menu-btn, .top-techniques-btn, .top-actions .cart-icon-btn, .top-actions [aria-label="Panier courses"]')).toHaveCount(0);
     await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
+    if (testInfo.project.name === 'mobile') {
+      const firstCardAboveNav = await page.evaluate(() => {
+        const card = document.querySelector('.recipe-card.master-card');
+        const nav = document.querySelector('.mobile-bottom-nav');
+        if (!card || !nav) return false;
+        return card.getBoundingClientRect().top < nav.getBoundingClientRect().top - 8;
+      });
+      expect(firstCardAboveNav).toBe(true);
+    }
     await expect(page.locator('.home-view > .hero .hero-logo')).toHaveCount(0);
     await expect(page.locator('.home-view > .hero .hero-wordmark')).toHaveText('Cook Note');
-    const longCategoryTitleFits = await page.locator('.recipe-card[data-recipe-id="accompagnements_maitre"] h3').evaluate(title => (
-      title.scrollWidth <= title.clientWidth + 1
-    ));
-    expect(longCategoryTitleFits).toBe(true);
+    await expect(page.locator('.recipe-card[data-recipe-id="accompagnements_maitre"] h3')).toHaveClass(/sr-only/);
     await page.keyboard.press('Control+K');
     await expect(page.locator('.command-palette')).toBeVisible();
+    expect(await page.locator('.command-row').count()).toBeLessThanOrEqual(4);
+    await expect(page.locator('.command-recipe-row')).toHaveCount(0);
+    await page.locator('#cook-note-command-input').fill('poulet');
+    await expect(page.locator('.command-recipe-row')).not.toHaveCount(0);
+    await expect(page.locator('.command-row')).toHaveCount(0);
     await expectNoMojibake(page);
     await page.keyboard.press('Escape');
     await expect(page.locator('.command-palette')).toBeHidden();
@@ -212,6 +223,11 @@ test.describe('Cook Note visual smoke', () => {
       expect(colors.icon, colors.label).not.toBe('rgb(255, 255, 255)');
       expect(colors.background, colors.label).not.toBe('rgba(0, 0, 0, 0)');
     });
+    await page.keyboard.press('Control+K');
+    await expect(page.locator('.command-palette')).toBeVisible();
+    const commandIconColor = await page.locator('.command-row-icon').first().evaluate(node => getComputedStyle(node).color);
+    expect(commandIconColor).not.toBe('rgb(255, 255, 255)');
+    await page.keyboard.press('Escape');
     const firstDayCardSource = await page.locator('.recipe-card.master-card .card-image').first().getAttribute('src');
     expect(firstDayCardSource).toContain('/assets/theme/day/categories/');
     expect(firstDayCardSource).toContain('_maitre.jpg?v=');
@@ -397,20 +413,19 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
-  test('cooking mode advances through the recipe and restores the fiche', async ({ page }) => {
+  test('recipe keeps secondary utilities grouped without a cooking mode', async ({ page }) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
     await waitForCookNote(page);
 
-    await page.getByRole('button', { name: 'Mode cuisine' }).click();
-    const cookingMode = page.locator('.cooking-mode-shell');
-    await expect(cookingMode).toBeVisible();
-    await expect(cookingMode.getByRole('heading', { name: 'Poulet sauce pimentée' })).toBeVisible();
-    await expect(cookingMode.locator('.cooking-mode-step-text')).not.toHaveText('');
-    await cookingMode.getByRole('button', { name: 'Étape suivante' }).click();
-    await expect(cookingMode.locator('.cooking-mode-step-count')).toContainText('Étape 2 sur');
-    await cookingMode.getByRole('button', { name: 'Fermer le mode cuisine' }).click();
-    await expect(cookingMode).toBeHidden();
+    await expect(page.getByRole('button', { name: 'Mode cuisine' })).toHaveCount(0);
+    await expect(page.locator('.cooking-mode-shell')).toHaveCount(0);
+    const utilities = page.locator('.detail-utility-menu');
+    await expect(utilities).toBeVisible();
+    await utilities.locator('summary').click();
+    await expect(utilities.getByRole('button', { name: 'Copier fiche' })).toBeVisible();
+    await expect(utilities.getByRole('button', { name: 'Partager' })).toBeVisible();
+    await expect(utilities.getByRole('button', { name: 'Imprimer' })).toBeVisible();
     await expect(page.locator('.recipe-detail-grid')).toBeVisible();
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
@@ -429,7 +444,10 @@ test.describe('Cook Note visual smoke', () => {
 
     await page.goto('/?lang=fr');
     await waitForCookNote(page);
-    await page.getByRole('button', { name: 'Liste de courses' }).click();
+    await page.locator('.mobile-bottom-nav [aria-label="Courses"]:visible, .home-quick-actions button:visible')
+      .filter({ hasText: /Liste de courses|Liste/ })
+      .first()
+      .click();
     const shoppingModal = page.locator('.shopping-modal');
     await expect(shoppingModal).toBeVisible();
     await expect(page.locator('#shopping-modal-title')).toContainText('1 recette');
@@ -446,7 +464,10 @@ test.describe('Cook Note visual smoke', () => {
     await page.goto('/?lang=fr');
     await waitForCookNote(page);
 
-    await page.getByRole('button', { name: 'Composer un menu' }).click();
+    await page.locator('.mobile-bottom-nav [aria-label="Mode menu"]:visible, .home-quick-actions button:visible')
+      .filter({ hasText: /Composer un menu|Menu/ })
+      .first()
+      .click();
     const menuModal = page.locator('.menu-planner-modal');
     await expect(menuModal).toBeVisible();
     await expect(menuModal.locator('.menu-planner-card')).toHaveCount(4);
@@ -473,9 +494,23 @@ test.describe('Cook Note visual smoke', () => {
     await waitForCookNote(page);
 
     await expect(page.locator('.techniques-view')).toBeVisible();
+    await expect(page.locator('.techniques-view > .hero')).toHaveCount(0);
     await expect(page.locator('.technique-card')).not.toHaveCount(0);
     await expect(page.locator('#technique-emincer')).toHaveClass(/technique-card-highlight/);
+    await expect.poll(() => page.evaluate(() => {
+      const target = document.querySelector('#technique-emincer');
+      if (!target) return Number.POSITIVE_INFINITY;
+      const viewport = window.visualViewport?.height || window.innerHeight;
+      const rect = target.getBoundingClientRect();
+      return Math.abs((rect.top + rect.height / 2) - viewport / 2);
+    }), { timeout: 4000 }).toBeLessThan(120);
 
+    const filterToggle = page.locator('.technique-filter-toggle');
+    if (await filterToggle.isVisible()) {
+      const filterToggleBox = await filterToggle.boundingBox();
+      expect(filterToggleBox?.height || 0).toBeGreaterThanOrEqual(44);
+      await filterToggle.click();
+    }
     const knifeFilter = page.locator('.technique-filter-tabs button').filter({ hasText: 'Couteau' }).first();
     await knifeFilter.click();
     await expect(knifeFilter).toHaveAttribute('aria-pressed', 'true');
@@ -494,6 +529,11 @@ test.describe('Cook Note visual smoke', () => {
       await expect(page.locator('.recipe-view')).toBeVisible();
       await expect(page.getByRole('heading', { level: 1, name: new RegExp(expectedTitle, 'i') })).toBeVisible();
       await expect(page.locator('.parent-hero.has-photo')).toBeVisible();
+      const parentHeroBackground = await page.locator('.parent-hero').evaluate(node => getComputedStyle(node).backgroundImage);
+      expect(parentHeroBackground).toContain('/assets/theme/dark/categories/');
+      expect(parentHeroBackground).not.toContain('/assets/theme/dark/global/hero');
+      await expect(page.locator('.parent-hero .detail-hero-logo')).toHaveCount(0);
+      await expect(page.locator('.collection-links-panel .collection-links-heading')).toHaveCount(0);
       await expect(async () => {
         const count = await page.locator('.variant-card').count();
         expect(count).toBeGreaterThanOrEqual(4);

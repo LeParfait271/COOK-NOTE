@@ -23,7 +23,6 @@ const PUBLIC_ROOT_FILES = new Set([
   'manifest.json',
   'style.css',
   'app.js',
-  'app-cooking.js',
   'app-images.js',
   'app-art-images.js',
   'app-inline-variant-rules.js',
@@ -285,7 +284,6 @@ function staticCacheControl(filePath, noStore = false) {
   if (relative === 'index.html' || relative === 'recipe.html') return 'no-cache';
   if (
     relative === 'app.js' ||
-    relative === 'app-cooking.js' ||
     relative === 'app-images.js' ||
     relative === 'app-art-images.js' ||
     relative === 'app-inline-variant-rules.js' ||

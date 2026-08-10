@@ -13,7 +13,6 @@ const FILE_BUDGETS = [
   ['app-premium.js', 76 * KB],
   ['app-techniques.js', 40 * KB],
   ['app.js', 400 * KB],
-  ['app-cooking.js', 8 * KB],
   // Source lisible pour maintenance ; le poids réellement livré reste plafonné séparément.
   ['style.css', 234 * KB],
   ['dist/style.css', 202 * KB],
@@ -196,8 +195,6 @@ const serviceWorker = read('service-worker.js');
 [
   'imageSizeAttrs(cardImage)',
   'imageSrcSet(sourceImage)',
-  'COOKING_MODE_SCRIPT_SRC',
-  'loadDeferredScript(COOKING_MODE_SCRIPT_SRC',
   'fetchPriority',
   'displayRecipeImage(recipe)',
   'displayRecipeImage(item.recipe)',

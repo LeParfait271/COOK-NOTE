@@ -27,7 +27,9 @@ test.describe('Cook Note accessibility keyboard smoke', () => {
     await expect(page.locator('.search-modal')).toBeHidden();
     await expect(searchTrigger).toBeFocused();
 
-    const menuTrigger = page.getByRole('button', { name: 'Composer un menu' }).first();
+    const menuTrigger = page.locator('.mobile-bottom-nav [aria-label="Mode menu"]:visible, .home-quick-actions button:visible')
+      .filter({ hasText: /Composer un menu|Menu/ })
+      .first();
     await menuTrigger.focus();
     await page.keyboard.press('Enter');
     const menuDialog = await expectDialogWithFocus(page);
@@ -37,7 +39,9 @@ test.describe('Cook Note accessibility keyboard smoke', () => {
     await expect(page.locator('.menu-planner-modal')).toBeHidden();
     await expect(menuTrigger).toBeFocused();
 
-    const shoppingTrigger = page.getByRole('button', { name: 'Liste de courses' }).first();
+    const shoppingTrigger = page.locator('.mobile-bottom-nav [aria-label="Courses"]:visible, .home-quick-actions button:visible')
+      .filter({ hasText: /Liste de courses|Liste/ })
+      .first();
     await shoppingTrigger.focus();
     await page.keyboard.press('Enter');
     const shoppingDialog = await expectDialogWithFocus(page);
