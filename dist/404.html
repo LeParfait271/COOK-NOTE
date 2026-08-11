@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080807">
+  <title>Page introuvable · Cook Note</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080807;
+      --card: rgba(24, 22, 18, .94);
+      --line: rgba(232, 184, 92, .24);
+      --text: #fff8ea;
+      --muted: #c8bda9;
+      --gold: #e8b85c;
+      --gold-strong: #f3cc7d;
+      --shadow: rgba(0, 0, 0, .44);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: clamp(18px, 5vw, 56px);
+      color: var(--text);
+      background:
+        linear-gradient(135deg, rgba(8, 8, 7, .90), rgba(8, 8, 7, .64)),
+        url('/assets/theme/dark/global/background.jpg') center / cover fixed;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .error-shell { width: min(100%, 760px); }
+    .error-card {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(26px, 6vw, 64px);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(33, 27, 20, .96), var(--card));
+      box-shadow: 0 24px 70px var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .08);
+    }
+
+    .error-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: .9;
+    }
+
+    .error-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: clamp(34px, 7vw, 64px);
+    }
+
+    .error-brand img { width: 56px; height: 56px; flex: 0 0 auto; }
+    .error-brand strong { display: block; font-size: 20px; letter-spacing: .02em; }
+    .error-brand small { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .16em; }
+
+    .error-eyebrow { margin: 0 0 8px; color: var(--gold-strong); font-size: 12px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+    .error-code { margin: 0; color: var(--gold); font-size: clamp(76px, 17vw, 148px); font-weight: 950; line-height: .86; letter-spacing: -.08em; }
+    h1 { max-width: 620px; margin: 24px 0 12px; font-size: clamp(28px, 5vw, 50px); line-height: 1.02; letter-spacing: -.04em; }
+    .error-copy > p:not(.error-eyebrow):not(.error-code) { max-width: 540px; margin: 0; color: var(--muted); font-size: clamp(15px, 2vw, 18px); line-height: 1.6; }
+
+    .error-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; padding: 0 18px; border-radius: 10px; font-weight: 900; text-decoration: none; transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+    .button:hover { transform: translateY(-1px); }
+    .button.primary { border: 1px solid var(--gold); color: #241a0c; background: var(--gold); }
+    .button.secondary { border: 1px solid rgba(255, 248, 234, .28); color: var(--text); background: rgba(255, 248, 234, .06); }
+    .button:focus-visible { outline: 3px solid var(--gold-strong); outline-offset: 3px; }
+
+    html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f7efe0;
+      --card: rgba(255, 252, 246, .96);
+      --line: rgba(133, 91, 27, .24);
+      --text: #2e2417;
+      --muted: #675943;
+      --gold: #a86e18;
+      --gold-strong: #80510d;
+      --shadow: rgba(84, 61, 31, .22);
+    }
+
+    html[data-theme="light"] body { background: linear-gradient(135deg, rgba(247, 239, 224, .91), rgba(255, 252, 246, .72)), url('/assets/theme/day/global/hero.jpg') center / cover fixed; }
+    html[data-theme="light"] .error-card { background: linear-gradient(145deg, rgba(255, 252, 246, .98), var(--card)); }
+    html[data-theme="light"] .button.primary { color: #fffaf0; }
+    html[data-theme="light"] .button.secondary { border-color: rgba(46, 36, 23, .24); }
+
+    @media (max-width: 520px) {
+      .error-card { border-radius: 18px; }
+      .error-brand { margin-bottom: 38px; }
+      .error-brand small { max-width: 210px; line-height: 1.35; }
+      .error-actions { display: grid; }
+      .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="error-shell">
+    <section class="error-card" aria-labelledby="error-title">
+      <header class="error-brand">
+        <img src="/assets/brand/mark.svg" alt="" width="56" height="56">
+        <span><strong>Cook Note</strong><small>ARCHIVES CULINAIRES · LES DEUX CITADELLES</small></span>
+      </header>
+      <div class="error-copy">
+        <p class="error-eyebrow" data-fr="Page introuvable" data-en="Page not found">Page introuvable</p>
+        <p class="error-code">404</p>
+        <h1 id="error-title" data-fr="Cette page n’existe pas" data-en="This page does not exist">Cette page n’existe pas</h1>
+        <p data-fr="Le chemin demandé ne correspond à aucune fiche de Cook Note." data-en="The requested path does not match a Cook Note page.">Le chemin demandé ne correspond à aucune fiche de Cook Note.</p>
+        <div class="error-actions">
+          <a class="button primary" href="/" data-fr="Retour au carnet" data-en="Back to notebook" data-fr-href="/" data-en-href="/?lang=en">Retour au carnet</a>
+          <a class="button secondary" href="/?lang=fr" data-fr="Rechercher une recette" data-en="Search for a recipe" data-fr-href="/?lang=fr" data-en-href="/?lang=en">Rechercher une recette</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    (() => {
+      const params = new URLSearchParams(location.search);
+      const stored = (() => { try { return JSON.parse(localStorage.getItem('cook_note_preferences') || '{}'); } catch { return {}; } })();
+      const english = params.get('lang') === 'en' || (params.get('lang') !== 'fr' && stored.locale === 'en');
+      const root = document.documentElement;
+      root.lang = english ? 'en' : 'fr';
+      root.dataset.theme = stored.theme === 'light' ? 'light' : 'dark';
+      document.title = english ? 'Page not found · Cook Note' : 'Page introuvable · Cook Note';
+      document.querySelectorAll('[data-fr][data-en]').forEach(node => { node.textContent = node.dataset[english ? 'en' : 'fr']; });
+      document.querySelectorAll('[data-fr-href][data-en-href]').forEach(node => { node.href = node.dataset[english ? 'en' : 'fr'] + location.hash; });
+    })();
+  </script>
+</body>
+</html>

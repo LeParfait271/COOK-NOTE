@@ -5248,7 +5248,7 @@ a {
 
   .mobile-bottom-nav {
     display: grid;
-    background: rgba(28, 28, 24, .98);
+    background: rgba(28, 28, 24, .99);
     box-shadow: 0 8px 24px rgba(0, 0, 0, .32);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
@@ -5256,7 +5256,7 @@ a {
     transform: translate3d(0, 0, 0);
   }
 
-  .topbar{display:grid;grid-template-columns:1fr;padding:6px 12px}.top-left{display:none}.top-right{justify-self:center}.top-right :is(.top-search-button,.top-fav-btn){display:none}.mobile-bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr))}.mobile-bottom-nav :is(.mobile-theme-toggle,.language-switcher){display:none}
+  .topbar{display:grid;grid-template-columns:1fr auto;padding:6px 12px}.top-actions{display:none}.top-right{justify-self:center}.top-right :is(.top-search-button,.top-fav-btn){display:none}.mobile-bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr))}.mobile-bottom-nav :is(.mobile-theme-toggle,.language-switcher){display:none}
 
   .offline-status-bar {
     top: 10px;
@@ -5852,9 +5852,8 @@ a {
   }
 
   .search-quick-rail {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 2px;
+    flex-wrap: wrap;
+    overflow: visible;
     scrollbar-width: none;
   }
 
@@ -7523,7 +7522,7 @@ a {
 }
 
 .mc-shell.theme-light .mobile-bottom-nav {
-  background: rgba(255, 250, 239, .94);
+  background: rgba(255, 250, 239, .985);
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--ambient-accent, var(--accent)) 12%, transparent),
     0 18px 42px rgba(84, 61, 31, .18);
@@ -8519,9 +8518,9 @@ body:has(.modal-backdrop) #cook-note-update-action {
   }
 
   .search-quick-rail {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: start;
-    overflow-x: auto;
+    overflow: visible;
     padding-bottom: 4px;
   }
 
@@ -8889,7 +8888,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 }
 
 .techniques-wrap {
-  padding-top: 86px;
+  padding-top: 30px;
 }
 
 @media (max-width: 1060px) {
@@ -8922,7 +8921,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
   }
 
   .techniques-wrap {
-    padding-top: 74px;
+    padding-top: 24px;
   }
 
   .technique-filter-toggle {
@@ -9017,9 +9016,10 @@ body:has(.modal-backdrop) #cook-note-update-action {
 
 @media screen and (max-width:700px){body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}.recipe-detail-grid>.active-tab-panel{padding-bottom:76px}.recipe-breadcrumb button{display:inline-flex;min-height:44px;align-items:center;padding-block:12px;margin-block:-12px}.quantity-select,.language-toggle{min-height:44px}.mobile-bottom-nav{bottom:max(6px,env(safe-area-inset-bottom))}}
 
-@media screen and (max-width:300px){.home-view :is(.season-dashboard,.season-sections,.season-sections>*,.season-dashboard-copy,.season-filter-stack,.season-tabs){width:100%;min-width:0;max-width:100%}.home-view .season-dashboard{overflow:hidden}.season-tabs{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;padding:3px;overflow:hidden}.season-tabs button{min-width:0;padding-inline:4px;font-size:12px}}
+@media screen and (max-width:300px){.home-view :is(.season-dashboard,.season-sections,.season-sections>*,.season-dashboard-copy,.season-filter-stack,.season-tabs){width:100%;min-width:0;max-width:100%}.home-view .season-dashboard{overflow:hidden}.season-tabs{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;padding:3px;overflow:hidden}.season-tabs button{min-width:0;padding-inline:4px;font-size:11px;white-space:nowrap}}
 
 @media screen and (max-width:380px){.shopping-modal .modal-actions{position:static;margin:12px 0 0;padding:12px 0 0;background:transparent}.shopping-modal .modal-actions .btn{min-height:44px;flex:1 1 calc(50% - 8px)}}
+
 
 @media screen and (max-width: 700px) and (orientation: landscape) and (max-height: 620px) {
 .site-update-slot{min-height:40px!important;padding:4px 10px 0}.site-update-slot:has(#cook-note-update-action){min-height:40px!important}.site-update-action{min-height:30px;padding:6px 10px;font-size:11px}.home-view>.hero{min-height:112px!important}.home-view>.hero .hero-inner{padding:8px 0!important}.home-view>.hero :is(.hero-wordmark-image,.hero-wordmark-text){max-height:64px;font-size:48px}.home-command-center{gap:6px;margin-top:-22px;margin-bottom:6px;padding-bottom:8px}.home-search-launcher{min-height:46px}.home-view .season-dashboard{display:none}.recipe-detail-hero.has-photo:not(.parent-hero){min-height:202px!important}.recipe-detail-hero.has-photo:not(.parent-hero) .detail-hero-copy{padding:12px 0 10px!important}.recipe-detail-hero.has-photo:not(.parent-hero) h1{margin-bottom:8px;font-size:30px!important}.recipe-detail-hero.has-photo:not(.parent-hero) .recipe-breadcrumb{gap:4px;margin:-4px 0 6px;font-size:11px}.recipe-detail-hero.has-photo:not(.parent-hero) .detail-meta{gap:4px}.recipe-detail-hero.has-photo:not(.parent-hero) .detail-meta span{min-height:20px;padding-inline:6px;font-size:10px}.recipe-detail-hero.has-photo:not(.parent-hero) .detail-actions{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-top:8px}.recipe-detail-hero.has-photo:not(.parent-hero) .detail-actions>.btn-primary{grid-column:auto}.recipe-detail-hero.has-photo:not(.parent-hero) .detail-actions :where(.btn,.icon-square){min-width:0;min-height:38px;padding-inline:5px;font-size:11px}.recipe-detail-hero.has-photo:not(.parent-hero) .detail-actions .icon-square{width:auto}

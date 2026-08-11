@@ -46,6 +46,7 @@ const REQUIRED_FILES = [
   'robots.txt',
   'service-worker.js',
   'sitemap.xml',
+  '404.html',
   'style.css'
 ];
 

@@ -18,6 +18,7 @@ const VALID_IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp']);
 const sessions = new Map();
 const loginFailures = new Map();
 const PUBLIC_ROOT_FILES = new Set([
+  '404.html',
   'index.html',
   'recipe.html',
   'manifest.json',
@@ -262,7 +263,7 @@ function prerenderedRecipePath(urlPath) {
   return fs.existsSync(filePath) ? filePath : null;
 }
 
-function serveFile(req, res, filePath, noStore = false) {
+function serveFile(req, res, filePath, noStore = false, statusCode = 200) {
   fs.readFile(filePath, (error, data) => {
     if (error) {
       send(res, error.code === 'ENOENT' ? 404 : 500, error.code === 'ENOENT' ? 'Not found' : 'Server error');
@@ -272,7 +273,7 @@ function serveFile(req, res, filePath, noStore = false) {
       'content-type': MIME[path.extname(filePath).toLowerCase()] || 'application/octet-stream'
     };
     headers['cache-control'] = staticCacheControl(filePath, noStore);
-    send(res, 200, data, headers);
+    send(res, statusCode, data, headers);
   });
 }
 
@@ -714,7 +715,10 @@ function route(req, res) {
   }
 
   const filePath = safePath(url.pathname);
-  if (!filePath) return send(res, 404, 'Not found');
+  if (!filePath) {
+    serveFile(req, res, path.join(ROOT, '404.html'), true, 404);
+    return;
+  }
   serveFile(req, res, filePath);
 }
 

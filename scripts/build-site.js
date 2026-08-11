@@ -23,6 +23,7 @@ const ROOT_FILES = [
   'app-inline-variant-rules.js',
   'theme.js',
   'i18n.js',
+  '404.html',
   'index.html',
   'manifest.json',
   'recipe.html',

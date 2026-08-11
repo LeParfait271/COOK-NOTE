@@ -110,7 +110,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.85';
+const SITE_VERSION = 'v4.88';
 const SITE_UPDATED_AT = '11/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.58';
@@ -5980,6 +5980,13 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, pantryItems =
     const bullet = line.match(/^(\s*-\s*)(?:(\d+(?:[.,]\d+)?\s*(?:g|kg|ml|cl|l))\s+)?(.+?)(?:\s+\(([^()]*)\))?$/);
     if (bullet) {
       const amount = bullet[2] ? bullet[2].replace(',', '.') + ' ' : '';
+      const purchase = bullet[3].match(/^(.+?)\s+-\s+achat:\s+(.+)$/i);
+      if (purchase) {
+        const translatedName = translateUiText(purchase[1].trim());
+        const translatedHint = translateUiText(purchase[2].trim());
+        const recipe = bullet[4] ? ' (' + translateUiText(bullet[4]) + ')' : '';
+        return bullet[1] + amount + translatedName + ' - ' + translateUiText('achat') + ': ' + translatedHint + recipe;
+      }
       const colon = bullet[3].match(/^([^:]+):\s*(.*)$/);
       const name = colon
         ? translateUiText(colon[1]) + ': ' + colon[2].split(',').map(part => translateUiText(part.trim())).join(', ')
