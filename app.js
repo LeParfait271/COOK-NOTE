@@ -110,7 +110,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.88';
+const SITE_VERSION = 'v4.89';
 const SITE_UPDATED_AT = '11/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.58';
@@ -4829,7 +4829,16 @@ function LanguageSwitcher() {
     h('button', {
       type: 'button',
       className: 'btn language-toggle',
-      onClick: () => CookNoteI18n.setLocale(nextLocale),
+      onClick: () => {
+        const appliedLocale = CookNoteI18n.setLocale(nextLocale);
+        try {
+          const url = new URL(window.location.href);
+          url.searchParams.set('lang', appliedLocale);
+          window.history.replaceState(window.history.state, document.title, `${url.pathname}${url.search}${url.hash}`);
+        } catch {
+          // URL synchronisation is best-effort; the locale preference is already persisted.
+        }
+      },
       'aria-label': `${t('language.current', { language: currentLanguage })}. ${t('language.selector')} : ${nextLanguage}`,
       'aria-pressed': locale === 'en',
       'data-locale': locale,
@@ -5970,6 +5979,26 @@ function CommandPalette({
     )
   );
 }
+function shoppingOutputNodes(value) {
+  return String(value || '').split('\n').map((line, index) => {
+    const trimmed = line.trim();
+    if (!trimmed) return h('br', { key: `space-${index}`, 'aria-hidden': true });
+    const heading = trimmed.match(/^(#{1,3})\s+(.+)$/);
+    if (heading) {
+      const level = heading[1].length;
+      return h(level === 1 ? 'h3' : 'h4', { key: `heading-${index}`, className: `cart-output-heading cart-output-heading-${level}` }, heading[2]);
+    }
+    const bullet = trimmed.match(/^-\s+(.+)$/);
+    if (bullet) {
+      return h('div', { key: `bullet-${index}`, className: 'cart-output-line' },
+        h('span', { className: 'cart-output-bullet', 'aria-hidden': true }, '\u2022'),
+        bullet[1]
+      );
+    }
+    return h('div', { key: `line-${index}`, className: 'cart-output-line' }, line);
+  });
+}
+
 function ShoppingBasketPanel({ open, onClose, recipes, factorById, pantryItems = [], removeRecipe, clearShopping, notify }) {
   // Accessibility contracts retained for the UI audit: 'aria-label': `Retirer ${recipe.title} du panier courses`; 'aria-label': `${checked ? 'Décocher' : 'Cocher'} ${[amount, item.name].filter(Boolean).join(' ')}`; 'aria-label': `Marquer ${item.name} comme déjà à la maison`; 'aria-label': `Remettre ${item.name} dans la liste à acheter`.
   const translateShoppingLine = value => {
@@ -6172,7 +6201,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, pantryItems =
           ? h('span', { key: item.key, title: translateUiText('Déjà à la maison') }, `${[formatShoppingAmount(item), displayShoppingName(item.name)].filter(Boolean).join(' ')} · ${translateUiText('maison')}`)
           : h('button', { key: item.key, type: 'button', onClick: () => toggleOwnedItem(item.key), 'aria-label': translateUiText('Remettre ' + displayShoppingName(item.name) + ' dans la liste à acheter'), title: translateUiText('Remettre dans la liste') }, `${[formatShoppingAmount(item), displayShoppingName(item.name)].filter(Boolean).join(' ')}`))
       ),
-      h('pre', { className: 'cart-output combined-cart' }, text),
+      h('div', { className: 'cart-output combined-cart', role: 'region', 'aria-label': translateUiText('Détail de la liste de courses') }, shoppingOutputNodes(text)),
       h('div', { className: 'modal-actions' },
         h(Button, { variant: 'primary', disabled: !recipes.length, onClick: () => copyText(text).then(() => {
           setCopied(true);
@@ -6350,7 +6379,7 @@ function PreferencesPanel({ open, onClose, preferences, updatePreferences, favor
   const theme = preferences.theme === 'light' ? 'light' : 'dark';
   return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
     h('section', { className: 'modal-panel preferences-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'preferences-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
-      h('div', { className: 'modal-head' },
+      h('div', { className: 'modal-head menu-planner-modal-head' },
         h('div', null,
           h('p', { className: 'eyebrow' }, 'Affichage'),
           h('h2', { id: 'preferences-title' }, 'Préférences')
@@ -6968,7 +6997,7 @@ function RecipeView({
       return;
     }
     const option = inlineVariantOptions.find(item => item.index === index);
-    pendingInlineVariantScrollRef.current = Boolean(option);
+    pendingInlineVariantScrollRef.current = Boolean(option && (showVariants || inlineVariantOptions.length > 1));
     setOpenIngredientGroups(prev => {
       const next = { ...prev };
       inlineVariantOptions.forEach(option => {

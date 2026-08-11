@@ -4643,7 +4643,7 @@ a {
 
 .menu-service-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 50vw), 1fr));
   gap: 10px;
   margin: 12px 0 2px;
 }
@@ -4813,7 +4813,7 @@ a {
 }
 
 .combined-cart {
-  min-height: 280px;
+  min-height: 0;
 }
 
 .modal-head {
@@ -4862,7 +4862,7 @@ a {
   background: rgba(0, 0, 0, .25);
   color: var(--text);
   padding: 14px;
-  white-space: pre-wrap;
+  white-space: normal;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -6849,6 +6849,9 @@ a {
   .season-category-tabs button {
     flex: 1 1 calc(50% - 4px);
     min-height: var(--control-height-touch);
+    padding:0 6px;
+    font-size:10px;
+    white-space:nowrap;
   }
 
   .detail-actions :where(.btn, .icon-square),
@@ -8574,7 +8577,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 
 #recipe-detail-content{scroll-margin-top:84px}
 .shopping-aisles-shell{position:relative;max-height:min(34vh,320px);margin:14px 0;overflow:auto;overscroll-behavior:contain;scrollbar-color:var(--accent) transparent;scrollbar-width:thin}.shopping-aisles-shell .shopping-aisles{margin:0;padding:0 8px 24px 0}.shopping-aisles-shell::after{content:"";position:sticky;z-index:2;display:block;bottom:0;height:26px;margin-top:-26px;pointer-events:none;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--surface-strong) 94%,transparent))}.shopping-aisles-shell::-webkit-scrollbar{display:block;width:6px;height:6px}.shopping-aisles-shell::-webkit-scrollbar-thumb{border-radius:999px;background:color-mix(in srgb,var(--accent) 78%,transparent)}
-.shopping-modal .combined-cart{max-height:72px;margin:8px 0 0;overflow:auto;padding:8px 10px;font-size:10px;line-height:1.35}.shopping-modal .modal-actions{position:sticky;z-index:3;bottom:-20px;margin:0 -20px -20px;border-top:1px solid color-mix(in srgb,var(--accent) 18%,var(--line));background:linear-gradient(180deg,color-mix(in srgb,var(--surface-strong) 72%,transparent),var(--surface-strong) 34%);padding:12px 20px 20px}
+ .shopping-modal .combined-cart{max-height:220px;margin:8px 0 0;overflow:auto;padding:8px 10px;font-size:10px;line-height:1.35}.shopping-modal .modal-actions{position:sticky;z-index:3;bottom:-20px;margin:0 -20px -20px;border-top:1px solid color-mix(in srgb,var(--accent) 18%,var(--line));background:linear-gradient(180deg,color-mix(in srgb,var(--surface-strong) 72%,transparent),var(--surface-strong) 34%);padding:12px 20px 20px}
 .notes-core-stack,.notes-reference-stack{display:grid;gap:10px}.notes-reference-stack{margin-top:16px!important;padding-top:12px!important}.notes-panel :is(.allergen-card,.average-weight-card,.technical-card,.flavor-map-block,.ingredient-knowledge-block,.practical-section){margin-bottom:0}
  @media (min-width:1061px){.recipe-detail-hero.has-photo:not(.parent-hero){min-height:clamp(300px,31vw,430px)}}
 @media (max-width:1060px){.shopping-aisles-shell{max-height:min(34vh,260px)}}
@@ -8965,6 +8968,8 @@ body:has(.modal-backdrop) #cook-note-update-action {
   .recipe-detail-hero,
   .parent-hero {
     min-height: 246px;
+    position:relative;
+    z-index:1;
   }
 
   .detail-hero-copy {
@@ -8981,11 +8986,8 @@ body:has(.modal-backdrop) #cook-note-update-action {
   }
 
   .detail-utility-popover {
-    position: fixed;
-    top: auto;
-    right: 12px;
-    bottom: calc(70px + env(safe-area-inset-bottom));
-    width: min(320px, calc(100vw - 24px));
+    position: absolute;
+    top:100%;
   }
 
   .recipe-summary-panel {
