@@ -110,7 +110,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.89';
+const SITE_VERSION = 'v4.90';
 const SITE_UPDATED_AT = '11/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.58';
@@ -5991,7 +5991,7 @@ function shoppingOutputNodes(value) {
     const bullet = trimmed.match(/^-\s+(.+)$/);
     if (bullet) {
       return h('div', { key: `bullet-${index}`, className: 'cart-output-line' },
-        h('span', { className: 'cart-output-bullet', 'aria-hidden': true }, '\u2022'),
+        h('span', { className: 'cart-output-bullet', 'aria-hidden': true }, '\u2022 '),
         bullet[1]
       );
     }
