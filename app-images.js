@@ -1,7 +1,7 @@
 /* global window */
 
 (function initCookNoteImages() {
-  const IMAGE_HELPER_VERSION = 'v4.91';
+  const IMAGE_HELPER_VERSION = 'v4.99';
   const IMAGE_HELPER_REVISION = 'parent-title';
   const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
 
@@ -33,7 +33,10 @@
 
   function imageBackgroundStyle(image, card = true) {
     const url = card ? recipeCardImageUrl(image) : image;
-    return url ? { backgroundImage: `url("${url}")` } : {};
+    return url ? {
+      backgroundImage: `url("${url}"), linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, transparent), var(--surface-strong))`,
+      backgroundColor: 'var(--surface-strong)'
+    } : {};
   }
 
   window.CookNoteImages = Object.freeze({

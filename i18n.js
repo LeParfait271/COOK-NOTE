@@ -401,6 +401,545 @@
     'personnes': 'people',
     'Style de menu': 'Menu style',
     'Choisir le nombre de personnes du menu': 'Choose menu serving count',
+    'Choisir le nombre de personnes': 'Choose the number of people',
+    'Plus d’actions': 'More actions',
+    'Plus d actions': 'More actions',
+    'PASTRY': 'Pastry',
+    'technique': 'technique',
+    'techniques': 'techniques',
+    'profil': 'profile',
+    'profil acide frais': 'fresh acidity',
+    'acide frais': 'fresh acidity',
+    'accords': 'pairings',
+    'accord': 'pairing',
+    'Accord cle': 'Key pairing',
+    'Accord clé': 'Key pairing',
+    'Point vigilance': 'Watch point',
+    'Point de vigilance': 'Watch point',
+    'A renforcer avec': 'Strengthen with',
+    'a renforcer avec': 'strengthen with',
+    'reveille': 'brightens',
+    'coupe le gras et rafraichit': 'cuts through richness and refreshes',
+    'arrondit l acidite': 'rounds out the acidity',
+    'accent mediterraneen': 'Mediterranean accent',
+    'parfum frais immediat': 'immediate fresh aroma',
+    'base salee profonde': 'deep savory base',
+    'relief sale': 'savory lift',
+    'final frais': 'fresh finish',
+    'fumee et gras': 'smoke and richness',
+    'tension chaude': 'warm tension',
+    'sucre et acidite': 'sweetness and acidity',
+    'croquant grille': 'toasted crunch',
+    'sel et acidite lactee': 'salt and lactic acidity',
+    'acidule': 'tangy',
+    'cle': 'key',
+    'saler': 'season',
+    'ne sale pas': 'do not season',
+    'ne pas': 'do not',
+    'tasse pas': 'do not crowd',
+    'savory not': 'season only',
+    'surveille': 'watch',
+    'Fiches ingrédients': 'Ingredient cards',
+    'Fiches ingredients': 'Ingredient cards',
+    'Encyclopédie': 'Ingredient encyclopedia',
+    'Encyclopedie': 'Ingredient encyclopedia',
+    'Carte des accords': 'Pairing card',
+    'Carte des accords de la recette': 'Recipe pairing card',
+    'Accords': 'Pairings',
+    'Vigilance': 'Watch point',
+    'Repères': 'Cues',
+    'Reperes': 'Cues',
+    'Infos pratiques': 'Practical info',
+    'Finition': 'Finish',
+    'A tenter': 'Try with',
+    'À tenter': 'Try with',
+    'Soja': 'Soy',
+    'reveil aromatique et jus plus net': 'brightens the chicken and keeps the juice clean',
+    'reveil aromatique and juice plus clean': 'brightens the chicken and keeps the juice clean',
+    'donne du relief sale': 'adds savory depth',
+    'gives of depth savory': 'adds savory depth',
+    'A tenter: poisson, beurre': 'Try with fish or butter',
+    'A tenter: fish, butter': 'Try with fish or butter',
+    'Finition: zeste minute, fleur de sel': 'Finish with fresh zest and flaky sea salt',
+    'Finish: zest minute, sea salt flakes': 'Finish with fresh zest and flaky sea salt',
+    'Agrume - Hiver-printemps, disponible toute l annee': 'Citrus · winter–spring, available year-round',
+    'Agrume - winter-spring, disponible toute l annee': 'Citrus · winter–spring, available year-round',
+    'Entier au frais 2 a 3 semaines; zeste a prelever avant pressage.': 'Whole: refrigerate for 2 to 3 weeks; zest before juicing.',
+    'Whole in the refrigerator 2 to 3 weeks; zest a prelever before pressage.': 'Whole: refrigerate for 2 to 3 weeks; zest before juicing.',
+    'Le jus trop tot cuit les textures fragiles et ternit les herbes.': 'Juice added too early cooks delicate textures and dulls herbs.',
+    'The juice too tot cooked the textures fragiles and ternit the herbs.': 'Juice added too early cooks delicate textures and dulls herbs.',
+    'Aromate - Toute saison': 'Aromatic · year-round',
+    'Au sec, aere, hors frigo; germe a retirer si trop fort.': 'Store dry and airy, outside the fridge; remove the sprout if the flavor is too strong.',
+    'With dry, airy, hors refrigerator; germe a remove if too fort.': 'Store dry and airy, outside the fridge; remove the sprout if the flavor is too strong.',
+    'Ail brule: amertume tres presente.': 'Garlic burns easily and becomes very bitter.',
+    'Garlic burns: bitterness very present.': 'Garlic burns easily and becomes very bitter.',
+    'Lemon: profil acidic fresh; accords chicken (reveil aromatique et jus plus net), garlic (donne du relief sale). Finition: zest minute, fleur de sel.': 'Lemon: fresh acidity; pairs with chicken (brightens the chicken and keeps the juice clean) and garlic (adds savory depth). Finish with fresh zest and flaky sea salt.',
+    'Lemon: profil acidic fresh; accords chicken (brightens the chicken and keeps the juice clean), garlic (adds savory depth). Finish: zest minute, sea salt flakes.': 'Lemon: fresh acidity; pairs with chicken (brightens the chicken and keeps the juice clean) and garlic (adds savory depth). Finish with fresh zest and flaky sea salt.',
+    'Lemon: profil acide frais; accords chicken (reveil aromatique et jus plus net), garlic (donne du relief sale). Finition: zeste minute, fleur de sel.': 'Lemon: fresh acidity; pairs with chicken (brightens the chicken and keeps the juice clean) and garlic (adds savory depth). Finish with fresh zest and flaky sea salt.',
+    'Lemon: whole in the refrigerator 2 to 3 weeks; zest before juicing. Accord cle: fish, chicken, butter, garlic, herbs. Point vigilance: Juice added too early cooks delicate textures and dulls herbs.': 'Lemon: refrigerate whole for 2 to 3 weeks; zest before juicing. Key pairing: fish, chicken, butter, garlic and herbs. Watch point: juice added too early cooks delicate textures and dulls herbs.',
+    'Garlic: Store dry and airy, outside the fridge; remove the sprout if the flavor is too strong. Accord cle: tomato, potato, shrimp, lamb, butter. Point vigilance: Garlic burns easily and becomes very bitter.': 'Garlic: store dry and airy, outside the fridge; remove the sprout if the flavor is too strong. Key pairing: tomato, potato, shrimp, lamb and butter. Watch point: garlic burns easily and becomes very bitter.',
+    'lime juice → lime (acidity plus bright; allergene: Aucun majeur courant) · optional.': 'lime juice → lime (brighter acidity; no common major allergen) · optional.',
+    'lime juice → vinegar gentle (acidity without parfum of Citrus; allergene: Sulfites possibles) · optional.': 'lime juice → mild vinegar (acidity without citrus aroma; possible sulfites) · optional.',
+    'Base + variantes: garde le même ordre de préparation et isole les ingrédients qui changent ; la texture reste plus stable que si toute la recette est réécrite.': 'Base + variants: keep the same preparation order and isolate the ingredients that change; the texture stays more stable than when rewriting the whole recipe.',
+    'Texture contrôlée: si tu remplaces un produit gras par du lait, ajoute progressivement et garde une option épaisse sous la main pour rattraper la liaison.': 'Controlled texture: if you replace a fatty product with milk, add it gradually and keep a thickening option nearby to recover the emulsion.',
+    'Avant cuisson : garde viande au réfrigérateur à 0–4°C, couvert, et sors seulement la quantité nécessaire juste avant cuisson.': 'Before cooking: keep the meat covered in the refrigerator at 0–4°C, and take out only the amount needed just before cooking.',
+    'Avant cuisson : marinade toujours couverte au froid ; jette la marinade qui a touché le cru, ou fais-la bouillir si elle doit servir de sauce.': 'Before cooking: keep the marinade covered in the refrigerator; discard any marinade that touched raw food, or boil it if it will be used as a sauce.',
+    'Après cuisson : refroidis en moins de 2h, conserve en boîte hermétique au réfrigérateur 2–3 jours, puis réchauffe à cœur.': 'After cooking: cool within 2 hours, store in an airtight container in the refrigerator for 2–3 days, then reheat thoroughly.',
+    '2 days in the refrigerator. Reheat in the oven gentle or in a frying pan couverte.': 'Keep for 2 days in the refrigerator. Reheat gently in the oven or in a covered frying pan.',
+    'Tasse not the pieces, ils bouilliraient with lieu of roast.': 'Do not crowd the pieces or they will steam instead of roasting.',
+    'Savory not before avoir taste the soy sauce.': 'Do not season before tasting the soy sauce.',
+    'Surveille the end of cooking, the sauce sweet colore quickly.': 'Watch the end of cooking; the sweet sauce colors quickly.',
+    'Égoutte à nouveau avant utilisation.': 'Drain again before use.',
+    'Remue ou surveille souvent.': 'Stir or watch often.',
+    'Saupoudrer une préparation de farine puis cuire brièvement pour lier une sauce ou un ragoût sans goût de farine crue.': 'Dust a preparation of flour, then cook briefly to bind a sauce or stew without a raw flour taste.',
+    'Mouille progressivement avec le liquide de cuisson.': 'Add the cooking liquid gradually.',
+    'Singer demande une cuisson courte de la farine avant d’ajouter le liquide, sinon la sauce peut rester pâteuse.': 'Singer calls for briefly cooking the flour before adding the liquid, otherwise the sauce can remain pasty.',
+    'Nacrer aide le riz à mieux tenir dans un risotto ou un pilaf.': 'Toasting the rice helps it hold together better in a risotto or pilaf.',
+    'Pour une cuisson, garde le liquide sous l’ébullition.': 'For poaching, keep the liquid below a boil.',
+    'Roule une pâte': 'Roll out pastry',
+    'Crème beurre et sucre': 'Cream butter and sugar',
+    'Dessécher une panade': 'Dry out a panade',
+    'Appliquer une dorure pour obtenir une surface brillante, régulière et appétissante à la cuisson.': 'Apply egg wash for a shiny, even and appetizing surface after baking.',
+    'Travailler l’appareil à macarons pour le détendre juste assez et obtenir un ruban souple.': 'Work the macaron mixture just enough to loosen it and create a soft ribbon.',
+    'Étaler une pâte': 'Roll out pastry',
+    'Abaisser une pâte': 'Roll out pastry',
+    'Tamiser': 'Sift',
+    'Torréfier': 'Toast',
+    'Faire revenir': 'Sauté',
+    'Faire suer': 'Sweat',
+    'Flamber': 'Flambé',
+    'Frire': 'Fry',
+    'Griller': 'Grill',
+    'Braiser': 'Braise',
+    'Confire': 'Confit',
+    'Mijoter': 'Simmer gently',
+    'Cuire au bain-marie': 'Cook with a water bath',
+    'Cuire à la nappe': 'Cook to coat the spoon',
+    'Préparer un roux': 'Make a roux',
+    'Filtrer': 'Strain',
+    'Égoutter': 'Drain',
+    'Presser': 'Press',
+    'Parer': 'Trim',
+    'Décortiquer': 'Shell seafood',
+    'Râper': 'Grate',
+    'Zester un agrume': 'Zest a citrus fruit',
+    'Monder des tomates': 'Blanch tomatoes',
+    'Faire pousser une pâte': 'Proof dough',
+    'Dégazer une pâte': 'Knock back dough',
+    'Façonner / bouler': 'Shape and round dough',
+    'Scarifier': 'Score dough',
+    'Puncher un biscuit': 'Soak a sponge',
+    'Chinoiser': 'Strain through a chinois',
+    'Émulsionner': 'Emulsify',
+    'Pincer les sucs': 'Caramelize the pan juices',
+    'Roule la pâte': 'Roll out the pastry',
+    'Roule la pâte régulièrement': 'Turn the pastry regularly',
+    'Crème le beurre et le sucre': 'Cream the butter and sugar',
+    'Jette les gros morceaux si la recette demande une texture fine.': 'Discard large pieces if the recipe calls for a fine texture.',
+    'Saisis ou fais revenir l’aliment si la recette le demande.': 'Sear or sauté the food if the recipe calls for it.',
+    'Mouille à hauteur partielle.': 'Add liquid halfway up the food.',
+    'Ajoute une garniture aromatique.': 'Add aromatic ingredients.',
+    'Cuis doucement à couvert jusqu’à tendreté.': 'Cook gently, covered, until tender.',
+    'Ajoute eau à hauteur partielle, beurre, sel et sucre si prévu.': 'Add water halfway up, plus butter, salt and sugar if specified.',
+    'Ajoute le riz sec.': 'Add the rice dry.',
+    'Mouille quand les grains sont brillants et un peu translucides.': 'Add liquid when the grains are shiny and slightly translucent.',
+    'Enrober le riz de matière grasse jusqu’à ce qu’il devienne légèrement translucide avant de mouiller.': 'Coat the rice with fat until slightly translucent before adding liquid.',
+    'Fais revenir l’oignon ou l’échalote si prévu.': 'Sauté the onion or shallot if planned.',
+    'Remue 1 à 2min dans la matière grasse.': 'Stir for 1 to 2 min in the fat.',
+    'Un roux chaud se mouille mieux avec un liquide froid ou tiède ajouté progressivement.': 'A hot roux absorbs cold or warm liquid better when added gradually.',
+    'Verse le liquide progressivement si la base contient farine ou roux.': 'Pour in the liquid gradually if the base contains flour or roux.',
+    'Mélange pour éviter les grumeaux.': 'Mix to prevent lumps.',
+    'Gratte les sucs si la casserole a coloré.': 'Scrape the pan juices if the pan has browned.',
+    'Adapte le niveau : court, à hauteur ou complet selon la recette.': 'Adjust the level: shallow, halfway up or fully covered depending on the recipe.',
+    'Mouiller trop vite peut faire des grumeaux ; mouiller trop haut dilue les goûts.': 'Adding liquid too quickly can make lumps; too much liquid dilutes flavor.',
+    'Faire colorer légèrement sucs ou concentré de tomate au fond d’un récipient avant de mouiller.': 'Lightly brown pan juices or tomato paste before adding liquid.',
+    'Garde une chaleur moyenne.': 'Keep the heat medium.',
+    'Laisse les sucs accrocher légèrement sans brûler.': 'Let the pan juices catch slightly without burning.',
+    'Ajoute concentré ou garniture si prévu.': 'Add concentrate or garnish if specified.',
+    'Déglace ou mouille dès que la couleur est profonde.': 'Deglaze or add liquid as soon as the color deepens.',
+    'Des sucs pincés donnent du relief ; des sucs brûlés donnent de l’amertume.': 'Pinched pan juices add depth; burnt pan juices add bitterness.',
+    'Extraire du jus ou retirer de l’eau d’un ingrédient pour concentrer goût et texture.': 'Extract juice or water from an ingredient to concentrate flavor and texture.',
+    'Choisis presse-agrumes, torchon propre, passoire ou main selon l’aliment.': 'Choose a citrus press, clean cloth, strainer or your hands depending on the food.',
+    'Presse progressivement sans éclabousser.': 'Press gradually without splashing.',
+    'Récupère le jus ou jette l’eau selon la recette.': 'Keep the juice or discard the water according to the recipe.',
+    'Goûte ou pèse si la précision compte.': 'Taste or weigh if precision matters.',
+    'Presser des légumes râpés change beaucoup le croustillant et la tenue.': 'Pressing grated vegetables greatly changes their crispness and structure.',
+    'Retirer l’excès d’eau, d’huile ou de jus pour garder une texture nette et éviter de détremper.': 'Remove excess water, oil or juice to keep a clean texture and prevent sogginess.',
+    'Utilise une passoire, une grille ou du papier selon l’aliment.': 'Use a strainer, rack or paper towels depending on the food.',
+    'Laisse s’écouler sans écraser si l’aliment est fragile.': 'Let it drain without crushing fragile food.',
+    'Secoue ou tamponne si la recette demande une surface sèche.': 'Shake or pat dry if the recipe calls for a dry surface.',
+    'Transfère seulement quand l’excès de liquide est parti.': 'Transfer only once the excess liquid has run off.',
+    'Passer un liquide, une crème ou une sauce pour retirer morceaux, fibres, peaux ou grains.': 'Strain a liquid, cream or sauce to remove pieces, fibers, skins or grains.',
+    'Place une passoire fine, un chinois ou une étamine au-dessus d’un récipient.': 'Set a fine strainer, chinois or cheesecloth over a container.',
+    'Verse progressivement.': 'Pour gradually.',
+    'Presse légèrement seulement si la recette le permet.': 'Press lightly only if the recipe allows it.',
+    'Racle le dessous pour récupérer la partie lisse.': 'Scrape underneath to recover the smooth part.',
+    'Filtrer donne une texture plus nette, mais presser trop fort peut apporter de l’amertume ou du trouble.': 'Straining gives a cleaner texture, but pressing too hard can add bitterness or cloudiness.',
+    'Disperser gras et liquide en fines gouttelettes pour obtenir une sauce liée et brillante.': 'Disperse fat and liquid into fine droplets for a smooth, shiny sauce.',
+    'Réunis une base aqueuse et une matière grasse.': 'Combine a water-based ingredient and a fat.',
+    'Ajoute le gras progressivement si nécessaire.': 'Add the fat gradually if needed.',
+    'Fouette, mixe ou secoue vivement.': 'Whisk, blend or shake vigorously.',
+    'Stabilise avec moutarde, jaune, réduction ou température adaptée.': 'Stabilize with mustard, yolk, reduction or a suitable temperature.',
+    'Une émulsion tranche quand le gras est ajouté trop vite ou quand la température est mal contrôlée.': 'An emulsion splits when fat is added too quickly or the temperature is poorly controlled.',
+    'Cuire farine et matière grasse pour lier une sauce sans goût de farine crue.': 'Cook flour and fat to bind a sauce without a raw flour taste.',
+    'Fais fondre le beurre ou chauffe la matière grasse.': 'Melt the butter or heat the fat.',
+    'Ajoute la farine en une fois.': 'Add the flour all at once.',
+    'Mélange jusqu’à texture homogène.': 'Mix until even.',
+    'Cuis blanc, blond ou brun selon la sauce voulue.': 'Cook to white, blond or brown depending on the sauce.',
+    'Cuire une pâte riche en eau sur le feu pour retirer l’humidité avant d’ajouter les œufs.': 'Cook a water-rich dough on the hob to remove moisture before adding the eggs.',
+    'Mélange sur feu moyen avec une spatule.': 'Stir over medium heat with a spatula.',
+    'Cherche une pâte qui se détache des parois.': 'Look for a dough that pulls away from the sides.',
+    'Observe un léger dépôt au fond de la casserole.': 'Look for a light film on the bottom of the pan.',
+    'Transfère puis laisse tiédir avant les œufs.': 'Transfer it and let it cool slightly before adding the eggs.',
+    'Une panade trop humide donne des choux qui s’affaissent ; trop sèche, elle absorbe mal les œufs.': 'A panade that is too wet makes choux collapse; one that is too dry absorbs the eggs poorly.',
+    'Cuire longtemps à couvert avec un fond de liquide après coloration pour attendrir une pièce ou des légumes.': 'Cook slowly, covered with a little liquid after browning, to tenderize meat or vegetables.',
+    'Un braisage réussi garde peu de bulles et beaucoup de patience.': 'A successful braise has only a few bubbles and takes patience.',
+    'Cuire doucement à couvert avec très peu de liquide ou de matière grasse, souvent pour des légumes.': 'Cook gently, covered, with very little liquid or fat, often for vegetables.',
+    'Coupe les aliments assez régulièrement.': 'Cut the food evenly.',
+    'Ajoute peu de matière grasse ou un fond de liquide.': 'Add a little fat or a shallow layer of liquid.',
+    'Couvre pour garder la vapeur.': 'Cover to keep the steam.',
+    'Cuis doucement sans chercher de coloration.': 'Cook gently without seeking browning.',
+    'Étuver attendrit et concentre le goût, mais peut ramollir un aliment qu’on voulait croustillant.': 'Steaming tenderizes and concentrates flavor, but can soften food meant to stay crisp.',
+    'Enflammer brièvement un alcool assez chaud pour concentrer le goût et retirer une partie de l’alcool.': 'Briefly ignite a sufficiently warm alcohol to concentrate flavor and remove some of the alcohol.',
+    'Éloigne la poêle de la hotte et coupe toute flamme trop proche.': 'Move the pan away from the hood and turn off nearby flames.',
+    'Chauffe légèrement l’alcool à part ou verse-le dans une poêle déjà chaude.': 'Warm the alcohol separately or pour it into an already hot pan.',
+    'Allume prudemment avec une longue allumette ou incline très légèrement la poêle si tu cuisines au gaz.': 'Light carefully with a long match, or tilt the pan slightly when cooking over gas.',
+    'Laisse la flamme s’éteindre seule avant de continuer la sauce.': 'Let the flame go out on its own before continuing the sauce.',
+    'Un alcool froid flambe mal. Ne verse jamais directement depuis la bouteille et ne flambe jamais sous une hotte allumée.': 'Cold alcohol does not flambé well. Never pour directly from the bottle, and never flambé under a lit hood.',
+    'Cuire dans un bain d’huile chaud pour obtenir une surface croustillante.': 'Cook in a hot oil bath to create a crisp surface.',
+    'Chauffe l’huile à la température indiquée.': 'Heat the oil to the indicated temperature.',
+    'Travaille par petites quantités.': 'Work in small batches.',
+    'Égoutte sur grille ou papier.': 'Drain on a rack or paper towels.',
+    'Sale ou assaisonne juste après cuisson.': 'Season just after cooking.',
+    'Trop remplir la casserole fait chuter la température et graisse la friture.': 'Overfilling the pan drops the temperature and makes the frying greasy.',
+    'Cuire de petits légumes avec eau, beurre et parfois sucre pour créer un glaçage brillant.': 'Cook small vegetables with water, butter and sometimes sugar to create a shiny glaze.',
+    'Place les légumes en une couche.': 'Place the vegetables in a single layer.',
+    'Ajoute eau à hauteur partielle, beurre, sel et sucre si la recette le demande.': 'Add water halfway up, plus butter, salt and sugar if the recipe calls for it.',
+    'Couvre au papier ou au couvercle au début.': 'Cover with parchment or a lid at first.',
+    'Découvre et laisse le jus napper en fin de cuisson.': 'Uncover and let the juices coat the vegetables at the end of cooking.',
+    'Le glaçage doit briller sans baigner : le liquide final doit être court.': 'The glaze should shine without pooling; the final liquid should be reduced.',
+    'Brunir rapidement par contact direct avec une chaleur forte : gril, barbecue, poêle striée ou four.': 'Brown food quickly through direct contact with high heat: broiler, barbecue, ridged pan or oven.',
+    'Griller demande une surface sèche et une chaleur franche.': 'Grilling needs a dry surface and strong heat.',
+    'Pocher doucement dans un liquide frémissant, ou dresser une préparation avec une poche selon le contexte.': 'Poach gently in a simmering liquid, or pipe a mixture with a piping bag depending on the context.',
+    'Pour une cuisson, garde le liquide sous l’ébullition.': 'For poaching, keep the liquid below a boil.',
+    'Plonge l’aliment doucement.': 'Lower the food gently into the liquid.',
+    'Surveille la température.': 'Monitor the temperature.',
+    'Avec une poche, presse régulièrement sans à-coups.': 'With a piping bag, press steadily without jerking.',
+    'Pocher peut désigner une cuisson douce ou un dressage à la poche.': 'Pipe can describe gentle poaching or shaping with a piping bag.',
+    'Porter un liquide à gros bouillons avant de réduire, cuire ou lancer une étape précise.': 'Bring a liquid to a full boil before reducing, cooking or starting a specific step.',
+    'Chauffe sur feu moyen à vif.': 'Heat over medium to high heat.',
+    'Surveille les bords puis le centre.': 'Watch the edges, then the center.',
+    'Mélange si le liquide contient sucre, lait ou amidon.': 'Stir if the liquid contains sugar, milk or starch.',
+    'Baisse dès que l’ébullition demandée est atteinte.': 'Lower the heat as soon as the requested boil is reached.',
+    'Rafraîchir garde les couleurs nettes et évite la surcuisson.': 'Cooling keeps colors bright and prevents overcooking.',
+    'Prépare un bol d’eau froide avant la cuisson.': 'Prepare a bowl of cold water before cooking.',
+    'Égoutte l’aliment chaud.': 'Drain the hot food.',
+    'Plonge immédiatement dans l’eau froide.': 'Plunge it immediately into cold water.',
+    'Égoutte à nouveau avant utilisation.': 'Drain again before use.',
+    'Retourne les morceaux avec de l’espace entre eux.': 'Turn the pieces with space between them.',
+    'Continue jusqu’à la texture souhaitée.': 'Continue until the desired texture is reached.',
+    'Si l’aliment colle, il n’est souvent pas encore prêt à retourner.': 'If the food sticks, it is often not ready to turn yet.',
+    'Colorer de petits morceaux dans la matière grasse pour une surface dorée et savoureuse.': 'Brown small pieces in fat for a golden, flavorful surface.',
+    'Sèche les morceaux.': 'Dry the pieces.',
+    'Étale en une seule couche.': 'Spread in a single layer.',
+    'Remue seulement après coloration.': 'Stir only after browning.',
+    'Saisir': 'Sear',
+    'Colorer rapidement un aliment au contact d’une poêle, casserole ou plancha bien chaude pour créer une croûte avant de poursuivre la cuisson.': 'Brown food quickly on a very hot pan, saucepan or plancha to create a crust before continuing the cooking.',
+    'Éponge l’aliment pour retirer l’humidité de surface.': 'Pat the food dry to remove surface moisture.',
+    'Dépose les morceaux sans les serrer.': 'Add the pieces without crowding them.',
+    'Laisse colorer avant de retourner.': 'Let them brown before turning.',
+    'Baisse le feu ou continue selon la recette.': 'Lower the heat or continue according to the recipe.',
+    'Si l’aliment rend beaucoup d’eau ou ne colore pas, la poêle est trop froide ou trop remplie.': 'If the food releases water or does not brown, the pan is too cold or too full.',
+    'Lisser': 'Smooth',
+    'Uniformiser une crème, une pâte, une sauce ou une surface pour obtenir une texture nette et régulière.': 'Smooth a cream, dough, sauce or surface for an even, clean texture.',
+    'Travaille avec une spatule, un fouet ou une palette adaptée.': 'Work with a spatula, whisk or suitable palette knife.',
+    'Écrase les petits amas si besoin.': 'Break up small lumps if needed.',
+    'Racle les bords du récipient.': 'Scrape the sides of the container.',
+    'Arrête dès que la surface ou la texture est régulière.': 'Stop as soon as the surface or texture is even.',
+    'Lisser ne veut pas dire trop mélanger : dès que c’est homogène, on s’arrête.': 'Smoothing does not mean overmixing: stop as soon as it is even.',
+    'Couper très finement sans faire de purée, surtout pour les herbes, oignons et échalotes.': 'Cut very finely without making a purée, especially herbs, onions and shallots.',
+    'Garde la pointe du couteau proche de la planche.': 'Keep the knife tip close to the board.',
+    'Avance petit à petit avec la main en griffe.': 'Move forward little by little with your guiding hand in a claw.',
+    'Repasse une fois seulement si nécessaire.': 'Make one more pass only if needed.',
+    'Arrête avant que l’aliment ne rende trop d’eau.': 'Stop before the food releases too much water.',
+    'Pour les herbes, un couteau bien affûté évite de noircir les feuilles.': 'For herbs, a sharp knife prevents the leaves from darkening.',
+    'Couper en tranches fines et régulières, souvent pour les oignons, échalotes, poireaux ou champignons.': 'Cut into thin, even slices, often for onions, shallots, leeks or mushrooms.',
+    'Stabilise l’aliment avec une face plate.': 'Stabilize the food with a flat side down.',
+    'Place les doigts en griffe.': 'Keep your fingers in a claw.',
+    'Fais glisser la lame sans écraser.': 'Glide the blade without crushing the food.',
+    'Garde une épaisseur régulière.': 'Keep an even thickness.',
+    'Plus la coupe est fine, plus l’aliment fond vite à la cuisson.': 'The thinner the cut, the faster the food cooks.',
+    'Couper très petit en gardant de la texture, pour l’ail, les herbes, les noix ou certains aromates.': 'Cut very small while keeping texture, for garlic, herbs, walnuts or aromatics.',
+    'Regroupe l’aliment en tas.': 'Gather the food into a pile.',
+    'Utilise un mouvement de balancier.': 'Use a rocking motion.',
+    'Ramène régulièrement les morceaux au centre.': 'Bring the pieces back to the center regularly.',
+    'Arrête avant d’obtenir une pâte humide.': 'Stop before it becomes a wet paste.',
+    'Pour l’ail, retire le germe si tu veux un goût plus doux.': 'For garlic, remove the sprout if you want a milder flavor.',
+    'Couper en très petits dés réguliers pour une cuisson rapide ou une garniture nette.': 'Cut into very small, even dice for quick cooking or a clean garnish.',
+    'Taille d’abord des tranches régulières.': 'First cut even slices.',
+    'Coupe-les en bâtonnets fins.': 'Cut them into thin sticks.',
+    'Rassemble les bâtonnets.': 'Gather the sticks.',
+    'Détaille en petits dés réguliers.': 'Cut into small, even dice.',
+    'Une brunoise régulière cuit vite et donne une texture plus élégante.': 'Even brunoise cooks quickly and gives an elegant texture.',
+    'Couper en fins bâtonnets pour une garniture, une salade ou une cuisson très courte.': 'Cut into thin sticks for a garnish, salad or very quick cooking.',
+    'Ne superpose pas trop de tranches à la fois, sinon la coupe devient irrégulière.': 'Do not stack too many slices or the cut becomes uneven.',
+    'Séparer une préparation de ses éléments troubles ou indésirables : beurre clarifié, bouillon limpide ou œuf séparé selon le contexte.': 'Separate unwanted or cloudy elements from a preparation: clarified butter, clear stock or a separated egg depending on the context.',
+    'Identifie ce qui doit être séparé : petit-lait, écume, dépôt ou blanc/jaune.': 'Identify what must be separated: whey, foam, sediment or white and yolk.',
+    'Travaille doucement pour éviter de remélanger les éléments.': 'Work gently to avoid mixing the elements again.',
+    'Retire l’écume ou verse en laissant le dépôt au fond.': 'Remove the foam or pour while leaving the sediment at the bottom.',
+    'Filtre si la recette demande une texture parfaitement nette.': 'Strain if the recipe calls for a perfectly clear texture.',
+    'Clarifier demande de la douceur : si tu remues trop fort, les éléments séparés se remettent en suspension.': 'Clarifying requires a light touch: vigorous stirring puts the separated elements back into suspension.',
+    'Couper grossièrement pour garder des morceaux irréguliers, souvent pour tomates, noix, chocolat ou poivre.': 'Chop coarsely to keep irregular pieces, often for tomatoes, walnuts, chocolate or pepper.',
+    'Place l’aliment sur une planche stable.': 'Place the food on a stable board.',
+    'Coupe ou écrase grossièrement.': 'Cut or crush coarsely.',
+    'Garde des morceaux visibles.': 'Keep visible pieces.',
+    'Évite de réduire en poudre ou en purée.': 'Avoid reducing it to powder or mash.',
+    'Concasser donne du relief : texture, éclats et mâche.': 'Crushing adds depth through texture, pieces and bite.',
+    'Retirer carapace, coque ou enveloppe sans abîmer la chair utile.': 'Remove the shell, casing or envelope without damaging the usable flesh.',
+    'Travaille sur un aliment froid ou tiède selon la recette.': 'Work with the food cold or warm according to the recipe.',
+    'Détache délicatement la carapace ou la coque.': 'Gently detach the shell or casing.',
+    'Garde têtes et carapaces propres pour un fumet si utile.': 'Keep clean heads and shells for stock if useful.',
+    'Retire le boyau des crevettes si nécessaire.': 'Remove the vein from the shrimp if needed.',
+    'Les parures de crustacés donnent beaucoup de goût aux sauces et bouillons.': 'Shellfish trimmings add a lot of flavor to sauces and stocks.',
+    'Retirer les parties inutiles, dures ou irrégulières d’un aliment pour obtenir une pièce nette avant cuisson ou dressage.': 'Remove tough, irregular or unwanted parts to create a clean piece before cooking or plating.',
+    'Identifie les parties sèches, dures, grasses ou abîmées.': 'Identify dry, tough, fatty or damaged parts.',
+    'Retire-les avec un couteau bien aiguisé.': 'Remove them with a sharp knife.',
+    'Garde les parures propres pour un bouillon ou une sauce si utile.': 'Keep clean trimmings for stock or sauce if useful.',
+    'Évite de trop enlever : on cherche une pièce nette, pas une perte excessive.': 'Avoid trimming too much: aim for a clean piece without excessive waste.',
+    'Parer améliore la cuisson et la présentation, surtout sur viandes, poissons, légumes et agrumes.': 'Trimming improves cooking and presentation, especially for meat, fish, vegetables and citrus.',
+    'Cuire une crème aux jaunes jusqu’à ce qu’elle nappe la cuillère sans coaguler.': 'Cook a custard with yolks until it coats the spoon without curdling.',
+    'Chauffe doucement en remuant constamment.': 'Heat gently while stirring constantly.',
+    'Surveille la texture plutôt que chercher l’ébullition.': 'Watch the texture rather than bringing it to a boil.',
+    'Passe le doigt sur le dos de la spatule.': 'Run a finger across the back of the spatula.',
+    'Stoppe quand la trace reste nette.': 'Stop when the track remains clean.',
+    'Au-dessus de 85°C environ, les jaunes risquent de coaguler et de grainer.': 'Above about 85°C, the yolks may curdle and become grainy.',
+    'Réchauffer progressivement œufs ou jaunes avec un liquide chaud pour éviter de les cuire brutalement.': 'Gradually warm eggs or yolks with hot liquid to prevent them cooking abruptly.',
+    'Fouette les œufs ou jaunes dans un bol.': 'Whisk the eggs or yolks in a bowl.',
+    'Verse un peu de liquide chaud en filet en fouettant.': 'Pour in a little hot liquid in a thin stream while whisking.',
+    'Ajoute encore une ou deux louches si nécessaire.': 'Add another ladle or two if needed.',
+    'Reverse dans la casserole pour finir doucement.': 'Return to the saucepan to finish gently.',
+    'Tempérer protège les jaunes dans les crèmes, sauces et appareils.': 'Tempering protects the yolks in creams, sauces and mixtures.',
+    'Chasser une partie du gaz d’une pâte levée pour repartir sur une fermentation plus régulière.': 'Knock some gas out of risen dough for a more even fermentation.',
+    'Dépose la pâte sur le plan légèrement fariné.': 'Place the dough on a lightly floured surface.',
+    'Appuie doucement avec les mains.': 'Press gently with your hands.',
+    'Rabats ou divise selon la recette.': 'Fold or divide according to the recipe.',
+    'Évite de déchirer le réseau de gluten.': 'Avoid tearing the gluten network.',
+    'Dégazer ne veut pas dire écraser brutalement : on contrôle la bulle, on ne détruit pas la pâte.': 'Knocking back is not crushing: control the bubbles without destroying the dough.',
+    'Donner une forme finale ou une préforme à une pâte levée en créant une tension de surface.': 'Give risen dough its final or pre-shaped form by creating surface tension.',
+    'Dégaze ou rabats selon la recette.': 'Knock back or fold according to the recipe.',
+    'Ramène les bords vers le centre.': 'Bring the edges toward the center.',
+    'Retourne soudure dessous.': 'Turn it seam-side down.',
+    'Fais rouler doucement pour tendre la surface.': 'Roll gently to tighten the surface.',
+    'Une bonne tension aide le pain ou la brioche à pousser vers le haut plutôt qu’à s’étaler.': 'Good tension helps bread or brioche rise upward rather than spread.',
+    'Laisser fermenter une pâte levée jusqu’au volume et à la souplesse attendus.': 'Let risen dough ferment until it reaches the expected volume and suppleness.',
+    'Couvre pour éviter le dessèchement.': 'Cover to prevent drying out.',
+    'Place à température adaptée.': 'Place at a suitable temperature.',
+    'Surveille le volume plutôt que seulement le temps.': 'Watch the volume rather than time alone.',
+    'Enfourne ou rabats quand la pâte est prête.': 'Bake or fold when the dough is ready.',
+    'Une pâte trop poussée retombe facilement ; une pâte trop peu poussée manque de légèreté.': 'Over-proofed dough collapses easily; under-proofed dough lacks lightness.',
+    'Inciser une pâte juste avant cuisson pour guider son développement au four.': 'Score dough just before baking to guide its expansion in the oven.',
+    'Utilise une lame très affûtée.': 'Use a very sharp lame.',
+    'Incline légèrement la lame selon le pain.': 'Angle the lame slightly depending on the loaf.',
+    'Incise rapidement sans écraser.': 'Score quickly without crushing the dough.',
+    'Enfourne aussitôt.': 'Bake immediately.',
+    'Une scarification nette aide la pâte à s’ouvrir plutôt qu’à éclater au hasard.': 'A clean score helps dough open where intended instead of bursting randomly.',
+    'Imbiber un biscuit avec sirop, café, jus ou alcool pour apporter moelleux et parfum.': 'Soak a sponge with syrup, coffee, juice or alcohol to add softness and aroma.',
+    'Prépare un sirop froid ou tiède selon le biscuit.': 'Prepare a syrup cold or warm depending on the biscuit.',
+    'Applique au pinceau ou à la cuillère.': 'Apply with a brush or spoon.',
+    'Avance progressivement.': 'Work gradually.',
+    'Arrête avant que le biscuit ne se délite.': 'Stop before the sponge falls apart.',
+    'Un biscuit se punch souvent mieux quand il est froid et stable.': 'A sponge absorbs syrup better when it is cold and stable.',
+    'Créer des couches régulières de pâte et de beurre par pliages successifs.': 'Create even layers of dough and butter through successive folds.',
+    'Garde pâte et beurre à textures proches.': 'Keep the dough and butter at a similar consistency.',
+    'Abaisse sans écraser le beurre.': 'Roll out without crushing the butter.',
+    'Plie selon le tour demandé.': 'Fold according to the required turn.',
+    'Respecte les temps de froid entre les tours.': 'Respect the chilling times between turns.',
+    'Tourer trop chaud fait sortir le beurre ; trop froid, il casse et donne un feuilletage irrégulier.': 'Laminating when too warm makes the butter leak; when too cold, it cracks and creates uneven layers.',
+    'Préchauffer le four': 'Preheat the oven',
+    'Amener le four à la bonne température avant d’enfourner pour lancer la cuisson au bon rythme.': 'Bring the oven to the right temperature before baking so cooking starts at the right pace.',
+    'Allume le four au moins 10 à 20min avant selon sa taille.': 'Turn on the oven at least 10 to 20 min ahead, depending on its size.',
+    'Choisis chaleur tournante, statique ou gril comme indiqué.': 'Choose fan oven, conventional heat or broiler as indicated.',
+    'Attends que la température soit stabilisée.': 'Wait until the temperature is stable.',
+    'Enfourne vite pour limiter la perte de chaleur.': 'Bake promptly to limit heat loss.',
+    'Une pâte, un gâteau ou une plaque de légumes enfournés trop tôt cuisent moins régulièrement.': 'Pastry, cakes or vegetables baked too early cook less evenly.',
+    'Chauffer une poêle': 'Heat a frying pan',
+    'Mettre la poêle à température avant d’ajouter la matière grasse ou l’aliment pour mieux colorer.': 'Heat the pan before adding fat or food for better browning.',
+    'Pose la poêle sur feu moyen à vif selon la recette.': 'Set the pan over medium to high heat depending on the recipe.',
+    'Laisse-la chauffer quelques instants à vide.': 'Let it heat empty for a few moments.',
+    'Ajoute la matière grasse quand la surface est chaude.': 'Add the fat when the surface is hot.',
+    'Dépose l’aliment quand la matière grasse frémit sans brûler.': 'Add the food when the fat shimmers without burning.',
+    'Une poêle trop froide fait rendre de l’eau et empêche la coloration nette.': 'A pan that is too cold releases water and prevents clean browning.',
+    'Passer doucement un ingrédient solide à l’état fondu sans le brûler ni le séparer.': 'Melt a solid ingredient gently without burning or splitting it.',
+    'Coupe en morceaux réguliers si besoin.': 'Cut into even pieces if needed.',
+    'Utilise feu doux, micro-ondes court ou bain-marie selon la fragilité.': 'Use low heat, short microwave bursts or a water bath depending on its delicacy.',
+    'Remue souvent pour répartir la chaleur.': 'Stir often to distribute the heat.',
+    'Arrête dès que la texture est fluide.': 'Stop as soon as the texture is fluid.',
+    'Chocolat, beurre et fromage n’aiment pas les fortes chaleurs : mieux vaut finir avec la chaleur résiduelle.': 'Chocolate, butter and cheese dislike high heat: finish with residual heat instead.',
+    'Mélanger vivement pour homogénéiser, incorporer de l’air ou donner de la tenue à une préparation.': 'Whisk vigorously to make a mixture even, incorporate air or add structure.',
+    'Choisis un fouet adapté à la taille du bol.': 'Choose a whisk suited to the bowl size.',
+    'Incline légèrement le récipient.': 'Tilt the container slightly.',
+    'Fouette en gardant un rythme régulier.': 'Whisk at an even pace.',
+    'Arrête quand la texture demandée est atteinte.': 'Stop when the requested texture is reached.',
+    'Fouetter trop longtemps peut rendre une crème granuleuse ou faire retomber une préparation fragile.': 'Whisking too long can make cream grainy or deflate a delicate mixture.',
+    'Réduire une préparation en texture lisse, fine ou volontairement rustique avec un mixeur ou un robot.': 'Blend a mixture to a smooth, fine or deliberately rustic texture with a blender or processor.',
+    'Travaille par impulsions pour contrôler la texture.': 'Work in pulses to control the texture.',
+    'Racle les bords si nécessaire.': 'Scrape the sides if needed.',
+    'Ajoute un peu de liquide seulement si la recette le permet.': 'Add a little liquid only if the recipe allows it.',
+    'Arrête avant de chauffer ou liquéfier la préparation.': 'Stop before heating or liquefying the mixture.',
+    'Pour une soupe ou une crème très lisse, mixe puis filtre si besoin.': 'For a very smooth soup or cream, blend then strain if needed.',
+    'Appliquer une fine couche de dorure, marinade, beurre, huile, miel ou moutarde sur une surface avec un pinceau.': 'Brush a thin layer of egg wash, marinade, butter, oil, honey or mustard over a surface.',
+    'Prépare le mélange dans un petit bol.': 'Prepare the mixture in a small bowl.',
+    'Utilise un pinceau de cuisine propre.': 'Use a clean pastry brush.',
+    'Étale en couche fine et régulière.': 'Brush on a thin, even layer.',
+    'Évite les flaques qui brûlent ou détrempent.': 'Avoid puddles that burn or make the surface soggy.',
+    'Renouvelle en cours de cuisson seulement si la recette le demande.': 'Reapply during cooking only if the recipe calls for it.',
+    'Badigeonner sert à parfumer, faire briller ou aider une surface à colorer sans l’imbiber.': 'Brushing adds flavor, shine or browning without soaking the surface.',
+    'Cuire brièvement dans l’eau bouillante, ou fouetter œufs et sucre jusqu’à éclaircissement selon le contexte.': 'Cook briefly in boiling water, or whisk eggs and sugar until pale depending on the context.',
+    'Pour les légumes, plonge dans l’eau bouillante salée.': 'For vegetables, plunge them into salted boiling water.',
+    'Cuis très peu de temps.': 'Cook for a very short time.',
+    'Rafraîchis aussitôt si besoin.': 'Cool immediately if needed.',
+    'Pour les œufs, fouette avec le sucre jusqu’à texture plus claire.': 'For eggs, whisk with sugar until lighter in color.',
+    'Le contexte dit tout : légumes blanchis ou œufs blanchis ne veulent pas dire la même chose.': 'Context matters: blanched vegetables and whisked eggs are not the same technique.',
+    'Stopper une cuisson en plongeant l’aliment dans de l’eau froide ou glacée.': 'Stop cooking by plunging the food into cold or iced water.',
+    'Monter des blancs': 'Whip egg whites',
+    'Incorporer de l’air dans les blancs d’œufs pour obtenir une mousse stable.': 'Incorporate air into egg whites to create a stable foam.',
+    'Utilise un bol propre et sec.': 'Use a clean, dry bowl.',
+    'Commence doucement pour casser les blancs.': 'Start gently to break up the whites.',
+    'Augmente la vitesse quand la mousse devient fine.': 'Increase the speed when the foam becomes fine.',
+    'Arrête au bec demandé par la recette.': 'Stop at the peak specified by the recipe.',
+    'Des blancs trop battus deviennent granuleux et s’incorporent moins bien.': 'Over-whipped egg whites become grainy and are harder to fold in.',
+    'Incorporer délicatement': 'Fold in gently',
+    'Mélanger une préparation légère sans casser l’air incorporé.': 'Mix a light preparation without breaking its incorporated air.',
+    'Ajoute une première petite portion pour détendre.': 'Add a first small portion to loosen the mixture.',
+    'Utilise une maryse.': 'Use a spatula.',
+    'Soulève la masse du bas vers le haut.': 'Lift the mixture from the bottom upward.',
+    'Arrête dès que le mélange est homogène.': 'Stop as soon as the mixture is even.',
+    'Trop mélanger fait retomber les blancs, chantilly ou mousses.': 'Overmixing deflates egg whites, whipped cream or mousses.',
+    'Monter une mayonnaise': 'Make mayonnaise',
+    'Créer une émulsion stable entre jaune d’œuf, moutarde, acidité et huile.': 'Create a stable emulsion of egg yolk, mustard, acidity and oil.',
+    'Mélange jaune, moutarde, sel et acidité.': 'Mix the yolk, mustard, salt and acidity.',
+    'Verse l’huile goutte à goutte au début.': 'At first, pour in oil drop by drop.',
+    'Augmente le filet quand la sauce prend.': 'Increase to a thin stream once the sauce starts to thicken.',
+    'Détends si elle devient trop épaisse.': 'Loosen it if it becomes too thick.',
+    'Si elle tranche, repars avec une cuillère d’eau puis incorpore la sauce ratée petit à petit.': 'If it splits, start with a spoonful of water and gradually whisk in the broken sauce.',
+    'Pocher': 'Poach or pipe',
+    'Texture': 'Texture',
+    'Mélange': 'Mixing',
+    'Cuire doucement dans un liquide frémissant, ou dresser une préparation à la poche selon le contexte.': 'Poach gently in a simmering liquid, or pipe a mixture with a piping bag depending on the context.',
+    'Place les éléments principaux en premier.': 'Place the main elements first.',
+    'Ajoute sauce et garnitures sans masquer le sujet.': 'Add sauce and toppings without masking the main ingredient.',
+    'Retourne ou arrose selon la recette.': 'Turn or baste according to the recipe.',
+    'Couvre partiellement si la recette demande de garder l’humidité.': 'Cover partially if the recipe calls for retaining moisture.',
+    'Arrête quand la texture est fondante.': 'Stop when the texture is meltingly tender.',
+    'Chauffe fortement le support.': 'Heat the surface thoroughly.',
+    'Prépare une sauce assez réduite.': 'Prepare a sufficiently reduced sauce.',
+    'Badigeonne en couche fine.': 'Brush on a thin layer.',
+    'Arrête quand la texture ou le jus est correct.': 'Stop when the texture or juices are right.',
+    'Fonce ou pose la pâte bien froide.': 'Line or place the pastry while it is very cold.',
+    'Évite les coulures sur les bords feuilletés.': 'Avoid drips on puff-pastry edges.',
+    'Surveille la couleur sur les bords.': 'Watch the color on the edges.',
+    'Observe un léger dépôt au fond de la casserole.': 'Look for a light film on the bottom of the pan.',
+    'Place le poisson stable sur la planche.': 'Place the fish securely on the board.',
+    'Incise derrière la tête et longe l’arête.': 'Score behind the head and follow the central bone.',
+    'Garde la lame presque à plat.': 'Keep the blade almost flat.',
+    'Retire les arêtes restantes à la pince.': 'Remove the remaining bones with tweezers.',
+    'Une lame longue et souple limite la perte de chair.': 'A long, flexible blade limits meat loss.',
+    'Allume le four au moins 10 à 20min avant selon sa taille.': 'Turn on the oven at least 10 to 20 min ahead, depending on its size.',
+    'Pose la poêle sur feu moyen à vif selon la recette.': 'Set the pan over medium to high heat depending on the recipe.',
+    'Utilise feu doux, micro-ondes court ou bain-marie selon la fragilité.': 'Use low heat, short microwave bursts or a water bath depending on its delicacy.',
+    'Arrête dès que la texture est fluide.': 'Stop as soon as the texture is fluid.',
+    'Arrête quand la texture demandée est atteinte.': 'Stop when the requested texture is reached.',
+    'Réduire une préparation en texture lisse, fine ou volontairement rustique avec un mixeur ou un robot.': 'Blend a mixture to a smooth, fine or deliberately rustic texture with a blender or processor.',
+    'Travaille par impulsions pour contrôler la texture.': 'Work in pulses to control the texture.',
+    'Filtrer donne une texture plus nette, mais presser trop fort peut apporter de l’amertume ou du trouble.': 'Straining gives a cleaner texture, but pressing too hard can add bitterness or cloudiness.',
+    'Retirer l’excès d’eau, d’huile ou de jus pour garder une texture nette et éviter de détremper.': 'Remove excess water, oil or juice to keep a clean texture and prevent sogginess.',
+    'Utilise une passoire, une grille ou du papier selon l’aliment.': 'Use a strainer, rack or paper towels depending on the food.',
+    'Extraire du jus ou retirer de l’eau d’un ingrédient pour concentrer goût et texture.': 'Extract juice or water from an ingredient to concentrate flavor and texture.',
+    'Choisis presse-agrumes, torchon propre, passoire ou main selon l’aliment.': 'Choose a citrus press, clean cloth, strainer or your hands depending on the food.',
+    'Installer une préparation sur assiette, plat ou surface en contrôlant volume, propreté et lisibilité.': 'Arrange a preparation on a plate, dish or surface while controlling volume, cleanliness and clarity.',
+    'Prépare les assiettes ou le plat avant le dernier geste chaud.': 'Prepare the plates or dish before the final hot step.',
+    'Place les éléments principaux en premier.': 'Place the main elements first.',
+    'Poursuis jusqu’à la texture voulue.': 'Continue until the desired texture is reached.',
+    'Rôtir': 'Roast',
+    'Cuire au four ou à chaleur sèche pour concentrer les goûts et obtenir une surface colorée.': 'Cook in the oven or dry heat to concentrate flavor and brown the surface.',
+    'Une plaque trop chargée fait cuire à la vapeur au lieu de rôtir.': 'An overcrowded tray steams the food instead of roasting it.',
+    'Colorer des petits morceaux dans la matière grasse pour une surface dorée et savoureuse.': 'Brown small pieces in fat for a golden, flavorful surface.',
+    'Préparer une sauce assez réduite.': 'Prepare a sufficiently reduced sauce.',
+    'Mouiller trop vite peut faire des grumeaux ; mouiller trop haut dilue les goûts.': 'Adding liquid too quickly can make lumps; too much liquid dilutes flavor.',
+    'Remue ou arrose selon la préparation.': 'Stir or baste depending on the preparation.',
+    'Fonce ou pose la pâte bien froide.': 'Line or place the pastry while it is very cold.',
+    'Mélange œuf entier, jaune ou lait selon la dorure voulue.': 'Mix whole egg, yolk or milk depending on the finish you want.',
+    'Passe une couche fine au pinceau.': 'Brush on a thin layer.',
+    'Évite les coulures sur les bords feuilletés.': 'Avoid drips on puff-pastry edges.',
+    'Cuis blanc, blond ou brun selon la sauce voulue.': 'Cook to white, blond or brown depending on the sauce.',
+    'Cuire une pâte riche en eau sur le feu pour retirer l’humidité avant d’ajouter les œufs.': 'Cook a water-rich dough on the hob to remove moisture before adding the eggs.',
+    'Observe un léger dépôt au fond de la casserole.': 'Look for a light film on the bottom of the pan.',
+    'Dépose la pâte sur le plan légèrement fariné.': 'Place the dough on a lightly floured surface.',
+    'Place à température adaptée.': 'Place at a suitable temperature.',
+    'Incline légèrement la lame selon le pain.': 'Angle the lame slightly depending on the loaf.',
+    'Prépare un sirop froid ou tiède selon le biscuit.': 'Prepare a syrup cold or warm depending on the biscuit.',
+    'Filtrer finement au chinois pour obtenir sauce, crème ou coulis parfaitement lisse.': 'Strain through a chinois for an exceptionally smooth sauce, cream or fruit coulis.',
+    'Verse la préparation par petites quantités.': 'Pour in the preparation in small batches.',
+    'Allume le four au moins 10 à 20min avant selon sa taille.': 'Turn on the oven at least 10 to 20 min ahead, depending on its size.',
+    'Pose la poêle sur feu moyen à vif selon la recette.': 'Set the pan over medium to high heat depending on the recipe.',
+    'Utilise feu doux, micro-ondes court ou bain-marie selon la fragilité.': 'Use low heat, short microwave bursts or a water bath depending on its delicacy.',
+    'Arrête dès que la texture est fluide.': 'Stop as soon as the texture is fluid.',
+    'Arrête quand la texture demandée est atteinte.': 'Stop when the requested texture is reached.',
+    'Travaille par impulsions pour contrôler la texture.': 'Work in pulses to control the texture.',
+    'Filtrer donne une texture plus nette, mais presser trop fort peut apporter de l’amertume ou du trouble.': 'Straining gives a cleaner texture, but pressing too hard can add bitterness or cloudiness.',
+    'Retirer l’excès d’eau, d’huile ou de jus pour garder une texture nette et éviter de détremper.': 'Remove excess water, oil or juice to keep a clean texture and prevent sogginess.',
+    'Utilise une passoire, une grille ou du papier selon l’aliment.': 'Use a strainer, rack or paper towels depending on the food.',
+    'Extraire du jus ou retirer de l’eau d’un ingrédient pour concentrer goût et texture.': 'Extract juice or water from an ingredient to concentrate flavor and texture.',
+    'Choisis presse-agrumes, torchon propre, passoire ou main selon l’aliment.': 'Choose a citrus press, clean cloth, strainer or your hands depending on the food.',
+    'Installer une préparation sur assiette, plat ou support en contrôlant volume, propreté et lisibilité.': 'Arrange a preparation on a plate, dish or surface while controlling volume, cleanliness and clarity.',
+    'Prépare les assiettes ou le plat avant le dernier geste chaud.': 'Prepare the plates or dish before the final hot step.',
+    'Place les éléments principaux en premier.': 'Place the main elements first.',
+    'Poursuis jusqu’à la texture voulue.': 'Continue until the desired texture is reached.',
+    'Travaille à chaleur moyenne à vive selon la préparation.': 'Work over medium to high heat depending on the preparation.',
+    'Arrête quand la texture est fondante.': 'Stop when the texture is meltingly tender.',
+    'Place les légumes en une couche.': 'Place the vegetables in a single layer.',
+    'Prépare une sauce assez réduite.': 'Prepare a sufficiently reduced sauce.',
+    'Badigeonne en couche fine.': 'Brush on a thin layer.',
+    'Adapte le niveau : court, à hauteur ou complet selon la recette.': 'Adjust the level: shallow, halfway up or fully covered depending on the recipe.',
+    'Remue ou arrose selon la préparation.': 'Stir or baste depending on the preparation.',
+    'Arrête quand la texture ou le jus est correct.': 'Stop when the texture or juices are right.',
+    'Fonce ou pose la pâte bien froide.': 'Line or place the pastry while it is very cold.',
+    'Mélange œuf entier, jaune ou lait selon la dorure voulue.': 'Mix whole egg, yolk or milk depending on the finish you want.',
+    'Passe une couche fine au pinceau.': 'Brush on a thin layer.',
+    'Évite les coulures sur les bords feuilletés.': 'Avoid drips on puff-pastry edges.',
+    'Surveille la couleur sur les bords.': 'Watch the color on the edges.',
+    'Surveille la texture plutôt que chercher l’ébullition.': 'Watch the texture rather than bringing it to a boil.',
+    'Cuis blanc, blond ou brun selon la sauce voulue.': 'Cook to white, blond or brown depending on the sauce.',
+    'Cuire une pâte riche en eau sur le feu pour retirer l’humidité avant d’ajouter les œufs.': 'Cook a water-rich dough on the hob to remove moisture before adding the eggs.',
+    'Observe un léger dépôt au fond de la casserole.': 'Look for a light film on the bottom of the pan.',
+    'Dépose la pâte sur le plan légèrement fariné.': 'Place the dough on a lightly floured surface.',
+    'Place à température adaptée.': 'Place at a suitable temperature.',
+    'Incline légèrement la lame selon le pain.': 'Angle the lame slightly depending on the loaf.',
+    'Prépare un sirop froid ou tiède selon le biscuit.': 'Prepare a syrup cold or warm depending on the biscuit.',
+    'Filtrer finement au chinois pour obtenir sauce, crème ou coulis parfaitement lisse.': 'Strain through a chinois for an exceptionally smooth sauce, cream or fruit coulis.',
+    'Place le poisson stable sur la planche.': 'Place the fish securely on the board.',
+    'Sèche la surface de l’aliment.': 'Dry the surface of the food.',
+    'Travaille à chaleur moyenne à vive selon la préparation.': 'Work over medium to high heat depending on the preparation.',
+    'Ajoute la matière grasse quand la surface est chaude.': 'Add the fat when the surface is hot.',
+    'Arrête quand la texture ou les jus sont justes.': 'Stop when the texture or juices are right.',
+    'Fais revenir l’oignon ou l’échalote si prévu.': 'Sauté the onion or shallot if planned.',
+    'Couvre partiellement selon la réduction choisie.': 'Cover partially depending on the chosen reduction.',
+    'Cuis doucement sans chercher de coloration.': 'Cook gently without seeking browning.',
+    'Racle le dessous pour récupérer le lisse.': 'Scrape underneath to recover the smooth mixture.',
+    'Verse la préparation par petites quantités.': 'Pour in the preparation in small batches.',
+    'Pour les légumes, plonge dans l’eau bouillante salée.': 'For vegetables, plunge them into salted boiling water.',
+    'Pour le mélange dans un bol propre.': 'Pour the mixture into a clean bowl.',
+    'Chicken tender, well laque, sugar-pimente and flavored.': 'Tender, glazed chicken with a sweet chili flavor.',
+    'Turn over once and coat with the juice of dish for a surface shiny.': 'Turn once and baste with the dish juices for a shiny surface.',
+    'lime → lime (acidité plus vive; allergène : Aucun majeur courant) · disponible au placard.': 'lime → lime (brighter acidity; no common major allergen) · available in the pantry.',
+    'lime → lime (acidité plus vive; allergène : Aucun majeur courant) · option.': 'lime → lime (brighter acidity; no common major allergen) · optional.',
+    'vinaigre doux → vinaigre doux (acidité sans parfum d’agrume; allergène : Sulfites possibles) · option.': 'mild vinegar → mild vinegar (acidity without citrus aroma; possible sulfites) · optional.',
+    'Mélanger la sauce chili douce, la sauce soja, le jus de citron vert, le gingembre, l’ail, l’huile et le poivre du moulin.': 'Mix the sweet chili sauce, soy sauce, lime juice, ginger, garlic, oil and freshly ground pepper.',
+    'Mix the sauce chili gentle, the soy sauce, the lime juice, the ginger, garlic, oil and the freshly ground pepper.': 'Mix the sweet chili sauce, soy sauce, lime juice, ginger, garlic, oil and freshly ground pepper.',
+    'Cuire 35 à 45min en retournant une fois, jusqu’à ce que le poulet soit bien doré et la sauce laquée .': 'Cook for 35 to 45 minutes, turning once, until the chicken is golden and the sauce is glazed.',
+    'Cook 35 to 45 min in turning once, until the chicken is well golden and the sauce laquee.': 'Cook for 35 to 45 minutes, turning once, until the chicken is golden and the sauce is glazed.',
+    'Parsemer de coriandre fraîche et servir chaud.': 'Sprinkle with fresh cilantro and serve hot.',
+    'Parsemer of cilantro fresh and serve hot.': 'Sprinkle with fresh cilantro and serve hot.',
     'Nombre de personnes du menu': 'Menu serving count',
     'Qualité du menu': 'Menu quality',
     'Fil d’Ariane': 'Breadcrumb',
@@ -632,6 +1171,36 @@
     'Tempérer le chocolat': 'Temper chocolate',
     'Cuire un caramel': 'Cook caramel',
     'Hydrater la gélatine': 'Bloom gelatin',
+    'Fraiser une pâte': 'Fraiser dough',
+    'Écraser la pâte avec la paume pour homogénéiser sans trop la travailler.': 'Work the dough with the palm of your hand just until smooth; do not overwork it.',
+    'Rassemble la pâte en masse.': 'Gather the dough into one mass.',
+    'Pousse une portion avec la paume.': 'Smear one portion forward with the palm of your hand.',
+    'Rassemble à nouveau.': 'Gather it again.',
+    'Arrête dès que la pâte est homogène.': 'Stop as soon as the dough is even.',
+    'Réhydrater feuille ou poudre de gélatine avant de l’incorporer pour éviter grains et mauvaise prise.': 'Rehydrate sheet or powdered gelatin before adding it, to avoid graininess and a weak set.',
+    'Plonge les feuilles dans beaucoup d’eau froide ou mélange la poudre avec l’eau pesée.': 'Soak the sheets in plenty of cold water, or mix the powder with the measured water.',
+    'Attends le temps indiqué.': 'Wait for the stated time.',
+    'Essore les feuilles sans les déchirer.': 'Squeeze the sheets gently without tearing them.',
+    'Incorpore dans une préparation chaude mais non bouillante.': 'Add to a hot preparation, but not a boiling one.',
+    'Une gélatine mal hydratée se dissout mal et peut laisser des morceaux.': 'Gelatin that is not fully hydrated dissolves poorly and can leave lumps.',
+    'Obtenir le ruban': 'Reach the ribbon stage',
+    'Atteindre une texture souple qui retombe en ruban continu, utile pour les appareils fouettés, macarons et certaines pâtes.': 'Reach a soft texture that falls in a continuous ribbon, useful for whipped mixtures, macarons and some doughs.',
+    'Soulève la préparation avec la maryse ou le fouet.': 'Lift the mixture with a spatula or whisk.',
+    'Observe si elle retombe en bande continue.': 'Check that it falls in one continuous ribbon.',
+    'Mélange encore par petits gestes si elle casse trop vite.': 'Mix again with small strokes if it breaks too quickly.',
+    'Arrête dès que le ruban se fond lentement dans la masse.': 'Stop as soon as the ribbon slowly blends back into the mixture.',
+    'Un ruban trop liquide annonce souvent un mélange trop travaillé.': 'A ribbon that is too runny usually means the mixture was overworked.',
+    'Travailler l’appareil à macarons pour le détendre juste assez et obtenir un ruban souple.': 'Work the macaron mixture just enough to loosen it and create a soft ribbon.',
+    'Incorpore la meringue aux poudres.': 'Fold the meringue into the dry ingredients.',
+    'Écrase légèrement la masse contre la paroi.': 'Smear the mixture lightly against the side of the bowl.',
+    'Ramène la pâte au centre.': 'Bring the dough back to the center.',
+    'Un appareil trop peu macaronné fait des coques épaisses ; trop macaronné, il s’étale et perd son volume.': 'Under-mixed batter makes thick shells; over-mixed batter spreads and loses volume.',
+    'Faire de petits trous dans une pâte pour limiter les bulles et les gonflements irréguliers.': 'Prick pastry to limit bubbles and uneven rising.',
+    'Fonce ou pose la pâte bien froide.': 'Line or place the pastry while it is very cold.',
+    'Utilise une fourchette ou un pique-vite.': 'Use a fork or a pastry docker.',
+    'Pique régulièrement sans déchirer.': 'Prick evenly without tearing.',
+    'Remets au froid si la pâte s’est ramollie.': 'Chill it again if the pastry softens.',
+    'Piquer aide surtout les fonds de tarte, mais ne remplace pas toujours les poids de cuisson.': 'Docking is especially useful for tart bases, but it does not always replace baking weights.',
     'Cuire à la nappe': 'Cook to nappe',
     'Tempérer les œufs': 'Temper eggs',
     'Faire un roux': 'Make a roux',
@@ -829,6 +1398,12 @@
     'Souleve la preparation': 'Lift the mixture',
     'Mélange encore': 'Mix again',
     'Melange encore': 'Mix again',
+    'Dessécher une panade': 'Dry out a panade',
+    'Mélange sur feu moyen avec une spatule.': 'Stir over medium heat with a spatula.',
+    'Cherche une pâte qui se détache des parois.': 'Look for a dough that pulls away from the sides.',
+    'Observe un léger dépôt au fond de la casserole.': 'Look for a light film on the bottom of the pan.',
+    'Transfère puis laisse tiédir avant les œufs.': 'Transfer it and let it cool slightly before adding the eggs.',
+    'Une panade trop humide donne des choux qui s’affaissent ; trop sèche, elle absorbe mal les œufs.': 'A panade that is too wet makes choux collapse; one that is too dry absorbs the eggs poorly.',
     'Gratin de rigatoni ricotta-épinards': 'Rigatoni gratin with ricotta and spinach',
     'Gratin de coquillettes au poulet': 'Chicken macaroni gratin',
     'Tagliatelles aux agrumes': 'Citrus tagliatelle',
@@ -3288,6 +3863,61 @@
       .replace(/\bgrace a\b/gi, 'thanks to')
       .replace(/\bjusqu['\u2019]?a\s+/gi, 'until ')
       .replace(/\bjusqu\s+a\s+/gi, 'until ')
+      .replace(/\begoutte\b/gi, 'Drain')
+      .replace(/\bsurveille\b/gi, 'Watch')
+      .replace(/\bsaupoudrer\b/gi, 'Dust')
+      .replace(/\bbrievement\b/gi, 'briefly')
+      .replace(/\blier\b/gi, 'bind')
+      .replace(/\bragout\b/gi, 'stew')
+      .replace(/\bcrue\b/gi, 'raw')
+      .replace(/\bavec\b/gi, 'with')
+      .replace(/\bremue\b/gi, 'Stir')
+      .replace(/\bremuer\b/gi, 'Stir')
+      .replace(/\bfor bind\b/gi, 'to bind')
+      .replace(/\bwithout taste of flour raw\b/gi, 'without a raw flour taste')
+      .replace(/\bflour raw\b/gi, 'raw flour')
+      .replace(/\bmouille\b/gi, 'Add liquid')
+      .replace(/\bnacrer\b/gi, 'Toast the rice')
+      .replace(/\bprevu\b/gi, 'planned')
+      .replace(/\bdemande\b/gi, 'calls for')
+      .replace(/\bcourte\b/gi, 'short')
+      .replace(/\bpateuse\b/gi, 'pasty')
+      .replace(/\btenir\b/gi, 'hold')
+      .replace(/\bbrillants\b/gi, 'shiny')
+      .replace(/\btranslucide\b/gi, 'translucent')
+      .replace(/\bce qu'il devienne\b/gi, 'until it becomes')
+      .replace(/\bthe runny of cooking\b/gi, 'the cooking liquid')
+      .replace(/\bthe runny\b/gi, 'the liquid')
+      .replace(/\bFor a cooking\b/gi, 'For poaching')
+      .replace(/\bwith the runny of cooking\b/gi, 'with the cooking liquid')
+      .replace(/\bAdd liquid gradually with the liquid of cooking\b/gi, 'Add the cooking liquid gradually')
+      .replace(/\bSinger calls for a cooking short of flour before add the liquid, otherwise the sauce can stay pasty\b/gi, 'Singer calls for briefly cooking the flour before adding the liquid, otherwise the sauce can remain pasty')
+      .replace(/\bToasting the rice helps the rice a better hold in a risotto or a pilaf\b/gi, 'Toasting the rice helps it hold together better in a risotto or pilaf')
+      .replace(/\bFor poaching, Keep the liquid under boil\b/gi, 'For poaching, keep the liquid below a boil')
+      .replace(/\bFor a cooking,\s*Keep\s+the\s+runny\s+under\s+boil\b/gi, 'For poaching, keep the liquid below a boil')
+      .replace(/\bAdd liquid gradually with the runny of cooking\b/gi, 'Add the cooking liquid gradually')
+      .replace(/\bSinger calls for a cooking short of flour before add the runny, otherwise the sauce can stay pasty\b/gi, 'Singer calls for briefly cooking the flour before adding the liquid, otherwise the sauce can remain pasty')
+      .replace(/\bToasting the rice helps the rice a better hold in a risotto or a pilaf\b/gi, 'Toasting the rice helps it hold together better in a risotto or pilaf')
+      .replace(/\bKeep the liquid under boil\b/gi, 'keep the liquid below a boil')
+      .replace(/\bunder boil\b/gi, 'below a boil')
+      .replace(/\bwith the runny of cooking\b/gi, 'with the cooking liquid')
+      .replace(/\bthe cooking liquid\b/gi, 'the cooking liquid')
+      .replace(/\ba cooking short of flour\b/gi, 'the flour briefly')
+      .replace(/\bbefore add the liquid\b/gi, 'before adding the liquid')
+      .replace(/\botherwise the sauce can stay pasty\b/gi, 'otherwise the sauce can remain pasty')
+      .replace(/\bhelps the rice a better hold\b/gi, 'helps the rice hold together better')
+      .replace(/\bToast the rice helps\b/gi, 'Toasting the rice helps')
+      .replace(/\bFor a cooking,\s*Keep\b/gi, 'For poaching, keep')
+      .replace(/\bthe liquid of cooking\b/gi, 'the cooking liquid')
+      .replace(/\bthe runny of cooking\b/gi, 'the cooking liquid')
+      .replace(/\bSinger calls for a cooking short of flour before add the runny, otherwise the sauce can stay pasty\b/gi, 'Singer calls for briefly cooking the flour before adding the liquid, otherwise the sauce can remain pasty')
+      .replace(/\bAdd liquid gradually with the runny of cooking\b/gi, 'Add the cooking liquid gradually')
+      .replace(/\bToasting the rice helps the rice a better hold in a risotto or a pilaf\b/gi, 'Toasting the rice helps it hold together better in a risotto or pilaf')
+      .replace(/\bFor a cooking, Keep the runny under boil\b/gi, 'For poaching, keep the liquid below a boil')
+      .replace(/\bthe sauce can stay pasty\b/gi, 'the sauce can remain pasty')
+      .replace(/\bprepare\b/gi, 'prepare')
+      .replace(/\bpreparation of\b/gi, 'preparation of')
+      .replace(/\bor Watch\b/gi, 'or watch')
       .replace(/\ba feu doux\b/gi, 'over low heat')
       .replace(/\ba feu moyen\b/gi, 'over medium heat')
       .replace(/\ba feu vif\b/gi, 'over high heat')
@@ -3739,6 +4369,475 @@
       .replace(/\bBatteur ou robot\b/g, 'Hand mixer or stand mixer')
       .replace(/\bil reveille\b/gi, 'it brightens')
       .replace(/\bwithout masquer\b/gi, 'without masking')
+      .replace(/\bthe nombre of\b/gi, 'the number of')
+      .replace(/\bCard dice accords\b/gi, 'Pairing card')
+      .replace(/\bEncyclopedie\b/gi, 'Ingredient encyclopedia')
+      .replace(/\bFiches ingredients\b/gi, 'Ingredient cards')
+      .replace(/\bAgrume\b/gi, 'Citrus')
+      .replace(/\bHiver-printemps\b/gi, 'winter–spring')
+      .replace(/\bdisponible toute l annee\b/gi, 'available year-round')
+      .replace(/\bzest a prelever before pressage\b/gi, 'zest before juicing')
+      .replace(/\bA tenter:\s*fish,\s*butter\b/gi, 'Try with fish or butter')
+      .replace(/\bFinish:\s*zest minute,\s*sea salt flakes\b/gi, 'Finish with fresh zest and flaky sea salt')
+      .replace(/\bgives of depth savory\b/gi, 'adds savory depth')
+      .replace(/\breveil aromatique and juice plus clean\b/gi, 'brightens the chicken and keeps the juice clean')
+      .replace(/\bThe juice too tot cooked the textures fragiles and ternit the herbs\b/gi, 'Juice added too early cooks delicate textures and dulls herbs')
+      .replace(/\bAromate - Toute saison\b/gi, 'Aromatic · year-round')
+      .replace(/\bWith dry, airy, hors refrigerator; germe a remove if too fort\b/gi, 'Store dry and airy, outside the fridge; remove the sprout if the flavor is too strong')
+      .replace(/\bGarlic burns: bitterness very present\b/gi, 'Garlic burns easily and becomes very bitter')
+      .replace(/\bMix the sauce chili gentle\b/gi, 'Mix the sweet chili sauce')
+      .replace(/\bin turning once\b/gi, 'turning once')
+      .replace(/\bthe sauce laquee\b/gi, 'the sauce is glazed')
+      .replace(/\bParsemer of cilantro fresh\b/gi, 'Sprinkle with fresh cilantro')
+      .replace(/\bFraiser a dough\b/gi, 'Fraiser dough')
+      .replace(/\bProofing a serving with the paume\b/gi, 'Smear one portion forward with the palm of your hand')
+      .replace(/\bRassemble the dough in masse\b/gi, 'Gather the dough into one mass')
+      .replace(/\bRassemble again\b/gi, 'Gather it again')
+      .replace(/\bthe dough est homogene\b/gi, 'the dough is even')
+      .replace(/\bPlonge the leaves in a lot of water cold or mix the powder with water pesee\b/gi, 'Soak the sheets in plenty of cold water, or mix the powder with the measured water')
+      .replace(/\bEssore the leaves without the dechirer\b/gi, 'Squeeze the sheets gently without tearing them')
+      .replace(/\bFold in in a preparation hot but not bouillante\b/gi, 'Add to a hot preparation, but not a boiling one')
+      .replace(/\bA gelatin mal hydratee se dissout mal and can let pieces\b/gi, 'Gelatin that is not fully hydrated dissolves poorly and can leave lumps')
+      .replace(/\bretombe souplement without become runny\b/gi, 'falls softly without becoming runny')
+      .replace(/\bA mixture too briefly macaronne fait dice shells epaisses; too macaronne, il s['’]etale and loses its volume\b/gi, 'Under-mixed batter makes thick shells; over-mixed batter spreads and loses volume')
+      .replace(/\bReach a soft texture that retombe in ribbon stage continu, useful for the appareils fouettes, macarons and certaines pasta\b/gi, 'Reach a soft texture that falls in a continuous ribbon, useful for whipped mixtures, macarons and some doughs')
+      .replace(/\bFaire of small holes in a dough for limit the bubbles and the gonflements irreguliers\b/gi, 'Prick pastry to limit bubbles and uneven rising')
+      .replace(/\bFonce or pose the dough very cold\b/gi, 'Line or place the pastry while it is very cold')
+      .replace(/\bUsed a fourchette or a pique-quickly\b/gi, 'Use a fork or a pastry docker')
+      .replace(/\bPique régulièrement sans déchirer\b/gi, 'Prick evenly without tearing')
+      .replace(/\bRemets in the refrigerator if the dough s['’]est ramollie\b/gi, 'Chill it again if the pastry softens')
+      .replace(/\bPiquer helps especially the fonds of tart, mais replace not always the poids of cooking\b/gi, 'Docking is especially useful for tart bases, but it does not always replace baking weights')
+      // The practical/technique helpers are assembled from small French fragments.
+      // Keep the final English pass deterministic so a new recipe cannot leak a
+      // half-translated sentence into an English card when an exact phrase is absent.
+      .replace(/\bImbiber a biscuit with syrup, cafe, juice or alcohol for apporter soft and parfum\b/gi, 'Soak a sponge with syrup, coffee, juice or alcohol to add softness and aroma')
+      .replace(/\bApplique with brush or with spoon\b/gi, 'Apply with a brush or spoon')
+      .replace(/\bAvance gradually\b/gi, 'Work gradually')
+      .replace(/\bStop before que the biscuit se delite\b/gi, 'Stop before the sponge falls apart')
+      .replace(/\bA biscuit se punch often better when il est cold and stable\b/gi, 'A sponge absorbs syrup better when it is cold and stable')
+      .replace(/\bDust a powder or a preparation with sieve for remove the grains and alleger\b/gi, 'Sift a powder or mixture to remove lumps and lighten it')
+      .replace(/\bPlace the sieve above of a bowl\b/gi, 'Place the sieve over a bowl')
+      .replace(/\bTapote or racle gently\b/gi, 'Tap or scrape gently')
+      .replace(/\bJette the large pieces if the recipe demande a texture thin\b/gi, 'Discard large pieces if the recipe calls for a fine texture')
+      .replace(/\bSift avoid the grumeaux in the biscuits, macarons, cremes and sauces\b/gi, 'Sifting prevents lumps in biscuits, macarons, creams and sauces')
+      .replace(/\bRamener juice, butter or marinade on food for the cooking for nourrir, parfumer and brown\b/gi, 'Baste food during cooking with its juices, butter or marinade to keep it moist, fragrant and golden')
+      .replace(/\bIncline slightly the dish or the pan\b/gi, 'Tilt the dish or pan slightly')
+      .replace(/\bRecupere the juice with a spoon\b/gi, 'Spoon up the juices')
+      .replace(/\bArrose quickly the surface\b/gi, 'Baste the surface quickly')
+      .replace(/\bRepete without open the oven too too long\b/gi, 'Repeat without leaving the oven open for long')
+      .replace(/\bArroser helps the browning, mais too often open the oven ralentit the cooking\b/gi, 'Basting helps browning, but opening the oven too often slows cooking')
+      .replace(/\bBrown naturally sugars or aliments sugars for developper dice notes plus profondes\b/gi, 'Brown sugars or sweet ingredients to develop deeper notes')
+      .replace(/\bTravaille a heat medium a bright depending on the preparation\b/gi, 'Work over medium to high heat depending on the preparation')
+      .replace(/\bLet the sugar or the fond brown without burn\b/gi, 'Let the sugar or pan juices brown without burning')
+      .replace(/\bStir seulement when needed\b/gi, 'Stir only when needed')
+      .replace(/\bStoppe or deglace as soon as the color est reached\b/gi, 'Stop or deglaze as soon as the color is right')
+      .replace(/\bPlus the color fonce, plus bitterness Assemble: vise ambre, not burns\b/gi, 'The darker the color, the more bitterness rises: aim for amber, not burnt')
+      .replace(/\bPut the pan a temperature before add the fat or food for better brown\b/gi, 'Heat the pan before adding fat or food for better browning')
+      .replace(/\bPose the pan on medium heat a vif depending on the recipe\b/gi, 'Set the pan over medium to high heat depending on the recipe')
+      .replace(/\bLet-the heat a few instants a vide\b/gi, 'Let it heat empty for a few moments')
+      .replace(/\bAdd the fat when the surface est hot\b/gi, 'Add the fat when the surface is hot')
+      .replace(/\bDepose food when the fat fremit without burn\b/gi, 'Add the food when the fat shimmers without burning')
+      .replace(/\bA pan too cold fait rendre of water and prevents browning clean\b/gi, 'A pan that is too cold releases water and prevents clean browning')
+      .replace(/\bCook without couvercle for let evaporer moisture, concentrer the juice or keep of crispy\b/gi, 'Cook uncovered to evaporate moisture, concentrate juices and keep food crisp')
+      .replace(/\bUsed a container enough large if tu veux evaporer\b/gi, 'Use a wide enough container if you want evaporation')
+      .replace(/\bKeep a feu adapte for not attacher\b/gi, 'Keep the heat moderate to prevent sticking')
+      .replace(/\bStir or arrose depending on the preparation\b/gi, 'Stir or baste depending on the preparation')
+      .replace(/\bA decouvert, the taste se concentrate mais the preparation dry plus quickly\b/gi, 'Uncovered cooking concentrates flavor but dries the preparation faster')
+      .replace(/\bRelease the fond with bottom of a pan with a runny for creer a base of sauce\b/gi, 'Release the pan juices with a liquid to create a sauce base')
+      .replace(/\bPour a runny in the pan hot\b/gi, 'Pour a liquid into the hot pan')
+      .replace(/\bGratte the bottom with a spatula\b/gi, 'Scrape the bottom with a spatula')
+      .replace(/\bLet reduce for concentrer\b/gi, 'Reduce to concentrate the flavor')
+      .replace(/\bWater, stock, vin, vinegar or juice peuvent deglaze depending on the recipe\b/gi, 'Water, stock, wine, vinegar or juice can deglaze depending on the recipe')
+      .replace(/\bBrown quickly a food in a fat for developper the taste\b/gi, 'Brown food quickly in fat to develop flavor')
+      .replace(/\bAvoid of surcharger\b/gi, 'Avoid overcrowding')
+      .replace(/\bBaisse the heat if the fond brulent\b/gi, 'Lower the heat if the pan juices burn')
+      .replace(/\bCook gently a aromate or vegetable without browning for faire take out its water and its parfum\b/gi, 'Cook an aromatic or vegetable gently without browning to draw out its water and aroma')
+      .replace(/\bHeat gently with a briefly of fat\b/gi, 'Heat gently with a little fat')
+      .replace(/\bAdd food size finement\b/gi, 'Add finely cut food')
+      .replace(/\bSavory slightly if useful\b/gi, 'Season lightly if useful')
+      .replace(/\bCook until texture translucide without brunir\b/gi, 'Cook until translucent without browning')
+      .replace(/\bSuer developpe the douceur without taste grilled\b/gi, 'Sweating develops sweetness without a grilled flavor')
+      .replace(/\bprofil acidic fresh\b/gi, 'fresh acidity')
+      .replace(/\bprofil acide frais\b/gi, 'fresh acidity')
+      .replace(/\bAccord cle\b/gi, 'Key pairing')
+      .replace(/\bPoint vigilance\b/gi, 'Watch point')
+      .replace(/\baccords\b/gi, 'pairs with')
+      .replace(/\bacidity plus bright\b/gi, 'brighter acidity')
+      .replace(/\ballergene: Aucun majeur courant\b/gi, 'no common major allergen')
+      .replace(/\bacidity without parfum of Citrus\b/gi, 'acidity without citrus aroma')
+      .replace(/\bSulfites possibles\b/gi, 'possible sulfites')
+      .replace(/\bthe same ordre of preparation and isole the ingredients that changent; the texture remaining plus stable que if toute the recipe est reecrite\b/gi, 'the same preparation order and isolate the ingredients that change; the texture stays more stable than when rewriting the whole recipe')
+      .replace(/\bTexture controlee: if tu remplaces a product fat par of milk, Add gradually and keep a optionalalthick under the main for rattraper the liaison\b/gi, 'Controlled texture: if you replace a fatty product with milk, add it gradually and keep a thickening option nearby to recover the emulsion')
+      .replace(/\bKeep meat in the refrigerator a 0-4C, couvert, and take out seulement the quantity needed juste before cooking\b/gi, 'Keep the meat covered in the refrigerator at 0–4°C, and take out only the amount needed just before cooking')
+      .replace(/\bmarinade always couverte in the refrigerator; jette the marinade that touched raw food, or fais-the bouillir if it must be used as a sauce\b/gi, 'keep the marinade covered in the refrigerator; discard any marinade that touched raw food, or boil it if it will be used as a sauce')
+      .replace(/\bCool in moins of 2h, conserve in airtight container in the refrigerator 2-3 days, then rechauffe a coeur\b/gi, 'Cool within 2 hours, store in an airtight container in the refrigerator for 2–3 days, then reheat thoroughly')
+      .replace(/\b2 days in the refrigerator\. Reheat in the oven gentle or in a frying pan couverte\b/gi, 'Keep for 2 days in the refrigerator. Reheat gently in the oven or in a covered frying pan')
+      .replace(/\bTasse not the pieces, ils bouilliraient with lieu of roast\b/gi, 'Do not crowd the pieces or they will steam instead of roasting')
+      .replace(/\bSavory not before avoir taste the soy sauce\b/gi, 'Do not season before tasting the soy sauce')
+      .replace(/\bSurveille the end of cooking, the sauce sweet colore quickly\b/gi, 'Watch the end of cooking; the sweet sauce colors quickly')
+      .replace(/\bChicken tender, well laque, sugar-pimente and flavored\b/gi, 'Tender, glazed chicken with a sweet chili flavor')
+      .replace(/\bTurn over once and coat with the juice of dish for a surface shiny\b/gi, 'Turn once and baste with the dish juices for a shiny surface')
+      .replace(/\bServe with rice, salad croquante or roasted vegetables\b/gi, 'Serve with rice, crisp salad or roasted vegetables')
+      .replace(/\bStop when the texture or the juice est correct\b/gi, 'Stop when the texture or juices are right')
+      .replace(/\bHeat the pan before add food\b/gi, 'Heat the pan before adding food')
+      .replace(/\bLet brown before stir\b/gi, 'Let it brown before stirring')
+      .replace(/\bSautéed cherche plus of taste qu['’]?a cooking gentle\b/gi, 'Sautéing develops more flavor than gentle cooking')
+      .replace(/\bEnflammer brievement a alcohol enough hot for concentrer the taste and remove a partie of alcohol\b/gi, 'Flame a warm alcohol briefly to concentrate flavor and remove some of the alcohol')
+      .replace(/\bEloigne the pan of hotte and cut toute flamme too close\b/gi, 'Move the pan away from the hood and turn off nearby flames')
+      .replace(/\bHeat slightly alcohol separate or Pour-the in a pan already hot\b/gi, 'Warm the alcohol separately or pour it into an already hot pan')
+      .replace(/\bTurn on prudemment with a long allumette or incline very slightly the pan if tu cuisines with gaz\b/gi, 'Light carefully with a long match, or tilt the pan slightly when cooking over gas')
+      .replace(/\bLet the flamme s['’]?eteindre alone before continue the sauce\b/gi, 'Let the flame go out on its own before continuing the sauce')
+      .replace(/\bA alcohol cold Flambé mal\. Pour never directement depuis the bouteille and Flambé never under a hotte allumee\b/gi, 'Cold alcohol does not flambé well. Never pour directly from the bottle, and never flambé under a lit hood')
+      .replace(/\bHeat oil with temperature indicated\b/gi, 'Heat the oil to the indicated temperature')
+      .replace(/\bTravaille in small batches\b/gi, 'Work in small batches')
+      .replace(/\bEgoutte on a rack or papier\b/gi, 'Drain on a rack or paper towels')
+      .replace(/\bSavory or Season juste after cooking\b/gi, 'Season just after cooking')
+      .replace(/\bToo remplir the saucepan fait chuter the temperature and fat the frying\b/gi, 'Overfilling the pan drops the temperature and makes the frying greasy')
+      .replace(/\bCook of small vegetables with water, butter and parfois sugar to get a shine coating\b/gi, 'Cook small vegetables with water, butter and sometimes sugar to create a shiny glaze')
+      .replace(/\bAdd water a hauteur partielle, butter, salt and sugar if demande\b/gi, 'Add enough water to come partway up, plus butter, salt and sugar if requested')
+      .replace(/\bCouvre au papier ou au couvercle au début\b/gi, 'Cover with parchment or a lid at first')
+      .replace(/\bDecouvre and Let the juice coat at the end of cooking\b/gi, 'Uncover and let the juices coat the vegetables at the end of cooking')
+      .replace(/\bThe glaze should briller without baigner: the runny final should be court\b/gi, 'The glaze should shine without pooling: the final liquid should be reduced')
+      .replace(/\bBrown vivement par contact direct with a high heat: broiler, barbecue, pan striee or oven\b/gi, 'Brown food quickly through direct contact with high heat: broiler, barbecue, ridged pan or oven')
+      .replace(/\bHeat fortement the surface\b/gi, 'Heat the surface thoroughly')
+      .replace(/\bOil slightly food rather than noyer the pan\b/gi, 'Oil the food lightly rather than flooding the pan')
+      .replace(/\bLet sear before move\b/gi, 'Let it sear before moving it')
+      .replace(/\bGriller demande a surface dry and a heat franche\b/gi, 'Grilling needs a dry surface and strong heat')
+      .replace(/\bCoat a food for creer a croute even with cooking\b/gi, 'Coat food to create an even crust during cooking')
+      .replace(/\bAppuie slightly for faire adherer\b/gi, 'Press lightly to help it adhere')
+      .replace(/\bA panure adhere better on a food dry\b/gi, 'Breading adheres better to dry food')
+      .replace(/\bCook gently in a runny fremissant, or dresser a preparation with piping bag depending on the contexte\b/gi, 'Poach gently in a simmering liquid, or pipe a mixture with a piping bag depending on the context')
+      .replace(/\bFor a cooking, Keep the runny under boil\b/gi, 'For poaching, keep the liquid below a boil')
+      .replace(/\bPlonge food gently\b/gi, 'Lower the food gently into the liquid')
+      .replace(/\bSurveille la température\b/gi, 'Monitor the temperature')
+      .replace(/\bFor a piping bag, press regulierement without a-coups\b/gi, 'With a piping bag, press steadily without jerking')
+      .replace(/\bPipe can designer a cooking gentle or a plating with piping bag\b/gi, 'Pipe can describe gentle poaching or shaping with a piping bag')
+      .replace(/\bBring a runny a large bouillons before reduce, cook or activer a step precise\b/gi, 'Bring a liquid to a full boil before reducing, cooking or starting a specific step')
+      .replace(/\bHeat over medium heat a vif\b/gi, 'Heat over medium to high heat')
+      .replace(/\bSurveille the edges then the centre\b/gi, 'Watch the edges, then the center')
+      .replace(/\bMix if the runny contient sugar, milk or starch\b/gi, 'Stir if the liquid contains sugar, milk or starch')
+      .replace(/\bBaisse as soon as boil demandee est reached\b/gi, 'Lower the heat as soon as the requested boil is reached')
+      .replace(/\bMilk, cream and sirops debordent quickly: a saucepan haute gives plus of marge\b/gi, 'Milk, cream and syrups boil over quickly: a tall pan gives you more room')
+      .replace(/\bStopper a cooking in plongeant food in of water cold or glacee\b/gi, 'Stop cooking by plunging food into cold or iced water')
+      .replace(/\bPrepare a bowl water cold before the cooking\b/gi, 'Prepare a bowl of cold water before cooking')
+      .replace(/\bEgoutte food hot\b/gi, 'Drain the hot food')
+      .replace(/\bPlonge immediately in water cold\b/gi, 'Plunge it immediately into cold water')
+      .replace(/\bRafraichir Keep the couleurs nettes and avoid the surcuisson\b/gi, 'Cooling keeps colors bright and prevents overcooking')
+      .replace(/\bChanger the face exposee with heat to get a cooking and a browning even\b/gi, 'Change the side exposed to heat for even cooking and browning')
+      .replace(/\bWait que the premiere face is prise or coloree\b/gi, 'Wait until the first side is set or browned')
+      .replace(/\bRetourne with a spatula or a pince adaptee\b/gi, 'Turn with a suitable spatula or pair of tongs')
+      .replace(/\bReplace the pieces espaces\b/gi, 'Return the pieces with space between them')
+      .replace(/\bPoursuis until the texture chosen\b/gi, 'Continue until the desired texture is reached')
+      .replace(/\bIf food colle, il est often not again pret a be retourne\b/gi, 'If the food sticks, it is often not ready to turn yet')
+      .replace(/\bBrown of small pieces in a fat to get a surface golden and savoureuse\b/gi, 'Brown small pieces in fat for a golden, flavorful surface')
+      .replace(/\bEtale in a single layer\b/gi, 'Spread in a single layer')
+      .replace(/\bRissoler fonctionne mal in a pan too pleine: water s['’]?accumule and empeche of brown\b/gi, 'Browning fails in an overcrowded pan: water builds up and prevents browning')
+      .replace(/\bBrown quickly a food directly on the surface of a pan, saucepan or plancha very hot for creer a croute before poursuivre the cooking\b/gi, 'Brown food quickly on a very hot pan, saucepan or plancha to create a crust before continuing the cooking')
+      .replace(/\bEponge food for remove moisture of surface\b/gi, 'Pat the food dry to remove surface moisture')
+      .replace(/\bHeat the pan with a briefly of fat\b/gi, 'Heat the pan with a little fat')
+      .replace(/\bDepose the pieces without the serrer\b/gi, 'Add the pieces without crowding them')
+      .replace(/\bLet brown before turn over\b/gi, 'Let them brown before turning')
+      .replace(/\bBaisse the heat or continue depending on the recipe\b/gi, 'Lower the heat or continue according to the recipe')
+      .replace(/\bIf food rend a lot of water or colore pas, the pan est too cold or too remplie\b/gi, 'If the food releases water or does not brown, the pan is too cold or too full')
+      .replace(/\bHeat a dry or in the oven for renforcer the parfum dice spices, seeds or fruits dry\b/gi, 'Toast in a dry pan or oven to deepen the aroma of spices, seeds or nuts')
+      .replace(/\bEtale in thin layer\b/gi, 'Spread in a thin layer')
+      .replace(/\bStop as soon as odeur becomes intense\b/gi, 'Stop as soon as the aroma becomes intense')
+      .replace(/\bThe spices brulent quickly: a few seconds peuvent suffire in a frying pan\b/gi, 'Spices burn quickly: a few seconds may be enough in a frying pan')
+      .replace(/\bPrepare a pan or dice ramequins to so that the gateaux and mi-cooked accrochent\b/gi, 'Prepare a pan or ramekins so cakes and fondants do not stick')
+      .replace(/\bAdd a petite spoon of flour\b/gi, 'Add a small spoonful of flour')
+      .replace(/\bTourne the pan for cover the parois\b/gi, 'Turn the pan to coat the sides')
+      .replace(/\bTape for remove excedent\b/gi, 'Tap out the excess')
+      .replace(/\bThis step est importante for the preparations that collent facilement\b/gi, 'This step matters for preparations that stick easily')
+      .replace(/\bCover interieur of a pan with flour, cocoa, sugar, papier or butter for help the demoulage\b/gi, 'Cover the inside of a pan with flour, cocoa, sugar, parchment or butter to help release the bake')
+      .replace(/\bButter or humidifie slightly the pan depending on the recipe\b/gi, 'Butter or lightly moisten the pan as the recipe requires')
+      .replace(/\bCover toute the surface\b/gi, 'Cover the entire surface')
+      .replace(/\bRemove excedent before remplir\b/gi, 'Remove the excess before filling')
+      .replace(/\bFor a cake chocolate, the cocoa avoid the traces blanches of flour\b/gi, 'For a chocolate cake, cocoa avoids white flour marks')
+      .replace(/\bCook too long covered with a bottom of runny after browning for attendrir a piece or dice vegetables\b/gi, 'Cook slowly, covered with a little liquid after browning, to tenderize meat or vegetables')
+      .replace(/\bSaisis or sautéed food if the recipe the demande\b/gi, 'Sear or sauté the food if the recipe calls for it')
+      .replace(/\bAdd a topping aromatique\b/gi, 'Add aromatic ingredients')
+      .replace(/\bMouille à hauteur partielle\b/gi, 'Add liquid halfway up the food')
+      .replace(/\bCook gently covered until tenderness\b/gi, 'Cook gently, covered, until tender')
+      .replace(/\bA braisage reussi Keep briefly of bubbles and a lot of patience\b/gi, 'A successful braise has only a few bubbles and takes patience')
+      .replace(/\bCook lentement in fat, sugar, syrup or juice for attendrir and concentrer the saveurs\b/gi, 'Cook slowly in fat, sugar, syrup or juice to tenderize and concentrate flavor')
+      .replace(/\bChoose a low heat and stable\b/gi, 'Choose low, steady heat')
+      .replace(/\bCover partiellement if the recipe demande of keep moisture\b/gi, 'Cover partially if the recipe calls for retaining moisture')
+      .replace(/\bLet the temps work without strong boil\b/gi, 'Let time work without a strong boil')
+      .replace(/\bStop when the texture est melting\b/gi, 'Stop when the texture is meltingly tender')
+      .replace(/\bConfire est not saisir: the douceur and the duree font the result\b/gi, 'Confit is not searing: gentle heat and time create the result')
+      .replace(/\bCook with a couvercle for store steam, moisture and heat autour of food\b/gi, 'Cook with a lid to retain steam, moisture and heat around the food')
+      .replace(/\bBaisse the heat after boil or the browning\b/gi, 'Lower the heat after boiling or browning')
+      .replace(/\bPose the couvercle in laissant a petite ouverture if the recipe reduced\b/gi, 'Set the lid slightly ajar if the recipe needs reducing')
+      .replace(/\bControle regulierement the niveau of runny\b/gi, 'Check the liquid level regularly')
+      .replace(/\bDecouvre at the end of cooking if tu dois concentrer\b/gi, 'Uncover at the end if you need to concentrate the juices')
+      .replace(/\bCovered, evaporation baisse: Season and reduce ensuite if needed\b/gi, 'Covered cooking reduces evaporation: season and reduce afterward if needed')
+      .replace(/\bHeat gently a preparation thanks to a container pose on a simmering water\b/gi, 'Heat a preparation gently in a container set over simmering water')
+      .replace(/\bBring to a gentle simmer a bottom water\b/gi, 'Bring a little water to a gentle simmer')
+      .replace(/\bPose a bowl without que the bottom touche too water\b/gi, 'Set a bowl over it without letting the base touch the water')
+      .replace(/\bStir regulierement\b/gi, 'Stir regularly')
+      .replace(/\bThe water bath avoid of burn chocolate, butter, cremes and sauces fragiles\b/gi, 'A water bath prevents chocolate, butter, creams and delicate sauces from burning')
+      .replace(/\bCook gently covered with very briefly of runny or of fat, often for dice vegetables\b/gi, 'Cook gently, covered, with very little liquid or fat, often for vegetables')
+      .replace(/\bCut the aliments enough regulierement\b/gi, 'Cut the food evenly')
+      .replace(/\bAdd briefly of fat or a bottom of runny\b/gi, 'Add a little fat or a shallow layer of liquid')
+      .replace(/\bEtuver attendrit and concentrate the taste, mais can soften a food qu['’]?on voulait crispy\b/gi, 'Steaming tenderizes and concentrates flavor, but can soften food meant to stay crisp')
+      .replace(/\bDust gently a ingredient solide a etat melted without the burn ni the separate\b/gi, 'Melt a solid ingredient gently without burning or splitting it')
+      .replace(/\bCut into pieces even if needed\b/gi, 'Cut into even pieces if needed')
+      .replace(/\bUsed low heat, micro-ondes court or water bath depending on the fragilite\b/gi, 'Use low heat, short microwave bursts or a water bath depending on its delicacy')
+      .replace(/\bStir often for divide the heat\b/gi, 'Stir often to distribute the heat')
+      .replace(/\bStop as soon as the texture est loose\b/gi, 'Stop as soon as the texture is fluid')
+      .replace(/\bChocolate, butter and cheese aiment not the fortes chaleurs: better vaut finish with the residual heat\b/gi, 'Chocolate, butter and cheese dislike high heat: finish with residual heat instead')
+      .replace(/\bCook gently with of small bubbles for developper the taste without brutaliser the preparation\b/gi, 'Cook gently with small bubbles to develop flavor without stressing the preparation')
+      .replace(/\bBring first close of boil if needed\b/gi, 'Bring it close to a boil first if needed')
+      .replace(/\bBaisse until small bubbles even\b/gi, 'Lower the heat until the bubbles are even and small')
+      .replace(/\bA proper gentle simmer est plus gentle qu['’]?a boil a large bouillons\b/gi, 'A proper simmer is gentler than a full rolling boil')
+      .replace(/\bStrain finement with chinois to get sauce, cream or fruit coulis parfaitement smooth\b/gi, 'Strain through a chinois for an exceptionally smooth sauce, cream or fruit coulis')
+      .replace(/\bPose the chinois above of a container stable\b/gi, 'Set the chinois over a stable container')
+      .replace(/\bPour the preparation in small batches\b/gi, 'Pour in the preparation in small batches')
+      .replace(/\bHelps with a louche or a spatula\b/gi, 'Help it through with a ladle or spatula')
+      .replace(/\bRacle the dessous for recuperer the smooth\b/gi, 'Scrape underneath to recover the smooth mixture')
+      .replace(/\bChinoiser est plus fin qu['’]?a simple strainer and gives a rendu plus professionnel\b/gi, 'A chinois gives a finer result than a simple strainer and a more polished finish')
+      .replace(/\bInstaller a preparation on assiette, dish or surface in controlant volume, proprete and lisibilite\b/gi, 'Arrange a preparation on a plate, dish or surface while controlling volume, cleanliness and clarity')
+      .replace(/\bPrepare the assiettes or the dish before the dernier geste hot\b/gi, 'Prepare the plates or dish before the final hot step')
+      .replace(/\bPlace les éléments principaux en premier\b/gi, 'Place the main elements first')
+      .replace(/\bPat dry the edges before serve\b/gi, 'Wipe the edges before serving')
+      .replace(/\bA plating clean est often a question of temperature and ordre, not of decoration excessive\b/gi, 'Clean plating is often about temperature and order, not excessive decoration')
+      .replace(/\bDust a runny, a cream or a sauce for remove pieces, fibers, skins or grains\b/gi, 'Strain a liquid, cream or sauce to remove pieces, fibers, skins or grains')
+      .replace(/\bPlace a strainer thin, a chinois or a etamine above of a container\b/gi, 'Set a fine strainer, chinois or cheesecloth over a container')
+      .replace(/\bPress slightly seulement if the recipe the permet\b/gi, 'Press lightly only if the recipe allows it')
+      .replace(/\bStrain gives a texture plus clean, mais press too fort can apporter of bitterness or trouble\b/gi, 'Straining gives a cleaner texture, but pressing too hard can add bitterness or cloudiness')
+      .replace(/\bAppliquer a sauce shiny and concentrated in couches thin for parfumer and give a fini satine\b/gi, 'Apply a shiny, concentrated sauce in thin layers to flavor and create a satin finish')
+      .replace(/\bPrepare a sauce enough reduced\b/gi, 'Prepare a sufficiently reduced sauce')
+      .replace(/\bBadigeonne in thin layer\b/gi, 'Brush on a thin layer')
+      .replace(/\bDust brievement in the oven, with broiler or in a frying pan\b/gi, 'Heat briefly in the oven, under the broiler or in a frying pan')
+      .replace(/\bRepete if needed without burn the sugars\b/gi, 'Repeat if needed without burning the sugars')
+      .replace(/\bA laque too runny coule, a laque too reduced burns quickly\b/gi, 'A glaze that is too runny drips; one that is too reduced burns quickly')
+      .replace(/\bUniformiser a cream, a dough, a sauce or a surface to get a texture clean and even\b/gi, 'Smooth a cream, dough, sauce or surface for an even, clean texture')
+      .replace(/\bTravaille with a spatula, a whisk or a palette adaptee\b/gi, 'Work with a spatula, whisk or suitable palette knife')
+      .replace(/\bEcrase the small amas if needed\b/gi, 'Break up small lumps if needed')
+      .replace(/\bRacle the edges of container\b/gi, 'Scrape the sides of the container')
+      .replace(/\bSmooth veut not dire too mix: as soon as c['’]?est homogene, on s['’]?stop\b/gi, 'Smoothing does not mean overmixing: stop as soon as it is even')
+      .replace(/\bCut very finely without faire of mash, especially for the herbs, onions and shallots\b/gi, 'Cut very finely without making a purée, especially herbs, onions and shallots')
+      .replace(/\bKeep the tip of knife close of planche\b/gi, 'Keep the knife tip close to the board')
+      .replace(/\bAvance little by little with the main in griffe\b/gi, 'Move forward little by little with your guiding hand in a claw')
+      .replace(/\bRepasse once seulement if needed\b/gi, 'Make one more pass only if needed')
+      .replace(/\bStop before que food rende too water\b/gi, 'Stop before the food releases too much water')
+      .replace(/\bFor the herbs, a knife well affute avoid of noircir the leaves\b/gi, 'For herbs, a sharp knife prevents the leaves from darkening')
+      .replace(/\bCut into slices thin and even, often for the onions, shallots, leeks or mushrooms\b/gi, 'Cut into thin, even slices, often for onions, shallots, leeks or mushrooms')
+      .replace(/\bStabilise food with a face plate\b/gi, 'Stabilize the food with a flat side down')
+      .replace(/\bPlace les doigts en griffe\b/gi, 'Keep your fingers in a claw')
+      .replace(/\bFais glisser the lame without crushing\b/gi, 'Glide the blade without crushing the food')
+      .replace(/\bKeep a even thickness\b/gi, 'Keep an even thickness')
+      .replace(/\bPlus the Cut est thin, plus food bottom quickly with cooking\b/gi, 'The thinner the cut, the faster the food cooks')
+      .replace(/\bCut very small in gardant of texture, for garlic, the herbs, the walnuts or certains aromatics\b/gi, 'Cut very small while keeping texture, for garlic, herbs, walnuts or aromatics')
+      .replace(/\bRegroupe food in tas\b/gi, 'Gather the food into a pile')
+      .replace(/\bUsed a mouvement of balancier\b/gi, 'Use a rocking motion')
+      .replace(/\bRamene regulierement the pieces with centre\b/gi, 'Bring the pieces back to the center regularly')
+      .replace(/\bStop before get a wet paste\b/gi, 'Stop before it becomes a wet paste')
+      .replace(/\bFor garlic, Remove the germe if tu veux a taste plus gentle\b/gi, 'For garlic, remove the sprout if you want a milder flavor')
+      .replace(/\bCut in very small dice even for a cooking rapide or a topping clean\b/gi, 'Cut into very small, even dice for quick cooking or a clean garnish')
+      .replace(/\bTaillez first dice slices even\b/gi, 'First cut even slices')
+      .replace(/\bCut-the in sticks fins\b/gi, 'Cut them into thin sticks')
+      .replace(/\bRassemble the sticks\b/gi, 'Gather the sticks')
+      .replace(/\bDetaille in small dice even\b/gi, 'Cut into small, even dice')
+      .replace(/\bA brunoise even cooked quickly and gives a texture plus elegante\b/gi, 'Even brunoise cooks quickly and gives an elegant texture')
+      .replace(/\bCut in fins sticks for a topping, a salad or a cooking very courte\b/gi, 'Cut into thin sticks for a garnish, salad or very quick cooking')
+      .replace(/\bFais dice thin slices\b/gi, 'Cut thin slices')
+      .replace(/\bSuperpose a few slices\b/gi, 'Stack a few slices')
+      .replace(/\bDetaille in sticks fins\b/gi, 'Cut into thin sticks')
+      .replace(/\bSuperpose not too of slices with times, otherwise the Cut becomes irreguliere\b/gi, 'Do not stack too many slices or the cut becomes uneven')
+      .replace(/\bSeparate a preparation of its elements troubles or indesirables: clarified butter, stock limpide or egg separe depending on the contexte\b/gi, 'Separate unwanted or cloudy elements from a preparation: clarified butter, clear stock or a separated egg depending on the context')
+      .replace(/\bIdentifie this that should be separe: small-milk, ecume, sediment or white\/yolk\b/gi, 'Identify what must be separated: whey, foam, sediment or white and yolk')
+      .replace(/\bTravaille gently to avoid of remelanger the elements\b/gi, 'Work gently to avoid mixing the elements again')
+      .replace(/\bRemove ecume or Pour in laissant the sediment with bottom\b/gi, 'Remove the foam or pour while leaving the sediment at the bottom')
+      .replace(/\bStrain if the recipe demande a texture parfaitement clean\b/gi, 'Strain if the recipe calls for a perfectly clear texture')
+      .replace(/\bClarifier demande of douceur: if tu remues too fort, the elements separes se remettent in suspension\b/gi, 'Clarifying requires a light touch: vigorous stirring puts the separated elements back into suspension')
+      .replace(/\bCut coarsely to keep pieces irreguliers, often for tomatoes, walnuts, chocolate or pepper\b/gi, 'Chop coarsely to keep irregular pieces, often for tomatoes, walnuts, chocolate or pepper')
+      .replace(/\bPlace food on a planche stable\b/gi, 'Place the food on a stable board')
+      .replace(/\bCut or ecrase coarsely\b/gi, 'Cut or crush coarsely')
+      .replace(/\bKeep pieces visibles\b/gi, 'Keep visible pieces')
+      .replace(/\bAvoid of reduce powdered or in mash\b/gi, 'Avoid reducing it to powder or mash')
+      .replace(/\bCrush gives of depth: texture, eclats and mache\b/gi, 'Crushing adds depth through texture, pieces and bite')
+      .replace(/\bRemove carapace, coque or enveloppe without abimer the flesh useful\b/gi, 'Remove the shell, casing or envelope without damaging the usable flesh')
+      .replace(/\bTravaille on a food cold or warm depending on the recipe\b/gi, 'Work with the food cold or warm according to the recipe')
+      .replace(/\bDetache gently the carapace or the coque\b/gi, 'Gently detach the shell or casing')
+      .replace(/\bKeep heads and carapaces clean for a fumet if useful\b/gi, 'Keep clean heads and shells for stock if useful')
+      .replace(/\bRemove the boyau dice shrimp if needed\b/gi, 'Remove the vein from the shrimp if needed')
+      .replace(/\bThe parures of shellfish make a lot of taste with sauces and bouillons\b/gi, 'Shellfish trimmings add a lot of flavor to sauces and stocks')
+      .replace(/\bRemove excess water, oil or of juice to keep a texture clean and avoid of detremper\b/gi, 'Remove excess water, oil or juice to keep a clean texture and prevent sogginess')
+      .replace(/\bUsed a strainer, a grilled or papier depending on food\b/gi, 'Use a strainer, rack or paper towels depending on the food')
+      .replace(/\bLet s['’]?ecouler without crushing if food est fragile\b/gi, 'Let it drain without crushing fragile food')
+      .replace(/\bShake or tamponne if the recipe demande a surface dry\b/gi, 'Shake or pat dry if the recipe calls for a dry surface')
+      .replace(/\bTransfere seulement when excess liquid est parti\b/gi, 'Transfer only once the excess liquid has run off')
+      .replace(/\bLet a food directly on the surface of a seasoning for parfumer, attendrir or proteger\b/gi, 'Leave food in contact with a seasoning to flavor, tenderize or protect it')
+      .replace(/\bMix the marinade before add food\b/gi, 'Mix the marinade before adding the food')
+      .replace(/\bCoat toute the surface\b/gi, 'Coat the entire surface')
+      .replace(/\bCover and Place in the refrigerator\b/gi, 'Cover and place in the refrigerator')
+      .replace(/\bEgoutte or Pat dry if the cooking should saisir\b/gi, 'Drain or pat dry if the food must sear')
+      .replace(/\bA marinade acidic too long can cook or durcir certains aliments\b/gi, 'An acidic marinade left too long can cook or toughen some foods')
+      .replace(/\bRemove the parties inutiles, dures or irregulieres of a food to get a piece clean before cooking or plating\b/gi, 'Remove tough, irregular or unwanted parts to create a clean piece before cooking or plating')
+      .replace(/\bIdentifie les parties sèches, dures, grasses ou abîmées\b/gi, 'Identify dry, tough, fatty or damaged parts')
+      .replace(/\bRemove-the with a knife well aiguise\b/gi, 'Remove them with a sharp knife')
+      .replace(/\bKeep the parures clean for a stock or a sauce if useful\b/gi, 'Keep clean trimmings for stock or sauce if useful')
+      .replace(/\bAvoid of too enlever: on cherche a piece clean, not a loss excessive\b/gi, 'Avoid trimming too much: aim for a clean piece without excessive waste')
+      .replace(/\bTrim ameliore the cooking and the presentation, especially on viandes, fish, vegetables and agrumes\b/gi, 'Trimming improves cooking and presentation, especially for meat, fish, vegetables and citrus')
+      .replace(/\bExtract of juice or remove of water of a ingredient for concentrer taste and texture\b/gi, 'Extract juice or water from an ingredient to concentrate flavor and texture')
+      .replace(/\bChoose press-agrumes, torchon clean, strainer or main depending on food\b/gi, 'Choose a citrus press, clean cloth, strainer or your hands depending on the food')
+      .replace(/\bPress gradually without eclabousser\b/gi, 'Press gradually without splashing')
+      .replace(/\bRecupere the juice or jette water depending on the recipe\b/gi, 'Keep the juice or discard the water according to the recipe')
+      .replace(/\bTaste or pese if the precision compte\b/gi, 'Taste or weigh if precision matters')
+      .replace(/\bPress dice vegetables rapes change a lot the crispy and the tenue\b/gi, 'Pressing grated vegetables greatly changes their crispness and structure')
+      .replace(/\bReduce a ingredient in fins copeaux or filaments for better divide its taste or its texture\b/gi, 'Reduce an ingredient to fine shavings or strands to distribute flavor or texture')
+      .replace(/\bChoose a grated adaptee\b/gi, 'Choose a suitable grater')
+      .replace(/\bKeep the doigts loin of surface\b/gi, 'Keep your fingers away from the surface')
+      .replace(/\bGrated at the last moment if ingredient oxyde\b/gi, 'Grate at the last moment if the ingredient oxidizes')
+      .replace(/\bPress if the recipe demande of remove water\b/gi, 'Press if the recipe calls for removing water')
+      .replace(/\bThe potatoes rapees should often be pressees very fort for croustiller\b/gi, 'Grated potatoes often need to be pressed firmly to turn crisp')
+      .replace(/\bCook a cream with jaunes until this qu['’]?elle coats the spoon without coaguler\b/gi, 'Cook a custard with yolks until it coats the spoon without curdling')
+      .replace(/\bHeat gently in remuant constantly\b/gi, 'Heat gently while stirring constantly')
+      .replace(/\bSurveille the texture rather than chercher boil\b/gi, 'Watch the texture rather than bringing it to a boil')
+      .replace(/\bDust the doigt on the dos of spatula\b/gi, 'Run a finger across the back of the spatula')
+      .replace(/\bStoppe when the trace remaining clean\b/gi, 'Stop when the track remains clean')
+      .replace(/\bAbove of 85C about, the jaunes risquent of coaguler and of grainer\b/gi, 'Above about 85°C, the yolks may curdle and become grainy')
+      .replace(/\bSet the film directement on a cream to avoid the skin in surface\b/gi, 'Set film directly on the cream to prevent a skin forming')
+      .replace(/\bPour the cream in a container clean\b/gi, 'Pour the cream into a clean container')
+      .replace(/\bPose le film directement contre la surface\b/gi, 'Press the film directly against the surface')
+      .replace(/\bChasse the bubbles of air\b/gi, 'Push out air bubbles')
+      .replace(/\bThe film should toucher the cream, not seulement cover the bowl\b/gi, 'The film must touch the cream, not just cover the bowl')
+      .replace(/\bReheat gradually eggs or jaunes with a runny hot to avoid of the cook brutalement\b/gi, 'Gradually warm eggs or yolks with hot liquid to prevent them cooking abruptly')
+      .replace(/\bWhisk the eggs or jaunes in a bowl\b/gi, 'Whisk the eggs or yolks in a bowl')
+      .replace(/\bPour a briefly of runny hot in a thin stream in whisking\b/gi, 'Pour in a little hot liquid in a thin stream while whisking')
+      .replace(/\bAdd again a or deux louches if needed\b/gi, 'Add another ladle or two if needed')
+      .replace(/\bReverse in the saucepan for finish gently\b/gi, 'Return to the saucepan to finish gently')
+      .replace(/\bTempering protects the yolks in creams, sauces and mixtures\b/gi, 'Tempering protects yolks in creams, sauces and mixtures')
+      .replace(/\bHeat the sugar until browning controlee for a sauce, a decoration or a base flavored\b/gi, 'Heat the sugar until controlled browning for a sauce, decoration or flavored base')
+      .replace(/\bUsed a saucepan clean a heavy bottom\b/gi, 'Use a clean, heavy-bottomed saucepan')
+      .replace(/\bHeat without stir with debut if caramel a dry\b/gi, 'For dry caramel, heat without stirring at first')
+      .replace(/\bSurveille the color on the edges\b/gi, 'Watch the color around the edges')
+      .replace(/\bStoppe or decuite as soon as ambre souhaite est atteint\b/gi, 'Stop or deglaze as soon as the desired amber color is reached')
+      .replace(/\bThe caramel continue of line off the heat: anticipe slightly\b/gi, 'The caramel keeps coloring off the heat: stop slightly early')
+      .replace(/\bChasser a partie of gaz of a dough raised for divide on a fermentation more even\b/gi, 'Knock some gas out of risen dough for a more even fermentation')
+      .replace(/\bDepose the dough on the plan slightly flour\b/gi, 'Place the dough on a lightly floured surface')
+      .replace(/\bAppuie gently with the mains\b/gi, 'Press gently with your hands')
+      .replace(/\bRabats or divise depending on the recipe\b/gi, 'Fold or divide according to the recipe')
+      .replace(/\bAvoid of dechirer the reseau of gluten\b/gi, 'Avoid tearing the gluten network')
+      .replace(/\bDegazer veut not dire crush brutalement: on controle the bulle, on detruit not the dough\b/gi, 'Knocking back is not crushing: control the bubbles without destroying the dough')
+      .replace(/\bGive a forms finale or a preforme a a dough raised in creant a tension of surface\b/gi, 'Give risen dough its final or pre-shaped form by creating surface tension')
+      .replace(/\bDegaze or rabats depending on the recipe\b/gi, 'Knock back or fold according to the recipe')
+      .replace(/\bRamene the edges vers the centre\b/gi, 'Bring the edges toward the center')
+      .replace(/\bRetourne soudure dessous\b/gi, 'Turn it seam-side down')
+      .replace(/\bFais rouler gently for tender the surface\b/gi, 'Roll gently to tighten the surface')
+      .replace(/\bA good tension helps the pain or the brioche a pousser vers the haut preferably qu['’]?a s['’]?spread\b/gi, 'Good tension helps bread or brioche rise upward rather than spread')
+      .replace(/\bLet fermenter a dough raised until the volume and with souplesse attendus\b/gi, 'Let risen dough ferment until it reaches the expected volume and suppleness')
+      .replace(/\bPlace à température adaptée\b/gi, 'Place at a suitable temperature')
+      .replace(/\bSurveille the volume rather than seulement the temps\b/gi, 'Watch the volume rather than time alone')
+      .replace(/\bBake or rabats when the dough est prete\b/gi, 'Bake or fold when the dough is ready')
+      .replace(/\bA dough too poussee retombe facilement; a dough too briefly poussee manque of legerete\b/gi, 'Over-proofed dough collapses easily; under-proofed dough lacks lightness')
+      .replace(/\bScore a dough juste before cooking for guider its developpement in the oven\b/gi, 'Score dough just before baking to guide its expansion in the oven')
+      .replace(/\bUsed a lame very affutee\b/gi, 'Use a very sharp lame')
+      .replace(/\bIncline slightly the lame depending on the pain\b/gi, 'Angle the lame slightly depending on the loaf')
+      .replace(/\bIncise quickly without crushing\b/gi, 'Score quickly without crushing the dough')
+      .replace(/\bBake aussitot\b/gi, 'Bake immediately')
+      .replace(/\bA scarification clean helps the dough a s['’]?open preferably qu['’]?a eclater with hasard\b/gi, 'A clean score helps dough open where intended instead of bursting randomly')
+      .replace(/\bSeparate cauliflower or broccoli in small bouquets even for a cooking homogene and a presentation clean\b/gi, 'Separate cauliflower or broccoli into even florets for consistent cooking and clean presentation')
+      .replace(/\bRemove the leaves and raccourcis the base of trognon\b/gi, 'Remove the leaves and trim the stem base')
+      .replace(/\bDetache the large bouquets with main or with the tip of knife\b/gi, 'Detach large florets by hand or with the tip of a knife')
+      .replace(/\bRecoupe par the tige to keep dice florets even without emietter the heads\b/gi, 'Cut through the stem to keep florets even without crumbling the head')
+      .replace(/\bKeep the parures and the coeur epluche for a soup, a mash or a topping\b/gi, 'Keep the trimmings and peeled core for soup, mash or garnish')
+      .replace(/\bDice florets of size close cuisent with same pace: plus small for roast quickly, plus large to keep of croquant\b/gi, 'Florets of similar size cook evenly: smaller for quick roasting, larger to keep some crunch')
+      .replace(/\bRemove facilement the skin dice tomatoes for a sauce, a fruit coulis or a preparation plus clean\b/gi, 'Remove tomato skins easily for a sauce, fruit coulis or cleaner preparation')
+      .replace(/\bIncise a petite croix under each tomato\b/gi, 'Cut a small cross under each tomato')
+      .replace(/\bPlonge 10 to 20 seconds in water bouillante\b/gi, 'Plunge for 10 to 20 seconds into boiling water')
+      .replace(/\bCool aussitot in of water cold\b/gi, 'Cool immediately in cold water')
+      .replace(/\bTire the skin with the tip of a knife\b/gi, 'Peel away the skin with the tip of a knife')
+      .replace(/\bThe but est of release the skin, not of cook the flesh\b/gi, 'The aim is to release the skin, not cook the flesh')
+      .replace(/\bAssouplir a cream, a sauce or a dough too firm with a briefly of runny or a petite serving of preparation soft\b/gi, 'Loosen a firm cream, sauce or dough with a little liquid or a small amount of a softer mixture')
+      .replace(/\bTravaille first the preparation with whisk or with spatula\b/gi, 'Work the mixture first with a whisk or spatula')
+      .replace(/\bAdd the runny or the base soft in petite quantity\b/gi, 'Add the liquid or soft base in small amounts')
+      .replace(/\bMix until restore a smooth texture\b/gi, 'Mix until the texture is smooth again')
+      .replace(/\bStop as soon as the texture est utilisable, without the rendre runny\b/gi, 'Stop as soon as the texture is usable without making it runny')
+      .replace(/\bLoosen sert a help folding in: a cream too firm breaks plus facilement a mousse or a Chantilly cream\b/gi, 'Loosening helps folding: a cream that is too firm can break a mousse or whipped cream')
+      .replace(/\bReduce a preparation in smooth texture, thin or volontairement rustique with a mixeur or a robot\b/gi, 'Blend a mixture to a smooth, fine or deliberately rustic texture with a blender or processor')
+      .replace(/\bTravaille par impulsions for controler the texture\b/gi, 'Work in pulses to control the texture')
+      .replace(/\bAdd a briefly of runny seulement if the recipe the permet\b/gi, 'Add a little liquid only if the recipe allows it')
+      .replace(/\bStop before heat or liquefier the preparation\b/gi, 'Stop before heating or liquefying the mixture')
+      .replace(/\bFor a soup or a cream very smooth, Blend then strain if needed\b/gi, 'For a very smooth soup or cream, blend then strain if needed')
+      .replace(/\bDisperser fat and runny in thin gouttelettes to get a sauce liee and shiny\b/gi, 'Disperse fat and liquid into fine droplets for a smooth, shiny sauce')
+      .replace(/\bReunis a base aqueuse and a fat\b/gi, 'Combine a water-based ingredient and a fat')
+      .replace(/\bWhisk, Blend or Shake vivement\b/gi, 'Whisk, blend or shake vigorously')
+      .replace(/\bStabilise with mustard, yolk, reduction or temperature adaptee\b/gi, 'Stabilize with mustard, yolk, reduction or suitable temperature')
+      .replace(/\bA emulsion splits when the fat est Add too quickly or when the temperature est mal controlee\b/gi, 'An emulsion splits when fat is added too quickly or the temperature is poorly controlled')
+      .replace(/\bCook flour and fat for lier a sauce without taste of flour raw\b/gi, 'Cook flour and fat to bind a sauce without a raw flour taste')
+      .replace(/\bMelt the butter or Heat the fat\b/gi, 'Melt the butter or heat the fat')
+      .replace(/\bAdd the flour in once\b/gi, 'Add the flour all at once')
+      .replace(/\bMix until texture homogene\b/gi, 'Mix until even')
+      .replace(/\bCook white, blond or brun depending on the sauce chosen\b/gi, 'Cook to white, blond or brown depending on the sauce')
+      .replace(/\bA roux hot se mouille better with a runny cold or warm Add gradually\b/gi, 'A hot roux absorbs cold or warm liquid better when it is added gradually')
+      .replace(/\bAdd structure a a sauce with butter, cream, starch, yolk or reduction\b/gi, 'Give a sauce structure with butter, cream, starch, yolk or reduction')
+      .replace(/\bChoose the liant adapte\b/gi, 'Choose the right thickener')
+      .replace(/\bAdd-the off the heat or over low heat depending on the cas\b/gi, 'Add it off the heat or over low heat depending on the case')
+      .replace(/\bWhisk for homogenize\b/gi, 'Whisk until even')
+      .replace(/\bAvoid boil strong with the jaunes or the butter\b/gi, 'Avoid a strong boil with yolks or butter')
+      .replace(/\bA sauce liee should coat without become lourde\b/gi, 'A thickened sauce should coat without becoming heavy')
+      .replace(/\bFinish a sauce hot with of cold butter for lui give shine, rondeur and tenue\b/gi, 'Finish a hot sauce with cold butter for shine, roundness and body')
+      .replace(/\bReduce the sauce before add the butter\b/gi, 'Reduce the sauce before adding the butter')
+      .replace(/\bCut the heat or baisse very fort\b/gi, 'Turn off the heat or lower it sharply')
+      .replace(/\bAdd the cold butter in small pieces\b/gi, 'Add cold butter in small pieces')
+      .replace(/\bWhisk or vanne the saucepan without refaire bouillir\b/gi, 'Whisk or swirl the pan without bringing it back to a boil')
+      .replace(/\bIf the sauce bout too fort after ajout of butter, elle can slice\b/gi, 'If the sauce boils hard after adding butter, it can split')
+      .replace(/\bCreer a emulsion stable entre egg yolk, mustard, acidity and oil\b/gi, 'Create a stable emulsion of egg yolk, mustard, acidity and oil')
+      .replace(/\bMix yolk, mustard, salt and acidity\b/gi, 'Mix the yolk, mustard, salt and acidity')
+      .replace(/\bPour oil goutte a goutte with debut\b/gi, 'At first, pour in oil drop by drop')
+      .replace(/\bAugmente the thin stream when the sauce prend\b/gi, 'Increase to a thin stream once the sauce starts to thicken')
+      .replace(/\bIf it splits, repars with a spoon water then fold in the sauce ratee little by little\b/gi, 'If it splits, start with a spoonful of water and gradually whisk in the broken sauce')
+      .replace(/\bAdd a runny a a base of cooking, a topping or a roux for creer sauce, stock or cooking humide\b/gi, 'Add liquid to a cooking base, garnish or roux to create sauce, stock or moist cooking')
+      .replace(/\bPour the runny gradually if the base contient flour or roux\b/gi, 'Pour in the liquid gradually if the base contains flour or roux')
+      .replace(/\bMix to avoid the grumeaux\b/gi, 'Mix to prevent lumps')
+      .replace(/\bGratte the fond if the saucepan a colore\b/gi, 'Scrape the bottom if the pan has browned')
+      .replace(/\bAdapte the niveau: court, a hauteur or complet depending on the recipe\b/gi, 'Adjust the level: shallow, halfway up or fully covered depending on the recipe')
+      .replace(/\bMouiller too quickly can faire dice grumeaux; mouiller too haut dilue the gouts\b/gi, 'Adding liquid too quickly can make lumps; too much liquid dilutes flavor')
+      .replace(/\bCover a preparation with a sauce enough liee for tenir in thin layer\b/gi, 'Cover a preparation with a sauce thick enough to hold in a thin layer')
+      .replace(/\bCheck que the sauce est enough liee\b/gi, 'Check that the sauce is thick enough')
+      .replace(/\bPour or spoon depuis the centre\b/gi, 'Pour or spoon from the center')
+      .replace(/\bCover without noyer the topping\b/gi, 'Cover without drowning the garnish')
+      .replace(/\bServe quickly if the sauce est hot\b/gi, 'Serve quickly if the sauce is hot')
+      .replace(/\bA sauce that coats the dos of a spoon Let a trace clean with doigt\b/gi, 'A sauce that coats the back of a spoon should leave a clean finger trail')
+      .replace(/\bBrown slightly fond or tomato paste with bottom of a container before mouiller\b/gi, 'Lightly brown pan juices or tomato paste on the bottom of the pan before adding liquid')
+      .replace(/\bKeep a heat medium\b/gi, 'Keep the heat medium')
+      .replace(/\bLet the fond accrocher slightly without burn\b/gi, 'Let the juices catch slightly without burning')
+      .replace(/\bAdd concentrate or topping if prevu\b/gi, 'Add concentrate or garnish if specified')
+      .replace(/\bDeglace or mouille as soon as the color est profonde\b/gi, 'Deglaze as soon as the color deepens')
+      .replace(/\bDice fond pinces make of depth; dice fond brules make of bitterness\b/gi, 'Pinched pan juices add depth; burnt pan juices add bitterness')
+      .replace(/\bFaire evaporer a partie of runny for concentrer the taste and thicken\b/gi, 'Evaporate part of the liquid to concentrate flavor and thicken')
+      .replace(/\bLet fremir a decouvert\b/gi, 'Let it simmer uncovered')
+      .replace(/\bStir of temps in temps\b/gi, 'Stir from time to time')
+      .replace(/\bSurveille the edges of saucepan\b/gi, 'Watch the sides of the saucepan')
+      .replace(/\bStop when the texture coats or becomes sirupeuse\b/gi, 'Stop when the texture coats or becomes syrupy')
+      .replace(/\bA reduction continue of thicken slightly as it cools\b/gi, 'A reduction continues to thicken slightly as it cools')
+      .replace(/\bCouvre au papier ou au couvercle au début\b/gi, 'Cover with parchment or a lid at first')
+      .replace(/\bCouvre au papier ou au couvercle au debut\b/gi, 'Cover with parchment or a lid at first')
+      .replace(/\bCouvre au papier ou au couvercle au début\.?\b/gi, 'Cover with parchment or a lid at first')
+      .replace(/\bCover with papier or with couvercle with debut\b/gi, 'Cover with parchment or a lid at first')
+      .replace(/\bCover with papier or with couvercle with debut\.?\b/gi, 'Cover with parchment or a lid at first')
+      .replace(/\bCover with papier or with couvercle with d[eé]but\b/gi, 'Cover with parchment or a lid at first')
+      .replace(/\bFor a cooking, Keep the runny under boil\b/gi, 'For poaching, keep the liquid below a boil')
+      .replace(/\bSurveille la température\b/gi, 'Monitor the temperature')
+      .replace(/\bSurveille la temperature\b/gi, 'Monitor the temperature')
+      .replace(/\bSurveille la température\.?\b/gi, 'Monitor the temperature')
+      .replace(/\bSurveille the temperature\b/gi, 'Monitor the temperature')
+      .replace(/\bSurveille the temperature\.?\b/gi, 'Monitor the temperature')
+      .replace(/\bFor a piping bag, press regulierement without a-coups\b/gi, 'With a piping bag, press steadily without jerking')
+      .replace(/\bFor a piping bag, press regulierement without a-coups\.?\b/gi, 'With a piping bag, press steadily without jerking')
+      .replace(/\bFor a cooking, Keep the runny under boil\.?\b/gi, 'For poaching, keep the liquid below a boil')
+      .replace(/\bFor a cooking, Keep the runny under boil\b/gi, 'For poaching, keep the liquid below a boil')
+      .replace(/\bMouille à hauteur partielle\b/gi, 'Add liquid halfway up the food')
+      .replace(/\bMouille a hauteur partielle\b/gi, 'Add liquid halfway up the food')
+      .replace(/\bMouille à hauteur partielle\.?\b/gi, 'Add liquid halfway up the food')
+      .replace(/\bPlace les éléments principaux en premier\b/gi, 'Place the main elements first')
+      .replace(/\bPlace les elements principaux en premier\b/gi, 'Place the main elements first')
+      .replace(/\bRacle the dessous for recuperer the partie smooth\b/gi, 'Scrape underneath to recover the smooth part')
+      .replace(/\bStop as soon as the surface or the texture est even\b/gi, 'Stop as soon as the surface or texture is even')
+      .replace(/\bFor the herbs, a knife well affutee? avoid of noircir the leaves\b/gi, 'For herbs, a sharp knife prevents the leaves from darkening')
+      .replace(/\bStir seulement after browning\b/gi, 'Stir only after browning')
       .replace(/\s+/g, ' ')
       .trim();
   }
@@ -3827,7 +4926,7 @@
     if (!key || key.length > 700 || /[<>]/.test(value)) return false;
     return culinaryReplacementsEn.some(([source]) => key.includes(normalizeI18nKey(source)))
       || /\b\d+\s*(?:g|kg|ml|cl|l|min|h|%|c)\b/i.test(key)
-      || /\b(?:cuire|cuis|fouetter|fouette|melanger|melange|mixer|mixe|ajouter|ajoute|verser|verse|servir|sers|mettre|mets|faire|fais|prechauffer|prechauffe|preparer|prepare|rincer|rince|eponger|eponge|chauffer|chauffe|tremper|trempe|frire|frit|saler|sale|passer|passe|garder|garde|enrober|enrobe|monter|monte|alterner|alterne|reserver|reserve|laisser|laisse|incorporer|incorpore|assaisonner|assaisonne|egoutter|egoutte|retirer|retire|couper|coupe|enfourner|enfourne|dorer|dore|cremer|creme|pocher|poche|foncer|fonce|garnir|garnis|deglacer|deglace|concasser|concasse|tailler|taille|decouper|decoupe|badigeonner|badigeonne|reposer|repose|continuer|continue|eviter|evite|aider|aide|devenir|devient|rester|reste|filtrer|filtre|infuser|infuse|mariner|marine)\b/i.test(key);
+      || /\b(?:cuire|cuis|fouetter|fouette|melanger|melange|mixer|mixe|ajouter|ajoute|verser|verse|servir|sers|mettre|mets|faire|fais|prechauffer|prechauffe|preparer|prepare|rincer|rince|eponger|eponge|chauffer|chauffe|tremper|trempe|frire|frit|saler|sale|passer|passe|garder|garde|enrober|enrobe|monter|monte|alterner|alterne|reserver|reserve|laisser|laisse|incorporer|incorpore|assaisonner|assaisonne|egoutter|egoutte|retirer|retire|couper|coupe|enfourner|enfourne|dorer|dore|cremer|creme|pocher|poche|foncer|fonce|garnir|garnis|deglacer|deglace|concasser|concasse|tailler|taille|decouper|decoupe|badigeonner|badigeonne|reposer|repose|continuer|continue|eviter|evite|aider|aide|devenir|devient|rester|reste|filtrer|filtre|infuser|infuse|mariner|marine|couvrir|couvre|decouvrir|decouvre|surveiller|surveille|mouiller|mouille|racle|racler|placer|place|tourner|tourne|retourner|retourne|appuyer|appuie|travailler|travaille|presser|presse|detacher|detache|recouper|recoupe|prelever|preleve|tirer|tire|suivre|suis|inciser|incise|enflammer|enflamme|eloigner|eloigne|allumer|allume|poser|pose|choisir|choisis|utiliser|utilise|ajuster|ajuste|rassembler|rassemble|degazer|degaze|rabattre|rabats|remettre|remets|rechauffer|rechauffe|stopper|stoppe|repeter|repete|reduire|reduis|deposer|depose|detailler|detaille|raper|rape|monder|monde|refroidir|refroidis|peler|pele|nettoyer|nettoie|aligner|aligne)\b/i.test(key);
   }
 
   function translateRecipeText(value) {

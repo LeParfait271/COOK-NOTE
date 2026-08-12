@@ -453,19 +453,19 @@
       if (!notes.some(item => normalizeText(item) === normalizeText(line))) notes.push(line);
     };
     if (hasVariants) {
-      add('Base + variantes', 'garde le meme ordre de preparation et isole les ingredients qui changent; la texture reste plus stable que si toute la recette est reecrite.');
+      add('Base + variantes', 'garde le même ordre de préparation et isole les ingrédients qui changent ; la texture reste plus stable que si toute la recette est réécrite.');
     }
     if (hasMilk) {
-      add('Adaptation sans lait', 'creme -> creme vegetale epaisse ou lait + un peu de beurre/huile; beurre -> huile douce. Impact: texture moins ronde, sauce parfois plus fluide.');
+      add('Adaptation sans lait', 'crème → crème végétale épaisse ou lait + un peu de beurre/huile ; beurre → huile douce. Impact : texture moins ronde, sauce parfois plus fluide.');
     }
     if (hasGluten) {
-      add('Adaptation sans gluten', 'farine/chapelure/pain -> farine de riz + fecule, panko sans gluten ou pain sans gluten. Impact: tenue plus fragile, repos utile avant cuisson.');
+      add('Adaptation sans gluten', 'farine/chapelure/pain → farine de riz + fécule, panko sans gluten ou pain sans gluten. Impact : tenue plus fragile, repos utile avant cuisson.');
     }
     if (hasEgg) {
-      add('Adaptation sans oeufs', 'liaison -> graines de lin hydratees, yaourt epais ou fecule selon recette; dorure -> lait ou creme. Impact: mie plus dense et coloration plus douce.');
+      add('Adaptation sans œufs', 'liaison → graines de lin hydratées, yaourt épais ou fécule selon recette ; dorure → lait ou crème. Impact : mie plus dense et coloration plus douce.');
     }
     if (/\b(creme|sauce|veloute|ganache|chantilly|mousse)\b/.test(text)) {
-      add('Texture controlee', 'si tu remplaces un produit gras par du lait, ajoute progressivement et garde une option epaisse sous la main pour rattraper la liaison.');
+      add('Texture contrôlée', 'si tu remplaces un produit gras par du lait, ajoute progressivement et garde une option épaisse sous la main pour rattraper la liaison.');
     }
     return notes.slice(0, 5);
   }
@@ -565,7 +565,7 @@
   function getIngredientGuideNotes(recipe) {
     return getRecipeIngredientCards(recipe)
       .slice(0, 4)
-      .map(item => `${item.label}: ${item.storage} Accord cle: ${item.pairings} Point vigilance: ${item.avoid}`);
+      .map(item => `${item.label}: ${item.storage} Accord clé : ${item.pairings} Point de vigilance : ${item.avoid}`);
   }
 
   function getRecipePlatingGuide(recipe) {

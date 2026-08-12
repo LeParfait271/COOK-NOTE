@@ -110,7 +110,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.91';
+const SITE_VERSION = 'v4.99';
 const SITE_UPDATED_AT = '12/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.58';
@@ -3950,7 +3950,7 @@ function getRecipePracticalSections(recipe) {
     ...asTextList(recipe?.pairings || practical.pairings),
     ...getRecipeFlavorPairingNotes(recipe)
   ]);
-  add('ingredientGuide', 'Fiches ingredients', [
+  add('ingredientGuide', 'Fiches ingrédients', [
     ...asTextList(recipe?.ingredientGuide || practical.ingredientGuide),
     ...getIngredientGuideNotes(recipe)
   ]);
@@ -4925,7 +4925,7 @@ function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences
 
 function Hero() {
   const dayArt = isDayArtTheme();
-  const heroLogoImage = dayArt ? '' : artAsset('logo');
+  const heroLogoImage = artAsset('logo');
   return h('section', { className: dayArt ? 'hero hero-day-art' : 'hero' },
     h('span', { className: 'hero-atmosphere hero-atmosphere-glow', 'aria-hidden': true }),
     h('span', { className: 'hero-atmosphere hero-atmosphere-mist', 'aria-hidden': true }),
@@ -4935,10 +4935,8 @@ function Hero() {
     h('div', { className: 'hero-inner' },
       h('p', { className: 'hero-system-label' }, t('home.heroSystemLabel')),
       h('h1', { className: 'hero-wordmark' },
-        dayArt
-          ? h('span', { className: 'hero-wordmark-text' }, 'Cook Note')
-          : h('img', { className: 'hero-wordmark-image', src: heroLogoImage, alt: '', width: 948, height: 302, decoding: 'async' }),
-        dayArt ? null : h('span', { className: 'sr-only' }, 'Cook Note')
+        h('img', { className: 'hero-wordmark-image', src: heroLogoImage, alt: '', width: 948, height: 302, decoding: 'async' }),
+        h('span', { className: 'sr-only' }, 'Cook Note')
       ),
       h('span', { className: 'hero-axis-mark', 'aria-hidden': true })
     )
@@ -5340,6 +5338,7 @@ function TechniquesView({ targetTechniqueId, goHome }) {
   const [techniqueFilter, setTechniqueFilter] = useState('');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const techniqueLabels = useMemo(() => uniq(SORTED_TECHNIQUE_GUIDES.map(guide => guide.label)), []);
+  const translatedTechniqueLabel = label => translateUiText(label);
   const visibleTechniques = useMemo(() => techniqueFilter
     ? SORTED_TECHNIQUE_GUIDES.filter(guide => guide.label === techniqueFilter)
     : SORTED_TECHNIQUE_GUIDES, [techniqueFilter]);
@@ -5449,8 +5448,8 @@ function TechniquesView({ targetTechniqueId, goHome }) {
       h('div', { className: 'technique-family-list' },
         techniqueGroups.map(group => h('section', { key: group.label, className: 'technique-family' },
           h('div', { className: 'technique-family-head' },
-            h('h3', null, group.label),
-            h('span', null, `${group.guides.length} geste${group.guides.length > 1 ? 's' : ''}`)
+            h('h3', null, translatedTechniqueLabel(group.label)),
+            h('span', null, `${group.guides.length} ${translateUiText(group.guides.length > 1 ? 'techniques' : 'technique')}`)
           ),
           h('div', { className: 'technique-grid' },
             group.guides.map(guide => h('article', {
@@ -5461,14 +5460,14 @@ function TechniquesView({ targetTechniqueId, goHome }) {
             },
               h('div', { className: 'technique-card-head' },
                 h('span', null, h(Icon, { name: 'spark' })),
-                h('small', null, guide.label)
+                h('small', null, translatedTechniqueLabel(guide.label))
               ),
-              h('h3', null, guide.title),
-              h('p', null, guide.description),
+              h('h3', null, translateUiText(guide.title)),
+              h('p', null, translateUiText(guide.description)),
               h('ol', { className: 'technique-steps' },
-                (guide.steps || []).map((step, index) => h('li', { key: `${guide.id}:step:${index}` }, step))
+                (guide.steps || []).map((step, index) => h('li', { key: `${guide.id}:step:${index}` }, translateUiText(step)))
               ),
-              guide.tip && h('p', { className: 'technique-tip' }, guide.tip)
+              guide.tip && h('p', { className: 'technique-tip' }, translateUiText(guide.tip))
             ))
           )
         ))
@@ -5619,6 +5618,12 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
   const [draftQuery, setDraftQuery] = useState(query);
   const draftQueryRef = useRef(query);
   const queryCommitTimerRef = useRef(0);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const frame = window.requestAnimationFrame(() => searchRef.current?.focus?.({ preventScroll: true }));
+    return () => window.cancelAnimationFrame(frame);
+  }, [open, searchRef]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -6681,10 +6686,10 @@ function FlavorMapBlock({ recipe }) {
 function IngredientKnowledgeBlock({ recipe }) {
   const cards = getRecipeIngredientCards(recipe);
   if (!cards.length) return null;
-  return h('div', { className: 'ingredient-knowledge-block', 'aria-label': 'Fiches ingredients' },
+  return h('div', { className: 'ingredient-knowledge-block', 'aria-label': 'Fiches ingrédients' },
     h('div', { className: 'premium-block-head' },
-      h('p', { className: 'eyebrow' }, 'Encyclopedie'),
-      h('h2', null, 'Fiches ingredients')
+      h('p', { className: 'eyebrow' }, 'Encyclopédie'),
+      h('h2', null, 'Fiches ingrédients')
     ),
     h('div', { className: 'ingredient-knowledge-grid' },
       cards.map(card => h('article', { key: card.label, className: 'ingredient-knowledge-card' },
@@ -6733,13 +6738,13 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
   const riskSignals = getRecipeRiskSignals(recipe).slice(0, 2);
   const chefNotes = [
     timing.active && timing.active <= 20 ? 'Mise en place courte : garder les ingredients visibles avant cuisson.' : '',
-    timing.rest ? 'Prevoir le repos avant de promettre le service.' : '',
+    timing.rest ? 'Prévoir le repos avant de promettre le service.' : '',
     ...serviceItems,
     ...riskSignals.map(signal => `${signal.label} : point de vigilance.`)
   ].filter(Boolean).slice(0, 3);
   const facts = [
     timing.total && { label: 'Total', value: formatMinutesShort(timing.total) },
-    { label: 'Temps actif', value: formatMinutesShort(timing.active) || 'A estimer' },
+    { label: 'Temps actif', value: formatMinutesShort(timing.active) || 'À estimer' },
     timing.cook && { label: 'Cuisson', value: formatMinutesShort(timing.cook) },
     timing.rest && { label: 'Repos / froid', value: formatMinutesShort(timing.rest) },
   ].filter(Boolean);
@@ -7359,7 +7364,10 @@ function App() {
   useEffect(() => {
     if (anyModalOpen) {
       modalRestoreFocusRef.current = document.activeElement;
-      requestAnimationFrame(() => document.querySelector('[role="dialog"] button, [role="dialog"] input, [role="dialog"] select')?.focus());
+      requestAnimationFrame(() => {
+        const firstControl = document.querySelector('[role="dialog"] button, [role="dialog"] input, [role="dialog"] select');
+        firstControl?.focus?.({ preventScroll: true });
+      });
       return undefined;
     }
     modalRestoreFocusRef.current?.focus?.();
@@ -7957,6 +7965,10 @@ function App() {
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'top';
     restoreHomeScrollRef.current = false;
+    setSeason('');
+    setSeasonCategory('');
+    setTagFilter('');
+    setQuery('');
     runViewTransition(() => {
       setActivePage('home');
       setTargetTechniqueId('');
@@ -7966,6 +7978,10 @@ function App() {
     });
     history.pushState('', document.title, '/');
     lastRouteKeyRef.current = currentScrollRouteKey();
+    const resetHomeScroll = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    resetHomeScroll();
+    requestAnimationFrame(() => requestAnimationFrame(resetHomeScroll));
+    window.setTimeout(resetHomeScroll, 80);
   }
 
   function showFavorites() {
