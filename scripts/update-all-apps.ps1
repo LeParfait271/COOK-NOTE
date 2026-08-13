@@ -26,7 +26,7 @@ function Get-SiteVersionName {
 function Get-CookNoteVersionName {
   $SiteVersion = Get-SiteVersionName
   $GradleProperties = [System.IO.File]::ReadAllText((Join-Path $Root "android-legacy\gradle.properties"), [System.Text.Encoding]::UTF8)
-  $Match = [regex]::Match($GradleProperties, "(?m)^cookNoteAndroidVersion=(\d+\.\d{2})$")
+  $Match = [regex]::Match($GradleProperties, "(?m)^cookNoteAndroidVersion=(\d+\.\d{2})\r?$")
   if (-not $Match.Success) {
     throw "cookNoteAndroidVersion invalide dans android-legacy/gradle.properties. Attendu: X.YY."
   }
