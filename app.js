@@ -110,7 +110,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v4.99';
+const SITE_VERSION = 'v5.00';
 const SITE_UPDATED_AT = '12/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '4.58';
@@ -3743,7 +3743,7 @@ function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], open
           event.stopPropagation();
           openRecipe(id);
         }
-      }, label.replace(/<[^>]+>/g, '')),
+      }, translateUiText(label.replace(/<[^>]+>/g, ''))),
       renderLinkedText(value.slice(index + full.length), targets, openRecipe, techniqueTargets, openTechnique)
     );
   }
@@ -6740,7 +6740,9 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
     timing.active && timing.active <= 20 ? 'Mise en place courte : garder les ingredients visibles avant cuisson.' : '',
     timing.rest ? 'Prévoir le repos avant de promettre le service.' : '',
     ...serviceItems,
-    ...riskSignals.map(signal => `${signal.label} : point de vigilance.`)
+    ...riskSignals.map(signal => CookNoteI18n.locale() === 'en'
+      ? `${translateUiText(signal.label)}: watch point.`
+      : `${signal.label} : point de vigilance.`)
   ].filter(Boolean).slice(0, 3);
   const facts = [
     timing.total && { label: 'Total', value: formatMinutesShort(timing.total) },

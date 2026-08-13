@@ -363,6 +363,7 @@
     'Autres': 'Other',
     '\u00c9picerie sucr\u00e9e': 'Sweet pantry',
     'beurre': 'butter',
+    'Beurre': 'Butter',
     'farine': 'flour',
     'farine T45': 'T45 flour',
     'sucre': 'sugar',
@@ -416,6 +417,7 @@
     'Accord clé': 'Key pairing',
     'Point vigilance': 'Watch point',
     'Point de vigilance': 'Watch point',
+    'Cold: point de vigilance.': 'Cold: watch point.',
     'A renforcer avec': 'Strengthen with',
     'a renforcer avec': 'strengthen with',
     'reveille': 'brightens',
@@ -1587,7 +1589,70 @@
     "Il s'incorpore mieux et garde la puree souple.": 'It folds in better and keeps the mash soft.',
     "Rouler le biscuit dans le torchon pendant qu'il est encore chaud, puis laisser tiedir.": 'Roll the sponge in the towel while it is still hot, then let it cool until warm.',
     'Ne pas attendre que le biscuit refroidisse a plat avant de le rouler.': 'Do not wait for the sponge to cool flat before rolling it.',
-    'Incorporer les jaunes au chocolat tiede, un par un.': 'Fold the yolks into the warm chocolate, one at a time.'
+    'Incorporer les jaunes au chocolat tiede, un par un.': 'Fold the yolks into the warm chocolate, one at a time.',
+    'Le repos long redistribue les jus et garde les blancs moelleux.': 'A long rest redistributes the juices and keeps the breast meat tender.',
+    'Le pain placé dans la cavité absorbe les sucs aromatiques mais n’est pas destiné à être servi si sa texture est trop humide.': 'The bread placed in the cavity absorbs the aromatic juices, but it is not meant to be served if its texture is too moist.',
+    'Une sonde dans la partie la plus épaisse de la cuisse sécurise la cuisson sans dessécher les blancs.': 'A probe thermometer in the thickest part of the thigh makes the cooking safer without drying the breast meat.',
+    'Le passage successif sur les côtés expose les cuisses à la chaleur et dore la peau uniformément.': 'Turning the chicken across its sides exposes the thighs to heat and browns the skin evenly.',
+    '1 morceau de pain rassis d’environ 40g': '1 piece of stale bread, about 40g',
+    '1 morceau de pain rassis d environ 40g': '1 piece of stale bread, about 40g',
+    '1/4 citron jaune': '1/4 lemon',
+    '1 gousse d ail': '1 garlic clove',
+    '1 gousse d’ail': '1 garlic clove',
+    '3 gousses d’ail': '3 garlic cloves',
+    '10g persil': '10g parsley',
+    'Le glaçage se pose sur un gâteau bien froid pour obtenir une surface régulière et brillante.': 'Apply the glaze to a very cold cake for an even, glossy surface.',
+    'Le biscuit doit rester souple : une cuisson excessive rendrait les couches difficiles à imbiber.': 'The sponge should stay soft: overbaking would make the layers difficult to soak.',
+    'Opéra aux couches fines et régulières, biscuit Joconde moelleux, café intense, ganache chocolat et glaçage brillant.': 'Opera with thin, even layers, soft Joconde sponge, intense coffee, chocolate ganache and glossy glaze.',
+    'Points critiques beurre pommade non liquide, sirop à 118–120°C, verser lentement, fouetter jusqu’à refroidissement complet.': 'Critical points: use softened butter without liquid fat, pour the 118–120°C syrup slowly, and whisk until fully cooled.',
+    'Résultat attendu pâte croustillante, crème d’amande moelleuse, crème citron fondante, meringue légère et stable.': 'Expected result: crisp pastry, soft almond cream, melting lemon cream, and a light, stable meringue.',
+    'Repère menu : iodé, gras et épice, a équilibrer avec salade ou légumes verts, pas avec sauce fromage.': 'Menu note: briny, rich and spicy; balance it with salad or green vegetables, not cheese sauce.',
+    'Conservation : a consommer le jour même de preference.': 'Storage: best eaten the same day.',
+    'Sécurité : ne pas prolonger la marinade des crevettes et cuire juste a cœur.': 'Safety: do not extend the shrimp marinade and cook just through.',
+    'Brochettes rapides, crevettes juteuses et chorizo grille.': 'Quick skewers with juicy shrimp and grilled chorizo.',
+    'Conserver couvert à 0–4°C et consommer sous 48h.': 'Store covered at 0–4°C and eat within 48 hours.',
+    'Sortir environ 20min avant le service pour assouplir la crème.': 'Take out about 20 minutes before serving to soften the cream.',
+    'Ne pas verser un sirop brûlant sur le beurre.': 'Do not pour a scalding syrup over the butter.',
+    'Ne pas trop imbiber les biscuits.': 'Do not oversoak the biscuits.',
+    'Ne pas glacer un opéra encore tiède.': 'Do not glaze the opera while it is still warm.',
+    'Ne pas couper sans chauffer légèrement la lame.': 'Do not cut without warming the blade slightly.',
+    'Le beurre et la base aux jaunes doivent être à des températures proches pour éviter que la crème ne tranche.': 'The butter and yolk base should be at similar temperatures to keep the cream from splitting.',
+    'Refroidir entre les couches aide à garder des bandes régulières et une coupe nette.': 'Cooling between layers helps keep even bands and a clean cut.'
+    , 'Poulet rôti': 'Roast chicken'
+    , '1 poulet fermier de 1,5 à 1,8kg, prêt à cuire': '1 free-range chicken, 1.5 to 1.8kg, ready to cook'
+    , '10g huile d’olive': '10g olive oil'
+    , '30g huile d’arachide': '30g peanut oil'
+    , '2 branches de thym': '2 sprigs of thyme'
+    , '1 branche de romarin': '1 sprig of rosemary'
+    , '5g sel fin': '5g fine salt'
+    , 'Sortir le poulet du réfrigérateur 30min avant la cuisson. Préchauffer le four à 220°C chaleur statique avec le plat de cuisson à l’intérieur.': 'Take the chicken out of the refrigerator 30 minutes before cooking. Preheat the oven to 220°C conventional heat with the baking dish inside.'
+    , 'Effeuiller le thym et le romarin. Hacher une demi-gousse d’ail puis mélanger avec l’huile d’olive et les herbes.': 'Strip the thyme and rosemary leaves. Chop half a garlic clove, then mix it with the olive oil and herbs.'
+    , 'Éponger soigneusement le poulet, intérieur et extérieur. Décoller doucement la peau des blancs sans la déchirer.': 'Pat the chicken dry inside and out. Gently loosen the skin from the breast meat without tearing it.'
+    , 'Répartir une partie de l’huile aux herbes sous la peau, puis masser l’extérieur et la cavité avec le reste. Saler et ajouter du poivre du moulin.': 'Spread some of the herb oil under the skin, then massage the outside and cavity with the rest. Season with salt and freshly ground pepper.'
+    , 'Frotter le pain rassis avec une demi-gousse d’ail. Introduire dans la cavité le pain, le citron et les deux gousses d’ail restantes, puis brider le poulet.': 'Rub the stale bread with half a garlic clove. Put the bread, lemon and two remaining garlic cloves into the cavity, then truss the chicken.'
+    , 'Verser l’huile d’arachide dans le plat chaud. Poser le poulet sur un côté et rôtir 10min, puis le retourner sur l’autre côté pour 10min supplémentaires.': 'Pour the peanut oil into the hot dish. Set the chicken on one side and roast for 10 minutes, then turn it onto the other side for another 10 minutes.'
+    , 'Placer le poulet sur le dos et poursuivre 20min à 220°C. Baisser ensuite à 160°C et cuire encore 30min.': 'Place the chicken on its back and continue for 20 minutes at 220°C. Lower the oven to 160°C and cook for another 30 minutes.'
+    , 'Incliner délicatement le poulet pour verser le jus de la cavité dans le plat. Arroser la peau et remettre au four environ 10min, jusqu’à 74°C au cœur de la cuisse sans toucher l’os.': 'Carefully tilt the chicken to pour the cavity juices into the dish. Baste the skin and return it to the oven for about 10 minutes, until the thickest part of the thigh reaches 74°C without touching the bone.'
+    , 'Déposer le poulet sur une grille ou une planche et laisser reposer 30min, couvert très lâchement. Dégraisser légèrement le jus du plat.': 'Set the chicken on a rack or board and rest for 30 minutes, loosely covered. Skim some fat from the juices in the dish.'
+    , 'Découper, rectifier l’assaisonnement et servir avec le jus chaud.': 'Carve, adjust the seasoning and serve with the hot juices.'
+    , '3 jours au réfrigérateur à 0–4°C, désossé et refroidi rapidement.': 'Keep refrigerated at 0–4°C for 3 days; debone and cool quickly.'
+    , 'Réchauffer couvert à 150°C avec un peu de jus jusqu’à cœur chaud.': 'Reheat covered at 150°C with a little juice until hot through.'
+    , 'Congélation possible 2 mois pour la viande cuite désossée.': 'The deboned cooked meat can be frozen for 2 months.'
+    , 'Ne pas rincer le poulet cru, afin d’éviter les projections contaminantes.': 'Do not rinse raw chicken, to avoid contaminated splashes.'
+    , 'Ne pas percer la chair à répétition pendant la cuisson.': 'Do not pierce the meat repeatedly during cooking.'
+    , 'Ne pas découper immédiatement à la sortie du four.': 'Do not carve immediately after taking it out of the oven.'
+    , 'Peau dorée et croustillante, blancs juteux, cuisses tendres et jus parfumé aux herbes et à l’ail.': 'Golden, crisp skin; juicy breast meat; tender thighs; and juices scented with herbs and garlic.'
+    , 'Coloration': 'Browning'
+    , 'Température': 'Temperature'
+    , 'Le passage successif sur les côtés expose les cuisses à la chaleur et dore la peau uniformément.': 'Turning the chicken across its sides exposes the thighs to heat and browns the skin evenly.'
+    , 'Crème citron chauffer le jus, fouetter jaunes et sucre, ajouter fécule, verser le jus chaud, cuire jusqu’à épaississement, ajouter beurre, filmer au contact et refroidir.': 'Lemon cream: heat the juice, whisk the yolks and sugar, add the starch, pour in the hot juice, cook until thickened, add the butter, cover directly and cool.'
+    , 'Crème citron chauffer le jus, fouetter jaunes et sucre, ajouter fecule, verser le jus chaud, cuire jusqu a epaississement, ajouter beurre, filmer au contact et refroidir.': 'Lemon cream: heat the juice, whisk the yolks and sugar, add the starch, pour in the hot juice, cook until thickened, add the butter, cover directly and cool.'
+    , 'Fouetter suffisamment le tant pour tant et les œufs avant d’ajouter les blancs pour conserver une pâte légère.': 'Whisk the almond-sugar blend and eggs thoroughly before adding the whites to keep the batter light.'
+    , 'Le beurre et la base aux jaunes doivent être à des températures proches pour éviter que la crème ne tranche.': 'The butter and yolk base should be at similar temperatures to keep the cream from splitting.'
+    , 'Refroidir entre les couches aide à garder des bandes régulières et une coupe nette.': 'Cooling between layers helps keep even bands and a clean cut.'
+    , 'Joconde': 'Joconde'
+    , 'Crème au beurre': 'Buttercream'
+    , 'Montage': 'Assembly'
   };
 
   const culinaryReplacementsEn = [
@@ -3791,6 +3856,7 @@
     [/^Filtrer : (.+)$/, match => `Filter: ${text(match[1])}`],
     [/^Afficher (\d+) recette(s?) liée(s?) supplémentaire(s?)$/, match => `Show ${match[1]} more related recipe${match[1] === '1' ? '' : 's'}`],
     [/^(.+) : point de vigilance\.$/, match => `${text(match[1])}: watch point.`],
+    [/^(.+): point de vigilance\.$/, match => `${text(match[1])}: watch point.`],
     [/^Tu suis actuellement "(.+)". Le sélecteur au-dessus change aussi les ingrédients et les étapes\.$/, match => `You are currently using "${text(match[1])}". The selector above also changes the ingredients and steps.`],
     [/^Variante active : (.+). Ingrédients et étapes suivent ce choix\.$/, match => `Active variant: ${text(match[1])}. Ingredients and steps follow this choice.`],
     [/^Choisis une variante au-dessus pour afficher les ingrédients détaillés et les étapes correspondantes\.$/, () => 'Choose a variant above to show the detailed ingredients and matching steps.'],
@@ -3823,7 +3889,7 @@
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/\u00b0/g, '')
-      .replace(/[’‘]/g, "'")
+      .replace(/[’‘']/g, ' ')
       .replace(/[œŒ]/g, 'oe')
       .replace(/\s+/g, ' ')
       .trim()
@@ -3851,6 +3917,867 @@
   Object.entries({ ...phraseEn, ...recipePhraseEn }).forEach(([source, translated]) => {
     phraseLookupEn.set(normalizeI18nKey(source), translated);
   });
+
+  // Premium recipe blocks are assembled from several short rule fragments at
+  // runtime. Translating each fragment independently used to leave readable
+  // but visibly broken hybrids (for example "profil gentle vegetal" or
+  // "Assiette claire or coupelle cold"). Keep the vocabulary and complete
+  // generated phrases together so the English view stays coherent.
+  const premiumPhraseEn = new Map([
+    ['Opéra', 'Opera'],
+    ['Béarnaise', 'Bearnaise'],
+    ['Classique moutarde', 'Classic mustard'],
+    ['Citron herbes', 'Lemon and herbs'],
+    ['Miel citron', 'Honey lemon'],
+    ['Douce au cidre', 'Cider sweet'],
+    ['Poire chocolat', 'Pear and chocolate'],
+    ['Marmelade citron optionnelle', 'Optional lemon marmalade'],
+    ['Grande cocotte', 'Large Dutch oven'],
+    ['Plat profond', 'Deep dish'],
+    ['Plat à rôtir', 'Roasting dish'],
+    ['Ficelle de cuisine', 'Kitchen twine'],
+    ['Thermomètre à sonde', 'Probe thermometer'],
+    ['Grille ou planche à découper', 'Rack or cutting board'],
+    ['Batteur électrique', 'Electric mixer'],
+    ['Deux plaques de cuisson', 'Two baking trays'],
+    ['Cadre carré de 20cm', '20cm square frame'],
+    ['Spatule coudée', 'Offset spatula'],
+    ['Couteau à lame fine', 'Thin-bladed knife'],
+    ['Pics a brochettes', 'Skewers'],
+    ['Plancha ou poêle', 'Plancha or frying pan'],
+    ['1 morceau de pain rassis d environ 40g', '1 piece of stale bread, about 40g'],
+    ['1 morceau de pain rassis d’environ 40g', '1 piece of stale bread, about 40g'],
+    ['1 gousse d ail', '1 garlic clove'],
+    ['1 gousse d’ail', '1 garlic clove'],
+    ['3 gousses d’ail', '3 garlic cloves'],
+    ['10g persil', '10g parsley'],
+    ['1/4 citron jaune', '1/4 lemon'],
+    ['250g tant pour tant amande-sucre', '250g almond-sugar blend'],
+    ['35g farine T55', '35g T55 flour'],
+    ['25g beurre doux fondu', '25g melted unsalted butter'],
+    ['4 blancs d’œufs', '4 egg whites'],
+    ['1 pincée de sel fin', '1 pinch of fine salt'],
+    ['150g chocolat noir', '150g dark chocolate'],
+    ['95g crème entière liquide', '95g heavy cream'],
+    ['40g beurre doux', '40g unsalted butter'],
+    ['200g chocolat noir pour chablonner', '200g dark chocolate for coating'],
+    ['200g café fort refroidi', '200g cooled strong coffee'],
+    ['Chablonnage et punchage', 'Chocolate coating and soaking'],
+    ['Glaçage chocolat', 'Chocolate glaze'],
+    ['Ganache au chocolat', 'Chocolate ganache'],
+    ['Crème au beurre café', 'Coffee buttercream'],
+    ['Biscuit Joconde', 'Joconde sponge'],
+    ['Arome café selon dosage indiqué sur la bouteille', 'Coffee flavoring according to the dosage on the bottle'],
+    ['Arôme café selon dosage indiqué sur la bouteille', 'Coffee flavoring according to the dosage on the bottle'],
+    ['30g Grand Marnier ou Cointreau', '30g Grand Marnier or Cointreau'],
+    ['200g chocolat noir', '200g dark chocolate'],
+    ['30g huile neutre', '30g neutral oil'],
+    ['Préchauffer le four à 200°C. Fouetter les œufs avec le tant pour tant jusqu’à obtenir une masse claire et volumineuse, puis incorporer la farine et le beurre fondu tiède.', 'Preheat the oven to 200°C. Whisk the eggs with the almond-sugar blend until pale and voluminous, then fold in the flour and warm melted butter.'],
+    ['Monter les blancs avec le sel, les incorporer délicatement à la pâte et étaler sur deux plaques. Cuire environ 8 à 10min, puis refroidir.', 'Whisk the egg whites with the salt, fold them gently into the batter and spread over two baking trays. Bake for about 8 to 10 minutes, then cool.'],
+    ['Faire bouillir la crème, la verser sur le chocolat haché et émulsionner. Ajouter le beurre, puis laisser la ganache revenir à une texture tartinable.', 'Bring the cream to a boil, pour it over the chopped chocolate and emulsify. Add the butter, then let the ganache cool to a spreadable texture.'],
+    ['Fouetter les jaunes. Cuire le sucre avec un peu d’eau à 118°C, verser sur les jaunes en fouettant et battre jusqu’à complet refroidissement.', 'Whisk the yolks. Cook the sugar with a little water to 118°C, pour it over the yolks while whisking and beat until completely cool.'],
+    ['Incorporer le beurre pommade progressivement, puis parfumer avec l’arôme café selon le dosage indiqué sur la bouteille.', 'Gradually fold in the softened butter, then flavor with coffee extract according to the dosage on the bottle.'],
+    ['Mélanger le café froid et le Grand Marnier ou le Cointreau pour le punchage.', 'Mix the cold coffee with the Grand Marnier or Cointreau for soaking.'],
+    ['Découper trois carrés de biscuit de 20cm. Poser le premier dans un cadre, le puncher et étaler une couche régulière de crème au beurre café.', 'Cut three 20cm sponge squares. Set the first in a frame, soak it and spread an even layer of coffee buttercream.'],
+    ['Ajouter le deuxième biscuit, le puncher, étaler la ganache puis poser le dernier biscuit et le puncher légèrement.', 'Add the second sponge, soak it, spread the ganache, then add the last sponge and soak it lightly.'],
+    ['Recouvrir d’une fine couche de crème au beurre et placer au froid pour raffermir les couches.', 'Cover with a thin layer of buttercream and chill to firm the layers.'],
+    ['Faire fondre le chocolat de chablonnage, l’étaler sous le premier biscuit et laisser prendre. Retourner le gâteau et égaliser les bords.', 'Melt the coating chocolate, spread it under the first sponge and let it set. Turn the cake over and trim the edges.'],
+    ['Mélanger le chocolat du glaçage avec l’huile neutre, couler sur le dessus et lisser en une couche fine et brillante.', 'Mix the glaze chocolate with the neutral oil, pour it over the top and smooth into a thin, glossy layer.'],
+    ['Réfrigérer jusqu’à prise, puis couper les bords au couteau chaud et servir en parts nettes.', 'Refrigerate until set, then trim the edges with a warm knife and serve in clean slices.'],
+    ['Adaptation sans lait: crème → crème végétale épaisse ou lait + un peu de beurre/huile ; beurre → huile douce. Impact: texture moins ronde, sauce parfois plus fluide.', 'Dairy-free adaptation: cream → thick plant cream or milk + a little butter/oil; butter → mild oil. Impact: less rounded texture and sometimes a thinner sauce.'],
+    ['Adaptation sans gluten: farine/chapelure/pain → farine de riz + fécule, panko sans gluten ou pain sans gluten. Impact: tenue plus fragile, repos utile avant cuisson.', 'Gluten-free adaptation: flour/breadcrumbs/bread → rice flour + starch, gluten-free panko or gluten-free bread. Impact: more fragile structure; resting before cooking helps.'],
+    ['Adaptation sans œufs: liaison → graines de lin hydratées, yaourt épais ou fécule selon recette ; dorure → lait ou crème. Impact: mie plus dense et coloration plus douce.', 'Egg-free adaptation: binder → hydrated flax seeds, thick yogurt or starch as needed; egg wash → milk or cream. Impact: denser crumb and softer browning.'],
+    ['Adaptation sans lait: crème → crème végétale épaisse ou lait + un peu de beurre/huile ; beurre → huile douce. Impact : texture moins ronde, sauce parfois plus fluide.', 'Dairy-free adaptation: cream → thick plant cream or milk + a little butter/oil; butter → mild oil. Impact: less rounded texture and sometimes a thinner sauce.'],
+    ['Adaptation sans gluten: farine/chapelure/pain → farine de riz + fécule, panko sans gluten ou pain sans gluten. Impact : tenue plus fragile, repos utile avant cuisson.', 'Gluten-free adaptation: flour/breadcrumbs/bread → rice flour + starch, gluten-free panko or gluten-free bread. Impact: more fragile structure; resting before cooking helps.'],
+    ['Adaptation sans œufs: liaison → graines de lin hydratées, yaourt épais ou fécule selon recette ; dorure → lait ou crème. Impact : mie plus dense et coloration plus douce.', 'Egg-free adaptation: binder → hydrated flax seeds, thick yogurt or starch as needed; egg wash → milk or cream. Impact: denser crumb and softer browning.'],
+    ['Agrume', 'Citrus'],
+    ['Legume-fruit', 'Fruit vegetable'],
+    ['Liaison/proteine', 'Binder/protein'],
+    ['Gras aromatique', 'Flavorful fat'],
+    ['Cremerie', 'Dairy'],
+    ['Feculent', 'Starch'],
+    ['Dessert', 'Dessert'],
+    ['Mer', 'Seafood'],
+    ['Legume racine', 'Root vegetable'],
+    ['Aromate', 'Aromatic'],
+    ['Condiment', 'Condiment'],
+    ['Charcuterie epicee', 'Spiced cured meat'],
+    ['Hiver-printemps, disponible toute l annee', 'Winter–spring, available year-round'],
+    ['Ete pour le frais; confit/coulis hors saison.', 'Summer when fresh; use confit or coulis out of season.'],
+    ['Toute saison', 'Year-round'],
+    ['Toute saison selon origine', 'Year-round, depending on origin'],
+    ['Automne-printemps', 'Autumn–spring'],
+    ['Au frais, pointe vers le bas; blancs/jaunes se gardent couverts 24-48h.', 'Refrigerate point-side down; keep whites and yolks covered for 24–48h.'],
+    ['Au frais bien emballe; clarifie pour mieux supporter la chaleur.', 'Keep well wrapped in the fridge; clarify it for better heat tolerance.'],
+    ['Au froid, bien ferme; utiliser vite apres ouverture.', 'Keep cold and firm; use soon after opening.'],
+    ['Au sec, a l abri de la lumiere; jamais au froid humide.', 'Store dry and away from light; never in a damp cold place.'],
+    ['Au sec, 16-18 C idealement, loin des odeurs.', 'Store dry, ideally at 16–18°C, away from odors.'],
+    ['Au froid 0-4 C, cuisson rapide, consommation sous 24h si cuite.', 'Keep at 0–4°C; cook quickly and eat within 24 hours once cooked.'],
+    ['Au bac legumes, sans fanes; couvrir si elle est taillee.', 'Keep in the vegetable drawer without tops; cover once cut.'],
+    ['Au sec, aere, hors frigo; germe a retirer si trop fort.', 'Store dry and airy, outside the fridge; remove the sprout if the flavor is too strong.'],
+    ['Au frais apres ouverture pour garder le piquant.', 'Refrigerate after opening to preserve the heat.'],
+    ['Au frais une fois tranche; proteger du dessechement.', 'Refrigerate once sliced; protect from drying out.'],
+    ['Entier au frais 2 a 3 semaines; zeste a prelever avant pressage.', 'Keep whole in the fridge for 2 to 3 weeks; zest before juicing.'],
+    ['A temperature ambiante si elle est entiere; au frais une fois coupee.', 'Keep at room temperature when whole; refrigerate once cut.'],
+    ['Poisson, poulet, beurre, ail, herbes.', 'Fish, chicken, butter, garlic and herbs.'],
+    ['Basilic, mozzarella, ail, huile d olive, vinaigre.', 'Basil, mozzarella, garlic, olive oil and vinegar.'],
+    ['Moutarde, herbes, fromage, champignon, piment doux.', 'Mustard, herbs, cheese, mushroom and mild chili.'],
+    ['Ail, citron, sauge, pomme de terre, chocolat.', 'Garlic, lemon, sage, potato and chocolate.'],
+    ['Cafe, citron, chocolat, tomate, herbes.', 'Coffee, lemon, chocolate, tomato and herbs.'],
+    ['Ail, romarin, beurre, moutarde, fromage.', 'Garlic, rosemary, butter, mustard and cheese.'],
+    ['Cafe, noisette, orange, vanille, fleur de sel.', 'Coffee, hazelnut, orange, vanilla and flaky sea salt.'],
+    ['Ail, citron, chorizo, persil, piment.', 'Garlic, lemon, chorizo, parsley and chili.'],
+    ['Cumin, orange, miel, noisette, fromage frais.', 'Cumin, orange, honey, hazelnut and fresh cheese.'],
+    ['Tomate, pomme de terre, crevette, agneau, beurre.', 'Tomato, potato, shrimp, lamb and butter.'],
+    ['Oeuf, porc, pomme de terre, miel, vinaigre.', 'Egg, pork, potato, honey and vinegar.'],
+    ['Tomate, crevette, pomme de terre, oeuf, poivron.', 'Tomato, shrimp, potato, egg and bell pepper.'],
+    ['Le jus trop tot cuit les textures fragiles et ternit les herbes.', 'Juice added too early cooks delicate textures and dulls herbs.'],
+    ['Frigo trop long: parfum eteint et texture farineuse.', 'Too long in the fridge: muted flavor and mealy texture.'],
+    ['Trop chauffer une liaison aux oeufs: grainage ou texture caoutchouc.', 'Overheating an egg liaison causes curdling or a rubbery texture.'],
+    ['Beurre brule: amertume. Viser noisette puis stopper.', 'Burnt butter turns bitter; aim for hazelnut brown, then stop.'],
+    ['Le fouetter trop fort peut le detendre ou le grainer.', 'Whisking too hard can loosen or curdle it.'],
+    ['Trop travailler une puree: texture elastique.', 'Overworking a mash makes it elastic.'],
+    ['Eau dans du chocolat fondu: masse et texture granuleuse.', 'Water in melted chocolate causes seizing and a grainy texture.'],
+    ['Surcuisson: chair seche et caoutchouteuse.', 'Overcooking makes the flesh dry and rubbery.'],
+    ['Coupe irreguliere: cuisson inegale.', 'Uneven cuts lead to uneven cooking.'],
+    ['Ail brule: amertume tres presente.', 'Garlic burns easily and becomes very bitter.'],
+    ['Bouillir longtemps: piquant affaibli et sauce plus plate.', 'Long boiling weakens the heat and flattens the sauce.'],
+    ['Saler trop tot: le chorizo apporte deja sel et gras.', 'Salting too early: chorizo already brings salt and fat.'],
+    ['Assiette claire ou coupelle froide; laisser un bord propre pour un rendu magazine.', 'Use a light plate or a chilled bowl; leave a clean rim for a magazine-style finish.'],
+    ['Ajouter un contraste net: zeste, cacao, fruit frais, fleur de sel ou eclat croquant.', 'Add a clear contrast: zest, cocoa, fresh fruit, flaky sea salt or a crisp accent.'],
+    ['Angle 45 degres, lumiere laterale douce, fond simple et garniture visible.', 'Shoot at a 45-degree angle with soft side light, a simple background and visible garnish.'],
+    ['Bol ou assiette creuse, chaud pour veloute chaud, froid pour gaspacho.', 'Use a bowl or deep plate, warm for hot velouté and chilled for gazpacho.'],
+    ['Creer un cercle de creme, huile ou herbes et ajouter un topping croquant au centre.', 'Create a ring of cream, oil or herbs, then add a crisp topping in the center.'],
+    ['Plateau sombre, bois ou ardoise; alterner hauteurs et petites portions faciles a saisir.', 'Use a dark tray, wood or slate; vary heights and keep portions easy to pick up.'],
+    ['Repeter une finition simple sur chaque piece: herbe, zeste, graine ou point de sauce.', 'Repeat one simple finish on every piece: herb, zest, seed or dot of sauce.'],
+    ['Assiette creuse ou bol large pour garder sauce et chaleur.', 'Use a deep plate or wide bowl to hold the sauce and heat.'],
+    ['Monter le centre, napper autour, puis finir avec herbes, poivre ou ingredient croustillant.', 'Build up the center, spoon sauce around it, then finish with herbs, pepper or a crisp ingredient.'],
+    ['Assiette chaude et grande surface; poser la piece principale legerement decalee.', 'Use a warm plate with plenty of room; set the main piece slightly off-center.'],
+    ['Napper en cordon court ou servir a part pour garder la texture de la piece.', 'Use a short sauce line or serve it on the side to preserve the main piece’s texture.'],
+    ['Assiette simple, bord propre, portion lisible en un point focal.', 'Use a simple plate, a clean rim and one clear focal point.'],
+    ['Terminer par une touche de couleur, de brillant ou de croquant selon la recette.', 'Finish with a touch of color, shine or crunch to suit the recipe.'],
+    ['Zestes et herbes au dernier moment pour garder couleur et parfum.', 'Add zest and herbs at the last moment to keep their color and aroma.'],
+    ['Egoutter sur grille, saler juste avant service, ne pas enfermer sous cloche.', 'Drain on a rack, salt just before serving and do not cover under a cloche.'],
+    ['Utiliser la sauce comme ligne de lecture: sous la piece, en points ou en petit cordon.', 'Use the sauce as a visual line: beneath the piece, in dots or a short cordon.'],
+    ['garde le meme ordre de preparation et isole les ingredients qui changent ; la texture reste plus stable que si toute la recette est reecrite.', 'keep the same preparation order and isolate the ingredients that change; the texture stays more stable than when rewriting the whole recipe.'],
+    ['creme → creme vegetale epaisse ou lait + un peu de beurre/huile ; beurre → huile douce. Impact : texture moins ronde, sauce parfois plus fluide.', 'cream → thick plant cream or milk + a little butter/oil; butter → mild oil. Impact: less rounded texture and sometimes a thinner sauce.'],
+    ['farine/chapelure/pain → farine de riz + fecule, panko sans gluten ou pain sans gluten. Impact : tenue plus fragile, repos utile avant cuisson.', 'flour/breadcrumbs/bread → rice flour + starch, gluten-free panko or gluten-free bread. Impact: more fragile structure; resting before cooking helps.'],
+    ['liaison → graines de lin hydratees, yaourt epais ou fecule selon recette ; dorure → lait ou creme. Impact : mie plus dense et coloration plus douce.', 'binder → hydrated flax seeds, thick yogurt or starch as needed; egg wash → milk or cream. Impact: denser crumb and softer browning.'],
+    ['si tu remplaces un produit gras par du lait, ajoute progressivement et garde une option epaisse sous la main pour rattraper la liaison.', 'if you replace a fatty product with milk, add it gradually and keep a thickening option nearby to recover the emulsion.'],
+    ['Points critiques beurre pommade non liquide, sirop a 118–120°C, verser lentement, fouetter jusqu a refroidissement complet.', 'Critical points: use softened butter without liquid fat, pour the 118–120°C syrup slowly, and whisk until fully cooled.'],
+    ['Resultat attendu pate croustillante, creme d amande moelleuse, creme citron fondante, meringue legere et stable.', 'Expected result: crisp pastry, soft almond cream, melting lemon cream, and a light, stable meringue.'],
+    ['Epaissir 5–8g maizena diluee.', 'Thicken with 5–8g diluted cornstarch.'],
+    ['Conservation 2 j au froid.', 'Storage: keep refrigerated for 2 days.'],
+    ['Les ravioles ne doivent pas cuire dans la sauce elles sont cuites separement, puis simplement montees dans la cassolette.', 'The ravioli should not cook in the sauce: cook them separately, then simply assemble them in the casserole.'],
+    ['Les crevettes doivent rester legerement nacrees avant le passage sous le gril, sinon elles deviennent fermes.', 'The shrimp should remain slightly pearly before broiling; otherwise they become firm.'],
+    ['La sauce doit enrober les ravioles et les crevettes, pas les noyer.', 'The sauce should coat the ravioli and shrimp without drowning them.'],
+    ['Sans carapaces ni tetes, utilise directement un bon fumet de poisson ou un bouillon de crustaces.', 'Without shells or heads, use them directly for a good fish fumet or shellfish stock.'],
+    ['Conservation : refrigerer 24-48h ; congele.', 'Storage: refrigerate for 24–48 hours; freeze.'],
+    ['La coloration des carapaces apporte les sucs et la profondeur de gout.', 'Browning the shells builds fond and depth of flavor.'],
+    ['Le passage au congelateur les raffermit et limite les dechirures a la cuisson.', 'A short freeze firms them up and limits tearing during cooking.'],
+    ['Le gratinage doit rester court les ravioles et les crevettes sont deja cuites.', 'Keep the gratin brief: the ravioli and shrimp are already cooked.'],
+    ['La sauce doit napper le dos d’une cuillere sans devenir lourde.', 'The sauce should coat the back of a spoon without becoming heavy.'],
+    ['Si la sauce parait trop ronde, ajoute une micro-touche de vinaigre de cidre ou de jus de citron juste avant le beurre.', 'If the sauce tastes too round, add a tiny splash of cider vinegar or lemon juice just before the butter.'],
+    ['Pour des cotelettes tres epaisses, tu peux finir au four a 150°C apres la saisie, puis servir avec la sauce a part. Surveille la cuisson, car chaque four chauffe differemment.', 'For very thick chops, finish them in a 150°C oven after searing, then serve with the sauce on the side. Watch the cooking: every oven heats differently.'],
+    ['Garnitures adaptees puree de celeri-rave, pommes Anna, carottes glacees, chou pointu roti ou ecrase de pommes de terre au beurre noisette.', 'Suitable garnishes: celeriac mash, pommes Anna, glazed carrots, roasted pointed cabbage, or mashed potatoes with brown butter.'],
+    ['Conservation : refrigerer 48h ; congele.', 'Storage: refrigerate for 48 hours; freeze.'],
+    ['Refroidir rapidement, conserver au refrigerateur a 0–4°C et consommer sous 48h ; rechauffer soigneusement.', 'Cool quickly, refrigerate at 0–4°C, eat within 48 hours, and reheat thoroughly.'],
+    ['Viser 63-65°C a cœur pour garder le porc juteux.', 'Aim for 63–65°C at the center to keep the pork juicy.'],
+    ['Reduire le cidre presque a sec pour eviter une sauce trop sucree.', 'Reduce the cider almost dry to avoid an overly sweet sauce.'],
+    ['Monter au beurre hors du feu pour une sauce brillante.', 'Whisk in the butter off the heat for a glossy sauce.'],
+    ['Repere indicatif : cuilleres rases pour les poudres et pates, liquides remplis a niveau.', 'Guideline: use level spoons for powders and pasta; fill liquids to the line.'],
+    ['Avant cuisson : garde poisson, crustaces ou calamars au refrigerateur a 0\u20134C, couvert, et sors seulement la quantite necessaire juste avant cuisson.', 'Before cooking: keep fish, shellfish or calamari covered in the refrigerator at 0–4°C, and take out only what you need just before cooking.'],
+    ['Avant cuisson : garde viande au refrigerateur a 0\u20134C, couvert, et sors seulement la quantite necessaire juste avant cuisson.', 'Before cooking: keep the meat covered in the refrigerator at 0–4°C, and take out only what you need just before cooking.'],
+    ['Avant cuisson : marinade toujours couverte au froid ; jette la marinade qui a touche le cru, ou fais-la bouillir si elle doit servir de sauce.', 'Before cooking: keep the marinade covered in the refrigerator; discard any marinade that touched raw food, or boil it if it will be used as a sauce.'],
+    ['Avant cuisson : prepare la pate au dernier moment et garde les liquides tres froids ; une pate tempura ou beignet se conserve mal une fois melangee.', 'Before cooking: make the batter at the last moment and keep the liquids very cold; tempura or fritter batter does not keep well once mixed.'],
+    ['Avant cuisson : si la pate doit attendre, couvre-la au contact ou filme-la et garde-la au refrigerateur ; laisse-la revenir selon la recette avant cuisson.', 'Before cooking: if the dough has to wait, cover it directly on the surface or wrap it, refrigerate it, then bring it back toward room temperature as the recipe requires.'],
+    ['Avant service : garde la preparation au refrigerateur a 0\u20134C et sors-la seulement pour le montage ou le dressage.', 'Before serving: keep the preparation refrigerated at 0–4°C and take it out only for assembly or plating.'],
+    ['Avant service : garde les elements laves, coupes ou mixes au froid, couverts ; ajoute herbes, assaisonnement et garnitures fragiles au dernier moment.', 'Before serving: keep washed, cut or blended components covered and chilled; add herbs, seasoning and delicate garnishes at the last moment.'],
+    ['Apres preparation : pot propre ferme au refrigerateur a 0\u20134C, 24h maximum ; utilise une cuillere propre et jette si odeur, texture ou couleur change.', 'After preparation: keep in a clean sealed jar at 0–4°C for no more than 24 hours; use a clean spoon and discard it if the smell, texture or color changes.'],
+    ['Apres cuisson : meilleur immediatement ; restes refroidis vite, boite hermetique au refrigerateur 24h, rechauffage au four ou air fryer pour limiter la perte de croustillant.', 'After cooking: best eaten immediately; cool leftovers quickly, refrigerate airtight for 24 hours, and reheat in the oven or air fryer to preserve crispness.'],
+    ['Apres cuisson : refroidis en moins de 2h, conserve au refrigerateur en boite hermetique 24\u201348h, puis rechauffe a cœur ou consomme bien froid.', 'After cooking: cool within 2 hours, refrigerate airtight for 24–48 hours, then reheat thoroughly or eat well chilled.'],
+    ['Apres cuisson : refroidis en moins de 2h, conserve en boite hermetique au refrigerateur 2\u20133 jours, puis rechauffe a cœur.', 'After cooking: cool within 2 hours, refrigerate airtight for 2–3 days, then reheat thoroughly.'],
+    ['Apres utilisation : ne conserve pas une pate qui a touche des aliments crus ; jette le reste et prepare une nouvelle pate pour une autre cuisson.', 'After use: do not keep batter that touched raw food; discard the remainder and make a fresh batch for another cooking session.'],
+    ['Apres cuisson : idealement minute ; les restes se gardent 24h au refrigerateur et se rechauffent au four chaud ou air fryer, jamais au micro-ondes si tu veux du croustillant.', 'After cooking: ideally serve immediately; leftovers keep for 24 hours in the refrigerator and reheat in a hot oven or air fryer, never the microwave if you want them crisp.'],
+    ['Apres cuisson : refroidis sur grille, puis garde 24\u201348h en sachet ou boite fermee ; congele bien emballe apres refroidissement pour une conservation plus longue.', 'After cooking: cool on a rack, then keep 24–48 hours in a bag or closed container; freeze well wrapped once cool for longer storage.'],
+    ['Apres cuisson : refroidis completement, puis conserve en boite hermetique au sec ; passe au refrigerateur seulement si la garniture contient creme, œufs ou fruits frais.', 'After cooking: cool completely, then store airtight in a dry place; refrigerate only if the topping contains cream, eggs or fresh fruit.'],
+    ['Apres preparation : refroidis rapidement si la base est chaude, filme au contact ou ferme en boite propre, puis conserve 24\u201348h au refrigerateur.', 'After preparation: cool quickly if the base is hot, cover directly or seal in a clean container, then refrigerate for 24–48 hours.'],
+    ['Apres preparation : couvre et conserve au refrigerateur 24h maximum ; avec jambon, mozzarella, œuf, poisson ou sauce fraiche, vise plutot le jour meme.', 'After preparation: cover and refrigerate for no more than 24 hours; with ham, mozzarella, egg, fish or fresh sauce, aim to eat it the same day.'],
+    ['Apres preparation : pot ou flacon propre ferme au refrigerateur 3\u20135 jours ; congelation possible en petites portions environ 2 mois.', 'After preparation: keep in a clean sealed jar or bottle in the refrigerator for 3–5 days; freeze in small portions for about 2 months if needed.'],
+    ['Apres cuisson : refroidis vite, filme au contact ou ferme en boite propre, conserve 24\u201348h au refrigerateur et rechauffe doucement en fouettant.', 'After cooking: cool quickly, cover directly or seal in a clean container, refrigerate for 24–48 hours and reheat gently while whisking.'],
+    ['Apres cuisson : refroidis rapidement, conserve en boite hermetique au refrigerateur 3\u20134 jours et rechauffe au four, a la poele ou doucement selon la texture.', 'After cooking: cool quickly, refrigerate airtight for 3–4 days, then reheat in the oven, a pan or gently depending on the texture.'],
+    ['Apres preparation : conserve au refrigerateur a 0\u20134C en contenant propre ferme et consomme sous 24\u201348h.', 'After preparation: keep in a clean sealed container at 0–4°C and eat within 24–48 hours.'],
+    ['Apres preparation : conserve couvert dans un contenant propre ; mets au refrigerateur des qu il y a humidite, fruit coupe, sauce ou garniture fraiche.', 'After preparation: keep covered in a clean container; refrigerate as soon as there is moisture, cut fruit, sauce or a fresh garnish.'],
+    ['pain rassis mixe', 'stale bread crumbs'],
+    ['flocons d avoine mixes', 'blended oats'],
+    ['crackers ecrases', 'crushed crackers'],
+    ['plus rustique', 'more rustic'],
+    ['plus croustillant, moins fin', 'crispier, less fine'],
+    ['plus sale', 'saltier'],
+    ['beurre noisette', 'brown butter'],
+    ["flocons d'avoine mixes", 'blended oats'],
+    ['plus dense, tres riche', 'denser and very rich'],
+    ['plus fluide, garde le gras', 'more fluid while keeping the richness'],
+    ['plus acidule, a feu doux', 'more tangy; use over low heat'],
+    ['sans lait, gout coco marque', 'dairy-free with a pronounced coconut flavor'],
+    ['moins dense, proche en douceur', 'less dense and close in sweetness'],
+    ['plus leger, texture moins lisse', 'lighter with a less smooth texture'],
+    ['plus riche', 'richer'],
+    ['neutre, un peu moins rond', 'neutral and slightly less rounded'],
+    ['utile en pate ou sauce', 'useful in dough or sauce'],
+    ['moins lacte, plus souple', 'less dairy-forward and more supple'],
+    ['proche en texture', 'similar in texture'],
+    ['gout marque, tres dense', 'pronounced flavor and very dense'],
+    ['dessert plus moelleux, moins structure', 'softer dessert with less structure'],
+    ['moelleux, legere acidite', 'soft with gentle acidity'],
+    ['liant vegetal, texture plus rustique', 'plant-based binder with a more rustic texture'],
+    ['plus leger, moins elastique', 'lighter and less elastic'],
+    ['sans gluten, texture plus friable', 'gluten-free with a more crumbly texture'],
+    ['plus fondant, gout marque', 'more tender with a pronounced flavor'],
+    ['moins alcoolise, acidite controlee', 'less alcoholic with controlled acidity'],
+    ['plus fruite', 'fruitier'],
+    ['acidite plus vive', 'brighter acidity'],
+    ['acidite sans parfum d agrume', 'acidity without citrus aroma'],
+    ['selon affinage, gout variable', 'varies with aging and has a changing flavor'],
+    ['note fromagere, pas de fonte', 'cheesy note without melting'],
+    ['acidule sucre, moins piquant', 'sweet-tart and less hot'],
+    ['plus piquant', 'hotter'],
+    ['plus humide, gout floral', 'moister with a floral flavor'],
+    ['plus humide, gout marque', 'moister with a pronounced flavor'],
+    ['Gluten possible', 'possible gluten'],
+    ['Gluten souvent present', 'gluten often present'],
+    ['Gluten', 'gluten'],
+    ['Aucun majeur courant', 'no common major allergen'],
+    ['Lait/lactose', 'milk/lactose'],
+    ['Fruits a coque', 'tree nuts'],
+    ['Sulfites possibles', 'possible sulfites'],
+    ['disponible au placard', 'available in the pantry'],
+    ['option', 'optional'],
+    ['doux vegetal', 'gentle vegetal profile'],
+    ['acide frais', 'fresh acidity'],
+    ['umami acidule', 'savory acidity'],
+    ['gras rond', 'rich and rounded'],
+    ['marin iode', 'briny and oceanic'],
+    ['amer rond', 'bitter and rounded'],
+    ['neutre fondant', 'neutral and soft'],
+    ['iode sucre', 'briny sweetness'],
+    ['doux riche', 'gently rich'],
+    ['viande ronde', 'rounded meatiness'],
+    ['poulet', 'chicken'], ['volaille', 'poultry'], ['poisson', 'fish'], ['saumon', 'salmon'],
+    ['cabillaud', 'cod'], ['thon', 'tuna'], ['basilic', 'basil'], ['mozzarella', 'mozzarella'],
+    ['chorizo', 'chorizo'], ['vinaigre', 'vinegar'], ['cafe', 'coffee'], ['espresso', 'espresso'],
+    ['sel', 'salt'], ['vanille', 'vanilla'], ['chevre', 'goat cheese'], ['chevre', 'goat cheese'],
+    ['romarin', 'rosemary'], ['thym', 'thyme'], ['sauge', 'sage'], ['fromage', 'cheese'], ['ciboulette', 'chives'], ['champignon', 'mushroom'],
+    ['menthe', 'mint'], ['aneth', 'dill'], ['coriandre', 'coriander'], ['herbes', 'herbs'],
+    ['herbes fraiches', 'fresh herbs'], ['fleur de sel', 'flaky sea salt'], ['zeste', 'zest'],
+    ['zeste minute', 'fresh zest'], ['cafe court', 'short coffee'], ['noisettes grillees', 'toasted hazelnuts'],
+    ['huile d olive', 'olive oil'], ['poivre', 'pepper'], ['poivre noir', 'black pepper'],
+    ['sucre pincee', 'a pinch of sugar'], ['jus court', 'short jus'], ['piment', 'chili'],
+    ['piment doux', 'mild chili'], ['bacon', 'bacon'], ['lardon', 'bacon'], ['lime', 'lime'],
+    ['farine T55', 'T55 flour'], ['farine t55', 'T55 flour'], ['farine T45', 'T45 flour'],
+    ['fécule ou Maïzena', 'starch or cornstarch'], ['fecule ou maizena', 'starch or cornstarch'],
+    ['farine de riz', 'rice flour'], ['poudre d’amande', 'almond flour'], ["poudre d'amande", 'almond flour'],
+    ['crème diluée', 'diluted cream'], ['creme diluee', 'diluted cream'], ['boisson soja', 'soy drink'],
+    ['eau + beurre', 'water + butter'], ['huile neutre', 'neutral oil'], ['margarine', 'margarine'],
+    ['purée d’amande', 'almond butter'], ["puree d'amande", 'almond butter'], ['compote', 'applesauce'],
+    ['yaourt', 'yogurt'], ['graines de lin hydratées', 'hydrated flax seeds'],
+    ['graines de lin hydratees', 'hydrated flax seeds'], ['vinaigre doux', 'mild vinegar'],
+    ['bouillon + trait de vinaigre', 'stock + a splash of vinegar'], ['cidre', 'cider'],
+    ['levure maltée', 'nutritional yeast'], ['levure maltee', 'nutritional yeast'], ['raifort doux', 'mild horseradish'],
+    ['miel', 'honey'], ['sirop d’érable', 'maple syrup'], ["sirop d'érable", 'maple syrup'],
+    ['fécule', 'starch'], ['maïzena', 'cornstarch'], ['farine', 'flour'], ['pain', 'bread'], ['lait', 'milk'],
+    ['chapelure', 'breadcrumbs'], ['panko', 'panko'], ['crème', 'cream'], ['creme', 'cream'],
+    ['beurre', 'butter'], ['fromage frais', 'fresh cheese'], ['crème épaisse + fromage frais', 'thick cream + fresh cheese'],
+    ['creme epaisse + fromage frais', 'thick cream + fresh cheese'], ['ricotta mixée + crème', 'blended ricotta + cream'],
+    ['ricotta mixee + creme', 'blended ricotta + cream'], ['graines de lin hydratées', 'hydrated flax seeds'],
+    ['autre fromage affiné', 'another aged cheese'], ['autre fromage affine', 'another aged cheese'],
+    ['vinaigre + miel', 'vinegar + honey'], ['crème végétale épaisse', 'thick plant cream'],
+    ['creme vegetale epaisse', 'thick plant cream'], ['lait de coco', 'coconut milk'], ['mascarpone détendu', 'loosened mascarpone'],
+    ['mascarpone detendu', 'loosened mascarpone'], ['yaourt grec', 'Greek yogurt'], ['flocons d’avoine mixés', 'blended oats'],
+    ['flocons d avoine mixes', 'blended oats'], ['crackers écrasés', 'crushed crackers'], ['crackers ecrases', 'crushed crackers'],
+    ['pain rassis mixé', 'stale bread crumbs'], ['pain rassis mixe', 'stale bread crumbs'],
+    ['Noix de coco selon sensibilité', 'coconut; check sensitivity'], ['noix de coco selon sensibilite', 'coconut; check sensitivity'],
+    ['Vérifier lait/soja', 'check milk/soy'], ['verifier lait/soja', 'check milk/soy'],
+    ['Graines à vérifier', 'check the seeds'], ['graines a verifier', 'check the seeds'], ['À vérifier', 'check'],
+    ['a verifier', 'check'], ['Soja', 'soy'], ['Gluten', 'gluten'], ['Gluten possible', 'possible gluten'],
+    ['Gluten souvent présent', 'gluten often present'], ['gluten souvent present', 'gluten often present'],
+    ['Fruits à coque', 'tree nuts'], ['fruits a coque', 'tree nuts'], ['Lait/lactose', 'milk/lactose'],
+    ['Sulfites possibles', 'possible sulfites'], ['sulfites possibles', 'possible sulfites'],
+    ['huile d’olive', 'olive oil'], ["huile d'olive", 'olive oil']
+    ,['lait entier', 'whole milk'], ['beurre doux', 'unsalted butter'], ['moutarde a l ancienne', 'whole-grain mustard'],
+    ['moutarde à l’ancienne', 'whole-grain mustard'], ['vin blanc sec', 'dry white wine'],
+    ['un peu de beurre ou d huile neutre pour eviter qu elles collent apres cuisson', 'a little butter or neutral oil to prevent sticking after cooking'],
+    ['un peu de beurre ou d’huile neutre pour éviter qu’elles collent après cuisson', 'a little butter or neutral oil to prevent sticking after cooking'],
+    ['beurre ou huile neutre pour eviter qu elles collent apres cuisson', 'butter or neutral oil to prevent sticking after cooking'],
+    ['Sauce béarnaise', 'Bearnaise sauce'],
+    ['Sauce bearnaise', 'Bearnaise sauce'],
+    ['Sauce Choron', 'Choron sauce'],
+    ['carotte ou panais', 'carrot or parsnip'],
+    ['oignon, fenouil ou poireau', 'onion, fennel or leek'],
+    ['1 petite cuillère crème ou eau', '1 small spoonful of cream or water'],
+    ['1 petite cuillere creme ou eau', '1 small spoonful of cream or water'],
+    ['Assouplir le beurre au robot avec la feuille, ou utiliser un beurre déjà souple à température ambiante.', 'Soften the butter with the paddle attachment, or use butter that is already soft at room temperature.'],
+    ['Assouplir le beurre au robot avec la feuille, ou utiliser un beurre deja souple a temperature ambiante.', 'Soften the butter with the paddle attachment, or use butter that is already soft at room temperature.'],
+    ['Laisser refroidir avant de garnir, puis isoler au chocolat fondu si la garniture est très humide.', 'Let cool before filling, then seal with melted chocolate if the filling is very moist.'],
+    ['Laisser refroidir avant de garnir, puis isoler au chocolat fondu si la garniture est tres humide.', 'Let cool before filling, then seal with melted chocolate if the filling is very moist.'],
+    ['Étaler entre deux feuilles évite d’ajouter de la farine et garde une texture plus nette.', 'Rolling between two sheets avoids adding flour and keeps the texture cleaner.'],
+    ['Etaler entre deux feuilles evite d ajouter de la farine et garde une texture plus nette.', 'Rolling between two sheets avoids adding flour and keeps the texture cleaner.'],
+    ['Ne travaille presque plus la pâte après ajout de la farine trop mélanger la rend friable, fragile et plus difficile à manipuler.', 'Do not work the dough much after adding the flour; overmixing makes it crumbly, fragile and harder to handle.'],
+    ['Ne travaille presque plus la pate apres ajout de la farine trop melanger la rend friable, fragile et plus difficile a manipuler.', 'Do not work the dough much after adding the flour; overmixing makes it crumbly, fragile and harder to handle.'],
+    ['Si les bords collent au cercle, décolle-les à chaud avec une petite lame sans retirer le cercle.', 'If the edges stick to the ring, loosen them while warm with a small blade without removing the ring.'],
+    ['Si les bords collent au cercle, decolle-les a chaud avec une petite lame sans retirer le cercle.', 'If the edges stick to the ring, loosen them while warm with a small blade without removing the ring.'],
+    ['Pour une surface plus lisse, poncer très légèrement le fond cuit avec un zesteur fin.', 'For a smoother surface, very lightly sand the baked base with a fine zester.'],
+    ['Pour une surface plus lisse, poncer tres legerement le fond cuit avec un zesteur fin.', 'For a smoother surface, very lightly sand the baked base with a fine zester.'],
+    ['2g d’ail', '2g garlic'],
+    ['2g d ail', '2g garlic'],
+    ['Ajouter une petite quantité de rouille, du piment d’Espelette, du basilic nain et un filet d’huile d’olive.', 'Add a small amount of rouille, Espelette pepper, dwarf basil and a drizzle of olive oil.'],
+    ['Ajouter une petite quantite de rouille, du piment d Espelette, du basilic nain et un filet d huile d olive.', 'Add a small amount of rouille, Espelette pepper, dwarf basil and a drizzle of olive oil.'],
+    ['Préparer la rouille à part pour garder une texture nette au service.', 'Prepare the rouille separately to keep a clean texture when serving.'],
+    ['Preparer la rouille a part pour garder une texture nette au service.', 'Prepare the rouille separately to keep a clean texture when serving.'],
+    ['Le bouillon doit être très chaud pour terminer la cuisson des tranches de poisson dans l’assiette.', 'The stock must be very hot to finish cooking the fish slices in the serving bowl.'],
+    ['Le bouillon doit etre tres chaud pour terminer la cuisson des tranches de poisson dans l assiette.', 'The stock must be very hot to finish cooking the fish slices in the serving bowl.'],
+    ['2 gousses d’ail en chemise', '2 garlic cloves, skin on'],
+    ['2 gousses d ail en chemise', '2 garlic cloves, skin on'],
+    ['1 petite branche de romarin', '1 small sprig of rosemary'],
+    ['Sauce miel moutarde', 'Honey mustard sauce'],
+    ['Chauffer une grande poêle avec l’huile, puis saisir les côtelettes 2 à 3 minutes par face à feu moyen-vif.', 'Heat a large pan with the oil, then sear the chops for 2 to 3 minutes per side over medium-high heat.'],
+    ['Chauffer une grande poele avec l huile, puis saisir les cotelettes 2 a 3 minutes par face a feu moyen-vif.', 'Heat a large pan with the oil, then sear the chops for 2 to 3 minutes per side over medium-high heat.'],
+    ['Retirer les côtelettes lorsqu’elles sont bien dorées et les réserver sur une grille ou une assiette.', 'Remove the chops once well browned and set them aside on a rack or plate.'],
+    ['Retirer les cotelettes lorsqu elles sont bien dorees et les reserver sur une grille ou une assiette.', 'Remove the chops once well browned and set them aside on a rack or plate.'],
+    ['Retirer l’excès de gras de la poêle en gardant les sucs, puis faire suer les échalotes 2 à 3 minutes.', 'Remove excess fat from the pan while keeping the browned bits, then sweat the shallots for 2 to 3 minutes.'],
+    ['Retirer l exces de gras de la poele en gardant les sucs, puis faire suer les echalotes 2 a 3 minutes.', 'Remove excess fat from the pan while keeping the browned bits, then sweat the shallots for 2 to 3 minutes.'],
+    ['Verser le fond, réduire jusqu’à une texture légèrement sirupeuse, puis ajouter les moutardes et la crème.', 'Add the stock and reduce to a slightly syrupy texture, then add the mustards and cream.'],
+    ['Verser le fond, reduire jusqu a une texture legerement sirupeuse, puis ajouter les moutardes et la creme.', 'Add the stock and reduce to a slightly syrupy texture, then add the mustards and cream.'],
+    ['Laisser réduire 3 à 5 minutes à feu doux, puis remettre les côtelettes dans la sauce et napper régulièrement.', 'Reduce for 3 to 5 minutes over low heat, then return the chops to the sauce and baste regularly.'],
+    ['Laisser reduire 3 a 5 minutes a feu doux, puis remettre les cotelettes dans la sauce et napper regulierement.', 'Reduce for 3 to 5 minutes over low heat, then return the chops to the sauce and baste regularly.'],
+    ['Retirer les côtelettes, couper le feu, ajouter le beurre froid et fouetter pour lier la sauce.', 'Remove the chops, turn off the heat, add the cold butter and whisk to bind the sauce.'],
+    ['Retirer les cotelettes, couper le feu, ajouter le beurre froid et fouetter pour lier la sauce.', 'Remove the chops, turn off the heat, add the cold butter and whisk to bind the sauce.'],
+    ['4 tranches pain de mie', '4 slices sandwich bread'],
+    ['Moutarde douce optionnelle', 'Optional mild mustard'],
+    ['Beurrer légèrement l extérieur des tranches de pain.', 'Lightly butter the outside of the bread slices.'],
+    ['Beurrer légèrement l’extérieur des tranches de pain.', 'Lightly butter the outside of the bread slices.'],
+    ['Garnir avec jambon, fromage râpé et une fine touche de moutarde si souhaité.', 'Fill with ham, grated cheese and a thin touch of mustard if desired.'],
+    ['Garnir avec jambon, fromage rape et une fine touche de moutarde si souhaite.', 'Fill with ham, grated cheese and a thin touch of mustard if desired.'],
+    ['Refermer et cuire à la poêle ou au four jusqu à pain doré et fromage fondu.', 'Close and cook in the pan or oven until the bread is golden and the cheese melted.'],
+    ['Refermer et cuire a la poele ou au four jusqu a pain dore et fromage fondu.', 'Close and cook in the pan or oven until the bread is golden and the cheese melted.'],
+    ['Cuire à feu moyen pour fondre le fromage sans brûler le pain.', 'Cook over medium heat to melt the cheese without burning the bread.'],
+    ['Cuire a feu moyen pour fondre le fromage sans bruler le pain.', 'Cook over medium heat to melt the cheese without burning the bread.'],
+    ['Cuire les œufs au plat séparément.', 'Cook the eggs sunny-side up separately.'],
+    ['Cuire les oeufs au plat separement.', 'Cook the eggs sunny-side up separately.'],
+    ['Appareil chocolat', 'Chocolate batter'],
+    ['Le temps de cuisson est le point clé tester un moule avant une série.', 'Cooking time is the key point; test one mold before making a full batch.'],
+    ['Le temps de cuisson est le point clé : tester un moule avant une série.', 'Cooking time is the key point; test one mold before making a full batch.'],
+    ['Préparation des moules ou ramequins beurre généreusement puis chemise au cacao ou à la farine, sinon les mi-cuits peuvent coller au démoulage.', 'Prepare the molds or ramekins: butter generously, then coat with cocoa or flour, otherwise the molten cakes may stick when unmolded.'],
+    ['Preparation des moules ou ramequins beurre genereusement puis chemise au cacao ou a la farine, sinon les mi-cuits peuvent coller au demoulage.', 'Prepare the molds or ramequins: butter generously, then coat with cocoa or flour, otherwise the molten cakes may stick when unmolded.'],
+    ['Cold: point de vigilance.', 'Cold: watch point.'],
+    ['Éplucheur ou mandoline', 'Peeler or mandoline'],
+    ['Eplucheur ou mandoline', 'Peeler or mandoline'],
+    ['50g croûtons de pain de mie', '50g sandwich-bread croutons'],
+    ['50g croutons de pain de mie', '50g sandwich-bread croutons'],
+    ['1/2 gousse d’ail', '1/2 garlic clove'],
+    ['1/2 gousse d ail', '1/2 garlic clove'],
+    ['Sauce blanche au parmesan', 'White Parmesan dressing'],
+    ['Couper le pain de mie en dés et faire dorer les croûtons à la poêle avec un filet d’huile d’olive. Les laisser tiédir avant de les ajouter.', 'Cut the sandwich bread into cubes and brown the croutons in a pan with a drizzle of olive oil. Let them cool slightly before adding them.'],
+    ['Couper le pain de mie en des et faire dorer les croutons a la poele avec un filet d huile d olive. Les laisser tiedir avant de les ajouter.', 'Cut the sandwich bread into cubes and brown the croutons in a pan with a drizzle of olive oil. Let them cool slightly before adding them.'],
+    ['Pour la sauce, mettre le jaune d’œuf dans un bol avec la moutarde, le jus de citron, le vinaigre de Xérès et l’ail finement haché.', 'For the dressing, put the egg yolk in a bowl with the mustard, lemon juice, sherry vinegar and finely chopped garlic.'],
+    ['Pour la sauce, mettre le jaune d oeuf dans un bol avec la moutarde, le jus de citron, le vinaigre de Xeres et l ail finement hache.', 'For the dressing, put the egg yolk in a bowl with the mustard, lemon juice, sherry vinegar and finely chopped garlic.'],
+    ['Répartir les croûtons et les copeaux de parmesan sur la salade, assaisonner avec la sauce blanche et servir immédiatement.', 'Scatter the croutons and Parmesan shavings over the salad, dress with the white dressing and serve immediately.'],
+    ['Repartir les croutons et les copeaux de parmesan sur la salade, assaisonner avec la sauce blanche et servir immediatement.', 'Scatter the croutons and Parmesan shavings over the salad, dress with the white dressing and serve immediately.'],
+    ['Ajouter la sauce seulement au moment du service pour préserver le croquant des feuilles et des croûtons.', 'Add the dressing only when serving to preserve the crunch of the leaves and croutons.'],
+    ['Ajouter la sauce seulement au moment du service pour preserver le croquant des feuilles et des croutons.', 'Add the dressing only when serving to preserve the crunch of the leaves and croutons.'],
+    ['Robot muni de la feuille', 'Stand mixer with paddle attachment'],
+    ['Sortir le beurre 45 à 60min avant. Le travailler à la feuille jusqu’à texture pommade, puis incorporer le sucre glace et la poudre d’amandes.', 'Take the butter out 45 to 60 minutes ahead. Work it with the paddle until smooth and creamy, then incorporate the icing sugar and almond flour.'],
+    ['Sortir le beurre 45 a 60min avant. Le travailler a la feuille jusqu a texture pommade, puis incorporer le sucre glace et la poudre d amandes.', 'Take the butter out 45 to 60 minutes ahead. Work it with the paddle until smooth and creamy, then incorporate the icing sugar and almond flour.'],
+    ['Ajouter l’œuf battu et le sel. Incorporer enfin la farine en travaillant le moins possible, juste jusqu’à agglomération. Aplatir, couvrir au contact et réfrigérer 2h.', 'Add the beaten egg and salt. Finally incorporate the flour with as little mixing as possible, just until the dough comes together. Flatten, cover directly and refrigerate for 2 hours.'],
+    ['Ajouter l oeuf battu et le sel. Incorporer enfin la farine en travaillant le moins possible, juste jusqu a agglomeration. Aplatir, couvrir au contact et refrigerer 2h.', 'Add the beaten egg and salt. Finally incorporate the flour with as little mixing as possible, just until the dough comes together. Flatten, cover directly and refrigerate for 2 hours.'],
+    ['Pour la crème, chauffer le lait avec les 2g de poivre de Timut puis filtrer. Fouetter les jaunes, le sucre et la fécule de maïs.', 'For the cream, heat the milk with the 2g of Timut pepper, then strain. Whisk the yolks, sugar and cornstarch.'],
+    ['Pour la creme, chauffer le lait avec les 2g de poivre de Timut puis filtrer. Fouetter les jaunes, le sucre et la fecule de mais.', 'For the cream, heat the milk with the 2g of Timut pepper, then strain. Whisk the yolks, sugar and cornstarch.'],
+    ['Verser la moitié du lait chaud sur les jaunes en fouettant, remettre l’ensemble dans la casserole et faire bouillir 2min sans cesser de mélanger.', 'Pour half of the hot milk over the yolks while whisking, return everything to the saucepan and boil for 2 minutes without stopping stirring.'],
+    ['Verser la moitie du lait chaud sur les jaunes en fouettant, remettre l ensemble dans la casserole et faire bouillir 2min sans cesser de melanger.', 'Pour half of the hot milk over the yolks while whisking, return everything to the saucepan and boil for 2 minutes without stopping stirring.'],
+    ['Le fond cuit se conserve 2 jours au sec avant montage.', 'The baked base keeps dry for 2 days before assembly.'],
+    ['Travailler la farine au minimum limite le gluten et conserve une texture friable.', 'Working the flour as little as possible limits gluten and preserves a crumbly texture.'],
+    ['Sortir le beurre environ 45 à 60min avant pour obtenir une texture pommade, souple mais non fondue.', 'Take the butter out about 45 to 60 minutes ahead for a soft, spreadable texture that is not melted.'],
+    ['Sortir le beurre environ 45 a 60min avant pour obtenir une texture pommade, souple mais non fondue.', 'Take the butter out about 45 to 60 minutes ahead for a soft, spreadable texture that is not melted.'],
+    ['Base utilisée dans la tarte citron meringuée.', 'Base used in the lemon meringue tart.'],
+    ['La farine T55 limite mieux la rétractation à la cuisson qu’une farine trop riche en gluten.', 'T55 flour limits shrinkage during baking better than flour with too much gluten.'],
+    ['Un tapis de cuisson perforé posé sur grille permet une cuisson plus régulière et évite souvent de piquer le fond.', 'A perforated baking mat on a rack gives more even baking and often avoids having to prick the base.'],
+    ['Si la pâte casse au fonçage, colmate avec un morceau de pâte de même épaisseur elle se ressoude à la cuisson.', 'If the dough breaks while lining the ring, patch it with a piece of dough of the same thickness; it will reseal during baking.'],
+    ['Les chutes crues peuvent être filmées et congelées pour une autre tarte.', 'Raw scraps can be wrapped and frozen for another tart.'],
+    ['Épaisseur', 'Thickness'],
+    ['2 à 3mm pour un fond fin, croustillant et régulier.', '2 to 3mm for a thin, crisp and even base.'],
+    ['Repos anti-rétractation', 'Anti-shrink rest'],
+    ['1h minimum après étalage, idéalement 24h une fois le fond foncé.', 'At least 1 hour after rolling, ideally 24 hours once the lined base is formed.'],
+    ['Cuisson', 'Baking'],
+    ['170°C chaleur tournante, 10 à 15min avant recuisson ou 15 à 20min pour cuisson complète.', '170°C fan-assisted oven, 10 to 15 minutes before a second bake or 15 to 20 minutes for a fully baked base.'],
+    ['Isolation', 'Sealing'],
+    ['Dorure jaune + crème/eau ou fine couche de chocolat fondu pour protéger le croustillant des garnitures humides.', 'Egg-yolk wash + cream/water or a thin layer of melted chocolate to protect the crisp base from moist fillings.'],
+    ['REST ANTI-RÉTRACTATION', 'ANTI-SHRINK REST'],
+    ['REST ANTI-RETRACTION', 'ANTI-SHRINK REST'],
+    ['250g fraises', '250g strawberries'],
+    ['Abaisser la pâte à 2mm, la remettre 30min au réfrigérateur, puis foncer un cercle de 24cm. Placer 15min au congélateur.', 'Roll the dough to 2mm, chill it for 30 minutes, then line a 24cm tart ring. Freeze for 15 minutes.'],
+    ['Abaisser la pate a 2mm, la remettre 30min au refrigerateur, puis foncer un cercle de 24cm. Placer 15min au congelateur.', 'Roll the dough to 2mm, chill it for 30 minutes, then line a 24cm tart ring. Freeze for 15 minutes.'],
+    ['Réserver au réfrigérateur au moins 1h après étalage, ou filmer la pâte et la laisser reposer au moins 2h avant de l’abaisser.', 'Refrigerate for at least 1 hour after rolling, or wrap the dough and let it rest for at least 2 hours before rolling it out.'],
+    ['Reserver au refrigerateur au moins 1h apres etalage, ou filmer la pate et la laisser reposer au moins 2h avant de l abaisser.', 'Refrigerate for at least 1 hour after rolling, or wrap the dough and let it rest for at least 2 hours before rolling it out.'],
+    ['Abaisser craquelin 2mm, détailler disques.', 'Roll the craquelin to 2mm and cut out discs.'],
+    ['Abaisser craquelin 2mm, detailler disques.', 'Roll the craquelin to 2mm and cut out discs.'],
+    ['Réaliser pâte à choux pocher Ø 3–4cm couvrir d’un disque de craquelin.', 'Make the choux pastry, pipe 3–4cm rounds and cover each with a craquelin disc.'],
+    ['Realiser pate a choux pocher Ø 3–4cm couvrir d un disque de craquelin.', 'Make the choux pastry, pipe 3–4cm rounds and cover each with a craquelin disc.'],
+    ['Cuire 170–175°C 35–40min ventilé sec.', 'Bake at 170–175°C for 35–40 minutes in a dry fan oven.'],
+    ['Cuire 170–175°C 35–40min ventile sec.', 'Bake at 170–175°C for 35–40 minutes in a dry fan oven.'],
+    ['Refroidir, garnir.', 'Cool, then fill.'],
+    ['Conservation coques 3 j à température ambiante dans boîte hermétique garnis 24h au froid.', 'Storage: keep unfilled shells for 3 days at room temperature in an airtight box; keep filled shells refrigerated for 24 hours.'],
+    ['Conservation coques 3 j a temperature ambiante dans boite hermetique garnis 24h au froid.', 'Storage: keep unfilled shells for 3 days at room temperature in an airtight box; keep filled shells refrigerated for 24 hours.'],
+    ['Crèmes à garnir', 'Filling creams'],
+    ['Crèmes a garnir', 'Filling creams'],
+    ['Crème diplomate vanille', 'Vanilla diplomat cream'],
+    ['Crème diplomate vanille à garnir', 'Vanilla diplomat cream for filling'],
+    ['Crème pâtissière vanille', 'Vanilla pastry cream'],
+    ['Crème pâtissière praliné', 'Praline pastry cream'],
+    ['Crème Nutella à garnir', 'Nutella filling cream'],
+    ['Crème pistache à garnir', 'Pistachio filling cream'],
+    ['Crème praliné', 'Praline cream'],
+    ['Crème mascarpone vanille', 'Vanilla mascarpone cream'],
+    ['Chantilly stabilisée', 'Stabilized whipped cream'],
+    ['200g de carottes', '200g carrots'],
+    ['100g de céleri', '100g celery'],
+    ['150g de poireaux', '150g leeks'],
+    ['150g d’oignons', '150g onions'],
+    ['200g de fenouil', '200g fennel'],
+    ['500g de tomates mûres', '500g ripe tomatoes'],
+    ['75g de concentré de tomate', '75g tomato paste'],
+    ['Thym', 'Thyme'],
+    ['3 étoiles de badiane', '3 star anise'],
+    ['8 graines de cardamome', '8 cardamom pods'],
+    ['2g de safran', '2g saffron'],
+    ['200g de jus de moules', '200g mussel juice'],
+    ['500g de fumet de poisson', '500g fish fumet'],
+    ['1,5 L de vin blanc', '1.5L white wine'],
+    ['Pommes de terre', 'Potatoes'],
+    ['Fenouils', 'Fennel'],
+    ['Huile d’olive pour service', 'Olive oil for serving'],
+    ['Curry en poudre', 'Curry powder'],
+    ['Huile d’olive pour les fenouils', 'Olive oil for the fennel'],
+    ['Lever les filets des poissons ou demander au poissonnier de le faire, puis garder arêtes et têtes pour le bouillon.', 'Fillet the fish, or ask the fishmonger to do it, then keep the bones and heads for the stock.'],
+    ['Retirer les ouïes des têtes si nécessaire, éponger les morceaux et réserver les filets au frais.', 'Remove the gills from the heads if needed, pat the pieces dry and set the fillets aside in the refrigerator.'],
+    ['Émincer carottes, céleri, poireaux, oignons et fenouil, concasser les tomates, prélever un large zeste d’orange et préparer les épices.', 'Thinly slice the carrots, celery, leeks, onions and fennel, crush the tomatoes, take a wide strip of orange zest and prepare the spices.'],
+    ['Faire colorer arêtes et têtes de poisson dans une grande marmite avec un filet d’huile d’olive.', 'Brown the fish bones and heads in a large pot with a drizzle of olive oil.'],
+    ['Déglacer au Pernod, laisser réduire, puis ajouter le vin blanc et réduire à nouveau.', 'Deglaze with Pernod, reduce, then add the white wine and reduce again.'],
+    ['Ajouter tomates, concentré de tomate, fumet, jus de moules, garniture aromatique, têtes, orange, badiane et cardamome.', 'Add the tomatoes, tomato paste, fumet, mussel juice, aromatic garnish, heads, orange, star anise and cardamom.'],
+    ['Cuire environ 45 minutes à frémissement.', 'Cook for about 45 minutes at a gentle simmer.'],
+    ['Couper le feu, ajouter le safran et laisser infuser quelques minutes sans forte ébullition.', 'Turn off the heat, add the saffron and infuse for a few minutes without a strong boil.'],
+    ['Filtrer au chinois, presser pour récupérer le jus, puis filtrer une seconde fois si besoin.', 'Strain through a chinois, press to recover the liquid, then strain a second time if needed.'],
+    ['Cuire les pommes de terre dans une partie du bouillon safrané, les égoutter puis les poêler rapidement à l’huile d’olive.', 'Cook the potatoes in some of the saffron stock, drain them, then quickly pan-fry them in olive oil.'],
+    ['Assaisonner les fenouils avec citron, sel, curry et huile d’olive, puis les cuire à la vapeur ou doucement jusqu’à tendreté.', 'Season the fennel with lemon, salt, curry and olive oil, then steam or gently cook until tender.'],
+    ['Chauffer les assiettes, disposer poisson, pommes de terre et fenouil, puis verser le bouillon brûlant sur les tranches de poisson.', 'Warm the plates, arrange the fish, potatoes and fennel, then pour the boiling stock over the fish slices.'],
+    ['Pour des morceaux épais, pocher quelques minutes dans le bouillon à 80-85°C avant dressage.', 'For thick pieces, poach them for a few minutes in the stock at 80–85°C before plating.'],
+    ['Le Pernod doit soutenir la note anisée du fenouil sans dominer le poisson.', 'The Pernod should support the fennel’s anise note without overpowering the fish.'],
+    ['Conservation : réfrigérer 24-48h ; congèle.', 'Storage: refrigerate for 24–48 hours; freeze.'],
+    ['Colorer les arêtes avant déglaçage pour donner du relief.', 'Brown the bones before deglazing to build depth.'],
+    ['L’infuser hors forte ébullition pour éviter une note médicinale.', 'Infuse it away from a strong boil to avoid a medicinal note.'],
+    ['Servir en assiette chaude avec bouillon brûlant et garnitures séparées.', 'Serve in a hot bowl with boiling stock and separate garnishes.'],
+    ['4 côtelettes de porc épaisses de 3 à 4cm', '4 thick pork chops, 3 to 4cm thick'],
+    ['2 branches de thym frais', '2 sprigs of fresh thyme'],
+    ['Fleur de sel', 'Flaky sea salt'],
+    ['Sortir la viande 45 minutes avant cuisson et bien sécher la surface pour obtenir une vraie coloration.', 'Take the meat out 45 minutes before cooking and dry the surface thoroughly for proper browning.'],
+    ['2 petites échalotes', '2 small shallots'],
+    ['2 c. à soupe de miel de fleurs, acacia ou châtaignier doux', '2 tbsp mild blossom, acacia or chestnut honey'],
+    ['2 c. à soupe de moutarde à l’ancienne', '2 tbsp whole-grain mustard'],
+    ['1 c. à café de moutarde de Dijon', '1 tsp Dijon mustard'],
+    ['150ml de cidre brut ou vin blanc sec', '150ml dry cider or dry white wine'],
+    ['250ml de fond de veau ou fond brun de volaille réduit', '250ml reduced veal stock or dark poultry stock'],
+    ['80 à 100ml de crème liquide entière', '80 to 100ml heavy cream'],
+    ['1 c. à soupe de vinaigre de cidre', '1 tbsp cider vinegar'],
+    ['30g de beurre froid', '30g cold butter'],
+    ['Sortir les côtelettes du froid 45 minutes avant cuisson, les éponger et les saler légèrement.', 'Take the chops out of the refrigerator 45 minutes before cooking, pat them dry and season lightly.'],
+    ['Ajouter le beurre, l’ail, le thym et le romarin, puis arroser la viande 1 à 2 minutes avec le beurre mousseux.', 'Add the butter, garlic, thyme and rosemary, then baste the meat for 1 to 2 minutes with the foaming butter.'],
+    ['Ajouter le miel et le laisser mousser 30 à 45 secondes, puis déglacer avec le vinaigre de cidre.', 'Add the honey and let it foam for 30 to 45 seconds, then deglaze with the cider vinegar.'],
+    ['Ajouter le cidre ou le vin blanc et réduire presque à sec.', 'Add the cider or white wine and reduce almost completely.'],
+    ['Terminer à feu doux jusqu’à 63-65°C à cœur, retirer du feu et laisser reposer 5 minutes.', 'Finish over low heat until 63–65°C at the center, remove from the heat and rest for 5 minutes.'],
+    ['La sauce doit napper le dos d’une cuillère sans devenir lourde.', 'The sauce should coat the back of a spoon without becoming heavy.'],
+    ['Si la sauce paraît trop ronde, ajoute une micro-touche de vinaigre de cidre ou de jus de citron juste avant le beurre.', 'If the sauce tastes too round, add a tiny splash of cider vinegar or lemon juice just before the butter.'],
+    ['Pour des côtelettes très épaisses, tu peux finir au four à 150°C après la saisie, puis servir avec la sauce à part. Surveille la cuisson, car chaque four chauffe différemment.', 'For very thick chops, finish them in a 150°C oven after searing, then serve with the sauce on the side. Watch the cooking, as every oven heats differently.'],
+    ['Garnitures adaptées purée de céleri-rave, pommes Anna, carottes glacées, chou pointu rôti ou écrasé de pommes de terre au beurre noisette.', 'Suitable garnishes: celeriac mash, pommes Anna, glazed carrots, roasted pointed cabbage or mashed potatoes with brown butter.'],
+    ['Conservation : réfrigérer 48h ; congèle.', 'Storage: refrigerate for 48 hours; freeze.'],
+    ['Viser 63-65°C à cœur pour garder le porc juteux.', 'Aim for 63–65°C at the center to keep the pork juicy.'],
+    ['Réduire le cidre presque à sec pour éviter une sauce trop sucrée.', 'Reduce the cider almost completely to avoid an overly sweet sauce.'],
+    ['Monter au beurre hors du feu pour une sauce brillante.', 'Whisk in the butter off the heat for a glossy sauce.'],
+    ['Mesclun ou jeunes pousses', 'Mesclun or baby leaves'],
+    ['200g blanc de poulet cuit et froid', '200g cooked, chilled chicken breast'],
+    ['50g parmesan en copeaux', '50g Parmesan shavings'],
+    ['50g croûtons de pain de mie', '50g sandwich-bread croutons'],
+    ['15g jus de citron jaune', '15g yellow lemon juice'],
+    ['5g vinaigre de Xérès', '5g sherry vinegar'],
+    ['25g parmesan râpé', '25g grated Parmesan'],
+    ['15g crème fraîche', '15g crème fraîche'],
+    ['75g huile de colza', '75g rapeseed oil'],
+    ['Cuisson des croûtons', 'Crouton cooking'],
+    ['Un filet d’huile d’olive', 'A drizzle of olive oil'],
+    ['Laver et essorer le mesclun ou les jeunes pousses, puis les disposer dans le plat de service.', 'Wash and spin the mesclun or baby leaves, then arrange them in the serving dish.'],
+    ['Couper le blanc de poulet cuit et froid en fines lanières et le répartir sur la salade.', 'Cut the cooked, chilled chicken breast into thin strips and distribute them over the salad.'],
+    ['Fouetter en incorporant progressivement l’huile de colza, comme pour une mayonnaise.', 'Whisk while gradually incorporating the rapeseed oil, as for a mayonnaise.'],
+    ['Ajouter la crème fraîche puis le parmesan râpé, saler et ajouter du poivre du moulin.', 'Add the crème fraîche and grated Parmesan, season with salt and add freshly ground pepper.'],
+    ['Tous les ingrédients doivent être à température proche pour faciliter l’émulsion à l’huile.', 'All ingredients should be at a similar temperature to help the oil emulsify.'],
+    ['Les dorer sur toutes les faces, puis les laisser tiédir pour qu’ils restent croustillants dans la salade.', 'Brown them on all sides, then let them cool until warm so they stay crisp in the salad.'],
+    ['Conserver séparément salade, poulet, croûtons et sauce jusqu’à 24h au réfrigérateur ; assembler au dernier moment.', 'Store the salad, chicken, croutons and dressing separately in the refrigerator for up to 24 hours; assemble at the last moment.'],
+    ['Ne pas verser l’huile trop vite dans la sauce.', 'Do not pour the oil into the dressing too quickly.'],
+    ['Ne pas assaisonner la salade à l’avance.', 'Do not season the salad ahead of time.'],
+    ['Salade fraîche et croquante, poulet tendre, croûtons dorés et sauce crémeuse au parmesan.', 'Fresh, crisp salad with tender chicken, golden croutons and creamy Parmesan dressing.'],
+    ['blanc de poulet cuit et froid', 'cooked, chilled chicken breast'],
+    ['Casserole ou plat adapté', 'Saucepan or suitable dish'],
+    ['Casserole ou plat adapte', 'Saucepan or suitable dish'],
+    ['Grande casserole', 'Large saucepan'],
+    ['Petite casserole', 'Small saucepan'],
+    ['Casserole ou vapeur', 'Saucepan or steamer'],
+    ['Grande casserole ou friteuse', 'Large saucepan or fryer'],
+    ['Consommer sous 48h et réchauffer doucement si la sauce est servie chaude.', 'Eat within 48 hours and reheat gently if the sauce is served hot.'],
+    ['Chou vert en sauce tomate', 'Green cabbage in tomato sauce'],
+    ['Base possible pour des plats mijotés, sauces et pochages aromatiques.', 'Possible base for stews, sauces and aromatic poaching.'],
+    ['Conservation : réfrigérer le disque étalé et détaillé jusqu’à 5 jours au frais, ou congeler séparément.', 'Storage: refrigerate the rolled and cut disk for up to 5 days, or freeze separately.'],
+    ['L’huile peut se conserver environ 2 à 6 mois au réfrigérateur si elle est correctement stockée.', 'The oil keeps for about 2 to 6 months in the refrigerator when stored correctly.'],
+    ['Le toast se mange tout de suite pour garder le pain croustillant et l’œuf chaud.', 'Eat the toast immediately to keep the bread crisp and the egg hot.'],
+    ['Conserve l’huile chili crisp au réfrigérateur, utilise toujours une cuillère propre et ne la garde pas à température ambiante avec de l’ail frais.', 'Keep the chili-crisp oil refrigerated, always use a clean spoon, and never leave it at room temperature with fresh garlic.'],
+    ['Conservation : réfrigérer dans une boîte hermétique 2 à 3 jours, ou congeler et réchauffer au grille-pain.', 'Storage: refrigerate in an airtight container for 2 to 3 days, or freeze and reheat in a toaster.'],
+    ['Pour plus de croustillant, remplacer 50g de lait par 50g de bière.', 'For extra crispness, replace 50g of milk with 50g of beer.'],
+    ['Remettre au four 15min pour commencer à cuire les fruits.', 'Return to the oven for 15 minutes to start cooking the fruit.'],
+    ['Cuisson lente indispensable pour une texture fondante.', 'Slow cooking is essential for a meltingly tender texture.'],
+    ['Base moelleuse pour tartes aux fruits ou citron.', 'Soft base for fruit or lemon tarts.'],
+    ['Texture fondante pour tarte citron, verrines ou fourrage.', 'Melting texture for lemon tart, verrines or filling.'],
+    ['Déballer le cake totalement refroidi, poser une assiette sous la grille, verser le glaçage et lisser en couche fine régulière.', 'Unwrap the fully cooled cake, place a plate under the rack, pour over the glaze and smooth into an even thin layer.'],
+    ['Conservation 3 à 4 jours à température ambiante dans une boîte hermétique ou bien filmé 5 à 6 jours au réfrigérateur, avec une texture un peu plus ferme.', 'Storage: 3 to 4 days at room temperature in an airtight box, or wrapped for 5 to 6 days in the refrigerator with a slightly firmer texture.'],
+    ['Le cake est souvent meilleur le lendemain les arômes se stabilisent et la texture se tient encore mieux.', 'The cake is often better the next day once the aromas settle and the texture firms up.'],
+    ['1 casserole d’huile neutre pour friture', '1 pot of neutral oil for frying'],
+    ['Pour une sauce plus fluide, ajoute une petite touche de lait chaud après cuisson.', 'For a thinner sauce, add a small splash of hot milk after cooking.'],
+    ['Pour une sauce plus épaisse, prolonge très légèrement la cuisson en surveillant la couleur et la texture.', 'For a thicker sauce, extend the cooking very slightly while watching the color and texture.'],
+    ['Texture cible ferme, brillante, nappante, assez dense pour tenir sur un croûton et assez souple pour fondre dans le bouillon.', 'Target texture: firm, glossy and coating, dense enough to sit on a crouton yet soft enough to melt into the stock.'],
+    ['Pour un rendu plus net, passer la rouille au tamis fin après montage et la dresser en petite quenelle.', 'For a cleaner finish, pass the rouille through a fine sieve after mixing and shape it into a small quenelle.'],
+    ['Pour plus de moelleux, laisser pousser la pâte 1h après pétrissage, dégazer, puis façonner.', 'For a softer crumb, let the dough rise for 1 hour after kneading, knock it back, then shape it.'],
+    ['Lait ou 55g œuf battu pour dorer → eau + beurre (utile en pâte ou sauce; allergène : Lait/lactose) · disponible au placard.', 'Milk or 55g beaten egg for browning → water + butter (useful in dough or sauce; allergen: milk/lactose) · available in the pantry.'],
+    ['Sel fin pour marinade', 'Fine salt for the marinade'],
+    ['Sel fin pour vinaigrette', 'Fine salt for the dressing'],
+    ['billes de mozzarella ou mozzarella di bufala', 'mozzarella balls or mozzarella di bufala'],
+    ['Buns ronds, dorés, souples, moelleux et assez solides pour tenir la garniture.', 'Round, golden, soft buns with enough structure to hold the filling.'],
+    ['Utiliser aussitôt pour enrober des calamars, des crevettes ou une autre garniture à frire.', 'Use immediately to coat calamari, shrimp or another filling for frying.'],
+    ['Garder une garniture bien égouttée pour préserver une texture nette.', 'Keep the filling well drained to preserve a clean texture.'],
+    ['Retirer dès que le centre est pris pour éviter une texture sèche.', 'Remove as soon as the center is set to avoid a dry texture.'],
+    ['La mozzarella est humide bien l’égoutter pour éviter une marinade diluée.', 'Mozzarella contains moisture; drain it well to avoid a diluted marinade.'],
+    ['Pour une conservation plus sûre, les fruits doivent être souples mais ne plus relâcher de jus quand on les presse.', 'For safer storage, the fruit should be soft but no longer release juice when pressed.'],
+    ['Le repos est indispensable pour garder une viande juteuse.', 'Resting is essential to keep the meat juicy.'],
+    ['Meilleurs immédiatement ; pour un reste, refroidir en moins de 2h puis conserver au réfrigérateur à 0–4°C.', 'Best eaten immediately; for leftovers, cool within 2 hours and refrigerate at 0–4°C.'],
+    ['Meilleures immédiatement ; pour un reste, refroidir en moins de 2h puis conserver au réfrigérateur à 0–4°C.', 'Best eaten immediately; for leftovers, cool within 2 hours and refrigerate at 0–4°C.'],
+    ['Le citron parfume le plat : ne pas en mettre trop si la sauce du menu est déjà acide.', 'Lemon flavors the dish; do not use too much if the menu sauce is already acidic.'],
+    ['Le citron parfumé le plat : ne pas en mettre trop si la sauce du menu est deje acide.', 'Lemon flavors the dish; do not use too much if the menu sauce is already acidic.'],
+    ['Ne pas utiliser pois chiches en boîte pour cette version : la pâte serait trop humide.', 'Do not use canned chickpeas for this version: the mixture would be too wet.'],
+    ['Sortir dès que la surface est dorée pour garder le centre moelleux.', 'Remove as soon as the surface is golden to keep the center soft.'],
+    ['Sécher les crevettes pour bien les saisir.', 'Dry the shrimp well so they sear properly.'],
+    ['350g sauce tomate', '350g tomato sauce'],
+    ['Faire revenir oignon et chorizo, ajouter sauce tomate.', 'Sauté the onion and chorizo, then add the tomato sauce.'],
+    ['Sécurité : cuire les œufs juste avant service si le plat est préparé en avance.', 'Safety: cook the eggs just before serving if the dish was prepared ahead.'],
+    ['Conservation : l’écrasée seule se garde 2 jours; saisir les Saint-Jacques au dernier moment.', 'Storage: the mash alone keeps for 2 days; sear the scallops at the last moment.'],
+    ['Servir quand la sauce est courte et le poulet tendre.', 'Serve when the sauce is reduced and the chicken tender.'],
+    ['Lait chaud de la crème anglaise pour le pochage → eau + beurre (utile en pâte ou sauce; allergène : Lait/lactose) · disponible au placard.', 'Hot custard milk for poaching → water + butter (useful in dough or sauce; allergen: milk/lactose) · available in the pantry.'],
+    ['Court pour une brioche fraîche, un peu plus long si elle est sèche.', 'Short for a fresh brioche, a little longer if it is dry.'],
+    ['La confiture peut être légèrement tiédie pour s’étaler plus facilement.', 'The jam can be warmed slightly so it spreads more easily.'],
+    ['Des myrtilles surgelées peuvent convenir, mais les décongeler et les égoutter séparément pour éviter qu’elles ne détrempent la surface.', 'Frozen blueberries work, but thaw and drain them separately so they do not wet the surface.'],
+    ['Les amandes effilées donnent davantage de relief que la poudre d’amandes, qui produirait un cake plus homogène et fondant.', 'Sliced almonds add more texture than almond flour, which would produce a more even and tender cake.'],
+    ['POINT DE CUISSON', 'COOKING POINT'],
+    ['Pour une crème moins sucrée, réduire le sucre à 50g avec un chocolat déjà doux.', 'For a less sweet cream, reduce the sugar to 50g when using a mild chocolate.'],
+    ['Le cake gagne en moelleux et se tranche plus nettement après quelques heures de repos.', 'The cake becomes softer and slices more cleanly after a few hours of rest.'],
+    ['Laisser refroidir complètement la nougatine, puis la casser en petits éclats en réservant les plus beaux pour la finition.', 'Let the nougatine cool completely, then break it into small shards and reserve the best pieces for finishing.'],
+    ['La sauce caramel du carnet peut remplacer la finition préparée ici si elle est déjà disponible.', 'The notebook’s caramel sauce can replace the finish prepared here if it is already available.'],
+    ['Cuisson et sauce', 'Cooking and sauce'],
+    ['Faire rôtir les légumes égouttés, déglacer avec un peu de marinade et verser dans la cocotte avec la volaille. Ajouter la marinade et assez de bouillon pour arriver à mi-hauteur.', 'Roast the drained vegetables, deglaze with a little marinade and add them to the Dutch oven with the poultry. Add the marinade and enough stock to come halfway up.'],
+    ['Poêler oignons, lardons et cèpes au beurre, ajouter le persil, puis réunir la volaille, la sauce et la garniture sans refaire bouillir.', 'Sauté the onions, bacon and porcini in butter, add the parsley, then reunite the poultry, sauce and garnish without boiling again.'],
+    ['Volaille tendre, sauce au vin rouge profonde et brillante, garniture fumée et forestière.', 'Tender poultry, deep glossy red-wine sauce, and smoky woodland garnish.'],
+    ['Choisir des asperges fines pour qu’elles cuisent au même rythme que le lard.', 'Choose thin asparagus so it cooks at the same pace as the bacon.'],
+    ['Quand le fromage est fondu, porter à très léger frémissement 1 à 2min pour activer la fécule, sans forte ébullition.', 'When the cheese is melted, bring it to a very gentle simmer for 1 to 2 minutes to activate the starch, without a strong boil.'],
+    ['Faire un fondant test permet de fixer le temps exact pour les moules et le four utilisés.', 'A test molten cake helps set the exact time for the molds and oven in use.'],
+    ['Le pecorino et le guanciale étant très salés, saler l’eau moins fortement que pour des pâtes ordinaires.', 'Pecorino and guanciale are very salty, so salt the water less than for ordinary pasta.'],
+    ['Casserole moyenne', 'Medium saucepan'],
+    ['La quantité de lait est fixée à 500g pour obtenir une béchamel équilibrée avec 50g de farine et 60g de beurre.', 'The milk is set at 500g to balance the béchamel with 50g of flour and 60g of butter.'],
+    ['Enrober uniformément la bavette avec le mélange en pressant pour le faire adhérer, puis laisser reposer 30min.', 'Coat the flank steak evenly with the mixture, pressing it on, then rest for 30 minutes.'],
+    ['Sauce moutarde', 'Mustard sauce'],
+    ['La crème est retenue pour la sauce, conformément à la méthode ; du lait donnerait une sauce trop fluide sans autre liaison.', 'Cream is kept in the sauce as specified; milk alone would make it too thin without another thickener.'],
+    ['Grande assiette plate', 'Large flat plate'],
+    ['Retirer le cœur dur du chou puis l’émincer aussi finement que possible. Émincer les oignons nouveaux en séparant un peu de vert pour la finition.', 'Remove the tough cabbage core and slice it as finely as possible. Slice the spring onions, reserving some green for the finish.'],
+    ['La sauce soja sale la pâte : aucun ajout de sel n’est normalement nécessaire.', 'Soy sauce seasons the batter, so no extra salt is normally needed.'],
+    ['La quantité de lait de coco est normalisée à 150ml : 150cl serait disproportionné pour huit Saint-Jacques et incompatible avec un siphon domestique.', 'The coconut milk is standardized at 150ml; 150cl would be excessive for eight scallops and unsuitable for a home siphon.'],
+    ['Préparer croûtons, lard et sauce quelques heures en avance, séparément.', 'Prepare the croutons, bacon and sauce a few hours ahead, separately.'],
+    ['Viande et sauce : 2 jours au réfrigérateur à 0–4°C, séparément.', 'Meat and sauce: keep separately for 2 days at 0–4°C.'],
+    ['Base citron vert', 'Lime base'],
+    ['150g base citron vert froide', '150g chilled lime base'],
+    ['Pour le biscuit, mélanger la noix de coco, le sucre glace, les 130g de blancs et la crème. Monter les 200g de blancs avec les 100g de sucre, puis les incorporer délicatement.', 'For the sponge, mix the coconut, icing sugar, 130g egg whites and cream. Whip the 200g egg whites with the 100g sugar, then fold them in gently.'],
+    ['La base citron vert donne plus que les 150g nécessaires au soufflé ; conserver le reste 3 jours au froid comme crème d’accompagnement.', 'The lime base makes more than the 150g needed for the soufflé; keep the rest refrigerated for 3 days as an accompaniment cream.'],
+    ['Le rhum abaisse le point de congélation ; respecter la quantité pour garder une texture qui se tient.', 'Rum lowers the freezing point; respect the quantity to keep a stable texture.'],
+    ['Sauce et salade : 24h au froid, séparément.', 'Sauce and salad: refrigerate separately for 24 hours.'],
+    ['Assembler juste avant le service ; ne pas congeler.', 'Assemble just before serving; do not freeze.'],
+    ['Faire des pauses pour éviter de surchauffer le moteur et la pâte de noisette.', 'Take breaks to avoid overheating the motor and hazelnut paste.'],
+    ['Roulé de volaille juteux, farce concentrée au chorizo, champignon et poivron, légère note fumée.', 'Juicy poultry roulade with concentrated chorizo, mushroom and pepper filling and a light smoky note.'],
+    ['Chorizo et sauce tomate', 'Chorizo and tomato sauce'],
+    ['Les bords doivent être dorés tandis que le centre reste souple pour une mie moelleuse.', 'The edges should be golden while the center stays soft for a tender crumb.'],
+    ['La gribiche est une sauce à identité propre, différente d’une mayonnaise classique.', 'Gribiche is a distinct sauce, different from a classic mayonnaise.'],
+    ['Conservation : refroidir rapidement, garder au réfrigérateur dans un récipient hermétique et réchauffer doucement ; la finition au beurre est meilleure le jour même.', 'Storage: cool quickly, refrigerate in an airtight container and reheat gently; the butter finish is best the same day.'],
+    ['Réduire le vin de moitié avant d’ajouter le fond pour concentrer les tanins sans rendre la sauce agressive.', 'Reduce the wine by half before adding the stock to concentrate the tannins without making the sauce harsh.'],
+    ['Pour un beurre nantais plus stable, incorporer 15g de crème épaisse à la fin.', 'For a more stable beurre blanc, whisk in 15g of thick cream at the end.'],
+    ['À servir aussitôt. Si la sauce est préparée à l’avance, la refroidir rapidement, la conserver au réfrigérateur à 0–4°C et la consommer sous 48h.', 'Serve immediately. If the sauce is made ahead, cool it quickly, refrigerate at 0–4°C and eat within 48 hours.'],
+    ['Nettoyer soigneusement les morilles pour retirer toute trace de sable, puis couper les plus grosses en deux.', 'Clean the morels carefully to remove any sand, then halve the largest ones.'],
+    ['La sauce tartare possède une identité propre et reste une fiche autonome, même si son émulsion est apparentée à une mayonnaise.', 'Tartar sauce has its own identity and remains a standalone recipe, even though its emulsion is related to mayonnaise.'],
+    ['La rémoulade est une sauce à identité propre, différente d’une mayonnaise nature.', 'Remoulade is a distinct sauce, different from plain mayonnaise.'],
+    ['Consommer sous 24h pour une mayonnaise préparée avec œuf cru ; ne pas laisser plus de 2h à température ambiante.', 'Eat within 24 hours for mayonnaise made with raw egg; do not leave it at room temperature for more than 2 hours.'],
+    ['Le poulet déjà cuit est incorporé seulement pour le réchauffer afin qu’il reste moelleux.', 'The cooked chicken is added only to warm it through so it stays tender.'],
+    ['40g parmesan râpé, plus un peu pour les moules', '40g grated Parmesan, plus extra for the molds'],
+    ['Quadriller profondément le pain sans couper sa base.', 'Score the bread deeply without cutting through its base.'],
+    ['La base du pain doit rester intacte pour maintenir le hérisson pendant le service.', 'The bread base must stay intact to hold the hedgehog shape during serving.'],
+    ['Ne pas trancher le pain jusqu’à sa base.', 'Do not slice all the way through the bread base.'],
+    ['60g huile d’olive, plus un peu pour la finition', '60g olive oil, plus extra for finishing'],
+    ['1 sachet préparation pour pâte à pain', '1 packet bread-dough mix'],
+    ['Le pain doit être totalement refroidi avant la découpe pour garder une mie propre.', 'The bread must cool completely before slicing to keep a clean crumb.'],
+    ['Bien égoutter les patates douces pour éviter une purée trop humide qui ne tient pas au pochage.', 'Drain the sweet potatoes well so the mash is not too wet to pipe.'],
+    ['Les billes doivent être bien fermées pour que la garniture reste au centre.', 'The balls must be sealed well so the filling stays in the center.'],
+    ['Friteuse ou casserole profonde', 'Fryer or deep saucepan'],
+    ['Le cuire sans coloration, puis verser le lait bouillant sur le roux refroidi pour limiter les grumeaux.', 'Cook it without browning, then pour the boiling milk over the cooled roux to limit lumps.'],
+    ['Les dés poêlés donnent de la mâche, tandis que la moitié mixée avec la crème forme la base du soufflé.', 'The pan-fried cubes add bite, while the half blended with cream forms the soufflé base.'],
+    ['Les petites quichettes ne nécessitent pas de cuisson à blanc ; pour une grande quiche, précuire le fond est recommandé.', 'Small quichettes do not need blind baking; for a large quiche, pre-baking the base is recommended.'],
+    ['Réduire brièvement pour préserver le vin jaune.', 'Reduce briefly to preserve the vin jaune.'],
+    ['La veille, sabler farine, beurre et sel à la feuille, puis ajouter les œufs, le jaune et juste assez d’eau froide pour former la pâte.', 'The day before, rub the flour, butter and salt with the paddle, then add the eggs, yolk and just enough cold water to form the dough.'],
+    ['Mijoter doucement pour un lapin moelleux.', 'Simmer gently for tender rabbit.'],
+    ['Déposer une large cuillerée de sauce dans chaque assiette, poser une tranche de chou-fleur rôti dessus et servir aussitôt.', 'Spoon a generous amount of sauce onto each plate, set a slice of roasted cauliflower on top and serve immediately.'],
+    ['30cl sauce tomate', '300ml tomato sauce'],
+    ['Ne pas noyer complètement la viande et ne pas laisser la sauce bouillir vivement.', 'Do not completely submerge the meat and do not let the sauce boil hard.'],
+    ['Prélever la quantité nécessaire pour la pâte à pain et conserver le reste dans un bocal propre, avec une marge pour la pousse.', 'Take the amount needed for the bread dough and keep the rest in a clean jar, leaving room for it to rise.'],
+    ['Garder la garniture vers le haut au moment de torsader pour obtenir le motif visible.', 'Keep the filling facing up while twisting to show the pattern.'],
+    ['Serrer suffisamment le rouleau pour garder la spirale sans écraser la garniture.', 'Tighten the roll enough to keep the spiral without crushing the filling.'],
+    ['Égoutter les oreillons en conserve pour ne pas détremper la pâte.', 'Drain the canned apricot halves so they do not wet the dough.'],
+    ['Adapter le temps au degré de sécheresse du pain : court pour une brioche tendre, plus long pour une mie sèche.', 'Adjust the time to the bread’s dryness: shorter for tender brioche, longer for a dry crumb.']
+  ].map(([source, translated]) => [normalizeI18nKey(source), translated]));
+  const premiumPhraseLookup = new Map(premiumPhraseEn);
+
+  const premiumTermEn = new Map([
+    ['citron', 'lemon'], ['tomate', 'tomato'], ['oeuf', 'egg'], ['oeufs', 'eggs'],
+    ['beurre', 'butter'], ['mascarpone', 'mascarpone'], ['pomme de terre', 'potato'],
+    ['pommes de terre', 'potatoes'], ['chocolat', 'chocolate'], ['crevette', 'shrimp'],
+    ['crevettes', 'shrimp'], ['carotte', 'carrot'], ['carottes', 'carrots'], ['ail', 'garlic'],
+    ['moutarde', 'mustard'], ['chorizo', 'chorizo'], ['cumin', 'cumin'], ['orange', 'orange'],
+    ['miel', 'honey'], ['noisette', 'hazelnut'], ['fromage frais', 'fresh cheese'],
+    ['persil', 'parsley'], ['piment', 'chili'], ['poulet', 'chicken'], ['poisson', 'fish'],
+    ['bœuf', 'beef'], ['boeuf', 'beef'], ['porc', 'pork'], ['agneau', 'lamb'],
+    ['chapelure', 'breadcrumbs'], ['panko', 'panko'], ['breadcrumbs', 'breadcrumbs'],
+    ['carotte', 'carrot'], ['ail', 'garlic'], ['citron jaune', 'lemon'], ['thym', 'thyme'],
+    ['romarin', 'rosemary'], ['cafe', 'coffee'], ['chocolat noir', 'dark chocolate'],
+    ['gousse d ail', 'garlic clove'], ['gousse d’ail', 'garlic clove'], ['gousses d ail', 'garlic cloves'],
+    ['gousses d’ail', 'garlic cloves'], ['sel fin', 'fine salt'], ['poivre du moulin', 'freshly ground pepper'],
+    ['farine', 'flour'], ['fecule', 'starch'], ['fécule', 'starch'], ['poudre d amande', 'almond flour'],
+    ['poudre d’amande', 'almond flour'], ['beurre doux', 'unsalted butter'], ['creme liquide', 'heavy cream'],
+    ['crème liquide', 'heavy cream'], ['creme entiere liquide', 'heavy cream'], ['crème entière liquide', 'heavy cream'],
+    ['huile neutre', 'neutral oil'], ['huile d olive', 'olive oil'], ['huile d’olive', 'olive oil'],
+    ['coriandre', 'coriander'], ['poivron', 'bell pepper'], ['poivrons', 'bell peppers'],
+    ['basilic', 'basil'], ['vinaigre', 'vinegar'], ['cafe fort refroidi', 'cooled strong coffee'],
+    ['jus de citron', 'lemon juice'], ['jus de citron vert', 'lime juice'], ['vinaigre doux', 'mild vinegar'],
+    ['chorizo en rondelles', 'sliced chorizo'], ['grosses crevettes decortiquees', 'large peeled shrimp'],
+    ['poulet fermier', 'free-range chicken'], ['pain rassis', 'stale bread'], ['cavite', 'cavity'],
+    ['cuisse', 'thigh'], ['cuisses', 'thighs'], ['blancs', 'breast meat'], ['moelleux', 'tender'],
+    ['juteux', 'juicy'], ['juteuses', 'juicy'], ['croustillante', 'crisp'], ['croustillant', 'crisp'],
+    ['brule', 'burnt'], ['brulant', 'scalding'], ['chaud', 'hot'], ['froide', 'cold'], ['froid', 'cold'],
+    ['jaunes d oeufs', 'egg yolks'], ['jaunes d’œufs', 'egg yolks'], ['blancs d oeufs', 'egg whites'],
+    ['blancs d’œufs', 'egg whites'], ['tant pour tant', 'almond-sugar blend'], ['arome cafe', 'coffee flavoring'],
+    ['arôme café', 'coffee flavoring'], ['bouteille', 'bottle'], ['sucre', 'sugar'], ['cafe froid', 'cold coffee'],
+    ['sucre glace', 'icing sugar'], ['tant pour tant amande-sucre', 'almond-sugar blend'],
+    ['ganache au chocolat', 'chocolate ganache'], ['creme au beurre cafe', 'coffee buttercream'],
+    ['crème au beurre café', 'coffee buttercream'], ['Deux plaques de cuisson', 'Two baking trays'],
+    ['Surface', 'Surface'], ['Support', 'Serving dish'], ['Relief', 'Relief'],
+    ['Contraste', 'Contrast'], ['Rythme', 'Rhythm'], ['Volume', 'Volume'], ['Sauce', 'Sauce'],
+    ['Photo', 'Photo'], ['Derniere minute', 'Last minute'], ['Croustillant', 'Crisp finish'],
+    ['Trait de sauce', 'Sauce line'], ['Finition', 'Finish'], ['Dressage', 'Plating'],
+    ['Accord cle', 'Key pairing'], ['Point de vigilance', 'Watch point'], ['A tenter', 'Try with'],
+    ['celeri', 'celery'], ['céleri', 'celery'], ['tomate moyenne', 'medium tomato'], ['vin blanc', 'white wine'], ['de vin blanc', 'white wine'],
+    ['panais', 'parsnip'], ['fenouil', 'fennel'], ['poireau', 'leek'], ['poireaux', 'leeks'], ['echalotes', 'shallots'], ['échalotes', 'shallots'],
+    ['sucs', 'fond'], ['sirupeuse', 'syrupy'], ['assiette', 'plate'], ['d ail', 'garlic'], ['d’ail', 'garlic'], ['cotelettes', 'chops'],
+    ['moutardes', 'mustards'], ['casserole', 'saucepan'], ['spatule', 'spatula'], ['bol', 'bowl'], ['couteau', 'knife'], ['petit pot', 'small jar'],
+    ['papier cuisson', 'parchment paper'], ['fouet', 'whisk'], ['rouleau', 'rolling pin'], ['poids de cuisson', 'pie weights'],
+    ['cercle a tarte de 24cm', '24cm tart ring'], ['cercle à tarte de 24cm', '24cm tart ring'], ['deux casseroles', 'two saucepans'],
+    ['thermometre optionnel', 'optional thermometer'], ['thermomètre optionnel', 'optional thermometer'], ['essoreuse a salade', 'salad spinner'],
+    ['essoreuse à salade', 'salad spinner'], ['poele', 'frying pan'], ['poêle', 'frying pan'], ['croutons', 'croutons'], ['copeaux', 'shavings'],
+    ['parmesan', 'Parmesan'], ['jambon', 'ham'], ['fromage rape', 'grated cheese'], ['fromage râpé', 'grated cheese'], ['pain de mie', 'sandwich bread'],
+    ['rouille', 'rouille'], ['piment d espelette', 'Espelette pepper'], ['piment d’Espelette', 'Espelette pepper'], ['basilic nain', 'dwarf basil'],
+    ['poivre de timut', 'Timut pepper'], ['poivre du timut', 'Timut pepper'], ['crème au beurre', 'buttercream'], ['creme au beurre', 'buttercream'],
+    ['fond', 'stock'], ['feuille', 'paddle attachment'], ['pâte', 'dough'], ['pate', 'dough'], ['garniture', 'filling'], ['moule', 'mold'],
+    ['moules', 'molds'], ['ramequin', 'ramekin'], ['ramequins', 'ramekins'], ['cacao', 'cocoa'], ['démoulage', 'unmolding'], ['demoulage', 'unmolding'],
+    ['farine de maïs', 'corn flour'], ['fecule de mais', 'cornstarch'], ['fécule de maïs', 'cornstarch'],
+    ['poissons', 'fish'], ['base aromatique', 'aromatic base'], ['salade', 'salad'], ['bouillon', 'stock'], ['safran', 'saffron'],
+    ['crème fraîche', 'crème fraîche'], ['creme fraiche', 'crème fraîche'], ['parmesan en copeaux', 'Parmesan shavings'],
+    ['fenouils', 'fennel'], ['huile d olive pour service', 'olive oil for serving'], ['huile d’olive pour service', 'olive oil for serving'],
+    ['huile d olive pour les fenouils', 'olive oil for the fennel'], ['huile d’olive pour les fenouils', 'olive oil for the fennel'],
+    ['fraises', 'strawberries'], ['sauce tomate', 'tomato sauce'], ['lait concentré sucré', 'sweetened condensed milk'], ['lait concentre sucre', 'sweetened condensed milk'],
+    ['lait fermenté', 'cultured buttermilk'], ['lait fermente', 'cultured buttermilk'], ['lait chaud', 'hot milk'], ['lait tiède', 'warm milk'], ['lait tiede', 'warm milk'],
+    ['lait entier', 'whole milk'], ['lait en poudre', 'powdered milk'], ['lait de coco', 'coconut milk'], ['lait ribot', 'cultured buttermilk'],
+    ['fromage de chèvre', 'goat cheese'], ['fromage de chevre', 'goat cheese'], ['fromage frais entier dense', 'dense full-fat fresh cheese'],
+    ['crème fraîche', 'fresh cream'], ['creme fraiche', 'fresh cream'], ['crème fleurette', 'pouring cream'], ['creme fleurette', 'pouring cream'],
+    ['chocolat au lait', 'milk chocolate'], ['sauce tomate', 'tomato sauce'], ['billes de mozzarella', 'mozzarella balls'], ['morilles fraîches', 'fresh morels'],
+    ['morilles fraiches', 'fresh morels'], ['poireaux', 'leeks'], ['oreillons', 'apricot halves'], ['chou vert', 'green cabbage'], ['laurier', 'bay leaf'],
+    ['parmesan râpé', 'grated Parmesan'], ['parmesan rape', 'grated Parmesan'], ['moutarde de Dijon', 'Dijon mustard'], ['moutarde forte', 'strong mustard'],
+    ['crème épaisse', 'thick cream'], ['creme epaisse', 'thick cream'], ['crème fraîche épaisse', 'thick fresh cream'], ['creme fraiche epaisse', 'thick fresh cream'],
+    ['crème liquide 30 %', '30% liquid cream'], ['creme liquide 30 %', '30% liquid cream'], ['crème liquide optionnelle', 'optional liquid cream'], ['creme liquide optionnelle', 'optional liquid cream'],
+    ['crème fleurette entière', 'full-fat pouring cream'], ['creme fleurette entiere', 'full-fat pouring cream'], ['lait demi-écrémé', 'semi-skimmed milk'], ['lait demi ecreme', 'semi-skimmed milk'],
+    ['jaunes d’œufs', 'egg yolks'], ['jaunes d oeufs', 'egg yolks'], ['jaune d’œuf', 'egg yolk'], ['jaune d oeuf', 'egg yolk'], ['blanc d’œuf', 'egg white'], ['blanc d oeuf', 'egg white'],
+    ['jambon blanc en dés', 'diced ham'], ['jambon blanc en des', 'diced ham'], ['zeste fin de citron', 'fine lemon zest'], ['zeste fin de 1/2 citron jaune', 'fine zest of 1/2 lemon'],
+    ['zeste de 1/2 citron', 'zest of 1/2 lemon'], ['cassonade ou vergeoise', 'brown sugar or soft brown sugar'], ['sucre (au goût)', 'sugar to taste'], ['sucre au gout', 'sugar to taste'],
+    ['verres de vin blanc sec (≈ 30cl)', 'glasses of dry white wine (about 300ml)'], ['verres de vin blanc sec ( 30cl)', 'glasses of dry white wine (about 300ml)'],
+    ['cartouche pour siphon', 'cream whipper cartridge'], ['pain de campagne rassis', 'stale country bread'], ['pain de campagne', 'country bread'], ['pain de mie', 'sandwich bread'],
+    ['pain avec zaatar', 'zaatar bread'], ['crème au praliné', 'praline cream'], ['creme au praline', 'praline cream'], ['sauce yaourt citronnée', 'lemon yogurt sauce'],
+    ['sauce yaourt citronnee', 'lemon yogurt sauce'], ['sauce aigre-douce vietnamienne', 'Vietnamese sweet-and-sour sauce'], ['sauce aigre douce vietnamienne', 'Vietnamese sweet-and-sour sauce'],
+    ['sauce bourguignonne', 'Burgundy sauce'], ['sauce tarragon', 'tarragon sauce'], ['sauce aux morilles', 'morel mushroom sauce'], ['sauce avec deux moutardes et fromage blanc', 'two-mustard cottage cheese sauce'],
+    ['poulet en sauce au vin jaune', 'chicken in yellow wine sauce'], ['poulet Gaston Gérard', 'Chicken Gaston Gérard'], ['poulet Gaston Gerard', 'Chicken Gaston Gerard'],
+    ['légumineuses au Montbéliard', 'legumes with Montbéliard sausage'], ['legumes au Montbeliard', 'legumes with Montbéliard sausage'], ['comté', 'Comté'], ['gruyère', 'Gruyère'],
+    ['gruyere', 'Gruyère'], ['bûche de chèvre', 'goat cheese log'], ['buche de chevre', 'goat cheese log'], ['briochés', 'brioche'], ['brioches', 'brioche'],
+    ['cinq dernières minutes', 'last five minutes'], ['4 dernières minutes', 'last 4 minutes'], ['8 dernières minutes', 'last 8 minutes'], ['2 premières minutes', 'first 2 minutes'],
+    ['dernières minutes', 'last minutes'], ['premières minutes', 'first minutes'], ['crème 35 %', '35% cream'], ['crème liquide', 'liquid cream'], ['crème fraîche', 'fresh cream'],
+    ['lait chaud', 'hot milk'], ['lait froid', 'cold milk'], ['lait tiède', 'warm milk'], ['lait entier', 'whole milk'], ['lait de coco', 'coconut milk'],
+    ['lait en poudre', 'powdered milk'], ['lait demi-écrémé', 'semi-skimmed milk'], ['vin blanc sec', 'dry white wine'], ['huile d’olive', 'olive oil'], ['huile d olive', 'olive oil']
+  ].map(([source, translated]) => [normalizeI18nKey(source), translated]));
+
+  function translatePremiumAtom(value, preserveCase = true) {
+    const clean = repairI18nMojibake(value).trim();
+    if (!clean) return clean;
+    const key = normalizeI18nKey(clean);
+    const variants = [
+      key,
+      key.replace(/^\d+(?:[.,]\d+)?\s*(?:g|kg|mg|ml|cl|dl|l|c\.?\s*a\s+soupe|cs|c|tbsp|cuilleres?|cuillere|branches?|brins?|gousses?|morceaux?|tranches?|carr[eé]s?)\s+(?:de\s+)?/, ''),
+      key.replace(/^c\.?\s*a\s+soupe\s+de\s+/, ''),
+      key.replace(/^\d+(?:[.,]\d+)?\s*(?:g|kg|mg|ml|cl|dl|l)?\s+/, ''),
+      key.replace(/^d(?:e|)\s+/, '')
+    ];
+    const exactIndex = variants.findIndex(candidate => premiumPhraseLookup.get(candidate) || premiumTermEn.get(candidate));
+    const exact = exactIndex === -1 ? '' : (premiumPhraseLookup.get(variants[exactIndex]) || premiumTermEn.get(variants[exactIndex]));
+    if (exact) {
+      const quantity = exactIndex > 0
+        ? clean.match(/^(?:\d+(?:[.,]\d+)?|\d+\/\d+)\s*(?:g|kg|mg|ml|cl|dl|l|c\.?\s*a\s+soupe|cs|c|tbsp|cuilleres?|cuillere)?\s+/i)?.[0]
+        : '';
+      const rendered = quantity ? `${quantity}${exact}` : exact;
+      return preserveCase && /^[A-ZÀ-Ý]/.test(clean) ? rendered.charAt(0).toUpperCase() + rendered.slice(1) : rendered;
+    }
+    return clean;
+  }
+
+  function looksLikeFrenchDisplayText(value) {
+    const source = repairI18nMojibake(value);
+    return /[àâçéèêëîïôöùûüœ]/i.test(source)
+      || /\b(?:avec|sans|dans|sous|sur|avant|apres|après|moins|plus|une|des|du|de|la|le|les|et|est|si|qui|que|au|aux|par|chez|profil|accords|finition|allerg[eè]ne|vigilance|option|disponible|placard|rendu|assiette|coupelle|lumiere|lumière|beurre|creme|crème|farine|chapelure|pain|poudre|fécule|feuille|jusqu|conserve|refroidis|couvre|ajoute|ajouter|servir|cuire|cuisson)\b/i.test(source)
+      || /\b\d+\s*j\b/i.test(source);
+  }
+
+  function translatePremiumList(value) {
+    return String(value || '')
+      .split(/,\s*/)
+      .map(item => {
+        const match = item.trim().match(/^(.*?)([.!?])?$/);
+        const punctuation = match?.[2] || '';
+        return translatePremiumAtom(match?.[1] || item) + punctuation;
+      })
+      .join(', ');
+  }
+
+  function translatePremiumGeneratedText(value) {
+    const source = repairI18nMojibake(value).trim();
+    if (!source) return '';
+    const exact = premiumPhraseLookup.get(normalizeI18nKey(source));
+    if (exact) return exact;
+
+    const pairing = source.match(/^([^:]+): profil ([^;]+); accords (.+?)(?:\. Finition: (.+))?\.$/i);
+    if (pairing) {
+      const profileMap = {
+        'acide frais': 'fresh acidity',
+        'umami acidule': 'savory acidity',
+        'doux vegetal': 'gentle vegetal profile',
+        'gras rond': 'rich and rounded',
+        'terreux': 'earthy',
+        'marin iode': 'briny and oceanic',
+        'epice': 'spiced'
+      };
+      const profile = profileMap[normalizeI18nKey(pairing[2])] || translatePremiumAtom(pairing[2]);
+      let accords = pairing[3];
+      const suggest = accords.match(/^a renforcer avec (.+)$/i);
+      if (suggest) {
+        accords = translatePremiumList(suggest[1]);
+      } else {
+        accords = accords.split(/,\s*/).map(pair => {
+          const match = pair.match(/^([^()]+)\s*\((.+)\)$/);
+          if (!match) return translatePremiumAtom(pair);
+          const reasonMap = {
+            'reveil aromatique et jus plus net': 'brightens the aroma and keeps the juice clean',
+            'coupe le gras et rafraichit': 'cuts through richness and refreshes',
+            'arrondit l acidite': 'rounds out the acidity',
+            'donne du relief sale': 'adds savory depth',
+            'accent mediterraneen': 'adds a Mediterranean lift',
+            'sucre et acidite': 'balances sweetness and acidity',
+            'glacage brillant': 'creates a glossy glaze',
+            'croquant grille': 'adds toasted crunch',
+            'sel et acidite lactee': 'brings salt and lactic acidity',
+            'parfum frais immediat': 'immediate fresh aroma',
+            'cremeux qui calme l acidite': 'creamy balance for the acidity',
+            'base salee profonde': 'deep savory base',
+            'fumee et gras': 'smoky richness',
+            'tension plus nette': 'sharper tension',
+            'renforce l amertume noble': 'deepens noble bitterness',
+            'rondeur grillee': 'toasted roundness',
+            'contraste agrume': 'citrus contrast',
+            'rend le chocolat plus lisible': 'makes the chocolate more defined',
+            'adouci la finale': 'softens the finish',
+            'structure aromatique': 'aromatic structure',
+            'note rotie': 'toasted note',
+            'rondeur et brillance': 'roundness and shine',
+            'relance la finale': 'lifts the finish',
+            'gratine et umami': 'gratin crust and umami',
+            'relief sale': 'savory lift',
+            'fraicheur': 'freshness',
+            'final frais': 'fresh finish',
+            'tension chaude': 'warm tension',
+            'attaque plus vive': 'brighter attack',
+            'contraste chaud': 'warm contrast',
+            'profondeur terreuse': 'earthy depth',
+            'base aromatique': 'aromatic base',
+            'signature rotie': 'toasted signature',
+            'laquage doux': 'gentle glaze',
+            'coupe le gras': 'cuts through richness',
+            'fraicheur nette': 'clean freshness',
+            'umami': 'umami'
+          };
+          const reason = Object.entries(reasonMap).find(([key]) => (
+            normalizeI18nKey(key).replace(/[']/g, '') === normalizeI18nKey(match[2]).replace(/[']/g, '')
+          ))?.[1];
+          return `${translatePremiumAtom(match[1])} (${reason || translatePremiumAtom(match[2])})`;
+        }).join(', ');
+      }
+      const finish = pairing[4] ? ` Finish with ${translatePremiumList(pairing[4])}.` : '';
+      return `${translatePremiumAtom(pairing[1])}: ${profile}; pairs with ${accords}.${finish}`;
+    }
+
+    const ingredient = source.match(/^([^:]+): (.+?)\s+Accord clé\s*:\s*(.+?)\s+Point de vigilance\s*:\s*(.+)$/i);
+    if (ingredient) {
+      return `${translatePremiumAtom(ingredient[1])}: ${translatePremiumAtom(ingredient[2])} Key pairing: ${translatePremiumList(ingredient[3])} Watch point: ${translatePremiumAtom(ingredient[4])}`;
+    }
+
+    const descriptor = source.match(/^(.+?)\s+-\s+(.+)$/);
+    if (descriptor) {
+      const left = translatePremiumAtom(descriptor[1]);
+      const right = translatePremiumAtom(descriptor[2]);
+      if (left !== descriptor[1] || right !== descriptor[2]) return `${left} · ${right}`;
+    }
+
+    const substitution = source.match(/^(.+?)\s*(?:→|->)\s*(.+?)\s*\((.+?);\s*(?:allerg[eè]ne|allergen)\s*:\s*(.+?)\)\s*[·•]\s*(.+?)\.$/i);
+    if (substitution) {
+      const allergen = translatePremiumAtom(substitution[4], false);
+      const status = translatePremiumAtom(substitution[5]);
+      return `${translatePremiumAtom(substitution[1])} → ${translatePremiumAtom(substitution[2])} (${translatePremiumAtom(substitution[3])}; allergen: ${allergen}) · ${status}.`;
+    }
+
+    const labelled = source.match(/^([^:]+):\s*(.+)$/);
+    if (labelled && premiumTermEn.has(normalizeI18nKey(labelled[1]))) {
+      const labelKey = normalizeI18nKey(labelled[1]);
+      const body = premiumPhraseLookup.get(normalizeI18nKey(labelled[2]))
+        || (labelKey === 'finition' || labelKey === 'a tenter' ? translatePremiumList(labelled[2]) : translatePremiumAtom(labelled[2]));
+      return `${translatePremiumAtom(labelled[1])}: ${body}`;
+    }
+    return '';
+  }
 
   function capitalizeRecipeEnglish(value) {
     const text = String(value || '').trim();
@@ -4848,6 +5775,152 @@
     return cleanRecipeEnglish(replaceCulinaryTerms(repairI18nMojibake(value)));
   }
 
+  // A handful of older catalogue records had already been partially translated
+  // before reaching this layer (for example: “Griller the bavette ...”).  The
+  // normal French -> English pass deliberately refuses strings that are already
+  // mostly English, so keep a small repair pass for those mixed sentences.  It
+  // runs only after an English/French signal is present and leaves clean English
+  // culinary words such as sauce, Parmesan and chorizo untouched.
+  const hybridPhraseEn = new Map([
+    ['Guide menu: choose a side that repete not the same sauce dominante.', 'Menu cue: choose a side that does not repeat the same dominant sauce.'],
+    ['Guide menu: dish vegetal creamy, a equilibrer with rice nature or salad acidic, not with autre sauce riche.', 'Menu cue: creamy vegetable dish; balance it with plain rice or a bright salad, not another rich sauce.'],
+    ['Guide menu: side neutral, bon with fish, chicken or dish in sauce without autre feculent.', 'Menu cue: neutral side, good with fish, chicken or a saucy dish without another starch.'],
+    ['Guide menu: dish vegetables + eggs, bon with toasted bread or potatoes simples, not with autre sauce tomato.', 'Menu cue: vegetable-and-egg dish; good with toast or simple potatoes, not another tomato sauce.'],
+    ['Guide menu: sauce bright for nems, rouleaux, crudites or bowl of rice.', 'Menu cue: bright sauce for spring rolls, fresh vegetables or a rice bowl.'],
+    ['Guide menu: side crispy, a equilibrer with a sauce bright or a salad.', 'Menu cue: crisp side; balance it with a bright sauce or a salad.'],
+    ['Guide menu: sauce expressive; choose a side neutral comme rice or apples steam.', 'Menu cue: expressive sauce; choose a neutral side such as rice or steamed potatoes.'],
+    ['Sauce: 2 jours au réfrigérateur.', 'Sauce: keep for 2 days in the refrigerator.'],
+    ['Sauce: 2 jours au refrigerateur.', 'Sauce: keep for 2 days in the refrigerator.'],
+    ['Brioche perdue caramel sauce with butter savory', 'French toast with salted-butter caramel sauce.'],
+    ['Sauce yogurt citronnee', 'Lemony yogurt sauce'],
+    ['Cul-de-poule very cold', 'Very cold mixing bowl'],
+    ['Petits pains rapides, feuilletes, pour brunch ou sauce.', 'Quick, flaky small rolls for brunch or serving with sauce.'],
+    ['4 slices of pain of campagne', '4 slices of country bread'],
+    ['4 slices pain of campagne', '4 slices of country bread'],
+    ['1 cartouche pour siphon', '1 cream whipper cartridge'],
+    ['30-40g cream par piece if fourre', '30–40g cream per filled piece'],
+    ['Fry a 160-165C, 2min 30 to 3min par face, 2-3 pieces maximum with times.', 'Fry at 160–165°C for 2½ to 3 minutes per side, no more than 2–3 pieces at a time.'],
+    ['Sauce and toppings depending on taste', 'Sauce and toppings to taste'],
+    ['Sauce loose, sweet, salee and acidic for nems, rouleaux or crudites.', 'Loose, sweet, salty and tangy sauce for spring rolls or fresh vegetables.'],
+    ['Nems crisp, with sauce liee directement in the sheet.', 'Crisp spring rolls with the sauce sealed directly inside the wrapper.'],
+    ['Sautéed onion, carrots, mushrooms and bacon lardons if utilises.', 'Sautéed onion, carrots, mushrooms and bacon lardons if used.'],
+    ['Sautéed carrot and onion 5min over medium heat-vif in remuant often.', 'Sauté the carrot and onion for 5 minutes over medium-high heat, stirring often.'],
+    ['Add soy sauce, oyster sauce and Sriracha if utilisees, then sautéed again 1min.', 'Add the soy sauce, oyster sauce and Sriracha if used, then sauté for 1 minute more.'],
+    ['Taste before salt, the soy sauce suffit often.', 'Taste before salting; the soy sauce is often enough.'],
+    ['Not noyer the rice of sauce, the grains should stay separes.', 'Do not drown the rice in sauce; the grains should stay separate.'],
+    ['Rice sautéed flavored, grains detaches, chicken soft and egg visible.', 'Fragrant fried rice with separate grains, tender chicken and visible egg.'],
+    ['Bavette juteuse, croûte épicée etcaramélisée, slices tender with taste of paprika, cumin and chili.', 'Juicy flank steak with a spiced, caramelized crust and tender slices flavored with paprika, cumin and chili.'],
+    ['Cinq minutes permettent with juice of se redistribuer before the cutting.', 'Let it rest for five minutes so the juices redistribute before slicing.'],
+    ['Griller the bavette 1 to 2min par face depending on its thickness and the cooking souhaitee, without the move inutilement.', 'Grill the flank steak for 1 to 2 minutes per side, depending on its thickness and the desired doneness, without moving it unnecessarily.'],
+    ['Preheat the oven at 150C heat statique. Faire of small incisions in epaule and y glisser the cloves garlic pelees. Salt and add of freshly ground pepper.', 'Preheat the oven to 150°C conventional heat. Make small incisions in the shoulder and tuck in the peeled garlic cloves. Season with salt and freshly ground pepper.'],
+    ['Dresser the sauce mustard, add effiloche hot, the brunoise, the chips of sweet potato and the cresson.', 'Spoon the mustard sauce onto the plate, add the hot pulled lamb, brunoise, sweet-potato chips and watercress.'],
+    ['Lamb and sauce: 3 days in the refrigerator a 0-4C, in dice recipients separes.', 'Lamb and sauce: keep separately in the refrigerator at 0–4°C for 3 days.'],
+    ['Reheat lamb gently in its juice and the sauce a very low heat.', 'Reheat the lamb gently in its juices and the sauce over very low heat.'],
+    ['Can be frozen 2 months for lamb in its juice, without sauce ni chips.', 'The lamb can be frozen in its juices for 2 months, without the sauce or chips.'],
+    ['Not surchauffer the sauce mustard.', 'Do not overheat the mustard sauce.'],
+    ['Lamb soft and juteux, sauce cremeuse with mustard, vegetables fins and chips of sweet potato croustillantes.', 'Tender, juicy lamb with a creamy mustard sauce, fine vegetables and crisp sweet-potato chips.'],
+    ['Acheter a piece explicitement destinee a be consommee raw and the faire prepare the day same.', 'Buy a piece explicitly intended to be eaten raw and have it prepared the same day.'],
+    ['Tartare fresh and well texture, seasoning vif of capres, mustard and chili, servi on a pain crispy with garlic.', 'Fresh, well-textured tartare with lively caper, mustard and chili seasoning, served on crisp garlic bread.'],
+    ['Griller a alone face Keep a side tender all in protegeant the pain of moisture of tartare.', 'Grill one side only; keep the other side tender while protecting the bread from the tartare moisture.'],
+    ['Spread the cream fresh in layer mince in laissant a small bord libre. Add slightly of freshly ground pepper then par-cook 4min on the tray brulante.', 'Spread the fresh cream in a thin layer, leaving a small clear edge. Add freshly ground pepper, then par-bake for 4 minutes on the hot tray.'],
+    ['A dough presque translucent cooked in a few minutes and remaining dry under the cream.', 'A nearly translucent dough that cooks in a few minutes and stays dry beneath the cream.'],
+    ['Off the heat, fold in the butter. Cover directly on the surface, cool quickly puis, vers 35C, whisk to get a cream parfaitement smooth.', 'Off the heat, fold in the butter. Cover the surface directly, cool quickly, then whisk at about 35°C until perfectly smooth.'],
+    ['Deux minutes of boil cuisent correctement the starch and stabilisent the cream pastry cream.', 'Two minutes of boiling properly cook the starch and stabilize the pastry cream.'],
+    ['Remove the rosemary and the zestes. Degraisser the sauce then the reduce on medium heat if it manque of liaison.', 'Remove the rosemary and zest. Skim the sauce, then reduce it over medium heat if it needs more body.'],
+    ['Remettre the meat a few minutes in the sauce, parsemer of parsley minced and serve very hot.', 'Return the meat to the sauce for a few minutes, sprinkle with chopped parsley and serve very hot.'],
+    ['A beer ambree briefly bitter gives a sauce ronde; avoid the IPA very houblonnees.', 'A lightly bitter amber beer gives a rounded sauce; avoid very hoppy IPAs.'],
+    ['Rigatoni al dente enveloppes of a sauce cremeuse, mushrooms tender, bacon lardons fumes and basil fresh.', 'Al dente rigatoni coated in a creamy sauce, with tender mushrooms, smoky bacon lardons and fresh basil.'],
+    ['Reheat gently with a trait water or of milk for loosen the sauce.', 'Reheat gently with a splash of water or milk to loosen the sauce.'],
+    ['Heat a pan with a very fin film oil. Saisir the scallops about 1min par face, in colorant the lard without surcuire the coeur.', 'Heat a pan with a very thin film of oil. Sear the scallops for about 1 minute per side, coloring the bacon without overcooking the center.'],
+    ['Not extend the cooking au-dela of a coeur nacre.', 'Do not extend the cooking beyond a pearly center.'],
+    ['Faire reduce the bottom of poultry of moitie. Add the cream double and let fremir gently 2 to 3min.', 'Reduce the poultry stock by half. Add the heavy cream and simmer gently for 2 to 3 minutes.'],
+    ['Finely chop finement the chives. Take out the eggs of their bath and the casser a par a in a petite coupelle.', 'Finely chop the chives. Remove the eggs from their bath and crack them one at a time into a small cup.'],
+    ['Remove gently excedent of white very runny, then faire glisser each egg with centre of a assiette creuse hot.', 'Gently remove excess runny white, then slide each egg into the center of a hot deep plate.'],
+    ['Blend the sauce with a immersion blender in gardant its tete partiellement in surface for creer a mousse. Prelever especially ecume.', 'Blend the sauce with an immersion blender, keeping its head partly at the surface to create foam. Skim off the best foam.'],
+    ['A sauce hot but not bouillante emprisonne better air with blending.', 'A hot but not boiling sauce traps air better during blending.'],
+    ['Faire prendre in sorbetiere, then set aside in the freezer in a bac firm. Without sorbetiere, freeze in a dish briefly profond and scrape toutes the 30min until texture homogene.', 'Churn in an ice-cream maker, then set in a firm container in the freezer. Without a machine, freeze in a shallow dish and scrape every 30 minutes until smooth.'],
+    ['Beurrer six mussels a souffle of bas vers the haut, the chemiser of sugar and the set aside in the refrigerator. Preheat the oven at 180C fan oven.', 'Butter six soufflé molds from the base upward, coat them with sugar and refrigerate. Preheat the oven to 180°C fan.'],
+    ['Dresser trois cubes of biscuit and a quenelle of sorbet par assiette. Add walnuts of coco, mint and lime dry, then serve the souffle without wait.', 'Arrange three biscuit cubes and a quenelle of sorbet per plate. Add coconut flakes, mint and dried lime, then serve the soufflé immediately.'],
+    ['Divide the salad of tomatoes with bottom of quatre coupes, then Place the sauce cocktail par-dessus.', 'Divide the tomato salad among four glasses, then spoon the cocktail sauce over the top.'],
+    ['Shrimp tender and citronnees, tomato fresh and sauce cocktail soyeuse, relevee of Armagnac and Espelette.', 'Tender, lemony shrimp with fresh tomato and silky cocktail sauce, lifted by Armagnac and Espelette pepper.'],
+    ['The salad remaining under the sauce for preserver dice couches nettes.', 'Keep the remaining salad under the sauce to preserve clean layers.'],
+    ['Serve with the pain with zaatar of carnet.', 'Serve with the zaatar bread from the notebook.'],
+    ['The pain should stay soft with centre with dice edges slightly crisp.', 'The bread should stay soft in the center with slightly crisp edges.'],
+    ['Pain dish soft, bord golden and parfum franc of zaatar.', 'Soft bread with a golden edge and a clear zaatar aroma.'],
+    ['A dough of zaatar too runny detrempe the pain; add oil gradually.', 'A zaatar dough that is too runny will soak the bread; add oil gradually.'],
+    ['Coat gently the aubergines tiedes of sauce and finish with oregano or the basil.', 'Gently coat the warm eggplant with sauce and finish with oregano or basil.'],
+    ['The texture depend of puissance of mixeur and becomes plus soft after a few minutes of blending.', 'The texture depends on blender power and becomes softer after a few minutes of blending.'],
+    ['Faire tomber the epinards laves and equeutes with the butter, then the drain and the press carefully before the chop.', 'Wilt the washed and trimmed spinach with the butter, then drain and press it carefully before chopping.'],
+    ['Prelever of small cuillerees of dough and the plonger par fournees in oil without surcharger the bath.', 'Take small spoonfuls of batter and drop them into the oil in batches without overcrowding the bath.'],
+    ['Prepare the sauce at least 2h before the repas: slice thinly finement the onions nouveaux and the chives.', 'Prepare the sauce at least 2 hours before the meal: finely slice the spring onions and chives.'],
+    ['Open with precaution and serve immediately with the sauce cold.', 'Open carefully and serve immediately with the cold sauce.'],
+    ['The contraste entre edges pris and centre hot depend especially of diametre dice mussels and of a few minutes of cooking.', 'The contrast between set edges and a warm center depends mainly on the mold diameter and a few minutes of cooking.'],
+    ['Toaster the buns coupes in a briefly of clarified butter, then assemble each burger with deux steaks, cheese, sauce and toppings choisies. Serve immediately.', 'Toast the halved buns briefly in clarified butter, then assemble each burger with two steaks, cheese, sauce and your chosen toppings. Serve immediately.'],
+    ['Add the pasta with mix eggs-pecorino off the heat and stir energiquement. Loosen briefly a briefly with water of cooking hot until sauce shiny and loose.', 'Add the egg–Pecorino mixture to the pasta off the heat and stir vigorously. Loosen gradually with hot cooking water until the sauce is glossy and fluid.'],
+    ['Amidon of water of cooking relie the fat, the cheese and the jaunes in a sauce stable.', 'The starch in the cooking water binds the fat, cheese and yolks into a stable sauce.'],
+    ['Par strong heat, effectuer the rest in the refrigerator then let revenir slightly in temperature before serving.', 'After strong heat, chill the dish in the refrigerator, then let it come back slightly toward room temperature before serving.'],
+    ['Freezing deconseillee: potatoes and sauce perdent their texture.', 'Freezing is not recommended: the potatoes and sauce lose their texture.'],
+    ['Set immediately on the rechaud regle with minimum and serve with the cubes of pain.', 'Set immediately on the burner set to low and serve with the bread cubes.'],
+    ['Not add of cream for adjust a sauce too thick.', 'Do not add cream to adjust a sauce that is too thick.'],
+    ['Sautéed onion, garlic and ginger in oil.', 'Sauté onion, garlic and ginger in oil.'],
+    ['Sautéed onion, carrot and garlic haches in oil.', 'Sauté onion, carrot and chopped garlic in oil.'],
+    ['Spread the meat in a dish, cover with mash then parsemer of Comté.', 'Spread the meat in a dish, cover with mash, then sprinkle with Comté.'],
+    ['The saisir 1min a 1min30 par face in a pan very hot with neutral oil.', 'Sear for 1 to 1½ minutes per side in a very hot pan with neutral oil.']
+  ].map(([source, translated]) => [normalizeI18nKey(source), translated]));
+
+  const hybridWordRulesEn = [
+    [/\brepete not\b/gi, 'does not repeat'], [/\bdominante\b/gi, 'dominant'], [/\ba equilibrer\b/gi, 'to balance'], [/\bavec autre\b/gi, 'with another'],
+    [/\bautre sauce\b/gi, 'another sauce'], [/\bside neutral, bon with\b/gi, 'neutral side, good with'], [/\bcomme rice\b/gi, 'such as rice'],
+    [/\bpar face\b/gi, 'per side'], [/\bpar petites touches\b/gi, 'in small additions'], [/\bpar-dessus\b/gi, 'on top'], [/\bpar assiette\b/gi, 'per plate'],
+    [/\bpar fournees\b/gi, 'in batches'], [/\bpar fournis\b/gi, 'in batches'], [/\blentement\b/gi, 'slowly'], [/\bsouhaitee\b/gi, 'desired'], [/\bsouhaitees\b/gi, 'desired'],
+    [/\butilisees?\b/gi, 'used'], [/\bdisponibles?\b/gi, 'available'], [/\becrasant\b/gi, 'crushing'], [/\bremettre\b/gi, 'return'], [/\brectifier\b/gi, 'adjust'],
+    [/\bfremir\b/gi, 'simmer'], [/\bparfumer\b/gi, 'flavor'], [/\bfondantes?\b/gi, 'tender'], [/\bsalee?e?\b/gi, 'salty'], [/\bcompletement\b/gi, 'completely'],
+    [/\bpartie\b/gi, 'part'], [/\bgratinee?\b/gi, 'browned'], [/\bcar\b/gi, 'because'], [/\btomatees\b/gi, 'tomato'], [/\bmouiller\b/gi, 'add liquid'],
+    [/\bpetits?\b/gi, 'small'], [/\bparfumees?\b/gi, 'fragrant'], [/\bhache(?:s|es|e)?\b/gi, 'chopped'], [/\bsuffit\b/gi, 'is enough'],
+    [/\bdernieres?\b/gi, 'last'], [/\bpremieres?\b/gi, 'first'], [/\bentière\b/gi, 'whole'], [/\bcoupes\b/gi, 'cut'], [/\bsepare?s?\b/gi, 'separate'],
+    [/\bbrulante\b/gi, 'hot'], [/\bpreserver\b/gi, 'preserve'], [/\bcouches\b/gi, 'layers'], [/\bnettes\b/gi, 'clean'], [/\bfranc\b/gi, 'clear'],
+    [/\bdetrempe\b/gi, 'soaks'], [/\bpuissance\b/gi, 'power'], [/\bplus soft\b/gi, 'softer'], [/\bjaunes\b/gi, 'yolks'], [/\bcarapaces\b/gi, 'shells'],
+    [/\btetes\b/gi, 'heads'], [/\bequeutees?\b/gi, 'trimmed'], [/\blavees?\b/gi, 'washed'], [/\bcuillerees?\b/gi, 'spoonfuls'], [/\bplonger\b/gi, 'drop'],
+    [/\bsurcharger\b/gi, 'overcrowd'], [/\braviver\b/gi, 'refresh'], [/\bvers\s+(?=35\s*°?c)\b/gi, 'at '], [/\bparfaitement\b/gi, 'perfectly'], [/\bpuis\b/gi, 'then'],
+    [/\bdeux\b/gi, 'two'], [/\bquatre\b/gi, 'four'], [/\bcinq\b/gi, 'five'], [/\bpetite\b/gi, 'small'], [/\bmince\b/gi, 'thin'], [/\bbord\b/gi, 'edge'],
+    [/\brelie\b/gi, 'binds'], [/\bnappees\b/gi, 'coated'], [/\bbriochés\b/gi, 'brioche'], [/\bbrioches\b/gi, 'brioche'], [/\bparfum\b/gi, 'aroma'],
+    [/\bparfume\b/gi, 'fragrant'], [/\bgras\b/gi, 'fat'], [/\bmoitie\b/gi, 'half'], [/\bseconde\b/gi, 'second'], [/\bseconde\b/gi, 'second'], [/\bni\b/gi, 'or'],
+    [/\bau-dela\b/gi, 'beyond'], [/\bcoeur\b/gi, 'center'], [/\bnacre\b/gi, 'pearly'], [/\bferme\b/gi, 'firm'], [/\bchaud\b/gi, 'hot'], [/\bfroid\b/gi, 'cold'],
+    [/\bcrème\b/gi, 'cream'], [/\bcremeuse\b/gi, 'creamy'], [/\bcremeux\b/gi, 'creamy'], [/\bfraiche?\b/gi, 'fresh'], [/\bepinards\b/gi, 'spinach'], [/\bfeu\b/gi, 'heat'],
+    [/\bremuant\b/gi, 'stirring'], [/\bretourner\b/gi, 'turn'], [/\bretourne\b/gi, 'turn'], [/\bretourne\b/gi, 'turn'], [/\bfaire\b/gi, 'make'], [/\bfaire glisser\b/gi, 'slide'],
+    [/\bdresser\b/gi, 'arrange'], [/\bsaisir\b/gi, 'sear'], [/\bsurchauffe?r\b/gi, 'overheat'], [/\bgriller\b/gi, 'grill'], [/\bgrille\b/gi, 'grilled'], [/\bgratinant\b/gi, 'baking'],
+    [/\bremettre\b/gi, 'return'], [/\bparsemer\b/gi, 'sprinkle'], [/\bminced\b/gi, 'chopped'], [/\bprincipal(?:e|es)?\b/gi, 'main'], [/\bvisuel(?:le)?\b/gi, 'visual'],
+    [/\bjusqu['’]?a\b/gi, 'until'], [/\bpendant\b/gi, 'for'], [/\bavec\b/gi, 'with'], [/\bsans\b/gi, 'without'], [/\bdans\b/gi, 'in'], [/\bsur\b/gi, 'on'],
+    [/\bavant\b/gi, 'before'], [/\bapres\b/gi, 'after'], [/\baprès\b/gi, 'after'], [/\bpour\b/gi, 'for'], [/\bou\b/gi, 'or'], [/\bet\b/gi, 'and'],
+    [/\bde\b/gi, 'of'], [/\bdu\b/gi, 'of'], [/\bdes\b/gi, 'of'], [/\bau\b/gi, 'with'], [/\baux\b/gi, 'with'], [/\ba\s+(?=la|l[eé]\b)/gi, 'with '],
+    [/\bla\b/gi, 'the'], [/\ble\b/gi, 'the'], [/\bles\b/gi, 'the'], [/\bune\b/gi, 'a'], [/\bun\b/gi, 'a'], [/\bce\b/gi, 'this'],
+    [/\bces\b/gi, 'these'], [/\bcette\b/gi, 'this'], [/\bson\b/gi, 'its'], [/\bsa\b/gi, 'its'], [/\bses\b/gi, 'its'], [/\bleur\b/gi, 'their'],
+    [/\bconserver\b/gi, 'store'], [/\bconservation\b/gi, 'storage'], [/\bjour(?:s)?\b/gi, 'day'], [/\brepas\b/gi, 'meal'], [/\brecipients?\b/gi, 'containers'],
+    [/\bassiette(?:s)?\b/gi, 'plate'], [/\bcoupelle\b/gi, 'small cup'], [/\bbol\b/gi, 'bowl'], [/\bcasserole\b/gi, 'saucepan'], [/\bplat\b/gi, 'dish'],
+    [/\bgrande?\b/gi, 'large'], [/\bpetit(?:e|s)?\b/gi, 'small'], [/\bépaisse\b/gi, 'thick'], [/\bépais\b/gi, 'thick'], [/\bsec\b/gi, 'dry'],
+    [/\bbeurre\b/gi, 'butter'], [/\bcitron\b/gi, 'lemon'], [/\btomate\b/gi, 'tomato'], [/\bail\b/gi, 'garlic'], [/\boignon\b/gi, 'onion'], [/\bpoivre\b/gi, 'pepper'],
+    [/\bsel\b/gi, 'salt'], [/\bfarine\b/gi, 'flour'], [/\bœufs?\b/gi, 'eggs'], [/\boeufs?\b/gi, 'eggs'], [/\bjaune\b/gi, 'yolk'], [/\bblancs?\b/gi, 'whites'],
+    [/\bpoireau(?:x)?\b/gi, 'leek'], [/\bcarotte(?:s)?\b/gi, 'carrot'], [/\bchou(?:x)?\b/gi, 'cabbage'], [/\bpatates?\b/gi, 'potatoes'], [/\bpommes?\b/gi, 'apples'],
+    [/\bterre\b/gi, 'potato'], [/\bcrevettes?\b/gi, 'shrimp'], [/\bpoisson\b/gi, 'fish'], [/\bviande\b/gi, 'meat'], [/\bpain\b/gi, 'bread'],
+    [/\bchocolat\b/gi, 'chocolate'], [/\bmoutarde\b/gi, 'mustard'], [/\bvin\b/gi, 'wine'], [/\bblanc\b/gi, 'white'], [/\brouge\b/gi, 'red'], [/\bhuile\b/gi, 'oil'],
+    [/\bselée?\b/gi, 'salty'], [/\bacid(?:e|ité|itee)\b/gi, 'tangy'], [/\bviv(?:e|es?)\b/gi, 'lively'], [/\bsoyeuse\b/gi, 'silky'], [/\brelevee\b/gi, 'lifted'], [/\bparfumees\b/gi, 'fragrant'],
+    [/\boptionnelle?s?\b/gi, 'optional'], [/\boption\b/gi, 'option'], [/\bdisponible\b/gi, 'available'], [/\butiliser?\b/gi, 'use'], [/\butilises?\b/gi, 'used']
+  ];
+
+  function repairHybridEnglish(value) {
+    const source = repairI18nMojibake(value).trim();
+    if (!source) return source;
+    const exact = hybridPhraseEn.get(normalizeI18nKey(source));
+    if (exact) return exact;
+    const hasEnglish = /\b(?:the|with|and|or|for|to|in|on|of|add|cook|serve|sauce|cream|bread|chicken|fish|egg|water|oil|heat|bake|grill|mix|remove|keep|taste|fresh|hot|cold)\b/i.test(source);
+    const hasFrench = /[àâçéèêëîïôûùüÿœ]/i.test(source) || /\b(?:avec|sans|dans|pour|par|au|aux|et|ou|de|du|des|faire|griller|dres(?:ser|se)|remettre|rectifier|fremir|parfumer|par-dessus|souhaitee|utilisees?|disponibles?|lentement|completement|parfaitement|jaunes?|carapaces?|assiette|coupelle|repas|conserver|jours?|pain|beurre|crème|creme|citron|tomate|oignon|ail|moutarde|poivre|sel|farine|sauce)\b/i.test(source);
+    if (!hasFrench || !hasEnglish) return source;
+    let output = cleanRecipeEnglish(source);
+    for (const [pattern, replacement] of hybridWordRulesEn) output = output.replace(pattern, replacement);
+    output = output.replace(/\s+/g, ' ').replace(/\s+([,.;:!?])/g, '$1').trim();
+    return output && normalizeI18nKey(output) !== normalizeI18nKey(source) ? output : source;
+  }
+
   const recipeStructureRulesEn = [
     [/^(.+?)\s+au four(?:,?\s+(.+))?$/i, match => {
       const base = translateRecipeFragment(match[1]);
@@ -5102,12 +6175,21 @@
   function text(value) {
     if (typeof value !== 'string' || currentLocale === DEFAULT_LOCALE) return value;
     const source = repairI18nMojibake(value);
+    const riskPoint = source.match(/^(.+?)\s*:\s*point de vigilance\.$/i);
+    if (riskPoint) return `${text(riskPoint[1])}: watch point.`;
     const translated = phraseEn[value] || phraseEn[source] || phraseLookupEn.get(normalizeI18nKey(source));
     if (translated) return translated;
+    const premiumTranslated = translatePremiumGeneratedText(source);
+    if (premiumTranslated) return premiumTranslated;
+    const premiumAtom = translatePremiumAtom(source);
+    if (premiumAtom !== source) return premiumAtom;
     for (const [pattern, render] of dynamicRules) {
       const match = source.match(pattern);
       if (match) return render(match);
     }
+    const repairedHybrid = repairHybridEnglish(source);
+    if (repairedHybrid !== source) return repairedHybrid;
+    if (!looksLikeFrenchDisplayText(source)) return source;
     const recipeTranslated = translateRecipeText(source);
     if (recipeTranslated) return recipeTranslated;
     return source;
