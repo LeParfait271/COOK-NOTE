@@ -8562,19 +8562,6 @@ body:has(.modal-backdrop) #cook-note-update-action {
     justify-content: flex-start;
   }
 
-  .recipe-summary-panel {
-    grid-template-columns: minmax(250px, .68fr) minmax(0, 1.32fr);
-    grid-template-areas:
-      "head chef"
-      "facts equipment";
-    align-items: start;
-    gap: 14px 24px;
-  }
-
-  .recipe-summary-head { grid-area: head; }
-  .recipe-quick-facts { grid-area: facts; }
-  .recipe-chef-strip { grid-area: chef; margin: 0; padding: 0; border: 0; }
-  .recipe-equipment-strip { grid-area: equipment; margin: 0; padding: 0; border: 0; }
 }
 
 .technique-filter-toggle {
