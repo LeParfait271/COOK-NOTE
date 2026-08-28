@@ -1,11 +1,11 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v501
+//  Cook Note - Service Worker PWA v505
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v501';
-const IMAGE_CACHE_NAME = 'cook-note-images-v501';
+const CACHE_NAME = 'cook-note-v505';
+const IMAGE_CACHE_NAME = 'cook-note-images-v505';
 const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
@@ -34,17 +34,17 @@ const IMMUTABLE_IMAGE_PATHS = [
 ];
 const STATIC_ASSETS = [
   '/index.html',
-  '/app.js?v=501-parent-title',
-  '/app-techniques.js?v=501-parent-title',
-  '/app-premium.js?v=501-parent-title',
-  '/app-images.js?v=501-parent-title',
-  '/app-art-images.js?v=501-parent-title',
-  '/app-inline-variant-rules.js?v=501-parent-title',
-  '/theme.js?v=501-parent-title',
-  '/i18n.js?v=501-parent-title',
-  '/assets/catalog-1.js?v=501-parent-title',
-  '/assets/image-manifest.js?v=501-parent-title',
-  '/style.css?v=501-parent-title',
+  '/app.js?v=505-parent-title',
+  '/app-techniques.js?v=505-parent-title',
+  '/app-premium.js?v=505-parent-title',
+  '/app-images.js?v=505-parent-title',
+  '/app-art-images.js?v=505-parent-title',
+  '/app-inline-variant-rules.js?v=505-parent-title',
+  '/theme.js?v=505-parent-title',
+  '/i18n.js?v=505-parent-title',
+  '/assets/catalog-1.js?v=505-parent-title',
+  '/assets/image-manifest.js?v=505-parent-title',
+  '/style.css?v=505-parent-title',
   '/manifest.json',
   '/assets/vendor/react.production.min.js',
   '/assets/vendor/react-dom.production.min.js',
