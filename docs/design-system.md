@@ -244,5 +244,5 @@ Avant push visible apres une passe design :
 - L'accent de categorie et une empreinte tres discrete de la photo composent l'ambiance de la fiche sans diminuer la lisibilite.
 - L'anatomie de recette resume les grandes phases entre la fiche rapide et le contenu detaille.
 - Les panneaux principaux restent visuellement ouverts ; les cadres complets sont reserves aux choix et contenus interactifs.
-- L'index lateral Ingredients / Etapes / Avant est reserve aux grands ecrans (plus de 1280 px).
-- Les cartes parentes portent un repere de chapitre et une profondeur legere, sans ajouter de texte secondaire.
+- Les fiches n'ajoutent pas d'index lateral redondant avec les onglets de section.
+- Les cartes parentes gardent une profondeur legere, sans pastille d'initiale ni texte secondaire.

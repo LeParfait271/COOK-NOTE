@@ -106,7 +106,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.18';
+const SITE_VERSION = 'v5.19';
 const SITE_UPDATED_AT = '29/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.01';
@@ -5092,7 +5092,6 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       !renderCardImage && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1))
     ),
     h('div', { className: 'card-body' },
-      master && h('span', { className: 'card-chapter-mark', 'aria-hidden': true }, primaryCategory(recipe).slice(0, 1)),
       h('h3', { className: 'card-title' }, recipe.title),
       variantLabel && h('p', { className: 'card-meta', 'aria-label': variantLabel },
         h('span', { className: 'card-variant-count' }, variantLabel)
@@ -6985,28 +6984,6 @@ function RecipeDetailLoadingState() {
   );
 }
 
-function RecipeSectionJump({ ingredientCount, stepCount, notesCount }) {
-  if (window.matchMedia?.('(max-width: 1280px)').matches) return null;
-  const items = [
-    { id: 'recipe-panel-ingredients', label: t('recipe.jumpIngredients'), count: ingredientCount },
-    { id: 'recipe-panel-steps', label: t('recipe.jumpSteps'), count: stepCount },
-    { id: 'recipe-panel-notes', label: t('recipe.jumpBefore'), count: notesCount }
-  ];
-  const jumpTo = id => {
-    const target = document.getElementById(id);
-    if (!target) return;
-    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-      || document.querySelector('.display-reduce-motion');
-    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-  };
-  return h('nav', { className: 'recipe-section-jump', 'aria-label': t('recipe.quickNavigation') },
-    items.map(item => h('button', { key: item.id, type: 'button', onClick: () => jumpTo(item.id) },
-      h('span', null, item.label),
-      h('small', null, item.count)
-    ))
-  );
-}
-
 function RecipeView({
   recipe,
   isFavorite,
@@ -7318,11 +7295,6 @@ function RecipeView({
       hasVariantSelection: true
     }),
     !detailsLoading && hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeAnatomy, { recipe: selectedRecipe }),
-    !detailsLoading && hasResolvedRecipe && h(RecipeSectionJump, {
-      ingredientCount: countIngredients(selectedRecipe),
-      stepCount: effectiveStepTotal,
-      notesCount
-    }),
     !detailsLoading && hasResolvedRecipe && h('div', { className: 'recipe-tabs', role: 'tablist', 'aria-label': 'Sections de la recette' },
       [
         { key: 'ingredients', label: 'Ingrédients', count: countIngredients(selectedRecipe) },
