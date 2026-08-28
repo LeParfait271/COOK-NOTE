@@ -106,7 +106,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.11';
+const SITE_VERSION = 'v5.12';
 const SITE_UPDATED_AT = '28/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.01';
@@ -6638,6 +6638,18 @@ function RecipeBreadcrumb({ recipe, selectedRecipe, showVariants, goHome, openRe
   );
 }
 
+function NotesDisclosure({ label, children, className = '', ariaLabel }) {
+  return h('details', {
+    className: ['notes-disclosure', className].filter(Boolean).join(' '),
+    'aria-label': ariaLabel
+  },
+  h('summary', { className: 'notes-disclosure-summary' },
+    h('span', null, label),
+    h('span', { className: 'notes-disclosure-icon', 'aria-hidden': true }, '+')
+  ),
+  h('div', { className: 'notes-disclosure-body' }, children));
+}
+
 function LinkedRecipesBlock({ links, openRecipe }) {
   const [expanded, setExpanded] = useState(false);
   const linkKey = links.map(item => item.id).join('|');
@@ -6652,8 +6664,7 @@ function LinkedRecipesBlock({ links, openRecipe }) {
     acc.get(role).push(item);
     return acc;
   }, new Map());
-  return h('div', { className: 'linked-recipes-block', 'aria-label': 'Recettes liees a cette fiche' },
-    h('p', { className: 'eyebrow' }, 'Recettes liées'),
+  return h(NotesDisclosure, { className: 'linked-recipes-block', label: 'Recettes liées', ariaLabel: 'Recettes liées à cette fiche' },
     Array.from(groups.entries()).map(([role, items]) => h('div', { key: role, className: 'linked-recipe-group' },
       h('div', { className: 'linked-recipe-group-title' }, role),
       h('div', { className: 'linked-recipe-list', role: 'list' },
@@ -6684,13 +6695,31 @@ function LinkedRecipesBlock({ links, openRecipe }) {
   );
 }
 
-function PracticalSectionsBlock({ sections, inlineTargets, openRecipe, techniqueTargets, openTechnique }) {
-  if (!sections.length) return null;
+const PRACTICAL_DISCLOSURE_LABELS = Object.freeze({
+  measures: 'Mesures',
+  tips: 'À savoir',
+  pairings: 'Accords',
+  ingredientGuide: 'Ingrédients utiles',
+  plating: 'Dressage',
+  substitutions: 'Substitutions',
+  service: 'Service',
+  storage: 'Conservation',
+  reheating: 'Réchauffage',
+  mistakes: 'Erreurs à éviter',
+  result: 'Résultat attendu'
+});
+
+function PracticalSectionsBlock({ sections, inlineTargets, openRecipe, techniqueTargets, openTechnique, hiddenKeys = [] }) {
+  const hidden = new Set(hiddenKeys);
+  const visibleSections = sections.filter(section => !hidden.has(section.key));
+  if (!visibleSections.length) return null;
   return h('div', { className: 'practical-block' },
-    h('p', { className: 'eyebrow' }, 'Repères'),
-    h('h2', null, 'Infos pratiques'),
-    sections.map(section => h('section', { key: section.key, className: 'practical-section' },
-      h('h3', null, section.title),
+    visibleSections.map(section => h(NotesDisclosure, {
+      key: section.key,
+      className: 'practical-section',
+      label: PRACTICAL_DISCLOSURE_LABELS[section.key] || section.title,
+      ariaLabel: section.title
+    },
       h('ul', null, section.items.map(item => h('li', { key: item }, renderLinkedText(item, inlineTargets || [], openRecipe, techniqueTargets || [], openTechnique))))
     ))
   );
@@ -6699,11 +6728,7 @@ function PracticalSectionsBlock({ sections, inlineTargets, openRecipe, technique
 function FlavorMapBlock({ recipe }) {
   const items = getRecipeFlavorMap(recipe);
   if (!items.length) return null;
-  return h('div', { className: 'flavor-map-block', 'aria-label': 'Carte des accords de la recette' },
-    h('div', { className: 'premium-block-head' },
-      h('p', { className: 'eyebrow' }, 'Accords'),
-      h('h2', null, 'Carte des accords')
-    ),
+  return h(NotesDisclosure, { className: 'flavor-map-block', label: 'Accords', ariaLabel: 'Accords de la recette' },
     h('div', { className: 'flavor-map-grid' },
       items.map(item => h('article', { key: item.key, className: 'flavor-node' },
         h('div', { className: 'flavor-node-head' },
@@ -6723,16 +6748,11 @@ function FlavorMapBlock({ recipe }) {
 function IngredientKnowledgeBlock({ recipe }) {
   const cards = getRecipeIngredientCards(recipe);
   if (!cards.length) return null;
-  return h('div', { className: 'ingredient-knowledge-block', 'aria-label': 'Fiches ingrédients' },
-    h('div', { className: 'premium-block-head' },
-      h('p', { className: 'eyebrow' }, 'Encyclopédie'),
-      h('h2', null, 'Fiches ingrédients')
-    ),
+  return h(NotesDisclosure, { className: 'ingredient-knowledge-block', label: 'Ingrédients utiles', ariaLabel: 'Conseils ingrédients' },
     h('div', { className: 'ingredient-knowledge-grid' },
       cards.map(card => h('article', { key: card.label, className: 'ingredient-knowledge-card' },
         h('div', null,
-          h('strong', null, card.label),
-          h('small', null, `${card.family} - ${card.season}`)
+          h('strong', null, card.label)
         ),
         h('p', null, card.storage),
         h('dl', null,
@@ -6749,9 +6769,7 @@ function IngredientKnowledgeBlock({ recipe }) {
 function PrepTimelineBlock({ recipe }) {
   const items = getPrepTimeline(recipe);
   if (!items.length) return null;
-  return h('div', { className: 'prep-timeline-block' },
-    h('p', { className: 'eyebrow' }, 'Organisation'),
-    h('h2', null, 'Repères de préparation'),
+  return h(NotesDisclosure, { className: 'prep-timeline-block', label: 'Organisation', ariaLabel: 'Organisation de la préparation' },
     h('ol', null, items.map(item => h('li', { key: item.label },
       h('strong', null, item.label),
       h('span', null, item.value)
@@ -6958,6 +6976,10 @@ function RecipeView({
   const displayNotes = hasResolvedRecipe ? getDisplayNotes(selectedRecipe, practicalSections) : [];
   const flavorMap = hasResolvedRecipe ? getRecipeFlavorMap(selectedRecipe) : [];
   const ingredientCards = hasResolvedRecipe ? getRecipeIngredientCards(selectedRecipe) : [];
+  const hiddenPracticalKeys = [
+    flavorMap.length ? 'pairings' : '',
+    ingredientCards.length ? 'ingredientGuide' : ''
+  ].filter(Boolean);
   const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length + flavorMap.length + ingredientCards.length;
   const selectedGroupLabel = selectedInlineVariantGroup?.label || selectedInlineVariantGroup?.group?.group || '';
   const nextStepIndex = displaySteps.findIndex((_, index) => !checked[`${stepScopeKey}:step:${index}`]);
@@ -7288,7 +7310,6 @@ function RecipeView({
       ),
       hasSelectedVariant && h('aside', { id: 'recipe-panel-notes', role: 'tabpanel', className: mobileDetailTab === 'notes' ? 'recipe-panel notes-panel active-tab-panel' : 'recipe-panel notes-panel' },
         h('div', { className: 'notes-panel-head' },
-          h('p', { className: 'eyebrow' }, 'Mémo'),
           h('h2', { className: 'read-before-title' }, 'Avant de commencer')
         ),
         h('div', { className: 'notes-core-stack' },
@@ -7298,8 +7319,7 @@ function RecipeView({
               ? h('ul', { className: 'allergen-list', 'aria-label': 'Liste des allergenes detectes' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
               : h('p', { className: 'allergen-empty' }, 'Aucun allergène majeur détecté dans les ingrédients.')
           ),
-          averageWeights.length > 0 && h('div', { className: 'average-weight-card', 'aria-label': 'Poids moyens utiles' },
-            h('p', { className: 'eyebrow' }, 'Poids moyens'),
+          averageWeights.length > 0 && h(NotesDisclosure, { className: 'average-weight-card', label: 'Poids moyens', ariaLabel: 'Poids moyens utiles' },
             h('dl', { 'aria-label': 'Correspondances de poids moyens' }, averageWeights.map(item =>
               h(React.Fragment, { key: `${detailKey}:average:${item.label}` },
                 h('dt', null, item.label),
@@ -7309,19 +7329,15 @@ function RecipeView({
           ),
           h(PrepTimelineBlock, { recipe: selectedRecipe })
         ),
-        h('div', { className: 'notes-reference-stack', style: { marginTop: 18, borderTop: '1px solid color-mix(in srgb,var(--line) 72%,transparent)', paddingTop: 14 } },
-          h('p', { className: 'eyebrow notes-reference-heading' }, 'Repères complémentaires'),
+        h('div', { className: 'notes-optional-stack' },
           h(FlavorMapBlock, { recipe: selectedRecipe }),
           h(IngredientKnowledgeBlock, { recipe: selectedRecipe }),
           h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
-          h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique }),
-          displayNotes.length > 0 && h('div', { className: 'free-notes-block' },
-            h('p', { className: 'eyebrow' }, 'Notes'),
-            h('h2', null, 'Astuces et liens'),
+          h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique, hiddenKeys: hiddenPracticalKeys }),
+          displayNotes.length > 0 && h(NotesDisclosure, { className: 'free-notes-block', label: 'Notes', ariaLabel: 'Notes de la recette' },
             h('ul', null, displayNotes.map((note, index) => h('li', { key: `${detailKey}:note:${index}` }, renderLinkedText(sanitizeNoteHtml(note), inlineTargets, openRecipe, techniqueTargets, openTechnique))))
           ),
-          (selectedRecipe.technical || recipe.technical || []).length > 0 && h('div', { className: 'technical-card', 'aria-label': 'Fiche technique de la recette' },
-            h('p', { className: 'eyebrow' }, 'Fiche technique'),
+          (selectedRecipe.technical || recipe.technical || []).length > 0 && h(NotesDisclosure, { className: 'technical-card', label: 'Fiche technique', ariaLabel: 'Fiche technique de la recette' },
             h('dl', { 'aria-label': 'Points techniques' }, (selectedRecipe.technical || recipe.technical || []).map((item, index) =>
               h(React.Fragment, { key: `${detailKey}:technical:${index}` },
                 h('dt', null, renderLinkedText(item.label || item.title || 'Point clé', inlineTargets, openRecipe, techniqueTargets, openTechnique)),

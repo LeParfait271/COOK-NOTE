@@ -306,8 +306,8 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.step-list')).toContainText('Mix the milk, lemon, garlic, salt');
     await expect(page.locator('.step-list')).not.toContainText('Rincer rapidement les calamars');
     await expect(page.locator('.step-list')).not.toContainText('Mélanger lait');
-    await expect(page.locator('.practical-block')).toContainText('Practical info');
     await expect(page.locator('.practical-block')).toContainText('Good to know');
+    await expect(page.locator('.practical-block')).not.toContainText('Practical info');
     await expect(page.locator('.practical-block')).not.toContainText('Infos pratiques');
     await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
     await expect(page.locator('.detail-actions')).toBeVisible();
@@ -391,6 +391,40 @@ test.describe('Cook Note visual smoke', () => {
     expect(layout.notesPosition).toBe('static');
     expect(layout.stepsOverflowY).toBe('visible');
     expect(layout.notesOverflowY).toBe('visible');
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test('secondary recipe notes stay in accessible expandable boxes', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/acras_epinards?lang=fr');
+    await waitForCookNote(page);
+
+    const mobileTabs = page.locator('.recipe-tabs');
+    if (await mobileTabs.isVisible()) {
+      await mobileTabs.getByRole('button', { name: /Avant/i }).click();
+    }
+    const notes = page.locator('.notes-panel');
+    await expect(notes.getByRole('heading', { level: 2, name: 'Avant de commencer' })).toBeVisible();
+    await expect(notes.locator('.notes-panel-head .eyebrow')).toHaveCount(0);
+    await expect(notes.locator('.notes-reference-heading')).toHaveCount(0);
+    await expect(notes).not.toContainText('Infos pratiques');
+    await expect(notes).not.toContainText('Carte des accords');
+    await expect(notes).not.toContainText('Fiches ingrédients');
+    expect(await notes.locator('details.notes-disclosure').count()).toBeGreaterThan(0);
+
+    const storage = notes.locator('details.notes-disclosure').filter({ hasText: 'Conservation' }).first();
+    if (await storage.count()) {
+      await expect(storage).not.toHaveAttribute('open', '');
+      await storage.locator('summary').click();
+      await expect(storage).toHaveAttribute('open', '');
+    }
+
+    const ingredientCard = notes.locator('.ingredient-knowledge-card').first();
+    if (await ingredientCard.count()) {
+      await expect(ingredientCard.locator('small')).toHaveCount(0);
+      await expect(ingredientCard).not.toContainText('Toute saison');
+    }
+    await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
   });
 

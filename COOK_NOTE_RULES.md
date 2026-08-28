@@ -69,6 +69,7 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
   champs localises controles et valides recette par recette.
 - `Materiel necessaire` reste dans la fiche rapide en haut, pas dans la colonne de droite.
 - La colonne droite s'appelle `Avant de commencer`.
+- Dans `Avant de commencer`, les informations secondaires de chaque fiche (poids moyens, organisation, conservation, accords, conseils, notes, recettes liees et fiche technique) doivent etre affichees dans des boites repliables accessibles ; les allergenes restent visibles immediatement et cette regle vaut pour toutes les recettes presentes et futures.
 - Sur mobile, les informations de la colonne droite doivent rester accessibles via l'onglet/encart mobile, pas via une fausse etape.
 - Ne pas remettre la box d'actions des etapes ni le select inline `Choisir un bloc`.
 - Ne pas remettre le bouton parent `Choisir une recette` dans le hero.

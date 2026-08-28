@@ -3223,14 +3223,6 @@ a {
   line-height: 1.45;
 }
 
-.average-weight-card {
-  margin-bottom: 14px;
-  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 24%, var(--line));
-  border-radius: var(--radius);
-  background: color-mix(in srgb, var(--panel-accent, var(--accent)) 7%, rgba(0, 0, 0, .10));
-  padding: 12px;
-}
-
 .average-weight-card dl {
   display: grid;
   gap: 8px;
@@ -3249,48 +3241,6 @@ a {
   color: var(--text);
   line-height: 1.45;
   overflow-wrap: anywhere;
-}
-
-.linked-recipes-block,
-.practical-block {
-  margin-bottom: 14px;
-}
-
-.prep-timeline-block {
-  display: grid;
-  gap: 10px;
-  margin-bottom: 14px;
-  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 18%, var(--line));
-  border-radius: var(--radius);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .012)),
-    rgba(0, 0, 0, .12);
-  padding: 12px;
-}
-
-.flavor-map-block,
-.ingredient-knowledge-block {
-  display: grid;
-  gap: 10px;
-  margin-bottom: 14px;
-  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 18%, var(--line));
-  border-radius: var(--radius);
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--panel-accent, var(--accent)) 8%, transparent), rgba(255, 255, 255, .012)),
-    rgba(0, 0, 0, .12);
-  padding: 12px;
-}
-
-.premium-block-head {
-  display: flex;
-  align-items: start;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.premium-block-head h2 {
-  margin: 0;
-  font-size: 20px;
 }
 
 .flavor-map-grid,
@@ -3384,11 +3334,6 @@ a {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.35;
-}
-
-.prep-timeline-block h2 {
-  margin: 0;
-  font-size: 20px;
 }
 
 .prep-timeline-block ol {
@@ -3531,32 +3476,6 @@ a {
   box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
-.practical-block h2 {
-  margin: 0 0 12px;
-  font-size: 22px;
-}
-
-.practical-section + .practical-section {
-  margin-top: 10px;
-}
-
-.practical-section {
-  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 20%, var(--line));
-  border-radius: var(--radius);
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--panel-accent, var(--accent)) 7%, transparent), rgba(255, 255, 255, .018)),
-    rgba(0, 0, 0, .10);
-  padding: 11px;
-}
-
-.practical-section h3 {
-  margin: 0 0 8px;
-  color: color-mix(in srgb, var(--panel-accent, var(--accent)) 76%, #fff);
-  font-size: 12px;
-  font-weight: 950;
-  text-transform: uppercase;
-}
-
 .practical-section ul {
   gap: 7px;
 }
@@ -3580,14 +3499,6 @@ a {
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
-}
-
-.technical-card {
-  margin-top: 14px;
-  border: 1px solid color-mix(in srgb, var(--panel-accent, var(--accent)) 22%, var(--line));
-  border-radius: var(--radius);
-  background: rgba(0, 0, 0, .10);
-  padding: 12px;
 }
 
 .technical-card dl {
@@ -8064,7 +7975,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 #recipe-detail-content{scroll-margin-top:84px}
 .shopping-aisles-shell{position:relative;max-height:min(34vh,320px);margin:14px 0;overflow:auto;overscroll-behavior:contain;scrollbar-color:var(--accent) transparent;scrollbar-width:thin}.shopping-aisles-shell .shopping-aisles{margin:0;padding:0 8px 24px 0}.shopping-aisles-shell::after{content:"";position:sticky;z-index:2;display:block;bottom:0;height:26px;margin-top:-26px;pointer-events:none;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--surface-strong) 94%,transparent))}.shopping-aisles-shell::-webkit-scrollbar{display:block;width:6px;height:6px}.shopping-aisles-shell::-webkit-scrollbar-thumb{border-radius:999px;background:color-mix(in srgb,var(--accent) 78%,transparent)}
  .shopping-modal .combined-cart{max-height:220px;margin:8px 0 0;overflow:auto;padding:8px 10px;font-size:clamp(11px,1vw,13px);line-height:1.35}.shopping-modal .modal-actions{position:sticky;z-index:3;bottom:-20px;margin:0 -20px -20px;border-top:1px solid color-mix(in srgb,var(--accent) 18%,var(--line));background:linear-gradient(180deg,color-mix(in srgb,var(--surface-strong) 72%,transparent),var(--surface-strong) 34%);padding:12px 20px 20px}
-.notes-core-stack,.notes-reference-stack{display:grid;gap:10px}.notes-reference-stack{margin-top:16px!important;padding-top:12px!important}.notes-panel :is(.allergen-card,.average-weight-card,.technical-card,.flavor-map-block,.ingredient-knowledge-block,.practical-section){margin-bottom:0}
+ .notes-core-stack,.notes-optional-stack{display:grid;gap:10px}.notes-optional-stack{margin-top:0!important;padding-top:0!important}.practical-block{display:grid;gap:10px}.notes-panel :is(.allergen-card,.average-weight-card,.technical-card,.flavor-map-block,.ingredient-knowledge-block,.practical-section){margin-bottom:0}.notes-disclosure{display:block;margin:0;border:1px solid color-mix(in srgb,var(--panel-accent,var(--accent)) 22%,var(--line));border-radius:var(--radius);background:linear-gradient(135deg,color-mix(in srgb,var(--panel-accent,var(--accent)) 8%,transparent),rgba(255,255,255,.012)),rgba(0,0,0,.1);overflow:hidden}.notes-disclosure-summary{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;padding:11px 12px;color:var(--text);cursor:pointer;list-style:none;font-size:13px;font-weight:950;line-height:1.35}.notes-disclosure-summary::-webkit-details-marker{display:none}.notes-disclosure-summary:hover,.notes-disclosure-summary:focus-visible{background:color-mix(in srgb,var(--accent) 9%,transparent)}.notes-disclosure-icon{flex:0 0 auto;color:var(--accent);font-size:20px;line-height:1;transition:transform var(--speed)}.notes-disclosure[open] .notes-disclosure-icon{transform:rotate(45deg)}.notes-disclosure-body{display:grid;gap:10px;padding:0 12px 12px}.notes-disclosure-body>:first-child{margin-top:0}.notes-disclosure-body>:last-child{margin-bottom:0}@media print{.notes-disclosure-summary{display:none!important}.notes-disclosure-body{display:grid!important}}
  @media (min-width:1061px){.recipe-detail-hero.has-photo:not(.parent-hero){min-height:clamp(300px,31vw,430px)}}
 @media (max-width:1060px){.shopping-aisles-shell{max-height:min(34vh,260px)}}
 
