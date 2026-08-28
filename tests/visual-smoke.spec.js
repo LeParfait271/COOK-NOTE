@@ -100,9 +100,17 @@ test.describe('Cook Note visual smoke', () => {
       expect(count).toBeGreaterThanOrEqual(8);
     }).toPass();
     await expect(page.locator('.recipe-card.master-card .card-category-crest')).toHaveCount(0);
-    await expect(page.locator('.recipe-card.master-card .card-category-index')).toHaveCount(8);
-    expect(await page.locator('.recipe-card.master-card .card-category-index').allTextContents())
-      .toEqual(['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII']);
+    await expect(page.locator('.recipe-card.master-card .card-category-index')).toHaveCount(0);
+    const masterCardMetrics = await page.locator('.recipe-card.master-card').evaluateAll(cards => cards.map(card => {
+      const rect = card.getBoundingClientRect();
+      return {
+        title: card.getAttribute('title'),
+        heading: card.querySelector('.card-title')?.textContent.trim() || '',
+        ratio: rect.width / rect.height
+      };
+    }));
+    expect(masterCardMetrics).toHaveLength(8);
+    expect(masterCardMetrics.every(card => card.title === card.heading && Math.abs(card.ratio - (16 / 9)) < 0.08)).toBe(true);
     await expect(page.locator('.top-menu-btn, .top-techniques-btn, .top-actions .cart-icon-btn, .top-actions [aria-label="Panier courses"]')).toHaveCount(0);
     await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
     if (testInfo.project.name === 'mobile') {
@@ -116,7 +124,7 @@ test.describe('Cook Note visual smoke', () => {
     }
     await expect(page.locator('.home-view > .hero .hero-logo')).toHaveCount(0);
     await expect(page.locator('.home-view > .hero .hero-wordmark')).toHaveText('Cook Note');
-    await expect(page.locator('.recipe-card[data-recipe-id="accompagnements_maitre"] h3')).toHaveClass(/sr-only/);
+    await expect(page.locator('.recipe-card[data-recipe-id="accompagnements_maitre"] h3')).toBeVisible();
     await page.keyboard.press('Control+K');
     await expect(page.locator('.command-palette')).toBeVisible();
     expect(await page.locator('.command-row').count()).toBeLessThanOrEqual(4);
@@ -636,6 +644,12 @@ test.describe('Cook Note visual smoke', () => {
         expect(count).toBeGreaterThanOrEqual(4);
       }).toPass();
       await expectBackgroundImagesReady(page, '.variant-card-bg', 4);
+      const variantRatios = await page.locator('.variant-card').evaluateAll(cards => cards.map(card => {
+        const rect = card.getBoundingClientRect();
+        return rect.width / rect.height;
+      }));
+      expect(variantRatios.length).toBeGreaterThanOrEqual(4);
+      expect(variantRatios.every(ratio => Math.abs(ratio - (16 / 9)) < 0.08)).toBe(true);
       await expectNoMojibake(page);
       await expectNoHorizontalOverflow(page);
       await settleVisualFrame(page);

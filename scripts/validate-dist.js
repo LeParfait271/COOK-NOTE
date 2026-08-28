@@ -42,6 +42,7 @@ const REQUIRED_FILES = [
   'manifest.json',
   'recipe.html',
   'recipe.js',
+  'recipe-worker.js',
   'recipes.js',
   'robots.txt',
   'service-worker.js',

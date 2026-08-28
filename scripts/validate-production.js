@@ -32,6 +32,7 @@ const TEXT_FILES_TO_SCAN = [
   'i18n.js',
   'app.js',
   'recipe.js',
+  'recipe-worker.js',
   'recipes.js',
   'assets/catalog-1.js',
   'assets/catalog-2.js',

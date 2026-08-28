@@ -33,6 +33,7 @@ const PUBLIC_ROOT_FILES = new Set([
   'i18n.js',
   'recipes.js',
   'recipe.js',
+  'recipe-worker.js',
   'service-worker.js'
 ]);
 const ADMIN_PUBLIC_FILES = new Set(['admin-login.html', 'admin.css']);
@@ -293,6 +294,7 @@ function staticCacheControl(filePath, noStore = false) {
     relative === 'i18n.js' ||
     relative === 'style.css' ||
     relative === 'recipe.js' ||
+    relative === 'recipe-worker.js' ||
     relative === 'recipes.js' ||
     relative === 'manifest.json' ||
     /^assets\/catalog-\d+\.js$/.test(relative) ||

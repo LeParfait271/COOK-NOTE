@@ -110,7 +110,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.05';
+const SITE_VERSION = 'v5.06';
 const SITE_UPDATED_AT = '28/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.01';
@@ -126,6 +126,7 @@ const APP_INSTALL_OPTIONS = Object.freeze([
 ]);
 const SITE_CACHE_VERSION = `${SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`)}-parent-title`;
 const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
+const RECIPE_DETAIL_WORKER_SRC = '/recipe-worker.js';
 const DEFERRED_CATALOG_CHUNK_SRCS = [2, 3, 4].map(index => `/assets/catalog-${index}.js?v=${SITE_CACHE_VERSION}`);
 const QR_CODE_SCRIPT_SRC = '/assets/vendor/qrcode.min.js';
 const CONFETTI_SCRIPT_SRC = '/assets/vendor/confetti.browser.min.js';
@@ -3281,7 +3282,12 @@ function getBatchPlanData(recipes) {
   ].filter(group => group.items.length);
 }
 
+const RECIPE_SEARCH_TEXT_CACHE = new WeakMap();
+
 function getRecipeSearchText(recipe, tags, recipesById = {}) {
+  if (!recipe || typeof recipe !== 'object') return '';
+  const cachedByCatalog = RECIPE_SEARCH_TEXT_CACHE.get(recipe);
+  if (cachedByCatalog?.has(recipesById)) return cachedByCatalog.get(recipesById);
   const ingredients = (recipe.ingredients || [])
     .flatMap(group => [group.group, ...(group.items || [])])
     .join(' ');
@@ -3306,7 +3312,7 @@ function getRecipeSearchText(recipe, tags, recipesById = {}) {
     .filter(Boolean)
     .map(variantRecipe => getRecipeSearchText(variantRecipe, variantRecipe.tags || [], recipesById))
     .join(' ');
-  return normalizeText([
+  const value = normalizeText([
     recipe.title,
     recipe.yield,
     recipe.difficulty,
@@ -3326,6 +3332,10 @@ function getRecipeSearchText(recipe, tags, recipesById = {}) {
     ...(recipe.notes || []),
     variantsText
   ].join(' '));
+  const nextCache = cachedByCatalog || new WeakMap();
+  nextCache.set(recipesById, value);
+  if (!cachedByCatalog) RECIPE_SEARCH_TEXT_CACHE.set(recipe, nextCache);
+  return value;
 }
 
 const SEARCH_SYNONYMS = {
@@ -4966,7 +4976,6 @@ function recipeViewTransitionName(recipeId) {
 
 function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false }) {
   const master = isMasterRecipe(recipe);
-  const showMasterCardTitle = master && CookNoteI18n.locale() === 'en';
   const variantLabel = getRecipeVariantLabel(recipe, recipesById);
   const color = getCategoryColor(recipe);
   const style = { '--card-accent': color };
@@ -4979,8 +4988,6 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     .join(' ');
   const cardStyle = { ...ambilightStyle(cardImage, style), cursor: 'pointer' };
   const transitionName = master ? '' : recipeViewTransitionName(recipe.id);
-  const categoryIndex = master ? homeCardOrder(recipe) : 0;
-  const romanIndex = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'][categoryIndex] || '';
 
   return h('article', {
     className,
@@ -5021,8 +5028,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       !renderCardImage && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1))
     ),
     h('div', { className: 'card-body' },
-      master && romanIndex && h('span', { className: 'card-category-index', 'aria-hidden': true }, romanIndex),
-      h('h3', { className: master && !showMasterCardTitle ? 'card-title sr-only' : 'card-title' }, recipe.title),
+      h('h3', { className: 'card-title' }, recipe.title),
       variantLabel && h('p', { className: 'card-meta', 'aria-label': variantLabel },
         h('span', { className: 'card-variant-count' }, variantLabel)
       )
@@ -7297,13 +7303,13 @@ function App() {
   const activeLocale = useI18nLocale();
   const [recipeSource, setRecipeSource] = useState(() => (window.RECIPES && typeof window.RECIPES === 'object' ? window.RECIPES : {}));
   const [fullRecipeCatalogLoaded, setFullRecipeCatalogLoaded] = useState(false);
+  const [recipeDetailsById, setRecipeDetailsById] = useState({});
   const [catalogChunksLoaded, setCatalogChunksLoaded] = useState(() => Boolean(window.COOK_NOTE_CATALOG_COMPLETE));
   const recipes = useMemo(() => {
     const normalizedRecipes = normalizeLoadedRecipeValue(recipeSource);
-    const baseRecipesById = Object.fromEntries(Object.entries(normalizedRecipes).map(([id, recipe]) => [id, { id, ...recipe }]));
     return Object.entries(normalizedRecipes).map(([id, recipe]) => {
       const tagsExtracted = extractTags(recipe);
-      return { id, tagsExtracted, searchText: getRecipeSearchText(recipe, tagsExtracted, baseRecipesById), ...recipe };
+      return { id, tagsExtracted, ...recipe };
     }).sort((a, b) => a.title.localeCompare(b.title, 'fr'));
   }, [recipeSource]);
   const recipesById = useMemo(() => Object.fromEntries(recipes.map(recipe => [recipe.id, recipe])), [recipes]);
@@ -7360,8 +7366,18 @@ function App() {
   const historyIndexRef = useRef(0);
   const catalogChunkLoadRef = useRef(null);
   const fullRecipeLoadRef = useRef(null);
+  const recipeDetailWorkerRef = useRef(null);
+  const recipeDetailRequestsRef = useRef(new Map());
   const activeTheme = preferences.theme === 'light' ? 'light' : 'dark';
   const anyModalOpen = searchOpen || commandOpen || shoppingOpen || menuPlannerOpen || preferencesOpen;
+
+  useEffect(() => () => {
+    recipeDetailWorkerRef.current?.terminate();
+    recipeDetailWorkerRef.current = null;
+    const failure = new Error('Chargement de la fiche interrompu.');
+    recipeDetailRequestsRef.current.forEach(({ reject }) => reject(failure));
+    recipeDetailRequestsRef.current.clear();
+  }, []);
 
   useEffect(() => {
     if (anyModalOpen) {
@@ -7415,7 +7431,20 @@ function App() {
     };
   }, []);
 
-  const activeRecipe = activeId ? recipesById[activeId] : null;
+  const activeRecipeBase = activeId ? recipesById[activeId] : null;
+  const activeRecipe = useMemo(() => {
+    if (!activeRecipeBase) return null;
+    const details = recipeDetailsById[activeId];
+    return details ? { ...activeRecipeBase, ...details } : activeRecipeBase;
+  }, [activeId, activeRecipeBase, recipeDetailsById]);
+  const activeRecipes = useMemo(() => {
+    if (!activeRecipe || !recipeDetailsById[activeId]) return recipes;
+    return recipes.map(recipe => recipe.id === activeId ? activeRecipe : recipe);
+  }, [activeId, activeRecipe, recipeDetailsById, recipes]);
+  const activeRecipesById = useMemo(() => {
+    if (!activeRecipe || !recipeDetailsById[activeId]) return recipesById;
+    return { ...recipesById, [activeId]: activeRecipe };
+  }, [activeId, activeRecipe, recipeDetailsById, recipesById]);
   const activeSeoRecipe = activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => resolveShoppingRecipe(id, recipesById)).filter(Boolean), [shoppingIds, recipesById]);
   const hasRecipeFilters = Boolean((!searchOpen && searchFilterQuery.trim()) || season || seasonCategory || tagFilter || onlyFavorites);
@@ -7427,14 +7456,32 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!activeId || catalogChunksLoaded) return;
-    const needsFullRecipe = Boolean(activeRecipe && !isMasterRecipe(activeRecipe) && !Array.isArray(activeRecipe.steps));
+    if (!activeId) return;
+    const needsFullRecipe = Boolean(
+      activeRecipe
+      && !isMasterRecipe(activeRecipe)
+      && !Array.isArray(activeRecipe.steps)
+      && !recipeDetailsById[activeId]
+    );
+    if (needsFullRecipe) {
+      loadRecipeDetails(activeId).catch(() => {});
+      return;
+    }
     if (activeRecipe && !needsFullRecipe) return;
-    const loader = needsFullRecipe ? loadFullRecipeCatalog : loadDeferredCatalogChunks;
-    loader().catch(() => {
-      if (loader !== loadFullRecipeCatalog) loadFullRecipeCatalog().catch(() => {});
-    });
-  }, [activeId, activeRecipe?.id, activeRecipe?.steps?.length, catalogChunksLoaded]);
+    if (catalogChunksLoaded) {
+      loadRecipeDetails(activeId).catch(() => {});
+      return;
+    }
+    loadDeferredCatalogChunks()
+      .then(nextRecipes => {
+        const loaded = nextRecipes?.[activeId];
+        if (loaded && !isMasterRecipe(loaded) && !Array.isArray(loaded.steps)) {
+          return loadRecipeDetails(activeId);
+        }
+        return null;
+      })
+      .catch(() => loadRecipeDetails(activeId).catch(() => {}));
+  }, [activeId, activeRecipe?.id, activeRecipe?.steps?.length, catalogChunksLoaded, recipeDetailsById]);
 
   useEffect(() => {
     const legacyVariant = new URLSearchParams(window.location.search).get('variant');
@@ -7891,6 +7938,76 @@ function App() {
     return catalogChunkLoadRef.current;
   }
 
+  function getRecipeDetailWorker() {
+    if (recipeDetailWorkerRef.current) return recipeDetailWorkerRef.current;
+    if (typeof Worker !== 'function') return null;
+
+    let worker;
+    try {
+      worker = new Worker(RECIPE_DETAIL_WORKER_SRC);
+    } catch {
+      return null;
+    }
+
+    worker.onmessage = event => {
+      const data = event.data || {};
+      const pending = recipeDetailRequestsRef.current.get(data.id);
+      if (!pending) return;
+      recipeDetailRequestsRef.current.delete(data.id);
+      if (data.type !== 'recipe' || !data.recipe) {
+        pending.reject(new Error(data.message || 'Fiche recette introuvable.'));
+        return;
+      }
+      setRecipeDetailsById(current => current[data.id]
+        ? current
+        : { ...current, [data.id]: data.recipe });
+      pending.resolve(data.recipe);
+    };
+    worker.onerror = () => {
+      const failure = new Error('Chargement de la fiche impossible.');
+      recipeDetailRequestsRef.current.forEach(({ reject }) => reject(failure));
+      recipeDetailRequestsRef.current.clear();
+      worker.terminate();
+      recipeDetailWorkerRef.current = null;
+    };
+    recipeDetailWorkerRef.current = worker;
+    return worker;
+  }
+
+  function loadRecipeDetails(id) {
+    const known = recipeDetailsById[id] || recipeSource[id] || recipesById[id];
+    if (recipeDetailsById[id] || (known && Array.isArray(known.steps))) return Promise.resolve(known);
+    const existing = recipeDetailRequestsRef.current.get(id);
+    if (existing) return existing.promise;
+
+    const fallback = () => loadFullRecipeCatalog().then(source => {
+      const loaded = source?.[id] || recipeSource[id] || recipesById[id];
+      if (!loaded) throw new Error('Fiche recette introuvable.');
+      return loaded;
+    });
+    const worker = getRecipeDetailWorker();
+    if (!worker) return fallback();
+
+    let resolveRequest;
+    let rejectRequest;
+    const promise = new Promise((resolve, reject) => {
+      resolveRequest = resolve;
+      rejectRequest = reject;
+    });
+    recipeDetailRequestsRef.current.set(id, {
+      promise,
+      resolve: resolveRequest,
+      reject: rejectRequest
+    });
+    try {
+      worker.postMessage({ type: 'load', id, src: FULL_RECIPE_CATALOG_SRC });
+    } catch {
+      recipeDetailRequestsRef.current.delete(id);
+      return fallback();
+    }
+    return promise.catch(() => fallback());
+  }
+
   function loadFullRecipeCatalog() {
     if (fullRecipeCatalogLoaded) return Promise.resolve(recipeSource);
     if (fullRecipeLoadRef.current) return fullRecipeLoadRef.current;
@@ -7933,7 +8050,7 @@ function App() {
   function openRecipe(id) {
     const target = recipesById[id];
     if (!target) return;
-    const catalogLoader = isMasterRecipe(target) ? loadDeferredCatalogChunks : loadFullRecipeCatalog;
+    const catalogLoader = isMasterRecipe(target) ? loadDeferredCatalogChunks : () => loadRecipeDetails(id);
     catalogLoader().catch(() => {});
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'top';
@@ -8274,8 +8391,8 @@ function App() {
           openShoppingBasket,
           goHome,
           openRecipe,
-          recipes,
-          recipesById,
+          recipes: activeRecipes,
+          recipesById: activeRecipesById,
           checked,
           setCheckedWithHistory,
           canUndo,

@@ -38,6 +38,9 @@
 /recipe.js
   Cache-Control: public, max-age=300, must-revalidate
 
+/recipe-worker.js
+  Cache-Control: no-cache
+
 /recipes.js
   Cache-Control: public, max-age=300, must-revalidate
 

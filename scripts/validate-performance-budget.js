@@ -12,12 +12,14 @@ const FILE_BUDGETS = [
   ['theme.js', 4 * KB],
   ['app-premium.js', 76 * KB],
   ['app-techniques.js', 40 * KB],
-  ['app.js', 400 * KB],
+  // Le detail worker et le catalogue de recherche paresseux restent dans le budget source.
+  ['app.js', 412 * KB],
   // Source lisible pour maintenance ; le poids réellement livré reste plafonné séparément.
   ['style.css', 235 * KB],
   ['dist/style.css', 203 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.
   ['recipes.js', 900 * KB],
+  ['recipe-worker.js', 4 * KB],
   ['assets/image-manifest.js', 180 * KB],
   ['app-art-images.js', 40 * KB],
   ['service-worker.js', 10 * KB],
@@ -233,7 +235,7 @@ if (
   if (!serviceWorker.includes(fragment)) fail(`Optimisation service worker absente (${fragment}).`);
 });
 [
-  'const catalogLoader = isMasterRecipe(target) ? loadDeferredCatalogChunks : loadFullRecipeCatalog;',
+  'const catalogLoader = isMasterRecipe(target) ? loadDeferredCatalogChunks : () => loadRecipeDetails(id);',
   'catalogLoader().catch(() => {});'
 ].forEach(fragment => {
   if (!app.includes(fragment)) fail(`Chargement catalogue a la demande absent (${fragment}).`);

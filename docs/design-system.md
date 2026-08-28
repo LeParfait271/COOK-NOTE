@@ -64,7 +64,7 @@ metier et ne justifient pas d'ajouter une section gadget.
   un contour continu sans decoupe asymetrique.
 - Le titre `Cook Note` du hero est typographique, sans pictogramme accole. Les
   cartes de l'accueil forment une grille reguliere et les huit fiches parentes
-  portent uniquement leur numero romain, sans blason de categorie.
+  afficher leur titre lisible dans un cadre image 16/9, sans numero romain ni blason de categorie.
 - Le passage d'une carte a sa fiche peut utiliser une transition partagee courte,
   avec une solution instantanee quand `prefers-reduced-motion` est actif. La
   capture precedente reste visible jusqu'au rendu de la suivante : aucun ecran
