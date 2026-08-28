@@ -425,6 +425,14 @@ test.describe('Cook Note visual smoke', () => {
       await expect(storage).not.toHaveAttribute('open', '');
       await storage.locator('summary').click();
       await expect(storage).toHaveAttribute('open', '');
+      const openFill = await storage.evaluate(node => ({
+        detail: getComputedStyle(node).backgroundColor,
+        summary: getComputedStyle(node.querySelector('summary')).backgroundColor,
+        body: getComputedStyle(node.querySelector('.notes-disclosure-body')).backgroundColor
+      }));
+      expect(openFill.detail).not.toBe('rgba(0, 0, 0, 0)');
+      expect(openFill.summary).toBe('rgba(0, 0, 0, 0)');
+      expect(openFill.body).toBe('rgba(0, 0, 0, 0)');
     }
 
     const ingredientCard = notes.locator('.ingredient-knowledge-card').first();
@@ -535,6 +543,15 @@ test.describe('Cook Note visual smoke', () => {
     await expect(utilities.getByRole('button', { name: 'Copier fiche' })).toBeVisible();
     await expect(utilities.getByRole('button', { name: 'Partager' })).toBeVisible();
     await expect(utilities.getByRole('button', { name: 'Imprimer' })).toBeVisible();
+    const utilityLayout = await page.locator('.recipe-detail-hero').evaluate(hero => {
+      const popover = hero.querySelector('.detail-utility-popover')?.getBoundingClientRect();
+      const heroBox = hero.getBoundingClientRect();
+      return { overflow: getComputedStyle(hero).overflow, popoverBottom: popover?.bottom || 0, heroBottom: heroBox.bottom };
+    });
+    expect(utilityLayout.overflow).toBe('visible');
+    expect(utilityLayout.popoverBottom).toBeGreaterThan(utilityLayout.heroBottom);
+    expect(await page.locator('.recipe-detail-hero').evaluate(node => getComputedStyle(node).borderBottomWidth)).toBe('2px');
+    expect(await page.locator('.site-footer').evaluate(node => getComputedStyle(node, '::before').content)).not.toBe('none');
     await expect(page.locator('.recipe-detail-grid')).toBeVisible();
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
