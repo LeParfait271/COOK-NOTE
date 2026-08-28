@@ -696,6 +696,10 @@ test.describe('Cook Note visual smoke', () => {
       await expect(page.locator('.recipe-view')).toBeVisible();
       await expect(page.getByRole('heading', { level: 1, name: new RegExp(expectedTitle, 'i') })).toBeVisible();
       await expect(page.locator('.parent-hero.has-photo')).toBeVisible();
+      const parentHeroHeight = await page.locator('.parent-hero').evaluate(node => node.getBoundingClientRect().height);
+      const maxParentHeroHeight = (page.viewportSize()?.width || 0) <= 760 ? 280 : 320;
+      expect(parentHeroHeight).toBeGreaterThan(180);
+      expect(parentHeroHeight).toBeLessThanOrEqual(maxParentHeroHeight);
       const parentHeroImage = page.locator('.parent-hero .recipe-detail-hero-image');
       await expect(parentHeroImage).toHaveCount(1);
       await expectImagesReady(page, '.parent-hero .recipe-detail-hero-image', 1);
