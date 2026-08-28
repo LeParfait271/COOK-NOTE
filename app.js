@@ -106,7 +106,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.16';
+const SITE_VERSION = 'v5.17';
 const SITE_UPDATED_AT = '29/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.01';
@@ -6688,7 +6688,7 @@ function NotesDisclosure({ label, children, className = '', ariaLabel }) {
   },
   h('summary', { className: 'notes-disclosure-summary' },
     h('span', null, label),
-    h('span', { className: 'notes-disclosure-icon', 'aria-hidden': true }, '+')
+    h('span', { className: 'notes-disclosure-icon', 'aria-hidden': true }, '\u2304')
   ),
   h('div', { className: 'notes-disclosure-body' }, children));
 }
@@ -6799,8 +6799,6 @@ function IngredientKnowledgeBlock({ recipe }) {
         ),
         h('p', null, card.storage),
         h('dl', null,
-          h('dt', null, 'Accords'),
-          h('dd', null, card.pairings),
           h('dt', null, 'Vigilance'),
           h('dd', null, card.avoid)
         )
@@ -6851,7 +6849,7 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
       h('p', { className: 'eyebrow' }, 'Résumé'),
       h('h2', null, 'Fiche rapide')
     ),
-    h('div', { className: 'recipe-quick-facts' },
+    h('div', { className: `recipe-quick-facts fact-count-${facts.length}` },
       facts.map(item => h('div', { key: item.label, className: 'recipe-quick-fact' },
         h('span', null, item.label),
         h('strong', null, item.value)
@@ -6923,23 +6921,17 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
         );
       })
     ),
-    h('div', {
-      className: selectedOption ? 'variant-choice-status selected' : 'variant-choice-status waiting',
+    !selectedOption && h('div', {
+      className: 'variant-choice-status waiting',
       role: 'status',
       'aria-live': 'polite'
     },
-      h('span', { className: 'variant-choice-status-icon', 'aria-hidden': true }, selectedOption ? '\u2713' : '\u2192'),
-      selectedOption
-        ? h('span', { className: 'variant-choice-status-copy' },
-            h('small', null, 'Variante s\u00e9lectionn\u00e9e'),
-            h('strong', null, selectedOption.label || 'Variante'),
-            h('span', null, 'Ingr\u00e9dients, \u00e9tapes, quantit\u00e9s et conseils correspondent maintenant \u00e0 ce choix.')
-          )
-        : h('span', { className: 'variant-choice-status-copy' },
+      h('span', { className: 'variant-choice-status-icon', 'aria-hidden': true }, '\u2192'),
+      h('span', { className: 'variant-choice-status-copy' },
             h('small', null, 'Choix requis'),
             h('strong', null, 'Choisis une carte ci-dessus'),
             h('span', null, 'La fiche compl\u00e8te s\u2019affichera ensuite, sans m\u00e9langer les recettes.')
-          )
+      )
     )
   );
 }
@@ -7321,11 +7313,6 @@ function RecipeView({
       stepTotal: effectiveStepTotal,
       needsVariantSelection: needsInlineVariantSelection,
       hasVariantSelection: true
-    }),
-    !detailsLoading && hasResolvedRecipe && h(RecipeSectionJump, {
-      ingredientCount: countIngredients(selectedRecipe),
-      stepCount: effectiveStepTotal,
-      notesCount
     }),
     !detailsLoading && hasResolvedRecipe && h('div', { className: 'recipe-tabs', role: 'tablist', 'aria-label': 'Sections de la recette' },
       [

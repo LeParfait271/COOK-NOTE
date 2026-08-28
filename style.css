@@ -9048,6 +9048,9 @@ margin-top:24px!important
 .home-view .recipe-card,.home-search-launcher,.home-quick-actions button,.home-view .recipe-card .card-media img {
 transition:none!important
 }
+
+/* Global recipe readability corrections. */
+.notes-disclosure-icon{color:color-mix(in srgb,var(--panel-accent,var(--accent)) 72%,var(--text));font-size:17px;transform:none!important}.notes-disclosure[open] .notes-disclosure-icon{transform:rotate(180deg)!important}.home-view .master-recipe-grid{padding:1px}.home-view .recipe-card.master-card{border-color:color-mix(in srgb,var(--card-accent,var(--accent)) 42%,var(--line-strong));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--card-accent,var(--accent)) 22%,transparent),0 12px 34px rgba(0,0,0,.16)}.home-view .recipe-card.master-card::before{inset:0;border-color:color-mix(in srgb,var(--card-accent,var(--accent)) 34%,transparent);opacity:1}.variant-choice-panel.recipe-panel{padding:clamp(16px,1.7vw,22px)}.variant-choice-header{margin-bottom:14px}.variant-choice-button{min-height:112px;gap:8px;padding:12px}.recipe-summary-panel{gap:12px!important;padding:16px!important}.recipe-summary-head{min-height:0!important;padding-bottom:8px!important}.recipe-quick-fact{min-height:52px!important;padding:9px 11px!important}.recipe-chef-strip{padding:11px!important}.recipe-equipment-strip{padding-top:10px!important}@media(min-width:1061px){.recipe-quick-facts.fact-count-3{grid-template-columns:repeat(3,minmax(0,1fr))}.recipe-quick-facts.fact-count-4{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(max-width:700px){.recipe-quick-facts{grid-template-columns:repeat(2,minmax(0,1fr))!important}.variant-choice-button{min-height:104px}}
 .home-view .recipe-card:hover,.home-search-launcher:hover,.home-quick-actions button:hover {
 transform:none!important
 }

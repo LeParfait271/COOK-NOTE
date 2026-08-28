@@ -103,14 +103,19 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.recipe-card.master-card .card-category-index')).toHaveCount(0);
     const masterCardMetrics = await page.locator('.recipe-card.master-card').evaluateAll(cards => cards.map(card => {
       const rect = card.getBoundingClientRect();
+      const style = getComputedStyle(card);
       return {
         title: card.getAttribute('title'),
         heading: card.querySelector('.card-title')?.textContent.trim() || '',
-        ratio: rect.width / rect.height
+        ratio: rect.width / rect.height,
+        leftBorder: style.borderLeftWidth,
+        rightBorder: style.borderRightWidth,
+        rightBorderColor: style.borderRightColor
       };
     }));
     expect(masterCardMetrics).toHaveLength(8);
     expect(masterCardMetrics.every(card => card.title === card.heading && Math.abs(card.ratio - (16 / 9)) < 0.08)).toBe(true);
+    expect(masterCardMetrics.every(card => card.rightBorder === card.leftBorder && card.rightBorder !== '0px' && card.rightBorderColor !== 'rgba(0, 0, 0, 0)')).toBe(true);
     await expect(page.locator('.top-menu-btn, .top-techniques-btn, .top-actions .cart-icon-btn, .top-actions [aria-label="Panier courses"]')).toHaveCount(0);
     await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
     if (testInfo.project.name === 'mobile') {
@@ -335,7 +340,7 @@ test.describe('Cook Note visual smoke', () => {
     await selectedVariant.click();
     await expect(selectedVariant).toHaveAttribute('aria-pressed', 'true');
     await expect(selectedVariant).toContainText('lectionn');
-    await expect(page.locator('.variant-choice-status')).toContainText('Variante s');
+    await expect(page.locator('.variant-choice-status')).toHaveCount(0);
     await expect(page.locator('.variant-choice-continue')).toHaveCount(0);
     await expect(page.locator('.recipe-summary-panel')).toBeVisible();
     await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
@@ -404,6 +409,7 @@ test.describe('Cook Note visual smoke', () => {
       await mobileTabs.getByRole('tab', { name: /Avant/i }).click();
     }
     const notes = page.locator('.notes-panel');
+    await expect(page.locator('.recipe-section-jump')).toHaveCount(0);
     await expect(notes.getByRole('heading', { level: 2, name: 'Avant de commencer' })).toBeVisible();
     await expect(notes.locator('.notes-panel-head .eyebrow')).toHaveCount(0);
     await expect(notes.locator('.notes-reference-heading')).toHaveCount(0);
@@ -423,6 +429,7 @@ test.describe('Cook Note visual smoke', () => {
     if (await ingredientCard.count()) {
       await expect(ingredientCard.locator('small')).toHaveCount(0);
       await expect(ingredientCard).not.toContainText('Toute saison');
+      await expect(ingredientCard).not.toContainText('Accords');
     }
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
