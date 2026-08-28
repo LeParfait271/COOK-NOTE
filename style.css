@@ -7129,15 +7129,6 @@ a {
   box-shadow: 0 0 26px color-mix(in srgb, var(--ambient-accent, var(--accent)) 22%, transparent);
 }
 
-@media (min-width: 901px) {
-  .recipe-detail-hero.has-photo:not(.parent-hero) {
-    background-color: #050505;
-    background-repeat: no-repeat;
-    background-position: center, center;
-    background-size: 100% 100%, min(var(--recipe-hero-image-max, 1280px), max(960px, 76vw)) auto;
-  }
-}
-
 .modal-backdrop {
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 10%, transparent), transparent 46%),
@@ -9148,4 +9139,41 @@ transition:none!important
 transform:none!important
 }
 
+}
+
+.recipe-detail-hero.has-photo {
+  position: relative;
+  overflow: hidden;
+}
+
+.recipe-detail-hero-media {
+  position: absolute;
+  inset: 0;
+}
+
+.recipe-detail-hero-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe-detail-hero.has-photo::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+}
+
+.recipe-detail-hero.has-photo::before {
+  background: linear-gradient(110deg, rgba(4, 4, 5, .82), rgba(4, 4, 5, .32) 48%, rgba(4, 4, 5, .62));
+}
+
+.recipe-detail-hero.has-photo .detail-hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.recipe-detail-hero.has-photo.parent-hero .recipe-detail-hero-image {
+  object-position: center bottom;
 }

@@ -402,6 +402,34 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.recipe-view')).toBeVisible();
     await expect(page.getByRole('heading', { name: new RegExp('Poulet sauce piment\\u00e9e', 'i') })).toBeVisible();
     await expect(page.locator('.recipe-detail-hero.has-photo')).toBeVisible();
+    const heroImage = page.locator('.recipe-detail-hero-image');
+    await expect(heroImage).toHaveCount(1);
+    await expectImagesReady(page, '.recipe-detail-hero-image', 1);
+    const heroImageMetrics = await heroImage.evaluate(image => {
+      const hero = image.closest('.recipe-detail-hero')?.getBoundingClientRect();
+      const frame = image.closest('.recipe-detail-hero-media')?.getBoundingClientRect();
+      const style = getComputedStyle(image);
+      return {
+        complete: image.complete,
+        naturalWidth: image.naturalWidth,
+        naturalHeight: image.naturalHeight,
+        heroWidth: hero?.width || 0,
+        heroHeight: hero?.height || 0,
+        frameWidth: frame?.width || 0,
+        frameHeight: frame?.height || 0,
+        objectFit: style.objectFit,
+        loading: image.getAttribute('loading'),
+        fetchPriority: image.getAttribute('fetchpriority')
+      };
+    });
+    expect(heroImageMetrics.complete).toBe(true);
+    expect(heroImageMetrics.naturalWidth).toBeGreaterThanOrEqual(80);
+    expect(heroImageMetrics.naturalHeight).toBeGreaterThanOrEqual(60);
+    expect(Math.abs(heroImageMetrics.heroWidth - heroImageMetrics.frameWidth)).toBeLessThanOrEqual(1);
+    expect(Math.abs(heroImageMetrics.heroHeight - heroImageMetrics.frameHeight)).toBeLessThanOrEqual(1);
+    expect(heroImageMetrics.objectFit).toBe('cover');
+    expect(heroImageMetrics.loading).toBe('eager');
+    expect(heroImageMetrics.fetchPriority).toBe('high');
     await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
     await expect(page.locator('.plating-guide-block')).toHaveCount(0);
     await expect(page.getByText(/Ajouter aux courses/i)).toBeVisible();
@@ -634,9 +662,12 @@ test.describe('Cook Note visual smoke', () => {
       await expect(page.locator('.recipe-view')).toBeVisible();
       await expect(page.getByRole('heading', { level: 1, name: new RegExp(expectedTitle, 'i') })).toBeVisible();
       await expect(page.locator('.parent-hero.has-photo')).toBeVisible();
-      const parentHeroBackground = await page.locator('.parent-hero').evaluate(node => getComputedStyle(node).backgroundImage);
-      expect(parentHeroBackground).toContain('/assets/theme/dark/categories/');
-      expect(parentHeroBackground).not.toContain('/assets/theme/dark/global/hero');
+      const parentHeroImage = page.locator('.parent-hero .recipe-detail-hero-image');
+      await expect(parentHeroImage).toHaveCount(1);
+      await expectImagesReady(page, '.parent-hero .recipe-detail-hero-image', 1);
+      const parentHeroImageSrc = await parentHeroImage.getAttribute('src');
+      expect(parentHeroImageSrc).toContain('/assets/theme/dark/categories/');
+      expect(parentHeroImageSrc).not.toContain('/assets/theme/dark/global/hero');
       await expect(page.locator('.parent-hero .detail-hero-logo')).toHaveCount(0);
       await expect(page.locator('.collection-links-panel .collection-links-heading')).toHaveCount(0);
       await expect(async () => {

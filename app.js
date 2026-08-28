@@ -89,10 +89,6 @@ function imageManifestEntry(src) {
   return IMAGE_MANIFEST[path] || IMAGE_MANIFEST[`/${path}`] || null;
 }
 
-function imageNaturalWidth(src, fallback = 1280) {
-  return imageManifestEntry(src)?.width || fallback;
-}
-
 function runConfettiBurst() {
   if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
   loadDeferredScript(CONFETTI_SCRIPT_SRC, 'confetti').then(confetti => {
@@ -110,7 +106,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.10';
+const SITE_VERSION = 'v5.11';
 const SITE_UPDATED_AT = '28/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.01';
@@ -7072,19 +7068,12 @@ function RecipeView({
 
   const isCollectionHero = showVariants;
   const heroImage = displayRecipeImage(selectedRecipe || recipe);
-  const heroImageWidth = heroImage ? Math.max(960, Math.min(imageNaturalWidth(heroImage), 1536)) : 0;
   const heroTransitionName = !isCollectionHero && selectedRecipe?.id
     ? recipeViewTransitionName(selectedRecipe.id)
     : '';
-  const heroStyle = heroImage
-    ? {
-      '--recipe-hero-image-max': `${heroImageWidth}px`,
-      ...(heroTransitionName ? { viewTransitionName: heroTransitionName } : {}),
-      backgroundImage: isCollectionHero
-        ? `linear-gradient(110deg, rgba(4,4,5,.82), rgba(4,4,5,.40) 48%, rgba(4,4,5,.70)), url("${heroImage}")`
-        : `linear-gradient(90deg, rgba(4,4,5,.72), rgba(4,4,5,.24) 54%, rgba(4,4,5,.52)), url("${heroImage}")`
-    }
-    : {};
+  const heroFallbackImage = selectedRecipe?.image && selectedRecipe.image !== heroImage
+    ? selectedRecipe.image
+    : '';
   const detailAccent = getCategoryColor(selectedRecipe);
   const detailStyle = { '--accent': detailAccent, '--accent-2': detailAccent };
 
@@ -7096,8 +7085,31 @@ function RecipeView({
   },
     h('section', {
       className: heroImage ? (isCollectionHero ? 'recipe-detail-hero has-photo parent-hero' : 'recipe-detail-hero has-photo') : 'recipe-detail-hero',
-      style: heroStyle
+      style: undefined
     },
+      heroImage && h('div', {
+        className: 'recipe-detail-hero-media',
+        style: heroTransitionName ? { viewTransitionName: heroTransitionName } : undefined,
+        'aria-hidden': true
+      },
+        h('img', {
+          className: 'recipe-detail-hero-image',
+          src: heroImage,
+          alt: '',
+          loading: 'eager',
+          decoding: 'async',
+          fetchPriority: 'high',
+          draggable: false,
+          ...imageSizeAttrs(heroImage),
+          onError: event => {
+            if (heroFallbackImage && event.currentTarget.src !== new URL(heroFallbackImage, window.location.href).href) {
+              event.currentTarget.src = heroFallbackImage;
+              return;
+            }
+            event.currentTarget.hidden = true;
+          }
+        })
+      ),
       h('div', { className: 'detail-hero-copy' },
         h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome, openRecipe }),
         h('h1', null, displayedRecipeTitle),
