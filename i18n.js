@@ -37,7 +37,14 @@
       'search.bestResults': '{shown} meilleurs résultats sur {total} pour "{query}"',
       'search.results': '{count} résultat{plural} pour "{query}"',
       'offline.preparing': 'Préparation hors-ligne…',
-      'offline.progress': '{completed}/{total} ressources préparées'
+      'offline.progress': '{completed}/{total} ressources préparées',
+      'recipe.loadingTitle': 'Préparation de la fiche…',
+      'recipe.loadingDescription': 'Les ingrédients et les étapes arrivent sans bloquer la page.',
+      'recipe.loadingShort': 'Chargement…',
+      'recipe.quickNavigation': 'Accès rapide dans la fiche',
+      'recipe.jumpIngredients': 'Ingrédients',
+      'recipe.jumpSteps': 'Étapes',
+      'recipe.jumpBefore': 'Avant'
     },
     en: {
       'language.selector': 'Language',
@@ -70,7 +77,14 @@
       'search.bestResults': '{shown} best results out of {total} for "{query}"',
       'search.results': '{count} result{plural} for "{query}"',
       'offline.preparing': 'Preparing offline pack…',
-      'offline.progress': '{completed}/{total} resources prepared'
+      'offline.progress': '{completed}/{total} resources prepared',
+      'recipe.loadingTitle': 'Preparing the recipe…',
+      'recipe.loadingDescription': 'Ingredients and steps are loading without blocking the page.',
+      'recipe.loadingShort': 'Loading…',
+      'recipe.quickNavigation': 'Quick access in the recipe',
+      'recipe.jumpIngredients': 'Ingredients',
+      'recipe.jumpSteps': 'Steps',
+      'recipe.jumpBefore': 'Before'
     }
   };
 
@@ -1027,8 +1041,6 @@
     'Mise en place courte : garder les ingredients visibles avant cuisson.': 'Short prep: keep the ingredients visible before cooking.',
     'Mise en place courte : garder les ingrédients visibles avant cuisson.': 'Short prep: keep the ingredients visible before cooking.',
     'Mise en place courte : garder les ingrédients à portée de main avant la cuisson.': 'Short prep: keep the ingredients within reach before cooking.',
-    'Prevoir le repos avant de promettre le service.': 'Allow for the resting time before promising service.',
-    'Prévoir le repos avant de promettre le service.': 'Allow for the resting time before promising service.',
     'Prévoir le temps de repos avant de servir.': 'Allow time for resting before serving.',
     'A estimer': 'To estimate',
     'À estimer': 'To estimate',

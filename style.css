@@ -78,6 +78,7 @@
   --speed: var(--ds-duration) var(--ds-ease);
 }
 
+
 :root[data-theme="light"] {
   --ds-color-background: #f5efe4;
   --ds-color-background-muted: #ebe1d0;
@@ -1435,6 +1436,7 @@ a {
       0 24px 78px rgba(0, 0, 0, .56);
   }
 }
+
 
 .technique-card-head {
   display: flex;

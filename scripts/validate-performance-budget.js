@@ -235,7 +235,7 @@ if (
   if (!serviceWorker.includes(fragment)) fail(`Optimisation service worker absente (${fragment}).`);
 });
 [
-  'const catalogLoader = isMasterRecipe(target) ? loadDeferredCatalogChunks : () => loadRecipeDetails(id);',
+  'const catalogLoader = isMasterRecipe(target) ? loadDeferredCatalogChunks : () => loadRecipeDetails(id, true);',
   'catalogLoader().catch(() => {});'
 ].forEach(fragment => {
   if (!app.includes(fragment)) fail(`Chargement catalogue a la demande absent (${fragment}).`);

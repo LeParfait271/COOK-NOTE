@@ -106,7 +106,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.13';
+const SITE_VERSION = 'v5.14';
 const SITE_UPDATED_AT = '28/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.01';
@@ -5005,7 +5005,17 @@ function recipeViewTransitionName(recipeId) {
   return safeId ? `recipe-${safeId}` : '';
 }
 
-function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false }) {
+function warmRecipeOnIntent(preloadRecipe, recipeId) {
+  if (typeof preloadRecipe !== 'function' || !recipeId) return;
+  try {
+    const result = preloadRecipe(recipeId);
+    if (result && typeof result.catch === 'function') result.catch(() => {});
+  } catch {
+    /* Prefetch is an enhancement; navigation remains available if it fails. */
+  }
+}
+
+function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, preloadRecipe = null }) {
   const master = isMasterRecipe(recipe);
   const variantLabel = getRecipeVariantLabel(recipe, recipesById);
   const color = getCategoryColor(recipe);
@@ -5019,6 +5029,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     .join(' ');
   const cardStyle = { ...ambilightStyle(cardImage, style), cursor: 'pointer' };
   const transitionName = master ? '' : recipeViewTransitionName(recipe.id);
+  const warmRecipe = () => warmRecipeOnIntent(preloadRecipe, recipe.id);
 
   return h('article', {
     className,
@@ -5027,6 +5038,9 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     title: recipe.title,
     tabIndex: 0,
     role: 'button',
+    onPointerEnter: warmRecipe,
+    onFocus: warmRecipe,
+    onTouchStart: warmRecipe,
     'aria-label': `Ouvrir ${recipe.title}`,
     onClick: () => openRecipe(recipe.id),
     onKeyDown: event => {
@@ -5049,6 +5063,9 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
         sizes: '(max-width: 760px) calc(100vw - 32px), 380px',
         draggable: false,
         ...imageSizeAttrs(cardImage),
+        onLoad: event => {
+          event.currentTarget.dataset.loaded = 'true';
+        },
         onError: event => {
           const fallbackImage = recipe.image ? recipeCardImageUrl(recipe.image) : '';
           if (fallbackImage && event.currentTarget.getAttribute('src') !== fallbackImage) {
@@ -5136,7 +5153,7 @@ function useCenteredScrollFeature(containerRef, dependencyKey) {
   }, [containerRef, dependencyKey]);
 }
 
-function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, emptyState = null }) {
+function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, emptyState = null, preloadRecipe = null }) {
   const masterGrid = recipes.length > 0 && recipes.every(isMasterRecipe);
   const recipeKey = recipes.map(recipe => recipe.id).join('|');
   const chunkedGrid = !masterGrid && recipes.length > GRID_INITIAL_RENDER_COUNT;
@@ -5191,7 +5208,8 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
         toggleFavorite,
         openRecipe,
         setTagFilter,
-        hideFavorite
+        hideFavorite,
+        preloadRecipe
       }))
     ),
     hasMore && h('div', { className: 'recipe-grid-load-more', ref: loadMoreRef },
@@ -5205,7 +5223,7 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   );
 }
 
-function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, favoriteCollection, setFavoriteCollection }) {
+function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, favoriteCollection, setFavoriteCollection, preloadRecipe = null }) {
   const seasonOptions = ['Toutes', ...SEASONS];
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
   const defaultCatalogSection = !onlyFavorites
@@ -5292,7 +5310,7 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
           h('div', null, h('p', { className: 'eyebrow' }, section.kicker), h('h3', null, section.title)),
           h('span', null, `${section.recipes.length} fiche${section.recipes.length > 1 ? 's' : ''}`)
         ),
-        h(RecipeGrid, { recipes: section.recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, emptyState: favoriteEmptyState })
+        h(RecipeGrid, { recipes: section.recipes, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, emptyState: favoriteEmptyState, preloadRecipe })
       );
     })
   );
@@ -5334,7 +5352,8 @@ function HomeView(props) {
         setCategoryFilter: props.filterProps.setSeasonCategory,
         categoryOptions: props.filterProps.seasonCategoryOptions,
         favoriteCollection: props.favoriteCollection,
-        setFavoriteCollection: props.setFavoriteCollection
+        setFavoriteCollection: props.setFavoriteCollection,
+        preloadRecipe: props.preloadRecipe
       })
     )
   );
@@ -6583,7 +6602,7 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '' }) {
   );
 }
 
-function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) {
+function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, preloadRecipe = null }) {
   const sortedVariantRefs = sortVariantRefs(variantRefs, recipesById);
   if (!sortedVariantRefs.length) return null;
   return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel collection-links-panel', 'aria-label': `Recettes de la collection ${parent.title}` },
@@ -6599,6 +6618,9 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe }) 
           key: variant.id,
           type: 'button',
           className: 'variant-card',
+          onPointerEnter: () => warmRecipeOnIntent(preloadRecipe, variant.id),
+          onFocus: () => warmRecipeOnIntent(preloadRecipe, variant.id),
+          onTouchStart: () => warmRecipeOnIntent(preloadRecipe, variant.id),
           style: ambilightStyle(cardImage, { '--card-accent': getCategoryColor(item) }),
           'aria-label': `Ouvrir ${variant.label || item.title}`,
           onClick: () => openRecipe(variant.id)
@@ -6901,6 +6923,74 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
   );
 }
 
+function RecipeDetailLoadingState() {
+  const panelStyle = {
+    width: 'calc(100% - 32px)',
+    maxWidth: 1240,
+    margin: '16px auto 0',
+    minHeight: 180,
+    display: 'grid',
+    placeItems: 'center',
+    gap: 8,
+    padding: 28,
+    textAlign: 'center',
+    borderColor: 'color-mix(in srgb,var(--accent) 32%,var(--line))',
+    borderRadius: 'var(--cn-panel-radius)',
+    background: 'var(--surface-strong)',
+    boxShadow: 'var(--ds-shadow-1)'
+  };
+  const markStyle = {
+    width: 136,
+    height: 8,
+    borderRadius: 'var(--ds-radius-pill)',
+    background: 'linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent),color-mix(in srgb,var(--accent) 16%,rgba(255,255,255,.06))',
+    backgroundSize: '220% 100%',
+    animation: 'skeletonSweep 1.3s var(--ds-ease) infinite'
+  };
+  return h('section', { className: 'recipe-panel recipe-detail-loading', style: panelStyle, role: 'status', 'aria-live': 'polite' },
+    h('span', { className: 'recipe-detail-loading-mark', style: markStyle, 'aria-hidden': true }),
+    h('h2', null, t('recipe.loadingTitle')),
+    h('p', null, t('recipe.loadingDescription'))
+  );
+}
+
+function RecipeSectionJump({ ingredientCount, stepCount, notesCount }) {
+  if (window.matchMedia?.('(max-width: 700px)').matches) return null;
+  const items = [
+    { id: 'recipe-panel-ingredients', label: t('recipe.jumpIngredients'), count: ingredientCount },
+    { id: 'recipe-panel-steps', label: t('recipe.jumpSteps'), count: stepCount },
+    { id: 'recipe-panel-notes', label: t('recipe.jumpBefore'), count: notesCount }
+  ];
+  const jumpTo = id => {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+      || document.querySelector('.display-reduce-motion');
+    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  };
+  const navStyle = {
+    width: 'min(1180px, calc(100% - 32px))',
+    margin: '0 auto 12px',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+    gap: 6
+  };
+  const buttonStyle = {
+    display: 'grid',
+    gridTemplateColumns: 'minmax(0, 1fr) auto',
+    gap: 6,
+    alignItems: 'center',
+    minHeight: 40,
+    padding: '0 10px'
+  };
+  return h('nav', { className: 'recipe-section-jump', style: navStyle, 'aria-label': t('recipe.quickNavigation') },
+    items.map(item => h('button', { key: item.id, type: 'button', className: 'btn btn-ghost', style: buttonStyle, onClick: () => jumpTo(item.id) },
+      h('span', null, item.label),
+      h('small', null, item.count)
+    ))
+  );
+}
+
 function RecipeView({
   recipe,
   isFavorite,
@@ -6920,7 +7010,9 @@ function RecipeView({
   redo,
   setTagFilter,
   openTechnique,
-  notify
+  notify,
+  preloadRecipe = null,
+  detailsLoading = false
 }) {
   const [factor, setFactor] = useState(1);
   const variantRefs = useMemo(() => (
@@ -6950,7 +7042,8 @@ function RecipeView({
     ? buildInlineVariantRecipe(recipe, selectedInlineVariantGroup)
     : recipe;
   const hasResolvedRecipe = hasSelectedVariant && (!needsInlineVariantSelection || Boolean(selectedInlineVariantGroup));
-  const canShowSteps = hasResolvedRecipe;
+  const recipeDetailsReady = !detailsLoading;
+  const canShowSteps = hasResolvedRecipe && recipeDetailsReady;
   const displaySteps = canShowSteps ? getRecipeSteps(selectedRecipe) : [];
   const stepScopeKey = selectedInlineVariantGroup ? `${detailKey}:variant-group:${selectedInlineVariantGroup.index}` : detailKey;
   const stepTotal = displaySteps.length;
@@ -6961,21 +7054,21 @@ function RecipeView({
     : `${effectiveStepTotal} étape${effectiveStepTotal > 1 ? 's' : ''}`;
   const doneSteps = Object.keys(checked).filter(key => key.startsWith(`${stepScopeKey}:step:`) && checked[key]).length;
   const progress = stepTotal ? Math.round((doneSteps / stepTotal) * 100) : 0;
-  const canAddToShopping = hasResolvedRecipe && canShowSteps;
+  const canAddToShopping = hasResolvedRecipe && recipeDetailsReady && canShowSteps;
   const shoppingKey = selectedInlineVariantGroup
     ? inlineVariantShoppingKey(detailKey, selectedInlineVariantGroup.index)
     : detailKey;
   const isInShopping = hasSelectedVariant && shoppingIds.includes(shoppingKey);
-  const canFavorite = hasResolvedRecipe && !isMasterRecipe(selectedRecipe);
-  const showRecipeUtilities = hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && !isCategoryCollectionRecipe(selectedRecipe);
+  const canFavorite = hasResolvedRecipe && recipeDetailsReady && !isMasterRecipe(selectedRecipe);
+  const showRecipeUtilities = hasResolvedRecipe && recipeDetailsReady && !isMasterRecipe(selectedRecipe) && !isCategoryCollectionRecipe(selectedRecipe);
   const displayedRecipeTitle = hasResolvedRecipe ? selectedRecipe.title : recipe.title;
-  const recipeAllergens = hasResolvedRecipe ? getRecipeAllergens(selectedRecipe) : [];
-  const averageWeights = hasResolvedRecipe ? getRecipeAverageWeights(selectedRecipe) : [];
-  const linkedRecipes = hasResolvedRecipe ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
-  const practicalSections = hasResolvedRecipe ? getRecipePracticalSections(selectedRecipe) : [];
-  const displayNotes = hasResolvedRecipe ? getDisplayNotes(selectedRecipe, practicalSections) : [];
-  const flavorMap = hasResolvedRecipe ? getRecipeFlavorMap(selectedRecipe) : [];
-  const ingredientCards = hasResolvedRecipe ? getRecipeIngredientCards(selectedRecipe) : [];
+  const recipeAllergens = hasResolvedRecipe && recipeDetailsReady ? getRecipeAllergens(selectedRecipe) : [];
+  const averageWeights = hasResolvedRecipe && recipeDetailsReady ? getRecipeAverageWeights(selectedRecipe) : [];
+  const linkedRecipes = hasResolvedRecipe && recipeDetailsReady ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
+  const practicalSections = hasResolvedRecipe && recipeDetailsReady ? getRecipePracticalSections(selectedRecipe) : [];
+  const displayNotes = hasResolvedRecipe && recipeDetailsReady ? getDisplayNotes(selectedRecipe, practicalSections) : [];
+  const flavorMap = hasResolvedRecipe && recipeDetailsReady ? getRecipeFlavorMap(selectedRecipe) : [];
+  const ingredientCards = hasResolvedRecipe && recipeDetailsReady ? getRecipeIngredientCards(selectedRecipe) : [];
   const hiddenPracticalKeys = [
     flavorMap.length ? 'pairings' : '',
     ingredientCards.length ? 'ingredientGuide' : ''
@@ -7100,10 +7193,11 @@ function RecipeView({
   const detailStyle = { '--accent': detailAccent, '--accent-2': detailAccent };
 
   return h('main', {
-    className: 'recipe-view',
+    className: detailsLoading ? 'recipe-view is-loading-details' : 'recipe-view',
     style: detailStyle,
-    onTouchStart: hasResolvedRecipe ? handleMobileTabSwipeStart : undefined,
-    onTouchEnd: hasResolvedRecipe ? handleMobileTabSwipeEnd : undefined
+    'aria-busy': detailsLoading ? 'true' : undefined,
+    onTouchStart: hasResolvedRecipe && recipeDetailsReady ? handleMobileTabSwipeStart : undefined,
+    onTouchEnd: hasResolvedRecipe && recipeDetailsReady ? handleMobileTabSwipeEnd : undefined
   },
     h('section', {
       className: heroImage ? (isCollectionHero ? 'recipe-detail-hero has-photo parent-hero' : 'recipe-detail-hero has-photo') : 'recipe-detail-hero',
@@ -7147,13 +7241,13 @@ function RecipeView({
               h('span', { key: 'difficulty' }, difficultyText(selectedRecipe)),
               h('span', { key: 'nutri', className: `nutri-score nutri-${getNutriScore(selectedRecipe).toLowerCase()}` }, `Nutri ${getNutriScore(selectedRecipe)}`),
               h('span', { key: 'ingredients' }, `${countIngredients(selectedRecipe)} ingrédients`),
-              h('span', { key: 'steps' }, stepMetaText)
+               h('span', { key: 'steps' }, detailsLoading ? t('recipe.loadingShort') : stepMetaText)
             ]
         ),
-        hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h('div', { className: 'detail-quantity-row' },
+         hasResolvedRecipe && recipeDetailsReady && !isMasterRecipe(selectedRecipe) && h('div', { className: 'detail-quantity-row' },
           h(QuantityFactorControl, { recipe: selectedRecipe, factor, setFactor, className: 'detail-quantity-control' })
         ),
-        hasResolvedRecipe && h('div', { className: 'detail-actions' },
+         hasResolvedRecipe && recipeDetailsReady && h('div', { className: 'detail-actions' },
           h(Button, { variant: 'primary', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(shoppingKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
           canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'detail-action-button favorite-action active' : 'detail-action-button favorite-action', onClick: () => toggleFavorite(detailKey, selectedRecipe.title), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }), h('span', null, 'Favori')),
           showRecipeUtilities && h('details', {
@@ -7181,9 +7275,10 @@ function RecipeView({
     h('h1', { className: 'print-recipe-heading' }, displayedRecipeTitle),
     showVariants && h(CollectionLinksPanel, {
       parent: recipe,
-      variantRefs,
-      recipesById,
-      openRecipe
+       variantRefs,
+       recipesById,
+       openRecipe,
+       preloadRecipe
     }),
     hasSelectedVariant && needsInlineVariantSelection && h(InlineVariantPicker, {
       recipe,
@@ -7191,34 +7286,41 @@ function RecipeView({
       selectedIndex: selectedInlineVariantGroup?.index,
       onSelect: selectInlineVariant
     }),
-    hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts, {
+    detailsLoading && h(RecipeDetailLoadingState),
+    !detailsLoading && hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts, {
       recipe: selectedRecipe,
       factor,
       stepTotal: effectiveStepTotal,
       needsVariantSelection: needsInlineVariantSelection,
       hasVariantSelection: true
     }),
-    hasResolvedRecipe && h('div', { className: 'recipe-tabs', role: 'tablist', 'aria-label': 'Sections de la recette' },
+    !detailsLoading && hasResolvedRecipe && h(RecipeSectionJump, {
+      ingredientCount: countIngredients(selectedRecipe),
+      stepCount: effectiveStepTotal,
+      notesCount
+    }),
+    !detailsLoading && hasResolvedRecipe && h('div', { className: 'recipe-tabs', role: 'tablist', 'aria-label': 'Sections de la recette' },
       [
         { key: 'ingredients', label: 'Ingrédients', count: countIngredients(selectedRecipe) },
         { key: 'steps', label: 'Étapes', count: effectiveStepTotal },
         { key: 'notes', label: 'Avant', count: notesCount }
       ].map(tab => h('button', {
-        key: tab.key,
-        type: 'button',
-        className: mobileDetailTab === tab.key ? 'active' : '',
+         key: tab.key,
+         type: 'button',
+         role: 'tab',
+         className: mobileDetailTab === tab.key ? 'active' : '',
         'aria-selected': mobileDetailTab === tab.key,
         'aria-controls': `recipe-panel-${tab.key}`,
         tabIndex: mobileDetailTab === tab.key ? 0 : -1,
         onClick: () => setMobileDetailTab(tab.key)
       }, h('span', null, tab.label), h('small', null, tab.count)))
     ),
-    hasResolvedRecipe && h('p', { className: 'mobile-swipe-hint' },
+    !detailsLoading && hasResolvedRecipe && h('p', { className: 'mobile-swipe-hint' },
       h('span', { 'aria-hidden': true }, '\u2039'),
       ' Glisse pour passer d\u2019un panneau \u00e0 l\u2019autre ',
       h('span', { 'aria-hidden': true }, '\u203a')
     ),
-    hasResolvedRecipe && h('div', { id: 'recipe-detail-content', className: 'recipe-detail-grid' },
+    !detailsLoading && hasResolvedRecipe && h('div', { id: 'recipe-detail-content', className: 'recipe-detail-grid' },
       h('section', { id: 'recipe-panel-ingredients', role: 'tabpanel', className: mobileDetailTab === 'ingredients' ? 'recipe-panel ingredients-panel active-tab-panel' : 'recipe-panel ingredients-panel' },
         h('div', { className: 'panel-heading' },
           h('div', null, h('p', { className: 'eyebrow' }, 'Mise en place'), h('h2', null, 'Ingrédients'))
@@ -7365,6 +7467,7 @@ function App() {
   const [recipeSource, setRecipeSource] = useState(() => (window.RECIPES && typeof window.RECIPES === 'object' ? window.RECIPES : {}));
   const [fullRecipeCatalogLoaded, setFullRecipeCatalogLoaded] = useState(false);
   const [recipeDetailsById, setRecipeDetailsById] = useState({});
+  const [recipeDetailsLoading, setRecipeDetailsLoading] = useState({});
   const [catalogChunksLoaded, setCatalogChunksLoaded] = useState(() => Boolean(window.COOK_NOTE_CATALOG_COMPLETE));
   const recipes = useMemo(() => {
     const normalizedRecipes = normalizeLoadedRecipeValue(recipeSource);
@@ -7525,23 +7628,23 @@ function App() {
       && !recipeDetailsById[activeId]
     );
     if (needsFullRecipe) {
-      loadRecipeDetails(activeId).catch(() => {});
+      loadRecipeDetails(activeId, true).catch(() => {});
       return;
     }
     if (activeRecipe && !needsFullRecipe) return;
     if (catalogChunksLoaded) {
-      loadRecipeDetails(activeId).catch(() => {});
+      loadRecipeDetails(activeId, true).catch(() => {});
       return;
     }
     loadDeferredCatalogChunks()
       .then(nextRecipes => {
         const loaded = nextRecipes?.[activeId];
         if (loaded && !isMasterRecipe(loaded) && !Array.isArray(loaded.steps)) {
-          return loadRecipeDetails(activeId);
+          return loadRecipeDetails(activeId, true);
         }
         return null;
       })
-      .catch(() => loadRecipeDetails(activeId).catch(() => {}));
+      .catch(() => loadRecipeDetails(activeId, true).catch(() => {}));
   }, [activeId, activeRecipe?.id, activeRecipe?.steps?.length, catalogChunksLoaded, recipeDetailsById]);
 
   useEffect(() => {
@@ -8035,38 +8138,48 @@ function App() {
     return worker;
   }
 
-  function loadRecipeDetails(id) {
+  function loadRecipeDetails(id, showLoading = false) {
     const known = recipeDetailsById[id] || recipeSource[id] || recipesById[id];
     if (recipeDetailsById[id] || (known && Array.isArray(known.steps))) return Promise.resolve(known);
-    const existing = recipeDetailRequestsRef.current.get(id);
-    if (existing) return existing.promise;
 
+    if (showLoading) setRecipeDetailsLoading(current => current[id] ? current : { ...current, [id]: true });
+    const clearLoading = () => setRecipeDetailsLoading(current => {
+      if (!current[id]) return current;
+      const next = { ...current };
+      delete next[id];
+      return next;
+    });
+    const existing = recipeDetailRequestsRef.current.get(id);
+    if (existing) return showLoading ? existing.promise.finally(clearLoading) : existing.promise;
     const fallback = () => loadFullRecipeCatalog().then(source => {
       const loaded = source?.[id] || recipeSource[id] || recipesById[id];
       if (!loaded) throw new Error('Fiche recette introuvable.');
       return loaded;
     });
     const worker = getRecipeDetailWorker();
-    if (!worker) return fallback();
+    if (!worker) return fallback().finally(showLoading ? clearLoading : undefined);
 
     let resolveRequest;
     let rejectRequest;
-    const promise = new Promise((resolve, reject) => {
+    const rawPromise = new Promise((resolve, reject) => {
       resolveRequest = resolve;
       rejectRequest = reject;
     });
-    recipeDetailRequestsRef.current.set(id, {
-      promise,
+    const request = {
+      promise: null,
       resolve: resolveRequest,
       reject: rejectRequest
-    });
+    };
+    const promise = rawPromise.catch(() => fallback()).finally(showLoading ? clearLoading : undefined);
+    request.promise = promise;
+    recipeDetailRequestsRef.current.set(id, request);
     try {
       worker.postMessage({ type: 'load', id, src: FULL_RECIPE_CATALOG_SRC });
     } catch {
       recipeDetailRequestsRef.current.delete(id);
-      return fallback();
+      rejectRequest(new Error('Chargement de la fiche impossible.'));
     }
-    return promise.catch(() => fallback());
+    return promise;
   }
 
   function loadFullRecipeCatalog() {
@@ -8103,6 +8216,17 @@ function App() {
     return fullRecipeLoadRef.current;
   }
 
+  function preloadRecipe(id) {
+    const target = recipesById[id] || (window.RECIPES && window.RECIPES[id]);
+    if (target && isMasterRecipe(target)) return loadDeferredCatalogChunks();
+    if (target) return loadRecipeDetails(id);
+    return loadDeferredCatalogChunks().then(nextRecipes => {
+      const loaded = nextRecipes?.[id] || (window.RECIPES && window.RECIPES[id]);
+      if (!loaded || isMasterRecipe(loaded)) return loaded || null;
+      return loadRecipeDetails(id);
+    });
+  }
+
   function openShoppingBasket() {
     setShoppingOpen(true);
     loadDeferredCatalogChunks().catch(() => {});
@@ -8111,7 +8235,7 @@ function App() {
   function openRecipe(id) {
     const target = recipesById[id];
     if (!target) return;
-    const catalogLoader = isMasterRecipe(target) ? loadDeferredCatalogChunks : () => loadRecipeDetails(id);
+    const catalogLoader = isMasterRecipe(target) ? loadDeferredCatalogChunks : () => loadRecipeDetails(id, true);
     catalogLoader().catch(() => {});
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'top';
@@ -8460,9 +8584,11 @@ function App() {
           canRedo,
           undo,
           redo,
-          setTagFilter: updateTagFilter,
-          openTechnique,
-          notify
+           setTagFilter: updateTagFilter,
+           openTechnique,
+           notify,
+           preloadRecipe,
+           detailsLoading: Boolean(activeId && recipeDetailsLoading[activeId] && !recipeDetailsById[activeId])
         })
       : activePage === 'techniques'
         ? h(TechniquesView, {
@@ -8481,8 +8607,9 @@ function App() {
           toggleFavorite,
           openRecipe,
           clearFavoriteView: () => { setOnlyFavorites(false); setFavoriteCollection(''); },
-          setTagFilter: updateTagFilter,
-          openSearch,
+           setTagFilter: updateTagFilter,
+           preloadRecipe,
+           openSearch,
           openMenuPlanner,
           showFavorites,
           openShoppingBasket,

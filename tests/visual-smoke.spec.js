@@ -299,7 +299,7 @@ test.describe('Cook Note visual smoke', () => {
     await page.locator('.variant-choice-button').filter({ hasText: /Calamari/i }).first().click();
     const mobileTabs = page.locator('.recipe-tabs');
     if (await mobileTabs.isVisible()) {
-      await mobileTabs.getByRole('button', { name: /Steps/i }).click();
+      await mobileTabs.getByRole('tab', { name: /Steps/i }).click();
     }
     await expect(page.locator('.step-list')).toBeVisible();
     await expect(page.locator('.step-list')).toContainText('Quickly rinse the calamari');
@@ -401,7 +401,7 @@ test.describe('Cook Note visual smoke', () => {
 
     const mobileTabs = page.locator('.recipe-tabs');
     if (await mobileTabs.isVisible()) {
-      await mobileTabs.getByRole('button', { name: /Avant/i }).click();
+      await mobileTabs.getByRole('tab', { name: /Avant/i }).click();
     }
     const notes = page.locator('.notes-panel');
     await expect(notes.getByRole('heading', { level: 2, name: 'Avant de commencer' })).toBeVisible();
