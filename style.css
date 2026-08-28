@@ -8448,9 +8448,9 @@ body:has(.modal-backdrop) #cook-note-update-action {
   .recipe-summary-panel {
     grid-template-columns: minmax(280px, .82fr) minmax(0, 1.18fr);
     grid-template-areas:
-      "head chef"
+      "head head"
       "facts chef"
-      "equipment chef";
+      "equipment equipment";
     align-items: start;
     gap: 14px 24px;
     padding: 18px 20px 16px;
