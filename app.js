@@ -110,7 +110,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.09';
+const SITE_VERSION = 'v5.10';
 const SITE_UPDATED_AT = '28/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.01';
@@ -1262,6 +1262,41 @@ function getRecipeServiceTemperature(recipe, serviceText, identityText) {
   return '';
 }
 
+const RECIPE_RISK_SIGNAL_NOTES = Object.freeze({
+  'Froid': Object.freeze({
+    fr: 'Garder au froid jusqu’au service.',
+    en: 'Keep chilled until serving.'
+  }),
+  'Friture': Object.freeze({
+    fr: 'Maintenir l’huile à bonne température et égoutter aussitôt.',
+    en: 'Keep the oil at the right temperature and drain immediately.'
+  }),
+  'Mer': Object.freeze({
+    fr: 'Vérifier la fraîcheur et la cuisson des produits de la mer.',
+    en: 'Check seafood freshness and doneness.'
+  }),
+  'Viande': Object.freeze({
+    fr: 'Vérifier la cuisson de la viande avant le service.',
+    en: 'Check the meat is cooked before serving.'
+  }),
+  'Œufs crus': Object.freeze({
+    fr: 'Utiliser des œufs très frais et conserver au froid.',
+    en: 'Use very fresh eggs and keep chilled.'
+  }),
+  'Conserve': Object.freeze({
+    fr: 'Respecter l’hygiène et la conservation au froid.',
+    en: 'Follow hygiene and cold-storage rules.'
+  })
+});
+
+function formatRecipeRiskNote(signal) {
+  const locale = CookNoteI18n.locale() === 'en' ? 'en' : 'fr';
+  const copy = RECIPE_RISK_SIGNAL_NOTES[String(signal?.label || '')];
+  return copy?.[locale] || (locale === 'en'
+    ? 'Check this point before serving.'
+    : 'Vérifier ce point avant le service.');
+}
+
 function getRecipeRiskSignals(recipe) {
   const identityText = getRecipeIdentityText(recipe);
   const serviceText = getRecipeInstructionText(recipe);
@@ -1287,7 +1322,7 @@ function getRecipeRiskSignals(recipe) {
   }
   add('Œufs crus', 'medium', /\b(mayonnaise|aioli|aïoli|rouille|oeuf cru|jaune cru)\b/);
   add('Friture', 'medium', /\b(friture|frire|beignet|tempura|huile a 160|huile a 180|huile a 190)\b/);
-  add('Mer', 'medium', /\b(poisson|poissons|crevette|crevettes|calamar|calamars|encornet|encornets|moules?|crustace|crustaces)\b/, ingredientText);
+  add('Mer', 'medium', /\b(poisson|poissons|crevette|crevettes|calamar|calamars|encornet|encornets|crustace|crustaces)\b/, ingredientText);
   add('Viande', 'medium', /\b(porc|poulet|boeuf|bœuf|lapin|agneau|viande|gorge|foie|jambon|lardon|bacon|saucisse|chorizo)\b/, ingredientText);
   return signals;
 }
@@ -1314,7 +1349,7 @@ function getRecipeServiceItems(recipe) {
   const serviceTemperature = getRecipeServiceTemperature(recipe, serviceText, identityText);
   const hasRestBeforeService = /\blaisser reposer\b.*\bavant (de )?serv(ir|ice)|\breposer \d+\s*(min|minutes)\b.*\bavant (de )?serv(ir|ice)/.test(text);
   if (/\bbeurre a l.?ail\b/.test(identityText)) {
-    add("Servir tartinable, sorti quelques minutes du froid selon l'usage.");
+    add("Servir tartinable après quelques minutes hors du froid, selon l’usage.");
   } else if (serviceTemperature === 'hot') {
     add(hasRestBeforeService ? 'Laisser reposer le temps indiqué, puis servir chaud.' : 'Servir chaud, juste après cuisson.');
   } else if (serviceTemperature === 'cold') {
@@ -1322,7 +1357,7 @@ function getRecipeServiceItems(recipe) {
   } else if (serviceTemperature === 'temperate') {
     add('Servir tiède ou à température ambiante selon la texture recherchée.');
   }
-  if (/\b(friture|frire|frites|beignet|tempura)\b/.test(text)) add('Saler ou finir juste avant d’envoyer pour garder le croustillant.');
+  if (/\b(friture|frire|frites|beignet|tempura)\b/.test(text)) add('Saler et terminer juste avant le service pour préserver le croustillant.');
   if (/\b(chalumeau|meringue|zeste|herbes|fleur de sel|sucre glace)\b/.test(text)) add('Faire les finitions au dernier moment.');
   return items.slice(0, 4);
 }
@@ -6743,12 +6778,10 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
   const serviceItems = getRecipeServiceItems(recipe).slice(0, 2);
   const riskSignals = getRecipeRiskSignals(recipe).slice(0, 2);
   const chefNotes = [
-    timing.active && timing.active <= 20 ? 'Mise en place courte : garder les ingredients visibles avant cuisson.' : '',
-    timing.rest ? 'Prévoir le repos avant de promettre le service.' : '',
+    timing.active && timing.active <= 20 ? 'Mise en place courte : garder les ingrédients à portée de main avant la cuisson.' : '',
+    timing.rest ? 'Prévoir le temps de repos avant de servir.' : '',
     ...serviceItems,
-    ...riskSignals.map(signal => CookNoteI18n.locale() === 'en'
-      ? `${translateUiText(signal.label)}: watch point.`
-      : `${signal.label} : point de vigilance.`)
+    ...riskSignals.map(formatRecipeRiskNote)
   ].filter(Boolean).slice(0, 3);
   const facts = [
     timing.total && { label: 'Total', value: formatMinutesShort(timing.total) },

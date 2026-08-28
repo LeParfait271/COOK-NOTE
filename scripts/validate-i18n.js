@@ -81,7 +81,11 @@ expect('Allergene crustaces non traduit.', i18n.text('Crustacés') === 'Shellfis
 expect('Materiel brochettes non traduit.', i18n.text('Pics à brochettes') === 'Skewers');
 expect('Ingredient crevettes non traduit.', i18n.text('500g grosses crevettes décortiquées').includes('large peeled shrimp'));
 expect('Etape crevettes non traduite.', i18n.text('Monter les brochettes en alternant crevettes et chorizo.').includes('alternating shrimp and chorizo'));
-expect('Note vigilance mer non traduite.', i18n.text('Mer : point de vigilance.') === 'Seafood: watch point.');
+expect('Note vigilance mer non traduite.', i18n.text('Vérifier la fraîcheur et la cuisson des produits de la mer.') === 'Check seafood freshness and doneness.');
+expect('Note vigilance friture non traduite.', i18n.text('Maintenir l’huile à bonne température et égoutter aussitôt.') === 'Keep the oil at the right temperature and drain immediately.');
+expect('Note vigilance viande non traduite.', i18n.text('Vérifier la cuisson de la viande avant le service.') === 'Check the meat is cooked before serving.');
+expect('Note repos non traduit.', i18n.text('Prévoir le temps de repos avant de servir.') === 'Allow time for resting before serving.');
+expect('Note mise en place non traduite.', i18n.text('Mise en place courte : garder les ingrédients à portée de main avant la cuisson.') === 'Short prep: keep the ingredients within reach before cooking.');
 expect('Titre infos pratiques non traduit.', i18n.text('Infos pratiques') === 'Practical info');
 expect('Message fiche rapide non traduit.', i18n.text('Sélectionne une variante pour afficher les informations de la fiche rapide.') === 'Select a variant to show the quick sheet.');
 expect('Message mobile avant recette non traduit.', i18n.text('Consulte les notes, allergènes et points techniques avant de lancer la recette.') === 'Review the notes, allergens and technical points before starting the recipe.');
