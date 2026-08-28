@@ -35,6 +35,7 @@ const ROOT_FILES = [
   'service-worker.js',
   'sitemap.xml',
   'style.css',
+  'recipe-editorial.css',
   'personal-tools.css'
 ];
 
@@ -565,6 +566,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `  <script>window.COOK_NOTE_ASSET_VERSION = '${version}';</script>`,
     `  <script src="/theme.js?v=${version}"></script>`,
     `  <link rel="stylesheet" href="/style.css?v=${version}" />`,
+    `  <link rel="stylesheet" href="/recipe-editorial.css?v=${version}" />`,
     `  <link rel="stylesheet" href="/personal-tools.css?v=${version}" />`,
     `  <script id="recipe-jsonld" type="application/ld+json">${safeJson(jsonLd)}</script>`,
     '</head>',

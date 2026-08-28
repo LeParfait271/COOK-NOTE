@@ -106,7 +106,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.17';
+const SITE_VERSION = 'v5.18';
 const SITE_UPDATED_AT = '29/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.01';
@@ -5092,6 +5092,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       !renderCardImage && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1))
     ),
     h('div', { className: 'card-body' },
+      master && h('span', { className: 'card-chapter-mark', 'aria-hidden': true }, primaryCategory(recipe).slice(0, 1)),
       h('h3', { className: 'card-title' }, recipe.title),
       variantLabel && h('p', { className: 'card-meta', 'aria-label': variantLabel },
         h('span', { className: 'card-variant-count' }, variantLabel)
@@ -6866,6 +6867,23 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
   );
 }
 
+function RecipeAnatomy({ recipe }) {
+  const timing = getRecipeTiming(recipe);
+  const groups = (recipe.ingredients || [])
+    .map(group => cleanVariantGroupLabel(group.group || ''))
+    .filter(Boolean);
+  const stages = groups.length > 1
+    ? [...new Set(groups)].slice(0, 4)
+    : ['Pr\u00e9paration', timing.cook ? 'Cuisson' : '', timing.rest ? 'Repos' : '', 'Finition'].filter(Boolean);
+  if (stages.length < 2) return null;
+  return h('ol', { className: 'recipe-anatomy', 'aria-label': 'Structure de la recette' },
+    stages.map((stage, index) => h('li', { key: `${stage}:${index}` },
+      h('span', { 'aria-hidden': true }, String(index + 1).padStart(2, '0')),
+      h('strong', null, translateUiText(stage))
+    ))
+  );
+}
+
 function cleanVariantGroupLabel(label) {
   return String(label || 'Variante').replace(/^\d+\)\s*/, '').replace(/^variante\s*:?\s*/i, '').trim();
 }
@@ -6968,7 +6986,7 @@ function RecipeDetailLoadingState() {
 }
 
 function RecipeSectionJump({ ingredientCount, stepCount, notesCount }) {
-  if (window.matchMedia?.('(max-width: 700px)').matches) return null;
+  if (window.matchMedia?.('(max-width: 1280px)').matches) return null;
   const items = [
     { id: 'recipe-panel-ingredients', label: t('recipe.jumpIngredients'), count: ingredientCount },
     { id: 'recipe-panel-steps', label: t('recipe.jumpSteps'), count: stepCount },
@@ -6981,23 +6999,8 @@ function RecipeSectionJump({ ingredientCount, stepCount, notesCount }) {
       || document.querySelector('.display-reduce-motion');
     target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
   };
-  const navStyle = {
-    width: 'min(1180px, calc(100% - 32px))',
-    margin: '0 auto 12px',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-    gap: 6
-  };
-  const buttonStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'minmax(0, 1fr) auto',
-    gap: 6,
-    alignItems: 'center',
-    minHeight: 40,
-    padding: '0 10px'
-  };
-  return h('nav', { className: 'recipe-section-jump', style: navStyle, 'aria-label': t('recipe.quickNavigation') },
-    items.map(item => h('button', { key: item.id, type: 'button', className: 'btn btn-ghost', style: buttonStyle, onClick: () => jumpTo(item.id) },
+  return h('nav', { className: 'recipe-section-jump', 'aria-label': t('recipe.quickNavigation') },
+    items.map(item => h('button', { key: item.id, type: 'button', onClick: () => jumpTo(item.id) },
       h('span', null, item.label),
       h('small', null, item.count)
     ))
@@ -7210,7 +7213,7 @@ function RecipeView({
     ? selectedRecipe.image
     : '';
   const detailAccent = getCategoryColor(selectedRecipe);
-  const detailStyle = { '--accent': detailAccent, '--accent-2': detailAccent };
+  const detailStyle = { '--accent': detailAccent, '--accent-2': detailAccent, '--recipe-image': heroImage ? `url("${heroImage}")` : 'none' };
 
   return h('main', {
     className: detailsLoading ? 'recipe-view is-loading-details' : 'recipe-view',
@@ -7314,6 +7317,12 @@ function RecipeView({
       needsVariantSelection: needsInlineVariantSelection,
       hasVariantSelection: true
     }),
+    !detailsLoading && hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeAnatomy, { recipe: selectedRecipe }),
+    !detailsLoading && hasResolvedRecipe && h(RecipeSectionJump, {
+      ingredientCount: countIngredients(selectedRecipe),
+      stepCount: effectiveStepTotal,
+      notesCount
+    }),
     !detailsLoading && hasResolvedRecipe && h('div', { className: 'recipe-tabs', role: 'tablist', 'aria-label': 'Sections de la recette' },
       [
         { key: 'ingredients', label: 'Ingrédients', count: countIngredients(selectedRecipe) },
@@ -7335,7 +7344,7 @@ function RecipeView({
       ' Glisse pour passer d\u2019un panneau \u00e0 l\u2019autre ',
       h('span', { 'aria-hidden': true }, '\u203a')
     ),
-    !detailsLoading && hasResolvedRecipe && h('div', { id: 'recipe-detail-content', className: 'recipe-detail-grid' },
+    !detailsLoading && hasResolvedRecipe && h('div', { key: selectedInlineVariantGroup?.key || detailKey, id: 'recipe-detail-content', className: 'recipe-detail-grid' },
       h('section', { id: 'recipe-panel-ingredients', role: 'tabpanel', className: mobileDetailTab === 'ingredients' ? 'recipe-panel ingredients-panel active-tab-panel' : 'recipe-panel ingredients-panel' },
         h('div', { className: 'panel-heading' },
           h('div', null, h('p', { className: 'eyebrow' }, 'Mise en place'), h('h2', null, 'Ingrédients'))

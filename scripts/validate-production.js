@@ -42,6 +42,7 @@ const TEXT_FILES_TO_SCAN = [
   '_headers',
   '_redirects',
   'style.css',
+  'recipe-editorial.css',
   'assets/image-manifest.js',
   'manifest.json',
   'sitemap.xml',
@@ -261,6 +262,7 @@ if (!staticAssets) {
     '/assets/catalog-1.js',
     '/assets/image-manifest.js',
     '/style.css',
+    '/recipe-editorial.css',
     '/manifest.json',
     '/assets/vendor/react.production.min.js',
     '/assets/vendor/react-dom.production.min.js',
@@ -323,6 +325,7 @@ if (!indexHtml.includes('https://cook-note.pages.dev/')) {
 });
 [
   'href="/style.css?',
+  'href="/recipe-editorial.css?',
   'src="/assets/vendor/react.production.min.js"',
   'src="/assets/vendor/react-dom.production.min.js"',
   'src="/assets/catalog-1.js?',

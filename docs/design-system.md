@@ -238,3 +238,11 @@ Avant push visible apres une passe design :
 - lancer le test visuel ;
 - verifier que `style.css`, `admin.css` et cette doc restent coherents ;
 - bump la version si `style.css` change.
+
+## Lecture editoriale des recettes
+
+- L'accent de categorie et une empreinte tres discrete de la photo composent l'ambiance de la fiche sans diminuer la lisibilite.
+- L'anatomie de recette resume les grandes phases entre la fiche rapide et le contenu detaille.
+- Les panneaux principaux restent visuellement ouverts ; les cadres complets sont reserves aux choix et contenus interactifs.
+- L'index lateral Ingredients / Etapes / Avant est reserve aux grands ecrans (plus de 1280 px).
+- Les cartes parentes portent un repere de chapitre et une profondeur legere, sans ajouter de texte secondaire.

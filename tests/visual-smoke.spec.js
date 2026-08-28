@@ -101,6 +101,7 @@ test.describe('Cook Note visual smoke', () => {
     }).toPass();
     await expect(page.locator('.recipe-card.master-card .card-category-crest')).toHaveCount(0);
     await expect(page.locator('.recipe-card.master-card .card-category-index')).toHaveCount(0);
+    await expect(page.locator('.recipe-card.master-card .card-chapter-mark')).toHaveCount(8);
     const masterCardMetrics = await page.locator('.recipe-card.master-card').evaluateAll(cards => cards.map(card => {
       const rect = card.getBoundingClientRect();
       const style = getComputedStyle(card);
@@ -409,7 +410,12 @@ test.describe('Cook Note visual smoke', () => {
       await mobileTabs.getByRole('tab', { name: /Avant/i }).click();
     }
     const notes = page.locator('.notes-panel');
-    await expect(page.locator('.recipe-section-jump')).toHaveCount(0);
+    await expect(page.locator('.recipe-anatomy')).toBeVisible();
+    if ((page.viewportSize()?.width || 0) > 1280) {
+      await expect(page.locator('.recipe-section-jump')).toBeVisible();
+    } else {
+      await expect(page.locator('.recipe-section-jump')).toHaveCount(0);
+    }
     await expect(notes.getByRole('heading', { level: 2, name: 'Avant de commencer' })).toBeVisible();
     await expect(notes.locator('.notes-panel-head .eyebrow')).toHaveCount(0);
     await expect(notes.locator('.notes-reference-heading')).toHaveCount(0);
