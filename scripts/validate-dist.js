@@ -48,7 +48,9 @@ const REQUIRED_FILES = [
   'service-worker.js',
   'sitemap.xml',
   '404.html',
-  'style.css'
+  'style.css',
+  'personal-tools.css',
+  'app-personal-tools.js'
 ];
 
 const FORBIDDEN_PATHS = [
@@ -224,7 +226,7 @@ if (!fs.existsSync(DIST)) {
     }
   }
 
-  ['index.html', 'recipe.html', 'app-art-images.js', 'app-techniques.js', 'theme.js', 'i18n.js', 'recipes.js', 'service-worker.js', 'style.css'].forEach(file => {
+  ['index.html', 'recipe.html', 'app-art-images.js', 'app-techniques.js', 'app-personal-tools.js', 'theme.js', 'i18n.js', 'recipes.js', 'service-worker.js', 'style.css', 'personal-tools.css'].forEach(file => {
     if (exists(file) && /\ufffd/.test(read(file))) {
       fail(`dist/${file}: caractere de remplacement UTF-8 detecte.`);
     }

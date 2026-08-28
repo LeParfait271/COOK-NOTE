@@ -4,7 +4,8 @@ Cook Note reste une web app statique autonome : le navigateur charge HTML, CSS, 
 
 ## Sources versionnees
 
-- `index.html`, `recipe.html`, `app.js`, `app-images.js`, `app-art-images.js`, `recipe.js`, `style.css` : shell public du site.
+- `index.html`, `recipe.html`, `app.js`, `app-images.js`, `app-art-images.js`, `app-personal-tools.js`, `recipe.js`, `style.css`, `personal-tools.css` : shell public du site.
+- `app-personal-tools.js` contient les outils personnels calcules cote navigateur ; leurs donnees locales sont incluses dans la sauvegarde complete.
 - `recipes.js` : catalogue complet, source GitHub des fiches recette.
 - `assets/catalog-*.js` : catalogues compacts de l'accueil, generes depuis `recipes.js`.
 - `assets/recipes/masters/` : masters PNG des images recette, gardes dans GitHub.

@@ -106,8 +106,8 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.14';
-const SITE_UPDATED_AT = '28/08/26';
+const SITE_VERSION = 'v5.16';
+const SITE_UPDATED_AT = '29/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.01';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
@@ -762,6 +762,9 @@ const STORAGE_KEYS = {
   recentRecipes: 'cook_note_recent_recipes',
   recentSearches: 'cook_note_recent_searches',
   pantry: 'cook_note_pantry_items',
+  equipmentProfile: 'cook_note_equipment_profile',
+  recipeHistory: 'cook_note_recipe_history',
+  recipeOverrides: 'cook_note_recipe_overrides',
   homeScroll: 'cook_note_home_scroll',
   scrollPositions: 'cook_note_session_scroll_positions',
   legacyFavorites: ['mc_food_favorites', 'cuisine_favs']
@@ -777,10 +780,13 @@ const LOCAL_DATA_EXPORT_KEYS = Object.freeze([
   STORAGE_KEYS.preferences,
   STORAGE_KEYS.recentRecipes,
   STORAGE_KEYS.recentSearches,
-  STORAGE_KEYS.pantry
+  STORAGE_KEYS.pantry,
+  STORAGE_KEYS.equipmentProfile,
+  STORAGE_KEYS.recipeHistory,
+  STORAGE_KEYS.recipeOverrides
 ]);
 const LOCAL_DATA_EXPORT_SCHEMA = 'cook-note-local-data';
-const LOCAL_DATA_EXPORT_VERSION = 1;
+const LOCAL_DATA_EXPORT_VERSION = 2;
 
 const {
   pantryIndex,
@@ -802,6 +808,16 @@ const {
   trapModalFocus,
   cacheUrlsForOffline
 } = window.CookNotePremium;
+const {
+  captureRecipeVersion,
+  normalizeEquipmentProfile,
+  RecipeHistoryBlock,
+  EquipmentProfileBlock,
+  CulinaryRatiosBlock,
+  MoldCalculatorBlock,
+  ByproductBlock,
+  PersonalToolsPanel
+} = window.CookNotePersonalTools || {};
 
 function readJson(key, fallback) {
   try {
@@ -850,14 +866,14 @@ function downloadLocalDataBackup() {
 
 function restoreLocalDataBackup(rawPayload) {
   const parsed = typeof rawPayload === 'string' ? JSON.parse(rawPayload) : rawPayload;
-  if (!parsed || parsed.schema !== LOCAL_DATA_EXPORT_SCHEMA || parsed.version !== LOCAL_DATA_EXPORT_VERSION || !parsed.data || typeof parsed.data !== 'object') {
+  if (!parsed || parsed.schema !== LOCAL_DATA_EXPORT_SCHEMA || ![1, LOCAL_DATA_EXPORT_VERSION].includes(parsed.version) || !parsed.data || typeof parsed.data !== 'object') {
     throw new Error('Format de sauvegarde Cook Note non reconnu.');
   }
   const allowed = new Set(LOCAL_DATA_EXPORT_KEYS);
   const entries = Object.entries(parsed.data).filter(([key]) => allowed.has(key));
   if (!entries.length) throw new Error('La sauvegarde ne contient aucune donnée Cook Note.');
   const serialized = JSON.stringify(parsed.data);
-  if (serialized.length > 1000000) throw new Error('La sauvegarde est trop volumineuse.');
+  if (serialized.length > 2500000) throw new Error('La sauvegarde est trop volumineuse.');
   entries.forEach(([key, value]) => writeJson(key, value));
   return entries.length;
 }
@@ -6433,7 +6449,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
   );
 }
 
-function PreferencesPanel({ open, onClose, preferences, updatePreferences, favoriteCount = 0, isOnline = true, offlineBusy = false, offlineProgress = null, preloadFavoritesOffline, exportLocalData, importLocalData }) {
+function PreferencesPanel({ open, onClose, preferences, updatePreferences, favoriteCount = 0, isOnline = true, offlineBusy = false, offlineProgress = null, preloadFavoritesOffline, exportLocalData, importLocalData, openPersonalTools }) {
   if (!open) return null;
   const update = patch => updatePreferences(patch);
   const density = preferences.density || 'comfort';
@@ -6492,6 +6508,11 @@ function PreferencesPanel({ open, onClose, preferences, updatePreferences, favor
           h('progress', { max: Math.max(1, offlineProgress.total || 1), value: offlineProgress.completed || 0, 'aria-label': t('offline.progress', offlineProgress) }),
           h('small', null, t('offline.progress', offlineProgress))
         )
+      ),
+      h('div', { className: 'preference-group personal-tools-launch' },
+        h('strong', null, t('personal.title')),
+        h('small', null, t('personal.openToolsHelp')),
+        h(Button, { variant: 'subtle', onClick: openPersonalTools, ariaLabel: t('personal.openTools') }, t('personal.openTools'))
       ),
       h('div', { className: 'preference-group preference-data-group' },
         h('div', { className: 'preference-data-copy' },
@@ -7012,7 +7033,14 @@ function RecipeView({
   openTechnique,
   notify,
   preloadRecipe = null,
-  detailsLoading = false
+  detailsLoading = false,
+  equipmentProfile,
+  historyEntries = [],
+  publishedRecipe,
+  activeOverride = false,
+  restoreRecipeVersion,
+  clearRecipeOverride,
+  ensureCatalog
 }) {
   const [factor, setFactor] = useState(1);
   const variantRefs = useMemo(() => (
@@ -7432,6 +7460,11 @@ function RecipeView({
           h(PrepTimelineBlock, { recipe: selectedRecipe })
         ),
         h('div', { className: 'notes-optional-stack' },
+          h(EquipmentProfileBlock, { requiredEquipment: getRecipeEquipment(selectedRecipe), profile: equipmentProfile, Disclosure: NotesDisclosure }),
+          h(MoldCalculatorBlock, { recipe: selectedRecipe, profile: equipmentProfile, Disclosure: NotesDisclosure }),
+          h(CulinaryRatiosBlock, { recipe: selectedRecipe, Disclosure: NotesDisclosure }),
+          h(ByproductBlock, { recipe: selectedRecipe, recipes, ensureCatalog, openRecipe, Disclosure: NotesDisclosure }),
+          h(RecipeHistoryBlock, { recipe: selectedRecipe, publishedRecipe, entries: historyEntries, activeOverride, onRestore: restoreRecipeVersion, onClear: clearRecipeOverride, Disclosure: NotesDisclosure }),
           h(FlavorMapBlock, { recipe: selectedRecipe }),
           h(IngredientKnowledgeBlock, { recipe: selectedRecipe }),
           h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
@@ -7469,13 +7502,14 @@ function App() {
   const [recipeDetailsById, setRecipeDetailsById] = useState({});
   const [recipeDetailsLoading, setRecipeDetailsLoading] = useState({});
   const [catalogChunksLoaded, setCatalogChunksLoaded] = useState(() => Boolean(window.COOK_NOTE_CATALOG_COMPLETE));
+  const [recipeOverrides, setRecipeOverrides] = useState(() => readJson(STORAGE_KEYS.recipeOverrides, {}));
   const recipes = useMemo(() => {
     const normalizedRecipes = normalizeLoadedRecipeValue(recipeSource);
     return Object.entries(normalizedRecipes).map(([id, recipe]) => {
       const tagsExtracted = extractTags(recipe);
-      return { id, tagsExtracted, ...recipe };
+      return { id, tagsExtracted, ...recipe, ...(recipeOverrides[id]?.recipe || {}) };
     }).sort((a, b) => a.title.localeCompare(b.title, 'fr'));
-  }, [recipeSource]);
+  }, [recipeSource, recipeOverrides]);
   const recipesById = useMemo(() => Object.fromEntries(recipes.map(recipe => [recipe.id, recipe])), [recipes]);
   const catalogStats = useMemo(() => getCatalogRecipeStats(recipes), [recipes]);
   const homeCatalogRecipes = useMemo(() => recipes.filter(recipe => !recipe.master), [recipes]);
@@ -7513,6 +7547,9 @@ function App() {
   const [shoppingOpen, setShoppingOpen] = useState(false);
   const [menuPlannerOpen, setMenuPlannerOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
+  const [personalToolsOpen, setPersonalToolsOpen] = useState(false);
+  const [equipmentProfile, setEquipmentProfile] = useState(() => normalizeEquipmentProfile(readJson(STORAGE_KEYS.equipmentProfile, {})));
+  const [recipeHistory, setRecipeHistory] = useState(() => readJson(STORAGE_KEYS.recipeHistory, {}));
   const [offlineBusy, setOfflineBusy] = useState(false);
   const [offlineProgress, setOfflineProgress] = useState(null);
   const [isOnline, setIsOnline] = useState(() => navigator.onLine !== false);
@@ -7533,7 +7570,7 @@ function App() {
   const recipeDetailWorkerRef = useRef(null);
   const recipeDetailRequestsRef = useRef(new Map());
   const activeTheme = preferences.theme === 'light' ? 'light' : 'dark';
-  const anyModalOpen = searchOpen || commandOpen || shoppingOpen || menuPlannerOpen || preferencesOpen;
+  const anyModalOpen = searchOpen || commandOpen || shoppingOpen || menuPlannerOpen || preferencesOpen || personalToolsOpen;
 
   useEffect(() => () => {
     recipeDetailWorkerRef.current?.terminate();
@@ -7601,6 +7638,19 @@ function App() {
     const details = recipeDetailsById[activeId];
     return details ? { ...activeRecipeBase, ...details } : activeRecipeBase;
   }, [activeId, activeRecipeBase, recipeDetailsById]);
+  const publishedActiveRecipe = useMemo(() => {
+    if (!activeId || !recipeSource[activeId]) return activeRecipe;
+    return { id: activeId, ...recipeSource[activeId], ...(recipeDetailsById[activeId] || {}) };
+  }, [activeId, activeRecipe, recipeDetailsById, recipeSource]);
+  useEffect(() => {
+    if (!activeId || !publishedActiveRecipe || isMasterRecipe(publishedActiveRecipe) || !recipeDetailsById[activeId]) return;
+    setRecipeHistory(current => {
+      const next = captureRecipeVersion(current, activeId, publishedActiveRecipe, window.COOK_NOTE_ASSET_VERSION || 'site');
+      if (next === current) return current;
+      writeJson(STORAGE_KEYS.recipeHistory, next);
+      return next;
+    });
+  }, [activeId, publishedActiveRecipe, recipeDetailsById]);
   const activeRecipes = useMemo(() => {
     if (!activeRecipe || !recipeDetailsById[activeId]) return recipes;
     return recipes.map(recipe => recipe.id === activeId ? activeRecipe : recipe);
@@ -8232,6 +8282,28 @@ function App() {
     loadDeferredCatalogChunks().catch(() => {});
   }
 
+  function saveEquipmentProfile(profile) {
+    const next = normalizeEquipmentProfile(profile);
+    setEquipmentProfile(next);
+    writeJson(STORAGE_KEYS.equipmentProfile, next);
+    notify(t('personal.profileSaved'));
+  }
+
+  function restoreRecipeVersion(entry) {
+    if (!activeId || !entry?.recipe) return;
+    const next = { ...recipeOverrides, [activeId]: entry };
+    setRecipeOverrides(next);
+    writeJson(STORAGE_KEYS.recipeOverrides, next);
+  }
+
+  function clearRecipeOverride() {
+    if (!activeId) return;
+    const next = { ...recipeOverrides };
+    delete next[activeId];
+    setRecipeOverrides(next);
+    writeJson(STORAGE_KEYS.recipeOverrides, next);
+  }
+
   function openRecipe(id) {
     const target = recipesById[id];
     if (!target) return;
@@ -8588,7 +8660,14 @@ function App() {
            openTechnique,
            notify,
            preloadRecipe,
-           detailsLoading: Boolean(activeId && recipeDetailsLoading[activeId] && !recipeDetailsById[activeId])
+           detailsLoading: Boolean(activeId && recipeDetailsLoading[activeId] && !recipeDetailsById[activeId]),
+           equipmentProfile,
+           historyEntries: recipeHistory[activeId] || [],
+           publishedRecipe: publishedActiveRecipe,
+           activeOverride: Boolean(recipeOverrides[activeId]),
+           restoreRecipeVersion,
+           clearRecipeOverride,
+           ensureCatalog: loadDeferredCatalogChunks
         })
       : activePage === 'techniques'
         ? h(TechniquesView, {
@@ -8684,7 +8763,24 @@ function App() {
       offlineProgress,
       preloadFavoritesOffline: preloadFavoriteRecipesOffline,
       exportLocalData,
-      importLocalData
+      importLocalData,
+      openPersonalTools: () => {
+        setPreferencesOpen(false);
+        setPersonalToolsOpen(true);
+      }
+    }),
+    h(PersonalToolsPanel, {
+      open: personalToolsOpen,
+      onClose: () => setPersonalToolsOpen(false),
+      profile: equipmentProfile,
+      saveProfile: saveEquipmentProfile,
+      recipes: searchableRecipes,
+      ensureCatalog: loadDeferredCatalogChunks,
+      openRecipe: id => {
+        setPersonalToolsOpen(false);
+        openRecipe(id);
+      },
+      icon: name => h(Icon, { name })
     }),
     h(CommandPalette, {
       open: commandOpen,

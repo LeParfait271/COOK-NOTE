@@ -428,6 +428,30 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
+  test('personal kitchen tools save a profile and enrich a recipe', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/opera?lang=fr');
+    await waitForCookNote(page);
+
+    await page.locator('.top-settings-btn').click();
+    await page.getByRole('button', { name: 'Ouvrir mes outils' }).click();
+    await expect(page.getByRole('heading', { name: 'Mes outils de cuisine' })).toBeVisible();
+    await page.getByLabel('Matériel disponible').fill('Batteur électrique, Thermomètre, Cadre carré de 20cm');
+    await page.getByLabel('Moule rond habituel (cm)').fill('24');
+    await page.getByRole('button', { name: 'Enregistrer mon matériel' }).click();
+    await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('cook_note_equipment_profile') || '{}').roundMold)).toBe(24);
+    await page.getByRole('button', { name: 'Fermer', exact: true }).click();
+
+    const tabs = page.locator('.recipe-tabs');
+    if (await tabs.isVisible()) await tabs.getByRole('tab', { name: /Avant/i }).click();
+    const notes = page.locator('.notes-panel');
+    await expect(notes.locator('.personal-equipment-block')).toHaveCount(1);
+    await expect(notes.locator('.personal-mold-block')).toHaveCount(1);
+    await expect(notes.locator('.personal-ratios-block')).toHaveCount(1);
+    await expect(notes.locator('.personal-history-block')).toHaveCount(1);
+    await expectNoHorizontalOverflow(page);
+  });
+
   test('direct recipe route renders hero and decoded copy', async ({ page }, testInfo) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/poulet_sauce_pimentee?lang=fr');

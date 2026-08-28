@@ -241,6 +241,13 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Le mode cuisine et les boutons minuteurs ont ete supprimes. Ne pas recreer `focusMode`, `recipe-focus-mode`, `Mode cuisine`, `step-timer`, `timerEnd`, `timerLabel`, `cooking-step-card` ou `cooking-step-actions`.
 - Si une regle est trop subjective pour etre testee automatiquement, elle doit au minimum etre ecrite ici et mentionnee dans le compte rendu.
 
+### Decision durable - outils personnels (2026-08-28)
+
+- Sont acceptes : historique local borne des versions, profil de materiel, calculateur de moules/contenants, valorisation des sous-produits, ratios culinaires, sauvegarde/restauration complete et detection des recettes proches.
+- L'historique conserve au maximum quatre versions par recette et trente recettes ; une restauration reste locale, reversible et ne modifie jamais le catalogue publie.
+- La detection de proximite est seulement informative : elle ne fusionne, ne renomme et ne supprime aucune recette automatiquement.
+- Sont refuses et ne doivent pas etre reproposes sans reouverture explicite : carnet d'essais, statuts personnels, retroplanning, memoire automatique des ajustements et export PDF/dossier.
+
 ## Workflow de livraison (agent local + GitHub Desktop)
 
 - L'agent travaille en local sur le depot (clone de `github.com/LeParfait271/COOK-NOTE`). Il fait le travail, lance les validations utiles et commit en local.

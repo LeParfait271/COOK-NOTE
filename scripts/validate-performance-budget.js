@@ -11,12 +11,15 @@ const FILE_BUDGETS = [
   ['app-images.js', 8 * KB],
   ['theme.js', 4 * KB],
   ['app-premium.js', 76 * KB],
+  ['app-personal-tools.js', 32 * KB],
   ['app-techniques.js', 40 * KB],
   // Le detail worker et le catalogue de recherche paresseux restent dans le budget source.
-  ['app.js', 412 * KB],
+  ['app.js', 414 * KB],
   // Source lisible pour maintenance ; le poids réellement livré reste plafonné séparément.
   ['style.css', 235 * KB],
   ['dist/style.css', 203 * KB],
+  ['personal-tools.css', 8 * KB],
+  ['dist/personal-tools.css', 6 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.
   ['recipes.js', 900 * KB],
   ['recipe-worker.js', 4 * KB],
