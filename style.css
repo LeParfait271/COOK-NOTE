@@ -8344,6 +8344,202 @@ body:has(.modal-backdrop) #cook-note-update-action {
 
 @media screen{.season-tabs button,.season-category-tabs button{min-height:44px}}
 
+/* Fiche rapide : hiérarchie nette, contenu équilibré et lecture immédiate. */
+.recipe-summary-head {
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+}
+
+.recipe-summary-head .eyebrow {
+  margin: 0;
+  color: color-mix(in srgb, var(--accent) 84%, var(--text));
+  letter-spacing: .06em;
+}
+
+.recipe-summary-head h2 {
+  font-size: clamp(20px, 1.9vw, 26px);
+}
+
+.recipe-quick-facts {
+  align-content: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.recipe-quick-fact {
+  display: grid;
+  align-content: center;
+  min-height: 62px;
+  padding: 11px 13px;
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--line));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 72%),
+    color-mix(in srgb, var(--surface-soft) 82%, transparent);
+}
+
+.recipe-quick-fact span {
+  margin-bottom: 4px;
+  color: color-mix(in srgb, var(--muted) 68%, var(--text));
+}
+
+.recipe-quick-fact strong {
+  font-size: 15px;
+}
+
+.recipe-chef-strip {
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 9%, transparent), transparent 72%),
+    color-mix(in srgb, var(--surface-soft) 72%, transparent);
+}
+
+.recipe-chef-strip strong {
+  color: color-mix(in srgb, var(--accent) 84%, var(--text));
+  letter-spacing: .06em;
+}
+
+.recipe-chef-strip ul {
+  counter-reset: chef-note;
+  gap: 6px;
+}
+
+.recipe-chef-strip li {
+  counter-increment: chef-note;
+  border-left: 0;
+  background: color-mix(in srgb, var(--surface) 68%, transparent);
+  color: color-mix(in srgb, var(--text) 92%, var(--muted));
+  padding: 9px 12px 9px 42px;
+  line-height: 1.38;
+}
+
+.recipe-chef-strip li::before {
+  content: counter(chef-note, decimal-leading-zero);
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, var(--line));
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-strong));
+  color: color-mix(in srgb, var(--accent) 88%, var(--text));
+  font-size: 10px;
+  font-weight: 950;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.recipe-equipment-strip strong {
+  color: color-mix(in srgb, var(--accent) 84%, var(--text));
+  letter-spacing: .06em;
+}
+
+.recipe-equipment-strip li {
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--line));
+  background: color-mix(in srgb, var(--surface-soft) 78%, transparent);
+}
+
+@media screen and (min-width: 1061px) {
+  .recipe-summary-panel {
+    grid-template-columns: minmax(280px, .82fr) minmax(0, 1.18fr);
+    grid-template-areas:
+      "head chef"
+      "facts chef"
+      "equipment chef";
+    align-items: start;
+    gap: 14px 24px;
+    padding: 18px 20px 16px;
+  }
+
+  .recipe-summary-head {
+    grid-area: head;
+    min-height: 34px;
+  }
+
+  .recipe-quick-facts {
+    grid-area: facts;
+  }
+
+  .recipe-chef-strip {
+    grid-area: chef;
+    align-self: stretch;
+    margin: 0;
+    padding: 14px;
+  }
+
+  .recipe-equipment-strip {
+    grid-area: equipment;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 14px;
+    border-top: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+  }
+
+  .recipe-equipment-strip ul {
+    flex: 1 1 220px;
+    min-width: 0;
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  .recipe-summary-panel {
+    gap: 14px;
+  }
+
+  .recipe-chef-strip {
+    padding: 14px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .recipe-summary-panel {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .recipe-summary-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .recipe-quick-facts {
+    gap: 8px;
+  }
+
+  .recipe-quick-fact {
+    min-height: 52px;
+    padding: 8px 10px;
+  }
+
+  .recipe-quick-fact strong {
+    font-size: 14px;
+  }
+
+  .recipe-chef-strip {
+    padding: 12px;
+  }
+
+  .recipe-chef-strip li {
+    padding: 8px 10px 8px 38px;
+    font-size: 12px;
+  }
+
+  .recipe-chef-strip li::before {
+    left: 10px;
+  }
+
+  .recipe-equipment-strip {
+    padding-top: 12px;
+  }
+}
+
 /* Keep the first useful decision in view on every route. */
 .command-title{margin:14px 0 0;color:var(--text);font-size:18px;line-height:1.1}.command-sections{margin-top:10px}.collection-links-context{margin:0 0 12px;color:var(--muted);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.detail-utility-menu{position:relative}.detail-utility-menu>summary{display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;list-style:none}.detail-utility-menu>summary::-webkit-details-marker{display:none}.detail-utility-menu:not([open]) .detail-utility-popover{display:none}.detail-utility-popover{position:absolute;z-index:32;top:calc(100% + 8px);right:0;width:min(260px,calc(100vw - 28px));display:grid;gap:5px;border:1px solid color-mix(in srgb,var(--accent) 36%,var(--line));border-radius:12px;background:color-mix(in srgb,var(--surface-strong) 96%,#080706);box-shadow:0 18px 44px rgba(0,0,0,.34);padding:6px}.detail-utility-item{width:100%;min-height:44px;justify-content:flex-start;gap:9px;text-decoration:none}.shopping-store-metrics{grid-template-columns:minmax(0,.76fr) minmax(0,.76fr) minmax(160px,1.48fr)}.shopping-store-metrics span:last-child strong{overflow:visible;white-space:normal;line-height:1.24}.mc-shell.theme-light .command-palette .command-row-icon{border-color:rgba(112,74,28,.28);background:rgba(112,74,28,.09);color:#5a391b}
 
