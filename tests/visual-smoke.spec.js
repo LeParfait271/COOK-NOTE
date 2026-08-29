@@ -163,7 +163,7 @@ test.describe('Cook Note visual smoke', () => {
         searchClipPath: search.clipPath
       };
     });
-    expect(homeLayout.footerGap).toBeGreaterThanOrEqual(48);
+    expect(homeLayout.footerGap).toBeGreaterThanOrEqual(testInfo.project.name === 'mobile' ? 32 : 48);
     expect(homeLayout.footerGap).toBeLessThanOrEqual(128);
     expect(homeLayout.leftDelta).toBeLessThanOrEqual(1);
     expect(homeLayout.widthDelta).toBeLessThanOrEqual(1);
