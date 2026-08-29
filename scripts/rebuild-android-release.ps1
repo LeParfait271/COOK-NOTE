@@ -18,6 +18,7 @@ $ReleaseApk = Join-Path $Root "android-legacy\app\build\outputs\apk\release\app-
 $SummaryPath = Join-Path $Root "tmp\android-rebuild-latest.json"
 $GradleLatestLogPath = Join-Path $Root "tmp\android-gradle-latest.log"
 $BundledNode = Join-Path $Root ".tools\node\current\node.exe"
+$ToolsRoot = Join-Path $env:LOCALAPPDATA "CookNoteAndroidTools"
 
 function Assert-OfficialRepository {
   $ResolvedRoot = [System.IO.Path]::GetFullPath($Root).TrimEnd("\")
@@ -36,6 +37,22 @@ function Get-NodeExecutable {
     return $BundledNode
   }
   throw "Node introuvable dans le PATH et dans .tools/node/current."
+}
+
+function Initialize-JavaRuntime {
+  $JavaCommand = Get-Command java.exe -ErrorAction SilentlyContinue
+  if ($JavaCommand) {
+    return
+  }
+
+  $BundledJdk = Get-ChildItem -Path (Join-Path $ToolsRoot "jdk") -Directory -ErrorAction SilentlyContinue |
+    Select-Object -First 1
+  if (-not $BundledJdk) {
+    throw "Java introuvable. Lance npm run android:legacy:setup."
+  }
+
+  $env:JAVA_HOME = $BundledJdk.FullName
+  $env:Path = (Join-Path $BundledJdk.FullName "bin") + ";" + $env:Path
 }
 
 function Read-Utf8File($Path) {
@@ -274,6 +291,7 @@ function Publish-ValidatedApk($ApkPath, $TargetVersion) {
 
 Assert-OfficialRepository
 $Node = Get-NodeExecutable
+Initialize-JavaRuntime
 $Aapt = Find-AndroidTool "aapt.exe"
 $ApkSigner = Find-AndroidTool "apksigner.bat"
 $InitialVersions = Get-VersionState

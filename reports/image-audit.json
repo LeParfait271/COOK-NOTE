@@ -1,5 +1,5 @@
 {
-  "total": 327,
+  "total": 329,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -1326,6 +1326,24 @@
         "height": 507
       },
       "cardBytes": 73280
+    },
+    {
+      "id": "charlotte_variantes",
+      "title": "Charlotte",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/charlotte_variantes.jpg",
+      "card": "assets/recipes/cards/charlotte_variantes.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 178193,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 56442
     },
     {
       "id": "cheesecake_basque",
@@ -3342,6 +3360,24 @@
         "height": 428
       },
       "cardBytes": 69607
+    },
+    {
+      "id": "opera",
+      "title": "Opéra",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/opera.jpg",
+      "card": "assets/recipes/cards/opera.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 193084,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 63257
     },
     {
       "id": "osso_buco",

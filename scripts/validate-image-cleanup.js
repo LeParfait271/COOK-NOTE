@@ -15,6 +15,16 @@ const EXPECTED_GLOBAL_THEME_FILES = new Set([
   'assets/theme/day/global/hero.jpg',
   'assets/theme/day/global/logo.png'
 ]);
+const ROOT_CATEGORY_IDS = new Set([
+  'accompagnements_maitre',
+  'apero_maitre',
+  'desserts_maitre',
+  'elements_base_maitre',
+  'entrees_maitre',
+  'petit_dejeuner_maitre',
+  'plats_maitre',
+  'sauces_maitre'
+]);
 const TEXT_FILES = [
   'index.html',
   'recipe.html',
@@ -152,9 +162,15 @@ function main() {
     Object.entries(map || {}).forEach(([id, image]) => {
       const normalized = normalize(image);
       const isCategory = normalized === `assets/theme/${themeDir}/categories/${id}.jpg`;
+      const isLightParentFallback = theme === 'light'
+        && ROOT_CATEGORY_IDS.has(id)
+        && normalized === `assets/theme/dark/categories/${id}.jpg`;
       const isRecipe = normalized === `assets/theme/${themeDir}/recipes/${id}.jpg`;
-      if (!isCategory && !isRecipe) errors.push(`${theme}/${id}: chemin theme incoherent (${normalized}).`);
+      if (!isCategory && !isLightParentFallback && !isRecipe) errors.push(`${theme}/${id}: chemin theme incoherent (${normalized}).`);
       addUsed(used, normalized, `override ${theme} pour ${id}`);
+      if (isLightParentFallback) {
+        addUsed(used, `assets/theme/day/categories/${id}.jpg`, `reserve jour pour ${id}`);
+      }
     });
   });
 
