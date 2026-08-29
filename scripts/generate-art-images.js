@@ -97,8 +97,8 @@ function addDayFiles(map, numeric, recipeIds) {
   });
   ROOT_CATEGORY_IDS.forEach(id => {
     const file = `${id}.jpg`;
-    if (recipeIds.has(id) && fs.existsSync(path.join(ROOT, 'assets/theme/day/categories', file))) {
-      map[id] = `/assets/theme/day/categories/${file}?v=${numeric}-${PARENT_ART_REVISION}`;
+    if (recipeIds.has(id) && fs.existsSync(path.join(ROOT, 'assets/theme/dark/categories', file))) {
+      map[id] = `/assets/theme/dark/categories/${file}?v=${numeric}-${PARENT_ART_REVISION}`;
     }
   });
 }

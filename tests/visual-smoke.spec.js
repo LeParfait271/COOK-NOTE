@@ -105,18 +105,24 @@ test.describe('Cook Note visual smoke', () => {
     const masterCardMetrics = await page.locator('.recipe-card.master-card').evaluateAll(cards => cards.map(card => {
       const rect = card.getBoundingClientRect();
       const style = getComputedStyle(card);
+      const edge = getComputedStyle(card, '::before');
       return {
         title: card.getAttribute('title'),
         heading: card.querySelector('.card-title')?.textContent.trim() || '',
         ratio: rect.width / rect.height,
         leftBorder: style.borderLeftWidth,
         rightBorder: style.borderRightWidth,
-        rightBorderColor: style.borderRightColor
+        rightBorderColor: style.borderRightColor,
+        edgeDisplay: edge.display,
+        edgeRightBorder: edge.borderRightWidth,
+        edgeRightColor: edge.borderRightColor,
+        edgeZIndex: Number(edge.zIndex)
       };
     }));
     expect(masterCardMetrics).toHaveLength(8);
     expect(masterCardMetrics.every(card => card.title === card.heading && Math.abs(card.ratio - (16 / 9)) < 0.08)).toBe(true);
     expect(masterCardMetrics.every(card => card.rightBorder === card.leftBorder && card.rightBorder !== '0px' && card.rightBorderColor !== 'rgba(0, 0, 0, 0)')).toBe(true);
+    expect(masterCardMetrics.every(card => card.edgeDisplay === 'block' && card.edgeRightBorder !== '0px' && card.edgeRightColor !== 'rgba(0, 0, 0, 0)' && card.edgeZIndex > 1)).toBe(true);
     await expect(page.locator('.top-menu-btn, .top-techniques-btn, .top-actions .cart-icon-btn, .top-actions [aria-label="Panier courses"]')).toHaveCount(0);
     await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
     if (testInfo.project.name === 'mobile') {
@@ -240,7 +246,7 @@ test.describe('Cook Note visual smoke', () => {
     expect(commandIconColor).not.toBe('rgb(255, 255, 255)');
     await page.keyboard.press('Escape');
     const firstDayCardSource = await page.locator('.recipe-card.master-card .card-image').first().getAttribute('src');
-    expect(firstDayCardSource).toContain('/assets/theme/day/categories/');
+    expect(firstDayCardSource).toContain('/assets/theme/dark/categories/');
     expect(firstDayCardSource).toContain('_maitre.jpg?v=');
     expect(firstDayCardSource).not.toContain('/assets/recipes/cards/parent_');
     const firstCardMediaOpacity = await page.locator('.recipe-card.master-card .card-media').first().evaluate(node =>

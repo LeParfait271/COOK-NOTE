@@ -9037,3 +9037,16 @@ transform:none!important
     aspect-ratio: 16 / 9;
   }
 }
+
+/* Keep every parent-card edge visible above its artwork, including the right edge. */
+.home-view .recipe-card.master-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: block !important;
+  pointer-events: none;
+  border: 1px solid color-mix(in srgb, var(--accent) 58%, var(--line));
+  border-radius: inherit;
+  box-sizing: border-box;
+}
