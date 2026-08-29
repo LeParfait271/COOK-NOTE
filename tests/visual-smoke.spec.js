@@ -471,12 +471,31 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
+  test('restaurant tools remain usable without altering recipe data', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/?lang=fr');
+    await waitForCookNote(page);
+    await page.locator('.top-settings-btn').click();
+    await page.getByRole('button', { name: 'Ouvrir mes outils' }).click();
+    await page.getByRole('tab', { name: 'Restaurant' }).click();
+    await expect(page.getByRole('tab', { name: 'Plan de production' })).toBeVisible();
+    await page.locator('.restaurant-recipe-picker input[type="checkbox"]').first().check();
+    await expect(page.locator('.production-plan article')).toHaveCount(1);
+    await page.getByRole('tab', { name: 'Matrice allergènes' }).click();
+    await expect(page.locator('.restaurant-result')).toBeVisible();
+    await page.getByRole('tab', { name: 'Gestion des restes' }).click();
+    await expect(page.locator('.leftovers-list article')).toHaveCount(1);
+    await expectNoHorizontalOverflow(page);
+  });
+
   test('direct recipe route renders hero and decoded copy', async ({ page }, testInfo) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
     await waitForCookNote(page);
 
     await expect(page.locator('.recipe-view')).toBeVisible();
+    await expect(page.locator('.recipe-safety-sources')).toBeVisible();
+    await expect(page.locator('.recipe-safety-sources a[href="https://agriculture.gouv.fr/la-campylobacteriose"]')).toBeVisible();
     await expect(page.getByRole('heading', { name: new RegExp('Poulet sauce piment\\u00e9e', 'i') })).toBeVisible();
     await expect(page.locator('.recipe-detail-hero.has-photo')).toBeVisible();
     const heroImage = page.locator('.recipe-detail-hero-image');

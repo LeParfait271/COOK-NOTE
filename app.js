@@ -106,8 +106,8 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.27';
-const SITE_UPDATED_AT = '29/08/26';
+const SITE_VERSION = 'v5.28';
+const SITE_UPDATED_AT = '30/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.25';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
@@ -817,6 +817,7 @@ const {
   ByproductBlock,
   PersonalToolsPanel
 } = window.CookNotePersonalTools || {};
+const { RecipeSafetySources } = window.CookNoteSafetySources || {};
 
 function readJson(key, fallback) {
   try {
@@ -1653,8 +1654,6 @@ function countInlineVariantGroups(recipe) {
 }
 
 function getRecipeVariantLabel(recipe) {
-  // Les fiches parentes servent uniquement de point d'entrée vers leurs recettes.
-  // Le compteur est réservé aux fiches recette qui portent leurs propres variantes.
   if (isMasterRecipe(recipe)) return '';
   const count = countInlineVariantGroups(recipe);
   if (!count) return '';
@@ -7524,6 +7523,7 @@ function RecipeView({
         )
       )
     ),
+    !detailsLoading && hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeSafetySources, { recipe: selectedRecipe }),
     showRecipeUtilities && h(SharePanel, {
       open: shareOpen,
       onClose: () => setShareOpen(false),
@@ -8799,6 +8799,7 @@ function App() {
       saveProfile: saveEquipmentProfile,
       recipes: searchableRecipes,
       ensureCatalog: loadDeferredCatalogChunks,
+      getAllergens: getRecipeAllergens,
       openRecipe: id => {
         setPersonalToolsOpen(false);
         openRecipe(id);

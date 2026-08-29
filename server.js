@@ -25,12 +25,15 @@ const PUBLIC_ROOT_FILES = new Set([
   'style.css',
   'recipe-editorial.css',
   'personal-tools.css',
+  'restaurant-tools.css',
+  'recipe-safety-sources.css',
   'app.js',
   'app-images.js',
   'app-art-images.js',
   'app-inline-variant-rules.js',
   'app-premium.js',
   'app-personal-tools.js',
+  'app-safety-sources.js',
   'app-techniques.js',
   'theme.js',
   'i18n.js',
@@ -294,11 +297,14 @@ function staticCacheControl(filePath, noStore = false) {
     relative === 'app-inline-variant-rules.js' ||
     relative === 'app-techniques.js' ||
     relative === 'app-personal-tools.js' ||
+    relative === 'app-safety-sources.js' ||
     relative === 'theme.js' ||
     relative === 'i18n.js' ||
     relative === 'style.css' ||
     relative === 'recipe-editorial.css' ||
     relative === 'personal-tools.css' ||
+    relative === 'restaurant-tools.css' ||
+    relative === 'recipe-safety-sources.css' ||
     relative === 'recipe.js' ||
     relative === 'recipe-worker.js' ||
     relative === 'recipes.js' ||

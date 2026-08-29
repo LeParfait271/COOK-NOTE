@@ -50,7 +50,10 @@ const REQUIRED_FILES = [
   '404.html',
   'style.css',
   'personal-tools.css',
-  'app-personal-tools.js'
+  'restaurant-tools.css',
+  'recipe-safety-sources.css',
+  'app-personal-tools.js',
+  'app-safety-sources.js'
 ];
 
 const FORBIDDEN_PATHS = [

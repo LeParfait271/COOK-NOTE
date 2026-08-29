@@ -23,6 +23,15 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 - Toute correction d'une fiche existante doit etre presentee a l'utilisateur et explicitement validee avant integration.
 - Une proposition de temperature a coeur, de repere sensoriel ou de securite complete les temps deja ecrits : elle ne remplace et ne supprime jamais une duree, une temperature, une quantite, une etape ou une note existante.
 - Le rapport `reports/culinary-proposals.md` est consultatif. Sa generation doit prouver que l'empreinte de `recipes.js` est identique avant et apres l'audit.
+- Les sources officielles de securite alimentaire sont affichees en bas uniquement des fiches concernees, sous forme de liens vers le ministere de l'Agriculture et l'Anses. Elles completent la fiche sans modifier son contenu et ne remplacent pas le plan de maitrise sanitaire du restaurant.
+
+### Outils restaurant retenus
+
+- Le perimetre professionnel accepte comprend uniquement : plan de production, matrice allergenes, formats de service et aide a la gestion des restes.
+- Le plan de production est un retroplanning indicatif construit depuis les temps deja presents ; il ne reecrit aucune etape.
+- La matrice allergenes utilise la detection existante et doit rappeler qu'une verification des etiquettes, fournisseurs et contaminations croisees reste obligatoire.
+- Les formats restaurant, degustation, buffet et banquet appliquent un facteur de planification sans modifier les quantites sources.
+- La gestion des restes restitue les consignes de conservation deja presentes. En leur absence, elle interdit toute deduction automatique de duree ou de reutilisation.
 
 - Toute creation ou import de recette suit `docs/recipe-creation-workflow.md`.
 - Un message compose uniquement d'un ou plusieurs liens HTTP(S) vers des pages de recettes vaut demande complete d'import dans Cook Note. Ne pas demander a l'utilisateur de preciser `ajoute`, `importe` ou `utilise le workflow` : appliquer directement le workflow, le verrou de classement, le kit visuel, l'integration et les validations.

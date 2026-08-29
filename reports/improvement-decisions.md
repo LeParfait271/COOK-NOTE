@@ -200,3 +200,18 @@ l'APK Android Legacy.
 
 Statut : `accepté`, avec vérification fonctionnelle, technique et visuelle avant
 livraison.
+
+## Outils restaurant sélectionnés le 30/08/2026
+
+Parmi les vingt propositions professionnelles, seuls les points 5, 10, 11 et
+15 sont acceptés : plan de production, matrice allergènes, formats de service
+et gestion des restes.
+
+Les points 1, 2, 3, 4, 6, 7, 8, 9, 12, 13, 14, 16, 17, 18, 19 et 20 sont
+refusés et ne doivent pas être reproposés sans demande explicite.
+
+L'ajout d'un bloc de sources officielles en bas des recettes concernées est
+accepté. Il doit lier le ministère de l'Agriculture et l'Anses sans modifier les
+temps, températures, quantités, étapes ou notes existantes.
+
+Statut : `accepté`, web/PWA uniquement ; aucun rebuild APK autorisé.

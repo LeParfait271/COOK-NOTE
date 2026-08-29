@@ -19,6 +19,7 @@ const ROOT_FILES = [
   'app-techniques.js',
   'app-premium.js',
   'app-personal-tools.js',
+  'app-safety-sources.js',
   'app-images.js',
   'app-art-images.js',
   'app-inline-variant-rules.js',
@@ -36,7 +37,9 @@ const ROOT_FILES = [
   'sitemap.xml',
   'style.css',
   'recipe-editorial.css',
-  'personal-tools.css'
+  'personal-tools.css',
+  'restaurant-tools.css',
+  'recipe-safety-sources.css'
 ];
 
 const ASSET_FILES = [
@@ -568,6 +571,8 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `  <link rel="stylesheet" href="/style.css?v=${version}" />`,
     `  <link rel="stylesheet" href="/recipe-editorial.css?v=${version}" />`,
     `  <link rel="stylesheet" href="/personal-tools.css?v=${version}" />`,
+    `  <link rel="stylesheet" href="/restaurant-tools.css?v=${version}" />`,
+    `  <link rel="stylesheet" href="/recipe-safety-sources.css?v=${version}" />`,
     `  <script id="recipe-jsonld" type="application/ld+json">${safeJson(jsonLd)}</script>`,
     '</head>',
     '<body>',
@@ -598,6 +603,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `  <script src="/i18n.js?v=${version}"></script>`,
     `  <script src="/app-premium.js?v=${version}"></script>`,
     `  <script src="/app-personal-tools.js?v=${version}"></script>`,
+    `  <script src="/app-safety-sources.js?v=${version}"></script>`,
     `  <script src="/app-techniques.js?v=${version}"></script>`,
     '  <script>',
     `    window.COOK_NOTE_PRERENDERED_ROUTE = ${safeJson(id)};`,

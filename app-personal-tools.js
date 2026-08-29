@@ -238,6 +238,114 @@
     return pairs.sort((left, right) => right.score - left.score || left.left.title.localeCompare(right.left.title, 'fr')).slice(0, Number(limit) || 20);
   }
 
+  const SERVICE_FORMATS = Object.freeze({
+    restaurant: { label: 'Service restaurant', factor: 1 },
+    tasting: { label: 'Menu dégustation', factor: 0.6 },
+    buffet: { label: 'Buffet', factor: 1.15 },
+    banquet: { label: 'Banquet', factor: 1.05 }
+  });
+
+  function recipeDuration(recipe) {
+    const active = Math.max(0, Number(recipe && recipe.activeTime) || 0);
+    const cook = Math.max(0, Number(recipe && recipe.cookTime) || 0);
+    const rest = Math.max(0, Number(recipe && recipe.restTime) || 0);
+    return { active, cook, rest, total: active + cook + rest };
+  }
+
+  function buildProductionPlan(recipes, serviceAt) {
+    const end = new Date(serviceAt);
+    if (!Number.isFinite(end.getTime())) return [];
+    return (recipes || []).map(recipe => {
+      const duration = recipeDuration(recipe);
+      return {
+        recipe,
+        duration,
+        startsAt: duration.total ? new Date(end.getTime() - duration.total * 60000) : null,
+        serviceAt: end
+      };
+    }).sort((left, right) => (left.startsAt ? left.startsAt.getTime() : Infinity) - (right.startsAt ? right.startsAt.getTime() : Infinity));
+  }
+
+  function getRestaurantStorageGuidance(recipe) {
+    const practical = recipe && recipe.practical && Array.isArray(recipe.practical.storage) ? recipe.practical.storage : [];
+    const notes = (recipe && Array.isArray(recipe.notes) ? recipe.notes : [])
+      .map(plain)
+      .filter(note => /\b(conservation|conserver|refriger|congel|au froid|sous vide)\b/i.test(normalize(note)));
+    return [...new Set([...practical.map(plain), ...notes])].filter(Boolean);
+  }
+
+  function ProfessionalKitchenTools({ recipes, ensureCatalog, getAllergens }) {
+    const [section, setSection] = useState('production');
+    const [catalog, setCatalog] = useState(recipes || []);
+    const [selectedIds, setSelectedIds] = useState([]);
+    const [query, setQuery] = useState('');
+    const [serviceAt, setServiceAt] = useState(() => {
+      const date = new Date(Date.now() + 4 * 3600000);
+      date.setMinutes(Math.ceil(date.getMinutes() / 15) * 15, 0, 0);
+      return date.toISOString().slice(0, 16);
+    });
+    const [format, setFormat] = useState('restaurant');
+    const [covers, setCovers] = useState(20);
+    useEffect(() => {
+      Promise.resolve(typeof ensureCatalog === 'function' ? ensureCatalog() : null).then(source => {
+        if (!source || typeof source !== 'object') return;
+        setCatalog(Object.entries(source).map(([id, recipe]) => ({ id, ...recipe })));
+      }).catch(() => null);
+    }, []);
+    const leaves = useMemo(() => (catalog || []).filter(recipe => recipe && recipe.id && !recipe.variants && Array.isArray(recipe.ingredients)), [catalog]);
+    const filtered = useMemo(() => {
+      const needle = normalize(query);
+      return leaves.filter(recipe => !needle || searchText(recipe).includes(needle)).slice(0, 40);
+    }, [leaves, query]);
+    const selected = useMemo(() => selectedIds.map(id => leaves.find(recipe => recipe.id === id)).filter(Boolean), [selectedIds, leaves]);
+    const toggle = id => setSelectedIds(current => current.includes(id) ? current.filter(item => item !== id) : current.length < 12 ? [...current, id] : current);
+    const plan = buildProductionPlan(selected, serviceAt);
+    const allergens = useMemo(() => [...new Set(selected.flatMap(recipe => typeof getAllergens === 'function' ? getAllergens(recipe) : []))].sort((a, b) => a.localeCompare(b, 'fr')), [selected, getAllergens]);
+    const time = value => value && value.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    const tabs = [
+      ['production', 'Plan de production'], ['allergens', 'Matrice allergènes'],
+      ['formats', 'Formats de service'], ['leftovers', 'Gestion des restes']
+    ];
+    return h('div', { className: 'restaurant-tools' },
+      h('div', { className: 'restaurant-tools-tabs', role: 'tablist', 'aria-label': 'Outils restaurant' },
+        tabs.map(([id, label]) => h('button', { key: id, type: 'button', role: 'tab', className: section === id ? 'active' : '', 'aria-selected': section === id, onClick: () => setSection(id) }, label))
+      ),
+      h('p', { className: 'personal-tool-notice' }, 'Outils indicatifs calculés à partir des fiches existantes. Ils ne remplacent ni le PMS, ni les étiquettes fournisseurs, ni la vérification des contaminations croisées.'),
+      h('label', { className: 'field restaurant-search' }, h('span', null, 'Choisir jusqu’à 12 recettes'), h('input', { type: 'search', value: query, placeholder: 'Rechercher une recette', onChange: event => setQuery(event.target.value) })),
+      h('div', { className: 'restaurant-recipe-picker' }, filtered.map(recipe => h('label', { key: recipe.id, className: selectedIds.includes(recipe.id) ? 'selected' : '' },
+        h('input', { type: 'checkbox', checked: selectedIds.includes(recipe.id), onChange: () => toggle(recipe.id) }), h('span', null, recipe.title)
+      ))),
+      !selected.length && h('p', { className: 'personal-tool-empty' }, 'Sélectionne au moins une recette pour afficher cet outil.'),
+      section === 'production' && selected.length > 0 && h('section', { className: 'restaurant-result' },
+        h('label', { className: 'field' }, h('span', null, 'Heure de service'), h('input', { type: 'datetime-local', value: serviceAt, onChange: event => setServiceAt(event.target.value) })),
+        h('div', { className: 'production-plan' }, plan.map(item => h('article', { key: item.recipe.id },
+          h('strong', null, item.recipe.title),
+          item.startsAt ? h('p', null, `${time(item.startsAt)} → ${time(item.serviceAt)}`) : h('p', null, 'Durée non structurée dans la fiche.'),
+          item.duration.total > 0 && h('small', null, `Actif ${item.duration.active}min · Cuisson ${item.duration.cook}min · Repos ${item.duration.rest}min`)
+        )))
+      ),
+      section === 'allergens' && selected.length > 0 && h('section', { className: 'restaurant-result restaurant-table-wrap' },
+        allergens.length ? h('table', { className: 'allergen-matrix' },
+          h('thead', null, h('tr', null, h('th', { scope: 'col' }, 'Recette'), allergens.map(item => h('th', { key: item, scope: 'col' }, item)))),
+          h('tbody', null, selected.map(recipe => { const found = typeof getAllergens === 'function' ? getAllergens(recipe) : []; return h('tr', { key: recipe.id }, h('th', { scope: 'row' }, recipe.title), allergens.map(item => h('td', { key: item }, found.includes(item) ? '✓' : '—'))); }))
+        ) : h('p', null, 'Aucun allergène détecté automatiquement. Vérification manuelle obligatoire.')
+      ),
+      section === 'formats' && selected.length > 0 && h('section', { className: 'restaurant-result' },
+        h('div', { className: 'personal-tools-form-grid' },
+          h('label', null, h('span', null, 'Format'), h('select', { value: format, onChange: event => setFormat(event.target.value) }, Object.entries(SERVICE_FORMATS).map(([id, item]) => h('option', { key: id, value: id }, item.label)))),
+          h('label', null, h('span', null, 'Couverts prévus'), h('input', { type: 'number', min: 1, max: 1000, value: covers, onChange: event => setCovers(Math.max(1, Number(event.target.value) || 1)) }))
+        ),
+        h('p', { className: 'service-format-result' }, h('strong', null, `${Math.ceil(covers * SERVICE_FORMATS[format].factor)} portions de référence`), h('small', null, `Coefficient indicatif × ${String(SERVICE_FORMATS[format].factor).replace('.', ',')} — les quantités originales restent inchangées.`))
+      ),
+      section === 'leftovers' && selected.length > 0 && h('section', { className: 'restaurant-result leftovers-list' }, selected.map(recipe => {
+        const guidance = getRestaurantStorageGuidance(recipe);
+        return h('article', { key: recipe.id }, h('strong', null, recipe.title), guidance.length
+          ? h('ul', null, guidance.map((item, index) => h('li', { key: index }, item)))
+          : h('p', null, 'Aucune consigne validée dans la fiche : ne pas déduire une durée ni un réemploi.'));
+      }))
+    );
+  }
+
   function RecipeHistoryBlock({ recipe, publishedRecipe, entries, activeOverride, onRestore, onClear, Disclosure }) {
     if (!recipe) return null;
     const version = /^\d+\.\d{2}$/.test(String(recipe.recipeVersion || '')) ? recipe.recipeVersion : '1.00';
@@ -345,14 +453,17 @@
     );
   }
 
-  function PersonalToolsPanel({ open, onClose, profile, saveProfile, recipes, ensureCatalog, openRecipe, icon }) {
+  function PersonalToolsPanel({ open, onClose, profile, saveProfile, recipes, ensureCatalog, openRecipe, icon, getAllergens, initialTab }) {
     const [tab, setTab] = useState('equipment');
     const [draft, setDraft] = useState(() => normalizeEquipmentProfile(profile));
     const [pairs, setPairs] = useState([]);
     const [busy, setBusy] = useState(false);
     useEffect(() => {
-      if (open) setDraft(normalizeEquipmentProfile(profile));
-    }, [open, profile]);
+      if (open) {
+        setDraft(normalizeEquipmentProfile(profile));
+        if (initialTab) setTab(initialTab);
+      }
+    }, [open, profile, initialTab]);
     if (!open) return null;
     const update = patch => setDraft(current => ({ ...current, ...patch }));
     const analyze = () => {
@@ -374,7 +485,7 @@
           h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': t('common.close') }, typeof icon === 'function' ? icon('close') : '×')
         ),
         h('div', { className: 'personal-tools-tabs', role: 'tablist', 'aria-label': t('personal.tabsAria') },
-          ['equipment', 'catalog'].map(item => h('button', { key: item, type: 'button', role: 'tab', className: tab === item ? 'active' : '', 'aria-selected': tab === item, onClick: () => setTab(item) }, t('personal.tab.' + item)))
+          [['equipment', t('personal.tab.equipment')], ['catalog', t('personal.tab.catalog')], ['restaurant', 'Restaurant']].map(([item, label]) => h('button', { key: item, type: 'button', role: 'tab', className: tab === item ? 'active' : '', 'aria-selected': tab === item, onClick: () => setTab(item) }, label))
         ),
         tab === 'equipment' && h('div', { className: 'personal-tools-content', role: 'tabpanel' },
           h('p', { className: 'personal-tool-help' }, t('personal.equipmentHelp')),
@@ -406,6 +517,9 @@
             ))
           ),
           !busy && !pairs.length && h('p', { className: 'personal-tool-empty' }, t('personal.analysisEmpty'))
+        ),
+        tab === 'restaurant' && h('div', { className: 'personal-tools-content', role: 'tabpanel' },
+          h(ProfessionalKitchenTools, { recipes, ensureCatalog, getAllergens })
         )
       )
     );
@@ -420,10 +534,14 @@
     calculateMoldFactor,
     byproductMatches,
     findSimilarRecipes,
+    SERVICE_FORMATS,
+    buildProductionPlan,
+    getRestaurantStorageGuidance,
     RecipeHistoryBlock,
     EquipmentProfileBlock,
     MoldCalculatorBlock,
     ByproductBlock,
-    PersonalToolsPanel
+    PersonalToolsPanel,
+    ProfessionalKitchenTools
   });
 }());
