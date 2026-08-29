@@ -129,16 +129,6 @@
     };
   }
 
-  function metricAmount(item) {
-    const clean = normalize(item).replace(/(\d),(\d)/g, '$1.$2');
-    const match = clean.match(/(?:^|\s)(\d+(?:\.\d+)?)\s*(kg|g|ml|cl|l)\b/);
-    if (!match) return null;
-    const amount = Number(match[1]);
-    if (!Number.isFinite(amount) || amount <= 0) return null;
-    const unit = match[2];
-    return { clean, grams: unit === 'kg' || unit === 'l' ? amount * 1000 : unit === 'cl' ? amount * 10 : amount };
-  }
-
   function countUnits(items, pattern) {
     return items.reduce((total, item) => {
       const clean = normalize(item);
@@ -146,30 +136,6 @@
       const match = clean.match(/(?:^|\s)(\d+(?:\.\d+)?)\s*/);
       return total + (match ? Number(match[1]) : 1);
     }, 0);
-  }
-
-  function calculateCulinaryRatios(recipe) {
-    const items = ingredientItems(recipe);
-    const parsed = items.map(item => metricAmount(item)).filter(Boolean);
-    const sum = pattern => parsed.reduce((total, entry) => pattern.test(entry.clean) ? total + entry.grams : total, 0);
-    const flour = sum(/\b(farine|semoule|fecule|maizena)\b/);
-    const knownMass = parsed.reduce((total, entry) => total + entry.grams, 0);
-    const ratios = [];
-    const add = (key, amount, base) => {
-      if (amount > 0 && base > 0) ratios.push({ key, value: Math.round((amount / base) * 1000) / 10 });
-    };
-    if (flour >= 50) {
-      add('hydration', sum(/\b(eau|lait|babeurre|biere|cidre|jus)\b/), flour);
-      add('salt', sum(/\b(sel|fleur de sel)\b/), flour);
-      add('sugar', sum(/\b(sucre|cassonade|vergeoise|miel|sirop)\b/), flour);
-      add('fat', sum(/\b(beurre|huile|margarine|saindoux)\b/), flour);
-    }
-    const oil = sum(/\bhuile\b/);
-    const yolks = countUnits(items, /\bjaunes?\b/);
-    if (oil > 0 && yolks > 0) ratios.push({ key: 'oilPerYolk', value: Math.round(oil / yolks) });
-    const gelatine = sum(/\bgelatine\b/);
-    if (gelatine > 0 && knownMass > gelatine) add('gelatine', gelatine, knownMass);
-    return ratios.slice(0, 5);
   }
 
   function detectMold(recipe) {
@@ -273,28 +239,11 @@
   }
 
   function RecipeHistoryBlock({ recipe, publishedRecipe, entries, activeOverride, onRestore, onClear, Disclosure }) {
-    if (!recipe || !Disclosure) return null;
-    return h(Disclosure, { className: 'personal-history-block', label: t('personal.history'), ariaLabel: t('personal.historyAria') },
-      activeOverride && h('div', { className: 'personal-tool-notice', role: 'status' },
-        h('strong', null, t('personal.historyLocalActive')),
-        h('button', { type: 'button', className: 'btn btn-subtle', onClick: onClear }, t('personal.historyUsePublished'))
-      ),
-      h('p', { className: 'personal-tool-help' }, t('personal.historyHelp')),
-      h('div', { className: 'personal-history-list' },
-        (entries || []).map(entry => {
-          const published = entry.fingerprint === recipeFingerprint(publishedRecipe);
-          return h('article', { key: entry.fingerprint, className: 'personal-history-entry' },
-            h('div', null,
-              h('strong', null, entry.siteVersion || t('personal.historyUnknownVersion')),
-              h('small', null, new Date(entry.savedAt).toLocaleDateString())
-            ),
-            h('p', null, describeChanges(entry.recipe, publishedRecipe).join(' · ')),
-            h('button', { type: 'button', className: 'btn btn-subtle', disabled: published && !activeOverride, onClick: () => onRestore(entry) },
-              published ? t('personal.historyPublished') : t('personal.historyRestore')
-            )
-          );
-        })
-      )
+    if (!recipe) return null;
+    const version = /^\d+\.\d{2}$/.test(String(recipe.recipeVersion || '')) ? recipe.recipeVersion : '1.00';
+    return h('section', { className: 'personal-history-block notes-static-card', 'aria-label': 'Version de la fiche' },
+      h('p', { className: 'eyebrow' }, 'Version de la fiche'),
+      h('strong', { className: 'recipe-version-value' }, `v${version}`)
     );
   }
 
@@ -312,20 +261,6 @@
       ),
       match.profile.ovenOffset !== 0 && match.items.some(item => /\bfour\b/i.test(item.label)) && h('p', { className: 'personal-tool-notice' },
         t('personal.equipmentOvenOffset', { offset: match.profile.ovenOffset > 0 ? '+' + match.profile.ovenOffset : match.profile.ovenOffset })
-      )
-    );
-  }
-
-  function CulinaryRatiosBlock({ recipe, Disclosure }) {
-    const ratios = useMemo(() => calculateCulinaryRatios(recipe), [recipe]);
-    if (!Disclosure || !ratios.length) return null;
-    return h(Disclosure, { className: 'personal-ratios-block', label: t('personal.ratios'), ariaLabel: t('personal.ratiosAria') },
-      h('p', { className: 'personal-tool-help' }, t('personal.ratiosHelp')),
-      h('dl', { className: 'personal-ratio-grid' },
-        ratios.map(ratio => h('div', { key: ratio.key },
-          h('dt', null, t('personal.ratio.' + ratio.key)),
-          h('dd', null, ratio.key === 'oilPerYolk' ? t('personal.ratioMl', { value: ratio.value }) : ratio.value + ' %')
-        ))
       )
     );
   }
@@ -481,14 +416,12 @@
     recipeFingerprint,
     captureRecipeVersion,
     normalizeEquipmentProfile,
-    calculateCulinaryRatios,
     detectMold,
     calculateMoldFactor,
     byproductMatches,
     findSimilarRecipes,
     RecipeHistoryBlock,
     EquipmentProfileBlock,
-    CulinaryRatiosBlock,
     MoldCalculatorBlock,
     ByproductBlock,
     PersonalToolsPanel

@@ -3116,6 +3116,26 @@ a {
   overflow-wrap: anywhere;
 }
 
+.notes-static-card {
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--line));
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--surface-soft) 84%, transparent);
+  padding: 13px;
+}
+
+.notes-static-card > .eyebrow {
+  margin: 0 0 12px;
+}
+
+.recipe-version-value {
+  display: block;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1;
+}
+
 .flavor-map-grid,
 .ingredient-knowledge-grid {
   display: grid;
@@ -5293,8 +5313,29 @@ a {
     display: none;
   }
 
+  .recipe-detail-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
   .recipe-detail-grid > .active-tab-panel {
     display: block;
+    width: 100%;
+    min-width: 0;
+    grid-column: 1 / -1;
+  }
+
+  .recipe-tabs button,
+  .topbar :where(button, a),
+  .season-tabs button,
+  .season-category-tabs button {
+    min-height: 44px;
+  }
+
+  .site-footer-actions :where(a, button) {
+    min-height: 48px;
+    white-space: normal;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
   }
 
   .parent-hero {
@@ -9049,4 +9090,18 @@ transform:none!important
   border: 1px solid color-mix(in srgb, var(--accent) 58%, var(--line));
   border-radius: inherit;
   box-sizing: border-box;
+}
+
+/* Verrou responsive final : une seule fiche active occupe toute la largeur utile. */
+@media screen and (max-width: 1220px) {
+  #recipe-detail-content.recipe-detail-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  #recipe-detail-content.recipe-detail-grid > .active-tab-panel {
+    grid-column: 1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
 }

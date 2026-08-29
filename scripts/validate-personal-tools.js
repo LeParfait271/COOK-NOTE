@@ -20,9 +20,6 @@ const tools = context.window.CookNotePersonalTools;
 
 expect('API des outils personnels absente.', Boolean(tools));
 expect('Facteur de moule rond incorrect.', Math.abs(tools.calculateMoldFactor({ shape: 'round', diameter: 20 }, { shape: 'round', diameter: 24 }) - 1.44) < 0.001);
-const ratios = tools.calculateCulinaryRatios({ ingredients: ['500 g farine', '350 ml eau', '10 g sel'] });
-expect('Ratio hydratation incorrect.', ratios.some(item => item.key === 'hydration' && item.value === 70));
-expect('Ratio sel incorrect.', ratios.some(item => item.key === 'salt' && item.value === 2));
 const source = { id: 'source', title: 'Crème', ingredients: ['3 jaunes d’œufs'], steps: ['Mélanger'] };
 const target = { id: 'target', title: 'Meringue', ingredients: ['3 blancs d’œufs'], steps: ['Fouetter'] };
 expect('Rapprochement des blancs d’œufs absent.', tools.byproductMatches(source, [source, target])[0]?.matches?.[0]?.recipe?.id === 'target');

@@ -106,7 +106,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.25';
+const SITE_VERSION = 'v5.26';
 const SITE_UPDATED_AT = '29/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.25';
@@ -813,7 +813,6 @@ const {
   normalizeEquipmentProfile,
   RecipeHistoryBlock,
   EquipmentProfileBlock,
-  CulinaryRatiosBlock,
   MoldCalculatorBlock,
   ByproductBlock,
   PersonalToolsPanel
@@ -4015,12 +4014,6 @@ function getRecipePracticalSections(recipe) {
     ...asTextList(recipe?.plating || practical.plating),
     ...getRecipePlatingNotes(recipe)
   ]);
-  add('substitutions', 'Substitutions', [
-    ...asTextList(recipe?.substitutions || practical.substitutions),
-    ...getSmartSubstitutionNotes(recipe),
-    ...getVariantAdaptationNotes(recipe),
-    ...substitutionNotes
-  ]);
   add('service', 'Service', getRecipeServiceItems(recipe));
   const rawExplicitStorage = asTextList(recipe?.storage || practical.storage);
   const explicitStorage = rawExplicitStorage.length
@@ -6742,9 +6735,8 @@ const PRACTICAL_DISCLOSURE_LABELS = Object.freeze({
   measures: 'Mesures',
   tips: 'À savoir',
   pairings: 'Accords',
-  ingredientGuide: 'Ingrédients utiles',
+  ingredientGuide: 'Conversation ingrédients',
   plating: 'Dressage',
-  substitutions: 'Substitutions',
   service: 'Service',
   storage: 'Conservation',
   reheating: 'Réchauffage',
@@ -6791,7 +6783,7 @@ function FlavorMapBlock({ recipe }) {
 function IngredientKnowledgeBlock({ recipe }) {
   const cards = getRecipeIngredientCards(recipe);
   if (!cards.length) return null;
-  return h(NotesDisclosure, { className: 'ingredient-knowledge-block', label: 'Ingrédients utiles', ariaLabel: 'Conseils ingrédients' },
+  return h(NotesDisclosure, { className: 'ingredient-knowledge-block', label: 'Conversation ingrédients', ariaLabel: 'Conversation ingrédients' },
     h('div', { className: 'ingredient-knowledge-grid' },
       cards.map(card => h('article', { key: card.label, className: 'ingredient-knowledge-card' },
         h('div', null,
@@ -7417,7 +7409,8 @@ function RecipeView({
               ? h('ul', { className: 'allergen-list', 'aria-label': 'Liste des allergenes detectes' }, recipeAllergens.map(allergen => h('li', { key: `${detailKey}:allergen:${allergen}` }, allergen)))
               : h('p', { className: 'allergen-empty' }, 'Aucun allergène majeur détecté dans les ingrédients.')
           ),
-          averageWeights.length > 0 && h(NotesDisclosure, { className: 'average-weight-card', label: 'Poids moyens', ariaLabel: 'Poids moyens utiles' },
+          averageWeights.length > 0 && h('section', { className: 'average-weight-card notes-static-card', 'aria-label': 'Poids moyens utiles' },
+            h('p', { className: 'eyebrow' }, 'Poids moyens'),
             h('dl', { 'aria-label': 'Correspondances de poids moyens' }, averageWeights.map(item =>
               h(React.Fragment, { key: `${detailKey}:average:${item.label}` },
                 h('dt', null, item.label),
@@ -7430,7 +7423,6 @@ function RecipeView({
         h('div', { className: 'notes-optional-stack' },
           h(EquipmentProfileBlock, { requiredEquipment: getRecipeEquipment(selectedRecipe), profile: equipmentProfile, Disclosure: NotesDisclosure }),
           h(MoldCalculatorBlock, { recipe: selectedRecipe, profile: equipmentProfile, Disclosure: NotesDisclosure }),
-          h(CulinaryRatiosBlock, { recipe: selectedRecipe, Disclosure: NotesDisclosure }),
           h(ByproductBlock, { recipe: selectedRecipe, recipes, ensureCatalog, openRecipe, Disclosure: NotesDisclosure }),
           h(RecipeHistoryBlock, { recipe: selectedRecipe, publishedRecipe, entries: historyEntries, activeOverride, onRestore: restoreRecipeVersion, onClear: clearRecipeOverride, Disclosure: NotesDisclosure }),
           h(FlavorMapBlock, { recipe: selectedRecipe }),

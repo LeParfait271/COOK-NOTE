@@ -467,7 +467,6 @@ function completeBeforeSections(id, recipe, recipes, helpers) {
     : ['Aucun allergene majeur detecte dans les ingredients.']);
   const semanticLabels = helpers.semanticRecipeSignals(sourceRecipe, recipes)?.labels || [];
   addBeforeSection(sections, 'Intentions premium', semanticLabels.slice(0, 5));
-  addBeforeSection(sections, 'Substitutions premium', helpers.getSmartSubstitutionNotes(sourceRecipe) || []);
   addBeforeSection(sections, 'Variantes contraintes', helpers.getVariantAdaptationNotes(sourceRecipe) || []);
   addBeforeSection(sections, 'Materiel necessaire', helpers.getRecipeEquipment(sourceRecipe) || []);
   addBeforeSection(

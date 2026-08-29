@@ -464,8 +464,10 @@ test.describe('Cook Note visual smoke', () => {
     const notes = page.locator('.notes-panel');
     await expect(notes.locator('.personal-equipment-block')).toHaveCount(1);
     await expect(notes.locator('.personal-mold-block')).toHaveCount(1);
-    await expect(notes.locator('.personal-ratios-block')).toHaveCount(1);
+    await expect(notes.locator('.personal-ratios-block')).toHaveCount(0);
+    await expect(notes.locator('.average-weight-card.notes-static-card')).toHaveCount(1);
     await expect(notes.locator('.personal-history-block')).toHaveCount(1);
+    await expect(notes.locator('.recipe-version-value')).toHaveText('v1.00');
     await expectNoHorizontalOverflow(page);
   });
 

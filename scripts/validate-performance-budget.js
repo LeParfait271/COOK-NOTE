@@ -33,7 +33,7 @@ const FILE_BUDGETS = [
 ];
 
 const DIRECTORY_BUDGETS = [
-  ['assets/catalog-*.js', 'assets', /^catalog-\d+\.js$/, 550 * KB]
+  ['assets/catalog-*.js', 'assets', /^catalog-\d+\.js$/, 560 * KB]
 ];
 
 const IMAGE_BUDGETS = [

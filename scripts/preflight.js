@@ -180,6 +180,7 @@ function validateDiffScope() {
 }
 
 async function main() {
+  run(node, ['scripts/sync-recipe-versions.js']);
   run(node, ['scripts/sync-catalog.js']);
   run(node, ['--check', 'scripts/bump-version.js']);
   run(node, ['--check', 'scripts/validate-cache-version.js']);
