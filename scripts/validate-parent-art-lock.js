@@ -5,15 +5,15 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '..');
 
 const LOCKED_PARENT_ART = Object.freeze({
-  'assets/theme/dark/categories/accompagnements_maitre.jpg': '878893e9b2806a5c531957e19ef9b75332149d503aa9112a4c72a779043a2c8f',
-  'assets/theme/dark/categories/apero_maitre.jpg': '3cf91cfac73356805a39f1ce6622a550dd456f01913b682b386051023ec4fa59',
+  'assets/theme/dark/categories/accompagnements_maitre.jpg': 'b68cff07d1cd48140d8e93fa51f18cee5d09ad36232ab7a9573fdc5d6bfa0b43',
+  'assets/theme/dark/categories/apero_maitre.jpg': '70c04be4b976009f552581f9d18b04053388a6ee64026a9004144a80c5eb9cf1',
   'assets/theme/dark/recipes/coulis_maitre.jpg': 'c0c4e2c55cd1149f855a0378e25bf16b63be2a2e2fca81a0194e23478ec62240',
-  'assets/theme/dark/categories/desserts_maitre.jpg': 'e845d9e1aad0e0b3b78488b1ab638442b8db0c470fe42d29d84e1b846c1c5f4e',
-  'assets/theme/dark/categories/elements_base_maitre.jpg': '49ba8b25973256c8be18669209b6207856059e84e5f1cdaa96f6661b46586fb7',
-  'assets/theme/dark/categories/entrees_maitre.jpg': 'c4728d6199ad00465d7464b3b2416069f8a2e7d3bef7b6cddd0e0ec0ee9e18c0',
-  'assets/theme/dark/categories/petit_dejeuner_maitre.jpg': 'a507fcd6d6a253b3cb1adf02433969cfe697d280381a62411e018628373e470c',
-  'assets/theme/dark/categories/plats_maitre.jpg': 'eb719e667f63f17b17fcdf5db8b240409b9b1d2da823b3226b12f4277dd3be39',
-  'assets/theme/dark/categories/sauces_maitre.jpg': 'd66eecb4c5b4de64be003a069915921a575d762db6b0ba0610b2a15e1b51d6de',
+  'assets/theme/dark/categories/desserts_maitre.jpg': '39b821f36baa4eee3c9c8b344761940f308711999526661a1ed319a607f77e7f',
+  'assets/theme/dark/categories/elements_base_maitre.jpg': '3d293d55bafd70223ce8c1a55da2abfc373ec08305952fc3328a9b83089f84ef',
+  'assets/theme/dark/categories/entrees_maitre.jpg': 'f3ee66ecbac1bf85667d4fe477d7f4c8db83677021c744a6d65dda12e78288db',
+  'assets/theme/dark/categories/petit_dejeuner_maitre.jpg': 'cc2c60752e0819115997c1469ff1560e68618c21e9e2b1e5d9e2e62a76f58793',
+  'assets/theme/dark/categories/plats_maitre.jpg': '6f185c21ca61ee1153f8a4d2a855992497b274efee4c2fc6285e40e3195c09ec',
+  'assets/theme/dark/categories/sauces_maitre.jpg': 'f63982d12f3914a0fa8afd0144a64d4251a0ab212eafac99100f1c523b74d422',
   'assets/theme/day/recipes/coulis_maitre.jpg': 'ef48f9020a6b6d001d3fbae6e583951591ba6a8e6d6e92695c91742f6ac281e8',
   'assets/recipes/cards/accompagnements_maitre.jpg': 'fde1bf1fdd731522afae7889077fd1f5d208397e469111bac030929e1f3b0603',
   'assets/recipes/cards/apero_maitre.jpg': '1a42a08b71c2c040ad07aa8e08020d89238251a8a669d1b59b4214037d973126',
