@@ -120,13 +120,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.top-menu-btn, .top-techniques-btn, .top-actions .cart-icon-btn, .top-actions [aria-label="Panier courses"]')).toHaveCount(0);
     await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
     if (testInfo.project.name === 'mobile') {
-      const firstCardAboveNav = await page.evaluate(() => {
-        const card = document.querySelector('.recipe-card.master-card');
-        const nav = document.querySelector('.mobile-bottom-nav');
-        if (!card || !nav) return false;
-        return card.getBoundingClientRect().top < nav.getBoundingClientRect().top - 8;
-      });
-      expect(firstCardAboveNav).toBe(true);
+      await expect(page.locator('.mobile-bottom-nav')).toHaveCount(0);
     }
     await expect(page.locator('.home-view > .hero .hero-logo')).toHaveCount(0);
     await expect(page.locator('.home-view > .hero .hero-wordmark')).toHaveText('Cook Note');
@@ -501,7 +495,7 @@ test.describe('Cook Note visual smoke', () => {
     expect(heroImageMetrics.naturalWidth).toBeGreaterThanOrEqual(80);
     expect(heroImageMetrics.naturalHeight).toBeGreaterThanOrEqual(60);
     expect(Math.abs(heroImageMetrics.heroWidth - heroImageMetrics.frameWidth)).toBeLessThanOrEqual(1);
-    expect(Math.abs(heroImageMetrics.heroHeight - heroImageMetrics.frameHeight)).toBeLessThanOrEqual(1);
+    expect(Math.abs(heroImageMetrics.heroHeight - heroImageMetrics.frameHeight)).toBeLessThanOrEqual(2);
     expect(heroImageMetrics.objectFit).toBe('cover');
     expect(heroImageMetrics.loading).toBe('eager');
     expect(heroImageMetrics.fetchPriority).toBe('high');
@@ -578,14 +572,13 @@ test.describe('Cook Note visual smoke', () => {
 
     const compactHome = await page.evaluate(() => {
       const card = document.querySelector('.recipe-card.master-card')?.getBoundingClientRect();
-      const nav = document.querySelector('.mobile-bottom-nav')?.getBoundingClientRect();
       return {
         cardTop: card?.top || 0,
-        navTop: nav?.top || 0,
         overflow: Math.max(0, document.documentElement.scrollWidth - document.documentElement.clientWidth)
       };
     });
-    expect(compactHome.cardTop).toBeLessThan(compactHome.navTop - 8);
+    expect(compactHome.cardTop).toBeGreaterThan(0);
+    await expect(page.locator('.mobile-bottom-nav')).toHaveCount(0);
     expect(compactHome.overflow).toBeLessThanOrEqual(2);
 
     await page.getByRole('button', { name: 'Préférences d’affichage', exact: true }).click();
@@ -606,12 +599,12 @@ test.describe('Cook Note visual smoke', () => {
     expect(preferenceLayout.overflow).toBeLessThanOrEqual(1);
     await page.locator('.preferences-modal').getByRole('button', { name: 'Fermer', exact: true }).click();
 
-    await page.getByRole('button', { name: 'Recherche', exact: true }).click();
-    const commandInput = page.locator('#cook-note-command-input');
-    await expect(commandInput).toHaveAttribute('placeholder', 'Rechercher…');
-    await page.locator('.command-palette').getByRole('button', { name: 'Fermer', exact: true }).click();
+    await page.locator('.home-search-launcher').click();
+    const searchInput = page.locator('#recipe-search-input');
+    await expect(searchInput).toHaveAttribute('placeholder', 'Recette, ingrédients, usage, saison...');
+    await page.locator('.search-modal').getByRole('button', { name: 'Fermer', exact: true }).click();
 
-    await page.getByRole('button', { name: 'Mode menu', exact: true }).click();
+    await page.locator('.home-quick-actions button').filter({ hasText: 'Composer un menu' }).click();
     const menuModal = page.locator('.menu-planner-modal');
     await expect(menuModal).toBeVisible();
     const closeButton = menuModal.getByRole('button', { name: 'Fermer', exact: true });

@@ -7390,7 +7390,7 @@ a {
 
 @media (max-width: 700px) {
   body {
-    padding-bottom: calc(82px + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   .mobile-bottom-nav {
@@ -8545,7 +8545,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 
 @media (max-width:700px) and (max-height:620px){.home-view>.hero{min-height:136px!important}.home-view>.hero .hero-inner{padding:12px 0 16px!important}.home-view>.hero .hero-system-label,.home-view .season-dashboard-copy .eyebrow{display:none}.home-view .content-wrap{padding-top:10px}.home-command-center{gap:8px;margin-bottom:8px;padding-bottom:10px}.home-search-launcher{min-height:50px}.home-search-copy small{display:none}.home-view .season-dashboard{gap:8px;margin-bottom:16px;padding-bottom:10px}.home-view .season-dashboard-copy h2{font-size:24px}.home-view .season-tabs button{min-height:44px}}
 
-@media screen and (max-width:700px){body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}.recipe-detail-grid>.active-tab-panel{padding-bottom:76px}.recipe-breadcrumb button{display:inline-flex;min-height:44px;align-items:center;padding-block:12px;margin-block:-12px}.quantity-select,.language-toggle{min-height:44px}.mobile-bottom-nav{bottom:max(6px,env(safe-area-inset-bottom));background:var(--surface-strong)}}
+@media screen and (max-width:700px){body{padding-bottom:env(safe-area-inset-bottom)}.recipe-detail-grid>.active-tab-panel{padding-bottom:20px}.recipe-breadcrumb button{display:inline-flex;min-height:44px;align-items:center;padding-block:12px;margin-block:-12px}.quantity-select,.language-toggle{min-height:44px}}
 
 @media screen and (max-width:300px){.home-view :is(.season-dashboard,.season-sections,.season-sections>*,.season-dashboard-copy,.season-filter-stack,.season-tabs){width:100%;min-width:0;max-width:100%}.home-view .season-dashboard{overflow:hidden}.season-tabs{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;padding:3px;overflow:hidden}.season-tabs button{min-width:0;padding-inline:4px;font-size:11px;white-space:nowrap}}
 
@@ -8970,8 +8970,15 @@ padding:8px 10px!important
 min-height:50px!important;
 padding:10px 12px!important
 }
-.home-search-copy small,.home-search-hint,.home-quick-actions {
+.home-search-copy small,.home-search-hint {
 display:none!important
+}
+.home-quick-actions {
+gap:6px!important
+}
+.home-quick-actions button {
+min-height:44px!important;
+padding:8px 10px!important
 }
 .home-view .season-dashboard {
 display:none!important

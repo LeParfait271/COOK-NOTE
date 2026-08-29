@@ -106,7 +106,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.21';
+const SITE_VERSION = 'v5.22';
 const SITE_UPDATED_AT = '29/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.01';
@@ -8557,8 +8557,6 @@ function App() {
   ].filter(Boolean).join(' ');
   const ambientRecipe = activeRecipe || filteredRecipes[0] || homeCatalogRecipes[0] || recipes[0];
   const shellStyle = { '--ambient-accent': getCategoryColor(ambientRecipe) };
-  const mobileThemeToggleLabel = activeTheme === 'light' ? t('nav.switchToNight') : t('nav.switchToDay');
-  const mobileThemeLabel = activeTheme === 'light' ? t('nav.night') : t('nav.day');
 
   return h('div', {
     className: shellClassName,
@@ -8582,22 +8580,6 @@ function App() {
     h(ScrollProgress),
     h(OfflineStatusBar, { isOnline, favoriteCount: favorites.length }),
     h('a', { className: 'skip-link', href: '#cook-note-content' }, 'Aller au contenu'),
-    h('nav', { className: 'mobile-bottom-nav', 'aria-label': 'Navigation mobile' },
-      h('button', { type: 'button', onClick: goHome, 'aria-label': t('nav.home'), 'aria-current': !activeRecipe && activePage === 'home' && !onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'home' })), h('span', { className: 'sr-only' }, t('nav.home'))),
-      h('button', { type: 'button', onClick: openCommandPalette, 'aria-label': t('nav.search'), 'aria-current': commandOpen || searchOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'search' })), t('nav.searchShort')),
-      h('button', { type: 'button', onClick: openMenuPlanner, 'aria-label': t('nav.menu'), 'aria-current': menuPlannerOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'spark' })), t('nav.menuShort')),
-      h('button', { type: 'button', onClick: showFavorites, 'aria-label': t('nav.favorites'), 'aria-current': onlyFavorites ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'heart' })), t('nav.favoritesShort')),
-      h('button', { type: 'button', onClick: openShoppingBasket, 'aria-label': t('nav.shopping'), 'aria-current': shoppingOpen ? 'page' : undefined }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: 'basket' })), t('nav.shoppingShort')),
-      h('button', {
-        type: 'button',
-        className: 'mobile-theme-toggle',
-        onClick: toggleTheme,
-        'aria-label': mobileThemeToggleLabel,
-        'aria-pressed': activeTheme === 'light',
-        title: mobileThemeToggleLabel
-      }, h('span', { className: 'mobile-nav-icon' }, h(Icon, { name: activeTheme === 'light' ? 'moon' : 'sun' })), mobileThemeLabel),
-      h(LanguageSwitcher)
-    ),
     h('div', { id: 'cook-note-content', className: 'content-anchor', tabIndex: -1 },
     missingRecipeId
       ? (catalogResolvingRecipe
