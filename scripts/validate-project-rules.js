@@ -7,6 +7,8 @@ const masterGuardPath = path.join(ROOT, 'A_LIRE_EN_PREMIER.md');
 const agentsPath = path.join(ROOT, 'AGENTS.md');
 const designSystemPath = path.join(ROOT, 'docs', 'design-system.md');
 const recipeWorkflowPath = path.join(ROOT, 'docs', 'recipe-creation-workflow.md');
+const culinaryAuditPath = path.join(ROOT, 'scripts', 'audit-culinary-proposals.js');
+const culinaryReportPath = path.join(ROOT, 'reports', 'culinary-proposals.md');
 const packagePath = path.join(ROOT, 'package.json');
 const packageLockPath = path.join(ROOT, 'package-lock.json');
 const validators = {
@@ -53,6 +55,8 @@ expect('Garde-fou maitre A_LIRE_EN_PREMIER.md absent.', fs.existsSync(masterGuar
 expect('Pointeur agents AGENTS.md absent.', fs.existsSync(agentsPath));
 expect('Design system Cook Note absent.', fs.existsSync(designSystemPath));
 expect('Workflow de creation des recettes absent.', fs.existsSync(recipeWorkflowPath));
+expect('Audit culinaire non destructif absent.', fs.existsSync(culinaryAuditPath));
+expect('Rapport de propositions culinaires absent.', fs.existsSync(culinaryReportPath));
 expect('package-lock.json absent: installations CI non reproductibles.', fs.existsSync(packageLockPath));
 
 const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : '';
@@ -60,6 +64,25 @@ const masterGuard = fs.existsSync(masterGuardPath) ? fs.readFileSync(masterGuard
 const agentsGuide = fs.existsSync(agentsPath) ? fs.readFileSync(agentsPath, 'utf8') : '';
 const designSystem = fs.existsSync(designSystemPath) ? fs.readFileSync(designSystemPath, 'utf8') : '';
 const recipeWorkflow = fs.existsSync(recipeWorkflowPath) ? fs.readFileSync(recipeWorkflowPath, 'utf8') : '';
+const culinaryAudit = fs.existsSync(culinaryAuditPath) ? fs.readFileSync(culinaryAuditPath, 'utf8') : '';
+const culinaryReport = fs.existsSync(culinaryReportPath) ? fs.readFileSync(culinaryReportPath, 'utf8') : '';
+
+expect(
+  'Verrou de validation humaine des corrections culinaires incomplet.',
+  rules.includes('Validation humaine des corrections culinaires')
+    && rules.includes('ne modifie jamais `recipes.js`')
+    && rules.includes('ne remplace et ne supprime jamais une duree')
+    && culinaryAudit.includes('hashBefore !== hashAfter')
+    && culinaryReport.includes('Aucun temps n’est remplacé ou supprimé')
+);
+expect(
+  'Outils de recherche ou comparaison des collections absents.',
+  validators.app.includes('collection-search')
+    && validators.app.includes('collection-quick-filters')
+    && validators.app.includes('collection-comparison')
+    && validators.style.includes('.collection-search')
+    && validators.style.includes('.collection-comparison-grid')
+);
 
 expect(
   'Raccourci liens recettes absent des instructions agents.',

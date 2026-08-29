@@ -5,6 +5,10 @@ const crypto = require('node:crypto');
 
 const ROOT = path.resolve(__dirname, '..');
 const PERCEPTUAL_CORRELATION_LIMIT = 0.92;
+const ROOT_CATEGORY_IDS = new Set([
+  'accompagnements_maitre', 'apero_maitre', 'desserts_maitre', 'elements_base_maitre',
+  'entrees_maitre', 'petit_dejeuner_maitre', 'plats_maitre', 'sauces_maitre'
+]);
 const errors = [];
 
 function loadJpeg() {
@@ -145,7 +149,11 @@ async function main() {
     const resolvedImages = new Map();
     artImages.forEach((image, id) => {
       if (!knownArtIds.has(id)) errors.push(`Image ${theme} reference une fiche inconnue: ${id} (${image}).`);
-      if (!image.startsWith(`/assets/theme/${theme === 'light' ? 'day' : 'dark'}/`)) errors.push(`${id}: image ${theme} hors assets/theme/${theme === 'light' ? 'day' : 'dark'} (${image}).`);
+      const expectedRoot = `/assets/theme/${theme === 'light' ? 'day' : 'dark'}/`;
+      const temporaryParentReuse = theme === 'light'
+        && ROOT_CATEGORY_IDS.has(id)
+        && image.startsWith('/assets/theme/dark/categories/');
+      if (!image.startsWith(expectedRoot) && !temporaryParentReuse) errors.push(`${id}: image ${theme} hors assets/theme/${theme === 'light' ? 'day' : 'dark'} (${image}).`);
       if (!fs.existsSync(imagePath(image))) errors.push(`${id}: image ${theme} introuvable (${image}).`);
     });
     recipeImages.forEach(entry => {

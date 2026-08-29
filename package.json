@@ -4,10 +4,11 @@
   "private": true,
   "description": "Cook Note",
   "scripts": {
-    "precheck": "node --check app-personal-tools.js && node --check scripts/validate-personal-tools.js && node --check scripts/sync-recipe-versions.js && node --check scripts/validate-recipe-versions.js && node scripts/validate-personal-tools.js && node scripts/validate-recipe-versions.js",
+    "precheck": "node --check app-personal-tools.js && node --check scripts/validate-personal-tools.js && node --check scripts/sync-recipe-versions.js && node --check scripts/validate-recipe-versions.js && node --check scripts/audit-culinary-proposals.js && node scripts/validate-personal-tools.js && node scripts/validate-recipe-versions.js",
     "dev": "node server.js",
     "start": "node server.js",
     "audit:recipes": "node scripts/audit-recipes.js",
+    "audit:culinary-proposals": "node scripts/audit-culinary-proposals.js",
     "audit:images": "node scripts/audit-images.js",
     "audit:security": "npm audit --audit-level=high",
     "android:legacy:apk": "powershell.exe -ExecutionPolicy Bypass -File .\\scripts\\build-android-legacy.ps1 -Release",

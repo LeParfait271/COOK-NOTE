@@ -780,4 +780,29 @@ test.describe('Cook Note visual smoke', () => {
       });
     });
   }
+
+  test('category tools search filter and compare without altering recipes', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/sauces_maitre?lang=fr');
+    await waitForCookNote(page);
+
+    const search = page.locator('.collection-search input');
+    await expect(search).toBeVisible();
+    await search.fill('mayonnaise');
+    await expect(page.locator('.variant-card')).not.toHaveCount(0);
+    await expect(page.locator('.variant-card-body').first()).toContainText(/mayonnaise/i);
+    await search.fill('');
+
+    const easyFilter = page.locator('.collection-quick-filters button').filter({ hasText: 'Faciles' });
+    await easyFilter.click();
+    await expect(easyFilter).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.variant-card')).not.toHaveCount(0);
+
+    const compareButtons = page.locator('.variant-compare-toggle:not([disabled])');
+    await compareButtons.nth(0).click();
+    await compareButtons.nth(1).click();
+    await expect(page.locator('.collection-comparison article')).toHaveCount(2);
+    await expect(page.locator('.collection-comparison')).toContainText('Comparer (2/3)');
+    await expectNoHorizontalOverflow(page);
+  });
 });

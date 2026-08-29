@@ -17,6 +17,13 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
 
 ## Donnees recettes
 
+### Validation humaine des corrections culinaires
+
+- Une analyse automatique peut relever une incoherence ou proposer un enrichissement, mais elle ne modifie jamais `recipes.js`.
+- Toute correction d'une fiche existante doit etre presentee a l'utilisateur et explicitement validee avant integration.
+- Une proposition de temperature a coeur, de repere sensoriel ou de securite complete les temps deja ecrits : elle ne remplace et ne supprime jamais une duree, une temperature, une quantite, une etape ou une note existante.
+- Le rapport `reports/culinary-proposals.md` est consultatif. Sa generation doit prouver que l'empreinte de `recipes.js` est identique avant et apres l'audit.
+
 - Toute creation ou import de recette suit `docs/recipe-creation-workflow.md`.
 - Un message compose uniquement d'un ou plusieurs liens HTTP(S) vers des pages de recettes vaut demande complete d'import dans Cook Note. Ne pas demander a l'utilisateur de preciser `ajoute`, `importe` ou `utilise le workflow` : appliquer directement le workflow, le verrou de classement, le kit visuel, l'integration et les validations.
 - Avant de creer une fiche, rechercher les noms, synonymes, ingredients et techniques proches dans le catalogue. L'identite culinaire du plat prime sur la cuisson, le materiel ou une modification secondaire.
@@ -168,6 +175,10 @@ Ce fichier est la source de verite des conventions du site. Quand une nouvelle f
   validees avec banniere en haut de l'image quand elles existent :
   `assets/theme/dark/categories/*_maitre.jpg` en mode nuit et
   `assets/theme/day/categories/*_maitre.jpg` en mode jour.
+- Exception temporaire validee par l'utilisateur : tant que les nouvelles images
+  jour ne sont pas creees, les huit fiches parents du mode jour reutilisent les
+  nouvelles images nuit de `assets/theme/dark/categories/`. Cette exception ne
+  s'applique a aucune image de recette feuille.
 - Les anciennes images `parent_*_moon` restent des fallbacks seulement :
   elles ne doivent pas passer avant les images parent theme validees.
 - Les images parent validees sont verrouillees par

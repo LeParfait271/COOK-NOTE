@@ -177,3 +177,26 @@ en v4.58 : aucune reconstruction, mise à jour ni publication Android n’a ét�
 effectuée.
 
 Statut : `réalisé et validé`.
+
+## Sélection des améliorations du 29/08/2026
+
+L'utilisateur accepte les propositions 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12,
+18, 19, 21, 22, 23, 24 et 25.
+
+Les propositions 5, 13, 14, 15, 16, 17 et 20 sont refusées et ne doivent pas
+être reproposées sauf demande explicite de l'utilisateur. En particulier, aucun
+tableau de santé n'est ajouté à l'interface et aucun motif d'édition n'est imposé.
+
+Le point 23 est accepté uniquement comme enrichissement non destructif : les
+temps de cuisson existants restent affichés mot pour mot. Une température à cœur
+ou un repère sensoriel peut être proposé en complément, jamais en remplacement.
+
+Règle générale : l'analyse de toutes les fiches peut produire des propositions,
+mais aucune correction de contenu recette n'est appliquée sans validation
+explicite de l'utilisateur. Aucune information existante ne doit être supprimée.
+
+Le lot reste web/PWA. Il n'autorise pas de reconstruction ni de publication de
+l'APK Android Legacy.
+
+Statut : `accepté`, avec vérification fonctionnelle, technique et visuelle avant
+livraison.

@@ -149,7 +149,6 @@ button,
 input,
 select,
 textarea {
-  font: inherit;
   min-width: 0;
 }
 
@@ -2377,6 +2376,20 @@ a {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 14px;
+}
+
+.collection-tools{display:grid;grid-template-columns:minmax(240px,1fr) auto;gap:12px;margin-bottom:16px}
+.collection-search{display:flex;align-items:center;gap:9px}
+.collection-search input{width:100%;background:transparent;color:var(--text)}
+.collection-quick-filters{display:flex;flex-wrap:wrap;gap:6px}
+.variant-card-shell{position:relative}.variant-card-shell .variant-card{width:100%}
+.variant-compare-toggle{position:absolute;z-index:5;right:9px;top:9px}
+.collection-comparison-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+
+@media (max-width: 720px) {
+  .collection-tools { grid-template-columns: 1fr; }
+  .collection-quick-filters { flex-wrap: nowrap; overflow-x: auto; }
+  .collection-quick-filters button { flex: 0 0 auto; }
 }
 
 .variant-card {

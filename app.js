@@ -106,7 +106,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.26';
+const SITE_VERSION = 'v5.27';
 const SITE_UPDATED_AT = '29/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.25';
@@ -6618,33 +6618,114 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '' }) {
 
 function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, preloadRecipe = null }) {
   const sortedVariantRefs = sortVariantRefs(variantRefs, recipesById);
+  const [collectionQuery, setCollectionQuery] = useState('');
+  const [collectionFilter, setCollectionFilter] = useState('all');
+  const [comparisonIds, setComparisonIds] = useState([]);
   if (!sortedVariantRefs.length) return null;
+  const recipeEntries = sortedVariantRefs
+    .map(variant => ({ variant, item: recipesById[variant.id] }))
+    .filter(entry => entry.item);
+  const queryKey = normalizeText(collectionQuery);
+  const filteredEntries = recipeEntries.filter(({ variant, item }) => {
+    const searchable = normalizeText([
+      variant.label,
+      item.title,
+      ...(item.tags || []),
+      ...(item.aliases || []),
+      ...(item.ingredients || []).flatMap(group => group.items || [])
+    ].join(' '));
+    if (queryKey && !searchable.includes(queryKey)) return false;
+    const totalMinutes = Number(item.activeTime || 0) + Number(item.cookTime || 0);
+    if (collectionFilter === 'quick' && (!totalMinutes || totalMinutes > 45)) return false;
+    if (collectionFilter === 'easy' && item.difficulty !== 'easy' && Number(item.difficultyScore || 0) > 3) return false;
+    if (collectionFilter === 'make-ahead') {
+      const practicalText = normalizeText(JSON.stringify(item.practical || {}));
+      if (!/(veille|avance|refrig|conserv|repos)/.test(practicalText)) return false;
+    }
+    return true;
+  });
+  const comparisonRecipes = comparisonIds.map(id => recipesById[id]).filter(Boolean);
+  const toggleComparison = id => setComparisonIds(current => (
+    current.includes(id)
+      ? current.filter(item => item !== id)
+      : current.length < 3 ? [...current, id] : current
+  ));
   return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel collection-links-panel', 'aria-label': `Recettes de la collection ${parent.title}` },
     h('p', { className: 'collection-links-context' }, 'Choisir une recette'),
+    h('div', { className: 'collection-tools' },
+      h('label', { className: 'collection-search' },
+        h(Icon, { name: 'search' }),
+        h('span', { className: 'sr-only' }, `Rechercher dans ${parent.title}`),
+        h('input', {
+          type: 'search',
+          value: collectionQuery,
+          placeholder: 'Rechercher dans cette catégorie',
+          onChange: event => setCollectionQuery(event.target.value)
+        })
+      ),
+      h('div', { className: 'collection-quick-filters', 'aria-label': 'Filtres rapides de la catégorie' },
+        [
+          ['all', 'Toutes'],
+          ['quick', '≤ 45 min'],
+          ['easy', 'Faciles'],
+          ['make-ahead', 'À préparer']
+        ].map(([value, label]) => h('button', {
+          key: value,
+          type: 'button',
+          className: collectionFilter === value ? 'active' : '',
+          'aria-pressed': collectionFilter === value,
+          onClick: () => setCollectionFilter(value)
+        }, label))
+      )
+    ),
+    comparisonRecipes.length > 0 && h('div', { className: 'collection-comparison', 'aria-live': 'polite' },
+      h('div', { className: 'collection-comparison-heading' },
+        h('strong', null, `Comparer (${comparisonRecipes.length}/3)`),
+        h('button', { type: 'button', onClick: () => setComparisonIds([]) }, 'Effacer')
+      ),
+      h('div', { className: 'collection-comparison-grid' }, comparisonRecipes.map(item => {
+        const totalMinutes = Number(item.activeTime || 0) + Number(item.cookTime || 0) + Number(item.restTime || 0);
+        return h('article', { key: item.id },
+          h('strong', null, item.title),
+          h('span', null, item.yield || 'Rendement non indiqué'),
+          h('span', null, item.difficultyScore ? `Difficulté ${item.difficultyScore}/10` : 'Difficulté non chiffrée'),
+          h('span', null, totalMinutes ? `${totalMinutes} min au total` : 'Durée détaillée dans la fiche'),
+          h('button', { type: 'button', onClick: () => openRecipe(item.id) }, 'Ouvrir')
+        );
+      }))
+    ),
+    !filteredEntries.length && h('p', { className: 'collection-empty-state' }, 'Aucune recette ne correspond dans cette catégorie.'),
     h('div', { className: 'variant-card-grid' },
-      sortedVariantRefs.map(variant => {
-        const item = recipesById[variant.id];
-        if (!item) return null;
+      filteredEntries.map(({ variant, item }) => {
         const image = displayRecipeImage(item) || displayRecipeImage(parent);
         const cardImage = image ? recipeCardImageUrl(image) : '';
         const variantLabel = getRecipeVariantLabel(item, recipesById);
-        return h('button', {
-          key: variant.id,
-          type: 'button',
-          className: 'variant-card',
-          onPointerEnter: () => warmRecipeOnIntent(preloadRecipe, variant.id),
-          onFocus: () => warmRecipeOnIntent(preloadRecipe, variant.id),
-          onTouchStart: () => warmRecipeOnIntent(preloadRecipe, variant.id),
-          style: ambilightStyle(cardImage, { '--card-accent': getCategoryColor(item) }),
-          'aria-label': `Ouvrir ${variant.label || item.title}`,
-          onClick: () => openRecipe(variant.id)
-        },
-          cardImage && h('span', { className: 'variant-card-ambilight', 'aria-hidden': true }),
-          image && h('span', { className: 'variant-card-bg', style: imageBackgroundStyle(image) }),
-          h('span', { className: 'variant-card-body' },
-            h('strong', null, variant.label || item.title),
-            variantLabel && h('small', { className: 'variant-card-variant-count' }, variantLabel)
-          )
+        const selected = comparisonIds.includes(variant.id);
+        return h('div', { key: variant.id, className: selected ? 'variant-card-shell is-comparing' : 'variant-card-shell' },
+          h('button', {
+            type: 'button',
+            className: 'variant-card',
+            onPointerEnter: () => warmRecipeOnIntent(preloadRecipe, variant.id),
+            onFocus: () => warmRecipeOnIntent(preloadRecipe, variant.id),
+            onTouchStart: () => warmRecipeOnIntent(preloadRecipe, variant.id),
+            style: ambilightStyle(cardImage, { '--card-accent': getCategoryColor(item) }),
+            'aria-label': `Ouvrir ${variant.label || item.title}`,
+            onClick: () => openRecipe(variant.id)
+          },
+            cardImage && h('span', { className: 'variant-card-ambilight', 'aria-hidden': true }),
+            image && h('span', { className: 'variant-card-bg', style: imageBackgroundStyle(image) }),
+            h('span', { className: 'variant-card-body' },
+              h('strong', null, variant.label || item.title),
+              variantLabel && h('small', { className: 'variant-card-variant-count' }, variantLabel)
+            )
+          ),
+          h('button', {
+            type: 'button',
+            className: 'variant-compare-toggle',
+            'aria-pressed': selected,
+            disabled: !selected && comparisonIds.length >= 3,
+            onClick: () => toggleComparison(variant.id)
+          }, selected ? 'Retirer' : 'Comparer')
         );
       })
     )
