@@ -189,9 +189,7 @@ if (!fs.existsSync(DIST)) {
       if (prerenderedHtml.includes('loading-screen')) {
         fail(`dist/${prerenderedPage}: loader bloquant interdit dans une page prerendue.`);
       }
-      const expectedHeroImage = Array.isArray(recipe.variants) && recipe.variants.length
-        ? recipe.image
-        : themeRecipeArt[id];
+      const expectedHeroImage = themeRecipeArt[id];
       if (expectedHeroImage && exists(normalizeAssetPath(expectedHeroImage)) && !prerenderedHtml.includes(`href="${expectedHeroImage}"`)) {
         fail(`dist/${prerenderedPage}: hero pre-rendu non aligne (${expectedHeroImage}).`);
       }

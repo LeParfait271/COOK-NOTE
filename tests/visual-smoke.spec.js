@@ -804,7 +804,7 @@ test.describe('Cook Note visual smoke', () => {
       await expect(parentHeroImage).toHaveCount(1);
       await expectImagesReady(page, '.parent-hero .recipe-detail-hero-image', 1);
       const parentHeroImageSrc = await parentHeroImage.getAttribute('src');
-      expect(parentHeroImageSrc).toContain(`/assets/recipes/heroes/${recipeId}.jpg`);
+      expect(parentHeroImageSrc).toContain(`/assets/theme/dark/categories/${recipeId}.jpg`);
       expect(parentHeroImageSrc).not.toContain('/assets/theme/dark/global/hero');
       await expect(page.locator('.parent-hero .detail-hero-logo')).toHaveCount(0);
       await expect(page.locator('.collection-links-panel .collection-links-heading')).toHaveCount(0);
