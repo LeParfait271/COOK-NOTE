@@ -275,7 +275,6 @@ test.describe('Cook Note visual smoke', () => {
     await page.goto('/recette/poulet_sauce_pimentee?lang=en');
     await waitForCookNote(page);
 
-    await expectSelectedLanguage(page, 'en', 'EN');
     await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
     const detailActions = page.locator('.detail-actions');
     await expect(detailActions).toBeVisible();
@@ -296,7 +295,6 @@ test.describe('Cook Note visual smoke', () => {
     await page.goto('/recette/beignets_calamar?lang=en');
     await waitForCookNote(page);
 
-    await expectSelectedLanguage(page, 'en', 'EN');
     await expect(page.getByRole('heading', { level: 1, name: /Calamari fritters/i })).toBeVisible();
     await page.locator('.variant-choice-button').filter({ hasText: /Calamari/i }).first().click();
     const mobileTabs = page.locator('.recipe-tabs');
@@ -630,23 +628,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.mobile-bottom-nav')).toHaveCount(0);
     expect(compactHome.overflow).toBeLessThanOrEqual(2);
 
-    await page.getByRole('button', { name: 'Préférences d’affichage', exact: true }).click();
-    const preferenceCopy = page.locator('.preference-data-copy');
-    await expect(preferenceCopy).toBeVisible();
-    const preferenceLayout = await preferenceCopy.evaluate(node => {
-      const title = node.querySelector('strong')?.getBoundingClientRect();
-      const description = node.querySelector('small')?.getBoundingClientRect();
-      return {
-        display: getComputedStyle(node).display,
-        titleBottom: title?.bottom || 0,
-        descriptionTop: description?.top || 0,
-        overflow: node.scrollWidth - node.clientWidth
-      };
-    });
-    expect(preferenceLayout.display).toBe('grid');
-    expect(preferenceLayout.descriptionTop - preferenceLayout.titleBottom).toBeGreaterThanOrEqual(3.5);
-    expect(preferenceLayout.overflow).toBeLessThanOrEqual(1);
-    await page.locator('.preferences-modal').getByRole('button', { name: 'Fermer', exact: true }).click();
+    await expect(page.locator('.top-settings-btn')).toBeHidden();
 
     await page.locator('.home-search-launcher').click();
     const searchInput = page.locator('#recipe-search-input');
