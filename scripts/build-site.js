@@ -271,6 +271,7 @@ function recipeImage(recipe) {
 
 function staticRecipeImage(recipe) {
   const source = recipeImage(recipe);
+  if (variantRefs(recipe).length) return source;
   const match = String(source).match(/\/([^/?#]+)\.(?:jpe?g|png|webp)(?:[?#].*)?$/i);
   const candidates = [...new Set([recipe?.id, match?.[1]].filter(Boolean))];
   const themed = candidates.map(id => loadThemeRecipeArt().dark?.[id]).find(Boolean);
@@ -476,7 +477,6 @@ function renderVariantCards(recipe, recipes) {
   if (!variants.length) return '';
   return [
     '<section class="recipe-summary-panel static-prerender-panel">',
-    '<p class="collection-links-context">Choisir une recette</p>',
     '<div class="variant-card-grid">',
     variants.map(({ ref, recipe: variant }) => {
       const title = ref.label || variant.title;

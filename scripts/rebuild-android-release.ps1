@@ -119,7 +119,14 @@ function Find-AndroidTool($FileName) {
 }
 
 function Get-Sha256($Path) {
-  return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash
+  # Windows PowerShell on the release host may not expose Get-FileHash.
+  # Keep the same SHA-256 contract through the framework API instead.
+  $sha = [System.Security.Cryptography.SHA256]::Create()
+  try {
+    return ([BitConverter]::ToString($sha.ComputeHash([System.IO.File]::ReadAllBytes($Path)))).Replace('-', '')
+  } finally {
+    $sha.Dispose()
+  }
 }
 
 function Write-Summary($Data) {

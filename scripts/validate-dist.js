@@ -189,9 +189,11 @@ if (!fs.existsSync(DIST)) {
       if (prerenderedHtml.includes('loading-screen')) {
         fail(`dist/${prerenderedPage}: loader bloquant interdit dans une page prerendue.`);
       }
-      const themedImage = themeRecipeArt[id];
-      if (themedImage && exists(normalizeAssetPath(themedImage)) && !prerenderedHtml.includes(`href="${themedImage}"`)) {
-        fail(`dist/${prerenderedPage}: hero pre-rendu non aligne sur l art theme (${themedImage}).`);
+      const expectedHeroImage = Array.isArray(recipe.variants) && recipe.variants.length
+        ? recipe.image
+        : themeRecipeArt[id];
+      if (expectedHeroImage && exists(normalizeAssetPath(expectedHeroImage)) && !prerenderedHtml.includes(`href="${expectedHeroImage}"`)) {
+        fail(`dist/${prerenderedPage}: hero pre-rendu non aligne (${expectedHeroImage}).`);
       }
     }
     if (!redirects.includes(`/recette/${slug} /recette/${slug}/ 301`)) {

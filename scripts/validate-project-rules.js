@@ -76,12 +76,15 @@ expect(
     && culinaryReport.includes('Aucun temps n’est remplacé ou supprimé')
 );
 expect(
-  'Outils de recherche ou comparaison des collections absents.',
-  validators.app.includes('collection-search')
-    && validators.app.includes('collection-quick-filters')
-    && validators.app.includes('collection-comparison')
-    && validators.style.includes('.collection-search')
-    && validators.style.includes('.collection-comparison-grid')
+  'Collections encombrees par des controles retires ou sans ancien visuel parent.',
+  validators.app.includes('function collectionHeroImage(recipe)')
+    && validators.app.includes("className: 'variant-card-grid'")
+    && !validators.app.includes('collection-search')
+    && !validators.app.includes('collection-quick-filters')
+    && !validators.app.includes('collection-comparison')
+    && !validators.app.includes('variant-compare-toggle')
+    && !validators.style.includes('.collection-search')
+    && !validators.style.includes('.collection-comparison-grid')
 );
 
 expect(
