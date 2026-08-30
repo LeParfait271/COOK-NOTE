@@ -346,12 +346,15 @@
     );
   }
 
-  function RecipeHistoryBlock({ recipe, publishedRecipe, entries, activeOverride, onRestore, onClear, Disclosure }) {
+  function RecipeHistoryBlock({ recipe, updatedAt }) {
     if (!recipe) return null;
     const version = /^\d+\.\d{2}$/.test(String(recipe.recipeVersion || '')) ? recipe.recipeVersion : '1.00';
-    return h('section', { className: 'personal-history-block notes-static-card', 'aria-label': 'Version de la fiche' },
+    return h('section', { className: 'personal-history-block recipe-version-card notes-static-card', 'aria-label': 'Version de la fiche' },
       h('p', { className: 'eyebrow' }, 'Version de la fiche'),
-      h('strong', { className: 'recipe-version-value' }, `v${version}`)
+      h('div', { className: 'recipe-version-meta' },
+        h('strong', { className: 'recipe-version-value' }, `v${version}`),
+        updatedAt && h('small', null, `Mise à jour : ${updatedAt}`)
+      )
     );
   }
 

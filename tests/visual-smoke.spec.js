@@ -77,13 +77,6 @@ async function expectBackgroundImagesReady(page, selector, minCount) {
   }).toPass({ timeout: 12000 });
 }
 
-async function expectSelectedLanguage(page, value, label) {
-  const toggle = page.locator('.language-toggle:visible').first();
-  await expect(toggle).toHaveAttribute('data-locale', value);
-  await expect(toggle.locator('.language-toggle-code.active')).toHaveText(label);
-  await expect(page.locator('.language-switcher select')).toHaveCount(0);
-}
-
 test.describe('Cook Note visual smoke', () => {
   test('home renders cards, images and clean text', async ({ page }, testInfo) => {
     await forceTheme(page, 'dark');
@@ -169,6 +162,8 @@ test.describe('Cook Note visual smoke', () => {
         searchClipPath: search.clipPath
       };
     });
+    const parentGridColumns = await page.locator('.master-recipe-grid').evaluate(grid => getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length);
+    expect(parentGridColumns).toBe(testInfo.project.name === 'mobile' ? 1 : 3);
     expect(homeLayout.footerGap).toBeGreaterThanOrEqual(testInfo.project.name === 'mobile' ? 32 : 48);
     expect(homeLayout.footerGap).toBeLessThanOrEqual(128);
     expect(homeLayout.leftDelta).toBeLessThanOrEqual(1);
@@ -199,17 +194,18 @@ test.describe('Cook Note visual smoke', () => {
 
     await expect(page.locator('.mc-shell.theme-light')).toBeVisible();
     await expect(page.locator('.theme-toggle-btn')).toHaveAttribute('aria-pressed', 'true');
-    await expectSelectedLanguage(page, 'fr', 'FR');
-    await page.locator('.language-toggle:visible').first().click();
-    await expectSelectedLanguage(page, 'en', 'EN');
+    await expect(page.locator('.language-switcher')).not.toBeVisible();
+    await expect(page.locator('.top-settings-btn')).not.toBeVisible();
+    await page.goto('/?lang=en');
+    await waitForCookNote(page);
     await expect(page.locator('.hero-system-label')).toHaveText('Culinary archives · The twin citadels');
     await expect(page.locator('.home-search-copy strong')).toHaveText('Search for a recipe or ingredient');
     await expect(page.locator('.home-search-copy small')).toHaveText('Title, ingredient, season, craving or technique');
     const englishCategoryTitle = page.getByRole('heading', { level: 3, name: 'Appetizers', exact: true });
     await expect(englishCategoryTitle).toBeVisible();
     await expect(englishCategoryTitle).not.toHaveClass(/sr-only/);
-    await page.locator('.language-toggle:visible').first().click();
-    await expectSelectedLanguage(page, 'fr', 'FR');
+    await page.goto('/?lang=fr');
+    await waitForCookNote(page);
     await expect(page.locator('.home-view')).toBeVisible();
     const lightArt = await page.evaluate(() => ({
       background: getComputedStyle(document.documentElement).getPropertyValue('--art-background-image').trim(),
@@ -488,16 +484,12 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
-  test('preferences keep comfortable readable defaults without redundant controls', async ({ page }) => {
+  test('preferences controls stay hidden while comfortable defaults remain active', async ({ page }) => {
     await forceTheme(page, 'dark');
     await page.goto('/?lang=fr');
     await waitForCookNote(page);
-    await page.locator('.top-settings-btn').click();
-    await expect(page.getByRole('heading', { name: 'Préférences' })).toBeVisible();
-    await expect(page.getByText('Densité des cartes')).toHaveCount(0);
-    await expect(page.getByText('Texte plus lisible')).toHaveCount(0);
-    await expect(page.getByText('Animations calmes')).toHaveCount(0);
-    await expect(page.getByText('Mes outils de cuisine')).toHaveCount(0);
+    await expect(page.locator('.top-settings-btn')).not.toBeVisible();
+    await expect(page.locator('.language-switcher')).not.toBeVisible();
     await expect(page.locator('.mc-shell')).toHaveClass(/display-large-text/);
     await expect(page.locator('.mc-shell')).not.toHaveClass(/display-compact/);
     await expectNoHorizontalOverflow(page);

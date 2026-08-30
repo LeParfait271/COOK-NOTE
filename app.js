@@ -106,10 +106,10 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.31';
+const SITE_VERSION = 'v5.32';
 const SITE_UPDATED_AT = '30/08/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '5.31';
+const ANDROID_LEGACY_APK_VERSION = '5.32';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
@@ -7382,6 +7382,7 @@ function RecipeView({
           h('h2', { className: 'read-before-title' }, 'Avant de commencer')
         ),
         h('div', { className: 'notes-core-stack' },
+          h(RecipeHistoryBlock, { recipe: selectedRecipe, updatedAt: SITE_UPDATED_AT }),
           h('div', { className: 'allergen-card', 'aria-label': 'Allergenes detectes' },
             h('p', { className: 'eyebrow' }, 'Allergènes'),
             recipeAllergens.length
@@ -7403,7 +7404,6 @@ function RecipeView({
           h(EquipmentProfileBlock, { requiredEquipment: getRecipeEquipment(selectedRecipe), profile: equipmentProfile, Disclosure: NotesDisclosure }),
           h(MoldCalculatorBlock, { recipe: selectedRecipe, profile: equipmentProfile, Disclosure: NotesDisclosure }),
           h(ByproductBlock, { recipe: selectedRecipe, recipes, ensureCatalog, openRecipe, Disclosure: NotesDisclosure }),
-          h(RecipeHistoryBlock, { recipe: selectedRecipe, publishedRecipe, entries: historyEntries, activeOverride, onRestore: restoreRecipeVersion, onClear: clearRecipeOverride, Disclosure: NotesDisclosure }),
           h(FlavorMapBlock, { recipe: selectedRecipe }),
           h(IngredientKnowledgeBlock, { recipe: selectedRecipe }),
           h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
