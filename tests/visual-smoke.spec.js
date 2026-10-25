@@ -1,6 +1,8 @@
 const { test, expect } = require('@playwright/test');
 
-const MOJIBAKE_PATTERN = /(?:\u00c3.|\u00c2.|\u00e2\u20ac|\u00e2\u20ac\u2122|\u00c5\u201c|\ufffd)/;
+// Sequences UTF-8 relues en Latin-1 : \u00c3 ou \u00c2 suivis d'un octet de continuation,
+// sans confondre les majuscules legitimes comme \u00ab P\u00c2TE \u00bb.
+const MOJIBAKE_PATTERN = /(?:[\u00c2\u00c3][\u0080-\u00bf]|\u00e2\u20ac|\u00c5\u201c|\ufffd)/;
 const CATEGORY_PARENT_ROUTES = [
   ['apero_maitre', 'Ap\u00e9ro'],
   ['entrees_maitre', 'Entr\u00e9es'],
@@ -80,7 +82,7 @@ async function expectBackgroundImagesReady(page, selector, minCount) {
 test.describe('Cook Note visual smoke', () => {
   test('home renders cards, images and clean text', async ({ page }, testInfo) => {
     await forceTheme(page, 'dark');
-    await page.goto('/?lang=fr');
+    await page.goto('/');
     await waitForCookNote(page);
 
     await expect(page.locator('.home-view')).toBeVisible();
@@ -173,9 +175,11 @@ test.describe('Cook Note visual smoke', () => {
     await page.waitForTimeout(250);
     await page.evaluate(() => document.querySelector('.recipe-card')?.scrollIntoView({ block: 'center' }));
     await expectImagesReady(page, '.recipe-card img', 6);
-    const firstDarkCardSource = await page.locator('.recipe-card.master-card .card-image').first().getAttribute('src');
+    const firstDarkCard = page.locator('.recipe-card.master-card .card-image').first();
+    const firstDarkCardSource = await firstDarkCard.getAttribute('src');
     expect(firstDarkCardSource).toContain('/assets/theme/dark/categories/');
-    expect(firstDarkCardSource).toContain('_maitre.jpg?v=');
+    expect(firstDarkCardSource).toContain('_maitre.avif?v=');
+    expect(await firstDarkCard.getAttribute('data-original-src')).toContain('_maitre.jpg?v=');
     expect(firstDarkCardSource).not.toContain('/assets/recipes/cards/parent_');
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
@@ -189,23 +193,12 @@ test.describe('Cook Note visual smoke', () => {
 
   test('day mode renders from the same design system', async ({ page }, testInfo) => {
     await forceTheme(page, 'light');
-    await page.goto('/?lang=fr');
+    await page.goto('/');
     await waitForCookNote(page);
 
     await expect(page.locator('.mc-shell.theme-light')).toBeVisible();
     await expect(page.locator('.theme-toggle-btn')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('.language-switcher')).not.toBeVisible();
     await expect(page.locator('.top-settings-btn')).not.toBeVisible();
-    await page.goto('/?lang=en');
-    await waitForCookNote(page);
-    await expect(page.locator('.hero-system-label')).toHaveText('Culinary archives · The twin citadels');
-    await expect(page.locator('.home-search-copy strong')).toHaveText('Search for a recipe or ingredient');
-    await expect(page.locator('.home-search-copy small')).toHaveText('Title, ingredient, season, craving or technique');
-    const englishCategoryTitle = page.getByRole('heading', { level: 3, name: 'Appetizers', exact: true });
-    await expect(englishCategoryTitle).toBeVisible();
-    await expect(englishCategoryTitle).not.toHaveClass(/sr-only/);
-    await page.goto('/?lang=fr');
-    await waitForCookNote(page);
     await expect(page.locator('.home-view')).toBeVisible();
     const lightArt = await page.evaluate(() => ({
       background: getComputedStyle(document.documentElement).getPropertyValue('--art-background-image').trim(),
@@ -241,9 +234,11 @@ test.describe('Cook Note visual smoke', () => {
     const commandIconColor = await page.locator('.command-row-icon').first().evaluate(node => getComputedStyle(node).color);
     expect(commandIconColor).not.toBe('rgb(255, 255, 255)');
     await page.keyboard.press('Escape');
-    const firstDayCardSource = await page.locator('.recipe-card.master-card .card-image').first().getAttribute('src');
+    const firstDayCard = page.locator('.recipe-card.master-card .card-image').first();
+    const firstDayCardSource = await firstDayCard.getAttribute('src');
     expect(firstDayCardSource).toContain('/assets/theme/dark/categories/');
-    expect(firstDayCardSource).toContain('_maitre.jpg?v=');
+    expect(firstDayCardSource).toContain('_maitre.avif?v=');
+    expect(await firstDayCard.getAttribute('data-original-src')).toContain('_maitre.jpg?v=');
     expect(firstDayCardSource).not.toContain('/assets/recipes/cards/parent_');
     const firstCardMediaOpacity = await page.locator('.recipe-card.master-card .card-media').first().evaluate(node =>
       getComputedStyle(node).opacity
@@ -258,7 +253,7 @@ test.describe('Cook Note visual smoke', () => {
       fullPage: false
     });
 
-    await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
+    await page.goto('/recette/poulet_sauce_pimentee');
     await waitForCookNote(page);
     await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
     await expect(page.locator('.detail-actions')).toBeVisible();
@@ -270,54 +265,9 @@ test.describe('Cook Note visual smoke', () => {
     expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe('light');
   });
 
-  test('english recipe controls stay translated', async ({ page }) => {
-    await forceTheme(page, 'dark');
-    await page.goto('/recette/poulet_sauce_pimentee?lang=en');
-    await waitForCookNote(page);
-
-    await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
-    const detailActions = page.locator('.detail-actions');
-    await expect(detailActions).toBeVisible();
-    await expect(detailActions.getByRole('button', { name: /Add to shopping|In shopping|Remove from shopping/i })).toBeVisible();
-    await expect(detailActions.getByRole('button', { name: /Add to favorites|Remove from favorites/i })).toBeVisible();
-    const dockText = await detailActions.innerText();
-    expect(dockText).not.toMatch(/(^|\s)Favori($|\s)/);
-    expect(dockText).not.toMatch(/(^|\s)prêt($|\s)/);
-    await page.goto('/recette/acras_epinards?lang=en');
-    await waitForCookNote(page);
-    await expect(page.getByRole('heading', { level: 1, name: 'Spinach fritters', exact: true })).toBeVisible();
-    await expectNoMojibake(page);
-    await expectNoHorizontalOverflow(page);
-  });
-
-  test('english inline variant recipe content stays translated', async ({ page }) => {
-    await forceTheme(page, 'dark');
-    await page.goto('/recette/beignets_calamar?lang=en');
-    await waitForCookNote(page);
-
-    await expect(page.getByRole('heading', { level: 1, name: /Calamari fritters/i })).toBeVisible();
-    await page.locator('.variant-choice-button').filter({ hasText: /Calamari/i }).first().click();
-    const mobileTabs = page.locator('.recipe-tabs');
-    if (await mobileTabs.isVisible()) {
-      await mobileTabs.getByRole('tab', { name: /Steps/i }).click();
-    }
-    await expect(page.locator('.step-list')).toBeVisible();
-    await expect(page.locator('.step-list')).toContainText('Quickly rinse the calamari');
-    await expect(page.locator('.step-list')).toContainText('Mix the milk, lemon, garlic, salt');
-    await expect(page.locator('.step-list')).not.toContainText('Rincer rapidement les calamars');
-    await expect(page.locator('.step-list')).not.toContainText('Mélanger lait');
-    await expect(page.locator('.practical-block')).toContainText('Good to know');
-    await expect(page.locator('.practical-block')).not.toContainText('Practical info');
-    await expect(page.locator('.practical-block')).not.toContainText('Infos pratiques');
-    await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
-    await expect(page.locator('.detail-actions')).toBeVisible();
-    await expectNoMojibake(page);
-    await expectNoHorizontalOverflow(page);
-  });
-
   test('merged recipe keeps each curry variant complete and isolated', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/recette/currys_carnivores_variantes?lang=fr');
+    await page.goto('/recette/currys_carnivores_variantes');
     await waitForCookNote(page);
 
     await expect(page.getByRole('heading', { level: 1, name: /Currys carnivores/i })).toBeVisible();
@@ -358,7 +308,7 @@ test.describe('Cook Note visual smoke', () => {
 
   test('long ingredient panel stays fully open inside the fiche', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/recette/poulet_basquaise_variantes?lang=fr');
+    await page.goto('/recette/poulet_basquaise_variantes');
     await waitForCookNote(page);
 
     const ovenVariant = page.locator('.variant-choice-button').filter({ hasText: /Au four/i });
@@ -396,7 +346,7 @@ test.describe('Cook Note visual smoke', () => {
 
   test('secondary recipe notes stay in accessible expandable boxes', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/recette/acras_epinards?lang=fr');
+    await page.goto('/recette/acras_epinards');
     await waitForCookNote(page);
 
     const mobileTabs = page.locator('.recipe-tabs');
@@ -441,7 +391,7 @@ test.describe('Cook Note visual smoke', () => {
 
   test.skip('personal kitchen tools save a profile and enrich a recipe', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/recette/opera?lang=fr');
+    await page.goto('/recette/opera');
     await waitForCookNote(page);
 
     await page.locator('.top-settings-btn').click();
@@ -467,7 +417,7 @@ test.describe('Cook Note visual smoke', () => {
 
   test.skip('restaurant tools remain usable without altering recipe data', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/?lang=fr');
+    await page.goto('/');
     await waitForCookNote(page);
     await page.locator('.top-settings-btn').click();
     await page.getByRole('button', { name: 'Ouvrir mes outils' }).click();
@@ -484,10 +434,10 @@ test.describe('Cook Note visual smoke', () => {
 
   test('preferences controls stay hidden while comfortable defaults remain active', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/?lang=fr');
+    await page.goto('/');
     await waitForCookNote(page);
     await expect(page.locator('.top-settings-btn')).not.toBeVisible();
-    await expect(page.locator('.language-switcher')).not.toBeVisible();
+    await expect(page.locator('.language-switcher')).toHaveCount(0);
     await expect(page.locator('.mc-shell')).toHaveClass(/display-large-text/);
     await expect(page.locator('.mc-shell')).not.toHaveClass(/display-compact/);
     await expectNoHorizontalOverflow(page);
@@ -495,7 +445,7 @@ test.describe('Cook Note visual smoke', () => {
 
   test('parent card titles share the same bottom and left inset', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/?lang=fr');
+    await page.goto('/');
     await waitForCookNote(page);
     const metrics = await page.locator('.recipe-card.master-card').evaluateAll(cards => cards.slice(0, 8).map(card => {
       const frame = card.getBoundingClientRect();
@@ -510,7 +460,7 @@ test.describe('Cook Note visual smoke', () => {
 
   test('direct recipe route renders hero and decoded copy', async ({ page }, testInfo) => {
     await forceTheme(page, 'dark');
-    await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
+    await page.goto('/recette/poulet_sauce_pimentee');
     await waitForCookNote(page);
 
     await expect(page.locator('.recipe-view')).toBeVisible();
@@ -561,7 +511,7 @@ test.describe('Cook Note visual smoke', () => {
 
   test('recipe sheet keeps controls in the fiche without a duplicate command bar', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
+    await page.goto('/recette/poulet_sauce_pimentee');
     await waitForCookNote(page);
 
     await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
@@ -573,7 +523,7 @@ test.describe('Cook Note visual smoke', () => {
 
   test('recipe keeps secondary utilities grouped without a cooking mode', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
+    await page.goto('/recette/poulet_sauce_pimentee');
     await waitForCookNote(page);
 
     await expect(page.getByRole('button', { name: 'Mode cuisine' })).toHaveCount(0);
@@ -600,7 +550,7 @@ test.describe('Cook Note visual smoke', () => {
 
   test('empty favorites explains how to save a recipe', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/?lang=fr&view=__favs__');
+    await page.goto('/?view=__favs__');
     await waitForCookNote(page);
 
     const emptyState = page.locator('.season-sections .empty-state');
@@ -614,7 +564,7 @@ test.describe('Cook Note visual smoke', () => {
   test('compact visual controls remain readable at 320 px', async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 568 });
     await forceTheme(page, 'dark');
-    await page.goto('/?lang=fr');
+    await page.goto('/');
     await waitForCookNote(page);
 
     const compactHome = await page.evaluate(() => {
@@ -674,7 +624,7 @@ test.describe('Cook Note visual smoke', () => {
 
   test('shopping basket keeps a recipe and marks an item already at home', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/recette/poulet_sauce_pimentee?lang=fr');
+    await page.goto('/recette/poulet_sauce_pimentee');
     await waitForCookNote(page);
 
     const addToShopping = page.getByRole('button', { name: /Ajouter aux courses/i }).first();
@@ -683,7 +633,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('cook_note_shopping_basket') || '[]')))
       .toContain('poulet_sauce_pimentee');
 
-    await page.goto('/?lang=fr');
+    await page.goto('/');
     await waitForCookNote(page);
     await page.locator('.mobile-bottom-nav [aria-label="Courses"]:visible, .home-quick-actions button:visible')
       .filter({ hasText: /Liste de courses|Liste/ })
@@ -700,9 +650,39 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
+  test('shopping list travels to another device through the QR link', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    page.on('dialog', dialog => dialog.accept());
+    await page.goto('/#courses=poulet_sauce_pimentee*2,%3Cscript%3E');
+    await waitForCookNote(page);
+
+    const shoppingModal = page.locator('.shopping-modal');
+    await expect(shoppingModal).toBeVisible();
+    await expect(page.locator('#shopping-modal-title')).toContainText('1 recette');
+    expect(await page.evaluate(() => window.location.hash)).toBe('');
+    await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('cook_note_shopping_factors') || '{}')))
+      .toMatchObject({ poulet_sauce_pimentee: 2 });
+
+    await shoppingModal.getByRole('button', { name: 'Sur mon téléphone' }).click();
+    await expect(page.locator('.shopping-transfer .share-qr.is-ready')).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test('images fall back to JPG when AVIF cannot be loaded', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.route(/\.avif(?:\?|$)/, route => route.abort());
+    await page.goto('/');
+    await waitForCookNote(page);
+
+    const card = page.locator('.recipe-card.master-card .card-image').first();
+    await expect.poll(() => card.evaluate(img => img.complete && img.naturalWidth > 0 && /\.jpg(?:\?|$)/.test(img.currentSrc)))
+      .toBe(true);
+    await expect(card).not.toHaveAttribute('srcset', /./);
+  });
+
   test('menu planner sends its scaled menu to shopping', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/?lang=fr');
+    await page.goto('/');
     await waitForCookNote(page);
 
     await page.locator('.mobile-bottom-nav [aria-label="Mode menu"]:visible, .home-quick-actions button:visible')
@@ -731,7 +711,7 @@ test.describe('Cook Note visual smoke', () => {
 
   test('techniques page filters and highlights a direct technique', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/techniques?lang=fr#emincer');
+    await page.goto('/techniques#emincer');
     await waitForCookNote(page);
 
     await expect(page.locator('.techniques-view')).toBeVisible();
@@ -764,7 +744,7 @@ test.describe('Cook Note visual smoke', () => {
   for (const [recipeId, expectedTitle] of CATEGORY_PARENT_ROUTES) {
     test(`category parent ${recipeId} renders variants cleanly`, async ({ page }, testInfo) => {
       await forceTheme(page, 'dark');
-      await page.goto(`/recette/${recipeId}?lang=fr`);
+      await page.goto(`/recette/${recipeId}`);
       await waitForCookNote(page);
 
       await expect(page.locator('.recipe-view')).toBeVisible();
@@ -778,7 +758,9 @@ test.describe('Cook Note visual smoke', () => {
       await expect(parentHeroImage).toHaveCount(1);
       await expectImagesReady(page, '.parent-hero .recipe-detail-hero-image', 1);
       const parentHeroImageSrc = await parentHeroImage.getAttribute('src');
-      expect(parentHeroImageSrc).toContain(`/assets/theme/dark/categories/${recipeId}.jpg`);
+      // AVIF servi en premier, le JPG reste la source d'origine et le repli.
+      expect(parentHeroImageSrc).toContain(`/assets/theme/dark/categories/${recipeId}.avif`);
+      expect(await parentHeroImage.getAttribute('data-original-src')).toContain(`/assets/theme/dark/categories/${recipeId}.jpg`);
       expect(parentHeroImageSrc).not.toContain('/assets/theme/dark/global/hero');
       await expect(page.locator('.parent-hero .detail-hero-logo')).toHaveCount(0);
       await expect(page.locator('.collection-links-panel .collection-links-heading')).toHaveCount(0);
@@ -807,7 +789,7 @@ test.describe('Cook Note visual smoke', () => {
 
   test('category collections show recipes without redundant controls', async ({ page }) => {
     await forceTheme(page, 'dark');
-    await page.goto('/recette/sauces_maitre?lang=fr');
+    await page.goto('/recette/sauces_maitre');
     await waitForCookNote(page);
 
     await expect(page.locator('.variant-card')).not.toHaveCount(0);

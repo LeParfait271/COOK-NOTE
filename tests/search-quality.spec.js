@@ -17,7 +17,7 @@ async function searchAndExpect(page, query, expectedTitle) {
 
 test.describe('Cook Note search quality smoke', () => {
   test('retrouve les fiches importées, les variantes et les alias sans accent', async ({ page }) => {
-    await page.goto('/?lang=fr');
+    await page.goto('/');
     await waitForCookNote(page);
     await page.locator('.home-search-launcher').click();
     await expect(page.locator('.search-modal')).toBeVisible();

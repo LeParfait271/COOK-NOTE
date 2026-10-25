@@ -119,8 +119,9 @@ Rapports :
 DEPLOIEMENT
 -----------
 
-Le site public est deploye comme application statique sur Cloudflare Pages.
-Toujours publier l'artefact dist/ genere et valide :
+Le site public est deploye comme application statique sur Cloudflare Pages,
+qui construit lui-meme dist/ a chaque push (dist/ n'est pas versionne).
+En local, verifier le build avant de pousser :
 
    npm run build
    npm run validate:dist
@@ -129,6 +130,7 @@ Configuration Cloudflare Pages attendue :
 
    Build command: npm run build
    Build output directory: dist
+   Variable d'environnement : NODE_VERSION=20
 
 Le serveur Node et le back-office sont reserves a la maintenance locale. Ne pas
 exposer server.js, /admin, admin.local.json, les backups ou les outils de

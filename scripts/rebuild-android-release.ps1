@@ -304,10 +304,11 @@ $ApkSigner = Find-AndroidTool "apksigner.bat"
 $InitialVersions = Get-VersionState
 $TargetVersion = $InitialVersions.Site
 $ExpectedVersionCode = Get-ExpectedVersionCode $TargetVersion
-$KeystorePath = Join-Path $Root "android-legacy\app\cook-note-release.jks"
+$KeystorePath = Join-Path $Root "android-legacy\signing\cook-note-release.jks"
+$KeystorePropsPath = Join-Path $Root "android-legacy\signing\keystore.properties"
 
-if (-not (Test-Path -LiteralPath $KeystorePath)) {
-  throw "Keystore release introuvable: $KeystorePath"
+if (-not (Test-Path -LiteralPath $KeystorePath) -or -not (Test-Path -LiteralPath $KeystorePropsPath)) {
+  throw "Cle release introuvable dans android-legacy\signing\ (cook-note-release.jks + keystore.properties)."
 }
 
 $NeedsSync = $InitialVersions.AppAndroid -ne $TargetVersion -or

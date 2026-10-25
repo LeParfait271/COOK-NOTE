@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const { TextDecoder } = require('node:util');
+const { readAppSource } = require('./lib/app-modules');
 let jpeg;
 try { jpeg = require('./vendor/jpeg-js'); } catch (e) { jpeg = require('jpeg-js'); }
 
@@ -10,7 +11,6 @@ const OUT_DIR = path.join(ROOT, 'android-legacy', 'build', 'generated', 'cook-no
 const OUT_IMAGE_DIR = path.join(OUT_DIR, 'images');
 const OUT_DETAIL_IMAGE_DIR = path.join(OUT_DIR, 'detail-images');
 const HOME_HERO_SOURCE = path.join(ROOT, 'assets', 'theme', 'dark', 'global', 'hero.png');
-const HOME_LOGO_SOURCE = path.join(ROOT, 'assets', 'brand', 'app-icon.png');
 const RECIPES_FILE = path.join(ROOT, 'recipes.js');
 const APP_FILE = path.join(ROOT, 'app.js');
 const APP_IMAGES_FILE = path.join(ROOT, 'app-images.js');
@@ -199,7 +199,7 @@ function loadVersion() {
 }
 
 function loadAppHelpers() {
-  const appCode = read(APP_FILE);
+  const appCode = readAppSource();
   const end = appCode.indexOf('const root = ReactDOM.createRoot');
   if (end === -1) throw new Error('Impossible de trouver la limite de montage React.');
 
@@ -375,7 +375,8 @@ function cleanGroups(groups, recipeId, inlineRules) {
     group: stripHtml(group.group || 'Base'),
     items: cleanArray(group.items),
     note: stripHtml(group.note || ''),
-    steps: cleanArray(group.steps),
+    // useRecipeSteps : l'app retombe sur les etapes de la fiche, comme le site.
+    steps: rule?.useRecipeSteps ? [] : cleanArray(group.steps),
     ...(rule && !ruledGroups.has(index)
       ? { variantKey: '__hidden__' }
       : optionByGroup.get(index)
@@ -599,8 +600,8 @@ function buildLiteAssets() {
   fs.rmSync(OUT_DIR, { recursive: true, force: true });
   ensureDir(OUT_IMAGE_DIR);
   ensureDir(OUT_DETAIL_IMAGE_DIR);
+  // L accueil affiche un titre typographique : plus de logo image a embarquer.
   fs.copyFileSync(HOME_HERO_SOURCE, path.join(OUT_DETAIL_IMAGE_DIR, 'home-hero.png'));
-  fs.copyFileSync(HOME_LOGO_SOURCE, path.join(OUT_DETAIL_IMAGE_DIR, 'home-logo.png'));
 
   const outputRecipes = Object.entries(recipes)
     .map(([id, recipe]) => {

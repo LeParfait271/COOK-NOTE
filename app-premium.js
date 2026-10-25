@@ -879,7 +879,7 @@
     }, [open]);
 
     if (!open) return null;
-    return h('div', { className: 'modal-backdrop pantry-backdrop', onMouseDown: onClose },
+    return h(ModalDialog, { className: 'pantry-backdrop', onClose: onClose },
       h('section', {
         className: 'modal-panel pantry-modal',
         role: 'dialog',
@@ -1057,7 +1057,7 @@
     }, [open]);
 
     if (!open) return null;
-    return h('div', { className: 'modal-backdrop pantry-backdrop', onMouseDown: onClose },
+    return h(ModalDialog, { className: 'pantry-backdrop', onClose: onClose },
       h('section', {
         className: 'modal-panel pantry-modal',
         role: 'dialog',
@@ -1389,6 +1389,72 @@
     }
   }
 
+  // Fenetre modale native : <dialog> ouvert avec showModal() (calque superieur,
+  // reste de la page inerte, Echap via l'evenement cancel). Garde la classe
+  // .modal-backdrop : le dialog occupe tout l'ecran et joue le role du voile.
+  function ModalDialog({ className = '', onClose, children }) {
+    const dialogRef = React.useRef(null);
+    const onCloseRef = React.useRef(onClose);
+    onCloseRef.current = onClose;
+
+    React.useLayoutEffect(() => {
+      const dialog = dialogRef.current;
+      if (!dialog) return undefined;
+      const isModalElement = element => {
+        try { return element.matches(':modal'); } catch { return false; }
+      };
+      const isModal = () => isModalElement(dialog);
+      // Le calque superieur empile dans l'ordre d'ouverture ; on garde l'ordre
+      // du DOM comme avec les anciens voiles (ex. le mode menu reste devant la
+      // liste de courses qu'il vient de remplir).
+      const restackLaterDialogs = () => {
+        const openDialogs = Array.from(document.querySelectorAll('dialog.modal-backdrop'))
+          .filter(element => element.open && isModalElement(element));
+        openDialogs.slice(openDialogs.indexOf(dialog) + 1).forEach(later => {
+          later.close();
+          try { later.showModal(); } catch { later.setAttribute('open', ''); }
+        });
+      };
+      const openModal = () => {
+        if (dialog.open && isModal()) return;
+        if (dialog.open) dialog.close();
+        try { dialog.showModal(); } catch { dialog.setAttribute('open', ''); }
+        restackLaterDialogs();
+      };
+      // A l'impression, le dialog quitte le calque superieur pour suivre le flux
+      // de la page (la liste de courses s'imprime seule, sur plusieurs pages).
+      const beforePrint = () => {
+        if (!dialog.open || !isModal()) return;
+        dialog.close();
+        dialog.show();
+      };
+      const afterPrint = () => {
+        if (dialog.isConnected && dialog.open) openModal();
+      };
+      if (typeof dialog.showModal === 'function') openModal();
+      else dialog.setAttribute('open', '');
+      window.addEventListener('beforeprint', beforePrint);
+      window.addEventListener('afterprint', afterPrint);
+      return () => {
+        window.removeEventListener('beforeprint', beforePrint);
+        window.removeEventListener('afterprint', afterPrint);
+        if (dialog.open && typeof dialog.close === 'function') dialog.close();
+      };
+    }, []);
+
+    return React.createElement('dialog', {
+      ref: dialogRef,
+      className: `modal-backdrop ${className}`.trim(),
+      onCancel: event => {
+        event.preventDefault();
+        onCloseRef.current?.();
+      },
+      onMouseDown: event => {
+        if (event.target === event.currentTarget) onCloseRef.current?.();
+      }
+    }, children);
+  }
+
   function cacheUrlsForOffline(urls, onProgress) {
     return new Promise((resolve, reject) => {
       if (!('serviceWorker' in navigator) || typeof MessageChannel === 'undefined') {
@@ -1471,6 +1537,7 @@
     PantryAssistant: PantryAssistantV2,
     downloadSharePosterCard,
     trapModalFocus,
+    ModalDialog,
     cacheUrlsForOffline
   };
 }());

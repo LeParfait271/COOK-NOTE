@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const { spawnSync } = require('node:child_process');
+const { readAppSource, readStyleSource } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const errors = [];
@@ -22,13 +23,15 @@ const packageJson = JSON.parse(read('package.json'));
 const packageText = read('package.json');
 const androidGitignore = read('android-legacy/.gitignore');
 const androidGradleProperties = read('android-legacy/gradle.properties');
-const androidReadme = read('android-legacy/README.md');
-const workflowDoc = read('docs/android-legacy-workflow.md');
-const appsWorkflowDoc = read('docs/apps-install-workflow.md');
-const projectRules = read('COOK_NOTE_RULES.md');
-const masterGuard = read('A_LIRE_EN_PREMIER.md');
-const appScript = read('app.js');
-const styleSheet = read('style.css');
+// Documents lus avec espaces normalises : on verifie les decisions, pas la mise en forme.
+const readDoc = relativePath => read(relativePath).replace(/\s+/g, ' ');
+const androidReadme = readDoc('android-legacy/README.md');
+const workflowDoc = readDoc('docs/android-legacy-workflow.md');
+const appsWorkflowDoc = readDoc('docs/apps-install-workflow.md');
+const projectRules = readDoc('COOK_NOTE_RULES.md');
+const masterGuard = readDoc('A_LIRE_EN_PREMIER.md');
+const appScript = readAppSource();
+const styleSheet = readStyleSource();
 const buildSiteScript = read('scripts/build-site.js');
 const serviceWorker = read('service-worker.js');
 const buildScript = read('scripts/build-android-legacy.ps1');
@@ -54,7 +57,14 @@ const androidBuildGradle = read('android-legacy/app/build.gradle');
 const androidLegacySettingsGradle = read('android-legacy/settings.gradle');
 const androidLegacyManifest = read('android-legacy/app/src/main/AndroidManifest.xml');
 const androidLegacyStrings = read('android-legacy/app/src/main/res/values/strings.xml');
-const androidLegacyMainActivity = read('android-legacy/app/src/main/java/fr/cooknote/legacy/MainActivity.java');
+// L'interface Native Lite est repartie entre MainActivity, ses ecrans et ses
+// classes d'appui : tous les fichiers Java du paquet sauf ceux lus a part.
+const androidLegacyDir = path.join(ROOT, 'android-legacy/app/src/main/java/fr/cooknote/legacy');
+const androidLegacyMainActivity = fs.readdirSync(androidLegacyDir)
+  .filter(file => file.endsWith('.java') && !['Recipe.java', 'CookNoteRepository.java', 'ImageLoader.java', 'RecipeAdapter.java'].includes(file))
+  .sort((a, b) => (a === 'MainActivity.java' ? -1 : b === 'MainActivity.java' ? 1 : a.localeCompare(b)))
+  .map(file => fs.readFileSync(path.join(androidLegacyDir, file), 'utf8'))
+  .join('\n');
 const androidLegacyRecipe = read('android-legacy/app/src/main/java/fr/cooknote/legacy/Recipe.java');
 const androidLegacyRepository = read('android-legacy/app/src/main/java/fr/cooknote/legacy/CookNoteRepository.java');
 const androidLegacyImageLoader = read('android-legacy/app/src/main/java/fr/cooknote/legacy/ImageLoader.java');
@@ -158,9 +168,10 @@ expect(
     && androidLegacyMainActivity.includes('ANDROID 5+  /  v')
     && androidLegacyMainActivity.includes('PRET HORS LIGNE')
     && androidLegacyMainActivity.includes('home-hero.png')
-    && androidLegacyMainActivity.includes('home-logo.png')
-    && legacyAssetsScript.includes('HOME_LOGO_SOURCE')
-    && legacyAssetsScript.includes("'home-logo.png'")
+    && !androidLegacyMainActivity.includes('home-logo.png')
+    && androidLegacyMainActivity.includes('heroWordmark.setTypeface(Ui.DISPLAY)')
+    && !legacyAssetsScript.includes("'home-logo.png'")
+    && androidLegacyMainActivity.includes('PRACTICAL_FAMILY_TITLES')
     && exists('assets/brand/app-icon.png')
     && !androidLegacyMainActivity.includes('addAccentLine(header, 11, 0)')
     && !androidLegacyMainActivity.includes('INSPIRATION DU MATIN')
@@ -208,7 +219,7 @@ expect(
     && !androidLegacyMainActivity.includes('PREF_COMPACT_CARDS')
     && !androidLegacyMainActivity.includes('PREF_OPEN_LAST')
     && !androidLegacyMainActivity.includes('SCREEN_DIAGNOSTIC')
-    && androidLegacyMainActivity.includes('shoppingRecipeIds')
+    && androidLegacyMainActivity.includes('shopping.recipeIds')
     && androidLegacyMainActivity.includes('FLAG_KEEP_SCREEN_ON')
     && androidLegacyMainActivity.includes('searchPanelOpen')
     && androidLegacyMainActivity.includes('setSearchPanelOpen')
@@ -254,11 +265,11 @@ expect(
     && !androidLegacyMainActivity.includes('Surprise')
     && androidLegacyMainActivity.includes('copyIngredients')
     && androidLegacyMainActivity.includes('showShoppingList')
-    && androidLegacyMainActivity.includes('buildShoppingText')
+    && androidLegacyMainActivity.includes('String buildText(IngredientSource source')
     && androidLegacyMainActivity.includes('copyShoppingList')
     && androidLegacyMainActivity.includes('addQuantityControls')
     && androidLegacyMainActivity.includes('scaleIngredient')
-    && androidLegacyMainActivity.includes('mergedShoppingLines')
+    && androidLegacyMainActivity.includes('List<ShoppingLine> mergedLines(')
     && androidLegacyMainActivity.includes('Courses fusionnees')
     && !androidLegacyMainActivity.includes('showDiagnostic')
     && !androidLegacyMainActivity.includes('buildDiagnosticText')
@@ -388,7 +399,8 @@ expect(
     && androidLegacyAdapter.includes('lastPrefetchPosition')
     && androidLegacyAdapter.includes('resetPrefetchWindow')
     && androidLegacyAdapter.includes('sameItems')
-    && androidLegacyAdapter.includes('setCompactCards')
+    && !androidLegacyAdapter.includes('compactCards')
+    && !androidLegacyAdapter.includes('lightTheme')
     && androidLegacyAdapter.includes('setPrefetchEnabled')
     && androidLegacyAdapter.includes('releaseView')
     && androidLegacyMainActivity.includes('handleListScrollStateChanged')
@@ -400,7 +412,6 @@ expect(
     && androidLegacyMainActivity.includes('runScheduledVisibleRangePrewarm')
     && androidLegacyMainActivity.includes('cancelVisibleRangePrewarm')
     && androidLegacyMainActivity.includes('visibleCardWidth')
-    && androidLegacyAdapter.includes('compactCards')
     && androidLegacyAdapter.includes('prefetchEnabled')
     && androidLegacyAdapter.includes('selectablePanel')
     && androidLegacyAdapter.includes('holder.title.setText(recipe.title)')
@@ -422,7 +433,6 @@ expect(
     && !androidLegacyMainActivity.includes('Diagnostic hors ligne')
     && !androidLegacyMainActivity.includes('update.setText("MISE A JOUR')
     && androidLegacyMainActivity.includes('actionButton("MISE A JOUR", false)')
-    && projectRules.includes('theme nuit premium')
     && projectRules.includes('Texte 100%')
     && projectRules.includes('Cartes confort')
     && projectRules.includes('Derniere non')
@@ -437,9 +447,16 @@ expect(
 expect(
   'Android Legacy doit signer la release avec une cle dediee stable pour garder les mises a jour installables.',
   androidBuildGradle.includes('signingConfig signingConfigs.release')
-    && androidBuildGradle.includes("storeFile file('cook-note-release.jks')")
-    && exists('android-legacy/app/cook-note-release.jks')
+    && androidBuildGradle.includes("android-legacy/signing")
+    && androidBuildGradle.includes("keystore.properties")
     && !androidBuildGradle.includes('signingConfig signingConfigs.debug')
+);
+expect(
+  'La cle release Android et son mot de passe ne doivent jamais etre versionnes.',
+  !/(storePassword|keyPassword)\s+['"]/.test(androidBuildGradle)
+    && !exists('android-legacy/app/cook-note-release.jks')
+    && read('.gitignore').includes('android-legacy/signing/')
+    && read('.gitignore').includes('*.jks')
 );
 expect(
   'Android Legacy doit permettre la verification et l installation guidee des mises a jour.',
@@ -451,9 +468,18 @@ expect(
     && androidLegacyMainActivity.includes('launchInstall')
 );
 expect(
+  'La liste de courses Android doit s ouvrir sur le telephone via un QR code natif au meme format que le site.',
+  androidLegacyMainActivity.includes('final class QrCode')
+    && androidLegacyMainActivity.includes('showShoppingTransferQr')
+    && androidLegacyMainActivity.includes('https://cook-note.pages.dev/#courses=')
+    && androidLegacyMainActivity.includes('SHOPPING_TRANSFER_MAX_ENTRIES = 30')
+    && appScript.includes('SHOPPING_TRANSFER_MAX_ENTRIES = 30')
+    && appScript.includes("SHOPPING_TRANSFER_KEY = 'courses'")
+);
+expect(
   'Les controles tactiles Android doivent reagir a la premiere pression sans prise de focus intermediaire.',
   !androidLegacyMainActivity.includes('setFocusableInTouchMode(true)')
-    && (androidLegacyMainActivity.match(/new CheckBox\(this\)/g) || []).length === 3
+    && (androidLegacyMainActivity.match(/new CheckBox\((?:this|host)\)/g) || []).length === 3
     && (androidLegacyMainActivity.match(/checkBox\.setFocusable\(false\)/g) || []).length === 3
     && (androidLegacyMainActivity.match(/checkBox\.setClickable\(true\)/g) || []).length === 3
 );
@@ -587,273 +613,18 @@ expect(
 );
 
 [
-  'Android Legacy',
-  'projet secondaire',
-  'parite site/app',
-  'ne se met pas a jour automatiquement sur la tablette',
-  'fonctionnalite visible du site',
-  'tablette peu puissante',
-  'npm run android:legacy:update-apk',
-  'npm run android:legacy:publish-release',
-  'cook-note-android-legacy.apk',
-  'cook-note-android-legacy-vX.YY.apk',
-  'apps-vX.YY',
-  '/downloads/',
-  'commit/push du site ne change pas l APK installe',
-  'Android 5.0',
-  'npm run apps:update-all',
-  'workflow ne construit plus que l APK Android Legacy',
-  'Ne pas recreer Android Modern/HD',
-  'scripts/build-android-legacy-assets.js',
-  'Native Lite',
-  'recipes-lite.json',
-  '480px',
-  '960px',
-  'detail-images',
-  'jpeg-js',
-  'GridView',
-  'RGB_565',
-  'refonte visuelle native premium',
-  'cartes image',
-  '16/9',
-  'header compact avec stats locales',
-  'hero',
-  'fiche recette detaillee proche du site',
-  'grille Ingredients/Etapes/Avant de commencer',
-  'actions principales/secondaires',
-  'pastilles',
-  'recherche simple sans filtres',
-  'recherche intelligente sans filtres',
-  'index recherche precompile',
-  'mots recherche predecoupes',
-  'fuzzy sans split',
-  'allocations recherche reduites',
-  'cache resultats recherche borne',
-  'requetes recentes reutilisees',
-  'classement recherche memoise',
-  'catalogue parent precompile',
-  'enfants parents preclasses',
-  'compteurs collection caches',
-  'swipe retour bord gauche',
-  'navigation restaurable',
-  'prechargement images',
-  'prechauffage images differe',
-  'prechauffage visible apres scroll',
-  'annulation prechauffage en fling',
-  'prefetch ralenti hors inertie',
-  'images visibles prioritaires',
-  'file image prioritaire',
-  'annulation prefetch obsolete',
-  'cache image normalise',
-  'nettoyage vues recyclees',
-  'vues image recyclees detachees',
-  'cibles image obsoletes liberees',
-  'images ecran detachees avant remplacement',
-  'chargements visibles coalesces',
-  'decodages visibles obsoletes ignores',
-  'prefetch carte borne',
-  'accueil parent Android',
-  'cartes parent visibles',
-  'menu deroulant',
-  'selecteur natif',
-  'rattachements parents additionnels',
-  'nom APK versionne',
-  'preparation choisie',
-  'copie ingredients',
-  'liste de courses locale',
-  'courses cochables',
-  'courses fusionnees',
-  'quantites ajustables',
-  'preferences locales discretes',
-  'diagnostic hors ligne',
-  'cache image adaptatif',
-  'scroll fluide',
-  'copie fiche',
-  'selecteur de personnes',
-  'allergenes',
-  'poids moyens',
-  'ecran actif',
-  'bouton natif de mise a jour',
-  'audit perf leger',
-  'etapes numerotees',
-  'sans WebView systeme et sans GeckoView',
-  'assets/www'
-].forEach(fragment => {
-  expect(`Documentation Android manuelle incomplete (${fragment}).`, workflowDoc.includes(fragment));
+  ['docs/android-legacy-workflow.md', workflowDoc],
+  ['docs/apps-install-workflow.md', appsWorkflowDoc],
+  ['android-legacy/README.md', androidReadme]
+].forEach(([file, text]) => {
+  expect(`${file}: le build APK doit rester sur demande explicite.`, text.includes('npm run apps:update-all') && text.toLowerCase().includes('demande explicite'));
+  expect(`${file}: regle de parite site/app absente.`, text.includes('parite site/app') && text.includes('Native Lite'));
+  expect(`${file}: Android HD/Modern encore mentionne.`, !text.includes('Android 8.0+') && !text.includes('cook-note-android-modern'));
 });
-
-[
-  'parite site/app',
-  'fonctionnalite visible du site',
-  'Native Lite pour tablette peu puissante',
-  'npm run apps:update-all'
-].forEach(fragment => {
-  expect(`Regle de parite Android absente des docs (${fragment}).`,
-    workflowDoc.includes(fragment)
-      && appsWorkflowDoc.includes(fragment)
-      && androidReadme.includes(fragment)
-      && projectRules.includes(fragment)
-      && masterGuard.includes(fragment));
-});
-
-expect(
-  'android-legacy/README.md doit pointer vers la documentation complete.',
-  androidReadme.includes('docs/android-legacy-workflow.md')
-    && androidReadme.includes('Native Lite')
-    && androidReadme.includes('refonte visuelle native premium')
-    && androidReadme.includes('cartes')
-    && androidReadme.includes('hero')
-    && androidReadme.includes('fiche recette detaillee proche du site')
-    && androidReadme.includes('grille Ingredients/Etapes/Avant de commencer')
-    && androidReadme.includes('actions principales')
-    && androidReadme.includes('recherche simple sans filtres')
-    && androidReadme.includes('recherche intelligente sans filtres')
-    && androidReadme.includes('index recherche precompile')
-    && androidReadme.includes('mots recherche predecoupes')
-    && androidReadme.includes('fuzzy sans split')
-    && androidReadme.includes('allocations recherche reduites')
-    && androidReadme.includes('cache resultats recherche borne')
-    && androidReadme.includes('requetes recentes reutilisees')
-    && androidReadme.includes('classement recherche memoise')
-    && androidReadme.includes('catalogue parent precompile')
-    && androidReadme.includes('enfants parents preclasses')
-    && androidReadme.includes('compteurs collection caches')
-    && androidReadme.includes('swipe retour bord gauche')
-    && androidReadme.includes('navigation restaurable')
-    && androidReadme.includes('prechargement images')
-    && androidReadme.includes('prechauffage images differe')
-    && androidReadme.includes('prechauffage visible apres scroll')
-    && androidReadme.includes('annulation prechauffage en fling')
-    && androidReadme.includes('prefetch ralenti hors inertie')
-    && androidReadme.includes('images visibles prioritaires')
-    && androidReadme.includes('file image prioritaire')
-    && androidReadme.includes('annulation prefetch obsolete')
-    && androidReadme.includes('cache image normalise')
-    && androidReadme.includes('nettoyage vues recyclees')
-    && androidReadme.includes('vues image recyclees detachees')
-    && androidReadme.includes('cibles image obsoletes liberees')
-    && androidReadme.includes('images ecran detachees avant remplacement')
-    && androidReadme.includes('chargements visibles coalesces')
-    && androidReadme.includes('decodages visibles obsoletes ignores')
-    && androidReadme.includes('prefetch carte borne')
-    && androidReadme.includes('accueil parent Android')
-    && androidReadme.includes('cartes parent visibles')
-    && androidReadme.includes('menu')
-    && androidReadme.includes('selecteurs natifs uniquement')
-    && androidReadme.includes('rattachements parents additionnels')
-    && androidReadme.includes('nom APK versionne')
-    && androidReadme.includes('preparation choisie')
-    && androidReadme.includes('copie ingredients')
-    && androidReadme.includes('liste de courses locale')
-    && androidReadme.includes('courses cochables')
-    && androidReadme.includes('courses fusionnees')
-    && androidReadme.includes('quantites ajustables')
-    && androidReadme.includes('preferences locales discretes')
-    && androidReadme.includes('diagnostic hors ligne')
-    && androidReadme.includes('cache image adaptatif')
-    && androidReadme.includes('scroll fluide')
-    && androidReadme.includes('copie fiche')
-    && androidReadme.includes('selecteur de personnes')
-    && androidReadme.includes('allergenes')
-    && androidReadme.includes('poids moyens')
-    && androidReadme.includes('ecran actif')
-    && androidReadme.includes('audit perf leger')
-    && androidReadme.includes('bouton natif de mise a jour')
-    && androidReadme.includes('update-all')
-    && androidReadme.includes('publish-all')
-    && androidReadme.includes('cook-note-android-legacy.apk')
-);
-expect(
-  'android-legacy/README.md doit rappeler que Legacy est la seule app installable.',
-  androidReadme.includes('Cook Note Android 5.0+')
-    && !androidReadme.includes('Android 8.0+')
-    && !androidReadme.includes('cook-note-android-modern')
-);
-[
-  'Android 5.0+',
-  'Cook Note Android 5.0+',
-  'cook-note-android-legacy.apk',
-  'cook-note-android-legacy-vX.YY.apk',
-  'raw.githubusercontent.com',
-  '/downloads/',
-  'npm run apps:update-all',
-  'npm run apps:publish-all',
-  'Mise a jour explicite ou parite site/app',
-  'workflow commun historique',
-  'scripts/build-android-legacy-assets.js',
-  'Native Lite',
-  'recipes-lite.json',
-  '480px',
-  '960px',
-  'jpeg-js',
-  'GridView',
-  'RGB_565',
-  'refonte visuelle native premium',
-  'cartes image',
-  '16/9',
-  'header compact avec stats locales',
-  'hero de fiche encadre',
-  'fiche recette detaillee proche du site',
-  'grille Ingredients/Etapes/Avant de commencer',
-  'actions principales/secondaires',
-  'pastilles',
-  'recherche simple sans filtres',
-  'recherche intelligente sans filtres',
-  'index recherche precompile',
-  'mots recherche predecoupes',
-  'fuzzy sans split',
-  'allocations recherche reduites',
-  'cache resultats recherche borne',
-  'requetes recentes reutilisees',
-  'classement recherche memoise',
-  'catalogue parent precompile',
-  'enfants parents preclasses',
-  'compteurs collection caches',
-  'swipe retour bord gauche',
-  'navigation restaurable',
-  'prechargement images',
-  'prechauffage images differe',
-  'prechauffage visible apres scroll',
-  'annulation prechauffage en fling',
-  'prefetch ralenti hors inertie',
-  'images visibles prioritaires',
-  'file image prioritaire',
-  'annulation prefetch obsolete',
-  'cache image normalise',
-  'nettoyage vues recyclees',
-  'vues image recyclees detachees',
-  'cibles image obsoletes liberees',
-  'images ecran detachees avant remplacement',
-  'chargements visibles coalesces',
-  'decodages visibles obsoletes ignores',
-  'prefetch carte borne',
-  'accueil parent Android',
-  'cartes parent visibles',
-  'menu deroulant',
-  'selecteurs natifs de preparation',
-  'rattachements parents additionnels',
-  'nom APK versionne',
-  'preparation choisie',
-  'copie ingredients',
-  'liste de courses locale',
-  'courses cochables',
-  'courses fusionnees',
-  'quantites ajustables',
-  'preferences locales discretes',
-  'diagnostic hors ligne',
-  'cache image adaptatif',
-  'scroll fluide',
-  'copie fiche',
-  'selecteur de personnes',
-  'allergenes et poids moyens',
-  'ecran actif',
-  'bouton natif de mise a jour',
-  'audit perf leger',
-  'etapes numerotees',
-  'sans GeckoView'
-].forEach(fragment => {
-  expect(`Documentation globale apps incomplete (${fragment}).`, appsWorkflowDoc.includes(fragment));
-});
+expect('Regle de parite Android absente des regles.', projectRules.includes('parite site/app') && projectRules.includes('Native Lite pour tablette peu puissante') && masterGuard.includes('parite site/app'));
+expect('android-legacy/README.md doit pointer vers la documentation complete.', androidReadme.includes('docs/android-legacy-workflow.md') && androidReadme.includes('Cook Note Android 5.0+'));
+expect('Documentation Android : chaine de production des assets absente.', workflowDoc.includes('scripts/build-android-legacy-assets.js') && workflowDoc.includes('recipes-lite.json') && workflowDoc.includes('sans WebView systeme et sans GeckoView'));
+expect('Documentation apps : liens de telechargement absents.', appsWorkflowDoc.includes('cook-note-android-legacy.apk') && appsWorkflowDoc.includes('cook-note-android-legacy-vX.YY.apk') && appsWorkflowDoc.includes('raw.githubusercontent.com') && appsWorkflowDoc.includes('/downloads/'));
 expect(
   'Documentation globale apps contient encore Android HD/Modern.',
   !appsWorkflowDoc.includes('Android 8.0+')

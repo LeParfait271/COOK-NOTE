@@ -12,8 +12,8 @@ L'application Android Legacy ne se met pas a jour automatiquement sur la tablett
 Quand une intervention modifie une fonctionnalite visible du site, une recette,
 le catalogue, l'UX ou un comportement utile aussi sur tablette, auditer Android
 Legacy dans le meme lot. Si l'equivalent a du sens, le porter en Native Lite
-pour tablette peu puissante, puis lancer `npm run apps:update-all` avant
-commit/push. Si le changement est web-only, purement technique, ou sans impact
+pour tablette peu puissante. Le code reste pret a construire : lancer
+`npm run apps:update-all` uniquement sur demande explicite de l'utilisateur. Si le changement est web-only, purement technique, ou sans impact
 utilisateur Android, le noter dans le compte rendu.
 Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour tablette peu puissante.
 
@@ -43,85 +43,31 @@ lit un JSON local, affiche une `GridView` recyclee en cartes image 16/9 proches 
 site, ouvre les fiches dans des vues Android natives, et charge les images avec
 un cache memoire limite.
 
-La lecture doit rester confortable malgre le mode Lite : titres ellipses dans la
-liste, fiche recette detaillee proche du site avec hero 16/9, actions utiles
-dans le hero, grille Ingredients/Etapes/Avant de commencer, infos rapides en
-pastilles allegees, ingredients en lignes lisibles, etapes numerotees et
-variantes cliquables. La fiche detail Android ne doit pas remettre saisons,
-difficulte, nombre d etapes, bouton favori ou bouton partager : ces elements
-chargent l ecran sans aider la tablette en cuisine. Le choix de quantite doit
-etre un selecteur natif de personnes lorsque la fiche a un rendement en
-personnes ou parts, et il doit mettre a jour les rendements affiches, les
-ingredients, la copie et les courses. Les informations `Avant de commencer`
-doivent etre completes et derivees des helpers de la fiche web : allergenes,
-materiel, poids moyens utiles, timing, recettes liees, repere cuilleres,
-conseils pratiques, notes restantes, conservation, rechauffage et fiche
-technique quand les donnees existent dans le catalogue. Les
-fonctions reintegrees doivent rester natives et peu couteuses : recherche simple sans filtres avec recherche intelligente
-sans filtres sous le capot, copie des ingredients vers le presse-papiers, liste
-de courses locale avec courses cochables, copie fiche, navigation restaurable,
-swipe retour bord gauche, prechargement images, audit
-perf leger et ecran actif persistant pour cuisiner sans mise en veille. Le
-prechauffage images differe doit laisser les images visibles passer avant les
-prefetchs. Le chargeur garde une file image prioritaire mono-thread :
-images visibles prioritaires, chargements visibles coalesces, decodages visibles
-obsoletes ignores, annulation prefetch obsolete, cache image normalise, nettoyage
-vues recyclees, vues image recyclees detachees, cibles image obsoletes liberees,
-images ecran detachees avant remplacement et prefetch carte borne pour ne pas garder de travail
-mort pendant les scrolls rapides.
-La grille annule le prechauffage en fling, garde le prefetch ralenti hors
-inertie et relance un prechauffage visible apres scroll seulement quand la
-grille redevient calme.
-L accueil doit rester compact :
-la recherche s ouvre seulement via `Recherche` et ne contient qu un champ texte
-avec un bouton `Effacer`. L accueil doit aussi garder un bouton
-`Courses` compact et un bouton natif de mise a jour qui ouvre l URL GitHub
-stable de l APK `cook-note-android-legacy.apk`. Ces elements restent des vues
-Android simples, pas un rendu web.
+L interface suit la section 8 de `COOK_NOTE_RULES.md` :
 
-La direction visuelle attendue est une refonte visuelle native premium mais
-Native Lite : header compact avec stats locales, grille `GridView` en cartes
-image 16/9 tactiles recyclees, fonds sombres cadres, etats presses via `StateListDrawable`,
-sections cadrees, hero de fiche encadre, grille Ingredients/Etapes/Avant de
-commencer, pastilles lisibles et actions principales/secondaires distinguees. Ne pas revenir a des controles Android par
-defaut sans direction Cook Note.
+- theme nuit premium unique, palette native dans `Palette.java`, sans selecteur
+  jour/nuit ni reglage visuel ;
+- accueil compact : fiches parentes racines du site, bouton `Recherche` qui
+  ouvre un seul champ avec `Effacer`, bouton `Courses` et bouton natif de mise a
+  jour vers l APK stable `cook-note-android-legacy.apk` ;
+- recherche dans tout le catalogue sans filtres visibles, classement tolerant
+  aux fautes et index `search-index-lite.json` precompile ;
+- hierarchie plate : les 8 parents affichent leurs recettes en cartes 16/9
+  visibles (jamais dans un menu deroulant), en lisant `master` et
+  `additionalMasters` ; les fiches a variantes internes gardent le selecteur
+  natif `Choisir une variante` et une seule preparation active ;
+- fiche detaillee proche du site (hero 16/9, pastilles, Ingredients / Etapes /
+  Avant de commencer complet derive des helpers web), sans saisons, difficulte,
+  nombre d etapes, favori ni partage ; selecteur natif de personnes qui met a
+  jour rendements, ingredients, copie et courses ;
+- liste de courses locale cochable et fusionnee, copiable, et envoi vers un
+  telephone par QR code natif (`QrCode.java`, meme lien `#courses=` que le site) ;
+- position de grille conservee au retour, navigation restaurable, swipe retour
+  bord gauche, ecran actif persistant.
 
-Theme Android : le mode nuit premium est l unique apparence exposee. Aucun
-selecteur jour/nuit ni reglage visuel superflu ne doit apparaitre. La palette
-reste pilotee nativement par `MainActivity` et `RecipeAdapter`, sans
-preference persistante dans `SharedPreferences`. Ne jamais remplacer cette
-logique par une WebView ou par le CSS du site.
-
-L accueil parent Android doit reprendre le rangement du site : sans recherche
-active, afficher seulement les fiches parents racines du catalogue, pas toutes
-les recettes enfants en vrac. Quand l utilisateur tape une recherche, l app
-cherche dans tout le catalogue sans filtres de categorie, saison, difficulte,
-favoris ou recents. Le classement interne peut corriger de petites fautes et
-favoriser les titres/alias sans exposer de filtres dans l interface.
-La hierarchie reste plate : les 8 parents racines affichent directement leurs
-fiches recettes. Aucune collection ou fiche parente intermediaire ne doit etre
-generee dans l APK.
-Garder le libelle exact de garde-fou : recherche intelligente sans filtres.
-Le moteur s'appuie sur un index recherche precompile `search-index-lite.json`
-pour eviter de recalculer les champs de recherche a chaque frappe.
-Les mots recherche predecoupes gardent le fuzzy sans split et les allocations recherche reduites pendant la saisie sur les tablettes lentes.
-Un cache resultats recherche borne reutilise les requetes recentes reutilisees
-et garde le classement recherche memoise sans grossir sans limite.
-La saisie est temporisee cote Android, afin de ne pas relancer la grille a chaque
-caractere sur une tablette 2 Go.
-La position de grille doit etre conservee quand on ouvre une fiche puis qu on
-revient en arriere, tandis qu une recherche nouvelle repart du haut des resultats.
-Les fiches parents doivent lire `master` et `additionalMasters`, afin que les
-rattachements parents additionnels du site apparaissent dans les collections
-Android Legacy.
-
-Les variantes doivent suivre la construction du site. Les fiches parents
-affichent leurs recettes en grille de cartes parent 16/9 visibles,
-comme sur le site, jamais dans un menu deroulant. Les fiches a variantes internes utilisent
-une preparation choisie : une seule variante active affiche ses ingredients et
-ses etapes, les autres restent dans le selecteur natif. Ce selecteur doit porter
-le titre clair `Choisir une variante`, expliquer que la fiche s'adapte au choix
-et confirmer la variante active avec ses compteurs ingredients/etapes.
+Les optimisations Native Lite (file image prioritaire mono-thread, prefetchs
+annules en fling, caches bornes, recherche temporisee, recyclage des vues,
+pile retour bornee) sont verifiees dans le code par `npm run validate:android`.
 
 Le workflow officiel passe par `scripts/build-android-legacy-assets.js`, qui
 genere une sortie dediee dans :
@@ -139,20 +85,8 @@ Cette sortie contient :
 - des JPEG recompresses avec `jpeg-js` pour limiter le decode RAM/CPU ;
 - aucun fichier `assets/www`, aucun React, aucun service worker et aucun CSS du site.
 
-Les fonctions natives legeres actuellement attendues incluent aussi les
-quantites ajustables, les courses fusionnees, les preferences locales discretes,
-le theme nuit premium, le diagnostic hors ligne, le cache image adaptatif, le decode image serialise,
-la coalescence chargements image, les chargements visibles coalesces, les
-decodages visibles obsoletes ignores, les images visibles prioritaires, la file
-image prioritaire, l annulation prefetch obsolete, le cache image normalise, le
-nettoyage vues recyclees, les vues image recyclees detachees, les cibles image
-obsoletes liberees, les images ecran detachees avant remplacement, le
-prechauffage images borne, le prechauffage images
-differe, le prechauffage visible apres scroll, l annulation prechauffage en fling, le prefetch ralenti hors inertie, les mots recherche predecoupes, le fuzzy sans split, les allocations recherche reduites, le cache resultats recherche borne, les requetes recentes reutilisees, le classement recherche memoise, le catalogue parent precompile, les enfants parents preclasses, les
-compteurs collection caches, la position de grille conservee, la liberation
-memoire de liste, la pile retour bornee, le prefetch carte borne et le scroll fluide. Ces
-fonctions doivent rester Android natives, sans filtres visibles dans la
-recherche et sans moteur web.
+Les anciennes preferences locales discretes et le diagnostic hors ligne sont
+retires et interdits dans l interface et le code.
 
 Le site et les recettes gardent les visuels habituels. La reduction d image ne
 concerne que l APK Android 5.
@@ -298,16 +232,20 @@ app depuis le site.
 
 ## Workflow pour toute modification, y compris web-only
 
-1. Toute modification versionnee du projet augmente la version produit de
-   `0.01`, meme pour docs, CI, admin local, build ou correctif technique.
+1. Toute modification produit versionnee augmente la version du site de
+   `0.01`. Une modification limitee aux garde-fous ou au workflow interne ne
+   declenche pas de release.
 2. Verifier si une adaptation fonctionnelle Native Lite est necessaire. Un
    changement web-only peut ne demander aucun changement de code Android.
-3. Lancer `node scripts/bump-version.js --next`.
+3. Sans demande de reconstruction APK : lancer
+   `node scripts/bump-version.js --next --site-only`. L APK publiee et son
+   manifeste gardent la version du dernier binaire construit.
 4. Lancer les checks habituels du site.
-5. Lancer obligatoirement `npm run apps:update-all` pour reconstruire le site et
-   l APK avec la meme version `X.YY`.
-6. Ne jamais committer une modification avec l ancienne APK ou une version
-   differente entre site, manifeste de mise a jour et APK.
+5. Uniquement sur demande explicite de reconstruction : lancer
+   `node scripts/bump-version.js --next` puis `npm run apps:update-all` pour
+   reconstruire le site et l APK avec la meme version `X.YY`.
+6. Ne jamais annoncer ni publier une version APK sans binaire reconstruit
+   correspondant.
 
 ## Workflow quand la parite Android est requise
 
@@ -325,7 +263,8 @@ app depuis le site.
    `dist/downloads/` n existe pas.
 8. Si l utilisateur demande aussi une Release GitHub, lancer
    `npm run apps:publish-all` apres authentification GitHub CLI.
-9. Commit/push les changements de code, documentation et copies APK.
+9. Sur demande de l utilisateur, commit les changements de code, documentation
+   et copies APK. Le push reste fait par l utilisateur via GitHub Desktop.
 10. Donner le chemin local de l APK et/ou l URL de telechargement du site a l utilisateur.
 
 ## Fichiers importants
@@ -349,8 +288,13 @@ app depuis le site.
   `android-legacy/gradle.properties` pour produire `versionName` et
   `versionCode`, puis monte `android-legacy/build/generated/cook-note-lite`
   comme assets APK. Le build officiel distribue est `release`, signe avec la
-  configuration debug locale pour rester installable dans le workflow manuel,
-  avec R8 et shrink resources.
+  cle release stable `android-legacy/signing/cook-note-release.jks` (alias
+  `cooknote`, mots de passe dans `android-legacy/signing/keystore.properties`,
+  dossier hors Git a sauvegarder hors du PC) pour que les mises a jour
+  s installent par-dessus, avec R8 et shrink resources. La premiere APK signee
+  avec cette cle (apres la v5.32) demande de desinstaller une fois l ancienne
+  app : la mise a jour in-app depuis la v5.32 echouera
+  (`INSTALL_FAILED_UPDATE_INCOMPATIBLE`).
 - `app.js` expose `ANDROID_LEGACY_APK_VERSION` pour le lien de telechargement
   public. Cette version doit toujours etre la meme version produit `X.YY` que
   `SITE_VERSION` et `cookNoteAndroidVersion`.

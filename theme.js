@@ -27,20 +27,24 @@
     const v = g.COOK_NOTE_ASSET_VERSION;
     return u && v && !/\?v=/.test(u) ? `${u}?v=${v}` : u || '';
   };
-  const abs = u => !u || /^https?:\/\//i.test(u) ? u || '' : `${g.location?.origin || 'https://cook-note.pages.dev'}${u}`;
+  // AVIF (generate-avif.js), repli JPG/PNG.
+  let AV = false;
+  try { AV = g.CSS.supports('background-image', 'image-set(url("/x.avif") type("image/avif"))'); } catch {}
+  const avif = u => AV && /^\/assets\/theme\/.+\.(jpe?g|png)$/.test(u || '') ? u.replace(/\.\w+$/, '.avif') : '';
+  const css = u => avif(u) ? `image-set(url("${avif(u)}") type("image/avif"), url("${u}"))` : `url("${u}")`;
+  const abs = u =>!u || /^https?:\/\//i.test(u) ? u || '' : `${g.location?.origin || 'https://cook-note.pages.dev'}${u}`;
   function art(t) {
     const d = g.document, r = d?.documentElement;
     if (!r) return;
     const a = assets(t), f = t === L && !OK;
     r.dataset.artDirection = t === L ? 'day' : 'night';
     r.dataset.artAssets = t === L && !OK ? 'night-fallback' : 'approved';
-    r.style.setProperty('--art-background-image', f ? 'none' : `url("${a.background}")`);
-    r.style.setProperty('--art-hero-image', f ? 'none' : `url("${a.hero}")`);
-    r.style.setProperty('--art-logo-image', f ? 'none' : `url("${a.logo}")`);
+    ['background', 'hero', 'logo'].forEach(k => r.style.setProperty(`--art-${k}-image`, f ? 'none' : css(a[k])));
     d.querySelectorAll?.('[data-art-asset]').forEach(e => {
       const k = e.getAttribute('data-art-asset'), u = a[k] || N[k];
       if (!u) return;
-      const v = e.hasAttribute('data-art-versioned') ? ver(u) : u;
+      const p = e.rel === 'preload' ? avif(u) || u : u;
+      const v = e.hasAttribute('data-art-versioned') ? ver(p) : p;
       const x = e.getAttribute('data-art-target')
         || (e.tagName === 'META' ? 'content' : e.tagName === 'LINK' ? 'href' : 'src' in e ? 'src' : '');
       if (x) e.setAttribute(x, e.hasAttribute('data-art-absolute') ? abs(v) : v);

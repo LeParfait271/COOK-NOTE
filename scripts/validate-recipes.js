@@ -2,13 +2,14 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const crypto = require('node:crypto');
+const { APP_MODULES, STYLE_MODULES } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const recipesPath = path.join(ROOT, 'recipes.js');
 const textFilesToCheck = [
   path.join(ROOT, 'index.html'),
-  path.join(ROOT, 'app.js'),
-  path.join(ROOT, 'style.css'),
+  ...APP_MODULES.map(file => path.join(ROOT, file)),
+  ...STYLE_MODULES.map(file => path.join(ROOT, file)),
   path.join(ROOT, 'manifest.json'),
   path.join(ROOT, 'service-worker.js')
 ];
@@ -716,13 +717,13 @@ textFilesToCheck.forEach(filePath => {
   if (!fs.existsSync(filePath)) return;
   const relative = path.relative(ROOT, filePath).replace(/\\/g, '/');
   const fileText = fs.readFileSync(filePath, 'utf8');
-  if (relative === 'app.js') {
+  if (APP_MODULES.includes(relative)) {
     REMOVED_RECIPE_IDS.forEach(removedId => {
       if (fileText.includes(removedId)) errors.push(`${relative}: reference une recette supprimee (${removedId}).`);
     });
   }
   fileText.split(/\r?\n/).forEach((line, index) => {
-    const intentionalMojibakeRepair = relative === 'app.js' && (
+    const intentionalMojibakeRepair = relative === APP_MODULES[0] && (
       line.includes('mojibakeScore') ||
       line.includes('repairMojibakeText') ||
       line.includes('[ÃÂâÅ') ||

@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { APP_MODULES, readAppSource, readStyleSource } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const errors = [];
@@ -37,15 +38,15 @@ function loadAppContext() {
   vm.runInContext(read('assets/image-manifest.js'), context, { filename: path.join(ROOT, 'assets/image-manifest.js') });
   vm.runInContext(read('app-images.js'), context, { filename: path.join(ROOT, 'app-images.js') });
   vm.runInContext(read('app-premium.js'), context, { filename: path.join(ROOT, 'app-premium.js') });
-  vm.runInContext(read('app.js'), context, { filename: path.join(ROOT, 'app.js') });
+  APP_MODULES.forEach(file => vm.runInContext(read(file), context, { filename: path.join(ROOT, file) }));
   return context;
 }
 
 const files = {
   appImages: read('app-images.js'),
   appPremium: read('app-premium.js'),
-  app: read('app.js'),
-  style: read('style.css'),
+  app: readAppSource(),
+  style: readStyleSource(),
   packageJson: read('package.json'),
   rules: read('COOK_NOTE_RULES.md'),
   production: read('scripts/validate-production.js'),

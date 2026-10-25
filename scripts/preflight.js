@@ -3,6 +3,7 @@ const http = require('node:http');
 const net = require('node:net');
 const path = require('node:path');
 const { spawn, spawnSync } = require('node:child_process');
+const { APP_MODULES } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const node = process.execPath;
@@ -111,7 +112,7 @@ async function verifyServer() {
     await waitForServer(baseUrl);
     const paths = [
       '/',
-      `/app.js?v=${version}`,
+      ...APP_MODULES.map(file => `/${file}?v=${version}`),
       `/app-techniques.js?v=${version}`,
       `/app-premium.js?v=${version}`,
       `/app-images.js?v=${version}`,
@@ -152,7 +153,10 @@ function validateDiffScope() {
   const files = status.split(/\r?\n/)
     .map(line => line.slice(3).trim())
     .filter(Boolean);
-  const imageFiles = files.filter(file => /^assets\/recipes\/(?:masters|heroes|cards)\//.test(file.replace(/\\/g, '/')));
+  // Les copies .avif sont des derives generes (npm run generate:avif), controles
+  // par validate:avif : elles ne comptent pas dans le volume d'images modifiees.
+  const imageFiles = files.filter(file => /^assets\/recipes\/(?:masters|heroes|cards)\//.test(file.replace(/\\/g, '/'))
+    && !/\.avif"?$/i.test(file));
   const byDir = new Map();
   imageFiles.forEach(file => {
     const normalized = file.replace(/\\/g, '/');

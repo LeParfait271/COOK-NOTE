@@ -110,28 +110,22 @@
         <span><strong>Cook Note</strong><small>ARCHIVES CULINAIRES · LES DEUX CITADELLES</small></span>
       </header>
       <div class="error-copy">
-        <p class="error-eyebrow" data-fr="Page introuvable" data-en="Page not found">Page introuvable</p>
+        <p class="error-eyebrow">Page introuvable</p>
         <p class="error-code">404</p>
-        <h1 id="error-title" data-fr="Cette page n’existe pas" data-en="This page does not exist">Cette page n’existe pas</h1>
-        <p data-fr="Le chemin demandé ne correspond à aucune fiche de Cook Note." data-en="The requested path does not match a Cook Note page.">Le chemin demandé ne correspond à aucune fiche de Cook Note.</p>
+        <h1 id="error-title">Cette page n’existe pas</h1>
+        <p>Le chemin demandé ne correspond à aucune fiche de Cook Note.</p>
         <div class="error-actions">
-          <a class="button primary" href="/" data-fr="Retour au carnet" data-en="Back to notebook" data-fr-href="/" data-en-href="/?lang=en">Retour au carnet</a>
-          <a class="button secondary" href="/?lang=fr" data-fr="Rechercher une recette" data-en="Search for a recipe" data-fr-href="/?lang=fr" data-en-href="/?lang=en">Rechercher une recette</a>
+          <a class="button primary" href="/">Retour au carnet</a>
+          <a class="button secondary" href="/">Rechercher une recette</a>
         </div>
       </div>
     </section>
   </main>
   <script>
     (() => {
-      const params = new URLSearchParams(location.search);
       const stored = (() => { try { return JSON.parse(localStorage.getItem('cook_note_preferences') || '{}'); } catch { return {}; } })();
-      const english = params.get('lang') === 'en' || (params.get('lang') !== 'fr' && stored.locale === 'en');
-      const root = document.documentElement;
-      root.lang = english ? 'en' : 'fr';
-      root.dataset.theme = stored.theme === 'light' ? 'light' : 'dark';
-      document.title = english ? 'Page not found · Cook Note' : 'Page introuvable · Cook Note';
-      document.querySelectorAll('[data-fr][data-en]').forEach(node => { node.textContent = node.dataset[english ? 'en' : 'fr']; });
-      document.querySelectorAll('[data-fr-href][data-en-href]').forEach(node => { node.href = node.dataset[english ? 'en' : 'fr'] + location.hash; });
+      document.documentElement.dataset.theme = stored.theme === 'light' ? 'light' : 'dark';
+      document.querySelectorAll('.error-actions a').forEach(node => { node.href = '/' + location.hash; });
     })();
   </script>
 </body>

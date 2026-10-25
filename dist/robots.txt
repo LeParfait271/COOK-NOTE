@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /admin
-Disallow: /api/
-Sitemap: https://cook-note.pages.dev/sitemap.xml

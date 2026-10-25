@@ -9,7 +9,7 @@ async function waitForCookNote(page) {
 
 test.describe('Cook Note offline PWA smoke', () => {
   test('le shell et la recherche restent accessibles après perte réseau', async ({ page }) => {
-    await page.goto('/?lang=fr');
+    await page.goto('/');
     await waitForCookNote(page);
     await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker?.controller)), { timeout: 15000 }).toBe(true);
     await expect.poll(() => page.evaluate(async () => {

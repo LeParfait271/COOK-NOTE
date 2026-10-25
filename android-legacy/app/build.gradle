@@ -14,6 +14,14 @@ def minor = versionMatch.group(2) as int
 def cookNoteVersionName = String.format('%d.%02d', major, minor)
 def cookNoteVersionCode = (major * 1000) + minor
 
+// Cle release hors Git : android-legacy/signing/ (ignore), voir docs/android-legacy-workflow.md.
+def signingDir = new File(repoRoot, 'android-legacy/signing')
+def signingProps = new Properties()
+def signingPropsFile = new File(signingDir, 'keystore.properties')
+if (signingPropsFile.exists()) {
+    signingPropsFile.withInputStream { signingProps.load(it) }
+}
+
 android {
     namespace 'fr.cooknote.legacy'
     compileSdk 35
@@ -37,10 +45,12 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('cook-note-release.jks')
-            storePassword 'cooknote'
-            keyAlias 'cooknote'
-            keyPassword 'cooknote'
+            if (signingPropsFile.exists()) {
+                storeFile new File(signingDir, signingProps.getProperty('storeFile', 'cook-note-release.jks'))
+                storePassword signingProps.getProperty('storePassword')
+                keyAlias signingProps.getProperty('keyAlias', 'cooknote')
+                keyPassword signingProps.getProperty('keyPassword')
+            }
         }
     }
 
@@ -72,6 +82,14 @@ tasks.register('syncCookNoteDist', Sync) {
 }
 
 preBuild.dependsOn('syncCookNoteDist')
+
+tasks.matching { it.name == 'preReleaseBuild' }.configureEach {
+    doFirst {
+        if (!signingPropsFile.exists()) {
+            throw new GradleException('Cle release absente : android-legacy/signing/keystore.properties introuvable.')
+        }
+    }
+}
 
 tasks.withType(JavaCompile).configureEach {
     options.compilerArgs += ['-Xlint:deprecation']

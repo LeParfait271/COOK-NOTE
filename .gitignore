@@ -3,6 +3,7 @@ node_modules/
 admin.local.json
 backups/
 test-results/
+dist/
 playwright-report/
 tmp/
 design-previews/
@@ -16,6 +17,7 @@ reports/*.png
 *.aab
 !downloads/*.apk
 
-# Keystore debug (regeneree par machine, jamais versionnee)
-*.debug.jks
-android-legacy/app/debug.keystore
+# Keystores (cle release dans android-legacy/signing/, jamais versionnee)
+*.jks
+*.keystore
+android-legacy/signing/

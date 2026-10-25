@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { readAppSource, readStyleSource } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const errors = [];
@@ -14,123 +15,61 @@ function expect(message, condition) {
 }
 
 function loadI18n() {
-  const context = {
-    window: {
-      location: { href: 'https://cook-note.pages.dev/', search: '', pathname: '/', hash: '' },
-      navigator: { language: 'fr-FR', languages: ['fr-FR'] },
-      localStorage: { getItem() { return ''; }, setItem() {} },
-      document: {
-        documentElement: { lang: '', dataset: {} },
-        head: { appendChild() {} },
-        getElementById() { return null; },
-        createElement() {
-          return { set rel(value) { this._rel = value; }, set hreflang(value) { this._hreflang = value; } };
-        }
-      },
-      addEventListener() {},
-      dispatchEvent() {}
-    },
-    CustomEvent: function CustomEvent(type, init) {
-      return { type, detail: init?.detail };
-    }
-  };
+  const context = { window: {} };
   vm.createContext(context);
   vm.runInContext(read('i18n.js'), context, { filename: 'i18n.js' });
   return context.window.CookNoteI18n;
 }
 
-function flattenKeys(object, prefix = '') {
-  return Object.keys(object || {}).flatMap(key => {
-    const pathKey = prefix ? `${prefix}.${key}` : key;
-    const value = object[key];
-    return value && typeof value === 'object' && !Array.isArray(value)
-      ? flattenKeys(value, pathKey)
-      : [pathKey];
-  });
-}
-
+// Le site est en francais uniquement depuis la v5.33. L'anglais sera refait a
+// neuf plus tard : ce validateur bloque tout retour partiel de l'ancienne
+// traduction automatique.
 const i18n = loadI18n();
-const app = read('app.js');
+const i18nSource = read('i18n.js');
+const app = readAppSource();
 const index = read('index.html');
 const recipeHtml = read('recipe.html');
+const recipeJs = read('recipe.js');
+const notFound = read('404.html');
+const style = readStyleSource();
 const serviceWorker = read('service-worker.js');
 const buildSite = read('scripts/build-site.js');
 const packageJson = read('package.json');
 
-expect('CookNoteI18n global absent.', Boolean(i18n));
-expect('Locales FR/EN absentes.', i18n?.supportedLocales?.includes('fr') && i18n?.supportedLocales?.includes('en'));
-expect('Locale par defaut incorrecte.', i18n?.defaultLocale === 'fr');
+expect('CookNoteI18n global absent.', Boolean(i18n) && typeof i18n.t === 'function');
+const keys = Object.keys(i18n?.messages || {});
+expect('Catalogue de textes FR vide.', keys.length > 0);
+expect('Catalogue de textes FR mal structure (une seule langue attendue).', keys.every(key => typeof i18n.messages[key] === 'string'));
+expect('Interpolation i18n inactive.', i18n.t('search.results', { count: 3, plural: 's', query: 'tarte' }) === '3 résultats pour "tarte"');
+expect('Cle absente non rendue telle quelle.', i18n.t('cle.inconnue') === 'cle.inconnue');
 
-const frKeys = flattenKeys(i18n.messages?.fr).sort();
-const enKeys = flattenKeys(i18n.messages?.en).sort();
-expect('Catalogue i18n FR vide.', frKeys.length > 0);
-expect('Catalogue i18n EN vide.', enKeys.length > 0);
-expect('Catalogues i18n FR/EN non synchronises.', JSON.stringify(frKeys) === JSON.stringify(enKeys));
-
-const phraseCount = Object.keys(i18n.phrases?.en || {}).length;
-expect('Catalogue de phrases UI EN trop faible.', phraseCount >= 120);
-expect('Regles dynamiques i18n trop faibles.', Number(i18n.dynamicRuleCount) >= 20);
-i18n.setLocale('en');
-expect('Traduction de base inactive.', i18n.text('Accueil') === 'Home');
-expect('Traduction par cle inactive.', i18n.t('language.selector') === 'Language');
-expect('Traduction dynamique inactive.', i18n.text('3 recettes') === '3 recipes');
-expect('Traduction recette exacte inactive.', i18n.text('Crumble pomme-poire') === 'Apple and pear crumble');
-expect('Traduction recette future inactive.', i18n.text('200g beurre doux ramolli').includes('unsalted butter'));
-expect('Titre brochettes non traduit.', i18n.text('Brochettes crevettes chorizo') === 'Shrimp and chorizo skewers');
-expect('Allergene crustaces non traduit.', i18n.text('Crustacés') === 'Shellfish');
-expect('Materiel brochettes non traduit.', i18n.text('Pics à brochettes') === 'Skewers');
-expect('Ingredient crevettes non traduit.', i18n.text('500g grosses crevettes décortiquées').includes('large peeled shrimp'));
-expect('Etape crevettes non traduite.', i18n.text('Monter les brochettes en alternant crevettes et chorizo.').includes('alternating shrimp and chorizo'));
-expect('Note vigilance mer non traduite.', i18n.text('Vérifier la fraîcheur et la cuisson des produits de la mer.') === 'Check seafood freshness and doneness.');
-expect('Note vigilance friture non traduite.', i18n.text('Maintenir l’huile à bonne température et égoutter aussitôt.') === 'Keep the oil at the right temperature and drain immediately.');
-expect('Note vigilance viande non traduite.', i18n.text('Vérifier la cuisson de la viande avant le service.') === 'Check the meat is cooked before serving.');
-expect('Note repos non traduit.', i18n.text('Prévoir le temps de repos avant de servir.') === 'Allow time for resting before serving.');
-expect('Note mise en place non traduite.', i18n.text('Mise en place courte : garder les ingrédients à portée de main avant la cuisson.') === 'Short prep: keep the ingredients within reach before cooking.');
-expect('Titre infos pratiques non traduit.', i18n.text('Infos pratiques') === 'Practical info');
-expect('Message fiche rapide non traduit.', i18n.text('Sélectionne une variante pour afficher les informations de la fiche rapide.') === 'Select a variant to show the quick sheet.');
-expect('Message mobile avant recette non traduit.', i18n.text('Consulte les notes, allergènes et points techniques avant de lancer la recette.') === 'Review the notes, allergens and technical points before starting the recipe.');
-expect('Titre a savoir non traduit.', i18n.text('À savoir') === 'Good to know');
-expect('Titre erreurs non traduit.', i18n.text('Erreurs à éviter') === 'Mistakes to avoid');
-expect('Titre resultat attendu non traduit.', i18n.text('Résultat attendu') === 'Expected result');
-expect('Pate legere a frire non traduite.', i18n.text('Pâte légère à frire') === 'Light frying batter');
-expect('Note calamars croustillant non traduite.', i18n.text('La pâte doit rester froide, légère et légèrement irrégulière.') === 'The batter should stay cold, light and slightly uneven.');
-expect('Erreur calamars surcharge non traduite.', i18n.text('Ne surcharge pas le bain d’huile pour garder une friture nette et non grasse.') === 'Do not overcrowd the oil bath; it keeps the frying clean and light.');
-expect('Technique egouttage non traduite.', i18n.text('Préférer une grille au papier pour éviter la vapeur.') === 'Use a rack rather than paper towels to avoid steam.');
-expect('Titre poelee non traduit.', i18n.text('Poêlée de blé au poulet et curcuma') === 'Pan-fried wheat with chicken and turmeric');
-expect('Cuisson pancakes non traduite.', i18n.text('Repos 10min puis cuisson en petites louches sur poêle beurrée.') === 'Rest for 10 minutes, then cook small ladles of batter in a buttered pan.');
-expect('Blanc oeuf non traduit.', i18n.text('30g blanc d’œuf') === '30g egg white');
-expect('Jaune oeuf non traduit.', i18n.text('20g jaune d’œuf') === '20g egg yolk');
-expect('Reduction jus non traduite.', i18n.text('Faire réduire le jus quelques minutes si besoin avant de servir.') === 'Reduce the juices for a few minutes if needed before serving.');
-expect('Recette future patates non traduite.', i18n.text('Lentilles tomate pommes de terre sautées').includes('sautéed potatoes'));
-expect('Plage quantite future non traduite.', i18n.text('50 à 70g sucre') === '50 to 70g sugar');
-expect('Phrase future verser non traduite.', i18n.text('Verser le vinaigre balsamique dans une petite casserole à fond épais.') === 'Pour the balsamic vinegar into a small heavy-bottomed saucepan.');
-expect('Stockage pomme de terre premium mal traduit.', i18n.text('Au sec, a l abri de la lumiere; jamais au froid humide.') === 'Store in a dry, dark, well-ventilated place; never in a damp refrigerator.');
-expect('Accords pomme de terre premium mal traduits.', i18n.text('Ail, romarin, beurre, moutarde, fromage.') === 'Garlic, rosemary, butter, mustard and cheese.');
-expect('Vigilance pomme de terre premium mal traduite.', i18n.text('Trop travailler une puree: texture elastique.') === 'Overworking mashed potatoes makes them gluey.');
-
-const staticKeys = new Set(frKeys);
-for (const match of app.matchAll(/\bt\(\s*['"`]([^'"`]+)['"`]/g)) {
-  const key = match[1];
-  if (key.includes('${')) continue;
-  expect(`Cle i18n utilisee mais absente: ${key}`, staticKeys.has(key));
+const staticKeys = new Set(keys);
+for (const source of [app, recipeJs, read('app-personal-tools.js')]) {
+  for (const match of source.matchAll(/\bt\(\s*['"`]([^'"`]+)['"`]/g)) {
+    const key = match[1];
+    if (key.includes('${') || key.endsWith('.')) continue;
+    expect(`Cle i18n utilisee mais absente: ${key}`, staticKeys.has(key));
+  }
 }
 
-expect('Runtime i18n non branche dans app.js.', app.includes('CookNoteI18n') && app.includes('translateUiText') && app.includes('repairReactChildText') && app.includes('repairReactProps'));
-expect('Traduction automatique recettes absente.', read('i18n.js').includes('translateRecipeText') && read('i18n.js').includes('culinaryReplacementsEn'));
-expect('Hook locale React absent.', app.includes('useI18nLocale') && app.includes('CookNoteI18n.subscribe'));
-expect('Bouton de langue absent.', app.includes('function LanguageSwitcher') && app.includes('language-switcher') && app.includes('language-toggle') && app.includes('supportedLocales') && app.includes('setLocale(nextLocale)') && !app.includes('.language-switcher select'));
-expect('SEO i18n absent.', app.includes("t('site.description')") && app.includes("t('seo.techniques.description')") && app.includes('ensureAlternateLinks'));
+const englishLeftovers = [
+  ['i18n.js', i18nSource, /\ben\s*:|phraseEn|translateRecipeText|setLocale|supportedLocales/],
+  ['app.js', app, /translateUiText|LanguageSwitcher|useI18nLocale|CookNoteI18n\.(?:text|locale|setLocale|subscribe|ensureAlternateLinks|translateCategory)|=== 'en'/],
+  ['recipe.js', recipeJs, /CookNoteI18n\.(?:text|locale|localizeDocument)|=== 'en'/],
+  ['recipe.html', recipeHtml, /data-i18n-|localizeDocument/],
+  ['index.html', index, /hreflang|CookNoteI18n\?\.text|lang=en/],
+  ['404.html', notFound, /data-en|lang=en/],
+  ['styles/', style, /language-switcher|language-toggle|data-locale='en'/]
+];
+englishLeftovers.forEach(([file, source, pattern]) => {
+  expect(`${file}: reste de l'ancienne traduction anglaise (${pattern}).`, !pattern.test(source));
+});
 
+expect('Pages statiques non declarees en francais.', index.includes('<html lang="fr"') && recipeHtml.includes('<html lang="fr"') && notFound.includes('<html lang="fr"'));
 expect('i18n.js non charge dans index.html.', index.includes('/i18n.js?v='));
-expect('hreflang FR absent.', index.includes('hreflang="fr"'));
-expect('hreflang EN absent.', index.includes('hreflang="en"'));
-expect('hreflang x-default absent.', index.includes('hreflang="x-default"'));
-expect('Bouton update SW non localise.', index.includes('CookNoteI18n?.text'));
-
 expect('i18n.js non copie dans dist.', buildSite.includes("'i18n.js'"));
 expect('i18n.js non precache.', serviceWorker.includes('/i18n.js?v='));
 expect('i18n.js non network-first.', serviceWorker.includes("'/i18n.js'"));
-expect('Page recipe legacy non marquee i18n.', recipeHtml.includes('data-i18n-phrase') && recipeHtml.includes('localizeDocument'));
 expect('Validation i18n non branchee au check.', packageJson.includes('scripts/validate-i18n.js'));
 
 if (errors.length) {
@@ -138,4 +77,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Validation i18n OK.');
+console.log(`Validation i18n OK (francais seul, ${keys.length} cles).`);

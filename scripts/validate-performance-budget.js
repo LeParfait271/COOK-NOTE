@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { APP_MODULES, readAppSource, STYLE_MODULES } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const KB = 1024;
@@ -14,10 +15,14 @@ const FILE_BUDGETS = [
   ['app-personal-tools.js', 32 * KB],
   ['app-techniques.js', 40 * KB],
   // Le detail worker et le catalogue de recherche paresseux restent dans le budget source.
-  ['app.js', 414 * KB],
+  // Code applicatif decoupe en modules (scripts/lib/app-modules.js) : chaque
+  // module reste petit, le total garde le budget historique.
+  ...APP_MODULES.map(file => [file, 80 * KB]),
   // Source lisible pour maintenance ; le poids réellement livré reste plafonné séparément.
-  ['style.css', 235 * KB],
-  ['dist/style.css', 203 * KB],
+  // Feuilles sources decoupees (styles/) ; la feuille publique assemblee reste plafonnee ci-dessous.
+  ...STYLE_MODULES.map(file => [file, 50 * KB]),
+  // 203 -> 208 Ko : couche design (polices variables, jetons OKLCH/P3, dialog natif).
+  ['dist/style.css', 208 * KB],
   ['personal-tools.css', 8 * KB],
   ['dist/personal-tools.css', 6 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.
@@ -80,7 +85,7 @@ function fail(message) {
 
 function bytes(file) {
   const filePath = path.join(ROOT, file);
-  if (normalizeKey(file) === 'style.css') {
+  if (STYLE_MODULES.includes(file)) {
     const normalizedSource = fs.readFileSync(filePath, 'utf8').replace(/\r\n/g, '\n');
     return Buffer.byteLength(normalizedSource, 'utf8');
   }
@@ -194,7 +199,7 @@ IMAGE_BUDGETS.forEach(([prefix, maxBytes]) => {
     });
 });
 
-const app = read('app.js');
+const app = readAppSource();
 const index = read('index.html');
 const serviceWorker = read('service-worker.js');
 [

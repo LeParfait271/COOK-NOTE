@@ -1,6 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { APP_MODULES, STYLE_MODULES } = require('./lib/app-modules');
+const APP_MODULE_NAMES = APP_MODULES.map(file => file.replace(/\.js$/, '')).join('|');
 
 const ROOT = path.resolve(__dirname, '..');
 const errors = [];
@@ -30,7 +32,7 @@ const TEXT_FILES_TO_SCAN = [
   'app-techniques.js',
   'theme.js',
   'i18n.js',
-  'app.js',
+  ...APP_MODULES,
   'recipe.js',
   'recipe-worker.js',
   'recipes.js',
@@ -41,7 +43,7 @@ const TEXT_FILES_TO_SCAN = [
   'service-worker.js',
   '_headers',
   '_redirects',
-  'style.css',
+  ...STYLE_MODULES,
   'recipe-editorial.css',
   'assets/image-manifest.js',
   'manifest.json',
@@ -91,6 +93,10 @@ const sitemap = read('sitemap.xml');
 const robots = read('robots.txt');
 const serviceWorker = read('service-worker.js');
 const indexHtml = read('index.html');
+const indexAppModuleOrder = [...indexHtml.matchAll(/src="\/(app(?:-[a-z-]+)?\.js)\?/g)].map(match => match[1]).filter(file => APP_MODULES.includes(file));
+if (JSON.stringify(indexAppModuleOrder) !== JSON.stringify(APP_MODULES)) {
+  fail(`index.html: modules applicatifs absents ou dans le mauvais ordre (attendu ${APP_MODULES.join(', ')}).`);
+}
 const recipeHtml = read('recipe.html');
 const packageJson = read('package.json');
 const headers = read('_headers');
@@ -115,7 +121,7 @@ TEXT_FILES_TO_SCAN.forEach(file => {
   const text = read(file);
   const lines = text.split(/\r?\n/);
   lines.forEach((line, index) => {
-    const intentionalMojibakeRepair = (file === 'app.js' || file === 'recipe.js') && (
+    const intentionalMojibakeRepair = (file === APP_MODULES[0] || file === 'recipe.js') && (
       line.includes('mojibakeScore') ||
       line.includes('repairMojibakeText') ||
       line.includes('repairText') ||
@@ -252,7 +258,7 @@ if (!staticAssets) {
   const normalizedStaticAssets = staticAssets.map(asset => asset.split('?')[0]);
   [
     '/index.html',
-    '/app.js',
+    ...APP_MODULES.map(file => `/${file}`),
     '/app-techniques.js',
     '/app-premium.js',
     '/app-images.js',
@@ -273,8 +279,12 @@ if (!staticAssets) {
   staticAssets
     .filter(asset => asset !== '/' && asset.startsWith('/'))
     .forEach(asset => {
-      const filePath = path.join(ROOT, asset.split('?')[0].replace(/^\/+/, ''));
-      if (!fs.existsSync(filePath)) fail(`service-worker.js: asset precache introuvable (${asset}).`);
+      const relative = asset.split('?')[0].replace(/^\/+/, '');
+      // /style.css est assemble depuis styles/ (server.js et build).
+      const exists = relative === 'style.css'
+        ? STYLE_MODULES.every(file => fs.existsSync(path.join(ROOT, file)))
+        : fs.existsSync(path.join(ROOT, relative));
+      if (!exists) fail(`service-worker.js: asset precache introuvable (${asset}).`);
     });
 }
 
@@ -286,12 +296,12 @@ if (!/IMAGE_CACHE_NAME\s*=\s*['"]cook-note-images-v\d+['"]/.test(serviceWorker))
 }
 
 const indexAssetVersions = [
-  ...indexHtml.matchAll(/\b(?:app|app-premium|app-techniques|app-images|app-art-images|theme|i18n|catalog-\d+|image-manifest|style)\.(?:js|css)\?v=(\d+)/g),
+  ...indexHtml.matchAll(new RegExp(String.raw`\b(?:${APP_MODULE_NAMES}|app-premium|app-techniques|app-images|app-art-images|theme|i18n|catalog-\d+|image-manifest|style)\.(?:js|css)\?v=(\d+)`, 'g')),
   ...indexHtml.matchAll(/\bbase-du-site\.png\?v=(\d+)/g),
   ...recipeHtml.matchAll(/\b(?:theme|i18n|recipe|recipes|style)\.(?:js|css)\?v=(\d+)/g)
 ].map(match => match[1]);
 const swRegistrationVersion = indexHtml.match(/service-worker\.js\?v=(\d+)/)?.[1];
-const swAssetVersions = [...serviceWorker.matchAll(/\b(?:app|app-premium|app-techniques|app-images|app-art-images|theme|i18n|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)/g)].map(match => match[1]);
+const swAssetVersions = [...serviceWorker.matchAll(new RegExp(String.raw`\b(?:${APP_MODULE_NAMES}|app-premium|app-techniques|app-images|app-art-images|theme|i18n|catalog-\d+|image-manifest|recipe|style)\.(?:js|css)\?v=(\d+)`, 'g'))].map(match => match[1]);
 const swCacheVersion = serviceWorker.match(/CACHE_NAME\s*=\s*['"]cook-note-v(\d+)['"]/)?.[1];
 const allAssetVersions = [...indexAssetVersions, swRegistrationVersion, ...swAssetVersions, swCacheVersion].filter(Boolean);
 if (!allAssetVersions.length || new Set(allAssetVersions).size !== 1) {
@@ -336,7 +346,7 @@ if (!indexHtml.includes('https://cook-note.pages.dev/')) {
   'src="/app-techniques.js?',
   'src="/theme.js?',
   'src="/i18n.js?',
-  'src="/app.js?',
+  ...APP_MODULES.map(file => `src="/${file}?`),
   "register('/service-worker.js?"
 ].forEach(fragment => {
   if (!indexHtml.includes(fragment)) fail(`index.html: chemin racine attendu absent (${fragment}).`);

@@ -6,6 +6,7 @@ Cook Note reste une web app statique autonome : le navigateur charge HTML, CSS, 
 
 - `index.html`, `recipe.html`, `app.js`, `app-images.js`, `app-art-images.js`, `app-personal-tools.js`, `recipe.js`, `style.css`, `personal-tools.css` : shell public du site.
 - `app-personal-tools.js` contient les outils personnels calcules cote navigateur ; leurs donnees locales sont incluses dans la sauvegarde complete.
+- `styles/` : feuille principale decoupee en 7 couches, assemblee en `/style.css` par `server.js` et le build (ordre dans `scripts/lib/app-modules.js`).
 - `recipes.js` : catalogue complet, source GitHub des fiches recette.
 - `assets/catalog-*.js` : catalogues compacts de l'accueil, generes depuis `recipes.js`.
 - `assets/recipes/masters/` : masters PNG des images recette, gardes dans GitHub.
@@ -22,7 +23,7 @@ Cook Note reste une web app statique autonome : le navigateur charge HTML, CSS, 
 
 Le build copie uniquement le site public, les modules runtime extraits, les vendors locaux, les catalogues, `recipes.js`, les JPG optimises, les miniatures et les overrides `assets/theme/day/` + `assets/theme/dark/`. Il regenere aussi un `assets/image-manifest.js` de production sans les masters PNG.
 
-`dist/` est versionne comme artefact public Cloudflare Pages. Il se regenere toujours depuis les sources versionnees avec `npm run build`, puis `scripts/validate-dist.js` verifie qu'il ne contient que le site public.
+`dist/` est un artefact de build, ignore par Git : Cloudflare Pages le reconstruit a chaque push avec `npm run build`. En local, `npm run check` le regenere pour que `scripts/validate-dist.js` verifie qu'il ne contient que le site public.
 
 ## Deploiement
 
@@ -30,6 +31,7 @@ Cloudflare Pages doit avoir cette configuration de build Git :
 
 - Build command : `npm run build`
 - Build output directory : `dist`
+- Variable d'environnement : `NODE_VERSION=20`
 
 `wrangler.toml` declare :
 
@@ -44,7 +46,9 @@ fallbacks SPA. Les routes sans slash final doivent pointer en 301 vers l'URL
 canonique avec slash final, et les fallbacks SPA doivent servir `/` plutot que
 `/index.html`, sinon Cloudflare Pages detecte une boucle et ignore la regle.
 
-Si le log Cloudflare affiche `No build command specified. Skipping build step.`, le deploiement reste valide parce que `dist/` est versionne. Il faut seulement s'assurer que `npm run build` a ete relance avant le push.
+Si le log Cloudflare affiche `No build command specified. Skipping build step.`, le reglage Build command est vide : le corriger avant tout push, sinon le site publie serait vide.
+
+Bascule depuis l'ancien `dist/` versionne (une seule fois) : regler la Build command dans Cloudflare Pages, puis retirer `dist/` de l'index Git avec `git rm -r --cached dist` dans le meme commit que l'ajout de `dist/` au `.gitignore`. Le premier deploiement qui suit doit etre verifie sur `https://cook-note.pages.dev`.
 
 ## Validations
 

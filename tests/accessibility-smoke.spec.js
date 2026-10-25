@@ -15,7 +15,7 @@ async function expectDialogWithFocus(page) {
 
 test.describe('Cook Note accessibility keyboard smoke', () => {
   test('les panneaux modaux restent utilisables au clavier', async ({ page }) => {
-    await page.goto('/?lang=fr');
+    await page.goto('/');
     await waitForCookNote(page);
 
     const searchTrigger = page.locator('.home-search-launcher');
@@ -64,7 +64,7 @@ test.describe('Cook Note accessibility keyboard smoke', () => {
   });
 
   test('les boutons visibles ont un nom accessible', async ({ page }) => {
-    await page.goto('/?lang=fr');
+    await page.goto('/');
     await waitForCookNote(page);
     const unnamed = await page.locator('button:visible').evaluateAll(buttons => buttons
       .filter(button => !String(button.getAttribute('aria-label') || button.getAttribute('title') || button.innerText || '').trim())

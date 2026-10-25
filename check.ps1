@@ -4,6 +4,11 @@ $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $nodeDir = Join-Path $root '.tools\node\current'
 $node = Join-Path $nodeDir 'node.exe'
 $npm = Join-Path $nodeDir 'npm.cmd'
+# Git portable : necessaire aux controles des fichiers suivis (APK, artefacts Android, cache).
+$gitDir = Join-Path $root '.tools\git\cmd'
+if (Test-Path (Join-Path $gitDir 'git.exe')) {
+  $env:PATH = "$gitDir;$env:PATH"
+}
 
 function Invoke-CookNoteNodeCheck($nodeExe) {
   $files = @(
@@ -15,6 +20,15 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'theme.js',
     'i18n.js',
     'app.js',
+    'app-recipe-model.js',
+    'app-shopping.js',
+    'app-menu.js',
+    'app-search.js',
+    'app-recipe-content.js',
+    'app-components.js',
+    'app-panels.js',
+    'app-recipe-view.js',
+    'app-main.js',
     'admin.js',
     'recipe.js',
     'service-worker.js',
@@ -33,6 +47,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\validate-visual-image-duplicates.js',
     'scripts\generate-image-manifest.js',
     'scripts\generate-art-images.js',
+    'scripts\generate-avif.js',
     'scripts\validate-image-cleanup.js',
     'scripts\validate-performance-budget.js',
     'scripts\validate-headers.js',
@@ -67,6 +82,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'scripts\validate-feature-coverage.js',
     'scripts\validate-cache-version.js',
     'scripts\generate-image-manifest.js',
+    'scripts\generate-avif.js',
     'scripts\validate-image-cleanup.js',
     'scripts\validate-performance-budget.js',
     'scripts\validate-headers.js',
@@ -79,7 +95,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
   )
 
   foreach ($file in $validators) {
-    if ($file -eq 'scripts\generate-image-manifest.js') {
+    if ($file -eq 'scripts\generate-image-manifest.js' -or $file -eq 'scripts\generate-avif.js') {
       & $nodeExe $file --check
     } else {
       & $nodeExe $file

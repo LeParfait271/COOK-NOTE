@@ -2,6 +2,6 @@ name = "cook-note"
 # Cloudflare Pages Git build settings must be:
 # Build command: npm run build
 # Build output directory: dist
-# dist/ is committed for this Pages project because Git builds skip the build command.
-# Regenerate it with npm run build before each visible push.
+# dist/ is a build output (ignored by Git): Cloudflare runs npm run build on each push.
+# Set NODE_VERSION=20 in the Pages environment variables.
 pages_build_output_dir = "dist"

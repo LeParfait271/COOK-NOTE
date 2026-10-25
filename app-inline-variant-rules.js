@@ -9,10 +9,13 @@
         Object.freeze({ key: 'avocat_crevette', label: 'Avocat crevette', groups: Object.freeze([3]) })
       ])
     }),
+    // Les etapes de la fiche couvrent les deux pates : elles restent communes.
     beignets_calamar: Object.freeze({
-      sharedGroups: Object.freeze([]),
+      sharedGroups: Object.freeze([0, 2]),
+      useRecipeSteps: true,
       options: Object.freeze([
-        Object.freeze({ key: 'calamari', label: 'Calamari', groups: Object.freeze([0, 1, 2]) })
+        Object.freeze({ key: 'pate_legere', label: 'Pâte légère', groups: Object.freeze([1]) }),
+        Object.freeze({ key: 'tempura', label: 'Tempura', groups: Object.freeze([3]) })
       ])
     }),
     toppings_frites: Object.freeze({

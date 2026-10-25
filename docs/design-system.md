@@ -93,6 +93,26 @@ Les styles nouveaux doivent partir des tokens. Une valeur locale n'est acceptabl
 
 Regle : une seule couleur principale visible. Les autres couleurs servent aux neutres, aux etats fonctionnels ou a de tres rares accents d'information.
 
+Les jetons de la couche design sont ecrits en OKLCH (melanges `color-mix(in oklch, ...)`)
+et legerement enrichis sous `@media (color-gamut: p3)` ; les ecrans sRGB gardent
+les memes teintes.
+
+### Couches CSS
+
+- `/style.css` = `@layer legacy, design`. `legacy` regroupe `styles/01` a `07`
+  et les feuilles annexes ; `design` (`styles/10-design.css`) gagne sans
+  `!important`. Tout nouveau style va dans `design`.
+- Composants adaptatifs par container queries : `catalogue`, `grille`,
+  `fiche-rapide`, `avant`.
+- Fenetres modales : `<dialog>` natif (`ModalDialog`), voile `.modal-backdrop`,
+  `::backdrop` transparent, fondu court desactive en mouvement reduit.
+
+### Images
+
+- AVIF en premier (`image-set()` avec `type("image/avif")`, `<img>` via
+  `preferredImageUrl`), JPG/PNG en repli automatique ; l'image principale d'une
+  fiche est prechargee au format reellement affiche.
+
 ### Espacement
 
 Grille stricte :
@@ -180,7 +200,13 @@ Respect obligatoire de `prefers-reduced-motion`.
 
 ## Typographie
 
-- Police systeme uniquement.
+- Deux polices variables locales, servies depuis `assets/fonts/` (sous-ensemble
+  latin, `font-display: swap`, licences OFL jointes) : Fraunces pour les titres
+  (`--ds-font-display`) et Inter pour le texte (`--ds-font-family`). Aucune police
+  distante. Sur Android, le pendant est la serif systeme (`Ui.DISPLAY`,
+  `Ui.READING`).
+- Echelle `--ds-text-xs` a `--ds-text-display` ; `text-wrap: balance` sur les
+  titres, `text-wrap: pretty` sur les paragraphes.
 - Letter spacing a `0` pour les contenus, sauf petits libelles uppercase deja presents.
 - Niveaux a respecter : display, heading, body, caption, label.
 - Les titres de cartes doivent rester sur deux lignes maximum avec ellipsis ou line-clamp.

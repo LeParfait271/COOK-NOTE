@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const vm = require('node:vm');
+const { APP_MODULES, STYLE_MODULES } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const IMAGE_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg', '.ico']);
@@ -29,12 +30,12 @@ const TEXT_FILES = [
   'index.html',
   'recipe.html',
   'manifest.json',
-  'app.js',
+  ...APP_MODULES,
   'app-images.js',
   'app-art-images.js',
   'recipe.js',
   'service-worker.js',
-  'style.css',
+  ...STYLE_MODULES,
   'theme.js'
 ];
 const errors = [];

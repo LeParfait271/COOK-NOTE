@@ -78,10 +78,9 @@ mission est terminee plutot que fabriquer du changement.
   duplications si une base de donnees apparait un jour.
 - Documentation : documenter toute decision d'architecture importante et garder
   README, variables d'environnement, scripts et procedures de deploiement a jour.
-- Internationalisation : tout nouveau texte visible doit passer par `i18n.js`
-  ou par un attribut `data-i18n-*` sur les pages statiques. Les catalogues FR et
-  EN doivent rester synchronises et `npm run validate:i18n` doit rester vert
-  avant toute livraison visible.
+- Langue : site en francais uniquement. Pas de traduction anglaise sans demande
+  explicite (elle sera refaite a neuf). `npm run validate:i18n` doit rester
+  vert.
 - Themes : le mode nuit reste la reference visuelle. Tout nouveau composant
   visible doit utiliser les tokens du design system et fonctionner en theme
   `dark` et `light`. Ne pas ajouter de couleur directe dans un composant quand
@@ -108,9 +107,10 @@ Carte blanche signifie : avancer, installer les outils necessaires, lancer les
 validations utiles et corriger les problemes reels sans demander une validation
 pour chaque detail.
 
-Apres une intervention terminee et des validations OK, commit puis push sur
-`main` sont le comportement normal. Ne pas laisser un changement valide dormir en
-local, sauf demande explicite de pause ou blocage Git/reseau.
+Apres une intervention terminee et des validations OK, laisser les changements
+prets en local. Commit uniquement quand l'utilisateur le demande. Le push sur
+`main` est fait par l'utilisateur via GitHub Desktop, jamais par l'agent sans
+demande explicite.
 
 Mais ces actions demandent toujours une confirmation explicite ou une demande
 utilisateur claire :
@@ -118,51 +118,23 @@ utilisateur claire :
 - supprimer beaucoup de fichiers, de recettes, d'images ou d'assets ;
 - ouvrir une release, declencher un deploiement manuel ou publier un livrable
   externe ;
-- construire ou publier l'APK Android hors workflow de parite site/app ;
+- construire ou publier l'APK Android ;
 - changer des mots de passe, secrets, tokens, droits ou variables sensibles ;
 - remplacer une image visible par une image generee non encore validee ;
 - faire une migration irreversible ou un nettoyage massif ;
 - modifier volontairement l'identite visuelle globale du site.
 
-Instruction permanente utilisateur : quand une intervention modifie une
-fonctionnalite visible du site, une recette, le catalogue, l'UX ou un
-comportement utile aussi dans l'application tablette, auditer Android Legacy et
-preparer l'adaptation Native Lite dans le meme lot si elle est necessaire.
-Ne jamais reconstruire l'APK, remplacer les fichiers de `downloads/`, regenerer
-son manifeste de mise a jour ni lancer `npm run apps:update-all` sans demande
-explicite de l'utilisateur. Un changement de code Android peut donc rester pret
-a construire jusqu'a cette demande.
-Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour tablette peu puissante.
-Hierarchie catalogue : le site et l APK n affichent que les 8 fiches parentes racines et les fiches recettes directement rattachees ; aucune fiche parente intermediaire n est admise.
-Fiche detail Android : rester allegee pour tablette faible, sans saisons,
-difficulte, nombre d'etapes, bouton favori ou bouton partager. Le rendement se
-choisit avec un selecteur natif de personnes quand possible, et `Avant de
-commencer` doit rester complet : reprendre les memes donnees utiles que la fiche
-web, rendues en Native Lite, dont allergenes, materiel, poids moyens, timing,
-recettes liees, repere cuilleres, conseils pratiques, notes restantes,
-conservation, rechauffage et fiche technique quand ces donnees existent dans le
-catalogue.
-Version produit unique : le site et l APK publiee doivent toujours porter la
-meme version produit `X.YY`. `SITE_VERSION` utilise `vX.YY`,
-`cookNoteAndroidVersion` dans `android-legacy/gradle.properties` utilise
-`X.YY`, et `ANDROID_LEGACY_APK_VERSION` dans `app.js` utilise aussi `X.YY`.
-`scripts/bump-version.js` doit synchroniser les trois, puis
-`npm run apps:update-all` reconstruit l APK correspondante quand une mise a jour
-est publiee.
-Le telechargement public Android 5 utilise toujours le meme lien brut stable :
-`https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk`.
+Parite site/app : quand une intervention modifie une fonctionnalite visible du
+site, une recette, le catalogue ou l UX utile aussi sur tablette, auditer Android
+Legacy et preparer l adaptation Native Lite dans le meme lot. Le code Android
+reste pret a construire : ne jamais reconstruire l APK, remplacer `downloads/`,
+regenerer son manifeste ni lancer `npm run apps:update-all` sans demande
+explicite de l utilisateur. Detail : section 8 de `COOK_NOTE_RULES.md`.
 
-Regle permanente de version : toute modification produit versionnee augmente la
-version du site de `0.01`. Une modification limitee aux garde-fous ou au workflow
-interne, sans effet sur le produit livre, ne declenche pas de release. La version de
-l'APK publiee reste celle du dernier APK effectivement construit. La parite des
-numeros redevient obligatoire au moment ou l'utilisateur demande explicitement
-la reconstruction : synchroniser alors les sources Android sur la version du
-site, lancer `npm run apps:update-all`, puis valider ensemble `dist/`, manifeste
-et APK. Ne jamais annoncer ni publier une nouvelle version APK sans binaire
-reconstruit correspondant.
-Utiliser `node scripts/bump-version.js --next --site-only` pour une livraison
-sans reconstruction APK.
+Versions : toute modification produit versionnee augmente la version du site de
+`0.01` (`node scripts/bump-version.js --next --site-only`) ; l APK garde la
+version de son dernier binaire jusqu a une reconstruction demandee. Detail :
+section 7 de `COOK_NOTE_RULES.md`.
 
 Les installations doivent rester justifiees par le besoin du projet. Preferer les
 scripts et dependances existants avant d'ajouter un outil. Ne jamais versionner

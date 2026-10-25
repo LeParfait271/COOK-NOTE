@@ -1,15 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   const CookNoteI18n = window.CookNoteI18n || {
-    locale: () => 'fr',
-    text: value => value,
     t: (key, params = {}) => {
       if (key === 'seo.recipe.description') {
         return `${params.title || 'Recette'} sur Cook Note : recette ${params.category || ''}${params.yieldText || ''}${params.ingredientsText || ''}.`;
       }
       return key;
-    },
-    applyDocumentLanguage: () => {},
-    localizeDocument: () => {}
+    }
   };
 
   function sanitizeNoteHtml(value) {
@@ -92,39 +88,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, normalizeValue(item)]));
   }
 
-  function translateText(value) {
-    if (typeof value !== 'string') return value;
-    return CookNoteI18n.text(repairText(value));
-  }
-
-  function translateHtmlNote(value) {
-    const template = document.createElement('template');
-    template.innerHTML = sanitizeNoteHtml(value);
-    const walker = document.createTreeWalker(template.content, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(node => {
-      if (node.nodeValue?.trim()) node.nodeValue = translateText(node.nodeValue);
-    });
-    return template.innerHTML;
-  }
-
-  function localizedRecipeDescription(recipe) {
-    const titleText = translateText(recipe.title);
-    const category = translateText((recipe.categories || [])[0] || 'Recette');
-    const yieldText = recipe.yield ? `, ${translateText(recipe.yield)}` : '';
+  function recipeDescription(recipe) {
+    const yieldText = recipe.yield ? `, ${recipe.yield}` : '';
     const ingredientPreview = (recipe.ingredients || [])
       .flatMap(group => group.items || [])
       .slice(0, 4)
-      .map(translateText)
       .join(', ');
-    const ingredientsText = ingredientPreview
-      ? `${CookNoteI18n.locale() === 'en' ? ', ingredients: ' : ', ingrédients : '}${ingredientPreview}`
-      : '';
+    const ingredientsText = ingredientPreview ? `, ingrédients : ${ingredientPreview}` : '';
 
     return CookNoteI18n.t('seo.recipe.description', {
-      title: titleText,
-      category,
+      title: recipe.title,
+      category: (recipe.categories || [])[0] || 'Recette',
       yieldText,
       ingredientsText
     });
@@ -134,9 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const id = params.get('id');
   const recipe = id && window.RECIPES ? normalizeValue(window.RECIPES[id]) : null;
 
-  CookNoteI18n.applyDocumentLanguage();
-  CookNoteI18n.localizeDocument(document);
-
   const title = document.getElementById('title');
   const ingredients = document.getElementById('ingredients');
   const steps = document.getElementById('steps');
@@ -145,30 +116,29 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!title || !ingredients || !steps || !notes) return;
 
   if (!recipe) {
-    title.textContent = translateText('Recette introuvable');
-    ingredients.textContent = translateText('Retournez à la liste des recettes.');
+    title.textContent = 'Recette introuvable';
+    ingredients.textContent = 'Retournez à la liste des recettes.';
     return;
   }
 
-  const localizedTitle = translateText(recipe.title);
-  const localizedDescription = localizedRecipeDescription(recipe);
+  const description = recipeDescription(recipe);
 
-  document.title = `${localizedTitle} - Cook Note`;
-  title.textContent = localizedTitle;
-  document.querySelector('meta[name="description"]')?.setAttribute('content', localizedDescription);
+  document.title = `${recipe.title} - Cook Note`;
+  title.textContent = recipe.title;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', description);
   const jsonLd = document.createElement('script');
   jsonLd.type = 'application/ld+json';
   jsonLd.textContent = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Recipe',
-    name: localizedTitle,
+    name: recipe.title,
     image: recipe.image ? new URL(recipe.image, window.location.origin).href : undefined,
-    description: localizedDescription,
-    inLanguage: CookNoteI18n.locale(),
-    recipeYield: recipe.yield ? translateText(recipe.yield) : undefined,
-    recipeCategory: (recipe.categories || []).map(translateText).join(', ') || undefined,
-    recipeIngredient: (recipe.ingredients || []).flatMap(group => group.items || []).map(translateText),
-    recipeInstructions: (recipe.steps || []).map(step => ({ '@type': 'HowToStep', text: translateText(step) }))
+    description,
+    inLanguage: 'fr-FR',
+    recipeYield: recipe.yield || undefined,
+    recipeCategory: (recipe.categories || []).join(', ') || undefined,
+    recipeIngredient: (recipe.ingredients || []).flatMap(group => group.items || []),
+    recipeInstructions: (recipe.steps || []).map(step => ({ '@type': 'HowToStep', text: step }))
   });
   document.head.appendChild(jsonLd);
 
@@ -178,13 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
       section.className = 'recipe-panel';
 
       const heading = document.createElement('h3');
-      heading.textContent = translateText(group.group || 'Base');
+      heading.textContent = group.group || 'Base';
       section.appendChild(heading);
 
       const list = document.createElement('ul');
       (group.items || []).forEach(item => {
         const li = document.createElement('li');
-        li.textContent = translateText(item);
+        li.textContent = item;
         list.appendChild(li);
       });
       section.appendChild(list);
@@ -196,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
   steps.replaceChildren(
     ...(recipe.steps || []).map(step => {
       const li = document.createElement('li');
-      li.textContent = translateText(step);
+      li.textContent = step;
       return li;
     })
   );
@@ -204,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
   notes.replaceChildren(
     ...(recipe.notes || []).map(note => {
       const li = document.createElement('li');
-      li.innerHTML = translateHtmlNote(note);
+      li.innerHTML = sanitizeNoteHtml(note);
       return li;
     })
   );

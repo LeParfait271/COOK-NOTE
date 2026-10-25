@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const vm = require('node:vm');
+const { APP_MODULES, buildStyleSheet } = require('./scripts/lib/app-modules');
 
 const ROOT = __dirname;
 const PORT = Number(process.env.PORT || 8080);
@@ -27,7 +28,7 @@ const PUBLIC_ROOT_FILES = new Set([
   'personal-tools.css',
   'restaurant-tools.css',
   'recipe-safety-sources.css',
-  'app.js',
+  ...APP_MODULES,
   'app-images.js',
   'app-art-images.js',
   'app-inline-variant-rules.js',
@@ -70,6 +71,8 @@ const MIME = {
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
   '.webp': 'image/webp',
+  '.avif': 'image/avif',
+  '.woff2': 'font/woff2',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
   '.txt': 'text/plain; charset=utf-8'
@@ -271,6 +274,14 @@ function prerenderedRecipePath(urlPath) {
 }
 
 function serveFile(req, res, filePath, noStore = false, statusCode = 200) {
+  // /style.css est assemble a la volee depuis styles/ (meme ordre que le build).
+  if (path.relative(ROOT, filePath) === 'style.css') {
+    send(res, statusCode, buildStyleSheet(ROOT), {
+      'content-type': MIME['.css'],
+      'cache-control': staticCacheControl(filePath, noStore)
+    });
+    return;
+  }
   fs.readFile(filePath, (error, data) => {
     if (error) {
       send(res, error.code === 'ENOENT' ? 404 : 500, error.code === 'ENOENT' ? 'Not found' : 'Server error');
@@ -291,7 +302,7 @@ function staticCacheControl(filePath, noStore = false) {
   if (relative === 'service-worker.js') return 'no-cache';
   if (relative === 'index.html' || relative === 'recipe.html') return 'no-cache';
   if (
-    relative === 'app.js' ||
+    APP_MODULES.includes(relative) ||
     relative === 'app-images.js' ||
     relative === 'app-art-images.js' ||
     relative === 'app-inline-variant-rules.js' ||

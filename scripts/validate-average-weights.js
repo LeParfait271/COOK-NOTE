@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { readAppSource } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const recipesPath = path.join(ROOT, 'recipes.js');
@@ -17,7 +18,7 @@ function loadRecipes() {
 }
 
 function loadHelpers() {
-  const appCode = fs.readFileSync(appPath, 'utf8');
+  const appCode = readAppSource();
   const end = appCode.indexOf('const root = ReactDOM.createRoot');
   if (end === -1) throw new Error('Impossible de trouver la limite de montage React.');
 

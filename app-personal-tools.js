@@ -481,7 +481,7 @@
         .then(setPairs)
         .finally(() => setBusy(false));
     };
-    return h('div', { className: 'modal-backdrop', onMouseDown: onClose },
+    return h(window.CookNotePremium.ModalDialog, { className: '', onClose: onClose },
       h('section', { className: 'modal-panel personal-tools-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'personal-tools-title', tabIndex: -1, onKeyDown: window.CookNotePremium?.trapModalFocus, onMouseDown: event => event.stopPropagation() },
         h('div', { className: 'modal-head' },
           h('div', null, h('p', { className: 'eyebrow' }, t('personal.kicker')), h('h2', { id: 'personal-tools-title' }, t('personal.title'))),

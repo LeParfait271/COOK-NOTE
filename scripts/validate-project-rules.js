@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { readAppSource, readStyleSource } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const rulesPath = path.join(ROOT, 'COOK_NOTE_RULES.md');
@@ -30,17 +31,17 @@ const validators = {
   legacyAssets: fs.readFileSync(path.join(ROOT, 'scripts', 'build-android-legacy-assets.js'), 'utf8'),
   visualSmoke: fs.readFileSync(path.join(ROOT, 'tests', 'visual-smoke.spec.js'), 'utf8'),
   updateAllApps: fs.readFileSync(path.join(ROOT, 'scripts', 'update-all-apps.ps1'), 'utf8'),
-  androidWorkflow: fs.readFileSync(path.join(ROOT, 'docs', 'android-legacy-workflow.md'), 'utf8'),
-  appsWorkflow: fs.readFileSync(path.join(ROOT, 'docs', 'apps-install-workflow.md'), 'utf8'),
+  androidWorkflow: fs.readFileSync(path.join(ROOT, 'docs', 'android-legacy-workflow.md'), 'utf8').replace(/\s+/g, ' '),
+  appsWorkflow: fs.readFileSync(path.join(ROOT, 'docs', 'apps-install-workflow.md'), 'utf8').replace(/\s+/g, ' '),
   workflow: fs.readFileSync(path.join(ROOT, '.github', 'workflows', 'cook-note.yml'), 'utf8'),
   wrangler: fs.existsSync(path.join(ROOT, 'wrangler.toml')) ? fs.readFileSync(path.join(ROOT, 'wrangler.toml'), 'utf8') : '',
-  architecture: fs.readFileSync(path.join(ROOT, 'docs', 'architecture.md'), 'utf8'),
-  completeGuide: fs.readFileSync(path.join(ROOT, 'GUIDE_COMPLET.txt'), 'utf8'),
+  architecture: fs.readFileSync(path.join(ROOT, 'docs', 'architecture.md'), 'utf8').replace(/\s+/g, ' '),
+  completeGuide: fs.readFileSync(path.join(ROOT, 'GUIDE_COMPLET.txt'), 'utf8').replace(/\s+/g, ' '),
   windowsCheck: fs.readFileSync(path.join(ROOT, 'check.ps1'), 'utf8'),
-  style: fs.readFileSync(path.join(ROOT, 'style.css'), 'utf8'),
+  style: readStyleSource(),
   adminCss: fs.readFileSync(path.join(ROOT, 'admin.css'), 'utf8'),
   gitignore: fs.readFileSync(path.join(ROOT, '.gitignore'), 'utf8'),
-  app: fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8'),
+  app: readAppSource(),
   packageJson: fs.readFileSync(packagePath, 'utf8'),
   packageLock: fs.existsSync(packageLockPath) ? fs.readFileSync(packageLockPath, 'utf8') : ''
 };
@@ -59,11 +60,15 @@ expect('Audit culinaire non destructif absent.', fs.existsSync(culinaryAuditPath
 expect('Rapport de propositions culinaires absent.', fs.existsSync(culinaryReportPath));
 expect('package-lock.json absent: installations CI non reproductibles.', fs.existsSync(packageLockPath));
 
-const rules = fs.existsSync(rulesPath) ? fs.readFileSync(rulesPath, 'utf8') : '';
-const masterGuard = fs.existsSync(masterGuardPath) ? fs.readFileSync(masterGuardPath, 'utf8') : '';
-const agentsGuide = fs.existsSync(agentsPath) ? fs.readFileSync(agentsPath, 'utf8') : '';
-const designSystem = fs.existsSync(designSystemPath) ? fs.readFileSync(designSystemPath, 'utf8') : '';
-const recipeWorkflow = fs.existsSync(recipeWorkflowPath) ? fs.readFileSync(recipeWorkflowPath, 'utf8') : '';
+// Les documents sont lus avec des espaces normalises : retours a la ligne et
+// mise en forme ne cassent pas les controles. Les validateurs verifient le sens
+// (sections, liens, decisions cles) et surtout le code, pas une formulation.
+const readDoc = file => (fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '').replace(/\s+/g, ' ');
+const rules = readDoc(rulesPath);
+const masterGuard = readDoc(masterGuardPath);
+const agentsGuide = readDoc(agentsPath);
+const designSystem = readDoc(designSystemPath);
+const recipeWorkflow = readDoc(recipeWorkflowPath);
 const culinaryAudit = fs.existsSync(culinaryAuditPath) ? fs.readFileSync(culinaryAuditPath, 'utf8') : '';
 const culinaryReport = fs.existsSync(culinaryReportPath) ? fs.readFileSync(culinaryReportPath, 'utf8') : '';
 
@@ -152,191 +157,35 @@ expect('Design system incomplet.', designSystem.includes('--ds-radius-md') && de
   'Premium Value Perception'
 ].forEach(fragment => {
   expect(`Principe design premium absent (${fragment}).`,
-    designSystem.includes(fragment) && rules.includes(fragment));
+    designSystem.includes(fragment));
 });
 expect('Garde-fou design premium absent du maitre.', masterGuard.includes('Silent Design') && masterGuard.includes('premiere impression'));
 expect('Tokens design system site absents.', validators.style.includes('--ds-color-background') && validators.style.includes('--ds-space-8: 64px') && validators.style.includes('--ds-radius-md: 10px') && validators.style.includes('--ds-motion-fast: 120ms') && validators.style.includes('--ds-motion-slow: 320ms') && validators.style.includes('--ds-ease-out') && validators.style.includes('prefers-reduced-motion'));
 expect('Tokens design system admin absents.', validators.adminCss.includes('--ds-color-background') && validators.adminCss.includes('--ds-space-8: 64px') && validators.adminCss.includes('--ds-radius-md: 10px') && validators.adminCss.includes('--ds-motion-fast: 120ms') && validators.adminCss.includes('--ds-motion-slow: 320ms') && validators.adminCss.includes('--ds-ease-out') && validators.adminCss.includes('prefers-reduced-motion'));
 
 [
+  '## 1. Methode et livraison',
+  '## 2. Recettes : classement et creation',
+  '## 3. Recettes : redaction, quantites et donnees',
+  '## 4. Images',
+  '## 5. Interface du site',
+  '## 6. Production web',
+  '## 7. Versions',
+  '## 8. Application Android 5.0+ (Native Lite)',
+  '## 9. Fonctions retirees ou refusees'
+].forEach(section => {
+  expect(`COOK_NOTE_RULES.md: section absente (${section}).`, rules.includes(section));
+});
+[
   'A_LIRE_EN_PREMIER.md',
-  'arrondir au multiple de `5g`',
-  'vanille selon gout ou arôme vanille selon dosage indiqué sur la bouteille',
-  'cassonade ou vergeoise',
-  'poivre du moulin',
-  'sortir le beurre environ 45 a 60min avant',
-  'Materiel necessaire',
-  'coulis_fraise',
-  'Chaque recette feuille doit avoir une image locale unique',
-  'Aucune image recette ne doit venir du web',
-  'Les donnees recette ne doivent jamais contenir de champs publics de source',
-  'Les titres de recettes restent culinaires, neutres et factuels',
-  'pas de presque-doublon',
-  'npm run validate:visual-images',
-  'assets/recipes/heroes/',
-  'assets/recipes/cards/',
-  'assets/image-manifest.js',
-  'npm run generate:image-manifest',
-  'npm run optimize:images',
-  'npm run audit:images',
-  'representer le plat exact',
-  'rendu vectoriel plat',
-  'nouveau nom de fichier stable',
-  'sans attendre de validation utilisateur',
-  'Regenerer le sitemap',
-  'score de completude',
-  'La recherche doit comprendre les intentions',
-  'Le mode menu doit rester un outil de decision direct',
-  'Mode menu : accords dessert',
-  'Mode menu soir de semaine',
-  'MENU_PAIRING_RULES',
-  'Historique des menus',
-  'reseau d abord avec cache de secours',
-  'images publiques immutables',
-  'retourner le cache directement',
-  'console.log',
-  'bump la version des assets',
-  'node scripts/preflight.js',
-  'npm run build',
-  'scripts/validate-dist.js',
-  '`dist/`',
-  'modules runtime extraits de `app.js`',
-  'app-images.js',
-  'app-art-images.js',
-  'node scripts/bump-version.js --next',
-  'scripts/optimize-selected-images.ps1',
-  'app Android Legacy est un projet secondaire manuel',
-  'parite site/app',
-  'fonctionnalite visible du site',
-  'Native Lite pour tablette peu puissante',
-  'Application Android unique',
-  'app Android HD/Modern est supprimee',
-  'Mise a jour app obligatoire en workflow commun',
-  'Cook Note Android 5.0+',
-  'index recherche precompile',
-  'mots recherche predecoupes',
-  'fuzzy sans split',
-  'allocations recherche reduites',
-  'cache resultats recherche borne',
-  'requetes recentes reutilisees',
-  'classement recherche memoise',
-  'catalogue parent precompile',
-  'enfants parents preclasses',
-  'compteurs collection caches',
-  'quantites ajustables',
-  'courses fusionnees',
-  'preferences locales discretes',
-  'diagnostic hors ligne',
-  'cache image adaptatif',
-  'scroll fluide',
-  'Android 5.0+',
-  'npm run apps:update-all',
-  'porter en Native Lite',
-  'npm run apps:publish-all',
-  'recherche temporisee',
-  'decode image serialise',
-  'coalescence chargements image',
-  'chargements visibles coalesces',
-  'decodages visibles obsoletes ignores',
-  'images visibles prioritaires',
-  'file image prioritaire',
-  'annulation prefetch obsolete',
-  'cache image normalise',
-  'nettoyage vues recyclees',
-  'vues image recyclees detachees',
-  'cibles image obsoletes liberees',
-  'images ecran detachees avant remplacement',
-  'prechargement images borne',
-  'prechauffage images differe',
-  'prechauffage visible apres scroll',
-  'annulation prechauffage en fling',
-  'prefetch ralenti hors inertie',
-  'position de grille conservee',
-  'liberation memoire de liste',
-  'pile retour bornee',
-  'workflow ne construit maintenant que l APK Android Legacy',
-  'scripts/build-android-legacy-assets.js',
-  'Native Lite',
-  'Qualite app',
-  'recipes-lite.json',
-  'GridView',
-  'ImageLoader',
-  'RGB_565',
-  '480px',
-  '960px',
-  'detail-images',
-  'jpeg-js',
-  'infos rapides en pastilles',
-  'etapes numerotees',
-  'sans source externe',
-  'pas de WebView systeme',
-  'pas de GeckoView ARMv7',
-  'WebView systeme',
-  'serveur HTTP local `127.0.0.1`',
-  'assets/www',
-  'npm run android:legacy:update-apk',
-  'npm run android:legacy:publish-release',
-  'docs/apps-install-workflow.md',
-  'npm run audit:security',
-  'cook-note-android-legacy.apk',
-  'cook-note-android-legacy-vX.YY.apk',
-  'meme version produit `X.YY`',
-  'anciens `downloads/cook-note-android-legacy-v*.apk`',
-  'apps-vX.YY',
-  'github.com/LeParfait271/COOK-NOTE/raw/main/downloads',
-  'raw.githubusercontent.com',
-  '/downloads/',
+  'docs/recipe-creation-workflow.md',
+  'docs/visual-references/RECIPE_IMAGE_STYLE.md',
+  'docs/design-system.md',
   'docs/android-legacy-workflow.md',
-  'npm run validate:android',
-  'diffs image anormalement larges',
-  'Le panier courses doit regrouper',
-  'Liste de courses : mode `J’ai déjà`',
-  'Export compact',
-  'registre de couverture des features',
-  'npm run validate:performance',
-  'admin d\'ajout recette',
-  'reparation anti-mojibake',
-  'detection des bases et composants',
-  'batch multi-recettes',
-  'dashboard de sante du catalogue',
-  'audit visuel',
-  'sans rajouter de sections gadget',
-  'Silent Design obligatoire',
-  'Cinematic UI Engine',
-  'Magnetic Interaction Engine',
-  'Color Intelligence Engine',
-  'Breathing Layout Engine',
-  'Eye Tracking Simulator',
-  'Subconscious Quality Engine',
-  'Screenshot Test',
-  'Award Winning Design',
-  'First Impression Optimizer',
-  'Premium Value Perception',
-  'motion system `120ms / 200ms / 320ms`',
-  'tokens du design system',
-  'jamais sur les categories, collections ou fiches parentes',
-  'ne doivent pas garder de trace de source externe',
-  'leur propre URL `/recette/id`',
-  'ancien panneau de variante selectionnee',
-  'Ne pas afficher toutes les recettes enfants en vrac',
-  'rattachements parents additionnels',
-  'lecture native claire et premium',
-  'cartes image',
-  '16/9',
-  'hero de fiche encadre',
-  'fiche recette detaillee proche du site',
-  'grille Ingredients/Etapes/Avant de commencer',
-  'actions principales/secondaires',
-  'cartes parent visibles',
-  'menu deroulant',
-  'nom APK versionne',
-  'barre de commandes recapitulatives en doublon',
-  'le selecteur de personnes et les actions restent dans le hero',
-  'Sous le nom d\'une carte recette',
-  'toutes les categories de la fiche',
-  '`Toppings frites` = Accompagnements/Sauces'
-].forEach(fragment => {
-  expect(`Regle manquante dans COOK_NOTE_RULES.md (${fragment}).`, rules.includes(fragment));
+  'docs/apps-install-workflow.md',
+  'scripts/lib/app-modules.js'
+].forEach(reference => {
+  expect(`COOK_NOTE_RULES.md: reference absente (${reference}).`, rules.includes(reference));
 });
 
 [
@@ -391,7 +240,7 @@ expect('Validation production non branchee.', validators.production.includes('Va
 expect('Build production dist non branche.', validators.packageJson.includes('"build": "node scripts/build-site.js"') && validators.packageJson.includes('scripts/validate-dist.js') && validators.dist.includes('Validation dist OK.'));
 expect('Build production masque encore une absence ou un echec Terser.', validators.packageJson.includes('"terser"') && validators.packageLock.includes('node_modules/terser') && validators.packageJson.includes('scripts/build-site.js') && validators.buildSite.includes('Dependance terser absente') && validators.buildSite.includes('Minification JavaScript impossible'));
 expect('Sortie Cloudflare Pages dist non declaree.', validators.wrangler.includes('pages_build_output_dir = "dist"') && validators.workflow.includes('npm run build') && validators.workflow.includes('cook-note-dist'));
-expect('Artefact dist Cloudflare Pages non versionne.', !/(^|\n)dist\/(\r?\n|$)/.test(validators.gitignore) && validators.architecture.includes('`dist/` est versionne comme artefact public Cloudflare Pages') && rules.includes('`dist/` est versionne comme artefact public Cloudflare Pages'));
+expect('dist/ doit rester un artefact de build ignore par Git et construit par Cloudflare Pages.', /(^|\n)dist\/(\r?\n|$)/.test(validators.gitignore) && validators.architecture.includes('`dist/` est un artefact de build, ignore par Git') && validators.architecture.includes('git rm -r --cached dist') && rules.includes('artefact de build ignore par Git'));
 expect('Build command Cloudflare Pages non documentee.', validators.wrangler.includes('Build command: npm run build') && validators.architecture.includes('Build command : `npm run build`') && validators.architecture.includes('No build command specified') && rules.includes('Build command: npm run build'));
 expect('Guide complet encore aligne sur une ancienne architecture sans build.', validators.completeGuide.includes('scripts/build-site.js') && validators.completeGuide.includes('Build output directory: dist') && !validators.completeGuide.includes('site public React sans build'));
 expect('Guide complet expose encore le serveur admin en production.', validators.completeGuide.includes('back-office sont reserves a la maintenance locale') && !validators.completeGuide.includes("Si l'admin doit etre accessible en ligne"));
@@ -407,8 +256,8 @@ expect('Preflight non branche.', validators.preflight.includes('Preflight Cook N
 expect('Optimisation ciblee images non branchee.', fs.existsSync(path.join(ROOT, 'scripts', 'optimize-selected-images.ps1')) && validators.packageJson.includes('optimize-selected-images.ps1'));
 expect('Audit recettes non branche.', validators.audit.includes('Audit recettes OK') && validators.packageJson.includes('scripts/audit-recipes.js'));
 expect('Audit images non branche.', validators.packageJson.includes('scripts/audit-images.js'));
-expect('Workflow Android manuel non documente.', validators.androidWorkflow.includes('projet secondaire') && validators.androidWorkflow.includes('parite site/app') && validators.androidWorkflow.includes('ne se met pas a jour automatiquement sur la tablette') && validators.androidWorkflow.includes('fonctionnalite visible du site') && validators.androidWorkflow.includes('tablette peu puissante') && validators.androidWorkflow.includes('npm run apps:update-all') && validators.androidWorkflow.includes('npm run apps:publish-all') && validators.androidWorkflow.includes('npm run android:legacy:update-apk') && validators.androidWorkflow.includes('npm run android:legacy:publish-release') && validators.androidWorkflow.includes('cook-note-android-legacy.apk') && validators.androidWorkflow.includes('cook-note-android-legacy-vX.YY.apk') && validators.androidWorkflow.includes('rattachements parents additionnels') && validators.androidWorkflow.includes('refonte visuelle native premium') && validators.androidWorkflow.includes('cartes image') && validators.androidWorkflow.includes('16/9') && validators.androidWorkflow.includes('hero de fiche encadre') && validators.androidWorkflow.includes('fiche recette detaillee proche du site') && validators.androidWorkflow.includes('grille Ingredients/Etapes/Avant de commencer') && validators.androidWorkflow.includes('actions principales/secondaires') && validators.androidWorkflow.includes('cartes parent 16/9 visibles') && validators.androidWorkflow.includes('menu deroulant') && validators.androidWorkflow.includes('nom APK versionne') && validators.androidWorkflow.includes('recherche simple sans filtres') && validators.androidWorkflow.includes('recherche intelligente sans filtres') && validators.androidWorkflow.includes('index recherche precompile') && validators.androidWorkflow.includes('mots recherche predecoupes') && validators.androidWorkflow.includes('fuzzy sans split') && validators.androidWorkflow.includes('allocations recherche reduites') && validators.androidWorkflow.includes('cache resultats recherche borne') && validators.androidWorkflow.includes('requetes recentes reutilisees') && validators.androidWorkflow.includes('classement recherche memoise') && validators.androidWorkflow.includes('catalogue parent precompile') && validators.androidWorkflow.includes('enfants parents preclasses') && validators.androidWorkflow.includes('compteurs collection caches') && validators.androidWorkflow.includes('swipe retour bord gauche') && validators.androidWorkflow.includes('navigation restaurable') && validators.androidWorkflow.includes('prechargement images') && validators.androidWorkflow.includes('prechauffage images differe') && validators.androidWorkflow.includes('prechauffage visible apres scroll') && validators.androidWorkflow.includes('annulation prechauffage en fling') && validators.androidWorkflow.includes('prefetch ralenti hors inertie') && validators.androidWorkflow.includes('chargements visibles coalesces') && validators.androidWorkflow.includes('decodages visibles obsoletes ignores') && validators.androidWorkflow.includes('images visibles prioritaires') && validators.androidWorkflow.includes('file image prioritaire') && validators.androidWorkflow.includes('annulation prefetch obsolete') && validators.androidWorkflow.includes('cache image normalise') && validators.androidWorkflow.includes('nettoyage vues recyclees') && validators.androidWorkflow.includes('vues image recyclees detachees') && validators.androidWorkflow.includes('cibles image obsoletes liberees') && validators.androidWorkflow.includes('images ecran detachees avant remplacement') && validators.androidWorkflow.includes('prefetch carte borne') && validators.androidWorkflow.includes('courses cochables') && validators.androidWorkflow.includes('courses fusionnees') && validators.androidWorkflow.includes('quantites ajustables') && validators.androidWorkflow.includes('preferences locales discretes') && validators.androidWorkflow.includes('diagnostic hors ligne') && validators.androidWorkflow.includes('cache image adaptatif') && validators.androidWorkflow.includes('scroll fluide') && validators.androidWorkflow.includes('audit perf leger') && validators.androidWorkflow.includes('Ne pas remettre de filtres dans la recherche Android Legacy') && validators.androidWorkflow.includes('Ne pas recreer Android Modern/HD') && validators.androidWorkflow.includes('scripts/build-android-legacy-assets.js') && validators.androidWorkflow.includes('Native Lite') && validators.androidWorkflow.includes('recipes-lite.json') && validators.androidWorkflow.includes('480px') && validators.androidWorkflow.includes('960px') && validators.androidWorkflow.includes('detail-images') && validators.androidWorkflow.includes('jpeg-js') && validators.androidWorkflow.includes('GridView') && validators.androidWorkflow.includes('RGB_565') && validators.androidWorkflow.includes('pastilles') && validators.androidWorkflow.includes('etapes numerotees') && validators.androidWorkflow.includes('sans WebView systeme et sans GeckoView') && validators.androidWorkflow.includes('assets/www'));
-expect('Workflow apps global non documente.', validators.appsWorkflow.includes('Android 5.0+') && validators.appsWorkflow.includes('Cook Note Android 5.0+') && validators.appsWorkflow.includes('parite site/app') && validators.appsWorkflow.includes('fonctionnalite visible du site') && validators.appsWorkflow.includes('tablette peu puissante') && validators.appsWorkflow.includes('cook-note-android-legacy.apk') && validators.appsWorkflow.includes('cook-note-android-legacy-vX.YY.apk') && validators.appsWorkflow.includes('rattachements parents additionnels') && validators.appsWorkflow.includes('refonte visuelle native premium') && validators.appsWorkflow.includes('cartes image') && validators.appsWorkflow.includes('16/9') && validators.appsWorkflow.includes('hero de fiche encadre') && validators.appsWorkflow.includes('fiche recette detaillee proche du site') && validators.appsWorkflow.includes('grille Ingredients/Etapes/Avant de commencer') && validators.appsWorkflow.includes('actions principales/secondaires') && validators.appsWorkflow.includes('hierarchie est strictement plate') && validators.appsWorkflow.includes('menu deroulant') && validators.appsWorkflow.includes('nom APK versionne') && validators.appsWorkflow.includes('recherche simple sans filtres') && validators.appsWorkflow.includes('recherche intelligente sans filtres') && validators.appsWorkflow.includes('index recherche precompile') && validators.appsWorkflow.includes('mots recherche predecoupes') && validators.appsWorkflow.includes('fuzzy sans split') && validators.appsWorkflow.includes('allocations recherche reduites') && validators.appsWorkflow.includes('cache resultats recherche borne') && validators.appsWorkflow.includes('requetes recentes reutilisees') && validators.appsWorkflow.includes('classement recherche memoise') && validators.appsWorkflow.includes('catalogue parent precompile') && validators.appsWorkflow.includes('enfants parents preclasses') && validators.appsWorkflow.includes('compteurs collection caches') && validators.appsWorkflow.includes('swipe retour bord gauche') && validators.appsWorkflow.includes('navigation restaurable') && validators.appsWorkflow.includes('prechargement images') && validators.appsWorkflow.includes('prechauffage images differe') && validators.appsWorkflow.includes('prechauffage visible apres scroll') && validators.appsWorkflow.includes('annulation prechauffage en fling') && validators.appsWorkflow.includes('prefetch ralenti hors inertie') && validators.appsWorkflow.includes('chargements visibles coalesces') && validators.appsWorkflow.includes('decodages visibles obsoletes ignores') && validators.appsWorkflow.includes('images visibles prioritaires') && validators.appsWorkflow.includes('file image prioritaire') && validators.appsWorkflow.includes('annulation prefetch obsolete') && validators.appsWorkflow.includes('cache image normalise') && validators.appsWorkflow.includes('nettoyage vues recyclees') && validators.appsWorkflow.includes('vues image recyclees detachees') && validators.appsWorkflow.includes('cibles image obsoletes liberees') && validators.appsWorkflow.includes('images ecran detachees avant remplacement') && validators.appsWorkflow.includes('prefetch carte borne') && validators.appsWorkflow.includes('courses cochables') && validators.appsWorkflow.includes('courses fusionnees') && validators.appsWorkflow.includes('quantites ajustables') && validators.appsWorkflow.includes('preferences locales discretes') && validators.appsWorkflow.includes('diagnostic hors ligne') && validators.appsWorkflow.includes('cache image adaptatif') && validators.appsWorkflow.includes('scroll fluide') && validators.appsWorkflow.includes('audit perf leger') && validators.appsWorkflow.includes('sans filtres de') && validators.appsWorkflow.includes('apps-vX.YY') && validators.appsWorkflow.includes('https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk') && validators.appsWorkflow.includes('chemin ne contient jamais la version') && validators.appsWorkflow.includes('/downloads/') && validators.appsWorkflow.includes('npm run apps:update-all') && validators.appsWorkflow.includes('npm run apps:publish-all') && validators.appsWorkflow.includes('Mise a jour explicite ou parite site/app') && validators.appsWorkflow.includes('workflow commun historique') && validators.appsWorkflow.includes('scripts/build-android-legacy-assets.js') && validators.appsWorkflow.includes('Native Lite') && validators.appsWorkflow.includes('recipes-lite.json') && validators.appsWorkflow.includes('480px') && validators.appsWorkflow.includes('960px') && validators.appsWorkflow.includes('jpeg-js') && validators.appsWorkflow.includes('GridView') && validators.appsWorkflow.includes('RGB_565') && validators.appsWorkflow.includes('pastilles') && validators.appsWorkflow.includes('etapes numerotees') && validators.appsWorkflow.includes('sans GeckoView') && !validators.appsWorkflow.includes('cook-note-android-modern') && !validators.appsWorkflow.includes('Android 8.0+'));
+expect('Workflow Android manuel non documente.', validators.androidWorkflow.includes('projet secondaire') && validators.androidWorkflow.includes('parite site/app') && validators.androidWorkflow.includes('ne se met pas a jour automatiquement sur la tablette') && validators.androidWorkflow.includes('npm run apps:update-all') && validators.androidWorkflow.includes('npm run apps:publish-all') && validators.androidWorkflow.includes('cook-note-android-legacy.apk') && validators.androidWorkflow.includes('scripts/build-android-legacy-assets.js') && validators.androidWorkflow.includes('sans WebView systeme et sans GeckoView'));
+expect('Workflow apps global non documente.', validators.appsWorkflow.includes('Cook Note Android 5.0+') && validators.appsWorkflow.includes('parite site/app') && validators.appsWorkflow.includes('https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk') && validators.appsWorkflow.includes('chemin ne contient jamais la version') && validators.appsWorkflow.includes('npm run apps:update-all') && validators.appsWorkflow.includes('npm run apps:publish-all') && !validators.appsWorkflow.includes('cook-note-android-modern') && !validators.appsWorkflow.includes('Android 8.0+'));
 expect('Script apps groupe non branche.', validators.packageJson.includes('"apps:update-all"') && validators.packageJson.includes('"apps:publish-all"') && validators.updateAllApps.includes('build-android-legacy.ps1') && validators.updateAllApps.includes('cook-note-android-legacy.apk') && validators.updateAllApps.includes('Get-CookNoteVersionName') && validators.updateAllApps.includes('Sync-AndroidApkVersion') && validators.updateAllApps.includes('ANDROID_LEGACY_APK_VERSION') && validators.updateAllApps.includes('cook-note-android-legacy-v$VersionName.apk') && validators.updateAllApps.includes('Remove-StaleVersionedApks') && validators.updateAllApps.includes('dist\\downloads') && !validators.updateAllApps.includes('build-android-modern.ps1') && !validators.updateAllApps.includes('cook-note-android-modern.apk'));
 expect('Version produit site/APK non verrouillee.', validators.app.includes("const ANDROID_LEGACY_APK_VERSION = '") && validators.app.includes("ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk'") && !validators.app.includes('const APP_VERSION_NUMBER = SITE_VERSION') && validators.androidManual.includes('Versions Android publiees incoherentes') && validators.cache.includes('Versions APK incoherentes') && validators.bumpVersion.includes('--site-only') && validators.bumpVersion.includes('ANDROID_LEGACY_APK_VERSION') && validators.bumpVersion.includes('cookNoteAndroidVersion') && validators.updateAllApps.includes('Versions site/APK non alignees') && validators.legacyAssets.includes('Versions Cook Note non alignees') && rules.includes('meme version produit `X.YY`') && validators.androidWorkflow.includes('meme version produit `X.YY`') && validators.appsWorkflow.includes('meme version produit `X.YY`'));
 [

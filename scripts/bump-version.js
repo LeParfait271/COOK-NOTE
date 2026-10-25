@@ -1,7 +1,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { APP_MODULES } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
+const APP_MODULE_VERSION_RE = new RegExp(`(\\b(?:${APP_MODULES.map(file => file.replace(/\.js$/, '')).join('|')})\\.js\\?v=)\\d+`, 'g');
 const VERSION_RE = /^v(\d+)\.(\d+)$/;
 const EXPLICIT_VERSION_RE = /^v\d+\.\d{2}$/;
 
@@ -113,7 +115,7 @@ write('index.html', read('index.html')
   .replace(/(i18n\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app-premium\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app-techniques\.js\?v=)\d+/g, `$1${numeric}`)
-  .replace(/(app\.js\?v=)\d+/g, `$1${numeric}`)
+  .replace(APP_MODULE_VERSION_RE, `$1${numeric}`)
   .replace(/(service-worker\.js\?v=)\d+/g, `$1${numeric}`));
 
 write('recipe.html', read('recipe.html')
@@ -131,7 +133,7 @@ write('service-worker.js', read('service-worker.js')
   .replace(/IMAGE_CACHE_NAME = 'cook-note-images-v\d+'/g, `IMAGE_CACHE_NAME = 'cook-note-images-v${numeric}'`)
   .replace(/(\/assets\/day\/[^'"]+\.(?:jpg|png)\?v=)\d+/g, `$1${numeric}`)
   .replace(/(\/assets\/dark\/[^'"]+\.(?:jpg|png)\?v=)\d+/g, `$1${numeric}`)
-  .replace(/(app\.js\?v=)\d+/g, `$1${numeric}`)
+  .replace(APP_MODULE_VERSION_RE, `$1${numeric}`)
   .replace(/(app-techniques\.js\?v=)\d+/g, `$1${numeric}`)
   .replace(/(app-premium\.js\?v=)\d+/g, `$1${numeric}`)
    .replace(/(app-images\.js\?v=)\d+/g, `$1${numeric}`)

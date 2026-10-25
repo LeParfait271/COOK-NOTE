@@ -1,14 +1,23 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v532
+//  Cook Note - Service Worker PWA v533
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v532';
-const IMAGE_CACHE_NAME = 'cook-note-images-v532';
+const CACHE_NAME = 'cook-note-v533';
+const IMAGE_CACHE_NAME = 'cook-note-images-v533';
 const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
+  '/app-recipe-model.js',
+  '/app-shopping.js',
+  '/app-menu.js',
+  '/app-search.js',
+  '/app-recipe-content.js',
+  '/app-components.js',
+  '/app-panels.js',
+  '/app-recipe-view.js',
+  '/app-main.js',
   '/app-techniques.js',
   '/app-premium.js',
   '/app-personal-tools.js',
@@ -41,21 +50,30 @@ const IMMUTABLE_IMAGE_PATHS = [
 ];
 const STATIC_ASSETS = [
   '/index.html',
-  '/app.js?v=532-parent-title',
-  '/app-techniques.js?v=532-parent-title',
-  '/app-premium.js?v=532-parent-title',
+  '/app.js?v=533-parent-title',
+  '/app-recipe-model.js?v=533-parent-title',
+  '/app-shopping.js?v=533-parent-title',
+  '/app-menu.js?v=533-parent-title',
+  '/app-search.js?v=533-parent-title',
+  '/app-recipe-content.js?v=533-parent-title',
+  '/app-components.js?v=533-parent-title',
+  '/app-panels.js?v=533-parent-title',
+  '/app-recipe-view.js?v=533-parent-title',
+  '/app-main.js?v=533-parent-title',
+  '/app-techniques.js?v=533-parent-title',
+  '/app-premium.js?v=533-parent-title',
   '/app-personal-tools.js?v=528',
   '/app-safety-sources.js?v=528',
-  '/app-images.js?v=532-parent-title',
-  '/app-art-images.js?v=532-parent-title',
-  '/app-inline-variant-rules.js?v=532-parent-title',
-  '/theme.js?v=532-parent-title',
-  '/i18n.js?v=532-parent-title',
-  '/assets/catalog-1.js?v=532-parent-title',
+  '/app-images.js?v=533-parent-title',
+  '/app-art-images.js?v=533-parent-title',
+  '/app-inline-variant-rules.js?v=533-parent-title',
+  '/theme.js?v=533-parent-title',
+  '/i18n.js?v=533-parent-title',
+  '/assets/catalog-1.js?v=533-parent-title',
   '/recipe-worker.js',
-  '/assets/image-manifest.js?v=532-parent-title',
-  '/style.css?v=532-parent-title',
-  '/recipe-editorial.css?v=532-parent-title',
+  '/assets/image-manifest.js?v=533-parent-title',
+  '/style.css?v=533-parent-title',
+  '/recipe-editorial.css?v=533-parent-title',
   '/personal-tools.css?v=528',
   '/restaurant-tools.css?v=528',
   '/recipe-safety-sources.css?v=528',
@@ -65,6 +83,7 @@ const STATIC_ASSETS = [
   '/assets/brand/mark.svg',
   '/assets/brand/app-icon.png',
   '/assets/theme/dark/global/background.jpg',
+  '/assets/theme/dark/global/background.avif',
 ];
 
 async function trimCache(cacheName, maxEntries) {

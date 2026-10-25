@@ -1,217 +1,171 @@
 package fr.cooknote.legacy;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.DownloadManager;
-import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
-import android.content.DialogInterface;
-import android.content.IntentFilter;
-import android.content.pm.PackageInfo;
-import android.database.Cursor;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.Settings;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.StateListDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Editable;
-import android.text.InputType;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.widget.AdapterView;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.GridView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
-import org.json.JSONObject;
+import static fr.cooknote.legacy.Ingredients.*;
+import static fr.cooknote.legacy.Palette.*;
+import static fr.cooknote.legacy.Texts.*;
+import static fr.cooknote.legacy.Ui.*;
 
 public class MainActivity extends Activity {
-    private static final String UPDATE_APK_URL = "https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/cook-note-android-legacy.apk";
-    private static final String UPDATE_MANIFEST_URL = "https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads/android-latest-version.json";
-    private static final String UPDATE_APK_MIME = "application/vnd.android.package-archive";
-    private static final int UPDATE_HTTP_TIMEOUT_MS = 6000;
-    private static final String PREFS_NAME = "cook_note_legacy";
-    private static final String PREF_SHOPPING = "shopping";
-    private static final String PREF_SHOPPING_DONE = "shopping_done";
-    private static final String PREF_INGREDIENT_DONE = "ingredient_done";
-    private static final String PREF_RECENT_SEARCHES = "recent_searches";
-    private static final String PREF_KEEP_SCREEN_ON = "keep_screen_on";
-    private static final String PREF_QUANTITY_FACTOR = "quantity_factor";
-    private static final String PREF_LAST_RECIPE = "last_recipe";
-    private static final String PREF_UPDATE_SKIP_CODE = "update_skip_code";
-    private static final String STATE_SCREEN = "screen";
-    private static final String STATE_RECIPE_ID = "recipe_id";
-    private static final String STATE_QUERY = "query";
-    private static final String STATE_SEARCH_OPEN = "search_open";
-    private static final String STATE_BACK_STACK = "back_stack";
-    private static final String STATE_LIST_FIRST = "list_first";
-    private static final String STATE_LIST_TOP = "list_top";
-    private static final int SCREEN_LIST = 0;
-    private static final int SCREEN_RECIPE = 1;
-    private static final int SCREEN_SHOPPING = 2;
-    private int COLOR_BG = Color.rgb(7, 6, 5);
-    private int COLOR_PANEL = Color.rgb(19, 17, 13);
-    private int COLOR_PANEL_DEEP = Color.rgb(12, 10, 8);
-    private int COLOR_SURFACE = Color.rgb(24, 21, 16);
-    private int COLOR_CARD = Color.rgb(22, 19, 15);
-    private int COLOR_CARD_SOFT = Color.rgb(30, 26, 20);
-    private int COLOR_CARD_ACTIVE = Color.rgb(58, 43, 22);
-    private int COLOR_TEXT = Color.rgb(255, 248, 238);
-    private int COLOR_TEXT_DARK = Color.rgb(24, 18, 9);
-    private int COLOR_MUTED = Color.rgb(226, 217, 202);
-    private int COLOR_DIM = Color.rgb(184, 170, 149);
-    private int COLOR_BORDER = Color.rgb(120, 90, 42);
-    private int COLOR_BORDER_BRIGHT = Color.rgb(184, 134, 52);
-    private int COLOR_BORDER_SOFT = Color.rgb(82, 67, 40);
-    private int COLOR_LINE = Color.rgb(96, 76, 42);
-    private int COLOR_GOLD = Color.rgb(251, 191, 36);
-    private int COLOR_ORANGE = Color.rgb(245, 158, 11);
-    private int COLOR_GOLD_SOFT = Color.rgb(214, 158, 64);
-    private static final int DETAIL_IMAGE_MAX_WIDTH = 960;
-    private static final int BACK_SWIPE_EDGE_DP = 64;
-    private static final int BACK_SWIPE_TRIGGER_DP = 86;
-    private static final int SEARCH_DEBOUNCE_MS = 140;
-    private static final int LIST_PREWARM_DELAY_MS = 220;
-    private static final int LIST_IDLE_PREWARM_DELAY_MS = 120;
-    private static final int LIST_PREWARM_LIMIT = 8;
-    private static final int LIST_VISIBLE_PREFETCH_LIMIT = 6;
-    private static final int COLLECTION_PREWARM_LIMIT = 8;
-    private static final int MAX_BACK_STACK = 16;
-    private static final int TRIM_MEMORY_RUNNING_LOW_LEVEL = 10;
-    private static final int TRIM_MEMORY_MODERATE_LEVEL = 60;
-    private static final boolean PERF_LOG_ENABLED = false;
-    private static final float[] QUANTITY_FACTORS = new float[]{0.5f, 1f, 1.5f, 2f, 3f, 4f};
-    private static final int MIN_SERVINGS = 1;
-    private static final int DEFAULT_MAX_SERVING_CHOICES = 12;
-    private static final int HARD_MAX_SERVING_CHOICES = 24;
-    private static final Pattern SERVING_COUNT_PATTERN = Pattern.compile(
+    final HomeScreen homeScreen = new HomeScreen(this);
+    final RecipeScreen recipeScreen = new RecipeScreen(this);
+    final ShoppingScreen shoppingScreen = new ShoppingScreen(this);
+    static final String PREFS_NAME = "cook_note_legacy";
+    static final String PREF_SHOPPING = "shopping";
+    static final String PREF_SHOPPING_DONE = "shopping_done";
+    static final String PREF_INGREDIENT_DONE = "ingredient_done";
+    static final String PREF_RECENT_SEARCHES = "recent_searches";
+    static final String PREF_KEEP_SCREEN_ON = "keep_screen_on";
+    static final String PREF_QUANTITY_FACTOR = "quantity_factor";
+    static final String PREF_LAST_RECIPE = "last_recipe";
+    static final String STATE_SCREEN = "screen";
+    static final String STATE_RECIPE_ID = "recipe_id";
+    static final String STATE_QUERY = "query";
+    static final String STATE_SEARCH_OPEN = "search_open";
+    static final String STATE_BACK_STACK = "back_stack";
+    static final String STATE_LIST_FIRST = "list_first";
+    static final String STATE_LIST_TOP = "list_top";
+    static final int SCREEN_LIST = 0;
+    static final int SCREEN_RECIPE = 1;
+    static final int SCREEN_SHOPPING = 2;
+    static final int DETAIL_IMAGE_MAX_WIDTH = 960;
+    static final int BACK_SWIPE_EDGE_DP = 64;
+    static final int BACK_SWIPE_TRIGGER_DP = 86;
+    static final int SEARCH_DEBOUNCE_MS = 140;
+    static final int LIST_PREWARM_DELAY_MS = 220;
+    static final int LIST_IDLE_PREWARM_DELAY_MS = 120;
+    static final int LIST_PREWARM_LIMIT = 8;
+    static final int LIST_VISIBLE_PREFETCH_LIMIT = 6;
+    static final int COLLECTION_PREWARM_LIMIT = 8;
+    static final int MAX_BACK_STACK = 16;
+    static final int TRIM_MEMORY_RUNNING_LOW_LEVEL = 10;
+    static final int TRIM_MEMORY_MODERATE_LEVEL = 60;
+    static final boolean PERF_LOG_ENABLED = false;
+    static final float[] QUANTITY_FACTORS = new float[]{0.5f, 1f, 1.5f, 2f, 3f, 4f};
+    static final int MIN_SERVINGS = 1;
+    static final int DEFAULT_MAX_SERVING_CHOICES = 12;
+    static final int HARD_MAX_SERVING_CHOICES = 24;
+    static final Pattern SERVING_COUNT_PATTERN = Pattern.compile(
             "\\b(\\d+)\\s*(?:-|a|\\u00E0)?\\s*(\\d+)?\\s*(personnes?|portions?|pers\\.?|convives?|parts?)\\b",
             Pattern.CASE_INSENSITIVE
     );
-    private static final Pattern INGREDIENT_AMOUNT_PATTERN = Pattern.compile(
-            "^\\s*(\\d+/\\d+|\\d+(?:[,.]\\d+)?)(?:\\s*(?:-|a|\\u00E0)\\s*(\\d+/\\d+|\\d+(?:[,.]\\d+)?))?\\s*([A-Za-z]+)?\\s*(.*)$",
-            Pattern.CASE_INSENSITIVE
-    );
 
-    private CookNoteRepository repository;
-    private ImageLoader imageLoader;
-    private RecipeAdapter adapter;
-    private GridView recipeGridView;
-    private LinearLayout searchPanel;
-    private LinearLayout recentChipsRow;
-    private Button searchToggle;
-    private Button shoppingButton;
-    private Button clearSearchButton;
-    private TextView counterView;
-    private EditText searchBox;
-    private String currentQuery = "";
-    private boolean searchPanelOpen;
-    private boolean showingDetail;
-    private boolean keepScreenOn;
-    private float quantityFactor = 1f;
-    private int currentScreen = SCREEN_LIST;
-    private String currentRecipeId = "";
-    private String lastRecipeId = "";
-    private String lastAppliedQuery = null;
-    private boolean lastAppliedHomeMode;
-    private int lastAppliedCount;
-    private boolean filtersApplied;
-    private int listFirstVisiblePosition;
-    private int listTopOffset;
-    private int listScrollState = AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
-    private float backSwipeStartX;
-    private float backSwipeStartY;
-    private boolean backSwipeCandidate;
-    private boolean backSwipeTriggered;
-    private final Handler uiHandler = new Handler(Looper.getMainLooper());
-    private final Runnable applyFiltersRunnable = new Runnable() {
+    CookNoteRepository repository;
+    ImageLoader imageLoader;
+    RecipeAdapter adapter;
+    GridView recipeGridView;
+    LinearLayout searchPanel;
+    LinearLayout recentChipsRow;
+    Button searchToggle;
+    Button shoppingButton;
+    Button clearSearchButton;
+    TextView counterView;
+    EditText searchBox;
+    String currentQuery = "";
+    boolean searchPanelOpen;
+    boolean showingDetail;
+    boolean keepScreenOn;
+    float quantityFactor = 1f;
+    int currentScreen = SCREEN_LIST;
+    String currentRecipeId = "";
+    String lastRecipeId = "";
+    String lastAppliedQuery = null;
+    boolean lastAppliedHomeMode;
+    int lastAppliedCount;
+    boolean filtersApplied;
+    int listFirstVisiblePosition;
+    int listTopOffset;
+    int listScrollState = AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
+    float backSwipeStartX;
+    float backSwipeStartY;
+    boolean backSwipeCandidate;
+    boolean backSwipeTriggered;
+    final Handler uiHandler = new Handler(Looper.getMainLooper());
+    final Runnable applyFiltersRunnable = new Runnable() {
         @Override
         public void run() {
-            applyFilters();
+            homeScreen.applyFilters();
         }
     };
-    private final Runnable prewarmListRunnable = new Runnable() {
+    final Runnable prewarmListRunnable = new Runnable() {
         @Override
         public void run() {
-            runScheduledListPrewarm();
+            homeScreen.runScheduledListPrewarm();
         }
     };
-    private final Runnable visibleRangePrewarmRunnable = new Runnable() {
+    final Runnable visibleRangePrewarmRunnable = new Runnable() {
         @Override
         public void run() {
-            runScheduledVisibleRangePrewarm();
+            homeScreen.runScheduledVisibleRangePrewarm();
         }
     };
-    private final Stack<NavState> detailBackStack = new Stack<NavState>();
-    private final Set<String> shoppingDoneKeys = new HashSet<String>();
-    private final Set<String> ingredientDoneKeys = new HashSet<String>();
-    private final ArrayList<String> recentSearches = new ArrayList<String>();
-    private final ArrayList<String> shoppingRecipeIds = new ArrayList<String>();
-    private List<Recipe> pendingListPrewarmRecipes = Collections.emptyList();
-    private final Map<String, Integer> inlineVariantSelections = new HashMap<String, Integer>();
-    private long updateDownloadId = -1L;
-    private String updateDownloadVersion = "";
-    private BroadcastReceiver updateDownloadReceiver;
+    final Stack<NavState> detailBackStack = new Stack<NavState>();
+    final Set<String> ingredientDoneKeys = new HashSet<String>();
+    final ArrayList<String> recentSearches = new ArrayList<String>();
+    ShoppingList shopping;
+    final ShoppingList.IngredientSource ingredientSource = new ShoppingList.IngredientSource() {
+        @Override
+        public List<Recipe.Group> groups(Recipe recipe) {
+            return recipeScreen.selectedIngredientGroups(recipe);
+        }
+    };
+    List<Recipe> pendingListPrewarmRecipes = Collections.emptyList();
+    final Map<String, Integer> inlineVariantSelections = new HashMap<String, Integer>();
+    AppUpdater updater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Ui.init(this);
         imageLoader = new ImageLoader(this);
         try {
             repository = CookNoteRepository.load(this);
+            shopping = new ShoppingList(repository);
             loadUserState();
             applySystemChrome();
             restoreScreenState(savedInstanceState);
             applyKeepScreenOn();
             showCurrentScreen();
-            checkForUpdatesAsync(false);
+            updater = new AppUpdater(this, uiHandler, PREFS_NAME, repository.version);
+            updater.checkForUpdatesAsync(false);
         } catch (Exception exception) {
             showNativeError("Cook Note Android 5 Lite", "Catalogue impossible a lire.\n\n" + exception.getMessage());
         }
@@ -229,7 +183,7 @@ public class MainActivity extends Activity {
         super.onSaveInstanceState(outState);
     }
 
-    private void restoreScreenState(Bundle state) {
+    void restoreScreenState(Bundle state) {
         if (state == null) return;
         currentQuery = state.getString(STATE_QUERY, "");
         searchPanelOpen = state.getBoolean(STATE_SEARCH_OPEN, false);
@@ -244,22 +198,22 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void showCurrentScreen() {
+    void showCurrentScreen() {
         if (currentScreen == SCREEN_RECIPE) {
             Recipe recipe = repository.find(currentRecipeId);
             if (recipe != null) {
-                openRecipe(recipe, false);
+                recipeScreen.openRecipe(recipe, false);
                 return;
             }
         }
         if (currentScreen == SCREEN_SHOPPING) {
-            showShoppingList(false);
+            shoppingScreen.showShoppingList(false);
             return;
         }
-        showList();
+        homeScreen.showList();
     }
 
-    private String serializeBackStack() {
+    String serializeBackStack() {
         StringBuilder builder = new StringBuilder();
         for (NavState state : detailBackStack) {
             if (builder.length() > 0) builder.append('\n');
@@ -268,7 +222,7 @@ public class MainActivity extends Activity {
         return builder.toString();
     }
 
-    private void restoreBackStack(String raw) {
+    void restoreBackStack(String raw) {
         detailBackStack.clear();
         if (raw == null || raw.length() == 0) return;
         String[] rows = raw.split("\\n");
@@ -289,372 +243,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void showList() {
-        long startedAt = perfStart();
-        releaseScreenImages();
-        releaseListSurface();
-        currentScreen = SCREEN_LIST;
-        currentRecipeId = "";
-        showingDetail = false;
-        listScrollState = AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setBackgroundColor(COLOR_BG);
-
-        LinearLayout header = new LinearLayout(this);
-        header.setOrientation(LinearLayout.VERTICAL);
-        header.setBackgroundColor(COLOR_BG);
-        root.addView(header, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-
-        LinearLayout brandRow = new LinearLayout(this);
-        brandRow.setOrientation(LinearLayout.HORIZONTAL);
-        brandRow.setGravity(Gravity.CENTER_VERTICAL);
-        brandRow.setPadding(dp(18), dp(8), dp(18), dp(8));
-        brandRow.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER_SOFT, 1, 0));
-        header.addView(brandRow, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-
-        FrameLayout logoFrame = new FrameLayout(this);
-        logoFrame.setPadding(dp(4), dp(4), dp(4), dp(4));
-        logoFrame.setBackground(panel(COLOR_CARD, COLOR_BORDER_SOFT, 1, 10));
-        LinearLayout.LayoutParams logoFrameParams = new LinearLayout.LayoutParams(dp(42), dp(42));
-        logoFrameParams.rightMargin = dp(11);
-        brandRow.addView(logoFrame, logoFrameParams);
-
-        ImageView logo = new ImageView(this);
-        logo.setImageResource(R.drawable.ic_launcher);
-        logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        logoFrame.addView(logo, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                Gravity.CENTER
-        ));
-
-        LinearLayout brandCopy = new LinearLayout(this);
-        brandCopy.setOrientation(LinearLayout.VERTICAL);
-        brandRow.addView(brandCopy, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-
-        TextView title = text("COOK NOTE", 18, COLOR_TEXT, true);
-        title.setGravity(Gravity.CENTER_VERTICAL);
-        title.setIncludeFontPadding(false);
-        title.setLetterSpacing(0.08f);
-        brandCopy.addView(title);
-
-        TextView subtitle = text("ANDROID 5+  /  v" + repository.version, 9, COLOR_DIM, true);
-        subtitle.setPadding(0, dp(2), 0, 0);
-        brandCopy.addView(subtitle);
-
-        LinearLayout stats = new LinearLayout(this);
-        stats.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams statsParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        statsParams.topMargin = dp(11);
-        brandCopy.addView(stats, statsParams);
-        addHeaderStat(stats, String.valueOf(repository.homeRecipes().size()), "accueil");
-        addHeaderStat(stats, String.valueOf(repository.searchableRecipes().size()), "fiches");
-        stats.setVisibility(View.GONE);
-
-        LinearLayout statusStack = new LinearLayout(this);
-        statusStack.setOrientation(LinearLayout.VERTICAL);
-        statusStack.setGravity(Gravity.RIGHT);
-        LinearLayout.LayoutParams statusParams = new LinearLayout.LayoutParams(dp(190), ViewGroup.LayoutParams.WRAP_CONTENT);
-        statusParams.leftMargin = dp(12);
-        brandRow.addView(statusStack, statusParams);
-        statusStack.setVisibility(View.GONE);
-        addStatusPill(statusStack, "●  PRET HORS LIGNE", true);
-        addStatusPill(statusStack, "CATALOGUE LOCAL", false);
-
-        FrameLayout homeHero = new FrameLayout(this);
-        homeHero.setBackgroundColor(COLOR_PANEL_DEEP);
-        int homeHeroHeight = Math.min(dp(125), Math.max(dp(85), getResources().getDisplayMetrics().widthPixels / 12));
-        header.addView(homeHero, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, homeHeroHeight));
-
-        ImageView heroImage = new ImageView(this);
-        heroImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        heroImage.setContentDescription("Univers Cook Note");
-        homeHero.addView(heroImage, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        imageLoader.loadDetail("home-hero.png", heroImage, getResources().getDisplayMetrics().widthPixels, homeHeroHeight);
-
-        View heroVeil = new View(this);
-        heroVeil.setBackground(bottomOverlayGradient());
-        homeHero.addView(heroVeil, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        ImageView heroBrand = new ImageView(this);
-        heroBrand.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        heroBrand.setAdjustViewBounds(true);
-        heroBrand.setContentDescription("Cook Note");
-        FrameLayout.LayoutParams heroBrandParams = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                Gravity.CENTER
-        );
-        heroBrandParams.leftMargin = dp(26);
-        heroBrandParams.rightMargin = dp(26);
-        heroBrandParams.topMargin = dp(12);
-        heroBrandParams.bottomMargin = dp(12);
-        homeHero.addView(heroBrand, heroBrandParams);
-        imageLoader.loadDetail("home-logo.png", heroBrand, getResources().getDisplayMetrics().widthPixels - dp(52), homeHeroHeight - dp(24));
-
-        LinearLayout actionRow = new LinearLayout(this);
-        actionRow.setOrientation(LinearLayout.HORIZONTAL);
-        actionRow.setPadding(dp(20), dp(6), dp(20), 0);
-        LinearLayout.LayoutParams actionParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        actionParams.topMargin = dp(8);
-        header.addView(actionRow, actionParams);
-
-        animateIn(header, 0);
-        animateIn(actionRow, 70);
-
-        searchToggle = actionButton("RECHERCHER UNE RECETTE", true);
-        LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(0, dp(44), 1);
-        searchParams.rightMargin = dp(7);
-        actionRow.addView(searchToggle, searchParams);
-        searchToggle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setSearchPanelOpen(!searchPanelOpen);
-            }
-        });
-
-        shoppingButton = actionButton("COURSES  ·  " + shoppingRecipeIds.size(), false);
-        LinearLayout.LayoutParams shoppingParams = new LinearLayout.LayoutParams(0, dp(44), 1);
-        shoppingParams.rightMargin = dp(7);
-        actionRow.addView(shoppingButton, shoppingParams);
-        shoppingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hideKeyboard();
-                setSearchPanelOpen(false);
-                showShoppingList(true);
-            }
-        });
-
-        Button update = actionButton("MISE A JOUR", false);
-        actionRow.addView(update, new LinearLayout.LayoutParams(0, dp(44), 1));
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkForUpdatesAsync(true);
-            }
-        });
-
-        searchPanel = new LinearLayout(this);
-        searchPanel.setOrientation(LinearLayout.VERTICAL);
-        searchPanel.setPadding(dp(14), dp(11), dp(14), dp(12));
-        searchPanel.setBackground(panel(COLOR_CARD, COLOR_BORDER_SOFT, 1, 10));
-        LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        panelParams.leftMargin = dp(20);
-        panelParams.rightMargin = dp(20);
-        panelParams.topMargin = dp(7);
-        header.addView(searchPanel, panelParams);
-
-        TextView searchLabel = text("RECHERCHE", 9, COLOR_GOLD, true);
-        searchLabel.setGravity(Gravity.CENTER);
-        searchLabel.setIncludeFontPadding(false);
-        searchPanel.addView(searchLabel);
-
-        LinearLayout searchRow = new LinearLayout(this);
-        searchRow.setOrientation(LinearLayout.HORIZONTAL);
-        searchRow.setGravity(Gravity.CENTER_VERTICAL);
-        LinearLayout.LayoutParams searchRowParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(42)
-        );
-        searchRowParams.topMargin = dp(9);
-        searchPanel.addView(searchRow, searchRowParams);
-
-        recentChipsRow = new LinearLayout(this);
-        recentChipsRow.setOrientation(LinearLayout.HORIZONTAL);
-        recentChipsRow.setGravity(Gravity.CENTER_VERTICAL);
-        recentChipsRow.setPadding(dp(2), dp(9), dp(2), dp(2));
-        LinearLayout.LayoutParams chipsParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        chipsParams.topMargin = dp(2);
-        searchPanel.addView(recentChipsRow, chipsParams);
-        refreshRecentChips();
-
-        searchBox = new EditText(this);
-        searchBox.setSingleLine(true);
-        searchBox.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        searchBox.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        searchBox.setTextColor(COLOR_TEXT);
-        searchBox.setHintTextColor(COLOR_MUTED);
-        searchBox.setTextSize(adjustedTextSize(14));
-        searchBox.setHint("Recette ou ingredient...");
-        searchBox.setPadding(dp(12), 0, dp(12), 0);
-        searchBox.setBackground(panel(COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
-        searchBox.setText(currentQuery);
-        LinearLayout.LayoutParams searchBoxParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
-        searchBoxParams.rightMargin = dp(7);
-        searchRow.addView(searchBox, searchBoxParams);
-
-        clearSearchButton = actionButton("Effacer", false);
-        searchRow.addView(clearSearchButton, new LinearLayout.LayoutParams(dp(92), ViewGroup.LayoutParams.MATCH_PARENT));
-        clearSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clearSearch();
-            }
-        });
-
-        setSearchPanelOpen(searchPanelOpen);
-
-        TextView catalogEyebrow = text("CATALOGUE", 9, COLOR_GOLD, true);
-        catalogEyebrow.setGravity(Gravity.CENTER);
-        catalogEyebrow.setLetterSpacing(0.14f);
-        catalogEyebrow.setPadding(0, dp(10), 0, 0);
-        header.addView(catalogEyebrow);
-
-        TextView catalogTitle = text("Recettes", 22, COLOR_TEXT, true);
-        catalogTitle.setGravity(Gravity.CENTER);
-        catalogTitle.setPadding(0, dp(1), 0, 0);
-        header.addView(catalogTitle);
-
-        counterView = text("", 10, COLOR_DIM, true);
-        counterView.setGravity(Gravity.CENTER);
-        counterView.setPadding(dp(9), dp(2), dp(9), dp(7));
-        counterView.setSingleLine(true);
-        counterView.setEllipsize(TextUtils.TruncateAt.END);
-        counterView.setLetterSpacing(0.03f);
-        LinearLayout.LayoutParams counterParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        header.addView(counterView, counterParams);
-
-        final GridView gridView = new GridView(this);
-        recipeGridView = gridView;
-        gridView.setBackgroundColor(COLOR_BG);
-        gridView.setCacheColorHint(COLOR_BG);
-        gridView.setNumColumns(GridView.AUTO_FIT);
-        gridView.setColumnWidth(dp(286));
-        gridView.setHorizontalSpacing(dp(11));
-        gridView.setVerticalSpacing(dp(12));
-        gridView.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
-        gridView.setPadding(dp(10), dp(10), dp(10), dp(18));
-        gridView.setClipToPadding(false);
-        gridView.setFastScrollEnabled(true);
-        gridView.setSmoothScrollbarEnabled(true);
-        gridView.setVerticalScrollBarEnabled(false);
-        gridView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        gridView.setFadingEdgeLength(0);
-        gridView.setScrollingCacheEnabled(false);
-        adapter = new RecipeAdapter(this, imageLoader);
-        adapter.setLightTheme(false);
-        adapter.setCompactCards(false);
-        adapter.setCollectionCounts(repository.collectionCounts());
-        gridView.setAdapter(adapter);
-        gridView.setRecyclerListener(new AbsListView.RecyclerListener() {
-            @Override
-            public void onMovedToScrapHeap(View view) {
-                if (adapter != null) adapter.releaseView(view);
-            }
-        });
-        root.addView(gridView, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                0,
-                1
-        ));
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                hideKeyboard();
-                if (parent instanceof AbsListView) rememberListPosition((AbsListView) parent);
-                setSearchPanelOpen(false);
-                openRecipe(adapter.getItem(position), true);
-            }
-        });
-        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                final Recipe recipe = adapter.getItem(position);
-                if (recipe == null) return true;
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle(recipe.title);
-                builder.setItems(new CharSequence[]{"Ajouter aux courses", "Copier la recette", "Ouvrir la fiche"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which == 0) {
-                            toggleShopping(recipe);
-                            refreshShoppingButton();
-                        } else if (which == 1) {
-                            copyRecipe(recipe);
-                        } else {
-                            hideKeyboard();
-                            setSearchPanelOpen(false);
-                            openRecipe(recipe, true);
-                        }
-                    }
-                });
-                builder.show();
-                return true;
-            }
-        });
-        gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                handleListScrollStateChanged(view, scrollState);
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                rememberListPosition(view);
-                if (listScrollState != SCROLL_STATE_FLING) {
-                    scheduleVisibleRangePrewarm(view, firstVisibleItem, visibleItemCount, totalItemCount);
-                }
-            }
-        });
-
-        searchBox.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                currentQuery = String.valueOf(s);
-                scheduleApplyFilters();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-        searchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView view, int actionId, android.view.KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE) {
-                    hideKeyboard();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        setContentView(root);
-        resetFilterSnapshot();
-        applyFiltersNow();
-        restoreListPosition(gridView);
-        if (PERF_LOG_ENABLED) perfLog("showList", startedAt);
-    }
-
-    private void addAccentLine(LinearLayout parent, int topMarginDp, int bottomMarginDp) {
+    void addAccentLine(LinearLayout parent, int topMarginDp, int bottomMarginDp) {
         View line = new View(this);
         line.setBackground(gradientPanel(
                 Color.argb(156, 251, 191, 36),
@@ -672,7 +261,7 @@ public class MainActivity extends Activity {
         parent.addView(line, params);
     }
 
-    private void addFrameAccent(FrameLayout frame) {
+    void addFrameAccent(FrameLayout frame) {
         View topEdge = new View(this);
         topEdge.setBackground(gradientPanel(
                 Color.argb(168, 251, 191, 36),
@@ -702,224 +291,21 @@ public class MainActivity extends Activity {
         ));
     }
 
-    private void addHeaderStat(LinearLayout row, String value, String label) {
-        LinearLayout stat = new LinearLayout(this);
-        stat.setOrientation(LinearLayout.VERTICAL);
-        stat.setPadding(dp(12), dp(7), dp(12), dp(8));
-        stat.setMinimumWidth(dp(92));
-        stat.setBackground(panelGradient(COLOR_SURFACE, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 14));
-
-        TextView valueView = text(value, 14, COLOR_GOLD_SOFT, true);
-        valueView.setIncludeFontPadding(false);
-        stat.addView(valueView);
-
-        TextView labelView = text(label.toUpperCase(), 9, COLOR_DIM, true);
-        labelView.setIncludeFontPadding(false);
-        labelView.setSingleLine(true);
-        stat.addView(labelView);
-
-        boolean compactStats = getResources().getDisplayMetrics().widthPixels >= dp(620);
-        LinearLayout.LayoutParams params = compactStats
-                ? new LinearLayout.LayoutParams(dp(108), ViewGroup.LayoutParams.WRAP_CONTENT)
-                : new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
-        params.rightMargin = dp(7);
-        row.addView(stat, params);
-    }
-
-    private void addStatusPill(LinearLayout parent, String value, boolean active) {
-        TextView pill = text(value, 9, active ? COLOR_GOLD : COLOR_DIM, true);
-        pill.setGravity(Gravity.CENTER);
-        pill.setSingleLine(true);
-        pill.setLetterSpacing(0.08f);
-        pill.setPadding(dp(10), dp(7), dp(10), dp(7));
-        pill.setBackground(panel(active ? COLOR_CARD_ACTIVE : COLOR_PANEL_DEEP,
-                active ? COLOR_BORDER_BRIGHT : COLOR_BORDER_SOFT, 1, 14));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.bottomMargin = dp(7);
-        parent.addView(pill, params);
-    }
-
-    private void clearSearch() {
-        currentQuery = "";
-        if (searchBox != null && searchBox.getText().length() > 0) searchBox.setText("");
-        applyFiltersNow();
-    }
-
-    private void rememberRecentSearch(String query) {
-        String q = query == null ? "" : query.trim();
-        if (q.length() < 2) return;
-        recentSearches.remove(q);
-        recentSearches.add(0, q);
-        while (recentSearches.size() > 6) recentSearches.remove(recentSearches.size() - 1);
-        saveUserState();
-        refreshRecentChips();
-    }
-
-    private void refreshRecentChips() {
-        if (recentChipsRow == null) return;
-        recentChipsRow.removeAllViews();
-        if (recentSearches.isEmpty()) {
-            recentChipsRow.setVisibility(View.GONE);
-            return;
-        }
-        recentChipsRow.setVisibility(View.VISIBLE);
-        TextView label = text("Recentes", 10, COLOR_DIM, true);
-        label.setPadding(0, 0, dp(8), 0);
-        recentChipsRow.addView(label);
-        for (final String query : recentSearches) {
-            Button chip = chipButton(query);
-            chip.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (searchBox != null) searchBox.setText(query);
-                    currentQuery = query;
-                    applyFiltersNow();
-                }
-            });
-            recentChipsRow.addView(chip);
-        }
-    }
-
-    private Button chipButton(String value) {
-        Button button = new Button(this);
-        button.setText(value);
-        button.setTextColor(COLOR_TEXT);
-        button.setTextSize(adjustedTextSize(11));
-        button.setSingleLine(true);
-        button.setEllipsize(TextUtils.TruncateAt.END);
-        button.setTypeface(Typeface.DEFAULT_BOLD);
-        button.setAllCaps(false);
-        button.setMinHeight(0);
-        button.setMinimumHeight(0);
-        button.setPadding(dp(10), 0, dp(10), 0);
-        button.setBackground(selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 14));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, dp(30));
-        params.rightMargin = dp(6);
-        button.setLayoutParams(params);
-        return button;
-    }
-
-    private void setSearchPanelOpen(boolean open) {
-        searchPanelOpen = open;
-        if (searchPanel != null) {
-            searchPanel.setVisibility(open ? View.VISIBLE : View.GONE);
-        }
-        if (searchToggle != null) {
-            searchToggle.setText(buildSearchToggleLabel());
-        }
-        if (open) {
-            showKeyboard();
-        } else {
-            hideKeyboard();
-        }
-    }
-
-    private String buildSearchToggleLabel() {
-        if (searchPanelOpen) return "FERMER";
-        return currentQuery.trim().length() == 0 ? "RECHERCHER" : "RECHERCHE ACTIVE";
-    }
-
-    private boolean isHomeMode() {
-        return normalizedQuery().length() == 0;
-    }
-
-    private String normalizedQuery() {
-        return currentQuery == null ? "" : currentQuery.trim();
-    }
-
-    private void resetFilterSnapshot() {
-        filtersApplied = false;
-        lastAppliedQuery = null;
-        lastAppliedCount = 0;
-    }
-
-    private void scheduleApplyFilters() {
-        uiHandler.removeCallbacks(applyFiltersRunnable);
-        uiHandler.postDelayed(applyFiltersRunnable, SEARCH_DEBOUNCE_MS);
-    }
-
-    private void applyFiltersNow() {
-        uiHandler.removeCallbacks(applyFiltersRunnable);
-        applyFilters();
-    }
-
-    private void applyFilters() {
-        if (adapter == null) return;
-        long startedAt = perfStart();
-        String query = normalizedQuery();
-        boolean homeMode = query.length() == 0;
-        boolean filterChanged = filtersApplied && (homeMode != lastAppliedHomeMode || !query.equals(lastAppliedQuery));
-        if (filtersApplied && homeMode == lastAppliedHomeMode && query.equals(lastAppliedQuery)) {
-            updateFilterControls(homeMode, lastAppliedCount);
-            return;
-        }
-        List<Recipe> filtered = homeMode
-                ? repository.homeRecipes()
-                : repository.searchSmart(query);
-        if (!homeMode) rememberRecentSearch(query);
-        adapter.setItems(filtered);
-        if (filterChanged) resetListPosition();
-        scheduleListPrewarm(filtered);
-        filtersApplied = true;
-        lastAppliedQuery = query;
-        lastAppliedHomeMode = homeMode;
-        lastAppliedCount = filtered.size();
-        updateFilterControls(homeMode, filtered.size());
-        if (PERF_LOG_ENABLED) perfLog(homeMode ? "homeGrid" : "searchGrid", startedAt);
-    }
-
-    private void updateFilterControls(boolean homeMode, int count) {
-        if (counterView == null) return;
-        StringBuilder label = new StringBuilder();
-        label.append(count).append(homeMode ? " fiches principales" : " resultats");
-        if (homeMode) label.append(" - accueil");
-        if (!homeMode) label.append(" - recherche");
-        counterView.setText(label.toString());
-        if (searchToggle != null) searchToggle.setText(buildSearchToggleLabel());
-        if (clearSearchButton != null) clearSearchButton.setEnabled(!homeMode);
-    }
-
-    private void rememberListPosition(AbsListView view) {
-        if (view == null || currentScreen != SCREEN_LIST) return;
-        listFirstVisiblePosition = Math.max(0, view.getFirstVisiblePosition());
-        View firstChild = view.getChildAt(0);
-        listTopOffset = firstChild == null ? 0 : firstChild.getTop() - view.getPaddingTop();
-    }
-
-    private void restoreListPosition(final GridView gridView) {
-        if (gridView == null) return;
-        if (listFirstVisiblePosition <= 0 && listTopOffset == 0) return;
-        gridView.post(new Runnable() {
-            @Override
-            public void run() {
-                gridView.setSelectionFromTop(Math.max(0, listFirstVisiblePosition), listTopOffset + gridView.getPaddingTop());
-            }
-        });
-    }
-
-    private void resetListPosition() {
-        listFirstVisiblePosition = 0;
-        listTopOffset = 0;
-        if (recipeGridView != null) recipeGridView.setSelection(0);
-    }
-
-    private void releaseListSurface() {
-        cancelListPrewarm();
-        cancelVisibleRangePrewarm();
+    void releaseListSurface() {
+        homeScreen.cancelListPrewarm();
+        homeScreen.cancelVisibleRangePrewarm();
         if (imageLoader != null) imageLoader.cancelPendingPrefetch();
         recipeGridView = null;
         adapter = null;
     }
 
-    private void releaseScreenImages() {
+    void releaseScreenImages() {
         if (imageLoader == null) return;
         View content = getWindow().getDecorView().findViewById(android.R.id.content);
         releaseImagesInTree(content);
     }
 
-    private void releaseImagesInTree(View view) {
+    void releaseImagesInTree(View view) {
         if (view == null) return;
         if (view instanceof ImageView) {
             imageLoader.detach((ImageView) view);
@@ -932,1157 +318,31 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void handleListScrollStateChanged(AbsListView view, int scrollState) {
-        listScrollState = scrollState;
-        boolean allowPrefetch = scrollState != AbsListView.OnScrollListener.SCROLL_STATE_FLING;
-        if (adapter != null) adapter.setPrefetchEnabled(allowPrefetch);
-        if (!allowPrefetch) {
-            cancelVisibleRangePrewarm();
-            if (imageLoader != null) imageLoader.cancelPendingPrefetch();
-            return;
-        }
-        if (view != null) {
-            scheduleVisibleRangePrewarm(view, view.getFirstVisiblePosition(), view.getChildCount(), view.getCount());
-        }
-    }
-
-    private void scheduleListPrewarm(List<Recipe> recipes) {
-        uiHandler.removeCallbacks(prewarmListRunnable);
-        if (recipes == null || recipes.isEmpty() || imageLoader == null) {
-            pendingListPrewarmRecipes = Collections.emptyList();
-            return;
-        }
-        int limit = Math.min(recipes.size(), LIST_PREWARM_LIMIT);
-        pendingListPrewarmRecipes = new ArrayList<Recipe>(recipes.subList(0, limit));
-        uiHandler.postDelayed(prewarmListRunnable, LIST_PREWARM_DELAY_MS);
-    }
-
-    private void runScheduledListPrewarm() {
-        if (currentScreen != SCREEN_LIST || pendingListPrewarmRecipes.isEmpty()) return;
-        List<Recipe> recipes = pendingListPrewarmRecipes;
-        pendingListPrewarmRecipes = Collections.emptyList();
-        prewarmListImages(recipes);
-    }
-
-    private void cancelListPrewarm() {
-        uiHandler.removeCallbacks(prewarmListRunnable);
-        pendingListPrewarmRecipes = Collections.emptyList();
-    }
-
-    private void scheduleVisibleRangePrewarm(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        if (currentScreen != SCREEN_LIST || view == null || adapter == null || imageLoader == null) return;
-        if (visibleItemCount <= 0 || totalItemCount <= 0) return;
-        uiHandler.removeCallbacks(visibleRangePrewarmRunnable);
-        uiHandler.postDelayed(visibleRangePrewarmRunnable, LIST_IDLE_PREWARM_DELAY_MS);
-    }
-
-    private void runScheduledVisibleRangePrewarm() {
-        if (currentScreen != SCREEN_LIST || recipeGridView == null || adapter == null || imageLoader == null) return;
-        if (listScrollState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) return;
-        int first = Math.max(0, recipeGridView.getFirstVisiblePosition());
-        int visible = Math.max(1, recipeGridView.getChildCount());
-        int start = Math.min(adapter.getCount(), first + visible);
-        int end = Math.min(adapter.getCount(), start + LIST_VISIBLE_PREFETCH_LIMIT);
-        if (start >= end) return;
-        int width = visibleCardWidth();
-        int height = Math.max(dp(130), (width * 9) / 16);
-        for (int index = start; index < end; index += 1) {
-            imageLoader.prefetch(adapter.getItem(index).image, width, height);
-        }
-    }
-
-    private void cancelVisibleRangePrewarm() {
-        uiHandler.removeCallbacks(visibleRangePrewarmRunnable);
-    }
-
-    private int visibleCardWidth() {
-        if (recipeGridView != null && recipeGridView.getColumnWidth() > 0) {
-            return recipeGridView.getColumnWidth();
-        }
-        int minWidth = dp(286);
-        int available = getResources().getDisplayMetrics().widthPixels - dp(20);
-        return Math.max(minWidth, available);
-    }
-
-    private void prewarmListImages(List<Recipe> recipes) {
-        if (recipes == null || imageLoader == null) return;
-        int width = Math.max(dp(286), getResources().getDisplayMetrics().widthPixels / 3);
-        int height = Math.max(dp(130), (width * 9) / 16);
-        int limit = Math.min(recipes.size(), LIST_PREWARM_LIMIT);
-        boolean homeMode = isHomeMode();
-        for (int index = 0; index < limit; index += 1) {
-            Recipe recipe = recipes.get(index);
-            imageLoader.prefetch(recipe.image, width, height);
-            if (!homeMode && index == 0) imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
-        }
-    }
-
-    private void openRecipe(Recipe recipe, boolean pushCurrent) {
-        long startedAt = perfStart();
-        if (pushCurrent) pushNavigationState();
-        releaseScreenImages();
-        currentScreen = SCREEN_RECIPE;
-        currentRecipeId = recipe.id;
-        lastRecipeId = recipe.id;
-        showingDetail = true;
-        releaseListSurface();
-        applyKeepScreenOn();
-        saveUserState();
-        imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
-
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setBackgroundColor(COLOR_BG);
-
-        LinearLayout top = new LinearLayout(this);
-        top.setOrientation(LinearLayout.HORIZONTAL);
-        top.setGravity(Gravity.CENTER_VERTICAL);
-        top.setPadding(dp(10), dp(6), dp(10), dp(6));
-        top.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER, 1, 0));
-        root.addView(top, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-
-        Button back = new Button(this);
-        back.setText("Retour");
-        back.setTextColor(COLOR_TEXT_DARK);
-        back.setTextSize(12);
-        back.setTypeface(Typeface.DEFAULT_BOLD);
-        back.setAllCaps(false);
-        back.setBackground(buttonPanel(true));
-        top.addView(back, new LinearLayout.LayoutParams(dp(86), dp(36)));
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goBack();
-            }
-        });
-
-        TextView topTitle = text(recipe.isCollection() ? "Collection" : "Fiche recette", 12, COLOR_MUTED, true);
-        topTitle.setGravity(Gravity.CENTER_VERTICAL);
-        topTitle.setPadding(dp(12), 0, 0, 0);
-        topTitle.setSingleLine(true);
-        topTitle.setEllipsize(TextUtils.TruncateAt.END);
-        top.addView(topTitle, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-
-        ScrollView scroll = new ScrollView(this);
-        scroll.setFillViewport(false);
-        scroll.setSmoothScrollingEnabled(true);
-        scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        scroll.setVerticalScrollBarEnabled(false);
-        scroll.setFadingEdgeLength(0);
-        LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.VERTICAL);
-        content.setPadding(dp(12), dp(12), dp(12), dp(24));
-        scroll.addView(content);
-        root.addView(scroll, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                0,
-                1
-        ));
-
-        addDetailHero(content, recipe);
-        if (!recipe.isCollection()) addHeroActions(content, recipe);
-        addQuickFacts(content, recipe);
-        if (!recipe.isCollection()) addQuantityControls(content, recipe);
-
-        if (recipe.isCollection()) {
-            addCollectionCards(content, recipe);
-        } else {
-            if (recipe.variantGroups) addInlineVariantPicker(content, recipe);
-            addRecipeContentGrid(content, recipe);
-        }
-
-        setContentView(root);
-        if (PERF_LOG_ENABLED) perfLog("openRecipe:" + recipe.id, startedAt);
-    }
-
-    private void addDetailHero(LinearLayout content, final Recipe recipe) {
-        FrameLayout heroCard = new FrameLayout(this);
-        heroCard.setBackground(panel(COLOR_CARD, COLOR_BORDER_BRIGHT, 1, 16));
-        int heroHeight = detailHeroHeight();
-        content.addView(heroCard, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                heroHeight
-        ));
-
-        ImageView hero = new ImageView(this);
-        hero.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        hero.setBackgroundColor(COLOR_CARD);
-        hero.setContentDescription("Image de " + recipe.title);
-        heroCard.addView(hero, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-        ));
-        imageLoader.loadDetail(recipe.detailImage, hero, detailImageRequestWidth(), heroHeight);
-
-        View veil = new View(this);
-        veil.setBackgroundColor(Color.argb(recipe.isCollection() ? 96 : 66, 0, 0, 0));
-        heroCard.addView(veil, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-        ));
-
-        addFrameAccent(heroCard);
-
-        LinearLayout overlay = new LinearLayout(this);
-        overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(15), dp(7), dp(15), dp(8));
-        overlay.setBackground(bottomOverlayGradient());
-        FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                Gravity.BOTTOM
-        );
-        heroCard.addView(overlay, overlayParams);
-
-        animateIn(heroCard, 0);
-
-        TextView breadcrumb = text(detailBreadcrumb(recipe), 10, COLOR_MUTED, true);
-        breadcrumb.setSingleLine(true);
-        breadcrumb.setEllipsize(TextUtils.TruncateAt.END);
-        overlay.addView(breadcrumb);
-
-        TextView title = text(recipe.title, recipe.isCollection() ? 21 : 20, COLOR_TEXT, true);
-        title.setMaxLines(2);
-        title.setEllipsize(TextUtils.TruncateAt.END);
-        title.setLineSpacing(dp(1), 1.03f);
-        title.setShadowLayer(3f, 0, dp(1), Color.BLACK);
-        LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        titleParams.topMargin = dp(3);
-        overlay.addView(title, titleParams);
-
-        String meta = detailMetaLine(recipe);
-        TextView metaView = text(meta, 11, COLOR_MUTED, true);
-        metaView.setSingleLine(false);
-        metaView.setPadding(0, dp(2), 0, 0);
-        overlay.addView(metaView);
-
-    }
-
-    private String detailBreadcrumb(Recipe recipe) {
-        StringBuilder builder = new StringBuilder("Cook Note");
-        List<Recipe> trail = repository.parentTrail(recipe);
-        for (Recipe parent : trail) {
-            if (sameText(parent.title, recipe.primaryCategory())) continue;
-            if (sameText(parent.title, recipe.title)) continue;
-            builder.append(" / ").append(parent.title);
-        }
-        if (builder.length() == "Cook Note".length()) builder.append(recipe.isCollection() ? " / Collection" : " / Fiche");
-        return builder.toString();
-    }
-
-    private String detailMetaLine(Recipe recipe) {
-        if (recipe.isCollection()) return countLabel(repository.collectionCount(recipe), "fiche rangee", "fiches rangees");
-
-        ArrayList<String> parts = new ArrayList<String>();
-        String serving = servingSummary(recipe);
-        if (serving.length() > 0) parts.add(serving);
-        int totalTime = recipe.activeTime + recipe.cookTime;
-        if (totalTime > 0) parts.add(formatMinutes(totalTime));
-        int ingredientCount = countSelectedIngredients(recipe);
-        if (ingredientCount > 0) parts.add(countLabel(ingredientCount, "ingredient", "ingredients"));
-        return joinMetaParts(parts, "Fiche Cook Note");
-    }
-
-    private int detailHeroHeight() {
-        int width = getResources().getDisplayMetrics().widthPixels - dp(28);
-        int height = Math.max(dp(124), (width * 9) / 32);
-        return Math.min(dp(215), height);
-    }
-
-    private int detailImageRequestWidth() {
-        int width = getResources().getDisplayMetrics().widthPixels - dp(28);
-        return Math.max(dp(360), Math.min(width, DETAIL_IMAGE_MAX_WIDTH));
-    }
-
-    private void addHeroActions(LinearLayout content, final Recipe recipe) {
-        LinearLayout panel = new LinearLayout(this);
-        panel.setOrientation(LinearLayout.VERTICAL);
-        panel.setPadding(dp(10), dp(9), dp(10), dp(10));
-        panel.setBackground(panelGradient(COLOR_PANEL, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
-        LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        panelParams.topMargin = dp(10);
-        content.addView(panel, panelParams);
-
-        addAccentLine(panel, 0, 8);
-
-        TextView label = text("Actions rapides", 10, COLOR_GOLD, true);
-        label.setSingleLine(true);
-        label.setLetterSpacing(0.06f);
-        label.setIncludeFontPadding(false);
-        panel.addView(label);
-
-        ArrayList<Button> buttons = new ArrayList<Button>();
-
-        Button shopping = actionButton(isInShopping(recipe.id) ? "Dans courses" : "+ Courses", true);
-        shopping.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleShopping(recipe);
-                openRecipe(recipe, false);
-            }
-        });
-        buttons.add(shopping);
-
-        Button copy = actionButton("Copier", false);
-        copy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                copyRecipe(recipe);
-            }
-        });
-        buttons.add(copy);
-
-        Button screen = actionButton(keepScreenOn ? "Ecran actif" : "Veille auto", keepScreenOn);
-        screen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setKeepScreenOn(!keepScreenOn);
-                openRecipe(recipe, false);
-            }
-        });
-        buttons.add(screen);
-
-        int perRow = getResources().getDisplayMetrics().widthPixels >= dp(720) ? 4 : 2;
-        LinearLayout row = null;
-        for (int index = 0; index < buttons.size(); index += 1) {
-            if (index % perRow == 0) {
-                row = new LinearLayout(this);
-                row.setOrientation(LinearLayout.HORIZONTAL);
-                LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                );
-                rowParams.topMargin = dp(index == 0 ? 9 : 7);
-                panel.addView(row, rowParams);
-            }
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(34), 1);
-            if (index % perRow < perRow - 1) params.rightMargin = dp(7);
-            row.addView(buttons.get(index), params);
-        }
-    }
-
-    private void addQuickFacts(LinearLayout content, Recipe recipe) {
-        ArrayList<String[]> facts = new ArrayList<String[]>();
-
-        if (recipe.isCollection()) {
-            facts.add(new String[]{"Collection", countLabel(repository.collectionCount(recipe), "fiche", "fiches")});
-        } else {
-            String serving = servingSummary(recipe);
-            if (serving.length() > 0) {
-                facts.add(new String[]{baseServings(recipe) > 0 ? servingSectionTitle(recipe) : "Quantite", serving});
-            }
-            if (recipe.activeTime > 0) facts.add(new String[]{"Actif", formatMinutes(recipe.activeTime)});
-            if (recipe.cookTime > 0) facts.add(new String[]{"Cuisson", formatMinutes(recipe.cookTime)});
-            int totalTime = recipe.activeTime + recipe.cookTime;
-            if (totalTime > 0) facts.add(new String[]{"Temps", formatMinutes(totalTime)});
-            int ingredientCount = countSelectedIngredients(recipe);
-            if (ingredientCount > 0) facts.add(new String[]{"Ingredients", String.valueOf(ingredientCount)});
-        }
-
-        if (facts.isEmpty()) return;
-
-        LinearLayout block = new LinearLayout(this);
-        block.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams blockParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        blockParams.topMargin = dp(12);
-        content.addView(block, blockParams);
-
-        int columns = quickFactColumns();
-        LinearLayout row = null;
-        for (int index = 0; index < facts.size(); index += 1) {
-            if (index % columns == 0) {
-                row = new LinearLayout(this);
-                row.setOrientation(LinearLayout.HORIZONTAL);
-                LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                );
-                if (index > 0) rowParams.topMargin = dp(8);
-                block.addView(row, rowParams);
-            }
-            addQuickFactCard(row, facts.get(index)[0], facts.get(index)[1], index % columns < columns - 1);
-        }
-
-        int missing = facts.size() % columns;
-        if (row != null && missing > 0) {
-            for (int index = missing; index < columns; index += 1) {
-                addQuickFactSpacer(row, index < columns - 1);
-            }
-        }
-    }
-
-    private int quickFactColumns() {
-        int width = getResources().getDisplayMetrics().widthPixels;
-        if (width >= dp(940)) return 4;
-        if (width >= dp(620)) return 3;
-        return 2;
-    }
-
-    private void addQuickFactCard(LinearLayout row, String label, String value, boolean rightMargin) {
-        LinearLayout card = new LinearLayout(this);
-        card.setOrientation(LinearLayout.VERTICAL);
-        card.setPadding(dp(9), dp(7), dp(9), dp(8));
-        card.setMinimumHeight(dp(54));
-        card.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
-
-        TextView labelView = text(label, 9, COLOR_GOLD, true);
-        labelView.setSingleLine(true);
-        labelView.setEllipsize(TextUtils.TruncateAt.END);
-        labelView.setLetterSpacing(0.05f);
-        card.addView(labelView);
-
-        View line = new View(this);
-        line.setBackground(gradientPanel(Color.argb(126, 251, 191, 36), Color.argb(8, 251, 191, 36), Color.TRANSPARENT, 0, 0));
-        LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(1)
-        );
-        lineParams.topMargin = dp(5);
-        lineParams.bottomMargin = dp(1);
-        card.addView(line, lineParams);
-
-        TextView valueView = text(value, 12, COLOR_TEXT, true);
-        valueView.setMaxLines(2);
-        valueView.setEllipsize(TextUtils.TruncateAt.END);
-        valueView.setPadding(0, dp(3), 0, 0);
-        card.addView(valueView);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
-        if (rightMargin) params.rightMargin = dp(8);
-        row.addView(card, params);
-    }
-
-    private void addQuickFactSpacer(LinearLayout row, boolean rightMargin) {
-        View spacer = new View(this);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(1), 1);
-        if (rightMargin) params.rightMargin = dp(8);
-        row.addView(spacer, params);
-    }
-
-    private void addQuantityControls(LinearLayout content, final Recipe recipe) {
-        final int baseServings = baseServings(recipe);
-        if (baseServings > 0) {
-            final int selectedServings = selectedServings(recipe);
-            LinearLayout section = addSection(content, servingSectionTitle(recipe), servingLabel(recipe, selectedServings));
-            TextView help = text("Choisis la quantite servie. Les ingredients, la copie et les courses suivent.", 12, COLOR_MUTED, false);
-            help.setPadding(0, dp(6), 0, dp(2));
-            section.addView(help);
-
-            final ArrayList<Integer> servings = servingOptions(baseServings);
-            ArrayList<String> labels = new ArrayList<String>();
-            for (Integer serving : servings) {
-                labels.add(servingLabel(recipe, serving.intValue()));
-            }
-            final int selectedIndex = Math.max(0, servings.indexOf(Integer.valueOf(selectedServings)));
-            final int[] currentIndex = new int[]{selectedIndex};
-            Spinner spinner = createSpinner(labels);
-            spinner.setSelection(selectedIndex);
-            section.addView(spinner, fullWidthParams(dp(10), dp(46)));
-
-            TextView base = text("Base de la fiche : " + servingLabel(recipe, baseServings) + ".", 11, COLOR_DIM, false);
-            base.setPadding(0, dp(7), 0, 0);
-            section.addView(base);
-
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (position == currentIndex[0]) return;
-                    currentIndex[0] = position;
-                    int selected = servings.get(position).intValue();
-                    quantityFactor = clampQuantityFactor((float) selected / (float) baseServings);
-                    saveUserState();
-                    openRecipe(recipe, false);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
-            return;
-        }
-
-        LinearLayout section = addSection(content, "Quantites", "x" + factorLabel(quantityFactor));
-        TextView help = text("Ajuste les ingredients affiches, la copie et les courses fusionnees.", 12, COLOR_MUTED, false);
-        help.setPadding(0, dp(6), 0, dp(2));
-        section.addView(help);
-
-        int perRow = getResources().getDisplayMetrics().widthPixels >= dp(700) ? 6 : 3;
-        LinearLayout row = null;
-        for (int index = 0; index < QUANTITY_FACTORS.length; index += 1) {
-            if (index % perRow == 0) {
-                row = new LinearLayout(this);
-                row.setOrientation(LinearLayout.HORIZONTAL);
-                LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        dp(36)
-                );
-                rowParams.topMargin = dp(index == 0 ? 9 : 7);
-                section.addView(row, rowParams);
-            }
-            final float factor = QUANTITY_FACTORS[index];
-            Button button = actionButton("x" + factorLabel(factor), sameFactor(quantityFactor, factor));
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    quantityFactor = factor;
-                    saveUserState();
-                    openRecipe(recipe, false);
-                }
-            });
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
-            if (index % perRow < perRow - 1) params.rightMargin = dp(7);
-            row.addView(button, params);
-        }
-    }
-
-    private int baseServings(Recipe recipe) {
-        if (recipe == null || recipe.yield.length() == 0) return 0;
-        Matcher matcher = SERVING_COUNT_PATTERN.matcher(CookNoteRepository.normalize(recipe.yield));
-        if (!matcher.find()) return 0;
-        try {
-            return Math.max(MIN_SERVINGS, Integer.parseInt(matcher.group(1)));
-        } catch (Exception ignored) {
-            return 0;
-        }
-    }
-
-    private int selectedServings(Recipe recipe) {
-        int base = baseServings(recipe);
-        if (base <= 0) return 0;
-        int selected = Math.round(base * quantityFactor);
-        return clampServingChoice(selected, base);
-    }
-
-    private int clampServingChoice(int selected, int base) {
-        int max = maxServingChoice(base);
-        if (selected < MIN_SERVINGS) return MIN_SERVINGS;
-        return Math.min(selected, max);
-    }
-
-    private int maxServingChoice(int base) {
-        return Math.max(DEFAULT_MAX_SERVING_CHOICES, Math.min(HARD_MAX_SERVING_CHOICES, base * 2));
-    }
-
-    private ArrayList<Integer> servingOptions(int base) {
-        ArrayList<Integer> options = new ArrayList<Integer>();
-        int max = maxServingChoice(base);
-        for (int value = MIN_SERVINGS; value <= max; value += 1) {
-            options.add(Integer.valueOf(value));
-        }
-        return options;
-    }
-
-    private String servingSummary(Recipe recipe) {
-        int servings = selectedServings(recipe);
-        if (servings > 0) return servingLabel(recipe, servings);
-        return recipe == null ? "" : recipe.yield;
-    }
-
-    private String servingUnit(Recipe recipe) {
-        if (recipe != null) {
-            Matcher matcher = SERVING_COUNT_PATTERN.matcher(CookNoteRepository.normalize(recipe.yield));
-            if (matcher.find()) {
-                String unit = matcher.group(3).toLowerCase(Locale.FRANCE);
-                if (unit.startsWith("portion")) return "portion";
-                if (unit.startsWith("part")) return "part";
-            }
-        }
-        return "personne";
-    }
-
-    private String servingSectionTitle(Recipe recipe) {
-        String unit = servingUnit(recipe);
-        if ("portion".equals(unit)) return "Portions";
-        if ("part".equals(unit)) return "Parts";
-        return "Personnes";
-    }
-
-    private String servingLabel(Recipe recipe, int count) {
-        String unit = servingUnit(recipe);
-        return count + " " + unit + (count > 1 ? "s" : "");
-    }
-
-    private String factorLabel(float factor) {
-        if (sameFactor(factor, Math.round(factor))) return String.valueOf((int) Math.round(factor));
-        String raw = String.valueOf(Math.round(factor * 10f) / 10f);
-        if (raw.endsWith(".0")) raw = raw.substring(0, raw.length() - 2);
-        return raw.replace('.', ',');
-    }
-
-    private boolean sameFactor(float left, float right) {
-        return Math.abs(left - right) < 0.01f;
-    }
-
-    private void addRecipeContentGrid(LinearLayout content, Recipe recipe) {
-        int columns = detailColumnCount();
-        if (columns <= 1) {
-            addIngredients(content, recipe);
-            addSteps(content, recipe);
-            addBeforePanel(content, recipe);
-            return;
-        }
-
-        LinearLayout grid = new LinearLayout(this);
-        grid.setOrientation(LinearLayout.HORIZONTAL);
-        grid.setBaselineAligned(false);
-        LinearLayout.LayoutParams gridParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        gridParams.topMargin = dp(2);
-        content.addView(grid, gridParams);
-
-        LinearLayout left = detailColumn();
-        LinearLayout middle = detailColumn();
-        LinearLayout right = columns >= 3 ? detailColumn() : null;
-
-        LinearLayout.LayoutParams leftParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
-        leftParams.rightMargin = dp(10);
-        grid.addView(left, leftParams);
-
-        LinearLayout.LayoutParams middleParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
-        if (columns >= 3) middleParams.rightMargin = dp(10);
-        grid.addView(middle, middleParams);
-
-        if (right != null) {
-            grid.addView(right, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-        }
-
-        addIngredients(left, recipe);
-        addSteps(middle, recipe);
-        if (right != null) {
-            addBeforePanel(right, recipe);
-        } else {
-            addBeforePanel(middle, recipe);
-        }
-    }
-
-    private int detailColumnCount() {
-        int width = getResources().getDisplayMetrics().widthPixels;
-        if (width >= dp(1120)) return 3;
-        if (width >= dp(760)) return 2;
-        return 1;
-    }
-
-    private LinearLayout detailColumn() {
-        LinearLayout column = new LinearLayout(this);
-        column.setOrientation(LinearLayout.VERTICAL);
-        return column;
-    }
-
-    private void addBeforePanel(LinearLayout content, Recipe recipe) {
-        if (recipe.practical.isEmpty()) return;
-
-        int beforeCount = 0;
-        for (Recipe.PracticalSection practicalSection : recipe.practical) {
-            beforeCount += Math.max(1, practicalSection.items.size());
-        }
-        LinearLayout section = addSection(content, "Avant de commencer", countLabel(beforeCount, "info", "infos"));
-        for (Recipe.PracticalSection practicalSection : recipe.practical) {
-            subTitle(section, practicalSection.title);
-            for (String item : practicalSection.items) {
-                bulletRow(section, item);
-            }
-        }
-    }
-
-    private int countSelectedIngredients(Recipe recipe) {
-        int count = 0;
-        for (Recipe.Group group : selectedIngredientGroups(recipe)) {
-            count += group.items.size();
-        }
-        return count;
-    }
-
-    private void addCollectionCards(LinearLayout content, final Recipe recipe) {
-        final List<VariantChoice> choices = collectionVariantChoices(recipe);
-        LinearLayout section = addSection(content, "Recettes", countLabel(choices.size(), "fiche", "fiches"));
-        if (choices.isEmpty()) {
-            body(section, "Aucune fiche disponible.");
-            return;
-        }
-        int columns = collectionGridColumns();
-        int cardHeight = collectionCardHeight(columns);
-        int cardImageWidth = collectionCardImageWidth(columns);
-        prewarmCollectionImages(choices, cardImageWidth, cardHeight);
-        LinearLayout row = null;
-        for (int index = 0; index < choices.size(); index += 1) {
-            if (index % columns == 0) {
-                row = new LinearLayout(this);
-                row.setOrientation(LinearLayout.HORIZONTAL);
-                LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                );
-                rowParams.topMargin = dp(10);
-                section.addView(row, rowParams);
-            }
-            addCollectionCard(row, recipe, choices.get(index), cardHeight, cardImageWidth, index % columns < columns - 1);
-        }
-        int missing = choices.size() % columns;
-        if (row != null && missing > 0) {
-            for (int index = missing; index < columns; index += 1) {
-                addCollectionSpacer(row, cardHeight, index < columns - 1);
-            }
-        }
-    }
-
-    private int collectionGridColumns() {
-        int width = getResources().getDisplayMetrics().widthPixels;
-        if (width >= dp(1000)) return 3;
-        if (width >= dp(620)) return 2;
-        return 1;
-    }
-
-    private int collectionCardHeight(int columns) {
-        int cardWidth = collectionCardWidth(columns);
-        return Math.max(dp(132), (cardWidth * 9) / 16);
-    }
-
-    private int collectionCardImageWidth(int columns) {
-        return Math.min(dp(480), Math.max(dp(340), collectionCardWidth(columns)));
-    }
-
-    private int collectionCardWidth(int columns) {
-        int width = getResources().getDisplayMetrics().widthPixels;
-        int available = Math.max(dp(260), width - dp(56) - (dp(10) * (columns - 1)));
-        return Math.max(dp(260), available / Math.max(1, columns));
-    }
-
-    private void addCollectionCard(LinearLayout row, final Recipe parentRecipe, final VariantChoice choice, int cardHeight, int cardImageWidth, boolean rightMargin) {
-        LinearLayout card = new LinearLayout(this);
-        card.setOrientation(LinearLayout.VERTICAL);
-        card.setPadding(dp(1), dp(1), dp(1), dp(1));
-        card.setBackground(selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 8));
-        card.setClickable(true);
-
-        FrameLayout frame = new FrameLayout(this);
-        frame.setBackgroundColor(COLOR_CARD);
-        card.addView(frame, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-        ));
-
-        ImageView image = new ImageView(this);
-        image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        image.setBackgroundColor(COLOR_CARD);
-        image.setContentDescription("Image de " + choice.label);
-        frame.addView(image, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-        ));
-        imageLoader.load(choice.recipe.image, image, cardImageWidth, cardHeight);
-
-        View veil = new View(this);
-        veil.setBackgroundColor(Color.argb(38, 0, 0, 0));
-        frame.addView(veil, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-        ));
-
-        addFrameAccent(frame);
-
-        LinearLayout overlay = new LinearLayout(this);
-        overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(12), dp(10), dp(12), dp(12));
-        overlay.setBackground(cardTitleOverlayGradient());
-        FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                Gravity.BOTTOM
-        );
-        frame.addView(overlay, overlayParams);
-
-        TextView title = text(choice.label, 15, COLOR_TEXT, true);
-        title.setMaxLines(2);
-        title.setEllipsize(TextUtils.TruncateAt.END);
-        title.setLineSpacing(dp(1), 1.04f);
-        title.setShadowLayer(2.2f, 0, dp(1), Color.BLACK);
-        LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        overlay.addView(title, titleParams);
-
-        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
-                0,
-                cardHeight,
-                1
-        );
-        if (rightMargin) cardParams.rightMargin = dp(10);
-        row.addView(card, cardParams);
-        card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openRecipe(choice.recipe, true);
-            }
-        });
-    }
-
-    private void prewarmCollectionImages(List<VariantChoice> choices, int cardImageWidth, int cardHeight) {
-        if (choices == null || imageLoader == null) return;
-        int limit = Math.min(choices.size(), COLLECTION_PREWARM_LIMIT);
-        for (int index = 0; index < limit; index += 1) {
-            Recipe recipe = choices.get(index).recipe;
-            imageLoader.prefetch(recipe.image, cardImageWidth, cardHeight);
-            if (index == 0) imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
-        }
-    }
-
-    private void addCollectionSpacer(LinearLayout row, int cardHeight, boolean rightMargin) {
-        View spacer = new View(this);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, cardHeight, 1);
-        if (rightMargin) params.rightMargin = dp(10);
-        row.addView(spacer, params);
-    }
-
-    private void addInlineVariantPicker(LinearLayout content, final Recipe recipe) {
-        final List<InlineVariantChoice> choices = inlineVariantChoices(recipe);
-        if (choices.size() <= 1) return;
-
-        LinearLayout section = addSection(content, "Choisir une variante", countLabel(choices.size(), "choix", "choix"));
-        TextView guidance = text(
-                "Chaque choix affiche sa recette complete : ingredients, etapes et conseils.",
-                13,
-                COLOR_MUTED,
-                false
-        );
-        guidance.setPadding(0, dp(4), 0, 0);
-        section.addView(guidance);
-        final int selectedIndex = selectedInlineVariantIndex(recipe, choices);
-        final int[] currentIndex = new int[]{selectedIndex};
-        Spinner spinner = createSpinner(labelsForInlineChoices(choices));
-        spinner.setContentDescription("Choisir une variante");
-        spinner.setSelection(selectedIndex);
-        section.addView(spinner, fullWidthParams(dp(10), dp(46)));
-
-        final TextView meta = text("", 13, COLOR_MUTED, false);
-        meta.setPadding(0, dp(8), 0, 0);
-        section.addView(meta);
-        updateInlineVariantMeta(meta, recipe, choices.get(selectedIndex));
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == currentIndex[0]) return;
-                currentIndex[0] = position;
-                inlineVariantSelections.put(recipe.id, position);
-                openRecipe(recipe, false);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-
-    private List<VariantChoice> collectionVariantChoices(Recipe recipe) {
-        List<VariantChoice> choices = new ArrayList<VariantChoice>();
-        Map<String, String> directLabels = new HashMap<String, String>();
-        Set<String> added = new HashSet<String>();
-        for (Recipe.Variant variant : recipe.variants) {
-            directLabels.put(variant.id, variant.label);
-        }
-        for (Recipe target : repository.childrenForParent(recipe)) {
-            String directLabel = directLabels.get(target.id);
-            String label = directLabel != null && directLabel.length() > 0 ? directLabel : target.title;
-            choices.add(new VariantChoice(label, target));
-            added.add(target.id);
-        }
-        for (Recipe.Variant variant : recipe.variants) {
-            Recipe target = repository.find(variant.id);
-            if (target == null) continue;
-            if (added.contains(target.id)) continue;
-            String label = variant.label.length() > 0 ? variant.label : target.title;
-            choices.add(new VariantChoice(label, target));
-            added.add(target.id);
-        }
-        Collections.sort(choices, new Comparator<VariantChoice>() {
-            @Override
-            public int compare(VariantChoice left, VariantChoice right) {
-                return left.label.compareToIgnoreCase(right.label);
-            }
-        });
-        return choices;
-    }
-
-    private List<InlineVariantChoice> inlineVariantChoices(Recipe recipe) {
-        List<InlineVariantChoice> choices = new ArrayList<InlineVariantChoice>();
-        Map<String, InlineVariantChoice> grouped = new LinkedHashMap<String, InlineVariantChoice>();
-        for (int index = 0; index < recipe.ingredients.size(); index += 1) {
-            Recipe.Group group = recipe.ingredients.get(index);
-            if (!isVariantIngredientGroup(group, recipe)) continue;
-            if (group.variantKey.length() > 0) {
-                InlineVariantChoice choice = grouped.get(group.variantKey);
-                if (choice == null) {
-                    choice = new InlineVariantChoice(cleanVariantGroupLabel(group.title));
-                    grouped.put(group.variantKey, choice);
-                    choices.add(choice);
-                }
-                choice.groups.add(group);
-            } else {
-                choices.add(new InlineVariantChoice(cleanVariantGroupLabel(group.title), group));
-            }
-        }
-        if (choices.isEmpty() && recipe.variantGroups) {
-            for (Recipe.Group group : recipe.ingredients) {
-                choices.add(new InlineVariantChoice(cleanVariantGroupLabel(group.title), group));
-            }
-        }
-        return choices;
-    }
-
-    private int selectedInlineVariantIndex(Recipe recipe, List<InlineVariantChoice> choices) {
-        Integer saved = inlineVariantSelections.get(recipe.id);
-        int index = saved == null ? 0 : saved.intValue();
-        if (index < 0 || index >= choices.size()) return 0;
-        return index;
-    }
-
-    private InlineVariantChoice selectedInlineVariantChoice(Recipe recipe) {
-        List<InlineVariantChoice> choices = inlineVariantChoices(recipe);
-        if (choices.isEmpty()) return null;
-        return choices.get(selectedInlineVariantIndex(recipe, choices));
-    }
-
-    private List<Recipe.Group> selectedIngredientGroups(Recipe recipe) {
-        if (!recipe.variantGroups) return recipe.ingredients;
-
-        List<Recipe.Group> groups = new ArrayList<Recipe.Group>();
-        for (Recipe.Group group : recipe.ingredients) {
-            if ("__hidden__".equals(group.variantKey)) continue;
-            if (!isVariantIngredientGroup(group, recipe)) groups.add(group);
-        }
-
-        InlineVariantChoice selected = selectedInlineVariantChoice(recipe);
-        if (selected != null) {
-            for (Recipe.Group group : selected.groups) {
-                if (!groups.contains(group)) groups.add(group);
-            }
-        }
-        return groups;
-    }
-
-    private List<String> selectedRecipeSteps(Recipe recipe) {
-        if (!recipe.variantGroups) return recipe.steps;
-        InlineVariantChoice selected = selectedInlineVariantChoice(recipe);
-        if (selected != null) {
-            List<String> steps = new ArrayList<String>();
-            for (Recipe.Group group : selected.groups) steps.addAll(group.steps);
-            if (!steps.isEmpty()) return steps;
-        }
-        return recipe.steps;
-    }
-
-    private boolean isVariantIngredientGroup(Recipe.Group group, Recipe recipe) {
-        if ("__shared__".equals(group.variantKey) || "__hidden__".equals(group.variantKey)) return false;
-        String label = CookNoteRepository.normalize(group.title);
-        if (label.indexOf("base commune") >= 0 || "base".equals(label) || label.indexOf("commun") >= 0) return false;
-        if (label.matches("^\\d+.*")) return true;
-        if (label.startsWith("variante") || label.startsWith("version") || label.startsWith("option")) return true;
-        return recipe.variantGroups;
-    }
-
-    private String cleanVariantGroupLabel(String value) {
-        String label = value == null ? "" : value.trim();
-        label = label.replaceFirst("(?i)^\\s*(variante|version|option)\\s*[:\\-]?\\s*", "");
-        return label.length() == 0 ? "Preparation" : label;
-    }
-
-    private List<String> labelsForInlineChoices(List<InlineVariantChoice> choices) {
-        List<String> labels = new ArrayList<String>();
-        for (InlineVariantChoice choice : choices) {
-            labels.add(choice.label);
-        }
-        return labels;
-    }
-
-    private void updateInlineVariantMeta(TextView meta, Recipe recipe, InlineVariantChoice choice) {
-        int ingredientCount = 0;
-        for (Recipe.Group selectedGroup : choice.groups) ingredientCount += selectedGroup.items.size();
-        for (Recipe.Group group : recipe.ingredients) {
-            if ("__hidden__".equals(group.variantKey)) continue;
-            if (!isVariantIngredientGroup(group, recipe)) ingredientCount += group.items.size();
-        }
-        int stepCount = 0;
-        for (Recipe.Group selectedGroup : choice.groups) stepCount += selectedGroup.steps.size();
-        if (stepCount == 0) stepCount = recipe.steps.size();
-        StringBuilder builder = new StringBuilder();
-        builder.append("Variante selectionnee : ").append(choice.label);
-        builder.append(" - ").append(ingredientCount).append(ingredientCount > 1 ? " ingredients" : " ingredient");
-        builder.append(" - ").append(stepCount).append(stepCount > 1 ? " etapes" : " etape");
-        meta.setText(builder.toString());
-    }
-
-    private void addIngredients(LinearLayout content, Recipe recipe) {
-        List<Recipe.Group> groups = selectedIngredientGroups(recipe);
-        int ingredientCount = countSelectedIngredients(recipe);
-        LinearLayout section = addSection(content, "Ingredients", ingredientCount > 0 ? countLabel(ingredientCount, "element", "elements") : null);
-        if (groups.isEmpty()) {
-            body(section, "Aucun ingredient detaille pour cette fiche.");
-            return;
-        }
-        Button copy = sectionButton("Copier ingredients", false);
-        section.addView(copy);
-        copy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                copyIngredients(recipe);
-            }
-        });
-        Button reset = sectionButton("Reinitialiser la preparation", false);
-        reset.setEnabled(hasIngredientChecks(recipe));
-        section.addView(reset);
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clearIngredientChecks(recipe);
-                openRecipe(recipe, false);
-            }
-        });
-        for (Recipe.Group group : groups) {
-            addIngredientGroup(section, recipe, group, !recipe.variantGroups);
-        }
-    }
-
-    private boolean hasIngredientChecks(Recipe recipe) {
-        if (recipe == null) return false;
-        String prefix = "ing|" + recipe.id + "|";
-        for (String key : ingredientDoneKeys) {
-            if (key.startsWith(prefix)) return true;
-        }
-        return false;
-    }
-
-    private void clearIngredientChecks(Recipe recipe) {
-        if (recipe == null) return;
-        String prefix = "ing|" + recipe.id + "|";
-        ArrayList<String> remove = new ArrayList<String>();
-        for (String key : ingredientDoneKeys) {
-            if (key.startsWith(prefix)) remove.add(key);
-        }
-        ingredientDoneKeys.removeAll(remove);
-        saveUserState();
-    }
-
-    private void addSteps(LinearLayout content, Recipe recipe) {
-        List<String> steps = selectedRecipeSteps(recipe);
-        LinearLayout section = addSection(content, "Etapes");
-        if (steps.isEmpty()) {
-            body(section, "Aucune etape detaillee pour cette fiche.");
-            return;
-        }
-        for (int index = 0; index < steps.size(); index += 1) {
-            stepRow(section, index + 1, steps.get(index));
-        }
-    }
-
-    private void addIngredientGroup(LinearLayout section, Recipe recipe, Recipe.Group group, boolean includeGroupSteps) {
-        subTitle(section, group.title);
-        for (String item : group.items) {
-            addIngredientCheckRow(section, recipe, group, item);
-        }
-        if (group.note.length() > 0) body(section, group.note, COLOR_MUTED);
-        if (includeGroupSteps) {
-            for (String step : group.steps) {
-                bulletRow(section, step);
-            }
-        }
-    }
-
-    private void addIngredientCheckRow(LinearLayout section, Recipe recipe, Recipe.Group group, final String item) {
-        final String key = "ing|" + recipe.id + "|" + CookNoteRepository.normalize(group.title) + "|" + CookNoteRepository.normalize(item);
-        CheckBox checkBox = new CheckBox(this);
-        checkBox.setText(scaleIngredient(item));
-        checkBox.setTextColor(COLOR_TEXT);
-        checkBox.setTextSize(adjustedTextSize(13));
-        checkBox.setTypeface(Typeface.DEFAULT);
-        checkBox.setButtonTintList(null);
-        checkBox.setFocusable(false);
-        checkBox.setClickable(true);
-        checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
-        checkBox.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
-        checkBox.setChecked(ingredientDoneKeys.contains(key));
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) ingredientDoneKeys.add(key);
-                else ingredientDoneKeys.remove(key);
-                saveUserState();
-            }
-        });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        params.topMargin = dp(5);
-        section.addView(checkBox, params);
-    }
-
-    private void addParentPath(LinearLayout content, Recipe recipe) {
-        List<Recipe> trail = repository.parentTrail(recipe);
-        if (trail.isEmpty()) return;
-        StringBuilder builder = new StringBuilder();
-        for (Recipe parent : trail) {
-            if (builder.length() > 0) builder.append("  /  ");
-            builder.append(parent.title);
-        }
-        TextView path = text(builder.toString(), 12, COLOR_MUTED, true);
-        path.setSingleLine(false);
-        path.setPadding(dp(10), dp(8), dp(10), dp(8));
-        path.setBackground(panel(COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        params.topMargin = dp(10);
-        content.addView(path, params);
-    }
-
-    private LinearLayout addSection(LinearLayout content, String value) {
+    LinearLayout addSection(LinearLayout content, String value) {
         return addSection(content, value, null);
     }
 
-    private LinearLayout addSection(LinearLayout content, String value, String meta) {
+    LinearLayout addSection(LinearLayout content, String value, String meta) {
         LinearLayout section = new LinearLayout(this);
         section.setOrientation(LinearLayout.VERTICAL);
-        section.setPadding(dp(12), dp(11), dp(12), dp(13));
-        section.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
+        section.setPadding(dp(14), dp(13), dp(14), dp(14));
+        section.setBackground(panel(COLOR_CARD, COLOR_BORDER_SOFT, 1, 10));
 
-        addAccentLine(section, 0, 9);
-
+        // Titre editorial serif, sans barre d accent : une seule surface par section.
         LinearLayout titleRow = new LinearLayout(this);
         titleRow.setOrientation(LinearLayout.HORIZONTAL);
         titleRow.setGravity(Gravity.CENTER_VERTICAL);
-        View accent = new View(this);
-        accent.setBackground(panel(COLOR_ORANGE, COLOR_BORDER_BRIGHT, 1, 3));
-        LinearLayout.LayoutParams accentParams = new LinearLayout.LayoutParams(dp(3), dp(18));
-        accentParams.rightMargin = dp(8);
-        titleRow.addView(accent, accentParams);
 
-        TextView title = text(value, 15, COLOR_GOLD, true);
+        TextView title = text(value, 18, COLOR_TEXT, false);
+        title.setTypeface(Ui.DISPLAY);
         title.setIncludeFontPadding(false);
-        title.setShadowLayer(2.2f, 0, dp(1), Color.BLACK);
         titleRow.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
         if (meta != null && meta.length() > 0) {
-            TextView metaPill = text(meta, 10, COLOR_ORANGE, true);
+            TextView metaPill = text(meta, 11, COLOR_DIM, false);
             metaPill.setGravity(Gravity.CENTER);
             metaPill.setSingleLine(true);
             metaPill.setEllipsize(TextUtils.TruncateAt.END);
-            metaPill.setPadding(dp(8), dp(3), dp(8), dp(3));
-            metaPill.setBackground(panel(Color.argb(152, 20, 13, 7), COLOR_BORDER_SOFT, 1, 12));
+            metaPill.setPadding(dp(4), dp(2), 0, dp(2));
             LinearLayout.LayoutParams pillParams = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
@@ -2111,83 +371,85 @@ public class MainActivity extends Activity {
         return section;
     }
 
-    private void subTitle(LinearLayout content, String value) {
+    void subTitle(LinearLayout content, String value) {
         if (content == null || value == null || value.length() == 0) return;
-        TextView text = text(value, 13, COLOR_TEXT, true);
+        TextView text = text(value, 12, COLOR_GOLD_SOFT, true);
         text.setLineSpacing(dp(1), 1.05f);
-        text.setPadding(0, dp(10), 0, dp(4));
+        text.setPadding(0, dp(12), 0, dp(2));
         content.addView(text);
     }
 
-    private void bulletRow(LinearLayout content, String value) {
+    // Listes de lecture : pas de boite par ligne, un simple repere dore et un
+    // texte plus grand, comme les listes de la fiche web.
+    void bulletRow(LinearLayout content, String value) {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.TOP);
-        row.setPadding(dp(8), dp(6), dp(8), dp(7));
-        row.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
+        row.setPadding(0, dp(3), 0, dp(3));
 
         View marker = new View(this);
-        marker.setBackground(panel(COLOR_GOLD, COLOR_GOLD, 1, 4));
+        marker.setBackground(panel(COLOR_GOLD_SOFT, COLOR_GOLD_SOFT, 1, 3));
         LinearLayout.LayoutParams markerParams = new LinearLayout.LayoutParams(dp(5), dp(5));
-        markerParams.topMargin = dp(8);
-        markerParams.rightMargin = dp(8);
+        markerParams.topMargin = dp(9);
+        markerParams.rightMargin = dp(10);
         row.addView(marker, markerParams);
 
-        TextView text = text(value, 13, COLOR_TEXT, false);
-        text.setLineSpacing(dp(2), 1.10f);
+        TextView text = text(value, 14, COLOR_TEXT, false);
+        text.setLineSpacing(dp(2), 1.16f);
         row.addView(text, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
         LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        rowParams.topMargin = dp(5);
+        rowParams.topMargin = dp(3);
         content.addView(row, rowParams);
     }
 
-    private void stepRow(LinearLayout content, int number, String value) {
+    void stepRow(LinearLayout content, int number, String value) {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.TOP);
-        row.setPadding(dp(8), dp(8), dp(8), dp(8));
-        row.setBackground(panelGradient(COLOR_CARD_ACTIVE, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
+        row.setPadding(0, dp(8), 0, dp(10));
 
-        View rail = new View(this);
-        rail.setBackground(panel(Color.argb(210, 251, 191, 36), COLOR_ORANGE, 1, 3));
-        LinearLayout.LayoutParams railParams = new LinearLayout.LayoutParams(dp(3), dp(34));
-        railParams.rightMargin = dp(8);
-        row.addView(rail, railParams);
-
-        TextView index = text(String.valueOf(number), 12, COLOR_TEXT_DARK, true);
+        TextView index = text(String.valueOf(number), 16, COLOR_GOLD, false);
+        index.setTypeface(Ui.DISPLAY);
         index.setGravity(Gravity.CENTER);
-        index.setBackground(panel(COLOR_ORANGE, COLOR_ORANGE, 1, 16));
-        row.addView(index, new LinearLayout.LayoutParams(dp(28), dp(28)));
+        index.setBackground(panel(Color.TRANSPARENT, COLOR_BORDER, 1, 16));
+        row.addView(index, new LinearLayout.LayoutParams(dp(30), dp(30)));
 
-        TextView body = text(value, 13, COLOR_TEXT, false);
-        body.setLineSpacing(dp(2), 1.12f);
+        TextView body = text(value, 15, COLOR_TEXT, false);
+        body.setTypeface(Ui.READING);
+        body.setLineSpacing(dp(3), 1.18f);
         LinearLayout.LayoutParams bodyParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
-        bodyParams.leftMargin = dp(9);
+        bodyParams.leftMargin = dp(12);
+        bodyParams.topMargin = dp(3);
         row.addView(body, bodyParams);
 
         LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        rowParams.topMargin = dp(8);
+        rowParams.topMargin = dp(2);
         content.addView(row, rowParams);
+
+        View separator = new View(this);
+        separator.setBackgroundColor(Color.argb(60, 214, 158, 64));
+        LinearLayout.LayoutParams separatorParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        separatorParams.leftMargin = dp(42);
+        content.addView(separator, separatorParams);
     }
 
-    private void labelValue(LinearLayout content, String label, String value) {
+    void labelValue(LinearLayout content, String label, String value) {
         LinearLayout block = new LinearLayout(this);
         block.setOrientation(LinearLayout.VERTICAL);
-        block.setPadding(dp(9), dp(8), dp(9), dp(9));
-        block.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
+        block.setPadding(0, dp(4), 0, dp(4));
         if (label != null && label.length() > 0) {
-        TextView labelView = text(label, 11, COLOR_GOLD, true);
+            TextView labelView = text(label, 11, COLOR_GOLD_SOFT, true);
             labelView.setPadding(0, 0, 0, dp(2));
             block.addView(labelView);
         }
-        TextView valueView = text(value, 13, COLOR_TEXT, false);
-        valueView.setLineSpacing(dp(2), 1.10f);
+        TextView valueView = text(value, 14, COLOR_TEXT, false);
+        valueView.setLineSpacing(dp(2), 1.14f);
         block.addView(valueView);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -2197,22 +459,22 @@ public class MainActivity extends Activity {
         content.addView(block, params);
     }
 
-    private void body(LinearLayout content, String value) {
+    void body(LinearLayout content, String value) {
         body(content, value, COLOR_TEXT);
     }
 
-    private void body(LinearLayout content, String value, int color) {
-        TextView text = text(value, 14, color, false);
-        text.setLineSpacing(dp(2), 1.10f);
+    void body(LinearLayout content, String value, int color) {
+        TextView text = text(value, 15, color, false);
+        text.setLineSpacing(dp(2), 1.16f);
         text.setPadding(0, dp(7), 0, dp(3));
         content.addView(text);
     }
 
-    private Button sectionButton(String value) {
+    Button sectionButton(String value) {
         return sectionButton(value, true);
     }
 
-    private Button sectionButton(String value, boolean primary) {
+    Button sectionButton(String value, boolean primary) {
         Button button = new Button(this);
         button.setText(value);
         button.setTextColor(primary ? COLOR_TEXT_DARK : COLOR_TEXT);
@@ -2233,7 +495,7 @@ public class MainActivity extends Activity {
         return button;
     }
 
-    private Spinner createSpinner(final List<String> labels) {
+    Spinner createSpinner(final List<String> labels) {
         Spinner spinner = new Spinner(this);
         spinner.setPadding(dp(8), 0, dp(8), 0);
         spinner.setBackground(panel(COLOR_CARD_SOFT, COLOR_BORDER, 1, 8));
@@ -2257,7 +519,7 @@ public class MainActivity extends Activity {
         return spinner;
     }
 
-    private void styleSpinnerText(TextView view, boolean dropdown) {
+    void styleSpinnerText(TextView view, boolean dropdown) {
         view.setTextColor(COLOR_TEXT);
         view.setTextSize(adjustedTextSize(14));
         view.setTypeface(Typeface.DEFAULT_BOLD);
@@ -2268,7 +530,7 @@ public class MainActivity extends Activity {
         view.setBackgroundColor(dropdown ? COLOR_CARD_SOFT : Color.TRANSPARENT);
     }
 
-    private LinearLayout.LayoutParams fullWidthParams(int topMargin, int height) {
+    LinearLayout.LayoutParams fullWidthParams(int topMargin, int height) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 height
@@ -2277,278 +539,7 @@ public class MainActivity extends Activity {
         return params;
     }
 
-    private void showShoppingList() {
-        showShoppingList(false);
-    }
-
-    private void showShoppingList(boolean pushCurrent) {
-        long startedAt = perfStart();
-        if (pushCurrent) pushNavigationState();
-        releaseScreenImages();
-        currentScreen = SCREEN_SHOPPING;
-        currentRecipeId = "";
-        showingDetail = true;
-        releaseListSurface();
-        applyKeepScreenOn();
-
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setBackgroundColor(COLOR_BG);
-
-        LinearLayout top = new LinearLayout(this);
-        top.setOrientation(LinearLayout.HORIZONTAL);
-        top.setGravity(Gravity.CENTER_VERTICAL);
-        top.setPadding(dp(10), dp(6), dp(10), dp(6));
-        top.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER, 1, 0));
-        root.addView(top, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-
-        Button back = new Button(this);
-        back.setText("Retour");
-        back.setTextColor(COLOR_TEXT_DARK);
-        back.setTextSize(12);
-        back.setTypeface(Typeface.DEFAULT_BOLD);
-        back.setAllCaps(false);
-        back.setBackground(buttonPanel(true));
-        top.addView(back, new LinearLayout.LayoutParams(dp(86), dp(36)));
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goBack();
-            }
-        });
-
-        TextView title = text("Liste de courses", 17, COLOR_TEXT, true);
-        title.setGravity(Gravity.CENTER_VERTICAL);
-        title.setPadding(dp(12), 0, 0, 0);
-        top.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-
-        ScrollView scroll = new ScrollView(this);
-        scroll.setSmoothScrollingEnabled(true);
-        scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        scroll.setVerticalScrollBarEnabled(false);
-        LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.VERTICAL);
-        content.setPadding(dp(12), dp(12), dp(12), dp(24));
-        scroll.addView(content);
-        root.addView(scroll, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                0,
-                1
-        ));
-
-        LinearLayout actions = addSection(content, "Courses", countLabel(shoppingRecipeIds.size(), "fiche", "fiches"));
-        body(actions, countLabel(shoppingRecipeIds.size(), "recette dans la liste", "recettes dans la liste"), COLOR_MUTED);
-
-        Button copy = sectionButton("Copier la liste", true);
-        copy.setEnabled(!shoppingRecipeIds.isEmpty());
-        actions.addView(copy);
-        copy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                copyShoppingList();
-            }
-        });
-
-        Button copyTodo = sectionButton("Copier a faire", false);
-        copyTodo.setEnabled(!shoppingRecipeIds.isEmpty());
-        actions.addView(copyTodo);
-        copyTodo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                copyShoppingTodo();
-            }
-        });
-
-        Button resetDone = sectionButton("Tout decocher", false);
-        resetDone.setEnabled(!shoppingDoneKeys.isEmpty());
-        actions.addView(resetDone);
-        resetDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clearShoppingDone();
-            }
-        });
-
-        Button clear = sectionButton("Vider la liste", false);
-        clear.setEnabled(!shoppingRecipeIds.isEmpty());
-        actions.addView(clear);
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clearShoppingList();
-            }
-        });
-
-        if (shoppingRecipeIds.isEmpty()) {
-            body(actions, "Ajoute une recette depuis une fiche pour preparer les courses.");
-        } else {
-            addMergedShoppingSection(content);
-            ArrayList<String> ids = new ArrayList<String>(shoppingRecipeIds);
-            for (final String id : ids) {
-                final Recipe recipe = repository.find(id);
-                if (recipe == null) continue;
-                LinearLayout section = addSection(content, recipe.title);
-                TextView meta = text(recipe.metaLine(), 12, COLOR_DIM, false);
-                meta.setPadding(0, dp(5), 0, dp(3));
-                section.addView(meta);
-
-                Button remove = sectionButton("Retirer cette recette", false);
-                section.addView(remove);
-                remove.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        removeShopping(id);
-                        showShoppingList();
-                    }
-                });
-
-                for (Recipe.Group group : selectedIngredientGroups(recipe)) {
-                    subTitle(section, group.title);
-                    for (String item : group.items) {
-                        addShoppingCheckRow(section, recipe, group, item);
-                    }
-                    if (group.note.length() > 0) body(section, group.note, COLOR_MUTED);
-                }
-            }
-        }
-
-        setContentView(root);
-        if (PERF_LOG_ENABLED) perfLog("showShoppingList", startedAt);
-    }
-
-    private void addMergedShoppingSection(LinearLayout content) {
-        List<ShoppingLine> lines = mergedShoppingLines();
-        LinearLayout section = addSection(content, "Courses fusionnees", countLabel(lines.size(), "ligne", "lignes"));
-        if (lines.isEmpty()) {
-            body(section, "Aucun ingredient disponible.");
-            return;
-        }
-        body(section, "Les quantites identiques sont additionnees automatiquement.", COLOR_MUTED);
-        for (ShoppingLine line : lines) {
-            addMergedShoppingCheckRow(section, line);
-        }
-    }
-
-    private void addMergedShoppingCheckRow(LinearLayout section, final ShoppingLine line) {
-        CheckBox checkBox = new CheckBox(this);
-        checkBox.setText(line.display());
-        checkBox.setTextColor(COLOR_TEXT);
-        checkBox.setTextSize(adjustedTextSize(13));
-        checkBox.setTypeface(Typeface.DEFAULT);
-        checkBox.setButtonTintList(null);
-        checkBox.setFocusable(false);
-        checkBox.setClickable(true);
-        checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
-        checkBox.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
-        checkBox.setChecked(shoppingDoneKeys.contains(line.doneKey));
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    shoppingDoneKeys.add(line.doneKey);
-                } else {
-                    shoppingDoneKeys.remove(line.doneKey);
-                }
-                saveUserState();
-            }
-        });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        params.topMargin = dp(5);
-        section.addView(checkBox, params);
-    }
-
-    private List<ShoppingLine> mergedShoppingLines() {
-        LinkedHashMap<String, ShoppingLine> merged = new LinkedHashMap<String, ShoppingLine>();
-        for (String id : shoppingRecipeIds) {
-            Recipe recipe = repository.find(id);
-            if (recipe == null) continue;
-            for (Recipe.Group group : selectedIngredientGroups(recipe)) {
-                for (String item : group.items) {
-                    ParsedIngredient parsed = parseIngredient(item);
-                    String key;
-                    ShoppingLine line;
-                    if (parsed.scalable) {
-                        key = "q|" + CookNoteRepository.normalize(parsed.unit) + "|" + CookNoteRepository.normalize(parsed.remainder);
-                        line = merged.get(key);
-                        if (line == null) {
-                            line = ShoppingLine.scaled(key, parsed.unit, parsed.remainder);
-                            merged.put(key, line);
-                        }
-                        line.amount += parsed.amount * quantityFactor;
-                        if (parsed.amountEnd > 0) line.amountEnd += parsed.amountEnd * quantityFactor;
-                    } else {
-                        key = "r|" + CookNoteRepository.normalize(item);
-                        line = merged.get(key);
-                        if (line == null) {
-                            line = ShoppingLine.raw(key, scaleIngredient(item));
-                            merged.put(key, line);
-                        } else {
-                            line.count += 1;
-                        }
-                    }
-                }
-            }
-        }
-        return new ArrayList<ShoppingLine>(merged.values());
-    }
-
-    private void addShoppingCheckRow(LinearLayout section, final Recipe recipe, Recipe.Group group, final String item) {
-        final String key = shoppingItemKey(recipe, group, item);
-        CheckBox checkBox = new CheckBox(this);
-        checkBox.setText(scaleIngredient(item));
-        checkBox.setTextColor(COLOR_TEXT);
-        checkBox.setTextSize(adjustedTextSize(13));
-        checkBox.setTypeface(Typeface.DEFAULT);
-        checkBox.setButtonTintList(null);
-        checkBox.setFocusable(false);
-        checkBox.setClickable(true);
-        checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
-        checkBox.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
-        checkBox.setChecked(shoppingDoneKeys.contains(key));
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    shoppingDoneKeys.add(key);
-                } else {
-                    shoppingDoneKeys.remove(key);
-                }
-                saveUserState();
-            }
-        });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        params.topMargin = dp(5);
-        section.addView(checkBox, params);
-    }
-
-    private String shoppingItemKey(Recipe recipe, Recipe.Group group, String item) {
-        String groupTitle = group == null ? "" : group.title;
-        return recipe.id + "|" + CookNoteRepository.normalize(groupTitle) + "|" + CookNoteRepository.normalize(item);
-    }
-
-    private void copyShoppingTodo() {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        if (clipboard == null) return;
-        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note - courses a faire", buildShoppingText(true, false)));
-        Toast.makeText(this, "Courses restantes copiees", Toast.LENGTH_SHORT).show();
-    }
-
-    private void clearShoppingDone() {
-        shoppingDoneKeys.clear();
-        saveUserState();
-        showShoppingList();
-    }
-
-    private Button actionButton(String value, boolean primary) {
+    Button actionButton(String value, boolean primary) {
         Button button = new Button(this);
         button.setText(value);
         button.setTextColor(primary ? COLOR_TEXT_DARK : COLOR_TEXT);
@@ -2567,7 +558,7 @@ public class MainActivity extends Activity {
         return button;
     }
 
-    private TextView text(String value, int sp, int color, boolean bold) {
+    TextView text(String value, int sp, int color, boolean bold) {
         TextView text = new TextView(this);
         text.setText(value);
         text.setTextSize(adjustedTextSize(sp));
@@ -2577,575 +568,23 @@ public class MainActivity extends Activity {
         return text;
     }
 
-    private int adjustedTextSize(int sp) {
+    int adjustedTextSize(int sp) {
         return sp;
     }
 
-    private void copyIngredients(Recipe recipe) {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        if (clipboard == null) return;
-        clipboard.setPrimaryClip(ClipData.newPlainText(recipe.title + " - ingredients", buildIngredientsText(recipe)));
-        Toast.makeText(this, "Ingredients copies", Toast.LENGTH_SHORT).show();
+    String shoppingText() {
+        return shoppingText(false, true);
     }
 
-    private void copyRecipe(Recipe recipe) {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        if (clipboard == null) return;
-        clipboard.setPrimaryClip(ClipData.newPlainText(recipe.title, buildRecipeText(recipe)));
-        Toast.makeText(this, "Fiche copiee", Toast.LENGTH_SHORT).show();
+    String shoppingText(boolean todoOnly, boolean includeChecks) {
+        return shopping.buildText(ingredientSource, quantityFactor, todoOnly, includeChecks);
     }
 
-    private void copyShoppingList() {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        if (clipboard == null) return;
-        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note - liste de courses", buildShoppingText(false, true)));
-        Toast.makeText(this, "Liste de courses copiee", Toast.LENGTH_SHORT).show();
+    String scaleIngredient(String item) {
+        return scale(item, quantityFactor);
     }
 
-    private void openUpdateDownload() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(UPDATE_APK_URL));
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        try {
-            startActivity(intent);
-            Toast.makeText(this, "Cook Note v" + repository.version + " - telechargement manuel", Toast.LENGTH_LONG).show();
-        } catch (ActivityNotFoundException exception) {
-            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            if (clipboard != null) {
-                clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note APK Android 5.0+ v" + repository.version, UPDATE_APK_URL));
-            }
-            Toast.makeText(this, "Lien copie dans le presse-papiers", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    private int installedVersionCode() {
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
-            return info.versionCode;
-        } catch (Exception exception) {
-            return 0;
-        }
-    }
-
-    private void checkForUpdatesAsync(final boolean manual) {
-        final int installedCode = installedVersionCode();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                HttpURLConnection connection = null;
-                try {
-                    URL url = new URL(UPDATE_MANIFEST_URL);
-                    connection = (HttpURLConnection) url.openConnection();
-                    connection.setConnectTimeout(UPDATE_HTTP_TIMEOUT_MS);
-                    connection.setReadTimeout(UPDATE_HTTP_TIMEOUT_MS);
-                    connection.setRequestProperty("Accept", "application/json");
-                    connection.setInstanceFollowRedirects(true);
-                    if (connection.getResponseCode() != 200) {
-                        if (manual) fallbackToStableUpdate();
-                        return;
-                    }
-                    StringBuilder content = new StringBuilder();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
-                    String line;
-                    while ((line = reader.readLine()) != null) content.append(line);
-                    reader.close();
-                    JSONObject json = new JSONObject(content.toString());
-                    final int latestCode = json.optInt("versionCode", 0);
-                    final String latestName = json.optString("versionName", "");
-                    final String apkUrl = json.optString("apkUrl", UPDATE_APK_URL);
-                    if (latestCode > installedCode) {
-                        uiHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                onUpdateAvailable(latestCode, latestName, apkUrl, manual);
-                            }
-                        });
-                    } else if (manual) {
-                        postUpdateToast("Cook Note est deja a jour.");
-                    }
-                } catch (Exception exception) {
-                    if (manual) fallbackToStableUpdate();
-                } finally {
-                    if (connection != null) connection.disconnect();
-                }
-            }
-        }).start();
-    }
-
-    private void postUpdateToast(final String message) {
-        uiHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (!isFinishing()) Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void fallbackToStableUpdate() {
-        uiHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (isFinishing()) return;
-                Toast.makeText(MainActivity.this,
-                        "Verification indisponible. Telechargement de la derniere version...",
-                        Toast.LENGTH_LONG).show();
-                startUpdateDownload(UPDATE_APK_URL, "stable");
-            }
-        });
-    }
-
-    private void onUpdateAvailable(final int latestCode, final String latestName, final String apkUrl, boolean manual) {
-        if (isFinishing()) return;
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        if (!manual && prefs.getInt(PREF_UPDATE_SKIP_CODE, 0) >= latestCode) return;
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Mise a jour disponible");
-        builder.setMessage("Cook Note v" + latestName + " est disponible.\nInstaller maintenant ?");
-        builder.setPositiveButton("Installer", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startUpdateDownload(apkUrl, latestName);
-            }
-        });
-        builder.setNegativeButton("Plus tard", null);
-        builder.setNeutralButton("Ignorer", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putInt(PREF_UPDATE_SKIP_CODE, latestCode).apply();
-            }
-        });
-        builder.show();
-    }
-
-    private void startUpdateDownload(String apkUrl, String versionName) {
-        String targetUrl = (apkUrl == null || apkUrl.length() == 0) ? UPDATE_APK_URL : apkUrl;
-        DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        if (manager == null) {
-            openUpdateDownload();
-            return;
-        }
-        try {
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(targetUrl));
-            request.setTitle("Cook Note v" + versionName);
-            request.setDescription("Telechargement de la mise a jour");
-            request.setMimeType(UPDATE_APK_MIME);
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS,
-                    "cook-note-update-" + versionName + ".apk");
-            registerUpdateReceiver();
-            updateDownloadVersion = versionName;
-            updateDownloadId = manager.enqueue(request);
-            Toast.makeText(this, "Telechargement de Cook Note v" + versionName + "...", Toast.LENGTH_SHORT).show();
-        } catch (Exception exception) {
-            openUpdateDownload();
-        }
-    }
-
-    private void registerUpdateReceiver() {
-        if (updateDownloadReceiver != null) return;
-        updateDownloadReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1L);
-                if (id != -1L && id == updateDownloadId) onUpdateDownloaded(id);
-            }
-        };
-        IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(updateDownloadReceiver, filter, Context.RECEIVER_EXPORTED);
-        } else {
-            registerReceiver(updateDownloadReceiver, filter);
-        }
-    }
-
-    private void onUpdateDownloaded(long id) {
-        DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        if (manager == null) return;
-        Cursor cursor = null;
-        try {
-            DownloadManager.Query query = new DownloadManager.Query();
-            query.setFilterById(id);
-            cursor = manager.query(query);
-            if (cursor != null && cursor.moveToFirst()) {
-                int statusColumn = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                int status = statusColumn >= 0 ? cursor.getInt(statusColumn) : DownloadManager.STATUS_FAILED;
-                if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                    launchInstall(manager.getUriForDownloadedFile(id));
-                } else {
-                    Toast.makeText(this, "Telechargement echoue, ouverture du navigateur", Toast.LENGTH_LONG).show();
-                    openUpdateDownload();
-                }
-            }
-        } catch (Exception exception) {
-            openUpdateDownload();
-        } finally {
-            if (cursor != null) cursor.close();
-        }
-    }
-
-    private void launchInstall(Uri apkUri) {
-        if (apkUri == null) {
-            openUpdateDownload();
-            return;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !getPackageManager().canRequestPackageInstalls()) {
-            Toast.makeText(this, "Autorise l'installation d'apps depuis Cook Note, puis relance la mise a jour", Toast.LENGTH_LONG).show();
-            try {
-                startActivity(new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:" + getPackageName())));
-                return;
-            } catch (Exception ignored) {
-                // Continue and let the system installer surface the permission prompt.
-            }
-        }
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(apkUri, UPDATE_APK_MIME);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        try {
-            startActivity(intent);
-        } catch (ActivityNotFoundException exception) {
-            openUpdateDownload();
-        }
-    }
-
-    private String buildIngredientsText(Recipe recipe) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(recipe.title).append('\n');
-        builder.append("Ingredients").append('\n');
-        appendIngredients(builder, recipe);
-        return builder.toString().trim();
-    }
-
-    private String buildRecipeText(Recipe recipe) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(recipe.title).append('\n');
-        String meta = recipe.metaLine();
-        if (meta.length() > 0) builder.append(meta).append('\n');
-
-        builder.append('\n').append("Ingredients").append('\n');
-        appendIngredients(builder, recipe);
-
-        List<String> steps = selectedRecipeSteps(recipe);
-        if (!steps.isEmpty()) {
-            builder.append('\n').append("Etapes").append('\n');
-            for (int index = 0; index < steps.size(); index += 1) {
-                builder.append(index + 1).append(". ").append(steps.get(index)).append('\n');
-            }
-        }
-
-        if (!recipe.notes.isEmpty()) {
-            builder.append('\n').append("Notes").append('\n');
-            for (String note : recipe.notes) {
-                builder.append("- ").append(note).append('\n');
-            }
-        }
-
-        return builder.toString().trim();
-    }
-
-    private String buildShoppingText() {
-        return buildShoppingText(false, true);
-    }
-
-    private String buildShoppingText(boolean todoOnly, boolean includeChecks) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Cook Note - Liste de courses").append('\n');
-        int headerLength = builder.length();
-        if (shoppingRecipeIds.isEmpty()) {
-            builder.append('\n').append("Aucune recette.");
-            return builder.toString();
-        }
-
-        List<ShoppingLine> lines = mergedShoppingLines();
-        for (ShoppingLine line : lines) {
-            boolean done = shoppingDoneKeys.contains(line.doneKey);
-            if (todoOnly && done) continue;
-            if (includeChecks) builder.append(done ? "[x] " : "[ ] ");
-            else builder.append("- ");
-            builder.append(line.display()).append('\n');
-        }
-        if (!todoOnly) {
-            builder.append('\n').append("Recettes").append('\n');
-            for (String id : shoppingRecipeIds) {
-                Recipe recipe = repository.find(id);
-                if (recipe != null) builder.append("- ").append(recipe.title).append('\n');
-            }
-        }
-        if (todoOnly && builder.length() == headerLength) {
-            builder.append('\n').append("Tout est coche.");
-        }
-        return builder.toString().trim();
-    }
-
-    private void appendIngredients(StringBuilder builder, Recipe recipe) {
-        for (Recipe.Group group : selectedIngredientGroups(recipe)) {
-            builder.append('\n').append(group.title).append('\n');
-            for (String item : group.items) {
-                builder.append("- ").append(scaleIngredient(item)).append('\n');
-            }
-            if (group.note.length() > 0) builder.append("Note: ").append(group.note).append('\n');
-        }
-    }
-
-    private String scaleIngredient(String item) {
-        ParsedIngredient parsed = parseIngredient(item);
-        if (!parsed.scalable || sameFactor(quantityFactor, 1f)) return item;
-        StringBuilder builder = new StringBuilder();
-        builder.append(formatAmount(parsed.amount * quantityFactor));
-        if (parsed.amountEnd > 0) builder.append("-").append(formatAmount(parsed.amountEnd * quantityFactor));
-        if (parsed.unit.length() > 0) builder.append(' ').append(parsed.unit);
-        if (parsed.remainder.length() > 0) builder.append(' ').append(parsed.remainder);
-        return builder.toString().trim();
-    }
-
-    private ParsedIngredient parseIngredient(String item) {
-        if (item == null) return ParsedIngredient.raw("");
-        Matcher matcher = INGREDIENT_AMOUNT_PATTERN.matcher(item);
-        if (!matcher.matches()) return ParsedIngredient.raw(item);
-        double amount = parseAmount(matcher.group(1));
-        double amountEnd = parseAmount(matcher.group(2));
-        if (amount <= 0) return ParsedIngredient.raw(item);
-        String unit = safeTrim(matcher.group(3));
-        String remainder = safeTrim(matcher.group(4));
-        if (unit.length() == 0 && remainder.length() == 0) return ParsedIngredient.raw(item);
-        return new ParsedIngredient(true, amount, amountEnd, unit, remainder, item);
-    }
-
-    private double parseAmount(String raw) {
-        if (raw == null || raw.length() == 0) return -1;
-        String value = raw.replace(',', '.').trim();
-        int slash = value.indexOf('/');
-        try {
-            if (slash > 0) {
-                double left = Double.parseDouble(value.substring(0, slash));
-                double right = Double.parseDouble(value.substring(slash + 1));
-                return right == 0 ? -1 : left / right;
-            }
-            return Double.parseDouble(value);
-        } catch (Exception ignored) {
-            return -1;
-        }
-    }
-
-    private static String formatAmount(double value) {
-        if (value <= 0) return "";
-        double rounded = Math.round(value * 10d) / 10d;
-        long whole = Math.round(rounded);
-        if (Math.abs(rounded - whole) < 0.05d) return String.valueOf(whole);
-        String raw = String.valueOf(rounded);
-        if (raw.endsWith(".0")) raw = raw.substring(0, raw.length() - 2);
-        return raw.replace('.', ',');
-    }
-
-    private static String safeTrim(String value) {
-        return value == null ? "" : value.trim();
-    }
-
-    private GradientDrawable panel(int color, int strokeColor, int strokeWidth, int radiusDp) {
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setColor(color);
-        drawable.setCornerRadius(dp(radiusDp));
-        if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
-        return drawable;
-    }
-
-    private GradientDrawable bottomOverlayGradient() {
-        return new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{
-                Color.argb(8, 0, 0, 0),
-                Color.argb(112, 0, 0, 0),
-                Color.argb(226, 5, 4, 3)
-        });
-    }
-
-    private GradientDrawable cardTitleOverlayGradient() {
-        return new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{
-                Color.argb(0, 0, 0, 0),
-                Color.argb(82, 0, 0, 0),
-                Color.argb(206, 5, 4, 3)
-        });
-    }
-
-    private StateListDrawable buttonPanel(boolean primary) {
-        if (primary) {
-            return selectableGradientPanel(
-                    COLOR_ORANGE,
-                    COLOR_GOLD,
-                    COLOR_ORANGE,
-                    COLOR_GOLD,
-                    COLOR_ORANGE,
-                    1,
-                    8
-            );
-        }
-        return selectableGradientPanel(
-                COLOR_CARD,
-                COLOR_CARD_SOFT,
-                COLOR_CARD_ACTIVE,
-                COLOR_CARD_SOFT,
-                COLOR_BORDER_SOFT,
-                1,
-                8
-        );
-    }
-
-    private StateListDrawable selectablePanel(int normalColor, int pressedColor, int strokeColor, int strokeWidth, int radiusDp) {
-        StateListDrawable drawable = new StateListDrawable();
-        drawable.addState(new int[]{-android.R.attr.state_enabled}, panel(COLOR_CARD_SOFT, COLOR_BORDER_SOFT, strokeWidth, radiusDp));
-        drawable.addState(new int[]{android.R.attr.state_pressed}, panel(pressedColor, strokeColor, strokeWidth, radiusDp));
-        drawable.addState(new int[]{android.R.attr.state_focused}, panel(pressedColor, strokeColor, strokeWidth, radiusDp));
-        drawable.addState(new int[]{}, panel(normalColor, strokeColor, strokeWidth, radiusDp));
-        return drawable;
-    }
-
-    private StateListDrawable selectableGradientPanel(int normalStart, int normalEnd, int pressedStart, int pressedEnd, int strokeColor, int strokeWidth, int radiusDp) {
-        StateListDrawable drawable = new StateListDrawable();
-        drawable.addState(new int[]{-android.R.attr.state_enabled}, panel(COLOR_CARD_SOFT, COLOR_BORDER_SOFT, strokeWidth, radiusDp));
-        drawable.addState(new int[]{android.R.attr.state_pressed}, gradientPanel(pressedStart, pressedEnd, strokeColor, strokeWidth, radiusDp));
-        drawable.addState(new int[]{android.R.attr.state_focused}, gradientPanel(pressedStart, pressedEnd, strokeColor, strokeWidth, radiusDp));
-        drawable.addState(new int[]{}, gradientPanel(normalStart, normalEnd, strokeColor, strokeWidth, radiusDp));
-        return drawable;
-    }
-
-    private GradientDrawable panelGradient(int startColor, int endColor, int strokeColor, int strokeWidth, int radiusDp) {
-        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{startColor, endColor});
-        drawable.setCornerRadius(dp(radiusDp));
-        if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
-        return drawable;
-    }
-
-    private GradientDrawable gradientPanel(int startColor, int endColor, int strokeColor, int strokeWidth, int radiusDp) {
-        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{startColor, endColor});
-        drawable.setCornerRadius(dp(radiusDp));
-        if (strokeWidth > 0) drawable.setStroke(dp(strokeWidth), strokeColor);
-        return drawable;
-    }
-
-    private static String joinMetaParts(List<String> parts, String fallback) {
-        if (parts == null || parts.isEmpty()) return fallback;
-        StringBuilder builder = new StringBuilder();
-        for (String part : parts) {
-            if (part == null || part.length() == 0) continue;
-            if (builder.length() > 0) builder.append(" - ");
-            builder.append(part);
-        }
-        return builder.length() == 0 ? fallback : builder.toString();
-    }
-
-    private static String countLabel(int count, String singular, String plural) {
-        return count + " " + (count > 1 ? plural : singular);
-    }
-
-    private static boolean sameText(String left, String right) {
-        if (left == null || right == null) return false;
-        return left.trim().equalsIgnoreCase(right.trim());
-    }
-
-    private static String shortList(List<String> values, int maxItems) {
-        if (values == null || values.isEmpty()) return "";
-        StringBuilder builder = new StringBuilder();
-        int count = Math.min(values.size(), maxItems);
-        for (int index = 0; index < count; index += 1) {
-            if (index > 0) builder.append(", ");
-            builder.append(values.get(index));
-        }
-        if (values.size() > count) builder.append(" +").append(values.size() - count);
-        return builder.toString();
-    }
-
-    private static String formatMinutes(int minutes) {
-        if (minutes >= 60) {
-            int hours = minutes / 60;
-            int rest = minutes % 60;
-            return rest == 0 ? hours + "h" : hours + "h" + (rest < 10 ? "0" : "") + rest;
-        }
-        return minutes + "min";
-    }
-
-    private static final class VariantChoice {
-        final String label;
-        final Recipe recipe;
-
-        VariantChoice(String label, Recipe recipe) {
-            this.label = label;
-            this.recipe = recipe;
-        }
-    }
-
-    private static final class InlineVariantChoice {
-        final String label;
-        final List<Recipe.Group> groups = new ArrayList<Recipe.Group>();
-
-        InlineVariantChoice(String label, Recipe.Group group) {
-            this.label = label;
-            this.groups.add(group);
-        }
-
-        InlineVariantChoice(String label) {
-            this.label = label;
-        }
-    }
-
-    private static final class ParsedIngredient {
-        final boolean scalable;
-        final double amount;
-        final double amountEnd;
-        final String unit;
-        final String remainder;
-        final String raw;
-
-        ParsedIngredient(boolean scalable, double amount, double amountEnd, String unit, String remainder, String raw) {
-            this.scalable = scalable;
-            this.amount = amount;
-            this.amountEnd = amountEnd;
-            this.unit = unit == null ? "" : unit;
-            this.remainder = remainder == null ? "" : remainder;
-            this.raw = raw == null ? "" : raw;
-        }
-
-        static ParsedIngredient raw(String raw) {
-            return new ParsedIngredient(false, 0, 0, "", "", raw);
-        }
-    }
-
-    private static final class ShoppingLine {
-        final String doneKey;
-        final String unit;
-        final String remainder;
-        final String raw;
-        double amount;
-        double amountEnd;
-        int count;
-        boolean scalable;
-
-        private ShoppingLine(String doneKey, String unit, String remainder, String raw, boolean scalable) {
-            this.doneKey = "merged|" + doneKey;
-            this.unit = unit == null ? "" : unit;
-            this.remainder = remainder == null ? "" : remainder;
-            this.raw = raw == null ? "" : raw;
-            this.scalable = scalable;
-            this.count = 1;
-        }
-
-        static ShoppingLine scaled(String doneKey, String unit, String remainder) {
-            return new ShoppingLine(doneKey, unit, remainder, "", true);
-        }
-
-        static ShoppingLine raw(String doneKey, String raw) {
-            return new ShoppingLine(doneKey, "", "", raw, false);
-        }
-
-        String display() {
-            if (!scalable) return count <= 1 ? raw : raw + " x" + count;
-            StringBuilder builder = new StringBuilder();
-            builder.append(formatAmount(amount));
-            if (amountEnd > 0) builder.append("-").append(formatAmount(amountEnd));
-            if (unit.length() > 0) builder.append(' ').append(unit);
-            if (remainder.length() > 0) builder.append(' ').append(remainder);
-            return builder.toString().trim();
-        }
-    }
-
-    private static final class NavState {
+    static final class NavState {
         final int screen;
         final String recipeId;
 
@@ -3155,23 +594,23 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void loadUserState() {
+    void loadUserState() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        shoppingRecipeIds.clear();
-        shoppingDoneKeys.clear();
+        shopping.recipeIds.clear();
+        shopping.doneKeys.clear();
         keepScreenOn = prefs.getBoolean(PREF_KEEP_SCREEN_ON, false);
         quantityFactor = clampQuantityFactor(prefs.getFloat(PREF_QUANTITY_FACTOR, 1f));
         lastRecipeId = prefs.getString(PREF_LAST_RECIPE, "");
-        parseIds(prefs.getString(PREF_SHOPPING, ""), shoppingRecipeIds, 0);
-        parseRawIds(prefs.getString(PREF_SHOPPING_DONE, ""), shoppingDoneKeys);
+        parseIds(prefs.getString(PREF_SHOPPING, ""), shopping.recipeIds, 0);
+        parseRawIds(prefs.getString(PREF_SHOPPING_DONE, ""), shopping.doneKeys);
         parseRawIds(prefs.getString(PREF_INGREDIENT_DONE, ""), ingredientDoneKeys);
         parseRecentSearches(prefs.getString(PREF_RECENT_SEARCHES, ""), recentSearches);
     }
 
-    private void saveUserState() {
+    void saveUserState() {
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putString(PREF_SHOPPING, joinIds(shoppingRecipeIds));
-        editor.putString(PREF_SHOPPING_DONE, joinIds(new ArrayList<String>(shoppingDoneKeys)));
+        editor.putString(PREF_SHOPPING, joinIds(shopping.recipeIds));
+        editor.putString(PREF_SHOPPING_DONE, joinIds(new ArrayList<String>(shopping.doneKeys)));
         editor.putString(PREF_INGREDIENT_DONE, joinIds(new ArrayList<String>(ingredientDoneKeys)));
         editor.putString(PREF_RECENT_SEARCHES, joinIds(recentSearches));
         editor.putBoolean(PREF_KEEP_SCREEN_ON, keepScreenOn);
@@ -3180,19 +619,19 @@ public class MainActivity extends Activity {
         editor.apply();
     }
 
-    private void applySystemChrome() {
+    void applySystemChrome() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return;
         getWindow().setStatusBarColor(Color.rgb(5, 6, 8));
         getWindow().setNavigationBarColor(Color.rgb(5, 6, 8));
     }
 
-    private float clampQuantityFactor(float value) {
+    float clampQuantityFactor(float value) {
         if (Float.isNaN(value) || Float.isInfinite(value)) return 1f;
         if (value < 0.25f) return 0.25f;
         return Math.min(value, 6f);
     }
 
-    private void parseIds(String raw, List<String> output, int limit) {
+    void parseIds(String raw, List<String> output, int limit) {
         if (raw == null || raw.length() == 0) return;
         String[] ids = raw.split("\\n");
         for (String id : ids) {
@@ -3202,7 +641,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void parseRawIds(String raw, Set<String> output) {
+    void parseRawIds(String raw, Set<String> output) {
         if (raw == null || raw.length() == 0) return;
         String[] ids = raw.split("\\n");
         for (String id : ids) {
@@ -3210,7 +649,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void parseRecentSearches(String raw, List<String> output) {
+    void parseRecentSearches(String raw, List<String> output) {
         if (raw == null || raw.length() == 0) return;
         output.clear();
         String[] ids = raw.split("\\n");
@@ -3220,7 +659,7 @@ public class MainActivity extends Activity {
         while (output.size() > 6) output.remove(output.size() - 1);
     }
 
-    private static String joinIds(List<String> ids) {
+    static String joinIds(List<String> ids) {
         StringBuilder builder = new StringBuilder();
         for (String id : ids) {
             if (id == null || id.length() == 0) continue;
@@ -3230,60 +669,50 @@ public class MainActivity extends Activity {
         return builder.toString();
     }
 
-    private boolean isInShopping(String id) {
-        return shoppingRecipeIds.contains(id);
+    boolean isInShopping(String id) {
+        return shopping.recipeIds.contains(id);
     }
 
-    private void toggleShopping(Recipe recipe) {
-        if (shoppingRecipeIds.contains(recipe.id)) {
-            shoppingRecipeIds.remove(recipe.id);
-            removeShoppingDoneForRecipe(recipe.id);
+    void toggleShopping(Recipe recipe) {
+        if (shopping.recipeIds.contains(recipe.id)) {
+            shopping.recipeIds.remove(recipe.id);
+            shopping.removeDoneForRecipe(recipe.id);
             Toast.makeText(this, "Retire des courses", Toast.LENGTH_SHORT).show();
         } else {
-            shoppingRecipeIds.add(recipe.id);
+            shopping.recipeIds.add(recipe.id);
             Toast.makeText(this, "Ajoute aux courses", Toast.LENGTH_SHORT).show();
         }
         saveUserState();
         refreshShoppingButton();
     }
 
-    private void removeShopping(String id) {
-        shoppingRecipeIds.remove(id);
-        removeShoppingDoneForRecipe(id);
+    void removeShopping(String id) {
+        shopping.recipeIds.remove(id);
+        shopping.removeDoneForRecipe(id);
         saveUserState();
         refreshShoppingButton();
     }
 
-    private void clearShoppingList() {
-        shoppingRecipeIds.clear();
-        shoppingDoneKeys.clear();
+    void clearShoppingList() {
+        shopping.recipeIds.clear();
+        shopping.doneKeys.clear();
         saveUserState();
         refreshShoppingButton();
-        showShoppingList();
+        shoppingScreen.showShoppingList();
     }
 
-    private void removeShoppingDoneForRecipe(String id) {
-        if (id == null || id.length() == 0 || shoppingDoneKeys.isEmpty()) return;
-        ArrayList<String> remove = new ArrayList<String>();
-        String prefix = id + "|";
-        for (String key : shoppingDoneKeys) {
-            if (key.startsWith(prefix) || key.startsWith("merged|")) remove.add(key);
-        }
-        shoppingDoneKeys.removeAll(remove);
+    void refreshShoppingButton() {
+        if (shoppingButton != null) shoppingButton.setText("COURSES  ·  " + shopping.recipeIds.size());
     }
 
-    private void refreshShoppingButton() {
-        if (shoppingButton != null) shoppingButton.setText("COURSES  ·  " + shoppingRecipeIds.size());
-    }
-
-    private void setKeepScreenOn(boolean enabled) {
+    void setKeepScreenOn(boolean enabled) {
         keepScreenOn = enabled;
         applyKeepScreenOn();
         saveUserState();
         Toast.makeText(this, enabled ? "Ecran garde actif" : "Veille automatique", Toast.LENGTH_SHORT).show();
     }
 
-    private void applyKeepScreenOn() {
+    void applyKeepScreenOn() {
         if (keepScreenOn) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } else {
@@ -3291,24 +720,24 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void goBack() {
+    void goBack() {
         while (!detailBackStack.empty()) {
             NavState previous = detailBackStack.pop();
             if (previous.screen == SCREEN_RECIPE) {
                 Recipe recipe = repository.find(previous.recipeId);
                 if (recipe != null) {
-                    openRecipe(recipe, false);
+                    recipeScreen.openRecipe(recipe, false);
                     return;
                 }
             } else if (previous.screen == SCREEN_SHOPPING) {
-                showShoppingList(false);
+                shoppingScreen.showShoppingList(false);
                 return;
             }
         }
-        showList();
+        homeScreen.showList();
     }
 
-    private void pushNavigationState() {
+    void pushNavigationState() {
         if (currentScreen == SCREEN_RECIPE && currentRecipeId.length() > 0) {
             detailBackStack.push(new NavState(SCREEN_RECIPE, currentRecipeId));
         } else if (currentScreen == SCREEN_SHOPPING) {
@@ -3317,17 +746,17 @@ public class MainActivity extends Activity {
         trimBackStack();
     }
 
-    private void trimBackStack() {
+    void trimBackStack() {
         while (detailBackStack.size() > MAX_BACK_STACK) {
             detailBackStack.remove(0);
         }
     }
 
-    private long perfStart() {
+    long perfStart() {
         return PERF_LOG_ENABLED ? System.currentTimeMillis() : 0L;
     }
 
-    private void perfLog(String label, long startedAt) {
+    void perfLog(String label, long startedAt) {
         if (!PERF_LOG_ENABLED) return;
     }
 
@@ -3337,7 +766,7 @@ public class MainActivity extends Activity {
         return super.dispatchTouchEvent(event);
     }
 
-    private boolean handleBackSwipe(MotionEvent event) {
+    boolean handleBackSwipe(MotionEvent event) {
         int action = event.getActionMasked();
         if (action == MotionEvent.ACTION_DOWN) {
             backSwipeStartX = event.getX();
@@ -3388,15 +817,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         uiHandler.removeCallbacks(applyFiltersRunnable);
-        cancelListPrewarm();
-        if (updateDownloadReceiver != null) {
-            try {
-                unregisterReceiver(updateDownloadReceiver);
-            } catch (Exception ignored) {
-                // Receiver may already be gone if registration failed.
-            }
-            updateDownloadReceiver = null;
-        }
+        homeScreen.cancelListPrewarm();
+        if (updater != null) updater.release();
         if (imageLoader != null) imageLoader.shutdown();
         super.onDestroy();
     }
@@ -3422,7 +844,7 @@ public class MainActivity extends Activity {
         if (imageLoader != null) imageLoader.trimMemory(true);
     }
 
-    private void hideKeyboard() {
+    void hideKeyboard() {
         try {
             InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             View focus = getCurrentFocus();
@@ -3432,7 +854,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void showKeyboard() {
+    void showKeyboard() {
         if (searchBox == null) return;
         searchBox.requestFocus();
         searchBox.post(new Runnable() {
@@ -3448,7 +870,7 @@ public class MainActivity extends Activity {
         });
     }
 
-    private void showNativeError(String title, String detail) {
+    void showNativeError(String title, String detail) {
         releaseScreenImages();
         TextView errorView = text(title + "\n\n" + detail, 18, COLOR_GOLD, true);
         errorView.setBackgroundColor(COLOR_BG);
@@ -3459,11 +881,7 @@ public class MainActivity extends Activity {
         ));
     }
 
-    private int dp(int value) {
-        return (int) (value * getResources().getDisplayMetrics().density + 0.5f);
-    }
-
-    private boolean motionEnabled() {
+    boolean motionEnabled() {
         try {
             float scale = android.provider.Settings.Global.getFloat(
                     getContentResolver(),
@@ -3474,7 +892,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void animateIn(View view, int delayMs) {
+    void animateIn(View view, int delayMs) {
         if (view == null) return;
         if (!motionEnabled()) {
             view.setAlpha(1f);

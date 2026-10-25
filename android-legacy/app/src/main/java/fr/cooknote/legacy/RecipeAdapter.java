@@ -22,19 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static fr.cooknote.legacy.Palette.*;
+
 final class RecipeAdapter extends BaseAdapter {
-    private int COLOR_BG = Color.rgb(7, 6, 5);
-    private int COLOR_CARD = Color.rgb(22, 19, 15);
-    private int COLOR_CARD_SOFT = Color.rgb(30, 26, 20);
-    private int COLOR_CARD_ACTIVE = Color.rgb(58, 43, 22);
-    private int COLOR_TEXT = Color.rgb(255, 248, 238);
-    private int COLOR_MUTED = Color.rgb(226, 217, 202);
-    private int COLOR_BORDER = Color.rgb(120, 90, 42);
-    private int COLOR_BORDER_BRIGHT = Color.rgb(184, 134, 52);
-    private int COLOR_GOLD = Color.rgb(251, 191, 36);
-    private int COLOR_ORANGE = Color.rgb(245, 158, 11);
-    private int COLOR_SHEEN = Color.rgb(255, 224, 150);
-    private int COLOR_GOLD_SOFT = Color.rgb(214, 158, 64);
     private static final int CARD_MIN_WIDTH_DP = 286;
     private static final int CARD_SPACING_DP = 11;
     private static final int CARD_MIN_HEIGHT_DP = 130;
@@ -43,8 +33,6 @@ final class RecipeAdapter extends BaseAdapter {
     private final ImageLoader imageLoader;
     private final List<Recipe> items = new ArrayList<Recipe>();
     private Map<String, Integer> collectionCounts;
-    private boolean compactCards;
-    private boolean lightTheme;
     private boolean prefetchEnabled = true;
     private int lastPrefetchPosition = -1;
     private int lastPrefetchWidth;
@@ -65,20 +53,6 @@ final class RecipeAdapter extends BaseAdapter {
 
     void setCollectionCounts(Map<String, Integer> counts) {
         collectionCounts = counts;
-        notifyDataSetChanged();
-    }
-
-    void setCompactCards(boolean compact) {
-        if (compactCards == compact) return;
-        compactCards = compact;
-        resetPrefetchWindow();
-        notifyDataSetChanged();
-    }
-
-    void setLightTheme(boolean enabled) {
-        if (lightTheme == enabled) return;
-        lightTheme = enabled;
-        applyThemePalette();
         notifyDataSetChanged();
     }
 
@@ -161,32 +135,6 @@ final class RecipeAdapter extends BaseAdapter {
         lastPrefetchHeight = 0;
     }
 
-    private void applyThemePalette() {
-        if (lightTheme) {
-            COLOR_BG = Color.rgb(245, 239, 228);
-            COLOR_CARD = Color.rgb(255, 251, 245);
-            COLOR_CARD_SOFT = Color.rgb(241, 232, 217);
-            COLOR_CARD_ACTIVE = Color.rgb(230, 204, 164);
-            COLOR_TEXT = Color.rgb(32, 23, 15);
-            COLOR_MUTED = Color.rgb(77, 66, 54);
-            COLOR_BORDER = Color.rgb(185, 133, 67);
-            COLOR_BORDER_BRIGHT = Color.rgb(217, 119, 6);
-            COLOR_GOLD = Color.rgb(180, 83, 9);
-            COLOR_ORANGE = Color.rgb(217, 119, 6);
-        } else {
-            COLOR_BG = Color.rgb(7, 8, 10);
-            COLOR_CARD = Color.rgb(20, 20, 20);
-            COLOR_CARD_SOFT = Color.rgb(30, 29, 26);
-            COLOR_CARD_ACTIVE = Color.rgb(54, 40, 20);
-            COLOR_TEXT = Color.rgb(255, 247, 237);
-            COLOR_MUTED = Color.rgb(222, 214, 200);
-            COLOR_BORDER = Color.rgb(113, 84, 36);
-            COLOR_BORDER_BRIGHT = Color.rgb(176, 128, 45);
-            COLOR_GOLD = Color.rgb(251, 191, 36);
-            COLOR_ORANGE = Color.rgb(245, 158, 11);
-        }
-    }
-
     private boolean sameItems(List<Recipe> recipes) {
         if (recipes == null) return items.isEmpty();
         if (recipes.size() != items.size()) return false;
@@ -207,7 +155,7 @@ final class RecipeAdapter extends BaseAdapter {
         root.setBackgroundColor(COLOR_BG);
         root.setLayoutParams(new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(compactCards ? 138 : 160)
+                dp(160)
         ));
 
         LinearLayout card = new LinearLayout(context);
@@ -315,15 +263,15 @@ final class RecipeAdapter extends BaseAdapter {
     }
 
     private int cardMinWidthDp() {
-        return compactCards ? 244 : CARD_MIN_WIDTH_DP;
+        return CARD_MIN_WIDTH_DP;
     }
 
     private int cardSpacingDp() {
-        return compactCards ? 8 : CARD_SPACING_DP;
+        return CARD_SPACING_DP;
     }
 
     private int cardMinHeightDp() {
-        return compactCards ? 112 : CARD_MIN_HEIGHT_DP;
+        return CARD_MIN_HEIGHT_DP;
     }
 
     private int dp(int value) {

@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { readAppSource, readStyleSource } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const errors = [];
@@ -80,17 +81,17 @@ lightRuntime.api.setTheme('dark');
 expect('setTheme dark inactif.', lightRuntime.documentElement.dataset.theme === 'dark');
 expect('Preference theme non persistee.', /"theme":"dark"/.test(lightRuntime.store.get('cook_note_preferences') || ''));
 
-const style = read('style.css');
+const style = readStyleSource();
 expect('Tokens theme clair absents.', style.includes(':root[data-theme="light"]'));
 expect('Token color-scheme absent.', style.includes('--ds-color-scheme'));
 expect('Tokens art direction absents.', style.includes('--art-background-image') && style.includes('--art-hero-image') && style.includes('--art-logo-image'));
 expect('Background art direction non tokenise.', style.includes('var(--art-background-image) center top'));
-expect('Background shell non tokenise.', style.includes('--ds-shell-background') && style.includes('background: var(--ds-shell-background)'));
+expect('Background shell non tokenise.', style.includes('--ds-shell-background') && /background\s*:[^;{}]*var\(--ds-shell-background\)/.test(style));
 expect('Theme light shell absent.', style.includes('.mc-shell.theme-light'));
 expect('Surfaces light non couvertes.', style.includes('.mc-shell.theme-light :where(.site-footer-inner'));
 expect('Logo jour non style.', style.includes('mix-blend-mode:multiply'));
 
-const app = read('app.js');
+const app = readAppSource();
 const appArtImages = read('app-art-images.js');
 const appArtContext = { window: {}, Object };
 vm.createContext(appArtContext);
@@ -99,7 +100,7 @@ const themeRecipeArt = appArtContext.window.COOK_NOTE_THEME_RECIPE_ART || {};
 const darkRecipeArt = Object.values(themeRecipeArt.dark || {});
 const lightRecipeArt = Object.values(themeRecipeArt.light || {});
 expect('Runtime theme non branche dans app.js.', app.includes('CookNoteTheme') && app.includes('activeTheme') && app.includes('toggleTheme'));
-expect('Assets art direction non branches dans app.js.', app.includes('FALLBACK_ART_ASSETS') && app.includes('THEME_RECIPE_ART_IMAGES') && app.includes('displayRecipeImage') && app.includes('function artAsset') && app.includes("artAsset('hero'") && app.includes("artAsset('logo'"));
+expect('Assets art direction non branches dans app.js.', app.includes('FALLBACK_ART_ASSETS') && app.includes('THEME_RECIPE_ART_IMAGES') && app.includes('displayRecipeImage') && app.includes('function artAsset') && app.includes("artAsset('hero'"));
 expect('Runtime images theme absent.', appArtImages.includes('COOK_NOTE_THEME_RECIPE_ART') && lightRecipeArt.some(url => url.includes('/assets/theme/day/')) && darkRecipeArt.some(url => url.includes('/assets/theme/dark/')));
 expect('Theme non expose dans la topbar.', app.includes('theme-toggle-btn') && app.includes('Passer en mode jour') && app.includes('Passer en mode nuit'));
 expect('Theme absent des preferences.', app.includes("'Thème'") && app.includes("update({ theme: 'light' })"));

@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { APP_MODULES } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
@@ -10,7 +11,7 @@ const errors = [];
 const REQUIRED_FILES = [
   '_headers',
   '_redirects',
-  'app.js',
+  ...APP_MODULES,
   'app-techniques.js',
   'app-images.js',
   'app-art-images.js',
@@ -190,7 +191,11 @@ if (!fs.existsSync(DIST)) {
         fail(`dist/${prerenderedPage}: loader bloquant interdit dans une page prerendue.`);
       }
       const expectedHeroImage = themeRecipeArt[id];
-      if (expectedHeroImage && exists(normalizeAssetPath(expectedHeroImage)) && !prerenderedHtml.includes(`href="${expectedHeroImage}"`)) {
+      // Le prechargement vise l'AVIF quand il existe, sinon l'image d'origine.
+      const expectedHeroAvif = String(expectedHeroImage || '').replace(/\.(?:jpe?g|png)(\?.*)?$/i, '.avif$1');
+      const preloadsHero = prerenderedHtml.includes(`href="${expectedHeroImage}"`)
+        || (exists(normalizeAssetPath(expectedHeroAvif)) && prerenderedHtml.includes(`href="${expectedHeroAvif}" type="image/avif"`));
+      if (expectedHeroImage && exists(normalizeAssetPath(expectedHeroImage)) && !preloadsHero) {
         fail(`dist/${prerenderedPage}: hero pre-rendu non aligne (${expectedHeroImage}).`);
       }
     }

@@ -13,6 +13,9 @@ NE JAMAIS travailler dans `/home/maruchiwa/projects/COOK-NOTE` ni dans
 modification faite ailleurs n'arrive PAS chez l'utilisateur. Verifier le
 chemin courant avant toute edition ou build.
 
+Commit uniquement sur demande de l'utilisateur. Ne jamais push : l'utilisateur
+pousse via GitHub Desktop. Ne jamais reconstruire l'APK sans demande explicite.
+
 Avant toute action dans ce depot, lire `A_LIRE_EN_PREMIER.md`, puis
 `COOK_NOTE_RULES.md`.
 

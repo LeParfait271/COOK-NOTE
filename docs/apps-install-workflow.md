@@ -62,20 +62,22 @@ images reduites et interface Android native.
 
 Regle de parite : quand une fonctionnalite visible du site, une recette, le
 catalogue ou une UX utile sur tablette change, porter l'equivalent en Native
-Lite pour tablette peu puissante et lancer `npm run apps:update-all` dans le
-meme lot. Ne pas copier le web : adapter en vues natives simples, peu gourmandes
+Lite pour tablette peu puissante dans le meme lot. Le code Android reste pret a
+construire : `npm run apps:update-all` n est lance que sur demande explicite de
+l utilisateur. Ne pas copier le web : adapter en vues natives simples, peu gourmandes
 en CPU, RAM, GPU et batterie. Un changement purement technique du site ou une
 demande web-only peut laisser l APK inchangee, avec justification dans le compte
 rendu.
 Garde-fou parite site/app : fonctionnalite visible du site -> Native Lite pour tablette peu puissante.
 
-Regle permanente de version : toute modification versionnee du projet augmente
-la version produit de `0.01`, y compris documentation, scripts, CI, admin local,
-build et correctifs techniques. Le site et l APK doivent toujours porter la meme
-version produit `X.YY`. `node scripts/bump-version.js --next` synchronise
-`SITE_VERSION`, `ANDROID_LEGACY_APK_VERSION` et `cookNoteAndroidVersion`, puis
-`npm run apps:update-all` reconstruit obligatoirement le site et l APK du meme
-numero avant commit.
+Regle permanente de version : toute modification produit versionnee augmente
+la version du site de `0.01` avec `node scripts/bump-version.js --next --site-only`.
+Une modification limitee aux garde-fous ou au workflow interne ne declenche pas
+de release. L APK publiee garde la version du dernier binaire construit. Lors
+d une reconstruction demandee explicitement, `node scripts/bump-version.js --next`
+synchronise `SITE_VERSION`, `ANDROID_LEGACY_APK_VERSION` et
+`cookNoteAndroidVersion`, puis `npm run apps:update-all` reconstruit le site et
+l APK du meme numero avant commit.
 
 Publication Release GitHub, seulement sur demande explicite :
 
@@ -98,41 +100,17 @@ diagnostic. Elle ne doit pas etre utilisee comme workflow final de publication.
 - Images Legacy : miniatures de grille `480px` maximum, images de fiche
   `960px` maximum, JPEG recompresses via `jpeg-js`, decodees en `RGB_565`
   avec petit cache memoire
-- Interface : `GridView` recyclee en cartes image 16/9 proches du site, accueil
-  parent Android compact avec les fiches parents du site par defaut, recherche
-  simple sans filtres, fiche recette detaillee
-  proche du site avec hero 16/9, actions utiles dans le hero, grille
-  Ingredients/Etapes/Avant de commencer, infos rapides en pastilles allegees,
-  ingredients en lignes, copie ingredients, rattachements parents additionnels,
-  bouton natif de mise a jour, liste de courses locale, copie fiche, selecteur
-  de personnes, recherche intelligente sans filtres, navigation restaurable, swipe
-  retour bord gauche, recherche temporisee, prechargement images borne, decode
-  image serialise, coalescence chargements image, chargements visibles
-  coalesces, decodages visibles obsoletes ignores, images visibles prioritaires,
-  file image prioritaire, annulation prefetch obsolete, cache image normalise,
-  nettoyage vues recyclees, vues image recyclees detachees,
-  cibles image obsoletes liberees, images ecran detachees avant remplacement,
-  prechauffage images differe, position de grille
-  conservee, prechauffage visible apres scroll, annulation prechauffage en fling,
-  prefetch ralenti hors inertie, mots recherche predecoupes, fuzzy sans split,
-  allocations recherche reduites, cache resultats recherche borne,
-  requetes recentes reutilisees, classement recherche memoise, catalogue parent precompile, enfants parents preclasses,
-  compteurs collection caches, liberation memoire de liste, pile retour bornee, prefetch carte
-  borne, courses cochables, audit perf leger, ecran actif persistant, etapes numerotees, quantites ajustables,
-  courses fusionnees, preferences locales discretes, diagnostic hors ligne,
-  cache image adaptatif, scroll fluide, index recherche precompile, cartes
-  parent visibles, selecteurs natifs de preparation, Avant de commencer complet
-  derive des helpers web avec allergenes, materiel, poids moyens, timing,
-  recettes liees, conseils pratiques, notes restantes et fiche technique
-- Direction visuelle Android Legacy : refonte visuelle native premium sans
-  moteur web, header compact avec stats locales, grille `GridView` en cartes
-  image 16/9 tactiles recyclees, hero de fiche encadre, sections cadrees,
-  pastilles lisibles, etats presses natifs et actions principales/secondaires
-  distinguees
-- Theme Android Legacy : mode nuit premium unique, sans selecteur de theme ni
-  reglage visuel superflu, aucune WebView et aucun CSS web pour piloter l APK.
+- Interface : theme nuit premium unique, accueil sur les fiches parentes du site,
+  cartes image 16/9, fiche detaillee proche du site (Ingredients / Etapes / Avant
+  de commencer, infos rapides en pastilles), quantites ajustables, liste de
+  courses locale cochable et fusionnee, envoi de la liste vers un telephone par
+  QR code, navigation restaurable et bouton natif de mise a jour. Le detail des
+  regles est dans `COOK_NOTE_RULES.md` (section 8) ; les optimisations memoire,
+  image et recherche sont verifiees dans le code par `npm run validate:android`.
 
-Garde-fou lexical : workflow commun historique, fiche recette detaillee proche du site, grille Ingredients/Etapes/Avant de commencer, recherche simple sans filtres, recherche intelligente sans filtres, recherche temporisee, index recherche precompile, mots recherche predecoupes, fuzzy sans split, allocations recherche reduites, cache resultats recherche borne, requetes recentes reutilisees, classement recherche memoise, accueil parent Android, selecteurs natifs de preparation, selecteur de personnes, allergenes et poids moyens Android, navigation restaurable, swipe retour bord gauche, prechargement images borne, decode image serialise, coalescence chargements image, chargements visibles coalesces, decodages visibles obsoletes ignores, images visibles prioritaires, file image prioritaire, annulation prefetch obsolete, cache image normalise, nettoyage vues recyclees, vues image recyclees detachees, cibles image obsoletes liberees, images ecran detachees avant remplacement, prechauffage images differe, prechauffage visible apres scroll, annulation prechauffage en fling, prefetch ralenti hors inertie, catalogue parent precompile, enfants parents preclasses, compteurs collection caches, position de grille conservee, liberation memoire de liste, pile retour bornee, prefetch carte borne, courses cochables, courses fusionnees, quantites ajustables, preferences locales discretes, theme jour/nuit natif, diagnostic hors ligne, cache image adaptatif, scroll fluide, audit perf leger, cartes parent visibles, ecran actif persistant.
+Fonctions retirees et interdites : preferences locales discretes, diagnostic hors
+ligne, mode jour et reglages visuels ne reviennent ni dans l interface ni dans le
+code Android.
 
 La recherche Android Legacy reste volontairement basique : elle est fermee tant
 que l'utilisateur ne touche pas `Recherche`, puis affiche seulement un champ
@@ -174,8 +152,10 @@ android-legacy/app/build/outputs/apk/release/app-release.apk
 ```
 
 L APK distribue par le workflow officiel est un build `release`, signe avec la
-configuration debug locale du workflow manuel, avec R8 actif et ressources
-shrinkees.
+cle release stable `android-legacy/signing/cook-note-release.jks` (alias
+`cooknote`, mots de passe dans `android-legacy/signing/keystore.properties`,
+dossier hors Git), avec R8 actif et ressources shrinkees. Premiere APK avec
+cette cle : desinstaller une fois l ancienne app avant d installer.
 
 Publication explicite :
 

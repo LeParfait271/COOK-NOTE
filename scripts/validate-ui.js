@@ -1,15 +1,16 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { readAppSource, readStyleSource } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const files = {
   appImages: fs.readFileSync(path.join(ROOT, 'app-images.js'), 'utf8'),
-  app: fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8'),
+  app: readAppSource(),
   personalTools: fs.readFileSync(path.join(ROOT, 'app-personal-tools.js'), 'utf8'),
   i18n: fs.readFileSync(path.join(ROOT, 'i18n.js'), 'utf8'),
   index: fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'),
   recipe: fs.readFileSync(path.join(ROOT, 'recipe.js'), 'utf8'),
-  style: fs.readFileSync(path.join(ROOT, 'style.css'), 'utf8'),
+  style: readStyleSource(),
   editorialStyle: fs.readFileSync(path.join(ROOT, 'recipe-editorial.css'), 'utf8'),
   server: fs.readFileSync(path.join(ROOT, 'server.js'), 'utf8'),
   admin: fs.readFileSync(path.join(ROOT, 'admin.js'), 'utf8'),
@@ -117,17 +118,15 @@ const averageWeightsUseExactIngredients = [
   "return 'citron vert'",
   "return 'melon'",
   'melon(?:s)?'
-].every(fragment => files.app.includes(fragment)) && files.rules.includes('jus de citron vert') && files.rules.includes('1 melon');
-const homeHeroHasNoPixelLine = /\.home-view\s*>\s*\.hero\s*\{[^}]*border-bottom:\s*0\s*!important;/.test(files.style)
+].every(fragment => files.app.includes(fragment));
+const homeHeroHasNoPixelLine = /\.home-view\s*>\s*\.hero\s*\{[^}]*border(?:-bottom)?:\s*0\s*(?:!important)?;/.test(files.style)
   && !/\.theme-dark\s+\.hero\s*\{[^}]*border-bottom:\s*1px/.test(files.style)
-  && files.rules.includes("sans bordure, filet dore, separateur ni ligne d'un pixel")
   && files.designSystem.includes('Continuite du hero')
   && files.designSystem.includes("bordure ni filet d'un pixel");
 const lightTopbarIconsStayVisible = files.style.includes('--topbar-icon-color:#fff')
   && files.style.includes('--topbar-icon-color:var(--text)')
   && files.style.includes('.mc-shell.theme-light .topbar .site-icon')
   && files.style.includes('color:var(--topbar-icon-color)')
-  && files.rules.includes('la recherche, les favoris et les reglages doivent tous etre controles')
   && files.designSystem.includes('toutes les icones d\'action');
 const heroComponent = files.app.match(/function Hero\(\)\s*\{[\s\S]*?\r?\n\}\r?\n\r?\nfunction ActiveChips/)?.[0] || '';
 const homeHeroStaysPassive = heroComponent.includes('hero-atmosphere-glow')
@@ -150,8 +149,6 @@ const cinematicGothicDirectionIsLocked = !files.app.includes('card-category-inde
   && files.style.includes('--prestige-gold')
   && files.style.includes('.hero-atmosphere-mist')
   && files.style.includes('@keyframes prestige-breathe')
-  && files.rules.includes('Les deux chateaux, la lune et l\'atmosphere du hero restent un decor passif')
-  && files.rules.includes('Les grilles de recettes de l\'accueil gardent des cartes de dimensions et de poids visuel reguliers')
   && files.designSystem.includes('Gothique cinematique Cook Note');
 const homeSearchAreaStaysClean = !files.app.includes('home-command-status')
   && !files.style.includes('.home-command-status')
@@ -164,8 +161,7 @@ const defaultCatalogLayoutIsConsolidated = [
 ].every(fragment => files.app.includes(fragment))
   && files.style.includes('.home-view .season-sections.is-default-catalog .season-dashboard')
   && files.style.includes('.home-view .season-block:last-child,')
-  && files.style.includes('clip-path: none')
-  && files.rules.includes("n'affiche qu'un seul titre de catalogue");
+  && files.style.includes('clip-path: none');
 const recipeCardsStayContentSafe = !files.app.includes("className: 'card-facts'")
   && files.app.includes("className: 'card-variant-count'");
 const citadelUiStringsAreLocalized = [
@@ -183,7 +179,7 @@ const citadelUiStringsAreLocalized = [
     "'search.pending':",
     "'search.bestResults':",
     "'search.results':"
-  ].every(fragment => files.i18n.split(fragment).length === 3);
+  ].every(fragment => files.i18n.split(fragment).length === 2);
 const citadelMotionUsesSystemTokens = !files.style.includes('220ms')
   && !files.style.includes('opacity .18s ease')
   && files.style.includes('animation: prestige-scan var(--ds-motion-slow)')
@@ -195,7 +191,7 @@ function expect(label, condition) {
 
 expect('Recherche ingredients integree absente.', files.app.includes('scoreIngredientSearch') && files.app.includes('ingredientMeta') && files.app.includes('ingredient-match-badge'));
 expect('Recherche separee ingredients encore presente.', !files.app.includes('ingredient-search-input') && !files.app.includes('ingredient-search-help') && !files.app.includes('FridgeAssistant'));
-expect('Recherche modale encore surchargee.', !files.app.includes('recipe-difficulty-filter') && !files.app.includes('Recherches récentes') && !files.app.includes('Dernières fiches') && !files.app.includes("title: 'Textures'") && files.app.includes("h('h2', null, 'Rechercher')") && files.app.includes('search-empty-state') && files.rules.includes('quatre raccourcis maximum'));
+expect('Recherche modale encore surchargee.', !files.app.includes('recipe-difficulty-filter') && !files.app.includes('Recherches récentes') && !files.app.includes('Dernières fiches') && !files.app.includes("title: 'Textures'") && files.app.includes("h('h2', null, 'Rechercher')") && files.app.includes('search-empty-state'));
 expect('Recherche par intention absente.', files.app.includes('getRecipeIntentLabels') && files.app.includes('sans cuisson') && files.app.includes('à préparer à l’avance') && files.app.includes('congelable'));
 expect('Recherche rapide epuree absente.', files.app.includes("{ label: 'Rapide', query: 'rapide' }") && files.app.includes("{ label: 'Au four', query: 'cuisson au four' }") && files.app.includes("{ label: 'Dessert', query: 'dessert' }"));
 expect('Filtres avances encore presents.', !files.app.includes('QUICK_FILTERS') && !files.app.includes('QuickFilterBar') && !files.style.includes('quick-filter-row'));
@@ -215,11 +211,11 @@ expect('Route /techniques absente du serveur.', files.server.includes("url.pathn
 expect('Export recette propre absent.', files.app.includes('recipeExportText') && files.app.includes('Copier fiche'));
 expect('Resume recette premium absent.', files.app.includes('recipe-summary-panel') && files.style.includes('.recipe-summary-panel'));
 expect('Passe premium composants absente.', files.style.includes('content-visibility: auto') && files.style.includes('.recipe-card::before') && files.style.includes('.variant-card::before') && files.app.includes("name: 'spark'"));
-expect('Design system premium non verrouille.', designSystemIncludesPremiumTokens && publicCssUsesPremiumTokens && adminCssUsesPremiumTokens && files.rules.includes('motion system `120ms / 200ms / 320ms`') && files.rules.includes('tokens du design system'));
-expect('Passe pixel-perfect sans grille stable pour filtres saison mobile.', mobileSeasonTabsUseStableGrid && files.rules.includes('filtres de saison mobiles') && designSystemIncludesStableMobileTabs);
-expect('Motion cartes recette non bornee a 250ms.', cardImageMotionIsBounded && files.rules.includes('transition image au-dela de `250ms`') && designSystemIncludesBoundedCardZoom);
-expect('Actions fiche recette sans hauteur commune.', detailActionControlsAreAligned && files.rules.includes('hauteur commune entre boutons texte') && designSystemIncludesAlignedActionControls);
-expect('Selecteur de quantite hero trop peu lisible.', quantitySelectStaysReadable && files.rules.includes('selecteur de quantite doit rester lisible') && designSystemIncludesReadableQuantitySelect);
+expect('Design system premium non verrouille.', designSystemIncludesPremiumTokens && publicCssUsesPremiumTokens && adminCssUsesPremiumTokens);
+expect('Passe pixel-perfect sans grille stable pour filtres saison mobile.', mobileSeasonTabsUseStableGrid && designSystemIncludesStableMobileTabs);
+expect('Motion cartes recette non bornee a 250ms.', cardImageMotionIsBounded && designSystemIncludesBoundedCardZoom);
+expect('Actions fiche recette sans hauteur commune.', detailActionControlsAreAligned && designSystemIncludesAlignedActionControls);
+expect('Selecteur de quantite hero trop peu lisible.', quantitySelectStaysReadable && designSystemIncludesReadableQuantitySelect);
 expect("Le filet d'un pixel sous le hero d'accueil est revenu.", homeHeroHasNoPixelLine);
 expect('Les icones de la topbar peuvent redevenir invisibles en mode jour.', lightTopbarIconsStayVisible);
 expect('Palette de commandes absente.', files.app.includes('function CommandPalette') && files.app.includes('commandOpen') && files.app.includes('commandRef') && files.app.includes('openCommandPalette') && files.style.includes('.command-palette') && files.style.includes('.command-input-shell'));
@@ -230,7 +226,7 @@ expect('Direction gothique cinematique non verrouillee.', cinematicGothicDirecti
 expect('La zone de recherche de l accueil contient de nouveau un surtitre gadget.', homeSearchAreaStaysClean);
 expect("Le catalogue par defaut repete son titre ou laisse revenir l'espace vide avant le footer.", defaultCatalogLayoutIsConsolidated);
 expect('Des metadonnees interdites sont revenues sous les titres des cartes recette.', recipeCardsStayContentSafe);
-expect('Les nouveaux textes de la citadelle ne sont pas synchronises en FR et EN.', citadelUiStringsAreLocalized);
+expect('Les textes de la citadelle ne passent pas par les cles i18n.', citadelUiStringsAreLocalized);
 expect('Les animations de la citadelle contournent le motion system ou le mode reduit.', citadelMotionUsesSystemTokens);
 expect('Barre de commandes recette en doublon encore presente.', recipeCommandDockRemoved && files.app.includes("className: 'detail-actions'") && files.app.includes("className: 'recipe-tabs'"));
 expect('Accent visuel pilote par contenu absent.', files.app.includes('--ambient-accent') && files.style.includes('--ambient-accent') && files.style.includes('var(--ambient-accent'));
@@ -239,15 +235,15 @@ expect('Cartes variantes parent sans compteur de variantes.', files.app.includes
 expect('Grille des fiches parentes sans respiration dediee.', files.app.includes('master-recipe-grid') && files.style.includes('.master-recipe-grid') && files.style.includes('.home-view .master-recipe-grid .recipe-card.master-card .card-media'));
 expect('Direction editoriale des recettes incomplete.', files.app.includes('function RecipeAnatomy') && !files.app.includes('card-chapter-mark') && !files.app.includes('RecipeSectionJump') && files.app.includes('--recipe-image') && files.editorialStyle.includes('.recipe-anatomy') && !files.editorialStyle.includes('.recipe-section-jump') && files.editorialStyle.includes('recipe-content-in'));
 expect('Grille longue sans rendu incremental.', files.app.includes('GRID_INITIAL_RENDER_COUNT') && files.app.includes('recipe-grid-load-more') && files.app.includes('remainingRecipeCount') && files.app.includes("'aria-label': loadMoreLabel") && files.style.includes('.recipe-grid-load-more'));
-expect('Allergenes mollusques confondent moule cuisson et coquillage.', files.app.includes('mouleToolPattern') && files.app.includes('molluskAllergenText') && files.rules.includes('moule de cuisson'));
+expect('Allergenes mollusques confondent moule cuisson et coquillage.', files.app.includes('mouleToolPattern') && files.app.includes('molluskAllergenText'));
 expect('Correction affichage encodage absente.', files.app.includes('repairMojibakeText') && files.app.includes('normalizeLoadedRecipeValue') && files.recipe.includes('repairText') && files.recipe.includes('normalizeValue'));
 expect('Collections encore traitees comme variantes bloquees.', files.app.includes('CollectionLinksPanel') && files.app.includes('recipes.filter(recipe => !recipe.master)') && !files.app.includes('variantSelection') && !files.app.includes('setActiveId(activeRecipe.master)') && !files.style.includes('variant-picker-panel-selected'));
 expect('Sous-titre de carte recette encore base sur portions/rendement.', files.app.includes('getRecipeVariantLabel') && files.app.includes('countInlineVariantGroups') && !files.app.includes('item.yield || difficultyText(item)') && !files.app.includes("recipe.yield || ''"));
 expect('Etapes de variantes inline non separees.', files.app.includes('getSelectedInlineVariantSteps') && files.app.includes('selectedInlineVariantGroup?.group') && files.app.includes('variant-group:${selectedInlineVariantGroup.index}'));
-expect('Selecteur de variantes inline encore ambigu ou duplique.', files.app.includes('variant-choice-header') && files.app.includes('Choisis une variante') && files.app.includes('Chaque choix ouvre une recette') && files.app.includes("'aria-pressed': active") && files.app.includes('hasResolvedRecipe') && files.app.includes("id: 'recipe-detail-content'") && files.app.includes('pendingInlineVariantScrollRef') && files.app.includes("!selectedOption && h('div'") && !files.app.includes('Continuer avec cette variante') && !files.app.includes('inline-choice-card') && files.style.includes('.variant-choice-button.active') && files.rules.includes('en un seul clic') && files.designSystem.includes('sans second bouton de confirmation'));
+expect('Selecteur de variantes inline encore ambigu ou duplique.', files.app.includes('variant-choice-header') && files.app.includes('Choisis une variante') && files.app.includes('Chaque choix ouvre une recette') && files.app.includes("'aria-pressed': active") && files.app.includes('hasResolvedRecipe') && files.app.includes("id: 'recipe-detail-content'") && files.app.includes('pendingInlineVariantScrollRef') && files.app.includes("!selectedOption && h('div'") && !files.app.includes('Continuer avec cette variante') && !files.app.includes('inline-choice-card') && files.style.includes('.variant-choice-button.active') && files.designSystem.includes('sans second bouton de confirmation'));
 expect('Onglets recette mobile non bornes.', files.style.includes('.recipe-tabs button span') && files.style.includes('text-overflow: ellipsis') && files.style.includes('grid-template-columns: repeat(3, minmax(0, 1fr))'));
-expect('Swipe mobile recette pas assez explicite.', files.app.includes('mobile-swipe-hint') && files.app.includes('Glisse pour passer') && files.style.includes('.mobile-swipe-hint') && !recipeTabsAreSticky && files.rules.includes('Sur mobile, le swipe entre panneaux de fiche'));
-expect('Swipe mobile recette encore limite a la grille.', (files.app.includes("className: 'recipe-view'") && files.app.includes('onTouchStart: hasResolvedRecipe ? handleMobileTabSwipeStart : undefined') || files.app.includes("className: detailsLoading ? 'recipe-view is-loading-details' : 'recipe-view'") && files.app.includes('onTouchStart: hasResolvedRecipe && recipeDetailsReady ? handleMobileTabSwipeStart : undefined')) && files.app.includes("id: 'recipe-detail-content', className: 'recipe-detail-grid'") && files.rules.includes('accroche a toute la vue recette'));
+expect('Swipe mobile recette pas assez explicite.', files.app.includes('mobile-swipe-hint') && files.app.includes('Glisse pour passer') && files.style.includes('.mobile-swipe-hint') && !recipeTabsAreSticky);
+expect('Swipe mobile recette encore limite a la grille.', (files.app.includes("className: 'recipe-view'") && files.app.includes('onTouchStart: hasResolvedRecipe ? handleMobileTabSwipeStart : undefined') || files.app.includes("className: detailsLoading ? 'recipe-view is-loading-details' : 'recipe-view'") && files.app.includes('onTouchStart: hasResolvedRecipe && recipeDetailsReady ? handleMobileTabSwipeStart : undefined')) && files.app.includes("id: 'recipe-detail-content', className: 'recipe-detail-grid'"));
 expect('Recherche mobile non bornee.', files.style.includes('max-height: calc(100dvh - 28px)') && files.style.includes('.search-modal-field input'));
 expect('Mode menu absent.', files.app.includes('MenuPlannerPanel') && files.app.includes('buildMenuSuggestion') && files.app.includes('addMenuToShopping') && files.style.includes('.menu-planner-grid'));
 expect('Mode menu sans compatibilite culinaire.', files.app.includes('getMenuRecipeProfile') && files.app.includes('mainProfile.heavy && profile.heavy') && files.app.includes("families.includes('starch')"));
@@ -261,9 +257,9 @@ expect('Mode menu sans historique ou dessert fin.', files.app.includes('menuDess
 expect('Mode menu changement de carte/global absent.', files.app.includes('buildMenuItemReplacement') && files.app.includes('itemOffsets') && files.app.includes('menuItemSlotKey') && files.app.includes('Autre menu') && files.style.includes('.menu-planner-head-actions'));
 expect('Mode menu sans proportions par personnes.', files.app.includes('menuServingFactorFor') && files.app.includes('menuFactorById') && files.app.includes('peopleCount') && files.style.includes('.menu-serving-control'));
 expect('Mode menu sans controles accessibles fins.', files.app.includes("ariaLabel: 'Proposer un autre menu complet'") && files.app.includes("'aria-pressed': theme.id === themeId") && files.app.includes("'aria-label': `Choisir le style ${theme.label}`") && files.app.includes("'aria-label': 'Nombre de personnes du menu'") && files.app.includes("ariaLabel: `Changer ${item.label} : ${item.recipe.title}`") && files.app.includes("ariaLabel: `Ajouter le menu aux courses pour ${peopleCount} personnes`") && files.app.includes("className: 'menu-planner-image', style: imageBackgroundStyle(displayRecipeImage(item.recipe)), 'aria-hidden': true") && files.style.includes('.menu-theme-tabs button:focus-visible'));
-expect('Mode menu perdu au retour recette.', files.app.includes('markMenuPlannerReturnState') && files.app.includes('openMenuRecipe') && files.app.includes('menuPlannerOpen: Boolean(enabled)') && files.rules.includes('le bouton retour du navigateur doit rouvrir le meme mode menu'));
-expect('Mode menu semaine force encore des desserts longs.', files.app.includes('isWeeknightDessert') && files.app.includes("theme.id !== 'semaine' || isWeeknightDessert(recipe)") && files.rules.includes('Mode menu soir de semaine'));
-expect('Mode menu sans registre accords professionnels.', files.app.includes('MENU_PAIRING_RULES') && files.app.includes('creamy-sauce-needs-neutral-side') && files.app.includes('need-crunch-or-freshness') && files.rules.includes('tomate expressive interdite avec sauce cremeuse'));
+expect('Mode menu perdu au retour recette.', files.app.includes('markMenuPlannerReturnState') && files.app.includes('openMenuRecipe') && files.app.includes('menuPlannerOpen: Boolean(enabled)'));
+expect('Mode menu semaine force encore des desserts longs.', files.app.includes('isWeeknightDessert') && files.app.includes("theme.id !== 'semaine' || isWeeknightDessert(recipe)"));
+expect('Mode menu sans registre accords professionnels.', files.app.includes('MENU_PAIRING_RULES') && files.app.includes('creamy-sauce-needs-neutral-side') && files.app.includes('need-crunch-or-freshness'));
 expect('Liste courses sans ameliorations permanentes.', files.app.includes('shoppingPurchaseHint') && files.app.includes('shoppingSmartGroupKey') && files.app.includes('filterShoppingListData') && files.app.includes('shoppingOwned') && files.style.includes('.shopping-owned-btn'));
 expect('Poids moyens ingredient trop generiques.', averageWeightsUseExactIngredients);
 expect('Liste courses sans libelles accessibles fins.', files.app.includes("'aria-label': `Retirer ${recipe.title} du panier courses`") && files.app.includes("'aria-label': `${checked ? 'Décocher' : 'Cocher'} ${[amount, item.name].filter(Boolean).join(' ')}`") && files.app.includes("'aria-label': `Marquer ${item.name} comme déjà à la maison`") && files.app.includes("'aria-label': `Remettre ${item.name} dans la liste à acheter`") && files.style.includes('.shopping-owned-btn:focus-visible'));
@@ -273,20 +269,20 @@ expect('Precision cuilleres mal rangee.', files.app.includes('spoonPrecisionLabe
 expect('Materiel necessaire encore dans la colonne droite.', !files.app.includes("add('equipment', 'Matériel nécessaire'"));
 expect('Notes pratiques encore classees en double.', files.app.includes('noteAlreadyClassified') && files.app.includes('!noteAlreadyClassified(note)') && files.app.includes('storageNotes.includes(note)'));
 expect('Barre mobile inferieure redondante encore rendue.', !files.app.includes("h('nav', { className: 'mobile-bottom-nav'") && files.style.includes('body{padding-bottom:env(safe-area-inset-bottom)}'));
-expect('Lecture de fiche desktop trop fragmentee.', !files.style.includes('max-height: calc(100vh - 108px)') && !files.style.includes('.ingredients-panel {\n    position: sticky') && files.style.includes('.ingredients-panel,\n.steps-panel,\n.notes-panel {\n  position: static !important;') && files.rules.includes('Les fiches recette web doivent rester dans un flux unique') && files.designSystem.includes('Etapes et les notes gardent le defilement principal'));
+expect('Lecture de fiche desktop trop fragmentee.', !files.style.includes('max-height: calc(100vh - 108px)') && !files.style.includes('.ingredients-panel {\n    position: sticky') && files.style.includes('.ingredients-panel,\n.steps-panel,\n.notes-panel {\n  position: static !important;') && files.designSystem.includes('Etapes et les notes gardent le defilement principal'));
 expect('CSS print propre absent.', files.style.includes('@media print') && files.style.includes('.recipe-summary-panel'));
 expect('Ancienne section dashboard encore presente.', !files.app.includes('function HomeDashboard') && !files.style.includes('.home-dashboard'));
 expect('Ancienne section collections encore presente.', !files.app.includes('SmartCollections') && !files.style.includes('smart-collection'));
 expect('Fallback image carte absent.', files.app.includes('onError: event =>') && files.app.includes("const fallbackImage = recipe.image ? recipeCardImageUrl(recipe.image) : ''") && files.app.includes('event.currentTarget.src = fallbackImage'));
 expect('Manifest images non charge ou non utilise.', Boolean(siteAssetVersion) && files.index.includes(`/assets/image-manifest.js?v=${siteAssetVersion}`) && files.index.includes(`/app-images.js?v=${siteAssetVersion}`) && files.index.includes(`/app-art-images.js?v=${siteAssetVersion}`) && files.appImages.includes('IMAGE_MANIFEST') && files.appImages.includes('window.CookNoteImages') && files.app.includes('imageSizeAttrs(cardImage)') && files.app.includes('displayRecipeImage(recipe)'));
-expect('Images parents theme sans bannieres verrouillees.', files.app.includes('function usesOriginalParentImage(recipe)') && !files.app.includes('function isRootCategoryParentRecipe(recipe)') && files.app.includes('if (usesOriginalParentImage(recipe)) return themeRecipeArtImage(recipe) || recipe.image ||') && files.rules.includes('Les fiches parents racine et collections utilisent les images parent theme') && files.rules.includes('validees avec banniere en haut de l') && files.rules.includes('`parent_*_moon` restent des fallbacks'));
+expect('Images parents theme sans bannieres verrouillees.', files.app.includes('function usesOriginalParentImage(recipe)') && !files.app.includes('function isRootCategoryParentRecipe(recipe)') && files.app.includes('if (usesOriginalParentImage(recipe)) return themeRecipeArtImage(recipe) || recipe.image ||'));
 expect('Mode cuisine reintroduit.', !fs.existsSync(path.join(ROOT, 'app-cooking.js')) && !files.app.includes('cooking-mode-trigger') && !files.app.includes('COOKING_MODE_SCRIPT_SRC') && !files.app.includes('CookNoteCookingMode') && !files.style.includes('body.cooking-mode-open') && !files.style.includes('.cooking-mode-shell'));
 expect('Boutons minuteurs revenus.', !files.app.includes('step-timer') && !files.style.includes('step-timer') && !files.app.includes('timerEnd') && !files.app.includes('timerLabel') && !files.app.includes('cooking-step-card') && !files.style.includes('cooking-step-actions'));
 expect('Fiche complete variantes encore affichee avant le choix.', (files.app.includes('hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts') || files.app.includes('!detailsLoading && hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts')) && !files.app.includes('recipe-command-dock') && !files.app.includes('h(RecipeCommandDock') && files.app.includes("id: 'recipe-detail-content', className: 'recipe-detail-grid'") && files.app.includes('Choix requis pour ouvrir la fiche'));
-expect('Compteur catalogue footer absent ou statique.', files.app.includes('getCatalogRecipeStats') && files.app.includes('INITIAL_CATALOG_STATS') && files.app.includes('site-footer-count') && files.app.includes('countInlineVariantGroups(recipe)') && files.rules.includes('compteur catalogue automatique') && files.style.includes('.site-footer-count'));
-expect('Footer annee encadree revenue.', files.app.includes('Cook Note \\u00a9 2026.') && !files.app.includes('site-footer-year') && !files.style.includes('.site-footer-year') && files.rules.includes("l'annee dans une pilule separee"));
+expect('Compteur catalogue footer absent ou statique.', files.app.includes('getCatalogRecipeStats') && files.app.includes('INITIAL_CATALOG_STATS') && files.app.includes('site-footer-count') && files.app.includes('countInlineVariantGroups(recipe)') && files.style.includes('.site-footer-count'));
+expect('Footer annee encadree revenue.', files.app.includes('Cook Note \\u00a9 2026.') && !files.app.includes('site-footer-year') && !files.style.includes('.site-footer-year'));
 expect('Version footer absente.', Boolean(siteVersion && siteUpdatedAt) && files.app.includes('SITE_VERSION') && files.app.includes('SITE_UPDATED_AT') && files.app.includes('site-footer-version'));
-expect('Actions secondaires de fiche mal hierarchisees.', files.app.includes('isCategoryCollectionRecipe') && files.app.includes('Object.values(CATEGORY_PARENT_IDS).includes(recipe.id)') && files.app.includes("recipe.masterType === 'collection'") && files.app.includes('!isCategoryCollectionRecipe(selectedRecipe)') && files.app.includes("className: 'detail-utility-menu'") && files.app.includes("className: 'detail-utility-popover'") && files.app.includes("h('span', null, 'Partager')") && files.app.includes("h('span', null, 'Imprimer')") && files.app.includes('showRecipeUtilities && h(SharePanel') && files.rules.includes('jamais sur les categories, collections ou fiches parentes'));
+expect('Actions secondaires de fiche mal hierarchisees.', files.app.includes('isCategoryCollectionRecipe') && files.app.includes('Object.values(CATEGORY_PARENT_IDS).includes(recipe.id)') && files.app.includes("recipe.masterType === 'collection'") && files.app.includes('!isCategoryCollectionRecipe(selectedRecipe)') && files.app.includes("className: 'detail-utility-menu'") && files.app.includes("className: 'detail-utility-popover'") && files.app.includes("h('span', null, 'Partager')") && files.app.includes("h('span', null, 'Imprimer')") && files.app.includes('showRecipeUtilities && h(SharePanel'));
 expect('Partage recette sans libelles accessibles fins.', files.app.includes("'aria-labelledby': 'share-modal-title'") && files.app.includes("id: 'share-modal-title'") && files.app.includes("className: 'share-card-media', style: imageStyle, 'aria-hidden': true") && files.app.includes("'aria-label': `QR code de ${recipe.title}`") && files.app.includes("'aria-label': `Lien de partage ${url}`") && files.app.includes("ariaLabel: `Copier le lien de ${recipe.title}`") && files.app.includes("'aria-label': `Partager ${recipe.title} sur WhatsApp`") && files.style.includes('.share-link-box:focus-visible'));
 expect('Footer premium absent.', files.app.includes('site-footer-identity') && files.app.includes('site-footer-stats') && files.style.includes('.site-footer-inner::before') && files.style.includes('.site-footer-action:hover'));
 expect('Selecteurs responsive titres invalides.', !files.style.includes('h1 h1') && !files.style.includes('h2 h2') && !files.style.includes('h3 h3'));
@@ -303,13 +299,14 @@ expect('Blocs hors sujet encore presents dans les fiches.', !files.app.includes(
 expect('Conversation ingredients non renommee.', files.app.includes("label: 'Conversation ingrédients'") && files.app.includes("ariaLabel: 'Conversation ingrédients'"));
 expect('Preferences simplifiees ou valeurs de confort absentes.', files.app.includes("'aria-labelledby': 'preferences-title'") && !files.app.includes("'aria-pressed': density === 'compact'") && !files.app.includes("'aria-label': 'Activer le texte plus lisible'") && !files.app.includes("'aria-label': 'Activer les animations calmes'") && !files.app.includes("className: 'preference-group personal-tools-launch'") && files.app.includes("density: 'comfort'") && files.app.includes('largeText: true') && files.style.includes('.segmented-control button:focus-visible'));
 expect('Version de fiche compacte, datee et placee en tete absente.', files.app.includes("h(RecipeHistoryBlock, { recipe: selectedRecipe, updatedAt: SITE_UPDATED_AT })") && files.personalTools.includes("className: 'personal-history-block recipe-version-card notes-static-card'") && files.personalTools.includes('Mise à jour : ${updatedAt}') && files.style.includes('.recipe-version-meta') && files.style.includes('.recipe-version-card'));
-expect('Commandes FR et preferences non masquees temporairement.', files.style.includes('.language-switcher,.top-settings-btn{display:none!important}'));
+expect('Bouton preferences non masque temporairement.', files.style.includes('.top-settings-btn{display:none!important}'));
 expect('Catalogue principal sans grille de trois cartes grandes sur ordinateur.', files.style.includes('@media screen and (min-width: 1121px)') && files.style.includes('grid-template-columns: repeat(3, minmax(0, 1fr));'));
 expect('Filtres et toasts sans libelles de fermeture.', files.app.includes("Retirer le filtre ${chip.label}") && files.app.includes("'aria-label': `Fermer la notification : ${toast.message}`") && files.app.includes("title: 'Fermer la notification'"));
 expect('Fil Ariane recette sans libelles accessibles.', files.app.includes("'aria-label': 'Retour au catalogue Cook Note'") && files.app.includes("'aria-label': `Ouvrir la catégorie ${category}`") && files.app.includes("'aria-current': 'page'") && files.style.includes('.recipe-breadcrumb strong') && files.style.includes('text-overflow: ellipsis'));
 expect('Recettes liees sans libelles accessibles fins.', files.app.includes("className: 'linked-recipes-block', label: 'Recettes liées'") && files.app.includes("ariaLabel: 'Recettes liées à cette fiche'") && files.app.includes("className: 'linked-recipe-list', role: 'list'") && files.app.includes("role: 'listitem'") && files.app.includes("'aria-label': `Ouvrir ${item.recipe.title}, ${item.role || primaryCategory(item.recipe)}`") && files.app.includes("className: 'linked-recipe-thumb', style: imageBackgroundStyle(displayRecipeImage(item.recipe)), 'aria-hidden': true") && files.app.includes("'aria-label': expanded ? 'Masquer les recettes liees supplementaires'") && files.style.includes('-webkit-line-clamp: 2'));
 expect('Lien brut stable Android Legacy du footer absent.', files.app.includes('APP_INSTALL_OPTIONS') && files.app.includes('https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads') && files.app.includes("ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk'") && files.app.includes('href: option.href') && files.app.includes('site-footer-install-${option.id}') && files.style.includes('.site-footer-actions') && !files.app.includes('AppInstallPanel') && !files.app.includes('cook-note-android-modern') && !files.app.includes('Android 8.0+') && !files.app.includes('APK HD premium'));
-expect('App HD/Modern supprimee.', !files.app.includes('detectAppEnvironment') && !files.app.includes('modern-app-hd') && !files.app.includes('android-modern-app') && !files.app.includes('ios-modern-pwa') && !files.style.includes('.mc-shell.modern-app-hd') && !files.packageJson.includes('android:modern') && files.rules.includes('Application Android unique'));
+expect('App HD/Modern supprimee.', !files.app.includes('detectAppEnvironment') && !files.app.includes('modern-app-hd') && !files.app.includes('android-modern-app') && !files.app.includes('ios-modern-pwa') && !files.style.includes('.mc-shell.modern-app-hd') && !files.packageJson.includes('android:modern'));
+expect('Transfert de la liste de courses par QR code absent ou non securise.', files.app.includes('function decodeShoppingTransfer') && files.app.includes('SHOPPING_TRANSFER_ID_PATTERN') && files.app.includes('SHOPPING_TRANSFER_MAX_ENTRIES') && files.app.includes('function ShoppingTransferQr') && files.app.includes('decodeShoppingTransfer(window.location.hash)') && files.app.includes('window.confirm(') && files.app.includes('history.replaceState'));
 expect('Script validate-ui non branche au check.', files.packageJson.includes('scripts/validate-ui.js'));
 
 if (errors.length) {

@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { readAppSource } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const errors = [];
@@ -43,7 +44,7 @@ expect('Format degustation absent.', tools.SERVICE_FORMATS?.tasting?.factor === 
 expect('Consigne de conservation validee non reprise.', tools.getRestaurantStorageGuidance({ practical: { storage: ['48h au froid.'] } })[0] === '48h au froid.');
 expect('Une consigne de conservation a ete inventee.', tools.getRestaurantStorageGuidance({ notes: ['Servir chaud.'] }).length === 0);
 
-const app = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
+const app = readAppSource();
 const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 expect('Module personnel non chargé avant app.js.', index.indexOf('src="/app-personal-tools.js') > -1 && index.indexOf('src="/app-personal-tools.js') < index.indexOf('src="/app.js'));
 expect('Sauvegarde du profil matériel absente.', app.includes('STORAGE_KEYS.equipmentProfile'));

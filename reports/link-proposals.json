@@ -1,0 +1,523 @@
+{
+  "recipesHash": "bf1c56d44d6b783977e2eb621350acf19f0f015433d5a17cd20d3e42e0ec9314",
+  "proposals": [
+    {
+      "id": "asperges_vertes_lard",
+      "title": "Asperges vertes au lard grillé",
+      "target": "mayonnaise_maison",
+      "targetTitle": "Mayonnaise",
+      "evidence": "45g mayonnaise"
+    },
+    {
+      "id": "batonnets_polenta_parmesan",
+      "title": "Bâtonnets croustillants de polenta au parmesan",
+      "target": "chapelures_variantes",
+      "targetTitle": "Chapelures",
+      "evidence": "80g chapelure panko"
+    },
+    {
+      "id": "cabillaud_crumble_chorizo",
+      "title": "Cabillaud au four, crumble de chorizo",
+      "target": "chapelures_variantes",
+      "targetTitle": "Chapelures",
+      "evidence": "40g chapelure"
+    },
+    {
+      "id": "carpaccio_betterave_mozzarella_yuzu",
+      "title": "Carpaccio betterave mozzarella yuzu",
+      "target": "vinaigrette",
+      "targetTitle": "Vinaigrette",
+      "evidence": "Napper de vinaigrette et finir avec les herbes."
+    },
+    {
+      "id": "carre_d_agneau_croute_d_herbes",
+      "title": "Carré d’agneau croûte d’herbes",
+      "target": "chapelures_variantes",
+      "targetTitle": "Chapelures",
+      "evidence": "40g chapelure"
+    },
+    {
+      "id": "cassolette_crevettes_ravioles_persil",
+      "title": "Cassolette de crevettes et ravioles au persil",
+      "target": "chapelures_variantes",
+      "targetTitle": "Chapelures",
+      "evidence": "20g de chapelure fine ou panko"
+    },
+    {
+      "id": "cassoulet",
+      "title": "Cassoulet",
+      "target": "chapelures_variantes",
+      "targetTitle": "Chapelures",
+      "evidence": "80g chapelure"
+    },
+    {
+      "id": "charlotte_variantes",
+      "title": "Charlotte",
+      "target": "meringues_variantes",
+      "targetTitle": "Meringues",
+      "evidence": "80g sucre pour la meringue"
+    },
+    {
+      "id": "chou_vert_sauce_tomate",
+      "title": "Chou vert en sauce tomate",
+      "target": "coulis_maitre",
+      "targetTitle": "Coulis",
+      "evidence": "350g coulis de tomate"
+    },
+    {
+      "id": "choux_craquelin",
+      "title": "Choux au craquelin",
+      "target": "craquelin_cacao",
+      "targetTitle": "Craquelin cacao",
+      "evidence": "Abaisser craquelin 2mm, détailler disques."
+    },
+    {
+      "id": "cocktail_crevettes_palace",
+      "title": "Cocktail de crevettes Palace",
+      "target": "court_bouillon",
+      "targetTitle": "Court-bouillon",
+      "evidence": "500g bouillon de poisson"
+    },
+    {
+      "id": "cocktail_crevettes_palace",
+      "title": "Cocktail de crevettes Palace",
+      "target": "mayonnaise_maison",
+      "targetTitle": "Mayonnaise",
+      "evidence": "80g mayonnaise"
+    },
+    {
+      "id": "cookies_sucres_variantes",
+      "title": "Cookies sucrés",
+      "target": "cerises_sechees_maison",
+      "targetTitle": "Cerises séchées",
+      "evidence": "100g cerises séchées hachées"
+    },
+    {
+      "id": "coq_au_vin",
+      "title": "Coq au vin",
+      "target": "beurre_clarifie",
+      "targetTitle": "Beurre clarifié",
+      "evidence": "80g beurre clarifié"
+    },
+    {
+      "id": "cotelettes_porc_miel_moutarde",
+      "title": "Côtelettes de porc miel moutarde",
+      "target": "fond_de_veau",
+      "targetTitle": "Fond de veau",
+      "evidence": "250ml de fond de veau ou fond brun de volaille réduit"
+    },
+    {
+      "id": "creme_beurre_meringue_italienne",
+      "title": "Crème au beurre meringue italienne",
+      "target": "meringues_variantes",
+      "targetTitle": "Meringues",
+      "evidence": "Réaliser une meringue italienne (sirop 121°C versé sur blancs mousseux) puis incorporer délicatement à la crème au beurre."
+    },
+    {
+      "id": "creme_diplomate_variantes",
+      "title": "Crème diplomate",
+      "target": "cremes_patissieres_variantes",
+      "targetTitle": "Crèmes pâtissières",
+      "evidence": "— Crème pâtissière —"
+    },
+    {
+      "id": "cremes_patissieres_variantes",
+      "title": "Crèmes pâtissières",
+      "target": "creme_beurre_meringue_italienne",
+      "targetTitle": "Crème au beurre meringue italienne",
+      "evidence": "300g crème au beurre (environ)"
+    },
+    {
+      "id": "croque_madame",
+      "title": "Croque-madame",
+      "target": "pain_mie",
+      "targetTitle": "Pain de mie",
+      "evidence": "4 tranches pain de mie"
+    },
+    {
+      "id": "croquettes_pommes_de_terre",
+      "title": "Croquettes de pommes de terre",
+      "target": "chapelures_variantes",
+      "targetTitle": "Chapelures",
+      "evidence": "120g chapelure"
+    },
+    {
+      "id": "currys_carnivores_variantes",
+      "title": "Currys carnivores",
+      "target": "coulis_maitre",
+      "targetTitle": "Coulis",
+      "evidence": "300g coulis de tomate"
+    },
+    {
+      "id": "filet_mignon_porc_farci_epinards",
+      "title": "Filet mignon de porc farci aux épinards",
+      "target": "fond_de_veau",
+      "targetTitle": "Fond de veau",
+      "evidence": "200g fond de veau préparé"
+    },
+    {
+      "id": "filet_mignon_porc_farci_epinards",
+      "title": "Filet mignon de porc farci aux épinards",
+      "target": "pain_mie",
+      "targetTitle": "Pain de mie",
+      "evidence": "100g pain de mie"
+    },
+    {
+      "id": "creme_amande_citron",
+      "title": "Fond de tarte amande",
+      "target": "pates_tarte_variantes",
+      "targetTitle": "Pâtes à tarte",
+      "evidence": "Étaler environ 5mm dans le fond de tarte et cuire jusqu’à coloration moelleuse."
+    },
+    {
+      "id": "frites_variantes",
+      "title": "Frites",
+      "target": "sauce_tartare",
+      "targetTitle": "Sauce tartare",
+      "evidence": "Mayonnaise, sauce tartare ou sauce andalouse"
+    },
+    {
+      "id": "gaufres_pommes_terre",
+      "title": "Gaufres de pommes de terre croustillantes",
+      "target": "beurre_clarifie",
+      "targetTitle": "Beurre clarifié",
+      "evidence": "Beurre clarifié ou ghee selon besoin"
+    },
+    {
+      "id": "gougeres",
+      "title": "Gougères au fromage",
+      "target": "sauces_fromage_variantes",
+      "targetTitle": "Sauces au fromage",
+      "evidence": "Pour la sauce Mornay, porter le lait à ébullition avec le sel fin, le poivre du moulin et la muscade."
+    },
+    {
+      "id": "gratins_chou_fleur_variantes",
+      "title": "Gratins de chou-fleur",
+      "target": "chapelures_variantes",
+      "targetTitle": "Chapelures",
+      "evidence": "— Chapelure noisette —"
+    },
+    {
+      "id": "joues_mijotees_variantes",
+      "title": "Joues mijotées",
+      "target": "fond_de_veau",
+      "targetTitle": "Fond de veau",
+      "evidence": "400ml fond de veau"
+    },
+    {
+      "id": "macaron_ourea_pierre_herme",
+      "title": "Macaron Ouréa",
+      "target": "cremes_patissieres_variantes",
+      "targetTitle": "Crèmes pâtissières",
+      "evidence": "35g praliné noisette"
+    },
+    {
+      "id": "macaron_ourea_pierre_herme",
+      "title": "Macaron Ouréa",
+      "target": "meringues_variantes",
+      "targetTitle": "Meringues",
+      "evidence": "55g blancs d’œufs pour meringue"
+    },
+    {
+      "id": "compotee_citron",
+      "title": "Marmelade citron",
+      "target": "pates_tarte_variantes",
+      "targetTitle": "Pâtes à tarte",
+      "evidence": "Étaler en couche fine sur un fond de tarte cuit."
+    },
+    {
+      "id": "oeuf_parfait_croutons_lard",
+      "title": "Œuf parfait, croûtons et lard croustillant",
+      "target": "pain_mie",
+      "targetTitle": "Pain de mie",
+      "evidence": "1 tranche épaisse de pain de mie d’environ 40g"
+    },
+    {
+      "id": "oeufs_mimosa_variantes",
+      "title": "Œufs mimosa",
+      "target": "mayonnaise_maison",
+      "targetTitle": "Mayonnaise",
+      "evidence": "60g mayonnaise"
+    },
+    {
+      "id": "okonomiyaki_chou",
+      "title": "Okonomiyaki au chou",
+      "target": "mayonnaise_maison",
+      "targetTitle": "Mayonnaise",
+      "evidence": "Mayonnaise selon goût"
+    },
+    {
+      "id": "opera",
+      "title": "Opéra",
+      "target": "creme_beurre_meringue_italienne",
+      "targetTitle": "Crème au beurre meringue italienne",
+      "evidence": "Découper trois carrés de biscuit de 20cm. Poser le premier dans un cadre, le puncher et étaler une couche régulière de crème au beurre café."
+    },
+    {
+      "id": "osso_buco",
+      "title": "Osso buco de veau",
+      "target": "fond_de_veau",
+      "targetTitle": "Fond de veau",
+      "evidence": "30cl fond de veau ou bouillon"
+    },
+    {
+      "id": "pain_perdu",
+      "title": "Pain perdu",
+      "target": "pain_mie",
+      "targetTitle": "Pain de mie",
+      "evidence": "6 tranches de pain de mie rassis ou de brioche"
+    },
+    {
+      "id": "pains_ail_variantes",
+      "title": "Pains à l’ail",
+      "target": "chapelures_variantes",
+      "targetTitle": "Chapelures",
+      "evidence": "50g chapelure fine"
+    },
+    {
+      "id": "parmentier_confit_canard_patates_douces",
+      "title": "Parmentier de confit de canard et patates douces",
+      "target": "chapelures_variantes",
+      "targetTitle": "Chapelures",
+      "evidence": "20g chapelure"
+    },
+    {
+      "id": "pate_choux",
+      "title": "Pâte à choux",
+      "target": "craquelin_cacao",
+      "targetTitle": "Craquelin cacao",
+      "evidence": "Pocher des couronnes de 7cm, poser le craquelin puis cuire à 170°C pendant 40 à 45min."
+    },
+    {
+      "id": "pate_tartiner_noisette_praline",
+      "title": "Pâte à tartiner noisette et praliné",
+      "target": "cremes_patissieres_variantes",
+      "targetTitle": "Crèmes pâtissières",
+      "evidence": "Mixer 100g de noisettes avec le caramel cassé en éclats jusqu’à obtenir un praliné fluide. Réserver."
+    },
+    {
+      "id": "pate_en_croute_noel",
+      "title": "Pâté en croûte de Noël",
+      "target": "chapelures_variantes",
+      "targetTitle": "Chapelures",
+      "evidence": "20g chapelure panko"
+    },
+    {
+      "id": "quichette_thon_parmesan",
+      "title": "Quichette au thon et parmesan",
+      "target": "pates_tarte_variantes",
+      "targetTitle": "Pâtes à tarte",
+      "evidence": "200g pâte brisée"
+    },
+    {
+      "id": "rouille_haut_de_gamme",
+      "title": "Rouille",
+      "target": "mayonnaise_maison",
+      "targetTitle": "Mayonnaise",
+      "evidence": "Verser l’huile neutre très progressivement en fouettant comme une mayonnaise."
+    },
+    {
+      "id": "salade_cesar",
+      "title": "Salade César",
+      "target": "mayonnaise_maison",
+      "targetTitle": "Mayonnaise",
+      "evidence": "Fouetter en incorporant progressivement l’huile de colza, comme pour une mayonnaise."
+    },
+    {
+      "id": "salade_cesar",
+      "title": "Salade César",
+      "target": "pain_mie",
+      "targetTitle": "Pain de mie",
+      "evidence": "50g croûtons de pain de mie"
+    },
+    {
+      "id": "salade_epinards_clementines_amande_feta",
+      "title": "Salade epinards clementines amande feta",
+      "target": "vinaigrette",
+      "targetTitle": "Vinaigrette",
+      "evidence": "Préparer vinaigrette huile, vinaigre, miel et poivre du moulin."
+    },
+    {
+      "id": "salade_melon_mozzarella_jambon_cru",
+      "title": "Salade melon, mozzarella et jambon cru",
+      "target": "vinaigrette",
+      "targetTitle": "Vinaigrette",
+      "evidence": "Sel fin pour vinaigrette"
+    },
+    {
+      "id": "salade_piemontaise",
+      "title": "Salade piémontaise",
+      "target": "mayonnaise_maison",
+      "targetTitle": "Mayonnaise",
+      "evidence": "150g mayonnaise"
+    },
+    {
+      "id": "sauce_estragon",
+      "title": "Sauce à l’estragon",
+      "target": "fond_de_veau",
+      "targetTitle": "Fond de veau",
+      "evidence": "200g fond de veau préparé"
+    },
+    {
+      "id": "sauce_au_porto",
+      "title": "Sauce au porto",
+      "target": "fond_de_veau",
+      "targetTitle": "Fond de veau",
+      "evidence": "200g fond de veau préparé"
+    },
+    {
+      "id": "sauce_deux_moutardes_fromage_blanc",
+      "title": "Sauce aux deux moutardes et fromage blanc",
+      "target": "mayonnaise_maison",
+      "targetTitle": "Mayonnaise",
+      "evidence": "30g mayonnaise"
+    },
+    {
+      "id": "sauce_aux_morilles",
+      "title": "Sauce aux morilles",
+      "target": "fond_de_veau",
+      "targetTitle": "Fond de veau",
+      "evidence": "750g fond de veau brun préparé"
+    },
+    {
+      "id": "sauce_aux_poivres",
+      "title": "Sauce aux poivres",
+      "target": "fond_de_veau",
+      "targetTitle": "Fond de veau",
+      "evidence": "250ml de fond de veau brun réduit"
+    },
+    {
+      "id": "sauce_bordelaise",
+      "title": "Sauce bordelaise",
+      "target": "fond_de_veau",
+      "targetTitle": "Fond de veau",
+      "evidence": "200g fond de veau préparé"
+    },
+    {
+      "id": "sauce_bourguignonne",
+      "title": "Sauce bourguignonne",
+      "target": "fond_de_veau",
+      "targetTitle": "Fond de veau",
+      "evidence": "200g fond de veau lié préparé"
+    },
+    {
+      "id": "sauce_chasseur",
+      "title": "Sauce chasseur",
+      "target": "fond_de_veau",
+      "targetTitle": "Fond de veau",
+      "evidence": "200g fond de veau préparé"
+    },
+    {
+      "id": "sauce_perigueux",
+      "title": "Sauce Périgueux",
+      "target": "fond_de_veau",
+      "targetTitle": "Fond de veau",
+      "evidence": "200g fond de veau préparé"
+    },
+    {
+      "id": "sauce_remoulade",
+      "title": "Sauce rémoulade",
+      "target": "mayonnaise_maison",
+      "targetTitle": "Mayonnaise",
+      "evidence": "250g mayonnaise"
+    },
+    {
+      "id": "sauce_yaourt_citronnee",
+      "title": "Sauce yaourt citronnée",
+      "target": "mayonnaise_maison",
+      "targetTitle": "Mayonnaise",
+      "evidence": "15g mayonnaise"
+    },
+    {
+      "id": "sauces_burger_variantes",
+      "title": "Sauces burger",
+      "target": "mayonnaise_maison",
+      "targetTitle": "Mayonnaise",
+      "evidence": "Mayonnaise selon la texture souhaitée"
+    },
+    {
+      "id": "smash_burger",
+      "title": "Smash Burger et buns briochés",
+      "target": "beurre_clarifie",
+      "targetTitle": "Beurre clarifié",
+      "evidence": "Beurre clarifié pour la cuisson"
+    },
+    {
+      "id": "souffle_fromage",
+      "title": "Soufflé au fromage",
+      "target": "sauces_fromage_variantes",
+      "targetTitle": "Sauces au fromage",
+      "evidence": "Débarrasser la sauce, la laisser tiédir, puis incorporer l’emmental râpé pour obtenir une sauce Mornay."
+    },
+    {
+      "id": "tarte_fraises_timut",
+      "title": "Tarte aux fraises et poivre Timut",
+      "target": "cremes_patissieres_variantes",
+      "targetTitle": "Crèmes pâtissières",
+      "evidence": "Étaler une couche régulière de compotée dans le fond froid. Ajouter la crème pâtissière jusqu’au bord, puis disposer harmonieusement les fraises fraîches lavées, parfaitement séchées et découpées. Réserver au frais jusqu’au service."
+    },
+    {
+      "id": "tarte_citron_meringuee",
+      "title": "Tarte citron meringuée",
+      "target": "creme_amande_citron",
+      "targetTitle": "Fond de tarte amande",
+      "evidence": "10g fécule pour crème d’amande"
+    },
+    {
+      "id": "tarte_citron_meringuee",
+      "title": "Tarte citron meringuée",
+      "target": "meringues_variantes",
+      "targetTitle": "Meringues",
+      "evidence": "Meringue italienne cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement."
+    },
+    {
+      "id": "tarte_citron_meringuee",
+      "title": "Tarte citron meringuée",
+      "target": "pates_tarte_variantes",
+      "targetTitle": "Pâtes à tarte",
+      "evidence": "Pâte sucrée assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler."
+    },
+    {
+      "id": "tarte_abricots_amandes_romarin",
+      "title": "Tartes aux abricots et aux amandes",
+      "target": "pate_sucree",
+      "targetTitle": "Pâte sucrée",
+      "evidence": "Préparer la pâte sucrée en mélangeant le beurre mou, le sucre glace et le sel."
+    },
+    {
+      "id": "tarte_abricots_amandes_romarin",
+      "title": "Tartes aux abricots et aux amandes",
+      "target": "pates_tarte_variantes",
+      "targetTitle": "Pâtes à tarte",
+      "evidence": "Saupoudrer poudre d’amandes, sucre et pincée de sel sur le fond de tarte."
+    },
+    {
+      "id": "tiramisu_variantes",
+      "title": "Tiramisu",
+      "target": "coulis_maitre",
+      "targetTitle": "Coulis",
+      "evidence": "— Coulis —"
+    },
+    {
+      "id": "tiramisu_variantes",
+      "title": "Tiramisu",
+      "target": "creme_citron_lemon_curd",
+      "targetTitle": "Crème citron",
+      "evidence": "— Crème citron —"
+    },
+    {
+      "id": "tomates_farcies",
+      "title": "Tomates farcies",
+      "target": "pain_mie",
+      "targetTitle": "Pain de mie",
+      "evidence": "100g pain de mie"
+    },
+    {
+      "id": "tomates_provencales",
+      "title": "Tomates provençales",
+      "target": "chapelures_variantes",
+      "targetTitle": "Chapelures",
+      "evidence": "25g chapelure"
+    }
+  ]
+}

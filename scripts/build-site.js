@@ -9,13 +9,15 @@ if (!terser || typeof (terser.minify_sync || terser.minify) !== 'function') {
   throw new Error('Dependance terser absente. Lancez npm ci avant npm run build.');
 }
 
+const { APP_MODULES, buildStyleSheet } = require('./lib/app-modules');
+
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
 
 const ROOT_FILES = [
   '_headers',
   '_redirects',
-  'app.js',
+  ...APP_MODULES,
   'app-techniques.js',
   'app-premium.js',
   'app-personal-tools.js',
@@ -51,6 +53,7 @@ const ASSET_FILES = [
 
 const ASSET_DIRS = [
   'brand',
+  'fonts',
   'recipes/cards',
   'recipes/heroes',
   'theme',
@@ -118,6 +121,12 @@ function minifyCss(code) {
 function copyFile(relative) {
   const source = path.join(ROOT, relative);
   const destination = path.join(DIST, relative);
+  if (relative === 'style.css') {
+    // Feuille publique assemblee depuis styles/ (voir STYLE_MODULES).
+    ensureParent(destination);
+    fs.writeFileSync(destination, minifyCss(buildStyleSheet(ROOT)), 'utf8');
+    return;
+  }
   if (!fs.existsSync(source)) throw new Error(`${relative}: fichier source introuvable.`);
   ensureParent(destination);
   if (relative === 'service-worker.js') {
@@ -278,6 +287,31 @@ function staticRecipeImage(recipe) {
   const themedFile = String(themed).split('?')[0].replace(/^\/+/, '');
   if (!fs.existsSync(path.join(ROOT, themedFile))) return source;
   return themed;
+}
+
+// Copie AVIF d'une image servie (scripts/generate-avif.js), '' si absente.
+function avifImage(image) {
+  const avif = String(image || '').replace(/\.(?:jpe?g|png)(\?.*)?$/i, '.avif$1');
+  return avif !== image && fs.existsSync(path.join(ROOT, avif.split('?')[0].replace(/^\/+/, ''))) ? avif : '';
+}
+
+// Prechargement de l'image principale au format que la page affichera : l'AVIF
+// quand il existe (type="image/avif" : ignore par les navigateurs sans AVIF).
+function imagePreloadLink(image) {
+  const avif = avifImage(image);
+  return avif
+    ? `  <link rel="preload" as="image" href="${escapeHtml(avif)}" type="image/avif" fetchpriority="high" />`
+    : `  <link rel="preload" as="image" href="${escapeHtml(image)}" fetchpriority="high" />`;
+}
+
+// Fond pre-rendu : JPG pour tous, puis image-set() AVIF que seuls les
+// navigateurs compatibles retiennent (la seconde declaration est ignoree sinon).
+function backgroundImageCss(overlay, image) {
+  const jpg = `background-image:${overlay}, url('${escapeHtml(image)}')`;
+  const avif = avifImage(image);
+  return avif
+    ? `${jpg};background-image:${overlay}, image-set(url('${escapeHtml(avif)}') type('image/avif'), url('${escapeHtml(image)}'))`
+    : jpg;
 }
 
 function absoluteImageUrl(recipe) {
@@ -482,7 +516,7 @@ function renderVariantCards(recipe, recipes) {
       const image = staticRecipeImage({ ...variant, id: ref.id });
       return [
         `<a class="variant-card" style="--card-accent:${escapeHtml(categoryColor(variant))}" href="${recipeUrl(variant.id)}">`,
-        `<span class="variant-card-bg" style="background-image:linear-gradient(180deg, rgba(4,4,5,.22), rgba(4,4,5,.82)), url('${escapeHtml(image)}')"></span>`,
+        `<span class="variant-card-bg" style="${backgroundImageCss('linear-gradient(180deg, rgba(4,4,5,.22), rgba(4,4,5,.82))', image)}"></span>`,
         '<span class="variant-card-body">',
         `<span class="eyebrow">${escapeHtml(primaryCategory(variant))}</span>`,
         `<strong>${escapeHtml(title)}</strong>`,
@@ -526,7 +560,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
   const accent = categoryColor(fullRecipe);
   const description = recipeDescription(fullRecipe);
   const image = staticRecipeImage(fullRecipe);
-  const heroStyle = `--accent:${accent};--accent-2:${accent};background-image:linear-gradient(90deg, rgba(4,4,5,.92), rgba(4,4,5,.50)), url('${escapeHtml(image)}')`;
+  const heroStyle = `--accent:${accent};--accent-2:${accent};${backgroundImageCss('linear-gradient(90deg, rgba(4,4,5,.92), rgba(4,4,5,.50))', image)}`;
   const variants = renderVariantCards(fullRecipe, recipes);
   const facts = [
     difficultyText(fullRecipe),
@@ -563,8 +597,8 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     '  <link rel="manifest" href="/manifest.json" />',
     '  <link rel="icon" href="/assets/brand/mark.svg" type="image/svg+xml" />',
     '  <link rel="apple-touch-icon" href="/assets/brand/app-icon.png" data-art-asset="appIcon" data-art-target="href" />',
-    '  <link rel="preload" as="image" href="/assets/theme/dark/global/background.jpg" fetchpriority="high" data-art-asset="background" data-art-target="href" />',
-    image && `  <link rel="preload" as="image" href="${escapeHtml(image)}" fetchpriority="high" />`,
+    '  <link rel="preload" as="image" href="/assets/theme/dark/global/background.avif" type="image/avif" fetchpriority="high" data-art-asset="background" data-art-target="href" />',
+    image && imagePreloadLink(image),
     `  <script>window.COOK_NOTE_ASSET_VERSION = '${version}';</script>`,
     `  <script src="/theme.js?v=${version}"></script>`,
     `  <link rel="stylesheet" href="/style.css?v=${version}" />`,
@@ -609,7 +643,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `    window.COOK_NOTE_PRERENDERED_RECIPES = ${safeJson(routeRecipes)};`,
     '    window.RECIPES = Object.assign(window.RECIPES || {}, window.COOK_NOTE_PRERENDERED_RECIPES);',
     '  </script>',
-    `  <script src="/app.js?v=${version}"></script>`,
+    ...APP_MODULES.map(file => `  <script src="/${file}?v=${version}"></script>`),
     '  <script>',
     "    if ('serviceWorker' in navigator) {",
     `      window.addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js?v=${version}').catch(() => {}));`,
