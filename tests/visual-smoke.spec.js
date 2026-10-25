@@ -344,6 +344,77 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
+  test('variant sheet switches variant inline and checks steps by tapping them', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/cookies_sales_variantes');
+    await waitForCookNote(page);
+
+    await page.locator('.variant-choice-button').filter({ hasText: 'comté' }).click();
+    const variantSwitch = page.locator('.recipe-variant-switch');
+    await expect(variantSwitch).toBeVisible();
+    await expect(variantSwitch.getByRole('button')).toHaveCount(2);
+    await expect(variantSwitch.getByRole('button', { name: 'comté' })).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.steps-panel .progress-label')).toHaveCount(0);
+
+    await variantSwitch.getByRole('button', { name: 'jambon-fromage' }).click();
+    await expect(variantSwitch.getByRole('button', { name: 'jambon-fromage' })).toHaveAttribute('aria-pressed', 'true');
+
+    const stepsTab = page.locator('.recipe-tabs');
+    if (await stepsTab.isVisible()) await stepsTab.getByRole('tab', { name: /Étapes/i }).click();
+    const firstStep = page.locator('.step-list li').first();
+    expect(await firstStep.locator('input[type="checkbox"]').evaluate(input => getComputedStyle(input).opacity)).toBe('0');
+    await firstStep.locator('.step-number').click();
+    await expect(firstStep).toHaveClass(/done/);
+
+    // Sous le hero, la couleur de categorie (rouge pour l'Apero) laisse place a l'or.
+    const linkColor = await page.locator('.recipe-detail-grid').evaluate(node => getComputedStyle(node).getPropertyValue('--accent').trim());
+    expect(linkColor).not.toBe('#b51f30');
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test('recipe sheet aligns quantities and links steps to their ingredients', async ({ page }, testInfo) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/cassoulet');
+    await waitForCookNote(page);
+
+    const firstLine = page.locator('.ingredients-panel .ingredient-line').first();
+    await expect(firstLine.locator('.ingredient-qty')).toHaveText(/650\s*g/);
+    await expect(firstLine.locator('.ingredient-name')).toContainText('haricots');
+
+    if (testInfo.project.name === 'desktop') {
+      const step = page.locator('.step-list li').filter({ hasText: 'carotte, oignon' }).first();
+      await step.hover();
+      const linked = page.locator('.ingredients-panel li.is-linked');
+      await expect(linked.filter({ hasText: 'carotte' })).toHaveCount(1);
+      await expect(linked.filter({ hasText: 'oignon' })).toHaveCount(1);
+      await expect(linked.filter({ hasText: 'chapelure' })).toHaveCount(0);
+    }
+
+    await page.locator('.recipe-detail-grid').scrollIntoViewIfNeeded();
+    await page.mouse.wheel(0, 900);
+    await expect(page.locator('#topbar-context .topbar-recipe-title.is-visible')).toHaveText('Cassoulet');
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test('search shows visual tiles and category pages open like a chapter', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/sauces_maitre');
+    await waitForCookNote(page);
+    await expect(page.locator('.collection-chapter-intro')).toContainText('Sauces');
+    await expect(page.locator('.collection-chapter-figures > div')).not.toHaveCount(0);
+
+    await page.goto('/');
+    await waitForCookNote(page);
+    await page.locator('.home-search-launcher').click();
+    await page.locator('#recipe-search-input').fill('poulet');
+    const tile = page.locator('.search-modal .search-result').first();
+    await expect(tile).toBeVisible();
+    await expect(tile.locator('.search-result-meta')).toContainText('·');
+    const box = await tile.locator('.search-result-image').boundingBox();
+    expect(box && box.width > box.height).toBe(true);
+    await expect(page.locator('.search-recent')).toHaveCount(0);
+  });
+
   test('secondary recipe notes stay in accessible expandable boxes', async ({ page }) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/acras_epinards');

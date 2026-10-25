@@ -245,6 +245,28 @@ function ScrollProgress() {
   return h('div', { ref: progressRef, className: 'scroll-progress', 'aria-hidden': true });
 }
 
+// Bascule jour/nuit : le nouveau theme se devoile en cercle depuis le bouton
+// (View Transitions). Sans support ou en mouvement reduit, bascule immediate.
+function revealThemeToggle(event, activeTheme, toggleTheme) {
+  const root = document.documentElement;
+  const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  if (typeof document.startViewTransition !== 'function' || reduceMotion) {
+    toggleTheme();
+    return;
+  }
+  const rect = event.currentTarget.getBoundingClientRect();
+  const x = rect.left + rect.width / 2;
+  const y = rect.top + rect.height / 2;
+  const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+  root.style.setProperty('--theme-reveal-x', `${x}px`);
+  root.style.setProperty('--theme-reveal-y', `${y}px`);
+  root.style.setProperty('--theme-reveal-r', `${Math.ceil(radius)}px`);
+  root.classList.add('theme-reveal');
+  // toggleTheme applique le theme et rend React de facon synchrone (flushSync).
+  const transition = document.startViewTransition(() => toggleTheme());
+  transition.finished.finally(() => root.classList.remove('theme-reveal'));
+}
+
 function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences, activeTheme, toggleTheme, homeActive = false, searchActive = false, favoritesActive = false }) {
   const themeToggleLabel = activeTheme === 'light' ? 'Passer en mode nuit' : 'Passer en mode jour';
 
@@ -252,7 +274,8 @@ function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences
     h('div', { className: 'top-left' },
       h(Button, { variant: 'subtle', className: homeActive ? 'icon-square active' : 'icon-square', onClick: onHome, title: 'Accueil', ariaLabel: 'Accueil', current: homeActive ? 'page' : undefined }, h(Icon, { name: 'home' }))
     ),
-    h('div', { className: 'top-actions', 'aria-hidden': true }),
+    // Emplacement central : la fiche ouverte y affiche son titre au defilement.
+    h('div', { className: 'top-actions', id: 'topbar-context' }),
     h('div', { className: 'top-right' },
       h(Button, {
         variant: 'ghost',
@@ -274,7 +297,7 @@ function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences
       h(Button, {
         variant: 'ghost',
         className: 'theme-toggle-btn icon-square',
-        onClick: toggleTheme,
+        onClick: event => revealThemeToggle(event, activeTheme, toggleTheme),
         title: themeToggleLabel,
         ariaLabel: themeToggleLabel,
         pressed: activeTheme === 'light'
@@ -327,6 +350,15 @@ function recipeViewTransitionName(recipeId) {
 
 const WARMED_HERO_IMAGES = new Set();
 
+// Reflet lumineux qui suit la souris sur une carte (souris uniquement, via CSS).
+function trackCardGlare(event) {
+  if (event.pointerType !== 'mouse') return;
+  const card = event.currentTarget;
+  const rect = card.getBoundingClientRect();
+  card.style.setProperty('--glare-x', `${Math.round(((event.clientX - rect.left) / rect.width) * 100)}%`);
+  card.style.setProperty('--glare-y', `${Math.round(((event.clientY - rect.top) / rect.height) * 100)}%`);
+}
+
 // Intention d'ouverture (survol, focus, toucher) : on prepare les donnees de la
 // fiche et son image principale, pour une ouverture instantanee.
 function warmRecipeOnIntent(preloadRecipe, recipeId, heroImage = '') {
@@ -370,6 +402,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     tabIndex: 0,
     role: 'button',
     onPointerEnter: warmRecipe,
+    onPointerMove: trackCardGlare,
     onFocus: warmRecipe,
     onTouchStart: warmRecipe,
     'aria-label': `Ouvrir ${recipe.title}`,
@@ -382,6 +415,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     }
   },
     renderCardImage && h('span', { className: 'card-ambilight', 'aria-hidden': true }),
+    h('span', { className: 'card-glare', 'aria-hidden': true }),
     h('div', { className: 'card-media', style: transitionName ? { viewTransitionName: transitionName } : undefined },
       renderCardImage && h('img', {
         className: 'card-image',
@@ -881,7 +915,7 @@ function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
       url,
       description,
       text: `${recipe.title} - Cook Note\n${description}\n${url}`,
-      imageStyle: imageUrl ? { backgroundImage: `url("${imageUrl}")` } : {},
+      imageStyle: imageUrl ? { backgroundImage: cssImageValue(imageUrl) } : {},
       imageUrl
     };
   }, [open, recipe, shareUrl]);

@@ -1215,8 +1215,7 @@
   line-height: 1.45;
 }
 
-.ingredient-group input,
-.step-list input {
+.ingredient-group input {
   appearance: none;
   display: grid;
   place-items: center;
@@ -1229,8 +1228,7 @@
   transition: background var(--speed), border-color var(--speed), box-shadow var(--speed);
 }
 
-.ingredient-group input::before,
-.step-list input::before {
+.ingredient-group input::before {
   content: "";
   width: 9px;
   height: 5px;
@@ -1240,15 +1238,13 @@
   transform: rotate(-45deg) translateY(-1px);
 }
 
-.ingredient-group input:checked,
-.step-list input:checked {
+.ingredient-group input:checked {
   border-color: transparent;
   background: var(--panel-accent, var(--accent));
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--panel-accent, var(--accent)) 16%, transparent);
 }
 
-.ingredient-group input:checked::before,
-.step-list input:checked::before {
+.ingredient-group input:checked::before {
   opacity: 1;
 }
 
@@ -1257,24 +1253,9 @@
   color: color-mix(in srgb, var(--text) 58%, var(--muted));
 }
 
-.progress-label {
-  display: inline-flex;
-  align-items: center;
-  min-height: 30px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  color: var(--muted);
-  padding: 0 10px;
-  font-weight: 900;
-}
 
-.steps-panel-tools {
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 8px;
-  align-items: center;
-}
+
+
 
 .progress-track {
   height: 8px;

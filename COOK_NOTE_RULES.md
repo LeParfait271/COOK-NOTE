@@ -296,7 +296,25 @@ Sommaire :
   communs, dark mode equilibre, motion system `120ms / 200ms / 320ms`, focus
   visible permanent, support de `prefers-reduced-motion`. Les principes premium
   (Silent Design, premiere impression, etc.) y sont detailles : retirer ce qui
-  attire l'attention sans valeur avant d'ajouter un effet, sans animation gadget.
+  attire l'attention sans valeur avant d'ajouter un effet.
+- Mouvements « high-tech » admis s'ils servent la cuisine et restent sobres :
+  ils reagissent a un geste (defilement, survol, bascule), restent natifs et
+  legers (View Transitions, animations liees au defilement, Web Animations, sans
+  bibliotheque 3D), se coupent sous `prefers-reduced-motion` et ne genent jamais
+  la lecture d'une fiche. En place : devoilement circulaire jour/nuit, titre de
+  la fiche dans la barre du haut au defilement, image du hero qui recule,
+  apparition des cartes et panneaux au defilement, reflet lumineux qui suit la
+  souris sur les cartes, graisse variable des titres, vignette qui file vers le
+  bouton a l'ajout aux courses.
+- Ingredients en deux colonnes : quantite et unite (`splitIngredientQuantity`)
+  a gauche en chiffres reguliers, nom a droite ; sans quantite, le nom prend
+  toute la ligne. Survoler ou focaliser une etape eclaire les ingredients qu'elle
+  cite, et inversement (`ingredientLinkWords`).
+- Recherche : resultats en vignettes 16/9 (image, categorie, temps total,
+  rendement).
+- Pages categorie : ouverture de chapitre avec une phrase par categorie
+  (`COLLECTION_INTROS`) et des reperes chiffres calcules (faciles, de saison),
+  informatifs, sans filtre ni outil de comparaison.
 - Les nouveaux styles utilisent les tokens du design system (couleurs, spacing,
   radius, ombres, typo, motion) ; une valeur locale n'est admise que pour une
   mesure de layout non reutilisable.
@@ -375,6 +393,20 @@ Sommaire :
   `Conserver` (conservation, rechauffage) et `Maitriser` (repere, a savoir,
   fiches ingredients, erreurs, resultat attendu), sur le site comme dans l'APK.
   `Ingredients utiles` s'appelle `Conversation ingredients`.
+- `Avant de commencer` est une seule surface : blocs et lignes separes par des
+  filets fins, jamais de carte dans la carte. La version de la fiche est une
+  mention d'une ligne en pied de colonne.
+- Couleurs de la fiche : la couleur de categorie reste une touche discrete du
+  hero (filet bas) ; l'action principale, le selecteur de portions et tout le
+  contenu sous le hero (liens, astuces, reperes, variante choisie) utilisent l'or
+  de la marque. Le rouge (`--ds-alert`) est reserve aux vraies alertes, comme les
+  allergenes.
+- Fiche a variantes : le bandeau sous la fiche rapide est le selecteur
+  `Variante` (onglets alignes sur la grille) ; l'en-tete `Etapes` ne repete pas
+  la variante. Les fiches sans variante gardent le bandeau des phases.
+- Etapes : pas de case a cocher visible ; toucher l'etape (numero ou texte) la
+  marque faite, numero barre et texte attenue, la case restant accessible au
+  clavier.
 - Sur mobile, ces informations passent par l'onglet/encart mobile, jamais par une
   fausse etape. Le swipe entre panneaux est accroche a toute la vue recette.
 - Flux unique sans defilement interne : `Ingredients`, `Etapes` et `Avant de

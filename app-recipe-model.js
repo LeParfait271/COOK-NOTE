@@ -830,6 +830,40 @@ function scaleIngredient(text, factor) {
   return `${formatNumber(first * factor)}${rest}`;
 }
 
+// Separe la quantite (nombre et unite de mesure) du nom de l'ingredient pour
+// l'affichage en deux colonnes. Un nom compte (4 gousses d'ail) reste a droite.
+const INGREDIENT_QUANTITY_RE = /^(?:≈\s*)?(?:\d+(?:[.,]\d+)?(?:\/\d+)?|[½¼¾⅓⅔])(?:\s*(?:[–—-]|à)\s*\d+(?:[.,]\d+)?(?:\/\d+)?)?\s*(?:(?:kg|mg|g|cl|dl|ml|l|cs|cc)(?=[\s,(]|$)|c\.\s*à\s*(?:soupe|café|s\.|c\.)|cuill[eè]res?\s+à\s+(?:soupe|café)|pinc[ée]es?(?=[\s,(]|$)|verres?(?=[\s,(]|$)|sachets?(?=[\s,(]|$))?(?=[\s,(]|$)/i;
+
+function splitIngredientQuantity(text) {
+  const value = String(text || '').trim();
+  const match = value.match(INGREDIENT_QUANTITY_RE);
+  if (!match) return null;
+  const name = value.slice(match[0].length).replace(/^[\s,]+/, '');
+  if (!name) return null;
+  return { quantity: match[0].trim(), name };
+}
+
+// Liens ingredients <-> etapes : mots porteurs du nom d'un ingredient, compares
+// aux mots de chaque etape (pluriel simple ignore).
+const INGREDIENT_LINK_STOPWORDS = new Set(('de du des la le les au aux et ou en un une pour avec sans sur selon gout '
+  + 'frais fraiche fraiches hache hachee haches hachees cisele ciselee ciseles rape rapee rapes coupe coupee coupes '
+  + 'fin fine fines gros grosse grosses petit petite petits petites moyen moyenne moyens entier entiere entiers mou molle '
+  + 'doux douce sec seche secs seches tiede froid froide chaud chaude option optionnel optionnelle facultatif environ bio '
+  + 'nature blanc blanche blancs noir noire rouge rouges vert verte verts jaune jaunes liquide epais epaisse pincee pincees '
+  + 'tranche tranches morceau morceaux branche branches brin brins feuille feuilles gousse gousses bouquet botte zeste jus '
+  + 'poudre moulu moulue cuit cuite cuits cru crue trempe trempes confit confite confites emince emincee emincees fondu fondue '
+  + 'extra vierge qualite type maison base reste pate').split(' '));
+
+function ingredientLinkStem(word) {
+  return word.length > 4 ? word.replace(/(?:s|x)$/, '') : word;
+}
+
+function ingredientLinkWords(text) {
+  return [...new Set(normalizeText(stripHtml(text)).split(/[^a-z0-9]+/)
+    .filter(word => word.length >= 3 && !INGREDIENT_LINK_STOPWORDS.has(word) && !/^\d/.test(word))
+    .map(ingredientLinkStem))];
+}
+
 function scaleYieldDisplay(text, factor) {
   const value = String(text || '');
   if (factor === 1 || !value) return value;

@@ -349,9 +349,10 @@
   function RecipeHistoryBlock({ recipe, updatedAt }) {
     if (!recipe) return null;
     const version = /^\d+\.\d{2}$/.test(String(recipe.recipeVersion || '')) ? recipe.recipeVersion : '1.00';
+    // Mention discrete en pied de colonne, sur une ligne.
     return h('section', { className: 'personal-history-block recipe-version-card notes-static-card', 'aria-label': 'Version de la fiche' },
-      h('p', { className: 'eyebrow' }, 'Version de la fiche'),
-      h('div', { className: 'recipe-version-meta' },
+      h('p', { className: 'recipe-version-meta' },
+        h('span', null, 'Version de la fiche '),
         h('strong', { className: 'recipe-version-value' }, `v${version}`),
         updatedAt && h('small', null, `Mise à jour : ${updatedAt}`)
       )

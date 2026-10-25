@@ -1,3 +1,36 @@
+// Ajout aux courses : une vignette du plat file en arc jusqu'au bouton, qui
+// emet une onde doree. Rien en mouvement reduit ou sans Web Animations.
+function playAddToShoppingEffect(button, hero) {
+  if (!button?.animate || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+  const target = button.getBoundingClientRect();
+  const image = hero?.querySelector('.recipe-detail-hero-image');
+  const source = image?.getBoundingClientRect();
+  const imageUrl = image?.currentSrc || image?.getAttribute('src') || '';
+  if (source && imageUrl && source.bottom > 0) {
+    const size = 64;
+    const startX = Math.min(Math.max(source.left + source.width * 0.7, size), window.innerWidth - size) - size / 2;
+    const startY = Math.max(source.top + Math.min(source.height, window.innerHeight) * 0.4, size) - size / 2;
+    const endX = target.left + target.width / 2 - size / 2;
+    const endY = target.top + target.height / 2 - size / 2;
+    const flyer = document.createElement('div');
+    flyer.className = 'shopping-flyer';
+    flyer.setAttribute('aria-hidden', 'true');
+    flyer.style.backgroundImage = `url("${imageUrl}")`;
+    document.body.appendChild(flyer);
+    const lift = Math.min(160, Math.abs(endY - startY) * 0.6 + 60);
+    flyer.animate([
+      { transform: `translate(${startX}px, ${startY}px) scale(1)`, opacity: 0 },
+      { transform: `translate(${startX}px, ${startY}px) scale(1)`, opacity: 1, offset: 0.12 },
+      { transform: `translate(${(startX + endX) / 2}px, ${Math.min(startY, endY) - lift}px) scale(0.75)`, opacity: 1, offset: 0.55 },
+      { transform: `translate(${endX}px, ${endY}px) scale(0.2)`, opacity: 0.2 }
+    ], { duration: 720, easing: 'cubic-bezier(.55, 0, .35, 1)' }).finished.finally(() => flyer.remove());
+  }
+  button.animate([
+    { boxShadow: '0 0 0 0 color-mix(in oklch, var(--ds-gold) 70%, transparent)' },
+    { boxShadow: '0 0 0 16px color-mix(in oklch, var(--ds-gold) 0%, transparent)' }
+  ], { duration: 640, delay: 560, easing: 'ease-out' });
+}
+
 function RecipeView({
   recipe,
   isFavorite,
@@ -47,6 +80,11 @@ function RecipeView({
   const mobileSwipeStartRef = useRef(null);
   const pendingInlineVariantScrollRef = useRef(false);
   const completedRef = useRef('');
+  const heroRef = useRef(null);
+  // Survol ou focus d'une etape (ou d'un ingredient) : met en relief l'autre colonne.
+  const [linkFocus, setLinkFocus] = useState(null);
+  const [topbarSlot, setTopbarSlot] = useState(null);
+  const [heroOutOfView, setHeroOutOfView] = useState(false);
   const inlineVariantOptions = useMemo(() => getInlineVariantOptions(recipe), [recipe]);
   const needsInlineVariantSelection = inlineVariantOptions.length > 0;
   const selectedInlineVariantGroup = needsInlineVariantSelection
@@ -88,7 +126,26 @@ function RecipeView({
     ingredientCards.length ? 'ingredientGuide' : ''
   ].filter(Boolean);
   const notesCount = recipeAllergens.length + averageWeights.length + linkedRecipes.length + practicalSections.length + displayNotes.length + flavorMap.length + ingredientCards.length;
-  const selectedGroupLabel = selectedInlineVariantGroup?.label || selectedInlineVariantGroup?.group?.group || '';
+  const stepsByIngredient = useMemo(() => {
+    if (!canShowSteps) return {};
+    const stepWords = displaySteps.map(step => new Set(ingredientLinkWords(step)));
+    const links = {};
+    (selectedRecipe.ingredients || []).forEach((group, groupIndex) => (group.items || []).forEach((item, itemIndex) => {
+      const parts = splitIngredientQuantity(stripHtml(item));
+      const words = ingredientLinkWords(parts ? parts.name : item);
+      const steps = stepWords.reduce((found, set, index) => (words.some(word => set.has(word)) ? [...found, index] : found), []);
+      if (steps.length) links[`${detailKey}:ingredient:${groupIndex}:${itemIndex}`] = steps;
+    }));
+    return links;
+  }, [stepScopeKey, canShowSteps]);
+  const isIngredientLinked = key => linkFocus?.type === 'step' && Boolean(stepsByIngredient[key]?.includes(linkFocus.index));
+  const isStepLinked = index => linkFocus?.type === 'ingredient' && Boolean(stepsByIngredient[linkFocus.key]?.includes(index));
+  const linkHandlers = (focus, enabled = true) => (enabled ? {
+    onMouseEnter: () => setLinkFocus(focus),
+    onMouseLeave: () => setLinkFocus(null),
+    onFocus: () => setLinkFocus(focus),
+    onBlur: () => setLinkFocus(null)
+  } : {});
   const nextStepIndex = displaySteps.findIndex((_, index) => !checked[`${stepScopeKey}:step:${index}`]);
   const mobileTabOrder = ['ingredients', 'steps', 'notes'];
 
@@ -115,6 +172,19 @@ function RecipeView({
       return mobileTabOrder[nextIndex];
     });
   }
+
+  // Titre de la fiche dans la barre du haut des que le hero sort de l'ecran.
+  useEffect(() => {
+    setTopbarSlot(document.getElementById('topbar-context'));
+  }, []);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero || typeof IntersectionObserver !== 'function') return undefined;
+    const observer = new IntersectionObserver(([entry]) => setHeroOutOfView(!entry.isIntersecting), { rootMargin: '-72px 0px 0px 0px' });
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, [recipe.id]);
 
   useEffect(() => {
     setFactor(1);
@@ -144,6 +214,18 @@ function RecipeView({
     completedRef.current = stepScopeKey;
     runConfettiBurst();
   }, [stepScopeKey, doneSteps, stepTotal]);
+
+  // Ingredient en deux colonnes : quantite alignee a gauche, nom a droite.
+  function renderIngredientLine(text) {
+    const parts = splitIngredientQuantity(text);
+    if (!parts) return h('span', { className: 'ingredient-line no-quantity' }, h('span', { className: 'ingredient-name' }, renderLinkedText(text, inlineTargets, openRecipe, techniqueTargets, openTechnique)));
+    // L'espace entre les colonnes garde une lecture continue (lecteur d'ecran, copie).
+    return h('span', { className: 'ingredient-line' },
+      h('span', { className: 'ingredient-qty' }, parts.quantity),
+      ' ',
+      h('span', { className: 'ingredient-name' }, renderLinkedText(parts.name, inlineTargets, openRecipe, techniqueTargets, openTechnique))
+    );
+  }
 
   function toggle(key) {
     setCheckedWithHistory(prev => ({ ...prev, [key]: !prev[key] }));
@@ -215,7 +297,16 @@ function RecipeView({
     onTouchStart: hasResolvedRecipe && recipeDetailsReady ? handleMobileTabSwipeStart : undefined,
     onTouchEnd: hasResolvedRecipe && recipeDetailsReady ? handleMobileTabSwipeEnd : undefined
   },
+    topbarSlot && ReactDOM.createPortal(h('button', {
+      type: 'button',
+      className: heroOutOfView ? 'topbar-recipe-title is-visible' : 'topbar-recipe-title',
+      'aria-hidden': heroOutOfView ? undefined : 'true',
+      tabIndex: heroOutOfView ? 0 : -1,
+      title: 'Revenir en haut de la fiche',
+      onClick: () => window.scrollTo({ top: 0, behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+    }, h('span', null, displayedRecipeTitle)), topbarSlot),
     h('section', {
+      ref: heroRef,
       className: heroImage ? (isCollectionHero ? 'recipe-detail-hero has-photo parent-hero' : 'recipe-detail-hero has-photo') : 'recipe-detail-hero',
       style: undefined
     },
@@ -266,7 +357,16 @@ function RecipeView({
           h(QuantityFactorControl, { recipe: selectedRecipe, factor, setFactor, className: 'detail-quantity-control' })
         ),
          hasResolvedRecipe && recipeDetailsReady && h('div', { className: 'detail-actions' },
-          h(Button, { variant: 'primary', disabled: !canAddToShopping, onClick: () => canAddToShopping && toggleShopping(shoppingKey, factor) }, isInShopping ? 'Dans les courses' : 'Ajouter aux courses'),
+          h(Button, {
+              variant: 'primary',
+              className: isInShopping ? 'is-in-shopping' : '',
+              disabled: !canAddToShopping,
+              onClick: event => {
+                if (!canAddToShopping) return;
+                if (!isInShopping) playAddToShoppingEffect(event.currentTarget, heroRef.current);
+                toggleShopping(shoppingKey, factor);
+              }
+            }, isInShopping ? '✓ Dans les courses' : 'Ajouter aux courses'),
           canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'detail-action-button favorite-action active' : 'detail-action-button favorite-action', onClick: () => toggleFavorite(detailKey, selectedRecipe.title), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }), h('span', null, 'Favori')),
           showRecipeUtilities && h('details', {
             className: 'detail-utility-menu',
@@ -312,7 +412,12 @@ function RecipeView({
       needsVariantSelection: needsInlineVariantSelection,
       hasVariantSelection: true
     }),
-    !detailsLoading && hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeAnatomy, { recipe: selectedRecipe }),
+    !detailsLoading && hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeAnatomy, {
+      recipe: selectedRecipe,
+      variantOptions: needsInlineVariantSelection ? inlineVariantOptions : [],
+      selectedIndex: selectedInlineVariantGroup?.index,
+      onSelectVariant: selectInlineVariant
+    }),
     !detailsLoading && hasResolvedRecipe && h('div', { className: 'recipe-tabs', role: 'tablist', 'aria-label': 'Sections de la recette' },
       [
         { key: 'ingredients', label: 'Ingrédients', count: countIngredients(selectedRecipe) },
@@ -359,13 +464,14 @@ function RecipeView({
               const isIngredientSeparator = /^[-\u2013\u2014]{1,2}\s*.+?\s*[-\u2013\u2014]{1,2}$/.test(plainItem);
               return h('li', {
                 key,
-                className: isIngredientSeparator ? 'ingredient-section-label' : ''
+                className: isIngredientSeparator ? 'ingredient-section-label' : (isIngredientLinked(key) ? 'is-linked' : ''),
+                ...linkHandlers({ type: 'ingredient', key }, !isIngredientSeparator && Boolean(stepsByIngredient[key]))
               },
                 isIngredientSeparator
                   ? h('span', { className: 'ingredient-section-label' }, renderLinkedText(item, inlineTargets, openRecipe, techniqueTargets, openTechnique))
                   : h('label', null,
                     h('input', { type: 'checkbox', checked: Boolean(checked[key]), onChange: () => toggle(key) }),
-                    h('span', null, renderLinkedText(scaleIngredient(item, factor), inlineTargets, openRecipe, techniqueTargets, openTechnique))
+                    renderIngredientLine(scaleIngredient(item, factor))
                   )
               );
             })),
@@ -378,10 +484,7 @@ function RecipeView({
       ),
       hasSelectedVariant && h('section', { id: 'recipe-panel-steps', role: 'tabpanel', className: mobileDetailTab === 'steps' ? 'recipe-panel steps-panel active-tab-panel' : 'recipe-panel steps-panel' },
         h('div', { className: 'panel-heading' },
-          h('div', null, h('h2', null, 'Étapes')),
-          h('div', { className: 'steps-panel-tools' },
-            needsInlineVariantSelection && selectedGroupLabel && h('span', { className: 'progress-label' }, selectedGroupLabel)
-          )
+          h('div', null, h('h2', null, 'Étapes'))
         ),
         canShowSteps && h('div', { className: 'progress-track', role: 'progressbar', 'aria-label': 'Progression de la recette', 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-valuenow': progress }, h('span', { style: { width: `${progress}%` } })),
         canShowSteps && h('div', { className: 'before-start-card' },
@@ -400,7 +503,8 @@ function RecipeView({
           displaySteps.map((step, index) => {
             const key = `${stepScopeKey}:step:${index}`;
              const isNext = nextStepIndex === index;
-             return h('li', { key, className: checked[key] ? 'done' : isNext ? 'next' : '', 'aria-current': isNext ? 'step' : undefined },
+             const stepClass = [checked[key] ? 'done' : isNext ? 'next' : '', isStepLinked(index) ? 'is-linked' : ''].filter(Boolean).join(' ');
+             return h('li', { key, className: stepClass, 'aria-current': isNext ? 'step' : undefined, ...linkHandlers({ type: 'step', index }) },
               h('label', null,
                 h('input', { type: 'checkbox', checked: Boolean(checked[key]), onChange: () => toggle(key) }),
                 h('span', { className: 'step-number' }, String(index + 1).padStart(2, '0')),
@@ -415,7 +519,6 @@ function RecipeView({
           h('h2', { className: 'read-before-title' }, 'Avant de commencer')
         ),
         h('div', { className: 'notes-core-stack' },
-          h(RecipeHistoryBlock, { recipe: selectedRecipe, updatedAt: SITE_UPDATED_AT }),
           h('div', { className: 'allergen-card', 'aria-label': 'Allergenes detectes' },
             h('p', { className: 'eyebrow' }, 'Allergènes'),
             recipeAllergens.length
@@ -460,7 +563,9 @@ function RecipeView({
             h(EquipmentProfileBlock, { requiredEquipment: getRecipeEquipment(selectedRecipe), profile: equipmentProfile, Disclosure: NotesDisclosure }),
             h(MoldCalculatorBlock, { recipe: selectedRecipe, profile: equipmentProfile, Disclosure: NotesDisclosure })
           )
-        )
+        ),
+        // Version de la fiche : mention discrete en pied de colonne.
+        h(RecipeHistoryBlock, { recipe: selectedRecipe, updatedAt: SITE_UPDATED_AT })
       )
     ),
     !detailsLoading && hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeSafetySources, { recipe: selectedRecipe }),

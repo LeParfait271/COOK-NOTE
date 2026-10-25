@@ -108,10 +108,14 @@ function minifyJs(code) {
 
 function minifyCss(code) {
   try {
+    // L'espace avant ':' est garde : dans un selecteur, `.a :is(.b)` (descendant)
+    // n'est pas `.a:is(.b)`. Seuls les espaces apres ':' sont retires.
     return code
       .replace(/\/\*[\s\S]*?\*\//g, '')
       .replace(/\s+/g, ' ')
-      .replace(/\s*([{}:;,>])\s*/g, '$1')
+      .replace(/\s*([{};,>])\s*/g, '$1')
+      .replace(/:\s+/g, ':')
+      .replace(/;}/g, '}')
       .trim();
   } catch (e) {
     return code;

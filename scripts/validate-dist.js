@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const { APP_MODULES } = require('./lib/app-modules');
+const { APP_MODULES, buildStyleSheet } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
@@ -239,6 +239,19 @@ if (!fs.existsSync(DIST)) {
       fail(`dist/${file}: caractere de remplacement UTF-8 detecte.`);
     }
   });
+}
+
+// La minification ne doit pas coller un pseudo-selecteur a son parent :
+// `.a :is(.b)` (descendant) et `.a:is(.b)` ne ciblent pas les memes elements.
+if (exists('style.css')) {
+  const DESCENDANT_PSEUDO = /[\w\])-]\s+:(?:is|where|not|has)\(/g;
+  const sourceCss = buildStyleSheet(ROOT).replace(/\/\*[\s\S]*?\*\//g, '');
+  const distCss = fs.readFileSync(path.join(DIST, 'style.css'), 'utf8');
+  const sourceCount = (sourceCss.match(DESCENDANT_PSEUDO) || []).length;
+  const distCount = (distCss.match(DESCENDANT_PSEUDO) || []).length;
+  if (distCount < sourceCount) {
+    fail(`dist/style.css: ${sourceCount - distCount} selecteur(s) descendant(s) :is/:where/:not/:has colles par la minification.`);
+  }
 }
 
 if (errors.length) {

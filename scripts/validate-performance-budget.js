@@ -22,7 +22,11 @@ const FILE_BUDGETS = [
   // Feuilles sources decoupees (styles/) ; la feuille publique assemblee reste plafonnee ci-dessous.
   ...STYLE_MODULES.map(file => [file, 50 * KB]),
   // 203 -> 208 Ko : couche design (polices variables, jetons OKLCH/P3, dialog natif).
-  ['dist/style.css', 208 * KB],
+  // 208 -> 216 Ko : passe 2 de la fiche (Avant de commencer a plat, selecteur de
+  // variante, etapes cliquables, mode jour).
+  // 216 -> 222 Ko : mouvements high-tech, ingredients en colonnes, recherche en
+  // vignettes, chapitres de categorie (environ 31 Ko une fois compresse).
+  ['dist/style.css', 222 * KB],
   ['personal-tools.css', 8 * KB],
   ['dist/personal-tools.css', 6 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.

@@ -153,7 +153,7 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
                   h('span', { className: 'search-result-image', style: imageBackgroundStyle(displayRecipeImage(recipe)), 'aria-hidden': true }),
                   h('span', { className: 'search-result-copy' },
                     h('strong', null, recipe.title),
-                    h('small', null, recipe.yield || difficultyText(recipe)),
+                    h('small', { className: 'search-result-meta' }, [primaryCategory(recipe), formatMinutesShort(getRecipeTiming(recipe).total), recipe.yield || difficultyText(recipe)].filter(Boolean).join(' · ')),
                     availability && h('span', { className: `ingredient-match-badge ${availability.key}` }, availability.label),
                     meta?.reasons?.length && h('span', { className: 'search-reason-pills' },
                       meta.reasons.slice(0, 3).map(reason => h('em', { key: reason }, reason))
@@ -922,6 +922,41 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '' }) {
   );
 }
 
+// Ouverture de chapitre des huit categories : une phrase et des reperes calcules
+// sur le catalogue (informatifs, sans filtre).
+const COLLECTION_INTROS = Object.freeze({
+  petit_dejeuner_maitre: 'Viennoiseries, pancakes et douceurs du matin pour bien commencer la journée.',
+  apero_maitre: 'Bouchées, tartinables et petites fritures à partager avant le repas.',
+  entrees_maitre: 'Entrées froides et chaudes pour ouvrir un repas avec légèreté.',
+  sauces_maitre: 'Sauces chaudes, froides et émulsions pour accompagner et relever.',
+  elements_base_maitre: 'Pâtes, fonds, beurres et préparations de base à réutiliser partout.',
+  plats_maitre: 'Plats mijotés, rôtis et poêlées pour le cœur du repas.',
+  accompagnements_maitre: 'Légumes, féculents et garnitures pour compléter l’assiette.',
+  desserts_maitre: 'Gâteaux, crèmes, tartes et douceurs pour finir en beauté.'
+});
+
+function CollectionChapter({ parent, items, recipesById }) {
+  const intro = COLLECTION_INTROS[parent.id];
+  if (!intro || !items.length) return null;
+  const season = getCurrentSeason();
+  const easy = items.filter(item => item.difficulty === 'easy').length;
+  const seasonal = items.filter(item => (item.seasons || []).includes(season) || recipeHasSeason(item, season, recipesById)).length;
+  // Le total est deja dans le hero : le chapitre donne les reperes utiles.
+  const figures = [
+    { key: 'easy', value: easy, label: `facile${easy > 1 ? 's' : ''}` },
+    { key: 'season', value: seasonal, label: `de saison (${season.toLowerCase()})` }
+  ].filter(figure => figure.value > 0);
+  return h('div', { className: 'collection-chapter' },
+    h('p', { className: 'collection-chapter-intro' }, intro),
+    h('dl', { className: 'collection-chapter-figures' },
+      figures.map(figure => h('div', { key: figure.key },
+        h('dd', null, figure.value),
+        h('dt', null, figure.label)
+      ))
+    )
+  );
+}
+
 function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, preloadRecipe = null }) {
   const sortedVariantRefs = sortVariantRefs(variantRefs, recipesById);
   if (!sortedVariantRefs.length) return null;
@@ -929,6 +964,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, pr
     .map(variant => ({ variant, item: recipesById[variant.id] }))
     .filter(entry => entry.item);
   return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel collection-links-panel', 'aria-label': `Recettes de la collection ${parent.title}` },
+    h(CollectionChapter, { parent, items: recipeEntries.map(entry => entry.item), recipesById }),
     h('div', { className: 'variant-card-grid' },
       recipeEntries.map(({ variant, item }) => {
         const image = displayRecipeImage(item) || displayRecipeImage(parent);
@@ -1185,7 +1221,27 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
   );
 }
 
-function RecipeAnatomy({ recipe }) {
+function RecipeAnatomy({ recipe, variantOptions = [], selectedIndex, onSelectVariant }) {
+  // Fiche a variantes : le bandeau devient le selecteur, aligne sur la grille,
+  // pour changer de variante sans remonter jusqu'aux cartes de choix.
+  if (variantOptions.length > 1 && typeof onSelectVariant === 'function') {
+    return h('nav', { className: 'recipe-anatomy recipe-variant-switch', 'aria-label': 'Changer de variante' },
+      h('span', { className: 'recipe-variant-switch-label' }, 'Variante'),
+      h('div', { className: 'recipe-variant-switch-tabs', role: 'group' },
+        variantOptions.map(option => {
+          const active = option.index === selectedIndex;
+          return h('button', {
+            key: `${recipe.id}:switch:${option.index}`,
+            type: 'button',
+            className: active ? 'active' : '',
+            'aria-pressed': active,
+            'aria-controls': 'recipe-detail-content',
+            onClick: () => onSelectVariant(option.index)
+          }, cleanVariantGroupLabel(option.label || option.group?.group || 'Variante'));
+        })
+      )
+    );
+  }
   const timing = getRecipeTiming(recipe);
   const groups = (recipe.ingredients || [])
     .map(group => cleanVariantGroupLabel(group.group || ''))
@@ -1238,7 +1294,7 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
           key: `${recipe.id}:variant:${option.index}`,
           type: 'button',
           className: `variant-choice-button${image ? ' has-image' : ''}${active ? ' active' : ''}`,
-          style: image ? { '--variant-choice-image': `url("${image}")` } : {},
+          style: image ? { '--variant-choice-image': cssImageValue(image) } : {},
           onClick: () => onSelect(option.index),
           'aria-pressed': active,
           'aria-controls': 'recipe-detail-content'

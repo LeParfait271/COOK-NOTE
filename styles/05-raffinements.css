@@ -517,9 +517,7 @@
     display: grid;
   }
 
-  .steps-panel-tools {
-    justify-content: flex-start;
-  }
+  
 
   .before-start-card button {
     justify-self: start;
