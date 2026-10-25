@@ -4,16 +4,16 @@
 - Fiches feuilles autonomes : 258
 - Collections racines : 8
 - Familles a variantes internes : 63
-- Options internes auditees : 216
-- Fiches executables auditees : 474
-- Source : v5.33 / 24/10/26 / recipes.js bf1c56d44d6b
+- Options internes auditees : 217
+- Fiches executables auditees : 475
+- Source : v5.33 / 24/10/26 / recipes.js f688bbdb3ce9
 - Score moyen : 100/100
 - Fiches sous 78 : 0
 - Fiches avec defauts a verifier : 0
 
 ## Dashboard sante
 
-- Pretes : 474
+- Pretes : 475
 - A ameliorer : 0
 - Faibles : 0
 - Decouverte faible : 0
@@ -41,7 +41,7 @@ Aucune fiche faible detectee.
 - Sauce aux poivres (sauce_aux_poivres) : 4 options (Trois poivres au cognac, Poivre vert au cognac, Au cognac et à la moutarde, Crème au poivre noir)
 - Mayonnaise (mayonnaise_maison) : 4 options (Base mayonnaise, andalouse, sans œuf au lait, Bourguignonne)
 - Œufs mimosa (oeufs_mimosa_variantes) : 2 options (Betterave, Avocat crevette)
-- Beignets de calamar (beignets_calamar) : 1 option (Calamari)
+- Beignets de calamar (beignets_calamar) : 2 options (Pâte légère, Tempura)
 - Mojitos (mojitos_variantes) : 6 options (Mojito classique, Mojito framboise, Mojito mangue, Mojito concombre, Mojito fruit de la passion, Mojito rhum ambré)
 - Toppings frites (toppings_frites) : 6 options (Sel et poivre, Ail, parmesan et persil, Cheddar et oignons verts, Paprika et cayenne, Cheddar, bacon et crème aigre, Patate douce paprika et ail)
 - Houmous tahine très crémeux (houmous_hakocem) : 2 options (Tahine très crémeux, Houmous épice)
@@ -112,7 +112,8 @@ Aucune fiche faible detectee.
 - Bâtonnets croustillants de polenta au parmesan (batonnets_polenta_parmesan) : 100/100 - OK
 - Bavette de bœuf au chili rub (bavette_boeuf_chili_rub) : 100/100 - OK
 - Beignets Cloud (donuts_cloud) : 100/100 - OK
-- Beignets de calamar — Calamari (beignets_calamar::calamari) : 100/100 - OK
+- Beignets de calamar — Pâte légère (beignets_calamar::pate_legere) : 100/100 - OK
+- Beignets de calamar — Tempura (beignets_calamar::tempura) : 100/100 - OK
 - Beurre à l’ail (beurre_ail) : 100/100 - OK
 - Beurre blanc (beurre_blanc) : 100/100 - OK
 - Beurre clarifié (beurre_clarifie) : 100/100 - OK

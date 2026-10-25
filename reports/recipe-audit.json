@@ -2,22 +2,22 @@
   "source": {
     "siteVersion": "v5.33",
     "siteUpdatedAt": "24/10/26",
-    "recipesSha256": "bf1c56d44d6b"
+    "recipesSha256": "f688bbdb3ce9"
   },
   "totals": {
     "recipes": 329,
     "leaves": 258,
     "masters": 8,
     "inlineVariantFamilies": 63,
-    "inlineVariantOptions": 216,
-    "auditedRecipes": 474,
+    "inlineVariantOptions": 217,
+    "auditedRecipes": 475,
     "lowScore": 0,
     "categoryIdeas": 54,
     "qualityIssues": 0
   },
   "averageScore": 100,
   "healthDashboard": {
-    "ready": 474,
+    "ready": 475,
     "improve": 0,
     "weak": 0,
     "missingDiscovery": 0,
@@ -185,7 +185,8 @@
       "id": "beignets_calamar",
       "title": "Beignets de calamar",
       "options": [
-        "Calamari"
+        "Pâte légère",
+        "Tempura"
       ]
     },
     {
@@ -1136,8 +1137,16 @@
       ]
     },
     {
-      "id": "beignets_calamar::calamari",
-      "title": "Beignets de calamar — Calamari",
+      "id": "beignets_calamar::pate_legere",
+      "title": "Beignets de calamar — Pâte légère",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "beignets_calamar::tempura",
+      "title": "Beignets de calamar — Tempura",
       "score": 100,
       "issues": [],
       "qualityIssues": [],

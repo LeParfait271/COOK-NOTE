@@ -36,6 +36,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
     'tests\visual-smoke.spec.js',
     'scripts\validate-recipes.js',
     'scripts\validate-quantities.js',
+    'scripts\validate-oven-temperatures.js',
     'scripts\validate-average-weights.js',
     'scripts\validate-ui.js',
     'scripts\validate-project-rules.js',
@@ -73,6 +74,7 @@ function Invoke-CookNoteNodeCheck($nodeExe) {
   $validators = @(
     'scripts\validate-recipes.js',
     'scripts\validate-quantities.js',
+    'scripts\validate-oven-temperatures.js',
     'scripts\validate-average-weights.js',
     'scripts\validate-ui.js',
     'scripts\validate-project-rules.js',

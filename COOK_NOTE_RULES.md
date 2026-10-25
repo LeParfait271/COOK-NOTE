@@ -201,6 +201,10 @@ Sommaire :
   creation ; seule une modification du contenu de la fiche l'augmente de `0.01`
   (`scripts/sync-recipe-versions.js` compare a `HEAD`). L'interface n'affiche
   que la version publiee courante.
+- Toute cuisson au four indique sa temperature dans les etapes affichees
+  (`180°C`, `th. 6`), y compris dans les etapes propres d'une variante qui
+  remplacent les etapes de base ; le gril se donne par position.
+  `npm run validate:oven` le bloque.
 - `validate:recipe-links` refuse tout lien interne absent, auto-reference,
   duplique ou mal forme ; `validate:recipe-duplicates` refuse les titres et
   contenus strictement dupliques.
