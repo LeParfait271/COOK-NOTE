@@ -6,7 +6,7 @@ chaque lien doit être validé avant intégration (lien `data-goto` dans le text
 - Sauces et bases du catalogue cherchées : 73
 - Fiches concernées : 66
 - Liens proposés : 74
-- Empreinte recipes.js : bf1c56d44d6b
+- Empreinte recipes.js : 0936ce4a3219
 
 ## Asperges vertes au lard grillé (`asperges_vertes_lard`)
 
@@ -96,7 +96,7 @@ chaque lien doit être validé avant intégration (lien `data-goto` dans le text
 
 ## Fond de tarte amande (`creme_amande_citron`)
 
-- [ ] Pâtes à tarte (`pates_tarte_variantes`) — « Étaler environ 5mm dans le fond de tarte et cuire jusqu’à coloration moelleuse. »
+- [ ] Pâtes à tarte (`pates_tarte_variantes`) — « Étaler environ 5mm dans le fond de tarte et cuire à 170°C environ 20 à 25min, jusqu’à coloration moelleuse. »
 
 ## Frites (`frites_variantes`)
 

@@ -15,7 +15,9 @@ couches suivantes surchargent les precedentes. La liste est dans
 - `10-design.css` : Couche `design` : polices Fraunces/Inter, jetons OKLCH/P3, mise en page calme
   (catalogue, cartes, hero de fiche, listes, familles d Avant de commencer, pied de page),
   transitions de vue et fenetres `<dialog>`.
+- `11-design-fiche.css` : Couche `design`, suite : fiche recette (Avant de commencer, variantes, etapes,
+  ingredients en colonnes), mouvements, recherche en vignettes, chapitres, controle qualite et impression.
 
 Les modules `0x-` sont emis dans `@layer legacy`, les modules `1x-` dans `@layer design`
 (`STYLE_LAYERS` dans `scripts/lib/app-modules.js`) : la couche `design` l emporte sans
-`!important`. Les nouveaux styles vont dans `10-design.css`.
+`!important`. Les nouveaux styles vont dans `10-design.css` ou `11-design-fiche.css` (50 Ko max par fichier).

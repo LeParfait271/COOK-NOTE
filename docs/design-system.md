@@ -100,7 +100,7 @@ les memes teintes.
 ### Couches CSS
 
 - `/style.css` = `@layer legacy, design`. `legacy` regroupe `styles/01` a `07`
-  et les feuilles annexes ; `design` (`styles/10-design.css`) gagne sans
+  et les feuilles annexes ; `design` (`styles/10-design.css` puis `styles/11-design-fiche.css`) gagne sans
   `!important`. Tout nouveau style va dans `design`.
 - Composants adaptatifs par container queries : `catalogue`, `grille`,
   `fiche-rapide`, `avant`.

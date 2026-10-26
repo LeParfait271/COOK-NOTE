@@ -1,11 +1,11 @@
 // ============================================================
-//  Cook Note - Service Worker PWA v535
+//  Cook Note - Service Worker PWA v536
 //  Cache-first pour assets statiques
 //  Network-first pour les pages et fichiers qui changent souvent
 // ============================================================
 
-const CACHE_NAME = 'cook-note-v535';
-const IMAGE_CACHE_NAME = 'cook-note-images-v535';
+const CACHE_NAME = 'cook-note-v536';
+const IMAGE_CACHE_NAME = 'cook-note-images-v536';
 const IMAGE_CACHE_LIMIT = 140;
 const FAST_CHANGING_PATHS = new Set([
   '/app.js',
@@ -50,30 +50,30 @@ const IMMUTABLE_IMAGE_PATHS = [
 ];
 const STATIC_ASSETS = [
   '/index.html',
-  '/app.js?v=535-parent-title',
-  '/app-recipe-model.js?v=535-parent-title',
-  '/app-shopping.js?v=535-parent-title',
-  '/app-menu.js?v=535-parent-title',
-  '/app-search.js?v=535-parent-title',
-  '/app-recipe-content.js?v=535-parent-title',
-  '/app-components.js?v=535-parent-title',
-  '/app-panels.js?v=535-parent-title',
-  '/app-recipe-view.js?v=535-parent-title',
-  '/app-main.js?v=535-parent-title',
-  '/app-techniques.js?v=535-parent-title',
-  '/app-premium.js?v=535-parent-title',
+  '/app.js?v=536-parent-title',
+  '/app-recipe-model.js?v=536-parent-title',
+  '/app-shopping.js?v=536-parent-title',
+  '/app-menu.js?v=536-parent-title',
+  '/app-search.js?v=536-parent-title',
+  '/app-recipe-content.js?v=536-parent-title',
+  '/app-components.js?v=536-parent-title',
+  '/app-panels.js?v=536-parent-title',
+  '/app-recipe-view.js?v=536-parent-title',
+  '/app-main.js?v=536-parent-title',
+  '/app-techniques.js?v=536-parent-title',
+  '/app-premium.js?v=536-parent-title',
   '/app-personal-tools.js?v=528',
   '/app-safety-sources.js?v=528',
-  '/app-images.js?v=535-parent-title',
-  '/app-art-images.js?v=535-parent-title',
-  '/app-inline-variant-rules.js?v=535-parent-title',
-  '/theme.js?v=535-parent-title',
-  '/i18n.js?v=535-parent-title',
-  '/assets/catalog-1.js?v=535-parent-title',
+  '/app-images.js?v=536-parent-title',
+  '/app-art-images.js?v=536-parent-title',
+  '/app-inline-variant-rules.js?v=536-parent-title',
+  '/theme.js?v=536-parent-title',
+  '/i18n.js?v=536-parent-title',
+  '/assets/catalog-1.js?v=536-parent-title',
   '/recipe-worker.js',
-  '/assets/image-manifest.js?v=535-parent-title',
-  '/style.css?v=535-parent-title',
-  '/recipe-editorial.css?v=535-parent-title',
+  '/assets/image-manifest.js?v=536-parent-title',
+  '/style.css?v=536-parent-title',
+  '/recipe-editorial.css?v=536-parent-title',
   '/personal-tools.css?v=528',
   '/restaurant-tools.css?v=528',
   '/recipe-safety-sources.css?v=528',

@@ -1,7 +1,7 @@
 /* global window */
 
 (function initCookNoteImages() {
-  const IMAGE_HELPER_VERSION = 'v5.35';
+  const IMAGE_HELPER_VERSION = 'v5.36';
   const IMAGE_HELPER_REVISION = 'parent-title';
   const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
 
@@ -40,9 +40,12 @@
 
   // Repli d'une <img> servie en AVIF : on revient au fichier d'origine avant
   // tout autre repli. Renvoie true si une nouvelle source a ete essayee.
+  // Une seule tentative par image : sinon, si le repli suivant echoue aussi,
+  // l'image rebondirait sans fin entre deux sources (requetes en boucle).
   function retryOriginalImage(img) {
     const original = img?.dataset?.originalSrc;
-    if (!original || img.getAttribute('src') === original) return false;
+    if (!original || img.dataset.originalRetried === 'true' || img.getAttribute('src') === original) return false;
+    img.dataset.originalRetried = 'true';
     img.removeAttribute('srcset');
     img.src = original;
     return true;

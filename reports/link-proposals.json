@@ -1,5 +1,5 @@
 {
-  "recipesHash": "bf1c56d44d6b783977e2eb621350acf19f0f015433d5a17cd20d3e42e0ec9314",
+  "recipesHash": "0936ce4a3219e9b771ce4a27dcd235cfcc27db6a849fff3a41cc2199e36dad53",
   "proposals": [
     {
       "id": "asperges_vertes_lard",
@@ -167,7 +167,7 @@
       "title": "Fond de tarte amande",
       "target": "pates_tarte_variantes",
       "targetTitle": "Pâtes à tarte",
-      "evidence": "Étaler environ 5mm dans le fond de tarte et cuire jusqu’à coloration moelleuse."
+      "evidence": "Étaler environ 5mm dans le fond de tarte et cuire à 170°C environ 20 à 25min, jusqu’à coloration moelleuse."
     },
     {
       "id": "frites_variantes",

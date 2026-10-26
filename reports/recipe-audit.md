@@ -6,7 +6,7 @@
 - Familles a variantes internes : 63
 - Options internes auditees : 217
 - Fiches executables auditees : 475
-- Source : v5.33 / 24/10/26 / recipes.js f688bbdb3ce9
+- Source : v5.36 / 25/10/26 / recipes.js 0936ce4a3219
 - Score moyen : 100/100
 - Fiches sous 78 : 0
 - Fiches avec defauts a verifier : 0
@@ -52,7 +52,7 @@ Aucune fiche faible detectee.
 - Tomates farcies (tomates_farcies) : 2 options (Tomates farcies au riz, Tomates farcies au jambon fumé)
 - Temps de cuisson des légumes à l’autocuiseur (temps_cuisson_legumes_autocuiseur) : 2 options (Vapeur, départ au chuchotement, Immersion, départ au chuchotement)
 - Tartes aux abricots et aux amandes (tarte_abricots_amandes_romarin) : 2 options (Romarin, Amandine)
-- Tiramisu (tiramisu_variantes) : 9 options (Spéculoos, Citron meringué, Crème de marrons, Amaretto, Version chocolat revisitée, Version fraise, Version fraises, Version framboises, Version pêche caramel)
+- Tiramisu (tiramisu_variantes) : 9 options (Spéculoos, Citron meringué, Crème de marrons, Amaretto, Chocolat revisité, Fraise pâtissière, Fraise express, Framboises, Pêche caramel)
 - Gratins de chou-fleur (gratins_chou_fleur_variantes) : 4 options (Classique, Mascarpone et moutarde, Comté et lardons, Chorizo en mini-cocottes)
 - Frites (frites_variantes) : 4 options (Classiques, Belges, Au four, Patate douce)
 - Chantilly (chantilly_variantes) : 2 options (Classique, Stabilisée)
@@ -534,12 +534,12 @@ Aucune fiche faible detectee.
 - Tian de légumes racines (tian_legumes_racines) : 100/100 - OK
 - Tiramisu à l’amaretto (tiramisu_variantes::variant-4) : 100/100 - OK
 - Tiramisu à la crème de marrons (tiramisu_variantes::variant-3) : 100/100 - OK
-- Tiramisu aux fraises (tiramisu_variantes::variant-7) : 100/100 - OK
 - Tiramisu aux framboises (tiramisu_variantes::variant-8) : 100/100 - OK
 - Tiramisu chocolat revisité (tiramisu_variantes::variant-5) : 100/100 - OK
 - Tiramisu citron meringué (tiramisu_variantes::variant-2) : 100/100 - OK
 - Tiramisu en verrine (tiramisu_variantes::variant-1) : 100/100 - OK
-- Tiramisu fraise (tiramisu_variantes::variant-6) : 100/100 - OK
+- Tiramisu fraise express (tiramisu_variantes::variant-7) : 100/100 - OK
+- Tiramisu fraise pâtissier (tiramisu_variantes::variant-6) : 100/100 - OK
 - Tiramisu pêche, caramel au beurre salé (tiramisu_variantes::variant-9) : 100/100 - OK
 - Tomate mozzarella basilic (salade_caprese) : 100/100 - OK
 - Tomates cocktail farcies au mascarpone, thon et ciboulette (tomates_cocktail_thon_mascarpone) : 100/100 - OK

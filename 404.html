@@ -6,6 +6,10 @@
   <meta name="theme-color" content="#080807">
   <title>Page introuvable · Cook Note</title>
   <style>
+    /* Memes polices locales que le site (assets/fonts, licences OFL). */
+    @font-face { font-family: "Fraunces Variable"; src: url("/assets/fonts/fraunces-variable-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+    @font-face { font-family: "Inter Variable"; src: url("/assets/fonts/inter-variable-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+
     :root {
       color-scheme: dark;
       --bg: #080807;
@@ -30,7 +34,10 @@
       background:
         linear-gradient(135deg, rgba(8, 8, 7, .90), rgba(8, 8, 7, .64)),
         url('/assets/theme/dark/global/background.jpg') center / cover fixed;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-image:
+        linear-gradient(135deg, rgba(8, 8, 7, .90), rgba(8, 8, 7, .64)),
+        image-set(url('/assets/theme/dark/global/background.avif') type('image/avif'), url('/assets/theme/dark/global/background.jpg') type('image/jpeg'));
+      font-family: "Inter Variable", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .error-shell { width: min(100%, 760px); }
@@ -61,16 +68,16 @@
     }
 
     .error-brand img { width: 56px; height: 56px; flex: 0 0 auto; }
-    .error-brand strong { display: block; font-size: 20px; letter-spacing: .02em; }
+    .error-brand strong { display: block; font-family: "Fraunces Variable", Georgia, serif; font-size: 22px; font-weight: 500; letter-spacing: 0; }
     .error-brand small { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .16em; }
 
     .error-eyebrow { margin: 0 0 8px; color: var(--gold-strong); font-size: 12px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
-    .error-code { margin: 0; color: var(--gold); font-size: clamp(76px, 17vw, 148px); font-weight: 950; line-height: .86; letter-spacing: -.08em; }
-    h1 { max-width: 620px; margin: 24px 0 12px; font-size: clamp(28px, 5vw, 50px); line-height: 1.02; letter-spacing: -.04em; }
+    .error-code { margin: 0; color: var(--gold); font-family: "Fraunces Variable", Georgia, serif; font-size: clamp(76px, 17vw, 148px); font-weight: 460; line-height: .86; letter-spacing: -.03em; }
+    h1 { max-width: 620px; margin: 24px 0 12px; font-family: "Fraunces Variable", Georgia, serif; font-size: clamp(28px, 5vw, 50px); font-weight: 480; line-height: 1.05; letter-spacing: -.01em; text-wrap: balance; }
     .error-copy > p:not(.error-eyebrow):not(.error-code) { max-width: 540px; margin: 0; color: var(--muted); font-size: clamp(15px, 2vw, 18px); line-height: 1.6; }
 
     .error-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-    .button { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; padding: 0 18px; border-radius: 10px; font-weight: 900; text-decoration: none; transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+    .button { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; padding: 0 20px; border-radius: 999px; font-weight: 600; text-decoration: none; transition: transform .18s ease, border-color .18s ease, background .18s ease; }
     .button:hover { transform: translateY(-1px); }
     .button.primary { border: 1px solid var(--gold); color: #241a0c; background: var(--gold); }
     .button.secondary { border: 1px solid rgba(255, 248, 234, .28); color: var(--text); background: rgba(255, 248, 234, .06); }

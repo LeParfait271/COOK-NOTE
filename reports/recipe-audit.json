@@ -1,8 +1,8 @@
 {
   "source": {
-    "siteVersion": "v5.33",
-    "siteUpdatedAt": "24/10/26",
-    "recipesSha256": "f688bbdb3ce9"
+    "siteVersion": "v5.36",
+    "siteUpdatedAt": "25/10/26",
+    "recipesSha256": "0936ce4a3219"
   },
   "totals": {
     "recipes": 329,
@@ -285,11 +285,11 @@
         "Citron meringué",
         "Crème de marrons",
         "Amaretto",
-        "Version chocolat revisitée",
-        "Version fraise",
-        "Version fraises",
-        "Version framboises",
-        "Version pêche caramel"
+        "Chocolat revisité",
+        "Fraise pâtissière",
+        "Fraise express",
+        "Framboises",
+        "Pêche caramel"
       ]
     },
     {
@@ -4631,14 +4631,6 @@
       ]
     },
     {
-      "id": "tiramisu_variantes::variant-7",
-      "title": "Tiramisu aux fraises",
-      "score": 100,
-      "issues": [],
-      "qualityIssues": [],
-      "suggestions": []
-    },
-    {
       "id": "tiramisu_variantes::variant-8",
       "title": "Tiramisu aux framboises",
       "score": 100,
@@ -4671,8 +4663,16 @@
       "suggestions": []
     },
     {
+      "id": "tiramisu_variantes::variant-7",
+      "title": "Tiramisu fraise express",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "tiramisu_variantes::variant-6",
-      "title": "Tiramisu fraise",
+      "title": "Tiramisu fraise pâtissier",
       "score": 100,
       "issues": [],
       "qualityIssues": [],

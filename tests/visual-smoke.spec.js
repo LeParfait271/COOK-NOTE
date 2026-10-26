@@ -415,6 +415,34 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.search-recent')).toHaveCount(0);
   });
 
+  test('expandable notes keep their chevron and content inside the box', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/cassoulet');
+    await waitForCookNote(page);
+    const tabs = page.locator('.recipe-tabs');
+    if (await tabs.isVisible()) await tabs.getByRole('tab', { name: /Avant/i }).click();
+
+    const overflow = await page.locator('.notes-panel').evaluate(panel => {
+      panel.querySelectorAll('details.notes-disclosure').forEach(details => { details.open = true; });
+      return Array.from(panel.querySelectorAll('details.notes-disclosure')).map(details => {
+        const box = details.getBoundingClientRect();
+        const summary = details.querySelector('summary');
+        const chevron = getComputedStyle(summary, '::after');
+        const outside = Array.from(details.querySelectorAll('*')).some(node => {
+          const rect = node.getBoundingClientRect();
+          return rect.width > 0 && (rect.right > box.right + 1 || rect.left < box.left - 1);
+        });
+        return { outside, chevron: chevron.content !== 'none', overflowX: summary.scrollWidth > summary.clientWidth + 1 };
+      });
+    });
+    expect(overflow.length).toBeGreaterThan(0);
+    overflow.forEach(item => {
+      expect(item.outside).toBe(false);
+      expect(item.chevron).toBe(true);
+      expect(item.overflowX).toBe(false);
+    });
+  });
+
   test('secondary recipe notes stay in accessible expandable boxes', async ({ page }) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/acras_epinards');
@@ -749,6 +777,19 @@ test.describe('Cook Note visual smoke', () => {
     await expect.poll(() => card.evaluate(img => img.complete && img.naturalWidth > 0 && /\.jpg(?:\?|$)/.test(img.currentSrc)))
       .toBe(true);
     await expect(card).not.toHaveAttribute('srcset', /./);
+  });
+
+  test('failing recipe images stop after their fallbacks instead of looping', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    let imageRequests = 0;
+    await page.route(/\/assets\/(theme|recipes)\/.+\.(avif|jpe?g)/, route => {
+      imageRequests += 1;
+      return route.fulfill({ status: 404, body: '' });
+    });
+    await page.goto('/recette/croque_madame');
+    await waitForCookNote(page);
+    await page.waitForTimeout(2500);
+    expect(imageRequests).toBeLessThan(20);
   });
 
   test('menu planner sends its scaled menu to shopping', async ({ page }) => {

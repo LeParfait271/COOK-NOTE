@@ -545,12 +545,12 @@ function App() {
       const nextFactors = { ...shoppingFactors };
       delete nextFactors[id];
       persistShoppingFactors(nextFactors);
-      notify(`${recipe?.title || 'Recette'} retirée des courses`, 'info');
+      notify(`Retiré des courses : ${recipe?.title || 'recette'}`, 'info');
       return;
     }
     persistShopping([id, ...shoppingIds]);
     persistShoppingFactors({ ...shoppingFactors, [id]: factor });
-    notify(`${recipe?.title || 'Recette'} ajoutée aux courses`, 'success');
+    notify(`Ajouté aux courses : ${recipe?.title || 'recette'}`, 'success');
   }
 
   function removeShopping(id) {
@@ -559,7 +559,7 @@ function App() {
     const nextFactors = { ...shoppingFactors };
     delete nextFactors[id];
     persistShoppingFactors(nextFactors);
-    notify(`${recipe?.title || 'Recette'} retirée des courses`, 'info');
+    notify(`Retiré des courses : ${recipe?.title || 'recette'}`, 'info');
   }
 
   function clearShopping() {

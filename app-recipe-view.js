@@ -186,6 +186,26 @@ function RecipeView({
     return () => observer.disconnect();
   }, [recipe.id]);
 
+  // Impression : les blocs replies d'Avant de commencer s'ouvrent le temps
+  // d'imprimer (un <details> ferme n'imprime pas son contenu), puis se referment.
+  useEffect(() => {
+    let reopened = [];
+    const beforePrint = () => {
+      reopened = Array.from(document.querySelectorAll('.notes-panel details:not([open])'));
+      reopened.forEach(details => { details.open = true; });
+    };
+    const afterPrint = () => {
+      reopened.forEach(details => { details.open = false; });
+      reopened = [];
+    };
+    window.addEventListener('beforeprint', beforePrint);
+    window.addEventListener('afterprint', afterPrint);
+    return () => {
+      window.removeEventListener('beforeprint', beforePrint);
+      window.removeEventListener('afterprint', afterPrint);
+    };
+  }, []);
+
   useEffect(() => {
     setFactor(1);
     completedRef.current = '';

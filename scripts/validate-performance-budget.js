@@ -26,7 +26,9 @@ const FILE_BUDGETS = [
   // variante, etapes cliquables, mode jour).
   // 216 -> 222 Ko : mouvements high-tech, ingredients en colonnes, recherche en
   // vignettes, chapitres de categorie (environ 31 Ko une fois compresse).
-  ['dist/style.css', 222 * KB],
+  // 222 -> 230 Ko : controle qualite (impression noir sur blanc, jauges, chevrons,
+  // fenetre Partager, fil d'Ariane, largeur commune de la fiche).
+  ['dist/style.css', 230 * KB],
   ['personal-tools.css', 8 * KB],
   ['dist/personal-tools.css', 6 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.

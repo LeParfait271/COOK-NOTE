@@ -435,9 +435,12 @@
       Promise.resolve(ensureCatalog()).catch(() => null).finally(() => setLoading(false));
     };
     return h('details', { className: 'notes-disclosure personal-byproduct-block', onToggle: load },
+      // Meme en-tete que les autres blocs repliables (libelle + chevron).
       h('summary', { className: 'notes-disclosure-summary' },
-        h('span', null, t('personal.byproducts')),
-        h('span', { className: 'notes-disclosure-icon', 'aria-hidden': true }, '+')
+        h('span', { className: 'notes-disclosure-text' },
+          h('span', { className: 'notes-disclosure-label' }, t('personal.byproducts'))
+        ),
+        h('span', { className: 'notes-disclosure-icon', 'aria-hidden': true }, '⌄')
       ),
       h('div', { className: 'notes-disclosure-body' },
         h('p', { className: 'personal-tool-help' }, t('personal.byproductsHelp')),

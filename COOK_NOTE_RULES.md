@@ -312,6 +312,14 @@ Sommaire :
   cite, et inversement (`ingredientLinkWords`).
 - Recherche : resultats en vignettes 16/9 (image, categorie, temps total,
   rendement).
+- Impression d'une fiche : encre noire sur papier blanc quel que soit le theme,
+  aucune animation (les apparitions au defilement laisseraient des blocs
+  invisibles), trois colonnes imprimees dont `Avant de commencer` (ses blocs
+  replies s'ouvrent le temps d'imprimer) ; barre du haut, bandeau, selecteur de
+  variante, sources et pied de page masques.
+- Repli des images : une seule tentative vers l'image d'origine par image
+  (`retryOriginalImage`), jamais de rebond entre deux sources qui echouent ;
+  un test verifie qu'une fiche sans image ne relance pas de requetes en boucle.
 - Pages categorie : ouverture de chapitre avec une phrase par categorie
   (`COLLECTION_INTROS`) et des reperes chiffres calcules (faciles, de saison),
   informatifs, sans filtre ni outil de comparaison.
@@ -320,7 +328,7 @@ Sommaire :
   mesure de layout non reutilisable.
 - Couches CSS : `/style.css` est assemble en `@layer legacy, design`. Les
   modules `styles/0x-*.css` et les feuilles annexes sont dans `legacy` ; tout
-  nouveau style va dans `styles/10-design.css` (couche `design`, prioritaire sans
+  nouveau style va dans `styles/10-design.css` ou `styles/11-design-fiche.css` (couche `design`, 50 Ko max par fichier, prioritaire sans
   `!important`). Ne pas ajouter de `!important` (impression exceptee) ; preferer
   les container queries (`catalogue`, `fiche-rapide`, `avant`) aux media queries
   pour les composants.
