@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-29T21:29:24.605Z",
+  "generatedAt": "2026-10-26T04:35:17.030Z",
   "mode": "propositions uniquement — validation utilisateur obligatoire",
   "sourceIntegrity": {
-    "before": "bf1c56d44d6b783977e2eb621350acf19f0f015433d5a17cd20d3e42e0ec9314",
-    "after": "bf1c56d44d6b783977e2eb621350acf19f0f015433d5a17cd20d3e42e0ec9314",
+    "before": "95a06b1e88bf66f60732fde557a3ca4fa5f1a21fc56b1cb1a1ff2b4b8ff17df1",
+    "after": "95a06b1e88bf66f60732fde557a3ca4fa5f1a21fc56b1cb1a1ff2b4b8ff17df1",
     "unchanged": true
   },
   "sources": [
@@ -12,11 +12,11 @@
   ],
   "totals": {
     "reviewed": 455,
-    "withProposals": 271,
+    "withProposals": 281,
     "byType": {
-      "repere-sensoriel": 173,
-      "mise-a-echelle": 127,
-      "temperature-a-coeur": 49,
+      "repere-sensoriel": 187,
+      "mise-a-echelle": 128,
+      "temperature-a-coeur": 45,
       "conservation-contexte": 24
     }
   },
@@ -106,7 +106,7 @@
           "observation": "La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.",
           "addition": "Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.",
           "evidence": [
-            "1 pincee piment d’Espelette optionnel"
+            "1 pincée piment d’Espelette optionnel"
           ]
         }
       ]
@@ -151,7 +151,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Rôtir 20 à 25min face coupee vers le haut, jusqu’au jus concentre et aux bords légèrement fripes."
+            "Rôtir 20 à 25min face coupée vers le haut, jusqu’au jus concentré et aux bords légèrement fripés."
           ]
         }
       ]
@@ -250,7 +250,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Cuire jusqu’à légère coloration et laisser reposer 5min sur plaque pour que le fromage se stabilise."
+            "Cuire 12 à 15min à 180°C, jusqu’à légère coloration, et laisser reposer 5min sur plaque pour que le fromage se stabilise."
           ]
         }
       ]
@@ -349,7 +349,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Frire à 160–165°C, 2min 30 à 3min par face, 2–3 pièces maximum à la fois."
+            "Déposer les beignets dans l’huile avec leur papier (le retirer à la pince après quelques secondes) et frire à 160–165°C, 2min 30 à 3min par face, 2–3 pièces maximum à la fois."
           ]
         },
         {
@@ -364,6 +364,21 @@
       ]
     },
     {
+      "id": "paris_brest",
+      "title": "Paris-Brest",
+      "proposals": [
+        {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Cuire les couronnes de pâte à choux avec le craquelin à 170°C pendant 40 à 45min."
+          ]
+        }
+      ]
+    },
+    {
       "id": "pate_choux",
       "title": "Pâte à choux",
       "proposals": [
@@ -373,7 +388,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Pocher des couronnes de 7cm, poser le craquelin puis cuire à 170°C pendant 40 à 45min."
+            "Pocher des couronnes de 7cm, poser le craquelin puis cuire à 170°C pendant 40 à 45min sans ouvrir le four pendant les 25 premières minutes, porte entrouverte les 5 dernières minutes pour sécher les choux."
           ]
         }
       ]
@@ -442,9 +457,10 @@
         {
           "type": "repere-sensoriel",
           "confidence": "moyenne",
-          "observation": "2 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "observation": "3 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
+            "Étaler la pâte, foncer un moule ou un cercle de 24cm, puis couper l'excédent. Placer le fond 15min au congélateur pour qu'il ne se rétracte pas à la cuisson.",
             "Cuire le fond à blanc 12min à 180°C avec papier cuisson et poids.",
             "Remettre au four 15min pour commencer à cuire les fruits."
           ]
@@ -516,6 +532,21 @@
       ]
     },
     {
+      "id": "creme_amande_citron",
+      "title": "Fond de tarte amande",
+      "proposals": [
+        {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Étaler environ 5mm dans le fond de tarte et cuire à 170°C environ 20 à 25min, jusqu’à coloration moelleuse."
+          ]
+        }
+      ]
+    },
+    {
       "id": "salade_avocat_oeuf_epinards",
       "title": "Salade avocat, œuf et épinards",
       "proposals": [
@@ -568,10 +599,11 @@
         {
           "type": "repere-sensoriel",
           "confidence": "moyenne",
-          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "observation": "2 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Cuire à four chaud 7 à 10min selon la taille des moules les bords doivent être pris et le centre tremblotant."
+            "Remplir les moules aux trois quarts et réserver au froid au moins 1h. Ils peuvent se préparer la veille, ou se congeler : les cuire alors directement surgelés en ajoutant 2 à 3min.",
+            "Cuire à four chaud (200°C) 7 à 10min selon la taille des moules les bords doivent être pris et le centre tremblotant."
           ]
         }
       ]
@@ -586,7 +618,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Pocher les coques, laisser croûter si nécessaire, puis cuire à 150°C environ 12 à 14min."
+            "Pocher les coques, tapoter la plaque sur le plan de travail pour chasser les bulles, laisser croûter si nécessaire, puis cuire à 150°C environ 12 à 14min."
           ]
         }
       ]
@@ -655,7 +687,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Former un disque, refroidir 30min, foncer puis cuire à blanc selon la garniture."
+            "Former un disque, refroidir 30min, foncer puis cuire à blanc à 180°C, 15 à 20min avec des billes de cuisson, selon la garniture."
           ]
         }
       ]
@@ -1194,15 +1226,6 @@
           "evidence": [
             "Couvrir et cuire 35 à 40min à feu doux."
           ]
-        },
-        {
-          "type": "temperature-a-coeur",
-          "confidence": "haute",
-          "observation": "Volaille détectée sans température à cœur explicite.",
-          "addition": "Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».",
-          "evidence": [
-            "Ministère de l’Agriculture — La campylobactériose"
-          ]
         }
       ]
     },
@@ -1330,6 +1353,21 @@
       ]
     },
     {
+      "id": "oeufs_cocotte_chorizo",
+      "title": "Oeufs cocotte chorizo",
+      "proposals": [
+        {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Cuire au bain-marie au four à 180°C environ 10 à 12min, jusqu’à blanc pris et jaune coulant."
+          ]
+        }
+      ]
+    },
+    {
       "id": "sauce_aigre_douce_vietnam",
       "title": "Sauce aigre-douce vietnamienne",
       "proposals": [
@@ -1339,7 +1377,7 @@
           "observation": "La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.",
           "addition": "Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.",
           "evidence": [
-            "8g piment rouge finement hache"
+            "8g piment rouge finement haché"
           ]
         }
       ]
@@ -1351,11 +1389,12 @@
         {
           "type": "repere-sensoriel",
           "confidence": "moyenne",
-          "observation": "2 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "observation": "3 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
             "Placer les œufs dans une casserole, couvrir d’eau froide avec 2 à 3cm au-dessus des œufs, puis cuire 12 à 13min depuis le départ à froid.",
-            "Refroidir immédiatement en fin de cuisson dans un bain d’eau glacée 10min, puis écaler les œufs froids pour ne pas les casser."
+            "Refroidir immédiatement en fin de cuisson dans un bain d’eau glacée 10min, puis écaler les œufs froids pour ne pas les casser.",
+            "Cuire les asperges 4 à 6min à l’eau bouillante salée selon leur grosseur, puis les refroidir rapidement dans l’eau glacée pour garder leur couleur."
           ]
         }
       ]
@@ -1371,6 +1410,36 @@
           "addition": "Conserver tous les temps écrits et proposer en complément une cuisson à cœur ; pour les publics sensibles, proposer au moins 71 °C en fin de cuisson.",
           "evidence": [
             "Anses — prévention des infections à E. coli entérohémorragiques"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "patates_douces_four",
+      "title": "Patates douces au four",
+      "proposals": [
+        {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Rôtir à 200°C environ 25 à 35min en retournant à mi-cuisson."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "carottes_persillade_creme",
+      "title": "Carottes persillade crème",
+      "proposals": [
+        {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Cuire les carottes à l’étuvée avec beurre et un fond d’eau, environ 15 à 20min à couvert, jusqu’à ce que la pointe d’un couteau s’enfonce sans résistance."
           ]
         }
       ]
@@ -1395,6 +1464,36 @@
           "addition": "Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.",
           "evidence": [
             "1g piment d’Espelette"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "souffle_fromage_facile",
+      "title": "Soufflé au comté",
+      "proposals": [
+        {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Beurrer le moule du bas vers le haut, le chemiser de farine, le remplir puis passer le pouce sur le bord intérieur. Cuire à 180°C pendant 25 à 30min, sans ouvrir le four, jusqu’à gonflement et coloration."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "poires_roties_orange_miel",
+      "title": "Poires rôties orange miel",
+      "proposals": [
+        {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Rôtir à 180°C 25 à 35min selon la maturité, en arrosant deux fois, jusqu’à ce que la pointe d’un couteau entre sans résistance."
           ]
         }
       ]
@@ -1430,6 +1529,21 @@
       ]
     },
     {
+      "id": "carottes_roties_miel_epices",
+      "title": "Carottes rôties miel épices",
+      "proposals": [
+        {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Rôtir à 200°C environ 25 à 35min, jusqu’à bords caramelises."
+          ]
+        }
+      ]
+    },
+    {
       "id": "samoussas_boeuf_epinards_petits_pois::2",
       "title": "Samoussas au bœuf, carottes et raisins secs",
       "proposals": [
@@ -1447,6 +1561,21 @@
       ]
     },
     {
+      "id": "gratin_pates_chorizo",
+      "title": "Gratin de pâtes au chorizo",
+      "proposals": [
+        {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Couvrir de fromages et gratiner 15 à 20min au four à 200°C."
+          ]
+        }
+      ]
+    },
+    {
       "id": "gressins_fromage_olives",
       "title": "Gressins fromage olives",
       "proposals": [
@@ -1456,7 +1585,22 @@
           "observation": "La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.",
           "addition": "Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.",
           "evidence": [
-            "5g levure boulangere"
+            "5g levure boulangère"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "salade_epinards_clementines_amande_feta",
+      "title": "Salade épinards clémentines amande feta",
+      "proposals": [
+        {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Griller légèrement les amandes à sec 3 à 4min, jusqu’à ce qu’elles blondissent et sentent le grillé."
           ]
         }
       ]
@@ -1553,6 +1697,15 @@
           "addition": "Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.",
           "evidence": [
             "Repère menu : plat vegetal crémeux, a équilibrer avec riz nature ou salade acide, pas avec autre sauce riche. Conservation : 2 à 3 jours au réfrigérateur. Sécurité : refroidir rapidement, le dhal épaissit au froid."
+          ]
+        },
+        {
+          "type": "mise-a-echelle",
+          "confidence": "information",
+          "observation": "La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.",
+          "addition": "Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.",
+          "evidence": [
+            "1 petit piment sec pour le tadka"
           ]
         }
       ]
@@ -1669,7 +1822,7 @@
           "observation": "La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.",
           "addition": "Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.",
           "evidence": [
-            "8g piment rouge finement hache"
+            "8g piment rouge finement haché"
           ]
         }
       ]
@@ -1714,7 +1867,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Les saisir 1min à 1min30 par face dans une poêle très chaude avec huile neutre."
+            "Les saler juste avant, puis les saisir 1min à 1min30 par face dans une poêle très chaude avec huile neutre, sans les bouger pendant la première minute."
           ]
         }
       ]
@@ -1735,30 +1888,6 @@
       ]
     },
     {
-      "id": "cassoulet",
-      "title": "Cassoulet",
-      "proposals": [
-        {
-          "type": "temperature-a-coeur",
-          "confidence": "haute",
-          "observation": "Volaille détectée sans température à cœur explicite.",
-          "addition": "Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».",
-          "evidence": [
-            "Ministère de l’Agriculture — La campylobactériose"
-          ]
-        },
-        {
-          "type": "temperature-a-coeur",
-          "confidence": "haute",
-          "observation": "Viande hachée ou préparation hachée détectée sans température à cœur explicite.",
-          "addition": "Conserver tous les temps écrits et proposer en complément une cuisson à cœur ; pour les publics sensibles, proposer au moins 71 °C en fin de cuisson.",
-          "evidence": [
-            "Anses — prévention des infections à E. coli entérohémorragiques"
-          ]
-        }
-      ]
-    },
-    {
       "id": "poulet_tomates_poivron_vin_blanc_thym",
       "title": "Poulet aux tomates, poivron, vin blanc et thym",
       "proposals": [
@@ -1768,7 +1897,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Remettre le poulet, couvrir a moitie et mijoter 35 à 40min."
+            "Remettre le poulet, couvrir à moitié et mijoter 35 à 40min."
           ]
         },
         {
@@ -1792,7 +1921,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Couvrir a moitie et cuire 30 à 35min à feu doux."
+            "Couvrir à moitié et cuire 30 à 35min à feu doux."
           ]
         },
         {
@@ -1873,7 +2002,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Mijoter 2h30 a 3h a couvert."
+            "Mijoter 2h30 à 3h à couvert."
           ]
         }
       ]
@@ -2033,9 +2162,10 @@
         {
           "type": "repere-sensoriel",
           "confidence": "moyenne",
-          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "observation": "2 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
+            "Pocher les biscuits avec une douille cannelée sur plaque couverte de papier cuisson. Placer la plaque 15min au frais avant d’enfourner pour garder des stries nettes.",
             "Cuire 10 à 12min, jusqu’à légère coloration des bords."
           ]
         },
@@ -2420,7 +2550,7 @@
           "observation": "3 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Sortir le poulet du réfrigérateur 30min avant la cuisson. Préchauffer le four à 220°C chaleur statique avec le plat de cuisson à l’intérieur.",
+            "La veille si possible, saler le poulet et le laisser à découvert au réfrigérateur pour sécher la peau. Sortir le poulet du réfrigérateur 30min avant la cuisson. Préchauffer le four à 220°C chaleur statique avec le plat de cuisson à l’intérieur.",
             "Verser l’huile d’arachide dans le plat chaud. Poser le poulet sur un côté et rôtir 10min, puis le retourner sur l’autre côté pour 10min supplémentaires.",
             "Placer le poulet sur le dos et poursuivre 20min à 220°C. Baisser ensuite à 160°C et cuire encore 30min."
           ]
@@ -2735,7 +2865,7 @@
     },
     {
       "id": "tiramisu_variantes::6",
-      "title": "Tiramisu fraise",
+      "title": "Tiramisu fraise pâtissier",
       "proposals": [
         {
           "type": "repere-sensoriel",
@@ -2759,7 +2889,7 @@
     },
     {
       "id": "tiramisu_variantes::7",
-      "title": "Tiramisu aux fraises",
+      "title": "Tiramisu fraise express",
       "proposals": [
         {
           "type": "mise-a-echelle",
@@ -2907,6 +3037,21 @@
           "addition": "Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.",
           "evidence": [
             "3g gélatine"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "creme_diplomate_variantes::1",
+      "title": "Crème diplomate vanille",
+      "proposals": [
+        {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Cuire la pâtissière jusqu’à épaississement, ajouter le beurre, étaler sur une plaque filmée, filmer au contact puis refroidir rapidement (10 à 15min au congélateur, puis au réfrigérateur)."
           ]
         }
       ]
@@ -3436,7 +3581,7 @@
     },
     {
       "id": "carottes_braisees_variantes::2",
-      "title": "Carottes braisees orange citron confit",
+      "title": "Carottes braisées orange citron confit",
       "proposals": [
         {
           "type": "repere-sensoriel",
@@ -3632,7 +3777,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Cuire 20min e couvert, puis 20min e decouvert pour concentrer la sauce."
+            "Cuire 20min à couvert, puis 20min à découvert pour concentrer la sauce."
           ]
         },
         {
@@ -3829,7 +3974,7 @@
     },
     {
       "id": "purees_legumes_variantes::6",
-      "title": "Puree butternut pommes de terre curry",
+      "title": "Purée butternut pommes de terre curry",
       "proposals": [
         {
           "type": "temperature-a-coeur",
@@ -3846,7 +3991,7 @@
           "observation": "La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.",
           "addition": "Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.",
           "evidence": [
-            "1 pincee piment d’Espelette"
+            "1 pincée piment d’Espelette"
           ]
         }
       ]
@@ -4005,6 +4150,15 @@
       "title": "Madeleines sucrées",
       "proposals": [
         {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Beurrer et fariner très légèrement les empreintes, puis les placer 10min au congélateur pour aider la bosse à se former. Préchauffer le four à 180°C."
+          ]
+        },
+        {
           "type": "mise-a-echelle",
           "confidence": "information",
           "observation": "La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.",
@@ -4080,7 +4234,7 @@
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
             "Déposer les os sur une plaque avec les carottes et 2 oignons taillés en grosse mirepoix, puis rôtir 30min.",
-            "Cuire 4h à très petit frémissement en écumant et dégraissant régulièrement."
+            "Porter doucement à frémissement, puis cuire 4h à très petit frémissement en écumant et dégraissant régulièrement."
           ]
         }
       ]
@@ -4441,15 +4595,6 @@
           "evidence": [
             "Verser progressivement le fond de volaille et le vin blanc, porter à ébullition puis laisser frémir 30min."
           ]
-        },
-        {
-          "type": "temperature-a-coeur",
-          "confidence": "haute",
-          "observation": "Volaille détectée sans température à cœur explicite.",
-          "addition": "Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».",
-          "evidence": [
-            "Ministère de l’Agriculture — La campylobactériose"
-          ]
         }
       ]
     },
@@ -4481,6 +4626,15 @@
       "id": "paella_royale",
       "title": "Paella royale",
       "proposals": [
+        {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Assaisonner avec le safran, le sel fin et le poivre du moulin, puis cuire environ 18 à 20min sans remuer, à couvert avec un papier cuisson ou un couvercle. Ajouter les calamars, les crevettes et les langoustines pour les 8 à 10 dernières minutes, et les moules jusqu’à ce qu’elles s’ouvrent. Ajouter un peu de bouillon si nécessaire, puis finir 1 à 2min à feu vif pour griller légèrement le fond (socarrat)."
+          ]
+        },
         {
           "type": "temperature-a-coeur",
           "confidence": "haute",
@@ -4620,6 +4774,15 @@
       "title": "Terrine de légumes",
       "proposals": [
         {
+          "type": "repere-sensoriel",
+          "confidence": "moyenne",
+          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
+          "evidence": [
+            "Retirer les côtes des épinards, les laver, les cuire 1 à 2min dans une eau bouillante salée, jusqu’à ce qu’ils soient tombés, puis les égoutter, les refroidir et les presser soigneusement."
+          ]
+        },
+        {
           "type": "mise-a-echelle",
           "confidence": "information",
           "observation": "La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.",
@@ -4638,10 +4801,11 @@
         {
           "type": "repere-sensoriel",
           "confidence": "moyenne",
-          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "observation": "2 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Cuire à 180°C pendant environ 20min, puis laisser refroidir."
+            "Cuire à 180°C pendant environ 20min, puis laisser refroidir.",
+            "Faire fondre le beurre, ajouter la farine, cuire le roux blanc 1 à 2min en remuant, jusqu’à ce qu’il mousse, sans le laisser brunir, puis verser le lait bouillant sur le roux froid en fouettant."
           ]
         }
       ]

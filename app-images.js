@@ -1,13 +1,13 @@
 /* global window */
 
 (function initCookNoteImages() {
-  const IMAGE_HELPER_VERSION = 'v5.36';
+  const IMAGE_HELPER_VERSION = 'v5.37';
   const IMAGE_HELPER_REVISION = 'parent-title';
   const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
 
   // Chaque JPG/PNG de ces dossiers a une copie AVIF (scripts/generate-avif.js,
   // verifiee par validate-avif). Le JPG reste le repli automatique.
-  const AVIF_ELIGIBLE = /^\/assets\/(?:recipes\/(?:heroes|cards)|theme\/(?:dark|day)\/(?:recipes|categories|global))\/[^?]+\.(?:jpe?g|png)(?:\?.*)?$/i;
+  const AVIF_ELIGIBLE = /^\/assets\/(?:brand|recipes\/(?:heroes|cards)|theme\/(?:dark|day)\/(?:recipes|categories|global))\/[^?/]+\.(?:jpe?g|png)(?:\?.*)?$/i;
   const SUPPORTS_AVIF = (() => {
     try {
       return Boolean(window.CSS?.supports?.('background-image', 'image-set(url("/x.avif") type("image/avif"))'));

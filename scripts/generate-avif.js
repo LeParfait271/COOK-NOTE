@@ -8,6 +8,7 @@ const { execFileSync } = require('node:child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const DIRS = [
+  'assets/brand',
   'assets/recipes/heroes',
   'assets/recipes/cards',
   'assets/theme/dark/recipes',

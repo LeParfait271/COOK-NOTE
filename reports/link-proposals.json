@@ -1,5 +1,5 @@
 {
-  "recipesHash": "0936ce4a3219e9b771ce4a27dcd235cfcc27db6a849fff3a41cc2199e36dad53",
+  "recipesHash": "95a06b1e88bf66f60732fde557a3ca4fa5f1a21fc56b1cb1a1ff2b4b8ff17df1",
   "proposals": [
     {
       "id": "asperges_vertes_lard",
@@ -69,7 +69,7 @@
       "title": "Choux au craquelin",
       "target": "craquelin_cacao",
       "targetTitle": "Craquelin cacao",
-      "evidence": "Abaisser craquelin 2mm, détailler disques."
+      "evidence": "Abaisser le craquelin à 2mm entre deux feuilles de papier cuisson, puis le placer au congélateur pendant la préparation et le pochage de la pâte à choux. Le craquelin abaissé se garde plusieurs semaines au congélateur."
     },
     {
       "id": "cocktail_crevettes_palace",
@@ -286,7 +286,7 @@
       "title": "Pâte à choux",
       "target": "craquelin_cacao",
       "targetTitle": "Craquelin cacao",
-      "evidence": "Pocher des couronnes de 7cm, poser le craquelin puis cuire à 170°C pendant 40 à 45min."
+      "evidence": "Pocher des couronnes de 7cm, poser le craquelin puis cuire à 170°C pendant 40 à 45min sans ouvrir le four pendant les 25 premières minutes, porte entrouverte les 5 dernières minutes pour sécher les choux."
     },
     {
       "id": "pate_tartiner_noisette_praline",
@@ -332,7 +332,7 @@
     },
     {
       "id": "salade_epinards_clementines_amande_feta",
-      "title": "Salade epinards clementines amande feta",
+      "title": "Salade épinards clémentines amande feta",
       "target": "vinaigrette",
       "targetTitle": "Vinaigrette",
       "evidence": "Préparer vinaigrette huile, vinaigre, miel et poivre du moulin."
@@ -475,7 +475,7 @@
       "title": "Tarte citron meringuée",
       "target": "pates_tarte_variantes",
       "targetTitle": "Pâtes à tarte",
-      "evidence": "Pâte sucrée assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler."
+      "evidence": "La veille, pâte sucrée : assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler."
     },
     {
       "id": "tarte_abricots_amandes_romarin",

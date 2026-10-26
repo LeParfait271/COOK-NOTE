@@ -28,11 +28,17 @@ const FILE_BUDGETS = [
   // vignettes, chapitres de categorie (environ 31 Ko une fois compresse).
   // 222 -> 230 Ko : controle qualite (impression noir sur blanc, jauges, chevrons,
   // fenetre Partager, fil d'Ariane, largeur commune de la fiche).
-  ['dist/style.css', 230 * KB],
-  ['personal-tools.css', 8 * KB],
-  ['dist/personal-tools.css', 6 * KB],
+  // 230 -> 212 Ko : allegement (441 declarations ecrasees a coup sur par une regle
+  // de meme selecteur plus tardive ou de la couche design, styles calcules identiques).
+  // 212 -> 226 Ko : effets haut de gamme (12-design-effets.css : transition carte
+  // -> fiche, mode cuisine, minuteurs, quantites qui defilent, fond vivant).
+  ['dist/style.css', 226 * KB],
+  ['personal-tools.css', 4 * KB],
+  ['dist/personal-tools.css', 3 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.
-  ['recipes.js', 900 * KB],
+  // 900 -> 905 Ko : reperes de fin de cuisson ajoutes a 37 fiches (v5.37).
+  // 905 -> 915 Ko : 65 gestes de pro et mises en place integres (v5.37).
+  ['recipes.js', 915 * KB],
   ['recipe-worker.js', 4 * KB],
   ['assets/image-manifest.js', 180 * KB],
   ['app-art-images.js', 40 * KB],

@@ -52,7 +52,6 @@ function App() {
   const [shoppingOpen, setShoppingOpen] = useState(false);
   const [menuPlannerOpen, setMenuPlannerOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
-  const [personalToolsOpen, setPersonalToolsOpen] = useState(false);
   const [equipmentProfile, setEquipmentProfile] = useState(() => normalizeEquipmentProfile(readJson(STORAGE_KEYS.equipmentProfile, {})));
   const [recipeHistory, setRecipeHistory] = useState(() => readJson(STORAGE_KEYS.recipeHistory, {}));
   const [offlineBusy, setOfflineBusy] = useState(false);
@@ -75,7 +74,7 @@ function App() {
   const recipeDetailWorkerRef = useRef(null);
   const recipeDetailRequestsRef = useRef(new Map());
   const activeTheme = preferences.theme === 'light' ? 'light' : 'dark';
-  const anyModalOpen = searchOpen || commandOpen || shoppingOpen || menuPlannerOpen || preferencesOpen || personalToolsOpen;
+  const anyModalOpen = searchOpen || commandOpen || shoppingOpen || menuPlannerOpen || preferencesOpen;
 
   useEffect(() => () => {
     recipeDetailWorkerRef.current?.terminate();
@@ -226,6 +225,14 @@ function App() {
       cancelAnimationFrame(secondFrame);
     };
   }, [activeRecipe?.id, activePage, targetTechniqueId]);
+
+  // Onglet cache : le fond vivant se fige (aucune image calculee pour rien).
+  useEffect(() => {
+    const syncVisibility = () => document.documentElement.classList.toggle('page-hidden', document.hidden);
+    syncVisibility();
+    document.addEventListener('visibilitychange', syncVisibility);
+    return () => document.removeEventListener('visibilitychange', syncVisibility);
+  }, []);
 
   useEffect(() => {
     updateDocumentMeta(activeSeoRecipe, recipesById, activePage);
@@ -800,13 +807,6 @@ function App() {
     loadDeferredCatalogChunks().catch(() => {});
   }
 
-  function saveEquipmentProfile(profile) {
-    const next = normalizeEquipmentProfile(profile);
-    setEquipmentProfile(next);
-    writeJson(STORAGE_KEYS.equipmentProfile, next);
-    notify(t('personal.profileSaved'));
-  }
-
   function restoreRecipeVersion(entry) {
     if (!activeId || !entry?.recipe) return;
     const next = { ...recipeOverrides, [activeId]: entry };
@@ -837,22 +837,29 @@ function App() {
     if (!isMasterRecipe(target)) {
       rememberRecipeVisit(id);
     }
+    // Le defilement en haut se fait apres la capture de l'ancien etat : la carte
+    // cliquee part de sa vraie position.
+    const resetRecipeScroll = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     runViewTransition(() => {
       setActivePage('home');
       setTargetTechniqueId('');
       setActiveId(id);
       setOnlyFavorites(false);
       setFavoriteCollection('');
+    }, {
+      sourceId: id,
+      returnId: activeId || '',
+      after: () => {
+        resetRecipeScroll();
+        requestAnimationFrame(() => requestAnimationFrame(resetRecipeScroll));
+        window.setTimeout(resetRecipeScroll, 80);
+      }
     });
     const nextUrl = getRecipeUrl(id);
     if (window.location.pathname + window.location.search !== nextUrl) {
       history.pushState('', document.title, nextUrl);
     }
     lastRouteKeyRef.current = currentScrollRouteKey();
-    const resetRecipeScroll = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-    resetRecipeScroll();
-    requestAnimationFrame(() => requestAnimationFrame(resetRecipeScroll));
-    window.setTimeout(resetRecipeScroll, 80);
   }
 
   function goHome() {
@@ -863,19 +870,23 @@ function App() {
     setSeasonCategory('');
     setTagFilter('');
     setQuery('');
+    const resetHomeScroll = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     runViewTransition(() => {
       setActivePage('home');
       setTargetTechniqueId('');
       setOnlyFavorites(false);
       setFavoriteCollection('');
       setActiveId(null);
+    }, {
+      returnId: activeId || '',
+      after: () => {
+        resetHomeScroll();
+        requestAnimationFrame(() => requestAnimationFrame(resetHomeScroll));
+        window.setTimeout(resetHomeScroll, 80);
+      }
     });
     history.pushState('', document.title, '/');
     lastRouteKeyRef.current = currentScrollRouteKey();
-    const resetHomeScroll = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-    resetHomeScroll();
-    requestAnimationFrame(() => requestAnimationFrame(resetHomeScroll));
-    window.setTimeout(resetHomeScroll, 80);
   }
 
   function showFavorites() {
@@ -982,7 +993,7 @@ function App() {
         setOnlyFavorites(view === '__favs__');
         setActiveId(recipe);
         setMenuPlannerOpen(Boolean(event?.state?.menuPlannerOpen));
-      });
+      }, { sourceId: recipe || '', returnId: activeId || '' });
       if (!recipe && page === 'home') restoreHomeScrollRef.current = false;
     };
     window.addEventListener('hashchange', handleLocation);
@@ -1047,8 +1058,8 @@ function App() {
           closeMenuPlanner();
           return;
         }
-        // Une fenetre <dialog> ouverte gere Echap elle-meme (evenement cancel).
-        if (document.querySelector('dialog.modal-backdrop[open]')) return;
+        // Une fenetre <dialog> ouverte ou le mode cuisine gerent Echap eux-memes.
+        if (document.querySelector('dialog.modal-backdrop[open]') || document.documentElement.classList.contains('cook-mode-open')) return;
         if ((activeRecipe || activePage === 'techniques') && !isTypingTarget(event.target)) goHome();
         return;
       }
@@ -1115,6 +1126,8 @@ function App() {
     'data-app-mode': 'standard',
     'data-theme': activeTheme
   },
+    // Fond vivant : lumieres lentes animees en transform (compositeur seul).
+    h('div', { className: 'ambient-backdrop', 'aria-hidden': 'true' }, h('span')),
     h(TopBarFixed, {
       onHome: goHome,
       showFavorites,
@@ -1265,20 +1278,6 @@ function App() {
       exportLocalData,
       importLocalData,
     }),
-    h(PersonalToolsPanel, {
-      open: personalToolsOpen,
-      onClose: () => setPersonalToolsOpen(false),
-      profile: equipmentProfile,
-      saveProfile: saveEquipmentProfile,
-      recipes: searchableRecipes,
-      ensureCatalog: loadDeferredCatalogChunks,
-      getAllergens: getRecipeAllergens,
-      openRecipe: id => {
-        setPersonalToolsOpen(false);
-        openRecipe(id);
-      },
-      icon: name => h(Icon, { name })
-    }),
     h(CommandPalette, {
       open: commandOpen,
       onClose: () => setCommandOpen(false),
@@ -1308,6 +1307,7 @@ function App() {
       openRecipe,
       rememberSearch
     }),
+    h(KitchenTimerDock),
     h(ToastStack, { toasts, dismissToast })
   );
 }

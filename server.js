@@ -26,7 +26,6 @@ const PUBLIC_ROOT_FILES = new Set([
   'style.css',
   'recipe-editorial.css',
   'personal-tools.css',
-  'restaurant-tools.css',
   'recipe-safety-sources.css',
   ...APP_MODULES,
   'app-images.js',
@@ -314,7 +313,6 @@ function staticCacheControl(filePath, noStore = false) {
     relative === 'style.css' ||
     relative === 'recipe-editorial.css' ||
     relative === 'personal-tools.css' ||
-    relative === 'restaurant-tools.css' ||
     relative === 'recipe-safety-sources.css' ||
     relative === 'recipe.js' ||
     relative === 'recipe-worker.js' ||

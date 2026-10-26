@@ -74,7 +74,6 @@
   gap: 2px;
   padding: 3px;
   border: 1px solid var(--ds-color-border);
-  border-radius: var(--ds-radius-pill);
   background: color-mix(in oklch, var(--ds-color-background) 60%, transparent);
 }
 
@@ -219,14 +218,6 @@
 /* Bloc ouvert : teinte tres legere, sans cadre, pour reperer ce qui est deplie. */
 .notes-panel .notes-disclosure[open] {
   background: color-mix(in oklch, var(--ds-gold) 5%, transparent);
-}
-
-.notes-panel .notes-disclosure-summary {
-  padding: var(--ds-space-2) 0;
-}
-
-.notes-panel .notes-disclosure-body {
-  padding: 0 0 var(--ds-space-4);
 }
 
 /* Contenus des familles : plus de carte dans la carte. */
@@ -560,11 +551,6 @@ html.theme-reveal::view-transition-new(root) {
   will-change: transform, opacity;
 }
 
-.recipe-detail-hero .detail-actions .btn-primary.is-in-shopping {
-  border-color: color-mix(in oklch, var(--ds-gold) 60%, transparent);
-  background: color-mix(in oklch, var(--ds-gold) 18%, transparent);
-  color: var(--text);
-}
 /* Recherche visuelle : resultats en vignettes (image, categorie, temps total). */
 .search-modal .search-results {
   display: grid;
@@ -690,9 +676,6 @@ html.theme-reveal::view-transition-new(root) {
 
 /* Blocs repliables : marge interieure ; le bloc deborde un peu dans le
    padding du panneau pour que le texte reste aligne sur les autres blocs. */
-.notes-panel .notes-disclosure {
-  margin-inline: calc(-1 * var(--ds-space-3));
-}
 
 .notes-panel .notes-disclosure-summary {
   padding: var(--ds-space-2) var(--ds-space-3);
@@ -843,7 +826,6 @@ html.theme-reveal::view-transition-new(root) {
 }
 
 .notes-panel .notes-panel-head .read-before-title {
-  font-size: var(--ds-text-2xl);
   line-height: 1.15;
 }
 

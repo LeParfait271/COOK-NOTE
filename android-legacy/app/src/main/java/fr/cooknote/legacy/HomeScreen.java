@@ -136,13 +136,15 @@ final class HomeScreen {
         heroVeil.setBackground(bottomOverlayGradient());
         homeHero.addView(heroVeil, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        // Titre typographique, comme le site : plus de logo image ni de filets.
-        TextView heroWordmark = host.text("Cook Note", 34, COLOR_TEXT, false);
-        heroWordmark.setTypeface(Ui.DISPLAY);
-        heroWordmark.setGravity(Gravity.CENTER);
-        heroWordmark.setSingleLine(true);
-        heroWordmark.setIncludeFontPadding(false);
-        heroWordmark.setShadowLayer(dp(10), 0, dp(2), Color.argb(190, 0, 0, 0));
+        // Logo principal, comme le site (lettrage clin d'oeil a Death Note), sans filets.
+        // Drawable leger (640 px, transparence conservee) dans res/drawable-nodpi.
+        ImageView heroWordmark = new ImageView(host);
+        heroWordmark.setImageResource(R.drawable.cook_note_wordmark);
+        heroWordmark.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        heroWordmark.setAdjustViewBounds(true);
+        heroWordmark.setContentDescription("Cook Note");
+        int wordmarkPadding = Math.max(dp(8), homeHeroHeight / 8);
+        heroWordmark.setPadding(dp(16), wordmarkPadding, dp(16), wordmarkPadding);
         homeHero.addView(heroWordmark, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT,

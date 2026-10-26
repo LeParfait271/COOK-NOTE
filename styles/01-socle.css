@@ -1,7 +1,4 @@
 :root {
-  --ds-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font: var(--ds-font-family);
-  --ds-color-background: #050505;
   --ds-color-background-muted: #11100d;
   --ds-color-surface: rgba(17, 16, 14, .84);
   --ds-color-surface-strong: rgba(23, 21, 18, .96);
@@ -63,9 +60,6 @@
   --ds-duration-slow: var(--ds-motion-slow);
   --ds-ease-out: cubic-bezier(.22, .72, .2, 1);
   --ds-ease: var(--ds-ease-out);
-  --ds-type-display: clamp(36px, 4.2vw, 56px);
-  --ds-type-heading: clamp(22px, 2vw, 32px);
-  --ds-type-body: 16px;
   --ds-type-caption: 12px;
   --ds-type-label: 13px;
   --control-height-sm: 32px;
@@ -79,21 +73,10 @@
 }
 
 :root[data-theme="light"] {
-  --ds-color-background: #f5efe4;
-  --ds-color-background-muted: #ebe1d0;
   --ds-color-surface: rgba(255, 251, 243, .86);
   --ds-color-surface-strong: rgba(255, 250, 239, .96);
   --ds-color-surface-soft: rgba(112, 74, 28, .08);
   --ds-color-elevated: rgba(255, 252, 246, .98);
-  --ds-color-primary: #b45309;
-  --ds-color-primary-ink: #fff8ea;
-  --ds-color-secondary: #d97706;
-  --ds-color-text-primary: #20170f;
-  --ds-color-text-secondary: #4d4236;
-  --ds-color-text-muted: #6f6255;
-  --ds-color-border: rgba(112, 74, 28, .20);
-  --ds-color-border-strong: rgba(112, 74, 28, .30);
-  --ds-color-divider: rgba(66, 45, 24, .16);
   --ds-color-error-text: #7f1d1d;
   --ds-color-info: #0369a1;
   --ds-color-scheme: light;
@@ -267,14 +250,8 @@ a {
     "identity actions";
   gap: clamp(12px, 2vw, 20px);
   align-items: center;
-  position: relative;
-  overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
   border-radius: 8px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, .055), transparent 38%),
-    linear-gradient(180deg, rgba(0, 0, 0, .18), rgba(0, 0, 0, .32)),
-    color-mix(in srgb, var(--panel) 82%, #070604);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .08),
     0 20px 60px rgba(0, 0, 0, .22);
@@ -434,17 +411,14 @@ a {
 }
 
 .topbar {
-  position: fixed;
   inset: 0 0 auto;
   z-index: 20;
   display: grid;
   grid-template-columns: minmax(58px, 1fr) auto minmax(132px, 1fr);
   gap: 12px;
   align-items: center;
-  min-height: 56px;
   padding: 8px clamp(14px, 3.6vw, 40px);
   border-bottom: 1px solid color-mix(in srgb, var(--accent) 16%, var(--line));
-  backdrop-filter: blur(20px) saturate(1.12);
 }
 
 .field label,

@@ -40,7 +40,6 @@ const ROOT_FILES = [
   'style.css',
   'recipe-editorial.css',
   'personal-tools.css',
-  'restaurant-tools.css',
   'recipe-safety-sources.css'
 ];
 
@@ -608,7 +607,6 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `  <link rel="stylesheet" href="/style.css?v=${version}" />`,
     `  <link rel="stylesheet" href="/recipe-editorial.css?v=${version}" />`,
     `  <link rel="stylesheet" href="/personal-tools.css?v=${version}" />`,
-    `  <link rel="stylesheet" href="/restaurant-tools.css?v=${version}" />`,
     `  <link rel="stylesheet" href="/recipe-safety-sources.css?v=${version}" />`,
     `  <script id="recipe-jsonld" type="application/ld+json">${safeJson(jsonLd)}</script>`,
     '</head>',
@@ -618,7 +616,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `      <main class="recipe-view static-prerender" style="--accent:${escapeHtml(accent)};--accent-2:${escapeHtml(accent)}">`,
     `        <section class="recipe-detail-hero has-photo${variantRefs(fullRecipe).length ? ' parent-hero' : ''}" style="${heroStyle}">`,
     '          <div class="detail-hero-copy">',
-    variantRefs(fullRecipe).length ? '            <img class="detail-hero-logo" src="/assets/cook-note-white.png" alt="Cook Note" decoding="async" width="948" height="302" data-art-asset="logo" />' : '',
+    variantRefs(fullRecipe).length ? '            <img class="detail-hero-logo" src="/assets/brand/cook-note-white.png" alt="Cook Note" decoding="async" width="948" height="302" data-art-asset="logo" />' : '',
     `            <p class="eyebrow">${escapeHtml(primaryCategory(fullRecipe))}</p>`,
     `            <h1>${escapeHtml(fullRecipe.title)}</h1>`,
     '            <div class="detail-meta">',

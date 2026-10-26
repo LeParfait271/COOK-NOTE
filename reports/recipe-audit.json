@@ -1,8 +1,8 @@
 {
   "source": {
-    "siteVersion": "v5.36",
-    "siteUpdatedAt": "25/10/26",
-    "recipesSha256": "0936ce4a3219"
+    "siteVersion": "v5.37",
+    "siteUpdatedAt": "26/10/26",
+    "recipesSha256": "95a06b1e88bf"
   },
   "totals": {
     "recipes": 329,
@@ -1429,7 +1429,7 @@
     },
     {
       "id": "carottes_braisees_variantes::variant-2",
-      "title": "Carottes braisees orange citron confit",
+      "title": "Carottes braisées orange citron confit",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -2501,7 +2501,7 @@
     },
     {
       "id": "gratins_chou_fleur_variantes::variant-3",
-      "title": "Gratin chou-fleur comte lardons",
+      "title": "Gratin chou-fleur comté lardons",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -3870,7 +3870,7 @@
     },
     {
       "id": "purees_legumes_variantes::variant-6",
-      "title": "Puree butternut pommes de terre curry",
+      "title": "Purée butternut pommes de terre curry",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -3878,7 +3878,7 @@
     },
     {
       "id": "purees_legumes_variantes::variant-7",
-      "title": "Puree de chou-fleur",
+      "title": "Purée de chou-fleur",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -4090,7 +4090,7 @@
     },
     {
       "id": "salade_epinards_clementines_amande_feta",
-      "title": "Salade epinards clementines amande feta",
+      "title": "Salade épinards clémentines amande feta",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -4266,7 +4266,7 @@
     },
     {
       "id": "sauces_fromage_variantes::variant-1",
-      "title": "Sauce chevre crème",
+      "title": "Sauce chèvre crème",
       "score": 100,
       "issues": [],
       "qualityIssues": [],

@@ -98,10 +98,10 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.36';
-const SITE_UPDATED_AT = '25/10/26';
+const SITE_VERSION = 'v5.37';
+const SITE_UPDATED_AT = '26/10/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '5.32';
+const ANDROID_LEGACY_APK_VERSION = '5.37';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
@@ -807,8 +807,7 @@ const {
   RecipeHistoryBlock,
   EquipmentProfileBlock,
   MoldCalculatorBlock,
-  ByproductBlock,
-  PersonalToolsPanel
+  ByproductBlock
 } = window.CookNotePersonalTools || {};
 const { RecipeSafetySources } = window.CookNoteSafetySources || {};
 
@@ -918,23 +917,72 @@ function scrollElementToViewportCenter(element, behavior = 'smooth') {
   window.scrollTo({ top, behavior });
 }
 
-function runViewTransition(update) {
+// Carte visible (image + titre) d'une recette, pour la faire voler vers le hero.
+// Les cartes portent data-vt-media / data-vt-title ; seul l'element du clic est
+// nomme le temps de la transition (nommer toute la grille couterait une capture
+// par carte).
+function visibleRecipeCardParts(recipeId) {
+  if (!recipeId) return null;
+  const media = Array.from(document.querySelectorAll('[data-vt-media]')).find(element => {
+    if (element.dataset.vtMedia !== recipeId) return false;
+    const rect = element.getBoundingClientRect();
+    return rect.width > 0 && rect.bottom > 0 && rect.top < window.innerHeight;
+  });
+  if (!media) return null;
+  const scope = media.closest('[data-vt-card]') || media.parentElement;
+  const title = Array.from(scope?.querySelectorAll('[data-vt-title]') || []).find(element => element.dataset.vtTitle === recipeId) || null;
+  return { media, title };
+}
+
+function nameRecipeCardParts(parts, named) {
+  if (!parts) return;
+  parts.media.style.viewTransitionName = named ? 'cn-media' : '';
+  if (parts.title) parts.title.style.viewTransitionName = named ? 'cn-title' : '';
+}
+
+// Transition de vue : `sourceId` = carte cliquee (elle vole vers le hero),
+// `returnId` = recette quittee (le hero revient dans sa carte). `after` s'execute
+// apres la mise a jour du DOM, avant la capture du nouvel etat.
+function runViewTransition(update, { sourceId = '', returnId = '', after = null } = {}) {
   if (typeof update !== 'function') return;
   const commit = () => {
     if (typeof ReactDOM !== 'undefined' && typeof ReactDOM.flushSync === 'function') {
-      return ReactDOM.flushSync(update);
+      ReactDOM.flushSync(update);
+    } else {
+      update();
     }
-    return update();
+    if (typeof after === 'function') after();
   };
   const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || document.querySelector('.display-reduce-motion');
   if (typeof document.startViewTransition !== 'function' || reduceMotion) {
     commit();
     return;
   }
+  const root = document.documentElement;
+  const source = visibleRecipeCardParts(sourceId);
+  let target = null;
+  if (source) {
+    root.classList.add('vt-card-source');
+    nameRecipeCardParts(source, true);
+  }
   try {
-    const transition = document.startViewTransition(commit);
-    transition?.finished?.catch(() => {});
+    const transition = document.startViewTransition(() => {
+      root.classList.remove('vt-card-source');
+      nameRecipeCardParts(source, false);
+      commit();
+      target = source ? null : visibleRecipeCardParts(returnId);
+      if (target) {
+        root.classList.add('vt-card-target');
+        nameRecipeCardParts(target, true);
+      }
+    });
+    Promise.resolve(transition?.finished).catch(() => {}).finally(() => {
+      root.classList.remove('vt-card-source', 'vt-card-target');
+      nameRecipeCardParts(target, false);
+    });
   } catch {
+    root.classList.remove('vt-card-source');
+    nameRecipeCardParts(source, false);
     commit();
   }
 }

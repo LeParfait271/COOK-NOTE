@@ -8,7 +8,6 @@
 }
 
 .hero-inner {
-  width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
   display: grid;
   place-items: center;
@@ -211,7 +210,6 @@
 }
 
 .content-wrap {
-  width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
   padding: 20px 0 74px;
 }
@@ -227,7 +225,6 @@
 .home-command-center {
   position: relative;
   isolation: isolate;
-  display: grid;
   margin: 0 0 18px;
 }
 
@@ -243,18 +240,14 @@
 }
 
 .home-search-launcher {
-  min-height: 58px;
-  padding: 0 16px;
   border: 1px solid color-mix(in srgb, var(--ambient-accent, var(--accent)) 46%, var(--line));
-  border-radius: 14px;
   color: var(--text);
   font-weight: 850;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 40px rgba(0,0,0,.2);
 }
 .home-search-launcher:hover, .home-search-launcher:focus-visible {border-color: var(--ambient-accent, var(--accent))}
 .home-search-launcher kbd { min-width: 28px; padding: 5px 8px; border: 1px solid var(--line); border-radius: 7px; color: var(--muted); text-align: center; font: inherit; font-size: 12px; }
 
-.home-search-launcher {align-self: end;grid-template-columns: auto 1fr auto;align-items: center;gap: 13px;background: color-mix(in srgb, var(--surface-strong) 82%, transparent);position: relative;display: flex;justify-content: center;text-align: center}
+.home-search-launcher {grid-template-columns: auto 1fr auto;align-items: center;gap: 13px;position: relative;display: flex;justify-content: center;text-align: center}
 .home-search-launcher > .site-icon { position: absolute; left: 16px; }
 .home-search-launcher > .home-search-copy { text-align: center; }
 .home-search-launcher > kbd { position: absolute; right: 16px; }
@@ -268,28 +261,13 @@
 .home-quick-actions button {display: flex;align-items: center;justify-content: center;gap: 9px;border: 1px solid var(--line)}
 .home-quick-actions button:hover, .home-quick-actions button:focus-visible {border-color: color-mix(in srgb, var(--ambient-accent, var(--accent)) 58%, var(--line))}
 
-.mc-shell.theme-light .home-command-center { background: radial-gradient(circle at 88% 8%, color-mix(in srgb, var(--ambient-accent, var(--accent)) 12%, transparent), transparent 36%), linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,250,240,.78)); box-shadow: inset 0 1px 0 #fff, 0 24px 64px rgba(84,61,31,.14); }
 .mc-shell.theme-light .home-search-launcher, .mc-shell.theme-light .home-quick-actions button { background: rgba(255,252,246,.78); color: var(--text); }
 .mc-shell.theme-light .home-command-center .site-icon { color: var(--text); filter: none; }
 
 @keyframes home-command-glint { 0%, 72%, 100% { transform: translateX(-42%); opacity: 0; } 78% { opacity: .8; } 92% { transform: translateX(48%); opacity: 0; } }
 
-@media (min-width: 901px) {
-  .home-view > .hero { min-height: clamp(250px, 28vw, 380px); }
-  .home-view > .hero .hero-inner { padding: clamp(32px, 5vw, 68px) 0; }
-}
-
 @media (max-width: 760px) {
-  .home-command-center {padding: 20px;border-radius: 16px}
-  .home-search-launcher { align-self: auto; }
-  .home-quick-actions { grid-column: auto; grid-template-columns: repeat(2, 1fr); }
-  .home-quick-actions button {min-height: 52px;gap: 4px}
-}
-
-@media (prefers-reduced-motion: reduce) { .home-command-center::after { animation: none; } }
-
-@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
-  .home-view > .hero { background-attachment: fixed; }
+  .home-quick-actions button {gap: 4px}
 }
 
 .field {
@@ -330,7 +308,6 @@
   margin: 0 0 22px;
   border: 1px solid color-mix(in srgb, var(--mako) 26%, var(--line));
   border-radius: var(--radius);
-  background: color-mix(in srgb, var(--surface-soft) 94%, transparent);
   padding: 16px;
   box-shadow: none;
   contain: layout paint;
@@ -442,11 +419,6 @@
   justify-content: end;
   gap: 4px;
   max-width: min(640px, 54vw);
-  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
-  border-radius: var(--ds-radius-sm);
-  background: rgba(255, 255, 255, .035);
-  padding: 4px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
 }
 
 .season-filter-stack {
@@ -470,7 +442,6 @@
   padding: 0 11px;
   font-weight: 900;
   line-height: 1.05;
-  overflow-wrap: anywhere;
   transition: background var(--speed), border-color var(--speed), color var(--speed), transform var(--speed);
 }
 
@@ -487,7 +458,6 @@
 .season-category-tabs button.active {
   border-color: color-mix(in srgb, var(--accent) 72%, transparent);
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .22);
   color: #111;
 }
 
@@ -534,18 +504,12 @@
 }
 
 .season-block {
-  overflow: hidden;
   padding: 14px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .012)),
-    var(--surface);
   backdrop-filter: blur(18px) saturate(1.08);
 }
 
 .season-dashboard {
   margin-bottom: 6px;
-  border-bottom: 1px solid color-mix(in srgb, var(--accent) 20%, var(--line));
-  background: transparent;
   box-shadow: none;
 }
 
@@ -568,7 +532,7 @@
   white-space: nowrap;
 }
 
-.favorite-collection-tabs,.technique-filter-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.technique-filter-tabs{overflow-x:auto}
+.favorite-collection-tabs,.technique-filter-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 
 .favorite-collection-tabs button,
 .technique-filter-tabs button {

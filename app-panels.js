@@ -974,6 +974,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, pr
           h('button', {
             type: 'button',
             className: 'variant-card',
+            'data-vt-card': '',
             onPointerEnter: () => warmRecipeOnIntent(preloadRecipe, variant.id, image),
             onFocus: () => warmRecipeOnIntent(preloadRecipe, variant.id, image),
             onTouchStart: () => warmRecipeOnIntent(preloadRecipe, variant.id, image),
@@ -982,9 +983,9 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, pr
             onClick: () => openRecipe(variant.id)
           },
             cardImage && h('span', { className: 'variant-card-ambilight', 'aria-hidden': true }),
-            image && h('span', { className: 'variant-card-bg', style: imageBackgroundStyle(image) }),
+            image && h('span', { className: 'variant-card-bg', 'data-vt-media': variant.id, style: imageBackgroundStyle(image) }),
             h('span', { className: 'variant-card-body' },
-              h('strong', null, variant.label || item.title),
+              h('strong', { 'data-vt-title': variant.id }, variant.label || item.title),
               variantLabel && h('small', { className: 'variant-card-variant-count' }, variantLabel)
             )
           )

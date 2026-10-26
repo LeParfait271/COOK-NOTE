@@ -27,11 +27,21 @@ function nextVersion(value) {
 }
 
 const current = load(fs.readFileSync(FILE, 'utf8'));
-let previous = {};
-try {
-  previous = load(execFileSync('git', ['show', 'HEAD:recipes.js'], { cwd: ROOT, encoding: 'utf8' }), 'HEAD:recipes.js');
-} catch (_) {
-  previous = {};
+// Git du PATH, sinon le Git portable du depot. Sans reference HEAD, on s'arrete :
+// toutes les fiches passeraient pour nouvelles et perdraient leur numero de version.
+const GIT_CANDIDATES = ['git', path.join(ROOT, '.tools', 'git', 'cmd', 'git.exe')];
+let previous = null;
+for (const git of GIT_CANDIDATES) {
+  try {
+    previous = load(execFileSync(git, ['show', 'HEAD:recipes.js'], { cwd: ROOT, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] }), 'HEAD:recipes.js');
+    break;
+  } catch (_) {
+    previous = null;
+  }
+}
+if (!previous) {
+  console.error('Versions recettes non synchronisees : HEAD:recipes.js illisible (git introuvable ?). recipes.js laisse intact.');
+  process.exit(1);
 }
 
 let created = 0;

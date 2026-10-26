@@ -2,7 +2,6 @@
 (function () {
   const h = React.createElement;
   const { useEffect, useMemo, useState } = React;
-  const STOP_WORDS = new Set(['avec', 'aux', 'des', 'dans', 'les', 'pour', 'sans', 'une', 'maison', 'variante', 'variantes']);
 
   function t(key, vars) {
     return window.CookNoteI18n && typeof window.CookNoteI18n.t === 'function'
@@ -199,153 +198,6 @@
     });
   }
 
-  function tokens(value) {
-    return new Set(normalize(value).split(' ').filter(token => token.length > 2 && !STOP_WORDS.has(token)));
-  }
-
-  function jaccard(left, right) {
-    if (!left.size || !right.size) return 0;
-    let common = 0;
-    left.forEach(value => { if (right.has(value)) common += 1; });
-    return common / (left.size + right.size - common);
-  }
-
-  function findSimilarRecipes(recipes, limit) {
-    const leaves = (recipes || [])
-      .filter(recipe => recipe && recipe.id && !recipe.variants && Array.isArray(recipe.ingredients))
-      .map(recipe => ({
-        recipe,
-        title: tokens(recipe.title),
-        ingredients: tokens(ingredientItems(recipe).join(' '))
-      }));
-    const pairs = [];
-    for (let leftIndex = 0; leftIndex < leaves.length; leftIndex += 1) {
-      for (let rightIndex = leftIndex + 1; rightIndex < leaves.length; rightIndex += 1) {
-        const left = leaves[leftIndex];
-        const right = leaves[rightIndex];
-        const titleScore = jaccard(left.title, right.title);
-        const ingredientScore = jaccard(left.ingredients, right.ingredients);
-        const sameParent = Boolean(left.recipe.master && left.recipe.master === right.recipe.master);
-        const score = titleScore * 0.58 + ingredientScore * 0.32 + (sameParent ? 0.1 : 0);
-        if (score < 0.43 || (titleScore < 0.34 && ingredientScore < 0.5)) continue;
-        const reasons = [];
-        if (sameParent) reasons.push(t('personal.similarSameFamily'));
-        if (titleScore >= 0.34) reasons.push(t('personal.similarTitle', { percent: Math.round(titleScore * 100) }));
-        if (ingredientScore >= 0.35) reasons.push(t('personal.similarIngredients', { percent: Math.round(ingredientScore * 100) }));
-        pairs.push({ left: left.recipe, right: right.recipe, score, reasons });
-      }
-    }
-    return pairs.sort((left, right) => right.score - left.score || left.left.title.localeCompare(right.left.title, 'fr')).slice(0, Number(limit) || 20);
-  }
-
-  const SERVICE_FORMATS = Object.freeze({
-    restaurant: { label: 'Service restaurant', factor: 1 },
-    tasting: { label: 'Menu dégustation', factor: 0.6 },
-    buffet: { label: 'Buffet', factor: 1.15 },
-    banquet: { label: 'Banquet', factor: 1.05 }
-  });
-
-  function recipeDuration(recipe) {
-    const active = Math.max(0, Number(recipe && recipe.activeTime) || 0);
-    const cook = Math.max(0, Number(recipe && recipe.cookTime) || 0);
-    const rest = Math.max(0, Number(recipe && recipe.restTime) || 0);
-    return { active, cook, rest, total: active + cook + rest };
-  }
-
-  function buildProductionPlan(recipes, serviceAt) {
-    const end = new Date(serviceAt);
-    if (!Number.isFinite(end.getTime())) return [];
-    return (recipes || []).map(recipe => {
-      const duration = recipeDuration(recipe);
-      return {
-        recipe,
-        duration,
-        startsAt: duration.total ? new Date(end.getTime() - duration.total * 60000) : null,
-        serviceAt: end
-      };
-    }).sort((left, right) => (left.startsAt ? left.startsAt.getTime() : Infinity) - (right.startsAt ? right.startsAt.getTime() : Infinity));
-  }
-
-  function getRestaurantStorageGuidance(recipe) {
-    const practical = recipe && recipe.practical && Array.isArray(recipe.practical.storage) ? recipe.practical.storage : [];
-    const notes = (recipe && Array.isArray(recipe.notes) ? recipe.notes : [])
-      .map(plain)
-      .filter(note => /\b(conservation|conserver|refriger|congel|au froid|sous vide)\b/i.test(normalize(note)));
-    return [...new Set([...practical.map(plain), ...notes])].filter(Boolean);
-  }
-
-  function ProfessionalKitchenTools({ recipes, ensureCatalog, getAllergens }) {
-    const [section, setSection] = useState('production');
-    const [catalog, setCatalog] = useState(recipes || []);
-    const [selectedIds, setSelectedIds] = useState([]);
-    const [query, setQuery] = useState('');
-    const [serviceAt, setServiceAt] = useState(() => {
-      const date = new Date(Date.now() + 4 * 3600000);
-      date.setMinutes(Math.ceil(date.getMinutes() / 15) * 15, 0, 0);
-      return date.toISOString().slice(0, 16);
-    });
-    const [format, setFormat] = useState('restaurant');
-    const [covers, setCovers] = useState(20);
-    useEffect(() => {
-      Promise.resolve(typeof ensureCatalog === 'function' ? ensureCatalog() : null).then(source => {
-        if (!source || typeof source !== 'object') return;
-        setCatalog(Object.entries(source).map(([id, recipe]) => ({ id, ...recipe })));
-      }).catch(() => null);
-    }, []);
-    const leaves = useMemo(() => (catalog || []).filter(recipe => recipe && recipe.id && !recipe.variants && Array.isArray(recipe.ingredients)), [catalog]);
-    const filtered = useMemo(() => {
-      const needle = normalize(query);
-      return leaves.filter(recipe => !needle || searchText(recipe).includes(needle)).slice(0, 40);
-    }, [leaves, query]);
-    const selected = useMemo(() => selectedIds.map(id => leaves.find(recipe => recipe.id === id)).filter(Boolean), [selectedIds, leaves]);
-    const toggle = id => setSelectedIds(current => current.includes(id) ? current.filter(item => item !== id) : current.length < 12 ? [...current, id] : current);
-    const plan = buildProductionPlan(selected, serviceAt);
-    const allergens = useMemo(() => [...new Set(selected.flatMap(recipe => typeof getAllergens === 'function' ? getAllergens(recipe) : []))].sort((a, b) => a.localeCompare(b, 'fr')), [selected, getAllergens]);
-    const time = value => value && value.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-    const tabs = [
-      ['production', 'Plan de production'], ['allergens', 'Matrice allergènes'],
-      ['formats', 'Formats de service'], ['leftovers', 'Gestion des restes']
-    ];
-    return h('div', { className: 'restaurant-tools' },
-      h('div', { className: 'restaurant-tools-tabs', role: 'tablist', 'aria-label': 'Outils restaurant' },
-        tabs.map(([id, label]) => h('button', { key: id, type: 'button', role: 'tab', className: section === id ? 'active' : '', 'aria-selected': section === id, onClick: () => setSection(id) }, label))
-      ),
-      h('p', { className: 'personal-tool-notice' }, 'Outils indicatifs calculés à partir des fiches existantes. Ils ne remplacent ni le PMS, ni les étiquettes fournisseurs, ni la vérification des contaminations croisées.'),
-      h('label', { className: 'field restaurant-search' }, h('span', null, 'Choisir jusqu’à 12 recettes'), h('input', { type: 'search', value: query, placeholder: 'Rechercher une recette', onChange: event => setQuery(event.target.value) })),
-      h('div', { className: 'restaurant-recipe-picker' }, filtered.map(recipe => h('label', { key: recipe.id, className: selectedIds.includes(recipe.id) ? 'selected' : '' },
-        h('input', { type: 'checkbox', checked: selectedIds.includes(recipe.id), onChange: () => toggle(recipe.id) }), h('span', null, recipe.title)
-      ))),
-      !selected.length && h('p', { className: 'personal-tool-empty' }, 'Sélectionne au moins une recette pour afficher cet outil.'),
-      section === 'production' && selected.length > 0 && h('section', { className: 'restaurant-result' },
-        h('label', { className: 'field' }, h('span', null, 'Heure de service'), h('input', { type: 'datetime-local', value: serviceAt, onChange: event => setServiceAt(event.target.value) })),
-        h('div', { className: 'production-plan' }, plan.map(item => h('article', { key: item.recipe.id },
-          h('strong', null, item.recipe.title),
-          item.startsAt ? h('p', null, `${time(item.startsAt)} → ${time(item.serviceAt)}`) : h('p', null, 'Durée non structurée dans la fiche.'),
-          item.duration.total > 0 && h('small', null, `Actif ${item.duration.active}min · Cuisson ${item.duration.cook}min · Repos ${item.duration.rest}min`)
-        )))
-      ),
-      section === 'allergens' && selected.length > 0 && h('section', { className: 'restaurant-result restaurant-table-wrap' },
-        allergens.length ? h('table', { className: 'allergen-matrix' },
-          h('thead', null, h('tr', null, h('th', { scope: 'col' }, 'Recette'), allergens.map(item => h('th', { key: item, scope: 'col' }, item)))),
-          h('tbody', null, selected.map(recipe => { const found = typeof getAllergens === 'function' ? getAllergens(recipe) : []; return h('tr', { key: recipe.id }, h('th', { scope: 'row' }, recipe.title), allergens.map(item => h('td', { key: item }, found.includes(item) ? '✓' : '—'))); }))
-        ) : h('p', null, 'Aucun allergène détecté automatiquement. Vérification manuelle obligatoire.')
-      ),
-      section === 'formats' && selected.length > 0 && h('section', { className: 'restaurant-result' },
-        h('div', { className: 'personal-tools-form-grid' },
-          h('label', null, h('span', null, 'Format'), h('select', { value: format, onChange: event => setFormat(event.target.value) }, Object.entries(SERVICE_FORMATS).map(([id, item]) => h('option', { key: id, value: id }, item.label)))),
-          h('label', null, h('span', null, 'Couverts prévus'), h('input', { type: 'number', min: 1, max: 1000, value: covers, onChange: event => setCovers(Math.max(1, Number(event.target.value) || 1)) }))
-        ),
-        h('p', { className: 'service-format-result' }, h('strong', null, `${Math.ceil(covers * SERVICE_FORMATS[format].factor)} portions de référence`), h('small', null, `Coefficient indicatif × ${String(SERVICE_FORMATS[format].factor).replace('.', ',')} — les quantités originales restent inchangées.`))
-      ),
-      section === 'leftovers' && selected.length > 0 && h('section', { className: 'restaurant-result leftovers-list' }, selected.map(recipe => {
-        const guidance = getRestaurantStorageGuidance(recipe);
-        return h('article', { key: recipe.id }, h('strong', null, recipe.title), guidance.length
-          ? h('ul', null, guidance.map((item, index) => h('li', { key: index }, item)))
-          : h('p', null, 'Aucune consigne validée dans la fiche : ne pas déduire une durée ni un réemploi.'));
-      }))
-    );
-  }
-
   function RecipeHistoryBlock({ recipe, updatedAt }) {
     if (!recipe) return null;
     const version = /^\d+\.\d{2}$/.test(String(recipe.recipeVersion || '')) ? recipe.recipeVersion : '1.00';
@@ -460,78 +312,6 @@
     );
   }
 
-  function PersonalToolsPanel({ open, onClose, profile, saveProfile, recipes, ensureCatalog, openRecipe, icon, getAllergens, initialTab }) {
-    const [tab, setTab] = useState('equipment');
-    const [draft, setDraft] = useState(() => normalizeEquipmentProfile(profile));
-    const [pairs, setPairs] = useState([]);
-    const [busy, setBusy] = useState(false);
-    useEffect(() => {
-      if (open) {
-        setDraft(normalizeEquipmentProfile(profile));
-        if (initialTab) setTab(initialTab);
-      }
-    }, [open, profile, initialTab]);
-    if (!open) return null;
-    const update = patch => setDraft(current => ({ ...current, ...patch }));
-    const analyze = () => {
-      setBusy(true);
-      Promise.resolve(typeof ensureCatalog === 'function' ? ensureCatalog() : null)
-        .then(source => {
-          const list = source && typeof source === 'object'
-            ? Object.entries(source).map(([id, recipe]) => ({ id, ...recipe }))
-            : recipes;
-          return new Promise(resolve => window.setTimeout(() => resolve(findSimilarRecipes(list, 18)), 0));
-        })
-        .then(setPairs)
-        .finally(() => setBusy(false));
-    };
-    return h(window.CookNotePremium.ModalDialog, { className: '', onClose: onClose },
-      h('section', { className: 'modal-panel personal-tools-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'personal-tools-title', tabIndex: -1, onKeyDown: window.CookNotePremium?.trapModalFocus, onMouseDown: event => event.stopPropagation() },
-        h('div', { className: 'modal-head' },
-          h('div', null, h('p', { className: 'eyebrow' }, t('personal.kicker')), h('h2', { id: 'personal-tools-title' }, t('personal.title'))),
-          h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': t('common.close') }, typeof icon === 'function' ? icon('close') : '×')
-        ),
-        h('div', { className: 'personal-tools-tabs', role: 'tablist', 'aria-label': t('personal.tabsAria') },
-          [['equipment', t('personal.tab.equipment')], ['catalog', t('personal.tab.catalog')], ['restaurant', 'Restaurant']].map(([item, label]) => h('button', { key: item, type: 'button', role: 'tab', className: tab === item ? 'active' : '', 'aria-selected': tab === item, onClick: () => setTab(item) }, label))
-        ),
-        tab === 'equipment' && h('div', { className: 'personal-tools-content', role: 'tabpanel' },
-          h('p', { className: 'personal-tool-help' }, t('personal.equipmentHelp')),
-          h('label', { className: 'personal-tools-wide-field field' },
-            h('span', null, t('personal.equipmentList')),
-            h('textarea', { rows: 3, value: draft.items.join(', '), placeholder: t('personal.equipmentPlaceholder'), onChange: event => update({ items: event.target.value.split(',').map(item => item.trim()).filter(Boolean) }) })
-          ),
-          h('div', { className: 'personal-tools-form-grid' },
-            h('label', null, h('span', null, t('personal.ovenOffset')), h('input', { type: 'number', min: -30, max: 30, step: 5, value: draft.ovenOffset, onChange: event => update({ ovenOffset: event.target.value }) })),
-            h('label', null, h('span', null, t('personal.roundMold')), h('input', { type: 'number', min: 0, max: 50, step: 1, value: draft.roundMold || '', onChange: event => update({ roundMold: event.target.value }) })),
-            h('label', null, h('span', null, t('personal.rectWidth')), h('input', { type: 'number', min: 0, max: 60, step: 1, value: draft.rectWidth || '', onChange: event => update({ rectWidth: event.target.value }) })),
-            h('label', null, h('span', null, t('personal.rectLength')), h('input', { type: 'number', min: 0, max: 80, step: 1, value: draft.rectLength || '', onChange: event => update({ rectLength: event.target.value }) }))
-          ),
-          h('div', { className: 'modal-actions' },
-            h('button', { type: 'button', className: 'btn btn-primary', onClick: () => saveProfile(normalizeEquipmentProfile(draft)) }, t('personal.saveEquipment'))
-          )
-        ),
-        tab === 'catalog' && h('div', { className: 'personal-tools-content', role: 'tabpanel' },
-          h('p', { className: 'personal-tool-help' }, t('personal.similarHelp')),
-          h('button', { type: 'button', className: 'btn btn-primary', disabled: busy, onClick: analyze }, busy ? t('personal.analysisLoading') : t('personal.analyze')),
-          pairs.length > 0 && h('div', { className: 'personal-similar-list' },
-            pairs.map(pair => h('article', { key: pair.left.id + ':' + pair.right.id, className: 'personal-similar-card' },
-              h('div', null, h('strong', null, pair.left.title), h('span', { 'aria-hidden': true }, '↔'), h('strong', null, pair.right.title)),
-              h('p', null, pair.reasons.join(' · ')),
-              h('div', null,
-                h('button', { type: 'button', className: 'btn btn-subtle', onClick: () => openRecipe(pair.left.id) }, t('personal.openFirst')),
-                h('button', { type: 'button', className: 'btn btn-subtle', onClick: () => openRecipe(pair.right.id) }, t('personal.openSecond'))
-              )
-            ))
-          ),
-          !busy && !pairs.length && h('p', { className: 'personal-tool-empty' }, t('personal.analysisEmpty'))
-        ),
-        tab === 'restaurant' && h('div', { className: 'personal-tools-content', role: 'tabpanel' },
-          h(ProfessionalKitchenTools, { recipes, ensureCatalog, getAllergens })
-        )
-      )
-    );
-  }
-
   window.CookNotePersonalTools = Object.freeze({
     snapshotRecipe,
     recipeFingerprint,
@@ -540,15 +320,9 @@
     detectMold,
     calculateMoldFactor,
     byproductMatches,
-    findSimilarRecipes,
-    SERVICE_FORMATS,
-    buildProductionPlan,
-    getRestaurantStorageGuidance,
     RecipeHistoryBlock,
     EquipmentProfileBlock,
     MoldCalculatorBlock,
-    ByproductBlock,
-    PersonalToolsPanel,
-    ProfessionalKitchenTools
+    ByproductBlock
   });
 }());

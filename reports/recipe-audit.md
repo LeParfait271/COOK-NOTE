@@ -6,7 +6,7 @@
 - Familles a variantes internes : 63
 - Options internes auditees : 217
 - Fiches executables auditees : 475
-- Source : v5.36 / 25/10/26 / recipes.js 0936ce4a3219
+- Source : v5.37 / 26/10/26 / recipes.js 95a06b1e88bf
 - Score moyen : 100/100
 - Fiches sous 78 : 0
 - Fiches avec defauts a verifier : 0
@@ -147,7 +147,7 @@ Aucune fiche faible detectee.
 - Cake tomate chorizo feta (cakes_sales_variantes::variant-2) : 100/100 - OK
 - Cannelés brocolis et parmesan (canneles_brocolis_parmesan) : 100/100 - OK
 - Carottes braisées — Classiques (carottes_braisees_variantes::variant-1) : 100/100 - OK
-- Carottes braisees orange citron confit (carottes_braisees_variantes::variant-2) : 100/100 - OK
+- Carottes braisées orange citron confit (carottes_braisees_variantes::variant-2) : 100/100 - OK
 - Carottes persillade crème (carottes_persillade_creme) : 100/100 - OK
 - Carottes rôties miel épices (carottes_roties_miel_epices) : 100/100 - OK
 - Carpaccio betterave mozzarella yuzu (carpaccio_betterave_mozzarella_yuzu) : 100/100 - OK
@@ -276,7 +276,7 @@ Aucune fiche faible detectee.
 - Gaufres de pommes de terre croustillantes (gaufres_pommes_terre) : 100/100 - OK
 - Gougères au fromage (gougeres) : 100/100 - OK
 - Granola croustillant au chocolat (granola_maison_chocolat) : 100/100 - OK
-- Gratin chou-fleur comte lardons (gratins_chou_fleur_variantes::variant-3) : 100/100 - OK
+- Gratin chou-fleur comté lardons (gratins_chou_fleur_variantes::variant-3) : 100/100 - OK
 - Gratin chou-fleur mascarpone moutarde (gratins_chou_fleur_variantes::variant-2) : 100/100 - OK
 - Gratin de chou-fleur (gratins_chou_fleur_variantes::variant-1) : 100/100 - OK
 - Gratin de chou-fleur au chorizo en mini cocottes (gratins_chou_fleur_variantes::variant-4) : 100/100 - OK
@@ -440,8 +440,8 @@ Aucune fiche faible detectee.
 - Poulet rôti du dimanche (poulet_roti_dimanche) : 100/100 - OK
 - Poulet sauce pimentée (poulet_sauce_pimentee) : 100/100 - OK
 - Poulet tikka masala (currys_carnivores_variantes::variant-2) : 100/100 - OK
-- Puree butternut pommes de terre curry (purees_legumes_variantes::variant-6) : 100/100 - OK
-- Puree de chou-fleur (purees_legumes_variantes::variant-7) : 100/100 - OK
+- Purée butternut pommes de terre curry (purees_legumes_variantes::variant-6) : 100/100 - OK
+- Purée de chou-fleur (purees_legumes_variantes::variant-7) : 100/100 - OK
 - Purée de courge butternut (purees_legumes_variantes::variant-5) : 100/100 - OK
 - Purée de patates douces (purees_legumes_variantes::variant-4) : 100/100 - OK
 - Purée de pommes de terre à l’ail rose et huile d’olive (purees_legumes_variantes::variant-2) : 100/100 - OK
@@ -467,7 +467,7 @@ Aucune fiche faible detectee.
 - Salade César (salade_cesar) : 100/100 - OK
 - Salade de carottes citronnée (salade_carottes_citronnee) : 100/100 - OK
 - Salade de pommes de terre d’Ottolenghi (salade_pommes_terre_ottolenghi) : 100/100 - OK
-- Salade epinards clementines amande feta (salade_epinards_clementines_amande_feta) : 100/100 - OK
+- Salade épinards clémentines amande feta (salade_epinards_clementines_amande_feta) : 100/100 - OK
 - Salade lyonnaise (salade_lyonnaise) : 100/100 - OK
 - Salade melon, mozzarella et jambon cru (salade_melon_mozzarella_jambon_cru) : 100/100 - OK
 - Salade piémontaise (salade_piemontaise) : 100/100 - OK
@@ -489,7 +489,7 @@ Aucune fiche faible detectee.
 - Sauce bourguignonne (sauce_bourguignonne) : 100/100 - OK
 - Sauce caramel (sauce_caramel) : 100/100 - OK
 - Sauce chasseur (sauce_chasseur) : 100/100 - OK
-- Sauce chevre crème (sauces_fromage_variantes::variant-1) : 100/100 - OK
+- Sauce chèvre crème (sauces_fromage_variantes::variant-1) : 100/100 - OK
 - Sauce Choron (sauce_bearnaise::variant-2) : 100/100 - OK
 - Sauce gribiche (sauce_gribiche) : 100/100 - OK
 - Sauce hollandaise (sauce_hollandaise) : 100/100 - OK

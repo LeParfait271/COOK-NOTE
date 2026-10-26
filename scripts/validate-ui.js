@@ -41,7 +41,10 @@ const detailActionControlsAreAligned = files.style.includes('--control-height-md
   && files.style.includes('--control-height-touch: 44px')
   && files.style.includes('.detail-actions :where(.btn, .icon-square),')
   && files.app.includes('detail-action-button');
-const quantitySelectStaysReadable = /\.mc-shell\s+\.quantity-select\s*\{[\s\S]*?color:\s*var\(--accent-ink\);[\s\S]*?text-align-last:\s*center;/.test(files.style);
+// Toutes les regles `.mc-shell .quantity-select` (legacy puis design) : texte centre et encre contrastee.
+const quantitySelectRules = [...files.style.matchAll(/\.mc-shell\s+\.quantity-select\s*\{([^}]*)\}/g)].map(match => match[1]).join(';');
+const quantitySelectStaysReadable = /text-align-last:\s*center/.test(quantitySelectRules)
+  && /(^|[;\s])color:\s*var\(--(?:text|accent-ink)\)/.test(quantitySelectRules);
 const designSystemIncludesStableMobileTabs = files.designSystem.includes('grille stable')
   && files.designSystem.includes('Hauteur tactile mobile');
 const designSystemIncludesBoundedCardZoom = files.designSystem.includes('zoom image des cartes recette')
@@ -72,7 +75,7 @@ const designSystemIncludesPremiumTokens = [
   'vrai dark mode'
 ].every(fragment => files.designSystem.includes(fragment));
 const publicCssUsesPremiumTokens = [
-  '--ds-color-background: #050505',
+  '--ds-color-background: oklch(11.5% 0 0)',
   '--ds-color-surface:',
   '--ds-color-elevated:',
   '--ds-color-primary:',
@@ -145,7 +148,7 @@ const forbiddenVisualExperiments = [
 const cinematicGothicDirectionIsLocked = !files.app.includes('card-category-index')
   && files.app.includes("className: 'card-title'")
   && files.app.includes("className: 'hero-wordmark'")
-  && files.app.includes('recipeViewTransitionName')
+  && files.app.includes('visibleRecipeCardParts')
   && files.style.includes('--prestige-gold')
   && files.style.includes('.hero-atmosphere-mist')
   && files.style.includes('@keyframes prestige-breathe')
@@ -276,8 +279,24 @@ expect('Ancienne section collections encore presente.', !files.app.includes('Sma
 expect('Fallback image carte absent.', files.app.includes('onError: event =>') && files.app.includes("const fallbackImage = recipe.image ? recipeCardImageUrl(recipe.image) : ''") && files.app.includes('event.currentTarget.src = fallbackImage'));
 expect('Manifest images non charge ou non utilise.', Boolean(siteAssetVersion) && files.index.includes(`/assets/image-manifest.js?v=${siteAssetVersion}`) && files.index.includes(`/app-images.js?v=${siteAssetVersion}`) && files.index.includes(`/app-art-images.js?v=${siteAssetVersion}`) && files.appImages.includes('IMAGE_MANIFEST') && files.appImages.includes('window.CookNoteImages') && files.app.includes('imageSizeAttrs(cardImage)') && files.app.includes('displayRecipeImage(recipe)'));
 expect('Images parents theme sans bannieres verrouillees.', files.app.includes('function usesOriginalParentImage(recipe)') && !files.app.includes('function isRootCategoryParentRecipe(recipe)') && files.app.includes('if (usesOriginalParentImage(recipe)) return themeRecipeArtImage(recipe) || recipe.image ||'));
-expect('Mode cuisine reintroduit.', !fs.existsSync(path.join(ROOT, 'app-cooking.js')) && !files.app.includes('cooking-mode-trigger') && !files.app.includes('COOKING_MODE_SCRIPT_SRC') && !files.app.includes('CookNoteCookingMode') && !files.style.includes('body.cooking-mode-open') && !files.style.includes('.cooking-mode-shell'));
-expect('Boutons minuteurs revenus.', !files.app.includes('step-timer') && !files.style.includes('step-timer') && !files.app.includes('timerEnd') && !files.app.includes('timerLabel') && !files.app.includes('cooking-step-card') && !files.style.includes('cooking-step-actions'));
+// Mode cuisine et minuteurs recrees a la demande de l'utilisateur (26/10/2026) :
+// facultatifs, la fiche reste la lecture de reference.
+expect('Mode cuisine incomplet (ecran allume, page inerte, minuteurs sur les durees).', files.app.includes('function CookingMode(')
+  && files.app.includes("navigator.wakeLock.request('screen')")
+  && files.app.includes('element.inert = true')
+  && files.app.includes('function KitchenTimerDock(')
+  && files.app.includes('function findStepDurations(')
+  && files.style.includes('.cook-mode-step.is-forward')
+  && !fs.existsSync(path.join(ROOT, 'app-cooking.js')));
+expect('Logo principal absent de l\'accueil (image cook-note-white dans h1.hero-wordmark).', files.app.includes("const BRAND_WORDMARK_IMAGE = '/assets/brand/cook-note-white.png'")
+  && files.app.includes("className: 'hero-wordmark-image'")
+  && fs.existsSync(path.join(ROOT, 'assets', 'brand', 'cook-note-white.avif')));
+expect('Fond vivant sans garde-fous (transform cadence, pause onglet cache, mouvement reduit).', /cn-drift-a \d+s steps\(\d+\)/.test(files.style)
+  && files.style.includes('html.page-hidden .ambient-backdrop')
+  && files.style.includes('.mc-shell.display-reduce-motion .ambient-backdrop::before'));
+expect('Transition carte -> fiche : nommer seulement la carte cliquee.', files.app.includes('function visibleRecipeCardParts(')
+  && !files.app.includes('viewTransitionName: transitionName')
+  && files.style.includes('view-transition-name: cn-media'));
 expect('Fiche complete variantes encore affichee avant le choix.', (files.app.includes('hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts') || files.app.includes('!detailsLoading && hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts')) && !files.app.includes('recipe-command-dock') && !files.app.includes('h(RecipeCommandDock') && files.app.includes("id: 'recipe-detail-content', className: 'recipe-detail-grid'") && files.app.includes('Choix requis pour ouvrir la fiche'));
 expect('Compteur catalogue footer absent ou statique.', files.app.includes('getCatalogRecipeStats') && files.app.includes('INITIAL_CATALOG_STATS') && files.app.includes('site-footer-count') && files.app.includes('countInlineVariantGroups(recipe)') && files.style.includes('.site-footer-count'));
 expect('Footer annee encadree revenue.', files.app.includes('Cook Note \\u00a9 2026.') && !files.app.includes('site-footer-year') && !files.style.includes('.site-footer-year'));

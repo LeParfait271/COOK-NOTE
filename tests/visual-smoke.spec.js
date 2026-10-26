@@ -620,13 +620,47 @@ test.describe('Cook Note visual smoke', () => {
     await expectNoHorizontalOverflow(page);
   });
 
-  test('recipe keeps secondary utilities grouped without a cooking mode', async ({ page }) => {
+  test('cooking mode shows one step at a time and step durations start timers', async ({ page }) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/poulet_sauce_pimentee');
     await waitForCookNote(page);
 
-    await expect(page.getByRole('button', { name: 'Mode cuisine' })).toHaveCount(0);
     await expect(page.locator('.cooking-mode-shell')).toHaveCount(0);
+    await expect(page.locator('.step-list .kitchen-timer-chip').first()).toHaveText(/20min/);
+    await page.getByRole('button', { name: 'Ouvrir le mode cuisine' }).click();
+    const cook = page.getByRole('dialog', { name: /Mode cuisine/ });
+    await expect(cook).toBeVisible();
+    await expect(cook.locator('.cook-mode-count')).toHaveText('Étape 1 / 6');
+    expect(await page.locator('#cook-note-content').evaluate(node => node.inert)).toBe(true);
+    await cook.locator('.cook-mode-next').click();
+    await expect(cook.locator('.cook-mode-count')).toHaveText('Étape 2 / 6');
+    await cook.locator('.cook-mode-next').click();
+    await cook.locator('.kitchen-timer-chip').first().click();
+    const timer = page.locator('.kitchen-timer');
+    await expect(timer).toHaveCount(1);
+    await expect(timer.locator('.kitchen-timer-clock')).toHaveText(/^(20:00|19:5\d)$/);
+    const overlap = await page.evaluate(() => {
+      const next = document.querySelector('.cook-mode-next').getBoundingClientRect();
+      const dock = document.querySelector('.kitchen-timer-dock').getBoundingClientRect();
+      return dock.bottom > next.top && dock.top < next.bottom && dock.right > next.left && dock.left < next.right;
+    });
+    expect(overlap).toBe(false);
+    await page.keyboard.press('Escape');
+    await expect(cook).toHaveCount(0);
+    // Echap ferme seulement le mode cuisine : on reste sur la fiche, hors plein ecran.
+    await expect(page).toHaveURL(/poulet_sauce_pimentee/);
+    await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(false);
+    expect(await page.locator('#cook-note-content').evaluate(node => node.inert)).toBe(false);
+    await expect(page.locator('.step-list li.done')).toHaveCount(2);
+    await timer.getByRole('button', { name: /Fermer le minuteur/ }).click();
+    await expect(timer).toHaveCount(0);
+  });
+
+  test('recipe keeps secondary utilities grouped', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/poulet_sauce_pimentee');
+    await waitForCookNote(page);
+
     const utilities = page.locator('.detail-utility-menu');
     await expect(utilities).toBeVisible();
     await utilities.locator('summary').click();

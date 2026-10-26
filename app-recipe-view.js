@@ -31,6 +31,236 @@ function playAddToShoppingEffect(button, hero) {
   ], { duration: 640, delay: 560, easing: 'ease-out' });
 }
 
+// Quantite qui « defile » quand on change le nombre de portions : chaque nombre
+// glisse de l'ancienne a la nouvelle valeur (texte reel, lisible et copiable).
+// Le DOM est ecrit directement pendant l'animation : aucun rendu React par image.
+const QUANTITY_NUMBER_RE = /\d+(?:[.,]\d+)?/g;
+
+function formatRollingNumber(value, decimals) {
+  return decimals ? value.toFixed(decimals).replace('.', ',') : String(Math.round(value));
+}
+
+function RollingQuantity({ text, className }) {
+  const ref = useRef(null);
+  const shownRef = useRef('');
+  React.useLayoutEffect(() => {
+    const element = ref.current;
+    if (!element) return undefined;
+    const from = shownRef.current;
+    shownRef.current = text;
+    const fromNumbers = from.match(QUANTITY_NUMBER_RE) || [];
+    const toNumbers = text.match(QUANTITY_NUMBER_RE) || [];
+    const sameShape = Boolean(from) && fromNumbers.length > 0 && fromNumbers.length === toNumbers.length
+      && from.replace(QUANTITY_NUMBER_RE, '#') === text.replace(QUANTITY_NUMBER_RE, '#');
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || document.querySelector('.display-reduce-motion');
+    if (!sameShape || from === text || reduceMotion) {
+      element.textContent = text;
+      return undefined;
+    }
+    const parse = value => Number(value.replace(',', '.'));
+    const decimals = toNumbers.map(value => (value.split(/[.,]/)[1] || '').length);
+    const parts = text.split(QUANTITY_NUMBER_RE);
+    const startedAt = performance.now();
+    let frame = 0;
+    element.classList.add('is-rolling');
+    const tick = time => {
+      const progress = Math.min(1, (time - startedAt) / 420);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      element.textContent = progress >= 1
+        ? text
+        : parts.reduce((out, part, index) => out + part + (index < toNumbers.length
+          ? formatRollingNumber(parse(fromNumbers[index]) + (parse(toNumbers[index]) - parse(fromNumbers[index])) * eased, decimals[index])
+          : ''), '');
+      if (progress < 1) frame = requestAnimationFrame(tick);
+      else element.classList.remove('is-rolling');
+    };
+    frame = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(frame);
+      element.textContent = text;
+      element.classList.remove('is-rolling');
+    };
+  }, [text]);
+  return h('span', { ref, className });
+}
+
+const INGREDIENT_SEPARATOR_RE = /^[-–—]{1,2}\s*.+?\s*[-–—]{1,2}$/;
+
+function isIngredientSeparator(item) {
+  return INGREDIENT_SEPARATOR_RE.test(stripHtml(item).trim());
+}
+
+// Mode cuisine : une etape a la fois, en grand, ecran maintenu allume. Facultatif :
+// la fiche reste la lecture de reference. « Suivante » coche l'etape.
+function CookingMode({ title, steps, startIndex, isDone, markDone, stepIngredients, onClose }) {
+  const total = steps.length;
+  const [index, setIndex] = useState(Math.min(Math.max(startIndex, 0), Math.max(total - 1, 0)));
+  const [direction, setDirection] = useState('forward');
+  const [awake, setAwake] = useState(false);
+  const overlayRef = useRef(null);
+  const closeRef = useRef(null);
+  const swipeRef = useRef(null);
+  const shell = document.querySelector('.mc-shell') || document.body;
+
+  const go = next => {
+    if (next < 0 || next >= total) return;
+    setDirection(next > index ? 'forward' : 'backward');
+    setIndex(next);
+  };
+  const advance = () => {
+    markDone(index);
+    if (index >= total - 1) onClose();
+    else go(index + 1);
+  };
+  const actionsRef = useRef({ advance, go, index, onClose });
+  actionsRef.current = { advance, go, index, onClose };
+
+  // Ecoute en capture et arret de la propagation : Echap ferme le mode cuisine
+  // sans declencher le raccourci global (Echap = retour a l'accueil).
+  useEffect(() => {
+    const onKey = event => {
+      const actions = actionsRef.current;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        actions.onClose();
+      } else if (event.key === 'ArrowRight' || event.key === 'PageDown') {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        actions.advance();
+      } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        actions.go(actions.index - 1);
+      }
+    };
+    window.addEventListener('keydown', onKey, true);
+    return () => window.removeEventListener('keydown', onKey, true);
+  }, []);
+
+  // Page inerte et figee dessous ; le focus revient au bouton d'ouverture.
+  useEffect(() => {
+    const previousFocus = document.activeElement;
+    const html = document.documentElement;
+    const previousOverflow = html.style.overflow;
+    html.style.overflow = 'hidden';
+    html.classList.add('cook-mode-open');
+    const siblings = Array.from(shell.children).filter(element => element !== overlayRef.current && !element.classList.contains('kitchen-timer-dock') && !element.inert);
+    siblings.forEach(element => { element.inert = true; });
+    closeRef.current?.focus();
+    return () => {
+      html.style.overflow = previousOverflow;
+      html.classList.remove('cook-mode-open');
+      siblings.forEach(element => { element.inert = false; });
+      previousFocus?.focus?.();
+    };
+  }, []);
+
+  // Ecran allume (Wake Lock), redemande au retour sur l'onglet.
+  useEffect(() => {
+    let lock = null;
+    let active = true;
+    const request = async () => {
+      if (!navigator.wakeLock || document.visibilityState !== 'visible') return;
+      try {
+        lock = await navigator.wakeLock.request('screen');
+        if (!active) {
+          lock.release().catch(() => {});
+          return;
+        }
+        setAwake(true);
+        lock.addEventListener('release', () => setAwake(false));
+      } catch {
+        setAwake(false);
+      }
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') request();
+    };
+    request();
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      active = false;
+      document.removeEventListener('visibilitychange', onVisibility);
+      lock?.release?.().catch(() => {});
+    };
+  }, []);
+
+  // Plein ecran reel sur les ecrans tactiles (barre du navigateur masquee).
+  // On ne quitte que le plein ecran qu'on a soi-meme demande.
+  useEffect(() => {
+    const root = document.documentElement;
+    let requested = false;
+    if (window.matchMedia?.('(pointer: coarse)').matches && document.fullscreenEnabled && !document.fullscreenElement && root.requestFullscreen) {
+      requested = true;
+      root.requestFullscreen({ navigationUI: 'hide' }).catch(() => { requested = false; });
+    }
+    return () => {
+      if (requested && document.fullscreenElement === root) document.exitFullscreen().catch(() => {});
+    };
+  }, []);
+
+  const step = steps[index] || '';
+  const ingredients = stepIngredients(index);
+  return ReactDOM.createPortal(h('div', {
+    ref: overlayRef,
+    className: 'cook-mode',
+    role: 'dialog',
+    'aria-modal': 'true',
+    'aria-label': `Mode cuisine : ${title}`,
+    onTouchStart: event => {
+      if (event.touches.length === 1) swipeRef.current = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+    },
+    onTouchEnd: event => {
+      const start = swipeRef.current;
+      swipeRef.current = null;
+      if (!start || event.changedTouches.length !== 1) return;
+      const deltaX = event.changedTouches[0].clientX - start.x;
+      const deltaY = event.changedTouches[0].clientY - start.y;
+      if (Math.abs(deltaX) < 60 || Math.abs(deltaX) < Math.abs(deltaY) * 1.4) return;
+      if (deltaX < 0) advance();
+      else go(index - 1);
+    }
+  },
+    h('header', { className: 'cook-mode-head' },
+      h('div', { className: 'cook-mode-title' },
+        h('small', null, 'Mode cuisine'),
+        h('strong', null, title)
+      ),
+      h('span', { className: 'cook-mode-count' }, `Étape ${index + 1} / ${total}`),
+      h('button', { ref: closeRef, type: 'button', className: 'cook-mode-close', onClick: onClose, 'aria-label': 'Quitter le mode cuisine' }, h(Icon, { name: 'close' }))
+    ),
+    h('div', { className: 'cook-mode-progress', 'aria-hidden': 'true' },
+      steps.map((_, stepIndex) => h('span', { key: stepIndex, className: stepIndex === index ? 'is-current' : (isDone(stepIndex) ? 'is-done' : '') }))
+    ),
+    h('div', { className: 'cook-mode-stage' },
+      h('article', { key: index, className: `cook-mode-step is-${direction}`, 'aria-live': 'polite' },
+        h('span', { className: 'cook-mode-number', 'aria-hidden': 'true' }, String(index + 1).padStart(2, '0')),
+        h('p', { className: 'cook-mode-text' }, withKitchenTimers(stripHtml(step), title)),
+        ingredients.length > 0 && h('ul', { className: 'cook-mode-ingredients', 'aria-label': 'Ingrédients de cette étape' },
+          ingredients.map(item => h('li', { key: item.key },
+            item.quantity && h('strong', null, item.quantity),
+            item.quantity ? ' ' : '',
+            h('span', null, item.name)
+          ))
+        ),
+        isDone(index) && h('p', { className: 'cook-mode-done' }, '✓ Étape déjà faite')
+      )
+    ),
+    h('footer', { className: 'cook-mode-nav' },
+      h('button', { type: 'button', className: 'cook-mode-prev', disabled: index === 0, onClick: () => go(index - 1) },
+        h(Icon, { name: 'arrowLeft' }),
+        h('span', null, 'Précédente')
+      ),
+      awake && h('span', { className: 'cook-mode-awake' }, 'Écran maintenu allumé'),
+      h('button', { type: 'button', className: 'cook-mode-next', onClick: advance },
+        h('span', null, index >= total - 1 ? 'Terminer' : 'Étape suivante'),
+        h(Icon, { name: 'arrowRight' })
+      )
+    )
+  ), shell);
+}
+
 function RecipeView({
   recipe,
   isFavorite,
@@ -85,6 +315,7 @@ function RecipeView({
   const [linkFocus, setLinkFocus] = useState(null);
   const [topbarSlot, setTopbarSlot] = useState(null);
   const [heroOutOfView, setHeroOutOfView] = useState(false);
+  const [cookModeOpen, setCookModeOpen] = useState(false);
   const inlineVariantOptions = useMemo(() => getInlineVariantOptions(recipe), [recipe]);
   const needsInlineVariantSelection = inlineVariantOptions.length > 0;
   const selectedInlineVariantGroup = needsInlineVariantSelection
@@ -148,6 +379,37 @@ function RecipeView({
   } : {});
   const nextStepIndex = displaySteps.findIndex((_, index) => !checked[`${stepScopeKey}:step:${index}`]);
   const mobileTabOrder = ['ingredients', 'steps', 'notes'];
+  // Ingredients visibles (groupes ouverts, sans les intertitres) : jauge « prets ».
+  const visibleIngredientKeys = [];
+  if (hasResolvedRecipe && recipeDetailsReady) {
+    (selectedRecipe.ingredients || []).forEach((group, groupIndex) => {
+      const collapsible = isVariantIngredientGroup(group, selectedRecipe.ingredients || [], selectedRecipe);
+      const isOpen = !collapsible || Boolean(openIngredientGroups[`${detailKey}:group:${groupIndex}`]) || selectedInlineVariantGroup?.index === groupIndex;
+      if (!isOpen) return;
+      (group.items || []).forEach((item, itemIndex) => {
+        if (!isIngredientSeparator(item)) visibleIngredientKeys.push(`${detailKey}:ingredient:${groupIndex}:${itemIndex}`);
+      });
+    });
+  }
+  const readyIngredients = visibleIngredientKeys.filter(key => checked[key]).length;
+
+  function stepIngredients(stepIndex) {
+    return Object.entries(stepsByIngredient)
+      .filter(([, steps]) => steps.includes(stepIndex))
+      .map(([key]) => {
+        const [groupIndex, itemIndex] = key.split(':').slice(-2).map(Number);
+        const item = selectedRecipe.ingredients?.[groupIndex]?.items?.[itemIndex];
+        if (!item) return null;
+        const text = stripHtml(scaleIngredient(item, factor));
+        const parts = splitIngredientQuantity(text);
+        return { key, quantity: parts ? parts.quantity : '', name: parts ? parts.name : text };
+      })
+      .filter(Boolean);
+  }
+
+  function markStepDone(stepIndex) {
+    setCheckedWithHistory(prev => ({ ...prev, [`${stepScopeKey}:step:${stepIndex}`]: true }));
+  }
 
   function handleMobileTabSwipeStart(event) {
     if (!event.touches || event.touches.length !== 1) return;
@@ -212,6 +474,7 @@ function RecipeView({
     setMobileDetailTab('ingredients');
     setOpenIngredientGroups({});
     setUtilitiesOpen(false);
+    setCookModeOpen(false);
   }, [recipe.id]);
 
   useEffect(() => {
@@ -238,12 +501,12 @@ function RecipeView({
   // Ingredient en deux colonnes : quantite alignee a gauche, nom a droite.
   function renderIngredientLine(text) {
     const parts = splitIngredientQuantity(text);
-    if (!parts) return h('span', { className: 'ingredient-line no-quantity' }, h('span', { className: 'ingredient-name' }, renderLinkedText(text, inlineTargets, openRecipe, techniqueTargets, openTechnique)));
+    if (!parts) return h('span', { className: 'ingredient-line no-quantity' }, h('span', { className: 'ingredient-name' }, h('span', { className: 'strike-text' }, renderLinkedText(text, inlineTargets, openRecipe, techniqueTargets, openTechnique))));
     // L'espace entre les colonnes garde une lecture continue (lecteur d'ecran, copie).
     return h('span', { className: 'ingredient-line' },
-      h('span', { className: 'ingredient-qty' }, parts.quantity),
+      h(RollingQuantity, { className: 'ingredient-qty', text: parts.quantity }),
       ' ',
-      h('span', { className: 'ingredient-name' }, renderLinkedText(parts.name, inlineTargets, openRecipe, techniqueTargets, openTechnique))
+      h('span', { className: 'ingredient-name' }, h('span', { className: 'strike-text' }, renderLinkedText(parts.name, inlineTargets, openRecipe, techniqueTargets, openTechnique)))
     );
   }
 
@@ -301,9 +564,9 @@ function RecipeView({
   const heroImage = isCollectionHero
     ? collectionHeroImage(recipe)
     : displayRecipeImage(selectedRecipe || recipe);
-  const heroTransitionName = !isCollectionHero && selectedRecipe?.id
-    ? recipeViewTransitionName(selectedRecipe.id)
-    : '';
+  // Image de la carte (deja chargee depuis la grille) : floutee sous le hero en
+  // attendant la grande image, qui se precise ensuite en fondu.
+  const heroPlaceholder = heroImage ? recipeCardImageUrl(heroImage) : '';
   const heroFallbackImage = selectedRecipe?.image && selectedRecipe.image !== heroImage
     ? selectedRecipe.image
     : '';
@@ -332,11 +595,16 @@ function RecipeView({
     },
       heroImage && h('div', {
         className: 'recipe-detail-hero-media',
-        style: heroTransitionName ? { viewTransitionName: heroTransitionName } : undefined,
+        style: heroPlaceholder ? { '--hero-placeholder': cssImageValue(heroPlaceholder) } : undefined,
         'aria-hidden': true
       },
         h('img', {
+          key: heroImage,
           className: 'recipe-detail-hero-image',
+          ref: markLoadedImage,
+          onLoad: event => {
+            if (!event.currentTarget.dataset.loaded) event.currentTarget.dataset.loaded = 'true';
+          },
           src: preferredImageUrl(heroImage),
           'data-original-src': heroImage,
           alt: '',
@@ -355,7 +623,7 @@ function RecipeView({
           }
         })
       ),
-      h('div', { className: 'detail-hero-copy' },
+      h('div', { key: displayedRecipeTitle, className: 'detail-hero-copy' },
         h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome, openRecipe }),
         h('h1', null, displayedRecipeTitle),
         h('div', { className: 'detail-meta' },
@@ -387,6 +655,7 @@ function RecipeView({
                 toggleShopping(shoppingKey, factor);
               }
             }, isInShopping ? '✓ Dans les courses' : 'Ajouter aux courses'),
+          canShowSteps && stepTotal > 0 && h(Button, { variant: 'ghost', className: 'detail-action-button cook-mode-action', onClick: () => setCookModeOpen(true), title: 'Mode cuisine : une étape à la fois, écran allumé', ariaLabel: 'Ouvrir le mode cuisine' }, h(Icon, { name: 'cloche' }), h('span', null, 'Mode cuisine')),
           canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'detail-action-button favorite-action active' : 'detail-action-button favorite-action', onClick: () => toggleFavorite(detailKey, selectedRecipe.title), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }), h('span', null, 'Favori')),
           showRecipeUtilities && h('details', {
             className: 'detail-utility-menu',
@@ -462,7 +731,20 @@ function RecipeView({
     !detailsLoading && hasResolvedRecipe && h('div', { key: selectedInlineVariantGroup?.key || detailKey, id: 'recipe-detail-content', className: 'recipe-detail-grid' },
       h('section', { id: 'recipe-panel-ingredients', role: 'tabpanel', className: mobileDetailTab === 'ingredients' ? 'recipe-panel ingredients-panel active-tab-panel' : 'recipe-panel ingredients-panel' },
         h('div', { className: 'panel-heading' },
-          h('div', null, h('h2', null, 'Ingrédients'))
+          h('div', null, h('h2', null, 'Ingrédients')),
+          visibleIngredientKeys.length > 1 && h('div', {
+            className: readyIngredients === visibleIngredientKeys.length ? 'ingredient-progress is-complete' : 'ingredient-progress',
+            role: 'progressbar',
+            'aria-label': 'Ingrédients prêts',
+            'aria-valuemin': 0,
+            'aria-valuemax': visibleIngredientKeys.length,
+            'aria-valuenow': readyIngredients
+          },
+            h('span', { className: 'ingredient-progress-label' }, `${readyIngredients}/${visibleIngredientKeys.length} prêts`),
+            h('span', { className: 'ingredient-progress-track' },
+              h('span', { style: { transform: `scaleX(${readyIngredients / visibleIngredientKeys.length})` } })
+            )
+          )
         ),
         (selectedRecipe.ingredients || []).map((group, groupIndex) => {
           const groupKey = `${detailKey}:group:${groupIndex}`;
@@ -480,14 +762,13 @@ function RecipeView({
                 : h('h3', null, renderLinkedText(group.group || 'Base', inlineTargets, openRecipe, techniqueTargets, openTechnique)),
             isOpen && h('ul', null, (group.items || []).map((item, itemIndex) => {
               const key = `${detailKey}:ingredient:${groupIndex}:${itemIndex}`;
-              const plainItem = stripHtml(item).trim();
-              const isIngredientSeparator = /^[-\u2013\u2014]{1,2}\s*.+?\s*[-\u2013\u2014]{1,2}$/.test(plainItem);
+              const separator = isIngredientSeparator(item);
               return h('li', {
                 key,
-                className: isIngredientSeparator ? 'ingredient-section-label' : (isIngredientLinked(key) ? 'is-linked' : ''),
-                ...linkHandlers({ type: 'ingredient', key }, !isIngredientSeparator && Boolean(stepsByIngredient[key]))
+                className: separator ? 'ingredient-section-label' : (isIngredientLinked(key) ? 'is-linked' : ''),
+                ...linkHandlers({ type: 'ingredient', key }, !separator && Boolean(stepsByIngredient[key]))
               },
-                isIngredientSeparator
+                separator
                   ? h('span', { className: 'ingredient-section-label' }, renderLinkedText(item, inlineTargets, openRecipe, techniqueTargets, openTechnique))
                   : h('label', null,
                     h('input', { type: 'checkbox', checked: Boolean(checked[key]), onChange: () => toggle(key) }),
@@ -528,7 +809,7 @@ function RecipeView({
               h('label', null,
                 h('input', { type: 'checkbox', checked: Boolean(checked[key]), onChange: () => toggle(key) }),
                 h('span', { className: 'step-number' }, String(index + 1).padStart(2, '0')),
-                h('span', { className: 'step-text' }, renderLinkedText(step, inlineTargets, openRecipe, techniqueTargets, openTechnique))
+                h('span', { className: 'step-text' }, h('span', { className: 'strike-text' }, withKitchenTimers(renderLinkedText(step, inlineTargets, openRecipe, techniqueTargets, openTechnique), displayedRecipeTitle)))
               )
             );
           })
@@ -589,6 +870,15 @@ function RecipeView({
       )
     ),
     !detailsLoading && hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeSafetySources, { recipe: selectedRecipe }),
+    cookModeOpen && canShowSteps && stepTotal > 0 && h(CookingMode, {
+      title: displayedRecipeTitle,
+      steps: displaySteps,
+      startIndex: nextStepIndex === -1 ? 0 : nextStepIndex,
+      isDone: stepIndex => Boolean(checked[`${stepScopeKey}:step:${stepIndex}`]),
+      markDone: markStepDone,
+      stepIngredients,
+      onClose: () => setCookModeOpen(false)
+    }),
     showRecipeUtilities && h(SharePanel, {
       open: shareOpen,
       onClose: () => setShareOpen(false),

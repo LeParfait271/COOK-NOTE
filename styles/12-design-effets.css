@@ -1,0 +1,787 @@
+/* ==========================================================================
+   Couche design : effets haut de gamme (v5.37).
+   Regle de fluidite : seuls transform et opacity s'animent en continu
+   (compositeur) ; tout se coupe sous prefers-reduced-motion et a l'impression.
+   ========================================================================== */
+
+/* ---------- Transition carte -> fiche (View Transitions) ---------- */
+/* Le hero porte les noms en permanence ; la carte cliquee les recoit le temps de
+   la transition (voir runViewTransition dans app.js). */
+.recipe-detail-hero-media {
+  view-transition-name: cn-media;
+}
+
+.recipe-detail-hero .detail-hero-copy h1 {
+  view-transition-name: cn-title;
+}
+
+html:is(.vt-card-source, .vt-card-target, .theme-reveal) .recipe-detail-hero-media,
+html:is(.vt-card-source, .vt-card-target, .theme-reveal) .recipe-detail-hero .detail-hero-copy h1 {
+  view-transition-name: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-group(cn-media),
+  ::view-transition-group(cn-title) {
+    animation-duration: 560ms;
+    animation-timing-function: cubic-bezier(.2, .8, .2, 1);
+  }
+
+  ::view-transition-group(cn-media) {
+    overflow: clip;
+    border-radius: var(--ds-radius-md);
+  }
+
+  /* L'image garde son cadrage pendant le changement de format (carte -> bandeau). */
+  ::view-transition-old(cn-media),
+  ::view-transition-new(cn-media) {
+    height: 100%;
+    object-fit: cover;
+    animation-duration: 560ms;
+  }
+
+  ::view-transition-old(cn-title) {
+    animation-duration: var(--ds-motion-normal);
+  }
+
+  ::view-transition-new(cn-title) {
+    animation-duration: 420ms;
+    animation-delay: 80ms;
+  }
+
+  /* Le reste de la fiche arrive en cascade sous le hero. */
+  .recipe-view .detail-hero-copy > :not(h1),
+  .recipe-view > :is(.recipe-quick-facts, ol.recipe-anatomy, .recipe-tabs) {
+    animation: cn-rise 520ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+
+  .recipe-view .detail-hero-copy > :nth-child(1) { animation-delay: 140ms; }
+  .recipe-view .detail-hero-copy > :nth-child(3) { animation-delay: 210ms; }
+  .recipe-view .detail-hero-copy > :nth-child(4) { animation-delay: 280ms; }
+  .recipe-view .detail-hero-copy > :nth-child(5) { animation-delay: 340ms; }
+  .recipe-view > .recipe-quick-facts { animation-delay: 380ms; }
+  .recipe-view > ol.recipe-anatomy { animation-delay: 430ms; }
+  .recipe-view > .recipe-tabs { animation-delay: 470ms; }
+}
+
+@keyframes cn-rise {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+}
+
+/* ---------- Titres qui respirent (axes variables de Fraunces) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .recipe-detail-hero .detail-hero-copy h1 {
+    animation: cn-title-breathe 1100ms cubic-bezier(.2, .8, .2, 1) 60ms both;
+  }
+
+  @supports (animation-timeline: view()) {
+    .recipe-view .recipe-panel .panel-heading h2,
+    .recipe-view .read-before-title {
+      animation: cn-title-breathe linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+@keyframes cn-title-breathe {
+  from {
+    font-weight: 300;
+    letter-spacing: 0.035em;
+    font-variation-settings: "SOFT" 100, "WONK" 1;
+  }
+  to {
+    font-variation-settings: "SOFT" 0, "WONK" 0;
+  }
+}
+
+/* ---------- Images : la version floue se precise en fondu ---------- */
+/* Hero : l'image de la carte (deja en cache) floutee dessous, la grande image
+   par-dessus. Le flou est statique (calcule une fois), seul l'opacite bouge. */
+.recipe-detail-hero-media::after {
+  content: "";
+  position: absolute;
+  inset: -24px;
+  z-index: 0;
+  background: var(--hero-placeholder, none) center / cover no-repeat;
+  filter: blur(18px) saturate(1.1);
+  opacity: 1;
+  transition: opacity 640ms ease-out;
+  pointer-events: none;
+}
+
+.recipe-detail-hero-media:has(.recipe-detail-hero-image[data-loaded])::after {
+  opacity: 0;
+}
+
+.recipe-detail-hero-media .recipe-detail-hero-image {
+  position: relative;
+  z-index: 1;
+}
+
+.recipe-detail-hero-media:has(.recipe-detail-hero-image:not([data-loaded]))::after {
+  z-index: 2;
+}
+
+/* Cartes : l'image arrive en fondu seulement si elle n'etait pas en cache. */
+.recipe-card .card-image:not([data-loaded]) {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .recipe-card .card-image[data-loaded="true"] {
+    animation: cn-image-in 480ms ease-out both;
+  }
+}
+
+@keyframes cn-image-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- Quantites qui defilent, ingredients et etapes cochables ---------- */
+.ingredients-panel .ingredient-qty {
+  transition: color var(--ds-motion-normal) ease-out;
+}
+
+.ingredients-panel .ingredient-qty.is-rolling {
+  color: var(--ds-gold);
+}
+
+/* Trait qui se dessine a gauche puis a droite, ligne apres ligne. */
+.recipe-panel li:has(input:checked) label > span:last-child,
+.step-list li.done .step-text {
+  text-decoration: none;
+}
+
+.recipe-panel .strike-text {
+  background: linear-gradient(currentColor, currentColor) no-repeat 0 58% / 0 1.5px;
+  transition: background-size 460ms cubic-bezier(.65, 0, .35, 1);
+}
+
+.recipe-panel li:has(input:checked) .strike-text,
+.step-list li.done .strike-text {
+  background-size: 100% 1.5px;
+}
+
+.ingredient-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: var(--ds-space-2);
+}
+
+.ingredient-progress-label {
+  flex: none;
+  order: 2;
+  color: var(--muted);
+  font-size: var(--ds-text-xs);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.ingredient-progress-track {
+  display: block;
+  flex: 1;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: color-mix(in oklch, var(--ds-gold) 16%, transparent);
+}
+
+.ingredient-progress-track > span {
+  display: block;
+  height: 100%;
+  background: var(--ds-gold);
+  transform-origin: left center;
+  transition: transform 460ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.ingredient-progress.is-complete .ingredient-progress-label {
+  color: var(--ds-gold);
+}
+
+/* ---------- Minuteurs ---------- */
+.kitchen-timer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 1px;
+  padding: 0 7px 0 5px;
+  border: 1px solid color-mix(in oklch, var(--ds-gold) 45%, transparent);
+  border-radius: 99px;
+  background: color-mix(in oklch, var(--ds-gold) 10%, transparent);
+  color: inherit;
+  font: inherit;
+  line-height: 1.5;
+  white-space: nowrap;
+  cursor: pointer;
+  vertical-align: baseline;
+  transition: background-color var(--ds-motion-fast) ease-out, border-color var(--ds-motion-fast) ease-out;
+}
+
+.kitchen-timer-chip .site-icon {
+  width: 0.95em;
+  height: 0.95em;
+  color: var(--ds-gold);
+}
+
+.kitchen-timer-chip:hover,
+.kitchen-timer-chip:focus-visible {
+  border-color: var(--ds-gold);
+  background: color-mix(in oklch, var(--ds-gold) 20%, transparent);
+}
+
+.kitchen-timer-dock {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 120;
+  display: grid;
+  gap: 10px;
+  width: min(340px, calc(100vw - 32px));
+  pointer-events: none;
+}
+
+/* En mode cuisine, les minuteurs passent au-dessus des boutons d'etape. */
+html.cook-mode-open .kitchen-timer-dock {
+  bottom: calc(max(14px, env(safe-area-inset-bottom)) + 76px);
+}
+
+.kitchen-timer {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px 8px 10px;
+  border: 1px solid color-mix(in oklch, var(--ds-gold) 35%, var(--ds-color-border));
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--ds-color-elevated, #15120e) 92%, transparent);
+  box-shadow: 0 14px 40px oklch(0% 0 0 / 0.35);
+  color: var(--text);
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .kitchen-timer {
+    animation: cn-rise 360ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+}
+
+.kitchen-timer-ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--ds-gold);
+  cursor: pointer;
+}
+
+.kitchen-timer-ring svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.kitchen-timer-ring circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+.kitchen-timer-track {
+  stroke: color-mix(in oklch, var(--ds-gold) 18%, transparent);
+}
+
+.kitchen-timer-progress {
+  stroke: var(--ds-gold);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.kitchen-timer.is-paused .kitchen-timer-progress {
+  transition: none;
+  opacity: 0.55;
+}
+
+.kitchen-timer-glyph {
+  font-size: 11px;
+  line-height: 1;
+}
+
+.kitchen-timer-copy {
+  display: grid;
+  min-width: 0;
+}
+
+.kitchen-timer-clock {
+  font-family: var(--ds-font-display);
+  font-size: 1.35rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.kitchen-timer-copy small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: var(--ds-text-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kitchen-timer-action {
+  display: grid;
+  place-items: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 99px;
+  background: none;
+  color: var(--text);
+  font: 600 var(--ds-text-xs) / 1 var(--ds-font-body, inherit);
+  cursor: pointer;
+}
+
+.kitchen-timer-action .site-icon,
+.cook-mode .site-icon {
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+}
+
+.kitchen-timer.is-done {
+  border-color: var(--ds-gold);
+}
+
+.kitchen-timer.is-done .kitchen-timer-clock {
+  color: var(--ds-gold);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .kitchen-timer.is-done {
+    animation: cn-timer-ring 1.2s ease-in-out infinite;
+  }
+}
+
+@keyframes cn-timer-ring {
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in oklch, var(--ds-gold) 0%, transparent), 0 14px 40px oklch(0% 0 0 / 0.35);
+    transform: scale(1.02);
+  }
+}
+
+/* ---------- Mode cuisine ---------- */
+/* Sur mobile, le bouton rejoint "Ajouter aux courses" : actions en 2 x 2. */
+.detail-actions:has(.cook-mode-action) > .btn-primary {
+  grid-column: auto;
+}
+
+.cook-mode {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  height: 100dvh;
+  padding: max(14px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  background:
+    radial-gradient(120% 70% at 50% 0%, color-mix(in oklch, var(--ds-gold) 10%, transparent), transparent 60%),
+    var(--ds-color-background, #0d0b09);
+  color: var(--text);
+  overscroll-behavior: contain;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cook-mode {
+    animation: cn-cook-in 320ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+}
+
+@keyframes cn-cook-in {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+}
+
+.cook-mode-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--ds-space-3);
+  width: min(960px, 100%);
+  margin: 0 auto;
+}
+
+.cook-mode-title {
+  display: grid;
+  min-width: 0;
+}
+
+.cook-mode-title small {
+  color: var(--ds-gold);
+  font-size: var(--ds-text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cook-mode-title strong {
+  overflow: hidden;
+  font-family: var(--ds-font-display);
+  font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+  font-weight: 560;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cook-mode-count {
+  color: var(--muted);
+  font-size: var(--ds-text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.cook-mode-close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 50%;
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.cook-mode-close .site-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.cook-mode-progress {
+  display: flex;
+  gap: 4px;
+  width: min(960px, 100%);
+  margin: 14px auto 0;
+}
+
+.cook-mode-progress span {
+  flex: 1;
+  height: 3px;
+  border-radius: 99px;
+  background: color-mix(in oklch, var(--ds-gold) 16%, transparent);
+  transition: background-color var(--ds-motion-normal) ease-out;
+}
+
+.cook-mode-progress span.is-done {
+  background: color-mix(in oklch, var(--ds-gold) 60%, transparent);
+}
+
+.cook-mode-progress span.is-current {
+  background: var(--ds-gold);
+}
+
+.cook-mode-stage {
+  display: grid;
+  align-items: center;
+  width: min(960px, 100%);
+  min-height: 0;
+  margin: 0 auto;
+  overflow-y: auto;
+}
+
+.cook-mode-step {
+  display: grid;
+  gap: clamp(14px, 2.4vh, 26px);
+  padding: clamp(16px, 4vh, 48px) 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cook-mode-step.is-forward {
+    animation: cn-step-forward 360ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+
+  .cook-mode-step.is-backward {
+    animation: cn-step-backward 360ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+}
+
+@keyframes cn-step-forward {
+  from {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+}
+
+@keyframes cn-step-backward {
+  from {
+    opacity: 0;
+    transform: translateX(-36px);
+  }
+}
+
+.cook-mode-number {
+  color: var(--ds-gold);
+  font-family: var(--ds-font-display);
+  font-size: clamp(2.6rem, 9vw, 5rem);
+  font-weight: 300;
+  font-variant-numeric: lining-nums;
+  line-height: 0.9;
+}
+
+.cook-mode-text {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: clamp(1.45rem, 3.6vw, 2.5rem);
+  font-weight: 420;
+  line-height: 1.32;
+  text-wrap: pretty;
+}
+
+.cook-mode-text .kitchen-timer-chip {
+  padding: 2px 12px 2px 9px;
+  font-family: var(--ds-font-body, inherit);
+  font-size: 0.82em;
+  font-weight: 600;
+}
+
+.cook-mode-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cook-mode-ingredients li {
+  padding: 6px 12px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 99px;
+  font-size: var(--ds-text-sm);
+}
+
+.cook-mode-ingredients strong {
+  color: var(--ds-gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.cook-mode-done {
+  margin: 0;
+  color: var(--ds-gold);
+  font-size: var(--ds-text-sm);
+}
+
+.cook-mode-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-3);
+  width: min(960px, 100%);
+  margin: 0 auto;
+}
+
+.cook-mode-nav button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font: 600 var(--ds-text-base) / 1 var(--ds-font-body, inherit);
+  cursor: pointer;
+}
+
+.cook-mode-nav .site-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.cook-mode-prev {
+  border: 1px solid var(--ds-color-border);
+  background: none;
+  color: var(--text);
+}
+
+.cook-mode-prev:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.cook-mode-next {
+  margin-left: auto;
+  border: 0;
+  background: var(--ds-gold);
+  color: var(--ds-color-primary-ink, #140f08);
+}
+
+.cook-mode-awake {
+  color: var(--muted);
+  font-size: var(--ds-text-xs);
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .cook-mode-prev span,
+  .cook-mode-awake {
+    display: none;
+  }
+
+  .cook-mode-nav button {
+    padding: 0 18px;
+  }
+}
+
+/* ---------- Fond vivant ---------- */
+/* Trois lumieres tres larges qui derivent lentement (transform seulement :
+   aucun calcul sur le fil principal). Ambre le jour, bleu nuit le soir. */
+.mc-shell {
+  isolation: isolate;
+}
+
+.ambient-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+  --ambient-a: oklch(55% 0.14 255 / 0.55);
+  --ambient-b: oklch(66% 0.13 65 / 0.32);
+  --ambient-c: oklch(48% 0.12 290 / 0.4);
+}
+
+.mc-shell.theme-light .ambient-backdrop {
+  --ambient-a: oklch(82% 0.12 75 / 0.34);
+  --ambient-b: oklch(86% 0.09 50 / 0.26);
+  --ambient-c: oklch(90% 0.07 95 / 0.3);
+}
+
+.ambient-backdrop::before,
+.ambient-backdrop::after,
+.ambient-backdrop > span {
+  content: "";
+  position: absolute;
+  width: 72vmax;
+  height: 72vmax;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.ambient-backdrop::before {
+  top: -30vmax;
+  left: -20vmax;
+  background: radial-gradient(closest-side, var(--ambient-a), transparent);
+}
+
+.ambient-backdrop::after {
+  right: -28vmax;
+  bottom: -34vmax;
+  background: radial-gradient(closest-side, var(--ambient-b), transparent);
+}
+
+.ambient-backdrop > span {
+  top: 20vh;
+  left: 30vw;
+  width: 54vmax;
+  height: 54vmax;
+  background: radial-gradient(closest-side, var(--ambient-c), transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ambient-backdrop::before {
+    animation: cn-drift-a 46s steps(460) infinite alternate;
+  }
+
+  .ambient-backdrop::after {
+    animation: cn-drift-b 58s steps(580) infinite alternate;
+  }
+
+  .ambient-backdrop > span {
+    animation: cn-drift-c 52s steps(520) infinite alternate;
+  }
+
+  html.page-hidden .ambient-backdrop :is(span),
+  html.page-hidden .ambient-backdrop::before,
+  html.page-hidden .ambient-backdrop::after {
+    animation-play-state: paused;
+  }
+}
+
+.mc-shell.display-reduce-motion .ambient-backdrop::before,
+.mc-shell.display-reduce-motion .ambient-backdrop::after,
+.mc-shell.display-reduce-motion .ambient-backdrop > span {
+  animation: none;
+}
+
+@keyframes cn-drift-a {
+  to {
+    transform: translate3d(18vmax, 14vmax, 0) scale(1.15);
+  }
+}
+
+@keyframes cn-drift-b {
+  to {
+    transform: translate3d(-16vmax, -12vmax, 0) scale(0.9);
+  }
+}
+
+@keyframes cn-drift-c {
+  to {
+    transform: translate3d(-20vmax, 10vmax, 0) scale(1.2);
+  }
+}
+
+/* Les pages laissent passer la lumiere : leurs fonds deviennent legerement
+   translucides, le teint reste le meme. */
+.mc-shell.theme-dark .home-view {
+  background: linear-gradient(180deg, rgb(9 9 8 / 0.82), rgb(12 11 10 / 0.86) 34%, rgb(8 8 7 / 0.9));
+}
+
+.mc-shell.theme-dark .recipe-view {
+  background: linear-gradient(180deg, oklch(11.5% 0 0 / 0.82), rgb(15 10 6 / 0.9));
+}
+
+.mc-shell.theme-light .home-view {
+  background: linear-gradient(180deg, rgb(255 250 240 / 0.78), rgb(241 227 206 / 0.86));
+}
+
+.mc-shell.theme-light .recipe-view {
+  background: linear-gradient(180deg, oklch(95.4% 0.016 82.8 / 0.78), rgb(243 232 218 / 0.86));
+}
+
+@media print {
+  .ambient-backdrop,
+  .kitchen-timer-dock,
+  .kitchen-timer-chip .site-icon,
+  .cook-mode,
+  .ingredient-progress {
+    display: none !important;
+  }
+
+  .kitchen-timer-chip {
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+
+  .recipe-card .card-image {
+    opacity: 1 !important;
+  }
+
+  .recipe-detail-hero-media::after {
+    display: none;
+  }
+}

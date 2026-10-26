@@ -3,7 +3,7 @@
 > Rapport consultatif : aucune fiche n’a été modifiée. Chaque correction ou ajout doit être validé par l’utilisateur.
 
 - Fiches exécutables contrôlées : 455
-- Fiches avec proposition : 271
+- Fiches avec proposition : 281
 - Empreinte recipes.js avant/après : identique
 
 ## Règle pour les temps et températures
@@ -57,7 +57,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
-  - Preuve/contexte : 1 pincee piment d’Espelette optionnel
+  - Preuve/contexte : 1 pincée piment d’Espelette optionnel
 
 ### Légumes rôtis au four — Variante oignon, fenouil ou poireau (legumes_rotis::10)
 
@@ -78,7 +78,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Rôtir 20 à 25min face coupee vers le haut, jusqu’au jus concentre et aux bords légèrement fripes.
+  - Preuve/contexte : Rôtir 20 à 25min face coupée vers le haut, jusqu’au jus concentré et aux bords légèrement fripés.
 
 ### Marinades — 3) Tandoori yaourt (marinades_guide::3)
 
@@ -124,7 +124,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Cuire jusqu’à légère coloration et laisser reposer 5min sur plaque pour que le fromage se stabilise.
+  - Preuve/contexte : Cuire 12 à 15min à 180°C, jusqu’à légère coloration, et laisser reposer 5min sur plaque pour que le fromage se stabilise.
 
 ### Pancakes (pancakes_variantes::1)
 
@@ -170,18 +170,25 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Frire à 160–165°C, 2min 30 à 3min par face, 2–3 pièces maximum à la fois.
+  - Preuve/contexte : Déposer les beignets dans l’huile avec leur papier (le retirer à la pince après quelques secondes) et frire à 160–165°C, 2min 30 à 3min par face, 2–3 pièces maximum à la fois.
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
   - Preuve/contexte : 10–12g levure fraîche
+
+### Paris-Brest (paris_brest)
+
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Cuire les couronnes de pâte à choux avec le craquelin à 170°C pendant 40 à 45min.
 
 ### Pâte à choux (pate_choux)
 
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Pocher des couronnes de 7cm, poser le craquelin puis cuire à 170°C pendant 40 à 45min.
+  - Preuve/contexte : Pocher des couronnes de 7cm, poser le craquelin puis cuire à 170°C pendant 40 à 45min sans ouvrir le four pendant les 25 premières minutes, porte entrouverte les 5 dernières minutes pour sécher les choux.
 
 ### Œuf sur le plat chili crisp sur toast (oeuf_chili_crisp_toast)
 
@@ -214,8 +221,9 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 ### Tarte aux myrtilles (tarte_aux_myrtilles)
 
 - **repere-sensoriel — confiance moyenne**
-  - Constat : 2 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Constat : 3 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Étaler la pâte, foncer un moule ou un cercle de 24cm, puis couper l'excédent. Placer le fond 15min au congélateur pour qu'il ne se rétracte pas à la cuisson.
   - Preuve/contexte : Cuire le fond à blanc 12min à 180°C avec papier cuisson et poids.
   - Preuve/contexte : Remettre au four 15min pour commencer à cuire les fruits.
 - **conservation-contexte — confiance moyenne**
@@ -249,6 +257,13 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Preuve/contexte : Laisser reposer le fond foncé au réfrigérateur avant cuisson, idéalement 24h pour limiter la rétractation.
   - Preuve/contexte : Cuire à 170°C chaleur tournante 10 à 15min si le fond doit recuire avec une crème d’amandes, ou 15 à 20min pour un fond cuit à blanc.
 
+### Fond de tarte amande (creme_amande_citron)
+
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Étaler environ 5mm dans le fond de tarte et cuire à 170°C environ 20 à 25min, jusqu’à coloration moelleuse.
+
 ### Salade avocat, œuf et épinards (salade_avocat_oeuf_epinards)
 
 - **repere-sensoriel — confiance moyenne**
@@ -274,16 +289,17 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 ### Mi-cuits au chocolat (mi_cuits_chocolat)
 
 - **repere-sensoriel — confiance moyenne**
-  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Constat : 2 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Cuire à four chaud 7 à 10min selon la taille des moules les bords doivent être pris et le centre tremblotant.
+  - Preuve/contexte : Remplir les moules aux trois quarts et réserver au froid au moins 1h. Ils peuvent se préparer la veille, ou se congeler : les cuire alors directement surgelés en ajoutant 2 à 3min.
+  - Preuve/contexte : Cuire à four chaud (200°C) 7 à 10min selon la taille des moules les bords doivent être pris et le centre tremblotant.
 
 ### Macaron Ouréa (macaron_ourea_pierre_herme)
 
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Pocher les coques, laisser croûter si nécessaire, puis cuire à 150°C environ 12 à 14min.
+  - Preuve/contexte : Pocher les coques, tapoter la plaque sur le plan de travail pour chasser les bulles, laisser croûter si nécessaire, puis cuire à 150°C environ 12 à 14min.
 
 ### Cake au citron (cake_citron)
 
@@ -315,7 +331,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Former un disque, refroidir 30min, foncer puis cuire à blanc selon la garniture.
+  - Preuve/contexte : Former un disque, refroidir 30min, foncer puis cuire à blanc à 180°C, 15 à 20min avec des billes de cuisson, selon la garniture.
 
 ### Pâtes à tarte — Variante pâte sucrée (pates_tarte_variantes::7)
 
@@ -568,10 +584,6 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Couvrir et cuire 35 à 40min à feu doux.
-- **temperature-a-coeur — confiance haute**
-  - Constat : Volaille détectée sans température à cœur explicite.
-  - Proposition à valider : Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».
-  - Preuve/contexte : Ministère de l’Agriculture — La campylobactériose
 
 ### Riz au citron (riz_au_citron)
 
@@ -630,20 +642,28 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
   - Preuve/contexte : 11g levure chimique
 
+### Oeufs cocotte chorizo (oeufs_cocotte_chorizo)
+
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Cuire au bain-marie au four à 180°C environ 10 à 12min, jusqu’à blanc pris et jaune coulant.
+
 ### Sauce aigre-douce vietnamienne (sauce_aigre_douce_vietnam)
 
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
-  - Preuve/contexte : 8g piment rouge finement hache
+  - Preuve/contexte : 8g piment rouge finement haché
 
 ### Asperges mimosa (asperges_mimosa)
 
 - **repere-sensoriel — confiance moyenne**
-  - Constat : 2 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Constat : 3 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Placer les œufs dans une casserole, couvrir d’eau froide avec 2 à 3cm au-dessus des œufs, puis cuire 12 à 13min depuis le départ à froid.
   - Preuve/contexte : Refroidir immédiatement en fin de cuisson dans un bain d’eau glacée 10min, puis écaler les œufs froids pour ne pas les casser.
+  - Preuve/contexte : Cuire les asperges 4 à 6min à l’eau bouillante salée selon leur grosseur, puis les refroidir rapidement dans l’eau glacée pour garder leur couleur.
 
 ### Chou vert en sauce tomate (chou_vert_sauce_tomate)
 
@@ -651,6 +671,20 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : Viande hachée ou préparation hachée détectée sans température à cœur explicite.
   - Proposition à valider : Conserver tous les temps écrits et proposer en complément une cuisson à cœur ; pour les publics sensibles, proposer au moins 71 °C en fin de cuisson.
   - Preuve/contexte : Anses — prévention des infections à E. coli entérohémorragiques
+
+### Patates douces au four (patates_douces_four)
+
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Rôtir à 200°C environ 25 à 35min en retournant à mi-cuisson.
+
+### Carottes persillade crème (carottes_persillade_creme)
+
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Cuire les carottes à l’étuvée avec beurre et un fond d’eau, environ 15 à 20min à couvert, jusqu’à ce que la pointe d’un couteau s’enfonce sans résistance.
 
 ### Pommes de terre nouvelles rôties aux herbes du jardin (pommes_grenaille_herbes::2)
 
@@ -662,6 +696,20 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
   - Preuve/contexte : 1g piment d’Espelette
+
+### Soufflé au comté (souffle_fromage_facile)
+
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Beurrer le moule du bas vers le haut, le chemiser de farine, le remplir puis passer le pouce sur le bord intérieur. Cuire à 180°C pendant 25 à 30min, sans ouvrir le four, jusqu’à gonflement et coloration.
+
+### Poires rôties orange miel (poires_roties_orange_miel)
+
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Rôtir à 180°C 25 à 35min selon la maturité, en arrosant deux fois, jusqu’à ce que la pointe d’un couteau entre sans résistance.
 
 ### Grillades porc miel orange piment (grillades_porc_miel_orange_piment)
 
@@ -677,6 +725,13 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
   - Preuve/contexte : 12g levure chimique
 
+### Carottes rôties miel épices (carottes_roties_miel_epices)
+
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Rôtir à 200°C environ 25 à 35min, jusqu’à bords caramelises.
+
 ### Samoussas au bœuf, carottes et raisins secs (samoussas_boeuf_epinards_petits_pois::2)
 
 - **repere-sensoriel — confiance moyenne**
@@ -686,12 +741,26 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Preuve/contexte : Ajouter le bœuf haché et cuire 5min en remuant continuellement.
   - Preuve/contexte : Assaisonner et laisser mijoter encore 3min, puis refroidir complètement la farce.
 
+### Gratin de pâtes au chorizo (gratin_pates_chorizo)
+
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Couvrir de fromages et gratiner 15 à 20min au four à 200°C.
+
 ### Gressins fromage olives (gressins_fromage_olives)
 
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
-  - Preuve/contexte : 5g levure boulangere
+  - Preuve/contexte : 5g levure boulangère
+
+### Salade épinards clémentines amande feta (salade_epinards_clementines_amande_feta)
+
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Griller légèrement les amandes à sec 3 à 4min, jusqu’à ce qu’elles blondissent et sentent le grillé.
 
 ### Rougail saucisse (rougail_saucisse::1)
 
@@ -736,6 +805,10 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.
   - Proposition à valider : Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.
   - Preuve/contexte : Repère menu : plat vegetal crémeux, a équilibrer avec riz nature ou salade acide, pas avec autre sauce riche. Conservation : 2 à 3 jours au réfrigérateur. Sécurité : refroidir rapidement, le dhal épaissit au froid.
+- **mise-a-echelle — confiance information**
+  - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
+  - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
+  - Preuve/contexte : 1 petit piment sec pour le tadka
 
 ### Fish and chips classique à la bière (fish_and_chips::1)
 
@@ -789,7 +862,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
-  - Preuve/contexte : 8g piment rouge finement hache
+  - Preuve/contexte : 8g piment rouge finement haché
 
 ### Brochettes de melon épicé (brochettes_melon_epice)
 
@@ -810,7 +883,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Les saisir 1min à 1min30 par face dans une poêle très chaude avec huile neutre.
+  - Preuve/contexte : Les saler juste avant, puis les saisir 1min à 1min30 par face dans une poêle très chaude avec huile neutre, sans les bouger pendant la première minute.
 
 ### Pommes de terre rôties au four à la suédoise (pommes_de_terre_suedoises)
 
@@ -819,23 +892,12 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Cuire 45 à 55min à 200°C en arrosant deux fois avec le gras parfumé.
 
-### Cassoulet (cassoulet)
-
-- **temperature-a-coeur — confiance haute**
-  - Constat : Volaille détectée sans température à cœur explicite.
-  - Proposition à valider : Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».
-  - Preuve/contexte : Ministère de l’Agriculture — La campylobactériose
-- **temperature-a-coeur — confiance haute**
-  - Constat : Viande hachée ou préparation hachée détectée sans température à cœur explicite.
-  - Proposition à valider : Conserver tous les temps écrits et proposer en complément une cuisson à cœur ; pour les publics sensibles, proposer au moins 71 °C en fin de cuisson.
-  - Preuve/contexte : Anses — prévention des infections à E. coli entérohémorragiques
-
 ### Poulet aux tomates, poivron, vin blanc et thym (poulet_tomates_poivron_vin_blanc_thym)
 
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Remettre le poulet, couvrir a moitie et mijoter 35 à 40min.
+  - Preuve/contexte : Remettre le poulet, couvrir à moitié et mijoter 35 à 40min.
 - **temperature-a-coeur — confiance haute**
   - Constat : Volaille détectée sans température à cœur explicite.
   - Proposition à valider : Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».
@@ -846,7 +908,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Couvrir a moitie et cuire 30 à 35min à feu doux.
+  - Preuve/contexte : Couvrir à moitié et cuire 30 à 35min à feu doux.
 - **temperature-a-coeur — confiance haute**
   - Constat : Volaille détectée sans température à cœur explicite.
   - Proposition à valider : Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».
@@ -883,7 +945,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Mijoter 2h30 a 3h a couvert.
+  - Preuve/contexte : Mijoter 2h30 à 3h à couvert.
 
 ### Verrines châtaignes et foie gras (verrines_chataignes_foie_gras)
 
@@ -957,8 +1019,9 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 ### Spritz vanille chocolat (spritz_vanille_chocolat)
 
 - **repere-sensoriel — confiance moyenne**
-  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Constat : 2 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Pocher les biscuits avec une douille cannelée sur plaque couverte de papier cuisson. Placer la plaque 15min au frais avant d’enfourner pour garder des stries nettes.
   - Preuve/contexte : Cuire 10 à 12min, jusqu’à légère coloration des bords.
 - **conservation-contexte — confiance moyenne**
   - Constat : Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.
@@ -1138,7 +1201,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 3 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Sortir le poulet du réfrigérateur 30min avant la cuisson. Préchauffer le four à 220°C chaleur statique avec le plat de cuisson à l’intérieur.
+  - Preuve/contexte : La veille si possible, saler le poulet et le laisser à découvert au réfrigérateur pour sécher la peau. Sortir le poulet du réfrigérateur 30min avant la cuisson. Préchauffer le four à 220°C chaleur statique avec le plat de cuisson à l’intérieur.
   - Preuve/contexte : Verser l’huile d’arachide dans le plat chaud. Poser le poulet sur un côté et rôtir 10min, puis le retourner sur l’autre côté pour 10min supplémentaires.
   - Preuve/contexte : Placer le poulet sur le dos et poursuivre 20min à 220°C. Baisser ensuite à 160°C et cuire encore 30min.
 
@@ -1289,7 +1352,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Monter les blancs souples et les incorporer, puis cuire le brownie dans un petit moule à 170°C environ 15 à 20min. Refroidir.
 
-### Tiramisu fraise (tiramisu_variantes::6)
+### Tiramisu fraise pâtissier (tiramisu_variantes::6)
 
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
@@ -1300,7 +1363,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Proposition à valider : Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.
   - Preuve/contexte : 2 jours au réfrigérateur. Ne pas congeler avec les fraises fraîches. Le confit doit être froid avant le montage. Conservation : réfrigérer et consommer sous 2 jours.
 
-### Tiramisu aux fraises (tiramisu_variantes::7)
+### Tiramisu fraise express (tiramisu_variantes::7)
 
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
@@ -1371,6 +1434,13 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
   - Preuve/contexte : 3g gélatine
+
+### Crème diplomate vanille (creme_diplomate_variantes::1)
+
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Cuire la pâtissière jusqu’à épaississement, ajouter le beurre, étaler sur une plaque filmée, filmer au contact puis refroidir rapidement (10 à 15min au congélateur, puis au réfrigérateur).
 
 ### Tresse au beurre classique (tresse_beurre_variantes::1)
 
@@ -1617,7 +1687,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Proposition à valider : Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».
   - Preuve/contexte : Ministère de l’Agriculture — La campylobactériose
 
-### Carottes braisees orange citron confit (carottes_braisees_variantes::2)
+### Carottes braisées orange citron confit (carottes_braisees_variantes::2)
 
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
@@ -1711,7 +1781,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Cuire 20min e couvert, puis 20min e decouvert pour concentrer la sauce.
+  - Preuve/contexte : Cuire 20min à couvert, puis 20min à découvert pour concentrer la sauce.
 - **temperature-a-coeur — confiance haute**
   - Constat : Volaille détectée sans température à cœur explicite.
   - Proposition à valider : Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».
@@ -1803,7 +1873,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Cuire dans l’eau bouillante salée 18 à 25min, jusqu’à ce que la courge s’écrase facilement.
 
-### Puree butternut pommes de terre curry (purees_legumes_variantes::6)
+### Purée butternut pommes de terre curry (purees_legumes_variantes::6)
 
 - **temperature-a-coeur — confiance haute**
   - Constat : Volaille détectée sans température à cœur explicite.
@@ -1812,7 +1882,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
-  - Preuve/contexte : 1 pincee piment d’Espelette
+  - Preuve/contexte : 1 pincée piment d’Espelette
 
 ### Cookies au chocolat noir/lait (cookies_sucres_variantes::1)
 
@@ -1886,6 +1956,10 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 
 ### Madeleines sucrées (madeleines_sucrees)
 
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Beurrer et fariner très légèrement les empreintes, puis les placer 10min au congélateur pour aider la bosse à se former. Préchauffer le four à 180°C.
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
@@ -1922,7 +1996,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : 2 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Déposer les os sur une plaque avec les carottes et 2 oignons taillés en grosse mirepoix, puis rôtir 30min.
-  - Preuve/contexte : Cuire 4h à très petit frémissement en écumant et dégraissant régulièrement.
+  - Preuve/contexte : Porter doucement à frémissement, puis cuire 4h à très petit frémissement en écumant et dégraissant régulièrement.
 
 ### Sauce tartare (sauce_tartare)
 
@@ -2092,10 +2166,6 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Verser progressivement le fond de volaille et le vin blanc, porter à ébullition puis laisser frémir 30min.
-- **temperature-a-coeur — confiance haute**
-  - Constat : Volaille détectée sans température à cœur explicite.
-  - Proposition à valider : Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».
-  - Preuve/contexte : Ministère de l’Agriculture — La campylobactériose
 
 ### Lapin sauté chasseur (lapin_saute_chasseur)
 
@@ -2110,6 +2180,10 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 
 ### Paella royale (paella_royale)
 
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Assaisonner avec le safran, le sel fin et le poivre du moulin, puis cuire environ 18 à 20min sans remuer, à couvert avec un papier cuisson ou un couvercle. Ajouter les calamars, les crevettes et les langoustines pour les 8 à 10 dernières minutes, et les moules jusqu’à ce qu’elles s’ouvrent. Ajouter un peu de bouillon si nécessaire, puis finir 1 à 2min à feu vif pour griller légèrement le fond (socarrat).
 - **temperature-a-coeur — confiance haute**
   - Constat : Volaille détectée sans température à cœur explicite.
   - Proposition à valider : Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».
@@ -2174,6 +2248,10 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 
 ### Terrine de légumes (terrine_legumes)
 
+- **repere-sensoriel — confiance moyenne**
+  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Retirer les côtes des épinards, les laver, les cuire 1 à 2min dans une eau bouillante salée, jusqu’à ce qu’ils soient tombés, puis les égoutter, les refroidir et les presser soigneusement.
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
@@ -2183,9 +2261,10 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 ### Gougères au fromage (gougeres)
 
 - **repere-sensoriel — confiance moyenne**
-  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Constat : 2 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Cuire à 180°C pendant environ 20min, puis laisser refroidir.
+  - Preuve/contexte : Faire fondre le beurre, ajouter la farine, cuire le roux blanc 1 à 2min en remuant, jusqu’à ce qu’il mousse, sans le laisser brunir, puis verser le lait bouillant sur le roux froid en fouettant.
 
 ### Pâte à pizza fine (pate_pizza_fine)
 

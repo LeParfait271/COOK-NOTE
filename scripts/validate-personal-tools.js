@@ -29,29 +29,13 @@ expect('Rapprochement des blancs d’œufs absent.', tools.byproductMatches(sour
 let history = tools.captureRecipeVersion({}, 'test', source, '1', '2026-01-01T00:00:00.000Z');
 history = tools.captureRecipeVersion(history, 'test', source, '1', '2026-01-02T00:00:00.000Z');
 expect('Historique non dédupliqué.', history.test.length === 1);
-const similar = tools.findSimilarRecipes([
-  { id: 'a', title: 'Tarte citron classique', ingredients: ['200 g farine', '2 citrons'], steps: [] },
-  { id: 'b', title: 'Tarte citron meringuée', ingredients: ['200 g farine', '2 citrons'], steps: [] }
-]);
-expect('Détection de recettes proches inactive.', similar.length === 1);
-
-const production = tools.buildProductionPlan([
-  { id: 'prep', title: 'Preparation', activeTime: 30, cookTime: 20, restTime: 10 }
-], '2026-08-30T20:00:00');
-expect('Plan de production incorrect.', production.length === 1 && production[0].duration.total === 60 && production[0].startsAt.getHours() === 19);
-expect('Format restaurant absent.', tools.SERVICE_FORMATS?.restaurant?.factor === 1);
-expect('Format degustation absent.', tools.SERVICE_FORMATS?.tasting?.factor === 0.6);
-expect('Consigne de conservation validee non reprise.', tools.getRestaurantStorageGuidance({ practical: { storage: ['48h au froid.'] } })[0] === '48h au froid.');
-expect('Une consigne de conservation a ete inventee.', tools.getRestaurantStorageGuidance({ notes: ['Servir chaud.'] }).length === 0);
-
 const app = readAppSource();
 const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 expect('Module personnel non chargé avant app.js.', index.indexOf('src="/app-personal-tools.js') > -1 && index.indexOf('src="/app-personal-tools.js') < index.indexOf('src="/app.js'));
 expect('Sauvegarde du profil matériel absente.', app.includes('STORAGE_KEYS.equipmentProfile'));
 expect('Sauvegarde de l’historique absente.', app.includes('STORAGE_KEYS.recipeHistory'));
 expect('Restauration locale des recettes absente.', app.includes('STORAGE_KEYS.recipeOverrides'));
-expect('Outils restaurant absents du panneau personnel.', fs.readFileSync(path.join(ROOT, 'app-personal-tools.js'), 'utf8').includes("'Restaurant'"));
-expect('Matrice allergenes non reliee au detecteur existant.', app.includes('getAllergens: getRecipeAllergens'));
+expect('Fenetre outils personnels retiree revenue.', !app.includes('PersonalToolsPanel') && !tools.PersonalToolsPanel && !tools.ProfessionalKitchenTools && !fs.existsSync(path.join(ROOT, 'restaurant-tools.css')));
 expect('Bloc de sources officielles absent.', typeof safetyTools.getRecipeSafetySources === 'function' && app.includes('RecipeSafetySources'));
 expect('Source ministere mal ciblee.', safetyTools.getRecipeSafetySources({ title: 'Poulet rôti', ingredients: [] })[0]?.href === 'https://agriculture.gouv.fr/la-campylobacteriose');
 expect('Source hors sujet affichee.', safetyTools.getRecipeSafetySources({ title: 'Creme brulee', ingredients: [] }).length === 0);

@@ -342,9 +342,31 @@ Sommaire :
   Echap via `cancel`, clic sur le voile pour fermer). Il garde la classe
   `.modal-backdrop` ; le panneau interieur garde `role="dialog"` et
   `aria-modal`. A l'impression il quitte le calque superieur pour suivre le flux.
-- Transitions de vue : carte vers hero de fiche via `view-transition-name`,
-  desactivees sous `prefers-reduced-motion`. L'intention d'ouverture (survol,
-  focus, toucher) precharge les donnees et l'image principale de la fiche.
+- Transitions de vue : l'image et le titre de la carte cliquee volent vers le
+  hero de la fiche (`cn-media`, `cn-title`) et y reviennent au retour. Seule la
+  carte cliquee est nommee, au moment du clic (`data-vt-media`,
+  `data-vt-title`, `runViewTransition` dans `app.js`) : nommer toute la grille
+  couterait une capture par carte. Le defilement se fait apres la capture de
+  l'ancien etat. Desactivees sous `prefers-reduced-motion`. L'intention
+  d'ouverture (survol, focus, toucher) precharge les donnees et l'image
+  principale de la fiche.
+- Effets haut de gamme (`styles/12-design-effets.css`) : seuls `transform` et
+  `opacity` s'animent en continu. Fond vivant = trois lumieres en transform,
+  cadencees a 10 mises a jour par seconde (`steps()`), figees onglet cache et en
+  mouvement reduit. Titres de fiche animes sur les axes de Fraunces (graisse,
+  `SOFT`, `WONK`). Hero : image de la carte floutee dessous, la grande image se
+  precise en fondu. Quantites qui defilent au changement de portions
+  (`RollingQuantity`, ecriture directe du DOM, aucun rendu React par image).
+  Mesurer la fluidite (processeur bride x4) avant d'ajouter un effet continu.
+- Mode cuisine (recree le 26/10/2026 a la demande de l'utilisateur) :
+  facultatif, ouvert par le bouton `Mode cuisine` de la fiche ; la fiche reste
+  la lecture de reference. Une etape a la fois, ingredients de l'etape,
+  `Suivante` coche l'etape, ecran maintenu allume (Wake Lock), plein ecran reel
+  sur ecran tactile, page dessous inerte, Echap pour quitter.
+- Minuteurs : chaque duree ecrite dans une etape (« 25min », « 2h30 à 3h »)
+  devient un bouton ; un intervalle part sur sa borne basse ; au-dela de 4h, pas
+  de minuteur. Les minuteurs restent visibles sur toutes les pages (echeances en
+  heure absolue, vibration et carillon a la fin).
 - Les passes premium ameliorent les composants existants (cartes, panneaux,
   boutons, hover/focus, responsive, performance) sans rajouter de sections
   gadget sur l'accueil.
@@ -365,7 +387,11 @@ Sommaire :
   les recettes enfants en vrac.
 - Recherche de l'accueil epuree : la barre seule, sans surtitre, grand titre ni
   phrase au-dessus, sur le site comme dans l APK.
-- Hero : `Cook Note` en titre typographique sans pictogramme accole ; il se fond
+- Hero : le logo principal `Cook Note` (lettrage blanc cerne de noir, clin
+  d'oeil a Death Note, `assets/brand/cook-note-white.png` servi en AVIF) est
+  une image dans le `h1.hero-wordmark`, avec le texte `Cook Note` pour les
+  lecteurs d'ecran ; il ne doit jamais etre remplace par un titre typographique
+  (retour du logo le 26/10/2026). Sans pictogramme accole ; il se fond
   dans le fond de page sans bordure, filet ni ligne basse (nuit, jour et
   Android). Les deux chateaux, la lune et l'atmosphere restent un decor passif :
   jamais cliquables, jamais associes a un partage sale/sucre, sans fenetres
@@ -495,16 +521,11 @@ Sommaire :
 
 ### Outils restaurant et personnels
 
-- Perimetre restaurant accepte : plan de production (retroplanning indicatif
-  construit depuis les temps existants, sans reecrire d'etape), matrice
-  allergenes (rappelle la verification des etiquettes, fournisseurs et
-  contaminations croisees), formats restaurant/degustation/buffet/banquet
-  (facteur de planification sans modifier les quantites sources) et gestion des
-  restes (restitue les consignes existantes, aucune deduction automatique).
-- Outils personnels acceptes (decision du 28/08/2026) : version individuelle des
-  fiches, profil de materiel, calculateur de moules et contenants, valorisation
-  des sous-produits, sauvegarde/restauration complete et detection des recettes
-  proches (informative : elle ne fusionne, ne renomme et ne supprime rien).
+- Outils personnels conserves dans la fiche : version individuelle des fiches,
+  calculateur de moules et contenants, valorisation des sous-produits et
+  sauvegarde/restauration complete. La fenetre « Mes outils de cuisine » (profil
+  de materiel, recettes proches, outils restaurant) est retiree le 26/10/2026
+  (voir section 9).
 - L'admin d'ajout recette previsualise l'impact avant sauvegarde : role menu,
   rayons, allergenes probables, statut image, SEO et checks qualite.
 - Garder un registre de couverture des features (recherche, fiche, images, mode
@@ -701,7 +722,9 @@ Sommaire :
   direction Cook Note.
 - Parite avec la typographie du site : titres (accueil `Cook Note`, titre de
   fiche, titres de section, numeros d'etape) en serif systeme `Ui.DISPLAY`,
-  etapes en `Ui.READING` ; accueil avec titre typographique, sans logo image.
+  etapes en `Ui.READING` ; accueil avec le logo principal en image, comme le
+  site (`res/drawable-nodpi/cook_note_wordmark.png`, 640 px, derive de
+  `assets/brand/cook-note-white.png`, transparence conservee).
   Listes calmes : pas de boite par ingredient, conseil ou etape (repere dore,
   filet fin entre etapes) ; une seule surface par section.
 - Recherche simple sans filtres (un champ et `Effacer`), recherche intelligente
@@ -733,10 +756,15 @@ Sommaire :
 
 Ne pas les recreer sans nouvelle demande explicite :
 
-- Mode cuisine et minuteurs : pas de `focusMode`, `recipe-focus-mode`,
-  `Mode cuisine`, `step-timer`, `timerEnd`, `timerLabel`, `cooking-step-card` ni
-  `cooking-step-actions`.
+- Ancien mode focus de fiche : pas de `focusMode`, `recipe-focus-mode`,
+  `step-timer`, `timerEnd`, `timerLabel`, `cooking-step-card` ni
+  `cooking-step-actions` (le mode cuisine actuel, recree le 26/10/2026 a la
+  demande de l'utilisateur, est decrit dans la direction visuelle).
 - Blocs `Substitutions` et `Ratios culinaires` des fiches.
+- Fenetre « Mes outils de cuisine » (retiree le 26/10/2026, plus aucun bouton
+  ne l'ouvrait) : `PersonalToolsPanel`, onglets profil de materiel et recettes
+  proches, outils restaurant (plan de production, matrice allergenes, formats
+  de service, gestion des restes) et `restaurant-tools.css`.
 - Outils personnels refuses : carnet d'essais, statuts personnels,
   retroplanning, memoire automatique des ajustements, export PDF/dossier.
 - Fiche recette : box d'actions des etapes, select inline `Choisir un bloc`,

@@ -23,7 +23,7 @@ const OVEN_RE = /\b(?:four|enfourn\w*|chaleur tournante|gratiner)\b/;
 // Cuisson sans le mot four mais sur un support de four.
 const IMPLICIT_OVEN_RE = /\b(?:cuire|cuisson)\b.*\b(?:plaque|moules?|a blanc|fond de tarte|couronnes|empreintes|caissettes)\b|\b(?:plaque|moules?|a blanc|fond de tarte|couronnes|empreintes|caissettes)\b.*\b(?:cuire|cuisson)\b/;
 // Supports qui ne sont pas le four.
-const NOT_OVEN_RE = /\b(?:poele|casserole|friteuse|vapeur|plancha|barbecue|wok|sauteuse|eau bouillante|micro-ondes|gaufrier|crepiere|bain-marie sur le feu|feu doux|feu moyen|feu vif)\b/;
+const NOT_OVEN_RE = /\b(?:poele|casserole|friteuse|vapeur|plancha|barbecue|wok|sauteuse|eau bouillante|micro-ondes|gaufrier|crepiere|bain-marie sur le feu|feu doux|feu moyen|feu vif|plaque filmee)\b/;
 // Le gril se regle par position, pas par temperature.
 const GRILL_RE = /\b(?:gril|grill)\b/;
 

@@ -72,8 +72,8 @@ metier et ne justifient pas d'ajouter une section gadget.
 - Sur ordinateur, seul le panneau Ingredients peut rester visible pendant la
   lecture des Etapes ; les Etapes et les notes gardent le defilement principal.
   Sur mobile, tous les panneaux reprennent le flux normal.
-- La fiche recette reste un folio lisible, jamais un mode cuisine plein ecran ou
-  une navigation sequentielle imposee.
+- La fiche recette reste un folio lisible : le mode cuisine plein ecran est
+  facultatif (bouton `Mode cuisine`), jamais une navigation sequentielle imposee.
 
 ## Tokens principaux
 

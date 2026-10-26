@@ -157,6 +157,20 @@ const ICON_PATHS = {
   close: [
     'M6 6l12 12',
     'M18 6 6 18'
+  ],
+  timer: [
+    'M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z',
+    'M12 9v4l2.6 1.6',
+    'M10 2.8h4',
+    'M12 2.8V5'
+  ],
+  arrowLeft: [
+    'M20 12H5',
+    'M11 6l-6 6 6 6'
+  ],
+  arrowRight: [
+    'M4 12h15',
+    'M13 6l6 6-6 6'
   ]
 };
 
@@ -313,8 +327,12 @@ function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences
   );
 }
 
-// Titre typographique (Fraunces) sur le decor des chateaux, sans pictogramme
-// accole ni filet decoratif (COOK_NOTE_RULES.md, section 5).
+// Logo principal « Cook Note » (lettrage clin d'oeil a Death Note, blanc cerne
+// de noir avec halo) sur le decor des chateaux, sans pictogramme accole ni filet
+// decoratif (COOK_NOTE_RULES.md, section 5). Le texte reste pour les lecteurs
+// d'ecran.
+const BRAND_WORDMARK_IMAGE = '/assets/brand/cook-note-white.png';
+
 function Hero() {
   const dayArt = isDayArtTheme();
   return h('section', { className: dayArt ? 'hero hero-day-art' : 'hero' },
@@ -322,7 +340,21 @@ function Hero() {
     h('span', { className: 'hero-atmosphere hero-atmosphere-mist', 'aria-hidden': true }),
     h('div', { className: 'hero-inner' },
       h('p', { className: 'hero-system-label' }, t('home.heroSystemLabel')),
-      h('h1', { className: 'hero-wordmark' }, 'Cook Note')
+      h('h1', { className: 'hero-wordmark' },
+        h('img', {
+          className: 'hero-wordmark-image',
+          src: preferredImageUrl(BRAND_WORDMARK_IMAGE),
+          'data-original-src': BRAND_WORDMARK_IMAGE,
+          alt: '',
+          width: 948,
+          height: 302,
+          decoding: 'async',
+          fetchPriority: 'high',
+          draggable: false,
+          onError: event => retryOriginalImage(event.currentTarget)
+        }),
+        h('span', { className: 'sr-only' }, 'Cook Note')
+      )
     )
   );
 }
@@ -340,15 +372,238 @@ function ActiveChips({ chips }) {
   );
 }
 
-function recipeViewTransitionName(recipeId) {
-  const safeId = String(recipeId || '')
-    .toLowerCase()
-    .replace(/[^a-z0-9_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-  return safeId ? `recipe-${safeId}` : '';
+const WARMED_HERO_IMAGES = new Set();
+
+// Image deja en cache : `load` a pu partir avant React. On la marque `cached`
+// des son montage (affichee sans fondu) ; `onLoad` marque `true` (fondu).
+function markLoadedImage(img) {
+  if (img && !img.dataset.loaded && img.complete && img.naturalWidth > 0) img.dataset.loaded = 'cached';
 }
 
-const WARMED_HERO_IMAGES = new Set();
+// ---------- Minuteurs de cuisine ----------
+// Les durees ecrites dans les etapes (« 25min », « 2h30 à 3h ») deviennent des
+// boutons. Un intervalle donne la borne basse : on verifie tot, on prolonge.
+const KITCHEN_TIMER_EVENT = 'cook-note:kitchen-timer';
+const KITCHEN_TIMER_STORAGE = 'cook_note_kitchen_timers';
+const KITCHEN_TIMER_MAX_SECONDS = 4 * 3600;
+const KITCHEN_TIMER_LIMIT = 4;
+const DURATION_UNIT = '(h(?:eures?)?|min(?:utes?)?|secondes?|sec|s)';
+// Le prefixe capture remplace un lookbehind (absent des Safari anciens).
+const DURATION_RE = new RegExp(`(^|[^\\d,.])((?:(\\d+)(?:\\s*${DURATION_UNIT}(?:\\s?(\\d{1,2}))?)?\\s*(?:à|-|–)\\s*)?(\\d+)\\s*${DURATION_UNIT}(\\d{1,2})?)(?![\\p{L}\\d])`, 'giu');
+let kitchenAudio = null;
+
+function durationSeconds(value, unit, sub) {
+  const amount = Number(value) || 0;
+  const extra = Number(sub) || 0;
+  const key = String(unit || '').toLowerCase();
+  if (key.startsWith('h')) return amount * 3600 + extra * 60;
+  if (key.startsWith('m')) return amount * 60 + extra;
+  return amount;
+}
+
+function findStepDurations(text) {
+  const found = [];
+  String(text || '').replace(DURATION_RE, (match, prefix, duration, lowValue, lowUnit, lowSub, value, unit, sub, offset) => {
+    const seconds = lowValue
+      ? durationSeconds(lowValue, lowUnit || unit, lowSub)
+      : durationSeconds(value, unit, sub);
+    if (seconds >= 5 && seconds <= KITCHEN_TIMER_MAX_SECONDS) found.push({ index: offset + prefix.length, text: duration, seconds });
+    return match;
+  });
+  return found;
+}
+
+function formatTimerClock(seconds) {
+  const total = Math.max(0, Math.ceil(seconds));
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const rest = String(total % 60).padStart(2, '0');
+  return hours ? `${hours}:${String(minutes).padStart(2, '0')}:${rest}` : `${minutes}:${rest}`;
+}
+
+// Le son ne peut demarrer qu'apres un geste : on prepare l'audio au clic.
+function unlockKitchenAudio() {
+  try {
+    const AudioCtor = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtor) return;
+    kitchenAudio = kitchenAudio || new AudioCtor();
+    if (kitchenAudio.state === 'suspended') kitchenAudio.resume().catch(() => {});
+  } catch {
+    kitchenAudio = null;
+  }
+}
+
+function playKitchenChime() {
+  const context = kitchenAudio;
+  if (!context) return;
+  const start = context.currentTime + 0.02;
+  [880, 880, 1175].forEach((frequency, index) => {
+    const at = start + index * 0.34;
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    oscillator.type = 'sine';
+    oscillator.frequency.value = frequency;
+    gain.gain.setValueAtTime(0.0001, at);
+    gain.gain.exponentialRampToValueAtTime(0.22, at + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.3);
+    oscillator.connect(gain).connect(context.destination);
+    oscillator.start(at);
+    oscillator.stop(at + 0.32);
+  });
+}
+
+function startKitchenTimer({ seconds, label, title = '' }) {
+  if (!seconds) return;
+  unlockKitchenAudio();
+  window.dispatchEvent(new CustomEvent(KITCHEN_TIMER_EVENT, { detail: { seconds, label, title } }));
+}
+
+// Texte d'etape : chaque duree devient un bouton minuteur. Seules les chaines
+// de premier niveau sont decoupees ; les liens restent intacts.
+function withKitchenTimers(content, title = '') {
+  const split = text => {
+    const durations = findStepDurations(text);
+    if (!durations.length) return text;
+    const nodes = [];
+    let cursor = 0;
+    durations.forEach(duration => {
+      if (duration.index > cursor) nodes.push(text.slice(cursor, duration.index));
+      nodes.push(h('button', {
+        key: `timer-${duration.index}`,
+        type: 'button',
+        className: 'kitchen-timer-chip',
+        'aria-label': `Lancer un minuteur de ${formatTimerClock(duration.seconds)} (${duration.text})`,
+        onClick: event => {
+          event.preventDefault();
+          event.stopPropagation();
+          startKitchenTimer({ seconds: duration.seconds, label: duration.text, title });
+        }
+      }, h(Icon, { name: 'timer' }), duration.text));
+      cursor = duration.index + duration.text.length;
+    });
+    if (cursor < text.length) nodes.push(text.slice(cursor));
+    return nodes;
+  };
+  // renderLinkedText renvoie des fragments imbriques : on descend dans les
+  // fragments et on laisse intacts les autres elements (liens, boutons).
+  const visit = node => {
+    if (typeof node === 'string') return split(node);
+    if (Array.isArray(node)) return node.map(child => visit(child));
+    if (React.isValidElement(node) && node.type === React.Fragment) {
+      return h(React.Fragment, { key: node.key }, ...[].concat(node.props.children).map(child => visit(child)));
+    }
+    return node;
+  };
+  return visit(content);
+}
+
+function readKitchenTimers() {
+  try {
+    const stored = JSON.parse(sessionStorage.getItem(KITCHEN_TIMER_STORAGE) || '[]');
+    return Array.isArray(stored) ? stored.filter(timer => timer && timer.id && timer.total > 0).slice(-KITCHEN_TIMER_LIMIT) : [];
+  } catch {
+    return [];
+  }
+}
+
+function timerRemaining(timer, now) {
+  if (timer.done) return 0;
+  if (timer.pausedLeft != null) return timer.pausedLeft / 1000;
+  return Math.max(0, (timer.endAt - now) / 1000);
+}
+
+const KITCHEN_RING = 2 * Math.PI * 19;
+
+// Minuteurs en cours, en bas d'ecran sur toutes les pages. Une seule mise a jour
+// par seconde ; l'anneau glisse en CSS entre deux ticks. Les echeances sont des
+// heures absolues : un onglet en veille reste juste.
+function KitchenTimerDock() {
+  const [timers, setTimers] = useState(readKitchenTimers);
+  const [now, setNow] = useState(() => Date.now());
+  const [announce, setAnnounce] = useState('');
+
+  useEffect(() => {
+    const add = event => {
+      const { seconds, label, title } = event.detail || {};
+      const timer = { id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, label, title, total: seconds, endAt: Date.now() + seconds * 1000, done: false, pausedLeft: null };
+      setTimers(list => [...list.filter(item => !item.done), timer].slice(-KITCHEN_TIMER_LIMIT));
+      setNow(Date.now());
+    };
+    window.addEventListener(KITCHEN_TIMER_EVENT, add);
+    return () => window.removeEventListener(KITCHEN_TIMER_EVENT, add);
+  }, []);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(KITCHEN_TIMER_STORAGE, JSON.stringify(timers));
+    } catch {
+      /* Stockage indisponible : les minuteurs restent en memoire. */
+    }
+  }, [timers]);
+
+  const ticking = timers.some(timer => !timer.done && timer.pausedLeft == null);
+  useEffect(() => {
+    if (!ticking) return undefined;
+    const interval = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(interval);
+  }, [ticking]);
+
+  useEffect(() => {
+    const finished = timers.filter(timer => !timer.done && timer.pausedLeft == null && timer.endAt <= now);
+    if (!finished.length) return;
+    setTimers(list => list.map(timer => (finished.some(item => item.id === timer.id) ? { ...timer, done: true } : timer)));
+    setAnnounce(`Minuteur terminé : ${finished.map(timer => [timer.label, timer.title].filter(Boolean).join(', ')).join(' ; ')}`);
+    try {
+      navigator.vibrate?.([320, 140, 320, 140, 620]);
+    } catch {
+      /* Vibration indisponible. */
+    }
+    playKitchenChime();
+  }, [now, timers]);
+
+  const update = (id, change) => setTimers(list => list.map(timer => (timer.id === id ? change(timer) : timer)));
+  const togglePause = id => update(id, timer => (timer.pausedLeft != null
+    ? { ...timer, endAt: Date.now() + timer.pausedLeft, pausedLeft: null }
+    : { ...timer, pausedLeft: Math.max(0, timer.endAt - Date.now()) }));
+  const addMinute = id => update(id, timer => {
+    const left = timer.done ? 60000 : (timer.pausedLeft != null ? timer.pausedLeft : timer.endAt - Date.now()) + 60000;
+    return timer.pausedLeft != null && !timer.done
+      ? { ...timer, pausedLeft: left, total: Math.max(timer.total, left / 1000) }
+      : { ...timer, done: false, pausedLeft: null, endAt: Date.now() + left, total: Math.max(timer.done ? 60 : timer.total, left / 1000) };
+  });
+  const remove = id => setTimers(list => list.filter(timer => timer.id !== id));
+
+  if (!timers.length && !announce) return null;
+  return h('div', { className: 'kitchen-timer-dock' },
+    h('p', { className: 'sr-only', role: 'status', 'aria-live': 'assertive' }, announce),
+    timers.map(timer => {
+      const left = timerRemaining(timer, now);
+      const ratio = timer.total ? Math.min(1, left / timer.total) : 0;
+      const paused = timer.pausedLeft != null && !timer.done;
+      return h('div', { key: timer.id, className: ['kitchen-timer', timer.done ? 'is-done' : '', paused ? 'is-paused' : ''].filter(Boolean).join(' ') },
+        h('button', {
+          type: 'button',
+          className: 'kitchen-timer-ring',
+          disabled: timer.done,
+          'aria-label': paused ? `Reprendre le minuteur ${timer.label}` : `Mettre en pause le minuteur ${timer.label}`,
+          onClick: () => togglePause(timer.id)
+        },
+          h('svg', { viewBox: '0 0 44 44', 'aria-hidden': 'true', focusable: 'false' },
+            h('circle', { className: 'kitchen-timer-track', cx: 22, cy: 22, r: 19 }),
+            h('circle', { className: 'kitchen-timer-progress', cx: 22, cy: 22, r: 19, strokeDasharray: KITCHEN_RING, strokeDashoffset: KITCHEN_RING * (1 - ratio) })
+          ),
+          h('span', { className: 'kitchen-timer-glyph', 'aria-hidden': 'true' }, timer.done ? '✓' : paused ? '▶' : '❚❚')
+        ),
+        h('div', { className: 'kitchen-timer-copy' },
+          h('strong', { className: 'kitchen-timer-clock' }, timer.done ? 'Terminé' : formatTimerClock(left)),
+          h('small', null, [timer.label, timer.title].filter(Boolean).join(' · '))
+        ),
+        h('button', { type: 'button', className: 'kitchen-timer-action', onClick: () => addMinute(timer.id), 'aria-label': `Ajouter une minute au minuteur ${timer.label}` }, '+1'),
+        h('button', { type: 'button', className: 'kitchen-timer-action', onClick: () => remove(timer.id), 'aria-label': `Fermer le minuteur ${timer.label}` }, h(Icon, { name: 'close' }))
+      );
+    })
+  );
+}
 
 // Reflet lumineux qui suit la souris sur une carte (souris uniquement, via CSS).
 function trackCardGlare(event) {
@@ -391,13 +646,13 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     .filter(Boolean)
     .join(' ');
   const cardStyle = { ...ambilightStyle(cardImage, style), cursor: 'pointer' };
-  const transitionName = master ? '' : recipeViewTransitionName(recipe.id);
   const warmRecipe = () => warmRecipeOnIntent(preloadRecipe, recipe.id, master ? '' : sourceImage);
 
   return h('article', {
     className,
     style: cardStyle,
     'data-recipe-id': recipe.id,
+    'data-vt-card': '',
     title: recipe.title,
     tabIndex: 0,
     role: 'button',
@@ -416,9 +671,10 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
   },
     renderCardImage && h('span', { className: 'card-ambilight', 'aria-hidden': true }),
     h('span', { className: 'card-glare', 'aria-hidden': true }),
-    h('div', { className: 'card-media', style: transitionName ? { viewTransitionName: transitionName } : undefined },
+    h('div', { className: 'card-media', 'data-vt-media': recipe.id },
       renderCardImage && h('img', {
         className: 'card-image',
+        ref: markLoadedImage,
         src: preferredImageUrl(cardImage),
         'data-original-src': cardImage,
         alt: recipe.title,
@@ -430,7 +686,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
         draggable: false,
         ...imageSizeAttrs(cardImage),
         onLoad: event => {
-          event.currentTarget.dataset.loaded = 'true';
+          if (!event.currentTarget.dataset.loaded) event.currentTarget.dataset.loaded = 'true';
         },
         onError: event => {
           if (retryOriginalImage(event.currentTarget)) return;
@@ -443,7 +699,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       !renderCardImage && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1))
     ),
     h('div', { className: 'card-body' },
-      h('h3', { className: 'card-title' }, recipe.title),
+      h('h3', { className: 'card-title', 'data-vt-title': recipe.id }, recipe.title),
       variantLabel && h('p', { className: 'card-meta', 'aria-label': variantLabel },
         h('span', { className: 'card-variant-count' }, variantLabel)
       )

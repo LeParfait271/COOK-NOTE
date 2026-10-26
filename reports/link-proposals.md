@@ -6,7 +6,7 @@ chaque lien doit être validé avant intégration (lien `data-goto` dans le text
 - Sauces et bases du catalogue cherchées : 73
 - Fiches concernées : 66
 - Liens proposés : 74
-- Empreinte recipes.js : 0936ce4a3219
+- Empreinte recipes.js : 95a06b1e88bf
 
 ## Asperges vertes au lard grillé (`asperges_vertes_lard`)
 
@@ -46,7 +46,7 @@ chaque lien doit être validé avant intégration (lien `data-goto` dans le text
 
 ## Choux au craquelin (`choux_craquelin`)
 
-- [ ] Craquelin cacao (`craquelin_cacao`) — « Abaisser craquelin 2mm, détailler disques. »
+- [ ] Craquelin cacao (`craquelin_cacao`) — « Abaisser le craquelin à 2mm entre deux feuilles de papier cuisson, puis le placer au congélateur pendant la préparation et le pochage de la pâte à choux. Le craquelin abaissé se garde plusieurs semaines au congélateur. »
 
 ## Cocktail de crevettes Palace (`cocktail_crevettes_palace`)
 
@@ -161,7 +161,7 @@ chaque lien doit être validé avant intégration (lien `data-goto` dans le text
 
 ## Pâte à choux (`pate_choux`)
 
-- [ ] Craquelin cacao (`craquelin_cacao`) — « Pocher des couronnes de 7cm, poser le craquelin puis cuire à 170°C pendant 40 à 45min. »
+- [ ] Craquelin cacao (`craquelin_cacao`) — « Pocher des couronnes de 7cm, poser le craquelin puis cuire à 170°C pendant 40 à 45min sans ouvrir le four pendant les 25 premières minutes, porte entrouverte les 5 dernières minutes pour sécher les choux. »
 
 ## Pâte à tartiner noisette et praliné (`pate_tartiner_noisette_praline`)
 
@@ -184,7 +184,7 @@ chaque lien doit être validé avant intégration (lien `data-goto` dans le text
 - [ ] Mayonnaise (`mayonnaise_maison`) — « Fouetter en incorporant progressivement l’huile de colza, comme pour une mayonnaise. »
 - [ ] Pain de mie (`pain_mie`) — « 50g croûtons de pain de mie »
 
-## Salade epinards clementines amande feta (`salade_epinards_clementines_amande_feta`)
+## Salade épinards clémentines amande feta (`salade_epinards_clementines_amande_feta`)
 
 - [ ] Vinaigrette (`vinaigrette`) — « Préparer vinaigrette huile, vinaigre, miel et poivre du moulin. »
 
@@ -260,7 +260,7 @@ chaque lien doit être validé avant intégration (lien `data-goto` dans le text
 
 - [ ] Fond de tarte amande (`creme_amande_citron`) — « 10g fécule pour crème d’amande »
 - [ ] Meringues (`meringues_variantes`) — « Meringue italienne cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement. »
-- [ ] Pâtes à tarte (`pates_tarte_variantes`) — « Pâte sucrée assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler. »
+- [ ] Pâtes à tarte (`pates_tarte_variantes`) — « La veille, pâte sucrée : assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler. »
 
 ## Tartes aux abricots et aux amandes (`tarte_abricots_amandes_romarin`)
 
