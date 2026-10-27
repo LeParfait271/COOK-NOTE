@@ -12,10 +12,14 @@ const DIRS = [
   'assets/recipes/heroes',
   'assets/recipes/cards',
   'assets/theme/dark/recipes',
+  'assets/theme/dark/recipe-cards',
   'assets/theme/dark/categories',
+  'assets/theme/dark/category-cards',
   'assets/theme/dark/global',
   'assets/theme/day/recipes',
+  'assets/theme/day/recipe-cards',
   'assets/theme/day/categories',
+  'assets/theme/day/category-cards',
   'assets/theme/day/global'
 ];
 // Qualite AVIF calee pour rester visuellement equivalente aux JPG servis.

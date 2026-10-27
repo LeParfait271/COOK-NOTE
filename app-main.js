@@ -66,6 +66,7 @@ function App() {
   const homeScrollRef = useRef(Number(sessionStorage.getItem(STORAGE_KEYS.homeScroll)) || 0);
   const restoreHomeScrollRef = useRef(false);
   const pendingScrollModeRef = useRef('top');
+  const openRecipeTokenRef = useRef(0);
   const lastRouteKeyRef = useRef(currentScrollRouteKey());
   const historyRef = useRef([{}]);
   const historyIndexRef = useRef(0);
@@ -213,7 +214,7 @@ function App() {
     if (mode === 'none') return undefined;
     const top = mode === 'restore' ? readScrollPositionForCurrentRoute() : 0;
     pendingScrollModeRef.current = 'top';
-    const applyScroll = () => window.scrollTo({ top, left: 0, behavior: 'auto' });
+    const applyScroll = () => scrollInstantly(top);
     applyScroll();
     let secondFrame = 0;
     const firstFrame = requestAnimationFrame(() => {
@@ -240,8 +241,13 @@ function App() {
 
   useEffect(() => {
     let persistTimer = 0;
+    // Adresse a l'installation de l'effet : voir le nettoyage plus bas.
+    const routeKey = currentScrollRouteKey();
     const persistScrollPosition = () => {
       persistTimer = 0;
+      // Retour arriere pendant le delai : le defilement actuel n'est plus celui
+      // de cette page, l'enregistrer ecraserait la position de la page d'arrivee.
+      if (currentScrollRouteKey() !== routeKey) return;
       if (!activeRecipe) {
         try {
           sessionStorage.setItem(STORAGE_KEYS.homeScroll, String(homeScrollRef.current || 0));
@@ -279,7 +285,12 @@ function App() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('pagehide', flushScrollPosition);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      flushScrollPosition();
+      // Au retour arriere, l'adresse est deja celle de l'accueil quand ce
+      // nettoyage s'execute : enregistrer ici ecrasait la position de l'accueil
+      // par celle de la fiche quittee (souvent 0). Les navigations enregistrent
+      // deja leur position avant de changer d'adresse.
+      if (currentScrollRouteKey() === routeKey) flushScrollPosition();
+      else if (persistTimer) window.clearTimeout(persistTimer);
     };
   }, [activeRecipe]);
 
@@ -569,6 +580,11 @@ function App() {
     notify(`Retiré des courses : ${recipe?.title || 'recette'}`, 'info');
   }
 
+  function setShoppingFactor(id, factor) {
+    if (!shoppingIds.includes(id) || !(factor > 0)) return;
+    persistShoppingFactors({ ...shoppingFactors, [id]: factor });
+  }
+
   function clearShopping() {
     persistShopping([]);
     persistShoppingFactors({});
@@ -612,6 +628,7 @@ function App() {
       ...DEFERRED_CATALOG_CHUNK_SRCS,
       '/manifest.json',
       '/assets/brand/mark.svg',
+      '/assets/brand/mark-64.png',
       '/assets/brand/app-icon.png',
       preferredImageUrl('/assets/theme/dark/global/background.jpg')
     ]);
@@ -822,11 +839,37 @@ function App() {
     writeJson(STORAGE_KEYS.recipeOverrides, next);
   }
 
+  // La fiche complete doit etre la avant la capture de la transition : arrivee en
+  // plein vol, elle re-rend toute la page et fige l'animation (~200ms sur mobile).
+  // On l'attend au plus OPEN_RECIPE_DATA_WAIT_MS (souvent deja prechargee au toucher).
   function openRecipe(id) {
     const target = recipesById[id];
     if (!target) return;
     const catalogLoader = isMasterRecipe(target) ? loadDeferredCatalogChunks : () => loadRecipeDetails(id, true);
-    catalogLoader().catch(() => {});
+    const loading = Promise.resolve().then(catalogLoader);
+    loading.catch(() => {});
+    const token = openRecipeTokenRef.current + 1;
+    openRecipeTokenRef.current = token;
+    const show = () => {
+      if (openRecipeTokenRef.current === token) showRecipe(id, target);
+    };
+    Promise.race([loading, new Promise(resolve => window.setTimeout(resolve, OPEN_RECIPE_DATA_WAIT_MS))]).then(show, show);
+  }
+
+  // Profondeur d'une vue : accueil 0, categorie ou liste (favoris, techniques)
+  // 1, fiche 2. Remonter (retour) referme la page quittee en cercle au lieu de
+  // devoiler la nouvelle.
+  function viewDepth(id, page = 'home', favorites = false) {
+    if (!id) return page === 'home' && !favorites ? 0 : 1;
+    const recipe = recipesById[id];
+    return (recipe ? isMasterRecipe(recipe) : /_maitre$/.test(id)) ? 1 : 2;
+  }
+
+  function currentViewDepth() {
+    return viewDepth(activeId, activePage, onlyFavorites);
+  }
+
+  function showRecipe(id, target) {
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'top';
     if (!activeRecipe) {
@@ -838,8 +881,12 @@ function App() {
       rememberRecipeVisit(id);
     }
     // Le defilement en haut se fait apres la capture de l'ancien etat : la carte
-    // cliquee part de sa vraie position.
-    const resetRecipeScroll = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    // cliquee part de sa vraie position. Un retour arriere rapide ne doit pas
+    // etre remis en haut par ces rappels tardifs.
+    const route = createRouteGuard();
+    const resetRecipeScroll = () => {
+      if (route.isCurrent()) scrollInstantly(0);
+    };
     runViewTransition(() => {
       setActivePage('home');
       setTargetTechniqueId('');
@@ -849,6 +896,8 @@ function App() {
     }, {
       sourceId: id,
       returnId: activeId || '',
+      backward: viewDepth(id) < currentViewDepth(),
+      route,
       after: () => {
         resetRecipeScroll();
         requestAnimationFrame(() => requestAnimationFrame(resetRecipeScroll));
@@ -860,6 +909,7 @@ function App() {
       history.pushState('', document.title, nextUrl);
     }
     lastRouteKeyRef.current = currentScrollRouteKey();
+    route.mark();
   }
 
   function goHome() {
@@ -870,7 +920,10 @@ function App() {
     setSeasonCategory('');
     setTagFilter('');
     setQuery('');
-    const resetHomeScroll = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    const route = createRouteGuard();
+    const resetHomeScroll = () => {
+      if (route.isCurrent()) scrollInstantly(0);
+    };
     runViewTransition(() => {
       setActivePage('home');
       setTargetTechniqueId('');
@@ -879,6 +932,8 @@ function App() {
       setActiveId(null);
     }, {
       returnId: activeId || '',
+      backward: currentViewDepth() > 0,
+      route,
       after: () => {
         resetHomeScroll();
         requestAnimationFrame(() => requestAnimationFrame(resetHomeScroll));
@@ -887,21 +942,24 @@ function App() {
     });
     history.pushState('', document.title, '/');
     lastRouteKeyRef.current = currentScrollRouteKey();
+    route.mark();
   }
 
   function showFavorites() {
     loadDeferredCatalogChunks().catch(() => {});
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'top';
+    const route = createRouteGuard();
     runViewTransition(() => {
       setActivePage('home');
       setTargetTechniqueId('');
       setOnlyFavorites(true);
       setFavoriteCollection('');
       setActiveId(null);
-    });
+    }, { route, backward: currentViewDepth() > 1 });
     history.pushState('', document.title, '/?view=__favs__');
     lastRouteKeyRef.current = currentScrollRouteKey();
+    route.mark();
     setTimeout(() => document.getElementById('recettes')?.scrollIntoView({ behavior: 'smooth' }), 0);
   }
 
@@ -909,28 +967,32 @@ function App() {
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'top';
     restoreHomeScrollRef.current = false;
+    const route = createRouteGuard();
     runViewTransition(() => {
       setActivePage('techniques');
       setTargetTechniqueId('');
       setActiveId(null);
       setOnlyFavorites(false);
-    });
+    }, { route, backward: currentViewDepth() > 1 });
     history.pushState('', document.title, '/techniques');
     lastRouteKeyRef.current = currentScrollRouteKey();
+    route.mark();
   }
 
   function openTechnique(id) {
     saveCurrentScrollPosition(lastRouteKeyRef.current);
     pendingScrollModeRef.current = 'none';
     restoreHomeScrollRef.current = false;
+    const route = createRouteGuard();
     runViewTransition(() => {
       setActivePage('techniques');
       setTargetTechniqueId(id);
       setActiveId(null);
       setOnlyFavorites(false);
-    });
+    }, { route });
     history.pushState('', document.title, `/techniques#${encodeURIComponent(id)}`);
     lastRouteKeyRef.current = currentScrollRouteKey();
+    route.mark();
   }
 
   function updateSearchQuery(value) {
@@ -986,6 +1048,8 @@ function App() {
         homeScrollRef.current = Math.max(window.scrollY || 0, homeScrollRef.current || 0);
         restoreHomeScrollRef.current = false;
       }
+      const favoritesView = new URLSearchParams(window.location.search).get('view') === '__favs__';
+      const backward = viewDepth(recipe, page, favoritesView) < currentViewDepth();
       runViewTransition(() => {
         setActivePage(page);
         setTargetTechniqueId(technique);
@@ -993,7 +1057,7 @@ function App() {
         setOnlyFavorites(view === '__favs__');
         setActiveId(recipe);
         setMenuPlannerOpen(Boolean(event?.state?.menuPlannerOpen));
-      }, { sourceId: recipe || '', returnId: activeId || '' });
+      }, { sourceId: recipe || '', returnId: activeId || '', backward });
       if (!recipe && page === 'home') restoreHomeScrollRef.current = false;
     };
     window.addEventListener('hashchange', handleLocation);
@@ -1002,7 +1066,7 @@ function App() {
       window.removeEventListener('hashchange', handleLocation);
       window.removeEventListener('popstate', handleLocation);
     };
-  }, [activeId]);
+  }, [activeId, activePage, onlyFavorites, recipesById]);
 
   useEffect(() => {
     if (activeRecipe || !restoreHomeScrollRef.current) return;
@@ -1010,7 +1074,7 @@ function App() {
     const top = homeScrollRef.current || 0;
     let attempts = 0;
     const restore = () => {
-      window.scrollTo({ top, behavior: 'auto' });
+      scrollInstantly(top);
       attempts += 1;
       if (attempts < 8 && Math.abs((window.scrollY || 0) - top) > 2) requestAnimationFrame(restore);
     };
@@ -1212,7 +1276,9 @@ function App() {
       h('div', { className: 'site-footer-inner' },
         h('div', { className: 'site-footer-identity' },
           h('div', { className: 'site-footer-mark' },
-          h('img', { src: '/assets/brand/mark.svg', alt: '', width: 128, height: 128, loading: 'lazy', decoding: 'async' })
+          // PNG pre-rendu (tmp/perf/render-mark.js) : le SVG coutait ~200ms de rendu
+          // GPU a chaque page ou le pied apparait, ce qui figeait les transitions.
+          h('img', { src: '/assets/brand/mark-64.png', alt: '', width: 64, height: 64, loading: 'lazy', decoding: 'async' })
           ),
           h('div', { className: 'site-footer-copy' },
           h('p', { className: 'site-footer-brand' }, 'Cook Note \u00a9 2026.'),
@@ -1250,10 +1316,12 @@ function App() {
       open: shoppingOpen,
       onClose: () => setShoppingOpen(false),
       recipes: shoppingRecipes,
+      recipesComplete: shoppingRecipes.length === shoppingIds.length,
       factorById: shoppingFactors,
       transferUrl: shoppingOpen ? shoppingTransferUrl(shoppingIds, shoppingFactors) : '',
       pantryItems: [],
       removeRecipe: removeShopping,
+      setRecipeFactor: setShoppingFactor,
       clearShopping,
       notify
     }),

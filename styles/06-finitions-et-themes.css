@@ -78,7 +78,6 @@
   --ambilight-image: none;
   --ambilight-spread: clamp(14px, 2vw, 24px);
   --ambilight-blur: clamp(18px, 2.4vw, 30px);
-  --ambilight-hover-blur: clamp(22px, 2.8vw, 34px);
   --ambilight-opacity: .46;
   --ambilight-hover-opacity: .74;
   overflow: visible;
@@ -114,10 +113,11 @@
   filter: blur(var(--ambilight-blur)) saturate(1.65) brightness(1.18);
   opacity: var(--ambilight-opacity);
   transform: scale(1.045);
+  /* Seuls opacite et echelle bougent (compositeur) : animer le flou le
+     recalculait a chaque image. */
   transition:
     opacity var(--ds-duration-slow) var(--ds-ease),
-    transform var(--ds-duration-slow) var(--ds-ease),
-    filter var(--ds-duration-slow) var(--ds-ease);
+    transform var(--ds-duration-slow) var(--ds-ease);
 }
 
 .recipe-card.has-image:hover .card-ambilight,
@@ -127,7 +127,6 @@
 .variant-card:focus-visible .variant-card-ambilight {
   opacity: var(--ambilight-hover-opacity);
   transform: scale(1.085);
-  filter: blur(var(--ambilight-hover-blur)) saturate(1.9) brightness(1.28);
 }
 
 .recipe-card.has-image .card-media,

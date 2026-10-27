@@ -205,6 +205,15 @@ Sommaire :
   (`180°C`, `th. 6`), y compris dans les etapes propres d'une variante qui
   remplacent les etapes de base ; le gril se donne par position.
   `npm run validate:oven` le bloque.
+- Redaction des etapes (`npm run validate:wording`, dans `npm run check`) :
+  « La veille » seulement a la premiere etape et suivi d'une virgule ;
+  « le lendemain » seulement apres un repos de la veille ; prechauffer avant la
+  premiere etape au four ; intitule de sous-recette ou de methode suivi de « : » ;
+  apostrophe a chaque elision ; majuscule en debut d'etape ; « 10min avant de
+  les cuire », jamais « 10min avant. » seul ; le conseil « meilleur prepare la
+  veille » va dans une seule note, jamais dans les etapes.
+- Toute modification de texte de recette se relit fiche entiere, dans l'ordre
+  des etapes et avec ses notes, pas seulement la phrase changee.
 - `validate:recipe-links` refuse tout lien interne absent, auto-reference,
   duplique ou mal forme ; `validate:recipe-duplicates` refuse les titres et
   contenus strictement dupliques.
@@ -222,6 +231,12 @@ Sommaire :
   `assets/recipes/cards/`, puis audit. Les recettes pointent vers `heroes/`.
 - Toute nouvelle recette recoit deux visuels coherents : nuit dans
   `assets/theme/dark/recipes/` et jour dans `assets/theme/day/recipes/`.
+- Les cartes n'affichent jamais une illustration pleine taille : chaque visuel
+  de theme a sa miniature 800px dans `recipe-cards/` ou `category-cards/`
+  et une miniature 400px en AVIF seul dans `*-cards-sm/` (cartes en ecran 1x
+  via `srcset`/`image-set`, halos floutes toujours) : `npm run
+  generate:theme-cards` puis `npm run generate:avif`, verifie par `npm run
+  check`. Les grandes images restent pour le bandeau de fiche.
 - Toute generation suit le kit `docs/visual-references/RECIPE_IMAGE_STYLE.md`
   et part d'une de ses six images approuvees : cadrage, taille du plat,
   lumieres, grain, accessoires, distance du chateau et motifs de rejet. Le mode
@@ -342,14 +357,27 @@ Sommaire :
   Echap via `cancel`, clic sur le voile pour fermer). Il garde la classe
   `.modal-backdrop` ; le panneau interieur garde `role="dialog"` et
   `aria-modal`. A l'impression il quitte le calque superieur pour suivre le flux.
-- Transitions de vue : l'image et le titre de la carte cliquee volent vers le
-  hero de la fiche (`cn-media`, `cn-title`) et y reviennent au retour. Seule la
-  carte cliquee est nommee, au moment du clic (`data-vt-media`,
-  `data-vt-title`, `runViewTransition` dans `app.js`) : nommer toute la grille
-  couterait une capture par carte. Le defilement se fait apres la capture de
-  l'ancien etat. Desactivees sous `prefers-reduced-motion`. L'intention
-  d'ouverture (survol, focus, toucher) precharge les donnees et l'image
-  principale de la fiche.
+- Transitions de vue : la nouvelle page se devoile en cercle par-dessus
+  l'ancienne, comme la bascule jour/nuit (`html.page-reveal`, `runViewTransition`
+  dans `app.js`). Centre : la carte cliquee, sinon le dernier appui. Au retour
+  (on remonte d'un niveau : fiche 2, categorie ou liste 1, accueil 0), effet
+  inverse (`page-reveal-back`) : la page quittee se referme en cercle vers la
+  carte d'ou l'on venait. Une seule animation (clip-path de la
+  capture de la page) : plus de carte transformee en bandeau (`cn-media`), qui
+  redimensionnait et recadrait des images et paraissait moins net. Rien ne
+  doit se re-rendre ni se decoder en plein vol : `openRecipe` attend les
+  donnees de la fiche (280ms max) et la capture du nouvel etat attend le
+  decodage des images visibles (160ms max). Le premier dessin d'une page
+  lourde (categorie : ~300ms de GPU) se fait cercle fige au depart
+  (`holdTransitionUntilFirstFrame`, 450ms max) : sinon le cercle apparaissait
+  d'un coup deja grand. Defilement par
+  `scrollInstantly` (`behavior: 'auto'` suit le `scroll-behavior: smooth` du
+  CSS et defilait pendant la transition). Pas de filtre SVG dans une image
+  affichee partout (logo du pied : PNG pre-rendu `mark-64.png`).
+  Le defilement se fait apres la capture de l'ancien etat. Desactivees sous
+  `prefers-reduced-motion`. L'intention d'ouverture (survol, focus, toucher)
+  precharge les donnees et l'image principale de la fiche. Mesure :
+  `tmp/perf/vt-perf.js` (images par seconde pendant l'animation).
 - Effets haut de gamme (`styles/12-design-effets.css`) : seuls `transform` et
   `opacity` s'animent en continu. Fond vivant = trois lumieres en transform,
   cadencees a 10 mises a jour par seconde (`steps()`), figees onglet cache et en

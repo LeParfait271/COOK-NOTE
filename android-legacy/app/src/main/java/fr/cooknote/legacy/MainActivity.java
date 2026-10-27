@@ -1,5 +1,7 @@
 package fr.cooknote.legacy;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.os.Build;
 import android.provider.Settings;
@@ -12,8 +14,11 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.animation.PathInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -51,6 +56,9 @@ public class MainActivity extends Activity {
     static final String PREFS_NAME = "cook_note_legacy";
     static final String PREF_SHOPPING = "shopping";
     static final String PREF_SHOPPING_DONE = "shopping_done";
+    static final String PREF_SHOPPING_FACTORS = "shopping_factors";
+    static final String PREF_SHOPPING_OWNED = "shopping_owned";
+    static final String PREF_SHOPPING_STAPLES = "shopping_staples";
     static final String PREF_INGREDIENT_DONE = "ingredient_done";
     static final String PREF_RECENT_SEARCHES = "recent_searches";
     static final String PREF_KEEP_SCREEN_ON = "keep_screen_on";
@@ -301,8 +309,108 @@ public class MainActivity extends Activity {
 
     void releaseScreenImages() {
         if (imageLoader == null) return;
+        // Avec le devoilement en cercle, l'ecran quitte reste visible pendant
+        // l'animation : ses images sont liberees a la fin (finishScreenReveal).
+        if (screenHost != null && screenRevealEnabled()) return;
         View content = getWindow().getDecorView().findViewById(android.R.id.content);
         releaseImagesInTree(content);
+    }
+
+    // ---------- Changement d'ecran : devoilement en cercle (comme le site) ----------
+    // Le nouvel ecran se devoile en cercle depuis le dernier toucher (carte
+    // ouverte) par-dessus l'ancien ; au retour, l'effet inverse : l'ecran quitte
+    // se referme en cercle et laisse voir celui d'arrivee. Animation native
+    // d'Android 5 (RenderThread) : aucun dessin supplementaire par image.
+    static final int SCREEN_REVEAL_MS = 420;
+    static final int SCREEN_REVEAL_TOUCH_MAX_AGE_MS = 1500;
+    FrameLayout screenHost;
+    View currentScreenView;
+    String currentScreenIdentity = "";
+    View leavingScreenView;
+    Animator screenReveal;
+    boolean navigatingBack;
+    float lastTouchX = -1f;
+    float lastTouchY = -1f;
+    long lastTouchAt;
+
+    boolean screenRevealEnabled() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && motionEnabled();
+    }
+
+    void showScreen(final View next) {
+        if (screenHost == null) {
+            screenHost = new FrameLayout(this);
+            screenHost.setBackgroundColor(COLOR_BG);
+            setContentView(screenHost);
+        }
+        finishScreenReveal();
+        final View previous = currentScreenView;
+        final boolean backward = navigatingBack;
+        navigatingBack = false;
+        currentScreenView = next;
+        // Meme ecran reconstruit (coche, portions, quantites) : sans effet.
+        String identity = currentScreen + "|" + currentRecipeId;
+        boolean sameScreen = identity.equals(currentScreenIdentity);
+        currentScreenIdentity = identity;
+        FrameLayout.LayoutParams fill = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        );
+        if (previous == null || sameScreen || !screenRevealEnabled()) {
+            screenHost.removeAllViews();
+            if (previous != null) releaseImagesInTree(previous);
+            screenHost.addView(next, fill);
+            return;
+        }
+        leavingScreenView = previous;
+        // Retour : l'ecran d'arrivee dessous, l'ecran quitte se referme dessus.
+        if (backward) screenHost.addView(next, 0, fill);
+        else screenHost.addView(next, fill);
+        final View animated = backward ? previous : next;
+        animated.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                animated.getViewTreeObserver().removeOnPreDrawListener(this);
+                startScreenReveal(animated, backward);
+                return true;
+            }
+        });
+    }
+
+    void startScreenReveal(final View animated, boolean backward) {
+        if (leavingScreenView == null || animated.getWidth() == 0) {
+            finishScreenReveal();
+            return;
+        }
+        int width = screenHost.getWidth();
+        int height = screenHost.getHeight();
+        boolean recentTouch = lastTouchX >= 0 && System.currentTimeMillis() - lastTouchAt < SCREEN_REVEAL_TOUCH_MAX_AGE_MS;
+        int x = recentTouch ? Math.round(lastTouchX) : width / 2;
+        int y = recentTouch ? Math.round(lastTouchY) : (backward ? height / 2 : 0);
+        float radius = (float) Math.hypot(Math.max(x, width - x), Math.max(y, height - y));
+        Animator reveal = ViewAnimationUtils.createCircularReveal(animated, x, y, backward ? radius : 0f, backward ? 0f : radius);
+        reveal.setDuration(SCREEN_REVEAL_MS);
+        reveal.setInterpolator(new PathInterpolator(0.65f, 0f, 0.35f, 1f));
+        reveal.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (screenReveal == animation) finishScreenReveal();
+            }
+        });
+        screenReveal = reveal;
+        reveal.start();
+    }
+
+    // Fin (ou interruption) du devoilement : l'ecran quitte part et rend ses images.
+    void finishScreenReveal() {
+        Animator running = screenReveal;
+        screenReveal = null;
+        if (running != null) running.cancel();
+        View leaving = leavingScreenView;
+        leavingScreenView = null;
+        if (leaving == null || screenHost == null) return;
+        screenHost.removeView(leaving);
+        releaseImagesInTree(leaving);
     }
 
     void releaseImagesInTree(View view) {
@@ -596,13 +704,16 @@ public class MainActivity extends Activity {
 
     void loadUserState() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        shopping.recipeIds.clear();
-        shopping.doneKeys.clear();
+        shopping.clear();
+        shopping.stapleKeys.clear();
         keepScreenOn = prefs.getBoolean(PREF_KEEP_SCREEN_ON, false);
         quantityFactor = clampQuantityFactor(prefs.getFloat(PREF_QUANTITY_FACTOR, 1f));
         lastRecipeId = prefs.getString(PREF_LAST_RECIPE, "");
         parseIds(prefs.getString(PREF_SHOPPING, ""), shopping.recipeIds, 0);
         parseRawIds(prefs.getString(PREF_SHOPPING_DONE, ""), shopping.doneKeys);
+        shopping.parseFactors(prefs.getString(PREF_SHOPPING_FACTORS, ""));
+        parseRawIds(prefs.getString(PREF_SHOPPING_OWNED, ""), shopping.ownedKeys);
+        parseRawIds(prefs.getString(PREF_SHOPPING_STAPLES, ""), shopping.stapleKeys);
         parseRawIds(prefs.getString(PREF_INGREDIENT_DONE, ""), ingredientDoneKeys);
         parseRecentSearches(prefs.getString(PREF_RECENT_SEARCHES, ""), recentSearches);
     }
@@ -611,6 +722,9 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putString(PREF_SHOPPING, joinIds(shopping.recipeIds));
         editor.putString(PREF_SHOPPING_DONE, joinIds(new ArrayList<String>(shopping.doneKeys)));
+        editor.putString(PREF_SHOPPING_FACTORS, shopping.serializeFactors());
+        editor.putString(PREF_SHOPPING_OWNED, joinIds(new ArrayList<String>(shopping.ownedKeys)));
+        editor.putString(PREF_SHOPPING_STAPLES, joinIds(new ArrayList<String>(shopping.stapleKeys)));
         editor.putString(PREF_INGREDIENT_DONE, joinIds(new ArrayList<String>(ingredientDoneKeys)));
         editor.putString(PREF_RECENT_SEARCHES, joinIds(recentSearches));
         editor.putBoolean(PREF_KEEP_SCREEN_ON, keepScreenOn);
@@ -680,6 +794,9 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "Retire des courses", Toast.LENGTH_SHORT).show();
         } else {
             shopping.recipeIds.add(recipe.id);
+            // Les courses gardent les portions choisies sur la fiche ;
+            // modifiables ensuite recette par recette dans la liste.
+            shopping.factors.put(recipe.id, quantityFactor);
             Toast.makeText(this, "Ajoute aux courses", Toast.LENGTH_SHORT).show();
         }
         saveUserState();
@@ -694,8 +811,7 @@ public class MainActivity extends Activity {
     }
 
     void clearShoppingList() {
-        shopping.recipeIds.clear();
-        shopping.doneKeys.clear();
+        shopping.clear();
         saveUserState();
         refreshShoppingButton();
         shoppingScreen.showShoppingList();
@@ -721,6 +837,7 @@ public class MainActivity extends Activity {
     }
 
     void goBack() {
+        navigatingBack = true;
         while (!detailBackStack.empty()) {
             NavState previous = detailBackStack.pop();
             if (previous.screen == SCREEN_RECIPE) {
@@ -762,6 +879,11 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            lastTouchX = event.getX();
+            lastTouchY = event.getY();
+            lastTouchAt = System.currentTimeMillis();
+        }
         if (handleBackSwipe(event)) return true;
         return super.dispatchTouchEvent(event);
     }
@@ -875,6 +997,9 @@ public class MainActivity extends Activity {
         TextView errorView = text(title + "\n\n" + detail, 18, COLOR_GOLD, true);
         errorView.setBackgroundColor(COLOR_BG);
         errorView.setPadding(dp(24), dp(36), dp(24), dp(24));
+        finishScreenReveal();
+        screenHost = null;
+        currentScreenView = null;
         setContentView(errorView, new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT

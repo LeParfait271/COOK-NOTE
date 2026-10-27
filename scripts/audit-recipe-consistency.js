@@ -36,11 +36,12 @@ function options(id, recipe) {
         // Les etapes d'une variante renvoient souvent a « la pate de base » : seuls ses
         // propres ingredients sont compares a ses etapes.
         ownItems: group.items || [],
-        steps: group.useRecipeSteps ? [...(recipe.steps || []), ...group.steps] : group.steps
+        steps: group.useRecipeSteps ? [...(recipe.steps || []), ...group.steps] : group.steps,
+        notes: group.recipe?.notes || recipe.notes || []
       }));
     }
   }
-  return [{ id, title: recipe.title, items: groups.flatMap(group => group.items || []), steps: recipe.steps || [] }];
+  return [{ id, title: recipe.title, items: groups.flatMap(group => group.items || []), steps: recipe.steps || [], notes: recipe.notes || [] }];
 }
 
 const all = Object.entries(RECIPES).flatMap(([id, recipe]) => options(id, recipe));
@@ -56,7 +57,7 @@ const findings = {
 // 1. Fautes d'accent : orthographe minoritaire face a la forme accentuee dominante du catalogue.
 const spellings = new Map();
 for (const option of all) {
-  for (const text of [option.title, ...option.items, ...option.steps]) {
+  for (const text of [option.title, ...option.items, ...option.steps, ...option.notes]) {
     for (const word of words(text)) {
       if (word.length < 4) continue;
       const key = fold(word);
@@ -66,8 +67,9 @@ for (const option of all) {
   }
 }
 const accentFixes = new Map();
-// Homographes sans accent valides (« une coupe » : le verre), ecartes apres relecture.
-const VALID_UNACCENTED = new Set(['coupe']);
+// Homographes sans accent valides, ecartes apres relecture : « une coupe » (le verre),
+// et des verbes conjugues (« le chorizo sale la sauce », « l’amaretto parfume la crème »).
+const VALID_UNACCENTED = new Set(['coupe', 'repartir', 'parfume', 'sale', 'concentre', 'fige', 'poches', 'gonfle']);
 for (const [key, forms] of spellings) {
   if (VALID_UNACCENTED.has(key)) continue;
   const sorted = [...forms.entries()].sort((a, b) => b[1] - a[1]);
@@ -81,7 +83,8 @@ for (const [key, forms] of spellings) {
 const PREPOSITION_A = /(^|[\s(])a (la |l’|l'|feu|four|blanc|coeur|cœur|temp[eé]rature|chaleur|point|peine|moiti[eé]|l’avance|l'avance|\d)/i;
 for (const option of all) {
   const hits = new Set();
-  for (const text of [...option.items, ...option.steps]) {
+  // Les notes comptent aussi : « Repère menu », « Conservation » y ont garde des mots sans accent.
+  for (const text of [...option.items, ...option.steps, ...option.notes]) {
     for (const word of words(text)) if (accentFixes.has(word)) hits.add(`${word} → ${accentFixes.get(word)}`);
     const match = strip(text).match(PREPOSITION_A);
     if (match) hits.add(`« a ${match[2].trim()} » → « à ${match[2].trim()} »`);

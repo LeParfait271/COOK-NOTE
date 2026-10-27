@@ -703,7 +703,7 @@
 .season-tabs button,
 .season-category-tabs button,
 .recipe-tabs button,
-.shopping-picked button {
+.shopping-picked-title {
   overflow-wrap: anywhere;
 }
 

@@ -8,6 +8,8 @@ const {
   imageBackgroundStyle,
   preferredImageUrl,
   cssImageValue,
+  ambilightImageValue,
+  cardBackgroundUrl,
   retryOriginalImage
 } = window.CookNoteImages || {};
 const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
@@ -98,10 +100,10 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.37';
-const SITE_UPDATED_AT = '26/10/26';
+const SITE_VERSION = 'v5.38';
+const SITE_UPDATED_AT = '27/10/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '5.37';
+const ANDROID_LEGACY_APK_VERSION = '5.38';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
@@ -749,6 +751,7 @@ const STORAGE_KEYS = {
   shoppingFactors: 'cook_note_shopping_factors',
   shoppingChecked: 'cook_note_shopping_checked',
   shoppingOwned: 'cook_note_shopping_owned',
+  shoppingStaples: 'cook_note_shopping_staples',
   menuHistory: 'cook_note_menu_history',
   preferences: 'cook_note_preferences',
   recentRecipes: 'cook_note_recent_recipes',
@@ -768,6 +771,7 @@ const LOCAL_DATA_EXPORT_KEYS = Object.freeze([
   STORAGE_KEYS.shoppingFactors,
   STORAGE_KEYS.shoppingChecked,
   STORAGE_KEYS.shoppingOwned,
+  STORAGE_KEYS.shoppingStaples,
   STORAGE_KEYS.menuHistory,
   STORAGE_KEYS.preferences,
   STORAGE_KEYS.recentRecipes,
@@ -884,6 +888,16 @@ function currentScrollRouteKey() {
   return `${window.location.pathname}${window.location.search}${window.location.hash || ''}`;
 }
 
+// Adresse d'une navigation, fixee apres son pushState : isCurrent() devient faux
+// si l'utilisateur revient en arriere avant que la transition l'ait appliquee.
+function createRouteGuard() {
+  let routeKey = null;
+  return {
+    mark() { routeKey = currentScrollRouteKey(); },
+    isCurrent() { return routeKey === null || currentScrollRouteKey() === routeKey; }
+  };
+}
+
 function readSessionScrollPositions() {
   try {
     const raw = sessionStorage.getItem(STORAGE_KEYS.scrollPositions);
@@ -917,33 +931,178 @@ function scrollElementToViewportCenter(element, behavior = 'smooth') {
   window.scrollTo({ top, behavior });
 }
 
-// Carte visible (image + titre) d'une recette, pour la faire voler vers le hero.
-// Les cartes portent data-vt-media / data-vt-title ; seul l'element du clic est
-// nomme le temps de la transition (nommer toute la grille couterait une capture
-// par carte).
+// Defilement immediat, meme sous `scroll-behavior: smooth` (html) : `behavior:
+// 'auto'` suit le CSS et defilait en douceur pendant la transition de vue, si bien
+// que l'image visait une cible qui bougeait. Les vieux Safari refusent
+// 'instant' : repli en coupant le defilement doux (style relu pour etre pris en
+// compte avant le scrollTo).
+function scrollInstantly(top) {
+  try {
+    window.scrollTo({ top, left: 0, behavior: 'instant' });
+    return;
+  } catch {
+    /* repli ci-dessous */
+  }
+  const root = document.documentElement;
+  const previous = root.style.scrollBehavior;
+  root.style.scrollBehavior = 'auto';
+  void getComputedStyle(root).scrollBehavior;
+  window.scrollTo(0, top);
+  root.style.scrollBehavior = previous;
+}
+
+// Attente maximale des donnees d'une fiche avant de lancer la transition.
+const OPEN_RECIPE_DATA_WAIT_MS = 280;
+
+// Attente maximale du decodage des images visibles de la nouvelle vue : decodees
+// en plein vol (hero, grille de variantes et leurs halos), elles figeaient
+// l'animation ~200ms sur PC.
+const VIEW_IMAGES_DECODE_WAIT_MS = 160;
+
+const isInViewport = element => {
+  const rect = element.getBoundingClientRect();
+  return rect.width > 0 && rect.bottom > 0 && rect.top < window.innerHeight;
+};
+
+function visibleImagesDecoded() {
+  const urls = new Set();
+  document.querySelectorAll('.recipe-detail-hero-image, [data-vt-media]').forEach(element => {
+    if (urls.size >= 12 || !isInViewport(element)) return;
+    if (element.tagName === 'IMG') {
+      if (!(element.complete && element.naturalWidth)) urls.add(element.currentSrc || element.src);
+      return;
+    }
+    const match = getComputedStyle(element).backgroundImage.match(/url\(["']?([^"')]+)["']?\)/);
+    if (match) urls.add(match[1]);
+  });
+  if (!urls.size) return Promise.resolve();
+  const decodes = Array.from(urls).filter(Boolean).map(url => {
+    const image = new Image();
+    image.src = url;
+    return typeof image.decode === 'function' ? image.decode().catch(() => {}) : Promise.resolve();
+  });
+  return Promise.race([Promise.all(decodes), new Promise(resolve => window.setTimeout(resolve, VIEW_IMAGES_DECODE_WAIT_MS))]);
+}
+
+// Le premier dessin d'une page de categorie coute ~300ms de GPU (grille
+// d'images). Chrome ne dessine que la partie visible du cercle : ce cout tombait
+// par vagues pendant que le cercle grandissait (images de 60 a 130ms). Pendant
+// une courte pause, la nouvelle page est donc entierement ouverte mais cachee
+// sous la capture de l'ancienne (`page-reveal-hold`) : elle se dessine en une
+// fois, puis le cercle part de zero sur une page deja prete. Plafond :
+// HOLD_TRANSITION_MAX_MS.
+const HOLD_TRANSITION_MAX_MS = 450;
+
+function holdTransitionUntilFirstFrame() {
+  const root = document.documentElement;
+  const animations = document.getAnimations()
+    .filter(animation => String(animation.effect?.pseudoElement || '').startsWith('::view-transition'));
+  if (!animations.length) return;
+  // Retour : la page d'arrivee est deja entiere sous l'ancienne, qui reste
+  // pleine au depart ; rien a ouvrir pendant la pause.
+  const backward = root.classList.contains('page-reveal-back');
+  if (!backward) root.classList.add('page-reveal-hold');
+  animations.forEach(animation => {
+    animation.currentTime = backward ? 0 : Math.max(0, animation.effect.getComputedTiming().endTime - 1);
+    animation.pause();
+  });
+  let released = false;
+  const release = () => {
+    if (released) return;
+    released = true;
+    root.classList.remove('page-reveal-hold');
+    animations.forEach(animation => {
+      animation.currentTime = 0;
+      animation.play();
+    });
+  };
+  // Le dessin lourd commence quelques images apres le debut de la pause : on
+  // relache apres 4 images calmes qui suivent une image lente (> 40ms), ou
+  // apres 8 images calmes sans image lente (fiche legere, ~130ms).
+  let last = 0;
+  let calmFrames = 0;
+  let sawSlowFrame = false;
+  const watch = time => {
+    if (released) return;
+    const delta = last ? time - last : 0;
+    last = time;
+    if (delta > 40) {
+      sawSlowFrame = true;
+      calmFrames = 0;
+    } else {
+      calmFrames += 1;
+    }
+    if (calmFrames >= (sawSlowFrame || backward ? 4 : 8)) release();
+    else requestAnimationFrame(watch);
+  };
+  requestAnimationFrame(watch);
+  window.setTimeout(release, HOLD_TRANSITION_MAX_MS);
+}
+
+// Carte visible d'une recette : centre du devoilement a l'ouverture, et au
+// retour quand la carte de la fiche quittee est a l'ecran.
 function visibleRecipeCardParts(recipeId) {
   if (!recipeId) return null;
-  const media = Array.from(document.querySelectorAll('[data-vt-media]')).find(element => {
-    if (element.dataset.vtMedia !== recipeId) return false;
-    const rect = element.getBoundingClientRect();
-    return rect.width > 0 && rect.bottom > 0 && rect.top < window.innerHeight;
-  });
-  if (!media) return null;
-  const scope = media.closest('[data-vt-card]') || media.parentElement;
-  const title = Array.from(scope?.querySelectorAll('[data-vt-title]') || []).find(element => element.dataset.vtTitle === recipeId) || null;
-  return { media, title };
+  const media = Array.from(document.querySelectorAll('[data-vt-media]'))
+    .find(element => element.dataset.vtMedia === recipeId && isInViewport(element));
+  return media ? { card: media.closest('[data-vt-card]') || media } : null;
 }
 
-function nameRecipeCardParts(parts, named) {
-  if (!parts) return;
-  parts.media.style.viewTransitionName = named ? 'cn-media' : '';
-  if (parts.title) parts.title.style.viewTransitionName = named ? 'cn-title' : '';
+// Dernier appui (souris, doigt) : centre du devoilement quand aucune carte ne
+// porte la navigation (resultat de recherche, menu, fil d'Ariane).
+const lastPagePointer = { x: 0, y: 0, time: 0 };
+// Carte cliquee : enfoncee et cernee d'or tout de suite (`is-opening`), le
+// temps que la page suivante se prepare ; la capture de l'ancienne page la
+// garde ainsi pendant la courte pause avant le cercle.
+const CARD_OPENING_MAX_MS = 1600;
+let openingCard = null;
+let openingCardTimer = 0;
+
+function clearOpeningCard() {
+  window.clearTimeout(openingCardTimer);
+  openingCard?.classList.remove('is-opening');
+  openingCard = null;
 }
 
-// Transition de vue : `sourceId` = carte cliquee (elle vole vers le hero),
-// `returnId` = recette quittee (le hero revient dans sa carte). `after` s'execute
-// apres la mise a jour du DOM, avant la capture du nouvel etat.
-function runViewTransition(update, { sourceId = '', returnId = '', after = null } = {}) {
+if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+  window.addEventListener('pointerdown', event => {
+    lastPagePointer.x = event.clientX;
+    lastPagePointer.y = event.clientY;
+    lastPagePointer.time = performance.now();
+  }, { capture: true, passive: true });
+  window.addEventListener('click', event => {
+    const card = event.target?.closest?.('[data-vt-card]');
+    if (!card) return;
+    clearOpeningCard();
+    openingCard = card;
+    card.classList.add('is-opening');
+    openingCardTimer = window.setTimeout(clearOpeningCard, CARD_OPENING_MAX_MS);
+  }, { capture: true, passive: true });
+}
+
+function setPageRevealOrigin(x, y) {
+  const root = document.documentElement;
+  const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+  root.style.setProperty('--theme-reveal-x', `${Math.round(x)}px`);
+  root.style.setProperty('--theme-reveal-y', `${Math.round(y)}px`);
+  root.style.setProperty('--theme-reveal-r', `${Math.ceil(radius)}px`);
+}
+
+function elementCenter(element) {
+  const rect = element.getBoundingClientRect();
+  return [rect.left + rect.width / 2, rect.top + rect.height / 2];
+}
+
+// Transition de vue : la nouvelle page se devoile en cercle par-dessus
+// l'ancienne, comme la bascule jour/nuit. Une seule animation (clip-path de la
+// capture de la page), sans redimensionner ni recadrer d'image : c'est ce qui la
+// rend fluide. Centre : `sourceId` = carte cliquee ; sinon le dernier appui ;
+// sinon le haut de l'ecran. `backward` (retour, on remonte d'un niveau) :
+// l'effet inverse, la page quittee se referme en cercle vers la carte de
+// `returnId` (sinon le dernier appui) et laisse voir la page d'arrivee. `after`
+// s'execute apres la mise a jour du DOM ; la capture du nouvel etat attend
+// ensuite le decodage des images visibles.
+function runViewTransition(update, { sourceId = '', returnId = '', after = null, route = null, backward = false } = {}) {
   if (typeof update !== 'function') return;
   const commit = () => {
     if (typeof ReactDOM !== 'undefined' && typeof ReactDOM.flushSync === 'function') {
@@ -959,30 +1118,31 @@ function runViewTransition(update, { sourceId = '', returnId = '', after = null 
     return;
   }
   const root = document.documentElement;
-  const source = visibleRecipeCardParts(sourceId);
-  let target = null;
-  if (source) {
-    root.classList.add('vt-card-source');
-    nameRecipeCardParts(source, true);
-  }
+  const source = backward ? null : visibleRecipeCardParts(sourceId);
+  const recentPointer = performance.now() - lastPagePointer.time < 1200;
+  const origin = source ? elementCenter(source.card) : recentPointer ? [lastPagePointer.x, lastPagePointer.y] : null;
+  setPageRevealOrigin(...(origin || [window.innerWidth / 2, 0]));
+  const classes = backward ? ['page-reveal', 'page-reveal-back'] : ['page-reveal'];
+  root.classList.add(...classes);
   try {
     const transition = document.startViewTransition(() => {
-      root.classList.remove('vt-card-source');
-      nameRecipeCardParts(source, false);
+      // Le rappel d'une transition interrompue s'execute quand meme : une
+      // navigation deja quittee (retour arriere rapide) ne doit rien appliquer,
+      // sinon elle consomme la restauration du defilement de la page d'arrivee.
+      if (route && !route.isCurrent()) return undefined;
       commit();
-      target = source ? null : visibleRecipeCardParts(returnId);
-      if (target) {
-        root.classList.add('vt-card-target');
-        nameRecipeCardParts(target, true);
-      }
+      // Au retour, le cercle se referme sur la carte de la fiche quittee.
+      const target = backward || !origin ? visibleRecipeCardParts(returnId) : null;
+      if (target) setPageRevealOrigin(...elementCenter(target.card));
+      return visibleImagesDecoded();
     });
+    Promise.resolve(transition?.ready).then(holdTransitionUntilFirstFrame, () => {});
     Promise.resolve(transition?.finished).catch(() => {}).finally(() => {
-      root.classList.remove('vt-card-source', 'vt-card-target');
-      nameRecipeCardParts(target, false);
+      root.classList.remove(...classes);
+      clearOpeningCard();
     });
   } catch {
-    root.classList.remove('vt-card-source');
-    nameRecipeCardParts(source, false);
+    root.classList.remove(...classes);
     commit();
   }
 }

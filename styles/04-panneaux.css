@@ -704,20 +704,63 @@
   margin: 10px 0 14px;
 }
 
-.shopping-picked button {
-  min-height: 34px;
+/* Une recette du panier : titre, nombre de personnes, retrait. */
+.shopping-picked-item {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  min-height: 38px;
+  max-width: 100%;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 19px;
   background: var(--surface-soft);
   color: var(--text);
-  padding: 0 8px 0 12px;
-  font-weight: 850;
+  padding: 3px 4px 3px 14px;
 }
 
-.shopping-picked span {
-  margin-left: 8px;
+.shopping-picked-title {
+  font-weight: 850;
+  overflow-wrap: anywhere;
+}
+
+.shopping-picked-quantity.factor-control {
+  min-height: 30px;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.shopping-picked-quantity .factor-label {
+  display: none;
+}
+
+.shopping-picked-quantity .quantity-select {
+  min-height: 30px;
+  padding-block: 0;
+}
+
+.shopping-picked-remove {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
   color: var(--accent);
+  font-size: 18px;
   font-weight: 950;
+}
+
+.shopping-picked-remove:hover,
+.shopping-picked-remove:focus-visible {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
 }
 
 .shopping-summary {
@@ -994,6 +1037,31 @@
 .shopping-owned-list strong {
   width: 100%;
   font-size: 13px;
+}
+
+.shopping-owned-help {
+  width: 100%;
+  margin: -4px 0 2px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.shopping-owned-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.shopping-owned-list .shopping-staple-btn {
+  padding: 5px 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.shopping-owned-list .shopping-staple-btn[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--ds-color-success) 50%, var(--line));
+  color: color-mix(in srgb, var(--ds-color-success) 60%, var(--text));
 }
 
 .shopping-aisle {

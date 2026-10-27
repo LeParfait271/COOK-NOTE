@@ -38,6 +38,8 @@ function loadThemeArtFiles() {
   Object.values(themeArt).forEach(map => {
     Object.values(map || {}).forEach(image => files.add(normalizeKey(image)));
   });
+  // Les miniatures de theme (recipe-cards/, category-cards/) n'y figurent pas :
+  // leurs dimensions se deduisent de la source (imageSizeAttrs, app-images.js).
   return files;
 }
 

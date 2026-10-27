@@ -566,7 +566,9 @@ function RecipeView({
     : displayRecipeImage(selectedRecipe || recipe);
   // Image de la carte (deja chargee depuis la grille) : floutee sous le hero en
   // attendant la grande image, qui se precise ensuite en fondu.
-  const heroPlaceholder = heroImage ? recipeCardImageUrl(heroImage) : '';
+  // Fiche maitre : l'image d'accueil est deja en cache, et l'art de la carte
+  // ne doit pas apparaitre dessous.
+  const heroPlaceholder = heroImage && !isCollectionHero ? recipeCardImageUrl(heroImage) : '';
   const heroFallbackImage = selectedRecipe?.image && selectedRecipe.image !== heroImage
     ? selectedRecipe.image
     : '';

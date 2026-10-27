@@ -633,6 +633,30 @@ function warmRecipeOnIntent(preloadRecipe, recipeId, heroImage = '') {
   }
 }
 
+// Categorie : la grille qui va s'ouvrir (12 premieres cartes, dans l'ordre
+// affiche), telechargee et decodee des l'intention, a la taille que l'ecran
+// chargera. L'ouverture n'a plus qu'a les dessiner.
+const WARMED_COLLECTIONS = new Set();
+const COLLECTION_WARM_LIMIT = 12;
+
+function warmCollectionImages(recipe, recipesById) {
+  if (!recipe?.id || WARMED_COLLECTIONS.has(recipe.id) || typeof cardBackgroundUrl !== 'function') return;
+  WARMED_COLLECTIONS.add(recipe.id);
+  sortVariantRefs(getVariantRefs(recipe), recipesById)
+    .map(variant => recipesById[variant.id])
+    .filter(Boolean)
+    .slice(0, COLLECTION_WARM_LIMIT)
+    .forEach(item => {
+      const image = displayRecipeImage(item);
+      if (!image) return;
+      const preload = new Image();
+      preload.decoding = 'async';
+      preload.fetchPriority = 'low';
+      preload.src = cardBackgroundUrl(recipeCardImageUrl(image));
+      preload.decode?.().catch(() => {});
+    });
+}
+
 function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecipe, setTagFilter, hideFavorite = false, preloadRecipe = null }) {
   const master = isMasterRecipe(recipe);
   const variantLabel = getRecipeVariantLabel(recipe, recipesById);
@@ -646,7 +670,10 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
     .filter(Boolean)
     .join(' ');
   const cardStyle = { ...ambilightStyle(cardImage, style), cursor: 'pointer' };
-  const warmRecipe = () => warmRecipeOnIntent(preloadRecipe, recipe.id, master ? '' : sourceImage);
+  const warmRecipe = () => {
+    warmRecipeOnIntent(preloadRecipe, recipe.id, master ? '' : sourceImage);
+    if (master) warmCollectionImages(recipe, recipesById);
+  };
 
   return h('article', {
     className,

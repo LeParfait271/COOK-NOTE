@@ -4,15 +4,23 @@ import static fr.cooknote.legacy.Ingredients.*;
 
 import android.net.Uri;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 /**
- * Contenu de la liste de courses, sans interface : recettes choisies, cases
- * cochees, fusion des ingredients, texte copiable et lien de transfert QR.
+ * Contenu de la liste de courses, sans interface : recettes choisies et leurs
+ * portions, cases cochees, articles « J'ai deja » de cette liste, placard
+ * (retenu d'une liste a l'autre), fusion des ingredients (ShoppingItems),
+ * texte copiable et lien de transfert QR.
  */
 final class ShoppingList {
     static final String SHOPPING_TRANSFER_URL = "https://cook-note.pages.dev/#courses=";
@@ -25,6 +33,12 @@ final class ShoppingList {
 
     final ArrayList<String> recipeIds = new ArrayList<String>();
     final Set<String> doneKeys = new HashSet<String>();
+    /** Portions par recette : facteur applique a ses quantites. */
+    final Map<String, Float> factors = new HashMap<String, Float>();
+    /** « J'ai deja » de cette liste (cle d'article), oublies au vidage. */
+    final Set<String> ownedKeys = new HashSet<String>();
+    /** Placard : articles toujours a la maison (cle de nom), gardes au vidage. */
+    final Set<String> stapleKeys = new HashSet<String>();
     private final CookNoteRepository repository;
 
     ShoppingList(CookNoteRepository repository) {
@@ -36,7 +50,13 @@ final class ShoppingList {
         return recipe.id + "|" + CookNoteRepository.normalize(groupTitle) + "|" + CookNoteRepository.normalize(item);
     }
 
+    float factorFor(String id, float fallback) {
+        Float factor = factors.get(id);
+        return factor == null || factor <= 0 ? fallback : factor;
+    }
+
     void removeDoneForRecipe(String id) {
+        factors.remove(id);
         if (id == null || id.length() == 0 || doneKeys.isEmpty()) return;
         ArrayList<String> remove = new ArrayList<String>();
         String prefix = id + "|";
@@ -46,39 +66,44 @@ final class ShoppingList {
         doneKeys.removeAll(remove);
     }
 
-    List<ShoppingLine> mergedLines(IngredientSource source, float factor) {
-        LinkedHashMap<String, ShoppingLine> merged = new LinkedHashMap<String, ShoppingLine>();
+    /** Vider la liste : le placard reste. */
+    void clear() {
+        recipeIds.clear();
+        doneKeys.clear();
+        factors.clear();
+        ownedKeys.clear();
+    }
+
+    List<ShoppingLine> mergedLines(IngredientSource source, float fallbackFactor) {
+        LinkedHashMap<String, ShoppingItems.Item> merged = new LinkedHashMap<String, ShoppingItems.Item>();
         for (String id : recipeIds) {
             Recipe recipe = repository.find(id);
             if (recipe == null) continue;
+            float factor = factorFor(id, fallbackFactor);
             for (Recipe.Group group : source.groups(recipe)) {
-                for (String item : group.items) {
-                    ParsedIngredient parsed = parseIngredient(item);
-                    String key;
-                    ShoppingLine line;
-                    if (parsed.scalable) {
-                        key = "q|" + CookNoteRepository.normalize(parsed.unit) + "|" + CookNoteRepository.normalize(parsed.remainder);
-                        line = merged.get(key);
-                        if (line == null) {
-                            line = ShoppingLine.scaled(key, parsed.unit, parsed.remainder);
-                            merged.put(key, line);
-                        }
-                        line.amount += parsed.amount * factor;
-                        if (parsed.amountEnd > 0) line.amountEnd += parsed.amountEnd * factor;
-                    } else {
-                        key = "r|" + CookNoteRepository.normalize(item);
-                        line = merged.get(key);
-                        if (line == null) {
-                            line = ShoppingLine.raw(key, scale(item, factor));
-                            merged.put(key, line);
-                        } else {
-                            line.count += 1;
-                        }
-                    }
+                for (String raw : group.items) {
+                    ShoppingItems.Item item = ShoppingItems.parse(raw, factor);
+                    if (item == null) continue;
+                    ShoppingItems.Item existing = merged.get(item.key);
+                    if (existing == null) merged.put(item.key, item);
+                    else existing.merge(item);
                 }
             }
         }
-        return new ArrayList<ShoppingLine>(merged.values());
+        ArrayList<ShoppingLine> lines = new ArrayList<ShoppingLine>();
+        for (ShoppingItems.Item item : merged.values()) {
+            boolean staple = stapleKeys.contains(item.stapleKey());
+            lines.add(new ShoppingLine(item, staple, staple || ownedKeys.contains(item.key)));
+        }
+        final Collator collator = Collator.getInstance(Locale.FRANCE);
+        collator.setStrength(Collator.PRIMARY);
+        Collections.sort(lines, new Comparator<ShoppingLine>() {
+            @Override
+            public int compare(ShoppingLine left, ShoppingLine right) {
+                return collator.compare(left.item.displayName(), right.item.displayName());
+            }
+        });
+        return lines;
     }
 
     String buildText(IngredientSource source, float factor, boolean todoOnly, boolean includeChecks) {
@@ -91,14 +116,26 @@ final class ShoppingList {
         }
 
         List<ShoppingLine> lines = mergedLines(source, factor);
+        ArrayList<ShoppingLine> owned = new ArrayList<ShoppingLine>();
         for (ShoppingLine line : lines) {
+            if (line.owned) {
+                owned.add(line);
+                continue;
+            }
             boolean done = doneKeys.contains(line.doneKey);
             if (todoOnly && done) continue;
             if (includeChecks) builder.append(done ? "[x] " : "[ ] ");
             else builder.append("- ");
-            builder.append(line.display()).append('\n');
+            builder.append(line.display());
+            String hint = line.item.purchaseHint();
+            if (hint.length() > 0) builder.append(" (achat : ").append(hint).append(')');
+            builder.append('\n');
         }
         if (!todoOnly) {
+            if (!owned.isEmpty()) {
+                builder.append('\n').append("Deja a la maison").append('\n');
+                for (ShoppingLine line : owned) builder.append("- ").append(line.display()).append('\n');
+            }
             builder.append('\n').append("Recettes").append('\n');
             for (String id : recipeIds) {
                 Recipe recipe = repository.find(id);
@@ -112,13 +149,15 @@ final class ShoppingList {
     }
 
     // Meme format que le site (#courses=id*facteur,...) : le telephone scanne le
-    // code et ouvre la liste dans Cook Note web, sans serveur ni compte.
-    String transferUrl(float factor) {
+    // code et ouvre la liste dans Cook Note web, sans serveur ni compte. Chaque
+    // recette garde ses portions.
+    String transferUrl(float fallbackFactor) {
         StringBuilder builder = new StringBuilder(SHOPPING_TRANSFER_URL);
-        String suffix = sameFactor(factor, 1f) ? "" : "*" + transferFactor(factor);
         int count = 0;
         for (String id : recipeIds) {
             if (count == SHOPPING_TRANSFER_MAX_ENTRIES) break;
+            float factor = factorFor(id, fallbackFactor);
+            String suffix = sameFactor(factor, 1f) ? "" : "*" + transferFactor(factor);
             if (count > 0) builder.append(',');
             builder.append(Uri.encode(id + suffix, "*"));
             count += 1;
@@ -131,41 +170,46 @@ final class ShoppingList {
         return String.valueOf(factor);
     }
 
+    String serializeFactors() {
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<String, Float> entry : factors.entrySet()) {
+            if (!recipeIds.contains(entry.getKey())) continue;
+            if (builder.length() > 0) builder.append('\n');
+            builder.append(entry.getKey()).append('=').append(entry.getValue());
+        }
+        return builder.toString();
+    }
+
+    void parseFactors(String raw) {
+        factors.clear();
+        if (raw == null || raw.length() == 0) return;
+        for (String row : raw.split("\\n")) {
+            int separator = row.lastIndexOf('=');
+            if (separator <= 0) continue;
+            try {
+                float factor = Float.parseFloat(row.substring(separator + 1));
+                if (factor >= 0.25f && factor <= 20f) factors.put(row.substring(0, separator), factor);
+            } catch (Exception ignored) {
+                // Ligne illisible : la recette reprend la quantite courante.
+            }
+        }
+    }
+
     static final class ShoppingLine {
+        final ShoppingItems.Item item;
         final String doneKey;
-        final String unit;
-        final String remainder;
-        final String raw;
-        double amount;
-        double amountEnd;
-        int count;
-        boolean scalable;
+        final boolean staple;
+        final boolean owned;
 
-        private ShoppingLine(String doneKey, String unit, String remainder, String raw, boolean scalable) {
-            this.doneKey = "merged|" + doneKey;
-            this.unit = unit == null ? "" : unit;
-            this.remainder = remainder == null ? "" : remainder;
-            this.raw = raw == null ? "" : raw;
-            this.scalable = scalable;
-            this.count = 1;
-        }
-
-        static ShoppingLine scaled(String doneKey, String unit, String remainder) {
-            return new ShoppingLine(doneKey, unit, remainder, "", true);
-        }
-
-        static ShoppingLine raw(String doneKey, String raw) {
-            return new ShoppingLine(doneKey, "", "", raw, false);
+        ShoppingLine(ShoppingItems.Item item, boolean staple, boolean owned) {
+            this.item = item;
+            this.doneKey = "merged|" + item.key;
+            this.staple = staple;
+            this.owned = owned;
         }
 
         String display() {
-            if (!scalable) return count <= 1 ? raw : raw + " x" + count;
-            StringBuilder builder = new StringBuilder();
-            builder.append(formatAmount(amount));
-            if (amountEnd > 0) builder.append("-").append(formatAmount(amountEnd));
-            if (unit.length() > 0) builder.append(' ').append(unit);
-            if (remainder.length() > 0) builder.append(' ').append(remainder);
-            return builder.toString().trim();
+            return item.display();
         }
     }
 }

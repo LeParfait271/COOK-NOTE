@@ -169,6 +169,12 @@ function main() {
       const isRecipe = normalized === `assets/theme/${themeDir}/recipes/${id}.jpg`;
       if (!isCategory && !isLightParentFallback && !isRecipe) errors.push(`${theme}/${id}: chemin theme incoherent (${normalized}).`);
       addUsed(used, normalized, `override ${theme} pour ${id}`);
+      // Miniature de carte (scripts/generate-theme-cards.js).
+      const card = normalized.replace(/^(assets\/theme\/(?:dark|day))\/(recipes|categories)\//, (match, base, kind) => `${base}/${kind === 'recipes' ? 'recipe' : 'category'}-cards/`);
+      if (card !== normalized) {
+        addUsed(used, card, `miniature ${theme} pour ${id}`);
+        validateExpectedFile(card, `${theme}/${id}`);
+      }
       if (isLightParentFallback) {
         addUsed(used, `assets/theme/day/categories/${id}.jpg`, `reserve jour pour ${id}`);
       }

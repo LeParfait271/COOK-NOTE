@@ -177,7 +177,7 @@ test.describe('Cook Note visual smoke', () => {
     await expectImagesReady(page, '.recipe-card img', 6);
     const firstDarkCard = page.locator('.recipe-card.master-card .card-image').first();
     const firstDarkCardSource = await firstDarkCard.getAttribute('src');
-    expect(firstDarkCardSource).toContain('/assets/theme/dark/categories/');
+    expect(firstDarkCardSource).toContain('/assets/theme/dark/category-cards/');
     expect(firstDarkCardSource).toContain('_maitre.avif?v=');
     expect(await firstDarkCard.getAttribute('data-original-src')).toContain('_maitre.jpg?v=');
     expect(firstDarkCardSource).not.toContain('/assets/recipes/cards/parent_');
@@ -236,7 +236,8 @@ test.describe('Cook Note visual smoke', () => {
     await page.keyboard.press('Escape');
     const firstDayCard = page.locator('.recipe-card.master-card .card-image').first();
     const firstDayCardSource = await firstDayCard.getAttribute('src');
-    expect(firstDayCardSource).toContain('/assets/theme/dark/categories/');
+    // Theme jour : art jour des categories (art nuit seulement en repli).
+    expect(firstDayCardSource).toContain('/assets/theme/day/category-cards/');
     expect(firstDayCardSource).toContain('_maitre.avif?v=');
     expect(await firstDayCard.getAttribute('data-original-src')).toContain('_maitre.jpg?v=');
     expect(firstDayCardSource).not.toContain('/assets/recipes/cards/parent_');
@@ -904,10 +905,11 @@ test.describe('Cook Note visual smoke', () => {
       await expect(parentHeroImage).toHaveCount(1);
       await expectImagesReady(page, '.parent-hero .recipe-detail-hero-image', 1);
       const parentHeroImageSrc = await parentHeroImage.getAttribute('src');
-      // AVIF servi en premier, le JPG reste la source d'origine et le repli.
-      expect(parentHeroImageSrc).toContain(`/assets/theme/dark/categories/${recipeId}.avif`);
-      expect(await parentHeroImage.getAttribute('data-original-src')).toContain(`/assets/theme/dark/categories/${recipeId}.jpg`);
-      expect(parentHeroImageSrc).not.toContain('/assets/theme/dark/global/hero');
+      // Fiche maitre ouverte : illustration de l'accueil (plus sobre), l'art de
+      // categorie reste sur la carte. AVIF servi en premier, PNG en repli.
+      expect(parentHeroImageSrc).toContain('/assets/theme/dark/global/hero.avif');
+      expect(await parentHeroImage.getAttribute('data-original-src')).toContain('/assets/theme/dark/global/hero.png');
+      expect(parentHeroImageSrc).not.toContain(`/assets/theme/dark/categories/${recipeId}`);
       await expect(page.locator('.parent-hero .detail-hero-logo')).toHaveCount(0);
       await expect(page.locator('.collection-links-panel .collection-links-heading')).toHaveCount(0);
       await expect(page.locator('.collection-links-context, .collection-tools, .variant-compare-toggle, .collection-comparison')).toHaveCount(0);

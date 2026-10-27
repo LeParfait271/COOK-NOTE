@@ -1,8 +1,8 @@
 {
   "source": {
-    "siteVersion": "v5.37",
-    "siteUpdatedAt": "26/10/26",
-    "recipesSha256": "95a06b1e88bf"
+    "siteVersion": "v5.38",
+    "siteUpdatedAt": "27/10/26",
+    "recipesSha256": "fc835e9ed385"
   },
   "totals": {
     "recipes": 329,

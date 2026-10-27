@@ -294,9 +294,12 @@ expect('Logo principal absent de l\'accueil (image cook-note-white dans h1.hero-
 expect('Fond vivant sans garde-fous (transform cadence, pause onglet cache, mouvement reduit).', /cn-drift-a \d+s steps\(\d+\)/.test(files.style)
   && files.style.includes('html.page-hidden .ambient-backdrop')
   && files.style.includes('.mc-shell.display-reduce-motion .ambient-backdrop::before'));
-expect('Transition carte -> fiche : nommer seulement la carte cliquee.', files.app.includes('function visibleRecipeCardParts(')
-  && !files.app.includes('viewTransitionName: transitionName')
-  && files.style.includes('view-transition-name: cn-media'));
+expect('Changement de page : devoilement en cercle depuis la carte cliquee (une seule animation, rien de nomme).', files.app.includes('function visibleRecipeCardParts(')
+  && files.app.includes("['page-reveal', 'page-reveal-back']")
+  && files.style.includes('html.page-reveal-back::view-transition-old(root)')
+  && !files.app.includes('viewTransitionName')
+  && files.style.includes('html.page-reveal::view-transition-new(root)')
+  && !files.style.includes('view-transition-name: cn-media'));
 expect('Fiche complete variantes encore affichee avant le choix.', (files.app.includes('hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts') || files.app.includes('!detailsLoading && hasResolvedRecipe && !isMasterRecipe(selectedRecipe) && h(RecipeQuickFacts')) && !files.app.includes('recipe-command-dock') && !files.app.includes('h(RecipeCommandDock') && files.app.includes("id: 'recipe-detail-content', className: 'recipe-detail-grid'") && files.app.includes('Choix requis pour ouvrir la fiche'));
 expect('Compteur catalogue footer absent ou statique.', files.app.includes('getCatalogRecipeStats') && files.app.includes('INITIAL_CATALOG_STATS') && files.app.includes('site-footer-count') && files.app.includes('countInlineVariantGroups(recipe)') && files.style.includes('.site-footer-count'));
 expect('Footer annee encadree revenue.', files.app.includes('Cook Note \\u00a9 2026.') && !files.app.includes('site-footer-year') && !files.style.includes('.site-footer-year'));

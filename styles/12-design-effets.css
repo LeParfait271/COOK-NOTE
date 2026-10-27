@@ -4,64 +4,94 @@
    (compositeur) ; tout se coupe sous prefers-reduced-motion et a l'impression.
    ========================================================================== */
 
-/* ---------- Transition carte -> fiche (View Transitions) ---------- */
-/* Le hero porte les noms en permanence ; la carte cliquee les recoit le temps de
-   la transition (voir runViewTransition dans app.js). */
-.recipe-detail-hero-media {
-  view-transition-name: cn-media;
+/* ---------- Changement de page (View Transitions) ---------- */
+/* La nouvelle page se devoile en cercle depuis la carte cliquee, comme la
+   bascule jour/nuit (runViewTransition dans app.js). L'ancienne page reste une
+   capture fixe dessous : une seule animation de clip-path, aucune image
+   redimensionnee ni recadree. */
+html.page-reveal::view-transition-old(root) {
+  animation: none;
 }
 
-.recipe-detail-hero .detail-hero-copy h1 {
-  view-transition-name: cn-title;
+/* Bord du cercle fondu sur 56px (masque radial dont le rayon s'anime). */
+@property --cn-reveal-r {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
 }
 
-html:is(.vt-card-source, .vt-card-target, .theme-reveal) .recipe-detail-hero-media,
-html:is(.vt-card-source, .vt-card-target, .theme-reveal) .recipe-detail-hero .detail-hero-copy h1 {
-  view-transition-name: none;
+html.page-reveal::view-transition-new(root) {
+  --cn-reveal-mask: radial-gradient(circle at var(--theme-reveal-x, 50%) var(--theme-reveal-y, 0), #000 calc(var(--cn-reveal-r) - 56px), transparent var(--cn-reveal-r));
+  animation: cn-page-reveal 560ms cubic-bezier(.65, 0, .35, 1) both;
+  -webkit-mask-image: var(--cn-reveal-mask);
+  mask-image: var(--cn-reveal-mask);
+}
+
+@keyframes cn-page-reveal {
+  from {
+    --cn-reveal-r: 0px;
+  }
+  to {
+    --cn-reveal-r: calc(var(--theme-reveal-r, 150vmax) + 56px);
+  }
+}
+
+/* Retour : l'effet inverse. La page quittee, au-dessus, se referme en cercle
+   vers la carte d'ou l'on venait ; la page d'arrivee est fixe dessous. */
+html.page-reveal-back::view-transition-old(root) {
+  --cn-reveal-mask: radial-gradient(circle at var(--theme-reveal-x, 50%) var(--theme-reveal-y, 0), #000 calc(var(--cn-reveal-r) - 56px), transparent var(--cn-reveal-r));
+  z-index: 1;
+  animation: cn-page-conceal 560ms cubic-bezier(.65, 0, .35, 1) both;
+  -webkit-mask-image: var(--cn-reveal-mask);
+  mask-image: var(--cn-reveal-mask);
+}
+
+html.page-reveal-back::view-transition-new(root) {
+  animation: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+@keyframes cn-page-conceal {
+  from {
+    --cn-reveal-r: calc(var(--theme-reveal-r, 150vmax) + 56px);
+  }
+  to {
+    --cn-reveal-r: 0px;
+  }
+}
+
+/* Carte cliquee : enfoncee et cernee d'or des le clic (classe posee par
+   app.js), pour que l'attente avant le cercle ne paraisse jamais morte. */
+[data-vt-card].is-opening {
+  scale: .975;
+  outline: 2px solid color-mix(in oklch, var(--ds-gold) 85%, transparent);
+  outline-offset: 3px;
+  transition: scale 140ms cubic-bezier(.2, .8, .2, 1), outline-color 140ms ease-out;
+}
+
+/* Pause avant le depart (holdTransitionUntilFirstFrame) : la nouvelle page,
+   entierement ouverte, se dessine sous la capture de l'ancienne. */
+html.page-reveal-hold::view-transition-new(root) {
+  opacity: .01;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  ::view-transition-group(cn-media),
-  ::view-transition-group(cn-title) {
-    animation-duration: 560ms;
-    animation-timing-function: cubic-bezier(.2, .8, .2, 1);
-  }
-
-  ::view-transition-group(cn-media) {
-    overflow: clip;
-    border-radius: var(--ds-radius-md);
-  }
-
-  /* L'image garde son cadrage pendant le changement de format (carte -> bandeau). */
-  ::view-transition-old(cn-media),
-  ::view-transition-new(cn-media) {
-    height: 100%;
-    object-fit: cover;
-    animation-duration: 560ms;
-  }
-
-  ::view-transition-old(cn-title) {
-    animation-duration: var(--ds-motion-normal);
-  }
-
-  ::view-transition-new(cn-title) {
-    animation-duration: 420ms;
-    animation-delay: 80ms;
-  }
-
   /* Le reste de la fiche arrive en cascade sous le hero. */
   .recipe-view .detail-hero-copy > :not(h1),
   .recipe-view > :is(.recipe-quick-facts, ol.recipe-anatomy, .recipe-tabs) {
-    animation: cn-rise 520ms cubic-bezier(.2, .8, .2, 1) both;
+    animation: cn-rise 380ms cubic-bezier(.2, .8, .2, 1) both;
   }
 
-  .recipe-view .detail-hero-copy > :nth-child(1) { animation-delay: 140ms; }
-  .recipe-view .detail-hero-copy > :nth-child(3) { animation-delay: 210ms; }
-  .recipe-view .detail-hero-copy > :nth-child(4) { animation-delay: 280ms; }
-  .recipe-view .detail-hero-copy > :nth-child(5) { animation-delay: 340ms; }
-  .recipe-view > .recipe-quick-facts { animation-delay: 380ms; }
-  .recipe-view > ol.recipe-anatomy { animation-delay: 430ms; }
-  .recipe-view > .recipe-tabs { animation-delay: 470ms; }
+  /* Cascade courte : tout est en place 0,6s apres le clic (avant : ~1s, la
+     fiche semblait arriver en retard). */
+  .recipe-view .detail-hero-copy > :nth-child(1) { animation-delay: 60ms; }
+  .recipe-view .detail-hero-copy > :nth-child(3) { animation-delay: 100ms; }
+  .recipe-view .detail-hero-copy > :nth-child(4) { animation-delay: 140ms; }
+  .recipe-view .detail-hero-copy > :nth-child(5) { animation-delay: 170ms; }
+  .recipe-view > .recipe-quick-facts { animation-delay: 190ms; }
+  .recipe-view > ol.recipe-anatomy { animation-delay: 210ms; }
+  .recipe-view > .recipe-tabs { animation-delay: 230ms; }
 }
 
 @keyframes cn-rise {
@@ -73,8 +103,11 @@ html:is(.vt-card-source, .vt-card-target, .theme-reveal) .recipe-detail-hero .de
 
 /* ---------- Titres qui respirent (axes variables de Fraunces) ---------- */
 @media (prefers-reduced-motion: no-preference) {
+  /* Le titre monte en fondu (il ne vole plus depuis la carte) et respire. */
   .recipe-detail-hero .detail-hero-copy h1 {
-    animation: cn-title-breathe 1100ms cubic-bezier(.2, .8, .2, 1) 60ms both;
+    animation:
+      cn-rise 380ms cubic-bezier(.2, .8, .2, 1) 40ms both,
+      cn-title-breathe 800ms cubic-bezier(.2, .8, .2, 1) 40ms both;
   }
 
   @supports (animation-timeline: view()) {
@@ -109,7 +142,7 @@ html:is(.vt-card-source, .vt-card-target, .theme-reveal) .recipe-detail-hero .de
   background: var(--hero-placeholder, none) center / cover no-repeat;
   filter: blur(18px) saturate(1.1);
   opacity: 1;
-  transition: opacity 640ms ease-out;
+  transition: opacity 280ms ease-out;
   pointer-events: none;
 }
 
@@ -133,7 +166,7 @@ html:is(.vt-card-source, .vt-card-target, .theme-reveal) .recipe-detail-hero .de
 
 @media (prefers-reduced-motion: no-preference) {
   .recipe-card .card-image[data-loaded="true"] {
-    animation: cn-image-in 480ms ease-out both;
+    animation: cn-image-in 240ms ease-out both;
   }
 }
 

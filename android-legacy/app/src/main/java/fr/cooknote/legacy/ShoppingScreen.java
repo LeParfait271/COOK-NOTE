@@ -10,12 +10,18 @@ import android.view.ViewGroup;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -163,6 +169,7 @@ final class ShoppingScreen {
                 TextView meta = host.text(recipe.metaLine(), 12, COLOR_DIM, false);
                 meta.setPadding(0, dp(5), 0, dp(3));
                 section.addView(meta);
+                addRecipePortions(section, recipe);
 
                 Button remove = host.sectionButton("Retirer cette recette", false);
                 section.addView(remove);
@@ -174,36 +181,168 @@ final class ShoppingScreen {
                     }
                 });
 
+                float factor = host.shopping.factorFor(id, host.quantityFactor);
                 for (Recipe.Group group : host.recipeScreen.selectedIngredientGroups(recipe)) {
                     host.subTitle(section, group.title);
                     for (String item : group.items) {
-                        addShoppingCheckRow(section, recipe, group, item);
+                        if (ShoppingItems.isNonIngredient(item)) continue;
+                        addShoppingCheckRow(section, recipe, group, item, factor);
                     }
                     if (group.note.length() > 0) host.body(section, group.note, COLOR_MUTED);
                 }
             }
         }
 
-        host.setContentView(root);
+        host.showScreen(root);
         if (MainActivity.PERF_LOG_ENABLED) host.perfLog("showShoppingList", startedAt);
     }
 
     void addMergedShoppingSection(LinearLayout content) {
         List<ShoppingList.ShoppingLine> lines = host.shopping.mergedLines(host.ingredientSource, host.quantityFactor);
-        LinearLayout section = host.addSection(content, "Courses fusionnees", countLabel(lines.size(), "ligne", "lignes"));
+        ArrayList<ShoppingList.ShoppingLine> toBuy = new ArrayList<ShoppingList.ShoppingLine>();
+        ArrayList<ShoppingList.ShoppingLine> owned = new ArrayList<ShoppingList.ShoppingLine>();
+        for (ShoppingList.ShoppingLine line : lines) {
+            if (line.owned) owned.add(line);
+            else toBuy.add(line);
+        }
+        LinearLayout section = host.addSection(content, "Courses fusionnees", countLabel(toBuy.size(), "article", "articles"));
         if (lines.isEmpty()) {
             host.body(section, "Aucun ingredient disponible.");
             return;
         }
-        host.body(section, "Les quantites identiques sont additionnees automatiquement.", COLOR_MUTED);
-        for (ShoppingList.ShoppingLine line : lines) {
+        host.body(section, "Les quantites sont additionnees ; le format a acheter est indique sous l'article.", COLOR_MUTED);
+        for (ShoppingList.ShoppingLine line : toBuy) {
             addMergedShoppingCheckRow(section, line);
+        }
+        if (!owned.isEmpty()) addOwnedSection(content, owned);
+    }
+
+    // Deja a la maison : « Toujours » garde l'article au placard pour les
+    // prochaines listes ; toucher l'article le remet a acheter (et le sort du
+    // placard).
+    void addOwnedSection(LinearLayout content, List<ShoppingList.ShoppingLine> owned) {
+        LinearLayout section = host.addSection(content, "Deja a la maison", countLabel(owned.size(), "article", "articles"));
+        host.body(section, "« Toujours » garde l'article au placard : il sera range d'office dans tes prochaines listes.", COLOR_MUTED);
+        for (final ShoppingList.ShoppingLine line : owned) {
+            LinearLayout row = new LinearLayout(host);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setGravity(Gravity.CENTER_VERTICAL);
+            LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            rowParams.topMargin = dp(6);
+            section.addView(row, rowParams);
+
+            Button putBack = host.actionButton(line.display(), false);
+            putBack.setContentDescription("Remettre " + line.item.displayName() + " dans la liste a acheter");
+            putBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    host.shopping.ownedKeys.remove(line.item.key);
+                    host.shopping.stapleKeys.remove(line.item.stapleKey());
+                    host.saveUserState();
+                    showShoppingList();
+                }
+            });
+            LinearLayout.LayoutParams putBackParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+            putBackParams.rightMargin = dp(7);
+            row.addView(putBack, putBackParams);
+
+            Button staple = host.actionButton(line.staple ? "Placard ✓" : "Toujours", line.staple);
+            staple.setContentDescription(line.staple
+                    ? "Ne plus garder " + line.item.displayName() + " au placard"
+                    : "Garder " + line.item.displayName() + " au placard pour les prochaines listes");
+            staple.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (line.staple) {
+                        host.shopping.stapleKeys.remove(line.item.stapleKey());
+                        // Sorti du placard : reste deja a la maison pour cette liste.
+                        host.shopping.ownedKeys.add(line.item.key);
+                    } else {
+                        host.shopping.stapleKeys.add(line.item.stapleKey());
+                    }
+                    host.saveUserState();
+                    showShoppingList();
+                }
+            });
+            row.addView(staple, new LinearLayout.LayoutParams(dp(110), dp(40)));
         }
     }
 
+    // Portions d'une recette de la liste, modifiables ici sans rouvrir la fiche.
+    void addRecipePortions(LinearLayout section, final Recipe recipe) {
+        final int base = host.recipeScreen.baseServings(recipe);
+        final float factor = host.shopping.factorFor(recipe.id, host.quantityFactor);
+        if (base > 0) {
+            final ArrayList<Integer> servings = host.recipeScreen.servingOptions(base);
+            ArrayList<String> labels = new ArrayList<String>();
+            for (Integer serving : servings) labels.add(host.recipeScreen.servingLabel(recipe, serving.intValue()));
+            int selected = host.recipeScreen.clampServingChoice(Math.round(base * factor), base);
+            final int selectedIndex = Math.max(0, servings.indexOf(Integer.valueOf(selected)));
+            Spinner spinner = host.createSpinner(labels);
+            spinner.setSelection(selectedIndex);
+            section.addView(spinner, host.fullWidthParams(dp(6), dp(44)));
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (position == selectedIndex) return;
+                    setRecipeFactor(recipe, (float) servings.get(position).intValue() / (float) base);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+            return;
+        }
+        LinearLayout row = new LinearLayout(host);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        section.addView(row, host.fullWidthParams(dp(6), dp(36)));
+        for (int index = 0; index < MainActivity.QUANTITY_FACTORS.length; index += 1) {
+            final float choice = MainActivity.QUANTITY_FACTORS[index];
+            Button button = host.actionButton("x" + host.recipeScreen.factorLabel(choice), sameFactor(factor, choice));
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setRecipeFactor(recipe, choice);
+                }
+            });
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+            if (index < MainActivity.QUANTITY_FACTORS.length - 1) params.rightMargin = dp(5);
+            row.addView(button, params);
+        }
+    }
+
+    void setRecipeFactor(Recipe recipe, float factor) {
+        host.shopping.factors.put(recipe.id, host.clampQuantityFactor(factor));
+        host.saveUserState();
+        showShoppingList();
+    }
+
     void addMergedShoppingCheckRow(LinearLayout section, final ShoppingList.ShoppingLine line) {
+        LinearLayout row = new LinearLayout(host);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        rowParams.topMargin = dp(5);
+        section.addView(row, rowParams);
+
         CheckBox checkBox = new CheckBox(host);
-        checkBox.setText(line.display());
+        String hint = line.item.purchaseHint();
+        if (hint.length() > 0) {
+            SpannableString label = new SpannableString(line.display() + "\nAchat : " + hint);
+            int start = line.display().length() + 1;
+            label.setSpan(new RelativeSizeSpan(0.82f), start, label.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            label.setSpan(new ForegroundColorSpan(COLOR_GOLD), start, label.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            checkBox.setText(label);
+        } else {
+            checkBox.setText(line.display());
+        }
         checkBox.setTextColor(COLOR_TEXT);
         checkBox.setTextSize(host.adjustedTextSize(13));
         checkBox.setTypeface(Typeface.DEFAULT);
@@ -224,18 +363,27 @@ final class ShoppingScreen {
                 host.saveUserState();
             }
         });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        params.topMargin = dp(5);
-        section.addView(checkBox, params);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+        params.rightMargin = dp(7);
+        row.addView(checkBox, params);
+
+        Button owned = host.actionButton("J'ai deja", false);
+        owned.setContentDescription("Marquer " + line.item.displayName() + " comme deja a la maison");
+        owned.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                host.shopping.ownedKeys.add(line.item.key);
+                host.saveUserState();
+                showShoppingList();
+            }
+        });
+        row.addView(owned, new LinearLayout.LayoutParams(dp(96), dp(40)));
     }
 
-    void addShoppingCheckRow(LinearLayout section, final Recipe recipe, Recipe.Group group, final String item) {
+    void addShoppingCheckRow(LinearLayout section, final Recipe recipe, Recipe.Group group, final String item, float factor) {
         final String key = ShoppingList.itemKey(recipe, group, item);
         CheckBox checkBox = new CheckBox(host);
-        checkBox.setText(host.scaleIngredient(item));
+        checkBox.setText(scale(item, factor));
         checkBox.setTextColor(COLOR_TEXT);
         checkBox.setTextSize(host.adjustedTextSize(13));
         checkBox.setTypeface(Typeface.DEFAULT);

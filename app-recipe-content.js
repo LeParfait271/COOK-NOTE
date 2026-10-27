@@ -815,8 +815,10 @@ function displayRecipeImage(recipe) {
   return themeRecipeArtImage(recipe) || recipe?.image || '';
 }
 
+// Fiche maitre ouverte : l'illustration de l'accueil (selon le theme jour/nuit),
+// plus sobre que l'art de categorie, qui reste sur la carte de la grille.
 function collectionHeroImage(recipe) {
-  return displayRecipeImage(recipe);
+  return window.CookNoteTheme?.asset?.('hero') || FALLBACK_ART_ASSETS.hero || displayRecipeImage(recipe);
 }
 
 function inlineVariantImage(recipe, option) {
@@ -841,7 +843,7 @@ function inlineVariantImage(recipe, option) {
 }
 
 function ambilightStyle(image, extra = {}) {
-  return image ? { ...extra, '--ambilight-image': cssImageValue(image) } : extra;
+  return image ? { ...extra, '--ambilight-image': (ambilightImageValue || cssImageValue)(image) } : extra;
 }
 
 function recipeJsonLd(recipe, recipesById = {}) {

@@ -6,7 +6,7 @@ chaque lien doit être validé avant intégration (lien `data-goto` dans le text
 - Sauces et bases du catalogue cherchées : 73
 - Fiches concernées : 66
 - Liens proposés : 74
-- Empreinte recipes.js : 95a06b1e88bf
+- Empreinte recipes.js : fc835e9ed385
 
 ## Asperges vertes au lard grillé (`asperges_vertes_lard`)
 
@@ -108,7 +108,7 @@ chaque lien doit être validé avant intégration (lien `data-goto` dans le text
 
 ## Gougères au fromage (`gougeres`)
 
-- [ ] Sauces au fromage (`sauces_fromage_variantes`) — « Pour la sauce Mornay, porter le lait à ébullition avec le sel fin, le poivre du moulin et la muscade. »
+- [ ] Sauces au fromage (`sauces_fromage_variantes`) — « Pour la sauce Mornay, faire fondre le beurre, ajouter la farine et cuire le roux blanc 1 à 2min en remuant, jusqu’à ce qu’il mousse, sans le laisser brunir. Le laisser refroidir. »
 
 ## Gratins de chou-fleur (`gratins_chou_fleur_variantes`)
 
@@ -259,8 +259,8 @@ chaque lien doit être validé avant intégration (lien `data-goto` dans le text
 ## Tarte citron meringuée (`tarte_citron_meringuee`)
 
 - [ ] Fond de tarte amande (`creme_amande_citron`) — « 10g fécule pour crème d’amande »
-- [ ] Meringues (`meringues_variantes`) — « Meringue italienne cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement. »
-- [ ] Pâtes à tarte (`pates_tarte_variantes`) — « La veille, pâte sucrée : assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler. »
+- [ ] Meringues (`meringues_variantes`) — « Meringue italienne : cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement. »
+- [ ] Pâtes à tarte (`pates_tarte_variantes`) — « Pâte sucrée (idéalement la veille) : assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler. »
 
 ## Tartes aux abricots et aux amandes (`tarte_abricots_amandes_romarin`)
 

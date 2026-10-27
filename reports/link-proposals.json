@@ -1,5 +1,5 @@
 {
-  "recipesHash": "95a06b1e88bf66f60732fde557a3ca4fa5f1a21fc56b1cb1a1ff2b4b8ff17df1",
+  "recipesHash": "fc835e9ed38535d08d8a22795547fd0a4c491bcd840b7409d52c3230041f644e",
   "proposals": [
     {
       "id": "asperges_vertes_lard",
@@ -188,7 +188,7 @@
       "title": "Gougères au fromage",
       "target": "sauces_fromage_variantes",
       "targetTitle": "Sauces au fromage",
-      "evidence": "Pour la sauce Mornay, porter le lait à ébullition avec le sel fin, le poivre du moulin et la muscade."
+      "evidence": "Pour la sauce Mornay, faire fondre le beurre, ajouter la farine et cuire le roux blanc 1 à 2min en remuant, jusqu’à ce qu’il mousse, sans le laisser brunir. Le laisser refroidir."
     },
     {
       "id": "gratins_chou_fleur_variantes",
@@ -468,14 +468,14 @@
       "title": "Tarte citron meringuée",
       "target": "meringues_variantes",
       "targetTitle": "Meringues",
-      "evidence": "Meringue italienne cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement."
+      "evidence": "Meringue italienne : cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement."
     },
     {
       "id": "tarte_citron_meringuee",
       "title": "Tarte citron meringuée",
       "target": "pates_tarte_variantes",
       "targetTitle": "Pâtes à tarte",
-      "evidence": "La veille, pâte sucrée : assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler."
+      "evidence": "Pâte sucrée (idéalement la veille) : assouplir le beurre, ajouter sucre glace, poudre d’amandes, œuf et sel, puis incorporer la farine lentement sans trop travailler."
     },
     {
       "id": "tarte_abricots_amandes_romarin",

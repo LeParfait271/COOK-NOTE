@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-26T04:35:17.030Z",
+  "generatedAt": "2026-10-27T00:21:46.617Z",
   "mode": "propositions uniquement — validation utilisateur obligatoire",
   "sourceIntegrity": {
-    "before": "95a06b1e88bf66f60732fde557a3ca4fa5f1a21fc56b1cb1a1ff2b4b8ff17df1",
-    "after": "95a06b1e88bf66f60732fde557a3ca4fa5f1a21fc56b1cb1a1ff2b4b8ff17df1",
+    "before": "fc835e9ed38535d08d8a22795547fd0a4c491bcd840b7409d52c3230041f644e",
+    "after": "fc835e9ed38535d08d8a22795547fd0a4c491bcd840b7409d52c3230041f644e",
     "unchanged": true
   },
   "sources": [
@@ -12,12 +12,12 @@
   ],
   "totals": {
     "reviewed": 455,
-    "withProposals": 281,
+    "withProposals": 279,
     "byType": {
       "repere-sensoriel": 187,
       "mise-a-echelle": 128,
       "temperature-a-coeur": 45,
-      "conservation-contexte": 24
+      "conservation-contexte": 22
     }
   },
   "recipes": [
@@ -76,7 +76,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Rôtir 30 à 45min en retournant à mi-cuisson; prolonger si la pointe d un couteau resiste encore."
+            "Rôtir 30 à 45min en retournant à mi-cuisson; prolonger si la pointe d’un couteau resiste encore."
           ]
         }
       ]
@@ -91,7 +91,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Rôtir 18 à 35min selon le légume, retourner une fois et sortir quand l’eau de vegetation s est concentree."
+            "Rôtir 18 à 35min selon le légume, retourner une fois et sortir quand l’eau de végétation s’est concentrée."
           ]
         }
       ]
@@ -121,7 +121,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Rôtir 20 à 35min, retourner avec precaution et arrêter quand les bords sont bien caramelises."
+            "Rôtir 20 à 35min, retourner avec précaution et arrêter quand les bords sont bien caramélisés."
           ]
         }
       ]
@@ -444,8 +444,8 @@
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
             "Étaler à 2–3mm entre deux feuilles, refroidir au moins 1h, foncer, reposer au froid puis cuire 10 à 15min à 170°C chaleur tournante.",
-            "Crème d’amande mélanger beurre et sucre, ajouter œuf, poudre d’amande, fécule et zeste. Étaler 5mm dans la tarte et cuire 20–25min à 180°C.",
-            "Meringue italienne cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement."
+            "Crème d’amande : mélanger beurre et sucre, ajouter œuf, poudre d’amande, fécule et zeste. Étaler 5mm dans la tarte et cuire 20–25min à 180°C.",
+            "Meringue italienne : cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement."
           ]
         }
       ]
@@ -496,21 +496,6 @@
           "addition": "Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.",
           "evidence": [
             "Accompagnement pour viande grillée, poisson, purée ou gratin de légumes. Conservation 3–4 jours au froid en boîte hermétique."
-          ]
-        }
-      ]
-    },
-    {
-      "id": "cochon_confit_biere_erable",
-      "title": "Cochon confit à la bière et au sirop d’érable",
-      "proposals": [
-        {
-          "type": "conservation-contexte",
-          "confidence": "moyenne",
-          "observation": "Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.",
-          "addition": "Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.",
-          "evidence": [
-            "Cuisson lente indispensable pour une texture fondante. Conservation 3–4 jours au froid, réchauffage doux avec un peu de sauce."
           ]
         }
       ]
@@ -811,7 +796,7 @@
           "observation": "Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.",
           "addition": "Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.",
           "evidence": [
-            "Texture cible ferme, brillante, nappante, assez dense pour tenir sur un croûton et assez souple pour fondre dans le bouillon. Évite l’huile d’olive trop forte elle peut apporter de l’amertume. Le safran infusé donne une couleur plus régulière et un parfum plus propre que le safran ajouté à sec. Pour un rendu plus net, "
+            "Texture cible : ferme, brillante, nappante, assez dense pour tenir sur un croûton et assez souple pour fondre dans le bouillon. Évite l’huile d’olive trop forte elle peut apporter de l’amertume. Le safran infusé donne une couleur plus régulière et un parfum plus propre que le safran ajouté à sec. Pour un rendu plus net"
           ]
         },
         {
@@ -942,7 +927,7 @@
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
             "Pré-cuire les pommes de terre râpées 1min 30 au micro-ondes ou 2min à la poêle sans coloration.",
-            "Option restaurant passer 3 à 5min sur grille au four à 190°C, puis saler légèrement à la fleur de sel."
+            "Option restaurant : passer 3 à 5min sur grille au four à 190°C, puis saler légèrement à la fleur de sel."
           ]
         }
       ]
@@ -1140,7 +1125,7 @@
           "observation": "La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.",
           "addition": "Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.",
           "evidence": [
-            "Piment d Espelette"
+            "Piment d’Espelette"
           ]
         }
       ]
@@ -1155,7 +1140,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Rôtir 18 à 22min à 200°C selon l épaisseur."
+            "Rôtir 18 à 22min à 200°C selon l’épaisseur."
           ]
         }
       ]
@@ -1185,7 +1170,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Mijoter 15 à 20min, jusqu à sauce réduite et brillante."
+            "Mijoter 15 à 20min, jusqu’à sauce réduite et brillante."
           ]
         }
       ]
@@ -1299,10 +1284,11 @@
         {
           "type": "repere-sensoriel",
           "confidence": "moyenne",
-          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "observation": "2 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Préchauffer le four à 180°C chaleur tournante 10min avant cuisson."
+            "Préchauffer le four à 180°C chaleur tournante 10min avant cuisson.",
+            "Saler les dos de cabillaud 10min avant de les cuire, les éponger, puis les déposer dans un plat légèrement huilé et assaisonner au poivre du moulin."
           ]
         }
       ]
@@ -1538,7 +1524,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Rôtir à 200°C environ 25 à 35min, jusqu’à bords caramelises."
+            "Rôtir à 200°C environ 25 à 35min, jusqu’à bords caramélisés."
           ]
         }
       ]
@@ -1696,7 +1682,7 @@
           "observation": "Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.",
           "addition": "Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.",
           "evidence": [
-            "Repère menu : plat vegetal crémeux, a équilibrer avec riz nature ou salade acide, pas avec autre sauce riche. Conservation : 2 à 3 jours au réfrigérateur. Sécurité : refroidir rapidement, le dhal épaissit au froid."
+            "Repère menu : plat végétal crémeux, à équilibrer avec riz nature ou salade acide, pas avec autre sauce riche. Conservation : 2 à 3 jours au réfrigérateur. Sécurité : refroidir rapidement, le dhal épaissit au froid."
           ]
         },
         {
@@ -1798,7 +1784,7 @@
           "observation": "La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.",
           "addition": "Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.",
           "evidence": [
-            "2g piment d Espelette"
+            "2g piment d’Espelette"
           ]
         }
       ]
@@ -1813,7 +1799,7 @@
           "observation": "Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.",
           "addition": "Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.",
           "evidence": [
-            "Repère menu : sauce vive pour nems, rouleaux, crudites ou bol de riz. Conservation : 4 à 5 jours au réfrigérateur en bocal propre. Sécurité : utiliser une cuillere propre et garder au froid après service."
+            "Repère menu : sauce vive pour nems, rouleaux, crudites ou bol de riz. Conservation : 4 à 5 jours au réfrigérateur en bocal propre. Sécurité : utiliser une cuillère propre et garder au froid après service."
           ]
         },
         {
@@ -1852,7 +1838,7 @@
           "observation": "Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.",
           "addition": "Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.",
           "evidence": [
-            "Repère menu : accompagnement croustillant, a équilibrer avec une sauce vive ou une salade. Conservation : les croquettes panees crues se gardent 24h au réfrigérateur; cuites, 2 jours au froid. Sécurité : ne pas surcharger la friture et garder l'huile sous surveillance."
+            "Repère menu : accompagnement croustillant, à équilibrer avec une sauce vive ou une salade. Conservation : les croquettes panees crues se gardent 24h au réfrigérateur; cuites, 2 jours au froid. Sécurité : ne pas surcharger la friture et garder l'huile sous surveillance."
           ]
         }
       ]
@@ -1864,9 +1850,10 @@
         {
           "type": "repere-sensoriel",
           "confidence": "moyenne",
-          "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
+          "observation": "2 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
+            "Sortir les noix de Saint-Jacques du réfrigérateur 10min avant de les cuire, puis les éponger.",
             "Les saler juste avant, puis les saisir 1min à 1min30 par face dans une poêle très chaude avec huile neutre, sans les bouger pendant la première minute."
           ]
         }
@@ -2997,7 +2984,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Plonger les frites par petites quantités et cuire 5 à 7 minutes elles doivent être cuites à cœur mais encore pâles."
+            "Plonger les frites par petites quantités et cuire 5 à 7 minutes : elles doivent être cuites à cœur mais encore pâles."
           ]
         }
       ]
@@ -3203,7 +3190,7 @@
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
             "Cuire 12min à 190°C pour commencer à confire les tomates.",
-            "Cuire encore 10 à 12min selon l épaisseur."
+            "Cuire encore 10 à 12min selon l’épaisseur."
           ]
         }
       ]
@@ -3236,7 +3223,7 @@
           "observation": "La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.",
           "addition": "Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.",
           "evidence": [
-            "Piment d Espelette"
+            "Piment d’Espelette"
           ]
         }
       ]
@@ -3448,7 +3435,7 @@
           "observation": "La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.",
           "addition": "Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.",
           "evidence": [
-            "Piment d Espelette"
+            "Piment d’Espelette"
           ]
         }
       ]
@@ -3599,21 +3586,6 @@
           "addition": "Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».",
           "evidence": [
             "Ministère de l’Agriculture — La campylobactériose"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "ragouts_boeuf_biere_variantes::2",
-      "title": "Irish stew à la Guinness",
-      "proposals": [
-        {
-          "type": "conservation-contexte",
-          "confidence": "moyenne",
-          "observation": "Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.",
-          "addition": "Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.",
-          "evidence": [
-            "Repère menu : plat complet, dessert frais conseille. Conservation : 3 jours au réfrigérateur; réchauffer doucement sans écraser les pommes de terre. Sécurité : refroidir vite les portions avant mise au froid."
           ]
         }
       ]
@@ -3816,7 +3788,7 @@
           "observation": "3 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Ajouter tomates concassees et lait de coco, puis mijoter 10min.",
+            "Ajouter tomates concassées et lait de coco, puis mijoter 10min.",
             "Remettre le poulet et cuire 8 à 10min à feu doux.",
             "Ajouter les crevettes 3 à 4min, juste pour les cuire."
           ]
@@ -4006,7 +3978,7 @@
           "observation": "1 étape(s) donnent un temps sans repère sensoriel explicite.",
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
-            "Cuire 10min les cookies doivent encore être mous à la sortie du four."
+            "Cuire 10min : les cookies doivent encore être mous à la sortie du four."
           ]
         },
         {
@@ -4805,7 +4777,7 @@
           "addition": "Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.",
           "evidence": [
             "Cuire à 180°C pendant environ 20min, puis laisser refroidir.",
-            "Faire fondre le beurre, ajouter la farine, cuire le roux blanc 1 à 2min en remuant, jusqu’à ce qu’il mousse, sans le laisser brunir, puis verser le lait bouillant sur le roux froid en fouettant."
+            "Pour la sauce Mornay, faire fondre le beurre, ajouter la farine et cuire le roux blanc 1 à 2min en remuant, jusqu’à ce qu’il mousse, sans le laisser brunir. Le laisser refroidir."
           ]
         }
       ]

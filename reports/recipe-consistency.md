@@ -4,15 +4,13 @@ Rapport consultatif généré par `npm run audit:consistency`. `recipes.js` n’
 chaque correction est présentée et validée avant intégration.
 
 - Fiches et options analysées : 458
-- Signalements : 154
-- Empreinte recipes.js : 95a06b1e88bf
+- Signalements : 151
+- Empreinte recipes.js : fc835e9ed385
 
-## Fautes d’accent probables (2)
+## Fautes d’accent probables (0)
 
 _Forme minoritaire face à la forme accentuée dominante du catalogue, ou « a » au lieu de « à »._
 
-- [ ] **Mayonnaise bourguignonne** (`mayonnaise_maison › Bourguignonne`) — repartir → répartir
-- [ ] **Pâtes brocolis amandes** (`pates_brocolis_amandes`) — dernieres → dernières
 
 ## Cuissons sans durée ni repère de fin (0)
 
@@ -99,7 +97,7 @@ _Hors assaisonnements, herbes et finitions « au goût »._
 _Deux choix d’une même fiche qui ne se distinguent presque pas._
 
 
-## Ingrédients jamais repris dans les étapes (81)
+## Ingrédients jamais repris dans les étapes (80)
 
 _Au moins deux ingrédients absents des étapes : étape oubliée ou intitulé différent (à vérifier à la main)._
 
@@ -125,8 +123,8 @@ _Au moins deux ingrédients absents des étapes : étape oubliée ou intitulé d
 - [ ] **Nems vietnamiens** (`nems_vietnam`) — 16 galettes de riz ; Huile de friture
 - [ ] **Harissa rouge** (`harissa_maison`) — 8g cumin ; 8g coriandre moulue
 - [ ] **Pommes de terre grenaille aux herbes** (`pommes_grenaille_herbes › Classiques`) — 12g ail en chemise ; 8g thym ; 8g romarin
-- [ ] **Tagliatelles aux agrumes** (`tagliatelles_agrumes`) — 1 orange non traitee ; 1 citron non traite
-- [ ] **Pâtes au crumble de chorizo** (`pates_crumble_chorizo`) — 1 gousse d ail ; Persil
+- [ ] **Tagliatelles aux agrumes** (`tagliatelles_agrumes`) — 1 orange non traitée ; 1 citron non traité
+- [ ] **Pâtes au crumble de chorizo** (`pates_crumble_chorizo`) — 1 gousse d’ail ; Persil
 - [ ] **Carottes rôties miel épices** (`carottes_roties_miel_epices`) — 8g cumin ; 6g paprika
 - [ ] **Gratin de pâtes au chorizo** (`gratin_pates_chorizo`) — 120g mozzarella ; 60g parmesan
 - [ ] **Fish and chips classique à la bière** (`fish_and_chips › Classique à la bière`) — 600g dos de cabillaud ou lieu ; 1000g huile neutre de friture
@@ -137,7 +135,6 @@ _Au moins deux ingrédients absents des étapes : étape oubliée ou intitulé d
 - [ ] **Jarret d’agneau braisé aux petits légumes** (`jarret_agneau_petits_legumes`) — 1 gousse d’ail hachée ; Huile de tournesol
 - [ ] **Fondue moitié-moitié au Grand Marnier** (`fondue_grand_marnier`) — 500g gruyère affiné finement râpé ; 300g vacherin fribourgeois finement râpé ; 1 gousse d’ail
 - [ ] **Fondant au chocolat d’Andreas Caminada** (`fondant_chocolat_caminada`) — Beurre doux selon besoin ; Cacao non sucré selon besoin
-- [ ] **Smash Burger et buns briochés** (`smash_burger`) — 45g beurre doux ramolli ; 640g rumsteck de bœuf haché à 15–20% de matière grasse
 - [ ] **Salade de pommes de terre d’Ottolenghi** (`salade_pommes_terre_ottolenghi`) — 1 gousse d’ail écrasée ; 1/2 c. à café grains de poivre noir grossièrement pilés
 - [ ] **Gratin de rigatoni ricotta-épinards** (`gratin_rigatoni_ricotta_epinards`) — 2 gousses d’ail ; 180g parmigiano reggiano finement râpé
 - [ ] **Effiloché d’agneau à la moutarde** (`effiloche_agneau_moutarde`) — 1 tête d’ail ; 500g huile de colza pour friture
@@ -161,13 +158,13 @@ _Au moins deux ingrédients absents des étapes : étape oubliée ou intitulé d
 - [ ] **Gaspacho tomate, menthe et basilic** (`gaspachos_variantes › Tomate, menthe et basilic`) — 9 à 12g huile d’olive vierge extra ; 1 à 2g ail dégermé ; Eau froide seulement si besoin
 - [ ] **Joues de bœuf carottes orange vin rouge** (`joues_mijotees_variantes › Bœuf, carottes, orange et vin rouge`) — 2 gousses ail ; Laurier
 - [ ] **Chapelure de pain** (`chapelures_variantes › Pain`) — 1 pincée de sel fin optionnelle ; Four à 100°C pour terminer le séchage
-- [ ] **Chapelure parfumée** (`chapelures_variantes › Parfumée`) — 8g ail semoule ; 8g herbes seches
+- [ ] **Chapelure parfumée** (`chapelures_variantes › Parfumée`) — 8g ail semoule ; 8g herbes sèches
 - [ ] **Crêpes au lait d’amandes** (`crepes_variantes › Lait d’amandes`) — 20g sucre optionnel ; 1 pincée de sel ; Vanille ou fleur d’oranger optionnelle
 - [ ] **Terrine de campagne** (`terrines_pates_variantes › Campagne`) — 600g échine de porc ; 300g gorge de porc ; 200g foie de porc ou volaille
 - [ ] **Terrine de porc aux pistaches** (`terrines_pates_variantes › Porc et pistaches`) — 650g échine de porc ; 350g gorge de porc ; 200g foie de volaille ; 60ml cognac ou armagnac
 - [ ] **Pâté de lapin au piment d’Espelette** (`terrines_pates_variantes › Lapin au piment d’Espelette`) — 900g chair de lapin désossée ; 350g gorge de porc ; 200g foie de volaille ; 120g lard gras
 - [ ] **Curry de carottes lait de coco** (`currys_vegetariens_variantes › Carottes`) — 1 gousse ail ; 3g curry ; 1g gingembre moulu ; 1 pincée curcuma
-- [ ] **Poulet tikka masala** (`currys_carnivores_variantes › Poulet tikka masala`) — 2 gousses d ail ; 8g garam masala ; 4g paprika ; 8g garam masala
+- [ ] **Poulet tikka masala** (`currys_carnivores_variantes › Poulet tikka masala`) — 2 gousses d’ail ; 8g garam masala ; 4g paprika ; 8g garam masala
 - [ ] **Purée de pommes de terre à l’ail rose et huile d’olive** (`purees_legumes_variantes › Pommes de terre, ail rose et huile d’olive`) — 8 gousses d’ail rose ; Persil plat ou ciboulette optionnels
 - [ ] **Sauce béarnaise** (`sauce_bearnaise › Béarnaise`) — 5g estragon frais ciselé ; 5g cerfeuil frais ciselé
 - [ ] **Sauce Choron** (`sauce_bearnaise › Choron`) — 5g estragon frais ciselé ; 5g cerfeuil frais ciselé

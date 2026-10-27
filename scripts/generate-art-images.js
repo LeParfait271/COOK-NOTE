@@ -95,11 +95,12 @@ function addDayFiles(map, numeric, recipeIds) {
       if (recipeIds.has(id)) map[id] = `/assets/theme/day/recipes/${file}?v=${numeric}`;
     }
   });
+  // Cartes de categorie en theme jour : art jour, art nuit seulement en repli.
   ROOT_CATEGORY_IDS.forEach(id => {
     const file = `${id}.jpg`;
-    if (recipeIds.has(id) && fs.existsSync(path.join(ROOT, 'assets/theme/dark/categories', file))) {
-      map[id] = `/assets/theme/dark/categories/${file}?v=${numeric}-${PARENT_ART_REVISION}`;
-    }
+    if (!recipeIds.has(id)) return;
+    const theme = ['day', 'dark'].find(name => fs.existsSync(path.join(ROOT, `assets/theme/${name}/categories`, file)));
+    if (theme) map[id] = `/assets/theme/${theme}/categories/${file}?v=${numeric}-${PARENT_ART_REVISION}`;
   });
 }
 

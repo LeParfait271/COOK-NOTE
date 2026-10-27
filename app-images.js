@@ -1,13 +1,16 @@
 /* global window */
 
 (function initCookNoteImages() {
-  const IMAGE_HELPER_VERSION = 'v5.37';
+  const IMAGE_HELPER_VERSION = 'v5.38';
   const IMAGE_HELPER_REVISION = 'parent-title';
   const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
 
   // Chaque JPG/PNG de ces dossiers a une copie AVIF (scripts/generate-avif.js,
   // verifiee par validate-avif). Le JPG reste le repli automatique.
-  const AVIF_ELIGIBLE = /^\/assets\/(?:brand|recipes\/(?:heroes|cards)|theme\/(?:dark|day)\/(?:recipes|categories|global))\/[^?/]+\.(?:jpe?g|png)(?:\?.*)?$/i;
+  const AVIF_ELIGIBLE = /^\/assets\/(?:brand|recipes\/(?:heroes|cards)|theme\/(?:dark|day)\/(?:recipes|recipe-cards|categories|category-cards|global))\/[^?/]+\.(?:jpe?g|png)(?:\?.*)?$/i;
+  // Illustration de theme pleine taille -> miniature de carte 800px
+  // (scripts/generate-theme-cards.js).
+  const THEME_ART = /^\/assets\/theme\/(dark|day)\/(recipes|categories)\//;
   const SUPPORTS_AVIF = (() => {
     try {
       return Boolean(window.CSS?.supports?.('background-image', 'image-set(url("/x.avif") type("image/avif"))'));
@@ -52,6 +55,9 @@
   }
 
   function recipeCardImageUrl(image) {
+    if (image && THEME_ART.test(image) && /\.jpe?g(?:\?.*)?$/i.test(image)) {
+      return image.replace(THEME_ART, (match, theme, kind) => `/assets/theme/${theme}/${kind === 'recipes' ? 'recipe' : 'category'}-cards/`);
+    }
     if (!image || !image.startsWith('/assets/recipes/heroes/')) return image;
     return image
       .replace('/assets/recipes/heroes/', '/assets/recipes/cards/')
@@ -66,21 +72,65 @@
     return IMAGE_MANIFEST[imageManifestKey(image)] || null;
   }
 
+  // Miniature de theme : absente du manifeste (charge au demarrage), ses
+  // dimensions se deduisent de l'illustration source reduite a 800px de large.
+  const THEME_CARD = /^\/?assets\/theme\/(dark|day)\/(recipe|category)-cards\//;
+  const THEME_CARD_WIDTH = 800;
+
   function imageSizeAttrs(image) {
     const meta = imageAssetMeta(image);
-    return meta?.width && meta?.height ? { width: meta.width, height: meta.height } : {};
+    if (meta?.width && meta?.height) return { width: meta.width, height: meta.height };
+    if (!THEME_CARD.test(String(image || ''))) return {};
+    const source = imageAssetMeta(String(image).replace(THEME_CARD, (match, theme, kind) => `/assets/theme/${theme}/${kind === 'recipe' ? 'recipes' : 'categories'}/`));
+    if (!source?.width || !source?.height) return {};
+    const width = Math.min(source.width, THEME_CARD_WIDTH);
+    return { width, height: Math.round(source.height * width / source.width) };
+  }
+
+  // Miniature 400px (AVIF seul, scripts/generate-theme-cards.js) d'une miniature
+  // de theme 800px : cartes en ecran 1x et halos floutes. Sans AVIF : aucune.
+  const THEME_CARD_FILE = /^(\/assets\/theme\/(?:dark|day)\/(?:recipe|category)-cards)\/([^/?]+)\.jpe?g(\?.*)?$/i;
+
+  function smallCardImageUrl(cardImage) {
+    const match = SUPPORTS_AVIF ? String(cardImage || '').match(THEME_CARD_FILE) : null;
+    return match ? `${match[1]}-sm/${match[2]}.avif${match[3] || ''}` : '';
   }
 
   function imageSrcSet(image) {
+    if (image && THEME_ART.test(image)) {
+      const card = recipeCardImageUrl(image);
+      const small = smallCardImageUrl(card);
+      return small ? `${small} 400w, ${preferredImageUrl(card)} 800w` : '';
+    }
     if (!image || !image.startsWith('/assets/recipes/heroes/')) return '';
     const card = recipeCardImageUrl(image);
     return card && card !== image ? `${preferredImageUrl(card)} 1x, ${preferredImageUrl(image)} 2x` : '';
   }
 
+  // Fond de carte : 400px en ecran 1x, 800px au-dela.
+  function cardCssImageValue(cardImage) {
+    const small = smallCardImageUrl(cardImage);
+    return small
+      ? `image-set(url("${small}") type("image/avif") 1x, url("${avifImageUrl(cardImage)}") type("image/avif") 2x)`
+      : cssImageValue(cardImage);
+  }
+
+  // Halo flouté autour d'une carte : la petite miniature suffit toujours.
+  function ambilightImageValue(cardImage) {
+    const small = smallCardImageUrl(cardImage);
+    return small ? `url("${small}")` : cssImageValue(cardImage);
+  }
+
+  // Fichier que le fond de carte chargera sur cet ecran (prechargement).
+  function cardBackgroundUrl(cardImage) {
+    const small = (window.devicePixelRatio || 1) <= 1 ? smallCardImageUrl(cardImage) : '';
+    return small || preferredImageUrl(cardImage);
+  }
+
   function imageBackgroundStyle(image, card = true) {
     const url = card ? recipeCardImageUrl(image) : image;
     return url ? {
-      backgroundImage: `${cssImageValue(url)}, linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, transparent), var(--surface-strong))`,
+      backgroundImage: `${card ? cardCssImageValue(url) : cssImageValue(url)}, linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, transparent), var(--surface-strong))`,
       backgroundColor: 'var(--surface-strong)'
     } : {};
   }
@@ -95,6 +145,8 @@
     avifImageUrl,
     preferredImageUrl,
     cssImageValue,
+    ambilightImageValue,
+    cardBackgroundUrl,
     retryOriginalImage
   });
 }());

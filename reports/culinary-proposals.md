@@ -3,7 +3,7 @@
 > Rapport consultatif : aucune fiche n’a été modifiée. Chaque correction ou ajout doit être validé par l’utilisateur.
 
 - Fiches exécutables contrôlées : 455
-- Fiches avec proposition : 281
+- Fiches avec proposition : 279
 - Empreinte recipes.js avant/après : identique
 
 ## Règle pour les temps et températures
@@ -43,14 +43,14 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Rôtir 30 à 45min en retournant à mi-cuisson; prolonger si la pointe d un couteau resiste encore.
+  - Preuve/contexte : Rôtir 30 à 45min en retournant à mi-cuisson; prolonger si la pointe d’un couteau resiste encore.
 
 ### Légumes rôtis au four — Variante poivron, courgette ou aubergine (legumes_rotis::8)
 
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Rôtir 18 à 35min selon le légume, retourner une fois et sortir quand l’eau de vegetation s est concentree.
+  - Preuve/contexte : Rôtir 18 à 35min selon le légume, retourner une fois et sortir quand l’eau de végétation s’est concentrée.
 
 ### Légumes rôtis au four — Variante potimarron (legumes_rotis::9)
 
@@ -64,7 +64,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Rôtir 20 à 35min, retourner avec precaution et arrêter quand les bords sont bien caramelises.
+  - Preuve/contexte : Rôtir 20 à 35min, retourner avec précaution et arrêter quand les bords sont bien caramélisés.
 
 ### Légumes rôtis au four — Variante asperges, haricots verts ou champignons (legumes_rotis::11)
 
@@ -215,8 +215,8 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : 3 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Étaler à 2–3mm entre deux feuilles, refroidir au moins 1h, foncer, reposer au froid puis cuire 10 à 15min à 170°C chaleur tournante.
-  - Preuve/contexte : Crème d’amande mélanger beurre et sucre, ajouter œuf, poudre d’amande, fécule et zeste. Étaler 5mm dans la tarte et cuire 20–25min à 180°C.
-  - Preuve/contexte : Meringue italienne cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement.
+  - Preuve/contexte : Crème d’amande : mélanger beurre et sucre, ajouter œuf, poudre d’amande, fécule et zeste. Étaler 5mm dans la tarte et cuire 20–25min à 180°C.
+  - Preuve/contexte : Meringue italienne : cuire sucre, eau et citron à 118–120°C, verser en filet sur blancs mousseux, fouetter 5–10min jusqu’à refroidissement.
 
 ### Tarte aux myrtilles (tarte_aux_myrtilles)
 
@@ -241,13 +241,6 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.
   - Proposition à valider : Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.
   - Preuve/contexte : Accompagnement pour viande grillée, poisson, purée ou gratin de légumes. Conservation 3–4 jours au froid en boîte hermétique.
-
-### Cochon confit à la bière et au sirop d’érable (cochon_confit_biere_erable)
-
-- **conservation-contexte — confiance moyenne**
-  - Constat : Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.
-  - Proposition à valider : Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.
-  - Preuve/contexte : Cuisson lente indispensable pour une texture fondante. Conservation 3–4 jours au froid, réchauffage doux avec un peu de sauce.
 
 ### Pâte sucrée (pate_sucree)
 
@@ -389,7 +382,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **conservation-contexte — confiance moyenne**
   - Constat : Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.
   - Proposition à valider : Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.
-  - Preuve/contexte : Texture cible ferme, brillante, nappante, assez dense pour tenir sur un croûton et assez souple pour fondre dans le bouillon. Évite l’huile d’olive trop forte elle peut apporter de l’amertume. Le safran infusé donne une couleur plus régulière et un parfum plus propre que le safran ajouté à sec. Pour un rendu plus net, 
+  - Preuve/contexte : Texture cible : ferme, brillante, nappante, assez dense pour tenir sur un croûton et assez souple pour fondre dans le bouillon. Évite l’huile d’olive trop forte elle peut apporter de l’amertume. Le safran infusé donne une couleur plus régulière et un parfum plus propre que le safran ajouté à sec. Pour un rendu plus net
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
@@ -452,7 +445,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : 2 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Pré-cuire les pommes de terre râpées 1min 30 au micro-ondes ou 2min à la poêle sans coloration.
-  - Preuve/contexte : Option restaurant passer 3 à 5min sur grille au four à 190°C, puis saler légèrement à la fleur de sel.
+  - Preuve/contexte : Option restaurant : passer 3 à 5min sur grille au four à 190°C, puis saler légèrement à la fleur de sel.
 
 ### Salade melon, mozzarella et jambon cru (salade_melon_mozzarella_jambon_cru)
 
@@ -544,14 +537,14 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
-  - Preuve/contexte : Piment d Espelette
+  - Preuve/contexte : Piment d’Espelette
 
 ### Carré d’agneau croûte d’herbes (carre_d_agneau_croute_d_herbes)
 
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Rôtir 18 à 22min à 200°C selon l épaisseur.
+  - Preuve/contexte : Rôtir 18 à 22min à 200°C selon l’épaisseur.
 
 ### Ajitsuke tamago œufs marinés ramen (ajitsuke_tamago_oeufs_marines_ramen)
 
@@ -565,7 +558,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Mijoter 15 à 20min, jusqu à sauce réduite et brillante.
+  - Preuve/contexte : Mijoter 15 à 20min, jusqu’à sauce réduite et brillante.
 
 ### Poulet frit air fryer (poulet_frit_air_fryer)
 
@@ -617,9 +610,10 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 ### Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo)
 
 - **repere-sensoriel — confiance moyenne**
-  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Constat : 2 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Préchauffer le four à 180°C chaleur tournante 10min avant cuisson.
+  - Preuve/contexte : Saler les dos de cabillaud 10min avant de les cuire, les éponger, puis les déposer dans un plat légèrement huilé et assaisonner au poivre du moulin.
 
 ### Lentilles tomate pommes de terre sautées (lentilles_tomate_pommes_de_terre_sautees)
 
@@ -730,7 +724,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Rôtir à 200°C environ 25 à 35min, jusqu’à bords caramelises.
+  - Preuve/contexte : Rôtir à 200°C environ 25 à 35min, jusqu’à bords caramélisés.
 
 ### Samoussas au bœuf, carottes et raisins secs (samoussas_boeuf_epinards_petits_pois::2)
 
@@ -804,7 +798,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **conservation-contexte — confiance moyenne**
   - Constat : Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.
   - Proposition à valider : Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.
-  - Preuve/contexte : Repère menu : plat vegetal crémeux, a équilibrer avec riz nature ou salade acide, pas avec autre sauce riche. Conservation : 2 à 3 jours au réfrigérateur. Sécurité : refroidir rapidement, le dhal épaissit au froid.
+  - Preuve/contexte : Repère menu : plat végétal crémeux, à équilibrer avec riz nature ou salade acide, pas avec autre sauce riche. Conservation : 2 à 3 jours au réfrigérateur. Sécurité : refroidir rapidement, le dhal épaissit au froid.
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
@@ -851,14 +845,14 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
-  - Preuve/contexte : 2g piment d Espelette
+  - Preuve/contexte : 2g piment d’Espelette
 
 ### Sauce nem (sauce_nem)
 
 - **conservation-contexte — confiance moyenne**
   - Constat : Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.
   - Proposition à valider : Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.
-  - Preuve/contexte : Repère menu : sauce vive pour nems, rouleaux, crudites ou bol de riz. Conservation : 4 à 5 jours au réfrigérateur en bocal propre. Sécurité : utiliser une cuillere propre et garder au froid après service.
+  - Preuve/contexte : Repère menu : sauce vive pour nems, rouleaux, crudites ou bol de riz. Conservation : 4 à 5 jours au réfrigérateur en bocal propre. Sécurité : utiliser une cuillère propre et garder au froid après service.
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
@@ -876,13 +870,14 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **conservation-contexte — confiance moyenne**
   - Constat : Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.
   - Proposition à valider : Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.
-  - Preuve/contexte : Repère menu : accompagnement croustillant, a équilibrer avec une sauce vive ou une salade. Conservation : les croquettes panees crues se gardent 24h au réfrigérateur; cuites, 2 jours au froid. Sécurité : ne pas surcharger la friture et garder l'huile sous surveillance.
+  - Preuve/contexte : Repère menu : accompagnement croustillant, à équilibrer avec une sauce vive ou une salade. Conservation : les croquettes panees crues se gardent 24h au réfrigérateur; cuites, 2 jours au froid. Sécurité : ne pas surcharger la friture et garder l'huile sous surveillance.
 
 ### Écrasée de pommes de terre à l’huile de truffe et Saint-Jacques (ecrasee_pommes_de_terre_truffe_saint_jacques)
 
 - **repere-sensoriel — confiance moyenne**
-  - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
+  - Constat : 2 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
+  - Preuve/contexte : Sortir les noix de Saint-Jacques du réfrigérateur 10min avant de les cuire, puis les éponger.
   - Preuve/contexte : Les saler juste avant, puis les saisir 1min à 1min30 par face dans une poêle très chaude avec huile neutre, sans les bouger pendant la première minute.
 
 ### Pommes de terre rôties au four à la suédoise (pommes_de_terre_suedoises)
@@ -1415,7 +1410,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Plonger les frites par petites quantités et cuire 5 à 7 minutes elles doivent être cuites à cœur mais encore pâles.
+  - Preuve/contexte : Plonger les frites par petites quantités et cuire 5 à 7 minutes : elles doivent être cuites à cœur mais encore pâles.
 
 ### Frites de patate douce (frites_variantes::4)
 
@@ -1513,7 +1508,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : 2 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Cuire 12min à 190°C pour commencer à confire les tomates.
-  - Preuve/contexte : Cuire encore 10 à 12min selon l épaisseur.
+  - Preuve/contexte : Cuire encore 10 à 12min selon l’épaisseur.
 
 ### Poulet basquaise (poulet_basquaise_variantes::1)
 
@@ -1528,7 +1523,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
-  - Preuve/contexte : Piment d Espelette
+  - Preuve/contexte : Piment d’Espelette
 
 ### Poulet basquaise au four (poulet_basquaise_variantes::2)
 
@@ -1627,7 +1622,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
-  - Preuve/contexte : Piment d Espelette
+  - Preuve/contexte : Piment d’Espelette
 
 ### Saucisse lentilles (saucisses_lentilles_variantes::1)
 
@@ -1697,13 +1692,6 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : Volaille détectée sans température à cœur explicite.
   - Proposition à valider : Conserver tous les temps écrits et proposer en complément « cuisson à cœur, supérieure à 65 °C, chair non rosée et sans trace de sang ».
   - Preuve/contexte : Ministère de l’Agriculture — La campylobactériose
-
-### Irish stew à la Guinness (ragouts_boeuf_biere_variantes::2)
-
-- **conservation-contexte — confiance moyenne**
-  - Constat : Un conseil de conservation peut être ambigu entre ingrédient cru et préparation cuite.
-  - Proposition à valider : Préciser le contexte cru/cuit après validation, sans retirer la consigne existante.
-  - Preuve/contexte : Repère menu : plat complet, dessert frais conseille. Conservation : 3 jours au réfrigérateur; réchauffer doucement sans écraser les pommes de terre. Sécurité : refroidir vite les portions avant mise au froid.
 
 ### Cocotte de pois chiches tomates et saucisse de Montbéliard (legumineuses_montbeliard_variantes::1)
 
@@ -1799,7 +1787,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 3 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Ajouter tomates concassees et lait de coco, puis mijoter 10min.
+  - Preuve/contexte : Ajouter tomates concassées et lait de coco, puis mijoter 10min.
   - Preuve/contexte : Remettre le poulet et cuire 8 à 10min à feu doux.
   - Preuve/contexte : Ajouter les crevettes 3 à 4min, juste pour les cuire.
 - **temperature-a-coeur — confiance haute**
@@ -1889,7 +1877,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
 - **repere-sensoriel — confiance moyenne**
   - Constat : 1 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
-  - Preuve/contexte : Cuire 10min les cookies doivent encore être mous à la sortie du four.
+  - Preuve/contexte : Cuire 10min : les cookies doivent encore être mous à la sortie du four.
 - **mise-a-echelle — confiance information**
   - Constat : La fiche contient des ingrédients dont la multiplication mérite une vérification gustative ou technique.
   - Proposition à valider : Afficher un avertissement lors du changement de portions ; ne modifier aucune quantité source.
@@ -2264,7 +2252,7 @@ Toute température à cœur ou tout repère sensoriel proposé vient après le t
   - Constat : 2 étape(s) donnent un temps sans repère sensoriel explicite.
   - Proposition à valider : Ajouter un signe visuel ou tactile après le temps existant, sans modifier ni supprimer ce temps.
   - Preuve/contexte : Cuire à 180°C pendant environ 20min, puis laisser refroidir.
-  - Preuve/contexte : Faire fondre le beurre, ajouter la farine, cuire le roux blanc 1 à 2min en remuant, jusqu’à ce qu’il mousse, sans le laisser brunir, puis verser le lait bouillant sur le roux froid en fouettant.
+  - Preuve/contexte : Pour la sauce Mornay, faire fondre le beurre, ajouter la farine et cuire le roux blanc 1 à 2min en remuant, jusqu’à ce qu’il mousse, sans le laisser brunir. Le laisser refroidir.
 
 ### Pâte à pizza fine (pate_pizza_fine)
 

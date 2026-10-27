@@ -59,7 +59,7 @@ final class RecipeScreen {
         host.releaseListSurface();
         host.applyKeepScreenOn();
         host.saveUserState();
-        host.imageLoader.prefetchDetail(recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
+        host.imageLoader.prefetchDetail(recipe.isCollection() ? "home-hero.png" : recipe.detailImage, detailImageRequestWidth(), detailHeroHeight());
 
         LinearLayout root = new LinearLayout(host);
         root.setOrientation(LinearLayout.VERTICAL);
@@ -125,7 +125,7 @@ final class RecipeScreen {
             addRecipeContentGrid(content, recipe);
         }
 
-        host.setContentView(root);
+        host.showScreen(root);
         if (MainActivity.PERF_LOG_ENABLED) host.perfLog("openRecipe:" + recipe.id, startedAt);
     }
 
@@ -146,7 +146,10 @@ final class RecipeScreen {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
-        host.imageLoader.loadDetail(recipe.detailImage, hero, detailImageRequestWidth(), heroHeight);
+        // Fiche maitre (collection) : l'illustration de l'accueil, plus sobre,
+        // comme sur le site ; l'art de categorie reste sur la carte de l'accueil.
+        String heroImage = recipe.isCollection() ? "home-hero.png" : recipe.detailImage;
+        host.imageLoader.loadDetail(heroImage, hero, detailImageRequestWidth(), heroHeight);
 
         View veil = new View(host);
         veil.setBackgroundColor(Color.argb(recipe.isCollection() ? 96 : 66, 0, 0, 0));

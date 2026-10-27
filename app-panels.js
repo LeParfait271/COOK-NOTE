@@ -425,23 +425,25 @@ function ShoppingTransferQr({ url }) {
   );
 }
 
-function ShoppingBasketPanel({ open, onClose, recipes, factorById, transferUrl = '', pantryItems = [], removeRecipe, clearShopping, notify }) {
+function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, factorById, transferUrl = '', pantryItems = [], removeRecipe, setRecipeFactor, clearShopping, notify }) {
   // Accessibility contracts retained for the UI audit: 'aria-label': `Retirer ${recipe.title} du panier courses`; 'aria-label': `${checked ? 'Décocher' : 'Cocher'} ${[amount, item.name].filter(Boolean).join(' ')}`; 'aria-label': `Marquer ${item.name} comme déjà à la maison`; 'aria-label': `Remettre ${item.name} dans la liste à acheter`.
   const [copied, setCopied] = useState(false);
   const [freshOnly, setFreshOnly] = useState(false);
   const [transferOpen, setTransferOpen] = useState(false);
   const [checkedItems, setCheckedItems] = useState(() => readJson(STORAGE_KEYS.shoppingChecked, {}));
   const [ownedItems, setOwnedItems] = useState(() => readJson(STORAGE_KEYS.shoppingOwned, {}));
+  const [stapleItems, setStapleItems] = useState(() => readJson(STORAGE_KEYS.shoppingStaples, {}));
   const shoppingData = useMemo(() => open ? buildShoppingListData(recipes, factorById) : EMPTY_SHOPPING_DATA, [open, recipes, factorById]);
-  const activeShoppingData = useMemo(() => open ? filterShoppingListData(shoppingData, ownedItems, pantryItems) : EMPTY_SHOPPING_DATA, [open, shoppingData, ownedItems, pantryItems]);
+  const effectiveOwned = useMemo(() => shoppingOwnedWithStaples(shoppingData.groupedItems, ownedItems, stapleItems), [shoppingData, ownedItems, stapleItems]);
+  const activeShoppingData = useMemo(() => open ? filterShoppingListData(shoppingData, effectiveOwned, pantryItems) : EMPTY_SHOPPING_DATA, [open, shoppingData, effectiveOwned, pantryItems]);
   const scopedShoppingData = useMemo(() => freshOnly ? filterFreshShoppingData(activeShoppingData) : activeShoppingData, [freshOnly, activeShoppingData]);
   const batchPlan = useMemo(() => open ? getBatchPlanData(recipes) : [], [open, recipes]);
   const rawText = open && recipes.length
-    ? freshOnly ? shoppingListTextFromData(scopedShoppingData, 'fresh') : shoppingListText(recipes, factorById, ownedItems, 'detailed', pantryItems)
+    ? freshOnly ? shoppingListTextFromData(scopedShoppingData, 'fresh') : shoppingListText(recipes, factorById, effectiveOwned, 'detailed', pantryItems)
     : 'Liste de courses Cook Note\n\nAucune recette cochée.';
   const text = rawText;
   const rawCompactText = open && recipes.length
-    ? freshOnly ? shoppingListTextFromData(scopedShoppingData, 'fresh') : shoppingListText(recipes, factorById, ownedItems, 'compact', pantryItems)
+    ? freshOnly ? shoppingListTextFromData(scopedShoppingData, 'fresh') : shoppingListText(recipes, factorById, effectiveOwned, 'compact', pantryItems)
     : 'Courses Cook Note\nAucune recette.';
   const compactText = rawCompactText;
   const visibleShoppingKeys = useMemo(() => new Set(shoppingData.groupedItems.map(item => item.key)), [shoppingData]);
@@ -477,6 +479,14 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, transferUrl =
       return next;
     });
   };
+  const setStaples = updater => {
+    setStapleItems(prev => {
+      const next = typeof updater === 'function' ? updater(prev) : updater;
+      writeJson(STORAGE_KEYS.shoppingStaples, next);
+      return next;
+    });
+  };
+  const isStaple = item => Boolean(stapleItems[shoppingStapleKey(item)]);
   const toggleOwnedItem = key => {
     setOwnedShoppingItems(prev => {
       const next = { ...(prev || {}) };
@@ -485,13 +495,50 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, transferUrl =
       return next;
     });
   };
+  // Remettre a acheter : retire aussi l'article du placard, sinon il resterait
+  // range d'office.
+  const putBackItem = item => {
+    if (isStaple(item)) {
+      setStaples(prev => {
+        const next = { ...(prev || {}) };
+        delete next[shoppingStapleKey(item)];
+        return next;
+      });
+    }
+    setOwnedShoppingItems(prev => {
+      const next = { ...(prev || {}) };
+      delete next[item.key];
+      return next;
+    });
+  };
+  const toggleStaple = item => {
+    const key = shoppingStapleKey(item);
+    const staple = isStaple(item);
+    setStaples(prev => {
+      const next = { ...(prev || {}) };
+      if (staple) delete next[key];
+      else next[key] = true;
+      return next;
+    });
+    // Sorti du placard : reste « deja a la maison » pour ce panier.
+    if (staple) setOwnedShoppingItems(prev => ({ ...(prev || {}), [item.key]: true }));
+    notify?.(staple ? `${item.name} n’est plus gardé au placard` : `${item.name} : toujours au placard`);
+  };
+  // Le panier vide oublie les « J'ai deja » de cette liste, pas le placard.
+  const clearBasket = () => {
+    setOwnedShoppingItems({});
+    clearShopping();
+  };
 
   useEffect(() => {
     if (open) setCopied(false);
   }, [open, recipes.length]);
 
+  // Nettoie les coches d'articles disparus, seulement une fois toutes les
+  // recettes du panier chargees : apres un rechargement, le catalogue arrive en
+  // differe et les coches etaient effacees avant que leurs articles reviennent.
   useEffect(() => {
-    if (!open) return;
+    if (!open || !recipesComplete) return;
     setShoppingChecked(prev => {
       const next = {};
       Object.entries(prev || {}).forEach(([key, value]) => {
@@ -499,7 +546,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, transferUrl =
       });
       return next;
     });
-  }, [open, visibleShoppingKeys]);
+  }, [open, recipesComplete, visibleShoppingKeys]);
 
   if (!open) return null;
   return h(ModalDialog, { className: '', onClose: onClose },
@@ -513,13 +560,22 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, transferUrl =
       ),
       recipes.length
         ? h('div', { className: 'shopping-picked' },
-            recipes.map(recipe => h('button', {
-              key: recipe.id,
-              type: 'button',
-              onClick: () => removeRecipe(recipe.id),
-              title: 'Retirer du panier courses',
-              'aria-label': ('Retirer ' + recipe.title + ' du panier courses')
-            }, recipe.title, h('span', null, '×')))
+            recipes.map(recipe => h('div', { key: recipe.id, className: 'shopping-picked-item' },
+              h('span', { className: 'shopping-picked-title' }, recipe.title),
+              setRecipeFactor && h(QuantityFactorControl, {
+                recipe,
+                factor: factorById?.[recipe.id] || 1,
+                setFactor: factor => setRecipeFactor(recipe.id, factor),
+                className: 'shopping-picked-quantity'
+              }),
+              h('button', {
+                type: 'button',
+                className: 'shopping-picked-remove',
+                onClick: () => removeRecipe(recipe.id),
+                title: 'Retirer du panier courses',
+                'aria-label': ('Retirer ' + recipe.title + ' du panier courses')
+              }, '×')
+            ))
           )
         : h('p', { className: 'muted' }, 'Ajoute une recette depuis sa fiche pour construire une liste groupée.'),
       recipes.length > 0 && h('div', { className: 'shopping-summary' },
@@ -598,9 +654,22 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, transferUrl =
       ),
       scopedShoppingData.ownedGroupedItems.length > 0 && h('div', { className: 'shopping-owned-list' },
         h('strong', null, 'Déjà à la maison'),
-        scopedShoppingData.ownedGroupedItems.map(item => item.ownedByPantry
-          ? h('span', { key: item.key, title: 'Déjà à la maison' }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')} · maison`)
-          : h('button', { key: item.key, type: 'button', onClick: () => toggleOwnedItem(item.key), 'aria-label': ('Remettre ' + item.name + ' dans la liste à acheter'), title: 'Remettre dans la liste' }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')}`))
+        h('p', { className: 'shopping-owned-help' }, '« Toujours » garde l’article au placard : il sera rangé d’office dans tes prochaines listes.'),
+        scopedShoppingData.ownedGroupedItems.map(item => {
+          if (item.ownedByPantry) return h('span', { key: item.key, title: 'Déjà à la maison' }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')} · maison`);
+          const staple = isStaple(item);
+          return h('div', { key: item.key, className: staple ? 'shopping-owned-item is-staple' : 'shopping-owned-item' },
+            h('button', { type: 'button', onClick: () => putBackItem(item), 'aria-label': ('Remettre ' + item.name + ' dans la liste à acheter'), title: 'Remettre dans la liste' }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')}`),
+            h('button', {
+              type: 'button',
+              className: 'shopping-staple-btn',
+              'aria-pressed': staple,
+              onClick: () => toggleStaple(item),
+              'aria-label': staple ? `Ne plus garder ${item.name} au placard` : `Garder ${item.name} au placard pour les prochaines listes`,
+              title: staple ? 'Gardé au placard pour les prochaines listes' : 'Garder au placard pour les prochaines listes'
+            }, staple ? 'Placard ✓' : 'Toujours')
+          );
+        })
       ),
       h('div', { className: 'cart-output combined-cart', role: 'region', 'aria-label': 'Détail de la liste de courses' }, shoppingOutputNodes(text)),
       h('div', { className: 'modal-actions' },
@@ -615,7 +684,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, factorById, transferUrl =
         h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: shareText, title: 'Partager la liste', ariaLabel: 'Partager la liste' }, h(Icon, { name: 'share' })),
         h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: () => window.print(), title: 'Imprimer la liste', ariaLabel: 'Imprimer la liste' }, h(Icon, { name: 'print' })),
         h(Button, { variant: 'subtle', disabled: !recipes.length || !transferUrl, onClick: () => setTransferOpen(value => !value), pressed: transferOpen, title: 'Afficher un QR code pour ouvrir la liste sur le téléphone' }, transferOpen ? 'Masquer le QR code' : 'Sur mon téléphone'),
-        h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: clearShopping }, 'Vider le panier')
+        h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: clearBasket }, 'Vider le panier')
       ),
       transferOpen && recipes.length > 0 && transferUrl && h(ShoppingTransferQr, { url: transferUrl })
     )

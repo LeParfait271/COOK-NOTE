@@ -34,7 +34,13 @@ regles dans `COOK_NOTE_RULES.md` (section 8).
 - `AppUpdater.java` : verification et installation des mises a jour.
 - `CookNoteRepository.java`, `Recipe.java` : catalogue et recherche.
 - `ImageLoader.java`, `RecipeAdapter.java` : images et grille.
-- `ShoppingList.java` : contenu de la liste de courses (fusion, texte, lien QR).
+- `ShoppingList.java` : contenu de la liste de courses (portions par recette,
+  « J'ai deja », placard, fusion, texte, lien QR).
+- `ShoppingItems.java` : lecture d'une ligne d'ingredient pour les courses, a
+  l'identique du site (`app-shopping.js`) : cuilleres, pincees, pluriels,
+  formats du commerce. Parite verifiee par `tmp/perf/shopping-parity.js`.
+- Changement d'ecran : devoilement en cercle depuis le dernier toucher (effet
+  inverse au retour), comme le site (`MainActivity.showScreen`).
 - `QrCode.java` : encodeur QR natif (verifie par `npm run test:android-qr`).
 - `Palette.java`, `Ui.java`, `Ingredients.java`, `Texts.java` : couleurs, fonds,
   quantites et petits formats de texte.

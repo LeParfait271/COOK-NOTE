@@ -394,7 +394,7 @@ final class HomeScreen {
             }
         });
 
-        host.setContentView(root);
+        host.showScreen(root);
         resetFilterSnapshot();
         applyFiltersNow();
         restoreListPosition(gridView);

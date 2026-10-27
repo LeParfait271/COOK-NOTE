@@ -256,7 +256,9 @@ if (
 });
 [
   'const catalogLoader = isMasterRecipe(target) ? loadDeferredCatalogChunks : () => loadRecipeDetails(id, true);',
-  'catalogLoader().catch(() => {});'
+  'const loading = Promise.resolve().then(catalogLoader);',
+  // La transition attend les donnees (plafonnees) : sinon re-rendu en plein vol.
+  'Promise.race([loading, new Promise(resolve => window.setTimeout(resolve, OPEN_RECIPE_DATA_WAIT_MS))])'
 ].forEach(fragment => {
   if (!app.includes(fragment)) fail(`Chargement catalogue a la demande absent (${fragment}).`);
 });
