@@ -1,7 +1,18 @@
 function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, results, resultMeta, ingredientMeta, openRecipe, rememberSearch }) {
   const [draftQuery, setDraftQuery] = useState(query);
+  const [fridge, setFridge] = useState(false);
   const draftQueryRef = useRef(query);
   const queryCommitTimerRef = useRef(0);
+
+  useEffect(() => {
+    if (!open) return;
+    let requested = false;
+    try {
+      requested = sessionStorage.getItem(FRIDGE_MODE_KEY) === '1';
+      sessionStorage.removeItem(FRIDGE_MODE_KEY);
+    } catch { /* stockage indisponible */ }
+    setFridge(requested);
+  }, [open]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -56,8 +67,7 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
   const quickSearches = [
     { label: 'Rapide', query: 'rapide' },
     { label: 'Ap\u00e9ro', query: 'apero' },
-    { label: 'Au four', query: 'cuisson au four' },
-    { label: 'Dessert', query: 'dessert' }
+    { label: 'Au four', query: 'cuisson au four' }
   ];
   const liveSuggestions = hasQuery && !searchPending ? searchSuggestionTerms(draftQuery, results) : [];
   const rememberCurrentSearch = () => {
@@ -65,6 +75,7 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
   };
   const openSearchRecipe = recipe => {
     rememberCurrentSearch();
+    rememberRequestedServings(draftQuery);
     openRecipe(recipe.id);
     onClose();
   };
@@ -99,9 +110,10 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
               openSearchRecipe(visibleResults[0]);
             }
           },
-          placeholder: 'Recette, ingrédients, usage, saison...'
+          placeholder: fridge ? 'Mes ingrédients : œufs, tomates, fromage…' : 'Recette, ingrédients, usage, saison...'
         })
       ),
+      fridge && !hasQuery && h('p', { className: 'search-fridge-hint' }, 'Liste ce que tu as sous la main, séparé par des virgules : les recettes faisables tout de suite passent en premier, puis celles où il manque un ou deux ingrédients.'),
       hasQuery && liveSuggestions.length > 0 && h('div', { className: 'search-live-suggestions', 'aria-label': 'Suggestions pendant la frappe' },
         liveSuggestions.map(item => h('button', {
           key: item,
@@ -113,6 +125,15 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
         }, item))
       ),
       !hasQuery && h('div', { className: 'search-quick-rail', 'aria-label': 'Recherches rapides' },
+        h('button', {
+          type: 'button',
+          className: fridge ? 'active' : '',
+          'aria-pressed': fridge,
+          onClick: () => {
+            setFridge(!fridge);
+            searchRef.current?.focus?.();
+          }
+        }, 'Avec ce que j’ai'),
         quickSearches.map(item => h('button', {
           key: item.query,
           type: 'button',
@@ -140,7 +161,6 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
             ),
             h('div', { className: 'search-results' },
               group.recipes.map(recipe => {
-                const meta = resultMeta.get(recipe.id);
                 const ingredient = ingredientMeta.get(recipe.id);
                 const availability = ingredient ? ingredientAvailabilityGroup(ingredient) : null;
                 return h('button', {
@@ -155,9 +175,6 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
                     h('strong', null, recipe.title),
                     h('small', { className: 'search-result-meta' }, [primaryCategory(recipe), formatMinutesShort(getRecipeTiming(recipe).total), recipe.yield || difficultyText(recipe)].filter(Boolean).join(' · ')),
                     availability && h('span', { className: `ingredient-match-badge ${availability.key}` }, availability.label),
-                    meta?.reasons?.length && h('span', { className: 'search-reason-pills' },
-                      meta.reasons.slice(0, 3).map(reason => h('em', { key: reason }, reason))
-                    ),
                     ingredient?.matched?.length && h('span', { className: 'search-reason-pills' },
                       ingredient.matched.slice(0, 3).map(reason => h('em', { key: reason }, reason))
                     ),
@@ -235,6 +252,17 @@ function CommandPalette({
       run: openTechniques
     },
     {
+      id: 'fridge',
+      icon: 'basket',
+      label: 'Avec ce que j’ai',
+      detail: 'Tes ingrédients, les recettes faisables',
+      run: () => {
+        requestFridgeSearch();
+        if (cleanTerm) setQuery('');
+        openFullSearch();
+      }
+    },
+    {
       id: 'favorites',
       icon: 'heart',
       label: 'Favoris',
@@ -249,12 +277,13 @@ function CommandPalette({
       run: openShoppingBasket
     }
   ];
-  const matchedActions = normalizedTerm ? [] : baseActions;
-  // « sans X » : X n'est pas cherche, il ecarte les fiches (voir scoreRecipeSearch).
-  const { rest: positiveTerm, excluded } = splitSearchExclusions(normalizedTerm);
+  const matchedActions = normalizedTerm ? [] : [...baseActions].sort((left, right) => (right.id === 'fridge') - (left.id === 'fridge'));
+  // « sans X », « en moins de… », « pour 6 » : contraintes, pas des mots a chercher.
+  const constraints = splitSearchExclusions(normalizedTerm);
+  const positiveTerm = constraints.rest;
   const commandRecipes = normalizedTerm
     ? recipes
-      .filter(recipe => !excluded.some(word => recipeUsesExcluded(recipe, word)))
+      .filter(recipe => recipeFitsSearchConstraints(recipe, constraints))
       .map(recipe => {
         const titleScore = positiveTerm && normalizeText(recipe.title).includes(positiveTerm) ? 24 : 0;
         const categoryScore = positiveTerm && normalizeText(categoryLine(recipe)).includes(positiveTerm) ? 8 : 0;
@@ -271,6 +300,7 @@ function CommandPalette({
     : [];
   const firstCommand = commandRecipes[0] || matchedActions[0];
   const runRecipe = recipe => {
+    rememberRequestedServings(cleanTerm);
     onClose();
     openRecipe(recipe.id);
   };
@@ -320,7 +350,8 @@ function CommandPalette({
             matchedActions.map(action => h('button', {
               key: action.id,
               type: 'button',
-              className: 'command-row',
+              // Cinq acces : le premier (Avec ce que j'ai) occupe toute la ligne.
+              className: action.id === 'fridge' ? 'command-row is-wide' : 'command-row',
               onClick: () => runAction(action)
             },
               h('span', { className: 'command-row-icon' }, h(Icon, { name: action.icon })),
@@ -788,6 +819,8 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
         h('span', null, `${shoppingData.groupedItems.length} articles groupés`),
         h('span', null, `${shoppingData.aisleGroups.length} rayons`)
       ),
+      // Heure de service : horaire de depart de chaque plat du menu.
+      h(ServeTimePlanner, { key: menu.signature, className: 'menu-serve-planner', entries: menuRecipes.map(item => ({ title: item.title, timing: getRecipeTiming(item) })) }),
       h('div', { className: 'menu-service-grid' },
         servicePlan.timeline.length > 0 && h('section', { className: 'menu-service-panel menu-service-panel-wide' },
           h('p', { className: 'eyebrow' }, 'Timeline'),
@@ -997,88 +1030,6 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '', step
   );
 }
 
-// Sous-familles des pages categorie, deduites du titre (premiere regle qui
-// correspond ; le reste va dans « Autres »). Les fiches ne changent pas.
-const COLLECTION_FAMILIES = {
-  desserts_maitre: [
-    ['Brioches et crêpes', /\b(brioche|babka|chinois|pain perdu|crepe|beignet|churros)/],
-    ['Tartes', /\b(tarte|fond de tarte)/],
-    ['Gâteaux', /\b(cake|gateau|fondant|mi-cuit|cheesecake|opera|charlotte|tiramisu|paris-brest|clafoutis|crumble)/],
-    ['Petits gâteaux', /\b(muffin|madeleine|cookie|biscuit|sable|choux|macaron|spritz|meringue|carres)/],
-    ['Crèmes et entremets', /\b(creme|flan|panna cotta|mousse|ile flottante|chantilly|souffle)/],
-    ['Fruits et bases', /\b(coulis|caramel|marmelade|confit|pate a|poire|fraise|granola)/]
-  ],
-  plats_maitre: [
-    ['Poissons et fruits de mer', /\b(crevette|calamar|chipiron|encornet|cabillaud|saumon|lotte|saint-jacques|bouillabaisse|fish|paella)/],
-    ['Volaille et lapin', /\b(poulet|volaille|coq|canard|lapin)/],
-    ['Pâtes et riz', /\b(pates|tagliatelle|rigatoni|macaroni|coquillette|riz|ble|nems|okonomiyaki|carbonara)/],
-    ['Bœuf, veau et agneau', /\b(boeuf|bavette|veau|agneau|burger|joues|osso|navarin|tartare|carpaccio)/],
-    ['Porc et charcuterie', /\b(porc|cochon|saucisse|chorizo|croque|rougail|cassoulet|morteau|flammekueche|potee)/],
-    ['Légumes et gratins', /\b(lentille|dhal|haricot|legum|curry|gratin|tian|courge|tomates farcies|piperade|souffle|fondue|flan)/]
-  ],
-  entrees_maitre: [
-    ['Salades', /\b(salade|carpaccio betterave|tomate mozzarella)/],
-    ['Mer', /\b(crevette|calamar|chipiron|saint-jacques|langoustine|morue|thon|anchois)/],
-    ['Œufs', /\b(oeuf|tortilla|souffle|tamago)/],
-    ['Foie gras et viandes', /\b(foie gras|pate en croute|tartare|carpaccio|samoussa|lard)/],
-    ['Fromages et bouchées', /\b(fromage|mozzarella|burrata|brie|roquefort|gougere|bricks|bruschetta|cannele|brownie|quichette)/],
-    ['Légumes et soupes', /\b(legume|veloute|gaspacho|tomate|asperge|chou-fleur|oignon|houmous|falafel|pois chiche|acras|melon|courgette|betterave)/]
-  ],
-  accompagnements_maitre: [
-    ['Pommes de terre', /\b(pomme|patate|frite|rattes|wedges|duchesse|dauphine|croquette)/],
-    ['Pains', /\b(pain|focaccia|pita)/],
-    ['Riz et céréales', /\b(riz|polenta|lentille|haricot)/],
-    ['Légumes', /\b(carott|chou|tomate|legum|oignon|petits pois|asperge|aubergine|tian|puree|curry|mousse|galettes)/],
-    ['Sauces et garnitures', /\b(sauce|pesto|topping)/]
-  ],
-  apero_maitre: [
-    ['Brochettes', /\bbrochette/],
-    ['Fritures et bouchées chaudes', /\b(beignet|tempura|accras|acras|croquette|samoussa|falafel|chou-fleur|gougere|choux)/],
-    ['Tartinables et terrines', /\b(houmous|aioli|beurre|sauce|yaourt|pesto|rillette|terrine|pate en croute|verrine)/],
-    ['Fromages', /\b(fromage|mozzarella|burrata|brie|chevre|roquefort)/],
-    ['Biscuits, pains et cakes', /\b(cookie|gressin|sable|pain|focaccia|cake|brownie|galette|batonnet|madeleine|cannele|brioche|quichette|flammekueche|tortilla)/]
-  ],
-  sauces_maitre: [
-    ['Sauces chaudes', /\b(bearnaise|hollandaise|chasseur|bordelaise|perigueux|bourguignonne|beurre blanc|morille|porto|poivre|estragon|fond de veau|fromage|moutarde)/],
-    ['Sauces froides et condiments', /\b(mayonnaise|aioli|rouille|tartare|remoulade|gribiche|vinaigrette|burger|yaourt|ricotta|pesto|harissa|huile|balsamique|marinade|topping|nem|aigre)/],
-    ['Sauces sucrées', /\b(caramel|coulis)/]
-  ],
-  elements_base_maitre: [
-    ['Pains et pâtes levées', /\b(pain|baguette|bagel|brioche|levain|tortilla|tresse|biscuits|pizza)/],
-    ['Pâtes et crèmes', /\b(pate|tempura|base pour flan|craquelin|meringue|creme)/],
-    ['Beurres, fonds et bouillons', /\b(beurre|fond|bouillon|babeurre|chapelure)/],
-    ['Fruits et condiments', /\b(coulis|marmelade|confit|cerise|citron|tamago)/]
-  ],
-  petit_dejeuner_maitre: [
-    ['Brioches', /\b(brioche|babka|chinois|tresse)/],
-    ['Pains', /\b(pain|bagel)/],
-    ['Crêpes, gaufres et pancakes', /\b(crepe|gaufre|pancake|madeleine)/]
-  ]
-};
-
-function collectionFamilyOf(parentId, recipe) {
-  const rules = COLLECTION_FAMILIES[parentId];
-  if (!rules) return '';
-  const title = normalizeText(recipe?.title || '');
-  const match = rules.find(([, pattern]) => pattern.test(title));
-  return match ? match[0] : 'Autres';
-}
-
-const COLLECTION_SORTS = [
-  ['alpha', 'De A à Z'],
-  ['quick', 'Les plus rapides'],
-  ['easy', 'Les plus faciles']
-];
-
-// Carte de categorie : temps total et difficulte, quand la fiche les donne.
-function collectionCardMeta(recipe) {
-  const total = Number(recipe?.activeTime || 0) + Number(recipe?.cookTime || 0) + Number(recipe?.restTime || 0);
-  return [
-    total ? formatTotalDuration(total, Number(recipe?.restTime || 0)) : '',
-    Number.isFinite(recipe?.difficultyScore) ? `Difficulté ${recipe.difficultyScore}/10` : ''
-  ].filter(Boolean).join(' · ');
-}
-
 // Pages categorie : quatre saisons qui filtrent la grille (un second toucher
 // remet toutes les recettes). La saison en cours est marquee d'un point.
 function CollectionSeasonFilter({ items, recipesById, season, setSeason }) {
@@ -1150,29 +1101,37 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, pr
       return 0;
     });
   return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel collection-links-panel', 'aria-label': `Recettes de la collection ${parent.title}` },
-    h(CollectionSeasonFilter, { items: recipeEntries.map(entry => entry.item), recipesById, season, setSeason }),
+    // Une seule barre de filtres, en trois rangs alignes : recherche et tri,
+    // puis saison, puis famille (memes pastilles, meme hauteur).
     h('div', { className: 'collection-toolbar' },
-      showFamilies && h('div', { className: 'collection-family-filter', role: 'group', 'aria-label': `Familles de ${parent.title}` },
-        h('button', { type: 'button', className: family ? '' : 'active', 'aria-pressed': !family, onClick: () => setFamily('') }, 'Tout'),
-        familyOrder.map(name => h('button', {
-          key: name,
-          type: 'button',
-          className: family === name ? 'active' : '',
-          'aria-pressed': family === name,
-          onClick: () => setFamily(family === name ? '' : name)
-        }, name, h('span', null, familyCounts.get(name))))
-      ),
       h('div', { className: 'collection-tools' },
         h('label', { className: 'collection-search' },
           h(Icon, { name: 'search' }),
           h('span', { className: 'sr-only' }, `Filtrer ${parent.title}`),
-          h('input', { type: 'text', value: filter, placeholder: `Filtrer ${parent.title.toLowerCase()}…`, onChange: event => setFilter(event.target.value) })
+          h('input', { type: 'text', value: filter, placeholder: `Chercher dans ${parent.title.toLowerCase()}…`, onChange: event => setFilter(event.target.value) })
         ),
         h('label', { className: 'collection-sort' },
           h('span', { className: 'sr-only' }, 'Trier les recettes'),
           h('select', { value: sort, onChange: event => setSort(event.target.value) },
             COLLECTION_SORTS.map(([value, label]) => h('option', { key: value, value }, label))
           )
+        )
+      ),
+      h('div', { className: 'collection-filter-row' },
+        h('span', { className: 'collection-filter-label' }, 'Saison'),
+        h(CollectionSeasonFilter, { items: recipeEntries.map(entry => entry.item), recipesById, season, setSeason })
+      ),
+      showFamilies && h('div', { className: 'collection-filter-row' },
+        h('span', { className: 'collection-filter-label' }, 'Famille'),
+        h('div', { className: 'collection-family-filter', role: 'group', 'aria-label': `Familles de ${parent.title}` },
+          h('button', { type: 'button', className: family ? '' : 'active', 'aria-pressed': !family, onClick: () => setFamily('') }, 'Toutes', h('span', null, recipeEntries.length)),
+          familyOrder.map(name => h('button', {
+            key: name,
+            type: 'button',
+            className: family === name ? 'active' : '',
+            'aria-pressed': family === name,
+            onClick: () => setFamily(family === name ? '' : name)
+          }, name, h('span', null, familyCounts.get(name))))
         )
       )
     ),
@@ -1475,7 +1434,8 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
     equipment.length > 0 && h('div', { className: 'recipe-equipment-strip' },
       h('strong', null, 'Matériel nécessaire'),
       h('ul', null, equipment.map(item => h('li', { key: item }, item)))
-    )
+    ),
+    h(ServeTimePlanner, { key: recipe.id, entries: [{ title: recipe.title, timing }] })
   );
 }
 

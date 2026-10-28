@@ -202,6 +202,32 @@ function App() {
       .catch(() => loadRecipeDetails(activeId, true).catch(() => {}));
   }, [activeId, activeRecipe?.id, activeRecipe?.steps?.length, catalogChunksLoaded, recipeDetailsById]);
 
+  useTiltParallax();
+
+  // Raccourcis de l'icone installee (?action=cuisine|courses) et partage vers
+  // Cook Note depuis le menu Partager du telephone (share_title/text/url).
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const action = params.get('action');
+    const sharedTitle = (params.get('share_title') || params.get('share_text') || '').split(/\s[-|–]\s/)[0].trim();
+    const sharedUrl = params.get('share_url') || (params.get('share_text') || '').match(/https?:\/\/\S+/)?.[0] || '';
+    if (!action && !sharedTitle && !sharedUrl) return;
+    history.replaceState('', document.title, '/');
+    if (action === 'courses') {
+      openShoppingBasket();
+    } else if (action === 'cuisine') {
+      const lastId = readStoredList(STORAGE_KEYS.recentRecipes, [])[0];
+      if (lastId) {
+        try { sessionStorage.setItem('cook_note_open_cook_mode', '1'); } catch { /* sans stockage : la fiche s'ouvre */ }
+        openRecipe(lastId);
+      } else notify('Ouvre une fiche une première fois : le raccourci la reprendra en mode cuisine.');
+    } else if (sharedTitle || sharedUrl) {
+      setQuery(sharedTitle);
+      openCommandPalette();
+      notify('Lien reçu : vérifie si la recette existe déjà, sinon demande-la en bas de page.');
+    }
+  }, []);
+
   useEffect(() => {
     const legacyVariant = new URLSearchParams(window.location.search).get('variant');
     if (legacyVariant && recipesById[legacyVariant]) {

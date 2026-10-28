@@ -1129,8 +1129,9 @@ transform:none!important
   }
 }
 
+/* 8 categories : 4 x 2 en grand ecran (3 colonnes laissaient un trou). */
 @media screen and (min-width: 1121px) {
-  .home-view .master-recipe-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .home-view .master-recipe-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
 }
 
 .top-settings-btn{display:none!important}

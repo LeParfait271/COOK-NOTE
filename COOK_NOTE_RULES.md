@@ -400,6 +400,34 @@ Sommaire :
   la lecture de reference. Une etape a la fois, ingredients de l'etape,
   `Suivante` coche l'etape, ecran maintenu allume (Wake Lock), plein ecran reel
   sur ecran tactile, page dessous inerte, Echap pour quitter.
+  Mains libres (v5.42) : bouton `Voix` (seulement si le navigateur gere la
+  reconnaissance vocale) ; « suivant », « precedent », « repete »,
+  « minuteur 10 minutes » (ou la duree de l'etape), « terminer » ; chaque
+  etape est lue a voix haute quand la voix est active.
+  Depuis v5.43 : le site NE PARLE PLUS (aucune synthese vocale, choix de
+  l'utilisateur) ; la voix sert uniquement a piloter, chaque commande comprise
+  s'affiche sous l'en-tete. Commandes : « premiere / derniere etape »,
+  « etape dix-sept », « aide » (carte des commandes), « coupe le micro » ;
+  minuteurs (« combien de temps », « pause », « reprends / arrete le
+  minuteur », « stop » arrete un minuteur termine). Reglage Voix retenu
+  (`cook_note_hands_free`). Chrome relance la reconnaissance a chaque silence
+  et renumerote ses resultats a 0 : le suivi des resultats traites est remis a
+  zero a chaque demarrage (sinon plus rien ne marchait apres la 1re
+  commande). Pont minuteurs dans `app-components.js` (`kitchenTimersLeft`,
+  `kitchenTimersRinging`, `controlKitchenTimers`). Test muet : micro simule
+  comme Chrome, jamais de son reel.
+- Fonctions v5.42 (code dans `app-kitchen.js`) : « Je sers a » sur la fiche
+  rapide et le menu (horaire de chaque phase depuis les temps des fiches,
+  rappels en notification tant que Cook Note reste ouvert) ; recherche en
+  langage naturel (« sans X », « en moins d'une heure », « pour 6 » qui ouvre
+  la fiche a 6) ; « Avec ce que j'ai » (ingredients separes par des virgules,
+  resultats ranges par faisabilite) ; notifications systeme des minuteurs ;
+  raccourcis de l'icone installee (Mode cuisine, Courses, Favoris,
+  Techniques) et partage vers Cook Note ; bandeau vivant (inclinaison de
+  l'appareil, tactile seulement, coupe si animations reduites).
+- Icone : embleme cloche en filets dores, sans texte (`assets/brand/mark.svg`,
+  seule source) ; PNG, maskable et AVIF regeneres par
+  `node scripts/generate-brand-icons.js`.
 - Minuteurs : chaque duree ecrite dans une etape (« 25min », « 2h30 à 3h »)
   devient un bouton ; un intervalle part sur sa borne basse ; au-dela de 4h, pas
   de minuteur. Les minuteurs restent visibles sur toutes les pages (echeances en
@@ -769,8 +797,12 @@ Sommaire :
   `additionalMasters` et affichent leurs recettes en cartes visibles, jamais dans
   un menu deroulant. Les fiches a variantes internes gardent un selecteur natif
   `Choisir une variante` et la preparation choisie.
-- Fiche detail allegee : pas de saisons, difficulte, nombre d etapes, bouton
-  favori ou bouton partager. Selecteur natif de personnes quand possible.
+- Fiche detail allegee : pas de saisons, difficulte, nombre d etapes ni bouton
+  partager. Actions comme le site (v5.40) : `+ Courses`, `Mode cuisine` (une
+  etape a la fois, ecran allume), `Favori` (coeur dans la barre du haut et
+  ecran Favoris) et `Copier`. Selecteur natif de personnes quand possible.
+  Changement d'ecran : cercle sur couches materielles, premiere image dessinee
+  avant le depart (fluide sur tablette Android 5).
   `Avant de commencer` reste complet et derive des helpers web : allergenes,
   materiel, poids moyens, timing, recettes liees, repere cuilleres, conseils,
   notes restantes, conservation, rechauffage et fiche technique. L'essentiel

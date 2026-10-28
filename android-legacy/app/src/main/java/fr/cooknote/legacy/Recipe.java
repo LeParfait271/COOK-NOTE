@@ -111,12 +111,7 @@ final class Recipe {
     }
 
     private static String formatMinutes(int minutes) {
-        if (minutes >= 60) {
-            int hours = minutes / 60;
-            int rest = minutes % 60;
-            return rest == 0 ? hours + "h" : hours + "h" + (rest < 10 ? "0" : "") + rest;
-        }
-        return minutes + "min";
+        return Texts.formatMinutes(minutes);
     }
 
     private static <T> List<T> safe(List<T> value) {

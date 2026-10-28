@@ -38,7 +38,9 @@ const FILE_BUDGETS = [
   // 232 -> 240 Ko : controle qualite v5.40 (bandeau mobile, parts en -/+,
   // onglets Servir/Conserver/Maitriser, familles, filtre et tri des categories,
   // palette de recherche) ; 2 Ko de regles mortes retirees (npm run css:dead).
-  ['dist/style.css', 240 * KB],
+  // 240 -> 248 Ko : fonctions v5.42 (filtres de categorie en trois rangs,
+  // « Je sers a », mode cuisine a la voix, bandeau vivant, mode frigo).
+  ['dist/style.css', 248 * KB],
   ['personal-tools.css', 4 * KB],
   ['dist/personal-tools.css', 3 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.

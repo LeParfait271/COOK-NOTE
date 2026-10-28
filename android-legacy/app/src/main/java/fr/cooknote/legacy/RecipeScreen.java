@@ -89,17 +89,35 @@ final class RecipeScreen {
         if (!recipe.isCollection()) addHeroActions(content, recipe);
         // Categorie : le nombre de recettes est deja dans le bandeau.
         if (!recipe.isCollection()) addQuickFacts(content, recipe);
-        if (!recipe.isCollection()) addQuantityControls(content, recipe);
 
-        if (recipe.isCollection()) {
-            addCollectionCards(content, recipe);
-        } else {
-            if (recipe.variantGroups) addInlineVariantPicker(content, recipe);
-            addRecipeContentGrid(content, recipe);
-        }
-
+        // Le reste (reglages, ingredients, etapes, cartes) arrive apres le
+        // devoilement, en fondu : le cercle demarre aussitot le toucher.
+        final LinearLayout deferred = new LinearLayout(host);
+        deferred.setOrientation(LinearLayout.VERTICAL);
+        content.addView(deferred, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        final View screen = root;
         host.showScreen(root);
         if (MainActivity.PERF_LOG_ENABLED) host.perfLog("openRecipe:" + recipe.id, startedAt);
+        host.runAfterScreenReveal(new Runnable() {
+            @Override
+            public void run() {
+                if (host.currentScreenView != screen) return;
+                long fillStartedAt = host.perfStart();
+                boolean animate = host.motionEnabled() && host.screenRevealEnabled() && host.leavingScreenView == null && deferred.isAttachedToWindow() && deferred.getWidth() > 0;
+                if (recipe.isCollection()) {
+                    addCollectionCards(deferred, recipe);
+                } else {
+                    addQuantityControls(deferred, recipe);
+                    if (recipe.variantGroups) addInlineVariantPicker(deferred, recipe);
+                    addRecipeContentGrid(deferred, recipe);
+                }
+                if (animate) {
+                    deferred.setAlpha(0f);
+                    deferred.animate().alpha(1f).setDuration(180).start();
+                }
+                if (MainActivity.PERF_LOG_ENABLED) host.perfLog("fillRecipe:" + recipe.id, fillStartedAt);
+            }
+        });
     }
 
     void addDetailHero(LinearLayout content, final Recipe recipe) {
@@ -245,6 +263,32 @@ final class RecipeScreen {
         });
         buttons.add(shopping);
 
+        // Mode cuisine : une etape a la fois, ecran garde allume (comme le site).
+        if (!selectedRecipeSteps(recipe).isEmpty()) {
+            Button cook = host.actionButton("Mode cuisine", false);
+            cook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openCookMode(recipe, 0, true);
+                }
+            });
+            buttons.add(cook);
+        }
+
+        final boolean favorite = host.isFavorite(recipe.id);
+        Button favoriteButton = host.actionButton(favorite ? "En favori" : "Favori", false);
+        setButtonIcon(favoriteButton, favorite ? R.drawable.ic_heart_filled : R.drawable.ic_heart);
+        if (favorite) favoriteButton.setTextColor(COLOR_GOLD);
+        favoriteButton.setContentDescription(favorite ? "Retirer des favoris" : "Ajouter aux favoris");
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                host.toggleFavorite(recipe);
+                openRecipe(recipe, false);
+            }
+        });
+        buttons.add(favoriteButton);
+
         Button copy = host.actionButton("Copier", false);
         copy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -253,16 +297,6 @@ final class RecipeScreen {
             }
         });
         buttons.add(copy);
-
-        Button screen = host.actionButton(host.keepScreenOn ? "\u00C9cran actif" : "Veille auto", host.keepScreenOn);
-        screen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                host.setKeepScreenOn(!host.keepScreenOn);
-                openRecipe(recipe, false);
-            }
-        });
-        buttons.add(screen);
 
         LinearLayout row = new LinearLayout(host);
         row.setOrientation(LinearLayout.HORIZONTAL);
@@ -277,6 +311,170 @@ final class RecipeScreen {
             if (index < buttons.size() - 1) params.rightMargin = dp(8);
             row.addView(buttons.get(index), params);
         }
+    }
+
+    // Icone 18dp a gauche du libelle, l'ensemble centre dans le bouton.
+    void setButtonIcon(final Button button, int icon) {
+        final android.graphics.drawable.Drawable drawable = host.getResources().getDrawable(icon);
+        if (drawable == null) return;
+        drawable.setBounds(0, 0, dp(18), dp(18));
+        button.setCompoundDrawables(drawable, null, null, null);
+        button.setCompoundDrawablePadding(dp(6));
+        button.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                int textWidth = (int) button.getPaint().measureText(button.getText().toString());
+                int side = Math.max(dp(8), (right - left - textWidth - dp(24)) / 2);
+                if (button.getPaddingLeft() != side) button.setPadding(side, button.getPaddingTop(), side, button.getPaddingBottom());
+            }
+        });
+    }
+
+    // ---------- Favoris ----------
+    void openFavorites(boolean pushCurrent) {
+        if (pushCurrent) host.pushNavigationState();
+        host.releaseScreenImages();
+        host.currentScreen = MainActivity.SCREEN_FAVORITES;
+        host.currentRecipeId = "";
+        host.showingDetail = true;
+        host.releaseListSurface();
+        host.applyKeepScreenOn();
+
+        LinearLayout root = new LinearLayout(host);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(COLOR_BG);
+        host.addTopBar(root, true, "Favoris");
+
+        ScrollView scroll = new ScrollView(host);
+        scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        scroll.setVerticalScrollBarEnabled(false);
+        LinearLayout content = new LinearLayout(host);
+        content.setOrientation(LinearLayout.VERTICAL);
+        content.setPadding(dp(12), dp(12), dp(12), dp(24));
+        scroll.addView(content);
+        root.addView(scroll, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
+
+        List<VariantChoice> choices = new ArrayList<VariantChoice>();
+        for (String id : host.favorites) {
+            Recipe recipe = host.repository.find(id);
+            if (recipe != null) choices.add(new VariantChoice(recipe.title, recipe));
+        }
+        LinearLayout section = host.addSection(content, "Mes favoris", countLabel(choices.size(), "fiche", "fiches"));
+        if (choices.isEmpty()) {
+            host.body(section, "Aucun favori pour l’instant. Sur une fiche, touche « Favori » pour la retrouver ici.");
+        } else {
+            int columns = collectionGridColumns();
+            int cardHeight = collectionCardHeight(columns);
+            int cardImageWidth = collectionCardImageWidth(columns);
+            prewarmCollectionImages(choices, cardImageWidth, cardHeight);
+            LinearLayout row = null;
+            for (int index = 0; index < choices.size(); index += 1) {
+                if (index % columns == 0) {
+                    row = new LinearLayout(host);
+                    row.setOrientation(LinearLayout.HORIZONTAL);
+                    LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    rowParams.topMargin = dp(10);
+                    section.addView(row, rowParams);
+                }
+                addCollectionCard(row, null, choices.get(index), cardHeight, cardImageWidth, index % columns < columns - 1);
+            }
+            int missing = choices.size() % columns;
+            if (row != null && missing > 0) {
+                for (int index = missing; index < columns; index += 1) addCollectionSpacer(row, cardHeight, index < columns - 1);
+            }
+        }
+        host.showScreen(root);
+    }
+
+    // ---------- Mode cuisine ----------
+    // Une etape a la fois en grand, precedente / suivante, ecran garde allume ;
+    // le retour ramene a la fiche.
+    int cookStepIndex;
+
+    void openCookMode(final Recipe recipe, int index, boolean pushCurrent) {
+        final List<String> steps = selectedRecipeSteps(recipe);
+        if (steps.isEmpty()) return;
+        if (pushCurrent) host.pushNavigationState();
+        host.releaseScreenImages();
+        host.currentScreen = MainActivity.SCREEN_COOK;
+        host.currentRecipeId = recipe.id;
+        host.showingDetail = true;
+        cookStepIndex = Math.max(0, Math.min(index, steps.size() - 1));
+        host.getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        LinearLayout root = new LinearLayout(host);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(COLOR_BG);
+        host.addTopBar(root, true, "Mode cuisine");
+
+        LinearLayout body = new LinearLayout(host);
+        body.setOrientation(LinearLayout.VERTICAL);
+        int side = host.getResources().getDisplayMetrics().widthPixels >= dp(720) ? dp(56) : dp(18);
+        body.setPadding(side, dp(20), side, dp(16));
+        root.addView(body, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
+
+        TextView title = host.text(recipe.title, 14, COLOR_MUTED, false);
+        title.setSingleLine(true);
+        title.setEllipsize(TextUtils.TruncateAt.END);
+        body.addView(title);
+
+        TextView counter = host.text("Étape " + (cookStepIndex + 1) + " / " + steps.size(), 13, COLOR_GOLD, true);
+        counter.setLetterSpacing(0.08f);
+        counter.setPadding(0, dp(10), 0, dp(8));
+        body.addView(counter);
+
+        // Barre de progression : une portion doree par etape faite.
+        LinearLayout progress = new LinearLayout(host);
+        progress.setOrientation(LinearLayout.HORIZONTAL);
+        for (int step = 0; step < steps.size(); step += 1) {
+            View segment = new View(host);
+            segment.setBackgroundColor(step <= cookStepIndex ? COLOR_GOLD : Color.argb(50, 255, 255, 255));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(3), 1);
+            if (step < steps.size() - 1) params.rightMargin = dp(4);
+            progress.addView(segment, params);
+        }
+        body.addView(progress, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(3)));
+
+        ScrollView scroll = new ScrollView(host);
+        scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        scroll.setVerticalScrollBarEnabled(false);
+        TextView step = host.text(frenchSpacing(steps.get(cookStepIndex)), 26, COLOR_TEXT, false);
+        step.setTypeface(Ui.READING);
+        step.setLineSpacing(dp(4), 1.2f);
+        step.setPadding(0, dp(24), 0, dp(24));
+        scroll.addView(step);
+        LinearLayout.LayoutParams scrollParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1);
+        body.addView(scroll, scrollParams);
+
+        LinearLayout actions = new LinearLayout(host);
+        actions.setOrientation(LinearLayout.HORIZONTAL);
+        body.addView(actions, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(52)));
+
+        Button previous = host.actionButton("← Précédente", false);
+        previous.setEnabled(cookStepIndex > 0);
+        previous.setAlpha(cookStepIndex > 0 ? 1f : 0.4f);
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCookMode(recipe, cookStepIndex - 1, false);
+            }
+        });
+        LinearLayout.LayoutParams previousParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        previousParams.rightMargin = dp(10);
+        actions.addView(previous, previousParams);
+
+        final boolean last = cookStepIndex >= steps.size() - 1;
+        Button next = host.actionButton(last ? "Terminer" : "Étape suivante →", true);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (last) host.goBack();
+                else openCookMode(recipe, cookStepIndex + 1, false);
+            }
+        });
+        actions.addView(next, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+
+        host.showScreen(root);
     }
 
     void addQuickFacts(LinearLayout content, Recipe recipe) {
@@ -1156,7 +1354,7 @@ final class RecipeScreen {
     void addIngredientCheckRow(LinearLayout section, Recipe recipe, Recipe.Group group, final String item) {
         final String key = "ing|" + recipe.id + "|" + CookNoteRepository.normalize(group.title) + "|" + CookNoteRepository.normalize(item);
         CheckBox checkBox = new CheckBox(host);
-        checkBox.setText(host.scaleIngredient(item));
+        checkBox.setText(frenchSpacing(host.scaleIngredient(item)));
         checkBox.setTextColor(COLOR_TEXT);
         checkBox.setTextSize(host.adjustedTextSize(13));
         checkBox.setTypeface(Typeface.DEFAULT);

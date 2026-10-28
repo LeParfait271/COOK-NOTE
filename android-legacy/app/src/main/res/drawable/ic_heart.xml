@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trace repris du site (app-components.js, ICON_PATHS), commandes explicites
+     (Android 5 ne relit pas les commandes implicites). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M20.3 5.9c-1.8 -1.9 -4.8 -1.9 -6.6 0L12 7.6l-1.7 -1.7c-1.8 -1.9 -4.8 -1.9 -6.6 0c-1.9 2 -1.9 5.1 0 7.1L12 21l8.3 -8c1.9 -2 1.9 -5.1 0 -7.1Z"
+        android:strokeColor="#FFFFF8EE"
+        android:strokeWidth="1.9"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+</vector>

@@ -289,7 +289,10 @@ final class CookNoteRepository {
         if (containsWord(entry.tagWords, token) || containsWord(entry.categoryWords, token)) return 74;
         if (search.contains(token)) return 36;
         if (fuzzyContains(entry.titleWords, token)) return 48;
-        if (fuzzyContains(entry.searchWords, token)) return 16;
+        // Faute de frappe dans tout le texte (etapes comprises) : seulement pour
+        // les mots longs et une seule faute, sinon « tarte » trouvait carte,
+        // parte, garde... (232 fiches) et « poulet » boulet, poudre... (207).
+        if (token.length() >= 7 && fuzzyContains(entry.searchWords, token, 1)) return 16;
         return 0;
     }
 
@@ -302,8 +305,11 @@ final class CookNoteRepository {
     }
 
     private static boolean fuzzyContains(String[] words, String token) {
+        return fuzzyContains(words, token, token != null && token.length() <= 5 ? 1 : 2);
+    }
+
+    private static boolean fuzzyContains(String[] words, String token, int maxDistance) {
         if (words == null || words.length == 0 || token == null || token.length() < 4) return false;
-        int maxDistance = token.length() <= 5 ? 1 : 2;
         int checked = 0;
         for (String word : words) {
             if (word.length() < 4) continue;

@@ -15,6 +15,15 @@ function Button(props) {
 }
 
 const ICON_PATHS = {
+  mic: [
+    'M12 3.5a3 3 0 0 1 3 3v5a3 3 0 0 1-6 0v-5a3 3 0 0 1 3-3Z',
+    'M5.8 11.2a6.2 6.2 0 0 0 12.4 0',
+    'M12 17.4V21'
+  ],
+  bell: [
+    'M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.5 1.8H5l1.5-1.8Z',
+    'M10 20.5a2.2 2.2 0 0 0 4 0'
+  ],
   home: [
     'M3.5 11.2 12 4l8.5 7.2',
     'M5.8 10.2V20h12.4v-9.8',
@@ -460,12 +469,60 @@ function playKitchenChime() {
   });
 }
 
+// Notifications systeme (minuteurs, planning du service) : demandees au premier
+// geste qui en a besoin, affichees par le service worker (visibles meme quand
+// l'onglet est en arriere-plan). Sans serveur, il faut que Cook Note reste ouvert.
+const KITCHEN_NOTIFICATIONS = typeof window !== 'undefined' && 'Notification' in window;
+
+function askKitchenNotifications() {
+  if (!KITCHEN_NOTIFICATIONS || Notification.permission !== 'default') return Promise.resolve(KITCHEN_NOTIFICATIONS && Notification.permission === 'granted');
+  return Notification.requestPermission().then(result => result === 'granted').catch(() => false);
+}
+
+async function notifyKitchen(title, body, tag) {
+  if (!KITCHEN_NOTIFICATIONS || Notification.permission !== 'granted') return;
+  const options = { body, tag, renotify: true, icon: '/assets/brand/icon-192.png?v=2', badge: '/assets/brand/icon-192.png?v=2', vibrate: [320, 140, 320] };
+  try {
+    const registration = await navigator.serviceWorker?.getRegistration?.();
+    if (registration) {
+      await registration.showNotification(title, options);
+      return;
+    }
+  } catch {
+    /* Repli ci-dessous. */
+  }
+  try {
+    new Notification(title, options);
+  } catch {
+    /* Notifications indisponibles. */
+  }
+}
+
 function startKitchenTimer({ seconds, label, title = '' }) {
   if (!seconds) return;
   unlockKitchenAudio();
+  askKitchenNotifications();
   window.dispatchEvent(new CustomEvent(KITCHEN_TIMER_EVENT, { detail: { seconds, label, title } }));
 }
 
+// Pont vers les commandes vocales du mode cuisine : etat courant des
+// minuteurs et actions groupees (« stop », « pause », « reprends »).
+const KITCHEN_TIMER_CONTROL = 'cook-note:kitchen-timer-control';
+let kitchenTimersSnapshot = [];
+
+function kitchenTimersLeft() {
+  const now = Date.now();
+  return kitchenTimersSnapshot
+    .filter(timer => !timer.done)
+    .map(timer => ({ label: timer.label, paused: timer.pausedLeft != null, seconds: Math.ceil(timerRemaining(timer, now)) }));
+}
+
+// Un minuteur termine reste affiche (« Termine ») tant qu'on ne l'a pas ferme.
+const kitchenTimersRinging = () => kitchenTimersSnapshot.some(timer => timer.done);
+
+function controlKitchenTimers(action) {
+  window.dispatchEvent(new CustomEvent(KITCHEN_TIMER_CONTROL, { detail: { action } }));
+}
 // Texte d'etape : chaque duree devient un bouton minuteur. Seules les chaines
 // de premier niveau sont decoupees ; les liens restent intacts.
 function withKitchenTimers(content, title = '') {
@@ -537,12 +594,34 @@ function KitchenTimerDock() {
       const timer = { id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, label, title, total: seconds, endAt: Date.now() + seconds * 1000, done: false, pausedLeft: null };
       setTimers(list => [...list.filter(item => !item.done), timer].slice(-KITCHEN_TIMER_LIMIT));
       setNow(Date.now());
+      // Onglet en arriere-plan : le tic d'une seconde y est ralenti ; une
+      // echeance exacte rafraichit l'etat (et donc la notification) a l'heure.
+      window.setTimeout(() => setNow(Date.now()), seconds * 1000 + 50);
     };
     window.addEventListener(KITCHEN_TIMER_EVENT, add);
     return () => window.removeEventListener(KITCHEN_TIMER_EVENT, add);
   }, []);
 
+  // stop : ferme les minuteurs termines (qui sonnent), sinon tous ;
+  // pause / resume : tous les minuteurs en cours.
   useEffect(() => {
+    const control = event => {
+      const action = event.detail?.action;
+      const at = Date.now();
+      setTimers(list => {
+        if (action === 'stop') return list.some(timer => timer.done) ? list.filter(timer => !timer.done) : [];
+        if (action === 'pause') return list.map(timer => (timer.done || timer.pausedLeft != null ? timer : { ...timer, pausedLeft: Math.max(0, timer.endAt - at) }));
+        if (action === 'resume') return list.map(timer => (timer.done || timer.pausedLeft == null ? timer : { ...timer, endAt: at + timer.pausedLeft, pausedLeft: null }));
+        return list;
+      });
+      setNow(at);
+    };
+    window.addEventListener(KITCHEN_TIMER_CONTROL, control);
+    return () => window.removeEventListener(KITCHEN_TIMER_CONTROL, control);
+  }, []);
+
+  useEffect(() => {
+    kitchenTimersSnapshot = timers;
     try {
       sessionStorage.setItem(KITCHEN_TIMER_STORAGE, JSON.stringify(timers));
     } catch {
@@ -562,7 +641,7 @@ function KitchenTimerDock() {
     if (!finished.length) return;
     setTimers(list => list.map(timer => (finished.some(item => item.id === timer.id) ? { ...timer, done: true } : timer)));
     setAnnounce(`Minuteur terminé : ${finished.map(timer => [timer.label, timer.title].filter(Boolean).join(', ')).join(' ; ')}`);
-    try {
+    finished.forEach(timer => notifyKitchen('Minuteur terminé', [timer.label, timer.title].filter(Boolean).join(' · '), `timer-${timer.id}`));    try {
       navigator.vibrate?.([320, 140, 320, 140, 620]);
     } catch {
       /* Vibration indisponible. */
@@ -612,6 +691,42 @@ function KitchenTimerDock() {
       );
     })
   );
+}
+
+// Bandeau vivant : sur telephone et tablette, l'inclinaison de l'appareil
+// decale legerement les calques des bandeaux (profondeur). Variables CSS
+// --tilt-x / --tilt-y entre -1 et 1, une ecriture par image. Rien sur
+// ordinateur, sans capteur, ou si les animations sont reduites.
+function useTiltParallax() {
+  useEffect(() => {
+    const coarse = window.matchMedia?.('(pointer: coarse)').matches;
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    // iOS demande une permission explicite : l'effet reste reserve aux autres.
+    const needsPermission = typeof window.DeviceOrientationEvent?.requestPermission === 'function';
+    if (!coarse || reduced || !('DeviceOrientationEvent' in window) || needsPermission) return undefined;
+    const root = document.documentElement;
+    let frame = 0;
+    let latest = null;
+    const clamp = value => Math.max(-1, Math.min(1, value));
+    const apply = () => {
+      frame = 0;
+      if (!latest) return;
+      root.style.setProperty('--tilt-x', clamp((latest.gamma || 0) / 28).toFixed(3));
+      root.style.setProperty('--tilt-y', clamp(((latest.beta || 0) - 45) / 28).toFixed(3));
+    };
+    const onOrientation = event => {
+      if (event.gamma == null && event.beta == null) return;
+      latest = event;
+      root.classList.add('has-tilt');
+      if (!frame) frame = window.requestAnimationFrame(apply);
+    };
+    window.addEventListener('deviceorientation', onOrientation, { passive: true });
+    return () => {
+      window.removeEventListener('deviceorientation', onOrientation);
+      if (frame) window.cancelAnimationFrame(frame);
+      root.classList.remove('has-tilt');
+    };
+  }, []);
 }
 
 // Reflet lumineux qui suit la souris sur une carte (souris uniquement, via CSS).

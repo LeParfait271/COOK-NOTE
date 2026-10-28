@@ -190,6 +190,9 @@ function compactRecipeForCatalog(id, recipe) {
     ...(source?.tags || []),
     ...(source?.aliases || []),
     ...(source?.ingredients || []).flatMap(group => [group.group, ...(group.items || []), group.note, ...(group.notes || [])]),
+    ...(source?.ingredients || []).flatMap(group => (group?.recipe && typeof group.recipe === 'object')
+      ? [...(group.recipe.steps || []), ...((group.recipe.practical || {}).equipment || [])]
+      : []),
     ...(source?.steps || []),
     ...(source?.notes || []),
     ...(source?.technical || []).flatMap(item => [item.label, item.value, item.text]),
@@ -202,7 +205,8 @@ function compactRecipeForCatalog(id, recipe) {
     'refrigerateur', 'conservation', 'congeler', 'congelation', 'rechauff', 'service', 'dresser',
     'la veille', 'avance', 'week-end', 'semaine'
   ];
-  compact.workflowMask = signalPatterns.reduce((mask, pattern, index) => mask | (normalized.includes(pattern) ? (1 << index) : 0), 0);
+  const hasSignal = pattern => (pattern === 'four' ? /\bfour\b/.test(normalized) : normalized.includes(pattern));
+  compact.workflowMask = signalPatterns.reduce((mask, pattern, index) => mask | (hasSignal(pattern) ? (1 << index) : 0), 0);
   delete compact.practical;
   delete compact.notes;
   delete compact.steps;

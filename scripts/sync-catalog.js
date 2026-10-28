@@ -69,6 +69,10 @@ function flattenRecipeText(recipe) {
     ...(recipe?.tags || []),
     ...(recipe?.aliases || []),
     ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || []), group.note, ...(group.notes || [])]),
+    // Variantes integrees : leurs etapes et leur materiel (four, friture...).
+    ...(recipe?.ingredients || []).flatMap(group => (group?.recipe && typeof group.recipe === 'object')
+      ? [...(group.recipe.steps || []), ...((group.recipe.practical || {}).equipment || [])]
+      : []),
     ...(recipe?.steps || []),
     ...(recipe?.notes || []),
     ...(recipe?.technical || []).flatMap(item => [item.label, item.value, item.text]),
@@ -84,7 +88,9 @@ function compactSignalMask(recipe) {
     'refrigerateur', 'conservation', 'congeler', 'congelation', 'rechauff', 'service', 'dresser',
     'la veille', 'avance', 'week-end', 'semaine'
   ];
-  return patterns.reduce((mask, pattern, index) => mask | (text.includes(pattern) ? (1 << index) : 0), 0);
+  // « four » en mot entier : « fourchette », « fourre » ne sont pas un four.
+  const hasSignal = pattern => (pattern === 'four' ? /\bfour\b/.test(text) : text.includes(pattern));
+  return patterns.reduce((mask, pattern, index) => mask | (hasSignal(pattern) ? (1 << index) : 0), 0);
 }
 
 function leafVariantCount(recipe, recipesById, seen = new Set()) {

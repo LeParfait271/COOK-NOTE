@@ -70,6 +70,8 @@ final class HomeScreen {
         int screenWidth = host.getResources().getDisplayMetrics().widthPixels;
         int homeHeroHeight = Math.min(dp(250), Math.max(dp(150), (screenWidth * 9) / 25));
         header.addView(homeHero, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, homeHeroHeight));
+        homeHeroView = homeHero;
+        if (host.searchPanelOpen) homeHero.setVisibility(View.GONE);
 
         ImageView heroImage = new ImageView(host);
         heroImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -365,7 +367,7 @@ final class HomeScreen {
             return;
         }
         host.recentChipsRow.setVisibility(View.VISIBLE);
-        TextView label = host.text("Recentes", 10, COLOR_DIM, true);
+        TextView label = host.text("Récentes", 10, COLOR_DIM, true);
         label.setPadding(0, 0, dp(8), 0);
         host.recentChipsRow.addView(label);
         for (final String query : host.recentSearches) {
@@ -402,11 +404,16 @@ final class HomeScreen {
         return button;
     }
 
+    // Bandeau d'accueil replie pendant la recherche : en paysage, le clavier
+    // couvrait sinon le champ de saisie.
+    View homeHeroView;
+
     void setSearchPanelOpen(boolean open) {
         host.searchPanelOpen = open;
         if (host.searchPanel != null) {
             host.searchPanel.setVisibility(open ? View.VISIBLE : View.GONE);
         }
+        if (homeHeroView != null) homeHeroView.setVisibility(open ? View.GONE : View.VISIBLE);
         if (host.searchToggle != null) {
             host.searchToggle.setText(buildSearchToggleLabel());
         }

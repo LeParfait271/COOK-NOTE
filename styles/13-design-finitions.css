@@ -208,13 +208,6 @@
   margin-top: clamp(16px, 2.4vw, 28px);
 }
 
-/* 8 categories : 4 x 2 en grand ecran (3 colonnes laissaient un trou). */
-@media (min-width: 1100px) {
-  .home-view .master-recipe-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
 /* Cartes categorie : le nom est deja peint sur le bandeau de l'illustration ;
    le titre texte (en double, orthographe differente) reste pour les lecteurs
    d'ecran et la transition. */
@@ -336,6 +329,48 @@
   margin-top: 10px;
 }
 
+/* Faisabilite (« Tu as tout », « Il manque 1 ingredient ») : dans la palette
+   du site (le cyan detonnait), le vert sobre pour « tout est la ». */
+.ingredient-match-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 0 9px;
+  border: 1px solid color-mix(in oklch, var(--ds-gold) 45%, transparent);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--ds-gold) 10%, transparent);
+  color: var(--ds-gold-soft, var(--ds-gold));
+  font: 650 var(--ds-text-xs) / 1 var(--ds-font-body, system-ui);
+}
+
+.ingredient-match-badge.all {
+  border-color: color-mix(in oklch, #7fb27a 55%, transparent);
+  background: color-mix(in oklch, #7fb27a 12%, transparent);
+  color: #a9d3a3;
+}
+
+.mc-shell.theme-light .ingredient-match-badge.all {
+  color: #3f7a3a;
+}
+
+.command-action-grid .command-row.is-wide {
+  grid-column: 1 / -1;
+}
+
+/* Avec ce que j'ai : consigne sous le champ, pastille active dans le rail. */
+.search-fridge-hint {
+  margin: 4px 0 12px;
+  color: var(--muted);
+  font-size: var(--ds-text-sm);
+  line-height: 1.5;
+}
+
+.search-quick-rail button.active {
+  border-color: color-mix(in oklch, var(--ds-gold) 70%, transparent);
+  background: color-mix(in oklch, var(--ds-gold) 15%, transparent);
+  color: var(--text);
+}
+
 /* ---------- Cartes : bord net, image tenue dans le cadre, survol sobre ---------- */
 /* Le halo flou (ambilight) faisait des taches de couleur grossieres et
    l'image zoomee recouvrait le contour : la carte clippe son image, la lumiere
@@ -392,9 +427,27 @@
 .recipe-card:focus-visible h3,
 .variant-card-body strong,
 .variant-card:hover .variant-card-body strong,
+.variant-card:focus .variant-card-body strong,
+.variant-card:active .variant-card-body strong,
 .variant-card:focus-visible .variant-card-body strong {
   transform: none;
   outline: 0;
+  /* Jamais de cadre autour du titre (l'ancien focus clavier en ajoutait un,
+     visible au clic pendant la transition). */
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* Pastilles des cartes (difficulte, temps, variantes) : texte centre dans la case. */
+.variant-card-body small,
+.home-view .recipe-card .card-meta span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 0 8px;
+  line-height: 1;
 }
 
 /* Focus clavier seulement (jamais au clic) : bord dore, sans cadre blanc. */
@@ -414,6 +467,52 @@
   box-shadow: 0 14px 30px rgba(84, 61, 31, .22);
 }
 
+/* Cartes categorie de l'accueil : ni zoom ni decalage (l'image paraissait
+   grossie et le contour du haut disparaissait) ; le survol ne fait que
+   souligner le cadre. L'illustration (4:3) est calee en haut pour garder le
+   bandeau peint entier dans la carte 16:9. */
+.home-view .recipe-card.master-card .card-image {
+  object-position: 50% 12%;
+}
+
+.home-view .recipe-card.master-card.has-image,
+.home-view .recipe-card.master-card.has-image:hover,
+.home-view .recipe-card.master-card.has-image:focus-visible,
+.home-view .recipe-card.master-card.is-scroll-featured {
+  transform: none;
+  filter: none;
+}
+
+.home-view .recipe-card.master-card.has-image:hover .card-image,
+.home-view .recipe-card.master-card.has-image:focus-visible .card-image,
+.home-view .recipe-card.master-card.is-scroll-featured .card-image,
+.home-view .recipe-card.master-card:hover .card-media img {
+  transform: none;
+  filter: none;
+}
+
+/* Ecrans tactiles : le survol reste « colle » apres un toucher et la carte
+   mise en avant au defilement ajoutait filtre et decalage (contour du haut
+   rogne sur les navigateurs Android) : aucun mouvement, juste le cadre. */
+@media (hover: none) {
+  .recipe-card.has-image:hover,
+  .recipe-card.is-scroll-featured,
+  .variant-card:hover {
+    transform: none;
+    filter: none;
+  }
+
+  .recipe-card.has-image:hover .card-image,
+  .recipe-card.is-scroll-featured .card-image,
+  .variant-card:hover .variant-card-bg {
+    transform: none;
+  }
+
+  .mc-shell .recipe-card.is-scroll-featured {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent, var(--accent)) 46%, transparent);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .recipe-card.has-image:hover,
   .variant-card:hover {
@@ -427,63 +526,102 @@
 }
 
 /* ---------- Pages categorie : familles, filtre, tri, cartes ---------- */
+/* Trois rangs alignes sur une meme grille : [recherche | tri], puis
+   [Saison | pastilles], puis [Famille | pastilles]. Une seule hauteur (36px),
+   un seul style de pastille, libelles dans une colonne fixe. */
 .collection-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px 16px;
-  margin: 14px 0 16px;
-}
-
-.collection-family-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.collection-family-filter button {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 6px;
-  min-height: 34px;
-  padding: 0 13px;
-  border: 1px solid var(--ds-hairline, var(--line));
-  border-radius: 999px;
-  background: transparent;
-  color: var(--muted);
-  font: 600 var(--ds-text-xs) / 32px var(--ds-font-body, system-ui);
-  cursor: pointer;
-  transition: border-color 200ms ease-out, color 200ms ease-out, background-color 200ms ease-out;
-}
-
-.collection-family-filter button span {
-  color: var(--ds-gold);
-  font-variant-numeric: tabular-nums;
-}
-
-.collection-family-filter button:hover {
-  color: var(--text);
-}
-
-.collection-family-filter button.active {
-  border-color: color-mix(in oklch, var(--ds-gold) 60%, transparent);
-  background: color-mix(in oklch, var(--ds-gold) 14%, transparent);
-  color: var(--text);
+  display: grid;
+  gap: 12px;
+  margin: 4px 0 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--ds-hairline, var(--line));
 }
 
 .collection-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px;
+  gap: 10px;
+}
+
+.collection-filter-row {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+}
+
+/* Libelle aligne sur la premiere ligne de pastilles (hauteur 36px). */
+.collection-filter-label {
+  color: var(--ds-gold);
+  font: 650 var(--ds-text-xs) / 36px var(--ds-font-body, system-ui);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.collection-toolbar .collection-season-filter,
+.collection-family-filter {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  margin-left: auto;
+  margin: 0;
+}
+
+.collection-toolbar .collection-season-filter button,
+.collection-family-filter button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 36px;
+  min-height: 0;
+  padding: 0 14px;
+  border: 1px solid var(--ds-hairline, var(--line));
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: 550 var(--ds-text-sm) / 1 var(--ds-font-body, system-ui);
+  cursor: pointer;
+  transition: border-color 200ms ease-out, background-color 200ms ease-out;
+}
+
+.collection-toolbar .collection-season-filter .season-name {
+  font: inherit;
+}
+
+.collection-toolbar .collection-season-filter .season-count,
+.collection-family-filter button span {
+  color: var(--ds-gold);
+  font: 600 var(--ds-text-xs) / 1 var(--ds-font-body, system-ui);
+  font-variant-numeric: tabular-nums;
+}
+
+.collection-toolbar .collection-season-filter button:hover:not(:disabled),
+.collection-family-filter button:hover {
+  border-color: color-mix(in oklch, var(--ds-gold) 45%, var(--line));
+}
+
+.collection-toolbar .collection-season-filter button.active,
+.collection-family-filter button.active {
+  border-color: color-mix(in oklch, var(--ds-gold) 70%, transparent);
+  background: color-mix(in oklch, var(--ds-gold) 15%, transparent);
+}
+
+/* Saison en cours : le point d'or se place avant le nom, dans la pastille. */
+.collection-toolbar .collection-season-filter button.is-current::after {
+  position: static;
+  order: -1;
+  width: 5px;
+  height: 5px;
+  margin: 0;
 }
 
 .collection-search {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  height: 36px;
-  padding: 0 12px;
+  gap: 10px;
+  height: 40px;
+  padding: 0 14px;
   border: 1px solid var(--ds-hairline, var(--line));
   border-radius: 999px;
   color: var(--muted);
@@ -494,12 +632,15 @@
 }
 
 .collection-search .site-icon {
+  flex: none;
   width: 16px;
   height: 16px;
 }
 
 .collection-search input {
-  width: 150px;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
   border: 0;
   outline: 0;
   background: transparent;
@@ -509,8 +650,9 @@
 }
 
 .collection-sort select {
-  height: 36px;
-  padding: 0 30px 0 12px;
+  width: 100%;
+  height: 40px;
+  padding: 0 34px 0 16px;
   border: 1px solid var(--ds-hairline, var(--line));
   border-radius: 999px;
   background-color: transparent;
@@ -582,30 +724,377 @@
   }
 }
 
+/* Telephone : libelle au-dessus, pastilles defilant sur une ligne. */
 @media (max-width: 700px) {
   .collection-tools {
-    width: 100%;
-    margin-left: 0;
+    grid-template-columns: minmax(0, 1fr) 136px;
   }
 
-  .collection-search {
-    flex: 1;
+  .collection-filter-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
   }
 
-  .collection-search input {
-    width: 100%;
+  .collection-filter-label {
+    line-height: 1.4;
   }
 
+  .collection-toolbar .collection-season-filter,
   .collection-family-filter {
     flex-wrap: nowrap;
     overflow-x: auto;
     scrollbar-width: none;
-    margin-inline: -14px;
-    padding-inline: 14px;
   }
 
+  .collection-toolbar .collection-season-filter button,
   .collection-family-filter button {
     flex: none;
+  }
+}
+
+/* ---------- Bandeau vivant (inclinaison de l'appareil) ---------- */
+/* Proprietes individuelles (translate, scale) : elles s'ajoutent aux
+   animations existantes (respiration, defilement) sans les ecraser. */
+html.has-tilt .home-view > .hero .hero-wordmark {
+  translate: calc(var(--tilt-x, 0) * -6px) calc(var(--tilt-y, 0) * -4px);
+}
+
+html.has-tilt .home-view > .hero .hero-atmosphere {
+  translate: calc(var(--tilt-x, 0) * 16px) calc(var(--tilt-y, 0) * 10px);
+}
+
+html.has-tilt .recipe-detail-hero-media .recipe-detail-hero-image {
+  scale: 1.05;
+  translate: calc(var(--tilt-x, 0) * -12px) calc(var(--tilt-y, 0) * -8px);
+}
+
+/* ---------- Je sers a… (retroplanning) ---------- */
+.recipe-summary-panel .serve-planner {
+  grid-column: 1 / -1;
+}
+
+.serve-planner {
+  display: grid;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ds-hairline, var(--line));
+}
+
+.menu-serve-planner {
+  margin: 14px 0;
+  padding: 16px;
+  border: 1px solid var(--ds-hairline, var(--line));
+  border-radius: 14px;
+}
+
+.serve-planner-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.serve-planner-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 40px;
+  padding: 0 6px 0 16px;
+  border: 1px solid var(--ds-hairline, var(--line));
+  border-radius: 999px;
+}
+
+.serve-planner-time span {
+  color: var(--ds-gold);
+  font: 650 var(--ds-text-xs) / 1 var(--ds-font-body, system-ui);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.serve-planner-time input {
+  height: 30px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--ds-gold) 10%, transparent);
+  color: var(--text);
+  color-scheme: dark;
+  font: 600 var(--ds-text-base) / 1 var(--ds-font-body, system-ui);
+  font-variant-numeric: tabular-nums;
+}
+
+.mc-shell.theme-light .serve-planner-time input {
+  color-scheme: light;
+}
+
+.serve-planner-remind {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--ds-hairline, var(--line));
+  border-radius: 999px;
+  background: none;
+  color: var(--text);
+  font: 600 var(--ds-text-sm) / 1 var(--ds-font-body, system-ui);
+  cursor: pointer;
+}
+
+.serve-planner-remind .site-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.serve-planner-remind:disabled {
+  border-color: color-mix(in oklch, var(--ds-gold) 60%, transparent);
+  color: var(--ds-gold);
+  cursor: default;
+}
+
+.serve-planner-steps {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.serve-planner-steps li {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--ds-hairline, var(--line));
+}
+
+.serve-planner-steps li:last-child {
+  border-bottom: 0;
+}
+
+.serve-planner-steps time {
+  color: var(--ds-gold);
+  font: 600 var(--ds-text-base) / 1.3 var(--ds-font-display, serif);
+  font-variant-numeric: tabular-nums;
+}
+
+.serve-planner-steps li.is-past {
+  opacity: .5;
+}
+
+.serve-planner-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--ds-text-sm);
+}
+
+.serve-planner-hint.is-warning {
+  color: #e8a33b;
+}
+
+@media (max-width: 560px) {
+  .serve-planner-steps li {
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+  }
+}
+
+/* ---------- Mode cuisine : mains libres ---------- */
+/* Titre | etape | Voix | fermer : la colonne de plus vient du bouton Voix. */
+.cook-mode-head:has(.cook-mode-voice) {
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+}
+
+.cook-mode-voice {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--ds-color-border, var(--line));
+  border-radius: 999px;
+  background: none;
+  color: var(--text);
+  font: 600 var(--ds-text-sm) / 1 var(--ds-font-body, system-ui);
+  cursor: pointer;
+  transition: border-color 200ms ease-out, background-color 200ms ease-out, color 200ms ease-out;
+}
+
+.cook-mode-voice .site-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.cook-mode-voice.is-on {
+  border-color: color-mix(in oklch, var(--ds-gold) 70%, transparent);
+  background: color-mix(in oklch, var(--ds-gold) 15%, transparent);
+  color: var(--ds-gold-soft, var(--ds-gold));
+}
+
+.cook-mode-voice-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: min(960px, 100%);
+  margin: 10px auto 0;
+  color: var(--muted);
+  font-size: var(--ds-text-sm);
+  text-align: center;
+}
+
+.cook-mode-voice-hint.is-error {
+  flex-wrap: wrap;
+  color: #e8a33b;
+}
+
+.cook-mode-voice-retry {
+  flex: none;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid color-mix(in oklch, #e8a33b 60%, transparent);
+  border-radius: 999px;
+  background: color-mix(in oklch, #e8a33b 12%, transparent);
+  color: #f3c27a;
+  font: 600 var(--ds-text-sm) / 1 var(--ds-font-body, system-ui);
+  cursor: pointer;
+}
+
+/* Commande comprise : coche verte sobre devant le libelle. */
+.cook-mode-voice-ok {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: color-mix(in oklch, #7fb27a 30%, transparent);
+  color: #a9d3a3;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.cook-mode-voice-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e5484d;
+  animation: cn-voice-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes cn-voice-pulse {
+  50% { opacity: .35; transform: scale(.8); }
+}
+
+/* Information (« deja a la premiere etape ») : pastille doree, pas verte. */
+.cook-mode-voice-hint.is-info .cook-mode-voice-ok {
+  background: color-mix(in oklch, var(--ds-gold) 22%, transparent);
+  color: var(--ds-gold-soft, var(--ds-gold));
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+
+/* Aide « aide » : carte posee sur l'etape, sous l'en-tete. */
+.cook-mode-voice-help {
+  position: absolute;
+  z-index: 3;
+  top: 132px;
+  left: 50%;
+  width: min(560px, calc(100% - 32px));
+  padding: 22px 24px 20px;
+  border: 1px solid var(--ds-color-border, var(--line));
+  border-radius: 18px;
+  background: color-mix(in oklch, var(--bg, #0b0908) 92%, var(--ds-gold) 8%);
+  /* Voile sur l'etape dessous : aucun bout de texte ne depasse de la carte. */
+  box-shadow: 0 24px 60px rgb(0 0 0 / .45), 0 0 0 100vmax rgb(0 0 0 / .62);
+  transform: translateX(-50%);
+  animation: cn-voice-help-in 180ms ease-out;
+}
+
+.cook-mode-voice-help dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 10px 18px;
+  margin: 0;
+  padding-right: 32px;
+}
+
+.cook-mode-voice-help dt {
+  color: var(--ds-gold-soft, var(--ds-gold));
+  font-size: var(--ds-text-sm);
+  font-weight: 600;
+}
+
+.cook-mode-voice-help dd {
+  margin: 0;
+  color: var(--text);
+  font-size: var(--ds-text-sm);
+}
+
+.cook-mode-voice-help-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.cook-mode-voice-help-close .site-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.cook-mode:has(.cook-mode-voice-help) .cook-mode-step {
+  visibility: hidden;
+}
+
+@keyframes cn-voice-help-in {
+  from { opacity: 0; transform: translate(-50%, -6px); }
+}
+
+@media (max-width: 560px) {
+  .cook-mode-voice-help {
+    top: 132px;
+    padding: 18px 16px 16px;
+  }
+
+  .cook-mode-voice-help dl {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+
+  .cook-mode-voice-help dd + dt {
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 560px) {
+  .cook-mode-voice span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .cook-mode-voice {
+    width: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cook-mode-voice-dot {
+    animation: none;
   }
 }
 

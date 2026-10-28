@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-27T19:37:06.310Z",
+  "generatedAt": "2026-10-28T02:13:45.205Z",
   "mode": "propositions uniquement — validation utilisateur obligatoire",
   "sourceIntegrity": {
-    "before": "236166d8a4b806c325c2159f01bc148b4e62db82f6f5e559e276786d39ea239a",
-    "after": "236166d8a4b806c325c2159f01bc148b4e62db82f6f5e559e276786d39ea239a",
+    "before": "9fab401835c054c254c12f40194f930ead34bb1f9a9a0474edb5bd155b0ebfb8",
+    "after": "9fab401835c054c254c12f40194f930ead34bb1f9a9a0474edb5bd155b0ebfb8",
     "unchanged": true
   },
   "sources": [

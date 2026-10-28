@@ -6,7 +6,7 @@
 - Familles a variantes internes : 63
 - Options internes auditees : 217
 - Fiches executables auditees : 475
-- Source : v5.38 / 27/10/26 / recipes.js 236166d8a4b8
+- Source : v5.41 / 28/10/26 / recipes.js 9fab401835c0
 - Score moyen : 100/100
 - Fiches sous 78 : 0
 - Fiches avec defauts a verifier : 0

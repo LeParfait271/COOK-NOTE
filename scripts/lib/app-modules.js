@@ -16,6 +16,7 @@ const APP_MODULES = Object.freeze([
   'app-search.js',
   'app-recipe-content.js',
   'app-components.js',
+  'app-kitchen.js',
   'app-panels.js',
   'app-recipe-view.js',
   'app-main.js'

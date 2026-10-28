@@ -212,7 +212,12 @@ expect(
     && androidLegacyMainActivity.includes('Chaque choix affiche sa recette compl\\u00E8te')
     && androidLegacyMainActivity.includes('Variante selectionnee : ')
     && androidLegacyMainActivity.includes('SharedPreferences')
-    && !androidLegacyMainActivity.includes('favoriteIds')
+    // Favoris et mode cuisine comme le site (v5.40, demande utilisateur).
+    && androidLegacyMainActivity.includes('PREF_FAVORITES')
+    && androidLegacyMainActivity.includes('void openFavorites(')
+    && androidLegacyMainActivity.includes('void openCookMode(')
+    && androidLegacyMainActivity.includes('R.drawable.ic_heart')
+    && androidLegacyMainActivity.includes('next.setAlpha(0.01f)')
     && androidLegacyMainActivity.includes('PREF_SHOPPING')
     && androidLegacyMainActivity.includes('PREF_KEEP_SCREEN_ON')
     && androidLegacyMainActivity.includes('PREF_QUANTITY_FACTOR')

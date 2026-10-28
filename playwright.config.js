@@ -23,6 +23,8 @@ module.exports = defineConfig({
     actionTimeout: 10000,
     navigationTimeout: 20000,
     serviceWorkers: 'block',
+    // Tests muets : ni sonnerie de minuteur ni voix sur la machine.
+    launchOptions: { args: ['--mute-audio'] },
     screenshot: 'only-on-failure',
     trace: 'on-first-retry'
   },

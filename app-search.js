@@ -278,22 +278,89 @@ const SEARCH_EXCLUSION_PATTERNS = {
   friture: /\b(friture|frire|frit|frites)\b/
 };
 
+const SEARCH_NUMBER_WORDS = { un: 1, une: 1, deux: 2, trois: 3, quatre: 4, cinq: 5, six: 6, sept: 7, huit: 8, neuf: 9, dix: 10, douze: 12, quinze: 15, vingt: 20, trente: 30, quarante: 40, quarantecinq: 45 };
+
+function searchNumber(value) {
+  const word = String(value || '').replace(/[\s-]/g, '');
+  return /^\d+$/.test(word) ? Number(word) : SEARCH_NUMBER_WORDS[word] || 0;
+}
+
+// Langage naturel : « dessert sans four pour 6 en moins d'une heure ».
+// - « sans X » ecarte les fiches qui utilisent X ;
+// - « en moins de 30 min », « en moins d'une heure », « en 45 minutes » : duree maximale ;
+// - « pour 6 (personnes) » : la fiche s'ouvrira a ce nombre de convives.
+// Le reste de la phrase est cherche normalement.
 function splitSearchExclusions(normalizedQuery) {
   const excluded = [];
-  const rest = normalizedQuery.replace(/\bsans\s+([a-z0-9-]{3,})/g, (match, word) => {
-    if (SEARCH_EXCLUSION_INTENTS.has(word)) return match;
-    excluded.push(word.replace(/s$/, ''));
-    return ' ';
-  }).replace(/\s+/g, ' ').trim();
-  return { rest, excluded };
+  let maxMinutes = 0;
+  let servings = 0;
+  const rest = normalizedQuery
+    .replace(/['’]/g, ' ')
+    .replace(/\b(?:en\s+)?(?:moins\s+(?:d\s*|de\s+)|maxi(?:mum)?\s+|max\s+)?((?:\d+|une?|deux|trois|quatre|cinq|dix|quinze|vingt|trente|quarante|quarante\s*cinq))\s*(heures?|h|minutes?|min|mn)\b/g, (match, amount, unit) => {
+      if (!/moins|en\s|max/.test(match) && !/^en\b/.test(match)) return match;
+      const value = searchNumber(amount);
+      if (!value) return match;
+      maxMinutes = /^h/.test(unit) ? value * 60 : value;
+      return ' ';
+    })
+    .replace(/\bpour\s+(\d+|deux|trois|quatre|cinq|six|sept|huit|dix|douze)(?:\s+(?:personnes?|pers|convives?|parts?|portions?))?\b/g, (match, amount) => {
+      servings = searchNumber(amount);
+      return ' ';
+    })
+    .replace(/\bsans\s+([a-z0-9-]{3,})/g, (match, word) => {
+      if (SEARCH_EXCLUSION_INTENTS.has(word)) return match;
+      excluded.push(word.replace(/s$/, ''));
+      return ' ';
+    })
+    .replace(/\s+/g, ' ')
+    .trim();
+  return { rest, excluded, maxMinutes, servings };
+}
+
+function recipeFitsSearchConstraints(recipe, constraints) {
+  if (constraints.excluded.some(word => recipeUsesExcluded(recipe, word))) return false;
+  if (constraints.maxMinutes) {
+    const total = getRecipeTiming(recipe).total;
+    if (total && total > constraints.maxMinutes) return false;
+  }
+  return true;
+}
+
+// Nombre de convives demande dans la recherche : repris a l'ouverture de la fiche.
+const REQUESTED_SERVINGS_KEY = 'cook_note_requested_servings';
+
+function rememberRequestedServings(query) {
+  const { servings } = splitSearchExclusions(normalizeText(query || ''));
+  try {
+    if (servings) sessionStorage.setItem(REQUESTED_SERVINGS_KEY, String(servings));
+    else sessionStorage.removeItem(REQUESTED_SERVINGS_KEY);
+  } catch {
+    /* Stockage indisponible : la fiche s'ouvre a sa quantite de base. */
+  }
+}
+
+function takeRequestedServings() {
+  try {
+    const value = Number(sessionStorage.getItem(REQUESTED_SERVINGS_KEY));
+    sessionStorage.removeItem(REQUESTED_SERVINGS_KEY);
+    return value > 0 ? value : 0;
+  } catch {
+    return 0;
+  }
 }
 
 function recipeUsesExcluded(recipe, word) {
+  // Fiche resumee du catalogue (sans etapes ni materiel) : ses gestes
+  // compacts (four, friture...) suffisent a reconnaitre la cuisson.
   const text = normalizeText([
     recipe.title,
     ...(recipe.ingredients || []).flatMap(group => group.items || []),
     ...(recipe.practical?.equipment || []),
-    ...(recipe.steps || [])
+    ...(recipe.steps || []),
+    ...(recipe.ingredients || []).flatMap(group => group?.recipe && typeof group.recipe === 'object'
+      ? [...(group.recipe.steps || []), ...(group.recipe.practical?.equipment || [])]
+      : []),
+    ...(typeof getCompactWorkflowSignals === 'function' ? getCompactWorkflowSignals(recipe) : [])
   ].map(stripHtml).join(' '));
   const pattern = SEARCH_EXCLUSION_PATTERNS[word] || new RegExp(`\\b${word.replace(/[^a-z0-9-]/g, '')}s?\\b`);
   return pattern.test(text);
@@ -302,9 +369,10 @@ function recipeUsesExcluded(recipe, word) {
 function scoreRecipeSearch(recipe, query, recipesById = {}) {
   const fullNeedle = normalizeText(query).trim();
   if (!fullNeedle) return { score: 0, reasons: [] };
-  const { rest, excluded } = splitSearchExclusions(fullNeedle);
-  if (excluded.some(word => recipeUsesExcluded(recipe, word))) return { score: 0, reasons: [] };
-  if (!rest && excluded.length) return { score: 1, reasons: [] };
+  const constraints = splitSearchExclusions(fullNeedle);
+  const { rest } = constraints;
+  if (!recipeFitsSearchConstraints(recipe, constraints)) return { score: 0, reasons: [] };
+  if (!rest && (constraints.excluded.length || constraints.maxMinutes || constraints.servings)) return { score: 1, reasons: [] };
   const needle = rest || fullNeedle;
   const tokenGroups = expandSearchTokens(searchTokens(needle));
   if (!tokenGroups.length) return { score: 0, reasons: [] };

@@ -64,6 +64,7 @@ public class MainActivity extends Activity {
     static final String PREF_KEEP_SCREEN_ON = "keep_screen_on";
     static final String PREF_QUANTITY_FACTOR = "quantity_factor";
     static final String PREF_LAST_RECIPE = "last_recipe";
+    static final String PREF_FAVORITES = "favorites";
     static final String STATE_SCREEN = "screen";
     static final String STATE_RECIPE_ID = "recipe_id";
     static final String STATE_QUERY = "query";
@@ -74,6 +75,8 @@ public class MainActivity extends Activity {
     static final int SCREEN_LIST = 0;
     static final int SCREEN_RECIPE = 1;
     static final int SCREEN_SHOPPING = 2;
+    static final int SCREEN_FAVORITES = 3;
+    static final int SCREEN_COOK = 4;
     static final int DETAIL_IMAGE_MAX_WIDTH = 960;
     static final int BACK_SWIPE_EDGE_DP = 64;
     static final int BACK_SWIPE_TRIGGER_DP = 86;
@@ -110,6 +113,8 @@ public class MainActivity extends Activity {
     boolean searchPanelOpen;
     boolean showingDetail;
     boolean keepScreenOn;
+    /** Favoris, comme sur le site (ordre d'ajout, plus recent en tete). */
+    final ArrayList<String> favorites = new ArrayList<String>();
     float quantityFactor = 1f;
     int currentScreen = SCREEN_LIST;
     String currentRecipeId = "";
@@ -199,14 +204,15 @@ public class MainActivity extends Activity {
         restoreBackStack(state.getString(STATE_BACK_STACK, ""));
         listFirstVisiblePosition = Math.max(0, state.getInt(STATE_LIST_FIRST, 0));
         listTopOffset = state.getInt(STATE_LIST_TOP, 0);
-        if (currentScreen == SCREEN_RECIPE && repository.find(currentRecipeId) == null) {
+        if ((currentScreen == SCREEN_RECIPE || currentScreen == SCREEN_COOK) && repository.find(currentRecipeId) == null) {
             currentScreen = SCREEN_LIST;
             currentRecipeId = "";
         }
     }
 
     void showCurrentScreen() {
-        if (currentScreen == SCREEN_RECIPE) {
+        // Mode cuisine interrompu (rotation, retour dans l'app) : la fiche.
+        if (currentScreen == SCREEN_RECIPE || currentScreen == SCREEN_COOK) {
             Recipe recipe = repository.find(currentRecipeId);
             if (recipe != null) {
                 recipeScreen.openRecipe(recipe, false);
@@ -215,6 +221,10 @@ public class MainActivity extends Activity {
         }
         if (currentScreen == SCREEN_SHOPPING) {
             shoppingScreen.showShoppingList(false);
+            return;
+        }
+        if (currentScreen == SCREEN_FAVORITES) {
+            recipeScreen.openFavorites(false);
             return;
         }
         homeScreen.showList();
@@ -336,15 +346,34 @@ public class MainActivity extends Activity {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && motionEnabled();
     }
 
+    // Contenu lourd d'un ecran (ingredients, etapes, cartes) ajoute apres le
+    // devoilement : le cercle part tout de suite au lieu d'attendre toute la
+    // construction (plusieurs centaines de ms sur tablette Android 5).
+    Runnable pendingAfterReveal;
+    boolean revealBackward;
+
+    void runAfterScreenReveal(Runnable fill) {
+        // Retour : l'ecran d'arrivee est visible sous le cercle qui se referme,
+        // il doit etre complet ; sans animation, tout de suite.
+        if (leavingScreenView == null || revealBackward) {
+            fill.run();
+            return;
+        }
+        pendingAfterReveal = fill;
+    }
+
     void showScreen(final View next) {
         if (screenHost == null) {
             screenHost = new FrameLayout(this);
             screenHost.setBackgroundColor(COLOR_BG);
             setContentView(screenHost);
         }
+        // Contenu en attente de l'ecran qu'on quitte : inutile desormais.
+        pendingAfterReveal = null;
         finishScreenReveal();
         final View previous = currentScreenView;
         final boolean backward = navigatingBack;
+        revealBackward = backward;
         navigatingBack = false;
         currentScreenView = next;
         // Meme ecran reconstruit (coche, portions, quantites) : sans effet.
@@ -366,12 +395,52 @@ public class MainActivity extends Activity {
         if (backward) screenHost.addView(next, 0, fill);
         else screenHost.addView(next, fill);
         final View animated = backward ? previous : next;
+        // Premiere image de la nouvelle fiche (mesure, mise en page, texture :
+        // la plus lourde) dessinee avant le depart, presque invisible (0,01 :
+        // a 0, Android ne la dessinerait pas) ; le cercle part a l'image suivante.
+        if (!backward) next.setAlpha(0.01f);
         animated.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
                 animated.getViewTreeObserver().removeOnPreDrawListener(this);
-                startScreenReveal(animated, backward);
+                waitForCalmFrames(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (leavingScreenView != previous) return;
+                        next.setAlpha(1f);
+                        startScreenReveal(animated, backward);
+                    }
+                });
                 return true;
+            }
+        });
+    }
+
+    // Comme le site : le cercle attend que la fiche soit prete (photo et
+    // images envoyees a l'ecran pendant les premieres images, les plus
+    // lourdes) : deux images calmes de suite, ou 150 ms au plus.
+    static final long CALM_FRAME_NANOS = 22000000L;
+    static final long CALM_WAIT_MAX_NANOS = 150000000L;
+
+    void waitForCalmFrames(final Runnable start) {
+        final android.view.Choreographer choreographer = android.view.Choreographer.getInstance();
+        choreographer.postFrameCallback(new android.view.Choreographer.FrameCallback() {
+            long first;
+            long previous;
+            int calm;
+
+            @Override
+            public void doFrame(long now) {
+                if (first == 0) first = now;
+                if (previous != 0) calm = now - previous < CALM_FRAME_NANOS ? calm + 1 : 0;
+                previous = now;
+                if (calm >= 2 || now - first >= CALM_WAIT_MAX_NANOS) {
+                    start.run();
+                    return;
+                }
+                // Une image par tour : la vue (presque invisible) est redessinee.
+                if (currentScreenView != null) currentScreenView.invalidate();
+                choreographer.postFrameCallback(this);
             }
         });
     }
@@ -407,9 +476,14 @@ public class MainActivity extends Activity {
         if (running != null) running.cancel();
         View leaving = leavingScreenView;
         leavingScreenView = null;
-        if (leaving == null || screenHost == null) return;
-        screenHost.removeView(leaving);
-        releaseImagesInTree(leaving);
+        if (currentScreenView != null) currentScreenView.setAlpha(1f);
+        if (leaving != null && screenHost != null) {
+            screenHost.removeView(leaving);
+            releaseImagesInTree(leaving);
+        }
+        Runnable pending = pendingAfterReveal;
+        pendingAfterReveal = null;
+        if (pending != null) pending.run();
     }
 
     void releaseImagesInTree(View view) {
@@ -526,7 +600,7 @@ public class MainActivity extends Activity {
         index.setBackground(panel(Color.TRANSPARENT, COLOR_BORDER, 1, 16));
         row.addView(index, new LinearLayout.LayoutParams(dp(30), dp(30)));
 
-        TextView body = text(value, 15, COLOR_TEXT, false);
+        TextView body = text(frenchSpacing(value), 15, COLOR_TEXT, false);
         body.setTypeface(Ui.READING);
         body.setLineSpacing(dp(3), 1.18f);
         LinearLayout.LayoutParams bodyParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
@@ -717,6 +791,8 @@ public class MainActivity extends Activity {
         parseRawIds(prefs.getString(PREF_SHOPPING_STAPLES, ""), shopping.stapleKeys);
         parseRawIds(prefs.getString(PREF_INGREDIENT_DONE, ""), ingredientDoneKeys);
         parseRecentSearches(prefs.getString(PREF_RECENT_SEARCHES, ""), recentSearches);
+        favorites.clear();
+        parseIds(prefs.getString(PREF_FAVORITES, ""), favorites, 0);
     }
 
     void saveUserState() {
@@ -731,7 +807,22 @@ public class MainActivity extends Activity {
         editor.putBoolean(PREF_KEEP_SCREEN_ON, keepScreenOn);
         editor.putFloat(PREF_QUANTITY_FACTOR, quantityFactor);
         editor.putString(PREF_LAST_RECIPE, lastRecipeId == null ? "" : lastRecipeId);
+        editor.putString(PREF_FAVORITES, joinIds(favorites));
         editor.apply();
+    }
+
+    boolean isFavorite(String id) {
+        return favorites.contains(id);
+    }
+
+    void toggleFavorite(Recipe recipe) {
+        if (favorites.remove(recipe.id)) {
+            Toast.makeText(this, "Retiré des favoris", Toast.LENGTH_SHORT).show();
+        } else {
+            favorites.add(0, recipe.id);
+            Toast.makeText(this, "Ajouté aux favoris", Toast.LENGTH_SHORT).show();
+        }
+        saveUserState();
     }
 
     void applySystemChrome() {
@@ -898,6 +989,17 @@ public class MainActivity extends Activity {
         bar.addView(basket, topBarIconParams());
         refreshShoppingButton();
 
+        // Favoris, entre le panier et la mise a jour (meme ordre que le site).
+        bar.addView(iconButton(R.drawable.ic_heart, "Favoris", currentScreen == SCREEN_FAVORITES, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentScreen == SCREEN_FAVORITES) return;
+                hideKeyboard();
+                homeScreen.setSearchPanelOpen(false);
+                recipeScreen.openFavorites(true);
+            }
+        }), topBarIconParams());
+
         if (!detail) {
             bar.addView(iconButton(R.drawable.ic_update, "Mise a jour", false, new View.OnClickListener() {
                 @Override
@@ -962,16 +1064,21 @@ public class MainActivity extends Activity {
             } else if (previous.screen == SCREEN_SHOPPING) {
                 shoppingScreen.showShoppingList(false);
                 return;
+            } else if (previous.screen == SCREEN_FAVORITES) {
+                recipeScreen.openFavorites(false);
+                return;
             }
         }
         homeScreen.showList();
     }
 
     void pushNavigationState() {
-        if (currentScreen == SCREEN_RECIPE && currentRecipeId.length() > 0) {
+        if ((currentScreen == SCREEN_RECIPE || currentScreen == SCREEN_COOK) && currentRecipeId.length() > 0) {
             detailBackStack.push(new NavState(SCREEN_RECIPE, currentRecipeId));
         } else if (currentScreen == SCREEN_SHOPPING) {
             detailBackStack.push(new NavState(SCREEN_SHOPPING, ""));
+        } else if (currentScreen == SCREEN_FAVORITES) {
+            detailBackStack.push(new NavState(SCREEN_FAVORITES, ""));
         }
         trimBackStack();
     }

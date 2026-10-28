@@ -196,7 +196,8 @@ expect('Recherche ingredients integree absente.', files.app.includes('scoreIngre
 expect('Recherche separee ingredients encore presente.', !files.app.includes('ingredient-search-input') && !files.app.includes('ingredient-search-help') && !files.app.includes('FridgeAssistant'));
 expect('Recherche modale encore surchargee.', !files.app.includes('recipe-difficulty-filter') && !files.app.includes('Recherches récentes') && !files.app.includes('Dernières fiches') && !files.app.includes("title: 'Textures'") && files.app.includes("h('h2', null, 'Rechercher')") && files.app.includes('search-empty-state'));
 expect('Recherche par intention absente.', files.app.includes('getRecipeIntentLabels') && files.app.includes('sans cuisson') && files.app.includes('à préparer à l’avance') && files.app.includes('congelable'));
-expect('Recherche rapide epuree absente.', files.app.includes("{ label: 'Rapide', query: 'rapide' }") && files.app.includes("{ label: 'Au four', query: 'cuisson au four' }") && files.app.includes("{ label: 'Dessert', query: 'dessert' }"));
+// Quatre raccourcis au plus : « Avec ce que j'ai » (v5.42) a remplace « Dessert ».
+expect('Recherche rapide epuree absente.', files.app.includes("{ label: 'Rapide', query: 'rapide' }") && files.app.includes("{ label: 'Au four', query: 'cuisson au four' }") && files.app.includes("'Avec ce que j’ai'"));
 expect('Filtres avances encore presents.', !files.app.includes('QUICK_FILTERS') && !files.app.includes('QuickFilterBar') && !files.style.includes('quick-filter-row'));
 expect('Page techniques absente.', files.app.includes('TECHNIQUE_GUIDES') && files.app.includes('TechniquesView'));
 expect('Techniques de cuisinier incompletes.', files.app.includes('Émincer') && files.app.includes('Monder des tomates') && files.app.includes('Abaisser une pâte') && files.app.includes('Foncer un moule') && files.app.includes('Étuver') && files.app.includes('Macaroner') && files.app.includes('Lisser'));

@@ -128,7 +128,9 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.recipe-card[data-recipe-id="accompagnements_maitre"] h3')).toBeVisible();
     await page.keyboard.press('Control+K');
     await expect(page.locator('.command-palette')).toBeVisible();
-    expect(await page.locator('.command-row').count()).toBeLessThanOrEqual(4);
+    // Cinq acces rapides : « Avec ce que j'ai » (pleine ligne) puis quatre.
+    expect(await page.locator('.command-row').count()).toBeLessThanOrEqual(5);
+    await expect(page.locator('.command-row.is-wide')).toHaveCount(1);
     await expect(page.locator('.command-recipe-row')).toHaveCount(0);
     await page.locator('#cook-note-command-input').fill('poulet');
     await expect(page.locator('.command-recipe-row')).not.toHaveCount(0);
@@ -167,7 +169,8 @@ test.describe('Cook Note visual smoke', () => {
       };
     });
     const parentGridColumns = await page.locator('.master-recipe-grid').evaluate(grid => getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length);
-    expect(parentGridColumns).toBe(testInfo.project.name === 'mobile' ? 1 : 3);
+    // 8 categories : 4 x 2 en grand ecran.
+    expect(parentGridColumns).toBe(testInfo.project.name === 'mobile' ? 1 : 4);
     expect(homeLayout.footerGap).toBeGreaterThanOrEqual(testInfo.project.name === 'mobile' ? 32 : 48);
     expect(homeLayout.footerGap).toBeLessThanOrEqual(128);
     expect(homeLayout.leftDelta).toBeLessThanOrEqual(1);
@@ -953,6 +956,39 @@ test.describe('Cook Note visual smoke', () => {
       });
     });
   }
+
+  test('category cards never frame their title and center their pills', async ({ page }) => {
+    await forceTheme(page, 'dark');
+    await page.goto('/recette/apero_maitre');
+    await waitForCookNote(page);
+    const card = page.locator('.variant-card').filter({ hasText: 'Accras de morue' }).first();
+    await card.scrollIntoViewIfNeeded();
+    const state = () => card.evaluate(node => {
+      const title = getComputedStyle(node.querySelector('.variant-card-body strong'));
+      const pills = [...node.querySelectorAll('.variant-card-body small')].map(small => {
+        const box = small.getBoundingClientRect();
+        const range = document.createRange();
+        range.selectNodeContents(small);
+        const text = range.getBoundingClientRect();
+        return Math.abs((text.top - box.top) - (box.bottom - text.bottom));
+      });
+      return {
+        framed: title.backgroundColor !== 'rgba(0, 0, 0, 0)' || title.boxShadow !== 'none'
+          || (title.borderTopStyle !== 'none' && parseFloat(title.borderTopWidth) > 0 && title.borderTopColor !== 'rgba(0, 0, 0, 0)'),
+        pills
+      };
+    });
+    // Focus clavier puis appui (le cadre apparaissait au clic, pendant la transition).
+    await card.evaluate(node => node.focus({ focusVisible: true }));
+    const box = await card.boundingBox();
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await page.mouse.down();
+    const pressed = await state();
+    await page.mouse.up();
+    expect(pressed.framed).toBe(false);
+    expect(pressed.pills.length).toBeGreaterThan(0);
+    pressed.pills.forEach(gap => expect(gap).toBeLessThanOrEqual(2));
+  });
 
   test('category collections show recipes without redundant controls', async ({ page }) => {
     await forceTheme(page, 'dark');
