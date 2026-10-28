@@ -650,8 +650,8 @@ test.describe('Cook Note visual smoke', () => {
 
     await expect(page.locator('.cooking-mode-shell')).toHaveCount(0);
     await expect(page.locator('.step-list .kitchen-timer-chip').first()).toHaveText(/20\smin/);
-    await page.getByRole('button', { name: 'Ouvrir le mode cuisine' }).click();
-    const cook = page.getByRole('dialog', { name: /Mode cuisine/ });
+    await page.getByRole('button', { name: 'Ouvrir le mode mains libres' }).click();
+    const cook = page.getByRole('dialog', { name: /Mode mains libres/ });
     await expect(cook).toBeVisible();
     await expect(cook.locator('.cook-mode-count')).toHaveText('Étape 1 / 6');
     expect(await page.locator('#cook-note-content').evaluate(node => node.inert)).toBe(true);
@@ -670,7 +670,7 @@ test.describe('Cook Note visual smoke', () => {
     expect(overlap).toBe(false);
     await page.keyboard.press('Escape');
     await expect(cook).toHaveCount(0);
-    // Echap ferme seulement le mode cuisine : on reste sur la fiche, hors plein ecran.
+    // Echap ferme seulement le mode mains libres : on reste sur la fiche, hors plein ecran.
     await expect(page).toHaveURL(/poulet_sauce_pimentee/);
     await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(false);
     expect(await page.locator('#cook-note-content').evaluate(node => node.inert)).toBe(false);

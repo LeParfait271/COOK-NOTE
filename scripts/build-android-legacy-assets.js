@@ -643,4 +643,23 @@ function buildLiteAssets() {
   console.log(`Images alignees sur le theme nuit du site: ${Object.keys(darkThemeImages).length}`);
 }
 
+// Mode mains libres : modele vocal francais Vosk (voice-model/, le meme que le
+// site) decompresse dans assets/model-fr. Le fichier « uuid » permet a
+// StorageService.unpack de ne le recopier qu'au changement de modele.
+const VOICE_MODEL_ARCHIVE = path.join(ROOT, 'voice-model', 'vosk-model-small-fr-0.22.tar.gz');
+const VOICE_MODEL_OUT = path.join(ROOT, 'android-legacy', 'build', 'generated', 'voice-model', 'model-fr');
+
+function buildVoiceModelAssets() {
+  if (!fs.existsSync(VOICE_MODEL_ARCHIVE)) throw new Error(`Modele vocal introuvable : ${VOICE_MODEL_ARCHIVE}`);
+  fs.rmSync(VOICE_MODEL_OUT, { recursive: true, force: true });
+  ensureDir(VOICE_MODEL_OUT);
+  const { spawnSync } = require('node:child_process');
+  const result = spawnSync('tar', ['-xzf', VOICE_MODEL_ARCHIVE, '-C', VOICE_MODEL_OUT, '--strip-components=1'], { stdio: 'inherit' });
+  if (result.status !== 0) throw new Error('Decompression du modele vocal impossible (tar).');
+  fs.rmSync(path.join(VOICE_MODEL_OUT, 'README'), { force: true });
+  fs.writeFileSync(path.join(VOICE_MODEL_OUT, 'uuid'), 'vosk-model-small-fr-0.22\n', 'utf8');
+  console.log(`Modele vocal Android OK: ${VOICE_MODEL_OUT}`);
+}
+
 buildLiteAssets();
+buildVoiceModelAssets();

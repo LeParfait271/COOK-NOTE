@@ -2,7 +2,7 @@
   Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; font-src 'self' data:
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=()
+  Permissions-Policy: camera=(), microphone=(self), geolocation=(), payment=(), usb=(), serial=()
   Cross-Origin-Opener-Policy: same-origin
 
 /
@@ -50,6 +50,9 @@
 /app-main.js
   Cache-Control: public, max-age=300, must-revalidate
 
+/app-kitchen.js
+  Cache-Control: public, max-age=300, must-revalidate
+
 /app-images.js
   Cache-Control: public, max-age=300, must-revalidate
 
@@ -91,6 +94,13 @@
 
 /assets/vendor/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Worker de reconnaissance vocale locale (Vosk) : seul fichier autorise a
+# evaluer du code (WebAssembly compile) ; il telecharge le modele francais
+# depuis le depot GitHub. Le son ne quitte jamais l'appareil.
+/assets/vendor/vosk/vosk-worker.js
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval'; connect-src 'self' https://raw.githubusercontent.com
 
 /assets/recipes/cards/*
   Cache-Control: public, max-age=31536000, immutable

@@ -220,7 +220,7 @@ function App() {
       if (lastId) {
         try { sessionStorage.setItem('cook_note_open_cook_mode', '1'); } catch { /* sans stockage : la fiche s'ouvre */ }
         openRecipe(lastId);
-      } else notify('Ouvre une fiche une première fois : le raccourci la reprendra en mode cuisine.');
+      } else notify('Ouvre une fiche une première fois : le raccourci la reprendra en mode mains libres.');
     } else if (sharedTitle || sharedUrl) {
       setQuery(sharedTitle);
       openCommandPalette();
@@ -1148,7 +1148,7 @@ function App() {
           closeMenuPlanner();
           return;
         }
-        // Une fenetre <dialog> ouverte ou le mode cuisine gerent Echap eux-memes.
+        // Une fenetre <dialog> ouverte ou le mode mains libres gerent Echap eux-memes.
         if (document.querySelector('dialog.modal-backdrop[open]') || document.documentElement.classList.contains('cook-mode-open')) return;
         if ((activeRecipe || activePage === 'techniques') && !isTypingTarget(event.target)) goHome();
         return;

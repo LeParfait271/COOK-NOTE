@@ -263,9 +263,9 @@ final class RecipeScreen {
         });
         buttons.add(shopping);
 
-        // Mode cuisine : une etape a la fois, ecran garde allume (comme le site).
+        // Mode mains libres : une etape a la fois, a la voix (comme le site).
         if (!selectedRecipeSteps(recipe).isEmpty()) {
-            Button cook = host.actionButton("Mode cuisine", false);
+            Button cook = host.actionButton("Mains libres", false);
             cook.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -386,31 +386,59 @@ final class RecipeScreen {
         host.showScreen(root);
     }
 
-    // ---------- Mode cuisine ----------
+    // ---------- Mode mains libres ----------
     // Une etape a la fois en grand, precedente / suivante, ecran garde allume ;
-    // le retour ramene a la fiche.
+    // le retour ramene a la fiche. Pilotable a la voix des l'ouverture (micro
+    // allume d'office, reconnaissance 100 % locale : CookVoice). Le site ne
+    // parle jamais : chaque reponse s'affiche. Jamais de defilement : le texte
+    // se reduit jusqu'a tenir (FitTextView).
+    static final String PREF_VOICE_PRIVACY_SEEN = "voice_privacy_seen";
+    static final int REQUEST_RECORD_AUDIO = 4107;
     int cookStepIndex;
+    Recipe cookRecipe;
+    String cookPanel;
+    boolean cookPaused;
+    boolean cookVoiceEnabled = true;
+    String cookVoiceStatus = CookVoice.STATUS_OFF;
+    String cookVoiceMessage = "";
+    String cookNote = "";
+    TextView cookStatusView;
+    final Runnable clearCookNote = new Runnable() {
+        @Override
+        public void run() {
+            cookNote = "";
+            renderCookStatus();
+        }
+    };
 
     void openCookMode(final Recipe recipe, int index, boolean pushCurrent) {
         final List<String> steps = selectedRecipeSteps(recipe);
         if (steps.isEmpty()) return;
-        if (pushCurrent) host.pushNavigationState();
+        if (pushCurrent) {
+            host.pushNavigationState();
+            cookPanel = null;
+            cookPaused = false;
+            cookVoiceEnabled = true;
+            cookNote = "";
+            if (needsVoicePrivacy()) cookPanel = "privacy";
+        }
         host.releaseScreenImages();
         host.currentScreen = MainActivity.SCREEN_COOK;
         host.currentRecipeId = recipe.id;
         host.showingDetail = true;
+        cookRecipe = recipe;
         cookStepIndex = Math.max(0, Math.min(index, steps.size() - 1));
         host.getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         LinearLayout root = new LinearLayout(host);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(COLOR_BG);
-        host.addTopBar(root, true, "Mode cuisine");
+        host.addTopBar(root, true, "Mode mains libres");
 
         LinearLayout body = new LinearLayout(host);
         body.setOrientation(LinearLayout.VERTICAL);
         int side = host.getResources().getDisplayMetrics().widthPixels >= dp(720) ? dp(56) : dp(18);
-        body.setPadding(side, dp(20), side, dp(16));
+        body.setPadding(side, dp(14), side, dp(14));
         root.addView(body, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
 
         TextView title = host.text(recipe.title, 14, COLOR_MUTED, false);
@@ -420,7 +448,7 @@ final class RecipeScreen {
 
         TextView counter = host.text("Étape " + (cookStepIndex + 1) + " / " + steps.size(), 13, COLOR_GOLD, true);
         counter.setLetterSpacing(0.08f);
-        counter.setPadding(0, dp(10), 0, dp(8));
+        counter.setPadding(0, dp(8), 0, dp(8));
         body.addView(counter);
 
         // Barre de progression : une portion doree par etape faite.
@@ -435,16 +463,65 @@ final class RecipeScreen {
         }
         body.addView(progress, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(3)));
 
-        ScrollView scroll = new ScrollView(host);
-        scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        scroll.setVerticalScrollBarEnabled(false);
-        TextView step = host.text(frenchSpacing(steps.get(cookStepIndex)), 26, COLOR_TEXT, false);
-        step.setTypeface(Ui.READING);
-        step.setLineSpacing(dp(4), 1.2f);
-        step.setPadding(0, dp(24), 0, dp(24));
-        scroll.addView(step);
-        LinearLayout.LayoutParams scrollParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1);
-        body.addView(scroll, scrollParams);
+        // Etat du micro et bouton pour le couper / le rallumer.
+        LinearLayout voiceRow = new LinearLayout(host);
+        voiceRow.setOrientation(LinearLayout.HORIZONTAL);
+        voiceRow.setGravity(Gravity.CENTER_VERTICAL);
+        voiceRow.setPadding(0, dp(10), 0, 0);
+        cookStatusView = host.text("", 13, COLOR_MUTED, false);
+        cookStatusView.setMaxLines(2);
+        cookStatusView.setEllipsize(TextUtils.TruncateAt.END);
+        voiceRow.addView(cookStatusView, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        Button mic = host.actionButton(cookVoiceEnabled ? "Couper le micro" : "Rallumer le micro", false);
+        mic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cookVoiceEnabled = !cookVoiceEnabled;
+                if (!cookVoiceEnabled) host.cookVoice.stop();
+                openCookMode(recipe, cookStepIndex, false);
+            }
+        });
+        LinearLayout.LayoutParams micParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp(38));
+        micParams.leftMargin = dp(10);
+        voiceRow.addView(mic, micParams);
+        body.addView(voiceRow);
+
+        // Contenu : l'etape, ou un panneau a sa place (« ok » le referme).
+        LinearLayout stage = new LinearLayout(host);
+        stage.setOrientation(LinearLayout.VERTICAL);
+        stage.setPadding(0, dp(16), 0, dp(8));
+        body.addView(stage, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
+        if (cookPanel != null) {
+            LinearLayout head = new LinearLayout(host);
+            head.setOrientation(LinearLayout.HORIZONTAL);
+            head.setGravity(Gravity.CENTER_VERTICAL);
+            TextView panelTitle = host.text("privacy".equals(cookPanel) ? "Pilotez la recette à la voix" : "Tous les ingrédients", 22, COLOR_TEXT, true);
+            panelTitle.setTypeface(Ui.READING);
+            head.addView(panelTitle, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+            Button ok = host.actionButton("OK", true);
+            ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    closeCookPanel();
+                }
+            });
+            head.addView(ok, new LinearLayout.LayoutParams(dp(72), dp(42)));
+            stage.addView(head);
+        }
+        FitTextView content = new FitTextView(host, cookPanel == null ? 26 : 18, 11);
+        content.setTextColor(COLOR_TEXT);
+        content.setLineSpacing(dp(3), 1.15f);
+        if (cookPanel == null) content.setTypeface(Ui.READING);
+        content.setText(cookPanel == null ? frenchSpacing(steps.get(cookStepIndex)) : "privacy".equals(cookPanel) ? privacyText() : ingredientsText(recipe));
+        content.setPadding(0, dp(cookPanel == null ? 8 : 14), 0, 0);
+        stage.addView(content, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
+
+        // Aide integree : les commandes utiles a cet instant, sans fenetre.
+        TextView say = host.text(sayText(cookStepIndex, steps.size()), 13, COLOR_MUTED, false);
+        say.setPadding(0, 0, 0, dp(10));
+        say.setMaxLines(2);
+        say.setVisibility(cookVoiceEnabled ? View.VISIBLE : View.GONE);
+        body.addView(say);
 
         LinearLayout actions = new LinearLayout(host);
         actions.setOrientation(LinearLayout.HORIZONTAL);
@@ -456,6 +533,7 @@ final class RecipeScreen {
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cookPanel = null;
                 openCookMode(recipe, cookStepIndex - 1, false);
             }
         });
@@ -468,6 +546,7 @@ final class RecipeScreen {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cookPanel = null;
                 if (last) host.goBack();
                 else openCookMode(recipe, cookStepIndex + 1, false);
             }
@@ -475,6 +554,205 @@ final class RecipeScreen {
         actions.addView(next, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
 
         host.showScreen(root);
+        renderCookStatus();
+        if (cookVoiceEnabled) startCookVoice();
+    }
+
+    // Message de confidentialite : chaque fois que le micro n'est pas autorise
+    // (Android 6 et plus, « Uniquement cette fois » le fait revenir) ; sous
+    // Android 5 le micro est accorde a l'installation : une seule fois.
+    boolean needsVoicePrivacy() {
+        if (android.os.Build.VERSION.SDK_INT >= 23) return !micGranted();
+        return !host.getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE).getBoolean(PREF_VOICE_PRIVACY_SEEN, false);
+    }
+
+    boolean micGranted() {
+        return android.os.Build.VERSION.SDK_INT < 23
+                || host.checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) == android.content.pm.PackageManager.PERMISSION_GRANTED;
+    }
+
+    void startCookVoice() {
+        if (!micGranted()) {
+            cookVoiceStatus = CookVoice.STATUS_LOADING;
+            cookVoiceMessage = "En attente de l’autorisation du micro…";
+            renderCookStatus();
+            host.requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO);
+            return;
+        }
+        host.cookVoice.start(new CookVoice.Listener() {
+            @Override
+            public void onVoiceState(String status, String message) {
+                boolean nowListening = CookVoice.STATUS_LISTENING.equals(status) && !status.equals(cookVoiceStatus);
+                cookVoiceStatus = status;
+                cookVoiceMessage = message;
+                // Message de confidentialite : « micro autorise, dites ok ».
+                if (nowListening && "privacy".equals(cookPanel) && cookRecipe != null) openCookMode(cookRecipe, cookStepIndex, false);
+                else renderCookStatus();
+            }
+
+            @Override
+            public void onVoiceCommand(VoiceCommands.Command command, String heard) {
+                handleCookCommand(command, heard);
+            }
+        });
+    }
+
+    void onMicPermissionResult(boolean granted) {
+        if (host.currentScreen != MainActivity.SCREEN_COOK || cookRecipe == null) return;
+        if (granted) {
+            openCookMode(cookRecipe, cookStepIndex, false);
+        } else {
+            cookVoiceStatus = CookVoice.STATUS_ERROR;
+            cookVoiceMessage = "Micro refusé : Paramètres › Applications › Cook Note › Autorisations › Micro.";
+            renderCookStatus();
+        }
+    }
+
+    void renderCookStatus() {
+        if (cookStatusView == null) return;
+        String value;
+        int color = COLOR_MUTED;
+        if (!cookVoiceEnabled) value = "Micro coupé";
+        else if (CookVoice.STATUS_ERROR.equals(cookVoiceStatus)) {
+            value = cookVoiceMessage;
+            color = Color.rgb(232, 163, 59);
+        } else if (cookPaused) {
+            value = "❚❚  En pause : dites « reprends »";
+            color = COLOR_GOLD;
+        } else if (cookNote.length() > 0) {
+            value = cookNote;
+            color = Color.rgb(169, 211, 163);
+        } else if (CookVoice.STATUS_LISTENING.equals(cookVoiceStatus)) value = "●  À l’écoute";
+        else if (CookVoice.STATUS_LOADING.equals(cookVoiceStatus)) value = cookVoiceMessage;
+        else value = "Activation du micro…";
+        cookStatusView.setText(value);
+        cookStatusView.setTextColor(color);
+    }
+
+    void cookNote(String value) {
+        cookNote = "✓  " + value;
+        host.uiHandler.removeCallbacks(clearCookNote);
+        host.uiHandler.postDelayed(clearCookNote, 2500);
+        renderCookStatus();
+    }
+
+    void closeCookPanel() {
+        if ("privacy".equals(cookPanel)) {
+            host.getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE).edit().putBoolean(PREF_VOICE_PRIVACY_SEEN, true).apply();
+        }
+        cookPanel = null;
+        if (cookRecipe != null) openCookMode(cookRecipe, cookStepIndex, false);
+    }
+
+    void handleCookCommand(VoiceCommands.Command command, String heard) {
+        if (cookRecipe == null || host.currentScreen != MainActivity.SCREEN_COOK) return;
+        if (command == null) {
+            if (!cookPaused) {
+                cookNote = "Entendu : « " + heard + " »";
+                host.uiHandler.removeCallbacks(clearCookNote);
+                host.uiHandler.postDelayed(clearCookNote, 2500);
+                renderCookStatus();
+            }
+            return;
+        }
+        // En pause, seul « reprends » est entendu.
+        if (cookPaused && !VoiceCommands.RESUME.equals(command.type)) return;
+        List<String> steps = selectedRecipeSteps(cookRecipe);
+        int total = steps.size();
+        String type = command.type;
+        if (VoiceCommands.NEXT.equals(type)) {
+            cookPanel = null;
+            if (cookStepIndex >= total - 1) host.goBack();
+            else go(cookStepIndex + 1, "Étape suivante");
+        } else if (VoiceCommands.PREVIOUS.equals(type)) {
+            cookPanel = null;
+            if (cookStepIndex == 0) cookNote("Déjà à la première étape");
+            else go(cookStepIndex - 1, "Étape précédente");
+        } else if (VoiceCommands.FIRST.equals(type)) {
+            cookPanel = null;
+            go(0, "Première étape");
+        } else if (VoiceCommands.LAST.equals(type)) {
+            cookPanel = null;
+            go(total - 1, "Dernière étape");
+        } else if (VoiceCommands.GOTO.equals(type)) {
+            cookPanel = null;
+            if (command.step >= 1 && command.step <= total) go(command.step - 1, "Étape " + command.step);
+            else cookNote("Cette recette a " + total + " étapes");
+        } else if (VoiceCommands.DISMISS.equals(type)) {
+            if (cookPanel != null) closeCookPanel();
+        } else if (VoiceCommands.PAUSE.equals(type)) {
+            cookPaused = true;
+            openCookMode(cookRecipe, cookStepIndex, false);
+        } else if (VoiceCommands.RESUME.equals(type)) {
+            cookPaused = false;
+            openCookMode(cookRecipe, cookStepIndex, false);
+            cookNote("Écoute reprise");
+        } else if (VoiceCommands.INGREDIENTS.equals(type)) {
+            cookPanel = "ingredients";
+            openCookMode(cookRecipe, cookStepIndex, false);
+        } else if (VoiceCommands.TEMPERATURE.equals(type)) {
+            cookNote(temperatureText(steps));
+        } else if (VoiceCommands.MUTE.equals(type)) {
+            cookVoiceEnabled = false;
+            host.cookVoice.stop();
+            openCookMode(cookRecipe, cookStepIndex, false);
+        } else if (VoiceCommands.CLOSE.equals(type)) {
+            host.goBack();
+        }
+    }
+
+    void go(int index, String note) {
+        openCookMode(cookRecipe, index, false);
+        cookNote(note);
+    }
+
+    String temperatureText(List<String> steps) {
+        java.util.regex.Pattern celsius = java.util.regex.Pattern.compile("(\\d{2,3})\\s*°\\s*C");
+        Matcher here = celsius.matcher(steps.get(cookStepIndex));
+        if (here.find()) return "Four : " + here.group(1) + " °C";
+        for (int offset = 1; offset < steps.size(); offset += 1) {
+            for (int position : new int[]{cookStepIndex + offset, cookStepIndex - offset}) {
+                if (position < 0 || position >= steps.size()) continue;
+                Matcher other = celsius.matcher(steps.get(position));
+                if (other.find()) return "Four : " + other.group(1) + " °C (étape " + (position + 1) + ")";
+            }
+        }
+        return "Pas de température indiquée dans cette recette";
+    }
+
+    String sayText(int index, int total) {
+        if (cookPaused) return "DITES  « reprends »";
+        if (cookPanel != null) return "DITES  « ok »  « d’accord »";
+        StringBuilder builder = new StringBuilder("DITES  ");
+        builder.append(index < total - 1 ? "« suivant »" : "« terminer »");
+        if (index > 0) builder.append("  « précédent »");
+        builder.append("  « voir les ingrédients »  « pause »");
+        return builder.toString();
+    }
+
+    String privacyText() {
+        String status = micGranted() && CookVoice.STATUS_LISTENING.equals(cookVoiceStatus)
+                ? "✓ Micro autorisé : dites « ok » pour commencer."
+                : "Quand Android le demande, choisissez « Autoriser ».";
+        return "Dites « suivant », « étape trois » ou « voir les ingrédients » : Cook Note suit la recette sans que vous touchiez l’écran.\n\n"
+                + "Tout reste sur votre appareil. Ce que vous dites est analysé directement sur cette tablette ou ce téléphone : rien n’est enregistré, rien n’est envoyé sur Internet.\n\n"
+                + "Aucun usage commercial. Cook Note ne conserve, ne partage et ne revend aucune donnée vocale.\n\n"
+                + "Autoriser le micro. Avec « Uniquement cette fois », ce message reviendra à la prochaine ouverture.\n\n"
+                + status;
+    }
+
+    String ingredientsText(Recipe recipe) {
+        StringBuilder builder = new StringBuilder();
+        for (Recipe.Group group : selectedIngredientGroups(recipe)) {
+            if (group.items.isEmpty()) continue;
+            if (builder.length() > 0) builder.append("\n\n");
+            if (group.title.length() > 0) builder.append(group.title.toUpperCase(Locale.FRENCH)).append('\n');
+            for (int index = 0; index < group.items.size(); index += 1) {
+                if (index > 0) builder.append('\n');
+                builder.append("• ").append(frenchSpacing(host.scaleIngredient(group.items.get(index))));
+            }
+        }
+        return builder.length() > 0 ? builder.toString() : "Pas d’ingrédient détaillé pour cette fiche.";
     }
 
     void addQuickFacts(LinearLayout content, Recipe recipe) {

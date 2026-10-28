@@ -899,23 +899,41 @@ html.has-tilt .recipe-detail-hero-media .recipe-detail-hero-image {
   }
 }
 
-/* ---------- Mode cuisine : mains libres ---------- */
-/* Titre | etape | Voix | fermer : la colonne de plus vient du bouton Voix. */
+/* ---------- Mode mains libres ---------- */
+/* Titre | etape | micro | fermer : la colonne de plus vient du micro. */
 .cook-mode-head:has(.cook-mode-voice) {
   grid-template-columns: minmax(0, 1fr) auto auto auto;
 }
 
+/* Bandeau d'etat present : une ligne de plus, l'etape garde la place libre
+   (sinon la barre d'etapes prenait la hauteur restante). */
+.cook-mode:has(> .cook-mode-voice-hint) {
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto auto;
+}
+
+/* Jamais de defilement : la scene garde sa hauteur, le contenu est reduit
+   (useFitToBox) jusqu'a y tenir. */
+.cook-mode-stage {
+  overflow: hidden;
+}
+
+.cook-mode-fit {
+  display: grid;
+  align-content: center;
+  min-height: 100%;
+}
+
+/* Micro : allume d'office, rond comme le bouton fermer. */
 .cook-mode-voice {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  display: grid;
+  place-items: center;
+  width: 44px;
   height: 44px;
-  padding: 0 16px;
+  padding: 0;
   border: 1px solid var(--ds-color-border, var(--line));
-  border-radius: 999px;
+  border-radius: 50%;
   background: none;
-  color: var(--text);
-  font: 600 var(--ds-text-sm) / 1 var(--ds-font-body, system-ui);
+  color: var(--muted);
   cursor: pointer;
   transition: border-color 200ms ease-out, background-color 200ms ease-out, color 200ms ease-out;
 }
@@ -937,6 +955,7 @@ html.has-tilt .recipe-detail-hero-media .recipe-detail-hero-image {
   justify-content: center;
   gap: 10px;
   width: min(960px, 100%);
+  min-height: 24px;
   margin: 10px auto 0;
   color: var(--muted);
   font-size: var(--ds-text-sm);
@@ -974,6 +993,27 @@ html.has-tilt .recipe-detail-hero-media .recipe-detail-hero-image {
   font-weight: 700;
 }
 
+/* Information (« deja a la premiere etape ») et pause : pastille doree. */
+.cook-mode-voice-hint.is-info .cook-mode-voice-ok,
+.cook-mode-voice-hint.is-paused .cook-mode-voice-ok {
+  background: color-mix(in oklch, var(--ds-gold) 22%, transparent);
+  color: var(--ds-gold-soft, var(--ds-gold));
+}
+
+.cook-mode-voice-hint.is-info .cook-mode-voice-ok {
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+
+.cook-mode-voice-hint.is-paused .cook-mode-voice-ok {
+  font-size: 9px;
+  letter-spacing: -1px;
+}
+
+.cook-mode-voice-hint.is-paused {
+  color: var(--ds-gold-soft, var(--ds-gold));
+}
+
 .cook-mode-voice-dot {
   flex: none;
   width: 8px;
@@ -987,113 +1027,188 @@ html.has-tilt .recipe-detail-hero-media .recipe-detail-hero-image {
   50% { opacity: .35; transform: scale(.8); }
 }
 
-/* Information (« deja a la premiere etape ») : pastille doree, pas verte. */
-.cook-mode-voice-hint.is-info .cook-mode-voice-ok {
-  background: color-mix(in oklch, var(--ds-gold) 22%, transparent);
-  color: var(--ds-gold-soft, var(--ds-gold));
-  font-family: Georgia, serif;
-  font-style: italic;
+/* Aide integree : une ligne discrete en bas de l'etape, commandes du moment. */
+.cook-mode-stage {
+  align-content: center;
 }
 
-/* Aide « aide » : carte posee sur l'etape, sous l'en-tete. */
-.cook-mode-voice-help {
-  position: absolute;
-  z-index: 3;
-  top: 132px;
-  left: 50%;
-  width: min(560px, calc(100% - 32px));
-  padding: 22px 24px 20px;
-  border: 1px solid var(--ds-color-border, var(--line));
-  border-radius: 18px;
-  background: color-mix(in oklch, var(--bg, #0b0908) 92%, var(--ds-gold) 8%);
-  /* Voile sur l'etape dessous : aucun bout de texte ne depasse de la carte. */
-  box-shadow: 0 24px 60px rgb(0 0 0 / .45), 0 0 0 100vmax rgb(0 0 0 / .62);
-  transform: translateX(-50%);
-  animation: cn-voice-help-in 180ms ease-out;
-}
-
-.cook-mode-voice-help dl {
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  gap: 10px 18px;
-  margin: 0;
-  padding-right: 32px;
-}
-
-.cook-mode-voice-help dt {
-  color: var(--ds-gold-soft, var(--ds-gold));
-  font-size: var(--ds-text-sm);
-  font-weight: 600;
-}
-
-.cook-mode-voice-help dd {
-  margin: 0;
-  color: var(--text);
-  font-size: var(--ds-text-sm);
-}
-
-.cook-mode-voice-help-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 0;
-  border-radius: 50%;
-  background: none;
+.cook-mode-say {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  width: min(960px, 100%);
+  margin: 0 auto;
+  padding: 8px 0 12px;
   color: var(--muted);
+  font-size: var(--ds-text-sm);
+}
+
+.cook-mode-say-label {
+  color: color-mix(in oklch, var(--muted) 75%, transparent);
+  font-size: var(--ds-text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cook-mode-say-item {
+  white-space: nowrap;
+}
+
+/* Telephone : trois commandes au plus (le libelle « Dites » est le 1er span). */
+@media (max-width: 560px) {
+  .cook-mode-say-item:nth-of-type(n + 5) {
+    display: none;
+  }
+}
+
+/* Technique citee par l'etape : lien sobre, ouvre le panneau. */
+.cook-mode-technique {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ds-gold-soft, var(--ds-gold));
+  font: 500 var(--ds-text-sm) / 1.3 var(--ds-font-body, system-ui);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--ds-gold) 40%, transparent);
+  text-underline-offset: 4px;
   cursor: pointer;
 }
 
-.cook-mode-voice-help-close .site-icon {
+.cook-mode-technique .site-icon {
   width: 16px;
   height: 16px;
 }
 
-.cook-mode:has(.cook-mode-voice-help) .cook-mode-step {
-  visibility: hidden;
+/* Panneau a la place de l'etape (ingredients, materiel, technique) ; « ok »
+   ou le bouton OK ramene a l'etape. */
+.cook-mode-panel {
+  display: grid;
+  gap: 18px;
+  padding: clamp(16px, 4vh, 40px) 0;
+  animation: cn-panel-in var(--ds-motion-normal) ease-out both;
 }
 
-@keyframes cn-voice-help-in {
-  from { opacity: 0; transform: translate(-50%, -6px); }
+.cook-mode-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-@media (max-width: 560px) {
-  .cook-mode-voice-help {
-    top: 132px;
-    padding: 18px 16px 16px;
-  }
-
-  .cook-mode-voice-help dl {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 2px;
-  }
-
-  .cook-mode-voice-help dd + dt {
-    margin-top: 8px;
-  }
+.cook-mode-panel-head h2 {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+  font-weight: 460;
 }
 
-@media (max-width: 560px) {
-  .cook-mode-voice span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-  }
+.cook-mode-panel-ok {
+  flex: none;
+  min-width: 72px;
+  height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ds-gold);
+  color: var(--ds-color-primary-ink, #140f08);
+  font: 600 var(--ds-text-base) / 1 var(--ds-font-body, system-ui);
+  cursor: pointer;
+}
 
-  .cook-mode-voice {
-    width: 44px;
-    padding: 0;
-    justify-content: center;
-  }
+.cook-mode-panel-group {
+  display: grid;
+  gap: 10px;
+}
+
+.cook-mode-panel-group h3 {
+  margin: 0;
+  color: var(--ds-gold);
+  font-size: var(--ds-text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cook-mode-panel-lead {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+.cook-mode-panel-steps {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 1.4em;
+  font-size: var(--ds-text-lg, 1.125rem);
+  line-height: 1.5;
+}
+
+.cook-mode-panel-steps li::marker {
+  color: var(--ds-gold);
+  font-weight: 600;
+}
+
+.cook-mode-panel-tip,
+.cook-mode-panel-empty {
+  margin: 0;
+  color: var(--muted);
+}
+
+.cook-mode-panel-tip strong {
+  color: var(--ds-gold-soft, var(--ds-gold));
+}
+
+/* Confidentialite du micro : trois points courts, puis l'etat du micro. */
+.cook-mode-privacy {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: 1.5;
+}
+
+.cook-mode-privacy li {
+  padding-left: 16px;
+  border-left: 2px solid color-mix(in oklch, var(--ds-gold) 45%, transparent);
+  color: var(--muted);
+}
+
+.cook-mode-privacy strong {
+  color: var(--text);
+}
+
+.cook-mode-privacy-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--ds-text-sm);
+}
+
+.cook-mode-privacy-status.is-ready {
+  color: #a9d3a3;
+  font-size: var(--ds-text-base);
+  font-weight: 600;
+}
+
+@keyframes cn-panel-in {
+  from { opacity: 0; transform: translateY(8px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cook-mode-voice-dot {
+  .cook-mode-voice-dot,
+  .cook-mode-panel {
     animation: none;
   }
 }

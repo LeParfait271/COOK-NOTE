@@ -131,6 +131,8 @@ public class MainActivity extends Activity {
     boolean backSwipeCandidate;
     boolean backSwipeTriggered;
     final Handler uiHandler = new Handler(Looper.getMainLooper());
+    // Reconnaissance vocale locale du mode mains libres.
+    final CookVoice cookVoice = new CookVoice(this);
     final Runnable applyFiltersRunnable = new Runnable() {
         @Override
         public void run() {
@@ -368,6 +370,8 @@ public class MainActivity extends Activity {
             screenHost.setBackgroundColor(COLOR_BG);
             setContentView(screenHost);
         }
+        // Micro coupe des qu'on quitte le mode mains libres.
+        if (currentScreen != SCREEN_COOK && cookVoice.isRunning()) cookVoice.stop();
         // Contenu en attente de l'ecran qu'on quitte : inutile desormais.
         pendingAfterReveal = null;
         finishScreenReveal();
@@ -1168,7 +1172,26 @@ public class MainActivity extends Activity {
     @Override
     protected void onStop() {
         if (imageLoader != null) imageLoader.trimMemory(false);
+        // Application en arriere-plan : le micro ne reste jamais ouvert.
+        if (cookVoice.isRunning()) cookVoice.stop();
         super.onStop();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Retour dans l'appli en mode mains libres : l'ecoute reprend.
+        if (currentScreen == SCREEN_COOK && recipeScreen.cookRecipe != null) {
+            recipeScreen.openCookMode(recipeScreen.cookRecipe, recipeScreen.cookStepIndex, false);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
+        super.onRequestPermissionsResult(requestCode, permissions, results);
+        if (requestCode == RecipeScreen.REQUEST_RECORD_AUDIO) {
+            recipeScreen.onMicPermissionResult(results.length > 0 && results[0] == android.content.pm.PackageManager.PERMISSION_GRANTED);
+        }
     }
 
     @Override

@@ -74,7 +74,8 @@ const MIME = {
   '.woff2': 'font/woff2',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
-  '.txt': 'text/plain; charset=utf-8'
+  '.txt': 'text/plain; charset=utf-8',
+  '.gz': 'application/gzip'
 };
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
@@ -89,11 +90,16 @@ const CONTENT_SECURITY_POLICY = [
   "manifest-src 'self'",
   "font-src 'self' data:"
 ].join('; ');
+// Worker de reconnaissance vocale locale (Vosk) : seul fichier autorise a
+// evaluer du code (WebAssembly compile) ; il telecharge le modele francais
+// depuis le depot GitHub. Le son ne quitte jamais l'appareil.
+const VOSK_WORKER_PATH = 'assets/vendor/vosk/vosk-worker.js';
+const VOSK_WORKER_CSP = "default-src 'none'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval'; connect-src 'self' https://raw.githubusercontent.com";
 const SECURITY_HEADERS = {
   'content-security-policy': CONTENT_SECURITY_POLICY,
   'x-content-type-options': 'nosniff',
   'referrer-policy': 'strict-origin-when-cross-origin',
-  'permissions-policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=()',
+  'permissions-policy': 'camera=(), microphone=(self), geolocation=(), payment=(), usb=(), serial=()',
   'cross-origin-opener-policy': 'same-origin'
 };
 
@@ -251,7 +257,8 @@ function safePath(urlPath) {
   if (
     !PUBLIC_ROOT_FILES.has(normalized) &&
     !ADMIN_PUBLIC_FILES.has(normalized) &&
-    firstPart !== 'assets'
+    firstPart !== 'assets' &&
+    firstPart !== 'voice-model'
   ) {
     return null;
   }
@@ -290,6 +297,7 @@ function serveFile(req, res, filePath, noStore = false, statusCode = 200) {
       'content-type': MIME[path.extname(filePath).toLowerCase()] || 'application/octet-stream'
     };
     headers['cache-control'] = staticCacheControl(filePath, noStore);
+    if (path.relative(ROOT, filePath).split(path.sep).join('/') === VOSK_WORKER_PATH) headers['content-security-policy'] = VOSK_WORKER_CSP;
     send(res, statusCode, data, headers);
   });
 }

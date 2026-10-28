@@ -505,24 +505,30 @@ function startKitchenTimer({ seconds, label, title = '' }) {
   window.dispatchEvent(new CustomEvent(KITCHEN_TIMER_EVENT, { detail: { seconds, label, title } }));
 }
 
-// Pont vers les commandes vocales du mode cuisine : etat courant des
-// minuteurs et actions groupees (« stop », « pause », « reprends »).
+// Pont vers les commandes vocales du mode mains libres : etat courant des
+// minuteurs et actions (« stop », « pause », « reprends », « ajoute une
+// minute »), sur tous les minuteurs ou sur ceux dont le nom contient `name`
+// (« la sauce »).
 const KITCHEN_TIMER_CONTROL = 'cook-note:kitchen-timer-control';
 let kitchenTimersSnapshot = [];
 
-function kitchenTimersLeft() {
+const kitchenTimerMatches = (timer, name) => !name || normalizeText(timer.label || '').includes(normalizeText(name));
+
+function kitchenTimersLeft(name = '') {
   const now = Date.now();
   return kitchenTimersSnapshot
-    .filter(timer => !timer.done)
+    .filter(timer => !timer.done && kitchenTimerMatches(timer, name))
     .map(timer => ({ label: timer.label, paused: timer.pausedLeft != null, seconds: Math.ceil(timerRemaining(timer, now)) }));
 }
 
 // Un minuteur termine reste affiche (« Termine ») tant qu'on ne l'a pas ferme.
 const kitchenTimersRinging = () => kitchenTimersSnapshot.some(timer => timer.done);
+const kitchenTimersNamed = name => kitchenTimersSnapshot.some(timer => kitchenTimerMatches(timer, name));
 
-function controlKitchenTimers(action) {
-  window.dispatchEvent(new CustomEvent(KITCHEN_TIMER_CONTROL, { detail: { action } }));
+function controlKitchenTimers(action, { name = '', seconds = 0 } = {}) {
+  window.dispatchEvent(new CustomEvent(KITCHEN_TIMER_CONTROL, { detail: { action, name, seconds } }));
 }
+
 // Texte d'etape : chaque duree devient un bouton minuteur. Seules les chaines
 // de premier niveau sont decoupees ; les liens restent intacts.
 function withKitchenTimers(content, title = '') {
@@ -602,16 +608,32 @@ function KitchenTimerDock() {
     return () => window.removeEventListener(KITCHEN_TIMER_EVENT, add);
   }, []);
 
-  // stop : ferme les minuteurs termines (qui sonnent), sinon tous ;
-  // pause / resume : tous les minuteurs en cours.
+  // Commandes vocales. stop : les minuteurs nommes, sinon ceux qui sonnent,
+  // sinon tous ; pause / resume : les minuteurs en cours (nommes ou tous) ;
+  // add : ajoute du temps au minuteur nomme, sinon au plus recent.
   useEffect(() => {
     const control = event => {
-      const action = event.detail?.action;
+      const { action, name = '', seconds = 0 } = event.detail || {};
       const at = Date.now();
       setTimers(list => {
-        if (action === 'stop') return list.some(timer => timer.done) ? list.filter(timer => !timer.done) : [];
-        if (action === 'pause') return list.map(timer => (timer.done || timer.pausedLeft != null ? timer : { ...timer, pausedLeft: Math.max(0, timer.endAt - at) }));
-        if (action === 'resume') return list.map(timer => (timer.done || timer.pausedLeft == null ? timer : { ...timer, endAt: at + timer.pausedLeft, pausedLeft: null }));
+        const named = timer => kitchenTimerMatches(timer, name);
+        if (action === 'stop') {
+          if (name) return list.filter(timer => !named(timer));
+          return list.some(timer => timer.done) ? list.filter(timer => !timer.done) : [];
+        }
+        if (action === 'pause') return list.map(timer => (timer.done || timer.pausedLeft != null || !named(timer) ? timer : { ...timer, pausedLeft: Math.max(0, timer.endAt - at) }));
+        if (action === 'resume') return list.map(timer => (timer.done || timer.pausedLeft == null || !named(timer) ? timer : { ...timer, endAt: at + timer.pausedLeft, pausedLeft: null }));
+        if (action === 'add' && seconds > 0) {
+          const target = [...list].reverse().find(named);
+          if (!target) return list;
+          const extra = seconds * 1000;
+          return list.map(timer => {
+            if (timer.id !== target.id) return timer;
+            if (timer.pausedLeft != null && !timer.done) return { ...timer, pausedLeft: timer.pausedLeft + extra, total: Math.max(timer.total, (timer.pausedLeft + extra) / 1000) };
+            const left = (timer.done ? 0 : Math.max(0, timer.endAt - at)) + extra;
+            return { ...timer, done: false, pausedLeft: null, endAt: at + left, total: Math.max(timer.done ? seconds : timer.total, left / 1000) };
+          });
+        }
         return list;
       });
       setNow(at);

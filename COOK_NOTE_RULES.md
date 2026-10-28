@@ -395,27 +395,54 @@ Sommaire :
   precise en fondu. Quantites qui defilent au changement de portions
   (`RollingQuantity`, ecriture directe du DOM, aucun rendu React par image).
   Mesurer la fluidite (processeur bride x4) avant d'ajouter un effet continu.
-- Mode cuisine (recree le 26/10/2026 a la demande de l'utilisateur) :
-  facultatif, ouvert par le bouton `Mode cuisine` de la fiche ; la fiche reste
-  la lecture de reference. Une etape a la fois, ingredients de l'etape,
-  `Suivante` coche l'etape, ecran maintenu allume (Wake Lock), plein ecran reel
-  sur ecran tactile, page dessous inerte, Echap pour quitter.
-  Mains libres (v5.42) : bouton `Voix` (seulement si le navigateur gere la
-  reconnaissance vocale) ; « suivant », « precedent », « repete »,
-  « minuteur 10 minutes » (ou la duree de l'etape), « terminer » ; chaque
-  etape est lue a voix haute quand la voix est active.
-  Depuis v5.43 : le site NE PARLE PLUS (aucune synthese vocale, choix de
-  l'utilisateur) ; la voix sert uniquement a piloter, chaque commande comprise
-  s'affiche sous l'en-tete. Commandes : « premiere / derniere etape »,
-  « etape dix-sept », « aide » (carte des commandes), « coupe le micro » ;
-  minuteurs (« combien de temps », « pause », « reprends / arrete le
-  minuteur », « stop » arrete un minuteur termine). Reglage Voix retenu
-  (`cook_note_hands_free`). Chrome relance la reconnaissance a chaque silence
-  et renumerote ses resultats a 0 : le suivi des resultats traites est remis a
-  zero a chaque demarrage (sinon plus rien ne marchait apres la 1re
-  commande). Pont minuteurs dans `app-components.js` (`kitchenTimersLeft`,
-  `kitchenTimersRinging`, `controlKitchenTimers`). Test muet : micro simule
-  comme Chrome, jamais de son reel.
+- Mode mains libres (ex-« Mode cuisine », recree le 26/10/2026, renomme et
+  pilote a la voix en v5.47 a la demande de l'utilisateur) : facultatif, ouvert
+  par le bouton `Mode mains libres` de la fiche ; la fiche reste la lecture de
+  reference. Une etape a la fois, ingredients de l'etape, `Suivante` coche
+  l'etape, ecran maintenu allume (Wake Lock), plein ecran reel sur ecran
+  tactile, page dessous inerte, Echap pour quitter.
+  Voix (v5.47) : micro allume d'office (bouton rond pour le couper), le site
+  NE PARLE JAMAIS (choix de l'utilisateur) : chaque reponse s'affiche
+  (bandeau d'etat, ou panneau a la place de l'etape que « ok » / « d'accord »
+  referme). Aide integree : ligne « Dites » en bas de l'etape avec les
+  commandes utiles a l'instant, jamais de fenetre. Commandes : suivant,
+  precedent, premiere / derniere etape, etape N (« dix-sept »), annule
+  (decoche), tous les ingredients, combien de X, quelle temperature, temps
+  restant, materiel, la technique (fiche technique de l'etape dans le mode,
+  micro actif), pour N personnes / double / moitie, minuteur (nomme : « pour
+  la sauce »), ajoute N minutes, combien de temps, pause / reprends /
+  arrete le minuteur, stop (alarme), pause / reprends (ecoute), coupe le
+  micro, terminer. Analyse des phrases : `parseVoiceCommand`, reponses :
+  `runCookVoiceCommand` (`app-kitchen.js`). Aucun delai entre deux commandes
+  (seul un doublon du moteur dans les 0,6 s est ignore).
+  Reconnaissance 100 % locale (Vosk, WebAssembly) : le son ne quitte jamais
+  l'appareil, ce que dit le message de confidentialite affiche a l'ouverture
+  tant que le micro n'est pas autorise durablement (« Autoriser cette fois »
+  le fait revenir). Modele francais (40 Mo) dans `voice-model/`, servi par
+  raw.githubusercontent.com (Cloudflare refuse plus de 25 Mo par fichier),
+  garde ensuite dans le navigateur (IndexedDB). Vocabulaire restreint
+  (`VOICE_VOCABULARY` + ingredients de la fiche) : plus fiable que l'ecoute
+  libre sur les mots courts ; « attends », « dis » exclus (confondus avec le
+  bruit). Bibliotheque : `assets/vendor/vosk/` (`scripts/vendor-vosk.js`), le
+  worker a sa propre politique de securite (`unsafe-eval` pour lui seul,
+  `_headers` et `server.js`). En-tete `Permissions-Policy` :
+  `microphone=(self)` (avec `microphone=()`, le navigateur refuse le micro
+  sans rien demander). Tests muets : moteur simule
+  (`window.__cookNoteTestRecognition`) et test reel Vosk avec un micro de test
+  qui lit des commandes generees par Piper, son de sortie coupe.
+  Seule la phrase finale agit (jamais un resultat provisoire). Pas de
+  « combien de X » (retire a la demande de l'utilisateur) : « voir les
+  ingredients ». Jamais de defilement : `useFitToBox` reduit l'etape ou le
+  panneau (zoom) jusqu'a tenir ; ligne « Dites » hors de la scene.
+- APK : mode mains libres natif (`RecipeScreen.openCookMode`, `CookVoice`,
+  `VoiceCommands`, `FitTextView`) avec Vosk Android 0.3.47 + JNA 5.13 et le
+  meme modele, livre dans l'APK (`android-legacy/build/generated/voice-model`,
+  copie une fois dans les fichiers internes). Les .so de vosk-android exigent
+  Android 6 (variables stdin/stdout/stderr) : `android-legacy/vosk-compat/
+  cnstdio.c` les fournit, `scripts/build-vosk-android-compat.ps1` (NDK + LIEF)
+  l'ajoute en dependance de libvosk.so ; resultat versionne dans
+  `app/src/main/jniLibs`. Message de confidentialite : a chaque fois que le
+  micro n'est pas accorde (Android 6+), une fois sous Android 5.
 - Fonctions v5.42 (code dans `app-kitchen.js`) : « Je sers a » sur la fiche
   rapide et le menu (horaire de chaque phase depuis les temps des fiches,
   rappels en notification tant que Cook Note reste ouvert) ; recherche en

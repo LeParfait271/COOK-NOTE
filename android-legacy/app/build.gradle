@@ -4,6 +4,7 @@ plugins {
 
 def repoRoot = rootProject.projectDir.parentFile
 def legacyAssetRoot = new File(repoRoot, 'android-legacy/build/generated/cook-note-lite')
+def voiceModelAssetRoot = new File(repoRoot, 'android-legacy/build/generated/voice-model')
 def androidVersionName = project.findProperty('cookNoteAndroidVersion') ?: ''
 def versionMatch = androidVersionName =~ /^(\d+)\.(\d{2})$/
 if (!versionMatch.find()) {
@@ -54,8 +55,19 @@ android {
         }
     }
 
+    // Vosk (reconnaissance vocale locale) : tablettes et telephones ARM ; x86_64
+    // seulement dans l'APK de test (emulateur). L'APK publie doit rester sous
+    // 100 Mo (limite GitHub par fichier).
     buildTypes {
+        debug {
+            ndk {
+                abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
+            }
+        }
         release {
+            ndk {
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
             signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
@@ -63,11 +75,27 @@ android {
         }
     }
 
-    sourceSets {
-        main {
-            assets.srcDirs = [legacyAssetRoot]
+    // libvosk.so modifie pour Android 5 (src/main/jniLibs, voir
+    // scripts/build-vosk-android-compat.ps1) prioritaire sur celui de l'AAR.
+    packaging {
+        jniLibs {
+            pickFirsts += ['**/libvosk.so']
         }
     }
+
+    sourceSets {
+        main {
+            // Modele vocal francais (assets/model-fr) prepare par
+            // scripts/build-android-legacy-assets.js depuis voice-model/.
+            assets.srcDirs = [legacyAssetRoot, voiceModelAssetRoot]
+        }
+    }
+}
+
+dependencies {
+    // Mode mains libres : Vosk, reconnaissance vocale sur l'appareil (Apache 2.0).
+    implementation 'com.alphacephei:vosk-android:0.3.47'
+    implementation 'net.java.dev.jna:jna:5.13.0@aar'
 }
 
 tasks.register('syncCookNoteDist', Sync) {

@@ -32,7 +32,8 @@ const rules = read('COOK_NOTE_RULES.md');
   "script-src 'self' 'unsafe-inline'",
   'X-Content-Type-Options: nosniff',
   'Referrer-Policy: strict-origin-when-cross-origin',
-  'Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=()',
+  // Micro autorise pour le site lui-meme : commandes vocales du mode cuisine.
+  'Permissions-Policy: camera=(), microphone=(self), geolocation=(), payment=(), usb=(), serial=()',
   'Cross-Origin-Opener-Policy: same-origin',
   '/service-worker.js',
   'Cache-Control: no-cache',

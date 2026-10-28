@@ -135,7 +135,8 @@ expect(
     && (buildScript.includes('& $Node') || buildScript.includes('node scripts/build-android-legacy-assets.js'))
     && buildScript.includes('$LegacyApkOutput')
     && androidBuildGradle.includes('cook-note-lite')
-    && androidBuildGradle.includes('assets.srcDirs = [legacyAssetRoot]')
+    // Seul ajout autorise aux assets : le modele vocal du mode mains libres.
+    && androidBuildGradle.includes('assets.srcDirs = [legacyAssetRoot, voiceModelAssetRoot]')
     && androidBuildGradle.includes("noCompress += ['json']")
     && !androidBuildGradle.includes('org.mozilla.geckoview')
     && !androidLegacySettingsGradle.includes('maven.mozilla.org/maven2')
