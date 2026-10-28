@@ -133,7 +133,7 @@ final class ShoppingList {
         }
         if (!todoOnly) {
             if (!owned.isEmpty()) {
-                builder.append('\n').append("Deja a la maison").append('\n');
+                builder.append('\n').append("Déjà à la maison").append('\n');
                 for (ShoppingLine line : owned) builder.append("- ").append(line.display()).append('\n');
             }
             builder.append('\n').append("Recettes").append('\n');

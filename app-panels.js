@@ -163,7 +163,6 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
                     ),
                     ingredient?.missing?.length > 0 && h('small', { className: 'ingredient-missing' }, `Manque peut-être : ${ingredient.missing.slice(0, 2).join(', ')}`)
                   ),
-                  h('span', { className: `nutri-score nutri-${getNutriScore(recipe).toLowerCase()}` }, `Nutri ${getNutriScore(recipe)}`)
                 );
               })
             )
@@ -251,17 +250,19 @@ function CommandPalette({
     }
   ];
   const matchedActions = normalizedTerm ? [] : baseActions;
+  // « sans X » : X n'est pas cherche, il ecarte les fiches (voir scoreRecipeSearch).
+  const { rest: positiveTerm, excluded } = splitSearchExclusions(normalizedTerm);
   const commandRecipes = normalizedTerm
     ? recipes
+      .filter(recipe => !excluded.some(word => recipeUsesExcluded(recipe, word)))
       .map(recipe => {
-        const titleScore = normalizeText(recipe.title).includes(normalizedTerm) ? 24 : 0;
-        const categoryScore = normalizeText(categoryLine(recipe)).includes(normalizedTerm) ? 8 : 0;
+        const titleScore = positiveTerm && normalizeText(recipe.title).includes(positiveTerm) ? 24 : 0;
+        const categoryScore = positiveTerm && normalizeText(categoryLine(recipe)).includes(positiveTerm) ? 8 : 0;
         const textMeta = scoreRecipeSearch(recipe, cleanScoringTerm, recipesById);
-        const ingredient = scoreIngredientSearch(recipe, cleanScoringTerm);
+        const ingredient = positiveTerm ? scoreIngredientSearch(recipe, positiveTerm) : { score: 0 };
         return {
           recipe,
-          score: titleScore + categoryScore + textMeta.score + ingredient.score,
-          reason: ingredient.matched?.[0] || textMeta.reasons?.[0] || categoryLine(recipe)
+          score: titleScore + categoryScore + textMeta.score + ingredient.score
         };
       })
       .filter(item => item.score > 0)
@@ -310,7 +311,6 @@ function CommandPalette({
         }),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
-      h('h2', { className: 'command-title' }, (cleanTerm ? 'Résultats' : 'Rechercher')),
       h('div', { className: 'command-sections' },
         !cleanTerm && h('section', { className: 'command-section' },
           h('div', { className: 'command-section-head' },
@@ -345,7 +345,8 @@ function CommandPalette({
           ),
           commandRecipes.length
             ? h('div', { className: 'command-recipe-list' },
-              commandRecipes.map(({ recipe, reason }) => h('button', {
+              // Sous-titre utile (categorie, temps, difficulte) : il repetait la recherche.
+              commandRecipes.map(({ recipe }) => h('button', {
                 key: recipe.id,
                 type: 'button',
                 className: 'command-recipe-row',
@@ -354,14 +355,14 @@ function CommandPalette({
                 h('span', { className: 'command-recipe-image', style: imageBackgroundStyle(displayRecipeImage(recipe)) }),
                 h('span', { className: 'command-row-copy' },
                   h('strong', null, recipe.title),
-                  h('small', null, reason || difficultyText(recipe))
-                ),
-                h('span', { className: `nutri-score nutri-${getNutriScore(recipe).toLowerCase()}` }, `Nutri ${getNutriScore(recipe)}`)
+                  h('small', null, [primaryCategory(recipe), formatMinutesShort(getRecipeTiming(recipe).total), difficultyText(recipe)].filter(Boolean).join(' · '))
+                )
               ))
             )
             : h('div', { className: 'command-empty' },
-              h('strong', null, 'Aucune fiche directe'),
-              h('p', null, 'La recherche complète prendra le relais.')
+              h('strong', null, `Aucune recette pour « ${cleanTerm} »`),
+              h('p', null, 'Essaie un ingrédient, un plat ou une envie : « poulet », « tarte », « rapide ».'),
+              h('button', { type: 'button', className: 'btn btn-ghost command-empty-action', onClick: openSearchWithTerm }, 'Chercher dans tout le catalogue')
             )
         )
       )
@@ -704,12 +705,6 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
   const shoppingData = useMemo(() => open ? buildShoppingListData(menuRecipes, menuFactorById) : EMPTY_SHOPPING_DATA, [open, menuRecipes, menuFactorById]);
   const servicePlan = useMemo(() => open ? buildMenuServicePlan(menuRecipes, shoppingData) : EMPTY_MENU_SERVICE_PLAN, [open, menuRecipes, shoppingData]);
   if (!open) return null;
-  const menuQuality = Number.isFinite(menu.quality) ? Math.max(0, Math.min(100, menu.quality)) : 0;
-  const menuQualityLabel = menuQuality >= 86 ? 'Service fluide'
-    : menuQuality >= 74 ? 'Accord solide'
-      : menuQuality >= 60 ? 'Menu correct'
-        : 'A affiner';
-  const menuRoleLine = menuItems.map(item => item.label).filter(Boolean).join(' / ');
   const rememberMenu = currentMenu => {
     if (!currentMenu?.signature) return;
     const next = [currentMenu.signature, ...menuHistory.filter(item => item !== currentMenu.signature)].slice(0, 12);
@@ -770,18 +765,8 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
         ),
         h('span', { className: 'menu-serving-hint' }, 'Les quantités du menu et des courses suivent ce nombre.')
       ),
+      // Le style du menu en une phrase (la note « 98/100 » faisait gadget).
       h('p', { className: 'menu-planner-reason' }, menu.reason),
-      h('div', { className: 'menu-quality-band', style: { '--menu-quality': `${menuQuality}%` }, 'aria-label': 'Qualité du menu' },
-        h('div', { className: 'menu-quality-score' },
-          h('span', null, h('span', null)),
-          h('strong', null, `${menuQuality || '--'}/100`),
-          h('small', null, menuQualityLabel)
-        ),
-        h('div', { className: 'menu-quality-copy' },
-          h('strong', null, menu.theme?.pitch || 'Menu équilibré.'),
-          h('small', null, menuRoleLine || 'Rôles à composer')
-        )
-      ),
       h('div', { className: 'menu-planner-grid' },
         menuItems.map((item, index) => h('article', { key: `${item.key}-${item.recipe.id}-${index}`, className: 'menu-planner-card' },
           h('span', { className: 'menu-planner-image', style: imageBackgroundStyle(displayRecipeImage(item.recipe)), 'aria-hidden': true }),
@@ -798,7 +783,6 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
         ))
       ),
       h('div', { className: 'menu-planner-summary' },
-        Number.isFinite(menu.quality) && h('span', null, `Cohérence ${menu.quality}/100`),
         h('span', null, `Charge ${servicePlan.stress.level}`),
         h('span', null, `${menuRecipes.length} fiches`),
         h('span', null, `${shoppingData.groupedItems.length} articles groupés`),
@@ -946,9 +930,31 @@ function ToastStack({ toasts, dismissToast }) {
   );
 }
 
-function QuantityFactorControl({ recipe, factor, setFactor, className = '' }) {
+function QuantityFactorControl({ recipe, factor, setFactor, className = '', stepper = false }) {
   const servingInfo = getServingInfo(recipe);
   const servingOptions = servingOptionsFor(recipe);
+  // Bandeau de fiche : « − 8 parts + » (la liste deroulante native faisait
+  // reglage systeme). Les pas suivent les memes valeurs que la liste.
+  if (stepper && servingInfo && servingOptions.length) {
+    const currentTarget = getServingTarget(recipe, factor);
+    const index = servingOptions.reduce((best, value, position) => (
+      Math.abs(value - currentTarget) < Math.abs(servingOptions[best] - currentTarget) ? position : best
+    ), 0);
+    const unitPlural = servingUnitLabel(servingInfo, 2);
+    const go = next => setFactor(servingOptions[next] / servingInfo.base);
+    return h('div', {
+      className: ['factor-control serving-control quantity-stepper', className].filter(Boolean).join(' '),
+      role: 'group',
+      'aria-label': `Nombre de ${unitPlural}`
+    },
+      h('button', { type: 'button', className: 'quantity-step', disabled: index <= 0, onClick: () => go(index - 1), 'aria-label': `Moins de ${unitPlural}` }, '−'),
+      h('span', { className: 'quantity-stepper-value', 'aria-live': 'polite' },
+        h('strong', null, String(currentTarget)),
+        h('span', null, servingUnitLabel(servingInfo, currentTarget))
+      ),
+      h('button', { type: 'button', className: 'quantity-step', disabled: index >= servingOptions.length - 1, onClick: () => go(index + 1), 'aria-label': `Plus de ${unitPlural}` }, '+')
+    );
+  }
   if (servingInfo && servingOptions.length) {
     const currentTarget = getServingTarget(recipe, factor);
     const labelText = servingInfo.unit === 'personne'
@@ -991,55 +997,201 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '' }) {
   );
 }
 
-// Ouverture de chapitre des huit categories : une phrase et des reperes calcules
-// sur le catalogue (informatifs, sans filtre).
-const COLLECTION_INTROS = Object.freeze({
-  petit_dejeuner_maitre: 'Viennoiseries, pancakes et douceurs du matin pour bien commencer la journée.',
-  apero_maitre: 'Bouchées, tartinables et petites fritures à partager avant le repas.',
-  entrees_maitre: 'Entrées froides et chaudes pour ouvrir un repas avec légèreté.',
-  sauces_maitre: 'Sauces chaudes, froides et émulsions pour accompagner et relever.',
-  elements_base_maitre: 'Pâtes, fonds, beurres et préparations de base à réutiliser partout.',
-  plats_maitre: 'Plats mijotés, rôtis et poêlées pour le cœur du repas.',
-  accompagnements_maitre: 'Légumes, féculents et garnitures pour compléter l’assiette.',
-  desserts_maitre: 'Gâteaux, crèmes, tartes et douceurs pour finir en beauté.'
-});
+// Sous-familles des pages categorie, deduites du titre (premiere regle qui
+// correspond ; le reste va dans « Autres »). Les fiches ne changent pas.
+const COLLECTION_FAMILIES = {
+  desserts_maitre: [
+    ['Brioches et crêpes', /\b(brioche|babka|chinois|pain perdu|crepe|beignet|churros)/],
+    ['Tartes', /\b(tarte|fond de tarte)/],
+    ['Gâteaux', /\b(cake|gateau|fondant|mi-cuit|cheesecake|opera|charlotte|tiramisu|paris-brest|clafoutis|crumble)/],
+    ['Petits gâteaux', /\b(muffin|madeleine|cookie|biscuit|sable|choux|macaron|spritz|meringue|carres)/],
+    ['Crèmes et entremets', /\b(creme|flan|panna cotta|mousse|ile flottante|chantilly|souffle)/],
+    ['Fruits et bases', /\b(coulis|caramel|marmelade|confit|pate a|poire|fraise|granola)/]
+  ],
+  plats_maitre: [
+    ['Poissons et fruits de mer', /\b(crevette|calamar|chipiron|encornet|cabillaud|saumon|lotte|saint-jacques|bouillabaisse|fish|paella)/],
+    ['Volaille et lapin', /\b(poulet|volaille|coq|canard|lapin)/],
+    ['Pâtes et riz', /\b(pates|tagliatelle|rigatoni|macaroni|coquillette|riz|ble|nems|okonomiyaki|carbonara)/],
+    ['Bœuf, veau et agneau', /\b(boeuf|bavette|veau|agneau|burger|joues|osso|navarin|tartare|carpaccio)/],
+    ['Porc et charcuterie', /\b(porc|cochon|saucisse|chorizo|croque|rougail|cassoulet|morteau|flammekueche|potee)/],
+    ['Légumes et gratins', /\b(lentille|dhal|haricot|legum|curry|gratin|tian|courge|tomates farcies|piperade|souffle|fondue|flan)/]
+  ],
+  entrees_maitre: [
+    ['Salades', /\b(salade|carpaccio betterave|tomate mozzarella)/],
+    ['Mer', /\b(crevette|calamar|chipiron|saint-jacques|langoustine|morue|thon|anchois)/],
+    ['Œufs', /\b(oeuf|tortilla|souffle|tamago)/],
+    ['Foie gras et viandes', /\b(foie gras|pate en croute|tartare|carpaccio|samoussa|lard)/],
+    ['Fromages et bouchées', /\b(fromage|mozzarella|burrata|brie|roquefort|gougere|bricks|bruschetta|cannele|brownie|quichette)/],
+    ['Légumes et soupes', /\b(legume|veloute|gaspacho|tomate|asperge|chou-fleur|oignon|houmous|falafel|pois chiche|acras|melon|courgette|betterave)/]
+  ],
+  accompagnements_maitre: [
+    ['Pommes de terre', /\b(pomme|patate|frite|rattes|wedges|duchesse|dauphine|croquette)/],
+    ['Pains', /\b(pain|focaccia|pita)/],
+    ['Riz et céréales', /\b(riz|polenta|lentille|haricot)/],
+    ['Légumes', /\b(carott|chou|tomate|legum|oignon|petits pois|asperge|aubergine|tian|puree|curry|mousse|galettes)/],
+    ['Sauces et garnitures', /\b(sauce|pesto|topping)/]
+  ],
+  apero_maitre: [
+    ['Brochettes', /\bbrochette/],
+    ['Fritures et bouchées chaudes', /\b(beignet|tempura|accras|acras|croquette|samoussa|falafel|chou-fleur|gougere|choux)/],
+    ['Tartinables et terrines', /\b(houmous|aioli|beurre|sauce|yaourt|pesto|rillette|terrine|pate en croute|verrine)/],
+    ['Fromages', /\b(fromage|mozzarella|burrata|brie|chevre|roquefort)/],
+    ['Biscuits, pains et cakes', /\b(cookie|gressin|sable|pain|focaccia|cake|brownie|galette|batonnet|madeleine|cannele|brioche|quichette|flammekueche|tortilla)/]
+  ],
+  sauces_maitre: [
+    ['Sauces chaudes', /\b(bearnaise|hollandaise|chasseur|bordelaise|perigueux|bourguignonne|beurre blanc|morille|porto|poivre|estragon|fond de veau|fromage|moutarde)/],
+    ['Sauces froides et condiments', /\b(mayonnaise|aioli|rouille|tartare|remoulade|gribiche|vinaigrette|burger|yaourt|ricotta|pesto|harissa|huile|balsamique|marinade|topping|nem|aigre)/],
+    ['Sauces sucrées', /\b(caramel|coulis)/]
+  ],
+  elements_base_maitre: [
+    ['Pains et pâtes levées', /\b(pain|baguette|bagel|brioche|levain|tortilla|tresse|biscuits|pizza)/],
+    ['Pâtes et crèmes', /\b(pate|tempura|base pour flan|craquelin|meringue|creme)/],
+    ['Beurres, fonds et bouillons', /\b(beurre|fond|bouillon|babeurre|chapelure)/],
+    ['Fruits et condiments', /\b(coulis|marmelade|confit|cerise|citron|tamago)/]
+  ],
+  petit_dejeuner_maitre: [
+    ['Brioches', /\b(brioche|babka|chinois|tresse)/],
+    ['Pains', /\b(pain|bagel)/],
+    ['Crêpes, gaufres et pancakes', /\b(crepe|gaufre|pancake|madeleine)/]
+  ]
+};
 
-function CollectionChapter({ parent, items, recipesById }) {
-  const intro = COLLECTION_INTROS[parent.id];
-  if (!intro || !items.length) return null;
-  const season = getCurrentSeason();
-  const easy = items.filter(item => item.difficulty === 'easy').length;
-  const seasonal = items.filter(item => (item.seasons || []).includes(season) || recipeHasSeason(item, season, recipesById)).length;
-  // Le total est deja dans le hero : le chapitre donne les reperes utiles.
-  const figures = [
-    { key: 'easy', value: easy, label: `facile${easy > 1 ? 's' : ''}` },
-    { key: 'season', value: seasonal, label: `de saison (${season.toLowerCase()})` }
-  ].filter(figure => figure.value > 0);
-  return h('div', { className: 'collection-chapter' },
-    h('p', { className: 'collection-chapter-intro' }, intro),
-    h('dl', { className: 'collection-chapter-figures' },
-      figures.map(figure => h('div', { key: figure.key },
-        h('dd', null, figure.value),
-        h('dt', null, figure.label)
-      ))
-    )
+function collectionFamilyOf(parentId, recipe) {
+  const rules = COLLECTION_FAMILIES[parentId];
+  if (!rules) return '';
+  const title = normalizeText(recipe?.title || '');
+  const match = rules.find(([, pattern]) => pattern.test(title));
+  return match ? match[0] : 'Autres';
+}
+
+const COLLECTION_SORTS = [
+  ['alpha', 'De A à Z'],
+  ['quick', 'Les plus rapides'],
+  ['easy', 'Les plus faciles']
+];
+
+// Carte de categorie : temps total et difficulte, quand la fiche les donne.
+function collectionCardMeta(recipe) {
+  const total = Number(recipe?.activeTime || 0) + Number(recipe?.cookTime || 0) + Number(recipe?.restTime || 0);
+  return [
+    total ? formatTotalDuration(total, Number(recipe?.restTime || 0)) : '',
+    Number.isFinite(recipe?.difficultyScore) ? `Difficulté ${recipe.difficultyScore}/10` : ''
+  ].filter(Boolean).join(' · ');
+}
+
+// Pages categorie : quatre saisons qui filtrent la grille (un second toucher
+// remet toutes les recettes). La saison en cours est marquee d'un point.
+function CollectionSeasonFilter({ items, recipesById, season, setSeason }) {
+  if (!items.length) return null;
+  const current = getCurrentSeason();
+  return h('div', { className: 'collection-season-filter', role: 'group', 'aria-label': 'Filtrer les recettes par saison' },
+    h('button', {
+      key: 'all',
+      type: 'button',
+      className: season ? '' : 'active',
+      'aria-pressed': !season,
+      onClick: () => setSeason('')
+    },
+      h('span', { className: 'season-name' }, 'Toutes'),
+      h('span', { className: 'season-count' }, items.length)
+    ),
+    SEASONS.map(name => {
+      const count = items.filter(item => recipeHasSeason(item, name, recipesById)).length;
+      const active = season === name;
+      return h('button', {
+        key: name,
+        type: 'button',
+        className: [active ? 'active' : '', name === current ? 'is-current' : ''].filter(Boolean).join(' '),
+        'aria-pressed': active,
+        disabled: !count,
+        title: name === current ? 'Saison actuelle' : undefined,
+        onClick: () => setSeason(active ? '' : name)
+      },
+        h('span', { className: 'season-name' }, name),
+        h('span', { className: 'season-count' }, count)
+      );
+    })
   );
 }
 
-function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, preloadRecipe = null }) {
+function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, preloadRecipe = null, favorites = [], toggleFavorite = null }) {
+  const [season, setSeason] = useState('');
+  const [family, setFamily] = useState('');
+  const [sort, setSort] = useState('alpha');
+  const [filter, setFilter] = useState('');
+  useEffect(() => {
+    setSeason('');
+    setFamily('');
+    setSort('alpha');
+    setFilter('');
+  }, [parent.id]);
   const sortedVariantRefs = sortVariantRefs(variantRefs, recipesById);
   if (!sortedVariantRefs.length) return null;
   const recipeEntries = sortedVariantRefs
     .map(variant => ({ variant, item: recipesById[variant.id] }))
-    .filter(entry => entry.item);
+    .filter(entry => entry.item)
+    .map(entry => ({ ...entry, family: collectionFamilyOf(parent.id, entry.item) }));
+  // Sous-familles : chips seulement s'il y en a au moins deux remplies.
+  const familyCounts = recipeEntries.reduce((counts, entry) => {
+    if (entry.family) counts.set(entry.family, (counts.get(entry.family) || 0) + 1);
+    return counts;
+  }, new Map());
+  const familyOrder = [...(COLLECTION_FAMILIES[parent.id] || []).map(([name]) => name), 'Autres'].filter(name => familyCounts.has(name));
+  const showFamilies = familyOrder.length > 1;
+  const needle = normalizeText(filter.trim());
+  const totalMinutes = item => Number(item.activeTime || 0) + Number(item.cookTime || 0) + Number(item.restTime || 0);
+  const visibleEntries = recipeEntries
+    .filter(entry => !season || recipeHasSeason(entry.item, season, recipesById))
+    .filter(entry => !family || entry.family === family)
+    .filter(entry => !needle || normalizeText([entry.variant.label, entry.item.title, ...(entry.item.tags || [])].join(' ')).includes(needle))
+    .sort((left, right) => {
+      if (sort === 'quick') return (totalMinutes(left.item) || 9999) - (totalMinutes(right.item) || 9999);
+      if (sort === 'easy') return (left.item.difficultyScore ?? 99) - (right.item.difficultyScore ?? 99);
+      return 0;
+    });
   return h('section', { id: 'recipe-picker', className: 'recipe-panel variant-picker-panel collection-links-panel', 'aria-label': `Recettes de la collection ${parent.title}` },
-    h(CollectionChapter, { parent, items: recipeEntries.map(entry => entry.item), recipesById }),
+    h(CollectionSeasonFilter, { items: recipeEntries.map(entry => entry.item), recipesById, season, setSeason }),
+    h('div', { className: 'collection-toolbar' },
+      showFamilies && h('div', { className: 'collection-family-filter', role: 'group', 'aria-label': `Familles de ${parent.title}` },
+        h('button', { type: 'button', className: family ? '' : 'active', 'aria-pressed': !family, onClick: () => setFamily('') }, 'Tout'),
+        familyOrder.map(name => h('button', {
+          key: name,
+          type: 'button',
+          className: family === name ? 'active' : '',
+          'aria-pressed': family === name,
+          onClick: () => setFamily(family === name ? '' : name)
+        }, name, h('span', null, familyCounts.get(name))))
+      ),
+      h('div', { className: 'collection-tools' },
+        h('label', { className: 'collection-search' },
+          h(Icon, { name: 'search' }),
+          h('span', { className: 'sr-only' }, `Filtrer ${parent.title}`),
+          h('input', { type: 'text', value: filter, placeholder: `Filtrer ${parent.title.toLowerCase()}…`, onChange: event => setFilter(event.target.value) })
+        ),
+        h('label', { className: 'collection-sort' },
+          h('span', { className: 'sr-only' }, 'Trier les recettes'),
+          h('select', { value: sort, onChange: event => setSort(event.target.value) },
+            COLLECTION_SORTS.map(([value, label]) => h('option', { key: value, value }, label))
+          )
+        )
+      )
+    ),
+    !visibleEntries.length && h('p', { className: 'collection-empty' }, 'Aucune recette avec ces filtres.'),
     h('div', { className: 'variant-card-grid' },
-      recipeEntries.map(({ variant, item }) => {
+      visibleEntries.map(({ variant, item }) => {
         const image = displayRecipeImage(item) || displayRecipeImage(parent);
         const cardImage = image ? recipeCardImageUrl(image) : '';
         const variantLabel = getRecipeVariantLabel(item, recipesById);
+        const meta = collectionCardMeta(item);
+        const favorite = favorites.includes(variant.id);
         return h('div', { key: variant.id, className: 'variant-card-shell' },
+          toggleFavorite && h('button', {
+            type: 'button',
+            className: favorite ? 'variant-card-favorite active' : 'variant-card-favorite',
+            'aria-pressed': favorite,
+            'aria-label': favorite ? `Retirer ${item.title} des favoris` : `Ajouter ${item.title} aux favoris`,
+            onClick: () => toggleFavorite(variant.id, item.title)
+          }, h(Icon, { name: 'heart', filled: favorite })),
           h('button', {
             type: 'button',
             className: 'variant-card',
@@ -1055,7 +1207,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, pr
             image && h('span', { className: 'variant-card-bg', 'data-vt-media': variant.id, style: imageBackgroundStyle(image) }),
             h('span', { className: 'variant-card-body' },
               h('strong', { 'data-vt-title': variant.id }, variant.label || item.title),
-              variantLabel && h('small', { className: 'variant-card-variant-count' }, variantLabel)
+              (variantLabel || meta) && h('small', { className: variantLabel ? 'variant-card-variant-count' : 'variant-card-meta' }, variantLabel || meta)
             )
           )
         );
@@ -1087,18 +1239,16 @@ function RecipeBreadcrumb({ recipe, selectedRecipe, showVariants, goHome, openRe
   );
 }
 
-// Boite repliable d'"Avant de commencer" : un apercu d'une ligne reste lisible
-// fermee, pour choisir quoi ouvrir sans tout deplier.
-function NotesDisclosure({ label, children, className = '', ariaLabel, preview = '' }) {
-  const previewText = stripHtml(preview).replace(/\s+/g, ' ').trim();
+// Boite repliable d'"Avant de commencer" : fermee, seul le titre se lit (un
+// apercu tronque faisait brouillon) ; le contenu s'ouvre au toucher.
+function NotesDisclosure({ label, children, className = '', ariaLabel }) {
   return h('details', {
     className: ['notes-disclosure', className].filter(Boolean).join(' '),
     'aria-label': ariaLabel
   },
   h('summary', { className: 'notes-disclosure-summary' },
     h('span', { className: 'notes-disclosure-text' },
-      h('span', { className: 'notes-disclosure-label' }, label),
-      previewText && h('small', { className: 'notes-disclosure-preview' }, previewText)
+      h('span', { className: 'notes-disclosure-label' }, label)
     ),
     h('span', { className: 'notes-disclosure-icon', 'aria-hidden': true }, '\u2304')
   ),
@@ -1112,10 +1262,53 @@ const PRACTICAL_FAMILIES = Object.freeze({
   master: Object.freeze(['measures', 'tips', 'ingredientGuide', 'mistakes', 'result'])
 });
 
-function NotesFamily({ title, children }) {
-  return h('section', { className: 'notes-family', 'aria-label': title },
+function NotesFamily({ title, children, hidden = false, panelId }) {
+  return h('section', { className: 'notes-family', 'aria-label': title, hidden, id: panelId, role: panelId ? 'tabpanel' : undefined },
     h('h3', { className: 'notes-family-title' }, title),
     children
+  );
+}
+
+// Servir / Conserver / Maitriser en onglets : une famille a la fois au lieu
+// d'une colonne de onze rubriques repliees. Les familles vides n'ont pas
+// d'onglet ; a l'impression, tout s'affiche.
+function NotesFamilyTabs({ resetKey, children }) {
+  const families = React.Children.toArray(children).filter(Boolean);
+  const titles = families.map(child => child.props.title);
+  const containerRef = useRef(null);
+  const [available, setAvailable] = useState(titles);
+  const [active, setActive] = useState(titles[0]);
+  // Nouvelle fiche : retour au premier onglet.
+  useEffect(() => setActive(undefined), [resetKey]);
+  // A chaque rendu (certains blocs arrivent apres le catalogue) : quelles
+  // familles ont un contenu ? Etat inchange si rien ne bouge (pas de boucle).
+  React.useLayoutEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const filled = Array.from(container.querySelectorAll(':scope > .notes-family'))
+      .filter(section => Array.from(section.children).some(node => !node.classList.contains('notes-family-title')))
+      .map(section => section.getAttribute('aria-label'));
+    setAvailable(previous => (previous.join('|') === filled.join('|') ? previous : filled));
+    setActive(previous => (filled.includes(previous) ? previous : filled[0]));
+  });
+  const current = available.includes(active) ? active : available[0];
+  const tabId = title => `notes-family-${normalizeText(title).replace(/[^a-z]+/g, '-')}`;
+  return h('div', { ref: containerRef, className: 'notes-optional-stack notes-family-tabs' },
+    available.length > 1 && h('div', { className: 'notes-family-tablist', role: 'tablist', 'aria-label': 'Conseils de la fiche' },
+      available.map(title => h('button', {
+        key: title,
+        type: 'button',
+        role: 'tab',
+        'aria-selected': title === current,
+        'aria-controls': tabId(title),
+        className: title === current ? 'active' : '',
+        onClick: () => setActive(title)
+      }, title))
+    ),
+    families.map(child => React.cloneElement(child, {
+      hidden: child.props.title !== current,
+      panelId: tabId(child.props.title)
+    }))
   );
 }
 
@@ -1133,7 +1326,7 @@ function LinkedRecipesBlock({ links, openRecipe }) {
     acc.get(role).push(item);
     return acc;
   }, new Map());
-  return h(NotesDisclosure, { className: 'linked-recipes-block', label: 'Recettes liées', ariaLabel: 'Recettes liées à cette fiche', preview: links.map(item => item.recipe.title).join(', ') },
+  return h(NotesDisclosure, { className: 'linked-recipes-block', label: 'Recettes liées', ariaLabel: 'Recettes liées à cette fiche' },
     Array.from(groups.entries()).map(([role, items]) => h('div', { key: role, className: 'linked-recipe-group' },
       h('div', { className: 'linked-recipe-group-title' }, role),
       h('div', { className: 'linked-recipe-list', role: 'list' },
@@ -1187,8 +1380,7 @@ function PracticalSectionsBlock({ sections, inlineTargets, openRecipe, technique
       key: section.key,
       className: 'practical-section',
       label: PRACTICAL_DISCLOSURE_LABELS[section.key] || section.title,
-      ariaLabel: section.title,
-      preview: section.items[0] || ''
+      ariaLabel: section.title
     },
       h('ul', null, section.items.map(item => h('li', { key: item }, renderLinkedText(item, inlineTargets || [], openRecipe, techniqueTargets || [], openTechnique))))
     ))
@@ -1198,7 +1390,7 @@ function PracticalSectionsBlock({ sections, inlineTargets, openRecipe, technique
 function FlavorMapBlock({ recipe }) {
   const items = getRecipeFlavorMap(recipe);
   if (!items.length) return null;
-  return h(NotesDisclosure, { className: 'flavor-map-block', label: 'Accords', ariaLabel: 'Accords de la recette', preview: items.map(item => item.label).join(', ') },
+  return h(NotesDisclosure, { className: 'flavor-map-block', label: 'Accords', ariaLabel: 'Accords de la recette' },
     h('div', { className: 'flavor-map-grid' },
       items.map(item => h('article', { key: item.key, className: 'flavor-node' },
         h('div', { className: 'flavor-node-head' },
@@ -1218,7 +1410,7 @@ function FlavorMapBlock({ recipe }) {
 function IngredientKnowledgeBlock({ recipe }) {
   const cards = getRecipeIngredientCards(recipe);
   if (!cards.length) return null;
-  return h(NotesDisclosure, { className: 'ingredient-knowledge-block', label: 'Conversation ingrédients', ariaLabel: 'Conversation ingrédients', preview: cards.map(card => card.label).join(', ') },
+  return h(NotesDisclosure, { className: 'ingredient-knowledge-block', label: 'Conversation ingrédients', ariaLabel: 'Conversation ingrédients' },
     h('div', { className: 'ingredient-knowledge-grid' },
       cards.map(card => h('article', { key: card.label, className: 'ingredient-knowledge-card' },
         h('div', null,
@@ -1237,7 +1429,7 @@ function IngredientKnowledgeBlock({ recipe }) {
 function PrepTimelineBlock({ recipe }) {
   const items = getPrepTimeline(recipe);
   if (!items.length) return null;
-  return h(NotesDisclosure, { className: 'prep-timeline-block', label: 'Organisation', ariaLabel: 'Organisation de la préparation', preview: items.map(item => item.label).join(', ') },
+  return h(NotesDisclosure, { className: 'prep-timeline-block', label: 'Organisation', ariaLabel: 'Organisation de la préparation' },
     h('ol', null, items.map(item => h('li', { key: item.label },
       h('strong', null, item.label),
       h('span', null, item.value)
@@ -1256,19 +1448,15 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
   }
   const equipment = getRecipeEquipment(recipe);
   const timing = getRecipeTiming(recipe);
-  const serviceItems = getRecipeServiceItems(recipe).slice(0, 2);
-  const riskSignals = getRecipeRiskSignals(recipe).slice(0, 2);
-  const chefNotes = [
-    timing.active && timing.active <= 20 ? 'Mise en place courte : garder les ingrédients à portée de main avant la cuisson.' : '',
-    timing.rest ? 'Prévoir le temps de repos avant de servir.' : '',
-    ...serviceItems,
-    ...riskSignals.map(formatRecipeRiskNote)
-  ].filter(Boolean).slice(0, 3);
+  // Lecture chef : uniquement les conseils ecrits pour cette fiche. Les phrases
+  // deduites automatiquement (« Servir tiede… », « Prevoir le temps de
+  // repos… ») etaient fausses pour une partie des recettes.
+  const chefNotes = asTextList(recipe?.service || recipe?.practical?.service).slice(0, 3);
   const facts = [
-    timing.total && { label: 'Total', value: formatMinutesShort(timing.total) },
-    { label: 'Temps actif', value: formatMinutesShort(timing.active) || 'À estimer' },
+    timing.total && { label: 'Total', value: formatTotalDuration(timing.total, timing.rest) },
+    { label: 'Actif', value: formatMinutesShort(timing.active) || 'À estimer' },
     timing.cook && { label: 'Cuisson', value: formatMinutesShort(timing.cook) },
-    timing.rest && { label: 'Repos / froid', value: formatMinutesShort(timing.rest) },
+    timing.rest && { label: 'Repos', value: formatMinutesShort(timing.rest) },
   ].filter(Boolean);
   return h('section', { className: 'recipe-summary-panel', 'aria-label': 'Résumé de la recette' },
     h('div', { className: 'recipe-summary-head' },
@@ -1320,10 +1508,24 @@ function RecipeAnatomy({ recipe, variantOptions = [], selectedIndex, onSelectVar
     ? [...new Set(groups)].slice(0, 4)
     : ['Pr\u00e9paration', timing.cook ? 'Cuisson' : '', timing.rest ? 'Repos' : '', 'Finition'].filter(Boolean);
   if (stages.length < 2) return null;
-  return h('ol', { className: 'recipe-anatomy', 'aria-label': 'Structure de la recette' },
+  // Deroule de la fiche, nomme comme tel ; avec des groupes d'ingredients,
+  // chaque etape mene a son groupe dans la liste.
+  const jumpToGroup = index => {
+    const target = document.querySelectorAll('.ingredients-panel .ingredient-group')[index];
+    if (target && target.offsetParent) target.scrollIntoView({ behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  };
+  return h('ol', { className: 'recipe-anatomy', 'aria-label': 'Déroulé de la recette' },
+    h('li', { className: 'recipe-anatomy-label', 'aria-hidden': true }, 'Déroulé'),
     stages.map((stage, index) => h('li', { key: `${stage}:${index}` },
-      h('span', { 'aria-hidden': true }, String(index + 1).padStart(2, '0')),
-      h('strong', null, stage)
+      groups.length > 1
+        ? h('button', { type: 'button', onClick: () => jumpToGroup(index), title: `Aller aux ingrédients : ${stage}` },
+          h('span', { 'aria-hidden': true }, String(index + 1).padStart(2, '0')),
+          h('strong', null, stage)
+        )
+        : [
+          h('span', { key: 'n', 'aria-hidden': true }, String(index + 1).padStart(2, '0')),
+          h('strong', { key: 's' }, stage)
+        ]
     ))
   );
 }
@@ -1353,8 +1555,7 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
         h('p', { className: 'variant-choice-description' },
           'Chaque choix ouvre une recette compl\u00e8te avec ses propres ingr\u00e9dients, \u00e9tapes, quantit\u00e9s et conseils.'
         )
-      ),
-      h('span', { className: 'variant-choice-count' }, `${options.length} variante${options.length > 1 ? 's' : ''}`)
+      )
     ),
     h('div', { className: 'variant-choice-tabs', role: 'group', 'aria-label': 'Variantes disponibles' },
       optionDetails.map(option => {
@@ -1382,18 +1583,6 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
           )
         );
       })
-    ),
-    !selectedOption && h('div', {
-      className: 'variant-choice-status waiting',
-      role: 'status',
-      'aria-live': 'polite'
-    },
-      h('span', { className: 'variant-choice-status-icon', 'aria-hidden': true }, '\u2192'),
-      h('span', { className: 'variant-choice-status-copy' },
-            h('small', null, 'Choix requis'),
-            h('strong', null, 'Choisis une carte ci-dessus'),
-            h('span', null, 'La fiche compl\u00e8te s\u2019affichera ensuite, sans m\u00e9langer les recettes.')
-      )
     )
   );
 }

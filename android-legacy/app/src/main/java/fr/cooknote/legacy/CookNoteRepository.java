@@ -491,6 +491,9 @@ final class CookNoteRepository {
                 bytes[index] = (byte) windows1252Byte(value.charAt(index));
             }
             String decoded = new String(bytes, "UTF-8");
+            // Un vrai texte mal decode se repare sans perte : un caractere de remplacement
+            // signifie que le texte etait sain (ex. « pâtissier », dont le â est legitime).
+            if (decoded.indexOf('�') >= 0 && value.indexOf('�') < 0) return value;
             return mojibakeScore(decoded) < mojibakeScore(value) ? decoded : value;
         } catch (Exception ignored) {
             return value;

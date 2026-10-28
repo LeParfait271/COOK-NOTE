@@ -834,6 +834,19 @@ function scaleIngredient(text, factor) {
 // l'affichage en deux colonnes. Un nom compte (4 gousses d'ail) reste a droite.
 const INGREDIENT_QUANTITY_RE = /^(?:≈\s*)?(?:\d+(?:[.,]\d+)?(?:\/\d+)?|[½¼¾⅓⅔])(?:\s*(?:[–—-]|à)\s*\d+(?:[.,]\d+)?(?:\/\d+)?)?\s*(?:(?:kg|mg|g|cl|dl|ml|l|cs|cc)(?=[\s,(]|$)|c\.\s*à\s*(?:soupe|café|s\.|c\.)|cuill[eè]res?\s+à\s+(?:soupe|café)|pinc[ée]es?(?=[\s,(]|$)|verres?(?=[\s,(]|$)|sachets?(?=[\s,(]|$))?(?=[\s,(]|$)/i;
 
+// Typographie francaise a l'affichage : espace insecable fine entre un nombre
+// et son unite (« 250 g », « 1,2 kg », « 20 min »). Les fiches ne changent pas.
+const UNIT_SPACING_RE = /(\d)\s?(kg|mg|g|ml|cl|dl|l|cm|mm|min|h|°C)(?![\p{L}\d])/gu;
+
+// « 1h30 » : heures et minutes accolees deviennent « 1 h 30 ».
+const HOUR_MINUTES_RE = /(\d)\s?h\s?(\d{2})(?![\p{L}\d])/gu;
+
+function frenchUnitSpacing(text) {
+  return String(text || '')
+    .replace(HOUR_MINUTES_RE, '$1\u202Fh\u202F$2')
+    .replace(UNIT_SPACING_RE, '$1\u202F$2');
+}
+
 function splitIngredientQuantity(text) {
   const value = String(text || '').trim();
   const match = value.match(INGREDIENT_QUANTITY_RE);

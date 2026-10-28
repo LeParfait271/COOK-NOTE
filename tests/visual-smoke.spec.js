@@ -155,12 +155,14 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.season-block-default .season-block-head')).toHaveCount(0);
     const homeLayout = await page.evaluate(() => {
       const grid = document.querySelector('.master-recipe-grid').getBoundingClientRect();
+      // Pied pleine largeur : c'est son contenu qui s'aligne sur la grille.
       const footer = document.querySelector('.site-footer').getBoundingClientRect();
+      const footerContent = document.querySelector('.site-footer-inner').getBoundingClientRect();
       const search = getComputedStyle(document.querySelector('.home-search-launcher'));
       return {
         footerGap: footer.top - grid.bottom,
-        leftDelta: Math.abs(footer.left - grid.left),
-        widthDelta: Math.abs(footer.width - grid.width),
+        leftDelta: Math.abs(footerContent.left - grid.left),
+        widthDelta: Math.abs(footerContent.width - grid.width),
         searchClipPath: search.clipPath
       };
     });
@@ -223,7 +225,7 @@ test.describe('Cook Note visual smoke', () => {
         };
       });
     });
-    expect(topbarColors).toHaveLength(4);
+    expect(topbarColors).toHaveLength(5);
     topbarColors.forEach(colors => {
       expect(colors.icon, colors.label).toBe(colors.button);
       expect(colors.icon, colors.label).not.toBe('rgb(255, 255, 255)');
@@ -276,7 +278,8 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.variant-choice-description')).toContainText('Chaque choix ouvre une recette');
     await expect(page.locator('.detail-meta')).toContainText('3 variantes');
     await expect(page.locator('.detail-meta')).not.toContainText('48 ingr');
-    await expect(page.locator('.variant-choice-status')).toContainText('Choisis une carte ci-dessus');
+    // Pas d'encadre « Choix requis » : les cartes suffisent.
+    await expect(page.locator('.variant-choice-status')).toHaveCount(0);
     await expect(page.locator('.recipe-summary-panel')).toHaveCount(0);
     await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
     await expect(page.locator('.recipe-detail-grid')).toHaveCount(0);
@@ -292,8 +295,9 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.recipe-command-dock')).toHaveCount(0);
     await expect(page.locator('.recipe-detail-grid')).toBeVisible();
     await expect.poll(() => page.locator('#recipe-detail-content').evaluate(element => Math.round(element.getBoundingClientRect().top))).toBeLessThanOrEqual(180);
-    await expect(page.locator('.ingredients-panel')).toContainText('220g crevettes');
-    await expect(page.locator('.ingredients-panel')).not.toContainText('120g yaourt nature');
+    // Espace fine insecable entre nombre et unite (affichage).
+    await expect(page.locator('.ingredients-panel')).toContainText(/220\sg crevettes/);
+    await expect(page.locator('.ingredients-panel')).not.toContainText(/120\sg yaourt nature/);
     await expect(page.locator('.step-list')).toContainText("Saisir le poulet dans l'huile");
     await expect(page.locator('.recipe-view')).toContainText('prévoir riz nature');
     await expect(page.getByRole('button', { name: /Ajouter aux courses/i }).first()).toBeEnabled();
@@ -301,8 +305,8 @@ test.describe('Cook Note visual smoke', () => {
     await tikkaVariant.click();
     await expect(selectedVariant).toHaveAttribute('aria-pressed', 'false');
     await expect(tikkaVariant).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('.ingredients-panel')).toContainText('120g yaourt nature');
-    await expect(page.locator('.ingredients-panel')).not.toContainText('220g crevettes');
+    await expect(page.locator('.ingredients-panel')).toContainText(/120\sg yaourt nature/);
+    await expect(page.locator('.ingredients-panel')).not.toContainText(/220\sg crevettes/);
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
   });
@@ -401,8 +405,18 @@ test.describe('Cook Note visual smoke', () => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/sauces_maitre');
     await waitForCookNote(page);
-    await expect(page.locator('.collection-chapter-intro')).toContainText('Sauces');
-    await expect(page.locator('.collection-chapter-figures > div')).not.toHaveCount(0);
+    // « Toutes » puis quatre saisons filtrent la grille ; un second toucher remet tout.
+    const seasons = page.locator('.collection-season-filter button');
+    await expect(seasons).toHaveCount(5);
+    await expect(seasons.first()).toHaveAttribute('aria-pressed', 'true');
+    const cards = page.locator('.variant-card');
+    const total = await cards.count();
+    const winter = seasons.filter({ hasText: 'Hiver' });
+    await winter.click();
+    await expect(winter).toHaveAttribute('aria-pressed', 'true');
+    expect(await cards.count()).toBeLessThanOrEqual(total);
+    await winter.click();
+    await expect(cards).toHaveCount(total);
 
     await page.goto('/');
     await waitForCookNote(page);
@@ -464,6 +478,9 @@ test.describe('Cook Note visual smoke', () => {
     await expect(notes).not.toContainText('Fiches ingrédients');
     expect(await notes.locator('details.notes-disclosure').count()).toBeGreaterThan(0);
 
+    // Servir / Conserver / Maitriser sont en onglets : ouvrir celui de la conservation.
+    const keepTab = notes.getByRole('tab', { name: 'Conserver' });
+    if (await keepTab.count()) await keepTab.click();
     const storage = notes.locator('details.notes-disclosure').filter({ hasText: 'Conservation' }).first();
     if (await storage.count()) {
       await expect(storage).not.toHaveAttribute('open', '');
@@ -592,7 +609,9 @@ test.describe('Cook Note visual smoke', () => {
     expect(heroImageMetrics.naturalWidth).toBeGreaterThanOrEqual(80);
     expect(heroImageMetrics.naturalHeight).toBeGreaterThanOrEqual(60);
     expect(Math.abs(heroImageMetrics.heroWidth - heroImageMetrics.frameWidth)).toBeLessThanOrEqual(1);
-    expect(Math.abs(heroImageMetrics.heroHeight - heroImageMetrics.frameHeight)).toBeLessThanOrEqual(2);
+    // Telephone : le titre et les actions passent sous la photo (bandeau plus haut que l'image).
+    if (testInfo.project.name === 'mobile') expect(heroImageMetrics.frameHeight).toBeLessThanOrEqual(heroImageMetrics.heroHeight + 2);
+    else expect(Math.abs(heroImageMetrics.heroHeight - heroImageMetrics.frameHeight)).toBeLessThanOrEqual(2);
     expect(heroImageMetrics.objectFit).toBe('cover');
     expect(heroImageMetrics.loading).toBe('eager');
     expect(heroImageMetrics.fetchPriority).toBe('high');
@@ -627,7 +646,7 @@ test.describe('Cook Note visual smoke', () => {
     await waitForCookNote(page);
 
     await expect(page.locator('.cooking-mode-shell')).toHaveCount(0);
-    await expect(page.locator('.step-list .kitchen-timer-chip').first()).toHaveText(/20min/);
+    await expect(page.locator('.step-list .kitchen-timer-chip').first()).toHaveText(/20\smin/);
     await page.getByRole('button', { name: 'Ouvrir le mode cuisine' }).click();
     const cook = page.getByRole('dialog', { name: /Mode cuisine/ });
     await expect(cook).toBeVisible();
@@ -912,7 +931,7 @@ test.describe('Cook Note visual smoke', () => {
       expect(parentHeroImageSrc).not.toContain(`/assets/theme/dark/categories/${recipeId}`);
       await expect(page.locator('.parent-hero .detail-hero-logo')).toHaveCount(0);
       await expect(page.locator('.collection-links-panel .collection-links-heading')).toHaveCount(0);
-      await expect(page.locator('.collection-links-context, .collection-tools, .variant-compare-toggle, .collection-comparison')).toHaveCount(0);
+      await expect(page.locator('.collection-links-context, .variant-compare-toggle, .collection-comparison')).toHaveCount(0);
       await expect(async () => {
         const count = await page.locator('.variant-card').count();
         expect(count).toBeGreaterThanOrEqual(4);
@@ -941,7 +960,9 @@ test.describe('Cook Note visual smoke', () => {
     await waitForCookNote(page);
 
     await expect(page.locator('.variant-card')).not.toHaveCount(0);
-    await expect(page.locator('.collection-links-context, .collection-tools, .variant-compare-toggle, .collection-comparison')).toHaveCount(0);
+    await expect(page.locator('.collection-links-context, .variant-compare-toggle, .collection-comparison')).toHaveCount(0);
+    // Une seule barre d'outils (familles, filtre, tri) : jamais en double.
+    await expect(page.locator('.collection-tools')).toHaveCount(1);
     await expectNoHorizontalOverflow(page);
   });
 });

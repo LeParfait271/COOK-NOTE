@@ -463,13 +463,11 @@ function completeBeforeSections(id, recipe, recipes, helpers) {
   const practicalSections = helpers.getRecipePracticalSections(sourceRecipe) || [];
 
   const allergens = (helpers.getRecipeAllergens(sourceRecipe) || []).map(stripHtml);
-  addBeforeSection(sections, 'Allergenes', allergens.length
+  // Memes sections que la fiche du site (pas d'etiquettes de recherche ni de notes internes).
+  addBeforeSection(sections, 'Allergènes', allergens.length
     ? allergens
-    : ['Aucun allergene majeur detecte dans les ingredients.']);
-  const semanticLabels = helpers.semanticRecipeSignals(sourceRecipe, recipes)?.labels || [];
-  addBeforeSection(sections, 'Intentions premium', semanticLabels.slice(0, 5));
-  addBeforeSection(sections, 'Variantes contraintes', helpers.getVariantAdaptationNotes(sourceRecipe) || []);
-  addBeforeSection(sections, 'Materiel necessaire', helpers.getRecipeEquipment(sourceRecipe) || []);
+    : ['Aucun allergène majeur détecté dans les ingrédients.']);
+  addBeforeSection(sections, 'Matériel nécessaire', helpers.getRecipeEquipment(sourceRecipe) || []);
   addBeforeSection(
     sections,
     'Poids moyens',
@@ -480,7 +478,7 @@ function completeBeforeSections(id, recipe, recipes, helpers) {
     'Timing',
     (helpers.getPrepTimeline(sourceRecipe) || []).map(item => labelValueText(item.label, item.value))
   );
-  addBeforeSection(sections, 'Recettes liees', linkedRecipeItems(sourceRecipe, recipes, helpers));
+  addBeforeSection(sections, 'Recettes liées', linkedRecipeItems(sourceRecipe, recipes, helpers));
   practicalSections.forEach(section => addBeforeSection(sections, section.title, section.items || []));
   addBeforeSection(sections, 'Notes', helpers.getDisplayNotes(sourceRecipe, practicalSections) || []);
   addBeforeSection(sections, 'Technique', cleanTechnical(sourceRecipe.technical).map(item => labelValueText(item.label, item.value)));

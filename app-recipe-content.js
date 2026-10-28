@@ -194,31 +194,13 @@ function compactPracticalItems(key, items) {
   });
 }
 
-function inferEquipment(recipe) {
-  const text = normalizeText([
-    recipe?.title,
-    ...(recipe?.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]),
-    ...(recipe?.steps || []),
-    ...(recipe?.notes || [])
-  ].join(' '));
-  const items = [];
-  if (/\b(friture|frire|huile a 180|180c|180 c|bain d huile|tempura|beignet)\b/.test(text)) {
-    items.push('Casserole ou sauteuse haute', 'Thermomètre de cuisson', 'Grille d’égouttage');
-  }
-  if (/\b(four|enfourner|gril|plaque)\b/.test(text)) items.push('Four', 'Plaque ou plat de cuisson');
-  if (/\b(mixer|mixeur|blender)\b/.test(text)) items.push('Mixeur ou blender');
-  if (/\b(mortier|piler)\b/.test(text)) items.push('Mortier');
-  if (/\b(fouetter|fouet|emulsion|monter avec l huile)\b/.test(text)) items.push('Fouet');
-  if (/\b(poche|pocher|douille)\b/.test(text)) items.push('Poche à douille');
-  return uniq(items).slice(0, 4);
-}
-
+// Materiel de la fiche, tel qu'ecrit dans les donnees : une liste propre et
+// ordonnee par fiche (scripts/curate-recipe-equipment.js, verifiee par
+// scripts/validate-recipe-equipment.js). Plus de deduction au vol, qui
+// doublonnait (« Plat à four » + « Plaque ou plat de cuisson ») et se trompait.
 function getRecipeEquipment(recipe) {
   const practical = recipe?.practical || {};
-  return uniq([
-    ...asTextList(recipe?.equipment || practical.equipment),
-    ...inferEquipment(recipe)
-  ]).slice(0, 8);
+  return asTextList(recipe?.equipment || practical.equipment);
 }
 
 function getRecipeConservationText(recipe) {

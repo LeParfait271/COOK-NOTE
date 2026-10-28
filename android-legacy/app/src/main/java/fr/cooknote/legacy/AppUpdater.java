@@ -75,7 +75,7 @@ final class AppUpdater {
             if (clipboard != null) {
                 clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note APK Android 5.0+ v" + appVersion, UPDATE_APK_URL));
             }
-            Toast.makeText(activity, "Lien copie dans le presse-papiers", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Lien copi\u00E9 dans le presse-papiers", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -123,7 +123,7 @@ final class AppUpdater {
                             }
                         });
                     } else if (manual) {
-                        postUpdateToast("Cook Note est deja a jour.");
+                        postUpdateToast("Cook Note est d\u00E9j\u00E0 \u00E0 jour.");
                     }
                 } catch (Exception exception) {
                     if (manual) fallbackToStableUpdate();

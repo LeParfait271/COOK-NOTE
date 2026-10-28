@@ -264,6 +264,7 @@ function CookingMode({ title, steps, startIndex, isDone, markDone, stepIngredien
 function RecipeView({
   recipe,
   isFavorite,
+  favorites = [],
   toggleFavorite,
   shoppingIds,
   toggleShopping,
@@ -504,7 +505,7 @@ function RecipeView({
     if (!parts) return h('span', { className: 'ingredient-line no-quantity' }, h('span', { className: 'ingredient-name' }, h('span', { className: 'strike-text' }, renderLinkedText(text, inlineTargets, openRecipe, techniqueTargets, openTechnique))));
     // L'espace entre les colonnes garde une lecture continue (lecteur d'ecran, copie).
     return h('span', { className: 'ingredient-line' },
-      h(RollingQuantity, { className: 'ingredient-qty', text: parts.quantity }),
+      h(RollingQuantity, { className: 'ingredient-qty', text: frenchUnitSpacing(parts.quantity) }),
       ' ',
       h('span', { className: 'ingredient-name' }, h('span', { className: 'strike-text' }, renderLinkedText(parts.name, inlineTargets, openRecipe, techniqueTargets, openTechnique)))
     );
@@ -608,6 +609,8 @@ function RecipeView({
             if (!event.currentTarget.dataset.loaded) event.currentTarget.dataset.loaded = 'true';
           },
           src: preferredImageUrl(heroImage),
+          srcSet: !isCollectionHero && heroSrcSet ? heroSrcSet(heroImage) || undefined : undefined,
+          sizes: '100vw',
           'data-original-src': heroImage,
           alt: '',
           loading: 'eager',
@@ -632,21 +635,19 @@ function RecipeView({
           showVariants
             ? h('span', { key: 'recipes' }, `${leafRecipeCount} recette${leafRecipeCount > 1 ? 's' : ''}`)
             : needsInlineVariantSelection && !selectedInlineVariantGroup
-              ? [
-                h('span', { key: 'variants' }, `${inlineVariantOptions.length} variante${inlineVariantOptions.length > 1 ? 's' : ''}`),
-                h('span', { key: 'choice', className: 'detail-meta-choice-required' }, 'Choix requis pour ouvrir la fiche')
-              ]
+              ? h('span', { key: 'variants' }, `${inlineVariantOptions.length} variante${inlineVariantOptions.length > 1 ? 's' : ''}`)
             : [
               h('span', { key: 'difficulty' }, difficultyText(selectedRecipe)),
-              h('span', { key: 'nutri', className: `nutri-score nutri-${getNutriScore(selectedRecipe).toLowerCase()}` }, `Nutri ${getNutriScore(selectedRecipe)}`),
+              // Nutri-Score : une pastille comme les autres (en orange, il sonnait
+              // comme un avertissement sur presque toutes les fiches).
+              getNutriScore(selectedRecipe) && h('span', { key: 'nutri', title: 'Nutri-Score estimé' }, `Nutri-Score ${getNutriScore(selectedRecipe)}`),
               h('span', { key: 'ingredients' }, `${countIngredients(selectedRecipe)} ingrédients`),
                h('span', { key: 'steps' }, detailsLoading ? t('recipe.loadingShort') : stepMetaText)
             ]
         ),
-         hasResolvedRecipe && recipeDetailsReady && !isMasterRecipe(selectedRecipe) && h('div', { className: 'detail-quantity-row' },
-          h(QuantityFactorControl, { recipe: selectedRecipe, factor, setFactor, className: 'detail-quantity-control' })
-        ),
+         // Parts et actions sur une seule rangee (les parts etaient seules sur leur ligne).
          hasResolvedRecipe && recipeDetailsReady && h('div', { className: 'detail-actions' },
+          !isMasterRecipe(selectedRecipe) && h(QuantityFactorControl, { recipe: selectedRecipe, factor, setFactor, className: 'detail-quantity-control', stepper: true }),
           h(Button, {
               variant: 'primary',
               className: isInShopping ? 'is-in-shopping' : '',
@@ -687,7 +688,9 @@ function RecipeView({
        variantRefs,
        recipesById,
        openRecipe,
-       preloadRecipe
+       preloadRecipe,
+       favorites,
+       toggleFavorite
     }),
     hasSelectedVariant && needsInlineVariantSelection && h(InlineVariantPicker, {
       recipe,
@@ -833,13 +836,13 @@ function RecipeView({
             h('dl', { 'aria-label': 'Correspondances de poids moyens' }, averageWeights.map(item =>
               h(React.Fragment, { key: `${detailKey}:average:${item.label}` },
                 h('dt', null, item.label),
-                h('dd', null, item.value)
+                h('dd', null, frenchUnitSpacing(item.value))
               )
             ))
           ),
           h(PrepTimelineBlock, { recipe: selectedRecipe })
         ),
-        h('div', { className: 'notes-optional-stack' },
+        h(NotesFamilyTabs, { resetKey: detailKey },
           h(NotesFamily, { title: 'Servir' },
             h(FlavorMapBlock, { recipe: selectedRecipe }),
             h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique, hiddenKeys: hiddenPracticalKeys, onlyKeys: PRACTICAL_FAMILIES.serve }),
@@ -852,10 +855,10 @@ function RecipeView({
           h(NotesFamily, { title: 'Maîtriser' },
             h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique, hiddenKeys: hiddenPracticalKeys, onlyKeys: PRACTICAL_FAMILIES.master }),
             h(IngredientKnowledgeBlock, { recipe: selectedRecipe }),
-            displayNotes.length > 0 && h(NotesDisclosure, { className: 'free-notes-block', label: 'Notes', ariaLabel: 'Notes de la recette', preview: displayNotes[0] },
+            displayNotes.length > 0 && h(NotesDisclosure, { className: 'free-notes-block', label: 'Notes', ariaLabel: 'Notes de la recette' },
               h('ul', null, displayNotes.map((note, index) => h('li', { key: `${detailKey}:note:${index}` }, renderLinkedText(sanitizeNoteHtml(note), inlineTargets, openRecipe, techniqueTargets, openTechnique))))
             ),
-            (selectedRecipe.technical || recipe.technical || []).length > 0 && h(NotesDisclosure, { className: 'technical-card', label: 'Fiche technique', ariaLabel: 'Fiche technique de la recette', preview: (selectedRecipe.technical || recipe.technical || []).map(item => item.label || item.title || '').filter(Boolean).join(', ') },
+            (selectedRecipe.technical || recipe.technical || []).length > 0 && h(NotesDisclosure, { className: 'technical-card', label: 'Fiche technique', ariaLabel: 'Fiche technique de la recette' },
               h('dl', { 'aria-label': 'Points techniques' }, (selectedRecipe.technical || recipe.technical || []).map((item, index) =>
                 h(React.Fragment, { key: `${detailKey}:technical:${index}` },
                   h('dt', null, renderLinkedText(item.label || item.title || 'Point clé', inlineTargets, openRecipe, techniqueTargets, openTechnique)),

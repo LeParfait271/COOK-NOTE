@@ -89,9 +89,11 @@ test.describe('Cook Note parcours utilisateur', () => {
     await page.goto(`/recette/${RECIPE}`);
     await ready(page);
 
-    const select = page.locator('.recipe-detail-hero select, .detail-quantity-control select').first();
-    await select.selectOption('6');
-    await expect(select).toHaveValue('6');
+    // Parts en - / + dans le bandeau : monter jusqu'a 6.
+    const stepper = page.locator('.recipe-detail-hero .quantity-stepper').first();
+    const plus = stepper.getByRole('button', { name: /^Plus de/ });
+    for (let guard = 0; guard < 12 && (await stepper.locator('strong').textContent()) !== '6'; guard += 1) await plus.click();
+    await expect(stepper.locator('strong')).toHaveText('6');
     await page.getByRole('button', { name: /Ajouter aux courses/i }).first().click();
     await expect(page.getByRole('button', { name: /Dans les courses/i }).first()).toBeVisible();
     expect(JSON.stringify(await readStorage(page, 'cook_note_shopping_basket'))).toContain(RECIPE);

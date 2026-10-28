@@ -103,7 +103,6 @@ public class MainActivity extends Activity {
     LinearLayout searchPanel;
     LinearLayout recentChipsRow;
     Button searchToggle;
-    Button shoppingButton;
     Button clearSearchButton;
     TextView counterView;
     EditText searchBox;
@@ -517,6 +516,8 @@ public class MainActivity extends Activity {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.TOP);
+        // Sans ca, le texte s'aligne sur la ligne de base du numero et sa derniere ligne est rognee.
+        row.setBaselineAligned(false);
         row.setPadding(0, dp(8), 0, dp(10));
 
         TextView index = text(String.valueOf(number), 16, COLOR_GOLD, false);
@@ -818,14 +819,126 @@ public class MainActivity extends Activity {
     }
 
     void refreshShoppingButton() {
-        if (shoppingButton != null) shoppingButton.setText("COURSES  ·  " + shopping.recipeIds.size());
+        if (shoppingBadge == null) return;
+        int count = shopping.recipeIds.size();
+        shoppingBadge.setText(String.valueOf(count));
+        shoppingBadge.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+    }
+
+    // ---------- Barre du haut, comme le site ----------
+    // Gauche : accueil (ou retour sur une fiche). Centre : titre de l'ecran.
+    // Droite : recherche, panier (pastille du nombre de recettes), mise a jour.
+    TextView shoppingBadge;
+
+    void addTopBar(LinearLayout root, final boolean detail, String title) {
+        LinearLayout bar = new LinearLayout(this);
+        bar.setOrientation(LinearLayout.HORIZONTAL);
+        bar.setGravity(Gravity.CENTER_VERTICAL);
+        bar.setPadding(dp(14), dp(8), dp(14), dp(8));
+        bar.setBackgroundColor(COLOR_PANEL_DEEP);
+        root.addView(bar, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        View hairline = new View(this);
+        hairline.setBackgroundColor(Color.argb(64, 214, 158, 64));
+        root.addView(hairline, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(1)));
+
+        bar.addView(iconButton(detail ? R.drawable.ic_back : R.drawable.ic_home, detail ? "Retour" : "Accueil", !detail, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (detail) {
+                    goBack();
+                } else {
+                    homeScreen.setSearchPanelOpen(false);
+                    homeScreen.clearSearch();
+                    if (recipeGridView != null) recipeGridView.smoothScrollToPosition(0);
+                }
+            }
+        }), new LinearLayout.LayoutParams(dp(40), dp(40)));
+
+        TextView titleView = text(title == null ? "" : title, 16, COLOR_TEXT, false);
+        titleView.setTypeface(Ui.DISPLAY);
+        titleView.setGravity(Gravity.CENTER);
+        titleView.setSingleLine(true);
+        titleView.setEllipsize(TextUtils.TruncateAt.END);
+        titleView.setPadding(dp(10), 0, dp(10), 0);
+        bar.addView(titleView, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
+        bar.addView(iconButton(R.drawable.ic_search, "Rechercher", false, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentScreen == SCREEN_LIST) {
+                    homeScreen.setSearchPanelOpen(!searchPanelOpen);
+                    return;
+                }
+                // Depuis une fiche : retour a l'accueil, recherche ouverte.
+                searchPanelOpen = true;
+                navigatingBack = true;
+                detailBackStack.clear();
+                homeScreen.showList();
+            }
+        }), topBarIconParams());
+
+        FrameLayout basket = iconButton(R.drawable.ic_basket, "Liste de courses", currentScreen == SCREEN_SHOPPING, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentScreen == SCREEN_SHOPPING) return;
+                hideKeyboard();
+                homeScreen.setSearchPanelOpen(false);
+                shoppingScreen.showShoppingList(true);
+            }
+        });
+        shoppingBadge = text("", 10, COLOR_TEXT_DARK, true);
+        shoppingBadge.setGravity(Gravity.CENTER);
+        shoppingBadge.setIncludeFontPadding(false);
+        shoppingBadge.setPadding(dp(4), 0, dp(4), 0);
+        shoppingBadge.setMinWidth(dp(18));
+        shoppingBadge.setBackground(panel(COLOR_GOLD, COLOR_GOLD, 1, 9));
+        basket.setClipChildren(false);
+        basket.addView(shoppingBadge, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp(18), Gravity.TOP | Gravity.RIGHT));
+        bar.addView(basket, topBarIconParams());
+        refreshShoppingButton();
+
+        if (!detail) {
+            bar.addView(iconButton(R.drawable.ic_update, "Mise a jour", false, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    updater.checkForUpdatesAsync(true);
+                }
+            }), topBarIconParams());
+        }
+    }
+
+    LinearLayout.LayoutParams topBarIconParams() {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dp(40), dp(40));
+        params.leftMargin = dp(8);
+        return params;
+    }
+
+    // Bouton carre a icone : contour clair discret, fond dore quand actif.
+    FrameLayout iconButton(int icon, String label, boolean active, View.OnClickListener listener) {
+        FrameLayout button = new FrameLayout(this);
+        button.setBackground(selectablePanel(
+                active ? Color.argb(64, 214, 158, 64) : Color.argb(20, 255, 255, 255),
+                Color.argb(80, 214, 158, 64),
+                active ? Color.argb(150, 214, 158, 64) : Color.argb(86, 255, 255, 255),
+                1,
+                9
+        ));
+        button.setClickable(true);
+        button.setContentDescription(label);
+        button.setOnClickListener(listener);
+        ImageView image = new ImageView(this);
+        image.setImageResource(icon);
+        image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        button.addView(image, new FrameLayout.LayoutParams(dp(20), dp(20), Gravity.CENTER));
+        return button;
     }
 
     void setKeepScreenOn(boolean enabled) {
         keepScreenOn = enabled;
         applyKeepScreenOn();
         saveUserState();
-        Toast.makeText(this, enabled ? "Ecran garde actif" : "Veille automatique", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, enabled ? "\u00C9cran gard\u00E9 actif" : "Veille automatique", Toast.LENGTH_SHORT).show();
     }
 
     void applyKeepScreenOn() {

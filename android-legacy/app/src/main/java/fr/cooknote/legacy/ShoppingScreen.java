@@ -60,35 +60,7 @@ final class ShoppingScreen {
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(COLOR_BG);
 
-        LinearLayout top = new LinearLayout(host);
-        top.setOrientation(LinearLayout.HORIZONTAL);
-        top.setGravity(Gravity.CENTER_VERTICAL);
-        top.setPadding(dp(10), dp(6), dp(10), dp(6));
-        top.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER, 1, 0));
-        root.addView(top, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-
-        Button back = new Button(host);
-        back.setText("Retour");
-        back.setTextColor(COLOR_TEXT_DARK);
-        back.setTextSize(12);
-        back.setTypeface(Typeface.DEFAULT_BOLD);
-        back.setAllCaps(false);
-        back.setBackground(buttonPanel(true));
-        top.addView(back, new LinearLayout.LayoutParams(dp(86), dp(36)));
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                host.goBack();
-            }
-        });
-
-        TextView title = host.text("Liste de courses", 17, COLOR_TEXT, true);
-        title.setGravity(Gravity.CENTER_VERTICAL);
-        title.setPadding(dp(12), 0, 0, 0);
-        top.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        host.addTopBar(root, true, "Liste de courses");
 
         ScrollView scroll = new ScrollView(host);
         scroll.setSmoothScrollingEnabled(true);
@@ -107,9 +79,10 @@ final class ShoppingScreen {
         LinearLayout actions = host.addSection(content, "Courses", countLabel(host.shopping.recipeIds.size(), "fiche", "fiches"));
         host.body(actions, countLabel(host.shopping.recipeIds.size(), "recette dans la liste", "recettes dans la liste"), COLOR_MUTED);
 
+        ArrayList<Button> buttons = new ArrayList<Button>();
         Button copy = host.sectionButton("Copier la liste", true);
         copy.setEnabled(!host.shopping.recipeIds.isEmpty());
-        actions.addView(copy);
+        buttons.add(copy);
         copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,9 +90,9 @@ final class ShoppingScreen {
             }
         });
 
-        Button copyTodo = host.sectionButton("Copier a faire", false);
+        Button copyTodo = host.sectionButton("Copier \u00E0 faire", false);
         copyTodo.setEnabled(!host.shopping.recipeIds.isEmpty());
-        actions.addView(copyTodo);
+        buttons.add(copyTodo);
         copyTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,9 +100,9 @@ final class ShoppingScreen {
             }
         });
 
-        Button phone = host.sectionButton("Sur mon telephone (QR code)", false);
+        Button phone = host.sectionButton("Sur mon t\u00E9l\u00E9phone (QR)", false);
         phone.setEnabled(!host.shopping.recipeIds.isEmpty());
-        actions.addView(phone);
+        buttons.add(phone);
         phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,9 +110,9 @@ final class ShoppingScreen {
             }
         });
 
-        Button resetDone = host.sectionButton("Tout decocher", false);
+        Button resetDone = host.sectionButton("Tout d\u00E9cocher", false);
         resetDone.setEnabled(!host.shopping.doneKeys.isEmpty());
-        actions.addView(resetDone);
+        buttons.add(resetDone);
         resetDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,16 +122,17 @@ final class ShoppingScreen {
 
         Button clear = host.sectionButton("Vider la liste", false);
         clear.setEnabled(!host.shopping.recipeIds.isEmpty());
-        actions.addView(clear);
+        buttons.add(clear);
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 host.clearShoppingList();
             }
         });
+        addButtonRows(actions, buttons);
 
         if (host.shopping.recipeIds.isEmpty()) {
-            host.body(actions, "Ajoute une recette depuis une fiche pour preparer les courses.");
+            host.body(actions, "Ajoute une recette depuis une fiche pour pr\u00E9parer les courses.");
         } else {
             addMergedShoppingSection(content);
             ArrayList<String> ids = new ArrayList<String>(host.shopping.recipeIds);
@@ -205,12 +179,12 @@ final class ShoppingScreen {
             if (line.owned) owned.add(line);
             else toBuy.add(line);
         }
-        LinearLayout section = host.addSection(content, "Courses fusionnees", countLabel(toBuy.size(), "article", "articles"));
+        LinearLayout section = host.addSection(content, "Courses fusionn\u00E9es", countLabel(toBuy.size(), "article", "articles"));
         if (lines.isEmpty()) {
             host.body(section, "Aucun ingredient disponible.");
             return;
         }
-        host.body(section, "Les quantites sont additionnees ; le format a acheter est indique sous l'article.", COLOR_MUTED);
+        host.body(section, "Les quantités sont additionnées ; le format à acheter est indiqué sous l’article.", COLOR_MUTED);
         for (ShoppingList.ShoppingLine line : toBuy) {
             addMergedShoppingCheckRow(section, line);
         }
@@ -221,8 +195,8 @@ final class ShoppingScreen {
     // prochaines listes ; toucher l'article le remet a acheter (et le sort du
     // placard).
     void addOwnedSection(LinearLayout content, List<ShoppingList.ShoppingLine> owned) {
-        LinearLayout section = host.addSection(content, "Deja a la maison", countLabel(owned.size(), "article", "articles"));
-        host.body(section, "« Toujours » garde l'article au placard : il sera range d'office dans tes prochaines listes.", COLOR_MUTED);
+        LinearLayout section = host.addSection(content, "Déjà à la maison", countLabel(owned.size(), "article", "articles"));
+        host.body(section, "« Toujours » garde l’article au placard : il sera rangé d’office dans tes prochaines listes.", COLOR_MUTED);
         for (final ShoppingList.ShoppingLine line : owned) {
             LinearLayout row = new LinearLayout(host);
             row.setOrientation(LinearLayout.HORIZONTAL);
@@ -235,7 +209,7 @@ final class ShoppingScreen {
             section.addView(row, rowParams);
 
             Button putBack = host.actionButton(line.display(), false);
-            putBack.setContentDescription("Remettre " + line.item.displayName() + " dans la liste a acheter");
+            putBack.setContentDescription("Remettre " + line.item.displayName() + " dans la liste à acheter");
             putBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -367,8 +341,8 @@ final class ShoppingScreen {
         params.rightMargin = dp(7);
         row.addView(checkBox, params);
 
-        Button owned = host.actionButton("J'ai deja", false);
-        owned.setContentDescription("Marquer " + line.item.displayName() + " comme deja a la maison");
+        Button owned = host.actionButton("J’ai déjà", false);
+        owned.setContentDescription("Marquer " + line.item.displayName() + " comme déjà à la maison");
         owned.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -416,7 +390,7 @@ final class ShoppingScreen {
         ClipboardManager clipboard = (ClipboardManager) host.getSystemService(Context.CLIPBOARD_SERVICE);
         if (clipboard == null) return;
         clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note - courses a faire", host.shoppingText(true, false)));
-        Toast.makeText(host, "Courses restantes copiees", Toast.LENGTH_SHORT).show();
+        Toast.makeText(host, "Courses restantes copi\u00E9es", Toast.LENGTH_SHORT).show();
     }
 
     // Meme format que le site (#courses=id*facteur,...) : le telephone scanne le
@@ -449,13 +423,13 @@ final class ShoppingScreen {
         box.setGravity(Gravity.CENTER_HORIZONTAL);
         box.setPadding(dp(18), dp(16), dp(18), dp(8));
         box.addView(image, new LinearLayout.LayoutParams(pixelsSize, pixelsSize));
-        TextView hint = host.text("Scanne ce code avec l appareil photo du telephone : la liste s ouvre dans Cook Note, prete pour le magasin.", 14, COLOR_MUTED, false);
+        TextView hint = host.text("Scanne ce code avec l\u2019appareil photo du t\u00E9l\u00E9phone : la liste s\u2019ouvre dans Cook Note, pr\u00EAte pour le magasin.", 14, COLOR_MUTED, false);
         hint.setGravity(Gravity.CENTER);
         hint.setPadding(0, dp(12), 0, 0);
         box.addView(hint);
 
         new AlertDialog.Builder(host)
-                .setTitle("Liste sur le telephone")
+                .setTitle("Liste sur le t\u00E9l\u00E9phone")
                 .setView(box)
                 .setPositiveButton("Fermer", null)
                 .show();
@@ -471,6 +445,28 @@ final class ShoppingScreen {
         ClipboardManager clipboard = (ClipboardManager) host.getSystemService(Context.CLIPBOARD_SERVICE);
         if (clipboard == null) return;
         clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note - liste de courses", host.shoppingText(false, true)));
-        Toast.makeText(host, "Liste de courses copiee", Toast.LENGTH_SHORT).show();
+        Toast.makeText(host, "Liste de courses copi\u00E9e", Toast.LENGTH_SHORT).show();
+    }
+
+    /** Boutons en rangees egales : tous sur une ligne en tablette, par deux sur telephone. */
+    void addButtonRows(LinearLayout parent, ArrayList<Button> buttons) {
+        int width = host.getResources().getDisplayMetrics().widthPixels;
+        int perRow = width >= dp(900) ? buttons.size() : (width >= dp(560) ? 3 : 2);
+        LinearLayout row = null;
+        for (int index = 0; index < buttons.size(); index += 1) {
+            if (index % perRow == 0) {
+                row = new LinearLayout(host);
+                row.setOrientation(LinearLayout.HORIZONTAL);
+                LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+                rowParams.topMargin = dp(10);
+                parent.addView(row, rowParams);
+            }
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(40), 1);
+            if (index % perRow < perRow - 1 && index < buttons.size() - 1) params.rightMargin = dp(8);
+            row.addView(buttons.get(index), params);
+        }
     }
 }

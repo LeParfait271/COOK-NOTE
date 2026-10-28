@@ -767,19 +767,6 @@
   font-weight: 600;
 }
 
-.notes-disclosure-preview {
-  overflow: hidden;
-  font-size: var(--ds-text-xs);
-  font-weight: 430;
-  color: var(--muted);
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.notes-disclosure[open] .notes-disclosure-preview {
-  display: none;
-}
-
 /* Chevron : case carree fixe, centree, qui pivote sur elle-meme (le demi-tour
    vient du transform de la couche legacy) sans jamais sortir du bloc. */
 .notes-panel .notes-disclosure-icon {

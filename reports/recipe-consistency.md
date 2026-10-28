@@ -5,7 +5,7 @@ chaque correction est présentée et validée avant intégration.
 
 - Fiches et options analysées : 458
 - Signalements : 151
-- Empreinte recipes.js : fc835e9ed385
+- Empreinte recipes.js : 236166d8a4b8
 
 ## Fautes d’accent probables (0)
 

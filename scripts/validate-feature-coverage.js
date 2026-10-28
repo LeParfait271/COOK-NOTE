@@ -184,7 +184,8 @@ themes.forEach(themeId => {
   expect(`Mode menu ${themeId}: menu trop court.`, (menu.items || []).length >= 3);
   (menu.items || []).forEach(item => {
     const profile = ctx.getMenuRecipeProfile(item.recipe);
-    expect(`Mode menu ${themeId}: note absente pour ${item.recipe?.id}.`, Boolean(item.note));
+    // Note facultative : seulement quand l'accord est reel (plus de phrase passe-partout).
+    expect(`Mode menu ${themeId}: note generique pour ${item.recipe?.id}.`, !/Base principale solide|Fin plus fraîche|Dessert servi, pas|Ouvre le menu sans|Complète le plat sans/.test(item.note || ''));
     expect(`Mode menu ${themeId}: composant servi (${item.recipe?.id}).`, profile.servable && profile.role !== 'component');
     if (item.key === 'main') expect(`Mode menu ${themeId}: plat mal role (${item.recipe?.id}).`, profile.role === 'main');
     if (item.key === 'dessert') expect(`Mode menu ${themeId}: dessert mal role (${item.recipe?.id}).`, profile.role === 'dessert');

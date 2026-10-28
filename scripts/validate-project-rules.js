@@ -84,11 +84,11 @@ expect(
   'Collections encombrees par des controles retires ou sans ancien visuel parent.',
   validators.app.includes('function collectionHeroImage(recipe)')
     && validators.app.includes("className: 'variant-card-grid'")
-    && !validators.app.includes('collection-search')
+    // Filtre texte, familles et tri reviennent (v5.40, demande utilisateur) dans
+    // une seule barre ; les anciens filtres rapides et comparatifs restent exclus.
     && !validators.app.includes('collection-quick-filters')
     && !validators.app.includes('collection-comparison')
     && !validators.app.includes('variant-compare-toggle')
-    && !validators.style.includes('.collection-search')
     && !validators.style.includes('.collection-comparison-grid')
 );
 

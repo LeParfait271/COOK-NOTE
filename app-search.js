@@ -268,9 +268,44 @@ function getRecipeSearchScoreFields(recipe, recipesById = {}) {
   return value;
 }
 
+// « dessert sans four », « pâtes sans lardons » : chaque « sans X » ecarte les
+// fiches qui utilisent X (ingredient, materiel ou geste), le reste de la
+// requete est cherche normalement. « sans cuisson », « sans gluten »… restent
+// des intentions gerees par la recherche semantique.
+const SEARCH_EXCLUSION_INTENTS = new Set(['cuisson', 'gluten', 'viande', 'lactose']);
+const SEARCH_EXCLUSION_PATTERNS = {
+  four: /\b(four|enfourn\w*)\b/,
+  friture: /\b(friture|frire|frit|frites)\b/
+};
+
+function splitSearchExclusions(normalizedQuery) {
+  const excluded = [];
+  const rest = normalizedQuery.replace(/\bsans\s+([a-z0-9-]{3,})/g, (match, word) => {
+    if (SEARCH_EXCLUSION_INTENTS.has(word)) return match;
+    excluded.push(word.replace(/s$/, ''));
+    return ' ';
+  }).replace(/\s+/g, ' ').trim();
+  return { rest, excluded };
+}
+
+function recipeUsesExcluded(recipe, word) {
+  const text = normalizeText([
+    recipe.title,
+    ...(recipe.ingredients || []).flatMap(group => group.items || []),
+    ...(recipe.practical?.equipment || []),
+    ...(recipe.steps || [])
+  ].map(stripHtml).join(' '));
+  const pattern = SEARCH_EXCLUSION_PATTERNS[word] || new RegExp(`\\b${word.replace(/[^a-z0-9-]/g, '')}s?\\b`);
+  return pattern.test(text);
+}
+
 function scoreRecipeSearch(recipe, query, recipesById = {}) {
-  const needle = normalizeText(query).trim();
-  if (!needle) return { score: 0, reasons: [] };
+  const fullNeedle = normalizeText(query).trim();
+  if (!fullNeedle) return { score: 0, reasons: [] };
+  const { rest, excluded } = splitSearchExclusions(fullNeedle);
+  if (excluded.some(word => recipeUsesExcluded(recipe, word))) return { score: 0, reasons: [] };
+  if (!rest && excluded.length) return { score: 1, reasons: [] };
+  const needle = rest || fullNeedle;
   const tokenGroups = expandSearchTokens(searchTokens(needle));
   if (!tokenGroups.length) return { score: 0, reasons: [] };
   const indexedText = recipe.searchText || getRecipeSearchText(recipe, recipe.tagsExtracted || recipe.tags || [], recipesById);

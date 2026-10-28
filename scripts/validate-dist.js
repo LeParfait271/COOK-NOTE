@@ -189,11 +189,14 @@ if (!fs.existsSync(DIST)) {
       if (prerenderedHtml.includes('loading-screen')) {
         fail(`dist/${prerenderedPage}: loader bloquant interdit dans une page prerendue.`);
       }
-      const expectedHeroImage = themeRecipeArt[id];
+      // Fiche parente (categorie, collection) : l'illustration d'accueil, comme l'app.
+      const isParentPage = Array.isArray(recipe.variants) && recipe.variants.some(variant => variant && variant.id);
+      const expectedHeroImage = isParentPage ? '/assets/theme/dark/global/hero.png' : themeRecipeArt[id];
       // Le prechargement vise l'AVIF quand il existe, sinon l'image d'origine.
       const expectedHeroAvif = String(expectedHeroImage || '').replace(/\.(?:jpe?g|png)(\?.*)?$/i, '.avif$1');
+      // Prechargement injecte selon le theme (jour/nuit) : l'URL nuit figure dans le script.
       const preloadsHero = prerenderedHtml.includes(`href="${expectedHeroImage}"`)
-        || (exists(normalizeAssetPath(expectedHeroAvif)) && prerenderedHtml.includes(`href="${expectedHeroAvif}" type="image/avif"`));
+        || (exists(normalizeAssetPath(expectedHeroAvif)) && (prerenderedHtml.includes(`href="${expectedHeroAvif}" type="image/avif"`) || prerenderedHtml.includes(JSON.stringify(expectedHeroAvif))));
       if (expectedHeroImage && exists(normalizeAssetPath(expectedHeroImage)) && !preloadsHero) {
         fail(`dist/${prerenderedPage}: hero pre-rendu non aligne (${expectedHeroImage}).`);
       }

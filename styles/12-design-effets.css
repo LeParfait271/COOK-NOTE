@@ -61,15 +61,6 @@ html.page-reveal-back::view-transition-new(root) {
   }
 }
 
-/* Carte cliquee : enfoncee et cernee d'or des le clic (classe posee par
-   app.js), pour que l'attente avant le cercle ne paraisse jamais morte. */
-[data-vt-card].is-opening {
-  scale: .975;
-  outline: 2px solid color-mix(in oklch, var(--ds-gold) 85%, transparent);
-  outline-offset: 3px;
-  transition: scale 140ms cubic-bezier(.2, .8, .2, 1), outline-color 140ms ease-out;
-}
-
 /* Pause avant le depart (holdTransitionUntilFirstFrame) : la nouvelle page,
    entierement ouverte, se dessine sous la capture de l'ancienne. */
 html.page-reveal-hold::view-transition-new(root) {

@@ -5,6 +5,7 @@ const {
   recipeCardImageUrl,
   imageSizeAttrs,
   imageSrcSet,
+  heroSrcSet,
   imageBackgroundStyle,
   preferredImageUrl,
   cssImageValue,
@@ -100,10 +101,10 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.38';
-const SITE_UPDATED_AT = '27/10/26';
+const SITE_VERSION = 'v5.40';
+const SITE_UPDATED_AT = '28/10/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '5.38';
+const ANDROID_LEGACY_APK_VERSION = '5.40';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
@@ -1051,32 +1052,11 @@ function visibleRecipeCardParts(recipeId) {
 // Dernier appui (souris, doigt) : centre du devoilement quand aucune carte ne
 // porte la navigation (resultat de recherche, menu, fil d'Ariane).
 const lastPagePointer = { x: 0, y: 0, time: 0 };
-// Carte cliquee : enfoncee et cernee d'or tout de suite (`is-opening`), le
-// temps que la page suivante se prepare ; la capture de l'ancienne page la
-// garde ainsi pendant la courte pause avant le cercle.
-const CARD_OPENING_MAX_MS = 1600;
-let openingCard = null;
-let openingCardTimer = 0;
-
-function clearOpeningCard() {
-  window.clearTimeout(openingCardTimer);
-  openingCard?.classList.remove('is-opening');
-  openingCard = null;
-}
-
 if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
   window.addEventListener('pointerdown', event => {
     lastPagePointer.x = event.clientX;
     lastPagePointer.y = event.clientY;
     lastPagePointer.time = performance.now();
-  }, { capture: true, passive: true });
-  window.addEventListener('click', event => {
-    const card = event.target?.closest?.('[data-vt-card]');
-    if (!card) return;
-    clearOpeningCard();
-    openingCard = card;
-    card.classList.add('is-opening');
-    openingCardTimer = window.setTimeout(clearOpeningCard, CARD_OPENING_MAX_MS);
   }, { capture: true, passive: true });
 }
 
@@ -1139,7 +1119,6 @@ function runViewTransition(update, { sourceId = '', returnId = '', after = null,
     Promise.resolve(transition?.ready).then(holdTransitionUntilFirstFrame, () => {});
     Promise.resolve(transition?.finished).catch(() => {}).finally(() => {
       root.classList.remove(...classes);
-      clearOpeningCard();
     });
   } catch {
     root.classList.remove(...classes);

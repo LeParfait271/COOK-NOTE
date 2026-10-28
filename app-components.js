@@ -281,7 +281,8 @@ function revealThemeToggle(event, activeTheme, toggleTheme) {
   transition.finished.finally(() => root.classList.remove('theme-reveal'));
 }
 
-function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences, activeTheme, toggleTheme, homeActive = false, searchActive = false, favoritesActive = false }) {
+function TopBarFixed({ onHome, showFavorites, openShoppingBasket, shoppingCount = 0, query, openSearch, openPreferences, activeTheme, toggleTheme, homeActive = false, searchActive = false, favoritesActive = false }) {
+  const basketLabel = shoppingCount ? `Liste de courses (${shoppingCount} recette${shoppingCount > 1 ? 's' : ''})` : 'Liste de courses';
   const themeToggleLabel = activeTheme === 'light' ? 'Passer en mode nuit' : 'Passer en mode jour';
 
   return h('header', { className: 'topbar' },
@@ -299,6 +300,13 @@ function TopBarFixed({ onHome, showFavorites, query, openSearch, openPreferences
         ariaLabel: 'Rechercher',
         pressed: Boolean(query.trim() || searchActive)
       }, h(Icon, { name: 'search' })),
+      h(Button, {
+        variant: 'ghost',
+        className: 'top-basket-btn icon-square',
+        onClick: openShoppingBasket,
+        title: basketLabel,
+        ariaLabel: basketLabel
+      }, h(Icon, { name: 'basket' }), shoppingCount > 0 && h('span', { className: 'top-basket-count', 'aria-hidden': true }, shoppingCount)),
       h(Button, {
         variant: 'ghost',
         className: favoritesActive ? 'top-fav-btn icon-square active' : 'top-fav-btn icon-square',
@@ -461,13 +469,14 @@ function startKitchenTimer({ seconds, label, title = '' }) {
 // Texte d'etape : chaque duree devient un bouton minuteur. Seules les chaines
 // de premier niveau sont decoupees ; les liens restent intacts.
 function withKitchenTimers(content, title = '') {
+  // Le texte autour des minuteurs suit aussi l'espacement francais (« 170 °C »).
   const split = text => {
     const durations = findStepDurations(text);
-    if (!durations.length) return text;
+    if (!durations.length) return frenchUnitSpacing(text);
     const nodes = [];
     let cursor = 0;
     durations.forEach(duration => {
-      if (duration.index > cursor) nodes.push(text.slice(cursor, duration.index));
+      if (duration.index > cursor) nodes.push(frenchUnitSpacing(text.slice(cursor, duration.index)));
       nodes.push(h('button', {
         key: `timer-${duration.index}`,
         type: 'button',
@@ -478,10 +487,10 @@ function withKitchenTimers(content, title = '') {
           event.stopPropagation();
           startKitchenTimer({ seconds: duration.seconds, label: duration.text, title });
         }
-      }, h(Icon, { name: 'timer' }), duration.text));
+      }, h(Icon, { name: 'timer' }), frenchUnitSpacing(duration.text)));
       cursor = duration.index + duration.text.length;
     });
-    if (cursor < text.length) nodes.push(text.slice(cursor));
+    if (cursor < text.length) nodes.push(frenchUnitSpacing(text.slice(cursor)));
     return nodes;
   };
   // renderLinkedText renvoie des fragments imbriques : on descend dans les
@@ -705,7 +714,9 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
         src: preferredImageUrl(cardImage),
         'data-original-src': cardImage,
         alt: recipe.title,
-        loading: 'lazy',
+        // Les 8 categories de l'accueil (vignettes de 400px) : tout de suite,
+        // la premiere est visible au premier ecran sur telephone.
+        loading: master ? 'eager' : 'lazy',
         decoding: 'async',
         fetchPriority: master ? 'high' : 'low',
         srcSet: imageSrcSet(sourceImage),
@@ -873,8 +884,7 @@ function RecipeGrid({ recipes, recipesById, favorites, toggleFavorite, openRecip
   );
 }
 
-function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, setSeason, categoryFilter, setCategoryFilter, categoryOptions, favoriteCollection, setFavoriteCollection, preloadRecipe = null }) {
-  const seasonOptions = ['Toutes', ...SEASONS];
+function SeasonSections({ sections, recipesById, favorites, toggleFavorite, openRecipe, setTagFilter, onlyFavorites, clearFavoriteView, selectedSeason, categoryFilter, setCategoryFilter, categoryOptions, favoriteCollection, setFavoriteCollection, preloadRecipe = null }) {
   const showCategoryTabs = selectedSeason && !onlyFavorites && (categoryOptions || []).length > 1;
   const defaultCatalogSection = !onlyFavorites
     && !selectedSeason
@@ -922,21 +932,11 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
       ),
       onlyFavorites
         ? h('button', { type: 'button', onClick: clearFavoriteView }, 'Quitter les favoris')
-        : h('div', { className: 'season-filter-stack' },
-          h('div', { className: 'season-tabs', 'aria-label': 'Filtrer par saison' },
-            seasonOptions.map(item => {
-              const value = item === 'Toutes' ? '' : item;
-              const active = selectedSeason === value;
-              return h('button', {
-                key: item,
-                type: 'button',
-                className: active ? 'active' : '',
-                'aria-pressed': active,
-                onClick: () => setSeason(value)
-              }, item);
-            })
-          ),
-          showCategoryTabs && h('div', { className: 'season-category-tabs', 'aria-label': 'Filtrer la saison par catégorie' },
+        // Les saisons se choisissent dans chaque categorie (filtre de la fiche
+        // parente) ; l'accueil ne garde que le tri par categorie d'une saison
+        // deja choisie ailleurs (recherche).
+        : showCategoryTabs && h('div', { className: 'season-filter-stack' },
+          h('div', { className: 'season-category-tabs', 'aria-label': 'Filtrer la saison par catégorie' },
             categoryOptions.map(item => h('button', {
               key: item.value || 'all',
               type: 'button',
@@ -997,7 +997,6 @@ function HomeView(props) {
         onlyFavorites: props.onlyFavorites,
         clearFavoriteView: props.clearFavoriteView,
         selectedSeason: props.filterProps.season,
-        setSeason: props.filterProps.setSeason,
         categoryFilter: props.filterProps.seasonCategory,
         setCategoryFilter: props.filterProps.setSeasonCategory,
         categoryOptions: props.filterProps.seasonCategoryOptions,
@@ -1222,7 +1221,7 @@ function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
         title: recipe.title,
         description,
         imageUrl,
-        metaText: [primaryCategory(recipe), recipe.yield, getNutriScore(recipe) && `Nutri ${getNutriScore(recipe)}`].filter(Boolean).join(' · '),
+        metaText: [primaryCategory(recipe), recipe.yield].filter(Boolean).join(' · '),
         qrReady,
         qrCanvas: canvasRef.current,
         format
@@ -1289,8 +1288,7 @@ function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
           h('p', null, description),
           h('div', { className: 'share-card-meta' },
             h('span', null, primaryCategory(recipe)),
-            recipe.yield && h('span', null, recipe.yield),
-            h('span', { className: `nutri-score nutri-${getNutriScore(recipe).toLowerCase()}` }, `Nutri ${getNutriScore(recipe)}`)
+            recipe.yield && h('span', null, recipe.yield)
           )
         ),
         h('div', { className: qrReady ? 'share-qr is-ready' : 'share-qr', 'aria-label': `QR code de ${recipe.title}` },

@@ -2,7 +2,7 @@
   "source": {
     "siteVersion": "v5.38",
     "siteUpdatedAt": "27/10/26",
-    "recipesSha256": "fc835e9ed385"
+    "recipesSha256": "236166d8a4b8"
   },
   "totals": {
     "recipes": 329,
@@ -17,11 +17,11 @@
   },
   "averageScore": 100,
   "healthDashboard": {
-    "ready": 475,
-    "improve": 0,
+    "ready": 465,
+    "improve": 10,
     "weak": 0,
     "missingDiscovery": 0,
-    "missingSafety": 0,
+    "missingSafety": 10,
     "productionRisk": 0,
     "fewLinks": 212
   },
@@ -625,6 +625,16 @@
   ],
   "categoryIdeas": [
     {
+      "id": "mousse_legumes::variant-2",
+      "title": "Mousse de légumes — Mousse de carotte",
+      "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
+    },
+    {
+      "id": "mousse_legumes::variant-1",
+      "title": "Mousse de légumes — Mousse de courgette",
+      "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
+    },
+    {
       "id": "asperges_mimosa",
       "title": "Asperges mimosa",
       "text": "Categorie possible : Apéro (semble utile a l apero)."
@@ -743,16 +753,6 @@
       "id": "mayonnaise_maison::variant-1",
       "title": "Mayonnaise — Base mayonnaise",
       "text": "Categorie possible : Base (semble etre une base reutilisable)."
-    },
-    {
-      "id": "mousse_legumes::variant-2",
-      "title": "Mousse de légumes — Mousse de carotte",
-      "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
-    },
-    {
-      "id": "mousse_legumes::variant-1",
-      "title": "Mousse de légumes — Mousse de courgette",
-      "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
     },
     {
       "id": "oeuf_parfait_croutons_lard",
@@ -3104,20 +3104,26 @@
     {
       "id": "mousse_legumes::variant-2",
       "title": "Mousse de légumes — Mousse de carotte",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Desserts (semble etre sucré ou patissier)."
       ]
     },
     {
       "id": "mousse_legumes::variant-1",
       "title": "Mousse de légumes — Mousse de courgette",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance.",
         "Categorie possible : Desserts (semble etre sucré ou patissier)."
       ]
     },
@@ -4195,32 +4201,40 @@
     {
       "id": "sauce_aux_poivres::variant-3",
       "title": "Sauce aux poivres — Au cognac et à la moutarde",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "sauce_aux_poivres::variant-4",
       "title": "Sauce aux poivres — Crème au poivre noir",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "sauce_aux_poivres::variant-2",
       "title": "Sauce aux poivres — Poivre vert au cognac",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "sauce_aux_poivres::variant-1",
       "title": "Sauce aux poivres — Trois poivres au cognac",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -4739,24 +4753,30 @@
     {
       "id": "tomates_provencales::variant-2",
       "title": "Tomates provençales — Tomates provençales à la persillade",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "tomates_provencales::variant-1",
       "title": "Tomates provençales — Tomates provençales au parmesan",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
     {
       "id": "toppings_frites::ail_parmesan",
       "title": "Toppings frites — Ail, parmesan et persil",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },
@@ -4771,8 +4791,10 @@
     {
       "id": "toppings_frites::cheddar_bacon",
       "title": "Toppings frites — Cheddar, bacon et crème aigre",
-      "score": 100,
-      "issues": [],
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
       "qualityIssues": [],
       "suggestions": []
     },

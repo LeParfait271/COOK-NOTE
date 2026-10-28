@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -34,6 +35,7 @@ import static fr.cooknote.legacy.Ui.*;
 /** Ecran d accueil : grille des fiches, recherche simple sans filtres, position de liste et prechargement des images. */
 final class HomeScreen {
     private final MainActivity host;
+    private TextView catalogTitle;
 
     HomeScreen(MainActivity host) {
         this.host = host;
@@ -51,6 +53,8 @@ final class HomeScreen {
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(COLOR_BG);
 
+        host.addTopBar(root, false, "");
+
         LinearLayout header = new LinearLayout(host);
         header.setOrientation(LinearLayout.VERTICAL);
         header.setBackgroundColor(COLOR_BG);
@@ -59,81 +63,26 @@ final class HomeScreen {
                 ViewGroup.LayoutParams.WRAP_CONTENT
         ));
 
-        LinearLayout brandRow = new LinearLayout(host);
-        brandRow.setOrientation(LinearLayout.HORIZONTAL);
-        brandRow.setGravity(Gravity.CENTER_VERTICAL);
-        brandRow.setPadding(dp(18), dp(8), dp(18), dp(8));
-        brandRow.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER_SOFT, 1, 0));
-        header.addView(brandRow, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-
-        FrameLayout logoFrame = new FrameLayout(host);
-        logoFrame.setPadding(dp(4), dp(4), dp(4), dp(4));
-        logoFrame.setBackground(panel(COLOR_CARD, COLOR_BORDER_SOFT, 1, 10));
-        LinearLayout.LayoutParams logoFrameParams = new LinearLayout.LayoutParams(dp(42), dp(42));
-        logoFrameParams.rightMargin = dp(11);
-        brandRow.addView(logoFrame, logoFrameParams);
-
-        ImageView logo = new ImageView(host);
-        logo.setImageResource(R.drawable.ic_launcher);
-        logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        logoFrame.addView(logo, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                Gravity.CENTER
-        ));
-
-        LinearLayout brandCopy = new LinearLayout(host);
-        brandCopy.setOrientation(LinearLayout.VERTICAL);
-        brandRow.addView(brandCopy, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-
-        TextView title = host.text("COOK NOTE", 18, COLOR_TEXT, true);
-        title.setGravity(Gravity.CENTER_VERTICAL);
-        title.setIncludeFontPadding(false);
-        title.setLetterSpacing(0.08f);
-        brandCopy.addView(title);
-
-        TextView subtitle = host.text("ANDROID 5+  /  v" + host.repository.version, 9, COLOR_DIM, true);
-        subtitle.setPadding(0, dp(2), 0, 0);
-        brandCopy.addView(subtitle);
-
-        LinearLayout stats = new LinearLayout(host);
-        stats.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams statsParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        statsParams.topMargin = dp(11);
-        brandCopy.addView(stats, statsParams);
-        addHeaderStat(stats, String.valueOf(host.repository.homeRecipes().size()), "accueil");
-        addHeaderStat(stats, String.valueOf(host.repository.searchableRecipes().size()), "fiches");
-        stats.setVisibility(View.GONE);
-
-        LinearLayout statusStack = new LinearLayout(host);
-        statusStack.setOrientation(LinearLayout.VERTICAL);
-        statusStack.setGravity(Gravity.RIGHT);
-        LinearLayout.LayoutParams statusParams = new LinearLayout.LayoutParams(dp(190), ViewGroup.LayoutParams.WRAP_CONTENT);
-        statusParams.leftMargin = dp(12);
-        brandRow.addView(statusStack, statusParams);
-        statusStack.setVisibility(View.GONE);
-        addStatusPill(statusStack, "●  PRET HORS LIGNE", true);
-        addStatusPill(statusStack, "CATALOGUE LOCAL", false);
-
+        // Bandeau comme le site : l'illustration de l'accueil et le logo, fondus
+        // dans la page par le bas (plus de rangee logo + version au-dessus).
         FrameLayout homeHero = new FrameLayout(host);
-        homeHero.setBackgroundColor(COLOR_PANEL_DEEP);
-        int homeHeroHeight = Math.min(dp(125), Math.max(dp(85), host.getResources().getDisplayMetrics().widthPixels / 12));
+        homeHero.setBackgroundColor(COLOR_BG);
+        int screenWidth = host.getResources().getDisplayMetrics().widthPixels;
+        int homeHeroHeight = Math.min(dp(250), Math.max(dp(150), (screenWidth * 9) / 25));
         header.addView(homeHero, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, homeHeroHeight));
 
         ImageView heroImage = new ImageView(host);
         heroImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         heroImage.setContentDescription("Univers Cook Note");
         homeHero.addView(heroImage, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        host.imageLoader.loadDetail("home-hero.png", heroImage, host.getResources().getDisplayMetrics().widthPixels, homeHeroHeight);
+        host.imageLoader.loadDetail("home-hero.png", heroImage, screenWidth, homeHeroHeight);
 
         View heroVeil = new View(host);
-        heroVeil.setBackground(bottomOverlayGradient());
+        heroVeil.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{
+                Color.argb(40, 0, 0, 0),
+                Color.argb(70, 0, 0, 0),
+                COLOR_BG
+        }));
         homeHero.addView(heroVeil, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         // Logo principal, comme le site (lettrage clin d'oeil a Death Note), sans filets.
@@ -143,31 +92,33 @@ final class HomeScreen {
         heroWordmark.setScaleType(ImageView.ScaleType.FIT_CENTER);
         heroWordmark.setAdjustViewBounds(true);
         heroWordmark.setContentDescription("Cook Note");
-        int wordmarkPadding = Math.max(dp(8), homeHeroHeight / 8);
-        heroWordmark.setPadding(dp(16), wordmarkPadding, dp(16), wordmarkPadding);
+        int wordmarkPadding = Math.max(dp(18), homeHeroHeight / 5);
+        heroWordmark.setPadding(dp(28), wordmarkPadding, dp(28), wordmarkPadding);
         homeHero.addView(heroWordmark, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 Gravity.CENTER
         ));
 
-        LinearLayout actionRow = new LinearLayout(host);
-        actionRow.setOrientation(LinearLayout.HORIZONTAL);
-        actionRow.setPadding(dp(20), dp(6), dp(20), 0);
-        LinearLayout.LayoutParams actionParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        actionParams.topMargin = dp(8);
-        header.addView(actionRow, actionParams);
-
-        host.animateIn(header, 0);
-        host.animateIn(actionRow, 70);
-
-        host.searchToggle = host.actionButton("RECHERCHER UNE RECETTE", true);
-        LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(0, dp(44), 1);
-        searchParams.rightMargin = dp(7);
-        actionRow.addView(host.searchToggle, searchParams);
+        // Recherche : une pilule, texte centre, comme le site. Elle ouvre le
+        // panneau de recherche juste dessous.
+        host.searchToggle = new Button(host);
+        host.searchToggle.setAllCaps(false);
+        host.searchToggle.setTextColor(COLOR_TEXT);
+        host.searchToggle.setTextSize(host.adjustedTextSize(15));
+        host.searchToggle.setTypeface(Typeface.DEFAULT_BOLD);
+        host.searchToggle.setGravity(Gravity.CENTER);
+        host.searchToggle.setSingleLine(true);
+        host.searchToggle.setEllipsize(TextUtils.TruncateAt.END);
+        host.searchToggle.setStateListAnimator(null);
+        host.searchToggle.setPadding(dp(18), 0, dp(18), 0);
+        host.searchToggle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search, 0, 0, 0);
+        host.searchToggle.setCompoundDrawablePadding(dp(10));
+        host.searchToggle.setBackground(selectablePanel(COLOR_PANEL_DEEP, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 26));
+        LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(52));
+        searchParams.leftMargin = dp(16);
+        searchParams.rightMargin = dp(16);
+        header.addView(host.searchToggle, searchParams);
         host.searchToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,27 +126,7 @@ final class HomeScreen {
             }
         });
 
-        host.shoppingButton = host.actionButton("COURSES  ·  " + host.shopping.recipeIds.size(), false);
-        LinearLayout.LayoutParams shoppingParams = new LinearLayout.LayoutParams(0, dp(44), 1);
-        shoppingParams.rightMargin = dp(7);
-        actionRow.addView(host.shoppingButton, shoppingParams);
-        host.shoppingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                host.hideKeyboard();
-                setSearchPanelOpen(false);
-                host.shoppingScreen.showShoppingList(true);
-            }
-        });
-
-        Button update = host.actionButton("MISE A JOUR", false);
-        actionRow.addView(update, new LinearLayout.LayoutParams(0, dp(44), 1));
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                host.updater.checkForUpdatesAsync(true);
-            }
-        });
+        host.animateIn(header, 0);
 
         host.searchPanel = new LinearLayout(host);
         host.searchPanel.setOrientation(LinearLayout.VERTICAL);
@@ -263,28 +194,37 @@ final class HomeScreen {
 
         setSearchPanelOpen(host.searchPanelOpen);
 
-        TextView catalogEyebrow = host.text("CATALOGUE", 9, COLOR_GOLD, true);
-        catalogEyebrow.setGravity(Gravity.CENTER);
-        catalogEyebrow.setLetterSpacing(0.14f);
-        catalogEyebrow.setPadding(0, dp(10), 0, 0);
-        header.addView(catalogEyebrow);
-
-        TextView catalogTitle = host.text("Recettes", 22, COLOR_TEXT, true);
-        catalogTitle.setGravity(Gravity.CENTER);
-        catalogTitle.setPadding(0, dp(1), 0, 0);
-        header.addView(catalogTitle);
-
-        host.counterView = host.text("", 10, COLOR_DIM, true);
-        host.counterView.setGravity(Gravity.CENTER);
-        host.counterView.setPadding(dp(9), dp(2), dp(9), dp(7));
-        host.counterView.setSingleLine(true);
-        host.counterView.setEllipsize(TextUtils.TruncateAt.END);
-        host.counterView.setLetterSpacing(0.03f);
-        LinearLayout.LayoutParams counterParams = new LinearLayout.LayoutParams(
+        // Titre de section comme le site : « Toutes les categories » en serif,
+        // le compte a cote, un filet dessous.
+        LinearLayout titleRow = new LinearLayout(host);
+        titleRow.setOrientation(LinearLayout.HORIZONTAL);
+        titleRow.setGravity(Gravity.BOTTOM);
+        titleRow.setPadding(dp(16), dp(22), dp(16), dp(10));
+        header.addView(titleRow, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        header.addView(host.counterView, counterParams);
+        ));
+
+        catalogTitle = host.text("Toutes les cat\u00E9gories", 24, COLOR_TEXT, false);
+        catalogTitle.setTypeface(Ui.DISPLAY);
+        catalogTitle.setIncludeFontPadding(false);
+        titleRow.addView(catalogTitle, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+
+        host.counterView = host.text("", 13, COLOR_DIM, false);
+        host.counterView.setSingleLine(true);
+        host.counterView.setEllipsize(TextUtils.TruncateAt.END);
+        host.counterView.setPadding(dp(10), 0, 0, dp(2));
+        titleRow.addView(host.counterView, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
+        View titleLine = new View(host);
+        titleLine.setBackgroundColor(COLOR_LINE);
+        LinearLayout.LayoutParams titleLineParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(1));
+        titleLineParams.leftMargin = dp(16);
+        titleLineParams.rightMargin = dp(16);
+        header.addView(titleLine, titleLineParams);
 
         final GridView gridView = new GridView(host);
         host.recipeGridView = gridView;
@@ -401,44 +341,6 @@ final class HomeScreen {
         if (MainActivity.PERF_LOG_ENABLED) host.perfLog("showList", startedAt);
     }
 
-    void addHeaderStat(LinearLayout row, String value, String label) {
-        LinearLayout stat = new LinearLayout(host);
-        stat.setOrientation(LinearLayout.VERTICAL);
-        stat.setPadding(dp(12), dp(7), dp(12), dp(8));
-        stat.setMinimumWidth(dp(92));
-        stat.setBackground(panelGradient(COLOR_SURFACE, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 14));
-
-        TextView valueView = host.text(value, 14, COLOR_GOLD_SOFT, true);
-        valueView.setIncludeFontPadding(false);
-        stat.addView(valueView);
-
-        TextView labelView = host.text(label.toUpperCase(), 9, COLOR_DIM, true);
-        labelView.setIncludeFontPadding(false);
-        labelView.setSingleLine(true);
-        stat.addView(labelView);
-
-        boolean compactStats = host.getResources().getDisplayMetrics().widthPixels >= dp(620);
-        LinearLayout.LayoutParams params = compactStats
-                ? new LinearLayout.LayoutParams(dp(108), ViewGroup.LayoutParams.WRAP_CONTENT)
-                : new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
-        params.rightMargin = dp(7);
-        row.addView(stat, params);
-    }
-
-    void addStatusPill(LinearLayout parent, String value, boolean active) {
-        TextView pill = host.text(value, 9, active ? COLOR_GOLD : COLOR_DIM, true);
-        pill.setGravity(Gravity.CENTER);
-        pill.setSingleLine(true);
-        pill.setLetterSpacing(0.08f);
-        pill.setPadding(dp(10), dp(7), dp(10), dp(7));
-        pill.setBackground(panel(active ? COLOR_CARD_ACTIVE : COLOR_PANEL_DEEP,
-                active ? COLOR_BORDER_BRIGHT : COLOR_BORDER_SOFT, 1, 14));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.bottomMargin = dp(7);
-        parent.addView(pill, params);
-    }
-
     void clearSearch() {
         host.currentQuery = "";
         if (host.searchBox != null && host.searchBox.getText().length() > 0) host.searchBox.setText("");
@@ -516,8 +418,9 @@ final class HomeScreen {
     }
 
     String buildSearchToggleLabel() {
-        if (host.searchPanelOpen) return "FERMER";
-        return host.currentQuery.trim().length() == 0 ? "RECHERCHER" : "RECHERCHE ACTIVE";
+        if (host.searchPanelOpen) return "Fermer la recherche";
+        String query = host.currentQuery.trim();
+        return query.length() == 0 ? "Rechercher une recette ou un ingr\u00E9dient" : "Recherche : " + query;
     }
 
     boolean isHomeMode() {
@@ -571,11 +474,10 @@ final class HomeScreen {
 
     void updateFilterControls(boolean homeMode, int count) {
         if (host.counterView == null) return;
-        StringBuilder label = new StringBuilder();
-        label.append(count).append(homeMode ? " fiches principales" : " resultats");
-        if (homeMode) label.append(" - accueil");
-        if (!homeMode) label.append(" - recherche");
-        host.counterView.setText(label.toString());
+        if (catalogTitle != null) catalogTitle.setText(homeMode ? "Toutes les cat\u00E9gories" : "R\u00E9sultats");
+        host.counterView.setText(homeMode
+                ? countLabel(count, "cat\u00E9gorie", "cat\u00E9gories")
+                : countLabel(count, "recette", "recettes"));
         if (host.searchToggle != null) host.searchToggle.setText(buildSearchToggleLabel());
         if (host.clearSearchButton != null) host.clearSearchButton.setEnabled(!homeMode);
     }

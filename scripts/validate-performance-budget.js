@@ -32,13 +32,21 @@ const FILE_BUDGETS = [
   // de meme selecteur plus tardive ou de la couche design, styles calcules identiques).
   // 212 -> 226 Ko : effets haut de gamme (12-design-effets.css : transition carte
   // -> fiche, mode cuisine, minuteurs, quantites qui defilent, fond vivant).
-  ['dist/style.css', 226 * KB],
+  // 226 -> 232 Ko : passe de finition (13-design-finitions.css : bandeaux,
+  // cartes et survols, cases a cocher, pied de page, theme jour) et filtre de
+  // saison des categories (v5.39).
+  // 232 -> 240 Ko : controle qualite v5.40 (bandeau mobile, parts en -/+,
+  // onglets Servir/Conserver/Maitriser, familles, filtre et tri des categories,
+  // palette de recherche) ; 2 Ko de regles mortes retirees (npm run css:dead).
+  ['dist/style.css', 240 * KB],
   ['personal-tools.css', 4 * KB],
   ['dist/personal-tools.css', 3 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.
   // 900 -> 905 Ko : reperes de fin de cuisson ajoutes a 37 fiches (v5.37).
   // 905 -> 915 Ko : 65 gestes de pro et mises en place integres (v5.37).
-  ['recipes.js', 915 * KB],
+  // 915 -> 930 Ko : materiel de cuisine propre dans chaque fiche et chaque
+  // variante (practical.equipment, v5.39).
+  ['recipes.js', 930 * KB],
   ['recipe-worker.js', 4 * KB],
   ['assets/image-manifest.js', 180 * KB],
   ['app-art-images.js', 40 * KB],

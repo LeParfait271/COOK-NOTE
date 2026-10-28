@@ -89,7 +89,8 @@ expect('Background art direction non tokenise.', style.includes('var(--art-backg
 expect('Background shell non tokenise.', style.includes('--ds-shell-background') && /background\s*:[^;{}]*var\(--ds-shell-background\)/.test(style));
 expect('Theme light shell absent.', style.includes('.mc-shell.theme-light'));
 expect('Surfaces light non couvertes.', style.includes('.mc-shell.theme-light :where(.site-footer-inner'));
-expect('Logo jour non style.', style.includes('mix-blend-mode:multiply'));
+// Plus de logo sur les bandeaux parents : le theme jour assombrit la photo pour le texte.
+expect('Bandeau jour non style.', style.includes('.mc-shell.theme-light .recipe-detail-hero.has-photo .recipe-detail-hero-image'));
 
 const app = readAppSource();
 const appArtImages = read('app-art-images.js');
@@ -127,7 +128,7 @@ expect('theme.js non copie dans dist.', buildSite.includes("'theme.js'"));
 expect('app-art-images.js non copie dans dist.', buildSite.includes("'app-art-images.js'"));
 expect('theme.js absent des pages prerendues.', buildSite.includes('/theme.js?v=${version}'));
 expect('app-art-images.js absent des pages prerendues.', buildSite.includes('/app-art-images.js?v=${version}'));
-expect('Assets art direction absents des pages prerendues.', buildSite.includes('OPTIONAL_ASSET_DIRS') && buildSite.includes('data-art-asset="background"') && buildSite.includes('data-art-asset="logo"'));
+expect('Assets art direction absents des pages prerendues.', buildSite.includes('OPTIONAL_ASSET_DIRS') && buildSite.includes('data-art-asset="background"') && buildSite.includes("dataset.theme==='light'"));
 expect('theme.js non precache.', serviceWorker.includes('/theme.js?v='));
 expect('app-art-images.js non precache.', serviceWorker.includes('/app-art-images.js?v='));
 expect('theme.js non network-first.', serviceWorker.includes("'/theme.js'"));

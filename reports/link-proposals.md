@@ -6,7 +6,7 @@ chaque lien doit être validé avant intégration (lien `data-goto` dans le text
 - Sauces et bases du catalogue cherchées : 73
 - Fiches concernées : 66
 - Liens proposés : 74
-- Empreinte recipes.js : fc835e9ed385
+- Empreinte recipes.js : 236166d8a4b8
 
 ## Asperges vertes au lard grillé (`asperges_vertes_lard`)
 

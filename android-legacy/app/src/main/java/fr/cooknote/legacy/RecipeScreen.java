@@ -65,37 +65,7 @@ final class RecipeScreen {
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(COLOR_BG);
 
-        LinearLayout top = new LinearLayout(host);
-        top.setOrientation(LinearLayout.HORIZONTAL);
-        top.setGravity(Gravity.CENTER_VERTICAL);
-        top.setPadding(dp(10), dp(6), dp(10), dp(6));
-        top.setBackground(panelGradient(COLOR_PANEL_DEEP, COLOR_PANEL, COLOR_BORDER, 1, 0));
-        root.addView(top, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-
-        Button back = new Button(host);
-        back.setText("Retour");
-        back.setTextColor(COLOR_TEXT_DARK);
-        back.setTextSize(12);
-        back.setTypeface(Typeface.DEFAULT_BOLD);
-        back.setAllCaps(false);
-        back.setBackground(buttonPanel(true));
-        top.addView(back, new LinearLayout.LayoutParams(dp(86), dp(36)));
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                host.goBack();
-            }
-        });
-
-        TextView topTitle = host.text(recipe.isCollection() ? "Collection" : "Fiche recette", 12, COLOR_MUTED, true);
-        topTitle.setGravity(Gravity.CENTER_VERTICAL);
-        topTitle.setPadding(dp(12), 0, 0, 0);
-        topTitle.setSingleLine(true);
-        topTitle.setEllipsize(TextUtils.TruncateAt.END);
-        top.addView(topTitle, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        host.addTopBar(root, true, recipe.title);
 
         ScrollView scroll = new ScrollView(host);
         scroll.setFillViewport(false);
@@ -106,6 +76,8 @@ final class RecipeScreen {
         LinearLayout content = new LinearLayout(host);
         content.setOrientation(LinearLayout.VERTICAL);
         content.setPadding(dp(12), dp(12), dp(12), dp(24));
+        // Le bandeau deborde dans la marge (pleine largeur) : pas de rognage.
+        content.setClipToPadding(false);
         scroll.addView(content);
         root.addView(scroll, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -115,7 +87,8 @@ final class RecipeScreen {
 
         addDetailHero(content, recipe);
         if (!recipe.isCollection()) addHeroActions(content, recipe);
-        addQuickFacts(content, recipe);
+        // Categorie : le nombre de recettes est deja dans le bandeau.
+        if (!recipe.isCollection()) addQuickFacts(content, recipe);
         if (!recipe.isCollection()) addQuantityControls(content, recipe);
 
         if (recipe.isCollection()) {
@@ -130,13 +103,19 @@ final class RecipeScreen {
     }
 
     void addDetailHero(LinearLayout content, final Recipe recipe) {
+        // Bandeau pleine largeur, colle a la barre, comme le site (plus de carte
+        // encadree dans la marge).
         FrameLayout heroCard = new FrameLayout(host);
-        heroCard.setBackground(panel(COLOR_CARD, COLOR_BORDER_BRIGHT, 1, 16));
+        heroCard.setBackgroundColor(COLOR_CARD);
         int heroHeight = detailHeroHeight();
-        content.addView(heroCard, new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams heroParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 heroHeight
-        ));
+        );
+        heroParams.leftMargin = -content.getPaddingLeft();
+        heroParams.rightMargin = -content.getPaddingRight();
+        heroParams.topMargin = -content.getPaddingTop();
+        content.addView(heroCard, heroParams);
 
         ImageView hero = new ImageView(host);
         hero.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -158,15 +137,20 @@ final class RecipeScreen {
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
 
-        host.addFrameAccent(heroCard);
+        // Filet dore en bas du bandeau, comme le site.
+        View heroRule = new View(host);
+        heroRule.setBackgroundColor(Color.argb(150, 214, 158, 64));
+        heroCard.addView(heroRule, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(1), Gravity.BOTTOM));
 
+        // Categorie : titre centre (comme le site) ; fiche : titre en bas a gauche.
         LinearLayout overlay = new LinearLayout(host);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(15), dp(7), dp(15), dp(8));
-        overlay.setBackground(bottomOverlayGradient());
+        overlay.setPadding(dp(16), dp(10), dp(16), dp(14));
+        overlay.setGravity(recipe.isCollection() ? Gravity.CENTER : Gravity.START);
+        if (!recipe.isCollection()) overlay.setBackground(bottomOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
+                recipe.isCollection() ? ViewGroup.LayoutParams.MATCH_PARENT : ViewGroup.LayoutParams.WRAP_CONTENT,
                 Gravity.BOTTOM
         );
         heroCard.addView(overlay, overlayParams);
@@ -176,10 +160,12 @@ final class RecipeScreen {
         TextView breadcrumb = host.text(detailBreadcrumb(recipe), 10, COLOR_MUTED, true);
         breadcrumb.setSingleLine(true);
         breadcrumb.setEllipsize(TextUtils.TruncateAt.END);
+        if (recipe.isCollection()) breadcrumb.setGravity(Gravity.CENTER);
         overlay.addView(breadcrumb);
 
-        TextView title = host.text(recipe.title, recipe.isCollection() ? 25 : 24, COLOR_TEXT, false);
+        TextView title = host.text(recipe.title, recipe.isCollection() ? 32 : 26, COLOR_TEXT, false);
         title.setTypeface(Ui.DISPLAY);
+        if (recipe.isCollection()) title.setGravity(Gravity.CENTER);
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setLineSpacing(dp(1), 1.03f);
@@ -195,6 +181,15 @@ final class RecipeScreen {
         TextView metaView = host.text(meta, 11, COLOR_MUTED, true);
         metaView.setSingleLine(false);
         metaView.setPadding(0, dp(2), 0, 0);
+        if (recipe.isCollection()) {
+            // « 58 recettes » en pastille, comme le site.
+            metaView.setPadding(dp(10), dp(3), dp(10), dp(4));
+            metaView.setBackground(panel(Color.argb(120, 0, 0, 0), Color.argb(90, 255, 255, 255), 1, 12));
+            LinearLayout.LayoutParams metaParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            metaParams.topMargin = dp(6);
+            overlay.addView(metaView, metaParams);
+            return;
+        }
         overlay.addView(metaView);
 
     }
@@ -207,12 +202,12 @@ final class RecipeScreen {
             if (sameText(parent.title, recipe.title)) continue;
             builder.append(" / ").append(parent.title);
         }
-        if (builder.length() == "Cook Note".length()) builder.append(recipe.isCollection() ? " / Collection" : " / Fiche");
+        if (builder.length() == "Cook Note".length()) builder.append(" / ").append(recipe.isCollection() ? recipe.title : "Fiche");
         return builder.toString();
     }
 
     String detailMetaLine(Recipe recipe) {
-        if (recipe.isCollection()) return countLabel(host.repository.collectionCount(recipe), "fiche rangee", "fiches rangees");
+        if (recipe.isCollection()) return countLabel(host.repository.collectionCount(recipe), "recette", "recettes");
 
         ArrayList<String> parts = new ArrayList<String>();
         String serving = servingSummary(recipe);
@@ -220,14 +215,15 @@ final class RecipeScreen {
         int totalTime = recipe.activeTime + recipe.cookTime;
         if (totalTime > 0) parts.add(formatMinutes(totalTime));
         int ingredientCount = countSelectedIngredients(recipe);
-        if (ingredientCount > 0) parts.add(countLabel(ingredientCount, "ingredient", "ingredients"));
+        if (ingredientCount > 0) parts.add(countLabel(ingredientCount, "ingr\u00E9dient", "ingr\u00E9dients"));
         return joinMetaParts(parts, "Fiche Cook Note");
     }
 
     int detailHeroHeight() {
-        int width = host.getResources().getDisplayMetrics().widthPixels - dp(28);
-        int height = Math.max(dp(124), (width * 9) / 32);
-        return Math.min(dp(215), height);
+        // Pleine largeur, comme le site : un peu plus haut qu'en carte.
+        int width = host.getResources().getDisplayMetrics().widthPixels;
+        int height = Math.max(dp(170), (width * 9) / 26);
+        return Math.min(dp(280), height);
     }
 
     int detailImageRequestWidth() {
@@ -236,25 +232,7 @@ final class RecipeScreen {
     }
 
     void addHeroActions(LinearLayout content, final Recipe recipe) {
-        LinearLayout panel = new LinearLayout(host);
-        panel.setOrientation(LinearLayout.VERTICAL);
-        panel.setPadding(dp(10), dp(9), dp(10), dp(10));
-        panel.setBackground(panelGradient(COLOR_PANEL, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 8));
-        LinearLayout.LayoutParams panelParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        panelParams.topMargin = dp(10);
-        content.addView(panel, panelParams);
-
-        host.addAccentLine(panel, 0, 8);
-
-        TextView label = host.text("Actions rapides", 10, COLOR_GOLD, true);
-        label.setSingleLine(true);
-        label.setLetterSpacing(0.06f);
-        label.setIncludeFontPadding(false);
-        panel.addView(label);
-
+        // Une seule rangee de boutons, sans cadre : comme les actions du site.
         ArrayList<Button> buttons = new ArrayList<Button>();
 
         Button shopping = host.actionButton(host.isInShopping(recipe.id) ? "Dans courses" : "+ Courses", true);
@@ -276,7 +254,7 @@ final class RecipeScreen {
         });
         buttons.add(copy);
 
-        Button screen = host.actionButton(host.keepScreenOn ? "Ecran actif" : "Veille auto", host.keepScreenOn);
+        Button screen = host.actionButton(host.keepScreenOn ? "\u00C9cran actif" : "Veille auto", host.keepScreenOn);
         screen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -286,21 +264,17 @@ final class RecipeScreen {
         });
         buttons.add(screen);
 
-        int perRow = host.getResources().getDisplayMetrics().widthPixels >= dp(720) ? 4 : 2;
-        LinearLayout row = null;
+        LinearLayout row = new LinearLayout(host);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        rowParams.topMargin = dp(14);
+        content.addView(row, rowParams);
         for (int index = 0; index < buttons.size(); index += 1) {
-            if (index % perRow == 0) {
-                row = new LinearLayout(host);
-                row.setOrientation(LinearLayout.HORIZONTAL);
-                LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                );
-                rowParams.topMargin = dp(index == 0 ? 9 : 7);
-                panel.addView(row, rowParams);
-            }
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(34), 1);
-            if (index % perRow < perRow - 1) params.rightMargin = dp(7);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(38), 1);
+            if (index < buttons.size() - 1) params.rightMargin = dp(8);
             row.addView(buttons.get(index), params);
         }
     }
@@ -311,16 +285,10 @@ final class RecipeScreen {
         if (recipe.isCollection()) {
             facts.add(new String[]{"Collection", countLabel(host.repository.collectionCount(recipe), "fiche", "fiches")});
         } else {
-            String serving = servingSummary(recipe);
-            if (serving.length() > 0) {
-                facts.add(new String[]{baseServings(recipe) > 0 ? servingSectionTitle(recipe) : "Quantite", serving});
-            }
             if (recipe.activeTime > 0) facts.add(new String[]{"Actif", formatMinutes(recipe.activeTime)});
             if (recipe.cookTime > 0) facts.add(new String[]{"Cuisson", formatMinutes(recipe.cookTime)});
             int totalTime = recipe.activeTime + recipe.cookTime;
             if (totalTime > 0) facts.add(new String[]{"Temps", formatMinutes(totalTime)});
-            int ingredientCount = countSelectedIngredients(recipe);
-            if (ingredientCount > 0) facts.add(new String[]{"Ingredients", String.valueOf(ingredientCount)});
         }
 
         if (facts.isEmpty()) return;
@@ -334,7 +302,7 @@ final class RecipeScreen {
         blockParams.topMargin = dp(12);
         content.addView(block, blockParams);
 
-        int columns = quickFactColumns();
+        int columns = Math.min(facts.size(), quickFactColumns());
         LinearLayout row = null;
         for (int index = 0; index < facts.size(); index += 1) {
             if (index % columns == 0) {
@@ -411,7 +379,7 @@ final class RecipeScreen {
         if (baseServings > 0) {
             final int selectedServings = selectedServings(recipe);
             LinearLayout section = host.addSection(content, servingSectionTitle(recipe), servingLabel(recipe, selectedServings));
-            TextView help = host.text("Choisis la quantite servie. Les ingredients, la copie et les courses suivent.", 12, COLOR_MUTED, false);
+            TextView help = host.text("Choisis la quantit\u00E9 servie. Les ingr\u00E9dients, la copie et les courses suivent.", 12, COLOR_MUTED, false);
             help.setPadding(0, dp(6), 0, dp(2));
             section.addView(help);
 
@@ -448,8 +416,8 @@ final class RecipeScreen {
             return;
         }
 
-        LinearLayout section = host.addSection(content, "Quantites", "x" + factorLabel(host.quantityFactor));
-        TextView help = host.text("Ajuste les ingredients affiches, la copie et les courses fusionnees.", 12, COLOR_MUTED, false);
+        LinearLayout section = host.addSection(content, "Quantit\u00E9s", "x" + factorLabel(host.quantityFactor));
+        TextView help = host.text("Ajuste les ingr\u00E9dients affich\u00E9s, la copie et les courses fusionn\u00E9es.", 12, COLOR_MUTED, false);
         help.setPadding(0, dp(6), 0, dp(2));
         section.addView(help);
 
@@ -727,8 +695,31 @@ final class RecipeScreen {
         return count;
     }
 
+    // Filtre de saison de la categorie ouverte (vide : toutes les recettes).
+    static final String[] SEASONS = {"Printemps", "Été", "Automne", "Hiver"};
+    String collectionSeason = "";
+    String collectionSeasonOwner = "";
+
+    static boolean hasSeason(Recipe recipe, String season) {
+        if (season == null || season.length() == 0) return true;
+        // Comme le site : seules les recettes rangees dans cette saison.
+        for (String value : recipe.seasons) {
+            if (value.equals(season)) return true;
+        }
+        return false;
+    }
+
     void addCollectionCards(LinearLayout content, final Recipe recipe) {
-        final List<VariantChoice> choices = collectionVariantChoices(recipe);
+        if (!recipe.id.equals(collectionSeasonOwner)) {
+            collectionSeasonOwner = recipe.id;
+            collectionSeason = "";
+        }
+        List<VariantChoice> allChoices = collectionVariantChoices(recipe);
+        addSeasonFilter(content, recipe, allChoices);
+        final List<VariantChoice> choices = new ArrayList<VariantChoice>();
+        for (VariantChoice choice : allChoices) {
+            if (hasSeason(choice.recipe, collectionSeason)) choices.add(choice);
+        }
         LinearLayout section = host.addSection(content, "Recettes", countLabel(choices.size(), "fiche", "fiches"));
         if (choices.isEmpty()) {
             host.body(section, "Aucune fiche disponible.");
@@ -760,6 +751,44 @@ final class RecipeScreen {
         }
     }
 
+    // Quatre saisons comme le site : un toucher filtre, un second remet tout.
+    void addSeasonFilter(LinearLayout content, final Recipe recipe, List<VariantChoice> choices) {
+        LinearLayout row = new LinearLayout(host);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(44));
+        rowParams.topMargin = dp(14);
+        content.addView(row, rowParams);
+        for (int index = 0; index < SEASONS.length; index += 1) {
+            final String season = SEASONS[index];
+            int count = 0;
+            for (VariantChoice choice : choices) {
+                if (hasSeason(choice.recipe, season)) count += 1;
+            }
+            final boolean active = season.equals(collectionSeason);
+            Button button = host.actionButton(season + "  " + count, false);
+            button.setTextSize(host.adjustedTextSize(13));
+            button.setTextColor(active ? COLOR_GOLD : COLOR_TEXT);
+            button.setBackground(selectablePanel(
+                    active ? Color.argb(46, 214, 158, 64) : COLOR_PANEL_DEEP,
+                    COLOR_CARD_ACTIVE,
+                    active ? COLOR_GOLD_SOFT : COLOR_BORDER_SOFT,
+                    1,
+                    22
+            ));
+            button.setEnabled(count > 0);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    collectionSeason = active ? "" : season;
+                    openRecipe(recipe, false);
+                }
+            });
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+            if (index < SEASONS.length - 1) params.rightMargin = dp(7);
+            row.addView(button, params);
+        }
+    }
+
     int collectionGridColumns() {
         int width = host.getResources().getDisplayMetrics().widthPixels;
         if (width >= dp(1000)) return 3;
@@ -786,7 +815,9 @@ final class RecipeScreen {
         LinearLayout card = new LinearLayout(host);
         card.setOrientation(LinearLayout.VERTICAL);
         card.setPadding(dp(1), dp(1), dp(1), dp(1));
-        card.setBackground(selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 8));
+        card.setBackground(selectablePanel(COLOR_CARD_SOFT, COLOR_CARD_ACTIVE, Color.argb(110, 214, 158, 64), 1, 12));
+        // Coins recadres comme les cartes du site : l'image ne mord jamais le bord.
+        card.setClipToOutline(true);
         card.setClickable(true);
 
         FrameLayout frame = new FrameLayout(host);
@@ -813,11 +844,9 @@ final class RecipeScreen {
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
 
-        host.addFrameAccent(frame);
-
         LinearLayout overlay = new LinearLayout(host);
         overlay.setOrientation(LinearLayout.VERTICAL);
-        overlay.setPadding(dp(12), dp(10), dp(12), dp(12));
+        overlay.setPadding(dp(14), dp(16), dp(14), dp(14));
         overlay.setBackground(cardTitleOverlayGradient());
         FrameLayout.LayoutParams overlayParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -826,7 +855,8 @@ final class RecipeScreen {
         );
         frame.addView(overlay, overlayParams);
 
-        TextView title = host.text(choice.label, 15, COLOR_TEXT, true);
+        TextView title = host.text(choice.label, 17, COLOR_TEXT, false);
+        title.setTypeface(Ui.DISPLAY);
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setLineSpacing(dp(1), 1.04f);
@@ -875,7 +905,7 @@ final class RecipeScreen {
 
         LinearLayout section = host.addSection(content, "Choisir une variante", countLabel(choices.size(), "choix", "choix"));
         TextView guidance = host.text(
-                "Chaque choix affiche sa recette complete : ingredients, etapes et conseils.",
+                "Chaque choix affiche sa recette compl\u00E8te : ingr\u00E9dients, \u00E9tapes et conseils.",
                 13,
                 COLOR_MUTED,
                 false
@@ -1019,7 +1049,7 @@ final class RecipeScreen {
     String cleanVariantGroupLabel(String value) {
         String label = value == null ? "" : value.trim();
         label = label.replaceFirst("(?i)^\\s*(variante|version|option)\\s*[:\\-]?\\s*", "");
-        return label.length() == 0 ? "Preparation" : label;
+        return label.length() == 0 ? "Pr\u00E9paration" : label;
     }
 
     List<String> labelsForInlineChoices(List<InlineVariantChoice> choices) {
@@ -1042,20 +1072,20 @@ final class RecipeScreen {
         if (stepCount == 0) stepCount = recipe.steps.size();
         StringBuilder builder = new StringBuilder();
         builder.append("Variante selectionnee : ").append(choice.label);
-        builder.append(" - ").append(ingredientCount).append(ingredientCount > 1 ? " ingredients" : " ingredient");
-        builder.append(" - ").append(stepCount).append(stepCount > 1 ? " etapes" : " etape");
+        builder.append(" - ").append(ingredientCount).append(ingredientCount > 1 ? " ingr\u00E9dients" : " ingr\u00E9dient");
+        builder.append(" - ").append(stepCount).append(stepCount > 1 ? " \u00E9tapes" : " \u00E9tape");
         meta.setText(builder.toString());
     }
 
     void addIngredients(LinearLayout content, Recipe recipe) {
         List<Recipe.Group> groups = selectedIngredientGroups(recipe);
         int ingredientCount = countSelectedIngredients(recipe);
-        LinearLayout section = host.addSection(content, "Ingredients", ingredientCount > 0 ? countLabel(ingredientCount, "element", "elements") : null);
+        LinearLayout section = host.addSection(content, "Ingr\u00E9dients", ingredientCount > 0 ? countLabel(ingredientCount, "\u00E9l\u00E9ment", "\u00E9l\u00E9ments") : null);
         if (groups.isEmpty()) {
             host.body(section, "Aucun ingredient detaille pour cette fiche.");
             return;
         }
-        Button copy = host.sectionButton("Copier ingredients", false);
+        Button copy = host.sectionButton("Copier les ingr\u00E9dients", false);
         section.addView(copy);
         copy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1063,7 +1093,7 @@ final class RecipeScreen {
                 copyIngredients(recipe);
             }
         });
-        Button reset = host.sectionButton("Reinitialiser la preparation", false);
+        Button reset = host.sectionButton("R\u00E9initialiser la pr\u00E9paration", false);
         reset.setEnabled(hasIngredientChecks(recipe));
         section.addView(reset);
         reset.setOnClickListener(new View.OnClickListener() {
@@ -1100,9 +1130,9 @@ final class RecipeScreen {
 
     void addSteps(LinearLayout content, Recipe recipe) {
         List<String> steps = selectedRecipeSteps(recipe);
-        LinearLayout section = host.addSection(content, "Etapes");
+        LinearLayout section = host.addSection(content, "\u00C9tapes");
         if (steps.isEmpty()) {
-            host.body(section, "Aucune etape detaillee pour cette fiche.");
+            host.body(section, "Aucune \u00E9tape d\u00E9taill\u00E9e pour cette fiche.");
             return;
         }
         for (int index = 0; index < steps.size(); index += 1) {
@@ -1176,14 +1206,14 @@ final class RecipeScreen {
         ClipboardManager clipboard = (ClipboardManager) host.getSystemService(Context.CLIPBOARD_SERVICE);
         if (clipboard == null) return;
         clipboard.setPrimaryClip(ClipData.newPlainText(recipe.title + " - ingredients", buildIngredientsText(recipe)));
-        Toast.makeText(host, "Ingredients copies", Toast.LENGTH_SHORT).show();
+        Toast.makeText(host, "Ingr\u00E9dients copi\u00E9s", Toast.LENGTH_SHORT).show();
     }
 
     void copyRecipe(Recipe recipe) {
         ClipboardManager clipboard = (ClipboardManager) host.getSystemService(Context.CLIPBOARD_SERVICE);
         if (clipboard == null) return;
         clipboard.setPrimaryClip(ClipData.newPlainText(recipe.title, buildRecipeText(recipe)));
-        Toast.makeText(host, "Fiche copiee", Toast.LENGTH_SHORT).show();
+        Toast.makeText(host, "Fiche copi\u00E9e", Toast.LENGTH_SHORT).show();
     }
 
     String buildIngredientsText(Recipe recipe) {

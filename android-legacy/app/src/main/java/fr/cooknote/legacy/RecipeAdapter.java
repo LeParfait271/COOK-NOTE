@@ -104,10 +104,12 @@ final class RecipeAdapter extends BaseAdapter {
         Recipe recipe = getItem(position);
         holder.title.setText(recipe.title);
         Integer collectionCount = collectionCounts == null ? null : collectionCounts.get(recipe.id);
+        // Comme le site : le titre seul ; le nombre de recettes pour une categorie.
         if (collectionCount != null && collectionCount > 0) {
-            holder.meta.setText("COLLECTION  ·  " + collectionCount + " RECETTES");
+            holder.meta.setText(collectionCount + (collectionCount > 1 ? " recettes" : " recette"));
+            holder.meta.setVisibility(View.VISIBLE);
         } else {
-            holder.meta.setText("FICHE RECETTE");
+            holder.meta.setVisibility(View.GONE);
         }
         holder.image.setContentDescription("Image de " + recipe.title);
         int cardWidth = resizeCardForParent(holder, parent);
@@ -158,9 +160,11 @@ final class RecipeAdapter extends BaseAdapter {
                 dp(160)
         ));
 
-        LinearLayout card = new LinearLayout(context);
-        card.setOrientation(LinearLayout.VERTICAL);
-        card.setBackground(selectablePanel(COLOR_CARD, COLOR_CARD_ACTIVE, COLOR_BORDER, 1, 18));
+        // Carte comme le site : coins de 12dp qui recadrent l'image (le contour
+        // n'est jamais recouvert), filet dore discret par-dessus.
+        FrameLayout card = new FrameLayout(context);
+        card.setBackground(panel(COLOR_CARD, COLOR_CARD, 0, 12));
+        card.setClipToOutline(true);
         root.addView(card, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -201,8 +205,8 @@ final class RecipeAdapter extends BaseAdapter {
 
         TextView title = new TextView(context);
         title.setTextColor(Color.rgb(255, 251, 244));
-        title.setTextSize(18);
-        title.setTypeface(Typeface.DEFAULT_BOLD);
+        title.setTextSize(20);
+        title.setTypeface(Ui.DISPLAY);
         title.setMaxLines(2);
         title.setEllipsize(TextUtils.TruncateAt.END);
         title.setIncludeFontPadding(false);
@@ -215,15 +219,20 @@ final class RecipeAdapter extends BaseAdapter {
         overlay.addView(title, titleParams);
 
         TextView meta = new TextView(context);
-        meta.setTextColor(Color.rgb(251, 191, 36));
-        meta.setTextSize(9);
-        meta.setTypeface(Typeface.DEFAULT_BOLD);
-        meta.setLetterSpacing(0.13f);
+        meta.setTextColor(Color.rgb(226, 217, 202));
+        meta.setTextSize(12);
         meta.setIncludeFontPadding(false);
-        meta.setPadding(0, dp(6), 0, 0);
+        meta.setPadding(0, dp(5), 0, 0);
         overlay.addView(meta, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+
+        View rim = new View(context);
+        rim.setBackground(panel(Color.TRANSPARENT, Color.argb(110, 214, 158, 64), 1, 12));
+        card.addView(rim, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
         ));
 
         ViewHolder holder = new ViewHolder();

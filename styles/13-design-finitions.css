@@ -1,0 +1,808 @@
+/* ==========================================================================
+   Couche design : passe de finition haut de gamme (v5.38).
+   Corrige les details qui faisaient « cheap » : bandeaux, cartes et survols,
+   cases a cocher, pied de page, theme jour. Couche `design` : l'emporte sur
+   l'historique sans course a la specificite.
+   ========================================================================== */
+
+/* ---------- Bandeaux ---------- */
+/* Categories : pleine largeur et colle a la barre, comme les fiches (il
+   flottait encadre a 18px sous la barre, le fond bleu passait dessous). */
+.recipe-view .recipe-detail-hero.parent-hero {
+  width: auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: inset 0 -150px 126px rgba(0, 0, 0, .56);
+}
+
+/* Accueil : l'illustration se fond dans la page au lieu de s'arreter net. */
+.home-view > .hero {
+  -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent);
+  mask-image: linear-gradient(180deg, #000 62%, transparent);
+}
+
+.home-view > .hero::after {
+  display: none;
+}
+
+/* Theme jour : le texte blanc reste lisible sur l'illustration claire. */
+.mc-shell.theme-light .recipe-detail-hero.has-photo .recipe-detail-hero-image {
+  filter: brightness(.68) saturate(.92);
+}
+
+.mc-shell.theme-light .recipe-detail-hero.has-photo .detail-hero-copy {
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .55);
+}
+
+/* Page prerendue : seul le bandeau (identique a celui de l'app) s'affiche ;
+   le reste, de structure differente, attend le montage de React pour ne pas
+   sauter. Les places reservees aux reglages gardent la hauteur finale. */
+.static-prerender > :not(.recipe-detail-hero) {
+  visibility: hidden;
+}
+
+.static-prerender .static-placeholder {
+  visibility: hidden;
+}
+
+/* Parts : « − 8 parts + » dans la rangee des actions. */
+.recipe-detail-hero .quantity-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 44px;
+  padding: 0 4px;
+  border: 1px solid color-mix(in oklch, var(--ds-gold) 45%, transparent);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .38);
+  color: #fff;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.recipe-detail-hero .quantity-step {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: 500 20px / 1 var(--ds-font-body, system-ui);
+  cursor: pointer;
+}
+
+.recipe-detail-hero .quantity-step:hover:not(:disabled) {
+  background: rgba(255, 255, 255, .12);
+}
+
+.recipe-detail-hero .quantity-step:disabled {
+  opacity: .35;
+  cursor: default;
+}
+
+.recipe-detail-hero .quantity-stepper-value {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 5px;
+  min-width: 74px;
+  font-size: var(--ds-text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.recipe-detail-hero .quantity-stepper-value strong {
+  font-size: 1.05rem;
+}
+
+/* Theme jour, grand ecran : pastilles et boutons sur la photo gardent un fond
+   sombre (blancs sur l'image claire, ils devenaient illisibles). */
+@media (min-width: 701px) {
+  .mc-shell.theme-light .recipe-detail-hero.has-photo:not(.parent-hero) .detail-meta span,
+  .mc-shell.theme-light .recipe-detail-hero.has-photo:not(.parent-hero) .detail-actions .btn-ghost {
+    border-color: rgba(255, 255, 255, .3);
+    background: rgba(20, 14, 8, .5);
+    color: #fff;
+  }
+}
+
+/* Telephone : la photo en entier en haut, le titre et les actions dessous
+   (ils la recouvraient entierement). */
+@media (max-width: 700px) {
+  .recipe-view .recipe-detail-hero.has-photo:not(.parent-hero) {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .recipe-view .recipe-detail-hero.has-photo:not(.parent-hero)::before,
+  .recipe-view .recipe-detail-hero.has-photo:not(.parent-hero)::after {
+    display: none;
+  }
+
+  .recipe-detail-hero.has-photo:not(.parent-hero) .recipe-detail-hero-media {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 11;
+    -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent);
+    mask-image: linear-gradient(180deg, #000 78%, transparent);
+  }
+
+  .recipe-detail-hero.has-photo:not(.parent-hero) .recipe-detail-hero-media .recipe-detail-hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .recipe-view .recipe-detail-hero.has-photo:not(.parent-hero) .detail-hero-copy {
+    margin-top: -18px;
+    padding: 0 0 6px;
+    color: var(--text);
+    text-shadow: none;
+  }
+
+  .recipe-detail-hero.has-photo:not(.parent-hero) .detail-hero-copy h1 {
+    color: var(--text);
+    text-shadow: none;
+  }
+
+  .recipe-detail-hero.has-photo:not(.parent-hero) .recipe-breadcrumb,
+  .recipe-detail-hero.has-photo:not(.parent-hero) .recipe-breadcrumb :is(button, a, span, strong) {
+    color: var(--muted);
+    text-shadow: none;
+  }
+
+  .recipe-detail-hero.has-photo:not(.parent-hero) .detail-meta span {
+    border-color: var(--line);
+    background: var(--surface-soft);
+    color: var(--text);
+    text-shadow: none;
+  }
+
+  .recipe-detail-hero.has-photo:not(.parent-hero) .detail-actions .btn-ghost,
+  .recipe-detail-hero.has-photo:not(.parent-hero) .quantity-stepper {
+    border-color: var(--line);
+    background: var(--surface-soft);
+    color: var(--text);
+  }
+}
+
+/* Fil d'Ariane du bandeau : jamais souligne (mobile compris). */
+.recipe-breadcrumb button,
+.recipe-breadcrumb a {
+  text-decoration: none;
+}
+
+.recipe-breadcrumb button:hover,
+.recipe-breadcrumb button:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Accueil ---------- */
+/* Le logo et la recherche se suivent (116px de vide entre eux) : les
+   categories remontent dans le premier ecran, telephone compris. */
+.home-view > .hero .hero-inner {
+  padding-bottom: clamp(8px, 1.6vw, 22px);
+}
+
+.home-view > .content-wrap {
+  padding-top: clamp(8px, 1.4vw, 18px);
+}
+
+.home-view .home-command-center {
+  margin-top: 0;
+  margin-bottom: clamp(22px, 3vw, 34px);
+}
+
+.home-view .season-sections {
+  margin-top: clamp(16px, 2.4vw, 28px);
+}
+
+/* 8 categories : 4 x 2 en grand ecran (3 colonnes laissaient un trou). */
+@media (min-width: 1100px) {
+  .home-view .master-recipe-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Cartes categorie : le nom est deja peint sur le bandeau de l'illustration ;
+   le titre texte (en double, orthographe differente) reste pour les lecteurs
+   d'ecran et la transition. */
+.home-view .recipe-card.master-card .card-body {
+  background: none;
+}
+
+.home-view .recipe-card.master-card .card-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Recherche : textes centres sur toute la barre, l'icone et le raccourci de
+   part et d'autre (colonnes egales). `.home-command-center` en tete : la regle
+   de 10-design (meme couche, `display:flex`) l'emportait sinon. */
+.home-command-center .home-search-launcher,
+.home-search-launcher {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) 56px;
+  align-items: center;
+  gap: 0;
+}
+
+.home-command-center .home-search-launcher > .site-icon,
+.home-command-center .home-search-launcher > kbd {
+  position: static;
+  justify-self: center;
+}
+
+.home-search-launcher .home-search-copy {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.home-search-launcher .home-search-copy > * {
+  width: 100%;
+  text-align: center;
+}
+
+.home-search-launcher .home-search-hint {
+  justify-self: end;
+}
+
+@media (max-width: 560px) {
+  .home-search-launcher .home-search-copy strong {
+    font-size: 0.98rem;
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+}
+
+/* ---------- Barre du haut : panier ---------- */
+.topbar .top-basket-btn {
+  position: relative;
+  border-color: rgba(255, 255, 255, .34);
+  background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+  color: #fff;
+}
+
+.topbar .top-basket-btn:hover {
+  border-color: rgba(255, 255, 255, .62);
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface-soft));
+}
+
+.mc-shell.theme-light .topbar .top-basket-btn {
+  border-color: var(--line);
+  color: var(--text);
+}
+
+/* Telephone : recherche et favoris restent dans la barre (ils y etaient
+   masques, sans autre acces que l'accueil). */
+@media (max-width: 700px) {
+  .topbar .top-right :is(.top-search-button, .top-fav-btn) {
+    display: inline-flex;
+  }
+}
+
+.top-basket-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--ds-gold);
+  color: #140f08;
+  font: 700 10px / 18px var(--ds-font-body, system-ui);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* ---------- Palette de recherche ---------- */
+/* Un seul cadre (celui de la barre) et une seule croix (fermer) : le champ
+   avait son propre cadre et la croix native d'effacement. */
+.command-palette .command-input-shell input {
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.command-palette .command-input-shell input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+.command-palette .command-input-shell:focus-within {
+  border-color: color-mix(in oklch, var(--ds-gold) 60%, var(--line));
+}
+
+.command-empty .command-empty-action {
+  margin-top: 10px;
+}
+
+/* ---------- Cartes : bord net, image tenue dans le cadre, survol sobre ---------- */
+/* Le halo flou (ambilight) faisait des taches de couleur grossieres et
+   l'image zoomee recouvrait le contour : la carte clippe son image, la lumiere
+   devient une ombre douce. */
+.card-ambilight,
+.variant-card-ambilight {
+  display: none;
+}
+
+.recipe-card.has-image,
+.variant-card {
+  overflow: hidden;
+  transform: none;
+  filter: none;
+  transition:
+    transform 320ms cubic-bezier(.2, .8, .2, 1),
+    box-shadow 320ms cubic-bezier(.2, .8, .2, 1),
+    border-color 320ms ease-out;
+}
+
+.recipe-card.has-image .card-media,
+.variant-card .variant-card-bg {
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.recipe-card.has-image .card-image,
+.variant-card .variant-card-bg {
+  transform: none;
+  transition: transform 700ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.recipe-card.has-image:hover,
+.recipe-card.has-image:focus-visible,
+.variant-card:hover,
+.variant-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklch, var(--card-accent, var(--ds-gold)) 50%, var(--line));
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .42);
+  filter: none;
+}
+
+.recipe-card.has-image:hover .card-image,
+.recipe-card.has-image:focus-visible .card-image,
+.variant-card:hover .variant-card-bg,
+.variant-card:focus-visible .variant-card-bg {
+  transform: scale(1.03);
+}
+
+/* Le titre reste en place : il ne saute plus vers le milieu au survol. */
+.recipe-card h3,
+.recipe-card:hover h3,
+.recipe-card:focus-visible h3,
+.variant-card-body strong,
+.variant-card:hover .variant-card-body strong,
+.variant-card:focus-visible .variant-card-body strong {
+  transform: none;
+  outline: 0;
+}
+
+/* Focus clavier seulement (jamais au clic) : bord dore, sans cadre blanc. */
+.recipe-card:focus,
+.variant-card:focus {
+  outline: 0;
+}
+
+.recipe-card:focus-visible,
+.variant-card:focus-visible {
+  outline: 0;
+  border-color: var(--ds-gold);
+}
+
+.mc-shell.theme-light .recipe-card.has-image:hover,
+.mc-shell.theme-light .variant-card:hover {
+  box-shadow: 0 14px 30px rgba(84, 61, 31, .22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recipe-card.has-image:hover,
+  .variant-card:hover {
+    transform: none;
+  }
+
+  .recipe-card.has-image:hover .card-image,
+  .variant-card:hover .variant-card-bg {
+    transform: none;
+  }
+}
+
+/* ---------- Pages categorie : familles, filtre, tri, cartes ---------- */
+.collection-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin: 14px 0 16px;
+}
+
+.collection-family-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.collection-family-filter button {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 13px;
+  border: 1px solid var(--ds-hairline, var(--line));
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 600 var(--ds-text-xs) / 32px var(--ds-font-body, system-ui);
+  cursor: pointer;
+  transition: border-color 200ms ease-out, color 200ms ease-out, background-color 200ms ease-out;
+}
+
+.collection-family-filter button span {
+  color: var(--ds-gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.collection-family-filter button:hover {
+  color: var(--text);
+}
+
+.collection-family-filter button.active {
+  border-color: color-mix(in oklch, var(--ds-gold) 60%, transparent);
+  background: color-mix(in oklch, var(--ds-gold) 14%, transparent);
+  color: var(--text);
+}
+
+.collection-tools {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.collection-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--ds-hairline, var(--line));
+  border-radius: 999px;
+  color: var(--muted);
+}
+
+.collection-search:focus-within {
+  border-color: color-mix(in oklch, var(--ds-gold) 60%, var(--line));
+}
+
+.collection-search .site-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.collection-search input {
+  width: 150px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--ds-text-sm);
+}
+
+.collection-sort select {
+  height: 36px;
+  padding: 0 30px 0 12px;
+  border: 1px solid var(--ds-hairline, var(--line));
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--ds-text-sm);
+}
+
+.collection-empty {
+  margin: 24px 0;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* Titre ancre en bas de la carte, sur un degrade (il flottait sur le plat). */
+.variant-card .variant-card-body {
+  align-content: end;
+  justify-items: start;
+  background: linear-gradient(180deg, transparent 38%, rgba(0, 0, 0, .78));
+}
+
+.variant-card-meta {
+  color: rgba(255, 248, 234, .82);
+  font-size: var(--ds-text-xs);
+  font-weight: 600;
+}
+
+.variant-card-shell {
+  position: relative;
+}
+
+.variant-card-favorite {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 5;
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .42);
+  color: #fff;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 200ms ease-out, background-color 200ms ease-out;
+}
+
+.variant-card-favorite .site-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.variant-card-shell:hover .variant-card-favorite,
+.variant-card-favorite:focus-visible,
+.variant-card-favorite.active {
+  opacity: 1;
+}
+
+.variant-card-favorite.active {
+  color: var(--ds-gold);
+}
+
+@media (hover: none) {
+  .variant-card-favorite {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .collection-tools {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .collection-search {
+    flex: 1;
+  }
+
+  .collection-search input {
+    width: 100%;
+  }
+
+  .collection-family-filter {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-inline: -14px;
+    padding-inline: 14px;
+  }
+
+  .collection-family-filter button {
+    flex: none;
+  }
+}
+
+/* ---------- Choix de variante ---------- */
+.variant-choice-title {
+  font-family: var(--ds-font-display);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* ---------- Fiche ---------- */
+/* Personnes : la valeur et l'unite suffisent (« [4] personnes »). */
+.detail-quantity-control .factor-label {
+  display: none;
+}
+
+/* Temps de la fiche rapide : sur une ligne tant que la place le permet. */
+.recipe-quick-facts {
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+}
+
+/* Deroule : une rangee nommee (elle flottait sans titre entre deux blocs),
+   chaque etape menant a son groupe d'ingredients. */
+.recipe-view ol.recipe-anatomy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 0;
+}
+
+.recipe-view ol.recipe-anatomy > li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 0;
+}
+
+.recipe-view ol.recipe-anatomy > .recipe-anatomy-label {
+  margin-right: 4px;
+  color: var(--ds-gold);
+  font-size: var(--ds-text-xs);
+  font-weight: 650;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.recipe-view ol.recipe-anatomy button {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--ds-hairline, var(--line));
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 200ms ease-out, background-color 200ms ease-out;
+}
+
+.recipe-view ol.recipe-anatomy button:hover,
+.recipe-view ol.recipe-anatomy button:focus-visible {
+  border-color: color-mix(in oklch, var(--ds-gold) 55%, transparent);
+  background: color-mix(in oklch, var(--ds-gold) 8%, transparent);
+  outline: 0;
+}
+
+/* Avant de commencer : Servir / Conserver / Maitriser en onglets. */
+.notes-family-tablist {
+  display: flex;
+  gap: 4px;
+  margin: var(--ds-space-4, 16px) 0 var(--ds-space-2, 8px);
+  padding: 3px;
+  border: 1px solid var(--ds-hairline, var(--line));
+  border-radius: 999px;
+}
+
+.notes-family-tablist button {
+  flex: 1;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 600 var(--ds-text-xs) / 1 var(--ds-font-body, system-ui);
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: background-color 200ms ease-out, color 200ms ease-out;
+}
+
+.notes-family-tablist button:hover {
+  color: var(--text);
+}
+
+.notes-family-tablist button.active {
+  background: color-mix(in oklch, var(--ds-gold) 16%, transparent);
+  color: var(--text);
+}
+
+.notes-family-tablist button:focus-visible {
+  outline: 2px solid color-mix(in oklch, var(--ds-gold) 70%, transparent);
+  outline-offset: 1px;
+}
+
+/* L'onglet nomme deja la famille. */
+.notes-family-tabs:has(.notes-family-tablist) .notes-family-title {
+  display: none;
+}
+
+.notes-family[hidden] {
+  display: none;
+}
+
+@media print {
+  .notes-family-tablist {
+    display: none;
+  }
+
+  .notes-family[hidden] {
+    display: block;
+  }
+
+  .notes-family-tabs .notes-family-title {
+    display: block;
+  }
+}
+
+/* Sans conseil propre a la fiche, les temps prennent toute la largeur. */
+.recipe-summary-panel:not(:has(.recipe-chef-strip)) .recipe-quick-facts {
+  grid-column: 1 / -1;
+}
+
+/* Cases a cocher : centrees sur la premiere ligne du texte (elles etaient
+   alignees sur la ligne de base, 7px trop bas). */
+.ingredients-panel .ingredient-group li label {
+  align-items: flex-start;
+}
+
+/* Hauteur de ligne du texte (1.45 x 17px = 24.65px) moins la case (18px). */
+.recipe-panel .ingredient-group li input[type="checkbox"] {
+  margin-top: calc((var(--ds-text-base) * 1.45 - 18px) / 2);
+  translate: none;
+}
+
+/* ---------- Pied de page ---------- */
+/* Fond plein, dans le ton du site : les lumieres d'ambiance fixes (bleu,
+   violet, ambre) passaient au travers et en faisaient une bande trop vive. */
+.site-footer {
+  /* Pleine largeur et colle au contenu (il etait limite a 1240px, sous une
+     marge de 54px ou l'ambiance passait) ; le texte reste aligne sur la grille. */
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding-top: clamp(28px, 4vw, 44px);
+  /* Meme marge que la grille (14px sur mobile, colonne de 1240px au-dela). */
+  padding-inline: max(14px, calc((100% - 1240px) / 2));
+  background: #070605;
+  border-top: 1px solid color-mix(in oklch, var(--ds-gold) 22%, transparent);
+}
+
+.mc-shell.theme-light .site-footer {
+  background: #efe3d1;
+  border-top-color: color-mix(in oklch, var(--ds-gold) 30%, transparent);
+}
+
+.site-footer .site-footer-mark {
+  display: none;
+}
+
+/* Catalogue et version : simple ligne grisee sous la presentation. */
+.site-footer .site-footer-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 6px;
+  margin: 6px 0 0;
+}
+
+.site-footer .site-footer-stats span,
+.site-footer .site-footer-count,
+.site-footer .site-footer-version {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: color-mix(in oklch, var(--muted) 80%, transparent);
+  font-size: var(--ds-text-xs);
+  font-weight: 500;
+}
+
+.site-footer .site-footer-stats span + span::before {
+  content: "· ";
+}
+
+/* Fin de page : l'espace avant le pied reste dans la page (son fond), plus
+   dans une marge du pied ou l'ambiance passait en bande de couleur. */
+.home-view,
+.recipe-view {
+  padding-bottom: clamp(32px, 3.5vw, 48px);
+}

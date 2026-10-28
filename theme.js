@@ -1,7 +1,7 @@
 (g => {
   'use strict';
   const S = 'cook_note_preferences', D = 'dark', L = 'light', T = [D, L], OK = true;
-  const C = { dark: '#fbbf24', light: '#b45309' };
+  const C = { dark: '#0b0908', light: '#f6eee2' };
   const N = Object.freeze({
     background: '/assets/theme/dark/global/background.jpg',
     hero: '/assets/theme/dark/global/hero.png',

@@ -237,7 +237,9 @@ function categoryColor(recipe) {
 }
 
 function difficultyText(recipe) {
-  return DIFFICULTY_LABELS[recipe?.difficulty] || 'Recette';
+  return Number.isFinite(recipe?.difficultyScore)
+    ? `Difficulté ${recipe.difficultyScore}/10`
+    : (DIFFICULTY_LABELS[recipe?.difficulty] || 'Recette');
 }
 
 function variantRefs(recipe) {
@@ -292,19 +294,75 @@ function staticRecipeImage(recipe) {
   return themed;
 }
 
+// Image du theme jour (meme choix que displayRecipeImage cote app) : l'art jour
+// s'il existe, sinon la photo de la fiche.
+function staticDayRecipeImage(recipe) {
+  const source = recipeImage(recipe);
+  const match = String(source).match(/\/([^/?#]+)\.(?:jpe?g|png|webp)(?:[?#].*)?$/i);
+  const candidates = [...new Set([recipe?.id, match?.[1]].filter(Boolean))];
+  const themed = candidates.map(id => loadThemeRecipeArt().light?.[id]).find(Boolean);
+  if (themed && fs.existsSync(path.join(ROOT, String(themed).split('?')[0].replace(/^\/+/, '')))) return themed;
+  return source;
+}
+
+// Bandeau prerendu identique a celui de l'app (meme image, memes blocs et
+// memes hauteurs) : au montage de React, rien ne saute ni ne change d'image.
+// L'image est choisie selon le theme avant d'etre telechargee.
+function renderStaticHero(fullRecipe, isParent) {
+  const night = isParent ? '/assets/theme/dark/global/hero.avif' : (avifImage(staticRecipeImage(fullRecipe)) || staticRecipeImage(fullRecipe));
+  const day = isParent ? '/assets/theme/day/global/hero.avif' : (avifImage(staticDayRecipeImage(fullRecipe)) || staticDayRecipeImage(fullRecipe));
+  const ingredientCount = (fullRecipe.ingredients || []).flatMap(group => group.items || []).length;
+  const stepCount = (fullRecipe.steps || []).length;
+  const category = primaryCategory(fullRecipe);
+  const meta = isParent
+    ? []
+    : [
+      difficultyText(fullRecipe),
+      ingredientCount ? `${ingredientCount} ingrédient${ingredientCount > 1 ? 's' : ''}` : '',
+      stepCount ? `${stepCount} étape${stepCount > 1 ? 's' : ''}` : ''
+    ].filter(Boolean);
+  const icon = '<svg class="site-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"></svg>';
+  return [
+    `        <section class="recipe-detail-hero has-photo${isParent ? ' parent-hero' : ''}">`,
+    '          <div class="recipe-detail-hero-media" aria-hidden="true">',
+    `            <img class="recipe-detail-hero-image" id="static-hero-image" alt="" decoding="async" fetchpriority="high" draggable="false" width="1400" height="788" data-loaded="true" />`,
+    `            <script>(function(i){var l=document.documentElement.dataset.theme==='light',s=l?${safeJson(heroSrcSetFor(day))}:${safeJson(heroSrcSetFor(night))};if(s){i.sizes='100vw';i.srcset=s}i.src=l?${safeJson(day)}:${safeJson(night)}})(document.getElementById('static-hero-image'))</script>`,
+    `            <noscript><img class="recipe-detail-hero-image" src="${escapeHtml(night)}" alt="" width="1400" height="788" /></noscript>`,
+    '          </div>',
+    '          <div class="detail-hero-copy">',
+    '            <nav class="recipe-breadcrumb" aria-label="Fil d’Ariane">',
+    `              <a href="/">Cook Note</a>${isParent ? '' : `<span>/</span><button type="button" tabindex="-1">${escapeHtml(category)}</button>`}<span>/</span><strong aria-current="page">${escapeHtml(fullRecipe.title)}</strong>`,
+    '            </nav>',
+    `            <h1>${escapeHtml(fullRecipe.title)}</h1>`,
+    '            <div class="detail-meta">',
+    isParent ? '' : meta.map(fact => `              <span>${escapeHtml(fact)}</span>`).join(''),
+    '            </div>',
+    // Places reservees aux reglages et actions que l'app ajoute : meme hauteur.
+    isParent ? '' : `            <div class="detail-actions static-placeholder" aria-hidden="true"><span class="factor-control serving-control quantity-stepper detail-quantity-control"><span class="quantity-step">−</span><span class="quantity-stepper-value"><strong>${escapeHtml(String(parseInt(fullRecipe.yield, 10) || 4))}</strong><span>parts</span></span><span class="quantity-step">+</span></span><span class="btn btn-primary">Ajouter aux courses</span><span class="btn btn-ghost detail-action-button">${icon}<span>Mode cuisine</span></span><span class="btn btn-ghost detail-action-button">${icon}<span>Favori</span></span><span class="btn btn-ghost detail-action-button">${icon}<span>Plus</span></span></div>`,
+    '          </div>',
+    '        </section>'
+  ].filter(Boolean).join('\n');
+}
+
+// Meme srcset que heroSrcSet (app-images.js) : miniature 800px de l'art de
+// theme pour les ecrans etroits, grande image au-dela.
+function heroSrcSetFor(image) {
+  if (!/^\/assets\/theme\/(?:dark|day)\/recipes\/[^/]+\.avif/.test(image)) return '';
+  const card = image.replace('/recipes/', '/recipe-cards/');
+  return fs.existsSync(path.join(ROOT, card.split('?')[0].replace(/^\/+/, ''))) ? `${card} 800w, ${image} 1400w` : '';
+}
+
+// Prechargement de l'image du bandeau selon le theme (jour/nuit) choisi.
+function staticHeroPreload(fullRecipe, isParent) {
+  const night = isParent ? '/assets/theme/dark/global/hero.avif' : (avifImage(staticRecipeImage(fullRecipe)) || staticRecipeImage(fullRecipe));
+  const day = isParent ? '/assets/theme/day/global/hero.avif' : (avifImage(staticDayRecipeImage(fullRecipe)) || staticDayRecipeImage(fullRecipe));
+  return `  <script>(function(){var d=document.documentElement.dataset.theme==='light',l=document.createElement('link'),s=d?${safeJson(heroSrcSetFor(day))}:${safeJson(heroSrcSetFor(night))};l.rel='preload';l.as='image';l.setAttribute('fetchpriority','high');if(s){l.setAttribute('imagesrcset',s);l.setAttribute('imagesizes','100vw')}l.href=d?${safeJson(day)}:${safeJson(night)};document.head.appendChild(l)})()</script>`;
+}
+
 // Copie AVIF d'une image servie (scripts/generate-avif.js), '' si absente.
 function avifImage(image) {
   const avif = String(image || '').replace(/\.(?:jpe?g|png)(\?.*)?$/i, '.avif$1');
   return avif !== image && fs.existsSync(path.join(ROOT, avif.split('?')[0].replace(/^\/+/, ''))) ? avif : '';
-}
-
-// Prechargement de l'image principale au format que la page affichera : l'AVIF
-// quand il existe (type="image/avif" : ignore par les navigateurs sans AVIF).
-function imagePreloadLink(image) {
-  const avif = avifImage(image);
-  return avif
-    ? `  <link rel="preload" as="image" href="${escapeHtml(avif)}" type="image/avif" fetchpriority="high" />`
-    : `  <link rel="preload" as="image" href="${escapeHtml(image)}" fetchpriority="high" />`;
 }
 
 // Fond pre-rendu : JPG pour tous, puis image-set() AVIF que seuls les
@@ -331,38 +389,6 @@ function recipeDescription(recipe) {
     .filter(Boolean)
     .join(', ');
   return `${recipe.title} sur Cook Note : recette ${category}${yieldText}${ingredients ? ` avec ${ingredients}` : ''}.`;
-}
-
-function timingFacts(recipe) {
-  const explicitTotal = Number(recipe?.totalTime);
-  const explicitActive = Number(recipe?.activeTime);
-  const explicitCook = Number(recipe?.cookTime);
-  const explicitRest = Number(recipe?.restTime);
-  const explicitSum = [explicitActive, explicitCook, explicitRest]
-    .filter(value => Number.isFinite(value) && value > 0)
-    .reduce((sum, value) => sum + value, 0);
-  const declaredMinutes = Number.isFinite(explicitTotal) && explicitTotal > 0 ? explicitTotal : explicitSum;
-  if (declaredMinutes) {
-    if (declaredMinutes >= 60) {
-      const hours = Math.floor(declaredMinutes / 60);
-      const rest = declaredMinutes % 60;
-      return rest ? `${hours}h${String(rest).padStart(2, '0')}` : `${hours}h`;
-    }
-    return `${declaredMinutes}min`;
-  }
-  const steps = (recipe?.steps || []).join(' ');
-  const matches = [...steps.matchAll(/(\d+)\s*(?:min|minutes?|h|heures?)/gi)];
-  const minutes = matches.reduce((sum, match) => {
-    const value = Number(match[1]);
-    return sum + (/h|heure/i.test(match[0]) ? value * 60 : value);
-  }, 0);
-  if (!minutes) return '';
-  if (minutes >= 60) {
-    const hours = Math.floor(minutes / 60);
-    const rest = minutes % 60;
-    return rest ? `${hours}h${String(rest).padStart(2, '0')}` : `${hours}h`;
-  }
-  return `${minutes}min`;
 }
 
 function stepMinutes(step) {
@@ -563,15 +589,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
   const accent = categoryColor(fullRecipe);
   const description = recipeDescription(fullRecipe);
   const image = staticRecipeImage(fullRecipe);
-  const heroStyle = `--accent:${accent};--accent-2:${accent};${backgroundImageCss('linear-gradient(90deg, rgba(4,4,5,.92), rgba(4,4,5,.50))', image)}`;
   const variants = renderVariantCards(fullRecipe, recipes);
-  const facts = [
-    difficultyText(fullRecipe),
-    fullRecipe.yield || '',
-    (fullRecipe.ingredients || []).length ? `${(fullRecipe.ingredients || []).flatMap(group => group.items || []).length} ingrédients` : '',
-    (fullRecipe.steps || []).length ? `${(fullRecipe.steps || []).length} étapes` : '',
-    timingFacts(fullRecipe)
-  ].filter(Boolean);
   const jsonLd = buildRecipeJsonLd(id, recipe, recipes);
   return [
     '<!DOCTYPE html>',
@@ -601,9 +619,12 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     '  <link rel="icon" href="/assets/brand/mark.svg" type="image/svg+xml" />',
     '  <link rel="apple-touch-icon" href="/assets/brand/app-icon.png" data-art-asset="appIcon" data-art-target="href" />',
     '  <link rel="preload" as="image" href="/assets/theme/dark/global/background.avif" type="image/avif" fetchpriority="high" data-art-asset="background" data-art-target="href" />',
-    image && imagePreloadLink(image),
     `  <script>window.COOK_NOTE_ASSET_VERSION = '${version}';</script>`,
     `  <script src="/theme.js?v=${version}"></script>`,
+    image && staticHeroPreload(fullRecipe, variantRefs(fullRecipe).length > 0),
+    '  <link rel="preload" as="image" href="/assets/brand/cook-note-white.avif" type="image/avif" />',
+    // Sans JavaScript, le contenu prerendu reste lisible (masque sinon jusqu'au montage).
+    '  <noscript><style>.static-prerender > *{visibility:visible!important}</style></noscript>',
     `  <link rel="stylesheet" href="/style.css?v=${version}" />`,
     `  <link rel="stylesheet" href="/recipe-editorial.css?v=${version}" />`,
     `  <link rel="stylesheet" href="/personal-tools.css?v=${version}" />`,
@@ -614,16 +635,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     '  <div id="root">',
     `    <div class="mc-shell static-prerender-shell" style="--ambient-accent:${escapeHtml(accent)}">`,
     `      <main class="recipe-view static-prerender" style="--accent:${escapeHtml(accent)};--accent-2:${escapeHtml(accent)}">`,
-    `        <section class="recipe-detail-hero has-photo${variantRefs(fullRecipe).length ? ' parent-hero' : ''}" style="${heroStyle}">`,
-    '          <div class="detail-hero-copy">',
-    variantRefs(fullRecipe).length ? '            <img class="detail-hero-logo" src="/assets/brand/cook-note-white.png" alt="Cook Note" decoding="async" width="948" height="302" data-art-asset="logo" />' : '',
-    `            <p class="eyebrow">${escapeHtml(primaryCategory(fullRecipe))}</p>`,
-    `            <h1>${escapeHtml(fullRecipe.title)}</h1>`,
-    '            <div class="detail-meta">',
-    facts.map(fact => `              <span>${escapeHtml(fact)}</span>`).join(''),
-    '            </div>',
-    '          </div>',
-    '        </section>',
+    renderStaticHero(fullRecipe, variantRefs(fullRecipe).length > 0),
     variants || renderRecipeBody(fullRecipe),
     '      </main>',
     '    </div>',

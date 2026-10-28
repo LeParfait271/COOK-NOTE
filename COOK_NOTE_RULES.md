@@ -205,6 +205,13 @@ Sommaire :
   (`180°C`, `th. 6`), y compris dans les etapes propres d'une variante qui
   remplacent les etapes de base ; le gril se donne par position.
   `npm run validate:oven` le bloque.
+- Materiel de cuisine (`practical.equipment`, et `ingredients[i].recipe.practical.equipment`
+  pour chaque variante integree) : uniquement le vocabulaire de
+  `scripts/lib/equipment.js`, sans doublon, dans l'ordre du travail, 9 au plus.
+  Apres une fiche nouvelle ou des etapes modifiees : `npm run curate:equipment`
+  (rapport), relire, puis `node scripts/curate-recipe-equipment.js --write` ;
+  verifie par `npm run validate:equipment` (dans `npm run check`). Le site
+  affiche la liste telle quelle, sans deduction au vol.
 - Redaction des etapes (`npm run validate:wording`, dans `npm run check`) :
   « La veille » seulement a la premiere etape et suivi d'une virgule ;
   « le lendemain » seulement apres un repos de la veille ; prechauffer avant la
@@ -335,9 +342,11 @@ Sommaire :
 - Repli des images : une seule tentative vers l'image d'origine par image
   (`retryOriginalImage`), jamais de rebond entre deux sources qui echouent ;
   un test verifie qu'une fiche sans image ne relance pas de requetes en boucle.
-- Pages categorie : ouverture de chapitre avec une phrase par categorie
-  (`COLLECTION_INTROS`) et des reperes chiffres calcules (faciles, de saison),
-  informatifs, sans filtre ni outil de comparaison.
+- Pages categorie (v5.40) : « Toutes » + quatre saisons, puis une seule barre
+  avec les sous-familles (`COLLECTION_FAMILIES`, deduites du titre, « Autres »
+  en repli), un filtre texte et un tri (A a Z, rapidite, facilite). Les cartes
+  montrent temps et difficulte et un coeur favori. Pas d'outil de comparaison
+  ni de filtres rapides en doublon.
 - Les nouveaux styles utilisent les tokens du design system (couleurs, spacing,
   radius, ombres, typo, motion) ; une valeur locale n'est admise que pour une
   mesure de layout non reutilisable.

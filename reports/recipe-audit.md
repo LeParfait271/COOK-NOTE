@@ -6,18 +6,18 @@
 - Familles a variantes internes : 63
 - Options internes auditees : 217
 - Fiches executables auditees : 475
-- Source : v5.38 / 27/10/26 / recipes.js fc835e9ed385
+- Source : v5.38 / 27/10/26 / recipes.js 236166d8a4b8
 - Score moyen : 100/100
 - Fiches sous 78 : 0
 - Fiches avec defauts a verifier : 0
 
 ## Dashboard sante
 
-- Pretes : 475
-- A ameliorer : 0
+- Pretes : 465
+- A ameliorer : 10
 - Faibles : 0
 - Decouverte faible : 0
-- Conservation/securite a verifier : 0
+- Conservation/securite a verifier : 10
 - Risque image/production : 0
 - Sans liens internes explicites : 212
 
@@ -350,8 +350,10 @@ Aucune fiche faible detectee.
 - Mojitos — Mojito rhum ambré (mojitos_variantes::variant-6) : 100/100 - OK
 - Mousse au chocolat Pierre Hermé (mousses_chocolat_variantes::variant-1) : 100/100 - OK
 - Mousse au Toblerone (mousses_chocolat_variantes::variant-2) : 100/100 - OK
-- Mousse de légumes — Mousse de carotte (mousse_legumes::variant-2) : 100/100 - OK
-- Mousse de légumes — Mousse de courgette (mousse_legumes::variant-1) : 100/100 - OK
+- Mousse de légumes — Mousse de carotte (mousse_legumes::variant-2) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Mousse de légumes — Mousse de courgette (mousse_legumes::variant-1) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Muffins aux framboises (muffins_framboises) : 100/100 - OK
 - Navarin d’agneau printanier (navarin_agneau_printanier) : 100/100 - OK
 - Nems vietnamiens (nems_vietnam) : 100/100 - OK
@@ -480,10 +482,14 @@ Aucune fiche faible detectee.
 - Sauce au porto (sauce_au_porto) : 100/100 - OK
 - Sauce aux deux moutardes et fromage blanc (sauce_deux_moutardes_fromage_blanc) : 100/100 - OK
 - Sauce aux morilles (sauce_aux_morilles) : 100/100 - OK
-- Sauce aux poivres — Au cognac et à la moutarde (sauce_aux_poivres::variant-3) : 100/100 - OK
-- Sauce aux poivres — Crème au poivre noir (sauce_aux_poivres::variant-4) : 100/100 - OK
-- Sauce aux poivres — Poivre vert au cognac (sauce_aux_poivres::variant-2) : 100/100 - OK
-- Sauce aux poivres — Trois poivres au cognac (sauce_aux_poivres::variant-1) : 100/100 - OK
+- Sauce aux poivres — Au cognac et à la moutarde (sauce_aux_poivres::variant-3) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Sauce aux poivres — Crème au poivre noir (sauce_aux_poivres::variant-4) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Sauce aux poivres — Poivre vert au cognac (sauce_aux_poivres::variant-2) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Sauce aux poivres — Trois poivres au cognac (sauce_aux_poivres::variant-1) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Sauce béarnaise — Béarnaise (sauce_bearnaise::variant-1) : 100/100 - OK
 - Sauce bordelaise (sauce_bordelaise) : 100/100 - OK
 - Sauce bourguignonne (sauce_bourguignonne) : 100/100 - OK
@@ -547,11 +553,15 @@ Aucune fiche faible detectee.
 - Tomates confites et séchées — Version séchées (tomates_variantes::variant-1) : 100/100 - OK
 - Tomates farcies — Tomates farcies au jambon fumé (tomates_farcies::variant-2) : 100/100 - OK
 - Tomates farcies — Tomates farcies au riz (tomates_farcies::variant-1) : 100/100 - OK
-- Tomates provençales — Tomates provençales à la persillade (tomates_provencales::variant-2) : 100/100 - OK
-- Tomates provençales — Tomates provençales au parmesan (tomates_provencales::variant-1) : 100/100 - OK
-- Toppings frites — Ail, parmesan et persil (toppings_frites::ail_parmesan) : 100/100 - OK
+- Tomates provençales — Tomates provençales à la persillade (tomates_provencales::variant-2) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Tomates provençales — Tomates provençales au parmesan (tomates_provencales::variant-1) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
+- Toppings frites — Ail, parmesan et persil (toppings_frites::ail_parmesan) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Toppings frites — Cheddar et oignons verts (toppings_frites::cheddar) : 100/100 - OK
-- Toppings frites — Cheddar, bacon et crème aigre (toppings_frites::cheddar_bacon) : 100/100 - OK
+- Toppings frites — Cheddar, bacon et crème aigre (toppings_frites::cheddar_bacon) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Toppings frites — Paprika et cayenne (toppings_frites::paprika) : 100/100 - OK
 - Toppings frites — Patate douce paprika et ail (toppings_frites::patate_douce) : 100/100 - OK
 - Toppings frites — Sel et poivre (toppings_frites::sel_poivre) : 100/100 - OK
@@ -571,6 +581,8 @@ Aucune fiche faible detectee.
 
 ## Idees de rangement prudentes
 
+- Mousse de légumes — Mousse de carotte (mousse_legumes::variant-2) : Categorie possible : Desserts (semble etre sucré ou patissier).
+- Mousse de légumes — Mousse de courgette (mousse_legumes::variant-1) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Asperges mimosa (asperges_mimosa) : Categorie possible : Apéro (semble utile a l apero).
 - Aubergines rôties aux anchois (aubergines_roties_anchois) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Bouillabaisse (bouillabaisse_rouille) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
@@ -595,8 +607,6 @@ Aucune fiche faible detectee.
 - Lapin sauté chasseur (lapin_saute_chasseur) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Lentilles tomate pommes de terre sautées (lentilles_tomate_pommes_de_terre_sautees) : Categorie possible : Accompagnements (semble etre un accompagnement).
 - Mayonnaise — Base mayonnaise (mayonnaise_maison::variant-1) : Categorie possible : Base (semble etre une base reutilisable).
-- Mousse de légumes — Mousse de carotte (mousse_legumes::variant-2) : Categorie possible : Desserts (semble etre sucré ou patissier).
-- Mousse de légumes — Mousse de courgette (mousse_legumes::variant-1) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Œuf parfait, croûtons et lard croustillant (oeuf_parfait_croutons_lard) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Œuf sur le plat chili crisp sur toast (oeuf_chili_crisp_toast) : Categorie possible : Apéro (semble utile a l apero).
 - Pain hérisson pesto et mozzarella (pain_herisson_pesto_mozzarella) : Categorie possible : Sauces (semble etre une sauce ou un condiment).

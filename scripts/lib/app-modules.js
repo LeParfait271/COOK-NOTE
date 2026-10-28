@@ -44,7 +44,8 @@ const STYLE_MODULES = Object.freeze([
   'styles/07-responsive.css',
   'styles/10-design.css',
   'styles/11-design-fiche.css',
-  'styles/12-design-effets.css'
+  'styles/12-design-effets.css',
+  'styles/13-design-finitions.css'
 ]);
 
 const styleLayerOf = file => (/^styles\/0\d-/.test(file) ? 'legacy' : 'design');

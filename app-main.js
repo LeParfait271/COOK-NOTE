@@ -1195,6 +1195,8 @@ function App() {
     h(TopBarFixed, {
       onHome: goHome,
       showFavorites,
+      openShoppingBasket,
+      shoppingCount: shoppingIds.length,
       query,
       openSearch: openCommandPalette,
       openPreferences: () => setPreferencesOpen(true),
@@ -1204,7 +1206,8 @@ function App() {
       searchActive: commandOpen || searchOpen,
       favoritesActive: onlyFavorites
     }),
-    h(ScrollProgress),
+    // Progression de lecture : utile sur une fiche, pas sur l'accueil ni une categorie.
+    activeRecipe && !getVariantRefs(activeRecipe).length && h(ScrollProgress),
     h(OfflineStatusBar, { isOnline, favoriteCount: favorites.length }),
     h('a', { className: 'skip-link', href: '#cook-note-content' }, 'Aller au contenu'),
     h('div', { id: 'cook-note-content', className: 'content-anchor', tabIndex: -1 },
@@ -1219,6 +1222,7 @@ function App() {
       ? h(RecipeView, {
           recipe: activeRecipe,
           isFavorite: favorites.includes(activeRecipe.id),
+          favorites,
           toggleFavorite,
           shoppingIds,
           toggleShopping,
@@ -1282,12 +1286,14 @@ function App() {
           ),
           h('div', { className: 'site-footer-copy' },
           h('p', { className: 'site-footer-brand' }, 'Cook Note \u00a9 2026.'),
-          h('p', null, 'Carnet de recettes et techniques culinaires, sur le web et sur Android 5+, par MaruChiwa.')
+          h('p', null, 'Carnet de recettes et techniques culinaires, sur le web et sur Android 5+, par MaruChiwa.'),
+          // Catalogue et version : une ligne discrete sous la presentation (en
+          // pastilles, elles avaient le meme poids que les liens).
+          h('p', { className: 'site-footer-stats', 'aria-label': 'Informations catalogue' },
+            h('span', { className: 'site-footer-count' }, catalogStats.label),
+            h('span', { className: 'site-footer-version' }, `${SITE_VERSION} · ${SITE_UPDATED_AT}`)
           )
-        ),
-        h('div', { className: 'site-footer-stats', 'aria-label': 'Informations catalogue' },
-          h('span', { className: 'site-footer-count' }, catalogStats.label),
-          h('span', { className: 'site-footer-version' }, `${SITE_VERSION} / ${SITE_UPDATED_AT}`)
+          )
         ),
         h('div', { className: 'site-footer-actions', 'aria-label': 'Installer Cook Note' },
           APP_INSTALL_OPTIONS.map(option =>

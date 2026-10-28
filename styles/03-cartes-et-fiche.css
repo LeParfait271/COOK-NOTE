@@ -167,12 +167,6 @@
   line-height: 1.2;
 }
 
-.detail-meta .detail-meta-choice-required {
-  border-color: color-mix(in srgb, var(--accent) 54%, var(--line));
-  background: color-mix(in srgb, var(--accent) 16%, rgba(0, 0, 0, .28));
-  color: color-mix(in srgb, var(--accent) 82%, #fff);
-}
-
 .nutri-score {
   display: inline-flex;
   align-items: center;
@@ -307,14 +301,6 @@
 .parent-hero .detail-meta,
 .parent-hero .detail-actions {
   justify-content: center;
-}
-
-.detail-hero-logo {
-  width: min(760px, 82vw);
-  max-height: 190px;
-  height: auto;
-  object-fit: contain;
-  margin: 0 0 14px;
 }
 
 .recipe-breadcrumb {

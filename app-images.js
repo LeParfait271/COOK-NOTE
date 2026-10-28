@@ -1,7 +1,7 @@
 /* global window */
 
 (function initCookNoteImages() {
-  const IMAGE_HELPER_VERSION = 'v5.38';
+  const IMAGE_HELPER_VERSION = 'v5.40';
   const IMAGE_HELPER_REVISION = 'parent-title';
   const IMAGE_MANIFEST = window.COOK_NOTE_IMAGE_MANIFEST || {};
 
@@ -107,6 +107,14 @@
     return card && card !== image ? `${preferredImageUrl(card)} 1x, ${preferredImageUrl(image)} 2x` : '';
   }
 
+  // Bandeau de fiche : la miniature 800px (deja chargee comme apercu flou)
+  // suffit aux ecrans etroits, la grande image (1400px) au-dela.
+  function heroSrcSet(image) {
+    if (!image || !THEME_ART.test(image) || !SUPPORTS_AVIF) return '';
+    const card = recipeCardImageUrl(image);
+    return card && card !== image ? `${preferredImageUrl(card)} 800w, ${preferredImageUrl(image)} 1400w` : '';
+  }
+
   // Fond de carte : 400px en ecran 1x, 800px au-dela.
   function cardCssImageValue(cardImage) {
     const small = smallCardImageUrl(cardImage);
@@ -140,6 +148,7 @@
     recipeCardImageUrl,
     imageSizeAttrs,
     imageSrcSet,
+    heroSrcSet,
     imageBackgroundStyle,
     supportsAvif: SUPPORTS_AVIF,
     avifImageUrl,

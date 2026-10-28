@@ -273,13 +273,11 @@
   color: var(--ds-color-text-secondary);
 }
 
+/* La date sur sa propre ligne, sans puce orpheline en debut de ligne. */
 .notes-panel .recipe-version-meta small {
+  display: block;
   font-size: var(--ds-text-xs);
   color: var(--muted);
-}
-
-.notes-panel .recipe-version-meta small::before {
-  content: "· ";
 }
 /* Cartes de variante en mode jour : voile clair suffisant pour lire le texte. */
 .mc-shell.theme-light .variant-choice-button.has-image {
@@ -614,63 +612,79 @@ html.theme-reveal::view-transition-new(root) {
   right: var(--ds-space-2);
 }
 
-/* Pages categorie : ouverture de chapitre (phrase + reperes chiffres). */
-.collection-chapter {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--ds-space-4) var(--ds-space-6);
-  margin: 0 0 var(--ds-space-5);
-  padding: var(--ds-space-2) var(--ds-space-1) var(--ds-space-4);
-  border-bottom: 1px solid var(--ds-hairline);
-}
-
-.collection-chapter-intro {
-  flex: 1 1 320px;
-  max-width: 46ch;
-  margin: 0;
-  font-family: var(--ds-font-display);
-  font-size: var(--ds-text-xl);
-  font-weight: 420;
-  line-height: 1.35;
-  text-wrap: balance;
-  color: var(--text);
-}
-
-.collection-chapter-figures {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--ds-space-5);
-  margin: 0;
-}
-
-.collection-chapter-figures > div {
+/* Pages categorie : quatre saisons qui filtrent la grille. */
+.collection-season-filter {
   display: grid;
-  gap: 2px;
+  /* « Toutes » puis les quatre saisons. */
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--ds-space-2);
+  margin: 0 0 var(--ds-space-5);
 }
 
-.collection-chapter-figures dd {
-  order: -1;
-  margin: 0;
-  font-family: var(--ds-font-display);
-  font-size: var(--ds-text-2xl);
-  font-weight: 460;
-  font-variant-numeric: lining-nums tabular-nums;
-  line-height: 1;
+.collection-season-filter button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-2);
+  min-height: 46px;
+  padding: 0 var(--ds-space-3);
+  border: 1px solid var(--ds-hairline);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--ds-color-background) 55%, transparent);
+  color: var(--text);
+  font: 600 var(--ds-text-sm) / 1 var(--ds-font-body, inherit);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: border-color 180ms ease-out, background-color 180ms ease-out, color 180ms ease-out;
+}
+
+.collection-season-filter button:hover:not(:disabled) {
+  border-color: color-mix(in oklch, var(--ds-gold) 55%, var(--ds-hairline));
+}
+
+.collection-season-filter button.active {
+  border-color: var(--ds-gold);
+  background: color-mix(in oklch, var(--ds-gold) 16%, transparent);
+}
+
+.collection-season-filter button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.collection-season-filter .season-count {
   color: var(--ds-gold-soft);
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-text-base);
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
-.mc-shell.theme-light .collection-chapter-figures dd {
+.mc-shell.theme-light .collection-season-filter .season-count {
   color: var(--ds-gold);
 }
 
-.collection-chapter-figures dt {
-  font-size: var(--ds-text-xs);
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
+/* Saison en cours : un point d'or discret. */
+.collection-season-filter button.is-current::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ds-gold);
+}
+
+/* Telephone : « Toutes » sur toute la largeur, puis les saisons deux par deux. */
+@media (max-width: 560px) {
+  .collection-season-filter {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .collection-season-filter button:first-child {
+    grid-column: 1 / -1;
+  }
 }
 /* ---------- Controle qualite visuel ---------- */
 

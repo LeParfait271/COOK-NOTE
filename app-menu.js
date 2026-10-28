@@ -41,14 +41,23 @@ function getRecipeTiming(recipe) {
   };
 }
 
+// Durees a la francaise, espace fine insecable : « 45 min », « 1 h 30 », « 24 h ».
 function formatMinutesShort(minutes) {
   if (!minutes) return '';
   if (minutes >= 60) {
     const hours = Math.floor(minutes / 60);
     const rest = minutes % 60;
-    return rest ? `${hours}h${String(rest).padStart(2, '0')}` : `${hours}h`;
+    return rest ? `${hours} h ${String(rest).padStart(2, '0')}` : `${hours} h`;
   }
-  return `${minutes} min`;
+  return `${minutes} min`;
+}
+
+// Total d'une fiche : un repos d'une nuit (8 h a 36 h) se lit « 1 h 30 + 1 nuit »
+// plutot que « 25 h 30 ».
+function formatTotalDuration(total, rest = 0) {
+  if (rest >= 480 && rest <= 2160 && total > rest) return `${formatMinutesShort(total - rest)} + 1 nuit`;
+  if (rest > 2160 && total > rest) return `${formatMinutesShort(total - rest)} + ${Math.round(rest / 1440)} j`;
+  return formatMinutesShort(total);
 }
 
 function minutesToIsoDuration(minutes) {
@@ -591,41 +600,24 @@ function menuItemReason(item, items, profiles, theme) {
   const profile = item.recipe ? profiles.get(item.recipe.id) : null;
   const main = items.find(candidate => candidate.key === 'main')?.recipe;
   const mainProfile = main ? profiles.get(main.id) : null;
+  // Une note seulement quand l'accord est reel et lisible ; plus de phrase
+  // passe-partout (« Base principale solide… », « Fin plus fraiche… »).
   if (!profile) return '';
   if (theme.id === 'apero' && item.key === 'starter') return 'Format à partager, cohérent avec l’apéro.';
-  if (item.key === 'main') {
-    if (profile.families.includes('fish')) return 'Base poisson, facile à accorder avec frais et citron.';
-    if (profile.families.includes('meat')) return 'Base principale solide pour construire le repas.';
-    if (profile.heavy) return 'Plat structurant, donc le reste reste plus léger.';
-    return 'Recette centrale du menu.';
-  }
   if ((item.key === 'side' || item.key === 'sauce') && mainProfile) {
     if (mainProfile.heavy && profile.families.includes('vegetable') && !profile.heavy) return 'Allège le plat sans rajouter un second féculent.';
     if (mainProfile.families.includes('fish') && /\b(citron|tomate|olive|basilic|yaourt)\b/.test(profile.text)) return 'Accord frais avec le poisson.';
-    if (mainProfile.families.includes('meat') && /\b(tomate|salade|citron|moutarde|puree|purée|riz)\b/.test(profile.text)) return 'Accompagnement logique avec la viande.';
-    return 'Complète le plat sans conflit fort.';
   }
-  if (item.key === 'dessert') {
-    if (theme.id === 'semaine') return 'Dessert express uniquement, sinon on garde le repas court.';
-    if (/\b(citron|fruit|cerise|clafoutis)\b/.test(profile.text)) return 'Fin plus fraîche après le salé.';
-    if (/\b(chocolat|caramel|cookies|tiramisu)\b/.test(profile.text)) return 'Fin gourmande assumée.';
-    return 'Dessert servi, pas une base technique.';
-  }
-  return 'Ouvre le menu sans alourdir le plat.';
+  if (item.key === 'dessert' && /\b(citron|sorbet|fruits rouges|agrumes)\b/.test(normalizeText(item.recipe.title))) return 'Fin acidulée après le salé.';
+  return '';
 }
 
 function menuLeadReason(items, profiles, theme) {
   const main = items.find(item => item.key === 'main')?.recipe;
   const first = main || items.find(item => item.recipe)?.recipe;
-  const profile = first ? profiles.get(first.id) : null;
-  const cues = [];
-  if (profile?.families.includes('fish')) cues.push('poisson');
-  if (profile?.families.includes('meat') && !profile?.families.includes('fish')) cues.push('viande');
-  if (profile?.families.includes('vegetable')) cues.push('légumes');
-  if (profile?.families.includes('starch')) cues.push('féculent');
-  if (profile?.families.includes('dessert')) cues.push('douceur');
-  const lead = first ? `Fil conducteur : ${first.title}${cues.length ? `, ${cues.slice(0, 2).join(' et ')}` : ''}.` : 'Fil conducteur : menu cohérent.';
-  return `${theme.label} : ${theme.pitch} ${lead}`;
+  // Le style du menu, puis le plat qui le porte (sans « Fil conducteur : X, viande. »).
+  const lead = first ? `Autour de : ${first.title}.` : '';
+  return [`${theme.label} : ${theme.pitch}`, lead].filter(Boolean).join(' ');
 }
 
 function buildMenuCandidate(items, profiles, theme, recentMenuSignatures = []) {
@@ -862,31 +854,42 @@ function menuRecipeStepText(recipe) {
   ].join(' '));
 }
 
+// Planning du repas a partir des temps de chaque fiche : un long repos se fait
+// la veille ou en avance, le reste demarre a rebours de l'heure de service
+// (le plus long d'abord). Chaque fiche n'apparait qu'a son moment utile.
 function buildMenuTimeline(recipes) {
   const groups = [
+    { key: 'eve', label: 'La veille', items: [] },
     { key: 'advance', label: 'À faire en avance', items: [] },
-    { key: 'start', label: 'Démarrer le repas', items: [] },
-    { key: 'parallel', label: 'Pendant les cuissons', items: [] },
+    { key: 'start', label: 'Avant de servir', items: [] },
     { key: 'finish', label: 'Dernière minute', items: [] }
   ];
+  const hot = [];
   recipes.forEach(recipe => {
-    const text = menuRecipeStepText(recipe);
     const timing = getRecipeTiming(recipe);
-    if (/\b(veille|repos|reposer|refroidir|refrigerateur|réfrigérateur|mariner|conserver|24h)\b/.test(text) || timing.rest >= 60) {
-      groups[0].items.push(`${recipe.title} : préparer/refroidir avant le service.`);
-    }
-    if (/\b(four|prechauffer|préchauffer|mijoter|cuire|frire|poele|poêle)\b/.test(text)) {
-      groups[1].items.push(`${recipe.title} : lancer la cuisson principale.`);
+    const rest = timing.rest || 0;
+    if (rest >= 480) {
+      groups[0].items.push(`${recipe.title} : préparer la veille (repos ${formatMinutesShort(rest)}).`);
+    } else if (rest >= 45) {
+      groups[1].items.push(`${recipe.title} : ${timing.cook ? 'cuire, puis ' : ''}laisser reposer ${formatMinutesShort(rest)} avant de servir.`);
     } else {
-      groups[1].items.push(`${recipe.title} : préparer les bases et pesées.`);
-    }
-    if (timing.cook || /\b(four|mijoter|repos|refroidir)\b/.test(text)) {
-      groups[2].items.push(`${recipe.title} : profiter du temps mort pour préparer garniture, sauce ou dressage.`);
-    }
-    if (/\b(servir|dresser|minute|chaud|saler|poivrer|parsemer|zeste|citron|grille|grillé|croustillant)\b/.test(text)) {
-      groups[3].items.push(`${recipe.title} : finir et dresser juste avant d’envoyer.`);
+      hot.push({ recipe, timing, lead: (timing.active || 0) + (timing.cook || 0) });
     }
   });
+  hot
+    .sort((left, right) => right.lead - left.lead)
+    .forEach(({ recipe, timing, lead }) => {
+      const detail = [
+        timing.active ? `${formatMinutesShort(timing.active)} de préparation` : '',
+        timing.cook ? `${formatMinutesShort(timing.cook)} de cuisson` : ''
+      ].filter(Boolean).join(', ');
+      groups[2].items.push(lead
+        ? `${recipe.title} : commencer ${formatMinutesShort(lead)} avant de servir${detail ? ` (${detail})` : ''}.`
+        : `${recipe.title} : à préparer au moment.`);
+      if (/\b(frire|friture|croustillant|minute|chaud|saisir|griller)\b/.test(menuRecipeStepText(recipe))) {
+        groups[3].items.push(`${recipe.title} : finir et servir aussitôt.`);
+      }
+    });
   return groups
     .map(group => ({ ...group, items: uniq(group.items).slice(0, 4) }))
     .filter(group => group.items.length);
