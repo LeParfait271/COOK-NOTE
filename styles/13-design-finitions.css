@@ -526,232 +526,6 @@
 }
 
 /* ---------- Pages categorie : familles, filtre, tri, cartes ---------- */
-/* Trois rangs alignes sur une meme grille : [recherche | tri], puis
-   [Saison | pastilles], puis [Famille | pastilles]. Une seule hauteur (36px),
-   un seul style de pastille, libelles dans une colonne fixe. */
-.collection-toolbar {
-  display: grid;
-  gap: 12px;
-  margin: 4px 0 20px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--ds-hairline, var(--line));
-}
-
-.collection-tools {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 190px;
-  gap: 10px;
-}
-
-.collection-filter-row {
-  display: grid;
-  grid-template-columns: 76px minmax(0, 1fr);
-  align-items: start;
-  gap: 10px;
-}
-
-/* Libelle aligne sur la premiere ligne de pastilles (hauteur 36px). */
-.collection-filter-label {
-  color: var(--ds-gold);
-  font: 650 var(--ds-text-xs) / 36px var(--ds-font-body, system-ui);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-}
-
-.collection-toolbar .collection-season-filter,
-.collection-family-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0;
-}
-
-.collection-toolbar .collection-season-filter button,
-.collection-family-filter button {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  height: 36px;
-  min-height: 0;
-  padding: 0 14px;
-  border: 1px solid var(--ds-hairline, var(--line));
-  border-radius: 999px;
-  background: transparent;
-  color: var(--text);
-  font: 550 var(--ds-text-sm) / 1 var(--ds-font-body, system-ui);
-  cursor: pointer;
-  transition: border-color 200ms ease-out, background-color 200ms ease-out;
-}
-
-.collection-toolbar .collection-season-filter .season-name {
-  font: inherit;
-}
-
-.collection-toolbar .collection-season-filter .season-count,
-.collection-family-filter button span {
-  color: var(--ds-gold);
-  font: 600 var(--ds-text-xs) / 1 var(--ds-font-body, system-ui);
-  font-variant-numeric: tabular-nums;
-}
-
-.collection-toolbar .collection-season-filter button:hover:not(:disabled),
-.collection-family-filter button:hover {
-  border-color: color-mix(in oklch, var(--ds-gold) 45%, var(--line));
-}
-
-.collection-toolbar .collection-season-filter button.active,
-.collection-family-filter button.active {
-  border-color: color-mix(in oklch, var(--ds-gold) 70%, transparent);
-  background: color-mix(in oklch, var(--ds-gold) 15%, transparent);
-}
-
-/* Saison en cours : le point d'or se place avant le nom, dans la pastille. */
-.collection-toolbar .collection-season-filter button.is-current::after {
-  position: static;
-  order: -1;
-  width: 5px;
-  height: 5px;
-  margin: 0;
-}
-
-.collection-search {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 40px;
-  padding: 0 14px;
-  border: 1px solid var(--ds-hairline, var(--line));
-  border-radius: 999px;
-  color: var(--muted);
-}
-
-.collection-search:focus-within {
-  border-color: color-mix(in oklch, var(--ds-gold) 60%, var(--line));
-}
-
-.collection-search .site-icon {
-  flex: none;
-  width: 16px;
-  height: 16px;
-}
-
-.collection-search input {
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--text);
-  font: inherit;
-  font-size: var(--ds-text-sm);
-}
-
-.collection-sort select {
-  width: 100%;
-  height: 40px;
-  padding: 0 34px 0 16px;
-  border: 1px solid var(--ds-hairline, var(--line));
-  border-radius: 999px;
-  background-color: transparent;
-  color: var(--text);
-  font: inherit;
-  font-size: var(--ds-text-sm);
-}
-
-.collection-empty {
-  margin: 24px 0;
-  color: var(--muted);
-  text-align: center;
-}
-
-/* Titre ancre en bas de la carte, sur un degrade (il flottait sur le plat). */
-.variant-card .variant-card-body {
-  align-content: end;
-  justify-items: start;
-  background: linear-gradient(180deg, transparent 38%, rgba(0, 0, 0, .78));
-}
-
-.variant-card-meta {
-  color: rgba(255, 248, 234, .82);
-  font-size: var(--ds-text-xs);
-  font-weight: 600;
-}
-
-.variant-card-shell {
-  position: relative;
-}
-
-.variant-card-favorite {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 5;
-  display: inline-grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  border: 1px solid rgba(255, 255, 255, .28);
-  border-radius: 999px;
-  background: rgba(0, 0, 0, .42);
-  color: #fff;
-  opacity: 0;
-  cursor: pointer;
-  transition: opacity 200ms ease-out, background-color 200ms ease-out;
-}
-
-.variant-card-favorite .site-icon {
-  width: 16px;
-  height: 16px;
-}
-
-.variant-card-shell:hover .variant-card-favorite,
-.variant-card-favorite:focus-visible,
-.variant-card-favorite.active {
-  opacity: 1;
-}
-
-.variant-card-favorite.active {
-  color: var(--ds-gold);
-}
-
-@media (hover: none) {
-  .variant-card-favorite {
-    opacity: 1;
-  }
-}
-
-/* Telephone : libelle au-dessus, pastilles defilant sur une ligne. */
-@media (max-width: 700px) {
-  .collection-tools {
-    grid-template-columns: minmax(0, 1fr) 136px;
-  }
-
-  .collection-filter-row {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 4px;
-  }
-
-  .collection-filter-label {
-    line-height: 1.4;
-  }
-
-  .collection-toolbar .collection-season-filter,
-  .collection-family-filter {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .collection-toolbar .collection-season-filter button,
-  .collection-family-filter button {
-    flex: none;
-  }
-}
-
 /* ---------- Bandeau vivant (inclinaison de l'appareil) ---------- */
 /* Proprietes individuelles (translate, scale) : elles s'ajoutent aux
    animations existantes (respiration, defilement) sans les ecraser. */
@@ -766,137 +540,6 @@ html.has-tilt .home-view > .hero .hero-atmosphere {
 html.has-tilt .recipe-detail-hero-media .recipe-detail-hero-image {
   scale: 1.05;
   translate: calc(var(--tilt-x, 0) * -12px) calc(var(--tilt-y, 0) * -8px);
-}
-
-/* ---------- Je sers a… (retroplanning) ---------- */
-.recipe-summary-panel .serve-planner {
-  grid-column: 1 / -1;
-}
-
-.serve-planner {
-  display: grid;
-  gap: 12px;
-  padding-top: 16px;
-  border-top: 1px solid var(--ds-hairline, var(--line));
-}
-
-.menu-serve-planner {
-  margin: 14px 0;
-  padding: 16px;
-  border: 1px solid var(--ds-hairline, var(--line));
-  border-radius: 14px;
-}
-
-.serve-planner-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
-.serve-planner-time {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  height: 40px;
-  padding: 0 6px 0 16px;
-  border: 1px solid var(--ds-hairline, var(--line));
-  border-radius: 999px;
-}
-
-.serve-planner-time span {
-  color: var(--ds-gold);
-  font: 650 var(--ds-text-xs) / 1 var(--ds-font-body, system-ui);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-}
-
-.serve-planner-time input {
-  height: 30px;
-  padding: 0 10px;
-  border: 0;
-  border-radius: 999px;
-  background: color-mix(in oklch, var(--ds-gold) 10%, transparent);
-  color: var(--text);
-  color-scheme: dark;
-  font: 600 var(--ds-text-base) / 1 var(--ds-font-body, system-ui);
-  font-variant-numeric: tabular-nums;
-}
-
-.mc-shell.theme-light .serve-planner-time input {
-  color-scheme: light;
-}
-
-.serve-planner-remind {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  height: 40px;
-  padding: 0 16px;
-  border: 1px solid var(--ds-hairline, var(--line));
-  border-radius: 999px;
-  background: none;
-  color: var(--text);
-  font: 600 var(--ds-text-sm) / 1 var(--ds-font-body, system-ui);
-  cursor: pointer;
-}
-
-.serve-planner-remind .site-icon {
-  width: 16px;
-  height: 16px;
-}
-
-.serve-planner-remind:disabled {
-  border-color: color-mix(in oklch, var(--ds-gold) 60%, transparent);
-  color: var(--ds-gold);
-  cursor: default;
-}
-
-.serve-planner-steps {
-  display: grid;
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.serve-planner-steps li {
-  display: grid;
-  grid-template-columns: 9.5rem minmax(0, 1fr);
-  align-items: baseline;
-  gap: 12px;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--ds-hairline, var(--line));
-}
-
-.serve-planner-steps li:last-child {
-  border-bottom: 0;
-}
-
-.serve-planner-steps time {
-  color: var(--ds-gold);
-  font: 600 var(--ds-text-base) / 1.3 var(--ds-font-display, serif);
-  font-variant-numeric: tabular-nums;
-}
-
-.serve-planner-steps li.is-past {
-  opacity: .5;
-}
-
-.serve-planner-hint {
-  margin: 0;
-  color: var(--muted);
-  font-size: var(--ds-text-sm);
-}
-
-.serve-planner-hint.is-warning {
-  color: #e8a33b;
-}
-
-@media (max-width: 560px) {
-  .serve-planner-steps li {
-    grid-template-columns: 7.5rem minmax(0, 1fr);
-  }
 }
 
 /* ---------- Mode mains libres ---------- */
@@ -1167,6 +810,290 @@ html.has-tilt .recipe-detail-hero-media .recipe-detail-hero-image {
   color: var(--ds-gold-soft, var(--ds-gold));
 }
 
+/* Mise a jour disponible : pastille sobre en surimpression, sous la barre du
+   haut, a droite. Fond plein (aucune image derriere), filet et point dores. */
+.site-update-toast {
+  position: fixed;
+  z-index: 130;
+  top: calc(64px + 12px);
+  right: max(16px, env(safe-area-inset-right));
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100vw - 32px);
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid color-mix(in oklch, var(--ds-gold) 55%, transparent);
+  border-radius: 999px;
+  background: #110e0b;
+  box-shadow: 0 10px 30px rgb(0 0 0 / .45);
+  color: #f4ead9;
+  font: 500 13px / 1 var(--ds-font-body, system-ui);
+  cursor: pointer;
+  animation: cn-update-in var(--ds-motion-normal, 300ms) ease-out both;
+}
+
+.site-update-toast strong {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.site-update-toast:hover,
+.site-update-toast:focus-visible {
+  border-color: var(--ds-gold);
+  background: #17120d;
+}
+
+.site-update-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ds-gold);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--ds-gold) 18%, transparent);
+}
+
+.site-update-toast.is-updating {
+  cursor: progress;
+  opacity: .85;
+}
+
+.site-update-toast.is-updating .site-update-dot {
+  animation: cn-voice-pulse 1.2s ease-in-out infinite;
+}
+
+.mc-shell.theme-light ~ .site-update-toast,
+body:has(.mc-shell.theme-light) .site-update-toast {
+  background: #fbf5ea;
+  color: #2a2118;
+}
+
+@keyframes cn-update-in {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+
+@media (max-width: 700px) {
+  .site-update-toast {
+    right: 16px;
+    left: 16px;
+    width: fit-content;
+    margin-inline: auto;
+    animation: none;
+  }
+}
+
+/* Bouton « Mode mains libres » (principal, dore) : sur une ligne ; libelle
+   court sur telephone. */
+.cook-mode-action {
+  white-space: nowrap;
+}
+
+.cook-mode-action-short {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .cook-mode-action-long {
+    display: none;
+  }
+
+  .cook-mode-action-short {
+    display: inline;
+  }
+}
+
+/* Messages (« ajoutée aux favoris ») : jamais etires. Sur telephone, une
+   pastille en bas de l'ecran (le haut et le bas etaient fixes a la fois, le
+   message prenait tout l'ecran). */
+.toast-stack {
+  height: auto;
+  align-content: start;
+}
+
+.toast-stack .toast {
+  height: auto;
+  background: #15110d;
+}
+
+.mc-shell.theme-light .toast-stack .toast {
+  background: #fbf5ea;
+}
+
+@media (max-width: 760px) {
+  .toast-stack {
+    top: auto;
+    right: 16px;
+    bottom: calc(88px + env(safe-area-inset-bottom));
+    left: 16px;
+    width: auto;
+    align-content: end;
+  }
+}
+
+/* ---------- Constellation des saveurs ---------- */
+/* Raccourcis sous la recherche de l'accueil (menu, favoris, courses,
+   techniques) : centres sous la barre, comme elle. */
+.home-command-center .home-quick-actions {
+  justify-content: center;
+  justify-self: center;
+  width: 100%;
+}
+
+/* Fin des ingredients / des etapes : un reflet dore traverse une fois la
+   barre, le libelle passe en dore. Sobre, rien d'autre. */
+.ingredient-progress.is-complete .ingredient-progress-track,
+.progress-track.is-complete {
+  position: relative;
+  overflow: hidden;
+}
+
+.ingredient-progress.is-complete .ingredient-progress-track::after,
+.progress-track.is-complete::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgb(255 244 214 / .9), transparent);
+  transform: translateX(-100%);
+  animation: cn-complete-sheen var(--ds-motion-slow, 900ms) ease-out 1 both;
+}
+
+.steps-complete-label {
+  color: var(--ds-gold);
+  font-size: var(--ds-text-sm);
+  font-weight: 600;
+  animation: cn-complete-in var(--ds-motion-normal) ease-out both;
+}
+
+.ingredient-progress.is-complete .ingredient-progress-label {
+  font-weight: 600;
+  animation: cn-complete-in var(--ds-motion-normal) ease-out both;
+}
+
+@keyframes cn-complete-sheen {
+  to { transform: translateX(100%); }
+}
+
+@keyframes cn-complete-in {
+  from { opacity: 0; transform: translateY(3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ingredient-progress.is-complete .ingredient-progress-track::after,
+  .progress-track.is-complete::after,
+  .steps-complete-label,
+  .ingredient-progress.is-complete .ingredient-progress-label {
+    animation: none;
+  }
+
+  .progress-track.is-complete::after,
+  .ingredient-progress.is-complete .ingredient-progress-track::after {
+    display: none;
+  }
+}
+
+/* Ambiance de l'etape (mains libres) : un halo a peine perceptible en haut de
+   l'ecran, fondu lent entre les etapes. Classe avant tout. */
+.cook-mode::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(110% 60% at 50% 0%, var(--cook-mood, transparent), transparent 70%);
+  transition: background 1.4s ease;
+}
+
+.cook-mode {
+  isolation: isolate;
+}
+
+.cook-mode[data-mood='heat'] { --cook-mood: rgb(196 92 38 / .10); }
+.cook-mode[data-mood='cold'] { --cook-mood: rgb(80 130 190 / .10); }
+.cook-mode[data-mood='done'] { --cook-mood: rgb(215 180 106 / .14); }
+
+@property --cook-mood {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+
+.cook-mode { transition: --cook-mood 1.4s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cook-mode { transition: none; }
+}
+
+/* Fin de recette dans le mode mains libres : la coche se trace, sans plus. */
+.cook-mode-finished {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: clamp(24px, 8vh, 80px) 0;
+  text-align: center;
+}
+
+.cook-mode-finished-mark {
+  width: clamp(72px, 14vh, 112px);
+  height: clamp(72px, 14vh, 112px);
+  fill: none;
+  stroke: var(--ds-gold);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cook-mode-finished-mark circle {
+  stroke-width: 2;
+  opacity: .45;
+  stroke-dasharray: 183;
+  stroke-dashoffset: 183;
+  animation: cn-finish-draw var(--ds-motion-slow, 900ms) ease-out forwards;
+}
+
+.cook-mode-finished-mark path {
+  stroke-width: 4;
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: cn-finish-draw var(--ds-motion-slow, 900ms) ease-out var(--ds-motion-normal, 300ms) forwards;
+}
+
+.cook-mode-finished h2 {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 460;
+}
+
+.cook-mode-finished p {
+  margin: 0;
+  color: var(--muted);
+}
+
+@keyframes cn-finish-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cook-mode-finished-mark circle,
+  .cook-mode-finished-mark path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Mise en place : portions prevues, reglables a la voix. */
+.cook-mode-prep-servings {
+  margin: 0;
+  padding: 12px 16px;
+  border-left: 2px solid var(--ds-gold);
+  background: color-mix(in oklch, var(--ds-gold) 8%, transparent);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.cook-mode-prep-servings strong {
+  color: var(--ds-gold-soft, var(--ds-gold));
+}
+
 /* Confidentialite du micro : trois points courts, puis l'etat du micro. */
 .cook-mode-privacy {
   display: grid;
@@ -1401,7 +1328,49 @@ html.has-tilt .recipe-detail-hero-media .recipe-detail-hero-image {
 }
 
 .site-footer .site-footer-stats span + span::before {
-  content: "· ";
+  content: "·";
+  margin-right: 6px;
+}
+
+/* Pied : presentation en trois lignes alignees a gauche (marque, phrase,
+   catalogue), liens centres verticalement a droite. */
+.site-footer .site-footer-inner {
+  align-items: center;
+}
+
+.site-footer .site-footer-inner .site-footer-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  gap: 4px;
+  text-align: left;
+}
+
+.site-footer .site-footer-inner .site-footer-copy > p {
+  grid-column: 1;
+  grid-row: auto;
+  order: 2;
+  margin: 0;
+}
+
+.site-footer .site-footer-inner .site-footer-copy > .site-footer-brand {
+  order: 1;
+}
+
+.site-footer .site-footer-inner .site-footer-copy > .site-footer-stats {
+  order: 3;
+}
+
+/* Telephone : les liens s'alignent sur le texte (plus de retrait). */
+@media (max-width: 760px) {
+  .site-footer .site-footer-actions .site-footer-action {
+    padding-left: 0;
+  }
+}
+
+.site-footer .site-footer-stats {
+  justify-content: flex-start;
+  margin-top: 4px;
 }
 
 /* Fin de page : l'espace avant le pied reste dans la page (son fond), plus

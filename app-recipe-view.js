@@ -95,7 +95,7 @@ function isIngredientSeparator(item) {
 // la fiche reste la lecture de reference. « Suivante » coche l'etape.
 function CookingMode({
   title, steps, startIndex, isDone, markDone, unmarkDone, stepIngredients, allIngredients,
-  recipe, factor, setFactor, equipment = [], techniqueTargets = [], onClose
+  recipe, factor, setFactor, equipment = [], techniqueTargets = [], markIngredientsReady = () => {}, onClose
 }) {
   const total = steps.length;
   const [index, setIndex] = useState(Math.min(Math.max(startIndex, 0), Math.max(total - 1, 0)));
@@ -105,6 +105,14 @@ function CookingMode({
   const [paused, setPaused] = useState(false);
   // Panneau a la place de l'etape : tous les ingredients, materiel, technique.
   const [panel, setPanel] = useState(null);
+  // Fiches d'ouverture avant l'etape 1 (« Mise en place »…), dans l'ordre de
+  // HANDS_FREE_INTRO_PAGES ; au-dela de la derniere, les etapes.
+  const [introIndex, setIntroIndex] = useState(0);
+  // Derniere etape faite : ecran de fin (« Recette terminée ») avant de fermer.
+  const [finished, setFinished] = useState(false);
+  const intro = HANDS_FREE_INTRO_PAGES[introIndex] || null;
+  const prep = Boolean(intro);
+  const skipIntro = () => setIntroIndex(HANDS_FREE_INTRO_PAGES.length);
   const [voiceNote, setVoiceNote] = useState(null);
   const overlayRef = useRef(null);
   const closeRef = useRef(null);
@@ -121,9 +129,18 @@ function CookingMode({
     setIndex(next);
   };
   const advance = () => {
+    if (finished) {
+      onClose();
+      return;
+    }
+    if (prep) {
+      intro.onLeave?.({ markIngredientsReady, note: text => note(text) });
+      setIntroIndex(introIndex + 1);
+      return;
+    }
     if (!isDone(index)) doneHistoryRef.current.push(index);
     markDone(index);
-    if (index >= total - 1) onClose();
+    if (index >= total - 1) setFinished(true);
     else go(index + 1);
   };
   const undoLast = () => {
@@ -132,16 +149,28 @@ function CookingMode({
     unmarkDone(last);
     return last;
   };
-  const actionsRef = useRef({ advance, go, index, onClose, panel });
-  actionsRef.current = { advance, go, index, onClose, panel };
+  // Precedente depuis l'etape 1 : retour a la mise en place.
+  const back = () => {
+    if (finished) setFinished(false);
+    else if (prep) setIntroIndex(Math.max(0, introIndex - 1));
+    else if (index === 0 && HANDS_FREE_INTRO_PAGES.length) setIntroIndex(HANDS_FREE_INTRO_PAGES.length - 1);
+    else go(index - 1);
+  };
+  const actionsRef = useRef({ advance, back, onClose, panel });
+  actionsRef.current = { advance, back, onClose, panel };
 
   const note = (text, tone = 'ok', duration = 2500) => setVoiceNote({ text, tone, duration, at: Date.now() });
   const handsFree = useHandsFree(voice, command => {
     // En pause, seul « reprends » est entendu.
     if (paused && command.type !== 'listenResume') return;
+    // Ecran de fin : « ok », « suivant » ou « terminer » ferment le mode.
+    if (finished) {
+      if (['next', 'dismiss', 'close'].includes(command.type)) onClose();
+      return;
+    }
     if (command.type === 'listenResume') setPaused(false);
     runCookVoiceCommand(command, {
-      index, total, steps, title, go, advance, undoLast, onClose, note, setPanel, setPaused,
+      index, total, steps, title, go, advance, back, undoLast, onClose, note, setPanel, setPaused, prep, atStart: prep && introIndex === 0, skipIntro,
       setEnabled: setVoice, recipe, factor, setFactor, allIngredients, techniqueTargets
     });
   });
@@ -198,7 +227,7 @@ function CookingMode({
         event.preventDefault();
         event.stopImmediatePropagation();
         setPanel(null);
-        actions.go(actions.index - 1);
+        actions.back();
       }
     };
     window.addEventListener('keydown', onKey, true);
@@ -270,7 +299,7 @@ function CookingMode({
   const step = steps[index] || '';
   const ingredients = stepIngredients(index);
   const techniques = stepTechniques(step, techniqueTargets);
-  useFitToBox(stageRef, fitRef, [index, panel, factor]);
+  useFitToBox(stageRef, fitRef, [index, panel, factor, introIndex, finished]);
   const listening = voice && handsFree.status === 'listening';
   const suggestions = listening ? voiceSuggestions({
     step,
@@ -278,6 +307,9 @@ function CookingMode({
     total,
     paused,
     panel,
+    intro,
+    finished,
+    servings: Boolean(getServingInfo(recipe)),
     timers: kitchenTimersLeft().length > 0,
     techniques: techniques.length > 0,
     temperature: Boolean(stepTemperature(step))
@@ -286,6 +318,22 @@ function CookingMode({
     item.quantity && h('strong', null, frenchUnitSpacing(item.quantity)),
     item.quantity ? ' ' : '',
     h('span', null, item.name)
+  );
+  // Fin de recette : coche doree qui se trace, sobre.
+  const finishedView = finished && h('article', { key: 'finished', className: 'cook-mode-finished', role: 'status' },
+    h('svg', { className: 'cook-mode-finished-mark', viewBox: '0 0 64 64', 'aria-hidden': 'true' },
+      h('circle', { cx: 32, cy: 32, r: 29 }),
+      h('path', { d: 'M20 33 l8 8 l16 -17' })
+    ),
+    h('h2', null, 'Recette terminée'),
+    h('p', null, `${total} étape${total > 1 ? 's' : ''} faite${total > 1 ? 's' : ''}. Bon appétit !`),
+    // Parcours de chef : rien n'est compte sans verdict (reussi, correct, rate).
+    h(ChefVerdict, { recipe, notify: null })
+  );
+  // Fiche d'ouverture en cours (HANDS_FREE_INTRO_PAGES, app-kitchen.js).
+  const introView = intro && h('article', { key: `intro-${intro.id}`, className: `cook-mode-panel is-intro is-${intro.id}` },
+    h('header', { className: 'cook-mode-panel-head' }, h('h2', null, intro.title)),
+    intro.render({ recipe, factor, allIngredients, ingredientRow })
   );
   const panelTitle = {
     ingredients: 'Tous les ingrédients',
@@ -332,6 +380,9 @@ function CookingMode({
   return ReactDOM.createPortal(h('div', {
     ref: overlayRef,
     className: 'cook-mode',
+    // Ambiance tres discrete selon l'etape : braise (cuisson), froid (repos au
+    // frais), or (fin). Voir stepMood (app-kitchen.js).
+    'data-mood': finished ? 'done' : prep || panel ? 'calm' : stepMood(step),
     role: 'dialog',
     'aria-modal': 'true',
     'aria-label': `Mode mains libres : ${title}`,
@@ -354,7 +405,7 @@ function CookingMode({
         h('small', null, 'Mode mains libres'),
         h('strong', null, title)
       ),
-      h('span', { className: 'cook-mode-count' }, `Étape ${index + 1} / ${total}`),
+      h('span', { className: 'cook-mode-count' }, finished ? 'Terminé' : prep ? intro.title : `Étape ${index + 1} / ${total}`),
       // Micro allume d'office ; ce bouton ne sert qu'a le couper ou le rallumer.
       SPEECH_RECOGNITION && h('button', {
         type: 'button',
@@ -384,12 +435,12 @@ function CookingMode({
                 : 'Activation du micro…'
     ),
     h('div', { className: 'cook-mode-progress', 'aria-hidden': 'true' },
-      steps.map((_, stepIndex) => h('span', { key: stepIndex, className: stepIndex === index ? 'is-current' : (isDone(stepIndex) ? 'is-done' : '') }))
+      steps.map((_, stepIndex) => h('span', { key: stepIndex, className: finished ? 'is-current' : stepIndex === index ? 'is-current' : (isDone(stepIndex) ? 'is-done' : '') }))
     ),
     // Jamais de defilement : le contenu se reduit jusqu'a tenir (useFitToBox).
     h('div', { className: 'cook-mode-stage', ref: stageRef },
       h('div', { className: 'cook-mode-fit', ref: fitRef },
-      panelView || h('article', { key: index, className: `cook-mode-step is-${direction}`, 'aria-live': 'polite' },
+      panelView || finishedView || introView || h('article', { key: index, className: `cook-mode-step is-${direction}`, 'aria-live': 'polite' },
         h('span', { className: 'cook-mode-number', 'aria-hidden': 'true' }, String(index + 1).padStart(2, '0')),
         h('p', { className: 'cook-mode-text' }, withKitchenTimers(stripHtml(step), title)),
         ingredients.length > 0 && h('ul', { className: 'cook-mode-ingredients', 'aria-label': 'Ingrédients de cette étape' }, ingredients.map(ingredientRow)),
@@ -406,13 +457,13 @@ function CookingMode({
       suggestions.map(item => h('span', { key: item, className: 'cook-mode-say-item' }, `« ${item} »`))
     ),
     h('footer', { className: 'cook-mode-nav' },
-      h('button', { type: 'button', className: 'cook-mode-prev', disabled: index === 0, onClick: () => { setPanel(null); go(index - 1); } },
+      h('button', { type: 'button', className: 'cook-mode-prev', disabled: prep && introIndex === 0, onClick: () => { setPanel(null); back(); } },
         h(Icon, { name: 'arrowLeft' }),
         h('span', null, 'Précédente')
       ),
       awake && h('span', { className: 'cook-mode-awake' }, 'Écran maintenu allumé'),
       h('button', { type: 'button', className: 'cook-mode-next', onClick: () => { setPanel(null); advance(); } },
-        h('span', null, index >= total - 1 ? 'Terminer' : 'Étape suivante'),
+        h('span', null, finished ? 'Fermer' : prep ? (introIndex === HANDS_FREE_INTRO_PAGES.length - 1 ? 'Commencer' : 'Suivante') : index >= total - 1 ? 'Terminer' : 'Étape suivante'),
         h(Icon, { name: 'arrowRight' })
       )
     )
@@ -581,6 +632,12 @@ function RecipeView({
 
   function markStepDone(stepIndex) {
     setCheckedWithHistory(prev => ({ ...prev, [`${stepScopeKey}:step:${stepIndex}`]: true }));
+  }
+
+  // Mode mains libres : la mise en place passee, tous les ingredients visibles
+  // sont coches « prets ».
+  function markIngredientsReady() {
+    setCheckedWithHistory(prev => ({ ...prev, ...Object.fromEntries(visibleIngredientKeys.map(key => [key, true])) }));
   }
 
   function unmarkStepDone(stepIndex) {
@@ -845,9 +902,10 @@ function RecipeView({
          // Parts et actions sur une seule rangee (les parts etaient seules sur leur ligne).
          hasResolvedRecipe && recipeDetailsReady && h('div', { className: 'detail-actions' },
           !isMasterRecipe(selectedRecipe) && h(QuantityFactorControl, { recipe: selectedRecipe, factor, setFactor, className: 'detail-quantity-control', stepper: true }),
+          // Mode mains libres en bouton principal (dore), courses en secondaire.
           h(Button, {
-              variant: 'primary',
-              className: isInShopping ? 'is-in-shopping' : '',
+              variant: 'ghost',
+              className: isInShopping ? 'detail-action-button is-in-shopping' : 'detail-action-button',
               disabled: !canAddToShopping,
               onClick: event => {
                 if (!canAddToShopping) return;
@@ -855,8 +913,9 @@ function RecipeView({
                 toggleShopping(shoppingKey, factor);
               }
             }, isInShopping ? '✓ Dans les courses' : 'Ajouter aux courses'),
-          canShowSteps && stepTotal > 0 && h(Button, { variant: 'ghost', className: 'detail-action-button cook-mode-action', onClick: () => setCookModeOpen(true), title: 'Mode mains libres : une étape à la fois, pilotable à la voix, écran allumé', ariaLabel: 'Ouvrir le mode mains libres' }, h(Icon, { name: 'mic' }), h('span', null, 'Mode mains libres')),
+          canShowSteps && stepTotal > 0 && h(Button, { variant: 'primary', className: 'cook-mode-action', onClick: () => setCookModeOpen(true), title: 'Mode mains libres : une étape à la fois, pilotable à la voix, écran allumé', ariaLabel: 'Ouvrir le mode mains libres' }, h(Icon, { name: 'mic' }), h('span', { className: 'cook-mode-action-long' }, 'Mode mains libres'), h('span', { className: 'cook-mode-action-short', 'aria-hidden': 'true' }, 'Mains libres')),
           canFavorite && h(Button, { variant: 'ghost', className: isFavorite ? 'detail-action-button favorite-action active' : 'detail-action-button favorite-action', onClick: () => toggleFavorite(detailKey, selectedRecipe.title), title: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris', ariaLabel: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris' }, h(Icon, { name: 'heart', filled: isFavorite }), h('span', null, 'Favori')),
+          showRecipeUtilities && h(ChefCookedButton, { recipe: selectedRecipe, notify }),
           showRecipeUtilities && h('details', {
             className: 'detail-utility-menu',
             open: utilitiesOpen,
@@ -942,7 +1001,7 @@ function RecipeView({
             'aria-valuemax': visibleIngredientKeys.length,
             'aria-valuenow': readyIngredients
           },
-            h('span', { className: 'ingredient-progress-label' }, `${readyIngredients}/${visibleIngredientKeys.length} prêts`),
+            h('span', { className: 'ingredient-progress-label' }, readyIngredients === visibleIngredientKeys.length ? '✓ Tout est prêt' : `${readyIngredients}/${visibleIngredientKeys.length} prêts`),
             h('span', { className: 'ingredient-progress-track' },
               h('span', { style: { transform: `scaleX(${readyIngredients / visibleIngredientKeys.length})` } })
             )
@@ -987,9 +1046,10 @@ function RecipeView({
       ),
       hasSelectedVariant && h('section', { id: 'recipe-panel-steps', role: 'tabpanel', className: mobileDetailTab === 'steps' ? 'recipe-panel steps-panel active-tab-panel' : 'recipe-panel steps-panel' },
         h('div', { className: 'panel-heading' },
-          h('div', null, h('h2', null, 'Étapes'))
+          h('div', null, h('h2', null, 'Étapes')),
+          canShowSteps && progress === 100 && h('span', { className: 'steps-complete-label' }, '✓ Recette terminée')
         ),
-        canShowSteps && h('div', { className: 'progress-track', role: 'progressbar', 'aria-label': 'Progression de la recette', 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-valuenow': progress }, h('span', { style: { width: `${progress}%` } })),
+        canShowSteps && h('div', { className: progress === 100 ? 'progress-track is-complete' : 'progress-track', role: 'progressbar', 'aria-label': 'Progression de la recette', 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-valuenow': progress }, h('span', { style: { width: `${progress}%` } })),
         canShowSteps && h('div', { className: 'before-start-card' },
           h('div', null,
             h('strong', null, 'Avant de commencer'),
@@ -1079,6 +1139,7 @@ function RecipeView({
       isDone: stepIndex => Boolean(checked[`${stepScopeKey}:step:${stepIndex}`]),
       markDone: markStepDone,
       unmarkDone: unmarkStepDone,
+      markIngredientsReady,
       stepIngredients,
       allIngredients,
       recipe: selectedRecipe,

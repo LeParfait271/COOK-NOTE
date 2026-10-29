@@ -644,7 +644,7 @@ function recipeDescription(recipe, recipesById = {}) {
   const yieldText = recipe.yield ? ` pour ${recipe.yield}` : '';
   const ingredientNames = (recipe.ingredients || [])
     .flatMap(group => group.items || [])
-    .map(item => stripHtml(item).replace(/^\d+(?:[.,]\d+)?(?:\s*(?:g|kg|ml|cl|l))?\s*/i, '').trim())
+    .map(item => stripHtml(item).replace(/^\d+(?:[.,]\d+)?(?:\s*(?:g|kg|ml|cl|l)\b)?\s*/i, '').trim())
     .filter(Boolean)
     .slice(0, 3);
   const ingredientsText = ingredientNames.length ? ` avec ${ingredientNames.join(', ')}` : '';

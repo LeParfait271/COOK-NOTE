@@ -119,7 +119,7 @@ test.describe('Cook Note visual smoke', () => {
     expect(masterCardMetrics.every(card => card.rightBorder === card.leftBorder && card.rightBorder !== '0px' && card.rightBorderColor !== 'rgba(0, 0, 0, 0)')).toBe(true);
     expect(masterCardMetrics.every(card => card.edgeDisplay === 'block' && card.edgeRightBorder !== '0px' && card.edgeRightColor !== 'rgba(0, 0, 0, 0)' && card.edgeZIndex > 1)).toBe(true);
     await expect(page.locator('.top-menu-btn, .top-techniques-btn, .top-actions .cart-icon-btn, .top-actions [aria-label="Panier courses"]')).toHaveCount(0);
-    await expect(page.locator('.home-quick-actions button')).toHaveCount(4);
+    await expect(page.locator('.home-quick-actions button')).toHaveCount(6);
     if (testInfo.project.name === 'mobile') {
       await expect(page.locator('.mobile-bottom-nav')).toHaveCount(0);
     }
@@ -653,6 +653,9 @@ test.describe('Cook Note visual smoke', () => {
     await page.getByRole('button', { name: 'Ouvrir le mode mains libres' }).click();
     const cook = page.getByRole('dialog', { name: /Mode mains libres/ });
     await expect(cook).toBeVisible();
+    // Fiche « Mise en place » avant l'etape 1 (ingredients regroupes).
+    await expect(cook.locator('.cook-mode-count')).toHaveText('Mise en place');
+    await cook.locator('.cook-mode-next').click();
     await expect(cook.locator('.cook-mode-count')).toHaveText('Étape 1 / 6');
     expect(await page.locator('#cook-note-content').evaluate(node => node.inert)).toBe(true);
     await cook.locator('.cook-mode-next').click();
@@ -957,7 +960,7 @@ test.describe('Cook Note visual smoke', () => {
     });
   }
 
-  test('category cards never frame their title and center their pills', async ({ page }) => {
+  test('category cards never frame their title and show no pills', async ({ page }) => {
     await forceTheme(page, 'dark');
     await page.goto('/recette/apero_maitre');
     await waitForCookNote(page);
@@ -986,8 +989,9 @@ test.describe('Cook Note visual smoke', () => {
     const pressed = await state();
     await page.mouse.up();
     expect(pressed.framed).toBe(false);
-    expect(pressed.pills.length).toBeGreaterThan(0);
-    pressed.pills.forEach(gap => expect(gap).toBeLessThanOrEqual(2));
+    // Plus de pastille difficulte / temps sur la carte (elle cachait l'image) :
+    // le titre seul, en bas a gauche.
+    expect(pressed.pills.length).toBe(0);
   });
 
   test('category collections show recipes without redundant controls', async ({ page }) => {

@@ -53,6 +53,9 @@
 /app-kitchen.js
   Cache-Control: public, max-age=300, must-revalidate
 
+/app-chef.js
+  Cache-Control: public, max-age=300, must-revalidate
+
 /app-images.js
   Cache-Control: public, max-age=300, must-revalidate
 

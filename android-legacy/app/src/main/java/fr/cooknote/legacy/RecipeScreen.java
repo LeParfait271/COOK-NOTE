@@ -253,7 +253,7 @@ final class RecipeScreen {
         // Une seule rangee de boutons, sans cadre : comme les actions du site.
         ArrayList<Button> buttons = new ArrayList<Button>();
 
-        Button shopping = host.actionButton(host.isInShopping(recipe.id) ? "Dans courses" : "+ Courses", true);
+        Button shopping = host.actionButton(host.isInShopping(recipe.id) ? "Dans courses" : "+ Courses", false);
         shopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -265,7 +265,8 @@ final class RecipeScreen {
 
         // Mode mains libres : une etape a la fois, a la voix (comme le site).
         if (!selectedRecipeSteps(recipe).isEmpty()) {
-            Button cook = host.actionButton("Mains libres", false);
+            // Mains libres en bouton principal (dore), comme sur le site.
+            Button cook = host.actionButton("Mains libres", true);
             cook.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -395,6 +396,13 @@ final class RecipeScreen {
     static final String PREF_VOICE_PRIVACY_SEEN = "voice_privacy_seen";
     static final int REQUEST_RECORD_AUDIO = 4107;
     int cookStepIndex;
+    // Fiches d'ouverture avant l'etape 1, meme liste que le site
+    // (HANDS_FREE_INTRO_PAGES dans app-kitchen.js). Pour en ajouter une : une
+    // ligne {id, titre} ici et son texte dans introText().
+    static final String[][] INTRO_PAGES = {{"prep", "Mise en place"}};
+    int cookIntroIndex;
+    // Derniere etape faite : ecran « Recette terminée » avant de fermer.
+    boolean cookFinished;
     Recipe cookRecipe;
     String cookPanel;
     boolean cookPaused;
@@ -417,6 +425,8 @@ final class RecipeScreen {
         if (pushCurrent) {
             host.pushNavigationState();
             cookPanel = null;
+            cookIntroIndex = 0;
+            cookFinished = false;
             cookPaused = false;
             cookVoiceEnabled = true;
             cookNote = "";
@@ -446,7 +456,8 @@ final class RecipeScreen {
         title.setEllipsize(TextUtils.TruncateAt.END);
         body.addView(title);
 
-        TextView counter = host.text("Étape " + (cookStepIndex + 1) + " / " + steps.size(), 13, COLOR_GOLD, true);
+        final String[] intro = introPage();
+        TextView counter = host.text(cookFinished ? "Terminé" : intro != null ? intro[1] : "Étape " + (cookStepIndex + 1) + " / " + steps.size(), 13, COLOR_GOLD, true);
         counter.setLetterSpacing(0.08f);
         counter.setPadding(0, dp(8), 0, dp(8));
         body.addView(counter);
@@ -456,7 +467,7 @@ final class RecipeScreen {
         progress.setOrientation(LinearLayout.HORIZONTAL);
         for (int step = 0; step < steps.size(); step += 1) {
             View segment = new View(host);
-            segment.setBackgroundColor(step <= cookStepIndex ? COLOR_GOLD : Color.argb(50, 255, 255, 255));
+            segment.setBackgroundColor(cookFinished || step <= cookStepIndex ? COLOR_GOLD : Color.argb(50, 255, 255, 255));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, dp(3), 1);
             if (step < steps.size() - 1) params.rightMargin = dp(4);
             progress.addView(segment, params);
@@ -507,14 +518,51 @@ final class RecipeScreen {
             });
             head.addView(ok, new LinearLayout.LayoutParams(dp(72), dp(42)));
             stage.addView(head);
+        } else if (intro != null) {
+            TextView introTitle = host.text(intro[1], 22, COLOR_TEXT, true);
+            introTitle.setTypeface(Ui.READING);
+            stage.addView(introTitle);
         }
-        FitTextView content = new FitTextView(host, cookPanel == null ? 26 : 18, 11);
-        content.setTextColor(COLOR_TEXT);
-        content.setLineSpacing(dp(3), 1.15f);
-        if (cookPanel == null) content.setTypeface(Ui.READING);
-        content.setText(cookPanel == null ? frenchSpacing(steps.get(cookStepIndex)) : "privacy".equals(cookPanel) ? privacyText() : ingredientsText(recipe));
-        content.setPadding(0, dp(cookPanel == null ? 8 : 14), 0, 0);
-        stage.addView(content, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
+        if (cookFinished && cookPanel == null) {
+            // Fin : coche doree qui apparait en douceur, sobre.
+            LinearLayout end = new LinearLayout(host);
+            end.setOrientation(LinearLayout.VERTICAL);
+            end.setGravity(Gravity.CENTER);
+            TextView mark = host.text("✓", 64, COLOR_GOLD, true);
+            mark.setGravity(Gravity.CENTER);
+            end.addView(mark);
+            TextView done = host.text("Recette terminée", 28, COLOR_TEXT, true);
+            done.setTypeface(Ui.READING);
+            done.setGravity(Gravity.CENTER);
+            end.addView(done);
+            TextView bon = host.text(steps.size() + " étapes faites. Bon appétit !", 16, COLOR_MUTED, false);
+            bon.setGravity(Gravity.CENTER);
+            bon.setPadding(0, dp(8), 0, 0);
+            end.addView(bon);
+            stage.addView(end, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
+            mark.setAlpha(0f);
+            mark.setScaleX(0.6f);
+            mark.setScaleY(0.6f);
+            mark.animate().alpha(1f).scaleX(1f).scaleY(1f).setDuration(700).start();
+        }
+        final boolean showStep = cookPanel == null && intro == null && !cookFinished;
+        String text = cookPanel != null ? ("privacy".equals(cookPanel) ? privacyText() : ingredientsText(recipe)) : intro != null ? introText(intro[0], recipe) : frenchSpacing(steps.get(cookStepIndex));
+        // Listes longues (ingredients, mise en place) sur ecran large : deux
+        // colonnes, chacune reduite jusqu'a tenir ; jamais de defilement.
+        boolean columns = !showStep && !"privacy".equals(cookPanel) && host.getResources().getDisplayMetrics().widthPixels >= dp(720);
+        String[] parts = columns ? splitColumns(text) : new String[]{text};
+        LinearLayout row = new LinearLayout(host);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        for (int column = 0; column < parts.length; column += 1) {
+            FitTextView content = new FitTextView(host, showStep ? 26 : 18, 9);
+            content.setTextColor(COLOR_TEXT);
+            content.setLineSpacing(dp(showStep ? 3 : 1), showStep ? 1.15f : 1.05f);
+            if (showStep) content.setTypeface(Ui.READING);
+            content.setText(parts[column]);
+            content.setPadding(column > 0 ? dp(28) : 0, dp(showStep ? 8 : 14), 0, 0);
+            row.addView(content, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+        }
+        if (!cookFinished || cookPanel != null) stage.addView(row, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
 
         // Aide integree : les commandes utiles a cet instant, sans fenetre.
         TextView say = host.text(sayText(cookStepIndex, steps.size()), 13, COLOR_MUTED, false);
@@ -528,13 +576,14 @@ final class RecipeScreen {
         body.addView(actions, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(52)));
 
         Button previous = host.actionButton("← Précédente", false);
-        previous.setEnabled(cookStepIndex > 0);
-        previous.setAlpha(cookStepIndex > 0 ? 1f : 0.4f);
+        final boolean atStart = intro != null && cookIntroIndex == 0;
+        previous.setEnabled(!atStart);
+        previous.setAlpha(atStart ? 0.4f : 1f);
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cookPanel = null;
-                openCookMode(recipe, cookStepIndex - 1, false);
+                cookBack();
             }
         });
         LinearLayout.LayoutParams previousParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
@@ -542,13 +591,20 @@ final class RecipeScreen {
         actions.addView(previous, previousParams);
 
         final boolean last = cookStepIndex >= steps.size() - 1;
-        Button next = host.actionButton(last ? "Terminer" : "Étape suivante →", true);
+        Button next = host.actionButton(cookFinished ? "Fermer" : intro != null ? (cookIntroIndex == INTRO_PAGES.length - 1 ? "Commencer →" : "Suivante →") : last ? "Terminer" : "Étape suivante →", true);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cookPanel = null;
-                if (last) host.goBack();
-                else openCookMode(recipe, cookStepIndex + 1, false);
+                if (cookIntroIndex < INTRO_PAGES.length) {
+                    leaveIntroPage(recipe);
+                    cookIntroIndex += 1;
+                    openCookMode(recipe, cookStepIndex, false);
+                } else if (cookFinished) host.goBack();
+                else if (last) {
+                    cookFinished = true;
+                    openCookMode(recipe, cookStepIndex, false);
+                } else openCookMode(recipe, cookStepIndex + 1, false);
             }
         });
         actions.addView(next, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
@@ -662,24 +718,39 @@ final class RecipeScreen {
         String type = command.type;
         if (VoiceCommands.NEXT.equals(type)) {
             cookPanel = null;
-            if (cookStepIndex >= total - 1) host.goBack();
+            if (introPage() != null) {
+                leaveIntroPage(cookRecipe);
+                cookIntroIndex += 1;
+                openCookMode(cookRecipe, cookStepIndex, false);
+            } else if (cookFinished) host.goBack();
+            else if (cookStepIndex >= total - 1) {
+                cookFinished = true;
+                openCookMode(cookRecipe, cookStepIndex, false);
+            }
             else go(cookStepIndex + 1, "Étape suivante");
         } else if (VoiceCommands.PREVIOUS.equals(type)) {
             cookPanel = null;
-            if (cookStepIndex == 0) cookNote("Déjà à la première étape");
-            else go(cookStepIndex - 1, "Étape précédente");
+            if (introPage() != null && cookIntroIndex == 0) cookNote("Déjà au début");
+            else {
+                cookBack();
+                cookNote("Retour");
+            }
         } else if (VoiceCommands.FIRST.equals(type)) {
             cookPanel = null;
+            cookIntroIndex = INTRO_PAGES.length;
             go(0, "Première étape");
         } else if (VoiceCommands.LAST.equals(type)) {
             cookPanel = null;
+            cookIntroIndex = INTRO_PAGES.length;
             go(total - 1, "Dernière étape");
         } else if (VoiceCommands.GOTO.equals(type)) {
             cookPanel = null;
+            cookIntroIndex = INTRO_PAGES.length;
             if (command.step >= 1 && command.step <= total) go(command.step - 1, "Étape " + command.step);
             else cookNote("Cette recette a " + total + " étapes");
         } else if (VoiceCommands.DISMISS.equals(type)) {
             if (cookPanel != null) closeCookPanel();
+            else if (cookFinished) host.goBack();
         } else if (VoiceCommands.PAUSE.equals(type)) {
             cookPaused = true;
             openCookMode(cookRecipe, cookStepIndex, false);
@@ -696,6 +767,18 @@ final class RecipeScreen {
             cookVoiceEnabled = false;
             host.cookVoice.stop();
             openCookMode(cookRecipe, cookStepIndex, false);
+        } else if (VoiceCommands.SERVINGS.equals(type) || VoiceCommands.DOUBLE.equals(type) || VoiceCommands.HALF.equals(type)) {
+            int base = baseServings(cookRecipe);
+            if (base <= 0) {
+                cookNote("Cette recette n’a pas de nombre de parts réglable");
+                return;
+            }
+            float factor = VoiceCommands.SERVINGS.equals(type) ? (float) command.step / (float) base
+                    : VoiceCommands.DOUBLE.equals(type) ? host.quantityFactor * 2f : host.quantityFactor / 2f;
+            host.quantityFactor = host.clampQuantityFactor(factor);
+            host.saveUserState();
+            openCookMode(cookRecipe, cookStepIndex, false);
+            cookNote("Quantités pour " + Math.round(base * host.quantityFactor));
         } else if (VoiceCommands.CLOSE.equals(type)) {
             host.goBack();
         }
@@ -720,9 +803,71 @@ final class RecipeScreen {
         return "Pas de température indiquée dans cette recette";
     }
 
+    // Coupe un texte en deux colonnes de longueur proche, entre deux blocs
+    // (paragraphe ou groupe d'ingredients), jamais au milieu d'un bloc.
+    static String[] splitColumns(String text) {
+        String[] blocks = text.split("\n\n");
+        if (blocks.length < 2) return new String[]{text};
+        int total = 0;
+        for (String block : blocks) total += block.split("\n").length + 1;
+        StringBuilder left = new StringBuilder();
+        StringBuilder right = new StringBuilder();
+        int lines = 0;
+        for (String block : blocks) {
+            StringBuilder target = lines < total / 2 ? left : right;
+            if (target.length() > 0) target.append("\n\n");
+            target.append(block);
+            lines += block.split("\n").length + 1;
+        }
+        return right.length() == 0 ? new String[]{left.toString()} : new String[]{left.toString(), right.toString()};
+    }
+
+    // En quittant une fiche d'ouverture (comme onLeave sur le site) : la mise
+    // en place faite, tous les ingredients sont coches « prets ».
+    void leaveIntroPage(Recipe recipe) {
+        String[] intro = introPage();
+        if (intro == null || !"prep".equals(intro[0])) return;
+        for (Recipe.Group group : selectedIngredientGroups(recipe)) {
+            for (String item : group.items) {
+                host.ingredientDoneKeys.add("ing|" + recipe.id + "|" + CookNoteRepository.normalize(group.title) + "|" + CookNoteRepository.normalize(item));
+            }
+        }
+        host.saveUserState();
+    }
+
+    String[] introPage() {
+        return cookIntroIndex < INTRO_PAGES.length ? INTRO_PAGES[cookIntroIndex] : null;
+    }
+
+    // Precedente : fiche d'ouverture precedente, ou depuis l'etape 1 la derniere fiche.
+    void cookBack() {
+        if (cookFinished) cookFinished = false;
+        else if (introPage() != null) cookIntroIndex = Math.max(0, cookIntroIndex - 1);
+        else if (cookStepIndex == 0) cookIntroIndex = INTRO_PAGES.length - 1;
+        else cookStepIndex -= 1;
+        openCookMode(cookRecipe, cookStepIndex, false);
+    }
+
+    // Texte des fiches d'ouverture (une entree par id de INTRO_PAGES).
+    String introText(String id, Recipe recipe) {
+        if ("prep".equals(id)) {
+            StringBuilder builder = new StringBuilder("Pesez et préparez tous les ingrédients avant de commencer : pendant la recette, les gestes s’enchaînent sans attendre, rien ne brûle pendant qu’on cherche un ingrédient, et on voit tout de suite s’il manque quelque chose.\n\n");
+            int base = baseServings(recipe);
+            if (base > 0) {
+                int target = Math.round(base * host.quantityFactor);
+                builder.append("Recette prévue pour ").append(recipe.yield);
+                if (target != base) builder.append(", quantités ci-dessous pour ").append(target);
+                builder.append(". Pour changer, dites « pour ").append(base == 6 ? 4 : 6).append(" personnes », « double » ou « moitié » : toutes les quantités suivent.\n\n");
+            }
+            return builder.append(ingredientsText(recipe)).toString();
+        }
+        return "";
+    }
+
     String sayText(int index, int total) {
         if (cookPaused) return "DITES  « reprends »";
-        if (cookPanel != null) return "DITES  « ok »  « d’accord »";
+        if (cookPanel != null || cookFinished) return "DITES  « ok »  « d’accord »";
+        if (introPage() != null) return "DITES  « suivant »  « double »  « moitié »  « pause »";
         StringBuilder builder = new StringBuilder("DITES  ");
         builder.append(index < total - 1 ? "« suivant »" : "« terminer »");
         if (index > 0) builder.append("  « précédent »");

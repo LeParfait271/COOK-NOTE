@@ -51,6 +51,10 @@ function App() {
   const [historyVersion, setHistoryVersion] = useState(0);
   const [shoppingOpen, setShoppingOpen] = useState(false);
   const [menuPlannerOpen, setMenuPlannerOpen] = useState(false);
+  // Constellation des saveurs (carte du ciel ludique, app-kitchen.js).
+  const [constellationOpen, setConstellationOpen] = useState(false);
+  // Parcours de chef (cote et succes locaux, app-chef.js).
+  const [chefOpen, setChefOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [equipmentProfile, setEquipmentProfile] = useState(() => normalizeEquipmentProfile(readJson(STORAGE_KEYS.equipmentProfile, {})));
   const [recipeHistory, setRecipeHistory] = useState(() => readJson(STORAGE_KEYS.recipeHistory, {}));
@@ -616,6 +620,17 @@ function App() {
     persistShoppingFactors({});
     notify('Panier de courses vidé', 'info');
   }
+
+  // Progression de chef recue d'un autre appareil (#chef=...) : fusionnee.
+  useEffect(() => {
+    const received = decodeChefTransfer(window.location.hash);
+    if (!received) return;
+    window.history.replaceState(window.history.state, document.title, `${window.location.pathname}${window.location.search}`);
+    if (!window.confirm('Importer le parcours de chef reçu ? Le meilleur des deux appareils sera gardé.')) return;
+    const merged = mergeChefTransfer(received);
+    notify(`Parcours importé : ${chefStanding(merged.rating).name}`, 'success');
+    setChefOpen(true);
+  }, []);
 
   // Liste recue d'un autre appareil via le QR code (#courses=...) : ajoutee en
   // tete de la liste actuelle apres confirmation, puis le fragment est efface.
@@ -1299,7 +1314,15 @@ function App() {
           openMenuPlanner,
           showFavorites,
           openShoppingBasket,
-          openTechniques: goTechniques
+          openTechniques: goTechniques,
+          openConstellation: () => {
+            setConstellationOpen(true);
+            loadFullRecipeCatalog();
+          },
+          openChef: () => {
+            setChefOpen(true);
+            loadFullRecipeCatalog();
+          }
         })
     ),
     h('footer', { className: 'site-footer' },
@@ -1356,6 +1379,19 @@ function App() {
       setRecipeFactor: setShoppingFactor,
       clearShopping,
       notify
+    }),
+    h(ChefPanel, {
+      open: chefOpen,
+      onClose: () => setChefOpen(false),
+      recipes: searchableRecipes,
+      openRecipe,
+      notify
+    }),
+    h(FlavorConstellation, {
+      open: constellationOpen,
+      onClose: () => setConstellationOpen(false),
+      recipes: searchableRecipes,
+      openRecipe
     }),
     h(MenuPlannerPanel, {
       open: menuPlannerOpen,

@@ -460,5 +460,115 @@ window.COOK_NOTE_EXTRA_TECHNIQUE_GUIDES = Object.freeze([
     tip: 'Une lame longue et souple limite la perte de chair.',
     query: 'poisson filets arêtes',
     aliases: ['lever des filets', 'lever les filets', 'filets levés', 'retirer les arêtes', 'retirer les aretes']
+  },
+  {
+    id: 'petrir',
+    title: 'Pétrir',
+    label: 'Pain',
+    description: 'Travailler une pâte à la main ou au robot pour développer le gluten : elle devient lisse, souple et élastique.',
+    steps: ['Rassemble les ingrédients en boule grossière.', 'Écrase la pâte avec la paume, replie-la vers toi, tourne d’un quart.', 'Continue 8 à 10min à la main (5 à 6min au robot, vitesse lente).', 'Arrête quand la pâte est lisse et se décolle des parois.'],
+    tip: 'Test de la fenêtre : un morceau étiré doit laisser passer la lumière sans se déchirer.',
+    query: 'pain brioche pâte levée',
+    aliases: ['pétrir', 'petrir', 'pétrissez', 'petrissez', 'pétrissage', 'petrissage', 'pétrie', 'petrie']
+  },
+  {
+    id: 'eplucher',
+    title: 'Éplucher',
+    label: 'Légumes',
+    description: 'Retirer la peau d’un légume ou d’un fruit au plus près, sans perdre de chair.',
+    steps: ['Lave le légume avant de l’éplucher.', 'Tiens-le fermement, éplucheur incliné vers l’extérieur.', 'Fais des bandes longues et régulières.', 'Retire les yeux et les parties abîmées à la pointe du couteau.'],
+    tip: 'Un éplucheur économe retire bien moins de chair qu’un couteau.',
+    query: 'légumes pommes de terre carottes',
+    aliases: ['éplucher', 'eplucher', 'épluchez', 'epluchez', 'épluchés', 'epluches', 'épluchées', 'epluchees', 'peler']
+  },
+  {
+    id: 'trancher',
+    title: 'Trancher',
+    label: 'Couteau',
+    description: 'Couper en tranches régulières une viande, un pain, un poisson ou un légume.',
+    steps: ['Pose l’aliment bien à plat, côté stable dessous.', 'Prends un couteau long et bien affûté.', 'Coupe d’un seul mouvement de va-et-vient, sans écraser.', 'Garde la même épaisseur d’une tranche à l’autre.'],
+    tip: 'Une viande se tranche contre les fibres : elle reste plus tendre en bouche.',
+    query: 'viande rôti pain tranches',
+    aliases: ['trancher', 'tranchez', 'tranché', 'tranche finement', 'en tranches', 'escaloper']
+  },
+  {
+    id: 'demouler',
+    title: 'Démouler',
+    label: 'Moule',
+    description: 'Sortir un gâteau, une terrine ou un flan de son moule sans le casser.',
+    steps: ['Laisse tiédir 5 à 10min : la structure se raffermit.', 'Passe une lame fine tout autour, contre la paroi.', 'Pose le plat de service sur le moule et retourne d’un geste.', 'Tapote le fond puis soulève le moule bien droit.'],
+    tip: 'Un dessert pris au froid se démoule mieux après quelques secondes dans l’eau chaude.',
+    query: 'gâteau flan terrine moule',
+    aliases: ['démouler', 'demouler', 'démoulez', 'demoulez', 'démoulé', 'demoule', 'démoulage', 'demoulage']
+  },
+  {
+    id: 'delayer',
+    title: 'Délayer',
+    label: 'Mélange',
+    description: 'Dissoudre une poudre (fécule, farine, cacao) dans un peu de liquide froid pour éviter les grumeaux.',
+    steps: ['Mets la poudre dans un bol.', 'Ajoute un peu de liquide froid, juste de quoi la mouiller.', 'Mélange en pâte lisse, puis allonge petit à petit.', 'Verse ce mélange dans la préparation chaude en fouettant.'],
+    tip: 'Jamais de fécule directement dans un liquide chaud : elle forme des grumeaux aussitôt.',
+    query: 'fécule maïzena sauce crème',
+    aliases: ['délayer', 'delayer', 'délayez', 'delayez', 'délayée', 'delayee', 'délayé', 'delaye']
+  },
+  {
+    id: 'saupoudrer',
+    title: 'Saupoudrer',
+    label: 'Finition',
+    description: 'Répartir une fine couche régulière de sucre, cacao, farine ou épices.',
+    steps: ['Mets la poudre dans une petite passoire ou un tamis.', 'Tiens-la à 20 à 30cm au-dessus du plat.', 'Tapote le bord du doigt en avançant régulièrement.', 'Saupoudre au dernier moment si la surface est humide.'],
+    tip: 'Le sucre glace fond sur un dessert chaud : attends qu’il ait refroidi.',
+    query: 'sucre glace cacao finition',
+    aliases: ['saupoudrer', 'saupoudrez', 'saupoudré', 'saupoudre', 'poudrer']
+  },
+  {
+    id: 'ecaler-oeufs',
+    title: 'Écaler des œufs',
+    label: 'Œufs',
+    description: 'Retirer la coquille d’œufs durs ou mollets sans abîmer le blanc.',
+    steps: ['Plonge les œufs cuits dans l’eau glacée 5min.', 'Tape le gros bout (la poche d’air) sur le plan de travail.', 'Roule l’œuf pour fissurer toute la coquille.', 'Écale sous un filet d’eau en glissant sous la membrane.'],
+    tip: 'Des œufs de quelques jours s’écalent bien plus facilement que des œufs très frais.',
+    query: 'œufs durs mollets mimosa',
+    aliases: ['écaler', 'ecaler', 'écalez', 'ecalez', 'écalés', 'ecales', 'écaler les oeufs', 'ecaler les oeufs']
+  },
+  {
+    id: 'epepiner',
+    title: 'Épépiner',
+    label: 'Légumes',
+    description: 'Retirer les pépins et le cœur aqueux d’une tomate, d’un concombre, d’un poivron ou d’un piment.',
+    steps: ['Coupe le légume en deux ou en quartiers.', 'Glisse une petite cuillère sous les graines.', 'Retire les pépins et la partie liquide.', 'Pour un piment, retire aussi les membranes blanches, les plus fortes.'],
+    tip: 'Des gants évitent de se brûler les yeux après avoir épépiné un piment.',
+    query: 'tomate concombre poivron piment',
+    aliases: ['épépiner', 'epepiner', 'épépinez', 'epepinez', 'épépinée', 'epepinee', 'épépiné', 'epepine', 'égrainer']
+  },
+  {
+    id: 'degraisser',
+    title: 'Dégraisser',
+    label: 'Sauce',
+    description: 'Retirer le gras en surface d’un bouillon, d’un jus ou d’une sauce.',
+    steps: ['Laisse reposer quelques minutes : le gras remonte.', 'Penche légèrement la casserole.', 'Retire le gras à la louche ou à la cuillère, en surface.', 'Termine avec un papier absorbant posé à plat.'],
+    tip: 'Au froid, le gras fige : un bouillon de la veille se dégraisse en un geste.',
+    query: 'bouillon jus sauce pot-au-feu',
+    aliases: ['dégraisser', 'degraisser', 'dégraissez', 'degraissez', 'dégraissé', 'degraisse', 'écumer', 'ecumer']
+  },
+  {
+    id: 'ecraser-puree',
+    title: 'Écraser en purée',
+    label: 'Texture',
+    description: 'Réduire des légumes cuits en purée lisse ou rustique sans les rendre élastiques.',
+    steps: ['Égoutte bien les légumes, laisse-les fumer 1 à 2min.', 'Écrase-les chauds au presse-purée ou au moulin à légumes.', 'Ajoute le beurre puis le liquide chaud petit à petit.', 'Mélange à la spatule sans fouetter longtemps.'],
+    tip: 'Jamais de mixeur pour les pommes de terre : la purée devient collante.',
+    query: 'purée pommes de terre écrasée',
+    aliases: ['écraser', 'ecraser', 'écrasez', 'ecrasez', 'écrasée', 'ecrasee', 'presse-purée', 'presse puree', 'en purée', 'en puree']
+  },
+  {
+    id: 'dresser-poche',
+    title: 'Dresser à la poche',
+    label: 'Pâtisserie',
+    description: 'Garnir une poche à douille et former des choux, des rosaces ou des boudins réguliers.',
+    steps: ['Retourne le haut de la poche sur ta main, remplis aux deux tiers.', 'Chasse l’air et tourne le haut pour fermer.', 'Tiens la poche bien droite, à 1cm de la plaque.', 'Presse d’un geste régulier, puis arrête la pression avant de relever.'],
+    tip: 'Pose la poche dans un grand verre pour la remplir sans en mettre partout.',
+    query: 'choux éclairs crème douille',
+    aliases: ['poche à douille', 'poche a douille', 'à la poche', 'a la poche', 'pocher à la douille', 'dresser à la poche', 'dresser a la poche']
   }
 ]);

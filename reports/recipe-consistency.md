@@ -3,21 +3,25 @@
 Rapport consultatif généré par `npm run audit:consistency`. `recipes.js` n’est pas modifié :
 chaque correction est présentée et validée avant intégration.
 
-- Fiches et options analysées : 458
-- Signalements : 151
-- Empreinte recipes.js : 9fab401835c0
+- Fiches et options analysées : 476
+- Signalements : 166
+- Empreinte recipes.js : fe98b28c61ca
 
-## Fautes d’accent probables (0)
+## Fautes d’accent probables (3)
 
 _Forme minoritaire face à la forme accentuée dominante du catalogue, ou « a » au lieu de « à »._
 
+- [ ] **Mojitos** (`mojitos_variantes`) — remplace → remplacé
+- [ ] **Chou vert et saucisse de Morteau à la moutarde** (`chou_vert_morteau_moutarde`) — souhaite → souhaité
+- [ ] **Crevettes à la plancha, citron vert et gingembre** (`crevettes_plancha_citron_vert_gingembre`) — souhaite → souhaité
 
-## Cuissons sans durée ni repère de fin (0)
+## Cuissons sans durée ni repère de fin (1)
 
 _Étape de cuisson qui ne donne ni temps, ni signe visuel ou tactile de fin._
 
+- [ ] **Chou paysan au lard et au citron** (`chou_paysan_lard_citron`) — « Ajouter l’ail et le chou, bien mélanger, mouiller juste un peu pour créer de la vapeur, couvrir et cuire une t »
 
-## Ingrédients sans quantité (70)
+## Ingrédients sans quantité (77)
 
 _Hors assaisonnements, herbes et finitions « au goût »._
 
@@ -32,6 +36,7 @@ _Hors assaisonnements, herbes et finitions « au goût »._
 - [ ] **Cassolette de crevettes et ravioles au persil** (`cassolette_crevettes_ravioles_persil`) — Carapaces et têtes des crevettes, si disponibles
 - [ ] **Œufs mimosa — Variante betterave** (`oeufs_mimosa_variantes › Variante betterave`) — Glaçons pour refroidissement
 - [ ] **Œufs mimosa — Variante avocat crevette** (`oeufs_mimosa_variantes › Variante avocat crevette`) — Glaçons pour refroidissement
+- [ ] **Œufs mimosa — Variante lard fumé** (`oeufs_mimosa_variantes › Variante lard fumé`) — Glaçons pour refroidissement
 - [ ] **Gaufres de pommes de terre croustillantes** (`gaufres_pommes_terre`) — Saumon fumé ou truite fumée ; Crème crue et caviar ; Jambon cru affiné ; Champignons poêlés au beurre noisette
 - [ ] **Mojitos** (`mojitos_variantes`) — Glaçons ; Glaçons ; Glaçons ; Glaçons ; Glaçons
 - [ ] **Chou-fleur croustillant** (`chou_fleur_croustillant`) — Sauce yaourt grec ou sauce ranch ; Quartiers de citron
@@ -91,13 +96,19 @@ _Hors assaisonnements, herbes et finitions « au goût »._
 - [ ] **Charlotte aux abricots** (`charlotte_variantes › Abricots`) — Pistaches hachées ; Pétales de fleurs comestibles facultatifs
 - [ ] **Charlotte poire & caramel** (`charlotte_variantes › Poire caramel`) — Sirop de pochage des poires
 - [ ] **Charlotte aux fraises** (`charlotte_variantes › Fraise`) — Glaçage framboise brillant
+- [ ] **Chili sin carne aux lentilles et haricots rouges** (`chili_sin_carne_lentilles`) — Riz ; Tortillas ; Avocat ; Fromage râpé
+- [ ] **Chou paysan au lard et au citron** (`chou_paysan_lard_citron`) — Pain de campagne grillé, frotté d’ail si on aime
+- [ ] **Crevettes à la plancha, citron vert et gingembre** (`crevettes_plancha_citron_vert_gingembre`) — Quartiers de citron vert
+- [ ] **Gâteau aux noix** (`gateau_noix`) — Beurre ; Farine
+- [ ] **Tartinade de haricots blancs au citron confit** (`tartinade_haricots_blancs_citron_confit`) — Huile de noix ; Pain, crackers ou légumes crus
+- [ ] **Velouté de chou-fleur et pommes** (`veloute_chou_fleur_pommes`) — Thym frais ; Vinaigre balsamique
 
 ## Noms de variantes trop proches (0)
 
 _Deux choix d’une même fiche qui ne se distinguent presque pas._
 
 
-## Ingrédients jamais repris dans les étapes (80)
+## Ingrédients jamais repris dans les étapes (84)
 
 _Au moins deux ingrédients absents des étapes : étape oubliée ou intitulé différent (à vérifier à la main)._
 
@@ -181,6 +192,10 @@ _Au moins deux ingrédients absents des étapes : étape oubliée ou intitulé d
 - [ ] **Tranche de chou-fleur rôti, sauce féta à l’ail et citron** (`tranche_chou_fleur_feta`) — Poivre du moulin ou piment d’Espelette ; 2 gousses d’ail ; 45g huile d’olive extra vierge
 - [ ] **Osso buco de veau** (`osso_buco`) — Farine pour enrober ; 4 gousses d’ail ; Zeste fin d’1 citron non traité ; Zeste fin d’1 orange non traitée
 - [ ] **Bagels** (`pain_bagels`) — 1 jaune d’œuf ; Graines de sésame ou de pavot
+- [ ] **Butternut rôtie façon parmigiana** (`butternut_rotie_parmigiana`) — 5g ail écrasé ; 125g taleggio en tranches (ou brie, ou 250g mozzarella)
+- [ ] **Chili sin carne aux lentilles et haricots rouges** (`chili_sin_carne_lentilles`) — 15g huile d’olive ou de coco ; Tortillas ; Avocat ; Fromage râpé
+- [ ] **Lapin à la crétoise** (`lapin_cretoise_stifado`) — 60g huile d’olive vierge extra ; 15g ail (3 gousses) émincé ; 5 grains de poivre noir
+- [ ] **Seiche rôtie aux herbes et citron confit** (`seiche_rotie_herbes_citron_confit`) — 6g persil ciselé ; 2g menthe ciselée
 
 ## Mise en forme hétérogène (1)
 

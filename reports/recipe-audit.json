@@ -1,29 +1,29 @@
 {
   "source": {
-    "siteVersion": "v5.41",
+    "siteVersion": "v5.52",
     "siteUpdatedAt": "28/10/26",
-    "recipesSha256": "9fab401835c0"
+    "recipesSha256": "fe98b28c61ca"
   },
   "totals": {
-    "recipes": 329,
-    "leaves": 258,
+    "recipes": 344,
+    "leaves": 272,
     "masters": 8,
-    "inlineVariantFamilies": 63,
-    "inlineVariantOptions": 217,
-    "auditedRecipes": 475,
+    "inlineVariantFamilies": 64,
+    "inlineVariantOptions": 220,
+    "auditedRecipes": 492,
     "lowScore": 0,
-    "categoryIdeas": 54,
+    "categoryIdeas": 56,
     "qualityIssues": 0
   },
   "averageScore": 100,
   "healthDashboard": {
-    "ready": 465,
-    "improve": 10,
+    "ready": 480,
+    "improve": 12,
     "weak": 0,
     "missingDiscovery": 0,
-    "missingSafety": 10,
+    "missingSafety": 11,
     "productionRisk": 0,
-    "fewLinks": 212
+    "fewLinks": 227
   },
   "weakestRecipes": [],
   "inlineVariantFamilies": [
@@ -178,7 +178,8 @@
       "title": "Œufs mimosa",
       "options": [
         "Betterave",
-        "Avocat crevette"
+        "Avocat crevette",
+        "Lard fumé"
       ]
     },
     {
@@ -604,6 +605,14 @@
       ]
     },
     {
+      "id": "paella_royale",
+      "title": "Paella",
+      "options": [
+        "Royale",
+        "Fruits de mer et chorizo"
+      ]
+    },
+    {
       "id": "mousse_legumes",
       "title": "Mousse de légumes",
       "options": [
@@ -635,6 +644,11 @@
       "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
     },
     {
+      "id": "tartinade_haricots_blancs_citron_confit",
+      "title": "Tartinade de haricots blancs au citron confit",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
       "id": "asperges_mimosa",
       "title": "Asperges mimosa",
       "text": "Categorie possible : Apéro (semble utile a l apero)."
@@ -657,6 +671,11 @@
     {
       "id": "brochettes_tsukune",
       "title": "Brochettes de boulettes tsukune",
+      "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+    },
+    {
+      "id": "butternut_rotie_parmigiana",
+      "title": "Butternut rôtie façon parmigiana",
       "text": "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
     },
     {
@@ -813,16 +832,6 @@
       "id": "pates_tarte_variantes::variant-7",
       "title": "Pâtes à tarte — pâte sucrée",
       "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
-    },
-    {
-      "id": "pates_tarte_variantes::variant-5",
-      "title": "Pâtes à tarte — shortbread",
-      "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
-    },
-    {
-      "id": "pates_crumble_chorizo",
-      "title": "Pâtes au crumble de chorizo",
-      "text": "Categorie possible : Desserts (semble etre sucré ou patissier)."
     }
   ],
   "recipesWithFewLinks": [
@@ -839,6 +848,11 @@
     {
       "id": "asperges_vertes_lard",
       "title": "Asperges vertes au lard grillé",
+      "count": 0
+    },
+    {
+      "id": "aubergines_roties_tomate_mozzarella",
+      "title": "Aubergines rôties à la tomate et à la mozzarella",
       "count": 0
     },
     {
@@ -970,11 +984,6 @@
       "id": "brochettes_crevettes_chorizo",
       "title": "Brochettes crevettes chorizo",
       "count": 0
-    },
-    {
-      "id": "brochettes_tsukune",
-      "title": "Brochettes de boulettes tsukune",
-      "count": 0
     }
   ],
   "reviewedRecipes": [
@@ -1031,6 +1040,14 @@
     {
       "id": "asperges_vertes_lard",
       "title": "Asperges vertes au lard grillé",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "aubergines_roties_tomate_mozzarella",
+      "title": "Aubergines rôties à la tomate et à la mozzarella",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -1360,6 +1377,16 @@
       "suggestions": []
     },
     {
+      "id": "butternut_rotie_parmigiana",
+      "title": "Butternut rôtie façon parmigiana",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": [
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
+    },
+    {
       "id": "cabillaud_crumble_chorizo",
       "title": "Cabillaud au four, crumble de chorizo",
       "score": 100,
@@ -1590,6 +1617,14 @@
       "suggestions": []
     },
     {
+      "id": "chili_sin_carne_lentilles",
+      "title": "Chili sin carne aux lentilles et haricots rouges",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "chinois_chocolat",
       "title": "Chinois au chocolat",
       "score": 100,
@@ -1630,6 +1665,14 @@
       "suggestions": []
     },
     {
+      "id": "chou_paysan_lard_citron",
+      "title": "Chou paysan au lard et au citron",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "chou_vert_sauce_tomate",
       "title": "Chou vert en sauce tomate",
       "score": 100,
@@ -1638,6 +1681,14 @@
       "suggestions": [
         "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
+    },
+    {
+      "id": "chou_vert_morteau_moutarde",
+      "title": "Chou vert et saucisse de Morteau à la moutarde",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "chou_fleur_croustillant",
@@ -1970,6 +2021,14 @@
       ]
     },
     {
+      "id": "courgettes_pois_chiches_tomate",
+      "title": "Courgettes aux pois chiches, tomate et basilic",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "court_bouillon",
       "title": "Court-bouillon",
       "score": 100,
@@ -2094,6 +2153,14 @@
     {
       "id": "crepes_variantes::variant-2",
       "title": "Crêpes Suzette",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "crevettes_plancha_citron_vert_gingembre",
+      "title": "Crevettes à la plancha, citron vert et gingembre",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -2458,6 +2525,14 @@
       "suggestions": []
     },
     {
+      "id": "gateau_noix",
+      "title": "Gâteau aux noix",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "gateau_roule_framboise",
       "title": "Gâteau roulé à la framboise",
       "score": 100,
@@ -2722,6 +2797,14 @@
     {
       "id": "joues_mijotees_variantes::variant-4",
       "title": "Joues de porc cidre miel",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "lapin_cretoise_stifado",
+      "title": "Lapin à la crétoise",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
@@ -3204,6 +3287,14 @@
       "suggestions": []
     },
     {
+      "id": "oeufs_mimosa_variantes::lard_fume",
+      "title": "Œufs mimosa — Lard fumé",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "oignons_rotis_thym_miel",
       "title": "Oignons rôtis au thym et au miel",
       "score": 100,
@@ -3236,12 +3327,26 @@
       "suggestions": []
     },
     {
-      "id": "paella_royale",
-      "title": "Paella royale",
+      "id": "paella_royale::fruits_de_mer",
+      "title": "Paella — Fruits de mer et chorizo",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
-      "suggestions": []
+      "suggestions": [
+        "Recette longue : verifier que les etapes restent faciles a suivre sur mobile."
+      ]
+    },
+    {
+      "id": "paella_royale::royale",
+      "title": "Paella — Royale",
+      "score": 82,
+      "issues": [
+        "Conservation ou securite alimentaire a verifier."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Ajouter une conservation explicite si la recette est fragile ou preparable a l avance."
+      ]
     },
     {
       "id": "pains_ail_variantes::variant-3",
@@ -3955,6 +4060,14 @@
       "suggestions": []
     },
     {
+      "id": "ratatouille_cajun",
+      "title": "Ratatouille aux épices cajun",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "rattes_four",
       "title": "Rattes au four",
       "score": 100,
@@ -4447,6 +4560,14 @@
       "suggestions": []
     },
     {
+      "id": "seiche_rotie_herbes_citron_confit",
+      "title": "Seiche rôtie aux herbes et citron confit",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
       "id": "smash_burger",
       "title": "Smash Burger et buns briochés",
       "score": 100,
@@ -4479,6 +4600,14 @@
       "suggestions": [
         "Categorie possible : Apéro (semble utile a l apero)."
       ]
+    },
+    {
+      "id": "soupe_poulet_butternut_epinards",
+      "title": "Soupe de poulet, butternut et épinards",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "soupe_paysanne_morteau",
@@ -4561,6 +4690,18 @@
       "issues": [],
       "qualityIssues": [],
       "suggestions": []
+    },
+    {
+      "id": "tartinade_haricots_blancs_citron_confit",
+      "title": "Tartinade de haricots blancs au citron confit",
+      "score": 82,
+      "issues": [
+        "Peu de reperes utilisateur : notes ou points techniques absents."
+      ],
+      "qualityIssues": [],
+      "suggestions": [
+        "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
+      ]
     },
     {
       "id": "temps_cuisson_legumes_autocuiseur::variant-2",
@@ -4879,6 +5020,22 @@
     {
       "id": "veloute_hiver_noix_cajou",
       "title": "Velouté d'hiver noix de cajou",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "veloute_carottes_gingembre_orange",
+      "title": "Velouté de carottes au gingembre et à l’orange",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "veloute_chou_fleur_pommes",
+      "title": "Velouté de chou-fleur et pommes",
       "score": 100,
       "issues": [],
       "qualityIssues": [],

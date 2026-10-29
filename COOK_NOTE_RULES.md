@@ -434,6 +434,21 @@ Sommaire :
   « combien de X » (retire a la demande de l'utilisateur) : « voir les
   ingredients ». Jamais de defilement : `useFitToBox` reduit l'etape ou le
   panneau (zoom) jusqu'a tenir ; ligne « Dites » hors de la scene.
+- AJOUTER AU MODE MAINS LIBRES (demandes frequentes, garder ce chemin) :
+  - Une fiche avant l'etape 1 : un objet dans `HANDS_FREE_INTRO_PAGES`
+    (`app-kitchen.js` : id, title, suggestions, render) et la meme ligne dans
+    `RecipeScreen.INTRO_PAGES` + son texte dans `introText()` (APK). Navigation
+    suivant / precedent, compteur, ligne « Dites » et ajustement a l'ecran
+    suivent seuls.
+  - Une commande vocale : son motif dans `VOICE_COMMANDS` (ou un cas dedie dans
+    `parseVoiceCommand` si elle porte un nombre / un nom), sa reponse dans
+    `runCookVoiceCommand` ; les mots nouveaux dans `VOICE_VOCABULARY` (Vosk ne
+    reconnait que ceux-la). APK : constante + motif dans `VoiceCommands.java`,
+    mots dans `VoiceCommands.VOCABULARY`, reponse dans
+    `RecipeScreen.handleCookCommand`.
+  - Tests muets a completer : micro simule (phrases et reponses), test Java
+    des phrases de l'APK, verification « rien ne deborde » bureau / tablette /
+    telephone.
 - APK : mode mains libres natif (`RecipeScreen.openCookMode`, `CookVoice`,
   `VoiceCommands`, `FitTextView`) avec Vosk Android 0.3.47 + JNA 5.13 et le
   meme modele, livre dans l'APK (`android-legacy/build/generated/voice-model`,
@@ -443,18 +458,20 @@ Sommaire :
   l'ajoute en dependance de libvosk.so ; resultat versionne dans
   `app/src/main/jniLibs`. Message de confidentialite : a chaque fois que le
   micro n'est pas accorde (Android 6+), une fois sous Android 5.
-- Fonctions v5.42 (code dans `app-kitchen.js`) : « Je sers a » sur la fiche
-  rapide et le menu (horaire de chaque phase depuis les temps des fiches,
-  rappels en notification tant que Cook Note reste ouvert) ; recherche en
+- Fonctions v5.42 (code dans `app-kitchen.js`) : recherche en
   langage naturel (« sans X », « en moins d'une heure », « pour 6 » qui ouvre
   la fiche a 6) ; « Avec ce que j'ai » (ingredients separes par des virgules,
-  resultats ranges par faisabilite) ; notifications systeme des minuteurs ;
+  resultats ranges par faisabilite) ;
   raccourcis de l'icone installee (Mode cuisine, Courses, Favoris,
   Techniques) et partage vers Cook Note ; bandeau vivant (inclinaison de
   l'appareil, tactile seulement, coupe si animations reduites).
 - Icone : embleme cloche en filets dores, sans texte (`assets/brand/mark.svg`,
   seule source) ; PNG, maskable et AVIF regeneres par
   `node scripts/generate-brand-icons.js`.
+- v5.49 (demande utilisateur, jugee intrusive) : plus de « Je sers a » ni
+  de notifications systeme, aucune autorisation demandee. Un minuteur termine
+  sonne et vibre toutes les 10 s (`KITCHEN_RING_REPEAT_MS`) tant qu'on ne l'a
+  pas arrete (croix, +1, « stop »).
 - Minuteurs : chaque duree ecrite dans une etape (« 25min », « 2h30 à 3h »)
   devient un bouton ; un intervalle part sur sa borne basse ; au-dela de 4h, pas
   de minuteur. Les minuteurs restent visibles sur toutes les pages (echeances en

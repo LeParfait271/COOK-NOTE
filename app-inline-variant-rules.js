@@ -3,10 +3,18 @@
   'use strict';
   global.COOK_NOTE_INLINE_VARIANT_RULES = Object.freeze({
     oeufs_mimosa_variantes: Object.freeze({
-      sharedGroups: Object.freeze([0, 4]),
+      sharedGroups: Object.freeze([0, 5]),
       options: Object.freeze([
         Object.freeze({ key: 'betterave', label: 'Betterave', groups: Object.freeze([1, 2]) }),
-        Object.freeze({ key: 'avocat_crevette', label: 'Avocat crevette', groups: Object.freeze([3]) })
+        Object.freeze({ key: 'avocat_crevette', label: 'Avocat crevette', groups: Object.freeze([3]) }),
+        Object.freeze({ key: 'lard_fume', label: 'Lard fumé', groups: Object.freeze([4]) })
+      ])
+    }),
+    paella_royale: Object.freeze({
+      sharedGroups: Object.freeze([]),
+      options: Object.freeze([
+        Object.freeze({ key: 'royale', label: 'Royale', groups: Object.freeze([0]) }),
+        Object.freeze({ key: 'fruits_de_mer', label: 'Fruits de mer et chorizo', groups: Object.freeze([1, 2]) })
       ])
     }),
     // Les etapes de la fiche couvrent les deux pates : elles restent communes.

@@ -55,7 +55,7 @@
   box-shadow: var(--ds-focus-ring), inset 0 1px 0 rgba(255, 255, 255, .24);
 }
 
-.mc-shell :where(.season-block, .recipe-panel, .recipe-summary-panel, .variant-picker-panel, .variant-choice-panel, .modal-panel, .menu-planner-card, .menu-service-panel, .shopping-aisle, .empty-state, .fatal-state, .command-palette, .site-footer-inner, .fridge-assistant, .recipe-chef-strip, .menu-quality-band, .shopping-store-dashboard) {
+.mc-shell :where(.season-block, .recipe-panel, .recipe-summary-panel, .variant-picker-panel, .variant-choice-panel, .modal-panel, .menu-planner-card, .menu-service-panel, .shopping-aisle, .empty-state, .fatal-state, .command-palette, .site-footer-inner, .fridge-assistant, .recipe-chef-strip, .shopping-store-dashboard) {
   border-color: var(--rim);
   border-radius: var(--ds-radius-md);
   box-shadow: var(--ds-shadow-panel);
@@ -366,7 +366,6 @@
 .variant-picker-panel,
 .variant-choice-panel,
 .recipe-panel,
-.menu-quality-band,
 .shopping-store-dashboard,
 .site-footer-inner {
   position: relative;
@@ -383,7 +382,6 @@
 .recipe-summary-panel::before,
 .variant-picker-panel::before,
 .variant-choice-panel::before,
-.menu-quality-band::before,
 .shopping-store-dashboard::before {
   content: "";
   position: absolute;
@@ -532,7 +530,7 @@
     var(--ds-shell-background);
 }
 
-.mc-shell.theme-light :where(.season-dashboard, .season-block, .fridge-assistant, .recipe-summary-panel, .variant-picker-panel, .variant-choice-panel, .recipe-panel, .menu-quality-band, .shopping-store-dashboard, .site-footer-inner) {
+.mc-shell.theme-light :where(.season-dashboard, .season-block, .fridge-assistant, .recipe-summary-panel, .variant-picker-panel, .variant-choice-panel, .recipe-panel, .shopping-store-dashboard, .site-footer-inner) {
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--ambient-accent, var(--accent)) 5%, transparent), transparent 180px),
     rgba(255, 252, 246, .78);
@@ -745,11 +743,6 @@
 
   .search-result {
     grid-template-columns: 58px minmax(0, 1fr);
-  }
-
-  .search-result > .nutri-score {
-    grid-column: 2;
-    justify-self: start;
   }
 
   .menu-planner-card {

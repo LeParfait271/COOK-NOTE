@@ -1,0 +1,255 @@
+/* Barre de filtres des collections (Entrees, Plats...) : une ligne
+   [recherche | tri segmente], puis Saison et Famille en pastilles fines
+   alignees sur une colonne de libelles, puis le nombre de resultats.
+   Compteurs discrets, une seule pastille active pleine. Sur telephone,
+   les pastilles defilent sur une ligne au lieu de s'empiler. */
+.collection-toolbar {
+  display: grid;
+  gap: 10px;
+  margin: 4px 0 8px;
+  padding: 0 0 14px;
+  border-bottom: 1px solid var(--ds-color-divider);
+}
+
+.collection-tools {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.collection-search {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+  height: 40px;
+  padding: 0 14px 0 38px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 10px;
+  background: var(--ds-color-background);
+  transition: border-color .2s ease;
+}
+
+.collection-search:focus-within {
+  border-color: var(--ds-gold);
+}
+
+.collection-search .site-icon {
+  position: absolute;
+  left: 13px;
+  width: 15px;
+  height: 15px;
+  color: var(--ds-color-text-muted);
+}
+
+.collection-search input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ds-color-text-primary);
+  font: 500 var(--ds-text-sm) / 1 var(--ds-font-body, system-ui);
+  box-shadow: none;
+}
+
+.collection-search input::placeholder {
+  color: var(--ds-color-text-muted);
+}
+
+.collection-sort {
+  display: inline-flex;
+  flex: none;
+  gap: 2px;
+  height: 40px;
+  padding: 3px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 10px;
+  background: var(--ds-color-background);
+}
+
+.collection-sort button {
+  padding: 0 12px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--ds-color-text-muted);
+  font: 600 var(--ds-text-xs) / 1 var(--ds-font-body, system-ui);
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+
+.collection-sort button:hover {
+  color: var(--ds-color-text-primary);
+}
+
+.collection-sort button.active {
+  background: var(--ds-color-background-muted);
+  color: var(--ds-color-text-primary);
+  box-shadow: inset 0 0 0 1px var(--ds-color-border-strong);
+}
+
+.collection-filter-row {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.collection-filter-label {
+  color: var(--ds-color-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.collection-toolbar .collection-season-filter,
+.collection-family-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.collection-toolbar .collection-season-filter button,
+.collection-family-filter button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  min-height: 0;
+  padding: 0 11px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ds-color-text-secondary);
+  font: 500 var(--ds-text-xs) / 1 var(--ds-font-body, system-ui);
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: none;
+  transition: border-color .2s ease, background .2s ease, color .2s ease;
+}
+
+.collection-toolbar .collection-season-filter button:hover:not(:disabled),
+.collection-family-filter button:hover {
+  border-color: var(--ds-color-border-strong);
+  color: var(--ds-color-text-primary);
+}
+
+.collection-toolbar .collection-season-filter button:disabled {
+  opacity: .4;
+  cursor: default;
+}
+
+.collection-toolbar .collection-season-filter button > span:not(.season-count),
+.collection-toolbar .collection-season-filter .season-name {
+  color: inherit;
+}
+
+.collection-toolbar .collection-season-filter .season-count,
+.collection-family-filter button span {
+  color: var(--ds-color-text-muted);
+  font-family: var(--ds-font-body, system-ui);
+  font-size: 11px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Saison en cours : un point dore discret avant le nom. */
+.collection-toolbar .collection-season-filter button.is-current::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ds-gold);
+}
+
+.collection-toolbar .collection-season-filter button.active,
+.collection-family-filter button.active {
+  border-color: var(--ds-gold);
+  background: color-mix(in srgb, var(--ds-gold) 14%, transparent);
+  color: var(--ds-color-text-primary);
+}
+
+.collection-toolbar .collection-season-filter button.active .season-count,
+.collection-family-filter button.active span {
+  color: var(--ds-gold);
+}
+
+.collection-result {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 16px;
+  color: var(--ds-color-text-secondary);
+  font-size: var(--ds-text-sm);
+  font-weight: 600;
+}
+
+.collection-result em {
+  color: var(--ds-color-text-muted);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.collection-result button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ds-gold);
+  font: 600 var(--ds-text-xs) / 1 var(--ds-font-body, system-ui);
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .collection-tools {
+    flex-wrap: wrap;
+  }
+
+  .collection-search {
+    flex-basis: 100%;
+  }
+
+  .collection-sort {
+    width: 100%;
+  }
+
+  .collection-sort button {
+    flex: 1;
+  }
+
+  .collection-filter-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .collection-toolbar .collection-season-filter,
+  .collection-family-filter {
+    flex-wrap: nowrap;
+    margin: 0 -16px;
+    padding: 0 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 24px), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 24px), transparent);
+  }
+
+  .collection-toolbar .collection-season-filter::-webkit-scrollbar,
+  .collection-family-filter::-webkit-scrollbar {
+    display: none;
+  }
+
+  .collection-toolbar .collection-season-filter button,
+  .collection-family-filter button {
+    flex: none;
+  }
+}

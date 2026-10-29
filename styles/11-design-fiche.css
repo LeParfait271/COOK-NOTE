@@ -606,86 +606,6 @@ html.theme-reveal::view-transition-new(root) {
   color: var(--muted);
 }
 
-.search-modal .search-result .nutri-score {
-  position: absolute;
-  top: var(--ds-space-2);
-  right: var(--ds-space-2);
-}
-
-/* Pages categorie : quatre saisons qui filtrent la grille. */
-.collection-season-filter {
-  display: grid;
-  /* « Toutes » puis les quatre saisons. */
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--ds-space-2);
-  margin: 0 0 var(--ds-space-5);
-}
-
-.collection-season-filter button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--ds-space-2);
-  min-height: 46px;
-  padding: 0 var(--ds-space-3);
-  border: 1px solid var(--ds-hairline);
-  border-radius: 999px;
-  background: color-mix(in oklch, var(--ds-color-background) 55%, transparent);
-  color: var(--text);
-  font: 600 var(--ds-text-sm) / 1 var(--ds-font-body, inherit);
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  transition: border-color 180ms ease-out, background-color 180ms ease-out, color 180ms ease-out;
-}
-
-.collection-season-filter button:hover:not(:disabled) {
-  border-color: color-mix(in oklch, var(--ds-gold) 55%, var(--ds-hairline));
-}
-
-.collection-season-filter button.active {
-  border-color: var(--ds-gold);
-  background: color-mix(in oklch, var(--ds-gold) 16%, transparent);
-}
-
-.collection-season-filter button:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-
-.collection-season-filter .season-count {
-  color: var(--ds-gold-soft);
-  font-family: var(--ds-font-display);
-  font-size: var(--ds-text-base);
-  font-variant-numeric: lining-nums tabular-nums;
-}
-
-.mc-shell.theme-light .collection-season-filter .season-count {
-  color: var(--ds-gold);
-}
-
-/* Saison en cours : un point d'or discret. */
-.collection-season-filter button.is-current::after {
-  content: "";
-  position: absolute;
-  top: 8px;
-  right: 14px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--ds-gold);
-}
-
-/* Telephone : « Toutes » sur toute la largeur, puis les saisons deux par deux. */
-@media (max-width: 560px) {
-  .collection-season-filter {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .collection-season-filter button:first-child {
-    grid-column: 1 / -1;
-  }
-}
 /* ---------- Controle qualite visuel ---------- */
 
 /* Blocs repliables : marge interieure ; le bloc deborde un peu dans le
@@ -933,23 +853,6 @@ html.theme-reveal::view-transition-new(root) {
   }
 }
 /* Fenetre Partager : description en texte courant, actions aerees, marge basse. */
-.share-modal .share-card-copy p {
-  font-weight: 450;
-  line-height: 1.5;
-  color: var(--ds-color-text-secondary);
-}
-
-.share-modal .share-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--ds-space-2);
-  padding-bottom: var(--ds-space-2);
-}
-
-.share-modal .share-actions .btn {
-  font-size: var(--ds-text-sm);
-  font-weight: 600;
-}
 
 .share-modal.modal-panel {
   padding-bottom: var(--ds-space-5);
@@ -975,8 +878,7 @@ html.theme-reveal::view-transition-new(root) {
   }
 }
 /* Jauges (qualite du menu, progression des courses) : anneau dore fin, texte
-   sans fond, lisibles de jour comme de nuit. */
-.menu-quality-band,
+   sans fond,
 .shopping-store-dashboard {
   border: 1px solid var(--ds-hairline);
   border-radius: var(--ds-radius-md);
@@ -984,12 +886,10 @@ html.theme-reveal::view-transition-new(root) {
   box-shadow: none;
 }
 
-.menu-quality-score,
 .shopping-store-score {
   background: none;
 }
 
-.menu-quality-score > span,
 .shopping-store-score > span {
   background: conic-gradient(var(--ds-gold) var(--menu-quality, var(--shopping-progress, 0%)), var(--ds-hairline) 0);
   mask: radial-gradient(circle, transparent 60%, #000 61%);
@@ -999,7 +899,6 @@ html.theme-reveal::view-transition-new(root) {
   background: conic-gradient(var(--ds-gold) var(--shopping-progress, 0%), var(--ds-hairline) 0);
 }
 
-.menu-quality-score strong,
 .shopping-store-score strong {
   background: none;
   font-family: var(--ds-font-display);
@@ -1008,7 +907,6 @@ html.theme-reveal::view-transition-new(root) {
   color: var(--text);
 }
 
-.menu-quality-score small,
 .shopping-store-score small {
   padding: 0;
   background: none;

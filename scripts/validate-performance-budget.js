@@ -40,7 +40,10 @@ const FILE_BUDGETS = [
   // palette de recherche) ; 2 Ko de regles mortes retirees (npm run css:dead).
   // 240 -> 248 Ko : fonctions v5.42 (filtres de categorie en trois rangs,
   // « Je sers a », mode cuisine a la voix, bandeau vivant, mode frigo).
-  ['dist/style.css', 248 * KB],
+  // 248 -> 256 Ko : constellation des saveurs v5.57 (ciel plein ecran anime).
+  // 256 -> 264 Ko : partage v5.58 (billet avec QR code fait main, formats d'image).
+  // 264 -> 272 Ko : classement de chef v5.59 (emblemes, panneau, ecran de fin).
+  ['dist/style.css', 272 * KB],
   ['personal-tools.css', 4 * KB],
   ['dist/personal-tools.css', 3 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.
@@ -48,7 +51,8 @@ const FILE_BUDGETS = [
   // 905 -> 915 Ko : 65 gestes de pro et mises en place integres (v5.37).
   // 915 -> 930 Ko : materiel de cuisine propre dans chaque fiche et chaque
   // variante (practical.equipment, v5.39).
-  ['recipes.js', 930 * KB],
+  // 930 -> 980 Ko : 15 nouvelles fiches et 2 variantes (v5.51).
+  ['recipes.js', 980 * KB],
   ['recipe-worker.js', 4 * KB],
   ['assets/image-manifest.js', 180 * KB],
   ['app-art-images.js', 40 * KB],
@@ -60,7 +64,8 @@ const FILE_BUDGETS = [
 ];
 
 const DIRECTORY_BUDGETS = [
-  ['assets/catalog-*.js', 'assets', /^catalog-\d+\.js$/, 560 * KB]
+  // 560 -> 590 Ko : 15 nouvelles fiches et 2 variantes (v5.51).
+  ['assets/catalog-*.js', 'assets', /^catalog-\d+\.js$/, 590 * KB]
 ];
 
 const IMAGE_BUDGETS = [

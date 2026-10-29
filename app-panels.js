@@ -819,8 +819,6 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
         h('span', null, `${shoppingData.groupedItems.length} articles groupés`),
         h('span', null, `${shoppingData.aisleGroups.length} rayons`)
       ),
-      // Heure de service : horaire de depart de chaque plat du menu.
-      h(ServeTimePlanner, { key: menu.signature, className: 'menu-serve-planner', entries: menuRecipes.map(item => ({ title: item.title, timing: getRecipeTiming(item) })) }),
       h('div', { className: 'menu-service-grid' },
         servicePlan.timeline.length > 0 && h('section', { className: 'menu-service-panel menu-service-panel-wide' },
           h('p', { className: 'eyebrow' }, 'Timeline'),
@@ -1110,11 +1108,16 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, pr
           h('span', { className: 'sr-only' }, `Filtrer ${parent.title}`),
           h('input', { type: 'text', value: filter, placeholder: `Chercher dans ${parent.title.toLowerCase()}…`, onChange: event => setFilter(event.target.value) })
         ),
-        h('label', { className: 'collection-sort' },
-          h('span', { className: 'sr-only' }, 'Trier les recettes'),
-          h('select', { value: sort, onChange: event => setSort(event.target.value) },
-            COLLECTION_SORTS.map(([value, label]) => h('option', { key: value, value }, label))
-          )
+        // Tri en commande segmentee (trois choix courts, toujours visibles).
+        h('div', { className: 'collection-sort', role: 'radiogroup', 'aria-label': 'Trier les recettes' },
+          COLLECTION_SORTS.map(([value, label]) => h('button', {
+            key: value,
+            type: 'button',
+            role: 'radio',
+            'aria-checked': sort === value,
+            className: sort === value ? 'active' : '',
+            onClick: () => setSort(value)
+          }, label))
         )
       ),
       h('div', { className: 'collection-filter-row' },
@@ -1135,13 +1138,16 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, pr
         )
       )
     ),
+    h('div', { className: 'collection-result' },
+      h('span', null, `${visibleEntries.length} recette${visibleEntries.length > 1 ? 's' : ''}`, visibleEntries.length !== recipeEntries.length && h('em', null, ` sur ${recipeEntries.length}`)),
+      (season || family || filter) && h('button', { type: 'button', onClick: () => { setSeason(''); setFamily(''); setFilter(''); } }, 'Réinitialiser')
+    ),
     !visibleEntries.length && h('p', { className: 'collection-empty' }, 'Aucune recette avec ces filtres.'),
     h('div', { className: 'variant-card-grid' },
       visibleEntries.map(({ variant, item }) => {
         const image = displayRecipeImage(item) || displayRecipeImage(parent);
         const cardImage = image ? recipeCardImageUrl(image) : '';
         const variantLabel = getRecipeVariantLabel(item, recipesById);
-        const meta = collectionCardMeta(item);
         const favorite = favorites.includes(variant.id);
         return h('div', { key: variant.id, className: 'variant-card-shell' },
           toggleFavorite && h('button', {
@@ -1166,7 +1172,9 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, pr
             image && h('span', { className: 'variant-card-bg', 'data-vt-media': variant.id, style: imageBackgroundStyle(image) }),
             h('span', { className: 'variant-card-body' },
               h('strong', { 'data-vt-title': variant.id }, variant.label || item.title),
-              (variantLabel || meta) && h('small', { className: variantLabel ? 'variant-card-variant-count' : 'variant-card-meta' }, variantLabel || meta)
+              // Plus de pastille difficulte / temps (elle cachait l'image) :
+              // le titre seul, en bas a gauche ; le compteur des familles reste.
+              variantLabel && h('small', { className: 'variant-card-variant-count' }, variantLabel)
             )
           )
         );
@@ -1434,8 +1442,7 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
     equipment.length > 0 && h('div', { className: 'recipe-equipment-strip' },
       h('strong', null, 'Matériel nécessaire'),
       h('ul', null, equipment.map(item => h('li', { key: item }, item)))
-    ),
-    h(ServeTimePlanner, { key: recipe.id, entries: [{ title: recipe.title, timing }] })
+    )
   );
 }
 

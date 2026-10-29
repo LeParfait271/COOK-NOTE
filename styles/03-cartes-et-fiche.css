@@ -167,26 +167,6 @@
   line-height: 1.2;
 }
 
-.nutri-score {
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
-  min-height: 24px;
-  border: 1px solid rgba(255, 255, 255, .18);
-  border-radius: 6px;
-  padding: 0 8px;
-  color: #0b0b08;
-  font-size: 12px;
-  font-weight: 950;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, .22);
-}
-
-.nutri-score.nutri-a { background: #038141; color: #fff; }
-.nutri-score.nutri-b { background: #86bc25; color: #101407; }
-.nutri-score.nutri-c { background: #fecb02; color: #171303; }
-.nutri-score.nutri-d { background: #ee8100; color: #170b02; }
-.nutri-score.nutri-e { background: #e63e11; color: #fff; }
-
 .recipe-card h3 {
   position: relative;
   z-index: 4;
@@ -359,12 +339,6 @@
 .recipe-detail-hero .eyebrow {
   color: #fff;
   text-shadow: 0 2px 12px rgba(0, 0, 0, .72);
-}
-
-.detail-quantity-row {
-  display: flex;
-  align-items: center;
-  margin-top: 12px;
 }
 
 .detail-quantity-control {
@@ -769,26 +743,23 @@
   place-items: center;
 }
 
-.variant-card-body strong {
+/* Titre des cartes de categorie : JAMAIS de cadre, dans aucun etat (survol,
+   focus, appui, toucher, transition). Demande repetee de l'utilisateur : le
+   cadre (bordure + fond flou au survol) est supprime a la source. */
+.variant-card-body strong,
+.variant-card:is(:hover, :focus, :focus-visible, :focus-within, :active) .variant-card-body strong,
+.variant-card-shell:is(:hover, :focus-within) .variant-card-body strong {
   position: relative;
   z-index: 4;
-  border: 1px solid transparent;
-  border-radius: 7px;
-  padding: 0 2px;
+  border: 0 !important;
+  border-radius: 0;
+  outline: 0 !important;
+  padding: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
   text-wrap: balance;
-  transition: transform var(--speed), border-color var(--speed), background var(--speed), padding var(--speed), box-shadow var(--speed);
-}
-
-.variant-card:hover .variant-card-body strong,
-.variant-card:focus-visible .variant-card-body strong {
-  transform: translateY(-30px);
-  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 38%, rgba(255, 255, 255, .20));
-  background: rgba(0, 0, 0, .66);
-  padding: 7px 10px;
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, .28),
-    0 12px 28px rgba(0, 0, 0, .34);
-  backdrop-filter: blur(10px);
+  transition: transform var(--speed);
 }
 
 .variant-card-body small {

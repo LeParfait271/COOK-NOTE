@@ -1,25 +1,25 @@
 # Audit Cook Note
 
-- Entrees catalogue : 329
-- Fiches feuilles autonomes : 258
+- Entrees catalogue : 344
+- Fiches feuilles autonomes : 272
 - Collections racines : 8
-- Familles a variantes internes : 63
-- Options internes auditees : 217
-- Fiches executables auditees : 475
-- Source : v5.41 / 28/10/26 / recipes.js 9fab401835c0
+- Familles a variantes internes : 64
+- Options internes auditees : 220
+- Fiches executables auditees : 492
+- Source : v5.52 / 28/10/26 / recipes.js fe98b28c61ca
 - Score moyen : 100/100
 - Fiches sous 78 : 0
 - Fiches avec defauts a verifier : 0
 
 ## Dashboard sante
 
-- Pretes : 465
-- A ameliorer : 10
+- Pretes : 480
+- A ameliorer : 12
 - Faibles : 0
 - Decouverte faible : 0
-- Conservation/securite a verifier : 10
+- Conservation/securite a verifier : 11
 - Risque image/production : 0
-- Sans liens internes explicites : 212
+- Sans liens internes explicites : 227
 
 ## Fiches a surveiller
 
@@ -40,7 +40,7 @@ Aucune fiche faible detectee.
 - Pâtes à tarte (pates_tarte_variantes) : 7 options (pâte brisée beurre, biscuit graham, oreo, amande, shortbread, cheddar salée, pâte sucrée)
 - Sauce aux poivres (sauce_aux_poivres) : 4 options (Trois poivres au cognac, Poivre vert au cognac, Au cognac et à la moutarde, Crème au poivre noir)
 - Mayonnaise (mayonnaise_maison) : 4 options (Base mayonnaise, andalouse, sans œuf au lait, Bourguignonne)
-- Œufs mimosa (oeufs_mimosa_variantes) : 2 options (Betterave, Avocat crevette)
+- Œufs mimosa (oeufs_mimosa_variantes) : 3 options (Betterave, Avocat crevette, Lard fumé)
 - Beignets de calamar (beignets_calamar) : 2 options (Pâte légère, Tempura)
 - Mojitos (mojitos_variantes) : 6 options (Mojito classique, Mojito framboise, Mojito mangue, Mojito concombre, Mojito fruit de la passion, Mojito rhum ambré)
 - Toppings frites (toppings_frites) : 6 options (Sel et poivre, Ail, parmesan et persil, Cheddar et oignons verts, Paprika et cayenne, Cheddar, bacon et crème aigre, Patate douce paprika et ail)
@@ -88,6 +88,7 @@ Aucune fiche faible detectee.
 - Purées de légumes (purees_legumes_variantes) : 7 options (Pommes de terre au citron, Pommes de terre, ail rose et huile d’olive, Pommes de terre et carottes, Patates douces, Courge butternut, Butternut, pommes de terre et curry, Chou-fleur)
 - Cookies sucrés (cookies_sucres_variantes) : 10 options (Chocolat noir et lait, Moelleux, Beurre noisette, Chocolat et noix, Chocolat blanc et cranberry, Cerise et chocolat, Caramel cheesecake, Avoine, noix et fruits secs, Pan-banging au chocolat, Chewy aux pépites de chocolat)
 - Sauce béarnaise (sauce_bearnaise) : 2 options (Béarnaise, Choron)
+- Paella (paella_royale) : 2 options (Royale, Fruits de mer et chorizo)
 - Mousse de légumes (mousse_legumes) : 2 options (Mousse de courgette, Mousse de carotte)
 - Charlotte (charlotte_variantes) : 5 options (Abricots, Poire caramel, Poire chocolat, Fruits rouges, Fraise)
 
@@ -100,6 +101,7 @@ Aucune fiche faible detectee.
 - Ajitsuke tamago œufs marinés ramen (ajitsuke_tamago_oeufs_marines_ramen) : 100/100 - OK
 - Asperges mimosa (asperges_mimosa) : 100/100 - OK
 - Asperges vertes au lard grillé (asperges_vertes_lard) : 100/100 - OK
+- Aubergines rôties à la tomate et à la mozzarella (aubergines_roties_tomate_mozzarella) : 100/100 - OK
 - Aubergines rôties aux anchois (aubergines_roties_anchois) : 100/100 - OK
 - Babeurre (babeurre_maison) : 100/100 - OK
 - Babka au chocolat (babka) : 100/100 - OK
@@ -139,6 +141,7 @@ Aucune fiche faible detectee.
 - Brownie salé carotte, chèvre et amandes (brownie_carotte_chevre_amandes) : 100/100 - OK
 - Bruschetta roquefort noix (bruschetta_roquefort_noix) : 100/100 - OK
 - Burrata au basilic et raisins grillés (burrata_basilic_raisins_grilles) : 100/100 - OK
+- Butternut rôtie façon parmigiana (butternut_rotie_parmigiana) : 100/100 - OK
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo) : 100/100 - OK
 - Cake au chocolat et aux amandes (cake_chocolat_amandes) : 100/100 - OK
 - Cake au citron (cake_citron) : 100/100 - OK
@@ -167,12 +170,15 @@ Aucune fiche faible detectee.
 - Charlotte poire/chocolat (charlotte_variantes::variant-3) : 100/100 - OK
 - Cheesecake basque (cheesecake_basque) : 100/100 - OK
 - Cheesecake caramel, nougatine et spéculoos (cheesecake_caramel_nougatine_speculoos) : 100/100 - OK
+- Chili sin carne aux lentilles et haricots rouges (chili_sin_carne_lentilles) : 100/100 - OK
 - Chinois au chocolat (chinois_chocolat) : 100/100 - OK
 - Chinois aux abricots (chinois_abricot) : 100/100 - OK
 - Chipirons à la plancha (chipirons_a_la_plancha) : 100/100 - OK
 - Chocolat chaud à l'ancienne (chocolat_ancien) : 100/100 - OK
 - Chorizo au cidre (chorizo_au_cidre) : 100/100 - OK
+- Chou paysan au lard et au citron (chou_paysan_lard_citron) : 100/100 - OK
 - Chou vert en sauce tomate (chou_vert_sauce_tomate) : 100/100 - OK
+- Chou vert et saucisse de Morteau à la moutarde (chou_vert_morteau_moutarde) : 100/100 - OK
 - Chou-fleur croustillant (chou_fleur_croustillant) : 100/100 - OK
 - Chou-fleur lait de coco curry (currys_vegetariens_variantes::variant-3) : 100/100 - OK
 - Choux à la mousse de foie gras (choux_mousse_foie_gras) : 100/100 - OK
@@ -212,6 +218,7 @@ Aucune fiche faible detectee.
 - Coulis — Coulis de pêche (coulis_maitre::variant-4) : 100/100 - OK
 - Coulis — Coulis de pomme (coulis_maitre::variant-10) : 100/100 - OK
 - Courge butternut farcie (courge_butternut_farcie) : 100/100 - OK
+- Courgettes aux pois chiches, tomate et basilic (courgettes_pois_chiches_tomate) : 100/100 - OK
 - Court-bouillon (court_bouillon) : 100/100 - OK
 - Craquelin cacao (craquelin_cacao) : 100/100 - OK
 - Crème au beurre meringue italienne (creme_beurre_meringue_italienne) : 100/100 - OK
@@ -228,6 +235,7 @@ Aucune fiche faible detectee.
 - Crèmes dessert au chocolat (cremes_dessert_chocolat) : 100/100 - OK
 - Crêpes au lait d’amandes (crepes_variantes::variant-1) : 100/100 - OK
 - Crêpes Suzette (crepes_variantes::variant-2) : 100/100 - OK
+- Crevettes à la plancha, citron vert et gingembre (crevettes_plancha_citron_vert_gingembre) : 100/100 - OK
 - Crevettes à la provençale (crevettes_provencale) : 100/100 - OK
 - Crevettes en persillade (crevettes_ail_persil) : 100/100 - OK
 - Croque-madame (croque_madame) : 100/100 - OK
@@ -271,6 +279,7 @@ Aucune fiche faible detectee.
 - Galettes de pommes de terre au Comté (galettes_pommes_de_terre_comte) : 100/100 - OK
 - Gaspacho de melon (gaspachos_variantes::variant-2) : 100/100 - OK
 - Gaspacho tomate, menthe et basilic (gaspachos_variantes::variant-1) : 100/100 - OK
+- Gâteau aux noix (gateau_noix) : 100/100 - OK
 - Gâteau roulé à la framboise (gateau_roule_framboise) : 100/100 - OK
 - Gaufres (gaufre_bruxelles) : 100/100 - OK
 - Gaufres de pommes de terre croustillantes (gaufres_pommes_terre) : 100/100 - OK
@@ -304,6 +313,7 @@ Aucune fiche faible detectee.
 - Joues de bœuf whiskey orange (joues_mijotees_variantes::variant-2) : 100/100 - OK
 - Joues de porc chorizo piment (joues_mijotees_variantes::variant-3) : 100/100 - OK
 - Joues de porc cidre miel (joues_mijotees_variantes::variant-4) : 100/100 - OK
+- Lapin à la crétoise (lapin_cretoise_stifado) : 100/100 - OK
 - Lapin sauté chasseur (lapin_saute_chasseur) : 100/100 - OK
 - Légumes rôtis au four — asperges, haricots verts ou champignons (legumes_rotis::variant-11) : 100/100 - OK
 - Légumes rôtis au four — betterave ou céleri-rave (legumes_rotis::variant-5) : 100/100 - OK
@@ -363,11 +373,14 @@ Aucune fiche faible detectee.
 - Œufs en meurette (oeufs_meurette_faciles) : 100/100 - OK
 - Œufs mimosa — Avocat crevette (oeufs_mimosa_variantes::avocat_crevette) : 100/100 - OK
 - Œufs mimosa — Betterave (oeufs_mimosa_variantes::betterave) : 100/100 - OK
+- Œufs mimosa — Lard fumé (oeufs_mimosa_variantes::lard_fume) : 100/100 - OK
 - Oignons rôtis au thym et au miel (oignons_rotis_thym_miel) : 100/100 - OK
 - Okonomiyaki au chou (okonomiyaki_chou) : 100/100 - OK
 - Opéra (opera) : 100/100 - OK
 - Osso buco de veau (osso_buco) : 100/100 - OK
-- Paella royale (paella_royale) : 100/100 - OK
+- Paella — Fruits de mer et chorizo (paella_royale::fruits_de_mer) : 100/100 - OK
+- Paella — Royale (paella_royale::royale) : 82/100 - OK
+  - A surveiller : Conservation ou securite alimentaire a verifier.
 - Pain à l’ail et au persil (pains_ail_variantes::variant-3) : 100/100 - OK
 - Pain à l’ail qui déchire de Jamie Oliver (pains_ail_variantes::variant-2) : 100/100 - OK
 - Pain au zaatar (pain_zaatar) : 100/100 - OK
@@ -452,6 +465,7 @@ Aucune fiche faible detectee.
 - Queue de bœuf aux carottes et vin rouge (queue_boeuf_carottes_vin_rouge) : 100/100 - OK
 - Quichette au thon et parmesan (quichette_thon_parmesan) : 100/100 - OK
 - Ragoût de bœuf à la bière (ragouts_boeuf_biere_variantes::variant-1) : 100/100 - OK
+- Ratatouille aux épices cajun (ratatouille_cajun) : 100/100 - OK
 - Rattes au four (rattes_four) : 100/100 - OK
 - Ricotta fouettée (ricotta_fouettee) : 100/100 - OK
 - Rillettes de porc (rillettes_variantes::variant-1) : 100/100 - OK
@@ -516,10 +530,12 @@ Aucune fiche faible detectee.
 - Saucisses aux lentilles — Mijotées (saucisses_lentilles_variantes::variant-2) : 100/100 - OK
 - Saumon au four — Simple (saumon_four_variantes::variant-1) : 100/100 - OK
 - Saumon au four tomates olives basilic (saumon_four_variantes::variant-2) : 100/100 - OK
+- Seiche rôtie aux herbes et citron confit (seiche_rotie_herbes_citron_confit) : 100/100 - OK
 - Smash Burger et buns briochés (smash_burger) : 100/100 - OK
 - Soufflé au comté (souffle_fromage_facile) : 100/100 - OK
 - Soufflé au fromage (souffle_fromage) : 100/100 - OK
 - Soufflé chaud au citron vert, sorbet mojito (souffle_citron_vert_mojito) : 100/100 - OK
+- Soupe de poulet, butternut et épinards (soupe_poulet_butternut_epinards) : 100/100 - OK
 - Soupe paysanne à la saucisse de Morteau (soupe_paysanne_morteau) : 100/100 - OK
 - Southern biscuits (southern_biscuits) : 100/100 - OK
 - Spritz vanille chocolat (spritz_vanille_chocolat) : 100/100 - OK
@@ -530,6 +546,8 @@ Aucune fiche faible detectee.
 - Tarte aux fraises et poivre Timut (tarte_fraises_timut) : 100/100 - OK
 - Tarte aux myrtilles (tarte_aux_myrtilles) : 100/100 - OK
 - Tarte citron meringuée (tarte_citron_meringuee) : 100/100 - OK
+- Tartinade de haricots blancs au citron confit (tartinade_haricots_blancs_citron_confit) : 82/100 - OK
+  - A surveiller : Peu de reperes utilisateur : notes ou points techniques absents.
 - Temps de cuisson des légumes à l’autocuiseur — Immersion, départ au chuchotement (temps_cuisson_legumes_autocuiseur::variant-2) : 100/100 - OK
 - Temps de cuisson des légumes à l’autocuiseur — Vapeur, départ au chuchotement (temps_cuisson_legumes_autocuiseur::variant-1) : 100/100 - OK
 - Tempura (tempura_beignets_calamar_crevettes) : 100/100 - OK
@@ -572,6 +590,8 @@ Aucune fiche faible detectee.
 - Tresse au beurre classique (tresse_beurre_variantes::variant-1) : 100/100 - OK
 - Tresse au beurre d’Andreas Caminada (tresse_beurre_variantes::variant-2) : 100/100 - OK
 - Velouté d'hiver noix de cajou (veloute_hiver_noix_cajou) : 100/100 - OK
+- Velouté de carottes au gingembre et à l’orange (veloute_carottes_gingembre_orange) : 100/100 - OK
+- Velouté de chou-fleur et pommes (veloute_chou_fleur_pommes) : 100/100 - OK
 - Verrines châtaignes et foie gras (verrines_chataignes_foie_gras) : 100/100 - OK
 - Vinaigrette — Citron herbes (vinaigrette::variant-2) : 100/100 - OK
 - Vinaigrette — Classique moutarde (vinaigrette::variant-1) : 100/100 - OK
@@ -583,11 +603,13 @@ Aucune fiche faible detectee.
 
 - Mousse de légumes — Mousse de carotte (mousse_legumes::variant-2) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Mousse de légumes — Mousse de courgette (mousse_legumes::variant-1) : Categorie possible : Desserts (semble etre sucré ou patissier).
+- Tartinade de haricots blancs au citron confit (tartinade_haricots_blancs_citron_confit) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Asperges mimosa (asperges_mimosa) : Categorie possible : Apéro (semble utile a l apero).
 - Aubergines rôties aux anchois (aubergines_roties_anchois) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Bouillabaisse (bouillabaisse_rouille) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Brioche perdue sauce caramel au beurre salé (brioche_perdue_caramel_beurre_sale) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Brochettes de boulettes tsukune (brochettes_tsukune) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
+- Butternut rôtie façon parmigiana (butternut_rotie_parmigiana) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Cabillaud au four, crumble de chorizo (cabillaud_crumble_chorizo) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Chou vert en sauce tomate (chou_vert_sauce_tomate) : Categorie possible : Sauces (semble etre une sauce ou un condiment).
 - Choux à la mousse de foie gras (choux_mousse_foie_gras) : Categorie possible : Desserts (semble etre sucré ou patissier).
@@ -619,14 +641,13 @@ Aucune fiche faible detectee.
 - Pâtes à tarte — oreo (pates_tarte_variantes::variant-3) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Pâtes à tarte — pâte brisée beurre (pates_tarte_variantes::variant-1) : Categorie possible : Desserts (semble etre sucré ou patissier).
 - Pâtes à tarte — pâte sucrée (pates_tarte_variantes::variant-7) : Categorie possible : Desserts (semble etre sucré ou patissier).
-- Pâtes à tarte — shortbread (pates_tarte_variantes::variant-5) : Categorie possible : Desserts (semble etre sucré ou patissier).
-- Pâtes au crumble de chorizo (pates_crumble_chorizo) : Categorie possible : Desserts (semble etre sucré ou patissier).
 
 ## Fiches a relier progressivement
 
 - Acras aux épinards (acras_epinards)
 - Ajitsuke tamago œufs marinés ramen (ajitsuke_tamago_oeufs_marines_ramen)
 - Asperges vertes au lard grillé (asperges_vertes_lard)
+- Aubergines rôties à la tomate et à la mozzarella (aubergines_roties_tomate_mozzarella)
 - Aubergines rôties aux anchois (aubergines_roties_anchois)
 - Babeurre (babeurre_maison)
 - Babka au chocolat (babka)
@@ -653,4 +674,3 @@ Aucune fiche faible detectee.
 - Brioche vendéenne (brioche_vendeenne)
 - Brioches apéritives, trois garnitures (brioches_aperitives)
 - Brochettes crevettes chorizo (brochettes_crevettes_chorizo)
-- Brochettes de boulettes tsukune (brochettes_tsukune)

@@ -41,8 +41,7 @@
 }
 
 .detail-actions,
-.modal-actions,
-.share-actions {
+.modal-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -51,62 +50,6 @@
 
 .share-modal {
   width: min(760px, 100%);
-}
-
-.share-card {
-  display: grid;
-  grid-template-columns: 160px minmax(0, 1fr) 132px;
-  gap: 16px;
-  align-items: stretch;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: color-mix(in srgb, var(--surface-soft) 78%, transparent);
-}
-
-.share-card-media {
-  min-height: 180px;
-  background: var(--surface-strong) center / cover no-repeat;
-}
-
-.share-card-copy {
-  display: grid;
-  align-content: center;
-  gap: 8px;
-  min-width: 0;
-  padding: 16px 0;
-}
-
-.share-card-copy h3,
-.share-card-copy p {
-  margin: 0;
-}
-
-.share-card-copy h3 {
-  font-size: 26px;
-  line-height: 1.05;
-}
-
-.share-card-copy > p:not(.eyebrow) {
-  color: var(--muted);
-  font-weight: 750;
-}
-
-.share-card-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  align-items: center;
-}
-
-.share-card-meta span:not(.nutri-score) {
-  min-height: 24px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  color: var(--muted);
-  padding: 0 8px;
-  font-size: 12px;
-  font-weight: 850;
 }
 
 .share-qr {
@@ -157,25 +100,6 @@
     flex-direction: column;
     text-align: center;
   }
-}
-
-.share-link-box {
-  overflow: hidden;
-  margin-top: 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(0, 0, 0, .24);
-  color: var(--muted);
-  padding: 12px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.share-link-box:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--accent) 70%, #fff);
-  outline-offset: 2px;
 }
 
 .favorite-action {

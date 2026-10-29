@@ -78,121 +78,10 @@ function collectionFamilyOf(parentId, recipe) {
 }
 
 const COLLECTION_SORTS = [
-  ['alpha', 'De A à Z'],
-  ['quick', 'Les plus rapides'],
-  ['easy', 'Les plus faciles']
+  ['alpha', 'A–Z'],
+  ['quick', 'Rapides'],
+  ['easy', 'Faciles']
 ];
-
-// Carte de categorie : temps total et difficulte, quand la fiche les donne.
-function collectionCardMeta(recipe) {
-  const total = Number(recipe?.activeTime || 0) + Number(recipe?.cookTime || 0) + Number(recipe?.restTime || 0);
-  return [
-    total ? formatTotalDuration(total, Number(recipe?.restTime || 0)) : '',
-    Number.isFinite(recipe?.difficultyScore) ? `Difficulté ${recipe.difficultyScore}/10` : ''
-  ].filter(Boolean).join(' · ');
-}
-
-// ---------- Retroplanning : « je sers a 20 h » ----------
-// A partir des temps de chaque fiche (preparation, cuisson, repos), l'heure a
-// laquelle commencer chaque phase ; rappels en notification a chaque etape.
-function parseServeTime(value) {
-  const match = /^(\d{1,2}):(\d{2})$/.exec(value || '');
-  if (!match) return null;
-  const date = new Date();
-  date.setHours(Number(match[1]), Number(match[2]), 0, 0);
-  // Heure deja passee : c'est pour demain.
-  if (date.getTime() < Date.now() - 5 * 60000) date.setDate(date.getDate() + 1);
-  return date;
-}
-
-function formatServeClock(date, serveDate) {
-  const clock = `${date.getHours()} h ${String(date.getMinutes()).padStart(2, '0')}`;
-  const day = value => new Date(value.getFullYear(), value.getMonth(), value.getDate()).getTime();
-  const daysBefore = Math.round((day(serveDate) - day(date)) / 86400000);
-  if (daysBefore <= 0) return clock;
-  return daysBefore === 1 ? `La veille, ${clock}` : `J-${daysBefore}, ${clock}`;
-}
-
-function servePlanEvents(entries, serveAt) {
-  const events = [];
-  entries.forEach(({ title, timing }) => {
-    const active = timing.active || 0;
-    const cook = timing.cook || 0;
-    const rest = timing.rest || 0;
-    const start = serveAt - (active + cook + rest) * 60000;
-    // Une seule fiche : phrases avec majuscule ; un menu : « Plat : action ».
-    const say = text => (entries.length > 1 ? `${title} : ${text}` : text.charAt(0).toUpperCase() + text.slice(1));
-    events.push({ at: start, label: say('commencer la préparation') });
-    if (cook) events.push({ at: start + active * 60000, label: say('lancer la cuisson') });
-    if (rest) events.push({ at: start + (active + cook) * 60000, label: say(rest >= 480 ? 'laisser reposer la nuit' : `laisser reposer ${formatMinutesShort(rest)}`) });
-  });
-  events.sort((left, right) => left.at - right.at);
-  events.push({ at: serveAt, label: 'Servir' });
-  return events;
-}
-
-function ServeTimePlanner({ entries, className = '' }) {
-  const [value, setValue] = useState('');
-  const [reminders, setReminders] = useState('');
-  const timeoutsRef = useRef([]);
-  const clearReminders = () => {
-    timeoutsRef.current.forEach(id => window.clearTimeout(id));
-    timeoutsRef.current = [];
-  };
-  useEffect(() => clearReminders, []);
-  const longest = Math.max(0, ...entries.map(({ timing }) => (timing.active || 0) + (timing.cook || 0) + (timing.rest || 0)));
-  if (!longest) return null;
-  const serveDate = parseServeTime(value);
-  const events = serveDate ? servePlanEvents(entries, serveDate.getTime()) : [];
-  const late = events.length > 1 && events[0].at < Date.now();
-  const remind = async () => {
-    const allowed = await askKitchenNotifications();
-    clearReminders();
-    if (!allowed) {
-      setReminders('refused');
-      return;
-    }
-    events.filter(event => event.at > Date.now()).forEach((event, index) => {
-      timeoutsRef.current.push(window.setTimeout(
-        () => notifyKitchen(`${formatServeClock(new Date(event.at), serveDate)} · Cook Note`, event.label, `plan-${index}`),
-        event.at - Date.now()
-      ));
-    });
-    setReminders('on');
-  };
-  return h('div', { className: ['serve-planner', className].filter(Boolean).join(' ') },
-    h('div', { className: 'serve-planner-head' },
-      h('label', { className: 'serve-planner-time' },
-        h('span', null, 'Je sers à'),
-        h('input', {
-          type: 'time',
-          value,
-          step: 300,
-          onChange: event => {
-            clearReminders();
-            setReminders('');
-            setValue(event.target.value);
-          }
-        })
-      ),
-      serveDate && KITCHEN_NOTIFICATIONS && h('button', {
-        type: 'button',
-        className: 'serve-planner-remind',
-        disabled: reminders === 'on',
-        onClick: remind
-      }, h(Icon, { name: 'bell' }), h('span', null, reminders === 'on' ? 'Rappels programmés' : reminders === 'refused' ? 'Notifications refusées' : 'Me prévenir'))
-    ),
-    serveDate
-      ? h('ol', { className: 'serve-planner-steps' },
-        events.map((event, index) => h('li', { key: `${event.at}-${index}`, className: event.at < Date.now() ? 'is-past' : '' },
-          h('time', null, formatServeClock(new Date(event.at), serveDate)),
-          h('span', null, event.label)
-        )))
-      : h('p', { className: 'serve-planner-hint' }, 'Choisis l’heure de service : Cook Note calcule quand commencer chaque étape.'),
-    late && h('p', { className: 'serve-planner-hint is-warning' }, 'Trop juste pour cette heure : décale le service ou commence tout de suite.'),
-    reminders === 'on' && h('p', { className: 'serve-planner-hint' }, 'Garde Cook Note ouvert (même en arrière-plan) pour recevoir les rappels.')
-  );
-}
 
 // ---------- Mains libres : commandes vocales du mode mains libres ----------
 // Cook Note ecoute mais ne parle pas : chaque commande comprise est affichee.
@@ -215,21 +104,56 @@ const LOCAL_VOICE_SUPPORTED = typeof WebAssembly === 'object'
   && Boolean(window.AudioContext || window.webkitAudioContext)
   && Boolean(window.navigator?.mediaDevices?.getUserMedia);
 
-// Vocabulaire ecoute : Vosk ne peut reconnaitre que ces mots, « [unk] »
-// absorbe tout le reste (conversation, bruit). Plus fiable qu'une ecoute
-// libre sur des mots courts (« ok », « pause », « dix »). Les mots souvent
-// confondus avec du bruit (« attends », « dis ») sont volontairement absents.
-const VOICE_VOCABULARY = `suivant suivante étape précédent précédente la suite c'est fait j'ai fini
-retour reviens en arrière première dernière début recommence fin annule annuler décoche
-ok okay d'accord compris merci pause reprends reprendre écoute
-tous les ingrédients ingrédient liste matériel technique température quelle four temps restant
-combien de d' du des il reste pour personnes parts double moitié quantités
-minuteur chrono ajoute rajoute encore minute minutes seconde secondes heure heures et demie demi
-arrête stop le au coupe micro terminer quitter ferme va à
-un une deux trois quatre cinq six sept huit neuf dix onze douze treize quatorze quinze seize
-vingt trente quarante cinquante soixante
-sauce pâte pâtes riz gâteau cuisson caramel crème sirop légumes viande poisson œufs tarte
-pain beurre sucre lait chocolat eau farine sel huile`.split(/\s+/).filter(Boolean);
+// Phrases du mode mains libres, ecrites comme on les dit (accents compris) :
+// SEULE source des commandes simples. La reconnaissance (VOICE_COMMANDS) et
+// le vocabulaire ecoute par Vosk (VOICE_VOCABULARY) en sont tires : ajouter
+// une phrase ici suffit. Les commandes avec un nombre ou un nom (minuteurs,
+// portions, « étape 3 ») sont analysees dans parseVoiceCommand.
+const VOICE_PHRASES = {
+  next: ['suivant', 'suivante', 'étape suivante', 'la suite', 'la suivante', 'la prochaine', 'prochaine étape', 'étape d’après', 'et après', 'on continue', 'on avance', 'avance', 'passe', 'passe à la suite', 'passer à la suite', 'on passe à la suite', 'passer à l’étape suivante', 'passe à l’étape suivante', 'on passe à la suivante', 'c’est fait', 'fait', 'c’est bon', 'j’ai fini', 'c’est fini', 'terminé', 'ok suivant', 'vas-y', 'allez', 'continue', 'étape d’après s’il te plaît'],
+  previous: ['précédent', 'précédente', 'étape précédente', 'l’étape d’avant', 'étape d’avant', 'retour', 'reviens', 'revenir', 'reviens en arrière', 'retourne en arrière', 'en arrière', 'recule', 'on recule', 'reviens à l’étape précédente'],
+  first: ['première étape', 'la première étape', 'au début', 'début', 'recommence', 'recommencer', 'retour au début', 'reviens au début', 'depuis le début', 'reprends du début', 'on recommence'],
+  last: ['dernière étape', 'la dernière étape', 'à la fin', 'va à la fin'],
+  undo: ['annule', 'annuler', 'annule ça', 'pas fait', 'décoche', 'décoche l’étape', 'je me suis trompé'],
+  dismiss: ['ok', 'okay', 'oké', 'd’accord', 'compris', 'vu', 'merci', 'c’est noté', 'parfait', 'très bien', 'ferme ça', 'retour à l’étape', 'reviens à l’étape'],
+  listenPause: ['pause', 'pause écoute', 'pause micro', 'mets en pause', 'stop écoute', 'arrête d’écouter un moment'],
+  listenResume: ['reprends', 'reprendre', 'reprends l’écoute', 'on reprend', 'c’est reparti', 'reprise', 'je suis là', 'je reviens'],
+  allIngredients: ['ingrédients', 'ingrédient', 'les ingrédients', 'tous les ingrédients', 'voir les ingrédients', 'montre les ingrédients', 'affiche les ingrédients', 'montre-moi les ingrédients', 'la liste', 'toute la liste', 'liste des ingrédients', 'la liste des ingrédients', 'quels ingrédients', 'il faut quoi', 'qu’est-ce qu’il faut', 'de quoi j’ai besoin'],
+  equipment: ['matériel', 'le matériel', 'quel matériel', 'les ustensiles', 'ustensiles', 'voir le matériel', 'montre le matériel', 'il faut quel matériel'],
+  technique: ['technique', 'la technique', 'montre la technique', 'voir la technique', 'quelle technique', 'comment on fait', 'comment faire', 'explique', 'explique-moi', 'aide-moi'],
+  temperature: ['température', 'quelle température', 'la température', 'température du four', 'le four à combien', 'à combien le four', 'four à combien', 'quelle température le four', 'combien de degrés', 'à quelle température'],
+  remaining: ['temps restant', 'il reste combien', 'il reste combien de temps', 'combien de temps il reste', 'ça sera prêt quand', 'c’est prêt quand', 'on a fini quand', 'fini dans combien de temps', 'temps total', 'durée restante', 'quand est-ce que c’est prêt'],
+  double: ['double', 'double les quantités', 'deux fois plus', 'fois deux', 'multiplie par deux', 'double la recette'],
+  half: ['moitié', 'la moitié', 'divise par deux', 'moitié des quantités', 'deux fois moins', 'demi recette', 'la moitié de la recette'],
+  mute: ['coupe le micro', 'arrête d’écouter', 'arrête l’écoute', 'désactive la voix', 'micro off', 'éteins le micro', 'désactive le micro'],
+  timerStop: ['stop', 'arrête', 'silence', 'ça suffit', 'chut', 'arrête la sonnerie', 'arrête l’alarme', 'coupe la sonnerie', 'coupe l’alarme', 'stop alarme'],
+  close: ['terminer', 'termine', 'quitter', 'quitte', 'ferme', 'fermer', 'fin', 'sortir', 'sors', 'quitte le mode mains libres', 'ferme le mode mains libres', 'on arrête', 'j’ai terminé la recette']
+};
+
+// Mots des commandes avec un nombre ou un nom (minuteurs, portions, etapes).
+const VOICE_STRUCTURE_WORDS = `minuteur minuteurs minuterie chrono alarme sonnerie lance lancer mets met démarre
+programme un une deux trois quatre cinq six sept huit neuf dix onze douze treize quatorze quinze seize vingt
+trente quarante cinquante soixante cent et demie demi quart minute minutes seconde secondes heure heures
+ajoute rajoute ajouter encore plus remets enlève retire enlever retirer moins ôte supprime réduis
+arrête arrêter stoppe coupe annule éteins ferme pause suspends reprends relance redémarre continue
+combien de d' du des la le les l' au aux pour sur il reste temps où en est sont
+personnes personne parts part convives portions pièces on est sera c'est pour
+étape numéro va à aller passe la sauce pâte pâtes riz gâteau cuisson caramel crème sirop légumes viande
+poisson œufs tarte pain beurre sucre lait chocolat eau farine sel huile four`.split(/\s+/).filter(Boolean);
+
+const normalizeVoicePhrase = text => normalizeText(text)
+  .replace(/['’-]/g, ' ')
+  .replace(/[^a-z0-9 ]/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+// Vocabulaire ecoute : Vosk ne reconnait que ces mots, « [unk] » absorbe tout
+// le reste (conversation, bruit) ; plus fiable qu'une ecoute libre sur les
+// mots courts (« ok », « pause », « dix »). Mots absents du modele : ignores.
+const VOICE_VOCABULARY = Array.from(new Set([
+  ...Object.values(VOICE_PHRASES).flat().flatMap(phrase => phrase.toLowerCase().replace(/’/g, '\'').split(/[\s-]+/)),
+  ...VOICE_STRUCTURE_WORDS
+])).filter(Boolean);
 let voiceExtraWords = [];
 
 // Mots de la recette ouverte (ingredients) : minuteur nomme « pour la
@@ -433,28 +357,22 @@ function spokenDurationSeconds(text) {
   return total;
 }
 
-// Commandes : la phrase entiere (moins les politesses) doit correspondre.
-const VOICE_COMMANDS = [
-  ['next', /^(suivant|suivante|etape suivante|la suite|et apres|on continue|continue|c est fait|fait|c est bon|j ai fini|termine l etape)$/],
-  ['previous', /^(precedent|precedente|etape precedente|retour|reviens|reviens en arriere|en arriere)$/],
-  ['first', /^(premiere etape|la premiere etape|au debut|debut|recommence|recommencer|retour au debut|depuis le debut|reprends du debut)$/],
-  ['last', /^(derniere etape|la derniere etape|a la fin|va a la fin)$/],
-  ['undo', /^(annule|annuler|annule ca|pas fait|decoche|decoche l etape|je me suis trompe)$/],
-  ['dismiss', /^(ok|okay|d accord|compris|vu|merci|c est note)$/],
-  ['listenPause', /^(pause|pause ecoute|pause micro|attends|attends moi)$/],
-  ['listenResume', /^(reprends|reprendre|reprends l ecoute|on reprend|c est reparti|je suis la|reprise)$/],
-  ['allIngredients', /^(ingredients?|les ingredients|tous les ingredients|voir les ingredients|montre les ingredients|affiche les ingredients|toute la liste|liste des ingredients|la liste des ingredients|quels ingredients|il faut quoi)$/],
-  ['equipment', /^(materiel|le materiel|quel materiel|les ustensiles|ustensiles|il faut quel materiel|de quoi j ai besoin)$/],
-  ['technique', /^(technique|la technique|montre la technique|quelle technique|comment on fait|comment faire|explique|explique moi)$/],
-  ['temperature', /^(temperature|quelle temperature|la temperature|temperature du four|le four a combien|a combien le four|four a combien|quelle temperature le four)$/],
-  ['remaining', /^(temps restant|il reste combien|il reste combien de temps|combien de temps il reste|ca sera pret quand|c est pret quand|on a fini quand|fini dans combien de temps)$/],
-  ['double', /^(double|double les quantites|deux fois plus|fois deux)$/],
-  ['half', /^(moitie|la moitie|divise par deux|moitie des quantites|deux fois moins)$/],
-  ['mute', /^(coupe le micro|arrete d ecouter|arrete l ecoute|desactive la voix|micro off)$/],
-  // « stop » seul arrete l'alarme d'un minuteur termine.
-  ['timerStop', /^(stop|arrete|silence|ca suffit)$/],
-  ['close', /^(terminer|quitter|ferme|fermer|fin|quitte le mode mains libres|ferme le mode mains libres|sortir)$/]
-];
+// Commandes simples : la phrase entiere (moins les politesses) doit etre une
+// des phrases de VOICE_PHRASES, dans l'ordre de la table.
+const escapeVoiceRegExp = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const VOICE_COMMANDS = Object.entries(VOICE_PHRASES).map(([type, phrases]) => [
+  type,
+  new RegExp(`^(${phrases.map(normalizeVoicePhrase).map(escapeVoiceRegExp).join('|')})$`)
+]);
+// Repli tolerant : la reconnaissance avale ou deforme souvent les petits mots
+// (« passe là suite » pour « passe à la suite ») ; on compare sans eux.
+const VOICE_SMALL_WORDS = /\b(a|la|le|les|l|de|d|du|des|au|aux|un|une|en|et|y)\b/g;
+const voiceSkeleton = text => text.replace(VOICE_SMALL_WORDS, ' ').replace(/\s+/g, ' ').trim();
+const VOICE_SKELETONS = new Map();
+Object.entries(VOICE_PHRASES).forEach(([type, phrases]) => phrases.forEach(phrase => {
+  const key = voiceSkeleton(normalizeVoicePhrase(phrase));
+  if (key && !VOICE_SKELETONS.has(key)) VOICE_SKELETONS.set(key, type);
+}));
 const TIMER_WORD = /\b(minuteurs?|minuterie|chrono|timer|alarme|sonnerie)\b/;
 const DURATION_WORD = /\b(\d+|une?|deux|trois|quatre|cinq|six|sept|huit|neuf|dix|onze|douze|treize|quatorze|quinze|seize|vingt|trente|quarante|cinquante|soixante|demie?|heures?|h|minutes?|min|mn|secondes?|sec|s)\b/g;
 
@@ -472,24 +390,36 @@ function parseVoiceCommand(transcript) {
     .replace(/[^a-z0-9 ]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-  const core = said
-    .replace(/^(ok|okay|alors|bon|euh|cook note|dis|hey)\s+/, '')
-    .replace(/\s+(s il te plait|s il vous plait|stp|merci)$/, '')
-    .trim();
+  // Politesses et formules autour de la commande : « euh tu peux passer a
+  // la suite s'il te plait » -> « passer a la suite ».
+  let core = said;
+  for (let pass = 0; pass < 3; pass += 1) {
+    core = core
+      .replace(/^(ok|okay|alors|bon|euh|hum|cook note|dis|dis moi|hey|he|bon alors|tu peux|tu pourrais|peux tu|est ce que tu peux|je veux|je voudrais|j aimerais|on peut|vas y|allez|stp|s il te plait|maintenant)\s+/, '')
+      .replace(/\s+(s il te plait|s il vous plait|stp|merci|maintenant|please|svp)$/, '')
+      .trim();
+  }
+  // « combien deux temps » : « deux » devant un mot qui n'est pas une
+  // quantite est un « de » mal entendu.
+  core = core.replace(/\bdeux (?!(?:minutes?|heures?|secondes?|personnes?|parts?|portions?|fois|etapes?|convives?|pieces?|et|cent)\b)(?=[a-z]{2,})/g, 'de ');
   if (!core) return null;
   const words = core.split(' ');
   const command = (type, extra = {}) => ({ type, heard: core, ...extra });
   if (words.length <= 9) {
     const timerWord = TIMER_WORD.test(core);
+    // « enleve une minute », « retire 30 secondes au minuteur du riz ».
+    if (/^(enleve|enlever|retire|retirer|moins|ote|reduis|supprime)\b/.test(core) && /\b(minutes?|min|secondes?|heures?)\b/.test(core)) {
+      return command('timerAdd', { seconds: -spokenDurationSeconds(core.replace(/\b(au|du|de la|pour la|pour le) .*$/, '')), name: timerNameFrom(core.replace(/^.*?\b(minuteur|chrono|timer)\b/, '')) });
+    }
     // « ajoute une minute », « encore 5 minutes au minuteur de la sauce ».
-    if (/^(ajoute|rajoute|encore|plus|remets?)\b/.test(core) && /\b(minutes?|min|secondes?|heures?)\b/.test(core)) {
+    if (/^(ajoute|ajouter|rajoute|encore|plus|remets?)\b/.test(core) && /\b(minutes?|min|secondes?|heures?)\b/.test(core)) {
       return command('timerAdd', { seconds: spokenDurationSeconds(core.replace(/\b(au|du|de la|pour la|pour le) .*$/, '')), name: timerNameFrom(core.replace(/^.*?\b(minuteur|chrono|timer)\b/, '')) });
     }
     // Minuteurs en cours : « arrete le minuteur de la sauce », « pause minuteur ».
     if (timerWord && /^(arrete|arreter|stop|stoppe|coupe|annule|eteins|ferme|supprime|enleve)\b/.test(core)) return command('timerStop', { name: timerNameFrom(core.replace(/^.*?\b(minuteur|chrono|timer|alarme)\b/, '')) });
-    if (timerWord && /^(pause|mets en pause|mets pause|suspends?)\b/.test(core)) return command('timerPause', { name: timerNameFrom(core.replace(/^.*?\b(minuteur|chrono|timer)\b/, '')) });
+    if (timerWord && /^(pause|mets en pause|met en pause|mets pause|suspends?)\b/.test(core)) return command('timerPause', { name: timerNameFrom(core.replace(/^.*?\b(minuteur|chrono|timer)\b/, '')) });
     if (timerWord && /^(reprends|reprendre|relance|redemarre|continue)\b/.test(core)) return command('timerResume', { name: timerNameFrom(core.replace(/^.*?\b(minuteur|chrono|timer)\b/, '')) });
-    const left = core.match(/^(?:combien de temps|ou en est le minuteur|ou en sont les minuteurs|le minuteur en est ou)( .*)?$/);
+    const left = core.match(/^(?:combien de temps|il reste combien sur le minuteur|ou en est le minuteur|ou en sont les minuteurs|le minuteur en est ou|temps du minuteur|le minuteur)( .*)?$/);
     if (left && /^ il reste/.test(left[1] || '')) return command('remaining');
     if (left) return command('timerLeft', { name: timerNameFrom(left[1] || '') });
   }
@@ -505,7 +435,9 @@ function parseVoiceCommand(transcript) {
   if (jump && spokenNumber(jump[1])) return command('goto', { step: spokenNumber(jump[1]) });
   if (words.length > 6) return null;
   const match = VOICE_COMMANDS.find(([, pattern]) => pattern.test(core));
-  return match ? command(match[0]) : null;
+  if (match) return command(match[0]);
+  const loose = VOICE_SKELETONS.get(voiceSkeleton(core));
+  return loose ? command(loose) : null;
 }
 // Etiquette d'un minuteur lance a la voix : « 10 min », « 1 h 30 », « 45 s ».
 function formatTimerLabel(seconds) {
@@ -709,6 +641,16 @@ function useHandsFree(enabled, onCommand) {
   return { ...state, retry };
 }
 
+// ---------- Mode mains libres : ambiance de l'etape ----------
+// Lumiere de fond a peine teintee : « heat » (cuire, rotir, frire, poeler…),
+// « cold » (frais, refrigerer, congeler, glacer), sinon « calm ».
+function stepMood(step) {
+  const text = normalizeText(stripHtml(step || ''));
+  if (/\b(refriger|frigo|congel|au frais|glace|glacer|refroidi|bain marie froid)/.test(text)) return 'cold';
+  if (/\b(cui[st]|cuire|rotir|roti|frire|frit|poeler|saisir|griller|four|bouill|mijot|caramelis|dorer|braiser|flamber|snacker)/.test(text)) return 'heat';
+  return 'calm';
+}
+
 // ---------- Mode mains libres : tout tient dans l'ecran ----------
 // Jamais de defilement en mains libres : le contenu (etape, technique, liste
 // d'ingredients) est reduit par paliers (zoom CSS) jusqu'a tenir dans sa
@@ -747,6 +689,46 @@ function useFitToBox(boxRef, contentRef, deps) {
   }, deps);
 }
 
+// ---------- Mode mains libres : fiches d'ouverture ----------
+// Fiches affichees avant l'etape 1, dans cet ordre. Pour en ajouter une :
+// un objet de plus ici (et son equivalent dans RecipeScreen.java pour l'APK).
+//   id          : nom court (classe CSS .is-<id>, tests)
+//   title       : titre de la fiche et du compteur
+//   suggestions : commandes proposees dans la ligne « Dites »
+//   render(view): contenu ; view = { recipe, factor, allIngredients, ingredientRow }
+//   onLeave(view): facultatif, quand on passe a la suite ; view = { markIngredientsReady, note }
+// « suivant » / « précédent » passent d'une fiche a l'autre, puis aux etapes ;
+// le contenu est reduit pour tenir dans l'ecran (useFitToBox).
+const HANDS_FREE_INTRO_PAGES = [
+  {
+    id: 'prep',
+    title: 'Mise en place',
+    suggestions: ({ servings }) => ['suivant', servings ? 'double' : '', servings ? 'moitié' : '', 'pause'].filter(Boolean),
+    // Mise en place faite : tous les ingredients sont prets (coches sur la fiche).
+    onLeave: ({ markIngredientsReady, note }) => {
+      markIngredientsReady();
+      note('Ingrédients prêts');
+    },
+    render: ({ recipe, factor, allIngredients, ingredientRow }) => {
+      const info = getServingInfo(recipe);
+      const target = info ? getServingTarget(recipe, factor) : 0;
+      const sample = info ? (info.base === 6 ? 4 : 6) : 0;
+      return [
+        h('p', { key: 'why', className: 'cook-mode-panel-lead' }, 'Pesez et préparez tous les ingrédients avant de commencer : pendant la recette, les gestes s’enchaînent sans attendre, rien ne brûle pendant qu’on cherche un ingrédient, et on voit tout de suite s’il manque quelque chose.'),
+        info && h('p', { key: 'servings', className: 'cook-mode-prep-servings' },
+          h('strong', null, `Recette prévue pour ${info.base}\u00a0${servingUnitLabel(info, info.base)}`),
+          target !== info.base ? `, quantités ci-dessous pour ${target}\u00a0${servingUnitLabel(info, target)}` : '',
+          `. Pour changer, dites «\u00a0pour ${sample}\u00a0${servingUnitLabel(info, sample)}\u00a0», «\u00a0double\u00a0» ou «\u00a0moitié\u00a0» : toutes les quantités suivent, jusqu’à la dernière étape.`
+        ),
+        ...allIngredients().map(group => h('section', { key: group.key, className: 'cook-mode-panel-group' },
+          group.title && h('h3', null, group.title),
+          h('ul', { className: 'cook-mode-ingredients' }, group.items.map(ingredientRow))
+        ))
+      ];
+    }
+  }
+];
+
 // ---------- Mode mains libres : reponses aux commandes ----------
 // Cook Note ne parle pas : chaque reponse s'affiche (bandeau d'etat ou
 // panneau a la place de l'etape, que « ok » referme).
@@ -772,9 +754,11 @@ function stepTemperature(stepText) {
 }
 
 // Lignes d'aide integrees : les commandes utiles a cet instant, jamais de liste complete.
-function voiceSuggestions({ step, index, total, paused, panel, timers, techniques, temperature }) {
+function voiceSuggestions({ step, index, total, paused, panel, intro, finished, servings, timers, techniques, temperature }) {
+  if (finished) return ['ok'];
   if (paused) return ['reprends'];
   if (panel) return ['ok'];
+  if (intro) return intro.suggestions({ servings });
   const duration = findStepDurations(stripHtml(step))[0];
   return [
     index < total - 1 ? 'suivant' : 'terminer',
@@ -791,7 +775,7 @@ function voiceSuggestions({ step, index, total, paused, panel, timers, technique
 
 // Toutes les commandes du mode mains libres. ctx : etat et actions de la vue.
 function runCookVoiceCommand(command, ctx) {
-  const { index, total, steps, title, go, advance, undoLast, onClose, note, setPanel, setPaused, setEnabled, recipe, factor, setFactor } = ctx;
+  const { index, total, steps, title, go, advance, back, undoLast, onClose, note, setPanel, setPaused, setEnabled, recipe, factor, setFactor, prep, atStart, skipIntro } = ctx;
   const timerName = command.name ? ` (${command.name})` : '';
   const servingInfo = typeof getServingInfo === 'function' ? getServingInfo(recipe) : null;
   const applyFactor = next => {
@@ -807,29 +791,36 @@ function runCookVoiceCommand(command, ctx) {
   switch (command.type) {
     case 'next':
       setPanel(null);
+      if (prep) {
+        advance();
+        break;
+      }
       note(index >= total - 1 ? 'Recette terminée' : 'Étape suivante');
       advance();
       break;
     case 'previous':
       setPanel(null);
-      if (index === 0) note('Déjà à la première étape', 'info');
+      if (atStart) note('Déjà au début', 'info');
       else {
-        note('Étape précédente');
-        go(index - 1);
+        note('Retour');
+        back();
       }
       break;
     case 'first':
       setPanel(null);
+      skipIntro();
       note(index === 0 ? 'Déjà à la première étape' : 'Première étape', index === 0 ? 'info' : 'ok');
       go(0);
       break;
     case 'last':
       setPanel(null);
+      skipIntro();
       note(index === total - 1 ? 'Déjà à la dernière étape' : 'Dernière étape', index === total - 1 ? 'info' : 'ok');
       go(total - 1);
       break;
     case 'goto':
       setPanel(null);
+      skipIntro();
       if (command.step >= 1 && command.step <= total) {
         note(`Étape ${command.step}`);
         go(command.step - 1);
@@ -917,7 +908,7 @@ function runCookVoiceCommand(command, ctx) {
     }
     case 'timerAdd': {
       if (!command.seconds) {
-        note('Durée non comprise : dites « ajoute une minute »', 'info', 4000);
+        note('Durée non comprise : dites « ajoute une minute » ou « enlève une minute »', 'info', 4000);
         break;
       }
       if (!kitchenTimersNamed(command.name)) {
@@ -925,11 +916,18 @@ function runCookVoiceCommand(command, ctx) {
         break;
       }
       controlKitchenTimers('add', { name: command.name, seconds: command.seconds });
-      note(`${frenchUnitSpacing(formatTimerLabel(command.seconds))} ajoutée${[1, 60, 3600].includes(command.seconds) ? '' : 's'}${timerName}`);
+      const amount = frenchUnitSpacing(formatTimerLabel(Math.abs(command.seconds)));
+      const plural = [1, 60, 3600].includes(Math.abs(command.seconds)) ? '' : 's';
+      note(`${amount} ${command.seconds > 0 ? 'ajoutée' : 'enlevée'}${plural}${timerName}`);
       break;
     }
     case 'timerLeft': {
       const running = kitchenTimersLeft(command.name);
+      // Aucun minuteur : « combien de temps » parle de la recette.
+      if (!running.length && !command.name) {
+        runCookVoiceCommand({ type: 'remaining', heard: command.heard }, ctx);
+        break;
+      }
       if (!running.length) note(`Aucun minuteur en cours${timerName}`, 'info');
       else note(running.map(timer => `${timer.label ? `${frenchUnitSpacing(timer.label)} : ` : ''}${formatTimerClock(timer.seconds)}${timer.paused ? ' (pause)' : ''}`).join(' · '), 'ok', 5000);
       break;
@@ -950,4 +948,469 @@ function runCookVoiceCommand(command, ctx) {
     default:
       break;
   }
+}
+
+// ---------- Constellation des saveurs ----------
+// Carte du ciel ludique : chaque ingredient courant est une etoile (plus il
+// sert, plus elle brille), les ingredients souvent cuisines ensemble sont
+// relies en constellations. On s'y promene (glisser, molette, boutons, deux
+// doigts), une etoile touchee trace sa constellation et ouvre ses recettes.
+// Calcule depuis le catalogue leger (ingredients des fiches), sans reseau.
+const CONSTELLATION_SIZE = { width: 1600, height: 1000 };
+const CONSTELLATION_PORTRAIT = { width: 1000, height: 1600 };
+const constellationSize = () => (window.innerHeight > window.innerWidth * 1.1 ? CONSTELLATION_PORTRAIT : CONSTELLATION_SIZE);
+const CONSTELLATION_STARS = 46;
+const CONSTELLATION_SKIP = new Set(['sel', 'poivre', 'eau', 'sel fin', 'poivre noir', 'huile', 'glacons', 'eau froide', 'eau chaude']);
+const CONSTELLATION_PAIRS = new Set(['huile', 'sauce', 'pate', 'creme', 'beurre', 'sucre', 'fromage', 'pomme', 'pommes', 'vinaigre', 'jus', 'zeste', 'pain', 'farine', 'lait', 'fond', 'poudre', 'fleur', 'citron', 'feuille', 'feuilles', 'graines', 'noix', 'pois', 'haricots', 'oignon', 'oignons', 'chou', 'riz']);
+// Mots de tete a sauter (« petite gousse d'ail » -> ail).
+const CONSTELLATION_LEAD = new Set(['de', 'du', 'des', 'la', 'le', 'les', 'un', 'une', 'petit', 'petite', 'petites', 'petits', 'gros', 'grosse', 'grosses', 'belle', 'belles', 'gousse', 'gousses', 'branche', 'branches', 'brin', 'brins', 'pincee', 'pincees', 'base', 'botte', 'tranche', 'tranches', 'morceau', 'morceaux', 'filet', 'trait', 'cuillere', 'cuilleres', 'soupe', 'cafe', 'cs', 'cc', 'sachet', 'sachets', 'verre', 'tasse', 'boite', 'feuille', 'feuilles', 'quelques', 'reste']);
+// Une seule etoile par ingredient (jaunes, blancs, oeuf -> oeufs).
+const CONSTELLATION_ALIASES = {
+  oeuf: 'oeufs', jaune: 'oeufs', jaunes: 'oeufs', blanc: 'oeufs', blancs: 'oeufs',
+  'beurre fondu': 'beurre', 'beurre pommade': 'beurre', 'beurre doux': 'beurre', 'beurre demi': 'beurre', 'beurre froid': 'beurre',
+  oignons: 'oignon', tomate: 'tomates', carotte: 'carottes', echalotes: 'echalote', citrons: 'citron',
+  'sucre semoule': 'sucre', 'sucre poudre': 'sucre', 'creme liquide': 'creme', 'creme entiere': 'creme', 'creme epaisse': 'creme',
+  'farine t': 'farine', 'lait entier': 'lait', 'huile tournesol': 'huile neutre', 'huile pepins': 'huile neutre'
+};
+// Familles de saveurs : chacune a sa lumiere dans le ciel.
+const CONSTELLATION_FAMILIES = [
+  { id: 'douceur', label: 'Douceurs', keys: ['sucre', 'sucre glace', 'cassonade', 'chocolat', 'cacao', 'vanille', 'miel', 'lait', 'creme', 'beurre', 'oeufs', 'farine', 'levure', 'fecule', 'amandes', 'cafe'] },
+  { id: 'jardin', label: 'Herbes & agrumes', keys: ['basilic', 'persil', 'thym', 'romarin', 'laurier', 'coriandre', 'ciboulette', 'menthe', 'aneth', 'citron', 'jus citron', 'zeste citron', 'citron vert', 'echalote', 'oignon', 'ail', 'carottes'] },
+  { id: 'feu', label: 'Épices & feu', keys: ['piment', 'paprika', 'cumin', 'gingembre', 'chorizo', 'poivron', 'concentre', 'tomates', 'moutarde', 'curry', 'harissa', 'sauce soja', 'noix muscade'] }
+];
+const CONSTELLATION_GLOWS = { douceur: '#f3cf86', jardin: '#a9e3d2', feu: '#f2a28f', terre: '#e9dcc4' };
+const constellationFamily = key => (CONSTELLATION_FAMILIES.find(family => family.keys.includes(key)) || { id: 'terre' }).id;
+const CONSTELLATION_LABELS = {
+  oeufs: 'œufs', creme: 'crème', fecule: 'fécule', 'pommes terre': 'pommes de terre', 'jus citron': 'jus de citron',
+  'zeste citron': 'zeste de citron', 'fleur sel': 'fleur de sel', 'huile olive': 'huile d’olive', echalote: 'échalote',
+  'sucre glace': 'sucre glace', 'noix muscade': 'noix de muscade', 'pate feuilletee': 'pâte feuilletée', pates: 'pâtes',
+  'creme fraiche': 'crème fraîche', gingembre: 'gingembre', coriandre: 'coriandre', 'vinaigre vin': 'vinaigre de vin',
+  'sauce soja': 'sauce soja', 'graines sesame': 'graines de sésame', 'huile sesame': 'huile de sésame', cafe: 'café', concentre: 'concentré de tomate', chapelure: 'chapelure'
+};
+const CONSTELLATION_DROP = /\b(frais|fraiche|fraiches|hache|hachee|haches|emince|emincee|coupe|coupee|en|de|d|du|des|la|le|les|pour|au|aux|a|bien|mur|mure|doux|douce|fin|fine|gros|grosse|petit|petite|sec|seche|moulu|moulue|rape|rapee|entier|entiere|liquide|bio|maison|environ|facultatif|ou)\b/g;
+
+function constellationKey(item) {
+  const text = stripHtml(String(item || ''));
+  const parts = typeof splitIngredientQuantity === 'function' ? splitIngredientQuantity(text) : null;
+  const name = normalizeText(parts ? parts.name : text)
+    .replace(/\(.*?\)/g, ' ')
+    .split(/[,;:]/)[0]
+    .replace(/['’-]/g, ' ')
+    .replace(/[^a-z ]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const words = name.split(' ').filter(word => word.length > 1);
+  while (words.length > 1 && CONSTELLATION_LEAD.has(words[0])) words.shift();
+  if (!words.length || CONSTELLATION_LEAD.has(words[0])) return '';
+  const first = words[0];
+  let key = first;
+  if (CONSTELLATION_PAIRS.has(first) && words[1]) {
+    const second = words.slice(1).join(' ').replace(CONSTELLATION_DROP, ' ').trim().split(' ')[0];
+    if (second) key = `${first} ${second}`;
+  }
+  return CONSTELLATION_ALIASES[key] || CONSTELLATION_ALIASES[first] || key;
+}
+
+function constellationLabel(key) {
+  const label = CONSTELLATION_LABELS[key] || key;
+  return label.charAt(0).toUpperCase() + label.slice(1);
+}
+
+// Pseudo-hasard stable (meme ciel a chaque ouverture).
+function seededRandom(seed) {
+  let value = seed >>> 0 || 1;
+  return () => {
+    value = (value * 1664525 + 1013904223) >>> 0;
+    return value / 4294967296;
+  };
+}
+
+function hashText(text) {
+  let hash = 2166136261;
+  for (let index = 0; index < text.length; index += 1) hash = Math.imul(hash ^ text.charCodeAt(index), 16777619);
+  return hash >>> 0;
+}
+
+function buildConstellation(recipes, size = CONSTELLATION_SIZE) {
+  const uses = new Map();
+  const leaves = (recipes || []).filter(recipe => recipe && !(recipe.variants || []).length && (recipe.ingredients || []).length);
+  leaves.forEach(recipe => {
+    const keys = new Set((recipe.ingredients || []).flatMap(group => group.items || []).map(constellationKey).filter(key => key && !CONSTELLATION_SKIP.has(key)));
+    keys.forEach(key => {
+      if (!uses.has(key)) uses.set(key, []);
+      uses.get(key).push(recipe);
+    });
+  });
+  const stars = [...uses.entries()]
+    .filter(([, list]) => list.length >= 3)
+    .sort((left, right) => right[1].length - left[1].length)
+    .slice(0, CONSTELLATION_STARS)
+    .map(([key, list]) => ({ key, label: constellationLabel(key), recipes: list, count: list.length }));
+  const index = new Map(stars.map((star, position) => [star.key, position]));
+  // Liens : les deux voisins les plus souvent cuisines avec chaque etoile.
+  const together = stars.map(() => new Map());
+  stars.forEach((star, position) => {
+    const ids = new Set(star.recipes.map(recipe => recipe.id));
+    stars.forEach((other, otherPosition) => {
+      if (otherPosition === position) return;
+      const shared = other.recipes.filter(recipe => ids.has(recipe.id)).length;
+      if (shared >= 2) together[position].set(otherPosition, shared / Math.sqrt(star.count * other.count));
+    });
+  });
+  const links = new Map();
+  together.forEach((neighbours, position) => {
+    [...neighbours.entries()].sort((a, b) => b[1] - a[1]).slice(0, 2).forEach(([other, strength]) => {
+      const id = position < other ? `${position}-${other}` : `${other}-${position}`;
+      if (!links.has(id)) links.set(id, { a: Math.min(position, other), b: Math.max(position, other), strength });
+    });
+  });
+  // Placement : graines stables puis quelques passes de ressorts / repulsion.
+  const { width, height } = size;
+  const random = seededRandom(hashText(stars.map(star => star.key).join('|')));
+  stars.forEach(star => {
+    star.x = width * (0.12 + random() * 0.76);
+    star.y = height * (0.14 + random() * 0.72);
+  });
+  const linkList = [...links.values()];
+  for (let pass = 0; pass < 220; pass += 1) {
+    const cooling = 1 - pass / 220;
+    stars.forEach((star, a) => {
+      let fx = 0;
+      let fy = 0;
+      stars.forEach((other, b) => {
+        if (a === b) return;
+        const dx = star.x - other.x;
+        const dy = star.y - other.y;
+        const distance = Math.max(30, Math.hypot(dx, dy));
+        const push = 9000 / (distance * distance);
+        fx += (dx / distance) * push;
+        fy += (dy / distance) * push;
+      });
+      fx += (width / 2 - star.x) * 0.002;
+      fy += (height / 2 - star.y) * 0.002;
+      star.vx = fx;
+      star.vy = fy;
+    });
+    linkList.forEach(({ a, b }) => {
+      const first = stars[a];
+      const second = stars[b];
+      const dx = second.x - first.x;
+      const dy = second.y - first.y;
+      const distance = Math.max(1, Math.hypot(dx, dy));
+      const pull = (distance - 150) * 0.02;
+      first.vx += (dx / distance) * pull;
+      first.vy += (dy / distance) * pull;
+      second.vx -= (dx / distance) * pull;
+      second.vy -= (dy / distance) * pull;
+    });
+    stars.forEach(star => {
+      star.x = Math.min(width * 0.94, Math.max(width * 0.06, star.x + star.vx * 6 * cooling));
+      star.y = Math.min(height * 0.92, Math.max(height * 0.08, star.y + star.vy * 6 * cooling));
+    });
+  }
+  // Le ciel remplit tout le cadre, quelle que soit la forme de l'ecran.
+  if (stars.length > 1) {
+    const xs = stars.map(star => star.x);
+    const ys = stars.map(star => star.y);
+    const [minX, maxX, minY, maxY] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+    stars.forEach(star => {
+      star.x = width * 0.1 + (star.x - minX) / Math.max(1, maxX - minX) * width * 0.8;
+      star.y = height * 0.15 + (star.y - minY) / Math.max(1, maxY - minY) * height * (width > height ? 0.62 : 0.7);
+    });
+  }
+  // Les noms ne se chevauchent jamais : on ecarte les etiquettes qui se touchent.
+  const glyph = width > height ? 8.4 : 13.4;
+  const lineGap = width > height ? 34 : 48;
+  for (let pass = 0; pass < 140; pass += 1) {
+    let moved = false;
+    stars.forEach((star, a) => stars.forEach((other, b) => {
+      if (b <= a) return;
+      const dx = other.x - star.x;
+      const dy = other.y - star.y;
+      const needX = (star.label.length + other.label.length) * glyph / 2 + 14;
+      if (Math.abs(dx) >= needX || Math.abs(dy) >= lineGap) return;
+      moved = true;
+      const pushX = (needX - Math.abs(dx)) / needX;
+      const pushY = (lineGap - Math.abs(dy)) / lineGap;
+      // On pousse sur l'axe le moins couteux.
+      if (pushY * lineGap < pushX * needX) {
+        const shift = (lineGap - Math.abs(dy)) / 2 + 1;
+        const sign = dy >= 0 ? 1 : -1;
+        star.y -= shift * sign;
+        other.y += shift * sign;
+      } else {
+        const shift = (needX - Math.abs(dx)) / 2 + 1;
+        const sign = dx >= 0 ? 1 : -1;
+        star.x -= shift * sign;
+        other.x += shift * sign;
+      }
+    }));
+    stars.forEach(star => {
+      const half = Math.max(width * 0.05, star.label.length * glyph / 2 + 12);
+      star.x = Math.min(width - half, Math.max(half, star.x));
+      star.y = Math.min(height * (width > height ? 0.8 : 0.88), Math.max(height * 0.13, star.y));
+    });
+    if (!moved) break;
+  }
+  const top = stars[0]?.count || 1;
+  stars.forEach(star => {
+    star.size = 2.2 + 5.2 * Math.sqrt(star.count / top);
+    star.twinkle = (hashText(star.key) % 70) / 10;
+    star.family = constellationFamily(star.key);
+  });
+  // Poussiere d'etoiles du fond (fixe, stable).
+  const dust = Array.from({ length: 260 }, () => ({
+    x: random() * width,
+    y: random() * height,
+    r: random() < 0.92 ? 0.4 + random() * 0.8 : 1.2 + random() * 0.8,
+    o: 0.2 + random() * 0.6,
+    d: random() * 6
+  }));
+  return { stars, links: linkList, dust, index, size };
+}
+
+function FlavorConstellation({ open, onClose, recipes, openRecipe }) {
+  const sky = useMemo(() => (open ? buildConstellation(recipes, constellationSize()) : null), [open, recipes]);
+  const [selected, setSelected] = useState(-1);
+  const [hovered, setHovered] = useState(-1);
+  const [view, setView] = useState({ x: 0, y: 0, scale: 1 });
+  const [shooting, setShooting] = useState(null);
+  const dragRef = useRef(null);
+  const svgRef = useRef(null);
+  const parallaxRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    setSelected(-1);
+    setView({ x: 0, y: 0, scale: 1 });
+    const onKey = event => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', onKey, true);
+    const html = document.documentElement;
+    const previous = html.style.overflow;
+    html.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey, true);
+      html.style.overflow = previous;
+    };
+  }, [open]);
+
+  // Etoiles filantes, de temps en temps (rien si animations reduites).
+  useEffect(() => {
+    if (!open || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    let timer = 0;
+    const launch = () => {
+      const random = Math.random;
+      setShooting({ id: Date.now(), x: 200 + random() * 1100, y: 60 + random() * 320, angle: 18 + random() * 22 });
+      timer = window.setTimeout(launch, 5000 + Math.random() * 7000);
+    };
+    timer = window.setTimeout(launch, 1800);
+    return () => window.clearTimeout(timer);
+  }, [open]);
+
+  // Le ciel suit tres legerement la souris ou l'inclinaison du telephone.
+  useEffect(() => {
+    if (!open || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    let frame = 0;
+    const apply = (px, py) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        parallaxRef.current?.style.setProperty('--sky-x', px.toFixed(3));
+        parallaxRef.current?.style.setProperty('--sky-y', py.toFixed(3));
+      });
+    };
+    const onMove = event => apply(event.clientX / innerWidth - 0.5, event.clientY / innerHeight - 0.5);
+    const onTilt = event => apply(Math.max(-0.5, Math.min(0.5, (event.gamma || 0) / 60)), Math.max(-0.5, Math.min(0.5, ((event.beta || 0) - 45) / 60)));
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('deviceorientation', onTilt);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('deviceorientation', onTilt);
+    };
+  }, [open]);
+
+  if (!open || !sky) return null;
+  const { width, height } = sky.size;
+  const active = selected >= 0 ? selected : hovered;
+  const linked = new Set();
+  if (active >= 0) {
+    linked.add(active);
+    sky.links.forEach(({ a, b }) => {
+      if (a === active) linked.add(b);
+      if (b === active) linked.add(a);
+    });
+  }
+  const star = selected >= 0 ? sky.stars[selected] : null;
+  // Telephone : l'etoile choisie remonte au-dessus de la fiche.
+  const pickStar = position => {
+    const next = selected === position ? -1 : position;
+    setSelected(next);
+    if (next < 0) return;
+    // La camera glisse vers l'etoile (a droite de la fiche sur grand ecran, au-dessus sur telephone).
+    const target = sky.stars[next];
+    const portrait = width < height;
+    const goal = portrait ? { x: width / 2, y: height * 0.3 } : { x: width * 0.6, y: height / 2 };
+    setView(current => ({ ...current, x: (goal.x - width / 2) / current.scale + width / 2 - target.x, y: (goal.y - height / 2) / current.scale + height / 2 - target.y }));
+  };
+  const zoom = factor => setView(current => ({ ...current, scale: Math.min(3, Math.max(0.7, current.scale * factor)) }));
+  // Deplacement : glisser (souris, un doigt), zoom : molette ou deux doigts.
+  const onPointerDown = event => {
+    if (event.target.closest('.constellation-star')) return;
+    dragRef.current = { x: event.clientX, y: event.clientY, view, pointers: dragRef.current?.pointers || new Map() };
+    dragRef.current.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
+  const onPointerMove = event => {
+    const drag = dragRef.current;
+    if (!drag || !drag.pointers.has(event.pointerId)) return;
+    drag.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    const rect = svgRef.current.getBoundingClientRect();
+    const unit = width / rect.width;
+    if (drag.pointers.size === 2) {
+      const [p1, p2] = [...drag.pointers.values()];
+      const distance = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+      if (!drag.pinch) drag.pinch = { distance, scale: view.scale };
+      setView(current => ({ ...current, scale: Math.min(3, Math.max(0.7, drag.pinch.scale * distance / drag.pinch.distance)) }));
+      return;
+    }
+    setView({ ...drag.view, x: drag.view.x + (event.clientX - drag.x) * unit / drag.view.scale, y: drag.view.y + (event.clientY - drag.y) * unit / drag.view.scale });
+  };
+  const onPointerUp = event => {
+    const drag = dragRef.current;
+    if (!drag) return;
+    drag.pointers.delete(event.pointerId);
+    if (!drag.pointers.size) dragRef.current = null;
+    else drag.pinch = null;
+  };
+  const transform = `translate(${width / 2}px, ${height / 2}px) scale(${view.scale}) translate(${-width / 2 + view.x}px, ${-height / 2 + view.y}px)`;
+  const name = star ? 'Constellation' : '';
+
+  return ReactDOM.createPortal(h('div', { className: 'constellation', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Constellation des saveurs', ref: parallaxRef },
+    h('div', { className: 'constellation-nebula', 'aria-hidden': 'true' }),
+    h('header', { className: 'constellation-head' },
+      h('div', null,
+        h('small', null, 'Cook Note'),
+        h('h2', null, 'Constellation des saveurs')
+      ),
+      h('button', { type: 'button', className: 'constellation-close', onClick: onClose, 'aria-label': 'Fermer la constellation' }, h(Icon, { name: 'close' }))
+    ),
+    h('svg', {
+      ref: svgRef,
+      className: width < height ? 'constellation-sky is-portrait' : 'constellation-sky',
+      viewBox: `0 0 ${width} ${height}`,
+      preserveAspectRatio: 'xMidYMid meet',
+      onPointerDown,
+      onPointerMove,
+      onPointerUp,
+      onPointerCancel: onPointerUp,
+      onWheel: event => zoom(event.deltaY < 0 ? 1.12 : 1 / 1.12),
+      onClick: event => {
+        if (!event.target.closest('.constellation-star')) setSelected(-1);
+      }
+    },
+      h('defs', null,
+        Object.entries(CONSTELLATION_GLOWS).map(([family, color]) => h('radialGradient', { key: family, id: `cn-glow-${family}` },
+          h('stop', { offset: '0%', stopColor: '#fffaf0', stopOpacity: 1 }),
+          h('stop', { offset: '28%', stopColor: color, stopOpacity: 0.5 }),
+          h('stop', { offset: '100%', stopColor: color, stopOpacity: 0 })
+        )),
+        h('radialGradient', { id: 'cn-milky' },
+          h('stop', { offset: '0%', stopColor: '#c9b8ff', stopOpacity: 0.16 }),
+          h('stop', { offset: '45%', stopColor: '#7d8cd8', stopOpacity: 0.07 }),
+          h('stop', { offset: '100%', stopColor: '#0b1022', stopOpacity: 0 })
+        ),
+        h('radialGradient', { id: 'cn-ember' },
+          h('stop', { offset: '0%', stopColor: '#f0b27a', stopOpacity: 0.12 }),
+          h('stop', { offset: '100%', stopColor: '#f0b27a', stopOpacity: 0 })
+        )
+      ),
+      // Voie lactee : un voile tres doux qui traverse le ciel en diagonale.
+      h('g', { className: 'constellation-milky', 'aria-hidden': 'true' },
+        h('ellipse', { cx: width * 0.5, cy: height * 0.5, rx: Math.max(width, height) * 0.62, ry: Math.min(width, height) * 0.16, fill: 'url(#cn-milky)', transform: `rotate(${width > height ? -18 : -62} ${width / 2} ${height / 2})` }),
+        h('ellipse', { cx: width * 0.28, cy: height * 0.7, rx: width * 0.22, ry: height * 0.16, fill: 'url(#cn-ember)' }),
+        h('ellipse', { cx: width * 0.76, cy: height * 0.26, rx: width * 0.2, ry: height * 0.14, fill: 'url(#cn-milky)' })
+      ),
+      h('g', { className: 'constellation-dust' },
+        sky.dust.map((dot, position) => h('circle', { key: position, cx: dot.x, cy: dot.y, r: dot.r, style: { opacity: dot.o, animationDelay: `${dot.d}s` }, className: position % 9 === 0 ? 'is-twinkle' : '' }))
+      ),
+      shooting && h('line', { key: shooting.id, className: 'constellation-shooting', x1: shooting.x, y1: shooting.y, x2: shooting.x + 200, y2: shooting.y + 200 * Math.tan((shooting.angle * Math.PI) / 180), pathLength: 1 }),
+      h('g', { style: { transform }, className: dragRef.current ? 'constellation-world is-dragging' : 'constellation-world' },
+        sky.links.map(({ a, b }) => {
+          const lit = active >= 0 && (a === active || b === active);
+          return h('line', {
+            key: `${a}-${b}-${lit ? active : 'n'}`,
+            className: lit ? 'constellation-link is-lit' : 'constellation-link',
+            x1: sky.stars[a].x, y1: sky.stars[a].y, x2: sky.stars[b].x, y2: sky.stars[b].y,
+            pathLength: 1
+          });
+        }),
+        sky.stars.map((item, position) => {
+          const state = position === active ? 'is-active' : active >= 0 && !linked.has(position) ? 'is-dim' : linked.has(position) ? 'is-linked' : '';
+          return h('g', {
+            key: item.key,
+            className: `constellation-star is-${item.family} ${state}`,
+            transform: `translate(${item.x} ${item.y})`,
+            tabIndex: 0,
+            role: 'button',
+            'aria-label': `${item.label} : ${item.count} recettes`,
+            onPointerEnter: () => setHovered(position),
+            onPointerLeave: () => setHovered(-1),
+            onFocus: () => setHovered(position),
+            onBlur: () => setHovered(-1),
+            onClick: () => pickStar(position),
+            onKeyDown: event => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                pickStar(position);
+              }
+            },
+            style: { animationDelay: `${item.twinkle}s` }
+          },
+            // Naissance des etoiles : les plus brillantes s'allument d'abord.
+            h('g', { className: 'constellation-body', style: { animationDelay: `${0.25 + position * 0.045}s` } },
+              h('circle', { className: 'constellation-halo', r: item.size * 4.2, fill: `url(#cn-glow-${item.family})`, style: { animationDelay: `${item.twinkle}s` } }),
+              position < 7 && h('g', { className: 'constellation-spikes', style: { animationDelay: `${item.twinkle}s` } },
+                h('line', { x1: -item.size * 7, x2: item.size * 7, y1: 0, y2: 0 }),
+                h('line', { y1: -item.size * 7, y2: item.size * 7, x1: 0, x2: 0 })
+              ),
+              position === active && h('circle', { key: `ripple-${active}`, className: 'constellation-ripple', r: item.size * 2 }),
+              h('circle', { className: 'constellation-core', r: item.size }),
+              h('circle', { className: 'constellation-hit', r: Math.max(22, item.size * 3) }),
+              h('text', { className: 'constellation-label', y: item.size * 4.2 + 14, textAnchor: 'middle' }, item.label)
+            )
+          );
+        })
+      )
+    ),
+    h('div', { className: 'constellation-zoom' },
+      h('button', { type: 'button', onClick: () => zoom(1.25), 'aria-label': 'Rapprocher' }, '+'),
+      h('button', { type: 'button', onClick: () => zoom(1 / 1.25), 'aria-label': 'Éloigner' }, '−'),
+      h('button', { type: 'button', onClick: () => setView({ x: 0, y: 0, scale: 1 }), 'aria-label': 'Recentrer' }, '◎')
+    ),
+    star
+      ? h('aside', { key: star.key, className: 'constellation-card', 'aria-live': 'polite' },
+        h('small', null, name),
+        h('h3', null, star.label),
+        h('p', null, `${star.count} recette${star.count > 1 ? 's' : ''} l’utilisent`),
+        h('div', { className: 'constellation-accords' },
+          h('span', null, 'Accords'),
+          [...linked].filter(position => position !== selected).map(position => h('button', { key: position, type: 'button', className: `is-${sky.stars[position].family}`, onClick: () => pickStar(position) }, sky.stars[position].label))
+        ),
+        h('ul', null, star.recipes.slice(0, 8).map(recipe => h('li', { key: recipe.id },
+          h('button', { type: 'button', onClick: () => { onClose(); openRecipe(recipe.id); } }, recipe.title)
+        ))),
+        star.recipes.length > 8 && h('p', { className: 'constellation-more' }, `et ${star.recipes.length - 8} autres`)
+      )
+      : h('div', { className: 'constellation-hint' },
+        h('p', null, 'Touchez une étoile pour révéler sa constellation'),
+        h('ul', { className: 'constellation-legend' }, [...CONSTELLATION_FAMILIES, { id: 'terre', label: 'Fondamentaux' }].map(family => h('li', { key: family.id, className: `is-${family.id}` }, family.label))),
+        h('button', { type: 'button', className: 'constellation-surprise', onClick: () => pickStar(Math.floor(Math.random() * sky.stars.length)) }, h(Icon, { name: 'spark' }), 'Une étoile au hasard')
+      )
+  ), document.body);
 }

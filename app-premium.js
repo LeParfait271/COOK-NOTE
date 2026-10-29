@@ -1356,10 +1356,8 @@
     ctx.font = '900 28px system-ui, -apple-system, Segoe UI, sans-serif';
     ctx.fillText(metaText, 72, preset.metaY);
     if (qrReady && qrCanvas) {
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(preset.qrX, preset.qrY, preset.qrBox, preset.qrBox);
-      const offset = Math.round((preset.qrBox - preset.qrSize) / 2);
-      ctx.drawImage(qrCanvas, preset.qrX + offset, preset.qrY + offset, preset.qrSize, preset.qrSize);
+      // Le QR fait main porte deja son fond ivoire arrondi et sa marge.
+      ctx.drawImage(qrCanvas, preset.qrX, preset.qrY, preset.qrBox, preset.qrBox);
     }
     const link = document.createElement('a');
     link.download = `cook-note-${safeDownloadName(title)}-${format}.png`;

@@ -20,8 +20,11 @@ const APP_PREMIUM_FILE = path.join(ROOT, 'app-premium.js');
 const ANDROID_GRADLE_PROPERTIES_FILE = path.join(ROOT, 'android-legacy', 'gradle.properties');
 const MAX_IMAGE_WIDTH = 480;
 const DETAIL_IMAGE_WIDTH = 960;
-const JPEG_QUALITY = 80;
-const DETAIL_JPEG_QUALITY = 80;
+// Compression des images de l'APK (toutes, y compris les recettes a venir :
+// elles sont reencodees a chaque build). 72/70 : invisible sur tablette,
+// environ un tiers de poids en moins ; l'APK publie doit rester sous 100 Mo.
+const JPEG_QUALITY = 72;
+const DETAIL_JPEG_QUALITY = 70;
 const ENCODING_SUSPECT_RE = /(?:\u00c3[\u0080-\u00bf]|\u00c2[\u00a0-\u00bf]|\u00e2[\u0080-\u00bf\u20ac-\u2122]|\uFFFD)/;
 const WINDOWS_1252_BYTE_BY_CODEPOINT = new Map([
   [0x20AC, 0x80],

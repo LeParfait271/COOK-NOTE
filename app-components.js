@@ -71,6 +71,9 @@ const ICON_PATHS = {
     'M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2',
     'M7 14h10v7H7z'
   ],
+  check: [
+    'M5 12.5l4.2 4.2L19 7'
+  ],
   copy: [
     'M8 8h10v12H8z',
     'M6 16H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2',
@@ -469,39 +472,9 @@ function playKitchenChime() {
   });
 }
 
-// Notifications systeme (minuteurs, planning du service) : demandees au premier
-// geste qui en a besoin, affichees par le service worker (visibles meme quand
-// l'onglet est en arriere-plan). Sans serveur, il faut que Cook Note reste ouvert.
-const KITCHEN_NOTIFICATIONS = typeof window !== 'undefined' && 'Notification' in window;
-
-function askKitchenNotifications() {
-  if (!KITCHEN_NOTIFICATIONS || Notification.permission !== 'default') return Promise.resolve(KITCHEN_NOTIFICATIONS && Notification.permission === 'granted');
-  return Notification.requestPermission().then(result => result === 'granted').catch(() => false);
-}
-
-async function notifyKitchen(title, body, tag) {
-  if (!KITCHEN_NOTIFICATIONS || Notification.permission !== 'granted') return;
-  const options = { body, tag, renotify: true, icon: '/assets/brand/icon-192.png?v=2', badge: '/assets/brand/icon-192.png?v=2', vibrate: [320, 140, 320] };
-  try {
-    const registration = await navigator.serviceWorker?.getRegistration?.();
-    if (registration) {
-      await registration.showNotification(title, options);
-      return;
-    }
-  } catch {
-    /* Repli ci-dessous. */
-  }
-  try {
-    new Notification(title, options);
-  } catch {
-    /* Notifications indisponibles. */
-  }
-}
-
 function startKitchenTimer({ seconds, label, title = '' }) {
   if (!seconds) return;
   unlockKitchenAudio();
-  askKitchenNotifications();
   window.dispatchEvent(new CustomEvent(KITCHEN_TIMER_EVENT, { detail: { seconds, label, title } }));
 }
 
@@ -585,6 +558,7 @@ function timerRemaining(timer, now) {
 }
 
 const KITCHEN_RING = 2 * Math.PI * 19;
+const KITCHEN_RING_REPEAT_MS = 10000;
 
 // Minuteurs en cours, en bas d'ecran sur toutes les pages. Une seule mise a jour
 // par seconde ; l'anneau glisse en CSS entre deux ticks. Les echeances sont des
@@ -623,14 +597,15 @@ function KitchenTimerDock() {
         }
         if (action === 'pause') return list.map(timer => (timer.done || timer.pausedLeft != null || !named(timer) ? timer : { ...timer, pausedLeft: Math.max(0, timer.endAt - at) }));
         if (action === 'resume') return list.map(timer => (timer.done || timer.pausedLeft == null || !named(timer) ? timer : { ...timer, endAt: at + timer.pausedLeft, pausedLeft: null }));
-        if (action === 'add' && seconds > 0) {
+        if (action === 'add' && seconds !== 0) {
           const target = [...list].reverse().find(named);
           if (!target) return list;
           const extra = seconds * 1000;
           return list.map(timer => {
             if (timer.id !== target.id) return timer;
-            if (timer.pausedLeft != null && !timer.done) return { ...timer, pausedLeft: timer.pausedLeft + extra, total: Math.max(timer.total, (timer.pausedLeft + extra) / 1000) };
-            const left = (timer.done ? 0 : Math.max(0, timer.endAt - at)) + extra;
+            if (timer.pausedLeft != null && !timer.done) return { ...timer, pausedLeft: Math.max(1000, timer.pausedLeft + extra), total: Math.max(timer.total, (timer.pausedLeft + extra) / 1000) };
+            // Retrait : jamais sous une seconde (le minuteur sonne alors).
+            const left = Math.max(1000, (timer.done ? 0 : Math.max(0, timer.endAt - at)) + extra);
             return { ...timer, done: false, pausedLeft: null, endAt: at + left, total: Math.max(timer.done ? seconds : timer.total, left / 1000) };
           });
         }
@@ -663,13 +638,30 @@ function KitchenTimerDock() {
     if (!finished.length) return;
     setTimers(list => list.map(timer => (finished.some(item => item.id === timer.id) ? { ...timer, done: true } : timer)));
     setAnnounce(`Minuteur terminé : ${finished.map(timer => [timer.label, timer.title].filter(Boolean).join(', ')).join(' ; ')}`);
-    finished.forEach(timer => notifyKitchen('Minuteur terminé', [timer.label, timer.title].filter(Boolean).join(' · '), `timer-${timer.id}`));    try {
+    try {
       navigator.vibrate?.([320, 140, 320, 140, 620]);
     } catch {
       /* Vibration indisponible. */
     }
     playKitchenChime();
   }, [now, timers]);
+
+  // Minuteur termine : la sonnerie revient toutes les 10 s (et vibre) tant
+  // qu'on ne l'a pas arrete (croix, +1, « stop ») : un seul bip passe
+  // facilement inaperçu. Aucune autorisation demandee.
+  const ringing = timers.some(timer => timer.done);
+  useEffect(() => {
+    if (!ringing) return undefined;
+    const interval = window.setInterval(() => {
+      playKitchenChime();
+      try {
+        navigator.vibrate?.([320, 140, 320]);
+      } catch {
+        /* Vibration indisponible. */
+      }
+    }, KITCHEN_RING_REPEAT_MS);
+    return () => window.clearInterval(interval);
+  }, [ringing]);
 
   const update = (id, change) => setTimers(list => list.map(timer => (timer.id === id ? change(timer) : timer)));
   const togglePause = id => update(id, timer => (timer.pausedLeft != null
@@ -1120,7 +1112,9 @@ function HomeView(props) {
           h('button', { type: 'button', onClick: props.openMenuPlanner }, h(Icon, { name: 'spark' }), h('span', null, 'Composer un menu')),
           h('button', { type: 'button', onClick: props.showFavorites }, h(Icon, { name: 'heart' }), h('span', null, 'Mes favoris')),
           h('button', { type: 'button', onClick: props.openShoppingBasket }, h(Icon, { name: 'basket' }), h('span', null, 'Liste de courses')),
-          h('button', { type: 'button', onClick: props.openTechniques }, h(Icon, { name: 'book' }), h('span', null, 'Techniques'))
+          h('button', { type: 'button', onClick: props.openTechniques }, h(Icon, { name: 'book' }), h('span', null, 'Techniques')),
+          props.openConstellation && h('button', { type: 'button', className: 'home-constellation-action', onClick: props.openConstellation }, h(Icon, { name: 'spark' }), h('span', null, 'Constellation')),
+          props.openChef && h(HomeChefAction, { onClick: props.openChef })
         )
       ),
       h(ActiveChips, { chips: props.activeChips }),
@@ -1317,6 +1311,84 @@ function TechniquesView({ targetTechniqueId, goHome }) {
   );
 }
 
+// QR code dessine a la main : modules ronds encre sur ivoire, yeux arrondis,
+// etoile doree au centre (correction H : le centre peut etre masque sans
+// gener la lecture). Reste lisible par tous les lecteurs (contraste, marge).
+const FINE_QR = { ink: '#1d1812', paper: '#fbf5ea', gold: '#c9a24a', quiet: 2 };
+
+function drawFineQr(canvas, QRCode, text, size) {
+  const qr = QRCode.create(text, { errorCorrectionLevel: 'H' });
+  const count = qr.modules.size;
+  const ratio = Math.min(3, Math.max(2, Math.ceil(window.devicePixelRatio || 1)));
+  canvas.width = size * ratio;
+  canvas.height = size * ratio;
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  const cell = size / (count + FINE_QR.quiet * 2);
+  const at = index => (index + FINE_QR.quiet) * cell;
+  const rounded = (x, y, w, r) => {
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(x, y, w, w, r) : ctx.rect(x, y, w, w);
+  };
+  ctx.fillStyle = FINE_QR.paper;
+  rounded(0, 0, size, cell * 2.2);
+  ctx.fill();
+  const isEye = (row, col) => (row < 7 && col < 7) || (row < 7 && col >= count - 7) || (row >= count - 7 && col < 7);
+  // Zone centrale reservee a l'etoile (environ 6 % de la surface).
+  const logo = Math.max(5, Math.round(count * 0.24) | 1);
+  const logoStart = (count - logo) / 2;
+  const inLogo = (row, col) => row >= logoStart && row < logoStart + logo && col >= logoStart && col < logoStart + logo;
+  ctx.fillStyle = FINE_QR.ink;
+  for (let row = 0; row < count; row += 1) {
+    for (let col = 0; col < count; col += 1) {
+      if (!qr.modules.get(row, col) || isEye(row, col) || inLogo(row, col)) continue;
+      ctx.beginPath();
+      ctx.arc(at(col) + cell / 2, at(row) + cell / 2, cell * 0.46, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  [[0, 0], [0, count - 7], [count - 7, 0]].forEach(([row, col]) => {
+    const x = at(col);
+    const y = at(row);
+    ctx.fillStyle = FINE_QR.ink;
+    rounded(x, y, cell * 7, cell * 1.5);
+    ctx.fill();
+    ctx.fillStyle = FINE_QR.paper;
+    rounded(x + cell, y + cell, cell * 5, cell * 1);
+    ctx.fill();
+    ctx.fillStyle = FINE_QR.ink;
+    rounded(x + cell * 2, y + cell * 2, cell * 3, cell * 0.9);
+    ctx.fill();
+  });
+  // Etoile a quatre branches, comme celles de la constellation.
+  const cx = size / 2;
+  const radius = cell * logo / 2;
+  ctx.fillStyle = FINE_QR.ink;
+  ctx.beginPath();
+  ctx.arc(cx, cx, radius * 0.92, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = FINE_QR.gold;
+  ctx.beginPath();
+  for (let point = 0; point < 8; point += 1) {
+    const angle = (Math.PI / 4) * point - Math.PI / 2;
+    const reach = point % 2 ? radius * 0.2 : radius * 0.66;
+    ctx.lineTo(cx + Math.cos(angle) * reach, cx + Math.sin(angle) * reach);
+  }
+  ctx.closePath();
+  ctx.fill();
+  return { count, quiet: FINE_QR.quiet, logo };
+}
+
+// Raccourci « Mon rang » de l'accueil : mini embleme + rang actuel.
+function HomeChefAction({ onClick }) {
+  const chef = useChef();
+  const standing = chefStanding(chef.rating);
+  return h('button', { type: 'button', className: 'home-chef-action', onClick, 'aria-label': `Parcours de chef : ${standing.name}` },
+    h(ChefEmblem, { standing, size: 20 }),
+    h('span', null, standing.name)
+  );
+}
+
 function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
   const [copied, setCopied] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
@@ -1381,12 +1453,8 @@ function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
       cancelled = true;
     };
     loadDeferredScript(QR_CODE_SCRIPT_SRC, 'QRCode').then(QRCode => {
-      if (cancelled || !canvasRef.current || !QRCode?.toCanvas) return null;
-      return QRCode.toCanvas(canvasRef.current, url, {
-        width: 132,
-        margin: 1,
-        color: { dark: '#111111', light: '#ffffff' }
-      });
+      if (cancelled || !canvasRef.current || !QRCode?.create) return null;
+      return drawFineQr(canvasRef.current, QRCode, url, 208);
     }).then(result => {
       if (!cancelled && result !== null) setQrReady(true);
     }).catch(() => {
@@ -1415,40 +1483,55 @@ function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
         h('div', null, h('p', { className: 'eyebrow' }, 'Partager'), h('h2', { id: 'share-modal-title' }, recipe.title)),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
-      h('div', { className: 'share-card' },
-        h('div', { className: 'share-card-media', style: imageStyle, 'aria-hidden': true },
-          !imageUrl && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1))
+      h('div', { className: 'share-fine' },
+        h('figure', { className: qrReady ? 'share-ticket is-ready' : 'share-ticket' },
+          h('div', { className: 'share-ticket-media', style: imageStyle, 'aria-hidden': true },
+            !imageUrl && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1))
+          ),
+          h('figcaption', null,
+            h('small', null, [primaryCategory(recipe), recipe.yield].filter(Boolean).join(' · ')),
+            h('strong', null, recipe.title)
+          ),
+          h('div', { className: 'share-ticket-qr' },
+            h('canvas', { ref: canvasRef, className: 'qr-canvas', width: 208, height: 208, role: 'img', 'aria-label': `QR code du lien ${recipe.title}` })
+          ),
+          h('p', { className: 'share-ticket-hint' }, 'Scannez pour ouvrir la recette')
         ),
-        h('div', { className: 'share-card-copy' },
-          h('p', { className: 'eyebrow' }, 'Cook Note'),
-          h('h3', null, recipe.title),
-          h('p', null, description),
-          h('div', { className: 'share-card-meta' },
-            h('span', null, primaryCategory(recipe)),
-            recipe.yield && h('span', null, recipe.yield)
+        h('div', { className: 'share-side' },
+          h('p', { className: 'share-side-lead' }, description),
+          h('div', { className: 'share-link-row' },
+            h('span', { title: url, 'aria-label': `Lien de partage ${url}` }, url.replace(/^https?:\/\//, '')),
+            h('button', { type: 'button', className: copied ? 'is-done' : '', onClick: () => copyText(url).then(() => {
+              setCopied(true);
+              notify?.('Lien de recette copié');
+            }), 'aria-label': `Copier le lien de ${recipe.title}` }, h(Icon, { name: copied ? 'check' : 'copy' }), copied ? 'Copié' : 'Copier')
+          ),
+          navigator.share && h(Button, { variant: 'primary', className: 'share-native', onClick: nativeShare, ariaLabel: `Partager ${recipe.title}` }, h(Icon, { name: 'share' }), h('span', null, 'Partager…')),
+          h('div', { className: 'share-group' },
+            h('small', null, 'Envoyer'),
+            h('div', null,
+              h('a', { className: 'share-chip', href: `https://wa.me/?text=${encodeURIComponent(text)}`, target: '_blank', rel: 'noreferrer', 'aria-label': `Partager ${recipe.title} sur WhatsApp` }, 'WhatsApp'),
+              h('a', { className: 'share-chip', href: `mailto:?subject=${encodeURIComponent(recipe.title)}&body=${encodeURIComponent(text)}`, 'aria-label': `Partager ${recipe.title} par email` }, 'Email'),
+              h('button', { type: 'button', className: 'share-chip', onClick: () => copyText(text).then(() => {
+                setCopiedText(true);
+                notify?.('Texte de recette copié');
+              }), 'aria-label': `Copier le texte de partage de ${recipe.title}` }, copiedText ? 'Texte copié' : 'Copier le texte')
+            )
+          ),
+          h('div', { className: 'share-group' },
+            h('small', null, posterBusy ? 'Préparation de l’image…' : 'Télécharger une image'),
+            h('div', { className: 'share-formats' },
+              [['story', 'Story', '9:16'], ['square', 'Carré', '1:1'], ['print', 'Fiche', 'A4']].map(([format, label, ratio]) => h('button', {
+                key: format,
+                type: 'button',
+                className: `share-format is-${format}`,
+                disabled: posterBusy,
+                onClick: () => downloadSharePoster(format),
+                'aria-label': `Télécharger ${label.toLowerCase()} de ${recipe.title}`
+              }, h('i', { 'aria-hidden': true }), h('span', null, label), h('em', null, ratio)))
+            )
           )
-        ),
-        h('div', { className: qrReady ? 'share-qr is-ready' : 'share-qr', 'aria-label': `QR code de ${recipe.title}` },
-          h('canvas', { ref: canvasRef, className: 'qr-canvas', width: 132, height: 132, 'aria-label': `QR code du lien ${recipe.title}` }),
-          !qrReady && h('span', null, 'Lien prêt')
         )
-      ),
-      h('div', { className: 'share-link-box', title: url, 'aria-label': `Lien de partage ${url}` }, url),
-      h('div', { className: 'share-actions' },
-        navigator.share && h(Button, { variant: 'primary', onClick: nativeShare, ariaLabel: `Partager ${recipe.title}` }, 'Partager'),
-        h(Button, { variant: navigator.share ? 'subtle' : 'primary', onClick: () => copyText(url).then(() => {
-          setCopied(true);
-          notify?.('Lien de recette copié');
-        }), ariaLabel: `Copier le lien de ${recipe.title}` }, copied ? 'Lien copié' : 'Copier le lien'),
-        h(Button, { variant: 'subtle', onClick: () => copyText(text).then(() => {
-          setCopiedText(true);
-          notify?.('Texte de recette copié');
-        }), ariaLabel: `Copier le texte de partage de ${recipe.title}` }, copiedText ? 'Texte copié' : 'Copier le texte'),
-        h(Button, { variant: 'subtle', disabled: posterBusy, onClick: () => downloadSharePoster('story'), ariaLabel: `Télécharger une story de ${recipe.title}` }, posterBusy ? 'Carte...' : 'Story'),
-        h(Button, { variant: 'subtle', disabled: posterBusy, onClick: () => downloadSharePoster('square'), ariaLabel: `Télécharger une carte carrée de ${recipe.title}` }, 'Carré'),
-        h(Button, { variant: 'subtle', disabled: posterBusy, onClick: () => downloadSharePoster('print'), ariaLabel: `Télécharger une fiche imprimable de ${recipe.title}` }, 'Fiche'),
-        h('a', { className: 'btn btn-subtle', href: `https://wa.me/?text=${encodeURIComponent(text)}`, target: '_blank', rel: 'noreferrer', 'aria-label': `Partager ${recipe.title} sur WhatsApp` }, 'WhatsApp'),
-        h('a', { className: 'btn btn-subtle', href: `mailto:?subject=${encodeURIComponent(recipe.title)}&body=${encodeURIComponent(text)}`, 'aria-label': `Partager ${recipe.title} par email` }, 'Email')
       )
     )
   );

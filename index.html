@@ -49,12 +49,12 @@
   <link rel="preload" as="image" href="/assets/theme/dark/global/hero.avif" type="image/avif" fetchpriority="high" data-art-asset="hero" data-art-target="href" />
   <link rel="preload" as="image" href="/assets/brand/cook-note-white.avif" type="image/avif" fetchpriority="high" />
 
-  <script>window.COOK_NOTE_ASSET_VERSION = '548';</script>
-  <script src="/theme.js?v=548-parent-title"></script>
+  <script>window.COOK_NOTE_ASSET_VERSION = '560';</script>
+  <script src="/theme.js?v=560-parent-title"></script>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/style.css?v=548-parent-title" />
-  <link rel="stylesheet" href="/recipe-editorial.css?v=548-parent-title" />
+  <link rel="stylesheet" href="/style.css?v=560-parent-title" />
+  <link rel="stylesheet" href="/recipe-editorial.css?v=560-parent-title" />
   <link rel="stylesheet" href="/recipe-safety-sources.css?v=528" />
   <link rel="stylesheet" href="/personal-tools.css?v=537" />
 
@@ -143,29 +143,30 @@
   <!-- Le catalogue de recettes doit être chargé AVANT app.js -->
   <script src="/assets/vendor/react.production.min.js"></script>
   <script src="/assets/vendor/react-dom.production.min.js"></script>
-  <script src="/assets/catalog-1.js?v=548-parent-title"></script>
-  <script src="/assets/image-manifest.js?v=548-parent-title"></script>
-  <script src="/app-images.js?v=548-parent-title"></script>
-  <script src="/app-art-images.js?v=548-parent-title"></script>
-  <script src="/app-inline-variant-rules.js?v=548-parent-title"></script>
-  <script src="/i18n.js?v=548-parent-title"></script>
-  <script src="/app-premium.js?v=548-parent-title"></script>
+  <script src="/assets/catalog-1.js?v=560-parent-title"></script>
+  <script src="/assets/image-manifest.js?v=560-parent-title"></script>
+  <script src="/app-images.js?v=560-parent-title"></script>
+  <script src="/app-art-images.js?v=560-parent-title"></script>
+  <script src="/app-inline-variant-rules.js?v=560-parent-title"></script>
+  <script src="/i18n.js?v=560-parent-title"></script>
+  <script src="/app-premium.js?v=560-parent-title"></script>
   <script src="/app-personal-tools.js?v=528"></script>
   <script src="/app-safety-sources.js?v=528"></script>
-  <script src="/app-techniques.js?v=548-parent-title"></script>
+  <script src="/app-techniques.js?v=560-parent-title"></script>
 
   <!-- App React sans transpilation côté navigateur -->
-  <script src="/app.js?v=548-parent-title"></script>
-  <script src="/app-recipe-model.js?v=548-parent-title"></script>
-  <script src="/app-shopping.js?v=548-parent-title"></script>
-  <script src="/app-menu.js?v=548-parent-title"></script>
-  <script src="/app-search.js?v=548-parent-title"></script>
-  <script src="/app-recipe-content.js?v=548-parent-title"></script>
-  <script src="/app-components.js?v=548-parent-title"></script>
-  <script src="/app-kitchen.js?v=548-parent-title"></script>
-  <script src="/app-panels.js?v=548-parent-title"></script>
-  <script src="/app-recipe-view.js?v=548-parent-title"></script>
-  <script src="/app-main.js?v=548-parent-title"></script>
+  <script src="/app.js?v=560-parent-title"></script>
+  <script src="/app-recipe-model.js?v=560-parent-title"></script>
+  <script src="/app-shopping.js?v=560-parent-title"></script>
+  <script src="/app-menu.js?v=560-parent-title"></script>
+  <script src="/app-search.js?v=560-parent-title"></script>
+  <script src="/app-recipe-content.js?v=560-parent-title"></script>
+  <script src="/app-components.js?v=560-parent-title"></script>
+  <script src="/app-kitchen.js?v=560-parent-title"></script>
+  <script src="/app-chef.js?v=560-parent-title"></script>
+  <script src="/app-panels.js?v=560-parent-title"></script>
+  <script src="/app-recipe-view.js?v=560-parent-title"></script>
+  <script src="/app-main.js?v=560-parent-title"></script>
 
   <!-- Service Worker -->
   <script>
@@ -175,29 +176,30 @@
         let hadController = Boolean(navigator.serviceWorker.controller);
         const showUpdateAction = registration => {
           if (!registration || !registration.waiting || document.getElementById('cook-note-update-action')) return;
+          // Pastille posee en surimpression (sans bande sous la barre, ou
+          // l'image du bandeau passait) : fond plein, point dore, deux mots.
           const button = document.createElement('button');
           button.id = 'cook-note-update-action';
-          button.className = 'site-update-action';
+          button.className = 'site-update-toast';
           button.type = 'button';
-          button.textContent = 'Mettre à jour';
           button.setAttribute('aria-label', 'Mettre Cook Note à jour');
+          const label = text => {
+            button.replaceChildren();
+            const dot = document.createElement('span');
+            dot.className = 'site-update-dot';
+            dot.setAttribute('aria-hidden', 'true');
+            const strong = document.createElement('strong');
+            strong.textContent = text;
+            button.append(dot, strong);
+          };
+          label('Nouvelle version · Mettre à jour');
           button.addEventListener('click', () => {
             button.disabled = true;
-            button.textContent = 'Mise à jour...';
+            button.classList.add('is-updating');
+            label('Mise à jour…');
             registration.waiting.postMessage({ type: 'SKIP_WAITING' });
           });
-          const shell = document.querySelector('.mc-shell');
-          const topbar = shell?.querySelector('.topbar');
-          let slot = shell?.querySelector('.site-update-slot');
-          if (!slot && shell) {
-            slot = document.createElement('div');
-            slot.className = 'site-update-slot';
-            if (topbar?.parentNode) topbar.parentNode.insertBefore(slot, topbar.nextSibling);
-            else shell.prepend(slot);
-          }
-          if (slot) slot.append(button);
-          else if (document.getElementById('root')) document.getElementById('root').before(button);
-          else document.body.appendChild(button);
+          document.body.appendChild(button);
         };
         navigator.serviceWorker.addEventListener('controllerchange', () => {
           if (!hadController) {
@@ -208,7 +210,7 @@
           refreshing = true;
           window.location.reload();
         });
-        navigator.serviceWorker.register('/service-worker.js?v=548-parent-title').then(registration => {
+        navigator.serviceWorker.register('/service-worker.js?v=560-parent-title').then(registration => {
           showUpdateAction(registration);
           registration.addEventListener('updatefound', () => {
             const worker = registration.installing;

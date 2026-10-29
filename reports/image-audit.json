@@ -1,5 +1,5 @@
 {
-  "total": 329,
+  "total": 344,
   "weakCount": 0,
   "issueBuckets": {
     "missingCard": 0,
@@ -372,6 +372,24 @@
         "height": 428
       },
       "cardBytes": 76396
+    },
+    {
+      "id": "aubergines_roties_tomate_mozzarella",
+      "title": "Aubergines rôties à la tomate et à la mozzarella",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/aubergines_roties_tomate_mozzarella.jpg",
+      "card": "assets/recipes/cards/aubergines_roties_tomate_mozzarella.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 157485,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 55296
     },
     {
       "id": "aubergines_roties_anchois",
@@ -1004,6 +1022,24 @@
       "cardBytes": 59858
     },
     {
+      "id": "butternut_rotie_parmigiana",
+      "title": "Butternut rôtie façon parmigiana",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/butternut_rotie_parmigiana.jpg",
+      "card": "assets/recipes/cards/butternut_rotie_parmigiana.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 129555,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 46346
+    },
+    {
       "id": "cabillaud_crumble_chorizo",
       "title": "Cabillaud au four, crumble de chorizo",
       "score": 100,
@@ -1382,6 +1418,24 @@
       "cardBytes": 63790
     },
     {
+      "id": "chili_sin_carne_lentilles",
+      "title": "Chili sin carne aux lentilles et haricots rouges",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/chili_sin_carne_lentilles.jpg",
+      "card": "assets/recipes/cards/chili_sin_carne_lentilles.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 163653,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 58786
+    },
+    {
       "id": "chinois_chocolat",
       "title": "Chinois au chocolat",
       "score": 100,
@@ -1472,6 +1526,24 @@
       "cardBytes": 67781
     },
     {
+      "id": "chou_paysan_lard_citron",
+      "title": "Chou paysan au lard et au citron",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/chou_paysan_lard_citron.jpg",
+      "card": "assets/recipes/cards/chou_paysan_lard_citron.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 163084,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 58826
+    },
+    {
       "id": "chou_vert_sauce_tomate",
       "title": "Chou vert en sauce tomate",
       "score": 100,
@@ -1488,6 +1560,24 @@
         "height": 507
       },
       "cardBytes": 65414
+    },
+    {
+      "id": "chou_vert_morteau_moutarde",
+      "title": "Chou vert et saucisse de Morteau à la moutarde",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/chou_vert_morteau_moutarde.jpg",
+      "card": "assets/recipes/cards/chou_vert_morteau_moutarde.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 188211,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 65282
     },
     {
       "id": "chou_fleur_croustillant",
@@ -1742,6 +1832,24 @@
       "cardBytes": 72529
     },
     {
+      "id": "courgettes_pois_chiches_tomate",
+      "title": "Courgettes aux pois chiches, tomate et basilic",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/courgettes_pois_chiches_tomate.jpg",
+      "card": "assets/recipes/cards/courgettes_pois_chiches_tomate.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 143838,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 52712
+    },
+    {
       "id": "court_bouillon",
       "title": "Court-bouillon",
       "score": 100,
@@ -1920,6 +2028,24 @@
         "height": 507
       },
       "cardBytes": 66103
+    },
+    {
+      "id": "crevettes_plancha_citron_vert_gingembre",
+      "title": "Crevettes à la plancha, citron vert et gingembre",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/crevettes_plancha_citron_vert_gingembre.jpg",
+      "card": "assets/recipes/cards/crevettes_plancha_citron_vert_gingembre.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 129532,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 46222
     },
     {
       "id": "crevettes_provencale",
@@ -2516,6 +2642,24 @@
       "cardBytes": 65670
     },
     {
+      "id": "gateau_noix",
+      "title": "Gâteau aux noix",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/gateau_noix.jpg",
+      "card": "assets/recipes/cards/gateau_noix.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 130881,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 47251
+    },
+    {
       "id": "gateau_roule_framboise",
       "title": "Gâteau roulé à la framboise",
       "score": 100,
@@ -2928,6 +3072,24 @@
         "height": 507
       },
       "cardBytes": 69524
+    },
+    {
+      "id": "lapin_cretoise_stifado",
+      "title": "Lapin à la crétoise",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/lapin_cretoise_stifado.jpg",
+      "card": "assets/recipes/cards/lapin_cretoise_stifado.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 143565,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 51358
     },
     {
       "id": "lapin_saute_chasseur",
@@ -3399,7 +3561,7 @@
     },
     {
       "id": "paella_royale",
-      "title": "Paella royale",
+      "title": "Paella",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/paella_royale.jpg",
@@ -4550,6 +4712,24 @@
       "cardBytes": 71736
     },
     {
+      "id": "ratatouille_cajun",
+      "title": "Ratatouille aux épices cajun",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/ratatouille_cajun.jpg",
+      "card": "assets/recipes/cards/ratatouille_cajun.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 177792,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 64086
+    },
+    {
       "id": "rattes_four",
       "title": "Rattes au four",
       "score": 100,
@@ -4821,7 +5001,7 @@
     },
     {
       "id": "salade_epinards_clementines_amande_feta",
-      "title": "Salade epinards clementines amande feta",
+      "title": "Salade épinards clémentines amande feta",
       "score": 100,
       "issues": [],
       "optimized": "assets/recipes/heroes/salade_epinards_clementines_amande_feta.jpg",
@@ -5342,6 +5522,24 @@
       "cardBytes": 58996
     },
     {
+      "id": "seiche_rotie_herbes_citron_confit",
+      "title": "Seiche rôtie aux herbes et citron confit",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/seiche_rotie_herbes_citron_confit.jpg",
+      "card": "assets/recipes/cards/seiche_rotie_herbes_citron_confit.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 187263,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 67382
+    },
+    {
       "id": "smash_burger",
       "title": "Smash Burger et buns briochés",
       "score": 100,
@@ -5412,6 +5610,24 @@
         "height": 428
       },
       "cardBytes": 56464
+    },
+    {
+      "id": "soupe_poulet_butternut_epinards",
+      "title": "Soupe de poulet, butternut et épinards",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/soupe_poulet_butternut_epinards.jpg",
+      "card": "assets/recipes/cards/soupe_poulet_butternut_epinards.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 160352,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 57242
     },
     {
       "id": "soupe_paysanne_morteau",
@@ -5574,6 +5790,24 @@
         "height": 570
       },
       "cardBytes": 100808
+    },
+    {
+      "id": "tartinade_haricots_blancs_citron_confit",
+      "title": "Tartinade de haricots blancs au citron confit",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/tartinade_haricots_blancs_citron_confit.jpg",
+      "card": "assets/recipes/cards/tartinade_haricots_blancs_citron_confit.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 138971,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 50184
     },
     {
       "id": "temps_cuisson_legumes_autocuiseur",
@@ -5898,6 +6132,42 @@
         "height": 428
       },
       "cardBytes": 72168
+    },
+    {
+      "id": "veloute_carottes_gingembre_orange",
+      "title": "Velouté de carottes au gingembre et à l’orange",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/veloute_carottes_gingembre_orange.jpg",
+      "card": "assets/recipes/cards/veloute_carottes_gingembre_orange.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 145406,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 52246
+    },
+    {
+      "id": "veloute_chou_fleur_pommes",
+      "title": "Velouté de chou-fleur et pommes",
+      "score": 100,
+      "issues": [],
+      "optimized": "assets/recipes/heroes/veloute_chou_fleur_pommes.jpg",
+      "card": "assets/recipes/cards/veloute_chou_fleur_pommes.jpg",
+      "optimizedSize": {
+        "width": 1400,
+        "height": 788
+      },
+      "optimizedBytes": 131250,
+      "cardSize": {
+        "width": 760,
+        "height": 428
+      },
+      "cardBytes": 46695
     },
     {
       "id": "verrines_chataignes_foie_gras",
