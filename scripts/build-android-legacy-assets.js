@@ -233,6 +233,8 @@ function loadAppHelpers() {
   vm.createContext(context);
   vm.runInContext(read(APP_IMAGES_FILE), context, { filename: APP_IMAGES_FILE });
   vm.runInContext(read(APP_PREMIUM_FILE), context, { filename: APP_PREMIUM_FILE });
+  // Guides de techniques complementaires (parcours de chef, techniques).
+  vm.runInContext(read(path.join(ROOT, 'app-techniques.js')), context, { filename: 'app-techniques.js' });
   vm.runInContext(`${appCode.slice(0, end)}
 globalThis.__cookNoteAndroidHelpers = {
   getRecipeAllergens,
@@ -244,7 +246,14 @@ globalThis.__cookNoteAndroidHelpers = {
   getLinkedRecipeRefs,
   getSmartSubstitutionNotes,
   getVariantAdaptationNotes,
-  semanticRecipeSignals
+  semanticRecipeSignals,
+  TECHNIQUE_GUIDES,
+  buildTechniqueTargets,
+  stepTechniques,
+  isMasterRecipe,
+  isCategoryCollectionRecipe,
+  getInlineVariantOptions,
+  chefRecipeRating
 };`, context, { filename: APP_FILE });
 
   const helpers = context.__cookNoteAndroidHelpers;
@@ -589,6 +598,30 @@ function assertNoDuplicateBeforeItems(recipes) {
   });
 }
 
+// Donnees des fonctions v5.57+ pour l'APK : guides de techniques, techniques
+// demandees par chaque recette et cote de chaque recette (parcours de chef).
+// La constellation reste propre au site (pas d'Android 5).
+function buildExtrasPayload(recipesById, helpers, version) {
+  const targets = helpers.buildTechniqueTargets();
+  const recipes = Object.values(recipesById);
+  const playable = recipes.filter(recipe => !(recipe.variants || []).length && (recipe.ingredients || []).length && !helpers.isMasterRecipe(recipe) && !helpers.isCategoryCollectionRecipe(recipe) && !helpers.getInlineVariantOptions(recipe).length);
+  const recipeTechniques = {};
+  const recipeRatings = {};
+  playable.forEach(recipe => {
+    const ids = new Set();
+    (recipe.steps || []).forEach(step => helpers.stepTechniques(typeof step === 'string' ? step : step?.text || '', targets).forEach(guide => ids.add(guide.id)));
+    if (ids.size) recipeTechniques[recipe.id] = [...ids];
+    recipeRatings[recipe.id] = helpers.chefRecipeRating(recipe);
+  });
+  return {
+    schema: 1,
+    version,
+    techniques: helpers.TECHNIQUE_GUIDES.map(guide => ({ id: guide.id, title: guide.title, label: guide.label, description: guide.description, steps: guide.steps || [], tip: guide.tip || '' })),
+    recipeTechniques,
+    recipeRatings
+  };
+}
+
 function buildLiteAssets() {
   const recipes = loadRecipes();
   const helperRecipes = recipesWithIds(recipes);
@@ -637,6 +670,10 @@ function buildLiteAssets() {
   assertNoEncodingIssues(searchIndex);
   fs.writeFileSync(path.join(OUT_DIR, 'recipes-lite.json'), JSON.stringify(payload), 'utf8');
   fs.writeFileSync(path.join(OUT_DIR, 'search-index-lite.json'), JSON.stringify(searchIndex), 'utf8');
+  const extras = buildExtrasPayload(helperRecipes, helpers, payload.version);
+  assertNoEncodingIssues(extras);
+  fs.writeFileSync(path.join(OUT_DIR, 'extras-lite.json'), JSON.stringify(extras), 'utf8');
+  console.log(`Extras natifs : ${extras.techniques.length} techniques, ${Object.keys(extras.recipeTechniques).length} recettes avec techniques`);
 
   console.log(`Assets Android Legacy Native Lite OK: ${OUT_DIR}`);
   console.log(`Recettes natives: ${outputRecipes.length}`);

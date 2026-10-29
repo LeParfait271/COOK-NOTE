@@ -312,6 +312,39 @@ final class RecipeScreen {
             if (index < buttons.size() - 1) params.rightMargin = dp(8);
             row.addView(buttons.get(index), params);
         }
+        // Parcours de chef et partage (comme le site) : verdict du plat, QR code.
+        if (!selectedRecipeSteps(recipe).isEmpty() && !recipe.isCollection()) {
+            LinearLayout second = new LinearLayout(host);
+            second.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams secondParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(38));
+            secondParams.topMargin = dp(8);
+            content.addView(second, secondParams);
+            int cooked = new Chef(host).cookedCount(recipe.id);
+            Button cookedButton = host.actionButton(cooked > 0 ? "Réussi " + cooked + "×" : "Je l’ai cuisiné", false);
+            if (cooked > 0) cookedButton.setTextColor(COLOR_GOLD);
+            cookedButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ChefUi.showVerdictDialog(host, recipe, new Runnable() {
+                        @Override
+                        public void run() {
+                            if (host.currentScreen == MainActivity.SCREEN_RECIPE) openRecipe(recipe, false);
+                        }
+                    });
+                }
+            });
+            LinearLayout.LayoutParams cookedParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+            cookedParams.rightMargin = dp(8);
+            second.addView(cookedButton, cookedParams);
+            Button share = host.actionButton("Partager (QR)", false);
+            share.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showShare(recipe);
+                }
+            });
+            second.addView(share, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+        }
     }
 
     // Icone 18dp a gauche du libelle, l'ensemble centre dans le bouton.
@@ -539,6 +572,10 @@ final class RecipeScreen {
             bon.setGravity(Gravity.CENTER);
             bon.setPadding(0, dp(8), 0, 0);
             end.addView(bon);
+            // Parcours de chef : rien n'est compte sans verdict.
+            LinearLayout.LayoutParams verdictParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            verdictParams.topMargin = dp(22);
+            end.addView(ChefUi.verdict(host, recipe, null), verdictParams);
             stage.addView(end, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
             mark.setAlpha(0f);
             mark.setScaleX(0.6f);
@@ -612,6 +649,69 @@ final class RecipeScreen {
         host.showScreen(root);
         renderCookStatus();
         if (cookVoiceEnabled) startCookVoice();
+    }
+
+    // Partage d'une recette : billet sobre (titre, categorie) et QR code soigne
+    // vers la fiche du site, plus le partage Android et la copie du lien.
+    void showShare(final Recipe recipe) {
+        final String url = Chef.SITE + "/recette/" + recipe.id + "/";
+        final android.app.Dialog dialog = new android.app.Dialog(host);
+        dialog.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
+        LinearLayout ticket = new LinearLayout(host);
+        ticket.setOrientation(LinearLayout.VERTICAL);
+        ticket.setGravity(Gravity.CENTER_HORIZONTAL);
+        ticket.setPadding(dp(20), dp(20), dp(20), dp(18));
+        ticket.setBackground(panel(COLOR_PANEL, COLOR_BORDER_SOFT, 1, 18));
+        TextView meta = host.text(recipe.primaryCategory().toUpperCase(Locale.FRANCE) + (recipe.yield.length() > 0 ? "  ·  " + recipe.yield.toUpperCase(Locale.FRANCE) : ""), 10, COLOR_GOLD, true);
+        meta.setGravity(Gravity.CENTER);
+        ticket.addView(meta);
+        TextView title = host.text(recipe.title, 20, COLOR_TEXT, true);
+        title.setTypeface(Ui.DISPLAY);
+        title.setGravity(Gravity.CENTER);
+        title.setPadding(0, dp(4), 0, dp(14));
+        ticket.addView(title);
+        View line = new View(host);
+        line.setBackgroundColor(COLOR_BORDER_SOFT);
+        ticket.addView(line, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1));
+        ImageView image = new ImageView(host);
+        image.setImageBitmap(ChefUi.fineQr(url, dp(200)));
+        image.setContentDescription("QR code de " + recipe.title);
+        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(dp(200), dp(200));
+        imageParams.topMargin = dp(16);
+        ticket.addView(image, imageParams);
+        TextView hint = host.text("Scannez pour ouvrir la recette", 12, COLOR_DIM, false);
+        hint.setPadding(0, dp(8), 0, dp(14));
+        ticket.addView(hint);
+        LinearLayout actions = new LinearLayout(host);
+        actions.setOrientation(LinearLayout.HORIZONTAL);
+        ticket.addView(actions, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(40)));
+        Button send = host.actionButton("Partager…", true);
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, recipe.title + " - Cook Note");
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, recipe.title + " - Cook Note\n" + url);
+                host.startActivity(android.content.Intent.createChooser(intent, "Partager la recette"));
+            }
+        });
+        LinearLayout.LayoutParams sendParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        sendParams.rightMargin = dp(8);
+        actions.addView(send, sendParams);
+        Button copyLink = host.actionButton("Copier le lien", false);
+        copyLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) host.getSystemService(Context.CLIPBOARD_SERVICE);
+                if (clipboard != null) clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note", url));
+                Toast.makeText(host, "Lien de recette copié", Toast.LENGTH_SHORT).show();
+            }
+        });
+        actions.addView(copyLink, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+        dialog.setContentView(ticket);
+        if (dialog.getWindow() != null) dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
     }
 
     // Message de confidentialite : chaque fois que le micro n'est pas autorise

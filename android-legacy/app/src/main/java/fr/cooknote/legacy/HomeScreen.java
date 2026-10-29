@@ -121,7 +121,32 @@ final class HomeScreen {
         searchParams.leftMargin = dp(16);
         searchParams.rightMargin = dp(16);
         header.addView(host.searchToggle, searchParams);
-        host.searchToggle.setOnClickListener(new View.OnClickListener() {
+
+        // Parcours de chef (comme le site) : embleme et rang actuel, sous la recherche.
+        Chef.Standing standing = new Chef(host).standing();
+        LinearLayout chefRow = new LinearLayout(host);
+        chefRow.setOrientation(LinearLayout.HORIZONTAL);
+        chefRow.setGravity(Gravity.CENTER);
+        chefRow.setPadding(dp(14), dp(6), dp(16), dp(6));
+        chefRow.setBackground(selectablePanel(COLOR_BG, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 20));
+        chefRow.setClickable(true);
+        chefRow.setContentDescription("Parcours de chef : " + standing.name);
+        ChefUi.EmblemView chefEmblem = new ChefUi.EmblemView(host);
+        chefEmblem.set(standing.tier, standing.roman(), false);
+        chefRow.addView(chefEmblem, new LinearLayout.LayoutParams(dp(22), dp(25)));
+        TextView chefLabel = host.text(standing.name, 13, COLOR_TEXT, true);
+        chefLabel.setPadding(dp(8), 0, 0, 0);
+        chefRow.addView(chefLabel);
+        chefRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChefUi.showPanel(host);
+            }
+        });
+        LinearLayout.LayoutParams chefParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp(40));
+        chefParams.gravity = Gravity.CENTER_HORIZONTAL;
+        chefParams.topMargin = dp(10);
+        header.addView(chefRow, chefParams);        host.searchToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setSearchPanelOpen(!host.searchPanelOpen);
