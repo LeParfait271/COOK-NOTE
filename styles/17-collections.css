@@ -777,3 +777,12 @@ body:has(.mc-shell.theme-light) .shopping-modal .modal-actions.shopping-actions 
   color: inherit;
 }
 
+
+/* Bouton de langue de la barre du haut : code FR / EN, meme gabarit que les icones. */
+.top-lang-btn .top-lang-code {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  line-height: 1;
+}
+

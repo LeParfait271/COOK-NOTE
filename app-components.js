@@ -328,6 +328,14 @@ function TopBarFixed({ onHome, showFavorites, openShoppingBasket, shoppingCount 
         pressed: favoritesActive,
         current: favoritesActive ? 'page' : undefined
       }, h(Icon, { name: 'heart' })),
+      // Langue : affiche la langue en cours (FR ou EN), un toucher bascule.
+      h(Button, {
+        variant: 'ghost',
+        className: 'top-lang-btn icon-square',
+        onClick: () => setCookNoteLang(COOK_NOTE_LANG === 'en' ? 'fr' : 'en'),
+        title: COOK_NOTE_LANG === 'en' ? 'Passer le site en français' : 'Switch the site to English',
+        ariaLabel: COOK_NOTE_LANG === 'en' ? 'Passer le site en français' : 'Switch the site to English'
+      }, h('span', { className: 'top-lang-code', translate: 'no', lang: COOK_NOTE_LANG }, COOK_NOTE_LANG === 'en' ? 'EN' : 'FR')),
       h(Button, {
         variant: 'ghost',
         className: 'theme-toggle-btn icon-square',

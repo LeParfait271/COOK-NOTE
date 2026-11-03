@@ -1360,14 +1360,6 @@ function App() {
               title: `${option.label} - ${option.detail}`
             }, h(Icon, { name: option.kind === 'apk' ? 'download' : 'device' }), h('span', null, option.label), h('small', null, option.detail))
           ),
-          // Langue : francais ou anglais (contenu traduit, voir tc dans app.js).
-          h('button', {
-            type: 'button',
-            className: 'site-footer-action site-footer-lang',
-            lang: COOK_NOTE_LANG === 'en' ? 'fr' : 'en',
-            onClick: () => setCookNoteLang(COOK_NOTE_LANG === 'en' ? 'fr' : 'en'),
-            'aria-label': COOK_NOTE_LANG === 'en' ? 'Afficher le site en français' : 'Show the site in English'
-          }, h(Icon, { name: 'spark' }), h('span', null, COOK_NOTE_LANG === 'en' ? 'Français' : 'English'), h('small', null, COOK_NOTE_LANG === 'en' ? 'Version originale' : 'Translated content')),
           h('a', {
             className: 'site-footer-action site-footer-request',
             href: 'mailto:cooknote271@gmail.com?subject=Demande%20d%27ajout%20de%20recette%20Cook%20Note&body=Bonjour%2C%0A%0AJ%27aimerais%20demander%20l%27ajout%20de%20cette%20recette%20dans%20Cook%20Note%20%3A%0A%0ANom%20de%20la%20recette%20%3A%0AIngr%C3%A9dients%20%3A%0A%C3%89tapes%20%3A%0A%0AMerci.'

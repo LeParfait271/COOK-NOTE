@@ -219,7 +219,8 @@ test.describe('Cook Note visual smoke', () => {
     const topbarColors = await page.locator('.topbar').evaluate(node => {
       const buttons = Array.from(node.querySelectorAll('.top-right .icon-square'));
       return buttons.map(button => {
-        const icon = button.querySelector('.site-icon');
+        // Le bouton de langue porte un code (FR / EN) au lieu d'une icone.
+        const icon = button.querySelector('.site-icon') || button.querySelector('.top-lang-code');
         return {
           label: button.getAttribute('aria-label') || '',
           icon: icon ? getComputedStyle(icon).color : '',
@@ -228,7 +229,7 @@ test.describe('Cook Note visual smoke', () => {
         };
       });
     });
-    expect(topbarColors).toHaveLength(5);
+    expect(topbarColors).toHaveLength(6);
     topbarColors.forEach(colors => {
       expect(colors.icon, colors.label).toBe(colors.button);
       expect(colors.icon, colors.label).not.toBe('rgb(255, 255, 255)');

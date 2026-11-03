@@ -15,7 +15,7 @@ const FRENCH_WORD = /(^|[^a-zà-ÿ])(le|la|les|des|du|une|et|avec|sans|dans|aux|
 const ENGLISH_WORD = /\b(the|and|of|to|with|for|your|in|on|a|an|is|are|from|or|by|into)\b/i;
 const FRENCH = { test: text => FRENCH_WORD.test(text) || (/[àâçèêëîïôûùüÿœ]/i.test(text) && !ENGLISH_WORD.test(text) && text.trim().split(/\s+/).length >= 3) };
 // Mots identiques dans les deux langues, noms propres et plats gardes en VO.
-const ALLOWED = /^(https?:.*|localhost.*|.*localhost:8080.*|Cook Note|Nutri-Score [A-E]|MaruChiwa|Android 5\.0\+|v\d+\.\d+.*|Commis.*|Chef de partie.*|Sous-chef.*|Français|Version originale|[A-Z]{1,3}|\d.*)$/;
+const ALLOWED = /^(https?:.*|localhost.*|.*localhost:8080.*|Cook Note|Nutri-Score [A-E]|MaruChiwa|Android 5\.0\+|v\d+\.\d+.*|Commis.*|Chef de partie.*|Sous-chef.*|Français|Version originale|Passer le site en français|[A-Z]{1,3}|\d.*)$/;
 
 async function texts(page) {
   return page.evaluate(() => {
