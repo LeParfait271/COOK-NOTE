@@ -107,18 +107,28 @@ const unprotect = (text, source = '') => {
   return /<[a-z/]|&[a-z#0-9]+;/i.test(source) ? plain : decodeEntities(plain);
 };
 
-function writeOutput(memory, overrides) {
+// Deux fichiers : en-content.js (charge avec l'application) et en-atlas.js
+// (fiches d'ingredients, charge avec l'atlas). Les traductions identiques au
+// francais (« Desserts ») ne sont pas ecrites : tc rend deja le francais.
+function writeOutput(memory, overrides, sources = collectEnglishSources(ROOT)) {
+  const atlasOnly = new Set(sources.filter(item => item.origin === 'atlas').map(item => item.hash));
   const table = {};
-  Object.entries(memory).forEach(([hash, entry]) => { if (entry.en) table[hash] = entry.en; });
-  Object.entries(overrides).forEach(([fr, en]) => { if (en) table[textHash(fr)] = en; });
+  const atlas = {};
+  const put = (hash, fr, en) => {
+    if (!en || en === fr) return;
+    (atlasOnly.has(hash) ? atlas : table)[hash] = en;
+  };
+  Object.entries(memory).forEach(([hash, entry]) => put(hash, entry.fr, entry.en));
+  Object.entries(overrides).forEach(([fr, en]) => put(textHash(fr), fr, en));
   fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
   // Gabarits de l'interface (« Ajouter {#} aux favoris ») : listes a part pour
   // la reconnaissance par motif dans app-english.js.
   const templates = [];
   Object.values(memory).forEach(entry => { if (entry.en && entry.fr.includes('{#}') && !overrides[entry.fr]) templates.push([entry.fr, entry.en]); });
   Object.entries(overrides).forEach(([fr, en]) => { if (en && fr.includes('{#}')) templates.push([fr, en]); });
-  fs.writeFileSync(OUTPUT, `// Genere par scripts/translate-en.js : ne pas modifier a la main.\nwindow.COOK_NOTE_EN = ${JSON.stringify(table)};\nwindow.COOK_NOTE_EN_TEMPLATES = ${JSON.stringify(templates)};\n`);
-  return Object.keys(table).length;
+  fs.writeFileSync(OUTPUT, `// Genere par scripts/translate-en.js : ne pas modifier a la main.\nwindow.COOK_NOTE_EN = Object.assign(window.COOK_NOTE_EN || {}, ${JSON.stringify(table)});\nwindow.COOK_NOTE_EN_TEMPLATES = ${JSON.stringify(templates)};\n`);
+  fs.writeFileSync(path.join(path.dirname(OUTPUT), 'en-atlas.js'), `// Genere par scripts/translate-en.js : fiches de l'atlas des ingredients.\nwindow.COOK_NOTE_EN = Object.assign(window.COOK_NOTE_EN || {}, ${JSON.stringify(atlas)});\nwindow.dispatchEvent(new CustomEvent('cooknote-english-extended'));\n`);
+  return Object.keys(table).length + Object.keys(atlas).length;
 }
 
 async function main() {

@@ -119,6 +119,10 @@ function minifyCss(code) {
       .replace(/\s*([{};,>])\s*/g, '$1')
       .replace(/:\s+/g, ':')
       .replace(/;}/g, '}')
+      // Zero de tete (0.5 -> .5), couleurs abregees (#ffffff -> #fff), regles vides.
+      .replace(/([\s:,(/-])0\.(\d)/g, '$1.$2')
+      .replace(/#([0-9a-f])\1([0-9a-f])\2([0-9a-f])\3(?![0-9a-f])/gi, '#$1$2$3')
+      .replace(/(^|})[^{}@]+\{\}/g, '$1')
       .trim();
   } catch (e) {
     return code;
@@ -231,9 +235,36 @@ function safeJson(value) {
     .replace(/\u2029/g, '\\u2029');
 }
 
+// ---------- Pages anglaises (/en/...) ----------
+// Meme rendu que les pages francaises, a partir d'une copie traduite de la
+// fiche (assets/i18n/en-content.js) ; libelles fixes ci-dessous.
+let PAGE_LANG = 'fr';
+const { textHash: englishHash, RECIPE_TEXT_KEYS } = require('./lib/translation-sources');
+let englishTable = null;
+function englishDictionary() {
+  if (englishTable) return englishTable;
+  const file = path.join(ROOT, 'assets', 'i18n', 'en-content.js');
+  const context = { window: {} };
+  if (fs.existsSync(file)) require('node:vm').runInNewContext(fs.readFileSync(file, 'utf8'), context);
+  englishTable = context.window.COOK_NOTE_EN || {};
+  return englishTable;
+}
+const toEnglish = text => (typeof text === 'string' && text.trim() ? englishDictionary()[englishHash(text.trim())] || text : text);
+function englishRecipe(value, key = '') {
+  if (Array.isArray(value)) return value.map(item => englishRecipe(item, key));
+  if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([child, item]) => [child, englishRecipe(item, child)]));
+  return typeof value === 'string' && RECIPE_TEXT_KEYS.has(key) ? toEnglish(value) : value;
+}
+const PAGE_LABELS = {
+  fr: { ingredients: 'Ingrédients', ready: 'Liste prête', collection: 'Collection', steps: 'Étapes', step: 'étape', stepsWord: 'étapes', notes: 'Notes', note: 'note', notesWord: 'notes', landmarks: 'Repères', collectionText: 'Cette fiche sert de collection.', notesLoaded: 'Notes pratiques chargées dans Cook Note.', difficulty: 'Difficulté', ingredient: 'ingrédient', ingredientsWord: 'ingrédients', parts: 'parts', shopping: 'Ajouter aux courses', handsFree: 'Mode mains libres', favorite: 'Favori', more: 'Plus', breadcrumb: 'Fil d’Ariane', base: 'Base', recipe: 'Recette', on: 'sur Cook Note : recette', for: 'pour', with: 'avec' },
+  en: { ingredients: 'Ingredients', ready: 'Shopping list', collection: 'Collection', steps: 'Steps', step: 'step', stepsWord: 'steps', notes: 'Notes', note: 'note', notesWord: 'notes', landmarks: 'Tips', collectionText: 'This page is a collection of recipes.', notesLoaded: 'Practical notes are loaded in Cook Note.', difficulty: 'Difficulty', ingredient: 'ingredient', ingredientsWord: 'ingredients', parts: 'servings', shopping: 'Add to shopping list', handsFree: 'Hands-free mode', favorite: 'Favourite', more: 'More', breadcrumb: 'Breadcrumb', base: 'Base', recipe: 'Recipe', on: 'on Cook Note:', for: 'for', with: 'with' }
+};
+const L = key => PAGE_LABELS[PAGE_LANG][key];
+
 function primaryCategory(recipe) {
   const category = (recipe?.categories || [])[0] || 'Recette';
-  return CATEGORY_ALIASES[category] || category;
+  const label = CATEGORY_ALIASES[category] || category;
+  return PAGE_LANG === 'en' ? toEnglish(label) : label;
 }
 
 function categoryColor(recipe) {
@@ -242,7 +273,7 @@ function categoryColor(recipe) {
 
 function difficultyText(recipe) {
   return Number.isFinite(recipe?.difficultyScore)
-    ? `Difficulté ${recipe.difficultyScore}/10`
+    ? `${L('difficulty')} ${recipe.difficultyScore}/10`
     : (DIFFICULTY_LABELS[recipe?.difficulty] || 'Recette');
 }
 
@@ -275,12 +306,12 @@ function collectRouteRecipes(id, recipes) {
   return output;
 }
 
-function recipeUrl(id) {
-  return `/recette/${encodeURIComponent(id)}/`;
+function recipeUrl(id, lang = PAGE_LANG) {
+  return `${lang === 'en' ? '/en' : ''}/recette/${encodeURIComponent(id)}/`;
 }
 
-function absoluteRecipeUrl(id) {
-  return `${SITE_URL}${recipeUrl(id)}`;
+function absoluteRecipeUrl(id, lang = PAGE_LANG) {
+  return `${SITE_URL}${recipeUrl(id, lang)}`;
 }
 
 function recipeImage(recipe) {
@@ -322,8 +353,8 @@ function renderStaticHero(fullRecipe, isParent) {
     ? []
     : [
       difficultyText(fullRecipe),
-      ingredientCount ? `${ingredientCount} ingrédient${ingredientCount > 1 ? 's' : ''}` : '',
-      stepCount ? `${stepCount} étape${stepCount > 1 ? 's' : ''}` : ''
+      ingredientCount ? `${ingredientCount} ${ingredientCount > 1 ? L('ingredientsWord') : L('ingredient')}` : '',
+      stepCount ? `${stepCount} ${stepCount > 1 ? L('stepsWord') : L('step')}` : ''
     ].filter(Boolean);
   const icon = '<svg class="site-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"></svg>';
   return [
@@ -334,15 +365,15 @@ function renderStaticHero(fullRecipe, isParent) {
     `            <noscript><img class="recipe-detail-hero-image" src="${escapeHtml(night)}" alt="" width="1400" height="788" /></noscript>`,
     '          </div>',
     '          <div class="detail-hero-copy">',
-    '            <nav class="recipe-breadcrumb" aria-label="Fil d’Ariane">',
-    `              <a href="/">Cook Note</a>${isParent ? '' : `<span>/</span><button type="button" tabindex="-1">${escapeHtml(category)}</button>`}<span>/</span><strong aria-current="page">${escapeHtml(fullRecipe.title)}</strong>`,
+    `            <nav class="recipe-breadcrumb" aria-label="${L('breadcrumb')}">`,
+    `              <a href="${PAGE_LANG === 'en' ? '/en/' : '/'}">Cook Note</a>${isParent ? '' : `<span>/</span><button type="button" tabindex="-1">${escapeHtml(category)}</button>`}<span>/</span><strong aria-current="page">${escapeHtml(fullRecipe.title)}</strong>`,
     '            </nav>',
     `            <h1>${escapeHtml(fullRecipe.title)}</h1>`,
     '            <div class="detail-meta">',
     isParent ? '' : meta.map(fact => `              <span>${escapeHtml(fact)}</span>`).join(''),
     '            </div>',
     // Places reservees aux reglages et actions que l'app ajoute : meme hauteur.
-    isParent ? '' : `            <div class="detail-actions static-placeholder" aria-hidden="true"><span class="factor-control serving-control quantity-stepper detail-quantity-control"><span class="quantity-step">−</span><span class="quantity-stepper-value"><strong>${escapeHtml(String(parseInt(fullRecipe.yield, 10) || 4))}</strong><span>parts</span></span><span class="quantity-step">+</span></span><span class="btn btn-ghost detail-action-button">Ajouter aux courses</span><span class="btn btn-primary">${icon}<span>Mode mains libres</span></span><span class="btn btn-ghost detail-action-button">${icon}<span>Favori</span></span><span class="btn btn-ghost detail-action-button">${icon}<span>Plus</span></span></div>`,
+    isParent ? '' : `            <div class="detail-actions static-placeholder" aria-hidden="true"><span class="factor-control serving-control quantity-stepper detail-quantity-control"><span class="quantity-step">−</span><span class="quantity-stepper-value"><strong>${escapeHtml(String(parseInt(fullRecipe.yield, 10) || 4))}</strong><span>${L('parts')}</span></span><span class="quantity-step">+</span></span><span class="btn btn-ghost detail-action-button">${L('shopping')}</span><span class="btn btn-primary">${icon}<span>${L('handsFree')}</span></span><span class="btn btn-ghost detail-action-button">${icon}<span>${L('favorite')}</span></span><span class="btn btn-ghost detail-action-button">${icon}<span>${L('more')}</span></span></div>`,
     '          </div>',
     '        </section>'
   ].filter(Boolean).join('\n');
@@ -392,6 +423,7 @@ function recipeDescription(recipe) {
     .map(item => stripHtml(item).replace(/^\s*\d+[.,]?\d*\s*(?:g|kg|ml|cl|l|c\.|cuill|pincée|tranche|boîte|sachet)?\s+/i, '').trim())
     .filter(Boolean)
     .join(', ');
+  if (PAGE_LANG === 'en') return `${recipe.title} on Cook Note: ${category} recipe${recipe?.yield ? ` (${recipe.yield})` : ''}${ingredients ? ` with ${ingredients}` : ''}.`;
   return `${recipe.title} sur Cook Note : recette ${category}${yieldText}${ingredients ? ` avec ${ingredients}` : ''}.`;
 }
 
@@ -520,10 +552,10 @@ function renderList(items, tag = 'ul') {
 
 function renderIngredients(recipe) {
   const groups = recipe.ingredients || [];
-  if (!groups.length) return '<p class="recipe-summary-message">Cette fiche sert de collection.</p>';
+  if (!groups.length) return `<p class="recipe-summary-message">${L('collectionText')}</p>`;
   return groups.map(group => [
     '<section class="ingredient-group">',
-    `<h3>${escapeHtml(group.group || 'Base')}</h3>`,
+    `<h3>${escapeHtml(group.group || L('base'))}</h3>`,
     renderList(group.items || []),
     '</section>'
   ].join('')).join('');
@@ -531,7 +563,7 @@ function renderIngredients(recipe) {
 
 function renderNotes(recipe) {
   const notes = (recipe.notes || []).map(stripHtml).filter(Boolean);
-  if (!notes.length) return '<p class="recipe-summary-message">Notes pratiques chargées dans Cook Note.</p>';
+  if (!notes.length) return `<p class="recipe-summary-message">${L('notesLoaded')}</p>`;
   return renderList(notes.slice(0, 8));
 }
 
@@ -569,25 +601,29 @@ function renderRecipeBody(recipe) {
   return [
     '<div class="recipe-detail-grid static-prerender-grid">',
     '<section class="recipe-panel ingredients-panel active-tab-panel">',
-    '<p class="eyebrow">Ingrédients</p>',
-    `<h2>${(recipe.ingredients || []).length ? 'Liste prête' : 'Collection'}</h2>`,
+    `<p class="eyebrow">${L('ingredients')}</p>`,
+    `<h2>${(recipe.ingredients || []).length ? L('ready') : L('collection')}</h2>`,
     renderIngredients(recipe),
     '</section>',
     '<section class="recipe-panel steps-panel active-tab-panel">',
-    '<p class="eyebrow">Étapes</p>',
-    `<h2>${steps.length} étape${steps.length > 1 ? 's' : ''}</h2>`,
+    `<p class="eyebrow">${L('steps')}</p>`,
+    `<h2>${steps.length} ${steps.length > 1 ? L('stepsWord') : L('step')}</h2>`,
     renderList(steps, 'ol'),
     '</section>',
     '<section class="recipe-panel notes-panel active-tab-panel">',
-    '<p class="eyebrow">Notes</p>',
-    `<h2>${noteCount ? `${noteCount} note${noteCount > 1 ? 's' : ''}` : 'Repères'}</h2>`,
+    `<p class="eyebrow">${L('notes')}</p>`,
+    `<h2>${noteCount ? `${noteCount} ${noteCount > 1 ? L('notesWord') : L('note')}` : L('landmarks')}</h2>`,
     renderNotes(recipe),
     '</section>',
     '</div>'
   ].join('');
 }
 
-function renderStaticRecipePage(id, recipe, recipes, version) {
+function renderStaticRecipePage(id, sourceRecipe, sourceRecipes, version, lang = 'fr') {
+  PAGE_LANG = lang;
+  const english = lang === 'en';
+  const recipe = english ? englishRecipe(sourceRecipe) : sourceRecipe;
+  const recipes = english ? new Proxy(sourceRecipes, { get: (target, key) => (target[key] ? englishRecipe(target[key]) : target[key]) }) : sourceRecipes;
   const fullRecipe = { id, ...recipe };
   const routeRecipes = collectRouteRecipes(id, recipes);
   const accent = categoryColor(fullRecipe);
@@ -597,7 +633,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
   const jsonLd = buildRecipeJsonLd(id, recipe, recipes);
   return [
     '<!DOCTYPE html>',
-    '<html lang="fr">',
+    `<html lang="${lang}">`,
     '<head>',
     '  <meta charset="UTF-8" />',
     `  <title>${escapeHtml(fullRecipe.title)} - Cook Note</title>`,
@@ -619,13 +655,17 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `  <meta name="twitter:description" content="${escapeHtml(description)}" />`,
     `  <meta name="twitter:image" content="${escapeHtml(absoluteImageUrl(fullRecipe))}" />`,
     `  <link rel="canonical" href="${escapeHtml(absoluteRecipeUrl(id))}" />`,
+    `  <link rel="alternate" hreflang="fr" href="${escapeHtml(absoluteRecipeUrl(id, 'fr'))}" />`,
+    `  <link rel="alternate" hreflang="en" href="${escapeHtml(absoluteRecipeUrl(id, 'en'))}" />`,
+    `  <link rel="alternate" hreflang="x-default" href="${escapeHtml(absoluteRecipeUrl(id, 'fr'))}" />`,
+    english && "  <script>window.COOK_NOTE_FORCE_LANG = 'en';</script>",
     '  <link rel="manifest" href="/manifest.json" />',
     '  <link rel="icon" href="/assets/brand/mark.svg?v=2" type="image/svg+xml" />',
     '  <link rel="icon" href="/assets/brand/icon-192.png?v=2" type="image/png" sizes="192x192" />',
     '  <link rel="apple-touch-icon" href="/assets/brand/app-icon.png?v=2" data-art-asset="appIcon" data-art-target="href" data-art-versioned />',
     '  <link rel="preload" as="image" href="/assets/theme/dark/global/background.avif" type="image/avif" fetchpriority="high" data-art-asset="background" data-art-target="href" />',
     `  <script>window.COOK_NOTE_ASSET_VERSION = '${version}';</script>`,
-    `  <script>try{var l=/[?&]lang=(en|fr)\\b/.exec(location.search);if(l?l[1]==='en':localStorage.getItem('cook_note_lang')==='en')document.write('<script src="/assets/i18n/en-content.js?v='+window.COOK_NOTE_ASSET_VERSION+'"><\\/script>')}catch(e){}</script>`,
+    `  <script>try{var l=/[?&]lang=(en|fr)\\b/.exec(location.search);if(window.COOK_NOTE_FORCE_LANG==='en'||/^\\/en(\\/|$)/.test(location.pathname)||(l?l[1]==='en':localStorage.getItem('cook_note_lang')==='en'))document.write('<script src="/assets/i18n/en-content.js?v='+window.COOK_NOTE_ASSET_VERSION+'"><\\/script>')}catch(e){}</script>`,
     `  <script src="/theme.js?v=${version}"></script>`,
     image && staticHeroPreload(fullRecipe, variantRefs(fullRecipe).length > 0),
     '  <link rel="preload" as="image" href="/assets/brand/cook-note-white.avif" type="image/avif" />',
@@ -660,7 +700,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     `  <script src="/app-techniques.js?v=${version}"></script>`,
     '  <script>',
     `    window.COOK_NOTE_PRERENDERED_ROUTE = ${safeJson(id)};`,
-    `    window.COOK_NOTE_PRERENDERED_RECIPES = ${safeJson(routeRecipes)};`,
+    `    window.COOK_NOTE_PRERENDERED_RECIPES = ${safeJson(collectRouteRecipes(id, sourceRecipes))};`,
     '    window.RECIPES = Object.assign(window.RECIPES || {}, window.COOK_NOTE_PRERENDERED_RECIPES);',
     '  </script>',
     ...APP_MODULES.map(file => `  <script src="/${file}?v=${version}"></script>`),
@@ -678,10 +718,46 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
 function writeStaticRecipePages(recipes) {
   const version = cacheVersion();
   Object.entries(recipes).forEach(([id, recipe]) => {
-    const destination = path.join(DIST, 'recette', encodeURIComponent(id), 'index.html');
-    ensureParent(destination);
-    fs.writeFileSync(destination, renderStaticRecipePage(id, recipe, recipes, version), 'utf8');
+    for (const lang of ['fr', 'en']) {
+      const destination = path.join(DIST, ...(lang === 'en' ? ['en'] : []), 'recette', encodeURIComponent(id), 'index.html');
+      ensureParent(destination);
+      fs.writeFileSync(destination, renderStaticRecipePage(id, recipe, recipes, version, lang), 'utf8');
+    }
   });
+  PAGE_LANG = 'fr';
+}
+
+// Une fiche par fichier (assets/recipe-data/<id>.js) : ouvrir une recette ne
+// charge plus le catalogue complet (recipe-worker.js).
+function recipeDataFile(id, recipe) {
+  return `self.COOK_NOTE_RECIPE_DATA=Object.assign(self.COOK_NOTE_RECIPE_DATA||{},${JSON.stringify({ [id]: recipe })});\n`;
+}
+
+function writeRecipeDataFiles(recipes) {
+  const folder = path.join(DIST, 'assets', 'recipe-data');
+  fs.rmSync(folder, { recursive: true, force: true });
+  fs.mkdirSync(folder, { recursive: true });
+  Object.entries(recipes).forEach(([id, recipe]) => fs.writeFileSync(path.join(folder, `${encodeURIComponent(id)}.js`), recipeDataFile(id, recipe), 'utf8'));
+}
+
+// Accueil anglais /en/ : l'accueil construit, en anglais (titre, description,
+// langue, liens entre langues).
+function writeEnglishHome() {
+  const source = path.join(DIST, 'index.html');
+  if (!fs.existsSync(source)) return;
+  let html = fs.readFileSync(source, 'utf8');
+  const description = 'Cook Note: a home recipe book with ingredients, steps, variations, cooking techniques, favourites and a shopping list.';
+  const alternates = `<link rel="alternate" hreflang="fr" href="${SITE_URL}/" /><link rel="alternate" hreflang="en" href="${SITE_URL}/en/" /><link rel="alternate" hreflang="x-default" href="${SITE_URL}/" /><script>window.COOK_NOTE_FORCE_LANG = 'en';</script>`;
+  html = html
+    .replace(/<html lang="fr"/, '<html lang="en"')
+    .replace(/(<meta name="description" content=")[^"]*"/, `$1${description}"`)
+    .replace(/(<meta property="og:description" content=")[^"]*"/, `$1${description}"`)
+    .replace(/(<link rel="canonical" href=")[^"]*"/, `$1${SITE_URL}/en/"`)
+    .replace('</head>', `  ${alternates}\n</head>`)
+    .replace(/localStorage\.getItem\('cook_note_lang'\)==='en'/, "true");
+  const destination = path.join(DIST, 'en', 'index.html');
+  ensureParent(destination);
+  fs.writeFileSync(destination, html, 'utf8');
 }
 
 function writeDistRedirects(recipes) {
@@ -691,7 +767,8 @@ function writeDistRedirects(recipes) {
     .flatMap(id => {
         const slug = encodeURIComponent(id);
         return [
-          `/recette/${slug} /recette/${slug}/ 301`
+          `/recette/${slug} /recette/${slug}/ 301`,
+          `/en/recette/${slug} /en/recette/${slug}/ 301`
         ];
     });
   fs.writeFileSync(path.join(DIST, '_redirects'), [...recipeRules, base, ''].join('\n'), 'utf8');
@@ -724,6 +801,8 @@ ASSET_DIRS.forEach(dir => copyDirectory(path.join('assets', dir)));
 OPTIONAL_ASSET_DIRS.forEach(dir => copyOptionalDirectory(path.join('assets', dir)));
 writeDistImageManifest();
 writeStaticRecipePages(recipes);
+writeRecipeDataFiles(recipes);
+writeEnglishHome();
 writeDistRedirects(recipes);
 
 console.log('Build Cook Note OK: dist/');

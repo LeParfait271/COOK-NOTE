@@ -133,6 +133,37 @@ function getNutriScore(recipe) {
   return ['A', 'B', 'C', 'D', 'E'][index];
 }
 
+// Regimes deduits des ingredients (comme les allergenes) : vegetarien, vegan,
+// sans gluten, sans lactose. Indicatif : le detail reste dans la fiche.
+const RECIPE_DIETS = [
+  { id: 'vegetarien', label: 'Végétarien' },
+  { id: 'vegan', label: 'Végan' },
+  { id: 'sans-gluten', label: 'Sans gluten' },
+  { id: 'sans-lactose', label: 'Sans lactose' }
+];
+const MEAT_OR_FISH = /\b(boeuf|bœuf|veau|porc|poulet|poulets|volaille|dinde|canard|agneau|lapin|gibier|lardons?|jambon|bacon|pancetta|chorizo|saucisses?|saucisson|merguez|viandes?|steak|bavette|entrecote|filet mignon|cotes?|cuisses?|blancs? de (?:poulet|volaille|dinde)|magret|foie gras|rillettes|poissons?|saumon|thon|cabillaud|colin|lieu|merlu|bar|loup|daurade|dorade|sole|lotte|truite|sardines?|maquereaux?|anchois|crevettes?|gambas|calamars?|chipirons?|seiche|poulpe|moules?|huitres?|coquilles saint jacques|saint jacques|noix de saint jacques|homard|langoustines?|crabe|escargots?|fumet|fond de (?:veau|volaille|boeuf)|bouillon de (?:volaille|boeuf|poulet|viande)|gelatine|gélatine|nuoc.?mam|sauce (?:de )?poisson|fish sauce|surimi|bresaola|coppa|guanciale)\b/;
+const ANIMAL_PRODUCTS = /\b(miel|oeuf|oeufs|œuf|œufs|jaunes?|blancs? d)\b/;
+const recipeDietCache = new WeakMap();
+function getRecipeDiets(recipe) {
+  // Fiche resumee sans ingredients : aucun regime affirme.
+  if (!recipe || !(recipe.ingredients || []).length) return [];
+  if (recipeDietCache.has(recipe)) return recipeDietCache.get(recipe);
+  const text = normalizeText([
+    recipe.title,
+    ...(recipe.ingredients || []).flatMap(group => [group.group, ...(group.items || []), ...((group.recipe && typeof group.recipe === 'object') ? (group.recipe.ingredients || []).flatMap(inner => inner.items || []) : [])])
+  ].join(' '));
+  const allergens = new Set(getRecipeAllergens(recipe));
+  const diets = [];
+  const vegetarian = !MEAT_OR_FISH.test(text) && !/\b(mollusques|crustaces|poissons)\b/.test(normalizeText([...allergens].join(' ')));
+  if (vegetarian) diets.push('vegetarien');
+  if (vegetarian && !allergens.has('Lait') && !allergens.has('Œufs') && !ANIMAL_PRODUCTS.test(text)) diets.push('vegan');
+  if (!allergens.has('Gluten')) diets.push('sans-gluten');
+  if (!allergens.has('Lait')) diets.push('sans-lactose');
+  recipeDietCache.set(recipe, diets);
+  return diets;
+}
+const dietLabel = id => (RECIPE_DIETS.find(diet => diet.id === id) || {}).label || id;
+
 function getRecipeAllergens(recipe) {
   const explicit = Array.isArray(recipe?.allergens) ? recipe.allergens : [];
   const text = normalizeText([
@@ -810,6 +841,51 @@ function scaleParentheticalAmounts(text, factor) {
     });
     return `(${scaled})`;
   });
+}
+
+// ---------- Unites US (anglais) ----------
+// Anglais + preference « US » : grammes en oz / lb, millilitres en fl oz /
+// cups, °C en °F, a l'affichage seulement (les quantites restent metriques).
+const UNITS_KEY = 'cook_note_units';
+let cookNoteUnits = (() => {
+  try { return localStorage.getItem(UNITS_KEY) === 'us' ? 'us' : 'metric'; } catch { return 'metric'; }
+})();
+function setCookNoteUnits(units) {
+  cookNoteUnits = units === 'us' ? 'us' : 'metric';
+  try { localStorage.setItem(UNITS_KEY, cookNoteUnits); } catch { /* stockage indisponible */ }
+}
+const usUnitsActive = () => typeof COOK_NOTE_LANG !== 'undefined' && COOK_NOTE_LANG === 'en' && cookNoteUnits === 'us';
+const usNumber = value => (value >= 10 ? String(Math.round(value)) : String(Math.round(value * 10) / 10).replace(/\.0$/, ''));
+const usCups = ml => {
+  const quarters = Math.round((ml / 240) * 4) / 4;
+  return quarters >= 0.25 ? `${String(quarters).replace(/^0\./, '.').replace(/\.25$/, ' ¼').replace(/\.5$/, ' ½').replace(/\.75$/, ' ¾').replace(/^\./, '').replace(/^ /, '')} cup${quarters > 1 ? 's' : ''}` : '';
+};
+function usMeasure(amount, unit) {
+  const value = Number(String(amount).replace(',', '.'));
+  if (!Number.isFinite(value)) return null;
+  switch (unit.toLowerCase()) {
+    case 'kg': return `${usNumber(value * 2.2046)} lb`;
+    // Moins de 10 g (epices, sel, levure) : les grammes restent plus parlants.
+    case 'g': if (value < 10) return null; return value >= 450 ? `${usNumber(value / 453.6)} lb` : `${usNumber(value / 28.35)} oz`;
+    case 'l': return usCups(value * 1000) || `${usNumber(value * 33.81)} fl oz`;
+    case 'cl': return value * 10 >= 120 ? usCups(value * 10) : `${usNumber(value / 2.957)} fl oz`;
+    case 'ml': return value >= 120 ? usCups(value) : `${usNumber(value / 29.57)} fl oz`;
+    default: return null;
+  }
+}
+function usUnits(text) {
+  if (!usUnitsActive() || typeof text !== 'string') return text;
+  return text
+    .replace(/(\d+(?:[.,]\d+)?)\s*°\s*C\b/g, (whole, value) => `${Math.round((Number(value.replace(',', '.')) * 9) / 5 + 32)}°F`)
+    .replace(/(\d+(?:[.,]\d+)?)\s*(?:to|-|–)\s*(\d+(?:[.,]\d+)?)\s*(kg|g|ml|cl|l)\b/gi, (whole, from, to, unit) => {
+      const low = usMeasure(from, unit);
+      const high = usMeasure(to, unit);
+      if (!low || !high) return whole;
+      const [lowValue, lowUnit] = low.split(/ (.+)/);
+      const [highValue, highUnit] = high.split(/ (.+)/);
+      return lowUnit === highUnit ? `${lowValue} to ${highValue} ${highUnit}` : `${low} to ${high}`;
+    })
+    .replace(/(\d+(?:[.,]\d+)?)\s*(kg|g|ml|cl|l)\b/gi, (whole, value, unit) => usMeasure(value, unit) || whole);
 }
 
 function scaleIngredient(text, factor) {

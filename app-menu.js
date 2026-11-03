@@ -30,11 +30,16 @@ function getRecipeTiming(recipe) {
     ? explicitCook
     : (cookMinutes || (totalTimed && !restMinutes ? totalTimed : 0));
   const rest = Number.isFinite(explicitRest) && explicitRest > 0 ? explicitRest : restMinutes;
+  // Etapes faites pendant une cuisson ou un repos (« pendant ce temps »,
+  // « pendant la cuisson », « en attendant ») : leur temps ne s'ajoute pas.
+  const parallel = steps.filter(step => /\bpendant (ce temps|la cuisson|le repos|la reduction|la levee|que|qu)\b|\ben attendant\b|\bdans l intervalle\b/.test(normalizeText(step)));
+  const overlap = Math.min(Math.round(active * 0.6), cook + rest, parallel.reduce((sum, step) => sum + (getStepMinutes(step) || 8), 0));
   return {
     active,
     cook,
     rest,
-    total: Number.isFinite(explicitTotal) && explicitTotal > 0 ? explicitTotal : active + cook + rest,
+    overlap,
+    total: Number.isFinite(explicitTotal) && explicitTotal > 0 ? explicitTotal : active + cook + rest - overlap,
     hasOven: /\b(four|enfourner|rotir|gratin|plaque)\b/.test(stepText),
     hasFry: /\b(friture|frire|bain d huile|tempura|beignet)\b/.test(stepText),
     hasCold: /\b(refrigerateur|froid|refroidir|repos)\b/.test(stepText)

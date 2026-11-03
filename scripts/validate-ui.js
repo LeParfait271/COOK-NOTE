@@ -217,7 +217,7 @@ expect('Export recette propre absent.', files.app.includes('recipeExportText') &
 expect('Resume recette premium absent.', files.app.includes('recipe-summary-panel') && files.style.includes('.recipe-summary-panel'));
 expect('Passe premium composants absente.', files.style.includes('content-visibility: auto') && files.style.includes('.recipe-card::before') && files.style.includes('.variant-card::before') && files.app.includes("name: 'spark'"));
 expect('Design system premium non verrouille.', designSystemIncludesPremiumTokens && publicCssUsesPremiumTokens && adminCssUsesPremiumTokens);
-expect('Passe pixel-perfect sans grille stable pour filtres saison mobile.', mobileSeasonTabsUseStableGrid && designSystemIncludesStableMobileTabs);
+// (Ancienne barre .season-tabs retiree : remplacee par les filtres de collection.)
 expect('Motion cartes recette non bornee a 250ms.', cardImageMotionIsBounded && designSystemIncludesBoundedCardZoom);
 expect('Actions fiche recette sans hauteur commune.', detailActionControlsAreAligned && designSystemIncludesAlignedActionControls);
 expect('Selecteur de quantite hero trop peu lisible.', quantitySelectStaysReadable && designSystemIncludesReadableQuantitySelect);

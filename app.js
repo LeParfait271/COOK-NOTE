@@ -101,10 +101,10 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.66';
+const SITE_VERSION = 'v5.67';
 const SITE_UPDATED_AT = '03/11/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
-const ANDROID_LEGACY_APK_VERSION = '5.61';
+const ANDROID_LEGACY_APK_VERSION = '5.67';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
 const APP_INSTALL_OPTIONS = Object.freeze([
   {
@@ -127,6 +127,11 @@ const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
 const COOK_NOTE_LANG_KEY = 'cook_note_lang';
 const COOK_NOTE_LANG = (() => {
   try {
+    // Pages anglaises (/en/...) : anglais d'office.
+    if (window.COOK_NOTE_FORCE_LANG === 'en' || /^\/en(\/|$)/.test(window.location.pathname)) {
+      localStorage.setItem(COOK_NOTE_LANG_KEY, 'en');
+      return 'en';
+    }
     const asked = new URLSearchParams(window.location.search).get('lang');
     if (asked === 'en' || asked === 'fr') localStorage.setItem(COOK_NOTE_LANG_KEY, asked);
     return localStorage.getItem(COOK_NOTE_LANG_KEY) === 'en' ? 'en' : 'fr';
@@ -151,6 +156,7 @@ function cookNoteTextHash(text, seed = 0) {
 }
 
 const contentTranslations = new Map();
+window.addEventListener?.('cooknote-english-extended', () => contentTranslations.clear());
 // Texte de contenu traduit (ou tel quel s'il n'a pas encore de traduction).
 function tc(text) {
   if (COOK_NOTE_LANG !== 'en' || typeof text !== 'string' || !window.COOK_NOTE_EN) return text;
@@ -166,8 +172,12 @@ function tc(text) {
 
 function setCookNoteLang(lang) {
   try { localStorage.setItem(COOK_NOTE_LANG_KEY, lang === 'en' ? 'en' : 'fr'); } catch { /* stockage indisponible */ }
+  // Adresse de la meme page dans l'autre langue : /en/... impose l'anglais,
+  // il faut donc en sortir pour le francais (et y entrer pour l'anglais).
   const url = new URL(window.location.href);
   url.searchParams.delete('lang');
+  const french = url.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
+  url.pathname = lang === 'en' ? (french === '/' ? '/en/' : `/en${french}`) : french;
   window.location.replace(url.toString());
 }
 const RECIPE_DETAIL_WORKER_SRC = '/recipe-worker.js';
@@ -833,7 +843,12 @@ const LOCAL_DATA_EXPORT_KEYS = Object.freeze([
   STORAGE_KEYS.pantry,
   STORAGE_KEYS.equipmentProfile,
   STORAGE_KEYS.recipeHistory,
-  STORAGE_KEYS.recipeOverrides
+  STORAGE_KEYS.recipeOverrides,
+  // Parcours de chef, Ma semaine, Mon frigo, ajouts a la main du panier.
+  'cook_note_chef',
+  'cook_note_week',
+  'cook_note_fridge',
+  'cook_note_shopping_extra'
 ]);
 const LOCAL_DATA_EXPORT_SCHEMA = 'cook-note-local-data';
 const LOCAL_DATA_EXPORT_VERSION = 2;

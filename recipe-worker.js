@@ -11,13 +11,24 @@ function loadRecipeCatalog(src) {
   return recipeCatalog;
 }
 
+// Fiche seule (assets/recipe-data/<id>.js, quelques Ko) d'abord ; catalogue
+// complet seulement si elle manque.
+function loadSingleRecipe(id, src) {
+  if (!src) return null;
+  try {
+    importScripts(src);
+    return self.COOK_NOTE_RECIPE_DATA ? self.COOK_NOTE_RECIPE_DATA[id] || null : null;
+  } catch (error) {
+    return null;
+  }
+}
+
 self.addEventListener('message', event => {
   const data = event.data || {};
   if (data.type !== 'load' || !data.id) return;
 
   try {
-    const catalog = loadRecipeCatalog(data.src);
-    const recipe = catalog[data.id] || null;
+    const recipe = loadSingleRecipe(data.id, data.single) || loadRecipeCatalog(data.src)[data.id] || null;
     if (!recipe) throw new Error('Fiche recette introuvable.');
     self.postMessage({ type: 'recipe', id: data.id, recipe });
   } catch (error) {

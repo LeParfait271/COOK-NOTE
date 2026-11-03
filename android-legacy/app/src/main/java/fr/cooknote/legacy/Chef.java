@@ -15,13 +15,21 @@ import java.util.List;
  * 100 points de cote par division. Rien n'est gagne sans verdict (reussi 1,
  * correct 1/2, rate 0) : la cote bouge comme un Elo, K x (verdict - chance
  * attendue). Une technique se debloque a sa premiere execution reussie, puis
- * chaque plat qui la demande ajoute 1 ; a 1000, badge Maitre.
+ * chaque plat qui la demande ajoute 1 ; un palier tous les 200 (Bronze,
+ * Argent, Or, Platine) jusqu'au badge Maitre a 1000. Serie : a partir de 3
+ * reussites d'affilee, +25 %. Protection : juste apres une promotion, la
+ * premiere defaite ne fait pas redescendre de division.
  */
 final class Chef {
     static final String PREF_KEY = "chef";
     static final int K = 60;
     static final int DIVISION_SIZE = 100;
     static final int MASTER_GOAL = 1000;
+    static final int[] TIER_STEPS = {200, 400, 600, 800, 1000};
+    static final String[] TIER_LABELS = {"Bronze", "Argent", "Or", "Platine", "Maître"};
+    static final int[] TIER_COLORS = {0xffc98a55, 0xffc9d0da, 0xfff2c65a, 0xff9fe3dc, 0xffe9b949};
+    static final int STREAK_FROM = 2;
+    static final double STREAK_BONUS = 1.25;
     static final String[] DIVISIONS = {"V", "IV", "III", "II", "I"};
     static final String[] RANK_IDS = {"commis", "cuisinier", "partie", "sous-chef", "etoile"};
     static final String[] RANK_LABELS = {"Commis", "Cuisinier", "Chef de partie", "Sous-chef", "Chef étoilé"};
@@ -72,13 +80,17 @@ final class Chef {
         final Standing after;
         final List<String> unlocked;
         final List<String> mastered;
+        final List<String> tiered;
+        final boolean shielded;
 
-        Result(int delta, Standing before, Standing after, List<String> unlocked, List<String> mastered) {
+        Result(int delta, Standing before, Standing after, List<String> unlocked, List<String> mastered, List<String> tiered, boolean shielded) {
             this.delta = delta;
             this.before = before;
             this.after = after;
             this.unlocked = unlocked;
             this.mastered = mastered;
+            this.tiered = tiered;
+            this.shielded = shielded;
         }
 
         boolean promoted() {
@@ -152,6 +164,29 @@ final class Chef {
         return data.optJSONArray("history");
     }
 
+    /** Palier atteint (-1 : aucun) pour un compteur de technique. */
+    static int tier(int count) {
+        int tier = -1;
+        for (int index = 0; index < TIER_STEPS.length; index += 1) if (count >= TIER_STEPS[index]) tier = index;
+        return tier;
+    }
+
+    /** Reussites d'affilee, les plus recentes d'abord. */
+    int streak() {
+        JSONArray history = history();
+        int streak = 0;
+        for (int index = 0; index < history.length(); index += 1) {
+            JSONObject entry = history.optJSONObject(index);
+            if (entry == null || entry.optDouble("score") != 1) break;
+            streak += 1;
+        }
+        return streak;
+    }
+
+    boolean shielded() {
+        return data.optInt("shield", 0) > 0;
+    }
+
     static double expected(double rating, int recipeRating) {
         return 1 / (1 + Math.pow(10, (recipeRating - rating) / 400.0));
     }
@@ -167,7 +202,8 @@ final class Chef {
             JSONObject entry = history.optJSONObject(index);
             if (entry != null && recipe.id.equals(entry.optString("id")) && entry.optDouble("score") > 0 && entry.optLong("at") > weekAgo) recent += 1;
         }
-        return (int) Math.max(1, Math.round(raw * Math.pow(0.5, recent)));
+        double bonus = score == 1 && streak() >= STREAK_FROM ? STREAK_BONUS : 1;
+        return (int) Math.max(1, Math.round(raw * bonus * Math.pow(0.5, recent)));
     }
 
     Result record(Recipe recipe, int recipeRating, List<String> techniques, int verdictIndex) {
@@ -175,17 +211,26 @@ final class Chef {
         double score = VERDICT_SCORES[verdictIndex];
         int delta = preview(recipe, recipeRating, score);
         double rating = Math.max(0, Math.min(MAX_RATING, rating() + delta));
+        int shield = data.optInt("shield", 0);
+        int previousShield = shield;
+        double floor = before.level * DIVISION_SIZE;
+        boolean shieldUsed = delta < 0 && shield > 0 && rating < floor;
+        if (shieldUsed) rating = floor;
+        if (delta < 0) shield = 0;
         List<String> progressed = new ArrayList<String>();
         List<String> unlocked = new ArrayList<String>();
         List<String> mastered = new ArrayList<String>();
+        List<String> tiered = new ArrayList<String>();
         JSONObject tech = data.optJSONObject("tech");
         JSONObject unlockedMap = data.optJSONObject("unlocked");
         JSONObject masterMap = data.optJSONObject("master");
         long now = System.currentTimeMillis();
         if (score > 0) {
             for (String id : techniques) {
-                int count = Math.min(MASTER_GOAL, tech.optInt(id, 0) + 1);
+                int previous = tech.optInt(id, 0);
+                int count = Math.min(MASTER_GOAL, previous + 1);
                 put(tech, id, count);
+                if (tier(count) > tier(previous) && count < MASTER_GOAL) tiered.add(id + ":" + tier(count));
                 progressed.add(id);
                 if (unlockedMap.optLong(id, 0) == 0) {
                     put(unlockedMap, id, now);
@@ -210,15 +255,19 @@ final class Chef {
         put(entry, "progressed", new JSONArray(progressed));
         put(entry, "unlockedIds", new JSONArray(unlocked));
         put(entry, "masteredIds", new JSONArray(mastered));
+        put(entry, "shielded", shieldUsed);
+        put(entry, "shield", previousShield);
         JSONArray history = new JSONArray();
         history.put(entry);
         JSONArray old = history();
         for (int index = 0; index < old.length() && index < 79; index += 1) history.put(old.opt(index));
         put(data, "history", history);
+        if (new Standing(rating).level > before.level) shield = 1;
+        put(data, "shield", shield);
         put(data, "rating", rating);
         put(data, "best", Math.max(best(), rating));
         save();
-        return new Result(realDelta, before, standing(), unlocked, mastered);
+        return new Result(realDelta, before, standing(), unlocked, mastered, tiered, shieldUsed);
     }
 
     /** Annule le dernier verdict (erreur de bouton). */
@@ -241,6 +290,7 @@ final class Chef {
         removeAll(data.optJSONObject("unlocked"), last.optJSONArray("unlockedIds"));
         removeAll(data.optJSONObject("master"), last.optJSONArray("masteredIds"));
         put(data, "rating", Math.max(0, rating() - last.optInt("delta")));
+        put(data, "shield", last.optInt("shield", 0));
         JSONArray rest = new JSONArray();
         for (int index = 1; index < history.length(); index += 1) rest.put(history.opt(index));
         put(data, "history", rest);
@@ -273,6 +323,7 @@ final class Chef {
         String change = "Cote " + signed(result.delta);
         if (result.promoted()) return change + " · Promotion : " + result.after.name;
         if (result.demoted()) return change + " · Retour en " + result.after.name;
+        if (result.shielded) return change + " · Protection utilisée, " + result.after.name + " conservé";
         return change + " · " + result.after.name;
     }
 

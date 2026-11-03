@@ -486,9 +486,9 @@ expect(
 expect(
   'Les controles tactiles Android doivent reagir a la premiere pression sans prise de focus intermediaire.',
   !androidLegacyMainActivity.includes('setFocusableInTouchMode(true)')
-    && (androidLegacyMainActivity.match(/new CheckBox\((?:this|host)\)/g) || []).length === 3
-    && (androidLegacyMainActivity.match(/checkBox\.setFocusable\(false\)/g) || []).length === 3
-    && (androidLegacyMainActivity.match(/checkBox\.setClickable\(true\)/g) || []).length === 3
+    && (androidLegacyMainActivity.match(/new CheckBox\((?:this|host)\)/g) || []).length === 4
+    && (androidLegacyMainActivity.match(/checkBox\.setFocusable\(false\)/g) || []).length === 4
+    && (androidLegacyMainActivity.match(/checkBox\.setClickable\(true\)/g) || []).length === 4
 );
 (() => {
   const versionMatch = androidGradleProperties.match(/^cookNoteAndroidVersion=(\d+)\.(\d{2})$/m);

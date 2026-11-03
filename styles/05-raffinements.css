@@ -226,7 +226,6 @@
     font-size: 16px;
   }
 
-  .season-tabs button,
   .season-category-tabs button {
     flex: 1 1 auto;
     padding-inline: 9px;
@@ -317,7 +316,6 @@
 
   .recipe-tabs button,
   .topbar :where(button, a),
-  .season-tabs button,
   .season-category-tabs button {
     min-height: 44px;
   }
@@ -341,10 +339,6 @@
     justify-self: start;
   }
 
-  .season-tabs {
-    justify-content: start;
-  }
-
   .variant-card-grid {
     grid-template-columns: 1fr;
   }
@@ -359,10 +353,6 @@
     margin-bottom: 16px;
   }
 
-  .variant-choice-count {
-    justify-self: start;
-  }
-
   .variant-choice-tabs {
     grid-template-columns: 1fr;
     gap: 8px;
@@ -375,17 +365,6 @@
 
   .variant-choice-title {
     font-size: 17px;
-  }
-
-  .variant-choice-status {
-    grid-template-columns: 36px minmax(0, 1fr);
-    gap: 10px;
-    padding: 12px;
-  }
-
-  .variant-choice-status-icon {
-    width: 36px;
-    height: 36px;
   }
 
   .site-footer-inner {

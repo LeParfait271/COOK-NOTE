@@ -25,27 +25,28 @@ function loadRecipes() {
   return context.window.RECIPES || {};
 }
 
-function recipeUrl(id) {
-  return `${SITE_URL}/recette/${encodeURIComponent(id)}/`;
-}
-
 const recipes = loadRecipes();
-const urls = [
-  `${SITE_URL}/`,
-  `${SITE_URL}/techniques`,
+// Chaque page en francais et en anglais (/en/...), reliees par hreflang.
+const pages = [
+  ['/', '/en/'],
+  ['/techniques', '/en/techniques'],
   ...Object.keys(recipes)
     .sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }))
-    .map(recipeUrl)
+    .map(id => [`/recette/${encodeURIComponent(id)}/`, `/en/recette/${encodeURIComponent(id)}/`])
 ];
+const urls = pages.flat();
 
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
-  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  ...urls.map(url => [
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+  ...pages.flatMap(([fr, en]) => [fr, en].map(url => [
     '  <url>',
-    `    <loc>${escapeXml(url)}</loc>`,
+    `    <loc>${escapeXml(SITE_URL + url)}</loc>`,
+    `    <xhtml:link rel="alternate" hreflang="fr" href="${escapeXml(SITE_URL + fr)}" />`,
+    `    <xhtml:link rel="alternate" hreflang="en" href="${escapeXml(SITE_URL + en)}" />`,
+    `    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(SITE_URL + fr)}" />`,
     '  </url>'
-  ].join('\n')),
+  ].join('\n'))),
   '</urlset>',
   ''
 ].join('\n');

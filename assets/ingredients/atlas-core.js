@@ -25,7 +25,7 @@
     { id: 'preparations', label: 'Préparations de base', color: '#cfc6b8' }
   ];
   // Fichiers de fiches charges par la constellation (verifie par le controle).
-  var FILES = ['atlas-legumes.js', 'atlas-fruits.js', 'atlas-aromates.js', 'atlas-epices.js', 'atlas-laitages.js', 'atlas-fromages.js', 'atlas-viandes.js', 'atlas-mer.js', 'atlas-cereales.js', 'atlas-douceurs.js', 'atlas-graisses.js', 'atlas-condiments.js', 'atlas-secs.js', 'atlas-boissons.js', 'atlas-preparations.js'];
+  var FILES = ['atlas-legumes.js', 'atlas-fruits.js', 'atlas-aromates.js', 'atlas-epices.js', 'atlas-laitages.js', 'atlas-fromages.js', 'atlas-viandes.js', 'atlas-mer.js', 'atlas-cereales.js', 'atlas-douceurs.js', 'atlas-graisses.js', 'atlas-condiments.js', 'atlas-secs.js', 'atlas-boissons.js', 'atlas-preparations.js', 'nutrition.js'];
   var FIELDS = ['portrait', 'saveur', 'origine', 'saison', 'choix', 'conservation', 'astuce', 'accords', 'nutrition'];
   // Lignes qui ne sont pas des ingredients (consignes, materiel, renvois).
   var IGNORE = [
@@ -61,6 +61,13 @@
 
   function words(value) {
     return normalize(value).split(' ').filter(Boolean).map(stem);
+  }
+
+  // Valeurs nutritionnelles pour 100 g (nutrition.js) : [kcal, proteines,
+  // glucides, lipides, poids d'une piece].
+  var nutritionTable = {};
+  function nutrition(table) {
+    Object.keys(table).forEach(function (id) { nutritionTable[id] = table[id]; });
   }
 
   function add(list) {
@@ -133,6 +140,9 @@
   root.cookNoteAtlas = {
     FAMILIES: FAMILIES,
     FILES: FILES,
+    nutrition: nutrition,
+    nutritionOf: function (id) { return nutritionTable[id] || null; },
+    nutritionTable: nutritionTable,
     FIELDS: FIELDS,
     entries: entries,
     byId: byId,

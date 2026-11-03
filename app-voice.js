@@ -10,11 +10,13 @@
 // navigateur (IndexedDB). Il est servi par le depot GitHub : Cloudflare
 // refuse les fichiers de plus de 25 Mo.
 const VOSK_SCRIPT_URL = '/assets/vendor/vosk/vosk.js';
-const VOSK_MODEL_NAME = 'vosk-model-small-fr-0.22.tar.gz';
+// Modele de la langue du site : anglais quand le site est en anglais (app-voice-en.js).
+const VOICE_ENGLISH = typeof COOK_NOTE_LANG !== 'undefined' && COOK_NOTE_LANG === 'en';
+const VOSK_MODEL_NAME = VOICE_ENGLISH ? 'vosk-model-small-en-us-0.15.tar.gz' : 'vosk-model-small-fr-0.22.tar.gz';
 const VOSK_MODEL_URL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(window.location?.hostname || '')
   ? `/voice-model/${VOSK_MODEL_NAME}`
   : `https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/voice-model/${VOSK_MODEL_NAME}`;
-const VOSK_READY_KEY = 'cook_note_voice_model_ready';
+const VOSK_READY_KEY = VOICE_ENGLISH ? 'cook_note_voice_model_en_ready' : 'cook_note_voice_model_ready';
 const LOCAL_VOICE_SUPPORTED = typeof WebAssembly === 'object'
   && Boolean(window.AudioContext || window.webkitAudioContext)
   && Boolean(window.navigator?.mediaDevices?.getUserMedia);
@@ -189,7 +191,8 @@ class LocalRecognition {
         const context = new AudioCtor();
         // Vocabulaire restreint, et seule une phrase entiere qui EST une
         // commande agit (parseVoiceCommand).
-        const grammar = JSON.stringify([...new Set([...VOICE_VOCABULARY, ...voiceExtraWords])].concat('[unk]'));
+        const vocabulary = VOICE_ENGLISH && typeof VOICE_VOCABULARY_EN !== 'undefined' ? VOICE_VOCABULARY_EN : [...VOICE_VOCABULARY, ...voiceExtraWords];
+        const grammar = JSON.stringify([...new Set(vocabulary)].concat('[unk]'));
         const recognizer = new model.KaldiRecognizer(context.sampleRate, grammar);
         recognizer.on('partialresult', message => this.emit(message.result?.partial, false));
         recognizer.on('result', message => this.emit(message.result?.text, true));
@@ -305,7 +308,9 @@ function timerNameFrom(text) {
   return name.length >= 2 ? name : '';
 }
 
-function parseVoiceCommand(transcript) {
+function parseVoiceCommand(transcript, fromEnglish = false) {
+  // Site en anglais : commandes anglaises d'abord (app-voice-en.js).
+  if (VOICE_ENGLISH && !fromEnglish && typeof parseEnglishVoiceCommand === 'function') return parseEnglishVoiceCommand(transcript);
   const said = normalizeText(transcript)
     .replace(/['’-]/g, ' ')
     .replace(/[^a-z0-9 ]/g, ' ')

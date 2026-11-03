@@ -711,7 +711,39 @@ function KitchenTimerDock() {
         h('button', { type: 'button', className: 'kitchen-timer-action', onClick: () => addMinute(timer.id), 'aria-label': `Ajouter une minute au minuteur ${timer.label}` }, '+1'),
         h('button', { type: 'button', className: 'kitchen-timer-action', onClick: () => remove(timer.id), 'aria-label': `Fermer le minuteur ${timer.label}` }, h(Icon, { name: 'close' }))
       );
-    })
+    }),
+    // Un autre minuteur, sans passer par une etape.
+    h(FreeTimerPicker, { compact: true })
+  );
+}
+
+// Minuteur libre : durees toutes faites ou au choix, nom facultatif.
+const FREE_TIMER_PRESETS = [1, 3, 5, 10, 15, 20, 30, 45, 60];
+function FreeTimerPicker({ compact = false, title = '', onStarted = null }) {
+  const [open, setOpen] = useState(!compact);
+  const [minutes, setMinutes] = useState('');
+  const [name, setName] = useState('');
+  const start = value => {
+    const seconds = Math.round(Number(String(value).replace(',', '.')) * 60);
+    if (!seconds || seconds < 1 || seconds > 24 * 3600) return;
+    const duration = formatTimerLabel(seconds);
+    startKitchenTimer({ seconds, label: name.trim() ? `${name.trim()} · ${duration}` : duration, title });
+    setMinutes('');
+    setName('');
+    if (compact) setOpen(false);
+    onStarted?.();
+  };
+  if (!open) return h('button', { type: 'button', className: 'free-timer-open', onClick: () => setOpen(true), 'aria-label': tc('Lancer un autre minuteur') }, `+ ${tc('Minuteur')}`);
+  return h('div', { className: 'free-timer' },
+    h('div', { className: 'free-timer-presets', role: 'group', 'aria-label': tc('Durées toutes faites') },
+      FREE_TIMER_PRESETS.map(value => h('button', { key: value, type: 'button', onClick: () => start(value) }, value >= 60 ? '1 h' : `${value} min`))
+    ),
+    h('form', { className: 'free-timer-form', onSubmit: event => { event.preventDefault(); start(minutes); } },
+      h('input', { type: 'number', min: 1, max: 1440, inputMode: 'numeric', value: minutes, placeholder: tc('min'), 'aria-label': tc('Durée en minutes'), onChange: event => setMinutes(event.target.value) }),
+      h('input', { type: 'text', value: name, placeholder: tc('Nom (facultatif)'), 'aria-label': tc('Nom du minuteur'), onChange: event => setName(event.target.value) }),
+      h('button', { type: 'submit', disabled: !minutes }, tc('Lancer')),
+      compact && h('button', { type: 'button', className: 'free-timer-close', onClick: () => setOpen(false), 'aria-label': tc('Fermer') }, h(Icon, { name: 'close' }))
+    )
   );
 }
 
@@ -1052,6 +1084,8 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
             `${defaultCatalogSection.recipes.length} catégorie${defaultCatalogSection.recipes.length > 1 ? 's' : ''}`
           )
         ),
+        // Partager mes favoris : lien que l'autre personne importe.
+        onlyFavorites && readJson('cook_note_favorites', []).length > 0 && h(ShareLinkButton, { label: tc('Partager mes favoris'), kind: 'favoris', value: readJson('cook_note_favorites', []), title: tc('Mes favoris') }),
         onlyFavorites && h('div', { className: 'favorite-collection-tabs', 'aria-label': 'Collections de favoris' },
           FAVORITE_COLLECTIONS
             .filter(collection => !collection.id || favoriteCollectionCounts[collection.id] > 0 || favoriteCollection === collection.id)
@@ -1122,6 +1156,8 @@ function HomeView(props) {
           h('button', { type: 'button', onClick: props.openShoppingBasket }, h(Icon, { name: 'basket' }), h('span', null, tc('Liste de courses'))),
           h('button', { type: 'button', onClick: props.openTechniques }, h(Icon, { name: 'book' }), h('span', null, tc('Techniques'))),
           props.openConstellation && h('button', { type: 'button', className: 'home-constellation-action', onClick: props.openConstellation }, h(Icon, { name: 'spark' }), h('span', null, tc('Constellation'))),
+          props.openWeek && h('button', { type: 'button', className: 'home-week-action', onClick: props.openWeek }, h(Icon, { name: 'book' }), h('span', null, tc('Ma semaine'))),
+          props.openFridge && h('button', { type: 'button', className: 'home-fridge-action', onClick: props.openFridge }, h(Icon, { name: 'basket' }), h('span', null, tc('Mon frigo'))),
           props.openSeasons && h('button', { type: 'button', className: 'home-seasons-action', onClick: props.openSeasons }, h(Icon, { name: 'leaf' }), h('span', null, tc('Saisons'))),
           props.openChef && h(HomeChefAction, { onClick: props.openChef })
         )

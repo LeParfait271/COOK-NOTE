@@ -271,11 +271,11 @@ function safePath(urlPath) {
 }
 
 function prerenderedRecipePath(urlPath) {
-  const match = urlPath.match(/^\/recette\/([^/]+)\/?$/);
+  const match = urlPath.match(/^(\/en)?\/recette\/([^/]+)\/?$/);
   if (!match) return null;
-  const id = decodeURIComponent(match[1]);
+  const id = decodeURIComponent(match[2]);
   if (!/^[a-z0-9_-]+$/.test(id)) return null;
-  const filePath = path.join(ROOT, 'dist', 'recette', id, 'index.html');
+  const filePath = path.join(ROOT, 'dist', ...(match[1] ? ['en'] : []), 'recette', id, 'index.html');
   return fs.existsSync(filePath) ? filePath : null;
 }
 
@@ -734,9 +734,36 @@ function route(req, res) {
     return;
   }
 
+  // Fiche seule (assets/recipe-data/<id>.js) : servie depuis dist si construite, sinon fabriquee.
+  const recipeData = url.pathname.match(/^\/assets\/recipe-data\/([a-z0-9_-]+)\.js$/);
+  if (recipeData) {
+    const built = path.join(ROOT, 'dist', 'assets', 'recipe-data', `${recipeData[1]}.js`);
+    if (fs.existsSync(built)) {
+      serveFile(req, res, built, true);
+      return;
+    }
+    const source = fs.readFileSync(path.join(ROOT, 'recipes.js'), 'utf8');
+    if (!server.recipeCache || server.recipeCache.source !== source.length) {
+      const context = { window: {} };
+      require('node:vm').runInNewContext(source, context);
+      server.recipeCache = { source: source.length, recipes: context.window.RECIPES || {} };
+    }
+    const recipe = server.recipeCache.recipes[recipeData[1]];
+    res.writeHead(recipe ? 200 : 404, { 'Content-Type': 'application/javascript; charset=utf-8', 'Cache-Control': 'no-store' });
+    res.end(recipe ? `self.COOK_NOTE_RECIPE_DATA=Object.assign(self.COOK_NOTE_RECIPE_DATA||{},${JSON.stringify({ [recipeData[1]]: recipe })});\n` : '');
+    return;
+  }
+
   const prerenderedRecipe = prerenderedRecipePath(url.pathname);
   if (prerenderedRecipe) {
     serveFile(req, res, prerenderedRecipe, true);
+    return;
+  }
+
+  // Accueil anglais (/en/) : page construite si elle existe, sinon l'accueil.
+  if (/^\/en(\/|\/techniques\/?)?$/.test(url.pathname) || url.pathname.startsWith('/en/recette/')) {
+    const englishHome = path.join(ROOT, 'dist', 'en', 'index.html');
+    serveFile(req, res, fs.existsSync(englishHome) ? englishHome : path.join(ROOT, 'index.html'), true);
     return;
   }
 

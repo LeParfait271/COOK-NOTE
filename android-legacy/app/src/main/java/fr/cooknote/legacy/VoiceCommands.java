@@ -30,6 +30,10 @@ final class VoiceCommands {
     static final String SERVINGS = "servings";
     static final String DOUBLE = "double";
     static final String HALF = "half";
+    // Verdict du parcours de chef, ecran de fin du mode mains libres.
+    static final String VERDICT_WIN = "verdictWin";
+    static final String VERDICT_OK = "verdictOk";
+    static final String VERDICT_FAIL = "verdictFail";
 
     static final class Command {
         final String type;
@@ -60,6 +64,9 @@ final class VoiceCommands {
         PHRASES.put(DOUBLE, new String[]{"double", "double les quantités", "deux fois plus", "fois deux", "multiplie par deux", "double la recette"});
         PHRASES.put(HALF, new String[]{"moitié", "la moitié", "divise par deux", "moitié des quantités", "deux fois moins", "demi recette", "la moitié de la recette"});
         PHRASES.put(MUTE, new String[]{"coupe le micro", "arrête d’écouter", "arrête l’écoute", "désactive la voix", "micro off", "éteins le micro", "désactive le micro"});
+        PHRASES.put(VERDICT_WIN, new String[]{"réussi", "c’est réussi", "plat réussi", "une réussite", "délicieux", "trop bon", "excellent", "super bon", "génial"});
+        PHRASES.put(VERDICT_OK, new String[]{"correct", "c’est correct", "pas mal", "moyen", "bof", "ça va", "passable"});
+        PHRASES.put(VERDICT_FAIL, new String[]{"raté", "c’est raté", "plat raté", "loupé", "c’est loupé", "brûlé", "c’est brûlé", "pas réussi"});
         PHRASES.put(CLOSE, new String[]{"terminer", "termine", "quitter", "quitte", "ferme", "fermer", "fin", "sortir", "sors", "quitte le mode mains libres", "ferme le mode mains libres", "on arrête", "j’ai terminé la recette"});
     }
 

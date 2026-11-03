@@ -119,7 +119,7 @@ test.describe('Cook Note visual smoke', () => {
     expect(masterCardMetrics.every(card => card.rightBorder === card.leftBorder && card.rightBorder !== '0px' && card.rightBorderColor !== 'rgba(0, 0, 0, 0)')).toBe(true);
     expect(masterCardMetrics.every(card => card.edgeDisplay === 'block' && card.edgeRightBorder !== '0px' && card.edgeRightColor !== 'rgba(0, 0, 0, 0)' && card.edgeZIndex > 1)).toBe(true);
     await expect(page.locator('.top-menu-btn, .top-techniques-btn, .top-actions .cart-icon-btn, .top-actions [aria-label="Panier courses"]')).toHaveCount(0);
-    await expect(page.locator('.home-quick-actions button')).toHaveCount(7);
+    await expect(page.locator('.home-quick-actions button')).toHaveCount(9);
     if (testInfo.project.name === 'mobile') {
       await expect(page.locator('.mobile-bottom-nav')).toHaveCount(0);
     }

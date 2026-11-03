@@ -278,6 +278,7 @@ final class ChefUi {
             change.setPadding(0, dp(2), 0, 0);
             choice.addView(change);
             choice.setClickable(true);
+            choice.setTag("verdict" + index);
             choice.setContentDescription(Chef.VERDICT_LABELS[index] + " : cote " + Chef.signed(delta));
             choice.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -318,6 +319,11 @@ final class ChefUi {
             Extras.Technique technique = extras.techniqueById.get(id);
             if (technique != null) copy.addView(host.text("Technique débloquée · " + technique.title, 12, COLOR_GOLD, true));
         }
+        for (String item : result.tiered) {
+            String[] parts = item.split(":");
+            Extras.Technique technique = extras.techniqueById.get(parts[0]);
+            if (technique != null) copy.addView(host.text("Palier " + Chef.TIER_LABELS[Integer.parseInt(parts[1])] + " · " + technique.title, 12, COLOR_GOLD, true));
+        }
         for (String id : result.mastered) {
             Extras.Technique technique = extras.techniqueById.get(id);
             if (technique != null) copy.addView(host.text("Badge Maître · " + technique.title, 12, COLOR_GOLD, true));
@@ -343,6 +349,11 @@ final class ChefUi {
         for (String id : result.unlocked) {
             Extras.Technique technique = extras.techniqueById.get(id);
             if (technique != null) Toast.makeText(host, "Technique débloquée · " + technique.title, Toast.LENGTH_SHORT).show();
+        }
+        for (String item : result.tiered) {
+            String[] parts = item.split(":");
+            Extras.Technique technique = extras.techniqueById.get(parts[0]);
+            if (technique != null) Toast.makeText(host, "Palier " + Chef.TIER_LABELS[Integer.parseInt(parts[1])] + " · " + technique.title, Toast.LENGTH_SHORT).show();
         }
         for (String id : result.mastered) {
             Extras.Technique technique = extras.techniqueById.get(id);
@@ -477,6 +488,9 @@ final class ChefUi {
         int progress = standing.top ? 100 : standing.points;
         copy.addView(bar(host, progress / 100f, light), barParams());
         copy.addView(host.text(standing.top ? "Sommet du classement" : progress + " / 100 avant " + standing.next, 12, COLOR_DIM, false));
+        // Serie et protection de division (comme le site).
+        if (chef.streak() >= Chef.STREAK_FROM) copy.addView(host.text("Série de " + chef.streak() + " · réussites +25 %", 12, 0xfff0a35e, true));
+        if (chef.shielded()) copy.addView(host.text("Division protégée", 12, light, true));
         hero.addView(copy, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
         LinearLayout ladder = new LinearLayout(host);
@@ -690,15 +704,19 @@ final class ChefUi {
             LinearLayout copy = new LinearLayout(host);
             copy.setOrientation(LinearLayout.VERTICAL);
             copy.setPadding(dp(12), 0, 0, 0);
-            copy.addView(host.text(technique.title + (state == 2 ? "  ·  MAÎTRE" : ""), 13, state == 0 ? COLOR_MUTED : COLOR_TEXT, true));
+            int techCount = chef.techCount(technique.id);
+            int techTier = Chef.tier(techCount);
+            copy.addView(host.text(technique.title + (techTier >= 0 ? "  ·  " + Chef.TIER_LABELS[techTier].toUpperCase(Locale.FRANCE) : ""), 13, state == 0 ? COLOR_MUTED : COLOR_TEXT, true));
+            int nextTier = Math.min(Chef.TIER_STEPS.length - 1, techTier + 1);
             String detail = state == 0 ? "Exécutez cette technique dans un plat réussi pour la débloquer."
                     : state == 2 ? "Maîtrisée le " + format.format(new Date(masterAt)) + "."
-                    : "Débloquée le " + format.format(new Date(unlockedAt)) + ". Badge Maître à 1000.";
+                    : "Débloquée le " + format.format(new Date(unlockedAt)) + ". Prochain palier : " + Chef.TIER_LABELS[nextTier] + " à " + Chef.TIER_STEPS[nextTier] + ".";
             copy.addView(host.text(detail, 11, COLOR_DIM, false));
             if (state > 0) {
-                int count = chef.techCount(technique.id);
-                copy.addView(bar(host, count / (float) Chef.MASTER_GOAL, COLOR_GOLD), barParams());
-                copy.addView(host.text(count + " / " + Chef.MASTER_GOAL, 11, state == 2 ? COLOR_GOLD : COLOR_DIM, true));
+                int goal = state == 2 ? Chef.MASTER_GOAL : Chef.TIER_STEPS[nextTier];
+                int tierColor = techTier >= 0 ? Chef.TIER_COLORS[techTier] : COLOR_GOLD;
+                copy.addView(bar(host, techCount / (float) Chef.MASTER_GOAL, tierColor), barParams());
+                copy.addView(host.text(techCount + " / " + goal, 11, state == 2 ? COLOR_GOLD : COLOR_DIM, true));
             }
             row.addView(copy, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
             row.setOnClickListener(new View.OnClickListener() {
@@ -766,13 +784,13 @@ final class ChefUi {
         return params;
     }
 
-    private static TextView section(MainActivity host, String label) {
+    static TextView section(MainActivity host, String label) {
         TextView view = host.text(label, 10, COLOR_DIM, true);
         view.setPadding(0, dp(18), 0, dp(4));
         return view;
     }
 
-    private static View listRow(MainActivity host, String title, String value, int valueColor) {
+    static View listRow(MainActivity host, String title, String value, int valueColor) {
         LinearLayout row = new LinearLayout(host);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);

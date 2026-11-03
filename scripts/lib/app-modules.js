@@ -11,6 +11,7 @@ const ROOT = path.resolve(__dirname, '..', '..');
 const APP_MODULES = Object.freeze([
   'app.js',
   'app-english.js',
+  'app-journal.js',
   'app-recipe-model.js',
   'app-shopping.js',
   'app-menu.js',
@@ -18,11 +19,16 @@ const APP_MODULES = Object.freeze([
   'app-recipe-content.js',
   'app-components.js',
   'app-voice.js',
+  'app-voice-en.js',
   'app-sky.js',
   'app-kitchen.js',
   'app-seasons.js',
+  'app-nutrition.js',
+  'app-anticipate.js',
+  'app-week.js',
   'app-chef.js',
   'app-panels.js',
+  'app-basket.js',
   'app-recipe-view.js',
   'app-main.js'
 ]);
@@ -56,7 +62,8 @@ const STYLE_MODULES = Object.freeze([
   'styles/15-partage.css',
   'styles/16-chef.css',
   'styles/17-collections.css',
-  'styles/18-saisons.css'
+  'styles/18-saisons.css',
+  'styles/19-semaine.css'
 ]);
 
 const styleLayerOf = file => (/^styles\/0\d-/.test(file) ? 'legacy' : 'design');

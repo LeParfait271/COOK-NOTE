@@ -16,7 +16,9 @@ import java.util.Map;
 /**
  * Donnees des fonctions v5.57+ (extras-lite.json, genere par
  * scripts/build-android-legacy-assets.js) : guides de techniques, techniques
- * de chaque recette et cote des recettes (parcours de chef).
+ * de chaque recette et cote des recettes (parcours de chef) ; depuis v5.67 :
+ * regimes par recette, carte des saisons et constellation precalculee
+ * (positions calculees au build : le telephone ne fait que dessiner).
  */
 final class Extras {
     static final class Technique {
@@ -43,6 +45,9 @@ final class Extras {
     final Map<String, Technique> techniqueById = new HashMap<String, Technique>();
     final Map<String, List<String>> recipeTechniques = new HashMap<String, List<String>>();
     final Map<String, Integer> recipeRatings = new HashMap<String, Integer>();
+    final Map<String, List<String>> recipeDiets = new HashMap<String, List<String>>();
+    JSONObject seasons;
+    JSONObject constellation;
 
     static synchronized Extras get(Context context) {
         if (instance != null) return instance;
@@ -73,11 +78,35 @@ final class Extras {
                     extras.recipeRatings.put(id, ratings.optInt(id, 1070));
                 }
             }
+            JSONObject diets = root.optJSONObject("recipeDiets");
+            if (diets != null) {
+                JSONArray names = diets.names();
+                for (int index = 0; names != null && index < names.length(); index += 1) {
+                    String id = names.getString(index);
+                    extras.recipeDiets.put(id, strings(diets.optJSONArray(id)));
+                }
+            }
+            extras.seasons = root.optJSONObject("seasons");
+            extras.constellation = root.optJSONObject("constellation");
         } catch (Exception ignored) {
             // Sans extras, les ecrans concernes restent simplement vides.
         }
         instance = extras;
         return extras;
+    }
+
+    /** Libelles des regimes d'une recette (vegetarien, vegan, sans gluten, sans lactose). */
+    List<String> dietsFor(String recipeId) {
+        List<String> ids = recipeDiets.get(recipeId);
+        List<String> labels = new ArrayList<String>();
+        if (ids == null) return labels;
+        for (String id : ids) {
+            if ("vegetarien".equals(id)) labels.add("Végétarien");
+            else if ("vegan".equals(id)) labels.add("Végan");
+            else if ("sans-gluten".equals(id)) labels.add("Sans gluten");
+            else if ("sans-lactose".equals(id)) labels.add("Sans lactose");
+        }
+        return labels;
     }
 
     List<String> techniquesFor(String recipeId) {

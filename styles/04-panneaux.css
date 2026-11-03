@@ -634,7 +634,7 @@
   border-bottom-color: color-mix(in srgb, var(--line) 58%, transparent);
 }
 .home-view .season-block-head::after{display:none}
-.home-view .season-tabs,.home-view .season-category-tabs{justify-content:center;max-width:100%;padding:2px;border-color:color-mix(in srgb,var(--line) 72%,transparent);border-radius:9px;background:transparent;box-shadow:none}
+.home-view .season-category-tabs{justify-content:center;max-width:100%;padding:2px;border-color:color-mix(in srgb,var(--line) 72%,transparent);border-radius:9px;background:transparent;box-shadow:none}
 
 .home-view .season-dashboard-copy,.home-view .season-filter-stack{justify-items:center}
 .home-view .season-dashboard{min-height: 0;grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center}.home-view .season-dashboard>button{grid-column:1;grid-row:auto;justify-self:center}

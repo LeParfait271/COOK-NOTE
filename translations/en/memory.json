@@ -50663,30 +50663,6 @@
   "fr": "Installer Cook Note",
   "en": "Install Cook Note"
  },
- "1nn06xpz3c3": {
-  "fr": "Afficher le site en français",
-  "en": "View the website in French"
- },
- "1n24v4j4c7m": {
-  "fr": "Show the site in English",
-  "en": "Display the site in English"
- },
- "q3s3zoy5g6": {
-  "fr": "Français",
-  "en": "French"
- },
- "2aztfk35c0t": {
-  "fr": "English",
-  "en": "English"
- },
- "2dmrdgqtp0m": {
-  "fr": "Version originale",
-  "en": "Original version"
- },
- "7y89rvab6r": {
-  "fr": "Translated content",
-  "en": "Translated content"
- },
  "16m532t0dfv": {
   "fr": "Retour en haut de page",
   "en": "Back to top"
@@ -68514,5 +68490,5361 @@
  "1z3fq4voa2l": {
   "fr": "{#} {#}px system-ui, sans-serif",
   "en": "{1}{2}px system-ui, sans-serif"
+ },
+ "ptsbbdl21u": {
+  "fr": "Passer le site en français",
+  "en": "Switch the website to French"
+ },
+ "1xc3w2234h2": {
+  "fr": "Switch the site to English",
+  "en": "Switch the site to English"
+ },
+ "15vy2q706w8": {
+  "fr": "EN",
+  "en": "EN"
+ },
+ "1gvzj313q34": {
+  "fr": "{#}/en/",
+  "en": "{1}/en/"
+ },
+ "rruj8gqus": {
+  "fr": "{#}/en/techniques",
+  "en": "{1}/en/techniques"
+ },
+ "5ys8ud5sxu": {
+  "fr": "{#} cups",
+  "en": "{1} cups"
+ },
+ "54io748ezq": {
+  "fr": "{#} cup",
+  "en": "{1}-cup"
+ },
+ "okt9xjitb8": {
+  "fr": "{#} lb",
+  "en": "{1}lb"
+ },
+ "2903jxf4i9p": {
+  "fr": "{#} oz",
+  "en": "{1}oz"
+ },
+ "2eit0z35jrt": {
+  "fr": "{#} fl oz",
+  "en": "{1} fl oz"
+ },
+ "1dsmwbi5moh": {
+  "fr": "{#} to {#} {#}",
+  "en": "{1} to {2} {3}"
+ },
+ "utti7l1nfq": {
+  "fr": "{#} to {#}",
+  "en": "{1} to {2}"
+ },
+ "20g3tgbmf3e": {
+  "fr": "Units",
+  "en": "Units"
+ },
+ "huoskqv338": {
+  "fr": "Metric",
+  "en": "Metric"
+ },
+ "1sg9ogxwlev": {
+  "fr": "on",
+  "en": "on"
+ },
+ "1izg2l2im15": {
+  "fr": "en moins de",
+  "en": "in less than"
+ },
+ "6ytvu45ufc": {
+  "fr": "1 heure",
+  "en": "1 hour"
+ },
+ "ero7a239p0": {
+  "fr": "Valeurs nutritionnelles estimées",
+  "en": "Estimated nutritional values"
+ },
+ "178yqxmur06": {
+  "fr": "Valeurs nutritionnelles",
+  "en": "Nutritional values"
+ },
+ "1rzooe1nlfs": {
+  "fr": "Protéines",
+  "en": "Proteins"
+ },
+ "4cl3o4ckny": {
+  "fr": "Glucides",
+  "en": "Carbohydrates"
+ },
+ "1ld3q8o03me": {
+  "fr": "Lipides",
+  "en": "Lipids"
+ },
+ "253bf8yl2mc": {
+  "fr": "Estimation à partir des ingrédients, pour une portion.",
+  "en": "Estimated based on the ingredients, for one portion."
+ },
+ "1lsw5g6k5ow": {
+  "fr": "Estimation à partir des ingrédients, pour 100 g de préparation.",
+  "en": "Estimated based on the ingredients, per 100 g of the mixture."
+ },
+ "x3zpoa2yo8": {
+  "fr": "kcal par portion",
+  "en": "kcal per portion"
+ },
+ "1zt8kuv9lx1": {
+  "fr": "kcal pour 100 g",
+  "en": "kcal per 100 g"
+ },
+ "11egcljnz9": {
+  "fr": "Régime",
+  "en": "Diet"
+ },
+ "2etg6xj9l4f": {
+  "fr": "Régime alimentaire",
+  "en": "Diet"
+ },
+ "2go8q68twcj": {
+  "fr": "Végétarien",
+  "en": "Vegetarian"
+ },
+ "1tmbz4hjwbx": {
+  "fr": "Végan",
+  "en": "Vegan"
+ },
+ "25959asj0nm": {
+  "fr": "sans-gluten",
+  "en": "gluten-free"
+ },
+ "r52uechdyo": {
+  "fr": "Sans gluten",
+  "en": "Gluten-free"
+ },
+ "efovyk9r4s": {
+  "fr": "sans-lactose",
+  "en": "lactose-free"
+ },
+ "kpcqbvb68v": {
+  "fr": "Sans lactose",
+  "en": "Lactose-free"
+ },
+ "1vw545jaavb": {
+  "fr": "detail-diet is-{#}",
+  "en": "detail-diet is {1}"
+ },
+ "12a5qsmxx5q": {
+  "fr": "régime",
+  "en": "diet"
+ },
+ "23x73o014hs": {
+  "fr": "Fichier de sauvegarde",
+  "en": "Backup file"
+ },
+ "1sobavy3u9p": {
+  "fr": "Ma semaine",
+  "en": "My week"
+ },
+ "wfgag0d02i": {
+  "fr": "Mon frigo",
+  "en": "My fridge"
+ },
+ "3w3j2qvh85": {
+  "fr": "Envoyer cette recette dans l’application Bring!",
+  "en": "Send this recipe via the Bring! app"
+ },
+ "1k27c2ler4k": {
+  "fr": "Bring!",
+  "en": "Bring!"
+ },
+ "36p0qmj5gr": {
+  "fr": "Ajouter un article…",
+  "en": "Add an article…"
+ },
+ "2g3489gnr96": {
+  "fr": "Ajouter un article à la liste",
+  "en": "Add an item to the list"
+ },
+ "29vj6949y38": {
+  "fr": "Ajouts",
+  "en": "Additions"
+ },
+ "16ama41jg9l": {
+  "fr": "Envoyer dans Bring!",
+  "en": "Send to Bring!"
+ },
+ "1xczah87iea": {
+  "fr": "articles",
+  "en": "articles"
+ },
+ "27rpj4m10kn": {
+  "fr": "article",
+  "en": "article"
+ },
+ "1hczh5k8dji": {
+  "fr": "Lundi",
+  "en": "Monday"
+ },
+ "1pmb48kp030": {
+  "fr": "Mardi",
+  "en": "Tuesday"
+ },
+ "1pls82h3u4e": {
+  "fr": "Mercredi",
+  "en": "Wednesday"
+ },
+ "jxtjsv0dsq": {
+  "fr": "Jeudi",
+  "en": "Thursday"
+ },
+ "1bfigyoclon": {
+  "fr": "Vendredi",
+  "en": "Friday"
+ },
+ "1vpmq9jdyxx": {
+  "fr": "Samedi",
+  "en": "Saturday"
+ },
+ "1e8doekuivx": {
+  "fr": "Dimanche",
+  "en": "Sunday"
+ },
+ "dyjpnkamqn": {
+  "fr": "Midi",
+  "en": "Midday"
+ },
+ "1tcy095cveo": {
+  "fr": "Soir",
+  "en": "Evening"
+ },
+ "ibyukv8ovx": {
+  "fr": "Planning",
+  "en": "Schedule"
+ },
+ "dot0xu4enw": {
+  "fr": "Semaine complétée",
+  "en": "Week completed"
+ },
+ "hlgzng531p": {
+  "fr": "Compléter la semaine",
+  "en": "Round off the week"
+ },
+ "sexp8nd21e": {
+  "fr": "Autre idée",
+  "en": "Another idea"
+ },
+ "wrnfmfs4ja": {
+  "fr": "Chercher une recette…",
+  "en": "Search for a recipe…"
+ },
+ "e2lbrpoxss": {
+  "fr": "Que cuisiner ?",
+  "en": "What shall I cook?"
+ },
+ "160rk3fy4w4": {
+  "fr": "Ajouter un ingrédient (poulet, courgette…)",
+  "en": "Add an ingredient (chicken, courgette, etc.)"
+ },
+ "2bcyjwrkmd3": {
+  "fr": "Ingrédient que j’ai",
+  "en": "An ingredient that I have"
+ },
+ "15jpkjusju5": {
+  "fr": "Ingrédient non reconnu : essayez un nom plus simple.",
+  "en": "Unrecognised ingredient: try a simpler name."
+ },
+ "2aumz2cw5q0": {
+  "fr": "Tout effacer",
+  "en": "Delete all"
+ },
+ "1d8fewu7qhp": {
+  "fr": "Notez ce que vous avez : Cook Note propose les recettes qui s’en servent le mieux. Sel, poivre, huile, beurre, sucre et farine sont supposés au placard.",
+  "en": "Make a note of what you’ve got: Cook Note suggests the recipes that make the best use of them. Salt, pepper, oil, butter, sugar and flour are assumed to be in the store cupboard."
+ },
+ "e3kzka0x3c": {
+  "fr": "Vous avez tout",
+  "en": "You’ve got everything"
+ },
+ "1d63lhgvyot": {
+  "fr": "Aucune recette avec ces ingrédients pour l’instant.",
+  "en": "There are no recipes using these ingredients at the moment."
+ },
+ "1wx8hk62z8a": {
+  "fr": "Tout aux courses",
+  "en": "All about the races"
+ },
+ "2d910j60q2r": {
+  "fr": "Il manque",
+  "en": "There is a missing"
+ },
+ "wxh71ls6k1": {
+  "fr": "Sortir le beurre du réfrigérateur",
+  "en": "Take the butter out of the fridge"
+ },
+ "15gogpxstg9": {
+  "fr": "Sortir les œufs du réfrigérateur",
+  "en": "Take the eggs out of the fridge"
+ },
+ "afwx3xhht6": {
+  "fr": "Sortir la viande du réfrigérateur",
+  "en": "Take the meat out of the fridge"
+ },
+ "4caf9sog7g": {
+  "fr": "Mettre à tremper",
+  "en": "Soak"
+ },
+ "1yccvgi0yyk": {
+  "fr": "Lancer la marinade",
+  "en": "Prepare the marinade"
+ },
+ "1b9gi0iedk8": {
+  "fr": "Préparer à l’avance (repos au froid)",
+  "en": "Prepare in advance (chill)"
+ },
+ "2b9dnfgaeul": {
+  "fr": "Commencer la pâte (levée)",
+  "en": "Start making the dough (proofing)"
+ },
+ "1kbkcpnzqnn": {
+  "fr": "{#} min {#}",
+  "en": "{1} mins {2}"
+ },
+ "d5xcxapdk6": {
+  "fr": "Cuisiner",
+  "en": "Cooking"
+ },
+ "1hxawevus6a": {
+  "fr": "À anticiper",
+  "en": "Things to look out for"
+ },
+ "5ng5mzem8e": {
+  "fr": "Repas prévu",
+  "en": "Meal planned"
+ },
+ "ujq2xa923u": {
+  "fr": "Me le rappeler",
+  "en": "Remind me"
+ },
+ "8dqr4al7lh": {
+  "fr": "Ajoute un rendez-vous à votre agenda, avec une alerte pour chaque préparation.",
+  "en": "Add an appointment to your diary, with a reminder for each preparation task."
+ },
+ "ydhr9gc7nu": {
+  "fr": "Dans le même esprit",
+  "en": "In the same vein"
+ },
+ "7e0ehiv9es": {
+  "fr": "Recettes proches de cette fiche",
+  "en": "Recipes similar to this one"
+ },
+ "pfdkpjhq5d": {
+  "fr": "avant",
+  "en": "before"
+ },
+ "2ffz2tgxz5m": {
+  "fr": "en-GB",
+  "en": "en-GB"
+ },
+ "23u08cjmxqt": {
+  "fr": "Aucun plat ce mois-ci.",
+  "en": "No dishes this month."
+ },
+ "1p79u55pz9c": {
+  "fr": "Historique",
+  "en": "History"
+ },
+ "2fhq3c1ew6m": {
+  "fr": "plats cuisinés",
+  "en": "ready meals"
+ },
+ "lq8tw3r113": {
+  "fr": "plat cuisiné",
+  "en": "ready meal"
+ },
+ "2b372vuea83": {
+  "fr": "Lancer un autre minuteur",
+  "en": "Start another timer"
+ },
+ "1e5fl2b0j8x": {
+  "fr": "Durées toutes faites",
+  "en": "Pre-set durations"
+ },
+ "1xxhb3lo7dd": {
+  "fr": "Durée en minutes",
+  "en": "Duration in minutes"
+ },
+ "ag5a53au4p": {
+  "fr": "Nom (facultatif)",
+  "en": "Surname (optional)"
+ },
+ "se0e1heyk7": {
+  "fr": "Nom du minuteur",
+  "en": "Name of the timer"
+ },
+ "3n9bs5wa2": {
+  "fr": "Lancer",
+  "en": "Launch"
+ },
+ "mu0l0xxh4t": {
+  "fr": "min",
+  "en": "min"
+ },
+ "8s6zhhzyc3": {
+  "fr": "Erreur inconnue",
+  "en": "Unknown error"
+ },
+ "2fy4r1buhr2": {
+  "fr": "Promesse : {#}",
+  "en": "Promise: {1}"
+ },
+ "8fl96qkbwl": {
+  "fr": "Cook Note {#} · {#}",
+  "en": "Cook Note {1} · {2}"
+ },
+ "139jy9v5g56": {
+  "fr": "Vitesse ({#} chargements) : affichage {#} ms, plus grand élément {#} ms (médianes)",
+  "en": "Speed ({1} loads): {2} ms display, {3} ms for the largest element (median values)"
+ },
+ "21w1z1x3bnd": {
+  "fr": "- {#} {#} : prêt {#} ms, LCP {#} ms, CLS {#}, {#} tâches longues ({#} ms), {#}",
+  "en": "- {1} {2}: ready {3} ms, LCP {4} ms, CLS {5}, {6} long tasks ({7} ms), {8}"
+ },
+ "wm79ld604b": {
+  "fr": "Erreurs ({#}) :",
+  "en": "Errors ({1}):"
+ },
+ "e904zxkdvf": {
+  "fr": "Journal technique",
+  "en": "Technical journal"
+ },
+ "28eufd28dol": {
+  "fr": "affichage médian",
+  "en": "median display"
+ },
+ "u1trkzcmtc": {
+  "fr": "Envoyer le rapport",
+  "en": "Send the report"
+ },
+ "10kjxqkmu4e": {
+  "fr": "Effacer",
+  "en": "Delete"
+ },
+ "14zs33ue4io": {
+  "fr": "erreurs",
+  "en": "errors"
+ },
+ "19160hy6cpe": {
+  "fr": "erreur",
+  "en": "error"
+ },
+ "12jhzk3pcqy": {
+  "fr": "chargements",
+  "en": "shipments"
+ },
+ "22zuyb01z06": {
+  "fr": "Connexion nécessaire pour préparer le catalogue hors-ligne.",
+  "en": "You must be logged in to prepare the catalogue for offline use."
+ },
+ "baf1a6re9t": {
+  "fr": "{#} fiches prêtes hors-ligne ({#}/{#})",
+  "en": "{1} worksheets available offline ({2}/{3})"
+ },
+ "1vpo5qla4bz": {
+  "fr": "Préparation hors-ligne impossible pour le moment.",
+  "en": "Offline preparation is not possible at present."
+ },
+ "hiebecmu5n": {
+  "fr": "Préparer tout le catalogue hors-ligne",
+  "en": "Prepare the entire catalogue for offline use"
+ },
+ "1x3ikv16hm1": {
+  "fr": "Tout le catalogue",
+  "en": "The entire catalogue"
+ },
+ "nkrz1k9afo": {
+  "fr": "Total réel",
+  "en": "Actual total"
+ },
+ "22xm7wep1fl": {
+  "fr": "Partager mes favoris",
+  "en": "Share my favourites"
+ },
+ "gcdb4ycv3y": {
+  "fr": "Partager la semaine",
+  "en": "Share the week"
+ },
+ "1dun4u00h72": {
+  "fr": "QR code du lien",
+  "en": "QR code for the link"
+ },
+ "16bg1vfurcp": {
+  "fr": "Lien copié. Scannez ce code avec un autre téléphone pour l’ouvrir.",
+  "en": "Link copied. Scan this code with another phone to open it."
+ },
+ "1j55xrnqhvu": {
+  "fr": "Importer la semaine reçue",
+  "en": "Import the week received"
+ },
+ "ybhkub8bil": {
+  "fr": "repas",
+  "en": "meal"
+ },
+ "tmcr5c17lp": {
+  "fr": "Elle remplace votre semaine actuelle.",
+  "en": "It replaces your current week."
+ },
+ "i92rgp99qv": {
+  "fr": "recettes reçues à vos favoris ?",
+  "en": "Have you added these recipes to your favourites?"
+ },
+ "25xf4pu4qlv": {
+  "fr": "g fraises",
+  "en": "g strawberries"
+ },
+ "25zj5gjyey8": {
+  "fr": "g sucre",
+  "en": "g sugar"
+ },
+ "uhxiay1xm1": {
+  "fr": "g jus de citron",
+  "en": "g lemon juice"
+ },
+ "oydhxkwqmo": {
+  "fr": "g framboises",
+  "en": "g raspberries"
+ },
+ "ae7ozkud84": {
+  "fr": "g eau si besoin",
+  "en": "g water, if required"
+ },
+ "9kaqdypkum": {
+  "fr": "g mangue mûre",
+  "en": "g ripe mango"
+ },
+ "10aoygy7tyb": {
+  "fr": "g jus de citron vert",
+  "en": "g lime juice"
+ },
+ "bd1y9pepx9": {
+  "fr": "g eau ou jus d’orange",
+  "en": "g water or orange juice"
+ },
+ "28x4ehy2a5": {
+  "fr": "g pêches mûres",
+  "en": "g ripe peaches"
+ },
+ "i1r490biji": {
+  "fr": "g abricots mûrs",
+  "en": "g ripe apricots"
+ },
+ "1vp8ljygyj2": {
+  "fr": "g eau",
+  "en": "g water"
+ },
+ "1mdx7z5vc6q": {
+  "fr": "g myrtilles",
+  "en": "g blueberries"
+ },
+ "14mdqgm3vue": {
+  "fr": "g mûres",
+  "en": "g blackberries"
+ },
+ "277bqhebf9e": {
+  "fr": "g ananas frais",
+  "en": "g fresh pineapple"
+ },
+ "xtmolilsi0": {
+  "fr": "g eau ou jus d’ananas",
+  "en": "g water or pineapple juice"
+ },
+ "5dkvhawt4i": {
+  "fr": "g kiwis mûrs",
+  "en": "g ripe kiwis"
+ },
+ "1tvovqr47b0": {
+  "fr": "g pommes",
+  "en": "g apples"
+ },
+ "1cskwjz70cg": {
+  "fr": "g eau ou jus de pomme",
+  "en": "g water or apple juice"
+ },
+ "e1gu8hdrea": {
+  "fr": "g beurre doux ramolli",
+  "en": "g softened unsalted butter"
+ },
+ "sqf5mnkeeh": {
+  "fr": "g ail haché très finement",
+  "en": "g garlic, very finely chopped"
+ },
+ "2bl1e0iysdl": {
+  "fr": "g persil plat ciselé",
+  "en": "g finely chopped flat-leaf parsley"
+ },
+ "1nkqze2gmee": {
+  "fr": "g sel fin",
+  "en": "g fine salt"
+ },
+ "1uol98fe945": {
+  "fr": "g moutarde de Dijon",
+  "en": "g Dijon mustard"
+ },
+ "sfleq8t77p": {
+  "fr": "g vinaigre de vin rouge ou Xérès",
+  "en": "g red wine vinegar or sherry"
+ },
+ "1pji4pcp4ae": {
+  "fr": "g sel fin, 1g poivre du moulin",
+  "en": "g fine salt, 1g freshly ground pepper"
+ },
+ "11h27tjjx7j": {
+  "fr": "g huile",
+  "en": "g oil"
+ },
+ "91m5i4s0vl": {
+  "fr": "g miel",
+  "en": "g honey"
+ },
+ "20tcaw962jj": {
+  "fr": "g huile d’olive douce",
+  "en": "g mild olive oil"
+ },
+ "1is8cso6m21": {
+  "fr": "g échalote ciselée",
+  "en": "g finely chopped shallot"
+ },
+ "cwk8q09b4l": {
+  "fr": "g herbes fraîches",
+  "en": "g fresh herbs"
+ },
+ "1gmqldwyltj": {
+  "fr": "g vinaigre de cidre",
+  "en": "g cider vinegar"
+ },
+ "5ldbwodel6": {
+  "fr": "g huile neutre",
+  "en": "g neutral oil"
+ },
+ "h3j5q2x4uw": {
+  "fr": "g moutarde à l’ancienne",
+  "en": "g whole-grain mustard"
+ },
+ "299t4s35wxd": {
+  "fr": "g miel liquide",
+  "en": "g of runny honey"
+ },
+ "23limqc07eq": {
+  "fr": "g basilic",
+  "en": "g basil"
+ },
+ "2axs21cgg8w": {
+  "fr": "g parmesan râpé",
+  "en": "g grated Parmesan"
+ },
+ "1sf9mtncepg": {
+  "fr": "g pignons grillés",
+  "en": "g roasted pine nuts"
+ },
+ "1qcg9lt7krb": {
+  "fr": "gousse d'ail",
+  "en": "clove of garlic"
+ },
+ "1rr9wjnl4bf": {
+  "fr": "g huile d'olive",
+  "en": "g olive oil"
+ },
+ "r8f6rwj18u": {
+  "fr": "g basilic Genovese",
+  "en": "g Genovese basil"
+ },
+ "anpqir8tfm": {
+  "fr": "g pignons",
+  "en": "g sprockets"
+ },
+ "26yelhzrr1z": {
+  "fr": "g Parmigiano Reggiano",
+  "en": "g Parmigiano Reggiano"
+ },
+ "2e6i8g71ac4": {
+  "fr": "g Pecorino",
+  "en": "g Pecorino"
+ },
+ "wm9kicja7o": {
+  "fr": "g ail des ours",
+  "en": "g wild garlic"
+ },
+ "1fy7g9gr26b": {
+  "fr": "g tomates séchées égouttées",
+  "en": "g drained sun-dried tomatoes"
+ },
+ "adpj028di6": {
+  "fr": "g pignons de pin ou graines de tournesol",
+  "en": "g pine nuts or sunflower seeds"
+ },
+ "27m6mdkb7a6": {
+  "fr": "g huile d’olive",
+  "en": "g olive oil"
+ },
+ "nuk4j9s63k": {
+  "fr": "g ricotta de qualité",
+  "en": "high-quality ricotta"
+ },
+ "1d6ssjv8zgz": {
+  "fr": "g crème 35 %",
+  "en": "g cream (35%)"
+ },
+ "131hnn1ske4": {
+  "fr": "g vinaigre balsamique IGP",
+  "en": "g balsamic vinegar (PGI)"
+ },
+ "21cgl7dhevd": {
+  "fr": "kg tomates Roma",
+  "en": "kg Roma tomatoes"
+ },
+ "1q8q6wcbrb8": {
+  "fr": "kg tomates cerises",
+  "en": "kg cherry tomatoes"
+ },
+ "1nwso0j629": {
+  "fr": "g sel",
+  "en": "g salt"
+ },
+ "gjur8gxe9w": {
+  "fr": "gousses d'ail",
+  "en": "garlic cloves"
+ },
+ "2859dix9w55": {
+  "fr": "gousse d'ail écrasée",
+  "en": "crushed garlic clove"
+ },
+ "eoasyfkudw": {
+  "fr": "g légumes au choix",
+  "en": "g vegetables of your choice"
+ },
+ "1n91pbfsob7": {
+  "fr": "g huile d’olive ou huile neutre",
+  "en": "g olive oil or neutral oil"
+ },
+ "1oo1zhetjlj": {
+  "fr": "g pommes de terre en dés de 2 à 3cm",
+  "en": "g potatoes, diced into 2–3 cm pieces"
+ },
+ "ms7m01svse": {
+  "fr": "g patate douce en dés de 2 à 3cm",
+  "en": "g sweet potato, diced into 2–3 cm pieces"
+ },
+ "1a21uyaxdwp": {
+  "fr": "g carottes ou panais en bâtonnets réguliers",
+  "en": "g carrots or parsnips, cut into evenly sized sticks"
+ },
+ "1ll3p4dvxfy": {
+  "fr": "g betterave ou céleri-rave en dés de 2 à 3cm",
+  "en": "g beetroot or celeriac, diced into 2 to 3 cm pieces"
+ },
+ "u8vfpf8ujb": {
+  "fr": "g courge ou butternut en dés de 2 à 3cm",
+  "en": "g of squash or butternut squash, diced into 2 to 3 cm pieces"
+ },
+ "kdd1wes196": {
+  "fr": "g brocoli ou chou-fleur en sommités, ou choux de Bruxelles coupés en deux",
+  "en": "g broccoli or cauliflower florets, or Brussels sprouts cut in half"
+ },
+ "guoi3gttzb": {
+  "fr": "g poivron en lanières, courgette en quartiers ou aubergine en dés de 2 à 3cm",
+  "en": "g of pepper cut into strips, courgette cut into quarters or aubergine diced into 2 to 3 cm pieces"
+ },
+ "1yrvprneush": {
+  "fr": "g potimarron brosse, graines retirees, peau conservee",
+  "en": "g of potimarron squash, brushed, seeds removed, skin left on"
+ },
+ "1fiu78lolvf": {
+  "fr": "g quatre-épices, cumin ou paprika doux",
+  "en": "g four-spice mix, cumin or sweet paprika"
+ },
+ "u0ybmefi0w": {
+  "fr": "pincée piment d’Espelette optionnel",
+  "en": "a pinch of Espelette chilli (optional)"
+ },
+ "2gieqo4t4mb": {
+  "fr": "g oignons ou fenouil en quartiers, ou poireaux en tronçons de 3 à 4cm",
+  "en": "g onions or fennel, cut into quarters, or leeks, cut into 3–4 cm pieces"
+ },
+ "tqe09zbl2s": {
+  "fr": "g asperges parées, haricots verts bien secs ou champignons en gros quartiers",
+  "en": "g of trimmed asparagus, thoroughly dried green beans or mushrooms cut into large chunks"
+ },
+ "d2c6k937bt": {
+  "fr": "g tomates Roma coupées en deux",
+  "en": "g Roma tomatoes, halved"
+ },
+ "16rl46p6wlh": {
+  "fr": "g zeste",
+  "en": "g zest"
+ },
+ "15byhzyfm14": {
+  "fr": "g origan",
+  "en": "g oregano"
+ },
+ "lbmd1fdaf7": {
+  "fr": "g ail râpé",
+  "en": "g grated garlic"
+ },
+ "15ufy23lfs0": {
+  "fr": "g sauce soja",
+  "en": "g soya sauce"
+ },
+ "cds2tcrhzm": {
+  "fr": "g mirin",
+  "en": "g mirin"
+ },
+ "g5fbe055b0": {
+  "fr": "g vinaigre de riz",
+  "en": "g rice vinegar"
+ },
+ "21y66nsxatr": {
+  "fr": "g gingembre",
+  "en": "g ginger"
+ },
+ "2eev507esoi": {
+  "fr": "g ail",
+  "en": "g garlic"
+ },
+ "3i8det487v": {
+  "fr": "g yaourt grec",
+  "en": "g Greek yoghurt"
+ },
+ "1vu54970oaa": {
+  "fr": "g pâte tandoori ou 4g garam masala",
+  "en": "g tandoori paste or 4g garam masala"
+ },
+ "1eqo27kvvjd": {
+  "fr": "g ketchup",
+  "en": "g ketchup"
+ },
+ "mnke98xunq": {
+  "fr": "g paprika fumé",
+  "en": "g smoked paprika"
+ },
+ "2d0hqiqkvk0": {
+  "fr": "g coriandre hachée",
+  "en": "g chopped coriander"
+ },
+ "22o5eo0fu8f": {
+  "fr": "g persil",
+  "en": "g parsley"
+ },
+ "253utynq1qt": {
+  "fr": "g cumin",
+  "en": "g cumin"
+ },
+ "1zc3j2ypkf5": {
+  "fr": "g paprika",
+  "en": "g paprika"
+ },
+ "eqemjhgmyt": {
+  "fr": "g moutarde",
+  "en": "g mustard"
+ },
+ "1ohf2v00hd4": {
+  "fr": "g vinaigre",
+  "en": "g vinegar"
+ },
+ "1jqxjnjv501": {
+  "fr": "g piment",
+  "en": "g chilli"
+ },
+ "2gmskh58w6c": {
+  "fr": "g nuoc-mâm",
+  "en": "g nuoc-mâm"
+ },
+ "2eywaezqpfv": {
+  "fr": "g citronnelle hachée",
+  "en": "g chopped lemongrass"
+ },
+ "s4iipvnjq9": {
+  "fr": "g balsamique",
+  "en": "g balsamic vinegar"
+ },
+ "1acol7rk7hh": {
+  "fr": "g farine",
+  "en": "g flour"
+ },
+ "9ck0olnkg3": {
+  "fr": "g beurre doux mou",
+  "en": "g softened unsalted butter"
+ },
+ "bblak721q6": {
+  "fr": "g levure chimique",
+  "en": "g baking powder"
+ },
+ "24allkq6nvw": {
+  "fr": "g jambon en dés",
+  "en": "g diced ham"
+ },
+ "fz923o1x2b": {
+  "fr": "g fromage râpé",
+  "en": "g of grated cheese"
+ },
+ "2fguyhi15ex": {
+  "fr": "g comté râpé",
+  "en": "g of grated cheese"
+ },
+ "1jmiv9qai8s": {
+  "fr": "g œufs",
+  "en": "g eggs"
+ },
+ "13z5fuw8fly": {
+  "fr": "g lait",
+  "en": "g milk"
+ },
+ "25pnolbzvrh": {
+  "fr": "g beurre fondu",
+  "en": "g melted butter"
+ },
+ "13g0jittbtu": {
+  "fr": "g babeurre",
+  "en": "g buttermilk"
+ },
+ "1rwa6fc3vzd": {
+  "fr": "g de jaunes d'œufs",
+  "en": "g of egg yolks"
+ },
+ "kx7klyo4rl": {
+  "fr": "g de blancs d'œufs",
+  "en": "g of egg whites"
+ },
+ "2nl12zpa6z": {
+  "fr": "g de sucre",
+  "en": "g of sugar"
+ },
+ "1vm21hee03k": {
+  "fr": "g de farine",
+  "en": "g of flour"
+ },
+ "zlhvbzokdb": {
+  "fr": "sachet de levure chimique",
+  "en": "sachet of baking powder"
+ },
+ "2g6mw8kr30q": {
+  "fr": "ml de lait",
+  "en": "ml of milk"
+ },
+ "1tliwe634gf": {
+  "fr": "pincée de sel",
+  "en": "a pinch of salt"
+ },
+ "pvcfx50mch": {
+  "fr": "g lait entier",
+  "en": "g whole milk"
+ },
+ "1lrl5gq6ljm": {
+  "fr": "g crème",
+  "en": "g cream"
+ },
+ "734dqbs6ca": {
+  "fr": "g chocolat noir 66–70 %",
+  "en": "g dark chocolate 66–70 per cent"
+ },
+ "2fvuxvo7c38": {
+  "fr": "pincée sel",
+  "en": "a pinch of salt"
+ },
+ "zcuuq12idj": {
+  "fr": "g beurre",
+  "en": "g butter"
+ },
+ "17x521uo0lf": {
+  "fr": "g cassonade ou vergeoise",
+  "en": "g brown sugar or vergeoise"
+ },
+ "26sihsfgmfa": {
+  "fr": "g farine T55",
+  "en": "g T55 flour"
+ },
+ "3l3t9g8965": {
+  "fr": "branches de céleri",
+  "en": "celery stalks"
+ },
+ "3sh2eqdyng": {
+  "fr": "botte de persil",
+  "en": "bunch of parsley"
+ },
+ "1fnpkbv2cnv": {
+  "fr": "branches de thym",
+  "en": "sprigs of thyme"
+ },
+ "yt6dsto58i": {
+  "fr": "verres de vin blanc sec",
+  "en": "glasses of dry white wine"
+ },
+ "u7ukld06nb": {
+  "fr": "cl eau",
+  "en": "cl water"
+ },
+ "1nkloc8tye4": {
+  "fr": "g farine T45 ou T55",
+  "en": "g T45 or T55 flour"
+ },
+ "ixlc0x3ew1": {
+  "fr": "g sucre semoule ou sucre glace",
+  "en": "g caster sugar or icing sugar"
+ },
+ "1u6oyojlk01": {
+  "fr": "g noisettes torréfiées concassées",
+  "en": "g of crushed roasted hazelnuts"
+ },
+ "1yuui2hqti7": {
+  "fr": "g beurre pommade",
+  "en": "g softened butter"
+ },
+ "1gb60jfeqh": {
+  "fr": "g cacao non sucré",
+  "en": "g unsweetened cocoa"
+ },
+ "18p11zdztq2": {
+  "fr": "g blancs d’œufs",
+  "en": "g egg whites"
+ },
+ "fnzrrfnlrg": {
+  "fr": "g noisettes concassées",
+  "en": "g chopped hazelnuts"
+ },
+ "1n5she8a6de": {
+  "fr": "g jaunes d’œufs",
+  "en": "g egg yolks"
+ },
+ "1dx2fjay7c0": {
+  "fr": "g huile d’avocat ou huile neutre",
+  "en": "g avocado oil or neutral oil"
+ },
+ "zevtsjgnvl": {
+  "fr": "g flocons de piment concassés ou piment rouge séché finement concassé",
+  "en": "g crushed chilli flakes or finely crushed dried red chilli"
+ },
+ "1htfnklgb03": {
+  "fr": "g poudre de piment finement moulue piment du Sichuan, gochugaru, poudre de chili ou autre piment au choix",
+  "en": "g finely ground chilli powder (Sichuan pepper, gochugaru, chilli powder or another chilli of your choice)"
+ },
+ "k9pv38hv38": {
+  "fr": "g cinq-épices",
+  "en": "five-spice powder"
+ },
+ "1btvqt91bzh": {
+  "fr": "g ail très finement haché ou râpé",
+  "en": "g garlic, very finely chopped or grated"
+ },
+ "17yprf6pwd6": {
+  "fr": "g graines de sésame",
+  "en": "g sesame seeds"
+ },
+ "nzorpj50rj": {
+  "fr": "g huile chili crisp ou huile chili crisp du commerce",
+  "en": "g chilli crisp oil or shop-bought chilli crisp oil"
+ },
+ "159w2luy8v0": {
+  "fr": "tranche de pain grillée",
+  "en": "slice of toast"
+ },
+ "3x6st2gb4y": {
+  "fr": "g lait tiède",
+  "en": "g of lukewarm milk"
+ },
+ "1qbz8jfdc1j": {
+  "fr": "g levure fraîche",
+  "en": "g fresh yeast"
+ },
+ "1n9sf5iuczg": {
+  "fr": "g œufs entiers",
+  "en": "g whole eggs"
+ },
+ "bv0m0d4gw0": {
+  "fr": "g beurre souple",
+  "en": "g softened butter"
+ },
+ "1gmdac4xuqv": {
+  "fr": "g sucre glace",
+  "en": "g icing sugar"
+ },
+ "15o4k4y536x": {
+  "fr": "g poudre d’amandes ou de noisettes",
+  "en": "g ground almonds or hazelnuts"
+ },
+ "1a7kfiqk5p2": {
+  "fr": "pincée sel fin",
+  "en": "a pinch of fine salt"
+ },
+ "2dgv1mu2k76": {
+  "fr": "g beurre mou",
+  "en": "g softened butter"
+ },
+ "1o9tzunolrj": {
+  "fr": "g poudre d’amande",
+  "en": "g ground almonds"
+ },
+ "6kwtjrzmji": {
+  "fr": "g fécule pour crème d’amande",
+  "en": "g cornflour for almond cream"
+ },
+ "epcozarhw2": {
+  "fr": "g zeste de citron",
+  "en": "g lemon zest"
+ },
+ "1jjlmspgxiq": {
+  "fr": "g fécule pour crème citron",
+  "en": "g cornflour for lemon cream"
+ },
+ "140nu2ppaqw": {
+  "fr": "g beurre doux pommade",
+  "en": "g softened unsalted butter"
+ },
+ "25xb5zgqkng": {
+  "fr": "g jaune d'œuf",
+  "en": "g egg yolk"
+ },
+ "o5fhdlbqjb": {
+  "fr": "g eau très froide",
+  "en": "g very cold water"
+ },
+ "1gu7yl4fiyw": {
+  "fr": "pincée de sel fin",
+  "en": "a pinch of fine salt"
+ },
+ "hfaalg398r": {
+  "fr": "g poudre d'amandes",
+  "en": "g ground almonds"
+ },
+ "15zf0wgeix0": {
+  "fr": "g crème liquide entière",
+  "en": "g whipping cream"
+ },
+ "1vumj1uutes": {
+  "fr": "g myrtilles fraîches",
+  "en": "g fresh blueberries"
+ },
+ "jxf8x976gr": {
+  "fr": "branches de thym frais",
+  "en": "sprigs of fresh thyme"
+ },
+ "27jmr4ulcgh": {
+  "fr": "g poivre du moulin",
+  "en": "g freshly ground pepper"
+ },
+ "me80tqedlj": {
+  "fr": "kg porc",
+  "en": "kg of pork"
+ },
+ "uadowhksx6": {
+  "fr": "g huile végétale neutre",
+  "en": "g neutral vegetable oil"
+ },
+ "c74kqhbpws": {
+  "fr": "gousses d’ail hachées",
+  "en": "chopped garlic cloves"
+ },
+ "1kjfj0fziq9": {
+  "fr": "g bière blonde ou ambrée",
+  "en": "g of lager or amber beer"
+ },
+ "i4vmduh86m": {
+  "fr": "g sirop d’érable pur",
+  "en": "g pure maple syrup"
+ },
+ "fj65l4hk6k": {
+  "fr": "feuille de laurier",
+  "en": "bay leaf"
+ },
+ "huh44s1i6m": {
+  "fr": "g vinaigre de cidre optionnel",
+  "en": "g cider vinegar (optional)"
+ },
+ "1b0gu62nnu9": {
+  "fr": "g sirop d’érable optionnel pour ajuster",
+  "en": "g maple syrup (optional, to taste)"
+ },
+ "ztxpi7jwy3": {
+  "fr": "pincées sel fin",
+  "en": "pinch of fine salt"
+ },
+ "2fqa068p4tc": {
+  "fr": "g fécule",
+  "en": "g starch"
+ },
+ "q0fzhucyc6": {
+  "fr": "g avocat mûr en dés",
+  "en": "g ripe avocado, diced"
+ },
+ "2ciwabdtm8d": {
+  "fr": "g œufs durs écalés et tranchés",
+  "en": "g hard-boiled eggs, peeled and sliced"
+ },
+ "1ur8jcqbj1y": {
+  "fr": "g pousses d’épinards lavées et séchées",
+  "en": "g spinach shoots, washed and dried"
+ },
+ "26f9usz70kv": {
+  "fr": "g tomates cerises",
+  "en": "g cherry tomatoes"
+ },
+ "11yxvfriq46": {
+  "fr": "g noix",
+  "en": "g of nuts"
+ },
+ "vgvkrqb21j": {
+  "fr": "g fromage en dés",
+  "en": "g of diced cheese"
+ },
+ "24aa5xilbd0": {
+  "fr": "g jus de citron ou vinaigre",
+  "en": "g lemon juice or vinegar"
+ },
+ "kszyfcnzf0": {
+  "fr": "g chapelure",
+  "en": "g breadcrumbs"
+ },
+ "1ym9y0kguqq": {
+  "fr": "g persil haché",
+  "en": "g chopped parsley"
+ },
+ "1yrhtl8gu54": {
+  "fr": "gousse d’ail hachée",
+  "en": "chopped garlic clove"
+ },
+ "1pc71unhanj": {
+  "fr": "g persil frisé",
+  "en": "g curly parsley"
+ },
+ "t2d5go6er": {
+  "fr": "gousses d’ail",
+  "en": "garlic cloves"
+ },
+ "1qcaphqorry": {
+  "fr": "g farine de blé",
+  "en": "g wheat flour"
+ },
+ "a26nxluw5t": {
+  "fr": "g huile neutre ou huile d’olive",
+  "en": "g neutral oil or olive oil"
+ },
+ "1excmk9rky9": {
+  "fr": "g eau tiède",
+  "en": "g lukewarm water"
+ },
+ "9zyak2ofu2": {
+  "fr": "g chocolat noir",
+  "en": "g dark chocolate"
+ },
+ "1h3zbu5bacj": {
+  "fr": "g fleur de sel",
+  "en": "g fleur de sel"
+ },
+ "884lenii5w": {
+  "fr": "g cacao ou farine pour chemiser",
+  "en": "g cocoa or flour for dusting"
+ },
+ "29afkxxceiw": {
+  "fr": "g sucre semoule",
+  "en": "g caster sugar"
+ },
+ "jf64zc0oe9": {
+  "fr": "g blancs d’œufs pour meringue",
+  "en": "g egg whites for meringue"
+ },
+ "26y970v8nmk": {
+  "fr": "g chocolat blanc",
+  "en": "g white chocolate"
+ },
+ "p73cqbcm9z": {
+  "fr": "g crème liquide",
+  "en": "g single cream"
+ },
+ "27786z6g3b1": {
+  "fr": "g praliné noisette",
+  "en": "g hazelnut praline"
+ },
+ "dtsvd8v5s8": {
+  "fr": "g jus de yuzu ou citron",
+  "en": "g yuzu or lemon juice"
+ },
+ "n2gfxhu2nt": {
+  "fr": "g mayonnaise",
+  "en": "g mayonnaise"
+ },
+ "jt7pycim63": {
+  "fr": "ml sauce Worcestershire",
+  "en": "ml Worcestershire sauce"
+ },
+ "2a0gt6t1kfv": {
+  "fr": "c. à soupe paprika",
+  "en": "tbsp of paprika"
+ },
+ "n1r1hkrgga": {
+  "fr": "c. à soupe moutarde de Dijon",
+  "en": "tbsp of Dijon mustard"
+ },
+ "13qyncviag9": {
+  "fr": "c. à soupe vinaigre de cidre",
+  "en": "tsp of cider vinegar"
+ },
+ "164r0l4nsop": {
+  "fr": "c. à soupe miel",
+  "en": "tbsp of honey"
+ },
+ "irwv9wxl0d": {
+  "fr": "c. à soupe relish de cornichons",
+  "en": "tsp of gherkin relish"
+ },
+ "1ah23txqykq": {
+  "fr": "c. à soupe moutarde jaune",
+  "en": "tbsp of yellow mustard"
+ },
+ "12kqwtai3ii": {
+  "fr": "c. à soupe ketchup",
+  "en": "tbsp ketchup"
+ },
+ "tnkelbkvbg": {
+  "fr": "g beurre froid",
+  "en": "g cold butter"
+ },
+ "19iaev49nc6": {
+  "fr": "ml eau glacée",
+  "en": "ml of ice-cold water"
+ },
+ "32upj3mpol": {
+  "fr": "g biscuits graham émiettés",
+  "en": "g crumbled graham biscuits"
+ },
+ "28ens82io39": {
+  "fr": "g biscuits Oreo écrasés",
+  "en": "g crushed Oreo biscuits"
+ },
+ "26pfpgja20o": {
+  "fr": "g cheddar râpé",
+  "en": "g of grated Cheddar"
+ },
+ "rddkh2hh86": {
+  "fr": "g beurre doux",
+  "en": "g unsalted butter"
+ },
+ "15k0ehwgpee": {
+  "fr": "g crème liquide 35 %",
+  "en": "g single cream (35%)"
+ },
+ "1qslx9goiz1": {
+  "fr": "c. à soupe de poivre vert en saumure",
+  "en": "tsp of green peppercorns in brine"
+ },
+ "2477llpgfun": {
+  "fr": "ml de cognac ou Armagnac",
+  "en": "ml of cognac or Armagnac"
+ },
+ "vljrkx31u0": {
+  "fr": "ml de vin blanc sec ou Madère",
+  "en": "ml of dry white wine or Madeira"
+ },
+ "21ukgwac99n": {
+  "fr": "ml de fond de veau brun réduit",
+  "en": "ml of reduced brown veal stock"
+ },
+ "70z67ai95q": {
+  "fr": "ml de crème liquide entière 30-35 %",
+  "en": "ml of full-fat whipping cream (30–35%)"
+ },
+ "w8ce6j24d2": {
+  "fr": "g de beurre froid",
+  "en": "g of cold butter"
+ },
+ "1zxi7gwptny": {
+  "fr": "ml de cognac",
+  "en": "ml of cognac"
+ },
+ "1gicxdhijvi": {
+  "fr": "ml de fond de veau",
+  "en": "ml of veal stock"
+ },
+ "17ul96ao607": {
+  "fr": "ml de crème liquide entière",
+  "en": "ml of full-fat whipping cream"
+ },
+ "ijn9vl0lzm": {
+  "fr": "c. à soupe de poivre vert",
+  "en": "tbsp of green pepper"
+ },
+ "18hkiub5n5b": {
+  "fr": "g fond de veau préparé",
+  "en": "g prepared veal stock"
+ },
+ "2g6kd0t1mhs": {
+  "fr": "g moutarde forte",
+  "en": "g strong mustard"
+ },
+ "12ni44k6d67": {
+  "fr": "g crème liquide 30 %",
+  "en": "g single cream (30%)"
+ },
+ "ceewasyypa": {
+  "fr": "g cognac",
+  "en": "g cognac"
+ },
+ "116jwqe48ca": {
+  "fr": "g poivre noir concassé en mignonnette",
+  "en": "g coarsely crushed black pepper"
+ },
+ "10shaw8mytt": {
+  "fr": "g beurre demi-sel",
+  "en": "g semi-salted butter"
+ },
+ "1g1io8lqgz3": {
+  "fr": "g de beurre doux",
+  "en": "g of unsalted butter"
+ },
+ "2fszky2jd0l": {
+  "fr": "c. à soupe d’huile neutre",
+  "en": "tsp of neutral-tasting oil"
+ },
+ "8tdodkanbt": {
+  "fr": "gousses d’ail en chemise",
+  "en": "unpeeled garlic cloves"
+ },
+ "2g10xjph56q": {
+  "fr": "c. à soupe de miel de fleurs, acacia ou châtaignier doux",
+  "en": "tbsp of wildflower, acacia or sweet chestnut honey"
+ },
+ "x08m2hb9du": {
+  "fr": "c. à soupe de moutarde à l’ancienne",
+  "en": "tbsp of wholegrain mustard"
+ },
+ "23rlxfb6azz": {
+  "fr": "ml de cidre brut ou vin blanc sec",
+  "en": "ml of dry cider or dry white wine"
+ },
+ "1r1wa2wavya": {
+  "fr": "ml de fond de veau ou fond brun de volaille réduit",
+  "en": "ml of reduced veal stock or reduced brown poultry stock"
+ },
+ "ag0vbin339": {
+  "fr": "c. à soupe de vinaigre de cidre",
+  "en": "tbsp of cider vinegar"
+ },
+ "69spgn6yyt": {
+  "fr": "g de pomme de terre cuite dans le bouillon",
+  "en": "g of potato cooked in the stock"
+ },
+ "19fbq9mw042": {
+  "fr": "c. à soupe de bouillon chaud pour infuser le safran",
+  "en": "tsp of hot stock to infuse the saffron"
+ },
+ "7616jdok0l": {
+  "fr": "ml d’huile d’olive douce",
+  "en": "ml of mild olive oil"
+ },
+ "1tbms583dnh": {
+  "fr": "ml d’huile neutre",
+  "en": "ml of neutral oil"
+ },
+ "19jyxrksccf": {
+  "fr": "c. à soupe de foie de poisson cuit passé au tamis",
+  "en": "tsp of cooked fish liver, passed through a sieve"
+ },
+ "11o22xw2xwk": {
+  "fr": "g de carottes",
+  "en": "g of carrots"
+ },
+ "1ttwgc0kw1t": {
+  "fr": "g de céleri",
+  "en": "g of celery"
+ },
+ "14oag5ltyyu": {
+  "fr": "g de poireaux",
+  "en": "g of leeks"
+ },
+ "10orjfop6l2": {
+  "fr": "g d’oignons",
+  "en": "g of onions"
+ },
+ "5u0a0ig8lz": {
+  "fr": "g de fenouil",
+  "en": "g of fennel"
+ },
+ "1g75mznqt1x": {
+  "fr": "g de tomates mûres",
+  "en": "g of ripe tomatoes"
+ },
+ "awrwu3vu2l": {
+  "fr": "g de concentré de tomate",
+  "en": "g of tomato paste"
+ },
+ "1gbxalwhsx2": {
+  "fr": "g d’ail",
+  "en": "g of garlic"
+ },
+ "m51elzoy89": {
+  "fr": "g de safran",
+  "en": "g of saffron"
+ },
+ "178pf1fd2ke": {
+  "fr": "g de jus de moules",
+  "en": "g of mussel juice"
+ },
+ "lgfdblzagd": {
+  "fr": "g de Pernod",
+  "en": "g of Pernod"
+ },
+ "gj1o6c7wo0": {
+  "fr": "g de fumet de poisson",
+  "en": "g of fish stock"
+ },
+ "yayrqdjk9p": {
+  "fr": "L de vin blanc",
+  "en": "L of white wine"
+ },
+ "ndis69b0t8": {
+  "fr": "g jaune d’œuf",
+  "en": "g egg yolk"
+ },
+ "20y8tvmklrz": {
+  "fr": "c. à soupe de vinaigre de vin blanc ou jus de citron",
+  "en": "tsp of white wine vinegar or lemon juice"
+ },
+ "1ctzvw05s6g": {
+  "fr": "g lait entier froid",
+  "en": "g cold whole milk"
+ },
+ "1jxm6l5ut8s": {
+  "fr": "g vinaigre de vin rouge",
+  "en": "g red wine vinegar"
+ },
+ "uo6gxodtae": {
+  "fr": "g huile de pépins de raisin",
+  "en": "g grape seed oil"
+ },
+ "28e2h3q1p74": {
+  "fr": "g de grosses crevettes crues décortiquées",
+  "en": "g of large, raw, peeled prawns"
+ },
+ "106w3st09z0": {
+  "fr": "filet d'huile d'olive",
+  "en": "a dash of olive oil"
+ },
+ "922vv98ou0": {
+  "fr": "c. à soupe de concentré de tomate",
+  "en": "tbsp of tomato purée"
+ },
+ "1ws64xa69zh": {
+  "fr": "cl de cognac ou armagnac",
+  "en": "cl of cognac or armagnac"
+ },
+ "oybk0kpyn9": {
+  "fr": "cl de vin blanc sec",
+  "en": "cl of dry white wine"
+ },
+ "2dwcd5doat1": {
+  "fr": "cl de fumet de poisson ou bouillon de crustacés",
+  "en": "cl of fish stock or shellfish stock"
+ },
+ "1945nwbid7w": {
+  "fr": "cl de crème liquide entière",
+  "en": "cl of full-fat whipping cream"
+ },
+ "6xytypg5lh": {
+  "fr": "pincée de piment d'Espelette",
+  "en": "a pinch of Espelette chilli"
+ },
+ "f21igamk4m": {
+  "fr": "g de parmesan râpé finement",
+  "en": "g of finely grated Parmesan"
+ },
+ "ugi99n4mis": {
+  "fr": "g de chapelure fine ou panko",
+  "en": "g of fine breadcrumbs or panko"
+ },
+ "apmmoagdxe": {
+  "fr": "g de beurre froid en petits dés",
+  "en": "g of cold butter, cut into small cubes"
+ },
+ "1nh1lgs7aq7": {
+  "fr": "g œuf entier",
+  "en": "g whole egg"
+ },
+ "105m0zqrosb": {
+  "fr": "g levure boulangère sèche",
+  "en": "g dried baker’s yeast"
+ },
+ "189qsjwau6": {
+  "fr": "g betterave cuite",
+  "en": "g of cooked beetroot"
+ },
+ "p6vzg2g0d5": {
+  "fr": "g jaunes d’œufs cuits",
+  "en": "g of cooked egg yolks"
+ },
+ "6cz3gi7r76": {
+  "fr": "g moutarde douce",
+  "en": "g mild mustard"
+ },
+ "17qs350hmsr": {
+  "fr": "g crème fraîche épaisse ou yaourt grec",
+  "en": "g thick crème fraîche or Greek yoghurt"
+ },
+ "23zdnuz0xj3": {
+  "fr": "g vinaigre de cidre ou jus de citron",
+  "en": "g cider vinegar or lemon juice"
+ },
+ "zt2ob3nzw7": {
+  "fr": "g paprika fumé ou piment d’Espelette",
+  "en": "g smoked paprika or Espelette chilli"
+ },
+ "klx1kc17vd": {
+  "fr": "g chair d’avocat mûr",
+  "en": "g ripe avocado flesh"
+ },
+ "rozq60ji3q": {
+  "fr": "g crème fraîche épaisse",
+  "en": "g thick crème fraîche"
+ },
+ "npsgq8s5k6": {
+  "fr": "g piment d’Espelette",
+  "en": "g Espelette chilli"
+ },
+ "9uj5u8ddfn": {
+  "fr": "g crevettes décortiquées et nettoyées",
+  "en": "g peeled and deveined prawns"
+ },
+ "21se3mq9j4l": {
+  "fr": "g lard fumé en fines tranches",
+  "en": "g thinly sliced smoked bacon"
+ },
+ "121zmi1vxrz": {
+  "fr": "g ciboulette ciselée",
+  "en": "g finely chopped chives"
+ },
+ "1n8s4oyo3r4": {
+  "fr": "g anneaux de calamar",
+  "en": "g squid rings"
+ },
+ "4lza25x4sy": {
+  "fr": "g ail écrasé",
+  "en": "g crushed garlic"
+ },
+ "1762o9ggzrr": {
+  "fr": "g fécule de maïs",
+  "en": "g cornflour"
+ },
+ "xubdaly4wx": {
+  "fr": "g blanc d’œuf",
+  "en": "g egg white"
+ },
+ "1ceqh6ubfq9": {
+  "fr": "g eau gazeuse très froide",
+  "en": "g very cold sparkling water"
+ },
+ "h6f2nidin5": {
+  "fr": "g vodka très froide optionnelle",
+  "en": "g very cold vodka (optional)"
+ },
+ "229fhh4dil": {
+  "fr": "g eau gazeuse glacée",
+  "en": "g ice-cold sparkling water"
+ },
+ "21z4ojv33n5": {
+  "fr": "g pommes de terre Agria, Bintje ou Maris Piper",
+  "en": "g Agria, Bintje or Maris Piper potatoes"
+ },
+ "18iu61l0f58": {
+  "fr": "g Comté 18 mois ou Gruyère suisse",
+  "en": "g 18-month-old Comté or Swiss Gruyère"
+ },
+ "2ek7hka6d5i": {
+  "fr": "g parmesan râpé finement",
+  "en": "g finely grated Parmesan"
+ },
+ "ofuwu7g99c": {
+  "fr": "g fécule de pomme de terre ou Maïzena",
+  "en": "g potato starch or Maïzena"
+ },
+ "ap3wgpdt7k": {
+  "fr": "g crème épaisse",
+  "en": "g double cream"
+ },
+ "m09qid4kmp": {
+  "fr": "g beurre noisette",
+  "en": "g browned butter"
+ },
+ "1w558chd9gk": {
+  "fr": "pincée noix de muscade",
+  "en": "a pinch of nutmeg"
+ },
+ "2el90guy55n": {
+  "fr": "g ciboulette ciselée pour la sauce",
+  "en": "g finely chopped chives for the sauce"
+ },
+ "k9l46qpldx": {
+  "fr": "g aneth ou estragon",
+  "en": "dill or tarragon"
+ },
+ "sqa0eb1qht": {
+  "fr": "g œuf poché",
+  "en": "g poached egg"
+ },
+ "17p24vns07y": {
+  "fr": "g rhum blanc",
+  "en": "g white rum"
+ },
+ "m90j755423": {
+  "fr": "feuilles de menthe",
+  "en": "mint leaves"
+ },
+ "1uoih2jxrl9": {
+  "fr": "g eau gazeuse",
+  "en": "g sparkling water"
+ },
+ "16ilcjy9cnk": {
+  "fr": "g mangue mûre en dés",
+  "en": "g ripe mango, diced"
+ },
+ "20q3g33m649": {
+  "fr": "g concombre en tranches",
+  "en": "g sliced cucumber"
+ },
+ "om51yrz5o9": {
+  "fr": "g pulpe de fruit de la passion",
+  "en": "g passion fruit pulp"
+ },
+ "226jcpwjh94": {
+  "fr": "g rhum ambré",
+  "en": "g amber rum"
+ },
+ "n1urdq1mje": {
+  "fr": "g sommités de chou-fleur",
+  "en": "g cauliflower florets"
+ },
+ "27ypz6pragr": {
+  "fr": "g ail en poudre",
+  "en": "g garlic powder"
+ },
+ "8n2uvp7xlc": {
+  "fr": "g oignon en poudre",
+  "en": "g onion powder"
+ },
+ "28aw4tngo3r": {
+  "fr": "g persil haché optionnel",
+  "en": "g chopped parsley (optional)"
+ },
+ "13za5cwkv7b": {
+  "fr": "g melon charentais mûr",
+  "en": "g ripe Charentais melon"
+ },
+ "234sajxlwht": {
+  "fr": "g billes de mozzarella ou mozzarella di bufala",
+  "en": "g mozzarella balls or mozzarella di bufala"
+ },
+ "26avqr1aadx": {
+  "fr": "g jambon cru italien, Serrano, Parme ou San Daniele",
+  "en": "g of Italian cured ham, Serrano, Parma or San Daniele"
+ },
+ "29d6jybianm": {
+  "fr": "g roquette",
+  "en": "g rocket"
+ },
+ "dhnx9zmk67": {
+  "fr": "g oignon rouge",
+  "en": "g red onion"
+ },
+ "17t2qgpu479": {
+  "fr": "g pignons de pin ou pistaches",
+  "en": "g pine nuts or pistachios"
+ },
+ "3mnulnsad5": {
+  "fr": "g huile d’olive fruitée",
+  "en": "g fruity olive oil"
+ },
+ "ouehbli9dr": {
+  "fr": "g basilic ciselé",
+  "en": "g finely chopped basil"
+ },
+ "1fv4q9jeolf": {
+  "fr": "g origan ou thym frais",
+  "en": "g fresh oregano or thyme"
+ },
+ "23mk0h2r25y": {
+  "fr": "g jus de citron ou vinaigre de Xérès",
+  "en": "g lemon juice or sherry vinegar"
+ },
+ "1i82bcj3rwl": {
+  "fr": "g miel doux",
+  "en": "g of mild honey"
+ },
+ "1adl06rnm0u": {
+  "fr": "g jus de melon récupéré",
+  "en": "g of melon juice saved"
+ },
+ "10mx5chzedo": {
+  "fr": "g ail râpé très finement",
+  "en": "g garlic, finely grated"
+ },
+ "1cxh8x9xijr": {
+  "fr": "g persil plat haché",
+  "en": "g chopped flat-leaf parsley"
+ },
+ "1vgf2xi4pjl": {
+  "fr": "g huile d’olive ou 20g beurre fondu",
+  "en": "g olive oil or 20g melted butter"
+ },
+ "1c3gued8opp": {
+  "fr": "g oignons verts émincés",
+  "en": "g thinly sliced spring onions"
+ },
+ "1fhu25fc8rt": {
+  "fr": "g piment de Cayenne",
+  "en": "g cayenne pepper"
+ },
+ "1rilsb35h5x": {
+  "fr": "g bacon croustillant en morceaux",
+  "en": "g of crispy bacon, cut into pieces"
+ },
+ "1nmqees398z": {
+  "fr": "g crème aigre ou crème fraîche épaisse citronnée",
+  "en": "g sour cream or thick crème fraîche with lemon"
+ },
+ "1cmwxnsp9l7": {
+  "fr": "g piment de Cayenne optionnel",
+  "en": "g cayenne pepper (optional)"
+ },
+ "165i60br4gz": {
+  "fr": "g jus de citron vert ou jaune",
+  "en": "g lime or lemon juice"
+ },
+ "tomj5e1s89": {
+  "fr": "g levure fraîche de boulanger ou 10 à 12g levure sèche active",
+  "en": "g fresh baker’s yeast or 10 to 12g active dry yeast"
+ },
+ "2cr67rnt2cz": {
+  "fr": "g œuf entier battu",
+  "en": "g whole beaten egg"
+ },
+ "4xtxq8eq4u": {
+  "fr": "g billes de mozzarella",
+  "en": "g mozzarella balls"
+ },
+ "25clnnrym1y": {
+  "fr": "pincée piment d’Espelette",
+  "en": "a pinch of Espelette chilli"
+ },
+ "11wxvcyjlzo": {
+  "fr": "kg cerises mûres",
+  "en": "kg of ripe cherries"
+ },
+ "1ptl2r4q7vd": {
+  "fr": "g noix variées hachées",
+  "en": "g mixed chopped nuts"
+ },
+ "2cdo2q3imdw": {
+  "fr": "g fruits secs en petits morceaux",
+  "en": "g of chopped dried fruit"
+ },
+ "2wmdengl48": {
+  "fr": "g basilic ou persil ciselé",
+  "en": "g finely chopped basil or parsley"
+ },
+ "10p3onxmwc6": {
+  "fr": "g biscuits digestifs ou sablés",
+  "en": "g digestive biscuits or shortbread"
+ },
+ "bbi71ufj2t": {
+  "fr": "g lait concentré sucré",
+  "en": "g sweetened condensed milk"
+ },
+ "9xhphd46r6": {
+  "fr": "g farine T45",
+  "en": "g T45 flour"
+ },
+ "1zpx9eo4ntc": {
+  "fr": "g beurre doux froid",
+  "en": "g cold unsalted butter"
+ },
+ "19ndnho5r3f": {
+  "fr": "g maïzena",
+  "en": "g cornflour"
+ },
+ "beblbobuz6": {
+  "fr": "g pommes de terre à chair ferme",
+  "en": "g firm-fleshed potatoes"
+ },
+ "2b9w8xwiyb0": {
+  "fr": "c. à soupe de graisse de canard",
+  "en": "tbsp of duck fat"
+ },
+ "1u6ksbppgx3": {
+  "fr": "g poitrine fumée en allumettes",
+  "en": "g of smoked bacon, cut into matchsticks"
+ },
+ "224gvfnhipc": {
+  "fr": "cl vin blanc sec",
+  "en": "cl dry white wine"
+ },
+ "ao1ia6ky08": {
+  "fr": "cl lait entier",
+  "en": "cl whole milk"
+ },
+ "1i6q7o6yhsa": {
+  "fr": "cl crème liquide entière",
+  "en": "cl of full-fat whipping cream"
+ },
+ "1cjw06e8wv7": {
+  "fr": "g beurre doux pour le plat",
+  "en": "g unsalted butter for the dish"
+ },
+ "2u8qql21wl": {
+  "fr": "g emmental râpé",
+  "en": "g of grated Emmental"
+ },
+ "1l2mhocigqm": {
+  "fr": "tranches pain de mie",
+  "en": "slices of white bread"
+ },
+ "1okscps2fnw": {
+  "fr": "tranches jambon",
+  "en": "slices of ham"
+ },
+ "1ybrc0nwnel": {
+  "fr": "g chipirons nettoyés",
+  "en": "g cleaned baby squid"
+ },
+ "1hrrprhskc": {
+  "fr": "gousses ail",
+  "en": "garlic cloves"
+ },
+ "251e15bxvgt": {
+  "fr": "gousse ail",
+  "en": "clove of garlic"
+ },
+ "1ybhyxcnt7x": {
+  "fr": "g betteraves cuites",
+  "en": "g of cooked beetroot"
+ },
+ "8sunsv4ccn": {
+  "fr": "g mozzarella",
+  "en": "g mozzarella"
+ },
+ "1qzq3yoyiqq": {
+  "fr": "g jus de yuzu",
+  "en": "g yuzu juice"
+ },
+ "1e74401fokw": {
+  "fr": "g huile olive",
+  "en": "g olive oil"
+ },
+ "14jz3pc1jy1": {
+  "fr": "morceau gingembre optionnel",
+  "en": "a piece of ginger (optional)"
+ },
+ "25z9khc6lpd": {
+  "fr": "g chorizo à cuire",
+  "en": "g chorizo for cooking"
+ },
+ "axxhbwqp92": {
+  "fr": "ml cidre brut",
+  "en": "ml of dry cider"
+ },
+ "own17m2vfm": {
+  "fr": "feuille laurier",
+  "en": "bay leaf"
+ },
+ "17lf3g4qq48": {
+  "fr": "g hauts de cuisses de poulet désossés",
+  "en": "g boneless chicken thighs"
+ },
+ "2di5e3hzfrz": {
+  "fr": "g lait fermenté",
+  "en": "g fermented milk"
+ },
+ "1547oie2lzs": {
+  "fr": "ml vin blanc sec",
+  "en": "ml dry white wine"
+ },
+ "4i2wwm5lq0": {
+  "fr": "g riz basmati",
+  "en": "g basmati rice"
+ },
+ "4576lryjpp": {
+  "fr": "g bouillon de volaille ou légumes",
+  "en": "g chicken or vegetable stock"
+ },
+ "14i6u6iru1h": {
+  "fr": "g pommes de terre farineuses",
+  "en": "g floury potatoes"
+ },
+ "2a4aq1x3l9q": {
+  "fr": "g lait chaud",
+  "en": "g hot milk"
+ },
+ "9bvt9aib5u": {
+  "fr": "ml bouillon",
+  "en": "ml stock"
+ },
+ "qsgbd9noil": {
+  "fr": "g lentilles vertes",
+  "en": "g green lentils"
+ },
+ "zexa3wt57l": {
+  "fr": "g champignons",
+  "en": "g mushrooms"
+ },
+ "18bcpu5g9bo": {
+  "fr": "g carottes",
+  "en": "g carrots"
+ },
+ "vrwjh213u0": {
+  "fr": "g lardons optionnels",
+  "en": "g bacon bits (optional)"
+ },
+ "28kgpzfrlrn": {
+  "fr": "ml vin rouge",
+  "en": "ml red wine"
+ },
+ "1rki0eai1ak": {
+  "fr": "g persil plat",
+  "en": "g flat-leaf parsley"
+ },
+ "jix2arxbzq": {
+  "fr": "g échalote",
+  "en": "g shallot"
+ },
+ "ukyhvwgic1": {
+  "fr": "g riz long cuit et refroidi",
+  "en": "g cooked and cooled long-grain rice"
+ },
+ "21smmldd79b": {
+  "fr": "g petits pois cuits",
+  "en": "g cooked peas"
+ },
+ "z6czxcmwir": {
+  "fr": "g jambon blanc en dés",
+  "en": "g diced cooked ham"
+ },
+ "1iv9hzpf8zq": {
+  "fr": "g pâtes courtes",
+  "en": "g short pasta"
+ },
+ "8pawhpfiyw": {
+  "fr": "g pesto",
+  "en": "g pesto"
+ },
+ "1c5ahpefrq8": {
+  "fr": "g chorizo",
+  "en": "g chorizo"
+ },
+ "1h4q4835kml": {
+  "fr": "g pommes de terre",
+  "en": "g potatoes"
+ },
+ "zxyjk6j13n": {
+  "fr": "g tomates concassées",
+  "en": "g chopped tomatoes"
+ },
+ "1907cykjbp3": {
+  "fr": "g herbes de Provence",
+  "en": "g herbes de Provence"
+ },
+ "11djn985bl7": {
+  "fr": "g pois chiches cuits",
+  "en": "g cooked chickpeas"
+ },
+ "lz2y7zbdcw": {
+  "fr": "g eau de cuisson des pois chiches",
+  "en": "g of the water used to cook the chickpeas"
+ },
+ "2g2d7ur6kgj": {
+  "fr": "g jus de citron frais ou acidité selon goût",
+  "en": "g fresh lemon juice or acid to taste"
+ },
+ "g0l6tn3ykb": {
+  "fr": "g tahine",
+  "en": "g tahini"
+ },
+ "2loa4wbs6a": {
+  "fr": "g eau froide",
+  "en": "g cold water"
+ },
+ "ko8smmgtbx": {
+  "fr": "g harissa rouge ou piment doux",
+  "en": "g red harissa or mild chilli"
+ },
+ "1gn7h83nc52": {
+  "fr": "g pois chiches secs trempes 12h",
+  "en": "g dried chickpeas, soaked for 12 hours"
+ },
+ "19450atkldq": {
+  "fr": "brins menthe ou ciboulette",
+  "en": "sprigs of mint or chives"
+ },
+ "1rvm099atg4": {
+  "fr": "g cumin moulu",
+  "en": "g ground cumin"
+ },
+ "1odlmgn2izn": {
+  "fr": "pincée cardamome",
+  "en": "a pinch of cardamom"
+ },
+ "1bcu2r1bke1": {
+  "fr": "g farine de ble",
+  "en": "g wheat flour"
+ },
+ "1g9e9uz8kjt": {
+  "fr": "g chorizo doux en dés",
+  "en": "g of diced mild chorizo"
+ },
+ "i9jm9p4iio": {
+  "fr": "g poivron rouge en petits des",
+  "en": "g red pepper, finely chopped"
+ },
+ "7f5fpq6r41": {
+  "fr": "g nuoc-mam",
+  "en": "g nuoc-mam"
+ },
+ "1mrqcl5nmf": {
+  "fr": "g ail finement râpé",
+  "en": "g finely grated garlic"
+ },
+ "1xnrfieccci": {
+  "fr": "g piment rouge finement haché",
+  "en": "g finely chopped red chilli"
+ },
+ "2d6a0xuaihd": {
+  "fr": "g porc haché",
+  "en": "g minced pork"
+ },
+ "1rz9b1po293": {
+  "fr": "g crevettes hachées",
+  "en": "g of minced prawns"
+ },
+ "21hb699vpad": {
+  "fr": "g vermicelles de riz trempés",
+  "en": "g soaked rice vermicelli"
+ },
+ "1gqatq5cvz": {
+  "fr": "g carotte râpée",
+  "en": "g of grated carrot"
+ },
+ "13uo5ic3z6o": {
+  "fr": "g champignons noirs rehydrates",
+  "en": "g rehydrated black mushrooms"
+ },
+ "bp2oitzorz": {
+  "fr": "g asperges vertes",
+  "en": "g green asparagus"
+ },
+ "1trfg72sacz": {
+  "fr": "g vinaigrette",
+  "en": "g of vinaigrette"
+ },
+ "1ne2viieopx": {
+  "fr": "g chou vert emince",
+  "en": "g finely chopped green cabbage"
+ },
+ "wzzx6aw779": {
+  "fr": "g coulis de tomate",
+  "en": "g tomato purée"
+ },
+ "29lgp83t0pp": {
+  "fr": "g oignon",
+  "en": "g onion"
+ },
+ "1gleikxhgbm": {
+  "fr": "g carotte",
+  "en": "g carrot"
+ },
+ "253q2w77l15": {
+  "fr": "gousse d’ail",
+  "en": "clove of garlic"
+ },
+ "fxbtdpd0a1": {
+  "fr": "kg palette demi-sel ou jarret de porc",
+  "en": "kg of lightly salted pork shoulder or pork knuckle"
+ },
+ "2eu3c6ysma6": {
+  "fr": "tranches épaisses de poitrine de porc",
+  "en": "thick slices of pork belly"
+ },
+ "s9f9fqobni": {
+  "fr": "g courge",
+  "en": "g squash"
+ },
+ "1ugahf4o5dq": {
+  "fr": "g noix de cajou",
+  "en": "g cashew nuts"
+ },
+ "1kd00ebs4x7": {
+  "fr": "g bouillon de légumes",
+  "en": "g vegetable stock"
+ },
+ "2arb70m3p94": {
+  "fr": "g patates douces",
+  "en": "g sweet potatoes"
+ },
+ "1cc83xs2pra": {
+  "fr": "g piments rouges doux ou forts",
+  "en": "g sweet or hot red chillies"
+ },
+ "1urh3jua3am": {
+  "fr": "g concentré de tomate",
+  "en": "g tomato paste"
+ },
+ "2dsavunp6u9": {
+  "fr": "g coriandre moulue",
+  "en": "g ground coriander"
+ },
+ "1so2po5y2w2": {
+  "fr": "g carottes en rondelles",
+  "en": "g of sliced carrots"
+ },
+ "1b924gvzm4q": {
+  "fr": "g pommes de terre grenaille",
+  "en": "g baby potatoes"
+ },
+ "irnu8k0g30": {
+  "fr": "g ail en chemise",
+  "en": "g garlic in its skin"
+ },
+ "xgfjcf0sgj": {
+  "fr": "g thym",
+  "en": "g thyme"
+ },
+ "278cvu8gzzc": {
+  "fr": "g romarin",
+  "en": "g rosemary"
+ },
+ "1gbrtyymc4q": {
+  "fr": "g pommes de terre grenaille nouvelles",
+  "en": "g new baby potatoes"
+ },
+ "1nm1rg7c7bn": {
+  "fr": "brins de romarin",
+  "en": "sprigs of rosemary"
+ },
+ "3njtxn8qjx": {
+  "fr": "brins de thym effeuillé",
+  "en": "sprigs of thyme, leaves stripped from the stems"
+ },
+ "7zhsj6rjt0": {
+  "fr": "gousses d’ail écrasées",
+  "en": "crushed garlic cloves"
+ },
+ "7kzkwmwgc3": {
+  "fr": "g mélange d’épices pour pommes de terre",
+  "en": "g potato spice mix"
+ },
+ "1k7x5kfbfbz": {
+  "fr": "g tomates mûres",
+  "en": "g ripe tomatoes"
+ },
+ "1rogwu6xnuu": {
+  "fr": "pincée muscade",
+  "en": "a pinch of nutmeg"
+ },
+ "cbep11z7o2": {
+  "fr": "tranches pain de campagne",
+  "en": "slices of country bread"
+ },
+ "2bi9bkpqq0w": {
+  "fr": "g roquefort",
+  "en": "g Roquefort"
+ },
+ "2e2w01du13l": {
+  "fr": "g tagliatelles",
+  "en": "g tagliatelle"
+ },
+ "1plp9iawoox": {
+  "fr": "g parmesan",
+  "en": "g Parmesan"
+ },
+ "160hhjwpvwm": {
+  "fr": "feuilles de brick",
+  "en": "brick pastry sheets"
+ },
+ "w80kdgqj5g": {
+  "fr": "g fromage de chèvre",
+  "en": "g goat’s cheese"
+ },
+ "1alqndtj1p6": {
+  "fr": "g poires en lamelles",
+  "en": "g pears, sliced"
+ },
+ "muqz9mnvgh": {
+  "fr": "g noix de pecan",
+  "en": "g pecan nuts"
+ },
+ "135xraci4nc": {
+  "fr": "g vin rouge",
+  "en": "g red wine"
+ },
+ "1mcwzffy9x3": {
+  "fr": "g lardons",
+  "en": "g bacon bits"
+ },
+ "1d9qdfg8if4": {
+  "fr": "g jus d’orange",
+  "en": "g orange juice"
+ },
+ "28w7gij7vu9": {
+  "fr": "pincée cannelle",
+  "en": "a pinch of cinnamon"
+ },
+ "1cuvwath6ze": {
+  "fr": "g échine de porc en tranches",
+  "en": "sliced pork loin"
+ },
+ "1q0tt6vof2q": {
+  "fr": "g piment doux",
+  "en": "g sweet chilli"
+ },
+ "25bsf1qb6u0": {
+  "fr": "g lait ribot",
+  "en": "g buttermilk"
+ },
+ "282ssjidcfl": {
+  "fr": "g crevettes décortiquées",
+  "en": "g peeled prawns"
+ },
+ "1mw8bn7e0mh": {
+  "fr": "g ail haché",
+  "en": "g chopped garlic"
+ },
+ "2c2fajvv8cg": {
+  "fr": "g encornets nettoyés",
+  "en": "g cleaned squid"
+ },
+ "1l2lxvvrhc8": {
+  "fr": "g poivron rouge",
+  "en": "g red pepper"
+ },
+ "10s4gevjjou": {
+  "fr": "g crevettes",
+  "en": "g prawns"
+ },
+ "2ea5hms2lpc": {
+  "fr": "g bœuf haché",
+  "en": "g minced beef"
+ },
+ "1nwfgbcv0t6": {
+  "fr": "g épinards",
+  "en": "g spinach"
+ },
+ "1pvcnh82qtx": {
+  "fr": "g petits pois",
+  "en": "g peas"
+ },
+ "ovqpkw8jz0": {
+  "fr": "g curry doux",
+  "en": "g mild curry"
+ },
+ "14s84k68c3q": {
+  "fr": "g petits pois surgelés",
+  "en": "g frozen peas"
+ },
+ "11wq8w8skx0": {
+  "fr": "g carottes taillées en fine brunoise",
+  "en": "g carrots, finely diced"
+ },
+ "19o8k3j1wm6": {
+  "fr": "g raisins secs réhydratés",
+  "en": "g rehydrated raisins"
+ },
+ "14mouvk03m4": {
+  "fr": "g coriandre fraîche ciselée",
+  "en": "g finely chopped fresh coriander"
+ },
+ "1z2v5a0cv6a": {
+  "fr": "g mélange d’épices orientales",
+  "en": "g blend of oriental spices"
+ },
+ "t0h2md7rsu": {
+  "fr": "g sauce tomate",
+  "en": "g tomato sauce"
+ },
+ "1kgzvyrysnh": {
+  "fr": "g olives hachées",
+  "en": "g chopped olives"
+ },
+ "1rd6ap8ro6a": {
+  "fr": "g levure boulangère",
+  "en": "g baker’s yeast"
+ },
+ "15qt90swxpz": {
+  "fr": "g jeunes épinards",
+  "en": "g baby spinach"
+ },
+ "133fx9ol28z": {
+  "fr": "clémentines",
+  "en": "clementines"
+ },
+ "cq46s495z8": {
+  "fr": "g feta",
+  "en": "g feta"
+ },
+ "ggrr33l14t": {
+  "fr": "g amandes",
+  "en": "g almonds"
+ },
+ "1vfqe39k4q6": {
+  "fr": "g tomates confites",
+  "en": "g sun-dried tomatoes"
+ },
+ "clgnjs6fl": {
+  "fr": "g huile des tomates ou huile d’olive",
+  "en": "g tomato oil or olive oil"
+ },
+ "u0oq3cw4sl": {
+  "fr": "g pignons ou amandes grillées",
+  "en": "g pine nuts or roasted almonds"
+ },
+ "237f3vgyn27": {
+  "fr": "g morceaux de poulet",
+  "en": "g chicken pieces"
+ },
+ "mu9nlt6k39": {
+  "fr": "g pâtes",
+  "en": "g pasta"
+ },
+ "3w05l6q2vj": {
+  "fr": "g brocolis",
+  "en": "g of broccoli"
+ },
+ "i724ebjrzo": {
+  "fr": "g amandes effilées",
+  "en": "g flaked almonds"
+ },
+ "oeq3bs8376": {
+  "fr": "g saucisses fumees ou de Toulouse",
+  "en": "g smoked sausages or Toulouse sausages"
+ },
+ "2egn3aw2xfy": {
+  "fr": "g oignons",
+  "en": "g onions"
+ },
+ "1x3kdgiu58q": {
+  "fr": "g curcuma",
+  "en": "g turmeric"
+ },
+ "qo912o8nnv": {
+  "fr": "g saucisse de Toulouse",
+  "en": "g Toulouse sausage"
+ },
+ "lsmv1bip86": {
+  "fr": "g oignons nouveaux",
+  "en": "g spring onions"
+ },
+ "ccrs2kruj1": {
+  "fr": "g gingembre frais",
+  "en": "g fresh ginger"
+ },
+ "1hqo2jmhnbc": {
+  "fr": "g pulpe de tomate",
+  "en": "g tomato pulp"
+ },
+ "27pmvtbfsuy": {
+  "fr": "g grosses crevettes decortiquees",
+  "en": "g large peeled prawns"
+ },
+ "1nv41ovjf9g": {
+  "fr": "g chorizo en rondelles",
+  "en": "g chorizo, sliced into rounds"
+ },
+ "1b7ztb3l8rf": {
+  "fr": "g lentilles corail",
+  "en": "g coral-coloured lenses"
+ },
+ "63yeqqwe5p": {
+  "fr": "g lait de coco",
+  "en": "g coconut milk"
+ },
+ "rb150etmgz": {
+  "fr": "g curry",
+  "en": "g curry"
+ },
+ "2g5yhsha5rb": {
+  "fr": "g graines de cumin pour le tadka",
+  "en": "g cumin seeds for the tadka"
+ },
+ "1jgrw5fipq6": {
+  "fr": "gousse d’ail émincée pour le tadka",
+  "en": "thinly sliced garlic clove for the tadka"
+ },
+ "fvp60bf9hj": {
+  "fr": "g huile neutre pour le tadka",
+  "en": "g neutral oil for the tadka"
+ },
+ "2e6yvqnyce4": {
+  "fr": "g dos de cabillaud ou lieu",
+  "en": "g cod fillet or pollock fillet"
+ },
+ "xddmmcoj0": {
+  "fr": "g bière blonde très froide ou eau pétillante",
+  "en": "g very cold lager or sparkling water"
+ },
+ "15ovo5h41nr": {
+  "fr": "g huile neutre de friture",
+  "en": "g neutral frying oil"
+ },
+ "1o072acqv1f": {
+  "fr": "g sauce yaourt citronnée",
+  "en": "g lemon yoghurt sauce"
+ },
+ "2ds5ydvj98v": {
+  "fr": "g cabillaud",
+  "en": "g cod"
+ },
+ "xtcp3gogve": {
+  "fr": "g farine de blé tamisée",
+  "en": "g sifted wheat flour"
+ },
+ "1gtfdmbjzpr": {
+  "fr": "g bière blonde",
+  "en": "g lager"
+ },
+ "1kqjaw3eskq": {
+  "fr": "g pommes de terre rattes",
+  "en": "g ratte potatoes"
+ },
+ "1h9r2gynns3": {
+  "fr": "g bœuf haché ou reste de bœuf cuit",
+  "en": "g minced beef or leftover cooked beef"
+ },
+ "1bioa0xduu8": {
+  "fr": "g grosses tomates",
+  "en": "g large tomatoes"
+ },
+ "202phtivrou": {
+  "fr": "g chair à saucisse",
+  "en": "g sausage meat"
+ },
+ "jcnusa6qtu": {
+  "fr": "g mie de pain",
+  "en": "a slice of bread"
+ },
+ "1j2vxy05kx1": {
+  "fr": "g riz",
+  "en": "g rice"
+ },
+ "lyi0h0905q": {
+  "fr": "g jambon fumé",
+  "en": "g smoked ham"
+ },
+ "1v60fmryel": {
+  "fr": "g pain de mie",
+  "en": "g of sandwich bread"
+ },
+ "48rm7dxjn3": {
+  "fr": "g poivrons rouges et verts",
+  "en": "g red and green peppers"
+ },
+ "18tauc9eshb": {
+  "fr": "g tomates",
+  "en": "g tomatoes"
+ },
+ "42ftp8oneg": {
+  "fr": "g eau chaude",
+  "en": "g hot water"
+ },
+ "1scvlb335sy": {
+  "fr": "g carotte en fine julienne",
+  "en": "g carrot, finely julienned"
+ },
+ "yil2oh4yi5": {
+  "fr": "g huile de truffe",
+  "en": "g truffle oil"
+ },
+ "1lrfjjd1mug": {
+  "fr": "g haricots blancs secs trempes",
+  "en": "g dried white beans, soaked"
+ },
+ "1ukf7zte38t": {
+  "fr": "g poitrine de porc",
+  "en": "g pork belly"
+ },
+ "12girgrfbti": {
+  "fr": "g graisse de canard",
+  "en": "g duck fat"
+ },
+ "19uihj6gsfp": {
+  "fr": "bouquet garni",
+  "en": "bouquet garni"
+ },
+ "1tvliok4hyd": {
+  "fr": "g thon égoutte",
+  "en": "g drained tuna"
+ },
+ "j046om06f9": {
+  "fr": "g mascarpone",
+  "en": "g mascarpone"
+ },
+ "r4o4m10rpr": {
+  "fr": "g poivron rouge en lanières",
+  "en": "g red pepper, cut into strips"
+ },
+ "sx2iem8ub2": {
+  "fr": "g oignon emince",
+  "en": "g finely chopped onion"
+ },
+ "46c05bd97t": {
+  "fr": "g vin blanc sec",
+  "en": "g dry white wine"
+ },
+ "1ga6pi1nup7": {
+  "fr": "g chorizo doux en rondelles",
+  "en": "g mild chorizo, sliced into rounds"
+ },
+ "1qta3sltqa7": {
+  "fr": "g petits pois écossés ou surgelés",
+  "en": "g shelled or frozen peas"
+ },
+ "1u6wjymbq9w": {
+  "fr": "g laitue en lanières",
+  "en": "g of lettuce, cut into strips"
+ },
+ "1u678rx9cu0": {
+  "fr": "g lardons fumés",
+  "en": "g smoked bacon bits"
+ },
+ "1pxk7z4ror8": {
+  "fr": "g chou vert",
+  "en": "g green cabbage"
+ },
+ "r0v3jxbvir": {
+  "fr": "g poireau",
+  "en": "g leek"
+ },
+ "zjpowd4xzs": {
+  "fr": "kg eau",
+  "en": "kg of water"
+ },
+ "2fv88mv1egz": {
+  "fr": "kg queue de bœuf en tronçons",
+  "en": "kg of oxtail, cut into pieces"
+ },
+ "2af01g9kmmz": {
+  "fr": "g bouillon de bœuf",
+  "en": "g beef stock"
+ },
+ "belmi03wb4": {
+  "fr": "kg ailes ou pilons de poulet",
+  "en": "kg of chicken wings or drumsticks"
+ },
+ "1gkziyi2wrt": {
+  "fr": "g sauce chili douce",
+  "en": "g mild chilli sauce"
+ },
+ "281j1hvbdlg": {
+  "fr": "g gingembre râpé",
+  "en": "g grated ginger"
+ },
+ "dpnhw4spap": {
+  "fr": "g châtaignes cuites",
+  "en": "g cooked chestnuts"
+ },
+ "227m5n9i7q9": {
+  "fr": "g bouillon de volaille",
+  "en": "g chicken stock"
+ },
+ "5dnmcy58tc": {
+  "fr": "g foie gras mi-cuit",
+  "en": "g semi-cured foie gras"
+ },
+ "sehiudwc8h": {
+  "fr": "g porto ou bouillon",
+  "en": "g port or stock"
+ },
+ "1m2mnl4uekr": {
+  "fr": "g blé précuit",
+  "en": "g pre-cooked wheat"
+ },
+ "kenteeiah6": {
+  "fr": "g blancs de poulet",
+  "en": "g chicken breasts"
+ },
+ "2bdlsce7ccs": {
+  "fr": "g crème liquide optionnelle",
+  "en": "g single cream (optional)"
+ },
+ "1ew8khgwuu2": {
+  "fr": "g sucre en poudre",
+  "en": "g caster sugar"
+ },
+ "2eav041hc4b": {
+  "fr": "cuillère à soupe vinaigre blanc ou jus de citron",
+  "en": "tablespoon of white vinegar or lemon juice"
+ },
+ "1eplsdkasld": {
+  "fr": "g eau bouillante",
+  "en": "g boiling water"
+ },
+ "ed46t3yh25": {
+  "fr": "g sucre brun pur canne",
+  "en": "g pure cane brown sugar"
+ },
+ "13t0ppscllt": {
+  "fr": "brins de thym",
+  "en": "sprigs of thyme"
+ },
+ "1h1rbe0kx3i": {
+  "fr": "g noix de muscade",
+  "en": "g nutmeg"
+ },
+ "1xxj16s0fkf": {
+  "fr": "g thym séché",
+  "en": "g dried thyme"
+ },
+ "wqcnwnqk2p": {
+  "fr": "g pommes de terre à gratin",
+  "en": "g potatoes for gratin"
+ },
+ "2bwoo3ghz44": {
+  "fr": "g bouillon de volaille ou légumes chaud",
+  "en": "g hot chicken or vegetable stock"
+ },
+ "1g1hd4f5gcq": {
+  "fr": "g origan séché",
+  "en": "g dried oregano"
+ },
+ "20rolupgm2z": {
+  "fr": "g persil plat ou aneth ciselé",
+  "en": "g flat-leaf parsley or dill, finely chopped"
+ },
+ "1nnfpakwg2a": {
+  "fr": "g riz cuit froid",
+  "en": "g cold cooked rice"
+ },
+ "5ghocjb90m": {
+  "fr": "g poulet cuit effiloché ou émincé",
+  "en": "g of cooked chicken, shredded or thinly sliced"
+ },
+ "1wkuxceoau8": {
+  "fr": "g carotte en petits dés",
+  "en": "g carrot, finely diced"
+ },
+ "4r4sfr2zq": {
+  "fr": "g oignon blanc ciselé",
+  "en": "g finely chopped white onion"
+ },
+ "1dl88mrqmjd": {
+  "fr": "g huile de sésame",
+  "en": "g sesame oil"
+ },
+ "fbgh283vsy": {
+  "fr": "g sauce soja salée",
+  "en": "g salted soya sauce"
+ },
+ "2bgke3wl01f": {
+  "fr": "g sauce huître optionnelle",
+  "en": "g oyster sauce (optional)"
+ },
+ "1vccll3gy76": {
+  "fr": "g sauce Sriracha optionnelle",
+  "en": "g Sriracha sauce (optional)"
+ },
+ "s3uu90h1op": {
+  "fr": "g ail semoule",
+  "en": "g garlic, finely chopped"
+ },
+ "29dbnevv19d": {
+  "fr": "g petites pommes de terre",
+  "en": "g small potatoes"
+ },
+ "2biydd1cyz8": {
+  "fr": "branches de romarin",
+  "en": "rosemary sprigs"
+ },
+ "1358ra99lyc": {
+  "fr": "g beurre doux très pommade",
+  "en": "g very soft softened butter"
+ },
+ "1i0jcrm8vqx": {
+  "fr": "g poudre d’amandes",
+  "en": "g ground almonds"
+ },
+ "1hh7boybadq": {
+  "fr": "g huile neutre optionnelle",
+  "en": "g neutral oil (optional)"
+ },
+ "1qm8awuw9tq": {
+  "fr": "g abricots mûrs mais fermes",
+  "en": "g ripe but firm apricots"
+ },
+ "28vspf2tfkf": {
+  "fr": "g sucre blond",
+  "en": "g golden caster sugar"
+ },
+ "14gqg7w17gg": {
+  "fr": "g abricots Bergeron",
+  "en": "Bergeron apricots"
+ },
+ "22wzdm3q735": {
+  "fr": "g yaourt nature",
+  "en": "plain yoghurt"
+ },
+ "k1bzajuecq": {
+  "fr": "g beurre fondu ou huile neutre",
+  "en": "g melted butter or neutral oil"
+ },
+ "bbii4nbuw3": {
+  "fr": "tranches épaisses de brioche rassise",
+  "en": "thick slices of stale brioche"
+ },
+ "2125rm0oaoi": {
+  "fr": "g beurre pour cuisson",
+  "en": "g butter for cooking"
+ },
+ "1gqbkwsomia": {
+  "fr": "g sauce caramel",
+  "en": "g caramel sauce"
+ },
+ "q035o62ft3": {
+  "fr": "g sucre glace pour le torchon",
+  "en": "g icing sugar for the tea towel"
+ },
+ "1w4z3wvsmm3": {
+  "fr": "g confiture de framboise",
+  "en": "g raspberry jam"
+ },
+ "1jhzkdbehv3": {
+  "fr": "g framboises fraîches optionnelles",
+  "en": "g fresh raspberries (optional)"
+ },
+ "1a5riyugwtt": {
+  "fr": "g flocons d’avoine",
+  "en": "g rolled oats"
+ },
+ "a6df6e3h0d": {
+  "fr": "g amandes entières",
+  "en": "g whole almonds"
+ },
+ "16llb76rsz7": {
+  "fr": "g noisettes ou noix de macadamia",
+  "en": "g hazelnuts or macadamia nuts"
+ },
+ "11djpqvtcea": {
+  "fr": "g graines de courge ou tournesol",
+  "en": "g pumpkin or sunflower seeds"
+ },
+ "1zr49m5nbsu": {
+  "fr": "g jus de pomme sans sucre ajouté",
+  "en": "g apple juice with no added sugar"
+ },
+ "10epb209efb": {
+  "fr": "g huile d’olive douce ou huile de coco fondue",
+  "en": "g mild olive oil or melted coconut oil"
+ },
+ "17b3doepzy0": {
+  "fr": "g miel ou sirop d’érable",
+  "en": "g honey or maple syrup"
+ },
+ "e9p8op0iro": {
+  "fr": "g cannelle moulue",
+  "en": "g ground cinnamon"
+ },
+ "1l2p8mpzftz": {
+  "fr": "g chocolat noir concassé",
+  "en": "g of chopped dark chocolate"
+ },
+ "8yesdno0eh": {
+  "fr": "g crème fleurette entière",
+  "en": "g full-fat whipping cream"
+ },
+ "18nlm2zasgt": {
+  "fr": "g lait demi-écrémé",
+  "en": "g semi-skimmed milk"
+ },
+ "1neus7zxeti": {
+  "fr": "g sirop d’érable",
+  "en": "g maple syrup"
+ },
+ "2ah6tgshhwy": {
+  "fr": "g gélatine, soit environ 3 feuilles de 2g",
+  "en": "g gelatine, or approximately 3 sheets of 2g each"
+ },
+ "1743iyn79yz": {
+  "fr": "g chocolat noir pâtissier",
+  "en": "g dark baking chocolate"
+ },
+ "1svdnel5lt0": {
+  "fr": "g spéculoos, environ 16 biscuits",
+  "en": "g speculoos, about 16 biscuits"
+ },
+ "21gkovtqkbt": {
+  "fr": "g beurre doux fondu",
+  "en": "g melted unsalted butter"
+ },
+ "16mbb5mbbe6": {
+  "fr": "g fromage frais entier dense",
+  "en": "g of thick, full-fat fresh cheese"
+ },
+ "z4n5ovje46": {
+  "fr": "g amandes hachées",
+  "en": "g chopped almonds"
+ },
+ "t7v2fknf8c": {
+  "fr": "pincée de fleur de sel",
+  "en": "a pinch of fleur de sel"
+ },
+ "1fhgr91o1ir": {
+  "fr": "g céleri branche en dés",
+  "en": "g diced celery stalks"
+ },
+ "14fmyvnu502": {
+  "fr": "g carottes en dés",
+  "en": "g diced carrots"
+ },
+ "wqun4hrq3i": {
+  "fr": "g oignons en dés",
+  "en": "g diced onions"
+ },
+ "5gcffz0luk": {
+  "fr": "g poireaux en dés",
+  "en": "g diced leeks"
+ },
+ "d3u2wk7yfo": {
+  "fr": "branche romarin",
+  "en": "sprig of rosemary"
+ },
+ "1tplch39zz": {
+  "fr": "branche thym",
+  "en": "sprig of thyme"
+ },
+ "hz7wz1pzi0": {
+  "fr": "c. à soupe livèche ciselée",
+  "en": "tbsp of finely chopped lovage"
+ },
+ "1d46udjbi8c": {
+  "fr": "pincées de sel",
+  "en": "pinch of salt"
+ },
+ "121cf2dkvel": {
+  "fr": "g vin rouge corsé type Bourgogne",
+  "en": "g full-bodied red wine, Burgundy-style"
+ },
+ "1wqifvdfw2d": {
+  "fr": "g beurre clarifié",
+  "en": "g clarified butter"
+ },
+ "2e0f505tl5x": {
+  "fr": "g huile de tournesol",
+  "en": "g sunflower oil"
+ },
+ "ra5wbizq80": {
+  "fr": "trait de cognac",
+  "en": "a dash of cognac"
+ },
+ "zi846x7gw2": {
+  "fr": "g foie gras d’oie",
+  "en": "g goose foie gras"
+ },
+ "xzldyaeas3": {
+  "fr": "g petits oignons perlés blanchis",
+  "en": "g blanched pearl onions"
+ },
+ "2c7s3ypbfck": {
+  "fr": "g cèpes",
+  "en": "g porcini mushrooms"
+ },
+ "1nlkxi8s4tj": {
+  "fr": "c. à soupe persil haché",
+  "en": "tbsp of chopped parsley"
+ },
+ "4jipbdtq92": {
+  "fr": "g jarret d’agneau",
+  "en": "g lamb shank"
+ },
+ "1qm148o2nwd": {
+  "fr": "g carotte en dés de 1cm",
+  "en": "g of carrot, diced into 1cm pieces"
+ },
+ "1q3doaccyry": {
+  "fr": "g oignon en dés de 1cm",
+  "en": "g onion, diced into 1cm pieces"
+ },
+ "1osog04mype": {
+  "fr": "g céleri-rave en dés de 1cm",
+  "en": "g celeriac, diced into 1cm pieces"
+ },
+ "1ahtzbuw2kk": {
+  "fr": "brins thym",
+  "en": "sprigs of thyme"
+ },
+ "12441mh6ubd": {
+  "fr": "g abricots secs en petits dés",
+  "en": "g finely diced dried apricots"
+ },
+ "24rgy4pgmvu": {
+  "fr": "g menthe fraîche hachée",
+  "en": "g chopped fresh mint"
+ },
+ "1s0oh52r6o5": {
+  "fr": "g mini-carottes",
+  "en": "g baby carrots"
+ },
+ "1emfnhpz1ir": {
+  "fr": "g navets",
+  "en": "g turnips"
+ },
+ "1f294wh59hs": {
+  "fr": "g asperges vertes fines",
+  "en": "g of thin green asparagus"
+ },
+ "4yx9w343uz": {
+  "fr": "g lard fumé en tranches fines",
+  "en": "g thinly sliced smoked bacon"
+ },
+ "1sj82oa8wha": {
+  "fr": "g demi-crème",
+  "en": "g single cream"
+ },
+ "28borsvnvus": {
+  "fr": "g macaronis",
+  "en": "g macaroni"
+ },
+ "xjwx3e76db": {
+  "fr": "g gruyère râpé",
+  "en": "g grated Gruyère"
+ },
+ "66a4fmn26x": {
+  "fr": "g gruyère affiné finement râpé",
+  "en": "g finely grated mature Gruyère"
+ },
+ "52uk7sqtfl": {
+  "fr": "g vacherin fribourgeois finement râpé",
+  "en": "g finely grated Vacherin Fribourgeois"
+ },
+ "101e7whronp": {
+  "fr": "g Grand Marnier",
+  "en": "g Grand Marnier"
+ },
+ "1rz43qvl7qz": {
+  "fr": "g levure boulangère fraîche",
+  "en": "g fresh baker’s yeast"
+ },
+ "12yw6f1lhdm": {
+  "fr": "g lait en poudre",
+  "en": "g of milk powder"
+ },
+ "1sb2rursdbd": {
+  "fr": "g rumsteck de bœuf haché à 15–20% de matière grasse",
+  "en": "g of minced beef rump with 15–20 per cent fat content"
+ },
+ "2c5us85ajn6": {
+  "fr": "g mezze maniche ou pâtes courtes",
+  "en": "g mezze maniche or short pasta"
+ },
+ "2i40xdk0zv": {
+  "fr": "g guanciale",
+  "en": "g guanciale"
+ },
+ "1nxuglvjpub": {
+  "fr": "g pecorino romano finement râpé",
+  "en": "g finely grated Pecorino Romano"
+ },
+ "mki02bpq3k": {
+  "fr": "g petit oignon finement haché",
+  "en": "g finely chopped small onion"
+ },
+ "pl86j9azx3": {
+  "fr": "gousse d’ail écrasée",
+  "en": "crushed garlic clove"
+ },
+ "tilr7ydm0": {
+  "fr": "g ciboulette en fines rondelles",
+  "en": "g chives, finely sliced"
+ },
+ "1iriy3788av": {
+  "fr": "g pancetta fumée en petits dés",
+  "en": "g smoked pancetta, finely diced"
+ },
+ "28aq0fs8jgz": {
+  "fr": "g concombre épépiné en dés de 5mm",
+  "en": "g cucumber, deseeded and diced into 5mm cubes"
+ },
+ "1e92c6q9c82": {
+  "fr": "g ciboulette en tronçons de 1,5cm",
+  "en": "g chives, cut into 1.5 cm lengths"
+ },
+ "13urwuqkxs0": {
+  "fr": "g rigatoni",
+  "en": "g rigatoni"
+ },
+ "29xuvmkxj51": {
+  "fr": "g pousses d’épinards",
+  "en": "g spinach shoots"
+ },
+ "2a3dm293e4u": {
+  "fr": "g ricotta fraîche",
+  "en": "g fresh ricotta"
+ },
+ "24uodc6ub7p": {
+  "fr": "g parmigiano reggiano finement râpé",
+  "en": "g finely grated Parmigiano Reggiano"
+ },
+ "tffe98k1wc": {
+  "fr": "g poitrine fumée en lardons",
+  "en": "g smoked pork belly, cut into lardons"
+ },
+ "bqoyielp06": {
+  "fr": "g bavette de bœuf",
+  "en": "g beef flank"
+ },
+ "1bj7u47jg00": {
+  "fr": "g paprika en poudre",
+  "en": "g paprika powder"
+ },
+ "28qlgfd18n9": {
+  "fr": "g grains de poivre noir grossièrement concassés",
+  "en": "g coarsely crushed black peppercorns"
+ },
+ "154kw6ce3wq": {
+  "fr": "g chili en poudre",
+  "en": "g chilli powder"
+ },
+ "25r71qwy9c8": {
+  "fr": "g menthe fraîche",
+  "en": "g fresh mint"
+ },
+ "2ebpnggbsiw": {
+  "fr": "g framboises fraîches",
+  "en": "g fresh raspberries"
+ },
+ "17n0rt47gt0": {
+  "fr": "pincée de sucre",
+  "en": "a pinch of sugar"
+ },
+ "50x4gon9zo": {
+  "fr": "g épaule d’agneau désossée",
+  "en": "g boneless lamb shoulder"
+ },
+ "24wewoj7ly4": {
+  "fr": "g céleri-rave",
+  "en": "g celeriac"
+ },
+ "13wc8ptbcz3": {
+  "fr": "kg fond brun d’agneau ou de veau",
+  "en": "kg of brown lamb or veal stock"
+ },
+ "5uzl1ausei": {
+  "fr": "branche de romarin",
+  "en": "sprig of rosemary"
+ },
+ "2d0w64j4pav": {
+  "fr": "g huile de colza pour friture",
+  "en": "g rapeseed oil for frying"
+ },
+ "xutukpnrsq": {
+  "fr": "g cresson",
+  "en": "g watercress"
+ },
+ "2csi0yv29og": {
+  "fr": "g rumsteck de bœuf très frais, préparé pour tartare",
+  "en": "g of very fresh beef rump, prepared for tartare"
+ },
+ "stept9qe7a": {
+  "fr": "g câpres",
+  "en": "g capers"
+ },
+ "ptsiemkmwm": {
+  "fr": "g chutney ou ketchup de tomates",
+  "en": "g tomato chutney or ketchup"
+ },
+ "1p7kgh2t8h3": {
+  "fr": "tranches de pain de campagne",
+  "en": "slices of country bread"
+ },
+ "2g9mpjigvgl": {
+  "fr": "g beurre doux froid en petits morceaux",
+  "en": "g cold unsalted butter, cut into small pieces"
+ },
+ "rqoy7j0hyi": {
+  "fr": "g sucre vanillé",
+  "en": "g vanilla sugar"
+ },
+ "wrnnvf5nys": {
+  "fr": "g cacao en poudre non sucré",
+  "en": "g unsweetened cocoa powder"
+ },
+ "wuyg7ektwj": {
+  "fr": "g saindoux",
+  "en": "g lard"
+ },
+ "1mzkd00kdlu": {
+  "fr": "g ciboulette",
+  "en": "g chives"
+ },
+ "245wp7fydh7": {
+  "fr": "g œuf battu",
+  "en": "g beaten egg"
+ },
+ "11b1951qqr8": {
+  "fr": "g gélatine",
+  "en": "g gelatine"
+ },
+ "36vnbvjmr6": {
+  "fr": "g poivre de Timut",
+  "en": "g Timut pepper"
+ },
+ "1xdiv6gtj3y": {
+  "fr": "g fraises fraîches",
+  "en": "g fresh strawberries"
+ },
+ "8pi289dhjo": {
+  "fr": "botte de carottes fanes",
+  "en": "bunch of carrots with tops"
+ },
+ "iuw4tbds8j": {
+  "fr": "g coriandre fraîche",
+  "en": "g fresh coriander"
+ },
+ "1z1p4f177eh": {
+  "fr": "g huile d’arachide",
+  "en": "g peanut oil"
+ },
+ "21mp0w7zd43": {
+  "fr": "morceau de pain rassis d’environ 40g",
+  "en": "a piece of stale bread weighing about 40g"
+ },
+ "1luidzzear8": {
+  "fr": "tranches épaisses de jarret de bœuf avec os",
+  "en": "thick slices of beef shank on the bone"
+ },
+ "jfypiqepts": {
+  "fr": "g jus de veau",
+  "en": "g veal stock"
+ },
+ "pik94y68dy": {
+  "fr": "g bière ambrée",
+  "en": "g amber beer"
+ },
+ "iqxto9db59": {
+  "fr": "g eau, plus si nécessaire",
+  "en": "g water, or more if necessary"
+ },
+ "a57yp6yav9": {
+  "fr": "g romarin frais",
+  "en": "g fresh rosemary"
+ },
+ "11xwjkq9dtz": {
+  "fr": "g rigatoni secs",
+  "en": "g of uncooked rigatoni"
+ },
+ "ine25g8dg6": {
+  "fr": "g oignon jaune",
+  "en": "g yellow onion"
+ },
+ "mn3q96gj71": {
+  "fr": "g champignons de Paris",
+  "en": "g button mushrooms"
+ },
+ "1hmz345gwuo": {
+  "fr": "g parmesan fraîchement râpé",
+  "en": "g freshly grated Parmesan"
+ },
+ "kupt91jaxc": {
+  "fr": "botte de basilic",
+  "en": "bunch of basil"
+ },
+ "lfogzv08dr": {
+  "fr": "g chou blanc",
+  "en": "g white cabbage"
+ },
+ "i8pih9odip": {
+  "fr": "botte d’oignons nouveaux",
+  "en": "a bunch of spring onions"
+ },
+ "bvb1o9pdd5": {
+  "fr": "g pomme de terre",
+  "en": "g potato"
+ },
+ "1lqcej9e2": {
+  "fr": "g huile végétale",
+  "en": "g vegetable oil"
+ },
+ "xkeg7nz78s": {
+  "fr": "feuilles de menthe poivrée",
+  "en": "peppermint leaves"
+ },
+ "5f1mi6rjdu": {
+  "fr": "bâton de citronnelle",
+  "en": "lemongrass stalk"
+ },
+ "187kg5vvpkl": {
+  "fr": "feuille de gélatine d’environ 2g",
+  "en": "a gelatine sheet weighing approximately 2g"
+ },
+ "tl7s2499ii": {
+  "fr": "g malt en poudre ou miel doux",
+  "en": "g malt powder or mild honey"
+ },
+ "1s37rnea4ot": {
+  "fr": "g olives dénoyautées et hachées",
+  "en": "g pitted and chopped olives"
+ },
+ "2bha33ss013": {
+  "fr": "g gruyère en petits cubes",
+  "en": "g Gruyère, cut into small cubes"
+ },
+ "7vqbvglv3o": {
+  "fr": "g tomates confites bien égouttées et hachées",
+  "en": "g sun-dried tomatoes, well drained and chopped"
+ },
+ "ncg0ps6cgy": {
+  "fr": "g basilic frais",
+  "en": "g fresh basil"
+ },
+ "15jljqp2ljf": {
+  "fr": "tranche épaisse de pain de mie d’environ 40g",
+  "en": "a thick slice of white bread, weighing about 40g"
+ },
+ "marl8k1rol": {
+  "fr": "g ciboulette fraîche",
+  "en": "g fresh chives"
+ },
+ "l1lsiqa73n": {
+  "fr": "g fond de volaille corsé",
+  "en": "g full-bodied chicken stock"
+ },
+ "1p4mw1huyol": {
+  "fr": "g crème double",
+  "en": "g double cream"
+ },
+ "149s7lu30dt": {
+  "fr": "g sucre blanc",
+  "en": "g white sugar"
+ },
+ "1uk6mrkfu40": {
+  "fr": "g filet de bœuf paré",
+  "en": "g of trimmed beef fillet"
+ },
+ "15q2urbcksh": {
+  "fr": "branche de thym",
+  "en": "sprig of thyme"
+ },
+ "214djj9egix": {
+  "fr": "g pommes de terre Agria",
+  "en": "g Agria potatoes"
+ },
+ "pda3pkfi1y": {
+  "fr": "g base citron vert froide",
+  "en": "g cold lime base"
+ },
+ "r6nms2nb6w": {
+  "fr": "g beurre doux pour les moules",
+  "en": "g unsalted butter for the moulds"
+ },
+ "1v469gw9f8j": {
+  "fr": "g sucre pour chemiser les moules",
+  "en": "g sugar for coating the moulds"
+ },
+ "iha1m3dqa5": {
+  "fr": "g noix de coco râpée",
+  "en": "g of grated coconut"
+ },
+ "2914tkpq58o": {
+  "fr": "g bouillon de poisson",
+  "en": "g fish stock"
+ },
+ "26mrq88rg64": {
+  "fr": "g feuilles de combava",
+  "en": "g kaffir lime leaves"
+ },
+ "26h0g6za4go": {
+  "fr": "g grains de poivre noir",
+  "en": "g black peppercorns"
+ },
+ "rfleo8p7sz": {
+  "fr": "g thym frais",
+  "en": "g fresh thyme"
+ },
+ "22ewrih7saf": {
+  "fr": "g tomates cerises anciennes",
+  "en": "g heirloom cherry tomatoes"
+ },
+ "wz1312nc1k": {
+  "fr": "g oignon finement haché",
+  "en": "g finely chopped onion"
+ },
+ "23rcyxz6sqn": {
+  "fr": "g crème fraîche",
+  "en": "g crème fraîche"
+ },
+ "zuofdkd3ny": {
+  "fr": "g Armagnac",
+  "en": "g Armagnac"
+ },
+ "243ak8qq14o": {
+  "fr": "pincées de fleur de sel",
+  "en": "pinch of fleur de sel"
+ },
+ "ce43ctl5wa": {
+  "fr": "g levure fraîche de boulanger",
+  "en": "g fresh baker’s yeast"
+ },
+ "2ed7g17o7w2": {
+  "fr": "g zaatar",
+  "en": "g zaatar"
+ },
+ "5fv7j05gth": {
+  "fr": "g jus de citron jaune",
+  "en": "g lemon juice"
+ },
+ "veptmsas9q": {
+  "fr": "g filets d’anchois égouttés",
+  "en": "g drained anchovy fillets"
+ },
+ "14qrdkgaljm": {
+  "fr": "g vinaigre de vin blanc",
+  "en": "g white wine vinegar"
+ },
+ "poides1zpj": {
+  "fr": "g raisin noir sans pépins",
+  "en": "g seedless black grapes"
+ },
+ "cch9sue5th": {
+  "fr": "g vinaigre de Xérès",
+  "en": "g of sherry vinegar"
+ },
+ "1exy4x13ifq": {
+  "fr": "g graines de fenouil",
+  "en": "g fennel seeds"
+ },
+ "15007gw1h72": {
+  "fr": "g noisettes",
+  "en": "g hazelnuts"
+ },
+ "229pha9v8bw": {
+  "fr": "g chocolat au lait",
+  "en": "g milk chocolate"
+ },
+ "c8661o89d0": {
+  "fr": "g épinards frais",
+  "en": "g fresh spinach"
+ },
+ "fdn997v73y": {
+  "fr": "g bicarbonate de soude",
+  "en": "g bicarbonate of soda"
+ },
+ "1g8xm4nryn1": {
+  "fr": "g eau minérale",
+  "en": "g mineral water"
+ },
+ "temybbj25u": {
+  "fr": "branches de persil haché",
+  "en": "sprigs of chopped parsley"
+ },
+ "re6oz8rep4": {
+  "fr": "g piment de Cayenne ou piment oiseau moulu",
+  "en": "g ground cayenne pepper or ground bird’s eye chilli"
+ },
+ "l5jmm46ara": {
+  "fr": "g huile de tournesol pour friture",
+  "en": "g sunflower oil for frying"
+ },
+ "sxh0vylwxj": {
+  "fr": "brins de ciboulette",
+  "en": "sprigs of chives"
+ },
+ "1ynl6074kzm": {
+  "fr": "g chorizo doux ou fort",
+  "en": "g mild or spicy chorizo"
+ },
+ "mca9bdsr5q": {
+  "fr": "g spéculoos",
+  "en": "g speculoos"
+ },
+ "27qiud5laom": {
+  "fr": "c. à soupe de Grand Marnier optionnelles",
+  "en": "tbsp of Grand Marnier (optional)"
+ },
+ "exfegrr2s0": {
+  "fr": "g Grand Marnier optionnel",
+  "en": "g Grand Marnier (optional)"
+ },
+ "nvt9th2wxv": {
+  "fr": "g crème de marrons",
+  "en": "g chestnut cream"
+ },
+ "gpuu262l8e": {
+  "fr": "g café fort refroidi",
+  "en": "g of strong, cooled coffee"
+ },
+ "xoub6bornq": {
+  "fr": "g raisins secs",
+  "en": "g of raisins"
+ },
+ "1o9vg9hbmqc": {
+  "fr": "g fécule de pomme de terre",
+  "en": "g potato starch"
+ },
+ "yatlqpwf7y": {
+  "fr": "g amaretto",
+  "en": "g amaretto"
+ },
+ "f8ksn8qmwq": {
+  "fr": "g poudre de noisettes",
+  "en": "g hazelnut powder"
+ },
+ "h4prwko9po": {
+  "fr": "g amaretto ou rhum",
+  "en": "g amaretto or rum"
+ },
+ "kpdiknt6wj": {
+  "fr": "g crème fouettée",
+  "en": "g whipped cream"
+ },
+ "dvuxp07sfe": {
+  "fr": "g sirop de sucre à 30°",
+  "en": "g sugar syrup at 30°"
+ },
+ "1fisiq6gefa": {
+  "fr": "g liqueur de fraise",
+  "en": "g strawberry liqueur"
+ },
+ "1f0shovj7xv": {
+  "fr": "g fraises fraîches pour le montage",
+  "en": "g fresh strawberries for assembly"
+ },
+ "1peag0263ih": {
+  "fr": "génoise de 20cm",
+  "en": "20cm sponge cake"
+ },
+ "gr23pvfoww": {
+  "fr": "feuille de gélatine",
+  "en": "gelatine sheet"
+ },
+ "1nqx3yifyhw": {
+  "fr": "g sirop de canne",
+  "en": "g cane syrup"
+ },
+ "e84cdywefh": {
+  "fr": "g purée de framboise",
+  "en": "g raspberry purée"
+ },
+ "1cqujdcgxck": {
+  "fr": "g pectine",
+  "en": "g pectin"
+ },
+ "1tv0rja8ruo": {
+  "fr": "g eau pour hydrater la gélatine",
+  "en": "g water to hydrate the gelatine"
+ },
+ "28m1nf8eejp": {
+  "fr": "g crème à 35%",
+  "en": "g 35% cream"
+ },
+ "1xzhawo69fy": {
+  "fr": "g pêches",
+  "en": "g peaches"
+ },
+ "28lo3qturl8": {
+  "fr": "g à 1kg chou-fleur",
+  "en": "g to 1kg cauliflower"
+ },
+ "20luw2mkbs4": {
+  "fr": "g chapelure panko ou chapelure",
+  "en": "g panko breadcrumbs or breadcrumbs"
+ },
+ "om85pxnd3h": {
+  "fr": "g chou-fleur en fleurettes",
+  "en": "g cauliflower, cut into florets"
+ },
+ "9jhenvb2d": {
+  "fr": "g chou-fleur",
+  "en": "g cauliflower"
+ },
+ "1zj4osvj3ft": {
+  "fr": "g chorizo doux en petits des",
+  "en": "g mild chorizo, cut into small pieces"
+ },
+ "a4sfk7rkg1": {
+  "fr": "g pommes de terre type Bintje",
+  "en": "g Bintje-type potatoes"
+ },
+ "4ah77l4xvh": {
+  "fr": "kg de pommes de terre Bintje, Agria ou Manon",
+  "en": "kg of Bintje, Agria or Manon potatoes"
+ },
+ "1ms4a4jso6a": {
+  "fr": "kg de blanc de bœuf selon la friteuse",
+  "en": "kg of beef fillet, depending on the deep-fat fryer"
+ },
+ "49btnq7ye1": {
+  "fr": "gousse d’ail en chemise retirée avant cuisson",
+  "en": "clove of garlic, unpeeled, removed before cooking"
+ },
+ "1gte6pj72qh": {
+  "fr": "g pommes de terre à chair ferme ou spéciale frites",
+  "en": "g firm-fleshed potatoes or potatoes specially suited to frying"
+ },
+ "q6fz3hf8tf": {
+  "fr": "g paprika doux optionnel",
+  "en": "g sweet paprika (optional)"
+ },
+ "2lkxx6ljck": {
+  "fr": "g huile neutre ou huile d’olive douce",
+  "en": "g neutral oil or mild olive oil"
+ },
+ "hy3ahrhrl": {
+  "fr": "g fécule de maïs ou fécule de pomme de terre",
+  "en": "g cornflour or potato starch"
+ },
+ "21wthmxzq56": {
+  "fr": "g oignon en poudre optionnel",
+  "en": "g onion powder (optional)"
+ },
+ "25ulreqoyjx": {
+  "fr": "g crème 35 % très froide",
+  "en": "g very cold 35% cream"
+ },
+ "s49tucks90": {
+  "fr": "g Maïzena",
+  "en": "g cornflour"
+ },
+ "25b6jy4zqys": {
+  "fr": "g crème 30–35 % froide",
+  "en": "g cold cream (30–35 per cent)"
+ },
+ "167n8t6av5y": {
+  "fr": "g jaunes d'œufs",
+  "en": "g egg yolks"
+ },
+ "d28xyffgep": {
+  "fr": "g crème liquide entière (30–35 %) très froide",
+  "en": "g very cold full-fat whipping cream (30–35 %)"
+ },
+ "1k38yyorg4p": {
+  "fr": "g malt en poudre",
+  "en": "g malt powder"
+ },
+ "11tjqkitcgf": {
+  "fr": "g beurre doux fondu et tiédi",
+  "en": "g softened butter, melted and cooled"
+ },
+ "gsez8b4z2k": {
+  "fr": "g farine blanche",
+  "en": "g white flour"
+ },
+ "t5yjpaif51": {
+  "fr": "g eau à 25–30°C",
+  "en": "g water at 25–30°C"
+ },
+ "tw2qhnmyg3": {
+  "fr": "g extrait de malt",
+  "en": "g malt extract"
+ },
+ "1flouruvi13": {
+  "fr": "g sucre de canne",
+  "en": "g cane sugar"
+ },
+ "65mbu7pmw2": {
+  "fr": "g sel marin",
+  "en": "g sea salt"
+ },
+ "dqurgzs8fv": {
+  "fr": "g levain express",
+  "en": "g quick-rise sourdough starter"
+ },
+ "g833sn9mr1": {
+  "fr": "g chocolat noir à 70%",
+  "en": "70% dark chocolate"
+ },
+ "1zoaz1trqvq": {
+  "fr": "g Toblerone noir, plus quelques éclats pour décorer selon goût",
+  "en": "g dark Toblerone, plus a few shavings to decorate as desired"
+ },
+ "17wg1t8d8x4": {
+  "fr": "g lait concentré non sucré très froid",
+  "en": "g very cold unsweetened condensed milk"
+ },
+ "1xgzvepkqgn": {
+  "fr": "g de beurre salé en pommade",
+  "en": "g of softened salted butter"
+ },
+ "umhq9l9sc0": {
+  "fr": "g de poudre de noisette ou de poudre d’amande",
+  "en": "g of hazelnut powder or almond powder"
+ },
+ "21xk2q6rfji": {
+  "fr": "g pomme de terre cuite et refroidie",
+  "en": "g cooked and cooled potato"
+ },
+ "94wi5qy9pl": {
+  "fr": "g poivron rouge braisé et pelé",
+  "en": "g braised and peeled red pepper"
+ },
+ "xfl6jgdt0q": {
+  "fr": "g safran",
+  "en": "g saffron"
+ },
+ "25ztcumcn0k": {
+  "fr": "g piment de Cayenne moulu",
+  "en": "g ground cayenne pepper"
+ },
+ "geksvxmzwd": {
+  "fr": "g jaune d’œuf pasteurisé",
+  "en": "g pasteurised egg yolk"
+ },
+ "hm1i0gg5ub": {
+  "fr": "g épaule ou échine de porc",
+  "en": "g pork shoulder or loin"
+ },
+ "1mes4k0vrqb": {
+  "fr": "g poitrine de porc fraîche",
+  "en": "g fresh pork belly"
+ },
+ "14y2aj4d90t": {
+  "fr": "g saindoux ou graisse de canard",
+  "en": "g lard or duck fat"
+ },
+ "2dkwl5np9ka": {
+  "fr": "g vin blanc sec ou eau",
+  "en": "g dry white wine or water"
+ },
+ "1sjdyzzcop1": {
+  "fr": "feuilles de laurier",
+  "en": "bay leaves"
+ },
+ "gos6jnstbw": {
+  "fr": "g quatre-épices, optionnel",
+  "en": "g four-spice mix, optional"
+ },
+ "f503losxwy": {
+  "fr": "g cuisses de poulet",
+  "en": "g chicken thighs"
+ },
+ "1kb3wmaygyv": {
+  "fr": "g graisse de canard ou saindoux",
+  "en": "g duck fat or lard"
+ },
+ "1tqtzv8ui0e": {
+  "fr": "g vin blanc sec ou bouillon de volaille",
+  "en": "g dry white wine or chicken stock"
+ },
+ "1t7q1w0do5q": {
+  "fr": "g oignon émincé",
+  "en": "g thinly sliced onion"
+ },
+ "1l74y0i6ke6": {
+  "fr": "g persil ciselé, optionnel",
+  "en": "finely chopped parsley, optional"
+ },
+ "ro0phmy9e2": {
+  "fr": "g aneth",
+  "en": "g dill"
+ },
+ "zwcnsp3tlz": {
+  "fr": "g olives",
+  "en": "g olives"
+ },
+ "1w2ztknn12c": {
+  "fr": "g jambon de Bayonne optionnel",
+  "en": "g Bayonne ham (optional)"
+ },
+ "9jelngsfqa": {
+  "fr": "g épaule de porc en cubes",
+  "en": "g diced pork shoulder"
+ },
+ "1010xbun319": {
+  "fr": "g haricots tarbais cuits",
+  "en": "g cooked Tarbais beans"
+ },
+ "1mctknpmizo": {
+  "fr": "g bouillon",
+  "en": "g stock"
+ },
+ "2ejp72gxf66": {
+  "fr": "g tomates bien mûres",
+  "en": "g very ripe tomatoes"
+ },
+ "1oevopd9g7u": {
+  "fr": "g courgette crue épluchée ou partiellement épluchée",
+  "en": "g raw courgette, peeled or partially peeled"
+ },
+ "27gr39jgws9": {
+  "fr": "g oignon doux",
+  "en": "g sweet onion"
+ },
+ "2etztq804jc": {
+  "fr": "g huile d’olive vierge extra",
+  "en": "g extra virgin olive oil"
+ },
+ "9frq9wv1mm": {
+  "fr": "g ail dégermé",
+  "en": "g degermed garlic"
+ },
+ "2c2a4m94998": {
+  "fr": "g melon",
+  "en": "g melon"
+ },
+ "1pxpaozzyuf": {
+  "fr": "g tomates jaunes ou tomates bien mûres",
+  "en": "g yellow tomatoes or very ripe tomatoes"
+ },
+ "8ak05s2yqt": {
+  "fr": "g cerises",
+  "en": "g cherries"
+ },
+ "8aiecp5lw3": {
+  "fr": "g beurre doux pour le moule",
+  "en": "g unsalted butter for the tin"
+ },
+ "1sls10a1nir": {
+  "fr": "g sucre pour le moule",
+  "en": "g sugar for the tin"
+ },
+ "243pyc6ycmt": {
+  "fr": "g abricots",
+  "en": "g apricots"
+ },
+ "mmg57qvv8v": {
+  "fr": "g sucre pour le plat",
+  "en": "g sugar for the dish"
+ },
+ "250s87mid9k": {
+  "fr": "g de poitrine fumée en dés",
+  "en": "g of diced smoked bacon"
+ },
+ "1rfn4ohpnqo": {
+  "fr": "g vin blanc pour déglacer",
+  "en": "g white wine to deglaze"
+ },
+ "q6ynng3l1c": {
+  "fr": "g chorizo coupé en dés",
+  "en": "g chorizo, diced"
+ },
+ "1ntp3xtkb6o": {
+  "fr": "g feta émiettée",
+  "en": "g crumbled feta"
+ },
+ "1xbuaeaby3s": {
+  "fr": "g tomates séchées égouttées et hachées",
+  "en": "g sun-dried tomatoes, drained and chopped"
+ },
+ "1dd6dscdc1n": {
+  "fr": "g olives noires",
+  "en": "g black olives"
+ },
+ "20gf384rrgh": {
+  "fr": "g concombre",
+  "en": "g cucumber"
+ },
+ "1nbvuu6v7ad": {
+  "fr": "g pois chiches cuits égouttes",
+  "en": "g cooked chickpeas, drained"
+ },
+ "12ebv9drko9": {
+  "fr": "g poivrons rouges et jaunes",
+  "en": "g red and yellow peppers"
+ },
+ "19cq1lmgbae": {
+  "fr": "ml rhum ambré",
+  "en": "ml of amber rum"
+ },
+ "1a09xbksywc": {
+  "fr": "g hauts de cuisses de poulet",
+  "en": "g chicken thighs"
+ },
+ "1d3hnqgyyqq": {
+  "fr": "g gingembre frais repe",
+  "en": "g fresh ginger, grated"
+ },
+ "2c0otdrvvr8": {
+  "fr": "gousses ail repees",
+  "en": "crushed garlic cloves"
+ },
+ "2cv70akn1gg": {
+  "fr": "g nuoc-mâm ou sel fin",
+  "en": "g nuoc-mâm or fine salt"
+ },
+ "1awqpfqxkco": {
+  "fr": "g sauce sriracha ou piment doux selon goût",
+  "en": "g Sriracha sauce or mild chilli sauce, to taste"
+ },
+ "11eq0z20ghk": {
+  "fr": "g oignons émincés",
+  "en": "g thinly sliced onions"
+ },
+ "n4yopivoab": {
+  "fr": "kg crème fraîche épaisse",
+  "en": "kg thick crème fraîche"
+ },
+ "12z4rghaqs8": {
+  "fr": "g petits oignons glacés à blanc",
+  "en": "g small onions, glazed white"
+ },
+ "22zfp1y4fgz": {
+  "fr": "g champignons de Paris glacés à blanc",
+  "en": "g button mushrooms, poached in water"
+ },
+ "13olo5q1t5k": {
+  "fr": "g joues de bœuf",
+  "en": "g beef cheeks"
+ },
+ "1o0nbkieug8": {
+  "fr": "ml fond de veau",
+  "en": "ml veal stock"
+ },
+ "14rjve513q4": {
+  "fr": "kg joues de beuf",
+  "en": "kg of beef cheeks"
+ },
+ "1a05slkumuh": {
+  "fr": "branche céleri",
+  "en": "celery stalk"
+ },
+ "qx1jr806e5": {
+  "fr": "ml jus d’orange frais",
+  "en": "ml fresh orange juice"
+ },
+ "19civ8jin4b": {
+  "fr": "ml whiskey",
+  "en": "ml of whisky"
+ },
+ "hdne4sqb53": {
+  "fr": "g marmelade orange",
+  "en": "g orange marmalade"
+ },
+ "21f8r07n5mb": {
+  "fr": "kg carottes",
+  "en": "kg of carrots"
+ },
+ "2ahjkutdg5e": {
+  "fr": "ml eau",
+  "en": "ml water"
+ },
+ "7fb9tg634w": {
+  "fr": "feuilles laurier",
+  "en": "bay leaves"
+ },
+ "1sbpxzpl3q5": {
+  "fr": "g joues de porc",
+  "en": "g pork cheeks"
+ },
+ "3rnvnvwwli": {
+  "fr": "g cidre brut",
+  "en": "g dry cider"
+ },
+ "etvz8ensxl": {
+  "fr": "g carotte en rondelles",
+  "en": "g of sliced carrots"
+ },
+ "1exj5e2fv0a": {
+  "fr": "g eau ou bouillon non salé",
+  "en": "g water or unsalted stock"
+ },
+ "24ztkv5tv96": {
+  "fr": "g oignon pique d'un clou de girofle",
+  "en": "g onion, studded with a clove"
+ },
+ "24l7pb6nl61": {
+  "fr": "tranches de baguette épaisses",
+  "en": "thick slices of baguette"
+ },
+ "yh5k7dk7w1": {
+  "fr": "g beurre à l’ail",
+  "en": "g garlic butter"
+ },
+ "1q211wf3mqj": {
+  "fr": "g ciboulette ciselée, optionnel",
+  "en": "g finely chopped chives, optional"
+ },
+ "18m728jxm65": {
+  "fr": "g chapelure fine",
+  "en": "g fine breadcrumbs"
+ },
+ "1uqgss0zrtd": {
+  "fr": "kg farine",
+  "en": "kg of flour"
+ },
+ "21fdtjoug3": {
+  "fr": "bouquet de persil plat",
+  "en": "bunch of flat-leaf parsley"
+ },
+ "4f1qjd0wjo": {
+  "fr": "g pain sec ou rassis",
+  "en": "g of dry or stale bread"
+ },
+ "1ovx80jp4qk": {
+  "fr": "pincée de sel fin optionnelle",
+  "en": "a pinch of fine salt (optional)"
+ },
+ "1f720cugkiz": {
+  "fr": "g pain sec",
+  "en": "g of stale bread"
+ },
+ "2cbrgq872hs": {
+  "fr": "g herbes sèches",
+  "en": "g dried herbs"
+ },
+ "1bqrj2n4tco": {
+  "fr": "g citron confit en petits des",
+  "en": "g candied lemon, cut into small pieces"
+ },
+ "1lfdejswp82": {
+  "fr": "g bœuf à mijoter en cubes",
+  "en": "g beef, cubed, for stewing"
+ },
+ "o7guwyt5c2": {
+  "fr": "g bière brune",
+  "en": "g dark beer"
+ },
+ "1uvtfbhzicx": {
+  "fr": "g carottes en tronçons",
+  "en": "g of chopped carrots"
+ },
+ "104571avx15": {
+  "fr": "g Guinness ou stout",
+  "en": "g Guinness or stout"
+ },
+ "1ihlf9v5bjt": {
+  "fr": "g pommes de terre en gros morceaux",
+  "en": "g potatoes, cut into large chunks"
+ },
+ "28752y32x87": {
+  "fr": "g pois chiches cuits égouttés",
+  "en": "g cooked, drained chickpeas"
+ },
+ "24xl0qrx9yq": {
+  "fr": "g oignon ciselé",
+  "en": "g finely chopped onion"
+ },
+ "o38ir7rra7": {
+  "fr": "g bouillon de légumes ou volaille",
+  "en": "g vegetable or chicken stock"
+ },
+ "103gjm0w68h": {
+  "fr": "g haricots blancs secs",
+  "en": "g dried white beans"
+ },
+ "1dmdz7up5fh": {
+  "fr": "g gélatine poudre + 16g eau",
+  "en": "g powdered gelatine + 16g water"
+ },
+ "22sli9x3fam": {
+  "fr": "g beurre de cacao",
+  "en": "g cocoa butter"
+ },
+ "1pi0dmz70uz": {
+  "fr": "g pâte de noisette",
+  "en": "g hazelnut paste"
+ },
+ "26wy4n0awf8": {
+  "fr": "g crème pâtissière praliné",
+  "en": "g praline pastry cream"
+ },
+ "5r35p9vddg": {
+  "fr": "g crème au beurre",
+  "en": "g buttercream"
+ },
+ "xwwr6xb1r8": {
+  "fr": "g crème entière froide",
+  "en": "g cold full-fat cream"
+ },
+ "loqhzzrg9i": {
+  "fr": "g pâte à tartiner chocolat-noisette",
+  "en": "g chocolate and hazelnut spread"
+ },
+ "1gch4wkk1ox": {
+  "fr": "g pâte de pistache",
+  "en": "g pistachio paste"
+ },
+ "sgu44casng": {
+  "fr": "g lait d’amandes non sucré",
+  "en": "g unsweetened almond milk"
+ },
+ "15fo3os4qn6": {
+  "fr": "g sucre optionnel",
+  "en": "g sugar (optional)"
+ },
+ "1ukm7sbezp8": {
+  "fr": "g jus d’orange frais filtré",
+  "en": "g freshly squeezed, strained orange juice"
+ },
+ "1dhcln2i2i1": {
+  "fr": "g beurre doux froid en dés",
+  "en": "g cold unsalted butter, diced"
+ },
+ "10rlsfdaw3f": {
+  "fr": "g échine de porc",
+  "en": "pork loin"
+ },
+ "1mhy6xi2rxb": {
+  "fr": "g gorge de porc",
+  "en": "g pork neck"
+ },
+ "9o2iim2cv7": {
+  "fr": "g foie de porc ou volaille",
+  "en": "g pork or poultry liver"
+ },
+ "2ecsm1iqnyo": {
+  "fr": "ml cognac",
+  "en": "ml of cognac"
+ },
+ "24am6zd40zg": {
+  "fr": "g crépine ou bardes de lard",
+  "en": "g pork rind or bacon strips"
+ },
+ "a4ebu3bdmk": {
+  "fr": "g foie de volaille",
+  "en": "g chicken liver"
+ },
+ "2110pycnal1": {
+  "fr": "g pistaches décortiquées",
+  "en": "g shelled pistachios"
+ },
+ "2ghow2ts2vq": {
+  "fr": "ml cognac ou armagnac",
+  "en": "ml of cognac or armagnac"
+ },
+ "6ia89zyp32": {
+  "fr": "g quatre-épices",
+  "en": "g four-spice blend"
+ },
+ "243nx8hdizs": {
+  "fr": "g chair de lapin désossée",
+  "en": "g boneless rabbit meat"
+ },
+ "1h51ob57jn5": {
+  "fr": "g lard gras",
+  "en": "g of fatty bacon"
+ },
+ "oiok97ang": {
+  "fr": "ml armagnac ou cognac",
+  "en": "ml of Armagnac or cognac"
+ },
+ "23qubrb134z": {
+  "fr": "ml lait de coco entier",
+  "en": "ml full-fat coconut milk"
+ },
+ "1rw9otj6c6i": {
+  "fr": "ml bouillon de légumes",
+  "en": "ml vegetable stock"
+ },
+ "1bf4juu2i2w": {
+  "fr": "g gingembre frais râpé",
+  "en": "g fresh grated ginger"
+ },
+ "1j1sn5rbal0": {
+  "fr": "g huile de coco ou huile neutre",
+  "en": "g coconut oil or neutral oil"
+ },
+ "2039g24xbpc": {
+  "fr": "g courgette",
+  "en": "g courgette"
+ },
+ "cqx1r5tbuf": {
+  "fr": "g curry doux ou madras",
+  "en": "mild curry or Madras curry"
+ },
+ "24mgv59wzqe": {
+  "fr": "g cannelle",
+  "en": "g cinnamon"
+ },
+ "1toav4utrud": {
+  "fr": "g cardamome moulue optionnelle",
+  "en": "g ground cardamom (optional)"
+ },
+ "4p6bh6bjs2": {
+  "fr": "g graines de moutarde ou 5g moutarde à l’ancienne optionnelle",
+  "en": "g mustard seeds or 5g wholegrain mustard (optional)"
+ },
+ "27a0eawyif1": {
+  "fr": "g noix de cajou torréfiées",
+  "en": "g roasted cashew nuts"
+ },
+ "2g2l9uxdssb": {
+  "fr": "ml lait de coco",
+  "en": "ml coconut milk"
+ },
+ "1x62ydwb8xe": {
+  "fr": "ml bouillon de légumes ou volaille",
+  "en": "ml vegetable or chicken stock"
+ },
+ "1fqo1shcsow": {
+  "fr": "g gingembre moulu",
+  "en": "g ground ginger"
+ },
+ "scy4ekff6a": {
+  "fr": "pincée curcuma",
+  "en": "a pinch of turmeric"
+ },
+ "1g7tfp4w74p": {
+  "fr": "g blancs de poulet en morceaux",
+  "en": "g chicken breast, cut into pieces"
+ },
+ "1a4jw77fto9": {
+  "fr": "g crevettes decortiquees",
+  "en": "g peeled prawns"
+ },
+ "8vcbgyt8p8": {
+  "fr": "g hauts de cuisses de poulet desosses",
+  "en": "g boneless chicken thighs"
+ },
+ "gplzm3e9pl": {
+  "fr": "g garam masala",
+  "en": "g garam masala"
+ },
+ "11pxif295m3": {
+  "fr": "g filet d’espadon sans peau, paré",
+  "en": "g skinless swordfish fillet, trimmed"
+ },
+ "27nbt8qlzna": {
+  "fr": "g curcuma moulu",
+  "en": "g ground turmeric"
+ },
+ "oaryz839d0": {
+  "fr": "g rhum ambré, optionnel",
+  "en": "g amber rum, optional"
+ },
+ "xpoc05l7j3": {
+  "fr": "g fromage de chèvre doux",
+  "en": "g mild goat’s cheese"
+ },
+ "w2s52yeazm": {
+  "fr": "ml crème fraîche",
+  "en": "ml crème fraîche"
+ },
+ "2e4k29pravk": {
+  "fr": "g comté 18 mois râpé",
+  "en": "g Comté, 18 months, grated"
+ },
+ "1eospssj4hi": {
+  "fr": "ml crème fraîche entière",
+  "en": "ml full-fat crème fraîche"
+ },
+ "1y7orjoz0eq": {
+  "fr": "g blancs d'œufs",
+  "en": "g egg whites"
+ },
+ "1jjrmc8nwx2": {
+  "fr": "g sucre glace tamisé",
+  "en": "g sifted icing sugar"
+ },
+ "2ax4dhez6po": {
+  "fr": "gousses d’ail rose",
+  "en": "pink garlic cloves"
+ },
+ "n4c58ptztr": {
+  "fr": "g eau de cuisson chaude",
+  "en": "g hot cooking water"
+ },
+ "w9eoz8a0u4": {
+  "fr": "filet d’huile d’olive",
+  "en": "a dash of olive oil"
+ },
+ "27gluvqcbt4": {
+  "fr": "pincée de muscade",
+  "en": "a pinch of nutmeg"
+ },
+ "1tpvpcy0s3k": {
+  "fr": "pincée muscade fraîchement râpée au zesteur",
+  "en": "a pinch of freshly grated nutmeg using a zester"
+ },
+ "cffzfx3bbw": {
+  "fr": "g chair de butternut",
+  "en": "g butternut squash flesh"
+ },
+ "1m2y2u9d3h3": {
+  "fr": "ml lait",
+  "en": "ml milk"
+ },
+ "1g82japfw10": {
+  "fr": "g cassonade ou vergeoise tassée",
+  "en": "g brown sugar or packed vergeoise"
+ },
+ "14k3u60fs4y": {
+  "fr": "g de beurre mou",
+  "en": "g of softened butter"
+ },
+ "1jrqeg1p0bv": {
+  "fr": "g de pépites de chocolat mi-sucré",
+  "en": "g of semi-sweet chocolate chips"
+ },
+ "21i6viamxgf": {
+  "fr": "g beurre doux non salé pour le beurre noisette",
+  "en": "g unsalted butter for brown butter"
+ },
+ "15kd1phib7i": {
+  "fr": "g beurre doux non salé ramolli",
+  "en": "g softened unsalted butter"
+ },
+ "i7ywt4ebwv": {
+  "fr": "g chocolat au lait concassé",
+  "en": "g of crushed milk chocolate"
+ },
+ "1bridgnw8ts": {
+  "fr": "g pépites de chocolat",
+  "en": "g chocolate chips"
+ },
+ "tmx1o5twnb": {
+  "fr": "g chocolat en morceaux ou pépites",
+  "en": "g of chocolate, chopped or in chips"
+ },
+ "1280amcouls": {
+  "fr": "g chocolat supplémentaire pour la finition",
+  "en": "g extra chocolate for the finishing touch"
+ },
+ "4p9lg2ed2d": {
+  "fr": "g noix ou noisettes concassées",
+  "en": "g of chopped walnuts or hazelnuts"
+ },
+ "2amhjiqrfd7": {
+  "fr": "g bicarbonate",
+  "en": "bicarbonate of soda"
+ },
+ "1m6e50beqj7": {
+  "fr": "g chocolat blanc concassé",
+  "en": "g of chopped white chocolate"
+ },
+ "ikz6rfc00c": {
+  "fr": "g cranberries séchées",
+  "en": "g dried cranberries"
+ },
+ "1lo60nz5zpg": {
+  "fr": "g cerises séchées hachées",
+  "en": "g chopped dried cherries"
+ },
+ "13mqx23fnv7": {
+  "fr": "g fromage frais type Philadelphia",
+  "en": "g Philadelphia-style cream cheese"
+ },
+ "2agwwl4be8m": {
+  "fr": "g noix concassées",
+  "en": "g of chopped nuts"
+ },
+ "vmnce6akxy": {
+  "fr": "g raisins secs ou cranberries",
+  "en": "g of raisins or cranberries"
+ },
+ "10edmf8pewj": {
+  "fr": "g chocolat noir haché en morceaux irréguliers",
+  "en": "g dark chocolate, chopped into irregular pieces"
+ },
+ "2azq8gv86s6": {
+  "fr": "g beurre doux fondu puis refroidi 5min",
+  "en": "g unsalted butter, melted and then left to cool for 5 minutes"
+ },
+ "1ncip7owemz": {
+  "fr": "g œuf + 18g jaune d’œuf",
+  "en": "g egg + 18g egg yolk"
+ },
+ "xaefognj5l": {
+  "fr": "g pépites de chocolat mi-sucré ou chocolat haché",
+  "en": "g semi-sweet chocolate chips or chopped chocolate"
+ },
+ "1fty0twol5r": {
+  "fr": "g Comté râpé",
+  "en": "g grated Comté cheese"
+ },
+ "2fcezzl38u1": {
+  "fr": "g branches de thym frais pour l’infusion",
+  "en": "g sprigs of fresh thyme for the infusion"
+ },
+ "1nprsdnlkyc": {
+  "fr": "g feuilles de thym frais finement hachées",
+  "en": "g finely chopped fresh thyme leaves"
+ },
+ "1dpvgek97xk": {
+  "fr": "g vinaigre d’alcool",
+  "en": "g spirit vinegar"
+ },
+ "101s8gaz5ke": {
+  "fr": "g échalotes grises ciselées très finement",
+  "en": "g grey shallots, finely chopped"
+ },
+ "1vpla9ca2pu": {
+  "fr": "g estragon frais ciselé",
+  "en": "g fresh tarragon, finely chopped"
+ },
+ "14kih87sz7r": {
+  "fr": "g cerfeuil frais ciselé",
+  "en": "g fresh chervil, finely chopped"
+ },
+ "1z20rstxul0": {
+  "fr": "g grains de poivre blanc concassés",
+  "en": "g crushed white peppercorns"
+ },
+ "zcvrlyoywp": {
+  "fr": "g beurre doux clarifié tiède",
+  "en": "g clarified unsalted butter, lukewarm"
+ },
+ "2b4uyeext0i": {
+  "fr": "g huile d’arachide ou de colza",
+  "en": "g peanut or rapeseed oil"
+ },
+ "2duikm5ll2b": {
+  "fr": "g vinaigre d’alcool ou de riz",
+  "en": "g spirit vinegar or rice vinegar"
+ },
+ "17v6azs8o7": {
+  "fr": "g cornichons hachés finement",
+  "en": "g finely chopped gherkins"
+ },
+ "21ibfw9o1ni": {
+  "fr": "g câpres égouttées et hachées",
+  "en": "g capers, drained and chopped"
+ },
+ "1d8h8rtcwnf": {
+  "fr": "g champignons de Paris nettoyés et émincés",
+  "en": "g button mushrooms, cleaned and thinly sliced"
+ },
+ "8bibun59kw": {
+  "fr": "g échalotes ciselées finement",
+  "en": "g finely chopped shallots"
+ },
+ "n79m3qjseg": {
+  "fr": "g beurre doux, dont 15g bien froids pour la finition",
+  "en": "g unsalted butter, including 15g well chilled for the finishing touch"
+ },
+ "nxm2iwsnk3": {
+  "fr": "g estragon frais haché",
+  "en": "g chopped fresh tarragon"
+ },
+ "sl2v0m2ldo": {
+  "fr": "g vin rouge, idéalement de Bordeaux",
+  "en": "g red wine, ideally from Bordeaux"
+ },
+ "1mmz161o3q8": {
+  "fr": "g beurre doux, dont 40g bien froids pour la finition",
+  "en": "g unsalted butter, including 40g well chilled for the finishing touch"
+ },
+ "1afr235kizt": {
+  "fr": "g duxelles de champignons cuite au beurre",
+  "en": "g of mushroom duxelles cooked in butter"
+ },
+ "6dpl3gd4vr": {
+  "fr": "g pelures de truffe noire",
+  "en": "g black truffle peelings"
+ },
+ "5krs8ivvck": {
+  "fr": "g porto rouge",
+  "en": "g red port"
+ },
+ "x13melnlfs": {
+  "fr": "g vin rouge de Bourgogne",
+  "en": "g Burgundy red wine"
+ },
+ "1p7379gavuf": {
+  "fr": "g échalotes grises ciselées finement",
+  "en": "g finely chopped grey shallots"
+ },
+ "23j9awcvwb0": {
+  "fr": "g oignon jaune ciselé finement",
+  "en": "g yellow onion, finely chopped"
+ },
+ "23q8s44iss6": {
+  "fr": "g fond de veau lié préparé",
+  "en": "g prepared thickened veal stock"
+ },
+ "2fgc5g8d4tf": {
+  "fr": "g beurre doux bien froid",
+  "en": "g very cold unsalted butter"
+ },
+ "o676cbqqop": {
+  "fr": "g fumet de poisson préparé",
+  "en": "g ready-made fish stock"
+ },
+ "1xqsk2kokhf": {
+  "fr": "g grains de poivre noir concassés en mignonnette",
+  "en": "g black peppercorns, coarsely crushed"
+ },
+ "50hbsw4p6a": {
+  "fr": "g beurre demi-sel très froid, coupé en petits dés",
+  "en": "g very cold semi-salted butter, cut into small cubes"
+ },
+ "13tg6ntbbpj": {
+  "fr": "g morilles fraîches, ou 80g morilles séchées réhydratées dans du lait",
+  "en": "g fresh morels, or 80g dried morels rehydrated in milk"
+ },
+ "1an0v2f9z38": {
+  "fr": "g porto blanc",
+  "en": "g white port"
+ },
+ "np4px29kmy": {
+  "fr": "g fond de veau brun préparé",
+  "en": "g prepared brown veal stock"
+ },
+ "2dmoa83xrhf": {
+  "fr": "g beurre doux très froid en dés",
+  "en": "g very cold unsalted butter, diced"
+ },
+ "1rd1blfm66": {
+  "fr": "kg os de veau",
+  "en": "kg of veal bones"
+ },
+ "9pb38x9x4b": {
+  "fr": "g huile de colza",
+  "en": "g rapeseed oil"
+ },
+ "1ruksk0rwhq": {
+  "fr": "g câpres hachées",
+  "en": "g chopped capers"
+ },
+ "10ho46a2dxh": {
+  "fr": "g cornichons hachés",
+  "en": "g chopped gherkins"
+ },
+ "1epeg4ypgzo": {
+  "fr": "g persil plat ou ciboulette ciselé",
+  "en": "g flat-leaf parsley or chives, finely chopped"
+ },
+ "1c5uiac3371": {
+  "fr": "g fines herbes ciselées",
+  "en": "g of finely chopped herbs"
+ },
+ "cm4oa7z4tz": {
+  "fr": "g branches d’estragon frais",
+  "en": "g sprigs of fresh tarragon"
+ },
+ "l5h2qjnkj0": {
+  "fr": "g feuilles d’estragon frais",
+  "en": "g fresh tarragon leaves"
+ },
+ "wkgn61uhqu": {
+  "fr": "g coquillettes",
+  "en": "g coquillettes"
+ },
+ "1wrgqctncv8": {
+  "fr": "g poulet cuit coupé en morceaux",
+  "en": "g cooked chicken, cut into pieces"
+ },
+ "at4r3t3k6u": {
+  "fr": "g noix de muscade moulue",
+  "en": "g ground nutmeg"
+ },
+ "2zfv1x7qqr": {
+  "fr": "g agneau à mijoter en morceaux",
+  "en": "g lamb, cut into pieces, for stewing"
+ },
+ "v2xaodbb19": {
+  "fr": "g oignons ciselés",
+  "en": "g finely chopped onions"
+ },
+ "1v4rh1v234j": {
+  "fr": "g navets en gros morceaux",
+  "en": "g turnips, cut into large chunks"
+ },
+ "2399vvn4aen": {
+  "fr": "g carottes en gros morceaux",
+  "en": "g carrots, cut into large chunks"
+ },
+ "1qxq6m3nxrb": {
+  "fr": "g tomate en brunoise",
+  "en": "g of finely diced tomato"
+ },
+ "2bh81sfkywf": {
+  "fr": "g pois gourmands",
+  "en": "g sugar snap peas"
+ },
+ "dzwp4gk6e0": {
+  "fr": "g chair de cuisse de poulet sans peau ni os",
+  "en": "g skinless, boneless chicken thigh meat"
+ },
+ "1hp84hjxqtk": {
+  "fr": "g ciboulette thaïe ciselée",
+  "en": "g finely chopped Thai chives"
+ },
+ "11lraruv7k1": {
+  "fr": "g saké",
+  "en": "g sake"
+ },
+ "1ta0doikssb": {
+  "fr": "g huile d’olive au citron",
+  "en": "g lemon-flavoured olive oil"
+ },
+ "1plig08ce0b": {
+  "fr": "g poivre de Sichuan concassé",
+  "en": "g crushed Sichuan pepper"
+ },
+ "tmin8smqpe": {
+  "fr": "g parmesan râpé, plus un peu pour les moules",
+  "en": "g grated Parmesan, plus a little extra for the moulds"
+ },
+ "8pj4re6ldt": {
+  "fr": "g bouillon de légumes préparé",
+  "en": "g ready-made vegetable stock"
+ },
+ "1amcp9qyn62": {
+  "fr": "g bûche de chèvre",
+  "en": "g log of goat’s cheese"
+ },
+ "1ikzp2lzl40": {
+  "fr": "boule de pain de campagne",
+  "en": "a loaf of country bread"
+ },
+ "i3mwevf4xv": {
+  "fr": "g pignons de pin",
+  "en": "g pine nuts"
+ },
+ "ljy2836wj8": {
+  "fr": "tranches épaisses de bûche de chèvre",
+  "en": "thick slices of goat’s cheese log"
+ },
+ "1razorhaq4r": {
+  "fr": "g amandes grossièrement concassées",
+  "en": "g coarsely chopped almonds"
+ },
+ "102td6d3cfh": {
+  "fr": "g queue de lotte parée",
+  "en": "g of trimmed monkfish tail"
+ },
+ "fawiy2urfb": {
+  "fr": "g pommes de terre, dont vitelotte et Charlotte si souhaité",
+  "en": "g potatoes, including Vitelotte and Charlotte if desired"
+ },
+ "w00ah9vlxw": {
+  "fr": "g panais",
+  "en": "g parsnip"
+ },
+ "1g99a83sjrh": {
+  "fr": "g sirop d’agave",
+  "en": "g agave syrup"
+ },
+ "1vl3e565ryv": {
+  "fr": "filet mignon de porc, environ 700g",
+  "en": "pork fillet, approx. 700g"
+ },
+ "fws86abgnf": {
+  "fr": "tranches de jambon cru",
+  "en": "slices of cured ham"
+ },
+ "dpb40v2dya": {
+  "fr": "g ricotta",
+  "en": "g ricotta"
+ },
+ "4phlgxzrqb": {
+  "fr": "g Comté en petits dés",
+  "en": "g Comté, finely diced"
+ },
+ "2d4n2rmobw9": {
+  "fr": "g noix hachées",
+  "en": "g chopped nuts"
+ },
+ "1xwy9gpekc4": {
+  "fr": "g riz blanc",
+  "en": "g white rice"
+ },
+ "f9766qlyk": {
+  "fr": "g riz noir",
+  "en": "g black rice"
+ },
+ "1kiqi1pbvpq": {
+  "fr": "g beurre de cacahuète",
+  "en": "g peanut butter"
+ },
+ "1cxr3dg0w37": {
+  "fr": "boule de mozzarella, environ 125g",
+  "en": "a ball of mozzarella, approx. 125g"
+ },
+ "ecmxk9xgpy": {
+  "fr": "g lardons de porc ou de volaille",
+  "en": "g pork or chicken lardons"
+ },
+ "wk8n7lwx43": {
+  "fr": "g fromage blanc",
+  "en": "g fromage blanc"
+ },
+ "1fq7919iinz": {
+  "fr": "g œufs battus",
+  "en": "g beaten eggs"
+ },
+ "27fvj3sd4jg": {
+  "fr": "g persil séché",
+  "en": "g dried parsley"
+ },
+ "jha0phg9su": {
+  "fr": "g Comté râpé, en deux portions de 50g et 80g",
+  "en": "g Grated Comté cheese, in two portions of 50g and 80g"
+ },
+ "sb70s22ep7": {
+  "fr": "g huile d’olive, plus un peu pour la finition",
+  "en": "g olive oil, plus a little extra for finishing"
+ },
+ "1tc8l9mg0ve": {
+  "fr": "g mélange de six céréales",
+  "en": "g six-grain mix"
+ },
+ "agrryhotxl": {
+  "fr": "g mélange de graines pour la finition",
+  "en": "g mixed seeds for the topping"
+ },
+ "162yd24yxir": {
+  "fr": "sachet préparation pour pâte à pain",
+  "en": "sachet of bread-making mix"
+ },
+ "1ppeoxikgyu": {
+  "fr": "g farine céréales",
+  "en": "g cereal flour"
+ },
+ "tr45qmayuw": {
+  "fr": "g légumes variés",
+  "en": "g assorted vegetables"
+ },
+ "1yejj1kxx35": {
+  "fr": "g poivron",
+  "en": "g of pepper"
+ },
+ "178b3558znf": {
+  "fr": "g farine de blé T55",
+  "en": "g T55 wheat flour"
+ },
+ "1dujcom9kz9": {
+  "fr": "g feta râpée",
+  "en": "g grated feta"
+ },
+ "1sfpc0luaq4": {
+  "fr": "g graines de pavot",
+  "en": "g poppy seeds"
+ },
+ "3tf7lo9mhg": {
+  "fr": "g sauce béchamel",
+  "en": "g of béchamel sauce"
+ },
+ "1w6uors0c6h": {
+  "fr": "g raisins blancs",
+  "en": "g white grapes"
+ },
+ "u3ss9omzdh": {
+  "fr": "g pistaches émondées",
+  "en": "g shelled pistachios"
+ },
+ "1z489ee327z": {
+  "fr": "g cranberries",
+  "en": "g cranberries"
+ },
+ "lym8l1fy0c": {
+  "fr": "g cerneaux de noix",
+  "en": "g walnut kernels"
+ },
+ "t9vh7128oj": {
+  "fr": "g morue salée",
+  "en": "g salted cod"
+ },
+ "7sstdz40ac": {
+  "fr": "g foie gras frais cru",
+  "en": "g fresh raw foie gras"
+ },
+ "8u9f92wpdr": {
+  "fr": "g crème entière liquide",
+  "en": "g full-fat whipping cream"
+ },
+ "woj41hpi94": {
+  "fr": "g armagnac",
+  "en": "g Armagnac"
+ },
+ "t1kow8n3rv": {
+  "fr": "g blanc de poulet cuit et froid",
+  "en": "g of cooked, cold chicken breast"
+ },
+ "2anvjwrq8x3": {
+  "fr": "g parmesan en copeaux",
+  "en": "g of shaved Parmesan"
+ },
+ "1rh3qgm2q6c": {
+  "fr": "g croûtons de pain de mie",
+  "en": "g croutons made from white bread"
+ },
+ "yyo74dp58w": {
+  "fr": "g tomates fermes",
+  "en": "g firm tomatoes"
+ },
+ "e94lp1tnm5": {
+  "fr": "g pommes de terre à chair ferme type Charlotte",
+  "en": "g firm-fleshed potatoes, such as Charlotte"
+ },
+ "20hvnybhuhp": {
+  "fr": "g gésiers de canard confits",
+  "en": "g duck gizzards, confit"
+ },
+ "a8gh7gq49f": {
+  "fr": "g gruyère",
+  "en": "g Gruyère"
+ },
+ "fe6o3qo8aq": {
+  "fr": "g vinaigre balsamique",
+  "en": "g balsamic vinegar"
+ },
+ "10jy13l3wmq": {
+  "fr": "g vinaigre blanc",
+  "en": "g white vinegar"
+ },
+ "6isdnk8q7a": {
+  "fr": "g pâte brisée",
+  "en": "g shortcrust pastry"
+ },
+ "1zq1cnkvxxj": {
+  "fr": "g thon au naturel égoutté",
+  "en": "g tinned tuna in brine, drained"
+ },
+ "pyzj2hm1ij": {
+  "fr": "g morilles fraîches ou 75g morilles séchées",
+  "en": "g fresh morels or 75g dried morels"
+ },
+ "oly66pb5xv": {
+  "fr": "ml vin jaune",
+  "en": "ml of vin jaune"
+ },
+ "1k3u13f7ppr": {
+  "fr": "ml fond de volaille",
+  "en": "ml chicken stock"
+ },
+ "27lpirhhy2l": {
+  "fr": "g magret de canard",
+  "en": "g duck breast"
+ },
+ "20cibdj5pio": {
+  "fr": "g foies de volaille",
+  "en": "g chicken livers"
+ },
+ "2c6i3xz84jd": {
+  "fr": "g pistaches entières émondées",
+  "en": "g whole, shelled pistachios"
+ },
+ "193xybf73vb": {
+  "fr": "g chapelure panko",
+  "en": "g panko breadcrumbs"
+ },
+ "vr5bomcuxv": {
+  "fr": "g lait ou crème fleurette",
+  "en": "g milk or whipping cream"
+ },
+ "fgz9i54e77": {
+  "fr": "g gelée claire en poudre",
+  "en": "g clear jelly powder"
+ },
+ "pfptertv28": {
+  "fr": "ml Madère",
+  "en": "ml Madeira"
+ },
+ "28wpsvisdcd": {
+  "fr": "ml bouillon de volaille",
+  "en": "ml chicken stock"
+ },
+ "110ste2idaf": {
+  "fr": "g rond de gîte de bœuf très frais",
+  "en": "a round cut of very fresh beef shank"
+ },
+ "v2k647lgob": {
+  "fr": "kg moules nettoyées",
+  "en": "kg of cleaned mussels"
+ },
+ "19i4ykclmb6": {
+  "fr": "g riz long spécial paella",
+  "en": "g special long-grain rice for paella"
+ },
+ "1uea0v3lppg": {
+  "fr": "g calamars nettoyés",
+  "en": "g cleaned squid"
+ },
+ "u645jyp33h": {
+  "fr": "g bouillon de volaille chaud",
+  "en": "g hot chicken stock"
+ },
+ "izwusawvqp": {
+  "fr": "g pimentón dulce ou paprika fumé doux",
+  "en": "g sweet paprika or smoked sweet paprika"
+ },
+ "1ipgh350htd": {
+  "fr": "g chorizo espagnol en petits dés",
+  "en": "g Spanish chorizo, finely diced"
+ },
+ "17gd2u053rn": {
+  "fr": "g oignon en petits dés",
+  "en": "g finely diced onion"
+ },
+ "k3nbny5y1v": {
+  "fr": "g tomates allongées en petits dés",
+  "en": "g of plum tomatoes, finely diced"
+ },
+ "1cg2mh0ajt4": {
+  "fr": "g riz Bomba ou riz rond",
+  "en": "g Bomba rice or round-grain rice"
+ },
+ "2g833dayo9e": {
+  "fr": "g fumet de crustacés ou de poisson chaud, plus 150g en réserve",
+  "en": "g hot shellfish or fish stock, plus 150g set aside"
+ },
+ "23jbbii0ggs": {
+  "fr": "g munster",
+  "en": "g Munster"
+ },
+ "14892ngf4nd": {
+  "fr": "g crème fleurette",
+  "en": "g whipping cream"
+ },
+ "vl185nfd6w": {
+  "fr": "g beurre pour les cocottes",
+  "en": "g butter for the casserole dishes"
+ },
+ "acfo11gdhy": {
+  "fr": "g riz long",
+  "en": "g long-grain rice"
+ },
+ "1wqtclds9hq": {
+  "fr": "g pâte à choux",
+  "en": "g choux pastry"
+ },
+ "b742zbj7t4": {
+  "fr": "g courgettes",
+  "en": "g courgettes"
+ },
+ "14ylnf17xb8": {
+  "fr": "g fond de légumes en pâte",
+  "en": "g vegetable stock paste"
+ },
+ "1j3p5t25ky1": {
+  "fr": "g polenta",
+  "en": "g polenta"
+ },
+ "28210oyz2cx": {
+  "fr": "g huile de friture",
+  "en": "g cooking oil"
+ },
+ "6wlqqssed0": {
+  "fr": "g féta",
+  "en": "g feta"
+ },
+ "1r8qh1i9yat": {
+  "fr": "g miel ou sirop d’agave",
+  "en": "g honey or agave syrup"
+ },
+ "2eehqjpamwp": {
+  "fr": "g huile d’olive extra vierge",
+  "en": "g extra virgin olive oil"
+ },
+ "18x39aziy6f": {
+  "fr": "g tahini",
+  "en": "g tahini"
+ },
+ "phl6tjdx9e": {
+  "fr": "g fenouil ou céleri-rave",
+  "en": "g fennel or celeriac"
+ },
+ "lxpgi3ce7b": {
+  "fr": "g gélatine en poudre 200 bloom",
+  "en": "g powdered gelatine (200 bloom)"
+ },
+ "3prociq48r": {
+  "fr": "g palette demi-sel désossée",
+  "en": "g boneless, lightly salted pork shoulder"
+ },
+ "m4t4q70mua": {
+  "fr": "tranches d’osso buco de veau, 1.5kg à 1.8kg",
+  "en": "slices of veal osso buco, 1.5kg to 1.8kg"
+ },
+ "1gkebwcceol": {
+  "fr": "g céleri branche",
+  "en": "g celery stalks"
+ },
+ "21gxs4desig": {
+  "fr": "cl fond de veau ou bouillon",
+  "en": "cl veal stock or broth"
+ },
+ "1rd7722sfl4": {
+  "fr": "cl sauce tomate",
+  "en": "cl tomato sauce"
+ },
+ "1082wyuk73a": {
+  "fr": "g farine T65",
+  "en": "g T65 flour"
+ },
+ "25fjz65xld6": {
+  "fr": "g farine de seigle T130",
+  "en": "g T130 rye flour"
+ },
+ "1fioxok4vis": {
+  "fr": "g eau à 40°C",
+  "en": "g water at 40°C"
+ },
+ "g3u0n5j66v": {
+  "fr": "g farine de seigle T65",
+  "en": "g T65 rye flour"
+ },
+ "xehbize0vi": {
+  "fr": "g noisettes hachées",
+  "en": "g chopped hazelnuts"
+ },
+ "1hk59gq9pnu": {
+  "fr": "g pré-ferment",
+  "en": "g pre-ferment"
+ },
+ "2azz5yh9xsp": {
+  "fr": "g crème pâtissière à la vanille",
+  "en": "g vanilla pastry cream"
+ },
+ "1yxg9fyvose": {
+  "fr": "g pépites de chocolat noir",
+  "en": "g dark chocolate chips"
+ },
+ "g9t1sh8907": {
+  "fr": "g nappage blond",
+  "en": "g light-coloured topping"
+ },
+ "1g61bhllwue": {
+  "fr": "L eau",
+  "en": "Water"
+ },
+ "q74l3gqbqn": {
+  "fr": "sachets de sucre vanillé",
+  "en": "sachets of vanilla sugar"
+ },
+ "157lh2vlrjj": {
+  "fr": "tranches de pain de mie rassis ou de brioche",
+  "en": "slices of stale white bread or brioche"
+ },
+ "1tvbkz0y60k": {
+  "fr": "g beurre de cacao en poudre pour la cuisson",
+  "en": "g cocoa butter powder for baking"
+ },
+ "152y3d4fgos": {
+  "fr": "g eau à 20°C",
+  "en": "g water at 20°C"
+ },
+ "j6zccq0rld": {
+  "fr": "g levain sec en poudre",
+  "en": "g dried yeast powder"
+ },
+ "1s0rcfxssfw": {
+  "fr": "kg abricots frais",
+  "en": "kg fresh apricots"
+ },
+ "q8gur7yny4": {
+  "fr": "g kirsch pour le punchage",
+  "en": "g kirsch for the punch"
+ },
+ "20xdedh0hkv": {
+  "fr": "g purée d’abricot",
+  "en": "g apricot purée"
+ },
+ "al1ryk6h0o": {
+  "fr": "g pectine NH",
+  "en": "g pectin NH"
+ },
+ "156c89tm6rs": {
+  "fr": "g gélatine en poudre",
+  "en": "g powdered gelatine"
+ },
+ "29374wb8ch7": {
+  "fr": "g crème entière liquide à 35%",
+  "en": "g whipping cream (35%)"
+ },
+ "164s7ssrl1a": {
+  "fr": "g nappage miroir neutre",
+  "en": "g neutral mirror glaze"
+ },
+ "r45kw8cs9n": {
+  "fr": "g purée de poire",
+  "en": "g pear purée"
+ },
+ "1ncujs5xq06": {
+  "fr": "g eau-de-vie de poire",
+  "en": "g pear brandy"
+ },
+ "1j7urzlzzd9": {
+  "fr": "g sucre pour les brisures de caramel",
+  "en": "g sugar for the caramel pieces"
+ },
+ "23rjork3rri": {
+  "fr": "g beurre doux pour les brisures de caramel",
+  "en": "g unsalted butter for the caramel crumble"
+ },
+ "1d6z3zna0ju": {
+  "fr": "g jus de poire",
+  "en": "g pear juice"
+ },
+ "17n41gdgxsh": {
+  "fr": "g sirop de sucre refroidi",
+  "en": "g cooled sugar syrup"
+ },
+ "2f6wj10q8ru": {
+  "fr": "g framboises fraîches ou surgelées",
+  "en": "g fresh or frozen raspberries"
+ },
+ "17uza2mfakn": {
+  "fr": "g sucre pour la meringue",
+  "en": "g sugar for the meringue"
+ },
+ "c8gcqtzcf": {
+  "fr": "g fruits rouges",
+  "en": "g red berries"
+ },
+ "okj9athzby": {
+  "fr": "g fraises pour l’intérieur",
+  "en": "g strawberries for indoors"
+ },
+ "fwd2bqmgog": {
+  "fr": "g beurre doux souple",
+  "en": "g soft unsalted butter"
+ },
+ "t74uj2hfst": {
+  "fr": "g crème pâtissière froide",
+  "en": "g cold pastry cream"
+ },
+ "1c35sdgujj5": {
+  "fr": "g kirsch facultatif",
+  "en": "g kirsch (optional)"
+ },
+ "rdfhr9p533": {
+  "fr": "g tant pour tant amande-sucre",
+  "en": "g of almond-sugar mixture"
+ },
+ "lx2dgdoz0j": {
+  "fr": "g chocolat noir pour chablonner",
+  "en": "g dark chocolate for coating"
+ },
+ "1urttrdlz43": {
+  "fr": "g Grand Marnier ou Cointreau",
+  "en": "g Grand Marnier or Cointreau"
+ },
+ "1uzh586g55z": {
+  "fr": "g petites aubergines",
+  "en": "g small aubergines"
+ },
+ "1gtfkqfcniu": {
+  "fr": "g sauce tomate arrabbiata, ou sauce tomate nature et 1 pincée de piment de Cayenne",
+  "en": "g arrabbiata tomato sauce, or plain tomato sauce and a pinch of cayenne pepper"
+ },
+ "13qqchynuny": {
+  "fr": "feuilles de basilic frais",
+  "en": "fresh basil leaves"
+ },
+ "20k81waehzu": {
+  "fr": "g courge butternut non épluchée",
+  "en": "g unpeeled butternut squash"
+ },
+ "2eo144y8al8": {
+  "fr": "g tomates allongées râpées sans la peau, ou 400g pulpe de tomates",
+  "en": "g of peeled, grated plum tomatoes, or 400g of tomato purée"
+ },
+ "1czzrq3yvbz": {
+  "fr": "g concentré de tomates",
+  "en": "g tomato paste"
+ },
+ "jyq04dgrfg": {
+  "fr": "g panko ou chapelure",
+  "en": "g panko or breadcrumbs"
+ },
+ "3a8qr0nuyk": {
+  "fr": "g za’atar",
+  "en": "g za’atar"
+ },
+ "1nuveqh8ca7": {
+  "fr": "g taleggio en tranches",
+  "en": "g sliced Taleggio"
+ },
+ "u2ppapkboh": {
+  "fr": "branches d’origan frais ou de thym",
+  "en": "sprigs of fresh oregano or thyme"
+ },
+ "aoo0pz7e9s": {
+  "fr": "g huile d’olive ou de coco",
+  "en": "g olive oil or coconut oil"
+ },
+ "1ysldagw8n2": {
+  "fr": "g poivron rouge (1), ou 1 petite boîte de piquillos",
+  "en": "g red pepper (1), or 1 small tin of piquillo peppers"
+ },
+ "1vhqbitbm3k": {
+  "fr": "g coulis de tomates",
+  "en": "g tomato purée"
+ },
+ "1a5hwc732os": {
+  "fr": "g lentilles vertes du Puy",
+  "en": "g green lentils from Le Puy"
+ },
+ "1rfjgs73qbh": {
+  "fr": "g haricots rouges cuits et égouttés",
+  "en": "g cooked and drained red beans"
+ },
+ "2fnsqz1v2c8": {
+  "fr": "g lard fermier en dés",
+  "en": "g diced farm-style bacon"
+ },
+ "fief7a6lsa": {
+  "fr": "g oignon jaune (1) finement ciselé",
+  "en": "1 yellow onion, finely chopped"
+ },
+ "o9sav05b5j": {
+  "fr": "g ail (2 gousses) haché",
+  "en": "g garlic (2 cloves), chopped"
+ },
+ "64la6b3pkf": {
+  "fr": "g chou plat (atlas) ou chou vert émincé en lanières",
+  "en": "g flat cabbage (Atlas) or green cabbage, thinly sliced"
+ },
+ "2d8a2eeglh3": {
+  "fr": "g eau, plus un peu pour l’étuvée",
+  "en": "g water, plus a little extra for the stewing"
+ },
+ "1d8ny84nosl": {
+  "fr": "g gros sel",
+  "en": "g coarse salt"
+ },
+ "127bzfxmvk7": {
+  "fr": "g beurre ou graisse de canard",
+  "en": "g butter or duck fat"
+ },
+ "ss5gv5uz7b": {
+  "fr": "g moutarde en grains",
+  "en": "g mustard seeds"
+ },
+ "21siol4b1l": {
+  "fr": "g pommes de terre cuites à l’eau",
+  "en": "g potatoes, boiled"
+ },
+ "172su6bxi0l": {
+  "fr": "g pois chiches égouttés",
+  "en": "g of drained chickpeas"
+ },
+ "28ufm0o1a3t": {
+  "fr": "g piment d’Espelette ou poivre du moulin",
+  "en": "g Espelette chilli or freshly ground pepper"
+ },
+ "2bpz97p42a0": {
+  "fr": "g crevettes crues entières",
+  "en": "g whole raw prawns"
+ },
+ "ilb8rviip8": {
+  "fr": "g œufs (5 œufs moyens) à température ambiante",
+  "en": "g eggs (5 medium eggs) at room temperature"
+ },
+ "7m91kjycf2": {
+  "fr": "g lapin entier découpé en morceaux",
+  "en": "g whole rabbit, cut into pieces"
+ },
+ "2evv1v4o5nj": {
+  "fr": "g oignons jaunes ou blancs (3 gros) en lamelles ou quartiers",
+  "en": "g yellow or white onions (3 large), sliced or quartered"
+ },
+ "1w5xnyr9e7k": {
+  "fr": "g ail (3 gousses) émincé",
+  "en": "g garlic (3 cloves), thinly sliced"
+ },
+ "2dfcw0f02mb": {
+  "fr": "g tomates pelées concassées",
+  "en": "g of peeled, chopped tomatoes"
+ },
+ "1cmbxl5b4rx": {
+  "fr": "g vin rouge sec",
+  "en": "g dry red wine"
+ },
+ "si56vmxehl": {
+  "fr": "bâton de cannelle",
+  "en": "cinnamon stick"
+ },
+ "250nbqq43q8": {
+  "fr": "g aubergines",
+  "en": "g aubergines"
+ },
+ "zk9p36in2": {
+  "fr": "g poivrons verts corne de bœuf",
+  "en": "g green ‘oxhorn’ peppers"
+ },
+ "mlq3ivxxiq": {
+  "fr": "g okras",
+  "en": "g okras"
+ },
+ "1u4qdv1sh71": {
+  "fr": "g graines de cumin",
+  "en": "g cumin seeds"
+ },
+ "2dhw52kshiu": {
+  "fr": "g épices cajun",
+  "en": "g Cajun spices"
+ },
+ "1dz6aybd6u8": {
+  "fr": "g piment de Cayenne, selon le goût",
+  "en": "g cayenne pepper, to taste"
+ },
+ "152r9mspr4s": {
+  "fr": "g tomates concassées ou coulis de tomates",
+  "en": "g chopped tomatoes or tomato purée"
+ },
+ "20msbnxebxf": {
+  "fr": "g bouillon de légumes ou eau",
+  "en": "g vegetable stock or water"
+ },
+ "14kbdpkhbev": {
+  "fr": "g petites seiches nettoyées",
+  "en": "g small, cleaned cuttlefish"
+ },
+ "euvma422sg": {
+  "fr": "g citron confit",
+  "en": "g candied lemon"
+ },
+ "i9wivvbazb": {
+  "fr": "g persil ciselé",
+  "en": "g finely chopped parsley"
+ },
+ "talfx0ogx4": {
+  "fr": "g menthe ciselée",
+  "en": "g finely chopped mint"
+ },
+ "141bu5yx9j9": {
+  "fr": "g piquillos égouttés (1 boîte), ou 1 poivron",
+  "en": "g drained piquillo peppers (1 tin), or 1 pepper"
+ },
+ "15jqvhvw29w": {
+  "fr": "g yaourt grec ou fromage blanc",
+  "en": "g Greek yoghurt or fromage blanc"
+ },
+ "gmgwa93yam": {
+  "fr": "g sauce sriracha",
+  "en": "g Sriracha sauce"
+ },
+ "1np2gm82sgi": {
+  "fr": "g cornichons",
+  "en": "g gherkins"
+ },
+ "23nwdba15n2": {
+  "fr": "g cuisses de poulet fermier",
+  "en": "g free-range chicken thighs"
+ },
+ "1sjq4eb8vf9": {
+  "fr": "g haricots blancs en conserve égouttés",
+  "en": "g tinned white beans, drained"
+ },
+ "ccy5kyi7dq": {
+  "fr": "g courge butternut pelée en dés",
+  "en": "g peeled, diced butternut squash"
+ },
+ "1kr9qqyvkqi": {
+  "fr": "g eau froide pour le trempage",
+  "en": "g cold water for soaking"
+ },
+ "bpa3tmq2wi": {
+  "fr": "g cumin en poudre",
+  "en": "g ground cumin"
+ },
+ "2fvrprtr8e5": {
+  "fr": "g écorce de citron confit au sel, rincée si très salée",
+  "en": "g salt-preserved lemon peel, rinsed if very salty"
+ },
+ "1yq0hockwsb": {
+  "fr": "g huile de noix",
+  "en": "g walnut oil"
+ },
+ "1too34734fb": {
+  "fr": "g bouillon de légumes ou de volaille",
+  "en": "g vegetable or chicken stock"
+ },
+ "20itb7koigd": {
+  "fr": "g za’atar, ou thym et graines de sésame",
+  "en": "g za’atar, or thyme and sesame seeds"
+ },
+ "539oepi9r7": {
+  "fr": "g fleurettes de chou-fleur",
+  "en": "g cauliflower florets"
+ },
+ "25k28b37k1s": {
+  "fr": "g pommes Golden ou Elstar",
+  "en": "g Golden Delicious or Elstar apples"
+ },
+ "2fu4al7al9z": {
+  "fr": "g noix de muscade râpée",
+  "en": "g grated nutmeg"
+ },
+ "54iuleu38s": {
+  "fr": "g copeaux de parmesan",
+  "en": "g shavings of Parmesan"
  }
 }

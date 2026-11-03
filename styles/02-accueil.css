@@ -336,22 +336,12 @@
   font-weight: 850;
 }
 
-.season-tabs {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: end;
-  gap: 4px;
-  max-width: min(640px, 54vw);
-}
-
 .season-filter-stack {
   display: grid;
   justify-items: end;
   gap: 8px;
 }
 
-.season-tabs button,
 .season-category-tabs button {
   display: inline-flex;
   align-items: center;
@@ -369,16 +359,13 @@
   transition: background var(--speed), border-color var(--speed), color var(--speed), transform var(--speed);
 }
 
-.season-tabs button:hover,
 .season-category-tabs button:hover,
-.season-tabs button:focus-visible,
 .season-category-tabs button:focus-visible {
   border-color: color-mix(in srgb, var(--accent) 32%, var(--line));
   background: color-mix(in srgb, var(--accent) 8%, var(--surface-soft));
   transform: translateY(-1px);
 }
 
-.season-tabs button.active,
 .season-category-tabs button.active {
   border-color: color-mix(in srgb, var(--accent) 72%, transparent);
   background: linear-gradient(135deg, var(--accent), var(--accent-2));

@@ -239,21 +239,6 @@
     justify-items: stretch;
   }
 
-  .season-tabs {
-    display: grid;
-    width: 100%;
-    max-width: 100%;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 4px;
-  }
-
-  .season-tabs button {
-    min-height: var(--control-height-touch);
-    padding-inline: 8px;
-    font-size: clamp(13px, 3.5vw, 15px);
-    line-height: 1.08;
-  }
-
   .season-category-tabs {
     width: 100%;
     max-width: 100%;
@@ -423,7 +408,6 @@
   overflow: visible;
 }
 
-.season-tabs,
 .season-category-tabs,
 .menu-theme-tabs {
   padding: 4px;
@@ -433,7 +417,6 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .045);
 }
 
-.season-tabs button.active,
 .season-category-tabs button.active,
 .menu-theme-tabs button.active {
   box-shadow:

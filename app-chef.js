@@ -193,7 +193,7 @@ function recordChefVerdict(recipe, verdictId) {
     tech,
     unlocked,
     master,
-    history: [entry, ...chef.history].slice(0, 80)
+    history: [entry, ...chef.history].slice(0, 400)
   });
   return {
     entry,
@@ -500,9 +500,53 @@ function ChefAchievements({ chef }) {
       : h('p', { className: 'chef-empty' }, filter === 'master' ? `Aucune technique maîtrisée : il faut ${chefFormat(CHEF_MASTER_GOAL)} exécutions réussies.` : filter === 'locked' ? tc('Toutes les techniques sont débloquées.') : tc('Aucune technique débloquée : réussissez un plat pour commencer.'))
   );
 }
+// Historique : calendrier du mois (un point par jour cuisine) et plats du jour choisi.
+function ChefHistoryCalendar({ chef, openRecipe, onClose }) {
+  const [month, setMonth] = useState(() => { const now = new Date(); return new Date(now.getFullYear(), now.getMonth(), 1); });
+  const [day, setDay] = useState('');
+  const key = date => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  const byDay = new Map();
+  chef.history.forEach(entry => {
+    const date = new Date(entry.at);
+    const id = key(date);
+    if (!byDay.has(id)) byDay.set(id, []);
+    byDay.get(id).push(entry);
+  });
+  const first = (month.getDay() + 6) % 7;
+  const days = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+  const cells = [...Array(first).fill(null), ...Array.from({ length: days }, (_, index) => new Date(month.getFullYear(), month.getMonth(), index + 1))];
+  const shift = step => { setMonth(new Date(month.getFullYear(), month.getMonth() + step, 1)); setDay(''); };
+  const monthCount = cells.filter(Boolean).reduce((total, date) => total + (byDay.get(key(date)) || []).length, 0);
+  const selected = day ? byDay.get(day) || [] : [];
+  const verdictLabel = id => (CHEF_VERDICTS.find(item => item.id === id) || CHEF_VERDICTS[0]).label;
+  return h('div', { className: 'chef-history-calendar' },
+    h('div', { className: 'chef-calendar-head' },
+      h('button', { type: 'button', onClick: () => shift(-1), 'aria-label': tc('Mois précédent') }, '‹'),
+      h('strong', null, month.toLocaleDateString(COOK_NOTE_LANG === 'en' ? 'en-GB' : 'fr-FR', { month: 'long', year: 'numeric' })),
+      h('button', { type: 'button', onClick: () => shift(1), 'aria-label': tc('Mois suivant') }, '›')
+    ),
+    h('p', { className: 'chef-calendar-summary' }, monthCount ? `${monthCount} ${monthCount > 1 ? tc('plats cuisinés') : tc('plat cuisiné')}` : tc('Aucun plat ce mois-ci.')),
+    h('div', { className: 'chef-calendar-grid', role: 'grid' },
+      ['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((label, index) => h('span', { key: `h${index}`, className: 'chef-calendar-weekday', 'aria-hidden': true }, label)),
+      cells.map((date, index) => {
+        if (!date) return h('span', { key: `e${index}` });
+        const id = key(date);
+        const entries = byDay.get(id) || [];
+        const best = entries.some(entry => entry.score === 1) ? 'is-success' : entries.length ? 'is-cooked' : '';
+        return h('button', { key: id, type: 'button', className: [best, day === id ? 'is-active' : '', key(new Date()) === id ? 'is-today' : ''].filter(Boolean).join(' '), disabled: !entries.length, onClick: () => setDay(day === id ? '' : id), 'aria-label': `${date.getDate()} : ${entries.length}` }, date.getDate(), entries.length > 0 && h('i', null, entries.length > 1 ? entries.length : ''));
+      })
+    ),
+    selected.length > 0 && h('ul', { className: 'chef-history' }, selected.map(entry => h('li', { key: `${entry.id}-${entry.at}` },
+      h('button', { type: 'button', className: 'chef-history-open', onClick: () => { onClose(); openRecipe(entry.id); } }, tc(entry.title), h('i', { className: `is-${entry.verdict || 'reussi'}` }, tc(verdictLabel(entry.verdict)))),
+      h('em', { className: entry.delta >= 0 ? 'is-up' : 'is-down' }, chefSigned(entry.delta))
+    )))
+  );
+}
+
 const CHEF_TABS = [
   { id: 'parcours', label: 'Classement' },
-  { id: 'succes', label: 'Techniques' }
+  { id: 'succes', label: 'Techniques' },
+  { id: 'historique', label: 'Historique' }
 ];
 
 function ChefPanel({ open, onClose, recipes, openRecipe, notify }) {
@@ -553,7 +597,9 @@ function ChefPanel({ open, onClose, recipes, openRecipe, notify }) {
           item.id === 'succes' && h('em', null, `${unlockedCount}/${TECHNIQUE_GUIDES.length}`)
         ))
       ),
-      tab === 'succes'
+      tab === 'historique'
+        ? h(ChefHistoryCalendar, { chef, openRecipe, onClose })
+        : tab === 'succes'
         ? h(ChefAchievements, { chef })
         : h(React.Fragment, null,
           h('div', { className: 'chef-hero' },
@@ -603,7 +649,10 @@ function ChefPanel({ open, onClose, recipes, openRecipe, notify }) {
             transfer && h('div', { className: 'chef-transfer-body' },
               h('canvas', { ref: canvasRef, className: 'qr-canvas', width: 176, height: 176, role: 'img', 'aria-label': 'QR code de transfert du parcours' }),
               h('p', null, tc('Scannez avec l’autre appareil : les deux parcours sont fusionnés, le meilleur est gardé.')),
-              h('button', { type: 'button', className: 'share-chip', onClick: () => copyText(transferUrl).then(() => notify?.('Lien de transfert copié')) }, 'Copier le lien')
+              h('button', { type: 'button', className: 'share-chip', onClick: () => copyText(transferUrl).then(() => notify?.('Lien de transfert copié')) }, 'Copier le lien'),
+              // Sauvegarde complete (favoris, courses, semaine, frigo, parcours) en fichier ;
+              // import dans Preferences > Sauvegarde locale.
+              h('button', { type: 'button', className: 'share-chip', onClick: () => { downloadLocalDataBackup(); notify?.('Sauvegarde téléchargée : importez-la dans Préférences > Sauvegarde locale'); } }, 'Fichier de sauvegarde')
             )
           )
         )

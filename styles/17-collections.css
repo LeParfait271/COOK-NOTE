@@ -315,20 +315,24 @@ body:has(.mc-shell.theme-light) .detail-action-button.favorite-action { --favori
 
 .shopping-modal .shopping-picked-item {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto 36px;
+  grid-template-columns: minmax(0, 1fr) 36px;
   align-items: center;
   gap: 10px;
-  padding: 8px 8px 8px 14px;
+  padding: 6px 6px 6px 12px;
   border: 1px solid var(--ds-color-border);
-  border-radius: 14px;
+  border-radius: 12px;
   background: var(--ds-color-background-muted);
+  grid-template-areas: "title remove" "qty remove";
+  row-gap: 4px;
 }
 
 .shopping-modal .shopping-picked-title {
   overflow: hidden;
   font-weight: 650;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  grid-area: title;
+  font-size: .95rem;
 }
 
 .shopping-modal .shopping-picked-remove {
@@ -341,6 +345,7 @@ body:has(.mc-shell.theme-light) .detail-action-button.favorite-action { --favori
   color: var(--ds-color-text-muted);
   font-size: 1.3rem;
   cursor: pointer;
+  grid-area: remove;
 }
 
 .shopping-modal .shopping-picked-remove:hover {
@@ -476,27 +481,41 @@ body:has(.mc-shell.theme-light) .detail-action-button.favorite-action { --favori
   gap: 6px;
 }
 
-/* Article : case, quantite et nom, recette en petit, « J'ai deja » discret. */
 .shopping-modal .shopping-line {
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
   align-items: center;
   column-gap: 12px;
+  display: grid;
+  gap: 2px 12px;
+  margin: 0;
+  padding: 10px 2px;
+  border: 0;
+  border-bottom: 1px solid var(--ds-color-divider);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  cursor: pointer;
 }
 
 .shopping-modal .shopping-line > small {
   grid-column: 2;
   grid-row: 2;
+  color: var(--ds-color-text-muted);
+  font-size: 12px;
 }
 
 .shopping-modal .shopping-line .shopping-owned-btn {
   grid-column: 3;
   grid-row: 1 / span 2;
-  padding: 5px 10px;
+  padding: 4px 10px;
   font-size: 12px;
   font-weight: 600;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ds-color-text-muted);
 }
 
-/* La liste se lit d'un seul defilement (plus de cadre a defiler dedans). */
 .shopping-modal .shopping-aisles-shell {
   max-height: none;
   overflow: visible;
@@ -518,25 +537,9 @@ body:has(.mc-shell.theme-light) .detail-action-button.favorite-action { --favori
   max-height: none;
 }
 
-/* Recette du panier : titre entier sur sa ligne, portions et retrait dessous. */
-.shopping-modal .shopping-picked-item {
-  grid-template-columns: minmax(0, 1fr) 36px;
-  grid-template-areas: "title remove" "qty remove";
-  row-gap: 6px;
-}
-
-.shopping-modal .shopping-picked-title {
-  grid-area: title;
-  white-space: normal;
-}
-
 .shopping-modal .shopping-picked-quantity {
   grid-area: qty;
   justify-self: start;
-}
-
-.shopping-modal .shopping-picked-remove {
-  grid-area: remove;
 }
 
 .shopping-modal .shopping-picked-quantity,
@@ -548,25 +551,21 @@ body:has(.mc-shell.theme-light) .detail-action-button.favorite-action { --favori
 }
 
 .shopping-modal .shopping-actions-more button {
-  padding: 5px 11px;
-  font-size: 13px;
+  padding: 4px 10px;
+  font-size: 12px;
 }
 
 .shopping-modal .modal-actions.shopping-actions {
   padding-top: 10px;
   padding-bottom: 14px;
-}
-
-.shopping-modal .modal-actions.shopping-actions {
-  background: var(--surface-strong, #171512);
+  background: #16140f;
+  backdrop-filter: none;
 }
 
 .shopping-modal .shopping-picked-quantity * {
   font-weight: 600;
 }
 
-/* Version simple : rayons sans cadres, une ligne par article, separateurs
-   fins ; coche = barre et grise. */
 .shopping-modal .shopping-aisles {
   gap: 18px;
   margin: 16px 0 4px;
@@ -606,21 +605,6 @@ body:has(.mc-shell.theme-light) .detail-action-button.favorite-action { --favori
   font-size: 12px;
 }
 
-.shopping-modal .shopping-line {
-  display: grid;
-  grid-template-columns: 22px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 2px 12px;
-  margin: 0;
-  padding: 10px 2px;
-  border: 0;
-  border-bottom: 1px solid var(--ds-color-divider);
-  border-radius: 0;
-  background: none;
-  box-shadow: none;
-  cursor: pointer;
-}
-
 .shopping-modal .shopping-line:hover {
   background: none;
 }
@@ -658,44 +642,14 @@ body:has(.mc-shell.theme-light) .detail-action-button.favorite-action { --favori
   vertical-align: baseline;
 }
 
-.shopping-modal .shopping-line > small {
-  color: var(--ds-color-text-muted);
-  font-size: 12px;
-}
-
 .shopping-modal .shopping-line.checked .shopping-line-main {
   opacity: .45;
   text-decoration: line-through;
 }
 
-.shopping-modal .shopping-line .shopping-owned-btn {
-  padding: 4px 10px;
-  border: 1px solid var(--ds-color-border);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--ds-color-text-muted);
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.shopping-modal .shopping-picked-item {
-  padding: 6px 6px 6px 12px;
-  border-radius: 12px;
-  row-gap: 4px;
-}
-
-.shopping-modal .shopping-picked-title {
-  font-size: .95rem;
-}
-
 .shopping-modal .shopping-picked-quantity select {
   min-height: 32px;
   padding-block: 2px;
-}
-
-.shopping-modal .modal-actions.shopping-actions {
-  background: #16140f;
-  backdrop-filter: none;
 }
 
 body:has(.mc-shell.theme-light) .shopping-modal .modal-actions.shopping-actions {
@@ -704,11 +658,6 @@ body:has(.mc-shell.theme-light) .shopping-modal .modal-actions.shopping-actions 
 
 .shopping-modal .shopping-actions-more {
   gap: 4px;
-}
-
-.shopping-modal .shopping-actions-more button {
-  padding: 4px 10px;
-  font-size: 12px;
 }
 
 /* Favori des cartes de collection : pastille ronde dans le coin de la
@@ -784,5 +733,85 @@ body:has(.mc-shell.theme-light) .shopping-modal .modal-actions.shopping-actions 
   font-weight: 800;
   letter-spacing: .06em;
   line-height: 1;
+}
+
+
+/* Anglais : bascule Metric / US au-dessus des ingredients. */
+.units-toggle {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+}
+
+.units-toggle button {
+  padding: 4px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ds-color-text-muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.units-toggle button.is-active {
+  background: var(--ds-color-background-muted);
+  color: var(--ds-color-text-primary);
+}
+
+
+/* Regime sur la fiche : pastille verte discrete. */
+.detail-meta .detail-diet {
+  border-color: color-mix(in srgb, #8fcf86 55%, transparent);
+  color: color-mix(in srgb, #8fcf86 75%, var(--ds-color-text-primary));
+}
+
+
+/* Valeurs nutritionnelles estimees (colonne « Avant de commencer »). */
+.nutrition-card .nutrition-kcal {
+  margin: 4px 0 10px;
+  color: var(--ds-color-text-secondary);
+}
+
+.nutrition-card .nutrition-kcal strong {
+  color: var(--ds-color-text-primary);
+  font-family: var(--ds-font-display, Georgia, serif);
+  font-size: 1.6rem;
+  font-weight: 460;
+}
+
+.nutrition-macros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin: 0 0 8px;
+}
+
+.nutrition-macros div {
+  padding: 8px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.nutrition-macros dt {
+  color: var(--ds-color-text-muted);
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.nutrition-macros dd {
+  margin: 2px 0 0;
+  color: var(--ds-color-text-primary);
+  font-weight: 700;
+}
+
+.nutrition-card small {
+  color: var(--ds-color-text-muted);
+  font-size: 12px;
 }
 

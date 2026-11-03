@@ -210,6 +210,23 @@ final class RecipeScreen {
         }
         overlay.addView(metaView);
 
+        // Regimes (vegetarien, sans gluten...) en pastilles, comme le site.
+        List<String> diets = Extras.get(host).dietsFor(recipe.id);
+        if (!diets.isEmpty()) {
+            LinearLayout dietRow = new LinearLayout(host);
+            dietRow.setOrientation(LinearLayout.HORIZONTAL);
+            for (String diet : diets) {
+                TextView chip = host.text(diet, 10, COLOR_TEXT, true);
+                chip.setPadding(dp(8), dp(2), dp(8), dp(3));
+                chip.setBackground(panel(Color.argb(140, 20, 60, 30), Color.argb(120, 169, 227, 160), 1, 10));
+                LinearLayout.LayoutParams chipParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                chipParams.rightMargin = dp(5);
+                dietRow.addView(chip, chipParams);
+            }
+            LinearLayout.LayoutParams dietParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dietParams.topMargin = dp(6);
+            overlay.addView(dietRow, dietParams);
+        }
     }
 
     String detailBreadcrumb(Recipe recipe) {
@@ -436,6 +453,7 @@ final class RecipeScreen {
     int cookIntroIndex;
     // Derniere etape faite : ecran « Recette terminée » avant de fermer.
     boolean cookFinished;
+    LinearLayout cookVerdictBox;
     Recipe cookRecipe;
     String cookPanel;
     boolean cookPaused;
@@ -575,7 +593,8 @@ final class RecipeScreen {
             // Parcours de chef : rien n'est compte sans verdict.
             LinearLayout.LayoutParams verdictParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             verdictParams.topMargin = dp(22);
-            end.addView(ChefUi.verdict(host, recipe, null), verdictParams);
+            cookVerdictBox = ChefUi.verdict(host, recipe, null);
+            end.addView(cookVerdictBox, verdictParams);
             stage.addView(end, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
             mark.setAlpha(0f);
             mark.setScaleX(0.6f);
@@ -816,6 +835,13 @@ final class RecipeScreen {
         List<String> steps = selectedRecipeSteps(cookRecipe);
         int total = steps.size();
         String type = command.type;
+        // Verdict a la voix : « réussi », « correct », « raté » sur l'ecran de fin.
+        int verdict = VoiceCommands.VERDICT_WIN.equals(type) ? 0 : VoiceCommands.VERDICT_OK.equals(type) ? 1 : VoiceCommands.VERDICT_FAIL.equals(type) ? 2 : -1;
+        if (verdict >= 0) {
+            View choice = cookFinished && cookVerdictBox != null ? cookVerdictBox.findViewWithTag("verdict" + verdict) : null;
+            if (choice != null) choice.performClick();
+            return;
+        }
         if (VoiceCommands.NEXT.equals(type)) {
             cookPanel = null;
             if (introPage() != null) {

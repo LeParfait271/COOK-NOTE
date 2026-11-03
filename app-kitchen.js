@@ -629,6 +629,10 @@ let ingredientAtlasLoad = null;
 
 function loadIngredientAtlas() {
   if (window.cookNoteAtlasReady && window.cookNoteAtlas) return Promise.resolve(window.cookNoteAtlas);
+  // Anglais : fiches traduites (assets/i18n/en-atlas.js) en meme temps.
+  if (COOK_NOTE_LANG === 'en' && !window.COOK_NOTE_EN_ATLAS) {
+    window.COOK_NOTE_EN_ATLAS = loadDeferredScript(`/assets/i18n/en-atlas.js${typeof SITE_CACHE_VERSION !== 'undefined' ? `?v=${SITE_CACHE_VERSION}` : ''}`).catch(() => {});
+  }
   if (!ingredientAtlasLoad) {
     const version = typeof SITE_CACHE_VERSION !== 'undefined' ? `?v=${SITE_CACHE_VERSION}` : '';
     ingredientAtlasLoad = loadDeferredScript(`${INGREDIENT_ATLAS_BASE}atlas-core.js${version}`, 'cookNoteAtlas')

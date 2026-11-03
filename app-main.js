@@ -55,6 +55,9 @@ function App() {
   const [constellationOpen, setConstellationOpen] = useState(false);
   // Carte des saisons (fruits et legumes mois par mois, app-seasons.js).
   const [seasonsOpen, setSeasonsOpen] = useState(false);
+  // Ma semaine et Mon frigo (app-week.js).
+  const [weekOpen, setWeekOpen] = useState(false);
+  const [fridgeOpen, setFridgeOpen] = useState(false);
   // Parcours de chef (cote et succes locaux, app-chef.js).
   const [chefOpen, setChefOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
@@ -690,6 +693,39 @@ function App() {
     return Array.from(urls);
   }
 
+  // Tout le catalogue hors connexion : pages, donnees de chaque fiche et
+  // vignettes (les grandes images restent en ligne, trop lourdes).
+  async function preloadWholeCatalogOffline() {
+    if (offlineBusy) return;
+    if (!isOnline) {
+      notify('Connexion nécessaire pour préparer le catalogue hors-ligne.', 'info');
+      return;
+    }
+    setOfflineBusy(true);
+    try {
+      const loadedSource = await loadFullRecipeCatalog().catch(() => recipeSource);
+      const ids = Object.keys(normalizeLoadedRecipeValue(loadedSource));
+      const urls = new Set(favoriteOfflineUrls(recipesById));
+      urls.add(FULL_RECIPE_CATALOG_SRC);
+      ids.forEach(id => {
+        const recipe = loadedSource[id];
+        urls.add(getRecipeUrl(id));
+        urls.add(`/assets/recipe-data/${encodeURIComponent(id)}.js?v=${SITE_CACHE_VERSION}`);
+        const image = recipe && displayRecipeImage(recipe);
+        if (image) urls.add(preferredImageUrl(recipeCardImageUrl(image)));
+      });
+      const list = Array.from(urls);
+      setOfflineProgress({ cached: 0, completed: 0, total: list.length });
+      const result = await cacheUrlsForOffline(list, setOfflineProgress);
+      notify(`${ids.length} fiches prêtes hors-ligne (${result.cached || 0}/${result.total || 0})`, 'success');
+    } catch {
+      notify('Préparation hors-ligne impossible pour le moment.', 'error');
+    } finally {
+      setOfflineBusy(false);
+      setOfflineProgress(null);
+    }
+  }
+
   async function preloadFavoriteRecipesOffline() {
     if (offlineBusy) return;
     if (!favorites.length) {
@@ -809,7 +845,7 @@ function App() {
     request.promise = promise;
     recipeDetailRequestsRef.current.set(id, request);
     try {
-      worker.postMessage({ type: 'load', id, src: FULL_RECIPE_CATALOG_SRC });
+      worker.postMessage({ type: 'load', id, src: FULL_RECIPE_CATALOG_SRC, single: `/assets/recipe-data/${encodeURIComponent(id)}.js?v=${SITE_CACHE_VERSION}` });
     } catch {
       recipeDetailRequestsRef.current.delete(id);
       rejectRequest(new Error('Chargement de la fiche impossible.'));
@@ -983,7 +1019,7 @@ function App() {
         window.setTimeout(resetHomeScroll, 80);
       }
     });
-    history.pushState('', document.title, '/');
+    history.pushState('', document.title, COOK_NOTE_LANG === 'en' ? '/en/' : '/');
     lastRouteKeyRef.current = currentScrollRouteKey();
     route.mark();
   }
@@ -1321,6 +1357,14 @@ function App() {
             setConstellationOpen(true);
             loadFullRecipeCatalog();
           },
+          openWeek: () => {
+            setWeekOpen(true);
+            loadFullRecipeCatalog();
+          },
+          openFridge: () => {
+            setFridgeOpen(true);
+            loadFullRecipeCatalog();
+          },
           openSeasons: () => {
             setSeasonsOpen(true);
             loadFullRecipeCatalog();
@@ -1393,6 +1437,21 @@ function App() {
       openRecipe,
       notify
     }),
+    h(WeekPanel, {
+      open: weekOpen,
+      onClose: () => setWeekOpen(false),
+      recipes: searchableRecipes,
+      recipesById,
+      openRecipe,
+      addMenuToShopping,
+      notify
+    }),
+    h(FridgePanel, {
+      open: fridgeOpen,
+      onClose: () => setFridgeOpen(false),
+      recipes: searchableRecipes,
+      openRecipe
+    }),
     h(SeasonPanel, {
       open: seasonsOpen,
       onClose: () => setSeasonsOpen(false),
@@ -1423,6 +1482,7 @@ function App() {
       offlineBusy,
       offlineProgress,
       preloadFavoritesOffline: preloadFavoriteRecipesOffline,
+      preloadCatalogOffline: preloadWholeCatalogOffline,
       exportLocalData,
       importLocalData,
     }),

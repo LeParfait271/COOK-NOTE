@@ -146,7 +146,29 @@ final class HomeScreen {
         LinearLayout.LayoutParams chefParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp(40));
         chefParams.gravity = Gravity.CENTER_HORIZONTAL;
         chefParams.topMargin = dp(10);
-        header.addView(chefRow, chefParams);        host.searchToggle.setOnClickListener(new View.OnClickListener() {
+        header.addView(chefRow, chefParams);
+
+        // Saisons et constellation (donnees precalculees, ecrans legers).
+        LinearLayout exploreRow = new LinearLayout(host);
+        exploreRow.setOrientation(LinearLayout.HORIZONTAL);
+        exploreRow.setGravity(Gravity.CENTER);
+        exploreRow.addView(exploreButton("Saisons", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Explore.showSeasons(host);
+            }
+        }));
+        exploreRow.addView(exploreButton("Constellation", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Explore.showConstellation(host);
+            }
+        }));
+        LinearLayout.LayoutParams exploreParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        exploreParams.gravity = Gravity.CENTER_HORIZONTAL;
+        exploreParams.topMargin = dp(8);
+        header.addView(exploreRow, exploreParams);
+        host.searchToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setSearchPanelOpen(!host.searchPanelOpen);
@@ -366,6 +388,19 @@ final class HomeScreen {
         applyFiltersNow();
         restoreListPosition(gridView);
         if (MainActivity.PERF_LOG_ENABLED) host.perfLog("showList", startedAt);
+    }
+
+    private TextView exploreButton(String label, View.OnClickListener listener) {
+        TextView button = host.text(label, 13, COLOR_TEXT, true);
+        button.setGravity(Gravity.CENTER);
+        button.setPadding(dp(16), dp(8), dp(16), dp(8));
+        button.setBackground(selectablePanel(COLOR_BG, COLOR_CARD_ACTIVE, COLOR_BORDER_SOFT, 1, 20));
+        button.setOnClickListener(listener);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp(40));
+        params.leftMargin = dp(4);
+        params.rightMargin = dp(4);
+        button.setLayoutParams(params);
+        return button;
     }
 
     void clearSearch() {

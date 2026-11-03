@@ -81,9 +81,10 @@
     for (let cut = 1; cut < parts.length; cut += 2) {
       const left = parts.slice(0, cut).join('').trim();
       const right = parts.slice(cut + 1).join('').trim();
+      // Un morceau sans traduction (identique en anglais : « Amaretto ») reste tel quel.
       const leftEnglish = !left || !/[a-zà-ÿ]/i.test(left) ? left : englishOf(left, depth + 1);
       const rightEnglish = !right || !/[a-zà-ÿ]/i.test(right) ? right : englishOf(right, depth + 1);
-      if (leftEnglish !== null && rightEnglish !== null && (leftEnglish !== left || rightEnglish !== right)) return `${leftEnglish}${glue(parts[cut])}${rightEnglish}`;
+      if ((leftEnglish !== null && leftEnglish !== left) || (rightEnglish !== null && rightEnglish !== right)) return `${leftEnglish ?? left}${glue(parts[cut])}${rightEnglish ?? right}`;
     }
     let changed = false;
     const english = parts.map((part, index) => {
@@ -152,6 +153,13 @@
       node = walker.nextNode();
     }
   };
+
+  // Lot de traductions charge plus tard (atlas) : on oublie les absences et on repasse.
+  window.addEventListener('cooknote-english-extended', () => {
+    cache.clear();
+    memo.clear();
+    if (document.body) fixTree(document.body);
+  });
 
   const start = () => {
     fixTree(document.body);

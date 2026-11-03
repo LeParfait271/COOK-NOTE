@@ -9,7 +9,7 @@
 .chef-modal { --rank-ink: var(--rank); }
 
 /* Theme jour : les metaux clairs deviennent illisibles sur creme, on les fonce. */
-body:has(.mc-shell.theme-light) .chef-modal { --rank-ink: color-mix(in srgb, var(--rank) 45%, #3a2608); }
+body:has(.mc-shell.theme-light) .chef-modal { --rank-ink: color-mix(in srgb, var(--rank) 30%, #2a1a05); }
 
 .chef-emblem {
   flex: none;
@@ -751,4 +751,111 @@ body:has(.mc-shell.theme-light) .chef-modal { --rank-ink: color-mix(in srgb, var
 .chef-achievement-list li[class*="is-tier-"] strong i {
   color: var(--tier);
   border-color: color-mix(in srgb, var(--tier) 45%, transparent);
+}
+
+/* Historique du parcours : calendrier du mois, un point par jour cuisine. */
+.chef-history-calendar {
+  display: grid;
+  gap: 10px;
+}
+
+.chef-calendar-head {
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
+  text-align: center;
+}
+
+.chef-calendar-head strong {
+  color: var(--ds-color-text-primary);
+  font-family: var(--ds-font-display, Georgia, serif);
+  font-size: 1.3rem;
+  font-weight: 460;
+  text-transform: capitalize;
+}
+
+.chef-calendar-head button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ds-color-text-primary);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.chef-calendar-summary {
+  margin: 0;
+  color: var(--ds-color-text-muted);
+  font-size: var(--ds-text-sm);
+  text-align: center;
+}
+
+.chef-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.chef-calendar-weekday {
+  color: var(--ds-color-text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.chef-calendar-grid button {
+  position: relative;
+  aspect-ratio: 1;
+  min-width: 0;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: var(--ds-color-background-muted);
+  color: var(--ds-color-text-muted);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.chef-calendar-grid button:disabled {
+  cursor: default;
+  opacity: .55;
+}
+
+.chef-calendar-grid button.is-today {
+  border-color: var(--ds-color-border-strong, var(--ds-color-border));
+}
+
+.chef-calendar-grid button.is-cooked {
+  background: color-mix(in srgb, var(--rank) 14%, var(--ds-color-background-muted));
+  color: var(--ds-color-text-primary);
+}
+
+.chef-calendar-grid button.is-success {
+  background: color-mix(in srgb, var(--rank) 30%, var(--ds-color-background-muted));
+  color: var(--ds-color-text-primary);
+  font-weight: 700;
+}
+
+.chef-calendar-grid button.is-active {
+  border-color: var(--rank);
+}
+
+.chef-calendar-grid button i {
+  position: absolute;
+  right: 3px;
+  bottom: 2px;
+  font-size: 9px;
+  font-style: normal;
+}
+
+.chef-history-open {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ds-color-text-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
 }

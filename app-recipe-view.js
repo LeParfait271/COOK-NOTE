@@ -479,7 +479,7 @@ function CookingMode({
     // Aide integree : les commandes utiles a cet instant, sans fenetre.
     suggestions.length > 0 && h('p', { className: 'cook-mode-say', 'aria-label': 'Commandes vocales utiles' },
       h('span', { className: 'cook-mode-say-label' }, tc('Dites')),
-      suggestions.map(item => h('span', { key: item, className: 'cook-mode-say-item' }, `« ${item} »`))
+      suggestions.map(item => h('span', { key: item, className: 'cook-mode-say-item', translate: 'no' }, VOICE_ENGLISH ? `‘${voiceSuggestionLabel(item)}’` : `« ${item} »`))
     ),
     h('footer', { className: 'cook-mode-nav' },
       h('button', { type: 'button', className: 'cook-mode-prev', disabled: prep && introIndex === 0, onClick: () => { setPanel(null); back(); } },
@@ -527,6 +527,12 @@ function RecipeView({
   ensureCatalog
 }) {
   const [factor, setFactor] = useState(1);
+  // Anglais : affichage metrique ou US (usUnits, app-recipe-model.js).
+  const [units, setUnits] = useState(() => cookNoteUnits);
+  const switchUnits = next => {
+    setCookNoteUnits(next);
+    setUnits(next);
+  };
   const variantRefs = useMemo(() => (
     getVariantRefs(recipe).length
       ? sortVariantRefs(getLeafVariantRefs(recipe, recipesById), recipesById)
@@ -911,6 +917,7 @@ function RecipeView({
         h(RecipeBreadcrumb, { recipe, selectedRecipe, showVariants, goHome, openRecipe }),
         h('h1', null, displayedRecipeTitle),
         h('div', { className: 'detail-meta' },
+          !showVariants && hasResolvedRecipe && getRecipeDiets(selectedRecipe).filter(id => id === 'vegetarien' || id === 'vegan' || id === 'sans-gluten').map(id => h('span', { key: `diet-${id}`, className: `detail-diet is-${id}` }, tc(dietLabel(id)))),
           showVariants
             ? h('span', { key: 'recipes' }, `${leafRecipeCount} recette${leafRecipeCount > 1 ? 's' : ''}`)
             : needsInlineVariantSelection && !selectedInlineVariantGroup
@@ -965,6 +972,8 @@ function RecipeView({
           },
             h('summary', { className: 'btn btn-ghost detail-action-button', 'aria-label': 'Plus d’actions' }, h(Icon, { name: 'settings' }), h('span', null, tc('Plus'))),
             h('div', { className: 'detail-utility-popover' },
+              // Minuteur libre (sans etape), nomme d'apres la fiche.
+              h(FreeTimerPicker, { compact: true, title: displayedRecipeTitle, onStarted: () => setUtilitiesOpen(false) }),
               h(Button, { variant: 'ghost', className: 'detail-utility-item', onClick: () => copyCurrentRecipe().finally(() => setUtilitiesOpen(false)) }, h(Icon, { name: 'copy' }), h('span', null, tc('Copier fiche'))),
               h(Button, { variant: 'ghost', className: 'detail-utility-item', onClick: () => {
                 setUtilitiesOpen(false);
@@ -982,6 +991,7 @@ function RecipeView({
     ),
     h('h1', { className: 'print-recipe-heading' }, displayedRecipeTitle),
     showVariants && h(CollectionLinksPanel, {
+      ensureCatalog,
       parent: recipe,
        variantRefs,
        recipesById,
@@ -1035,6 +1045,9 @@ function RecipeView({
       h('section', { id: 'recipe-panel-ingredients', role: 'tabpanel', className: mobileDetailTab === 'ingredients' ? 'recipe-panel ingredients-panel active-tab-panel' : 'recipe-panel ingredients-panel' },
         h('div', { className: 'panel-heading' },
           h('div', null, h('h2', null, tc('Ingrédients'))),
+          COOK_NOTE_LANG === 'en' && h('div', { className: 'units-toggle', role: 'group', 'aria-label': 'Units', translate: 'no' },
+            [['metric', 'Metric'], ['us', 'US']].map(([id, label]) => h('button', { key: id, type: 'button', className: units === id ? 'is-active' : '', 'aria-pressed': units === id, onClick: () => switchUnits(id) }, label))
+          ),
           visibleIngredientKeys.length > 1 && h('div', {
             className: readyIngredients === visibleIngredientKeys.length ? 'ingredient-progress is-complete' : 'ingredient-progress',
             role: 'progressbar',
@@ -1075,7 +1088,7 @@ function RecipeView({
                   ? h('span', { className: 'ingredient-section-label' }, renderLinkedText(item, inlineTargets, openRecipe, techniqueTargets, openTechnique))
                   : h('label', null,
                     h('input', { type: 'checkbox', checked: Boolean(checked[key]), onChange: () => toggle(key) }),
-                    renderIngredientLine(scaleIngredient(tc(item), factor))
+                    renderIngredientLine(usUnits(scaleIngredient(tc(item), factor)))
                   )
               );
             })),
@@ -1139,13 +1152,16 @@ function RecipeView({
               )
             ))
           ),
+          h(AnticipationBlock, { recipe: selectedRecipe }),
+          h(NutritionBlock, { recipe: selectedRecipe }),
           h(PrepTimelineBlock, { recipe: selectedRecipe })
         ),
         h(NotesFamilyTabs, { resetKey: detailKey },
           h(NotesFamily, { title: 'Servir' },
             h(FlavorMapBlock, { recipe: selectedRecipe }),
             h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique, hiddenKeys: hiddenPracticalKeys, onlyKeys: PRACTICAL_FAMILIES.serve }),
-            h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe })
+            h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
+            h(SimilarRecipesBlock, { recipe: selectedRecipe, recipes, openRecipe })
           ),
           h(NotesFamily, { title: 'Conserver' },
             h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique, hiddenKeys: hiddenPracticalKeys, onlyKeys: PRACTICAL_FAMILIES.keep }),
@@ -1195,9 +1211,14 @@ function RecipeView({
       open: shareOpen,
       onClose: () => setShareOpen(false),
       recipe: selectedRecipe,
-      shareUrl: selectedInlineVariantGroup
-        ? `${window.location.origin}${getInlineVariantUrl(recipe.id, selectedInlineVariantGroup.key)}`
-        : '',
+      shareUrl: (() => {
+        const base = selectedInlineVariantGroup
+          ? `${window.location.origin}${getInlineVariantUrl(recipe.id, selectedInlineVariantGroup.key)}`
+          : getCurrentRecipeUrl(selectedRecipe);
+        const info = getServingInfo(selectedRecipe);
+        const target = info && Math.abs(factor - 1) > 0.001 ? getServingTarget(selectedRecipe, factor) : 0;
+        return target ? `${base}${base.includes('?') ? '&' : '?'}pour=${target}` : base;
+      })(),
       notify
     })
   );

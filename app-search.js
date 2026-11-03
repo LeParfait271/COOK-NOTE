@@ -339,7 +339,14 @@ function rememberRequestedServings(query) {
   }
 }
 
+// Lien partage avec ses portions (?pour=6) : lu une fois a l'ouverture.
+let sharedServingsTaken = false;
 function takeRequestedServings() {
+  if (!sharedServingsTaken) {
+    sharedServingsTaken = true;
+    const shared = Number(new URLSearchParams(window.location.search).get('pour'));
+    if (shared > 0 && shared <= 99) return shared;
+  }
   try {
     const value = Number(sessionStorage.getItem(REQUESTED_SERVINGS_KEY));
     sessionStorage.removeItem(REQUESTED_SERVINGS_KEY);
@@ -366,7 +373,103 @@ function recipeUsesExcluded(recipe, word) {
   return pattern.test(text);
 }
 
+// ---------- Recherche en anglais ----------
+// En anglais, chaque fiche a aussi un index anglais tire de ses traductions
+// (tc) : « chicken curry » trouve « Curry de poulet ». Les tournures
+// « without », « for 6 », « under 30 min » sont ramenees au francais pour les
+// contraintes ; un ingredient exclu est cherche dans les deux langues.
+const ENGLISH_SEARCH_STOPWORDS = new Set(['a', 'an', 'and', 'the', 'of', 'with', 'in', 'on', 'to', 'recipe', 'recipes', 'some']);
+const englishSearchIndex = new WeakMap();
+
+function englishRecipeSearchFields(recipe) {
+  if (englishSearchIndex.has(recipe)) return englishSearchIndex.get(recipe);
+  const items = (recipe.ingredients || []).flatMap(group => [group.group, ...(group.items || [])]).filter(Boolean);
+  const nested = (recipe.ingredients || []).flatMap(group => (group?.recipe && typeof group.recipe === 'object' ? [group.recipe.title, ...(group.recipe.ingredients || []).flatMap(inner => inner.items || [])] : [])).filter(Boolean);
+  const fields = {
+    title: normalizeText(stripHtml(tc(recipe.title || ''))),
+    ingredients: normalizeText([...items, ...nested].map(item => stripHtml(tc(item))).join(' ')),
+    other: normalizeText([recipe.yield ? tc(recipe.yield) : '', ...(recipe.categories || []).map(tc), ...(recipe.steps || []).slice(0, 12).map(step => stripHtml(tc(typeof step === 'string' ? step : step?.text || '')))].join(' '))
+  };
+  englishSearchIndex.set(recipe, fields);
+  return fields;
+}
+
+// « dessert without oven for 6 under 1 hour » -> tournures francaises connues.
+function englishQueryToFrenchConstraints(normalizedQuery) {
+  return normalizedQuery
+    .replace(/\b(?:in\s+)?(?:under|less than|max(?:imum)?|within)\s+/g, 'en moins de ')
+    .replace(/\b(an?|one)\s+hour\b/g, '1 heure')
+    .replace(/\bhours?\b/g, 'heures')
+    .replace(/\bmins?\b/g, 'min')
+    .replace(/\bwithout\s+/g, 'sans ')
+    .replace(/\b(?:for|serves)\s+(\d+)(?:\s+(?:people|persons?|servings?|guests?))?\b/g, 'pour $1');
+}
+
+function englishRecipeSearchScore(recipe, query) {
+  const needle = englishQueryToFrenchConstraints(normalizeText(query).trim());
+  const constraints = splitSearchExclusions(needle);
+  const fields = englishRecipeSearchFields(recipe);
+  // Exclusions : mot anglais cherche dans le texte anglais, mot francais dans le francais.
+  if (constraints.excluded.some(word => new RegExp(`\\b${word.replace(/[^a-z0-9-]/g, '')}(?:e?s)?\\b`).test(`${fields.title} ${fields.ingredients}`) || recipeUsesExcluded(recipe, word))) return { score: 0, reasons: [] };
+  if (constraints.maxMinutes) {
+    const total = getRecipeTiming(recipe).total;
+    if (total && total > constraints.maxMinutes) return { score: 0, reasons: [] };
+  }
+  const tokens = constraints.rest.split(/\s+/).filter(token => token.length > 1 && !ENGLISH_SEARCH_STOPWORDS.has(token));
+  if (!tokens.length) return constraints.excluded.length || constraints.maxMinutes || constraints.servings ? { score: 1, reasons: [] } : { score: 0, reasons: [] };
+  const all = `${fields.title} ${fields.ingredients} ${fields.other}`;
+  const has = (text, token) => new RegExp(`\\b${token.replace(/[^a-z0-9-]/g, '')}(?:e?s)?\\b`).test(text);
+  if (!tokens.every(token => has(all, token))) return { score: 0, reasons: [] };
+  let score = 0;
+  const reasons = new Set();
+  const phrase = tokens.join(' ');
+  if (fields.title === phrase) score += 220;
+  else if (fields.title.startsWith(phrase)) score += 150;
+  tokens.forEach(token => {
+    if (has(fields.title, token)) { score += 60; reasons.add('titre'); }
+    if (has(fields.ingredients, token)) { score += 25; reasons.add('ingrédient'); }
+    if (has(fields.other, token)) { score += 8; reasons.add('catégorie'); }
+  });
+  return { score, reasons: Array.from(reasons).slice(0, 3) };
+}
+
+const SEARCH_DIETS = [
+  ['vegan', /\b(vegan|vegane|vegetalien(?:ne)?|plant based)\b/],
+  ['vegetarien', /\b(vegetarien(?:ne)?|veggie|vegetarian|sans viande|meat free)\b/],
+  ['sans-gluten', /\b(sans gluten|gluten free|gluten-free)\b/],
+  ['sans-lactose', /\b(sans lactose|sans lait|lactose free|dairy free|dairy-free)\b/]
+];
 function scoreRecipeSearch(recipe, query, recipesById = {}) {
+  // Regimes demandes : filtre strict, le reste de la phrase est cherche.
+  let rest = normalizeText(query || '');
+  const wanted = [];
+  SEARCH_DIETS.forEach(([id, pattern]) => {
+    if (pattern.test(rest)) {
+      wanted.push(id);
+      rest = rest.replace(pattern, ' ');
+    }
+  });
+  if (wanted.length) {
+    const diets = getRecipeDiets(recipe);
+    if (!wanted.every(id => diets.includes(id)) || !(recipe.ingredients || []).length) return { score: 0, reasons: [] };
+    rest = rest.replace(/\s+/g, ' ').trim();
+    if (!rest) return { score: 1, reasons: ['régime'] };
+    return scoreRecipeSearchText(recipe, rest, recipesById);
+  }
+  return scoreRecipeSearchText(recipe, query, recipesById);
+}
+
+function scoreRecipeSearchText(recipe, query, recipesById = {}) {
+  // Anglais : le meilleur des deux index (une recherche en francais reste possible).
+  if (typeof COOK_NOTE_LANG !== 'undefined' && COOK_NOTE_LANG === 'en') {
+    const english = englishRecipeSearchScore(recipe, query);
+    const french = scoreFrenchRecipeSearch(recipe, englishQueryToFrenchConstraints(normalizeText(query).trim()), recipesById);
+    return english.score >= french.score ? english : french;
+  }
+  return scoreFrenchRecipeSearch(recipe, query, recipesById);
+}
+
+function scoreFrenchRecipeSearch(recipe, query, recipesById = {}) {
   const fullNeedle = normalizeText(query).trim();
   if (!fullNeedle) return { score: 0, reasons: [] };
   const constraints = splitSearchExclusions(fullNeedle);

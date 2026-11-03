@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -18,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -26,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -130,6 +133,7 @@ final class ShoppingScreen {
             }
         });
         addButtonRows(actions, buttons);
+        addManualSection(content);
 
         if (host.shopping.recipeIds.isEmpty()) {
             host.body(actions, "Ajoute une recette depuis une fiche pour pr\u00E9parer les courses.");
@@ -386,10 +390,112 @@ final class ShoppingScreen {
         section.addView(checkBox, params);
     }
 
+    // ---------- Ajouts a la main (comme le site) : lessive, pain... ----------
+    private static final String MANUAL_PREFS = "cook_note_manual_shopping";
+
+    private List<String> manualItems() {
+        String raw = host.getSharedPreferences(MANUAL_PREFS, Context.MODE_PRIVATE).getString("items", "");
+        ArrayList<String> items = new ArrayList<String>();
+        for (String item : Arrays.asList(raw.split("\n"))) if (item.trim().length() > 0) items.add(item.trim());
+        return items;
+    }
+
+    private void saveManualItems(List<String> items) {
+        StringBuilder raw = new StringBuilder();
+        for (String item : items) raw.append(item.replace("\n", " ")).append('\n');
+        SharedPreferences.Editor editor = host.getSharedPreferences(MANUAL_PREFS, Context.MODE_PRIVATE).edit();
+        editor.putString("items", raw.toString());
+        editor.apply();
+    }
+
+    void addManualSection(LinearLayout content) {
+        final List<String> items = manualItems();
+        LinearLayout section = host.addSection(content, "Ajouts à la main", countLabel(items.size(), "article", "articles"));
+        LinearLayout row = new LinearLayout(host);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        final EditText input = new EditText(host);
+        input.setHint("Pain, lessive…");
+        input.setSingleLine(true);
+        input.setTextColor(COLOR_TEXT);
+        input.setHintTextColor(COLOR_DIM);
+        input.setTextSize(host.adjustedTextSize(14));
+        LinearLayout.LayoutParams inputParams = new LinearLayout.LayoutParams(0, dp(44), 1);
+        inputParams.rightMargin = dp(7);
+        row.addView(input, inputParams);
+        Button add = host.actionButton("Ajouter", true);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String value = input.getText().toString().trim();
+                if (value.length() == 0) return;
+                items.add(value);
+                saveManualItems(items);
+                showShoppingList();
+            }
+        });
+        row.addView(add, new LinearLayout.LayoutParams(dp(96), dp(40)));
+        section.addView(row, host.fullWidthParams(dp(6), ViewGroup.LayoutParams.WRAP_CONTENT));
+        for (final String item : new ArrayList<String>(items)) {
+            LinearLayout line = new LinearLayout(host);
+            line.setOrientation(LinearLayout.HORIZONTAL);
+            line.setGravity(Gravity.CENTER_VERTICAL);
+            final String key = "manual:" + item;
+            CheckBox checkBox = new CheckBox(host);
+            checkBox.setText(item);
+            checkBox.setTextColor(COLOR_TEXT);
+            checkBox.setTextSize(host.adjustedTextSize(13));
+            checkBox.setButtonTintList(null);
+            checkBox.setFocusable(false);
+            checkBox.setClickable(true);
+            checkBox.setPadding(dp(7), dp(5), dp(7), dp(6));
+            checkBox.setBackground(panelGradient(COLOR_CARD, COLOR_CARD_SOFT, COLOR_BORDER_SOFT, 1, 7));
+            checkBox.setChecked(host.shopping.doneKeys.contains(key));
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) host.shopping.doneKeys.add(key);
+                    else host.shopping.doneKeys.remove(key);
+                    host.saveUserState();
+                }
+            });
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+            params.rightMargin = dp(7);
+            line.addView(checkBox, params);
+            Button remove = host.actionButton("×", false);
+            remove.setContentDescription("Retirer " + item);
+            remove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    items.remove(item);
+                    host.shopping.doneKeys.remove(key);
+                    saveManualItems(items);
+                    showShoppingList();
+                }
+            });
+            line.addView(remove, new LinearLayout.LayoutParams(dp(48), dp(40)));
+            section.addView(line, host.fullWidthParams(dp(5), ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+    }
+
+    private String withManual(String text, boolean onlyTodo) {
+        StringBuilder out = new StringBuilder(text == null ? "" : text);
+        boolean first = true;
+        for (String item : manualItems()) {
+            if (onlyTodo && host.shopping.doneKeys.contains("manual:" + item)) continue;
+            if (first) {
+                out.append("\n\nAjouts :");
+                first = false;
+            }
+            out.append("\n- ").append(item);
+        }
+        return out.toString();
+    }
+
     void copyShoppingTodo() {
         ClipboardManager clipboard = (ClipboardManager) host.getSystemService(Context.CLIPBOARD_SERVICE);
         if (clipboard == null) return;
-        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note - courses a faire", host.shoppingText(true, false)));
+        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note - courses a faire", withManual(host.shoppingText(true, false), true)));
         Toast.makeText(host, "Courses restantes copi\u00E9es", Toast.LENGTH_SHORT).show();
     }
 
@@ -444,7 +550,7 @@ final class ShoppingScreen {
     void copyShoppingList() {
         ClipboardManager clipboard = (ClipboardManager) host.getSystemService(Context.CLIPBOARD_SERVICE);
         if (clipboard == null) return;
-        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note - liste de courses", host.shoppingText(false, true)));
+        clipboard.setPrimaryClip(ClipData.newPlainText("Cook Note - liste de courses", withManual(host.shoppingText(false, true), false)));
         Toast.makeText(host, "Liste de courses copi\u00E9e", Toast.LENGTH_SHORT).show();
     }
 

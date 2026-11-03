@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "cook-note",
+      "runtimeExecutable": "C:\\COOK NOTE\\COOK-NOTE v2\\.tools\\node\\current\\node.exe",
+      "runtimeArgs": ["server.js"],
+      "port": 8080
+    }
+  ]
+}

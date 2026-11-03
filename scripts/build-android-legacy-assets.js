@@ -253,7 +253,11 @@ globalThis.__cookNoteAndroidHelpers = {
   isMasterRecipe,
   isCategoryCollectionRecipe,
   getInlineVariantOptions,
-  chefRecipeRating
+  chefRecipeRating,
+  getRecipeDiets,
+  seasonCatalog,
+  buildConstellation,
+  getRecipeAnticipations
 };`, context, { filename: APP_FILE });
 
   const helpers = context.__cookNoteAndroidHelpers;
@@ -613,9 +617,40 @@ function buildExtrasPayload(recipesById, helpers, version) {
     if (ids.size) recipeTechniques[recipe.id] = [...ids];
     recipeRatings[recipe.id] = helpers.chefRecipeRating(recipe);
   });
+  // Atlas des ingredients (constellation, saisons) charge a part.
+  const vm = require('node:vm');
+  const atlasContext = { window: {} };
+  atlasContext.window.window = atlasContext.window;
+  vm.createContext(atlasContext);
+  const atlasDir = path.join(ROOT, 'assets', 'ingredients');
+  vm.runInContext(fs.readFileSync(path.join(atlasDir, 'atlas-core.js'), 'utf8'), atlasContext);
+  atlasContext.cookNoteAtlas = atlasContext.window.cookNoteAtlas;
+  atlasContext.window.cookNoteAtlas.FILES.forEach(file => vm.runInContext(fs.readFileSync(path.join(atlasDir, file), 'utf8'), atlasContext));
+  const atlas = atlasContext.window.cookNoteAtlas;
+  // Regimes par recette (vegetarien, vegan, sans gluten, sans lactose).
+  const recipeDiets = {};
+  playable.forEach(recipe => {
+    const diets = helpers.getRecipeDiets(recipe);
+    if (diets.length) recipeDiets[recipe.id] = diets;
+  });
+  // Carte des saisons : produits et mois, recettes par produit.
+  const table = helpers.seasonCatalog(recipes, atlas);
+  const seasons = Object.fromEntries(Object.entries(table).map(([kind, items]) => [kind, items.map(item => ({ name: item.name, months: [...item.months], recipes: item.recipes.map(recipe => recipe.id).filter(Boolean).slice(0, 12) }))]));
+  // Constellation precalculee (positions en portrait) : le telephone ne fait que dessiner.
+  const sky = helpers.buildConstellation(recipes, { width: 1000, height: 1600 }, atlas);
+  const constellation = {
+    width: 1000,
+    height: 1600,
+    families: sky.families.map(family => ({ id: family.id, label: family.label, color: family.color })),
+    stars: sky.stars.map(star => ({ x: Math.round(star.x), y: Math.round(star.y), size: Math.round(star.size * 10) / 10, label: star.label, family: star.family, named: Boolean(star.named), count: star.count, portrait: star.entry.portrait, saveur: star.entry.saveur, saison: star.entry.saison, astuce: star.entry.astuce, accords: star.entry.accords })),
+    links: sky.links.filter(link => link.same).map(link => [link.a, link.b])
+  };
   return {
-    schema: 1,
+    schema: 2,
     version,
+    recipeDiets,
+    seasons,
+    constellation,
     techniques: helpers.TECHNIQUE_GUIDES.map(guide => ({ id: guide.id, title: guide.title, label: guide.label, description: guide.description, steps: guide.steps || [], tip: guide.tip || '' })),
     recipeTechniques,
     recipeRatings

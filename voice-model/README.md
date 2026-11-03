@@ -11,3 +11,8 @@
 - Telecharge une seule fois par appareil, puis garde dans le navigateur
   (IndexedDB). La reconnaissance se fait sur l'appareil : le son n'est
   jamais envoye.
+
+## Anglais
+
+- `vosk-model-small-en-us-0.15.tar.gz` : modele anglais officiel Vosk (alphacephei.com, zip SHA-256 30f26242c4eb449f948e42cb302dd7a686cb29a3423a8367f99ff41780942498), reconditionne en tar.gz comme le modele francais. Charge par `app-voice.js` quand le site est en anglais ; commandes dans `app-voice-en.js`.
+

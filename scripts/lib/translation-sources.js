@@ -133,6 +133,9 @@ function collectEnglishSources(root) {
     if (!name || name === text.trim() || !/[a-zà-ÿ]{3}/i.test(name)) return;
     add(name, 'recette');
     add(name.charAt(0).toUpperCase() + name.slice(1), 'recette');
+    // Variante qui garde l'unite (« feuilles de basilic frais ») : liste du menu.
+    const withUnit = text.replace(/<[^>]+>/g, '').replace(/^\s*\d+(?:[.,/]\d+)?(?:\s*(?:à|-)\s*\d+(?:[.,]\d+)?)?\s*/, '').replace(/\s*\([^)]*\)\s*$/, '').trim();
+    if (withUnit && withUnit !== name && /[a-zà-ÿ]{3}/i.test(withUnit)) add(withUnit, 'recette');
   }));
   // Atlas des ingredients.
   const atlasContext = loadScripts(root, ['assets/ingredients/atlas-core.js']);
@@ -158,7 +161,7 @@ function collectEnglishSources(root) {
   // nombres sont repris tels quels), les pluriels « ${n > 1 ? 's' : ''} »
   // donnent leurs deux formes. app-voice.js est exclu : les commandes vocales
   // restent en francais (modele de reconnaissance francais).
-  fs.readdirSync(root).filter(file => /^app[\w-]*\.js$/.test(file) && file !== 'app-voice.js').forEach(file => {
+  fs.readdirSync(root).filter(file => /^app[\w-]*\.js$/.test(file) && file !== 'app-voice.js' && file !== 'app-voice-en.js').forEach(file => {
     const source = fs.readFileSync(path.join(root, file), 'utf8');
     for (const text of uiLiterals(source)) add(text, 'interface');
   });

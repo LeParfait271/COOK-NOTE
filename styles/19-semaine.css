@@ -1,0 +1,577 @@
+/* Ma semaine et Mon frigo : memes jetons que les autres panneaux. Un jour par
+   ligne, deux cases (midi, soir) ; le frigo en pastilles puis la liste. */
+.week-modal,
+.fridge-modal {
+  width: min(760px, 100%);
+}
+
+.week-tools,
+.fridge-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0 14px;
+}
+
+.week-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ds-color-text-primary);
+  font: inherit;
+  font-size: var(--ds-text-sm);
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.week-tool.is-primary {
+  border-color: transparent;
+  background: var(--ds-gold, #e9b949);
+  color: #1c1a14;
+}
+
+.week-tool:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+.week-days {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.week-day {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--ds-color-divider);
+}
+
+.week-day > strong {
+  padding-top: 8px;
+  color: var(--ds-color-text-primary);
+}
+
+.week-meals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.week-slot {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px dashed var(--ds-color-border);
+  border-radius: 12px;
+}
+
+.week-slot.is-filled {
+  grid-template-columns: minmax(0, 1fr) auto;
+  border-style: solid;
+  background: var(--ds-color-background-muted);
+}
+
+.week-slot small {
+  grid-column: 1 / -1;
+  color: var(--ds-color-text-muted);
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.week-slot-title,
+.week-slot-add,
+.week-slot-actions button,
+.week-picker li button,
+.fridge-items button,
+.fridge-results button {
+  border: 0;
+  background: none;
+  color: var(--ds-color-text-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.week-slot-title {
+  overflow: hidden;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.week-slot-add {
+  color: var(--ds-color-text-muted);
+}
+
+.week-slot-actions {
+  display: flex;
+  gap: 2px;
+}
+
+.week-slot-actions button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: var(--ds-color-text-muted);
+  text-align: center;
+}
+
+.week-slot-actions button:hover {
+  background: var(--ds-color-divider);
+  color: var(--ds-color-text-primary);
+}
+
+.week-picker input,
+.fridge-form input {
+  width: 100%;
+  min-width: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 10px;
+  background: var(--ds-color-background);
+  color: var(--ds-color-text-primary);
+  font: inherit;
+}
+
+.fridge-form input {
+  flex: 1 1 220px;
+  border-radius: 999px;
+}
+
+.week-picker ul {
+  display: grid;
+  gap: 2px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.week-picker li button {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: var(--ds-text-sm);
+}
+
+.week-picker li button:hover {
+  background: var(--ds-color-divider);
+}
+
+.fridge-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.fridge-items button {
+  padding: 6px 12px;
+  border: 1px solid color-mix(in srgb, #8fcf86 50%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, #8fcf86 12%, transparent);
+  font-size: var(--ds-text-sm);
+}
+
+.fridge-items .fridge-clear {
+  border-color: var(--ds-color-border);
+  background: transparent;
+  color: var(--ds-color-text-muted);
+}
+
+.fridge-hint {
+  color: var(--ds-color-text-muted);
+  font-size: var(--ds-text-sm);
+}
+
+.fridge-results {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fridge-results button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 12px;
+  background: var(--ds-color-background-muted);
+}
+
+.fridge-results strong {
+  font-weight: 650;
+}
+
+.fridge-results small {
+  grid-column: 1;
+  color: var(--ds-color-text-muted);
+  font-size: 12px;
+}
+
+.fridge-results em {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  color: var(--ds-color-text-secondary);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.fridge-results em.is-complete {
+  color: #8fcf86;
+}
+
+@media (max-width: 560px) {
+  .week-day {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .week-day > strong {
+    padding-top: 0;
+  }
+}
+
+/* Case remplie : « Midi » et actions sur la premiere ligne, titre entier dessous. */
+.week-modal .week-slot.is-filled {
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "label actions" "title title";
+  align-items: center;
+}
+
+.week-modal .week-slot.is-filled small {
+  grid-area: label;
+}
+
+.week-modal .week-slot.is-filled .week-slot-actions {
+  grid-area: actions;
+}
+
+.week-modal .week-slot-title {
+  grid-area: title;
+  min-height: 0;
+  padding: 0;
+  box-shadow: none;
+  overflow: visible;
+  font-size: .95rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.week-modal .week-slot-actions button,
+.week-modal .week-slot-add {
+  min-height: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.week-modal .week-slot-add {
+  padding: 4px 0;
+}
+
+/* Ajouts a la main et lien Bring! du panier. */
+.shopping-extra-form {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0 4px;
+}
+
+.shopping-extra-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 14px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+  background: var(--ds-color-background);
+  color: var(--ds-color-text-primary);
+  font: inherit;
+}
+
+.shopping-extra-form button,
+.shopping-modal .shopping-bring {
+  padding: 6px 12px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ds-color-text-secondary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.shopping-extra-form button:disabled {
+  opacity: .45;
+}
+
+.shopping-modal .shopping-picked-item {
+  grid-template-columns: minmax(0, 1fr) auto 36px;
+  grid-template-areas: "title title remove" "qty bring remove";
+}
+
+.shopping-modal .shopping-bring {
+  grid-area: bring;
+  justify-self: end;
+}
+
+.shopping-modal .shopping-extra {
+  margin-top: 14px;
+}
+
+/* Accessibilite, mode jour : petits titres dores, quantites, reperes du pied
+   de page et bouton dore assombris pour atteindre le contraste AA (4,5:1). */
+body:has(.mc-shell.theme-light) .eyebrow,
+body:has(.mc-shell.theme-light) .ingredient-qty {
+  color: #7a5410;
+}
+
+body:has(.mc-shell.theme-light) .site-footer-count,
+body:has(.mc-shell.theme-light) .site-footer-version,
+body:has(.mc-shell.theme-light) .practical-equipment strong,
+body:has(.mc-shell.theme-light) .equipment-row strong {
+  color: #5d4a35;
+}
+
+body:has(.mc-shell.theme-light) .week-tool.is-primary {
+  background: #e0b347;
+  color: #1c1a14;
+}
+
+body:has(.mc-shell.theme-light) .ingredient-line .ingredient-qty,
+body:has(.mc-shell.theme-light) .practical-chip-row strong,
+body:has(.mc-shell.theme-light) .recipe-quick-facts strong {
+  color: #7a5410;
+}
+
+
+body:has(.mc-shell.theme-light) .recipe-equipment-strip strong {
+  color: #6b4a12;
+}
+
+
+/* Minuteur libre (dock des minuteurs et menu « Plus » de la fiche). */
+.free-timer-open {
+  align-self: center;
+  padding: 6px 12px;
+  border: 1px dashed var(--ds-color-border-strong, var(--ds-color-border));
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ds-color-text-secondary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.free-timer {
+  display: grid;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 14px;
+  background: var(--ds-color-background-muted);
+}
+
+.free-timer-presets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.free-timer-presets button,
+.free-timer-form button {
+  padding: 6px 8px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ds-color-text-primary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.free-timer-form {
+  display: flex;
+  gap: 4px;
+}
+
+.free-timer-form input {
+  min-width: 0;
+  padding: 6px 10px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+  background: var(--ds-color-background);
+  color: var(--ds-color-text-primary);
+  font: inherit;
+  font-size: 12px;
+}
+
+.free-timer-form input[type="number"] {
+  width: 64px;
+  flex: none;
+}
+
+.free-timer-form input[type="text"] {
+  flex: 1;
+}
+
+.free-timer-form button[type="submit"] {
+  border-color: transparent;
+  background: var(--ds-gold, #e9b949);
+  color: #1c1a14;
+}
+
+.free-timer-form button:disabled {
+  opacity: .45;
+}
+
+/* A anticiper : liste des preparations en avance et rappel agenda. */
+.anticipation-card ul {
+  display: grid;
+  gap: 6px;
+  margin: 6px 0 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.anticipation-card li {
+  color: var(--ds-color-text-primary);
+  font-size: var(--ds-text-sm);
+}
+
+.anticipation-card li strong {
+  display: inline-block;
+  min-width: 72px;
+  color: var(--ds-gold-soft, #f3cf86);
+}
+
+.anticipation-remind {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.anticipation-remind label {
+  display: grid;
+  gap: 2px;
+  color: var(--ds-color-text-muted);
+  font-size: 11px;
+}
+
+.anticipation-remind input {
+  padding: 6px 10px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 10px;
+  background: var(--ds-color-background);
+  color: var(--ds-color-text-primary);
+  font: inherit;
+  font-size: 13px;
+}
+
+.anticipation-remind button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ds-color-text-primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.anticipation-card small {
+  color: var(--ds-color-text-muted);
+  font-size: 12px;
+}
+
+body:has(.mc-shell.theme-light) .anticipation-card li strong {
+  color: #7a5410;
+}
+
+/* Journal technique (Preferences). */
+.journal-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.journal-block > div:first-child {
+  display: grid;
+  gap: 2px;
+}
+
+.journal-block small {
+  color: var(--ds-color-text-muted);
+}
+
+.journal-actions {
+  display: flex;
+  gap: 6px;
+}
+
+
+/* Lien de partage (semaine, favoris) : QR quand le telephone ne propose pas le partage. */
+.share-link-button {
+  position: relative;
+  display: inline-block;
+}
+
+.share-link-popover {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 8px);
+  left: 0;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  width: 220px;
+  padding: 14px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 16px;
+  background: var(--ds-color-background);
+  box-shadow: 0 18px 40px rgb(0 0 0 / .35);
+}
+
+.share-link-popover p {
+  margin: 0;
+  color: var(--ds-color-text-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.share-link-popover button {
+  padding: 5px 12px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ds-color-text-primary);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+

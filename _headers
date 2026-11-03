@@ -41,6 +41,9 @@
 /app-components.js
   Cache-Control: public, max-age=300, must-revalidate
 
+/app-basket.js
+  Cache-Control: public, max-age=300, must-revalidate
+
 /app-panels.js
   Cache-Control: public, max-age=300, must-revalidate
 
@@ -50,7 +53,13 @@
 /app-main.js
   Cache-Control: public, max-age=300, must-revalidate
 
+/app-journal.js
+  Cache-Control: public, max-age=300, must-revalidate
+
 /app-english.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/app-voice-en.js
   Cache-Control: public, max-age=300, must-revalidate
 
 /app-voice.js
@@ -60,6 +69,15 @@
   Cache-Control: public, max-age=300, must-revalidate
 
 /app-kitchen.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/app-week.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/app-anticipate.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/app-nutrition.js
   Cache-Control: public, max-age=300, must-revalidate
 
 /app-seasons.js

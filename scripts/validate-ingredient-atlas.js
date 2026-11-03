@@ -18,7 +18,8 @@ function loadAtlas(context) {
 }
 
 function atlasFiles() {
-  return fs.readdirSync(ATLAS_DIR).filter(file => /^atlas-(?!core).+\.js$/.test(file)).sort();
+  // Fiches atlas-*.js et table nutritionnelle (nutrition.js), chargees comme FILES.
+  return fs.readdirSync(ATLAS_DIR).filter(file => /^atlas-(?!core).+\.js$/.test(file) || file === 'nutrition.js').sort();
 }
 
 function main() {
@@ -30,7 +31,7 @@ function main() {
   const families = new Set(atlas.FAMILIES.map(family => family.id));
   const problems = [];
   const listed = [...atlas.FILES].sort().join(',');
-  if (listed !== atlasFiles().join(',')) problems.push('atlas-core.js : FILES doit lister exactement les fichiers assets/ingredients/atlas-*.js.');
+  if (listed !== atlasFiles().join(',')) problems.push('atlas-core.js : FILES doit lister exactement les fichiers assets/ingredients/atlas-*.js et nutrition.js.');
 
   atlas.entries.forEach(entry => {
     if (!entry.id || !/^[a-z0-9-]+$/.test(entry.id)) problems.push(`Fiche sans id valide : ${entry.name}`);
@@ -39,6 +40,11 @@ function main() {
     atlas.FIELDS.forEach(field => {
       if (!String(entry[field] || '').trim()) problems.push(`Fiche ${entry.id} : champ « ${field} » vide`);
     });
+    // Valeurs nutritionnelles (nutrition.js) : obligatoires pour l'estimation par portion.
+    const values = atlas.nutritionOf(entry.id);
+    if (!Array.isArray(values) || values.length < 4 || values.slice(0, 4).some(value => !Number.isFinite(value) || value < 0)) {
+      problems.push(`Fiche ${entry.id} : valeurs nutritionnelles absentes ou invalides dans nutrition.js ([kcal, proteines, glucides, lipides, poids d'une piece])`);
+    }
     // Legumes et fruits alimentent la carte des saisons : mois obligatoires
     // ("6-9", "3-5,9-11", "toute" ou "aucune" pour un produit sec ou importe).
     if ((entry.family === 'legumes' || entry.family === 'fruits') && !/^(toute|aucune|(1[0-2]|[1-9])-(1[0-2]|[1-9])(,(1[0-2]|[1-9])-(1[0-2]|[1-9]))*)$/.test(String(entry.mois || ''))) {

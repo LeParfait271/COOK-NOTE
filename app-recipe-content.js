@@ -128,7 +128,7 @@ function polishDisplayText(value) {
 }
 
 function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], openTechnique = null) {
-  const rawValue = polishDisplayText(tc(text));
+  const rawValue = polishDisplayText(usUnits(tc(text)));
   const value = rawValue;
   const activeTargets = targets;
   const activeTechniqueTargets = techniqueTargets;
@@ -648,6 +648,11 @@ function recipeDescription(recipe, recipesById = {}) {
     .filter(Boolean)
     .slice(0, 3);
   const ingredientsText = ingredientNames.length ? ` avec ${ingredientNames.join(', ')}` : '';
+  // Anglais : meme phrase que les pages /en/ construites (build-site.js).
+  if (COOK_NOTE_LANG === 'en') {
+    const names = (recipe.ingredients || []).flatMap(group => group.items || []).slice(0, 4).map(item => stripHtml(tc(item)).replace(/^[\d.,/\s]+(?:g|kg|ml|cl|l)?\s+/i, '').trim()).filter(Boolean);
+    return truncateText(`${tc(recipe.title)} on Cook Note: ${tc(primaryCategory(recipe)).toLowerCase()} recipe${recipe.yield ? ` (${tc(recipe.yield)})` : ''}${names.length ? ` with ${names.join(', ')}` : ''}.`);
+  }
   return truncateText(t('seo.recipe.description', {
     title: recipe.title,
     category,
@@ -657,12 +662,12 @@ function recipeDescription(recipe, recipesById = {}) {
 }
 
 function getPathRecipe() {
-  const match = window.location.pathname.match(/^\/recette\/([^/?#]+)\/?$/);
+  const match = window.location.pathname.match(/^(?:\/en)?\/recette\/([^/?#]+)\/?$/);
   return match ? decodeURIComponent(match[1]) : null;
 }
 
 function getPathPage() {
-  return window.location.pathname === '/techniques' || window.location.pathname === '/techniques/' ? 'techniques' : 'home';
+  return /^(?:\/en)?\/techniques\/?$/.test(window.location.pathname) ? 'techniques' : 'home';
 }
 
 function getInitialTechnique() {
@@ -675,15 +680,16 @@ function getInitialTechnique() {
 }
 
 function getRecipeUrl(recipeId, variantId = '') {
-  return `/recette/${encodeURIComponent(variantId || recipeId)}/`;
+  // En anglais, les adresses anglaises (/en/...) : partage et Google coherents.
+  return `${COOK_NOTE_LANG === 'en' ? '/en' : ''}/recette/${encodeURIComponent(variantId || recipeId)}/`;
 }
 
 function getHomeUrl() {
-  return `${window.location.origin}/`;
+  return `${window.location.origin}${COOK_NOTE_LANG === 'en' ? '/en/' : '/'}`;
 }
 
 function getTechniquesUrl() {
-  return `${window.location.origin}/techniques`;
+  return `${window.location.origin}${COOK_NOTE_LANG === 'en' ? '/en' : ''}/techniques`;
 }
 
 function getInitialRecipe() {
