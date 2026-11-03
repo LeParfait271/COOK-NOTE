@@ -140,7 +140,6 @@
   pointer-events: none;
 }
 
-
 .constellation-accords {
   display: flex;
   flex-wrap: wrap;
@@ -168,7 +167,6 @@
   cursor: pointer;
   transition: background .25s ease;
 }
-
 
 .constellation-accords button:hover,
 .constellation-surprise:hover {
@@ -540,6 +538,46 @@
 .constellation-onsite p {
   margin: 2px 0 0 !important;
   color: rgb(239 230 212 / .78) !important;
+}
+
+.constellation-recipes-toggle {
+  margin-top: 10px;
+  padding: 7px 14px;
+  border: 1px solid color-mix(in srgb, var(--star, #f3cf86) 50%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--star, #f3cf86) 14%, transparent);
+  color: #efe6d4;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.constellation-recipes {
+  display: grid;
+  gap: 4px;
+  max-height: 220px;
+  margin: 10px 0 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.constellation-recipes button {
+  width: 100%;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: rgb(239 230 212 / .05);
+  color: #efe6d4;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.constellation-recipes button:hover {
+  background: rgb(239 230 212 / .12);
 }
 
 /* Legende : chaque famille est un filtre qui allume son amas. */

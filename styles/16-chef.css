@@ -657,3 +657,98 @@ body:has(.mc-shell.theme-light) .chef-modal { --rank-ink: color-mix(in srgb, var
     animation: none;
   }
 }
+
+/* Paliers de technique (tous les 200) : metal de la medaille, encoches sur
+   la barre. Serie et protection de division sous la barre du classement. */
+.chef-medal { --tier: var(--ds-gold); }
+.chef-medal.is-tier-bronze { --tier: #c98a55; }
+.chef-medal.is-tier-argent { --tier: #c9d0da; }
+.chef-medal.is-tier-or { --tier: #f2c65a; }
+.chef-medal.is-tier-platine { --tier: #9fe3dc; }
+.chef-medal[class*="is-tier-"] .chef-medal-frame { fill: color-mix(in srgb, var(--tier) 70%, #1a140c); stroke: var(--tier); }
+.chef-medal[class*="is-tier-"] .chef-medal-core { fill: color-mix(in srgb, var(--tier) 24%, #120d07); }
+.chef-medal[class*="is-tier-"] .chef-medal-mark { fill: var(--tier); }
+
+.chef-achievement-list li[class*="is-tier-"] strong i {
+  background: color-mix(in srgb, var(--tier, var(--ds-gold)) 20%, transparent);
+}
+.chef-achievement-list li.is-tier-bronze { --tier: #c98a55; }
+.chef-achievement-list li.is-tier-argent { --tier: #c9d0da; }
+.chef-achievement-list li.is-tier-or { --tier: #f2c65a; }
+.chef-achievement-list li.is-tier-platine { --tier: #9fe3dc; }
+
+.chef-tier-bar {
+  position: relative;
+  overflow: visible;
+}
+
+.chef-tier-bar b {
+  position: absolute;
+  top: -2px;
+  width: 2px;
+  height: 12px;
+  border-radius: 1px;
+  background: var(--ds-color-border-strong, var(--ds-color-border));
+  transform: translateX(-1px);
+}
+
+.chef-tier-bar b.is-reached {
+  background: var(--ds-gold-soft, #f3cf86);
+}
+
+.chef-perks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.chef-perk {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.chef-perk.is-streak {
+  background: color-mix(in srgb, #f0a35e 22%, transparent);
+  color: color-mix(in srgb, #f0a35e 70%, var(--ds-color-text-primary));
+}
+
+.chef-perk.is-shield {
+  background: color-mix(in srgb, var(--rank) 20%, transparent);
+  color: var(--rank-ink);
+}
+
+/* Filtres des techniques : cinq choix, toujours sur une grille sans
+   debordement (3 + 2 sur telephone). Etiquette de palier lisible. */
+.chef-filters {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  width: 100%;
+}
+
+.chef-filters button {
+  min-width: 0;
+  padding: 8px 4px;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .chef-filters {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .chef-filters button {
+    grid-column: span 2;
+  }
+
+  .chef-filters button:nth-child(n + 4) {
+    grid-column: span 3;
+  }
+}
+
+.chef-achievement-list li[class*="is-tier-"] strong i {
+  color: var(--tier);
+  border-color: color-mix(in srgb, var(--tier) 45%, transparent);
+}

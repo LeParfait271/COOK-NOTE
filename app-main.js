@@ -1201,8 +1201,8 @@ function App() {
   if (!recipes.length) {
     return h('div', { className: 'mc-shell' },
       h('main', { className: 'fatal-state' },
-        h('h1', null, 'Recettes introuvables'),
-        h('p', null, 'Le fichier de recettes doit définir window.RECIPES avant app.js.')
+        h('h1', null, tc('Recettes introuvables')),
+        h('p', null, tc('Le fichier de recettes doit définir window.RECIPES avant app.js.'))
       )
     );
   }
@@ -1252,7 +1252,7 @@ function App() {
     // Progression de lecture : utile sur une fiche, pas sur l'accueil ni une categorie.
     activeRecipe && !getVariantRefs(activeRecipe).length && h(ScrollProgress),
     h(OfflineStatusBar, { isOnline, favoriteCount: favorites.length }),
-    h('a', { className: 'skip-link', href: '#cook-note-content' }, 'Aller au contenu'),
+    h('a', { className: 'skip-link', href: '#cook-note-content' }, tc('Aller au contenu')),
     h('div', { id: 'cook-note-content', className: 'content-anchor', tabIndex: -1 },
     missingRecipeId
       ? (catalogResolvingRecipe
@@ -1340,8 +1340,8 @@ function App() {
           h('img', { src: '/assets/brand/mark-64.png', alt: '', width: 64, height: 64, loading: 'lazy', decoding: 'async' })
           ),
           h('div', { className: 'site-footer-copy' },
-          h('p', { className: 'site-footer-brand' }, 'Cook Note \u00a9 2026.'),
-          h('p', null, 'Carnet de recettes et techniques culinaires, sur le web et sur Android 5+, par MaruChiwa.'),
+          h('p', { className: 'site-footer-brand' }, tc('Cook Note \u00a9 2026.')),
+          h('p', null, tc('Carnet de recettes et techniques culinaires, sur le web et sur Android 5+, par MaruChiwa.')),
           // Catalogue et version : une ligne discrete sous la presentation (en
           // pastilles, elles avaient le meme poids que les liens).
           h('p', { className: 'site-footer-stats', 'aria-label': 'Informations catalogue' },
@@ -1360,16 +1360,24 @@ function App() {
               title: `${option.label} - ${option.detail}`
             }, h(Icon, { name: option.kind === 'apk' ? 'download' : 'device' }), h('span', null, option.label), h('small', null, option.detail))
           ),
+          // Langue : francais ou anglais (contenu traduit, voir tc dans app.js).
+          h('button', {
+            type: 'button',
+            className: 'site-footer-action site-footer-lang',
+            lang: COOK_NOTE_LANG === 'en' ? 'fr' : 'en',
+            onClick: () => setCookNoteLang(COOK_NOTE_LANG === 'en' ? 'fr' : 'en'),
+            'aria-label': COOK_NOTE_LANG === 'en' ? 'Afficher le site en français' : 'Show the site in English'
+          }, h(Icon, { name: 'spark' }), h('span', null, COOK_NOTE_LANG === 'en' ? 'Français' : 'English'), h('small', null, COOK_NOTE_LANG === 'en' ? 'Version originale' : 'Translated content')),
           h('a', {
             className: 'site-footer-action site-footer-request',
             href: 'mailto:cooknote271@gmail.com?subject=Demande%20d%27ajout%20de%20recette%20Cook%20Note&body=Bonjour%2C%0A%0AJ%27aimerais%20demander%20l%27ajout%20de%20cette%20recette%20dans%20Cook%20Note%20%3A%0A%0ANom%20de%20la%20recette%20%3A%0AIngr%C3%A9dients%20%3A%0A%C3%89tapes%20%3A%0A%0AMerci.'
-          }, h(Icon, { name: 'spark' }), h('span', null, 'Demander une recette'), h('small', null, 'Proposer une fiche')),
+          }, h(Icon, { name: 'spark' }), h('span', null, tc('Demander une recette')), h('small', null, tc('Proposer une fiche'))),
           h('button', {
             type: 'button',
             className: 'site-footer-action site-footer-top',
             'aria-label': 'Retour en haut de page',
             onClick: () => window.scrollTo({ top: 0, behavior: preferences.reduceMotion ? 'auto' : 'smooth' })
-          }, h(Icon, { name: 'arrowUp' }), h('span', null, 'Retour haut'))
+          }, h(Icon, { name: 'arrowUp' }), h('span', null, tc('Retour haut')))
         )
       )
     ),

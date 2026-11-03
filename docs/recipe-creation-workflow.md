@@ -96,7 +96,9 @@ le classement a l'utilisateur.
 2. Integrer recette, classement, liens et images. Pour chaque nouvel
    ingredient, ajouter sa fiche complete dans l'atlas des ingredients
    (`assets/ingredients/atlas-*.js`, voir COOK_NOTE_RULES.md) ; sinon
-   `npm run check` echoue.
+   `npm run check` echoue. Puis lancer `npm run translate:en` : la version
+   anglaise des nouveaux textes est produite par DeepL (voir COOK_NOTE_RULES.md,
+   « Traduction anglaise »).
 3. Synchroniser catalogue, manifeste, sitemap et `dist/`.
 4. Pour une modification produit, augmenter la version du site de `0.01`.
 5. Valider recettes, quantites, doublons, parents, liens, images, production,

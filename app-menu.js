@@ -883,8 +883,10 @@ function buildMenuTimeline(recipes) {
         timing.active ? `${formatMinutesShort(timing.active)} de préparation` : '',
         timing.cook ? `${formatMinutesShort(timing.cook)} de cuisson` : ''
       ].filter(Boolean).join(', ');
+      // Gabarit sans gabarit imbrique : il reste lisible par la traduction.
+      const detailText = detail ? ` (${detail})` : '';
       groups[2].items.push(lead
-        ? `${recipe.title} : commencer ${formatMinutesShort(lead)} avant de servir${detail ? ` (${detail})` : ''}.`
+        ? `${recipe.title} : commencer ${formatMinutesShort(lead)} avant de servir${detailText}.`
         : `${recipe.title} : à préparer au moment.`);
       if (/\b(frire|friture|croustillant|minute|chaud|saisir|griller)\b/.test(menuRecipeStepText(recipe))) {
         groups[3].items.push(`${recipe.title} : finir et servir aussitôt.`);

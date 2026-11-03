@@ -128,7 +128,7 @@ function polishDisplayText(value) {
 }
 
 function renderLinkedText(text, targets, openRecipe, techniqueTargets = [], openTechnique = null) {
-  const rawValue = polishDisplayText(text);
+  const rawValue = polishDisplayText(tc(text));
   const value = rawValue;
   const activeTargets = targets;
   const activeTechniqueTargets = techniqueTargets;
@@ -493,7 +493,7 @@ function getLinkedRecipeRefs(recipe, recipesById = {}) {
       const category = primaryCategory(linked);
       return {
         id: ref.id,
-        role: ref.role || (category === 'Base' ? 'Base' : category === 'Sauces' ? 'Sauce' : 'Recette liée'),
+        role: ref.role || (category === 'Base' ? 'Base' : category === 'Sauces' ? tc('Sauce') : tc('Recette liée')),
         recipe: linked
       };
     });

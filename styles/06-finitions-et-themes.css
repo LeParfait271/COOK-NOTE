@@ -366,7 +366,6 @@
 .variant-picker-panel,
 .variant-choice-panel,
 .recipe-panel,
-.shopping-store-dashboard,
 .site-footer-inner {
   position: relative;
   overflow: hidden;
@@ -381,8 +380,7 @@
 .recipe-panel::before,
 .recipe-summary-panel::before,
 .variant-picker-panel::before,
-.variant-choice-panel::before,
-.shopping-store-dashboard::before {
+.variant-choice-panel::before {
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
@@ -714,7 +712,6 @@
   background: color-mix(in srgb, #22c55e 6%, transparent);
 }
 
-.shopping-smart-groups span,
 .shopping-owned-list button,
 .menu-planner-summary span {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .055);

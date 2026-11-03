@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // Commandes vocales du mode mains libres, memes regles que le site
-// (VOICE_PHRASES et parseVoiceCommand dans app-kitchen.js) : la phrase
+// (VOICE_PHRASES et parseVoiceCommand dans app-voice.js) : la phrase
 // entiere, moins les politesses, doit etre une commande ; une phrase de
 // conversation ne fait rien.
 final class VoiceCommands {

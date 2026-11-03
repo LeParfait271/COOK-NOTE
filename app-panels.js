@@ -90,11 +90,11 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
       onMouseDown: event => event.stopPropagation()
     },
       h('div', { className: 'modal-head' },
-         h('h2', null, 'Rechercher'),
+         h('h2', null, tc('Rechercher')),
         h('button', { type: 'button', className: 'icon-btn', onClick: closeSearch, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'field search-modal-field' },
-        h('label', { className: 'sr-only', htmlFor: 'recipe-search-input' }, 'Rechercher une recette'),
+        h('label', { className: 'sr-only', htmlFor: 'recipe-search-input' }, tc('Rechercher une recette')),
         h('input', {
           id: 'recipe-search-input',
           type: 'search',
@@ -113,7 +113,7 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
           placeholder: fridge ? 'Mes ingrédients : œufs, tomates, fromage…' : 'Recette, ingrédients, usage, saison...'
         })
       ),
-      fridge && !hasQuery && h('p', { className: 'search-fridge-hint' }, 'Liste ce que tu as sous la main, séparé par des virgules : les recettes faisables tout de suite passent en premier, puis celles où il manque un ou deux ingrédients.'),
+      fridge && !hasQuery && h('p', { className: 'search-fridge-hint' }, tc('Liste ce que tu as sous la main, séparé par des virgules : les recettes faisables tout de suite passent en premier, puis celles où il manque un ou deux ingrédients.')),
       hasQuery && liveSuggestions.length > 0 && h('div', { className: 'search-live-suggestions', 'aria-label': 'Suggestions pendant la frappe' },
         liveSuggestions.map(item => h('button', {
           key: item,
@@ -143,7 +143,7 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
           }
         }, item.label))
       ),
-      !hasQuery && h('p', { className: 'search-empty-state' }, 'Saisissez un plat, un ingrédient ou une envie.'),
+      !hasQuery && h('p', { className: 'search-empty-state' }, tc('Saisissez un plat, un ingrédient ou une envie.')),
       hasQuery
         ? h('div', { className: searchPending ? 'search-result-count search-pending' : 'search-result-count', role: 'status', 'aria-live': 'polite' },
           searchPending
@@ -187,8 +187,8 @@ function SearchPanel({ open, onClose, query, resultQuery, setQuery, searchRef, r
         )
         : h('div', { className: 'empty-state search-empty', style: { justifyItems: 'center', textAlign: 'center' } },
           h('span', { className: 'empty-state-mark', 'aria-hidden': true, style: { display: 'grid', placeItems: 'center', width: 42, height: 42, border: '1px solid color-mix(in srgb,var(--accent) 52%,var(--line))', borderRadius: '999px', background: 'color-mix(in srgb,var(--accent) 12%,var(--surface-soft))' } }, h(Icon, { name: 'search' })),
-          h('h2', null, 'Aucun résultat'),
-          h('p', null, 'Essaie un ingrédient, une catégorie ou un mot proche.')
+          h('h2', null, tc('Aucun résultat')),
+          h('p', null, tc('Essaie un ingrédient, une catégorie ou un mot proche.'))
         ))
 
     )
@@ -322,7 +322,7 @@ function CommandPalette({
     },
       h('div', { className: 'command-input-shell' },
         h(Icon, { name: 'search' }),
-        h('label', { className: 'sr-only', htmlFor: 'cook-note-command-input' }, 'Commande ou recette'),
+        h('label', { className: 'sr-only', htmlFor: 'cook-note-command-input' }, tc('Commande ou recette')),
         h('input', {
           id: 'cook-note-command-input',
           ref: commandRef,
@@ -337,14 +337,14 @@ function CommandPalette({
               else runFirstCommand();
             }
           },
-          placeholder: (compactCommandInput ? 'Rechercher…' : 'Commande, recette, ingr\u00e9dient...')
+          placeholder: (compactCommandInput ? tc('Rechercher…') : tc('Commande, recette, ingr\u00e9dient...'))
         }),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'command-sections' },
         !cleanTerm && h('section', { className: 'command-section' },
           h('div', { className: 'command-section-head' },
-              h('strong', null, 'Accès rapides')
+              h('strong', null, tc('Accès rapides'))
           ),
           h('div', { className: 'command-action-grid' },
             matchedActions.map(action => h('button', {
@@ -363,7 +363,7 @@ function CommandPalette({
             !matchedActions.length && h('button', { type: 'button', className: 'command-row command-search-fallback', onClick: openSearchWithTerm },
               h('span', { className: 'command-row-icon' }, h(Icon, { name: 'search' })),
               h('span', { className: 'command-row-copy' },
-                h('strong', null, 'Recherche complète'),
+                h('strong', null, tc('Recherche complète')),
                 h('small', null, cleanTerm || 'Catalogue')
               )
             )
@@ -371,8 +371,8 @@ function CommandPalette({
         ),
         cleanTerm && h('section', { className: 'command-section' },
           h('div', { className: 'command-section-head' },
-            h('strong', null, 'Recettes'),
-            h('button', { type: 'button', onClick: openSearchWithTerm }, 'Recherche complète')
+            h('strong', null, tc('Recettes')),
+            h('button', { type: 'button', onClick: openSearchWithTerm }, tc('Recherche complète'))
           ),
           commandRecipes.length
             ? h('div', { className: 'command-recipe-list' },
@@ -392,8 +392,8 @@ function CommandPalette({
             )
             : h('div', { className: 'command-empty' },
               h('strong', null, `Aucune recette pour « ${cleanTerm} »`),
-              h('p', null, 'Essaie un ingrédient, un plat ou une envie : « poulet », « tarte », « rapide ».'),
-              h('button', { type: 'button', className: 'btn btn-ghost command-empty-action', onClick: openSearchWithTerm }, 'Chercher dans tout le catalogue')
+              h('p', null, tc('Essaie un ingrédient, un plat ou une envie : « poulet », « tarte », « rapide ».')),
+              h('button', { type: 'button', className: 'btn btn-ghost command-empty-action', onClick: openSearchWithTerm }, tc('Chercher dans tout le catalogue'))
             )
         )
       )
@@ -451,9 +451,9 @@ function ShoppingTransferQr({ url }) {
   return h('div', { className: 'shopping-transfer', role: 'region', 'aria-label': 'Envoyer la liste sur un autre appareil' },
     h('div', { className: qrReady ? 'share-qr is-ready' : 'share-qr' },
       h('canvas', { ref: canvasRef, className: 'qr-canvas', width: 196, height: 196, 'aria-label': 'QR code de la liste de courses' }),
-      !qrReady && h('span', null, 'Préparation…')
+      !qrReady && h('span', null, tc('Préparation…'))
     ),
-    h('p', null, 'Scanne ce code avec l’appareil photo du téléphone : la liste s’ouvre dans Cook Note, prête pour le magasin.')
+    h('p', null, tc('Scanne ce code avec l’appareil photo du téléphone : la liste s’ouvre dans Cook Note, prête pour le magasin.'))
   );
 }
 
@@ -486,7 +486,6 @@ function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, f
   const freshAisleCount = scopedShoppingData.aisleGroups
     .filter(group => /primeur|cremerie|oeufs|boucherie|poissonnerie/.test(normalizeText(group.label)))
     .reduce((total, group) => total + group.items.length, 0);
-  const topAisles = scopedShoppingData.aisleGroups.slice(0, 4).map(group => group.label);
   const setShoppingChecked = updater => {
     setCheckedItems(prev => {
       const next = typeof updater === 'function' ? updater(prev) : updater;
@@ -585,7 +584,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, f
     h('section', { className: 'modal-panel shopping-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'shopping-modal-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
         h('div', null,
-          h('p', { className: 'eyebrow' }, 'Panier courses'),
+          h('p', { className: 'eyebrow' }, tc('Panier courses')),
           h('h2', { id: 'shopping-modal-title' }, (recipes.length ? `${recipes.length} recette${recipes.length > 1 ? 's' : ''} cochée${recipes.length > 1 ? 's' : ''}` : 'Aucune recette'))
         ),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
@@ -609,43 +608,28 @@ function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, f
               }, '×')
             ))
           )
-        : h('p', { className: 'muted' }, 'Ajoute une recette depuis sa fiche pour construire une liste groupée.'),
-      recipes.length > 0 && h('div', { className: 'shopping-summary' },
-        h('span', null, `${scopedShoppingData.groupedItems.length} à acheter`),
-        scopedShoppingData.ownedGroupedItems.length > 0 && h('span', null, `${scopedShoppingData.ownedGroupedItems.length} déjà maison`),
-        h('span', null, `${checkedCount} coché${checkedCount > 1 ? 's' : ''}`),
-        h('button', {
-          type: 'button',
-          className: freshOnly ? 'active' : '',
-          'aria-pressed': freshOnly,
-          onClick: () => setFreshOnly(value => !value)
-        }, (freshOnly ? 'Tout afficher' : 'Frais seulement')),
-        checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}), 'aria-label': `Tout décocher (${checkedCount} article${checkedCount > 1 ? 's' : ''})` }, 'Tout décocher')
-      ),
-      recipes.length > 0 && h('div', { className: 'shopping-store-dashboard', style: { '--shopping-progress': `${handledRatio}%` }, 'aria-label': 'Synthèse magasin' },
-        h('div', { className: 'shopping-store-score' },
-          h('span', { 'aria-hidden': true }, h('span', null)),
-          h('strong', null, `${handledRatio}%`),
-        h('small', null, 'traité')
+        : h('p', { className: 'muted' }, tc('Ajoute une recette depuis sa fiche pour construire une liste groupée.')),
+      // Progression : une ligne de chiffres, une barre, deux filtres.
+      recipes.length > 0 && h('div', { className: 'shopping-progress', style: { '--shopping-progress': `${handledRatio}%` }, 'aria-label': 'Avancement des courses' },
+        h('div', { className: 'shopping-progress-line' },
+          h('strong', null, `${scopedShoppingData.groupedItems.length - checkedCount} à prendre`),
+          h('span', null, [
+            `${checkedCount} coché${checkedCount > 1 ? 's' : ''}`,
+            scopedShoppingData.ownedGroupedItems.length ? `${scopedShoppingData.ownedGroupedItems.length} déjà maison` : '',
+            `${scopedShoppingData.aisleGroups.length} rayon${scopedShoppingData.aisleGroups.length > 1 ? 's' : ''}`
+          ].filter(Boolean).join(' · ')),
+          h('em', null, `${handledRatio} %`)
         ),
-        h('div', { className: 'shopping-store-metrics' },
-          h('span', null, h('strong', null, scopedShoppingData.aisleGroups.length), h('small', null, 'rayons')),
-          h('span', null, h('strong', null, freshAisleCount), h('small', null, 'frais')),
-          h('span', null, h('strong', null, topAisles.length ? topAisles.join(' / ') : 'Aucun'), h('small', null, 'trajet'))
+        h('div', { className: 'shopping-progress-bar', role: 'progressbar', 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-valuenow': handledRatio, 'aria-label': `${handledRatio} % des courses faites` }, h('i', null)),
+        h('div', { className: 'shopping-progress-tools' },
+          h('button', {
+            type: 'button',
+            className: freshOnly ? 'active' : '',
+            'aria-pressed': freshOnly,
+            onClick: () => setFreshOnly(value => !value)
+          }, freshOnly ? 'Tout afficher' : `Frais seulement${freshAisleCount ? ` (${freshAisleCount})` : ''}`),
+          checkedCount > 0 && h('button', { type: 'button', onClick: () => setShoppingChecked({}), 'aria-label': `Tout décocher (${checkedCount} article${checkedCount > 1 ? 's' : ''})` }, 'Tout décocher')
         )
-      ),
-      recipes.length > 0 && scopedShoppingData.smartGroups.length > 0 && h('div', { className: 'shopping-smart-groups' },
-        scopedShoppingData.smartGroups.map(group => h('span', { key: group.label }, group.label + ': ' + group.items.map(item => item.name).join(', ')))
-      ),
-      recipes.length > 1 && batchPlan.length > 0 && h('div', { className: 'batch-plan' },
-        h('div', { className: 'batch-plan-head' },
-          h('p', { className: 'eyebrow' }, 'Batch'),
-          h('h3', null, 'Ordre de pr\u00e9paration')
-        ),
-        batchPlan.map(group => h('section', { key: group.key },
-          h('strong', null, group.label),
-          h('ul', null, group.items.map(item => h('li', { key: item }, item)))
-        ))
       ),
       recipes.length > 0 && h('div', { className: 'shopping-aisles-shell' },
         h('div', { className: 'shopping-aisles' },
@@ -658,7 +642,9 @@ function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, f
             const checked = Boolean(checkedItems[item.key]);
             const amount = formatShoppingAmount(item);
             const displayName = item.name;
-            return h('label', { key: item.key, className: checked ? 'shopping-line checked' : 'shopping-line' },
+            // Ligne simple : case, quantite, nom ; la recette d'origine n'est
+            // ecrite que si le panier en compte plusieurs.
+            return h('label', { key: item.key, className: checked ? 'shopping-line checked' : 'shopping-line', title: item.recipeNames.join(', ') },
               h('input', {
                 type: 'checkbox',
                 checked,
@@ -670,23 +656,23 @@ function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, f
                 h('span', null, item.name),
                 item.purchaseHint && h('em', null, item.purchaseHint)
               ),
-              h('small', null, item.recipeNames.join(', ')),
+              recipes.length > 1 && h('small', null, item.recipeNames.join(', ')),
               h('button', { type: 'button', className: 'shopping-owned-btn', onClick: event => {
                 event.preventDefault();
                 toggleOwnedItem(item.key);
-              }, 'aria-label': ('Marquer ' + displayName + ' comme déjà à la maison'), title: 'Marquer comme déjà à la maison' }, 'J’ai déjà')
+              }, 'aria-label': ('Marquer ' + displayName + ' comme déjà à la maison'), title: 'Marquer comme déjà à la maison' }, 'J’ai')
             );
           })
         ))
         )
       ),
       recipes.length > 0 && freshOnly && scopedShoppingData.groupedItems.length === 0 && scopedShoppingData.ownedGroupedItems.length === 0 && h('div', { className: 'empty-state shopping-empty' },
-        h('h2', null, 'Aucun achat frais'),
-        h('p', null, 'Les recettes cochées sont couvertes par les rayons secs ou par ce qui est déjà à la maison.')
+        h('h2', null, tc('Aucun achat frais')),
+        h('p', null, tc('Les recettes cochées sont couvertes par les rayons secs ou par ce qui est déjà à la maison.'))
       ),
       scopedShoppingData.ownedGroupedItems.length > 0 && h('div', { className: 'shopping-owned-list' },
-        h('strong', null, 'Déjà à la maison'),
-        h('p', { className: 'shopping-owned-help' }, '« Toujours » garde l’article au placard : il sera rangé d’office dans tes prochaines listes.'),
+        h('strong', null, tc('Déjà à la maison')),
+        h('p', { className: 'shopping-owned-help' }, tc('« Toujours » garde l’article au placard : il sera rangé d’office dans tes prochaines listes.')),
         scopedShoppingData.ownedGroupedItems.map(item => {
           if (item.ownedByPantry) return h('span', { key: item.key, title: 'Déjà à la maison' }, `${[formatShoppingAmount(item), item.name].filter(Boolean).join(' ')} · maison`);
           const staple = isStaple(item);
@@ -699,24 +685,40 @@ function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, f
               onClick: () => toggleStaple(item),
               'aria-label': staple ? `Ne plus garder ${item.name} au placard` : `Garder ${item.name} au placard pour les prochaines listes`,
               title: staple ? 'Gardé au placard pour les prochaines listes' : 'Garder au placard pour les prochaines listes'
-            }, staple ? 'Placard ✓' : 'Toujours')
+            }, staple ? tc('Placard ✓') : tc('Toujours'))
           );
         })
       ),
-      h('div', { className: 'cart-output combined-cart', role: 'region', 'aria-label': 'Détail de la liste de courses' }, shoppingOutputNodes(text)),
-      h('div', { className: 'modal-actions' },
-        h(Button, { variant: 'primary', disabled: !recipes.length, onClick: () => copyText(text).then(() => {
-          setCopied(true);
-          notify?.('Liste de courses copiée');
-        }) }, (copied ? 'Copié' : 'Copier la liste complète')),
-        h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: () => copyText(compactText).then(() => {
-          setCopied(true);
-          notify?.('Liste compacte copiée');
-        }) }, 'Copier compact'),
-        h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: shareText, title: 'Partager la liste', ariaLabel: 'Partager la liste' }, h(Icon, { name: 'share' })),
-        h(Button, { variant: 'ghost', className: 'icon-square', disabled: !recipes.length, onClick: () => window.print(), title: 'Imprimer la liste', ariaLabel: 'Imprimer la liste' }, h(Icon, { name: 'print' })),
-        h(Button, { variant: 'subtle', disabled: !recipes.length || !transferUrl, onClick: () => setTransferOpen(value => !value), pressed: transferOpen, title: 'Afficher un QR code pour ouvrir la liste sur le téléphone' }, transferOpen ? 'Masquer le QR code' : 'Sur mon téléphone'),
-        h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: clearBasket }, 'Vider le panier')
+      recipes.length > 1 && batchPlan.length > 0 && h('details', { className: 'shopping-fold batch-plan' },
+        h('summary', null, tc('Ordre de préparation des recettes')),
+        batchPlan.map(group => h('section', { key: group.key },
+          h('strong', null, group.label),
+          h('ul', null, group.items.map(item => h('li', { key: item }, item)))
+        ))
+      ),
+      recipes.length > 0 && h('details', { className: 'shopping-fold' },
+        h('summary', null, tc('Texte de la liste (conservation comprise)')),
+        h('div', { className: 'cart-output combined-cart', role: 'region', 'aria-label': 'Détail de la liste de courses' }, shoppingOutputNodes(text))
+      ),
+      // Actions : envoyer (partage du telephone, sinon copie) et copier en
+      // premier, le reste en petites pastilles.
+      h('div', { className: 'modal-actions shopping-actions' },
+        h('div', { className: 'shopping-actions-main' },
+          h(Button, { variant: 'primary', disabled: !recipes.length, onClick: shareText }, h(Icon, { name: 'share' }), h('span', null, navigator.share ? tc('Envoyer la liste') : tc('Copier la liste'))),
+          navigator.share && h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: () => copyText(text).then(() => {
+            setCopied(true);
+            notify?.('Liste de courses copiée');
+          }) }, h(Icon, { name: 'copy' }), h('span', null, copied ? tc('Copiée') : tc('Copier')))
+        ),
+        h('div', { className: 'shopping-actions-more' },
+          h('button', { type: 'button', disabled: !recipes.length, onClick: () => copyText(compactText).then(() => {
+            setCopied(true);
+            notify?.('Liste compacte copiée');
+          }) }, 'Copier compact'),
+          h('button', { type: 'button', disabled: !recipes.length || !transferUrl, onClick: () => setTransferOpen(value => !value), 'aria-pressed': transferOpen, title: 'Afficher un QR code pour ouvrir la liste sur le téléphone' }, transferOpen ? tc('Masquer le QR code') : tc('Sur mon téléphone')),
+          h('button', { type: 'button', disabled: !recipes.length, onClick: () => window.print() }, 'Imprimer'),
+          h('button', { type: 'button', className: 'is-danger', disabled: !recipes.length, onClick: clearBasket }, tc('Vider le panier'))
+        )
       ),
       transferOpen && recipes.length > 0 && transferUrl && h(ShoppingTransferQr, { url: transferUrl })
     )
@@ -759,8 +761,8 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
     h('section', { className: 'modal-panel menu-planner-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'menu-planner-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head menu-planner-modal-head' },
         h('div', null,
-          h('p', { className: 'eyebrow' }, 'Mode menu'),
-          h('h2', { id: 'menu-planner-title' }, 'Composer un repas')
+          h('p', { className: 'eyebrow' }, tc('Mode menu')),
+          h('h2', { id: 'menu-planner-title' }, tc('Composer un repas'))
         ),
         h('div', { className: 'menu-planner-head-actions' },
           h(Button, { variant: 'subtle', onClick: changeWholeMenu, ariaLabel: 'Proposer un autre menu complet' }, 'Autre menu'),
@@ -783,7 +785,7 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
       ),
       h('div', { className: 'menu-planner-controls' },
         h('label', { className: 'factor-control serving-control quantity-select-control menu-serving-control', 'aria-label': 'Choisir le nombre de personnes du menu' },
-          h('span', { className: 'factor-label' }, 'Personnes'),
+          h('span', { className: 'factor-label' }, tc('Personnes')),
           h('select', {
             className: 'quantity-select',
             value: String(peopleCount),
@@ -792,9 +794,9 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
           },
             [1, 2, 3, 4, 5, 6, 8, 10, 12].map(value => h('option', { key: value, value: String(value) }, String(value)))
           ),
-          h('span', { className: 'quantity-unit' }, peopleCount > 1 ? 'personnes' : 'personne')
+          h('span', { className: 'quantity-unit' }, peopleCount > 1 ? tc('personnes') : tc('personne'))
         ),
-        h('span', { className: 'menu-serving-hint' }, 'Les quantités du menu et des courses suivent ce nombre.')
+        h('span', { className: 'menu-serving-hint' }, tc('Les quantités du menu et des courses suivent ce nombre.'))
       ),
       // Le style du menu en une phrase (la note « 98/100 » faisait gadget).
       h('p', { className: 'menu-planner-reason' }, menu.reason),
@@ -821,34 +823,34 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
       ),
       h('div', { className: 'menu-service-grid' },
         servicePlan.timeline.length > 0 && h('section', { className: 'menu-service-panel menu-service-panel-wide' },
-          h('p', { className: 'eyebrow' }, 'Timeline'),
+          h('p', { className: 'eyebrow' }, tc('Timeline')),
           servicePlan.timeline.map(group => h('div', { key: group.key, className: 'menu-service-block' },
             h('strong', null, group.label),
             h('ul', null, group.items.map(item => h('li', { key: item }, item)))
           ))
         ),
         h('section', { className: 'menu-service-panel' },
-          h('p', { className: 'eyebrow' }, 'Charge mentale'),
+          h('p', { className: 'eyebrow' }, tc('Charge mentale')),
           h('strong', null, servicePlan.stress.level),
           h('ul', null, (servicePlan.stress.reasons.length ? servicePlan.stress.reasons : ['Menu simple à coordonner.']).map(item => h('li', { key: item }, item)))
         ),
         h('section', { className: 'menu-service-panel' },
-          h('p', { className: 'eyebrow' }, 'Courses'),
+          h('p', { className: 'eyebrow' }, tc('Courses')),
           servicePlan.shoppingHints.map(group => h('div', { key: group.label, className: 'menu-service-block' },
             h('strong', null, group.label),
             h('ul', null, group.items.map(item => h('li', { key: item }, item)))
           ))
         ),
         servicePlan.leftovers.length > 0 && h('section', { className: 'menu-service-panel' },
-          h('p', { className: 'eyebrow' }, 'Restes'),
+          h('p', { className: 'eyebrow' }, tc('Restes')),
           h('ul', null, servicePlan.leftovers.map(item => h('li', { key: item }, item)))
         ),
         h('section', { className: 'menu-service-panel' },
-          h('p', { className: 'eyebrow' }, 'Service'),
+          h('p', { className: 'eyebrow' }, tc('Service')),
           h('ul', null, servicePlan.serviceTips.map(item => h('li', { key: item.title }, `${item.title} : ${item.tip}`)))
         ),
         h('section', { className: 'menu-service-panel' },
-          h('p', { className: 'eyebrow' }, 'Matériel'),
+          h('p', { className: 'eyebrow' }, tc('Matériel')),
           h('ul', null, servicePlan.conflicts.map(item => h('li', { key: item }, item)))
         )
       ),
@@ -867,13 +869,13 @@ function PreferencesPanel({ open, onClose, preferences, updatePreferences, favor
     h('section', { className: 'modal-panel preferences-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'preferences-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head menu-planner-modal-head' },
         h('div', null,
-          h('p', { className: 'eyebrow' }, 'Affichage'),
-          h('h2', { id: 'preferences-title' }, 'Préférences')
+          h('p', { className: 'eyebrow' }, tc('Affichage')),
+          h('h2', { id: 'preferences-title' }, tc('Préférences'))
         ),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'preference-group' },
-        h('strong', null, 'Thème'),
+        h('strong', null, tc('Thème')),
         h('div', { className: 'segmented-control', role: 'group', 'aria-label': 'Thème' },
           h('button', { type: 'button', className: theme === 'dark' ? 'active' : '', 'aria-pressed': theme === 'dark', title: 'Conserver le mode nuit', onClick: () => update({ theme: 'dark' }) }, 'Nuit'),
           h('button', { type: 'button', className: theme === 'light' ? 'active' : '', 'aria-pressed': theme === 'light', title: 'Activer le mode jour', onClick: () => update({ theme: 'light' }) }, 'Jour')
@@ -881,7 +883,7 @@ function PreferencesPanel({ open, onClose, preferences, updatePreferences, favor
       ),
       (favoriteCount > 0 || !isOnline) && h('div', { className: 'preference-group preference-offline-group' },
         h('div', null,
-          h('strong', null, 'Favoris hors-ligne'),
+          h('strong', null, tc('Favoris hors-ligne')),
           h('small', null, isOnline
             ? `${favoriteCount} favori${favoriteCount > 1 ? 's' : ''} à préparer pour une consultation sans réseau.`
             : 'Connexion absente : les favoris déjà préchargés restent disponibles.')
@@ -899,8 +901,8 @@ function PreferencesPanel({ open, onClose, preferences, updatePreferences, favor
       ),
       h('div', { className: 'preference-group preference-data-group' },
         h('div', { className: 'preference-data-copy' },
-          h('strong', null, 'Sauvegarde locale'),
-          h('small', null, 'Exporte ou restaure tes favoris, notes et listes de courses sur cet appareil.')
+          h('strong', null, tc('Sauvegarde locale')),
+          h('small', null, tc('Exporte ou restaure tes favoris, notes et listes de courses sur cet appareil.'))
         ),
         h('div', { className: 'preference-data-actions' },
           h(Button, { variant: 'subtle', onClick: exportLocalData, ariaLabel: 'Exporter les données locales' }, 'Exporter'),
@@ -1013,7 +1015,7 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '', step
     className: ['factor-control quantity-select-control multiplier-select-control', className].filter(Boolean).join(' '),
     'aria-label': 'Multiplier les quantités'
   },
-    h('span', { className: 'factor-label' }, 'Quantité'),
+    h('span', { className: 'factor-label' }, tc('Quantité')),
     h('select', {
       className: 'quantity-select',
       value: String(factor),
@@ -1024,7 +1026,7 @@ function QuantityFactorControl({ recipe, factor, setFactor, className = '', step
         value: String(value)
       }, `${String(value).replace('.', ',')}x`))
     ),
-    h('span', { className: 'quantity-unit' }, 'fois')
+    h('span', { className: 'quantity-unit' }, tc('fois'))
   );
 }
 
@@ -1041,7 +1043,7 @@ function CollectionSeasonFilter({ items, recipesById, season, setSeason }) {
       'aria-pressed': !season,
       onClick: () => setSeason('')
     },
-      h('span', { className: 'season-name' }, 'Toutes'),
+      h('span', { className: 'season-name' }, tc('Toutes')),
       h('span', { className: 'season-count' }, items.length)
     ),
     SEASONS.map(name => {
@@ -1121,11 +1123,11 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, pr
         )
       ),
       h('div', { className: 'collection-filter-row' },
-        h('span', { className: 'collection-filter-label' }, 'Saison'),
+        h('span', { className: 'collection-filter-label' }, tc('Saison')),
         h(CollectionSeasonFilter, { items: recipeEntries.map(entry => entry.item), recipesById, season, setSeason })
       ),
       showFamilies && h('div', { className: 'collection-filter-row' },
-        h('span', { className: 'collection-filter-label' }, 'Famille'),
+        h('span', { className: 'collection-filter-label' }, tc('Famille')),
         h('div', { className: 'collection-family-filter', role: 'group', 'aria-label': `Familles de ${parent.title}` },
           h('button', { type: 'button', className: family ? '' : 'active', 'aria-pressed': !family, onClick: () => setFamily('') }, 'Toutes', h('span', null, recipeEntries.length)),
           familyOrder.map(name => h('button', {
@@ -1142,7 +1144,7 @@ function CollectionLinksPanel({ parent, variantRefs, recipesById, openRecipe, pr
       h('span', null, `${visibleEntries.length} recette${visibleEntries.length > 1 ? 's' : ''}`, visibleEntries.length !== recipeEntries.length && h('em', null, ` sur ${recipeEntries.length}`)),
       (season || family || filter) && h('button', { type: 'button', onClick: () => { setSeason(''); setFamily(''); setFilter(''); } }, 'Réinitialiser')
     ),
-    !visibleEntries.length && h('p', { className: 'collection-empty' }, 'Aucune recette avec ces filtres.'),
+    !visibleEntries.length && h('p', { className: 'collection-empty' }, tc('Aucune recette avec ces filtres.')),
     h('div', { className: 'variant-card-grid' },
       visibleEntries.map(({ variant, item }) => {
         const image = displayRecipeImage(item) || displayRecipeImage(parent);
@@ -1192,7 +1194,7 @@ function RecipeBreadcrumb({ recipe, selectedRecipe, showVariants, goHome, openRe
   const openCategory = () => categoryParentId ? openRecipe(categoryParentId) : goHome();
   const openCurrentParent = () => openRecipe(breadcrumbRecipe.id);
   return h('nav', { className: 'recipe-breadcrumb', 'aria-label': 'Fil d’Ariane' },
-    h('button', { type: 'button', onClick: goHome, 'aria-label': 'Retour au catalogue Cook Note', title: 'Retour au catalogue' }, 'Cook Note'),
+    h('button', { type: 'button', onClick: goHome, 'aria-label': 'Retour au catalogue Cook Note', title: 'Retour au catalogue' }, tc('Cook Note')),
     h('span', null, '/'),
     !isRootParent && !repeatsTitle && h(React.Fragment, null,
       categoryParentId
@@ -1385,7 +1387,7 @@ function IngredientKnowledgeBlock({ recipe }) {
         ),
         h('p', null, card.storage),
         h('dl', null,
-          h('dt', null, 'Vigilance'),
+          h('dt', null, tc('Vigilance')),
           h('dd', null, card.avoid)
         )
       ))
@@ -1408,9 +1410,9 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
   if (needsVariantSelection && !hasVariantSelection) {
     return h('section', { className: 'recipe-summary-panel recipe-summary-empty', 'aria-label': 'Résumé de la recette' },
       h('div', { className: 'recipe-summary-head' },
-        h('h2', null, 'Fiche rapide')
+        h('h2', null, tc('Fiche rapide'))
       ),
-      h('p', { className: 'recipe-summary-message' }, 'Sélectionne une variante pour afficher les informations de la fiche rapide.')
+      h('p', { className: 'recipe-summary-message' }, tc('Sélectionne une variante pour afficher les informations de la fiche rapide.'))
     );
   }
   const equipment = getRecipeEquipment(recipe);
@@ -1427,7 +1429,7 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
   ].filter(Boolean);
   return h('section', { className: 'recipe-summary-panel', 'aria-label': 'Résumé de la recette' },
     h('div', { className: 'recipe-summary-head' },
-      h('h2', null, 'Fiche rapide')
+      h('h2', null, tc('Fiche rapide'))
     ),
     h('div', { className: `recipe-quick-facts fact-count-${facts.length}` },
       facts.map(item => h('div', { key: item.label, className: 'recipe-quick-fact' },
@@ -1436,11 +1438,11 @@ function RecipeQuickFacts({ recipe, factor, stepTotal, needsVariantSelection = f
       ))
     ),
     chefNotes.length > 0 && h('div', { className: 'recipe-chef-strip', 'aria-label': 'Lecture chef de la recette' },
-      h('strong', null, 'Lecture chef'),
+      h('strong', null, tc('Lecture chef')),
       h('ul', null, chefNotes.map(item => h('li', { key: item }, item)))
     ),
     equipment.length > 0 && h('div', { className: 'recipe-equipment-strip' },
-      h('strong', null, 'Matériel nécessaire'),
+      h('strong', null, tc('Matériel nécessaire')),
       h('ul', null, equipment.map(item => h('li', { key: item }, item)))
     )
   );
@@ -1451,7 +1453,7 @@ function RecipeAnatomy({ recipe, variantOptions = [], selectedIndex, onSelectVar
   // pour changer de variante sans remonter jusqu'aux cartes de choix.
   if (variantOptions.length > 1 && typeof onSelectVariant === 'function') {
     return h('nav', { className: 'recipe-anatomy recipe-variant-switch', 'aria-label': 'Changer de variante' },
-      h('span', { className: 'recipe-variant-switch-label' }, 'Variante'),
+      h('span', { className: 'recipe-variant-switch-label' }, tc('Variante')),
       h('div', { className: 'recipe-variant-switch-tabs', role: 'group' },
         variantOptions.map(option => {
           const active = option.index === selectedIndex;
@@ -1482,7 +1484,7 @@ function RecipeAnatomy({ recipe, variantOptions = [], selectedIndex, onSelectVar
     if (target && target.offsetParent) target.scrollIntoView({ behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
   };
   return h('ol', { className: 'recipe-anatomy', 'aria-label': 'Déroulé de la recette' },
-    h('li', { className: 'recipe-anatomy-label', 'aria-hidden': true }, 'Déroulé'),
+    h('li', { className: 'recipe-anatomy-label', 'aria-hidden': true }, tc('Déroulé')),
     stages.map((stage, index) => h('li', { key: `${stage}:${index}` },
       groups.length > 1
         ? h('button', { type: 'button', onClick: () => jumpToGroup(index), title: `Aller aux ingrédients : ${stage}` },
@@ -1517,8 +1519,8 @@ function InlineVariantPicker({ recipe, options, selectedIndex, onSelect }) {
   return h('section', { className: 'recipe-panel variant-choice-panel', 'aria-label': 'Choix de variante' },
     h('div', { className: 'variant-choice-header' },
       h('div', { className: 'variant-choice-heading' },
-        h('p', { className: 'eyebrow' }, 'Variante'),
-        h('h2', null, 'Choisis une variante'),
+        h('p', { className: 'eyebrow' }, tc('Variante')),
+        h('h2', null, tc('Choisis une variante')),
         h('p', { className: 'variant-choice-description' },
           'Chaque choix ouvre une recette compl\u00e8te avec ses propres ingr\u00e9dients, \u00e9tapes, quantit\u00e9s et conseils.'
         )

@@ -5,7 +5,8 @@ const { readAppSource, readStyleSource } = require('./lib/app-modules');
 const ROOT = path.resolve(__dirname, '..');
 const files = {
   appImages: fs.readFileSync(path.join(ROOT, 'app-images.js'), 'utf8'),
-  app: readAppSource(),
+  // Textes traduits tc('...') (app.js) : lus comme le texte francais seul.
+  app: readAppSource().replace(/\btc\('((?:[^'\\\n]|\\.)*)'\)/g, "'$1'"),
   personalTools: fs.readFileSync(path.join(ROOT, 'app-personal-tools.js'), 'utf8'),
   i18n: fs.readFileSync(path.join(ROOT, 'i18n.js'), 'utf8'),
   index: fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'),

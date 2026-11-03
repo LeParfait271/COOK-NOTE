@@ -44,7 +44,8 @@ const FILE_BUDGETS = [
   // 256 -> 264 Ko : partage v5.58 (billet avec QR code fait main, formats d'image).
   // 264 -> 272 Ko : classement de chef v5.59 (emblemes, panneau, ecran de fin).
   // 272 -> 280 Ko : atlas des ingredients v5.62 (fiche ingredient, recherche et legende du ciel).
-  ['dist/style.css', 280 * KB],
+  // 280 -> 290 Ko : carte des saisons, paliers de techniques et recettes du ciel (v5.66).
+  ['dist/style.css', 290 * KB],
   ['personal-tools.css', 4 * KB],
   ['dist/personal-tools.css', 3 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.

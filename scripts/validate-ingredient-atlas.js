@@ -39,6 +39,11 @@ function main() {
     atlas.FIELDS.forEach(field => {
       if (!String(entry[field] || '').trim()) problems.push(`Fiche ${entry.id} : champ « ${field} » vide`);
     });
+    // Legumes et fruits alimentent la carte des saisons : mois obligatoires
+    // ("6-9", "3-5,9-11", "toute" ou "aucune" pour un produit sec ou importe).
+    if ((entry.family === 'legumes' || entry.family === 'fruits') && !/^(toute|aucune|(1[0-2]|[1-9])-(1[0-2]|[1-9])(,(1[0-2]|[1-9])-(1[0-2]|[1-9]))*)$/.test(String(entry.mois || ''))) {
+      problems.push(`Fiche ${entry.id} : champ « mois » absent ou invalide (ex. '6-9', 'toute', 'aucune') pour la carte des saisons`);
+    }
   });
 
   const unmatched = new Map();

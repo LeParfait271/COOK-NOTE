@@ -54,7 +54,9 @@ for (const source of [app, recipeJs, read('app-personal-tools.js')]) {
 
 const englishLeftovers = [
   ['i18n.js', i18nSource, /\ben\s*:|phraseEn|translateRecipeText|setLocale|supportedLocales/],
-  ['app.js', app, /translateUiText|LanguageSwitcher|useI18nLocale|CookNoteI18n\.(?:text|locale|setLocale|subscribe|ensureAlternateLinks|translateCategory)|=== 'en'/],
+  // La traduction actuelle passe par tc() et COOK_NOTE_LANG (app.js) : seules
+  // les fonctions de l'ancienne version sont refusees.
+  ['app.js', app, /translateUiText|LanguageSwitcher|useI18nLocale|CookNoteI18n\.(?:text|locale|setLocale|subscribe|ensureAlternateLinks|translateCategory)/],
   ['recipe.js', recipeJs, /CookNoteI18n\.(?:text|locale|localizeDocument)|=== 'en'/],
   ['recipe.html', recipeHtml, /data-i18n-|localizeDocument/],
   ['index.html', index, /hreflang|CookNoteI18n\?\.text|lang=en/],

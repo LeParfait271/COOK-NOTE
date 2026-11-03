@@ -7,7 +7,11 @@
 // presque plus quand on est fort ; rater un plat facile coute cher.
 // Succes : une technique (TECHNIQUE_GUIDES) se debloque la premiere fois
 // qu'elle est executee dans un plat valide (reussi ou correct). Chaque plat
-// suivant qui la demande ajoute 1 ; a 1000 / 1000, badge Maitre.
+// suivant qui la demande ajoute 1 ; un palier tous les 200 (Bronze, Argent,
+// Or, Platine) jusqu'au badge Maitre a 1000.
+// Serie : a partir de 3 reussites d'affilee, chaque reussite rapporte 25 % de
+// plus. Protection : juste apres une promotion, la premiere defaite ne fait
+// pas redescendre de division (elle consomme la protection).
 // Tout reste sur l'appareil (cle cook_note_chef) ; un QR code transfere le
 // parcours d'un appareil a l'autre (#chef=...).
 const CHEF_STORAGE_KEY = 'cook_note_chef';
@@ -31,6 +35,30 @@ const CHEF_VERDICTS = [
   { id: 'rate', label: 'Raté', score: 0 }
 ];
 const CHEF_MASTER_GOAL = 1000;
+const CHEF_TECH_TIERS = [
+  { at: 200, id: 'bronze', label: 'Bronze' },
+  { at: 400, id: 'argent', label: 'Argent' },
+  { at: 600, id: 'or', label: 'Or' },
+  { at: 800, id: 'platine', label: 'Platine' },
+  { at: 1000, id: 'maitre', label: 'Maître' }
+];
+const CHEF_STREAK_FROM = 2;
+const CHEF_STREAK_BONUS = 1.25;
+// Palier atteint (-1 : aucun) et suivant pour un compteur de technique.
+function chefTechTier(count) {
+  let tier = -1;
+  CHEF_TECH_TIERS.forEach((item, index) => { if (count >= item.at) tier = index; });
+  return tier;
+}
+// Reussites d'affilee (les plus recentes d'abord).
+function chefStreak(chef) {
+  let streak = 0;
+  for (const entry of chef.history) {
+    if (entry.score !== 1) break;
+    streak += 1;
+  }
+  return streak;
+}
 // Ancien format (liste de recettes) -> compteur.
 const chefTechCount = value => (Array.isArray(value) ? value.length : Number(value) || 0);
 
@@ -59,6 +87,7 @@ function readChef() {
     tech: data.tech && typeof data.tech === 'object' ? data.tech : {},
     unlocked: data.unlocked && typeof data.unlocked === 'object' ? data.unlocked : {},
     master: data.master && typeof data.master === 'object' ? data.master : {},
+    shield: Number(data.shield) > 0 ? 1 : 0,
     history: Array.isArray(data.history) ? data.history : []
   };
 }
@@ -102,7 +131,8 @@ function chefPreview(chef, recipe, score = 1) {
   if (raw <= 0) return Math.min(-1, Math.round(raw));
   const weekAgo = Date.now() - 7 * 24 * 3600 * 1000;
   const recent = chef.history.filter(entry => entry.id === recipe.id && entry.score > 0 && entry.at > weekAgo).length;
-  return Math.max(1, Math.round(raw * 0.5 ** recent));
+  const bonus = score === 1 && chefStreak(chef) >= CHEF_STREAK_FROM ? CHEF_STREAK_BONUS : 1;
+  return Math.max(1, Math.round(raw * bonus * 0.5 ** recent));
 }
 
 // Techniques demandees par une recette (celles citees dans ses etapes).
@@ -123,16 +153,24 @@ function recordChefVerdict(recipe, verdictId) {
   const chef = readChef();
   const before = chefStanding(chef.rating);
   const delta = chefPreview(chef, recipe, verdict.score);
-  const rating = Math.max(0, Math.min(CHEF_MAX_RATING, chef.rating + delta));
+  let rating = Math.max(0, Math.min(CHEF_MAX_RATING, chef.rating + delta));
+  let shield = chef.shield;
+  const floor = before.level * CHEF_DIVISION_SIZE;
+  const shielded = delta < 0 && shield && rating < floor;
+  if (shielded) rating = floor;
+  if (delta < 0) shield = 0;
   const tech = { ...chef.tech };
   const unlocked = { ...chef.unlocked };
   const master = { ...chef.master };
   const progressed = [];
   const newlyUnlocked = [];
   const newlyMastered = [];
+  const newlyTiered = [];
   if (verdict.score > 0) {
     chefRecipeTechniques(recipe).forEach(id => {
-      tech[id] = Math.min(CHEF_MASTER_GOAL, chefTechCount(tech[id]) + 1);
+      const previous = chefTechCount(tech[id]);
+      tech[id] = Math.min(CHEF_MASTER_GOAL, previous + 1);
+      if (chefTechTier(tech[id]) > chefTechTier(previous) && tech[id] < CHEF_MASTER_GOAL) newlyTiered.push({ id, tier: chefTechTier(tech[id]) });
       progressed.push(id);
       if (!unlocked[id]) {
         unlocked[id] = Date.now();
@@ -144,8 +182,11 @@ function recordChefVerdict(recipe, verdictId) {
       }
     });
   }
-  const entry = { id: recipe.id, title: recipe.title, verdict: verdict.id, score: verdict.score, delta: rating - chef.rating, at: Date.now(), progressed, unlockedIds: newlyUnlocked, masteredIds: newlyMastered };
+  const entry = { id: recipe.id, title: recipe.title, verdict: verdict.id, score: verdict.score, delta: rating - chef.rating, at: Date.now(), progressed, unlockedIds: newlyUnlocked, masteredIds: newlyMastered, shielded: Boolean(shielded), shield: chef.shield };
+  const after = chefStanding(rating);
+  if (after.level > before.level) shield = 1;
   writeChef({
+    shield,
     rating,
     best: Math.max(chef.best, rating),
     cooked: verdict.score > 0 ? { ...chef.cooked, [recipe.id]: (chef.cooked[recipe.id] || 0) + 1 } : chef.cooked,
@@ -154,7 +195,6 @@ function recordChefVerdict(recipe, verdictId) {
     master,
     history: [entry, ...chef.history].slice(0, 80)
   });
-  const after = chefStanding(rating);
   return {
     entry,
     before,
@@ -162,6 +202,8 @@ function recordChefVerdict(recipe, verdictId) {
     promoted: after.level > before.level,
     demoted: after.level < before.level,
     unlocked: newlyUnlocked.map(id => TECHNIQUE_GUIDES.find(guide => guide.id === id)).filter(Boolean),
+    shielded: Boolean(shielded),
+    tiered: newlyTiered.map(({ id, tier }) => ({ guide: TECHNIQUE_GUIDES.find(guide => guide.id === id), tier: CHEF_TECH_TIERS[tier] })).filter(item => item.guide),
     mastered: newlyMastered.map(id => TECHNIQUE_GUIDES.find(guide => guide.id === id)).filter(Boolean)
   };
 }
@@ -185,7 +227,7 @@ function undoChefVerdict(recipe) {
   (last.unlockedIds || []).forEach(id => delete unlocked[id]);
   const master = { ...chef.master };
   (last.masteredIds || []).forEach(id => delete master[id]);
-  writeChef({ ...chef, rating: Math.max(0, chef.rating - last.delta), cooked, tech, unlocked, master, history: chef.history.slice(1) });
+  writeChef({ ...chef, rating: Math.max(0, chef.rating - last.delta), shield: last.shield || 0, cooked, tech, unlocked, master, history: chef.history.slice(1) });
   return true;
 }
 
@@ -208,6 +250,7 @@ function chefResultMessage(result) {
   const change = `Cote ${chefSigned(result.entry.delta)}`;
   if (result.promoted) return `${change} · Promotion : ${result.after.name}`;
   if (result.demoted) return `${change} · Retour en ${result.after.name}`;
+  if (result.shielded) return `${change} · Protection utilisée, ${result.after.name} conservé`;
   return `${change} · ${result.after.name}`;
 }
 
@@ -216,6 +259,7 @@ function announceChefResult(result, notify) {
   if (!result || !notify) return;
   notify(chefResultMessage(result), result.promoted ? 'success' : 'info');
   result.unlocked.forEach(guide => notify(`Technique débloquée · ${guide.title}`, 'success'));
+  result.tiered.forEach(({ guide, tier }) => notify(`Palier ${tier.label} · ${guide.title}`, 'success'));
   result.mastered.forEach(guide => notify(`Badge Maître · ${guide.title}`, 'success'));
 }
 
@@ -298,9 +342,10 @@ function ChefEmblem({ rating, size = 96, standing }) {
 
 // Medaille de succes : hexagone grave. Cadenas tant que la technique n'a
 // jamais ete executee, etoile doree une fois debloquee, double cadre et
-// couronne au rang Maitre (1000 / 1000).
-function ChefAchievementBadge({ state }) {
-  return h('svg', { className: `chef-medal is-${state}`, viewBox: '0 0 48 48', width: 44, height: 44, 'aria-hidden': true },
+// couronne au rang Maitre (1000 / 1000). Le metal suit le palier (tier).
+function ChefAchievementBadge({ state, tier = -1 }) {
+  const metal = tier >= 0 ? ` is-tier-${CHEF_TECH_TIERS[tier].id}` : '';
+  return h('svg', { className: `chef-medal is-${state}${metal}`, viewBox: '0 0 48 48', width: 44, height: 44, 'aria-hidden': true },
     h('path', { d: 'M24 2 L44 14 L44 34 L24 46 L4 34 L4 14 Z', className: 'chef-medal-frame' }),
     h('path', { d: 'M24 8 L39 17 L39 31 L24 40 L9 31 L9 17 Z', className: 'chef-medal-core' }),
     state === 'master' && h('path', { d: 'M24 5 L41.5 15.5 L41.5 32.5 L24 43 L6.5 32.5 L6.5 15.5 Z', className: 'chef-medal-ring' }),
@@ -316,25 +361,45 @@ function ChefAchievementBadge({ state }) {
 }
 // Verdict apres un plat : trois choix, la variation de cote affichee pour
 // chacun. Apres coup : le resultat, et « Annuler » en cas d'erreur.
-function ChefVerdict({ recipe, notify, onDone, compact = false }) {
+// request ({ id, at }) : verdict donne a la voix (mode mains libres), « undo »
+// pour annuler.
+function ChefVerdict({ recipe, notify, onDone, compact = false, request = null, onResult }) {
   const chef = useChef();
   const [result, setResult] = useState(null);
+  const choose = id => {
+    const next = recordChefVerdict(recipe, id);
+    setResult(next);
+    onResult?.(next);
+    announceChefResult(next, notify);
+    onDone?.(next);
+  };
+  useEffect(() => {
+    if (!request) return;
+    if (request.id === 'undo') {
+      if (result && undoChefVerdict(recipe)) {
+        setResult(null);
+        onResult?.(null);
+      }
+    } else if (!result) choose(request.id);
+  }, [request]);
   if (result) {
     return h('div', { className: result.promoted ? 'chef-verdict is-done is-promoted' : 'chef-verdict is-done' },
       h(ChefEmblem, { standing: result.after, size: compact ? 28 : 40 }),
       h('div', { className: 'chef-verdict-copy' },
         h('strong', null, chefResultMessage(result)),
         result.unlocked.map(guide => h('span', { key: guide.id, className: 'chef-verdict-unlock' }, `Technique débloquée · ${guide.title}`)),
+        result.tiered.map(({ guide, tier }) => h('span', { key: `t-${guide.id}`, className: 'chef-verdict-unlock' }, `Palier ${tier.label} · ${guide.title}`)),
         result.mastered.map(guide => h('span', { key: `m-${guide.id}`, className: 'chef-verdict-unlock' }, `Badge Maître · ${guide.title}`))
       ),
       h('button', { type: 'button', className: 'chef-verdict-undo', onClick: () => {
         undoChefVerdict(recipe);
         setResult(null);
+        onResult?.(null);
       } }, 'Annuler')
     );
   }
   return h('div', { className: 'chef-verdict' },
-    h('p', null, 'Comment s’est passé ce plat ?'),
+    h('p', null, tc('Comment s’est passé ce plat ?')),
     h('div', { className: 'chef-verdict-choices' },
       CHEF_VERDICTS.map(verdict => {
         const delta = chefPreview(chef, recipe, verdict.score);
@@ -342,12 +407,7 @@ function ChefVerdict({ recipe, notify, onDone, compact = false }) {
           key: verdict.id,
           type: 'button',
           className: `chef-verdict-choice is-${verdict.id}`,
-          onClick: () => {
-            const next = recordChefVerdict(recipe, verdict.id);
-            setResult(next);
-            announceChefResult(next, notify);
-            onDone?.(next);
-          }
+          onClick: () => choose(verdict.id)
         }, h('span', null, verdict.label), h('em', null, chefSigned(delta)));
       })
     )
@@ -389,6 +449,7 @@ function chefSuggestions(chef, recipes, limit = 3) {
 const CHEF_ACHIEVEMENT_FILTERS = [
   { id: 'all', label: 'Tous' },
   { id: 'unlocked', label: 'Débloqués' },
+  { id: 'tiers', label: 'Paliers' },
   { id: 'master', label: 'Maître' },
   { id: 'locked', label: 'À découvrir' }
 ];
@@ -399,37 +460,44 @@ function ChefAchievements({ chef }) {
     const count = chefTechCount(chef.tech[guide.id]);
     const masterAt = chef.master[guide.id] || 0;
     const at = chef.unlocked[guide.id] || 0;
-    return { guide, count, at, masterAt, state: masterAt ? 'master' : at ? 'unlocked' : 'locked' };
+    return { guide, count, at, masterAt, tier: chefTechTier(count), state: masterAt ? 'master' : at ? 'unlocked' : 'locked' };
   }).sort((left, right) => (right.masterAt - left.masterAt) || (right.count - left.count) || (right.at - left.at) || left.guide.title.localeCompare(right.guide.title, 'fr'));
   const total = items.length;
   const done = items.filter(item => item.at).length;
   const masters = items.filter(item => item.masterAt).length;
-  const shown = items.filter(item => filter === 'all' || item.state === filter || (filter === 'unlocked' && item.state === 'master'));
+  const shown = items.filter(item => filter === 'all' || item.state === filter || (filter === 'unlocked' && item.state === 'master') || (filter === 'tiers' && item.tier >= 0));
+  const tiers = items.filter(item => item.tier >= 0).length;
   const date = at => new Date(at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
   return h('div', { className: 'chef-achievements' },
     h('div', { className: 'chef-achievements-head' },
       h('strong', null, `${done} / ${total} techniques débloquées`),
-      h('span', null, masters ? `${masters} maître${masters > 1 ? 's' : ''}` : `${Math.round((100 * done) / Math.max(1, total))} %`),
+      h('span', null, masters ? `${masters} maître${masters > 1 ? 's' : ''}` : tiers ? `${tiers} palier${tiers > 1 ? 's' : ''}` : `${Math.round((100 * done) / Math.max(1, total))} %`),
       h('div', { className: 'chef-bar' }, h('i', { style: { width: `${(100 * done) / Math.max(1, total)}%` } }))
     ),
     h('div', { className: 'chef-filters', role: 'tablist' },
       CHEF_ACHIEVEMENT_FILTERS.map(item => h('button', { key: item.id, type: 'button', role: 'tab', 'aria-selected': filter === item.id, className: filter === item.id ? 'is-active' : '', onClick: () => setFilter(item.id) }, item.label))
     ),
     shown.length
-      ? h('ul', { className: 'chef-achievement-list' }, shown.map(({ guide, count, at, masterAt, state }) => h('li', { key: guide.id, className: `is-${state}` },
-        h(ChefAchievementBadge, { state }),
-        h('div', null,
-          h('strong', null, guide.title, state === 'master' && h('i', null, 'Maître')),
-          h('span', null, state === 'locked'
-            ? 'Exécutez cette technique dans un plat réussi pour la débloquer.'
-            : state === 'master' ? `Maîtrisée le ${date(masterAt)}.` : `Débloquée le ${date(at)}. Badge Maître à ${chefFormat(CHEF_MASTER_GOAL)}.`),
-          state !== 'locked' && h('div', { className: 'chef-achievement-progress' },
-            h('div', { className: 'chef-bar' }, h('i', { style: { width: `${(100 * count) / CHEF_MASTER_GOAL}%` } })),
-            h('small', null, `${chefFormat(count)} / ${chefFormat(CHEF_MASTER_GOAL)}`)
+      ? h('ul', { className: 'chef-achievement-list' }, shown.map(({ guide, count, at, masterAt, state, tier }) => {
+        const next = CHEF_TECH_TIERS[tier + 1];
+        return h('li', { key: guide.id, className: `is-${state}${tier >= 0 ? ` is-tier-${CHEF_TECH_TIERS[tier].id}` : ''}` },
+          h(ChefAchievementBadge, { state, tier }),
+          h('div', null,
+            h('strong', null, guide.title, tier >= 0 && h('i', null, CHEF_TECH_TIERS[tier].label)),
+            h('span', null, state === 'locked'
+              ? 'Exécutez cette technique dans un plat réussi pour la débloquer.'
+              : state === 'master' ? `Maîtrisée le ${date(masterAt)}.` : `Débloquée le ${date(at)}. Prochain palier : ${next.label} à ${chefFormat(next.at)}.`),
+            state !== 'locked' && h('div', { className: 'chef-achievement-progress' },
+              h('div', { className: 'chef-bar chef-tier-bar' },
+                h('i', { style: { width: `${(100 * count) / CHEF_MASTER_GOAL}%` } }),
+                CHEF_TECH_TIERS.slice(0, -1).map(item => h('b', { key: item.id, className: count >= item.at ? 'is-reached' : '', style: { left: `${(100 * item.at) / CHEF_MASTER_GOAL}%` }, title: `${item.label} · ${item.at}` }))
+              ),
+              h('small', null, next ? `${chefFormat(count)} / ${chefFormat(next.at)}` : `${chefFormat(count)} / ${chefFormat(CHEF_MASTER_GOAL)}`)
+            )
           )
-        )
-      )))
-      : h('p', { className: 'chef-empty' }, filter === 'master' ? `Aucune technique maîtrisée : il faut ${chefFormat(CHEF_MASTER_GOAL)} exécutions réussies.` : filter === 'locked' ? 'Toutes les techniques sont débloquées.' : 'Aucune technique débloquée : réussissez un plat pour commencer.')
+        );
+      }))
+      : h('p', { className: 'chef-empty' }, filter === 'master' ? `Aucune technique maîtrisée : il faut ${chefFormat(CHEF_MASTER_GOAL)} exécutions réussies.` : filter === 'locked' ? tc('Toutes les techniques sont débloquées.') : tc('Aucune technique débloquée : réussissez un plat pour commencer.'))
   );
 }
 const CHEF_TABS = [
@@ -470,12 +538,13 @@ function ChefPanel({ open, onClose, recipes, openRecipe, notify }) {
   const unlockedCount = Object.keys(chef.unlocked).length;
   const masterCount = Object.keys(chef.master).length;
   const progress = standing.top ? 100 : standing.points;
+  const streak = chefStreak(chef);
   const verdictLabel = id => (CHEF_VERDICTS.find(item => item.id === id) || CHEF_VERDICTS[0]).label;
 
   return h(ModalDialog, { className: '', onClose },
     h('section', { className: `modal-panel chef-modal is-${standing.rank.id}`, role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'chef-modal-title', onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
-        h('div', null, h('p', { className: 'eyebrow' }, 'Parcours de chef'), h('h2', { id: 'chef-modal-title' }, standing.name)),
+        h('div', null, h('p', { className: 'eyebrow' }, tc('Parcours de chef')), h('h2', { id: 'chef-modal-title' }, standing.name)),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'chef-tabs', role: 'tablist' },
@@ -494,7 +563,11 @@ function ChefPanel({ open, onClose, recipes, openRecipe, notify }) {
               h('div', { className: 'chef-bar', role: 'progressbar', 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-valuenow': progress, 'aria-label': `Division : ${progress} sur 100` },
                 h('i', { style: { width: `${progress}%` } })
               ),
-              h('small', null, standing.top ? 'Sommet du classement' : `${progress} / 100 avant ${standing.next}`)
+              h('small', null, standing.top ? 'Sommet du classement' : `${progress} / 100 avant ${standing.next}`),
+              (streak >= CHEF_STREAK_FROM || chef.shield > 0) && h('div', { className: 'chef-perks' },
+                streak >= CHEF_STREAK_FROM && h('span', { className: 'chef-perk is-streak' }, `Série de ${streak} · réussites +25 %`),
+                chef.shield > 0 && h('span', { className: 'chef-perk is-shield' }, tc('Division protégée'))
+              )
             )
           ),
           h('ol', { className: 'chef-ladder', 'aria-label': 'Les cinq rangs' },
@@ -504,12 +577,12 @@ function ChefPanel({ open, onClose, recipes, openRecipe, notify }) {
             ))
           ),
           h('div', { className: 'chef-stats' },
-            h('div', null, h('strong', null, successes), h('span', null, successes > 1 ? 'plats réussis' : 'plat réussi')),
-            h('div', null, h('strong', null, played ? `${Math.round((100 * successes) / played)} %` : '—'), h('span', null, 'de réussite')),
-            h('div', null, h('strong', null, unlockedCount), h('span', null, masterCount ? `techniques · ${masterCount} maître${masterCount > 1 ? 's' : ''}` : unlockedCount > 1 ? 'techniques débloquées' : 'technique débloquée'))
+            h('div', null, h('strong', null, successes), h('span', null, successes > 1 ? tc('plats réussis') : tc('plat réussi'))),
+            h('div', null, h('strong', null, played ? `${Math.round((100 * successes) / played)} %` : '—'), h('span', null, tc('de réussite'))),
+            h('div', null, h('strong', null, unlockedCount), h('span', null, masterCount ? `techniques · ${masterCount} maître${masterCount > 1 ? 's' : ''}` : unlockedCount > 1 ? tc('techniques débloquées') : tc('technique débloquée')))
           ),
           suggestions.length > 0 && h('div', { className: 'chef-section' },
-            h('small', null, 'Pour progresser'),
+            h('small', null, tc('Pour progresser')),
             h('ul', { className: 'chef-suggestions' }, suggestions.map(({ recipe, gain }) => h('li', { key: recipe.id },
               h('button', { type: 'button', onClick: () => { onClose(); openRecipe(recipe.id); } },
                 h('span', null, recipe.title),
@@ -518,18 +591,18 @@ function ChefPanel({ open, onClose, recipes, openRecipe, notify }) {
             )))
           ),
           chef.history.length > 0 && h('div', { className: 'chef-section' },
-            h('small', null, 'Derniers plats'),
+            h('small', null, tc('Derniers plats')),
             h('ul', { className: 'chef-history' }, chef.history.slice(0, 5).map(entry => h('li', { key: `${entry.id}-${entry.at}` },
               h('span', null, entry.title, h('i', { className: `is-${entry.verdict || 'reussi'}` }, verdictLabel(entry.verdict))),
               h('em', { className: entry.delta >= 0 ? 'is-up' : 'is-down' }, chefSigned(entry.delta))
             )))
           ),
-          !chef.history.length && h('p', { className: 'chef-empty' }, 'Après un plat, donnez votre verdict (réussi, correct ou raté) en fin de mode mains libres ou avec « Je l’ai cuisiné » sur la fiche. Plus le plat est exigeant pour votre niveau, plus une réussite compte.'),
+          !chef.history.length && h('p', { className: 'chef-empty' }, tc('Après un plat, donnez votre verdict (réussi, correct ou raté) en fin de mode mains libres ou avec « Je l’ai cuisiné » sur la fiche. Plus le plat est exigeant pour votre niveau, plus une réussite compte.')),
           h('div', { className: 'chef-transfer' },
-            h('button', { type: 'button', className: 'share-chip', onClick: () => setTransfer(value => !value), 'aria-expanded': transfer }, transfer ? 'Masquer le QR code' : 'Transférer sur un autre appareil'),
+            h('button', { type: 'button', className: 'share-chip', onClick: () => setTransfer(value => !value), 'aria-expanded': transfer }, transfer ? tc('Masquer le QR code') : tc('Transférer sur un autre appareil')),
             transfer && h('div', { className: 'chef-transfer-body' },
               h('canvas', { ref: canvasRef, className: 'qr-canvas', width: 176, height: 176, role: 'img', 'aria-label': 'QR code de transfert du parcours' }),
-              h('p', null, 'Scannez avec l’autre appareil : les deux parcours sont fusionnés, le meilleur est gardé.'),
+              h('p', null, tc('Scannez avec l’autre appareil : les deux parcours sont fusionnés, le meilleur est gardé.')),
               h('button', { type: 'button', className: 'share-chip', onClick: () => copyText(transferUrl).then(() => notify?.('Lien de transfert copié')) }, 'Copier le lien')
             )
           )

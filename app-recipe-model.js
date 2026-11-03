@@ -293,7 +293,7 @@ function getRecipeServiceItems(recipe) {
   if (/\bbeurre a l.?ail\b/.test(identityText)) {
     add("Servir tartinable après quelques minutes hors du froid, selon l’usage.");
   } else if (serviceTemperature === 'hot') {
-    add(hasRestBeforeService ? 'Laisser reposer le temps indiqué, puis servir chaud.' : 'Servir chaud, juste après cuisson.');
+    add(hasRestBeforeService ? tc('Laisser reposer le temps indiqué, puis servir chaud.') : tc('Servir chaud, juste après cuisson.'));
   } else if (serviceTemperature === 'cold') {
     add('Servir frais, après le repos au froid indiqué.');
   } else if (serviceTemperature === 'temperate') {

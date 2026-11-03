@@ -10,12 +10,14 @@ const ROOT = path.resolve(__dirname, '..', '..');
 // worker et les validateurs.
 const APP_MODULES = Object.freeze([
   'app.js',
+  'app-english.js',
   'app-recipe-model.js',
   'app-shopping.js',
   'app-menu.js',
   'app-search.js',
   'app-recipe-content.js',
   'app-components.js',
+  'app-voice.js',
   'app-sky.js',
   'app-kitchen.js',
   'app-seasons.js',

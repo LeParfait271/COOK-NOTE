@@ -763,31 +763,6 @@
   background: color-mix(in srgb, var(--accent) 14%, transparent);
 }
 
-.shopping-summary {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-  margin: 10px 0 14px;
-}
-
-.shopping-summary span,
-.shopping-summary button {
-  min-height: 30px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
-  color: var(--muted);
-  padding: 0 10px;
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.shopping-summary button {
-  color: var(--text);
-  cursor: pointer;
-}
-
 .batch-plan {
   display: grid;
   gap: 12px;
@@ -798,11 +773,6 @@
     linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, transparent), rgba(255, 255, 255, .018)),
     rgba(0, 0, 0, .12);
   padding: 12px;
-}
-
-.batch-plan-head h3 {
-  margin: 0;
-  font-size: 18px;
 }
 
 .batch-plan section {
@@ -1010,7 +980,6 @@
   margin: 14px 0;
 }
 
-.shopping-smart-groups,
 .shopping-owned-list {
   display: flex;
   flex-wrap: wrap;
@@ -1018,7 +987,6 @@
   margin: 10px 0;
 }
 
-.shopping-smart-groups span,
 .shopping-owned-list button,
 .shopping-owned-list span {
   border: 1px solid var(--line);

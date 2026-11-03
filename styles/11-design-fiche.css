@@ -877,41 +877,13 @@ html.theme-reveal::view-transition-new(root) {
     display: none;
   }
 }
-/* Jauges (qualite du menu, progression des courses) : anneau dore fin, texte
-   sans fond,
-.shopping-store-dashboard {
+/* Jauges (qualite du menu, progression des courses) : anneau dore fin,
+texte
+   sans fond {
   border: 1px solid var(--ds-hairline);
   border-radius: var(--ds-radius-md);
   background: none;
   box-shadow: none;
-}
-
-.shopping-store-score {
-  background: none;
-}
-
-.shopping-store-score > span {
-  background: conic-gradient(var(--ds-gold) var(--menu-quality, var(--shopping-progress, 0%)), var(--ds-hairline) 0);
-  mask: radial-gradient(circle, transparent 60%, #000 61%);
-}
-
-.shopping-store-score > span {
-  background: conic-gradient(var(--ds-gold) var(--shopping-progress, 0%), var(--ds-hairline) 0);
-}
-
-.shopping-store-score strong {
-  background: none;
-  font-family: var(--ds-font-display);
-  font-weight: 500;
-  font-variant-numeric: lining-nums tabular-nums;
-  color: var(--text);
-}
-
-.shopping-store-score small {
-  padding: 0;
-  background: none;
-  font-weight: 600;
-  color: var(--ds-color-text-secondary);
 }
 /* Bandeau des pages categorie : meme largeur que le reste de la fiche. */
 .recipe-view .recipe-detail-hero.parent-hero {

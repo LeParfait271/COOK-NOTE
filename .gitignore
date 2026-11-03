@@ -21,3 +21,5 @@ reports/*.png
 *.jks
 *.keystore
 android-legacy/signing/
+# Cle DeepL personnelle (scripts/translate-en.js)
+translations/en/deepl-key.txt

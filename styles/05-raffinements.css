@@ -865,87 +865,7 @@
 
 .recipe-chef-strip{display:grid;gap:12px;border-radius:8px;}.recipe-chef-strip strong{font-size:12px;font-weight:950;text-transform:uppercase}.recipe-chef-strip li{position:relative;min-width:0;overflow-wrap:anywhere}
 
-.search-live-suggestions{display:flex;flex-wrap:wrap;gap:7px;margin:-2px 0 12px}.search-live-suggestions button,.shopping-summary button.active{border-color:color-mix(in srgb,var(--accent) 58%,var(--line));background:color-mix(in srgb,var(--accent) 15%,var(--surface-soft));color:var(--text);box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 12%,transparent)}.pantry-substitution-hint{color:color-mix(in srgb,var(--accent) 78%,var(--text));font-weight:900}@media (prefers-reduced-motion:no-preference){.favorite-action.active,.shopping-owned-btn:active{animation:premium-tap .42s cubic-bezier(.2,.8,.2,1)}.pantry-match-row,.shopping-line,.search-result{transition:transform var(--speed),border-color var(--speed),box-shadow var(--speed),background var(--speed)}.pantry-match-row:hover,.shopping-line:hover,.search-result:hover{transform:translateY(-1px)}@keyframes premium-tap{0%{transform:scale(.96)}55%{transform:scale(1.05)}100%{transform:scale(1)}}}
-.shopping-store-dashboard {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 14px;
-  align-items: center;
-  padding: 12px;
-}
-
-.shopping-store-score {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 82px;
-  min-width: 82px;
-  aspect-ratio: 1;
-  border-radius: 8px;
-}
-
-.shopping-store-score > span {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-}
-
-.shopping-store-score strong {
-  z-index: 1;
-  font-size: 18px;
-  line-height: 1;
-}
-
-.shopping-store-score small {
-  z-index: 1;
-  border-radius: 3px;
-  font-size: 10px;
-}
-
-.shopping-store-metrics {
-  min-width: 0;
-}
-
-.shopping-store-dashboard {
-  margin: 12px 0;
-}
-
-.shopping-store-metrics {
-  display: grid;
-  gap: 8px;
-}
-
-.shopping-store-metrics span {
-  min-width: 0;
-  min-height: 52px;
-  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
-  border-radius: 8px;
-  background: rgba(0, 0, 0, .18);
-  padding: 8px 9px;
-}
-
-.shopping-store-metrics strong,
-.shopping-store-metrics small {
-  display: block;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.shopping-store-metrics strong {
-  color: var(--text);
-  font-size: 13px;
-  font-weight: 950;
-}
-
-.shopping-store-metrics small {
-  margin-top: 3px;
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
+.search-live-suggestions{display:flex;flex-wrap:wrap;gap:7px;margin:-2px 0 12px}.search-live-suggestions button {border-color:color-mix(in srgb,var(--accent) 58%,var(--line));background:color-mix(in srgb,var(--accent) 15%,var(--surface-soft));color:var(--text);box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 12%,transparent)}.pantry-substitution-hint{color:color-mix(in srgb,var(--accent) 78%,var(--text));font-weight:900}@media (prefers-reduced-motion:no-preference){.favorite-action.active,.shopping-owned-btn:active{animation:premium-tap .42s cubic-bezier(.2,.8,.2,1)}.pantry-match-row,.shopping-line,.search-result{transition:transform var(--speed),border-color var(--speed),box-shadow var(--speed),background var(--speed)}.pantry-match-row:hover,.shopping-line:hover,.search-result:hover{transform:translateY(-1px)}@keyframes premium-tap{0%{transform:scale(.96)}55%{transform:scale(1.05)}100%{transform:scale(1)}}}
 
 .menu-planner-card,
 .shopping-aisle,
@@ -971,31 +891,6 @@
 
 .shopping-line {
   padding: 9px 8px;
-}
-
-@media (max-width: 820px) {
-
-  .shopping-store-dashboard {
-    grid-template-columns: 1fr;
-  }
-
-  .shopping-store-score {
-    width: 100%;
-    min-width: 0;
-    aspect-ratio: auto;
-    min-height: 58px;
-    grid-template-columns: auto auto;
-    justify-content: start;
-    gap: 8px;
-    padding: 10px 12px;
-  }
-
-  .shopping-store-score > span {
-    position: static;
-    width: 34px;
-    aspect-ratio: 1;
-  }
-
 }
 
 .mc-shell {

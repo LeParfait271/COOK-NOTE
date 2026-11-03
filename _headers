@@ -50,6 +50,12 @@
 /app-main.js
   Cache-Control: public, max-age=300, must-revalidate
 
+/app-english.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/app-voice.js
+  Cache-Control: public, max-age=300, must-revalidate
+
 /app-sky.js
   Cache-Control: public, max-age=300, must-revalidate
 

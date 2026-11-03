@@ -101,7 +101,7 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.65';
+const SITE_VERSION = 'v5.66';
 const SITE_UPDATED_AT = '03/11/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.61';
@@ -117,6 +117,59 @@ const APP_INSTALL_OPTIONS = Object.freeze([
 ]);
 const SITE_CACHE_VERSION = `${SITE_VERSION.replace(/^v(\d+)\.(\d+)$/, (_, major, minor) => `${major}${minor.padStart(2, '0')}`)}-parent-title`;
 const FULL_RECIPE_CATALOG_SRC = `/recipes.js?v=${SITE_CACHE_VERSION}`;
+
+// ---------- Langue ----------
+// Francais par defaut. En anglais, le contenu (recettes, techniques, atlas)
+// est traduit A L'AFFICHAGE par tc() : les donnees restent en francais pour
+// tout ce qui les analyse (liste de courses, atlas, commandes vocales).
+// Traductions : assets/i18n/en-content.js, produit par scripts/translate-en.js
+// (DeepL) et charge avant l'application quand la langue est l'anglais.
+const COOK_NOTE_LANG_KEY = 'cook_note_lang';
+const COOK_NOTE_LANG = (() => {
+  try {
+    const asked = new URLSearchParams(window.location.search).get('lang');
+    if (asked === 'en' || asked === 'fr') localStorage.setItem(COOK_NOTE_LANG_KEY, asked);
+    return localStorage.getItem(COOK_NOTE_LANG_KEY) === 'en' ? 'en' : 'fr';
+  } catch {
+    return 'fr';
+  }
+})();
+if (COOK_NOTE_LANG === 'en') document.documentElement.lang = 'en';
+
+// Meme empreinte que scripts/lib/translation-sources.js (cyrb53, base 36).
+function cookNoteTextHash(text, seed = 0) {
+  let h1 = 0xdeadbeef ^ seed;
+  let h2 = 0x41c6ce57 ^ seed;
+  for (let i = 0; i < text.length; i += 1) {
+    const ch = text.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36);
+}
+
+const contentTranslations = new Map();
+// Texte de contenu traduit (ou tel quel s'il n'a pas encore de traduction).
+function tc(text) {
+  if (COOK_NOTE_LANG !== 'en' || typeof text !== 'string' || !window.COOK_NOTE_EN) return text;
+  const clean = text.trim();
+  if (!clean) return text;
+  let translated = contentTranslations.get(clean);
+  if (translated === undefined) {
+    translated = window.COOK_NOTE_EN[cookNoteTextHash(clean)] || clean;
+    contentTranslations.set(clean, translated);
+  }
+  return translated;
+}
+
+function setCookNoteLang(lang) {
+  try { localStorage.setItem(COOK_NOTE_LANG_KEY, lang === 'en' ? 'en' : 'fr'); } catch { /* stockage indisponible */ }
+  const url = new URL(window.location.href);
+  url.searchParams.delete('lang');
+  window.location.replace(url.toString());
+}
 const RECIPE_DETAIL_WORKER_SRC = '/recipe-worker.js';
 const DEFERRED_CATALOG_CHUNK_SRCS = [2, 3, 4].map(index => `/assets/catalog-${index}.js?v=${SITE_CACHE_VERSION}`);
 const QR_CODE_SCRIPT_SRC = '/assets/vendor/qrcode.min.js';

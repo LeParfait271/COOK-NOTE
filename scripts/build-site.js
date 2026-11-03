@@ -55,6 +55,8 @@ const ASSET_DIRS = [
   'fonts',
   // Atlas des ingredients (constellation des saveurs), charge a la demande.
   'ingredients',
+  // Traductions anglaises (scripts/translate-en.js), chargees en anglais seulement.
+  'i18n',
   'recipes/cards',
   'recipes/heroes',
   'theme',
@@ -623,6 +625,7 @@ function renderStaticRecipePage(id, recipe, recipes, version) {
     '  <link rel="apple-touch-icon" href="/assets/brand/app-icon.png?v=2" data-art-asset="appIcon" data-art-target="href" data-art-versioned />',
     '  <link rel="preload" as="image" href="/assets/theme/dark/global/background.avif" type="image/avif" fetchpriority="high" data-art-asset="background" data-art-target="href" />',
     `  <script>window.COOK_NOTE_ASSET_VERSION = '${version}';</script>`,
+    `  <script>try{var l=/[?&]lang=(en|fr)\\b/.exec(location.search);if(l?l[1]==='en':localStorage.getItem('cook_note_lang')==='en')document.write('<script src="/assets/i18n/en-content.js?v='+window.COOK_NOTE_ASSET_VERSION+'"><\\/script>')}catch(e){}</script>`,
     `  <script src="/theme.js?v=${version}"></script>`,
     image && staticHeroPreload(fullRecipe, variantRefs(fullRecipe).length > 0),
     '  <link rel="preload" as="image" href="/assets/brand/cook-note-white.avif" type="image/avif" />',

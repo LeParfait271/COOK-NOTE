@@ -1,86 +1,195 @@
-/* Carte des saisons : onglets legumes / fruits, frise des mois, une ligne par
-   produit avec sa barre de 12 mois (mois choisi souligne). */
+/* Carte des saisons : bascule legumes / fruits, mois au centre avec fleches,
+   frise des 12 initiales (jamais de defilement lateral), puis les produits
+   ranges par moment de saison en petites cartes. Couleur du type en --season. */
 .season-modal {
   --season: #8fcf86;
-  width: min(680px, 100%);
+  width: min(720px, 100%);
+  overflow-x: hidden;
 }
 
-.season-kinds,
-.season-months {
-  display: flex;
-  gap: 6px;
-}
-
-.season-kinds button,
-.season-months button {
+.season-kinds {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
   border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+  background: var(--ds-color-background-muted);
+}
+
+.season-kinds button {
+  padding: 9px 14px;
+  border: 0;
   border-radius: 999px;
   background: transparent;
   color: var(--ds-color-text-secondary);
   font: inherit;
+  font-weight: 650;
   cursor: pointer;
 }
 
-.season-kinds button {
-  flex: 1;
-  padding: 9px 14px;
-  font-weight: 650;
-}
-
-.season-kinds button.is-active,
-.season-months button.is-active {
-  border-color: color-mix(in srgb, var(--season) 60%, transparent);
-  background: color-mix(in srgb, var(--season) 16%, transparent);
+.season-kinds button.is-active {
+  background: color-mix(in srgb, var(--season) 22%, var(--ds-color-background));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--season) 55%, transparent);
   color: var(--ds-color-text-primary);
 }
 
-.season-months {
-  position: relative;
-  margin-top: 12px;
-  padding-bottom: 4px;
-  overflow-x: auto;
-  scrollbar-width: none;
+.season-month {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  margin-top: 18px;
 }
 
-.season-months button {
-  flex: none;
-  padding: 6px 11px;
-  font-size: var(--ds-text-sm);
+.season-step {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ds-color-text-primary);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
 }
 
-.season-months button.is-today:not(.is-active) {
-  border-style: dashed;
+.season-month-name {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
 }
 
-.season-summary {
-  margin: 14px 0 8px;
+.season-month-name strong {
+  font-family: var(--ds-font-display, Georgia, serif);
+  font-size: clamp(1.7rem, 6vw, 2.2rem);
+  font-weight: 460;
+  line-height: 1.05;
+  color: var(--ds-color-text-primary);
+}
+
+.season-month-name small,
+.season-month-name small button {
   color: var(--ds-color-text-muted);
   font-size: var(--ds-text-sm);
 }
 
-.season-list {
-  display: grid;
-  margin: 0;
+.season-month-name small button {
   padding: 0;
-  list-style: none;
+  border: 0;
+  background: none;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-.season-row {
-  border-top: 1px solid var(--ds-color-divider);
-}
-
-.season-row:not(.is-now) {
-  opacity: .55;
-}
-
-.season-row-head {
+.season-months {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas: "name tag" "bar bar";
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 14px;
+}
+
+.season-months button {
+  min-width: 0;
+  height: 34px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: var(--ds-color-background-muted);
+  color: var(--ds-color-text-secondary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.season-months button.is-today {
+  border-color: var(--ds-color-border-strong, var(--ds-color-border));
+}
+
+.season-months button.is-active {
+  background: var(--season);
+  color: #1c1a14;
+}
+
+.season-summary {
+  margin: 18px 0 4px;
+  color: var(--ds-color-text-secondary);
+}
+
+.season-summary strong {
+  color: var(--ds-color-text-primary);
+  font-size: 1.25rem;
+}
+
+.season-section {
+  margin-top: 18px;
+}
+
+.season-section h3 {
+  display: flex;
   align-items: center;
-  gap: 6px 10px;
+  gap: 8px;
+  margin: 0 0 10px;
+  color: var(--ds-color-text-primary);
+  font-size: var(--ds-text-sm);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.season-section h3 span {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--ds-color-background-muted);
+  color: var(--ds-color-text-muted);
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.season-section h3::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--season);
+}
+
+.season-section.is-last h3::before { background: #e9a46a; }
+.season-section.is-always h3::before,
+.season-section.is-soon h3::before,
+.season-section.is-off h3::before { background: var(--ds-color-text-muted); }
+
+.season-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+.season-card {
+  min-width: 0;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 14px;
+  background: var(--ds-color-background-muted);
+}
+
+.season-section.is-soon .season-card {
+  opacity: .75;
+}
+
+.season-section.is-off .season-card {
+  opacity: .5;
+}
+
+.season-card.is-open {
+  grid-column: 1 / -1;
+  border-color: color-mix(in srgb, var(--season) 55%, transparent);
+}
+
+.season-card-head {
+  display: grid;
+  gap: 4px;
   width: 100%;
-  padding: 10px 2px;
+  padding: 12px 12px 11px;
   border: 0;
   background: none;
   color: var(--ds-color-text-primary);
@@ -89,71 +198,71 @@
   cursor: pointer;
 }
 
-.season-row-head strong {
-  grid-area: name;
+.season-card-head strong {
+  font-size: 1rem;
   font-weight: 650;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
-.season-tag {
-  grid-area: tag;
-  padding: 2px 9px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--season) 16%, transparent);
-  color: var(--ds-color-text-secondary);
+.season-card-head small {
+  color: var(--ds-color-text-muted);
   font-size: 12px;
-  font-style: normal;
-  font-weight: 650;
 }
-
-.season-tag.is-last { background: color-mix(in srgb, #e9a46a 20%, transparent); }
-.season-tag.is-soon,
-.season-tag.is-always { background: var(--ds-color-background-muted); }
 
 .season-bar {
-  grid-area: bar;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 3px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 2px;
+  margin-top: 4px;
 }
 
 .season-bar i {
-  height: 6px;
+  height: 5px;
   border-radius: 3px;
-  background: var(--ds-color-background-muted);
+  background: color-mix(in srgb, var(--ds-color-text-muted) 22%, transparent);
 }
 
 .season-bar i.is-on {
-  background: color-mix(in srgb, var(--season) 55%, transparent);
+  background: var(--season);
 }
 
 .season-bar i.is-month {
-  outline: 1.5px solid var(--ds-color-text-primary);
-  outline-offset: 1px;
+  height: 9px;
+  margin-top: -2px;
 }
 
 .season-recipes {
-  padding: 0 2px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 12px 12px;
 }
 
 .season-recipes p {
-  margin: 0 0 8px;
+  margin: 0;
   color: var(--ds-color-text-muted);
   font-size: var(--ds-text-sm);
 }
 
-.season-recipes div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
 .season-recipes button {
-  padding: 6px 12px;
+  padding: 7px 12px;
   border: 1px solid var(--ds-color-border);
   border-radius: 999px;
-  background: var(--ds-color-background-muted);
+  background: var(--ds-color-background);
   color: var(--ds-color-text-primary);
   font: inherit;
   font-size: var(--ds-text-sm);
+  text-align: left;
   cursor: pointer;
+}
+
+@media (max-width: 420px) {
+  .season-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .season-months {
+    gap: 3px;
+  }
 }

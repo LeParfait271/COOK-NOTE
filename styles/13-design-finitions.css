@@ -1068,6 +1068,12 @@ body:has(.mc-shell.theme-light) .site-update-toast {
   color: var(--muted);
 }
 
+.cook-mode-finished .cook-mode-finished-hint {
+  margin-top: 6px;
+  font-size: var(--ds-text-sm);
+  opacity: .8;
+}
+
 @keyframes cn-finish-draw {
   to { stroke-dashoffset: 0; }
 }

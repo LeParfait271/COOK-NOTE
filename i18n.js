@@ -90,7 +90,9 @@
   }
 
   function t(key, params = {}) {
-    return interpolate(messages[key] || key, params);
+    // Anglais : traduction du message (tc, app.js) avant les parametres.
+    const text = messages[key] || key;
+    return interpolate(typeof global.tc === 'function' ? global.tc(text) : text, params);
   }
 
   global.CookNoteI18n = { messages, t };

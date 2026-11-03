@@ -373,7 +373,7 @@ function Hero() {
           draggable: false,
           onError: event => retryOriginalImage(event.currentTarget)
         }),
-        h('span', { className: 'sr-only' }, 'Cook Note')
+        h('span', { className: 'sr-only' }, tc('Cook Note'))
       )
     )
   );
@@ -866,7 +866,7 @@ function RecipeCard({ recipe, recipesById, isFavorite, toggleFavorite, openRecip
       !renderCardImage && h('span', { className: 'card-letter' }, recipe.title.slice(0, 1))
     ),
     h('div', { className: 'card-body' },
-      h('h3', { className: 'card-title', 'data-vt-title': recipe.id }, recipe.title),
+      h('h3', { className: 'card-title', 'data-vt-title': recipe.id }, tc(recipe.title)),
       variantLabel && h('p', { className: 'card-meta', 'aria-label': variantLabel },
         h('span', { className: 'card-variant-count' }, variantLabel)
       )
@@ -1037,9 +1037,9 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
   return h('section', { className: `season-sections${defaultCatalogSection ? ' is-default-catalog' : ''}`, id: 'recettes' },
     h('div', { className: 'section-title list-title season-dashboard' },
       h('div', { className: 'season-dashboard-copy' },
-        h('p', { className: 'eyebrow' }, onlyFavorites ? 'Favoris' : 'Catalogue'),
+        h('p', { className: 'eyebrow' }, onlyFavorites ? tc('Favoris') : tc('Catalogue')),
         h('div', { className: 'season-dashboard-title-row' },
-          h('h2', null, onlyFavorites ? 'Mes recettes favorites' : defaultCatalogSection ? 'Toutes les catégories' : 'Recettes'),
+          h('h2', null, onlyFavorites ? 'Mes recettes favorites' : defaultCatalogSection ? tc('Toutes les catégories') : tc('Recettes')),
           defaultCatalogSection && h('span', { className: 'season-dashboard-count' },
             `${defaultCatalogSection.recipes.length} catégorie${defaultCatalogSection.recipes.length > 1 ? 's' : ''}`
           )
@@ -1060,7 +1060,7 @@ function SeasonSections({ sections, recipesById, favorites, toggleFavorite, open
         )
       ),
       onlyFavorites
-        ? h('button', { type: 'button', onClick: clearFavoriteView }, 'Quitter les favoris')
+        ? h('button', { type: 'button', onClick: clearFavoriteView }, tc('Quitter les favoris'))
         // Les saisons se choisissent dans chaque categorie (filtre de la fiche
         // parente) ; l'accueil ne garde que le tri par categorie d'une saison
         // deja choisie ailleurs (recherche).
@@ -1106,15 +1106,15 @@ function HomeView(props) {
             h('strong', null, t('home.searchTitle')),
             h('small', null, t('home.searchSubtitle'))
           ),
-          h('kbd', { className: 'home-search-hint', 'aria-hidden': true }, 'Ctrl K')
+          h('kbd', { className: 'home-search-hint', 'aria-hidden': true }, tc('Ctrl K'))
         ),
         h('nav', { className: 'home-quick-actions', 'aria-label': 'Raccourcis culinaires' },
-          h('button', { type: 'button', onClick: props.openMenuPlanner }, h(Icon, { name: 'spark' }), h('span', null, 'Composer un menu')),
-          h('button', { type: 'button', onClick: props.showFavorites }, h(Icon, { name: 'heart' }), h('span', null, 'Mes favoris')),
-          h('button', { type: 'button', onClick: props.openShoppingBasket }, h(Icon, { name: 'basket' }), h('span', null, 'Liste de courses')),
-          h('button', { type: 'button', onClick: props.openTechniques }, h(Icon, { name: 'book' }), h('span', null, 'Techniques')),
-          props.openConstellation && h('button', { type: 'button', className: 'home-constellation-action', onClick: props.openConstellation }, h(Icon, { name: 'spark' }), h('span', null, 'Constellation')),
-          props.openSeasons && h('button', { type: 'button', className: 'home-seasons-action', onClick: props.openSeasons }, h(Icon, { name: 'leaf' }), h('span', null, 'Saisons')),
+          h('button', { type: 'button', onClick: props.openMenuPlanner }, h(Icon, { name: 'spark' }), h('span', null, tc('Composer un menu'))),
+          h('button', { type: 'button', onClick: props.showFavorites }, h(Icon, { name: 'heart' }), h('span', null, tc('Mes favoris'))),
+          h('button', { type: 'button', onClick: props.openShoppingBasket }, h(Icon, { name: 'basket' }), h('span', null, tc('Liste de courses'))),
+          h('button', { type: 'button', onClick: props.openTechniques }, h(Icon, { name: 'book' }), h('span', null, tc('Techniques'))),
+          props.openConstellation && h('button', { type: 'button', className: 'home-constellation-action', onClick: props.openConstellation }, h(Icon, { name: 'spark' }), h('span', null, tc('Constellation'))),
+          props.openSeasons && h('button', { type: 'button', className: 'home-seasons-action', onClick: props.openSeasons }, h(Icon, { name: 'leaf' }), h('span', null, tc('Saisons'))),
           props.openChef && h(HomeChefAction, { onClick: props.openChef })
         )
       ),
@@ -1145,9 +1145,9 @@ function NotFoundView({ goHome, openSearch }) {
     h(Hero),
     h('div', { className: 'content-wrap' },
       h('section', { className: 'fatal-state not-found-panel' },
-        h('p', { className: 'eyebrow' }, 'Page introuvable'),
-        h('h1', null, 'Cette fiche n’existe pas encore'),
-        h('p', null, 'Le lien pointe vers une recette absente du carnet ou déplacée.'),
+        h('p', { className: 'eyebrow' }, tc('Page introuvable')),
+        h('h1', null, tc('Cette fiche n’existe pas encore')),
+        h('p', null, tc('Le lien pointe vers une recette absente du carnet ou déplacée.')),
         h('div', { className: 'not-found-actions' },
           h(Button, { variant: 'primary', onClick: openSearch }, 'Rechercher une recette'),
           h(Button, { variant: 'subtle', onClick: goHome }, 'Retour au carnet')
@@ -1162,9 +1162,9 @@ function CatalogLoadingView() {
     h(Hero),
     h('div', { className: 'content-wrap' },
       h('section', { className: 'fatal-state not-found-panel' },
-        h('p', { className: 'eyebrow' }, 'Catalogue'),
-        h('h1', null, 'Chargement de la fiche'),
-        h('p', null, 'Le carnet termine de charger les recettes.')
+        h('p', { className: 'eyebrow' }, tc('Catalogue')),
+        h('h1', null, tc('Chargement de la fiche')),
+        h('p', null, tc('Le carnet termine de charger les recettes.'))
       )
     )
   );
@@ -1252,9 +1252,9 @@ function TechniquesView({ targetTechniqueId, goHome }) {
     h('div', { className: 'content-wrap techniques-wrap' },
       h('div', { className: 'section-title techniques-title' },
         h('div', null,
-          h('p', { className: 'eyebrow' }, 'Gestes de cuisine'),
-          h('h2', null, 'Technique de cuisinier'),
-          h('p', null, 'Les gestes de base pour cuisiner plus proprement : tailler, peler, abaisser, foncer, monter, lier et éviter les erreurs classiques.')
+          h('p', { className: 'eyebrow' }, tc('Gestes de cuisine')),
+          h('h2', null, tc('Technique de cuisinier')),
+          h('p', null, tc('Les gestes de base pour cuisiner plus proprement : tailler, peler, abaisser, foncer, monter, lier et éviter les erreurs classiques.'))
         ),
         h(Button, { variant: 'subtle', onClick: goHome }, 'Retour aux recettes')
       ),
@@ -1285,7 +1285,7 @@ function TechniquesView({ targetTechniqueId, goHome }) {
         techniqueGroups.map(group => h('section', { key: group.label, className: 'technique-family' },
           h('div', { className: 'technique-family-head' },
             h('h3', null, group.label),
-            h('span', null, `${group.guides.length} ${(group.guides.length > 1 ? 'techniques' : 'technique')}`)
+            h('span', null, `${group.guides.length} ${(group.guides.length > 1 ? tc('techniques') : tc('technique'))}`)
           ),
           h('div', { className: 'technique-grid' },
             group.guides.map(guide => h('article', {
@@ -1390,6 +1390,28 @@ function HomeChefAction({ onClick }) {
   );
 }
 
+// Message partage : titre, reperes (type, portions, difficulte), quelques
+// ingredients lisibles (sans quantites ni unites), puis le lien.
+const SHARE_UNIT_WORDS = /^(?:\d+(?:[.,/]\d+)?|une?|deux|trois|quatre|cinq|six|quelques|1\/2|½)\s*(?:(?:g|kg|mg|ml|cl|dl|l|c\.?\s*à\s*(?:soupe|café)|cuill(?:ère|eres|ères)?\s*à\s*(?:soupe|café)|pincées?|tranches?|boîtes?|sachets?|gousses?|brins?|bottes?|feuilles?|morceaux?|pots?|verres?|tasses?|filets?|branches?|bouquets?|poignées?|traits?|noix|noisettes?)\b\.?\s*)?(?:de\s+|d['’]\s*|du\s+|des\s+)?/i;
+function shareIngredientNames(recipe, limit = 4) {
+  return (recipe?.ingredients || [])
+    .flatMap(group => group.items || [])
+    .map(item => stripHtml(item).replace(SHARE_UNIT_WORDS, '').replace(/\s*\([^)]*\)/g, '').replace(/\s*[,:;].*$/, '')
+      // « échalotes ciselées très finement » -> « échalotes » : on coupe a la
+      // preparation (participe, « en », « pour »…), jamais sur le premier mot.
+      .replace(/\s+(?:[a-zà-ÿœ]+(?:é|ée|és|ées)|en|à|au|aux|pour|très|bien|selon|ou\s+plus)(?=\s|$).*$/i, '').trim())
+    .filter(name => name && name.length > 1)
+    .map(name => name.charAt(0).toLowerCase() + name.slice(1))
+    .filter((name, index, list) => list.indexOf(name) === index)
+    .slice(0, limit);
+}
+function shareMessage(recipe, url) {
+  const facts = [tc(primaryCategory(recipe)), tc(recipe.yield), Number.isFinite(recipe.difficultyScore) ? `${tc('difficulté')} ${recipe.difficultyScore}/10` : ''].filter(Boolean).join(' · ');
+  // Anglais : noms et formules traduits (tc), le reste suit le francais.
+  const names = shareIngredientNames(recipe).map(name => tc(name) !== name ? tc(name) : tc(name.charAt(0).toUpperCase() + name.slice(1)).toLowerCase());
+  return [`${tc(recipe.title)} — ${tc('recette Cook Note')}`, facts, names.length ? `${tc('Avec :')} ${names.join(', ')}…` : '', url].filter(Boolean).join('\n');
+}
+
 function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
   const [copied, setCopied] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
@@ -1406,7 +1428,7 @@ function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
     return {
       url,
       description,
-      text: `${recipe.title} - Cook Note\n${description}\n${url}`,
+      text: shareMessage(recipe, url),
       imageStyle: imageUrl ? { backgroundImage: cssImageValue(imageUrl) } : {},
       imageUrl
     };
@@ -1418,7 +1440,7 @@ function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
       setCopiedText(true);
       notify?.('Texte de partage copié');
     });
-    return navigator.share({ title: `${recipe.title} - Cook Note`, text: description, url }).then(() => {
+    return navigator.share({ title: `${recipe.title} - Cook Note`, text: shareMessage(recipe, '').trim(), url }).then(() => {
       notify?.('Partage ouvert');
     }).catch(() => {});
   }
@@ -1481,7 +1503,7 @@ function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
   return h(ModalDialog, { className: '', onClose: onClose },
     h('section', { ref: modalRef, className: 'modal-panel share-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'share-modal-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
-        h('div', null, h('p', { className: 'eyebrow' }, 'Partager'), h('h2', { id: 'share-modal-title' }, recipe.title)),
+        h('div', null, h('p', { className: 'eyebrow' }, tc('Partager')), h('h2', { id: 'share-modal-title' }, recipe.title)),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
       h('div', { className: 'share-fine' },
@@ -1496,31 +1518,33 @@ function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
           h('div', { className: 'share-ticket-qr' },
             h('canvas', { ref: canvasRef, className: 'qr-canvas', width: 208, height: 208, role: 'img', 'aria-label': `QR code du lien ${recipe.title}` })
           ),
-          h('p', { className: 'share-ticket-hint' }, 'Scannez pour ouvrir la recette')
+          h('p', { className: 'share-ticket-hint' }, tc('Scannez pour ouvrir la recette'))
         ),
         h('div', { className: 'share-side' },
-          h('p', { className: 'share-side-lead' }, description),
+          h('p', { className: 'share-side-lead' }, shareMessage(recipe, '').trim().split('\n').slice(1).join(' · ')),
           h('div', { className: 'share-link-row' },
             h('span', { title: url, 'aria-label': `Lien de partage ${url}` }, url.replace(/^https?:\/\//, '')),
             h('button', { type: 'button', className: copied ? 'is-done' : '', onClick: () => copyText(url).then(() => {
               setCopied(true);
               notify?.('Lien de recette copié');
-            }), 'aria-label': `Copier le lien de ${recipe.title}` }, h(Icon, { name: copied ? 'check' : 'copy' }), copied ? 'Copié' : 'Copier')
+            }), 'aria-label': `Copier le lien de ${recipe.title}` }, h(Icon, { name: copied ? 'check' : 'copy' }), copied ? tc('Copié') : tc('Copier'))
           ),
-          navigator.share && h(Button, { variant: 'primary', className: 'share-native', onClick: nativeShare, ariaLabel: `Partager ${recipe.title}` }, h(Icon, { name: 'share' }), h('span', null, 'Partager…')),
+          navigator.share && h(Button, { variant: 'primary', className: 'share-native', onClick: nativeShare, ariaLabel: `Partager ${recipe.title}` }, h(Icon, { name: 'share' }), h('span', null, tc('Partager…'))),
           h('div', { className: 'share-group' },
-            h('small', null, 'Envoyer'),
+            h('small', null, tc('Envoyer')),
             h('div', null,
               h('a', { className: 'share-chip', href: `https://wa.me/?text=${encodeURIComponent(text)}`, target: '_blank', rel: 'noreferrer', 'aria-label': `Partager ${recipe.title} sur WhatsApp` }, 'WhatsApp'),
-              h('a', { className: 'share-chip', href: `mailto:?subject=${encodeURIComponent(recipe.title)}&body=${encodeURIComponent(text)}`, 'aria-label': `Partager ${recipe.title} par email` }, 'Email'),
+              h('a', { className: 'share-chip', href: `sms:?&body=${encodeURIComponent(text)}`, 'aria-label': `Partager ${recipe.title} par SMS` }, 'SMS'),
+              h('a', { className: 'share-chip', href: `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(shareMessage(recipe, '').trim())}`, target: '_blank', rel: 'noreferrer', 'aria-label': `Partager ${recipe.title} sur Telegram` }, 'Telegram'),
+              h('a', { className: 'share-chip', href: `mailto:?subject=${encodeURIComponent(`${recipe.title} — recette Cook Note`)}&body=${encodeURIComponent(text)}`, 'aria-label': `Partager ${recipe.title} par email` }, 'Email'),
               h('button', { type: 'button', className: 'share-chip', onClick: () => copyText(text).then(() => {
                 setCopiedText(true);
                 notify?.('Texte de recette copié');
-              }), 'aria-label': `Copier le texte de partage de ${recipe.title}` }, copiedText ? 'Texte copié' : 'Copier le texte')
+              }), 'aria-label': `Copier le texte de partage de ${recipe.title}` }, copiedText ? tc('Texte copié') : tc('Copier le texte'))
             )
           ),
           h('div', { className: 'share-group' },
-            h('small', null, posterBusy ? 'Préparation de l’image…' : 'Télécharger une image'),
+            h('small', null, posterBusy ? tc('Préparation de l’image…') : tc('Télécharger une image')),
             h('div', { className: 'share-formats' },
               [['story', 'Story', '9:16'], ['square', 'Carré', '1:1'], ['print', 'Fiche', 'A4']].map(([format, label, ratio]) => h('button', {
                 key: format,

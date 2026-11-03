@@ -253,3 +253,527 @@
     flex: none;
   }
 }
+
+/* Bouton favori de la fiche : contour neutre et coeur rose au repos ;
+   une fois ajoute, fond et bord roses, coeur plein, battement a l'ajout. */
+.detail-action-button.favorite-action {
+  --favorite: #ff6b8b;
+  color: var(--ds-color-text-primary);
+}
+
+.detail-action-button.favorite-action svg,
+.detail-action-button.favorite-action .site-icon {
+  color: var(--favorite);
+  transition: transform .2s ease;
+}
+
+.detail-action-button.favorite-action:hover svg {
+  transform: scale(1.12);
+}
+
+/* Plus precis que les boutons fantomes de la fiche avec photo. */
+.recipe-detail-hero .detail-actions .btn-ghost.detail-action-button.favorite-action.active,
+.detail-action-button.favorite-action.active {
+  border-color: color-mix(in srgb, var(--favorite) 60%, transparent);
+  background: color-mix(in srgb, var(--favorite) 16%, var(--ds-color-background));
+  color: var(--ds-color-text-primary);
+}
+
+.detail-action-button.favorite-action.active svg {
+  fill: var(--favorite);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--favorite) 55%, transparent));
+}
+
+.detail-action-button.favorite-action.is-popping svg {
+  animation: favorite-pop .5s cubic-bezier(.3, 1.6, .5, 1);
+}
+
+@keyframes favorite-pop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.45); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail-action-button.favorite-action.is-popping svg { animation: none; }
+}
+
+body:has(.mc-shell.theme-light) .detail-action-button.favorite-action { --favorite: #d6335a; }
+
+/* Panier courses : recettes en lignes nettes, progression sur une ligne, la
+   liste tout de suite dessous, details replies, actions compactes en bas. */
+.shopping-modal,
+.shopping-modal button,
+.shopping-modal select {
+  font-family: var(--ds-font-body, system-ui);
+}
+
+.shopping-modal .shopping-picked {
+  display: grid;
+  gap: 6px;
+}
+
+.shopping-modal .shopping-picked-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 36px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px 8px 14px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 14px;
+  background: var(--ds-color-background-muted);
+}
+
+.shopping-modal .shopping-picked-title {
+  overflow: hidden;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shopping-modal .shopping-picked-remove {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ds-color-text-muted);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.shopping-modal .shopping-picked-remove:hover {
+  background: var(--ds-color-divider);
+  color: var(--ds-color-text-primary);
+}
+
+.shopping-progress {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0 6px;
+}
+
+.shopping-progress-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+
+.shopping-progress-line strong {
+  color: var(--ds-color-text-primary);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.shopping-progress-line span {
+  color: var(--ds-color-text-muted);
+  font-size: var(--ds-text-sm);
+}
+
+.shopping-progress-line em {
+  margin-left: auto;
+  color: var(--ds-color-text-secondary);
+  font-size: var(--ds-text-sm);
+  font-style: normal;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.shopping-progress-bar {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--ds-color-divider);
+}
+
+.shopping-progress-bar i {
+  display: block;
+  width: var(--shopping-progress, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--ds-gold, #e9b949);
+  transition: width .4s ease;
+}
+
+.shopping-progress-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.shopping-progress-tools button,
+.shopping-actions-more button {
+  padding: 6px 12px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ds-color-text-secondary);
+  font-size: var(--ds-text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.shopping-progress-tools button.active,
+.shopping-actions-more button[aria-pressed="true"] {
+  border-color: var(--ds-gold, #e9b949);
+  color: var(--ds-color-text-primary);
+}
+
+.shopping-actions-more button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+.shopping-actions-more button.is-danger:not(:disabled):hover {
+  border-color: #e36d5d;
+  color: #e36d5d;
+}
+
+.shopping-fold {
+  margin-top: 12px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 14px;
+  background: var(--ds-color-background-muted);
+}
+
+.shopping-fold > summary {
+  padding: 12px 14px;
+  color: var(--ds-color-text-secondary);
+  font-size: var(--ds-text-sm);
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.shopping-fold[open] > summary {
+  border-bottom: 1px solid var(--ds-color-divider);
+}
+
+.shopping-fold > :not(summary) {
+  margin: 12px 14px;
+}
+
+.shopping-modal .shopping-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.shopping-actions-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.shopping-actions-main .btn {
+  justify-content: center;
+  gap: 8px;
+}
+
+.shopping-actions-more {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Article : case, quantite et nom, recette en petit, « J'ai deja » discret. */
+.shopping-modal .shopping-line {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.shopping-modal .shopping-line > small {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.shopping-modal .shopping-line .shopping-owned-btn {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* La liste se lit d'un seul defilement (plus de cadre a defiler dedans). */
+.shopping-modal .shopping-aisles-shell {
+  max-height: none;
+  overflow: visible;
+}
+
+.shopping-modal .shopping-aisles-shell::after {
+  display: none;
+}
+
+.shopping-modal .shopping-fold.batch-plan {
+  display: block;
+  gap: 0;
+  padding: 0;
+  margin: 12px 0 0;
+  background: var(--ds-color-background-muted);
+}
+
+.shopping-modal .combined-cart {
+  max-height: none;
+}
+
+/* Recette du panier : titre entier sur sa ligne, portions et retrait dessous. */
+.shopping-modal .shopping-picked-item {
+  grid-template-columns: minmax(0, 1fr) 36px;
+  grid-template-areas: "title remove" "qty remove";
+  row-gap: 6px;
+}
+
+.shopping-modal .shopping-picked-title {
+  grid-area: title;
+  white-space: normal;
+}
+
+.shopping-modal .shopping-picked-quantity {
+  grid-area: qty;
+  justify-self: start;
+}
+
+.shopping-modal .shopping-picked-remove {
+  grid-area: remove;
+}
+
+.shopping-modal .shopping-picked-quantity,
+.shopping-modal .shopping-aisle-head span,
+.shopping-modal .shopping-owned-btn,
+.shopping-modal .shopping-line-main strong,
+.shopping-modal .shopping-line-main span {
+  font-weight: 600;
+}
+
+.shopping-modal .shopping-actions-more button {
+  padding: 5px 11px;
+  font-size: 13px;
+}
+
+.shopping-modal .modal-actions.shopping-actions {
+  padding-top: 10px;
+  padding-bottom: 14px;
+}
+
+.shopping-modal .modal-actions.shopping-actions {
+  background: var(--surface-strong, #171512);
+}
+
+.shopping-modal .shopping-picked-quantity * {
+  font-weight: 600;
+}
+
+/* Version simple : rayons sans cadres, une ligne par article, separateurs
+   fins ; coche = barre et grise. */
+.shopping-modal .shopping-aisles {
+  gap: 18px;
+  margin: 16px 0 4px;
+}
+
+.shopping-modal .shopping-aisle {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.shopping-modal .shopping-aisle::before,
+.shopping-modal .shopping-aisle::after {
+  display: none;
+}
+
+.shopping-modal .shopping-aisle-head {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 4px;
+  padding: 0 2px 6px;
+  border-bottom: 1px solid var(--ds-color-border);
+}
+
+.shopping-modal .shopping-aisle-head strong {
+  color: var(--ds-gold-soft, #f3cf86);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.shopping-modal .shopping-aisle-head span {
+  color: var(--ds-color-text-muted);
+  font-size: 12px;
+}
+
+.shopping-modal .shopping-line {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2px 12px;
+  margin: 0;
+  padding: 10px 2px;
+  border: 0;
+  border-bottom: 1px solid var(--ds-color-divider);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.shopping-modal .shopping-line:hover {
+  background: none;
+}
+
+.shopping-modal .shopping-line input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--ds-gold, #e9b949);
+}
+
+.shopping-modal .shopping-line-main {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.shopping-modal .shopping-line-main strong {
+  margin-right: 6px;
+  color: var(--ds-color-text-primary);
+  font-weight: 700;
+}
+
+.shopping-modal .shopping-line-main span {
+  color: var(--ds-color-text-primary);
+  font-weight: 500;
+}
+
+.shopping-modal .shopping-line-main em {
+  margin-left: 6px;
+  color: var(--ds-color-text-muted);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  vertical-align: baseline;
+}
+
+.shopping-modal .shopping-line > small {
+  color: var(--ds-color-text-muted);
+  font-size: 12px;
+}
+
+.shopping-modal .shopping-line.checked .shopping-line-main {
+  opacity: .45;
+  text-decoration: line-through;
+}
+
+.shopping-modal .shopping-line .shopping-owned-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--ds-color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ds-color-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.shopping-modal .shopping-picked-item {
+  padding: 6px 6px 6px 12px;
+  border-radius: 12px;
+  row-gap: 4px;
+}
+
+.shopping-modal .shopping-picked-title {
+  font-size: .95rem;
+}
+
+.shopping-modal .shopping-picked-quantity select {
+  min-height: 32px;
+  padding-block: 2px;
+}
+
+.shopping-modal .modal-actions.shopping-actions {
+  background: #16140f;
+  backdrop-filter: none;
+}
+
+body:has(.mc-shell.theme-light) .shopping-modal .modal-actions.shopping-actions {
+  background: #fbf6ec;
+}
+
+.shopping-modal .shopping-actions-more {
+  gap: 4px;
+}
+
+.shopping-modal .shopping-actions-more button {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+/* Favori des cartes de collection : pastille ronde dans le coin de la
+   carte, verre sombre, coeur rose plein une fois ajoute. */
+.variant-card-shell .variant-card-favorite {
+  --favorite: #ff6b8b;
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / .18);
+  border-radius: 50%;
+  background: rgb(12 10 8 / .55);
+  color: #fff8ea;
+  box-shadow: 0 4px 14px rgb(0 0 0 / .35);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  opacity: .85;
+  transition: opacity .2s ease, transform .2s ease, background .2s ease;
+}
+
+.variant-card-shell .variant-card-favorite svg {
+  width: 18px;
+  height: 18px;
+}
+
+.variant-card-shell:hover .variant-card-favorite,
+.variant-card-shell .variant-card-favorite:focus-visible {
+  opacity: 1;
+}
+
+.variant-card-shell .variant-card-favorite:hover {
+  transform: scale(1.08);
+}
+
+.variant-card-shell .variant-card-favorite.active {
+  border-color: color-mix(in srgb, var(--favorite) 60%, transparent);
+  background: rgb(12 10 8 / .7);
+  color: var(--favorite);
+  opacity: 1;
+}
+
+.variant-card-shell .variant-card-favorite.active svg {
+  fill: var(--favorite);
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--favorite) 55%, transparent));
+}
+
+@media (hover: none) {
+  .variant-card-shell .variant-card-favorite {
+    opacity: 1;
+  }
+
+  .variant-card-shell .variant-card-favorite {
+    backdrop-filter: none;
+    background: rgb(12 10 8 / .7);
+  }
+}
+
+/* L'icone impose sa couleur (.site-icon) : le coeur suit le bouton. */
+.variant-card-shell .variant-card-favorite .site-icon {
+  color: inherit;
+}
+

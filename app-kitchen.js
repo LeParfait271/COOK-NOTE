@@ -83,368 +83,7 @@ const COLLECTION_SORTS = [
   ['easy', 'Faciles']
 ];
 
-// ---------- Mains libres : commandes vocales du mode mains libres ----------
-// Cook Note ecoute mais ne parle pas : chaque commande comprise est affichee.
-// Seules des phrases courtes qui SONT une commande declenchent (pas un mot
-// entendu au milieu d'une conversation) ; une commande nette agit des le
-// resultat provisoire, sans attendre la fin de phrase.
-//
-// Reconnaissance 100 % locale (Vosk, WebAssembly) : le son du micro est
-// analyse sur l'appareil et n'est jamais envoye ni enregistre. Le modele
-// francais (40 Mo) est telecharge une seule fois puis garde dans le
-// navigateur (IndexedDB). Il est servi par le depot GitHub : Cloudflare
-// refuse les fichiers de plus de 25 Mo.
-const VOSK_SCRIPT_URL = '/assets/vendor/vosk/vosk.js';
-const VOSK_MODEL_NAME = 'vosk-model-small-fr-0.22.tar.gz';
-const VOSK_MODEL_URL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(window.location?.hostname || '')
-  ? `/voice-model/${VOSK_MODEL_NAME}`
-  : `https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/voice-model/${VOSK_MODEL_NAME}`;
-const VOSK_READY_KEY = 'cook_note_voice_model_ready';
-const LOCAL_VOICE_SUPPORTED = typeof WebAssembly === 'object'
-  && Boolean(window.AudioContext || window.webkitAudioContext)
-  && Boolean(window.navigator?.mediaDevices?.getUserMedia);
-
-// Phrases du mode mains libres, ecrites comme on les dit (accents compris) :
-// SEULE source des commandes simples. La reconnaissance (VOICE_COMMANDS) et
-// le vocabulaire ecoute par Vosk (VOICE_VOCABULARY) en sont tires : ajouter
-// une phrase ici suffit. Les commandes avec un nombre ou un nom (minuteurs,
-// portions, « étape 3 ») sont analysees dans parseVoiceCommand.
-const VOICE_PHRASES = {
-  next: ['suivant', 'suivante', 'étape suivante', 'la suite', 'la suivante', 'la prochaine', 'prochaine étape', 'étape d’après', 'et après', 'on continue', 'on avance', 'avance', 'passe', 'passe à la suite', 'passer à la suite', 'on passe à la suite', 'passer à l’étape suivante', 'passe à l’étape suivante', 'on passe à la suivante', 'c’est fait', 'fait', 'c’est bon', 'j’ai fini', 'c’est fini', 'terminé', 'ok suivant', 'vas-y', 'allez', 'continue', 'étape d’après s’il te plaît'],
-  previous: ['précédent', 'précédente', 'étape précédente', 'l’étape d’avant', 'étape d’avant', 'retour', 'reviens', 'revenir', 'reviens en arrière', 'retourne en arrière', 'en arrière', 'recule', 'on recule', 'reviens à l’étape précédente'],
-  first: ['première étape', 'la première étape', 'au début', 'début', 'recommence', 'recommencer', 'retour au début', 'reviens au début', 'depuis le début', 'reprends du début', 'on recommence'],
-  last: ['dernière étape', 'la dernière étape', 'à la fin', 'va à la fin'],
-  undo: ['annule', 'annuler', 'annule ça', 'pas fait', 'décoche', 'décoche l’étape', 'je me suis trompé'],
-  dismiss: ['ok', 'okay', 'oké', 'd’accord', 'compris', 'vu', 'merci', 'c’est noté', 'parfait', 'très bien', 'ferme ça', 'retour à l’étape', 'reviens à l’étape'],
-  listenPause: ['pause', 'pause écoute', 'pause micro', 'mets en pause', 'stop écoute', 'arrête d’écouter un moment'],
-  listenResume: ['reprends', 'reprendre', 'reprends l’écoute', 'on reprend', 'c’est reparti', 'reprise', 'je suis là', 'je reviens'],
-  allIngredients: ['ingrédients', 'ingrédient', 'les ingrédients', 'tous les ingrédients', 'voir les ingrédients', 'montre les ingrédients', 'affiche les ingrédients', 'montre-moi les ingrédients', 'la liste', 'toute la liste', 'liste des ingrédients', 'la liste des ingrédients', 'quels ingrédients', 'il faut quoi', 'qu’est-ce qu’il faut', 'de quoi j’ai besoin'],
-  equipment: ['matériel', 'le matériel', 'quel matériel', 'les ustensiles', 'ustensiles', 'voir le matériel', 'montre le matériel', 'il faut quel matériel'],
-  technique: ['technique', 'la technique', 'montre la technique', 'voir la technique', 'quelle technique', 'comment on fait', 'comment faire', 'explique', 'explique-moi', 'aide-moi'],
-  temperature: ['température', 'quelle température', 'la température', 'température du four', 'le four à combien', 'à combien le four', 'four à combien', 'quelle température le four', 'combien de degrés', 'à quelle température'],
-  remaining: ['temps restant', 'il reste combien', 'il reste combien de temps', 'combien de temps il reste', 'ça sera prêt quand', 'c’est prêt quand', 'on a fini quand', 'fini dans combien de temps', 'temps total', 'durée restante', 'quand est-ce que c’est prêt'],
-  double: ['double', 'double les quantités', 'deux fois plus', 'fois deux', 'multiplie par deux', 'double la recette'],
-  half: ['moitié', 'la moitié', 'divise par deux', 'moitié des quantités', 'deux fois moins', 'demi recette', 'la moitié de la recette'],
-  mute: ['coupe le micro', 'arrête d’écouter', 'arrête l’écoute', 'désactive la voix', 'micro off', 'éteins le micro', 'désactive le micro'],
-  timerStop: ['stop', 'arrête', 'silence', 'ça suffit', 'chut', 'arrête la sonnerie', 'arrête l’alarme', 'coupe la sonnerie', 'coupe l’alarme', 'stop alarme'],
-  close: ['terminer', 'termine', 'quitter', 'quitte', 'ferme', 'fermer', 'fin', 'sortir', 'sors', 'quitte le mode mains libres', 'ferme le mode mains libres', 'on arrête', 'j’ai terminé la recette']
-};
-
-// Mots des commandes avec un nombre ou un nom (minuteurs, portions, etapes).
-const VOICE_STRUCTURE_WORDS = `minuteur minuteurs minuterie chrono alarme sonnerie lance lancer mets met démarre
-programme un une deux trois quatre cinq six sept huit neuf dix onze douze treize quatorze quinze seize vingt
-trente quarante cinquante soixante cent et demie demi quart minute minutes seconde secondes heure heures
-ajoute rajoute ajouter encore plus remets enlève retire enlever retirer moins ôte supprime réduis
-arrête arrêter stoppe coupe annule éteins ferme pause suspends reprends relance redémarre continue
-combien de d' du des la le les l' au aux pour sur il reste temps où en est sont
-personnes personne parts part convives portions pièces on est sera c'est pour
-étape numéro va à aller passe la sauce pâte pâtes riz gâteau cuisson caramel crème sirop légumes viande
-poisson œufs tarte pain beurre sucre lait chocolat eau farine sel huile four`.split(/\s+/).filter(Boolean);
-
-const normalizeVoicePhrase = text => normalizeText(text)
-  .replace(/['’-]/g, ' ')
-  .replace(/[^a-z0-9 ]/g, ' ')
-  .replace(/\s+/g, ' ')
-  .trim();
-
-// Vocabulaire ecoute : Vosk ne reconnait que ces mots, « [unk] » absorbe tout
-// le reste (conversation, bruit) ; plus fiable qu'une ecoute libre sur les
-// mots courts (« ok », « pause », « dix »). Mots absents du modele : ignores.
-const VOICE_VOCABULARY = Array.from(new Set([
-  ...Object.values(VOICE_PHRASES).flat().flatMap(phrase => phrase.toLowerCase().replace(/’/g, '\'').split(/[\s-]+/)),
-  ...VOICE_STRUCTURE_WORDS
-])).filter(Boolean);
-let voiceExtraWords = [];
-
-// Mots de la recette ouverte (ingredients) : minuteur nomme « pour la
-// ganache ».
-function setVoiceVocabulary(words) {
-  voiceExtraWords = Array.from(new Set((words || [])
-    .flatMap(word => String(word).toLowerCase().split(/[^a-zà-öø-ÿœ']+/))
-    .filter(word => word.length >= 3)));
-}
-
-let voskScriptPromise = null;
-let voskModelPromise = null;
-
-function loadVoskScript() {
-  if (window.Vosk) return Promise.resolve(window.Vosk);
-  if (!voskScriptPromise) {
-    voskScriptPromise = new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = `${VOSK_SCRIPT_URL}?v=0.0.8`;
-      script.async = true;
-      script.onload = () => (window.Vosk ? resolve(window.Vosk) : reject(new Error('Vosk absent')));
-      script.onerror = () => reject(new Error('Vosk introuvable'));
-      document.head.appendChild(script);
-    }).catch(error => {
-      voskScriptPromise = null;
-      throw error;
-    });
-  }
-  return voskScriptPromise;
-}
-
-// Modele charge une fois par page (garde entre deux ouvertures du mode).
-function loadVoskModel() {
-  if (!voskModelPromise) {
-    voskModelPromise = loadVoskScript()
-      .then(Vosk => Vosk.createModel(VOSK_MODEL_URL, -2))
-      .then(model => {
-        try { localStorage.setItem(VOSK_READY_KEY, '1'); } catch { /* stockage indisponible */ }
-        return model;
-      })
-      .catch(error => {
-        voskModelPromise = null;
-        throw error;
-      });
-  }
-  return voskModelPromise;
-}
-
-function voskModelCached() {
-  try { return localStorage.getItem(VOSK_READY_KEY) === '1'; } catch { return false; }
-}
-
-// Meme interface que SpeechRecognition (start, abort, onstart, onresult,
-// onerror, onend) : useHandsFree ne fait pas la difference. Ecoute continue,
-// sans fin de session ; resultats provisoires puis definitifs, numerotes.
-class LocalRecognition {
-  constructor() {
-    this.lang = 'fr-FR';
-    this.continuous = true;
-    this.interimResults = true;
-    this.maxAlternatives = 1;
-    this.active = false;
-    this.index = 0;
-    this.lastPartial = '';
-  }
-
-  emit(text, isFinal) {
-    const transcript = String(text || '').replace(/\[unk\]/g, ' ').replace(/\s+/g, ' ').trim();
-    if (!transcript) {
-      if (isFinal) this.lastPartial = '';
-      return;
-    }
-    if (!isFinal && transcript === this.lastPartial) return;
-    this.lastPartial = isFinal ? '' : transcript;
-    const result = [{ transcript, confidence: 1 }];
-    result.isFinal = isFinal;
-    const results = [];
-    results[this.index] = result;
-    this.onresult?.({ resultIndex: this.index, results: Object.assign(results, { length: this.index + 1 }) });
-    if (isFinal) this.index += 1;
-  }
-
-  fail(error) {
-    this.onerror?.({ error });
-    this.stopAudio();
-    if (this.active) {
-      this.active = false;
-      this.onend?.();
-    }
-  }
-
-  start() {
-    if (this.active) throw new Error('InvalidStateError');
-    this.active = true;
-    this.index = 0;
-    this.onloading?.(voskModelCached() ? 'Chargement de la reconnaissance vocale…' : 'Téléchargement de la reconnaissance vocale (40 Mo, une seule fois)…');
-    loadVoskModel()
-      .then(async model => {
-        if (!this.active) return;
-        let stream;
-        try {
-          stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, channelCount: 1 } });
-        } catch (error) {
-          this.fail(error?.name === 'NotFoundError' ? 'audio-capture' : 'not-allowed');
-          return;
-        }
-        if (!this.active) {
-          stream.getTracks().forEach(track => track.stop());
-          return;
-        }
-        const AudioCtor = window.AudioContext || window.webkitAudioContext;
-        const context = new AudioCtor();
-        // Vocabulaire restreint, et seule une phrase entiere qui EST une
-        // commande agit (parseVoiceCommand).
-        const grammar = JSON.stringify([...new Set([...VOICE_VOCABULARY, ...voiceExtraWords])].concat('[unk]'));
-        const recognizer = new model.KaldiRecognizer(context.sampleRate, grammar);
-        recognizer.on('partialresult', message => this.emit(message.result?.partial, false));
-        recognizer.on('result', message => this.emit(message.result?.text, true));
-        const source = context.createMediaStreamSource(stream);
-        const processor = context.createScriptProcessor(4096, 1, 1);
-        // Le processeur doit etre relie a la sortie pour tourner : volume nul.
-        const silent = context.createGain();
-        silent.gain.value = 0;
-        processor.onaudioprocess = event => {
-          try { recognizer.acceptWaveform(event.inputBuffer); } catch { /* tampon ignore */ }
-        };
-        source.connect(processor);
-        processor.connect(silent);
-        silent.connect(context.destination);
-        if (context.state === 'suspended') context.resume().catch(() => {});
-        this.audio = { stream, context, recognizer, source, processor, silent };
-        this.onstart?.();
-      })
-      .catch(() => this.fail(navigator.onLine === false ? 'network' : 'model'));
-  }
-
-  stopAudio() {
-    const audio = this.audio;
-    this.audio = null;
-    if (!audio) return;
-    try { audio.processor.disconnect(); audio.source.disconnect(); audio.silent.disconnect(); } catch { /* deja deconnecte */ }
-    audio.stream.getTracks().forEach(track => track.stop());
-    try { audio.recognizer.remove(); } catch { /* deja retire */ }
-    audio.context.close().catch(() => {});
-  }
-
-  abort() {
-    if (!this.active) return;
-    this.active = false;
-    this.stopAudio();
-    setTimeout(() => this.onend?.(), 0);
-  }
-
-  stop() {
-    this.abort();
-  }
-}
-
-// Les tests peuvent remplacer le moteur (micro simule).
-const SPEECH_RECOGNITION = window.__cookNoteTestRecognition || (LOCAL_VOICE_SUPPORTED ? LocalRecognition : null);
-const FRENCH_NUMBERS = {
-  un: 1, une: 1, premier: 1, premiere: 1, deux: 2, trois: 3, quatre: 4, cinq: 5, six: 6, sept: 7, huit: 8,
-  neuf: 9, dix: 10, onze: 11, douze: 12, treize: 13, quatorze: 14, quinze: 15, seize: 16, vingt: 20,
-  trente: 30, quarante: 40, cinquante: 50, soixante: 60
-};
-
-const voiceNumber = token => (/^\d+$/.test(token) ? Number(token) : FRENCH_NUMBERS[token]);
-
-// « dix sept » -> 17, « vingt et un » -> 21, « quatre vingt » -> 80, « 12 » -> 12.
-function spokenNumber(text) {
-  let total = 0;
-  let previous = 0;
-  for (const token of String(text || '').split(/\s+/).filter(Boolean)) {
-    if (token === 'et') continue;
-    const value = voiceNumber(token);
-    if (value === undefined) return 0;
-    total = value === 20 && previous === 4 ? total + 76 : total + value;
-    previous = value;
-  }
-  return total;
-}
-
-// « minuteur dix minutes », « 1 heure 30 », « vingt-cinq minutes » -> secondes.
-function spokenDurationSeconds(text) {
-  // « un minuteur de dix minutes » : l'article n'est pas une duree.
-  const words = normalizeText(text)
-    .replace(/-/g, ' ')
-    .replace(/\b(un|une)\s+(minuteur|minuterie|chrono|timer)\b/g, '$2')
-    .replace(/(\d+)\s*h\s*(\d+)/, '$1 heure $2 minute');
-  let total = 0;
-  let pending = 0;
-  words.split(/\s+/).forEach(token => {
-    const value = voiceNumber(token);
-    if (value !== undefined) pending += value;
-    else if (/^(h|heures?)$/.test(token)) { total += pending * 3600; pending = 0; }
-    else if (/^(min|minutes?|mn)$/.test(token)) { total += pending * 60; pending = 0; }
-    else if (/^(s|sec|secondes?)$/.test(token)) { total += pending; pending = 0; }
-    else if (token === 'demi' || token === 'demie') total += total >= 3600 ? 1800 : 30;
-  });
-  if (pending && total >= 3600) total += pending * 60;
-  return total;
-}
-
-// Commandes simples : la phrase entiere (moins les politesses) doit etre une
-// des phrases de VOICE_PHRASES, dans l'ordre de la table.
-const escapeVoiceRegExp = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-const VOICE_COMMANDS = Object.entries(VOICE_PHRASES).map(([type, phrases]) => [
-  type,
-  new RegExp(`^(${phrases.map(normalizeVoicePhrase).map(escapeVoiceRegExp).join('|')})$`)
-]);
-// Repli tolerant : la reconnaissance avale ou deforme souvent les petits mots
-// (« passe là suite » pour « passe à la suite ») ; on compare sans eux.
-const VOICE_SMALL_WORDS = /\b(a|la|le|les|l|de|d|du|des|au|aux|un|une|en|et|y)\b/g;
-const voiceSkeleton = text => text.replace(VOICE_SMALL_WORDS, ' ').replace(/\s+/g, ' ').trim();
-const VOICE_SKELETONS = new Map();
-Object.entries(VOICE_PHRASES).forEach(([type, phrases]) => phrases.forEach(phrase => {
-  const key = voiceSkeleton(normalizeVoicePhrase(phrase));
-  if (key && !VOICE_SKELETONS.has(key)) VOICE_SKELETONS.set(key, type);
-}));
-const TIMER_WORD = /\b(minuteurs?|minuterie|chrono|timer|alarme|sonnerie)\b/;
-const DURATION_WORD = /\b(\d+|une?|deux|trois|quatre|cinq|six|sept|huit|neuf|dix|onze|douze|treize|quatorze|quinze|seize|vingt|trente|quarante|cinquante|soixante|demie?|heures?|h|minutes?|min|mn|secondes?|sec|s)\b/g;
-
-// Nom d'un minuteur : « … pour la sauce », « … de la sauce », « … du riz ».
-function timerNameFrom(text) {
-  const match = ` ${text} `.match(/ (?:pour|de|du|des|sur) (?:la |le |les |l )?([a-z ]+?) $/);
-  if (!match) return '';
-  const name = match[1].replace(DURATION_WORD, ' ').replace(/\b(minuteurs?|minuterie|chrono|timer|temps)\b/g, ' ').replace(/\s+/g, ' ').trim();
-  return name.length >= 2 ? name : '';
-}
-
-function parseVoiceCommand(transcript) {
-  const said = normalizeText(transcript)
-    .replace(/['’-]/g, ' ')
-    .replace(/[^a-z0-9 ]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-  // Politesses et formules autour de la commande : « euh tu peux passer a
-  // la suite s'il te plait » -> « passer a la suite ».
-  let core = said;
-  for (let pass = 0; pass < 3; pass += 1) {
-    core = core
-      .replace(/^(ok|okay|alors|bon|euh|hum|cook note|dis|dis moi|hey|he|bon alors|tu peux|tu pourrais|peux tu|est ce que tu peux|je veux|je voudrais|j aimerais|on peut|vas y|allez|stp|s il te plait|maintenant)\s+/, '')
-      .replace(/\s+(s il te plait|s il vous plait|stp|merci|maintenant|please|svp)$/, '')
-      .trim();
-  }
-  // « combien deux temps » : « deux » devant un mot qui n'est pas une
-  // quantite est un « de » mal entendu.
-  core = core.replace(/\bdeux (?!(?:minutes?|heures?|secondes?|personnes?|parts?|portions?|fois|etapes?|convives?|pieces?|et|cent)\b)(?=[a-z]{2,})/g, 'de ');
-  if (!core) return null;
-  const words = core.split(' ');
-  const command = (type, extra = {}) => ({ type, heard: core, ...extra });
-  if (words.length <= 9) {
-    const timerWord = TIMER_WORD.test(core);
-    // « enleve une minute », « retire 30 secondes au minuteur du riz ».
-    if (/^(enleve|enlever|retire|retirer|moins|ote|reduis|supprime)\b/.test(core) && /\b(minutes?|min|secondes?|heures?)\b/.test(core)) {
-      return command('timerAdd', { seconds: -spokenDurationSeconds(core.replace(/\b(au|du|de la|pour la|pour le) .*$/, '')), name: timerNameFrom(core.replace(/^.*?\b(minuteur|chrono|timer)\b/, '')) });
-    }
-    // « ajoute une minute », « encore 5 minutes au minuteur de la sauce ».
-    if (/^(ajoute|ajouter|rajoute|encore|plus|remets?)\b/.test(core) && /\b(minutes?|min|secondes?|heures?)\b/.test(core)) {
-      return command('timerAdd', { seconds: spokenDurationSeconds(core.replace(/\b(au|du|de la|pour la|pour le) .*$/, '')), name: timerNameFrom(core.replace(/^.*?\b(minuteur|chrono|timer)\b/, '')) });
-    }
-    // Minuteurs en cours : « arrete le minuteur de la sauce », « pause minuteur ».
-    if (timerWord && /^(arrete|arreter|stop|stoppe|coupe|annule|eteins|ferme|supprime|enleve)\b/.test(core)) return command('timerStop', { name: timerNameFrom(core.replace(/^.*?\b(minuteur|chrono|timer|alarme)\b/, '')) });
-    if (timerWord && /^(pause|mets en pause|met en pause|mets pause|suspends?)\b/.test(core)) return command('timerPause', { name: timerNameFrom(core.replace(/^.*?\b(minuteur|chrono|timer)\b/, '')) });
-    if (timerWord && /^(reprends|reprendre|relance|redemarre|continue)\b/.test(core)) return command('timerResume', { name: timerNameFrom(core.replace(/^.*?\b(minuteur|chrono|timer)\b/, '')) });
-    const left = core.match(/^(?:combien de temps|il reste combien sur le minuteur|ou en est le minuteur|ou en sont les minuteurs|le minuteur en est ou|temps du minuteur|le minuteur)( .*)?$/);
-    if (left && /^ il reste/.test(left[1] || '')) return command('remaining');
-    if (left) return command('timerLeft', { name: timerNameFrom(left[1] || '') });
-  }
-  // « minuteur 10 minutes pour la sauce », « lance un minuteur de cinq minutes ».
-  if (words.length <= 10 && TIMER_WORD.test(core)) {
-    return command('timer', { seconds: spokenDurationSeconds(core), name: timerNameFrom(core) });
-  }
-  // « pour 6 personnes », « pour six », « 8 parts ».
-  const servings = core.match(/^(?:pour |on est |on sera |c est pour )?([a-z0-9 ]+?) (?:personnes?|parts?|convives?|portions?|pieces?)$/) || core.match(/^pour ([a-z0-9 ]+)$/);
-  if (servings && spokenNumber(servings[1])) return command('servings', { count: spokenNumber(servings[1]) });
-  // « etape 4 », « va a l etape dix sept », « etape numero trois ».
-  const jump = core.match(/^(?:va a l |aller a l |passe a l |on passe a l )?etape (?:numero |n )?([a-z0-9 ]+)$/);
-  if (jump && spokenNumber(jump[1])) return command('goto', { step: spokenNumber(jump[1]) });
-  if (words.length > 6) return null;
-  const match = VOICE_COMMANDS.find(([, pattern]) => pattern.test(core));
-  if (match) return command(match[0]);
-  const loose = VOICE_SKELETONS.get(voiceSkeleton(core));
-  return loose ? command(loose) : null;
-}
-// Etiquette d'un minuteur lance a la voix : « 10 min », « 1 h 30 », « 45 s ».
-function formatTimerLabel(seconds) {
-  if (seconds < 60) return `${seconds} s`;
-  return seconds % 60 ? formatTimerClock(seconds) : formatMinutesShort(seconds / 60);
-}
-
+// Moteur vocal (Vosk, phrases, analyse des commandes) : app-voice.js.
 const VOICE_ERRORS = {
   'not-allowed': 'Micro non autorisé : touche « Réessayer » et accepte la demande du navigateur.',
   'service-not-allowed': 'Micro non autorisé : touche « Réessayer » et accepte la demande du navigateur.',
@@ -714,7 +353,7 @@ const HANDS_FREE_INTRO_PAGES = [
       const target = info ? getServingTarget(recipe, factor) : 0;
       const sample = info ? (info.base === 6 ? 4 : 6) : 0;
       return [
-        h('p', { key: 'why', className: 'cook-mode-panel-lead' }, 'Pesez et préparez tous les ingrédients avant de commencer : pendant la recette, les gestes s’enchaînent sans attendre, rien ne brûle pendant qu’on cherche un ingrédient, et on voit tout de suite s’il manque quelque chose.'),
+        h('p', { key: 'why', className: 'cook-mode-panel-lead' }, tc('Pesez et préparez tous les ingrédients avant de commencer : pendant la recette, les gestes s’enchaînent sans attendre, rien ne brûle pendant qu’on cherche un ingrédient, et on voit tout de suite s’il manque quelque chose.')),
         info && h('p', { key: 'servings', className: 'cook-mode-prep-servings' },
           h('strong', null, `Recette prévue pour ${info.base}\u00a0${servingUnitLabel(info, info.base)}`),
           target !== info.base ? `, quantités ci-dessous pour ${target}\u00a0${servingUnitLabel(info, target)}` : '',
@@ -755,7 +394,7 @@ function stepTemperature(stepText) {
 
 // Lignes d'aide integrees : les commandes utiles a cet instant, jamais de liste complete.
 function voiceSuggestions({ step, index, total, paused, panel, intro, finished, servings, timers, techniques, temperature }) {
-  if (finished) return ['ok'];
+  if (finished) return finished === 'rated' ? ['annule', 'fermer'] : ['réussi', 'correct', 'raté', 'fermer'];
   if (paused) return ['reprends'];
   if (panel) return ['ok'];
   if (intro) return intro.suggestions({ servings });
@@ -795,7 +434,7 @@ function runCookVoiceCommand(command, ctx) {
         advance();
         break;
       }
-      note(index >= total - 1 ? 'Recette terminée' : 'Étape suivante');
+      note(index >= total - 1 ? tc('Recette terminée') : tc('Étape suivante'));
       advance();
       break;
     case 'previous':
@@ -885,6 +524,24 @@ function runCookVoiceCommand(command, ctx) {
       break;
     case 'half':
       applyFactor(factor / 2);
+      break;
+    case 'repeat': {
+      // Rappel de l'etape en cours (ou de la mise en place).
+      if (prep) {
+        note('Mise en place : dites « suivant » pour commencer la recette', 'info', 5000);
+        break;
+      }
+      const text = stripHtml(steps[index] || '').replace(/\s+/g, ' ').trim();
+      note(text ? `Étape ${index + 1} : ${text.length > 180 ? `${text.slice(0, 177)}…` : text}` : `Étape ${index + 1}`, 'ok', 9000);
+      break;
+    }
+    case 'where':
+      note(prep ? `Mise en place, puis ${total} étapes` : `Étape ${index + 1} sur ${total}${total - index - 1 > 0 ? ` · encore ${total - index - 1}` : ' · dernière étape'}`, 'ok', 5000);
+      break;
+    case 'verdictGood':
+    case 'verdictOk':
+    case 'verdictBad':
+      note('Le verdict se donne à la fin : dites « terminer » à la dernière étape', 'info', 4000);
       break;
     case 'mute':
       setEnabled(false);
@@ -1212,7 +869,8 @@ function buildConstellation(recipes, size, atlas) {
   return { stars, links: linkList, dust, index, size, families };
 }
 
-function FlavorConstellation({ open, onClose, recipes }) {
+function FlavorConstellation({ open, onClose, recipes, openRecipe }) {
+  const [showRecipes, setShowRecipes] = useState(false);
   const [atlas, setAtlas] = useState(() => (window.cookNoteAtlasReady ? window.cookNoteAtlas : null));
   const [atlasError, setAtlasError] = useState(false);
   const [focusFamily, setFocusFamily] = useState('');
@@ -1236,6 +894,7 @@ function FlavorConstellation({ open, onClose, recipes }) {
   const dragRef = useRef(null);
   const svgRef = useRef(null);
   const movedRef = useRef(false);
+  const tapRef = useRef(0);
   const parallaxRef = useRef(null);
 
   useEffect(() => {
@@ -1314,10 +973,10 @@ function FlavorConstellation({ open, onClose, recipes }) {
   if (!sky) {
     return ReactDOM.createPortal(h('div', { className: 'constellation is-loading', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Constellation des saveurs' },
       h('header', { className: 'constellation-head' },
-        h('div', null, h('small', null, 'Cook Note'), h('h2', null, 'Constellation des saveurs')),
+        h('div', null, h('small', null, tc('Cook Note')), h('h2', null, tc('Constellation des saveurs'))),
         h('button', { type: 'button', className: 'constellation-close', onClick: onClose, 'aria-label': 'Fermer la constellation' }, h(Icon, { name: 'close' }))
       ),
-      h('p', { className: 'constellation-loading' }, atlasError ? 'Le ciel n’a pas pu se charger. Vérifiez la connexion puis rouvrez la constellation.' : 'Les étoiles s’allument…')
+      h('p', { className: 'constellation-loading' }, atlasError ? tc('Le ciel n’a pas pu se charger. Vérifiez la connexion puis rouvrez la constellation.') : tc('Les étoiles s’allument…'))
     ), document.body);
   }
   const { width, height } = sky.size;
@@ -1335,6 +994,7 @@ function FlavorConstellation({ open, onClose, recipes }) {
   const pickStar = position => {
     const next = selected === position ? -1 : position;
     setSelected(next);
+    setShowRecipes(false);
     if (next < 0) return;
     // La camera glisse vers l'etoile (a droite de la fiche sur grand ecran, au-dessus sur telephone).
     const target = sky.stars[next];
@@ -1342,76 +1002,103 @@ function FlavorConstellation({ open, onClose, recipes }) {
     const goal = portrait ? { x: width / 2, y: height * 0.3 } : { x: width * 0.6, y: height / 2 };
     setView(current => ({ ...current, x: (goal.x - width / 2) / current.scale + width / 2 - target.x, y: (goal.y - height / 2) / current.scale + height / 2 - target.y }));
   };
-  const zoom = factor => setView(current => ({ ...current, scale: Math.min(3, Math.max(0.7, current.scale * factor)) }));
-  // Deplacement : glisser (souris, un doigt), zoom : molette ou deux doigts.
+  // Cadrage : zoom 0,7 a 4, et le ciel ne peut pas sortir de l'ecran.
+  const clampView = next => {
+    const scale = Math.min(4, Math.max(0.7, next.scale));
+    const limitX = width * 0.55;
+    const limitY = height * 0.55;
+    return { scale, x: Math.min(limitX, Math.max(-limitX, next.x)), y: Math.min(limitY, Math.max(-limitY, next.y)) };
+  };
+  // Point de l'ecran -> coordonnees du viewBox (ciel centre, « meet »).
+  const toSky = (clientX, clientY, rect) => {
+    const unit = Math.max(width / rect.width, height / rect.height);
+    return { x: (clientX - rect.left) * unit - (rect.width * unit - width) / 2, y: (clientY - rect.top) * unit - (rect.height * unit - height) / 2 };
+  };
+  // Zoom autour d'un point : l'etoile sous le doigt (ou la souris) reste sous le doigt.
+  const zoomAround = (base, scale, from, to = from) => {
+    const worldX = (from.x - width / 2) / base.scale + width / 2 - base.x;
+    const worldY = (from.y - height / 2) / base.scale + height / 2 - base.y;
+    const next = Math.min(4, Math.max(0.7, scale));
+    return clampView({ scale: next, x: (to.x - width / 2) / next - worldX + width / 2, y: (to.y - height / 2) / next - worldY + height / 2 });
+  };
+  const zoom = factor => setView(current => zoomAround(current, current.scale * factor, { x: width / 2, y: height / 2 }));
+  // Gestes : un doigt deplace, deux doigts zooment autour de leur milieu et
+  // deplacent en meme temps. A chaque doigt pose ou leve, le geste repart de
+  // la position atteinte (aucun saut). Un toucher qui bouge de moins de 8 px
+  // reste un toucher (choix d'une etoile), double toucher : zoom.
+  const rebase = drag => {
+    const points = [...drag.pointers.values()];
+    drag.base = drag.live || drag.base;
+    drag.anchor = points.length >= 2
+      ? { x: (points[0].x + points[1].x) / 2, y: (points[0].y + points[1].y) / 2, distance: Math.max(20, Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y)) }
+      : points[0] ? { ...points[0] } : null;
+  };
   const onPointerDown = event => {
     if (event.target.closest('.constellation-star')) return;
-    const previous = dragRef.current;
-    dragRef.current = { x: event.clientX, y: event.clientY, view: previous?.live || view, live: previous?.live, started: previous?.started, pointers: previous?.pointers || new Map() };
-    dragRef.current.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
-    event.currentTarget.setPointerCapture?.(event.pointerId);
+    const drag = dragRef.current || (dragRef.current = { pointers: new Map(), base: view, live: null, moved: false, start: { x: event.clientX, y: event.clientY } });
+    drag.rect = svgRef.current.getBoundingClientRect();
+    drag.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    rebase(drag);
+    try {
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+    } catch {}
   };
-  // Pendant le geste, le ciel bouge directement (une image par frame, sans
-  // re-rendre les 258 etoiles) ; la position est enregistree au lacher.
-  // Le geste deplace l'image entiere du ciel (calque compose par la carte
-  // graphique, aucun redessin du SVG) ; le vrai cadrage est applique au lacher.
+  // Pendant le geste, rien n'est re-rendu par React : telephone, une image du
+  // ciel deplacee dans le canvas ; ordinateur, le transform du monde SVG.
   const paint = next => {
     const stage = svgRef.current;
     const drag = dragRef.current;
     if (!stage || !drag) return;
-    if (touchSky) {
-      drawConstellationCanvas(stage, sky, next, selected, focusFamily, drag.view);
-      return;
-    }
-    const rect = drag.rect || (drag.rect = stage.getBoundingClientRect());
-    const unit = Math.max(width / rect.width, height / rect.height);
-    const ratio = next.scale / drag.view.scale;
-    const dx = (next.x - drag.view.x) * drag.view.scale / unit;
-    const dy = (next.y - drag.view.y) * drag.view.scale / unit;
-    stage.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(${ratio})`;
+    if (touchSky) drawConstellationCanvas(stage, sky, next, selected, focusFamily, drag.first);
+    else if (worldRef.current) worldRef.current.style.transform = skyTransform(next);
   };
   const onPointerMove = event => {
     const drag = dragRef.current;
     if (!drag || !drag.pointers.has(event.pointerId)) return;
     drag.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
-    if (!drag.started) {
-      drag.started = true;
+    if (!drag.moved) {
+      if (drag.pointers.size < 2 && Math.hypot(event.clientX - drag.start.x, event.clientY - drag.start.y) < 8) return;
+      drag.moved = true;
+      drag.first = drag.base;
       worldRef.current?.classList.add('is-dragging');
-      svgRef.current?.classList.add('is-moving');
     }
-    const rect = drag.rect || (drag.rect = svgRef.current.getBoundingClientRect());
-    const unit = Math.max(width / rect.width, height / rect.height);
-    if (drag.pointers.size === 2) {
-      const [p1, p2] = [...drag.pointers.values()];
-      const distance = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-      const base = drag.live || drag.view;
-      if (!drag.pinch) drag.pinch = { distance, scale: base.scale };
-      drag.live = { ...base, scale: Math.min(3, Math.max(0.7, drag.pinch.scale * distance / drag.pinch.distance)) };
-    } else {
-      drag.live = { ...drag.view, x: drag.view.x + (event.clientX - drag.x) * unit / drag.view.scale, y: drag.view.y + (event.clientY - drag.y) * unit / drag.view.scale };
+    const points = [...drag.pointers.values()];
+    const unit = Math.max(width / drag.rect.width, height / drag.rect.height);
+    if (points.length >= 2 && drag.anchor?.distance) {
+      const center = { x: (points[0].x + points[1].x) / 2, y: (points[0].y + points[1].y) / 2 };
+      const distance = Math.max(20, Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y));
+      drag.live = zoomAround(drag.base, drag.base.scale * distance / drag.anchor.distance, toSky(drag.anchor.x, drag.anchor.y, drag.rect), toSky(center.x, center.y, drag.rect));
+    } else if (drag.anchor) {
+      drag.live = clampView({ ...drag.base, x: drag.base.x + (event.clientX - drag.anchor.x) * unit / drag.base.scale, y: drag.base.y + (event.clientY - drag.anchor.y) * unit / drag.base.scale });
     }
     if (!drag.frame) {
       drag.frame = requestAnimationFrame(() => {
         drag.frame = 0;
-        paint(drag.live);
+        if (drag.live) paint(drag.live);
       });
     }
   };
   const onPointerUp = event => {
     const drag = dragRef.current;
-    if (!drag) return;
+    if (!drag || !drag.pointers.has(event.pointerId)) return;
     drag.pointers.delete(event.pointerId);
     if (drag.pointers.size) {
-      drag.pinch = null;
+      rebase(drag);
       return;
     }
     if (drag.frame) cancelAnimationFrame(drag.frame);
     dragRef.current = null;
-    movedRef.current = Boolean(drag.started);
+    movedRef.current = drag.moved;
     worldRef.current?.classList.remove('is-dragging');
-    svgRef.current?.classList.remove('is-moving');
-    if (svgRef.current) svgRef.current.style.transform = '';
-    if (drag.live) setView(drag.live);
+    if (drag.moved && drag.live) setView(drag.live);
+  };
+  // Double toucher (ou double clic) dans le vide : zoom x2 autour du point.
+  const lastTapRef = tapRef;
+  const onDoubleTap = (clientX, clientY) => {
+    const rect = svgRef.current.getBoundingClientRect();
+    const point = toSky(clientX, clientY, rect);
+    setView(current => zoomAround(current, current.scale >= 3.5 ? 1 : current.scale * 2, point, current.scale >= 3.5 ? { x: width / 2, y: height / 2 } : point));
+    lastTapRef.current = 0;
   };
   const skyTransform = next => `translate(${width / 2}px, ${height / 2}px) scale(${next.scale}) translate(${-width / 2 + next.x}px, ${-height / 2 + next.y}px)`;
   const transform = skyTransform(view);
@@ -1423,8 +1110,8 @@ function FlavorConstellation({ open, onClose, recipes }) {
     h('div', { className: 'constellation-nebula', 'aria-hidden': 'true' }),
     h('header', { className: 'constellation-head' },
       h('div', null,
-        h('small', null, 'Cook Note'),
-        h('h2', null, 'Constellation des saveurs')
+        h('small', null, tc('Cook Note')),
+        h('h2', null, tc('Constellation des saveurs'))
       ),
       h('button', { type: 'button', className: 'constellation-close', onClick: onClose, 'aria-label': 'Fermer la constellation' }, h(Icon, { name: 'close' }))
     ),
@@ -1443,8 +1130,16 @@ function FlavorConstellation({ open, onClose, recipes }) {
           return;
         }
         const position = pickConstellationStar(event.currentTarget, sky, view, event.clientX, event.clientY);
-        if (position >= 0) pickStar(position);
-        else setSelected(-1);
+        if (position >= 0) {
+          pickStar(position);
+          return;
+        }
+        const now = Date.now();
+        if (now - lastTapRef.current < 320) onDoubleTap(event.clientX, event.clientY);
+        else {
+          lastTapRef.current = now;
+          setSelected(-1);
+        }
       }
     }) : h('svg', {
       ref: svgRef,
@@ -1455,7 +1150,13 @@ function FlavorConstellation({ open, onClose, recipes }) {
       onPointerMove,
       onPointerUp,
       onPointerCancel: onPointerUp,
-      onWheel: event => zoom(event.deltaY < 0 ? 1.12 : 1 / 1.12),
+      onWheel: event => {
+        const point = toSky(event.clientX, event.clientY, event.currentTarget.getBoundingClientRect());
+        setView(current => zoomAround(current, current.scale * (event.deltaY < 0 ? 1.12 : 1 / 1.12), point));
+      },
+      onDoubleClick: event => {
+        if (!event.target.closest('.constellation-star')) onDoubleTap(event.clientX, event.clientY);
+      },
       onClick: event => {
         if (!event.target.closest('.constellation-star')) setSelected(-1);
       }
@@ -1575,11 +1276,19 @@ function FlavorConstellation({ open, onClose, recipes }) {
             .map(([label, field]) => h('div', { key: field }, h('dt', null, label), h('dd', null, star.entry[field])))
         ),
         h('div', { className: 'constellation-onsite' },
-          h('span', null, 'Sur Cook Note'),
-          h('p', null, `Présent dans ${star.count} recette${star.count > 1 ? 's' : ''}${star.categories.length ? `, surtout en ${star.categories.join(', ').toLowerCase()}` : ''}.`)
+          h('span', null, tc('Sur Cook Note')),
+          h('p', null, `Présent dans ${star.count} recette${star.count > 1 ? 's' : ''}${star.categories.length ? `, surtout en ${star.categories.join(', ').toLowerCase()}` : ''}.`),
+          // Recettes du site avec cet ingredient (calculees a la demande).
+          openRecipe && h('button', { type: 'button', className: 'constellation-recipes-toggle', 'aria-expanded': showRecipes, onClick: () => setShowRecipes(value => !value) }, showRecipes ? 'Masquer les recettes' : `Voir les ${star.count > 1 ? `${star.count} recettes` : 'recette'}`),
+          showRecipes && atlas && h('ul', { className: 'constellation-recipes' },
+            (recipes || [])
+              .filter(recipe => recipe && !(recipe.variants || []).length && (recipe.ingredients || []).some(group => (group.items || []).some(item => !atlas.ignored(item) && atlas.match(item).includes(star.entry.id))))
+              .sort((a, b) => a.title.localeCompare(b.title, 'fr'))
+              .map(recipe => h('li', { key: recipe.id }, h('button', { type: 'button', onClick: () => { onClose(); openRecipe(recipe.id); } }, recipe.title)))
+          )
         ),
         (star.pairs || []).length > 0 && h('div', { className: 'constellation-accords' },
-          h('span', null, 'Souvent cuisiné avec'),
+          h('span', null, tc('Souvent cuisiné avec')),
           star.pairs.map(position => h('button', { key: position, type: 'button', style: { '--star': sky.stars[position].color }, onClick: () => pickStar(position) }, sky.stars[position].label))
         )
       )

@@ -772,11 +772,8 @@ test.describe('Cook Note visual smoke', () => {
 
     const shoppingModal = page.locator('.shopping-modal');
     await expect(shoppingModal).toBeVisible();
-    const metricWidths = await shoppingModal.locator('.shopping-store-metrics > span').evaluateAll(metrics =>
-      metrics.map(metric => metric.getBoundingClientRect().width)
-    );
-    expect(metricWidths).toHaveLength(3);
-    metricWidths.forEach(width => expect(width).toBeGreaterThanOrEqual(88));
+    await expect(shoppingModal.locator('.shopping-progress-bar')).toBeVisible();
+    await expect(shoppingModal.locator('.shopping-line').first()).toBeVisible();
     await expectNoMojibake(page);
     await expectNoHorizontalOverflow(page);
   });

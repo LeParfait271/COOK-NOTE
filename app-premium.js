@@ -891,8 +891,8 @@
       },
         h('div', { className: 'modal-head' },
           h('div', null,
-            h('p', { className: 'eyebrow' }, 'Anti-gaspi'),
-            h('h2', { id: 'pantry-modal-title' }, 'Mon placard')
+            h('p', { className: 'eyebrow' }, tc('Anti-gaspi')),
+            h('h2', { id: 'pantry-modal-title' }, tc('Mon placard'))
           ),
           h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
         ),
@@ -903,21 +903,21 @@
             addItems(draft);
           }
         },
-          h('label', { className: 'sr-only', htmlFor: 'pantry-add-input' }, 'Ajouter un ingrédient au placard'),
+          h('label', { className: 'sr-only', htmlFor: 'pantry-add-input' }, tc('Ajouter un ingrédient au placard')),
           h('input', {
             id: 'pantry-add-input',
             value: draft,
             onChange: event => setDraft(event.target.value),
             placeholder: 'oeufs, citron, restes de poulet...'
           }),
-          h('label', { className: 'sr-only', htmlFor: 'pantry-quantity-input' }, 'Quantite'),
+          h('label', { className: 'sr-only', htmlFor: 'pantry-quantity-input' }, tc('Quantite')),
           h('input', {
             id: 'pantry-quantity-input',
             value: draftQuantity,
             onChange: event => setDraftQuantity(event.target.value),
             placeholder: 'quantite'
           }),
-          h('label', { className: 'sr-only', htmlFor: 'pantry-expiry-input' }, 'Date limite'),
+          h('label', { className: 'sr-only', htmlFor: 'pantry-expiry-input' }, tc('Date limite')),
           h('input', {
             id: 'pantry-expiry-input',
             type: 'date',
@@ -930,7 +930,7 @@
               checked: draftOpened,
               onChange: event => setDraftOpened(event.target.checked)
             }),
-            h('span', null, 'Ouvert / reste')
+            h('span', null, tc('Ouvert / reste'))
           ),
           h(Button, { variant: 'primary', type: 'submit', disabled: !draft.trim() }, 'Ajouter')
         ),
@@ -957,9 +957,9 @@
           }, item.label, h('span', null, '×')))
         ),
         h('div', { className: 'pantry-score-row', role: 'status', 'aria-live': 'polite' },
-          h('span', null, h('strong', null, pantryItems.length), h('small', null, 'ingrédients')),
-          h('span', null, h('strong', null, readyCount), h('small', null, 'sans achat')),
-          h('span', null, h('strong', null, nearReadyCount), h('small', null, '1-2 achats'))
+          h('span', null, h('strong', null, pantryItems.length), h('small', null, tc('ingrédients'))),
+          h('span', null, h('strong', null, readyCount), h('small', null, tc('sans achat'))),
+          h('span', null, h('strong', null, nearReadyCount), h('small', null, tc('1-2 achats')))
         ),
         pantryMatches.length > 0 && h('div', { className: 'pantry-match-list' },
           pantryMatches.map(({ recipe, meta }) => {
@@ -986,8 +986,8 @@
           })
         ),
         !pantryMatches.length && h('div', { className: 'empty-state pantry-empty' },
-          h('h2', null, pantryItems.length ? 'Aucune idée solide' : 'Placard vide'),
-          h('p', null, pantryItems.length ? 'Ajoute deux ou trois ingrédients de plus pour affiner les idées.' : 'Ajoute quelques ingrédients pour lancer les idées anti-gaspi.')
+          h('h2', null, pantryItems.length ? tc('Aucune idée solide') : tc('Placard vide')),
+          h('p', null, pantryItems.length ? tc('Ajoute deux ou trois ingrédients de plus pour affiner les idées.') : tc('Ajoute quelques ingrédients pour lancer les idées anti-gaspi.'))
         ),
         h('div', { className: 'modal-actions' },
           h(Button, { variant: 'primary', disabled: !pantryMatches.length, onClick: viewAllMatches }, 'Voir les idées'),
@@ -1069,8 +1069,8 @@
       },
         h('div', { className: 'modal-head' },
           h('div', null,
-            h('p', { className: 'eyebrow' }, 'Anti-gaspi'),
-            h('h2', { id: 'pantry-modal-title' }, 'Mon placard')
+            h('p', { className: 'eyebrow' }, tc('Anti-gaspi')),
+            h('h2', { id: 'pantry-modal-title' }, tc('Mon placard'))
           ),
           h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
         ),
@@ -1081,21 +1081,21 @@
             addItems(draft);
           }
         },
-          h('label', { className: 'sr-only', htmlFor: 'pantry-add-input' }, 'Ajouter un ingredient au placard'),
+          h('label', { className: 'sr-only', htmlFor: 'pantry-add-input' }, tc('Ajouter un ingredient au placard')),
           h('input', {
             id: 'pantry-add-input',
             value: draft,
             onChange: event => setDraft(event.target.value),
             placeholder: 'oeufs, citron, restes de poulet...'
           }),
-          h('label', { className: 'sr-only', htmlFor: 'pantry-quantity-input' }, 'Quantite'),
+          h('label', { className: 'sr-only', htmlFor: 'pantry-quantity-input' }, tc('Quantite')),
           h('input', {
             id: 'pantry-quantity-input',
             value: draftQuantity,
             onChange: event => setDraftQuantity(event.target.value),
             placeholder: 'quantite'
           }),
-          h('label', { className: 'sr-only', htmlFor: 'pantry-expiry-input' }, 'Date limite'),
+          h('label', { className: 'sr-only', htmlFor: 'pantry-expiry-input' }, tc('Date limite')),
           h('input', {
             id: 'pantry-expiry-input',
             type: 'date',
@@ -1108,7 +1108,7 @@
               checked: draftOpened,
               onChange: event => setDraftOpened(event.target.checked)
             }),
-            h('span', null, 'Ouvert / reste')
+            h('span', null, tc('Ouvert / reste'))
           ),
           h(Button, { variant: 'primary', type: 'submit', disabled: !draft.trim() }, 'Ajouter')
         ),
@@ -1143,11 +1143,11 @@
           ))
         ),
         h('div', { className: 'pantry-score-row', role: 'status', 'aria-live': 'polite' },
-          h('span', null, h('strong', null, pantryItems.length), h('small', null, 'ingredients')),
-          h('span', null, h('strong', null, urgentCount), h('small', null, 'a utiliser vite')),
-          h('span', null, h('strong', null, openedCount), h('small', null, 'ouverts/restes')),
-          h('span', null, h('strong', null, readyCount), h('small', null, 'sans achat')),
-          h('span', null, h('strong', null, nearReadyCount), h('small', null, '1-2 achats'))
+          h('span', null, h('strong', null, pantryItems.length), h('small', null, tc('ingredients'))),
+          h('span', null, h('strong', null, urgentCount), h('small', null, tc('a utiliser vite'))),
+          h('span', null, h('strong', null, openedCount), h('small', null, tc('ouverts/restes'))),
+          h('span', null, h('strong', null, readyCount), h('small', null, tc('sans achat'))),
+          h('span', null, h('strong', null, nearReadyCount), h('small', null, tc('1-2 achats')))
         ),
         pantryMatches.length > 0 && h('div', { className: 'pantry-match-list' },
           pantryMatches.map(({ recipe, meta }) => {
@@ -1174,8 +1174,8 @@
           })
         ),
         !pantryMatches.length && h('div', { className: 'empty-state pantry-empty' },
-          h('h2', null, pantryItems.length ? 'Aucune idee solide' : 'Placard vide'),
-          h('p', null, pantryItems.length ? 'Ajoute deux ou trois ingredients de plus pour affiner les idees.' : 'Ajoute quelques ingredients pour lancer les idees anti-gaspi.')
+          h('h2', null, pantryItems.length ? tc('Aucune idee solide') : tc('Placard vide')),
+          h('p', null, pantryItems.length ? tc('Ajoute deux ou trois ingredients de plus pour affiner les idees.') : tc('Ajoute quelques ingredients pour lancer les idees anti-gaspi.'))
         ),
         h('div', { className: 'modal-actions' },
           h(Button, { variant: 'primary', disabled: !pantryMatches.length, onClick: viewAllMatches }, 'Voir les idees'),
@@ -1194,14 +1194,14 @@
     const best = pantryMatches[0];
     return h('section', { className: 'fridge-assistant', 'aria-label': 'Assistant placard' },
       h('div', { className: 'fridge-assistant-copy' },
-        h('p', { className: 'eyebrow' }, 'Anti-gaspi'),
+        h('p', { className: 'eyebrow' }, tc('Anti-gaspi')),
         h('h3', null, best ? best.recipe.title : 'Idées depuis ton placard'),
         h('p', null, best ? pantryMatchLabel(best.meta) : `${visibleItems.length} ingrédient${visibleItems.length > 1 ? 's' : ''} disponible${visibleItems.length > 1 ? 's' : ''}`)
       ),
       h('div', { className: 'fridge-assistant-controls' },
         h('button', { type: 'button', className: 'fridge-open-btn', onClick: openPantry },
           h(Icon, { name: 'pantry' }),
-          h('span', null, 'Gérer le placard')
+          h('span', null, tc('Gérer le placard'))
         ),
         h('div', { className: 'fridge-chips' },
           visibleItems.length
@@ -1212,7 +1212,7 @@
             className: pantryMode ? 'active' : '',
             onClick: pantryMode ? clearPantryMode : activatePantryMode,
             disabled: !pantryItems.length
-          }, pantryMode ? 'Toutes les recettes' : 'Idées placard')
+          }, pantryMode ? tc('Toutes les recettes') : tc('Idées placard'))
         )
       )
     );
@@ -1229,14 +1229,14 @@
         : `${visibleItems.length} ingredient${visibleItems.length > 1 ? 's' : ''} disponible${visibleItems.length > 1 ? 's' : ''}`;
     return h('section', { className: 'fridge-assistant', 'aria-label': 'Assistant placard' },
       h('div', { className: 'fridge-assistant-copy' },
-        h('p', { className: 'eyebrow' }, 'Anti-gaspi'),
+        h('p', { className: 'eyebrow' }, tc('Anti-gaspi')),
         h('h3', null, best ? best.recipe.title : 'Idees depuis ton placard'),
         h('p', null, summary)
       ),
       h('div', { className: 'fridge-assistant-controls' },
         h('button', { type: 'button', className: 'fridge-open-btn', onClick: openPantry },
           h(Icon, { name: 'pantry' }),
-          h('span', null, 'Gerer le placard')
+          h('span', null, tc('Gerer le placard'))
         ),
         h('div', { className: 'fridge-chips' },
           visibleItems.length
@@ -1252,7 +1252,7 @@
             className: pantryMode ? 'active' : '',
             onClick: pantryMode ? clearPantryMode : activatePantryMode,
             disabled: !pantryItems.length
-          }, pantryMode ? 'Toutes les recettes' : 'Idees placard')
+          }, pantryMode ? tc('Toutes les recettes') : tc('Idees placard'))
         )
       )
     );
@@ -1334,7 +1334,7 @@
     const veil = ctx.createLinearGradient(0, Math.round(preset.hero * 0.25), 0, isPrint ? preset.hero + 140 : canvas.height);
     veil.addColorStop(0, 'rgba(0,0,0,.08)');
     veil.addColorStop(.55, 'rgba(0,0,0,.58)');
-    veil.addColorStop(1, isPrint ? 'rgba(0,0,0,.84)' : 'rgba(0,0,0,.96)');
+    veil.addColorStop(1, isPrint ? tc('rgba(0,0,0,.84)') : tc('rgba(0,0,0,.96)'));
     ctx.fillStyle = veil;
     ctx.fillRect(0, 0, canvas.width, isPrint ? preset.hero + 140 : canvas.height);
     if (isPrint) {

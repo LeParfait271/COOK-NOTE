@@ -234,9 +234,33 @@ Sommaire :
   ecrites dans les recettes, sans accents : pluriels simples deja geres). Un
   ingredient d'une fiche existante (variante, autre forme) s'ajoute seulement
   a ses `aliases`. L'etoile apparait alors seule dans la constellation des
-  saveurs. Un nouveau fichier de famille se declare dans `FILES`
+  saveurs. Les fiches `legumes` et `fruits` portent en plus `mois` (mois de
+  saison en France : `'6-9'`, `'3-5,9-11'`, `'toute'`, ou `'aucune'` pour un
+  produit sec ou importe) : le produit apparait alors seul dans la carte des
+  saisons (`app-seasons.js`). Un nouveau fichier de famille se declare dans `FILES`
   (`atlas-core.js`) ; les lignes qui ne sont pas des ingredients (consignes,
   materiel) vont dans `IGNORE`.
+- Traduction anglaise (`npm run translate:en`, controle
+  `scripts/validate-translations.js` dans `npm run check`) : le francais reste
+  la seule source. Apres tout ajout ou modification de recette, de fiche
+  d'atlas, de technique ou de texte `i18n.js`, lancer `npm run translate:en` :
+  seuls les textes nouveaux ou modifies partent chez DeepL (quota gratuit
+  500 000 caracteres par mois), la memoire est `translations/en/memory.json`.
+  Corrections a la main : `translations/en/overrides.json` (« texte fr » :
+  « en »), jamais ecrasees ; vocabulaire impose : `translations/en/glossary.tsv`.
+  La cle DeepL est dans `translations/en/deepl-key.txt` (ignore par git, ne
+  jamais la copier ailleurs). Le site traduit a l'affichage seulement (`tc`,
+  `app.js`) : ne jamais remplacer les donnees francaises, qu'analysent la liste
+  de courses, l'atlas et le mode vocal. Les champs traduits sont listes dans
+  `scripts/lib/translation-sources.js` (ajouter tout nouveau champ affiche).
+  Interface : toutes les phrases francaises du code (chaines, gabarits
+  `${n} ingrédients`, textes colles avec `+`) sont relevees seules et
+  traduites ; `app-english.js` remplace l'affichage (textes et attributs)
+  en anglais, nombres et noms compris. Ne pas imbriquer un gabarit dans un
+  autre (illisible pour le releve : passer par une variable). Apres une
+  modification d'interface, lancer `npm run translate:en` puis
+  `node scripts/audit-english.js` (serveur local lance) : il doit rester
+  « 0 textes encore en francais ».
 
 ## 4. Images
 
@@ -426,7 +450,7 @@ Sommaire :
   la sauce »), ajoute N minutes, combien de temps, pause / reprends /
   arrete le minuteur, stop (alarme), pause / reprends (ecoute), coupe le
   micro, terminer. Analyse des phrases : `parseVoiceCommand`, reponses :
-  `runCookVoiceCommand` (`app-kitchen.js`). Aucun delai entre deux commandes
+  `runCookVoiceCommand` (`app-kitchen.js`, phrases et analyse dans `app-voice.js`). Aucun delai entre deux commandes
   (seul un doublon du moteur dans les 0,6 s est ignore).
   Reconnaissance 100 % locale (Vosk, WebAssembly) : le son ne quitte jamais
   l'appareil, ce que dit le message de confidentialite affiche a l'ouverture

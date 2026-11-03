@@ -167,7 +167,7 @@ function drawConstellationWorld(ctx, sky, scale, selected, focus, lineUnit) {
       if (!(item.named || showAll || highlighted || (focus && item.family === focus))) return;
       ctx.globalAlpha = (dimOf(item, position) ? 0.28 : 1) * (major ? 1 : 0.8);
       ctx.fillStyle = highlighted ? item.color : 'rgba(239,230,212,.55)';
-      ctx.fillText(item.label, item.x, item.y + item.size * 4.2 + 14);
+      ctx.fillText(tc(item.label), item.x, item.y + item.size * 4.2 + 14);
     });
   });
   ctx.globalAlpha = 1;
