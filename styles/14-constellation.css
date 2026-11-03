@@ -34,6 +34,10 @@
   transition: transform .8s ease-out;
 }
 
+.has-constellation body > :not(.constellation) {
+  visibility: hidden;
+}
+
 .constellation-sky.is-moving {
   will-change: transform;
   transition: none;

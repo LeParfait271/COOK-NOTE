@@ -57,7 +57,8 @@ const FILE_BUDGETS = [
   ['recipe-worker.js', 4 * KB],
   ['assets/image-manifest.js', 180 * KB],
   ['app-art-images.js', 40 * KB],
-  ['service-worker.js', 10 * KB],
+  // 10 -> 11 Ko : modules app-sky.js et app-seasons.js precharges (v5.65).
+  ['service-worker.js', 11 * KB],
   ['assets/vendor/react.production.min.js', 14 * KB],
   ['assets/vendor/react-dom.production.min.js', 150 * KB],
   ['assets/vendor/confetti.browser.min.js', 12 * KB],

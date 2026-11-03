@@ -1235,6 +1235,7 @@ function FlavorConstellation({ open, onClose, recipes }) {
   const [shooting, setShooting] = useState(null);
   const dragRef = useRef(null);
   const svgRef = useRef(null);
+  const movedRef = useRef(false);
   const parallaxRef = useRef(null);
 
   useEffect(() => {
@@ -1254,9 +1255,12 @@ function FlavorConstellation({ open, onClose, recipes }) {
     const html = document.documentElement;
     const previous = html.style.overflow;
     html.style.overflow = 'hidden';
+    // La page sous le ciel n'est plus peinte (moins de calques a composer).
+    html.classList.add('has-constellation');
     return () => {
       window.removeEventListener('keydown', onKey, true);
       html.style.overflow = previous;
+      html.classList.remove('has-constellation');
     };
   }, [open]);
 
@@ -1295,6 +1299,16 @@ function FlavorConstellation({ open, onClose, recipes }) {
       window.removeEventListener('deviceorientation', onTilt);
     };
   }, [open]);
+
+  // Telephone : redessin du canvas a chaque changement de cadrage ou de choix.
+  const [touchSky] = useState(() => Boolean(window.matchMedia?.('(hover: none)').matches));
+  useEffect(() => {
+    if (!open || !touchSky || !sky || !svgRef.current) return undefined;
+    const redraw = () => svgRef.current && drawConstellationCanvas(svgRef.current, sky, view, selected, focusFamily);
+    redraw();
+    window.addEventListener('resize', redraw);
+    return () => window.removeEventListener('resize', redraw);
+  }, [open, touchSky, sky, view, selected, focusFamily]);
 
   if (!open) return null;
   if (!sky) {
@@ -1345,8 +1359,12 @@ function FlavorConstellation({ open, onClose, recipes }) {
     const stage = svgRef.current;
     const drag = dragRef.current;
     if (!stage || !drag) return;
+    if (touchSky) {
+      drawConstellationCanvas(stage, sky, next, selected, focusFamily, drag.view);
+      return;
+    }
     const rect = drag.rect || (drag.rect = stage.getBoundingClientRect());
-    const unit = width / rect.width;
+    const unit = Math.max(width / rect.width, height / rect.height);
     const ratio = next.scale / drag.view.scale;
     const dx = (next.x - drag.view.x) * drag.view.scale / unit;
     const dy = (next.y - drag.view.y) * drag.view.scale / unit;
@@ -1361,8 +1379,8 @@ function FlavorConstellation({ open, onClose, recipes }) {
       worldRef.current?.classList.add('is-dragging');
       svgRef.current?.classList.add('is-moving');
     }
-    const rect = svgRef.current.getBoundingClientRect();
-    const unit = width / rect.width;
+    const rect = drag.rect || (drag.rect = svgRef.current.getBoundingClientRect());
+    const unit = Math.max(width / rect.width, height / rect.height);
     if (drag.pointers.size === 2) {
       const [p1, p2] = [...drag.pointers.values()];
       const distance = Math.hypot(p1.x - p2.x, p1.y - p2.y);
@@ -1389,6 +1407,7 @@ function FlavorConstellation({ open, onClose, recipes }) {
     }
     if (drag.frame) cancelAnimationFrame(drag.frame);
     dragRef.current = null;
+    movedRef.current = Boolean(drag.started);
     worldRef.current?.classList.remove('is-dragging');
     svgRef.current?.classList.remove('is-moving');
     if (svgRef.current) svgRef.current.style.transform = '';
@@ -1409,7 +1428,25 @@ function FlavorConstellation({ open, onClose, recipes }) {
       ),
       h('button', { type: 'button', className: 'constellation-close', onClick: onClose, 'aria-label': 'Fermer la constellation' }, h(Icon, { name: 'close' }))
     ),
-    h('svg', {
+    touchSky ? h('canvas', {
+      ref: svgRef,
+      className: width < height ? 'constellation-sky is-canvas is-portrait' : 'constellation-sky is-canvas',
+      role: 'img',
+      'aria-label': `Ciel de ${sky.stars.length} ingrédients`,
+      onPointerDown,
+      onPointerMove,
+      onPointerUp,
+      onPointerCancel: onPointerUp,
+      onClick: event => {
+        if (movedRef.current) {
+          movedRef.current = false;
+          return;
+        }
+        const position = pickConstellationStar(event.currentTarget, sky, view, event.clientX, event.clientY);
+        if (position >= 0) pickStar(position);
+        else setSelected(-1);
+      }
+    }) : h('svg', {
       ref: svgRef,
       className: width < height ? 'constellation-sky is-portrait' : 'constellation-sky',
       viewBox: `0 0 ${width} ${height}`,

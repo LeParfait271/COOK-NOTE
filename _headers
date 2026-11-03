@@ -50,7 +50,13 @@
 /app-main.js
   Cache-Control: public, max-age=300, must-revalidate
 
+/app-sky.js
+  Cache-Control: public, max-age=300, must-revalidate
+
 /app-kitchen.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/app-seasons.js
   Cache-Control: public, max-age=300, must-revalidate
 
 /app-chef.js

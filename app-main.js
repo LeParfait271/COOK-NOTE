@@ -53,6 +53,8 @@ function App() {
   const [menuPlannerOpen, setMenuPlannerOpen] = useState(false);
   // Constellation des saveurs (carte du ciel ludique, app-kitchen.js).
   const [constellationOpen, setConstellationOpen] = useState(false);
+  // Carte des saisons (fruits et legumes mois par mois, app-seasons.js).
+  const [seasonsOpen, setSeasonsOpen] = useState(false);
   // Parcours de chef (cote et succes locaux, app-chef.js).
   const [chefOpen, setChefOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
@@ -1319,6 +1321,10 @@ function App() {
             setConstellationOpen(true);
             loadFullRecipeCatalog();
           },
+          openSeasons: () => {
+            setSeasonsOpen(true);
+            loadFullRecipeCatalog();
+          },
           openChef: () => {
             setChefOpen(true);
             loadFullRecipeCatalog();
@@ -1386,6 +1392,12 @@ function App() {
       recipes: searchableRecipes,
       openRecipe,
       notify
+    }),
+    h(SeasonPanel, {
+      open: seasonsOpen,
+      onClose: () => setSeasonsOpen(false),
+      recipes: searchableRecipes,
+      openRecipe
     }),
     h(FlavorConstellation, {
       open: constellationOpen,

@@ -1114,6 +1114,7 @@ function HomeView(props) {
           h('button', { type: 'button', onClick: props.openShoppingBasket }, h(Icon, { name: 'basket' }), h('span', null, 'Liste de courses')),
           h('button', { type: 'button', onClick: props.openTechniques }, h(Icon, { name: 'book' }), h('span', null, 'Techniques')),
           props.openConstellation && h('button', { type: 'button', className: 'home-constellation-action', onClick: props.openConstellation }, h(Icon, { name: 'spark' }), h('span', null, 'Constellation')),
+          props.openSeasons && h('button', { type: 'button', className: 'home-seasons-action', onClick: props.openSeasons }, h(Icon, { name: 'leaf' }), h('span', null, 'Saisons')),
           props.openChef && h(HomeChefAction, { onClick: props.openChef })
         )
       ),

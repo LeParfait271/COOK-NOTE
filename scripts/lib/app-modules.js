@@ -16,7 +16,9 @@ const APP_MODULES = Object.freeze([
   'app-search.js',
   'app-recipe-content.js',
   'app-components.js',
+  'app-sky.js',
   'app-kitchen.js',
+  'app-seasons.js',
   'app-chef.js',
   'app-panels.js',
   'app-recipe-view.js',
@@ -51,7 +53,8 @@ const STYLE_MODULES = Object.freeze([
   'styles/14-constellation.css',
   'styles/15-partage.css',
   'styles/16-chef.css',
-  'styles/17-collections.css'
+  'styles/17-collections.css',
+  'styles/18-saisons.css'
 ]);
 
 const styleLayerOf = file => (/^styles\/0\d-/.test(file) ? 'legacy' : 'design');
