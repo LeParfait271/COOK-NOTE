@@ -53,6 +53,8 @@ const ASSET_FILES = [
 const ASSET_DIRS = [
   'brand',
   'fonts',
+  // Atlas des ingredients (constellation des saveurs), charge a la demande.
+  'ingredients',
   'recipes/cards',
   'recipes/heroes',
   'theme',

@@ -43,7 +43,8 @@ const FILE_BUDGETS = [
   // 248 -> 256 Ko : constellation des saveurs v5.57 (ciel plein ecran anime).
   // 256 -> 264 Ko : partage v5.58 (billet avec QR code fait main, formats d'image).
   // 264 -> 272 Ko : classement de chef v5.59 (emblemes, panneau, ecran de fin).
-  ['dist/style.css', 272 * KB],
+  // 272 -> 280 Ko : atlas des ingredients v5.62 (fiche ingredient, recherche et legende du ciel).
+  ['dist/style.css', 280 * KB],
   ['personal-tools.css', 4 * KB],
   ['dist/personal-tools.css', 3 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.

@@ -954,66 +954,37 @@ function runCookVoiceCommand(command, ctx) {
 // Carte du ciel ludique : chaque ingredient courant est une etoile (plus il
 // sert, plus elle brille), les ingredients souvent cuisines ensemble sont
 // relies en constellations. On s'y promene (glisser, molette, boutons, deux
-// doigts), une etoile touchee trace sa constellation et ouvre ses recettes.
-// Calcule depuis le catalogue leger (ingredients des fiches), sans reseau.
+// doigts) ; une etoile touchee ouvre la fiche de l'ingredient (atlas des
+// ingredients, assets/ingredients/). Toute fiche de l'atlas utilisee par une
+// recette devient une etoile : un nouvel ingredient apparait tout seul.
 const CONSTELLATION_SIZE = { width: 1600, height: 1000 };
 const CONSTELLATION_PORTRAIT = { width: 1000, height: 1600 };
 const constellationSize = () => (window.innerHeight > window.innerWidth * 1.1 ? CONSTELLATION_PORTRAIT : CONSTELLATION_SIZE);
-const CONSTELLATION_STARS = 46;
-const CONSTELLATION_SKIP = new Set(['sel', 'poivre', 'eau', 'sel fin', 'poivre noir', 'huile', 'glacons', 'eau froide', 'eau chaude']);
-const CONSTELLATION_PAIRS = new Set(['huile', 'sauce', 'pate', 'creme', 'beurre', 'sucre', 'fromage', 'pomme', 'pommes', 'vinaigre', 'jus', 'zeste', 'pain', 'farine', 'lait', 'fond', 'poudre', 'fleur', 'citron', 'feuille', 'feuilles', 'graines', 'noix', 'pois', 'haricots', 'oignon', 'oignons', 'chou', 'riz']);
-// Mots de tete a sauter (« petite gousse d'ail » -> ail).
-const CONSTELLATION_LEAD = new Set(['de', 'du', 'des', 'la', 'le', 'les', 'un', 'une', 'petit', 'petite', 'petites', 'petits', 'gros', 'grosse', 'grosses', 'belle', 'belles', 'gousse', 'gousses', 'branche', 'branches', 'brin', 'brins', 'pincee', 'pincees', 'base', 'botte', 'tranche', 'tranches', 'morceau', 'morceaux', 'filet', 'trait', 'cuillere', 'cuilleres', 'soupe', 'cafe', 'cs', 'cc', 'sachet', 'sachets', 'verre', 'tasse', 'boite', 'feuille', 'feuilles', 'quelques', 'reste']);
-// Une seule etoile par ingredient (jaunes, blancs, oeuf -> oeufs).
-const CONSTELLATION_ALIASES = {
-  oeuf: 'oeufs', jaune: 'oeufs', jaunes: 'oeufs', blanc: 'oeufs', blancs: 'oeufs',
-  'beurre fondu': 'beurre', 'beurre pommade': 'beurre', 'beurre doux': 'beurre', 'beurre demi': 'beurre', 'beurre froid': 'beurre',
-  oignons: 'oignon', tomate: 'tomates', carotte: 'carottes', echalotes: 'echalote', citrons: 'citron',
-  'sucre semoule': 'sucre', 'sucre poudre': 'sucre', 'creme liquide': 'creme', 'creme entiere': 'creme', 'creme epaisse': 'creme',
-  'farine t': 'farine', 'lait entier': 'lait', 'huile tournesol': 'huile neutre', 'huile pepins': 'huile neutre'
-};
-// Familles de saveurs : chacune a sa lumiere dans le ciel.
-const CONSTELLATION_FAMILIES = [
-  { id: 'douceur', label: 'Douceurs', keys: ['sucre', 'sucre glace', 'cassonade', 'chocolat', 'cacao', 'vanille', 'miel', 'lait', 'creme', 'beurre', 'oeufs', 'farine', 'levure', 'fecule', 'amandes', 'cafe'] },
-  { id: 'jardin', label: 'Herbes & agrumes', keys: ['basilic', 'persil', 'thym', 'romarin', 'laurier', 'coriandre', 'ciboulette', 'menthe', 'aneth', 'citron', 'jus citron', 'zeste citron', 'citron vert', 'echalote', 'oignon', 'ail', 'carottes'] },
-  { id: 'feu', label: 'Épices & feu', keys: ['piment', 'paprika', 'cumin', 'gingembre', 'chorizo', 'poivron', 'concentre', 'tomates', 'moutarde', 'curry', 'harissa', 'sauce soja', 'noix muscade'] }
-];
-const CONSTELLATION_GLOWS = { douceur: '#f3cf86', jardin: '#a9e3d2', feu: '#f2a28f', terre: '#e9dcc4' };
-const constellationFamily = key => (CONSTELLATION_FAMILIES.find(family => family.keys.includes(key)) || { id: 'terre' }).id;
-const CONSTELLATION_LABELS = {
-  oeufs: 'œufs', creme: 'crème', fecule: 'fécule', 'pommes terre': 'pommes de terre', 'jus citron': 'jus de citron',
-  'zeste citron': 'zeste de citron', 'fleur sel': 'fleur de sel', 'huile olive': 'huile d’olive', echalote: 'échalote',
-  'sucre glace': 'sucre glace', 'noix muscade': 'noix de muscade', 'pate feuilletee': 'pâte feuilletée', pates: 'pâtes',
-  'creme fraiche': 'crème fraîche', gingembre: 'gingembre', coriandre: 'coriandre', 'vinaigre vin': 'vinaigre de vin',
-  'sauce soja': 'sauce soja', 'graines sesame': 'graines de sésame', 'huile sesame': 'huile de sésame', cafe: 'café', concentre: 'concentré de tomate', chapelure: 'chapelure'
-};
-const CONSTELLATION_DROP = /\b(frais|fraiche|fraiches|hache|hachee|haches|emince|emincee|coupe|coupee|en|de|d|du|des|la|le|les|pour|au|aux|a|bien|mur|mure|doux|douce|fin|fine|gros|grosse|petit|petite|sec|seche|moulu|moulue|rape|rapee|entier|entiere|liquide|bio|maison|environ|facultatif|ou)\b/g;
+// Noms toujours affiches a l'echelle 1 (les autres apparaissent en zoomant).
+const CONSTELLATION_NAMED = 56;
+const CONSTELLATION_LAYOUT_KEY = 'cook_note_sky_layout';
+const constellationLayoutCache = new Map();
 
-function constellationKey(item) {
-  const text = stripHtml(String(item || ''));
-  const parts = typeof splitIngredientQuantity === 'function' ? splitIngredientQuantity(text) : null;
-  const name = normalizeText(parts ? parts.name : text)
-    .replace(/\(.*?\)/g, ' ')
-    .split(/[,;:]/)[0]
-    .replace(/['’-]/g, ' ')
-    .replace(/[^a-z ]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-  const words = name.split(' ').filter(word => word.length > 1);
-  while (words.length > 1 && CONSTELLATION_LEAD.has(words[0])) words.shift();
-  if (!words.length || CONSTELLATION_LEAD.has(words[0])) return '';
-  const first = words[0];
-  let key = first;
-  if (CONSTELLATION_PAIRS.has(first) && words[1]) {
-    const second = words.slice(1).join(' ').replace(CONSTELLATION_DROP, ' ').trim().split(' ')[0];
-    if (second) key = `${first} ${second}`;
+// Atlas des ingredients (assets/ingredients/) : charge a l'ouverture du ciel,
+// le moteur d'abord, puis toutes les familles de fiches.
+const INGREDIENT_ATLAS_BASE = '/assets/ingredients/';
+let ingredientAtlasLoad = null;
+
+function loadIngredientAtlas() {
+  if (window.cookNoteAtlasReady && window.cookNoteAtlas) return Promise.resolve(window.cookNoteAtlas);
+  if (!ingredientAtlasLoad) {
+    const version = typeof SITE_CACHE_VERSION !== 'undefined' ? `?v=${SITE_CACHE_VERSION}` : '';
+    ingredientAtlasLoad = loadDeferredScript(`${INGREDIENT_ATLAS_BASE}atlas-core.js${version}`, 'cookNoteAtlas')
+      .then(atlas => Promise.all(atlas.FILES.map(file => loadDeferredScript(`${INGREDIENT_ATLAS_BASE}${file}${version}`))).then(() => {
+        window.cookNoteAtlasReady = true;
+        return atlas;
+      }))
+      .catch(error => {
+        ingredientAtlasLoad = null;
+        throw error;
+      });
   }
-  return CONSTELLATION_ALIASES[key] || CONSTELLATION_ALIASES[first] || key;
-}
-
-function constellationLabel(key) {
-  const label = CONSTELLATION_LABELS[key] || key;
-  return label.charAt(0).toUpperCase() + label.slice(1);
+  return ingredientAtlasLoad;
 }
 
 // Pseudo-hasard stable (meme ciel a chaque ouverture).
@@ -1031,146 +1002,233 @@ function hashText(text) {
   return hash >>> 0;
 }
 
-function buildConstellation(recipes, size = CONSTELLATION_SIZE) {
+// Une etoile par fiche de l'atlas presente dans au moins une recette.
+// Taille : nombre de recettes ; amas : famille ; liens : les ingredients le
+// plus souvent cuisines ensemble (frequence relative, pas brute).
+function buildConstellation(recipes, size, atlas) {
   const uses = new Map();
+  const together = new Map();
+  const categories = new Map();
+  const seasons = new Map();
   const leaves = (recipes || []).filter(recipe => recipe && !(recipe.variants || []).length && (recipe.ingredients || []).length);
   leaves.forEach(recipe => {
-    const keys = new Set((recipe.ingredients || []).flatMap(group => group.items || []).map(constellationKey).filter(key => key && !CONSTELLATION_SKIP.has(key)));
-    keys.forEach(key => {
-      if (!uses.has(key)) uses.set(key, []);
-      uses.get(key).push(recipe);
+    const ids = new Set();
+    (recipe.ingredients || []).forEach(group => (group.items || []).forEach(item => {
+      if (!atlas.ignored(item)) atlas.match(item).forEach(id => ids.add(id));
+    }));
+    const list = [...ids];
+    const category = typeof primaryCategory === 'function' ? primaryCategory(recipe) : '';
+    list.forEach(id => {
+      uses.set(id, (uses.get(id) || 0) + 1);
+      if (!categories.has(id)) categories.set(id, new Map());
+      if (category) categories.get(id).set(category, (categories.get(id).get(category) || 0) + 1);
+      if (!seasons.has(id)) seasons.set(id, new Map());
+      (recipe.seasons || []).forEach(season => seasons.get(id).set(season, (seasons.get(id).get(season) || 0) + 1));
     });
+    for (let a = 0; a < list.length; a += 1) {
+      for (let b = a + 1; b < list.length; b += 1) {
+        const key = list[a] < list[b] ? `${list[a]}|${list[b]}` : `${list[b]}|${list[a]}`;
+        together.set(key, (together.get(key) || 0) + 1);
+      }
+    }
   });
-  const stars = [...uses.entries()]
-    .filter(([, list]) => list.length >= 3)
-    .sort((left, right) => right[1].length - left[1].length)
-    .slice(0, CONSTELLATION_STARS)
-    .map(([key, list]) => ({ key, label: constellationLabel(key), recipes: list, count: list.length }));
+  const top = (map, count) => [...(map || new Map()).entries()].sort((left, right) => right[1] - left[1]).slice(0, count).map(([name]) => name);
+  const stars = atlas.entries
+    .filter(entry => uses.has(entry.id))
+    .map(entry => ({
+      key: entry.id,
+      label: entry.name,
+      family: entry.family,
+      entry,
+      count: uses.get(entry.id),
+      categories: top(categories.get(entry.id), 3),
+      seasons: top(seasons.get(entry.id), 4)
+    }))
+    .sort((left, right) => right.count - left.count || left.label.localeCompare(right.label, 'fr'));
   const index = new Map(stars.map((star, position) => [star.key, position]));
-  // Liens : les deux voisins les plus souvent cuisines avec chaque etoile.
-  const together = stars.map(() => new Map());
+  // Noms affiches : les plus utilises, et les deux premiers de chaque famille.
+  const namedPerFamily = new Map();
   stars.forEach((star, position) => {
-    const ids = new Set(star.recipes.map(recipe => recipe.id));
-    stars.forEach((other, otherPosition) => {
-      if (otherPosition === position) return;
-      const shared = other.recipes.filter(recipe => ids.has(recipe.id)).length;
-      if (shared >= 2) together[position].set(otherPosition, shared / Math.sqrt(star.count * other.count));
-    });
+    star.rank = position;
+    const seen = namedPerFamily.get(star.family) || 0;
+    star.named = position < CONSTELLATION_NAMED || seen < 2;
+    namedPerFamily.set(star.family, seen + 1);
+  });
+
+  // Voisins : affinite = recettes communes / racine(produit des usages).
+  const neighbours = stars.map(() => []);
+  together.forEach((count, key) => {
+    if (count < 2) return;
+    const [left, right] = key.split('|');
+    const a = index.get(left);
+    const b = index.get(right);
+    if (a === undefined || b === undefined) return;
+    const affinity = count / Math.sqrt(stars[a].count * stars[b].count);
+    neighbours[a].push({ other: b, affinity, count });
+    neighbours[b].push({ other: a, affinity, count });
   });
   const links = new Map();
-  together.forEach((neighbours, position) => {
-    [...neighbours.entries()].sort((a, b) => b[1] - a[1]).slice(0, 2).forEach(([other, strength]) => {
-      const id = position < other ? `${position}-${other}` : `${other}-${position}`;
-      if (!links.has(id)) links.set(id, { a: Math.min(position, other), b: Math.max(position, other), strength });
+  neighbours.forEach((list, position) => {
+    list.sort((left, right) => right.affinity - left.affinity);
+    stars[position].pairs = list.slice(0, 6).map(item => item.other);
+    list.slice(0, stars[position].named ? 3 : 1).forEach(({ other }) => {
+      const a = Math.min(position, other);
+      const b = Math.max(position, other);
+      links.set(`${a}-${b}`, { a, b, same: stars[a].family === stars[b].family });
     });
-  });
-  // Placement : graines stables puis quelques passes de ressorts / repulsion.
-  const { width, height } = size;
-  const random = seededRandom(hashText(stars.map(star => star.key).join('|')));
-  stars.forEach(star => {
-    star.x = width * (0.12 + random() * 0.76);
-    star.y = height * (0.14 + random() * 0.72);
   });
   const linkList = [...links.values()];
-  for (let pass = 0; pass < 220; pass += 1) {
-    const cooling = 1 - pass / 220;
-    stars.forEach((star, a) => {
-      let fx = 0;
-      let fy = 0;
-      stars.forEach((other, b) => {
-        if (a === b) return;
-        const dx = star.x - other.x;
-        const dy = star.y - other.y;
-        const distance = Math.max(30, Math.hypot(dx, dy));
-        const push = 9000 / (distance * distance);
-        fx += (dx / distance) * push;
-        fy += (dy / distance) * push;
-      });
-      fx += (width / 2 - star.x) * 0.002;
-      fy += (height / 2 - star.y) * 0.002;
-      star.vx = fx;
-      star.vy = fy;
-    });
-    linkList.forEach(({ a, b }) => {
-      const first = stars[a];
-      const second = stars[b];
-      const dx = second.x - first.x;
-      const dy = second.y - first.y;
-      const distance = Math.max(1, Math.hypot(dx, dy));
-      const pull = (distance - 150) * 0.02;
-      first.vx += (dx / distance) * pull;
-      first.vy += (dy / distance) * pull;
-      second.vx -= (dx / distance) * pull;
-      second.vy -= (dy / distance) * pull;
-    });
-    stars.forEach(star => {
-      star.x = Math.min(width * 0.94, Math.max(width * 0.06, star.x + star.vx * 6 * cooling));
-      star.y = Math.min(height * 0.92, Math.max(height * 0.08, star.y + star.vy * 6 * cooling));
-    });
-  }
-  // Le ciel remplit tout le cadre, quelle que soit la forme de l'ecran.
-  if (stars.length > 1) {
-    const xs = stars.map(star => star.x);
-    const ys = stars.map(star => star.y);
-    const [minX, maxX, minY, maxY] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
-    stars.forEach(star => {
-      star.x = width * 0.1 + (star.x - minX) / Math.max(1, maxX - minX) * width * 0.8;
-      star.y = height * 0.15 + (star.y - minY) / Math.max(1, maxY - minY) * height * (width > height ? 0.62 : 0.7);
-    });
-  }
-  // Les noms ne se chevauchent jamais : on ecarte les etiquettes qui se touchent.
-  const glyph = width > height ? 8.4 : 13.4;
-  const lineGap = width > height ? 34 : 48;
-  for (let pass = 0; pass < 140; pass += 1) {
-    let moved = false;
-    stars.forEach((star, a) => stars.forEach((other, b) => {
-      if (b <= a) return;
-      const dx = other.x - star.x;
-      const dy = other.y - star.y;
-      const needX = (star.label.length + other.label.length) * glyph / 2 + 14;
-      if (Math.abs(dx) >= needX || Math.abs(dy) >= lineGap) return;
-      moved = true;
-      const pushX = (needX - Math.abs(dx)) / needX;
-      const pushY = (lineGap - Math.abs(dy)) / lineGap;
-      // On pousse sur l'axe le moins couteux.
-      if (pushY * lineGap < pushX * needX) {
-        const shift = (lineGap - Math.abs(dy)) / 2 + 1;
-        const sign = dy >= 0 ? 1 : -1;
-        star.y -= shift * sign;
-        other.y += shift * sign;
-      } else {
-        const shift = (needX - Math.abs(dx)) / 2 + 1;
-        const sign = dx >= 0 ? 1 : -1;
-        star.x -= shift * sign;
-        other.x += shift * sign;
-      }
-    }));
-    stars.forEach(star => {
-      const half = Math.max(width * 0.05, star.label.length * glyph / 2 + 12);
-      star.x = Math.min(width - half, Math.max(half, star.x));
-      star.y = Math.min(height * (width > height ? 0.8 : 0.88), Math.max(height * 0.13, star.y));
-    });
-    if (!moved) break;
-  }
-  const top = stars[0]?.count || 1;
+
+  // Placement : un amas par famille, les amas sur une grande ellipse, puis
+  // repulsion entre etoiles et rappel doux vers le centre de l'amas.
+  const { width, height } = size;
+  const random = seededRandom(hashText(stars.map(star => star.key).join('|')));
+  const families = atlas.FAMILIES.filter(family => stars.some(star => star.family === family.id));
+  const centers = new Map();
+  families.forEach((family, position) => {
+    const angle = (position / families.length) * Math.PI * 2 - Math.PI / 2;
+    const spread = position % 2 ? 0.27 : 0.36;
+    centers.set(family.id, { x: width / 2 + Math.cos(angle) * width * spread, y: height / 2 + Math.sin(angle) * height * spread });
+  });
   stars.forEach(star => {
-    star.size = 2.2 + 5.2 * Math.sqrt(star.count / top);
+    const center = centers.get(star.family);
+    const angle = random() * Math.PI * 2;
+    const reach = 20 + random() * 90;
+    star.x = center.x + Math.cos(angle) * reach;
+    star.y = center.y + Math.sin(angle) * reach;
+  });
+  // Le placement coute cher sur telephone : il est garde (memoire et appareil)
+  // tant que les etoiles et la forme de l'ecran ne changent pas.
+  const layoutKey = `${width}x${height}|${hashText(stars.map(star => star.key + star.count).join(','))}`;
+  const saved = constellationLayoutCache.get(layoutKey) || readJson(CONSTELLATION_LAYOUT_KEY, null);
+  const restored = Boolean(saved && saved.key === layoutKey && saved.x && saved.x.length === stars.length);
+  if (restored) {
+    stars.forEach((star, position) => {
+      star.x = saved.x[position];
+      star.y = saved.y[position];
+    });
+  } else {
+    const passes = 110;
+    for (let pass = 0; pass < passes; pass += 1) {
+      const cooling = 1 - pass / passes;
+      for (let a = 0; a < stars.length; a += 1) {
+        const star = stars[a];
+        let fx = 0;
+        let fy = 0;
+        for (let b = 0; b < stars.length; b += 1) {
+          if (a === b) continue;
+          const other = stars[b];
+          const dx = star.x - other.x;
+          const dy = star.y - other.y;
+          const square = dx * dx + dy * dy;
+          if (square > 67600) continue;
+          const distance = Math.max(12, Math.sqrt(square));
+          const push = (star.family === other.family ? 1300 : 4200) / (distance * distance);
+          fx += (dx / distance) * push;
+          fy += (dy / distance) * push;
+        }
+        const center = centers.get(star.family);
+        fx += (center.x - star.x) * 0.034;
+        fy += (center.y - star.y) * 0.034;
+        star.vx = fx;
+        star.vy = fy;
+      }
+      linkList.forEach(({ a, b }) => {
+        const first = stars[a];
+        const second = stars[b];
+        const dx = second.x - first.x;
+        const dy = second.y - first.y;
+        const distance = Math.max(1, Math.hypot(dx, dy));
+        const pull = (distance - 160) * 0.0008;
+        first.vx += (dx / distance) * pull;
+        first.vy += (dy / distance) * pull;
+        second.vx -= (dx / distance) * pull;
+        second.vy -= (dy / distance) * pull;
+      });
+      stars.forEach(star => {
+        star.x += Math.max(-24, Math.min(24, star.vx * 5 * cooling));
+        star.y += Math.max(-24, Math.min(24, star.vy * 5 * cooling));
+      });
+    }
+    // Le ciel remplit tout le cadre, quelle que soit la forme de l'ecran.
+    if (stars.length > 1) {
+      const xs = stars.map(star => star.x);
+      const ys = stars.map(star => star.y);
+      const [minX, maxX, minY, maxY] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+      stars.forEach(star => {
+        star.x = width * 0.07 + (star.x - minX) / Math.max(1, maxX - minX) * width * 0.86;
+        star.y = height * 0.13 + (star.y - minY) / Math.max(1, maxY - minY) * height * (width > height ? 0.6 : 0.68);
+      });
+    }
+    // Les noms affiches ne se chevauchent pas.
+    const named = stars.filter(star => star.named);
+    const glyph = width > height ? 8.4 : 13.4;
+    const lineGap = width > height ? 32 : 46;
+    for (let pass = 0; pass < 120; pass += 1) {
+      let moved = false;
+      named.forEach((star, a) => named.forEach((other, b) => {
+        if (b <= a) return;
+        const dx = other.x - star.x;
+        const dy = other.y - star.y;
+        const needX = (star.label.length + other.label.length) * glyph / 2 + 12;
+        if (Math.abs(dx) >= needX || Math.abs(dy) >= lineGap) return;
+        moved = true;
+        if ((lineGap - Math.abs(dy)) < (needX - Math.abs(dx))) {
+          const shift = (lineGap - Math.abs(dy)) / 2 + 1;
+          star.y -= shift * (dy >= 0 ? 1 : -1);
+          other.y += shift * (dy >= 0 ? 1 : -1);
+        } else {
+          const shift = (needX - Math.abs(dx)) / 2 + 1;
+          star.x -= shift * (dx >= 0 ? 1 : -1);
+          other.x += shift * (dx >= 0 ? 1 : -1);
+        }
+      }));
+      named.forEach(star => {
+        const half = Math.max(width * 0.04, star.label.length * glyph / 2 + 10);
+        star.x = Math.min(width - half, Math.max(half, star.x));
+        star.y = Math.min(height * 0.9, Math.max(height * 0.1, star.y));
+      });
+      if (!moved) break;
+    }
+    const layout = { key: layoutKey, x: stars.map(star => Math.round(star.x)), y: stars.map(star => Math.round(star.y)) };
+    constellationLayoutCache.set(layoutKey, layout);
+    writeJson(CONSTELLATION_LAYOUT_KEY, layout);
+  }
+  const most = stars[0]?.count || 1;
+  const colors = new Map(atlas.FAMILIES.map(family => [family.id, family.color]));
+  stars.forEach(star => {
+    star.size = 1.5 + 5.2 * Math.sqrt(star.count / most);
     star.twinkle = (hashText(star.key) % 70) / 10;
-    star.family = constellationFamily(star.key);
+    star.color = colors.get(star.family) || '#f3cf86';
   });
   // Poussiere d'etoiles du fond (fixe, stable).
-  const dust = Array.from({ length: 260 }, () => ({
+  const dust = Array.from({ length: window.matchMedia?.('(hover: none)').matches ? 120 : 220 }, () => ({
     x: random() * width,
     y: random() * height,
     r: random() < 0.92 ? 0.4 + random() * 0.8 : 1.2 + random() * 0.8,
     o: 0.2 + random() * 0.6,
     d: random() * 6
   }));
-  return { stars, links: linkList, dust, index, size };
+  return { stars, links: linkList, dust, index, size, families };
 }
 
-function FlavorConstellation({ open, onClose, recipes, openRecipe }) {
-  const sky = useMemo(() => (open ? buildConstellation(recipes, constellationSize()) : null), [open, recipes]);
+function FlavorConstellation({ open, onClose, recipes }) {
+  const [atlas, setAtlas] = useState(() => (window.cookNoteAtlasReady ? window.cookNoteAtlas : null));
+  const [atlasError, setAtlasError] = useState(false);
+  const [focusFamily, setFocusFamily] = useState('');
+  const [query, setQuery] = useState('');
+  useEffect(() => {
+    if (!open || atlas) return;
+    loadIngredientAtlas().then(setAtlas).catch(() => setAtlasError(true));
+  }, [open, atlas]);
+  // Calcul du ciel apres l'affichage de l'ecran d'attente (le telephone ne fige pas).
+  const [sky, setSky] = useState(null);
+  useEffect(() => {
+    if (!open || !atlas) return undefined;
+    const timer = window.setTimeout(() => setSky(buildConstellation(recipes, constellationSize(), atlas)), 30);
+    return () => window.clearTimeout(timer);
+  }, [open, recipes, atlas]);
+  const worldRef = useRef(null);
   const [selected, setSelected] = useState(-1);
   const [hovered, setHovered] = useState(-1);
   const [view, setView] = useState({ x: 0, y: 0, scale: 1 });
@@ -1182,6 +1240,8 @@ function FlavorConstellation({ open, onClose, recipes, openRecipe }) {
   useEffect(() => {
     if (!open) return undefined;
     setSelected(-1);
+    setFocusFamily('');
+    setQuery('');
     setView({ x: 0, y: 0, scale: 1 });
     const onKey = event => {
       if (event.key === 'Escape') {
@@ -1213,9 +1273,10 @@ function FlavorConstellation({ open, onClose, recipes, openRecipe }) {
     return () => window.clearTimeout(timer);
   }, [open]);
 
-  // Le ciel suit tres legerement la souris ou l'inclinaison du telephone.
+  // Le ciel suit tres legerement la souris (pas au telephone : l'inclinaison
+  // redessinait tout le ciel en continu).
   useEffect(() => {
-    if (!open || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (!open || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || !window.matchMedia?.('(hover: hover)').matches) return undefined;
     let frame = 0;
     const apply = (px, py) => {
       cancelAnimationFrame(frame);
@@ -1235,7 +1296,16 @@ function FlavorConstellation({ open, onClose, recipes, openRecipe }) {
     };
   }, [open]);
 
-  if (!open || !sky) return null;
+  if (!open) return null;
+  if (!sky) {
+    return ReactDOM.createPortal(h('div', { className: 'constellation is-loading', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Constellation des saveurs' },
+      h('header', { className: 'constellation-head' },
+        h('div', null, h('small', null, 'Cook Note'), h('h2', null, 'Constellation des saveurs')),
+        h('button', { type: 'button', className: 'constellation-close', onClick: onClose, 'aria-label': 'Fermer la constellation' }, h(Icon, { name: 'close' }))
+      ),
+      h('p', { className: 'constellation-loading' }, atlasError ? 'Le ciel n’a pas pu se charger. Vérifiez la connexion puis rouvrez la constellation.' : 'Les étoiles s’allument…')
+    ), document.body);
+  }
   const { width, height } = sky.size;
   const active = selected >= 0 ? selected : hovered;
   const linked = new Set();
@@ -1262,34 +1332,61 @@ function FlavorConstellation({ open, onClose, recipes, openRecipe }) {
   // Deplacement : glisser (souris, un doigt), zoom : molette ou deux doigts.
   const onPointerDown = event => {
     if (event.target.closest('.constellation-star')) return;
-    dragRef.current = { x: event.clientX, y: event.clientY, view, pointers: dragRef.current?.pointers || new Map() };
+    const previous = dragRef.current;
+    dragRef.current = { x: event.clientX, y: event.clientY, view: previous?.live || view, live: previous?.live, started: previous?.started, pointers: previous?.pointers || new Map() };
     dragRef.current.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
+  // Pendant le geste, le ciel bouge directement (une image par frame, sans
+  // re-rendre les 258 etoiles) ; la position est enregistree au lacher.
+  const paint = next => {
+    if (!worldRef.current) return;
+    worldRef.current.style.transform = skyTransform(next);
   };
   const onPointerMove = event => {
     const drag = dragRef.current;
     if (!drag || !drag.pointers.has(event.pointerId)) return;
     drag.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (!drag.started) {
+      drag.started = true;
+      worldRef.current?.classList.add('is-dragging');
+    }
     const rect = svgRef.current.getBoundingClientRect();
     const unit = width / rect.width;
     if (drag.pointers.size === 2) {
       const [p1, p2] = [...drag.pointers.values()];
       const distance = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-      if (!drag.pinch) drag.pinch = { distance, scale: view.scale };
-      setView(current => ({ ...current, scale: Math.min(3, Math.max(0.7, drag.pinch.scale * distance / drag.pinch.distance)) }));
-      return;
+      const base = drag.live || drag.view;
+      if (!drag.pinch) drag.pinch = { distance, scale: base.scale };
+      drag.live = { ...base, scale: Math.min(3, Math.max(0.7, drag.pinch.scale * distance / drag.pinch.distance)) };
+    } else {
+      drag.live = { ...drag.view, x: drag.view.x + (event.clientX - drag.x) * unit / drag.view.scale, y: drag.view.y + (event.clientY - drag.y) * unit / drag.view.scale };
     }
-    setView({ ...drag.view, x: drag.view.x + (event.clientX - drag.x) * unit / drag.view.scale, y: drag.view.y + (event.clientY - drag.y) * unit / drag.view.scale });
+    if (!drag.frame) {
+      drag.frame = requestAnimationFrame(() => {
+        drag.frame = 0;
+        paint(drag.live);
+      });
+    }
   };
   const onPointerUp = event => {
     const drag = dragRef.current;
     if (!drag) return;
     drag.pointers.delete(event.pointerId);
-    if (!drag.pointers.size) dragRef.current = null;
-    else drag.pinch = null;
+    if (drag.pointers.size) {
+      drag.pinch = null;
+      return;
+    }
+    if (drag.frame) cancelAnimationFrame(drag.frame);
+    dragRef.current = null;
+    worldRef.current?.classList.remove('is-dragging');
+    if (drag.live) setView(drag.live);
   };
-  const transform = `translate(${width / 2}px, ${height / 2}px) scale(${view.scale}) translate(${-width / 2 + view.x}px, ${-height / 2 + view.y}px)`;
-  const name = star ? 'Constellation' : '';
+  const skyTransform = next => `translate(${width / 2}px, ${height / 2}px) scale(${next.scale}) translate(${-width / 2 + next.x}px, ${-height / 2 + next.y}px)`;
+  const transform = skyTransform(view);
+  const showAllNames = view.scale >= 1.7;
+  const familyLabel = id => (sky.families.find(family => family.id === id) || {}).label || '';
+  const matches = query.trim() ? sky.stars.filter(item => normalizeText(item.label).includes(normalizeText(query.trim()))).slice(0, 6) : [];
 
   return ReactDOM.createPortal(h('div', { className: 'constellation', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Constellation des saveurs', ref: parallaxRef },
     h('div', { className: 'constellation-nebula', 'aria-hidden': 'true' }),
@@ -1315,7 +1412,7 @@ function FlavorConstellation({ open, onClose, recipes, openRecipe }) {
       }
     },
       h('defs', null,
-        Object.entries(CONSTELLATION_GLOWS).map(([family, color]) => h('radialGradient', { key: family, id: `cn-glow-${family}` },
+        sky.families.map(({ id: family, color }) => h('radialGradient', { key: family, id: `cn-glow-${family}` },
           h('stop', { offset: '0%', stopColor: '#fffaf0', stopOpacity: 1 }),
           h('stop', { offset: '28%', stopColor: color, stopOpacity: 0.5 }),
           h('stop', { offset: '100%', stopColor: color, stopOpacity: 0 })
@@ -1340,27 +1437,30 @@ function FlavorConstellation({ open, onClose, recipes, openRecipe }) {
         sky.dust.map((dot, position) => h('circle', { key: position, cx: dot.x, cy: dot.y, r: dot.r, style: { opacity: dot.o, animationDelay: `${dot.d}s` }, className: position % 9 === 0 ? 'is-twinkle' : '' }))
       ),
       shooting && h('line', { key: shooting.id, className: 'constellation-shooting', x1: shooting.x, y1: shooting.y, x2: shooting.x + 200, y2: shooting.y + 200 * Math.tan((shooting.angle * Math.PI) / 180), pathLength: 1 }),
-      h('g', { style: { transform }, className: dragRef.current ? 'constellation-world is-dragging' : 'constellation-world' },
-        sky.links.map(({ a, b }) => {
+      h('g', { ref: worldRef, style: { transform }, className: focusFamily ? 'constellation-world has-focus' : 'constellation-world' },
+        sky.links.map(({ a, b, same }) => {
           const lit = active >= 0 && (a === active || b === active);
           return h('line', {
             key: `${a}-${b}-${lit ? active : 'n'}`,
-            className: lit ? 'constellation-link is-lit' : 'constellation-link',
+            className: lit ? 'constellation-link is-lit' : same ? 'constellation-link' : 'constellation-link is-cross',
             x1: sky.stars[a].x, y1: sky.stars[a].y, x2: sky.stars[b].x, y2: sky.stars[b].y,
             pathLength: 1
           });
         }),
         sky.stars.map((item, position) => {
-          const state = position === active ? 'is-active' : active >= 0 && !linked.has(position) ? 'is-dim' : linked.has(position) ? 'is-linked' : '';
+          const inFocus = !focusFamily || item.family === focusFamily;
+          const state = position === active ? 'is-active' : active >= 0 && !linked.has(position) ? 'is-dim' : linked.has(position) ? 'is-linked' : !inFocus ? 'is-dim' : '';
+          const labelled = item.named || showAllNames || position === active || linked.has(position) || (focusFamily && item.family === focusFamily);
           return h('g', {
             key: item.key,
-            className: `constellation-star is-${item.family} ${state}`,
+            className: `constellation-star ${state}`,
             transform: `translate(${item.x} ${item.y})`,
             tabIndex: 0,
             role: 'button',
-            'aria-label': `${item.label} : ${item.count} recettes`,
-            onPointerEnter: () => setHovered(position),
-            onPointerLeave: () => setHovered(-1),
+            'aria-label': `${item.label}, ${familyLabel(item.family)}`,
+            // Survol a la souris seulement : au doigt il re-rendait tout le ciel.
+            onPointerEnter: event => { if (event.pointerType === 'mouse') setHovered(position); },
+            onPointerLeave: event => { if (event.pointerType === 'mouse') setHovered(-1); },
             onFocus: () => setHovered(position),
             onBlur: () => setHovered(-1),
             onClick: () => pickStar(position),
@@ -1370,19 +1470,21 @@ function FlavorConstellation({ open, onClose, recipes, openRecipe }) {
                 pickStar(position);
               }
             },
-            style: { animationDelay: `${item.twinkle}s` }
+            style: { animationDelay: `${item.twinkle}s`, '--star': item.color }
           },
             // Naissance des etoiles : les plus brillantes s'allument d'abord.
-            h('g', { className: 'constellation-body', style: { animationDelay: `${0.25 + position * 0.045}s` } },
-              h('circle', { className: 'constellation-halo', r: item.size * 4.2, fill: `url(#cn-glow-${item.family})`, style: { animationDelay: `${item.twinkle}s` } }),
+            // Halo et naissance animee pour les etoiles nommees seulement : les
+            // 200 petites etoiles restent de simples points (bien plus legers).
+            h('g', { className: item.named ? 'constellation-body is-named' : 'constellation-body', style: item.named ? { animationDelay: `${0.2 + Math.min(position, 80) * 0.02}s` } : undefined },
+              (item.named || position === active || linked.has(position)) && h('circle', { className: position < 14 ? 'constellation-halo is-bright' : 'constellation-halo', r: item.size * 4.2, fill: `url(#cn-glow-${item.family})`, style: position < 14 ? { animationDelay: `${item.twinkle}s` } : undefined }),
               position < 7 && h('g', { className: 'constellation-spikes', style: { animationDelay: `${item.twinkle}s` } },
                 h('line', { x1: -item.size * 7, x2: item.size * 7, y1: 0, y2: 0 }),
                 h('line', { y1: -item.size * 7, y2: item.size * 7, x1: 0, x2: 0 })
               ),
               position === active && h('circle', { key: `ripple-${active}`, className: 'constellation-ripple', r: item.size * 2 }),
               h('circle', { className: 'constellation-core', r: item.size }),
-              h('circle', { className: 'constellation-hit', r: Math.max(22, item.size * 3) }),
-              h('text', { className: 'constellation-label', y: item.size * 4.2 + 14, textAnchor: 'middle' }, item.label)
+              h('circle', { className: 'constellation-hit', r: Math.max(18, item.size * 3) }),
+              labelled && h('text', { className: item.named ? 'constellation-label' : 'constellation-label is-minor', y: item.size * 4.2 + 14, textAnchor: 'middle' }, item.label)
             )
           );
         })
@@ -1393,23 +1495,56 @@ function FlavorConstellation({ open, onClose, recipes, openRecipe }) {
       h('button', { type: 'button', onClick: () => zoom(1 / 1.25), 'aria-label': 'Éloigner' }, '−'),
       h('button', { type: 'button', onClick: () => setView({ x: 0, y: 0, scale: 1 }), 'aria-label': 'Recentrer' }, '◎')
     ),
+    // Recherche d'un ingredient : la camera file vers son etoile.
+    h('div', { className: 'constellation-search' },
+      h(Icon, { name: 'search' }),
+      h('input', {
+        type: 'search',
+        value: query,
+        placeholder: `Chercher parmi ${sky.stars.length} ingrédients`,
+        'aria-label': 'Chercher un ingrédient dans le ciel',
+        onChange: event => setQuery(event.target.value),
+        onKeyDown: event => {
+          if (event.key === 'Enter' && matches.length) {
+            pickStar(sky.index.get(matches[0].key));
+            setQuery('');
+          }
+        }
+      }),
+      matches.length > 0 && h('ul', null, matches.map(item => h('li', { key: item.key },
+        h('button', { type: 'button', style: { '--star': item.color }, onClick: () => { pickStar(sky.index.get(item.key)); setQuery(''); } }, item.label)
+      )))
+    ),
     star
-      ? h('aside', { key: star.key, className: 'constellation-card', 'aria-live': 'polite' },
-        h('small', null, name),
+      ? h('aside', { key: star.key, className: 'constellation-card', 'aria-live': 'polite', style: { '--star': star.color } },
+        h('small', null, familyLabel(star.family)),
         h('h3', null, star.label),
-        h('p', null, `${star.count} recette${star.count > 1 ? 's' : ''} l’utilisent`),
-        h('div', { className: 'constellation-accords' },
-          h('span', null, 'Accords'),
-          [...linked].filter(position => position !== selected).map(position => h('button', { key: position, type: 'button', className: `is-${sky.stars[position].family}`, onClick: () => pickStar(position) }, sky.stars[position].label))
+        h('p', { className: 'constellation-portrait' }, star.entry.portrait),
+        h('dl', { className: 'constellation-facts' },
+          [['Saveur', 'saveur'], ['Origine', 'origine'], ['Saison', 'saison'], ['Bien choisir', 'choix'], ['Conservation', 'conservation'], ['Astuce de chef', 'astuce'], ['Accords classiques', 'accords'], ['Nutrition', 'nutrition']]
+            .filter(([, field]) => star.entry[field])
+            .map(([label, field]) => h('div', { key: field }, h('dt', null, label), h('dd', null, star.entry[field])))
         ),
-        h('ul', null, star.recipes.slice(0, 8).map(recipe => h('li', { key: recipe.id },
-          h('button', { type: 'button', onClick: () => { onClose(); openRecipe(recipe.id); } }, recipe.title)
-        ))),
-        star.recipes.length > 8 && h('p', { className: 'constellation-more' }, `et ${star.recipes.length - 8} autres`)
+        h('div', { className: 'constellation-onsite' },
+          h('span', null, 'Sur Cook Note'),
+          h('p', null, `Présent dans ${star.count} recette${star.count > 1 ? 's' : ''}${star.categories.length ? `, surtout en ${star.categories.join(', ').toLowerCase()}` : ''}.`)
+        ),
+        (star.pairs || []).length > 0 && h('div', { className: 'constellation-accords' },
+          h('span', null, 'Souvent cuisiné avec'),
+          star.pairs.map(position => h('button', { key: position, type: 'button', style: { '--star': sky.stars[position].color }, onClick: () => pickStar(position) }, sky.stars[position].label))
+        )
       )
       : h('div', { className: 'constellation-hint' },
-        h('p', null, 'Touchez une étoile pour révéler sa constellation'),
-        h('ul', { className: 'constellation-legend' }, [...CONSTELLATION_FAMILIES, { id: 'terre', label: 'Fondamentaux' }].map(family => h('li', { key: family.id, className: `is-${family.id}` }, family.label))),
+        h('p', null, `${sky.stars.length} ingrédients · touchez une étoile pour découvrir sa fiche`),
+        h('ul', { className: 'constellation-legend' }, sky.families.map(family => h('li', { key: family.id },
+          h('button', {
+            type: 'button',
+            className: focusFamily === family.id ? 'is-active' : '',
+            style: { '--star': family.color },
+            'aria-pressed': focusFamily === family.id,
+            onClick: () => setFocusFamily(focusFamily === family.id ? '' : family.id)
+          }, family.label)
+        ))),
         h('button', { type: 'button', className: 'constellation-surprise', onClick: () => pickStar(Math.floor(Math.random() * sky.stars.length)) }, h(Icon, { name: 'spark' }), 'Une étoile au hasard')
       )
   ), document.body);

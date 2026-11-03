@@ -224,6 +224,19 @@ Sommaire :
 - `validate:recipe-links` refuse tout lien interne absent, auto-reference,
   duplique ou mal forme ; `validate:recipe-duplicates` refuse les titres et
   contenus strictement dupliques.
+- Atlas des ingredients (`assets/ingredients/`, controle
+  `scripts/validate-ingredient-atlas.js` dans `npm run check`) : chaque ligne
+  d'ingredient de chaque recette doit etre reconnue par une fiche de l'atlas.
+  Une recette qui apporte un nouvel ingredient impose d'ajouter sa fiche dans
+  le fichier de sa famille (`atlas-legumes.js`, `atlas-epices.js`...) avec tous
+  les champs : `portrait`, `saveur`, `origine`, `saison`, `choix`,
+  `conservation`, `astuce`, `accords`, `nutrition`, plus `aliases` (formes
+  ecrites dans les recettes, sans accents : pluriels simples deja geres). Un
+  ingredient d'une fiche existante (variante, autre forme) s'ajoute seulement
+  a ses `aliases`. L'etoile apparait alors seule dans la constellation des
+  saveurs. Un nouveau fichier de famille se declare dans `FILES`
+  (`atlas-core.js`) ; les lignes qui ne sont pas des ingredients (consignes,
+  materiel) vont dans `IGNORE`.
 
 ## 4. Images
 
