@@ -1262,7 +1262,7 @@ function FlavorConstellation({ open, onClose, recipes }) {
 
   // Etoiles filantes, de temps en temps (rien si animations reduites).
   useEffect(() => {
-    if (!open || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (!open || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || window.matchMedia?.('(hover: none)').matches) return undefined;
     let timer = 0;
     const launch = () => {
       const random = Math.random;
@@ -1339,9 +1339,18 @@ function FlavorConstellation({ open, onClose, recipes }) {
   };
   // Pendant le geste, le ciel bouge directement (une image par frame, sans
   // re-rendre les 258 etoiles) ; la position est enregistree au lacher.
+  // Le geste deplace l'image entiere du ciel (calque compose par la carte
+  // graphique, aucun redessin du SVG) ; le vrai cadrage est applique au lacher.
   const paint = next => {
-    if (!worldRef.current) return;
-    worldRef.current.style.transform = skyTransform(next);
+    const stage = svgRef.current;
+    const drag = dragRef.current;
+    if (!stage || !drag) return;
+    const rect = drag.rect || (drag.rect = stage.getBoundingClientRect());
+    const unit = width / rect.width;
+    const ratio = next.scale / drag.view.scale;
+    const dx = (next.x - drag.view.x) * drag.view.scale / unit;
+    const dy = (next.y - drag.view.y) * drag.view.scale / unit;
+    stage.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(${ratio})`;
   };
   const onPointerMove = event => {
     const drag = dragRef.current;
@@ -1350,6 +1359,7 @@ function FlavorConstellation({ open, onClose, recipes }) {
     if (!drag.started) {
       drag.started = true;
       worldRef.current?.classList.add('is-dragging');
+      svgRef.current?.classList.add('is-moving');
     }
     const rect = svgRef.current.getBoundingClientRect();
     const unit = width / rect.width;
@@ -1380,6 +1390,8 @@ function FlavorConstellation({ open, onClose, recipes }) {
     if (drag.frame) cancelAnimationFrame(drag.frame);
     dragRef.current = null;
     worldRef.current?.classList.remove('is-dragging');
+    svgRef.current?.classList.remove('is-moving');
+    if (svgRef.current) svgRef.current.style.transform = '';
     if (drag.live) setView(drag.live);
   };
   const skyTransform = next => `translate(${width / 2}px, ${height / 2}px) scale(${next.scale}) translate(${-width / 2 + next.x}px, ${-height / 2 + next.y}px)`;

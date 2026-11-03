@@ -34,6 +34,11 @@
   transition: transform .8s ease-out;
 }
 
+.constellation-sky.is-moving {
+  will-change: transform;
+  transition: none;
+}
+
 .constellation-sky:active {
   cursor: grabbing;
 }
@@ -639,9 +644,21 @@
     background: rgb(5 7 13 / .94);
   }
 
+  /* Aucune animation en boucle : chacune redessinait tout le ciel. */
   .constellation-dust circle.is-twinkle,
-  .constellation-spikes {
+  .constellation-spikes,
+  .constellation-star .constellation-halo.is-bright,
+  .constellation-ripple {
     animation: none;
+  }
+
+  .constellation-ripple {
+    display: none;
+  }
+
+  .constellation-sky {
+    shape-rendering: optimizeSpeed;
+    text-rendering: optimizeSpeed;
   }
 
   .constellation-sky,
