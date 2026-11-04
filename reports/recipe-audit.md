@@ -1,19 +1,19 @@
 # Audit Cook Note
 
-- Entrees catalogue : 344
+- Entrees catalogue : 345
 - Fiches feuilles autonomes : 272
 - Collections racines : 8
-- Familles a variantes internes : 64
-- Options internes auditees : 220
-- Fiches executables auditees : 492
-- Source : v5.52 / 28/10/26 / recipes.js fe98b28c61ca
+- Familles a variantes internes : 65
+- Options internes auditees : 280
+- Fiches executables auditees : 552
+- Source : v5.69 / 04/11/26 / recipes.js 5d7071b061b9
 - Score moyen : 100/100
 - Fiches sous 78 : 0
 - Fiches avec defauts a verifier : 0
 
 ## Dashboard sante
 
-- Pretes : 480
+- Pretes : 540
 - A ameliorer : 12
 - Faibles : 0
 - Decouverte faible : 0
@@ -42,7 +42,6 @@ Aucune fiche faible detectee.
 - Mayonnaise (mayonnaise_maison) : 4 options (Base mayonnaise, andalouse, sans œuf au lait, Bourguignonne)
 - Œufs mimosa (oeufs_mimosa_variantes) : 3 options (Betterave, Avocat crevette, Lard fumé)
 - Beignets de calamar (beignets_calamar) : 2 options (Pâte légère, Tempura)
-- Mojitos (mojitos_variantes) : 6 options (Mojito classique, Mojito framboise, Mojito mangue, Mojito concombre, Mojito fruit de la passion, Mojito rhum ambré)
 - Toppings frites (toppings_frites) : 6 options (Sel et poivre, Ail, parmesan et persil, Cheddar et oignons verts, Paprika et cayenne, Cheddar, bacon et crème aigre, Patate douce paprika et ail)
 - Houmous tahine très crémeux (houmous_hakocem) : 2 options (Tahine très crémeux, Houmous épice)
 - Pommes de terre grenaille aux herbes (pommes_grenaille_herbes) : 2 options (Classiques, Herbes du jardin)
@@ -91,6 +90,8 @@ Aucune fiche faible detectee.
 - Paella (paella_royale) : 2 options (Royale, Fruits de mer et chorizo)
 - Mousse de légumes (mousse_legumes) : 2 options (Mousse de courgette, Mousse de carotte)
 - Charlotte (charlotte_variantes) : 5 options (Abricots, Poire caramel, Poire chocolat, Fruits rouges, Fraise)
+- Cocktails (cocktails_variantes) : 49 options (Whisky sour, Whisky sour à l’érable, Old fashioned, Manhattan, Sazerac, Boulevardier, Lynchburg lemonade, Negroni, Gin fizz, Gin fizz à la pomme, Pomada, Singapore sling, Cosmopolitan, Moscow mule, Bloody mary, Blue lagoon, Péché originel, Daïquiri, Daïquiri à la fraise, Dark and stormy, Ti-punch, Caïpirinha, Pisco sour, Margarita, Cognac sour, Cognac, orange et miel, Horse’s neck, Cognac tonic au cassis, Mojito classique, Mojito framboise, Mojito mangue, Mojito concombre, Mojito fruit de la passion, Mojito rhum ambré, Mojito en carafe, Pineaujito, Sunflower, Lillet tonic aux framboises, Sauternes pétillant, Spritz, Spritz au campari, Bellini, Mimosa, Sangria rouge, Sangria blanche au cidre, Tinto de verano, Grog, Crème de whisky, Rhum arrangé aux litchis)
+- Cocktails sans alcool (cocktails_sans_alcool_variantes) : 17 options (Lait de poule, Mojito sans alcool, Kvas, Fraise et menthe, Pamplemousse et thé vert, Pêche et abricot, Margarita sans alcool, Pastèque et citron vert, Sex on the beach sans alcool, Pink cocktail au thé vert, Thé et jus de pomme, Groseille et cassis, Lagon bleu sans alcool, Pamplemousse pétillant, Thé noir, cassis et orange, Sangria sans alcool, Piña colada sans alcool)
 
 ## Audit integral
 
@@ -189,6 +190,72 @@ Aucune fiche faible detectee.
 - Clafoutis aux myrtilles et nectarines (clafoutis_variantes::variant-3) : 100/100 - OK
 - Cochon confit à la bière et au sirop d’érable (cochon_confit_biere_erable) : 100/100 - OK
 - Cocktail de crevettes Palace (cocktail_crevettes_palace) : 100/100 - OK
+- Cocktails — Bellini (cocktails_variantes::bellini) : 100/100 - OK
+- Cocktails — Bloody mary (cocktails_variantes::bloody_mary) : 100/100 - OK
+- Cocktails — Blue lagoon (cocktails_variantes::blue_lagoon) : 100/100 - OK
+- Cocktails — Boulevardier (cocktails_variantes::boulevardier) : 100/100 - OK
+- Cocktails — Caïpirinha (cocktails_variantes::caipirinha) : 100/100 - OK
+- Cocktails — Cognac sour (cocktails_variantes::cognac_sour) : 100/100 - OK
+- Cocktails — Cognac tonic au cassis (cocktails_variantes::cognac_tonic_au_cassis) : 100/100 - OK
+- Cocktails — Cognac, orange et miel (cocktails_variantes::cognac_orange_et_miel) : 100/100 - OK
+- Cocktails — Cosmopolitan (cocktails_variantes::cosmopolitan) : 100/100 - OK
+- Cocktails — Crème de whisky (cocktails_variantes::creme_de_whisky) : 100/100 - OK
+- Cocktails — Daïquiri (cocktails_variantes::daiquiri) : 100/100 - OK
+- Cocktails — Daïquiri à la fraise (cocktails_variantes::daiquiri_a_la_fraise) : 100/100 - OK
+- Cocktails — Dark and stormy (cocktails_variantes::dark_and_stormy) : 100/100 - OK
+- Cocktails — Gin fizz (cocktails_variantes::gin_fizz) : 100/100 - OK
+- Cocktails — Gin fizz à la pomme (cocktails_variantes::gin_fizz_a_la_pomme) : 100/100 - OK
+- Cocktails — Grog (cocktails_variantes::grog) : 100/100 - OK
+- Cocktails — Horse’s neck (cocktails_variantes::horse_s_neck) : 100/100 - OK
+- Cocktails — Lillet tonic aux framboises (cocktails_variantes::lillet_tonic_aux_framboises) : 100/100 - OK
+- Cocktails — Lynchburg lemonade (cocktails_variantes::lynchburg_lemonade) : 100/100 - OK
+- Cocktails — Manhattan (cocktails_variantes::manhattan) : 100/100 - OK
+- Cocktails — Margarita (cocktails_variantes::margarita) : 100/100 - OK
+- Cocktails — Mimosa (cocktails_variantes::mimosa) : 100/100 - OK
+- Cocktails — Mojito classique (cocktails_variantes::mojito_classique) : 100/100 - OK
+- Cocktails — Mojito concombre (cocktails_variantes::mojito_concombre) : 100/100 - OK
+- Cocktails — Mojito en carafe (cocktails_variantes::mojito_en_carafe) : 100/100 - OK
+- Cocktails — Mojito framboise (cocktails_variantes::mojito_framboise) : 100/100 - OK
+- Cocktails — Mojito fruit de la passion (cocktails_variantes::mojito_fruit_de_la_passion) : 100/100 - OK
+- Cocktails — Mojito mangue (cocktails_variantes::mojito_mangue) : 100/100 - OK
+- Cocktails — Mojito rhum ambré (cocktails_variantes::mojito_rhum_ambre) : 100/100 - OK
+- Cocktails — Moscow mule (cocktails_variantes::moscow_mule) : 100/100 - OK
+- Cocktails — Negroni (cocktails_variantes::negroni) : 100/100 - OK
+- Cocktails — Old fashioned (cocktails_variantes::old_fashioned) : 100/100 - OK
+- Cocktails — Péché originel (cocktails_variantes::peche_originel) : 100/100 - OK
+- Cocktails — Pineaujito (cocktails_variantes::pineaujito) : 100/100 - OK
+- Cocktails — Pisco sour (cocktails_variantes::pisco_sour) : 100/100 - OK
+- Cocktails — Pomada (cocktails_variantes::pomada) : 100/100 - OK
+- Cocktails — Rhum arrangé aux litchis (cocktails_variantes::rhum_arrange_aux_litchis) : 100/100 - OK
+- Cocktails — Sangria blanche au cidre (cocktails_variantes::sangria_blanche_au_cidre) : 100/100 - OK
+- Cocktails — Sangria rouge (cocktails_variantes::sangria_rouge) : 100/100 - OK
+- Cocktails — Sauternes pétillant (cocktails_variantes::sauternes_petillant) : 100/100 - OK
+- Cocktails — Sazerac (cocktails_variantes::sazerac) : 100/100 - OK
+- Cocktails — Singapore sling (cocktails_variantes::singapore_sling) : 100/100 - OK
+- Cocktails — Spritz (cocktails_variantes::spritz) : 100/100 - OK
+- Cocktails — Spritz au campari (cocktails_variantes::spritz_au_campari) : 100/100 - OK
+- Cocktails — Sunflower (cocktails_variantes::sunflower) : 100/100 - OK
+- Cocktails — Ti-punch (cocktails_variantes::ti_punch) : 100/100 - OK
+- Cocktails — Tinto de verano (cocktails_variantes::tinto_de_verano) : 100/100 - OK
+- Cocktails — Whisky sour (cocktails_variantes::whisky_sour) : 100/100 - OK
+- Cocktails — Whisky sour à l’érable (cocktails_variantes::whisky_sour_a_l_erable) : 100/100 - OK
+- Cocktails sans alcool — Fraise et menthe (cocktails_sans_alcool_variantes::fraise_et_menthe) : 100/100 - OK
+- Cocktails sans alcool — Groseille et cassis (cocktails_sans_alcool_variantes::groseille_et_cassis) : 100/100 - OK
+- Cocktails sans alcool — Kvas (cocktails_sans_alcool_variantes::kvas) : 100/100 - OK
+- Cocktails sans alcool — Lagon bleu sans alcool (cocktails_sans_alcool_variantes::lagon_bleu_sans_alcool) : 100/100 - OK
+- Cocktails sans alcool — Lait de poule (cocktails_sans_alcool_variantes::lait_de_poule) : 100/100 - OK
+- Cocktails sans alcool — Margarita sans alcool (cocktails_sans_alcool_variantes::margarita_sans_alcool) : 100/100 - OK
+- Cocktails sans alcool — Mojito sans alcool (cocktails_sans_alcool_variantes::mojito_sans_alcool) : 100/100 - OK
+- Cocktails sans alcool — Pamplemousse et thé vert (cocktails_sans_alcool_variantes::pamplemousse_et_the_vert) : 100/100 - OK
+- Cocktails sans alcool — Pamplemousse pétillant (cocktails_sans_alcool_variantes::pamplemousse_petillant) : 100/100 - OK
+- Cocktails sans alcool — Pastèque et citron vert (cocktails_sans_alcool_variantes::pasteque_et_citron_vert) : 100/100 - OK
+- Cocktails sans alcool — Pêche et abricot (cocktails_sans_alcool_variantes::peche_et_abricot) : 100/100 - OK
+- Cocktails sans alcool — Piña colada sans alcool (cocktails_sans_alcool_variantes::pina_colada_sans_alcool) : 100/100 - OK
+- Cocktails sans alcool — Pink cocktail au thé vert (cocktails_sans_alcool_variantes::pink_cocktail_au_the_vert) : 100/100 - OK
+- Cocktails sans alcool — Sangria sans alcool (cocktails_sans_alcool_variantes::sangria_sans_alcool) : 100/100 - OK
+- Cocktails sans alcool — Sex on the beach sans alcool (cocktails_sans_alcool_variantes::sex_on_the_beach_sans_alcool) : 100/100 - OK
+- Cocktails sans alcool — Thé et jus de pomme (cocktails_sans_alcool_variantes::the_et_jus_de_pomme) : 100/100 - OK
+- Cocktails sans alcool — Thé noir, cassis et orange (cocktails_sans_alcool_variantes::the_noir_cassis_et_orange) : 100/100 - OK
 - Cocotte de pois chiches tomates et saucisse de Montbéliard (legumineuses_montbeliard_variantes::variant-1) : 100/100 - OK
 - Cocotte porc chorizo haricots tarbais (haricots_tarbais_variantes::variant-1) : 100/100 - OK
 - Colombo d’espadon (currys_carnivores_variantes::variant-3) : 100/100 - OK
@@ -352,12 +419,6 @@ Aucune fiche faible detectee.
 - Meringues — Classiques (meringues_variantes::variant-1) : 100/100 - OK
 - Mi-cuits au chocolat (mi_cuits_chocolat) : 100/100 - OK
 - Mini-charlotte aux fruits rouges (charlotte_variantes::variant-4) : 100/100 - OK
-- Mojitos — Mojito classique (mojitos_variantes::variant-1) : 100/100 - OK
-- Mojitos — Mojito concombre (mojitos_variantes::variant-4) : 100/100 - OK
-- Mojitos — Mojito framboise (mojitos_variantes::variant-2) : 100/100 - OK
-- Mojitos — Mojito fruit de la passion (mojitos_variantes::variant-5) : 100/100 - OK
-- Mojitos — Mojito mangue (mojitos_variantes::variant-3) : 100/100 - OK
-- Mojitos — Mojito rhum ambré (mojitos_variantes::variant-6) : 100/100 - OK
 - Mousse au chocolat Pierre Hermé (mousses_chocolat_variantes::variant-1) : 100/100 - OK
 - Mousse au Toblerone (mousses_chocolat_variantes::variant-2) : 100/100 - OK
 - Mousse de légumes — Mousse de carotte (mousse_legumes::variant-2) : 82/100 - OK

@@ -402,38 +402,87 @@ function CommandPalette({
 }
 // Panier de courses (ShoppingBasketPanel) : app-basket.js.
 
+// Mode menu : un repas complet (entree, plat, accompagnement, dessert) pour
+// N personnes. Chaque plat se change ou se garde (cadenas) ; « Autre menu »
+// renouvelle le reste. En dessous : le deroule du repas, puis les conseils
+// replies. Les allergies et gouts de Mon profil ecartent des fiches.
+// « commencer 4 h 30 avant de servir » -> 270 ; « 45 min avant » -> 45.
+function menuLeadMinutes(text) {
+  const match = String(text).match(/commencer\s+(?:(\d+)\s*h\s*(\d+)?|(\d+)\s*min)/);
+  if (!match) return 0;
+  return match[3] ? Number(match[3]) : Number(match[1]) * 60 + Number(match[2] || 0);
+}
+
 function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShopping, notify }) {
   const [offset, setOffset] = useState(0);
   const [itemOffsets, setItemOffsets] = useState({});
-  const [peopleCount, setPeopleCount] = useState(4);
+  const [locked, setLocked] = useState({});
+  const [peopleCount, setPeopleCount] = useState(() => (typeof profileServings === 'function' && profileServings()) || 4);
   const [themeId, setThemeId] = useState(MENU_THEMES[0].id);
   const [menuHistory, setMenuHistory] = useState(() => readStoredList(STORAGE_KEYS.menuHistory, []));
-  const menu = useMemo(() => open ? buildMenuSuggestionWithOverrides(recipes, offset, themeId, menuHistory, itemOffsets) : EMPTY_MENU, [open, recipes, offset, themeId, menuHistory, itemOffsets]);
-  const menuItems = useMemo(() => menu.items || [], [menu]);
+  const recipesById = useMemo(() => Object.fromEntries((recipes || []).map(recipe => [recipe.id, recipe])), [recipes]);
+  const baseMenu = useMemo(() => open ? buildMenuSuggestionWithOverrides(recipes, offset, themeId, menuHistory, itemOffsets) : EMPTY_MENU, [open, recipes, offset, themeId, menuHistory, itemOffsets]);
+  // Plats gardes : remis a leur place quel que soit le nouveau menu.
+  const menuItems = useMemo(() => (baseMenu.items || []).map((item, index) => {
+    const keep = recipesById[locked[menuItemSlotKey(item, index)]];
+    return keep ? { ...item, recipe: keep, note: '' } : item;
+  }), [baseMenu, locked, recipesById]);
   const menuRecipes = useMemo(() => menuItems.map(item => item.recipe), [menuItems]);
   const menuFactorById = useMemo(() => open ? menuFactorMapFor(menuRecipes, peopleCount) : {}, [open, menuRecipes, peopleCount]);
   const shoppingData = useMemo(() => open ? buildShoppingListData(menuRecipes, menuFactorById) : EMPTY_SHOPPING_DATA, [open, menuRecipes, menuFactorById]);
   const servicePlan = useMemo(() => open ? buildMenuServicePlan(menuRecipes, shoppingData) : EMPTY_MENU_SERVICE_PLAN, [open, menuRecipes, shoppingData]);
   if (!open) return null;
-  const rememberMenu = currentMenu => {
-    if (!currentMenu?.signature) return;
-    const next = [currentMenu.signature, ...menuHistory.filter(item => item !== currentMenu.signature)].slice(0, 12);
+  const activeMinutes = menuRecipes.reduce((sum, recipe) => sum + (getRecipeTiming(recipe).active || 0), 0);
+  const rememberMenu = () => {
+    if (!baseMenu?.signature) return;
+    const next = [baseMenu.signature, ...menuHistory.filter(item => item !== baseMenu.signature)].slice(0, 12);
     setMenuHistory(next);
     writeJson(STORAGE_KEYS.menuHistory, next);
   };
+  const menuText = () => [
+    `${tc('Menu')} ${tc(baseMenu.theme?.label || '')} · ${peopleCount} ${peopleCount > 1 ? tc('personnes') : tc('personne')}`,
+    '',
+    ...menuItems.map(item => `${tc(item.label)} : ${tc(item.recipe.title)}`),
+    '',
+    window.location.origin
+  ].join('\n');
   const addToShopping = () => {
-    rememberMenu(menu);
+    rememberMenu();
     addMenuToShopping(menuRecipes, menuFactorById);
-    notify?.(`Menu ajouté aux courses pour ${peopleCount} personnes`);
+    notify?.(`${tc('Menu ajouté aux courses pour')} ${peopleCount} ${tc('personnes')}`);
+  };
+  const shareMenu = () => {
+    const text = menuText();
+    if (navigator.share) navigator.share({ title: tc('Menu Cook Note'), text }).catch(() => {});
+    else copyText(text).then(() => notify?.(tc('Menu copié')));
   };
   const changeWholeMenu = () => {
-    rememberMenu(menu);
+    rememberMenu();
     setItemOffsets({});
     setOffset(value => value + 1);
   };
-  const changeOneItem = index => {
-    setItemOffsets(current => ({ ...current, [index]: (current[index] || 0) + 1 }));
+  const changeOneItem = slot => {
+    setLocked(current => { const next = { ...current }; delete next[slot]; return next; });
+    setItemOffsets(current => ({ ...current, [slot]: (current[slot] || 0) + 1 }));
   };
+  const toggleLock = (slot, id) => setLocked(current => {
+    const next = { ...current };
+    if (next[slot]) delete next[slot];
+    else next[slot] = id;
+    return next;
+  });
+  const pickTheme = id => {
+    setThemeId(id);
+    setOffset(0);
+    setItemOffsets({});
+    setLocked({});
+  };
+  const conseils = [
+    ...(servicePlan.stress.reasons || []),
+    ...servicePlan.serviceTips.map(item => `${item.title} : ${item.tip}`),
+    ...servicePlan.leftovers,
+    ...servicePlan.conflicts
+  ];
   return h(ModalDialog, { className: '', onClose: onClose },
     h('section', { className: 'modal-panel menu-planner-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'menu-planner-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head menu-planner-modal-head' },
@@ -441,98 +490,70 @@ function MenuPlannerPanel({ open, onClose, recipes, openRecipe, addMenuToShoppin
           h('p', { className: 'eyebrow' }, tc('Mode menu')),
           h('h2', { id: 'menu-planner-title' }, tc('Composer un repas'))
         ),
-        h('div', { className: 'menu-planner-head-actions' },
-          h(Button, { variant: 'subtle', onClick: changeWholeMenu, ariaLabel: 'Proposer un autre menu complet' }, 'Autre menu'),
-          h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
+        h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
+      ),
+      h('div', { className: 'menu-toolbar' },
+        h('div', { className: 'menu-theme-tabs', role: 'group', 'aria-label': 'Style de menu' },
+          MENU_THEMES.map(theme => h('button', {
+            key: theme.id,
+            type: 'button',
+            className: theme.id === themeId ? 'active' : '',
+            'aria-pressed': theme.id === themeId,
+            title: tc(theme.pitch),
+            onClick: () => pickTheme(theme.id)
+          }, tc(theme.label)))
+        ),
+        h('div', { className: 'menu-toolbar-side' },
+          h('div', { className: 'menu-people', role: 'group', 'aria-label': 'Nombre de personnes du menu' },
+            h('button', { type: 'button', disabled: peopleCount <= 1, onClick: () => setPeopleCount(value => Math.max(1, value - 1)), 'aria-label': tc('Une personne de moins') }, '−'),
+            h('span', null, h('strong', null, peopleCount), ` ${peopleCount > 1 ? tc('pers.') : tc('pers.')}`),
+            h('button', { type: 'button', disabled: peopleCount >= 20, onClick: () => setPeopleCount(value => Math.min(20, value + 1)), 'aria-label': tc('Une personne de plus') }, '+')
+          ),
+          h('button', { type: 'button', className: 'menu-renew', onClick: changeWholeMenu, 'aria-label': 'Proposer un autre menu complet' }, `↻ ${tc('Autre menu')}`)
         )
       ),
-      h('div', { className: 'menu-theme-tabs', 'aria-label': 'Style de menu' },
-        MENU_THEMES.map(theme => h('button', {
-          key: theme.id,
-          type: 'button',
-          className: theme.id === themeId ? 'active' : '',
-          'aria-pressed': theme.id === themeId,
-          'aria-label': `Choisir le style ${theme.label}`,
-          onClick: () => {
-            setThemeId(theme.id);
-            setOffset(0);
-            setItemOffsets({});
-          }
-        }, theme.label))
-      ),
-      h('div', { className: 'menu-planner-controls' },
-        h('label', { className: 'factor-control serving-control quantity-select-control menu-serving-control', 'aria-label': 'Choisir le nombre de personnes du menu' },
-          h('span', { className: 'factor-label' }, tc('Personnes')),
-          h('select', {
-            className: 'quantity-select',
-            value: String(peopleCount),
-            'aria-label': 'Nombre de personnes du menu',
-            onChange: event => setPeopleCount(Number(event.target.value))
-          },
-            [1, 2, 3, 4, 5, 6, 8, 10, 12].map(value => h('option', { key: value, value: String(value) }, String(value)))
-          ),
-          h('span', { className: 'quantity-unit' }, peopleCount > 1 ? tc('personnes') : tc('personne'))
-        ),
-        h('span', { className: 'menu-serving-hint' }, tc('Les quantités du menu et des courses suivent ce nombre.'))
-      ),
-      // Le style du menu en une phrase (la note « 98/100 » faisait gadget).
-      h('p', { className: 'menu-planner-reason' }, menu.reason),
-      h('div', { className: 'menu-planner-grid' },
-        menuItems.map((item, index) => h('article', { key: `${item.key}-${item.recipe.id}-${index}`, className: 'menu-planner-card' },
-          h('span', { className: 'menu-planner-image', style: imageBackgroundStyle(displayRecipeImage(item.recipe)), 'aria-hidden': true }),
-          h('div', null,
-            h('p', { className: 'eyebrow' }, item.label),
-            h('h3', null, item.recipe.title),
-            h('small', null, [primaryCategory(item.recipe), difficultyText(item.recipe), getRecipeTiming(item.recipe).active ? `Actif ${formatMinutesShort(getRecipeTiming(item.recipe).active)}` : '', getQuantityDisplay(item.recipe, menuFactorById[item.recipe.id] || 1)].filter(Boolean).join(' · ')),
-            item.note && h('p', { className: 'menu-planner-note' }, item.note),
-            h('div', { className: 'menu-planner-card-actions' },
-              h(Button, { variant: 'subtle', onClick: () => openRecipe(item.recipe.id), ariaLabel: `Ouvrir ${item.recipe.title}` }, 'Ouvrir'),
-              h(Button, { variant: 'ghost', onClick: () => changeOneItem(menuItemSlotKey(item, index)), ariaLabel: `Changer ${item.label} : ${item.recipe.title}` }, 'Changer')
+      // Avec un plat garde, la phrase « Autour de : … » ne colle plus : le style seul.
+      baseMenu.theme && h('p', { className: 'menu-planner-reason' }, `${tc(baseMenu.theme.label)} : ${tc(baseMenu.theme.pitch)}${!Object.keys(locked).length && menuItems.find(item => item.key === 'main') ? ` ${tc('Autour de')} : ${tc(menuItems.find(item => item.key === 'main').recipe.title)}.` : ''}`),
+      h('ol', { className: 'menu-courses' },
+        menuItems.map((item, index) => {
+          const slot = menuItemSlotKey(item, index);
+          const isLocked = Boolean(locked[slot]);
+          const timing = getRecipeTiming(item.recipe);
+          return h('li', { key: `${slot}-${item.recipe.id}`, className: isLocked ? 'menu-course is-locked' : 'menu-course' },
+            h('button', { type: 'button', className: 'menu-course-image', style: imageBackgroundStyle(displayRecipeImage(item.recipe)), onClick: () => openRecipe(item.recipe.id), 'aria-label': `Ouvrir ${item.recipe.title}` }),
+            h('div', { className: 'menu-course-copy' },
+              h('p', { className: 'eyebrow' }, tc(item.label)),
+              h('button', { type: 'button', className: 'menu-course-title', onClick: () => openRecipe(item.recipe.id) }, tc(item.recipe.title)),
+              h('small', null, [difficultyText(item.recipe), timing.total ? formatMinutesShort(timing.total) : '', getQuantityDisplay(item.recipe, menuFactorById[item.recipe.id] || 1)].filter(Boolean).join(' · ')),
+              item.note && h('em', { className: 'menu-course-note', title: item.note }, item.note)
+            ),
+            h('div', { className: 'menu-course-actions' },
+              h('button', { type: 'button', onClick: () => changeOneItem(slot), title: tc('Autre idée'), 'aria-label': `Changer ${item.label} : ${item.recipe.title}` }, '↻'),
+              h('button', { type: 'button', className: isLocked ? 'is-on' : '', 'aria-pressed': isLocked, onClick: () => toggleLock(slot, item.recipe.id), title: isLocked ? tc('Gardé quand on change de menu') : tc('Garder ce plat'), 'aria-label': `${isLocked ? tc('Ne plus garder') : tc('Garder')} ${tc(item.recipe.title)}` }, isLocked ? '🔒' : '🔓')
             )
-          )
-        ))
+          );
+        })
       ),
       h('div', { className: 'menu-planner-summary' },
-        h('span', null, `Charge ${servicePlan.stress.level}`),
-        h('span', null, `${menuRecipes.length} fiches`),
-        h('span', null, `${shoppingData.groupedItems.length} articles groupés`),
-        h('span', null, `${shoppingData.aisleGroups.length} rayons`)
+        activeMinutes > 0 && h('span', null, `${formatMinutesShort(activeMinutes)} ${tc('en cuisine')}`),
+        h('span', null, `${shoppingData.groupedItems.length} ${tc('articles')} · ${shoppingData.aisleGroups.length} ${tc('rayons')}`),
+        h('span', null, `${tc('Charge')} ${tc(servicePlan.stress.level)}`)
       ),
-      h('div', { className: 'menu-service-grid' },
-        servicePlan.timeline.length > 0 && h('section', { className: 'menu-service-panel menu-service-panel-wide' },
-          h('p', { className: 'eyebrow' }, tc('Timeline')),
-          servicePlan.timeline.map(group => h('div', { key: group.key, className: 'menu-service-block' },
-            h('strong', null, group.label),
-            h('ul', null, group.items.map(item => h('li', { key: item }, item)))
-          ))
-        ),
-        h('section', { className: 'menu-service-panel' },
-          h('p', { className: 'eyebrow' }, tc('Charge mentale')),
-          h('strong', null, servicePlan.stress.level),
-          h('ul', null, (servicePlan.stress.reasons.length ? servicePlan.stress.reasons : ['Menu simple à coordonner.']).map(item => h('li', { key: item }, item)))
-        ),
-        h('section', { className: 'menu-service-panel' },
-          h('p', { className: 'eyebrow' }, tc('Courses')),
-          servicePlan.shoppingHints.map(group => h('div', { key: group.label, className: 'menu-service-block' },
-            h('strong', null, group.label),
-            h('ul', null, group.items.map(item => h('li', { key: item }, item)))
-          ))
-        ),
-        servicePlan.leftovers.length > 0 && h('section', { className: 'menu-service-panel' },
-          h('p', { className: 'eyebrow' }, tc('Restes')),
-          h('ul', null, servicePlan.leftovers.map(item => h('li', { key: item }, item)))
-        ),
-        h('section', { className: 'menu-service-panel' },
-          h('p', { className: 'eyebrow' }, tc('Service')),
-          h('ul', null, servicePlan.serviceTips.map(item => h('li', { key: item.title }, `${item.title} : ${item.tip}`)))
-        ),
-        h('section', { className: 'menu-service-panel' },
-          h('p', { className: 'eyebrow' }, tc('Matériel')),
-          h('ul', null, servicePlan.conflicts.map(item => h('li', { key: item }, item)))
-        )
+      servicePlan.timeline.length > 0 && h('details', { className: 'menu-fold', open: true },
+        h('summary', null, tc('Déroulé du repas')),
+        h('ol', { className: 'menu-timeline' }, servicePlan.timeline.map(group => h('li', { key: group.key },
+          h('strong', null, tc(group.label)),
+          // Dans l'ordre ou l'on s'y met : le plus long a commencer d'abord.
+          h('ul', null, [...group.items].sort((a, b) => menuLeadMinutes(b) - menuLeadMinutes(a)).map(entry => h('li', { key: entry }, entry)))
+        )))
       ),
-      h('div', { className: 'modal-actions' },
-        h(Button, { variant: 'primary', disabled: !menuRecipes.length, onClick: addToShopping, ariaLabel: `Ajouter le menu aux courses pour ${peopleCount} personnes` }, 'Ajouter le menu aux courses')
+      conseils.length > 0 && h('details', { className: 'menu-fold' },
+        h('summary', null, `${tc('Conseils')} (${conseils.length})`),
+        h('ul', { className: 'menu-tips' }, conseils.map(entry => h('li', { key: entry }, entry)))
+      ),
+      h('div', { className: 'modal-actions menu-actions' },
+        h(Button, { variant: 'primary', disabled: !menuRecipes.length, onClick: addToShopping, ariaLabel: `Ajouter le menu aux courses pour ${peopleCount} personnes` }, h(Icon, { name: 'basket' }), h('span', null, tc('Ajouter aux courses'))),
+        h(Button, { variant: 'subtle', disabled: !menuRecipes.length, onClick: shareMenu }, h(Icon, { name: 'share' }), h('span', null, navigator.share ? tc('Partager le menu') : tc('Copier le menu')))
       )
     )
   );
@@ -894,6 +915,7 @@ function RecipeBreadcrumb({ recipe, selectedRecipe, showVariants, goHome, openRe
   const categoryParentId = CATEGORY_PARENT_IDS[category];
   const isRootParent = showVariants && !breadcrumbRecipe.master;
   const repeatsTitle = normalizeText(category) === normalizeText(breadcrumbRecipe.title);
+  const inlineParentTitle = !showVariants && selectedRecipe && selectedRecipe !== recipe && new RegExp(`^${String(recipe.title).replace(/[.*+?^${}()|[\]\\]/g, '\\  const repeatsTitle = normalizeText(category) === normalizeText(breadcrumbRecipe.title);')}\\s+[—-]\\s+.`).test(breadcrumbRecipe.title) ? recipe.title : '';
   const openCategory = () => categoryParentId ? openRecipe(categoryParentId) : goHome();
   const openCurrentParent = () => openRecipe(breadcrumbRecipe.id);
   return h('nav', { className: 'recipe-breadcrumb', 'aria-label': 'Fil d’Ariane' },
@@ -905,9 +927,11 @@ function RecipeBreadcrumb({ recipe, selectedRecipe, showVariants, goHome, openRe
         : h('span', null, category),
       h('span', null, '/')
     ),
+    // Variante integree (« Coulis — Coulis de myrtille ») : Coulis / Coulis de myrtille.
+    inlineParentTitle && h(React.Fragment, null, h('span', null, inlineParentTitle), h('span', null, '/')),
     isRootParent
       ? h('button', { type: 'button', onClick: openCurrentParent, 'aria-label': `Ouvrir ${breadcrumbRecipe.title}`, title: breadcrumbRecipe.title }, breadcrumbRecipe.title)
-      : h('strong', { 'aria-current': 'page' }, breadcrumbRecipe.title)
+      : h('strong', { 'aria-current': 'page' }, inlineParentTitle ? breadcrumbRecipe.title.slice(inlineParentTitle.length).replace(/^\s+[—-]\s+/, '') : breadcrumbRecipe.title)
   );
 }
 
@@ -929,7 +953,8 @@ function NotesDisclosure({ label, children, className = '', ariaLabel }) {
 
 // Familles d'"Avant de commencer" : chaque bloc est range dans une seule famille.
 const PRACTICAL_FAMILIES = Object.freeze({
-  serve: Object.freeze(['pairings', 'plating', 'service']),
+  // Accords et Dressage retires (peu utiles) : le service seul, le vin a son raccourci.
+  serve: Object.freeze(['service']),
   keep: Object.freeze(['storage', 'reheating']),
   master: Object.freeze(['measures', 'tips', 'ingredientGuide', 'mistakes', 'result'])
 });
@@ -1056,26 +1081,6 @@ function PracticalSectionsBlock({ sections, inlineTargets, openRecipe, technique
     },
       h('ul', null, section.items.map(item => h('li', { key: item }, renderLinkedText(item, inlineTargets || [], openRecipe, techniqueTargets || [], openTechnique))))
     ))
-  );
-}
-
-function FlavorMapBlock({ recipe }) {
-  const items = getRecipeFlavorMap(recipe);
-  if (!items.length) return null;
-  return h(NotesDisclosure, { className: 'flavor-map-block', label: 'Accords', ariaLabel: 'Accords de la recette' },
-    h('div', { className: 'flavor-map-grid' },
-      items.map(item => h('article', { key: item.key, className: 'flavor-node' },
-        h('div', { className: 'flavor-node-head' },
-          h('strong', null, item.label),
-          h('small', null, item.profile)
-        ),
-        item.matches.length > 0 && h('div', { className: 'flavor-pairs' },
-          item.matches.slice(0, 4).map(pair => h('span', { key: `${item.key}:${pair.label}`, title: pair.reason }, pair.label))
-        ),
-        item.suggestions.length > 0 && h('small', { className: 'flavor-suggestion' }, `A tenter: ${item.suggestions.slice(0, 2).join(', ')}`),
-        item.boosters.length > 0 && h('small', { className: 'flavor-boosters' }, `Finition: ${item.boosters.slice(0, 2).join(', ')}`)
-      ))
-    )
   );
 }
 

@@ -54,20 +54,21 @@ function ShoppingTransferQr({ url }) {
   );
 }
 
-function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, factorById, transferUrl = '', pantryItems = [], removeRecipe, setRecipeFactor, clearShopping, notify }) {
+function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, factorById, transferUrl = '', pantryItems = [], removeRecipe, setRecipeFactor, clearShopping, notify, storeSuffix = '', eyebrow = 'Panier courses', clearLabel = 'Vider le panier' }) {
   // Accessibility contracts retained for the UI audit: 'aria-label': `Retirer ${recipe.title} du panier courses`; 'aria-label': `${checked ? 'Décocher' : 'Cocher'} ${[amount, item.name].filter(Boolean).join(' ')}`; 'aria-label': `Marquer ${item.name} comme déjà à la maison`; 'aria-label': `Remettre ${item.name} dans la liste à acheter`.
   const [copied, setCopied] = useState(false);
+  // Envoyer : choix des plateformes (partage de l'appareil compris).
+  const [sendOpen, setSendOpen] = useState(false);
   const [freshOnly, setFreshOnly] = useState(false);
-  const [transferOpen, setTransferOpen] = useState(false);
-  const [checkedItems, setCheckedItems] = useState(() => readJson(STORAGE_KEYS.shoppingChecked, {}));
-  const [ownedItems, setOwnedItems] = useState(() => readJson(STORAGE_KEYS.shoppingOwned, {}));
+  const [checkedItems, setCheckedItems] = useState(() => readJson(STORAGE_KEYS.shoppingChecked + storeSuffix, {}));
+  const [ownedItems, setOwnedItems] = useState(() => readJson(STORAGE_KEYS.shoppingOwned + storeSuffix, {}));
   const [stapleItems, setStapleItems] = useState(() => readJson(STORAGE_KEYS.shoppingStaples, {}));
   // Articles ajoutes a la main (hors recettes), gardes sur l'appareil.
-  const [extraItems, setExtraItems] = useState(() => readJson('cook_note_shopping_extra', []));
+  const [extraItems, setExtraItems] = useState(() => readJson('cook_note_shopping_extra' + storeSuffix, []));
   const [extraDraft, setExtraDraft] = useState('');
   const saveExtra = next => {
     setExtraItems(next);
-    writeJson('cook_note_shopping_extra', next);
+    writeJson('cook_note_shopping_extra' + storeSuffix, next);
   };
   const shoppingData = useMemo(() => open ? buildShoppingListData(recipes, factorById) : EMPTY_SHOPPING_DATA, [open, recipes, factorById]);
   const effectiveOwned = useMemo(() => shoppingOwnedWithStaples(shoppingData.groupedItems, ownedItems, stapleItems), [shoppingData, ownedItems, stapleItems]);
@@ -94,7 +95,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, f
   const setShoppingChecked = updater => {
     setCheckedItems(prev => {
       const next = typeof updater === 'function' ? updater(prev) : updater;
-      writeJson(STORAGE_KEYS.shoppingChecked, next);
+      writeJson(STORAGE_KEYS.shoppingChecked + storeSuffix, next);
       return next;
     });
   };
@@ -111,7 +112,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, f
   const setOwnedShoppingItems = updater => {
     setOwnedItems(prev => {
       const next = typeof updater === 'function' ? updater(prev) : updater;
-      writeJson(STORAGE_KEYS.shoppingOwned, next);
+      writeJson(STORAGE_KEYS.shoppingOwned + storeSuffix, next);
       return next;
     });
   };
@@ -163,6 +164,11 @@ function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, f
   // Le panier vide oublie les « J'ai deja » de cette liste, pas le placard.
   const clearBasket = () => {
     setOwnedShoppingItems({});
+    // Liste a part (semaine) : on repart de zero sans toucher aux recettes.
+    if (storeSuffix) {
+      setShoppingChecked({});
+      saveExtra([]);
+    }
     clearShopping();
   };
 
@@ -189,11 +195,13 @@ function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, f
     h('section', { className: 'modal-panel shopping-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'shopping-modal-title', tabIndex: -1, onKeyDown: trapModalFocus, onMouseDown: event => event.stopPropagation() },
       h('div', { className: 'modal-head' },
         h('div', null,
-          h('p', { className: 'eyebrow' }, tc('Panier courses')),
+          h('p', { className: 'eyebrow' }, tc(eyebrow)),
           h('h2', { id: 'shopping-modal-title' }, (recipes.length ? `${recipes.length} recette${recipes.length > 1 ? 's' : ''} cochée${recipes.length > 1 ? 's' : ''}` : 'Aucune recette'))
         ),
         h('button', { type: 'button', className: 'icon-btn', onClick: onClose, 'aria-label': 'Fermer' }, h(Icon, { name: 'close' }))
       ),
+      // QR genere d'office en haut : scanner suffit pour emporter la liste.
+      recipes.length > 0 && transferUrl && h(ShoppingTransferQr, { url: transferUrl }),
       recipes.length
         ? h('div', { className: 'shopping-picked' },
             recipes.map(recipe => h('div', { key: recipe.id, className: 'shopping-picked-item' },
@@ -326,7 +334,7 @@ function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, f
       // premier, le reste en petites pastilles.
       h('div', { className: 'modal-actions shopping-actions' },
         h('div', { className: 'shopping-actions-main' },
-          h(Button, { variant: 'primary', disabled: !recipes.length, onClick: shareText }, h(Icon, { name: 'share' }), h('span', null, navigator.share ? tc('Envoyer la liste') : tc('Copier la liste'))),
+          h(Button, { variant: 'primary', disabled: !recipes.length, onClick: () => setSendOpen(value => !value), ariaLabel: tc('Envoyer la liste') }, h(Icon, { name: 'share' }), h('span', null, tc('Envoyer la liste'))),
           navigator.share && h(Button, { variant: 'subtle', disabled: !recipes.length, onClick: () => copyText(text).then(() => {
             setCopied(true);
             notify?.('Liste de courses copiée');
@@ -337,11 +345,13 @@ function ShoppingBasketPanel({ open, onClose, recipes, recipesComplete = true, f
             setCopied(true);
             notify?.('Liste compacte copiée');
           }) }, 'Copier compact'),
-          h('button', { type: 'button', disabled: !recipes.length || !transferUrl, onClick: () => setTransferOpen(value => !value), 'aria-pressed': transferOpen, title: 'Afficher un QR code pour ouvrir la liste sur le téléphone' }, transferOpen ? tc('Masquer le QR code') : tc('Sur mon téléphone')),
-          h('button', { type: 'button', className: 'is-danger', disabled: !recipes.length, onClick: clearBasket }, tc('Vider le panier'))
+          h('button', { type: 'button', className: 'is-danger', disabled: !recipes.length, onClick: clearBasket }, tc(clearLabel))
         )
       ),
-      transferOpen && recipes.length > 0 && transferUrl && h(ShoppingTransferQr, { url: transferUrl })
+      sendOpen && recipes.length > 0 && h('div', { className: 'shopping-send' },
+        navigator.share && h('button', { type: 'button', className: 'shopping-send-native', onClick: shareText }, h(Icon, { name: 'share' }), h('span', null, tc('Partage de l’appareil'))),
+        h(ShareTargets, { title: tc('Liste de courses Cook Note'), text, url: transferUrl, notify, copyLabel: 'Copier la liste' })
+      ),
     )
   );
 }

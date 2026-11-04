@@ -136,9 +136,11 @@ async function main() {
     await escape();
     await visit('frigo', async () => { await page.click('.home-fridge-action'); await page.waitForSelector('.fridge-modal'); });
     await escape();
-    await visit('courses', async () => { await page.locator('.home-quick-actions button').filter({ hasText: 'Liste de courses' }).click(); await page.waitForSelector('.shopping-modal'); });
+    await visit('courses', async () => { await page.click('.home-shopping-action'); await page.waitForSelector('.shopping-modal'); });
     await escape();
-    await visit('parcours de chef', async () => { await page.locator('.home-quick-actions button').last().click(); await page.waitForSelector('.chef-modal'); });
+    await visit('accords mets-vins', async () => { await page.click('.home-wine-action'); await page.waitForSelector('.wine-modal'); });
+    await escape();
+    await visit('parcours de chef', async () => { await page.locator('.home-quick-actions button:not(.home-profile-action)').last().click(); await page.waitForSelector('.chef-modal'); });
     await context.close();
   }
   await browser.close();

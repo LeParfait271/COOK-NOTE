@@ -521,7 +521,7 @@ body:has(.modal-backdrop) #cook-note-update-action {
 }
 
 .preference-data-copy{display:grid;min-width:0;gap:4px}.menu-planner-modal{scroll-padding-top:84px}.menu-planner-modal-head{position:sticky;z-index:5;margin:-20px -20px 16px;padding:20px 20px 14px}.menu-planner-modal-head>:first-child{min-width:0}
-@media (max-width:340px){.menu-planner-modal-head{display:grid;gap:10px}.menu-planner-head-actions{width:100%;justify-content:space-between}.menu-planner-head-actions .btn{flex:1 1 auto;min-width:0;justify-content:center}.menu-planner-head-actions .icon-btn{flex:0 0 38px}}
+@media (max-width:340px){.menu-planner-modal-head{display:grid;gap:10px}}
 
 @media (max-width:700px) and (max-height:620px){.home-view>.hero{min-height:136px!important}.home-view>.hero .hero-inner{padding:12px 0 16px!important}.home-view>.hero .hero-system-label,.home-view .season-dashboard-copy .eyebrow{display:none}.home-view .content-wrap{padding-top:10px}.home-command-center{margin-bottom:8px;}.home-search-launcher{min-height:50px}.home-search-copy small{display:none}.home-view .season-dashboard-copy h2{font-size:24px}}
 
@@ -634,9 +634,6 @@ line-height:1.2
 display:block;
 margin-top:5px;
 line-height:1.35
-}
-.home-search-hint {
-flex:0 0 auto
 }
 .home-quick-actions {
 width:100%;
@@ -1039,8 +1036,10 @@ transform:none!important
     gap: 0;
   }
 
-  .site-footer-copy p:not(.site-footer-brand) {
-    display: none;
+  /* La presentation reste visible sur telephone, en plus petit. */
+  .site-footer-copy p:not(.site-footer-brand):not(.site-footer-stats) {
+    font-size: .82rem;
+    line-height: 1.45;
   }
 
   .site-footer-stats {
@@ -1118,3 +1117,34 @@ transform:none!important
 }
 
 .top-settings-btn{display:none!important}
+
+/* ---------- Impression compacte : l'essentiel de la fiche sur une ou deux pages ----------
+   En fin de couche legacy, en !important : les anciennes regles d'impression
+   (bordures, marges, hauteurs mini) le sont aussi. */
+@media print {
+  @page { size: A4; margin: 11mm 12mm 12mm; }
+  html { font-size: 9.6pt !important; }
+  .mc-shell .recipe-detail .print-recipe-heading { margin: 0 0 2mm !important; font-size: 17pt !important; line-height: 1.1 !important; }
+  /* Hors papier : blocs pratiques, vins, agenda, nutrition, savoirs, outils. */
+  .mc-shell :is(.average-weight-card, .anticipation-card, .nutrition-card, .wine-shortcut, .notes-optional-stack, .notes-family, .notes-family-tabs, .ingredient-knowledge-block, .personal-mold-grid, .profile-line, .prep-timeline-block, .linked-recipes-block, .ingredient-progress, .recipe-tabs, .mobile-swipe-hint, .units-toggle, .ingredients-quantity-control, .recipe-variant-switch) { display: none !important; }
+  .mc-shell .recipe-summary-panel { margin: 0 0 3mm !important; padding: 0 !important; border: 0 !important; box-shadow: none !important; background: none !important; }
+  .mc-shell .recipe-summary-panel h2 { display: none !important; }
+  .mc-shell .recipe-summary-panel :is(dl, .recipe-quick-facts) { display: flex !important; flex-wrap: wrap !important; gap: 0 6mm !important; margin: 0 !important; }
+  .mc-shell .recipe-summary-panel :is(dt, dd, strong, span, small) { font-size: 9pt !important; }
+  .mc-shell .recipe-detail-grid { display: grid !important; grid-template-columns: 34% minmax(0, 1fr) !important; gap: 0 6mm !important; align-items: start !important; }
+  .mc-shell .recipe-detail-grid > .notes-panel { grid-column: 1 / -1 !important; }
+  .mc-shell .recipe-panel { margin: 0 !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: none !important; }
+  .mc-shell .recipe-panel .panel-heading { margin: 0 0 1.5mm !important; padding: 0 !important; border: 0 !important; }
+  .mc-shell .recipe-panel h2 { font-size: 12pt !important; margin: 0 !important; }
+  .mc-shell .ingredient-group { margin: 0 0 2mm !important; }
+  .mc-shell .ingredient-group li, .mc-shell .ingredient-line, .mc-shell .ingredients-panel li > label { min-height: 0 !important; padding: .5mm 0 !important; border: 0 !important; gap: 2mm !important; }
+  .mc-shell .ingredients-panel input[type="checkbox"] { display: none !important; }
+  .mc-shell .step-list { gap: 0 !important; }
+  .mc-shell .step-list li { min-height: 0 !important; margin: 0 !important; padding: 1.2mm 0 !important; border: 0 !important; border-bottom: .2mm solid #ddd !important; break-inside: avoid !important; }
+  .mc-shell .step-list li > * { min-height: 0 !important; padding-top: .6mm !important; padding-bottom: .6mm !important; }
+  .mc-shell .step-list li .step-number { font-size: 11pt !important; min-width: 6mm !important; }
+  .mc-shell .notes-panel { margin-top: 3mm !important; padding: 0 !important; border: 0 !important; box-shadow: none !important; background: none !important; }
+  .mc-shell .notes-panel h2 { font-size: 11pt !important; margin: 0 0 1mm !important; }
+  .mc-shell .notes-core-stack { display: block !important; }
+  .mc-shell .allergen-card { margin: 0 !important; padding: 0 !important; border: 0 !important; }
+}

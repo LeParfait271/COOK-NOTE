@@ -272,6 +272,7 @@ if (!staticAssets) {
     '/assets/catalog-1.js',
     '/assets/image-manifest.js',
     '/style.css',
+    '/panels.css',
     '/recipe-editorial.css',
     '/manifest.json',
     '/assets/vendor/react.production.min.js',
@@ -284,8 +285,8 @@ if (!staticAssets) {
     .filter(asset => asset !== '/' && asset.startsWith('/'))
     .forEach(asset => {
       const relative = asset.split('?')[0].replace(/^\/+/, '');
-      // /style.css est assemble depuis styles/ (server.js et build).
-      const exists = relative === 'style.css'
+      // /style.css et /panels.css sont assembles depuis styles/ (server.js et build).
+      const exists = relative === 'style.css' || relative === 'panels.css'
         ? STYLE_MODULES.every(file => fs.existsSync(path.join(ROOT, file)))
         : fs.existsSync(path.join(ROOT, relative));
       if (!exists) fail(`service-worker.js: asset precache introuvable (${asset}).`);

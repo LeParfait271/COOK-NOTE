@@ -926,3 +926,32 @@ Ne pas les recreer sans nouvelle demande explicite :
   historiques `preferences locales discretes` et `diagnostic hors ligne`
   designent ces fonctions retirees, interdites dans l'interface et le code.
 - App Android HD/Modern, GeckoView, WebView ou serveur local dans Android Legacy.
+
+## Proprete du dossier (automatique)
+
+`scripts/clean-workspace.js` tourne apres chaque `npm run check` (postcheck) et
+apres chaque build APK ; `npm run clean` le lance a la main.
+- Fichiers temporaires (captures, essais, extraits) : uniquement dans `tmp/`
+  (vide automatiquement, sauf `tmp/perf`) ou dans le dossier scratch de
+  l'agent ; jamais a la racine du depot.
+- Tests : Playwright ne garde les captures et traces que des tests en echec.
+- Sauvegardes APK : les deux versions les plus recentes dans `backups/android`,
+  une seule copie de l'APK par sauvegarde ; `old-keystore` n'est jamais touche.
+- `downloads/` : l'APK courant et sa copie numerotee la plus recente.
+
+## Commandes raccourcies (a utiliser plutot que les etapes a la main)
+
+- `npm run verifier` : traduction des nouveaux textes, validation, tests,
+  robot anglais, accessibilite et code mort, avec un resume final.
+- `npm run recette` : tous les controles d'une fiche apres ajout ou modification.
+- `npm run serveur` : reconstruit dist/ et relance le serveur local (8080).
+- `npm run captures` : captures ordinateur/telephone, jour/nuit, accueil, fiche
+  et chaque fenetre, dans tmp/captures/ (vide au prochain check).
+- `npm run module -- app-nom.js` : enregistre un nouveau module partout.
+- `npm run images` : regenere AVIF, cartes et manifeste apres ajout d'images.
+- `npm run apk:version` / `npm run apk:publier` : version APK alignee sur le
+  site, puis build et publication (sur demande explicite seulement).
+- `npm run code:mort` : fonctions et scripts plus utilises.
+- `npm run clean` : nettoyage manuel (deja automatique apres chaque check).
+- `npm run hooks` : active les garde-fous de commit (cle DeepL, fichiers trop
+  gros, JavaScript casse).

@@ -57,6 +57,17 @@ function App() {
   const [seasonsOpen, setSeasonsOpen] = useState(false);
   // Ma semaine et Mon frigo (app-week.js).
   const [weekOpen, setWeekOpen] = useState(false);
+  const [weekBasketOpen, setWeekBasketOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  // Carte des accords mets-vins, ouverte sur un plat depuis une fiche.
+  const [wineOpen, setWineOpen] = useState(false);
+  const [wineFocus, setWineFocus] = useState('');
+  const [wineTitle, setWineTitle] = useState('');
+  const openWine = (focus = '', title = '') => {
+    setWineFocus(focus);
+    setWineTitle(title);
+    setWineOpen(true);
+  };
   const [fridgeOpen, setFridgeOpen] = useState(false);
   // Parcours de chef (cote et succes locaux, app-chef.js).
   const [chefOpen, setChefOpen] = useState(false);
@@ -175,6 +186,29 @@ function App() {
   }, [activeId, activeRecipe, recipeDetailsById, recipesById]);
   const activeSeoRecipe = activeRecipe;
   const shoppingRecipes = useMemo(() => shoppingIds.map(id => resolveShoppingRecipe(id, recipesById)).filter(Boolean), [shoppingIds, recipesById]);
+  // Courses de la semaine : lues dans le planning a l'ouverture ; une fiche
+  // prevue deux fois compte double tant qu'on n'a pas choisi les quantites.
+  const [weekBasketPlan, setWeekBasketPlan] = useState({});
+  const [weekFactors, setWeekFactors] = useState(() => readJson('cook_note_week_factors', {}));
+  useEffect(() => { if (weekBasketOpen) setWeekBasketPlan(readJson(WEEK_KEY, {})); }, [weekBasketOpen]);
+  const weekBasketIds = useMemo(() => [...new Set(Object.values(weekBasketPlan).filter(Boolean))], [weekBasketPlan]);
+  const weekBasketRecipes = useMemo(() => weekBasketIds.map(id => resolveShoppingRecipe(id, recipesById)).filter(Boolean), [weekBasketIds, recipesById]);
+  const saveWeekFactors = next => {
+    setWeekFactors(next);
+    writeJson('cook_note_week_factors', next);
+  };
+  const weekFactorsWithRepeats = useMemo(() => {
+    const counts = {};
+    Object.values(weekBasketPlan).forEach(id => { if (id) counts[id] = (counts[id] || 0) + 1; });
+    const next = {};
+    weekBasketIds.forEach(id => { next[id] = weekFactors[id] || counts[id] || 1; });
+    return next;
+  }, [weekBasketPlan, weekBasketIds, weekFactors]);
+  const removeWeekRecipe = id => {
+    const next = Object.fromEntries(Object.entries(weekBasketPlan).filter(([, value]) => value !== id));
+    setWeekBasketPlan(next);
+    writeJson(WEEK_KEY, next);
+  };
   const hasRecipeFilters = Boolean((!searchOpen && searchFilterQuery.trim()) || season || seasonCategory || tagFilter || onlyFavorites);
   const catalogRecipes = useMemo(() => hasRecipeFilters ? searchableRecipes : homeCatalogRecipes, [hasRecipeFilters, homeCatalogRecipes, searchableRecipes]);
   const allSeasons = useMemo(() => uniq([...SEASONS, ...searchableRecipes.flatMap(recipe => recipe.seasons || [])]).filter(item => item !== 'Toutes saisons'), [searchableRecipes]);
@@ -366,6 +400,39 @@ function App() {
     if (value) loadDeferredCatalogChunks().catch(() => {});
     setTagFilter(value);
   }
+
+  // Index de recherche prepare par petits lots pendant les temps morts (40
+  // fiches a la fois), recherche ouverte ou quelques secondes apres l'accueil :
+  // la premiere frappe ne fige plus la page le temps de tout indexer.
+  useEffect(() => {
+    let cancelled = false;
+    let index = 0;
+    const idle = window.requestIdleCallback || (callback => window.setTimeout(() => callback({ timeRemaining: () => 8 }), 32));
+    const step = deadline => {
+      if (cancelled) return;
+      let done = 0;
+      while (index < searchableRecipes.length && done < 40 && (done === 0 || deadline.timeRemaining() > 1)) {
+        done += 1;
+        const recipe = searchableRecipes[index];
+        getRecipeSearchText(recipe, recipe.tagsExtracted || recipe.tags || [], recipesById);
+        getRecipeSearchScoreFields(recipe, recipesById);
+        index += 1;
+      }
+      if (index < searchableRecipes.length) idle(step);
+    };
+    // Le reste du catalogue arrive lui aussi pendant un temps mort de l'accueil,
+    // pas au moment de taper (l'index est alors refait avec, toujours par lots).
+    const timer = window.setTimeout(() => {
+      // Seulement sur l'accueil : sur une fiche, l'arrivee du catalogue
+      // remettrait a zero la variante choisie.
+      if (!catalogChunksLoaded && !searchOpen && !activeId && activePage === 'home') idle(() => loadDeferredCatalogChunks().catch(() => {}));
+      idle(step);
+    }, searchOpen ? 0 : 4000);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
+  }, [searchableRecipes, recipesById, searchOpen, activeId, activePage]);
 
   const searchMeta = useMemo(() => {
     const needle = searchFilterQuery.trim();
@@ -625,6 +692,18 @@ function App() {
     persistShoppingFactors({});
     notify('Panier de courses vidé', 'info');
   }
+
+  // Profil recu d'un autre appareil (#profil=...) : fusionne apres confirmation.
+  useEffect(() => {
+    const received = decodeProfileTransfer(window.location.hash);
+    if (!received) return;
+    window.history.replaceState(window.history.state, document.title, `${window.location.pathname}${window.location.search}`);
+    if (!window.confirm('Importer le profil reçu (goûts, notes, à essayer) ? Rien de ce qui est ici ne sera effacé.')) return;
+    mergeProfileTransfer(received);
+    notify('Profil importé', 'success');
+    setProfileOpen(true);
+    loadFullRecipeCatalog();
+  }, []);
 
   // Progression de chef recue d'un autre appareil (#chef=...) : fusionnee.
   useEffect(() => {
@@ -1175,11 +1254,7 @@ function App() {
 
   useEffect(() => {
     const handleKey = event => {
-      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
-        event.preventDefault();
-        openCommandPalette();
-        return;
-      }
+      // Pas de raccourci clavier : seul Echap ferme la fenetre ouverte.
       if (event.key === 'Escape') {
         if (commandOpen) {
           setCommandOpen(false);
@@ -1201,33 +1276,6 @@ function App() {
           closeMenuPlanner();
           return;
         }
-        // Une fenetre <dialog> ouverte ou le mode mains libres gerent Echap eux-memes.
-        if (document.querySelector('dialog.modal-backdrop[open]') || document.documentElement.classList.contains('cook-mode-open')) return;
-        if ((activeRecipe || activePage === 'techniques') && !isTypingTarget(event.target)) goHome();
-        return;
-      }
-      if (isTypingTarget(event.target)) return;
-      if (activeRecipe && (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') {
-        event.preventDefault();
-        undo();
-        return;
-      }
-      if (activeRecipe && (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'y') {
-        event.preventDefault();
-        redo();
-        return;
-      }
-      if (event.key.toLowerCase() === 'h') {
-        goHome();
-        return;
-      }
-      if (activeRecipe && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
-        const index = catalogRecipes.findIndex(recipe => recipe.id === activeRecipe.id);
-        if (index === -1 || !catalogRecipes.length) return;
-        const nextIndex = event.key === 'ArrowLeft'
-          ? (index - 1 + catalogRecipes.length) % catalogRecipes.length
-          : (index + 1) % catalogRecipes.length;
-        openRecipe(catalogRecipes[nextIndex].id);
       }
     };
     window.addEventListener('keydown', handleKey);
@@ -1327,7 +1375,8 @@ function App() {
            activeOverride: Boolean(recipeOverrides[activeId]),
            restoreRecipeVersion,
            clearRecipeOverride,
-           ensureCatalog: loadDeferredCatalogChunks
+           ensureCatalog: loadDeferredCatalogChunks,
+           openWine
         })
       : activePage === 'techniques'
         ? h(TechniquesView, {
@@ -1354,7 +1403,8 @@ function App() {
           openShoppingBasket,
           openTechniques: goTechniques,
           openConstellation: () => {
-            setConstellationOpen(true);
+            // Le ciel n'est pas une fenetre classique : il attend lui aussi ses styles.
+            ensurePanelStyles().then(() => setConstellationOpen(true));
             loadFullRecipeCatalog();
           },
           openWeek: () => {
@@ -1372,6 +1422,11 @@ function App() {
           openChef: () => {
             setChefOpen(true);
             loadFullRecipeCatalog();
+          },
+          openWine: () => openWine(''),
+          openProfile: () => {
+            setProfileOpen(true);
+            loadFullRecipeCatalog();
           }
         })
     ),
@@ -1385,7 +1440,8 @@ function App() {
           ),
           h('div', { className: 'site-footer-copy' },
           h('p', { className: 'site-footer-brand' }, tc('Cook Note \u00a9 2026.')),
-          h('p', null, tc('Carnet de recettes et techniques culinaires, sur le web et sur Android 5+, par MaruChiwa.')),
+          h('p', null, tc('Archive culinaire éducative : carnet de recettes et outil de mise en place des repas.')),
+          h('p', { className: 'site-footer-sub' }, tc('Sur le web, et sur Android 5 pour les appareils plus anciens. Par MaruChiwa.')),
           // Catalogue et version : une ligne discrete sous la presentation (en
           // pastilles, elles avaient le meme poids que les liens).
           h('p', { className: 'site-footer-stats', 'aria-label': 'Informations catalogue' },
@@ -1406,8 +1462,8 @@ function App() {
           ),
           h('a', {
             className: 'site-footer-action site-footer-request',
-            href: 'mailto:cooknote271@gmail.com?subject=Demande%20d%27ajout%20de%20recette%20Cook%20Note&body=Bonjour%2C%0A%0AJ%27aimerais%20demander%20l%27ajout%20de%20cette%20recette%20dans%20Cook%20Note%20%3A%0A%0ANom%20de%20la%20recette%20%3A%0AIngr%C3%A9dients%20%3A%0A%C3%89tapes%20%3A%0A%0AMerci.'
-          }, h(Icon, { name: 'spark' }), h('span', null, tc('Demander une recette')), h('small', null, tc('Proposer une fiche'))),
+            href: 'mailto:cooknote271@gmail.com?subject=Suggestion%20de%20recette%20Cook%20Note&body=Bonjour%2C%0A%0AJe%20vous%20sugg%C3%A8re%20cette%20recette%20pour%20Cook%20Note%20%3A%0A%0ANom%20de%20la%20recette%20%3A%0AIngr%C3%A9dients%20%3A%0A%C3%89tapes%20%3A%0A%0AMerci.'
+          }, h(Icon, { name: 'spark' }), h('span', null, tc('Suggérer une recette')), h('small', null, tc('Par e-mail'))),
           h('button', {
             type: 'button',
             className: 'site-footer-action site-footer-top',
@@ -1437,13 +1493,43 @@ function App() {
       openRecipe,
       notify
     }),
+    h(WinePanel, {
+      open: wineOpen,
+      focus: wineFocus,
+      title: wineTitle,
+      onClose: () => setWineOpen(false)
+    }),
+    h(ProfilePanel, {
+      open: profileOpen,
+      onClose: () => setProfileOpen(false),
+      recipesById,
+      openRecipe,
+      notify
+    }),
     h(WeekPanel, {
       open: weekOpen,
       onClose: () => setWeekOpen(false),
       recipes: searchableRecipes,
       recipesById,
       openRecipe,
-      addMenuToShopping,
+      openWeekBasket: () => { setWeekOpen(false); setWeekBasketOpen(true); },
+      notify
+    }),
+    // Courses de la semaine : liste a part, le panier principal reste intact.
+    h(ShoppingBasketPanel, {
+      open: weekBasketOpen,
+      onClose: () => { setWeekBasketOpen(false); setWeekOpen(true); },
+      recipes: weekBasketRecipes,
+      recipesComplete: weekBasketRecipes.length === weekBasketIds.length,
+      factorById: weekFactorsWithRepeats,
+      transferUrl: weekBasketOpen ? shoppingTransferUrl(weekBasketIds, weekFactorsWithRepeats) : '',
+      pantryItems: [],
+      removeRecipe: removeWeekRecipe,
+      setRecipeFactor: (id, factor) => saveWeekFactors({ ...weekFactors, [id]: factor }),
+      clearShopping: () => saveWeekFactors({}),
+      storeSuffix: '_week',
+      eyebrow: 'Courses de la semaine',
+      clearLabel: 'Recommencer la liste',
       notify
     }),
     h(FridgePanel, {

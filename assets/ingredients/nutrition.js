@@ -73,6 +73,8 @@ cookNoteAtlas.nutrition({
   cafe: [2, 0.1, 0, 0], bouillon: [10, 0.8, 0.7, 0.3], eau: [0, 0, 0, 0], 'jus-fruits': [45, 0.5, 10.5, 0.1], 'eau-fleur': [0, 0, 0, 0],
   glace: [0, 0, 0, 0], biere: [43, 0.5, 3.6, 0], kirsch: [230, 0, 0, 0], 'grand-marnier': [300, 0, 25, 0], amaretto: [310, 0, 35, 0],
   whisky: [250, 0, 0, 0], vodka: [230, 0, 0, 0], pernod: [270, 0, 10, 0], sake: [135, 0.5, 5, 0], mirin: [240, 0.2, 43, 0],
+  gin: [255, 0, 0, 0], vermouth: [150, 0, 14, 0], effervescent: [80, 0.2, 1.5, 0], amers: [270, 0, 15, 0], sodas: [40, 0, 10, 0], the: [1, 0, 0.2, 0], 'tomme-fraiche': [300, 22, 1, 23],
+  pasteque: [30, 0.6, 7.5, 0.2, 3000], pamplemousse: [42, 0.8, 10.7, 0.1, 400],
   // Préparations de base
   'pate-feuilletee': [400, 5.5, 38, 25], 'creme-patissiere': [180, 4, 25, 7], chantilly: [330, 2, 12, 30], 'sauce-bechamel': [130, 3.5, 9, 9], glacage: [390, 0.5, 90, 4],
   frites: [312, 3.4, 41, 15]

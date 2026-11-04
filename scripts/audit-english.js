@@ -85,13 +85,22 @@ async function main() {
     await visit('accueil', home);
     await visit('recherche', async () => { await page.locator('.home-search, [aria-label*="earch"]').first().click(); await page.waitForTimeout(400); await page.keyboard.type('poulet'); await page.waitForTimeout(1200); });
     await escape();
-    await visit('liste de courses', async () => { await home(); await page.locator('.home-quick-actions button').nth(2).click(); await page.waitForSelector('.shopping-modal'); });
+    await visit('liste de courses', async () => { await home(); await page.click('.home-shopping-action'); await page.waitForSelector('.shopping-modal'); });
     await escape();
     await visit('menu', async () => { await page.locator('.home-quick-actions button').nth(0).click(); await page.waitForSelector('.modal-panel'); });
     await escape();
     await visit('saisons', async () => { await page.click('.home-seasons-action'); await page.waitForSelector('.season-card'); });
     await escape();
-    await visit('parcours de chef', async () => { await page.locator('.home-quick-actions button').last().click(); await page.waitForSelector('.chef-modal'); });
+    await visit('accords mets-vins', async () => { await page.click('.home-wine-action'); await page.waitForSelector('.wine-modal'); });
+    await visit('accords · par vin', async () => { await page.locator('.wine-switch button').nth(1).click(); });
+    await escape();
+    await visit('mon profil · intro', async () => { await page.click('.home-profile-action'); await page.waitForSelector('.profile-intro'); });
+    await visit('mon profil', async () => { await page.locator('.profile-intro-actions button').first().click(); await page.waitForSelector('.profile-tabs'); });
+    for (let index = 1; index < 4; index += 1) {
+      await visit(`mon profil · onglet ${index + 1}`, async () => { await page.locator('.profile-tabs button').nth(index).click(); });
+    }
+    await escape();
+    await visit('parcours de chef', async () => { await page.locator('.home-quick-actions button:not(.home-profile-action)').last().click(); await page.waitForSelector('.chef-modal'); });
     await visit('parcours de chef · techniques', async () => { await page.locator('.chef-tabs button').nth(1).click(); });
     await escape();
     await visit('constellation', async () => { await page.click('.home-constellation-action'); await page.waitForSelector('.constellation-sky', { timeout: 60000 }); await page.waitForTimeout(800); await page.mouse.click(options.viewport.width / 2, options.viewport.height / 2); });

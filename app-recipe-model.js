@@ -257,19 +257,6 @@ function getRecipeServiceTemperature(recipe, serviceText, identityText) {
   return '';
 }
 
-const RECIPE_RISK_SIGNAL_NOTES = Object.freeze({
-  'Froid': 'Garder au froid jusqu’au service.',
-  'Friture': 'Maintenir l’huile à bonne température et égoutter aussitôt.',
-  'Mer': 'Vérifier la fraîcheur et la cuisson des produits de la mer.',
-  'Viande': 'Vérifier la cuisson de la viande avant le service.',
-  'Œufs crus': 'Utiliser des œufs très frais et conserver au froid.',
-  'Conserve': 'Respecter l’hygiène et la conservation au froid.'
-});
-
-function formatRecipeRiskNote(signal) {
-  return RECIPE_RISK_SIGNAL_NOTES[String(signal?.label || '')] || 'Vérifier ce point avant le service.';
-}
-
 function getRecipeRiskSignals(recipe) {
   const identityText = getRecipeIdentityText(recipe);
   const serviceText = getRecipeInstructionText(recipe);

@@ -8,7 +8,8 @@ const KB = 1024;
 const errors = [];
 
 const FILE_BUDGETS = [
-  ['index.html', 14 * KB],
+  // 14 -> 15 Ko : modules app-profile.js et app-wine.js (v5.67).
+  ['index.html', 15 * KB],
   ['app-images.js', 8 * KB],
   ['theme.js', 4 * KB],
   ['app-premium.js', 76 * KB],
@@ -46,7 +47,8 @@ const FILE_BUDGETS = [
   // 272 -> 280 Ko : atlas des ingredients v5.62 (fiche ingredient, recherche et legende du ciel).
   // 280 -> 290 Ko : carte des saisons, paliers de techniques et recettes du ciel (v5.66).
   // 290 -> 300 Ko : minuteur libre, rappels a anticiper, calendrier du parcours (v5.67).
-  ['dist/style.css', 300 * KB],
+  // 300 -> 310 Ko : Mon profil, mode menu refait, carte des accords mets-vins (v5.67).
+  ['dist/style.css', 310 * KB],
   ['personal-tools.css', 4 * KB],
   ['dist/personal-tools.css', 3 * KB],
   // Source d'édition complète ; le site charge les catalogues découpés, chacun plafonné à 475 Ko.
@@ -55,7 +57,8 @@ const FILE_BUDGETS = [
   // 915 -> 930 Ko : materiel de cuisine propre dans chaque fiche et chaque
   // variante (practical.equipment, v5.39).
   // 930 -> 980 Ko : 15 nouvelles fiches et 2 variantes (v5.51).
-  ['recipes.js', 980 * KB],
+  // 980 -> 1010 Ko : fiches Cocktails (49 variantes) et Cocktails sans alcool (v5.68).
+  ['recipes.js', 1010 * KB],
   ['recipe-worker.js', 4 * KB],
   ['assets/image-manifest.js', 180 * KB],
   ['app-art-images.js', 40 * KB],
@@ -69,7 +72,8 @@ const FILE_BUDGETS = [
 
 const DIRECTORY_BUDGETS = [
   // 560 -> 590 Ko : 15 nouvelles fiches et 2 variantes (v5.51).
-  ['assets/catalog-*.js', 'assets', /^catalog-\d+\.js$/, 590 * KB]
+  // 590 -> 620 Ko : fiches Cocktails et Cocktails sans alcool (v5.68).
+  ['assets/catalog-*.js', 'assets', /^catalog-\d+\.js$/, 620 * KB]
 ];
 
 const IMAGE_BUDGETS = [

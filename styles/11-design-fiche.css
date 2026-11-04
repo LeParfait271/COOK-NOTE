@@ -307,13 +307,6 @@
 .recipe-detail-hero .detail-actions .btn-primary:hover:not(:disabled) {
   background: color-mix(in oklch, var(--ds-color-primary) 88%, white);
 }
-
-.recipe-detail-hero .detail-quantity-control .quantity-select {
-  border: 1px solid color-mix(in oklch, var(--ds-gold) 55%, transparent);
-  background-color: color-mix(in oklch, var(--ds-gold) 16%, transparent);
-  background-image: none;
-  color: var(--text);
-}
 /* ---------- Grimoire high-tech : mouvements utiles et sobres ---------- */
 
 /* Bascule jour/nuit : devoilement circulaire depuis le bouton. */
@@ -624,7 +617,7 @@ html.theme-reveal::view-transition-new(root) {
 }
 
 /* Contenu des blocs ouverts : liste a filets, plus de cartes. */
-.notes-panel .notes-disclosure-body :is(li, .practical-item, .personal-byproduct-section) {
+.notes-panel .notes-disclosure-body :is(li, .personal-byproduct-section) {
   margin: 0;
   padding: var(--ds-space-2) 0;
   border: 0;
@@ -634,7 +627,7 @@ html.theme-reveal::view-transition-new(root) {
   box-shadow: none;
 }
 
-.notes-panel .notes-disclosure-body :is(li, .practical-item, .personal-byproduct-section):last-child {
+.notes-panel .notes-disclosure-body :is(li, .personal-byproduct-section):last-child {
   border-bottom: 0;
 }
 

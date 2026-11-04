@@ -86,6 +86,12 @@
 /app-chef.js
   Cache-Control: public, max-age=300, must-revalidate
 
+/app-profile.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/app-wine.js
+  Cache-Control: public, max-age=300, must-revalidate
+
 /app-images.js
   Cache-Control: public, max-age=300, must-revalidate
 
@@ -96,6 +102,9 @@
   Cache-Control: public, max-age=300, must-revalidate
 
 /style.css
+  Cache-Control: public, max-age=300, must-revalidate
+
+/panels.css
   Cache-Control: public, max-age=300, must-revalidate
 
 /recipe.js

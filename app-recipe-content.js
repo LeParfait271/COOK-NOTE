@@ -725,10 +725,6 @@ function getCurrentRecipeUrl(recipe) {
   return `${window.location.origin}${getInlineVariantUrl(recipe.id, inlineKey)}`;
 }
 
-function isTypingTarget(target) {
-  return ['INPUT', 'TEXTAREA', 'SELECT'].includes(target?.tagName);
-}
-
 function copyText(text) {
   if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
   const area = document.createElement('textarea');

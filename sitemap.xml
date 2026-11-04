@@ -1021,6 +1021,30 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cook-note.pages.dev/recette/cocktail_crevettes_palace/" />
   </url>
   <url>
+    <loc>https://cook-note.pages.dev/recette/cocktails_sans_alcool_variantes/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://cook-note.pages.dev/recette/cocktails_sans_alcool_variantes/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cook-note.pages.dev/en/recette/cocktails_sans_alcool_variantes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cook-note.pages.dev/recette/cocktails_sans_alcool_variantes/" />
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/en/recette/cocktails_sans_alcool_variantes/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://cook-note.pages.dev/recette/cocktails_sans_alcool_variantes/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cook-note.pages.dev/en/recette/cocktails_sans_alcool_variantes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cook-note.pages.dev/recette/cocktails_sans_alcool_variantes/" />
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/recette/cocktails_variantes/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://cook-note.pages.dev/recette/cocktails_variantes/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cook-note.pages.dev/en/recette/cocktails_variantes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cook-note.pages.dev/recette/cocktails_variantes/" />
+  </url>
+  <url>
+    <loc>https://cook-note.pages.dev/en/recette/cocktails_variantes/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://cook-note.pages.dev/recette/cocktails_variantes/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cook-note.pages.dev/en/recette/cocktails_variantes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cook-note.pages.dev/recette/cocktails_variantes/" />
+  </url>
+  <url>
     <loc>https://cook-note.pages.dev/recette/compotee_citron/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://cook-note.pages.dev/recette/compotee_citron/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://cook-note.pages.dev/en/recette/compotee_citron/" />
@@ -2147,18 +2171,6 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://cook-note.pages.dev/recette/mi_cuits_chocolat/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://cook-note.pages.dev/en/recette/mi_cuits_chocolat/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cook-note.pages.dev/recette/mi_cuits_chocolat/" />
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/recette/mojitos_variantes/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://cook-note.pages.dev/recette/mojitos_variantes/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://cook-note.pages.dev/en/recette/mojitos_variantes/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://cook-note.pages.dev/recette/mojitos_variantes/" />
-  </url>
-  <url>
-    <loc>https://cook-note.pages.dev/en/recette/mojitos_variantes/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://cook-note.pages.dev/recette/mojitos_variantes/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://cook-note.pages.dev/en/recette/mojitos_variantes/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://cook-note.pages.dev/recette/mojitos_variantes/" />
   </url>
   <url>
     <loc>https://cook-note.pages.dev/recette/mousse_legumes/</loc>

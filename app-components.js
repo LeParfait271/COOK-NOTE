@@ -57,6 +57,31 @@ const ICON_PATHS = {
     'M8 8h3',
     'M8 11h3'
   ],
+  wine: [
+    'M7.5 3.5h9c.4 3.6-.6 7.6-4.5 8.3-3.9-.7-4.9-4.7-4.5-8.3Z',
+    'M7.8 7.2h8.4',
+    'M12 11.8V20',
+    'M8.5 20.5h7'
+  ],
+  calendar: [
+    'M4.5 6.5h15v13h-15z',
+    'M4.5 10.5h15',
+    'M8.5 4v4',
+    'M15.5 4v4',
+    'M8 14h2',
+    'M14 14h2',
+    'M8 17h2'
+  ],
+  user: [
+    'M12 12.2a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z',
+    'M4.5 20.5a7.5 7.5 0 0 1 15 0'
+  ],
+  stars: [
+    'M6 4.5v3M4.5 6h3',
+    'M17 3.5v2.4M15.8 4.7h2.4',
+    'M12 8.5l1.4 3.6 3.6 1.4-3.6 1.4L12 18.5l-1.4-3.6-3.6-1.4 3.6-1.4L12 8.5Z',
+    'M5.5 17.5h.01M19 15.5h.01'
+  ],
   spark: [
     'M12 3l1.7 5.1L19 10l-5.3 1.9L12 17l-1.7-5.1L5 10l5.3-1.9L12 3Z',
     'M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z'
@@ -1148,18 +1173,36 @@ function HomeView(props) {
             h('strong', null, t('home.searchTitle')),
             h('small', null, t('home.searchSubtitle'))
           ),
-          h('kbd', { className: 'home-search-hint', 'aria-hidden': true }, tc('Ctrl K'))
         ),
-        h('nav', { className: 'home-quick-actions', 'aria-label': 'Raccourcis culinaires' },
-          h('button', { type: 'button', onClick: props.openMenuPlanner }, h(Icon, { name: 'spark' }), h('span', null, tc('Composer un menu'))),
-          h('button', { type: 'button', onClick: props.showFavorites }, h(Icon, { name: 'heart' }), h('span', null, tc('Mes favoris'))),
-          h('button', { type: 'button', onClick: props.openShoppingBasket }, h(Icon, { name: 'basket' }), h('span', null, tc('Liste de courses'))),
-          h('button', { type: 'button', onClick: props.openTechniques }, h(Icon, { name: 'book' }), h('span', null, tc('Techniques'))),
-          props.openConstellation && h('button', { type: 'button', className: 'home-constellation-action', onClick: props.openConstellation }, h(Icon, { name: 'spark' }), h('span', null, tc('Constellation'))),
-          props.openWeek && h('button', { type: 'button', className: 'home-week-action', onClick: props.openWeek }, h(Icon, { name: 'book' }), h('span', null, tc('Ma semaine'))),
-          props.openFridge && h('button', { type: 'button', className: 'home-fridge-action', onClick: props.openFridge }, h(Icon, { name: 'basket' }), h('span', null, tc('Mon frigo'))),
-          props.openSeasons && h('button', { type: 'button', className: 'home-seasons-action', onClick: props.openSeasons }, h(Icon, { name: 'leaf' }), h('span', null, tc('Saisons'))),
-          props.openChef && h(HomeChefAction, { onClick: props.openChef })
+        // Raccourcis en trois groupes, lus de gauche a droite puis de haut en bas :
+        // mise en place (courses, frigo, menu, semaine), apprendre, mon espace.
+        h('nav', { className: 'home-quick-actions is-grouped', 'aria-label': 'Raccourcis culinaires' },
+          h('div', { className: 'home-action-group' },
+            h('span', { className: 'home-action-label' }, tc('Mise en place')),
+            h('div', { className: 'home-action-row' },
+              h('button', { type: 'button', className: 'home-shopping-action', onClick: props.openShoppingBasket }, h(Icon, { name: 'basket' }), h('span', null, tc('Liste de courses'))),
+              props.openFridge && h('button', { type: 'button', className: 'home-fridge-action', onClick: props.openFridge }, h(Icon, { name: 'pantry' }), h('span', null, tc('Mon frigo'))),
+              h('button', { type: 'button', onClick: props.openMenuPlanner }, h(Icon, { name: 'spark' }), h('span', null, tc('Composer un menu'))),
+              props.openWeek && h('button', { type: 'button', className: 'home-week-action', onClick: props.openWeek }, h(Icon, { name: 'calendar' }), h('span', null, tc('Ma semaine')))
+            )
+          ),
+          h('div', { className: 'home-action-group' },
+            h('span', { className: 'home-action-label' }, tc('Apprendre')),
+            h('div', { className: 'home-action-row' },
+              props.openSeasons && h('button', { type: 'button', className: 'home-seasons-action', onClick: props.openSeasons }, h(Icon, { name: 'leaf' }), h('span', null, tc('Saisons'))),
+              props.openWine && h('button', { type: 'button', className: 'home-wine-action', onClick: props.openWine }, h(Icon, { name: 'wine' }), h('span', null, tc('Accords mets-vins'))),
+              props.openConstellation && h('button', { type: 'button', className: 'home-constellation-action', onClick: props.openConstellation }, h(Icon, { name: 'stars' }), h('span', null, tc('Constellation'))),
+              h('button', { type: 'button', onClick: props.openTechniques }, h(Icon, { name: 'book' }), h('span', null, tc('Techniques')))
+            )
+          ),
+          h('div', { className: 'home-action-group' },
+            h('span', { className: 'home-action-label' }, tc('Mon espace')),
+            h('div', { className: 'home-action-row' },
+              h('button', { type: 'button', onClick: props.showFavorites }, h(Icon, { name: 'heart' }), h('span', null, tc('Mes favoris'))),
+              props.openChef && h(HomeChefAction, { onClick: props.openChef }),
+              props.openProfile && h('button', { type: 'button', className: 'home-profile-action', onClick: props.openProfile }, h(Icon, { name: 'user' }), h('span', null, tc('Mon profil')))
+            )
+          )
         )
       ),
       h(ActiveChips, { chips: props.activeChips }),
@@ -1430,7 +1473,8 @@ function HomeChefAction({ onClick }) {
   const standing = chefStanding(chef.rating);
   return h('button', { type: 'button', className: 'home-chef-action', onClick, 'aria-label': `Parcours de chef : ${standing.name}` },
     h(ChefEmblem, { standing, size: 20 }),
-    h('span', null, standing.name)
+    // « Rang » se lit mieux que le nom du rang ; l'embleme montre le niveau.
+    h('span', null, tc('Rang'))
   );
 }
 
@@ -1456,10 +1500,68 @@ function shareMessage(recipe, url) {
   return [`${tc(recipe.title)} — ${tc('recette Cook Note')}`, facts, names.length ? `${tc('Avec :')} ${names.join(', ')}…` : '', url].filter(Boolean).join('\n');
 }
 
+// Grille sobre des plateformes de partage (fiche recette, liste de courses) :
+// messageries, e-mail, reseaux, copie. Chaque lien ouvre l'appli ou le site
+// avec le texte et le lien deja remplis ; rien ne part sans l'utilisateur.
+const SHARE_TOUCH = typeof navigator !== 'undefined' && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '');
+function shareTargetsFor({ title, text, url }) {
+  const e = encodeURIComponent;
+  const body = url && !text.includes(url) ? `${text}\n${url}` : text;
+  return [
+    ['Messageries', [
+      ['WhatsApp', 'WA', '#25d366', `https://wa.me/?text=${e(body)}`],
+      ['Telegram', 'TG', '#2aabee', `https://t.me/share/url?url=${e(url || '')}&text=${e(text)}`],
+      SHARE_TOUCH && ['Messenger', 'MS', '#0084ff', `fb-messenger://share/?link=${e(url || '')}`],
+      SHARE_TOUCH && ['Viber', 'VB', '#7360f2', `viber://forward?text=${e(body)}`],
+      ['LINE', 'LN', '#06c755', `https://social-plugins.line.me/lineit/share?url=${e(url || '')}&text=${e(text)}`],
+      ['SMS', 'SMS', '#8e8e93', `sms:?&body=${e(body)}`]
+    ]],
+    ['E-mail', [
+      ['E-mail', '@', '#c9a24a', `mailto:?subject=${e(title)}&body=${e(body)}`],
+      ['Gmail', 'GM', '#ea4335', `https://mail.google.com/mail/?view=cm&fs=1&su=${e(title)}&body=${e(body)}`],
+      ['Outlook', 'OL', '#0a64d6', `https://outlook.live.com/mail/0/deeplink/compose?subject=${e(title)}&body=${e(body)}`]
+    ]],
+    ['Réseaux', url ? [
+      ['Facebook', 'FB', '#1877f2', `https://www.facebook.com/sharer/sharer.php?u=${e(url)}`],
+      ['X', 'X', '#e7e7e7', `https://twitter.com/intent/tweet?text=${e(title)}&url=${e(url)}`],
+      ['Bluesky', 'BS', '#1185fe', `https://bsky.app/intent/compose?text=${e(`${title} ${url}`)}`],
+      ['Threads', 'TH', '#d9d9d9', `https://www.threads.net/intent/post?text=${e(`${title} ${url}`)}`],
+      ['Pinterest', 'PI', '#e60023', `https://pinterest.com/pin/create/button/?url=${e(url)}&description=${e(title)}`],
+      ['Reddit', 'RD', '#ff4500', `https://www.reddit.com/submit?url=${e(url)}&title=${e(title)}`],
+      ['LinkedIn', 'IN', '#0a66c2', `https://www.linkedin.com/sharing/share-offsite/?url=${e(url)}`]
+    ] : []]
+  ].map(([group, items]) => [group, items.filter(Boolean)]).filter(([, items]) => items.length);
+}
+
+function ShareTargets({ title, text, url = '', notify, copyLabel = 'Copier le texte' }) {
+  const [copied, setCopied] = useState(false);
+  const groups = shareTargetsFor({ title, text, url });
+  return h('div', { className: 'share-targets' },
+    groups.map(([group, items]) => h('div', { key: group, className: 'share-targets-group' },
+      h('small', null, tc(group)),
+      h('div', { className: 'share-targets-grid' },
+        items.map(([name, mark, color, href]) => h('a', {
+          key: name,
+          className: 'share-target',
+          href,
+          target: /^https?:/.test(href) ? '_blank' : undefined,
+          rel: /^https?:/.test(href) ? 'noreferrer' : undefined,
+          'aria-label': `${tc('Partager sur')} ${name}`
+        }, h('i', { style: { '--brand': color }, 'aria-hidden': true }, mark), h('span', null, name)))
+      )
+    )),
+    h('div', { className: 'share-targets-group' },
+      h('small', null, tc('Copier')),
+      h('div', { className: 'share-targets-grid' },
+        h('button', { type: 'button', className: 'share-target', onClick: () => copyText(url && !text.includes(url) ? `${text}\n${url}` : text).then(() => { setCopied(true); notify?.(tc('Texte copié')); }) },
+          h('i', { style: { '--brand': '#c9a24a' }, 'aria-hidden': true }, h(Icon, { name: copied ? 'check' : 'copy' })), h('span', null, copied ? tc('Copié') : tc(copyLabel)))
+      )
+    )
+  );
+}
+
 function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
   const [copied, setCopied] = useState(false);
-  const [copiedText, setCopiedText] = useState(false);
-  const [posterBusy, setPosterBusy] = useState(false);
   const [qrReady, setQrReady] = useState(false);
   const canvasRef = useRef(null);
   const modalRef = useRef(null);
@@ -1477,44 +1579,18 @@ function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
       imageUrl
     };
   }, [open, recipe, shareUrl]);
-  const { url, description, text, imageStyle, imageUrl } = shareData;
+  const { url, text, imageStyle, imageUrl } = shareData;
 
   function nativeShare() {
-    if (!navigator.share) return copyText(text).then(() => {
-      setCopiedText(true);
-      notify?.('Texte de partage copié');
-    });
+    if (!navigator.share) return copyText(text).then(() => notify?.('Texte de partage copié'));
     return navigator.share({ title: `${recipe.title} - Cook Note`, text: shareMessage(recipe, '').trim(), url }).then(() => {
       notify?.('Partage ouvert');
     }).catch(() => {});
   }
 
-  async function downloadSharePoster(format = 'story') {
-    if (posterBusy) return;
-    setPosterBusy(true);
-    try {
-      await downloadSharePosterCard({
-        title: recipe.title,
-        description,
-        imageUrl,
-        metaText: [primaryCategory(recipe), recipe.yield].filter(Boolean).join(' · '),
-        qrReady,
-        qrCanvas: canvasRef.current,
-        format
-      });
-      notify?.('Carte de partage téléchargée', 'success');
-    } catch {
-      notify?.('Carte de partage impossible à générer', 'error');
-    } finally {
-      setPosterBusy(false);
-    }
-  }
-
   useEffect(() => {
     let cancelled = false;
     setCopied(false);
-    setCopiedText(false);
-    setPosterBusy(false);
     setQrReady(false);
     if (!open || !canvasRef.current) return () => {
       cancelled = true;
@@ -1574,32 +1650,8 @@ function SharePanel({ open, onClose, recipe, notify, shareUrl = '' }) {
             }), 'aria-label': `Copier le lien de ${recipe.title}` }, h(Icon, { name: copied ? 'check' : 'copy' }), copied ? tc('Copié') : tc('Copier'))
           ),
           navigator.share && h(Button, { variant: 'primary', className: 'share-native', onClick: nativeShare, ariaLabel: `Partager ${recipe.title}` }, h(Icon, { name: 'share' }), h('span', null, tc('Partager…'))),
-          h('div', { className: 'share-group' },
-            h('small', null, tc('Envoyer')),
-            h('div', null,
-              h('a', { className: 'share-chip', href: `https://wa.me/?text=${encodeURIComponent(text)}`, target: '_blank', rel: 'noreferrer', 'aria-label': `Partager ${recipe.title} sur WhatsApp` }, 'WhatsApp'),
-              h('a', { className: 'share-chip', href: `sms:?&body=${encodeURIComponent(text)}`, 'aria-label': `Partager ${recipe.title} par SMS` }, 'SMS'),
-              h('a', { className: 'share-chip', href: `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(shareMessage(recipe, '').trim())}`, target: '_blank', rel: 'noreferrer', 'aria-label': `Partager ${recipe.title} sur Telegram` }, 'Telegram'),
-              h('a', { className: 'share-chip', href: `mailto:?subject=${encodeURIComponent(`${recipe.title} — recette Cook Note`)}&body=${encodeURIComponent(text)}`, 'aria-label': `Partager ${recipe.title} par email` }, 'Email'),
-              h('button', { type: 'button', className: 'share-chip', onClick: () => copyText(text).then(() => {
-                setCopiedText(true);
-                notify?.('Texte de recette copié');
-              }), 'aria-label': `Copier le texte de partage de ${recipe.title}` }, copiedText ? tc('Texte copié') : tc('Copier le texte'))
-            )
-          ),
-          h('div', { className: 'share-group' },
-            h('small', null, posterBusy ? tc('Préparation de l’image…') : tc('Télécharger une image')),
-            h('div', { className: 'share-formats' },
-              [['story', 'Story', '9:16'], ['square', 'Carré', '1:1'], ['print', 'Fiche', 'A4']].map(([format, label, ratio]) => h('button', {
-                key: format,
-                type: 'button',
-                className: `share-format is-${format}`,
-                disabled: posterBusy,
-                onClick: () => downloadSharePoster(format),
-                'aria-label': `Télécharger ${label.toLowerCase()} de ${recipe.title}`
-              }, h('i', { 'aria-hidden': true }), h('span', null, label), h('em', null, ratio)))
-            )
-          )
+          // Plateformes (messageries, e-mail, reseaux, copie) ; plus d'images a telecharger.
+          h(ShareTargets, { title: `${recipe.title} — Cook Note`, text: shareMessage(recipe, '').trim(), url, notify })
         )
       )
     )

@@ -119,14 +119,15 @@ test.describe('Cook Note visual smoke', () => {
     expect(masterCardMetrics.every(card => card.rightBorder === card.leftBorder && card.rightBorder !== '0px' && card.rightBorderColor !== 'rgba(0, 0, 0, 0)')).toBe(true);
     expect(masterCardMetrics.every(card => card.edgeDisplay === 'block' && card.edgeRightBorder !== '0px' && card.edgeRightColor !== 'rgba(0, 0, 0, 0)' && card.edgeZIndex > 1)).toBe(true);
     await expect(page.locator('.top-menu-btn, .top-techniques-btn, .top-actions .cart-icon-btn, .top-actions [aria-label="Panier courses"]')).toHaveCount(0);
-    await expect(page.locator('.home-quick-actions button')).toHaveCount(9);
+    await expect(page.locator('.home-quick-actions button')).toHaveCount(11);
     if (testInfo.project.name === 'mobile') {
       await expect(page.locator('.mobile-bottom-nav')).toHaveCount(0);
     }
     await expect(page.locator('.home-view > .hero .hero-logo')).toHaveCount(0);
     await expect(page.locator('.home-view > .hero .hero-wordmark')).toHaveText('Cook Note');
     await expect(page.locator('.recipe-card[data-recipe-id="accompagnements_maitre"] h3')).toBeVisible();
-    await page.keyboard.press('Control+K');
+    // Plus de raccourci clavier : la loupe de la barre du haut ouvre la recherche.
+    await page.locator('.top-search-button').click();
     await expect(page.locator('.command-palette')).toBeVisible();
     // Cinq acces rapides : « Avec ce que j'ai » (pleine ligne) puis quatre.
     expect(await page.locator('.command-row').count()).toBeLessThanOrEqual(5);
@@ -235,7 +236,8 @@ test.describe('Cook Note visual smoke', () => {
       expect(colors.icon, colors.label).not.toBe('rgb(255, 255, 255)');
       expect(colors.background, colors.label).not.toBe('rgba(0, 0, 0, 0)');
     });
-    await page.keyboard.press('Control+K');
+    // Plus de raccourci clavier : la loupe de la barre du haut ouvre la recherche.
+    await page.locator('.top-search-button').click();
     await expect(page.locator('.command-palette')).toBeVisible();
     const commandIconColor = await page.locator('.command-row-icon').first().evaluate(node => getComputedStyle(node).color);
     expect(commandIconColor).not.toBe('rgb(255, 255, 255)');
@@ -291,8 +293,9 @@ test.describe('Cook Note visual smoke', () => {
     const selectedVariant = page.locator('.variant-choice-button').filter({ hasText: /Poulet et crevettes/i });
     await expect(selectedVariant).toHaveAttribute('aria-pressed', 'false');
     await selectedVariant.click();
-    await expect(selectedVariant).toHaveAttribute('aria-pressed', 'true');
-    await expect(selectedVariant).toContainText('lectionn');
+    // Une fois choisie, la grande grille laisse la place aux pastilles de variante.
+    await expect(page.locator('.variant-choice-button')).toHaveCount(0);
+    await expect(page.locator('.recipe-variant-switch').getByRole('button', { name: /Poulet et crevettes/i })).toHaveClass(/active/);
     await expect(page.locator('.variant-choice-status')).toHaveCount(0);
     await expect(page.locator('.variant-choice-continue')).toHaveCount(0);
     await expect(page.locator('.recipe-summary-panel')).toBeVisible();
@@ -305,10 +308,10 @@ test.describe('Cook Note visual smoke', () => {
     await expect(page.locator('.step-list')).toContainText("Saisir le poulet dans l'huile");
     await expect(page.locator('.recipe-view')).toContainText('prévoir riz nature');
     await expect(page.getByRole('button', { name: /Ajouter aux courses/i }).first()).toBeEnabled();
-    const tikkaVariant = page.locator('.variant-choice-button').filter({ hasText: /Poulet tikka masala/i });
+    // Changement de variante par les pastilles.
+    const tikkaVariant = page.locator('.recipe-variant-switch').getByRole('button', { name: /Poulet tikka masala/i });
     await tikkaVariant.click();
-    await expect(selectedVariant).toHaveAttribute('aria-pressed', 'false');
-    await expect(tikkaVariant).toHaveAttribute('aria-pressed', 'true');
+    await expect(tikkaVariant).toHaveClass(/active/);
     await expect(page.locator('.ingredients-panel')).toContainText(/120\sg yaourt nature/);
     await expect(page.locator('.ingredients-panel')).not.toContainText(/220\sg crevettes/);
     await expectNoMojibake(page);
@@ -820,7 +823,7 @@ test.describe('Cook Note visual smoke', () => {
     await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('cook_note_shopping_factors') || '{}')))
       .toMatchObject({ poulet_sauce_pimentee: 2 });
 
-    await shoppingModal.getByRole('button', { name: 'Sur mon téléphone' }).click();
+    // QR genere d'office en haut du panier.
     await expect(page.locator('.shopping-transfer .share-qr.is-ready')).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });
@@ -861,12 +864,13 @@ test.describe('Cook Note visual smoke', () => {
       .click();
     const menuModal = page.locator('.menu-planner-modal');
     await expect(menuModal).toBeVisible();
-    await expect(menuModal.locator('.menu-planner-card')).toHaveCount(4);
+    await expect(menuModal.locator('.menu-course')).toHaveCount(4);
 
-    const peopleSelect = menuModal.locator('select[aria-label="Nombre de personnes du menu"]');
-    await peopleSelect.selectOption('6');
-    await expect(peopleSelect).toHaveValue('6');
-    await expect(menuModal.locator('.menu-serving-hint')).toBeVisible();
+    // Personnes en pas a pas : 4 par defaut, deux fois « + ».
+    const people = menuModal.locator('[aria-label="Nombre de personnes du menu"]');
+    await people.getByRole('button', { name: 'Une personne de plus' }).click();
+    await people.getByRole('button', { name: 'Une personne de plus' }).click();
+    await expect(people.locator('strong')).toHaveText('6');
     await menuModal.getByRole('button', { name: 'Ajouter le menu aux courses pour 6 personnes' }).click();
     await menuModal.getByRole('button', { name: 'Fermer' }).click();
     await expect(menuModal).toBeHidden();

@@ -4799,10 +4799,6 @@
   "fr": "Gressins fromage olives",
   "en": "Cheese and olive breadsticks"
  },
- "11tqru53f6j": {
-  "fr": "Mojitos",
-  "en": "Mojitos"
- },
  "22ju7824qj8": {
   "fr": "Tempura",
   "en": "Tempura"
@@ -5815,14 +5811,6 @@
   "fr": "300g farine",
   "en": "300g flour"
  },
- "29pw2t5ddb8": {
-  "fr": "115g beurre froid",
-  "en": "115g cold butter"
- },
- "gimr4a5ch0": {
-  "fr": "60ml eau glacée",
-  "en": "60ml ice-cold water"
- },
  "2ec4q4j33rh": {
   "fr": "12g sucre",
   "en": "12g sugar"
@@ -5830,18 +5818,6 @@
  "15itrxknhvi": {
   "fr": "1/4 c. à café sel",
   "en": "1/4 tsp salt"
- },
- "1je5c7le18e": {
-  "fr": "Sabler farine, sucre, sel et beurre froid du bout des doigts.",
-  "en": "Rub the flour, sugar, salt and cold butter together with your fingertips."
- },
- "1mryy0byfvd": {
-  "fr": "Ajouter l’eau glacée juste assez pour rassembler la pâte sans la pétrir.",
-  "en": "Add just enough ice-cold water to bring the dough together without kneading it."
- },
- "1sacrp6gpgp": {
-  "fr": "Former un disque, refroidir 30min, foncer puis cuire à blanc à 180°C, 15 à 20min avec des billes de cuisson, selon la garniture.",
-  "en": "Shape into a disc, chill for 30 minutes, line the tin and blind-bake at 180°C for 15 to 20 minutes with baking beans, depending on the filling."
  },
  "1t1c6orc1z1": {
   "fr": "Variante biscuit graham",
@@ -7999,10 +7975,6 @@
   "fr": "Servir aussitôt pour garder le contraste croustillant/fondant.",
   "en": "Serve straight away to preserve the contrast between the crispy and melt-in-the-mouth textures."
  },
- "2gidhfhrngi": {
-  "fr": "6 variantes",
-  "en": "6 variations"
- },
  "1lgdxsopw2u": {
   "fr": "Mojito classique",
   "en": "Classic Mojito"
@@ -8071,10 +8043,6 @@
   "fr": "50g eau gazeuse",
   "en": "50g sparkling water"
  },
- "zzwn5jy8hd": {
-  "fr": "Mettre sucre, citron vert, menthe et fruit éventuel dans le verre.",
-  "en": "Put the sugar, lime, mint and any fruit into the glass."
- },
  "1ijcp82dpzl": {
   "fr": "Écraser doucement sans broyer la menthe.",
   "en": "Gently crush the mint without breaking it up."
@@ -8082,34 +8050,6 @@
  "240kwxneaz": {
   "fr": "Ajouter le rhum, puis remplir de glaçons.",
   "en": "Add the rum, then fill with ice cubes."
- },
- "1nh9a54nld7": {
-  "fr": "Compléter avec eau gazeuse bien froide.",
-  "en": "Top up with ice-cold sparkling water."
- },
- "ubx6f7zzmy": {
-  "fr": "Mélanger délicatement de bas en haut et servir immédiatement.",
-  "en": "Gently fold from the bottom upwards and serve immediately."
- },
- "y73uoda98c": {
-  "fr": "Écrase doucement la menthe doit parfumer sans devenir amère.",
-  "en": "Gently crush the mint – it should release its flavour without becoming bitter."
- },
- "y9zflqqjmv": {
-  "fr": "Utilise une eau gazeuse très froide pour garder un cocktail vif.",
-  "en": "Use very cold sparkling water to keep a cocktail fresh."
- },
- "1niko5s2w17": {
-  "fr": "Pour une version sans alcool, remplace le rhum par la même quantité d’eau gazeuse ou de ginger beer.",
-  "en": "For a non-alcoholic version, replace the rum with the same amount of sparkling water or ginger beer."
- },
- "1eat55uy9zu": {
-  "fr": "Citron, sucre, menthe et dilution doivent rester nets.",
-  "en": "The flavours of lemon, sugar, mint and the diluent must remain distinct."
- },
- "y1oc2bqzx": {
-  "fr": "Préparer minute pour garder bulles et fraîcheur.",
-  "en": "Prepare at the last minute to preserve the bubbles and freshness."
  },
  "17fjmj35r1g": {
   "fr": "600g sommités de chou-fleur",
@@ -49275,10 +49215,6 @@
   "fr": "Quitter les favoris",
   "en": "Remove from favourites"
  },
- "e2ctkksaff": {
-  "fr": "Ctrl K",
-  "en": "Ctrl K"
- },
  "e9hppd22or": {
   "fr": "Composer un menu",
   "en": "Putting together a menu"
@@ -49343,10 +49279,6 @@
   "fr": "Copier",
   "en": "Copy"
  },
- "1t3e2hvvqba": {
-  "fr": "Envoyer",
-  "en": "Send"
- },
  "16odqqkvl7b": {
   "fr": "Texte copié",
   "en": "Copied text"
@@ -49354,14 +49286,6 @@
  "1ddyn1rc1ye": {
   "fr": "Copier le texte",
   "en": "Copy the text"
- },
- "235l7mila9b": {
-  "fr": "Préparation de l’image…",
-  "en": "Preparing the image…"
- },
- "26ubax6g4hr": {
-  "fr": "Télécharger une image",
-  "en": "Upload an image"
  },
  "23gz4446m85": {
   "fr": "Pesez et préparez tous les ingrédients avant de commencer : pendant la recette, les gestes s’enchaînent sans attendre, rien ne brûle pendant qu’on cherche un ingrédient, et on voit tout de suite s’il manque quelque chose.",
@@ -49406,14 +49330,6 @@
  "1jt3hye7zs1": {
   "fr": "Aller au contenu",
   "en": "Skip to content"
- },
- "230cxi7y1h6": {
-  "fr": "Carnet de recettes et techniques culinaires, sur le web et sur Android 5+, par MaruChiwa.",
-  "en": "A recipe and cooking techniques guide, available online and on Android 5+ devices, by MaruChiwa."
- },
- "1gg8b576k1y": {
-  "fr": "Demander une recette",
-  "en": "Request a recipe"
  },
  "qih9za1hpw": {
   "fr": "Retour haut",
@@ -49511,10 +49427,6 @@
   "fr": "Copiée",
   "en": "Copied"
  },
- "ec3o20ytgi": {
-  "fr": "Sur mon téléphone",
-  "en": "On my phone"
- },
  "2099vaqx2si": {
   "fr": "Vider le panier",
   "en": "Empty the basket"
@@ -49534,22 +49446,6 @@
  "1w9nxkkhp9o": {
   "fr": "personne",
   "en": "person"
- },
- "1s52m2qa1am": {
-  "fr": "Les quantités du menu et des courses suivent ce nombre.",
-  "en": "The quantities for the menu and the shopping list are based on this number."
- },
- "10hznj78l11": {
-  "fr": "Timeline",
-  "en": "Timeline"
- },
- "17ufg0p96z5": {
-  "fr": "Charge mentale",
-  "en": "Mental load"
- },
- "1hbdsr2h3n3": {
-  "fr": "Restes",
-  "en": "Leftovers"
  },
  "3plq4tlwxi": {
   "fr": "Matériel",
@@ -49751,10 +49647,6 @@
   "fr": "Terminer",
   "en": "Finish"
  },
- "vqrbgwyh1i": {
-  "fr": "✓ Dans les courses",
-  "en": "✓ At the shops"
- },
  "l83tpp0dal": {
   "fr": "Ajouter aux courses",
   "en": "Add to shopping list"
@@ -49910,10 +49802,6 @@
  "20rf4kj41rb": {
   "fr": "Cette fiche n’existe pas encore",
   "en": "This recipe does not yet exist"
- },
- "2b1erb2b82u": {
-  "fr": "Proposer une fiche",
-  "en": "Submit a fact sheet"
  },
  "1q9uva7rpfx": {
   "fr": "Version de la fiche",
@@ -50139,14 +50027,6 @@
   "fr": "Partage ouvert",
   "en": "Open sharing"
  },
- "6sx20koqvc": {
-  "fr": "Carte de partage téléchargée",
-  "en": "Shared map downloaded"
- },
- "6b6b0ztxqm": {
-  "fr": "Carte de partage impossible à générer",
-  "en": "Unable to generate a sharing card"
- },
  "s52r6hy7kp": {
   "fr": "button, a[href], input",
   "en": "button, a[href], input"
@@ -50158,22 +50038,6 @@
  "1j9ggsq0nye": {
   "fr": "Telegram",
   "en": "Telegram"
- },
- "1qn5k6z8xr": {
-  "fr": "Email",
-  "en": "Email"
- },
- "ztjnv3ar1g": {
-  "fr": "Texte de recette copié",
-  "en": "Recipe text copied"
- },
- "qm8q713vd8": {
-  "fr": "Story",
-  "en": "Story"
- },
- "17hgima2bks": {
-  "fr": "Carré",
-  "en": "Square"
  },
  "20e08llg98f": {
   "fr": "Fiche",
@@ -51059,10 +50923,6 @@
   "fr": "Copier compact",
   "en": "Compact copy"
  },
- "ncn5hifznv": {
-  "fr": "Afficher un QR code pour ouvrir la liste sur le téléphone",
-  "en": "Display a QR code to open the list on your mobile phone"
- },
  "yy6ke7o3g1": {
   "fr": "Proposer un autre menu complet",
   "en": "Suggest another full menu"
@@ -51075,29 +50935,13 @@
   "fr": "Style de menu",
   "en": "Menu style"
  },
- "eppz72gst4": {
-  "fr": "Choisir le nombre de personnes du menu",
-  "en": "Select the number of people from the menu"
- },
  "59gtw9b0uq": {
   "fr": "Nombre de personnes du menu",
   "en": "Number of people on the menu"
  },
- "15eked3r8vf": {
-  "fr": "Ouvrir",
-  "en": "Open"
- },
  "1cixcjkx8dx": {
   "fr": "Changer",
   "en": "Change"
- },
- "322cd9wqw7": {
-  "fr": "Menu simple à coordonner.",
-  "en": "A menu that’s easy to organise."
- },
- "143ctx8gi5e": {
-  "fr": "Ajouter le menu aux courses",
-  "en": "Add the menu to the shopping list"
  },
  "1b4o3d1swcn": {
   "fr": "Conserver le mode nuit",
@@ -51218,10 +51062,6 @@
  "1vsyte36nlc": {
   "fr": "Résultat attendu",
   "en": "Expected result"
- },
- "29h2vx3pj3r": {
-  "fr": "Accords de la recette",
-  "en": "Food pairings for this recipe"
  },
  "1osh2sh2hu5": {
   "fr": "Organisation de la préparation",
@@ -52443,37 +52283,9 @@
   "fr": "Lupin",
   "en": "Lupin"
  },
- "1dmlyv49x8z": {
-  "fr": "Garder au froid jusqu’au service.",
-  "en": "Keep chilled until ready to serve."
- },
- "1905gsgpehk": {
-  "fr": "Maintenir l’huile à bonne température et égoutter aussitôt.",
-  "en": "Keep the oil at the right temperature and drain immediately."
- },
- "me4fx3j603": {
-  "fr": "Vérifier la fraîcheur et la cuisson des produits de la mer.",
-  "en": "Check that the seafood is fresh and cooked through."
- },
- "1gd3m4qda2k": {
-  "fr": "Vérifier la cuisson de la viande avant le service.",
-  "en": "Check that the meat is cooked through before serving."
- },
  "24zsm51po3d": {
   "fr": "Œufs crus",
   "en": "Raw eggs"
- },
- "2bf4108uibf": {
-  "fr": "Utiliser des œufs très frais et conserver au froid.",
-  "en": "Use very fresh eggs and keep them chilled."
- },
- "1gcs7petc1f": {
-  "fr": "Respecter l’hygiène et la conservation au froid.",
-  "en": "Ensure good hygiene and store in a cool place."
- },
- "r04ujzmvk": {
-  "fr": "Vérifier ce point avant le service.",
-  "en": "Check this before serving."
  },
  "tg5awpiyey": {
   "fr": "Servir frais, après le repos au froid indiqué.",
@@ -67543,34 +67355,6 @@
   "fr": "Partager {#}",
   "en": "Share {1}"
  },
- "uba3g5ys1j": {
-  "fr": "Partager {#} sur WhatsApp",
-  "en": "Share {1} on WhatsApp"
- },
- "tfyuodwrka": {
-  "fr": "Partager {#} par SMS",
-  "en": "Share {1} via text message"
- },
- "1vfrjccjs6o": {
-  "fr": "Partager {#} sur Telegram",
-  "en": "Share {1} on Telegram"
- },
- "lzaw2uqmx4": {
-  "fr": "Partager {#} par email",
-  "en": "Share {1} via email"
- },
- "k7q0grzaof": {
-  "fr": "Copier le texte de partage de {#}",
-  "en": "Copy the sharing text from {1}"
- },
- "l7qtw35gm2": {
-  "fr": "share-format is-{#}",
-  "en": "share-format is {1}"
- },
- "ydh72kgfy0": {
-  "fr": "Télécharger {#} de {#}",
-  "en": "Download {1} out of {2}"
- },
  "1q3cu1bby3m": {
   "fr": "{#} {#}w, {#} {#}w",
   "en": "{1} {2}w, {3} 10{4}w"
@@ -67987,29 +67771,9 @@
   "fr": "Garder {#} au placard pour les prochaines listes",
   "en": "Keep {1} in the store cupboard for the next lists"
  },
- "17rlg226ije": {
-  "fr": "Menu ajouté aux courses pour {#} personnes",
-  "en": "Menu added to the shopping list for {1} people"
- },
- "qzb4wwuqsx": {
-  "fr": "Choisir le style {#}",
-  "en": "Choose style {1}"
- },
- "1zf8lord8sa": {
-  "fr": "Actif {#}",
-  "en": "Asset {1}"
- },
  "11604v1fjho": {
   "fr": "Changer {#} : {#}",
   "en": "Change {1}: {2}"
- },
- "u8il825hgr": {
-  "fr": "Charge {#}",
-  "en": "Charge {1}"
- },
- "17od6p885i4": {
-  "fr": "{#} articles groupés",
-  "en": "{1} items in a bundle"
  },
  "1mnq58f488q": {
   "fr": "Ajouter le menu aux courses pour {#} personnes",
@@ -68170,14 +67934,6 @@
  "3xr4z2e1i1": {
   "fr": "Voir {#} autre recette",
   "en": "See {1} more recipes"
- },
- "2fsdk74ru8d": {
-  "fr": "A tenter: {#}",
-  "en": "Give it a go: {1}"
- },
- "c9qj32hm5h": {
-  "fr": "Finition: {#}",
-  "en": "Finish: {1}"
  },
  "134o2zthrhk": {
   "fr": "recipe-quick-facts fact-count-{#}",
@@ -68767,10 +68523,6 @@
   "fr": "Aucune recette avec ces ingrédients pour l’instant.",
   "en": "There are no recipes using these ingredients at the moment."
  },
- "1wx8hk62z8a": {
-  "fr": "Tout aux courses",
-  "en": "All about the races"
- },
  "2d910j60q2r": {
   "fr": "Il manque",
   "en": "There is a missing"
@@ -68818,22 +68570,6 @@
  "5ng5mzem8e": {
   "fr": "Repas prévu",
   "en": "Meal planned"
- },
- "ujq2xa923u": {
-  "fr": "Me le rappeler",
-  "en": "Remind me"
- },
- "8dqr4al7lh": {
-  "fr": "Ajoute un rendez-vous à votre agenda, avec une alerte pour chaque préparation.",
-  "en": "Add an appointment to your diary, with a reminder for each preparation task."
- },
- "ydhr9gc7nu": {
-  "fr": "Dans le même esprit",
-  "en": "In the same vein"
- },
- "7e0ehiv9es": {
-  "fr": "Recettes proches de cette fiche",
-  "en": "Recipes similar to this one"
  },
  "pfdkpjhq5d": {
   "fr": "avant",
@@ -73846,5 +73582,5393 @@
  "54iuleu38s": {
   "fr": "g copeaux de parmesan",
   "en": "g shavings of Parmesan"
+ },
+ "as1qmd24bo": {
+  "fr": "Courses de la semaine",
+  "en": "Weekly shopping list"
+ },
+ "eg44kwun4j": {
+  "fr": "Recommencer la liste",
+  "en": "Restart the list"
+ },
+ "vgnbs7ii7e": {
+  "fr": "Mon profil",
+  "en": "My profile"
+ },
+ "11vgi0wlp0r": {
+  "fr": "Importer le profil reçu (goûts, notes, à essayer) ? Rien de ce qui est ici ne sera effacé.",
+  "en": "Import the profile you’ve received (favourites, ratings, to try)? Nothing here will be deleted."
+ },
+ "252u48e0i6p": {
+  "fr": "Profil importé",
+  "en": "Imported profile"
+ },
+ "z2hmtpset5": {
+  "fr": "Aucun",
+  "en": "None"
+ },
+ "275lt9pz4ty": {
+  "fr": "février",
+  "en": "February"
+ },
+ "1u5ggmqn8w6": {
+  "fr": "août",
+  "en": "August"
+ },
+ "22bz6rp6xis": {
+  "fr": "décembre",
+  "en": "December"
+ },
+ "1ggdlhyeyet": {
+  "fr": "Selon tes goûts et allergies (Mon profil)",
+  "en": "Depending on your preferences and allergies (My profile)"
+ },
+ "8v82ahoupi": {
+  "fr": "Ta note : moins de sel, four à 170…",
+  "en": "Your note: less salt, oven at 170…"
+ },
+ "lo1knjk20r": {
+  "fr": "Note personnelle",
+  "en": "Personal note"
+ },
+ "2e2yxol17q1": {
+  "fr": "Note personnelle, visible seulement sur cet appareil",
+  "en": "Personal note, visible only on this device"
+ },
+ "eb9gwnzffi": {
+  "fr": "★ À essayer",
+  "en": "★ Give it a go"
+ },
+ "1ufaa6okp9": {
+  "fr": "☆ À essayer",
+  "en": "☆ Give it a go"
+ },
+ "lbzou92hik": {
+  "fr": "Aucun plat noté ce mois-ci. Donne ton verdict après un plat pour remplir le bilan.",
+  "en": "No dishes have been rated this month. Give your verdict after trying a dish to complete the review."
+ },
+ "23bue9iyb1u": {
+  "fr": "réussis",
+  "en": "successful"
+ },
+ "28kyx4bzsot": {
+  "fr": "nouvelles recettes",
+  "en": "new recipes"
+ },
+ "16taehsprd2": {
+  "fr": "nouvelle recette",
+  "en": "new recipe"
+ },
+ "1o74cp55xo": {
+  "fr": "points de cote",
+  "en": "rating points"
+ },
+ "1hdajnuxuz": {
+  "fr": "QR code du profil",
+  "en": "Profile QR code"
+ },
+ "2fqz0z0va98": {
+  "fr": "Bilan",
+  "en": "Summary"
+ },
+ "1owczhuyze2": {
+  "fr": "À essayer",
+  "en": "Give it a go"
+ },
+ "17wnrfqq4t2": {
+  "fr": "Goûts",
+  "en": "Tastes"
+ },
+ "1djoz2ry5vg": {
+  "fr": "Tes données restent chez toi",
+  "en": "Your data stays with you"
+ },
+ "23u7zy89t4z": {
+  "fr": "Rien n’est envoyé : Cook Note n’a ni serveur de comptes, ni base de données, ni mot de passe. Aucune fuite n’est possible depuis le site, il n’y a rien à pirater de notre côté.",
+  "en": "Nothing is sent: Cook Note has no user accounts, no database and no passwords. No data can be leaked from the site; there is nothing on our end that can be hacked."
+ },
+ "1nt5bdhmc8x": {
+  "fr": "Aucun e-mail, aucun numéro, aucune donnée bancaire n’est demandé.",
+  "en": "No email address, telephone number or bank details are required."
+ },
+ "1sch0zczelw": {
+  "fr": "Tes données ne quittent l’appareil que si tu le choisis : QR code, fichier de sauvegarde ou rapport envoyé par e-mail.",
+  "en": "Your data only leaves the device if you choose to do so: via a QR code, a backup file or a report sent by email."
+ },
+ "1zywi1zct9k": {
+  "fr": "À savoir : une personne qui utilise cet appareil peut voir ton profil, et vider les données du navigateur l’efface. Pense au fichier de sauvegarde.",
+  "en": "Please note: anyone using this device can view your profile, and clearing the browser data will delete it. Remember to back up your files."
+ },
+ "895pgqe3b": {
+  "fr": "Créer mon profil",
+  "en": "Create my profile"
+ },
+ "1qyo4hel4rb": {
+  "fr": "Plus tard",
+  "en": "Later"
+ },
+ "1n3m01mr1ql": {
+  "fr": "Touche « ☆ À essayer » sur une fiche pour la garder ici. Une fois cuisinée, elle passe dans le bilan.",
+  "en": "Tap ‘☆ Try this’ on a recipe card to keep it here. Once you’ve cooked it, it’ll move to the ‘Review’ section."
+ },
+ "1n2fovwfq56": {
+  "fr": "Portions par défaut",
+  "en": "Default portions"
+ },
+ "1nc3zchhgla": {
+  "fr": "Chaque fiche s’ouvre pour ce nombre de personnes.",
+  "en": "Each recipe opens for that number of people."
+ },
+ "1bfblo3v7l4": {
+  "fr": "Allergies",
+  "en": "Allergies"
+ },
+ "24ys88zr7bk": {
+  "fr": "Je n’aime pas",
+  "en": "I don’t like"
+ },
+ "1nculfunr7f": {
+  "fr": "Ingrédient à éviter",
+  "en": "Ingredient to avoid"
+ },
+ "1nrehe6t2pk": {
+  "fr": "Les fiches concernées sont signalées, et Ma semaine les évite.",
+  "en": "The relevant recipes are flagged, and Ma semaine avoids them."
+ },
+ "1m1ry12xc9d": {
+  "fr": "Touche « ✎ Ajouter une note » sous le titre d’une fiche : la note y reste, sur cet appareil.",
+  "en": "The ‘✎ Add a note’ button below the title of a recipe: the note remains there, on this device."
+ },
+ "1ssy21ienoi": {
+  "fr": "pas",
+  "en": "not"
+ },
+ "1o1lfrccws": {
+  "fr": "Contient",
+  "en": "Contains"
+ },
+ "knxual5uhc": {
+  "fr": "OK",
+  "en": "OK"
+ },
+ "18qxh2ixdyl": {
+  "fr": "Ajouter une note",
+  "en": "Add a note"
+ },
+ "o191sse29y": {
+  "fr": "Rayon préféré",
+  "en": "Favourite section"
+ },
+ "1vmb775rys7": {
+  "fr": "Sauvegarde enregistrée dans tes téléchargements",
+  "en": "Backup saved in your downloads"
+ },
+ "or39l1hqnl": {
+  "fr": "Restaurer un fichier",
+  "en": "Restore a file"
+ },
+ "1dmou58m8x0": {
+  "fr": "Restaurer cette sauvegarde ? Les données actuelles de Cook Note seront remplacées par celles du fichier.",
+  "en": "Restore this backup? The current data in Cook Note will be replaced by the data in the file."
+ },
+ "25l2bv2hrox": {
+  "fr": "Fichier illisible",
+  "en": "Unreadable file"
+ },
+ "m2gyrnqzp3": {
+  "fr": "Sauvegarde restaurée",
+  "en": "Backup restored"
+ },
+ "1inj1n5eld1": {
+  "fr": "Aucune sauvegarde pour l’instant. Ce navigateur ne permet pas la sauvegarde automatique : pense au fichier de temps en temps.",
+  "en": "No backup at the moment. This browser does not support automatic backups: do remember to save the file from time to time."
+ },
+ "2arxiga3f7t": {
+  "fr": "pense à en refaire une",
+  "en": "do think about making another one"
+ },
+ "1ahf29ninzi": {
+  "fr": "Sauvegarde Cook Note",
+  "en": "Save Cook Note"
+ },
+ "vpsao4stqt": {
+  "fr": "Sauvegarde automatique activée",
+  "en": "Automatic backup enabled"
+ },
+ "b5k06cnisd": {
+  "fr": "Sauvegarde automatique arrêtée",
+  "en": "Automatic backup disabled"
+ },
+ "18p2nk7prdo": {
+  "fr": "profile-autobackup-on",
+  "en": "profile-autobackup-on"
+ },
+ "1qhqwp9ppfn": {
+  "fr": "Arrêter",
+  "en": "Stop"
+ },
+ "9qx0chf2be": {
+  "fr": "Reprendre la sauvegarde automatique",
+  "en": "Resume automatic backup"
+ },
+ "1a00dx5ctic": {
+  "fr": "Sauvegarde automatique…",
+  "en": "Automatic backup…"
+ },
+ "2f5hv0w27in": {
+  "fr": "Le navigateur a redémarré : un clic pour l’autoriser à nouveau à écrire dans ton fichier.",
+  "en": "The browser has restarted: click once to allow it to write to your file again."
+ },
+ "tri15tr6n2": {
+  "fr": "Choisis une fois où ranger le fichier : Cook Note le met à jour tout seul à chaque changement.",
+  "en": "Choose a location to save the file: Cook Note updates it automatically whenever you make a change."
+ },
+ "1r40gvdxp1u": {
+  "fr": "Dernière sauvegarde",
+  "en": "Last save"
+ },
+ "16adh0q93ck": {
+  "fr": "Sauvegarde automatique active",
+  "en": "Automatic backup enabled"
+ },
+ "1c34wdty2wv": {
+  "fr": "Menu Cook Note",
+  "en": "Cook Note Menu"
+ },
+ "263bo660ayh": {
+  "fr": "Menu copié",
+  "en": "Menu copied"
+ },
+ "s52794bpgg": {
+  "fr": "Une personne de moins",
+  "en": "One person fewer"
+ },
+ "2ejqardbbyl": {
+  "fr": "Une personne de plus",
+  "en": "One more person"
+ },
+ "osey4ytkoc": {
+  "fr": "Gardé quand on change de menu",
+  "en": "Kept when the menu changes"
+ },
+ "1gpqx8x3hjw": {
+  "fr": "Garder ce plat",
+  "en": "Save this dish"
+ },
+ "1404kd4ymw7": {
+  "fr": "Déroulé du repas",
+  "en": "The course of the meal"
+ },
+ "1nwltgmrzxa": {
+  "fr": "Partager le menu",
+  "en": "Share the menu"
+ },
+ "xp1nig1wwj": {
+  "fr": "Copier le menu",
+  "en": "Copy the menu"
+ },
+ "1jvwkx8fw96": {
+  "fr": "Menu ajouté aux courses pour",
+  "en": "Menu added to the shopping list for"
+ },
+ "1t3q6j4ix9x": {
+  "fr": "pers.",
+  "en": "pers."
+ },
+ "expjw0ob29": {
+  "fr": "en cuisine",
+  "en": "in the kitchen"
+ },
+ "26yz0bn1rmn": {
+  "fr": "rayons",
+  "en": "spokes"
+ },
+ "1hlp8fxwqv0": {
+  "fr": "Charge",
+  "en": "Load"
+ },
+ "22u1y3vap63": {
+  "fr": "Conseils",
+  "en": "Tips"
+ },
+ "289vcryo7ih": {
+  "fr": "Autour de",
+  "en": "Around"
+ },
+ "wrp5zyryr": {
+  "fr": "Ne plus garder",
+  "en": "Stop keeping"
+ },
+ "2bbowglf9r6": {
+  "fr": "Garder",
+  "en": "Keep"
+ },
+ "1nsr58phqbk": {
+  "fr": "Profil trop long pour un QR code : utilise le fichier de sauvegarde.",
+  "en": "Profile too long for a QR code: use the backup file."
+ },
+ "1j974908ckc": {
+  "fr": "Scanne-le avec l’autre appareil : goûts, notes et liste à essayer y sont ajoutés. Le parcours de chef a son propre QR.",
+  "en": "Scan it with the other device: your preferences, ratings and ‘to try’ list will be added. The Chef’s journey has its own QR code."
+ },
+ "1jv8mecjoqt": {
+  "fr": "Ton profil (pseudonyme, goûts, allergies, notes, plats cuisinés) est enregistré uniquement dans ce navigateur, sur cet appareil.",
+  "en": "Your profile (username, preferences, allergies, ratings, dishes you’ve cooked) is stored only in this browser, on this device."
+ },
+ "1d2n4da0vgy": {
+  "fr": "Paramètres enregistrés",
+  "en": "Saved settings"
+ },
+ "4kob7trpre": {
+  "fr": "Ton pseudonyme",
+  "en": "Your username"
+ },
+ "8pb0x8cz0k": {
+  "fr": "Choisis un ingrédient…",
+  "en": "Choose an ingredient…"
+ },
+ "ahiiz3jbms": {
+  "fr": "Modifications non enregistrées",
+  "en": "Unsaved changes"
+ },
+ "1cixq79yng8": {
+  "fr": "Enregistrer les paramètres",
+  "en": "Save settings"
+ },
+ "vbu2zs8ie2": {
+  "fr": "Sauvegarde",
+  "en": "Backup"
+ },
+ "1y6btgtm1sa": {
+  "fr": "Sauvegarder",
+  "en": "Save"
+ },
+ "hbkqg7eegz": {
+  "fr": "Restaurer",
+  "en": "Restore"
+ },
+ "2dbwa6ejat5": {
+  "fr": "Le fichier garde tout (profil, parcours de chef, favoris, semaine, courses) : à faire avant de vider le navigateur.",
+  "en": "The file saves everything (profile, Chef’s journey, favourites, week, races): do this before clearing your browser cache."
+ },
+ "ftn6wxeq5v": {
+  "fr": "Sur un autre appareil",
+  "en": "On another device"
+ },
+ "43foqneefz": {
+  "fr": "Ajouter à l’agenda",
+  "en": "Add to calendar"
+ },
+ "aynex3ejpy": {
+  "fr": "Ajouter au Calendrier",
+  "en": "Add to Calendar"
+ },
+ "1pmqi4hsnlc": {
+  "fr": "Fichier agenda (.ics)",
+  "en": "Calendar file (.ics)"
+ },
+ "i0f9b77q95": {
+  "fr": "Google Agenda",
+  "en": "Google Calendar"
+ },
+ "fu27y9xr9b": {
+  "fr": "Le repas s’ajoute à l’agenda du téléphone, avec une alerte pour chaque préparation.",
+  "en": "The meal is added to the phone’s calendar, with an alert for each stage of preparation."
+ },
+ "1y44ko6u6h5": {
+  "fr": "Dans les courses",
+  "en": "In races"
+ },
+ "2c4d2e3sh4e": {
+  "fr": "Semaine dans l’agenda",
+  "en": "Week in the diary"
+ },
+ "ct38r64p7w": {
+  "fr": "Accords mets-vins",
+  "en": "Food and wine pairings"
+ },
+ "1rb02f7idoa": {
+  "fr": "Mon espace",
+  "en": "My account"
+ },
+ "1ky5lskuyeg": {
+  "fr": "Effervescent brut",
+  "en": "Sparkling brut"
+ },
+ "25q76tjyesy": {
+  "fr": "Champagne brut, crémant, cava, prosecco",
+  "en": "Brut champagne, crémant, cava, prosecco"
+ },
+ "22g68llv73b": {
+  "fr": "6 à 8 °C",
+  "en": "6 to 8 °C"
+ },
+ "zxeg44pr7o": {
+  "fr": "Bulles fines, acidité vive, notes de pomme, de brioche ou d’agrumes. Le joker de l’apéritif et des fritures.",
+  "en": "Fine bubbles, lively acidity, notes of apple, brioche and citrus. The go-to choice for aperitifs and fried foods."
+ },
+ "qc449s7b8u": {
+  "fr": "Blanc sec et vif",
+  "en": "A crisp, lively white wine"
+ },
+ "1gaajnwzl2n": {
+  "fr": "Sauvignon blanc, muscadet, chablis, picpoul, albariño",
+  "en": "Sauvignon Blanc, Muscadet, Chablis, Picpoul, Albariño"
+ },
+ "2aoykm9tw35": {
+  "fr": "8 à 10 °C",
+  "en": "8 to 10 °C"
+ },
+ "2b1cvfja28c": {
+  "fr": "Frais, tendu, citronné, parfois minéral ou iodé. Il réveille les plats légers et coupe le gras.",
+  "en": "Fresh, crisp, lemony, sometimes with mineral or briny notes. It brings light dishes to life and cuts through richness."
+ },
+ "95t80kud5e": {
+  "fr": "Blanc sec rond",
+  "en": "Dry, round white wine"
+ },
+ "206sj79g2nu": {
+  "fr": "Chardonnay élevé en fût, viognier, roussanne, meursault, rioja blanc",
+  "en": "Oak-aged Chardonnay, Viognier, Roussanne, Meursault, white Rioja"
+ },
+ "13n77asaai2": {
+  "fr": "10 à 12 °C",
+  "en": "10 to 12 °C"
+ },
+ "3y1dca4mql": {
+  "fr": "Ample, beurré, fruits jaunes, parfois vanillé. Il tient tête aux sauces crémeuses et aux viandes blanches.",
+  "en": "Full-bodied, buttery, with notes of yellow fruit and, at times, vanilla. It holds its own against creamy sauces and white meats."
+ },
+ "ar1rio7pd1": {
+  "fr": "Blanc aromatique",
+  "en": "Aromatic white"
+ },
+ "1qgbm7zhwel": {
+  "fr": "Riesling, gewurztraminer, pinot gris, muscat sec, chenin demi-sec",
+  "en": "Riesling, Gewürztraminer, Pinot Gris, dry Muscat, semi-dry Chenin"
+ },
+ "2dpagr4t5h3": {
+  "fr": "Floral, fruité, épicé, parfois une pointe de sucre. Le meilleur ami des cuisines épicées et asiatiques.",
+  "en": "Floral, fruity, spicy, sometimes with a hint of sweetness. The perfect accompaniment to spicy and Asian dishes."
+ },
+ "2ct8xm3tuu7": {
+  "fr": "Blanc moelleux ou liquoreux",
+  "en": "Sweet or syrupy white wine"
+ },
+ "260zu2lhxbe": {
+  "fr": "Sauternes, jurançon moelleux, coteaux-du-layon, vendanges tardives, tokaji",
+  "en": "Sauternes, sweet Jurançon, Coteaux-du-Layon, vendanges tardives, Tokaji"
+ },
+ "14cpcko976u": {
+  "fr": "Miel, abricot, coing, acidité qui équilibre le sucre. Foie gras, bleus et desserts aux fruits.",
+  "en": "Honey, apricot, quince, with a acidity that balances the sweetness. Foie gras, blue cheeses and fruit-based desserts."
+ },
+ "2bytmcbr1uu": {
+  "fr": "Blanc oxydatif",
+  "en": "Oxidative white wine"
+ },
+ "1kndb0mrl4z": {
+  "fr": "Vin jaune du Jura, savagnin, xérès fino ou amontillado",
+  "en": "Jura Vin Jaune, Savagnin, Fino or Amontillado sherry"
+ },
+ "87c7766hrp": {
+  "fr": "12 à 14 °C",
+  "en": "12 to 14 °C"
+ },
+ "1cj5t9zaf1a": {
+  "fr": "Noix, curry, épices, très long en bouche. Le compagnon du comté, des morilles et de la volaille à la crème.",
+  "en": "Nuts, curry, spices; a very long finish. The perfect accompaniment to Comté cheese, morels and poultry in cream sauce."
+ },
+ "2fhpjq95c5p": {
+  "fr": "Rosé sec",
+  "en": "Dry rosé"
+ },
+ "62kjhag0ux": {
+  "fr": "Rosé de Provence, tavel, bandol rosé, rosado",
+  "en": "Rosé from Provence, Tavel, Bandol rosé, rosado"
+ },
+ "v46gtpd07x": {
+  "fr": "Fruits rouges frais, agrumes, léger. L’été, les grillades, la cuisine méditerranéenne.",
+  "en": "Fresh red berries, citrus fruits, light. Summer, barbecues, Mediterranean cuisine."
+ },
+ "1x90sb28ytk": {
+  "fr": "Rouge léger et fruité",
+  "en": "A light, fruity red"
+ },
+ "1b8hk18aqfr": {
+  "fr": "Gamay (beaujolais), pinot noir d’Alsace ou de Loire, valpolicella, saumur-champigny",
+  "en": "Gamay (Beaujolais), Pinot Noir from Alsace or the Loire, Valpolicella, Saumur-Champigny"
+ },
+ "1fpjjymwsqf": {
+  "fr": "13 à 15 °C",
+  "en": "13 to 15 °C"
+ },
+ "26nm8dxvlc6": {
+  "fr": "Fruits rouges croquants, peu de tanins, se boit un peu frais. Charcuterie, volaille, poissons charnus.",
+  "en": "Crisp red fruit flavours, low in tannins; best served slightly chilled. Cold meats, poultry, and meaty fish."
+ },
+ "k0tbhbpc8j": {
+  "fr": "Rouge souple et fin",
+  "en": "A smooth, delicate red"
+ },
+ "1ue6j3yg4jm": {
+  "fr": "Pinot noir de Bourgogne, chinon, bourgueil, mencía, nebbiolo léger",
+  "en": "Burgundy Pinot Noir, Chinon, Bourgueil, Mencía, light Nebbiolo"
+ },
+ "1ajkj95kn9a": {
+  "fr": "15 à 16 °C",
+  "en": "15 to 16 °C"
+ },
+ "uorare7vru": {
+  "fr": "Élégant, cerise, sous-bois, tanins soyeux. Volaille rôtie, veau, champignons, canard.",
+  "en": "Elegant, cherry, forest floor, silky tannins. Roast poultry, veal, mushrooms, duck."
+ },
+ "x7tpo7gaq8": {
+  "fr": "Rouge solaire et épicé",
+  "en": "Sun-kissed and spicy red"
+ },
+ "a4brepyata": {
+  "fr": "Grenache, syrah, côtes-du-rhône, languedoc, primitivo, zinfandel",
+  "en": "Grenache, Syrah, Côtes-du-Rhône, Languedoc, Primitivo, Zinfandel"
+ },
+ "18je0rukzbm": {
+  "fr": "16 à 17 °C",
+  "en": "16 to 17 °C"
+ },
+ "ilb3z58037": {
+  "fr": "Fruits noirs mûrs, garrigue, poivre, chaleur. Grillades, plats mijotés aux épices, barbecue.",
+  "en": "Ripe black fruits, garrigue, pepper, warmth. Grilled meats, spiced stews, barbecues."
+ },
+ "1twwq89ratl": {
+  "fr": "Rouge charpenté",
+  "en": "Full-bodied red"
+ },
+ "1d3h45gl0t3": {
+  "fr": "Cabernet sauvignon, merlot de Bordeaux, madiran, cahors, malbec",
+  "en": "Cabernet Sauvignon, Bordeaux Merlot, Madiran, Cahors, Malbec"
+ },
+ "16gmzitymui": {
+  "fr": "16 à 18 °C",
+  "en": "16 to 18 °C"
+ },
+ "2e6w6yva890": {
+  "fr": "Cassis, tanins fermes, structure. La viande rouge, l’agneau, les plats riches et longs.",
+  "en": "Blackcurrant, firm tannins, structure. Red meat, lamb, rich, full-bodied dishes."
+ },
+ "2au7wvcevgo": {
+  "fr": "Rouge doux ou muté",
+  "en": "Sweet or muted red"
+ },
+ "4l1vsahvgg": {
+  "fr": "Banyuls, maury, rivesaltes rouge, porto ruby ou tawny",
+  "en": "Banyuls, Maury, red Rivesaltes, ruby or tawny port"
+ },
+ "mlcxjxc3vb": {
+  "fr": "14 à 16 °C",
+  "en": "14 to 16 °C"
+ },
+ "o2kaj5faqe": {
+  "fr": "Fruits confits, cacao, café. Le seul vin qui tient face au chocolat.",
+  "en": "Candied fruit, cocoa, coffee. The only wine that can hold its own against chocolate."
+ },
+ "g79pmyhe4p": {
+  "fr": "sans-alcool",
+  "en": "non-alcoholic"
+ },
+ "28udqmetn61": {
+  "fr": "Sans alcool",
+  "en": "Alcohol-free"
+ },
+ "1sm3i4lgzmc": {
+  "fr": "Thé infusé à froid, kombucha, jus de raisin pétillant, eau gazeuse et agrumes",
+  "en": "Cold-brewed tea, kombucha, sparkling grape juice, sparkling water and citrus fruits"
+ },
+ "jk5akgbc78": {
+  "fr": "bien frais",
+  "en": "nice and cool"
+ },
+ "r3bwa0cda8": {
+  "fr": "Les mêmes logiques : de l’acidité pour le gras, du fruit pour le sucré, des bulles pour le frit.",
+  "en": "The same principles apply: acidity for fatty foods, fruitiness for sweet foods, and sparkling wines for fried foods."
+ },
+ "29psn0fg18r": {
+  "fr": "Viandes",
+  "en": "Meat"
+ },
+ "1odh9p7l6ah": {
+  "fr": "Volailles",
+  "en": "Poultry"
+ },
+ "h11jte4x2t": {
+  "fr": "Poissons et mer",
+  "en": "Fish and the sea"
+ },
+ "bzhp1ihk9z": {
+  "fr": "Légumes et œufs",
+  "en": "Vegetables and eggs"
+ },
+ "6q1v1remyy": {
+  "fr": "Cuisines du monde",
+  "en": "World cuisines"
+ },
+ "jc1zny3yru": {
+  "fr": "Apéro et entrées",
+  "en": "Drinks and starters"
+ },
+ "29i6ii0pgz8": {
+  "fr": "Chair tendre et jus doré : un pinot noir soyeux ou un chardonnay ample, sans tanins qui écrasent.",
+  "en": "Tender flesh and golden juice: a silky Pinot Noir or a full-bodied Chardonnay, without overpowering tannins."
+ },
+ "o3ws8mtm52": {
+  "fr": "Volaille à la crème ou aux morilles",
+  "en": "Poultry with cream or morels"
+ },
+ "22imci4ga8b": {
+  "fr": "La crème veut du gras et du volume : vin jaune ou chardonnay boisé, l’accord classique du Jura.",
+  "en": "This cream calls for richness and body: Vin Jaune or oaked Chardonnay – the classic pairing from the Jura."
+ },
+ "mrxww58ccm": {
+  "fr": "Poulet grillé, mariné ou au citron",
+  "en": "Grilled, marinated or lemon-flavoured chicken"
+ },
+ "22j15qg6pw5": {
+  "fr": "Le grillé et le citron appellent de la fraîcheur : rosé sec ou blanc vif bien frais.",
+  "en": "The toasty and lemony notes call for something refreshing: a dry rosé or a crisp white wine, served well chilled."
+ },
+ "9dgk7xjigk": {
+  "fr": "Canard (magret, confit)",
+  "en": "Duck (breast, confit)"
+ },
+ "eh8agsmilg": {
+  "fr": "Viande rouge et grasse : un madiran, un cahors ou une syrah tiennent le gras du canard.",
+  "en": "Fatty red meat: a Madiran, a Cahors or a Syrah cut through the fat of the duck."
+ },
+ "11rolduivb2": {
+  "fr": "Dinde, lapin, pintade",
+  "en": "Turkey, rabbit, guinea fowl"
+ },
+ "2drsdg131dw": {
+  "fr": "Viandes fines, assez maigres : un rouge souple ou un blanc rond, rien de trop tannique.",
+  "en": "Fine, fairly lean meats: a smooth red or a full-bodied white – nothing too tannic."
+ },
+ "132coga8c6j": {
+  "fr": "Bœuf grillé ou rôti",
+  "en": "Grilled or roast beef"
+ },
+ "12ytpgcbwqr": {
+  "fr": "Le saignant et les tanins s’adoucissent mutuellement : bordeaux, malbec ou syrah.",
+  "en": "The bloodiness and the tannins balance each other out: Bordeaux, Malbec or Syrah."
+ },
+ "b54dqfk4sd": {
+  "fr": "Bœuf mijoté (bourguignon, daube)",
+  "en": "Braised beef (Bourguignon, daube)"
+ },
+ "284fa5einbe": {
+  "fr": "Cuisiné au vin, servi avec le même style : un bourgogne pour le bourguignon, un rhône pour la daube.",
+  "en": "Cooked in wine, served in the same style: a Burgundy for the bourguignon, a Rhône for the daube."
+ },
+ "1hk93owsfyn": {
+  "fr": "Goût marqué, gras fondant : un bordeaux, un bandol rouge ou une grenache garrigue.",
+  "en": "A full-bodied, rich flavour: a Bordeaux, a red Bandol or a Grenache Garrigue."
+ },
+ "2ahoiyhbc8c": {
+  "fr": "Porc (rôti, filet mignon, côtes)",
+  "en": "Pork (roast, fillet, ribs)"
+ },
+ "l0mccf76h1": {
+  "fr": "Viande douce et un peu sucrée : un gamay croquant, ou un riesling si la sauce est à la moutarde ou aux pommes.",
+  "en": "Mild, slightly sweet meat: a crisp Gamay, or a Riesling if the sauce is mustard-based or apple-based."
+ },
+ "1zz83ykjm4v": {
+  "fr": "Délicat et souvent en sauce blanche : chardonnay rond ou pinot noir léger.",
+  "en": "Delicate and often served with a white sauce: a full-bodied Chardonnay or a light Pinot Noir."
+ },
+ "2y2kzkrzd3": {
+  "fr": "Saucisses, choucroute, plats rustiques",
+  "en": "Sausages, sauerkraut, rustic dishes"
+ },
+ "ndk68lymff": {
+  "fr": "Riesling ou pinot gris pour la choucroute, rouge du sud-ouest pour le cassoulet, gamay pour le reste.",
+  "en": "Riesling or Pinot Gris with sauerkraut, a red from the south-west with cassoulet, and Gamay for everything else."
+ },
+ "1e8umq02mjl": {
+  "fr": "Gibier (chevreuil, sanglier)",
+  "en": "Game (roe deer, wild boar)"
+ },
+ "230do4uhoy0": {
+  "fr": "Goût puissant et sauces corsées : des vins mûrs, avec de l’âge si possible.",
+  "en": "Strong flavours and full-bodied sauces: mature wines, preferably aged."
+ },
+ "1fq8alsf0yl": {
+  "fr": "Burger, barbecue, grillades",
+  "en": "Burgers, barbecues, grilled food"
+ },
+ "gxqzacwkxm": {
+  "fr": "Fumé, épicé, convivial : un zinfandel, un côtes-du-rhône ou un rosé bien frais.",
+  "en": "Smoky, spicy, sociable: a Zinfandel, a Côtes-du-Rhône or a well-chilled rosé."
+ },
+ "z4yavdbcge": {
+  "fr": "Poisson blanc (cabillaud, sole, bar)",
+  "en": "White fish (cod, sole, sea bass)"
+ },
+ "37u16hylrt": {
+  "fr": "Chair délicate : un blanc sec, vif au naturel, plus rond si le poisson est au beurre blanc.",
+  "en": "Delicate flesh: a dry white wine, crisp on its own, but rounder when served with fish in a beurre blanc sauce."
+ },
+ "213n2mgpl5b": {
+  "fr": "Saumon, thon, poissons gras",
+  "en": "Salmon, tuna, oily fish"
+ },
+ "1c8pc6ovbt4": {
+  "fr": "Le gras du saumon aime un chardonnay ample, ou un pinot noir léger pour le thon mi-cuit.",
+  "en": "The richness of the salmon goes well with a full-bodied Chardonnay, whilst a light Pinot Noir is ideal for semi-cooked tuna."
+ },
+ "182pakuaaer": {
+  "fr": "Crevettes, homard, langoustines",
+  "en": "Prawns, lobster, langoustines"
+ },
+ "q7yj9nz7ce": {
+  "fr": "Chair sucrée et iodée : champagne ou chardonnay rond ; un riesling si c’est épicé.",
+  "en": "Sweet, sea-infused flesh: champagne or a full-bodied Chardonnay; a Riesling if it’s spicy."
+ },
+ "11bcks5m089": {
+  "fr": "Huîtres, moules, fruits de mer",
+  "en": "Oysters, mussels, seafood"
+ },
+ "2d3nd9nnpcl": {
+  "fr": "L’iode demande de la tension : muscadet, chablis, picpoul ; un blanc rond pour les saint-jacques.",
+  "en": "Iodine calls for a bit of zing: Muscadet, Chablis, Picpoul; a full-bodied white for the scallops."
+ },
+ "1dbka0e6mnx": {
+  "fr": "Calamars, poulpe, friture de mer",
+  "en": "Squid, octopus, fried seafood"
+ },
+ "1gi7c24ltjm": {
+  "fr": "Le frit et l’iodé adorent les bulles et l’acidité, qui nettoient la bouche.",
+  "en": "Frit and Iodé love the bubbles and the acidity, which cleanse the palate."
+ },
+ "281l9c1twaq": {
+  "fr": "Bouillabaisse, soupe de poisson, safran",
+  "en": "Bouillabaisse, fish soup, saffron"
+ },
+ "1i421r1nfx4": {
+  "fr": "Safran, ail, tomate : un rosé de Bandol ou un blanc du Sud, de Cassis par exemple.",
+  "en": "Saffron, garlic, tomato: a Bandol rosé or a white wine from the South, such as a Cassis."
+ },
+ "o0o0dz268g": {
+  "fr": "Sushi, poisson cru, ceviche",
+  "en": "Sushi, raw fish, ceviche"
+ },
+ "qwhnid3x3a": {
+  "fr": "Le cru est délicat : de l’acidité et peu d’alcool ; un riesling sec si la sauce soja domine.",
+  "en": "This vintage is delicate: it has good acidity and low alcohol content; a dry Riesling if the soya sauce dominates."
+ },
+ "1mhoma76ndn": {
+  "fr": "Légumes grillés, cuisine du soleil",
+  "en": "Grilled vegetables, sunshine cuisine"
+ },
+ "2c05nl7secq": {
+  "fr": "Herbes, huile d’olive, tomate : un rosé de Provence ou un rouge léger un peu frais.",
+  "en": "Herbs, olive oil, tomato: a rosé from Provence or a light, slightly chilled red."
+ },
+ "1f7qc9146u2": {
+  "fr": "Champignons, truffe",
+  "en": "Mushrooms, truffles"
+ },
+ "1lrzdn212rt": {
+  "fr": "Le sous-bois du pinot noir répond à celui des champignons ; vin jaune pour les morilles à la crème.",
+  "en": "The aroma of Pinot Noir complements that of mushrooms; Vin Jaune goes well with morels in cream sauce."
+ },
+ "1c2n9qa9dqc": {
+  "fr": "Gratins, purées, plats crémeux",
+  "en": "Gratins, mashed potatoes, creamy dishes"
+ },
+ "1yfr7h5e0q7": {
+  "fr": "Crème et fromage veulent un blanc ample ; un rouge léger si la recette contient de la viande.",
+  "en": "Cream and cheese go well with a full-bodied white wine; a light red if the recipe contains meat."
+ },
+ "ya7dm8vufq": {
+  "fr": "Œufs, quiches, tartes salées",
+  "en": "Eggs, quiches, savoury tarts"
+ },
+ "17rzwqphq9f": {
+  "fr": "L’œuf enrobe la bouche : un blanc vif ou un riesling (quiche lorraine), un rouge léger pour les œufs en meurette.",
+  "en": "Eggs coat the palate: a crisp white or a Riesling (for quiche lorraine), or a light red for eggs en meurette."
+ },
+ "5vz6wx03aa": {
+  "fr": "Salades composées, crudités",
+  "en": "Mixed salads, raw vegetables"
+ },
+ "1kabdntj8z0": {
+  "fr": "La vinaigrette écrase les vins : choisis un blanc très vif, ou mets peu de vinaigre.",
+  "en": "The vinaigrette overpowers the wines: choose a very lively white, or use only a little vinegar."
+ },
+ "12bn7eucst2": {
+  "fr": "Légumineuses, plats végétariens épicés",
+  "en": "Pulses, spicy vegetarian dishes"
+ },
+ "2p2qmz8tm5": {
+  "fr": "Terreux et épicé : une grenache souple ou un blanc aromatique.",
+  "en": "Earthy and spicy: a smooth Grenache or an aromatic white wine."
+ },
+ "2ci7hhp7x4w": {
+  "fr": "Soupes et veloutés",
+  "en": "Soups and cream soups"
+ },
+ "of0lzy7h78": {
+  "fr": "Peu de vin avec un plat liquide : un petit verre de blanc ; un fino avec un velouté de châtaigne.",
+  "en": "Not much wine with a soup-like dish: a small glass of white wine; a fino with a chestnut velouté."
+ },
+ "1m87t9tr2a3": {
+  "fr": "Pâtes et pizza à la tomate",
+  "en": "Pasta and pizza with tomato sauce"
+ },
+ "jzs7cczjrz": {
+  "fr": "La tomate est acide : il faut un rouge acide lui aussi, chianti, valpolicella, primitivo.",
+  "en": "Tomatoes are acidic: you need a red wine that’s acidic too – Chianti, Valpolicella or Primitivo."
+ },
+ "1b5o9uox0l6": {
+  "fr": "Pâtes à la crème, carbonara, risotto",
+  "en": "Pasta with cream sauce, carbonara, risotto"
+ },
+ "1effar2bwyb": {
+  "fr": "Crème et parmesan veulent un blanc qui a du corps ; un blanc vif pour le pesto.",
+  "en": "Cream and Parmesan call for a full-bodied white wine; a crisp white wine goes well with pesto."
+ },
+ "2anc895ylz8": {
+  "fr": "Cuisine asiatique (soja, gingembre, wok)",
+  "en": "Asian cuisine (soya, ginger, wok)"
+ },
+ "u5ymf14lj1": {
+  "fr": "Sucré-salé et gingembre : un riesling ou un gewurztraminer, avec un peu de sucre qui calme le piment.",
+  "en": "Sweet and savoury with ginger: a Riesling or a Gewürztraminer, with a touch of sugar to tone down the chilli."
+ },
+ "i9mddh0t84": {
+  "fr": "Curry, cuisine indienne et thaïe",
+  "en": "Curry, Indian and Thai cuisine"
+ },
+ "1j2wye81g4t": {
+  "fr": "Le piment et l’alcool s’enflamment : vins aromatiques, peu alcoolisés, avec un soupçon de douceur.",
+  "en": "Chilli and alcohol set alight: aromatic wines with a low alcohol content and a hint of sweetness."
+ },
+ "1w0n7nsc707": {
+  "fr": "Couscous, tajine, cuisine du Maghreb",
+  "en": "Couscous, tagine, Maghreb cuisine"
+ },
+ "1mbqydl6251": {
+  "fr": "Épices chaudes et fruits secs : grenache ou rosé gourmand ; un pinot gris pour le tajine aux fruits.",
+  "en": "Warm spices and dried fruit: Grenache or a full-bodied rosé; a Pinot Gris to go with the fruit tagine."
+ },
+ "1rtak6h3s6w": {
+  "fr": "Cuisine mexicaine et tex-mex",
+  "en": "Mexican and Tex-Mex cuisine"
+ },
+ "2b7vqjd18f6": {
+  "fr": "Épicé et fumé : un zinfandel fruité, un rosé frais, ou une boisson sans alcool aux agrumes.",
+  "en": "Spicy and smoky: a fruity Zinfandel, a crisp rosé, or a non-alcoholic citrus drink."
+ },
+ "1pvqrzrmap1": {
+  "fr": "Comté, beaufort, fromages à pâte dure",
+  "en": "Comté, Beaufort, hard cheeses"
+ },
+ "219lcu4ml1": {
+  "fr": "Le comté et le vin jaune, le plus bel accord régional ; un blanc ample sinon. Les rouges tanniques s’y heurtent.",
+  "en": "The county and vin jaune – the finest regional pairing; otherwise, a full-bodied white. Tannic reds don’t go down well here."
+ },
+ "1rdz9gqwsg6": {
+  "fr": "Brie, camembert, croûte fleurie",
+  "en": "Brie, Camembert, blue-veined cheese"
+ },
+ "bo6d4y1q2k": {
+  "fr": "Crémeux, champignon : les bulles d’un champagne ou d’un cidre, ou un rouge très léger.",
+  "en": "Creamy, mushroom: the bubbles of a champagne or cider, or a very light red wine."
+ },
+ "2375ph2a7ck": {
+  "fr": "Roquefort, bleus",
+  "en": "Roquefort, blue cheeses"
+ },
+ "27hy2ynt5fz": {
+  "fr": "Le salé du bleu contre le sucre du sauternes ou du porto : l’accord le plus spectaculaire.",
+  "en": "The saltiness of blue cheese paired with the sweetness of Sauternes or port: the most spectacular pairing."
+ },
+ "2am3hjaozkk": {
+  "fr": "Accord de terroir : le sancerre (sauvignon) et le crottin de Chavignol viennent du même coin.",
+  "en": "Terroir pairing: Sancerre (Sauvignon) and Crottin de Chavignol come from the same area."
+ },
+ "1yx2qez1l47": {
+  "fr": "Raclette, fondue, tartiflette",
+  "en": "Raclette, fondue, tartiflette"
+ },
+ "1e9rxssi3gr": {
+  "fr": "Le blanc de Savoie (jacquère, chignin), vif, allège le fromage fondu ; évite les rouges lourds.",
+  "en": "A light white wine from Savoie (such as Jacquère or Chignin) complements melted cheese; avoid heavy reds."
+ },
+ "28ghf866k6e": {
+  "fr": "Apéritif, amuse-bouches, gougères",
+  "en": "Aperitifs, canapés, gougères"
+ },
+ "fid0lo2kxk": {
+  "fr": "Des bulles ou un blanc vif ouvrent l’appétit sans fatiguer avant le repas.",
+  "en": "Sparkling wine or a crisp white wine whets the appetite without weighing you down before a meal."
+ },
+ "c953q3j7v1": {
+  "fr": "Charcuterie, terrines, rillettes",
+  "en": "Cold meats, terrines, rillettes"
+ },
+ "21u7fyh5vsp": {
+  "fr": "Le gras du cochon et le fruit d’un beaujolais : l’accord du bouchon lyonnais.",
+  "en": "Pork fat and a Beaujolais wine: the classic Lyon pairing."
+ },
+ "20uvoqr3nkr": {
+  "fr": "Sauternes ou jurançon pour la tradition, champagne pour la légèreté, gewurztraminer pour le pain d’épices.",
+  "en": "Sauternes or Jurançon for a traditional choice, champagne for a lighter option, Gewürztraminer to go with gingerbread."
+ },
+ "1p9r20h3d8x": {
+  "fr": "Desserts au chocolat",
+  "en": "Chocolate desserts"
+ },
+ "9tysquioz9": {
+  "fr": "Seuls les rouges mutés tiennent le chocolat : banyuls, maury, porto. Le champagne devient amer.",
+  "en": "Only fortified reds go well with chocolate: Banyuls, Maury and port. Champagne turns bitter."
+ },
+ "c1np9bjv51": {
+  "fr": "Fruits rouges, fraises, framboises",
+  "en": "Red berries, strawberries, raspberries"
+ },
+ "24d4k8ocw1p": {
+  "fr": "Un crémant rosé ou un banyuls jeune prolongent le fruit ; le vin doit toujours être plus sucré que le dessert.",
+  "en": "A rosé crémant or a young Banyuls brings out the fruitiness; the wine should always be sweeter than the dessert."
+ },
+ "e0r3zuv8i0": {
+  "fr": "Tartes aux pommes, poires, abricots",
+  "en": "Apple, pear and apricot tarts"
+ },
+ "bp8vnmdegp": {
+  "fr": "Le coing et le miel d’un coteaux-du-layon ou d’un jurançon épousent le fruit cuit.",
+  "en": "The quince and the honey notes of a Coteaux-du-Layon or a Jurançon complement the cooked fruit perfectly."
+ },
+ "14xjtnqqis9": {
+  "fr": "Desserts aux agrumes, citron",
+  "en": "Citrus desserts, lemon"
+ },
+ "nxpsdsate8": {
+  "fr": "L’acidité du citron demande un vin doux mais vif : muscat, vendanges tardives, champagne demi-sec.",
+  "en": "The tartness of the lemon calls for a sweet yet lively wine: Muscat, late-harvest wine, or demi-sec champagne."
+ },
+ "nay823m4ed": {
+  "fr": "Crème brûlée, vanille, caramel",
+  "en": "Crème brûlée, vanilla, caramel"
+ },
+ "1ywsdcrziu2": {
+  "fr": "Vanille et caramel aiment le liquoreux ou un tawny ; un vin de paille du Jura pour les connaisseurs.",
+  "en": "Vanilla and caramel pair well with a sweet wine or a tawny; a Jura straw wine for connoisseurs."
+ },
+ "1maztohk4lf": {
+  "fr": "Pâtisseries, viennoiseries, gâteaux simples",
+  "en": "Pastries, Viennese pastries, simple cakes"
+ },
+ "2e2imc0myky": {
+  "fr": "Un crémant demi-sec ou un muscat léger, pour garder la gourmandise sans lourdeur.",
+  "en": "A semi-dry crémant or a light Muscat, to enjoy a treat without feeling weighed down."
+ },
+ "pqab5rfizo": {
+  "fr": "Mets et vins",
+  "en": "Food and wine"
+ },
+ "100gzwvlref": {
+  "fr": "Par plat",
+  "en": "Per dish"
+ },
+ "fvlhpt0bcc": {
+  "fr": "Chercher un plat",
+  "en": "Search for a dish"
+ },
+ "19ng8ddeppp": {
+  "fr": "Familles de plats",
+  "en": "Categories of dishes"
+ },
+ "noi3n7016i": {
+  "fr": "Styles de vin",
+  "en": "Wine styles"
+ },
+ "2fktppwsa6h": {
+  "fr": "L’abus d’alcool est dangereux pour la santé, à consommer avec modération.",
+  "en": "Excessive alcohol consumption is harmful to your health; please drink in moderation."
+ },
+ "10ltid9gevh": {
+  "fr": "Accord mets et vins",
+  "en": "Food and wine pairings"
+ },
+ "q1nef1g8kp": {
+  "fr": "Rang",
+  "en": "Rank"
+ },
+ "1qj6o5hag5g": {
+  "fr": "Apprendre",
+  "en": "Learn"
+ },
+ "13vhfdi04m0": {
+  "fr": "Archive culinaire éducative : carnet de recettes et outil de mise en place des repas.",
+  "en": "Educational culinary archive: recipe book and meal planning tool."
+ },
+ "2jpsg5lynu": {
+  "fr": "Sur le web, et sur Android 5 pour les appareils plus anciens. Par MaruChiwa.",
+  "en": "On the web, and on Android 5 for older devices. By MaruChiwa."
+ },
+ "73z4jxc06v": {
+  "fr": "Suggérer une recette",
+  "en": "Suggest a recipe"
+ },
+ "y338zhl2bc": {
+  "fr": "Par e-mail",
+  "en": "By email"
+ },
+ "gz5l2pn4zt": {
+  "fr": "un effervescent brut",
+  "en": "a sparkling brut"
+ },
+ "15qnmf24a6v": {
+  "fr": "un blanc sec et vif",
+  "en": "a crisp, dry white wine"
+ },
+ "k6k5ki4een": {
+  "fr": "un blanc sec rond",
+  "en": "a full-bodied dry white wine"
+ },
+ "zszxk6w7wf": {
+  "fr": "un blanc aromatique",
+  "en": "an aromatic white wine"
+ },
+ "1jsabl2m35g": {
+  "fr": "un blanc moelleux ou liquoreux",
+  "en": "a sweet or syrupy white wine"
+ },
+ "1wavcioc0y3": {
+  "fr": "un blanc oxydatif",
+  "en": "an oxidative white wine"
+ },
+ "tuzhfc4pvc": {
+  "fr": "un rosé sec",
+  "en": "a dry rosé"
+ },
+ "1ssftvvppmn": {
+  "fr": "un rouge léger et fruité",
+  "en": "a light, fruity red"
+ },
+ "ts8u1u852m": {
+  "fr": "un rouge souple et fin",
+  "en": "a smooth, delicate red"
+ },
+ "2dzqp15wibn": {
+  "fr": "un rouge solaire et épicé",
+  "en": "a sunny, spicy red"
+ },
+ "2b0nc3jmhai": {
+  "fr": "un rouge charpenté",
+  "en": "a full-bodied red"
+ },
+ "58sm3jz05i": {
+  "fr": "un rouge doux ou muté",
+  "en": "a soft or muted red"
+ },
+ "1gbbx9u1tlp": {
+  "fr": "une boisson sans alcool",
+  "en": "a non-alcoholic drink"
+ },
+ "1b23k0k8o4": {
+  "fr": "Rosé et bulles",
+  "en": "Rosé and sparkling wine"
+ },
+ "y5xg610j8z": {
+  "fr": "Rouges",
+  "en": "Reds"
+ },
+ "19rknk0h1ec": {
+  "fr": "Vins doux",
+  "en": "Sweet wines"
+ },
+ "sc01h5vyi9": {
+  "fr": "Choisis un plat : la carte indique les styles de vin qui l’accompagnent le mieux. Touche un vin pour lire son portrait et tout ce qu’il sait accompagner.",
+  "en": "Choose a dish: the wine list suggests the styles of wine that pair best with it. Tap on a wine to read its description and find out what it pairs well with."
+ },
+ "11ldl8lsned": {
+  "fr": "Par vin",
+  "en": "By wine"
+ },
+ "15q8humbphb": {
+  "fr": "Un plat, un ingrédient…",
+  "en": "A dish, an ingredient…"
+ },
+ "17con0uj0zr": {
+  "fr": "Aucun plat ne correspond. Essaie un ingrédient : poulet, saumon, chocolat…",
+  "en": "No dishes match. Try an ingredient: chicken, salmon, chocolate…"
+ },
+ "d9hkroq9y1": {
+  "fr": "Se reconnaît à",
+  "en": "Can be recognised by"
+ },
+ "1n1jlpqf23d": {
+  "fr": "Se sert à",
+  "en": "Used for"
+ },
+ "1ups86qj2mu": {
+  "fr": "ou",
+  "en": "or"
+ },
+ "yv78pl9946": {
+  "fr": "Idéal avec",
+  "en": "Perfect with"
+ },
+ "2bbzsn3t0fn": {
+  "fr": "Très bien aussi",
+  "en": "That’s very good too"
+ },
+ "2dw3enuuyo": {
+  "fr": "Plutôt éviter",
+  "en": "Best to avoid"
+ },
+ "23ub1y1jkg1": {
+  "fr": "Parfait avec",
+  "en": "Perfect with"
+ },
+ "2flags1qmcl": {
+  "fr": "Très bien avec",
+  "en": "Works very well with"
+ },
+ "1hbeqg0rw3e": {
+  "fr": "Au verre",
+  "en": "By the glass"
+ },
+ "18s9kn69lcx": {
+  "fr": "Cocktails",
+  "en": "Cocktails"
+ },
+ "2dosejjfy6x": {
+  "fr": "Cocktails sans alcool",
+  "en": "Non-alcoholic cocktails"
+ },
+ "3qllpmk9rw": {
+  "fr": "125g beurre froid en dés",
+  "en": "125g cold butter, cubed"
+ },
+ "gj4ttb5i8g": {
+  "fr": "beurre froid en dés",
+  "en": "cold, diced butter"
+ },
+ "1v2yw4wdacn": {
+  "fr": "Beurre froid en dés",
+  "en": "Cold, diced butter"
+ },
+ "23j26w3vbxg": {
+  "fr": "g beurre froid en dés",
+  "en": "g cold butter, diced"
+ },
+ "16dyrmyklgk": {
+  "fr": "1 œuf (facultatif)",
+  "en": "1 egg (optional)"
+ },
+ "1b53f9mrfp3": {
+  "fr": "30 à 50ml eau froide",
+  "en": "30 to 50 ml cold water"
+ },
+ "1l1tmpoo6zz": {
+  "fr": "ml eau froide",
+  "en": "ml cold water"
+ },
+ "2dqnusmlx4r": {
+  "fr": "50g sucre (facultatif, pour une tarte sucrée)",
+  "en": "50g sugar (optional, for a sweet tart)"
+ },
+ "iczlw004b0": {
+  "fr": "Mettre la farine en puits, ajouter l’œuf si on l’utilise et un peu d’eau, puis le beurre en dés et le sel.",
+  "en": "Make a well in the flour, add the egg (if using) and a little water, then the diced butter and the salt."
+ },
+ "zd6wt81y29": {
+  "fr": "Mélanger du bout des doigts juste assez pour que la farine enrobe le beurre, en ajoutant l’eau peu à peu.",
+  "en": "Mix with your fingertips just enough for the flour to coat the butter, adding the water a little at a time."
+ },
+ "cvgm407vg": {
+  "fr": "Fraiser : écraser la pâte par petits morceaux avec la paume de la main pour bien incorporer le beurre, puis la rassembler en boule sans la pétrir.",
+  "en": "Rub in: break the pastry into small pieces with the palm of your hand to work the butter in thoroughly, then gather it into a ball without kneading it."
+ },
+ "sk6nk2721": {
+  "fr": "Filmer au contact et réfrigérer au moins 30min, idéalement 24h.",
+  "en": "Wrap in cling film and chill for at least 30 minutes, ideally 24 hours."
+ },
+ "5u3fzbrin": {
+  "fr": "Étaler, foncer un cercle de 30cm puis cuire à blanc à 180°C, 15 à 20min avec des billes de cuisson, selon la garniture.",
+  "en": "Roll out the pastry, line a 30cm tart tin and blind-bake at 180°C for 15 to 20 minutes with baking beans, depending on the filling."
+ },
+ "1qdz4yt7o4e": {
+  "fr": "Pâte brisée : sans œuf, elle est plus friable ; avec, plus moelleuse et croustillante, mais elle se conserve moins longtemps.",
+  "en": "Shortcrust pastry: without eggs, it is more crumbly; with eggs, it is softer and crispier, but it does not keep for as long."
+ },
+ "5mfgwtqafs": {
+  "fr": "Pâte brisée : avec du beurre salé, réduire le sel.",
+  "en": "Shortcrust pastry: if using salted butter, use less salt."
+ },
+ "1czipprhbi6": {
+  "fr": "Ne pas trop travailler la pâte brisée : le gluten la rend dure et elle se rétracte à la cuisson.",
+  "en": "Don’t over-work the shortcrust pastry: the gluten makes it tough and it shrinks during baking."
+ },
+ "169jbydt7j2": {
+  "fr": "Pâte brisée crue : 2 jours au réfrigérateur filmée, ou 3 mois au congélateur en pâton.",
+  "en": "Uncooked shortcrust pastry: 2 days in the fridge, wrapped in cling film, or 3 months in the freezer in small portions."
+ },
+ "21s62hpv47w": {
+  "fr": "1 verre, ou 1 pichet selon la variante",
+  "en": "1 glass, or 1 jug, depending on the version"
+ },
+ "1ro50jvzkso": {
+  "fr": "Variante whisky sour",
+  "en": "Whisky sour variation"
+ },
+ "1jhohanyzz4": {
+  "fr": "60ml whisky, bourbon de préférence",
+  "en": "60ml whisky, preferably bourbon"
+ },
+ "ztr6balxso": {
+  "fr": "whisky, bourbon de préférence",
+  "en": "whisky, preferably bourbon"
+ },
+ "qshwtiyzm": {
+  "fr": "Whisky, bourbon de préférence",
+  "en": "Whisky, preferably bourbon"
+ },
+ "mzq03nannx": {
+  "fr": "ml whisky, bourbon de préférence",
+  "en": "ml of whisky, preferably bourbon"
+ },
+ "1oa629jlr2v": {
+  "fr": "30ml jus de citron fraîchement pressé",
+  "en": "30ml freshly squeezed lemon juice"
+ },
+ "13i4edypen1": {
+  "fr": "jus de citron fraîchement pressé",
+  "en": "freshly squeezed lemon juice"
+ },
+ "2335ijsmhpv": {
+  "fr": "Jus de citron fraîchement pressé",
+  "en": "Freshly squeezed lemon juice"
+ },
+ "10mnni98ifz": {
+  "fr": "ml jus de citron fraîchement pressé",
+  "en": "ml freshly squeezed lemon juice"
+ },
+ "2coaejby7gp": {
+  "fr": "20ml sirop de sucre",
+  "en": "20ml sugar syrup"
+ },
+ "29s8grj8eum": {
+  "fr": "sirop de sucre",
+  "en": "sugar syrup"
+ },
+ "1sk9fkfkfk9": {
+  "fr": "Sirop de sucre",
+  "en": "Sugar syrup"
+ },
+ "1214lzx98q5": {
+  "fr": "ml sirop de sucre",
+  "en": "ml sugar syrup"
+ },
+ "6l8cp96le8": {
+  "fr": "1 zeste de citron ou 1 cerise au marasquin",
+  "en": "1 strip of lemon zest or 1 maraschino cherry"
+ },
+ "29grqzq6kyo": {
+  "fr": "zeste de citron ou 1 cerise au marasquin",
+  "en": "lemon zest or 1 maraschino cherry"
+ },
+ "ex7wbqyda4": {
+  "fr": "Zeste de citron ou 1 cerise au marasquin",
+  "en": "Lemon zest or 1 maraschino cherry"
+ },
+ "1oy3gob0ew5": {
+  "fr": "Secouer whisky, jus de citron et sirop au shaker avec des glaçons jusqu’à ce que le shaker soit bien froid.",
+  "en": "Shake the whisky, lemon juice and syrup in a shaker with ice cubes until the shaker is thoroughly chilled."
+ },
+ "5s0qxxj3hz": {
+  "fr": "Filtrer dans un verre old fashioned, avec ou sans glace.",
+  "en": "Strain into an Old Fashioned glass, with or without ice."
+ },
+ "17eh89ff7wn": {
+  "fr": "Décorer d’un zeste de citron ou d’une cerise.",
+  "en": "Garnish with a twist of lemon or a cherry."
+ },
+ "28o3x6myzam": {
+  "fr": "Variante whisky sour à l’érable",
+  "en": "Maple whisky sour variation"
+ },
+ "1d2ztjysjzk": {
+  "fr": "60ml bourbon",
+  "en": "60ml bourbon"
+ },
+ "smhq43bbmj": {
+  "fr": "bourbon",
+  "en": "bourbon"
+ },
+ "23ekym9lc1w": {
+  "fr": "Bourbon",
+  "en": "Bourbon"
+ },
+ "20xudxcl4ya": {
+  "fr": "ml bourbon",
+  "en": "ml of bourbon"
+ },
+ "27qisonx5wc": {
+  "fr": "30ml jus de citron",
+  "en": "30ml lemon juice"
+ },
+ "1n6igle2qct": {
+  "fr": "ml jus de citron",
+  "en": "ml lemon juice"
+ },
+ "4htua5iru4": {
+  "fr": "20ml sirop d’érable",
+  "en": "20ml maple syrup"
+ },
+ "2av9ksv9be8": {
+  "fr": "ml sirop d’érable",
+  "en": "ml maple syrup"
+ },
+ "22h9yqaxo0o": {
+  "fr": "Secouer bourbon, jus de citron et sirop d’érable au shaker avec des glaçons.",
+  "en": "Shake the bourbon, lemon juice and maple syrup in a cocktail shaker with ice cubes."
+ },
+ "10ybeh0xgeg": {
+  "fr": "Filtrer dans un verre old fashioned sur glace.",
+  "en": "Strain into an Old Fashioned glass over ice."
+ },
+ "2a48jh9yfuz": {
+  "fr": "Variante old fashioned",
+  "en": "Old-fashioned version"
+ },
+ "1eriua5raxw": {
+  "fr": "15ml sirop de sucre de canne",
+  "en": "15ml cane sugar syrup"
+ },
+ "ajgvwkj2yi": {
+  "fr": "sirop de sucre de canne",
+  "en": "cane sugar syrup"
+ },
+ "1pmw1zrwn75": {
+  "fr": "Sirop de sucre de canne",
+  "en": "Cane sugar syrup"
+ },
+ "xqzdox70fm": {
+  "fr": "ml sirop de sucre de canne",
+  "en": "ml cane sugar syrup"
+ },
+ "1fmj32fhrcr": {
+  "fr": "2 traits d’amer Angostura",
+  "en": "2 dashes of Angostura bitters"
+ },
+ "1c9ijb3a1zn": {
+  "fr": "amer Angostura",
+  "en": "Angostura bitters"
+ },
+ "2bg5nmqjeie": {
+  "fr": "Amer Angostura",
+  "en": "Angostura Bitters"
+ },
+ "1n107as8r2t": {
+  "fr": "traits d’amer Angostura",
+  "en": "Angostura bitters"
+ },
+ "29222s1dmc6": {
+  "fr": "60ml whisky ou bourbon",
+  "en": "60ml whisky or bourbon"
+ },
+ "bg9ucfqc24": {
+  "fr": "whisky ou bourbon",
+  "en": "whisky or bourbon"
+ },
+ "1kar7nd7j61": {
+  "fr": "Whisky ou bourbon",
+  "en": "Whisky or bourbon"
+ },
+ "1t8f6wcpqze": {
+  "fr": "ml whisky ou bourbon",
+  "en": "ml of whisky or bourbon"
+ },
+ "2c5mjf3s5jh": {
+  "fr": "3 à 4 glaçons",
+  "en": "3 to 4 ice cubes"
+ },
+ "1ftsowgkwu0": {
+  "fr": "glaçons",
+  "en": "ice cubes"
+ },
+ "u5h6f9kblh": {
+  "fr": "1 zeste ou 1 tranche d’orange",
+  "en": "1 piece of orange zest or 1 slice of orange"
+ },
+ "1ortlrcoewm": {
+  "fr": "zeste ou 1 tranche d’orange",
+  "en": "orange zest or 1 slice of orange"
+ },
+ "1y8ezgz21fs": {
+  "fr": "Zeste ou 1 tranche d’orange",
+  "en": "Orange zest or 1 slice of orange"
+ },
+ "1nojp0grwa3": {
+  "fr": "1 cerise au marasquin (facultatif)",
+  "en": "1 maraschino cherry (optional)"
+ },
+ "1vgq378h5hy": {
+  "fr": "cerise au marasquin",
+  "en": "maraschino cherry"
+ },
+ "1wpyie0hle0": {
+  "fr": "Cerise au marasquin",
+  "en": "Maraschino cherry"
+ },
+ "ri3pgxamgl": {
+  "fr": "Mélanger l’amer et le sirop dans le verre.",
+  "en": "Mix the bitter and the syrup in the glass."
+ },
+ "13wg4b0fhyy": {
+  "fr": "Ajouter le whisky et les glaçons, puis remuer une trentaine de secondes.",
+  "en": "Add the whisky and the ice cubes, then stir for about 30 seconds."
+ },
+ "a9j4rjyb1j": {
+  "fr": "Ajouter le zeste d’orange et la cerise.",
+  "en": "Add the orange zest and the cherry."
+ },
+ "1s7ffz7v4bt": {
+  "fr": "Variante manhattan",
+  "en": "Manhattan variant"
+ },
+ "1vq6o2r11vc": {
+  "fr": "30ml vermouth rouge",
+  "en": "30ml red vermouth"
+ },
+ "1xectty6lcm": {
+  "fr": "vermouth rouge",
+  "en": "red vermouth"
+ },
+ "7526e4jrzd": {
+  "fr": "Vermouth rouge",
+  "en": "Red vermouth"
+ },
+ "1vbuc9y655p": {
+  "fr": "ml vermouth rouge",
+  "en": "ml red vermouth"
+ },
+ "folf0tg6az": {
+  "fr": "2 gouttes d’amer Angostura",
+  "en": "2 drops of Angostura bitters"
+ },
+ "41n31557sj": {
+  "fr": "gouttes d’amer Angostura",
+  "en": "Angostura bitters"
+ },
+ "1gzju7wlrdb": {
+  "fr": "Gouttes d’amer Angostura",
+  "en": "Angostura Bitters"
+ },
+ "2bnzaso8mam": {
+  "fr": "1 cerise au marasquin",
+  "en": "1 maraschino cherry"
+ },
+ "v902fmxmt2": {
+  "fr": "Mélanger whisky et vermouth, puis ajouter l’amer et mélanger à nouveau.",
+  "en": "Mix the whisky and vermouth, then add the bitters and stir again."
+ },
+ "rg4jk76bqj": {
+  "fr": "Verser sur quelques glaçons et décorer d’une cerise.",
+  "en": "Pour over a few ice cubes and garnish with a cherry."
+ },
+ "22bdm9ml88o": {
+  "fr": "Variante sazerac",
+  "en": "Sazerac variation"
+ },
+ "1ufoqpt1t8p": {
+  "fr": "1 morceau de sucre",
+  "en": "1 sugar cube"
+ },
+ "2773pjq81uj": {
+  "fr": "morceau de sucre",
+  "en": "sugar cube"
+ },
+ "hcdk8n2fc7": {
+  "fr": "45ml whisky",
+  "en": "45ml whisky"
+ },
+ "fmehxju47w": {
+  "fr": "whisky",
+  "en": "whisky"
+ },
+ "1ncymbfd6na": {
+  "fr": "ml whisky",
+  "en": "ml of whisky"
+ },
+ "1jmkq2gap3k": {
+  "fr": "7ml pastis ou absinthe",
+  "en": "7ml pastis or absinthe"
+ },
+ "dhn0l9cusx": {
+  "fr": "pastis ou absinthe",
+  "en": "pastis or absinthe"
+ },
+ "26wqqlmuqzq": {
+  "fr": "Pastis ou absinthe",
+  "en": "Pastis or absinthe"
+ },
+ "1z53jyqi7sr": {
+  "fr": "ml pastis ou absinthe",
+  "en": "ml of pastis or absinthe"
+ },
+ "28pjp7uvl07": {
+  "fr": "3 traits d’amer Peychaud’s ou Angostura",
+  "en": "3 dashes of Peychaud’s or Angostura bitters"
+ },
+ "zk7njgp0s": {
+  "fr": "amer Peychaud’s ou Angostura",
+  "en": "Peychaud’s or Angostura bitters"
+ },
+ "ou495qjr5": {
+  "fr": "Amer Peychaud’s ou Angostura",
+  "en": "Peychaud’s or Angostura bitters"
+ },
+ "ee488jgo9v": {
+  "fr": "traits d’amer Peychaud’s ou Angostura",
+  "en": "Peychaud’s or Angostura bitters"
+ },
+ "bykrvgwlie": {
+  "fr": "1 zeste de citron",
+  "en": "1 lemon zest"
+ },
+ "myx8ktrcsw": {
+  "fr": "Remplir un verre de glaçons pour le refroidir.",
+  "en": "Fill a glass with ice cubes to chill it."
+ },
+ "tigqmde9w3": {
+  "fr": "Dans un second verre, écraser le sucre avec l’amer, puis ajouter le whisky et mélanger.",
+  "en": "In a second glass, crush the sugar with the bitter, then add the whisky and stir."
+ },
+ "szlj0ly9de": {
+  "fr": "Vider le premier verre, y faire tourner le pastis pour en tapisser les parois et jeter l’excédent.",
+  "en": "Empty the first glass, swirl the pastis around it to coat the sides, and pour away the excess."
+ },
+ "lbqmrmdxyb": {
+  "fr": "Verser le mélange au whisky et terminer avec le zeste de citron.",
+  "en": "Pour in the whisky mixture and finish with the lemon zest."
+ },
+ "1t3xrdd3ykz": {
+  "fr": "Variante boulevardier",
+  "en": "Boulevardier variant"
+ },
+ "1nndptxevrt": {
+  "fr": "30ml whisky ou bourbon",
+  "en": "30ml whisky or bourbon"
+ },
+ "24rpo20rrm7": {
+  "fr": "30ml Campari",
+  "en": "30ml Campari"
+ },
+ "259gxpjwd5e": {
+  "fr": "Campari",
+  "en": "Campari"
+ },
+ "11fyyt7zjls": {
+  "fr": "ml Campari",
+  "en": "ml Campari"
+ },
+ "283ckyd9uat": {
+  "fr": "1 zeste d’orange",
+  "en": "1 orange zest"
+ },
+ "1fi84jjwitr": {
+  "fr": "zeste d’orange",
+  "en": "orange zest"
+ },
+ "s12vx202xz": {
+  "fr": "Zeste d’orange",
+  "en": "Orange zest"
+ },
+ "1ugt701bbsk": {
+  "fr": "Remuer whisky, Campari et vermouth avec de la glace jusqu’à ce que le mélange soit bien froid.",
+  "en": "Stir the whisky, Campari and vermouth with ice until the mixture is well chilled."
+ },
+ "238ii8ybu48": {
+  "fr": "Verser dans un verre à whisky sur quelques glaçons et garnir d’un zeste d’orange.",
+  "en": "Pour into a whisky glass over a few ice cubes and garnish with a twist of orange."
+ },
+ "28kj07npvbk": {
+  "fr": "Variante lynchburg lemonade",
+  "en": "Lynchburg Lemonade variation"
+ },
+ "203f02lrrza": {
+  "fr": "40ml Tennessee whiskey",
+  "en": "40ml Tennessee whisky"
+ },
+ "5f4qtbw4cz": {
+  "fr": "Tennessee whiskey",
+  "en": "Tennessee whisky"
+ },
+ "1ovjm965agm": {
+  "fr": "ml Tennessee whiskey",
+  "en": "ml Tennessee whisky"
+ },
+ "14hhe3w0pcw": {
+  "fr": "20ml triple sec",
+  "en": "20ml triple sec"
+ },
+ "1doktbw5ikf": {
+  "fr": "triple sec",
+  "en": "triple sec"
+ },
+ "ioyt686s1j": {
+  "fr": "Triple sec",
+  "en": "Triple sec"
+ },
+ "1qg93wk8tep": {
+  "fr": "ml triple sec",
+  "en": "ml triple sec"
+ },
+ "1mvykm3wmgl": {
+  "fr": "20ml sour mix (eau, sucre et jus de citron à parts égales)",
+  "en": "20ml sour mix (water, sugar and lemon juice in equal parts)"
+ },
+ "28277zcsze": {
+  "fr": "sour mix",
+  "en": "sour mix"
+ },
+ "uyq3ghsiii": {
+  "fr": "Sour mix",
+  "en": "Sour mix"
+ },
+ "17bj7bj559a": {
+  "fr": "ml sour mix",
+  "en": "ml sour mix"
+ },
+ "rpdvxldu4g": {
+  "fr": "80ml limonade",
+  "en": "80ml lemonade"
+ },
+ "14ztvhcytjg": {
+  "fr": "limonade",
+  "en": "lemonade"
+ },
+ "1k4qsmr1cdb": {
+  "fr": "Limonade",
+  "en": "Lemonade"
+ },
+ "ri6a104tk3": {
+  "fr": "ml limonade",
+  "en": "ml of lemonade"
+ },
+ "t4go2wqg9w": {
+  "fr": "2 tranches de citron",
+  "en": "2 slices of lemon"
+ },
+ "p4s15syzf2": {
+  "fr": "tranches de citron",
+  "en": "lemon slices"
+ },
+ "2f6nmilqq5x": {
+  "fr": "Secouer whiskey, triple sec et sour mix avec des glaçons dans un shaker ou un bocal fermé.",
+  "en": "Shake the whisky, triple sec and sour mix with ice cubes in a cocktail shaker or a sealed jar."
+ },
+ "2as3m5t02t4": {
+  "fr": "Verser dans le verre, compléter avec la limonade et ajouter les tranches de citron.",
+  "en": "Pour into the glass, top up with lemonade and add the lemon slices."
+ },
+ "101wp7jbhee": {
+  "fr": "Variante negroni",
+  "en": "A variation on the Negroni"
+ },
+ "21qa76kguv8": {
+  "fr": "30ml gin",
+  "en": "30ml gin"
+ },
+ "12rgrfs9kpt": {
+  "fr": "gin",
+  "en": "gin"
+ },
+ "qbq9a9jooe": {
+  "fr": "Gin",
+  "en": "Gin"
+ },
+ "qciza9by8g": {
+  "fr": "ml gin",
+  "en": "ml gin"
+ },
+ "pk7onuxd6t": {
+  "fr": "Remuer gin, Campari et vermouth avec de la glace jusqu’à ce que le mélange soit bien froid.",
+  "en": "Stir the gin, Campari and vermouth with ice until the mixture is well chilled."
+ },
+ "2aafqxcsv5k": {
+  "fr": "Variante gin fizz",
+  "en": "Gin Fizz variation"
+ },
+ "1642lpwmtgy": {
+  "fr": "50ml gin",
+  "en": "50ml gin"
+ },
+ "a4rjva4bis": {
+  "fr": "25ml jus de citron",
+  "en": "25ml lemon juice"
+ },
+ "ker5m0o5ca": {
+  "fr": "30ml sirop de sucre de canne",
+  "en": "30ml cane sugar syrup"
+ },
+ "4r7yw25zxf": {
+  "fr": "80ml eau gazeuse",
+  "en": "80ml sparkling water"
+ },
+ "25vw04fivba": {
+  "fr": "ml eau gazeuse",
+  "en": "ml of sparkling water"
+ },
+ "lr1rus0riv": {
+  "fr": "1 tranche de citron",
+  "en": "1 slice of lemon"
+ },
+ "wciz7hdbb3": {
+  "fr": "tranche de citron",
+  "en": "slice of lemon"
+ },
+ "1jkcrhvwbf8": {
+  "fr": "1 brin de romarin (facultatif)",
+  "en": "1 sprig of rosemary (optional)"
+ },
+ "yxttadtjgz": {
+  "fr": "brin de romarin",
+  "en": "sprig of rosemary"
+ },
+ "iq269so0j2": {
+  "fr": "Secouer gin, jus de citron et sirop avec des glaçons jusqu’à ce que le shaker soit froid.",
+  "en": "Shake the gin, lemon juice and syrup with ice cubes until the shaker is cold."
+ },
+ "22o7xuks7hm": {
+  "fr": "Filtrer dans un grand verre sur glace et compléter avec l’eau gazeuse.",
+  "en": "Strain into a large glass over ice and top up with sparkling water."
+ },
+ "o22s3tsd52": {
+  "fr": "Garnir d’une tranche de citron et d’un brin de romarin.",
+  "en": "Garnish with a slice of lemon and a sprig of rosemary."
+ },
+ "2fw8yahnmq4": {
+  "fr": "Variante gin fizz à la pomme",
+  "en": "Apple gin fizz variation"
+ },
+ "ktnkvbw6qi": {
+  "fr": "60ml gin",
+  "en": "60ml gin"
+ },
+ "1fhpmg805s1": {
+  "fr": "30ml blanc d’œuf très frais",
+  "en": "30ml very fresh egg white"
+ },
+ "z614o2otec": {
+  "fr": "blanc d’œuf très frais",
+  "en": "very fresh egg white"
+ },
+ "122qua0382n": {
+  "fr": "Blanc d’œuf très frais",
+  "en": "Very fresh egg white"
+ },
+ "2c3clmbnauq": {
+  "fr": "ml blanc d’œuf très frais",
+  "en": "ml of very fresh egg white"
+ },
+ "1aat1h4yps2": {
+  "fr": "20ml jus de citron",
+  "en": "20ml lemon juice"
+ },
+ "12xq2ojozmq": {
+  "fr": "15ml sirop de sucre",
+  "en": "15ml sugar syrup"
+ },
+ "17w38lax6uf": {
+  "fr": "Cidre brut pétillant bien froid",
+  "en": "Well-chilled, sparkling dry cider"
+ },
+ "uykx1jyu6t": {
+  "fr": "1 lamelle de pomme",
+  "en": "1 slice of apple"
+ },
+ "l14vyuwyet": {
+  "fr": "lamelle de pomme",
+  "en": "apple slice"
+ },
+ "6ihd7vnwky": {
+  "fr": "Lamelle de pomme",
+  "en": "Apple slice"
+ },
+ "2268uk0ify9": {
+  "fr": "Secouer vigoureusement gin, blanc d’œuf, jus de citron et sirop au shaker.",
+  "en": "Shake the gin, egg white, lemon juice and syrup vigorously in a cocktail shaker."
+ },
+ "ksc7men8pp": {
+  "fr": "Verser dans un grand verre, compléter de cidre brut et décorer d’une lamelle de pomme.",
+  "en": "Pour into a large glass, top up with dry cider and garnish with a slice of apple."
+ },
+ "441u2jg57m": {
+  "fr": "Variante pomada",
+  "en": "Pomada variant"
+ },
+ "1frc8pztrsy": {
+  "fr": "60ml gin de Minorque ou gin sec",
+  "en": "60ml Menorca gin or dry gin"
+ },
+ "92h9zjtl34": {
+  "fr": "gin de Minorque ou gin sec",
+  "en": "Menorcan gin or dry gin"
+ },
+ "1r5nniw99se": {
+  "fr": "Gin de Minorque ou gin sec",
+  "en": "Menorcan gin or dry gin"
+ },
+ "zprsqzbca": {
+  "fr": "ml gin de Minorque ou gin sec",
+  "en": "ml Menorca gin or dry gin"
+ },
+ "dhbijpxkru": {
+  "fr": "180ml limonade au citron très froide",
+  "en": "180ml very cold lemonade"
+ },
+ "1du30cyooje": {
+  "fr": "limonade au citron très froide",
+  "en": "very cold lemonade"
+ },
+ "1rcbw3mym0c": {
+  "fr": "Limonade au citron très froide",
+  "en": "Very cold lemonade"
+ },
+ "o94etgfw3k": {
+  "fr": "ml limonade au citron très froide",
+  "en": "ml of very cold lemonade"
+ },
+ "24t9p6m9tq7": {
+  "fr": "Glace pilée",
+  "en": "Crushed ice"
+ },
+ "ipfzmui4gx": {
+  "fr": "1 rondelle de citron",
+  "en": "1 slice of lemon"
+ },
+ "2blhs1iq2ce": {
+  "fr": "rondelle de citron",
+  "en": "lemon slice"
+ },
+ "xwz471np2b": {
+  "fr": "Rondelle de citron",
+  "en": "Slices of lemon"
+ },
+ "22e0o5fc654": {
+  "fr": "3 feuilles de menthe (facultatif)",
+  "en": "3 mint leaves (optional)"
+ },
+ "16iwrfsbnjt": {
+  "fr": "Remplir un grand verre de glace pilée.",
+  "en": "Fill a large glass with crushed ice."
+ },
+ "13cvhp7nfei": {
+  "fr": "Verser le gin puis la limonade et mélanger doucement pour garder les bulles.",
+  "en": "Pour in the gin, followed by the lemonade, and stir gently to preserve the fizz."
+ },
+ "1vjuovuixwd": {
+  "fr": "Décorer d’une rondelle de citron et de menthe.",
+  "en": "Garnish with a slice of lemon and some mint."
+ },
+ "4my5kfj6wc": {
+  "fr": "Variante singapore sling",
+  "en": "Singapore Sling variation"
+ },
+ "q1jd3vcpc5": {
+  "fr": "15ml liqueur de cerise (cherry brandy)",
+  "en": "15ml cherry liqueur (cherry brandy)"
+ },
+ "2a21fcn68ny": {
+  "fr": "liqueur de cerise",
+  "en": "cherry liqueur"
+ },
+ "2dg804yfxar": {
+  "fr": "Liqueur de cerise",
+  "en": "Cherry liqueur"
+ },
+ "218wyf2gfbn": {
+  "fr": "ml liqueur de cerise",
+  "en": "ml cherry liqueur"
+ },
+ "29vxaq9zhwh": {
+  "fr": "7,5ml triple sec",
+  "en": "7.5 ml triple sec"
+ },
+ "3o639weo7j": {
+  "fr": "7,5ml Bénédictine",
+  "en": "7.5 ml Bénédictine"
+ },
+ "1jt15oufexf": {
+  "fr": "Bénédictine",
+  "en": "Benedictine"
+ },
+ "keyzihg3zy": {
+  "fr": "ml Bénédictine",
+  "en": "ml Bénédictine"
+ },
+ "22qo047cb2b": {
+  "fr": "10ml sirop de grenadine",
+  "en": "10ml grenadine syrup"
+ },
+ "10a9h267npu": {
+  "fr": "sirop de grenadine",
+  "en": "grenadine syrup"
+ },
+ "qrp4c9vy5s": {
+  "fr": "Sirop de grenadine",
+  "en": "Grenadine syrup"
+ },
+ "8895c9h010": {
+  "fr": "ml sirop de grenadine",
+  "en": "ml grenadine syrup"
+ },
+ "9zmbvv42z2": {
+  "fr": "120ml jus d’ananas",
+  "en": "120ml pineapple juice"
+ },
+ "bkpljpvzo7": {
+  "fr": "jus d’ananas",
+  "en": "pineapple juice"
+ },
+ "1b0svky6x1n": {
+  "fr": "Jus d’ananas",
+  "en": "Pineapple juice"
+ },
+ "142lb1vs0dt": {
+  "fr": "ml jus d’ananas",
+  "en": "ml pineapple juice"
+ },
+ "16ppsy5v28z": {
+  "fr": "15ml jus de citron vert",
+  "en": "15ml lime juice"
+ },
+ "25uh4ge991a": {
+  "fr": "ml jus de citron vert",
+  "en": "ml lime juice"
+ },
+ "140z7qoyiqo": {
+  "fr": "1 trait d’amer Angostura",
+  "en": "1 dash of Angostura bitters"
+ },
+ "1ajmiqnprxb": {
+  "fr": "trait d’amer Angostura",
+  "en": "Angostura bitters"
+ },
+ "1s65d6ik7ux": {
+  "fr": "1 morceau d’ananas et 1 cerise confite",
+  "en": "1 piece of pineapple and 1 candied cherry"
+ },
+ "1bpseer7alh": {
+  "fr": "ananas et 1 cerise confite",
+  "en": "pineapple and 1 candied cherry"
+ },
+ "20irdl30zfw": {
+  "fr": "Ananas et 1 cerise confite",
+  "en": "Pineapple and 1 candied cherry"
+ },
+ "2cqgtqg0qgg": {
+  "fr": "morceau d’ananas et 1 cerise confite",
+  "en": "a piece of pineapple and 1 candied cherry"
+ },
+ "8rzov07qpi": {
+  "fr": "Secouer tous les ingrédients liquides au shaker avec une dizaine de glaçons.",
+  "en": "Shake all the liquid ingredients in a cocktail shaker with about ten ice cubes."
+ },
+ "23brg30c0kt": {
+  "fr": "Filtrer dans un grand verre rempli de glaçons.",
+  "en": "Strain into a large glass filled with ice cubes."
+ },
+ "1fhwrnww5lj": {
+  "fr": "Décorer d’une brochette d’ananas et de cerise confite.",
+  "en": "Garnish with a skewer of pineapple and candied cherries."
+ },
+ "24u8s58xen4": {
+  "fr": "Variante cosmopolitan",
+  "en": "Cosmopolitan variant"
+ },
+ "1knsix8s3pa": {
+  "fr": "45ml vodka citron",
+  "en": "45ml lemon vodka"
+ },
+ "13ytuujd9r3": {
+  "fr": "vodka citron",
+  "en": "lemon vodka"
+ },
+ "fz7x3mbleq": {
+  "fr": "Vodka citron",
+  "en": "Lemon vodka"
+ },
+ "1ki19nbmt5p": {
+  "fr": "ml vodka citron",
+  "en": "ml lemon-flavoured vodka"
+ },
+ "1kz31x6ecfa": {
+  "fr": "15ml triple sec",
+  "en": "15ml triple sec"
+ },
+ "1zkf6v4e4ck": {
+  "fr": "30ml jus de cranberry",
+  "en": "30ml cranberry juice"
+ },
+ "hltpasvsjz": {
+  "fr": "jus de cranberry",
+  "en": "cranberry juice"
+ },
+ "v56hplja7m": {
+  "fr": "Jus de cranberry",
+  "en": "Cranberry juice"
+ },
+ "2em4k88l4n5": {
+  "fr": "ml jus de cranberry",
+  "en": "ml cranberry juice"
+ },
+ "214ziue0uhx": {
+  "fr": "10ml jus de citron vert",
+  "en": "10ml lime juice"
+ },
+ "1c4lvlrw5h4": {
+  "fr": "6 à 7 glaçons",
+  "en": "6 to 7 ice cubes"
+ },
+ "w8rgwllppb": {
+  "fr": "1 zeste d’orange ou 1 quartier de citron vert",
+  "en": "1 strip of orange zest or 1 wedge of lime"
+ },
+ "260cmnme7gm": {
+  "fr": "zeste d’orange ou 1 quartier de citron vert",
+  "en": "orange zest or 1 lime wedge"
+ },
+ "7vqiw7lbrk": {
+  "fr": "Zeste d’orange ou 1 quartier de citron vert",
+  "en": "Orange zest or 1 lime wedge"
+ },
+ "69eu9ed4yi": {
+  "fr": "Secouer vodka, triple sec, jus de cranberry et jus de citron vert avec les glaçons.",
+  "en": "Shake the vodka, triple sec, cranberry juice and lime juice with the ice cubes."
+ },
+ "ddc8myflwm": {
+  "fr": "Filtrer au chinois fin dans un verre à cocktail et décorer d’un zeste d’orange.",
+  "en": "Strain through a fine-mesh sieve into a cocktail glass and garnish with a twist of orange."
+ },
+ "23x458jo23r": {
+  "fr": "Variante moscow mule",
+  "en": "Moscow Mule variation"
+ },
+ "9dl7j1tc11": {
+  "fr": "60ml vodka",
+  "en": "60ml vodka"
+ },
+ "19ewgev9s2t": {
+  "fr": "vodka",
+  "en": "vodka"
+ },
+ "e1aebfynui": {
+  "fr": "ml vodka",
+  "en": "ml of vodka"
+ },
+ "1cm1l2bjvdl": {
+  "fr": "120ml ginger beer bien fraîche",
+  "en": "120ml ice-cold ginger beer"
+ },
+ "1y2tf61teuv": {
+  "fr": "ginger beer bien fraîche",
+  "en": "ice-cold ginger beer"
+ },
+ "28kxl9ur168": {
+  "fr": "Ginger beer bien fraîche",
+  "en": "Ice-cold ginger beer"
+ },
+ "1d8urc1a35n": {
+  "fr": "ml ginger beer bien fraîche",
+  "en": "ml of ice-cold ginger beer"
+ },
+ "dr9surg05w": {
+  "fr": "1 rondelle de citron vert",
+  "en": "1 slice of lime"
+ },
+ "wxgpk4roc7": {
+  "fr": "rondelle de citron vert",
+  "en": "lime wedge"
+ },
+ "1k81i4kq4xt": {
+  "fr": "Rondelle de citron vert",
+  "en": "A slice of lime"
+ },
+ "cowfvt4oyr": {
+  "fr": "1 brin de menthe",
+  "en": "1 sprig of mint"
+ },
+ "td211uz01n": {
+  "fr": "brin de menthe",
+  "en": "sprig of mint"
+ },
+ "11dpvn5djsf": {
+  "fr": "Gingembre frais râpé (facultatif)",
+  "en": "Grated fresh ginger (optional)"
+ },
+ "tn5zw44k0": {
+  "fr": "Remplir un mug en cuivre ou un verre haut de glaçons.",
+  "en": "Fill a copper mug or a tall glass with ice cubes."
+ },
+ "r8fyi2uw35": {
+  "fr": "Verser la vodka et le jus de citron vert, puis compléter avec la ginger beer et mélanger légèrement.",
+  "en": "Pour in the vodka and lime juice, then top up with ginger beer and stir gently."
+ },
+ "jxi5edcafz": {
+  "fr": "Décorer de citron vert, de menthe et d’un peu de gingembre râpé.",
+  "en": "Garnish with lime, mint and a little grated ginger."
+ },
+ "14ce2lbpbzm": {
+  "fr": "Variante bloody mary",
+  "en": "Bloody Mary variation"
+ },
+ "2ac6prnspi9": {
+  "fr": "45ml vodka",
+  "en": "45ml vodka"
+ },
+ "zei2ga73kf": {
+  "fr": "125ml jus de tomate",
+  "en": "125ml tomato juice"
+ },
+ "14dsw3fpaop": {
+  "fr": "jus de tomate",
+  "en": "tomato juice"
+ },
+ "rv918f9f37": {
+  "fr": "Jus de tomate",
+  "en": "Tomato juice"
+ },
+ "lypu732pxl": {
+  "fr": "ml jus de tomate",
+  "en": "ml tomato juice"
+ },
+ "dvg98rwp7x": {
+  "fr": "2 gouttes de Tabasco",
+  "en": "2 drops of Tabasco"
+ },
+ "7v2cx4tpmr": {
+  "fr": "gouttes de Tabasco",
+  "en": "drops of Tabasco"
+ },
+ "1o2qz903mdl": {
+  "fr": "Gouttes de Tabasco",
+  "en": "Drops of Tabasco"
+ },
+ "222zf72ztcr": {
+  "fr": "4 gouttes de sauce Worcestershire",
+  "en": "4 drops of Worcestershire sauce"
+ },
+ "1ckerkasfks": {
+  "fr": "gouttes de sauce Worcestershire",
+  "en": "a few drops of Worcestershire sauce"
+ },
+ "2e3a5sbsobi": {
+  "fr": "Gouttes de sauce Worcestershire",
+  "en": "A few drops of Worcestershire sauce"
+ },
+ "1vbaot1nq5a": {
+  "fr": "1 bonne pincée de sel de céleri",
+  "en": "1 good pinch of celery salt"
+ },
+ "2191d3oq7tk": {
+  "fr": "bonne pincée de sel de céleri",
+  "en": "a good pinch of celery salt"
+ },
+ "2du16jr9cmg": {
+  "fr": "Bonne pincée de sel de céleri",
+  "en": "A good pinch of celery salt"
+ },
+ "ym3hk9goay": {
+  "fr": "15g glace pilée",
+  "en": "15g crushed ice"
+ },
+ "2g2fzajdcy": {
+  "fr": "glace pilée",
+  "en": "crushed ice"
+ },
+ "nugoadh4zx": {
+  "fr": "g glace pilée",
+  "en": "g crushed ice"
+ },
+ "9usdgbx1bt": {
+  "fr": "1 branche de céleri",
+  "en": "1 stalk of celery"
+ },
+ "bahpwz12uu": {
+  "fr": "branche de céleri",
+  "en": "celery stalk"
+ },
+ "m4g7ikszqn": {
+  "fr": "1 quartier de citron (facultatif)",
+  "en": "1 lemon wedge (optional)"
+ },
+ "oc5ctansv2": {
+  "fr": "quartier de citron",
+  "en": "lemon wedge"
+ },
+ "rjxwulesq2": {
+  "fr": "Quartier de citron",
+  "en": "Lemon quarter"
+ },
+ "juzzoemgvl": {
+  "fr": "Verser l’assaisonnement dans un verre haut refroidi, puis la vodka et enfin le jus de tomate.",
+  "en": "Season the mix in a chilled tall glass, followed by the vodka and finally the tomato juice."
+ },
+ "wx8tl4pgsn": {
+  "fr": "Ajouter la glace pilée et mélanger.",
+  "en": "Add the crushed ice and stir."
+ },
+ "1ms36kculuw": {
+  "fr": "Garnir d’une branche de céleri et d’un quartier de citron.",
+  "en": "Garnish with a stick of celery and a lemon wedge."
+ },
+ "ya32bt00ku": {
+  "fr": "Variante blue lagoon (4 verres)",
+  "en": "Blue Lagoon set (4 glasses)"
+ },
+ "2bro2byt63o": {
+  "fr": "100ml vodka",
+  "en": "100ml vodka"
+ },
+ "18kt1o5yxt4": {
+  "fr": "100ml curaçao bleu",
+  "en": "100ml blue curaçao"
+ },
+ "2frx87iihhh": {
+  "fr": "curaçao bleu",
+  "en": "Blue Curaçao"
+ },
+ "meqiq0dzeh": {
+  "fr": "Curaçao bleu",
+  "en": "Blue Curaçao"
+ },
+ "1n3nnmxbnd8": {
+  "fr": "ml curaçao bleu",
+  "en": "ml blue curaçao"
+ },
+ "29qfr7vyuwu": {
+  "fr": "5ml sirop de cerises au marasquin",
+  "en": "5ml maraschino cherry syrup"
+ },
+ "1k6jve0cu30": {
+  "fr": "sirop de cerises au marasquin",
+  "en": "maraschino cherry syrup"
+ },
+ "13invhvnsc5": {
+  "fr": "Sirop de cerises au marasquin",
+  "en": "Maraschino cherry syrup"
+ },
+ "286hrnkwp0b": {
+  "fr": "ml sirop de cerises au marasquin",
+  "en": "ml maraschino cherry syrup"
+ },
+ "g4fg2i0gx6": {
+  "fr": "200ml eau pétillante",
+  "en": "200ml sparkling water"
+ },
+ "jnjrpjv2o3": {
+  "fr": "eau pétillante",
+  "en": "sparkling water"
+ },
+ "77rjmjjpl0": {
+  "fr": "Eau pétillante",
+  "en": "Sparkling water"
+ },
+ "idet0u3put": {
+  "fr": "ml eau pétillante",
+  "en": "ml sparkling water"
+ },
+ "9gwpycrukr": {
+  "fr": "4 tranches de citron",
+  "en": "4 slices of lemon"
+ },
+ "26dle9q5q0x": {
+  "fr": "4 cerises au marasquin",
+  "en": "4 maraschino cherries"
+ },
+ "2ffn5jhgol2": {
+  "fr": "cerises au marasquin",
+  "en": "maraschino cherries"
+ },
+ "1biheoh4kp9": {
+  "fr": "Cerises au marasquin",
+  "en": "Maraschino cherries"
+ },
+ "1xkhlamwm91": {
+  "fr": "Presser les citrons et l’orange.",
+  "en": "Squeeze the lemons and the orange."
+ },
+ "ovvia669p1": {
+  "fr": "Mélanger dans un pichet sur glaçons la vodka, le curaçao, les jus et le sirop de cerises.",
+  "en": "In a jug filled with ice, mix together the vodka, curaçao, juices and cherry syrup."
+ },
+ "17kta2wpb7z": {
+  "fr": "Répartir au chinois fin dans 4 verres à moitié remplis de glace pilée, compléter d’eau pétillante et décorer d’une tranche de citron et d’une cerise.",
+  "en": "Pour the cocktail over fine-mesh sieve-processed ice into 4 glasses half-filled with crushed ice, top up with sparkling water and garnish with a slice of lemon and a cherry."
+ },
+ "121shxk6biu": {
+  "fr": "Variante péché originel",
+  "en": "Original Sin Variation"
+ },
+ "6jg34t3poh": {
+  "fr": "50ml vodka",
+  "en": "50ml vodka"
+ },
+ "jvfwivg5vg": {
+  "fr": "25ml purée de mangue",
+  "en": "25ml mango purée"
+ },
+ "f8472o8tpo": {
+  "fr": "purée de mangue",
+  "en": "mango purée"
+ },
+ "1ghjjei55au": {
+  "fr": "Purée de mangue",
+  "en": "Mango purée"
+ },
+ "qydojlms88": {
+  "fr": "ml purée de mangue",
+  "en": "ml of mango purée"
+ },
+ "70fh9t2ae8": {
+  "fr": "15ml jus de citron",
+  "en": "15ml lemon juice"
+ },
+ "1rig18ezto8": {
+  "fr": "10ml sirop de sucre de canne",
+  "en": "10ml cane sugar syrup"
+ },
+ "1fadomn4pr3": {
+  "fr": "Cidre brut bien froid",
+  "en": "Well-chilled dry cider"
+ },
+ "21zcjahbsyv": {
+  "fr": "1 tranche de mangue séchée",
+  "en": "1 slice of dried mango"
+ },
+ "peaajrzceq": {
+  "fr": "mangue séchée",
+  "en": "dried mango"
+ },
+ "151rjoqvzz6": {
+  "fr": "Mangue séchée",
+  "en": "Dried mango"
+ },
+ "t8odv83dn1": {
+  "fr": "tranche de mangue séchée",
+  "en": "dried mango slice"
+ },
+ "1fhe576tvrq": {
+  "fr": "Secouer vodka, purée de mangue, jus de citron et sirop au shaker avec de la glace.",
+  "en": "Shake the vodka, mango purée, lemon juice and syrup in a shaker with ice."
+ },
+ "251qa8y77wx": {
+  "fr": "Verser dans un verre long glacé, compléter de cidre brut et décorer d’une tranche de mangue séchée.",
+  "en": "Pour into a chilled highball glass, top up with dry cider and garnish with a slice of dried mango."
+ },
+ "15e4c9xri3n": {
+  "fr": "Variante daïquiri",
+  "en": "A variation on the daiquirí"
+ },
+ "1f4v8k6ge21": {
+  "fr": "60ml rhum blanc",
+  "en": "60ml white rum"
+ },
+ "1ubq8bgpes": {
+  "fr": "ml rhum blanc",
+  "en": "ml white rum"
+ },
+ "1gdcqqgmnsp": {
+  "fr": "30ml jus de citron vert filtré",
+  "en": "30ml strained lime juice"
+ },
+ "133dyeix6ji": {
+  "fr": "jus de citron vert filtré",
+  "en": "strained lime juice"
+ },
+ "4drh3swp0r": {
+  "fr": "Jus de citron vert filtré",
+  "en": "Strained lime juice"
+ },
+ "1l0vdfhhkh6": {
+  "fr": "ml jus de citron vert filtré",
+  "en": "ml strained lime juice"
+ },
+ "1bvvvsxb7qg": {
+  "fr": "20ml sirop de sucre de canne",
+  "en": "20ml cane sugar syrup"
+ },
+ "1bsizvkn8qa": {
+  "fr": "1 zeste de citron vert",
+  "en": "1 lime zest"
+ },
+ "24bc1mjqzvy": {
+  "fr": "Prélever un zeste de citron vert, puis presser et filtrer le jus.",
+  "en": "Zest a lime, then squeeze and strain the juice."
+ },
+ "fv004f5ryr": {
+  "fr": "Secouer rhum, jus et sirop avec des glaçons.",
+  "en": "Shake the rum, juice and syrup with ice cubes."
+ },
+ "1g2u35s9q73": {
+  "fr": "Verser dans un verre à cocktail bien froid et décorer du zeste.",
+  "en": "Pour into a well-chilled cocktail glass and garnish with a twist of zest."
+ },
+ "s11b5q30j5": {
+  "fr": "Variante daïquiri à la fraise (4 verres)",
+  "en": "Strawberry Daiquiri Variation (4 glasses)"
+ },
+ "1tni8hiyq0a": {
+  "fr": "2 citrons verts",
+  "en": "2 limes"
+ },
+ "82olgm3tjw": {
+  "fr": "Citrons verts",
+  "en": "Limes"
+ },
+ "1nvt5upt1rr": {
+  "fr": "24g sucre glace",
+  "en": "24g icing sugar"
+ },
+ "agef1likq6": {
+  "fr": "80ml rhum blanc",
+  "en": "80ml white rum"
+ },
+ "3qldl42t3g": {
+  "fr": "10 fraises",
+  "en": "10 strawberries"
+ },
+ "13v8csfa1l1": {
+  "fr": "1 trait de liqueur de fraise des bois",
+  "en": "a dash of wild strawberry liqueur"
+ },
+ "5zxav1r3ki": {
+  "fr": "liqueur de fraise des bois",
+  "en": "wild strawberry liqueur"
+ },
+ "1lv1azsxwh7": {
+  "fr": "Liqueur de fraise des bois",
+  "en": "Wild strawberry liqueur"
+ },
+ "26b6hmzlgaq": {
+  "fr": "trait de liqueur de fraise des bois",
+  "en": "a dash of wild strawberry liqueur"
+ },
+ "gmwkihbp55": {
+  "fr": "6 glaçons",
+  "en": "6 ice cubes"
+ },
+ "109fbf45fmh": {
+  "fr": "4 fraises pour décorer",
+  "en": "4 strawberries for decoration"
+ },
+ "1zmmve3gdn4": {
+  "fr": "fraises pour décorer",
+  "en": "strawberries for decoration"
+ },
+ "1s15caiv54g": {
+  "fr": "Fraises pour décorer",
+  "en": "Strawberries for decoration"
+ },
+ "1xq2664mvoh": {
+  "fr": "Presser les citrons verts dans le blender.",
+  "en": "Squeeze the limes into the blender."
+ },
+ "24db39izsa1": {
+  "fr": "Ajouter sucre glace, rhum, fraises, liqueur et glaçons, puis mixer.",
+  "en": "Add icing sugar, rum, strawberries, liqueur and ice cubes, then blend."
+ },
+ "1ca831xblkx": {
+  "fr": "Servir dans des verres à cocktail décorés d’une fraise.",
+  "en": "Serve in cocktail glasses garnished with a strawberry."
+ },
+ "1mv7xdwy7pg": {
+  "fr": "Variante dark and stormy",
+  "en": "Dark and Stormy variation"
+ },
+ "15cldlhzh1d": {
+  "fr": "50ml rhum ambré",
+  "en": "50ml amber rum"
+ },
+ "2c8y2xtj9ig": {
+  "fr": "150ml ginger beer",
+  "en": "150ml ginger beer"
+ },
+ "1t40zt2csqx": {
+  "fr": "ginger beer",
+  "en": "ginger beer"
+ },
+ "2016grdl9hy": {
+  "fr": "Ginger beer",
+  "en": "Ginger beer"
+ },
+ "1pdcr7zxwf5": {
+  "fr": "ml ginger beer",
+  "en": "ml ginger beer"
+ },
+ "jixwc57rzy": {
+  "fr": "Jus de 1/2 citron vert",
+  "en": "Juice of half a lime"
+ },
+ "ctnqgjzze7": {
+  "fr": "1 quartier de citron vert",
+  "en": "1 lime wedge"
+ },
+ "16yudpxjdmw": {
+  "fr": "quartier de citron vert",
+  "en": "lime wedge"
+ },
+ "719fq2m254": {
+  "fr": "Quartier de citron vert",
+  "en": "Lime Quarter"
+ },
+ "1bqgrh01uqt": {
+  "fr": "Remplir un grand verre de glaçons et les arroser du jus de citron vert.",
+  "en": "Fill a large glass with ice cubes and pour lime juice over them."
+ },
+ "tu1dx9my9v": {
+  "fr": "Verser le rhum, compléter doucement de ginger beer et mélanger délicatement.",
+  "en": "Pour in the rum, slowly top up with ginger beer and stir gently."
+ },
+ "ud4ocyy9mh": {
+  "fr": "Décorer d’un quartier de citron vert.",
+  "en": "Garnish with a wedge of lime."
+ },
+ "13jlgk5ub7i": {
+  "fr": "Variante ti-punch",
+  "en": "Ti-punch variant"
+ },
+ "16fzqbp1x1x": {
+  "fr": "3g cassonade ou vergeoise",
+  "en": "3g brown sugar or vergeoise"
+ },
+ "7n3ccc81q6": {
+  "fr": "1 petit morceau de citron vert",
+  "en": "1 small piece of lime"
+ },
+ "gtx8cnjtd8": {
+  "fr": "petit morceau de citron vert",
+  "en": "a small piece of lime"
+ },
+ "12dqu5phvwa": {
+  "fr": "Petit morceau de citron vert",
+  "en": "A small slice of lime"
+ },
+ "81i1dzhcs1": {
+  "fr": "40ml rhum agricole blanc, vieux ou ambré",
+  "en": "40ml white, aged or amber agricultural rum"
+ },
+ "fatvpkeqnd": {
+  "fr": "rhum agricole blanc, vieux ou ambré",
+  "en": "white, aged or amber agricultural rum"
+ },
+ "1lzpj4uq09v": {
+  "fr": "Rhum agricole blanc, vieux ou ambré",
+  "en": "White, aged or amber agricultural rum"
+ },
+ "bmvig9sm8e": {
+  "fr": "ml rhum agricole blanc, vieux ou ambré",
+  "en": "ml of white, aged or amber agricultural rum"
+ },
+ "z61se5eflm": {
+  "fr": "Mettre le sucre dans le verre.",
+  "en": "Put the sugar into the glass."
+ },
+ "2fy0sgwt428": {
+  "fr": "Presser le morceau de citron vert au-dessus et l’ajouter dans le verre.",
+  "en": "Squeeze the lime wedge over the drink and add it to the glass."
+ },
+ "1ic9h5276de": {
+  "fr": "Verser le rhum et mélanger.",
+  "en": "Pour in the rum and stir."
+ },
+ "yxzbbf9vzr": {
+  "fr": "Variante caïpirinha",
+  "en": "Caipirinha variation"
+ },
+ "2aebepwt5jv": {
+  "fr": "40ml cachaça",
+  "en": "40ml cachaça"
+ },
+ "y9e757q2xs": {
+  "fr": "cachaça",
+  "en": "cachaça"
+ },
+ "13y48sbsnz": {
+  "fr": "Cachaça",
+  "en": "Cachaça"
+ },
+ "1wi4aq3ku0x": {
+  "fr": "ml cachaça",
+  "en": "ml of cachaça"
+ },
+ "6po48dabe7": {
+  "fr": "1/2 citron vert en quartiers",
+  "en": "½ lime, cut into wedges"
+ },
+ "xog8gbx0hn": {
+  "fr": "4 glaçons",
+  "en": "4 ice cubes"
+ },
+ "27qbsxhvumt": {
+  "fr": "1 tranche de citron vert",
+  "en": "1 slice of lime"
+ },
+ "1hau5a7rr6l": {
+  "fr": "tranche de citron vert",
+  "en": "slice of lime"
+ },
+ "1eodbod7vv6": {
+  "fr": "Écraser le citron vert et le sucre au pilon dans le verre pour en extraire le maximum de jus.",
+  "en": "Muddle the lime and sugar in the glass with a pestle to extract as much juice as possible."
+ },
+ "uwqtdtgx6c": {
+  "fr": "Ajouter les glaçons et la cachaça, mélanger et décorer d’une tranche de citron vert.",
+  "en": "Add the ice cubes and the cachaça, stir, and garnish with a slice of lime."
+ },
+ "2ffwe9fqjwt": {
+  "fr": "Variante pisco sour",
+  "en": "Pisco Sour variation"
+ },
+ "j4vrw5q3xm": {
+  "fr": "75ml pisco",
+  "en": "75ml pisco"
+ },
+ "1i12waofu65": {
+  "fr": "pisco",
+  "en": "pisco"
+ },
+ "2esiybmo99x": {
+  "fr": "Pisco",
+  "en": "Pisco"
+ },
+ "16riugo1742": {
+  "fr": "ml pisco",
+  "en": "ml pisco"
+ },
+ "15gllarq2c2": {
+  "fr": "25ml jus de citron vert",
+  "en": "25ml lime juice"
+ },
+ "2ah6vbosiql": {
+  "fr": "25ml sirop de sucre de canne",
+  "en": "25ml cane sugar syrup"
+ },
+ "znmme7zw20": {
+  "fr": "10ml blanc d’œuf très frais",
+  "en": "10ml very fresh egg white"
+ },
+ "65r192l068": {
+  "fr": "Secouer pisco, jus de citron vert, sirop et blanc d’œuf au shaker sans glace pendant 10 à 20s pour émulsionner.",
+  "en": "Shake the pisco, lime juice, syrup and egg white in a shaker without ice for 10 to 20 seconds to emulsify."
+ },
+ "elf6aoxcv6": {
+  "fr": "Ajouter la glace et secouer à nouveau jusqu’à ce que le shaker soit froid.",
+  "en": "Add the ice and shake again until the shaker is cold."
+ },
+ "18c8wmkwm9f": {
+  "fr": "Filtrer dans une coupe refroidie et déposer 1 ou 2 gouttes d’amer sur la mousse.",
+  "en": "Strain into a chilled glass and add 1 or 2 drops of bitter to the foam."
+ },
+ "m2gihdbyfm": {
+  "fr": "Variante margarita",
+  "en": "Margarita variation"
+ },
+ "28tc6a3biku": {
+  "fr": "35ml tequila",
+  "en": "35ml tequila"
+ },
+ "1khf2s49fve": {
+  "fr": "tequila",
+  "en": "tequila"
+ },
+ "wlje01tk3q": {
+  "fr": "Tequila",
+  "en": "Tequila"
+ },
+ "vl0bnzg5ro": {
+  "fr": "ml tequila",
+  "en": "ml tequila"
+ },
+ "gv67jm3f3i": {
+  "fr": "1 trait de sirop de sucre de canne",
+  "en": "1 dash of cane sugar syrup"
+ },
+ "vu8ydodf9g": {
+  "fr": "trait de sirop de sucre de canne",
+  "en": "a dash of cane sugar syrup"
+ },
+ "jzotlh9l9y": {
+  "fr": "2 à 4 glaçons",
+  "en": "2 to 4 ice cubes"
+ },
+ "1lgt9athhvt": {
+  "fr": "Secouer vigoureusement tequila, triple sec, jus de citron vert et sirop avec les glaçons pendant 10s.",
+  "en": "Shake the tequila, triple sec, lime juice and syrup vigorously with the ice cubes for 10 seconds."
+ },
+ "2f0jmh3qlo8": {
+  "fr": "Frotter le bord d’un verre avec le quartier de citron vert et le tremper dans le sel.",
+  "en": "Rub the rim of a glass with the lime wedge and dip it in the salt."
+ },
+ "2dhply8x60z": {
+  "fr": "Verser le cocktail dans le verre et ajouter une tranche de citron vert.",
+  "en": "Pour the cocktail into the glass and add a slice of lime."
+ },
+ "1n102ltevin": {
+  "fr": "Variante cognac sour",
+  "en": "Cognac Sour variation"
+ },
+ "8pqftc77v7": {
+  "fr": "50ml cognac VSOP",
+  "en": "50ml VSOP cognac"
+ },
+ "1rxhq9ehwhe": {
+  "fr": "cognac VSOP",
+  "en": "VSOP cognac"
+ },
+ "1pdd6312ee0": {
+  "fr": "Cognac VSOP",
+  "en": "VSOP Cognac"
+ },
+ "1i0n51q181b": {
+  "fr": "ml cognac VSOP",
+  "en": "ml VSOP cognac"
+ },
+ "62b320jlor": {
+  "fr": "1 grain de raisin",
+  "en": "1 grape"
+ },
+ "ptmkf28k6s": {
+  "fr": "grain de raisin",
+  "en": "grape"
+ },
+ "1zy5i9v1u3s": {
+  "fr": "Grain de raisin",
+  "en": "Grape"
+ },
+ "wkackvz87e": {
+  "fr": "Remplir un verre de glace pilée.",
+  "en": "Fill a glass with crushed ice."
+ },
+ "mrhglplmsk": {
+  "fr": "Mélanger cognac, jus de citron et sirop, puis verser sur la glace.",
+  "en": "Mix the cognac, lemon juice and syrup, then pour over the ice."
+ },
+ "10cj14rbza5": {
+  "fr": "Décorer d’un zeste de citron et d’un grain de raisin.",
+  "en": "Garnish with a strip of lemon zest and a grape."
+ },
+ "1wnb4d0ltw5": {
+  "fr": "Variante cognac, orange et miel (2 verres)",
+  "en": "Cognac, orange and honey flavour (2 glasses)"
+ },
+ "7thq27up1l": {
+  "fr": "10g marmelade d’oranges amères",
+  "en": "10g bitter orange marmalade"
+ },
+ "14n545aag69": {
+  "fr": "marmelade d’oranges amères",
+  "en": "bitter orange marmalade"
+ },
+ "2fudoejrwj7": {
+  "fr": "Marmelade d’oranges amères",
+  "en": "Bitter orange marmalade"
+ },
+ "1njc71847je": {
+  "fr": "g marmelade d’oranges amères",
+  "en": "g bitter orange marmalade"
+ },
+ "wxim7e48e2": {
+  "fr": "6 graines de fenouil légèrement écrasées",
+  "en": "6 fennel seeds, lightly crushed"
+ },
+ "1tu982p1ivo": {
+  "fr": "graines de fenouil légèrement écrasées",
+  "en": "lightly crushed fennel seeds"
+ },
+ "254l0a5rglt": {
+  "fr": "Graines de fenouil légèrement écrasées",
+  "en": "Lightly crushed fennel seeds"
+ },
+ "1rwt5bt6xu4": {
+  "fr": "5g miel d’acacia",
+  "en": "5g acacia honey"
+ },
+ "1n7zddrp8k8": {
+  "fr": "miel d’acacia",
+  "en": "acacia honey"
+ },
+ "qjnr8hpmyr": {
+  "fr": "Miel d’acacia",
+  "en": "Acacia honey"
+ },
+ "22f1g7vgvi": {
+  "fr": "g miel d’acacia",
+  "en": "g acacia honey"
+ },
+ "27m011yag03": {
+  "fr": "Secouer marmelade, fenouil, miel, jus de citron et cognac au shaker rempli de glace.",
+  "en": "Shake the marmalade, fennel, honey, lemon juice and cognac in a shaker filled with ice."
+ },
+ "z7p0auzrnr": {
+  "fr": "Filtrer dans des verres remplis de glaçons et décorer d’un zeste d’orange.",
+  "en": "Strain into glasses filled with ice cubes and garnish with a twist of orange."
+ },
+ "f0jqh1dtu6": {
+  "fr": "Variante horse’s neck",
+  "en": "Horse’s neck variation"
+ },
+ "16ar744n16u": {
+  "fr": "40ml cognac VSOP",
+  "en": "40ml VSOP cognac"
+ },
+ "1l1pm2discm": {
+  "fr": "3 à 4 gouttes d’amer Angostura",
+  "en": "3 to 4 drops of Angostura bitters"
+ },
+ "eyar7plbyt": {
+  "fr": "140ml ginger ale",
+  "en": "140ml ginger ale"
+ },
+ "1tkczvyku7": {
+  "fr": "ginger ale",
+  "en": "ginger ale"
+ },
+ "1x43im7ogb3": {
+  "fr": "Ginger ale",
+  "en": "Ginger ale"
+ },
+ "fktlfq1n6t": {
+  "fr": "ml ginger ale",
+  "en": "ml ginger ale"
+ },
+ "2gm8qmnoexu": {
+  "fr": "4 à 5 glaçons",
+  "en": "4 to 5 ice cubes"
+ },
+ "18nazg8c8u0": {
+  "fr": "1 long zeste de citron",
+  "en": "1 long strip of lemon zest"
+ },
+ "2cikdzswlgf": {
+  "fr": "long zeste de citron",
+  "en": "a long strip of lemon zest"
+ },
+ "1r9dwto1q9i": {
+  "fr": "Long zeste de citron",
+  "en": "A long strip of lemon zest"
+ },
+ "9nx90dlqmo": {
+  "fr": "Prélever un long zeste de citron et le placer dans le verre avec les glaçons.",
+  "en": "Cut a long strip of lemon zest and place it in the glass with the ice cubes."
+ },
+ "zhbly1yu31": {
+  "fr": "Ajouter le cognac, l’amer et le ginger ale, puis remuer doucement.",
+  "en": "Add the cognac, the bitter and the ginger ale, then stir gently."
+ },
+ "l05q8wvm82": {
+  "fr": "Variante cognac tonic au cassis",
+  "en": "Cognac and tonic with blackcurrant variation"
+ },
+ "296ttp30jcs": {
+  "fr": "1 trait de crème de cassis",
+  "en": "1 dash of blackcurrant liqueur"
+ },
+ "lfbga28zv7": {
+  "fr": "crème de cassis",
+  "en": "blackcurrant liqueur"
+ },
+ "1661g4b1pq3": {
+  "fr": "Crème de cassis",
+  "en": "Blackcurrant liqueur"
+ },
+ "wozdj9gvrq": {
+  "fr": "trait de crème de cassis",
+  "en": "a dash of blackcurrant liqueur"
+ },
+ "1ad608setua": {
+  "fr": "20ml cognac VS",
+  "en": "20ml VS cognac"
+ },
+ "1px9ooj43l": {
+  "fr": "cognac VS",
+  "en": "VS cognac"
+ },
+ "1nxdl6bs6bm": {
+  "fr": "Cognac VS",
+  "en": "VS Cognac"
+ },
+ "1p41dnaixrx": {
+  "fr": "ml cognac VS",
+  "en": "ml VS cognac"
+ },
+ "97vg68bvhq": {
+  "fr": "50ml tonic",
+  "en": "50ml tonic"
+ },
+ "blwo46laiy": {
+  "fr": "tonic",
+  "en": "tonic"
+ },
+ "2twudvsagm": {
+  "fr": "Tonic",
+  "en": "Tonic"
+ },
+ "1ktrjhgca60": {
+  "fr": "ml tonic",
+  "en": "ml tonic"
+ },
+ "unbpczl880": {
+  "fr": "Mettre quelques glaçons dans un verre et y verser la crème de cassis.",
+  "en": "Put a few ice cubes in a glass and pour in the crème de cassis."
+ },
+ "11x3puipawg": {
+  "fr": "Ajouter le cognac, compléter avec le tonic et mélanger doucement.",
+  "en": "Add the cognac, top up with tonic water and stir gently."
+ },
+ "1qm9yi1267a": {
+  "fr": "Variante mojito classique",
+  "en": "Classic mojito variation"
+ },
+ "2enegkr43pl": {
+  "fr": "Mettre le sucre, le jus de citron vert, la menthe dans le verre.",
+  "en": "Put the sugar, lime juice and mint into the glass."
+ },
+ "2aicfymuy2n": {
+  "fr": "Compléter d’eau gazeuse bien froide, mélanger délicatement de bas en haut et servir aussitôt.",
+  "en": "Top up with ice-cold sparkling water, stir gently from the bottom upwards and serve immediately."
+ },
+ "1yxhzfk8qpc": {
+  "fr": "Variante mojito framboise",
+  "en": "Raspberry mojito variation"
+ },
+ "1i0t5wpaheu": {
+  "fr": "Mettre le sucre, le jus de citron vert, la menthe et les framboises dans le verre.",
+  "en": "Put the sugar, lime juice, mint and raspberries into the glass."
+ },
+ "29opbqelrgs": {
+  "fr": "Variante mojito mangue",
+  "en": "Mango mojito variation"
+ },
+ "dt8m1qg3bb": {
+  "fr": "Mettre le sucre, le jus de citron vert, la menthe et la mangue dans le verre.",
+  "en": "Put the sugar, lime juice, mint and mango into the glass."
+ },
+ "1nj6ekwyfzr": {
+  "fr": "Variante mojito concombre",
+  "en": "Cucumber mojito variation"
+ },
+ "88ttmt6jgt": {
+  "fr": "Mettre le sucre, le jus de citron vert, la menthe et le concombre dans le verre.",
+  "en": "Put the sugar, lime juice, mint and cucumber into the glass."
+ },
+ "u8smkqht68": {
+  "fr": "Variante mojito fruit de la passion",
+  "en": "Passion fruit mojito variation"
+ },
+ "qe5ciuwgv7": {
+  "fr": "Mettre le sucre, le jus de citron vert, la menthe et la pulpe de fruit de la passion dans le verre.",
+  "en": "Put the sugar, lime juice, mint and passion fruit pulp into the glass."
+ },
+ "1r0g4n1r8bb": {
+  "fr": "Variante mojito rhum ambré",
+  "en": "Amber rum mojito variation"
+ },
+ "1whbxy4cyqf": {
+  "fr": "Variante mojito en carafe (5 à 6 verres)",
+  "en": "Mojito served in a jug (5 to 6 glasses)"
+ },
+ "2idqx7g0oq": {
+  "fr": "100ml rhum blanc",
+  "en": "100ml white rum"
+ },
+ "5n4nudsszo": {
+  "fr": "40ml jus de citron vert (1 citron vert)",
+  "en": "40ml lime juice (1 lime)"
+ },
+ "q0wlkswaoc": {
+  "fr": "20 feuilles de menthe ciselées, plus quelques feuilles entières",
+  "en": "20 finely chopped mint leaves, plus a few whole leaves"
+ },
+ "1cwmlc5a5w8": {
+  "fr": "menthe ciselées, plus quelques feuilles entières",
+  "en": "finely chopped mint, plus a few whole leaves"
+ },
+ "1duys80bvj7": {
+  "fr": "Menthe ciselées, plus quelques feuilles entières",
+  "en": "Finely chopped mint, plus a few whole leaves"
+ },
+ "1hsvry12oap": {
+  "fr": "feuilles de menthe ciselées, plus quelques feuilles entières",
+  "en": "finely chopped mint leaves, plus a few whole leaves"
+ },
+ "1tc7b49np0b": {
+  "fr": "Eau gazeuse bien fraîche",
+  "en": "Ice-cold sparkling water"
+ },
+ "ioode82ja8": {
+  "fr": "Quelques gouttes d’amer Angostura (facultatif)",
+  "en": "A few drops of Angostura bitters (optional)"
+ },
+ "wfxofq95v6": {
+  "fr": "Quelques gouttes d’amer Angostura",
+  "en": "A few drops of Angostura bitters"
+ },
+ "17kuf5wi7hu": {
+  "fr": "Glaçons ou glace pilée",
+  "en": "Ice cubes or crushed ice"
+ },
+ "sebw3bhghy": {
+  "fr": "Mélanger dans une carafe la menthe ciselée, le jus de citron vert, le sirop et le rhum.",
+  "en": "Mix the finely chopped mint, lime juice, syrup and rum in a jug."
+ },
+ "ra31h6ivb7": {
+  "fr": "Laisser macérer au moins 30min au réfrigérateur.",
+  "en": "Leave to marinate for at least 30 minutes in the fridge."
+ },
+ "zwsvu6f7rd": {
+  "fr": "Remplir les verres de glace, verser la préparation jusqu’à la moitié ou au tiers du verre selon le goût.",
+  "en": "Fill the glasses with ice, then pour in the mixture until the glass is half or a third full, depending on your preference."
+ },
+ "hsg0s1h1v5": {
+  "fr": "Compléter d’eau gazeuse, ajouter quelques gouttes d’amer et des feuilles de menthe entières, puis servir bien frais.",
+  "en": "Top up with sparkling water, add a few drops of bitters and some whole mint leaves, then serve well chilled."
+ },
+ "1madd8ryzro": {
+  "fr": "Variante pineaujito",
+  "en": "Pineaujito variant"
+ },
+ "1usqjdose8d": {
+  "fr": "1/2 citron vert",
+  "en": "1/2 lime"
+ },
+ "1wugwj7f2h0": {
+  "fr": "12 à 15 feuilles de menthe",
+  "en": "12 to 15 mint leaves"
+ },
+ "9tu4byo2ow": {
+  "fr": "80ml pineau des Charentes",
+  "en": "80ml Pineau des Charentes"
+ },
+ "p4zp8rth7l": {
+  "fr": "pineau des Charentes",
+  "en": "Pineau des Charentes"
+ },
+ "fueuioq4cf": {
+  "fr": "Pineau des Charentes",
+  "en": "Pineau des Charentes"
+ },
+ "x145od1oub": {
+  "fr": "ml pineau des Charentes",
+  "en": "ml Pineau des Charentes"
+ },
+ "i42gklgwhp": {
+  "fr": "40 à 60ml eau gazeuse bien fraîche",
+  "en": "40 to 60 ml of well-chilled sparkling water"
+ },
+ "lmf4bsg3tj": {
+  "fr": "eau gazeuse bien fraîche",
+  "en": "ice-cold sparkling water"
+ },
+ "26js68f4hci": {
+  "fr": "ml eau gazeuse bien fraîche",
+  "en": "ml of ice-cold sparkling water"
+ },
+ "5na4gyx5ld": {
+  "fr": "Couper le demi-citron vert en morceaux dans un grand verre, ajouter la menthe et écraser très légèrement au pilon.",
+  "en": "Cut the half lime into pieces in a large glass, add the mint and crush very lightly with a pestle."
+ },
+ "1nby1b7qg60": {
+  "fr": "Verser le pineau, remplir de glace pilée, compléter d’eau gazeuse et mélanger délicatement.",
+  "en": "Pour in the Pineau, fill with crushed ice, top up with sparkling water and stir gently."
+ },
+ "opkp1753dx": {
+  "fr": "Servir aussitôt, sans ajouter de sucre.",
+  "en": "Serve straight away, without adding any sugar."
+ },
+ "21r1g84p852": {
+  "fr": "Variante sunflower",
+  "en": "Sunflower variant"
+ },
+ "1vgbylu4y5a": {
+  "fr": "60ml floc de Gascogne blanc",
+  "en": "60ml white Floc de Gascogne"
+ },
+ "15tteky2wp3": {
+  "fr": "floc de Gascogne blanc",
+  "en": "white Floc de Gascogne"
+ },
+ "g3yzwqlwi6": {
+  "fr": "Floc de Gascogne blanc",
+  "en": "White Floc de Gascogne"
+ },
+ "2du1v8fa2zq": {
+  "fr": "ml floc de Gascogne blanc",
+  "en": "ml white Gascogne floc"
+ },
+ "2eg79zzhyoh": {
+  "fr": "20ml jus d’ananas",
+  "en": "20ml pineapple juice"
+ },
+ "fr2qi98leu": {
+  "fr": "10ml sirop d’orgeat",
+  "en": "10ml orgeat syrup"
+ },
+ "vaidf88cbc": {
+  "fr": "sirop d’orgeat",
+  "en": "orgeat syrup"
+ },
+ "kruqtax8hb": {
+  "fr": "Sirop d’orgeat",
+  "en": "Orgeat syrup"
+ },
+ "w89amexayb": {
+  "fr": "ml sirop d’orgeat",
+  "en": "ml orgeat syrup"
+ },
+ "ops7xa3nrl": {
+  "fr": "Jus de 1/4 de citron vert",
+  "en": "Juice of 1/4 a lime"
+ },
+ "11y6osred12": {
+  "fr": "Secouer floc, jus d’ananas, orgeat et jus de citron vert au shaker avec de la glace, ou mélanger directement dans le verre.",
+  "en": "Shake the Floc, pineapple juice, orgeat and lime juice in a shaker with ice, or mix directly in the glass."
+ },
+ "cfa3ntpaqy": {
+  "fr": "Servir avec une tranche de citron vert.",
+  "en": "Serve with a slice of lime."
+ },
+ "22u4m8vzlem": {
+  "fr": "Variante lillet tonic aux framboises",
+  "en": "Lillet and tonic with raspberries variation"
+ },
+ "1yfowh9cca0": {
+  "fr": "50ml Lillet blanc",
+  "en": "50ml Lillet Blanc"
+ },
+ "1jgpd4o52b2": {
+  "fr": "Lillet blanc",
+  "en": "White Lillet"
+ },
+ "1njoqwf9nni": {
+  "fr": "ml Lillet blanc",
+  "en": "ml Lillet Blanc"
+ },
+ "hjken3zr96": {
+  "fr": "100ml tonic",
+  "en": "100ml tonic water"
+ },
+ "22auczjnx2l": {
+  "fr": "3 framboises",
+  "en": "3 raspberries"
+ },
+ "1ifeymfhy6": {
+  "fr": "5 à 6 glaçons",
+  "en": "5 to 6 ice cubes"
+ },
+ "1aom8t1nkty": {
+  "fr": "1 petit brin de menthe",
+  "en": "1 small sprig of mint"
+ },
+ "ofco2w7rtr": {
+  "fr": "petit brin de menthe",
+  "en": "a small sprig of mint"
+ },
+ "2ad64inbgy5": {
+  "fr": "Petit brin de menthe",
+  "en": "A small sprig of mint"
+ },
+ "gaxtyndwu4": {
+  "fr": "Mettre les glaçons, les framboises et la menthe dans un grand verre.",
+  "en": "Put the ice cubes, raspberries and mint into a large glass."
+ },
+ "1kbu4ok4ydm": {
+  "fr": "Verser le Lillet puis le tonic.",
+  "en": "Pour in the Lillet, followed by the tonic."
+ },
+ "drnzg7sgj5": {
+  "fr": "Variante sauternes pétillant",
+  "en": "Sparkling Sauternes variant"
+ },
+ "276comqgidz": {
+  "fr": "125ml sauternes",
+  "en": "125ml Sauternes"
+ },
+ "2cw53x275th": {
+  "fr": "sauternes",
+  "en": "Sauternes"
+ },
+ "23fndmgkmnn": {
+  "fr": "Sauternes",
+  "en": "Sauternes"
+ },
+ "1bl97ajls0a": {
+  "fr": "ml sauternes",
+  "en": "ml Sauternes"
+ },
+ "lz9liq9r3q": {
+  "fr": "125ml eau gazeuse",
+  "en": "125ml sparkling water"
+ },
+ "1kmy6n4en9o": {
+  "fr": "Verser le sauternes bien frais dans un verre à vin.",
+  "en": "Pour the well-chilled Sauternes into a wine glass."
+ },
+ "2dg5q3kj8il": {
+  "fr": "Compléter avec la même quantité d’eau gazeuse froide et ajouter la tranche de citron vert.",
+  "en": "Top up with the same amount of cold sparkling water and add the slice of lime."
+ },
+ "2alw9vq5z53": {
+  "fr": "Variante spritz",
+  "en": "Spritz variant"
+ },
+ "1nm0oez9pr8": {
+  "fr": "50ml Aperol",
+  "en": "50ml Aperol"
+ },
+ "1nbq8by1xtx": {
+  "fr": "Aperol",
+  "en": "Aperol"
+ },
+ "1j6perlzph1": {
+  "fr": "ml Aperol",
+  "en": "ml Aperol"
+ },
+ "14g96imh2cm": {
+  "fr": "75ml prosecco sec",
+  "en": "75ml dry Prosecco"
+ },
+ "26pmaoc5kno": {
+  "fr": "prosecco sec",
+  "en": "dry Prosecco"
+ },
+ "kr8wrbz10a": {
+  "fr": "Prosecco sec",
+  "en": "Dry Prosecco"
+ },
+ "1ti023r5l1a": {
+  "fr": "ml prosecco sec",
+  "en": "ml dry Prosecco"
+ },
+ "wm54kc3fux": {
+  "fr": "50ml eau pétillante",
+  "en": "50ml sparkling water"
+ },
+ "3x11emndkf": {
+  "fr": "3 glaçons",
+  "en": "3 ice cubes"
+ },
+ "94vb3gae13": {
+  "fr": "1 tranche d’orange",
+  "en": "1 slice of orange"
+ },
+ "1p9shn6o2c5": {
+  "fr": "tranche d’orange",
+  "en": "slice of orange"
+ },
+ "oikshddfll": {
+  "fr": "Mettre les glaçons dans un grand verre, verser l’Aperol puis le prosecco bien frais.",
+  "en": "Put the ice cubes into a large glass, pour in the Aperol, then the well-chilled prosecco."
+ },
+ "8hh9l6k87k": {
+  "fr": "Compléter d’eau gazeuse et glisser une tranche d’orange.",
+  "en": "Top up with sparkling water and add a slice of orange."
+ },
+ "1m8hkgksnr9": {
+  "fr": "Variante spritz au campari (6 verres)",
+  "en": "Campari spritz variation (6 glasses)"
+ },
+ "1g5fjq4ntyy": {
+  "fr": "250ml Campari",
+  "en": "250ml Campari"
+ },
+ "1z0s3d0e2m9": {
+  "fr": "500ml prosecco très froid",
+  "en": "500ml very chilled Prosecco"
+ },
+ "2dv9colx9tx": {
+  "fr": "prosecco très froid",
+  "en": "very chilled Prosecco"
+ },
+ "1i5928r1yfp": {
+  "fr": "Prosecco très froid",
+  "en": "Very chilled Prosecco"
+ },
+ "j4lxaac12h": {
+  "fr": "ml prosecco très froid",
+  "en": "ml of very chilled Prosecco"
+ },
+ "2235nm93t1y": {
+  "fr": "6 rondelles d’orange sanguine",
+  "en": "6 blood orange slices"
+ },
+ "1elq00um5pw": {
+  "fr": "rondelles d’orange sanguine",
+  "en": "blood orange slices"
+ },
+ "15n9dibrcg4": {
+  "fr": "Rondelles d’orange sanguine",
+  "en": "Blood orange slices"
+ },
+ "1m4tdiptwnv": {
+  "fr": "6 olives vertes (facultatif)",
+  "en": "6 green olives (optional)"
+ },
+ "y5nkoffc2v": {
+  "fr": "olives vertes",
+  "en": "green olives"
+ },
+ "kmx0qfjqal": {
+  "fr": "Olives vertes",
+  "en": "Green olives"
+ },
+ "1jx1qsxapg7": {
+  "fr": "Remplir de grands verres de 5 à 6 glaçons.",
+  "en": "Fill large glasses with 5 to 6 ice cubes."
+ },
+ "11dlb5mocdj": {
+  "fr": "Verser 40ml de Campari par verre, puis compléter avec 80ml de prosecco.",
+  "en": "Pour 40ml of Campari into each glass, then top up with 80ml of prosecco."
+ },
+ "21p7877picb": {
+  "fr": "Glisser une rondelle d’orange, et une olive verte si on le souhaite.",
+  "en": "Add a slice of orange, and a green olive if you like."
+ },
+ "89yoqz12e4": {
+  "fr": "Variante bellini (4 à 6 verres)",
+  "en": "Bellini variation (serves 4 to 6)"
+ },
+ "g5ea4pyoyi": {
+  "fr": "4 pêches blanches",
+  "en": "4 white peaches"
+ },
+ "13c310ii9fl": {
+  "fr": "pêches blanches",
+  "en": "white peaches"
+ },
+ "8tg8asm2c4": {
+  "fr": "Pêches blanches",
+  "en": "White peaches"
+ },
+ "jhdr5q4363": {
+  "fr": "1 bouteille de prosecco sec bien frais (750ml)",
+  "en": "1 bottle of well-chilled dry Prosecco (750ml)"
+ },
+ "sucio99twy": {
+  "fr": "bouteille de prosecco sec bien frais",
+  "en": "a bottle of well-chilled dry Prosecco"
+ },
+ "ddrtvryj4f": {
+  "fr": "Bouteille de prosecco sec bien frais",
+  "en": "A bottle of well-chilled dry prosecco"
+ },
+ "o1o13rpszf": {
+  "fr": "Éplucher et dénoyauter les pêches, puis les mixer en purée lisse.",
+  "en": "Peel and stone the peaches, then blend them until smooth."
+ },
+ "syw90s1d4d": {
+  "fr": "Mettre environ 50g de purée dans chaque verre, soit un tiers du verre.",
+  "en": "Put about 50g of purée into each glass, filling it to a third of its capacity."
+ },
+ "t63g2fa278": {
+  "fr": "Compléter avec le prosecco.",
+  "en": "Top up with prosecco."
+ },
+ "25gjikyfxo2": {
+  "fr": "Variante mimosa (8 flûtes)",
+  "en": "Mimosa version (8 flutes)"
+ },
+ "1e7yrx206mc": {
+  "fr": "750ml crémant brut, champagne brut, cava ou prosecco",
+  "en": "750ml of brut crémant, brut champagne, cava or prosecco"
+ },
+ "8h1h8d0yk0": {
+  "fr": "crémant brut, champagne brut, cava ou prosecco",
+  "en": "brut crémant, brut champagne, cava or prosecco"
+ },
+ "1flny13q4gx": {
+  "fr": "Crémant brut, champagne brut, cava ou prosecco",
+  "en": "Brut crémant, brut champagne, cava or prosecco"
+ },
+ "2frlfazrjlq": {
+  "fr": "ml crémant brut, champagne brut, cava ou prosecco",
+  "en": "ml of brut crémant, brut champagne, cava or prosecco"
+ },
+ "rfjhgv44v0": {
+  "fr": "750ml jus d’orange fraîchement pressé (6 à 8 oranges)",
+  "en": "750ml freshly squeezed orange juice (6 to 8 oranges)"
+ },
+ "7vnmdxh9w8": {
+  "fr": "jus d’orange fraîchement pressé",
+  "en": "freshly squeezed orange juice"
+ },
+ "mt7fmxamv7": {
+  "fr": "Jus d’orange fraîchement pressé",
+  "en": "Freshly squeezed orange juice"
+ },
+ "1gvxse52p2s": {
+  "fr": "ml jus d’orange fraîchement pressé",
+  "en": "ml freshly squeezed orange juice"
+ },
+ "1gakz6ev5iq": {
+  "fr": "Remplir les flûtes à moitié de crémant.",
+  "en": "Fill the flutes halfway with crémant."
+ },
+ "h6o5fqgdrm": {
+  "fr": "Compléter avec le jus d’orange.",
+  "en": "Top up with orange juice."
+ },
+ "12e9w6r9rj7": {
+  "fr": "Variante sangria rouge (6 à 8 verres)",
+  "en": "Red sangria recipe (serves 6 to 8)"
+ },
+ "1glqkt0nc3f": {
+  "fr": "1l vin rouge fruité et peu tannique",
+  "en": "A fruity red wine with low tannin content"
+ },
+ "1plamn40k22": {
+  "fr": "vin rouge fruité et peu tannique",
+  "en": "a fruity red wine with low tannin content"
+ },
+ "19pyux1byj2": {
+  "fr": "Vin rouge fruité et peu tannique",
+  "en": "A fruity red wine with low tannin content"
+ },
+ "26788jd7vyl": {
+  "fr": "l vin rouge fruité et peu tannique",
+  "en": "a fruity red wine with low tannin content"
+ },
+ "27gz3hz9gls": {
+  "fr": "1 nectarine",
+  "en": "1 nectarine"
+ },
+ "pv0nf8pq8j": {
+  "fr": "nectarine",
+  "en": "nectarine"
+ },
+ "1y17z2k7vge": {
+  "fr": "15g cassonade ou vergeoise",
+  "en": "15g brown sugar or vergeoise"
+ },
+ "p59fmiybqr": {
+  "fr": "250ml jus d’orange",
+  "en": "250ml orange juice"
+ },
+ "7avtbmzr8m": {
+  "fr": "ml jus d’orange",
+  "en": "ml orange juice"
+ },
+ "9xzw6jg2ll": {
+  "fr": "75ml cognac",
+  "en": "75ml cognac"
+ },
+ "2boc0owko66": {
+  "fr": "1l soda à l’orange ou au citron",
+  "en": "1 litre of orange or lemon fizzy drink"
+ },
+ "2e2bh0t7lg3": {
+  "fr": "soda à l’orange ou au citron",
+  "en": "orange or lemon fizzy drink"
+ },
+ "m2d437ubds": {
+  "fr": "Soda à l’orange ou au citron",
+  "en": "Orange or lemon fizzy drink"
+ },
+ "17whr7rhtbp": {
+  "fr": "l soda à l’orange ou au citron",
+  "en": "orange or lemon fizzy drink"
+ },
+ "1fqi4j03qz5": {
+  "fr": "1 bouquet de menthe",
+  "en": "1 bunch of mint"
+ },
+ "25ugnh898qu": {
+  "fr": "bouquet de menthe",
+  "en": "bunch of mint"
+ },
+ "1j2n6q4mb8s": {
+  "fr": "Couper la pomme et la nectarine en dés et l’orange en demi-rondelles de 5mm.",
+  "en": "Dice the apple and the nectarine, and cut the orange into 5mm-thick half-slices."
+ },
+ "1rf8az6yljv": {
+  "fr": "Mettre les fruits dans une grande carafe avec le sucre et le jus d’orange, mélanger, puis ajouter la cannelle, le cognac et le vin.",
+  "en": "Place the fruit in a large jug with the sugar and orange juice, stir, then add the cinnamon, cognac and wine."
+ },
+ "1gc1yx31a5h": {
+  "fr": "Laisser reposer au moins 2h au frais, en retirant la cannelle après 30min à 1h si on l’aime discrète.",
+  "en": "Leave to chill for at least 2 hours, removing the cinnamon after 30 minutes to 1 hour if you prefer a subtler flavour."
+ },
+ "18ua49s36xr": {
+  "fr": "Servir sur glaçons avec des fruits, moitié vin parfumé, moitié soda, et décorer de menthe.",
+  "en": "Serve over ice with fruit, half flavoured wine and half fizzy drink, and garnish with mint."
+ },
+ "rs7lx7f6ch": {
+  "fr": "Variante sangria blanche au cidre (4 verres)",
+  "en": "White sangria with cider (serves 4)"
+ },
+ "6oqvbntlr": {
+  "fr": "500ml cidre brut bien frais",
+  "en": "500ml well-chilled dry cider"
+ },
+ "2353ppsc3mv": {
+  "fr": "cidre brut bien frais",
+  "en": "well-chilled dry cider"
+ },
+ "1b3djjg1gcc": {
+  "fr": "Cidre brut bien frais",
+  "en": "Well-chilled dry cider"
+ },
+ "23vez7yn74b": {
+  "fr": "ml cidre brut bien frais",
+  "en": "ml of well-chilled dry cider"
+ },
+ "1ss5mr30jed": {
+  "fr": "400ml limonade",
+  "en": "400ml lemonade"
+ },
+ "6pmt70px58": {
+  "fr": "1 pomme en dés (facultatif)",
+  "en": "1 apple, diced (optional)"
+ },
+ "1qv8s71dhr4": {
+  "fr": "pomme en dés",
+  "en": "diced apple"
+ },
+ "h2tz5sqde9": {
+  "fr": "Pomme en dés",
+  "en": "Diced apple"
+ },
+ "oe1qpyala9": {
+  "fr": "8 glaçons",
+  "en": "8 ice cubes"
+ },
+ "24s3v654ql4": {
+  "fr": "Verser le cidre dans un pichet, ajouter la limonade et le sucre et mélanger doucement pour le dissoudre.",
+  "en": "Pour the cider into a jug, add the lemonade and sugar, and stir gently to dissolve the sugar."
+ },
+ "c48ba3ebst": {
+  "fr": "Ajouter les fruits et les glaçons, puis servir aussitôt.",
+  "en": "Add the fruit and ice cubes, then serve straight away."
+ },
+ "237q278ptj8": {
+  "fr": "Variante tinto de verano (6 à 8 verres)",
+  "en": "A variation on tinto de verano (serves 6 to 8)"
+ },
+ "gfafhuqhgw": {
+  "fr": "750ml vin rouge espagnol léger",
+  "en": "750ml light Spanish red wine"
+ },
+ "bww7t6t6uf": {
+  "fr": "vin rouge espagnol léger",
+  "en": "light Spanish red wine"
+ },
+ "15abyzsnsxs": {
+  "fr": "Vin rouge espagnol léger",
+  "en": "Light Spanish red wine"
+ },
+ "17htbsnyyq6": {
+  "fr": "ml vin rouge espagnol léger",
+  "en": "ml of light Spanish red wine"
+ },
+ "1ha9s5cop3q": {
+  "fr": "750ml soda au citron",
+  "en": "750ml lemon fizzy drink"
+ },
+ "1pql87cq388": {
+  "fr": "soda au citron",
+  "en": "lemon fizzy drink"
+ },
+ "1xelbnocta7": {
+  "fr": "Soda au citron",
+  "en": "Lemon fizzy drink"
+ },
+ "upqaunkgqi": {
+  "fr": "ml soda au citron",
+  "en": "ml lemon fizzy drink"
+ },
+ "10v8eikfmvc": {
+  "fr": "Glaçons (facultatif)",
+  "en": "Ice cubes (optional)"
+ },
+ "257xufn0joy": {
+  "fr": "Verser le vin et le soda à parts égales dans une carafe.",
+  "en": "Pour equal parts wine and fizzy drink into a jug."
+ },
+ "29d2d586r3b": {
+  "fr": "Ajouter le citron lavé et coupé en fines rondelles.",
+  "en": "Add the lemon, washed and sliced into thin rounds."
+ },
+ "d45chshurw": {
+  "fr": "Réserver au moins 1h au frais et servir bien frais, avec des glaçons si on le souhaite.",
+  "en": "Set aside at least 1 hour for chilling and serve well chilled, with ice cubes if desired."
+ },
+ "1yhdu67d22k": {
+  "fr": "Variante grog",
+  "en": "Grog variant"
+ },
+ "fu7270rzqn": {
+  "fr": "200ml eau",
+  "en": "200ml water"
+ },
+ "4ar87w66k4": {
+  "fr": "Jus et zeste de 1/2 citron",
+  "en": "Juice and zest of half a lemon"
+ },
+ "18rmunjpd29": {
+  "fr": "1 bâton de cannelle, 1 pincée de gingembre ou 2 clous de girofle (une seule épice au choix)",
+  "en": "1 cinnamon stick, 1 pinch of ginger or 2 cloves (choose just one spice)"
+ },
+ "q5hgv5kd94": {
+  "fr": "cannelle, 1 pincée de gingembre ou 2 clous de girofle",
+  "en": "cinnamon, a pinch of ginger or 2 cloves"
+ },
+ "crblqah7cq": {
+  "fr": "Cannelle, 1 pincée de gingembre ou 2 clous de girofle",
+  "en": "Cinnamon, a pinch of ginger or 2 cloves"
+ },
+ "1aavbed80ee": {
+  "fr": "bâton de cannelle, 1 pincée de gingembre ou 2 clous de girofle",
+  "en": "a cinnamon stick, 1 pinch of ginger or 2 cloves"
+ },
+ "iienseg7c1": {
+  "fr": "Porter l’eau à ébullition.",
+  "en": "Bring the water to the boil."
+ },
+ "6b5qvv38at": {
+  "fr": "Ajouter le miel, le jus et le zeste de citron, l’épice choisie puis le rhum.",
+  "en": "Add the honey, the lemon juice and zest, your chosen spice, and then the rum."
+ },
+ "228bcn190vr": {
+  "fr": "Mélanger le temps que le miel fonde et servir bien chaud.",
+  "en": "Stir until the honey has melted, then serve piping hot."
+ },
+ "9tbowhqvbm": {
+  "fr": "Variante crème de whisky (1 litre)",
+  "en": "Whisky cream flavour (1 litre)"
+ },
+ "1n0gi8r2ll8": {
+  "fr": "235g crème liquide entière",
+  "en": "235g whipping cream"
+ },
+ "b6pzmnm4w5": {
+  "fr": "400g lait concentré sucré (1 boîte)",
+  "en": "400g sweetened condensed milk (1 tin)"
+ },
+ "1kkwrcajehl": {
+  "fr": "400ml whisky irlandais",
+  "en": "400ml Irish whisky"
+ },
+ "o9uxszppqa": {
+  "fr": "whisky irlandais",
+  "en": "Irish whisky"
+ },
+ "1xczq545z3y": {
+  "fr": "Whisky irlandais",
+  "en": "Irish whisky"
+ },
+ "13ijfodb1kq": {
+  "fr": "ml whisky irlandais",
+  "en": "ml Irish whisky"
+ },
+ "17fl3p5jh54": {
+  "fr": "45g sirop de chocolat",
+  "en": "45g chocolate syrup"
+ },
+ "1hestxpts73": {
+  "fr": "sirop de chocolat",
+  "en": "chocolate syrup"
+ },
+ "tkst98h0k7": {
+  "fr": "Sirop de chocolat",
+  "en": "Chocolate syrup"
+ },
+ "h4zosmtoc9": {
+  "fr": "g sirop de chocolat",
+  "en": "g chocolate syrup"
+ },
+ "1q820tzf3r7": {
+  "fr": "2g café soluble",
+  "en": "2g instant coffee"
+ },
+ "cu6k6z9xr6": {
+  "fr": "café soluble",
+  "en": "instant coffee"
+ },
+ "2cwxd1mvzil": {
+  "fr": "Café soluble",
+  "en": "Instant coffee"
+ },
+ "1g2dgnxlhj6": {
+  "fr": "g café soluble",
+  "en": "g of instant coffee"
+ },
+ "b496c5oi9n": {
+  "fr": "Mixer tous les ingrédients au blender.",
+  "en": "Blend all the ingredients in a blender."
+ },
+ "1ip54uvazbh": {
+  "fr": "Verser dans une bouteille en verre propre, fermer et conserver au réfrigérateur.",
+  "en": "Pour into a clean glass bottle, seal it and store in the fridge."
+ },
+ "1avr9m8glxw": {
+  "fr": "Secouer avant de servir.",
+  "en": "Shake before serving."
+ },
+ "1q4ij6z220d": {
+  "fr": "Variante rhum arrangé aux litchis (700ml)",
+  "en": "Lychee-flavoured rum (700ml)"
+ },
+ "jtu0n0ufbf": {
+  "fr": "75g cassonade ou vergeoise",
+  "en": "75g brown sugar or vergeoise"
+ },
+ "233bbdxfibu": {
+  "fr": "1 boîte de litchis au sirop",
+  "en": "1 tin of lychees in syrup"
+ },
+ "2dijgsek9ld": {
+  "fr": "litchis au sirop",
+  "en": "lychees in syrup"
+ },
+ "or4z3w16f5": {
+  "fr": "Litchis au sirop",
+  "en": "Lychees in syrup"
+ },
+ "21mn7gbs1gm": {
+  "fr": "boîte de litchis au sirop",
+  "en": "tin of lychees in syrup"
+ },
+ "20n5ndh6gyc": {
+  "fr": "700ml rhum blanc",
+  "en": "700ml white rum"
+ },
+ "ji7hzvrjb6": {
+  "fr": "Faire fondre doucement le sucre avec trois petites louches de sirop de litchis dans une sauteuse.",
+  "en": "Gently melt the sugar with three small ladles of lychee syrup in a sauté pan."
+ },
+ "1pouan4ebhv": {
+  "fr": "Ajouter 8 litchis et chauffer encore 2min à feu doux.",
+  "en": "Add 8 lychees and heat for a further 2 minutes over a low heat."
+ },
+ "bmrstnpzfl": {
+  "fr": "Couper le feu, verser le rhum, mélanger et laisser refroidir.",
+  "en": "Turn off the heat, pour in the rum, stir and leave to cool."
+ },
+ "1nenryar12": {
+  "fr": "Remplacer les litchis cuits par des litchis neufs, puis mettre en bouteille.",
+  "en": "Replace the cooked lychees with fresh ones, then bottle the mixture."
+ },
+ "23ujkdt7w33": {
+  "fr": "Choisir le cocktail.",
+  "en": "Choose a cocktail."
+ },
+ "mr3rw3rssl": {
+  "fr": "Préparer le matériel et refroidir les verres et les liquides avant de commencer.",
+  "en": "Prepare the equipment and chill the glasses and liquids before you start."
+ },
+ "2encamcp41i": {
+  "fr": "Suivre les étapes de la variante choisie et servir aussitôt.",
+  "en": "Follow the steps for the chosen variation and serve straight away."
+ },
+ "14r5ezyl1yj": {
+  "fr": "À consommer avec modération ; l’abus d’alcool est dangereux pour la santé.",
+  "en": "Enjoy in moderation; excessive alcohol consumption is harmful to your health."
+ },
+ "1ppfn2qofe7": {
+  "fr": "Glace : prévoir beaucoup de glaçons bien froids ; un shaker se secoue jusqu’à ce que sa paroi soit glacée.",
+  "en": "Ice: make sure you have plenty of very cold ice cubes; shake the cocktail shaker until the outside is frosted."
+ },
+ "g8kssoh1w1": {
+  "fr": "Jus d’agrumes : toujours fraîchement pressés et filtrés, c’est ce qui fait la fraîcheur du cocktail.",
+  "en": "Citrus juices: always freshly squeezed and strained – that’s what gives the cocktail its freshness."
+ },
+ "fqzeilhv30": {
+  "fr": "Sirop de sucre : chauffer sucre et eau à parts égales jusqu’à dissolution, puis refroidir.",
+  "en": "Sugar syrup: heat equal parts sugar and water until the sugar has dissolved, then leave to cool."
+ },
+ "23cr3ovnrd4": {
+  "fr": "Blanc d’œuf cru (pisco sour, gin fizz à la pomme) : utiliser des œufs extra-frais ; déconseillé aux femmes enceintes, aux jeunes enfants et aux personnes fragiles.",
+  "en": "Raw egg white (pisco sour, apple gin fizz): use extra-fresh eggs; not recommended for pregnant women, young children or people in poor health."
+ },
+ "a1212zov09": {
+  "fr": "Mojito : écraser doucement la menthe, elle doit parfumer sans devenir amère ; eau gazeuse très froide pour garder le cocktail vif.",
+  "en": "Mojito: gently muddle the mint – it should release its flavour without becoming bitter; use very cold sparkling water to keep the cocktail crisp."
+ },
+ "wbp9b99hdl": {
+  "fr": "Les recettes en pichet ou en bouteille indiquent leur rendement dans le nom de la variante.",
+  "en": "Recipes for jugs or bottles state their yield in the name of the variant."
+ },
+ "22hp9p76m38": {
+  "fr": "Cocktails : se préparent et se boivent minute ; les bulles et la glace ne se conservent pas.",
+  "en": "Cocktails: they are made and drunk straight away; the fizz and ice don’t keep."
+ },
+ "1p87r97aymd": {
+  "fr": "Sangrias et tinto de verano : préparer quelques heures à l’avance au réfrigérateur et ajouter soda et glaçons au moment de servir.",
+  "en": "Sangria and tinto de verano: prepare a few hours in advance in the fridge and add fizzy drink and ice cubes just before serving."
+ },
+ "2d2lepxx16v": {
+  "fr": "Crème de whisky : 2 mois au réfrigérateur en bouteille fermée ; secouer avant de servir.",
+  "en": "Whisky cream: keep in a sealed bottle in the fridge for 2 months; shake before serving."
+ },
+ "6ks0061nuq": {
+  "fr": "Rhum arrangé : se conserve longtemps à température ambiante, bouteille fermée, à l’abri de la lumière.",
+  "en": "Flavoured rum: will keep for a long time at room temperature, in a sealed bottle, away from light."
+ },
+ "1s910occym": {
+  "fr": "Ne pas utiliser de jus d’agrumes en bouteille : le cocktail perd sa fraîcheur.",
+  "en": "Do not use bottled citrus juice: it makes the cocktail lose its freshness."
+ },
+ "2bzegm0pwou": {
+  "fr": "Ne pas secouer un cocktail pétillant : ajouter l’eau gazeuse, le tonic ou le prosecco à la fin, sans écraser les bulles.",
+  "en": "Do not shake a sparkling cocktail: add the sparkling water, tonic or prosecco at the end, taking care not to crush the bubbles."
+ },
+ "klettf64go": {
+  "fr": "Ne pas écraser la menthe en confettis : la presser juste assez pour libérer son parfum.",
+  "en": "Don’t crush the mint into tiny pieces: just squeeze it gently enough to release its fragrance."
+ },
+ "epp1obj7v0": {
+  "fr": "Une carte de cocktails classiques, des sours aux spritz, des pichets aux digestifs.",
+  "en": "A menu of classic cocktails, from sours to spritzes, from jugs to digestifs."
+ },
+ "ki6txkrs8a": {
+  "fr": "Variante lait de poule (1 grand verre)",
+  "en": "Eggnog variation (1 large glass)"
+ },
+ "1sxkzc0xrmk": {
+  "fr": "150ml lait demi-écrémé",
+  "en": "150ml semi-skimmed milk"
+ },
+ "1azc976kk7": {
+  "fr": "ml lait demi-écrémé",
+  "en": "ml semi-skimmed milk"
+ },
+ "2oq3m0xo7p": {
+  "fr": "1 bonne pincée de quatre-épices",
+  "en": "1 generous pinch of all-spice"
+ },
+ "19pwa8xefem": {
+  "fr": "bonne pincée de quatre-épices",
+  "en": "a good pinch of all-spice"
+ },
+ "1b5hew59t4z": {
+  "fr": "Bonne pincée de quatre-épices",
+  "en": "A good pinch of all-spice"
+ },
+ "l2lcjvlq83": {
+  "fr": "15ml rhum, whisky ou cognac (facultatif, version avec alcool)",
+  "en": "15ml rum, whisky or cognac (optional, for the version containing alcohol)"
+ },
+ "raw7l1qudp": {
+  "fr": "rhum, whisky ou cognac",
+  "en": "rum, whisky or cognac"
+ },
+ "247bv8o5nx1": {
+  "fr": "Rhum, whisky ou cognac",
+  "en": "Rum, whisky or cognac"
+ },
+ "22d86fmitmn": {
+  "fr": "ml rhum, whisky ou cognac",
+  "en": "ml of rum, whisky or cognac"
+ },
+ "1iq0533wzp5": {
+  "fr": "Fouetter le jaune d’œuf et le sucre jusqu’à ce que le mélange blanchisse et mousse légèrement.",
+  "en": "Whisk the egg yolk and sugar until the mixture blanches and becomes slightly frothy."
+ },
+ "14d5uai9mcm": {
+  "fr": "Chauffer doucement le lait avec le quatre-épices, sans le faire bouillir.",
+  "en": "Gently heat the milk with the four-spice mix, taking care not to bring it to the boil."
+ },
+ "fhtta3o09o": {
+  "fr": "Verser le lait chaud sur le mélange en deux fois en fouettant sans arrêt.",
+  "en": "Pour the hot milk over the mixture in two stages, whisking continuously."
+ },
+ "9jsvqm0n7v": {
+  "fr": "Remettre dans la casserole et chauffer à la limite de l’ébullition sans cesser de remuer, comme une crème anglaise.",
+  "en": "Return to the saucepan and heat until just below the boil, stirring constantly, as you would for custard."
+ },
+ "1zoacdngps5": {
+  "fr": "Ajouter l’alcool si on le souhaite, verser bien chaud et saupoudrer d’une pincée de quatre-épices.",
+  "en": "Add the alcohol if desired, pour whilst still piping hot and sprinkle with a pinch of all-spice."
+ },
+ "2836qgbfvhx": {
+  "fr": "Variante kvas (5 litres)",
+  "en": "Kvas recipe (5 litres)"
+ },
+ "vy1zdn71hh": {
+  "fr": "5l eau",
+  "en": "5 litres of water"
+ },
+ "p8iiri5ydp": {
+  "fr": "l eau",
+  "en": "water"
+ },
+ "xtd4l8fkt7": {
+  "fr": "500g pain noir de seigle en dés",
+  "en": "500g black rye bread, diced"
+ },
+ "26vqttsmvip": {
+  "fr": "pain noir de seigle en dés",
+  "en": "diced black rye bread"
+ },
+ "6z4d76frk1": {
+  "fr": "Pain noir de seigle en dés",
+  "en": "Diced black rye bread"
+ },
+ "1wydxlvht83": {
+  "fr": "g pain noir de seigle en dés",
+  "en": "g diced black rye bread"
+ },
+ "1ryn79adv9p": {
+  "fr": "500g sucre",
+  "en": "500g sugar"
+ },
+ "1t4iwu5fo1c": {
+  "fr": "15g levure sèche de boulanger, ou 42g levure fraîche",
+  "en": "15g dried baker’s yeast, or 42g fresh yeast"
+ },
+ "q75jwfpvau": {
+  "fr": "levure sèche de boulanger, ou 42g levure fraîche",
+  "en": "dry baker’s yeast, or 42g fresh yeast"
+ },
+ "31gnghow7d": {
+  "fr": "Levure sèche de boulanger, ou 42g levure fraîche",
+  "en": "Dry baker’s yeast, or 42g fresh yeast"
+ },
+ "1z8d8ri8lf9": {
+  "fr": "g levure sèche de boulanger, ou 42g levure fraîche",
+  "en": "g dried baker’s yeast, or 42g fresh yeast"
+ },
+ "287umbte8h0": {
+  "fr": "1 poignée de raisins secs, ou de pommes séchées",
+  "en": "1 handful of raisins, or dried apples"
+ },
+ "1tp2pjqihri": {
+  "fr": "raisins secs, ou de pommes séchées",
+  "en": "raisins or dried apples"
+ },
+ "s5yogobhxe": {
+  "fr": "Raisins secs, ou de pommes séchées",
+  "en": "Raisins, or dried apples"
+ },
+ "85amnzldv0": {
+  "fr": "poignée de raisins secs, ou de pommes séchées",
+  "en": "a handful of raisins or dried apples"
+ },
+ "2g2p9ybb7e3": {
+  "fr": "Sécher le pain 20 à 30min au four à 180°C, puis le laisser refroidir.",
+  "en": "Dry the bread in the oven at 180°C for 20 to 30 minutes, then leave it to cool."
+ },
+ "1fei3y8ff25": {
+  "fr": "Verser l’eau bouillante sur le pain et laisser reposer 4 à 5h.",
+  "en": "Pour the boiling water over the bread and leave to stand for 4 to 5 hours."
+ },
+ "suen9ntg4j": {
+  "fr": "Ajouter les raisins secs, le sucre et la levure, mélanger et laisser fermenter 12 à 16h.",
+  "en": "Add the raisins, sugar and yeast, mix together and leave to prove for 12 to 16 hours."
+ },
+ "x6tj4y17oi": {
+  "fr": "Filtrer au chinois étamine, mettre en bouteilles et conserver au réfrigérateur.",
+  "en": "Strain through a fine-mesh sieve, bottle and store in the fridge."
+ },
+ "1xpasl0mcno": {
+  "fr": "Choisir la boisson.",
+  "en": "Choose a drink."
+ },
+ "1fiwq2vglzd": {
+  "fr": "Suivre les étapes de la variante choisie.",
+  "en": "Follow the steps for the option you have chosen."
+ },
+ "tba3i1hlg1": {
+  "fr": "Kvas : la fermentation produit quelques traces d’alcool ; préférer des bouteilles en plastique type limonade, qui supportent la pression des bulles.",
+  "en": "Kvass: fermentation produces a small amount of alcohol; it is best to use plastic bottles of the type used for lemonade, as these can withstand the pressure of the bubbles."
+ },
+ "2ewpuhyumwf": {
+  "fr": "Lait de poule : se boit aussitôt, bien chaud.",
+  "en": "Eggnog: drink it straight away, whilst it’s still piping hot."
+ },
+ "pj6g1mu6u7": {
+  "fr": "Kvas : 1 semaine au réfrigérateur en bouteilles fermées ; ouvrir doucement à cause de la pression.",
+  "en": "Kvas: Leave in the fridge for 1 week in sealed bottles; open carefully due to the pressure."
+ },
+ "48w3m5kzzo": {
+  "fr": "Ne pas verser du lait bouillant sur le jaune ni faire bouillir le lait de poule : il ferait des grumeaux.",
+  "en": "Do not pour boiling milk over the egg yolk or boil the eggnog: it will form lumps."
+ },
+ "1t6awhjs31c": {
+  "fr": "Ne pas laisser fermenter le kvas à température ambiante plus de 16h : il deviendrait aigre et plus alcoolisé.",
+  "en": "Do not leave the kvass to ferment at room temperature for more than 16 hours: it will become sour and more alcoholic."
+ },
+ "1o3uoqih7e9": {
+  "fr": "Gin et eaux-de-vie blanches",
+  "en": "Gin and white spirits"
+ },
+ "272m2pggpe0": {
+  "fr": "Gin, cachaça, pisco, tequila et bourbon : les alcools de base des cocktails.",
+  "en": "Gin, cachaça, pisco, tequila and bourbon: the basic spirits used in cocktails."
+ },
+ "e4pyvf0n54": {
+  "fr": "Genièvre (gin), canne (cachaça), raisin (pisco), agave (tequila), vanille boisée (bourbon).",
+  "en": "Juniper (gin), sugar cane (cachaça), grapes (pisco), agave (tequila), woody vanilla (bourbon)."
+ },
+ "4urd76bqau": {
+  "fr": "Angleterre, Brésil, Pérou, Mexique, États-Unis.",
+  "en": "England, Brazil, Peru, Mexico, the United States."
+ },
+ "1ed8cgtc8y0": {
+  "fr": "Une bouteille simple et franche suffit pour les cocktails.",
+  "en": "A simple, straightforward bottle is all you need for cocktails."
+ },
+ "17jrfi69uo7": {
+  "fr": "À température ambiante, debout, indéfiniment.",
+  "en": "At room temperature, in an upright position, indefinitely."
+ },
+ "gc8swkm49z": {
+  "fr": "Mesurer au doseur : l’équilibre d’un cocktail tient à quelques millilitres.",
+  "en": "Measuring with a jigger: the balance of a cocktail depends on just a few millilitres."
+ },
+ "21w6voye40j": {
+  "fr": "Citron vert, tonic, menthe, sucre de canne.",
+  "en": "Lime, tonic water, mint, cane sugar."
+ },
+ "1illiilpdp0": {
+  "fr": "Vermouth et bitters",
+  "en": "Vermouth and bitters"
+ },
+ "lr74dc4fme": {
+  "fr": "Vermouth, Campari, Aperol, pineau et sauternes : les vins aromatisés, apéritifs amers et vins doux des cocktails.",
+  "en": "Vermouth, Campari, Aperol, Pineau and Sauternes: flavoured wines, bitter aperitifs and sweet wines used in cocktails."
+ },
+ "sqfmfx1o7x": {
+  "fr": "Herbacée et douce (vermouth), amère et orangée (Campari, Aperol), miellée (pineau, sauternes).",
+  "en": "Herbal and sweet (vermouth), bitter with a hint of orange (Campari, Aperol), honeyed (Pineau, Sauternes)."
+ },
+ "1km1fdtcana": {
+  "fr": "Italie, Charentes, Bordelais.",
+  "en": "Italy, Charentes, Bordeaux."
+ },
+ "15bes437x2a": {
+  "fr": "Vermouth rouge italien pour le negroni et le manhattan.",
+  "en": "Italian red vermouth for Negronis and Manhattans."
+ },
+ "22ffr2swor": {
+  "fr": "Vermouth ouvert : au réfrigérateur, 1 mois.",
+  "en": "Once opened, vermouth should be kept in the fridge for 1 month."
+ },
+ "1kn3pgeptke": {
+  "fr": "Un vermouth oublié dans le placard s’oxyde : le garder au frais.",
+  "en": "Vermouth left in the store cupboard goes off: keep it in a cool place."
+ },
+ "18bp0v0db6g": {
+  "fr": "Gin, whisky, orange, prosecco.",
+  "en": "Gin, whisky, orange, prosecco."
+ },
+ "3alxitnx38": {
+  "fr": "Vins effervescents",
+  "en": "Sparkling wines"
+ },
+ "xkezf5pvpe": {
+  "fr": "Prosecco, crémant, champagne ou cava, pour les spritz, bellinis et mimosas.",
+  "en": "Prosecco, Crémant, Champagne or Cava, for spritzes, Bellinis and mimosas."
+ },
+ "pk1tkixvc": {
+  "fr": "Vive, fruitée, pétillante.",
+  "en": "Lively, fruity, sparkling."
+ },
+ "2dt4py32w5m": {
+  "fr": "Vénétie, Champagne, Catalogne, régions de crémant.",
+  "en": "Veneto, Champagne, Catalonia – regions producing crémant."
+ },
+ "2eg5x9e7al7": {
+  "fr": "Brut ou sec, bien frais.",
+  "en": "Unaged or dry, served well chilled."
+ },
+ "bctmtmjwbo": {
+  "fr": "Ouvert : bouché au réfrigérateur, 1 jour.",
+  "en": "Once opened: keep refrigerated with the lid on for 1 day."
+ },
+ "1ho29c4fykt": {
+  "fr": "Le verser en dernier, doucement, pour garder les bulles.",
+  "en": "Pour it in last, gently, to keep the bubbles."
+ },
+ "yg62sxcitk": {
+  "fr": "Pêche, orange, Aperol, fruits rouges.",
+  "en": "Peach, orange, Aperol, red berries."
+ },
+ "2a6cjx9xj3n": {
+  "fr": "Contiennent de l’alcool.",
+  "en": "Contain alcohol."
+ },
+ "v9n3a59h9z": {
+  "fr": "Amers à cocktail",
+  "en": "Cocktail bitters"
+ },
+ "yr9ex21kqo": {
+  "fr": "Concentrés amers aux plantes, dosés en traits ou en gouttes.",
+  "en": "Bitter herbal concentrates, administered in dashes or drops."
+ },
+ "1y6jptdshdn": {
+  "fr": "Amère, épicée, aromatique.",
+  "en": "Bitter, spicy, aromatic."
+ },
+ "2b4u0bwazdi": {
+  "fr": "Trinité-et-Tobago, La Nouvelle-Orléans.",
+  "en": "Trinidad and Tobago, New Orleans."
+ },
+ "11t5msq9kva": {
+  "fr": "Un petit flacon dure des années.",
+  "en": "A small bottle lasts for years."
+ },
+ "r21sgixjlp": {
+  "fr": "Quelques gouttes suffisent à lier les arômes d’un cocktail.",
+  "en": "Just a few drops are enough to bring out the flavours in a cocktail."
+ },
+ "quswhghani": {
+  "fr": "Whisky, cognac, rhum, sucre.",
+  "en": "Whisky, cognac, rum, sugar."
+ },
+ "xl207ha7c6": {
+  "fr": "Négligeable aux doses utilisées.",
+  "en": "Negligible at the doses used."
+ },
+ "1fkqy5ulgua": {
+  "fr": "Sodas et tonics",
+  "en": "Soft drinks and tonics"
+ },
+ "bykbu5w5ac": {
+  "fr": "Limonade, tonic, ginger beer et ginger ale pour allonger les cocktails.",
+  "en": "Lemonade, tonic water, ginger beer and ginger ale for mixing cocktails."
+ },
+ "mgjshscmba": {
+  "fr": "Sucrée et pétillante ; amère (tonic) ou gingembrée.",
+  "en": "Sweet and fizzy; bitter (tonic) or ginger-flavoured."
+ },
+ "zd86s2s54w": {
+  "fr": "Royaume-Uni.",
+  "en": "United Kingdom."
+ },
+ "2e04he90kn3": {
+  "fr": "Bien gazeux et bien froid.",
+  "en": "Nice and fizzy, and nice and cold."
+ },
+ "1x79zwz1fy0": {
+  "fr": "Ouvert, bouché au réfrigérateur, 1 jour.",
+  "en": "Once opened, keep refrigerated for 1 day."
+ },
+ "24q882wcvbf": {
+  "fr": "Verser au dernier moment pour garder les bulles.",
+  "en": "Pour at the very last moment to keep the bubbles."
+ },
+ "1t5kwl9voox": {
+  "fr": "Gin, vodka, rhum, citron vert.",
+  "en": "Gin, vodka, rum, lime."
+ },
+ "wg1ujd1dzw": {
+  "fr": "Whisky sour",
+  "en": "Whisky sour"
+ },
+ "1tta3quiunz": {
+  "fr": "Whisky sour à l’érable",
+  "en": "Maple Whisky Sour"
+ },
+ "1rpfxmqtogl": {
+  "fr": "Old fashioned",
+  "en": "Old-fashioned"
+ },
+ "7zo04j6zet": {
+  "fr": "Manhattan",
+  "en": "Manhattan"
+ },
+ "1sdo86wnknh": {
+  "fr": "Sazerac",
+  "en": "Sazerac"
+ },
+ "100qkqjbbkw": {
+  "fr": "Boulevardier",
+  "en": "Boulevardier"
+ },
+ "nnmkl94evp": {
+  "fr": "Lynchburg lemonade",
+  "en": "Lynchburg lemonade"
+ },
+ "zztz46w56o": {
+  "fr": "Negroni",
+  "en": "Negroni"
+ },
+ "6o0gl1afy3": {
+  "fr": "Gin fizz",
+  "en": "Gin fizz"
+ },
+ "16x9xnep6fy": {
+  "fr": "Gin fizz à la pomme",
+  "en": "Apple Gin Fizz"
+ },
+ "27munc1vy36": {
+  "fr": "Pomada",
+  "en": "Pomada"
+ },
+ "1pgx2adebnz": {
+  "fr": "Singapore sling",
+  "en": "Singapore Sling"
+ },
+ "ur24ybefh4": {
+  "fr": "Cosmopolitan",
+  "en": "Cosmopolitan"
+ },
+ "givejlf519": {
+  "fr": "Moscow mule",
+  "en": "Moscow Mule"
+ },
+ "pocp94dage": {
+  "fr": "Bloody mary",
+  "en": "Bloody Mary"
+ },
+ "2gaawguxp0x": {
+  "fr": "Blue lagoon",
+  "en": "Blue Lagoon"
+ },
+ "2fw6b3jbqbc": {
+  "fr": "Péché originel",
+  "en": "Original sin"
+ },
+ "2eacp429kc9": {
+  "fr": "Daïquiri",
+  "en": "Daiquiri"
+ },
+ "tia6zodwt8": {
+  "fr": "Daïquiri à la fraise",
+  "en": "Strawberry Daiquiri"
+ },
+ "1gt8ugdvfmr": {
+  "fr": "Dark and stormy",
+  "en": "Dark and stormy"
+ },
+ "182zftn602w": {
+  "fr": "Caïpirinha",
+  "en": "Caipirinha"
+ },
+ "1sftlg0qljs": {
+  "fr": "Pisco sour",
+  "en": "Pisco sour"
+ },
+ "yc079bpqxt": {
+  "fr": "Margarita",
+  "en": "Margarita"
+ },
+ "1g0zceh8j7f": {
+  "fr": "Cognac sour",
+  "en": "Cognac sour"
+ },
+ "2g37l3ti0zo": {
+  "fr": "Cognac, orange et miel",
+  "en": "Cognac, orange and honey"
+ },
+ "1g67mzexwuv": {
+  "fr": "Horse’s neck",
+  "en": "Horse’s neck"
+ },
+ "1bw28doccyv": {
+  "fr": "Cognac tonic au cassis",
+  "en": "Cognac and tonic with blackcurrant"
+ },
+ "f8xc8beqwf": {
+  "fr": "Mojito en carafe",
+  "en": "Mojito in a jug"
+ },
+ "240vlt096qr": {
+  "fr": "Pineaujito",
+  "en": "Pineaujito"
+ },
+ "1f7rdmrj5ko": {
+  "fr": "Sunflower",
+  "en": "Sunflower"
+ },
+ "jwdv6uc0tc": {
+  "fr": "Lillet tonic aux framboises",
+  "en": "Lillet and tonic with raspberries"
+ },
+ "r6yjq5lrg8": {
+  "fr": "Sauternes pétillant",
+  "en": "Sparkling Sauternes"
+ },
+ "1a0xo417nik": {
+  "fr": "Spritz",
+  "en": "Spritz"
+ },
+ "1cps49058ho": {
+  "fr": "Spritz au campari",
+  "en": "Campari Spritz"
+ },
+ "11d2szxwz70": {
+  "fr": "Bellini",
+  "en": "Bellini"
+ },
+ "xey4m2eyux": {
+  "fr": "Mimosa",
+  "en": "Mimosa"
+ },
+ "5kuyva674i": {
+  "fr": "Sangria rouge",
+  "en": "Red sangria"
+ },
+ "4pollza6je": {
+  "fr": "Sangria blanche au cidre",
+  "en": "White sangria with cider"
+ },
+ "t7o1u58e61": {
+  "fr": "Tinto de verano",
+  "en": "Tinto de verano"
+ },
+ "12d5i0ad5ii": {
+  "fr": "Grog",
+  "en": "Grog"
+ },
+ "231hwclon85": {
+  "fr": "Crème de whisky",
+  "en": "Whisky cream"
+ },
+ "1bbfau2m3xz": {
+  "fr": "Rhum arrangé aux litchis",
+  "en": "Rum flavoured with lychees"
+ },
+ "26lsqqgmbs7": {
+  "fr": "Lait de poule",
+  "en": "Eggnog"
+ },
+ "roblj8kd4": {
+  "fr": "Mojito sans alcool",
+  "en": "Alcohol-free mojito"
+ },
+ "97da6jxrca": {
+  "fr": "Kvas",
+  "en": "Kvas"
+ },
+ "29qlkp1zugp": {
+  "fr": "Le soulignement suit la couleur du vin",
+  "en": "The underlining matches the colour of the wine"
+ },
+ "mnk1xexw3": {
+  "fr": "1 à 8 verres, ou 5 litres selon la variante",
+  "en": "1 to 8 glasses, or 5 litres, depending on the version"
+ },
+ "2cfm766prlb": {
+  "fr": "Variante mojito sans alcool (2 verres)",
+  "en": "Alcohol-free mojito (2 glasses)"
+ },
+ "1cqvm1i6jgw": {
+  "fr": "200ml jus de pomme",
+  "en": "200ml apple juice"
+ },
+ "2b1tawtucgw": {
+  "fr": "jus de pomme",
+  "en": "apple juice"
+ },
+ "b25kd03ecm": {
+  "fr": "Jus de pomme",
+  "en": "Apple juice"
+ },
+ "1bw1sugm5kj": {
+  "fr": "ml jus de pomme",
+  "en": "ml apple juice"
+ },
+ "1cx41fx22i7": {
+  "fr": "20 feuilles de menthe, plus quelques-unes pour décorer",
+  "en": "20 mint leaves, plus a few more for garnish"
+ },
+ "1n4a5mblq3u": {
+  "fr": "menthe, plus quelques-unes pour décorer",
+  "en": "mint, plus a few more for decoration"
+ },
+ "3rxo9c2c84": {
+  "fr": "Menthe, plus quelques-unes pour décorer",
+  "en": "Mint, plus a few more for decoration"
+ },
+ "2g8qwldtuo9": {
+  "fr": "feuilles de menthe, plus quelques-unes pour décorer",
+  "en": "mint leaves, plus a few more for garnish"
+ },
+ "2ce7j21c4th": {
+  "fr": "2 glaçons",
+  "en": "2 ice cubes"
+ },
+ "2dh9youfjht": {
+  "fr": "Laver les citrons verts, les couper en petits morceaux et ciseler la menthe.",
+  "en": "Wash the limes, cut them into small pieces and finely chop the mint."
+ },
+ "xzp6vrhx3r": {
+  "fr": "Répartir citron et menthe au fond de 2 verres, écraser doucement, puis remplir aux deux tiers de glace pilée.",
+  "en": "Divide the lemon and mint between the bottoms of two glasses, gently muddle them, then fill the glasses two-thirds full with crushed ice."
+ },
+ "3ofp18haao": {
+  "fr": "Secouer au shaker le jus de pomme et le sirop avec les glaçons.",
+  "en": "Shake the apple juice and syrup in a cocktail shaker with the ice cubes."
+ },
+ "265c30a0i85": {
+  "fr": "Verser dans les verres, décorer de menthe et servir aussitôt.",
+  "en": "Pour into glasses, garnish with mint and serve straight away."
+ },
+ "ls8m445g3u": {
+  "fr": "Variante fraise et menthe (8 verres)",
+  "en": "Strawberry and mint version (8 glasses)"
+ },
+ "17zm4wparms": {
+  "fr": "1l jus de fraise",
+  "en": "1 litre of strawberry juice"
+ },
+ "1yyt9dlgjer": {
+  "fr": "jus de fraise",
+  "en": "strawberry juice"
+ },
+ "26zs54njqoe": {
+  "fr": "Jus de fraise",
+  "en": "Strawberry juice"
+ },
+ "khggsckyd1": {
+  "fr": "l jus de fraise",
+  "en": "strawberry juice"
+ },
+ "24uj1ta9h9o": {
+  "fr": "500ml limonade",
+  "en": "500ml lemonade"
+ },
+ "19nmncbkcwq": {
+  "fr": "Jus de ½ citron",
+  "en": "Juice of ½ a lemon"
+ },
+ "jiow5edm7e": {
+  "fr": "150g fraises",
+  "en": "150g strawberries"
+ },
+ "8ycklxg8op": {
+  "fr": "10 feuilles de menthe",
+  "en": "10 mint leaves"
+ },
+ "vx2z1wtrls": {
+  "fr": "Laver et équeuter les fraises, puis les couper en morceaux. Rincer et sécher la menthe.",
+  "en": "Wash and hull the strawberries, then cut them into pieces. Rinse and dry the mint."
+ },
+ "fnxhr5nu32": {
+  "fr": "Mélanger le jus de fraise, la limonade, le jus de citron, les fraises et la menthe dans une grande carafe.",
+  "en": "Mix the strawberry juice, lemonade, lemon juice, strawberries and mint in a large jug."
+ },
+ "3m92hoqqac": {
+  "fr": "Réserver au moins 1h au réfrigérateur, 24h au plus.",
+  "en": "Set aside in the fridge for at least 1 hour, but no more than 24 hours."
+ },
+ "3g0ggqdjho": {
+  "fr": "Servir dans des verres avec des glaçons.",
+  "en": "Serve in glasses with ice cubes."
+ },
+ "6mbw0h1qqn": {
+  "fr": "Variante pamplemousse et thé vert (6 verres)",
+  "en": "Grapefruit and green tea version (6 glasses)"
+ },
+ "rxwqxufl1x": {
+  "fr": "1l thé vert infusé et refroidi",
+  "en": "1 litre of brewed and cooled green tea"
+ },
+ "orcmqwc5fb": {
+  "fr": "thé vert infusé et refroidi",
+  "en": "brewed and cooled green tea"
+ },
+ "22awcrr2ub4": {
+  "fr": "Thé vert infusé et refroidi",
+  "en": "Brewed and cooled green tea"
+ },
+ "fychp27d9u": {
+  "fr": "l thé vert infusé et refroidi",
+  "en": "brewed and cooled green tea"
+ },
+ "2fc117axak4": {
+  "fr": "2 pamplemousses",
+  "en": "2 grapefruits"
+ },
+ "yfudg2dy1a": {
+  "fr": "pamplemousses",
+  "en": "grapefruits"
+ },
+ "h3syokvnlv": {
+  "fr": "Pamplemousses",
+  "en": "Grapefruits"
+ },
+ "1efcsuk3ua5": {
+  "fr": "Zeste de 1 citron jaune",
+  "en": "Zest of 1 lemon"
+ },
+ "2awfwkpedvb": {
+  "fr": "Quelques feuilles de menthe",
+  "en": "A few mint leaves"
+ },
+ "18a20m4pns4": {
+  "fr": "Peler les pamplemousses à vif et détacher les segments dans un saladier.",
+  "en": "Peel the grapefruits, removing all the white pith, and separate the segments into a bowl."
+ },
+ "1c5g6s7r74r": {
+  "fr": "Saupoudrer de sucre, verser le thé et laisser mariner une nuit au réfrigérateur.",
+  "en": "Sprinkle with sugar, pour over the tea and leave to infuse overnight in the fridge."
+ },
+ "seklkjycae": {
+  "fr": "Filtrer en pressant bien les segments pour en extraire tout le jus.",
+  "en": "Strain, squeezing the segments well to extract all the juice."
+ },
+ "1f17pw5p2gu": {
+  "fr": "Servir dans les verres avec le zeste de citron et quelques feuilles de menthe.",
+  "en": "Serve in glasses with the lemon zest and a few mint leaves."
+ },
+ "68pl5a8vei": {
+  "fr": "Variante pêche et abricot (1 verre)",
+  "en": "Peach and apricot flavour (1 glass)"
+ },
+ "1bypk2emzdj": {
+  "fr": "60ml jus de pêche",
+  "en": "60ml peach juice"
+ },
+ "14ouguz5b3e": {
+  "fr": "jus de pêche",
+  "en": "peach juice"
+ },
+ "26v3ho7mw7x": {
+  "fr": "Jus de pêche",
+  "en": "Peach juice"
+ },
+ "1hfs3sqv8l9": {
+  "fr": "ml jus de pêche",
+  "en": "ml peach juice"
+ },
+ "nw2dozlu08": {
+  "fr": "60ml jus d’abricot",
+  "en": "60ml apricot juice"
+ },
+ "e2d6qfbe10": {
+  "fr": "jus d’abricot",
+  "en": "apricot juice"
+ },
+ "of6g6did7q": {
+  "fr": "Jus d’abricot",
+  "en": "Apricot juice"
+ },
+ "1en6h46wg46": {
+  "fr": "ml jus d’abricot",
+  "en": "ml apricot juice"
+ },
+ "2dyxv909ow2": {
+  "fr": "1 trait de sirop de grenadine",
+  "en": "1 dash of grenadine syrup"
+ },
+ "26f8xfzkv11": {
+  "fr": "trait de sirop de grenadine",
+  "en": "a dash of grenadine syrup"
+ },
+ "1a99nq54ijd": {
+  "fr": "Verser les jus et la grenadine dans un verre à cocktail.",
+  "en": "Pour the juices and grenadine into a cocktail glass."
+ },
+ "1js7bydc2eo": {
+  "fr": "Mélanger avec le bâton de cannelle.",
+  "en": "Mix in the cinnamon stick."
+ },
+ "2cp9f56dwz": {
+  "fr": "Ajouter plusieurs glaçons et servir aussitôt.",
+  "en": "Add several ice cubes and serve straight away."
+ },
+ "tz2t0ydate": {
+  "fr": "Variante margarita sans alcool (3 verres)",
+  "en": "Non-alcoholic margarita variation (3 glasses)"
+ },
+ "2dc48xbi3m7": {
+  "fr": "240ml jus d’orange",
+  "en": "240ml orange juice"
+ },
+ "5e1gotq47r": {
+  "fr": "80ml jus de citron vert",
+  "en": "80ml lime juice"
+ },
+ "1p0vcba55u6": {
+  "fr": "40ml sirop d’agave",
+  "en": "40ml agave syrup"
+ },
+ "inqf4gesd4": {
+  "fr": "ml sirop d’agave",
+  "en": "ml agave syrup"
+ },
+ "25d4pmfwepo": {
+  "fr": "Sucre cristallisé pour le bord des verres",
+  "en": "Granulated sugar for the rims of glasses"
+ },
+ "2g27bk7ey2v": {
+  "fr": "Humidifier le bord des verres avec un peu d’eau puis le tremper dans le sucre cristallisé.",
+  "en": "Moisten the rim of the glasses with a little water, then dip them in granulated sugar."
+ },
+ "5tw0s1eym6": {
+  "fr": "Mettre un fond de glace pilée dans un récipient, ajouter le jus d’orange, le jus de citron vert et le sirop d’agave.",
+  "en": "Place a layer of crushed ice in a bowl, then add the orange juice, lime juice and agave syrup."
+ },
+ "4xml8wj3e6": {
+  "fr": "Mélanger vivement puis verser dans les verres.",
+  "en": "Stir vigorously, then pour into the glasses."
+ },
+ "bc1j069n9q": {
+  "fr": "Décorer de fines rondelles de citron vert et servir aussitôt.",
+  "en": "Garnish with thin slices of lime and serve straight away."
+ },
+ "cynbtda84a": {
+  "fr": "Variante pastèque et citron vert (6 verres)",
+  "en": "Watermelon and lime version (6 glasses)"
+ },
+ "1y9gi1xsyhn": {
+  "fr": "½ pastèque",
+  "en": "½ watermelon"
+ },
+ "1qdt132lv7m": {
+  "fr": "pastèque",
+  "en": "watermelon"
+ },
+ "hwdrk08hv3": {
+  "fr": "Jus de 4 citrons verts",
+  "en": "Juice of 4 limes"
+ },
+ "z7s8m5oiee": {
+  "fr": "Prélever la chair de la pastèque et retirer les pépins.",
+  "en": "Scoop out the flesh of the watermelon and remove the seeds."
+ },
+ "7km8gve37p": {
+  "fr": "Mixer la chair avec le jus des citrons verts.",
+  "en": "Blend the flesh with the lime juice."
+ },
+ "1yms9tt61zv": {
+  "fr": "Remplir les verres de glace pilée, verser le jus de pastèque, mélanger et servir aussitôt.",
+  "en": "Fill the glasses with crushed ice, pour in the watermelon juice, stir and serve straight away."
+ },
+ "1si3p0iv8b9": {
+  "fr": "Variante sex on the beach sans alcool (1 verre)",
+  "en": "Alcohol-free version of Sex on the Beach (1 glass)"
+ },
+ "3rfjqmhrii": {
+  "fr": "120ml jus d’orange",
+  "en": "120ml orange juice"
+ },
+ "2c5uvdo3x20": {
+  "fr": "30ml jus d’ananas",
+  "en": "30ml pineapple juice"
+ },
+ "13dra1awiis": {
+  "fr": "15ml sirop de grenadine",
+  "en": "15ml grenadine syrup"
+ },
+ "1cynp3mzqsy": {
+  "fr": "15ml sirop d’orgeat",
+  "en": "15ml orgeat syrup"
+ },
+ "qof844jc3c": {
+  "fr": "Verser le jus d’orange, le jus d’ananas et le sirop d’orgeat dans un verre à cocktail rempli de glaçons.",
+  "en": "Pour the orange juice, pineapple juice and orgeat syrup into a cocktail glass filled with ice cubes."
+ },
+ "1rbi0fhp7j8": {
+  "fr": "Ajouter la grenadine en dernier pour qu’elle tombe au fond.",
+  "en": "Add the grenadine last so that it sinks to the bottom."
+ },
+ "7eoico0u39": {
+  "fr": "Mélanger au moment de boire et servir aussitôt.",
+  "en": "Mix just before drinking and serve straight away."
+ },
+ "1lbxclt5ys": {
+  "fr": "Variante pink cocktail au thé vert (8 verres)",
+  "en": "Green tea ‘Pink Cocktail’ variation (8 glasses)"
+ },
+ "2du2vakmxb4": {
+  "fr": "4 sachets de thé vert",
+  "en": "4 green tea bags"
+ },
+ "1glbao90ylk": {
+  "fr": "thé vert",
+  "en": "green tea"
+ },
+ "28o7qg2y6yt": {
+  "fr": "Thé vert",
+  "en": "Green tea"
+ },
+ "nlh84wavyc": {
+  "fr": "sachets de thé vert",
+  "en": "green tea bags"
+ },
+ "29afxtdqgq9": {
+  "fr": "500ml eau",
+  "en": "500ml water"
+ },
+ "8q52md0wb4": {
+  "fr": "1 petite pastèque",
+  "en": "1 small watermelon"
+ },
+ "1e0lkh4roml": {
+  "fr": "petite pastèque",
+  "en": "small watermelon"
+ },
+ "r4y7achz4a": {
+  "fr": "Petite pastèque",
+  "en": "Small watermelon"
+ },
+ "1zqsg7668p0": {
+  "fr": "125g framboises",
+  "en": "125g raspberries"
+ },
+ "20mfa9v2o0p": {
+  "fr": "2 branches de menthe",
+  "en": "2 sprigs of mint"
+ },
+ "1i5mm6u42h9": {
+  "fr": "branches de menthe",
+  "en": "sprigs of mint"
+ },
+ "1r6lozmfuss": {
+  "fr": "Infuser le thé 5min dans l’eau bouillante, retirer les sachets, laisser refroidir puis réserver au réfrigérateur.",
+  "en": "Steep the tea for 5 minutes in boiling water, remove the tea bags, leave to cool, then set it aside in the fridge."
+ },
+ "tcj47aqrrx": {
+  "fr": "Peler la pastèque, retirer les pépins et mixer la chair avec les trois quarts des framboises.",
+  "en": "Peel the watermelon, remove the seeds and blend the flesh with three-quarters of the raspberries."
+ },
+ "nlisgk9agq": {
+  "fr": "Ajouter le sucre et le jus des citrons verts, mélanger puis filtrer à la passoire.",
+  "en": "Add the sugar and the lime juice, stir, then strain through a sieve."
+ },
+ "28n8pjhasl5": {
+  "fr": "Ajouter le thé vert froid et mélanger.",
+  "en": "Add the chilled green tea and stir."
+ },
+ "1w9m3wwykki": {
+  "fr": "Servir dans de grands verres sur de la glace pilée, avec les framboises restantes et les feuilles de menthe.",
+  "en": "Serve in large glasses over crushed ice, with the remaining raspberries and mint leaves."
+ },
+ "1m7zbcdx9wp": {
+  "fr": "Variante thé et jus de pomme (1 verre)",
+  "en": "Tea and apple juice option (1 glass)"
+ },
+ "ytb3j6clbn": {
+  "fr": "90ml thé infusé et refroidi",
+  "en": "90ml of brewed and cooled tea"
+ },
+ "1qualntcfr0": {
+  "fr": "thé infusé et refroidi",
+  "en": "brewed and cooled tea"
+ },
+ "rj31ssa308": {
+  "fr": "Thé infusé et refroidi",
+  "en": "Brewed and cooled tea"
+ },
+ "2a6mmv22txw": {
+  "fr": "ml thé infusé et refroidi",
+  "en": "ml of brewed and cooled tea"
+ },
+ "29zdclr2ucc": {
+  "fr": "30ml jus de pomme",
+  "en": "30ml apple juice"
+ },
+ "v8jqw20u9l": {
+  "fr": "30ml limonade",
+  "en": "30ml lemonade"
+ },
+ "jqxf8o8sv2": {
+  "fr": "Sucre selon goût",
+  "en": "Sugar to taste"
+ },
+ "94uwd138ze": {
+  "fr": "Quelques rondelles de pomme",
+  "en": "A few apple slices"
+ },
+ "29e0do7rtx8": {
+  "fr": "rondelles de pomme",
+  "en": "apple slices"
+ },
+ "28fb2qqy1rn": {
+  "fr": "Rondelles de pomme",
+  "en": "Apple slices"
+ },
+ "12wzvsd87kh": {
+  "fr": "Mélanger au shaker le thé, le jus de pomme, la limonade et le sucre.",
+  "en": "Mix the tea, apple juice, lemonade and sugar in a cocktail shaker."
+ },
+ "1azm6de4ejf": {
+  "fr": "Verser sur les glaçons et les rondelles de pomme dans un verre.",
+  "en": "Pour over the ice cubes and apple slices in a glass."
+ },
+ "1r2a2dr7cny": {
+  "fr": "Décorer de menthe et servir aussitôt.",
+  "en": "Garnish with mint and serve straight away."
+ },
+ "2ofvf59en4": {
+  "fr": "Variante groseille et cassis (6 à 8 verres)",
+  "en": "Redcurrant and blackcurrant version (6 to 8 glasses)"
+ },
+ "1v1syinxhqz": {
+  "fr": "100g groseilles",
+  "en": "100g redcurrants"
+ },
+ "yhtzhl0yxd": {
+  "fr": "groseilles",
+  "en": "redcurrants"
+ },
+ "2d5krtnnjgg": {
+  "fr": "Groseilles",
+  "en": "Redcurrants"
+ },
+ "1rmev6ad1et": {
+  "fr": "g groseilles",
+  "en": "g redcurrants"
+ },
+ "1ljinucvp9x": {
+  "fr": "1,5l limonade",
+  "en": "1.5 litres of lemonade"
+ },
+ "179sna73zq9": {
+  "fr": "l limonade",
+  "en": "lemonade"
+ },
+ "29i5mvl7bpv": {
+  "fr": "30ml sirop de cassis",
+  "en": "30ml blackcurrant syrup"
+ },
+ "1bg54kw23z1": {
+  "fr": "sirop de cassis",
+  "en": "blackcurrant syrup"
+ },
+ "1r5jdvslrol": {
+  "fr": "Sirop de cassis",
+  "en": "Blackcurrant syrup"
+ },
+ "5x4bn9a72l": {
+  "fr": "ml sirop de cassis",
+  "en": "ml blackcurrant syrup"
+ },
+ "9s5mpqgrb4": {
+  "fr": "Laver et éponger les groseilles.",
+  "en": "Wash and pat the redcurrants dry."
+ },
+ "utbvrcvmsa": {
+  "fr": "Mélanger tous les ingrédients sauf les glaçons dans une grande carafe.",
+  "en": "Mix all the ingredients, except the ice cubes, in a large jug."
+ },
+ "263r88zmj83": {
+  "fr": "Réserver 2 à 3h au réfrigérateur, 24h au plus.",
+  "en": "Set aside in the fridge for 2 to 3 hours, or for up to 24 hours."
+ },
+ "1e2s1f2h6s4": {
+  "fr": "Servir dans des verres avec les glaçons.",
+  "en": "Serve in glasses with ice cubes."
+ },
+ "7k31n05t5d": {
+  "fr": "Variante lagon bleu sans alcool (4 à 6 verres)",
+  "en": "Alcohol-free ‘Blue Lagoon’ version (serves 4 to 6)"
+ },
+ "1p829tdkh4u": {
+  "fr": "500ml jus de pamplemousse",
+  "en": "500ml grapefruit juice"
+ },
+ "1q4pbzx6oy3": {
+  "fr": "jus de pamplemousse",
+  "en": "grapefruit juice"
+ },
+ "qb5yj6g93l": {
+  "fr": "Jus de pamplemousse",
+  "en": "Grapefruit juice"
+ },
+ "1jjz000afgm": {
+  "fr": "ml jus de pamplemousse",
+  "en": "ml grapefruit juice"
+ },
+ "1yl1mthgqck": {
+  "fr": "500ml tonic",
+  "en": "500ml tonic water"
+ },
+ "1rytunly7t2": {
+  "fr": "45ml sirop de menthe",
+  "en": "45ml mint syrup"
+ },
+ "nn8ti6blmg": {
+  "fr": "sirop de menthe",
+  "en": "mint syrup"
+ },
+ "2fe8i0nx912": {
+  "fr": "Sirop de menthe",
+  "en": "Mint syrup"
+ },
+ "1pl3kgoelim": {
+  "fr": "ml sirop de menthe",
+  "en": "ml of mint syrup"
+ },
+ "y1hkbegjti": {
+  "fr": "Verser le jus de pamplemousse et le sirop de menthe dans un saladier ou une carafe.",
+  "en": "Pour the grapefruit juice and mint syrup into a mixing bowl or jug."
+ },
+ "1w90imgx825": {
+  "fr": "Ajouter le tonic bien froid et les glaçons, puis mélanger délicatement.",
+  "en": "Add the well-chilled tonic water and the ice cubes, then stir gently."
+ },
+ "13ym62kq2ng": {
+  "fr": "Servir aussitôt dans des verres à cocktail.",
+  "en": "Serve immediately in cocktail glasses."
+ },
+ "256mnhiukvu": {
+  "fr": "Variante pamplemousse pétillant (6 verres)",
+  "en": "Sparkling grapefruit version (6 glasses)"
+ },
+ "1o72j4datpq": {
+  "fr": "1l jus de pamplemousse",
+  "en": "1 litre of grapefruit juice"
+ },
+ "1yc6w80sn49": {
+  "fr": "l jus de pamplemousse",
+  "en": "grapefruit juice"
+ },
+ "dr8lnlwfeo": {
+  "fr": "1 pamplemousse pour décorer",
+  "en": "1 grapefruit, for garnish"
+ },
+ "mx1u6w9jwb": {
+  "fr": "pamplemousse pour décorer",
+  "en": "grapefruit, for garnish"
+ },
+ "1n10f3l4593": {
+  "fr": "Pamplemousse pour décorer",
+  "en": "Grapefruit for garnish"
+ },
+ "1u1us79avzy": {
+  "fr": "Mélanger le jus de pamplemousse, la limonade et le jus de citron dans une carafe.",
+  "en": "Mix the grapefruit juice, lemonade and lemon juice in a jug."
+ },
+ "il355vobaf": {
+  "fr": "Réserver au frais jusqu’au service.",
+  "en": "Set aside until ready to serve."
+ },
+ "17lyb4awkib": {
+  "fr": "Servir dans les verres avec des glaçons et des quartiers de pamplemousse.",
+  "en": "Serve in glasses with ice cubes and grapefruit segments."
+ },
+ "298kbfoidbp": {
+  "fr": "Variante thé noir, cassis et orange (1 verre)",
+  "en": "Black tea, blackcurrant and orange flavour (1 glass)"
+ },
+ "jer50586mn": {
+  "fr": "150ml thé noir infusé et refroidi",
+  "en": "150ml brewed and cooled black tea"
+ },
+ "3e9jdtnw4s": {
+  "fr": "thé noir infusé et refroidi",
+  "en": "brewed and cooled black tea"
+ },
+ "ocff0fvqgb": {
+  "fr": "Thé noir infusé et refroidi",
+  "en": "Brewed and cooled black tea"
+ },
+ "2dj7rgexfir": {
+  "fr": "ml thé noir infusé et refroidi",
+  "en": "ml of brewed and cooled black tea"
+ },
+ "wamdft4sbf": {
+  "fr": "50ml jus d’orange",
+  "en": "50ml orange juice"
+ },
+ "12ovuccegcn": {
+  "fr": "40ml sirop de cassis",
+  "en": "40ml blackcurrant syrup"
+ },
+ "swq97kyfhm": {
+  "fr": "1 rondelle d’orange",
+  "en": "1 slice of orange"
+ },
+ "1lr8648uena": {
+  "fr": "rondelle d’orange",
+  "en": "orange slice"
+ },
+ "jp3bzbgi5y": {
+  "fr": "Rondelle d’orange",
+  "en": "Orange slice"
+ },
+ "vg8t56tehl": {
+  "fr": "1 feuille de menthe",
+  "en": "1 mint leaf"
+ },
+ "w04z5n6uzr": {
+  "fr": "feuille de menthe",
+  "en": "mint leaf"
+ },
+ "1qavbborufh": {
+  "fr": "Secouer au shaker le thé, le jus d’orange, le sirop de cassis et le jus de citron.",
+  "en": "Shake the tea, orange juice, blackcurrant syrup and lemon juice in a cocktail shaker."
+ },
+ "4s3qyqfpbg": {
+  "fr": "Verser dans un grand verre sur des glaçons.",
+  "en": "Pour into a large glass over ice cubes."
+ },
+ "1un464t7nxn": {
+  "fr": "Décorer d’une rondelle d’orange et d’une feuille de menthe, puis servir aussitôt.",
+  "en": "Garnish with a slice of orange and a mint leaf, then serve straight away."
+ },
+ "1x550rphrb3": {
+  "fr": "Variante sangria sans alcool (8 verres)",
+  "en": "Alcohol-free sangria recipe (serves 8)"
+ },
+ "4zhjtxib37": {
+  "fr": "250ml jus de fraise",
+  "en": "250ml strawberry juice"
+ },
+ "11vjnteoa5l": {
+  "fr": "ml jus de fraise",
+  "en": "ml strawberry juice"
+ },
+ "1xdlinbfes4": {
+  "fr": "100g fraises",
+  "en": "100g strawberries"
+ },
+ "wmccu09a18": {
+  "fr": "Verser la limonade, le jus de fraise et le jus de citron dans un grand pichet.",
+  "en": "Pour the lemonade, strawberry juice and lemon juice into a large jug."
+ },
+ "u8q4hll4ws": {
+  "fr": "Laver les oranges et les couper en fines tranches ; équeuter et couper les fraises ; rincer les groseilles et la menthe.",
+  "en": "Wash the oranges and cut them into thin slices; remove the stalks from the strawberries and cut them up; rinse the redcurrants and the mint."
+ },
+ "lq2nspf855": {
+  "fr": "Ajouter fruits et menthe dans le pichet et mélanger.",
+  "en": "Add the fruit and mint to the jug and stir."
+ },
+ "4p0opces0z": {
+  "fr": "Réserver au moins 3h au réfrigérateur et servir bien frais.",
+  "en": "Set aside in the fridge for at least 3 hours and serve well chilled."
+ },
+ "1ooxliqe7bs": {
+  "fr": "Variante piña colada sans alcool (2 verres)",
+  "en": "Alcohol-free piña colada (2 glasses)"
+ },
+ "bz9uhd7l1o": {
+  "fr": "150ml jus d’ananas",
+  "en": "150ml pineapple juice"
+ },
+ "15m7pfk2rpg": {
+  "fr": "90ml lait de coco",
+  "en": "90ml coconut milk"
+ },
+ "tor6oxmlji": {
+  "fr": "60ml jus d’orange",
+  "en": "60ml orange juice"
+ },
+ "8kuwpcpok4": {
+  "fr": "2 tranches d’ananas au sirop",
+  "en": "2 slices of pineapple in syrup"
+ },
+ "22h3su4e2qc": {
+  "fr": "ananas au sirop",
+  "en": "pineapple in syrup"
+ },
+ "1qxch06gxjq": {
+  "fr": "Ananas au sirop",
+  "en": "Pineapple in syrup"
+ },
+ "2bqsq2wapg9": {
+  "fr": "tranches d’ananas au sirop",
+  "en": "slices of pineapple in syrup"
+ },
+ "acexh7pchn": {
+  "fr": "2 tiges de menthe",
+  "en": "2 sprigs of mint"
+ },
+ "h5seagnzuo": {
+  "fr": "tiges de menthe",
+  "en": "mint sprigs"
+ },
+ "2ce24g4h1ik": {
+  "fr": "Mixer le jus d’ananas, le jus d’orange, le lait de coco et quelques glaçons au blender.",
+  "en": "Blend the pineapple juice, orange juice, coconut milk and a few ice cubes in a blender."
+ },
+ "1pr8ao2q37b": {
+  "fr": "Verser dans de grands verres.",
+  "en": "Pour into large glasses."
+ },
+ "eml26rr8er": {
+  "fr": "Égoutter les tranches d’ananas et les poser sur le bord des verres.",
+  "en": "Drain the pineapple slices and place them around the rim of the glasses."
+ },
+ "agnrbgo0jc": {
+  "fr": "Lait de poule : le jaune d’œuf est cuit doucement comme une crème anglaise, il n’est pas consommé cru ; à consommer aussitôt, sans le garder au réfrigérateur.",
+  "en": "Eggnog: the egg yolk is gently cooked like custard; it is not eaten raw. It should be consumed immediately and not kept in the fridge."
+ },
+ "5txv3kip1r": {
+  "fr": "Sex on the beach et groseille-cassis : les liqueurs de la recette d’origine sont remplacées par des sirops pour rester sans alcool.",
+  "en": "Sex on the Beach and redcurrant-blackcurrant: the liqueurs in the original recipe have been replaced with syrups to keep the drink alcohol-free."
+ },
+ "1m4pedmr501": {
+  "fr": "Cocktails en carafe sans glaçons : 24h au réfrigérateur.",
+  "en": "Cocktails in a jug without ice: 24 hours in the fridge."
+ },
+ "1v2h2k83dzj": {
+  "fr": "Ne pas mettre les glaçons dans la carafe à l’avance : ils dilueraient le cocktail.",
+  "en": "Do not put the ice cubes in the jug in advance: they will water down the cocktail."
+ },
+ "6c3pjviqrk": {
+  "fr": "Des boissons sans alcool, chaudes, fruitées ou pétillantes, au verre ou en carafe.",
+  "en": "Non-alcoholic drinks – hot, fruity or fizzy – served by the glass or in a jug."
+ },
+ "z9owqg59ql": {
+  "fr": "Gros fruit d’été à chair rouge, croquante et gorgée d’eau.",
+  "en": "A large summer fruit with red, crisp and juicy flesh."
+ },
+ "91b4yl3bls": {
+  "fr": "Douce, très rafraîchissante.",
+  "en": "Mild, very refreshing."
+ },
+ "1evm6jmfx42": {
+  "fr": "Lourde, qui sonne creux, avec une tache jaune là où elle a mûri au sol.",
+  "en": "Heavy, with a hollow sound, and a yellow patch where it ripened on the ground."
+ },
+ "1v1nn7sdiqz": {
+  "fr": "Entière au frais ; coupée, filmée au réfrigérateur 3 jours.",
+  "en": "Keep whole in the fridge; once cut, wrap in cling film and store in the fridge for 3 days."
+ },
+ "sfne94wk6e": {
+  "fr": "Mixée et filtrée, elle donne un jus parfait pour les boissons d’été.",
+  "en": "Once blended and strained, it makes the perfect juice for summer drinks."
+ },
+ "k18iu7l2x2": {
+  "fr": "Citron vert, menthe, feta, framboise.",
+  "en": "Lime, mint, feta, raspberry."
+ },
+ "9isbre9v8d": {
+  "fr": "Plus de 90 % d’eau, peu calorique.",
+  "en": "More than 90 per cent water; low in calories."
+ },
+ "1wwzujrkp6h": {
+  "fr": "Gros agrume à chair rose ou blanche, juteuse et acidulée.",
+  "en": "A large citrus fruit with pink or white flesh that is juicy and tangy."
+ },
+ "1rvr8ywpqo4": {
+  "fr": "Acidulée et légèrement amère.",
+  "en": "Tart and slightly bitter."
+ },
+ "2dba86smsg5": {
+  "fr": "Lourd pour sa taille, peau fine et brillante.",
+  "en": "Heavy for its size, with thin, glossy skin."
+ },
+ "124mvq2shin": {
+  "fr": "Une semaine à température ambiante, plus au réfrigérateur.",
+  "en": "One week at room temperature, then in the fridge."
+ },
+ "106qtatz0up": {
+  "fr": "Pelé à vif, il donne des segments sans peau amère.",
+  "en": "When peeled, it produces segments without any bitter skin."
+ },
+ "10qyuep420e": {
+  "fr": "Avocat, crevettes, menthe, miel.",
+  "en": "Avocado, prawns, mint, honey."
+ },
+ "26ngxv5gg8v": {
+  "fr": "Riche en vitamine C ; interagit avec certains médicaments.",
+  "en": "Rich in vitamin C; interacts with certain medicines."
+ },
+ "1b4x39puopp": {
+  "fr": "Thé",
+  "en": "Tea"
+ },
+ "k9u6qekjzg": {
+  "fr": "Feuilles de théier, vert ou noir, en infusion chaude ou glacée.",
+  "en": "Tea leaves, green or black, served as a hot or iced infusion."
+ },
+ "xy0pv6upr5": {
+  "fr": "Herbacée (vert), maltée et tannique (noir).",
+  "en": "Herbal (green), malty and tannic (black)."
+ },
+ "13txxx8bm4j": {
+  "fr": "Chine, Inde, Japon.",
+  "en": "China, India, Japan."
+ },
+ "1mlkbm5jrlx": {
+  "fr": "En vrac ou en sachets de bonne qualité.",
+  "en": "In bulk or in good-quality bags."
+ },
+ "249fmbuaygj": {
+  "fr": "En boîte hermétique, à l’abri de la lumière.",
+  "en": "In an airtight container, away from light."
+ },
+ "o39n346p3f": {
+  "fr": "Thé vert infusé à 80°C, pas bouillant, pour éviter l’amertume.",
+  "en": "Brew green tea at 80°C – not boiling – to avoid bitterness."
+ },
+ "1omz9xj5sdq": {
+  "fr": "Citron, menthe, pêche, pomme, gingembre.",
+  "en": "Lemon, mint, peach, apple, ginger."
+ },
+ "22ttim388rd": {
+  "fr": "Sans calories ; contient de la théine.",
+  "en": "Calorie-free; contains caffeine."
+ },
+ "pr7o2cmwxn": {
+  "fr": "Fraise et menthe",
+  "en": "Strawberry and mint"
+ },
+ "khmn652foa": {
+  "fr": "Pamplemousse et thé vert",
+  "en": "Grapefruit and green tea"
+ },
+ "1gjmxqx930t": {
+  "fr": "Pêche et abricot",
+  "en": "Peach and apricot"
+ },
+ "d5kt2ldise": {
+  "fr": "Margarita sans alcool",
+  "en": "Non-alcoholic Margarita"
+ },
+ "2bvjlegz9y5": {
+  "fr": "Pastèque et citron vert",
+  "en": "Watermelon and lime"
+ },
+ "14uvhchfkyk": {
+  "fr": "Sex on the beach sans alcool",
+  "en": "Alcohol-free Sex on the Beach"
+ },
+ "1jc91ywwsw3": {
+  "fr": "Pink cocktail au thé vert",
+  "en": "Pink green tea cocktail"
+ },
+ "sj38fpy34y": {
+  "fr": "Thé et jus de pomme",
+  "en": "Tea and apple juice"
+ },
+ "2aoqlw7ym6s": {
+  "fr": "Groseille et cassis",
+  "en": "Redcurrant and blackcurrant"
+ },
+ "1uljd4cd8ri": {
+  "fr": "Lagon bleu sans alcool",
+  "en": "Alcohol-free Blue Lagoon"
+ },
+ "17sb8h746ih": {
+  "fr": "Pamplemousse pétillant",
+  "en": "Sparkling Grapefruit"
+ },
+ "pe14crmh5p": {
+  "fr": "Thé noir, cassis et orange",
+  "en": "Black tea, blackcurrant and orange"
+ },
+ "14sjhlk4m6i": {
+  "fr": "Sangria sans alcool",
+  "en": "Non-alcoholic sangria"
+ },
+ "1idypshjaql": {
+  "fr": "Piña colada sans alcool",
+  "en": "Alcohol-free piña colada"
+ },
+ "1hbkfdvdmin": {
+  "fr": "Tomme fraîche",
+  "en": "Fresh Tomme"
+ },
+ "ys9jc7ooab": {
+  "fr": "Caillé de lait de vache pressé, non affiné, de l’Aubrac et du Cantal.",
+  "en": "Unripened, pressed cow’s milk curd from the Aubrac and Cantal regions."
+ },
+ "23t38k4hqyy": {
+  "fr": "Lactique, douce et légèrement acidulée.",
+  "en": "Milky, sweet and slightly tangy."
+ },
+ "1ziphg8jl1o": {
+  "fr": "Aubrac, Cantal.",
+  "en": "Aubrac, Cantal."
+ },
+ "rm8xxmgumc": {
+  "fr": "Tomme fraîche de l’Aubrac, chez le fromager ou sous vide.",
+  "en": "Fresh Tomme de l’Aubrac, available from the cheese shop or vacuum-packed."
+ },
+ "18jrrqocwbq": {
+  "fr": "Au réfrigérateur, quelques jours, dans son emballage.",
+  "en": "In the fridge, for a few days, in its packaging."
+ },
+ "1gzmhugiue2": {
+  "fr": "C’est elle qui fait filer l’aligot : un fromage affiné ne donne pas le même résultat.",
+  "en": "It’s the aligot that makes it stretch: a mature cheese doesn’t give the same result."
+ },
+ "cavucpitm1": {
+  "fr": "Pomme de terre, ail, crème, saucisse.",
+  "en": "Potatoes, garlic, cream, sausage."
+ },
+ "1cz5fhbts6t": {
+  "fr": "Riche en protéines et en matières grasses.",
+  "en": "High in protein and fat."
+ },
+ "16msmakguh3": {
+  "fr": "Lancer un minuteur",
+  "en": "Start a timer"
+ },
+ "qnvb3hwl5e": {
+  "fr": "Partage de l’appareil",
+  "en": "Sharing the device"
+ },
+ "1iiz0imiio1": {
+  "fr": "Messageries",
+  "en": "Courier services"
+ },
+ "dbuwp0phso": {
+  "fr": "Messenger",
+  "en": "Messenger"
+ },
+ "1lcnqdqvzxv": {
+  "fr": "Viber",
+  "en": "Viber"
+ },
+ "2c1k6e16agi": {
+  "fr": "Gmail",
+  "en": "Gmail"
+ },
+ "2f0rki77ck2": {
+  "fr": "Outlook",
+  "en": "Outlook"
+ },
+ "1rah63g49b": {
+  "fr": "Réseaux",
+  "en": "Networks"
+ },
+ "28bwopvuq14": {
+  "fr": "Facebook",
+  "en": "Facebook"
+ },
+ "1dtmvedznoh": {
+  "fr": "Bluesky",
+  "en": "Bluesky"
+ },
+ "1k4s6s82ftw": {
+  "fr": "Threads",
+  "en": "Threads"
+ },
+ "i5z9a5ov0q": {
+  "fr": "Pinterest",
+  "en": "Pinterest"
+ },
+ "ic4mk9fhgh": {
+  "fr": "Reddit",
+  "en": "Reddit"
+ },
+ "1xj9zbecdgq": {
+  "fr": "{#} — Cook Note",
+  "en": "{1} — Cook Note"
+ },
+ "1w0mj0542if": {
+  "fr": "Partager sur",
+  "en": "Share on"
+ },
+ "casv4v7lf3": {
+  "fr": "wine-pick is-{#}",
+  "en": "wine-pick is {1}"
+ },
+ "15dfgdnw6aa": {
+  "fr": "accord parfait",
+  "en": "perfect harmony"
+ },
+ "ctsj43yev2": {
+  "fr": "très bon accord",
+  "en": "a very good match"
+ },
+ "prjsaaomv7": {
+  "fr": "Toute la carte des accords",
+  "en": "The full list of agreements"
  }
 }

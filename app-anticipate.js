@@ -43,27 +43,90 @@ function getRecipeAnticipations(recipe) {
 
 const formatLead = minutes => (minutes >= 600 ? tc('la veille') : minutes >= 60 ? `${Math.round(minutes / 60)} h ${tc('avant')}` : `${minutes} min ${tc('avant')}`);
 
-function downloadAnticipationEvent(recipe, items, mealAt) {
-  const stamp = date => date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+// ---------- Agendas du telephone ----------
+// iPhone / iPad : le fichier .ics ouvert directement propose « Ajouter au
+// calendrier » (alertes comprises). Android : lien Google Agenda (l'appli
+// s'ouvre) ou le fichier .ics, que Google Agenda ou Samsung Agenda ouvrent.
+// Ordinateur : les deux.
+const AGENDA_NAV = typeof navigator !== 'undefined' ? navigator : {};
+const AGENDA_IS_IOS = /iP(hone|ad|od)/.test(AGENDA_NAV.userAgent || '') || (AGENDA_NAV.platform === 'MacIntel' && AGENDA_NAV.maxTouchPoints > 1);
+const AGENDA_IS_ANDROID = /Android/i.test(AGENDA_NAV.userAgent || '');
+
+function agendaStamp(date) {
+  return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+}
+
+function buildIcs(events) {
   const escape = text => String(text).replace(/[\\;,]/g, match => `\\${match}`).replace(/\n/g, '\\n');
+  return [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Cook Note//FR', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    ...events.flatMap(event => [
+      'BEGIN:VEVENT',
+      `UID:${event.uid}@cook-note`,
+      `DTSTAMP:${agendaStamp(new Date())}`, `DTSTART:${agendaStamp(event.start)}`, `DTEND:${agendaStamp(event.end)}`,
+      `SUMMARY:${escape(event.summary)}`,
+      event.description ? `DESCRIPTION:${escape(event.description)}` : '',
+      event.url ? `URL:${event.url}` : '',
+      ...(event.alarms || []).flatMap(alarm => ['BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${escape(alarm.text || event.summary)}`, `TRIGGER:-PT${Math.max(0, Math.round(alarm.minutes))}M`, 'END:VALARM']),
+      'END:VEVENT'
+    ].filter(Boolean)),
+    'END:VCALENDAR'
+  ].join('\r\n');
+}
+
+function openIcs(events, fileName) {
+  const text = buildIcs(events);
+  if (AGENDA_IS_IOS) {
+    // Safari iOS : l'adresse text/calendar ouvre la fiche « Ajouter au calendrier ».
+    window.location.href = `data:text/calendar;charset=utf-8,${encodeURIComponent(text)}`;
+    return;
+  }
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(new Blob([text], { type: 'text/calendar;charset=utf-8' }));
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+}
+
+function googleAgendaUrl(event) {
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: event.summary,
+    dates: `${agendaStamp(event.start)}/${agendaStamp(event.end)}`,
+    details: [event.description, event.url].filter(Boolean).join('\n\n')
+  });
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
+// Boutons selon l'appareil : le bon agenda en premier, l'autre en lien discret.
+function AgendaButtons({ events, fileName, disabled = false, label = 'Ajouter à l’agenda' }) {
+  const ready = !disabled && events.length > 0;
+  const ics = h('button', { type: 'button', className: 'agenda-btn', disabled: !ready, onClick: () => openIcs(events, fileName) },
+    h(Icon, { name: 'calendar' }), h('span', null, AGENDA_IS_IOS ? tc('Ajouter au Calendrier') : AGENDA_IS_ANDROID ? tc('Fichier agenda (.ics)') : tc(label)));
+  // Google Agenda : un seul rendez-vous par lien, le premier de la liste.
+  const google = h('a', { className: AGENDA_IS_ANDROID ? 'agenda-btn' : 'agenda-link', href: ready ? googleAgendaUrl(events[0]) : undefined, target: '_blank', rel: 'noreferrer', 'aria-disabled': !ready },
+    AGENDA_IS_ANDROID && h(Icon, { name: 'calendar' }), h('span', null, tc('Google Agenda')));
+  // Plusieurs rendez-vous (la semaine) : le fichier seul, Google n'en prend qu'un par lien.
+  if (events.length > 1) return h('div', { className: 'agenda-buttons' }, h('button', { type: 'button', className: 'agenda-btn', disabled: !ready, onClick: () => openIcs(events, fileName) }, h(Icon, { name: 'calendar' }), h('span', null, tc(label))));
+  return h('div', { className: 'agenda-buttons' },
+    AGENDA_IS_ANDROID ? [h(React.Fragment, { key: 'g' }, google), h(React.Fragment, { key: 'i' }, ics)] : [h(React.Fragment, { key: 'i' }, ics), !AGENDA_IS_IOS && h(React.Fragment, { key: 'g' }, google)]
+  );
+}
+
+function anticipationEvents(recipe, items, mealAt) {
   const title = tc(recipe.title);
   const start = new Date(mealAt);
-  const end = new Date(start.getTime() + 60 * 60000);
-  const lines = [
-    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Cook Note//FR', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
-    `UID:${recipe.id || 'recette'}-${start.getTime()}@cook-note`,
-    `DTSTAMP:${stamp(new Date())}`, `DTSTART:${stamp(start)}`, `DTEND:${stamp(end)}`,
-    `SUMMARY:${escape(`${tc('Cuisiner')} : ${title}`)}`,
-    `DESCRIPTION:${escape(items.map(item => `${tc(item.text)} (${formatLead(item.lead)})`).join('\n'))}`,
-    `URL:${window.location.origin}${getRecipeUrl(recipe.id)}`,
-    ...items.flatMap(item => ['BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${escape(`${tc(item.text)} · ${title}`)}`, `TRIGGER:-PT${item.lead}M`, 'END:VALARM']),
-    'END:VEVENT', 'END:VCALENDAR'
-  ];
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' }));
-  link.download = `cook-note-${recipe.id || 'recette'}.ics`;
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  return [{
+    uid: `${recipe.id || 'recette'}-${start.getTime()}`,
+    start,
+    end: new Date(start.getTime() + 60 * 60000),
+    summary: `${tc('Cuisiner')} : ${title}`,
+    description: items.map(item => `${tc(item.text)} (${formatLead(item.lead)})`).join('\n'),
+    url: `${window.location.origin}${getRecipeUrl(recipe.id)}`,
+    alarms: items.map(item => ({ minutes: item.lead, text: `${tc(item.text)} · ${title}` }))
+  }];
 }
 
 function AnticipationBlock({ recipe }) {
@@ -78,60 +141,18 @@ function AnticipationBlock({ recipe }) {
   if (!items.length) return null;
   return h('section', { className: 'anticipation-card notes-static-card', 'aria-label': tc('À anticiper') },
     h('p', { className: 'eyebrow' }, tc('À anticiper')),
-    h('ul', null, items.map(item => h('li', { key: item.id }, h('strong', null, formatLead(item.lead)), ' ', tc(item.text)))),
+    // Toucher une preparation lance un minuteur de sa duree (ex. beurre sorti :
+    // pret dans 1 h). Au-dela de 10 h (la veille), l'agenda prend le relais.
+    h('ul', null, items.map(item => h('li', { key: item.id },
+      item.lead < 600
+        ? h('button', { type: 'button', className: 'anticipation-timer', onClick: () => startKitchenTimer({ seconds: item.lead * 60, label: tc(item.text), title: tc(recipe.title) }), title: tc('Lancer un minuteur') },
+          h('strong', null, formatLead(item.lead)), h('span', null, tc(item.text)), h(Icon, { name: 'timer' }))
+        : h('div', { className: 'anticipation-timer is-static' }, h('strong', null, formatLead(item.lead)), h('span', null, tc(item.text)))
+    ))),
     h('div', { className: 'anticipation-remind' },
       h('label', null, h('span', null, tc('Repas prévu')), h('input', { type: 'datetime-local', value: mealAt, onChange: event => setMealAt(event.target.value) })),
-      h('button', { type: 'button', disabled: !mealAt, onClick: () => downloadAnticipationEvent(recipe, items, mealAt) }, h(Icon, { name: 'bell' }), h('span', null, tc('Me le rappeler')))
+      h(AgendaButtons, { events: mealAt ? anticipationEvents(recipe, items, mealAt) : [], fileName: `cook-note-${recipe.id || 'recette'}.ics`, disabled: !mealAt })
     ),
-    h('small', null, tc('Ajoute un rendez-vous à votre agenda, avec une alerte pour chaque préparation.'))
-  );
-}
-
-// ---------- Dans le meme esprit ----------
-// Recettes proches : ingredients en commun (mots d'ingredients, extractTags),
-// meme categorie en bonus. Les fiches de la meme collection passent apres.
-const similarTagsCache = new WeakMap();
-const similarTags = recipe => {
-  if (!similarTagsCache.has(recipe)) similarTagsCache.set(recipe, new Set(extractTags(recipe)));
-  return similarTagsCache.get(recipe);
-};
-function getSimilarRecipes(recipe, recipes, limit = 4) {
-  if (!recipe || !(recipe.ingredients || []).length) return [];
-  const mine = similarTags(recipe);
-  if (mine.size < 2) return [];
-  const category = primaryCategory(recipe);
-  return (recipes || [])
-    .filter(item => item?.id && item.id !== recipe.id && (item.ingredients || []).length && !(item.variants || []).length && !isMasterRecipe(item) && !isCategoryCollectionRecipe(item))
-    .map(item => {
-      const theirs = similarTags(item);
-      let shared = 0;
-      mine.forEach(tag => { if (theirs.has(tag)) shared += 1; });
-      const score = shared / Math.sqrt(mine.size * Math.max(1, theirs.size)) + (primaryCategory(item) === category ? 0.15 : 0) - (item.master && item.master === recipe.master ? 0.05 : 0);
-      return { item, score, shared };
-    })
-    .filter(entry => entry.shared >= 2)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit)
-    .map(entry => entry.item);
-}
-
-function SimilarRecipesBlock({ recipe, recipes, openRecipe }) {
-  const similar = useMemo(() => getSimilarRecipes(recipe, recipes), [recipe, recipes]);
-  if (!similar.length) return null;
-  return h(NotesDisclosure, { className: 'linked-recipes-block similar-recipes-block', label: tc('Dans le même esprit'), ariaLabel: tc('Recettes proches de cette fiche') },
-    h('div', { className: 'linked-recipe-list', role: 'list' },
-      similar.map(item => h('button', {
-        key: item.id,
-        type: 'button',
-        className: 'linked-recipe-item',
-        role: 'listitem',
-        style: { '--card-accent': getCategoryColor(item) },
-        onClick: () => openRecipe(item.id),
-        'aria-label': `${tc('Ouvrir')} ${tc(item.title)}`
-      },
-        h('span', { className: 'linked-recipe-thumb', style: imageBackgroundStyle(displayRecipeImage(item)), 'aria-hidden': true }),
-        h('span', { className: 'linked-recipe-copy' }, h('small', null, tc(primaryCategory(item))), h('strong', null, tc(item.title)))
-      ))
-    )
+    h('small', null, tc('Le repas s’ajoute à l’agenda du téléphone, avec une alerte pour chaque préparation.'))
   );
 }

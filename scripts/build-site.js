@@ -9,7 +9,7 @@ if (!terser || typeof (terser.minify_sync || terser.minify) !== 'function') {
   throw new Error('Dependance terser absente. Lancez npm ci avant npm run build.');
 }
 
-const { APP_MODULES, buildStyleSheet } = require('./lib/app-modules');
+const { APP_MODULES, buildStyleSheet, buildPanelStyleSheet } = require('./lib/app-modules');
 
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
@@ -38,6 +38,7 @@ const ROOT_FILES = [
   'service-worker.js',
   'sitemap.xml',
   'style.css',
+  'panels.css',
   'recipe-editorial.css',
   'personal-tools.css',
   'recipe-safety-sources.css'
@@ -136,6 +137,12 @@ function copyFile(relative) {
     // Feuille publique assemblee depuis styles/ (voir STYLE_MODULES).
     ensureParent(destination);
     fs.writeFileSync(destination, minifyCss(buildStyleSheet(ROOT)), 'utf8');
+    return;
+  }
+  if (relative === 'panels.css') {
+    // Styles des fenetres, charges a la demande (voir PANEL_STYLE_MODULES).
+    ensureParent(destination);
+    fs.writeFileSync(destination, minifyCss(buildPanelStyleSheet(ROOT)), 'utf8');
     return;
   }
   if (!fs.existsSync(source)) throw new Error(`${relative}: fichier source introuvable.`);
@@ -373,7 +380,7 @@ function renderStaticHero(fullRecipe, isParent) {
     isParent ? '' : meta.map(fact => `              <span>${escapeHtml(fact)}</span>`).join(''),
     '            </div>',
     // Places reservees aux reglages et actions que l'app ajoute : meme hauteur.
-    isParent ? '' : `            <div class="detail-actions static-placeholder" aria-hidden="true"><span class="factor-control serving-control quantity-stepper detail-quantity-control"><span class="quantity-step">−</span><span class="quantity-stepper-value"><strong>${escapeHtml(String(parseInt(fullRecipe.yield, 10) || 4))}</strong><span>${L('parts')}</span></span><span class="quantity-step">+</span></span><span class="btn btn-ghost detail-action-button">${L('shopping')}</span><span class="btn btn-primary">${icon}<span>${L('handsFree')}</span></span><span class="btn btn-ghost detail-action-button">${icon}<span>${L('favorite')}</span></span><span class="btn btn-ghost detail-action-button">${icon}<span>${L('more')}</span></span></div>`,
+    isParent ? '' : `            <div class="detail-actions static-placeholder" aria-hidden="true"><span class="btn btn-primary">${icon}<span>${L('handsFree')}</span></span><span class="btn btn-ghost detail-action-button">${icon}<span>${L('shopping')}</span></span><span class="btn btn-ghost detail-action-button">${icon}<span>${L('favorite')}</span></span><span class="btn btn-ghost detail-action-button">${icon}<span>${L('more')}</span></span></div>`,
     '          </div>',
     '        </section>'
   ].filter(Boolean).join('\n');

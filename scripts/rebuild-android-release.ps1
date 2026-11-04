@@ -143,7 +143,9 @@ function New-AndroidBackup($TargetVersion) {
 
   $Files = @()
   if (Test-Path -LiteralPath $DownloadsDir) {
-    $Files += Get-ChildItem -LiteralPath $DownloadsDir -Filter "cook-note-android-legacy*.apk" -File
+    # Une seule copie de l'APK : la numerotee, sinon la courante (elles sont identiques).
+    $Apks = @(Get-ChildItem -LiteralPath $DownloadsDir -Filter "cook-note-android-legacy*.apk" -File | Sort-Object { $_.Name -notmatch '-v\d' })
+    if ($Apks.Count) { $Files += $Apks[0] }
   }
   if (Test-Path -LiteralPath $UpdateManifestPath) {
     $Files += Get-Item -LiteralPath $UpdateManifestPath
@@ -166,6 +168,9 @@ function New-AndroidBackup($TargetVersion) {
     files = $Inventory
   } | ConvertTo-Json -Depth 5
   [System.IO.File]::WriteAllText($InventoryPath, $InventoryJson + [Environment]::NewLine, (New-Object System.Text.UTF8Encoding($false)))
+
+  # Pas d'accumulation : les deux versions les plus recentes seulement.
+  & (Get-NodeExecutable) (Join-Path $Root "scripts\clean-workspace.js") --backups --quiet
 
   return $BackupDir
 }

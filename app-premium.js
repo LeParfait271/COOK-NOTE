@@ -1394,6 +1394,25 @@
     const dialogRef = React.useRef(null);
     const onCloseRef = React.useRef(onClose);
     onCloseRef.current = onClose;
+    // Styles des fenetres (/panels.css, app.js) : la fenetre reste invisible
+    // tant qu'ils ne sont pas la (deja charges en temps normal), 1,5 s au plus.
+    const [stylesReady, setStylesReady] = React.useState(() => window.cookNotePanelStylesReady !== undefined || typeof window.ensurePanelStyles !== 'function');
+    React.useEffect(() => {
+      if (stylesReady) return undefined;
+      let live = true;
+      Promise.race([window.ensurePanelStyles(), new Promise(resolve => window.setTimeout(resolve, 1500))]).then(() => { if (live) setStylesReady(true); });
+      return () => { live = false; };
+    }, []);
+    // Invisible, la fenetre ne peut pas recevoir le focus : on le pose a
+    // l'affichage (champ de recherche, element autofocus, sinon premier controle).
+    React.useEffect(() => {
+      const dialog = dialogRef.current;
+      if (!stylesReady || !dialog || dialog.contains(document.activeElement)) return;
+      // Par ordre de preference (querySelector seul rendrait le premier du DOM).
+      const target = ['input[type="search"]', '[autofocus]', 'input:not([type="hidden"])', 'button, [href], select, textarea, [tabindex]:not([tabindex="-1"])']
+        .map(selector => dialog.querySelector(selector)).find(Boolean);
+      target?.focus?.({ preventScroll: true });
+    }, [stylesReady]);
 
     React.useLayoutEffect(() => {
       const dialog = dialogRef.current;
@@ -1443,6 +1462,7 @@
     return React.createElement('dialog', {
       ref: dialogRef,
       className: `modal-backdrop ${className}`.trim(),
+      style: stylesReady ? undefined : { visibility: 'hidden' },
       onCancel: event => {
         event.preventDefault();
         onCloseRef.current?.();

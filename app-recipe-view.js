@@ -242,16 +242,6 @@ function CookingMode({
         event.stopImmediatePropagation();
         if (actions.panel) setPanel(null);
         else actions.onClose();
-      } else if (event.key === 'ArrowRight' || event.key === 'PageDown') {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        setPanel(null);
-        actions.advance();
-      } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        setPanel(null);
-        actions.back();
       }
     };
     window.addEventListener('keydown', onKey, true);
@@ -524,7 +514,8 @@ function RecipeView({
   activeOverride = false,
   restoreRecipeVersion,
   clearRecipeOverride,
-  ensureCatalog
+  ensureCatalog,
+  openWine
 }) {
   const [factor, setFactor] = useState(1);
   // Anglais : affichage metrique ou US (usUnits, app-recipe-model.js).
@@ -598,7 +589,8 @@ function RecipeView({
   const isInShopping = hasSelectedVariant && shoppingIds.includes(shoppingKey);
   const canFavorite = hasResolvedRecipe && recipeDetailsReady && !isMasterRecipe(selectedRecipe);
   const showRecipeUtilities = hasResolvedRecipe && recipeDetailsReady && !isMasterRecipe(selectedRecipe) && !isCategoryCollectionRecipe(selectedRecipe);
-  const displayedRecipeTitle = tc(hasResolvedRecipe ? selectedRecipe.title : recipe.title);
+  // « Coulis — Coulis de myrtille » : le nom du parent n'est pas repete.
+  const displayedRecipeTitle = tc(hasResolvedRecipe ? String(selectedRecipe.title).replace(new RegExp(`^${String(recipe.title).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s+[—-]\\s+(?=.)`), '') : recipe.title);
   const recipeAllergens = hasResolvedRecipe && recipeDetailsReady ? getRecipeAllergens(selectedRecipe) : [];
   const averageWeights = hasResolvedRecipe && recipeDetailsReady ? getRecipeAverageWeights(selectedRecipe) : [];
   const linkedRecipes = hasResolvedRecipe && recipeDetailsReady ? getLinkedRecipeRefs(selectedRecipe, recipesById) : [];
@@ -753,7 +745,8 @@ function RecipeView({
 
   useEffect(() => {
     // Recherche « … pour 6 » : la fiche s'ouvre directement a 6 convives.
-    const requested = typeof takeRequestedServings === 'function' ? takeRequestedServings() : 0;
+    // Sinon : portions par defaut de Mon profil.
+    const requested = (typeof takeRequestedServings === 'function' ? takeRequestedServings() : 0) || (typeof profileServings === 'function' ? profileServings() : 0);
     const servingInfo = requested ? getServingInfo(recipe) : null;
     setFactor(servingInfo?.base ? requested / servingInfo.base : 1);
     completedRef.current = '';
@@ -931,10 +924,13 @@ function RecipeView({
                h('span', { key: 'steps' }, detailsLoading ? t('recipe.loadingShort') : stepMetaText)
             ]
         ),
+        // Mon profil : avertissement gouts/allergies, note perso, a essayer.
+        !showVariants && hasResolvedRecipe && h(ProfileRecipeLine, { recipe: selectedRecipe }),
          // Parts et actions sur une seule rangee (les parts etaient seules sur leur ligne).
          hasResolvedRecipe && recipeDetailsReady && h('div', { className: 'detail-actions' },
-          !isMasterRecipe(selectedRecipe) && h(QuantityFactorControl, { recipe: selectedRecipe, factor, setFactor, className: 'detail-quantity-control', stepper: true }),
-          // Mode mains libres en bouton principal (dore), courses en secondaire.
+          // Mode mains libres en tete (bouton principal dore), puis courses,
+          // favori, « Je l'ai cuisiné » et « Plus ».
+          canShowSteps && stepTotal > 0 && h(Button, { variant: 'primary', className: 'cook-mode-action', onClick: () => setCookModeOpen(true), title: 'Mode mains libres : une étape à la fois, pilotable à la voix, écran allumé', ariaLabel: 'Ouvrir le mode mains libres' }, h(Icon, { name: 'mic' }), h('span', { className: 'cook-mode-action-long' }, tc('Mode mains libres')), h('span', { className: 'cook-mode-action-short', 'aria-hidden': 'true' }, tc('Mains libres'))),
           h(Button, {
               variant: 'ghost',
               className: isInShopping ? 'detail-action-button is-in-shopping' : 'detail-action-button',
@@ -944,8 +940,7 @@ function RecipeView({
                 if (!isInShopping) playAddToShoppingEffect(event.currentTarget, heroRef.current);
                 toggleShopping(shoppingKey, factor);
               }
-            }, isInShopping ? tc('✓ Dans les courses') : tc('Ajouter aux courses')),
-          canShowSteps && stepTotal > 0 && h(Button, { variant: 'primary', className: 'cook-mode-action', onClick: () => setCookModeOpen(true), title: 'Mode mains libres : une étape à la fois, pilotable à la voix, écran allumé', ariaLabel: 'Ouvrir le mode mains libres' }, h(Icon, { name: 'mic' }), h('span', { className: 'cook-mode-action-long' }, tc('Mode mains libres')), h('span', { className: 'cook-mode-action-short', 'aria-hidden': 'true' }, tc('Mains libres'))),
+            }, h(Icon, { name: isInShopping ? 'check' : 'basket' }), h('span', null, isInShopping ? tc('Dans les courses') : tc('Ajouter aux courses'))),
           // Favori : libelle explicite, coeur rose plein une fois ajoute (petit
           // battement a l'ajout), toucher a nouveau retire.
           canFavorite && h(Button, {
@@ -1000,7 +995,9 @@ function RecipeView({
        favorites,
        toggleFavorite
     }),
-    hasSelectedVariant && needsInlineVariantSelection && h(InlineVariantPicker, {
+    // Grande grille de choix seulement tant qu'aucune variante n'est choisie ;
+    // ensuite les pastilles au-dessus des ingredients suffisent.
+    hasSelectedVariant && needsInlineVariantSelection && !selectedInlineVariantGroup && h(InlineVariantPicker, {
       recipe,
       options: inlineVariantOptions,
       selectedIndex: selectedInlineVariantGroup?.index,
@@ -1044,7 +1041,11 @@ function RecipeView({
     !detailsLoading && hasResolvedRecipe && h('div', { key: selectedInlineVariantGroup?.key || detailKey, id: 'recipe-detail-content', className: 'recipe-detail-grid' },
       h('section', { id: 'recipe-panel-ingredients', role: 'tabpanel', className: mobileDetailTab === 'ingredients' ? 'recipe-panel ingredients-panel active-tab-panel' : 'recipe-panel ingredients-panel' },
         h('div', { className: 'panel-heading' },
-          h('div', null, h('h2', null, tc('Ingrédients'))),
+          // Quantites a cote du titre : on les regle la ou on les lit.
+          h('div', { className: 'ingredients-title-row' },
+            h('h2', null, tc('Ingrédients')),
+            !isMasterRecipe(selectedRecipe) && h(QuantityFactorControl, { recipe: selectedRecipe, factor, setFactor, className: 'ingredients-quantity-control', stepper: true })
+          ),
           COOK_NOTE_LANG === 'en' && h('div', { className: 'units-toggle', role: 'group', 'aria-label': 'Units', translate: 'no' },
             [['metric', 'Metric'], ['us', 'US']].map(([id, label]) => h('button', { key: id, type: 'button', className: units === id ? 'is-active' : '', 'aria-pressed': units === id, onClick: () => switchUnits(id) }, label))
           ),
@@ -1075,7 +1076,8 @@ function RecipeView({
                 ])
               : group.recipeId && recipesById[group.recipeId]
                 ? h('button', { type: 'button', className: 'ingredient-group-link', onClick: () => openRecipe(group.recipeId) }, group.group || recipesById[group.recipeId].title)
-                : h('h3', null, renderLinkedText(group.group || 'Base', inlineTargets, openRecipe, techniqueTargets, openTechnique)),
+                // Titre de groupe en texte simple (un lien au milieu du titre gene la lecture).
+                : h('h3', null, tc(stripHtml(group.group || 'Base'))),
             isOpen && h('ul', null, (group.items || []).map((item, itemIndex) => {
               const key = `${detailKey}:ingredient:${groupIndex}:${itemIndex}`;
               const separator = isIngredientSeparator(item);
@@ -1158,10 +1160,11 @@ function RecipeView({
         ),
         h(NotesFamilyTabs, { resetKey: detailKey },
           h(NotesFamily, { title: 'Servir' },
-            h(FlavorMapBlock, { recipe: selectedRecipe }),
+            // Accord mets-vins : styles conseilles et raccourci vers la carte.
+            h(WinePairingShortcut, { recipe: selectedRecipe, openWine }),
             h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique, hiddenKeys: hiddenPracticalKeys, onlyKeys: PRACTICAL_FAMILIES.serve }),
             h(LinkedRecipesBlock, { links: linkedRecipes, openRecipe }),
-            h(SimilarRecipesBlock, { recipe: selectedRecipe, recipes, openRecipe })
+            // « Dans le meme esprit » retire : les recettes liees suffisent.
           ),
           h(NotesFamily, { title: 'Conserver' },
             h(PracticalSectionsBlock, { sections: practicalSections, inlineTargets, openRecipe, techniqueTargets, openTechnique, hiddenKeys: hiddenPracticalKeys, onlyKeys: PRACTICAL_FAMILIES.keep }),

@@ -253,10 +253,6 @@
   text-align: center;
 }
 
-.home-search-launcher .home-search-hint {
-  justify-self: end;
-}
-
 @media (max-width: 560px) {
   .home-search-launcher .home-search-copy strong {
     font-size: 0.98rem;
@@ -1151,12 +1147,6 @@ body:has(.mc-shell.theme-light) .site-update-toast {
   font-family: var(--ds-font-display);
   font-weight: 500;
   letter-spacing: 0;
-}
-
-/* ---------- Fiche ---------- */
-/* Personnes : la valeur et l'unite suffisent (« [4] personnes »). */
-.detail-quantity-control .factor-label {
-  display: none;
 }
 
 /* Temps de la fiche rapide : sur une ligne tant que la place le permet. */

@@ -1,6 +1,6 @@
 // ---------- Ma semaine et Mon frigo ----------
 // Ma semaine : 7 jours x (midi, soir), rempli a la main ou automatiquement
-// (plats de saison, varies, rapides en semaine), puis tout envoye aux courses.
+// (plats de saison, varies, rapides en semaine), avec sa propre liste de courses (a part du panier).
 // Mon frigo : on note ce qu'on a, Cook Note propose les recettes qui s'en
 // servent le mieux et dit ce qui manque (ingredients reconnus par l'atlas ;
 // sel, poivre, huile, beurre, sucre, farine et eau sont supposes au placard).
@@ -28,7 +28,10 @@ function fillWeek(recipes, current = {}) {
   const week = Math.floor((now - new Date(now.getFullYear(), 0, 1)) / 604800000);
   const season = ['Hiver', 'Hiver', 'Printemps', 'Printemps', 'Printemps', 'Été', 'Été', 'Été', 'Automne', 'Automne', 'Automne', 'Hiver'][now.getMonth()];
   const minutes = recipe => Number(recipe.activeTime || 0) + Number(recipe.cookTime || 0);
+  // Mon profil : fiches a eviter (allergies, gouts, regime) mises de cote.
+  const profile = readProfile();
   const pool = weekMainDishes(recipes)
+    .filter(recipe => !recipeAvoidedByProfile(recipe, profile))
     .map(recipe => ({ recipe, order: hashText(`${recipe.id}:${week}`) % 1000, seasonal: (recipe.seasons || []).some(name => name === season || /toutes/i.test(name)) }))
     .sort((a, b) => Number(b.seasonal) - Number(a.seasonal) || a.order - b.order)
     .map(item => item.recipe);
@@ -47,11 +50,27 @@ function fillWeek(recipes, current = {}) {
   return next;
 }
 
-function WeekPanel({ open, onClose, recipes, recipesById, openRecipe, addMenuToShopping, notify }) {
+// Agenda : chaque repas prevu a 12 h 30 ou 19 h 30, cette semaine (lundi -> dimanche).
+function weekAgendaEvents(plan, recipesById) {
+  const monday = new Date();
+  monday.setHours(0, 0, 0, 0);
+  monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+  return Object.entries(plan).filter(([, id]) => recipesById[id]).map(([slot, id]) => {
+    const [day, meal] = slot.split(':');
+    const start = new Date(monday);
+    start.setDate(monday.getDate() + Number(day));
+    start.setHours(meal === 'midi' ? 12 : 19, 30, 0, 0);
+    const recipe = recipesById[id];
+    return { uid: `semaine-${slot}-${id}-${start.getTime()}`, start, end: new Date(start.getTime() + 60 * 60000), summary: tc(recipe.title), url: `${window.location.origin}${getRecipeUrl(id)}`, alarms: [{ minutes: 60 }] };
+  }).sort((a, b) => a.start - b.start);
+}
+
+function WeekPanel({ open, onClose, recipes, recipesById, openRecipe, openWeekBasket, notify }) {
   const [plan, setPlan] = useState(() => readJson(WEEK_KEY, {}));
   const [picking, setPicking] = useState('');
   const [query, setQuery] = useState('');
-  useEffect(() => { if (!open) { setPicking(''); setQuery(''); } }, [open]);
+  // Relu a chaque ouverture : les courses de la semaine peuvent retirer une fiche.
+  useEffect(() => { if (open) setPlan(readJson(WEEK_KEY, {})); else { setPicking(''); setQuery(''); } }, [open]);
   if (!open) return null;
   const save = next => {
     setPlan(next);
@@ -75,8 +94,9 @@ function WeekPanel({ open, onClose, recipes, recipesById, openRecipe, addMenuToS
       ),
       h('div', { className: 'week-tools' },
         h('button', { type: 'button', className: 'week-tool is-primary', onClick: () => { save(fillWeek(recipes, plan)); notify?.(tc('Semaine complétée')); } }, h(Icon, { name: 'spark' }), h('span', null, tc('Compléter la semaine'))),
-        h('button', { type: 'button', className: 'week-tool', disabled: !ids.length, onClick: () => { addMenuToShopping(ids.map(id => recipesById[id]).filter(Boolean)); onClose(); } }, h(Icon, { name: 'basket' }), h('span', null, `${tc('Tout aux courses')} (${ids.length})`)),
+        h('button', { type: 'button', className: 'week-tool', disabled: !ids.length, onClick: openWeekBasket }, h(Icon, { name: 'basket' }), h('span', null, `${tc('Courses de la semaine')} (${new Set(ids).size})`)),
         ids.length > 0 && h(ShareLinkButton, { label: tc('Partager la semaine'), kind: 'semaine', value: plan, title: tc('Ma semaine') }),
+        ids.length > 0 && h(AgendaButtons, { events: weekAgendaEvents(plan, recipesById), fileName: 'cook-note-semaine.ics', label: 'Semaine dans l’agenda' }),
         h('button', { type: 'button', className: 'week-tool', disabled: !ids.length, onClick: () => save({}) }, tc('Vider'))
       ),
       h('ol', { className: 'week-days' },

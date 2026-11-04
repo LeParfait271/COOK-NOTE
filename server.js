@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const vm = require('node:vm');
-const { APP_MODULES, buildStyleSheet } = require('./scripts/lib/app-modules');
+const { APP_MODULES, buildStyleSheet, buildPanelStyleSheet } = require('./scripts/lib/app-modules');
 
 const ROOT = __dirname;
 const PORT = Number(process.env.PORT || 8080);
@@ -24,6 +24,7 @@ const PUBLIC_ROOT_FILES = new Set([
   'recipe.html',
   'manifest.json',
   'style.css',
+  'panels.css',
   'recipe-editorial.css',
   'personal-tools.css',
   'recipe-safety-sources.css',
@@ -281,8 +282,9 @@ function prerenderedRecipePath(urlPath) {
 
 function serveFile(req, res, filePath, noStore = false, statusCode = 200) {
   // /style.css est assemble a la volee depuis styles/ (meme ordre que le build).
-  if (path.relative(ROOT, filePath) === 'style.css') {
-    send(res, statusCode, buildStyleSheet(ROOT), {
+  const cssBundle = path.relative(ROOT, filePath);
+  if (cssBundle === 'style.css' || cssBundle === 'panels.css') {
+    send(res, statusCode, cssBundle === 'style.css' ? buildStyleSheet(ROOT) : buildPanelStyleSheet(ROOT), {
       'content-type': MIME['.css'],
       'cache-control': staticCacheControl(filePath, noStore)
     });
@@ -319,6 +321,7 @@ function staticCacheControl(filePath, noStore = false) {
     relative === 'theme.js' ||
     relative === 'i18n.js' ||
     relative === 'style.css' ||
+    relative === 'panels.css' ||
     relative === 'recipe-editorial.css' ||
     relative === 'personal-tools.css' ||
     relative === 'recipe-safety-sources.css' ||

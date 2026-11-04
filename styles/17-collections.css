@@ -308,51 +308,6 @@ body:has(.mc-shell.theme-light) .detail-action-button.favorite-action { --favori
   font-family: var(--ds-font-body, system-ui);
 }
 
-.shopping-modal .shopping-picked {
-  display: grid;
-  gap: 6px;
-}
-
-.shopping-modal .shopping-picked-item {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 36px;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 6px 6px 12px;
-  border: 1px solid var(--ds-color-border);
-  border-radius: 12px;
-  background: var(--ds-color-background-muted);
-  grid-template-areas: "title remove" "qty remove";
-  row-gap: 4px;
-}
-
-.shopping-modal .shopping-picked-title {
-  overflow: hidden;
-  font-weight: 650;
-  text-overflow: ellipsis;
-  white-space: normal;
-  grid-area: title;
-  font-size: .95rem;
-}
-
-.shopping-modal .shopping-picked-remove {
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--ds-color-text-muted);
-  font-size: 1.3rem;
-  cursor: pointer;
-  grid-area: remove;
-}
-
-.shopping-modal .shopping-picked-remove:hover {
-  background: var(--ds-color-divider);
-  color: var(--ds-color-text-primary);
-}
-
 .shopping-progress {
   display: grid;
   gap: 8px;
@@ -726,7 +681,6 @@ body:has(.mc-shell.theme-light) .shopping-modal .modal-actions.shopping-actions 
   color: inherit;
 }
 
-
 /* Bouton de langue de la barre du haut : code FR / EN, meme gabarit que les icones. */
 .top-lang-btn .top-lang-code {
   font-size: 13px;
@@ -734,7 +688,6 @@ body:has(.mc-shell.theme-light) .shopping-modal .modal-actions.shopping-actions 
   letter-spacing: .06em;
   line-height: 1;
 }
-
 
 /* Anglais : bascule Metric / US au-dessus des ingredients. */
 .units-toggle {
@@ -762,13 +715,11 @@ body:has(.mc-shell.theme-light) .shopping-modal .modal-actions.shopping-actions 
   color: var(--ds-color-text-primary);
 }
 
-
 /* Regime sur la fiche : pastille verte discrete. */
 .detail-meta .detail-diet {
   border-color: color-mix(in srgb, #8fcf86 55%, transparent);
   color: color-mix(in srgb, #8fcf86 75%, var(--ds-color-text-primary));
 }
-
 
 /* Valeurs nutritionnelles estimees (colonne « Avant de commencer »). */
 .nutrition-card .nutrition-kcal {

@@ -89,8 +89,8 @@ test.describe('Cook Note parcours utilisateur', () => {
     await page.goto(`/recette/${RECIPE}`);
     await ready(page);
 
-    // Parts en - / + dans le bandeau : monter jusqu'a 6.
-    const stepper = page.locator('.recipe-detail-hero .quantity-stepper').first();
+    // Parts en - / + dans le panneau Ingredients : monter jusqu'a 6.
+    const stepper = page.locator('.ingredients-panel .quantity-stepper').first();
     const plus = stepper.getByRole('button', { name: /^Plus de/ });
     for (let guard = 0; guard < 12 && (await stepper.locator('strong').textContent()) !== '6'; guard += 1) await plus.click();
     await expect(stepper.locator('strong')).toHaveText('6');
@@ -142,7 +142,7 @@ test.describe('Cook Note parcours utilisateur', () => {
     await page.getByRole('button', { name: /Retirer Croque-madame du panier courses/i }).click();
     await expect(title).toContainText('1 recette');
 
-    await modal.getByRole('button', { name: 'Sur mon téléphone' }).click();
+    // QR genere d'office en haut du panier.
     await expect(page.locator('.shopping-transfer .share-qr.is-ready')).toBeVisible();
 
     await modal.getByRole('button', { name: 'Vider le panier' }).click();
@@ -218,7 +218,7 @@ test.describe('Cook Note parcours utilisateur', () => {
       .filter({ hasText: /Composer un menu|Menu/ }).first().click();
     const menu = page.locator('.menu-planner-modal');
     await expect(menu).toBeVisible();
-    await expect(menu.locator('.menu-planner-card')).toHaveCount(4);
+    await expect(menu.locator('.menu-course')).toHaveCount(4);
     await menu.getByRole('button', { name: /Ajouter le menu aux courses/ }).click();
     await menu.getByRole('button', { name: 'Fermer' }).click();
     await expect(page.locator('.shopping-modal')).toBeVisible();

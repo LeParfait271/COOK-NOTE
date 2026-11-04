@@ -18,6 +18,8 @@ module.exports = defineConfig({
     ['html', { open: 'never' }]
   ],
   outputDir: 'test-results',
+  // Captures et traces gardees seulement pour les tests en echec.
+  preserveOutput: 'failures-only',
   use: {
     baseURL: BASE_URL,
     actionTimeout: 10000,

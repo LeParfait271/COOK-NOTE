@@ -339,11 +339,6 @@
   text-shadow: 0 2px 12px rgba(0, 0, 0, .72);
 }
 
-.detail-quantity-control {
-  background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
-  backdrop-filter: blur(12px);
-}
-
 .variant-picker-panel {
   z-index: 2;
   margin: 18px auto;

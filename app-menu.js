@@ -642,9 +642,33 @@ function annotateMenuItems(items, profiles, theme) {
   }));
 }
 
+// Produit vedette d'une fiche : les mots forts du titre (aubergines, poulet...).
+const MENU_TITLE_FILLERS = new Set(['sauce', 'roties', 'roti', 'rotie', 'facon', 'maison', 'creme', 'cremeux', 'cremeuse', 'grille', 'grilles', 'poele', 'poelee', 'salade', 'gratin', 'tarte', 'petits', 'petites', 'express', 'rapide', 'classique', 'simple', 'legere', 'leger', 'avec', 'parfum', 'fondant', 'fondante', 'croustillant', 'croustillante', 'veloute', 'puree', 'minute']);
+function menuTitleProducts(recipe) {
+  return normalizeText(recipe?.title || '').split(' ')
+    .map(word => word.replace(/s$/, ''))
+    .filter(word => word.length >= 5 && !MENU_TITLE_FILLERS.has(word) && !MENU_TITLE_FILLERS.has(`${word}s`));
+}
+function menuItemsRepeatProduct(items) {
+  const seen = new Set();
+  for (const item of items) {
+    if (!item?.recipe || item.key === 'dessert') continue;
+    const words = menuTitleProducts(item.recipe);
+    if (words.some(word => seen.has(word))) return true;
+    words.forEach(word => seen.add(word));
+  }
+  return false;
+}
+
 function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot', recentMenuSignatures = []) {
   const theme = menuThemeById(themeId);
-  const leaves = recipes.filter(recipe => recipe && !isMasterRecipe(recipe));
+  // Mon profil : allergies, gouts et regime ecartent des fiches.
+  const profile = typeof readProfile === 'function' ? readProfile() : null;
+  // Petit-dejeuner (granola, porridge...) : jamais en dessert d'un repas.
+  const leaves = recipes.filter(recipe => recipe && !isMasterRecipe(recipe) && !(profile && recipeAvoidedByProfile(recipe, profile))
+    && !(recipe.categories || []).some(category => /petits?.dejeuner/.test(normalizeText(category)))
+    // Fiches guides (temps de cuisson, tableaux) : pas un plat a servir.
+    && !/^(temps|tableau|guide|cuissons?) /.test(normalizeText(recipe.title)));
   const profiles = new Map(leaves.map(recipe => [recipe.id, getMenuRecipeProfile(recipe)]));
   const byRole = leaves.reduce((groups, recipe) => {
     const role = profiles.get(recipe.id).role;
@@ -712,6 +736,19 @@ function buildMenuSuggestion(recipes, offset = 0, themeId = 'bistrot', recentMen
       }
     });
   }
+  // Pas deux fois le meme produit vedette dans un repas (aubergines en entree
+  // puis en plat), et un plat avec viande ou poisson d'abord, sauf regime
+  // vegetarien dans Mon profil.
+  const veggie = typeof readProfile === 'function' && ['vegetarien', 'vegan'].includes(readProfile().diet);
+  const varied = candidates.filter(candidate => !menuItemsRepeatProduct(candidate.items));
+  const pool = varied.length ? varied : candidates;
+  pool.forEach(candidate => {
+    const main = candidate.items.find(item => item.key === 'main')?.recipe;
+    const families = main ? profiles.get(main.id)?.families || [] : [];
+    if (!veggie && main && (families.includes('meat') || families.includes('fish'))) candidate.score += 120;
+  });
+  candidates.length = 0;
+  candidates.push(...pool);
   if (candidates.length) {
     candidates.sort((a, b) => b.score - a.score);
     const freshCandidates = candidates.filter(candidate => !recentMenuSignatures.includes(candidate.signature));
@@ -798,7 +835,10 @@ function buildMenuItemReplacement(menu, recipes, themeId, targetSlot = 0, bump =
     }
     return true;
   };
-  const strictCandidates = leaves.filter(recipe => allowed(recipe, true));
+  const profile = typeof readProfile === 'function' ? readProfile() : null;
+  const others = currentItems.filter((item, index) => index !== targetIndex);
+  const fits = recipe => !(profile && recipeAvoidedByProfile(recipe, profile)) && (wantedRole === 'dessert' || !menuItemsRepeatProduct([...others, { key: wantedRole, recipe }]));
+  const strictCandidates = leaves.filter(recipe => allowed(recipe, true) && fits(recipe));
   const relaxedCandidates = strictCandidates.length ? strictCandidates : leaves.filter(recipe => allowed(recipe, false));
   const candidates = relaxedCandidates
     .map(recipe => {

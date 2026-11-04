@@ -101,8 +101,8 @@ const FALLBACK_ART_ASSETS = Object.freeze({
   appIcon: '/assets/brand/app-icon.png'
 });
 const THEME_RECIPE_ART_IMAGES = window.COOK_NOTE_THEME_RECIPE_ART || Object.freeze({ dark: Object.freeze({}), light: Object.freeze({}) });
-const SITE_VERSION = 'v5.67';
-const SITE_UPDATED_AT = '03/11/26';
+const SITE_VERSION = 'v5.69';
+const SITE_UPDATED_AT = '04/11/26';
 const APP_RAW_DOWNLOAD_BASE = 'https://raw.githubusercontent.com/LeParfait271/COOK-NOTE/main/downloads';
 const ANDROID_LEGACY_APK_VERSION = '5.67';
 const ANDROID_LEGACY_STABLE_APK_FILE = 'cook-note-android-legacy.apk';
@@ -183,6 +183,36 @@ function setCookNoteLang(lang) {
 const RECIPE_DETAIL_WORKER_SRC = '/recipe-worker.js';
 const DEFERRED_CATALOG_CHUNK_SRCS = [2, 3, 4].map(index => `/assets/catalog-${index}.js?v=${SITE_CACHE_VERSION}`);
 const QR_CODE_SCRIPT_SRC = '/assets/vendor/qrcode.min.js';
+
+// Styles des fenetres (/panels.css) : une seule feuille, ajoutee a la premiere
+// fenetre ouverte ou pendant un temps mort de l'accueil. Les fenetres restent
+// invisibles le temps du chargement (quelques millisecondes, puis en cache).
+const PANEL_STYLES_SRC = `/panels.css?v=${SITE_CACHE_VERSION}`;
+let panelStylesPromise = null;
+function ensurePanelStyles() {
+  if (panelStylesPromise) return panelStylesPromise;
+  panelStylesPromise = new Promise(resolve => {
+    if (typeof document === 'undefined' || !document.head) return resolve(false);
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = PANEL_STYLES_SRC;
+    link.dataset.cookNotePanels = 'true';
+    const done = ok => {
+      window.cookNotePanelStylesReady = ok;
+      resolve(ok);
+    };
+    link.onload = () => done(true);
+    // En cas d'echec, la fenetre s'affiche quand meme (sans attendre).
+    link.onerror = () => done(false);
+    document.head.appendChild(link);
+  });
+  return panelStylesPromise;
+}
+window.ensurePanelStyles = ensurePanelStyles;
+if (typeof window.setTimeout === 'function' && typeof document !== 'undefined') {
+  const idle = window.requestIdleCallback || (callback => window.setTimeout(callback, 0));
+  window.setTimeout(() => idle(() => ensurePanelStyles()), 2500);
+}
 const CONFETTI_SCRIPT_SRC = '/assets/vendor/confetti.browser.min.js';
 const GRID_INITIAL_RENDER_COUNT = 36;
 const GRID_RENDER_BATCH_SIZE = 24;
@@ -848,7 +878,18 @@ const LOCAL_DATA_EXPORT_KEYS = Object.freeze([
   'cook_note_chef',
   'cook_note_week',
   'cook_note_fridge',
-  'cook_note_shopping_extra'
+  'cook_note_shopping_extra',
+  // Mon profil, courses de la semaine.
+  'cook_note_profile',
+  'cook_note_week_factors',
+  'cook_note_shopping_checked_week',
+  'cook_note_shopping_owned_week',
+  'cook_note_shopping_extra_week',
+  // Reglages d'affichage (langue, unites, frigo, constellation).
+  'cook_note_lang',
+  'cook_note_units',
+  'cook_note_fridge_mode',
+  'cook_note_sky_layout'
 ]);
 const LOCAL_DATA_EXPORT_SCHEMA = 'cook-note-local-data';
 const LOCAL_DATA_EXPORT_VERSION = 2;

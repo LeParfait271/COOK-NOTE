@@ -1,0 +1,34 @@
+#!/bin/sh
+# Garde-fous rapides avant chaque commit (GitHub Desktop compris), quelques
+# secondes : jamais la cle DeepL ni un fichier de plus de 95 Mo, et aucun
+# fichier JavaScript casse. Le controle complet reste `npm run verifier`.
+# Installe par `npm run hooks` (git config core.hooksPath .githooks).
+
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$staged" ] && exit 0
+
+if echo "$staged" | grep -q "deepl-key"; then
+  echo "Commit bloque : la cle DeepL ne doit jamais etre commitee."
+  exit 1
+fi
+
+for file in $staged; do
+  [ -f "$file" ] || continue
+  size=$(wc -c < "$file")
+  if [ "$size" -gt 99614720 ]; then
+    echo "Commit bloque : $file depasse 95 Mo (limite GitHub)."
+    exit 1
+  fi
+done
+
+node_bin="node"
+[ -x ".tools/node/current/node.exe" ] && node_bin=".tools/node/current/node.exe"
+for file in $(echo "$staged" | grep -E '\.js$'); do
+  [ -f "$file" ] || continue
+  if ! "$node_bin" --check "$file" >/dev/null 2>&1; then
+    echo "Commit bloque : erreur de syntaxe dans $file."
+    "$node_bin" --check "$file"
+    exit 1
+  fi
+done
+exit 0

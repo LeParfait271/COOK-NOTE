@@ -1,23 +1,23 @@
 {
   "source": {
-    "siteVersion": "v5.52",
-    "siteUpdatedAt": "28/10/26",
-    "recipesSha256": "fe98b28c61ca"
+    "siteVersion": "v5.69",
+    "siteUpdatedAt": "04/11/26",
+    "recipesSha256": "5d7071b061b9"
   },
   "totals": {
-    "recipes": 344,
+    "recipes": 345,
     "leaves": 272,
     "masters": 8,
-    "inlineVariantFamilies": 64,
-    "inlineVariantOptions": 220,
-    "auditedRecipes": 492,
+    "inlineVariantFamilies": 65,
+    "inlineVariantOptions": 280,
+    "auditedRecipes": 552,
     "lowScore": 0,
     "categoryIdeas": 56,
     "qualityIssues": 0
   },
   "averageScore": 100,
   "healthDashboard": {
-    "ready": 480,
+    "ready": 540,
     "improve": 12,
     "weak": 0,
     "missingDiscovery": 0,
@@ -188,18 +188,6 @@
       "options": [
         "Pâte légère",
         "Tempura"
-      ]
-    },
-    {
-      "id": "mojitos_variantes",
-      "title": "Mojitos",
-      "options": [
-        "Mojito classique",
-        "Mojito framboise",
-        "Mojito mangue",
-        "Mojito concombre",
-        "Mojito fruit de la passion",
-        "Mojito rhum ambré"
       ]
     },
     {
@@ -629,6 +617,84 @@
         "Poire chocolat",
         "Fruits rouges",
         "Fraise"
+      ]
+    },
+    {
+      "id": "cocktails_variantes",
+      "title": "Cocktails",
+      "options": [
+        "Whisky sour",
+        "Whisky sour à l’érable",
+        "Old fashioned",
+        "Manhattan",
+        "Sazerac",
+        "Boulevardier",
+        "Lynchburg lemonade",
+        "Negroni",
+        "Gin fizz",
+        "Gin fizz à la pomme",
+        "Pomada",
+        "Singapore sling",
+        "Cosmopolitan",
+        "Moscow mule",
+        "Bloody mary",
+        "Blue lagoon",
+        "Péché originel",
+        "Daïquiri",
+        "Daïquiri à la fraise",
+        "Dark and stormy",
+        "Ti-punch",
+        "Caïpirinha",
+        "Pisco sour",
+        "Margarita",
+        "Cognac sour",
+        "Cognac, orange et miel",
+        "Horse’s neck",
+        "Cognac tonic au cassis",
+        "Mojito classique",
+        "Mojito framboise",
+        "Mojito mangue",
+        "Mojito concombre",
+        "Mojito fruit de la passion",
+        "Mojito rhum ambré",
+        "Mojito en carafe",
+        "Pineaujito",
+        "Sunflower",
+        "Lillet tonic aux framboises",
+        "Sauternes pétillant",
+        "Spritz",
+        "Spritz au campari",
+        "Bellini",
+        "Mimosa",
+        "Sangria rouge",
+        "Sangria blanche au cidre",
+        "Tinto de verano",
+        "Grog",
+        "Crème de whisky",
+        "Rhum arrangé aux litchis"
+      ]
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes",
+      "title": "Cocktails sans alcool",
+      "options": [
+        "Lait de poule",
+        "Mojito sans alcool",
+        "Kvas",
+        "Fraise et menthe",
+        "Pamplemousse et thé vert",
+        "Pêche et abricot",
+        "Margarita sans alcool",
+        "Pastèque et citron vert",
+        "Sex on the beach sans alcool",
+        "Pink cocktail au thé vert",
+        "Thé et jus de pomme",
+        "Groseille et cassis",
+        "Lagon bleu sans alcool",
+        "Pamplemousse pétillant",
+        "Thé noir, cassis et orange",
+        "Sangria sans alcool",
+        "Piña colada sans alcool"
       ]
     }
   ],
@@ -1773,6 +1839,534 @@
       "suggestions": [
         "Categorie possible : Sauces (semble etre une sauce ou un condiment)."
       ]
+    },
+    {
+      "id": "cocktails_variantes::bellini",
+      "title": "Cocktails — Bellini",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::bloody_mary",
+      "title": "Cocktails — Bloody mary",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::blue_lagoon",
+      "title": "Cocktails — Blue lagoon",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::boulevardier",
+      "title": "Cocktails — Boulevardier",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::caipirinha",
+      "title": "Cocktails — Caïpirinha",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::cognac_sour",
+      "title": "Cocktails — Cognac sour",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::cognac_tonic_au_cassis",
+      "title": "Cocktails — Cognac tonic au cassis",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::cognac_orange_et_miel",
+      "title": "Cocktails — Cognac, orange et miel",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::cosmopolitan",
+      "title": "Cocktails — Cosmopolitan",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::creme_de_whisky",
+      "title": "Cocktails — Crème de whisky",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::daiquiri",
+      "title": "Cocktails — Daïquiri",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::daiquiri_a_la_fraise",
+      "title": "Cocktails — Daïquiri à la fraise",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::dark_and_stormy",
+      "title": "Cocktails — Dark and stormy",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::gin_fizz",
+      "title": "Cocktails — Gin fizz",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::gin_fizz_a_la_pomme",
+      "title": "Cocktails — Gin fizz à la pomme",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::grog",
+      "title": "Cocktails — Grog",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::horse_s_neck",
+      "title": "Cocktails — Horse’s neck",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::lillet_tonic_aux_framboises",
+      "title": "Cocktails — Lillet tonic aux framboises",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::lynchburg_lemonade",
+      "title": "Cocktails — Lynchburg lemonade",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::manhattan",
+      "title": "Cocktails — Manhattan",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::margarita",
+      "title": "Cocktails — Margarita",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::mimosa",
+      "title": "Cocktails — Mimosa",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::mojito_classique",
+      "title": "Cocktails — Mojito classique",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::mojito_concombre",
+      "title": "Cocktails — Mojito concombre",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::mojito_en_carafe",
+      "title": "Cocktails — Mojito en carafe",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::mojito_framboise",
+      "title": "Cocktails — Mojito framboise",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::mojito_fruit_de_la_passion",
+      "title": "Cocktails — Mojito fruit de la passion",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::mojito_mangue",
+      "title": "Cocktails — Mojito mangue",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::mojito_rhum_ambre",
+      "title": "Cocktails — Mojito rhum ambré",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::moscow_mule",
+      "title": "Cocktails — Moscow mule",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::negroni",
+      "title": "Cocktails — Negroni",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::old_fashioned",
+      "title": "Cocktails — Old fashioned",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::peche_originel",
+      "title": "Cocktails — Péché originel",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::pineaujito",
+      "title": "Cocktails — Pineaujito",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::pisco_sour",
+      "title": "Cocktails — Pisco sour",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::pomada",
+      "title": "Cocktails — Pomada",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::rhum_arrange_aux_litchis",
+      "title": "Cocktails — Rhum arrangé aux litchis",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::sangria_blanche_au_cidre",
+      "title": "Cocktails — Sangria blanche au cidre",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::sangria_rouge",
+      "title": "Cocktails — Sangria rouge",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::sauternes_petillant",
+      "title": "Cocktails — Sauternes pétillant",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::sazerac",
+      "title": "Cocktails — Sazerac",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::singapore_sling",
+      "title": "Cocktails — Singapore sling",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::spritz",
+      "title": "Cocktails — Spritz",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::spritz_au_campari",
+      "title": "Cocktails — Spritz au campari",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::sunflower",
+      "title": "Cocktails — Sunflower",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::ti_punch",
+      "title": "Cocktails — Ti-punch",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::tinto_de_verano",
+      "title": "Cocktails — Tinto de verano",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::whisky_sour",
+      "title": "Cocktails — Whisky sour",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_variantes::whisky_sour_a_l_erable",
+      "title": "Cocktails — Whisky sour à l’érable",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::fraise_et_menthe",
+      "title": "Cocktails sans alcool — Fraise et menthe",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::groseille_et_cassis",
+      "title": "Cocktails sans alcool — Groseille et cassis",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::kvas",
+      "title": "Cocktails sans alcool — Kvas",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::lagon_bleu_sans_alcool",
+      "title": "Cocktails sans alcool — Lagon bleu sans alcool",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::lait_de_poule",
+      "title": "Cocktails sans alcool — Lait de poule",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::margarita_sans_alcool",
+      "title": "Cocktails sans alcool — Margarita sans alcool",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::mojito_sans_alcool",
+      "title": "Cocktails sans alcool — Mojito sans alcool",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::pamplemousse_et_the_vert",
+      "title": "Cocktails sans alcool — Pamplemousse et thé vert",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::pamplemousse_petillant",
+      "title": "Cocktails sans alcool — Pamplemousse pétillant",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::pasteque_et_citron_vert",
+      "title": "Cocktails sans alcool — Pastèque et citron vert",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::peche_et_abricot",
+      "title": "Cocktails sans alcool — Pêche et abricot",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::pina_colada_sans_alcool",
+      "title": "Cocktails sans alcool — Piña colada sans alcool",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::pink_cocktail_au_the_vert",
+      "title": "Cocktails sans alcool — Pink cocktail au thé vert",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::sangria_sans_alcool",
+      "title": "Cocktails sans alcool — Sangria sans alcool",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::sex_on_the_beach_sans_alcool",
+      "title": "Cocktails sans alcool — Sex on the beach sans alcool",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::the_et_jus_de_pomme",
+      "title": "Cocktails sans alcool — Thé et jus de pomme",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
+    },
+    {
+      "id": "cocktails_sans_alcool_variantes::the_noir_cassis_et_orange",
+      "title": "Cocktails sans alcool — Thé noir, cassis et orange",
+      "score": 100,
+      "issues": [],
+      "qualityIssues": [],
+      "suggestions": []
     },
     {
       "id": "legumineuses_montbeliard_variantes::variant-1",
@@ -3115,54 +3709,6 @@
     {
       "id": "charlotte_variantes::variant-4",
       "title": "Mini-charlotte aux fruits rouges",
-      "score": 100,
-      "issues": [],
-      "qualityIssues": [],
-      "suggestions": []
-    },
-    {
-      "id": "mojitos_variantes::variant-1",
-      "title": "Mojitos — Mojito classique",
-      "score": 100,
-      "issues": [],
-      "qualityIssues": [],
-      "suggestions": []
-    },
-    {
-      "id": "mojitos_variantes::variant-4",
-      "title": "Mojitos — Mojito concombre",
-      "score": 100,
-      "issues": [],
-      "qualityIssues": [],
-      "suggestions": []
-    },
-    {
-      "id": "mojitos_variantes::variant-2",
-      "title": "Mojitos — Mojito framboise",
-      "score": 100,
-      "issues": [],
-      "qualityIssues": [],
-      "suggestions": []
-    },
-    {
-      "id": "mojitos_variantes::variant-5",
-      "title": "Mojitos — Mojito fruit de la passion",
-      "score": 100,
-      "issues": [],
-      "qualityIssues": [],
-      "suggestions": []
-    },
-    {
-      "id": "mojitos_variantes::variant-3",
-      "title": "Mojitos — Mojito mangue",
-      "score": 100,
-      "issues": [],
-      "qualityIssues": [],
-      "suggestions": []
-    },
-    {
-      "id": "mojitos_variantes::variant-6",
-      "title": "Mojitos — Mojito rhum ambré",
       "score": 100,
       "issues": [],
       "qualityIssues": [],
